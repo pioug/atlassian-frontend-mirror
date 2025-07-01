@@ -3,6 +3,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import React from 'react';
+
 import { css } from '@compiled/react';
 
 import { jsx } from '@atlaskit/css';
@@ -98,13 +100,13 @@ export const ComboBoxFormField = ({
 
 export const Annotations = ({ annotations }: { annotations: PageAnnotations }) => {
 	return (
-		<div>
+		<React.Fragment>
 			{annotations.text_form_fields.map((field, i) => {
 				return <TextInputFormField field={field} dataTestId={`text-form-field-${i}`} key={i} />;
 			})}
 			{annotations.combobox_form_fields.map((field, i) => {
 				return <ComboBoxFormField field={field} dataTestId={`combobox-form-field-${i}`} key={i} />;
 			})}
-		</div>
+		</React.Fragment>
 	);
 };

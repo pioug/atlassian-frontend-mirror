@@ -65,6 +65,8 @@ export default {
   'focused-task-close-account.delete-account.overview.first.line.self': 'Hesabınızı silmek üzeresiniz:',
   'focused-task-close-account.delete-account.overview.heading.admin': 'Hesabı silme',
   'focused-task-close-account.delete-account.overview.heading.self': 'Hesabınızı silme',
+  'focused-task-close-account.delete-account.overview.inline-dialog.content-created-issue-refresh.admin':
+    'Buna örnek olarak ürünlerde oluşturulan sayfalar, biletler ve yorumlar verilebilir.',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin':
     'Örnek olarak kullanıcının ürünlerde oluşturduğu sayfalar, konular ve yorumlar verilebilir.',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':

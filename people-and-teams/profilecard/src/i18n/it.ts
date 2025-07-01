@@ -7,6 +7,13 @@
  */
 //Italian (Italy)
 export default {
+  'people-and-teams.team-profile-card.large-member-count': 'Team contributore • {memberCount} membri',
+  'people-and-teams.team-profile-card.member-count':
+    '{count, plural, one {Team contributore • {count,number} membro} other {Team contributore • {count,number} membri}}',
+  'people-and-teams.team-profile-card.team-connections': 'Link al team',
+  'people-and-teams.team-profile-card.team-connections-header': 'Dove lavoriamo',
+  'people-and-teams.team-profile-card.team-profile-description': 'Profilo del team',
+  'people-and-teams.team-profile-card.view-profile': 'Visualizza profilo',
   'profilecard.agent-profile-card.delete-agent-error-flag-description':
     "Si è verificato un problema durante l'eliminazione dell'agente. Riprova tra qualche istante.",
   'profilecard.agent-profile-card.delete-agent-error-flag-title': "Impossibile eliminare l'agente",
@@ -45,6 +52,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week': 'Il suo account è stato disattivato questa settimana.',
   'pt.profile-card.inactive.account.no.date': 'Il suo account è stato disattivato.',
   'pt.profile-card.more-icon-label': 'Altro',
+  'pt.team-profile-card.aria-label': 'Ulteriori informazioni su questo team',
   'pt.team-profile-card.directReports.heading': 'Report diretti',
   'pt.team-profile-card.error.refresh-button': 'Riprova',
   'pt.team-profile-card.error.suggestion': 'Attendi alcuni istanti e riprova.',
@@ -63,4 +71,6 @@ export default {
     '{count, plural, one {+{count} altro membro} other {+{count} altri membri}}',
   'pt.user-profile-card.reporting-lines.more-icon-label':
     '{count, plural, one {+{count} altro profilo} other {+{count} altri profili}}',
+  'team-profile-card.team-actions.give-kudos': 'Invia apprezzamenti',
+  'team-profile-card.team-actions.more-actions.show-more-icon-label': 'Mostra di più',
 };

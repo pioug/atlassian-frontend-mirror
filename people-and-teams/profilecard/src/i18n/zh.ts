@@ -7,6 +7,12 @@
  */
 //Chinese (Simplified)
 export default {
+  'people-and-teams.team-profile-card.large-member-count': '参与的团队 • {memberCount} 个成员',
+  'people-and-teams.team-profile-card.member-count': '{count, plural, other {参与的团队 • {count,number} 个成员}}',
+  'people-and-teams.team-profile-card.team-connections': '团队链接',
+  'people-and-teams.team-profile-card.team-connections-header': '我们的工作地点',
+  'people-and-teams.team-profile-card.team-profile-description': '团队资料',
+  'people-and-teams.team-profile-card.view-profile': '查看个人资料',
   'profilecard.agent-profile-card.delete-agent-error-flag-description': '删除支持人员时出错。请稍后重试。',
   'profilecard.agent-profile-card.delete-agent-error-flag-title': '无法删除支持人员',
   'profilecard.agent-profile-card.delete-agent-success-flag-description': '您已删除 {agentName}',
@@ -43,6 +49,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week': '他们的帐户本周已被停用。',
   'pt.profile-card.inactive.account.no.date': '他们的帐户已被停用。',
   'pt.profile-card.more-icon-label': '更多',
+  'pt.team-profile-card.aria-label': '有关此团队的更多信息',
   'pt.team-profile-card.directReports.heading': '直接下属',
   'pt.team-profile-card.error.refresh-button': '请重试',
   'pt.team-profile-card.error.suggestion': '请稍等，然后重试。',
@@ -55,6 +62,8 @@ export default {
   'pt.team-profile-card.team.member.count-including-you': '{count, plural, other {团队 • {count} 名成员，包括您自己}}',
   'pt.team-profile-card.team.member.many': '团队 • 50 多名成员',
   'pt.team-profile-card.team.member.many-including-you': '团队 • 50 多名成员，包括您自己',
-  'pt.team.profile-card.members.more-icon-label': '{count, plural, other {+另外 {count} 位成员}}',
-  'pt.user-profile-card.reporting-lines.more-icon-label': '{count, plural, other {+另外 {count} 份个人资料}}',
+  'pt.team.profile-card.members.more-icon-label': '{count, plural, other {另外 {count} 位成员}}',
+  'pt.user-profile-card.reporting-lines.more-icon-label': '{count, plural, other {另外 {count} 份个人资料}}',
+  'team-profile-card.team-actions.give-kudos': '给予称赞',
+  'team-profile-card.team-actions.more-actions.show-more-icon-label': '显示更多',
 };

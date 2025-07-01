@@ -7,6 +7,13 @@
  */
 //French (France)
 export default {
+  'people-and-teams.team-profile-card.large-member-count': 'Équipe contributrice • {memberCount} membres',
+  'people-and-teams.team-profile-card.member-count':
+    '{count, plural, one {Équipe contributrice • {count,number} membre} other {Équipe contributrice • {count,number} membres}}',
+  'people-and-teams.team-profile-card.team-connections': "Liens de l'équipe",
+  'people-and-teams.team-profile-card.team-connections-header': 'Nos outils de travail',
+  'people-and-teams.team-profile-card.team-profile-description': "Profil d'équipe",
+  'people-and-teams.team-profile-card.view-profile': 'Afficher le profil',
   'profilecard.agent-profile-card.delete-agent-error-flag-description':
     "Une erreur s'est produite lors de la suppression de l'agent. Réessayez dans quelques instants.",
   'profilecard.agent-profile-card.delete-agent-error-flag-title': "Impossible de supprimer l'agent",
@@ -46,6 +53,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week': 'Son compte a été désactivé cette semaine.',
   'pt.profile-card.inactive.account.no.date': 'Son compte a été désactivé.',
   'pt.profile-card.more-icon-label': 'Plus',
+  'pt.team-profile-card.aria-label': 'En savoir plus sur cette équipe',
   'pt.team-profile-card.directReports.heading': 'Collaborateurs directs',
   'pt.team-profile-card.error.refresh-button': 'Réessayez',
   'pt.team-profile-card.error.suggestion': 'Patientez quelques instants, puis réessayez.',
@@ -65,4 +73,6 @@ export default {
     '{count, plural, one {+{count} membre supplémentaire} other {+{count} membres supplémentaires}}',
   'pt.user-profile-card.reporting-lines.more-icon-label':
     '{count, plural, one {+{count} profil supplémentaire} other {+{count} profils supplémentaires}}',
+  'team-profile-card.team-actions.give-kudos': 'Féliciter',
+  'team-profile-card.team-actions.more-actions.show-more-icon-label': 'Afficher plus',
 };

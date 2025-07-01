@@ -20,6 +20,7 @@ type Props = {
 	collectionName?: string;
 	onError: (error: MediaViewerError) => void;
 	traceContext: MediaTraceContext;
+	onSuccess?: () => void;
 };
 
 type State = {
@@ -99,6 +100,7 @@ export const DocViewer = ({
 	fileState,
 	collectionName,
 	onError,
+	onSuccess,
 	traceContext,
 }: Props) => {
 	const [state, dispatch] = useReducer(reducer, initialState);
@@ -189,6 +191,7 @@ export const DocViewer = ({
 				getContent={getContent}
 				getPageImageUrl={getPageImageUrl}
 				zoom={state.zoomLevel.value}
+				onSuccess={onSuccess}
 			/>
 			<ZoomControls onChange={onZoomChange} zoomLevel={state.zoomLevel} />
 		</div>

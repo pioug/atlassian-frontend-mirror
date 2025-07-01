@@ -355,8 +355,7 @@ export const createPlugin = (
 						targetClassList.contains(ClassName.CONTROLS_BUTTON) ||
 						targetClassList.contains(ClassName.CONTEXTUAL_MENU_BUTTON) ||
 						targetClassList.contains(ClassName.DRAG_HANDLE_BUTTON_CLICKABLE_ZONE) ||
-						(targetClassList.contains(ClassName.DRAG_HANDLE_BUTTON_CONTAINER) &&
-							fg('platform_editor_table_last_col_drag_handle_fix'))
+						targetClassList.contains(ClassName.DRAG_HANDLE_BUTTON_CONTAINER)
 					) {
 						return true;
 					}

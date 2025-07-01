@@ -1,0 +1,48 @@
+{
+	"extends": "../../../../tsconfig.entry-points.volt.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../volt/tsDist/@atlaskit__avatar-group/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../avatar/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../css/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../ds-lib/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../menu/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../popup/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../theme/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../tokens/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../tooltip/afm-volt/tsconfig.json"
+		}
+	]
+}

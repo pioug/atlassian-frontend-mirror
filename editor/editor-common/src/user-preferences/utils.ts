@@ -1,4 +1,8 @@
-import type { ResolvedUserPreferences, UserPreferences } from './user-preferences';
+import {
+	TOOLBAR_DOCKING_POSITIONS,
+	type ResolvedUserPreferences,
+	type UserPreferences,
+} from './user-preferences';
 
 export const mergeUserPreferences = (
 	userPreferences: UserPreferences,
@@ -7,7 +11,13 @@ export const mergeUserPreferences = (
 	const newResolvedUserPreferences = {
 		...defaultPreferences,
 		...Object.fromEntries(
-			Object.entries(userPreferences).filter(([, v]) => v !== undefined && v !== null),
+			Object.entries(userPreferences).filter(([key, value]) => {
+				if (key === 'toolbarDockingPosition') {
+					return TOOLBAR_DOCKING_POSITIONS.includes(value);
+				}
+
+				return value !== undefined && value !== null;
+			}),
 		),
 	};
 	return newResolvedUserPreferences;

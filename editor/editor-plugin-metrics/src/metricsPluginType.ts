@@ -5,6 +5,7 @@ import type {
 	UserPreferencesProvider,
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { UserPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 
 import type { MetricsState } from './pm-plugins/main';
@@ -24,7 +25,7 @@ export type MetricsPlugin = NextEditorPlugin<
 	'metrics',
 	{
 		pluginConfiguration?: MetricsPluginOptions;
-		dependencies: [OptionalPlugin<AnalyticsPlugin>];
+		dependencies: [OptionalPlugin<AnalyticsPlugin>, OptionalPlugin<UserPreferencesPlugin>];
 		sharedState: MetricsState;
 		commands: {
 			setContentMoved: () => EditorCommand;

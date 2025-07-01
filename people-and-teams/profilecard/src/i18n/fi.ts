@@ -7,6 +7,13 @@
  */
 //Finnish
 export default {
+  'people-and-teams.team-profile-card.large-member-count': 'Osallistuva tiimi • {memberCount} jäsentä',
+  'people-and-teams.team-profile-card.member-count':
+    '{count, plural, one {Osallistuva tiimi • {count,number} jäsen} other {Osallistuva tiimi • {count,number} jäsentä}}',
+  'people-and-teams.team-profile-card.team-connections': 'Tiimilinkit',
+  'people-and-teams.team-profile-card.team-connections-header': 'Missä työskentelemme',
+  'people-and-teams.team-profile-card.team-profile-description': 'Tiimin profiili',
+  'people-and-teams.team-profile-card.view-profile': 'Näytä profiili',
   'profilecard.agent-profile-card.delete-agent-error-flag-description':
     'Jotakin meni pieleen asiakaspalvelijaa poistettaessa. Yritä uudelleen hetken kuluttua.',
   'profilecard.agent-profile-card.delete-agent-error-flag-title': 'Asiakaspalvelijan poisto epäonnistui',
@@ -48,6 +55,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week': 'Hänen tilinsä poistettiin käytöstä tällä viikolla.',
   'pt.profile-card.inactive.account.no.date': 'Hänen tilinsä on poistettu käytöstä.',
   'pt.profile-card.more-icon-label': 'Lisää',
+  'pt.team-profile-card.aria-label': 'Lisätietoja tästä tiimistä',
   'pt.team-profile-card.directReports.heading': 'Suorat alaiset',
   'pt.team-profile-card.error.refresh-button': 'Yritä uudelleen',
   'pt.team-profile-card.error.suggestion': 'Odota hetki ja yritä sitten uudelleen.',
@@ -66,4 +74,6 @@ export default {
     '{count, plural, one {+{count} jäsen lisää} other {+{count} jäsentä lisää}}',
   'pt.user-profile-card.reporting-lines.more-icon-label':
     '{count, plural, one {+{count} profiili lisää} other {+{count} profiilia lisää}}',
+  'team-profile-card.team-actions.give-kudos': 'Anna kehuja',
+  'team-profile-card.team-actions.more-actions.show-more-icon-label': 'Näytä lisää',
 };

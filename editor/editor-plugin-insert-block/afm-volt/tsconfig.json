@@ -1,0 +1,135 @@
+{
+	"extends": "../../../../tsconfig.entry-points.volt.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../volt/tsDist/@atlaskit__editor-plugin-insert-block/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../../design-system/button/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-analytics/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-block-type/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-code-block/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-connectivity/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-date/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-emoji/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-expand/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-extension/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-feature-flags/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-hyperlink/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-image-upload/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-layout/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-media/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-media-insert/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-mentions/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-metrics/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-panel/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-placeholder-text/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-primary-toolbar/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-quick-insert/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-rule/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-status/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-table/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-tasks-and-decisions/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-type-ahead/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-shared-styles/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../elements/emoji/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/heading/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon-lab/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-volt/tsconfig.json"
+		}
+	]
+}

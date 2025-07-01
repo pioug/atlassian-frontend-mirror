@@ -12,7 +12,13 @@ const collectionColors = {
 	platform: '#DDDEE1',
 };
 
-export const dataCenterApps = ['jira-data-center', 'confluence-data-center', 'bitbucket-data-center', 'crowd', 'bamboo']
+export const dataCenterApps = [
+	'jira-data-center',
+	'confluence-data-center',
+	'bitbucket-data-center',
+	'crowd',
+	'bamboo',
+];
 
 /**
  * SVGO optimisation configuration for logos.

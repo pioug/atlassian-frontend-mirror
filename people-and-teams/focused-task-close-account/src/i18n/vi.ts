@@ -65,6 +65,8 @@ export default {
   'focused-task-close-account.delete-account.overview.first.line.self': 'Bạn sắp xóa tài khoản của mình:',
   'focused-task-close-account.delete-account.overview.heading.admin': 'Xóa tài khoản',
   'focused-task-close-account.delete-account.overview.heading.self': 'Xóa tài khoản của bạn',
+  'focused-task-close-account.delete-account.overview.inline-dialog.content-created-issue-refresh.admin':
+    'Ví dụ: các trang, hạng mục công việc và nhận xét mà họ đã tạo trong sản phẩm.',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin':
     'Ví dụ: các trang, các vấn đề và nhận xét mà họ đã tạo ra trong sản phẩm.',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':

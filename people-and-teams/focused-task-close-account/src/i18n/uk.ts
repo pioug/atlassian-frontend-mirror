@@ -66,6 +66,8 @@ export default {
   'focused-task-close-account.delete-account.overview.first.line.self': 'Буде видалено ваш обліковий запис:',
   'focused-task-close-account.delete-account.overview.heading.admin': 'Видалення облікового запису',
   'focused-task-close-account.delete-account.overview.heading.self': 'Видалення вашого облікового запису',
+  'focused-task-close-account.delete-account.overview.inline-dialog.content-created-issue-refresh.admin':
+    'Наприклад, сторінки, елементи завдання та коментарі, створені користувачами в продуктах.',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin':
     'Це, наприклад, сторінки, проблеми й коментарі, створені користувачем у продуктах.',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':

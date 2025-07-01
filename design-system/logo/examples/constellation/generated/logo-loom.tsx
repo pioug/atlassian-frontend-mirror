@@ -8,8 +8,14 @@ import LogoTable from '../utils/logo-table';
 export default () => (
 	<Stack space="space.100">
 		<LogoTable
-			logo={[<LoomLogo appearance="brand" shouldUseNewLogoDesign />, <LoomBlurpleLogo appearance="brand" />]}
-			icon={[<LoomIcon appearance="brand" shouldUseNewLogoDesign />, <LoomBlurpleIcon appearance="brand" />]}
+			logo={[
+				<LoomLogo appearance="brand" shouldUseNewLogoDesign />,
+				<LoomBlurpleLogo appearance="brand" />,
+			]}
+			icon={[
+				<LoomIcon appearance="brand" shouldUseNewLogoDesign />,
+				<LoomBlurpleIcon appearance="brand" />,
+			]}
 		/>
 	</Stack>
 );

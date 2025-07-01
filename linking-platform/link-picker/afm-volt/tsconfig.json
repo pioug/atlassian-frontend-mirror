@@ -1,0 +1,93 @@
+{
+	"extends": "../../../../tsconfig.entry-points.volt.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../volt/tsDist/@atlaskit__link-picker/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../uip/atlassian-context/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/button/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/css/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/form/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../helpers/frontend-utilities/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/heading/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../helpers/intl-messages-provider/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/link/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../link-provider/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../linking-common/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/onboarding/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../smart-card/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/spinner/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tabs/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/textfield/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../data/ufo-external/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/visually-hidden/afm-volt/tsconfig.json"
+		}
+	]
+}

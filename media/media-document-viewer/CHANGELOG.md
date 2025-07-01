@@ -1,5 +1,14 @@
 # @atlaskit/media-document-viewer
 
+## 0.3.0
+
+### Minor Changes
+
+- [#179532](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/179532)
+  [`3102656e971a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3102656e971a4) -
+  Fixed form view by removing unnecessary div and replacing with fragment and added a new
+  `onSuccess` callback to enable success analytics
+
 ## 0.2.3
 
 ### Patch Changes

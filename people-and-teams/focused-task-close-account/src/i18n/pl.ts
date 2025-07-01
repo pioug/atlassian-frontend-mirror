@@ -65,6 +65,8 @@ export default {
   'focused-task-close-account.delete-account.overview.first.line.self': 'Zamierzasz usunąć swoje konto:',
   'focused-task-close-account.delete-account.overview.heading.admin': 'Usuń konto',
   'focused-task-close-account.delete-account.overview.heading.self': 'Usuń konto',
+  'focused-task-close-account.delete-account.overview.inline-dialog.content-created-issue-refresh.admin':
+    'Przykładowo strony, zgłoszenia i komentarze, które zostały utworzone w produktach.',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin':
     'Na przykład strony, zgłoszenia i komentarze, które zostały utworzone w produktach.',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':

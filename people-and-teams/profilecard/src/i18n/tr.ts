@@ -7,6 +7,13 @@
  */
 //Turkish (Turkey)
 export default {
+  'people-and-teams.team-profile-card.large-member-count': 'Katkıda bulunan takım • {memberCount} üye',
+  'people-and-teams.team-profile-card.member-count':
+    '{count, plural, one {Katkıda bulunan takım • {count,number} üye} other {Katkıda bulunan takım • {count,number} üye}}',
+  'people-and-teams.team-profile-card.team-connections': 'Takım bağlantıları',
+  'people-and-teams.team-profile-card.team-connections-header': 'Çalışma alanlarımız',
+  'people-and-teams.team-profile-card.team-profile-description': 'Takım profili',
+  'people-and-teams.team-profile-card.view-profile': 'Profili görüntüle',
   'profilecard.agent-profile-card.delete-agent-error-flag-description':
     'Temsilci silinirken bir hata oluştu. Birkaç dakika sonra tekrar deneyin.',
   'profilecard.agent-profile-card.delete-agent-error-flag-title': 'Temsilci silinemedi',
@@ -50,6 +57,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week': 'Bu kullanıcının hesabı bu hafta devre dışı bırakıldı.',
   'pt.profile-card.inactive.account.no.date': 'Bu kullanıcının hesabı devre dışı bırakıldı.',
   'pt.profile-card.more-icon-label': 'Daha fazlası',
+  'pt.team-profile-card.aria-label': 'Bu takım hakkında daha fazla bilgi',
   'pt.team-profile-card.directReports.heading': 'Astlar',
   'pt.team-profile-card.error.refresh-button': 'Yeniden deneyin',
   'pt.team-profile-card.error.suggestion': 'Lütfen birkaç dakika bekleyip yeniden deneyin.',
@@ -66,4 +74,6 @@ export default {
   'pt.team.profile-card.members.more-icon-label': '{count, plural, one {+{count} üye daha} other {+{count} üye daha}}',
   'pt.user-profile-card.reporting-lines.more-icon-label':
     '{count, plural, one {+{count} profil daha} other {+{count} profil daha}}',
+  'team-profile-card.team-actions.give-kudos': 'Tebrik et',
+  'team-profile-card.team-actions.more-actions.show-more-icon-label': 'Daha fazla göster',
 };

@@ -9,7 +9,6 @@ import { IntlProvider } from 'react-intl-next';
 import { DefaultExtensionProvider } from '@atlaskit/editor-common/extensions';
 import type { ExtensionManifest, ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import Link from '@atlaskit/link';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -216,9 +215,7 @@ export default function Example() {
 					nodeKey="loaded"
 					title="Missing description, summary and docs"
 				/>
-				{fg('platform_editor_extension_deprecation_status') && (
-					<FaceContextPanelWithDeprecation nodeKey="loaded" title="With deprecation status" />
-				)}
+				<FaceContextPanelWithDeprecation nodeKey="loaded" title="With deprecation status" />
 			</div>
 		</IntlProvider>
 	);

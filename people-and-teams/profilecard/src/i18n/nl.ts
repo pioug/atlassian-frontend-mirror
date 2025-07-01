@@ -7,6 +7,13 @@
  */
 //Dutch (Netherlands)
 export default {
+  'people-and-teams.team-profile-card.large-member-count': 'Bijdragend team • {memberCount} leden',
+  'people-and-teams.team-profile-card.member-count':
+    '{count, plural, one {Bijdragend team • {count,number} lid} other {Bijdragend team • {count,number} leden}}',
+  'people-and-teams.team-profile-card.team-connections': 'Teamlinks',
+  'people-and-teams.team-profile-card.team-connections-header': 'Waar we werken',
+  'people-and-teams.team-profile-card.team-profile-description': 'Teamprofiel',
+  'people-and-teams.team-profile-card.view-profile': 'Profiel bekijken',
   'profilecard.agent-profile-card.delete-agent-error-flag-description':
     'Er is iets misgegaan bij het verwijderen van de agent. Probeer het over enkele ogenblikken opnieuw.',
   'profilecard.agent-profile-card.delete-agent-error-flag-title': 'Kon agent niet verwijderen',
@@ -46,6 +53,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week': 'Zijn/haar account is deze week gedeactiveerd.',
   'pt.profile-card.inactive.account.no.date': 'Zijn/haar account is gedeactiveerd.',
   'pt.profile-card.more-icon-label': 'Meer',
+  'pt.team-profile-card.aria-label': 'Meer informatie over dit team',
   'pt.team-profile-card.directReports.heading': 'Directe rapporten',
   'pt.team-profile-card.error.refresh-button': 'Opnieuw proberen',
   'pt.team-profile-card.error.suggestion': 'Wacht even en probeer het vervolgens opnieuw.',
@@ -62,4 +70,6 @@ export default {
   'pt.team.profile-card.members.more-icon-label': '{count, plural, one {+{count} lid} other {+{count} leden}}',
   'pt.user-profile-card.reporting-lines.more-icon-label':
     '{count, plural, one {+{count} profiel} other {+{count} profielen}}',
+  'team-profile-card.team-actions.give-kudos': 'Geef kudos',
+  'team-profile-card.team-actions.more-actions.show-more-icon-label': 'Meer tonen',
 };

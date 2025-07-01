@@ -8,7 +8,6 @@ import {
 import type { ExtractInjectionAPI, SelectionToolbarGroup } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { AnnotationPlugin } from './annotationPluginType';
@@ -100,10 +99,6 @@ export const annotationPlugin: AnnotationPlugin = ({ config: annotationProviders
 
 		pluginsOptions: {
 			floatingToolbar(state) {
-				if (!fg('platform_editor_fix_toolbar_comment_jump')) {
-					return;
-				}
-
 				const pluginState = getPluginState(state);
 				const bookmark = pluginState?.bookmark;
 

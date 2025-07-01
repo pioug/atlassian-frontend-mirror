@@ -68,7 +68,6 @@ export const codeBlockStyles = css({
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
 		[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER}`]: {
-			'--ds--code--bg-color': 'transparent',
 			position: 'relative',
 			backgroundColor: token('elevation.surface.raised'),
 			borderRadius: token('border.radius', '3px'),
@@ -272,6 +271,14 @@ export const codeBlockStyles = css({
 				backgroundColor: token('color.blanket.danger'),
 			},
 		},
+	},
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const codeBgColorStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
+	[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER}`]: {
+		'--ds--code--bg-color': 'transparent',
 	},
 });
 

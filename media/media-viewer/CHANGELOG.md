@@ -1,5 +1,14 @@
 # @atlaskit/media-viewer
 
+## 52.4.2
+
+### Patch Changes
+
+- [#179532](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/179532)
+  [`096312eadd358`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/096312eadd358) -
+  Fixed success analytics and metrics for doc-next viewer
+- Updated dependencies
+
 ## 52.4.1
 
 ### Patch Changes

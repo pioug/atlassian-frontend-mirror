@@ -1,0 +1,63 @@
+{
+	"extends": "../../../../tsconfig.entry-points.volt.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../volt/tsDist/@atlaskit__editor-plugin-layout/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../editor-common/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-analytics/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-decorations/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-editor-disabled/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-guideline/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-interaction/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-selection/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-width/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-shared-styles/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon-lab/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-volt/tsconfig.json"
+		}
+	]
+}

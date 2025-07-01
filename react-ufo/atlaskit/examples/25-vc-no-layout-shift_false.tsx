@@ -89,10 +89,7 @@ function CSRComponent() {
 	return (
 		<Fragment>
 			<UFOLoadHold name="extra-loading" hold={extraLoading} />
-			<div
-				data-testid="section-to-replace-final"
-				css={csrContentStyles}
-			>
+			<div data-testid="section-to-replace-final" css={csrContentStyles}>
 				<span>This is a simulated CSR-ed content</span>
 			</div>
 		</Fragment>

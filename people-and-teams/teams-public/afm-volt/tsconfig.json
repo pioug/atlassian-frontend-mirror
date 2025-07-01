@@ -1,0 +1,78 @@
+{
+	"extends": "../../../../tsconfig.entry-points.volt.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../volt/tsDist/@atlaskit__teams-public/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/avatar/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/button/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/css/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/dropdown-menu/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../measurement/feature-gate-js-client/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/heading/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/image/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/link/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/logo/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/modal-dialog/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../people-teams-ui-public/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../teams-client/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-volt/tsconfig.json"
+		}
+	]
+}

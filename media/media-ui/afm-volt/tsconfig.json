@@ -1,0 +1,102 @@
+{
+	"extends": "../../../../tsconfig.entry-points.volt.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../volt/tsDist/@atlaskit__media-ui/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/button/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/code/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/css/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/dropdown-menu/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/flag/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/form/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../icon-file-type/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon-lab/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/legacy-custom-icons/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/locale/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../media-client/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../media-client-react/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../media-common/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../media-state/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/modal-dialog/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/range/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../react-ufo/atlaskit/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/select/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/spinner/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/width-detector/afm-volt/tsconfig.json"
+		}
+	]
+}

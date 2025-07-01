@@ -614,20 +614,17 @@ function getStylesheetMetrics() {
 
 		const styleElements = doc.querySelectorAll('style').length;
 		const styleProps = doc.querySelectorAll('[style]');
-		const styleDeclarations = Array.from(doc.querySelectorAll('[style]')).reduce(
-			(acc, item) => {
-				try {
-					if ('style' in item) {
-						return acc + (item as HTMLDivElement).style.length;
-					} else {
-						return acc;
-					}
-				} catch (e) {
+		const styleDeclarations = Array.from(doc.querySelectorAll('[style]')).reduce((acc, item) => {
+			try {
+				if ('style' in item) {
+					return acc + (item as HTMLDivElement).style.length;
+				} else {
 					return acc;
 				}
-			},
-			0,
-		);
+			} catch (e) {
+				return acc;
+			}
+		}, 0);
 
 		return {
 			'ufo:stylesheets': stylesheetCount,

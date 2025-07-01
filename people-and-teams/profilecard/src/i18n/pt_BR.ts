@@ -7,6 +7,13 @@
  */
 //Portuguese (Brazil)
 export default {
+  'people-and-teams.team-profile-card.large-member-count': 'Equipe contribuinte • {memberCount} membros',
+  'people-and-teams.team-profile-card.member-count':
+    '{count, plural, one {Equipe contribuinte • {count,number} membro} other {Equipe contribuinte • {count,number} membros}}',
+  'people-and-teams.team-profile-card.team-connections': 'Links da equipe',
+  'people-and-teams.team-profile-card.team-connections-header': 'Onde a gente trabalha',
+  'people-and-teams.team-profile-card.team-profile-description': 'Perfil da equipe',
+  'people-and-teams.team-profile-card.view-profile': 'Visualizar perfil',
   'profilecard.agent-profile-card.delete-agent-error-flag-description':
     'Algo deu errado ao excluir o agente. Tente de novo em alguns instantes.',
   'profilecard.agent-profile-card.delete-agent-error-flag-title': 'Falha ao excluir agente',
@@ -46,6 +53,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week': 'A conta do usuário foi desativada nesta semana.',
   'pt.profile-card.inactive.account.no.date': 'A conta do usuário foi desativada.',
   'pt.profile-card.more-icon-label': 'Mais',
+  'pt.team-profile-card.aria-label': 'Mais informações sobre esta equipe',
   'pt.team-profile-card.directReports.heading': 'Relatórios diretos',
   'pt.team-profile-card.error.refresh-button': 'Tentar novamente',
   'pt.team-profile-card.error.suggestion': 'Aguarde alguns instantes e depois tente de novo.',
@@ -64,4 +72,6 @@ export default {
     '{count, plural, one {Mais {count} membro} other {Mais {count} membros}}',
   'pt.user-profile-card.reporting-lines.more-icon-label':
     '{count, plural, one {Mais {count} perfil} other {Mais {count} perfis}}',
+  'team-profile-card.team-actions.give-kudos': 'Envie elogios',
+  'team-profile-card.team-actions.more-actions.show-more-icon-label': 'Ver mais',
 };

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-extension
 
+## 5.5.13
+
+### Patch Changes
+
+- [#179090](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/179090)
+  [`5a7c6f6b155de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a7c6f6b155de) -
+  Clean up deprecation message feature flag
+
 ## 5.5.12
 
 ### Patch Changes

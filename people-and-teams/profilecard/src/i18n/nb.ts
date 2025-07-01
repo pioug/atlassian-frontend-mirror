@@ -7,6 +7,13 @@
  */
 //Norwegian (Bokmål)
 export default {
+  'people-and-teams.team-profile-card.large-member-count': 'Team som bidrar • {memberCount} medlem',
+  'people-and-teams.team-profile-card.member-count':
+    '{count, plural, one {Team som bidrar • {count,number} medlem} other {Team som bidrar • {count,number} medlemmer}}',
+  'people-and-teams.team-profile-card.team-connections': 'Teamkoblinger',
+  'people-and-teams.team-profile-card.team-connections-header': 'Der vi jobber',
+  'people-and-teams.team-profile-card.team-profile-description': 'Teamprofil',
+  'people-and-teams.team-profile-card.view-profile': 'Vis profil',
   'profilecard.agent-profile-card.delete-agent-error-flag-description':
     'Noe gikk galt under sletting av agenten. Prøv igjen om en liten stund.',
   'profilecard.agent-profile-card.delete-agent-error-flag-title': 'Kan ikke slette agent',
@@ -46,6 +53,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week': 'Vedkommendes konto ble deaktivert denne uken.',
   'pt.profile-card.inactive.account.no.date': 'Vedkommendes konto er deaktivert.',
   'pt.profile-card.more-icon-label': 'Mer',
+  'pt.team-profile-card.aria-label': 'Mer informasjon om dette teamet',
   'pt.team-profile-card.directReports.heading': 'Direkte underordnede',
   'pt.team-profile-card.error.refresh-button': 'Prøv på nytt',
   'pt.team-profile-card.error.suggestion': 'Vent litt og prøv på nytt.',
@@ -64,4 +72,6 @@ export default {
     '{count, plural, one {{count} medlem til} other {{count} medlemmer til}}',
   'pt.user-profile-card.reporting-lines.more-icon-label':
     '{count, plural, one {{count} profil til} other {{count} profiler til}}',
+  'team-profile-card.team-actions.give-kudos': 'Gi kudos',
+  'team-profile-card.team-actions.more-actions.show-more-icon-label': 'Vis mer',
 };

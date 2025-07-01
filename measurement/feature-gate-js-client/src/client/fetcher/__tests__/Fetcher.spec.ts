@@ -188,7 +188,8 @@ describe('Fetcher', () => {
 				apiKey: 'test-api-key',
 			};
 			await Fetcher.fetchClientSdk(fetcherOptions);
-			const expectedUrl = 'https://api.atlassian-isolated.net/flags/api/v2/frontend/clientSdkKey/test';
+			const expectedUrl =
+				'https://api.atlassian-isolated.net/flags/api/v2/frontend/clientSdkKey/test';
 			expect(fetchMock).toHaveBeenCalledTimes(1);
 			expect(fetchMock.mock.calls[0][0]).toEqual(expectedUrl);
 		});
@@ -205,7 +206,8 @@ describe('Fetcher', () => {
 				apiKey: 'test-api-key',
 			};
 			await Fetcher.fetchClientSdk(fetcherOptions);
-			const expectedUrl = 'https://atlassian-statsig-proxy-archetype.atl-paas.ic-7bf.atl-ic.net/api/v2/frontend/clientSdkKey/test';
+			const expectedUrl =
+				'https://atlassian-statsig-proxy-archetype.atl-paas.ic-7bf.atl-ic.net/api/v2/frontend/clientSdkKey/test';
 			expect(fetchMock).toHaveBeenCalledTimes(1);
 			expect(fetchMock.mock.calls[0][0]).toEqual(expectedUrl);
 		});
@@ -225,7 +227,6 @@ describe('Fetcher', () => {
 			expect(fetchMock).toHaveBeenCalledTimes(1);
 			expect(fetchMock.mock.calls[0][0]).toEqual(expectedUrl);
 		});
-
 
 		test('falls back to STAGING_BASE_URL for staging environment when getApiUrl returns null', async () => {
 			jest.spyOn(Fetcher, 'getWindowLocation').mockReturnValue(undefined);
@@ -260,7 +261,6 @@ describe('Fetcher', () => {
 			expect(fetchMock).toHaveBeenCalledTimes(1);
 			expect(fetchMock.mock.calls[0][0]).toEqual(expectedUrl);
 		});
-
 	});
 
 	describe('fetchExperimentValues', () => {

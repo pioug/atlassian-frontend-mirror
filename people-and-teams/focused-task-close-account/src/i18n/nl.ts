@@ -67,6 +67,8 @@ export default {
     'Je staat op het punt om je account te verwijderen:',
   'focused-task-close-account.delete-account.overview.heading.admin': 'Account verwijderen',
   'focused-task-close-account.delete-account.overview.heading.self': 'Je account verwijderen',
+  'focused-task-close-account.delete-account.overview.inline-dialog.content-created-issue-refresh.admin':
+    "Bijvoorbeeld pagina's, werkitems en opmerkingen die ze hebben aangemaakt in producten.",
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin':
     "Bijvoorbeeld pagina's, issues en opmerkingen die ze hebben gemaakt in producten.",
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':

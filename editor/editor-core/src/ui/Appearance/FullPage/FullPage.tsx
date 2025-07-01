@@ -169,26 +169,20 @@ export const FullPageEditor = (props: ComponentProps) => {
 	let toolbarDocking = useSharedPluginStateSelector(editorAPI, 'selectionToolbar.toolbarDocking', {
 		disabled: fg('platform_editor_use_preferences_plugin'),
 	});
-	let toolbarDockingPref = useSharedPluginStateSelector(
-		editorAPI,
-		'userPreferences.preferences.toolbarDockingPosition',
-		{
+	const { toolbarDockingPosition } =
+		useSharedPluginStateSelector(editorAPI, 'userPreferences.preferences', {
 			disabled: !fg('platform_editor_use_preferences_plugin'),
-		},
-	);
+		}) || {};
 
-	if (fg('platform_editor_use_preferences_plugin')) {
-		if (!toolbarDockingPref) {
-			toolbarDockingPref =
-				editorAPI?.userPreferences?.sharedState.currentState()?.preferences.toolbarDockingPosition;
+	if (!fg('platform_editor_use_preferences_plugin')) {
+		if (!toolbarDocking && fg('platform_editor_controls_toolbar_ssr_fix')) {
+			// This is a workaround for the rendering issue with the selection toolbar
+			// where using useSharedPluginStateSelector or useSharedPluginState the state are not
+			// available when the editor is first loaded. and cause the toolbar to blink.
+			const defaultDocking = props.__livePage ? 'none' : 'top';
+			toolbarDocking =
+				editorAPI?.selectionToolbar?.sharedState.currentState()?.toolbarDocking ?? defaultDocking;
 		}
-	} else if (!toolbarDocking && fg('platform_editor_controls_toolbar_ssr_fix')) {
-		// This is a workaround for the rendering issue with the selection toolbar
-		// where using useSharedPluginStateSelector or useSharedPluginState the state are not
-		// available when the editor is first loaded. and cause the toolbar to blink.
-		const defaultDocking = props.__livePage ? 'none' : 'top';
-		toolbarDocking =
-			editorAPI?.selectionToolbar?.sharedState.currentState()?.toolbarDocking ?? defaultDocking;
 	}
 
 	let primaryToolbarComponents = props.primaryToolbarComponents;
@@ -205,8 +199,8 @@ export const FullPageEditor = (props: ComponentProps) => {
 
 	if (editorExperiment('platform_editor_controls', 'variant1', { exposure: true })) {
 		if (fg('platform_editor_use_preferences_plugin')) {
-			// need to check if the toolbarDockingPref is set to 'none' or 'top'
-			if (toolbarDockingPref === 'none') {
+			// need to check if the toolbarDockingPosition is set to 'none' or 'top'
+			if (toolbarDockingPosition === 'none') {
 				primaryToolbarComponents = [];
 
 				if (!hasCustomComponents(customPrimaryToolbarComponents)) {

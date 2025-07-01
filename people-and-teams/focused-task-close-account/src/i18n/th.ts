@@ -63,6 +63,8 @@ export default {
   'focused-task-close-account.delete-account.overview.first.line.self': 'คุณกำลังจะลบบัญชีของคุณ:',
   'focused-task-close-account.delete-account.overview.heading.admin': 'ลบบัญชี',
   'focused-task-close-account.delete-account.overview.heading.self': 'ลบบัญชีของคุณ',
+  'focused-task-close-account.delete-account.overview.inline-dialog.content-created-issue-refresh.admin':
+    'ตัวอย่าเช่น หน้าข้อมูล ตั๋ว และความคิดเห็นที่พวกเขาได้สร้างขึ้นในผลิตภัณฑ์',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin':
     'ตัวอย่างเช่น หน้าข้อมูล ปัญหา และความคิดเห็นต่าง ๆ ที่ผู้ใช้เหล่านั้นได้สร้างไว้ในผลิตภัณฑ์',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':

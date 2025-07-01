@@ -130,7 +130,6 @@ export const buildToolbar: (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) 
 		annotationManager,
 		onCommentButtonMount,
 	}: BuildToolbarOptions) => {
-		const { schema } = state;
 		const selectionValid = isSelectionValid(state);
 		const isMediaSelected = currentMediaNodeWithPos(state);
 
@@ -262,15 +261,6 @@ export const buildToolbar: (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) 
 			supportsViewMode: true, // TODO: MODES-3950 - Clean up this floating toolbar view mode logic,
 		};
 
-		const { annotation } = schema.marks;
-		const validNodes = Object.keys(schema.nodes).reduce<NodeType[]>((acc, current) => {
-			const type = schema.nodes[current];
-			if (type.allowsMarkType(annotation)) {
-				acc.push(type);
-			}
-			return acc;
-		}, []);
-
 		const toolbarTitle = intl.formatMessage(annotationMessages.toolbar);
 		const calcToolbarPosition = isToolbarAbove
 			? calculateToolbarPositionAboveSelection
@@ -279,7 +269,7 @@ export const buildToolbar: (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) 
 
 		return {
 			title: toolbarTitle,
-			nodeType: fg('platform_editor_fix_toolbar_comment_jump') ? getValidNodes(state) : validNodes,
+			nodeType: getValidNodes(state),
 			items: [createComment],
 			onPositionCalculated,
 			pluginName: 'annotation',

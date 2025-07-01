@@ -43,33 +43,8 @@ export class SSRPlaceholderHandlers {
 
 		if (window.document) {
 			try {
-				const selector = this.enablePageLayoutPlaceholder
-					? '[data-ssr-placeholder],[data-testid="page-layout.root"]'
-					: '[data-ssr-placeholder]';
-				const existingElements = document.querySelectorAll(selector);
-				existingElements.forEach((el) => {
-					const placeholderId = el instanceof HTMLElement && this.getPlaceholderId(el);
-					if (placeholderId) {
-						let width = -1;
-						let height = -1;
-						let x = -1;
-						let y = -1;
-						const boundingClientRect = window.__SSR_PLACEHOLDERS_DIMENSIONS__?.[placeholderId];
-						if (boundingClientRect) {
-							width = boundingClientRect.width;
-							height = boundingClientRect.height;
-							x = boundingClientRect.x;
-							y = boundingClientRect.y;
-						}
-						this.staticPlaceholders.set(placeholderId, {
-							width,
-							height,
-							x,
-							y,
-						});
-						this.intersectionObserver?.observe(el);
-					}
-				});
+				// Collect initial placeholders using SSR dimensions
+				this.collectPlaceholdersInternal();
 			} catch (e) {
 			} finally {
 				delete window.__SSR_PLACEHOLDERS_DIMENSIONS__;
@@ -104,6 +79,65 @@ export class SSRPlaceholderHandlers {
 		this.callbacks = new Map();
 		this.getSizeCallbacks = new Map();
 		this.reactValidateCallbacks = new Map();
+	}
+
+	private collectPlaceholdersInternal() {
+		const selector = this.enablePageLayoutPlaceholder
+			? '[data-ssr-placeholder],[data-testid="page-layout.root"]'
+			: '[data-ssr-placeholder]';
+		const existingElements = document.querySelectorAll(selector);
+		existingElements.forEach((el) => {
+			const placeholderId = el instanceof HTMLElement && this.getPlaceholderId(el);
+			if (placeholderId && !this.staticPlaceholders.has(placeholderId)) {
+				let width = -1;
+				let height = -1;
+				let x = -1;
+				let y = -1;
+
+				// Use SSR dimensions from window global if available
+				const boundingClientRect = window.__SSR_PLACEHOLDERS_DIMENSIONS__?.[placeholderId];
+				if (boundingClientRect) {
+					width = boundingClientRect.width;
+					height = boundingClientRect.height;
+					x = boundingClientRect.x;
+					y = boundingClientRect.y;
+				} else {
+					// Fallback to current bounding rect if SSR dimensions not available
+					const rect = el.getBoundingClientRect();
+					width = rect.width;
+					height = rect.height;
+					x = rect.x;
+					y = rect.y;
+				}
+
+				this.staticPlaceholders.set(placeholderId, {
+					width,
+					height,
+					x,
+					y,
+				});
+				this.intersectionObserver?.observe(el);
+			}
+		});
+	}
+
+	/**
+	 * Added this method to be utilised for testing purposes.
+	 * In production it collection placeholder should only happens on constructor
+	 */
+	collectExistingPlaceholders() {
+		if (!window.document) {
+			return;
+		}
+
+		try {
+			// Collect placeholders using SSR dimensions or fallback to live dimensions
+			this.collectPlaceholdersInternal();
+		} catch (e) {
+			// Silently fail if there are any issues
+		} finally {
+			delete window.__SSR_PLACEHOLDERS_DIMENSIONS__;
+		}
 	}
 
 	isPlaceholder(element: HTMLElement) {

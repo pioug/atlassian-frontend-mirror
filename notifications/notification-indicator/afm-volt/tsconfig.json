@@ -1,0 +1,30 @@
+{
+	"extends": "../../../../tsconfig.entry-points.volt.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../volt/tsDist/@atlaskit__notification-indicator/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/badge/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../notification-log-client/afm-volt/tsconfig.json"
+		}
+	]
+}

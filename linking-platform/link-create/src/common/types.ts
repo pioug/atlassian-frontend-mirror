@@ -76,6 +76,10 @@ export interface LinkCreatePlugin<Key = string> {
 export type CreatePayload = {
 	/** The url to the resource created by the create plugin */
 	url: string;
+
+	/** The url to be opened on create if this is different from `url` created*/
+	linkToOpen?: string;
+
 	/**
 	 * ARI of the created resource.
 	 * https://developer.atlassian.com/platform/atlassian-resource-identifier/spec/ari-latest/

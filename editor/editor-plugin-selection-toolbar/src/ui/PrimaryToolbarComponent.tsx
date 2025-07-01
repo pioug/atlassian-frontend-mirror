@@ -27,6 +27,7 @@ import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared
 import PinIcon from '@atlaskit/icon/core/pin';
 import PinFilledIcon from '@atlaskit/icon/core/pin-filled';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import type { SelectionToolbarPlugin } from '../selectionToolbarPluginType';
@@ -124,7 +125,10 @@ export const PrimaryToolbarComponentNew = ({ api, disabled }: PrimaryToolbarComp
 	const intl = useIntl();
 	const mode = useSharedPluginStateSelector(api, 'connectivity.mode');
 	const isOffline = mode === 'offline' || false;
-	const isDockedToTop = api?.selectionToolbar.sharedState.currentState()?.toolbarDocking === 'top';
+	const isDockedToTop = fg('platform_editor_use_preferences_plugin')
+		? api?.userPreferences?.sharedState.currentState()?.preferences?.toolbarDockingPosition ===
+			'top'
+		: api?.selectionToolbar.sharedState.currentState()?.toolbarDocking === 'top';
 	if (isDockedToTop) {
 		return (
 			<ToolbarButton

@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 export type CreateMutationObserverProps = {
 	onAttributeMutation: (props: {
 		target: HTMLElement;
@@ -10,9 +8,19 @@ export type CreateMutationObserverProps = {
 
 	onMutationFinished?: (props: { targets: Array<HTMLElement> }) => void;
 	onChildListMutation: (props: {
+		target: WeakRef<HTMLElement>;
 		addedNodes: ReadonlyArray<WeakRef<HTMLElement>>;
 		removedNodes: ReadonlyArray<WeakRef<HTMLElement>>;
+		timestamp: DOMHighResTimeStamp;
 	}) => void;
+};
+
+// Batched mutation data for performance optimization
+type BatchedMutation = {
+	target: WeakRef<HTMLElement>;
+	addedNodes: Array<WeakRef<HTMLElement>>;
+	removedNodes: Array<WeakRef<HTMLElement>>;
+	timestamp: DOMHighResTimeStamp;
 };
 
 function createMutationObserver({
@@ -25,15 +33,10 @@ function createMutationObserver({
 	}
 
 	const mutationObserverCallback: MutationCallback = (mutations) => {
-		const addedNodes: Array<WeakRef<HTMLElement>> = [];
-		const removedNodes: Array<WeakRef<HTMLElement>> = [];
-		const attributeMutations: Array<{
-			target: WeakRef<HTMLElement>;
-			attributeName: string;
-			oldValue?: string | undefined | null;
-			newValue?: string | undefined | null;
-		}> = [];
 		const targets: Array<HTMLElement> = [];
+		// Use nested Maps for O(1) batching performance
+		// Short-lived Maps are safe since they're discarded after each callback
+		const batchedMutations = new Map<DOMHighResTimeStamp, Map<HTMLElement, BatchedMutation>>();
 
 		for (const mut of mutations) {
 			if (!(mut.target instanceof HTMLElement)) {
@@ -51,34 +54,49 @@ function createMutationObserver({
 				const oldValue = mut.oldValue ?? undefined;
 				const newValue = mut.attributeName ? mut.target.getAttribute(mut.attributeName) : undefined;
 				if (oldValue !== newValue) {
-					if (fg('platform_vc_ignore_no_ls_mutation_marker')) {
-						attributeMutations.push({
-							target: new WeakRef(mut.target),
-							attributeName: mut.attributeName ?? 'unknown',
-							oldValue,
-							newValue,
-						});
-					} else {
-						onAttributeMutation({
-							target: mut.target,
-							attributeName: mut.attributeName ?? 'unknown',
-							oldValue,
-							newValue,
-						});
-					}
+					onAttributeMutation({
+						target: mut.target,
+						attributeName: mut.attributeName ?? 'unknown',
+						oldValue,
+						newValue,
+					});
 				}
 
 				continue;
 			} else if (mut.type === 'childList') {
+				// In chromium browser MutationRecord has timestamp field, which we should use.
+				const timestamp = Math.round((mut as any).timestamp || performance.now());
+
+				// Get or create timestamp bucket
+				let timestampBucket = batchedMutations.get(timestamp);
+				if (!timestampBucket) {
+					timestampBucket = new Map<HTMLElement, BatchedMutation>();
+					batchedMutations.set(timestamp, timestampBucket);
+				}
+
+				// Get or create target batch within timestamp bucket
+				let batch = timestampBucket.get(mut.target);
+				if (!batch) {
+					batch = {
+						target: new WeakRef(mut.target),
+						addedNodes: [],
+						removedNodes: [],
+						timestamp,
+					};
+					timestampBucket.set(mut.target, batch);
+				}
+
+				// Accumulate added nodes
 				(mut.addedNodes ?? []).forEach((node: Node) => {
 					if (node instanceof HTMLElement) {
-						addedNodes.push(new WeakRef(node));
+						batch!.addedNodes.push(new WeakRef(node));
 					}
 				});
 
+				// Accumulate removed nodes
 				(mut.removedNodes ?? []).forEach((node: Node) => {
 					if (node instanceof HTMLElement) {
-						removedNodes.push(new WeakRef(node));
+						batch!.removedNodes.push(new WeakRef(node));
 					}
 				});
 			}
@@ -86,18 +104,16 @@ function createMutationObserver({
 			targets.push(mut.target);
 		}
 
-		onChildListMutation({
-			addedNodes,
-			removedNodes,
-		});
-
-		for (const mut of attributeMutations) {
-			onAttributeMutation({
-				target: mut.target.deref()!,
-				attributeName: mut.attributeName,
-				oldValue: mut.oldValue,
-				newValue: mut.newValue,
-			});
+		// Process all batched childList mutations
+		for (const timestampBucket of batchedMutations.values()) {
+			for (const batch of timestampBucket.values()) {
+				onChildListMutation({
+					target: batch.target,
+					addedNodes: batch.addedNodes,
+					removedNodes: batch.removedNodes,
+					timestamp: batch.timestamp,
+				});
+			}
 		}
 
 		onMutationFinished?.({

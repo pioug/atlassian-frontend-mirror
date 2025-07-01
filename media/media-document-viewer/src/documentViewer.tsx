@@ -17,6 +17,7 @@ type DocumentViewerProps = {
 	getPageImageUrl: (pageNumber: number, zoom: number) => Promise<string>;
 	paginationSize?: number;
 	zoom: number;
+	onSuccess?: () => void;
 };
 
 const documentViewerStyles = css({
@@ -33,6 +34,7 @@ const documentViewerStyles = css({
 const DEFAULT_PAGINATION_SIZE = 50;
 
 export const DocumentViewer = ({
+	onSuccess,
 	getContent,
 	getPageImageUrl,
 	paginationSize = DEFAULT_PAGINATION_SIZE,
@@ -60,6 +62,7 @@ export const DocumentViewer = ({
 						zoom={zoom}
 						defaultDimensions={documentMetadata.defaultDimensions}
 						onVisible={() => loadPageContent(i)}
+						onLoad={i === 0 ? onSuccess : undefined}
 						fonts={fonts}
 						content={page}
 					/>

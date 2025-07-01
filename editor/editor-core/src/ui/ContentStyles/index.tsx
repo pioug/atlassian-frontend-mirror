@@ -53,7 +53,8 @@ import type { EditorAppearance, FeatureFlags } from '@atlaskit/editor-common/typ
 import { blocktypeStyles } from '@atlaskit/editor-plugins/block-type/styles';
 import {
 	findReplaceStyles,
-	findReplaceStylesNew,
+	findReplaceStylesNewYellow,
+	findReplaceStylesNewMagenta,
 } from '@atlaskit/editor-plugins/find-replace/styles';
 import { textHighlightStyle } from '@atlaskit/editor-plugins/paste-options-toolbar/styles';
 import {
@@ -100,6 +101,7 @@ import {
 	vanillaTaskDecisionStyles as vanillaDecisionStyles,
 	vanillaTaskItemStyles,
 } from './tasks-and-decisions';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const linkStyles = css`
 	.ProseMirror {
@@ -538,7 +540,9 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
   ${extensionStyles}
   ${expandStyles()}
   ${expValEqualsNoExposure('platform_editor_find_and_replace_improvements', 'isEnabled', true)
-		? findReplaceStylesNew
+		? fg('platform_editor_find_and_replace_magenta_match')
+			? findReplaceStylesNewMagenta
+			: findReplaceStylesNewYellow
 		: findReplaceStyles}
   ${textHighlightStyle}
   ${taskDecisionStyles}

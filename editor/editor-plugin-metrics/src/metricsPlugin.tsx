@@ -53,9 +53,10 @@ export const metricsPlugin: MetricsPlugin = ({ config, api }) => ({
 						expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1') &&
 						fg('platform_editor_controls_patch_13')
 					) {
-						toolbarDocking = config?.userPreferencesProvider?.getPreference(
-							'toolbarDockingInitialPosition',
-						);
+						toolbarDocking = toolbarDocking = fg('platform_editor_use_preferences_plugin')
+							? api?.userPreferences?.sharedState.currentState()?.preferences
+									?.toolbarDockingPosition
+							: config?.userPreferencesProvider?.getPreference('toolbarDockingInitialPosition');
 					}
 
 					const payloadToSend = getAnalyticsPayload({

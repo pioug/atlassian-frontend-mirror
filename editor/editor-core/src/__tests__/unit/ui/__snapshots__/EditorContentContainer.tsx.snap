@@ -9518,7 +9518,6 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
 }
 
 .emotion-0 .ProseMirror .code-block {
-  --ds--code--bg-color: transparent;
   position: relative;
   background-color: var(--ds-surface-raised, #FFFFFF);
   border-radius: var(--ds-border-radius, 3px);
@@ -14279,7 +14278,6 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
 }
 
 .emotion-0 .ProseMirror .code-block {
-  --ds--code--bg-color: transparent;
   position: relative;
   background-color: var(--ds-surface-raised, #FFFFFF);
   border-radius: var(--ds-border-radius, 3px);

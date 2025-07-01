@@ -55,6 +55,8 @@ export default {
   'focused-task-close-account.delete-account.overview.first.line.self': '您即將刪除您的帳戶：',
   'focused-task-close-account.delete-account.overview.heading.admin': '刪除帳戶',
   'focused-task-close-account.delete-account.overview.heading.self': '刪除帳戶',
+  'focused-task-close-account.delete-account.overview.inline-dialog.content-created-issue-refresh.admin':
+    '例如，使用者在產品中建立的頁面、工作項目和留言。',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin':
     '例如，使用者在產品中建立的頁面、問題和留言。',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':

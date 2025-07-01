@@ -20,6 +20,7 @@ type DocumentViewerProps = {
 	initialPageUrl?: string;
 	getPageImageUrl: (pageNumber: number, zoom: number) => Promise<string>;
 	zoom: number;
+	onSuccess?: () => void;
 };
 
 // Mock URL.createObjectURL and URL.revokeObjectURL
@@ -282,6 +283,71 @@ describe('DocumentViewer', () => {
 
 			const image = await screen.findByTestId('page-0-image');
 			expect(image).toHaveAttribute('data-zoom', '2');
+		});
+	});
+
+	describe('Success Callback', () => {
+		it('should call onSuccess when the first page loads', async () => {
+			const onSuccessSpy = jest.fn();
+			const props = createMockProps({ onSuccess: onSuccessSpy });
+
+			render(<DocumentViewer {...props} />);
+			await waitFor(async () => await makeAllIntersectionObserversVisible());
+
+			// Wait for the first page image to load
+			const image = await screen.findByTestId('page-0-image');
+
+			// Manually trigger the onLoad event since it doesn't fire automatically in tests
+			const loadEvent = new Event('load');
+			image.dispatchEvent(loadEvent);
+
+			// The onSuccess callback should be called when the first page loads
+			expect(onSuccessSpy).toHaveBeenCalledTimes(1);
+		});
+
+		it('should not call onSuccess when no callback is provided', async () => {
+			const props = createMockProps(); // No onSuccess provided
+
+			render(<DocumentViewer {...props} />);
+			await waitFor(async () => await makeAllIntersectionObserversVisible());
+
+			// Wait for the first page image to load
+			await screen.findByTestId('page-0-image');
+
+			// Should not throw any errors and render normally
+			expect(screen.getByTestId('document-viewer')).toBeInTheDocument();
+		});
+
+		it('should only call onSuccess for the first page, not subsequent pages', async () => {
+			const onSuccessSpy = jest.fn();
+			const multiPageContent: PageRangeContent = {
+				...mockPageRangeContent,
+				pages: [mockPageContent, mockPageContent, mockPageContent],
+				total_pages: 3,
+				end_index: 3,
+			};
+
+			const props = createMockProps({
+				onSuccess: onSuccessSpy,
+				getContent: jest.fn().mockResolvedValue(multiPageContent),
+			});
+
+			render(<DocumentViewer {...props} />);
+			await waitFor(async () => await makeAllIntersectionObserversVisible());
+
+			// Wait for all page images to load
+			const image0 = await screen.findByTestId('page-0-image');
+			const image1 = await screen.findByTestId('page-1-image');
+			const image2 = await screen.findByTestId('page-2-image');
+
+			// Manually trigger the onLoad event for all images
+			const loadEvent = new Event('load');
+			image0.dispatchEvent(loadEvent);
+			image1.dispatchEvent(loadEvent);
+			image2.dispatchEvent(loadEvent);
+
+			// onSuccess should only be called once for the first page
+			expect(onSuccessSpy).toHaveBeenCalledTimes(1);
 		});
 	});
 

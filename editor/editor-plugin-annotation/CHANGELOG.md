@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-annotation
 
+## 2.9.11
+
+### Patch Changes
+
+- [#179350](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/179350)
+  [`9395a7b026838`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9395a7b026838) -
+  Clean up platform_editor_fix_toolbar_comment_jump
+
 ## 2.9.10
 
 ### Patch Changes

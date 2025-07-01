@@ -7,6 +7,13 @@
  */
 //Czech
 export default {
+  'people-and-teams.team-profile-card.large-member-count': 'Přispívající tým • počet členů: {memberCount}',
+  'people-and-teams.team-profile-card.member-count':
+    '{count, plural, one {Přispívající tým • {count,number} člen} few {Přispívající tým • {count,number} členové} many {Přispívající tým • {count,number} člena} other {Přispívající tým • {count,number} členů}}',
+  'people-and-teams.team-profile-card.team-connections': 'Týmové odkazy',
+  'people-and-teams.team-profile-card.team-connections-header': 'Kde pracujeme',
+  'people-and-teams.team-profile-card.team-profile-description': 'Profil týmu',
+  'people-and-teams.team-profile-card.view-profile': 'Zobrazit profil',
   'profilecard.agent-profile-card.delete-agent-error-flag-description':
     'Při odstraňování agenta došlo k chybě. Zkuste to za chvíli znovu.',
   'profilecard.agent-profile-card.delete-agent-error-flag-title': 'Odstranění agenta se nezdařilo',
@@ -45,6 +52,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week': 'Účet uživatele byl deaktivován tento týden.',
   'pt.profile-card.inactive.account.no.date': 'Účet uživatele byl deaktivován.',
   'pt.profile-card.more-icon-label': 'Více',
+  'pt.team-profile-card.aria-label': 'Další informace o tomto týmu',
   'pt.team-profile-card.directReports.heading': 'Přímí nadřízení',
   'pt.team-profile-card.error.refresh-button': 'Zkusit znovu',
   'pt.team-profile-card.error.suggestion': 'Chvíli počkejte a pak to zkuste znovu.',
@@ -63,4 +71,6 @@ export default {
     '{count, plural, one {+{count} další člen} few {+{count} další členové} many {+{count} dalšího člena} other {+{count} dalších členů}}',
   'pt.user-profile-card.reporting-lines.more-icon-label':
     '{count, plural, one {+{count} další profil} few {+{count} další profily} many {+{count} dalšího profilu} other {+{count} dalších profilů}}',
+  'team-profile-card.team-actions.give-kudos': 'Pogratulovat',
+  'team-profile-card.team-actions.more-actions.show-more-icon-label': 'Zobrazit více',
 };

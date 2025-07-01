@@ -7,6 +7,13 @@
  */
 //Vietnamese (Vietnam)
 export default {
+  'people-and-teams.team-profile-card.large-member-count': 'Đội ngũ đóng góp • {memberCount} thành viên',
+  'people-and-teams.team-profile-card.member-count':
+    '{count, plural, other {Đội ngũ đóng góp • {count,number} thành viên}}',
+  'people-and-teams.team-profile-card.team-connections': 'Liên kết đội ngũ',
+  'people-and-teams.team-profile-card.team-connections-header': 'Nơi chúng tôi làm việc',
+  'people-and-teams.team-profile-card.team-profile-description': 'Hồ sơ đội ngũ',
+  'people-and-teams.team-profile-card.view-profile': 'Xem hồ sơ',
   'profilecard.agent-profile-card.delete-agent-error-flag-description':
     'Đã xảy ra lỗi trong khi xóa nhân viên. Hãy thử lại sau giây lát.',
   'profilecard.agent-profile-card.delete-agent-error-flag-title': 'Không xóa được Nhân viên',
@@ -45,6 +52,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week': 'Tài khoản của họ đã bị hủy kích hoạt trong tuần này.',
   'pt.profile-card.inactive.account.no.date': 'Tài khoản của họ đã bị hủy kích hoạt.',
   'pt.profile-card.more-icon-label': 'Khác',
+  'pt.team-profile-card.aria-label': 'Thông tin khác về đội ngũ này',
   'pt.team-profile-card.directReports.heading': 'Báo cáo trực tiếp',
   'pt.team-profile-card.error.refresh-button': 'Thử lại',
   'pt.team-profile-card.error.suggestion': 'Hãy đợi một lát, rồi thử lại.',
@@ -60,4 +68,6 @@ export default {
   'pt.team-profile-card.team.member.many-including-you': 'Nhóm • 50+ thành viên, bao gồm cả bạn',
   'pt.team.profile-card.members.more-icon-label': '{count, plural, other {+{count} thành viên khác}}',
   'pt.user-profile-card.reporting-lines.more-icon-label': '{count, plural, other {+{count} hồ sơ khác}}',
+  'team-profile-card.team-actions.give-kudos': 'Khen ngợi',
+  'team-profile-card.team-actions.more-actions.show-more-icon-label': 'Hiển thị thêm',
 };

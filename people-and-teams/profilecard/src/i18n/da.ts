@@ -7,6 +7,13 @@
  */
 //Danish (Denmark)
 export default {
+  'people-and-teams.team-profile-card.large-member-count': 'Bidragende team • {memberCount} medlemmer',
+  'people-and-teams.team-profile-card.member-count':
+    '{count, plural, one {Bidragende team • {count,number} medlem} other {Bidragende team • {count,number} medlemmer}}',
+  'people-and-teams.team-profile-card.team-connections': 'Teamlinks',
+  'people-and-teams.team-profile-card.team-connections-header': 'Her arbejder vi',
+  'people-and-teams.team-profile-card.team-profile-description': 'Teamprofil',
+  'people-and-teams.team-profile-card.view-profile': 'Vis profil',
   'profilecard.agent-profile-card.delete-agent-error-flag-description':
     'Der gik noget galt under sletning af agenten. Prøv igen om et øjeblik.',
   'profilecard.agent-profile-card.delete-agent-error-flag-title': 'Kunne ikke slette agent',
@@ -46,6 +53,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week': 'Personens konto blev deaktiveret i denne uge.',
   'pt.profile-card.inactive.account.no.date': 'Personens konto er blevet deaktiveret.',
   'pt.profile-card.more-icon-label': 'Mere',
+  'pt.team-profile-card.aria-label': 'Flere oplysninger om dette team',
   'pt.team-profile-card.directReports.heading': 'Direkte underordnede',
   'pt.team-profile-card.error.refresh-button': 'Prøv igen',
   'pt.team-profile-card.error.suggestion': 'Vent et øjeblik, og prøv derefter igen.',
@@ -64,4 +72,6 @@ export default {
     '{count, plural, one {+{count} medlem mere} other {+{count} medlemmer mere}}',
   'pt.user-profile-card.reporting-lines.more-icon-label':
     '{count, plural, one {+{count} profil mere} other {+{count} profiler mere}}',
+  'team-profile-card.team-actions.give-kudos': 'Giv ros',
+  'team-profile-card.team-actions.more-actions.show-more-icon-label': 'Vis flere',
 };

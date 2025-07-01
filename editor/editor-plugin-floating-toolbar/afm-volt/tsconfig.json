@@ -1,0 +1,102 @@
+{
+	"extends": "../../../../tsconfig.entry-points.volt.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../volt/tsDist/@atlaskit__editor-plugin-floating-toolbar/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../adf-utils/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/button/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/checkbox/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-palette/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-analytics/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-context-panel/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-copy-button/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-decorations/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-editor-disabled/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-editor-viewmode/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-emoji/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-extension/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-interaction/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-table/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-user-intent/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../elements/emoji/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/menu/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/modal-dialog/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/select/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-volt/tsconfig.json"
+		}
+	]
+}

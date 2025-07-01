@@ -65,6 +65,8 @@ export default {
   'focused-task-close-account.delete-account.overview.first.line.self': 'Sie sind dabei, Ihr Konto zu löschen:',
   'focused-task-close-account.delete-account.overview.heading.admin': 'Konto löschen',
   'focused-task-close-account.delete-account.overview.heading.self': 'Ihr Konto löschen',
+  'focused-task-close-account.delete-account.overview.inline-dialog.content-created-issue-refresh.admin':
+    'Dies gilt beispielsweise für Seiten, Vorgänge und Kommentare, die in Produkten erstellt wurden.',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin':
     'Zum Beispiel Seiten, Vorgänge und Kommentare, die in den Produkten erstellt wurden.',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':

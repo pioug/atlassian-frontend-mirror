@@ -87,9 +87,7 @@ import {
 	LoomIcon as NewLoomIcon,
 	LoomLogoCS as NewLoomLogo,
 } from '@atlaskit/temp-nav-app-icons/loom';
-import {
-	LoomAttributionLogoCS as NewLoomAttributionLogo,
-} from '@atlaskit/temp-nav-app-icons/loom-attribution';
+import { LoomAttributionLogoCS as NewLoomAttributionLogo } from '@atlaskit/temp-nav-app-icons/loom-attribution';
 import {
 	LoomInternalIcon as NewLoomInternalIcon,
 	LoomInternalLogoCS as NewLoomInternalLogo,
@@ -171,7 +169,10 @@ import {
 	JiraServiceManagementLogo as LegacyJSMLogo,
 } from './legacy-logos/jira-service-management';
 import { LoomIcon as LegacyLoomIcon, LoomLogo as LegacyLoomLogo } from './legacy-logos/loom';
-import { LoomAttributionIcon as LegacyLoomAttributionIcon, LoomAttributionLogo as LegacyLoomAttributionLogo } from './legacy-logos/loom-attribution';
+import {
+	LoomAttributionIcon as LegacyLoomAttributionIcon,
+	LoomAttributionLogo as LegacyLoomAttributionLogo,
+} from './legacy-logos/loom-attribution';
 import {
 	OpsgenieIcon as LegacyOpsgenieIcon,
 	OpsgenieLogo as LegacyOpsgenieLogo,
@@ -832,13 +833,13 @@ export const JiraServiceManagementLogo = createFeatureFlaggedComponent(LegacyJSM
 export const LoomIcon = createFeatureFlaggedComponent(LegacyLoomIcon, NewLoomIcon);
 /**
  * __Loom logo__
-*
-* The Loom logo, in Teamwork Blue, with both the wordmark and the icon combined.
-*
-* - [Examples](https://atlassian.design/components/logo/examples)
-* - [Code](https://atlassian.design/components/logo/code)
-* - [Usage](https://atlassian.design/components/logo/usage)
-*/
+ *
+ * The Loom logo, in Teamwork Blue, with both the wordmark and the icon combined.
+ *
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
+ */
 export const LoomLogo = createFeatureFlaggedComponent(LegacyLoomLogo, NewLoomLogo);
 /**
  * __Loom Attribution icon__
@@ -849,17 +850,23 @@ export const LoomLogo = createFeatureFlaggedComponent(LegacyLoomLogo, NewLoomLog
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const LoomAttributionIcon = createFeatureFlaggedComponent(LegacyLoomAttributionIcon, NewLoomIcon);
+export const LoomAttributionIcon = createFeatureFlaggedComponent(
+	LegacyLoomAttributionIcon,
+	NewLoomIcon,
+);
 /**
  * __Loom Attribution logo__
-*
-* The Loom Attribution logo, in Teamwork Blue, with both the wordmark and the icon combined.
-*
-* - [Examples](https://atlassian.design/components/logo/examples)
-* - [Code](https://atlassian.design/components/logo/code)
-* - [Usage](https://atlassian.design/components/logo/usage)
-*/
-export const LoomAttributionLogo = createFeatureFlaggedComponent(LegacyLoomAttributionLogo, NewLoomAttributionLogo);
+ *
+ * The Loom Attribution logo, in Teamwork Blue, with both the wordmark and the icon combined.
+ *
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
+ */
+export const LoomAttributionLogo = createFeatureFlaggedComponent(
+	LegacyLoomAttributionLogo,
+	NewLoomAttributionLogo,
+);
 /**
  * __Loom (Blurple) logo__
  *

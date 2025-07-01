@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-metrics
 
+## 3.6.0
+
+### Minor Changes
+
+- [#177157](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/177157)
+  [`6bcf8912217df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6bcf8912217df) -
+  ED-27284 additional integration with user preference plugin
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.5.3
 
 ### Patch Changes

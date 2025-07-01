@@ -62,6 +62,8 @@ export default {
   'focused-task-close-account.delete-account.overview.first.line.self': 'Chystáte se smazat svůj účet:',
   'focused-task-close-account.delete-account.overview.heading.admin': 'Smazat účet',
   'focused-task-close-account.delete-account.overview.heading.self': 'Smazání vašeho účtu',
+  'focused-task-close-account.delete-account.overview.inline-dialog.content-created-issue-refresh.admin':
+    'Například stránky, požadavky a komentáře, které uživatelé vytvořili v produktech.',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin':
     'Například stránky, požadavky a komentáře, které v produktech vytvořili.',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':

@@ -30,6 +30,7 @@ export type VCObserverOptions = {
 	isPostInteraction?: boolean;
 	ssrEnablePageLayoutPlaceholder?: boolean;
 	disableSizeAndPositionCheck?: { v: boolean; h: boolean };
+	ssrPlaceholderHandler?: any; // SSRPlaceholderHandlers | null - using any to avoid circular import
 };
 
 export interface VCObserverInterface {
@@ -40,4 +41,5 @@ export interface VCObserverInterface {
 	setSSRElement(element: HTMLElement): void;
 	setReactRootRenderStart(startTime?: number): void;
 	setReactRootRenderStop(stopTime?: number): void;
+	collectSSRPlaceholders?(): void;
 }

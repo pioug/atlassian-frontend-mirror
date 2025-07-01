@@ -22,7 +22,7 @@ function isElementVisible(element: Element) {
 
 	try {
 		const visible = element.checkVisibility({
-			// @ts-expect-error
+			// @ts-ignore - visibilityProperty may not exist in all TS environments
 			visibilityProperty: true,
 			contentVisibilityAuto: true,
 			opacityProperty: true,
@@ -61,6 +61,8 @@ export type ViewPortObserverConstructorArgs = {
 		readonly previousRect: DOMRectReadOnly | undefined;
 		readonly mutationData?: MutationData | undefined | null;
 	}): void;
+	getSSRState?: () => any;
+	getSSRPlaceholderHandler?: () => any;
 };
 
 const createElementMutationsWatcher =
@@ -96,13 +98,25 @@ export default class ViewportObserver {
 	private onChange: ViewPortObserverConstructorArgs['onChange'];
 	private isStarted: boolean;
 
-	constructor({ onChange }: ViewPortObserverConstructorArgs) {
+	// SSR context functions
+	private getSSRState?: () => any;
+	private getSSRPlaceholderHandler?: () => any;
+
+	constructor({
+		onChange,
+		getSSRState,
+		getSSRPlaceholderHandler,
+	}: ViewPortObserverConstructorArgs) {
 		this.mapVisibleNodeRects = new WeakMap();
 		this.onChange = onChange;
 		this.isStarted = false;
 		this.intersectionObserver = null;
 		this.mutationObserver = null;
 		this.performanceObserver = null;
+
+		// Initialize SSR context functions
+		this.getSSRState = getSSRState;
+		this.getSSRPlaceholderHandler = getSSRPlaceholderHandler;
 	}
 
 	private handleIntersectionEntry = ({
@@ -137,12 +151,16 @@ export default class ViewportObserver {
 		});
 	};
 
-	private handleChildListMutation = ({
+	private handleChildListMutation = async ({
+		target,
 		addedNodes,
 		removedNodes,
+		timestamp,
 	}: {
+		target: WeakRef<HTMLElement>;
 		addedNodes: readonly WeakRef<HTMLElement>[];
 		removedNodes: readonly WeakRef<HTMLElement>[];
+		timestamp: DOMHighResTimeStamp;
 	}) => {
 		const removedNodeRects = removedNodes.map((ref) => {
 			const n = ref.deref();
@@ -154,19 +172,83 @@ export default class ViewportObserver {
 			return this.mapVisibleNodeRects.get(n);
 		});
 
-		addedNodes.forEach((addedNodeRef) => {
+		const targetNode = target.deref();
+
+		for (const addedNodeRef of addedNodes) {
 			const addedNode = addedNodeRef.deref();
 			if (!addedNode) {
-				return;
+				continue;
+			}
+
+			// SSR hydration logic
+			if (this.getSSRState && fg('platform_ufo_vc_v3_ssr_placeholder')) {
+				const ssrState = this.getSSRState();
+				const SSRStateEnum = { normal: 1, waitingForFirstRender: 2, ignoring: 3 };
+
+				if (
+					ssrState.state === SSRStateEnum.waitingForFirstRender &&
+					timestamp > ssrState.renderStart &&
+					targetNode === ssrState.reactRootElement
+				) {
+					ssrState.state = SSRStateEnum.ignoring;
+					if (ssrState.renderStop === -1) {
+						// arbitrary 500ms DOM update window
+						ssrState.renderStop = timestamp + 500;
+					}
+					this.intersectionObserver?.watchAndTag(addedNode, 'ssr-hydration');
+					continue;
+				}
+
+				if (
+					ssrState.state === SSRStateEnum.ignoring &&
+					timestamp > ssrState.renderStart &&
+					targetNode === ssrState.reactRootElement
+				) {
+					if (timestamp <= ssrState.renderStop) {
+						this.intersectionObserver?.watchAndTag(addedNode, 'ssr-hydration');
+						continue;
+					} else {
+						ssrState.state = SSRStateEnum.normal;
+					}
+				}
+			}
+
+			// SSR placeholder logic - check and handle with await
+			if (this.getSSRPlaceholderHandler && fg('platform_ufo_vc_v3_ssr_placeholder')) {
+				const ssrPlaceholderHandler = this.getSSRPlaceholderHandler();
+				if (ssrPlaceholderHandler) {
+					if (
+						ssrPlaceholderHandler.isPlaceholder(addedNode) ||
+						ssrPlaceholderHandler.isPlaceholderIgnored(addedNode)
+					) {
+						const result = await ssrPlaceholderHandler.checkIfExistedAndSizeMatching(addedNode);
+						if (result !== false) {
+							this.intersectionObserver?.watchAndTag(addedNode, 'mutation:ssr-placeholder');
+							continue;
+						}
+						// If result is false, continue to normal mutation logic below
+					}
+
+					if (
+						ssrPlaceholderHandler.isPlaceholderReplacement(addedNode) ||
+						ssrPlaceholderHandler.isPlaceholderIgnored(addedNode)
+					) {
+						const result =
+							await ssrPlaceholderHandler.validateReactComponentMatchToPlaceholder(addedNode);
+						if (result !== false) {
+							this.intersectionObserver?.watchAndTag(addedNode, 'mutation:ssr-placeholder');
+							continue;
+						}
+						// If result is false, continue to normal mutation logic below
+					}
+				}
 			}
 
 			const sameDeletedNode = removedNodes.find((ref) => {
 				const n = ref.deref();
-
 				if (!n || !addedNode) {
 					return false;
 				}
-
 				return n.isEqualNode(addedNode);
 			});
 
@@ -177,12 +259,12 @@ export default class ViewportObserver {
 			// no layout shift mutation is excluded as per existing fy25.03 logic
 			if (sameDeletedNode && (!isNoLsMarkerEnabled || isInIgnoreLsMarker)) {
 				this.intersectionObserver?.watchAndTag(addedNode, 'mutation:remount');
-				return;
+				continue;
 			}
 
 			if (isContainedWithinMediaWrapper(addedNode)) {
 				this.intersectionObserver?.watchAndTag(addedNode, 'mutation:media');
-				return;
+				continue;
 			}
 
 			const { isWithinThirdPartySegment, ignoredReason } =
@@ -192,14 +274,14 @@ export default class ViewportObserver {
 					ignoredReason || 'third-party-element',
 				);
 				this.intersectionObserver?.watchAndTag(addedNode, assignedReason);
-				return;
+				continue;
 			}
 
 			this.intersectionObserver?.watchAndTag(
 				addedNode,
 				createElementMutationsWatcher(removedNodeRects),
 			);
-		});
+		}
 	};
 
 	private handleAttributeMutation = ({

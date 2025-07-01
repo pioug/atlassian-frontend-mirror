@@ -1,0 +1,36 @@
+{
+	"extends": "../../../../tsconfig.entry-points.volt.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../volt/tsDist/@atlaskit__media-client/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../chunkinator/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../media-common/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../media-core/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../media-state/afm-volt/tsconfig.json"
+		}
+	]
+}

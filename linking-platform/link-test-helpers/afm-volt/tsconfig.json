@@ -1,0 +1,33 @@
+{
+	"extends": "../../../../tsconfig.entry-points.volt.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../volt/tsDist/@atlaskit__link-test-helpers/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../json-ld-types/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../link-provider/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../linking-types/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../react-ufo/atlaskit/afm-volt/tsconfig.json"
+		}
+	]
+}

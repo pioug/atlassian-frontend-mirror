@@ -11,8 +11,10 @@ export type VCObserverEntryType =
 	| 'mutation:media'
 	| 'mutation:rll-placeholder'
 	| 'mutation:third-party-element'
+	| 'mutation:ssr-placeholder'
 	| 'layout-shift'
 	| 'window:event'
+	| 'ssr-hydration'
 	| 'unknown';
 
 export type ViewportEntryData = {

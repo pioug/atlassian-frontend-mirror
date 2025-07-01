@@ -7,6 +7,13 @@
  */
 //Hungarian
 export default {
+  'people-and-teams.team-profile-card.large-member-count': 'Közreműködő csapat • {memberCount} tag',
+  'people-and-teams.team-profile-card.member-count':
+    '{count, plural, one {Közreműködő csapat • {count,number} tag} other {Közreműködő csapat • {count,number} tag}}',
+  'people-and-teams.team-profile-card.team-connections': 'Csapatlinkek',
+  'people-and-teams.team-profile-card.team-connections-header': 'Ahol dolgozunk',
+  'people-and-teams.team-profile-card.team-profile-description': 'Csapatprofil',
+  'people-and-teams.team-profile-card.view-profile': 'Profil megtekintése',
   'profilecard.agent-profile-card.delete-agent-error-flag-description':
     'Hiba történt az ügynök törlésekor. Próbáld újra kicsit később.',
   'profilecard.agent-profile-card.delete-agent-error-flag-title': 'Az ügynök törlése nem sikerült',
@@ -46,6 +53,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week': 'A fiókját ezen a héten inaktiváltuk.',
   'pt.profile-card.inactive.account.no.date': 'A fiókját inaktiváltuk.',
   'pt.profile-card.more-icon-label': 'Továbbiak',
+  'pt.team-profile-card.aria-label': 'További információ erről a csapatról',
   'pt.team-profile-card.directReports.heading': 'Közvetlen beosztottak',
   'pt.team-profile-card.error.refresh-button': 'Próbáld újra',
   'pt.team-profile-card.error.suggestion': 'Várj egy pillanatot, majd próbálkozz újra.',
@@ -63,4 +71,6 @@ export default {
     '{count, plural, one {+{count} további tag} other {+{count} további tag}}',
   'pt.user-profile-card.reporting-lines.more-icon-label':
     '{count, plural, one {+{count} további profil} other {+{count} további profil}}',
+  'team-profile-card.team-actions.give-kudos': 'Dicséret',
+  'team-profile-card.team-actions.more-actions.show-more-icon-label': 'Több megjelenítése',
 };

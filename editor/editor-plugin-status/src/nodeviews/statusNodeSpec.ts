@@ -15,7 +15,7 @@ export const statusToDOM = (node: PMNode): DOMOutputSpec => {
 		class: 'statusView-content-wrap inlineNodeView',
 		'data-testid': 'statusContainerView',
 		'data-prosemirror-node-name': 'status',
-		'localid': localId,
+		localid: localId,
 	};
 
 	const statusElementAttrs = {

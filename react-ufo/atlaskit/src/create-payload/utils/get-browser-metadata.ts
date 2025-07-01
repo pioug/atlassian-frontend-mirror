@@ -42,12 +42,16 @@ export default function getBrowserMetadata() {
 	}
 
 	if (typeof navigator !== 'undefined' && navigator.hardwareConcurrency != null) {
-		if (!data.device) {data.device = {};}
+		if (!data.device) {
+			data.device = {};
+		}
 		data.device.cpus = navigator.hardwareConcurrency;
 	}
 
 	if (typeof navigator !== 'undefined' && (navigator as any).deviceMemory != null) {
-		if (!data.device) {data.device = {};}
+		if (!data.device) {
+			data.device = {};
+		}
 		data.device.memory = (navigator as any).deviceMemory;
 	}
 

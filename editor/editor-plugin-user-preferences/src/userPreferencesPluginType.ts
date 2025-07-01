@@ -25,7 +25,9 @@ export type UserPreferencesPluginOptions = {
 
 export type PrefKey = keyof UserPreferences;
 export type ResolvedPrefKey = keyof ResolvedUserPreferences;
-export type UserPreferencesSharedState = { preferences: ResolvedUserPreferences };
+export type UserPreferencesSharedState = {
+	preferences: ResolvedUserPreferences;
+};
 
 export type UserPreferencesPlugin = NextEditorPlugin<
 	'userPreferences',

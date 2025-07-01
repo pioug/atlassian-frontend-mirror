@@ -7,6 +7,12 @@
  */
 //Chinese (Traditional)
 export default {
+  'people-and-teams.team-profile-card.large-member-count': '參與的團隊 • {memberCount} 名成員',
+  'people-and-teams.team-profile-card.member-count': '{count, plural, other {參與的團隊 • {count,number} 名成員}}',
+  'people-and-teams.team-profile-card.team-connections': '團隊連結',
+  'people-and-teams.team-profile-card.team-connections-header': '我們的工作位置',
+  'people-and-teams.team-profile-card.team-profile-description': '團隊設定檔',
+  'people-and-teams.team-profile-card.view-profile': '檢視設定檔',
   'profilecard.agent-profile-card.delete-agent-error-flag-description': '刪除客服人員時發生錯誤。請稍後再試一次。',
   'profilecard.agent-profile-card.delete-agent-error-flag-title': '無法刪除客服人員',
   'profilecard.agent-profile-card.delete-agent-success-flag-description': '你已刪除「{agentName}」',
@@ -43,6 +49,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week': '其帳戶在本週已停用。',
   'pt.profile-card.inactive.account.no.date': '其帳戶已停用。',
   'pt.profile-card.more-icon-label': '更多',
+  'pt.team-profile-card.aria-label': '有關此團隊的更多資訊',
   'pt.team-profile-card.directReports.heading': '直接報告',
   'pt.team-profile-card.error.refresh-button': '再試一次',
   'pt.team-profile-card.error.suggestion': '請稍候，然後再試一次。',
@@ -57,4 +64,6 @@ export default {
   'pt.team-profile-card.team.member.many-including-you': '團隊 • 50 名以上的成員，包含您',
   'pt.team.profile-card.members.more-icon-label': '{count, plural, other {+其他 {count} 位成員}}',
   'pt.user-profile-card.reporting-lines.more-icon-label': '{count, plural, other {+其他 {count} 個設定檔}}',
+  'team-profile-card.team-actions.give-kudos': '給予讚美',
+  'team-profile-card.team-actions.more-actions.show-more-icon-label': '顯示更多',
 };

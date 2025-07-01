@@ -33,9 +33,10 @@ export class UserPreferencesProvider {
 		const initialUserPreferences = this.persistenceAPI.getInitialUserPreferences?.();
 		if (initialUserPreferences) {
 			this.setUserPreferences(initialUserPreferences);
-		} else {
-			this.loadPreferences();
 		}
+		// the initial user preferences might come from the local cache,
+		// so we need to always load the preferences
+		this.loadPreferences();
 	}
 
 	/**
@@ -128,10 +129,10 @@ export class UserPreferencesProvider {
 		this.userPreferences = userPreferences;
 		const hasUpdated = this.resolveUserPreferences();
 		if (hasUpdated || !this.initialized) {
+			if (!this.initialized) {
+				this.initialized = true;
+			}
 			this.notifyUserPreferencesUpdated();
-		}
-		if (!this.initialized) {
-			this.initialized = true;
 		}
 	}
 

@@ -7,6 +7,13 @@
  */
 //
 export default {
+  'people-and-teams.team-profile-card.large-member-count': 'Contributing team &bull; {memberCount} members',
+  'people-and-teams.team-profile-card.member-count':
+    'Contributing team &bull; {count, plural, one {# member} other {# members}}',
+  'people-and-teams.team-profile-card.team-connections': 'Team links',
+  'people-and-teams.team-profile-card.team-connections-header': 'Where we work',
+  'people-and-teams.team-profile-card.team-profile-description': 'Team profile',
+  'people-and-teams.team-profile-card.view-profile': 'View profile',
   'profilecard.agent-profile-card.delete-agent-error-flag-description':
     'Something went wrong while deleting the agent. Try again in a few moments.',
   'profilecard.agent-profile-card.delete-agent-error-flag-title': 'Failed to delete Agent',
@@ -46,6 +53,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week': 'Their account was deactivated this week.',
   'pt.profile-card.inactive.account.no.date': 'Their account has been deactivated.',
   'pt.profile-card.more-icon-label': 'More',
+  'pt.team-profile-card.aria-label': 'More information about this team',
   'pt.team-profile-card.directReports.heading': 'Direct reports',
   'pt.team-profile-card.error.refresh-button': 'Try again',
   'pt.team-profile-card.error.suggestion': 'Wait a few moments, then try again.',
@@ -63,8 +71,6 @@ export default {
   'pt.user-profile-card.reporting-lines.more-icon-label':
     '+{count} more {count, plural, one {profile} other {profiles}}',
   'ptc-directory.agent-profile.action.dropdown.chat-to-agent.nonfinal': 'Chat to Agent',
-  'ptc-directory.agent-profile.action.dropdown.copy-link.nonfinal': 'Copy link',
-  'ptc-directory.agent-profile.action.dropdown.delete.nonfinal': 'Delete Agent',
-  'ptc-directory.agent-profile.action.dropdown.duplicate.nonfinal': 'Duplicate Agent',
-  'ptc-directory.agent-profile.action.dropdown.edit.nonfinal': 'Edit Agent',
+  'team-profile-card.team-actions.give-kudos': 'Give kudos',
+  'team-profile-card.team-actions.more-actions.show-more-icon-label': 'Show more',
 };

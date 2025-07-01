@@ -1,0 +1,78 @@
+{
+	"extends": "../../../../tsconfig.entry-points.volt.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../volt/tsDist/@atlaskit__emoji/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/button/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/css/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/heading/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../media/media-client/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../media/media-client-react/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags-react/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../react-ufo/atlaskit/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/spinner/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/textfield/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../data/ufo-external/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../util-service-support/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/visually-hidden/afm-volt/tsconfig.json"
+		}
+	]
+}

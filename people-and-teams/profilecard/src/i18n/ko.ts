@@ -7,6 +7,12 @@
  */
 //Korean
 export default {
+  'people-and-teams.team-profile-card.large-member-count': '기여하는 팀 • {memberCount}명의 구성원',
+  'people-and-teams.team-profile-card.member-count': '{count, plural, other {기여하는 팀 • {count,number}명의 구성원}}',
+  'people-and-teams.team-profile-card.team-connections': '팀 링크',
+  'people-and-teams.team-profile-card.team-connections-header': '우리가 작업하는 곳',
+  'people-and-teams.team-profile-card.team-profile-description': '팀 프로필',
+  'people-and-teams.team-profile-card.view-profile': '프로필 보기',
   'profilecard.agent-profile-card.delete-agent-error-flag-description':
     '에이전트를 삭제하는 동안 문제가 발생했습니다. 잠시 후에 다시 시도하세요.',
   'profilecard.agent-profile-card.delete-agent-error-flag-title': '에이전트를 삭제하지 못함',
@@ -45,6 +51,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week': '계정이 이번 주에 비활성화되었습니다.',
   'pt.profile-card.inactive.account.no.date': '계정이 비활성화되었습니다.',
   'pt.profile-card.more-icon-label': '더 보기',
+  'pt.team-profile-card.aria-label': '이 팀에 대한 추가 정보',
   'pt.team-profile-card.directReports.heading': '부하 직원',
   'pt.team-profile-card.error.refresh-button': '다시 시도',
   'pt.team-profile-card.error.suggestion': '잠시 기다린 후에 다시 시도하세요.',
@@ -60,4 +67,6 @@ export default {
   'pt.team-profile-card.team.member.many-including-you': '팀 • 자신을 포함하여 구성원 50명 이상',
   'pt.team.profile-card.members.more-icon-label': '{count, plural, other {+{count}명의 구성원}}',
   'pt.user-profile-card.reporting-lines.more-icon-label': '{count, plural, other {+{count}개의 프로필}}',
+  'team-profile-card.team-actions.give-kudos': '칭찬하기',
+  'team-profile-card.team-actions.more-actions.show-more-icon-label': '더 보기',
 };

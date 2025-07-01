@@ -36,6 +36,7 @@ import {
 } from './styles/blockTypeStyles';
 import {
 	codeBlockStyles,
+	codeBgColorStyles,
 	firstCodeBlockWithNoMargin,
 	firstCodeBlockWithNoMarginOld,
 } from './styles/codeBlockStyles';
@@ -53,7 +54,11 @@ import {
 	expandStylesMixin_without_fg_platform_editor_nested_dnd_styles_changes,
 } from './styles/expandStyles';
 import { extensionStyles } from './styles/extensionStyles';
-import { findReplaceStyles, findReplaceStylesNew } from './styles/findReplaceStyles';
+import {
+	findReplaceStyles,
+	findReplaceStylesNewMagenta,
+	findReplaceStylesNewYellow,
+} from './styles/findReplaceStyles';
 import { firstBlockNodeStyles } from './styles/firstBlockNodeStyles';
 import { firstFloatingToolbarButtonStyles } from './styles/floatingToolbarStyles';
 import { fullPageEditorStyles } from './styles/fullPageEditorStyles';
@@ -227,6 +232,8 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					codeBlockStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					!fg('platform_editor_fix_code_block_bg_color_in_macro_2') && codeBgColorStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					!fg('platform_editor_typography_ugc') && editorUGCTokensDefault,
 					fg('platform_editor_typography_ugc') &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -296,8 +303,11 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					fg('platform-visual-refresh-icons') && expandStylesMixin_fg_platform_visual_refresh_icons,
 					expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
-						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							findReplaceStylesNew
+						? fg('platform_editor_find_and_replace_magenta_match')
+							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+								findReplaceStylesNewMagenta
+							: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+								findReplaceStylesNewYellow
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							findReplaceStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

@@ -1,6 +1,7 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type RevisionPayloadEntry } from '../../common/vc/types';
+import { SSRPlaceholderHandlers } from '../vc-observer/observers/ssr-placeholders';
 
 import EntriesTimeline from './entries-timeline';
 import getElementName, { type SelectorConfig } from './get-element-name';
@@ -14,6 +15,29 @@ import WindowEventObserver from './window-event-observer';
 export type VCObserverNewConfig = {
 	selectorConfig?: SelectorConfig;
 	isPostInteraction?: boolean;
+	SSRConfig?: {
+		enablePageLayoutPlaceholder?: boolean;
+		disableSizeAndPositionCheck?: {
+			v: boolean;
+			h: boolean;
+		};
+	};
+	ssrPlaceholderHandler?: SSRPlaceholderHandlers | null;
+};
+
+const SSRState = {
+	normal: 1,
+	waitingForFirstRender: 2,
+	ignoring: 3,
+} as const;
+
+type SSRStateType = (typeof SSRState)[keyof typeof SSRState];
+
+type SSRInclusiveState = {
+	state: SSRStateType;
+	reactRootElement: HTMLElement | null;
+	renderStop: number;
+	renderStart: number;
 };
 
 const DEFAULT_SELECTOR_CONFIG = {
@@ -32,11 +56,33 @@ export default class VCObserverNew {
 	private entriesTimeline: EntriesTimeline;
 	private isPostInteraction: boolean;
 
+	// SSR related properties
+	private ssrPlaceholderHandler: SSRPlaceholderHandlers | null = null;
+	private ssr: SSRInclusiveState = {
+		state: SSRState.normal,
+		reactRootElement: null,
+		renderStart: -1,
+		renderStop: -1,
+	};
+
 	constructor(config: VCObserverNewConfig) {
 		this.entriesTimeline = new EntriesTimeline();
 		this.isPostInteraction = config.isPostInteraction ?? false;
 
 		this.selectorConfig = config.selectorConfig ?? DEFAULT_SELECTOR_CONFIG;
+
+		// Use shared SSR placeholder handler if provided, otherwise create new one if feature flag is enabled
+		if (config.ssrPlaceholderHandler) {
+			this.ssrPlaceholderHandler = config.ssrPlaceholderHandler;
+		} else {
+			this.ssrPlaceholderHandler = new SSRPlaceholderHandlers({
+				enablePageLayoutPlaceholder: config.SSRConfig?.enablePageLayoutPlaceholder ?? false,
+				disableSizeAndPositionCheck: config.SSRConfig?.disableSizeAndPositionCheck ?? {
+					v: false,
+					h: false,
+				},
+			});
+		}
 
 		this.viewportObserver = new ViewportObserver({
 			onChange: (onChangeArg) => {
@@ -62,6 +108,9 @@ export default class VCObserverNew {
 					},
 				});
 			},
+			// Pass SSR context to ViewportObserver
+			getSSRState: () => this.getSSRState(),
+			getSSRPlaceholderHandler: () => this.getSSRPlaceholderHandler(),
 		});
 
 		this.windowEventObserver = new WindowEventObserver({
@@ -78,6 +127,14 @@ export default class VCObserverNew {
 	}
 
 	start({ startTime }: { startTime: DOMHighResTimeStamp }) {
+		// Reset SSR state on start (matches old VCObserver behavior)
+		this.ssr = {
+			state: SSRState.normal,
+			reactRootElement: null, // Reset to null (matches old VCObserver)
+			renderStart: -1,
+			renderStop: -1,
+		};
+
 		this.viewportObserver?.start();
 
 		if (window?.__SSR_ABORT_LISTENERS__ && fg('platform_ufo_vc_observer_new_ssr_abort_listener')) {
@@ -106,6 +163,37 @@ export default class VCObserverNew {
 	stop() {
 		this.viewportObserver?.stop();
 		this.windowEventObserver?.stop();
+
+		// Clear SSR state on stop (matches old VCObserver behavior)
+		this.ssr.reactRootElement = null;
+	}
+
+	// SSR related methods
+	setReactRootElement(element: HTMLElement) {
+		this.ssr.reactRootElement = element;
+	}
+
+	setReactRootRenderStart(startTime: number = performance.now()) {
+		this.ssr.renderStart = startTime;
+		this.ssr.state = SSRState.waitingForFirstRender;
+	}
+
+	setReactRootRenderStop(stopTime: number = performance.now()) {
+		this.ssr.renderStop = stopTime;
+	}
+
+	collectSSRPlaceholders() {
+		// This is handled by the shared SSRPlaceholderHandlers in VCObserverWrapper
+		// Individual observers don't need to implement this
+	}
+
+	// Internal methods for ViewportObserver to access SSR state
+	getSSRState(): SSRInclusiveState {
+		return this.ssr;
+	}
+
+	getSSRPlaceholderHandler(): SSRPlaceholderHandlers | null {
+		return this.ssrPlaceholderHandler;
 	}
 
 	addSSR(ssr: number) {

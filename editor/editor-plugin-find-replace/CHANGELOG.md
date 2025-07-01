@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 2.10.5
+
+### Patch Changes
+
+- [#179882](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/179882)
+  [`fe56fd0f3672a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fe56fd0f3672a) -
+  [ux] ED-28404 change find and replace match colours from yellow to magenta
+
 ## 2.10.4
 
 ### Patch Changes

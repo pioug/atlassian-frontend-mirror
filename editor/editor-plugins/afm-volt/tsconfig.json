@@ -1,0 +1,291 @@
+{
+	"extends": "../../../../tsconfig.entry-points.volt.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../volt/tsDist/@atlaskit__editor-plugins/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../editor-plugin-accessibility-utils/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-alignment/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-analytics/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-annotation/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-avatar-group/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-base/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-batch-attribute-updates/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-before-primary-toolbar/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-better-type-history/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-block-controls/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-block-type/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-border/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-breakout/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-caption/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-card/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-clear-marks-on-empty-doc/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-clipboard/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-code-bidi-warning/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-code-block/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-collab-edit/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-composition/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-connectivity/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-content-insertion/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-context-identifier/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-context-panel/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-copy-button/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-custom-autoformat/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-data-consumer/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-date/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-decorations/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-editor-disabled/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-editor-viewmode/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-editor-viewmode-effects/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-emoji/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-engagement-platform/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-expand/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-extension/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-feature-flags/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-feedback-dialog/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-find-replace/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-floating-toolbar/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-focus/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-fragment/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-grid/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-guideline/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-help-dialog/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-highlight/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-history/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-hyperlink/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-image-upload/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-indentation/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-insert-block/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-interaction/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-layout/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-list/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-loom/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-max-content-size/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-media/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-media-insert/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-mentions/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-metrics/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-ncs-step-metrics/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-panel/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-paste/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-paste-options-toolbar/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-placeholder/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-placeholder-text/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-primary-toolbar/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-quick-insert/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-rule/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-save-on-enter/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-scroll-into-view/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-selection/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-selection-extension/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-selection-marker/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-selection-toolbar/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-status/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-submit-editor/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-table/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-tasks-and-decisions/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-text-color/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-text-formatting/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-toolbar-lists-indentation/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-type-ahead/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-ufo/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-undo-redo/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-unsupported-content/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-user-intent/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-user-preferences/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-width/afm-volt/tsconfig.json"
+		}
+	]
+}

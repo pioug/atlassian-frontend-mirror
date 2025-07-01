@@ -62,6 +62,8 @@ export default {
   'focused-task-close-account.delete-account.overview.first.line.self': 'Olet poistamassa tilisi:',
   'focused-task-close-account.delete-account.overview.heading.admin': 'Poista tili',
   'focused-task-close-account.delete-account.overview.heading.self': 'Poista tilisi',
+  'focused-task-close-account.delete-account.overview.inline-dialog.content-created-issue-refresh.admin':
+    'Esimerkiksi sivut, työtehtävät ja kommentit, jotka käyttäjä on luonut tuotteissa.',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin':
     'Esimerkiksi, sivut, asiat ja kommentit, jotka hän on luonut tuotteissa.',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':

@@ -22,9 +22,19 @@ export const CardSSR = (props: CardSSRProps) => {
 		id,
 	};
 
+	const ErrorFallbackComponent = cardProps.fallbackComponent;
+
+	const errorBoundaryFallbackComponent = () => {
+		if (ErrorFallbackComponent) {
+			return <ErrorFallbackComponent />;
+		}
+
+		return <LoadingCardLink {...cardProps} />;
+	};
+
 	return (
 		<AnalyticsContext data={context}>
-			<ErrorBoundary FallbackComponent={() => <LoadingCardLink {...cardProps} />}>
+			<ErrorBoundary FallbackComponent={errorBoundaryFallbackComponent}>
 				<CardWithUrlContent {...cardProps} />
 			</ErrorBoundary>
 		</AnalyticsContext>

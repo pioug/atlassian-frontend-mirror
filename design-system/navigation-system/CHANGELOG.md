@@ -1,5 +1,13 @@
 # @atlassian/navigation-system
 
+## 0.167.3
+
+### Patch Changes
+
+- [#178797](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/178797)
+  [`d82f0a6bd7dd9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82f0a6bd7dd9) -
+  Removing temporary test ids to the collapse toggle icons for a performance investigation
+
 ## 0.167.2
 
 ### Patch Changes

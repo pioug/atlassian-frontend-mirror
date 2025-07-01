@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 3.8.0
+
+### Minor Changes
+
+- [#177157](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/177157)
+  [`6bcf8912217df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6bcf8912217df) -
+  ED-27284 additional integration with user preference plugin
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.7.6
 
 ### Patch Changes

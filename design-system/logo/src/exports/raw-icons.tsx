@@ -36,5 +36,5 @@ export {
 	studioIcon,
 	talentIcon,
 	teamsIcon,
-	trelloIcon
-} from "@atlaskit/temp-nav-app-icons/raw-icons"
+	trelloIcon,
+} from '@atlaskit/temp-nav-app-icons/raw-icons';

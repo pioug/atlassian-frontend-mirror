@@ -1,0 +1,54 @@
+{
+	"extends": "../../../../tsconfig.entry-points.volt.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../volt/tsDist/@atlaskit__media-filmstrip/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../../design-system/icon/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/link/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../media-card/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../media-client/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../media-client-react/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../media-common/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../media-viewer/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../media-core/afm-volt/tsconfig.json"
+		}
+	]
+}

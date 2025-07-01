@@ -146,17 +146,7 @@ export const SideNavToggleButton = ({
 	 */
 	const icon = (props: NewCoreIconProps) => (
 		<span css={silentIconStyles}>
-			{isSideNavExpanded ? (
-				<SidebarCollapseIcon
-					{...props}
-					testId={testId ? `${testId}-collapse-icon-temp-do-not-use` : undefined}
-				/>
-			) : (
-				<SidebarExpandIcon
-					{...props}
-					testId={testId ? `${testId}-expand-icon-temp-do-not-use` : undefined}
-				/>
-			)}
+			{isSideNavExpanded ? <SidebarCollapseIcon {...props} /> : <SidebarExpandIcon {...props} />}
 		</span>
 	);
 

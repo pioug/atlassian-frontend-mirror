@@ -1,0 +1,54 @@
+{
+	"extends": "../../../../tsconfig.entry-points.volt.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../volt/tsDist/@atlaskit__atlassian-navigation/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-namespaced-context/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../button/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../ds-lib/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../icon/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../logo/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../popup/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../theme/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../tokens/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../tooltip/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../width-detector/afm-volt/tsconfig.json"
+		}
+	]
+}

@@ -1,0 +1,60 @@
+{
+	"extends": "../../../../tsconfig.entry-points.volt.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../volt/tsDist/@atlaskit__feedback-collector/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../../design-system/button/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/checkbox/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/flag/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/form/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/link/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/modal-dialog/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/section-message/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/select/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/textarea/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-volt/tsconfig.json"
+		}
+	]
+}

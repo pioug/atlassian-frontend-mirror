@@ -25,11 +25,18 @@ const createPasswordRequiredError = () =>
 // but make sure it calls the content callback to trigger password flow
 jest.mock('@atlaskit/media-document-viewer', () => ({
 	__esModule: true,
-	DocumentViewer: ({ getContent, getPageImageUrl, zoom }: any) => {
+	DocumentViewer: ({ getContent, getPageImageUrl, zoom, onSuccess }: any) => {
 		// Call getContent to test error handling paths and trigger password flow
 		React.useEffect(() => {
-			getContent(0, 1).catch(() => {});
-		}, [getContent]);
+			getContent(0, 1)
+				.then(() => {
+					// Call onSuccess when content loads successfully
+					if (onSuccess) {
+						onSuccess();
+					}
+				})
+				.catch(() => {});
+		}, [getContent, onSuccess]);
 
 		return (
 			<div data-testid="media-document-viewer" data-zoom={zoom}>
@@ -41,6 +48,7 @@ jest.mock('@atlaskit/media-document-viewer', () => ({
 }));
 
 describe('<DocViewer />', () => {
+	const mockOnSuccess = jest.fn();
 	const mockOnError = jest.fn();
 
 	beforeEach(() => {
@@ -67,6 +75,7 @@ describe('<DocViewer />', () => {
 	const renderDocViewer = (
 		fileItem = generateSampleFileItem.workingPdfWithRemotePreview()[0],
 		mediaApi = createMockedMediaApi(fileItem).mediaApi,
+		onSuccess = mockOnSuccess,
 	) => {
 		// Convert ResponseFileItem to FileState format
 		const fileState = {
@@ -87,6 +96,7 @@ describe('<DocViewer />', () => {
 						fileState={fileState}
 						collectionName="test-collection"
 						onError={mockOnError}
+						onSuccess={onSuccess}
 						traceContext={traceContext}
 					/>
 				</MockedMediaClientProvider>
@@ -437,6 +447,24 @@ describe('<DocViewer />', () => {
 					traceContext,
 				);
 			});
+		});
+	});
+
+	it('should call onSuccess when provided', async () => {
+		const [fileItem] = generateSampleFileItem.workingPdfWithRemotePreview();
+		const { mediaApi } = createMockedMediaApi(fileItem);
+		const mockOnSuccessLocal = jest.fn();
+
+		jest.spyOn(mediaApi, 'getDocumentContent').mockResolvedValue(mockDocumentContent);
+		jest.spyOn(mediaApi, 'getDocumentPageImage').mockResolvedValue(new Blob());
+
+		renderDocViewer(fileItem, mediaApi, mockOnSuccessLocal);
+
+		expect(await screen.findByTestId('media-document-viewer')).toBeInTheDocument();
+
+		// Verify onSuccess was called after successful content load
+		await waitFor(() => {
+			expect(mockOnSuccessLocal).toHaveBeenCalledTimes(1);
 		});
 	});
 });

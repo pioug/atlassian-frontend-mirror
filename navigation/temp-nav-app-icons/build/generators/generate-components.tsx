@@ -141,12 +141,13 @@ const getLogoJSX = (
 
 	let typeImport = `import type { ${propType} } from '../../utils/types';\n`;
 
-	const deprecationText = type === "icon" ?
-	`
+	const deprecationText =
+		type === 'icon'
+			? `
  * @deprecated This component has been replaced by the component \`${componentName}\` in \`@atlaskit/logo\`.
  * Please migrate any usages of this temporary component, using the prop \`shouldUseNewLogoDesign\` where necessary
- * to enable the new design by default.` :
-  '';
+ * to enable the new design by default.`
+			: '';
 
 	return `import React from 'react';
 
@@ -158,7 +159,7 @@ ${customThemeSvg ? `const customThemeSvg = \`${customThemeSvg}\`;\n` : ''}
 /**
  * __${componentName}__
  *
- * A temporary component to represent the ${type === "logo-cs" ? "logo" : type} for ${productLabel}.${deprecationText}
+ * A temporary component to represent the ${type === 'logo-cs' ? 'logo' : type} for ${productLabel}.${deprecationText}
  *
  */
 export function ${componentName}({

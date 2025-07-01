@@ -63,6 +63,8 @@ export default {
   'focused-task-close-account.delete-account.overview.first.line.self': 'A fiók törlésére készül:',
   'focused-task-close-account.delete-account.overview.heading.admin': 'Fiók törlése',
   'focused-task-close-account.delete-account.overview.heading.self': 'Az Ön fiókjának törlése',
+  'focused-task-close-account.delete-account.overview.inline-dialog.content-created-issue-refresh.admin':
+    'Például a termékekben létrehozott oldalak, ügyek és megjegyzések.',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin':
     'Például a termékekben létrehozott oldalak, ügyek és megjegyzések.',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':

@@ -123,8 +123,14 @@ describe('ViewportObserver', () => {
 		});
 		describe('onChildListMutation', () => {
 			it('should handle added node', () => {
+				const targetElement = document.createElement('div');
 				const node1 = document.createElement('div');
-				onChildListMutation({ addedNodes: [new WeakRef(node1)], removedNodes: [] });
+				onChildListMutation({
+					target: new WeakRef(targetElement),
+					addedNodes: [new WeakRef(node1)],
+					removedNodes: [],
+					timestamp: 100,
+				});
 
 				expect(mockIntersectionObserver.watchAndTag).toHaveBeenCalledWith(
 					node1,
@@ -143,9 +149,15 @@ describe('ViewportObserver', () => {
 			});
 
 			it('should handle rll placeholder elements', () => {
+				const targetElement = document.createElement('div');
 				const rllNode = document.createElement('div');
 				mockIsRLLPlaceholderHydration.mockReturnValue(true);
-				onChildListMutation({ addedNodes: [new WeakRef(rllNode)], removedNodes: [] });
+				onChildListMutation({
+					target: new WeakRef(targetElement),
+					addedNodes: [new WeakRef(rllNode)],
+					removedNodes: [],
+					timestamp: 100,
+				});
 
 				expect(mockIntersectionObserver.watchAndTag).toHaveBeenCalledWith(
 					rllNode,
@@ -166,6 +178,7 @@ describe('ViewportObserver', () => {
 			});
 
 			it('should handle element remount', () => {
+				const targetElement = document.createElement('div');
 				const oldNode = document.createElement('div');
 				oldNode.id = 'id1';
 
@@ -182,8 +195,10 @@ describe('ViewportObserver', () => {
 				newNode.id = 'id1'; // same id as old
 
 				onChildListMutation({
+					target: new WeakRef(targetElement),
 					addedNodes: [new WeakRef(newNode)],
 					removedNodes: [new WeakRef(oldNode)],
+					timestamp: 100,
 				});
 
 				expect(mockIntersectionObserver.watchAndTag).toHaveBeenCalledWith(
@@ -193,6 +208,7 @@ describe('ViewportObserver', () => {
 			});
 
 			it('should handle element replacement', () => {
+				const targetElement = document.createElement('div');
 				const oldNode = document.createElement('div');
 				oldNode.id = 'old';
 
@@ -210,8 +226,10 @@ describe('ViewportObserver', () => {
 				const newRect = new DOMRect(0, 0, 10, 10);
 
 				onChildListMutation({
+					target: new WeakRef(targetElement),
 					addedNodes: [new WeakRef(newNode)],
 					removedNodes: [new WeakRef(oldNode)],
+					timestamp: 100,
 				});
 
 				expect(mockIntersectionObserver.watchAndTag).toHaveBeenCalledWith(
@@ -231,9 +249,15 @@ describe('ViewportObserver', () => {
 			});
 
 			it('should handle media wrapper elements', () => {
+				const targetElement = document.createElement('div');
 				const mediaNode = document.createElement('div');
 				(isContainedWithinMediaWrapper as jest.Mock).mockReturnValue(true);
-				onChildListMutation({ addedNodes: [new WeakRef(mediaNode)], removedNodes: [] });
+				onChildListMutation({
+					target: new WeakRef(targetElement),
+					addedNodes: [new WeakRef(mediaNode)],
+					removedNodes: [],
+					timestamp: 100,
+				});
 				expect(isContainedWithinMediaWrapper).toHaveBeenCalledWith(mediaNode);
 				expect(mockIntersectionObserver.watchAndTag).toHaveBeenCalledWith(
 					mediaNode,

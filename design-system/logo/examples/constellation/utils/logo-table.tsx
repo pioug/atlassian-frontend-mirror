@@ -9,7 +9,13 @@ const tableStyle = css({
 	width: '415px',
 });
 
-const LogoTable = ({ logo: Logo, icon: Icon }: { logo: React.ReactNode | React.ReactNode[], icon: React.ReactNode | React.ReactNode[] }) => {
+const LogoTable = ({
+	logo: Logo,
+	icon: Icon,
+}: {
+	logo: React.ReactNode | React.ReactNode[];
+	icon: React.ReactNode | React.ReactNode[];
+}) => {
 	return (
 		<div>
 			<table>
@@ -22,13 +28,15 @@ const LogoTable = ({ logo: Logo, icon: Icon }: { logo: React.ReactNode | React.R
 				<tbody>
 					<tr>
 						<td css={tableStyle}>
-							{Array.isArray(Logo) ? Logo.map((logo, index) => (
-								<div key={index}>{logo}</div>
-							)) : Logo}
+							{Array.isArray(Logo)
+								? Logo.map((logo, index) => <div key={index}>{logo}</div>)
+								: Logo}
 						</td>
-						<td>{Array.isArray(Icon) ? Icon.map((icon, index) => (
-							<div key={index}>{icon}</div>
-						)) : Icon}</td>
+						<td>
+							{Array.isArray(Icon)
+								? Icon.map((icon, index) => <div key={index}>{icon}</div>)
+								: Icon}
+						</td>
 					</tr>
 				</tbody>
 			</table>

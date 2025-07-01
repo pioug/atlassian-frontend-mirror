@@ -7,6 +7,13 @@
  */
 //Swedish
 export default {
+  'people-and-teams.team-profile-card.large-member-count': 'Bidragande team • {memberCount} medlemmar',
+  'people-and-teams.team-profile-card.member-count':
+    '{count, plural, one {Bidragande team • {count,number} medlem} other {Bidragande team • {count,number} medlemmar}}',
+  'people-and-teams.team-profile-card.team-connections': 'Teamlänkar',
+  'people-and-teams.team-profile-card.team-connections-header': 'Var vi arbetar',
+  'people-and-teams.team-profile-card.team-profile-description': 'Teamprofil',
+  'people-and-teams.team-profile-card.view-profile': 'Visa profil',
   'profilecard.agent-profile-card.delete-agent-error-flag-description':
     'Något gick fel när agenten skulle tas bort. Försök igen om en stund.',
   'profilecard.agent-profile-card.delete-agent-error-flag-title': 'Det gick inte att ta bort agenten',
@@ -46,6 +53,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week': 'Personens konto inaktiverades den här veckan.',
   'pt.profile-card.inactive.account.no.date': 'Personens konto har inaktiverats.',
   'pt.profile-card.more-icon-label': 'Mer',
+  'pt.team-profile-card.aria-label': 'Mer information om teamet',
   'pt.team-profile-card.directReports.heading': 'Direkt underordnade',
   'pt.team-profile-card.error.refresh-button': 'Försök igen',
   'pt.team-profile-card.error.suggestion': 'Vänta ett tag och försök igen.',
@@ -64,4 +72,6 @@ export default {
     '{count, plural, one {{count} medlem till} other {{count} medlemmar till}}',
   'pt.user-profile-card.reporting-lines.more-icon-label':
     '{count, plural, one {{count} profil till} other {{count} profiler till}}',
+  'team-profile-card.team-actions.give-kudos': 'Ge beröm',
+  'team-profile-card.team-actions.more-actions.show-more-icon-label': 'Visa mer',
 };

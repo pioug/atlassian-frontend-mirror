@@ -100,6 +100,7 @@ type PageProps = {
 	zoom: number;
 	defaultDimensions?: { width: number; height: number };
 	onVisible: () => void;
+	onLoad?: () => void;
 };
 
 type PageViewProps = {
@@ -171,6 +172,7 @@ export const Page = ({
 	zoom,
 	defaultDimensions,
 	onVisible,
+	onLoad,
 }: PageProps) => {
 	const [imageSrc, setImageSrc] = useState<string | undefined>();
 	const { observedRef, isVisibleRef } = useIntersectionObserver(
@@ -191,6 +193,7 @@ export const Page = ({
 
 	const onImageLoad = useStaticCallback((event: React.SyntheticEvent<HTMLImageElement>) => {
 		const image = event.currentTarget;
+		onLoad?.();
 
 		if (!content) {
 			const zoom = image.dataset.zoom ? Number(image.dataset.zoom) : 1;

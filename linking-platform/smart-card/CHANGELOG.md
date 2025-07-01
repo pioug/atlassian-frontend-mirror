@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 38.20.0
+
+### Minor Changes
+
+- [#175651](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175651)
+  [`ac94e060dd41f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ac94e060dd41f) -
+  [ux] updated error handling of CardSSR component to use fallback component
+
 ## 38.19.0
 
 ### Minor Changes

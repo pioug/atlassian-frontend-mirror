@@ -1,5 +1,14 @@
 # @atlaskit/link-create
 
+## 4.1.7
+
+### Patch Changes
+
+- [#178915](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/178915)
+  [`88ef2ded109f8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88ef2ded109f8) -
+  Adds support for `/Create Confluence page` one step extension to insert view page link when draft
+  redirect is enabled
+
 ## 4.1.6
 
 ### Patch Changes

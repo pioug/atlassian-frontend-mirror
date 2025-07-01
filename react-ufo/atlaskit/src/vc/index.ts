@@ -6,6 +6,7 @@ import type { GetVCResultType, VCObserverInterface, VCObserverOptions } from './
 import { VCObserver } from './vc-observer';
 import VCObserverNew from './vc-observer-new';
 import { RLLPlaceholderHandlers } from './vc-observer/observers/rll-placeholders';
+import { SSRPlaceholderHandlers } from './vc-observer/observers/ssr-placeholders';
 
 export type { VCRevisionDebugDetails } from './vc-observer/getVCRevisionDebugDetails';
 
@@ -16,20 +17,35 @@ declare global {
 export class VCObserverWrapper implements VCObserverInterface {
 	private oldVCObserver: VCObserver | null;
 	private newVCObserver: VCObserverNew | null;
+	private ssrPlaceholderHandler: SSRPlaceholderHandlers;
 
 	constructor(opts: VCObserverOptions = {}) {
 		this.newVCObserver = null;
-
 		this.oldVCObserver = null;
+
+		// Initialize SSR placeholder handler once
+		this.ssrPlaceholderHandler = new SSRPlaceholderHandlers({
+			enablePageLayoutPlaceholder: opts.ssrEnablePageLayoutPlaceholder ?? false,
+			disableSizeAndPositionCheck: opts.disableSizeAndPositionCheck ?? { v: false, h: false },
+		});
 
 		if (isVCRevisionEnabled('fy25.03')) {
 			this.newVCObserver = new VCObserverNew({
 				selectorConfig: opts.selectorConfig,
+				isPostInteraction: opts.isPostInteraction,
+				SSRConfig: {
+					enablePageLayoutPlaceholder: opts.ssrEnablePageLayoutPlaceholder ?? false,
+					disableSizeAndPositionCheck: opts.disableSizeAndPositionCheck ?? { v: false, h: false },
+				},
+				ssrPlaceholderHandler: this.ssrPlaceholderHandler,
 			});
 		}
 
 		if (isVCRevisionEnabled('fy25.01') || isVCRevisionEnabled('fy25.02')) {
-			this.oldVCObserver = new VCObserver(opts);
+			this.oldVCObserver = new VCObserver({
+				...opts,
+				ssrPlaceholderHandler: this.ssrPlaceholderHandler,
+			});
 		}
 	}
 
@@ -85,6 +101,8 @@ export class VCObserverWrapper implements VCObserverInterface {
 		}
 
 		RLLPlaceholderHandlers.getInstance().reset();
+		// Clear shared SSR placeholder handler
+		this.ssrPlaceholderHandler.clear();
 	}
 
 	getVCRawData(): VCRawDataType | null {
@@ -122,12 +140,18 @@ export class VCObserverWrapper implements VCObserverInterface {
 	}
 	setSSRElement(element: HTMLElement): void {
 		this.oldVCObserver?.setSSRElement(element);
+		this.newVCObserver?.setReactRootElement(element);
 	}
 	setReactRootRenderStart(startTime: number): void {
 		this.oldVCObserver?.setReactRootRenderStart(startTime || performance.now());
+		this.newVCObserver?.setReactRootRenderStart(startTime || performance.now());
 	}
 	setReactRootRenderStop(stopTime: number): void {
 		this.oldVCObserver?.setReactRootRenderStop(stopTime || performance.now());
+		this.newVCObserver?.setReactRootRenderStop(stopTime || performance.now());
+	}
+	collectSSRPlaceholders(): void {
+		this.ssrPlaceholderHandler.collectExistingPlaceholders();
 	}
 }
 

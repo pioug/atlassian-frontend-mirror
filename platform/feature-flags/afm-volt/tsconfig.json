@@ -1,0 +1,21 @@
+{
+	"extends": "../../../../tsconfig.entry-points.volt.json",
+	"include": [
+		"../src/**/*.ts"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"compilerOptions": {
+		"outDir": "../../../../../volt/tsDist/@atlaskit__platform-feature-flags/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"references": [
+		{
+			"path": "../../../measurement/feature-gate-js-client/afm-volt/tsconfig.json"
+		}
+	]
+}

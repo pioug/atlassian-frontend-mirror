@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-metrics",
-	"version": "3.5.3",
+	"version": "3.6.0",
 	"description": "Metrics plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -37,6 +37,7 @@
 		"@atlaskit/adf-schema": "^47.6.0",
 		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
+		"@atlaskit/editor-plugin-user-preferences": "workspace:^",
 		"@atlaskit/editor-prosemirror": "7.0.0",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
@@ -85,6 +86,9 @@
 		}
 	},
 	"platform-feature-flags": {
+		"platform_editor_use_preferences_plugin": {
+			"type": "boolean"
+		},
 		"platform_editor_controls_patch_13": {
 			"type": "boolean"
 		}

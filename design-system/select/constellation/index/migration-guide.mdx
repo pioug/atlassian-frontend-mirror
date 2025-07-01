@@ -3,15 +3,19 @@ title: Migration guide
 order: 2
 ---
 
-Note: Select is migrated to Compiled in v22.0. Follow this migration guide to migrate Select in pre-22.0 versions.
+Note: Select is migrated to Compiled in v22.0. Follow this migration guide to migrate Select in
+pre-22.0 versions.
 
 ## Overview
 
-Atlaskit Select has been migrated from Emotion to Compiled CSS-in-JS to improve performance and enable React 18 Streaming SSR compatibility. This guide will help you migrate your existing Select customizations to the new approach.
+Atlaskit Select has been migrated from Emotion to Compiled CSS-in-JS to improve performance and
+enable React 18 Streaming SSR compatibility. This guide will help you migrate your existing Select
+customizations to the new approach.
 
 ## Migration approach
 
-The migration introduces an enhanced `components` API that replaces the `styles` prop with the `xcss` prop for better performance and type safety.
+The migration introduces an enhanced `components` API that replaces the `styles` prop with the
+`xcss` prop for better performance and type safety.
 
 ## Before and after comparison
 
@@ -22,18 +26,13 @@ import Select from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 
 const customStyles = {
-    control: (base, state) => ({
-        ...base,
-        backgroundColor: token('elevation.surface'),
-    }),
+	control: (base, state) => ({
+		...base,
+		backgroundColor: token('elevation.surface'),
+	}),
 };
 
-const MyComponent = () => (
-    <Select
-        options={options}
-        styles={customStyles}
-    />
-);
+const MyComponent = () => <Select options={options} styles={customStyles} />;
 ```
 
 ### New approach (Compiled with `components` API)
@@ -45,23 +44,18 @@ import Select, { components } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 
 const controlStyles = cssMap({
-    root: {
-        backgroundColor: token('elevation.surface'),
-    },
+	root: {
+		backgroundColor: token('elevation.surface'),
+	},
 });
 
 const MyComponent = () => (
-  <Select
-    options={options}
-    components={{
-        Control: (props) => (
-            <components.Control 
-                {...props} 
-                xcss={controlStyles.root} 
-            />
-        ),
-    }}
-  />
+	<Select
+		options={options}
+		components={{
+			Control: (props) => <components.Control {...props} xcss={controlStyles.root} />,
+		}}
+	/>
 );
 ```
 
@@ -69,29 +63,29 @@ const MyComponent = () => (
 
 When migrating from `styles` prop to `components` API, use this mapping:
 
-| `styles` prop key | `components` API key |
-|---|---|
-| clearIndicator | ClearIndicator |
-| container | SelectContainer |
-| control | Control |
-| dropdownIndicator | DropdownIndicator |
-| group | Group |
-| groupHeading | GroupHeading |
-| indicatorsContainer | IndicatorsContainer |
-| input | Input |
-| loadingIndicator | LoadingIndicator |
-| loadingMessage | LoadingMessage |
-| menu | Menu |
-| menuList | MenuList |
-| menuPortal | MenuPortal |
-| multiValue | MultiValueContainer |
-| multiValueLabel | MultiValueLabel |
-| multiValueRemove | MultiValueRemove |
-| noOptionsMessage | NoOptionsMessage |
-| option | Option |
-| placeholder | Placeholder |
-| singleValue | SingleValue |
-| valueContainer | ValueContainer |
+| `styles` prop key   | `components` API key |
+| ------------------- | -------------------- |
+| clearIndicator      | ClearIndicator       |
+| container           | SelectContainer      |
+| control             | Control              |
+| dropdownIndicator   | DropdownIndicator    |
+| group               | Group                |
+| groupHeading        | GroupHeading         |
+| indicatorsContainer | IndicatorsContainer  |
+| input               | Input                |
+| loadingIndicator    | LoadingIndicator     |
+| loadingMessage      | LoadingMessage       |
+| menu                | Menu                 |
+| menuList            | MenuList             |
+| menuPortal          | MenuPortal           |
+| multiValue          | MultiValueContainer  |
+| multiValueLabel     | MultiValueLabel      |
+| multiValueRemove    | MultiValueRemove     |
+| noOptionsMessage    | NoOptionsMessage     |
+| option              | Option               |
+| placeholder         | Placeholder          |
+| singleValue         | SingleValue          |
+| valueContainer      | ValueContainer       |
 
 ## Step-by-step migration process
 
@@ -109,19 +103,19 @@ import Select, { components } from '@atlaskit/select';
 ```jsx
 // Old styles object
 const customStyles = {
-  control: (base, state) => ({
-    ...base,
-    minHeight: '40px',
-    borderRadius: '8px',
-  }),
+	control: (base, state) => ({
+		...base,
+		minHeight: '40px',
+		borderRadius: '8px',
+	}),
 };
 
 // New cssMap approach
 const controlStyles = cssMap({
-  root: {
-    minHeight: '40px',
-    borderRadius: '8px',
-  },
+	root: {
+		minHeight: '40px',
+		borderRadius: '8px',
+	},
 });
 ```
 
@@ -147,63 +141,63 @@ const controlStyles = cssMap({
 
 ```jsx
 const controlStyles = cssMap({
-    root: {
-        minHeight: '32px',
-        borderRadius: '4px',
-    },
-    focused: {
-        borderColor: token('color.border.focused'),
-    },
-    disabled: {
-        cursor: 'not-allowed',
-    },
+	root: {
+		minHeight: '32px',
+		borderRadius: '4px',
+	},
+	focused: {
+		borderColor: token('color.border.focused'),
+	},
+	disabled: {
+		cursor: 'not-allowed',
+	},
 });
 
 // Usage with conditional styling
-<components.Control 
-    {...props} 
-    xcss={cx(
-        controlStyles.root,
-        props.isFocused && controlStyles.focused,
-        props.isDisabled && controlStyles.disabled
-    )} 
-/>
+<components.Control
+	{...props}
+	xcss={cx(
+		controlStyles.root,
+		props.isFocused && controlStyles.focused,
+		props.isDisabled && controlStyles.disabled,
+	)}
+/>;
 ```
 
 ### Multi-value styling
 
 ```jsx
 const multiValueStyles = cssMap({
-    container: {
-        backgroundColor: token('color.background.warning'),
-    },
-    label: {
-        color: token('color.text.warning'),
-        fontWeight: 'bold',
-    },
-    remove: {
-        color: token('color.text.warning'),
+	container: {
+		backgroundColor: token('color.background.warning'),
+	},
+	label: {
+		color: token('color.text.warning'),
+		fontWeight: 'bold',
+	},
+	remove: {
+		color: token('color.text.warning'),
 
-        '&:hover': {
-            backgroundColor: token('color.background.warning.subtle'),
-        },
-    },
+		'&:hover': {
+			backgroundColor: token('color.background.warning.subtle'),
+		},
+	},
 });
 
 // Usage
 <Select
-    components={{
-        MultiValueContainer: (props) => (
-            <components.MultiValueContainer {...props} xcss={multiValueStyles.container} />
-        ),
-        MultiValueLabel: (props) => (
-            <components.MultiValueLabel {...props} xcss={multiValueStyles.label} />
-        ),
-        MultiValueRemove: (props) => (
-            <components.MultiValueRemove {...props} xcss={multiValueStyles.remove} />
-        ),
-    }}
-/>
+	components={{
+		MultiValueContainer: (props) => (
+			<components.MultiValueContainer {...props} xcss={multiValueStyles.container} />
+		),
+		MultiValueLabel: (props) => (
+			<components.MultiValueLabel {...props} xcss={multiValueStyles.label} />
+		),
+		MultiValueRemove: (props) => (
+			<components.MultiValueRemove {...props} xcss={multiValueStyles.remove} />
+		),
+	}}
+/>;
 ```
 
 ## Backward compatibility
@@ -215,13 +209,13 @@ Most existing `styles` prop definitions will continue to work, but with limitati
 ```jsx
 // This will still work (basic inline styles)
 <Select
-  styles={{
-    control: (base) => ({
-        ...base,
-        backgroundColor: token('elevation.surface'),
-        minHeight: '40px',
-    }),
-  }}
+	styles={{
+		control: (base) => ({
+			...base,
+			backgroundColor: token('elevation.surface'),
+			minHeight: '40px',
+		}),
+	}}
 />
 ```
 

@@ -7,6 +7,13 @@
  */
 //German (Germany)
 export default {
+  'people-and-teams.team-profile-card.large-member-count': 'Beitragendes Team • {memberCount} Mitglieder',
+  'people-and-teams.team-profile-card.member-count':
+    '{count, plural, one {Beitragendes Team • {count,number} Mitglied} other {Beitragendes Team • {count,number} Mitglieder}}',
+  'people-and-teams.team-profile-card.team-connections': 'Team-Verknüpfungen',
+  'people-and-teams.team-profile-card.team-connections-header': 'Wo wir arbeiten',
+  'people-and-teams.team-profile-card.team-profile-description': 'Teamprofil',
+  'people-and-teams.team-profile-card.view-profile': 'Profil anzeigen',
   'profilecard.agent-profile-card.delete-agent-error-flag-description':
     'Beim Löschen des Agenten ist ein Fehler aufgetreten. Versuchen Sie es später erneut.',
   'profilecard.agent-profile-card.delete-agent-error-flag-title': 'Agent konnte nicht gelöscht werden',
@@ -51,6 +58,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week': 'Das Konto dieser Person wurde diese Woche deaktiviert.',
   'pt.profile-card.inactive.account.no.date': 'Das Konto dieser Person wurde deaktiviert.',
   'pt.profile-card.more-icon-label': 'Mehr',
+  'pt.team-profile-card.aria-label': 'Weitere Informationen zu diesem Team',
   'pt.team-profile-card.directReports.heading': 'Direkt unterstellt',
   'pt.team-profile-card.error.refresh-button': 'Versuchen Sie es erneut.',
   'pt.team-profile-card.error.suggestion': 'Bitte warten Sie einen Augenblick und versuchen Sie es dann erneut.',
@@ -70,4 +78,6 @@ export default {
     '{count, plural, one {+ {count} weiteres Mitglied} other {+ {count} weitere Mitglieder}}',
   'pt.user-profile-card.reporting-lines.more-icon-label':
     '{count, plural, one {+ {count} weiteres Profil} other {+ {count} weitere Profile}}',
+  'team-profile-card.team-actions.give-kudos': 'Loben',
+  'team-profile-card.team-actions.more-actions.show-more-icon-label': 'Mehr anzeigen',
 };

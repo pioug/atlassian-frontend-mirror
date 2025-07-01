@@ -68,6 +68,8 @@ export default {
     "⁣⁢You're about to delete your account:⁬⁪⁡⁡⁬⁪‍⁬⁫؜⁬‌⁮⁡⁡؜⁡؜⁫‍⁣⁤",
   'focused-task-close-account.delete-account.overview.heading.admin': '⁣⁢Delete account⁫⁬⁫⁯⁭⁯⁠⁬‍؜⁯‍⁫⁡⁪؜⁪⁭⁣⁤',
   'focused-task-close-account.delete-account.overview.heading.self': '⁣⁢Delete your account⁭‌⁪⁮؜؜⁡⁫⁯⁯⁡⁫⁬⁬⁮⁪⁯⁪⁠⁣⁤',
+  'focused-task-close-account.delete-account.overview.inline-dialog.content-created-issue-refresh.admin':
+    "⁣⁢For example, pages, work items, and comments they've created in products.⁬⁡⁬⁫‌⁡⁬⁮‍⁮‍⁭⁠⁠⁠⁪؜؜⁬⁣⁤",
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin':
     "⁣⁢For example, pages, issues, and comments they've created in products.⁬⁯⁮⁫⁬‌⁠⁠‍⁭⁪⁬⁪⁡⁯⁠⁭⁡⁠⁬⁮⁯⁡‌⁪⁣⁤",
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':

@@ -17,7 +17,6 @@ import {
 } from '@atlaskit/editor-common/extensions';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import CrossIcon from '@atlaskit/icon/core/migration/close--cross';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Text, xcss } from '@atlaskit/primitives';
 import { N200 } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';
@@ -187,11 +186,9 @@ const Header = ({
 								}{' '}
 							</Fragment>
 						)}
-						{deprecation?.isDeprecated &&
-							deprecation?.message &&
-							fg('platform_editor_extension_deprecation_status') && (
-								<Box paddingBlockStart="space.150">{deprecation.message}</Box>
-							)}
+						{deprecation?.isDeprecated && deprecation?.message && (
+							<Box paddingBlockStart="space.150">{deprecation.message}</Box>
+						)}
 						{documentationUrl &&
 							(enableHelpCTA ? (
 								<Box xcss={helpLinkStyles}>

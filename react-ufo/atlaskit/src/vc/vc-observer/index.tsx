@@ -115,7 +115,8 @@ export class VCObserver implements VCObserverInterface {
 		this.devToolsEnabled = options.devToolsEnabled || false;
 		this.oldDomUpdatesEnabled = options.oldDomUpdates || false;
 
-		const { ssrEnablePageLayoutPlaceholder, disableSizeAndPositionCheck } = options;
+		const { ssrEnablePageLayoutPlaceholder, disableSizeAndPositionCheck, ssrPlaceholderHandler } =
+			options;
 
 		this.observers = new Observers({
 			selectorConfig: options.selectorConfig || {
@@ -129,6 +130,7 @@ export class VCObserver implements VCObserverInterface {
 				enablePageLayoutPlaceholder: ssrEnablePageLayoutPlaceholder || false,
 				disableSizeAndPositionCheck: disableSizeAndPositionCheck,
 			},
+			ssrPlaceholderHandler: ssrPlaceholderHandler,
 		});
 
 		this.heatmap = !isVCRevisionEnabled('fy25.01') ? [] : this.getCleanHeatmap();
@@ -668,6 +670,11 @@ export class VCObserver implements VCObserverInterface {
 
 	setReactRootRenderStop(stopTime = performance.now()) {
 		this.observers.setReactRootRenderStop(stopTime);
+	}
+
+	collectSSRPlaceholders() {
+		// This is handled by the shared SSRPlaceholderHandlers in VCObserverWrapper
+		// Individual observers don't need to implement this
 	}
 
 	private handleUpdate = (

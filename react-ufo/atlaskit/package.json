@@ -254,6 +254,9 @@
 		},
 		"platform_vc_ignore_no_ls_mutation_marker": {
 			"type": "boolean"
+		},
+		"platform_ufo_vc_v3_ssr_placeholder": {
+			"type": "boolean"
 		}
 	}
 }

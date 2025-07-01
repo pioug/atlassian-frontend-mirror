@@ -1,5 +1,34 @@
 # @atlaskit/editor-core
 
+## 208.7.0
+
+### Minor Changes
+
+- [#177157](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/177157)
+  [`6bcf8912217df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6bcf8912217df) -
+  ED-27284 additional integration with user preference plugin
+
+### Patch Changes
+
+- Updated dependencies
+
+## 208.6.6
+
+### Patch Changes
+
+- [#179882](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/179882)
+  [`fe56fd0f3672a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fe56fd0f3672a) -
+  [ux] ED-28404 change find and replace match colours from yellow to magenta
+- Updated dependencies
+
+## 208.6.5
+
+### Patch Changes
+
+- [#179427](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/179427)
+  [`8b13d4c49c4ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8b13d4c49c4ac) -
+  [CONFCLOUD-71644] Fix: code block doesn't have the correct backaground color in page include macro
+
 ## 208.6.4
 
 ### Patch Changes

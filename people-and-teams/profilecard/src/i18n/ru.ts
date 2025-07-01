@@ -7,6 +7,13 @@
  */
 //Russian
 export default {
+  'people-and-teams.team-profile-card.large-member-count': 'Участвующая команда • число участников: {memberCount}',
+  'people-and-teams.team-profile-card.member-count':
+    '{count, plural, one {Участвующая команда • {count,number} участник} few {Участвующая команда • {count,number} участника} many {Участвующая команда • {count,number} участников} other {Участвующая команда • {count,number} участника}}',
+  'people-and-teams.team-profile-card.team-connections': 'Ссылки на команду',
+  'people-and-teams.team-profile-card.team-connections-header': 'Где мы работаем',
+  'people-and-teams.team-profile-card.team-profile-description': 'Профиль команды',
+  'people-and-teams.team-profile-card.view-profile': 'Просмотреть профиль',
   'profilecard.agent-profile-card.delete-agent-error-flag-description':
     'При удалении агента произошла ошибка. Повторите попытку через некоторое время.',
   'profilecard.agent-profile-card.delete-agent-error-flag-title': 'Не удалось удалить агента',
@@ -46,6 +53,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week': 'Его аккаунт был отключен на этой неделе.',
   'pt.profile-card.inactive.account.no.date': 'Его аккаунт был отключен.',
   'pt.profile-card.more-icon-label': 'Еще',
+  'pt.team-profile-card.aria-label': 'Дополнительные сведения о команде',
   'pt.team-profile-card.directReports.heading': 'Прямые подчиненные',
   'pt.team-profile-card.error.refresh-button': 'Повторить попытку',
   'pt.team-profile-card.error.suggestion': 'Повторите попытку через несколько секунд.',
@@ -64,4 +72,6 @@ export default {
     '{count, plural, one {и еще {count} участник} few {и еще {count} участника} many {и еще {count} участников} other {и еще {count} участника}}',
   'pt.user-profile-card.reporting-lines.more-icon-label':
     '{count, plural, one {и еще {count} профиль} few {и еще {count} профиля} many {и еще {count} профилей} other {и еще {count} профиля}}',
+  'team-profile-card.team-actions.give-kudos': 'Похвалить',
+  'team-profile-card.team-actions.more-actions.show-more-icon-label': 'Развернуть',
 };

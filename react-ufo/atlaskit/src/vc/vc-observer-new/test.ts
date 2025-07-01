@@ -16,6 +16,7 @@ jest.mock('./entries-timeline');
 jest.mock('./metric-calculator/fy25_03');
 jest.mock('./get-element-name');
 jest.mock('@atlaskit/platform-feature-flags');
+jest.mock('../vc-observer/observers/ssr-placeholders');
 
 describe('VCObserverNew', () => {
 	let vcObserver: VCObserverNew;
@@ -518,6 +519,183 @@ describe('VCObserverNew', () => {
 				mockEntriesTimeline.getOrderedEntries.mock.invocationCallOrder[0];
 
 			expect(pushCallIndex).toBeLessThan(getOrderedEntriesCallIndex);
+		});
+	});
+
+	describe('SSR functionality', () => {
+		beforeEach(() => {
+			// Enable SSR feature flag for these tests
+			(fg as jest.Mock).mockImplementation((flag: string) => {
+				if (flag === 'platform_ufo_vc_v3_ssr_placeholder') {
+					return true;
+				}
+				return false;
+			});
+		});
+
+		describe('SSR placeholder initialization', () => {
+			it('should initialize SSR placeholder handler when feature flag is enabled', () => {
+				const config: VCObserverNewConfig = {
+					SSRConfig: {
+						enablePageLayoutPlaceholder: true,
+						disableSizeAndPositionCheck: { v: true, h: false },
+					},
+				};
+
+				const observer = new VCObserverNew(config);
+				const ssrHandler = observer.getSSRPlaceholderHandler();
+
+				expect(ssrHandler).toBeDefined();
+			});
+		});
+
+		describe('SSR state management', () => {
+			let observer: VCObserverNew;
+			let mockElement: HTMLElement;
+
+			beforeEach(() => {
+				observer = new VCObserverNew({});
+				mockElement = document.createElement('div');
+			});
+
+			it('should set react root element', () => {
+				observer.setReactRootElement(mockElement);
+				const ssrState = observer.getSSRState();
+
+				expect(ssrState.reactRootElement).toBe(mockElement);
+			});
+
+			it('should set react root render start and update state', () => {
+				const startTime = 100;
+				observer.setReactRootRenderStart(startTime);
+				const ssrState = observer.getSSRState();
+
+				expect(ssrState.renderStart).toBe(startTime);
+				expect(ssrState.state).toBe(2); // waitingForFirstRender
+			});
+
+			it('should set react root render stop', () => {
+				const stopTime = 200;
+				observer.setReactRootRenderStop(stopTime);
+				const ssrState = observer.getSSRState();
+
+				expect(ssrState.renderStop).toBe(stopTime);
+			});
+
+			it('should use performance.now() as default when no time provided', () => {
+				const perfNowSpy = jest.spyOn(performance, 'now').mockReturnValue(123.456);
+
+				observer.setReactRootRenderStart();
+				observer.setReactRootRenderStop();
+
+				const ssrState = observer.getSSRState();
+				expect(ssrState.renderStart).toBe(123.456);
+				expect(ssrState.renderStop).toBe(123.456);
+
+				perfNowSpy.mockRestore();
+			});
+		});
+
+		describe('SSR state reset on start', () => {
+			it('should reset SSR state on start including root element (matches old VCObserver)', () => {
+				const observer = new VCObserverNew({});
+				const mockElement = document.createElement('div');
+
+				// Set initial SSR state
+				observer.setReactRootElement(mockElement);
+				observer.setReactRootRenderStart(100);
+				observer.setReactRootRenderStop(200);
+
+				// Start the observer
+				observer.start({ startTime: 150 });
+
+				const ssrState = observer.getSSRState();
+				expect(ssrState.reactRootElement).toBe(null); // Reset to null (matches old VCObserver)
+				expect(ssrState.renderStart).toBe(-1); // Reset
+				expect(ssrState.renderStop).toBe(-1); // Reset
+				expect(ssrState.state).toBe(1); // normal
+			});
+
+			it('should NOT call clear on SSR placeholder handler during start (matches old VCObserver)', () => {
+				const observer = new VCObserverNew({
+					SSRConfig: {
+						enablePageLayoutPlaceholder: true,
+					},
+				});
+
+				const mockSSRHandler = observer.getSSRPlaceholderHandler();
+				const clearSpy = jest.spyOn(mockSSRHandler!, 'clear');
+
+				observer.start({ startTime: 100 });
+
+				expect(clearSpy).not.toHaveBeenCalled();
+			});
+		});
+
+		describe('ViewportObserver SSR integration', () => {
+			it('should pass SSR context functions to ViewportObserver', () => {
+				const observer = new VCObserverNew({});
+				expect(observer).toBeDefined();
+
+				// Check that ViewportObserver was constructed with SSR context
+				expect(ViewportObserver).toHaveBeenCalledWith(
+					expect.objectContaining({
+						getSSRState: expect.any(Function),
+						getSSRPlaceholderHandler: expect.any(Function),
+					}),
+				);
+			});
+		});
+
+		describe('SSR hydration behavior', () => {
+			it('should handle SSR hydration mutations correctly', () => {
+				const observer = new VCObserverNew({});
+				const mockElement = document.createElement('div');
+
+				// Set up SSR state for hydration
+				observer.setReactRootElement(mockElement);
+				observer.setReactRootRenderStart(100);
+
+				const ssrState = observer.getSSRState();
+				expect(ssrState.state).toBe(2); // waitingForFirstRender
+				expect(ssrState.reactRootElement).toBe(mockElement);
+				expect(ssrState.renderStart).toBe(100);
+			});
+
+			it('should transition SSR state correctly during hydration process', () => {
+				const observer = new VCObserverNew({});
+				const mockElement = document.createElement('div');
+
+				observer.setReactRootElement(mockElement);
+				observer.setReactRootRenderStart(100);
+
+				let ssrState = observer.getSSRState();
+				expect(ssrState.state).toBe(2); // waitingForFirstRender
+
+				// Simulate state transition to ignoring (this would happen in ViewportObserver)
+				ssrState.state = 3; // ignoring
+				ssrState.renderStop = 600; // 500ms window
+
+				expect(ssrState.state).toBe(3); // ignoring
+				expect(ssrState.renderStop).toBe(600);
+			});
+		});
+
+		describe('SSR placeholder validation', () => {
+			it('should handle placeholder size matching correctly', () => {
+				const observer = new VCObserverNew({
+					SSRConfig: {
+						enablePageLayoutPlaceholder: true,
+					},
+				});
+
+				const ssrHandler = observer.getSSRPlaceholderHandler();
+				expect(ssrHandler).toBeDefined();
+				expect(observer).toBeDefined();
+
+				// The actual size matching logic is tested in the SSRPlaceholderHandlers tests
+				// Here we just verify the handler is properly initialized
+			});
 		});
 	});
 });

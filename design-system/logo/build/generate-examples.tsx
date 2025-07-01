@@ -20,7 +20,7 @@ const logoSpecialDescriptions: Record<string, string> = {
 
 // In case a logo needs a custom implementation, add it to this list and it won't be regenerated
 const MANUAL_EXAMPLES = ['loom', 'loom-blurple'];
-const MANUAL_EXAMPLE_FILES = MANUAL_EXAMPLES.map(name => `logo-${name}.tsx`);
+const MANUAL_EXAMPLE_FILES = MANUAL_EXAMPLES.map((name) => `logo-${name}.tsx`);
 
 // Template for individual logo examples
 const generateLogoExampleTemplate = (name: string, shouldUseNewLogoDesign: boolean) => `
@@ -37,7 +37,6 @@ export default () =>
 		/>
 `;
 
-
 /**
  * Process a logo name to a consistent format, e.g. `jira-service-management` -> `JiraServiceManagement`
  *
@@ -51,12 +50,10 @@ const processLogoName = (name: string) => {
 	return words.map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join('');
 };
 
-
 /**
  * Generate examples for all logos, and places them in the generated examples directory
  */
 const generateLogoExamples = () => {
-
 	// Ensure directories exist and are empty
 	if (!fs.existsSync(GENERATED_EXAMPLES_DIR)) {
 		fs.mkdirSync(GENERATED_EXAMPLES_DIR, { recursive: true });

@@ -63,6 +63,8 @@ export default {
   'focused-task-close-account.delete-account.overview.first.line.self': 'Вы собираетесь удалить акканут:',
   'focused-task-close-account.delete-account.overview.heading.admin': 'Удаление аккаунта',
   'focused-task-close-account.delete-account.overview.heading.self': 'Удаление аккаунта',
+  'focused-task-close-account.delete-account.overview.inline-dialog.content-created-issue-refresh.admin':
+    'Сюда относятся страницы, задачи и комментарии, которые вы создали в продуктах.',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin':
     'Например, его страницы, задачи и комментарии в продуктах.',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':

@@ -1,0 +1,42 @@
+{
+	"extends": "../../../../tsconfig.entry-points.volt.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../volt/tsDist/@atlaskit__react-select/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../ds-lib/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../icon/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../layering/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../primitives/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../spinner/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../tokens/afm-volt/tsconfig.json"
+		}
+	]
+}

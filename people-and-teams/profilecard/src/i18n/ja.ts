@@ -7,6 +7,13 @@
  */
 //Japanese
 export default {
+  'people-and-teams.team-profile-card.large-member-count': '貢献しているチーム • {memberCount} 人のメンバー',
+  'people-and-teams.team-profile-card.member-count':
+    '{count, plural, other {貢献しているチーム • {count,number} 人のメンバー}}',
+  'people-and-teams.team-profile-card.team-connections': 'チーム リンク',
+  'people-and-teams.team-profile-card.team-connections-header': '作業の場所',
+  'people-and-teams.team-profile-card.team-profile-description': 'チーム プロファイル',
+  'people-and-teams.team-profile-card.view-profile': 'プロファイルを表示',
   'profilecard.agent-profile-card.delete-agent-error-flag-description':
     'エージェントの削除中に問題が発生しました。しばらくしてからもう一度お試しください。',
   'profilecard.agent-profile-card.delete-agent-error-flag-title': 'エージェントを削除できませんでした',
@@ -46,6 +53,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week': 'アカウントは今週無効になりました。',
   'pt.profile-card.inactive.account.no.date': 'アカウントは無効になっています。',
   'pt.profile-card.more-icon-label': 'その他',
+  'pt.team-profile-card.aria-label': 'このチームに関する詳細情報',
   'pt.team-profile-card.directReports.heading': '直属の部下',
   'pt.team-profile-card.error.refresh-button': '再試行',
   'pt.team-profile-card.error.suggestion': 'しばらく待ってから、もう一度お試しください。',
@@ -61,4 +69,6 @@ export default {
   'pt.team-profile-card.team.member.many-including-you': 'チーム • 50 人以上のメンバー (あなたを含む)',
   'pt.team.profile-card.members.more-icon-label': '{count, plural, other {他 {count} 人のメンバー}}',
   'pt.user-profile-card.reporting-lines.more-icon-label': '{count, plural, other {他 {count} 人のプロファイル}}',
+  'team-profile-card.team-actions.give-kudos': '賞賛を送る',
+  'team-profile-card.team-actions.more-actions.show-more-icon-label': 'さらに表示',
 };

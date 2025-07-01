@@ -26,6 +26,7 @@ import EmbedCardNotFoundView from '../../../examples/vr-embed-card/vr-embed-card
 import EmbedCardNotFoundViewFrameHide from '../../../examples/vr-embed-card/vr-embed-card-not-found-frame-hide';
 import EmbedCardNotFoundSiteAccessExists from '../../../examples/vr-embed-card/vr-embed-card-not-found-site-access-exists';
 import EmbedCardResolvedView from '../../../examples/vr-embed-card/vr-embed-card-resolved';
+import EmbedCardResolvedViewCompetitorPrompt from '../../../examples/vr-embed-card/vr-embed-card-resolved-competitor-prompt';
 import EmbedCardResolvedViewEntities from '../../../examples/vr-embed-card/vr-embed-card-resolved-entities';
 import EmbedCardResolvedViewNoPreview from '../../../examples/vr-embed-card/vr-embed-card-resolved-no-preview';
 import EmbedCardResolvedSmall from '../../../examples/vr-embed-card/vr-embed-card-resolved-small';
@@ -119,6 +120,18 @@ snapshot(EmbedCardResolvedSmall, {
 snapshot(EmbedCardResolvedView, {
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': true,
+	},
+});
+snapshot(EmbedCardResolvedView, {
+	featureFlags: {
+		'platform-linking-visual-refresh-v1': true,
+		prompt_whiteboard_competitor_link_gate: [true, false],
+	},
+});
+snapshot(EmbedCardResolvedViewCompetitorPrompt, {
+	featureFlags: {
+		'platform-linking-visual-refresh-v1': true,
+		prompt_whiteboard_competitor_link_gate: [true, false],
 	},
 });
 snapshot(EmbedCardResolvedViewNoPreview, {

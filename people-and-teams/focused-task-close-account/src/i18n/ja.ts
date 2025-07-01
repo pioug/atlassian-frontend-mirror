@@ -63,6 +63,8 @@ export default {
   'focused-task-close-account.delete-account.overview.first.line.self': '次のアカウントを削除しようとしています:',
   'focused-task-close-account.delete-account.overview.heading.admin': 'アカウントの削除',
   'focused-task-close-account.delete-account.overview.heading.self': 'アカウントの削除',
+  'focused-task-close-account.delete-account.overview.inline-dialog.content-created-issue-refresh.admin':
+    'たとえば、製品内で作成したページ、作業項目、コメントなどです。',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin':
     '製品で作成したページ、課題、コメントなど。',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':

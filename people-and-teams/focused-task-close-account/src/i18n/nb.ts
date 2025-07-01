@@ -65,6 +65,8 @@ export default {
   'focused-task-close-account.delete-account.overview.first.line.self': 'Du er i ferd med å slette kontoen din',
   'focused-task-close-account.delete-account.overview.heading.admin': 'Slett konto',
   'focused-task-close-account.delete-account.overview.heading.self': 'Slett kontoen',
+  'focused-task-close-account.delete-account.overview.inline-dialog.content-created-issue-refresh.admin':
+    'Dette kan for eksempel være sider, arbeidsoppgaver og kommentarer de har opprettet i produkter.',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin':
     'For eksempel sider, saker og kommentarer de har opprettet i produkter.',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':

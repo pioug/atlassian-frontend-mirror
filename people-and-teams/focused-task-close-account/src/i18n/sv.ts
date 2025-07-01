@@ -63,6 +63,8 @@ export default {
   'focused-task-close-account.delete-account.overview.first.line.self': 'Du är på väg att ta bort ditt konto:',
   'focused-task-close-account.delete-account.overview.heading.admin': 'Ta bort konto',
   'focused-task-close-account.delete-account.overview.heading.self': 'Ta bort ditt konto',
+  'focused-task-close-account.delete-account.overview.inline-dialog.content-created-issue-refresh.admin':
+    'Till exempel sidor, arbetsuppgifter och kommentarer som de har skapat i produkter.',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin':
     'Till exempel sidor, ärenden och kommentarer som de har skapat i produkter.',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':

@@ -67,6 +67,7 @@ export class DocViewer extends BaseViewer<string, Props, State> {
 				fileState={this.props.item}
 				collectionName={this.props.collectionName}
 				onError={this.props.onError}
+				onSuccess={this.props.onSuccess}
 				traceContext={this.props.traceContext}
 			/>
 		);

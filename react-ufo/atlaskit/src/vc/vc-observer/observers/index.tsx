@@ -52,6 +52,7 @@ type ConstructorOptions = {
 			h: boolean;
 		};
 	};
+	ssrPlaceholderHandler?: SSRPlaceholderHandlers | null;
 };
 
 function isElementVisible(target: Element): boolean {
@@ -107,10 +108,16 @@ export class Observers implements BrowserObservers {
 		};
 		this.intersectionObserver = this.getIntersectionObserver();
 		this.mutationObserver = this.getMutationObserver();
-		this.ssrPlaceholderHandler = new SSRPlaceholderHandlers({
-			enablePageLayoutPlaceholder: opts.SSRConfig?.enablePageLayoutPlaceholder,
-			disableSizeAndPositionCheck: opts.SSRConfig?.disableSizeAndPositionCheck,
-		});
+
+		// Use shared SSR placeholder handler if provided, otherwise create new one
+		if (opts.ssrPlaceholderHandler) {
+			this.ssrPlaceholderHandler = opts.ssrPlaceholderHandler;
+		} else {
+			this.ssrPlaceholderHandler = new SSRPlaceholderHandlers({
+				enablePageLayoutPlaceholder: opts.SSRConfig?.enablePageLayoutPlaceholder,
+				disableSizeAndPositionCheck: opts.SSRConfig?.disableSizeAndPositionCheck,
+			});
+		}
 	}
 
 	isBrowserSupported() {

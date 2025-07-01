@@ -22,7 +22,7 @@ export const STAGING_BASE_URL = 'https://api.stg.atlassian.com/flags';
 export const DEV_BASE_URL = 'https://api.dev.atlassian.com/flags';
 export const FEDM_STAGING_BASE_URL = 'https://api.stg.atlassian-us-gov-mod.com/flags';
 export const FEDM_PROD_BASE_URL = 'https://api.atlassian-us-gov-mod.com/flags';
-export const IC_FFS_BASE_URL = 'https://atlassian-statsig-proxy-archetype.atl-paas.%s.atl-ic.net'
+export const IC_FFS_BASE_URL = 'https://atlassian-statsig-proxy-archetype.atl-paas.%s.atl-ic.net';
 
 export const IC_STAGING_BASE_DOMAIN_URL = 'oasis-stg.com/flags';
 export const IC_PROD_BASE_DOMAIN_URL = 'atlassian-isolated.net/flags';
@@ -31,7 +31,13 @@ export const GATEWAY_BASE_URL = '/gateway/api/flags';
 
 export type FetcherOptions = Pick<
 	OptionsWithDefaults<ClientOptions>,
-	'apiKey' | 'fetchTimeoutMs' | 'environment' | 'useGatewayURL' | 'targetApp' | 'perimeter' | 'isolationContextId'
+	| 'apiKey'
+	| 'fetchTimeoutMs'
+	| 'environment'
+	| 'useGatewayURL'
+	| 'targetApp'
+	| 'perimeter'
+	| 'isolationContextId'
 >;
 
 type Method = 'GET' | 'POST';
@@ -182,14 +188,14 @@ export default class Fetcher {
 
 	private static getApiUrl(isolationContextId: string | null): string | null {
 		const window = this.getWindowLocation();
-		if (window === undefined ) {
+		if (window === undefined) {
 			//this is needed when this SDK is used for SSR or plugin use cases where secret keys not available to use backend SDKs
 			if (!isolationContextId) {
 				return null;
 			}
 			return IC_FFS_BASE_URL.replace('%s', isolationContextId);
 		}
-		const {protocol, hostname} = window;
+		const { protocol, hostname } = window;
 		let baseDomain;
 
 		const domainParts = hostname.split('.');
@@ -204,9 +210,9 @@ export default class Fetcher {
 	}
 
 	static getWindowLocation() {
-		if(typeof window !== 'undefined' && window.location) {
-		return window.location;
-	}
+		if (typeof window !== 'undefined' && window.location) {
+			return window.location;
+		}
 		return undefined;
 	}
 }

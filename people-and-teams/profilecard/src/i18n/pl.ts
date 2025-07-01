@@ -7,6 +7,13 @@
  */
 //Polish (Poland)
 export default {
+  'people-and-teams.team-profile-card.large-member-count': 'Zespół współpracujący • {memberCount} członek',
+  'people-and-teams.team-profile-card.member-count':
+    '{count, plural, one {Zespół współpracujący • {count,number} członek} few {Zespół współpracujący • {count,number} członków} many {Zespół współpracujący • {count,number} członków} other {Zespół współpracujący • {count,number} członka}}',
+  'people-and-teams.team-profile-card.team-connections': 'Łącza do zespołu',
+  'people-and-teams.team-profile-card.team-connections-header': 'Gdzie pracujemy',
+  'people-and-teams.team-profile-card.team-profile-description': 'Profil zespołu',
+  'people-and-teams.team-profile-card.view-profile': 'Wyświetl profil',
   'profilecard.agent-profile-card.delete-agent-error-flag-description':
     'Coś poszło nie tak podczas usuwania agenta. Spróbuj ponownie za chwilę.',
   'profilecard.agent-profile-card.delete-agent-error-flag-title': 'Nie można usunąć agenta',
@@ -48,6 +55,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week': 'Jej konto zostało zdezaktywowane w tym tygodniu.',
   'pt.profile-card.inactive.account.no.date': 'Jej konto zostało zdezaktywowane pomyślnie.',
   'pt.profile-card.more-icon-label': 'Więcej',
+  'pt.team-profile-card.aria-label': 'Więcej informacji o tym zespole',
   'pt.team-profile-card.directReports.heading': 'Bezpośredni podwładni',
   'pt.team-profile-card.error.refresh-button': 'Spróbuj ponownie',
   'pt.team-profile-card.error.suggestion': 'Poczekaj chwilę i spróbuj ponownie.',
@@ -65,5 +73,7 @@ export default {
   'pt.team.profile-card.members.more-icon-label':
     '{count, plural, one {i jeszcze {count} członek} few {i jeszcze {count} członków} many {i jeszcze {count} członków} other {i jeszcze {count} członka}}',
   'pt.user-profile-card.reporting-lines.more-icon-label':
-    '{count, plural, one {i jeszcze {count} profil} few {i jeszcze {count} profile} many {i jeszcze {count} profile} other {i jeszcze {count} profilu}}',
+    '{count, plural, one {i jeszcze {count} profil} few {i jeszcze {count} profili} many {i jeszcze {count} profile} other {i jeszcze {count} profilu}}',
+  'team-profile-card.team-actions.give-kudos': 'Przekaż wyrazy uznania',
+  'team-profile-card.team-actions.more-actions.show-more-icon-label': 'Pokaż więcej',
 };

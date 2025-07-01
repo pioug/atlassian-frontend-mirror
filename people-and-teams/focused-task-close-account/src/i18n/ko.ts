@@ -60,6 +60,8 @@ export default {
   'focused-task-close-account.delete-account.overview.first.line.self': '본인의 다음 계정을 삭제하려고 합니다:',
   'focused-task-close-account.delete-account.overview.heading.admin': '계정 삭제',
   'focused-task-close-account.delete-account.overview.heading.self': '사용자 계정 삭제',
+  'focused-task-close-account.delete-account.overview.inline-dialog.content-created-issue-refresh.admin':
+    '예를 들어 제품 내에서 만든 페이지, 업무 항목 및 댓글입니다.',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin':
     '예를 들어 사용자가 제품 내에서 만든 페이지, 이슈 및 댓글입니다.',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':

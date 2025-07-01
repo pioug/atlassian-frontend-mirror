@@ -7,6 +7,13 @@
  */
 //Thai (Thailand)
 export default {
+  'people-and-teams.team-profile-card.large-member-count': 'ทีมที่มีส่วนร่วม • สมาชิก {memberCount} คน',
+  'people-and-teams.team-profile-card.member-count':
+    '{count, plural, other {ทีมที่มีส่วนร่วม • สมาชิก {count,number} คน}}',
+  'people-and-teams.team-profile-card.team-connections': 'ลิงก์ Team',
+  'people-and-teams.team-profile-card.team-connections-header': 'ที่ที่เราทำงาน',
+  'people-and-teams.team-profile-card.team-profile-description': 'โปรไฟล์ทีม',
+  'people-and-teams.team-profile-card.view-profile': 'ดูโปรไฟล์',
   'profilecard.agent-profile-card.delete-agent-error-flag-description':
     'เกิดข้อผิดพลาดบางประการขณะลบพนักงาน โปรดรอสักครู่แล้วลองอีกครั้ง',
   'profilecard.agent-profile-card.delete-agent-error-flag-title': 'ลบพนักงานไม่สำเร็จ',
@@ -45,6 +52,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week': 'บัญชีของผู้ใช้ถูกปิดใช้งานไปแล้วในสัปดาห์นี้',
   'pt.profile-card.inactive.account.no.date': 'บัญชีของผู้ใช้ถูกปิดใช้งานไปแล้ว',
   'pt.profile-card.more-icon-label': 'เพิ่มเติม',
+  'pt.team-profile-card.aria-label': 'ข้อมูลเพิ่มเติมเกี่ยวกับทีมนี้',
   'pt.team-profile-card.directReports.heading': 'รายงานโดยตรง',
   'pt.team-profile-card.error.refresh-button': 'ลองอีกครั้ง',
   'pt.team-profile-card.error.suggestion': 'โปรดรอสักครู่แล้วลองอีกครั้ง',
@@ -59,4 +67,6 @@ export default {
   'pt.team-profile-card.team.member.many-including-you': 'ทีม • สมาชิกมากกว่า 50 คน รวมคุณด้วย',
   'pt.team.profile-card.members.more-icon-label': '{count, plural, other {สมาชิกอีก {count} คน}}',
   'pt.user-profile-card.reporting-lines.more-icon-label': '{count, plural, other {โปรไฟล์อีก {count} รายการ}}',
+  'team-profile-card.team-actions.give-kudos': 'แสดงความชื่นชม',
+  'team-profile-card.team-actions.more-actions.show-more-icon-label': 'แสดงเพิ่มเติม',
 };

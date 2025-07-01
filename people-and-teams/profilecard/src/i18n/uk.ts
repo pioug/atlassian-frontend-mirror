@@ -7,6 +7,13 @@
  */
 //Ukrainian (Ukraine)
 export default {
+  'people-and-teams.team-profile-card.large-member-count': 'Залучена команда • {memberCount} учасників',
+  'people-and-teams.team-profile-card.member-count':
+    '{count, plural, one {Залучена команда • {count,number} учасник} few {Залучена команда • {count,number} учасники} many {Залучена команда • {count,number} учасників} other {Залучена команда • {count,number} учасників}}',
+  'people-and-teams.team-profile-card.team-connections': 'Посилання команди',
+  'people-and-teams.team-profile-card.team-connections-header': 'Із чим ми працюємо',
+  'people-and-teams.team-profile-card.team-profile-description': 'Профіль команди',
+  'people-and-teams.team-profile-card.view-profile': 'Переглянути профіль',
   'profilecard.agent-profile-card.delete-agent-error-flag-description':
     'Під час видалення агента сталася помилка. Повторіть спробу пізніше.',
   'profilecard.agent-profile-card.delete-agent-error-flag-title': 'Не вдалося видалити агента',
@@ -49,6 +56,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week': 'Обліковий запис користувача деактивовано цього тижня.',
   'pt.profile-card.inactive.account.no.date': 'Обліковий запис користувача деактивовано.',
   'pt.profile-card.more-icon-label': 'Більше варіантів',
+  'pt.team-profile-card.aria-label': 'Докладніше про цю команду',
   'pt.team-profile-card.directReports.heading': 'Безпосередні підлеглі',
   'pt.team-profile-card.error.refresh-button': 'Повторіть спробу',
   'pt.team-profile-card.error.suggestion': 'Повторіть спробу за кілька хвилин.',
@@ -64,7 +72,9 @@ export default {
   'pt.team-profile-card.team.member.many': 'Команда • Понад 50 учасників',
   'pt.team-profile-card.team.member.many-including-you': 'Команда • Понад 50 учасників включно з вами',
   'pt.team.profile-card.members.more-icon-label':
-    '{count, plural, one {Ще {count} учасник} few {Ще {count} учасники} many {Ще {count} учасників} other {Ще {count} учасників}}',
+    '{count, plural, one {Ще {count} учасник} few {Ще {count} учасники} many {Ще {count} учасників} other {Ще {count} учасника}}',
   'pt.user-profile-card.reporting-lines.more-icon-label':
-    '{count, plural, one {Ще {count} профіль} few {Ще {count} профілі} many {Ще {count} профілів} other {Ще {count} профілів}}',
+    '{count, plural, one {Ще {count} профіль} few {Ще {count} профілі} many {Ще {count} профілів} other {Ще {count} профіля}}',
+  'team-profile-card.team-actions.give-kudos': 'Похвалити',
+  'team-profile-card.team-actions.more-actions.show-more-icon-label': 'Показати більше',
 };

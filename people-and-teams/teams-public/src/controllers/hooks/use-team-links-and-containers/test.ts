@@ -48,6 +48,7 @@ describe('useTeamLinksAndContainers', () => {
 	const mockCreateTeamWebLink = jest.fn();
 	const mockUpdateTeamWebLink = jest.fn();
 	const mockRemoveWebLink = jest.fn();
+	const mockFetchWebLinkTitle = jest.fn();
 	const mockAddTeamContainer = jest.fn();
 	const mockUnlinkTeamContainers = jest.fn();
 
@@ -91,6 +92,7 @@ describe('useTeamLinksAndContainers', () => {
 				createTeamWebLink: mockCreateTeamWebLink,
 				updateTeamWebLink: mockUpdateTeamWebLink,
 				removeWebLink: mockRemoveWebLink,
+				fetchWebLinkTitle: mockFetchWebLinkTitle,
 				initialState: jest.fn(),
 			},
 		]);
@@ -215,6 +217,7 @@ describe('useTeamLinksAndContainers', () => {
 				createTeamWebLink: mockCreateTeamWebLink,
 				updateTeamWebLink: mockUpdateTeamWebLink,
 				removeWebLink: mockRemoveWebLink,
+				fetchWebLinkTitle: mockFetchWebLinkTitle,
 				initialState: jest.fn(),
 			},
 		]);
@@ -270,6 +273,7 @@ describe('useTeamLinksAndContainers', () => {
 				createTeamWebLink: mockCreateTeamWebLink,
 				updateTeamWebLink: mockUpdateTeamWebLink,
 				removeWebLink: mockRemoveWebLink,
+				fetchWebLinkTitle: mockFetchWebLinkTitle,
 				initialState: jest.fn(),
 			},
 		]);
@@ -326,6 +330,7 @@ describe('useTeamLinksAndContainers', () => {
 				createTeamWebLink: mockCreateTeamWebLink,
 				updateTeamWebLink: mockUpdateTeamWebLink,
 				removeWebLink: mockRemoveWebLink,
+				fetchWebLinkTitle: mockFetchWebLinkTitle,
 				initialState: jest.fn(),
 			},
 		]);

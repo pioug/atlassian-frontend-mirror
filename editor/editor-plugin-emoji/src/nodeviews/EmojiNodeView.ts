@@ -188,9 +188,6 @@ export class EmojiNodeView implements NodeView {
 			this.domElement.classList.remove(EmojiSharedCssClassName.EMOJI_PLACEHOLDER);
 			this.domElement.removeAttribute('aria-label'); // The label is set in the renderEmoji method
 			this.domElement.removeAttribute('aria-busy');
-
-			// Each vanilla JS node implementation should have this data attribute
-			this.domElement.setAttribute('data-prosemirror-node-view-type', 'vanilla');
 		}
 	}
 

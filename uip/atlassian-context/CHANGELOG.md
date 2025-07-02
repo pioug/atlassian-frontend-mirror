@@ -1,5 +1,13 @@
 # @atlaskit/atlassian-context
 
+## 0.3.1
+
+### Patch Changes
+
+- [#179854](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/179854)
+  [`3f28c3b3a8d2d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f28c3b3a8d2d) -
+  Short-circuit in parseAtlCtxCookies on SSR to prevent log spam
+
 ## 0.3.0
 
 ### Minor Changes

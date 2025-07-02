@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-emoji
 
+## 3.7.10
+
+### Patch Changes
+
+- [#179660](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/179660)
+  [`75577e79c0fa2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/75577e79c0fa2) -
+  Cleanup vanilla emoji experiment
+- Updated dependencies
+
 ## 3.7.9
 
 ### Patch Changes

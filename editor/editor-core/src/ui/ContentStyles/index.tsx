@@ -96,10 +96,9 @@ import { panelStyles } from './panel';
 import { statusStyles, statusNodeStyles } from './status';
 import {
 	taskDecisionStyles,
-	vanillaTaskDecisionIconWithoutVisualRefresh as vanillaDecisionIconWithoutVisualRefresh,
-	vanillaTaskDecisionIconWithVisualRefresh as vanillaDecisionIconWithVisualRefresh,
-	vanillaTaskDecisionStyles as vanillaDecisionStyles,
-	vanillaTaskItemStyles,
+	taskDecisionIconWithoutVisualRefresh as decisionIconWithoutVisualRefresh,
+	taskDecisionIconWithVisualRefresh as decisionIconWithVisualRefresh,
+	taskItemStyles,
 } from './tasks-and-decisions';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
@@ -274,49 +273,25 @@ const listsStyles = css`
 	}
 `;
 
-const reactEmojiStyles = css`
+const emojiStyles = css`
 	.${EmojiSharedCssClassName.EMOJI_CONTAINER} {
 		display: inline-block;
-
-		.${EmojiSharedCssClassName.EMOJI_NODE} {
-			cursor: pointer;
-
-			&.${EmojiSharedCssClassName.EMOJI_IMAGE} > span {
-				/** needed for selection style to cover custom emoji image properly */
-				display: flex;
-			}
-		}
-
-		&.${akEditorSelectedNodeClassName} {
-			.${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_IMAGE} {
-				border-radius: 2px;
-				${getSelectionStyles([SelectionStyle.Blanket, SelectionStyle.BoxShadow])}
-			}
-		}
 	}
-`;
 
-const emojiStyles = css`
-	[data-prosemirror-node-view-type='vanilla'] {
-		.${EmojiSharedCssClassName.EMOJI_CONTAINER} {
-			display: inline-block;
-		}
+	.${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_IMAGE} {
+		background: no-repeat transparent;
+		display: inline-block;
+		height: ${defaultEmojiHeight}px;
+		max-height: ${defaultEmojiHeight}px;
+		cursor: pointer;
+		vertical-align: middle;
+		user-select: all;
+	}
 
+	.${akEditorSelectedNodeClassName} {
 		.${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_IMAGE} {
-			background: no-repeat transparent;
-			display: inline-block;
-			height: ${defaultEmojiHeight}px;
-			max-height: ${defaultEmojiHeight}px;
-			cursor: pointer;
-			vertical-align: middle;
-			user-select: all;
-		}
-
-		&.${akEditorSelectedNodeClassName} {
-			.${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_IMAGE} {
-				border-radius: 2px;
-				${getSelectionStyles([SelectionStyle.Blanket, SelectionStyle.BoxShadow])}
-			}
+			border-radius: 2px;
+			${getSelectionStyles([SelectionStyle.Blanket, SelectionStyle.BoxShadow])}
 		}
 	}
 `;
@@ -528,9 +503,6 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
 	mentionNodeStylesMixin_fg_platform_editor_centre_mention_padding}
 	${editorExperiment('platform_editor_vanilla_dom', true, { exposure: false }) &&
 	vanillaSelectionStyles}
-	${editorExperiment('platform_editor_vanilla_dom', true, { exposure: false })
-		? emojiStyles
-		: reactEmojiStyles}
   ${emojiStyles}
   ${tasksAndDecisionsStyles}
   ${gridStyles}
@@ -546,16 +518,10 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
 		: findReplaceStyles}
   ${textHighlightStyle}
   ${taskDecisionStyles}
-  ${vanillaTaskItemStyles}
-  ${editorExperiment('platform_editor_vanilla_dom', true, { exposure: false }) &&
-	vanillaDecisionStyles}
+	${taskItemStyles}
   /* Switch between the two icons based on the visual refresh feature gate */
-  ${editorExperiment('platform_editor_vanilla_dom', true, { exposure: false }) &&
-	fg('platform-visual-refresh-icons') &&
-	vanillaDecisionIconWithVisualRefresh}
-  ${editorExperiment('platform_editor_vanilla_dom', true, { exposure: false }) &&
-	!fg('platform-visual-refresh-icons') &&
-	vanillaDecisionIconWithoutVisualRefresh}
+	${fg('platform-visual-refresh-icons') && decisionIconWithVisualRefresh}
+	${!fg('platform-visual-refresh-icons') && decisionIconWithoutVisualRefresh}
   ${statusStyles}
   ${statusNodeStyles()}
   ${annotationSharedStyles()}

@@ -4,25 +4,14 @@ export enum ContainerType {
 	LOOM_SPACE = 'LOOM_SPACE',
 }
 
-export enum ConfluenceTemplate {
-	COLLABORATION,
-	KNOWLEDGE_BASE,
-	CUSTOM,
-	DEFAULT,
-}
-
-export interface Template {
-	templateName: string;
-}
-
 export interface Container {
 	type: ContainerType;
-	containerSiteId: string | null;
+	containerSiteId: string;
 }
 
-export interface ConfluenceContainer extends Container {
-	type: ContainerType.CONFLUENCE_SPACE;
-	template: ConfluenceTemplate;
+export interface ContainerNotCreatedDetails {
+	containerType: ContainerType;
+	reason: string;
 }
 
 export interface ApiTeamContainerCreationPayload {
@@ -30,16 +19,16 @@ export interface ApiTeamContainerCreationPayload {
 	containers: Container[];
 }
 
-export interface ContainerDetails {
+export interface ContainerCreatedDetails {
 	containerId: string;
-	containerType: ContainerType;
 	containerName: string;
-	containerUrl: string;
 	containerSiteId: string;
+	containerType: ContainerType;
+	containerUrl: string;
 }
 
 export interface ApiTeamContainerResponse {
 	teamId: string;
-	containersNotCreated: ContainerType[];
-	containerDetails: ContainerDetails[];
+	containersNotCreated: ContainerNotCreatedDetails[];
+	containersCreated: ContainerCreatedDetails[];
 }

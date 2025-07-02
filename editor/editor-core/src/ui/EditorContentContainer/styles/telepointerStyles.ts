@@ -10,12 +10,12 @@ const pulseIn = keyframes({
 		transform: 'scaleX(0)',
 		opacity: 0,
 	},
-	'13%': {
-		transform: 'scaleX(1.4) scaleY(1.4)',
+	'10%': {
+		transform: 'scaleX(1.4)',
 		opacity: 1,
 	},
-	'20%, 85%': {
-		transform: 'scaleX(1) scaleY(1)',
+	'15%, 85%': {
+		transform: 'scaleX(1)',
 		opacity: 1,
 	},
 });
@@ -190,10 +190,10 @@ export const telepointerStyle = css({
 		},
 		'&.telepointer-pulse-animate': {
 			'.telepointer-initial': {
-				animation: `${pulseOut} 2s ease-in-out`,
+				animation: `${pulseOut} 2.5s ease-in-out`,
 			},
 			'.telepointer-fullname': {
-				animation: `${pulseIn} 2s ease-in-out`,
+				animation: `${pulseIn} 2.5s ease-in-out`,
 			},
 		},
 		'&.telepointer-pulse-during-tr': {

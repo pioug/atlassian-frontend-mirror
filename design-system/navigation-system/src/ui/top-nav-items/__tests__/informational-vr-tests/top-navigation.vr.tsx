@@ -1,5 +1,6 @@
 import { Device, snapshotInformational } from '@atlassian/gemini';
 
+import TopNavWithLongProductName from '../../../../../examples/top-nav-with-long-name';
 import TopNavWithTempNavAppIcon from '../../../../../examples/top-nav-with-temp-nav-app-icon';
 import { TopNavigationExample } from '../../../../../examples/top-navigation';
 import { TopNavigationThemingSingleExample } from '../../../../../examples/top-navigation-theming';
@@ -105,4 +106,21 @@ snapshotInformational(TopNavigationThemingSingleExample, {
 		await page.getByRole('link', { name: 'Home page' }).hover();
 		await page.mouse.down();
 	},
+});
+
+snapshotInformational(TopNavWithLongProductName, {
+	description: 'long product name tooltip',
+	featureFlags: {
+		'platform-team25-app-icon-tiles': true,
+		platform_design_system_nav4_top_nav_columns: true,
+		platform_design_system_nav_logo_interaction_states: true,
+	},
+	prepare: async (page) => {
+		// Reduce the viewport size to remove whitespace but include the tooltip
+		await page.setViewportSize({ width: 1200, height: 100 });
+		await page.getByRole('link', { name: 'Home page' }).hover();
+		await page.getByRole('tooltip').waitFor();
+	},
+	// We need to include the tooltip in this snapshot
+	drawsOutsideBounds: true,
 });

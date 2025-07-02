@@ -9,7 +9,7 @@ import ModalDialog, {
 	ModalHeader,
 	ModalTitle,
 } from '@atlaskit/modal-dialog';
-import { Box, Stack } from '@atlaskit/primitives/compiled';
+import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 
 import { type ContainerTypes } from '../../../common/types';
 import { getContainerProperties } from '../../../common/utils/get-container-properties';
@@ -88,7 +88,7 @@ export const DisconnectDialog = ({
 						<FormattedMessage
 							{...messages.disconnectDialogDescription}
 							values={{
-								containerName: <b>{containerName}</b>,
+								containerName: <Text weight="semibold">{containerName}</Text>,
 								containerType: (
 									<>
 										{description} {containerTypeText}

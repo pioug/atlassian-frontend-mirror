@@ -29,7 +29,7 @@ test.describe('ReactUFO: Interactions Unknown Element name', () => {
 			'button#test-button2 > span',
 		);
 		expect(reactUFOPayload!.attributes.properties.interactionMetrics.unknownElementHierarchy).toBe(
-			'[data-testid=test1] > Button > Button > Content',
+			'UFOSegment[name=buttons-container] > Button > Button > Content',
 		);
 	});
 });

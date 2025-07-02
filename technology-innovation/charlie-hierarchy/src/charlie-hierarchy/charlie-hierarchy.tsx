@@ -144,7 +144,7 @@ export const CharlieHierarchy = <Datum,>(props: CharlieHierarchyProps<Datum>) =>
 		scaleY: 1,
 		skewX: 0,
 		skewY: 0,
-		translateX: document.body.clientWidth / 2,
+		translateX: containerWidth / 2,
 		translateY: 120,
 	};
 	const transform = zoom

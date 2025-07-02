@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 38.20.1
+
+### Patch Changes
+
+- [#180349](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/180349)
+  [`421881d819fdf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/421881d819fdf) -
+  Add observability to loading state of smart card
+
 ## 38.20.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-create",
-	"version": "4.1.7",
+	"version": "4.1.8",
 	"description": "The driver component of meta creation flow",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -136,6 +136,9 @@
 			"type": "boolean"
 		},
 		"should-render-to-parent-should-be-true-linking-pla": {
+			"type": "boolean"
+		},
+		"layering-tree-graph": {
 			"type": "boolean"
 		}
 	},

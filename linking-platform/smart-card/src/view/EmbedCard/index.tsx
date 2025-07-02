@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { fg } from '@atlaskit/platform-feature-flags';
+import UFOHoldLoad from '@atlaskit/react-ufo/load-hold';
 
 import { extractRequestAccessContextImproved } from '../../extractors/common/context/extractAccessContext';
 import { extractEmbedProps } from '../../extractors/embed';
@@ -19,6 +20,17 @@ import ForbiddenView from './views/forbidden-view';
 import NotFoundView from './views/not-found-view';
 import { EmbedCardResolvedView } from './views/ResolvedView';
 import UnauthorizedView from './views/unauthorized-view';
+
+const UFOLoadHoldWrapper = ({ children }: PropsWithChildren) => {
+	return fg('platform_renderer_blindspots') ? (
+		<>
+			<UFOHoldLoad name="smart-card-embed-card" />
+			{children}
+		</>
+	) : (
+		children
+	);
+};
 
 export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
 	(
@@ -56,16 +68,18 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
 			case 'pending':
 			case 'resolving':
 				return (
-					<BlockCardResolvedView
-						url={url}
-						cardState={cardState}
-						onClick={handleFrameClick}
-						onError={onError}
-						onResolve={onResolve}
-						renderers={renderers}
-						actionOptions={actionOptions}
-						testId={testId ? `${testId}-resolving-view` : 'embed-card-resolving-view'}
-					/>
+					<UFOLoadHoldWrapper>
+						<BlockCardResolvedView
+							url={url}
+							cardState={cardState}
+							onClick={handleFrameClick}
+							onError={onError}
+							onResolve={onResolve}
+							renderers={renderers}
+							actionOptions={actionOptions}
+							testId={testId ? `${testId}-resolving-view` : 'embed-card-resolving-view'}
+						/>
+					</UFOLoadHoldWrapper>
 				);
 			case 'resolved':
 				const resolvedViewProps = extractEmbedProps(details, platform, iframeUrlType);

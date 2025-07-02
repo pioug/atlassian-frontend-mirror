@@ -4,10 +4,14 @@ export { createPlaybackSpeedChangedEvent } from './events/ui/playbackSpeedChange
 export { createPlayPauseBlanketClickedEvent } from './events/ui/playPauseBlanketClicked';
 export { createMediaShortcutPressedEvent } from './events/ui/shortcutPressed';
 export { createTimeRangeNavigatedEvent } from './events/ui/timeRangeNavigated';
-export { createCaptionUploadSucceededOperationalEvent } from './events/operational/captionUploadSucceeded';
-export { createCaptionDeleteSucceededOperationalEvent } from './events/operational/captionDeleteSucceeded';
-export { createCaptionUploadFailedOperationalEvent } from './events/operational/captionUploadFailed';
-export { createCaptionDeleteFailedOperationalEvent } from './events/operational/captionDeleteFailed';
+export {
+	createCaptionUploadSucceededEventPayload,
+	createCaptionDeleteSucceededEventPayload,
+	createCaptionDisplaySucceededEventPayload,
+	createCaptionUploadFailedEventPayload,
+	createCaptionDeleteFailedEventPayload,
+	createCaptionDisplayFailedEventPayload,
+} from './events/operational/captions';
 export { createFirstPlayedTrackEvent } from './events/track/playCount';
 export { createPlayedTrackEvent } from './events/track/played';
 

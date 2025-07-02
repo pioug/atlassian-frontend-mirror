@@ -10,17 +10,17 @@ import {
 	TopNavStart,
 } from '@atlaskit/navigation-system/layout/top-nav';
 import {
+	AppLogo,
 	AppSwitcher,
 	ChatButton,
 	CreateButton,
 	Help,
-	NavLogo,
 	Notifications,
 	Profile,
 	Search,
 	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
-import { FocusIcon, FocusLogo } from '@atlaskit/temp-nav-app-icons/focus';
+import { FocusIcon } from '@atlaskit/temp-nav-app-icons/focus';
 
 import { WithResponsiveViewport } from './utils/example-utils';
 
@@ -38,10 +38,10 @@ export default function TopNavWithTempNavAppIcon() {
 					<TopNavStart>
 						<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
 						<AppSwitcher label="App switcher" />
-						<NavLogo
+						<AppLogo
 							href="http://www.atlassian.design"
-							logo={() => <FocusLogo />}
-							icon={() => <FocusIcon size="24" />}
+							icon={FocusIcon}
+							name="Focus"
 							label="Home page"
 						/>
 					</TopNavStart>

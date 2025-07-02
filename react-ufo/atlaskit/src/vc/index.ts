@@ -192,3 +192,9 @@ export function getVCObserver(opts: VCObserverOptions = {}): VCObserverInterface
 	}
 	return globalThis.__vcObserver;
 }
+
+export function newVCObserver(opts: VCObserverOptions = {}): VCObserverInterface {
+	const shouldMockVCObserver = !isEnvironmentSupported();
+	const observer = shouldMockVCObserver ? new VCObserverNOOP() : new VCObserverWrapper(opts);
+	return observer;
+}

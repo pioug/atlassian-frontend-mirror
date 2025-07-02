@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.19.13
+
+### Patch Changes
+
+- [#180394](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/180394)
+  [`3d81ac950c9a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d81ac950c9a0) -
+  Add alignment mark to widget spec under FG platform_editor_breakout_resizing_widget_fix
+
 ## 3.19.12
 
 ### Patch Changes

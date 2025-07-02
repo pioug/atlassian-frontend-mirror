@@ -12,7 +12,6 @@ import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdow
 import Heading from '@atlaskit/heading';
 import AiChatIcon from '@atlaskit/icon/core/ai-chat';
 import PremiumIcon from '@atlaskit/icon/core/premium';
-import { AtlassianAdministrationIcon, AtlassianAdministrationLogo } from '@atlaskit/logo';
 import { TopNavButton } from '@atlaskit/navigation-system/experimental/top-nav-button';
 import { SideNavToggleButton } from '@atlaskit/navigation-system/layout/side-nav';
 import {
@@ -23,6 +22,7 @@ import {
 } from '@atlaskit/navigation-system/layout/top-nav';
 import { MenuListItem } from '@atlaskit/navigation-system/side-nav-items/menu-list-item';
 import {
+	AppLogo,
 	AppSwitcher,
 	CreateButton,
 	CustomTitle,
@@ -33,21 +33,21 @@ import {
 	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
 import { Stack } from '@atlaskit/primitives/compiled';
-import { ConfluenceIcon, ConfluenceLogo } from '@atlaskit/temp-nav-app-icons/confluence';
+import { ConfluenceIcon } from '@atlaskit/temp-nav-app-icons/confluence';
 import { EditionAwarenessButton } from '@atlassian/growth-pattern-library-edition-awareness-button';
 
+import placeholder200x20 from './images/200x20.png';
 import { WithResponsiveViewport } from './utils/example-utils';
 import { MockRoot } from './utils/mock-root';
 import { MockSearch } from './utils/mock-search';
 
-const connieNavLogo = (
-	<NavLogo href="" logo={ConfluenceLogo} icon={ConfluenceIcon} label="Home page" />
-);
-const administrationNavLogo = (
+const connieNavLogo = <AppLogo href="" icon={ConfluenceIcon} name="Confluence" label="Home page" />;
+// Stress test nav responsive behaviour with a wide logo
+const wideNavLogo = (
 	<NavLogo
 		href=""
-		logo={AtlassianAdministrationLogo}
-		icon={AtlassianAdministrationIcon}
+		icon={() => <img alt="" src={placeholder200x20} />}
+		logo={() => <img alt="" src={placeholder200x20} />}
 		label="Home page"
 	/>
 );
@@ -138,7 +138,7 @@ export default function TopNavigationStressExample() {
 					<Heading as="h2" size="small">
 						Wide left column
 					</Heading>
-					<TopNavigationInstance navLogo={administrationNavLogo} />
+					<TopNavigationInstance navLogo={wideNavLogo} />
 				</Stack>
 
 				<Stack space="space.100">
@@ -159,7 +159,7 @@ export default function TopNavigationStressExample() {
 					<Heading as="h2" size="small">
 						Wide left and right column
 					</Heading>
-					<TopNavigationInstance navLogo={administrationNavLogo} topNavEnd={extendedTopNavEnd} />
+					<TopNavigationInstance navLogo={wideNavLogo} topNavEnd={extendedTopNavEnd} />
 				</Stack>
 
 				<Stack space="space.100">
@@ -167,7 +167,7 @@ export default function TopNavigationStressExample() {
 						No create button
 					</Heading>
 					<TopNavigationInstance
-						navLogo={administrationNavLogo}
+						navLogo={wideNavLogo}
 						topNavEnd={extendedTopNavEnd}
 						topNavMiddle={<MockSearch />}
 					/>
@@ -178,7 +178,7 @@ export default function TopNavigationStressExample() {
 						No common actions
 					</Heading>
 					<TopNavigationInstance
-						navLogo={administrationNavLogo}
+						navLogo={wideNavLogo}
 						topNavEnd={extendedTopNavEnd}
 						topNavMiddle={null}
 					/>
@@ -189,7 +189,7 @@ export default function TopNavigationStressExample() {
 						Extra common actions
 					</Heading>
 					<TopNavigationInstance
-						navLogo={administrationNavLogo}
+						navLogo={wideNavLogo}
 						topNavEnd={extendedTopNavEnd}
 						topNavMiddle={
 							<Fragment>

@@ -155,6 +155,7 @@ export type TableProps = SharedTableProps & {
 	allowTableAlignment?: boolean;
 	allowTableResizing?: boolean;
 	isPresentational?: boolean;
+	disableTableOverflowShadow?: boolean;
 };
 
 export const isHeaderRowEnabled = (

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { render, screen, waitFor } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
 
 import { DocumentViewer } from './documentViewer';
 import {
@@ -37,6 +38,7 @@ global.fetch = jest.fn(() =>
 // Mock getDocument utility
 jest.mock('./utils/getDocumentRoot', () => ({
 	getDocumentRoot: jest.fn(() => document),
+	getScrollElement: jest.fn(() => null),
 }));
 
 // Mock useIntersectionObserver
@@ -284,6 +286,47 @@ describe('DocumentViewer', () => {
 			const image = await screen.findByTestId('page-0-image');
 			expect(image).toHaveAttribute('data-zoom', '2');
 		});
+
+		it('should adjust scroll position when zoom changes with custom scroll element', async () => {
+			const mockScrollElement = {
+				scrollLeft: 100,
+				scrollTop: 100,
+				clientWidth: 800,
+				clientHeight: 600,
+			};
+
+			const { getScrollElement } = require('./utils/getDocumentRoot');
+			getScrollElement.mockReturnValue(mockScrollElement);
+
+			const { rerender } = render(<DocumentViewer {...createMockProps({ zoom: 1 })} />);
+			await waitFor(async () => await makeAllIntersectionObserversVisible());
+
+			// Change zoom and verify scroll adjustment
+			rerender(<DocumentViewer {...createMockProps({ zoom: 2 })} />);
+
+			await waitFor(async () => await makeAllIntersectionObserversVisible());
+
+			// The scroll position should be adjusted based on the zoom change
+			// Expected calculation: viewportCenter * scaleDiff
+			const expectedScrollLeftAdjustment = (100 + 800 / 2) * (2 / 1 - 1); // 500
+			const expectedScrollTopAdjustment = (100 + 600 / 2) * (2 / 1 - 1); // 400
+
+			expect(mockScrollElement.scrollLeft).toBe(100 + expectedScrollLeftAdjustment);
+			expect(mockScrollElement.scrollTop).toBe(100 + expectedScrollTopAdjustment);
+		});
+
+		it('should not adjust scroll position when no custom scroll element exists', async () => {
+			const { getScrollElement } = require('./utils/getDocumentRoot');
+			getScrollElement.mockReturnValue(null);
+
+			const { rerender } = render(<DocumentViewer {...createMockProps({ zoom: 1 })} />);
+			await waitFor(async () => await makeAllIntersectionObserversVisible());
+
+			// Change zoom - should not throw any errors when no scroll element
+			expect(() => {
+				rerender(<DocumentViewer {...createMockProps({ zoom: 2 })} />);
+			}).not.toThrow();
+		});
 	});
 
 	describe('Success Callback', () => {
@@ -457,6 +500,54 @@ describe('DocumentViewer', () => {
 			// Should not render any form field test IDs when arrays are empty
 			expect(screen.queryByTestId('text-form-field-0')).not.toBeInTheDocument();
 			expect(screen.queryByTestId('combobox-form-field-0')).not.toBeInTheDocument();
+		});
+
+		it('should stop propagation of key up and down events for text form fields', async () => {
+			const props = createMockProps();
+			const onKeyUpSpy = jest.fn();
+			render(
+				<div onKeyUp={onKeyUpSpy}>
+					<DocumentViewer {...props} />
+				</div>,
+			);
+			await waitFor(async () => await makeAllIntersectionObserversVisible());
+
+			const textFormField = await screen.findByTestId('text-form-field-0');
+			expect(textFormField).toBeInTheDocument();
+
+			const input = screen.getByDisplayValue('Form field text');
+
+			// Check that the input has an onKeyUp handler
+			expect(input).toHaveAttribute('readonly');
+
+			// Test that arrow key events can be fired without errors
+			await userEvent.keyboard('{arrowleft}');
+			await userEvent.keyboard('{arrowright}');
+			expect(onKeyUpSpy).toHaveBeenCalledTimes(0);
+		});
+
+		it('should stop propagation of key up and down events for combobox form fields', async () => {
+			const props = createMockProps();
+			const onKeyUpSpy = jest.fn();
+			render(
+				<div onKeyUp={onKeyUpSpy}>
+					<DocumentViewer {...props} />
+				</div>,
+			);
+			await waitFor(async () => await makeAllIntersectionObserversVisible());
+
+			const comboboxFormField = await screen.findByTestId('combobox-form-field-0');
+			expect(comboboxFormField).toBeInTheDocument();
+
+			const input = screen.getByDisplayValue('Combo option');
+
+			// Check that the input has proper attributes
+			expect(input).toHaveAttribute('readonly');
+
+			// Test that arrow key events can be fired without errors
+			await userEvent.keyboard('{arrowleft}');
+			await userEvent.keyboard('{arrowright}');
+			expect(onKeyUpSpy).toHaveBeenCalledTimes(0);
 		});
 	});
 

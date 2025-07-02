@@ -13,6 +13,7 @@ import {
 	TopNavStart,
 } from '@atlaskit/navigation-system/layout/top-nav';
 import {
+	AppLogo,
 	AppSwitcher,
 	ChatButton,
 	CreateButton,
@@ -25,7 +26,7 @@ import {
 import { Notifications } from '@atlaskit/navigation-system/top-nav-items/notifications';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Stack } from '@atlaskit/primitives';
-import { JiraIcon, JiraLogo } from '@atlaskit/temp-nav-app-icons/jira';
+import { JiraIcon } from '@atlaskit/temp-nav-app-icons/jira';
 
 // TODO: consider exposing this type properly, but it isn't needed for normal usage
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
@@ -71,12 +72,21 @@ const TopNavigationThemingInstance = ({ customTheme }: { customTheme?: CustomThe
 						onClick={toggleIsAppSwitcherSelected}
 						isSelected={isAppSwitcherSelected}
 					/>
-					<NavLogo
-						href="http://www.atlassian.design"
-						logo={fg('platform-team25-app-icon-tiles') ? JiraLogo : JiraLogoOld}
-						icon={fg('platform-team25-app-icon-tiles') ? JiraIcon : JiraIconOld}
-						label="Home page"
-					/>
+					{fg('platform-team25-app-icon-tiles') ? (
+						<AppLogo
+							href="http://www.atlassian.design"
+							icon={JiraIcon}
+							name="Jira"
+							label="Home page"
+						/>
+					) : (
+						<NavLogo
+							href="http://www.atlassian.design"
+							icon={JiraIconOld}
+							logo={JiraLogoOld}
+							label="Home page"
+						/>
+					)}
 					<CustomTitle>Optional custom title</CustomTitle>
 				</TopNavStart>
 				<TopNavMiddle>

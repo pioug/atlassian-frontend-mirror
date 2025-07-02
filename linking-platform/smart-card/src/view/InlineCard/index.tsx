@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { PropsWithChildren, useEffect } from 'react';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { extractSmartLinkProvider } from '@atlaskit/link-extractors';
+import { fg } from '@atlaskit/platform-feature-flags';
+import UFOHoldLoad from '@atlaskit/react-ufo/load-hold';
 
 import { SmartLinkStatus } from '../../constants';
 import { extractRequestAccessContextImproved } from '../../extractors/common/context/extractAccessContext';
@@ -23,6 +25,17 @@ export {
 	InlineCardErroredView,
 	InlineCardForbiddenView,
 	InlineCardUnauthorizedView,
+};
+
+const UFOLoadHoldWrapper = ({ children }: PropsWithChildren) => {
+	return fg('platform_renderer_blindspots') ? (
+		<>
+			<UFOHoldLoad name="smart-card-inline-card" />
+			{children}
+		</>
+	) : (
+		children
+	);
 };
 
 export const InlineCard = ({
@@ -80,15 +93,17 @@ export const InlineCard = ({
 		case 'pending':
 		case 'resolving':
 			return (
-				<InlineCardResolvingView
-					url={url}
-					isSelected={isSelected}
-					onClick={handleFrameClick}
-					testId={testIdWithStatus}
-					inlinePreloaderStyle={inlinePreloaderStyle}
-					resolvingPlaceholder={resolvingPlaceholder}
-					truncateInline={truncateInline}
-				/>
+				<UFOLoadHoldWrapper>
+					<InlineCardResolvingView
+						url={url}
+						isSelected={isSelected}
+						onClick={handleFrameClick}
+						testId={testIdWithStatus}
+						inlinePreloaderStyle={inlinePreloaderStyle}
+						resolvingPlaceholder={resolvingPlaceholder}
+						truncateInline={truncateInline}
+					/>
+				</UFOLoadHoldWrapper>
 			);
 		case 'resolved':
 			return (

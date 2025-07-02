@@ -20,7 +20,7 @@ export const MediaPlayerWihtoutContext = ({ onPlay, ...props }: MediaPlayerProps
 		setSelectedTracksIndex,
 		setAreCaptionsEnabled,
 		areCaptionsEnabled,
-	} = useTextTracks(fileState, collectionName);
+	} = useTextTracks({ fileState, collectionName, type: props.type });
 
 	return (
 		<MediaPlayerBase

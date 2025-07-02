@@ -71,6 +71,8 @@ export class DocumentService implements DocumentServiceInterface {
 	private hasRecovered: boolean = false;
 	private numberOfStepCommitsSent: number = 0;
 	private commitStepService: CommitStepService;
+	private timeout: ReturnType<typeof setTimeout> | undefined;
+	private timeoutExceeded: boolean = false;
 
 	// ClientID is the unique ID for a prosemirror client. Used for step-rebasing.
 	private clientId?: number | string;
@@ -1109,11 +1111,37 @@ export class DocumentService implements DocumentServiceInterface {
 			});
 		}
 		if (editorExperiment('platform_editor_offline_editing_web', true)) {
-			const offlineSteps = unconfirmedStepsData?.origins.some((tr) => {
+			const containsOfflineSteps = unconfirmedStepsData?.origins.some((tr) => {
 				return tr instanceof Transaction ? tr.getMeta('isOffline') ?? false : false;
 			});
-			if (offlineSteps) {
+
+			if (containsOfflineSteps && !this.timeoutExceeded) {
+				// Only start timer if we're online and don't already have one running
+				if (this.getConnected() && !this.timeout) {
+					this.timeout = setTimeout(() => {
+						// If the timer expires and we're still online, handle the offline steps.
+						// Otherwise, clear the timer so it can restart when we're online again.
+						if (this.getConnected()) {
+							this.timeoutExceeded = true;
+
+							const updatedUnconfirmedStepsData = sendableSteps(newState);
+							updatedUnconfirmedStepsData?.origins.forEach((origin) => {
+								if (origin instanceof Transaction && origin.getMeta('isOffline')) {
+									origin.setMeta('isOffline', false);
+								}
+							});
+						} else {
+							this.timeout = undefined;
+						}
+					}, 6000);
+				}
 				return;
+			} else if (this.timeoutExceeded) {
+				this.timeoutExceeded = false;
+				if (this.timeout) {
+					clearTimeout(this.timeout);
+					this.timeout = undefined;
+				}
 			}
 		}
 

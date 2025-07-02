@@ -544,16 +544,17 @@ export const apply = (
 			const oldHandle = findHandleDec(decorations, activeNode?.pos, activeNode?.pos);
 			decorations = decorations.remove(oldHandle);
 
-			const handleDec = dragHandleDecoration(
+			const handleDec = dragHandleDecoration({
 				api,
 				formatMessage,
-				latestActiveNode?.pos,
-				latestActiveNode?.anchorName,
-				latestActiveNode?.nodeType,
+				pos: latestActiveNode?.pos,
+				anchorName: latestActiveNode?.anchorName,
+				nodeType: latestActiveNode?.nodeType,
+				handleOptions: latestActiveNode?.handleOptions,
 				nodeViewPortalProviderAPI,
-				latestActiveNode?.handleOptions,
 				anchorRectCache,
-			);
+				editorState: newState,
+			});
 
 			decorations = decorations.add(newState.doc, [handleDec]);
 		}
@@ -570,17 +571,18 @@ export const apply = (
 			);
 			decorations = decorations.remove(oldQuickInsertButton);
 
-			const quickInsertButton = quickInsertButtonDecoration(
+			const quickInsertButton = quickInsertButtonDecoration({
 				api,
 				formatMessage,
-				latestActiveNode?.rootPos,
-				latestActiveNode?.anchorName,
-				latestActiveNode?.nodeType,
+				anchorName: latestActiveNode?.anchorName,
+				nodeType: latestActiveNode?.nodeType,
 				nodeViewPortalProviderAPI,
-				latestActiveNode?.rootAnchorName,
-				latestActiveNode?.rootNodeType,
+				rootPos: latestActiveNode?.rootPos,
+				rootAnchorName: latestActiveNode?.rootAnchorName,
+				rootNodeType: latestActiveNode?.rootNodeType,
 				anchorRectCache,
-			);
+				editorState: newState,
+			});
 			decorations = decorations.add(newState.doc, [quickInsertButton]);
 		}
 	}

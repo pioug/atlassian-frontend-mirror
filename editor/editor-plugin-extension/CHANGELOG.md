@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-extension
 
+## 5.5.14
+
+### Patch Changes
+
+- [#180417](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/180417)
+  [`4850015153c2f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4850015153c2f) -
+  [ux] Fixes A11Y issue by adding label to the checkbox that has toggle apperance in the Config
+  panel.
+
 ## 5.5.13
 
 ### Patch Changes

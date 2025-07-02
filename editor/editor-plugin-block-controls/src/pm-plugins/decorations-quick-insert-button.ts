@@ -5,6 +5,7 @@ import uuid from 'uuid';
 
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -13,6 +14,7 @@ import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import { QuickInsertWithVisibility, TypeAheadControl } from '../ui/quick-insert-button';
 
 import { AnchorRectCache } from './utils/anchor-utils';
+import { getActiveBlockMarks } from './utils/marks';
 import { createVanillaButton } from './vanilla-quick-insert';
 
 const TYPE_QUICK_INSERT = 'INSERT_BUTTON';
@@ -25,17 +27,31 @@ export const findQuickInsertInsertButtonDecoration = (
 	return decorations.find(from, to, (spec) => spec.type === TYPE_QUICK_INSERT);
 };
 
-export const quickInsertButtonDecoration = (
-	api: ExtractInjectionAPI<BlockControlsPlugin>,
-	formatMessage: IntlShape['formatMessage'],
-	rootPos: number,
-	anchorName: string,
-	nodeType: string,
-	nodeViewPortalProviderAPI: PortalProviderAPI,
-	rootAnchorName?: string,
-	rootNodeType?: string,
-	anchorRectCache?: AnchorRectCache,
-) => {
+type QuickInsertButtonDecorationParams = {
+	api: ExtractInjectionAPI<BlockControlsPlugin>;
+	formatMessage: IntlShape['formatMessage'];
+	rootPos: number;
+	anchorName: string;
+	nodeType: string;
+	nodeViewPortalProviderAPI: PortalProviderAPI;
+	rootAnchorName?: string;
+	rootNodeType?: string;
+	anchorRectCache?: AnchorRectCache;
+	editorState: EditorState;
+};
+
+export const quickInsertButtonDecoration = ({
+	api,
+	formatMessage,
+	rootPos,
+	anchorName,
+	nodeType,
+	nodeViewPortalProviderAPI,
+	rootAnchorName,
+	rootNodeType,
+	anchorRectCache,
+	editorState,
+}: QuickInsertButtonDecorationParams) => {
 	const key = uuid();
 	const cleanupCallbacks: (() => void)[] = [];
 
@@ -45,11 +61,13 @@ export const quickInsertButtonDecoration = (
 				type: TYPE_QUICK_INSERT,
 				/**
 				 * sigh - `marks` influences the position that the widget is drawn (as described on the `side` property).
-				 * Leaving this 'undefined' causes the widget to be wrapped in the mark before this position which creates
-				 * weird stacking context issues. Providing an empty array causes the widget to correctly render before
-				 * this exact position at the top of the DOM.
+				 * Exclude 'breakout' on purpose, so the widgets render at the top of the document to avoid z-index issues
+				 * Other block marks must be added, otherwise PM will split the DOM elements causing mutations and re-draws
 				 */
-				marks: [],
+
+				marks: fg('platform_editor_breakout_resizing_widget_fix')
+					? getActiveBlockMarks(editorState, rootPos)
+					: [],
 				destroy: (_: Node) => {
 					if (fg('platform_editor_fix_widget_destroy')) {
 						nodeViewPortalProviderAPI.remove(key);

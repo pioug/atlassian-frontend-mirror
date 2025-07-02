@@ -1,5 +1,21 @@
 # @atlaskit/teams-client
 
+## 4.6.0
+
+### Minor Changes
+
+- [#179534](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/179534)
+  [`a9ea980ec4a3c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a9ea980ec4a3c) -
+  Auto fill web link title when creating/updating web link in team profile page
+
+## 4.5.2
+
+### Patch Changes
+
+- [#177738](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/177738)
+  [`b53656178cdff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b53656178cdff) -
+  Update legion response for container creation to match changes in BE
+
 ## 4.5.1
 
 ### Patch Changes

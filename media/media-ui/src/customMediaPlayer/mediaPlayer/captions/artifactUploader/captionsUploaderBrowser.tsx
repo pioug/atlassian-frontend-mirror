@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useMediaClient } from '@atlaskit/media-client-react';
-import type { ArtifactUploaderContext, ArtifactUploaderProps } from './types';
+import type { ArtifactUploaderProps } from './types';
 import { BrowserPicker } from './filePickers/browser';
 import { createUploadCaptionsFn, UploadCaptionsForm } from './captions';
 import ApiFeedback, { type NotificationTypes } from '../apiFeedback';
 import { type MediaItemDetails } from '@atlaskit/media-client';
 import { messages } from '../../../../messages';
 import { type WrappedComponentProps, injectIntl } from 'react-intl-next';
+import { type MediaTraceContext } from '@atlaskit/media-common';
 
 export type CaptionsUploaderBrowserProps = ArtifactUploaderProps & {
 	isOpen: boolean;
@@ -26,13 +27,13 @@ const CaptionsUploaderBrowser = ({
 	const [file, setFile] = useState<File>();
 	const mediaClient = useMediaClient();
 	const [notificationType, setNotificationType] = useState<NotificationTypes>(null);
-	const _onError = (error: any, context: ArtifactUploaderContext) => {
+	const _onError = (error: any, traceContext: MediaTraceContext) => {
 		setNotificationType('error');
-		onError?.(error, context);
+		onError?.(error, traceContext);
 	};
-	const _onEnd = (metadata: MediaItemDetails, context: ArtifactUploaderContext) => {
+	const _onEnd = (metadata: MediaItemDetails, traceContext: MediaTraceContext) => {
 		setNotificationType('success');
-		onEnd?.(metadata, context);
+		onEnd?.(metadata, traceContext);
 	};
 
 	const close = () => {

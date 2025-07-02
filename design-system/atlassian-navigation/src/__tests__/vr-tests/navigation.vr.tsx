@@ -3,10 +3,12 @@ import { Device, snapshot } from '@af/visual-regression';
 import {
 	CustomProductHomeExample,
 	NavExample,
+	NavExampleAppHome,
 	NavigationSkeletonExample,
 	ResponsiveCreateHomeAndSearchExample,
 	SkeletonButtonsExample,
 	ThemedSkeletonButtonsExample,
+	ThemingAppHomeExample,
 	ThemingExample,
 	ThemingNavigationSkeletonExample,
 } from './test-examples';
@@ -17,6 +19,17 @@ snapshot(NavExample, {
 			name: 'default',
 			environment: {},
 		},
+		{
+			name: 'light mode',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+});
+
+snapshot(NavExampleAppHome, {
+	variants: [
 		{
 			name: 'light mode',
 			environment: {
@@ -74,6 +87,26 @@ snapshot(ThemingExample, {
 		},
 	],
 	featureFlags: { 'platform-team25-app-icon-tiles': [true, false] },
+});
+
+snapshot(ThemingAppHomeExample, {
+	variants: [
+		{
+			name: 'default',
+			environment: {},
+		},
+		{
+			name: 'mobile chrome',
+			device: Device.MOBILE_CHROME,
+		},
+		{
+			name: 'light mode',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+	featureFlags: { 'platform-team25-app-icon-tiles': [true] },
 });
 
 snapshot(ThemingNavigationSkeletonExample);

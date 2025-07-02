@@ -1851,9 +1851,7 @@ describe('FileFetcher', () => {
 		it('should call mediaApi.deleteArtifact and update file state', async () => {
 			const { fileFetcher, mediaStore } = setup();
 			const fileId = 'test-file-id';
-			const params = {
-				artifactName: 'ugc_caption_en',
-			};
+			const artifactName = 'ugc_caption_en';
 			const collectionName = 'test-collection';
 			const traceContext = {
 				traceId: 'test-trace-id',
@@ -1890,11 +1888,11 @@ describe('FileFetcher', () => {
 
 			(mediaStore.deleteArtifact as jest.Mock).mockResolvedValue(undefined);
 
-			await fileFetcher.deleteArtifact(fileId, params, collectionName, traceContext);
+			await fileFetcher.deleteArtifact(fileId, artifactName, collectionName, traceContext);
 
 			expect(mediaStore.deleteArtifact).toHaveBeenCalledWith(
 				fileId,
-				params,
+				artifactName,
 				collectionName,
 				traceContext,
 			);
@@ -1916,9 +1914,7 @@ describe('FileFetcher', () => {
 		it('should handle errors from mediaApi.deleteArtifact', async () => {
 			const { fileFetcher, mediaStore } = setup();
 			const fileId = 'test-file-id';
-			const params = {
-				artifactName: 'ugc_caption_en',
-			};
+			const artifactName = 'ugc_caption_en';
 			const collectionName = 'test-collection';
 			const traceContext = {
 				traceId: 'test-trace-id',
@@ -1929,7 +1925,7 @@ describe('FileFetcher', () => {
 			(mediaStore.deleteArtifact as jest.Mock).mockRejectedValue(error);
 
 			await expect(
-				fileFetcher.deleteArtifact(fileId, params, collectionName, traceContext),
+				fileFetcher.deleteArtifact(fileId, artifactName, collectionName, traceContext),
 			).rejects.toThrow('Delete failed');
 		});
 	});

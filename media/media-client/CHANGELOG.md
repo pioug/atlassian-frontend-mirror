@@ -1,5 +1,13 @@
 # @atlaskit/media-client
 
+## 35.0.0
+
+### Major Changes
+
+- [#179845](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/179845)
+  [`8a03175bb502a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8a03175bb502a) -
+  Updated Delete Artifact interface
+
 ## 34.2.0
 
 ### Minor Changes

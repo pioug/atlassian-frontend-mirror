@@ -2,47 +2,43 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { cssMap, jsx } from '@compiled/react';
 
 import { defaultBannerHeight } from './constants';
 import type { PageProps } from './types';
 
-const bannerStyles = css({
-	width: '100%',
-	position: 'fixed',
-});
-
-const bannerContainerStyles = css({
-	width: '100%',
-	position: 'relative',
-	zIndex: 3,
-	flex: '1 0 auto',
-	transition: 'height 0.25s ease-in-out',
-});
-
-const pageContentStyles = css({
-	minWidth: 0,
-	position: 'relative',
-	zIndex: 1,
-	flex: '1 1 auto',
-});
-
-const wrapperStyles = css({
-	display: 'flex',
-	width: '100%',
-	minHeight: '100%',
-	flexDirection: 'column',
-});
-
-const mainContainerStyles = css({
-	display: 'flex',
-	flex: '1 1 auto',
-});
-
-const navigationStyles = css({
-	position: 'relative',
-	zIndex: 2,
+const styles = cssMap({
+	banner: {
+		width: '100%',
+		position: 'fixed',
+	},
+	bannerContainer: {
+		width: '100%',
+		position: 'relative',
+		zIndex: 3,
+		flex: '1 0 auto',
+		transition: 'height 0.25s ease-in-out',
+	},
+	pageContent: {
+		minWidth: 0,
+		position: 'relative',
+		zIndex: 1,
+		flex: '1 1 auto',
+	},
+	wrapper: {
+		display: 'flex',
+		width: '100%',
+		minHeight: '100%',
+		flexDirection: 'column',
+	},
+	mainContainer: {
+		display: 'flex',
+		flex: '1 1 auto',
+	},
+	navigation: {
+		position: 'relative',
+		zIndex: 2,
+	},
 });
 
 /**
@@ -64,20 +60,20 @@ const Page = ({
 	testId,
 }: PageProps) => {
 	return (
-		<div css={wrapperStyles} data-testid={testId}>
+		<div css={styles.wrapper} data-testid={testId}>
 			{banner ? (
 				<div
-					css={bannerContainerStyles}
+					css={styles.bannerContainer}
 					style={{ height: isBannerOpen ? `${bannerHeight}px` : '0' }}
 					aria-hidden={!isBannerOpen}
 					data-testid={testId ? `${testId}--banner-container` : undefined}
 				>
-					<div css={bannerStyles}>{banner}</div>
+					<div css={styles.banner}>{banner}</div>
 				</div>
 			) : null}
-			<div css={mainContainerStyles}>
-				<div css={navigationStyles}>{navigation}</div>
-				<div css={pageContentStyles}>{children}</div>
+			<div css={styles.mainContainer}>
+				<div css={styles.navigation}>{navigation}</div>
+				<div css={styles.pageContent}>{children}</div>
 			</div>
 		</div>
 	);

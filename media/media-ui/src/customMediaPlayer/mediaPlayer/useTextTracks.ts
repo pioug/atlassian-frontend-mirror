@@ -16,6 +16,11 @@ import {
 } from './captions';
 import { useIntl } from 'react-intl-next';
 
+import { type MediaTraceContext, getRandomTelemetryId } from '@atlaskit/media-common';
+import { createCaptionDisplayFailedEventPayload, fireAnalyticsEvent } from '../analytics';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { type CustomMediaPlayerType } from '../types';
+
 type CaptionsRawMetadata = { l?: string; n?: string };
 type CaptionsMetadata = { lang: string; fileName: string; label: string };
 
@@ -37,9 +42,18 @@ const decodeMimetype = (mimeType?: string): CaptionsMetadata => {
 
 const NO_SELECTED_TRACKS_INDEX = -1;
 
-export const useTextTracks = (fileState?: FileState, collectionName?: string) => {
+type UseTextTracksProps = {
+	fileState?: FileState;
+	collectionName?: string;
+	type: CustomMediaPlayerType;
+};
+
+export const useTextTracks = ({ fileState, collectionName, type }: UseTextTracksProps) => {
+	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const mediaClient = useMediaClient();
-	const isLoadingCaptionsObjectURLs = useRef<Map<string, boolean>>(new Map());
+	const captionsObjectURLsStatus = useRef<Map<string, 'loading' | 'loaded' | 'error' | undefined>>(
+		new Map(),
+	);
 	const captionsObjectURLs = useRef<Map<string, string>>(new Map());
 	const intl = useIntl();
 	const { mediaUserPreferences } = useMediaSettings() || {};
@@ -114,8 +128,12 @@ export const useTextTracks = (fileState?: FileState, collectionName?: string) =>
 	useEffect(() => {
 		if (fileState && hasArtifacts(fileState)) {
 			const { artifactName, src } = captionTracks[resolvedSelectedTracksIndex] || {};
-			if (artifactName && !src && !isLoadingCaptionsObjectURLs.current.get(artifactName)) {
-				isLoadingCaptionsObjectURLs.current.set(artifactName, true);
+
+			if (artifactName && !src && !captionsObjectURLsStatus.current.get(artifactName)) {
+				const traceContext: MediaTraceContext = {
+					traceId: getRandomTelemetryId(),
+				};
+				captionsObjectURLsStatus.current.set(artifactName, 'loading');
 				mediaClient.mediaStore
 					.getArtifactBinary(fileState.artifacts, artifactName, {
 						collectionName,
@@ -132,17 +150,40 @@ export const useTextTracks = (fileState?: FileState, collectionName?: string) =>
 							};
 							return newCaptionTracks;
 						});
+						captionsObjectURLsStatus.current.set(artifactName, 'loaded');
 					})
 					.catch((error) => {
-						// TODO: Handle this error
-						// https://product-fabric.atlassian.net/browse/BMPT-6929
-					})
-					.finally(() => {
-						isLoadingCaptionsObjectURLs.current.set(artifactName, false);
+						const captionAttributes = {
+							selectedTrackIndex: resolvedSelectedTracksIndex,
+							availableCaptionTracks: captionTracks?.length || 0,
+							selectedTrackLanguage: captionTracks?.[resolvedSelectedTracksIndex]?.lang || null,
+							artifactName,
+						};
+
+						fireAnalyticsEvent(
+							createCaptionDisplayFailedEventPayload(
+								type,
+								'fetch-fail',
+								captionAttributes,
+								fileState.id,
+								error,
+								traceContext,
+							),
+							createAnalyticsEvent,
+						);
+						captionsObjectURLsStatus.current.set(artifactName, 'error');
 					});
 			}
 		}
-	}, [resolvedSelectedTracksIndex, captionTracks, mediaClient, fileState, collectionName]);
+	}, [
+		resolvedSelectedTracksIndex,
+		captionTracks,
+		mediaClient,
+		fileState,
+		collectionName,
+		createAnalyticsEvent,
+		type,
+	]);
 
 	// Revokes the object urls when the component unmounts.
 	useEffect(() => {

@@ -169,7 +169,7 @@ export class ParticipantsService {
 
 		if (!previousParticipant && this.fetchAnonymousAsset) {
 			try {
-				asset = await this.fetchAnonymousAsset(payload.sessionId);
+				asset = await this.fetchAnonymousAsset(payload.presenceId);
 			} catch (error) {
 				this.analyticsHelper?.sendErrorEvent(error, 'Error while fetching anonymous assets');
 			}

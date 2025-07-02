@@ -1,5 +1,26 @@
 # @atlaskit/media-ui
 
+## 28.6.0
+
+### Minor Changes
+
+- [#179944](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/179944)
+  [`8e28048c6a3d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8e28048c6a3d3) -
+  Added captions display succeeded and failed analytics events
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.5.4
+
+### Patch Changes
+
+- [#179845](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/179845)
+  [`853f0161e48b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/853f0161e48b0) -
+  Updated Delete Video Caption interface
+- Updated dependencies
+
 ## 28.5.3
 
 ### Patch Changes

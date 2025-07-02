@@ -1,4 +1,5 @@
-import { type MediaApi, RequestError } from '@atlaskit/media-client';
+import { type MediaApi } from '@atlaskit/media-client';
+import { createServerUnauthorizedError } from '@atlaskit/media-client/test-helpers';
 import { sleep } from '@atlaskit/media-test-helpers';
 
 type Endpoints = Partial<Record<keyof MediaApi, number>>;
@@ -31,15 +32,9 @@ export const errorApiResponses = {
 		mediaApi.getFileBinary = async () => {
 			throw (
 				error ||
-				new RequestError('serverForbidden', {
+				createServerUnauthorizedError({
+					endpoint: '/file/:id/binary',
 					method: 'GET',
-					endpoint: '/file/:id/inary',
-					mediaRegion: 'adev',
-					mediaEnv: 'adev',
-					traceContext: { traceId: 'some-traceId', spanId: 'some-spanId' },
-					attempts: 10,
-					clientExhaustedRetries: true,
-					statusCode: 430,
 				})
 			);
 		};
@@ -48,15 +43,42 @@ export const errorApiResponses = {
 		mediaApi.getImage = async () => {
 			throw (
 				error ||
-				new RequestError('serverForbidden', {
-					method: 'GET',
+				createServerUnauthorizedError({
 					endpoint: '/file/:id/image',
-					mediaRegion: 'adev',
-					mediaEnv: 'adev',
-					traceContext: { traceId: 'some-traceId', spanId: 'some-spanId' },
-					attempts: 10,
-					clientExhaustedRetries: true,
-					statusCode: 430,
+					method: 'GET',
+				})
+			);
+		};
+	},
+	getArtifactBinary: (mediaApi: MediaApi, error?: Error) => {
+		mediaApi.getArtifactBinary = async (...params) => {
+			throw (
+				error ||
+				createServerUnauthorizedError({
+					endpoint: '/file/:id/binary/:artifactName',
+					method: 'GET',
+				})
+			);
+		};
+	},
+	uploadArtifact: (mediaApi: MediaApi, error?: Error) => {
+		mediaApi.uploadArtifact = async (...params) => {
+			throw (
+				error ||
+				createServerUnauthorizedError({
+					endpoint: '/file/:id/artifact/:artifactName',
+					method: 'POST',
+				})
+			);
+		};
+	},
+	deleteArtifact: (mediaApi: MediaApi, error?: Error) => {
+		mediaApi.deleteArtifact = async (...params) => {
+			throw (
+				error ||
+				createServerUnauthorizedError({
+					endpoint: '/file/:id/artifact/:artifactName',
+					method: 'DELETE',
 				})
 			);
 		};

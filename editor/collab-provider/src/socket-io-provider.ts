@@ -14,6 +14,7 @@ export function createSocketIOSocket(
 	productInfo?: ProductInformation,
 	isPresenceOnly?: boolean,
 	analyticsHelper?: AnalyticsHelper,
+	customExtraHeaders?: Record<string, string>,
 ): Socket {
 	const { pathname } = new URL(url);
 	let socketIOOptions = SOCKET_IO_OPTIONS;
@@ -31,6 +32,15 @@ export function createSocketIOSocket(
 		}
 	}
 
+	// Merge default headers with custom headers, custom headers take precedence
+	const defaultExtraHeaders = {
+		'x-product': getProduct(productInfo),
+		'x-subproduct': getSubProduct(productInfo),
+	};
+	const extraHeaders = customExtraHeaders
+		? { ...defaultExtraHeaders, ...customExtraHeaders }
+		: defaultExtraHeaders;
+
 	const client = io(url, {
 		reconnectionDelayMax: socketIOOptions.RECONNECTION_DELAY_MAX,
 		reconnectionDelay: socketIOOptions.RECONNECTION_DELAY,
@@ -40,10 +50,7 @@ export function createSocketIOSocket(
 		transports,
 		path: `/${pathname.split('/')[1]}/socket.io`,
 		auth,
-		extraHeaders: {
-			'x-product': getProduct(productInfo),
-			'x-subproduct': getSubProduct(productInfo),
-		},
+		extraHeaders,
 	});
 
 	return client;

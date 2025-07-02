@@ -64,7 +64,6 @@ export const decisionItemToDOM = (node: PMNode, intl: IntlShape) => {
 		{
 			'data-decision-local-id': node.attrs.localId || 'local-decision',
 			'data-decision-state': node.attrs.state,
-			'data-prosemirror-node-view-type': 'vanilla',
 			'data-prosemirror-node-name': 'decisionItem',
 			class: 'decisionItemView-content-wrap',
 		},

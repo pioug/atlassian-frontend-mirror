@@ -93,6 +93,7 @@ export interface ReactSerializerInit {
 	allowTableAlignment?: boolean;
 	allowTableResizing?: boolean;
 	isPresentational?: boolean;
+	disableTableOverflowShadow?: boolean;
 }
 
 interface ParentInfo {
@@ -197,6 +198,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 	private allowTableAlignment?: boolean;
 	private allowTableResizing?: boolean;
 	private isPresentational?: boolean;
+	private disableTableOverflowShadow?: boolean;
 
 	constructor(init: ReactSerializerInit) {
 		if (editorExperiment('comment_on_bodied_extensions', true)) {
@@ -239,6 +241,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		this.allowTableAlignment = init.allowTableAlignment;
 		this.allowTableResizing = init.allowTableResizing;
 		this.isPresentational = init.isPresentational;
+		this.disableTableOverflowShadow = init.disableTableOverflowShadow;
 	}
 
 	private resetState() {
@@ -535,6 +538,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 			allowTableAlignment: this.allowTableAlignment,
 			allowTableResizing: this.allowTableResizing,
 			isPresentational: fg('platform_renderer_isPresentational') ? this.isPresentational : false,
+			disableTableOverflowShadow: this.disableTableOverflowShadow,
 		};
 	}
 

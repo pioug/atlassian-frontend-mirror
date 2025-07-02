@@ -93,4 +93,4 @@ export {
 
 export { overflowShadow } from './overflow-shadow/overflow-shadow';
 
-export { getParticipantColor } from './utils';
+export { getHashCode, getParticipantColor } from './utils';

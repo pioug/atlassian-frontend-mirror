@@ -22,6 +22,13 @@ function getTestIdName(memoizedProps: Record<string, string>): string | null {
 	return null;
 }
 
+function getUFOSegmentName(componentName: string, memoizedProps?: Record<string, string>): string {
+	if (memoizedProps && memoizedProps['name']) {
+		return `UFOSegment[name=${memoizedProps['name']}]`;
+	}
+	return componentName;
+}
+
 function getReactComponentHierarchy(element: HTMLElement) {
 	const componentHierarchy: string[] = [];
 	// Function to traverse up the fiber tree
@@ -38,10 +45,11 @@ function getReactComponentHierarchy(element: HTMLElement) {
 					!componentName.includes('Listener') &&
 					!componentName.includes('Provider')
 				) {
+					if (componentName === 'UFOSegment') {
+						componentHierarchy.push(getUFOSegmentName(componentName, currentFiber.memoizedProps));
+						break;
+					}
 					componentHierarchy.push(componentName);
-				}
-				if (componentName === 'UFOSegment') {
-					break;
 				}
 			}
 			if (currentFiber.memoizedProps) {
@@ -81,28 +89,27 @@ export const getPerformanceObserver = (): PerformanceObserver => {
 export const setInteractionPerformanceEvent = (entry: PerformanceEventTiming) => {
 	const interaction = getActiveInteraction();
 	if (interaction?.type === 'press') {
-		// if happens there is another event interaction that has started after
-		// the initial one, we don't want to replace the values if they have already been set up
-		interaction.responsiveness = {
-			...interaction.responsiveness,
-			experimentalInputToNextPaint:
-				interaction.responsiveness?.experimentalInputToNextPaint || entry.duration,
-			inputDelay: interaction.responsiveness?.inputDelay || entry.processingStart - entry.startTime,
-		};
-		// if the entry start time is lower than the one in the interaction
-		// it means the interaction start time is not accurate, we assign
-		// this value which will match the timestamp in the event
-		interaction.start = Math.min(interaction.start, entry.startTime);
-
-		if (
-			interaction.ufoName === 'unknown' &&
-			fg('platform_ufo_enable_unknown_interactions_elements')
-		) {
-			if (entry.target) {
-				const componentHierarchy = getReactComponentHierarchy(entry.target as HTMLElement);
-				interaction.unknownElementHierarchy = componentHierarchy;
+		if (!interaction.responsiveness?.experimentalInputToNextPaint) {
+			interaction.responsiveness = {
+				...interaction.responsiveness,
+				experimentalInputToNextPaint:
+					interaction.responsiveness?.experimentalInputToNextPaint || entry.duration,
+				inputDelay:
+					interaction.responsiveness?.inputDelay || entry.processingStart - entry.startTime,
+			};
+			if (
+				interaction.ufoName === 'unknown' &&
+				fg('platform_ufo_enable_unknown_interactions_elements')
+			) {
+				if (entry.target) {
+					const componentHierarchy = getReactComponentHierarchy(entry.target as HTMLElement);
+					interaction.unknownElementHierarchy = componentHierarchy;
+				}
+				interaction.unknownElementName = getElementName(
+					selectorConfig,
+					entry.target as HTMLElement,
+				);
 			}
-			interaction.unknownElementName = getElementName(selectorConfig, entry.target as HTMLElement);
 		}
 	}
 };

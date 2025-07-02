@@ -1,5 +1,26 @@
 # @atlaskit/editor-core
 
+## 208.7.2
+
+### Patch Changes
+
+- [#180304](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/180304)
+  [`82e8e7a0b9283`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/82e8e7a0b9283) -
+  [ux] Updated telepointer pulse animations by copying keyframes from the old CSS styles
+- Updated dependencies
+
+## 208.7.1
+
+### Patch Changes
+
+- [#180357](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/180357)
+  [`4f4d1545d11af`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4f4d1545d11af) -
+  Cleanup feature gates for vanilla dom experiment and decision nodes
+- [#179660](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/179660)
+  [`75577e79c0fa2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/75577e79c0fa2) -
+  Cleanup vanilla emoji experiment
+- Updated dependencies
+
 ## 208.7.0
 
 ### Minor Changes

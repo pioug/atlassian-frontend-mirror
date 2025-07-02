@@ -6,7 +6,7 @@ import type { Config } from '../../types';
 
 jest.mock('../../analytics/analytics-helper');
 
-export const createMockService = (config: Partial<Config> = {}) => {
+export const createMockService = (config: Partial<Config> = {}, getConnected = () => true) => {
 	const participantsServiceMock = {
 		updateLastActive: jest.fn(),
 		emitTelepointersFromSteps: jest.fn(),
@@ -40,7 +40,7 @@ export const createMockService = (config: Partial<Config> = {}) => {
 		isNameSpaceLockedMock,
 		Boolean(config.enableErrorOnFailedDocumentApply),
 		options,
-		() => true,
+		getConnected,
 	);
 
 	// @ts-expect-error - jest mock class

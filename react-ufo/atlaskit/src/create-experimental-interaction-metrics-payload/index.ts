@@ -70,10 +70,13 @@ export class ExperimentalVCMetrics {
 export const experimentalVC = new ExperimentalVCMetrics();
 
 export async function getExperimentalVCMetrics(interaction: InteractionMetrics) {
-	if (experimentalVC.vcObserver) {
+	// Use per-interaction VC observer if available, otherwise fall back to global experimentalVC
+	const vcObserver = interaction.experimentalVCObserver || experimentalVC.vcObserver;
+
+	if (vcObserver) {
 		const prefix = 'ufo-experimental';
 
-		const result = await experimentalVC.vcObserver.getVCResult({
+		const result = await vcObserver.getVCResult({
 			start: interaction.start,
 			stop: interaction.end,
 			tti: interaction.apdex?.[0]?.stopTime,

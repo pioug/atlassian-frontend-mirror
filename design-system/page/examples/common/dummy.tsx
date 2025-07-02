@@ -4,8 +4,7 @@
  */
 import { type ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { cssMap, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
@@ -14,22 +13,22 @@ type DummyProps = {
 	children?: ReactNode;
 };
 
-const dummyStyles = {
-	base: css({
-		background: token('color.background.neutral'),
-	}),
-	nested: css({
-		background: token('color.background.neutral.hovered'),
-	}),
-	margin: css({
+const styles = cssMap({
+	base: {
+		backgroundColor: token('color.background.neutral'),
+	},
+	nested: {
+		backgroundColor: token('color.background.neutral.hovered'),
+	},
+	margin: {
 		marginBlockEnd: token('space.100', '8px'),
-	}),
-};
+	},
+});
 
 export const Dummy = ({ children, hasMargin = false }: DummyProps) => (
-	<div css={[dummyStyles.base, hasMargin && dummyStyles.margin]}>{children}</div>
+	<div css={[styles.base, hasMargin && styles.margin]}>{children}</div>
 );
 
 export const DummyNested = ({ children, hasMargin = false }: DummyProps) => (
-	<div css={[dummyStyles.nested, hasMargin && dummyStyles.margin]}>{children}</div>
+	<div css={[styles.nested, hasMargin && styles.margin]}>{children}</div>
 );

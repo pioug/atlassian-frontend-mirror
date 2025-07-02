@@ -1,5 +1,23 @@
 # @atlaskit/collab-provider
 
+## 10.21.1
+
+### Patch Changes
+
+- [#179865](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/179865)
+  [`33dc1bfc85993`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/33dc1bfc85993) -
+  ED-28407 Offline Editing: Add logic that will mark offline steps as regular steps after 6s of
+  being online. Added as a fallback incase there's issue with the offline storage plugin and it's
+  unable to handle the steps.
+
+## 10.21.0
+
+### Minor Changes
+
+- [#179240](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/179240)
+  [`a5d25b58c755a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a5d25b58c755a) -
+  Support for custom authentication headers
+
 ## 10.20.5
 
 ### Patch Changes

@@ -9,7 +9,6 @@ import {
 } from './selectionStyles';
 
 const akEditorLineHeight = 1.714;
-const akEditorSelectedBorderSize = 1;
 const akEditorSelectedNodeClassName = 'ak-editor-selected-node';
 
 export const TaskDecisionSharedCssClassName = {
@@ -18,43 +17,6 @@ export const TaskDecisionSharedCssClassName = {
 	TASK_ITEM: 'task-item',
 	TASK_CHECKBOX_CONTAINER: 'task-item-checkbox-wrap',
 };
-
-const decisionSelectionStyles = css({
-	borderRadius: '4px',
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const decisionStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-decision-wrapper]': {
-		cursor: 'pointer',
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
-	[`.${akEditorSelectedNodeClassName} > [data-decision-wrapper], ol[data-node-type='decisionList'].${akEditorSelectedNodeClassName}`]:
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-		[
-			decisionSelectionStyles,
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-			boxShadowSelectionStyles,
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-			blanketSelectionStyles,
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-			hideNativeBrowserTextSelectionStyles,
-		],
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'.danger': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
-		[`.${TaskDecisionSharedCssClassName.DECISION_CONTAINER}.${akEditorSelectedNodeClassName} > div`]:
-			{
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-				boxShadow: `0 0 0 ${akEditorSelectedBorderSize}px ${token('color.border.danger')}`,
-				backgroundColor: token('color.blanket.danger'),
-				'&::after': {
-					content: 'none', // reset the Blanket selection style
-				},
-			},
-	},
-});
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const tasksAndDecisionsStyles = css({
@@ -129,27 +91,53 @@ export const tasksAndDecisionsStyles = css({
 	},
 });
 
-// Combine this with taskDecisionStyles (above) when cleaning up the platform_editor_vanilla_dom experiment.
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const vanillaDecisionStyles = css({
+export const decisionStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+	[`.${akEditorSelectedNodeClassName} > [data-decision-wrapper], ol[data-node-type='decisionList'].${akEditorSelectedNodeClassName}`]:
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		[
+			{
+				borderRadius: '4px',
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+			boxShadowSelectionStyles,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+			blanketSelectionStyles,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+			hideNativeBrowserTextSelectionStyles,
+		],
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-view-type="vanilla"][data-prosemirror-node-name="decisionItem"]': {
+	'.danger': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+		[`.${TaskDecisionSharedCssClassName.DECISION_CONTAINER}.${akEditorSelectedNodeClassName} > div`]:
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+				backgroundColor: token('color.blanket.danger'),
+				'&::after': {
+					content: 'none', // reset the Blanket selection style
+				},
+			},
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="decisionItem"]': {
 		listStyleType: 'none',
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-view-type="vanilla"][data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper]':
-		{
-			display: 'flex',
-			flexDirection: 'row',
-			margin: `${token('space.100')} 0 0 0`,
-			padding: token('space.100'),
-			paddingLeft: token('space.150'),
-			borderRadius: token('border.radius.100'),
-			backgroundColor: token('color.background.neutral'),
-			position: 'relative',
-		},
+	'[data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper]': {
+		cursor: 'pointer',
+		display: 'flex',
+		flexDirection: 'row',
+		margin: `${token('space.100')} 0 0 0`,
+		padding: token('space.100'),
+		paddingLeft: token('space.150'),
+		borderRadius: token('border.radius.100'),
+		backgroundColor: token('color.background.neutral'),
+		position: 'relative',
+	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-view-type="vanilla"][data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper] > [data-component="icon"]':
+	'[data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper] > [data-component="icon"]':
 		{
 			flex: '0 0 16px',
 			height: '16px',
@@ -161,13 +149,13 @@ export const vanillaDecisionStyles = css({
 			justifyContent: 'center',
 		},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-view-type="vanilla"][data-prosemirror-node-name="decisionItem"]:not(:has([data-empty]):not(:has([data-type-ahead]))) > [data-decision-wrapper] > [data-component="icon"]':
+	'[data-prosemirror-node-name="decisionItem"]:not(:has([data-empty]):not(:has([data-type-ahead]))) > [data-decision-wrapper] > [data-component="icon"]':
 		{
 			color: token('color.icon.success'),
 		},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-view-type="vanilla"][data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper] > [data-component="icon"] > span':
+	'[data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper] > [data-component="icon"] > span':
 		{
 			display: 'inline-block',
 			flexShrink: 0,
@@ -175,7 +163,7 @@ export const vanillaDecisionStyles = css({
 			lineHeight: 1,
 		},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-view-type="vanilla"][data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper] > [data-component="icon"] > span > svg':
+	'[data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper] > [data-component="icon"] > span > svg':
 		{
 			overflow: 'hidden',
 			pointerEvents: 'none',
@@ -183,7 +171,7 @@ export const vanillaDecisionStyles = css({
 			verticalAlign: 'bottom',
 		},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-view-type="vanilla"][data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper] > [data-component="placeholder"]':
+	'[data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper] > [data-component="placeholder"]':
 		{
 			margin: `0 0 0 calc(${token('space.100', '8px')} * 3.5)`,
 			position: 'absolute',
@@ -195,12 +183,12 @@ export const vanillaDecisionStyles = css({
 			maxWidth: 'calc(100% - 50px)',
 		},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-view-type="vanilla"][data-prosemirror-node-name="decisionItem"]:not(:has([data-empty]):not(:has([data-type-ahead]))) > [data-decision-wrapper] > [data-component="placeholder"]':
+	'[data-prosemirror-node-name="decisionItem"]:not(:has([data-empty]):not(:has([data-type-ahead]))) > [data-decision-wrapper] > [data-component="placeholder"]':
 		{
 			display: 'none',
 		},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-view-type="vanilla"][data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper] > [data-component="content"]':
+	'[data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper] > [data-component="content"]':
 		{
 			margin: 0,
 			wordWrap: 'break-word',
@@ -210,14 +198,14 @@ export const vanillaDecisionStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const vanillaDecisionIconWithVisualRefresh = css({
+export const decisionIconWithVisualRefresh = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-view-type="vanilla"][data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper] > [data-component="icon"] > span >  svg[data-icon-source="legacy"]':
+	'[data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper] > [data-component="icon"] > span >  svg[data-icon-source="legacy"]':
 		{
 			display: 'none',
 		},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-view-type="vanilla"][data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper] > [data-component="icon"] > span':
+	'[data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper] > [data-component="icon"] > span':
 		{
 			boxSizing: 'border-box',
 			paddingInlineEnd: 'var(--ds--button--new-icon-padding-end, 0)',
@@ -228,7 +216,7 @@ export const vanillaDecisionIconWithVisualRefresh = css({
 			},
 		},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-view-type="vanilla"][data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper] > [data-component="icon"] > span > svg':
+	'[data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper] > [data-component="icon"] > span > svg':
 		{
 			width: token('space.300'),
 			height: token('space.300'),
@@ -236,14 +224,14 @@ export const vanillaDecisionIconWithVisualRefresh = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const vanillaDecisionIconWithoutVisualRefresh = css({
+export const decisionIconWithoutVisualRefresh = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-view-type="vanilla"][data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper] > [data-component="icon"] > span >  svg[data-icon-source="refreshed"]':
+	'[data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper] > [data-component="icon"] > span >  svg[data-icon-source="refreshed"]':
 		{
 			display: 'none',
 		},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-view-type="vanilla"][data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper] > [data-component="icon"] > span':
+	'[data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper] > [data-component="icon"] > span':
 		{
 			width: '32px',
 			height: '32px',
@@ -254,7 +242,7 @@ export const vanillaDecisionIconWithoutVisualRefresh = css({
 			},
 		},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-view-type="vanilla"][data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper] > [data-component="icon"] > span > svg':
+	'[data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper] > [data-component="icon"] > span > svg':
 		{
 			maxWidth: '100%',
 			maxHeight: '100%',
@@ -265,97 +253,92 @@ export const vanillaDecisionIconWithoutVisualRefresh = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const vanillaTaskItemStyles = css({
+export const taskItemStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-view-type="vanilla"][data-prosemirror-node-name="taskItem"]': {
+	'[data-prosemirror-node-name="taskItem"]': {
 		listStyle: 'none',
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-view-type="vanilla"][data-prosemirror-node-name="taskItem"] [data-component="task-item-main"]':
-		{
-			display: 'flex',
-			flexDirection: 'row',
-			position: 'relative',
-		},
+	'[data-prosemirror-node-name="taskItem"] [data-component="task-item-main"]': {
+		display: 'flex',
+		flexDirection: 'row',
+		position: 'relative',
+	},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-view-type="vanilla"][data-prosemirror-node-name="taskItem"] [data-component="placeholder"]':
-		{
-			position: 'absolute',
-			color: token('color.text.subtlest'),
-			margin: `0 0 0 calc(${token('space.100', '8px')} * 3)`,
-			pointerEvents: 'none',
-			textOverflow: 'ellipsis',
-			overflow: 'hidden',
-			whiteSpace: 'nowrap',
-			maxWidth: 'calc(100% - 50px)',
-			display: 'none',
-		},
+	'[data-prosemirror-node-name="taskItem"] [data-component="placeholder"]': {
+		position: 'absolute',
+		color: token('color.text.subtlest'),
+		margin: `0 0 0 calc(${token('space.100', '8px')} * 3)`,
+		pointerEvents: 'none',
+		textOverflow: 'ellipsis',
+		overflow: 'hidden',
+		whiteSpace: 'nowrap',
+		maxWidth: 'calc(100% - 50px)',
+		display: 'none',
+	},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-	"[data-prosemirror-node-view-type='vanilla'][data-prosemirror-node-name='taskItem']:has([data-empty]):not(:has([data-type-ahead])) [data-component='placeholder']":
+	"[data-prosemirror-node-name='taskItem']:has([data-empty]):not(:has([data-type-ahead])) [data-component='placeholder']":
 		{
 			display: 'block',
 		},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-view-type="vanilla"][data-prosemirror-node-name="taskItem"] [data-component="content"]':
-		{
-			margin: 0,
-			wordWrap: 'break-word',
-			minWidth: 0,
-			flex: '1 1 auto',
-		},
+	'[data-prosemirror-node-name="taskItem"] [data-component="content"]': {
+		margin: 0,
+		wordWrap: 'break-word',
+		minWidth: 0,
+		flex: '1 1 auto',
+	},
 
 	// copied styles from packages/design-system/icon/src/components/icon-new.tsx
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-view-type="vanilla"][data-prosemirror-node-name="taskItem"] [data-component="checkbox-icon-wrap"]':
-		{
-			display: 'inline-block',
-			boxSizing: 'border-box',
-			flexShrink: 0,
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-			lineHeight: 1,
-			paddingInlineEnd: 'var(--ds--button--new-icon-padding-end, 0)',
-			paddingInlineStart: 'var(--ds--button--new-icon-padding-start, 0)',
-		},
+	'[data-prosemirror-node-name="taskItem"] [data-component="checkbox-icon-wrap"]': {
+		display: 'inline-block',
+		boxSizing: 'border-box',
+		flexShrink: 0,
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		lineHeight: 1,
+		paddingInlineEnd: 'var(--ds--button--new-icon-padding-end, 0)',
+		paddingInlineStart: 'var(--ds--button--new-icon-padding-start, 0)',
+	},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-view-type="vanilla"][data-prosemirror-node-name="taskItem"] [data-component="checkbox-icon-wrap"] svg':
-		{
-			overflow: 'hidden',
-			pointerEvents: 'none',
-			color: 'currentColor',
-			verticalAlign: 'bottom',
-			width: token('space.200', '16px'),
-			height: token('space.200', '16px'),
-		},
+	'[data-prosemirror-node-name="taskItem"] [data-component="checkbox-icon-wrap"] svg': {
+		overflow: 'hidden',
+		pointerEvents: 'none',
+		color: 'currentColor',
+		verticalAlign: 'bottom',
+		width: token('space.200', '16px'),
+		height: token('space.200', '16px'),
+	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-	'[data-prosemirror-node-view-type="vanilla"][data-prosemirror-node-name="taskItem"] input[type=checkbox]:not(:checked) + span [data-component=checkbox-checked-icon]':
+	'[data-prosemirror-node-name="taskItem"] input[type=checkbox]:not(:checked) + span [data-component=checkbox-checked-icon]':
 		{
 			display: 'none',
 		},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-	'[data-prosemirror-node-view-type="vanilla"][data-prosemirror-node-name="taskItem"] input[type=checkbox]:not(:checked) + span [data-component=checkbox-unchecked-icon]':
+	'[data-prosemirror-node-name="taskItem"] input[type=checkbox]:not(:checked) + span [data-component=checkbox-unchecked-icon]':
 		{
 			display: 'inline',
 		},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-view-type="vanilla"][data-prosemirror-node-name="taskItem"] input[type=checkbox]:checked + span [data-component=checkbox-checked-icon]':
+	'[data-prosemirror-node-name="taskItem"] input[type=checkbox]:checked + span [data-component=checkbox-checked-icon]':
 		{
 			display: 'inline',
 		},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-view-type="vanilla"][data-prosemirror-node-name="taskItem"] input[type=checkbox]:checked + span [data-component=checkbox-unchecked-icon]':
+	'[data-prosemirror-node-name="taskItem"] input[type=checkbox]:checked + span [data-component=checkbox-unchecked-icon]':
 		{
 			display: 'none',
 		},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-	[`[data-prosemirror-node-view-type="vanilla"][data-prosemirror-node-name="taskItem"] .${TaskDecisionSharedCssClassName.TASK_CHECKBOX_CONTAINER}`]:
+	[`[data-prosemirror-node-name="taskItem"] .${TaskDecisionSharedCssClassName.TASK_CHECKBOX_CONTAINER}`]:
 		{
 			flex: '0 0 24px',
 			width: '24px',

@@ -53,7 +53,7 @@ export const videoLargeFileId: FileIdentifier = {
 };
 
 export const videoMp4SaganAliensId: FileIdentifier = {
-	id: '6643202c-6d5d-428a-9db1-69f98164f0f6',
+	id: '99bd2b36-5745-4f71-aa1d-4d7fb5b3982b',
 	mediaItemType: fileType,
 	collectionName,
 };

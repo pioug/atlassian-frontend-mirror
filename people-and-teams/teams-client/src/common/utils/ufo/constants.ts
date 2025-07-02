@@ -64,6 +64,7 @@ const TeamsClientExperienceKeyList = [
 	'updateTeamInSlack',
 	'getUserTenure',
 	'getAriFromUrl',
+	'getWebLinkTitle',
 ] as const;
 export type TeamsClientExperienceKeys = (typeof TeamsClientExperienceKeyList)[number];
 

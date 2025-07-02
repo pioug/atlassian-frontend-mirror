@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
+import UFOHoldLoad from '@atlaskit/react-ufo/load-hold';
 
 import { useControlDataExportConfig } from '../../state/hooks/use-control-data-export-config';
 import { getIsDataExportEnabled } from '../../utils/should-data-export';
@@ -13,6 +14,17 @@ import ForbiddenView from './views/ForbiddenView';
 import NotFoundView from './views/NotFoundView';
 import ResolvedView from './views/ResolvedView';
 import UnauthorisedView from './views/UnauthorisedView';
+
+const UFOLoadHoldWrapper = ({ children }: PropsWithChildren) => {
+	return fg('platform_renderer_blindspots') ? (
+		<>
+			<UFOHoldLoad name="smart-card-block-card" />
+			{children}
+		</>
+	) : (
+		children
+	);
+};
 
 export const BlockCard = ({
 	id,
@@ -51,7 +63,11 @@ export const BlockCard = ({
 	switch (status) {
 		case 'pending':
 		case 'resolving':
-			return <ResolvedView {...blockCardProps} testId="smart-block-resolving-view" />;
+			return (
+				<UFOLoadHoldWrapper>
+					<ResolvedView {...blockCardProps} testId="smart-block-resolving-view" />
+				</UFOLoadHoldWrapper>
+			);
 		case 'resolved':
 			if (fg('platform_smart_links_controlled_dsp_export_view')) {
 				if (getIsDataExportEnabled(shouldControlDataExport, cardState.details)) {

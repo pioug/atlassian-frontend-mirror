@@ -22,8 +22,12 @@ export type { PrimaryDropdownButtonProps } from './components/PrimaryDropdownBut
 export { IconButton } from './components/IconButton';
 export type { IconButtonProps } from './components/IconButton/types';
 
-export { CustomProductHome, ProductHome } from './components/ProductHome';
-export type { CustomProductHomeProps, ProductHomeProps } from './components/ProductHome/types';
+export { CustomProductHome, ProductHome, AppHome } from './components/ProductHome';
+export type {
+	CustomProductHomeProps,
+	ProductHomeProps,
+	AppHomeProps,
+} from './components/ProductHome/types';
 
 export { Profile } from './components/Profile';
 export type { ProfileProps } from './components/Profile/types';

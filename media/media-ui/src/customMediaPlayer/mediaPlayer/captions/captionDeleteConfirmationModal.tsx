@@ -14,20 +14,15 @@ import { parseError } from './artifactUploader/captions/util';
 import ApiFeedback, { type NotificationTypes } from './apiFeedback';
 import { type WrappedComponentProps, injectIntl } from 'react-intl-next';
 import { messages } from '../../../messages';
-import { getRandomTelemetryId } from '@atlaskit/media-common';
-
-export type CaptionDeleteContext = {
-	traceId: string;
-	artifactName: string;
-};
+import { type MediaTraceContext, getRandomTelemetryId } from '@atlaskit/media-common';
 
 export interface CaptionDeleteConfirmationModalProps {
 	identifier: FileIdentifier;
 	artifactName?: string;
 	onClose: () => void;
-	onStart?: (context: CaptionDeleteContext) => void;
-	onEnd?: (context: CaptionDeleteContext) => void;
-	onError?: (error: Error, context: CaptionDeleteContext) => void;
+	onStart?: (context: MediaTraceContext) => void;
+	onEnd?: (context: MediaTraceContext) => void;
+	onError?: (error: Error, artifactName: string, context: MediaTraceContext) => void;
 }
 
 const CaptionDeleteConfirmationModal = ({
@@ -41,11 +36,11 @@ const CaptionDeleteConfirmationModal = ({
 }: CaptionDeleteConfirmationModalProps & WrappedComponentProps) => {
 	const mediaClient = useMediaClient();
 	const [notificationType, setNotificationType] = useState<NotificationTypes>(null);
-	const _onError = (error: any, context: CaptionDeleteContext) => {
+	const _onError = (error: any, artifactName: string, context: MediaTraceContext) => {
 		setNotificationType('error');
-		onError?.(error, context);
+		onError?.(error, artifactName, context);
 	};
-	const _onEnd = (context: CaptionDeleteContext) => {
+	const _onEnd = (context: MediaTraceContext) => {
 		setNotificationType('success');
 		onEnd?.(context);
 	};
@@ -70,7 +65,7 @@ const CaptionDeleteConfirmationModal = ({
 							<Button
 								appearance="danger"
 								onClick={() => {
-									deleteCaption(mediaClient, identifier, artifactName!, onStart, _onEnd, _onError);
+									deleteCaption(mediaClient, identifier, artifactName, onStart, _onEnd, _onError);
 									onClose();
 								}}
 							>
@@ -100,20 +95,19 @@ const deleteCaption = async (
 	onEnd?: CaptionDeleteConfirmationModalProps['onEnd'],
 	onError?: CaptionDeleteConfirmationModalProps['onError'],
 ) => {
-	const context: CaptionDeleteContext = {
+	const traceContext: MediaTraceContext = {
 		traceId: getRandomTelemetryId(),
-		artifactName,
 	};
-	onStart?.(context);
+	onStart?.(traceContext);
 	try {
 		await mediaClient.file.deleteArtifact(
 			identifier.id,
-			{ artifactName },
+			artifactName,
 			identifier.collectionName,
-			{ traceId: context.traceId },
+			traceContext,
 		);
-		onEnd?.(context);
+		onEnd?.(traceContext);
 	} catch (error) {
-		onError?.(parseError(error), context);
+		onError?.(parseError(error), artifactName, traceContext);
 	}
 };

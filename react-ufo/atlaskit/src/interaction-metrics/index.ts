@@ -37,7 +37,8 @@ import {
 } from '../feature-flags-accessed';
 import type { LabelStack, SegmentLabel } from '../interaction-context';
 import { getInteractionId } from '../interaction-id-context';
-import { getVCObserver } from '../vc';
+import { getVCObserver, newVCObserver } from '../vc';
+import { VCObserverInterface } from '../vc/types';
 
 import { interactions } from './common/constants';
 import PostInteractionLog from './post-interaction-log';
@@ -609,7 +610,9 @@ function finishInteraction(
 	clearActiveTrace();
 	callCleanUpCallbacks(data);
 	if (getConfig()?.vc?.stopVCAtInteractionFinish) {
-		data.vc = getVCObserver().getVCRawData();
+		// Use per-interaction VC observer if available, otherwise fall back to global
+		const observer = data.vcObserver || getVCObserver();
+		data.vc = observer.getVCRawData();
 	}
 
 	if (!getConfig()?.experimentalInteractionMetrics?.enabled) {
@@ -803,7 +806,7 @@ export function addNewInteraction(
 	if (getConfig()?.postInteractionLog?.enabled) {
 		postInteractionLog.reset();
 	}
-
+	let vcObserver: VCObserverInterface | undefined;
 	let previousTime = startTime;
 
 	let timeoutTime = fg('platform_ufo_enable_timeout_config')
@@ -831,6 +834,23 @@ export function addNewInteraction(
 	}
 
 	const addFeatureFlagsToInteraction = coinflip(getCapabilityRate('feature_flag_access'));
+
+	const config = getConfig();
+	if (config && config.vc) {
+		const vcOptions = {
+			heatmapSize: config.vc.heatmapSize,
+			oldDomUpdates: config.vc.oldDomUpdates,
+			devToolsEnabled: config.vc.devToolsEnabled,
+			selectorConfig: config.vc.selectorConfig,
+			ssrEnablePageLayoutPlaceholder: config.vc.ssrEnablePageLayoutPlaceholder,
+			disableSizeAndPositionCheck: config.vc.disableSizeAndPositionCheck,
+		};
+		vcObserver = fg('platform_ufo_enable_vc_observer_per_interaction')
+			? newVCObserver(vcOptions)
+			: undefined;
+	}
+
+	// Create per-interaction VC observer when feature flag is enabled
 
 	const metrics: InteractionMetrics = {
 		id: interactionId,
@@ -875,6 +895,7 @@ export function addNewInteraction(
 		timerID,
 		changeTimeout,
 		trace,
+		vcObserver,
 	};
 	if (addFeatureFlagsToInteraction) {
 		currentFeatureFlagsAccessed.clear();
@@ -894,27 +915,30 @@ export function addNewInteraction(
 	metrics.cleanupCallbacks.push(() => {
 		clearTimeout(metrics.timerID);
 	});
+	// Add cleanup for per-interaction VC observer
+	if (vcObserver) {
+		metrics.cleanupCallbacks.push(() => {
+			vcObserver.stop(ufoName);
+		});
+	}
 	const awaitBM3TTIList = getAwaitBM3TTIList();
 	if (awaitBM3TTIList.includes(ufoName)) {
 		addHoldByID(interactionId, [], ufoName, ufoName, true);
 	}
-	if (type === 'transition') {
-		getVCObserver().start({ startTime, experienceKey: ufoName });
+	if (type === 'transition' || type === 'page_load') {
+		// Use per-interaction VC observer if available, otherwise fall back to global
+		const observer = vcObserver || getVCObserver();
+		observer.start({ startTime, experienceKey: ufoName });
 		postInteractionLog.startVCObserver({ startTime });
 		if (getConfig()?.experimentalInteractionMetrics?.enabled) {
 			experimentalVC.start({ startTime });
 		}
 	}
 
-	if (
-		type === 'press' &&
-		(fg('platform_ufo_enable_interactions_vc') || fg('platform_ufo_enable_interactivity_jsm'))
-	) {
-		getVCObserver().start({ startTime, experienceKey: ufoName });
-		postInteractionLog.startVCObserver({ startTime });
-		if (getConfig()?.experimentalInteractionMetrics?.enabled) {
-			experimentalVC.start({ startTime });
-		}
+	if (type === 'press' && fg('platform_ufo_enable_vc_press_interactions')) {
+		// Use per-interaction VC observer if available, otherwise fall back to global
+		const observer = vcObserver || getVCObserver();
+		observer.start({ startTime, experienceKey: ufoName });
 	}
 }
 

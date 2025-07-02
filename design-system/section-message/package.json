@@ -100,8 +100,7 @@
 	"homepage": "https://atlassian.design/components/section-message/",
 	"platform-feature-flags": {
 		"platform_section_message_action_migration": {
-			"type": "boolean",
-			"showOnWebsiteForTransitiveDependencies": true
+			"type": "boolean"
 		},
 		"platform_ads_explicit_font_styles": {
 			"type": "boolean"

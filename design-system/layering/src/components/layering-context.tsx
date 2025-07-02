@@ -10,7 +10,9 @@ import React, {
 } from 'react';
 
 import __noop from '@atlaskit/ds-lib/noop';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
+
+import { LayerNode } from '../classes/layer-node';
 
 /**
  *
@@ -23,14 +25,33 @@ export const LevelContext = createContext(0);
 /**
  *
  *  @internal
+ * LevelNodeContext maintains the current layer node of nested layers.
+ * Default ref value is null
+ */
+export const LevelNodeContext = createContext<MutableRefObject<LayerNode | null>>({
+	current: null,
+});
+
+/**
+ *
+ *  @internal
+ * RootNodeContext maintains the root node of the layer tree.
+ * Default ref value is null
+ */
+export const RootNodeContext = createContext<MutableRefObject<LayerNode | null>>({
+	current: null,
+});
+
+/**
+ *
+ *  @internal @deprecated
  * TopLevelContext which maintains the top level ref and setTopLevel method of layers
  * Default ref value is null
  *
  */
 export const TopLevelContext = createContext<{
 	topLevelRef: MutableRefObject<number | null>;
-	// Set to required on FG cleanup plan_timeline_layering_wrapper
-	layerList?: MutableRefObject<string[] | null>;
+	layerList: MutableRefObject<string[] | null>;
 	setTopLevel: (level: number) => void;
 }>({
 	topLevelRef: { current: null },
@@ -48,59 +69,65 @@ export const TopLevelContext = createContext<{
 const LevelProvider: FC<{
 	children: ReactNode;
 	currentLevel: number;
+	node: MutableRefObject<LayerNode>;
+}> = ({ children, currentLevel, node: levelNode }) => {
+	useEffect(() => {
+		const levelNodeSafe = levelNode.current;
+		const parentNode = levelNodeSafe.parent;
+
+		parentNode?.addChild(levelNodeSafe);
+
+		return () => {
+			parentNode?.removeChild(levelNodeSafe);
+		};
+	}, [levelNode]);
+
+	return (
+		<LevelContext.Provider value={currentLevel}>
+			<LevelNodeContext.Provider value={levelNode}>{children}</LevelNodeContext.Provider>
+		</LevelContext.Provider>
+	);
+};
+
+/**
+ *
+ *  @internal @deprecated
+ * Context Provider Component which provider the current level of nested layers
+ * It handles level management when it mounts and unmounts
+ *
+ */
+const LevelProviderOld: FC<{
+	children: ReactNode;
+	currentLevel: number;
 }> = ({ children, currentLevel }) => {
-	const { setTopLevel, topLevelRef, layerList } = useContext(TopLevelContext);
+	const { layerList } = useContext(TopLevelContext);
 	// This is not unstable, it will run once for ref creation.
 	// eslint-disable-next-line  @repo/internal/react/disallow-unstable-values
-	const id = useRef(fg('layering-top-level-use-array') ? Math.random().toString(36) : '');
+	const id = useRef(Math.random().toString(36));
 
-	if (!fg('layering-top-level-use-array')) {
-		if (topLevelRef.current === null || currentLevel > topLevelRef.current) {
-			setTopLevel(currentLevel);
+	useEffect(() => {
+		const safeLayerList = layerList?.current;
+		const safeId = id.current;
+
+		if (!safeLayerList) {
+			return;
 		}
-	}
 
-	if (!fg('layering-top-level-use-array')) {
-		// eslint-disable-next-line react-hooks/rules-of-hooks
-		useEffect(() => {
-			return () => {
-				// avoid immediate cleanup using setTimeout when component unmount
-				// this will make sure non-top layer components can get the correct top level value
-				// when multiple layers trigger onClose in sequence
-				setTimeout(() => {
-					setTopLevel(currentLevel - 1);
-				}, 0);
-			};
-		}, [setTopLevel, currentLevel, topLevelRef]);
-	}
-
-	if (fg('layering-top-level-use-array')) {
-		// Remove eslint error on FG cleanup
-		// eslint-disable-next-line react-hooks/rules-of-hooks
-		useEffect(() => {
-			const safeLayerList = layerList?.current;
-			const safeId = id.current;
-
-			if (!safeLayerList) {
-				return;
+		safeLayerList.push(safeId);
+		return () => {
+			const index = safeLayerList.indexOf(safeId);
+			if (index > -1) {
+				safeLayerList.splice(index, 1);
 			}
-
-			safeLayerList.push(safeId);
-			return () => {
-				const index = safeLayerList.indexOf(safeId);
-				if (index > -1) {
-					safeLayerList.splice(index, 1);
-				}
-			};
-		}, [layerList, id]);
-	}
+		};
+	}, [layerList, id]);
 
 	return <LevelContext.Provider value={currentLevel}>{children}</LevelContext.Provider>;
 };
 
 /**
  *
- *  @internal
+ *  @internal @deprecated
  * Context Provider Component which provides the top level of all nested layers
  * It provides initial top level ref value as 0 and set top level method
  *
@@ -117,21 +144,22 @@ const LayeringProvider: FC<{
 			setTopLevel: (level: number) => {
 				topLevelRef.current = level;
 			},
-			...(fg('layering-top-level-use-array') ? { layerList } : {}),
+			layerList,
 		}),
-		[topLevelRef],
+		[topLevelRef, layerList],
 	);
 	return <TopLevelContext.Provider value={value}>{children}</TopLevelContext.Provider>;
 };
 
 /**
  *
+ * @deprecated
  * @important the component is toggled by isDisabled props, the default isDisabled is true
  *
  * Layering component is a wrapper to let children to consume layer contexts and hooks.
  *
  */
-export const Layering = ({
+const LayeringOld = ({
 	children,
 	isDisabled = true,
 }: {
@@ -144,7 +172,55 @@ export const Layering = ({
 	}
 	const isNested = currentLevel > 0;
 
-	const content = <LevelProvider currentLevel={currentLevel + 1}>{children}</LevelProvider>;
+	const content = <LevelProviderOld currentLevel={currentLevel + 1}>{children}</LevelProviderOld>;
 
 	return isNested ? content : <LayeringProvider>{content}</LayeringProvider>;
 };
+
+/**
+ *
+ * @important the component is toggled by isDisabled props, the default isDisabled is true
+ *
+ * Layering component is a wrapper to let children to consume layer contexts and hooks.
+ *
+ */
+const LayeringNew = ({
+	children,
+	isDisabled = true,
+}: {
+	children: ReactNode;
+	isDisabled?: boolean;
+}) => {
+	const currentLevel = useContext(LevelContext);
+	const parentNode = useContext(LevelNodeContext);
+
+	// eslint-disable-next-line  @repo/internal/react/disallow-unstable-values
+	const newNode = useRef<LayerNode>(new LayerNode(Math.random().toString(36), parentNode.current));
+
+	if (isDisabled) {
+		return <>{children}</>;
+	}
+	const isNested = currentLevel > 0;
+
+	const content = (
+		<LevelProvider currentLevel={currentLevel + 1} node={newNode}>
+			{children}
+		</LevelProvider>
+	);
+
+	return isNested ? (
+		content
+	) : (
+		<RootNodeContext.Provider value={newNode}>{content}</RootNodeContext.Provider>
+	);
+};
+
+/**
+ *
+ * @important the component is toggled by isDisabled props, the default isDisabled is true
+ *
+ * Layering component is a wrapper to let children to consume layer contexts and hooks.
+ * For more information on the implementation: https://hello.atlassian.net/wiki/x/FQCDQwE
+ *
+ */
+export const Layering = componentWithFG('layering-tree-graph', LayeringNew, LayeringOld);

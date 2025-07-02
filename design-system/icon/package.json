@@ -205,12 +205,10 @@
 	},
 	"platform-feature-flags": {
 		"platform-visual-refresh-icons": {
-			"type": "boolean",
-			"showOnWebsiteForTransitiveDependencies": true
+			"type": "boolean"
 		},
 		"platform-visual-refresh-icons-legacy-facade": {
-			"type": "boolean",
-			"showOnWebsiteForTransitiveDependencies": true
+			"type": "boolean"
 		},
 		"platform-visual-refresh-icons-facade-button-fix": {
 			"type": "boolean"

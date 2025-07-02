@@ -443,7 +443,12 @@ export class MediaStore implements MediaApi {
 		);
 	};
 
-	deleteArtifact: MediaApi['deleteArtifact'] = async (id, params, collectionName, traceContext) => {
+	deleteArtifact: MediaApi['deleteArtifact'] = async (
+		id,
+		artifactName,
+		collectionName,
+		traceContext,
+	) => {
 		const metadata: RequestMetadata = {
 			method: 'DELETE',
 			endpoint: '/file/{fileId}/artifact/{artifactName}',
@@ -458,9 +463,12 @@ export class MediaStore implements MediaApi {
 			...metadata,
 			authContext,
 			traceContext,
+			params: {
+				collection: collectionName,
+			},
 		};
 
-		await this.request(`/file/${id}/artifact/${params.artifactName}`, options);
+		await this.request(`/file/${id}/artifact/${artifactName}`, options);
 	};
 
 	async getImage(

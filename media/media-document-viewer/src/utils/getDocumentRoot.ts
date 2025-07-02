@@ -1,18 +1,22 @@
+import { getDocument } from '@atlaskit/browser-apis';
+
 export const DOCUMENT_SCROLL_ROOT_ID = 'document-scroll-root';
 
 export const getDocumentRoot = (): HTMLElement | Document | undefined => {
-	if (typeof window === 'undefined') {
+	const doc = getDocument();
+	if (!doc) {
 		return;
 	}
 
-	if (typeof window.document === 'undefined') {
-		return;
-	}
-
-	const root = document.getElementById(DOCUMENT_SCROLL_ROOT_ID);
+	const root = doc.getElementById(DOCUMENT_SCROLL_ROOT_ID) as HTMLElement;
 	if (root) {
 		return root;
 	}
 
-	return window.document;
+	return doc;
+};
+
+export const getScrollElement = (): HTMLElement | null => {
+	const element = getDocument();
+	return element && element.getElementById(DOCUMENT_SCROLL_ROOT_ID);
 };

@@ -891,60 +891,95 @@ describe('legion-client', () => {
 	});
 
 	describe('createTeamContainers', () => {
+		const teamId = 'test-team-id';
+		const containerSiteId = 'test-site-id';
+		type Payload = Parameters<typeof legionClient.createTeamContainers>[0];
+		type Response = Awaited<ReturnType<typeof legionClient.createTeamContainers>>;
+
 		it('should create team containers with correct payload', async () => {
-			const mockPayload = {
-				teamId: 'test-team-id',
-				containers: [
-					{
-						type: ContainerType.CONFLUENCE_SPACE,
-						containerSiteId: 'test-site-id',
-					},
-				],
+			const mockPayload: Payload = {
+				teamId,
+				containers: [{ type: ContainerType.CONFLUENCE_SPACE, containerSiteId }],
 			};
 
-			const mockResponse = {
-				teamId: 'test-team-id',
+			const mockResponse: Response = {
+				teamId,
 				containersNotCreated: [],
-				containerDetails: [
+				containersCreated: [
 					{
 						containerId: 'test-container-id',
 						containerName: 'test-container',
 						containerUrl: 'https://test.com',
 						containerSiteId: 'test-site-id',
-						type: ContainerType.CONFLUENCE_SPACE,
+						containerType: ContainerType.CONFLUENCE_SPACE,
 					},
 				],
 			};
 
 			mockPostResource.mockReturnValue(Promise.resolve(mockResponse));
-
 			const result = await legionClient.createTeamContainers(mockPayload);
-
 			expect(mockPostResource).toHaveBeenCalledWith(`${v4UrlPath}/containers`, mockPayload);
 			expect(result).toEqual(mockResponse);
 		});
 
 		it('should handle containers not created', async () => {
-			const mockPayload = {
-				teamId: 'test-team-id',
+			const mockPayload: Payload = {
+				teamId,
+				containers: [{ type: ContainerType.CONFLUENCE_SPACE, containerSiteId: 'test-site-id' }],
+			};
+
+			const mockResponse: Response = {
+				teamId,
+				containersNotCreated: [
+					{ containerType: ContainerType.CONFLUENCE_SPACE, reason: 'Duplicate container found' },
+				],
+				containersCreated: [],
+			};
+			mockPostResource.mockReturnValue(Promise.resolve(mockResponse));
+			const result = await legionClient.createTeamContainers(mockPayload);
+			expect(mockPostResource).toHaveBeenCalledWith(`${v4UrlPath}/containers`, mockPayload);
+			expect(result).toEqual(mockResponse);
+		});
+
+		it('can handle multiple containers', async () => {
+			const mockPayload: Payload = {
+				teamId,
 				containers: [
+					{ type: ContainerType.CONFLUENCE_SPACE, containerSiteId },
+					{ type: ContainerType.JIRA_PROJECT, containerSiteId },
+					{ type: ContainerType.LOOM_SPACE, containerSiteId },
+				],
+			};
+			const mockResponse: Response = {
+				teamId,
+				containersNotCreated: [],
+				containersCreated: [
 					{
-						type: ContainerType.CONFLUENCE_SPACE,
-						containerSiteId: 'test-site-id',
+						containerId: 'test-container-id-1',
+						containerName: 'container-1',
+						containerUrl: 'https://test.com',
+						containerSiteId,
+						containerType: ContainerType.CONFLUENCE_SPACE,
+					},
+					{
+						containerId: 'test-container-id-2',
+						containerName: 'container-2',
+						containerUrl: 'https://test.com',
+						containerSiteId,
+						containerType: ContainerType.JIRA_PROJECT,
+					},
+					{
+						containerId: 'test-container-id-3',
+						containerName: 'container-3',
+						containerUrl: 'https://test.com',
+						containerSiteId,
+						containerType: ContainerType.LOOM_SPACE,
 					},
 				],
 			};
 
-			const mockResponse = {
-				teamId: 'test-team-id',
-				containersNotCreated: [ContainerType.CONFLUENCE_SPACE],
-				containerDetails: [],
-			};
-
 			mockPostResource.mockReturnValue(Promise.resolve(mockResponse));
-
 			const result = await legionClient.createTeamContainers(mockPayload);
-
 			expect(mockPostResource).toHaveBeenCalledWith(`${v4UrlPath}/containers`, mockPayload);
 			expect(result).toEqual(mockResponse);
 		});

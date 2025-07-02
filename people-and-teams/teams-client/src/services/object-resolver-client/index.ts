@@ -6,6 +6,7 @@ import type {
 	IconItemFailure,
 	IconItemSuccess,
 	LinkIconData,
+	WebLinkTitleItemSuccess,
 } from './types';
 import { transformIconData } from './utils';
 
@@ -31,6 +32,36 @@ export class ObjectResolverClient extends RestClient {
 			`/object-resolver/converter/toAri`,
 			JSON.stringify({ resourceUrl: url }),
 		).then((response) => response?.data?.ari);
+	}
+
+	async getWebLinkTitle(webLinkUrl: string): Promise<string | undefined> {
+		try {
+			const response = await this.postResourceRaw<WebLinkTitleItemSuccess>(
+				'/object-resolver/resolve',
+				JSON.stringify({ resourceUrl: webLinkUrl }),
+			);
+
+			if (response && 'data' in response) {
+				if (response.data?.name) {
+					return response.data.name;
+				}
+			}
+
+			if (
+				response &&
+				'meta' in response &&
+				(response.meta?.visibility === 'restricted' || response.meta?.visibility === 'unauthorized')
+			) {
+				const auth = response.meta.auth?.[0];
+				if (auth?.displayName) {
+					return auth.displayName;
+				}
+			}
+
+			return;
+		} catch (error) {
+			return;
+		}
 	}
 }
 

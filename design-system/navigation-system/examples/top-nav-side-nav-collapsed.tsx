@@ -41,8 +41,8 @@ const TopNavSideNavCollapsed = () => (
 					<AppSwitcher label="App switcher" onClick={() => alert('app switcher')} />
 					<NavLogo
 						href="http://www.atlassian.design"
-						logo={AtlassianLogo}
 						icon={AtlassianIcon}
+						logo={AtlassianLogo}
 						label="Home page"
 					/>
 				</TopNavStart>

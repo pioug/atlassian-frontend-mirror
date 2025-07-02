@@ -1,5 +1,13 @@
 # @atlaskit/layering
 
+## 3.0.1
+
+### Patch Changes
+
+- [#172990](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/172990)
+  [`72746250a3966`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/72746250a3966) -
+  Implemented tree graph for ADS Layering and removed old FG
+
 ## 3.0.0
 
 ### Major Changes

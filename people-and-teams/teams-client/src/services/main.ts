@@ -739,6 +739,17 @@ export class TeamsClient {
 	}
 
 	/**
+	 * Fetch web link title
+	 */
+	async getWebLinkTitle(
+		...args: Parameters<typeof objectResolverClient.getWebLinkTitle>
+	): Promise<AwaitedReturn<typeof objectResolverClient.getWebLinkTitle>> {
+		return this.measurePerformance('getWebLinkTitle', () =>
+			this._objectResolverClient.getWebLinkTitle(...args),
+		);
+	}
+
+	/**
 	 * Fetch team in slack details
 	 */
 	async getTeamInSlack(

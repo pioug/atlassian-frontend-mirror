@@ -50,6 +50,12 @@ export const TextInputFormField = ({
 				type="text"
 				value={field.text}
 				readOnly
+				onKeyUp={(e) => {
+					// stop propagation of the arrow key events because they can be used to navigate viewports
+					if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+						e.stopPropagation();
+					}
+				}}
 			/>
 		</foreignObject>
 	);
@@ -90,6 +96,12 @@ export const ComboBoxFormField = ({
 					style={{ ['fontSize']: `${field.f}px` }}
 					type="text"
 					value={field.text}
+					// stop propagation of the arrow key events because they can be used to navigate viewports
+					onKeyUp={(e) => {
+						if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+							e.stopPropagation();
+						}
+					}}
 					readOnly
 				/>
 				<ChevronDownIcon label="" size="small" />

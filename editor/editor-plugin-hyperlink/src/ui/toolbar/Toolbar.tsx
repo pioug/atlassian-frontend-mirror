@@ -52,6 +52,8 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import EditIcon from '@atlaskit/icon/core/edit';
 import LinkBrokenIcon from '@atlaskit/icon/core/migration/link-broken--editor-unlink';
 import LinkExternalIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -254,13 +256,19 @@ export const getToolbarConfig =
 						metadata.title = activeLinkMark.node.text;
 					}
 
+					const isEditorControlsOn = expValEqualsNoExposure(
+						'platform_editor_controls',
+						'cohort',
+						'variant1',
+					);
+
 					const cardActions = pluginInjectionApi?.card?.actions;
 					const startingToolbarItems = cardActions?.getStartingToolbarItems(
 						intl,
 						link,
 						editInsertedLink(editorAnalyticsApi),
 						metadata,
-						editorExperiment('platform_editor_controls', 'variant1') ? state : undefined,
+						isEditorControlsOn ? state : undefined,
 					) ?? [
 						{
 							id: 'editor.link.edit',
@@ -268,46 +276,63 @@ export const getToolbarConfig =
 							type: 'button',
 							onClick: editInsertedLink(editorAnalyticsApi),
 							title: editLink,
-							showTitle: editorExperiment('platform_editor_controls', 'variant1') ? false : true,
+							showTitle: isEditorControlsOn ? false : true,
 							metadata: metadata,
-							icon: editorExperiment('platform_editor_controls', 'variant1') ? EditIcon : undefined,
+							icon: isEditorControlsOn ? EditIcon : undefined,
 						},
 						{
 							type: 'separator',
 						},
 					];
 
+					const openLinkButton: FloatingToolbarItem<Command> = {
+						id: 'editor.link.openLink',
+						testId: 'editor.link.openLink',
+						type: 'button',
+						disabled: !isValidUrl,
+						target: '_blank',
+						href: isValidUrl ? link : undefined,
+						onClick: visitHyperlink(editorAnalyticsApi),
+						title: labelOpenLink,
+						icon: LinkExternalIcon,
+						className: 'hyperlink-open-link',
+						metadata: metadata,
+						tabIndex: null,
+					};
+
+					const unlinkButton: FloatingToolbarItem<Command> = {
+						id: 'editor.link.unlink',
+						testId: 'editor.link.unlink',
+						type: 'button',
+						onClick: commandWithMetadata(removeLink(pos, editorAnalyticsApi), {
+							inputMethod: INPUT_METHOD.FLOATING_TB,
+						}),
+						title: labelUnlink,
+						icon: LinkBrokenIcon,
+						tabIndex: null,
+					};
+
 					const items: Array<FloatingToolbarItem<Command>> = [
 						...startingToolbarItems,
-						{
-							id: 'editor.link.openLink',
-							testId: 'editor.link.openLink',
-							type: 'button',
-							disabled: !isValidUrl,
-							target: '_blank',
-							href: isValidUrl ? link : undefined,
-							onClick: visitHyperlink(editorAnalyticsApi),
-							title: labelOpenLink,
-							icon: LinkExternalIcon,
-							className: 'hyperlink-open-link',
-							metadata: metadata,
-							tabIndex: null,
-						},
-						{
-							type: 'separator',
-						},
-						{
-							id: 'editor.link.unlink',
-							testId: 'editor.link.unlink',
-							type: 'button',
-							onClick: commandWithMetadata(removeLink(pos, editorAnalyticsApi), {
-								inputMethod: INPUT_METHOD.FLOATING_TB,
-							}),
-							title: labelUnlink,
-							icon: LinkBrokenIcon,
-							tabIndex: null,
-						},
-						{ type: 'separator' },
+						...((isEditorControlsOn && fg('platform_editor_controls_patch_15')
+							? [
+									unlinkButton,
+									{
+										type: 'separator',
+										fullHeight: true,
+									},
+									openLinkButton,
+									{ type: 'separator', fullHeight: true },
+								]
+							: [
+									openLinkButton,
+									{
+										type: 'separator',
+									},
+									unlinkButton,
+									{ type: 'separator' },
+								]) as Array<FloatingToolbarItem<Command>>),
+
 						{
 							type: 'copy-button',
 							items: [

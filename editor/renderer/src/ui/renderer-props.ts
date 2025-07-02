@@ -101,6 +101,12 @@ export interface RendererProps {
 	UNSTABLE_isPresentational?: boolean;
 
 	/**
+	 * When true, disables the overflow shadow (visual indication) on the edges
+	 * of tables.
+	 */
+	disableTableOverflowShadow?: boolean;
+
+	/**
 	 * @default undefined
 	 * @description
 	 * Short lived feature flags for experiments and gradual rollouts

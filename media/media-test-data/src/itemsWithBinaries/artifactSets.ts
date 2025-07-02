@@ -50,6 +50,7 @@ export const artifactSets: ArtifactsSets = {
 		ugc_caption_2222: sampleBinaries.videoCaptionsEs,
 		ugc_caption_3333: sampleBinaries.videoCaptionsFr,
 		ugc_caption_4444: sampleBinaries.videoCaptionsZh,
+		ugc_caption_CORRUPTED: sampleBinaries.videoCaptionsEnCorrupted,
 	},
 	mp3Sonata: {
 		binaryUri: sampleBinaries.mp3Sonata,

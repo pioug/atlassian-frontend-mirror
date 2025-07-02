@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-card
 
+## 6.7.1
+
+### Patch Changes
+
+- [#179868](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/179868)
+  [`87856dbd47c93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/87856dbd47c93) -
+  [ux] [ED-27899] Fix separators and order for plain links
+- Updated dependencies
+
 ## 6.7.0
 
 ### Minor Changes

@@ -62,7 +62,6 @@ export function taskItemToDom(node: PMNode, placeholder: string, intl: IntlShape
 	const dataAttrs = {
 		'data-task-local-id': node.attrs.localId,
 		'data-task-state': node.attrs.state,
-		'data-prosemirror-node-view-type': 'vanilla',
 		'data-prosemirror-node-name': 'taskItem',
 	};
 

@@ -179,6 +179,21 @@ export const actions = {
 			});
 		},
 
+	fetchWebLinkTitle:
+		(url: string) =>
+		async ({ setState }: StoreApi): Promise<string | undefined> => {
+			if (!url) {
+				return undefined;
+			}
+
+			try {
+				const title = await teamsClient.getWebLinkTitle(url);
+				return title;
+			} catch (error) {
+				return undefined;
+			}
+		},
+
 	initialState:
 		(state: Partial<TeamWebLinksState>) =>
 		({ setState }: StoreApi) => {

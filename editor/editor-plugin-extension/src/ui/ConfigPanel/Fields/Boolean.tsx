@@ -123,7 +123,7 @@ function Toggle({
 				return (
 					<Fragment>
 						<div css={toggleFieldWrapperStyles}>
-							<label css={toggleLabelStyles} id={id} htmlFor={id}>
+							<label css={toggleLabelStyles} htmlFor={id}>
 								{label}
 								{isRequired ? (
 									<Text color="color.text.danger" aria-hidden="true">
@@ -137,6 +137,7 @@ function Toggle({
 								{...restFieldProps}
 								onChange={(event) => handleOnChange(fieldProps.onChange, onFieldChange, event)}
 								isChecked={parseBoolean(isChecked)}
+								id={id}
 							/>
 						</div>
 						<FieldMessages error={error} description={description} />

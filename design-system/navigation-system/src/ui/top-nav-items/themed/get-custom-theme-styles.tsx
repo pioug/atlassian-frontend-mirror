@@ -1,6 +1,6 @@
 import type React from 'react';
 
-import { themedLogoIcon, themedLogoText } from '../nav-logo';
+import { themedLogoIcon, themedLogoText } from '../nav-logo/nav-logo';
 
 import {
 	themedButtonBackground,

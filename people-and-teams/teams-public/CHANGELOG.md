@@ -1,5 +1,20 @@
 # @atlaskit/teams-public
 
+## 0.40.0
+
+### Minor Changes
+
+- [#179534](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/179534)
+  [`a9ea980ec4a3c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a9ea980ec4a3c) -
+  Auto fill web link title when creating/updating web link in team profile page
+
+### Patch Changes
+
+- [#180092](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/180092)
+  [`37ba06d5a2d15`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/37ba06d5a2d15) -
+  NO-ISSUE Fix container name no wrap issue
+- Updated dependencies
+
 ## 0.39.3
 
 ### Patch Changes

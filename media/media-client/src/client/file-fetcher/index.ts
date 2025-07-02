@@ -70,7 +70,7 @@ import {
 	fromCommonMediaClientError,
 	type MediaClientErrorReason,
 } from '../../models/errors';
-import { type UploadArtifactParams, type DeleteArtifactParams } from '../media-store/types';
+import { type UploadArtifactParams } from '../media-store/types';
 
 export type { FileFetcherErrorAttributes, FileFetcherErrorReason } from './error';
 export { isFileFetcherError, FileFetcherError } from './error';
@@ -158,7 +158,7 @@ export interface FileFetcher {
 	): Promise<MediaItemDetails>;
 	deleteArtifact(
 		id: string,
-		params: DeleteArtifactParams,
+		artifactName: string,
 		collectionName?: string,
 		traceContext?: MediaTraceContext,
 	): Promise<void>;
@@ -817,17 +817,17 @@ export class FileFetcherImpl implements FileFetcher {
 
 	public deleteArtifact: FileFetcher['deleteArtifact'] = async (
 		id,
-		params,
+		artifactName,
 		collectionName,
 		traceContext,
 	) => {
-		await this.mediaApi.deleteArtifact(id, params, collectionName, traceContext);
+		await this.mediaApi.deleteArtifact(id, artifactName, collectionName, traceContext);
 
 		// Manually remove the artifact from file state instead of re-requesting the entire payload.
 		const file = this.store.getState().files[id];
 		if (file && file.status === 'processed' && file.artifacts) {
 			const updatedArtifacts = { ...file.artifacts };
-			delete updatedArtifacts[params.artifactName as keyof typeof updatedArtifacts];
+			delete updatedArtifacts[artifactName as keyof typeof updatedArtifacts];
 
 			const updatedFileState = {
 				...file,

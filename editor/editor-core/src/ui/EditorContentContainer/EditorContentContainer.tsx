@@ -46,7 +46,7 @@ import { cursorStyles } from './styles/cursorStyles';
 import { dateStyles, dateVanillaStyles } from './styles/dateStyles';
 import { editorUGCTokensDefault, editorUGCTokensRefreshed } from './styles/editorUGCTokenStyles';
 import { embedCardStyles } from './styles/embedCardStyles';
-import { reactEmojiStyles, vanillaEmojiStyles } from './styles/emoji';
+import { emojiStyles } from './styles/emoji';
 import {
 	expandStyles,
 	expandStylesMixin_fg_platform_editor_nested_dnd_styles_changes,
@@ -145,10 +145,9 @@ import { tableCommentEditorStyles, tableLayoutFixes } from './styles/tableStyles
 import {
 	decisionStyles,
 	tasksAndDecisionsStyles,
-	vanillaDecisionIconWithVisualRefresh,
-	vanillaDecisionIconWithoutVisualRefresh,
-	vanillaDecisionStyles,
-	vanillaTaskItemStyles,
+	decisionIconWithVisualRefresh,
+	decisionIconWithoutVisualRefresh,
+	taskItemStyles,
 } from './styles/tasksAndDecisionsStyles';
 import {
 	telepointerColorAndCommonStyle,
@@ -315,18 +314,13 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					decisionStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					vanillaTaskItemStyles,
-					editorExperiment('platform_editor_vanilla_dom', true, { exposure: false }) &&
+					taskItemStyles,
+					fg('platform-visual-refresh-icons') &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						vanillaDecisionStyles,
-					editorExperiment('platform_editor_vanilla_dom', true, { exposure: false }) &&
-						fg('platform-visual-refresh-icons') &&
+						decisionIconWithVisualRefresh,
+					!fg('platform-visual-refresh-icons') &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						vanillaDecisionIconWithVisualRefresh,
-					editorExperiment('platform_editor_vanilla_dom', true, { exposure: false }) &&
-						!fg('platform-visual-refresh-icons') &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						vanillaDecisionIconWithoutVisualRefresh,
+						decisionIconWithoutVisualRefresh,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					statusStyles,
 					fg('platform-component-visual-refresh')
@@ -456,11 +450,8 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					fg('platform_editor_centre_mention_padding') &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						mentionsStylesMixin_platform_editor_centre_mention_padding,
-					editorExperiment('platform_editor_vanilla_dom', true, { exposure: false })
-						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							vanillaEmojiStyles
-						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							reactEmojiStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					emojiStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					panelViewStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

@@ -962,6 +962,12 @@ const videoCaptions = createGenerator({
 				url: 'some-url',
 				cdnUrl: 'some-cdn-url',
 			},
+			ugc_caption_CORRUPTED: {
+				createdAt: 1741056854208,
+				mimeType: `text/vtt;l=en-CORRUPTED;n=${btoa('corrupted-captions.vtt')}`,
+				url: 'some-url',
+				cdnUrl: 'some-cdn-url',
+			},
 		},
 		representations: {
 			image: {},

@@ -344,14 +344,6 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-05-13
-	editor_ai_comment_freegen_rovo: createBooleanExperiment({
-		productKeys: {
-			confluence: 'editor_ai_comment_freegen_rovo',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-06-10
 	platform_editor_no_cursor_on_edit_page_init: createBooleanExperiment({
 		productKeys: {

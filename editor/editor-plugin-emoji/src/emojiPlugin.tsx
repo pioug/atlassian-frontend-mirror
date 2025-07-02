@@ -13,7 +13,6 @@ import {
 	toolbarInsertBlockMessages as messages,
 } from '@atlaskit/editor-common/messages';
 import { IconEmoji } from '@atlaskit/editor-common/quick-insert';
-import { getInlineNodeViewProducer } from '@atlaskit/editor-common/react-node-view';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import type {
@@ -42,7 +41,6 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { createEmojiFragment, insertEmoji } from './editor-commands/insert-emoji';
 import type { EmojiPlugin, EmojiPluginOptions, EmojiPluginState } from './emojiPluginType';
-import { EmojiNodeView as EmojiNodeViewReact } from './nodeviews/emoji';
 import { emojiNodeSpec } from './nodeviews/emojiNodeSpec';
 import { EmojiNodeView } from './nodeviews/EmojiNodeView';
 import {
@@ -612,21 +610,11 @@ export function createEmojiPlugin(
 		} as SafeStateField<EmojiPluginState>,
 		props: {
 			nodeViews: {
-				emoji: (node, view, getPos, decorations) => {
-					return editorExperiment('platform_editor_vanilla_dom', true, { exposure: true })
-						? new EmojiNodeView(node, {
-								intl: pmPluginFactoryParams.getIntl(),
-								api,
-							})
-						: getInlineNodeViewProducer({
-								pmPluginFactoryParams,
-								Component: EmojiNodeViewReact,
-								extraComponentProps: {
-									providerFactory: pmPluginFactoryParams.providerFactory,
-									options,
-									api,
-								},
-							})(node, view, getPos, decorations);
+				emoji: (node) => {
+					return new EmojiNodeView(node, {
+						intl: pmPluginFactoryParams.getIntl(),
+						api,
+					});
 				},
 			},
 		},

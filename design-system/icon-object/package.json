@@ -165,8 +165,7 @@
 	},
 	"platform-feature-flags": {
 		"icon-object-migration": {
-			"type": "boolean",
-			"showOnWebsiteForTransitiveDependencies": true
+			"type": "boolean"
 		}
 	}
 }

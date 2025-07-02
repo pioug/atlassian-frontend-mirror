@@ -1,5 +1,14 @@
 # @atlaskit/media-card
 
+## 79.3.9
+
+### Patch Changes
+
+- [#179867](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/179867)
+  [`23b6e96c8982d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/23b6e96c8982d) -
+  Add new card placeholder without spinner icon
+- Updated dependencies
+
 ## 79.3.8
 
 ### Patch Changes

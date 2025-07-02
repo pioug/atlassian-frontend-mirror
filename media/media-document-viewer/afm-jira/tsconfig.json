@@ -18,6 +18,9 @@
 	],
 	"references": [
 		{
+			"path": "../../../helpers/browser-apis/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/css/afm-jira/tsconfig.json"
 		},
 		{

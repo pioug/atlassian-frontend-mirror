@@ -108,11 +108,18 @@ const getMediaApi = ({ getItem }: { setItems: SetItems; getItem: GetItem }): Med
 		}
 		return new Blob();
 	},
-	uploadArtifact: async () => {
-		throw new Error('500 - MockedMediaApi.uploadArtifact: method not implemented');
+	uploadArtifact: async (id) => {
+		const item = getItem(id);
+		if (!item) {
+			throw new Error('404 - MockedMediaApi.uploadArtifact: file not found');
+		}
+		return {
+			data: item.details,
+		};
 	},
-	deleteArtifact: async () => {
-		throw new Error('500 - MockedMediaApi.deleteArtifact: method not implemented');
+	deleteArtifact: async (id) => {
+		// OK!
+		// TODO: this should return the item details
 	},
 
 	// --------------------------------------------------------

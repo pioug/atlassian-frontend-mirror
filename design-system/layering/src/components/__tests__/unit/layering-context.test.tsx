@@ -10,61 +10,68 @@ import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags'
 import { Layering, useLayering } from '../../../index';
 
 describe('Layering', () => {
-	const Wrapper = () => {
-		const { currentLevel, topLevelRef } = useLayering();
+	const mockCallback = jest.fn();
+
+	const WrapperFG = ({
+		callback = mockCallback,
+	}: {
+		callback?: (currentLevel: number, topLevel: number | null) => void;
+	}) => {
+		const { currentLevel, layerList } = useLayering();
+
+		const onClick = useCallback(() => {
+			callback(currentLevel, layerList?.current?.length ?? null);
+		}, [callback, currentLevel, layerList]);
+
 		return (
-			<div>
-				The current level is {currentLevel}, top level is {topLevelRef.current ?? 'null'}
-			</div>
+			<button type="button" onClick={onClick}>
+				Get Layers
+			</button>
 		);
 	};
 
-	it('should have default context value if Layering is not provided', () => {
-		render(<Wrapper />);
-		expect(screen.getByText(/^The current level is/)).toHaveTextContent(
-			'The current level is 0, top level is null',
-		);
+	it('should have default context value if Layering is not provided', async () => {
+		render(<WrapperFG />);
+		await userEvent.click(screen.getByRole('button', { name: 'Get Layers' }));
+		expect(mockCallback).toHaveBeenCalledWith(0, null);
 	});
 
-	it('should have correct context value if 2 layers are provided', () => {
+	it('should have correct context value if 2 layers are provided', async () => {
 		render(
 			<Layering isDisabled={false}>
 				<Layering isDisabled={false}>
-					<Wrapper />
+					<WrapperFG />
 				</Layering>
 			</Layering>,
 		);
-		expect(screen.getByText(/^The current level is/)).toHaveTextContent(
-			'The current level is 2, top level is 2',
-		);
+		await userEvent.click(screen.getByRole('button', { name: 'Get Layers' }));
+		expect(mockCallback).toHaveBeenCalledWith(2, 2);
 	});
 
-	it('should have correct context value if 4 layers are provided', () => {
+	it('should have correct context value if 4 layers are provided', async () => {
 		render(
 			<Layering isDisabled={false}>
 				<Layering isDisabled={false}>
 					<Layering isDisabled={false}>
 						<Layering isDisabled={false}>
-							<Wrapper />
+							<WrapperFG />
 						</Layering>
 					</Layering>
 				</Layering>
 			</Layering>,
 		);
-		expect(screen.getByText(/^The current level is/)).toHaveTextContent(
-			'The current level is 4, top level is 4',
-		);
+		await userEvent.click(screen.getByRole('button', { name: 'Get Layers' }));
+		expect(mockCallback).toHaveBeenCalledWith(4, 4);
 	});
 
-	it('should have default context value if isDisabled is true by default', () => {
+	it('should have default context value if isDisabled is true by default', async () => {
 		render(
 			<Layering>
-				<Wrapper />
+				<WrapperFG />
 			</Layering>,
 		);
-		expect(screen.getByText(/^The current level is/)).toHaveTextContent(
-			'The current level is 0, top level is null',
-		);
+		await userEvent.click(screen.getByRole('button', { name: 'Get Layers' }));
+		expect(mockCallback).toHaveBeenCalledWith(0, null);
 	});
 
 	it('should set topLevel correctly when parent re-rendered', async () => {
@@ -155,7 +162,7 @@ describe('Layering', () => {
 
 	describe('With FG', () => {
 		beforeEach(() => {
-			setBooleanFeatureFlagResolver((key: string) => key === 'layering-top-level-use-array');
+			setBooleanFeatureFlagResolver((key: string) => key === 'layering-tree-graph');
 		});
 
 		const mockCallback = jest.fn();
@@ -165,11 +172,11 @@ describe('Layering', () => {
 		}: {
 			callback?: (currentLevel: number, topLevel: number | null) => void;
 		}) => {
-			const { currentLevel, layerList } = useLayering();
+			const { currentLevel, getTopLevel } = useLayering();
 
 			const onClick = useCallback(() => {
-				callback(currentLevel, layerList?.current?.length ?? null);
-			}, [callback, currentLevel, layerList]);
+				callback(currentLevel, getTopLevel?.() ?? null);
+			}, [callback, currentLevel, getTopLevel]);
 
 			return (
 				<button type="button" onClick={onClick}>

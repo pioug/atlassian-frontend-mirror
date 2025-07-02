@@ -4,42 +4,45 @@
  */
 import { useContext } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { cssMap, jsx } from '@compiled/react';
 
-import {
-	defaultGridColumnWidth,
-	defaultLayout,
-	spacingMapping,
-	varColumnsNum,
-	varGridSpacing,
-} from './constants';
+import { defaultLayout, spacingMapping } from './constants';
 import { GridContext } from './grid-context';
 import type { GridProps } from './types';
 
-const gridStyles = css({
-	display: 'flex',
-	margin: '0 auto',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	padding: `0 calc(var(${varGridSpacing}) / 2)`,
-	position: 'relative',
-	alignItems: 'flex-start',
-	flexWrap: 'wrap',
+const defaultGridColumnWidth = 80;
+
+/**
+ * The number of available columns in each row.
+ */
+const varColumnsNum = '--ds-columns-num';
+
+/**
+ * The spacing (in `px`) between each column.
+ */
+const varGridSpacing = '--ds-grid-spacing';
+
+const styles = cssMap({
+	grid: {
+		display: 'flex',
+		margin: '0 auto',
+		padding: `0 calc(var(${varGridSpacing}) / 2)`,
+		position: 'relative',
+		alignItems: 'flex-start',
+		flexWrap: 'wrap',
+	},
+	nestedGrid: {
+		margin: `0 calc(-1 * var(${varGridSpacing}))`,
+	},
 });
 
-const gridLayoutStyles = {
-	fixed: css({
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+const gridLayoutMapStyles = cssMap({
+	fixed: {
 		maxWidth: `calc(var(${varColumnsNum}) * ${defaultGridColumnWidth}px)`,
-	}),
-	fluid: css({
+	},
+	fluid: {
 		maxWidth: '100%',
-	}),
-};
-
-const nestedGridStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	margin: `0 calc(-1 * var(${varGridSpacing}))`,
+	},
 });
 
 /**
@@ -57,10 +60,9 @@ export const Grid = ({ layout = defaultLayout, testId, children }: GridProps) =>
 
 	return (
 		<div
-			css={[gridStyles, gridLayoutStyles[layout], isNested && nestedGridStyles]}
+			css={[styles.grid, gridLayoutMapStyles[layout], isNested && styles.nestedGrid]}
 			style={
 				{
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					[varColumnsNum]: columns,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					[varGridSpacing]: `${spacingMapping[spacing]}px`,

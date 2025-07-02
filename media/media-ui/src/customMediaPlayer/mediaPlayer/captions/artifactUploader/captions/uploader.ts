@@ -1,7 +1,7 @@
 import type { MediaClient, FileIdentifier } from '@atlaskit/media-client';
 import { parseError } from './util';
-import type { ArtifactUploaderContext, ArtifactUploaderProps } from '../types';
-import { getRandomTelemetryId } from '@atlaskit/media-common';
+import type { ArtifactUploaderProps } from '../types';
+import { type MediaTraceContext, getRandomTelemetryId } from '@atlaskit/media-common';
 
 export const createUploadCaptionsFn =
 	(
@@ -12,7 +12,7 @@ export const createUploadCaptionsFn =
 		onError?: ArtifactUploaderProps['onError'],
 	) =>
 	async (file: File, locale: string) => {
-		const context: ArtifactUploaderContext = {
+		const context: MediaTraceContext = {
 			traceId: getRandomTelemetryId(),
 		};
 		if (file) {
@@ -23,7 +23,7 @@ export const createUploadCaptionsFn =
 					file,
 					{ type: 'caption', language: locale },
 					identifier.collectionName,
-					{ traceId: context.traceId },
+					context,
 				);
 				onEnd?.(result, context);
 			} catch (error) {

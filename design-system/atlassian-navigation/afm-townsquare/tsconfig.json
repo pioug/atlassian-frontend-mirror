@@ -39,6 +39,9 @@
 			"path": "../../popup/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../primitives/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../theme/afm-townsquare/tsconfig.json"
 		},
 		{

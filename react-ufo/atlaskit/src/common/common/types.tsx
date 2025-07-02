@@ -1,5 +1,6 @@
 import type { TraceIdContext } from '../../experience-trace-id-context';
 import type { LabelStack, UFOInteractionContextType } from '../../interaction-context';
+import type { VCObserverInterface } from '../../vc/types';
 import { type VCRawDataType, type VCResult } from '../vc/types';
 
 export type LifecycleMarkType =
@@ -147,8 +148,8 @@ export interface InteractionMetrics {
 	holdInfo: HoldInfo[];
 	holdExpInfo: HoldInfo[];
 	holdActive: Map<string, HoldActive>;
-	holdExpActive: Map<string, HoldActive>;
 	reactProfilerTimings: ReactProfilerTiming[];
+	holdExpActive: Map<string, HoldActive>;
 	measureStart: number;
 	rate: number;
 	cancelCallbacks: (() => void)[];
@@ -157,7 +158,6 @@ export interface InteractionMetrics {
 	errors: InteractionError[];
 	abortReason?: AbortReasonType;
 	abortedByInteractionName?: string;
-
 	/**
 	 * Apdex is a legacy performance measurement where it is
 	 * capturing TTI at arbitrary point in the code (bm3/UFOv1)
@@ -168,7 +168,6 @@ export interface InteractionMetrics {
 	 * This field might be ignored/dropped in the future.
 	 */
 	apdex: ApdexType[];
-
 	/**
 	 * LabelStack is a stack of labels that are used to identify the
 	 * breadcrumb of segments of the current interaction.
@@ -194,6 +193,8 @@ export interface InteractionMetrics {
 	changeTimeout: (newTime: number) => void;
 	trace: TraceIdContext | null;
 	legacyMetrics?: BM3Event[];
+	vcObserver?: VCObserverInterface;
+	experimentalVCObserver?: VCObserverInterface;
 	vc?: VCRawDataType | null;
 	experimentalTTAI?: number;
 	experimentalVC90?: number;

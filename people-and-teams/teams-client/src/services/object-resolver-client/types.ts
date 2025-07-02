@@ -62,3 +62,20 @@ export interface GetAriFromUrlError {
 		status: number;
 	};
 }
+
+/**
+ * Types for web link title resolution via object-resolver service
+ */
+export interface WebLinkTitleItemSuccess {
+	data: {
+		name?: string;
+	};
+	meta?: {
+		visibility?: 'public' | 'restricted' | 'unauthorized';
+		auth?: Array<{
+			key: string;
+			displayName: string;
+			url: string;
+		}>;
+	};
+}

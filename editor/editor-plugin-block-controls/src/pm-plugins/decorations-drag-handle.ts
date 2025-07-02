@@ -7,6 +7,7 @@ import uuid from 'uuid';
 
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { type EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -16,6 +17,7 @@ import { DragHandle, DragHandleWithVisibility } from '../ui/drag-handle';
 
 import { TYPE_HANDLE_DEC, TYPE_NODE_DEC, unmountDecorations } from './decorations-common';
 import { AnchorRectCache } from './utils/anchor-utils';
+import { getActiveBlockMarks } from './utils/marks';
 
 export const emptyParagraphNodeDecorations = () => {
 	const anchorName = `--node-anchor-paragraph-0`;
@@ -37,16 +39,29 @@ export const findHandleDec = (decorations: DecorationSet, from?: number, to?: nu
 	return decorations.find(from, to, (spec) => spec.type === TYPE_HANDLE_DEC);
 };
 
-export const dragHandleDecoration = (
-	api: ExtractInjectionAPI<BlockControlsPlugin>,
-	formatMessage: IntlShape['formatMessage'],
-	pos: number,
-	anchorName: string,
-	nodeType: string,
-	nodeViewPortalProviderAPI: PortalProviderAPI,
-	handleOptions?: HandleOptions,
-	anchorRectCache?: AnchorRectCache,
-) => {
+type DragHandleDecorationParams = {
+	api: ExtractInjectionAPI<BlockControlsPlugin>;
+	formatMessage: IntlShape['formatMessage'];
+	pos: number;
+	anchorName: string;
+	nodeType: string;
+	nodeViewPortalProviderAPI: PortalProviderAPI;
+	handleOptions?: HandleOptions;
+	anchorRectCache?: AnchorRectCache;
+	editorState: EditorState;
+};
+
+export const dragHandleDecoration = ({
+	api,
+	formatMessage,
+	pos,
+	anchorName,
+	nodeType,
+	nodeViewPortalProviderAPI,
+	handleOptions,
+	anchorRectCache,
+	editorState,
+}: DragHandleDecorationParams) => {
 	if (
 		!editorExperiment('platform_editor_block_control_optimise_render', true, {
 			exposure: true,
@@ -69,11 +84,12 @@ export const dragHandleDecoration = (
 				testid: `${TYPE_HANDLE_DEC}-${uuid()}`,
 				/**
 				 * sigh - `marks` influences the position that the widget is drawn (as described on the `side` property).
-				 * Leaving this 'undefined' causes the widget to be wrapped in the mark before this position which creates
-				 * weird stacking context issues. Providing an empty array causes the widget to correctly render before
-				 * this exact position at the top of the DOM.
+				 * Exclude 'breakout' on purpose, so the widgets render at the top of the document to avoid z-index issues
+				 * Other block marks must be added, otherwise PM will split the DOM elements causing mutations and re-draws
 				 */
-				marks: [],
+				marks: fg('platform_editor_breakout_resizing_widget_fix')
+					? getActiveBlockMarks(editorState, pos)
+					: [],
 				destroy: (node: Node) => {
 					unbind && unbind();
 

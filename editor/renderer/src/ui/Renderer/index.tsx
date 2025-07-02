@@ -325,6 +325,7 @@ export const RendererFunctionalComponent = (
 				textHighlighter: props.textHighlighter || props.UNSTABLE_textHighlighter,
 				allowTableAlignment: props.UNSTABLE_allowTableAlignment,
 				allowTableResizing: props.UNSTABLE_allowTableResizing,
+				disableTableOverflowShadow: props.disableTableOverflowShadow,
 			};
 		},
 		[createRendererContext, providerFactory, fireAnalyticsEvent],

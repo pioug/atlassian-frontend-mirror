@@ -98,7 +98,8 @@ describe('getVCMetrics', () => {
 	});
 
 	it('should process press interaction correctly when feature flag is enabled', async () => {
-		enabledFg.add('platform_ufo_enable_interactions_vc');
+		enabledFg.add('platform_ufo_enable_vc_press_interactions');
+		enabledFg.add('platform_ufo_enable_vc_observer_per_interaction');
 
 		const mockGetMostRecentVCRevision = getMostRecentVCRevision as jest.MockedFunction<
 			typeof getMostRecentVCRevision

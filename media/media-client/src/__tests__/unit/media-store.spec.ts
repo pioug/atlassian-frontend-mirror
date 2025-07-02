@@ -1844,12 +1844,9 @@ describe('MediaStore', () => {
 					statusText: 'No Content',
 				});
 
-				await mediaStore.deleteArtifact(
-					'some-file-id',
-					{ artifactName: 'ugc_caption_en' },
-					'some-collection-name',
-					{ traceId: 'some-trace-id' },
-				);
+				await mediaStore.deleteArtifact('some-file-id', 'ugc_caption_en', 'some-collection-name', {
+					traceId: 'some-trace-id',
+				});
 
 				expect(resolveAuth).toHaveBeenCalledWith(
 					authProvider,

@@ -41,10 +41,12 @@ import {
 	createPlayPauseBlanketClickedEvent,
 	createTimeRangeNavigatedEvent,
 	createPlaybackSpeedChangedEvent,
-	createCaptionUploadSucceededOperationalEvent,
-	createCaptionDeleteSucceededOperationalEvent,
-	createCaptionUploadFailedOperationalEvent,
-	createCaptionDeleteFailedOperationalEvent,
+	createCaptionUploadSucceededEventPayload,
+	createCaptionDeleteSucceededEventPayload,
+	createCaptionUploadFailedEventPayload,
+	createCaptionDeleteFailedEventPayload,
+	createCaptionDisplaySucceededEventPayload,
+	createCaptionDisplayFailedEventPayload,
 	createFirstPlayedTrackEvent,
 	createPlayedTrackEvent,
 	type PlaybackState,
@@ -69,6 +71,7 @@ import { token } from '@atlaskit/tokens';
 import { CaptionsUploaderBrowser } from './captions/artifactUploader';
 import CaptionDeleteConfirmationModal from './captions/captionDeleteConfirmationModal';
 import { type MediaPlayerBaseProps } from './types';
+import { type MediaTraceContext } from '@atlaskit/media-common';
 
 export interface CustomMediaPlayerState {
 	playerWidth: number;
@@ -743,61 +746,90 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 	private baseAnalyticCaptionAttributes() {
 		const { textTracks } = this.props;
 		const { selectedTrackIndex = -1 } = textTracks?.captions || {};
+		const captionTracks = textTracks?.captions?.tracks;
+		const selectedTrack = captionTracks?.[selectedTrackIndex];
 
 		const captionAttributes = {
 			selectedTrackIndex,
-			availableCaptionTracks: textTracks?.captions?.tracks?.length || 0,
-			selectedTrackLanguage: textTracks?.captions?.tracks?.[selectedTrackIndex]?.lang || null,
+			availableCaptionTracks: captionTracks?.length || 0,
+			selectedTrackLanguage: selectedTrack?.lang || null,
 		};
 		return captionAttributes;
 	}
 
-	private fireCaptionEvent(event: CustomMediaPlayerAnalyticsEventPayload) {
-		fireAnalyticsEvent(event, this.props.createAnalyticsEvent);
+	private fireCaptionEvent(payload: CustomMediaPlayerAnalyticsEventPayload) {
+		fireAnalyticsEvent(payload, this.props.createAnalyticsEvent);
 	}
 
-	private fireCaptionUploadSucceededEvent(traceId: string) {
+	private fireCaptionDisplaySucceededEvent() {
 		this.fireCaptionEvent(
-			createCaptionUploadSucceededOperationalEvent(
+			createCaptionDisplaySucceededEventPayload(
 				this.props.type,
 				this.baseAnalyticCaptionAttributes(),
 				this.props.identifier.id,
-				traceId,
 			),
 		);
 	}
 
-	private fireCaptionUploadFailedEvent(traceId: string, error: Error) {
+	private fireCaptionDisplayFailedEvent(artifactName: string, error: Error) {
 		this.fireCaptionEvent(
-			createCaptionUploadFailedOperationalEvent(
+			createCaptionDisplayFailedEventPayload(
 				this.props.type,
-				this.baseAnalyticCaptionAttributes(),
+				'render-fail',
+				{ ...this.baseAnalyticCaptionAttributes(), artifactName },
 				this.props.identifier.id,
-				traceId,
 				error,
 			),
 		);
 	}
 
-	private fireCaptionDeleteSucceededEvent(traceId: string, artifactName: string) {
+	private fireCaptionUploadSucceededEvent(traceContext: MediaTraceContext) {
 		this.fireCaptionEvent(
-			createCaptionDeleteSucceededOperationalEvent(
+			createCaptionUploadSucceededEventPayload(
 				this.props.type,
-				{ ...this.baseAnalyticCaptionAttributes(), artifactName },
+				this.baseAnalyticCaptionAttributes(),
 				this.props.identifier.id,
-				traceId,
+				traceContext,
 			),
 		);
 	}
 
-	private fireCaptionDeleteFailedEvent(traceId: string, artifactName: string, error: Error) {
+	private fireCaptionUploadFailedEvent(traceContext: MediaTraceContext, error: Error) {
 		this.fireCaptionEvent(
-			createCaptionDeleteFailedOperationalEvent(
+			createCaptionUploadFailedEventPayload(
+				this.props.type,
+				this.baseAnalyticCaptionAttributes(),
+				this.props.identifier.id,
+				error,
+				traceContext,
+			),
+		);
+	}
+
+	private fireCaptionDeleteSucceededEvent(traceContext: MediaTraceContext) {
+		this.fireCaptionEvent(
+			createCaptionDeleteSucceededEventPayload(
+				this.props.type,
+				this.baseAnalyticCaptionAttributes(),
+				this.props.identifier.id,
+				traceContext,
+			),
+		);
+	}
+
+	private fireCaptionDeleteFailedEvent(
+		artifactName: string,
+		traceContext: MediaTraceContext,
+
+		error: Error,
+	) {
+		this.fireCaptionEvent(
+			createCaptionDeleteFailedEventPayload(
 				this.props.type,
 				{ ...this.baseAnalyticCaptionAttributes(), artifactName },
 				this.props.identifier.id,
-				traceId,
 				error,
+				traceContext,
 			),
 		);
 	}
@@ -937,28 +969,36 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 					identifier={identifier}
 					isOpen={isArtifactUploaderOpen}
 					onClose={() => this.setState({ isArtifactUploaderOpen: false })}
-					onEnd={(metadata, context) => {
-						this.fireCaptionUploadSucceededEvent(context.traceId);
+					onEnd={(_metadata, traceContext) => {
+						this.fireCaptionUploadSucceededEvent(traceContext);
 					}}
-					onError={(err, context) => {
-						this.fireCaptionUploadFailedEvent(context.traceId, err);
+					onError={(err, traceContext) => {
+						this.fireCaptionUploadFailedEvent(traceContext, err);
 					}}
 				/>
 				<CaptionDeleteConfirmationModal
 					identifier={identifier}
 					artifactName={artifactToDelete}
 					onClose={() => this.setState({ artifactToDelete: '' })}
-					onEnd={(context) => {
-						this.fireCaptionDeleteSucceededEvent(context.traceId, context.artifactName);
+					onEnd={(traceContext) => {
+						this.fireCaptionDeleteSucceededEvent(traceContext);
 						this.setState({ artifactToDelete: '' });
 					}}
-					onError={(err, context) => {
-						this.fireCaptionDeleteFailedEvent(context.traceId, context.artifactName, err);
+					onError={(err, artifactName, traceContext) => {
+						this.fireCaptionDeleteFailedEvent(artifactName, traceContext, err);
 						this.setState({ artifactToDelete: '' });
 					}}
 				/>
 			</>
 		);
+	};
+
+	private onTextTrackLoaded = () => {
+		this.fireCaptionDisplaySucceededEvent();
+	};
+
+	private onTextTrackError = (artifactName: string, lang: string, label: string) => {
+		this.fireCaptionDisplayFailedEvent(artifactName, new Error(`label: ${label} - lang: ${lang}`));
 	};
 
 	render() {
@@ -991,6 +1031,8 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 					poster={poster}
 					textTracks={textTracks}
 					textTracksPosition={areControlsVisible ? -3.7 : undefined}
+					onTextTrackLoaded={this.onTextTrackLoaded}
+					onTextTrackError={this.onTextTrackError}
 				>
 					{(video, videoState, actions) => {
 						this.onViewed(videoState);

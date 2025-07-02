@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "38.20.0",
+	"version": "38.20.1",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -182,12 +182,10 @@
 			"type": "boolean"
 		},
 		"platform-visual-refresh-icons-legacy-facade": {
-			"type": "boolean",
-			"showOnWebsiteForTransitiveDependencies": true
+			"type": "boolean"
 		},
 		"platform-component-visual-refresh": {
-			"type": "boolean",
-			"showOnWebsiteForTransitiveDependencies": true
+			"type": "boolean"
 		},
 		"bandicoots-smart-card-teamwork-context": {
 			"type": "boolean"
@@ -202,8 +200,7 @@
 			"type": "boolean"
 		},
 		"icon-object-migration": {
-			"type": "boolean",
-			"showOnWebsiteForTransitiveDependencies": true
+			"type": "boolean"
 		},
 		"platform-linking-visual-refresh-v1": {
 			"type": "boolean"
@@ -233,8 +230,7 @@
 			"type": "boolean"
 		},
 		"platform-smart-card-remove-legacy-button": {
-			"type": "boolean",
-			"showOnWebsiteForTransitiveDependencies": true
+			"type": "boolean"
 		},
 		"platform-linking-additional-flexible-element-props": {
 			"type": "boolean"
@@ -264,6 +260,9 @@
 			"type": "boolean"
 		},
 		"platform-linking-user-attributes-component": {
+			"type": "boolean"
+		},
+		"platform_renderer_blindspots": {
 			"type": "boolean"
 		}
 	},

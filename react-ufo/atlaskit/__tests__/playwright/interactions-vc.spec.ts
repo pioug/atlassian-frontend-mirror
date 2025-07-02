@@ -4,7 +4,10 @@
 import { expect, test } from './fixtures';
 
 test.describe('ReactUFO: Interactions VC', () => {
-	const requiredFeatureFlags = ['platform_ufo_enable_interactions_vc'];
+	const requiredFeatureFlags = [
+		'platform_ufo_enable_vc_press_interactions',
+		'platform_ufo_enable_vc_observer_per_interaction',
+	];
 	test.use({
 		examplePage: 'interactions-simple-button',
 		featureFlags: requiredFeatureFlags,

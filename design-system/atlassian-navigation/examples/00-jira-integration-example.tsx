@@ -8,16 +8,16 @@ import { Fragment, type KeyboardEvent, useState } from 'react';
 import { jsx } from '@emotion/react';
 
 import {
+	AppHome,
 	AtlassianNavigation,
 	PrimaryButton,
 	PrimaryDropdownButton,
-	ProductHome,
 	Search,
 	Settings,
 	useOverflowStatus,
 } from '@atlaskit/atlassian-navigation';
 import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer';
-import { JiraIcon, JiraLogo } from '@atlaskit/logo';
+import { JiraIcon } from '@atlaskit/logo';
 import { ButtonItem, MenuGroup, Section } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
 import { type PopupProps } from '@atlaskit/popup/types';
@@ -36,7 +36,7 @@ const drawerLabelText = {
 const { search, settings } = drawerLabelText;
 
 const ProductHomeExample = () => (
-	<ProductHome onClick={console.log} icon={JiraIcon} logo={JiraLogo} siteTitle="Hello" />
+	<AppHome onClick={console.log} icon={JiraIcon} name="Jira" siteTitle="Hello" />
 );
 
 const SearchDrawer = () => {

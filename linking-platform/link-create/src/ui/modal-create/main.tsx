@@ -4,6 +4,7 @@ import { useIntl } from 'react-intl-next';
 
 import { Layering } from '@atlaskit/layering';
 import { ModalBody, ModalHeader, ModalTitle, ModalTransition } from '@atlaskit/modal-dialog';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 
 import { CREATE_FORM_MAX_WIDTH_IN_PX, DEFAULT_TEST_ID, SCREEN_ID } from '../../common/constants';
@@ -79,6 +80,13 @@ const LinkCreateWithModal = ({
 								</ErrorBoundary>
 							</Box>
 						</ModalBody>
+						{fg('layering-tree-graph') && (
+							<ConfirmDismissDialog
+								active={showExitWarning}
+								onClose={handleCloseExitWarning}
+								onCancel={onCancel}
+							/>
+						)}
 					</Modal>
 				)}
 			</ModalTransition>
@@ -90,13 +98,15 @@ const LinkCreateWithModal = ({
 					activePlugin={activePlugin}
 				/>
 			)}
-			<Layering isDisabled={false}>
-				<ConfirmDismissDialog
-					active={showExitWarning}
-					onClose={handleCloseExitWarning}
-					onCancel={onCancel}
-				/>
-			</Layering>
+			{!fg('layering-tree-graph') && (
+				<Layering isDisabled={false}>
+					<ConfirmDismissDialog
+						active={showExitWarning}
+						onClose={handleCloseExitWarning}
+						onCancel={onCancel}
+					/>
+				</Layering>
+			)}
 		</LinkCreateCallbackProvider>
 	);
 };

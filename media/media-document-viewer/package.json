@@ -30,6 +30,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
+		"@atlaskit/browser-apis": "workspace:^",
 		"@atlaskit/css": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/media-common": "workspace:^",
@@ -47,6 +48,7 @@
 		"@atlaskit/ssr": "workspace:^",
 		"@atlaskit/visual-regression": "workspace:^",
 		"@testing-library/react": "^13.4.0",
+		"@testing-library/user-event": "^14.4.3",
 		"react-dom": "^18.2.0",
 		"typescript": "~5.4.2"
 	},
@@ -86,7 +88,7 @@
 		}
 	},
 	"name": "@atlaskit/media-document-viewer",
-	"version": "0.3.0",
+	"version": "0.3.1",
 	"description": "Modern and fast document viewer",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

@@ -14,6 +14,7 @@ export const shadowClassNames = {
 export interface OverflowShadowProps {
 	handleRef?: (ref: HTMLElement | null) => void;
 	shadowClassNames?: string;
+	disableTableOverflowShadow?: boolean;
 }
 
 export interface OverflowShadowState {
@@ -31,7 +32,10 @@ export default function overflowShadow<P>(
 	Component: React.ComponentType<React.PropsWithChildren<P & OverflowShadowProps>>,
 	options: OverflowShadowOptions,
 ) {
-	return class OverflowShadow extends React.Component<P, OverflowShadowState> {
+	return class OverflowShadow extends React.Component<
+		P & OverflowShadowProps,
+		OverflowShadowState
+	> {
 		overflowContainer?: HTMLElement | null;
 		container?: HTMLElement;
 		shadowObserver?: ShadowObserver;
@@ -208,8 +212,8 @@ export default function overflowShadow<P>(
 			const { showLeftShadow, showRightShadow } = this.state;
 
 			const classNames = [
-				showRightShadow && shadowClassNames.RIGHT_SHADOW,
-				showLeftShadow && shadowClassNames.LEFT_SHADOW,
+				!this.props?.disableTableOverflowShadow && showRightShadow && shadowClassNames.RIGHT_SHADOW,
+				!this.props?.disableTableOverflowShadow && showLeftShadow && shadowClassNames.LEFT_SHADOW,
 				options.useShadowObserver && shadowObserverClassNames.SHADOW_CONTAINER,
 			]
 				.filter(Boolean)

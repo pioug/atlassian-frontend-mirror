@@ -1,5 +1,29 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.14.9
+
+### Patch Changes
+
+- [#180517](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/180517)
+  [`cba15052f7278`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cba15052f7278) -
+  AFO-4101 properly aborting previous interacttion
+
+## 3.14.8
+
+### Patch Changes
+
+- [#179381](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/179381)
+  [`05fa3d08ecda9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/05fa3d08ecda9) -
+  User vc observer per interaction
+
+## 3.14.7
+
+### Patch Changes
+
+- [#179438](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/179438)
+  [`b0d336b1f78b3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b0d336b1f78b3) -
+  AFO-4081 support ssr-placeholder for ttvc v3
+
 ## 3.14.6
 
 ### Patch Changes

@@ -1,5 +1,23 @@
 # @atlaskit/media-test-data
 
+## 3.2.0
+
+### Minor Changes
+
+- [#179944](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/179944)
+  [`7d302f4beca66`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7d302f4beca66) -
+  Added corrupted video caption sample file
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.1.2
 
 ### Patch Changes

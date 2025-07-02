@@ -17,6 +17,7 @@ import {
 	TopNavStart,
 } from '@atlaskit/navigation-system/layout/top-nav';
 import {
+	AppLogo,
 	AppSwitcher,
 	ChatButton,
 	CreateButton,
@@ -29,7 +30,7 @@ import {
 } from '@atlaskit/navigation-system/top-nav-items';
 import { Notifications } from '@atlaskit/navigation-system/top-nav-items/notifications';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { JiraIcon, JiraLogo } from '@atlaskit/temp-nav-app-icons/jira';
+import { JiraIcon } from '@atlaskit/temp-nav-app-icons/jira';
 import { token } from '@atlaskit/tokens';
 
 import { WithResponsiveViewport } from './utils/example-utils';
@@ -48,12 +49,21 @@ export const TopNavigationExample = () => (
 				<TopNavStart>
 					<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
 					<AppSwitcher label="App switcher" onClick={() => alert('app switcher')} />
-					<NavLogo
-						href="http://www.atlassian.design"
-						logo={fg('platform-team25-app-icon-tiles') ? JiraLogo : AtlassianLogo}
-						icon={fg('platform-team25-app-icon-tiles') ? JiraIcon : AtlassianIcon}
-						label="Home page"
-					/>
+					{fg('platform-team25-app-icon-tiles') ? (
+						<AppLogo
+							href="http://www.atlassian.design"
+							icon={JiraIcon}
+							name="Jira"
+							label="Home page"
+						/>
+					) : (
+						<NavLogo
+							href="http://www.atlassian.design"
+							icon={AtlassianIcon}
+							logo={AtlassianLogo}
+							label="Home page"
+						/>
+					)}
 				</TopNavStart>
 				<TopNavMiddle>
 					<Search onClick={() => alert('mobile search')} label="Search" />

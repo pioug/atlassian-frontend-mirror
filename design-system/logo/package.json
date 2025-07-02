@@ -126,8 +126,7 @@
 	},
 	"platform-feature-flags": {
 		"platform-logo-rebrand": {
-			"type": "boolean",
-			"showOnWebsiteForTransitiveDependencies": true
+			"type": "boolean"
 		}
 	},
 	"homepage": "https://atlassian.design/components/logo/"

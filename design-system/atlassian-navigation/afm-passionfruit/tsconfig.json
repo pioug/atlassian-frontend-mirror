@@ -39,6 +39,9 @@
 			"path": "../../popup/afm-passionfruit/tsconfig.json"
 		},
 		{
+			"path": "../../primitives/afm-passionfruit/tsconfig.json"
+		},
+		{
 			"path": "../../theme/afm-passionfruit/tsconfig.json"
 		},
 		{

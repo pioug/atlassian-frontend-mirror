@@ -10,7 +10,9 @@ import { DefaultCreate } from '../../../examples/shared/create';
 import { jiraPrimaryItems } from '../../../examples/shared/primary-items';
 import {
 	DefaultCustomProductHome,
+	JiraAppHome,
 	JiraProductHome,
+	JiraServiceManagementAppHome,
 	JiraServiceManagementProductHome,
 } from '../../../examples/shared/product-home';
 import { DefaultProfile } from '../../../examples/shared/profile';
@@ -53,6 +55,46 @@ const NavExample = () => (
 		renderNotifications={() => <Notifications badge={NotificationsBadge} tooltip="Notifications" />}
 		renderProfile={DefaultProfile}
 	/>
+);
+
+const NavExampleAppHome = () => (
+	<AtlassianNavigation
+		label="site"
+		renderAppSwitcher={DefaultAppSwitcher}
+		renderProductHome={JiraAppHome}
+		primaryItems={jiraPrimaryItems}
+		renderHelp={() => <Help tooltip="Get help" />}
+		renderSettings={DefaultSettings}
+		renderCreate={DefaultCreate}
+		renderSearch={Search}
+		renderNotifications={() => <Notifications badge={NotificationsBadge} tooltip="Notifications" />}
+		renderProfile={DefaultProfile}
+	/>
+);
+
+const ThemingAppHomeExample = () => (
+	<>
+		{themes.map((theme) => (
+			<Stack space="space.200">
+				<AtlassianNavigation
+					label="site"
+					renderAppSwitcher={DefaultAppSwitcher}
+					renderProductHome={JiraServiceManagementAppHome}
+					primaryItems={jiraPrimaryItems}
+					renderHelp={() => <Help tooltip="Get help" />}
+					renderSettings={DefaultSettings}
+					renderCreate={DefaultCreate}
+					renderSearch={Search}
+					renderNotifications={() => (
+						<Notifications badge={NotificationsBadge} tooltip="Notifications" />
+					)}
+					renderProfile={DefaultProfile}
+					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+					theme={theme}
+				/>
+			</Stack>
+		))}
+	</>
 );
 
 const ThemingExample = () => (
@@ -165,11 +207,13 @@ const ThemingNavigationSkeletonExample = () => (
 
 export {
 	NavExample,
-	ThemingExample,
+	NavExampleAppHome,
 	ResponsiveCreateHomeAndSearchExample,
 	CustomProductHomeExample,
 	SkeletonButtonsExample,
 	ThemedSkeletonButtonsExample,
 	NavigationSkeletonExample,
+	ThemingAppHomeExample,
+	ThemingExample,
 	ThemingNavigationSkeletonExample,
 };

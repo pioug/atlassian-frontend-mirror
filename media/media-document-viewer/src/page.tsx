@@ -90,6 +90,8 @@ const pageWrapperStyles = css({
 	position: 'relative',
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 	backgroundColor: '#fff',
+	marginLeft: 'auto',
+	marginRight: 'auto',
 });
 
 type PageProps = {

@@ -8,7 +8,12 @@ import { CharlieHierarchy } from '../src';
 
 import { rootNode } from './common/basic-hierachy';
 
-const styles = xcss({
+const containerStyles = xcss({
+	display: 'flex',
+	justifyContent: 'center',
+});
+
+const nodeStyles = xcss({
 	width: '100%',
 	height: '100%',
 	backgroundColor: 'color.background.neutral.bold',
@@ -18,10 +23,12 @@ const styles = xcss({
 export default function Basic() {
 	const root = hierarchy(rootNode);
 	return (
-		<CharlieHierarchy root={root} nodeSize={[100, 50]} size={[500, 10]}>
-			{(node) => {
-				return <Box xcss={styles}>{node.data.name}</Box>;
-			}}
-		</CharlieHierarchy>
+		<Box xcss={containerStyles}>
+			<CharlieHierarchy root={root} nodeSize={[100, 50]} size={[500, 700]}>
+				{(node) => {
+					return <Box xcss={nodeStyles}>{node.data.name}</Box>;
+				}}
+			</CharlieHierarchy>
+		</Box>
 	);
 }

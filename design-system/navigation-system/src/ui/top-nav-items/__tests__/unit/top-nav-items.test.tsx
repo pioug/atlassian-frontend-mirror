@@ -12,7 +12,7 @@ import { TopNavStart } from '../../../page-layout/top-nav/top-nav-start';
 import { AppSwitcher } from '../../app-switcher';
 import { CreateButton } from '../../create-button';
 import { Help } from '../../help';
-import { NavLogo } from '../../nav-logo';
+import { NavLogo } from '../../nav-logo/nav-logo';
 import { Search } from '../../search';
 import { Settings } from '../../settings';
 

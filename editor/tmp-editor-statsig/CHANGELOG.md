@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 8.6.0
+
+### Minor Changes
+
+- [#180034](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/180034)
+  [`e0f007346fbca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e0f007346fbca) -
+  EDITOR-994 Cleaned up editor_ai_comment_freegen_rovo experiment.
+
 ## 8.5.0
 
 ### Minor Changes

@@ -17,10 +17,8 @@ import type {
 } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, DecorationSet, type EditorView } from '@atlaskit/editor-prosemirror/view';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import { lazyDecisionView } from '../nodeviews/decision-lazy-node-view';
-import { DecisionItemVanilla } from '../nodeviews/DecisionItemVanilla';
+import { DecisionItemNodeView } from '../nodeviews/DecisionItemNodeView';
 import { taskView } from '../nodeviews/task-node-view';
 import type { TasksAndDecisionsPlugin } from '../tasksAndDecisionsPluginType';
 import type { TaskDecisionPluginState, TaskItemInfoMeta } from '../types';
@@ -73,17 +71,8 @@ export function createPlugin(
 		props: {
 			nodeViews: {
 				taskItem: taskView(api, getIntl(), taskPlaceholder),
-				decisionItem: ((node, view, getPos, decorations, innerDecorations) => {
-					if (editorExperiment('platform_editor_vanilla_dom', true, { exposure: true })) {
-						return new DecisionItemVanilla(node, getIntl());
-					}
-					return lazyDecisionView(portalProviderAPI, eventDispatcher, api)(
-						node,
-						view,
-						getPos,
-						decorations,
-						innerDecorations,
-					);
+				decisionItem: ((node) => {
+					return new DecisionItemNodeView(node, getIntl());
 				}) satisfies NodeViewConstructor,
 			},
 			decorations(state) {

@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { Card } from '../src';
-import { Box, Flex, xcss } from '@atlaskit/primitives';
+import { Flex, xcss } from '@atlaskit/primitives';
 import Heading from '@atlaskit/heading';
 import type { FileIdentifier, MediaClientConfig } from '@atlaskit/media-client';
 import { generateItemWithBinaries } from '@atlaskit/media-test-data';
-import type { Identifier } from '@atlaskit/media-client';
 import { MainWrapper } from '../example-helpers';
 import {
 	I18NWrapper,
@@ -14,103 +13,80 @@ import {
 } from '@atlaskit/media-test-helpers';
 import { useCreateMockedMediaProviderWithBinaries } from '../src/utils/__tests__/utils/mockedMediaClientProvider/_MockedMediaProviderWithBinaries';
 import Button from '@atlaskit/button/new';
-import { ToggleBox } from '../example-helpers/svg-helpers';
+import { ToggleBox, errorApiResponses } from '../example-helpers/svg-helpers';
 import { MediaProvider } from '@atlaskit/media-client-react';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 const flexStyles = xcss({ marginBottom: 'space.300' });
 const dummyMediaClientConfig = {} as MediaClientConfig;
 
-const inline = [
-	{ name: 'Inline Player Nano', dimensions: { width: 90, height: 69 } },
-	{ name: 'Inline Player Micro', dimensions: { width: 150, height: 115 } },
-	{ name: 'Inline Player Small', dimensions: { width: 250, height: 192 } },
-	{ name: 'Inline Player Medium', dimensions: { width: 400, height: 308 } },
-];
-
-const block = [
-	{ name: 'Inline Player Large', dimensions: { width: 650, height: 500 } },
-	{ name: 'Inline Player X Large', dimensions: { width: 1000, height: 769 } },
-];
-
-const RenderInlinePlayer = ({
-	identifier,
-	name,
-	dimensions,
-}: {
-	identifier: Identifier;
-	name: string;
-	dimensions: { width: number; height: number };
-}) => {
-	return (
-		<Box>
-			<Heading size="medium">{name}</Heading>
-			<Card
-				mediaClientConfig={dummyMediaClientConfig}
-				dimensions={dimensions}
-				identifier={identifier}
-				isLazy={false}
-				useInlinePlayer
-				disableOverlay
-			/>
-		</Box>
-	);
-};
-
-const Example = ({ identifiers }: { identifiers: FileIdentifier[] }) => {
-	const [identifier] = identifiers;
-
+const Example = ({ identifier }: { identifier: FileIdentifier }) => {
 	return (
 		identifier && (
-			<>
-				<Flex gap="space.300" alignItems="end" justifyContent="center" xcss={flexStyles}>
-					<Box>
-						<Heading size="medium">Open Media Viewer</Heading>
-						<Card
-							mediaClientConfig={dummyMediaClientConfig}
-							identifier={identifier}
-							isLazy={false}
-							shouldOpenMediaViewer
-						/>
-					</Box>
-					{inline.map(({ name, dimensions }) => (
-						<RenderInlinePlayer
-							key={name}
-							identifier={identifier}
-							name={name}
-							dimensions={dimensions}
-						/>
-					))}
-				</Flex>
-				<Flex gap="space.300" alignItems="center" justifyContent="center" direction="column">
-					{block.map(({ name, dimensions }) => (
-						<RenderInlinePlayer
-							key={name}
-							identifier={identifier}
-							name={name}
-							dimensions={dimensions}
-						/>
-					))}
-				</Flex>
-			</>
+			<Flex
+				gap="space.300"
+				alignItems="center"
+				justifyContent="center"
+				direction="column"
+				xcss={flexStyles}
+			>
+				<Heading size="medium">Open Media Viewer</Heading>
+				<Card
+					mediaClientConfig={dummyMediaClientConfig}
+					identifier={identifier}
+					isLazy={false}
+					shouldOpenMediaViewer
+				/>
+				<Card
+					mediaClientConfig={dummyMediaClientConfig}
+					dimensions={{ width: 650, height: 500 }}
+					identifier={identifier}
+					isLazy={false}
+					useInlinePlayer
+					disableOverlay
+				/>
+			</Flex>
 		)
 	);
 };
 
 const initialItems = [generateItemWithBinaries.workingVideo.videoCaptions()];
 
-const MockedProvider = () => {
-	const { MockedMediaProvider, identifiers } = useCreateMockedMediaProviderWithBinaries({
+const MockedProvider = ({
+	fetchError,
+	uploadError,
+	deleteError,
+	canUpdateVideoCaptions,
+}: {
+	fetchError: boolean;
+	uploadError: boolean;
+	deleteError: boolean;
+	canUpdateVideoCaptions: boolean;
+}) => {
+	const { MockedMediaProvider, identifiers, mediaApi } = useCreateMockedMediaProviderWithBinaries({
 		initialItems,
+		mediaSettings: { canUpdateVideoCaptions },
 	});
 
 	if (identifiers.length === 0) {
 		return <div>Preparing Media State</div>;
 	}
 
+	if (fetchError) {
+		errorApiResponses.getArtifactBinary(mediaApi);
+	}
+
+	if (uploadError) {
+		errorApiResponses.uploadArtifact(mediaApi);
+	}
+
+	if (deleteError) {
+		errorApiResponses.deleteArtifact(mediaApi);
+	}
+
 	return (
 		<MockedMediaProvider>
-			<Example identifiers={identifiers} />
+			<Example identifier={identifiers[0]} />
 		</MockedMediaProvider>
 	);
 };
@@ -124,7 +100,7 @@ const BackendProvider = ({ canUpdateVideoCaptions }: { canUpdateVideoCaptions: b
 
 	return (
 		<MediaProvider mediaClientConfig={mediaClientConfig} mediaSettings={{ canUpdateVideoCaptions }}>
-			<Example identifiers={identifiers} />
+			<Example identifier={identifiers[0]} />
 		</MediaProvider>
 	);
 };
@@ -133,6 +109,9 @@ export default function () {
 	const [reloadKey, setReloadkey] = useState(0);
 	const [useMockedAPI, setUseMockedAPI] = useState(false);
 	const [canUpdateVideoCaptions, setCanUpdateVideoCaptions] = useState(true);
+	const [fetchError, setFetchError] = useState(false);
+	const [uploadError, setUploadError] = useState(false);
+	const [deleteError, setDeleteError] = useState(false);
 
 	if (!fg('platform_media_video_captions')) {
 		return (
@@ -144,16 +123,50 @@ export default function () {
 	return (
 		<MainWrapper disableFeatureFlagWrapper developmentOnly>
 			<I18NWrapper initialLocale={'es'}>
-				<ToggleBox label="Use mocked api" isChecked={useMockedAPI} onChange={setUseMockedAPI} />
 				<ToggleBox
 					label="Can update video captions"
 					isChecked={canUpdateVideoCaptions}
 					onChange={setCanUpdateVideoCaptions}
 				/>
-				{useMockedAPI && <Button onClick={() => setReloadkey(reloadKey + 1)}>Reload</Button>}
+				<ToggleBox label="Use mocked api" isChecked={useMockedAPI} onChange={setUseMockedAPI} />
+				{useMockedAPI && (
+					<>
+						<ToggleBox
+							label={'Fetch error'}
+							isChecked={fetchError}
+							onChange={(v) => {
+								setReloadkey(reloadKey + 1);
+								setFetchError(v);
+							}}
+						/>
+						<ToggleBox
+							label={'Upload error'}
+							isChecked={uploadError}
+							onChange={(v) => {
+								setReloadkey(reloadKey + 1);
+								setUploadError(v);
+							}}
+						/>
+						<ToggleBox
+							label={'Delete error'}
+							isChecked={deleteError}
+							onChange={(v) => {
+								setReloadkey(reloadKey + 1);
+								setDeleteError(v);
+							}}
+						/>
+						<Button onClick={() => setReloadkey(reloadKey + 1)}>Reload</Button>
+					</>
+				)}
 				<br />
 				{useMockedAPI ? (
-					<MockedProvider key={`${reloadKey}`} />
+					<MockedProvider
+						key={`${reloadKey}`}
+						canUpdateVideoCaptions={canUpdateVideoCaptions}
+						fetchError={fetchError}
+						uploadError={uploadError}
+						deleteError={deleteError}
+					/>
 				) : (
 					<BackendProvider key={`${reloadKey}`} canUpdateVideoCaptions={canUpdateVideoCaptions} />
 				)}

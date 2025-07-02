@@ -167,6 +167,7 @@ export class Channel extends Emitter<ChannelEvent> {
 			this.config.productInfo,
 			this.config.isPresenceOnly,
 			this.analyticsHelper,
+			this.config.customExtraHeaders,
 		) as Socket;
 
 		// Due to https://github.com/socketio/socket.io-client/issues/1473,

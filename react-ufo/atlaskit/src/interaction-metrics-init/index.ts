@@ -168,7 +168,9 @@ export function init(
 			disableSizeAndPositionCheck: config.vc.disableSizeAndPositionCheck,
 		};
 
-		getVCObserver(vcOptions).start({ startTime: 0 });
+		if (!fg('platform_ufo_enable_vc_observer_per_interaction')) {
+			getVCObserver(vcOptions).start({ startTime: 0 });
+		}
 		postInteractionLog.initializeVCObserver(vcOptions);
 		postInteractionLog.startVCObserver({ startTime: 0 });
 		if (config?.experimentalInteractionMetrics?.enabled) {

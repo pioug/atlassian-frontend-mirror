@@ -22,6 +22,7 @@
 	},
 	"devDependencies": {
 		"@types/eslint": "^8.56.6",
+		"@typescript-eslint/parser": "^5.62.0",
 		"@typescript-eslint/typescript-estree": "^5.56.0",
 		"@typescript-eslint/utils": "^5.48.1"
 	},

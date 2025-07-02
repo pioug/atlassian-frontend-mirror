@@ -22,6 +22,9 @@
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags-react/afm-townsquare/tsconfig.json"
 		}
 	]
 }

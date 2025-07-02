@@ -1,5 +1,14 @@
 # @atlaskit/media-document-viewer
 
+## 0.3.1
+
+### Patch Changes
+
+- [#180383](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/180383)
+  [`ff93dcfae3aa1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ff93dcfae3aa1) -
+  Fixed zoom centering correctly, zooming on mixed page size pdfs no longer cutting off PDFs and
+  pressing arrow keys on PDF inputs no longer causing media viewer to scroll
+
 ## 0.3.0
 
 ### Minor Changes

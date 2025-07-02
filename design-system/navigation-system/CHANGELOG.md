@@ -1,5 +1,14 @@
 # @atlassian/navigation-system
 
+## 0.168.0
+
+### Minor Changes
+
+- [#178562](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/178562)
+  [`ea3a94fc3c6b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ea3a94fc3c6b0) -
+  Adds new AppNavLogo component for use with @atlaskit/logo that displays UI text next to the icon
+  at wider screen widths, rather than rendering a unique logo component.
+
 ## 0.167.3
 
 ### Patch Changes

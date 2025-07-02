@@ -74,6 +74,8 @@ export interface VideoProps {
 	crossOrigin?: MediaHTMLAttributes<HTMLVideoElement & HTMLAudioElement>['crossOrigin'];
 	textTracks?: VideoTextTracks;
 	textTracksPosition?: number;
+	onTextTrackLoaded?: () => void;
+	onTextTrackError?: (artifactName: string, lang: string, label: string) => void;
 	onCanPlay?: (event: SyntheticEvent<SourceElement>) => void;
 	onError?: (event: SyntheticEvent<SourceElement>) => void;
 	onTimeChange?: (time: number, duration: number) => void;
@@ -360,6 +362,8 @@ export class Video extends Component<VideoProps, VideoComponentState> {
 			crossOrigin,
 			textTracks,
 			textTracksPosition,
+			onTextTrackLoaded,
+			onTextTrackError,
 		} = this.props;
 
 		const props: Partial<MediaHTMLAttributes<HTMLVideoElement & HTMLAudioElement>> = {
@@ -382,9 +386,14 @@ export class Video extends Component<VideoProps, VideoComponentState> {
 		if (sourceType === 'video') {
 			return children(
 				// eslint-disable-next-line jsx-a11y/media-has-caption
-				<video ref={this.videoRef} poster={poster} {...props}>
+				<video data-testid="media-video-element" ref={this.videoRef} poster={poster} {...props}>
 					{textTracks && (
-						<TextTracks videoTextTracks={textTracks} textTracksPosition={textTracksPosition} />
+						<TextTracks
+							videoTextTracks={textTracks}
+							textTracksPosition={textTracksPosition}
+							onLoad={onTextTrackLoaded}
+							onError={onTextTrackError}
+						/>
 					)}
 				</video>,
 				videoState,

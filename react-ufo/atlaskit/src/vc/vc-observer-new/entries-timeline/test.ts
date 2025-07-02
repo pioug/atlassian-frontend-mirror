@@ -15,7 +15,7 @@ describe('EntryTimeline', () => {
 			data: {
 				type: 'mutation:element',
 				elementName: name,
-				rect: new DOMRect(0, 0, 10, 10),
+				rect: { x: 0, y: 0, width: 10, height: 10 } as DOMRect,
 				visible: true,
 			},
 		};

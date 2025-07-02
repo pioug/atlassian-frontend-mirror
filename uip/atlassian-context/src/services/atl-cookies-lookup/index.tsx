@@ -42,6 +42,11 @@ export function parseAtlCtxCookies(): AtlCtxCookieValues | undefined {
 	const global: any = globalThis;
 
 	try {
+		// HOT-118791: the code below doesn't work on the server, and creates log spam in the catch block - "Cannot read properties of undefined (reading 'cookie')"
+		if (typeof globalThis.document === 'undefined') {
+			return undefined;
+		}
+
 		const cookies = global.document.cookie;
 		const perimeter = getRawCookieValue(ATL_CTX_PERIMETER, cookies);
 

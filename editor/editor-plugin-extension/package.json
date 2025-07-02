@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-extension",
-	"version": "5.5.13",
+	"version": "5.5.14",
 	"description": "editor-plugin-extension plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

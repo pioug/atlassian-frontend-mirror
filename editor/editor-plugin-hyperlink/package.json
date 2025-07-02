@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-hyperlink",
-	"version": "4.5.4",
+	"version": "4.5.5",
 	"description": "Hyperlink plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -108,6 +108,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_use_preferences_plugin": {
+			"type": "boolean"
+		},
+		"platform_editor_controls_patch_15": {
 			"type": "boolean"
 		}
 	}

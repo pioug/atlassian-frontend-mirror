@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {
+	AppHome,
 	AppSwitcher,
 	AtlassianNavigation,
 	generateTheme,
@@ -9,22 +10,16 @@ import {
 } from '@atlaskit/atlassian-navigation';
 import { JiraIcon, JiraLogo } from '@atlaskit/logo';
 import { fg } from '@atlaskit/platform-feature-flags';
-import {
-	JiraIcon as JiraIconTemp,
-	JiraLogo as JiraLogoTemp,
-} from '@atlaskit/temp-nav-app-icons/jira';
 
 import { DefaultCreate } from './shared/create';
 import { defaultPrimaryItems } from './shared/primary-items';
 
-export const JiraProductHome = () => (
-	<ProductHome
-		testId="jira-home"
-		onClick={console.log}
-		icon={fg('platform-team25-app-icon-tiles') ? JiraIconTemp : JiraIcon}
-		logo={fg('platform-team25-app-icon-tiles') ? JiraLogoTemp : JiraLogo}
-	/>
-);
+export const JiraProductHome = () =>
+	fg('platform-team25-app-icon-tiles') ? (
+		<ProductHome testId="jira-home" onClick={console.log} icon={JiraIcon} logo={JiraLogo} />
+	) : (
+		<AppHome name="Jira" icon={JiraIcon} siteTitle="Extranet" testId="jira-app-home" />
+	);
 
 const theme = generateTheme({
 	name: 'high-contrast',

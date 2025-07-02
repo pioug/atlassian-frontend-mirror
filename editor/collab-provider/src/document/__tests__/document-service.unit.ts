@@ -985,6 +985,194 @@ describe('document-service', () => {
 					}),
 				);
 			});
+
+			describe('offline steps', () => {
+				describe('handles offline steps and resets their meta attribute after 6 seconds of being online', () => {
+					eeTest('platform_editor_offline_editing_web', {
+						true: () => {
+							const { service, commitStepServiceMock } = createMockService();
+							jest.useFakeTimers();
+
+							const createDoc = doc(p('Hello Old or New World'));
+							const node = createDoc(defaultSchema);
+							const mockStep = new ReplaceStep(1, 1, node.slice(0, node.content.size));
+							const mockTr = new Transaction(node);
+							mockTr.setMeta('isOffline', true);
+							const unconfirmedStepsData = {
+								steps: [mockStep],
+								origins: [mockTr],
+							};
+							(sendableSteps as jest.Mock).mockReturnValue(unconfirmedStepsData);
+
+							service.send(null, null, {} as any);
+
+							expect(commitStepServiceMock.commitStepQueue).not.toHaveBeenCalled();
+
+							// Fast forward 5 seconds - should still not commit
+							jest.advanceTimersByTime(5000);
+							expect(commitStepServiceMock.commitStepQueue).not.toHaveBeenCalled();
+
+							// After 6 seconds, steps should be marked as not offline
+							jest.advanceTimersByTime(1000);
+							expect(mockTr.getMeta('isOffline')).toBe(false);
+
+							service.send(null, null, {} as any);
+
+							// Verify that the steps are now committed
+							expect(commitStepServiceMock.commitStepQueue).toHaveBeenCalled();
+
+							jest.useRealTimers();
+						},
+						false: () => {
+							const { service, commitStepServiceMock } = createMockService();
+							jest.useFakeTimers();
+
+							const createDoc = doc(p('Hello Old or New World'));
+							const node = createDoc(defaultSchema);
+							const mockStep = new ReplaceStep(1, 1, node.slice(0, node.content.size));
+							const mockTr = new Transaction(node);
+							mockTr.setMeta('isOffline', true);
+							const unconfirmedStepsData = {
+								steps: [mockStep],
+								origins: [mockTr],
+							};
+							(sendableSteps as jest.Mock).mockReturnValue(unconfirmedStepsData);
+
+							service.send(null, null, {} as any);
+
+							expect(commitStepServiceMock.commitStepQueue).toHaveBeenCalled();
+						},
+					});
+				});
+
+				describe('it does not change the transaction meta when still offline', () => {
+					eeTest('platform_editor_offline_editing_web', {
+						true: () => {
+							const getConnected = jest.fn().mockReturnValue(true); // Start online
+							const { service } = createMockService({}, getConnected);
+
+							jest.useFakeTimers();
+
+							const createDoc = doc(p('Hello Old or New World'));
+							const node = createDoc(defaultSchema);
+							const mockStep = new ReplaceStep(1, 1, node.slice(0, node.content.size));
+							const mockTr = new Transaction(node);
+							mockTr.setMeta('isOffline', true);
+							const unconfirmedStepsData = {
+								steps: [mockStep],
+								origins: [mockTr],
+							};
+							(sendableSteps as jest.Mock).mockReturnValue(unconfirmedStepsData);
+
+							// First send - should start the timer since we're online
+							service.send(null, null, {} as any);
+
+							// Go back offline, timer will reach 6s, not do anything and reset.
+							getConnected.mockReturnValue(false);
+
+							jest.advanceTimersByTime(6000);
+
+							expect(mockTr.getMeta('isOffline')).toBe(true);
+
+							// Come back online, call send again which will start a new timer.
+							getConnected.mockReturnValue(true);
+
+							service.send(null, null, {} as any);
+
+							jest.advanceTimersByTime(6000);
+
+							// Now meta should be set to false since we were online
+							expect(mockTr.getMeta('isOffline')).toBe(false);
+
+							jest.useRealTimers();
+						},
+						false: () => {
+							const { service, commitStepServiceMock } = createMockService();
+
+							const createDoc = doc(p('Hello Old or New World'));
+							const node = createDoc(defaultSchema);
+							const mockStep = new ReplaceStep(1, 1, node.slice(0, node.content.size));
+							const mockTr = new Transaction(node);
+							mockTr.setMeta('isOffline', true);
+							const unconfirmedStepsData = {
+								steps: [mockStep],
+								origins: [mockTr],
+							};
+							(sendableSteps as jest.Mock).mockReturnValue(unconfirmedStepsData);
+
+							service.send(null, null, {} as any);
+							expect(commitStepServiceMock.commitStepQueue).toHaveBeenCalled();
+						},
+					});
+				});
+
+				describe('it only changes isOffline meta on transactions that were offline', () => {
+					eeTest('platform_editor_offline_editing_web', {
+						true: () => {
+							const { service } = createMockService();
+							jest.useFakeTimers();
+
+							const createDoc = doc(p('Hello Old or New World'));
+							const node = createDoc(defaultSchema);
+
+							// Create two transactions - one offline, one normal
+							const mockOfflineTr = new Transaction(node);
+							mockOfflineTr.setMeta('isOffline', true);
+
+							const mockNormalTr = new Transaction(node);
+							mockNormalTr.setMeta('someOtherMeta', true);
+
+							const unconfirmedStepsData = {
+								steps: [new ReplaceStep(1, 1, node.slice(0, node.content.size))],
+								origins: [mockOfflineTr, mockNormalTr],
+							};
+							(sendableSteps as jest.Mock).mockReturnValue(unconfirmedStepsData);
+
+							service.send(null, null, {} as any);
+
+							// After 6 seconds, only offline transaction should be changed
+							jest.advanceTimersByTime(6000);
+
+							expect(mockOfflineTr.getMeta('isOffline')).toBe(false);
+							expect(mockNormalTr.getMeta('isOffline')).toBeUndefined();
+							expect(mockNormalTr.getMeta('someOtherMeta')).toBe(true);
+
+							jest.useRealTimers();
+						},
+						false: () => {
+							const { service } = createMockService();
+							jest.useFakeTimers();
+
+							const createDoc = doc(p('Hello Old or New World'));
+							const node = createDoc(defaultSchema);
+
+							// Create two transactions - one offline, one normal
+							const mockOfflineTr = new Transaction(node);
+							mockOfflineTr.setMeta('isOffline', true);
+
+							const mockNormalTr = new Transaction(node);
+							mockNormalTr.setMeta('someOtherMeta', true);
+
+							const unconfirmedStepsData = {
+								steps: [new ReplaceStep(1, 1, node.slice(0, node.content.size))],
+								origins: [mockOfflineTr, mockNormalTr],
+							};
+							(sendableSteps as jest.Mock).mockReturnValue(unconfirmedStepsData);
+
+							service.send(null, null, {} as any);
+
+							// After 6 seconds, only offline transaction should be changed
+							jest.advanceTimersByTime(6000);
+
+							expect(mockOfflineTr.getMeta('isOffline')).toBe(true);
+							expect(mockNormalTr.getMeta('isOffline')).toBeUndefined();
+							expect(mockNormalTr.getMeta('someOtherMeta')).toBe(true);
+
+							jest.useRealTimers();
+						},
+					});
+				});
+			});
 		});
 
 		describe('onStepRejectedError', () => {

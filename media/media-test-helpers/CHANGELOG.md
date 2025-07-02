@@ -1,5 +1,20 @@
 # @atlaskit/media-test-helpers
 
+## 37.0.3
+
+### Patch Changes
+
+- [#179944](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/179944)
+  [`38d8f955d6238`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38d8f955d6238) -
+  Updated sample file id
+- Updated dependencies
+
+## 37.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 37.0.1
 
 ### Patch Changes

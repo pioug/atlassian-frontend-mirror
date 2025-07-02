@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 5.1.21
+
+### Patch Changes
+
+- [#180357](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/180357)
+  [`4f4d1545d11af`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4f4d1545d11af) -
+  Cleanup feature gates for vanilla dom experiment and decision nodes
+- Updated dependencies
+
 ## 5.1.20
 
 ### Patch Changes

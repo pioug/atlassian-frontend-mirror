@@ -106,6 +106,11 @@ const videoCaptionsEn = () =>
 		/* webpackChunkName: "@atlaskit-internal_videoCaptionsCaptions" */ './videoCaptionsEn'
 	).then((mod) => mod.default);
 
+const videoCaptionsEnCorrupted = () =>
+	import(
+		/* webpackChunkName: "@atlaskit-internal_videoCaptionsCaptionsEnCorrupted" */ './videoCaptionsEnCorrupted'
+	).then((mod) => mod.default);
+
 const videoCaptionsEs = () =>
 	import(
 		/* webpackChunkName: "@atlaskit-internal_videoCaptionsCaptionsEs" */ './videoCaptionsEs'
@@ -151,4 +156,5 @@ export const sampleBinaries = {
 	videoCaptionsEs,
 	videoCaptionsFr,
 	videoCaptionsZh,
+	videoCaptionsEnCorrupted,
 };

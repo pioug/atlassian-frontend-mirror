@@ -17,7 +17,7 @@ async function getVCMetrics(
 	if (!config?.vc?.enabled) {
 		return {};
 	}
-	if (fg('platform_ufo_enable_interactions_vc') || fg('platform_ufo_enable_interactivity_jsm')) {
+	if (fg('platform_ufo_enable_vc_press_interactions')) {
 		if (
 			interaction.type !== 'page_load' &&
 			interaction.type !== 'transition' &&
@@ -37,8 +37,11 @@ async function getVCMetrics(
 		interactionStatus.originalInteractionStatus === 'SUCCEEDED' &&
 		pageVisibilityUpToTTAI === 'visible';
 
+	// Use per-interaction VC observer if available, otherwise fall back to global
+	const observer = interaction.vcObserver || getVCObserver();
+
 	if (!shouldReportVCMetrics && fg('platform_ufo_no_vc_on_aborted')) {
-		getVCObserver().stop(interaction.ufoName);
+		observer.stop(interaction.ufoName);
 		return {};
 	}
 
@@ -53,7 +56,7 @@ async function getVCMetrics(
 
 	const tti = interaction.apdex?.[0]?.stopTime;
 	const prefix = 'ufo';
-	const result = await getVCObserver().getVCResult({
+	const result = await observer.getVCResult({
 		start: interaction.start,
 		stop: interaction.end,
 		tti,
@@ -67,8 +70,11 @@ async function getVCMetrics(
 		...ssr,
 	});
 
+	if (fg('platform_ufo_enable_vc_observer_per_interaction')) {
+		observer.stop(interaction.ufoName);
+	}
 	if (config.experimentalInteractionMetrics?.enabled) {
-		getVCObserver().stop(interaction.ufoName);
+		observer.stop(interaction.ufoName);
 	}
 
 	postInteractionLog.setLastInteractionFinishVCResult(result);

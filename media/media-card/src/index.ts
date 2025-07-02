@@ -31,6 +31,7 @@ export {
 
 export { MediaCardError } from './errors';
 
+export { CardPlaceholder } from './utils/lightCards/cardPlaceholder';
 export { CardLoading } from './utils/lightCards/cardLoading';
 export { CardError } from './utils/lightCards/cardError';
 export { defaultImageCardDimensions } from './utils/cardDimensions';

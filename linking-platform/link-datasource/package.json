@@ -181,8 +181,7 @@
 			"type": "boolean"
 		},
 		"platform-linking-visual-refresh-v1": {
-			"type": "boolean",
-			"showOnWebsiteForTransitiveDependencies": true
+			"type": "boolean"
 		},
 		"platform-linking-visual-refresh-sllv": {
 			"type": "boolean"

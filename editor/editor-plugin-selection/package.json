@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-selection",
-	"version": "2.2.14",
+	"version": "2.2.15",
 	"description": "Selection plugin for @atlaskit/editor-core",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -89,9 +89,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_nested_tables_gap_cursor": {
-			"type": "boolean"
-		},
-		"platform_editor_no_cursor_on_live_doc_init": {
 			"type": "boolean"
 		}
 	}

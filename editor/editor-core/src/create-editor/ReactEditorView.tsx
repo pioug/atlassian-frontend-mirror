@@ -670,7 +670,7 @@ export function ReactEditorView(props: EditorViewProps) {
 						(__livePage ||
 							expValEquals('platform_editor_no_cursor_on_edit_page_init', 'isEnabled', true)) &&
 						!isEmptyDocument(editorView.state.doc);
-					if (!liveDocWithContent || !fg('platform_editor_no_cursor_on_live_doc_init')) {
+					if (!liveDocWithContent) {
 						focusTimeoutId.current = handleEditorFocus(editorView);
 					}
 
@@ -688,7 +688,7 @@ export function ReactEditorView(props: EditorViewProps) {
 					(__livePage ||
 						expValEquals('platform_editor_no_cursor_on_edit_page_init', 'isEnabled', true)) &&
 					!isEmptyDocument(editorView.state.doc);
-				if (!liveDocWithContent || !fg('platform_editor_no_cursor_on_live_doc_init')) {
+				if (!liveDocWithContent) {
 					focusTimeoutId.current = handleEditorFocus(editorView);
 				}
 			}
@@ -815,8 +815,7 @@ export function ReactEditorView(props: EditorViewProps) {
 											'isEnabled',
 											true,
 										)) &&
-									!isEmptyDocument(view.state.doc) &&
-									fg('platform_editor_no_cursor_on_live_doc_init');
+									!isEmptyDocument(view.state.doc);
 
 								if (
 									!isLivePageWithContent &&
@@ -845,8 +844,7 @@ export function ReactEditorView(props: EditorViewProps) {
 							const isLivePageWithContent =
 								(__livePage ||
 									expValEquals('platform_editor_no_cursor_on_edit_page_init', 'isEnabled', true)) &&
-								!isEmptyDocument(view.state.doc) &&
-								fg('platform_editor_no_cursor_on_live_doc_init');
+								!isEmptyDocument(view.state.doc);
 							if (
 								!isLivePageWithContent &&
 								shouldFocus &&
@@ -964,8 +962,7 @@ export function ReactEditorView(props: EditorViewProps) {
 			const isLivePageWithContent =
 				(__livePage ||
 					expValEquals('platform_editor_no_cursor_on_edit_page_init', 'isEnabled', true)) &&
-				!isEmptyDocument(viewRef.current.state.doc) &&
-				fg('platform_editor_no_cursor_on_live_doc_init');
+				!isEmptyDocument(viewRef.current.state.doc);
 			if (!disabled && shouldFocus && !isLivePageWithContent) {
 				focusTimeoutId.current = handleEditorFocus(viewRef.current);
 			}

@@ -41,6 +41,7 @@ const naturalSizeRectangle = (el: HTMLImageElement): Rectangle => {
 
 export interface Props extends WithAnalyticsEventsProps {
 	src: string;
+	alt: string;
 	originalBinaryImageSrc?: string;
 	orientation?: number;
 	onClose?: () => void;
@@ -151,6 +152,7 @@ export class InteractiveImgComponent extends React.Component<Props, State> {
 					canDrag={canDrag}
 					isDragging={isDragging}
 					src={srcToDisplay}
+					alt={this.props.alt}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					style={imgStyle}
 					onLoad={this.onImgLoad}

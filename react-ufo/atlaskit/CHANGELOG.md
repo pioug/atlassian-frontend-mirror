@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.14.10
+
+### Patch Changes
+
+- [#180425](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/180425)
+  [`b932e1047acb7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b932e1047acb7) -
+  Check if responsiveness exists before updating for press interactions
+
 ## 3.14.9
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # @atlaskit/smart-card
 
+## 38.20.2
+
+### Patch Changes
+
+- [#180778](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/180778)
+  [`9945b995de310`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9945b995de310) -
+  EDM-12645 updating convo ai endpoint
+- [#180787](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/180787)
+  [`af0a44332ac36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/af0a44332ac36) -
+  [ux] NO-ISSUE Fixing thumbnail image for entity types to show nothing if no thumbnail exists
+
 ## 38.20.1
 
 ### Patch Changes

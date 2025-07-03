@@ -283,6 +283,7 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
 						<ArchiveItemViewerWrapper>
 							<InteractiveImg
 								src={src}
+								alt={name}
 								onLoad={this.onViewerLoad(selectedArchiveEntry)}
 								onError={this.onViewerError(
 									'archiveviewer-imageviewer-onerror',

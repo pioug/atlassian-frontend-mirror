@@ -655,6 +655,7 @@ export type ImgProps = {
 	onLoad: (ev: React.SyntheticEvent<HTMLImageElement>) => void;
 	onMouseDown: (ev: MouseEvent<{}>) => void;
 	onError: (() => void) | undefined;
+	alt: string;
 } & DataTestID &
 	ClassName;
 
@@ -668,6 +669,7 @@ export const Img = ({
 	onLoad,
 	onError,
 	onMouseDown,
+	alt,
 	className,
 }: ImgProps) => {
 	const cursor = useMemo(() => {
@@ -680,12 +682,13 @@ export const Img = ({
 		}
 	}, [canDrag, isDragging]);
 	return (
-		// eslint-disable-next-line jsx-a11y/alt-text, jsx-a11y/no-noninteractive-element-interactions
+		// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
 		<img
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={className}
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			css={imgStyles({ cursor, shouldPixelate })}
+			alt={alt}
 			data-testid={datatestId}
 			src={src}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

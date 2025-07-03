@@ -79,11 +79,20 @@ export const useMediaImage = ({
 			src: preview?.dataURI,
 			onLoad,
 			onError,
+			alt: mediaBlobUrlAttrs?.alt || '',
 			'data-test-file-id': identifier.id,
 			'data-test-collection': identifier.collectionName,
 			'data-test-preview-source': preview?.source,
 		}),
-		[identifier.collectionName, identifier.id, onError, onLoad, preview?.dataURI, preview?.source],
+		[
+			identifier.collectionName,
+			identifier.id,
+			mediaBlobUrlAttrs?.alt,
+			onError,
+			onLoad,
+			preview?.dataURI,
+			preview?.source,
+		],
 	);
 
 	return { status, error, getImgProps, getSsrScriptProps };

@@ -11,7 +11,6 @@ import { type HelpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
 import { highlightPlugin } from '@atlaskit/editor-plugins/highlight';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import LockCircleIcon from '@atlaskit/icon/core/migration/lock-locked--lock-circle';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -84,9 +83,7 @@ const CommentEditorConfluence = ({ editorProps, replacementDoc }: Props) => {
 			},
 			allowHelpDialog: true,
 			allowExtension: true,
-			textFormatting: fg('platform_editor_comments_toolbar_responsiveness')
-				? { responsiveToolbarMenu: true }
-				: {},
+			textFormatting: { responsiveToolbarMenu: true },
 			...editorProps,
 		},
 	});

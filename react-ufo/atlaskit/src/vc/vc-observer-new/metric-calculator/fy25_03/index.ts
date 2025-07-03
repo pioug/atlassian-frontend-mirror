@@ -40,6 +40,7 @@ const getConsideredEntryTypes = (): VCObserverEntryType[] => {
 // We still need to replace this hardcoded list with a proper automation
 export const KNOWN_ATTRIBUTES_THAT_DOES_NOT_CAUSE_LAYOUT_SHIFTS: string[] = [
 	'data-drop-target-for-element',
+	'data-drop-target-for-external',
 	'draggable',
 ];
 

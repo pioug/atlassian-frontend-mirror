@@ -288,6 +288,7 @@ export type ImgProps = {
 	onLoad: (ev: React.SyntheticEvent<HTMLImageElement>) => void;
 	onMouseDown: (ev: MouseEvent<{}>) => void;
 	onError: (() => void) | undefined;
+	alt: string;
 } & DataTestID &
 	ClassName;
 

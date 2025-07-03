@@ -81,7 +81,7 @@ describe('AI Summary Service', () => {
 			(aiSummaryService as any).fetchStream();
 			expect(fetchMock).toHaveBeenCalledTimes(1);
 			expect(fetchMock).toHaveBeenCalledWith(
-				customConfig.baseUrl + 'ai/v2/ai-feature/smartlinksummary/stream',
+				customConfig.baseUrl + 'assist/api/ai/v2/ai-feature/smartlinksummary/stream',
 				expect.objectContaining({
 					method: 'POST',
 					credentials: 'include',
@@ -113,7 +113,7 @@ describe('AI Summary Service', () => {
 
 			expect(fetchMock).toHaveBeenCalledTimes(1);
 			expect(fetchMock).toHaveBeenCalledWith(
-				'https://pug.jira-dev.com/gateway/api/ai/v2/ai-feature/smartlinksummary/stream',
+				'https://pug.jira-dev.com/gateway/api/assist/api/ai/v2/ai-feature/smartlinksummary/stream',
 				expect.objectContaining({
 					credentials: 'include',
 				}),

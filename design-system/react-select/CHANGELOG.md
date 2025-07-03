@@ -1,5 +1,15 @@
 # @atlaskit/react-select
 
+## 3.1.0
+
+### Minor Changes
+
+- [#180250](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/180250)
+  [`105957fce131e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/105957fce131e) -
+  Deprecation of the `className` prop. If `className` is used for testing purposes, you should use
+  `testId` as an appropriate locator. If using `className` for styling purposes, use the
+  `components` API with the `xcss` prop.
+
 ## 3.0.2
 
 ### Patch Changes

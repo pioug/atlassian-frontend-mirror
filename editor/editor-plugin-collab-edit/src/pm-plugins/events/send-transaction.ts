@@ -2,7 +2,6 @@ import { AnalyticsStep } from '@atlaskit/adf-schema/steps';
 import type { CollabEditProvider, CollabTelepointerPayload } from '@atlaskit/editor-common/collab';
 import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { getSendableSelection } from '../actions';
@@ -73,9 +72,7 @@ export const sendTransaction =
 			sessionId &&
 			viewMode === 'edit' &&
 			((selectionChanged && !docChangedTransaction) ||
-				(fg('platform_editor_no_cursor_on_live_doc_init')
-					? participantsChanged && !hideTelecursorOnLoad
-					: participantsChanged))
+				(participantsChanged && !hideTelecursorOnLoad))
 		) {
 			const selection = getSendableSelection(newEditorState.selection);
 			const message: CollabTelepointerPayload = {

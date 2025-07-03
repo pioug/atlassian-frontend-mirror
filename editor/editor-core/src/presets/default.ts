@@ -126,9 +126,8 @@ export function createDefaultPreset(options: DefaultPresetPluginOptions): Defaul
 		)
 		.maybeAdd(
 			interactionPlugin,
-			Boolean(options?.__livePage)
-				? fg('platform_editor_no_cursor_on_live_doc_init')
-				: expValEquals('platform_editor_no_cursor_on_edit_page_init', 'isEnabled', true),
+			Boolean(options?.__livePage) ||
+				expValEquals('platform_editor_no_cursor_on_edit_page_init', 'isEnabled', true),
 		)
 		.add(compositionPlugin)
 		.add([

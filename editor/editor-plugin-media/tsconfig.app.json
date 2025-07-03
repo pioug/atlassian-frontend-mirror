@@ -104,6 +104,9 @@
 			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/icon-lab/tsconfig.app.json"
+		},
+		{
 			"path": "../../media/media-card/tsconfig.app.json"
 		},
 		{

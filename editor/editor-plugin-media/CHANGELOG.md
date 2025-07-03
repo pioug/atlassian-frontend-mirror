@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-media
 
+## 4.1.6
+
+### Patch Changes
+
+- [#180346](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/180346)
+  [`d00d1d362bd18`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d00d1d362bd18) -
+  ED-28086 Clean up platform_editor_no_cursor_on_live_doc_init
+- Updated dependencies
+
+## 4.1.5
+
+### Patch Changes
+
+- [#180410](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/180410)
+  [`04eb4c41a97ee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/04eb4c41a97ee) -
+  [ux] [ED-27804] Update alt text icon for media toolbar
+
 ## 4.1.4
 
 ### Patch Changes

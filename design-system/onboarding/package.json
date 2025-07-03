@@ -37,7 +37,17 @@
 		"team": "Design System Team",
 		"website": {
 			"name": "Onboarding (spotlight)",
-			"category": "Messaging"
+			"category": "Messaging",
+			"subPages": [
+				{
+					"title": "Benefits modal",
+					"id": "benefits-modal",
+					"status": {
+						"type": "intent-to-deprecate",
+						"description": "We recommend using our [modal dialog](/components/modal-dialog) component instead of this component for all new experiences. This is because modal dialog has a native close button and better default close behaviors, which all significantly improve the accessibility and experience for all users."
+					}
+				}
+			]
 		}
 	},
 	"dependencies": {

@@ -54,7 +54,7 @@ export class ImageViewer extends BaseViewer<ImageViewerContent, ImageViewerProps
 
 	protected async init() {
 		const { item: fileState, mediaClient, collectionName, traceContext } = this.props;
-		if (fileState.status === 'error') {
+		if (isErrorFileState(fileState)) {
 			return;
 		}
 
@@ -150,6 +150,9 @@ export class ImageViewer extends BaseViewer<ImageViewerContent, ImageViewerProps
 
 	protected renderSuccessful(content: ImageViewerContent) {
 		const { item, onClose, contextId, collectionName } = this.props;
+		if (isErrorFileState(item)) {
+			return null;
+		}
 		const src = contextId
 			? addFileAttrsToUrl(content.objectUrl, {
 					id: item.id,
@@ -163,6 +166,7 @@ export class ImageViewer extends BaseViewer<ImageViewerContent, ImageViewerProps
 				onLoad={this.onLoad}
 				onError={this.onImgError}
 				src={src}
+				alt={item.name}
 				originalBinaryImageSrc={content.originalBinaryImageUrl}
 				orientation={content.orientation}
 				onClose={onClose}

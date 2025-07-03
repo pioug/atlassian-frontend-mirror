@@ -204,7 +204,7 @@ const mentionNodeStylesMixin_fg_platform_editor_centre_mention_padding = css({
 	},
 });
 
-const vanillaSelectionStyles = css`
+const mentionSelectionStyles = css`
 	.danger {
 		.editor-mention-primitive {
 			box-shadow: 0 0 0 ${akEditorSelectedBorderSize}px ${akEditorDeleteBorder};
@@ -501,8 +501,7 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
 	${mentionNodeStyles}
 	${fg('platform_editor_centre_mention_padding') &&
 	mentionNodeStylesMixin_fg_platform_editor_centre_mention_padding}
-	${editorExperiment('platform_editor_vanilla_dom', true, { exposure: false }) &&
-	vanillaSelectionStyles}
+	${mentionSelectionStyles}
   ${emojiStyles}
   ${tasksAndDecisionsStyles}
   ${gridStyles}

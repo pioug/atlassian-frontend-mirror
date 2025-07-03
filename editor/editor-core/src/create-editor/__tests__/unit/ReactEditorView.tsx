@@ -295,57 +295,55 @@ describe('@atlaskit/editor-core', () => {
 			expect(mockElement.scrollTo).not.toHaveBeenCalled();
 		});
 
-		ffTest.on('platform_editor_no_cursor_on_live_doc_init', '', () => {
-			setupEditorExperiments('test', {
-				platform_editor_no_cursor_on_edit_page_init: true,
+		setupEditorExperiments('test', {
+			platform_editor_no_cursor_on_edit_page_init: true,
+		});
+
+		ffTest.on('platform_editor_react_18_autofocus_fix', '', () => {
+			ffTest.on('cc_editor_focus_before_editor_on_load', '', () => {
+				it('should focus on react-editor-view-inital-focus-element on initial load, then single tab should focus the main content area', async () => {
+					const document = doc(p('hello'))(defaultSchema);
+					const result = renderWithIntl(
+						// eslint-disable-next-line react/jsx-props-no-spreading
+						<ReactEditorView
+							{...{
+								...requiredProps(),
+								editorProps: {
+									appearance: 'full-page',
+									shouldFocus: true,
+									defaultValue: toJSON(document),
+								},
+							}}
+						/>,
+					);
+					expect(result.getByTestId('react-editor-view-inital-focus-element')).toHaveFocus();
+
+					await userEvent.tab();
+					expect(
+						result.getByLabelText('Main content area, start typing to enter text.'),
+					).toHaveFocus();
+				});
 			});
 
-			ffTest.on('platform_editor_react_18_autofocus_fix', '', () => {
-				ffTest.on('cc_editor_focus_before_editor_on_load', '', () => {
-					it('should focus on react-editor-view-inital-focus-element on initial load, then single tab should focus the main content area', async () => {
-						const document = doc(p('hello'))(defaultSchema);
-						const result = renderWithIntl(
-							// eslint-disable-next-line react/jsx-props-no-spreading
-							<ReactEditorView
-								{...{
-									...requiredProps(),
-									editorProps: {
-										appearance: 'full-page',
-										shouldFocus: true,
-										defaultValue: toJSON(document),
-									},
-								}}
-							/>,
-						);
-						expect(result.getByTestId('react-editor-view-inital-focus-element')).toHaveFocus();
-
-						await userEvent.tab();
-						expect(
-							result.getByLabelText('Main content area, start typing to enter text.'),
-						).toHaveFocus();
-					});
-				});
-
-				ffTest.off('cc_editor_focus_before_editor_on_load', '', () => {
-					it('react-editor-view-inital-focus-element should not be in the document', () => {
-						const document = doc(p('hello'))(defaultSchema);
-						const result = renderWithIntl(
-							// eslint-disable-next-line react/jsx-props-no-spreading
-							<ReactEditorView
-								{...{
-									...requiredProps(),
-									editorProps: {
-										appearance: 'full-page',
-										shouldFocus: true,
-										defaultValue: toJSON(document),
-									},
-								}}
-							/>,
-						);
-						expect(
-							result.queryByTestId('react-editor-view-inital-focus-element'),
-						).not.toBeInTheDocument();
-					});
+			ffTest.off('cc_editor_focus_before_editor_on_load', '', () => {
+				it('react-editor-view-inital-focus-element should not be in the document', () => {
+					const document = doc(p('hello'))(defaultSchema);
+					const result = renderWithIntl(
+						// eslint-disable-next-line react/jsx-props-no-spreading
+						<ReactEditorView
+							{...{
+								...requiredProps(),
+								editorProps: {
+									appearance: 'full-page',
+									shouldFocus: true,
+									defaultValue: toJSON(document),
+								},
+							}}
+						/>,
+					);
+					expect(
+						result.queryByTestId('react-editor-view-inital-focus-element'),
+					).not.toBeInTheDocument();
 				});
 			});
 		});

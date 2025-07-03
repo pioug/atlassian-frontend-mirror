@@ -58,6 +58,6 @@ test.describe('MediaViewer', () => {
 		await viewer.init('vr-mocked-viewer');
 		await expect(viewer.fileName).toBeVisible();
 
-		await expect(page).toBeAccessible({ violationCount: 1 });
+		await expect(page).toBeAccessible();
 	});
 });

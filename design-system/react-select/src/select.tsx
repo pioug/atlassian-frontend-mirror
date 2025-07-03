@@ -145,6 +145,11 @@ export interface SelectProps<Option, IsMulti extends boolean, Group extends Grou
 	captureMenuScroll: boolean;
 	/**
 	 * Sets a className attribute on the outer component
+	 *
+	 *
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-14529 Internal documentation for deprecation (no external access)}
+	 * If used for testing purposes, use the `testId` prop as a locator instead.
+	 * If used for styling purposes, use the `components` API with the xcss prop
 	 */
 	className?: string;
 	/**

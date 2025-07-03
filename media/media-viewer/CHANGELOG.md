@@ -1,5 +1,13 @@
 # @atlaskit/media-viewer
 
+## 52.4.4
+
+### Patch Changes
+
+- [#180471](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/180471)
+  [`c45881148e552`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c45881148e552) -
+  Added image alt tags for a11y compliance
+
 ## 52.4.3
 
 ### Patch Changes

@@ -18,7 +18,6 @@ import { DropdownMenuWithKeyboardNavigation as DropdownMenu } from '@atlaskit/ed
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 import TextIcon from '@atlaskit/icon/core/text';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { ThemeMutationObserver } from '@atlaskit/tokens';
@@ -197,12 +196,7 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 							return isOpenedByKeyboard;
 						}}
 					>
-						{fg('platform_editor_comments_toolbar_responsiveness') ? (
-							// extra wrapper added to prevent flex shrinking of the button
-							<Box xcss={buttonWrapperStyles}>{button}</Box>
-						) : (
-							button
-						)}
+						<Box xcss={buttonWrapperStyles}>{button}</Box>
 					</DropdownMenu>
 					{!api?.primaryToolbar && (
 						<span

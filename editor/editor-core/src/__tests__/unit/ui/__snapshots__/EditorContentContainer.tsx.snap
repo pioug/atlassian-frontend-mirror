@@ -2195,6 +2195,40 @@ exports[`Editor Content styles chromeless editor renders correct styles for lega
   padding: 1px 0.3em 1px 0.23em;
 }
 
+
+
+.emotion-0 .danger .editor-mention-primitive {
+  box-shadow: 0 0 0 1px var(--ds-border-danger);
+  background-color: var(--ds-background-danger, rgba(255, 189, 173, 0.5));
+}
+
+.emotion-0 .ak-editor-selected-node>.editor-mention-primitive,
+.emotion-0 .ak-editor-selected-node>.editor-mention-primitive.mention-self,
+.emotion-0 .ak-editor-selected-node>.editor-mention-primitive.mention-restricted {
+  box-shadow: 0 0 0 1px var(--ds-border-selected);
+  border-color: transparent;
+  background-color: var(--ds-background-selected);
+  color: var(--ds-text-subtle, #44546F);
+}
+
+.emotion-0 .ak-editor-selected-node>.editor-mention-primitive::selection,
+.emotion-0 .ak-editor-selected-node>.editor-mention-primitive.mention-self::selection,
+.emotion-0 .ak-editor-selected-node>.editor-mention-primitive.mention-restricted::selection,
+.emotion-0 .ak-editor-selected-node>.editor-mention-primitive *::selection,
+.emotion-0 .ak-editor-selected-node>.editor-mention-primitive.mention-self *::selection,
+.emotion-0 .ak-editor-selected-node>.editor-mention-primitive.mention-restricted *::selection {
+  background-color: transparent;
+}
+
+.emotion-0 .ak-editor-selected-node>.editor-mention-primitive::-moz-selection,
+.emotion-0 .ak-editor-selected-node>.editor-mention-primitive.mention-self::-moz-selection,
+.emotion-0 .ak-editor-selected-node>.editor-mention-primitive.mention-restricted::-moz-selection,
+.emotion-0 .ak-editor-selected-node>.editor-mention-primitive *::-moz-selection,
+.emotion-0 .ak-editor-selected-node>.editor-mention-primitive.mention-self *::-moz-selection,
+.emotion-0 .ak-editor-selected-node>.editor-mention-primitive.mention-restricted *::-moz-selection {
+  background-color: transparent;
+}
+
 .emotion-0 .emojiView-content-wrap {
   display: inline-block;
 }

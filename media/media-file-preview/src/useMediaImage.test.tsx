@@ -67,9 +67,7 @@ describe('useMediaImage', () => {
 		const { getImgProps } = result?.current;
 		const { container } = render(<img {...getImgProps()} />);
 
-		await expect(container).toBeAccessible({
-			violationCount: 1,
-		});
+		await expect(container).toBeAccessible();
 	});
 
 	it('should render an image successfully with all of its data-test attributes', async () => {
@@ -122,10 +120,16 @@ describe('useMediaImage', () => {
 
 		const getImageSpy = jest.spyOn(mediaApi, 'getImage');
 
+		const mediaBlobUrlAttrs = createMediaBlobUrlAttrsObject({
+			fileItem,
+			identifier,
+		});
+
 		const { result } = renderHook(useMediaImage, {
 			wrapper: ({ children }) => <MockedMediaClientProvider>{children}</MockedMediaClientProvider>,
 			initialProps: {
 				identifier,
+				mediaBlobUrlAttrs,
 				onLoad,
 				onError,
 			},
@@ -160,11 +164,17 @@ describe('useMediaImage', () => {
 
 		const getImageSpy = jest.spyOn(mediaApi, 'getImage');
 
+		const mediaBlobUrlAttrs = createMediaBlobUrlAttrsObject({
+			fileItem,
+			identifier,
+		});
+
 		// Simulating an error call
 		const { result } = renderHook(useMediaImage, {
 			wrapper: ({ children }) => <MockedMediaClientProvider>{children}</MockedMediaClientProvider>,
 			initialProps: {
 				identifier,
+				mediaBlobUrlAttrs,
 				onLoad,
 				onError,
 			},
@@ -216,11 +226,17 @@ describe('useMediaImage', () => {
 			initialItems: fileItem,
 		});
 
+		const mediaBlobUrlAttrs = createMediaBlobUrlAttrsObject({
+			fileItem,
+			identifier,
+		});
+
 		// Simulating an error call
 		const { result } = renderHook(useMediaImage, {
 			wrapper: ({ children }) => <MockedMediaClientProvider>{children}</MockedMediaClientProvider>,
 			initialProps: {
 				identifier,
+				mediaBlobUrlAttrs,
 				skipRemote: false,
 				traceContext: { traceId: 'some-trace' },
 				onLoad,

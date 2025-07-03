@@ -53,7 +53,6 @@ describe('Editor Content styles', () => {
 		it('renders correct styles for new editor content styles for chromeless editor with experiments on', () => {
 			setupEditorExperiments('test', {
 				advanced_layouts: true,
-				platform_editor_vanilla_dom: true,
 				platform_editor_breakout_resizing: true,
 				platform_editor_advanced_code_blocks: true,
 				platform_editor_controls: 'variant1',
@@ -104,7 +103,6 @@ describe('Editor Content styles', () => {
 		it('renders correct styles for legacy editor content styles for chromeless editor with experiments on', async () => {
 			setupEditorExperiments('test', {
 				advanced_layouts: true,
-				platform_editor_vanilla_dom: true,
 				platform_editor_breakout_resizing: true,
 				platform_editor_advanced_code_blocks: true,
 				platform_editor_controls: 'variant1',

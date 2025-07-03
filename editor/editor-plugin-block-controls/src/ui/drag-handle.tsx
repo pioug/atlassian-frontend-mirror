@@ -1136,9 +1136,7 @@ export const DragHandle = ({
 			event.stopPropagation();
 	};
 
-	const hasHadInteraction =
-		!fg('platform_editor_no_cursor_on_live_doc_init') ||
-		interactionState !== 'hasNotHadInteraction';
+	const hasHadInteraction = interactionState !== 'hasNotHadInteraction';
 
 	const renderButton = () => (
 		// eslint-disable-next-line @atlaskit/design-system/no-html-button

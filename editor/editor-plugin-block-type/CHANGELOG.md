@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-type
 
+## 5.2.6
+
+### Patch Changes
+
+- [#180492](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/180492)
+  [`2341110d5c5a1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2341110d5c5a1) -
+  Clean up platform_editor_comments_toolbar_responsiveness
+
 ## 5.2.5
 
 ### Patch Changes

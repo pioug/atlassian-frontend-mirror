@@ -23,7 +23,6 @@ import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared
 import { isNodeSelectedOrInRange } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, DecorationSource, EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
@@ -143,9 +142,7 @@ const MediaSingleNodeWrapper = ({
 			mediaOptions={mediaOptions}
 			view={view}
 			fullWidthMode={fullWidthMode}
-			selected={
-				fg('platform_editor_no_cursor_on_live_doc_init') ? isSelectedAndInteracted : selected
-			}
+			selected={isSelectedAndInteracted}
 			eventDispatcher={eventDispatcher}
 			addPendingTask={addPendingTask}
 			isDrafting={isDrafting}

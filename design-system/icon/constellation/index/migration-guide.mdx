@@ -110,14 +110,27 @@ adjustments to the legacy icons.
 
 ### Marketplace partners and app developers
 
-At this time, no changes are necessary, and we'll provide more guidance when it's time for apps to
-migrate.
+We recommend all partners start migrating your apps from the legacy icons to the new iconography
+system, to match the visual language of Atlassian products.
 
-<!-- Here's more on what to expect for each app development and design framework:
+The new iconography system as part of the Atlassian Design System is now in General Availability,
+and we have deprecated the legacy iconography system. It will be removed at the end of the 6-month
+deprecation window.
 
-- Apps using **Forge UI Kit** may automatically get some icon updates in a future release. Certain changes may still require manual opt-in. We will update with more information soon.
-- Developers using design system icons through **Forge custom UI** or **Connect** will need to migrate to the new icons if they want to align with the style changes in the products. We'll provide details on how to do this in a future release.
-- We'll update our **community Figma library** with the new icons once they're in beta. -->
+We are committed to supporting you through this transition:
 
-Check the
-[latest refresh information for details](/whats-new/atlassian-ui-refresh-updates#for-marketplace-partners).
+1. Migration Support for Connect and Forge Custom UI:
+   - Updated documentation, tooling, and lint rules are available to guide the migration process.
+     Details on the spacing prop and new size options can be found at our
+     [iconography size and spacing guidance](/foundations/iconography#size-and-spacing).
+   - The migration pathway is designed to minimise manual effort. Tools like the
+     [no-legacy icons](/components/eslint-plugin-design-system/no-legacy-icons/usage) and the
+     [no-utility-icons](/components/eslint-plugin-design-system/no-utility-icons/usage) lint rules
+     can automate much of the process, including migrating away from legacy icons, i.e. the
+     `@atlaskit/icon/glyph` package, migrating utility icons to core icons and switching to the
+     recommended sizes.
+   - The two-step migration (using temporary migration entry points) is no longer required. You can
+     directly migrate to the @atlaskit/icon/core entry points.
+2. Migration support for Forge UI Kit:
+   - This will be shipping shortly alongside updated documentation, as part of the iconography
+     system reaching GA.

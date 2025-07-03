@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.19.14
+
+### Patch Changes
+
+- [#180346](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/180346)
+  [`d00d1d362bd18`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d00d1d362bd18) -
+  ED-28086 Clean up platform_editor_no_cursor_on_live_doc_init
+- Updated dependencies
+
 ## 3.19.13
 
 ### Patch Changes

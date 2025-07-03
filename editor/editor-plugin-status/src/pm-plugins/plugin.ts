@@ -4,7 +4,7 @@ import { pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 
-import { StatusNodeView as StatusNodeViewVanilla } from '../nodeviews/StatusNodeView';
+import { StatusNodeView } from '../nodeviews/StatusNodeView';
 import type { StatusPluginOptions, StatusState } from '../types';
 
 import { pluginKey } from './plugin-key';
@@ -129,7 +129,7 @@ const createPlugin = (
 		props: {
 			nodeViews: {
 				status: (node) => {
-					return new StatusNodeViewVanilla(node, pmPluginFactoryParams.getIntl());
+					return new StatusNodeView(node, pmPluginFactoryParams.getIntl());
 				},
 			},
 		},

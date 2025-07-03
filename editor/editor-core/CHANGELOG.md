@@ -1,5 +1,23 @@
 # @atlaskit/editor-core
 
+## 208.7.4
+
+### Patch Changes
+
+- [#180346](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/180346)
+  [`d00d1d362bd18`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d00d1d362bd18) -
+  ED-28086 Clean up platform_editor_no_cursor_on_live_doc_init
+- Updated dependencies
+
+## 208.7.3
+
+### Patch Changes
+
+- [#180492](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/180492)
+  [`2341110d5c5a1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2341110d5c5a1) -
+  Clean up platform_editor_comments_toolbar_responsiveness
+- Updated dependencies
+
 ## 208.7.2
 
 ### Patch Changes

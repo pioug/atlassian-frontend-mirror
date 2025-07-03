@@ -16,7 +16,7 @@ import {
 } from './types';
 import { addPath, getXProductHeaderValue } from './utils';
 
-const CONVO_AI_ENDPOINT = 'ai/v2/ai-feature/smartlinksummary/stream';
+const CONVO_AI_ENDPOINT = 'assist/api/ai/v2/ai-feature/smartlinksummary/stream';
 
 export class AISummaryService implements AISummaryServiceInt {
 	public state: AISummaryState = {

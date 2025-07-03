@@ -22,7 +22,7 @@
 	},
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
-		"team": "People and Teams Collective",
+		"team": "Jira Warepil",
 		"website": {
 			"name": "Share"
 		}

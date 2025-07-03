@@ -25,7 +25,21 @@
 				{
 					"title": "Icon (legacy)",
 					"id": "icon-legacy",
-					"sortKey": 1
+					"sortKey": 1,
+					"status": {
+						"type": "intent-to-deprecate",
+						"description": "Legacy icons (`@atlaskit/icon/glyph`) are deprecated. We recommend migrating to our new iconography system.",
+						"actions": [
+							{
+								"text": "View new icons",
+								"href": "/components/icon/"
+							},
+							{
+								"text": "Migration Guide",
+								"href": "/components/icon/migration-guide/"
+							}
+						]
+					}
 				},
 				{
 					"title": "Icon tile",

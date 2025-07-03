@@ -1,6 +1,7 @@
 import React from 'react';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Tooltip from '@atlaskit/tooltip';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
@@ -112,7 +113,9 @@ const IconButton = React.memo(
 				tag={tooltip?.tag}
 				truncate={tooltip?.truncate}
 				component={tooltip?.component}
-				hideTooltipOnClick={tooltip?.hideTooltipOnClick}
+				hideTooltipOnClick={
+					tooltip?.hideTooltipOnClick ?? fg('platform-icon-button-dismiss-tooltip-on-click')
+				}
 				hideTooltipOnMouseDown={tooltip?.hideTooltipOnMouseDown}
 				ignoreTooltipPointerEvents={tooltip?.ignoreTooltipPointerEvents}
 			>

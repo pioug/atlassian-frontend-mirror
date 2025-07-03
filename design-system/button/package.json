@@ -143,6 +143,9 @@
 	"platform-feature-flags": {
 		"platform-component-visual-refresh": {
 			"type": "boolean"
+		},
+		"platform-icon-button-dismiss-tooltip-on-click": {
+			"type": "boolean"
 		}
 	}
 }

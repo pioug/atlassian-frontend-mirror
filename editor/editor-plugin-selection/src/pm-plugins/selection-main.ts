@@ -6,7 +6,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -99,8 +98,7 @@ export const createPlugin = (
 				if (
 					(options.__livePage ||
 						expValEquals('platform_editor_no_cursor_on_edit_page_init', 'isEnabled', true)) &&
-					interactionState === 'hasNotHadInteraction' &&
-					fg('platform_editor_no_cursor_on_live_doc_init')
+					interactionState === 'hasNotHadInteraction'
 				) {
 					return DecorationSet.empty;
 				}

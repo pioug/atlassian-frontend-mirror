@@ -25,6 +25,7 @@ function setup(props?: Partial<Props & ImageSize>) {
 				onLoad={jest.fn()}
 				onError={jest.fn()}
 				src={src}
+				alt="test"
 				onClose={onClose}
 				onBlanketClicked={onBlanketClicked}
 				{...props}
@@ -65,6 +66,7 @@ describe('InteractiveImg', () => {
 					onLoad={jest.fn()}
 					onError={jest.fn()}
 					src={src}
+					alt="test"
 					onClose={jest.fn()}
 					onBlanketClicked={jest.fn()}
 				/>

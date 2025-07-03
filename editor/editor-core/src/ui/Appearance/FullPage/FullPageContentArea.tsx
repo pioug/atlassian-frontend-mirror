@@ -554,17 +554,9 @@ const Content = React.forwardRef<
 											]
 								}
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-								className={
-									fg('platform_editor_no_cursor_on_live_doc_init')
-										? classnames('ak-editor-content-area', 'appearance-full-page', {
-												'fabric-editor--full-width-mode': fullWidthMode,
-											})
-										: [
-												'ak-editor-content-area',
-												'appearance-full-page',
-												fullWidthMode ? 'fabric-editor--full-width-mode' : '',
-											].join(' ')
-								}
+								className={classnames('ak-editor-content-area', 'appearance-full-page', {
+									'fabric-editor--full-width-mode': fullWidthMode,
+								})}
 								ref={contentAreaRef}
 							>
 								{!!props.customContentComponents && 'before' in props.customContentComponents

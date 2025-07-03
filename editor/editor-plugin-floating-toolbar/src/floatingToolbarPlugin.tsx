@@ -206,17 +206,10 @@ export const floatingToolbarPlugin: FloatingToolbarPlugin = ({ api }) => {
 
 			const interactionState = api?.interaction?.sharedState.currentState()?.interactionState;
 
-			let configWithNodeInfo: ConfigWithNodeInfo | undefined;
-
-			if (fg('platform_editor_no_cursor_on_live_doc_init')) {
-				configWithNodeInfo =
-					interactionState !== 'hasNotHadInteraction'
-						? pluginKey.getState(editorState)?.getConfigWithNodeInfo?.(editorState) ?? undefined
-						: undefined;
-			} else {
-				configWithNodeInfo =
-					pluginKey.getState(editorState)?.getConfigWithNodeInfo?.(editorState) ?? undefined;
-			}
+			const configWithNodeInfo =
+				interactionState !== 'hasNotHadInteraction'
+					? pluginKey.getState(editorState)?.getConfigWithNodeInfo?.(editorState) ?? undefined
+					: undefined;
 
 			return {
 				configWithNodeInfo,

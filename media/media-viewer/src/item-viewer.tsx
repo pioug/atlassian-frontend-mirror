@@ -367,10 +367,11 @@ export const ItemViewerBase = ({
 		successful: (fileItem) => {
 			if (fileItem === 'external-image') {
 				// render an external image
-				const { dataURI } = identifier as ExternalImageIdentifier;
+				const { dataURI, name } = identifier as ExternalImageIdentifier;
 				return (
 					<InteractiveImg
 						src={dataURI}
+						alt={name ?? ''}
 						onLoad={() => {
 							fireAnalytics(
 								createLoadSucceededEvent({

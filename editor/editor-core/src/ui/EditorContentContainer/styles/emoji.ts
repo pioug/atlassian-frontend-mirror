@@ -14,7 +14,7 @@ const emojiSelectionStyles = css({
 	borderRadius: '2px',
 });
 
-// Emoji styles from Emoji vanilla node view
+// Emoji node view styles
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const emojiStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values

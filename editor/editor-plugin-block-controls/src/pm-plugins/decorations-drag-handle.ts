@@ -16,7 +16,7 @@ import type { BlockControlsPlugin, HandleOptions } from '../blockControlsPluginT
 import { DragHandle, DragHandleWithVisibility } from '../ui/drag-handle';
 
 import { TYPE_HANDLE_DEC, TYPE_NODE_DEC, unmountDecorations } from './decorations-common';
-import { AnchorRectCache } from './utils/anchor-utils';
+import { type AnchorRectCache } from './utils/anchor-utils';
 import { getActiveBlockMarks } from './utils/marks';
 
 export const emptyParagraphNodeDecorations = () => {

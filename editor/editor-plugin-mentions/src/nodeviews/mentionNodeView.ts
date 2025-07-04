@@ -2,7 +2,7 @@ import { browser } from '@atlaskit/editor-common/browser';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
-import { DOMSerializer, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { DOMSerializer, type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { DOMOutputSpec } from '@atlaskit/editor-prosemirror/model';
 import type { NodeView } from '@atlaskit/editor-prosemirror/view';
 import type { MentionProvider } from '@atlaskit/mention';

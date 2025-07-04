@@ -8,14 +8,18 @@
 //Ukrainian (Ukraine)
 export default {
   'fabric.reactions.add': 'Додати реакцію',
+  'fabric.reactions.add.new': 'Додати нову реакцію',
   'fabric.reactions.error.unexpected': 'Реакції тимчасово недоступні',
   'fabric.reactions.loading': 'Завантаження...',
   'fabric.reactions.more.emojis': 'Інші емодзі',
   'fabric.reactions.other.reacted.users':
     '{count, plural, one {і ще {count} особа} few {і ще {count} особи} many {і ще {count} осіб} other {і ще {count} особи}}',
   'fabric.reactions.reactwithemoji': 'Вставити емодзі {emoji}',
+  'fabric.reactions.reactwithemojiandcount':
+    '{count, plural, one {{count,number} емодзі {emoji}. Відреагуйте за допомогою емодзі {emoji}} few {{count,number} емодзі {emoji}. Відреагуйте за допомогою емодзі {emoji}} many {{count,number} емодзі {emoji} Відреагуйте за допомогою емодзі {emoji}} other {{count,number} емодзі {emoji} Відреагуйте за допомогою емодзі {emoji}}}',
   'fabric.reactions.summary': 'Переглянути всі реакції користувачів',
   'reaction-picker-trigger.add.reaction.message': 'Додайте реакцію',
+  'reactions-reaction.picker-label': 'Додати реакції',
   'reactions.dialog.close': 'Закрити',
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': 'Перейти вліво',

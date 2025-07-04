@@ -8,13 +8,17 @@
 //Turkish (Turkey)
 export default {
   'fabric.reactions.add': 'Tepki ekle',
+  'fabric.reactions.add.new': 'Yeni ekle',
   'fabric.reactions.error.unexpected': 'Tepkiler geçici olarak kullanılamıyor',
   'fabric.reactions.loading': 'Yükleniyor...',
   'fabric.reactions.more.emojis': 'Daha fazla emoji',
   'fabric.reactions.other.reacted.users': '{count, plural, one {ve bir kişi daha} other {ve {count} kişi daha}}',
   'fabric.reactions.reactwithemoji': "{emoji} emoji'siyle tepki verin",
+  'fabric.reactions.reactwithemojiandcount':
+    "{count, plural, one {{count,number} {emoji} emoji. {emoji} emoji'siyle tepki verin} other {{count,number} {emoji} emoji. {emoji} emoji'siyle tepki verin}}",
   'fabric.reactions.summary': 'Tüm kullanıcı tepkilerini görüntüleyin',
   'reaction-picker-trigger.add.reaction.message': 'Tepki ekleyin',
+  'reactions-reaction.picker-label': 'Tepki ekleyin',
   'reactions.dialog.close': 'Kapat',
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': 'Sol Gezinme',

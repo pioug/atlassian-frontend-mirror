@@ -1,5 +1,5 @@
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
-import { ReplaceStep, Step } from '@atlaskit/editor-prosemirror/transform';
+import { ReplaceStep, type Step } from '@atlaskit/editor-prosemirror/transform';
 
 export const isNonTextUndo = (tr: ReadonlyTransaction): boolean => {
 	if (tr.getMeta('undoRedoPlugin$') === undefined) {

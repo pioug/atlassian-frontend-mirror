@@ -16,9 +16,10 @@ export default {
   'team-central.give-kudos.button': 'Przekaż wyrazy uznania',
   'team-central.give-kudos.close-button.label': 'Zamknij zasobnik',
   'team-central.give-kudos.confirm-close.title': 'Potwierdź zamknięcie',
+  'team-central.give-kudos.created.action.flag': 'Wyświetl wyrazy uznania',
   'team-central.give-kudos.created.description.flag':
     'Twoje wyrazy uznania zostały wysłane. <a>Wyświetl wyrazy uznania</a>',
-  'team-central.give-kudos.created.title.flag': 'Przekazano wyrazy uznania',
+  'team-central.give-kudos.created.title.flag': 'Utworzono wyrazy uznania',
   'team-central.give-kudos.creation.failed.description.flag': 'Nie można utworzyć wyrazów uznania.',
   'team-central.give-kudos.creation.failed.title.flag': 'Coś poszło nie tak',
   'team-central.give-kudos.error-icon.label': 'Błąd',

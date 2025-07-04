@@ -14,6 +14,7 @@ export default {
   'fabric.elements.share.failure.message': 'Nem lehet megosztani',
   'fabric.elements.share.form.comment.label': 'Üzenet (nem kötelező)',
   'fabric.elements.share.form.comment.placeholder': 'Van bármi, amit érdemes tudni?',
+  'fabric.elements.share.form.extended.dialog.comment.label': 'Üzenet',
   'fabric.elements.share.form.info.message.no.invite.confluence': 'A címzettek látják az oldal nevét és az üzenetedet',
   'fabric.elements.share.form.info.message.no.invite.jira': 'A címzettek látják az ügy nevét és az üzenetedet',
   'fabric.elements.share.form.info.message.no.invite.jira.issue-term-refresh':

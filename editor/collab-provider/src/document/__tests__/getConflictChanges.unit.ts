@@ -1,6 +1,6 @@
-import { Step } from '@atlaskit/editor-prosemirror/transform';
+import { type Step } from '@atlaskit/editor-prosemirror/transform';
 import { doc, p, emoji } from '@atlaskit/editor-test-helpers/doc-builder';
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { ConflictChanges } from '@atlaskit/editor-common/collab';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 

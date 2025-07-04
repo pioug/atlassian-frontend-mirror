@@ -4,7 +4,7 @@ import path from 'path';
 
 import { v4 as uuidv4 } from 'uuid';
 
-import { ReplacementDetail, TransformationDetails } from '../types';
+import { type ReplacementDetail, type TransformationDetails } from '../types';
 
 async function writeToCsv(filePath: string, data: string[]): Promise<void> {
 	await fs.writeFile(filePath, data.join('\n'), 'utf-8');

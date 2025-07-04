@@ -8,13 +8,17 @@
 //Norwegian (Bokmål)
 export default {
   'fabric.reactions.add': 'Legg til reaksjon',
+  'fabric.reactions.add.new': 'Legg til ny',
   'fabric.reactions.error.unexpected': 'Reaksjoner er midlertidig utilgjengelige',
   'fabric.reactions.loading': 'Laster inn …',
   'fabric.reactions.more.emojis': 'Flere emojier',
   'fabric.reactions.other.reacted.users': '{count, plural, one {og én annen} other {og {count} andre}}',
   'fabric.reactions.reactwithemoji': 'Reager med emojien {emoji}',
+  'fabric.reactions.reactwithemojiandcount':
+    '{count, plural, one {{count,number} {emoji}-emoji. Reager med emojien {emoji}} other {{count,number} {emoji}-emojier. Reager med emojien {emoji}}}',
   'fabric.reactions.summary': 'Se alle brukerreaksjoner',
   'reaction-picker-trigger.add.reaction.message': 'Legg til en reaksjon',
+  'reactions-reaction.picker-label': 'Legg til reaksjoner',
   'reactions.dialog.close': 'Lukk',
   'reactions.dialog.left.navigate': 'Naviger til venstre',
   'reactions.dialog.reactions.count':

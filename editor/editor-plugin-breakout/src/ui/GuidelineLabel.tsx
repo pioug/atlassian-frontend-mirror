@@ -5,7 +5,7 @@ import type { BreakoutMode, ExtractInjectionAPI } from '@atlaskit/editor-common/
 import { Popup } from '@atlaskit/editor-common/ui';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { BreakoutPlugin } from '../breakoutPluginType';
 import type { ActiveGuidelineKey } from '../pm-plugins/resizing-plugin';

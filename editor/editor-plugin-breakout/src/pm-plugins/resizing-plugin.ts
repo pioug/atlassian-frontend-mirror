@@ -28,7 +28,7 @@ import type {
 	BreakoutPluginState,
 } from '../breakoutPluginType';
 
-import { GUIDELINE_KEYS } from './get-guidelines';
+import { type GUIDELINE_KEYS } from './get-guidelines';
 import { handleKeyDown } from './handle-key-down';
 import { ResizingMarkView } from './resizing-mark-view';
 import { updateExpandedStateNew } from './utils/single-player-expand';

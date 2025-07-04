@@ -1,4 +1,4 @@
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { type INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
 import { type AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';

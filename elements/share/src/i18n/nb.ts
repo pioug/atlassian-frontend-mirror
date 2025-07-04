@@ -14,6 +14,7 @@ export default {
   'fabric.elements.share.failure.message': 'Kan ikke deles',
   'fabric.elements.share.form.comment.label': 'Melding (valgfritt)',
   'fabric.elements.share.form.comment.placeholder': 'Er det noe mottakerne bør vite om dette?',
+  'fabric.elements.share.form.extended.dialog.comment.label': 'Melding',
   'fabric.elements.share.form.info.message.no.invite.confluence': 'Mottakerne vil se navnet på siden og meldingen',
   'fabric.elements.share.form.info.message.no.invite.jira': 'Mottakerne vil se navnet på saken og meldingen',
   'fabric.elements.share.form.info.message.no.invite.jira.issue-term-refresh':

@@ -7,15 +7,19 @@
  */
 //Russian
 export default {
+  'fabric.elements.user-picker.custom.type.label': 'Свой вариант',
   'fabric.elements.user-picker.email.add': 'Добавить пользователя',
   'fabric.elements.user-picker.email.add.potential': 'Введите адрес электронной почты',
   'fabric.elements.user-picker.email.select.to.add': 'Выберите адрес электронной почты',
+  'fabric.elements.user-picker.email.type.label': 'Адреса электронной почты',
   'fabric.elements.user-picker.error.message': 'Произошла ошибка',
   'fabric.elements.user-picker.external.sourced.error': 'Не удается подключиться в данный момент.',
   'fabric.elements.user-picker.external.sourced.from': 'Найден в:',
+  'fabric.elements.user-picker.external.user.type.label': 'Внешние пользователи',
   'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',
   'fabric.elements.user-picker.group.byline': 'Группа управляется администратором',
+  'fabric.elements.user-picker.group.type.label': 'Группы',
   'fabric.elements.user-picker.guest.lozenge.text': 'ГОСТЬ',
   'fabric.elements.user-picker.guest.lozenge.tooltip.group':
     'Гостевые группы имеют доступ только к определенным разделам и ограниченный доступ к информации о пользователях.',
@@ -24,6 +28,7 @@ export default {
   'fabric.elements.user-picker.member.lozenge.text': 'УЧАСТНИК',
   'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': 'Удалить',
+  'fabric.elements.user-picker.other.type.label': 'Другое',
   'fabric.elements.user-picker.placeholder': 'Укажите пользователей или команды…',
   'fabric.elements.user-picker.placeholder.add-more': 'добавьте других пользователей…',
   'fabric.elements.user-picker.single.clear': 'Очистить',
@@ -37,4 +42,6 @@ export default {
     '{count, plural, one {Команда • {count} участник} few {Команда • {count} участника} many {Команда • {count} участников} other {Команда • {count} участника}}',
   'fabric.elements.user-picker.team.member.count.including.you':
     '{count, plural, one {Команда • {count} участник, включая вас} few {Команда • {count} участника, включая вас} many {Команда • {count} участников, включая вас} other {Команда • {count} участника, включая вас}}',
+  'fabric.elements.user-picker.team.type.label': 'Команды',
+  'fabric.elements.user-picker.user.type.label': 'Пользователи',
 };

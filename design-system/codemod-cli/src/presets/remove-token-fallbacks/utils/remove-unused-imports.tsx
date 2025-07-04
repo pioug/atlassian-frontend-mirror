@@ -1,12 +1,12 @@
 import {
-	ASTPath,
-	ImportDeclaration,
-	ImportDefaultSpecifier,
-	ImportSpecifier,
-	JSCodeshift,
+	type ASTPath,
+	type ImportDeclaration,
+	type ImportDefaultSpecifier,
+	type ImportSpecifier,
+	type JSCodeshift,
 } from 'jscodeshift';
 
-import { WithStart } from '../types';
+import { type WithStart } from '../types';
 
 export function removeUnusedImports(
 	importDeclarations: ASTPath<ImportDeclaration>[],

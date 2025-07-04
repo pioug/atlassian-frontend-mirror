@@ -7,15 +7,19 @@
  */
 //Czech
 export default {
+  'fabric.elements.user-picker.custom.type.label': 'Vlastní',
   'fabric.elements.user-picker.email.add': 'Přidat uživatele',
   'fabric.elements.user-picker.email.add.potential': 'Zadejte e-mailovou adresu.',
   'fabric.elements.user-picker.email.select.to.add': 'Vyberte e-mailovou adresu.',
+  'fabric.elements.user-picker.email.type.label': 'E-maily',
   'fabric.elements.user-picker.error.message': 'Něco se pokazilo',
   'fabric.elements.user-picker.external.sourced.error': 'Momentálně vás nejde připojit.',
   'fabric.elements.user-picker.external.sourced.from': 'Nalezen v:',
+  'fabric.elements.user-picker.external.user.type.label': 'Externí uživatelé',
   'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',
   'fabric.elements.user-picker.group.byline': 'Skupina spravovaná administrátorem',
+  'fabric.elements.user-picker.group.type.label': 'Skupiny',
   'fabric.elements.user-picker.guest.lozenge.text': 'HOST',
   'fabric.elements.user-picker.guest.lozenge.tooltip.group':
     'Skupiny hostů mají přístup pouze k určitým prostorům a mají omezený přístup k uživatelským údajům.',
@@ -24,6 +28,7 @@ export default {
   'fabric.elements.user-picker.member.lozenge.text': 'ČLEN',
   'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': 'Odstranit',
+  'fabric.elements.user-picker.other.type.label': 'Ostatní',
   'fabric.elements.user-picker.placeholder': 'Zadejte osoby nebo týmy...',
   'fabric.elements.user-picker.placeholder.add-more': 'přidat více lidí...',
   'fabric.elements.user-picker.single.clear': 'Vymazat',
@@ -37,4 +42,6 @@ export default {
     '{count, plural, one {Tým • {count} člen} few {Tým • {count} členové} many {Tým • {count} člena} other {Tým • {count} členů}}',
   'fabric.elements.user-picker.team.member.count.including.you':
     '{count, plural, one {Tým • {count} člen včetně vás} few {Tým • {count} členové včetně vás} many {Tým • {count} člena včetně vás} other {Tým • {count} členů včetně vás}}',
+  'fabric.elements.user-picker.team.type.label': 'Týmy',
+  'fabric.elements.user-picker.user.type.label': 'Lidé',
 };

@@ -1,4 +1,6 @@
-import React, { useEffect } from 'react';
+import type React from 'react';
+// eslint-disable-next-line no-duplicate-imports
+import { useEffect } from 'react';
 
 import { bind, bindAll } from 'bind-event-listener';
 

@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 
-import { RemoveTokenFallbackOptions } from '../types';
+import { type RemoveTokenFallbackOptions } from '../types';
 
 import { colorToHex, compareHex, isValidColor } from './color-utils';
 

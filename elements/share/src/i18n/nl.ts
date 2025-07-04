@@ -14,6 +14,7 @@ export default {
   'fabric.elements.share.failure.message': 'Kan niet delen',
   'fabric.elements.share.form.comment.label': 'Bericht (optioneel)',
   'fabric.elements.share.form.comment.placeholder': 'Is er iets ze moet weten?',
+  'fabric.elements.share.form.extended.dialog.comment.label': 'Bericht',
   'fabric.elements.share.form.info.message.no.invite.confluence': 'Ontvangers zien de naam van de pagina en je bericht',
   'fabric.elements.share.form.info.message.no.invite.jira': 'Ontvangers zien de naam van de issue en je bericht',
   'fabric.elements.share.form.info.message.no.invite.jira.issue-term-refresh':

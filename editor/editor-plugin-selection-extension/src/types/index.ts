@@ -1,3 +1,4 @@
+import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import { type MenuItem } from '@atlaskit/editor-common/ui-menu';
 import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
 
@@ -12,6 +13,8 @@ export type SelectionExtensionComponentProps = {
 
 export type SelectionExtensionCallbackOptions = {
 	selection?: SelectionExtensionSelectionInfo;
+	selectedNodeAdf?: ADFEntity;
+	selectionRanges?: SelectionRange[];
 };
 
 export type SelectionExtensionSelectionInfo = {
@@ -36,9 +39,33 @@ export type SelectionExtension = {
 	component?: React.ComponentType<SelectionExtensionComponentProps>;
 };
 
+// inspired by content api operation https://bitbucket.org/atlassian/pf-adf-service/src/master/src/lib/update/types.ts
+export type SelectionPointer = {
+	pointer: string;
+	// position only applicable if selection is a text node
+	position?: number;
+};
+
+export type SelectionRange = {
+	start: SelectionPointer;
+	end: SelectionPointer;
+};
+
+export type SelectionExtensionFnOptions = {
+	selectedNodeAdf: ADFEntity;
+	selectionRanges: SelectionRange[];
+};
+
+export type SelectionExtensionFn = ({
+	selectedNodeAdf,
+	selectionRanges,
+}: SelectionExtensionFnOptions) => SelectionExtension;
+
+export type SelectionExtensionConfig = SelectionExtension | SelectionExtensionFn;
+
 export type SelectionExtensions = {
-	firstParty?: SelectionExtension[];
-	external?: SelectionExtension[];
+	firstParty?: SelectionExtensionConfig[];
+	external?: SelectionExtensionConfig[];
 };
 
 type SelectionExtensionModes = ViewMode;

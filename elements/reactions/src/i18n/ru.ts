@@ -8,14 +8,18 @@
 //Russian
 export default {
   'fabric.reactions.add': 'Добавить реакцию',
+  'fabric.reactions.add.new': 'Добавить',
   'fabric.reactions.error.unexpected': 'Реакции временно недоступны',
   'fabric.reactions.loading': 'Загрузка…',
   'fabric.reactions.more.emojis': 'Другие эмодзи',
   'fabric.reactions.other.reacted.users':
     '{count, plural, one {и еще один} few {и еще {count}} many {и еще {count}} other {и еще {count}}}',
   'fabric.reactions.reactwithemoji': 'Отреагировать с помощью эмодзи {emoji}',
+  'fabric.reactions.reactwithemojiandcount':
+    '{count, plural, one {{count,number} эмодзи {emoji}. Реагировать с помощью эмодзи {emoji}} few {{count,number} эмодзи {emoji}. Реагировать с помощью эмодзи {emoji}} many {{count,number} эмодзи {emoji}. Реагировать с помощью эмодзи {emoji}} other {{count,number} эмодзи {emoji}. Реагировать с помощью эмодзи {emoji}}}',
   'fabric.reactions.summary': 'Посмотреть все реакции пользователей',
   'reaction-picker-trigger.add.reaction.message': 'Добавьте реакцию',
+  'reactions-reaction.picker-label': 'Добавьте реакции',
   'reactions.dialog.close': 'Закрыть',
   'reactions.dialog.left.navigate': 'Навигация влево',
   'reactions.dialog.reactions.count':

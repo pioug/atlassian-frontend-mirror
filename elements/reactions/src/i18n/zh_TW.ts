@@ -8,13 +8,17 @@
 //Chinese (Traditional)
 export default {
   'fabric.reactions.add': '新增反應',
+  'fabric.reactions.add.new': '新增',
   'fabric.reactions.error.unexpected': '暫時無法使用回覆功能',
   'fabric.reactions.loading': '正在載入...',
   'fabric.reactions.more.emojis': '更多表情符號',
   'fabric.reactions.other.reacted.users': '{count, plural, other {還有其他 {count} 個}}',
   'fabric.reactions.reactwithemoji': '使用 {emoji} 表情符號回應',
+  'fabric.reactions.reactwithemojiandcount':
+    '{count, plural, other {{count,number} 個 {emoji} 表情符號。使用 {emoji} 表情符號回應}}',
   'fabric.reactions.summary': '檢視所有使用者的回應',
   'reaction-picker-trigger.add.reaction.message': '新增回應',
+  'reactions-reaction.picker-label': '新增回應',
   'reactions.dialog.close': '關閉',
   'reactions.dialog.left.navigate': '左側導覽',
   'reactions.dialog.reactions.count': '{count, plural, other {{count,number} 個回應總計}}',

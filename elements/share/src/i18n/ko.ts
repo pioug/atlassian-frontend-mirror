@@ -14,6 +14,7 @@ export default {
   'fabric.elements.share.failure.message': '공유할 수 없음',
   'fabric.elements.share.form.comment.label': '메시지(선택 사항)',
   'fabric.elements.share.form.comment.placeholder': '사용자가 알아야 할 내용이 있습니까?',
+  'fabric.elements.share.form.extended.dialog.comment.label': '메시지',
   'fabric.elements.share.form.info.message.no.invite.confluence': '수신자가 페이지 이름과 메시지를 볼 수 있습니다',
   'fabric.elements.share.form.info.message.no.invite.jira': '수신자가 이슈 이름과 메시지를 볼 수 있습니다',
   'fabric.elements.share.form.info.message.no.invite.jira.issue-term-refresh':

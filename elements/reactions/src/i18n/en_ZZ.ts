@@ -8,14 +8,18 @@
 //
 export default {
   'fabric.reactions.add': '⁣⁢Add reaction⁭⁡‌؜؜⁡⁮‍⁫⁪⁪⁠⁯⁭⁭⁡⁪⁮⁪⁮⁠⁣⁤',
+  'fabric.reactions.add.new': '⁣⁢Add new⁫‍⁠⁮‌⁬⁠⁠‍⁮⁪⁫⁪⁠⁭؜⁫⁠⁭⁠‌؜⁮⁪⁣⁤',
   'fabric.reactions.error.unexpected': '⁣⁢Reactions are temporarily unavailable⁡‍‍؜⁬‍⁡⁪‌؜؜⁭⁪⁭⁬⁮⁯؜؜‍⁪⁠‍⁣⁤',
   'fabric.reactions.loading': '⁣⁢Loading...⁭⁫⁡⁬⁮⁭؜⁬⁫⁬⁪⁫⁯⁯؜؜⁪‌⁣⁤',
   'fabric.reactions.more.emojis': '⁣⁢More emojis⁪‌‍⁠⁠⁭‍⁪⁬⁭؜‍⁡⁠⁬⁡؜‌⁫⁮⁪⁠⁣⁤',
   'fabric.reactions.other.reacted.users':
     '{count, plural, one {⁣⁢and one other⁫⁯‍⁠؜⁯⁠⁭⁬⁪⁡⁬‌⁫⁠⁫⁠⁠⁪⁫⁣⁤} other {⁣⁢and {count} others⁫⁯‍⁠؜⁯⁠⁭⁬⁪⁡⁬‌⁫⁠⁫⁠⁠⁪⁫⁣⁤}}',
   'fabric.reactions.reactwithemoji': '⁣⁢React with {emoji} emoji⁯⁪⁫‌⁯‍؜‍⁫⁫⁫⁫⁡⁬⁬⁭⁠⁪⁮⁫⁡⁬⁣⁤',
+  'fabric.reactions.reactwithemojiandcount':
+    '{count, plural, one {⁣⁢{count,number} {emoji} emoji. React with {emoji} emoji⁪⁬⁮‍⁪⁫⁪‍⁠⁯⁬⁬⁡⁭⁡⁠⁮⁮⁪⁫⁠⁫⁮‍⁠⁫⁭⁣⁤} other {⁣⁢{count,number} {emoji} emojis. React with {emoji} emoji⁪⁬⁮‍⁪⁫⁪‍⁠⁯⁬⁬⁡⁭⁡⁠⁮⁮⁪⁫⁠⁫⁮‍⁠⁫⁭⁣⁤}}',
   'fabric.reactions.summary': '⁣⁢View all user reactions⁬‌⁡⁬⁭⁯‍⁫⁭⁡‌⁭‌⁡⁭⁮⁪‌⁠⁬‍⁮⁪⁡⁠⁣⁤',
   'reaction-picker-trigger.add.reaction.message': '⁣⁢Add a reaction⁪‌⁮⁡‍؜⁯⁪؜⁠⁬؜⁮⁬؜⁬⁠⁬⁫⁠⁣⁤',
+  'reactions-reaction.picker-label': '⁣⁢Add reactions‌⁯‍⁭⁠؜‍⁫؜⁮⁯⁡⁫⁬‍⁪⁣⁤',
   'reactions.dialog.close': '⁣⁢Close‍⁡⁬⁫⁪‌؜‍⁭⁫⁯⁫⁬⁡‌⁫‌⁭⁮⁫⁯⁫⁣⁤',
   'reactions.dialog.emoji.name': '⁣⁢{emojiName}⁭⁪⁡‌⁪⁫‌‍⁯؜⁠⁡⁪‍⁡؜⁬⁠‌‌‍⁪‍⁡⁣⁤',
   'reactions.dialog.left.navigate': '⁣⁢Left Navigate⁫⁪؜⁯⁯⁫‍⁮‌⁫؜⁪⁠⁭؜⁡‍⁠⁠⁡⁭⁣⁤',

@@ -7,15 +7,19 @@
  */
 //Japanese
 export default {
+  'fabric.elements.user-picker.custom.type.label': 'カスタム',
   'fabric.elements.user-picker.email.add': 'ユーザーを追加',
   'fabric.elements.user-picker.email.add.potential': 'メール アドレスを入力',
   'fabric.elements.user-picker.email.select.to.add': 'メール アドレスを選択',
+  'fabric.elements.user-picker.email.type.label': 'メール アドレス',
   'fabric.elements.user-picker.error.message': '問題が発生しました',
   'fabric.elements.user-picker.external.sourced.error': '現在、接続できません。',
   'fabric.elements.user-picker.external.sourced.from': 'ユーザーのソース元: ',
+  'fabric.elements.user-picker.external.user.type.label': '外部ユーザー',
   'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',
   'fabric.elements.user-picker.group.byline': '管理者が管理するグループ',
+  'fabric.elements.user-picker.group.type.label': 'グループ',
   'fabric.elements.user-picker.guest.lozenge.text': 'ゲスト',
   'fabric.elements.user-picker.guest.lozenge.tooltip.group':
     'ゲスト グループは一部のスペースにのみアクセスでき、ユーザー情報へのアクセスが制限されます。',
@@ -24,6 +28,7 @@ export default {
   'fabric.elements.user-picker.member.lozenge.text': 'メンバー',
   'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': '削除',
+  'fabric.elements.user-picker.other.type.label': 'その他',
   'fabric.elements.user-picker.placeholder': 'ユーザーまたはチームを入力してください...',
   'fabric.elements.user-picker.placeholder.add-more': 'さらにユーザーを追加…',
   'fabric.elements.user-picker.single.clear': 'クリア',
@@ -36,4 +41,6 @@ export default {
   'fabric.elements.user-picker.team.member.count': '{count, plural, other {チーム • {count} 人のメンバー}}',
   'fabric.elements.user-picker.team.member.count.including.you':
     '{count, plural, other {チーム • あなたを含む {count} 人のメンバー}}',
+  'fabric.elements.user-picker.team.type.label': 'チーム',
+  'fabric.elements.user-picker.user.type.label': 'ユーザー',
 };

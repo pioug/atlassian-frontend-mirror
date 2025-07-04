@@ -20,7 +20,7 @@ import {
 import { createNewLine } from '../ui/utils/editor-commands';
 
 import { calculatePosition } from './quick-insert-calculate-position';
-import { AnchorRectCache } from './utils/anchor-utils';
+import { type AnchorRectCache } from './utils/anchor-utils';
 import { VanillaTooltip } from './vanilla-tooltip';
 
 type VanillaQuickInsertProps = {

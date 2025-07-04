@@ -8,13 +8,17 @@
 //Japanese
 export default {
   'fabric.reactions.add': 'リアクションを追加',
+  'fabric.reactions.add.new': '新規追加',
   'fabric.reactions.error.unexpected': 'リアクションは一時的に利用できません。',
   'fabric.reactions.loading': '読み込んでいます...',
   'fabric.reactions.more.emojis': 'その他の絵文字',
   'fabric.reactions.other.reacted.users': '{count, plural, other {、他 {count} 人}}',
   'fabric.reactions.reactwithemoji': '絵文字 {emoji} でリアクション',
+  'fabric.reactions.reactwithemojiandcount':
+    '{count, plural, other {{count,number} 個の {emoji} 絵文字。{emoji} 絵文字でリアクション}}',
   'fabric.reactions.summary': 'ユーザーによるすべてのリアクションを表示',
   'reaction-picker-trigger.add.reaction.message': 'リアクションを追加',
+  'reactions-reaction.picker-label': 'リアクションを追加',
   'reactions.dialog.close': '閉じる',
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': '左に移動',

@@ -1,6 +1,6 @@
 import { BatchAttrsStep } from '@atlaskit/adf-schema/steps';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
-import { AttrStep, Step } from '@atlaskit/editor-prosemirror/transform';
+import { AttrStep, type Step } from '@atlaskit/editor-prosemirror/transform';
 
 import { ActionType, type AttrChangeAction } from '../types';
 

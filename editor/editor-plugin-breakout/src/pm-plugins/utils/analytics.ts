@@ -3,7 +3,7 @@ import type {
 	BreakoutEventPayload,
 	BreakoutSupportedNodes,
 } from '@atlaskit/editor-common/analytics';
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 export const generateResizeFrameRatePayloads = (props: {
 	docSize: number;

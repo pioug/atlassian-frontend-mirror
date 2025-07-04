@@ -51,6 +51,7 @@ export default {
   'fabric.emoji.search.label': 'Назва емодзі',
   'fabric.emoji.search.placeholder': 'Пошук',
   'fabric.emoji.search.status': 'Перегляд усіх емодзі',
+  'fabric.emoji.search.status.count': 'Знайдено {count} емодзі',
   'fabric.emoji.select.skin.list.ariaLabel': 'Засіб вибору тону шкіри',
   'fabric.emoji.select.skin.tone.ariaLabel': 'Виберіть свій тон шкіри, наразі вибрано {selectedTone}',
 };

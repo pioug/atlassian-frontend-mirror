@@ -52,6 +52,7 @@ export default {
   'fabric.emoji.search.label': 'Название эмодзи',
   'fabric.emoji.search.placeholder': 'Поиск',
   'fabric.emoji.search.status': 'Просмотр всех эмодзи',
+  'fabric.emoji.search.status.count': 'Найдено эмодзи: {count}',
   'fabric.emoji.select.skin.list.ariaLabel': 'Селектор цвета кожи',
   'fabric.emoji.select.skin.tone.ariaLabel': 'Выберите свой цвет кожи, выбрано: {selectedTone}',
 };

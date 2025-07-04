@@ -1,10 +1,10 @@
 import { ChangeSet } from 'prosemirror-changeset';
 
-import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
-import { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { type Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
+import { type Transaction } from '@atlaskit/editor-prosemirror/state';
+import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { ConflictChange, ConflictChanges } from '@atlaskit/editor-common/collab';
-import { rebaseSteps as collabRebaseSteps, Rebaseable } from '@atlaskit/prosemirror-collab';
+import { rebaseSteps as collabRebaseSteps, type Rebaseable } from '@atlaskit/prosemirror-collab';
 
 interface Options {
 	localSteps: readonly Rebaseable[];

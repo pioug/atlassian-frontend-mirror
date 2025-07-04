@@ -1,6 +1,6 @@
 import React from 'react';
 
-import EditorActions from '../actions';
+import type EditorActions from '../actions';
 import { CoreEditor } from '../composable-editor/core-editor';
 import { type EditorNextProps } from '../types/editor-props';
 import { FullPageEditor as FullPage } from '../ui/Appearance/FullPage/FullPage';

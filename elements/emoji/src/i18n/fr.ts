@@ -53,6 +53,7 @@ export default {
   'fabric.emoji.search.label': "Nom de l'émoticône",
   'fabric.emoji.search.placeholder': 'Rechercher',
   'fabric.emoji.search.status': 'Voir toutes les émoticônes',
+  'fabric.emoji.search.status.count': '{count} émoticônes trouvées',
   'fabric.emoji.select.skin.list.ariaLabel': 'Sélecteur de phototype',
   'fabric.emoji.select.skin.tone.ariaLabel': 'Choisissez votre phototype ; phototype sélectionné : {selectedTone}',
 };

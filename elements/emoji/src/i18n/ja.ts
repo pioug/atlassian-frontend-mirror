@@ -51,6 +51,7 @@ export default {
   'fabric.emoji.search.label': '絵文字の名前',
   'fabric.emoji.search.placeholder': '検索',
   'fabric.emoji.search.status': 'すべての絵文字を表示',
+  'fabric.emoji.search.status.count': '{count} 件の絵文字が見つかりました',
   'fabric.emoji.select.skin.list.ariaLabel': 'スキン トーン セレクター',
   'fabric.emoji.select.skin.tone.ariaLabel': 'スキン トーンをご選択ください。{selectedTone} を選択済み',
 };

@@ -10,12 +10,15 @@ export default {
   'fabric.elements.user-picker.email.add': 'Benutzer hinzufügen',
   'fabric.elements.user-picker.email.add.potential': 'Geben Sie eine E-Mail-Adresse ein',
   'fabric.elements.user-picker.email.select.to.add': 'Wählen Sie eine E-Mail-Adresse aus',
+  'fabric.elements.user-picker.email.type.label': 'E-Mails',
   'fabric.elements.user-picker.error.message': 'Etwas ist schiefgelaufen',
   'fabric.elements.user-picker.external.sourced.error': 'Es ist derzeit keine Verbindung möglich.',
   'fabric.elements.user-picker.external.sourced.from': 'Gefunden in:',
+  'fabric.elements.user-picker.external.user.type.label': 'Externe Benutzer',
   'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',
   'fabric.elements.user-picker.group.byline': 'Vom Administrator verwaltete Gruppe',
+  'fabric.elements.user-picker.group.type.label': 'Gruppen',
   'fabric.elements.user-picker.guest.lozenge.text': 'GAST',
   'fabric.elements.user-picker.guest.lozenge.tooltip.group':
     'Gästegruppen können ausschließlich auf ausgewählte Bereiche zugreifen und verfügen über eingeschränkten Zugriff auf Benutzerinformationen.',
@@ -24,6 +27,7 @@ export default {
   'fabric.elements.user-picker.member.lozenge.text': 'Mitglied',
   'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': 'Entfernen',
+  'fabric.elements.user-picker.other.type.label': 'Sonstiges',
   'fabric.elements.user-picker.placeholder': 'Personen oder Teams eingeben …',
   'fabric.elements.user-picker.placeholder.add-more': 'weitere Personen hinzufügen …',
   'fabric.elements.user-picker.single.clear': 'Löschen',
@@ -37,4 +41,6 @@ export default {
     '{count, plural, one {Team • {count} Mitglied} other {Team • {count} Mitglieder}}',
   'fabric.elements.user-picker.team.member.count.including.you':
     '{count, plural, one {Team • {count} Mitglied, einschließlich Ihnen} other {Team • {count} Mitglieder, einschließlich Ihnen}}',
+  'fabric.elements.user-picker.team.type.label': 'Teams',
+  'fabric.elements.user-picker.user.type.label': 'Personen',
 };

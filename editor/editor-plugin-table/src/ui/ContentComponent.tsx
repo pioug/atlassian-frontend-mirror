@@ -13,7 +13,7 @@ import {
 	type GetEditorContainerWidth,
 	type GetEditorFeatureFlags,
 } from '@atlaskit/editor-common/types';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 

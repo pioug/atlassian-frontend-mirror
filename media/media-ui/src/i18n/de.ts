@@ -14,6 +14,7 @@ export default {
   'fabric.media.accounts': 'Konten',
   'fabric.media.actions': 'Aktionen',
   'fabric.media.add_account': 'Account hinzufügen',
+  'fabric.media.add_captions': 'Untertitel hinzufügen',
   'fabric.media.alt_text_helper_message':
     'Wie würden Sie das ausgewählte Bild einer Person mit Sehschwäche beschreiben?',
   'fabric.media.alt_text_label': 'Alternativtext',
@@ -59,6 +60,7 @@ export default {
   'fabric.media.couldnt_load_link': 'Dieser Link konnte aus unbekannten Gründen nicht geladen werden.',
   'fabric.media.creating_preview': 'Vorschau wird erstellt …',
   'fabric.media.default_avatars': 'Standard-Profilbilder',
+  'fabric.media.delete': 'Löschen',
   'fabric.media.disable_fullscreen': 'Vollbildmodus deaktivieren',
   'fabric.media.display_thumbnail': 'Miniaturansicht anzeigen',
   'fabric.media.document': 'Dokument',
@@ -74,6 +76,7 @@ export default {
   'fabric.media.email': 'E-Mail',
   'fabric.media.enable_fullscreen': 'Vollbildmodus aktivieren',
   'fabric.media.enter_password': 'Passwort eingeben',
+  'fabric.media.error': 'Fehler',
   'fabric.media.error_429': 'Fehler 429',
   'fabric.media.error_generating_preview': 'Fehler beim Erzeugen der Vorschau',
   'fabric.media.error_hint_critical': 'Sollte das Problem bestehen bleiben, wenden Sie sich an den Support.',
@@ -81,6 +84,7 @@ export default {
   'fabric.media.error_loading_file': 'Fehler beim Laden der Datei',
   'fabric.media.failed_to_load': 'Fehler beim Laden',
   'fabric.media.failed_to_upload': 'Upload fehlgeschlagen',
+  'fabric.media.file.display_options': 'Anzeigeoptionen',
   'fabric.media.file_is_selected': 'Datei {name} ist ausgewählt',
   'fabric.media.forbidden_description':
     'Sie haben keinen Zugriff auf diese Vorschau. Wenden Sie sich an Ihren Administrator, falls Sie noch Zugriff benötigen.',
@@ -99,6 +103,7 @@ export default {
   'fabric.media.load_more_gifs': 'Mehr GIFs laden',
   'fabric.media.loading': 'Lädt ...',
   'fabric.media.loading_file': 'Datei wird geladen …',
+  'fabric.media.manage_captions': 'Untertitel verwalten',
   'fabric.media.might_be_a_hiccup': 'Wahrscheinlich ist es nur ein vorübergehendes Problem.',
   'fabric.media.no_gifs_found': 'Hallo! Haben Sie nach mir gesucht?',
   'fabric.media.no_gifs_found_suggestion': 'Es wurden keine Ergebnisse für „{query}” gefunden.',
@@ -141,6 +146,7 @@ export default {
   'fabric.media.srclink': 'Anzeigen in',
   'fabric.media.srclinkunknown': 'Original anzeigen',
   'fabric.media.submit': 'Senden',
+  'fabric.media.success': 'Erfolgreich',
   'fabric.media.text': 'Text',
   'fabric.media.try_again': 'Erneut versuchen',
   'fabric.media.try_another_account': 'Versuchen Sie es mit einem anderen Konto erneut.',
@@ -154,6 +160,19 @@ export default {
   'fabric.media.upload_file_from': 'Datei von {name} hochladen',
   'fabric.media.upload_photo': 'Foto hochladen',
   'fabric.media.video': 'Video',
+  'fabric.media.video_captions_delete_captions_confirmation_description':
+    'Bitte bestätigen Sie, dass dieser Untertitel gelöscht werden soll.',
+  'fabric.media.video_captions_delete_captions_confirmation_header': 'Untertitel löschen',
+  'fabric.media.video_captions_delete_error_description': 'Der Untertitel konnte nicht gelöscht werden.',
+  'fabric.media.video_captions_delete_success_description':
+    'Der Untertitel wurde erfolgreich aus diesem Video entfernt.',
+  'fabric.media.video_captions_enable': 'Untertitel',
+  'fabric.media.video_captions_select_captions': 'Untertitel auswählen',
+  'fabric.media.video_captions_upload_captions_form_header': 'Untertitel hochladen',
+  'fabric.media.video_captions_upload_captions_form_language_picker': 'Dateisprache auswählen',
+  'fabric.media.video_captions_upload_error_description': 'Der Untertitel konnte nicht hochgeladen werden.',
+  'fabric.media.video_captions_upload_success_description':
+    'Der Untertitel wurde für dieses Video erfolgreich hochgeladen.',
   'fabric.media.video_seeker_assistive_text_time_value':
     '{currentTimeHours} {currentTimeMinutes} {currentTimeSeconds} von {videoTotalHours} {videoTotalMinutes} {videoTotalSeconds}',
   'fabric.media.video_seeker_label_assistive_text': 'Schieberegler zum Vor-/Zurückspulen',
@@ -165,4 +184,11 @@ export default {
   'fabric.media.zip_entry_load_failed': 'Eine Vorschau dieser ZIP-Datei konnte nicht geladen werden',
   'fabric.media.zoom_in': 'Vergrößern',
   'fabric.media.zoom_out': 'Verkleinern',
+  'media.media-avatar-picker.image-cropper.arrow-keys.action':
+    '{key, select, left {Sie haben das Bild von links nach rechts verschoben. Nutzen Sie die Pfeiltasten, um das Bild zu bewegen und zu schneiden.} right {Sie haben das Bild von rechts nach links verschoben. Nutzen Sie die Pfeiltasten, um das Bild zu bewegen und zu schneiden.} top {Sie haben das Bild von oben nach unten verschoben. Nutzen Sie die Pfeiltasten, um das Bild zu bewegen und zu schneiden.} other {Sie haben das Bild von unten nach oben verschoben. Nutzen Sie die Pfeiltasten, um das Bild zu bewegen und zu schneiden.}}',
+  'media.media-avatar-picker.image-cropper.arrow-keys.label':
+    'Verschiebbares Bild. Stellen Sie sicher, dass sich Ihr Screenreader nicht im Durchsuchen-Modus befindet. Nutzen Sie die Pfeiltasten, um das Bild zu bewegen und zu schneiden.',
+  'media.media-avatar-picker.image-cropper.zoom_in': 'Vergrößern',
+  'media.media-avatar-picker.image-cropper.zoom_out': 'Verkleinern',
+  'media.media-avatar-picker.image-cropper.zoom_slider': 'Zoom festlegen',
 };

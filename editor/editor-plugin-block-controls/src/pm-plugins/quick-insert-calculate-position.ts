@@ -11,7 +11,7 @@ import {
 } from '../ui/consts';
 import { refreshAnchorName } from '../ui/utils/anchor-name';
 
-import { AnchorRectCache } from './utils/anchor-utils';
+import { type AnchorRectCache } from './utils/anchor-utils';
 import {
 	getControlBottomCSSValue,
 	getControlHeightCSSValue,

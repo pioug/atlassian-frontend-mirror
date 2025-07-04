@@ -1,6 +1,6 @@
 import { type Mark } from '@atlaskit/editor-prosemirror/model';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
-import { ReplaceAroundStep, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+import { type ReplaceAroundStep, type ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 
 import { ActionType, type DetailedReplaceStep, type AttrChangeAction } from '../types';
 

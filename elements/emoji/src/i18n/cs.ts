@@ -51,6 +51,7 @@ export default {
   'fabric.emoji.search.label': 'Název smajlíku',
   'fabric.emoji.search.placeholder': 'Vyhledat',
   'fabric.emoji.search.status': 'Zobrazují se všechny smajlíky.',
+  'fabric.emoji.search.status.count': 'Nalezené smajlíky: {count}',
   'fabric.emoji.select.skin.list.ariaLabel': 'Výběr odstínu pleti',
   'fabric.emoji.select.skin.tone.ariaLabel': 'Vyberte odstín pleti, vybráno: {selectedTone}',
 };

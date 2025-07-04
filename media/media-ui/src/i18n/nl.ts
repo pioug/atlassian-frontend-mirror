@@ -14,6 +14,7 @@ export default {
   'fabric.media.accounts': 'Accounts',
   'fabric.media.actions': 'Acties',
   'fabric.media.add_account': 'Account toevoegen',
+  'fabric.media.add_captions': 'Bijschrift toevoegen',
   'fabric.media.alt_text_helper_message':
     'Hoe zou je de geselecteerde afbeelding beschrijven aan een slechtziend persoon?',
   'fabric.media.alt_text_label': 'Alt-tekst',
@@ -59,6 +60,7 @@ export default {
   'fabric.media.couldnt_load_link': 'Om een onbekende reden konden we deze link niet laden.',
   'fabric.media.creating_preview': 'Voorbeeld aanmaken...',
   'fabric.media.default_avatars': "Standaardavatar's",
+  'fabric.media.delete': 'Verwijderen',
   'fabric.media.disable_fullscreen': 'volledig scherm uitschakelen',
   'fabric.media.display_thumbnail': 'Thumbnail weergeven',
   'fabric.media.document': 'document',
@@ -73,6 +75,7 @@ export default {
   'fabric.media.email': 'E-mail',
   'fabric.media.enable_fullscreen': 'volledig scherm inschakelen',
   'fabric.media.enter_password': 'Voer wachtwoord in',
+  'fabric.media.error': 'Fout',
   'fabric.media.error_429': 'Fout 429',
   'fabric.media.error_generating_preview': 'Fout bij aanmaken van voorvertoning',
   'fabric.media.error_hint_critical': 'Neem contact op met support als dit probleem zich blijft voordoen.',
@@ -80,6 +83,7 @@ export default {
   'fabric.media.error_loading_file': 'Fout bij laden van bestand',
   'fabric.media.failed_to_load': 'Fout bij het laden',
   'fabric.media.failed_to_upload': 'Kan niet worden geüpload',
+  'fabric.media.file.display_options': 'Weergave-opties',
   'fabric.media.file_is_selected': 'Bestand {name} is geselecteerd',
   'fabric.media.forbidden_description':
     'Je hebt geen toegang tot deze voorvertoning. Neem contact op met de sitebeheerder als je toegang nodig hebt.',
@@ -99,6 +103,7 @@ export default {
   'fabric.media.load_more_gifs': "Meer GIF's laden",
   'fabric.media.loading': 'Laden...',
   'fabric.media.loading_file': 'Bestand laden ...',
+  'fabric.media.manage_captions': 'Bijschrift beheren',
   'fabric.media.might_be_a_hiccup': 'Het kan even een tijdelijke kink in de kabel zijn.',
   'fabric.media.no_gifs_found': 'Hallo? Was je naar mij op zoek?',
   'fabric.media.no_gifs_found_suggestion': 'We konden niks vinden voor "{query}"',
@@ -140,6 +145,7 @@ export default {
   'fabric.media.srclink': 'Bekijken in',
   'fabric.media.srclinkunknown': 'Bekijk Origineel',
   'fabric.media.submit': 'Verzenden',
+  'fabric.media.success': 'Gelukt',
   'fabric.media.text': 'Tekst',
   'fabric.media.try_again': 'Opnieuw proberen',
   'fabric.media.try_another_account': 'Gebruik een ander account',
@@ -153,6 +159,17 @@ export default {
   'fabric.media.upload_file_from': 'Een bestand vanaf {name} uploaden',
   'fabric.media.upload_photo': 'Een foto uploaden',
   'fabric.media.video': 'video',
+  'fabric.media.video_captions_delete_captions_confirmation_description':
+    'Bevestig dat je dit bijschrift wilt verwijderen.',
+  'fabric.media.video_captions_delete_captions_confirmation_header': 'Bijschrift verwijderen',
+  'fabric.media.video_captions_delete_error_description': 'Het bijschrift kon niet verwijderd worden.',
+  'fabric.media.video_captions_delete_success_description': 'Het bijschrift is verwijderd uit deze video.',
+  'fabric.media.video_captions_enable': 'Afgesloten bijschriften',
+  'fabric.media.video_captions_select_captions': 'Bijschriften selecteren',
+  'fabric.media.video_captions_upload_captions_form_header': 'Bijschriften uploaden',
+  'fabric.media.video_captions_upload_captions_form_language_picker': 'Selecteer de bestandstaal',
+  'fabric.media.video_captions_upload_error_description': 'Het bijschrift kon niet geüpload worden.',
+  'fabric.media.video_captions_upload_success_description': 'Het bijschrift is geüpload voor deze video.',
   'fabric.media.video_seeker_assistive_text_time_value':
     '{currentTimeHours} {currentTimeMinutes} {currentTimeSeconds} van {videoTotalHours} {videoTotalMinutes} {videoTotalSeconds}',
   'fabric.media.video_seeker_label_assistive_text': 'Voortgangsbalk',
@@ -164,4 +181,11 @@ export default {
   'fabric.media.zip_entry_load_failed': 'We konden dat zip-bestandsitem niet laden om voor te vertonen',
   'fabric.media.zoom_in': 'inzoomen',
   'fabric.media.zoom_out': 'uitzoomen',
+  'media.media-avatar-picker.image-cropper.arrow-keys.action':
+    '{key, select, left {Je hebt de afbeelding van links naar rechts verplaatst, gebruik de pijltjestoetsen om de afbeelding te verplaatsen en bij te snijden} right {Je hebt de afbeelding van rechts naar links verplaatst, gebruik de pijltjestoetsen om de afbeelding te verplaatsen en bij te snijden} top {Je hebt de afbeelding van boven naar beneden verplaatst, gebruik de pijltjestoetsen om de afbeelding te verplaatsen en bij te snijden} other {Je hebt de afbeelding van beneden naar boven verplaatst, gebruik de pijltjestoetsen om de afbeelding te verplaatsen en bij te snijden}}',
+  'media.media-avatar-picker.image-cropper.arrow-keys.label':
+    'Sleepbare afbeelding, zorg ervoor dat je schermlezer niet in de bladermodus staat. Gebruik de pijltjestoetsen om de afbeelding te verplaatsen en bij te snijden',
+  'media.media-avatar-picker.image-cropper.zoom_in': 'Inzoomen',
+  'media.media-avatar-picker.image-cropper.zoom_out': 'Uitzoomen',
+  'media.media-avatar-picker.image-cropper.zoom_slider': 'zoom instellen',
 };

@@ -10,12 +10,15 @@ export default {
   'fabric.elements.user-picker.email.add': 'Tilføj bruger',
   'fabric.elements.user-picker.email.add.potential': 'Indtast en e-mailadresse',
   'fabric.elements.user-picker.email.select.to.add': 'Vælg en e-mailadresse',
+  'fabric.elements.user-picker.email.type.label': 'E-mails',
   'fabric.elements.user-picker.error.message': 'Noget gik galt',
   'fabric.elements.user-picker.external.sourced.error': 'Vi kan ikke oprette forbindelse lige nu.',
   'fabric.elements.user-picker.external.sourced.from': 'Fundet i:',
+  'fabric.elements.user-picker.external.user.type.label': 'Eksterne brugere',
   'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',
   'fabric.elements.user-picker.group.byline': 'Administreret gruppe',
+  'fabric.elements.user-picker.group.type.label': 'Grupper',
   'fabric.elements.user-picker.guest.lozenge.text': 'GÆST',
   'fabric.elements.user-picker.guest.lozenge.tooltip.group':
     'Gæstegrupper har kun adgang til bestemte områder og har begrænset adgang til brugeroplysninger.',
@@ -24,6 +27,7 @@ export default {
   'fabric.elements.user-picker.member.lozenge.text': 'Medlem',
   'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': 'Fjern',
+  'fabric.elements.user-picker.other.type.label': 'Andet',
   'fabric.elements.user-picker.placeholder': 'Indtast personer eller hold ...',
   'fabric.elements.user-picker.placeholder.add-more': 'tilføj flere personer ...',
   'fabric.elements.user-picker.single.clear': 'Ryd',
@@ -37,4 +41,6 @@ export default {
     '{count, plural, one {Team • {count} medlem} other {Team • {count} medlemmer}}',
   'fabric.elements.user-picker.team.member.count.including.you':
     '{count, plural, one {Team • {count} medlem, inklusive dig} other {Team • {count} medlemmer, inklusive dig}}',
+  'fabric.elements.user-picker.team.type.label': 'Teams',
+  'fabric.elements.user-picker.user.type.label': 'Personer',
 };

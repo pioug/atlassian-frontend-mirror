@@ -11,7 +11,7 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { DropdownToolbarButton } from './dropdown-toolbar-button';
 import { useMenuState } from './hooks/menu-state';
 import { MoreButton } from './more-button';
-import { type MenuIconItem, ToolbarType } from './types';
+import { type MenuIconItem, type ToolbarType } from './types';
 
 type DropdownMenuProps = {
 	editorView: EditorView;

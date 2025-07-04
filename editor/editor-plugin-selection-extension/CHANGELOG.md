@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 2.4.7
+
+### Patch Changes
+
+- [#177823](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/177823)
+  [`8bd9bca774e4f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8bd9bca774e4f) -
+  Extend selection extension API to support dynamic loading of extension configuration
+- Updated dependencies
+
 ## 2.4.6
 
 ### Patch Changes

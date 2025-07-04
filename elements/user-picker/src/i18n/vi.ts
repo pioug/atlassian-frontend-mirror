@@ -7,15 +7,19 @@
  */
 //Vietnamese (Vietnam)
 export default {
+  'fabric.elements.user-picker.custom.type.label': 'Tùy chỉnh',
   'fabric.elements.user-picker.email.add': 'Thêm người dùng',
   'fabric.elements.user-picker.email.add.potential': 'Nhập địa chỉ email',
   'fabric.elements.user-picker.email.select.to.add': 'Chọn địa chỉ email',
+  'fabric.elements.user-picker.email.type.label': 'Email',
   'fabric.elements.user-picker.error.message': 'Đã xảy ra lỗi',
   'fabric.elements.user-picker.external.sourced.error': 'Chúng tôi hiện không thể kết nối bạn.',
   'fabric.elements.user-picker.external.sourced.from': 'Tìm thấy trong:',
+  'fabric.elements.user-picker.external.user.type.label': 'Người dùng bên ngoài',
   'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',
   'fabric.elements.user-picker.group.byline': 'Nhóm có quản trị viên',
+  'fabric.elements.user-picker.group.type.label': 'Nhóm',
   'fabric.elements.user-picker.guest.lozenge.text': 'KHÁCH',
   'fabric.elements.user-picker.guest.lozenge.tooltip.group':
     'Các nhóm khách chỉ có thể vào một số không gian nhất định và có quyền truy cập hạn chế vào thông tin người dùng.',
@@ -24,6 +28,7 @@ export default {
   'fabric.elements.user-picker.member.lozenge.text': 'Thành viên',
   'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': 'Xóa',
+  'fabric.elements.user-picker.other.type.label': 'Khác',
   'fabric.elements.user-picker.placeholder': 'Nhập người hoặc nhóm...',
   'fabric.elements.user-picker.placeholder.add-more': 'thêm người khác...',
   'fabric.elements.user-picker.single.clear': 'Xóa',
@@ -36,4 +41,6 @@ export default {
   'fabric.elements.user-picker.team.member.count': '{count, plural, other {Nhóm • {count} thành viên}}',
   'fabric.elements.user-picker.team.member.count.including.you':
     '{count, plural, other {Nhóm • {count} thành viên, bao gồm cả bạn}}',
+  'fabric.elements.user-picker.team.type.label': 'Đội ngũ',
+  'fabric.elements.user-picker.user.type.label': 'Mọi người',
 };

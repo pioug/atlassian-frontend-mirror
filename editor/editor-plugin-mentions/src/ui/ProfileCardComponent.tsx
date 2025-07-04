@@ -9,7 +9,7 @@ import { bind } from 'bind-event-listener';
 import type { MentionAttributes } from '@atlaskit/adf-schema';
 import { cssMap, jsx } from '@atlaskit/css';
 import type { ProfilecardProvider } from '@atlaskit/editor-common/provider-factory';
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type {
 	ProfileCardClientData,
 	TeamCentralReportingLinesData,

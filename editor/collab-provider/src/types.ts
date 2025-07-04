@@ -59,7 +59,6 @@ export interface Config {
 		productInfo?: ProductInformation,
 		isPresenceOnly?: boolean,
 		analyticsHelper?: AnalyticsHelper,
-		customExtraHeaders?: Record<string, string>,
 	) => SocketIOSocket;
 	batchProps?: BatchProps;
 	fetchAnonymousAsset?: FetchAnonymousAsset;
@@ -131,7 +130,6 @@ export interface Config {
 	 * This activity can be updated later on by the participants-service.
 	 */
 	presenceActivity?: PresenceActivity;
-	customExtraHeaders?: Record<string, string>;
 }
 
 export interface InitAndAuthData {

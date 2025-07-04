@@ -14,6 +14,7 @@ export default {
   'fabric.elements.share.failure.message': 'ไม่สามารถแชร์ได้',
   'fabric.elements.share.form.comment.label': 'ข้อความ (ไม่จำเป็นต้องระบุ)',
   'fabric.elements.share.form.comment.placeholder': 'มีอะไรที่พวกเขาควรรู้ไหม',
+  'fabric.elements.share.form.extended.dialog.comment.label': 'ข้อความ',
   'fabric.elements.share.form.info.message.no.invite.confluence': 'ผู้รับจะเห็นชื่อของหน้าข้อมูลและข้อความของคุณ',
   'fabric.elements.share.form.info.message.no.invite.jira': 'ผู้รับจะเห็นชื่อของปัญหาและข้อความของคุณ',
   'fabric.elements.share.form.info.message.no.invite.jira.issue-term-refresh':

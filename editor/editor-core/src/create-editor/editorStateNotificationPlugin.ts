@@ -2,7 +2,7 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import {
 	PluginKey,
 	type ReadonlyTransaction,
-	Transaction,
+	type Transaction,
 	type EditorState,
 } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';

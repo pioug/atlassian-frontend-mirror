@@ -17,7 +17,7 @@ import type {
 	StepMetadata,
 } from '@atlaskit/editor-common/collab';
 import { type JSONDocNode } from '@atlaskit/editor-json-transformer';
-import { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
+import { type Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
 import { CustomError } from '../errors/custom-errors';
 
 export const createLogger =

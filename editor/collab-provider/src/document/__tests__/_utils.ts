@@ -1,6 +1,6 @@
 import { type DocBuilder } from '@atlaskit/editor-common/types';
-import { EditorState, Transaction, TextSelection } from '@atlaskit/editor-prosemirror/state';
-import { Step } from '@atlaskit/editor-prosemirror/transform';
+import { EditorState, type Transaction, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { type Step } from '@atlaskit/editor-prosemirror/transform';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { defaultSchema as schema } from '@atlaskit/editor-test-helpers/schema';
 import {

@@ -9,7 +9,7 @@ import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared
 import { type Transaction } from '@atlaskit/editor-prosemirror/state';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import { cardPlugin } from '../cardPlugin';
+import { type cardPlugin } from '../cardPlugin';
 import { registerRemoveOverlay } from '../pm-plugins/actions';
 import { pluginKey } from '../pm-plugins/plugin-key';
 import { AwarenessWrapper } from '../ui/AwarenessWrapper';

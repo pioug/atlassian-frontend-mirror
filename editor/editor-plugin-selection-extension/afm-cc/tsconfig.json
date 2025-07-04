@@ -18,7 +18,13 @@
     ],
     "references": [
         {
+            "path": "../../adf-utils/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../editor-common/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../editor-json-transformer/afm-cc/tsconfig.json"
         },
         {
             "path": "../../editor-plugin-analytics/afm-cc/tsconfig.json"
@@ -28,6 +34,9 @@
         },
         {
             "path": "../../editor-plugin-selection-toolbar/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../editor-tables/afm-cc/tsconfig.json"
         },
         {
             "path": "../../../design-system/icon/afm-cc/tsconfig.json"

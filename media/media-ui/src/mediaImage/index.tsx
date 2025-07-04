@@ -447,7 +447,7 @@ export const MediaImage = forwardRef(
 					imageRef={mergedRef}
 					src={dataURI}
 					crossOrigin={crossOrigin}
-					{...(fg('platform_exclude_media_offender_from_vc') && VcMediaWrapperProps)}
+					{...VcMediaWrapperProps}
 				/>
 			</>
 		);

@@ -51,6 +51,7 @@ export default {
   'fabric.emoji.search.label': 'Namn på emoji',
   'fabric.emoji.search.placeholder': 'Sök',
   'fabric.emoji.search.status': 'Visar alla emojis',
+  'fabric.emoji.search.status.count': 'Hittade {count} emojis',
   'fabric.emoji.select.skin.list.ariaLabel': 'Hudtonsväljare',
   'fabric.emoji.select.skin.tone.ariaLabel': 'Välj din hudton, {selectedTone} har valts',
 };

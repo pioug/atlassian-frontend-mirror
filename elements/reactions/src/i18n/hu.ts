@@ -8,13 +8,17 @@
 //Hungarian
 export default {
   'fabric.reactions.add': 'Reakció hozzáadása',
+  'fabric.reactions.add.new': 'Új hozzáadása',
   'fabric.reactions.error.unexpected': 'A reakciók átmenetileg nem érhetők el.',
   'fabric.reactions.loading': 'Betöltés...',
   'fabric.reactions.more.emojis': 'Még több emoji',
   'fabric.reactions.other.reacted.users': '{count, plural, one {és egy másik} other {és {count} másik}}',
   'fabric.reactions.reactwithemoji': 'Reagálás {emoji} emojival',
+  'fabric.reactions.reactwithemojiandcount':
+    '{count, plural, one {{count,number} {emoji} emoji. Reagálj {emoji} emojival!} other {{count,number} {emoji} emoji. Reagálj {emoji} emojival!}}',
   'fabric.reactions.summary': 'Minden felhasználói reakció megtekintése',
   'reaction-picker-trigger.add.reaction.message': 'Reakció hozzáadása',
+  'reactions-reaction.picker-label': 'Reakciók hozzáadása',
   'reactions.dialog.close': 'Bezárás',
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': 'Balra navigálás',

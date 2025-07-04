@@ -7,21 +7,26 @@
  */
 //Chinese (Traditional)
 export default {
+  'fabric.elements.user-picker.custom.type.label': '客戶',
   'fabric.elements.user-picker.email.add': '新增使用者',
   'fabric.elements.user-picker.email.add.potential': '輸入電子郵件地址',
   'fabric.elements.user-picker.email.select.to.add': '選取電子郵件地址',
+  'fabric.elements.user-picker.email.type.label': '電子郵件',
   'fabric.elements.user-picker.error.message': '發生錯誤',
   'fabric.elements.user-picker.external.sourced.error': '我們目前無法與您建立連線。',
   'fabric.elements.user-picker.external.sourced.from': '尋找位置：',
+  'fabric.elements.user-picker.external.user.type.label': '外部使用者',
   'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',
   'fabric.elements.user-picker.group.byline': '由系統管理員所管理的群組',
+  'fabric.elements.user-picker.group.type.label': '群組',
   'fabric.elements.user-picker.guest.lozenge.text': '訪客',
   'fabric.elements.user-picker.guest.lozenge.tooltip.group': '訪客群組只能存取特定空間，而且只能存取有限的使用者資訊。',
   'fabric.elements.user-picker.guest.lozenge.tooltip.user': '訪客只能存取特定空間，而且只能存取有限的使用者資訊。',
   'fabric.elements.user-picker.member.lozenge.text': '成員',
   'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': '移除',
+  'fabric.elements.user-picker.other.type.label': '其他',
   'fabric.elements.user-picker.placeholder': '輸入人員或團隊...',
   'fabric.elements.user-picker.placeholder.add-more': '新增更多人員...',
   'fabric.elements.user-picker.single.clear': '清除',
@@ -34,4 +39,6 @@ export default {
   'fabric.elements.user-picker.team.member.count': '{count, plural, other {團隊 • {count} 名成員}}',
   'fabric.elements.user-picker.team.member.count.including.you':
     '{count, plural, other {團隊 • {count} 名成員，包含您}}',
+  'fabric.elements.user-picker.team.type.label': '團隊',
+  'fabric.elements.user-picker.user.type.label': '人員',
 };

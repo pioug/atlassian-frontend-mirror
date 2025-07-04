@@ -1,4 +1,4 @@
-import { Fragment } from '@atlaskit/editor-prosemirror/model';
+import { type Fragment } from '@atlaskit/editor-prosemirror/model';
 
 /**
  * Check if the fragment has only one node of the specified type

@@ -51,7 +51,7 @@ import Tooltip from '@atlaskit/tooltip';
 import type { BlockControlsPlugin, HandleOptions } from '../blockControlsPluginType';
 import { key } from '../pm-plugins/main';
 import { getMultiSelectAnalyticsAttributes } from '../pm-plugins/utils/analytics';
-import { AnchorRectCache } from '../pm-plugins/utils/anchor-utils';
+import { type AnchorRectCache } from '../pm-plugins/utils/anchor-utils';
 import {
 	getControlBottomCSSValue,
 	getControlHeightCSSValue,

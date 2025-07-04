@@ -24,7 +24,7 @@ import { DATASOURCE_DEFAULT_LAYOUT } from '@atlaskit/linking-common';
 import { B300, N20A, N300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { cardPlugin } from '../../cardPlugin';
+import { type cardPlugin } from '../../cardPlugin';
 import { setCardLayout } from '../../pm-plugins/actions';
 import { isDatasourceNode } from '../../pm-plugins/utils';
 

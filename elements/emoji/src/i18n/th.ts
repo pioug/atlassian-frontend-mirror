@@ -50,6 +50,7 @@ export default {
   'fabric.emoji.search.label': 'ชื่อเอโมจิ',
   'fabric.emoji.search.placeholder': 'ค้นหา',
   'fabric.emoji.search.status': 'กำลังดูเอโมจิทั้งหมด',
+  'fabric.emoji.search.status.count': 'พบเอโมจิ {count} รายการ',
   'fabric.emoji.select.skin.list.ariaLabel': 'ตัวเลือกโทนสีผิว',
   'fabric.emoji.select.skin.tone.ariaLabel': 'เลือกโทนสีผิวของคุณ เลือก {selectedTone} แล้ว',
 };

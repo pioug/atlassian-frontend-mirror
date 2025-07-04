@@ -21,7 +21,7 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
-		"team": "Confluence Better Together",
+		"team": "Confluence Integrations",
 		"website": {
 			"name": "Embedded Confluence"
 		}

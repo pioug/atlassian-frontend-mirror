@@ -10,12 +10,15 @@ export default {
   'fabric.elements.user-picker.email.add': 'Kullanıcı ekleyin',
   'fabric.elements.user-picker.email.add.potential': 'Bir e-posta adresi girin',
   'fabric.elements.user-picker.email.select.to.add': 'Bir e-posta adresi seçin',
+  'fabric.elements.user-picker.email.type.label': 'E-postalar',
   'fabric.elements.user-picker.error.message': 'Bir hata oluştu',
   'fabric.elements.user-picker.external.sourced.error': 'Şu anda bağlantınızı kuramıyoruz.',
   'fabric.elements.user-picker.external.sourced.from': 'Bulunduğu yer:',
+  'fabric.elements.user-picker.external.user.type.label': 'Harici Kullanıcılar',
   'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',
   'fabric.elements.user-picker.group.byline': 'Yönetici tarafından yönetilen grup',
+  'fabric.elements.user-picker.group.type.label': 'Gruplar',
   'fabric.elements.user-picker.guest.lozenge.text': 'KONUK',
   'fabric.elements.user-picker.guest.lozenge.tooltip.group':
     'Konuk gruplar yalnızca bazı alanlara erişebilir ve kullanıcı bilgilerine erişimleri de kısıtlıdır.',
@@ -24,6 +27,7 @@ export default {
   'fabric.elements.user-picker.member.lozenge.text': 'ÜYE',
   'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': 'Kaldır',
+  'fabric.elements.user-picker.other.type.label': 'Diğer',
   'fabric.elements.user-picker.placeholder': 'Kişi veya takım girin...',
   'fabric.elements.user-picker.placeholder.add-more': 'daha fazla kişi ekleyin...',
   'fabric.elements.user-picker.single.clear': 'Temizle',
@@ -37,4 +41,6 @@ export default {
     '{count, plural, one {Takım • {count} üye} other {Takım • {count} üye}}',
   'fabric.elements.user-picker.team.member.count.including.you':
     '{count, plural, one {Takım • Siz de dahil olmak üzere {count} üye} other {Takım • Siz de dahil olmak üzere {count} üye}}',
+  'fabric.elements.user-picker.team.type.label': 'Takımlar',
+  'fabric.elements.user-picker.user.type.label': 'Kişiler',
 };

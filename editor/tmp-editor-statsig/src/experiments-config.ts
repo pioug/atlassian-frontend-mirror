@@ -376,20 +376,6 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	platform_editor_hide_floating_toolbar_in_ssr: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_hide_floating_toolbar_in_ssr',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	platform_editor_smart_card_open_overlay_perf: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_smart_card_open_overlay_perf',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-05-28
 	platform_editor_toolbar_rerender_optimization_exp: createBooleanExperiment({
 		productKeys: {
@@ -410,14 +396,6 @@ export const editorExperimentsConfig = {
 	platform_editor_block_controls_perf_optimization: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_block_controls_perf_optimization',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-06-10
-	platform_editor_defer_shadow_calculations: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_defer_shadow_calculations',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

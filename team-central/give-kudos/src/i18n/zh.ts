@@ -16,6 +16,7 @@ export default {
   'team-central.give-kudos.button': '给予称赞',
   'team-central.give-kudos.close-button.label': '关闭抽屉菜单',
   'team-central.give-kudos.confirm-close.title': '确认关闭',
+  'team-central.give-kudos.created.action.flag': '查看称赞',
   'team-central.give-kudos.created.description.flag': '您的称赞已发送。<a>查看称赞</a>',
   'team-central.give-kudos.created.title.flag': '已创建称赞',
   'team-central.give-kudos.creation.failed.description.flag': '无法创建您的称赞。',

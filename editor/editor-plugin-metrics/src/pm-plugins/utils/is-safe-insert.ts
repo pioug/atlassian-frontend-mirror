@@ -1,7 +1,7 @@
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 
-import { ActionType } from './check-tr-actions/types';
+import { type ActionType } from './check-tr-actions/types';
 
 export const isSafeInsert = (
 	tr: ReadonlyTransaction,

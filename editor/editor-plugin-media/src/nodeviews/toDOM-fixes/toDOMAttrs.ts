@@ -81,5 +81,6 @@ export const getAttrsFromNodeMediaSingle = (withExtendedWidthTypes: boolean, nod
 	return {
 		...attrs,
 		'data-width-type': widthType || 'percentage',
+		'data-media-vc-wrapper': 'true',
 	};
 };

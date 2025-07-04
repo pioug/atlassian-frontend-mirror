@@ -16,6 +16,7 @@ export default {
   'team-central.give-kudos.button': 'Tebrik et',
   'team-central.give-kudos.close-button.label': 'Çekmeceyi kapat',
   'team-central.give-kudos.confirm-close.title': 'Kapatmayı Onaylayın',
+  'team-central.give-kudos.created.action.flag': 'Tebriği görüntüleyin',
   'team-central.give-kudos.created.description.flag': 'Tebriğiniz gönderildi. <a>Tebriği görüntüleyin</a>',
   'team-central.give-kudos.created.title.flag': 'Tebrik mesajı oluşturuldu',
   'team-central.give-kudos.creation.failed.description.flag': 'Tebrik mesajınız oluşturulamadı.',

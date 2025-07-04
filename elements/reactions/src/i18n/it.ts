@@ -8,13 +8,17 @@
 //Italian (Italy)
 export default {
   'fabric.reactions.add': 'Aggiungi una reazione',
+  'fabric.reactions.add.new': 'Aggiungi nuovo',
   'fabric.reactions.error.unexpected': 'Le reazioni non sono temporaneamente disponibili',
   'fabric.reactions.loading': 'Caricamento in corso...',
   'fabric.reactions.more.emojis': 'Altre emoji',
   'fabric.reactions.other.reacted.users': '{count, plural, one {e un altro} other {e altri {count}}}',
   'fabric.reactions.reactwithemoji': "Reagisci con l'emoji {emoji}",
+  'fabric.reactions.reactwithemojiandcount':
+    "{count, plural, one {{count,number} emoji {emoji}. Reagisci con l'emoji {emoji}} other {{count,number} emoji {emoji}. Reagisci con l'emoji {emoji}}}",
   'fabric.reactions.summary': 'Visualizza tutte le reazioni degli utenti',
   'reaction-picker-trigger.add.reaction.message': 'Aggiungi una reazione',
+  'reactions-reaction.picker-label': 'Aggiungi reazioni',
   'reactions.dialog.close': 'Chiudi',
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': 'Navigazione a sinistra',

@@ -1,4 +1,9 @@
-import { ACTION, ACTION_SUBJECT, INPUT_METHOD, ACTION_SUBJECT_ID } from './enums';
+import {
+	type ACTION,
+	type ACTION_SUBJECT,
+	type INPUT_METHOD,
+	type ACTION_SUBJECT_ID,
+} from './enums';
 import { type TrackAEP } from './utils';
 
 type AlignmentUpdatedAEP = TrackAEP<

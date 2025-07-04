@@ -2,12 +2,12 @@ import { bind } from 'bind-event-listener';
 
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { UserPreferencesProvider, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { Fragment } from '@atlaskit/editor-prosemirror/model';
+import { type Fragment } from '@atlaskit/editor-prosemirror/model';
 import {
 	PluginKey,
 	type ReadonlyTransaction,
-	Selection,
-	EditorState,
+	type Selection,
+	type EditorState,
 } from '@atlaskit/editor-prosemirror/state';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';

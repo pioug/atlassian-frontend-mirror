@@ -16,6 +16,7 @@ export default {
   'team-central.give-kudos.button': 'Giv ros',
   'team-central.give-kudos.close-button.label': 'Luk skuffe',
   'team-central.give-kudos.confirm-close.title': 'Bekræft Luk',
+  'team-central.give-kudos.created.action.flag': 'Se ros',
   'team-central.give-kudos.created.description.flag': 'Din ros blev sendt. <a>Se ros</a>',
   'team-central.give-kudos.created.title.flag': 'Ros blev oprettet',
   'team-central.give-kudos.creation.failed.description.flag': 'Vi kunne ikke oprette din ros.',

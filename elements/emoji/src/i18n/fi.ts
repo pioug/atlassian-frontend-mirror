@@ -52,6 +52,7 @@ export default {
   'fabric.emoji.search.label': 'Emojin nimi',
   'fabric.emoji.search.placeholder': 'Hae',
   'fabric.emoji.search.status': 'Näytetään kaikki emojit',
+  'fabric.emoji.search.status.count': '{count} emojia löytyi',
   'fabric.emoji.select.skin.list.ariaLabel': 'Ihon sävyn valitsin',
   'fabric.emoji.select.skin.tone.ariaLabel': 'Valitse ihon sävy, {selectedTone} valittu',
 };

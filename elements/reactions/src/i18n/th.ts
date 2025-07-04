@@ -8,13 +8,17 @@
 //Thai (Thailand)
 export default {
   'fabric.reactions.add': 'เพิ่มการโต้ตอบ',
+  'fabric.reactions.add.new': 'เพิ่มใหม่',
   'fabric.reactions.error.unexpected': 'การแสดงปฏิกิริยาไม่สามารถใช้งานได้ชั่วคราว',
   'fabric.reactions.loading': 'กำลังโหลด...',
   'fabric.reactions.more.emojis': 'เอโมจิเพิ่มเติม',
   'fabric.reactions.other.reacted.users': '{count, plural, other {และคนอื่น ๆ อีก {count} คน}}',
   'fabric.reactions.reactwithemoji': 'แสดงปฏิกิริยาด้วยเอโมจิ {emoji}',
+  'fabric.reactions.reactwithemojiandcount':
+    '{count, plural, other {{count,number} {emoji} เอโมจิ แสดงปฏิกิริยาด้วยเอโมจิ {emoji}}}',
   'fabric.reactions.summary': 'ดูการโต้ตอบของผู้ใช้ทั้งหมด',
   'reaction-picker-trigger.add.reaction.message': 'เพิ่มการโต้ตอบ',
+  'reactions-reaction.picker-label': 'เพิ่มการโต้ตอบ',
   'reactions.dialog.close': 'ปิด',
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': 'นำทางไปทางซ้าย',

@@ -16,6 +16,7 @@ export default {
   'team-central.give-kudos.button': 'Pogratulovat',
   'team-central.give-kudos.close-button.label': 'Zavřít panel',
   'team-central.give-kudos.confirm-close.title': 'Potvrdit zavření',
+  'team-central.give-kudos.created.action.flag': 'Zobrazit gratulaci',
   'team-central.give-kudos.created.description.flag': 'Vaše gratulace byla odeslána. <a>Zobrazit gratulaci</a>',
   'team-central.give-kudos.created.title.flag': 'Gratulace byla vytvořena',
   'team-central.give-kudos.creation.failed.description.flag': 'Vytvoření gratulace se nezdařilo.',

@@ -1,4 +1,4 @@
-import { TRIGGER_METHOD } from '@atlaskit/editor-common/analytics';
+import { type TRIGGER_METHOD } from '@atlaskit/editor-common/analytics';
 import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { CardPlugin } from '@atlaskit/editor-plugin-card';

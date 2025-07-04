@@ -15,6 +15,7 @@ export default {
   'team-central.give-kudos.button': '給予讚美',
   'team-central.give-kudos.close-button.label': '關閉抽屜',
   'team-central.give-kudos.confirm-close.title': '確認關閉',
+  'team-central.give-kudos.created.action.flag': '檢視讚美',
   'team-central.give-kudos.created.description.flag': '您的讚美已傳送。<a>檢視讚美</a>',
   'team-central.give-kudos.created.title.flag': '已建立讚美',
   'team-central.give-kudos.creation.failed.description.flag': '我們無法建立您的讚美。',

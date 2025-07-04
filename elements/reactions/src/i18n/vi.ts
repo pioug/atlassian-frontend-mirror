@@ -8,13 +8,17 @@
 //Vietnamese (Vietnam)
 export default {
   'fabric.reactions.add': 'Thêm tương tác',
+  'fabric.reactions.add.new': 'Thêm mới',
   'fabric.reactions.error.unexpected': 'Tính năng tương tác tạm thời không hỗ trợ',
   'fabric.reactions.loading': 'Đang tải...',
   'fabric.reactions.more.emojis': 'Biểu tượng cảm xúc khác',
   'fabric.reactions.other.reacted.users': '{count, plural, other {và {count} người khác}}',
   'fabric.reactions.reactwithemoji': 'Bày tỏ biểu tượng cảm xúc {emoji}',
+  'fabric.reactions.reactwithemojiandcount':
+    '{count, plural, other {{count,number} {emoji} biểu tượng cảm xúc. Hãy bày tỏ cảm xúc bằng biểu tượng cảm xúc {emoji}}}',
   'fabric.reactions.summary': 'Xem tất cả tương tác của người dùng',
   'reaction-picker-trigger.add.reaction.message': 'Thêm tương tác',
+  'reactions-reaction.picker-label': 'Thêm tương tác',
   'reactions.dialog.close': 'Đóng',
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': 'Sang trái',

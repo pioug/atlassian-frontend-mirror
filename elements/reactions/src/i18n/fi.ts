@@ -8,13 +8,17 @@
 //Finnish
 export default {
   'fabric.reactions.add': 'Lisää reaktio',
+  'fabric.reactions.add.new': 'Lisää uusi',
   'fabric.reactions.error.unexpected': 'Reaktiot ovat väliaikaisesti poissa käytöstä',
   'fabric.reactions.loading': 'Ladataan...',
   'fabric.reactions.more.emojis': 'Lisää emojeita',
   'fabric.reactions.other.reacted.users': '{count, plural, one {ja yksi muu} other {ja {count} muuta}}',
   'fabric.reactions.reactwithemoji': 'Reagoi emojilla {emoji}',
+  'fabric.reactions.reactwithemojiandcount':
+    '{count, plural, one {{count,number} {emoji}-emoji. Reagoi {emoji}-emojilla.} other {{count,number} {emoji}-emojia. Reagoi {emoji}-emojilla.}}',
   'fabric.reactions.summary': 'Näytä kaikki käyttäjäreaktiot',
   'reaction-picker-trigger.add.reaction.message': 'Lisää reaktio',
+  'reactions-reaction.picker-label': 'Lisää reaktioita',
   'reactions.dialog.close': 'Sulje',
   'reactions.dialog.left.navigate': 'Navigointi vasemmalle',
   'reactions.dialog.reactions.count':

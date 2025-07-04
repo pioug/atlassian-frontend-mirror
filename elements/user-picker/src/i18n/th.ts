@@ -7,15 +7,19 @@
  */
 //Thai (Thailand)
 export default {
+  'fabric.elements.user-picker.custom.type.label': 'กำหนดเอง',
   'fabric.elements.user-picker.email.add': 'เพิ่มผู้ใช้',
   'fabric.elements.user-picker.email.add.potential': 'ป้อนที่อยู่อีเมล',
   'fabric.elements.user-picker.email.select.to.add': 'เลือกที่อยู่อีเมล',
+  'fabric.elements.user-picker.email.type.label': 'อีเมล',
   'fabric.elements.user-picker.error.message': 'มีข้อผิดพลาดบางอย่างเกิดขึ้น',
   'fabric.elements.user-picker.external.sourced.error': 'เราไม่สามารถเชื่อมต่อกับคุณได้ในขณะนี้',
   'fabric.elements.user-picker.external.sourced.from': 'พบใน:',
+  'fabric.elements.user-picker.external.user.type.label': 'ผู้ใช้ภายนอก',
   'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',
   'fabric.elements.user-picker.group.byline': 'กลุ่มที่ผู้ดูแลระบบจัดการ',
+  'fabric.elements.user-picker.group.type.label': 'กลุ่ม',
   'fabric.elements.user-picker.guest.lozenge.text': 'ผู้ใช้ทั่วไป',
   'fabric.elements.user-picker.guest.lozenge.tooltip.group':
     'กลุ่มผู้ใช้ทั่วไปสามารถเข้าถึงได้เฉพาะบางพื้นที่เท่านั้นและมีสิทธิ์ในการเข้าถึงข้อมูลผู้ใช้ที่จำกัด',
@@ -24,6 +28,7 @@ export default {
   'fabric.elements.user-picker.member.lozenge.text': 'สมาชิก',
   'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': 'ลบออก',
+  'fabric.elements.user-picker.other.type.label': 'อื่น ๆ',
   'fabric.elements.user-picker.placeholder': 'ป้อนบุคคลหรือทีม...',
   'fabric.elements.user-picker.placeholder.add-more': 'เพิ่มคนอื่น ๆ ...',
   'fabric.elements.user-picker.single.clear': 'ล้าง',
@@ -36,4 +41,6 @@ export default {
   'fabric.elements.user-picker.team.member.count': '{count, plural, other {ทีม • สมาชิก {count} คน}}',
   'fabric.elements.user-picker.team.member.count.including.you':
     '{count, plural, other {ทีม • สมาชิก {count} คน รวมคุณด้วย}}',
+  'fabric.elements.user-picker.team.type.label': 'ทีม',
+  'fabric.elements.user-picker.user.type.label': 'ผู้คน',
 };

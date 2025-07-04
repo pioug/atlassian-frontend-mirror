@@ -67,64 +67,6 @@ describe('Socket io provider', () => {
 				'x-subproduct': 'JSM',
 			});
 		});
-
-		it('should merge custom extra headers with default product headers', () => {
-			const customHeaders = {
-				Authorization: 'bearer <token>',
-				'User-Context': '<uct-token>',
-				'atl-cloudid': 'ddc311b6-79f8-4c1e-884a-36f6dee37c01',
-				'atl-activationid': '607893b9-3b08-4652-89b2-83881d723103',
-			};
-			const socket = createSocketIOSocket(
-				url,
-				undefined,
-				{
-					product: 'embeddedConfluence',
-					subProduct: 'JSM',
-				},
-				undefined,
-				undefined,
-				customHeaders,
-			);
-
-			expect(socket?.io?.opts.extraHeaders).toEqual({
-				Authorization: 'bearer <token>',
-				'User-Context': '<uct-token>',
-				'atl-cloudid': 'ddc311b6-79f8-4c1e-884a-36f6dee37c01',
-				'atl-activationid': '607893b9-3b08-4652-89b2-83881d723103',
-				'x-product': 'embeddedConfluence',
-				'x-subproduct': 'JSM',
-			});
-		});
-
-		it('should allow custom headers to override default product headers', () => {
-			const customHeaders = {
-				Authorization: 'bearer <token>',
-				'User-Context': '<uct-token>',
-				'atl-cloudid': 'ddc311b6-79f8-4c1e-884a-36f6dee37c01',
-				'atl-activationid': '607893b9-3b08-4652-89b2-83881d723103',
-			};
-			const socket = createSocketIOSocket(
-				url,
-				undefined,
-				{
-					product: 'embeddedConfluence',
-					subProduct: 'JSM',
-				},
-				undefined,
-				undefined,
-				customHeaders,
-			);
-
-			expect(socket?.io?.opts.extraHeaders).toEqual({
-				Authorization: 'bearer <token>',
-				'User-Context': '<uct-token>',
-				'atl-cloudid': 'ddc311b6-79f8-4c1e-884a-36f6dee37c01',
-				'atl-activationid': '607893b9-3b08-4652-89b2-83881d723103',
-				'x-product': 'embeddedConfluence',
-				'x-subproduct': 'JSM',
-			});
-		});
 	});
 
 	describe('Reconnection options', () => {

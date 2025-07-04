@@ -14,6 +14,7 @@ export default {
   'fabric.elements.share.failure.message': 'Помилка надсилання',
   'fabric.elements.share.form.comment.label': 'Повідомлення (необов’язково)',
   'fabric.elements.share.form.comment.placeholder': 'Потрібно додати повідомлення?',
+  'fabric.elements.share.form.extended.dialog.comment.label': 'Повідомлення',
   'fabric.elements.share.form.info.message.no.invite.confluence':
     'Отримувачі побачать назву сторінки та ваше повідомлення',
   'fabric.elements.share.form.info.message.no.invite.jira': 'Отримувачі побачать назву проблеми та ваше повідомлення',

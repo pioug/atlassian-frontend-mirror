@@ -8,13 +8,17 @@
 //Chinese (Simplified)
 export default {
   'fabric.reactions.add': '添加反应',
+  'fabric.reactions.add.new': '新增',
   'fabric.reactions.error.unexpected': '反应暂时不可用',
   'fabric.reactions.loading': '正在加载...',
   'fabric.reactions.more.emojis': '更多表情',
   'fabric.reactions.other.reacted.users': '{count, plural, other {以及其他 {count} 个人}}',
   'fabric.reactions.reactwithemoji': '使用 {emoji} 表情回应',
+  'fabric.reactions.reactwithemojiandcount':
+    '{count, plural, other {{count,number} 个 {emoji} 表情。使用 {emoji} 表情回应}}',
   'fabric.reactions.summary': '查看所有用户回应',
   'reaction-picker-trigger.add.reaction.message': '添加反应',
+  'reactions-reaction.picker-label': '添加回应',
   'reactions.dialog.close': '关闭',
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': '向左导航',

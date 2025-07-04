@@ -10,7 +10,7 @@ import { ax } from '@compiled/react/runtime';
 import { useLayering } from '@atlaskit/layering';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Popper } from '@atlaskit/popper';
-import { CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
+import { type CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
 
 import { RepositionOnUpdate } from './reposition-on-update';
 import { type PopperWrapperProps, type PopupComponentProps } from './types';

@@ -16,6 +16,7 @@ export default {
   'team-central.give-kudos.button': 'Dicséret',
   'team-central.give-kudos.close-button.label': 'Fiók bezárása',
   'team-central.give-kudos.confirm-close.title': 'Bezárás megerősítése',
+  'team-central.give-kudos.created.action.flag': 'Dicséret megtekintése',
   'team-central.give-kudos.created.description.flag': 'Dicséret elküldve. <a>Dicséret megtekintése</a>',
   'team-central.give-kudos.created.title.flag': 'Dicséret létrehozva',
   'team-central.give-kudos.creation.failed.description.flag': 'Nem sikerült létrehozni a dicséretedet.',

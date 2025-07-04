@@ -1,4 +1,4 @@
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { findNodeDecs } from '../../pm-plugins/decorations-anchor';
 import { key } from '../../pm-plugins/main';

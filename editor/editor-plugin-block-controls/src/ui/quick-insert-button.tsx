@@ -26,7 +26,7 @@ import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
-import { AnchorRectCache } from '../pm-plugins/utils/anchor-utils';
+import { type AnchorRectCache } from '../pm-plugins/utils/anchor-utils';
 import {
 	getControlBottomCSSValue,
 	getControlHeightCSSValue,

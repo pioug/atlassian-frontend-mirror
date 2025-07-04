@@ -50,6 +50,7 @@ export default {
   'fabric.emoji.search.label': 'Emoji name',
   'fabric.emoji.search.placeholder': 'Search',
   'fabric.emoji.search.status': 'Seeing all emojis',
+  'fabric.emoji.search.status.count': 'Found {count} emojis',
   'fabric.emoji.select.skin.list.ariaLabel': 'Skin tone selector',
   'fabric.emoji.select.skin.tone.ariaLabel': 'Choose your skin tone, {selectedTone} selected',
 };

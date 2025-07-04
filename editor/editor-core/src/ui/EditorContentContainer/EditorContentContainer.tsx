@@ -34,6 +34,7 @@ import {
 	blocktypeStyles_fg_platform_editor_typography_ugc,
 	blocktypeStyles_without_fg_platform_editor_typography_ugc,
 } from './styles/blockTypeStyles';
+import { codeBidiWarningStyles } from './styles/codeBidiWarningStyles';
 import {
 	codeBlockStyles,
 	codeBgColorStyles,
@@ -466,6 +467,8 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					!fg('platform-visual-refresh-icons') && linkLegacyIconStylesFix,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					fg('confluence_floating_toolbar_animation') && selectionToolbarAnimationStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					fg('platform_editor_vanilla_codebidi_warning') && codeBidiWarningStyles,
 				]}
 				data-editor-scroll-container={isScrollable ? 'true' : undefined}
 				data-testid="editor-content-container"

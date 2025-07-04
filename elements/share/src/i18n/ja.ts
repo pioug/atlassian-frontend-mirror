@@ -14,6 +14,7 @@ export default {
   'fabric.elements.share.failure.message': '共有できません',
   'fabric.elements.share.form.comment.label': 'メッセージ (オプション)',
   'fabric.elements.share.form.comment.placeholder': '共有先のユーザーへのコメントがある場合はここに書き込みます。',
+  'fabric.elements.share.form.extended.dialog.comment.label': 'メッセージ',
   'fabric.elements.share.form.info.message.no.invite.confluence': '受信者にページの名前とメッセージが表示されます',
   'fabric.elements.share.form.info.message.no.invite.jira': '受信者に課題の名前とメッセージが表示されます',
   'fabric.elements.share.form.info.message.no.invite.jira.issue-term-refresh':

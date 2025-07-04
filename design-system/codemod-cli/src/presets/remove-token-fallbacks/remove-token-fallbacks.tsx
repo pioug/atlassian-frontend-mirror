@@ -9,7 +9,7 @@ import { findRoot } from '@manypkg/find-root';
 import chalk from 'chalk';
 import type { API, ASTPath, FileInfo, VariableDeclarator } from 'jscodeshift';
 
-import { RemoveTokenFallbackOptions, TransformationDetails } from './types';
+import { type RemoveTokenFallbackOptions, type TransformationDetails } from './types';
 import { getTokenMap } from './utils/all-tokens';
 import { chunkArray } from './utils/chunk';
 import { getTeamInfo } from './utils/get-team-info';

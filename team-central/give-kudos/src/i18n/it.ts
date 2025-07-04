@@ -16,9 +16,10 @@ export default {
   'team-central.give-kudos.button': 'Complimentati',
   'team-central.give-kudos.close-button.label': 'Chiudi il cassetto',
   'team-central.give-kudos.confirm-close.title': 'Conferma la chiusura',
+  'team-central.give-kudos.created.action.flag': 'Visualizza gli apprezzamenti',
   'team-central.give-kudos.created.description.flag':
     'I tuoi apprezzamenti sono stati inviati. <a>Visualizza gli apprezzamenti</a>',
-  'team-central.give-kudos.created.title.flag': 'Apprezzamenti creati',
+  'team-central.give-kudos.created.title.flag': 'Gli apprezzamenti sono stati creati',
   'team-central.give-kudos.creation.failed.description.flag': 'Non è stato possibile creare i tuoi apprezzamenti.',
   'team-central.give-kudos.creation.failed.title.flag': 'Si è verificato un problema',
   'team-central.give-kudos.error-icon.label': 'Errore',

@@ -1,5 +1,17 @@
 # @atlaskit/collab-provider
 
+## 10.22.0
+
+### Minor Changes
+
+- [#179240](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/179240)
+  [`cf397492aea34`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf397492aea34) -
+  Revert 179240 - to support for custom authentication headers
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.21.1
 
 ### Patch Changes

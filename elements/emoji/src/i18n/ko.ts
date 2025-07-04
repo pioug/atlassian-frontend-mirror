@@ -51,6 +51,7 @@ export default {
   'fabric.emoji.search.label': '이모지 이름',
   'fabric.emoji.search.placeholder': '검색',
   'fabric.emoji.search.status': '모든 이모지 표시 중',
+  'fabric.emoji.search.status.count': '{count}개의 이모지 찾음',
   'fabric.emoji.select.skin.list.ariaLabel': '피부색 선택기',
   'fabric.emoji.select.skin.tone.ariaLabel': '피부색을 선택하세요. {selectedTone} 선택됨',
 };

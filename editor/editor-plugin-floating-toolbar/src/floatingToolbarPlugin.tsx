@@ -277,10 +277,7 @@ export function ContentComponent({
 
 	const { configWithNodeInfo, floatingToolbarData } = floatingToolbarState ?? {};
 
-	if (
-		editorExperiment('platform_editor_hide_floating_toolbar_in_ssr', true, { exposure: true }) &&
-		isSSR()
-	) {
+	if (isSSR()) {
 		return null;
 	}
 

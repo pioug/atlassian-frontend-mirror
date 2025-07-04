@@ -16,6 +16,7 @@ export default {
   'team-central.give-kudos.button': 'Khen ngợi',
   'team-central.give-kudos.close-button.label': 'Đóng ngăn',
   'team-central.give-kudos.confirm-close.title': 'Xác nhận đóng',
+  'team-central.give-kudos.created.action.flag': 'Xem lời khen ngợi',
   'team-central.give-kudos.created.description.flag': 'Lời khen ngợi của bạn đã được gửi đi. <a>Xem lời khen ngợi</a>',
   'team-central.give-kudos.created.title.flag': 'Đã tạo lời khen ngợi',
   'team-central.give-kudos.creation.failed.description.flag': 'Chúng tôi không tạo được lời khen ngợi của bạn.',

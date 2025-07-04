@@ -9,7 +9,7 @@ import type { ExtractInjectionAPI, TypeAheadHandler } from '@atlaskit/editor-com
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { mentionsPlugin } from '../mentionsPlugin';
+import { type mentionsPlugin } from '../mentionsPlugin';
 import type { MentionsPlugin } from '../mentionsPluginType';
 
 import ToolbarMention from './ToolbarMention';

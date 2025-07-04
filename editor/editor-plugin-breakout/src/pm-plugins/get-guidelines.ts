@@ -7,7 +7,7 @@ import {
 	resizerHandleThumbWidth,
 } from '@atlaskit/editor-common/styles';
 import type { EditorContainerWidth } from '@atlaskit/editor-common/types';
-import { NodeType } from '@atlaskit/editor-prosemirror/model';
+import { type NodeType } from '@atlaskit/editor-prosemirror/model';
 import {
 	akEditorGutterPaddingDynamic,
 	akEditorGutterPadding,

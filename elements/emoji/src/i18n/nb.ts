@@ -52,6 +52,7 @@ export default {
   'fabric.emoji.search.label': 'Emoji-navn',
   'fabric.emoji.search.placeholder': 'Søk',
   'fabric.emoji.search.status': 'Viser alle emojier',
+  'fabric.emoji.search.status.count': 'Finner {count} emojier',
   'fabric.emoji.select.skin.list.ariaLabel': 'Hudfargevelger',
   'fabric.emoji.select.skin.tone.ariaLabel': 'Velg hudfarge, {selectedTone} er valgt',
 };

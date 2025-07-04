@@ -8,8 +8,8 @@ import {
 	type FloatingToolbarOverflowDropdownOptions,
 	type Command,
 } from '@atlaskit/editor-common/types';
-import { NodeType } from '@atlaskit/editor-prosemirror/model';
-import { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { type NodeType } from '@atlaskit/editor-prosemirror/model';
+import { type EditorState } from '@atlaskit/editor-prosemirror/state';
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import ImageFullscreenIcon from '@atlaskit/icon/core/image-fullscreen';
 

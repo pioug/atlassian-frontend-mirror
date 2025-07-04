@@ -151,6 +151,29 @@ function ComposableEditorPage() {
 					pageModes: ['view', 'edit'],
 					extensions: {
 						firstParty: [
+							({ selectionRanges, selectedNodeAdf }) => {
+								if (
+									selectionRanges &&
+									Array.isArray(selectionRanges) &&
+									selectionRanges.length > 1
+								) {
+									return {
+										name: 'Create Multiple work items',
+										icon: AppIcon,
+										onClick: (params) => {
+											console.log(JSON.stringify(params));
+										},
+									};
+								}
+
+								return {
+									name: 'Create work item',
+									icon: AppIcon,
+									onClick: (params) => {
+										console.log(JSON.stringify(params));
+									},
+								};
+							},
 							{
 								name: 'Create Jira Issue',
 								onClick: (params) => {

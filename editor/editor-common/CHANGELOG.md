@@ -1,5 +1,35 @@
 # @atlaskit/editor-common
 
+## 107.6.0
+
+### Minor Changes
+
+- [#178534](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/178534)
+  [`98988961ed925`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/98988961ed925) -
+  EDITOR-944: Add AI message for Ask Rovo... for the AI text input looking button in the floating
+  toolbar.
+
+## 107.5.0
+
+### Minor Changes
+
+- [#180500](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/180500)
+  [`11b9d2a6abab1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/11b9d2a6abab1) -
+  Cleaned up shadow defer calculation experiment
+
+### Patch Changes
+
+- Updated dependencies
+
+## 107.4.2
+
+### Patch Changes
+
+- [#178862](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/178862)
+  [`c85957c962811`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c85957c962811) -
+  clean up fg
+- Updated dependencies
+
 ## 107.4.1
 
 ### Patch Changes

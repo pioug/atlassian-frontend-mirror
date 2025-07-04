@@ -4,20 +4,30 @@ import { selectionExtensionMessages } from '@atlaskit/editor-common/messages';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
 	Command,
+	FloatingToolbarOverflowDropdown,
 	OverflowDropdownHeading,
 	OverflowDropdownOption,
 } from '@atlaskit/editor-common/types';
+import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { createPlugin, selectionExtensionPluginKey } from './pm-plugins/main';
+import { getSelectionInfo } from './pm-plugins/utils';
 import type { SelectionExtensionPlugin } from './selectionExtensionPluginType';
-import type { SelectionExtension } from './types';
+import type {
+	SelectionExtension,
+	SelectionExtensionCallbackOptions,
+	SelectionExtensionConfig,
+} from './types';
 import { SelectionExtensionComponentWrapper } from './ui/extension/SelectionExtensionComponentWrapper';
 import { getBoundingBoxFromSelection } from './ui/getBoundingBoxFromSelection';
+import { selectionToolbar } from './ui/selectionToolbar';
 
 export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config }) => {
 	const editorViewRef: Record<'current', EditorView | null> = { current: null };
+	let cachedSelection: Selection;
+	let cachedOverflowMenuOptions: FloatingToolbarOverflowDropdown<Command>['options'] | undefined;
 
 	return {
 		name: 'selectionExtension',
@@ -130,8 +140,16 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 						);
 					}
 
-					if (extension.onClick) {
-						extension.onClick({ selection });
+					let onClickCallbackOptions: SelectionExtensionCallbackOptions = { selection };
+
+					if (fg('platform_editor_selection_extension_api_v2')) {
+						const { selectedNodeAdf, selectionRanges } = getSelectionInfo(view.state);
+						onClickCallbackOptions = { selectedNodeAdf, selectionRanges };
+						extension.onClick?.(onClickCallbackOptions);
+					} else {
+						if (extension.onClick) {
+							extension.onClick(onClickCallbackOptions);
+						}
 					}
 				};
 
@@ -153,20 +171,54 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 					} as OverflowDropdownOption<Command>;
 				};
 
-				const getFirstPartyExtensions = (extensions: SelectionExtension[]) => {
-					return extensions.map((ext) => convertExtensionToDropdownMenuItem(ext, 30));
+				const getConfigFromExtensionCallback = (extension: SelectionExtensionConfig) => {
+					if (typeof extension === 'function') {
+						const { selectedNodeAdf, selectionRanges } = getSelectionInfo(state);
+						return extension({
+							selectedNodeAdf,
+							selectionRanges,
+						});
+					}
+					return extension;
+				};
+
+				const prefilterExtensions = (
+					extensions: SelectionExtensionConfig[],
+				): SelectionExtensionConfig[] => {
+					// this is to prevent integration issues when passing in a function as an extension
+					// but not having platform_editor_selection_extension_api_v2 FG on
+					if (!fg('platform_editor_selection_extension_api_v2')) {
+						return extensions.filter((ext) => typeof ext !== 'function');
+					}
+					return extensions;
+				};
+
+				const getFirstPartyExtensions = (extensions: SelectionExtensionConfig[]) => {
+					const prefilteredExtensions = prefilterExtensions(extensions);
+
+					return prefilteredExtensions.map((extension) => {
+						const ext = fg('platform_editor_selection_extension_api_v2')
+							? getConfigFromExtensionCallback(extension)
+							: extension;
+						return convertExtensionToDropdownMenuItem(ext, 30);
+					});
 				};
 
 				/**
 				 * Add a heading to the external extensions
 				 */
 				const getExternalExtensions = (extensions: SelectionExtension[]) => {
+					const prefilteredExtensions = prefilterExtensions(extensions);
+
 					let externalExtensions: (OverflowDropdownOption<Command> | OverflowDropdownHeading)[] =
 						[];
-					if (extensions?.length) {
-						externalExtensions = extensions.map((ext, index) =>
-							convertExtensionToDropdownMenuItem(ext),
-						);
+					if (prefilteredExtensions?.length) {
+						externalExtensions = prefilteredExtensions.map((extension) => {
+							const ext = fg('platform_editor_selection_extension_api_v2')
+								? getConfigFromExtensionCallback(extension)
+								: extension;
+							return convertExtensionToDropdownMenuItem(ext);
+						});
 
 						const externalExtensionsHeading: OverflowDropdownHeading = {
 							type: 'overflow-dropdown-heading',
@@ -176,29 +228,24 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 					}
 					return externalExtensions;
 				};
+
+				if (
+					cachedOverflowMenuOptions &&
+					state.selection.eq(cachedSelection) &&
+					fg('platform_editor_selection_extension_api_v2')
+				) {
+					return selectionToolbar(cachedOverflowMenuOptions);
+				}
+
 				const groupedExtensionsArray = [
 					...getFirstPartyExtensions(extensions.firstParty || []),
 					...getExternalExtensions(extensions.external || []),
 				];
 
-				const overflowMenu = {
-					type: 'overflow-dropdown' as const,
-					dropdownWidth: 240,
-					supportsViewMode: true,
-					options: groupedExtensionsArray,
-				};
-				return {
-					isToolbarAbove: true,
-					items: [
-						{
-							type: 'separator',
-							fullHeight: true,
-							supportsViewMode: true,
-						},
-						overflowMenu,
-					],
-					rank: -6,
-				};
+				cachedOverflowMenuOptions = groupedExtensionsArray;
+				cachedSelection = state.selection;
+
+				return selectionToolbar(groupedExtensionsArray);
 			},
 		},
 		pmPlugins: () => [

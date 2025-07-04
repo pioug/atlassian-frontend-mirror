@@ -14,6 +14,7 @@ export default {
   'fabric.elements.share.failure.message': 'Ei voitu jakaa',
   'fabric.elements.share.form.comment.label': 'Viesti (valinnainen)',
   'fabric.elements.share.form.comment.placeholder': 'Mitä muiden tulisi tietää?',
+  'fabric.elements.share.form.extended.dialog.comment.label': 'Viesti',
   'fabric.elements.share.form.info.message.no.invite.confluence': 'Vastaanottajat näkevät sivun nimen ja viestisi',
   'fabric.elements.share.form.info.message.no.invite.jira': 'Vastaanottajat näkevät asian nimen ja viestisi',
   'fabric.elements.share.form.info.message.no.invite.jira.issue-term-refresh':

@@ -52,6 +52,7 @@ export default {
   'fabric.emoji.search.label': 'Tên biểu tượng cảm xúc',
   'fabric.emoji.search.placeholder': 'Tìm kiếm',
   'fabric.emoji.search.status': 'Xem tất cả biểu tượng cảm xúc',
+  'fabric.emoji.search.status.count': 'Đã tìm thấy {count} biểu tượng cảm xúc',
   'fabric.emoji.select.skin.list.ariaLabel': 'Bộ chọn tông màu da',
   'fabric.emoji.select.skin.tone.ariaLabel': 'Chọn tông màu da của bạn, đã chọn {selectedTone}',
 };

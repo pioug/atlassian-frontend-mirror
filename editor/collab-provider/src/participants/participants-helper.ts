@@ -1,7 +1,7 @@
 import type { ProviderParticipant } from '@atlaskit/editor-common/collab';
 
 import type { PresencePayload } from '../types';
-import { ParticipantsState } from './participants-state';
+import { type ParticipantsState } from './participants-state';
 
 export const PARTICIPANT_UPDATE_INTERVAL = 300 * 1000; // 300 seconds
 

@@ -16,6 +16,7 @@ export default {
   'team-central.give-kudos.button': 'Похвалить',
   'team-central.give-kudos.close-button.label': 'Закрыть панель',
   'team-central.give-kudos.confirm-close.title': 'Действительно закрыть?',
+  'team-central.give-kudos.created.action.flag': 'Просмотреть похвалу',
   'team-central.give-kudos.created.description.flag': 'Похвала отправлена. <a>Просмотреть похвалу</a>',
   'team-central.give-kudos.created.title.flag': 'Похвала создана',
   'team-central.give-kudos.creation.failed.description.flag': 'Не удалось создать похвалу.',

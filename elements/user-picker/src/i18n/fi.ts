@@ -7,15 +7,19 @@
  */
 //Finnish
 export default {
+  'fabric.elements.user-picker.custom.type.label': 'Mukautetut',
   'fabric.elements.user-picker.email.add': 'Lisää käyttäjä',
   'fabric.elements.user-picker.email.add.potential': 'Anna sähköpostiosoite',
   'fabric.elements.user-picker.email.select.to.add': 'Valitse sähköpostiosoite',
+  'fabric.elements.user-picker.email.type.label': 'Sähköpostiosoitteet',
   'fabric.elements.user-picker.error.message': 'Jotain meni pieleen',
   'fabric.elements.user-picker.external.sourced.error': 'Sinua ei voida yhdistää juuri nyt.',
   'fabric.elements.user-picker.external.sourced.from': 'Löydetty kohteesta:',
+  'fabric.elements.user-picker.external.user.type.label': 'Ulkoiset käyttäjät',
   'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',
   'fabric.elements.user-picker.group.byline': 'Ylläpitäjän hallitsema ryhmä',
+  'fabric.elements.user-picker.group.type.label': 'Ryhmät',
   'fabric.elements.user-picker.guest.lozenge.text': 'VIERAS',
   'fabric.elements.user-picker.guest.lozenge.tooltip.group':
     'Vierasryhmillä on pääsy vain tiettyihin työtiloihin ja rajoitettu pääsy käyttäjätietoihin.',
@@ -24,6 +28,7 @@ export default {
   'fabric.elements.user-picker.member.lozenge.text': 'Jäsen',
   'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': 'Poista',
+  'fabric.elements.user-picker.other.type.label': 'Muut',
   'fabric.elements.user-picker.placeholder': 'Syötä henkilöitä tai tiimejä...',
   'fabric.elements.user-picker.placeholder.add-more': 'lisää muita henkilöitä...',
   'fabric.elements.user-picker.single.clear': 'Tyhjennä',
@@ -37,4 +42,6 @@ export default {
     '{count, plural, one {Tiimi • {count} jäsen} other {Tiimi • {count} jäsentä}}',
   'fabric.elements.user-picker.team.member.count.including.you':
     '{count, plural, one {Tiimi • {count} jäsen sinä mukaan lukien} other {Tiimi • {count} jäsentä sinä mukaan lukien}}',
+  'fabric.elements.user-picker.team.type.label': 'Tiimit',
+  'fabric.elements.user-picker.user.type.label': 'Henkilöt',
 };

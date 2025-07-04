@@ -3,7 +3,7 @@ import { type IntlShape } from 'react-intl-next';
 import type { getPosHandlerNode } from '@atlaskit/editor-common/types';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { Decoration, NodeView } from '@atlaskit/editor-prosemirror/view';
 
 import { setDatePickerAt } from '../pm-plugins/actions';

@@ -1,11 +1,11 @@
 import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
-import { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import { type ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import {
-	EditorState,
+	type EditorState,
 	NodeSelection,
 	TextSelection,
 	type Transaction,
-	Selection,
+	type Selection,
 } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { selectTableClosestToPos } from '@atlaskit/editor-tables/utils';

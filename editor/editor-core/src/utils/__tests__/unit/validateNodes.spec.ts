@@ -1,5 +1,5 @@
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 
 import { validateNodes, validNode } from '../../validateNodes';

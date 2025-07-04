@@ -1,6 +1,6 @@
 import { InsertTypeAheadStep, LinkMetaStep } from '@atlaskit/adf-schema/steps';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
-import { ReplaceStep, Step } from '@atlaskit/editor-prosemirror/transform';
+import { ReplaceStep, type Step } from '@atlaskit/editor-prosemirror/transform';
 
 const isResolvingLink = (tr: ReadonlyTransaction): boolean => {
 	// When links are added, there are two transactions that are fired and we want to ignore the last one where the link is resolved

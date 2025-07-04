@@ -10,7 +10,7 @@ import type { EditorCommand } from '@atlaskit/editor-common/types';
 import {
 	type ResolvedUserPreferences,
 	type UserPreferences,
-	UserPreferencesProvider,
+	type UserPreferencesProvider,
 } from '@atlaskit/editor-common/user-preferences';
 
 import { userPreferencesPluginKey } from './main';

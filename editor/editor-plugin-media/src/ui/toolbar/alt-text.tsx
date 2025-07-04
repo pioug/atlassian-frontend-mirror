@@ -15,7 +15,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import { RECENT_SEARCH_WIDTH_IN_PX as CONTAINER_WIDTH_IN_PX } from '@atlaskit/editor-common/ui';
 import type { ForceFocusSelector } from '@atlaskit/editor-plugin-floating-toolbar';
-import { NodeType } from '@atlaskit/editor-prosemirror/model';
+import { type NodeType } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, type EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import ImageAltTextIcon from '@atlaskit/icon-lab/core/image-alt-text';

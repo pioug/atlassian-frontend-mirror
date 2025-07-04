@@ -1,4 +1,9 @@
-import { ASTPath, ImportDeclaration, Options, VariableDeclarator } from 'jscodeshift';
+import {
+	type ASTPath,
+	type ImportDeclaration,
+	type Options,
+	type VariableDeclarator,
+} from 'jscodeshift';
 
 export interface ReplacementDetail {
 	teamInfo: TeamInfo;

@@ -14,6 +14,7 @@ export default {
   'fabric.media.accounts': 'Cuentas',
   'fabric.media.actions': 'Acciones',
   'fabric.media.add_account': 'Añadir cuenta',
+  'fabric.media.add_captions': 'Añadir subtítulos',
   'fabric.media.alt_text_helper_message':
     '¿Cómo describirías la imagen seleccionada a una persona con problemas de visión?',
   'fabric.media.alt_text_label': 'Texto alternativo',
@@ -58,6 +59,7 @@ export default {
   'fabric.media.couldnt_load_link': 'Por algún motivo que desconocemos, no hemos podido cargar este enlace.',
   'fabric.media.creating_preview': 'Generando vista previa...',
   'fabric.media.default_avatars': 'Avatares predeterminados',
+  'fabric.media.delete': 'Eliminar',
   'fabric.media.disable_fullscreen': 'desactivar pantalla completa',
   'fabric.media.display_thumbnail': 'Mostrar miniatura',
   'fabric.media.document': 'documento',
@@ -72,6 +74,7 @@ export default {
   'fabric.media.email': 'Correo electrónico',
   'fabric.media.enable_fullscreen': 'activar pantalla completa',
   'fabric.media.enter_password': 'Introducir contraseña',
+  'fabric.media.error': 'Error',
   'fabric.media.error_429': 'Error 429',
   'fabric.media.error_generating_preview': 'Error al generar la vista previa',
   'fabric.media.error_hint_critical': 'Si el problema continúa, ponte en contacto con la asistencia.',
@@ -79,6 +82,7 @@ export default {
   'fabric.media.error_loading_file': 'Error al cargar el archivo',
   'fabric.media.failed_to_load': 'No se pudo cargar',
   'fabric.media.failed_to_upload': 'Error al cargar',
+  'fabric.media.file.display_options': 'Opciones de visualización',
   'fabric.media.file_is_selected': 'El archivo {name} está seleccionado',
   'fabric.media.forbidden_description':
     'No puedes acceder a esta vista previa. Ponte en contacto con el administrador del sitio si tienes que acceder.',
@@ -97,6 +101,7 @@ export default {
   'fabric.media.load_more_gifs': 'Cargar más GIF',
   'fabric.media.loading': 'Cargando…',
   'fabric.media.loading_file': 'Cargando archivo...',
+  'fabric.media.manage_captions': 'Gestionar subtítulos',
   'fabric.media.might_be_a_hiccup': 'Tal vez sea solo un tropiezo.',
   'fabric.media.no_gifs_found': 'Hola, ¿me buscabas?',
   'fabric.media.no_gifs_found_suggestion': 'No hemos encontrado nada para "{query}"',
@@ -138,6 +143,7 @@ export default {
   'fabric.media.srclink': 'Ver en',
   'fabric.media.srclinkunknown': 'Ver original',
   'fabric.media.submit': 'Enviar',
+  'fabric.media.success': 'Correcto',
   'fabric.media.text': 'Texto',
   'fabric.media.try_again': 'Volver a intentarlo',
   'fabric.media.try_another_account': 'Probar otra cuenta',
@@ -151,6 +157,17 @@ export default {
   'fabric.media.upload_file_from': 'Carga un archivo de {name}',
   'fabric.media.upload_photo': 'Carga una foto',
   'fabric.media.video': 'vídeo',
+  'fabric.media.video_captions_delete_captions_confirmation_description':
+    'Confirma que quieres eliminar este subtítulo.',
+  'fabric.media.video_captions_delete_captions_confirmation_header': 'Eliminar subtítulo',
+  'fabric.media.video_captions_delete_error_description': 'No se ha podido eliminar el subtítulo.',
+  'fabric.media.video_captions_delete_success_description': 'El subtítulo se ha eliminado correctamente de este vídeo.',
+  'fabric.media.video_captions_enable': 'Subtítulos',
+  'fabric.media.video_captions_select_captions': 'Seleccionar subtítulos',
+  'fabric.media.video_captions_upload_captions_form_header': 'Cargar subtítulos',
+  'fabric.media.video_captions_upload_captions_form_language_picker': 'Seleccionar el idioma del archivo',
+  'fabric.media.video_captions_upload_error_description': 'No se ha podido subir el subtítulo.',
+  'fabric.media.video_captions_upload_success_description': 'El subtítulo se ha subido correctamente a este vídeo.',
   'fabric.media.video_seeker_assistive_text_time_value':
     '{currentTimeHours} {currentTimeMinutes} {currentTimeSeconds} de {videoTotalHours} {videoTotalMinutes} {videoTotalSeconds}',
   'fabric.media.video_seeker_label_assistive_text': 'Control deslizante de búsqueda',
@@ -162,4 +179,11 @@ export default {
   'fabric.media.zip_entry_load_failed': 'No se ha podido cargar el elemento de archivo comprimido para previsualizarlo',
   'fabric.media.zoom_in': 'acercar',
   'fabric.media.zoom_out': 'alejar',
+  'media.media-avatar-picker.image-cropper.arrow-keys.action':
+    '{key, select, left {Has movido la imagen de izquierda a derecha; usa las teclas de flecha para mover y recortar la imagen} right {Has movido la imagen de derecha a izquierda; usa las teclas de flecha para mover y recortar la imagen} top {Has movido la imagen de arriba a abajo; usa las teclas de flecha para mover y recortar la imagen} other {Has movido la imagen de abajo a arriba; usa las teclas de flecha para mover y recortar la imagen}}',
+  'media.media-avatar-picker.image-cropper.arrow-keys.label':
+    'Imagen arrastrable. Asegúrate de que el lector de pantalla no está en modo navegación. Usa las teclas de flecha para mover y recortar la imagen',
+  'media.media-avatar-picker.image-cropper.zoom_in': 'Acercar',
+  'media.media-avatar-picker.image-cropper.zoom_out': 'Alejar',
+  'media.media-avatar-picker.image-cropper.zoom_slider': 'establecer zoom',
 };

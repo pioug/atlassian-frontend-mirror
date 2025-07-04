@@ -1,8 +1,8 @@
 import type { BreakoutEventPayload } from '@atlaskit/editor-common/analytics';
 import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { type Mark, type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
 	akEditorGutterPaddingDynamic,
 	akEditorGutterPadding,

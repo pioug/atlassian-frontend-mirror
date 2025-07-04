@@ -1,4 +1,4 @@
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { startEditing } from './commands';
 import { getInteractionTrackingState } from './pm-plugin';

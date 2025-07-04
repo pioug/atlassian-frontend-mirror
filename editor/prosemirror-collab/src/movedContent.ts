@@ -1,5 +1,5 @@
 import { AnalyticsStep } from '@atlaskit/adf-schema/steps';
-import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
+import { type Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import type {
 	Step as ProseMirrorStep,

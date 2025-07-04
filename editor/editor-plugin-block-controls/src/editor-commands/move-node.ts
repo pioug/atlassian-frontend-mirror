@@ -20,7 +20,7 @@ import {
 	type Slice,
 } from '@atlaskit/editor-prosemirror/model';
 import { type EditorState, Selection, NodeSelection } from '@atlaskit/editor-prosemirror/state';
-import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+import { type ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import {
 	findChildrenByType,
 	findParentNodeOfType,

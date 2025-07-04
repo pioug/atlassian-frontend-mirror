@@ -898,31 +898,18 @@ describe('Channel unit tests', () => {
 				...testChannelConfig,
 				createSocket: createSocketMock,
 				productInfo: {
-					product: 'embeddedConfluence',
-					subProduct: 'JSM',
+					product: 'confluence',
 				},
 				isPresenceOnly: false,
-				customExtraHeaders: {
-					Authorization: 'bearer <asap-token>',
-					'User-Context': '<uct-token>',
-					'atl-cloudid': 'ddc311b6-79f8-4c1e-884a-36f6dee37c01', // staging tenant
-					'atl-activationid': '607893b9-3b08-4652-89b2-83881d723103', // activation id for the
-				},
 			});
 
 			expect(createSocketMock).toHaveBeenCalledTimes(1);
 			expect(createSocketMock).toHaveBeenCalledWith(
 				'https://localhost/ccollab/session/ari:cloud:confluence:a436116f-02ce-4520-8fbb-7301462a1674:page/1731046230',
 				expect.any(Function),
-				{ product: 'embeddedConfluence', subProduct: 'JSM' },
+				{ product: 'confluence' },
 				false,
 				expect.any(Object),
-				{
-					Authorization: 'bearer <asap-token>',
-					'User-Context': '<uct-token>',
-					'atl-cloudid': 'ddc311b6-79f8-4c1e-884a-36f6dee37c01', // staging tenant
-					'atl-activationid': '607893b9-3b08-4652-89b2-83881d723103', // activation id for the
-				},
 			);
 		});
 
@@ -944,43 +931,6 @@ describe('Channel unit tests', () => {
 				queryParams: {
 					version: 1,
 					clientId: 'some-random-prosemirror-client-Id',
-				},
-				requestInit: {
-					headers: {
-						'x-product': 'embeddedConfluence',
-						'x-subproduct': 'JSM',
-					},
-				},
-			});
-		});
-
-		it('should not send custom extra headers with HTTP requests (catchupv2) - only with Socket.IO connection', async () => {
-			const spy = jest.spyOn(utils, 'requestService').mockResolvedValue({});
-			const configuration = {
-				...testChannelConfig,
-				productInfo: {
-					product: 'embeddedConfluence',
-					subProduct: 'JSM',
-				},
-				customExtraHeaders: {
-					'atl-cloudid': 'ddc311b6-79f8-4c1e-884a-36f6dee37c01',
-					'atl-activationid': '607893b9-3b08-4652-89b2-83881d723103',
-					Authorization: 'bearer <asap-token>',
-					'User-Context': '<uct-token>',
-				},
-			};
-			const channel = getChannel(configuration);
-			await channel.fetchCatchupv2(1, 'some-random-prosemirror-client-Id', undefined);
-
-			expect(spy).toHaveBeenCalledTimes(1);
-			expect(spy).toHaveBeenCalledWith(expect.any(Object), {
-				path: 'document/ari%3Acloud%3Aconfluence%3Aa436116f-02ce-4520-8fbb-7301462a1674%3Apage%2F1731046230/catchupv2',
-				queryParams: {
-					version: 1,
-					clientId: 'some-random-prosemirror-client-Id',
-					catchUpOutofSync: undefined,
-					reason: undefined,
-					sessionId: undefined,
 				},
 				requestInit: {
 					headers: {

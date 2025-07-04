@@ -5,7 +5,7 @@ import {
 	EVENT_TYPE,
 	type ActiveSessionEventPayload,
 } from '@atlaskit/editor-common/analytics';
-import { Fragment } from '@atlaskit/editor-prosemirror/model';
+import { type Fragment } from '@atlaskit/editor-prosemirror/model';
 
 import type { MetricsState } from '../main';
 

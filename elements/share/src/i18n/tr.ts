@@ -14,6 +14,7 @@ export default {
   'fabric.elements.share.failure.message': 'Paylaşılamadı',
   'fabric.elements.share.form.comment.label': 'Mesaj (isteğe bağlı)',
   'fabric.elements.share.form.comment.placeholder': 'Bilmeleri gereken bir şey var mı?',
+  'fabric.elements.share.form.extended.dialog.comment.label': 'Mesaj',
   'fabric.elements.share.form.info.message.no.invite.confluence': 'Alıcılar sayfanın adını ve mesajınızı görür',
   'fabric.elements.share.form.info.message.no.invite.jira': 'Alıcılar konunun adını ve mesajınızı görür',
   'fabric.elements.share.form.info.message.no.invite.jira.issue-term-refresh':

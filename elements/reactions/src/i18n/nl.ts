@@ -8,13 +8,17 @@
 //Dutch (Netherlands)
 export default {
   'fabric.reactions.add': 'Reactie toevoegen',
+  'fabric.reactions.add.new': 'Nieuwe toevoegen',
   'fabric.reactions.error.unexpected': 'Reacties zijn tijdelijk niet beschikbaar',
   'fabric.reactions.loading': 'Bezig met laden…',
   'fabric.reactions.more.emojis': "Meer emoji's",
   'fabric.reactions.other.reacted.users': '{count, plural, one {en één andere} other {en {count} andere}}',
   'fabric.reactions.reactwithemoji': 'Reageren met emoticon {emoji}',
+  'fabric.reactions.reactwithemojiandcount':
+    '{count, plural, one {{count,number} {emoji}-emoticon. Reageer met {emoji}-emoticon} other {{count,number} {emoji}-emoticons. Reageer met {emoji}-emoticon}}',
   'fabric.reactions.summary': 'Alle reacties van gebruikers bekijken',
   'reaction-picker-trigger.add.reaction.message': 'Voeg een reactie toe',
+  'reactions-reaction.picker-label': 'Reacties toevoegen',
   'reactions.dialog.close': 'Sluiten',
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': 'Navigeer naar links',

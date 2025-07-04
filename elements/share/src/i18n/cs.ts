@@ -14,6 +14,7 @@ export default {
   'fabric.elements.share.failure.message': 'Nelze sdílet',
   'fabric.elements.share.form.comment.label': 'Zpráva (volitelná)',
   'fabric.elements.share.form.comment.placeholder': 'Něco, co by měli vědět?',
+  'fabric.elements.share.form.extended.dialog.comment.label': 'Zpráva',
   'fabric.elements.share.form.info.message.no.invite.confluence': 'Příjemci uvidí název stránky a vaši zprávu.',
   'fabric.elements.share.form.info.message.no.invite.jira': 'Příjemci uvidí název požadavku a vaši zprávu.',
   'fabric.elements.share.form.info.message.no.invite.jira.issue-term-refresh':

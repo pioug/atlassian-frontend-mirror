@@ -51,6 +51,7 @@ export default {
   'fabric.emoji.search.label': 'Naam emoticon',
   'fabric.emoji.search.placeholder': 'Zoeken',
   'fabric.emoji.search.status': 'Alle emoticons worden getoond',
+  'fabric.emoji.search.status.count': '{count} emoticons gevonden',
   'fabric.emoji.select.skin.list.ariaLabel': 'Huidskleur selecteren',
   'fabric.emoji.select.skin.tone.ariaLabel': 'Kies je huidskleur, {selectedTone} is geselecteerd',
 };

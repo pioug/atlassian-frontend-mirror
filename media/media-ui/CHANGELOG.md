@@ -1,5 +1,13 @@
 # @atlaskit/media-ui
 
+## 28.6.1
+
+### Patch Changes
+
+- [#178862](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/178862)
+  [`c85957c962811`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c85957c962811) -
+  clean up fg
+
 ## 28.6.0
 
 ### Minor Changes

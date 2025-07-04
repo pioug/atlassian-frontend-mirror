@@ -8,14 +8,18 @@
 //Czech
 export default {
   'fabric.reactions.add': 'Přidat reakci',
+  'fabric.reactions.add.new': 'Přidat novou',
   'fabric.reactions.error.unexpected': 'Reakce jsou dočasně nedostupné.',
   'fabric.reactions.loading': 'Načítání...',
   'fabric.reactions.more.emojis': 'Více smajlíků',
   'fabric.reactions.other.reacted.users':
     '{count, plural, one {a jeden další} few {a {count} další} many {a {count} dalšího} other {a {count} dalších}}',
   'fabric.reactions.reactwithemoji': 'Reagovat pomocí smajlíku {emoji}',
+  'fabric.reactions.reactwithemojiandcount':
+    '{count, plural, one {{count,number} {emoji} smajlík. Reagovat pomocí smajlíku {emoji}} few {{count,number} {emoji} smajlíky. Reagovat pomocí smajlíku {emoji}} many {{count,number} {emoji} smajlíku. Reagovat pomocí smajlíku {emoji}} other {{count,number} {emoji} smajlíků. Reagovat pomocí smajlíku {emoji}}}',
   'fabric.reactions.summary': 'Zobrazit všechny reakce uživatelů',
   'reaction-picker-trigger.add.reaction.message': 'Přidat reakci',
+  'reactions-reaction.picker-label': 'Přidat reakce',
   'reactions.dialog.close': 'Zavřít',
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': 'Navigace doleva',

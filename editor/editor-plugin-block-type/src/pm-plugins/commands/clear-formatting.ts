@@ -2,7 +2,7 @@ import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
 import type { Node, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { liftTarget } from '@atlaskit/editor-prosemirror/transform';
-import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { type CellSelection } from '@atlaskit/editor-tables/cell-selection';
 
 // Functions duplicated from platform/packages/editor/editor-plugin-text-formatting/src/editor-commands/clear-formatting.ts
 // TODO: ED-26959 - Refactor to avoid duplication if platform_editor_blockquote_in_text_formatting_menu experiment is productionalised

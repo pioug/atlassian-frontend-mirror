@@ -16,9 +16,10 @@ export default {
   'team-central.give-kudos.button': 'Féliciter',
   'team-central.give-kudos.close-button.label': 'Fermer le tiroir',
   'team-central.give-kudos.confirm-close.title': 'Confirmer la fermeture',
+  'team-central.give-kudos.created.action.flag': 'Voir les félicitations',
   'team-central.give-kudos.created.description.flag':
     'Vos félicitations ont été envoyées. <a>Voir les félicitations</a>',
-  'team-central.give-kudos.created.title.flag': 'Félicitations créées',
+  'team-central.give-kudos.created.title.flag': 'Les félicitations ont été créées',
   'team-central.give-kudos.creation.failed.description.flag': 'Impossible de créer vos félicitations.',
   'team-central.give-kudos.creation.failed.title.flag': 'Une erreur est survenue',
   'team-central.give-kudos.error-icon.label': 'Erreur',

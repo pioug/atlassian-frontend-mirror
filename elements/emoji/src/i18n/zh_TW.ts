@@ -50,6 +50,7 @@ export default {
   'fabric.emoji.search.label': '表情符號名稱',
   'fabric.emoji.search.placeholder': '搜尋',
   'fabric.emoji.search.status': '查看所有表情符號',
+  'fabric.emoji.search.status.count': '已找到 {count} 個表情符號',
   'fabric.emoji.select.skin.list.ariaLabel': '膚色選取器',
   'fabric.emoji.select.skin.tone.ariaLabel': '選取膚色，已選取 {selectedTone}',
 };

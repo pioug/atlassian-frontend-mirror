@@ -8,13 +8,17 @@
 //Swedish
 export default {
   'fabric.reactions.add': 'Lägg till reaktion',
+  'fabric.reactions.add.new': 'Lägg till ny',
   'fabric.reactions.error.unexpected': 'Reaktioner är inte tillgängliga just nu',
   'fabric.reactions.loading': 'Läser in ...',
   'fabric.reactions.more.emojis': 'Fler emojis',
   'fabric.reactions.other.reacted.users': '{count, plural, one {och en annan} other {och {count} andra}}',
   'fabric.reactions.reactwithemoji': 'Reagera med emojin {emoji}',
+  'fabric.reactions.reactwithemojiandcount':
+    '{count, plural, one {{count,number} {emoji} emoji. Reagera med emojin {emoji}} other {{count,number} {emoji} emojis. Reagera med emojin {emoji}}}',
   'fabric.reactions.summary': 'Visa alla reaktioner från användare',
   'reaction-picker-trigger.add.reaction.message': 'Lägg till en reaktion',
+  'reactions-reaction.picker-label': 'Lägg till reaktioner',
   'reactions.dialog.close': 'Stäng',
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': 'Vänster navigering',

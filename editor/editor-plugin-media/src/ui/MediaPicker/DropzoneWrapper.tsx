@@ -13,7 +13,7 @@ import type { DropzoneConfig } from '@atlaskit/media-picker';
 import { Dropzone } from '@atlaskit/media-picker';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
-import PickerFacade from '../../pm-plugins/picker-facade';
+import type PickerFacade from '../../pm-plugins/picker-facade';
 
 import PickerFacadeProvider from './PickerFacadeProvider';
 

@@ -1,4 +1,4 @@
-import { Mark, MarkType, Node } from '@atlaskit/editor-prosemirror/model';
+import { Mark, type MarkType, type Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, SelectionRange } from '@atlaskit/editor-prosemirror/state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 

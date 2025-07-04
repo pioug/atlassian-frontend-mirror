@@ -6,12 +6,12 @@ import {
 	EditorSelection,
 	Facet,
 	EditorState as CodeMirrorState,
-	StateEffect,
+	type StateEffect,
 } from '@codemirror/state';
-import { EditorView as CodeMirror, lineNumbers, ViewUpdate, gutters } from '@codemirror/view';
+import { EditorView as CodeMirror, lineNumbers, type ViewUpdate, gutters } from '@codemirror/view';
 
 import { isCodeBlockWordWrapEnabled } from '@atlaskit/editor-common/code-block';
-import { RelativeSelectionPos } from '@atlaskit/editor-common/selection';
+import { type RelativeSelectionPos } from '@atlaskit/editor-common/selection';
 import type {
 	getPosHandler,
 	getPosHandlerNode,
@@ -19,7 +19,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
 import { type EditorSelectionAPI } from '@atlaskit/editor-plugin-selection';
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type {
 	Decoration,

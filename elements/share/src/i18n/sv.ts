@@ -14,6 +14,7 @@ export default {
   'fabric.elements.share.failure.message': 'Det gick inte att dela',
   'fabric.elements.share.form.comment.label': 'Meddelande (valfritt)',
   'fabric.elements.share.form.comment.placeholder': 'Finns det något de behöver veta?',
+  'fabric.elements.share.form.extended.dialog.comment.label': 'Meddelande',
   'fabric.elements.share.form.info.message.no.invite.confluence': 'Mottagare ser namnet på sidan och ditt meddelande',
   'fabric.elements.share.form.info.message.no.invite.jira': 'Mottagare ser namnet på ärendet och ditt meddelande',
   'fabric.elements.share.form.info.message.no.invite.jira.issue-term-refresh':

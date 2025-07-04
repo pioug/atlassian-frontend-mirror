@@ -1,11 +1,11 @@
-import { Facet } from '@codemirror/state';
+import { type Facet } from '@codemirror/state';
 import {
 	ViewPlugin,
 	WidgetType,
 	Decoration as CodeMirrorDecoration,
-	EditorView as CodeMirror,
+	type EditorView as CodeMirror,
 	type DecorationSet,
-	ViewUpdate,
+	type ViewUpdate,
 } from '@codemirror/view';
 
 import type { EditorView, Decoration, DecorationSource } from '@atlaskit/editor-prosemirror/view';

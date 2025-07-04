@@ -1,7 +1,7 @@
 import { type IntlShape } from 'react-intl-next';
 
 import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages';
-import { type DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { type DOMOutputSpec, type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 // This value can be a fixed constant as it doesn't depend on runtime values or arguments.
 const iconDOM = [

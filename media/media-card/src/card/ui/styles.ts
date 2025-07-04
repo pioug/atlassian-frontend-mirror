@@ -1,7 +1,6 @@
 import { N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { akEditorSelectedBoxShadow } from '@atlaskit/editor-shared-styles/consts';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type CardDimensions, type CardAppearance } from '../../types';
 import { getCSSUnitValue } from '../../utils/getCSSUnitValue';
@@ -38,11 +37,6 @@ export const getWrapperDimensions = (dimensions?: CardDimensions, appearance?: C
 	const { width, height } = dimensions || {};
 	const { width: defaultWidth, height: defaultHeight } = getDefaultCardDimensions(appearance);
 	return `
-     ${
-				fg('platform_fix_media_image_resizing')
-					? `@container view-page-content (min-width: 1px) { width: 100cqw; }`
-					: ''
-			}
 	/* If container doesn't exists, it will fallback to this */
 	width: ${getCSSUnitValue(width || defaultWidth)};
 

@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 4.3.0
+
+### Minor Changes
+
+- [#180495](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/180495)
+  [`eb0bc71e25f89`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb0bc71e25f89) -
+  Cleaned up floating toolbar in ssr experiment
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.2.9
 
 ### Patch Changes

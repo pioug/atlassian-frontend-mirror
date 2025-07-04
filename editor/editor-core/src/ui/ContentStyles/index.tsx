@@ -86,6 +86,7 @@ import { token, useThemeObserver } from '@atlaskit/tokens';
 import { InlineNodeViewSharedStyles } from '../../nodeviews/getInlineNodeViewProducer.styles';
 
 import { aiPanelStyles } from './ai-panels';
+import { codeBidiWarningStyles } from './code-bidi-warning';
 import { codeBlockStyles } from './code-block';
 import { dateStyles, dateNodeStyles } from './date';
 import { expandStyles } from './expand';
@@ -536,6 +537,7 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
   ${pragmaticResizerStylesForTooltip()}
   ${aiPanelStyles(props.colorMode)}
   ${firstBlockNodeStylesNew}
+	${fg('platform_editor_vanilla_codebidi_warning') && codeBidiWarningStyles}
 
   .panelView-content-wrap {
 		box-sizing: border-box;

@@ -1,6 +1,6 @@
-import { ASTPath, JSCodeshift, VariableDeclarator } from 'jscodeshift';
+import { type ASTPath, type JSCodeshift, type VariableDeclarator } from 'jscodeshift';
 
-import { WithStart } from '../types';
+import { type WithStart } from '../types';
 
 export function removeUnusedVariables(
 	variableDeclarations: ASTPath<VariableDeclarator>[],

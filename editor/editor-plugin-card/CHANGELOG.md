@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-card
 
+## 6.8.0
+
+### Minor Changes
+
+- [#180491](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/180491)
+  [`33c19072599ca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/33c19072599ca) -
+  Tidied up smart card overlay experiment
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.7.1
 
 ### Patch Changes

@@ -16,6 +16,7 @@ export default {
   'team-central.give-kudos.button': 'Gi kudos',
   'team-central.give-kudos.close-button.label': 'Lukk skuff',
   'team-central.give-kudos.confirm-close.title': 'Bekreft at du vil lukke',
+  'team-central.give-kudos.created.action.flag': 'Vis kudos',
   'team-central.give-kudos.created.description.flag': 'Kudos er sendt. <a>Vis kudos</a>',
   'team-central.give-kudos.created.title.flag': 'Kudos er opprettet',
   'team-central.give-kudos.creation.failed.description.flag': 'Vi kan ikke opprette kudos.',

@@ -1,4 +1,4 @@
-import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+import { type ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 
 import { ActionType, type DetailedReplaceStep, type TrAction } from '../types';
 

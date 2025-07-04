@@ -14,7 +14,6 @@ import { cardMessages } from '@atlaskit/editor-common/messages';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import { Anchor, Box, Text, xcss } from '@atlaskit/primitives';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import { visitCardLinkAnalytics } from '../toolbar';
@@ -93,28 +92,6 @@ const OpenButtonOverlay = ({
 	const openTextWidthRef = useRef<number | null>(null);
 
 	useLayoutEffect(() => {
-		if (
-			editorExperiment('platform_editor_smart_card_open_overlay_perf', false, { exposure: true })
-		) {
-			const hiddenText = hiddenTextRef.current;
-			if (!hiddenText) {
-				openTextWidthRef.current = DEFAULT_OPEN_TEXT_WIDTH;
-				return;
-			}
-			// Measure the width of the hidden text
-			// Temporarily make the element visible to measure its width
-			hiddenText.style.visibility = 'hidden';
-			hiddenText.style.display = 'inline';
-
-			openTextWidthRef.current = hiddenText.offsetWidth;
-
-			// Reset the hiddenText's display property
-			hiddenText.style.display = 'none';
-			hiddenText.style.visibility = 'inherit';
-		}
-	}, []);
-
-	useLayoutEffect(() => {
 		if (!isVisible || !isHovered) {
 			return;
 		}
@@ -122,25 +99,21 @@ const OpenButtonOverlay = ({
 		const openButtonWidth = openButtonRef.current?.offsetWidth;
 
 		// Get the hidden text width
-		if (
-			editorExperiment('platform_editor_smart_card_open_overlay_perf', true, { exposure: true })
-		) {
-			if (!openTextWidthRef.current) {
-				const hiddenText = hiddenTextRef.current;
-				if (hiddenText) {
-					// Measure the width of the hidden text
-					// Temporarily make the element visible to measure its width
-					hiddenText.style.visibility = 'hidden';
-					hiddenText.style.display = 'inline';
+		if (!openTextWidthRef.current) {
+			const hiddenText = hiddenTextRef.current;
+			if (hiddenText) {
+				// Measure the width of the hidden text
+				// Temporarily make the element visible to measure its width
+				hiddenText.style.visibility = 'hidden';
+				hiddenText.style.display = 'inline';
 
-					openTextWidthRef.current = hiddenText.offsetWidth;
+				openTextWidthRef.current = hiddenText.offsetWidth;
 
-					// Reset the hiddenText's display property
-					hiddenText.style.display = 'none';
-					hiddenText.style.visibility = 'inherit';
-				} else {
-					openTextWidthRef.current = DEFAULT_OPEN_TEXT_WIDTH;
-				}
+				// Reset the hiddenText's display property
+				hiddenText.style.display = 'none';
+				hiddenText.style.visibility = 'inherit';
+			} else {
+				openTextWidthRef.current = DEFAULT_OPEN_TEXT_WIDTH;
 			}
 		}
 

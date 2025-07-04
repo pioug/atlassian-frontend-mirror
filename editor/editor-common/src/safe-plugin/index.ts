@@ -1,5 +1,5 @@
 import type { Mark as PMMark } from '@atlaskit/editor-prosemirror/model';
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Plugin } from '@atlaskit/editor-prosemirror/state';
 import type { PluginSpec, SafePluginSpec } from '@atlaskit/editor-prosemirror/state';
 import type {

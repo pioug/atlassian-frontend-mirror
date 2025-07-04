@@ -1,4 +1,4 @@
-import { INPUT_METHOD, type EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { type INPUT_METHOD, type EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { browser } from '@atlaskit/editor-common/browser';
 import {
 	copyHTMLToClipboard,

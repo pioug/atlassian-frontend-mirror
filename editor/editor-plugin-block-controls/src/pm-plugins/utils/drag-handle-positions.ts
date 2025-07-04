@@ -13,7 +13,7 @@ import {
 	dragHandleGap,
 } from '../../ui/consts';
 
-import { AnchorRectCache } from './anchor-utils';
+import { type AnchorRectCache } from './anchor-utils';
 
 const STICKY_NODES = ['panel', 'table', 'expand', 'layoutSection', 'bodiedExtension'];
 

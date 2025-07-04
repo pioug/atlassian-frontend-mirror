@@ -16,6 +16,7 @@ export default {
   'team-central.give-kudos.button': '칭찬하기',
   'team-central.give-kudos.close-button.label': '서랍 닫기',
   'team-central.give-kudos.confirm-close.title': '닫기 확인',
+  'team-central.give-kudos.created.action.flag': '칭찬 보기',
   'team-central.give-kudos.created.description.flag': '칭찬을 보냈습니다. <a>칭찬 보기</a>',
   'team-central.give-kudos.created.title.flag': '칭찬을 만듦',
   'team-central.give-kudos.creation.failed.description.flag': '칭찬을 만들 수 없습니다.',

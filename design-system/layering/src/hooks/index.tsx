@@ -1,10 +1,10 @@
-import { MutableRefObject, useCallback, useContext, useEffect, useRef } from 'react';
+import { type MutableRefObject, useCallback, useContext, useEffect, useRef } from 'react';
 
 import { bindAll } from 'bind-event-listener';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { LayerNode } from '../classes/layer-node';
+import { type LayerNode } from '../classes/layer-node';
 import {
 	LevelContext,
 	LevelNodeContext,

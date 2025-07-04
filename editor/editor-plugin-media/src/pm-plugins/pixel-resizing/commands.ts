@@ -1,4 +1,4 @@
-import { Transaction, EditorState } from '@atlaskit/editor-prosemirror/state';
+import { type Transaction, type EditorState } from '@atlaskit/editor-prosemirror/state';
 
 import { createCommand } from './index';
 

@@ -3,12 +3,12 @@ import { type Extension } from '@codemirror/state';
 import { type KeyBinding, keymap as cmKeymap } from '@codemirror/view';
 
 import { browser } from '@atlaskit/editor-common/browser';
-import { RelativeSelectionPos } from '@atlaskit/editor-common/selection';
+import { type RelativeSelectionPos } from '@atlaskit/editor-common/selection';
 import type { getPosHandlerNode } from '@atlaskit/editor-common/types';
 import { exitCode, selectAll } from '@atlaskit/editor-prosemirror/commands';
 import { undo, redo } from '@atlaskit/editor-prosemirror/history';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 

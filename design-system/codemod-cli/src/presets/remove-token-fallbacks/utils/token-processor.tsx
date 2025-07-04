@@ -19,11 +19,11 @@ import type {
 } from 'jscodeshift';
 
 import {
-	FallbackResolveResult,
-	RemoveTokenFallbackOptions,
-	TeamInfo,
-	TokenProcessingResult,
-	TransformationDetails,
+	type FallbackResolveResult,
+	type RemoveTokenFallbackOptions,
+	type TeamInfo,
+	type TokenProcessingResult,
+	type TransformationDetails,
 } from '../types';
 
 import { normalizeValues } from './normalize-values';

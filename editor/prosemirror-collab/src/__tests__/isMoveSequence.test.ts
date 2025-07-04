@@ -1,12 +1,12 @@
 import { Schema, Slice } from '@atlaskit/editor-prosemirror/model';
 import {
-	Step,
+	type Step,
 	ReplaceStep,
 	ReplaceAroundStep,
-	Transform,
+	type Transform,
 } from '@atlaskit/editor-prosemirror/transform';
 
-import { Rebaseable } from '../index';
+import { type Rebaseable } from '../index';
 import { isMoveSequence } from '../movedContent';
 
 const createRebaseableStep = (

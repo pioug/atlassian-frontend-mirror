@@ -16,6 +16,7 @@ export default {
   'team-central.give-kudos.button': 'แสดงความชื่นชม',
   'team-central.give-kudos.close-button.label': 'ปิดหน้าจอ',
   'team-central.give-kudos.confirm-close.title': 'ยืนยันการปิด',
+  'team-central.give-kudos.created.action.flag': 'ดูคำชื่นชม',
   'team-central.give-kudos.created.description.flag': 'ส่งคำชื่นชมของคุณแล้ว <a>ดูคำชื่นชม</a>',
   'team-central.give-kudos.created.title.flag': 'สร้างคำชื่นชมแล้ว',
   'team-central.give-kudos.creation.failed.description.flag': 'เราไม่สามารถสร้างคำชื่นชมของคุณได้',

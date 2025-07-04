@@ -14,6 +14,7 @@ export default {
   'fabric.elements.share.failure.message': 'Không thể chia sẻ',
   'fabric.elements.share.form.comment.label': 'Tin nhắn (không bắt buộc)',
   'fabric.elements.share.form.comment.placeholder': 'Bạn có nội dung gì cần lưu ý người khác không?',
+  'fabric.elements.share.form.extended.dialog.comment.label': 'Thông báo',
   'fabric.elements.share.form.info.message.no.invite.confluence': 'Người nhận sẽ thấy tên trang và tin nhắn của bạn',
   'fabric.elements.share.form.info.message.no.invite.jira': 'Người nhận sẽ thấy tên sự cố và tin nhắn của bạn',
   'fabric.elements.share.form.info.message.no.invite.jira.issue-term-refresh':

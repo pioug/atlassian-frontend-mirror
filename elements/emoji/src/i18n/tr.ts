@@ -51,6 +51,7 @@ export default {
   'fabric.emoji.search.label': 'Emoji adı',
   'fabric.emoji.search.placeholder': 'Ara',
   'fabric.emoji.search.status': "Tüm emoji'ler gösteriliyor",
+  'fabric.emoji.search.status.count': '{count} emoji bulundu',
   'fabric.emoji.select.skin.list.ariaLabel': 'Cilt tonu seçici',
   'fabric.emoji.select.skin.tone.ariaLabel': 'Cilt tonunuzu seçin, {selectedTone} seçildi',
 };

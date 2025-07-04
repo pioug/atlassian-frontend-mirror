@@ -309,14 +309,7 @@ export const MediaSingleDimensionHelper = ({
 		css({
 			minWidth: '100%',
 		})}
-		${isExtendedResizeExperienceOn && fg('platform_fix_media_image_resizing')
-			? css({
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-container-queries
-					'@container view-page-content (min-width: 1px)': {
-						maxWidth: '100cqw',
-					},
-				})
-			: ''}
+
 		/* If container doesn't exists, it will fallback to this */
 		max-width: ${isSSR() &&
 		!calculatedMaxWidth.endsWith('%') &&

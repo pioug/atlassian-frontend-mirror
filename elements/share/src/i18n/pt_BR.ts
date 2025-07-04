@@ -14,6 +14,7 @@ export default {
   'fabric.elements.share.failure.message': 'Não foi possível compartilhar',
   'fabric.elements.share.form.comment.label': 'Mensagem (opcional)',
   'fabric.elements.share.form.comment.placeholder': 'Há algo que eles deveriam saber?',
+  'fabric.elements.share.form.extended.dialog.comment.label': 'Mensagem',
   'fabric.elements.share.form.info.message.no.invite.confluence':
     'Os destinatários vão ver o nome da página e sua mensagem',
   'fabric.elements.share.form.info.message.no.invite.jira': 'Os destinatários vão ver o nome do item e sua mensagem',

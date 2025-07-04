@@ -14,6 +14,7 @@ export default {
   'fabric.elements.share.failure.message': 'Nie można udostępnić',
   'fabric.elements.share.form.comment.label': 'Wiadomość (opcjonalnie)',
   'fabric.elements.share.form.comment.placeholder': 'Czy jest coś, o czym powinni wiedzieć?',
+  'fabric.elements.share.form.extended.dialog.comment.label': 'Wiadomość',
   'fabric.elements.share.form.info.message.no.invite.confluence': 'Odbiorcy zobaczą nazwę strony i Twój komunikat',
   'fabric.elements.share.form.info.message.no.invite.jira': 'Odbiorcy zobaczą nazwę zgłoszenia i Twój komunikat',
   'fabric.elements.share.form.info.message.no.invite.jira.issue-term-refresh':

@@ -9,7 +9,7 @@ import { cssMap, jsx } from '@compiled/react';
 
 import { ExitingPersistence, SlideIn, type Transition } from '@atlaskit/motion';
 import type { SlideInProps } from '@atlaskit/motion/types';
-import { CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
+import { type CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
 
 import { EnsureIsInsideDrawerContext, OnCloseContext } from '../context';
 import { type DrawerPanelProps } from '../types';

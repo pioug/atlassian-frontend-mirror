@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-code-bidi-warning
 
+## 2.2.0
+
+### Minor Changes
+
+- [#180500](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/180500)
+  [`411796e8a55c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/411796e8a55c6) -
+  [ux] Move code-bidi-warning plugin widget to be a vanilla-DOM implementation, instead of react, to
+  fix memory leaks.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.1.4
 
 ### Patch Changes

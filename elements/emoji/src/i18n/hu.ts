@@ -52,6 +52,7 @@ export default {
   'fabric.emoji.search.label': 'Emoji neve',
   'fabric.emoji.search.placeholder': 'Keresés',
   'fabric.emoji.search.status': 'Az összes emoji megjelenítése',
+  'fabric.emoji.search.status.count': '{count} emoji található',
   'fabric.emoji.select.skin.list.ariaLabel': 'Bőrszínválasztó',
   'fabric.emoji.select.skin.tone.ariaLabel': 'Válaszd ki a bőrszínt; {selectedTone} kiválasztva',
 };

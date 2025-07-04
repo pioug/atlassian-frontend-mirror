@@ -14,7 +14,7 @@ import { useId } from '@atlaskit/ds-lib/use-id';
 import { useCloseOnEscapePress, useLayering } from '@atlaskit/layering';
 import FadeIn from '@atlaskit/motion/fade-in';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
-import { CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
+import { type CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
 
 import type { KeyboardOrMouseEvent, ModalDialogProps } from '../../types';
 import { ModalContext, ScrollContext } from '../context';

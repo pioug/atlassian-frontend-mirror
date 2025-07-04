@@ -1,5 +1,19 @@
 # @atlaskit/editor-statsig-tmp
 
+## 8.7.0
+
+### Minor Changes
+
+- [#180495](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/180495)
+  [`eb0bc71e25f89`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb0bc71e25f89) -
+  Cleaned up floating toolbar in ssr experiment
+- [#180491](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/180491)
+  [`33c19072599ca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/33c19072599ca) -
+  Tidied up smart card overlay experiment
+- [#180500](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/180500)
+  [`11b9d2a6abab1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/11b9d2a6abab1) -
+  Cleaned up shadow defer calculation experiment
+
 ## 8.6.0
 
 ### Minor Changes

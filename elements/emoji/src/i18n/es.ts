@@ -52,6 +52,7 @@ export default {
   'fabric.emoji.search.label': 'Nombre del emoji',
   'fabric.emoji.search.placeholder': 'Buscar',
   'fabric.emoji.search.status': 'Viendo todos los emojis',
+  'fabric.emoji.search.status.count': '{count} emoticonos encontrados',
   'fabric.emoji.select.skin.list.ariaLabel': 'Selector de tonos de piel',
   'fabric.emoji.select.skin.tone.ariaLabel': 'Elige tu tono de piel (tono seleccionado: {selectedTone})',
 };

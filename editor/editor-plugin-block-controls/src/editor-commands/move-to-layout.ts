@@ -3,8 +3,8 @@ import { logException } from '@atlaskit/editor-common/monitoring';
 import type { EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import {
 	Fragment,
-	Mark,
-	MarkType,
+	type Mark,
+	type MarkType,
 	Node as PMNode,
 	type ResolvedPos,
 	type Schema,

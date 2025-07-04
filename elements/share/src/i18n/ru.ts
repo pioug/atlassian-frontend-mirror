@@ -14,6 +14,7 @@ export default {
   'fabric.elements.share.failure.message': 'Не удается поделиться',
   'fabric.elements.share.form.comment.label': 'Сообщение (необязательно)',
   'fabric.elements.share.form.comment.placeholder': 'Что пользователям следует знать?',
+  'fabric.elements.share.form.extended.dialog.comment.label': 'Сообщение',
   'fabric.elements.share.form.info.message.no.invite.confluence': 'Получатели увидят имя страницы и ваше сообщение',
   'fabric.elements.share.form.info.message.no.invite.jira': 'Получатели увидят имя задачи и ваше сообщение',
   'fabric.elements.share.form.info.message.no.invite.jira.issue-term-refresh':

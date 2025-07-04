@@ -7,15 +7,19 @@
  */
 //Norwegian (Bokmål)
 export default {
+  'fabric.elements.user-picker.custom.type.label': 'Tilpasninger',
   'fabric.elements.user-picker.email.add': 'Legg til bruker',
   'fabric.elements.user-picker.email.add.potential': 'Oppgi en e-postadresse',
   'fabric.elements.user-picker.email.select.to.add': 'Velg en e-postadresse',
+  'fabric.elements.user-picker.email.type.label': 'E-poster',
   'fabric.elements.user-picker.error.message': 'Noe gikk galt',
   'fabric.elements.user-picker.external.sourced.error': 'Vi kan ikke koble deg til akkurat nå.',
   'fabric.elements.user-picker.external.sourced.from': 'Funnet på:',
+  'fabric.elements.user-picker.external.user.type.label': 'Eksterne brukere',
   'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',
   'fabric.elements.user-picker.group.byline': 'Gruppe administrert av administrator',
+  'fabric.elements.user-picker.group.type.label': 'Grupper',
   'fabric.elements.user-picker.guest.lozenge.text': 'GJEST',
   'fabric.elements.user-picker.guest.lozenge.tooltip.group':
     'Gjestegrupper har bare tilgang til enkelte områder, og har begrenset tilgang til brukeropplysninger.',
@@ -24,6 +28,7 @@ export default {
   'fabric.elements.user-picker.member.lozenge.text': 'Medlem',
   'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': 'Fjern',
+  'fabric.elements.user-picker.other.type.label': 'Annet',
   'fabric.elements.user-picker.placeholder': 'Angi personer eller team ...',
   'fabric.elements.user-picker.placeholder.add-more': 'Legg til flere personer',
   'fabric.elements.user-picker.single.clear': 'Tøm',
@@ -37,4 +42,6 @@ export default {
     '{count, plural, one {Team • {count} medlem} other {Team • {count} medlemmer}}',
   'fabric.elements.user-picker.team.member.count.including.you':
     '{count, plural, one {Team • {count} medlem, inkludert deg} other {Team • {count} medlemmer, inkludert deg}}',
+  'fabric.elements.user-picker.team.type.label': 'Team',
+  'fabric.elements.user-picker.user.type.label': 'Personer',
 };

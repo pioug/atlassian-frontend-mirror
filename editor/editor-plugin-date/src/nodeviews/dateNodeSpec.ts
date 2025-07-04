@@ -6,7 +6,7 @@ import type { getPosHandlerNode } from '@atlaskit/editor-common/types';
 import { browser, timestampToString } from '@atlaskit/editor-common/utils';
 import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { type EditorState } from '@atlaskit/editor-prosemirror/state';
 import { N30A, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 

@@ -7,15 +7,19 @@
  */
 //Portuguese (Brazil)
 export default {
+  'fabric.elements.user-picker.custom.type.label': 'Personalizados',
   'fabric.elements.user-picker.email.add': 'Incluir usuário',
   'fabric.elements.user-picker.email.add.potential': 'Insira um endereço de e-mail',
   'fabric.elements.user-picker.email.select.to.add': 'Selecione um endereço de e-mail',
+  'fabric.elements.user-picker.email.type.label': 'E-mails',
   'fabric.elements.user-picker.error.message': 'Algo deu errado',
   'fabric.elements.user-picker.external.sourced.error': 'Não foi possível fazer a sua conexão neste momento.',
   'fabric.elements.user-picker.external.sourced.from': 'Encontrado em:',
+  'fabric.elements.user-picker.external.user.type.label': 'Usuários externos',
   'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',
   'fabric.elements.user-picker.group.byline': 'Grupo gerenciado por administradores',
+  'fabric.elements.user-picker.group.type.label': 'Grupos',
   'fabric.elements.user-picker.guest.lozenge.text': 'CONVIDADO',
   'fabric.elements.user-picker.guest.lozenge.tooltip.group':
     'Os grupos de convidados só podem acessar determinados espaços e têm acesso limitado às informações do usuário.',
@@ -24,6 +28,7 @@ export default {
   'fabric.elements.user-picker.member.lozenge.text': 'Membro',
   'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': 'Remover',
+  'fabric.elements.user-picker.other.type.label': 'Outros',
   'fabric.elements.user-picker.placeholder': 'Inserir pessoas ou equipes...',
   'fabric.elements.user-picker.placeholder.add-more': 'adicionar mais pessoas...',
   'fabric.elements.user-picker.single.clear': 'Limpar',
@@ -37,4 +42,6 @@ export default {
     '{count, plural, one {Equipe • {count} membro} other {Equipe • {count} membros}}',
   'fabric.elements.user-picker.team.member.count.including.you':
     '{count, plural, one {Equipe • {count} membro, incluindo você} other {Equipe • {count} membros, incluindo você}}',
+  'fabric.elements.user-picker.team.type.label': 'Equipes',
+  'fabric.elements.user-picker.user.type.label': 'Pessoas',
 };

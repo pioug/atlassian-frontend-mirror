@@ -1,20 +1,20 @@
+import type { Rule } from 'eslint';
+import type { Variable } from 'eslint-scope';
 import type {
 	CallExpression,
 	Expression,
 	Identifier,
-	Property,
-	ObjectExpression,
 	Node,
+	ObjectExpression,
+	Property,
 } from 'estree-jsx';
-import type { Rule } from 'eslint';
 
 import {
+	type AllowList,
 	getAllowedDynamicKeys,
 	getAllowedFunctionCalls,
 	isAllowListedVariable,
-	type AllowList,
 } from '@atlaskit/eslint-utils/allowed-function-calls';
-import type { Variable } from 'eslint-scope';
 import { findIdentifierNode } from '@atlaskit/eslint-utils/find-identifier-node';
 import { findVariable } from '@atlaskit/eslint-utils/find-variable';
 

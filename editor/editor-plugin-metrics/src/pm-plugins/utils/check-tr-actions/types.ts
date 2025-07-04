@@ -1,5 +1,5 @@
-import { Slice } from '@atlaskit/editor-prosemirror/model';
-import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+import { type Slice } from '@atlaskit/editor-prosemirror/model';
+import { type ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 
 export interface DetailedReplaceStep extends ReplaceStep {
 	from: number;

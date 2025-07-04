@@ -13,7 +13,7 @@ import { type ExtractInjectionAPI, type getPosHandlerNode } from '@atlaskit/edit
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import {
 	DOMSerializer,
-	Schema,
+	type Schema,
 	type DOMOutputSpec,
 	type Node as PMNode,
 } from '@atlaskit/editor-prosemirror/model';

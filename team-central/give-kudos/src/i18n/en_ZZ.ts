@@ -16,9 +16,10 @@ export default {
   'team-central.give-kudos.button': '⁣⁢Give kudos‍⁯‌⁠؜⁫⁯‍⁫⁬‍⁬⁡؜‍‌؜⁠⁡⁮⁠⁫‍⁣⁤',
   'team-central.give-kudos.close-button.label': '⁣⁢Close drawer⁭⁭⁯⁮⁫⁮‌⁠⁭⁫⁡‍⁭⁬؜‍⁮⁬⁡⁮⁭⁪⁣⁤',
   'team-central.give-kudos.confirm-close.title': '⁣⁢Confirm Close⁭⁭‍⁠⁮⁫⁯⁯⁭⁭؜⁪⁠⁪‌⁪‌؜‌⁮⁯⁮⁫‍⁣⁤',
+  'team-central.give-kudos.created.action.flag': '⁣⁢View kudos‍⁪⁠⁭؜⁭؜⁫⁡⁯⁪‌؜⁡⁪⁠⁡‍⁭⁡⁫⁯‌⁮⁡⁪⁣⁤',
   'team-central.give-kudos.created.description.flag':
     '⁣⁢Your kudos has been sent. <a>View kudos</a>⁪‌؜⁡⁭‌⁯‌⁯⁭⁬⁠⁯؜⁫‌‍⁬⁭⁯⁣⁤',
-  'team-central.give-kudos.created.title.flag': '⁣⁢Kudos created⁠⁠⁯⁡⁬⁠⁪⁠‍⁡⁠⁡⁡⁬⁠⁯⁡؜⁫⁮⁡⁣⁤',
+  'team-central.give-kudos.created.title.flag': '⁣⁢Kudos has been created⁠⁭‌‌‍⁠؜⁭⁪⁭⁮⁮⁠⁯⁬؜⁮⁡⁫⁭⁣⁤',
   'team-central.give-kudos.creation.failed.description.flag': "⁣⁢We couldn't create your kudos.⁫⁬‌‍⁮‍⁪⁮⁫⁯⁪⁬⁭⁮⁮‌‌⁭⁣⁤",
   'team-central.give-kudos.creation.failed.title.flag': '⁣⁢Something went wrong؜‌⁭⁭؜؜⁯⁭‍⁯⁭⁡⁫⁫⁯؜⁬⁭‍⁫⁫⁬‌؜⁬⁣⁤',
   'team-central.give-kudos.error-icon.label': '⁣⁢Error⁪‌‌⁪‌⁠⁪⁠⁫⁫⁯⁭⁬؜⁪⁮⁫⁭⁫⁠⁮‍⁠⁣⁤',

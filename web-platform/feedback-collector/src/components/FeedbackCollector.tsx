@@ -93,7 +93,7 @@ export interface Props {
 	/**  Message for cancel button label */
 	cancelButtonLabel?: string;
 	/**  Message for select option labels and field labels */
-	feedbackGroupLabels?: Record<SelectValue, SelectOptionDetails>;
+	feedbackGroupLabels?: Partial<Record<SelectValue, SelectOptionDetails>>;
 	/** Function that will be called to initiate the exit transition. */
 	onClose: () => void;
 	/** Function that will be called optimistically after a delay when the feedback is submitted. */

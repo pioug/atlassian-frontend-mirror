@@ -1,5 +1,15 @@
 import type { ReactText } from 'react';
-export type SelectValue = 'bug' | 'comment' | 'suggestion' | 'question' | 'empty';
+export type SelectValue =
+	| 'bug'
+	| 'comment'
+	| 'suggestion'
+	| 'question'
+	| 'empty'
+	| 'not_relevant'
+	| 'not_accurate'
+	| 'too_slow'
+	| 'unhelpful_links'
+	| 'other';
 
 export interface FormFields {
 	type: SelectValue;

@@ -1,7 +1,7 @@
 import { type OptionType } from '../../components/FeedbackForm';
 import { type SelectOptionDetails, type SelectValue } from '../../types';
 
-export const defaultFieldRecords: Record<SelectValue, SelectOptionDetails> = {
+export const defaultFieldRecords: Partial<Record<SelectValue, SelectOptionDetails>> = {
 	question: {
 		fieldLabel: 'What would you like to know?',
 		selectOptionLabel: 'question select option label',
@@ -24,7 +24,7 @@ export const defaultFieldRecords: Record<SelectValue, SelectOptionDetails> = {
 	},
 };
 
-export const customFieldRecords: Record<SelectValue, SelectOptionDetails> = {
+export const customFieldRecords: Partial<Record<SelectValue, SelectOptionDetails>> = {
 	...defaultFieldRecords,
 	suggestion: {
 		fieldLabel: 'A field label',

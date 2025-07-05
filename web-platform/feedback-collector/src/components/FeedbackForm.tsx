@@ -40,7 +40,7 @@ interface Props {
 	/**  Message for cancel button label **/
 	cancelButtonLabel?: string;
 	/**  Message for select option labels and field labels **/
-	feedbackGroupLabels?: Record<SelectValue, SelectOptionDetails>;
+	feedbackGroupLabels?: Partial<Record<SelectValue, SelectOptionDetails>>;
 	/** Function that will be called to initiate the exit transition. */
 	onClose: () => void;
 	/** Function that will be called immediately after the submit action  */
@@ -102,40 +102,48 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 	const isDisabled = showTypeField ? !isTypeSelected() || !hasDescription : !hasDescription;
 
 	const getFieldLabels = (
-		record?: Record<SelectValue, SelectOptionDetails>,
+		record?: Partial<Record<SelectValue, SelectOptionDetails>>,
 	): Record<SelectValue, React.ReactText> => ({
-		bug: record?.bug.fieldLabel || formatMessage(messages.formBugLabel),
-		comment: record?.comment.fieldLabel || formatMessage(messages.formCommentLabel),
-		suggestion: record?.suggestion.fieldLabel || formatMessage(messages.formSuggestionLabel),
-		question: record?.question.fieldLabel || formatMessage(messages.formQuestionLabel),
-		empty: record?.empty.fieldLabel || formatMessage(messages.formEmptyLabel),
+		bug: record?.bug?.fieldLabel || formatMessage(messages.formBugLabel),
+		comment: record?.comment?.fieldLabel || formatMessage(messages.formCommentLabel),
+		suggestion: record?.suggestion?.fieldLabel || formatMessage(messages.formSuggestionLabel),
+		question: record?.question?.fieldLabel || formatMessage(messages.formQuestionLabel),
+		empty: record?.empty?.fieldLabel || formatMessage(messages.formEmptyLabel),
+		not_relevant: record?.not_relevant?.fieldLabel || formatMessage(messages.formNotRelevantLabel),
+		not_accurate: record?.not_accurate?.fieldLabel || formatMessage(messages.formNotAccurateLabel),
+		too_slow: record?.too_slow?.fieldLabel || formatMessage(messages.formTooSlowLabel),
+		unhelpful_links:
+			record?.unhelpful_links?.fieldLabel || formatMessage(messages.formUnhelpfulLinksLabel),
+		other: record?.other?.fieldLabel || formatMessage(messages.formOtherLabel),
 	});
 
-	const getSelectOptions = (record?: Record<SelectValue, SelectOptionDetails>): OptionType[] => [
+	const getSelectOptions = (
+		record?: Partial<Record<SelectValue, SelectOptionDetails>>,
+	): OptionType[] => [
 		{
 			label:
-				record?.question.selectOptionLabel || formatMessage(messages.selectionOptionQuestionLabel),
+				record?.question?.selectOptionLabel || formatMessage(messages.selectionOptionQuestionLabel),
 			value: 'question',
 		},
 		{
 			label:
-				record?.comment.selectOptionLabel || formatMessage(messages.selectionOptionCommentLabel),
+				record?.comment?.selectOptionLabel || formatMessage(messages.selectionOptionCommentLabel),
 			value: 'comment',
 		},
 		{
-			label: record?.bug.selectOptionLabel || formatMessage(messages.selectionOptionBugLabel),
+			label: record?.bug?.selectOptionLabel || formatMessage(messages.selectionOptionBugLabel),
 			value: 'bug',
 		},
 		{
 			label:
-				record?.suggestion.selectOptionLabel ||
+				record?.suggestion?.selectOptionLabel ||
 				formatMessage(messages.selectionOptionSuggestionLabel),
 			value: 'suggestion',
 		},
 	];
 
-	const getDefaultPlaceholder = (record?: Record<SelectValue, SelectOptionDetails>) =>
-		record?.empty.selectOptionLabel || formatMessage(messages.selectionOptionDefaultPlaceholder);
+	const getDefaultPlaceholder = (record?: Partial<Record<SelectValue, SelectOptionDetails>>) =>
+		record?.empty?.selectOptionLabel || formatMessage(messages.selectionOptionDefaultPlaceholder);
 
 	const focusRef = useRef<HTMLElement>();
 

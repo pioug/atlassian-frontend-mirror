@@ -188,7 +188,7 @@ interface Props {
 	enrollInResearchDeclineValue: FieldValueType;
 	enrollInResearchFieldId: string;
 	entrypointId: string;
-	feedbackGroupLabels?: Record<SelectValue, SelectOptionDetails>;
+	feedbackGroupLabels?: Partial<Record<SelectValue, SelectOptionDetails>>;
 	feedbackTitle?: React_2.ReactText;
 	feedbackTitleDetails?: React_2.ReactChild;
 	locale?: string;
@@ -221,7 +221,7 @@ interface Props_2 {
 	cancelButtonLabel?: string;
 	customContent?: React_2.ReactChild;
 	enrolInResearchLabel?: React_2.ReactChild;
-	feedbackGroupLabels?: Record<SelectValue, SelectOptionDetails>;
+	feedbackGroupLabels?: Partial<Record<SelectValue, SelectOptionDetails>>;
 	feedbackTitle?: React_2.ReactText;
 	feedbackTitleDetails?: React_2.ReactChild;
 	hasDescriptionDefaultValue?: boolean;

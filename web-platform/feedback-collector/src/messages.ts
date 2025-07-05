@@ -65,6 +65,31 @@ export const messages = defineMessages({
 		defaultMessage: 'Select an option',
 		description: 'The default dropdown list option',
 	},
+	formNotRelevantLabel: {
+		id: 'feedback-collector.form.not-relevant.label',
+		defaultMessage: "Wasn't relevant",
+		description: 'The textarea label where users can write their not relevant feedback',
+	},
+	formNotAccurateLabel: {
+		id: 'feedback-collector.form.not-accurate.label',
+		defaultMessage: "Wasn't accurate",
+		description: 'The textarea label where users can write their not accurate feedback',
+	},
+	formTooSlowLabel: {
+		id: 'feedback-collector.form.too-slow.label',
+		defaultMessage: 'Too slow',
+		description: 'The textarea label where users can write their too slow feedback',
+	},
+	formUnhelpfulLinksLabel: {
+		id: 'feedback-collector.form.unhelpful-links.label',
+		defaultMessage: 'Unhelpful links',
+		description: 'The textarea label where users can write their unhelpful links feedback',
+	},
+	formOtherLabel: {
+		id: 'feedback-collector.form.other.label',
+		defaultMessage: 'Other',
+		description: 'The textarea label where users can write their other feedback',
+	},
 	selectionOptionQuestionLabel: {
 		id: 'feedback-collector.option.question.label',
 		defaultMessage: 'Ask a question',

@@ -1,5 +1,13 @@
 # @atlaskit/feedback-collector
 
+## 14.2.0
+
+### Minor Changes
+
+- [#181068](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/181068)
+  [`4ad5dbe6ad18e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4ad5dbe6ad18e) -
+  added props update in Feedback Collector
+
 ## 14.1.4
 
 ### Patch Changes

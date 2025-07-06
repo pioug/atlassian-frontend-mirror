@@ -177,6 +177,7 @@ export default {
   'fabric.linking.status_change_permission_error': 'Nemate dozvolu da promenite status problema.',
   'fabric.linking.status_change_permission_error-issue-term-refresh': 'Nemate dozvolu da pređete na ovu radnu stavku.',
   'fabric.linking.status_change_update_error': 'Status ne može da se ažurira',
+  'fabric.linking.team_members_count': '{context} članova',
   'fabric.linking.try_again': 'Probajte ponovo',
   'fabric.linking.try_another_account': 'Probajte sa drugim nalogom',
   'fabric.linking.unassigned': 'Nedodeljeno',
@@ -197,5 +198,6 @@ export default {
     'Došlo je do greške kod pokušaja prekida praćenja projekta. Proverite vezu ili osvežite stranicu, pa probajte ponovo.',
   'fabric.linking.unlink_account': 'Opozovi vezu sa nalogom',
   'fabric.linking.updated_by': 'Izmenio/la: {context}',
+  'fabric.linking.user_attributes': '{context}',
   'fabric.linking.view': 'Prikaz',
 };

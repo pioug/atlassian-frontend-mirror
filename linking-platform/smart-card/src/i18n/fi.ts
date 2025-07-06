@@ -189,6 +189,7 @@ export default {
   'fabric.linking.status_change_permission_error-issue-term-refresh':
     'Sinulla ei ole oikeuksia siirtää tätä työtehtävää.',
   'fabric.linking.status_change_update_error': 'Tilan päivitys epäonnistui',
+  'fabric.linking.team_members_count': '{context} jäsentä',
   'fabric.linking.try_again': 'Yritä uudelleen',
   'fabric.linking.try_another_account': 'Kokeile toista tiliä',
   'fabric.linking.unassigned': 'Määräämätön',
@@ -209,5 +210,6 @@ export default {
     'Löysimme virheen yrittäessämme lopettaa projektin seuraamisen. Tarkista verkkoyhteytesi tai päivitä sivu ja yritä uudelleen.',
   'fabric.linking.unlink_account': 'Poista tilin linkitys',
   'fabric.linking.updated_by': 'Muokannut: {context}',
+  'fabric.linking.user_attributes': '{context}',
   'fabric.linking.view': 'Näytä',
 };

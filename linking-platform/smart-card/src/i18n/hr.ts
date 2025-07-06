@@ -177,6 +177,7 @@ export default {
   'fabric.linking.status_change_permission_error-issue-term-refresh':
     'Nemaš dopuštenje za promjenu statusa ovog radnog predmeta.',
   'fabric.linking.status_change_update_error': 'Nismo uspjeli ažurirati status',
+  'fabric.linking.team_members_count': 'Broj članova: {context}',
   'fabric.linking.try_again': 'Pokušaj ponovno',
   'fabric.linking.try_another_account': 'Pokušaj s drugim računom',
   'fabric.linking.unassigned': 'Nedodijeljeno',
@@ -197,5 +198,6 @@ export default {
     'Dogodila se greška dok smo pokušavali prestati pratiti projekt. Provjeri svoju vezu ili osvježi stranicu i pokušaj ponovno.',
   'fabric.linking.unlink_account': 'Poništi vezu s računom',
   'fabric.linking.updated_by': 'Izmijenio/la {context}',
+  'fabric.linking.user_attributes': '{context}',
   'fabric.linking.view': 'Prikaži',
 };

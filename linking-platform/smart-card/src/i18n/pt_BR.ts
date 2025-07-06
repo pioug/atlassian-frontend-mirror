@@ -187,6 +187,7 @@ export default {
   'fabric.linking.status_change_permission_error-issue-term-refresh':
     'Você não tem permissão para fazer a transição desse ticket.',
   'fabric.linking.status_change_update_error': 'Não foi possível atualizar o status',
+  'fabric.linking.team_members_count': '{context} membros',
   'fabric.linking.try_again': 'Tentar novamente',
   'fabric.linking.try_another_account': 'Experimente uma outra conta',
   'fabric.linking.unassigned': 'Sem responsável',
@@ -207,5 +208,6 @@ export default {
     'Foi encontrado um erro ao tentar para de seguir o projeto. Verifique a conexão ou atualize a página e tente de novo.',
   'fabric.linking.unlink_account': 'Desvincular conta',
   'fabric.linking.updated_by': 'Modificado por {context}',
+  'fabric.linking.user_attributes': '{context}',
   'fabric.linking.view': 'Visualizar',
 };

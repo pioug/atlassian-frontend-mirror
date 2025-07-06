@@ -188,6 +188,7 @@ export default {
   'fabric.linking.status_change_permission_error-issue-term-refresh':
     'Du har ikke tilladelse til at overføre denne sag.',
   'fabric.linking.status_change_update_error': 'Vi kunne ikke opdatere statussen',
+  'fabric.linking.team_members_count': '{context} medlemmer',
   'fabric.linking.try_again': 'Prøv igen',
   'fabric.linking.try_another_account': 'Prøv en anden konto',
   'fabric.linking.unassigned': 'Ikke tildelt',
@@ -208,5 +209,6 @@ export default {
     'Vi stødte på en fejl under forsøget på at stoppe med at følge projektet. Kontrollér din forbindelse, eller opdater siden, og prøv igen.',
   'fabric.linking.unlink_account': 'Fjern link til konto',
   'fabric.linking.updated_by': 'Ændret af {context}',
+  'fabric.linking.user_attributes': '{context}',
   'fabric.linking.view': 'Vis',
 };

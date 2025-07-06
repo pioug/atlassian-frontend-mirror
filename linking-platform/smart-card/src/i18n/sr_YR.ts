@@ -176,6 +176,7 @@ export default {
   'fabric.linking.status_change_permission_error': 'Немате дозволу да промените статус проблема.',
   'fabric.linking.status_change_permission_error-issue-term-refresh': 'Немате дозволу да пређете на ову радну ставку.',
   'fabric.linking.status_change_update_error': 'Статус не може да се ажурира',
+  'fabric.linking.team_members_count': '{context} чланова',
   'fabric.linking.try_again': 'Пробај поново',
   'fabric.linking.try_another_account': 'Пробајте са другим налогом',
   'fabric.linking.unassigned': 'Недодељено',
@@ -196,5 +197,6 @@ export default {
     'Дошло је до грешке код покушаја прекида праћења пројекта. Проверите везу или освежите страницу, па пробајте поново.',
   'fabric.linking.unlink_account': 'Опозови везу са налогом',
   'fabric.linking.updated_by': 'Изменио/ла: {context}',
+  'fabric.linking.user_attributes': '{context}',
   'fabric.linking.view': 'Прикажи',
 };

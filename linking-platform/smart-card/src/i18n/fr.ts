@@ -187,6 +187,7 @@ export default {
   'fabric.linking.status_change_permission_error-issue-term-refresh':
     "Vous n'avez pas l'autorisation de transitionner ce ticket.",
   'fabric.linking.status_change_update_error': "Impossible de mettre à jour l'état",
+  'fabric.linking.team_members_count': '{context} membres',
   'fabric.linking.try_again': 'Réessayez',
   'fabric.linking.try_another_account': 'Essayez un autre compte',
   'fabric.linking.unassigned': 'Non assigné',
@@ -209,5 +210,6 @@ export default {
     "Nous avons rencontré une erreur lors de la tentative d'annulation du suivi du projet. Vérifiez votre connexion ou actualisez la page, puis réessayez.",
   'fabric.linking.unlink_account': 'Dissocier le compte',
   'fabric.linking.updated_by': 'Modification par {context}',
+  'fabric.linking.user_attributes': '{context}',
   'fabric.linking.view': 'Afficher',
 };

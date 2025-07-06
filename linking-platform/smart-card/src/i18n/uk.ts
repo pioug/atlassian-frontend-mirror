@@ -190,6 +190,7 @@ export default {
   'fabric.linking.status_change_permission_error-issue-term-refresh':
     'У вас немає дозволу на зміну стану цього елемента завдання.',
   'fabric.linking.status_change_update_error': 'Не вдалось оновити стан',
+  'fabric.linking.team_members_count': 'Кількість учасників: {context}',
   'fabric.linking.try_again': 'Повторити спробу',
   'fabric.linking.try_another_account': 'Увійти з іншим обліковим запитом',
   'fabric.linking.unassigned': 'Не призначено',
@@ -210,5 +211,6 @@ export default {
     'Сталася помилка під час спроби відписатися від проєкту. Перевірте підключення або оновіть сторінку й повторіть спробу.',
   'fabric.linking.unlink_account': 'Від’єднати обліковий запис',
   'fabric.linking.updated_by': 'Автор зміни: {context}',
+  'fabric.linking.user_attributes': '{context}',
   'fabric.linking.view': 'Переглянути',
 };

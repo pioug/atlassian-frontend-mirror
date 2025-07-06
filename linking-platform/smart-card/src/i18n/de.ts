@@ -192,6 +192,7 @@ export default {
   'fabric.linking.status_change_permission_error-issue-term-refresh':
     'Sie sind nicht berechtigt, diesen Vorgang weiterzugeben.',
   'fabric.linking.status_change_update_error': 'Der Status konnte nicht aktualisiert werden',
+  'fabric.linking.team_members_count': '{context} Mitglieder',
   'fabric.linking.try_again': 'Versuchen Sie es erneut.',
   'fabric.linking.try_another_account': 'Versuchen Sie es mit einem anderen Konto erneut.',
   'fabric.linking.unassigned': 'Nicht zugewiesen',
@@ -214,5 +215,6 @@ export default {
     'Beim Versuch, dem Projekt nicht mehr zu folgen, ist ein Fehler aufgetreten. Überprüfen Sie Ihre Verbindung oder aktualisieren Sie die Seite und versuchen Sie es erneut.',
   'fabric.linking.unlink_account': 'Kontoverknüpfung löschen',
   'fabric.linking.updated_by': 'Geändert von {context}',
+  'fabric.linking.user_attributes': '{context}',
   'fabric.linking.view': 'Anzeigen',
 };

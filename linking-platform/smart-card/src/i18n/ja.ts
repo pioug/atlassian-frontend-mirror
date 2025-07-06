@@ -185,6 +185,7 @@ export default {
   'fabric.linking.status_change_permission_error-issue-term-refresh':
     'この作業項目をトランジションする権限がありません。',
   'fabric.linking.status_change_update_error': 'ステータスを更新できませんでした。',
+  'fabric.linking.team_members_count': '{context} 人のメンバー',
   'fabric.linking.try_again': '再試行',
   'fabric.linking.try_another_account': '別のアカウントでお試しください',
   'fabric.linking.unassigned': '未割り当て',
@@ -205,5 +206,6 @@ export default {
     'プロジェクトをフォロー解除する際にエラーが発生しました。接続を確認するか、ページを更新してもう一度お試しください。',
   'fabric.linking.unlink_account': 'アカウントのリンクを解除',
   'fabric.linking.updated_by': '変更元: {context}',
+  'fabric.linking.user_attributes': '{context}',
   'fabric.linking.view': '表示',
 };

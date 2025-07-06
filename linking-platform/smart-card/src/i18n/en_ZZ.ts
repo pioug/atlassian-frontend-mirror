@@ -223,5 +223,6 @@ export default {
     '⁣⁢We encountered an error while trying to unfollow the project. Check your connection or refresh the page and try again.⁮‌⁯‍⁡⁮؜⁠‍⁪⁬⁬⁫؜⁮⁫⁮⁡⁮⁣⁤',
   'fabric.linking.unlink_account': '⁣⁢Unlink Account⁫⁯⁫⁫⁬⁠⁭⁭⁮⁡⁭⁭⁯⁬⁫⁡‌⁯⁡⁣⁤',
   'fabric.linking.updated_by': '⁣⁢Modified by {context}؜⁫⁪⁬⁪⁬⁠⁬‍‍⁯⁡⁭⁡‌⁪⁮⁡⁪‌⁮⁫⁣⁤',
+  'fabric.linking.user_attributes': '⁣⁢{context}⁯⁭⁪⁬⁬⁪؜⁭⁪⁮⁯⁠⁯⁠⁯⁡⁯⁯⁬⁣⁤',
   'fabric.linking.view': '⁣⁢View⁡⁭⁫‍⁬⁭⁬⁠‍⁯⁠؜⁪⁯؜⁠⁡⁬⁪؜‌⁪⁯‌⁣⁤',
 };

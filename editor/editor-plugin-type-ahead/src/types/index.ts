@@ -13,9 +13,12 @@ import type {
 } from '@atlaskit/editor-prosemirror/state';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
-// Weird mix of where this type is imported from...
-// Need to move it to this plugin and untangle all references to the editor-common one.
-// ED-26054
+/*
+ We currently can't easily move the type-ahead type declarations to this package
+ because of circular dependencies with the editor-common package, as well
+ as with the element-browser package.
+ This was attempted in ED-26054 but was determined to be infeasible for this package.
+*/
 // eslint-disable-next-line @atlaskit/editor/no-re-export
 export type { TypeAheadHandler } from '@atlaskit/editor-common/types';
 

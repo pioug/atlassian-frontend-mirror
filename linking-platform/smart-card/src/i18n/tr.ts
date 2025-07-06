@@ -186,6 +186,7 @@ export default {
   'fabric.linking.status_change_permission_error': 'Bu konunun durumunu değiştirme izniniz yok.',
   'fabric.linking.status_change_permission_error-issue-term-refresh': 'Bu biletin durumunu değiştirme izniniz yok.',
   'fabric.linking.status_change_update_error': 'Durum güncellenemedi',
+  'fabric.linking.team_members_count': '{context} üye',
   'fabric.linking.try_again': 'Yeniden dene',
   'fabric.linking.try_another_account': 'Başka bir hesapla deneyin',
   'fabric.linking.unassigned': 'Atanmamış',
@@ -206,5 +207,6 @@ export default {
     'Projeyi takip etmeyi bırakmaya çalışırken bir sorunla karşılaşıldı. Bağlantınızı kontrol edin, sayfayı yenileyin ve tekrar deneyin.',
   'fabric.linking.unlink_account': 'Hesabın Bağlantısını Kaldır',
   'fabric.linking.updated_by': '{context} tarafından değiştirildi',
+  'fabric.linking.user_attributes': '{context}',
   'fabric.linking.view': 'Görüntüle',
 };

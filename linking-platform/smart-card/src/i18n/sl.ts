@@ -178,6 +178,7 @@ export default {
   'fabric.linking.status_change_permission_error-issue-term-refresh':
     'Nimate dovoljenja za prenos tega delovnega elementa.',
   'fabric.linking.status_change_update_error': 'Statusa ni bilo mogoče posodobiti',
+  'fabric.linking.team_members_count': '{context} člani',
   'fabric.linking.try_again': 'Poskusi znova',
   'fabric.linking.try_another_account': 'Poskusi z drugim računom',
   'fabric.linking.unassigned': 'Nedodeljeno',
@@ -198,5 +199,6 @@ export default {
     'Med poskusom prekinitve sledenja projektu je prišlo do napake. Preverite povezavo ali osvežite stran in poskusite znova.',
   'fabric.linking.unlink_account': 'Prekini povezavo z računom',
   'fabric.linking.updated_by': 'Spremenila oseba {context}',
+  'fabric.linking.user_attributes': '{context}',
   'fabric.linking.view': 'Prikaži',
 };

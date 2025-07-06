@@ -191,6 +191,7 @@ export default {
   'fabric.linking.status_change_permission_error-issue-term-refresh':
     'Nem vagy jogosult végrehajtani az átvitelt ennél az ügynél.',
   'fabric.linking.status_change_update_error': 'Nem sikerült frissíteni az állapotot',
+  'fabric.linking.team_members_count': '{context} tag',
   'fabric.linking.try_again': 'Próbáld újra',
   'fabric.linking.try_another_account': 'Próbálkozz másik fiókkal',
   'fabric.linking.unassigned': 'Nincs hozzárendelve',
@@ -213,5 +214,6 @@ export default {
     'Hiba történt a projekt követésének leállítása során. Ellenőrizd a kapcsolatodat, frissítsd az oldalt, és próbálkozz újra.',
   'fabric.linking.unlink_account': 'Fiók leválasztása',
   'fabric.linking.updated_by': 'Módosította: {context}',
+  'fabric.linking.user_attributes': '{context}',
   'fabric.linking.view': 'Megtekintés',
 };

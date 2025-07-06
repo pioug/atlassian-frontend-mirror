@@ -187,6 +187,7 @@ export default {
   'fabric.linking.status_change_permission_error-issue-term-refresh':
     'Nie masz uprawnień do zmiany statusu tego zgłoszenia.',
   'fabric.linking.status_change_update_error': 'Nie można zaktualizować statusu',
+  'fabric.linking.team_members_count': '{context} członków',
   'fabric.linking.try_again': 'Spróbuj ponownie',
   'fabric.linking.try_another_account': 'Spróbuj użyć innego konta',
   'fabric.linking.unassigned': 'Nie przypisano',
@@ -207,5 +208,6 @@ export default {
     'Podczas próby zaprzestania obserwowania projektu wystąpił błąd. Sprawdź połączenie internetowe lub odśwież stronę i spróbuj ponownie.',
   'fabric.linking.unlink_account': 'Odłącz konto',
   'fabric.linking.updated_by': 'Autor modyfikacji: {context}',
+  'fabric.linking.user_attributes': '{context}',
   'fabric.linking.view': 'Wyświetl',
 };

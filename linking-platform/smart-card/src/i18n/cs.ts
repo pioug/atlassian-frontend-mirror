@@ -186,6 +186,7 @@ export default {
   'fabric.linking.status_change_permission_error-issue-term-refresh':
     'K provedení přechodu tohoto požadavku nemáte oprávnění.',
   'fabric.linking.status_change_update_error': 'Aktualizace stavu se nezdařila',
+  'fabric.linking.team_members_count': 'Členů: {context}',
   'fabric.linking.try_again': 'Zkusit znovu',
   'fabric.linking.try_another_account': 'Zkuste jiný účet',
   'fabric.linking.unassigned': 'Nepřiřazeno',
@@ -206,5 +207,6 @@ export default {
     'Při pokusu o zrušení sledování projektu došlo k chybě. Zkontrolujte připojení nebo obnovte stránku a zkuste to znovu.',
   'fabric.linking.unlink_account': 'Odpojit účet',
   'fabric.linking.updated_by': 'Upravil(a) {context}',
+  'fabric.linking.user_attributes': '{context}',
   'fabric.linking.view': 'Zobrazit',
 };

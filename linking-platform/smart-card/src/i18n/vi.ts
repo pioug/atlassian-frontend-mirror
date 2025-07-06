@@ -187,6 +187,7 @@ export default {
   'fabric.linking.status_change_permission_error-issue-term-refresh':
     'Bạn không có quyền chuyển đổi hạng mục công việc này.',
   'fabric.linking.status_change_update_error': 'Chúng tôi không thể cập nhật trạng thái',
+  'fabric.linking.team_members_count': '{context} thành viên',
   'fabric.linking.try_again': 'Thử lại',
   'fabric.linking.try_another_account': 'Thử một tài khoản khác',
   'fabric.linking.unassigned': 'Chưa được chỉ định',
@@ -207,5 +208,6 @@ export default {
     'Chúng tôi gặp lỗi khi cố gắng bỏ theo dõi dự án. Hãy kiểm tra kết nối của bạn hoặc làm mới trang và thử lại.',
   'fabric.linking.unlink_account': 'Hủy liên kết tài khoản',
   'fabric.linking.updated_by': 'Được sửa đổi bởi {context}',
+  'fabric.linking.user_attributes': '{context}',
   'fabric.linking.view': 'Xem',
 };

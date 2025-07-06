@@ -173,6 +173,7 @@ export default {
   'fabric.linking.status_change_permission_error': '您沒有轉換此議題的權限。',
   'fabric.linking.status_change_permission_error-issue-term-refresh': '您沒有轉換此工作項目的權限。',
   'fabric.linking.status_change_update_error': '我們無法更新狀態',
+  'fabric.linking.team_members_count': '{context} 位成員',
   'fabric.linking.try_again': '再試一次',
   'fabric.linking.try_another_account': '使用其他帳戶嘗試',
   'fabric.linking.unassigned': '未指派',
@@ -193,5 +194,6 @@ export default {
     '我們在嘗試取消追蹤專案時遇到錯誤。請檢查您的連線或重新整理頁面，然後再試一次。',
   'fabric.linking.unlink_account': '取消帳戶的連結',
   'fabric.linking.updated_by': '修改者：{context}',
+  'fabric.linking.user_attributes': '{context}',
   'fabric.linking.view': '檢視',
 };

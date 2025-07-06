@@ -188,6 +188,7 @@ export default {
   'fabric.linking.status_change_permission_error-issue-term-refresh':
     'Du har ikke tillatelse til å overføre denne arbeidsoppgaven.',
   'fabric.linking.status_change_update_error': 'Vi kan ikke oppdatere statusen',
+  'fabric.linking.team_members_count': '{context} medlemmer',
   'fabric.linking.try_again': 'Prøv på nytt',
   'fabric.linking.try_another_account': 'Prøv en annen konto',
   'fabric.linking.unassigned': 'Ikke tilordnet',
@@ -208,5 +209,6 @@ export default {
     'Det oppstod en feil da vi prøvde å slutte å følge prosjektet. Sjekk nettverkstilkoblingen din, eller oppdater siden og prøv på nytt.',
   'fabric.linking.unlink_account': 'Fjern kobling fra konto',
   'fabric.linking.updated_by': 'Endret av {context}',
+  'fabric.linking.user_attributes': '{context}',
   'fabric.linking.view': 'Vis',
 };

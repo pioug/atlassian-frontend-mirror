@@ -186,6 +186,7 @@ export default {
   'fabric.linking.status_change_permission_error-issue-term-refresh':
     'No tienes permiso para realizar la transición de esta actividad.',
   'fabric.linking.status_change_update_error': 'No hemos podido actualizar el estado',
+  'fabric.linking.team_members_count': '{context} miembros',
   'fabric.linking.try_again': 'Volver a intentarlo',
   'fabric.linking.try_another_account': 'Probar otra cuenta',
   'fabric.linking.unassigned': 'Sin asignar',
@@ -206,5 +207,6 @@ export default {
     'Se ha producido un error al intentar dejar de seguir el proyecto. Comprueba tu conexión o actualiza la página y vuelve a intentarlo.',
   'fabric.linking.unlink_account': 'Desvincular cuenta',
   'fabric.linking.updated_by': 'Modificado por {context}',
+  'fabric.linking.user_attributes': '{context}',
   'fabric.linking.view': 'Ver',
 };

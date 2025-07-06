@@ -185,6 +185,7 @@ export default {
   'fabric.linking.status_change_permission_error': 'คุณไม่มีสิทธิ์ในการเปลี่ยนย้ายปัญหานี้',
   'fabric.linking.status_change_permission_error-issue-term-refresh': 'คุณไม่มีสิทธิ์ในการเปลี่ยนย้ายตั๋วนี้',
   'fabric.linking.status_change_update_error': 'เราไม่สามารถอัปเดตสถานะได้',
+  'fabric.linking.team_members_count': 'สมาชิก {context} คน',
   'fabric.linking.try_again': 'ลองอีกครั้ง',
   'fabric.linking.try_another_account': 'ลองบัญชีอื่น',
   'fabric.linking.unassigned': 'ยังไม่ได้มอบหมาย',
@@ -205,5 +206,6 @@ export default {
     'เราพบข้อผิดพลาดขณะพยายามยกเลิกการติดตามโปรเจกต์ ตรวจสอบการเชื่อมต่อของคุณหรือรีเฟรชหน้าข้อมูลแล้วลองอีกครั้ง',
   'fabric.linking.unlink_account': 'ยกเลิกการเชื่อมโยงบัญชี',
   'fabric.linking.updated_by': 'แก้ไขแล้วโดย {context}',
+  'fabric.linking.user_attributes': '{context}',
   'fabric.linking.view': 'ดู',
 };

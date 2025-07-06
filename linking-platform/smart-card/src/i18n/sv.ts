@@ -187,6 +187,7 @@ export default {
   'fabric.linking.status_change_permission_error-issue-term-refresh':
     'Du har inte behörighet att ändra arbetets status.',
   'fabric.linking.status_change_update_error': 'Vi kunde inte uppdatera statusen',
+  'fabric.linking.team_members_count': '{context} medlemmar',
   'fabric.linking.try_again': 'Försök igen',
   'fabric.linking.try_another_account': 'Försök med ett annat konto',
   'fabric.linking.unassigned': 'Ej tilldelad',
@@ -207,5 +208,6 @@ export default {
     'Ett fel uppstod när vi försökte sluta följa projektet. Kontrollera din anslutning eller uppdatera sidan och försök igen.',
   'fabric.linking.unlink_account': 'Ta bort kontolänk',
   'fabric.linking.updated_by': 'Ändrad av {context}',
+  'fabric.linking.user_attributes': '{context}',
   'fabric.linking.view': 'Visa',
 };

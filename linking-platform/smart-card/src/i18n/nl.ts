@@ -189,6 +189,7 @@ export default {
   'fabric.linking.status_change_permission_error-issue-term-refresh':
     'Je hebt geen rechten om dit werkitem over te zetten.',
   'fabric.linking.status_change_update_error': 'We konden de status niet bijwerken',
+  'fabric.linking.team_members_count': '{context} leden',
   'fabric.linking.try_again': 'Opnieuw proberen',
   'fabric.linking.try_another_account': 'Gebruik een ander account',
   'fabric.linking.unassigned': 'Niet toegewezen',
@@ -209,5 +210,6 @@ export default {
     'Er is een fout opgetreden toen we probeerden te stoppen met volgen van het project. Controleer je verbinding of vernieuw de pagina en probeer het opnieuw.',
   'fabric.linking.unlink_account': 'Verbinding met account verwijderen',
   'fabric.linking.updated_by': 'Gewijzigd door {context}',
+  'fabric.linking.user_attributes': '{context}',
   'fabric.linking.view': 'Bekijken',
 };

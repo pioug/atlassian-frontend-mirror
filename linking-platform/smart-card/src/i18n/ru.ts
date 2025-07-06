@@ -187,6 +187,7 @@ export default {
   'fabric.linking.status_change_permission_error-issue-term-refresh':
     'У вас нет права на изменение статуса этой задачи.',
   'fabric.linking.status_change_update_error': 'Не удалось обновить статус',
+  'fabric.linking.team_members_count': 'Участников: {context}',
   'fabric.linking.try_again': 'Повторить попытку',
   'fabric.linking.try_another_account': 'Попробуйте использовать другой аккаунт',
   'fabric.linking.unassigned': 'Не назначено',
@@ -209,5 +210,6 @@ export default {
     'При попытке перестать отслеживать проект произошла ошибка. Проверьте подключение или обновите страницу и повторите попытку.',
   'fabric.linking.unlink_account': 'Отменить связь с аккаунтом',
   'fabric.linking.updated_by': 'Изменено: {context}',
+  'fabric.linking.user_attributes': '{context}',
   'fabric.linking.view': 'Просмотреть',
 };

@@ -183,6 +183,7 @@ export default {
   'fabric.linking.status_change_permission_error': '이 이슈를 전환할 수 있는 권한이 없습니다.',
   'fabric.linking.status_change_permission_error-issue-term-refresh': '이 업무 항목을 전환할 수 있는 권한이 없습니다.',
   'fabric.linking.status_change_update_error': '상태를 업데이트할 수 없습니다',
+  'fabric.linking.team_members_count': '구성원 {context}명',
   'fabric.linking.try_again': '다시 시도',
   'fabric.linking.try_another_account': '다른 계정으로 시도해 보세요.',
   'fabric.linking.unassigned': '할당되지 않음',
@@ -203,5 +204,6 @@ export default {
     '프로젝트를 팔로우 취소하는 동안 오류가 발생했습니다. 연결을 확인하거나 페이지를 새로 고친 후 다시 시도하세요.',
   'fabric.linking.unlink_account': '계정 연결 해제',
   'fabric.linking.updated_by': '수정한 사용자: {context}',
+  'fabric.linking.user_attributes': '{context}',
   'fabric.linking.view': '보기',
 };

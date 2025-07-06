@@ -171,6 +171,7 @@ export default {
   'fabric.linking.status_change_permission_error': '您无权转换此事务。',
   'fabric.linking.status_change_permission_error-issue-term-refresh': '您无权转换此工作项。',
   'fabric.linking.status_change_update_error': '无法更新状态',
+  'fabric.linking.team_members_count': '{context} 名成员',
   'fabric.linking.try_again': '请重试',
   'fabric.linking.try_another_account': '请尝试其他帐户',
   'fabric.linking.unassigned': '未分配',
@@ -189,5 +190,6 @@ export default {
   'fabric.linking.unfollow_project_error': '尝试取消关注该项目时发生错误。请检查您的连接或刷新页面，然后重试。',
   'fabric.linking.unlink_account': '取消帐户链接',
   'fabric.linking.updated_by': '修改者：{context}',
+  'fabric.linking.user_attributes': '{context}',
   'fabric.linking.view': '查看',
 };

@@ -622,6 +622,7 @@ export const apply = (
 					formatMessage,
 					nodeViewPortalProviderAPI,
 					latestActiveNode,
+					anchorRectCache,
 				);
 
 				decorations = decorations.remove(decsToRemove);
@@ -876,6 +877,12 @@ export const createPlugin = (
 
 					if (isAdvancedLayoutEnabled) {
 						defaultActiveAnchorTracker.reset();
+					}
+
+					if (expValEquals('platform_editor_block_controls_perf_optimization', 'isEnabled', true)) {
+						if (fg('platform_editor_block_controls_perf_opt_patch_1')) {
+							anchorRectCache?.clear();
+						}
 					}
 
 					anchorRectCache?.setEditorView(view);

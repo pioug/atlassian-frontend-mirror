@@ -566,7 +566,6 @@ export const getToolbarConfig =
 							intl,
 							editorAnalyticsAPI,
 							getEditorContainerWidth,
-							getDomRef,
 							editorView,
 							shouldUseIncreasedScalingPercent,
 							options?.fullWidthEnabled,
@@ -1013,7 +1012,6 @@ const getAlignmentOptionsConfig = (
 	{ formatMessage }: ToolbarMenuContext,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
 	getEditorContainerWidth: GetEditorContainerWidth,
-	getDomRef: (editorView: EditorView) => HTMLElement | undefined,
 	editorView: EditorView | null,
 	shouldUseIncreasedScalingPercent: boolean,
 	isFullWidthEditor?: boolean,
@@ -1077,7 +1075,6 @@ const getAlignmentOptionsConfig = (
 			...(isLayoutOptionDisabled(
 				tableObject.node,
 				getEditorContainerWidth,
-				getDomRef,
 				editorView,
 				shouldUseIncreasedScalingPercent,
 				isFullWidthEditor,
@@ -1127,7 +1124,6 @@ const getSelectedAlignmentIcon = (alignmentIcons: AlignmentIcon[], selectedNode:
 const isLayoutOptionDisabled = (
 	selectedNode: PMNode,
 	getEditorContainerWidth: GetEditorContainerWidth,
-	getDomRef: (editorView: EditorView) => HTMLElement | undefined,
 	editorView: EditorView | null,
 	shouldUseIncreasedScalingPercent: boolean,
 	isFullWidthEditor: boolean | undefined,
@@ -1137,9 +1133,7 @@ const isLayoutOptionDisabled = (
 
 	// table may be scaled, use the scale percent to calculate the table width
 	if (editorView) {
-		const tableWrapperWidth = fg('platform_editor_remove_slow_table_transactions')
-			? tableContainerWidth
-			: getDomRef(editorView)?.clientWidth || tableContainerWidth;
+		const tableWrapperWidth = tableContainerWidth;
 		const scalePercent = getStaticTableScalingPercent(
 			selectedNode,
 			tableWrapperWidth,

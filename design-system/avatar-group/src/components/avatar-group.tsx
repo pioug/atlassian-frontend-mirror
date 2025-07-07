@@ -154,6 +154,14 @@ export interface AvatarGroupProps {
 	 * Determines whether the 'show more' popup has `shouldRenderToParent` applied.
 	 */
 	shouldPopupRenderToParent?: boolean;
+
+	/**
+	 * Text to be used as aria-label for the more indicator.
+	 * If provided, this will be used exactly as-is for the aria-label.
+	 * If not provided, but an `aria-label` is provided via `showMoreButtonProps`, that will be used instead.
+	 * If neither is provided, the aria-label will default to "N more people" where N is the number of people that are not visible (e.g. "5 more people").
+	 */
+	moreIndicatorLabel?: string;
 }
 
 function getOverrides(overrides?: AvatarGroupOverrides): DeepRequired<AvatarGroupOverrides> {
@@ -201,6 +209,7 @@ const AvatarGroup = ({
 	size = 'medium',
 	testId,
 	label = 'avatar group',
+	moreIndicatorLabel,
 	tooltipPosition = 'bottom',
 	shouldPopupRenderToParent = false,
 }: AvatarGroupProps) => {
@@ -289,6 +298,7 @@ const AvatarGroup = ({
 				size: size,
 				testId: testId && `${testId}--overflow-menu--trigger`,
 				isActive: isOpen,
+				moreIndicatorLabel: moreIndicatorLabel,
 				'aria-controls': ariaControls,
 				'aria-expanded': ariaExpanded,
 				'aria-haspopup': ariaHasPopup,

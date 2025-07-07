@@ -335,8 +335,8 @@ describe('<AvatarGroup />', () => {
 				// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
 				overrides={{
 					MoreIndicator: {
-						render: (_, { borderColor, isActive, buttonProps, testId, ...props }) => (
-							<button type="button" {...buttonProps} {...props} data-testid={testId}>
+						render: (_, { borderColor, isActive, buttonProps, testId, moreIndicatorLabel, ...props }) => (
+							<button type="button" {...buttonProps} {...props} data-testid={testId} aria-label={moreIndicatorLabel}>
 								Test MoreIndicator
 							</button>
 						),
@@ -614,9 +614,9 @@ describe('<AvatarGroup />', () => {
 	});
 });
 
-// FIXME: Jest 29 upgrade - this test suite is failing when running with flag IS_REACT_18
-describe.skip('Accessibility', () => {
-	it('Avatar Group items inside more should have role equal to button and get focus', async () => {
+describe('Accessibility', () => {
+	// FIXME: Jest 29 upgrade - this test suite is failing when running with flag IS_REACT_18
+	it.skip('Avatar Group items inside more should have role equal to button and get focus', async () => {
 		const user = userEvent.setup();
 		render(
 			<AvatarGroup
@@ -640,5 +640,48 @@ describe.skip('Accessibility', () => {
 		expect(moreMenuContainer).toBeInTheDocument();
 		expect(moreMenuItemOne).toBeInTheDocument();
 		expect(moreMenuItemOne).toHaveFocus();
+	});
+
+	it('should set received moreLabel as aria-label of more indicator', () => {
+		render(
+			<AvatarGroup testId="test" data={generateData({ avatarCount: 5 })} maxCount={3} moreIndicatorLabel="Show more people" />,
+		);
+		const moreIndicator = screen.getByTestId('test--overflow-menu--trigger');
+		expect(moreIndicator).toHaveAttribute('aria-label', 'Show more people');
+	});
+
+	it('should use default format for aria-label when no moreLabel is provided', () => {
+		render(
+			<AvatarGroup testId="test" data={generateData({ avatarCount: 5 })} maxCount={3} />,
+		);
+		const moreIndicator = screen.getByTestId('test--overflow-menu--trigger');
+		expect(moreIndicator).toHaveAttribute('aria-label', '3 more people');
+	});
+
+	it('should use aria-label from showMoreButtonProps when provided', () => {
+		render(
+			<AvatarGroup 
+				testId="test" 
+				data={generateData({ avatarCount: 5 })} 
+				maxCount={3} 
+				showMoreButtonProps={{ 'aria-label': 'Custom more label' }}
+			/>,
+		);
+		const moreIndicator = screen.getByTestId('test--overflow-menu--trigger');
+		expect(moreIndicator).toHaveAttribute('aria-label', 'Custom more label');
+	});
+
+	it('should prioritize moreIndicatorLabel over aria-label in showMoreButtonProps', () => {
+		render(
+			<AvatarGroup 
+				testId="test" 
+				data={generateData({ avatarCount: 5 })} 
+				maxCount={3} 
+				moreIndicatorLabel="Priority label"
+				showMoreButtonProps={{ 'aria-label': 'Should not be used' }}
+			/>,
+		);
+		const moreIndicator = screen.getByTestId('test--overflow-menu--trigger');
+		expect(moreIndicator).toHaveAttribute('aria-label', 'Priority label');
 	});
 });

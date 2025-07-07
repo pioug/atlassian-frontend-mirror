@@ -77,9 +77,6 @@
 			"path": "../editor-plugin-interaction/tsconfig.app.json"
 		},
 		{
-			"path": "../editor-plugin-table/tsconfig.app.json"
-		},
-		{
 			"path": "../editor-plugin-user-intent/tsconfig.app.json"
 		},
 		{

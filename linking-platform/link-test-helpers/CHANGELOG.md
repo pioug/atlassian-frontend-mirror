@@ -1,5 +1,13 @@
 # @atlaskit/link-test-helpers
 
+## 8.2.0
+
+### Minor Changes
+
+- [#175290](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175290)
+  [`3b7dc45d713ed`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b7dc45d713ed) -
+  Add MockCardClient export
+
 ## 8.1.0
 
 ### Minor Changes

@@ -1,5 +1,13 @@
 # @atlaskit/avatar-group
 
+## 12.1.0
+
+### Minor Changes
+
+- [#180943](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/180943)
+  [`d9f378fa2f4e7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d9f378fa2f4e7) -
+  Added the `moreIndicatorLabel` prop to provide the more indicator an accessible name
+
 ## 12.0.15
 
 ### Patch Changes

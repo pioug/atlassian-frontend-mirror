@@ -65,6 +65,18 @@ describe('OwnedByElement', () => {
 								expect(element).toBeVisible();
 								expect(element?.textContent).toBe('TextPrefix Angie');
 							});
+
+							it('should not render text prefix if ownedBy is empty', async () => {
+								render(
+									<IntlProvider locale="en">
+										<FlexibleCardContext.Provider value={{ data: {} }}>
+											<OwnedByElement testId={testId} textPrefix="TextPrefix" hideFormat />
+										</FlexibleCardContext.Provider>
+									</IntlProvider>,
+								);
+								const element = screen.queryByTestId(testId);
+								expect(element).not.toBeInTheDocument();
+							});
 						},
 					);
 				},

@@ -15,8 +15,12 @@ import { injectIntl } from 'react-intl-next';
 import { TRIGGER_METHOD } from '@atlaskit/editor-common/analytics';
 import { findReplaceMessages as messages } from '@atlaskit/editor-common/messages';
 import { Label } from '@atlaskit/form';
+import TextLetterCaseIcon from '@atlaskit/icon-lab/core/text-letter-case';
 import MatchCaseIcon from '@atlaskit/icon/core/migration/text-style--emoji-keyboard';
+import EditorTextStyleIcon from '@atlaskit/icon/glyph/editor/text-style';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Textfield from '@atlaskit/textfield';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { MatchCaseProps } from '../types';
 
@@ -226,7 +230,9 @@ class Find extends React.Component<FindProps & WrappedComponentProps, State> {
 	};
 
 	matchCaseIconEle = () => {
-		return <MatchCaseIcon LEGACY_size={'small'} label={this.matchCase} />;
+		return (expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true) && fg('platform_editor_find_and_replace_improvements_1'))
+			? <TextLetterCaseIcon LEGACY_size={'small'} LEGACY_fallbackIcon={EditorTextStyleIcon} label={this.matchCase} size="small" />
+			: <MatchCaseIcon LEGACY_size={'small'} label={this.matchCase} />;
 	};
 
 	render() {

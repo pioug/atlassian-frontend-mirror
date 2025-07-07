@@ -21,6 +21,9 @@ const getOwnedByText = (context: FlexibleUiDataContext, textPrefix: string | und
 	if (!fg('bandicoots-smart-card-teamwork-context')) {
 		return context.ownedBy;
 	}
+	if (context.ownedBy === undefined || context.ownedBy === '') {
+		return '';
+	}
 	return textPrefix ? `${textPrefix} ${context.ownedBy}`.trim() : context.ownedBy;
 };
 

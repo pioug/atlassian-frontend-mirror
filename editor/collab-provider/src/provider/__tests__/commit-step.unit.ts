@@ -1,6 +1,6 @@
 import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { Slice } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { Transaction, EditorState } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import { CommitStepService, RESET_READYTOCOMMIT_INTERVAL_MS } from '../commit-step';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -13,6 +13,7 @@ import { EVENT_STATUS } from '../../helpers/const';
 import { createSocketIOCollabProvider } from '../../socket-io-provider';
 import { AcknowledgementResponseTypes } from '../../types';
 import { NotConnectedError } from '../../errors/custom-errors';
+import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 
 jest.mock('@atlaskit/feature-gate-js-client', () => ({
 	...jest.requireActual('@atlaskit/feature-gate-js-client'),
@@ -83,12 +84,14 @@ const createTestHelpers = (
 			collabMode?: string;
 			isPublish?: boolean;
 			numberOfStepCommitsSent?: number;
+			lockSteps?: (stepOrigins?: readonly Transaction[]) => void;
 		} = {
 			__livePage: false,
 			hasRecovered: false,
 			collabMode: 'collab',
 			isPublish: false,
 			numberOfStepCommitsSent: 0,
+			lockSteps: jest.fn(),
 		},
 	) => {
 		commitStepService.commitStepQueue({
@@ -103,6 +106,7 @@ const createTestHelpers = (
 			reason: options.isPublish ? 'publish' : undefined,
 			numberOfStepCommitsSent: options.numberOfStepCommitsSent ?? 0,
 			setNumberOfCommitsSent: setNumberOfCommitsSentMock,
+			lockSteps: options.lockSteps || jest.fn(),
 		});
 	};
 
@@ -269,6 +273,31 @@ describe('commitStepQueue', () => {
 				},
 			);
 		};
+
+		describe('locks steps from merging when step merging experiment enabled', () => {
+			eeTest('platform_editor_enable_single_player_step_merging', {
+				true: () => {
+					broadcastMockImplementation({ type: 'SUCCESS', version: 2 });
+
+					const lockStepsMock = jest.fn();
+					presetCommitStepQueue([fakeStep], 1, 'user1', 'client1', {
+						lockSteps: lockStepsMock,
+					});
+					// lockSteps is called after a delay after the broadcast callback
+					jest.advanceTimersByTime(680); // default delay when no backpressure delay is sent
+					expect(lockStepsMock).toHaveBeenCalled();
+				},
+				false: () => {
+					broadcastMockImplementation({ type: 'SUCCESS', version: 2 });
+
+					const lockStepsMock = jest.fn();
+					presetCommitStepQueue([fakeStep], 1, 'user1', 'client1', {
+						lockSteps: lockStepsMock,
+					});
+					expect(lockStepsMock).not.toHaveBeenCalled();
+				},
+			});
+		});
 
 		describe('on successful response', () => {
 			beforeEach(() => {

@@ -30,7 +30,6 @@ import {
 	ToolbarArrowKeyNavigationProvider,
 } from '@atlaskit/editor-common/ui-menu';
 import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
-import { clearHoverSelection } from '@atlaskit/editor-plugin-table/commands';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
@@ -664,17 +663,6 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 			mounted: false,
 		};
 	}
-	// remove any decorations added by toolbar buttons i.e danger and selected styling
-	// this prevents https://product-fabric.atlassian.net/browse/ED-10207
-	private resetStylingLegacy({ table }: { table: boolean }) {
-		if (this.props.editorView) {
-			const { state, dispatch } = this.props.editorView;
-			if (table) {
-				return clearHoverSelection()(state, dispatch);
-			}
-			this.props.api?.decorations?.actions.removeDecoration(state, dispatch);
-		}
-	}
 
 	// remove any decorations added by toolbar buttons i.e danger and selected styling
 	// this prevents https://product-fabric.atlassian.net/browse/ED-10207
@@ -703,16 +691,8 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 	componentDidUpdate(prevProps: Props) {
 		checkShouldForceFocusAndApply(this.props?.editorView);
 
-		if (fg('platform_editor_remove_slow_table_transactions')) {
-			if (this.props.node !== prevProps.node) {
-				this.resetStyling();
-			}
-		} else {
-			if (this.props.node !== prevProps.node) {
-				this.resetStylingLegacy({
-					table: prevProps?.node.type.name === 'table',
-				});
-			}
+		if (this.props.node !== prevProps.node) {
+			this.resetStyling();
 		}
 	}
 
@@ -726,13 +706,7 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 			dispatch(forceFocusSelector(null)(tr));
 		}
 
-		if (fg('platform_editor_remove_slow_table_transactions')) {
-			this.resetStyling();
-		} else {
-			this.resetStylingLegacy({
-				table: this.props.node.type.name === 'table',
-			});
-		}
+		this.resetStyling();
 	}
 
 	private shouldHandleArrowKeys = (): boolean => {

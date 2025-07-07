@@ -24,6 +24,7 @@ import {
 } from './decorations-drop-target';
 import { findSurroundingNodes } from './decorations-find-surrounding-nodes';
 import { defaultActiveAnchorTracker } from './utils/active-anchor-tracker';
+import type { AnchorRectCache } from './utils/anchor-utils';
 import { maxLayoutColumnSupported } from './utils/consts';
 import { canMoveNodeToIndex, canMoveSliceToIndex, isInSameLayout } from './utils/validation';
 
@@ -113,6 +114,7 @@ export const getActiveDropTargetDecorations = (
 	formatMessage: IntlShape['formatMessage'],
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 	activeNode?: ActiveNode,
+	anchorRectCache?: AnchorRectCache,
 ) => {
 	if (!fg('platform_editor_block_controls_drop_target_mem_fix')) {
 		unmountDecorations(
@@ -176,6 +178,7 @@ export const getActiveDropTargetDecorations = (
 						},
 						nodeViewPortalProviderAPI,
 						1,
+						anchorRectCache,
 					),
 				);
 			}
@@ -214,6 +217,7 @@ export const getActiveDropTargetDecorations = (
 							},
 							nodeViewPortalProviderAPI,
 							-1,
+							anchorRectCache,
 						),
 					);
 				}
@@ -252,7 +256,7 @@ export const getActiveDropTargetDecorations = (
 						},
 						nodeViewPortalProviderAPI,
 						-1,
-						undefined,
+						anchorRectCache,
 						isSameLayout,
 					),
 				);
@@ -288,7 +292,7 @@ export const getActiveDropTargetDecorations = (
 						},
 						nodeViewPortalProviderAPI,
 						-1,
-						undefined,
+						anchorRectCache,
 						isSameLayout,
 					),
 				);
@@ -322,7 +326,7 @@ export const getActiveDropTargetDecorations = (
 					},
 					nodeViewPortalProviderAPI,
 					-1,
-					undefined,
+					anchorRectCache,
 					false,
 				),
 			);
@@ -363,7 +367,7 @@ export const getActiveDropTargetDecorations = (
 										formatMessage,
 									},
 									nodeViewPortalProviderAPI,
-									undefined,
+									anchorRectCache,
 								),
 							);
 						}

@@ -9,12 +9,14 @@ import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdow
 import CrossIcon from '@atlaskit/icon/core/close';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import Link from '@atlaskit/link';
-import { Box, Flex, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Anchor, Box, Flex, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import { type ContainerSubTypes, type ContainerTypes } from '../../../common/types';
 import { ContainerIcon } from '../../../common/ui/container-icon';
+import { TeamLinkCardActions } from '../../../common/ui/team-link-card-actions';
 import { AnalyticsAction, usePeopleAndTeamAnalytics } from '../../../common/utils/analytics';
 import { getContainerProperties } from '../../../common/utils/get-container-properties';
 import { getDomainFromLinkUri } from '../../../common/utils/get-link-domain';
@@ -35,6 +37,24 @@ const styles = cssMap({
 	card: {
 		alignItems: 'center',
 		width: '100%',
+	},
+	anchor: {
+		textDecoration: 'none',
+		borderRadius: token('border.radius.100', '8px'),
+		width: '100%',
+		color: token('color.text'),
+		'&:focus': {
+			outlineWidth: token('border.width.outline'),
+			outlineColor: token('color.border.focused'),
+			outlineStyle: 'solid',
+			outlineOffset: token('space.025'),
+		},
+		'&:hover': {
+			color: token('color.text'),
+		},
+		'&:visited': {
+			color: token('color.text'),
+		},
 	},
 	iconWrapper: {
 		width: '32px',
@@ -95,8 +115,10 @@ export const TeamLinkCard = ({
 	});
 
 	const [hovered, setHovered] = useState(false);
+	const [focused, setFocused] = useState(false);
 	const [showCloseIcon, setShowCloseIcon] = useState(false);
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+	const [showKeyboardFocus, setShowKeyboardFocus] = useState(false);
 	const { formatMessage } = useIntl();
 	const { fireUIEvent } = usePeopleAndTeamAnalytics();
 
@@ -107,10 +129,39 @@ export const TeamLinkCard = ({
 		}
 	};
 
+	const handleFocus = () => {
+		setFocused(true);
+		if (containerType !== 'WebLink') {
+			setShowCloseIcon(true);
+		}
+	};
+
+	const handleBlur = () => {
+		setFocused(false);
+		if (containerType !== 'WebLink' && !hovered) {
+			setShowCloseIcon(false);
+		}
+	};
+
 	const handleMouseLeave = () => {
 		setHovered(false);
-		if (containerType !== 'WebLink') {
+		if (containerType !== 'WebLink' && !focused) {
 			setShowCloseIcon(false);
+		}
+	};
+
+	const handleIconClick = () => {
+		if (fg('fix_team_link_card_a11y')) {
+			setShowKeyboardFocus(false);
+		}
+	};
+
+	const handleKeyDown = (e: React.KeyboardEvent) => {
+		if (
+			(e.key === 'Enter' || e.key === ' ' || e.key === 'Tab' || e.key === 'Escape') &&
+			fg('fix_team_link_card_a11y')
+		) {
+			setShowKeyboardFocus(true);
 		}
 	};
 
@@ -134,6 +185,9 @@ export const TeamLinkCard = ({
 			xcss={styles.container}
 			onMouseEnter={handleMouseEnter}
 			onMouseLeave={handleMouseLeave}
+			onFocus={handleFocus}
+			onBlur={handleBlur}
+			onKeyDown={handleKeyDown}
 			testId="team-link-card-inner"
 		>
 			<Inline space="space.100" xcss={styles.card}>
@@ -145,102 +199,156 @@ export const TeamLinkCard = ({
 					iconsLoading={iconsLoading}
 					iconHasLoaded={iconHasLoaded}
 				/>
-				<Box xcss={styles.linkableContent} testId="team-link-card-linkable-content">
-					<Link href={link || '#'} appearance="subtle" onClick={handleLinkClick}>
-						<Stack space="space.025">
-							<Text maxLines={1} weight="medium" color="color.text">
-								{title}
-							</Text>
-							<Flex gap="space.050" alignItems="center">
-								{icon}
-								<Inline space="space.050">
-									<Text size="small" color="color.text.subtle">
-										{description}
-									</Text>
-									<Text size="small" color="color.text.subtle">
-										{containerTypeText}
-									</Text>
-								</Inline>
-							</Flex>
-						</Stack>
-					</Link>
-				</Box>
-				{showCloseIcon && (
-					<Box xcss={styles.crossIconWrapper}>
-						<Tooltip content={formatMessage(messages.disconnectTooltip)} position="top">
-							<IconButton
-								label={`disconnect the container ${title}`}
-								appearance="subtle"
-								icon={(iconProps) => <CrossIcon {...iconProps} size="small" />}
-								spacing="compact"
-								onClick={(e) => {
-									e.preventDefault();
-									e.stopPropagation();
-									onDisconnectButtonClick();
-									fireUIEvent(createAnalyticsEvent, {
-										action: AnalyticsAction.CLICKED,
-										actionSubject: 'button',
-										actionSubjectId: 'containerUnlinkButton',
-										attributes: { containerSelected: { container: containerType, containerId } },
-									});
-								}}
-							/>
-						</Tooltip>
-					</Box>
-				)}
-				{containerType === 'WebLink' && (hovered || isDropdownOpen) && (
-					<Box xcss={styles.showMoreIconWrapper}>
-						<DropdownMenu
-							trigger={({ triggerRef, ...triggerProps }) => (
-								<IconButton
-									ref={triggerRef}
-									{...triggerProps}
-									label={`more options for ${title}`}
-									appearance="subtle"
-									icon={(iconProps) => <ShowMoreHorizontalIcon {...iconProps} size="small" />}
-									spacing="compact"
-								/>
-							)}
-							placement="bottom-end"
-							shouldRenderToParent
-							onOpenChange={(attrs) => {
-								setIsDropdownOpen(attrs.isOpen);
-							}}
+				{fg('fix_team_link_card_a11y') ? (
+					<>
+						<Anchor
+							xcss={styles.anchor}
+							href={link || '#'}
+							onClick={handleLinkClick}
+							testId="team-link-card-linkable-content"
 						>
-							<DropdownItemGroup>
-								<DropdownItem
-									onClick={(e) => {
-										e.preventDefault();
-										e.stopPropagation();
-										onEditLinkClick?.();
-										fireUIEvent(createAnalyticsEvent, {
-											action: AnalyticsAction.CLICKED,
-											actionSubject: 'button',
-											actionSubjectId: 'containerEditLinkButton',
-											attributes: { containerSelected: { container: containerType, containerId } },
-										});
+							<Stack space="space.025">
+								<Text maxLines={1} weight="medium" color="color.text">
+									{title}
+								</Text>
+								<Flex gap="space.050" alignItems="center">
+									{icon}
+									<Inline space="space.050">
+										<Text size="small" color="color.text.subtle">
+											{description}
+										</Text>
+										<Text size="small" color="color.text.subtle">
+											{containerTypeText}
+										</Text>
+									</Inline>
+								</Flex>
+							</Stack>
+						</Anchor>
+						<TeamLinkCardActions
+							containerType={containerType}
+							title={title}
+							containerId={containerId}
+							hovered={hovered}
+							focused={focused}
+							isDropdownOpen={isDropdownOpen}
+							showKeyboardFocus={showKeyboardFocus}
+							onDisconnectButtonClick={() => {
+								handleIconClick();
+								onDisconnectButtonClick();
+							}}
+							onEditLinkClick={() => {
+								handleIconClick();
+								onEditLinkClick?.();
+							}}
+							onDropdownOpenChange={setIsDropdownOpen}
+						/>
+					</>
+				) : (
+					<>
+						<Box xcss={styles.linkableContent} testId="team-link-card-linkable-content">
+							<Link href={link || '#'} appearance="subtle" onClick={handleLinkClick}>
+								<Stack space="space.025">
+									<Text maxLines={1} weight="medium" color="color.text">
+										{title}
+									</Text>
+									<Flex gap="space.050" alignItems="center">
+										{icon}
+										<Inline space="space.050">
+											<Text size="small" color="color.text.subtle">
+												{description}
+											</Text>
+											<Text size="small" color="color.text.subtle">
+												{containerTypeText}
+											</Text>
+										</Inline>
+									</Flex>
+								</Stack>
+							</Link>
+						</Box>
+						{showCloseIcon && (
+							<Box xcss={styles.crossIconWrapper}>
+								<Tooltip content={formatMessage(messages.disconnectTooltip)} position="top">
+									<IconButton
+										label={`disconnect the container ${title}`}
+										appearance="subtle"
+										icon={(iconProps) => <CrossIcon {...iconProps} size="small" />}
+										spacing="compact"
+										onClick={(e) => {
+											e.preventDefault();
+											e.stopPropagation();
+											onDisconnectButtonClick();
+											fireUIEvent(createAnalyticsEvent, {
+												action: AnalyticsAction.CLICKED,
+												actionSubject: 'button',
+												actionSubjectId: 'containerUnlinkButton',
+												attributes: {
+													containerSelected: { container: containerType, containerId },
+												},
+											});
+										}}
+									/>
+								</Tooltip>
+							</Box>
+						)}
+						{containerType === 'WebLink' && (hovered || isDropdownOpen) && (
+							<Box xcss={styles.showMoreIconWrapper}>
+								<DropdownMenu
+									trigger={({ triggerRef, ...triggerProps }) => (
+										<IconButton
+											ref={triggerRef}
+											{...triggerProps}
+											label={`more options for ${title}`}
+											appearance="subtle"
+											icon={(iconProps) => <ShowMoreHorizontalIcon {...iconProps} size="small" />}
+											spacing="compact"
+										/>
+									)}
+									placement="bottom-end"
+									shouldRenderToParent
+									onOpenChange={(attrs) => {
+										setIsDropdownOpen(attrs.isOpen);
 									}}
 								>
-									{formatMessage(messages.editLink)}
-								</DropdownItem>
-								<DropdownItem
-									onClick={(e) => {
-										e.preventDefault();
-										e.stopPropagation();
-										onDisconnectButtonClick();
-										fireUIEvent(createAnalyticsEvent, {
-											action: AnalyticsAction.CLICKED,
-											actionSubject: 'button',
-											actionSubjectId: 'containerUnlinkButton',
-											attributes: { containerSelected: { container: containerType, containerId } },
-										});
-									}}
-								>
-									{formatMessage(messages.removeLink)}
-								</DropdownItem>
-							</DropdownItemGroup>
-						</DropdownMenu>
-					</Box>
+									<DropdownItemGroup>
+										<DropdownItem
+											onClick={(e) => {
+												e.preventDefault();
+												e.stopPropagation();
+												onEditLinkClick?.();
+												fireUIEvent(createAnalyticsEvent, {
+													action: AnalyticsAction.CLICKED,
+													actionSubject: 'button',
+													actionSubjectId: 'containerEditLinkButton',
+													attributes: {
+														containerSelected: { container: containerType, containerId },
+													},
+												});
+											}}
+										>
+											{formatMessage(messages.editLink)}
+										</DropdownItem>
+										<DropdownItem
+											onClick={(e) => {
+												e.preventDefault();
+												e.stopPropagation();
+												onDisconnectButtonClick();
+												fireUIEvent(createAnalyticsEvent, {
+													action: AnalyticsAction.CLICKED,
+													actionSubject: 'button',
+													actionSubjectId: 'containerUnlinkButton',
+													attributes: {
+														containerSelected: { container: containerType, containerId },
+													},
+												});
+											}}
+										>
+											{formatMessage(messages.removeLink)}
+										</DropdownItem>
+									</DropdownItemGroup>
+								</DropdownMenu>
+							</Box>
+						)}
+					</>
 				)}
 			</Inline>
 		</Box>

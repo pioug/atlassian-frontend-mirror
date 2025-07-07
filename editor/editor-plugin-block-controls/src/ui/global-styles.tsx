@@ -6,6 +6,8 @@
 import { css, Global, jsx } from '@emotion/react';
 
 import { tableControlsSpacing } from '@atlaskit/editor-common/styles';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
 import {
 	akEditorBreakoutPadding,
@@ -15,8 +17,12 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { layers } from '@atlaskit/theme/constants';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
+
+
+import type { BlockControlsPlugin } from '../blockControlsPluginType';
 
 import { DRAG_HANDLE_MAX_WIDTH_PLUS_GAP, DRAG_HANDLE_WIDTH } from './consts';
 
@@ -118,6 +124,17 @@ const extendedHoverZone = () =>
 			display: 'none',
 		},
 	});
+
+const extendedDragZone = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+		[`&& [data-drag-handler-anchor-depth="0"]${dragHandlerAnchorSelector}::after`]: {
+			width: 'var(--ak-editor-max-container-width)',
+			left: `calc((100% - var(--ak-editor-max-container-width))/2)`,
+		},
+	},
+});
 
 const paragraphWithTrailingBreakAsOnlyChild =
 	'+ :is(p, h1, h2, h3, h4, h5, h6) > .ProseMirror-trailingBreak:only-child';
@@ -387,13 +404,24 @@ const blockCardWithoutLayout = css({
 		},
 });
 
-export const GlobalStylesWrapper = () => {
+export const GlobalStylesWrapper = ({
+	api,
+}: {
+	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined;
+}) => {
+	const isDragging = useSharedPluginStateSelector(api, 'blockControls.isDragging', {
+		disabled:
+			!expValEquals('platform_editor_block_controls_perf_optimization', 'isEnabled', true) ||
+			!fg('platform_editor_block_controls_perf_opt_patch_1'),
+	});
+
 	return (
 		<Global
 			styles={[
 				globalStyles(),
 				globalDnDStyle,
 				extendedHoverZone(),
+				isDragging && extendedDragZone,
 				editorExperiment('platform_editor_controls', 'variant1') &&
 				fg('platform_editor_controls_widget_visibility')
 					? undefined

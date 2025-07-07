@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-decorations",
-	"version": "2.0.7",
+	"version": "2.0.8",
 	"description": "Decorations plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -71,11 +71,6 @@
 				"emotion",
 				"emotion"
 			]
-		}
-	},
-	"platform-feature-flags": {
-		"platform_editor_remove_slow_table_transactions": {
-			"type": "boolean"
 		}
 	}
 }

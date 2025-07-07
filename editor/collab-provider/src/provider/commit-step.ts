@@ -16,6 +16,9 @@ import { createLogger } from '../helpers/utils';
 import type AnalyticsHelper from '../analytics/analytics-helper';
 import type { InternalError } from '../errors/internal-errors';
 import type { GetResolvedEditorStateReason } from '@atlaskit/editor-common/types';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 const logger = createLogger('commit-step', 'black');
 export const RESET_READYTOCOMMIT_INTERVAL_MS = 5000;
@@ -58,6 +61,7 @@ export class CommitStepService {
 		reason,
 		numberOfStepCommitsSent,
 		setNumberOfCommitsSent,
+		lockSteps,
 	}: {
 		steps: readonly ProseMirrorStep[];
 		version: number;
@@ -70,6 +74,7 @@ export class CommitStepService {
 		reason?: GetResolvedEditorStateReason;
 		numberOfStepCommitsSent: number;
 		setNumberOfCommitsSent: (steps: number) => void;
+		lockSteps: (stepOrigins?: readonly Transaction[]) => void;
 	}) {
 		// this timer is for waiting to send the next batch in between acks from the BE
 		let commitWaitTimer;
@@ -163,6 +168,12 @@ export class CommitStepService {
 
 					clearTimeout(fallbackTimer); // clear the fallback timer, ack was successfully sent/recieved
 					commitWaitTimer = setTimeout(() => {
+						if (
+							editorExperiment('platform_editor_offline_editing_web', true) ||
+							expValEquals('platform_editor_enable_single_player_step_merging', 'isEnabled', true)
+						) {
+							lockSteps();
+						}
 						// unlock the queue after waiting for delay
 						this.readyToCommit = true;
 						logger('reset readyToCommit');

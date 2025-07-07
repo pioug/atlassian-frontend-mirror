@@ -1,5 +1,13 @@
 # @atlaskit/collab-provider
 
+## 10.22.1
+
+### Patch Changes
+
+- [#181007](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/181007)
+  [`ec028c3374de5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec028c3374de5) -
+  refactor to lock steps earlier in send flow
+
 ## 10.22.0
 
 ### Minor Changes

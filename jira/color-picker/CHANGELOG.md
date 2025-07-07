@@ -1,5 +1,13 @@
 # @atlaskit/color-picker
 
+## 5.2.0
+
+### Minor Changes
+
+- [#180876](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/180876)
+  [`390f8dbbf76d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/390f8dbbf76d3) -
+  Cleaned up feature flag one_event_rules_them_all_fg
+
 ## 5.1.8
 
 ### Patch Changes

@@ -13,7 +13,6 @@ export type ModifiedOnProps = BaseDateTimeElementProps & {
 const ModifiedOnElement = (props: ModifiedOnProps): JSX.Element | null => {
 	const context = useFlexibleUiContext();
 	const data = context ? toDateTimeProps('modified', context.modifiedOn) : null;
-
 	const { onRender, ...restProps } = props || {};
 	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 	if (fg('platform-linking-additional-flexible-element-props')) {

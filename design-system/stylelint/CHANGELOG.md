@@ -1,5 +1,15 @@
 # @atlaskit/stylelint-design-system
 
+## 3.0.0
+
+### Major Changes
+
+- [#181734](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/181734)
+  [`a6f029cfca2dc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a6f029cfca2dc) -
+  Changes the way the package exports rules such that it works across cjs/esm in newer versions of
+  stylelint. Please see the following issue for more information
+  https://github.com/stylelint/stylelint/issues/8573#issuecomment-2982939797
+
 ## 2.2.3
 
 ### Patch Changes

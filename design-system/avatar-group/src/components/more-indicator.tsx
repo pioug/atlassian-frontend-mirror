@@ -176,6 +176,7 @@ export interface MoreIndicatorProps {
 	'aria-controls'?: string;
 	'aria-expanded'?: boolean;
 	'aria-haspopup'?: boolean | 'dialog';
+	moreIndicatorLabel?: string;
 	buttonProps: Partial<React.HTMLAttributes<HTMLElement>>;
 	onClick: AvatarClickEventHandler;
 	isActive: boolean;
@@ -202,6 +203,7 @@ const MoreIndicator = forwardRef<HTMLButtonElement, MoreIndicatorProps>(
 			'aria-controls': ariaControls,
 			'aria-expanded': ariaExpanded,
 			'aria-haspopup': ariaHaspopup,
+			moreIndicatorLabel,
 			buttonProps = {},
 			isActive,
 		},
@@ -219,6 +221,10 @@ const MoreIndicator = forwardRef<HTMLButtonElement, MoreIndicatorProps>(
 			[buttonProps.onClick, onClick],
 		);
 
+		const displayCount = count > MAX_DISPLAY_COUNT ? MAX_DISPLAY_COUNT : count;
+		const providedAriaLabel = moreIndicatorLabel || buttonProps['aria-label'];
+		const ariaLabel = providedAriaLabel ? providedAriaLabel : `${displayCount} more people`;
+
 		return (
 			<button
 				type="submit"
@@ -229,6 +235,7 @@ const MoreIndicator = forwardRef<HTMLButtonElement, MoreIndicatorProps>(
 				aria-controls={ariaControls}
 				aria-expanded={ariaExpanded}
 				aria-haspopup={ariaHaspopup}
+				aria-label={ariaLabel}
 				style={{ [boxShadowCssVar]: `0 0 0 2px ${borderColor}` } as CSSProperties}
 				css={[
 					styles.root,
@@ -239,7 +246,7 @@ const MoreIndicator = forwardRef<HTMLButtonElement, MoreIndicatorProps>(
 					isActive && styles.active,
 				]}
 			>
-				+{count! > MAX_DISPLAY_COUNT ? MAX_DISPLAY_COUNT : count}
+				+{displayCount}
 			</button>
 		);
 	},

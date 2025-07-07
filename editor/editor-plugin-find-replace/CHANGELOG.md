@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 2.10.6
+
+### Patch Changes
+
+- [#181675](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/181675)
+  [`11c3b472ce0f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/11c3b472ce0f2) -
+  [ux] ED-28203 update icon for find and replace match case button
+
 ## 2.10.5
 
 ### Patch Changes

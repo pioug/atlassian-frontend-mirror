@@ -1025,6 +1025,31 @@ export class DocumentService implements DocumentServiceInterface {
 	};
 
 	/**
+	 * If we are going to commit unconfirmed steps
+	 * we need to lock them to ensure they don't get
+	 * mutated in: `packages/editor/editor-plugin-collab-edit/src/pm-plugins/mergeUnconfirmed.ts`
+	 * @param stepOrigins - Optional - if not provided, get unconfirmed step origins from current state
+	 */
+	lockSteps = (stepOrigins?: readonly Transaction[]) => {
+		let origins = stepOrigins;
+		
+		// If no stepOrigins provided, get them from current state
+		if (!origins) {
+			const currentState = this.getState?.();
+			if (currentState) {
+				const unconfirmedStepsData = sendableSteps(currentState);
+				origins = unconfirmedStepsData?.origins;
+			}
+		}
+		
+		origins?.forEach((origin) => {
+			if (origin instanceof Transaction) {
+				return origin.setMeta('mergeIsLocked', true);
+			}
+		});
+	};
+
+	/**
 	 * Send steps from transaction to other participants
 	 * It needs the superfluous arguments because we keep the interface of the send API the same as the Synchrony plugin
 	 * @param tr
@@ -1041,26 +1066,31 @@ export class DocumentService implements DocumentServiceInterface {
 		sendAnalyticsEvent?: boolean,
 		reason?: GetResolvedEditorStateReason, // only used for publish and draft-sync events - when called through getFinalAcknowledgedState
 	) {
-		const unconfirmedStepsData = sendableSteps(newState);
-		const version = this.getVersionFromCollabState(newState, 'collab-provider: send');
+		const offlineEditingEnabled = editorExperiment('platform_editor_offline_editing_web', true);
+		const singlePlayerStepMergingEnabled = expValEquals(
+			'platform_editor_enable_single_player_step_merging',
+			'isEnabled',
+			true,
+		);
 
 		// Don't send any steps before we're ready.
-		if (
-			editorExperiment('platform_editor_offline_editing_web', true) ||
-			expValEquals('platform_editor_enable_single_player_step_merging', 'isEnabled', true)
-		) {
+		if (offlineEditingEnabled || singlePlayerStepMergingEnabled) {
 			const enableStepsMergingForSinglePlayer =
-				expValEquals('platform_editor_enable_single_player_step_merging', 'isEnabled', true) &&
+				singlePlayerStepMergingEnabled &&
 				!this.commitStepService.getReadyToCommitStatus() &&
 				this.participantsService.getCollabMode() === SINGLE_COLLAB_MODE;
 
-			if (!unconfirmedStepsData || !this.getConnected() || enableStepsMergingForSinglePlayer) {
+			if (!this.getConnected() || enableStepsMergingForSinglePlayer) {
 				return;
 			}
-		} else {
-			if (!unconfirmedStepsData) {
-				return;
-			}
+		}
+		const unconfirmedStepsData = sendableSteps(newState);
+		const version = this.getVersionFromCollabState(newState, 'collab-provider: send');
+		if (!unconfirmedStepsData) {
+			return;
+		}
+		if (offlineEditingEnabled || singlePlayerStepMergingEnabled) {
+			this.lockSteps(unconfirmedStepsData.origins);
 		}
 
 		const unconfirmedSteps = unconfirmedStepsData.steps;
@@ -1097,22 +1127,9 @@ export class DocumentService implements DocumentServiceInterface {
 			});
 		}
 
-		// If we are going to commit unconfirmed steps
-		// we need to lock them to ensure they don't get
-		// mutated in: `packages/editor/editor-plugin-collab-edit/src/pm-plugins/mergeUnconfirmed.ts`
-		if (
-			editorExperiment('platform_editor_offline_editing_web', true) ||
-			expValEquals('platform_editor_enable_single_player_step_merging', 'isEnabled', true)
-		) {
-			unconfirmedStepsData.origins.forEach((origin) => {
-				if (origin instanceof Transaction) {
-					return origin.setMeta('mergeIsLocked', true);
-				}
-			});
-		}
 		if (editorExperiment('platform_editor_offline_editing_web', true)) {
 			const containsOfflineSteps = unconfirmedStepsData?.origins.some((tr) => {
-				return tr instanceof Transaction ? tr.getMeta('isOffline') ?? false : false;
+				return tr instanceof Transaction ? (tr.getMeta('isOffline') ?? false) : false;
 			});
 
 			if (containsOfflineSteps && !this.timeoutExceeded) {
@@ -1164,6 +1181,7 @@ export class DocumentService implements DocumentServiceInterface {
 			reason,
 			numberOfStepCommitsSent: this.numberOfStepCommitsSent,
 			setNumberOfCommitsSent: this.setNumberOfCommitsSent,
+			lockSteps: this.lockSteps,
 		});
 	}
 }

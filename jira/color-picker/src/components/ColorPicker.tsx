@@ -17,7 +17,6 @@ import { getOptions } from '../utils';
 import { css, jsx } from '@atlaskit/css';
 import { injectIntl } from 'react-intl-next';
 import type { IntlShape, WrappedComponentProps } from 'react-intl-next';
-import { fg } from '@atlaskit/platform-feature-flags';
 import messages from '../messages';
 export interface Props {
 	/** color picker button label */
@@ -167,7 +166,7 @@ class ColorPickerWithoutAnalyticsBase extends React.Component<Props & WrappedCom
 				isTabbing={this.state.isTabbing}
 				onOptionKeyDown={this.onOptionKeyDown}
 				testId={testId}
-				{...(fg('one_event_rules_them_all_fg') && { onMenuOpen: this.props.onMenuOpen })}
+				onMenuOpen={this.props.onMenuOpen}
 			/>
 		);
 	}

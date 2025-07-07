@@ -35,6 +35,9 @@ export {
 	ResolvingClientUrl,
 } from './mock-clients';
 
+// Export the mock card client
+export { MockCardClient } from './mock-clients/mock-card-client';
+
 // Export all images and icons
 export {
 	// Avatar images

@@ -1,5 +1,17 @@
 # @atlaskit/teams-public
 
+## 0.41.0
+
+### Minor Changes
+
+- [#175544](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175544)
+  [`75e1002a3a489`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/75e1002a3a489) -
+  PTC-11573 Fix team link card focus border missing issue
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.40.0
 
 ### Minor Changes

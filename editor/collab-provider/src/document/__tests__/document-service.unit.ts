@@ -913,6 +913,7 @@ describe('document-service', () => {
 					collabMode: participantsServiceMock.getCollabMode(),
 					numberOfStepCommitsSent: 0,
 					setNumberOfCommitsSent: service.setNumberOfCommitsSent,
+					lockSteps: service.lockSteps,
 				});
 				if (shouldLogError) {
 					expect(analyticsHelperMock.sendErrorEvent).toHaveBeenCalledTimes(1);

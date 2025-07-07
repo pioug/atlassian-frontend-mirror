@@ -135,7 +135,10 @@ export const OwnedByElement = (props?: OwnedByElementProps) => {
 				color={props?.color}
 				onRender={props?.onRender}
 				{...(fg('bandicoots-smart-card-teamwork-context')
-					? { textPrefix: props?.textPrefix, fontSize: props?.fontSize }
+					? {
+							textPrefix: props?.textPrefix,
+							fontSize: props?.fontSize,
+						}
 					: undefined)}
 			/>
 		);
@@ -196,7 +199,7 @@ export const TargetBranchElement = () => <TargetBranch />;
 
 export type TitleElementProps = Pick<
 	React.ComponentProps<typeof Title>,
-	'hideTooltip' | 'maxLines' | 'target' | 'text' | 'theme' | 'size'
+	'hideTooltip' | 'maxLines' | 'target' | 'text' | 'theme' | 'size' | 'testId'
 >;
 
 export const TitleElement = (props?: TitleElementProps) => (
@@ -205,7 +208,7 @@ export const TitleElement = (props?: TitleElementProps) => (
 		maxLines={props?.maxLines}
 		target={props?.target}
 		{...(fg('bandicoots-smart-card-teamwork-context')
-			? { theme: props?.theme, size: props?.size }
+			? { theme: props?.theme, size: props?.size, testId: props?.testId }
 			: undefined)}
 		{...(props?.text ? { text: props?.text } : undefined)}
 	/>

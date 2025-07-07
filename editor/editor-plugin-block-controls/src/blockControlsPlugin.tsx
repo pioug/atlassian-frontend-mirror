@@ -232,7 +232,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 				) : (
 					<DragHandleMenu api={api} />
 				)}
-				<GlobalStylesWrapper />
+				<GlobalStylesWrapper api={api} />
 			</>
 		);
 	},

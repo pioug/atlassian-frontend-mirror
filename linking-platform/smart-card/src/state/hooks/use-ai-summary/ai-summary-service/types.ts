@@ -91,6 +91,7 @@ export type StreamResponse = {
 	type: 'FINAL_RESPONSE';
 	message: {
 		message: Message;
+		content: string;
 	};
 	millisOffset?: number;
 	metadata?: {

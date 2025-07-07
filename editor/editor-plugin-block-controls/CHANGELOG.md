@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.20.0
+
+### Minor Changes
+
+- [#181590](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/181590)
+  [`d44ad3c53ed98`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d44ad3c53ed98) -
+  ED-28433 fix drop zone after performance optimzations
+
 ## 3.19.14
 
 ### Patch Changes

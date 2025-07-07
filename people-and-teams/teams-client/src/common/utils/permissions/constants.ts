@@ -1,6 +1,10 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { type TeamMembershipSettings, type TeamPermission } from '../../../types/team';
+import {
+	type ExternalReferenceSource,
+	type TeamMembershipSettings,
+	type TeamPermission,
+} from '../../../types/team';
 
 import { type TeamAction } from './types';
 
@@ -47,11 +51,16 @@ export const inviteOnlyPermissions = (permission: TeamPermission | undefined) =>
 	CANCEL_JOIN_REQUEST: permission === 'FULL_READ',
 });
 
-export const SCIMSyncTeamPermissions = (isMember: boolean, isOrgAdmin: boolean) => ({
+export const SCIMSyncTeamPermissions = (
+	isMember: boolean,
+	isOrgAdmin: boolean,
+	source?: ExternalReferenceSource,
+) => ({
 	EDIT_DESCRIPTION: isMember || isOrgAdmin,
 	EDIT_TEAM_SETTINGS: isMember || isOrgAdmin,
 	EDIT_TEAM_LINK: isMember || isOrgAdmin,
-	EDIT_TEAM_NAME: isOrgAdmin && fg('enable_edit_team_name_external_type_teams'),
+	EDIT_TEAM_NAME:
+		isOrgAdmin && source === 'ATLASSIAN_GROUP' && fg('enable_edit_team_name_external_type_teams'),
 });
 
 export const getPermissionMap = (
@@ -59,6 +68,7 @@ export const getPermissionMap = (
 	permission: TeamPermission | undefined,
 	isMember: boolean,
 	isOrgAdmin: boolean,
+	source?: ExternalReferenceSource,
 ): PermissionMap => {
 	if (settings === 'OPEN') {
 		return {
@@ -72,7 +82,10 @@ export const getPermissionMap = (
 			...inviteOnlyPermissions(permission),
 		};
 	} else if (settings === 'EXTERNAL') {
-		return { ...allPermissions(false, isMember), ...SCIMSyncTeamPermissions(isMember, isOrgAdmin) };
+		return {
+			...allPermissions(false, isMember),
+			...SCIMSyncTeamPermissions(isMember, isOrgAdmin, source),
+		};
 	}
 	return allPermissions(false, false);
 };

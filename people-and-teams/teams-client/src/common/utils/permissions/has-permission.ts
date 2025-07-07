@@ -1,5 +1,9 @@
 import { type TeamMembership } from '../../../types/membership';
-import { type TeamMembershipSettings, type TeamPermission } from '../../../types/team';
+import {
+	type ExternalReferenceSource,
+	type TeamMembershipSettings,
+	type TeamPermission,
+} from '../../../types/team';
 import { isMember } from '../team';
 
 import { getPermissionMap, vanityActions } from './constants';
@@ -12,6 +16,7 @@ export function hasPermission(
 	isPeopleBrowseEnabled: boolean,
 	currentUserMembership: TeamMembership | undefined,
 	teamVisibilityPermissions?: TeamPermissions,
+	source?: ExternalReferenceSource,
 ): boolean {
 	if (!isPeopleBrowseEnabled && !vanityActions.includes(action)) {
 		return false;
@@ -23,6 +28,7 @@ export function hasPermission(
 		teamPermission: permission,
 		isMemberOfTeam,
 		isOrgAdmin,
+		source,
 	});
 }
 
@@ -43,6 +49,10 @@ type PermissionOptions = {
 	 * Is the user an org admin
 	 */
 	isOrgAdmin: boolean;
+	/**
+	 * External source(if any) "ATLASSIAN_GROUP" | "HRIS"
+	 */
+	source?: ExternalReferenceSource;
 };
 
 /**
@@ -54,6 +64,7 @@ export function userCan(action: TeamAction, options: PermissionOptions): boolean
 		options.teamPermission,
 		options.isMemberOfTeam,
 		options.isOrgAdmin,
+		options.source,
 	)[action];
 }
 

@@ -1,5 +1,21 @@
 # @atlaskit/smart-card
 
+## 38.21.0
+
+### Minor Changes
+
+- [#175290](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175290)
+  [`5646f06683e9e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5646f06683e9e) -
+  Update TitleElement prop export to include testId and adding color export to
+  CustomElementByAccessTypeProps
+
+### Patch Changes
+
+- [#181392](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/181392)
+  [`a582ac499f13c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a582ac499f13c) -
+  EDM-12645 fixing rendering bug with new convo ai endpoint
+- Updated dependencies
+
 ## 38.20.2
 
 ### Patch Changes

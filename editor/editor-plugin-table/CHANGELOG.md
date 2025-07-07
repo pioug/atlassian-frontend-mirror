@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 10.13.3
+
+### Patch Changes
+
+- [#181594](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/181594)
+  [`f7fa55cd505ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f7fa55cd505ce) -
+  Avoid using tables commands directly in floating toolbar plugin.
+
 ## 10.13.2
 
 ### Patch Changes

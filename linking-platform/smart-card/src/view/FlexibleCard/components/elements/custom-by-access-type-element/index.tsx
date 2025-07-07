@@ -3,8 +3,7 @@ import React from 'react';
 import type { Prettify } from '@atlaskit/linking-common';
 
 import { useFlexibleCardContext } from '../../../../../state/flexible-ui-context';
-import { BaseTextElement } from '../common';
-import type { ElementProps } from '../index';
+import { BaseTextElement, type BaseTextElementProps } from '../common';
 
 type AccessType =
 	| 'DIRECT_ACCESS'
@@ -14,7 +13,8 @@ type AccessType =
 	| 'DENIED_REQUEST_EXISTS';
 
 export type CustomElementByAccessTypeProps = Prettify<
-	Pick<ElementProps, 'className' | 'testId'> & Partial<Record<AccessType | 'fallback', string>>
+	Pick<BaseTextElementProps, 'className' | 'testId' | 'color'> &
+		Partial<Record<AccessType | 'fallback', string>>
 >;
 
 const CustomElementByAccessType = ({

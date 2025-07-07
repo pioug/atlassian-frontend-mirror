@@ -1,5 +1,13 @@
 # @atlaskit/teams-client
 
+## 4.6.1
+
+### Patch Changes
+
+- [#181599](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/181599)
+  [`4b25fc013bfe5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b25fc013bfe5) -
+  [ux] [PTC-12440]: Stop HRIS managed teams to be renamed
+
 ## 4.6.0
 
 ### Minor Changes

@@ -34,6 +34,7 @@ export const streamAnswer: StreamMessage[] = [
 	{
 		type: 'FINAL_RESPONSE',
 		message: {
+			content: 'Part 1 of 1 Part 2 of 2',
 			message: {
 				content: 'Part 1 of 1 Part 2 of 2',
 				content_mime_type: 'text/markdown',

@@ -2,9 +2,14 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl-next';
 
-import { Box, Stack, xcss } from '@atlaskit/primitives';
+import { cssMap } from '@atlaskit/css';
+import { Box, Stack } from '@atlaskit/primitives/compiled';
 
-const boxStyles = xcss({ margin: '0 auto' });
+const boxStyles = cssMap({
+	root: {
+		margin: '0 auto',
+	},
+});
 
 const DEFAULT_MAX_WIDTH = '700px';
 
@@ -18,7 +23,7 @@ const ExampleContainer = ({
 	title: string;
 }) => (
 	<IntlProvider locale="en">
-		<Box paddingBlock="space.400" style={{ maxWidth }} xcss={boxStyles}>
+		<Box paddingBlock="space.400" style={{ maxWidth }} xcss={boxStyles.root}>
 			<Stack space="space.200">
 				<h1>{title}</h1>
 				{children}

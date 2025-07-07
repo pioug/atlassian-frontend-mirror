@@ -107,12 +107,7 @@ describe('ColorPicker', () => {
 			renderUI();
 			const colorButton = screen.getByLabelText('Blue selected, Color picker');
 			await userEvent.click(colorButton);
-
-			if (fg('one_event_rules_them_all_fg')) {
-				expect(onMenuOpenMock).toHaveBeenCalledTimes(1);
-			} else {
-				expect(onMenuOpenMock).toHaveBeenCalledTimes(0);
-			}
+			expect(onMenuOpenMock).toHaveBeenCalledTimes(1);
 		});
 	});
 });

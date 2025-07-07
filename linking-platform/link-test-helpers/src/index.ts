@@ -132,4 +132,5 @@ export {
 	response3,
 	response4,
 	url,
+	MockCardClient,
 } from './smart-card';

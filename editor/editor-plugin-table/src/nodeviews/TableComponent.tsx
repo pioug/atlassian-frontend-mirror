@@ -29,7 +29,6 @@ import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import type { CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import { autoSizeTable, clearHoverSelection } from '../pm-plugins/commands';
@@ -252,17 +251,17 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 	};
 
 	componentDidMount() {
-		if (editorExperiment('platform_editor_nodevisibility', false, { exposure: true })) {
-			this.initialiseEventListenersAfterMount();
-			return;
-		}
-
 		const { observe } = nodeVisibilityManager(this.props.view.dom);
 		if (this.table) {
 			this.nodeVisibilityObserverCleanupFn = observe({
 				element: this.table,
 				onFirstVisible: () => {
 					this.initialiseEventListenersAfterMount();
+					// force width calculcation - missed resize event under firefox when
+					// table is nested within bodied extension
+					if (this.wrapper && fg('platform_editor_nodevisibility_resize_sync')) {
+						this.wrapperWidth = this.wrapper?.clientWidth;
+					}
 				},
 			});
 		}

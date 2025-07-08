@@ -30,9 +30,6 @@
 			"path": "../../../elements/anonymous-assets/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../editor-common/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../editor-json-transformer/afm-jira/tsconfig.json"
 		},
 		{
@@ -55,6 +52,9 @@
 		},
 		{
 			"path": "../../../elements/util-service-support/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-jira/tsconfig.json"
 		}
 	]
 }

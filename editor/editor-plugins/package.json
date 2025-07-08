@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugins",
-	"version": "9.4.23",
+	"version": "9.4.24",
 	"description": "A convenience facade package that exposes all @atlaskit/editor-plugin-* plugins so that users can add this package without having to manually add all their plugins",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -389,10 +389,6 @@
 			"referenceOnly": true
 		},
 		"platform_editor_element_drag_and_drop_ed_23873": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_editor_media_batch_updates": {
 			"type": "boolean",
 			"referenceOnly": true
 		}

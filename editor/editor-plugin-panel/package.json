@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-panel",
-	"version": "4.4.12",
+	"version": "5.0.0",
 	"description": "Panel plugin for @atlaskit/editor-core.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -34,7 +34,6 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^47.6.0",
-		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/editor-palette": "workspace:^",
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
 		"@atlaskit/editor-plugin-decorations": "workspace:^",
@@ -51,6 +50,7 @@
 		"uuid": "^3.1.0"
 	},
 	"peerDependencies": {
+		"@atlaskit/editor-common": "workspace:^",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"react-intl-next": "*"

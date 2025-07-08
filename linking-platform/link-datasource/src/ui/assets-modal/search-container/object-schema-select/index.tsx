@@ -3,12 +3,17 @@
  * @jsx jsx
  */
 
+import { useCallback, useState } from 'react';
+
 import { jsx, styled } from '@compiled/react';
 import debounce from 'debounce-promise';
 import { useIntl } from 'react-intl-next';
 
+import Button from '@atlaskit/button/new';
 import { Field } from '@atlaskit/form';
-import { AsyncSelect } from '@atlaskit/select';
+import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { AsyncSelect, type InputActionMeta, PopupSelect } from '@atlaskit/select';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
@@ -33,6 +38,7 @@ type AssetsObjectSchemaSelectProps = {
 	workspaceId: string;
 	initialObjectSchemas: ObjectSchema[] | undefined;
 	classNamePrefix?: string;
+	testId?: string;
 };
 
 export const SEARCH_DEBOUNCE_MS = 350;
@@ -59,9 +65,14 @@ export const AssetsObjectSchemaSelect = ({
 	workspaceId,
 	initialObjectSchemas,
 	classNamePrefix = 'assets-datasource-modal--object-schema-select',
+	testId = 'assets-datasource-modal--object-schema-select',
 }: AssetsObjectSchemaSelectProps) => {
 	const { formatMessage } = useIntl();
 	const { fetchObjectSchemas, objectSchemasLoading } = useObjectSchemas(workspaceId);
+	const [searchTerm, setSearchTerm] = useState('');
+	const [options, setOptions] = useState<ObjectSchemaOption[]>(
+		mapObjectSchemasToOptions(initialObjectSchemas),
+	);
 
 	const selectedObjectSchema = value ? objectSchemaToSelectOption(value) : undefined;
 
@@ -79,28 +90,73 @@ export const AssetsObjectSchemaSelect = ({
 		return undefined;
 	};
 
+	const handleInputChange = useCallback(
+		async (newSearchTerm: string, actionMeta: InputActionMeta) => {
+			if (actionMeta.action === 'input-change' && newSearchTerm !== searchTerm) {
+				setSearchTerm(newSearchTerm);
+				setOptions(await debouncedLoadOptions(newSearchTerm));
+			}
+		},
+		[debouncedLoadOptions, searchTerm],
+	);
+
+	const onClose = useCallback(() => {
+		setSearchTerm('');
+		setOptions(mapObjectSchemasToOptions(initialObjectSchemas));
+	}, [initialObjectSchemas]);
+
 	return (
 		<FieldContainer>
 			<Field
 				name={objectSchemaKey}
 				defaultValue={selectedObjectSchema}
 				validate={(value) => validateSchema(value)}
+				testId={testId}
 			>
-				{({ fieldProps: { onChange, onFocus, ...restFieldProps } }) => (
-					<AsyncSelect
-						autoFocus
-						classNamePrefix={classNamePrefix}
-						isLoading={objectSchemasLoading}
-						defaultOptions={mapObjectSchemasToOptions(initialObjectSchemas)}
-						isSearchable
-						loadOptions={debouncedLoadOptions}
-						placeholder={formatMessage(objectSchemaSelectMessages.placeholder)}
-						onChange={(newOption) => newOption && onChange(newOption)}
-						{...selectInAModalStyleFixProps}
-						{...restFieldProps}
-						label={formatMessage(objectSchemaSelectMessages.placeholder)}
-					/>
-				)}
+				{({ fieldProps: { onChange, onFocus, ...restFieldProps } }) =>
+					fg('linking-platform-assests-schema-selector-refresh') ? (
+						<PopupSelect
+							autoFocus
+							maxMenuWidth={300}
+							minMenuWidth={300}
+							isSearchable={true}
+							searchThreshold={-1}
+							isLoading={objectSchemasLoading}
+							options={options}
+							placeholder={formatMessage(objectSchemaSelectMessages.placeholder)}
+							onChange={(newOption) => newOption && onChange(newOption)}
+							inputValue={searchTerm}
+							onInputChange={handleInputChange}
+							onMenuClose={onClose}
+							{...restFieldProps}
+							label={formatMessage(objectSchemaSelectMessages.placeholder)}
+							target={({ isOpen, ...triggerProps }) => (
+								<Button
+									{...triggerProps}
+									isSelected={isOpen}
+									iconAfter={() => <ChevronDownIcon label="" color="currentColor" size="small" />}
+								>
+									{restFieldProps.value?.label ||
+										formatMessage(objectSchemaSelectMessages.placeholder)}
+								</Button>
+							)}
+						/>
+					) : (
+						<AsyncSelect
+							autoFocus
+							classNamePrefix={classNamePrefix}
+							isLoading={objectSchemasLoading}
+							defaultOptions={mapObjectSchemasToOptions(initialObjectSchemas)}
+							isSearchable
+							loadOptions={debouncedLoadOptions}
+							placeholder={formatMessage(objectSchemaSelectMessages.placeholder)}
+							onChange={(newOption) => newOption && onChange(newOption)}
+							{...selectInAModalStyleFixProps}
+							{...restFieldProps}
+							label={formatMessage(objectSchemaSelectMessages.placeholder)}
+						/>
+					)
+				}
 			</Field>
 		</FieldContainer>
 	);

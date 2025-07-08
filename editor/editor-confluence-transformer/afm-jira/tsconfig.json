@@ -18,10 +18,10 @@
 	],
 	"references": [
 		{
-			"path": "../../editor-common/afm-jira/tsconfig.json"
+			"path": "../../editor-shared-styles/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../editor-shared-styles/afm-jira/tsconfig.json"
+			"path": "../../editor-common/afm-jira/tsconfig.json"
 		}
 	]
 }

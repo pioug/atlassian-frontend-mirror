@@ -31,7 +31,6 @@
 	},
 	"dependencies": {
 		"@atlaskit/button": "workspace:^",
-		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/icon-lab": "workspace:^",
@@ -46,6 +45,7 @@
 		"fuse.js": "^6.6.2"
 	},
 	"peerDependencies": {
+		"@atlaskit/editor-common": "workspace:^",
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
@@ -93,7 +93,7 @@
 		}
 	},
 	"name": "@atlaskit/editor-element-browser",
-	"version": "0.1.27",
+	"version": "1.0.0",
 	"description": "New UI for the QuickInsert menu and Right rail",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-ncs-step-metrics",
-	"version": "1.1.1",
+	"version": "2.0.0",
 	"description": "NcsStepMetrics plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -34,7 +34,6 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
 		"@atlaskit/editor-plugin-collab-edit": "workspace:^",
 		"@atlaskit/editor-prosemirror": "7.0.0",
@@ -43,6 +42,7 @@
 		"bind-event-listener": "^3.0.0"
 	},
 	"peerDependencies": {
+		"@atlaskit/editor-common": "workspace:^",
 		"react": "^18.2.0"
 	},
 	"devDependencies": {

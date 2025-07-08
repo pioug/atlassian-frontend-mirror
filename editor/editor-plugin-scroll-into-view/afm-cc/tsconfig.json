@@ -18,9 +18,6 @@
     ],
     "references": [
         {
-            "path": "../../editor-common/afm-cc/tsconfig.json"
-        },
-        {
             "path": "../../../design-system/link/afm-cc/tsconfig.json"
         },
         {
@@ -28,6 +25,9 @@
         },
         {
             "path": "../../input-rules/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../editor-common/afm-cc/tsconfig.json"
         }
     ]
 }

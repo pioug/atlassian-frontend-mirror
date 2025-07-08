@@ -5,35 +5,23 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { ElementName } from '../../../../../constants';
 import { messages } from '../../../../../messages';
 import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
-import { type FlexibleUiDataContext } from '../../../../../state/flexible-ui-context/types';
 import { BaseTextElement, type BaseTextElementProps, toFormattedTextProps } from '../common';
 
 export type OwnedByElementProps = BaseTextElementProps & {
-	/**
-	 * The text prefix to display before the owned by text.
-	 * Best used when hideFormat is enabled
-	 */
-	textPrefix?: string;
+	textPrefix?: keyof Pick<typeof messages, 'owned_by' | 'owned_by_override'>;
 	onRender?: (hasData: boolean) => void;
-};
-
-const getOwnedByText = (context: FlexibleUiDataContext, textPrefix: string | undefined) => {
-	if (!fg('bandicoots-smart-card-teamwork-context')) {
-		return context.ownedBy;
-	}
-	if (context.ownedBy === undefined || context.ownedBy === '') {
-		return '';
-	}
-	return textPrefix ? `${textPrefix} ${context.ownedBy}`.trim() : context.ownedBy;
 };
 
 const OwnedByElement = (props: OwnedByElementProps): JSX.Element | null => {
 	const context = useFlexibleUiContext();
+	const { onRender, textPrefix = 'owned_by', ...restProps } = props || {};
 	const data = context
-		? toFormattedTextProps(messages.owned_by, getOwnedByText(context, props?.textPrefix))
+		? toFormattedTextProps(
+				fg('bandicoots-smart-card-teamwork-context') ? messages[textPrefix] : messages.owned_by,
+				context?.ownedBy,
+			)
 		: null;
 
-	const { onRender, ...restProps } = props || {};
 	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 	if (fg('platform-linking-additional-flexible-element-props')) {
 		// eslint-disable-next-line react-hooks/rules-of-hooks

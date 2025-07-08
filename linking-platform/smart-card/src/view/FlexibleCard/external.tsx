@@ -123,10 +123,11 @@ export const ModifiedOnElement = (props?: ModifiedOnElementProps) => {
 	return <ModifiedOn />;
 };
 
-type OwnedByElementProps = Pick<
+export type OwnedByElementProps = Pick<
 	React.ComponentProps<typeof OwnedBy>,
 	'hideFormat' | 'color' | 'onRender' | 'textPrefix' | 'fontSize'
 >;
+
 export const OwnedByElement = (props?: OwnedByElementProps) => {
 	if (fg('platform-linking-additional-flexible-element-props')) {
 		return (

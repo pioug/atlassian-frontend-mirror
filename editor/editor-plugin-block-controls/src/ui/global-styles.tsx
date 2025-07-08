@@ -21,7 +21,6 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
-
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 
 import { DRAG_HANDLE_MAX_WIDTH_PLUS_GAP, DRAG_HANDLE_WIDTH } from './consts';

@@ -7,6 +7,9 @@
 	"keywords": [
 		"stylelint-plugin"
 	],
+	"scripts": {
+		"build": "tsup src/index.tsx --format cjs --clean"
+	},
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
 	},
@@ -57,6 +60,7 @@
 	},
 	"devDependencies": {
 		"jest-preset-stylelint": "^5.0.1",
+		"tsup": "^8.5.0",
 		"typescript": "~5.4.2"
 	},
 	"techstack": {

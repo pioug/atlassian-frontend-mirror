@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-loom",
-	"version": "4.1.7",
+	"version": "5.0.0",
 	"description": "Loom plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -39,7 +39,6 @@
 	},
 	"dependencies": {
 		"@atlaskit/button": "workspace:^",
-		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
 		"@atlaskit/editor-plugin-hyperlink": "workspace:^",
 		"@atlaskit/editor-plugin-primary-toolbar": "workspace:^",
@@ -54,6 +53,7 @@
 		"@loomhq/record-sdk": "^2.36.18"
 	},
 	"peerDependencies": {
+		"@atlaskit/editor-common": "workspace:^",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"react-intl-next": "*"

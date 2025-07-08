@@ -1,5 +1,19 @@
 # @atlaskit/link-datasource
 
+## 4.12.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.12.0
+
+### Minor Changes
+
+- [#181346](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/181346)
+  [`ac7e60f6123e7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ac7e60f6123e7) -
+  [ux] EDM-13018 migrating Assests modal schema selector to PopupSelect
+
 ## 4.11.20
 
 ### Patch Changes

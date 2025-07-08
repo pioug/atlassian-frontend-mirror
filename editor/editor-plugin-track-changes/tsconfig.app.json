@@ -28,8 +28,11 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__smart-creation/app"
+		"outDir": "../../../tsDist/@atlaskit__editor-plugin-track-changes/app"
 	},
-	"references": [],
-	"files": []
+	"references": [
+		{
+			"path": "../editor-common/tsconfig.app.json"
+		}
+	]
 }

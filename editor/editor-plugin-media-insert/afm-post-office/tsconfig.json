@@ -21,9 +21,6 @@
 			"path": "../../../design-system/button/afm-post-office/tsconfig.json"
 		},
 		{
-			"path": "../../editor-common/afm-post-office/tsconfig.json"
-		},
-		{
 			"path": "../../editor-plugin-analytics/afm-post-office/tsconfig.json"
 		},
 		{
@@ -67,6 +64,9 @@
 		},
 		{
 			"path": "../../tmp-editor-statsig/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-post-office/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/tokens/afm-post-office/tsconfig.json"

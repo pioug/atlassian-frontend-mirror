@@ -21,9 +21,6 @@
 			"path": "../../adf-utils/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../editor-common/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../editor-json-transformer/afm-jira/tsconfig.json"
 		},
 		{
@@ -49,6 +46,9 @@
 		},
 		{
 			"path": "../../tmp-editor-statsig/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-jira/tsconfig.json"
 		}
 	]
 }

@@ -7,6 +7,7 @@ import {
 	type SmartLinkSize,
 	type SmartLinkStatus,
 } from '../../../../constants';
+import { type OwnedByElementProps } from '../../external';
 import { type ActionProps } from '../actions/action/types';
 
 export type BlockProps = {
@@ -375,6 +376,8 @@ export type CreatedBy = {
  */
 export type OwnedBy = {
 	name: ElementName.OwnedBy;
+	textPrefix?: OwnedByElementProps['textPrefix'];
+	hideFormat?: OwnedByElementProps['hideFormat'];
 };
 /**
  * Represents the props available for an CreatedOn element.

@@ -21,9 +21,6 @@
 			"path": "../../../design-system/css/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../editor-common/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../editor-plugin-analytics/afm-jira/tsconfig.json"
 		},
 		{
@@ -58,6 +55,9 @@
 		},
 		{
 			"path": "../../../design-system/tokens/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-jira/tsconfig.json"
 		}
 	]
 }

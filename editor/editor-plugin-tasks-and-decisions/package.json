@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-tasks-and-decisions",
-	"version": "5.1.21",
+	"version": "6.0.0",
 	"description": "Tasks and decisions plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -39,7 +39,6 @@
 		"@atlaskit/analytics-namespaced-context": "workspace:^",
 		"@atlaskit/analytics-next": "workspace:^",
 		"@atlaskit/css": "workspace:^",
-		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
 		"@atlaskit/editor-plugin-context-identifier": "workspace:^",
 		"@atlaskit/editor-plugin-editor-viewmode": "workspace:^",
@@ -60,6 +59,7 @@
 		"bind-event-listener": "^3.0.0"
 	},
 	"peerDependencies": {
+		"@atlaskit/editor-common": "workspace:^",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"react-intl-next": "*"

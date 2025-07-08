@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-base",
-	"version": "3.0.6",
+	"version": "4.0.0",
 	"description": "Base plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -34,7 +34,6 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^47.6.0",
-		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/editor-plugin-context-identifier": "workspace:^",
 		"@atlaskit/editor-plugin-feature-flags": "workspace:^",
 		"@atlaskit/editor-prosemirror": "7.0.0",
@@ -79,5 +78,8 @@
 		"no-unused-dependencies": {
 			"checkDevDependencies": true
 		}
+	},
+	"peerDependencies": {
+		"@atlaskit/editor-common": "workspace:^"
 	}
 }

@@ -1032,7 +1032,7 @@ export class DocumentService implements DocumentServiceInterface {
 	 */
 	lockSteps = (stepOrigins?: readonly Transaction[]) => {
 		let origins = stepOrigins;
-		
+
 		// If no stepOrigins provided, get them from current state
 		if (!origins) {
 			const currentState = this.getState?.();
@@ -1041,7 +1041,7 @@ export class DocumentService implements DocumentServiceInterface {
 				origins = unconfirmedStepsData?.origins;
 			}
 		}
-		
+
 		origins?.forEach((origin) => {
 			if (origin instanceof Transaction) {
 				return origin.setMeta('mergeIsLocked', true);
@@ -1129,7 +1129,7 @@ export class DocumentService implements DocumentServiceInterface {
 
 		if (editorExperiment('platform_editor_offline_editing_web', true)) {
 			const containsOfflineSteps = unconfirmedStepsData?.origins.some((tr) => {
-				return tr instanceof Transaction ? (tr.getMeta('isOffline') ?? false) : false;
+				return tr instanceof Transaction ? tr.getMeta('isOffline') ?? false : false;
 			});
 
 			if (containsOfflineSteps && !this.timeoutExceeded) {

@@ -27,7 +27,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	replaceExternalMedia,
-	updateAllMediaNodesAttrs,
 	updateCurrentMediaNodeAttrs,
 	updateMediaNodeAttrs,
 } from '../pm-plugins/commands/helpers';
@@ -89,18 +88,12 @@ export class MediaNodeUpdater {
 		const { id } = attrs;
 		const objectId = await this.getObjectId();
 
-		if (fg('platform_editor_media_batch_updates')) {
-			batchMediaNodeAttrsUpdate(this.props.view, {
-				id: id,
-				nextAttributes: {
-					__contextId: objectId,
-				},
-			});
-		} else {
-			updateAllMediaNodesAttrs(id, {
+		batchMediaNodeAttrsUpdate(this.props.view, {
+			id: id,
+			nextAttributes: {
 				__contextId: objectId,
-			})(this.props.view.state, this.props.view.dispatch);
-		}
+			},
+		});
 	};
 
 	updateNodeContextId = async (getPos: ProsemirrorGetPosHandler) => {
@@ -182,14 +175,10 @@ export class MediaNodeUpdater {
 		const { id } = this.getAttrs() as MediaAttributes;
 
 		if (id && newAttrs) {
-			if (fg('platform_editor_media_batch_updates')) {
-				batchMediaNodeAttrsUpdate(this.props.view, {
-					id: id,
-					nextAttributes: newAttrs,
-				});
-			} else {
-				updateAllMediaNodesAttrs(id, newAttrs)(this.props.view.state, this.props.view.dispatch);
-			}
+			batchMediaNodeAttrsUpdate(this.props.view, {
+				id: id,
+				nextAttributes: newAttrs,
+			});
 		}
 	};
 
@@ -275,20 +264,13 @@ export class MediaNodeUpdater {
 	};
 
 	updateDimensions = (dimensions: RemoteDimensions) => {
-		if (fg('platform_editor_media_batch_updates')) {
-			batchMediaNodeAttrsUpdate(this.props.view, {
-				id: dimensions.id,
-				nextAttributes: {
-					height: dimensions.height,
-					width: dimensions.width,
-				},
-			});
-		} else {
-			updateAllMediaNodesAttrs(dimensions.id, {
+		batchMediaNodeAttrsUpdate(this.props.view, {
+			id: dimensions.id,
+			nextAttributes: {
 				height: dimensions.height,
 				width: dimensions.width,
-			})(this.props.view.state, this.props.view.dispatch);
-		}
+			},
+		});
 	};
 
 	async getRemoteDimensions(): Promise<false | RemoteDimensions> {

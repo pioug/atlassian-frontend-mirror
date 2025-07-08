@@ -24,8 +24,8 @@ ${(<AtlassianInternalWarning />)}
   ## Installation
 
   1. Install the editor libraries
-    - **npm:** \`npm install --save @atlaskit/editor-core @atlaskit/css-reset\`
-    - **yarn:** \`yarn add @atlaskit/editor-core @atlaskit/css-reset\`
+    - **npm:** \`npm install --save @atlaskit/editor-core @atlaskit/editor-common @atlaskit/css-reset\`
+    - **yarn:** \`yarn add @atlaskit/editor-core @atlaskit/editor-common @atlaskit/css-reset\`
 
   2. Deduplicate the dependencies \(if necessary\) by setting resolutions to avoid multiple versions of the editor libraries or by running [npm dedupe](https://docs.npmjs.com/cli/v6/commands/npm-dedupe) or [yarn dedupe](https://yarnpkg.com/cli/dedupe) after installation.
   3. Setup the CSS reset in your application

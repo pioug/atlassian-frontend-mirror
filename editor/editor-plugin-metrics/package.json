@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-metrics",
-	"version": "3.6.0",
+	"version": "4.0.0",
 	"description": "Metrics plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -35,7 +35,6 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^47.6.0",
-		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
 		"@atlaskit/editor-plugin-user-preferences": "workspace:^",
 		"@atlaskit/editor-prosemirror": "7.0.0",
@@ -45,6 +44,7 @@
 		"bind-event-listener": "^3.0.0"
 	},
 	"peerDependencies": {
+		"@atlaskit/editor-common": "workspace:^",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0"
 	},

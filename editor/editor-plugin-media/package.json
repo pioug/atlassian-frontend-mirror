@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-media",
-	"version": "4.1.6",
+	"version": "5.0.0",
 	"description": "Media plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -41,7 +41,6 @@
 		"@atlaskit/analytics-namespaced-context": "workspace:^",
 		"@atlaskit/analytics-next": "workspace:^",
 		"@atlaskit/button": "workspace:^",
-		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/editor-palette": "workspace:^",
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
 		"@atlaskit/editor-plugin-annotation": "workspace:^",
@@ -89,6 +88,7 @@
 		"typescript": "~5.4.2"
 	},
 	"peerDependencies": {
+		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/media-core": "workspace:^",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
@@ -135,9 +135,6 @@
 			"type": "boolean"
 		},
 		"platform_media_cross_client_copy": {
-			"type": "boolean"
-		},
-		"platform_editor_media_batch_updates": {
 			"type": "boolean"
 		},
 		"platform_editor_typography_ugc": {

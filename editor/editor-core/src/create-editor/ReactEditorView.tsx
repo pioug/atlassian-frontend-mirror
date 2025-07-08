@@ -58,7 +58,6 @@ import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { abortAll, getActiveInteraction } from '@atlaskit/react-ufo/interaction-metrics';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { useProviders } from '../composable-editor/hooks/useProviders';
 import type { EditorConfig, EditorProps } from '../types';
@@ -762,10 +761,7 @@ export function ReactEditorView(props: EditorViewProps) {
 			}
 
 			if (!viewRef.current && node) {
-				// make sure this doesn't expose the experiment
-				if (editorExperiment('platform_editor_nodevisibility', true, { exposure: false })) {
-					nodeVisibilityManager(node).initialiseNodeObserver();
-				}
+				nodeVisibilityManager(node).initialiseNodeObserver();
 
 				const view = createEditorView(node);
 
@@ -884,9 +880,7 @@ export function ReactEditorView(props: EditorViewProps) {
 					viewRef.current.destroy(); // Destroys the dom node & all node views
 				}
 
-				if (editorExperiment('platform_editor_nodevisibility', true)) {
-					nodeVisibilityManager(viewRef.current.dom).disconnect();
-				}
+				nodeVisibilityManager(viewRef.current.dom).disconnect();
 
 				viewRef.current = undefined;
 			}

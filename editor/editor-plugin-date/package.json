@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-date",
-	"version": "4.3.16",
+	"version": "5.0.0",
 	"description": "Date plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -39,7 +39,6 @@
 		"@atlaskit/calendar": "workspace:^",
 		"@atlaskit/css": "workspace:^",
 		"@atlaskit/date": "workspace:^",
-		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
 		"@atlaskit/editor-plugin-annotation": "workspace:^",
 		"@atlaskit/editor-plugin-editor-disabled": "workspace:^",
@@ -76,6 +75,7 @@
 		"@testing-library/react": "^13.4.0"
 	},
 	"peerDependencies": {
+		"@atlaskit/editor-common": "workspace:^",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0"
 	},

@@ -2,7 +2,7 @@ import React from 'react';
 import { act, screen, within, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { type EmojiProvider } from '@atlaskit/emoji';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 

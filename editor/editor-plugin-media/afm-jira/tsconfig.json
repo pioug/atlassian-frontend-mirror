@@ -27,9 +27,6 @@
 			"path": "../../../design-system/button/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../editor-common/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../editor-palette/afm-jira/tsconfig.json"
 		},
 		{
@@ -130,6 +127,9 @@
 		},
 		{
 			"path": "../../../design-system/tooltip/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../../media/media-core/afm-jira/tsconfig.json"

@@ -230,9 +230,17 @@ class Find extends React.Component<FindProps & WrappedComponentProps, State> {
 	};
 
 	matchCaseIconEle = () => {
-		return (expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true) && fg('platform_editor_find_and_replace_improvements_1'))
-			? <TextLetterCaseIcon LEGACY_size={'small'} LEGACY_fallbackIcon={EditorTextStyleIcon} label={this.matchCase} size="small" />
-			: <MatchCaseIcon LEGACY_size={'small'} label={this.matchCase} />;
+		return expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true) &&
+			fg('platform_editor_find_and_replace_improvements_1') ? (
+			<TextLetterCaseIcon
+				LEGACY_size={'small'}
+				LEGACY_fallbackIcon={EditorTextStyleIcon}
+				label={this.matchCase}
+				size="small"
+			/>
+		) : (
+			<MatchCaseIcon LEGACY_size={'small'} label={this.matchCase} />
+		);
 	};
 
 	render() {

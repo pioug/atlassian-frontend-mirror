@@ -1,5 +1,14 @@
 # @atlaskit/forge-react-types
 
+## 0.42.5
+
+### Patch Changes
+
+- [#181844](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/181844)
+  [`96c8f11408c6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/96c8f11408c6e) -
+  Remove @atlaskit/renderer dependency from @atlaskit/forge-react-types
+- Updated dependencies
+
 ## 0.42.4
 
 ### Patch Changes

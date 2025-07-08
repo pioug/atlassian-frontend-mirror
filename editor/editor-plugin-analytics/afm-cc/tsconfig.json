@@ -24,13 +24,13 @@
             "path": "../../../analytics/analytics-next/afm-cc/tsconfig.json"
         },
         {
-            "path": "../../editor-common/afm-cc/tsconfig.json"
-        },
-        {
             "path": "../../editor-plugin-feature-flags/afm-cc/tsconfig.json"
         },
         {
             "path": "../../editor-tables/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../editor-common/afm-cc/tsconfig.json"
         }
     ]
 }

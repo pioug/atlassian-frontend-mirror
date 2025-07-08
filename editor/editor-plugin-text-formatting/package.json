@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-text-formatting",
-	"version": "2.4.1",
+	"version": "3.0.0",
 	"description": "Text-formatting plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,7 +36,6 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^47.6.0",
-		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
 		"@atlaskit/editor-plugin-base": "workspace:^",
 		"@atlaskit/editor-plugin-primary-toolbar": "workspace:^",
@@ -54,6 +53,7 @@
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"peerDependencies": {
+		"@atlaskit/editor-common": "workspace:^",
 		"react": "^18.2.0"
 	},
 	"devDependencies": {

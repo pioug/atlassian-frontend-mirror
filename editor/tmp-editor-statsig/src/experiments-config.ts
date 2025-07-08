@@ -352,14 +352,6 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-05-21
-	platform_editor_nodevisibility: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_nodevisibility',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-05-15
 	platform_editor_breakout_resizing: createBooleanExperiment({
 		productKeys: {
@@ -412,6 +404,14 @@ export const editorExperimentsConfig = {
 	platform_editor_ai_iw_adf_streaming: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_ai_iw_adf_streaming',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-07-07
+	platform_editor_ai_remove_trivial_prompts_cc: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_ai_remove_trivial_prompts_cc',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

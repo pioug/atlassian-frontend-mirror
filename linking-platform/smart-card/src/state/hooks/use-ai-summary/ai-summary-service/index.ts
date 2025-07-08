@@ -132,7 +132,9 @@ export class AISummaryService implements AISummaryServiceInt {
 
 				//if AI Mate service returns cached summary we get the summary text in one piece as the last message
 				if (chunk.type === 'FINAL_RESPONSE') {
-					bufferContent = fg('platform-linking-ai-summary-migration-to-convo-ai') ? chunk.message.content : chunk.message.message.content;
+					bufferContent = fg('platform-linking-ai-summary-migration-to-convo-ai')
+						? chunk.message.content
+						: chunk.message.message.content;
 				}
 
 				if (chunk.type === 'ERROR') {

@@ -36,9 +36,6 @@
 			"path": "../../../design-system/datetime-picker/afm-post-office/tsconfig.json"
 		},
 		{
-			"path": "../../editor-common/afm-post-office/tsconfig.json"
-		},
-		{
 			"path": "../../editor-json-transformer/afm-post-office/tsconfig.json"
 		},
 		{
@@ -127,6 +124,9 @@
 		},
 		{
 			"path": "../../../design-system/tooltip/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-post-office/tsconfig.json"
 		}
 	]
 }

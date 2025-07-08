@@ -34,9 +34,6 @@
 			"path": "../../../design-system/css/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../editor-common/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../editor-json-transformer/afm-jira/tsconfig.json"
 		},
 		{
@@ -92,6 +89,9 @@
 		},
 		{
 			"path": "../../../design-system/width-detector/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../../linking-platform/link-provider/afm-jira/tsconfig.json"

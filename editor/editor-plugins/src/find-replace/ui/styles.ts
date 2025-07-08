@@ -4,9 +4,9 @@
 export {
 	searchMatchClass,
 	searchMatchTextClass,
-	selectedBlockSearchMatchClass,
 	selectedSearchMatchClass,
 	blockSearchMatchClass,
+	selectedBlockSearchMatchClass,
 	darkModeSearchMatchClass,
 	searchMatchExpandTitleClass,
 	findReplaceStyles,

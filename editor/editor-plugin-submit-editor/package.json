@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-submit-editor",
-	"version": "2.0.7",
+	"version": "3.0.0",
 	"description": "Submit editor plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -33,12 +33,12 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/editor-plugin-media": "workspace:^",
 		"@atlaskit/editor-prosemirror": "7.0.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
+		"@atlaskit/editor-common": "workspace:^",
 		"react": "^18.2.0"
 	},
 	"devDependencies": {

@@ -1,5 +1,13 @@
 # @atlaskit/code
 
+## 17.2.2
+
+### Patch Changes
+
+- [#181696](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/181696)
+  [`eded1f9313bbe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eded1f9313bbe) -
+  Updated prismjs dependency to resolve security vulnerability: 1.30.0
+
 ## 17.2.1
 
 ### Patch Changes

@@ -21,9 +21,6 @@
             "path": "../../../analytics/analytics-next/afm-cc/tsconfig.json"
         },
         {
-            "path": "../../editor-common/afm-cc/tsconfig.json"
-        },
-        {
             "path": "../../editor-plugin-analytics/afm-cc/tsconfig.json"
         },
         {
@@ -49,6 +46,9 @@
         },
         {
             "path": "../../../design-system/visually-hidden/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../editor-common/afm-cc/tsconfig.json"
         }
     ]
 }

@@ -36,9 +36,6 @@
 			"path": "../../../design-system/code/afm-post-office/tsconfig.json"
 		},
 		{
-			"path": "../../editor-common/afm-post-office/tsconfig.json"
-		},
-		{
 			"path": "../../editor-json-transformer/afm-post-office/tsconfig.json"
 		},
 		{
@@ -118,6 +115,9 @@
 		},
 		{
 			"path": "../../../design-system/visually-hidden/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-post-office/tsconfig.json"
 		},
 		{
 			"path": "../../../linking-platform/link-provider/afm-post-office/tsconfig.json"

@@ -1,8 +1,9 @@
-import fs from 'fs';
-import path from 'path';
+import ensureDesignTokenUsage from './rules/ensure-design-token-usage';
+import noDeprecatedDesignTokenUsage from './rules/no-deprecated-design-token-usage';
+import noUnsafeDesignTokenUsage from './rules/no-unsafe-design-token-usage';
 
-const filepath = path.resolve(__dirname, './rules');
+const rules = [ensureDesignTokenUsage, noDeprecatedDesignTokenUsage, noUnsafeDesignTokenUsage];
 
-const rules = fs.readdirSync(filepath).map((folder) => require(`./rules/${folder}`).default);
-
-export default rules;
+// This is necessary due to the way stylelint changes imports in esm-land
+// https://github.com/stylelint/stylelint/issues/8573#issuecomment-2982939797
+module.exports = rules;

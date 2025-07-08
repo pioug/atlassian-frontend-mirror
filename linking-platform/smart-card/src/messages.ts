@@ -87,6 +87,7 @@ export type MessageKey =
 	| 'open_issue_in_jira'
 	| 'open_link_in_a_new_tab'
 	| 'owned_by'
+	| 'owned_by_override'
 	| 'preview_description'
 	| 'preview_improved'
 	| 'preview_close'
@@ -571,6 +572,11 @@ export const messages: Messages = defineMessages({
 	owned_by: {
 		id: 'fabric.linking.owned_by',
 		defaultMessage: 'Owned by {context}',
+		description: 'Indicates the person or entity that owns or maintains the resource.',
+	},
+	owned_by_override: {
+		id: 'fabric.linking.owned_by_override',
+		defaultMessage: 'By {context}',
 		description: 'Indicates the person or entity that owns or maintains the resource.',
 	},
 	preview_description: {

@@ -24,13 +24,13 @@
 			"path": "../../../analytics/analytics-next/afm-post-office/tsconfig.json"
 		},
 		{
-			"path": "../../editor-common/afm-post-office/tsconfig.json"
-		},
-		{
 			"path": "../../editor-plugin-feature-flags/afm-post-office/tsconfig.json"
 		},
 		{
 			"path": "../../editor-tables/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-post-office/tsconfig.json"
 		}
 	]
 }

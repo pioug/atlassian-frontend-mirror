@@ -21,9 +21,6 @@
             "path": "../../../design-system/avatar-group/afm-cc/tsconfig.json"
         },
         {
-            "path": "../../editor-common/afm-cc/tsconfig.json"
-        },
-        {
             "path": "../../editor-plugin-analytics/afm-cc/tsconfig.json"
         },
         {
@@ -52,6 +49,9 @@
         },
         {
             "path": "../../../design-system/tokens/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../editor-common/afm-cc/tsconfig.json"
         }
     ]
 }

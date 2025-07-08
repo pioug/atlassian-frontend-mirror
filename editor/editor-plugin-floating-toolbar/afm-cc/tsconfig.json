@@ -27,9 +27,6 @@
             "path": "../../../design-system/checkbox/afm-cc/tsconfig.json"
         },
         {
-            "path": "../../editor-common/afm-cc/tsconfig.json"
-        },
-        {
             "path": "../../editor-palette/afm-cc/tsconfig.json"
         },
         {
@@ -97,6 +94,9 @@
         },
         {
             "path": "../../../design-system/tooltip/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../editor-common/afm-cc/tsconfig.json"
         }
     ]
 }

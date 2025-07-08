@@ -335,8 +335,17 @@ describe('<AvatarGroup />', () => {
 				// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
 				overrides={{
 					MoreIndicator: {
-						render: (_, { borderColor, isActive, buttonProps, testId, moreIndicatorLabel, ...props }) => (
-							<button type="button" {...buttonProps} {...props} data-testid={testId} aria-label={moreIndicatorLabel}>
+						render: (
+							_,
+							{ borderColor, isActive, buttonProps, testId, moreIndicatorLabel, ...props },
+						) => (
+							<button
+								type="button"
+								{...buttonProps}
+								{...props}
+								data-testid={testId}
+								aria-label={moreIndicatorLabel}
+							>
 								Test MoreIndicator
 							</button>
 						),
@@ -644,26 +653,29 @@ describe('Accessibility', () => {
 
 	it('should set received moreLabel as aria-label of more indicator', () => {
 		render(
-			<AvatarGroup testId="test" data={generateData({ avatarCount: 5 })} maxCount={3} moreIndicatorLabel="Show more people" />,
+			<AvatarGroup
+				testId="test"
+				data={generateData({ avatarCount: 5 })}
+				maxCount={3}
+				moreIndicatorLabel="Show more people"
+			/>,
 		);
 		const moreIndicator = screen.getByTestId('test--overflow-menu--trigger');
 		expect(moreIndicator).toHaveAttribute('aria-label', 'Show more people');
 	});
 
 	it('should use default format for aria-label when no moreLabel is provided', () => {
-		render(
-			<AvatarGroup testId="test" data={generateData({ avatarCount: 5 })} maxCount={3} />,
-		);
+		render(<AvatarGroup testId="test" data={generateData({ avatarCount: 5 })} maxCount={3} />);
 		const moreIndicator = screen.getByTestId('test--overflow-menu--trigger');
 		expect(moreIndicator).toHaveAttribute('aria-label', '3 more people');
 	});
 
 	it('should use aria-label from showMoreButtonProps when provided', () => {
 		render(
-			<AvatarGroup 
-				testId="test" 
-				data={generateData({ avatarCount: 5 })} 
-				maxCount={3} 
+			<AvatarGroup
+				testId="test"
+				data={generateData({ avatarCount: 5 })}
+				maxCount={3}
 				showMoreButtonProps={{ 'aria-label': 'Custom more label' }}
 			/>,
 		);
@@ -673,10 +685,10 @@ describe('Accessibility', () => {
 
 	it('should prioritize moreIndicatorLabel over aria-label in showMoreButtonProps', () => {
 		render(
-			<AvatarGroup 
-				testId="test" 
-				data={generateData({ avatarCount: 5 })} 
-				maxCount={3} 
+			<AvatarGroup
+				testId="test"
+				data={generateData({ avatarCount: 5 })}
+				maxCount={3}
 				moreIndicatorLabel="Priority label"
 				showMoreButtonProps={{ 'aria-label': 'Should not be used' }}
 			/>,

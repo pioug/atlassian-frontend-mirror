@@ -2,4 +2,8 @@
 // Disable no-re-export rule for entry point files
 /* eslint-disable @atlaskit/editor/no-re-export */
 export { metricsPlugin } from '@atlaskit/editor-plugin-metrics';
-export type { MetricsPlugin, MetricsState } from '@atlaskit/editor-plugin-metrics';
+export type {
+	MetricsPlugin,
+	MetricsPluginOptions,
+	MetricsState,
+} from '@atlaskit/editor-plugin-metrics';

@@ -21,9 +21,6 @@
             "path": "../../../design-system/button/afm-cc/tsconfig.json"
         },
         {
-            "path": "../../editor-common/afm-cc/tsconfig.json"
-        },
-        {
             "path": "../../editor-plugin-connectivity/afm-cc/tsconfig.json"
         },
         {
@@ -49,6 +46,9 @@
         },
         {
             "path": "../../../design-system/tokens/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../editor-common/afm-cc/tsconfig.json"
         }
     ]
 }

@@ -18,13 +18,13 @@
 	],
 	"references": [
 		{
-			"path": "../../editor-common/afm-post-office/tsconfig.json"
-		},
-		{
 			"path": "../../tmp-editor-statsig/afm-post-office/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/visually-hidden/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-post-office/tsconfig.json"
 		}
 	]
 }

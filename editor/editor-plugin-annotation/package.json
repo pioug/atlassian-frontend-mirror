@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-annotation",
-	"version": "2.9.11",
+	"version": "3.0.0",
 	"description": "Annotation plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -35,7 +35,6 @@
 	"dependencies": {
 		"@atlaskit/adf-schema": "^47.6.0",
 		"@atlaskit/analytics-next": "workspace:^",
-		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
 		"@atlaskit/editor-plugin-connectivity": "workspace:^",
 		"@atlaskit/editor-plugin-editor-viewmode-effects": "workspace:^",
@@ -48,6 +47,7 @@
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
+		"@atlaskit/editor-common": "workspace:^",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0"
 	},

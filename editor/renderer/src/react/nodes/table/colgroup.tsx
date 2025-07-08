@@ -117,8 +117,12 @@ const renderScaleDownColgroup = (
 	// appearance == comment && allowTableResizing && !tableNode?.attrs.width, means it is a comment
 	// appearance == comment && !allowTableResizing && !tableNode?.attrs.width, means it is a inline comment
 	// When comment and inline comment table width inherits from the parent container, we want tableContainerWidth === renderWidth
+
+	// Tables with numbered columns inside of extensions cannot use the renderWidth when it is 0. In this case, it should
+	// explicitly use the width coming from the table node as the final table container width.
 	const tableContainerWidth =
-		(rendererAppearance === 'comment' && !tableNode?.attrs.width) || isRendererNested
+		(rendererAppearance === 'comment' && !tableNode?.attrs.width) ||
+		(isRendererNested && (!fg('platform_fix_nested_num_column_scaling') || !isNumberColumnEnabled))
 			? renderWidth
 			: getTableContainerWidth(tableNode);
 

@@ -1,5 +1,20 @@
 # @atlaskit/smart-card
 
+## 39.0.0
+
+### Major Changes
+
+- [#181697](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/181697)
+  [`2f25a0bbfb4b7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f25a0bbfb4b7) -
+  [ux] Modify OwnedByElement textPrefix prop to take in keys from messages
+
+  ### Migration
+
+  Modify any `textPrefix` props usage to match one of the keys described in the new type.
+
+  If a new `textPrefix` is required, a new contribution to OwnedByElement is needed within the
+  `messages`
+
 ## 38.21.0
 
 ### Minor Changes

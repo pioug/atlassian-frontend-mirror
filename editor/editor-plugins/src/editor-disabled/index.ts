@@ -5,4 +5,5 @@ export { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 export type {
 	EditorDisabledPluginState,
 	EditorDisabledPlugin,
+	EditorDisabledPluginOptions,
 } from '@atlaskit/editor-plugin-editor-disabled';

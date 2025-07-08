@@ -18,9 +18,6 @@
 	],
 	"references": [
 		{
-			"path": "../../editor-common/afm-post-office/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/link/afm-post-office/tsconfig.json"
 		},
 		{
@@ -28,6 +25,9 @@
 		},
 		{
 			"path": "../../input-rules/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-post-office/tsconfig.json"
 		}
 	]
 }

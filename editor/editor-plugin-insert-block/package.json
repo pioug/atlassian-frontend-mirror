@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-insert-block",
-	"version": "3.4.0",
+	"version": "4.0.0",
 	"description": "Insert block plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,7 +36,6 @@
 	},
 	"dependencies": {
 		"@atlaskit/button": "workspace:^",
-		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
 		"@atlaskit/editor-plugin-block-type": "workspace:^",
 		"@atlaskit/editor-plugin-code-block": "workspace:^",
@@ -82,6 +81,7 @@
 		"react-virtualized": "^9.8.0"
 	},
 	"peerDependencies": {
+		"@atlaskit/editor-common": "workspace:^",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"react-intl-next": "*"

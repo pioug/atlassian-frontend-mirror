@@ -34,9 +34,6 @@
             "path": "../../../design-system/css/afm-cc/tsconfig.json"
         },
         {
-            "path": "../../editor-common/afm-cc/tsconfig.json"
-        },
-        {
             "path": "../../editor-json-transformer/afm-cc/tsconfig.json"
         },
         {
@@ -92,6 +89,9 @@
         },
         {
             "path": "../../../design-system/width-detector/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../editor-common/afm-cc/tsconfig.json"
         },
         {
             "path": "../../../linking-platform/link-provider/afm-cc/tsconfig.json"

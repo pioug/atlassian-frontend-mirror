@@ -18,9 +18,6 @@
 	],
 	"references": [
 		{
-			"path": "../../editor-common/afm-post-office/tsconfig.json"
-		},
-		{
 			"path": "../../editor-plugin-accessibility-utils/afm-post-office/tsconfig.json"
 		},
 		{
@@ -91,6 +88,9 @@
 		},
 		{
 			"path": "../../../design-system/tooltip/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-post-office/tsconfig.json"
 		}
 	]
 }

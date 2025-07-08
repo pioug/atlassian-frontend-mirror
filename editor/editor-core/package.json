@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "208.8.0",
+	"version": "209.0.0",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -45,7 +45,6 @@
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/css": "workspace:^",
-		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/editor-json-transformer": "workspace:^",
 		"@atlaskit/editor-performance-metrics": "workspace:^",
 		"@atlaskit/editor-plugin-quick-insert": "workspace:^",
@@ -79,6 +78,7 @@
 		"uuid": "^3.1.0"
 	},
 	"peerDependencies": {
+		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/link-provider": "workspace:^",
 		"@atlaskit/media-core": "workspace:^",
 		"react": "^18.2.0",
@@ -212,7 +212,7 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_media_batch_updates": {
+		"platform_editor_table_initial_load_fix": {
 			"type": "boolean",
 			"referenceOnly": true
 		},

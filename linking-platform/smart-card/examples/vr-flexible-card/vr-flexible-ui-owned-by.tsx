@@ -24,9 +24,9 @@ export default () => {
 				>
 					<Stack space="space.100">
 						<TitleElement />
-						<OwnedByElement />
-						<OwnedByElement textPrefix="textPrefix" />
-						<OwnedByElement textPrefix="textPrefix" hideFormat />
+						<OwnedByElement textPrefix="owned_by" />
+						<OwnedByElement textPrefix="owned_by_override" />
+						<OwnedByElement textPrefix="owned_by_override" hideFormat />
 					</Stack>
 				</Card>
 			</SmartCardProvider>

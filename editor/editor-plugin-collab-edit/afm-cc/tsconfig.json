@@ -21,9 +21,6 @@
             "path": "../../custom-steps/afm-cc/tsconfig.json"
         },
         {
-            "path": "../../editor-common/afm-cc/tsconfig.json"
-        },
-        {
             "path": "../../editor-json-transformer/afm-cc/tsconfig.json"
         },
         {
@@ -52,6 +49,9 @@
         },
         {
             "path": "../../tmp-editor-statsig/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../editor-common/afm-cc/tsconfig.json"
         }
     ]
 }

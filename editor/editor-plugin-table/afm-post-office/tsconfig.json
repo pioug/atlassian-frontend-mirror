@@ -24,9 +24,6 @@
 			"path": "../../custom-steps/afm-post-office/tsconfig.json"
 		},
 		{
-			"path": "../../editor-common/afm-post-office/tsconfig.json"
-		},
-		{
 			"path": "../../editor-palette/afm-post-office/tsconfig.json"
 		},
 		{
@@ -100,6 +97,9 @@
 		},
 		{
 			"path": "../../../design-system/tooltip/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-post-office/tsconfig.json"
 		}
 	]
 }

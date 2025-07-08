@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-selection",
-	"version": "2.2.15",
+	"version": "3.0.0",
 	"description": "Selection plugin for @atlaskit/editor-core",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -19,7 +19,6 @@
 		"singleton": true
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/editor-plugin-interaction": "workspace:^",
 		"@atlaskit/editor-prosemirror": "7.0.0",
 		"@atlaskit/editor-shared-styles": "workspace:^",
@@ -30,6 +29,7 @@
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
+		"@atlaskit/editor-common": "workspace:^",
 		"react": "^18.2.0"
 	},
 	"devDependencies": {

@@ -28,7 +28,7 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__smart-creation/dev"
+		"outDir": "../../../tsDist/@atlaskit__editor-plugin-track-changes/dev"
 	},
 	"references": [
 		{
@@ -36,6 +36,12 @@
 		},
 		{
 			"path": "../../../build/website/docs/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-common/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/tokens/tsconfig.app.json"
 		}
 	]
 }

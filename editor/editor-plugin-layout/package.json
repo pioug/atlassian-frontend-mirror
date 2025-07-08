@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-layout",
-	"version": "2.9.11",
+	"version": "3.0.0",
 	"description": "Layout plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,7 +36,6 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^47.6.0",
-		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
 		"@atlaskit/editor-plugin-decorations": "workspace:^",
 		"@atlaskit/editor-plugin-editor-disabled": "workspace:^",
@@ -55,6 +54,7 @@
 		"@emotion/react": "^11.7.1"
 	},
 	"peerDependencies": {
+		"@atlaskit/editor-common": "workspace:^",
 		"react": "^18.2.0",
 		"react-intl-next": "*"
 	},

@@ -21,9 +21,6 @@
             "path": "../../../design-system/button/afm-cc/tsconfig.json"
         },
         {
-            "path": "../../editor-common/afm-cc/tsconfig.json"
-        },
-        {
             "path": "../../editor-plugin-analytics/afm-cc/tsconfig.json"
         },
         {
@@ -130,6 +127,9 @@
         },
         {
             "path": "../../../design-system/tooltip/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../editor-common/afm-cc/tsconfig.json"
         }
     ]
 }

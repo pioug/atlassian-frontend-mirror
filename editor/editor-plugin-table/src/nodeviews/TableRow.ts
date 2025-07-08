@@ -8,7 +8,6 @@ import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { getPluginState } from '../pm-plugins/plugin-factory';
 import { pluginKey as tablePluginKey } from '../pm-plugins/plugin-key';
@@ -69,17 +68,13 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 		}
 
 		if (this.isHeaderRow) {
-			if (editorExperiment('platform_editor_nodevisibility', false, { exposure: true })) {
-				this.subscribeWhenRowVisible();
-			} else {
-				const { observe } = nodeVisibilityManager(view.dom);
-				this.nodeVisibilityObserverCleanupFn = observe({
-					element: this.contentDOM,
-					onFirstVisible: () => {
-						this.subscribeWhenRowVisible();
-					},
-				});
-			}
+			const { observe } = nodeVisibilityManager(view.dom);
+			this.nodeVisibilityObserverCleanupFn = observe({
+				element: this.contentDOM,
+				onFirstVisible: () => {
+					this.subscribeWhenRowVisible();
+				},
+			});
 		}
 	}
 

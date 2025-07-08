@@ -95,9 +95,6 @@
 			"path": "../../design-system/range/tsconfig.app.json"
 		},
 		{
-			"path": "../../editor/renderer/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/section-message/tsconfig.app.json"
 		},
 		{

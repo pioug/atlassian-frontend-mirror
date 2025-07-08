@@ -40,37 +40,37 @@ describe('OwnedByElement', () => {
 						render(
 							<IntlProvider locale="en">
 								<FlexibleCardContext.Provider value={{ data: context }}>
-									<OwnedByElement testId={testId} textPrefix="TextPrefix" />
+									<OwnedByElement testId={testId} textPrefix="owned_by_override" />
 								</FlexibleCardContext.Provider>
 							</IntlProvider>,
 						);
 						const element = await screen.findByTestId(testId);
 						expect(element).toBeVisible();
-						expect(element?.textContent).toBe('Owned by TextPrefix Angie');
+						expect(element?.textContent).toBe('By Angie');
 					});
 
 					ffTest.on(
 						'platform-linking-additional-flexible-element-props',
 						'FG platform-linking-additional-flexible-element-props on',
 						() => {
-							it('should render text prefix with hideFormat', async () => {
+							it('should not render any prefix with hideFormat', async () => {
 								render(
 									<IntlProvider locale="en">
 										<FlexibleCardContext.Provider value={{ data: context }}>
-											<OwnedByElement testId={testId} textPrefix="TextPrefix" hideFormat />
+											<OwnedByElement testId={testId} textPrefix="owned_by_override" hideFormat />
 										</FlexibleCardContext.Provider>
 									</IntlProvider>,
 								);
 								const element = await screen.findByTestId(testId);
 								expect(element).toBeVisible();
-								expect(element?.textContent).toBe('TextPrefix Angie');
+								expect(element?.textContent).toBe('Angie');
 							});
 
 							it('should not render text prefix if ownedBy is empty', async () => {
 								render(
 									<IntlProvider locale="en">
 										<FlexibleCardContext.Provider value={{ data: {} }}>
-											<OwnedByElement testId={testId} textPrefix="TextPrefix" hideFormat />
+											<OwnedByElement testId={testId} textPrefix="owned_by_override" />
 										</FlexibleCardContext.Provider>
 									</IntlProvider>,
 								);
@@ -86,11 +86,11 @@ describe('OwnedByElement', () => {
 				'bandicoots-smart-card-teamwork-context',
 				'FG bandicoots-smart-card-teamwork-context off',
 				() => {
-					it('should not render text prefix with FG off', async () => {
+					it('should not render new textPrefix with FG off', async () => {
 						render(
 							<IntlProvider locale="en">
 								<FlexibleCardContext.Provider value={{ data: context }}>
-									<OwnedByElement testId={testId} textPrefix="TextPrefix" />
+									<OwnedByElement testId={testId} textPrefix="owned_by_override" />
 								</FlexibleCardContext.Provider>
 							</IntlProvider>,
 						);

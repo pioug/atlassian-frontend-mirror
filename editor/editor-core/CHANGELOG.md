@@ -1,5 +1,32 @@
 # @atlaskit/editor-core
 
+## 209.0.3
+
+### Patch Changes
+
+- [#181948](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/181948)
+  [`e7e5b1bee5fb2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e7e5b1bee5fb2) -
+  [ux] [EDF-2688] Fix extra space for last line in comment editor
+- Updated dependencies
+
+## 209.0.2
+
+### Patch Changes
+
+- [#181802](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/181802)
+  [`4f35336716da7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4f35336716da7) -
+  EDITOR-921 Prevent calls to scrollTop calculation for editors nested in LCE
+- Updated dependencies
+
+## 209.0.1
+
+### Patch Changes
+
+- [#172541](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/172541)
+  [`6da45cbd2c77f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6da45cbd2c77f) -
+  clean up FF for batch media update attributes
+- Updated dependencies
+
 ## 209.0.0
 
 ### Major Changes

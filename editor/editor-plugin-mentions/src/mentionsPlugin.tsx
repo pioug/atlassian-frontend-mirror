@@ -22,6 +22,7 @@ import {
 import { MentionNameStatus, isPromise } from '@atlaskit/mention/types';
 import { fg } from '@atlaskit/platform-feature-flags';
 
+import { insertMention } from './editor-commands';
 import type { MentionsPlugin } from './mentionsPluginType';
 import { mentionNodeSpec } from './nodeviews/mentionNodeSpec';
 import { mentionPluginKey } from './pm-plugins/key';
@@ -153,6 +154,14 @@ const mentionsPlugin: MentionsPlugin = ({ config: options, api }) => {
 					typeAhead={typeAhead}
 				/>
 			);
+		},
+
+		commands: {
+			insertMention: insertMention({
+				sanitizePrivateContent: options?.sanitizePrivateContent ?? false,
+				mentionInsertDisplayName: options?.insertDisplayName ?? false,
+				api,
+			}),
 		},
 
 		actions: {

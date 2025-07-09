@@ -3,10 +3,10 @@ import React, { type ReactElement } from 'react';
 import noop from '@atlaskit/ds-lib/noop';
 import Flag from '@atlaskit/flag';
 import { type AppearanceTypes } from '@atlaskit/flag/types';
-import ErrorIcon from '@atlaskit/icon/core/error';
-import InformationIcon from '@atlaskit/icon/core/information';
-import SuccessIcon from '@atlaskit/icon/core/success';
-import WarningIcon from '@atlaskit/icon/core/warning';
+import StatusErrorIcon from '@atlaskit/icon/core/status-error';
+import StatusInformationIcon from '@atlaskit/icon/core/status-information';
+import StatusSuccessIcon from '@atlaskit/icon/core/status-success';
+import StatusWarningIcon from '@atlaskit/icon/core/status-warning';
 import { Stack } from '@atlaskit/primitives/compiled';
 
 const actions = [
@@ -38,11 +38,11 @@ const appearances: { [key: string]: { description: string; title: string } } = {
 
 const iconMap = (key: string) => {
 	const icons: { [key: string]: ReactElement } = {
-		normal: <InformationIcon label="" />,
-		info: <InformationIcon label="" />,
-		success: <SuccessIcon label="" />,
-		warning: <WarningIcon label="" />,
-		error: <ErrorIcon label="" />,
+		normal: <StatusInformationIcon label="" />,
+		info: <StatusInformationIcon label="" />,
+		success: <StatusSuccessIcon label="" />,
+		warning: <StatusWarningIcon label="" />,
+		error: <StatusErrorIcon label="" />,
 	};
 
 	return key ? icons[key] : icons;

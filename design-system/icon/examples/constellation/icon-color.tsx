@@ -1,8 +1,8 @@
 import React from 'react';
 
-import ErrorIcon from '@atlaskit/icon/core/error';
 import LinkIcon from '@atlaskit/icon/core/link';
 import SettingsIcon from '@atlaskit/icon/core/settings';
+import StatusErrorIcon from '@atlaskit/icon/core/status-error';
 import WhiteboardIcon from '@atlaskit/icon/core/whiteboard';
 import { ButtonItem } from '@atlaskit/menu';
 import { Box, Inline, Stack } from '@atlaskit/primitives';
@@ -14,7 +14,7 @@ const IconColorExample = () => {
 		<Stack space="space.200" alignBlock="center">
 			<Inline space="space.100">
 				<WhiteboardIcon color={token('color.icon.accent.teal')} label="" />
-				<ErrorIcon color={token('color.icon.danger')} label="" />
+				<StatusErrorIcon color={token('color.icon.danger')} label="" />
 				<LinkIcon color={token('color.link')} label="" />
 			</Inline>
 			<Box testId="button-items">

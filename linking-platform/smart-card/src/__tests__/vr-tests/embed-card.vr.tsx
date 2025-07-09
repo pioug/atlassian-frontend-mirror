@@ -279,9 +279,3 @@ snapshot(VREmbedProfileObject, {
 		'platform-linking-visual-refresh-v2': true,
 	},
 });
-snapshot(VREmbedProfileObject, {
-	description: 'embed profile object with platform-linking-visual-refresh-v2 false',
-	featureFlags: {
-		'platform-linking-visual-refresh-v2': false,
-	},
-});

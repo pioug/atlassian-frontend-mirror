@@ -303,15 +303,6 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-05-05
-	editor_ai_contextual_selection_toolbar_button: createMultivariateExperiment({
-		productKeys: {
-			confluence: 'editor_ai_contextual_selection_toolbar_button',
-		},
-		param: 'cohort',
-		values: ['control', 'test'],
-		defaultValue: 'control',
-	}),
 	// Added 2025-05-08
 	editor_ai_converge_free_gen_on_rovo: createBooleanExperiment({
 		productKeys: {

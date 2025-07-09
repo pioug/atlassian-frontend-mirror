@@ -1,4 +1,4 @@
-import { type IconType, SmartLinkSize } from '../../../../../constants';
+import { type IconType, type SmartLinkSize } from '../../../../../constants';
 
 export type AtlaskitIconProps = {
 	icon: IconType;

@@ -4,37 +4,34 @@
  */
 import type { FC, ReactNode } from 'react';
 
-import { css, jsx } from '@compiled/react';
-
-import FocusRing from '@atlaskit/focus-ring';
+import { cssMap, cx, jsx } from '@atlaskit/css';
+import { Focusable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-const baseStyles = css({
-	height: '3rem',
-	position: 'relative',
-	border: 'none',
-	borderImageWidth: 0,
-	borderSpacing: 0,
-});
-
-const selectedStyles = css({
-	backgroundColor: token('color.background.selected', '#DEEBFF88'),
-	'&:hover': {
-		backgroundColor: token('color.background.selected.hovered', '#DEEBFF'), // B50
+const styles = cssMap({
+	base: {
+		height: '3rem',
+		position: 'relative',
+		border: 'none',
+		borderImageWidth: 0,
+		borderSpacing: 0,
 	},
-});
-
-const subitemStyles = css({
-	backgroundColor: token('color.background.neutral', '#091E420F'),
-});
-
-const bodyRowStyles = css({
-	borderBlockEnd: `1px solid ${token('color.border', '#eee')}`,
-	'&:hover': {
-		backgroundColor: token('color.background.neutral.subtle.hovered', '#f8f8f8'),
+	selected: {
+		backgroundColor: token('color.background.selected', '#DEEBFF88'),
+		'&:hover': {
+			backgroundColor: token('color.background.selected.hovered', '#DEEBFF'), // B50
+		},
 	},
-	'&:focus-visible::after': {
-		boxShadow: 'none',
+	subitem: {
+		backgroundColor: token('color.background.neutral', '#091E420F'),
+	},
+	bodyRow: {
+		borderBlockEndWidth: token('border.width', '1px'),
+		borderBlockEndStyle: 'solid',
+		borderBlockEndColor: token('color.border', '#eee'),
+		'&:hover': {
+			backgroundColor: token('color.background.neutral.subtle.hovered', '#f8f8f8'),
+		},
 	},
 });
 
@@ -71,20 +68,20 @@ interface TRProps {
  */
 export const TR: FC<TRProps> = ({ children, testId, isSelected, isBodyRow = true, isSubitem }) => {
 	return (
-		<FocusRing isInset>
-			<tr
-				tabIndex={-1}
-				aria-selected={isSelected}
-				data-testid={testId}
-				css={[
-					baseStyles,
-					isBodyRow && bodyRowStyles,
-					isSelected && selectedStyles,
-					isSubitem && subitemStyles,
-				]}
-			>
-				{children}
-			</tr>
-		</FocusRing>
+		<Focusable
+			as="tr"
+			isInset
+			tabIndex={-1}
+			aria-selected={isSelected}
+			testId={testId}
+			xcss={cx(
+				styles.base,
+				isBodyRow && styles.bodyRow,
+				isSelected && styles.selected,
+				isSubitem && styles.subitem,
+			)}
+		>
+			{children}
+		</Focusable>
 	);
 };

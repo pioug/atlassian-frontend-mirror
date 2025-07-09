@@ -35,9 +35,13 @@ const jastBuilder = new JastBuilder()
 
 type MessageKeys = keyof typeof errorMessages;
 
+// To ensure generated xml test reports are valid https://en.wikipedia.org/wiki/Valid_characters_in_XML#XML_1.0
+const replaceXmlIncompatibleCodepoint = (text: string) =>
+	text.replace(/[^\u0009\u000A\u000D\u0020-\u00ff]/, (match: string) => getPrintableChar(match));
+
 const testValidation = (descriptorName: MessageKeys, testCases: TestCase[]) => {
 	testCases.forEach(({ jql, values }) => {
-		it(jql, () => {
+		it(replaceXmlIncompatibleCodepoint(jql), () => {
 			jastBuilder.build(jql);
 			const message = mockIntl.formatMessage(errorMessages[descriptorName], values);
 			expect(errorListener.errorMessage).toBeCalledWith(message);
@@ -60,7 +64,7 @@ const hasAlternateValidation = (descriptorName: MessageKeys, testCases: TestCase
 const hasNoValidation = (testCases: TestCase[]) => {
 	describe(`has no validation message for JQL:`, () => {
 		testCases.forEach(({ jql }) => {
-			it(jql, () => {
+			it(replaceXmlIncompatibleCodepoint(jql), () => {
 				jastBuilder.build(jql);
 				expect(errorListener.errorMessage).not.toBeCalled();
 			});

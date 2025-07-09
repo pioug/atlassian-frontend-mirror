@@ -1,7 +1,6 @@
 import React, { forwardRef } from 'react';
 
-import FocusRing from '@atlaskit/focus-ring';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Focusable, Text } from '@atlaskit/primitives/compiled';
 
 import { useTab } from '../hooks';
 import { type TabAttributesType, type TabProps } from '../types';
@@ -29,26 +28,26 @@ const Tab = forwardRef<HTMLDivElement, TabProps>(function Tab({ children, testId
 	}: TabAttributesType = useTab();
 
 	return (
-		<FocusRing isInset>
-			{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
-			<div
-				data-testid={testId}
-				onClick={onClick}
-				id={id}
-				aria-controls={ariaControls}
-				aria-posinset={ariaPosinset}
-				aria-selected={ariaSelected}
-				aria-setsize={ariaSetsize}
-				onKeyDown={onKeyDown}
-				role={role}
-				tabIndex={tabIndex}
-				ref={ref}
-			>
-				<Text weight="medium" color="inherit" maxLines={1}>
-					{children}
-				</Text>
-			</div>
-		</FocusRing>
+		// eslint-disable-next-line jsx-a11y/no-static-element-interactions
+		<Focusable
+			as="div"
+			isInset
+			testId={testId}
+			onClick={onClick}
+			id={id}
+			aria-controls={ariaControls}
+			aria-posinset={ariaPosinset}
+			aria-selected={ariaSelected}
+			aria-setsize={ariaSetsize}
+			onKeyDown={onKeyDown}
+			role={role}
+			tabIndex={tabIndex}
+			ref={ref}
+		>
+			<Text weight="medium" color="inherit" maxLines={1}>
+				{children}
+			</Text>
+		</Focusable>
 	);
 });
 

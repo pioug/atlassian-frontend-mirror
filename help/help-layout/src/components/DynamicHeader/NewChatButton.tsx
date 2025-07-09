@@ -9,7 +9,7 @@ import Button from '@atlaskit/button/new';
 import EditIcon from '@atlaskit/icon/core/edit';
 import { useIntl } from 'react-intl-next';
 import { messages } from '../../messages';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 interface Props {
 	onClick?(

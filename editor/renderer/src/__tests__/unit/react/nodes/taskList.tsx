@@ -6,7 +6,6 @@ import TaskList from '../../../../react/nodes/taskList';
 import TaskItem from '../../../../react/nodes/taskItem';
 import ReactSerializer from '../../../../react';
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 describe('Renderer - React/Nodes/TaskList', () => {
 	let analyticsWebClientMock: AnalyticsWebClient;
@@ -21,53 +20,31 @@ describe('Renderer - React/Nodes/TaskList', () => {
 		};
 	});
 
-	ffTest.on('editor_a11y_group_around_action_items', 'ffOn', () => {
-		it('should wrap the task items in a group', () => {
-			renderWithIntl(
-				<TaskList localId="list-1">
-					<TaskItem
-						marks={[]}
-						serializer={serialiser}
-						nodeType="taskItem"
-						dataAttributes={{ 'data-renderer-start-pos': 0 }}
-						localId="task-1"
-					>
-						Hello <b>world</b>
-					</TaskItem>
-					<TaskItem
-						marks={[]}
-						serializer={serialiser}
-						nodeType="taskItem"
-						dataAttributes={{ 'data-renderer-start-pos': 0 }}
-						localId="task-2"
-					>
-						Goodbye <b>world</b>
-					</TaskItem>
-				</TaskList>,
-			);
+	it('should wrap the task items in a group', () => {
+		renderWithIntl(
+			<TaskList localId="list-1">
+				<TaskItem
+					marks={[]}
+					serializer={serialiser}
+					nodeType="taskItem"
+					dataAttributes={{ 'data-renderer-start-pos': 0 }}
+					localId="task-1"
+				>
+					Hello <b>world</b>
+				</TaskItem>
+				<TaskItem
+					marks={[]}
+					serializer={serialiser}
+					nodeType="taskItem"
+					dataAttributes={{ 'data-renderer-start-pos': 0 }}
+					localId="task-2"
+				>
+					Goodbye <b>world</b>
+				</TaskItem>
+			</TaskList>,
+		);
 
-			expect(screen.queryByRole('group', { name: 'Action Item List' })).toBeInTheDocument();
-		});
-	});
-
-	ffTest.off('editor_a11y_group_around_action_items', 'ffOff', () => {
-		it('should not wrap the task items in a group', () => {
-			renderWithIntl(
-				<TaskList localId="list-1">
-					<TaskItem
-						marks={[]}
-						serializer={serialiser}
-						nodeType="taskItem"
-						dataAttributes={{ 'data-renderer-start-pos': 0 }}
-						localId="task-1"
-					>
-						Hello <b>world</b>
-					</TaskItem>
-				</TaskList>,
-			);
-
-			expect(screen.queryByRole('group', { name: 'Action Item List' })).not.toBeInTheDocument();
-		});
+		expect(screen.queryByRole('group', { name: 'Action Item List' })).toBeInTheDocument();
 	});
 
 	it('should not render if no children', () => {

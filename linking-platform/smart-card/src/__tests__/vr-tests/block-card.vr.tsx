@@ -103,7 +103,7 @@ snapshot(BlockCardUnauthorisedViewWithNoAuth, {
 snapshot(BlockCardJira, {
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': true,
-		'platform-linking-visual-refresh-v2': [true, false],
+		'platform-linking-visual-refresh-v2': true,
 	},
 });
 snapshot(BlockCardConfluence, {
@@ -211,12 +211,5 @@ snapshot(BlockCardEntities, {
 snapshot(VRBlockProfileCard, {
 	featureFlags: {
 		'platform-linking-visual-refresh-v2': true,
-	},
-});
-
-snapshot(VRBlockProfileCard, {
-	description: 'block profile card with platform-linking-visual-refresh-v2 false',
-	featureFlags: {
-		'platform-linking-visual-refresh-v2': false,
 	},
 });

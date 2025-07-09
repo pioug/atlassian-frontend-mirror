@@ -280,6 +280,27 @@ export function findMatches({
 	return matches;
 }
 
+export function findClosestMatch(selectionPos: number, matches: Match[]): number {
+	const forwardMatchIndex = Math.max(
+		matches.findIndex((match) => match.start >= selectionPos),
+		0,
+	);
+	if (forwardMatchIndex === 0) {
+		return forwardMatchIndex;
+	}
+
+	const backwardMatchIndex = forwardMatchIndex - 1;
+
+	const forwardMatchPos = matches[forwardMatchIndex].start;
+	const backwardMatchPos = matches[backwardMatchIndex].end;
+
+	if (forwardMatchPos - selectionPos < selectionPos - backwardMatchPos) {
+		return forwardMatchIndex;
+	} else {
+		return backwardMatchIndex;
+	}
+}
+
 /**
  * Finds index of first item in matches array that comes after user's cursor pos.
  * If `backward` is `true`, finds index of first item that comes before instead.

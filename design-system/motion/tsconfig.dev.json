@@ -41,9 +41,6 @@
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
-			"path": "../focus-ring/tsconfig.app.json"
-		},
-		{
 			"path": "../form/tsconfig.app.json"
 		},
 		{

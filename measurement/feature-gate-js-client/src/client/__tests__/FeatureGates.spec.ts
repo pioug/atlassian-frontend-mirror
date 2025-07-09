@@ -1,5 +1,5 @@
 import AnalyticsWebClient from '@atlassiansox/analytics-web-client';
-import { type Experiment, type Layer, StatsigClient } from '@statsig/js-client';
+import { type Experiment, type Layer, type StatsigClient } from '@statsig/js-client';
 import fetchMock, { type MockResponseInit } from 'jest-fetch-mock';
 
 import type FeatureGates from '../FeatureGates';

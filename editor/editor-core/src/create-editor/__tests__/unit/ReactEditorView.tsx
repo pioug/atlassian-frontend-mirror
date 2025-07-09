@@ -281,6 +281,7 @@ describe('@atlaskit/editor-core', () => {
 
 			expect(mockElement.scrollTo).toHaveBeenCalledWith({ behavior: 'instant', top: 9001 });
 		});
+
 		it('When the editor has not already been scrolled, ReactEditorView does not attempt to scroll on load', async () => {
 			const mockElement = { scrollTop: 0, scrollTo: jest.fn() };
 			const querySelectorSpy = jest.spyOn(document, 'querySelector');
@@ -346,6 +347,73 @@ describe('@atlaskit/editor-core', () => {
 					).not.toBeInTheDocument();
 				});
 			});
+		});
+
+		describe('LCE scrollTop mitigation', () => {
+			const ExtensionWrappedEditorView = () => {
+				// Use a state to force re-render after mount so editorRef is set
+				const [, forceUpdate] = React.useState({});
+				React.useEffect(() => {
+					forceUpdate({});
+				}, []);
+
+				return (
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+					<div className="extension-editable-area">
+						<ReactEditorView
+							// eslint-disable-next-line react/jsx-props-no-spreading
+							{...{ ...requiredProps(), editorProps: { appearance: 'full-page' } }}
+							render={({ editorRef }) => <div ref={editorRef}>editor</div>}
+						/>
+						,
+					</div>
+				);
+			};
+
+			ffTest.on(
+				'platform_editor_lce_scrolltop_mitigation',
+				'with LCE scrolltop mitigation enabled',
+				() => {
+					it('does not call scrollTop for editors nested inside Legacy Content Extension', async () => {
+						const mockElement = {
+							get scrollTop() {
+								return 9001;
+							},
+							scrollTo: jest.fn(),
+						};
+						const querySelectorSpy = jest.spyOn(document, 'querySelector');
+						const scrollTopSpy = jest.spyOn(mockElement, 'scrollTop', 'get');
+						// @ts-expect-error	mock implementation
+						querySelectorSpy.mockImplementation(() => mockElement);
+						renderWithIntl(<ExtensionWrappedEditorView />);
+
+						// once is expected because editorRef hasn't been set yet
+						expect(scrollTopSpy).toHaveBeenCalledTimes(1);
+					});
+				},
+			);
+
+			ffTest.off(
+				'platform_editor_lce_scrolltop_mitigation',
+				'with LCE scrolltop mitigation enabled',
+				() => {
+					it('calls scrollTop for editors nested inside Legacy Content Extension', () => {
+						const mockElement = {
+							get scrollTop() {
+								return 9001;
+							},
+							scrollTo: jest.fn(),
+						};
+						const querySelectorSpy = jest.spyOn(document, 'querySelector');
+						const scrollTopSpy = jest.spyOn(mockElement, 'scrollTop', 'get');
+						// @ts-expect-error	mock implementation
+						querySelectorSpy.mockImplementation(() => mockElement);
+						renderWithIntl(<ExtensionWrappedEditorView />);
+
+						expect(scrollTopSpy).toHaveBeenCalledTimes(3);
+					});
+				},
+			);
 		});
 	});
 

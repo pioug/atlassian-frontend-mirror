@@ -1,7 +1,7 @@
 import React from 'react';
 import { type MediaClient, type FileState } from '@atlaskit/media-client';
 import { Outcome } from '../../domain';
-import { MediaViewerError } from '../../errors';
+import { type MediaViewerError } from '../../errors';
 import { BaseViewer } from '../base-viewer';
 import { type MediaTraceContext } from '@atlaskit/media-common';
 import { ZoomLevel } from '../../domain/zoomLevel';

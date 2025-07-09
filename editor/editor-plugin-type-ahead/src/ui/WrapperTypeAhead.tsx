@@ -61,7 +61,7 @@ export const WrapperTypeAhead = React.memo(
 		const [query, setQuery] = useState<string>(reopenQuery || '');
 		const queryRef = useRef(query);
 		const editorViewRef = useRef(editorView);
-		const items = useLoadItems(triggerHandler, editorView, query, showMoreOptionsButton);
+		const items = useLoadItems(triggerHandler, editorView, query, showMoreOptionsButton, api);
 
 		useEffect(() => {
 			if (!closed && fg('platform_editor_ease_of_use_metrics')) {

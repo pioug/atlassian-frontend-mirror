@@ -1,5 +1,13 @@
 # @atlaskit/forge-react-types
 
+## 0.42.6
+
+### Patch Changes
+
+- [#182163](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/182163)
+  [`28a10175a3cae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28a10175a3cae) -
+  Add internal documentWithoutMedia prop to AdfRendererProps in @atlaskit/forge-react-types
+
 ## 0.42.5
 
 ### Patch Changes

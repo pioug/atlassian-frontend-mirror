@@ -1,0 +1,30 @@
+---
+title: Focusable
+description: A focus ring clearly indicates which item has keyboard focus.
+order: 0
+---
+
+import FocusableDefault from '../../examples/constellation/focusable/default';
+import FocusableInset from '../../examples/constellation/focusable/inset';
+
+import { CodeDocsHeader } from '@af/design-system-docs-ui';
+
+<CodeDocsHeader
+	name="@atlaskit/primitives"
+	repository="https://bitbucket.org/atlassian/atlassian-frontend-mirror"
+	directoryName="primitives"
+/>
+
+## Default
+
+A focus ring indicates the currently focused item. The default focus ring shows a line around the
+outside of the focused item.
+
+<Example Component={FocusableDefault} packageName="@atlaskit/primitives/compiled/focusable" />
+
+## Inset line
+
+You can toggle the focus ring to show inside the focused item. This is for cases when an inset line
+is more visible than the default line or to avoid overlapping other UI.
+
+<Example Component={FocusableInset} packageName="@atlaskit/primitives/compiled/focusable" />

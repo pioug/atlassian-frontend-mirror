@@ -11602,6 +11602,19 @@ html[data-color-mode=dark] .emotion-0 .ProseMirror .telepointer {
   display: inline;
 }
 
+.emotion-0 .extensionView-content-wrap.danger>span>.legacy-content-header,
+.emotion-0 .multiBodiedExtensionView-content-wrap.danger>span>.legacy-content-header,
+.emotion-0 .bodiedExtensionView-content-wrap.danger>span>.legacy-content-header {
+  box-shadow: 0 0 0 1px var(--ds-border-danger, #E2483D);
+  background-color: var(--ds-background-danger, #FFECEB);
+}
+
+.emotion-0 .extensionView-content-wrap.danger>span>.legacy-content-header .status-lozenge-span>span,
+.emotion-0 .multiBodiedExtensionView-content-wrap.danger>span>.legacy-content-header .status-lozenge-span>span,
+.emotion-0 .bodiedExtensionView-content-wrap.danger>span>.legacy-content-header .status-lozenge-span>span {
+  background-color: var(--ds-background-accent-red-subtle-hovered, #FD9891);
+}
+
 .emotion-0 .extensionView-content-wrap:not(.danger).ak-editor-selected-node>span>div .extension-label>span,
 .emotion-0 .multiBodiedExtensionView-content-wrap:not(.danger).ak-editor-selected-node>span>div .extension-label>span,
 .emotion-0 .bodiedExtensionView-content-wrap:not(.danger).ak-editor-selected-node>span>div .extension-label>span {
@@ -16413,6 +16426,19 @@ html[data-color-mode=dark] .emotion-0 .ProseMirror .telepointer {
 .emotion-0 .multiBodiedExtensionView-content-wrap.danger>span>div>.extension-label>span,
 .emotion-0 .bodiedExtensionView-content-wrap.danger>span>div>.extension-label>span {
   display: inline;
+}
+
+.emotion-0 .extensionView-content-wrap.danger>span>.legacy-content-header,
+.emotion-0 .multiBodiedExtensionView-content-wrap.danger>span>.legacy-content-header,
+.emotion-0 .bodiedExtensionView-content-wrap.danger>span>.legacy-content-header {
+  box-shadow: 0 0 0 1px var(--ds-border-danger, #E2483D);
+  background-color: var(--ds-background-danger, #FFECEB);
+}
+
+.emotion-0 .extensionView-content-wrap.danger>span>.legacy-content-header .status-lozenge-span>span,
+.emotion-0 .multiBodiedExtensionView-content-wrap.danger>span>.legacy-content-header .status-lozenge-span>span,
+.emotion-0 .bodiedExtensionView-content-wrap.danger>span>.legacy-content-header .status-lozenge-span>span {
+  background-color: var(--ds-background-accent-red-subtle-hovered, #FD9891);
 }
 
 .emotion-0 .extensionView-content-wrap:not(.danger).ak-editor-selected-node>span>div .extension-label>span,

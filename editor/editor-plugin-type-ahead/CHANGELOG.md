@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 3.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.1
+
+### Patch Changes
+
+- [#181781](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/181781)
+  [`e0060cc2c2eb7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e0060cc2c2eb7) -
+  ED-28417 Offline Editing: Update the type ahead error to clear on new requests, and make error
+  more generic.
+- Updated dependencies
+
 ## 3.0.0
 
 ### Major Changes

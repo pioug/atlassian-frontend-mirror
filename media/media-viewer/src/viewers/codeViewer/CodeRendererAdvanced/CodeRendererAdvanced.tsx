@@ -12,7 +12,7 @@ import { syntaxHighlighting } from '@codemirror/language';
 import { token } from '@atlaskit/tokens';
 import { cmTheme, highlightStyle } from './theme';
 
-import { MediaViewerError } from '../../../errors';
+import { type MediaViewerError } from '../../../errors';
 
 export type Props = {
 	item: Exclude<FileState, ErrorFileState>;

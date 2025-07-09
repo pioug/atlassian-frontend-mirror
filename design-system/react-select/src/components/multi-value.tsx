@@ -7,7 +7,7 @@ import { type ComponentType, type CSSProperties, type ReactNode } from 'react';
 import { css, cssMap, cx, jsx, type XCSSProp } from '@compiled/react';
 
 import type { XCSSAllProperties, XCSSAllPseudos } from '@atlaskit/css';
-import CrossIcon from '@atlaskit/icon/core/close';
+import CrossIcon from '@atlaskit/icon/core/cross';
 import LegacySelectClearIcon from '@atlaskit/icon/glyph/select-clear';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';

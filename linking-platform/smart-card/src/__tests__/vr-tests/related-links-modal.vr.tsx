@@ -26,7 +26,7 @@ snapshot(RelatedLinksModal, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-visual-refresh-v2': [true, false],
+		'platform-linking-visual-refresh-v2': true,
 	},
 });
 
@@ -49,7 +49,7 @@ snapshot(RelatedLinksResolvedView, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-visual-refresh-v2': [true, false],
+		'platform-linking-visual-refresh-v2': true,
 	},
 });
 
@@ -72,7 +72,7 @@ snapshot(RelatedLinksResolvedViewWithEmptyList, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-visual-refresh-v2': [true, false],
+		'platform-linking-visual-refresh-v2': true,
 	},
 });
 
@@ -95,7 +95,7 @@ snapshot(RelatedLinksModalErroredView, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-visual-refresh-v2': [true, false],
+		'platform-linking-visual-refresh-v2': true,
 	},
 });
 
@@ -118,7 +118,7 @@ snapshot(RelatedLinksModalUnavailableView, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-visual-refresh-v2': [true, false],
+		'platform-linking-visual-refresh-v2': true,
 	},
 });
 
@@ -141,6 +141,6 @@ snapshot(RelatedLinksModalResolvingView, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-visual-refresh-v2': [true, false],
+		'platform-linking-visual-refresh-v2': true,
 	},
 });

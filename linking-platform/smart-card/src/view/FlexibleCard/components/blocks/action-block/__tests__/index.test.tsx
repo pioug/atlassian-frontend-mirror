@@ -6,7 +6,7 @@ import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import context from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { getFlexibleCardTestWrapper } from '../../../../../../__tests__/__utils__/unit-testing-library-helpers';
-import { SmartLinkStatus } from '../../../../../../constants';
+import { type SmartLinkStatus } from '../../../../../../constants';
 import ActionBlock from '../index';
 import type { ActionBlockProps } from '../types';
 

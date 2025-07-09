@@ -6,7 +6,7 @@
 import { cssMap, jsx } from '@compiled/react';
 
 import Flag from '@atlaskit/flag';
-import InformationIcon from '@atlaskit/icon/core/information';
+import StatusInformationIcon from '@atlaskit/icon/core/status-information';
 
 const styles = cssMap({
 	root: {
@@ -22,7 +22,7 @@ export default function ExplicitFontStyles() {
 				actions={[{ content: 'Understood' }, { content: 'No Way!' }]}
 				title="Welcome to the jungle"
 				description="We got fun and games. We got everything you want honey, we know the names."
-				icon={<InformationIcon label="" />}
+				icon={<StatusInformationIcon label="" />}
 				id="flag-1"
 			/>
 		</div>

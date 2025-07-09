@@ -1,5 +1,13 @@
 # @atlaskit/focused-task-close-account
 
+## 3.0.15
+
+### Patch Changes
+
+- [#181940](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/181940)
+  [`1a11f9510529b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a11f9510529b) -
+  Replaced issue term with work item and updated tests
+
 ## 3.0.14
 
 ### Patch Changes

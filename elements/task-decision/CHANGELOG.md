@@ -1,5 +1,17 @@
 # @atlaskit/task-decision
 
+## 19.2.6
+
+### Patch Changes
+
+- [#182411](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/182411)
+  [`2a170a0935eb2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a170a0935eb2) -
+  [EDITOR-655] Cleanup FG editor_a11y_group_around_action_items && remove unused internal component
+- [#182411](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/182411)
+  [`2a170a0935eb2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a170a0935eb2) -
+  [EDITOR-655] Cleanup editor_a11y_group_around_action_items and remove old unused tasklist
+  component
+
 ## 19.2.5
 
 ### Patch Changes

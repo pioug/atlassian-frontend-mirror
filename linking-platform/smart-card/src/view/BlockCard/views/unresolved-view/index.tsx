@@ -11,7 +11,7 @@ import { browser } from '@atlaskit/linking-common/user-agent';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-import { SmartLinkStatus } from '../../../../constants';
+import { type SmartLinkStatus } from '../../../../constants';
 import FlexibleCard from '../../../FlexibleCard';
 import {
 	CustomBlock,

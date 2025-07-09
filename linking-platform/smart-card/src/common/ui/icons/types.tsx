@@ -1,8 +1,8 @@
 import type { ComponentPropsWithoutRef } from 'react';
 
-import { IconTile } from '@atlaskit/icon';
+import { type IconTile } from '@atlaskit/icon';
 
-import { SmartLinkSize } from '../../../constants';
+import { type SmartLinkSize } from '../../../constants';
 
 export type AtlaskitIconTileProps = Omit<
 	ComponentPropsWithoutRef<typeof IconTile>,

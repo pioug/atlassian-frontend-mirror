@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-import FocusRing from '@atlaskit/focus-ring';
+import { Focusable } from '@atlaskit/primitives/compiled';
 
 import { useTabPanel } from '../hooks';
 import { type TabPanelAttributesType, type TabPanelProps } from '../types';
@@ -24,19 +24,19 @@ const TabPanel = ({ children, testId }: TabPanelProps) => {
 		tabIndex,
 	}: TabPanelAttributesType = useTabPanel();
 	return (
-		<FocusRing isInset>
-			<div
-				data-testid={testId}
-				role={role}
-				id={id}
-				hidden={hidden}
-				aria-labelledby={ariaLabelledBy}
-				tabIndex={tabIndex}
-			>
-				{/* Fragment is a workaround as Box types don't allow ReactNode children */}
-				<Fragment>{children}</Fragment>
-			</div>
-		</FocusRing>
+		<Focusable
+			as="div"
+			isInset
+			testId={testId}
+			role={role}
+			id={id}
+			hidden={hidden}
+			aria-labelledby={ariaLabelledBy}
+			tabIndex={tabIndex}
+		>
+			{/* Fragment is a workaround as Box types don't allow ReactNode children */}
+			<Fragment>{children}</Fragment>
+		</Focusable>
 	);
 };
 

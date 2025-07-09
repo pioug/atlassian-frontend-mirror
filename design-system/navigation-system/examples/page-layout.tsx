@@ -11,7 +11,7 @@ import { IconButton } from '@atlaskit/button/new';
 import AddIcon from '@atlaskit/icon/core/add';
 import HomeIcon from '@atlaskit/icon/core/home';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
-import WarningIcon from '@atlaskit/icon/core/warning';
+import StatusWarningIcon from '@atlaskit/icon/core/status-warning';
 import BoardIcon from '@atlaskit/icon/glyph/board';
 import { MenuList } from '@atlaskit/navigation-system';
 import { Aside } from '@atlaskit/navigation-system/layout/aside';
@@ -156,7 +156,12 @@ function BannerToggleAction({
 	return (
 		<Hide below="sm">
 			<MenuListItem>
-				<IconButton icon={WarningIcon} label={label} onClick={onClick} isSelected={isSelected} />
+				<IconButton
+					icon={StatusWarningIcon}
+					label={label}
+					onClick={onClick}
+					isSelected={isSelected}
+				/>
 			</MenuListItem>
 		</Hide>
 	);

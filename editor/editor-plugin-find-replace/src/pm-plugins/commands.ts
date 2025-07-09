@@ -2,6 +2,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { Match } from '../types';
@@ -11,6 +12,7 @@ import { FindReplaceActionTypes } from './actions';
 import { createCommand, getPluginState } from './plugin-factory';
 import {
 	createDecoration,
+	findClosestMatch,
 	findDecorationFromMatch,
 	findMatches,
 	findSearchIndex,
@@ -43,7 +45,11 @@ export const activate = () =>
 				api,
 			});
 
-			index = findSearchIndex(selection.from, matches);
+			index =
+				expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true) &&
+				fg('platform_editor_find_and_replace_improvements_1')
+					? findClosestMatch(selection.from, matches)
+					: findSearchIndex(selection.from, matches);
 		}
 
 		return {
@@ -75,7 +81,11 @@ export const find = (
 							})
 						: [];
 
-				const index = findSearchIndex(selection.from, matches);
+				const index =
+					expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true) &&
+					fg('platform_editor_find_and_replace_improvements_1')
+						? findClosestMatch(selection.from, matches)
+						: findSearchIndex(selection.from, matches);
 
 				// we can't just apply all the decorations to highlight the search results at once
 				// as if there are a lot ProseMirror cries :'(
@@ -108,7 +118,11 @@ export const find = (
 						: [];
 
 				if (matches.length > 0) {
-					const index = findSearchIndex(selection.from, matches);
+					const index =
+						expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true) &&
+						fg('platform_editor_find_and_replace_improvements_1')
+							? findClosestMatch(selection.from, matches)
+							: findSearchIndex(selection.from, matches);
 					return tr.setSelection(getSelectionForMatch(tr.selection, tr.doc, index, matches));
 				}
 				return tr;

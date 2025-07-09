@@ -3,7 +3,7 @@
 // theming in media viewer https://product-fabric.atlassian.net/browse/DSP-6067
 // with the compiled react, we are leaving the static colors in tact for now.
 import React from 'react';
-import { PopupSelect, type OptionType, type StylesConfig, components } from '@atlaskit/select';
+import { type PopupSelect, type OptionType, type StylesConfig, components } from '@atlaskit/select';
 import { DN900 } from '@atlaskit/theme/colors';
 import { cssMap } from '@compiled/react';
 import { Flex } from '@atlaskit/primitives';

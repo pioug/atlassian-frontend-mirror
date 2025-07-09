@@ -77,7 +77,7 @@ const defaultApiConfig: EmojiResourceConfig = {
 
 const emojiListHeaders = {
 	ALL_UPLOADS: 'All uploads',
-	ATLASSIAN: 'Productivity',
+	ATLASSIAN: 'Atlassian & productivity',
 	FLAGS: 'Flags',
 };
 

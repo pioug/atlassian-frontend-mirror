@@ -12,10 +12,10 @@ import type {
 } from '@atlaskit/editor-common/types';
 import CrossCircleIcon from '@atlaskit/icon/core/cross-circle';
 import CustomizeIcon from '@atlaskit/icon/core/customize';
-import DiscoveryIcon from '@atlaskit/icon/core/discovery';
-import InformationIcon from '@atlaskit/icon/core/information';
-import SuccessIcon from '@atlaskit/icon/core/success';
-import WarningIcon from '@atlaskit/icon/core/warning';
+import StatusDiscoveryIcon from '@atlaskit/icon/core/status-discovery';
+import StatusInformationIcon from '@atlaskit/icon/core/status-information';
+import StatusSuccessIcon from '@atlaskit/icon/core/status-success';
+import StatusWarningIcon from '@atlaskit/icon/core/status-warning';
 import { token } from '@atlaskit/tokens';
 
 import { changePanelType } from '../editor-actions/actions';
@@ -35,28 +35,28 @@ const panelTitleAndIcon: Record<
 > = {
 	[PanelType.INFO]: {
 		title: messages.info,
-		icon: InformationIcon({
+		icon: StatusInformationIcon({
 			label: 'info-icon',
 			color: token('color.icon.information'),
 		}),
 	},
 	[PanelType.NOTE]: {
 		title: messages.note,
-		icon: DiscoveryIcon({
+		icon: StatusDiscoveryIcon({
 			label: 'note-icon',
 			color: token('color.icon.discovery'),
 		}),
 	},
 	[PanelType.SUCCESS]: {
 		title: messages.success,
-		icon: SuccessIcon({
+		icon: StatusSuccessIcon({
 			label: 'success-icon',
 			color: token('color.icon.success'),
 		}),
 	},
 	[PanelType.WARNING]: {
 		title: messages.warning,
-		icon: WarningIcon({
+		icon: StatusWarningIcon({
 			label: 'warning-icon',
 			color: token('color.icon.warning'),
 		}),

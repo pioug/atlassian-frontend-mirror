@@ -147,6 +147,9 @@
             "path": "../../../design-system/spinner/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../../elements/status/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../elements/task-decision/afm-cc/tsconfig.json"
         },
         {

@@ -2,7 +2,7 @@ import { createContext, useContext } from 'react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { SmartLinkStatus } from '../../constants';
+import { type SmartLinkStatus } from '../../constants';
 import { type InternalFlexibleUiOptions } from '../../view/FlexibleCard/types';
 
 import { type FlexibleUiDataContext } from './types';

@@ -1,5 +1,17 @@
 # @atlaskit/react-select
 
+## 3.2.0
+
+### Minor Changes
+
+- [#175869](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175869)
+  [`e7f822af7edc1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e7f822af7edc1) -
+  Updated usages of deprecated icons with replacement icons
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.1.0
 
 ### Minor Changes

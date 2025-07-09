@@ -62,7 +62,7 @@ snapshot(HoverCardActions, {
 	variants: [{ name: 'light mode', environment: { colorScheme: 'light' } }],
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': true,
-		'platform-linking-visual-refresh-v2': [true, false],
+		'platform-linking-visual-refresh-v2': true,
 	},
 });
 
@@ -77,7 +77,7 @@ snapshot(HoverCardActions, {
 	],
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': true,
-		'platform-linking-visual-refresh-v2': [true, false],
+		'platform-linking-visual-refresh-v2': true,
 	},
 });
 

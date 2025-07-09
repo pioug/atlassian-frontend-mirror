@@ -1,6 +1,14 @@
 import { is5xx, withExponentialBackoff } from './http';
 
 describe('is5xx', () => {
+	test('200 is NOT 5xx', () => {
+		expect(is5xx(200)).toBe(false);
+	});
+
+	test('404 is NOT 5xx', () => {
+		expect(is5xx(404)).toBe(false);
+	});
+
 	test('499 is NOT 5xx', () => {
 		expect(is5xx(499)).toBe(false);
 	});

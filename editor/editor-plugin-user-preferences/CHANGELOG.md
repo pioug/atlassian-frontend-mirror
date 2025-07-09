@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-user-preferences
 
+## 1.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.1.0
+
+### Minor Changes
+
+- [#180076](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/180076)
+  [`f4353390abf4e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f4353390abf4e) -
+  ED-27284 restore page active wather
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.0.0
 
 ### Major Changes

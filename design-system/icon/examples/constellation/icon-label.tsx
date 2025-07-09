@@ -7,7 +7,7 @@ import EditIcon from '@atlaskit/icon/core/edit';
 import EpicIcon from '@atlaskit/icon/core/epic';
 import FiltersIcon from '@atlaskit/icon/core/filter';
 import MergeSuccessIcon from '@atlaskit/icon/core/merge-success';
-import WarningIcon from '@atlaskit/icon/core/warning';
+import StatusWarningIcon from '@atlaskit/icon/core/status-warning';
 import { Inline, Stack, Text } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
@@ -21,7 +21,7 @@ const IconLabelExample = () => {
 					<Text weight="bold">Beta release</Text>
 				</Inline>
 				<Inline space="space.100" alignBlock="center">
-					<WarningIcon color={token('color.icon.warning')} label="warning" />
+					<StatusWarningIcon color={token('color.icon.warning')} label="warning" />
 					<Text weight="bold" color="color.text.warning">
 						Saving was interrupted
 					</Text>

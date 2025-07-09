@@ -7,7 +7,6 @@ import { useState } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
-import FocusRing from '@atlaskit/focus-ring';
 import { Label } from '@atlaskit/form';
 import {
 	BitbucketIcon,
@@ -104,15 +103,13 @@ const MotionResizeHeightExample = () => {
 				<div data-testid="menu" {...useResizingHeight()} css={containerStyles}>
 					<div css={inputContainerStyles}>
 						<Label htmlFor="input-options">Motion options</Label>
-						<FocusRing isInset>
-							<input
-								id="input-options"
-								type="text"
-								readOnly
-								value={searchTerm[`s${num}`]}
-								css={centeredContainerStyles}
-							/>
-						</FocusRing>
+						<input
+							id="input-options"
+							type="text"
+							readOnly
+							value={searchTerm[`s${num}`]}
+							css={centeredContainerStyles}
+						/>
 					</div>
 					<StaggeredEntrance columns={1}>
 						{Array(num)

@@ -17,7 +17,7 @@ import { useModal } from '@atlaskit/modal-dialog';
 import Tooltip from '@atlaskit/tooltip';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import ChevronLeftIcon from '@atlaskit/icon/core/chevron-left';
-import CloseIcon from '@atlaskit/icon/core/close';
+import CrossIcon from '@atlaskit/icon/core/cross';
 import { ResourcedEmoji } from '@atlaskit/emoji/element';
 import { fg } from '@atlaskit/platform-feature-flags';
 
@@ -164,7 +164,7 @@ const CloseButtonCustom = ({ handleCloseReactionsDialog }: CloseButtonProp) => {
 	return (
 		<IconButton
 			onClick={handleCloseReactionsDialog}
-			icon={CloseIcon}
+			icon={CrossIcon}
 			label={intl.formatMessage(messages.closeReactionsDialog)}
 			appearance="subtle"
 			isTooltipDisabled={false}

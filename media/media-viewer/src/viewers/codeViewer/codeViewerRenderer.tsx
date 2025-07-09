@@ -1,9 +1,9 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 import React, { type ReactNode } from 'react';
 import { type ErrorFileState, type FileState } from '@atlaskit/media-client';
-import { Outcome } from '../../domain';
+import { type Outcome } from '../../domain';
 import type { SupportedLanguages } from '@atlaskit/code/types';
-import { MediaViewerError } from '../../errors';
+import { type MediaViewerError } from '../../errors';
 import {
 	CodeViewWrapper as CompiledCodeViewWrapper,
 	CodeViewerHeaderBar as CompiledCodeViewerHeaderBar,

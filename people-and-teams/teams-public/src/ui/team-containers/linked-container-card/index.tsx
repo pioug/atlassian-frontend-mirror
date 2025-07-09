@@ -6,7 +6,7 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import Avatar from '@atlaskit/avatar';
 import { IconButton } from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
-import CrossIcon from '@atlaskit/icon/core/close';
+import CrossIcon from '@atlaskit/icon/core/cross';
 import Link from '@atlaskit/link';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex, Inline, Stack, Text } from '@atlaskit/primitives/compiled';

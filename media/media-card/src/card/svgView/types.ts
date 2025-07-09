@@ -1,5 +1,5 @@
 import { type FileIdentifier, type ImageResizeMode } from '@atlaskit/media-client';
-import { MediaCardError } from '../../errors';
+import { type MediaCardError } from '../../errors';
 
 export type ContentSource = 'remote' | 'local';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Flag from '@atlaskit/flag';
-import InformationIcon from '@atlaskit/icon/core/information';
+import StatusInformationIcon from '@atlaskit/icon/core/status-information';
 import InformationIconLegacy from '@atlaskit/icon/glyph/info';
 import Stack from '@atlaskit/primitives/stack';
 import { token } from '@atlaskit/tokens';
@@ -20,13 +20,13 @@ export default () => (
 			title="New icon - no spacing"
 			description={description.spacing}
 			id="2"
-			icon={<InformationIcon label="" spacing="none" />}
+			icon={<StatusInformationIcon label="" spacing="none" />}
 		/>
 		<Flag
 			title="New icon - spacious spacing"
 			description={description.spacing}
 			id="3"
-			icon={<InformationIcon label="" spacing="spacious" />}
+			icon={<StatusInformationIcon label="" spacing="spacious" />}
 		/>
 		<Flag
 			title="Legacy icon - small size"
@@ -64,7 +64,7 @@ export default () => (
 			title="New icon - color"
 			description={description.colors}
 			id="9"
-			icon={<InformationIcon label="" color={token('color.icon.danger')} />}
+			icon={<StatusInformationIcon label="" color={token('color.icon.danger')} />}
 		/>
 		<Flag
 			title="Legacy icon - color"

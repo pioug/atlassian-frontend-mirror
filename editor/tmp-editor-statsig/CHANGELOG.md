@@ -1,5 +1,22 @@
 # @atlaskit/editor-statsig-tmp
 
+## 9.0.0
+
+### Major Changes
+
+- [#178344](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/178344)
+  [`d6ea53c8a5621`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d6ea53c8a5621) -
+  EDITOR-988: Clean up dynamic selection toolbar AI button.
+
+## 8.8.0
+
+### Minor Changes
+
+- [#181826](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/181826)
+  [`9cebc9f86c7c0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9cebc9f86c7c0) -
+  [ux] EDITOR-991 - Remove no longer needed prompts Brainstorm, Change tone to neutral and Rephrase
+  from the Command Palette / Rovo Toolbar for Confluence
+
 ## 8.7.0
 
 ### Minor Changes

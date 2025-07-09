@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useEffect } from 'react';
+import React, { type PropsWithChildren, useEffect } from 'react';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { extractSmartLinkProvider } from '@atlaskit/link-extractors';

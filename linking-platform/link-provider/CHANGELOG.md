@@ -1,5 +1,14 @@
 # @atlaskit/link-provider
 
+## 3.4.1
+
+### Patch Changes
+
+- [#181417](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/181417)
+  [`fab5cb9a9877d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fab5cb9a9877d) -
+  Pass ignoreCachedValue to resolve/batch endpoint when reload is set to true to force cache busting
+  in ORS behind a FG platform_linking_force_no_cache_smart_card_client
+
 ## 3.4.0
 
 ### Minor Changes

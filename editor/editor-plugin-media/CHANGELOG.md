@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-media
 
+## 5.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.1.0
+
+### Minor Changes
+
+- [#175869](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175869)
+  [`e7f822af7edc1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e7f822af7edc1) -
+  Updated usages of deprecated icons with replacement icons
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.0.1
+
+### Patch Changes
+
+- [#172541](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/172541)
+  [`6da45cbd2c77f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6da45cbd2c77f) -
+  clean up FF for batch media update attributes
+- Updated dependencies
+
 ## 5.0.0
 
 ### Major Changes

@@ -16,3 +16,11 @@ export interface SearchInvokeRequest {
 	/** Search query. An empty string results in recent results being returned (pre-query). */
 	query: string;
 }
+
+type ResourcePayloadUrl = { resourceUrl: string; ignoreCachedValue?: boolean };
+type ResourcePayloadAri = { ari: string };
+
+export type ResourceType = 'URL' | 'ARI';
+export type ResourcePayload<TType extends ResourceType> = TType extends 'URL'
+	? ResourcePayloadUrl
+	: ResourcePayloadAri;

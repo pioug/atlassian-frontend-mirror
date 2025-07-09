@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 3.0.1
+
+### Patch Changes
+
+- [#180340](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/180340)
+  [`3cf803e05d3b9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3cf803e05d3b9) -
+  [ux] ED-28366 set active match to closest match to selection rather than first following selection
+- Updated dependencies
+
 ## 3.0.0
 
 ### Major Changes

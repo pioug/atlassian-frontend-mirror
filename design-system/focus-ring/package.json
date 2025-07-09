@@ -11,7 +11,17 @@
 		"team": "Design System Team",
 		"website": {
 			"name": "Focus ring",
-			"category": "Forms and input"
+			"category": "Forms and input",
+			"status": {
+				"type": "intent-to-deprecate",
+				"description": "We are planning on deprecating Focus ring component. We recommend using the Focusable primitive component instead.",
+				"actions": [
+					{
+						"text": "View Focusable primitive documentation",
+						"href": "https://atlassian.design/components/primitives/focusable"
+					}
+				]
+			}
 		}
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",

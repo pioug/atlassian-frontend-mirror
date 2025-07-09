@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Banner from '@atlaskit/banner';
 import Button, { IconButton } from '@atlaskit/button/new';
 import { Label } from '@atlaskit/form';
-import WarningIcon from '@atlaskit/icon/core/warning';
+import StatusWarningIcon from '@atlaskit/icon/core/status-warning';
 import EditIcon from '@atlaskit/icon/glyph/edit';
 import Lozenge, { type LozengeProps } from '@atlaskit/lozenge';
 import { Inline, Stack, Text, xcss } from '@atlaskit/primitives';
@@ -81,7 +81,7 @@ export default () => {
 	return (
 		<Stack space="space.400">
 			<Banner>
-				<WarningIcon label="" />
+				<StatusWarningIcon label="" />
 				<Text>
 					This is a basic test for rendering generic list semantics. Keyboard interaction is not
 					provided.

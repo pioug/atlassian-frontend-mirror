@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugins
 
+## 9.4.28
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.4.27
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.4.26
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.4.25
+
+### Patch Changes
+
+- [#172541](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/172541)
+  [`6da45cbd2c77f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6da45cbd2c77f) -
+  clean up FF for batch media update attributes
+- Updated dependencies
+
 ## 9.4.24
 
 ### Patch Changes

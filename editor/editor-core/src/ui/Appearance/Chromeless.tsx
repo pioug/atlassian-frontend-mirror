@@ -23,6 +23,7 @@ import type {
 	MaxContentSizePluginState,
 } from '@atlaskit/editor-plugins/max-content-size';
 import { scrollbarStyles } from '@atlaskit/editor-shared-styles/scrollbar';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -101,6 +102,16 @@ const chromelessEditorStylesNew = css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'& > :last-child': {
 			paddingBottom: token('space.100', '0.5em'),
+		},
+	},
+});
+
+const extraSpaceLastLineFix = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'.ProseMirror': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+		'& > p:last-of-type': {
+			marginBottom: token('space.0'),
 		},
 	},
 });
@@ -265,7 +276,11 @@ function ChromelessEditorContainerNext({
 }: ChromelessEditorContainerProps) {
 	return (
 		<div
-			css={[chromelessEditorStylesNew, scrollbarStylesNew]}
+			css={[
+				chromelessEditorStylesNew,
+				scrollbarStylesNew,
+				fg('platform_fix_extra_space_last_line_comment_editor') && extraSpaceLastLineFix,
+			]}
 			style={{
 				maxHeight: maxHeight ? `${maxHeight}px` : undefined,
 				minHeight: `${minHeight}px`,
@@ -300,6 +315,7 @@ function ChromelessEditorContainerOld({
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 					minHeight: `${minHeight}px`,
 				}),
+				fg('platform_fix_extra_space_last_line_comment_editor') && extraSpaceLastLineFix,
 			]}
 			data-testid="chromeless-editor"
 			id="chromeless-editor"

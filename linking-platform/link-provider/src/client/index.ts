@@ -22,8 +22,10 @@ import {
 	isErrorResponse,
 	type SearchProviderInfoResponse,
 } from './types/responses';
-import { type InvokeRequest } from './types/requests';
+import { ResourcePayload, ResourceType, type InvokeRequest } from './types/requests';
 import { LRUMap } from 'lru_map';
+import uniqBy from 'lodash/uniqBy';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 const MAX_BATCH_SIZE = 50;
 const MIN_TIME_BETWEEN_BATCHES = 250;
@@ -39,6 +41,10 @@ export default class CardClient implements CardClientInterface {
 	private resolverUrl: string;
 	readonly envKey?: string;
 	readonly baseUrlOverride?: string;
+	private urlLoadersByDomain: Record<
+		string,
+		DataLoader<ResourcePayload<'URL'>, SuccessResponse | ErrorResponse>
+	>;
 	private loadersByDomain: Record<string, DataLoader<string, SuccessResponse | ErrorResponse>>;
 	private retryConfig: Options;
 	private resolvedCache: Record<string, boolean>;
@@ -46,6 +52,7 @@ export default class CardClient implements CardClientInterface {
 
 	constructor(envKey?: EnvironmentsKeys, baseUrlOverride?: string) {
 		this.resolverUrl = getResolverUrl(envKey, baseUrlOverride);
+		this.urlLoadersByDomain = {};
 		this.loadersByDomain = {};
 		this.retryConfig = {
 			retries: 2,
@@ -58,6 +65,75 @@ export default class CardClient implements CardClientInterface {
 	public setProduct(product: ProductType) {
 		this.product = product;
 	}
+
+	private postBatchResolveNew = async <TType extends ResourceType>(
+		resources: ReadonlyArray<ResourcePayload<TType>>,
+		resourceType: TType,
+		keyGetter: (resource: ResourcePayload<TType>) => string,
+	): Promise<BatchResponse> => {
+		// De-duplicate requested URLs (see `this.createLoader` for more detail).
+		// Also de-duplicate requested ARIs as backend does not de-duplicate any requests.
+		const deDuplicatedResources = uniqBy(resources, keyGetter);
+
+		let resolvedResources: BatchResponse = [];
+
+		const headers = {
+			/**
+			 * This header exist to enable the backend to process relative time, eg: "today", with respect to the user timezone.
+			 * eg: used in "confluence-object-provider" to resolve confluence SLLV links that may involve relative time calculation.
+			 */
+			'origin-timezone': Intl?.DateTimeFormat().resolvedOptions().timeZone,
+
+			// send product source as header X-Product if defined
+			...(this.product ? { 'X-Product': this.product } : {}),
+		};
+
+		try {
+			// Ask the backend to resolve the URLs for us.
+			if (resourceType === 'URL') {
+				resolvedResources = await request<BatchResponse>(
+					'post',
+					`${this.resolverUrl}/resolve/batch`,
+					deDuplicatedResources,
+					headers,
+				);
+			}
+			// Ask the backend to resolve the ARIs for us.
+			if (resourceType === 'ARI') {
+				resolvedResources = await request<BatchResponse>(
+					'post',
+					`${this.resolverUrl}/resolve/ari/batch`,
+					deDuplicatedResources,
+					headers,
+				);
+			}
+		} catch (error) {
+			// we make sure we return a valid dataloader response by creating an error
+			// response for each url/ari
+			resolvedResources = resources.map(() => {
+				// @ts-ignore
+				const status = isErrorResponse(error) ? error.status : 500;
+				const errorResponse: ErrorResponse = {
+					status,
+					// @ts-ignore
+					error,
+				};
+				return errorResponse;
+			});
+		}
+
+		// Reduce into a map to make accessing faster and easier.
+		const map: Record<string, SuccessResponse | ErrorResponse> = {};
+		// NOTE: the batch endpoint returns the URLs/ARIs in the same order they were given.
+		for (let i = 0; i < deDuplicatedResources.length; ++i) {
+			const resource = deDuplicatedResources[i];
+			const data = resolvedResources[i];
+			map[keyGetter(resource)] = data;
+		}
+
+		// Reconvert list back into the original order in which it was given to us.
+		return resources.map((originalResource) => map[keyGetter(originalResource)]);
+	};
 
 	private postBatchResolve = async (
 		resources: ReadonlyArray<string>,
@@ -126,6 +202,12 @@ export default class CardClient implements CardClientInterface {
 		return resources.map((originalResource) => map[originalResource]);
 	};
 
+	private batchResolveUrl = async (
+		urls: ReadonlyArray<ResourcePayload<'URL'>>,
+	): Promise<BatchResponse> => {
+		return this.postBatchResolveNew(urls, 'URL', (resource) => resource.resourceUrl);
+	};
+
 	// Endpoint for batch resolve url
 	private batchResolve = async (urls: ReadonlyArray<string>): Promise<BatchResponse> => {
 		return this.postBatchResolve(urls, 'URL');
@@ -135,6 +217,35 @@ export default class CardClient implements CardClientInterface {
 	private batchResolveAris = async (aris: ReadonlyArray<string>): Promise<BatchResponse> => {
 		return this.postBatchResolve(aris, 'ARI');
 	};
+
+	private createUrlLoader() {
+		const batchResolveThrottler = pThrottle({
+			limit: 1,
+			interval: MIN_TIME_BETWEEN_BATCHES,
+		});
+		const throttledBatchResolve = batchResolveThrottler(this.batchResolveUrl);
+
+		return new DataLoader(
+			// We place all calls to `batchResolve` in a limiter so we don't send off several simultaneous batch requests.
+			// This is for two reasons:
+			//  1: we want to avoid getting rate limited upstream (eg: forge and other APIs)
+			//  2: we want to avoid sending out heaps of requests from the client at once
+			(urls: ReadonlyArray<ResourcePayload<'URL'>>) => throttledBatchResolve(urls),
+			{
+				maxBatchSize: MAX_BATCH_SIZE,
+				// NOTE: we turn off DataLoader's cache because it doesn't work for our use-case. Consider the following:
+				// - a smartlink to a restricted item is resolved to "forbidden" with a "request access button"
+				// - the user clicks "request access", and then following the auth prompts and gets access
+				// - the frontend now re-renders the smartlink, but due to DataLoader's caching, the previous "forbidden" state is
+				//   because the smartlink's URL (which is the cache key) is exactly the same
+				//
+				// For this reason, we disable DataLoader's cache.
+				// This means that URLs will not be de-duplicated by DataLoader, so we perform the de-duplication logic
+				// ourselves in `this.batchResolve`.
+				cache: false,
+			},
+		);
+	}
 
 	private createLoader() {
 		const batchResolveThrottler = pThrottle({
@@ -173,6 +284,14 @@ export default class CardClient implements CardClientInterface {
 		return this.loadersByDomain[hostname];
 	}
 
+	private getUrlLoader(hostname: string) {
+		if (!this.urlLoadersByDomain[hostname]) {
+			this.urlLoadersByDomain[hostname] = this.createUrlLoader();
+		}
+
+		return this.urlLoadersByDomain[hostname];
+	}
+
 	private async resolveUrl(url: string, force: boolean = false) {
 		const hostname = new URL(url).hostname;
 		const loader = this.getLoader(hostname);
@@ -181,7 +300,15 @@ export default class CardClient implements CardClientInterface {
 
 		responsePromise = urlResponsePromiseCache.get(url);
 		if (!responsePromise || force) {
-			responsePromise = loader.load(url);
+			if (fg('platform_linking_force_no_cache_smart_card_client')) {
+				const urlLoader = this.getUrlLoader(hostname);
+				responsePromise = urlLoader.load({
+					resourceUrl: url,
+					ignoreCachedValue: force || undefined,
+				});
+			} else {
+				responsePromise = loader.load(url);
+			}
 			urlResponsePromiseCache.set(url, responsePromise);
 		}
 

@@ -31,6 +31,10 @@ const wrapperStyleWithoutCursor = css(wrapperDefault, {
 		margin: `0 ${token('space.negative.250', '-20px')}`,
 		padding: `0 ${token('space.250', '20px')}`,
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'&.legacy-content': {
+		borderRadius: `0 0 ${token('border.radius', '3px')} ${token('border.radius', '3px')}`,
+	},
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766

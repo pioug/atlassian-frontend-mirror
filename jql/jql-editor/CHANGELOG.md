@@ -1,5 +1,33 @@
 # @atlaskit/jql-editor
 
+## 5.4.2
+
+### Patch Changes
+
+- [#183093](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183093)
+  [`555e3796ba32c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/555e3796ba32c) -
+  Update encoding of illegal JQL characters in unit test names.
+
+## 5.4.1
+
+### Patch Changes
+
+- [#182992](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/182992)
+  [`a9fbb34476478`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a9fbb34476478) -
+  Update encoding of illegal JQL characters in unit test names.
+
+## 5.4.0
+
+### Minor Changes
+
+- [#175869](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175869)
+  [`e7f822af7edc1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e7f822af7edc1) -
+  Updated usages of deprecated icons with replacement icons
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.3.3
 
 ### Patch Changes

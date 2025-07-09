@@ -14,7 +14,7 @@ import { cssMap } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import Heading from '@atlaskit/heading';
 import AiChatIcon from '@atlaskit/icon/core/ai-chat';
-import CrossIcon from '@atlaskit/icon/core/close';
+import CrossIcon from '@atlaskit/icon/core/cross';
 import GrowDiagonalIcon from '@atlaskit/icon/core/grow-diagonal';
 import { ConfluenceIcon, ConfluenceLogo } from '@atlaskit/logo';
 import { TopNavButton } from '@atlaskit/navigation-system/experimental/top-nav-button';

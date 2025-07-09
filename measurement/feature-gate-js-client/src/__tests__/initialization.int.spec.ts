@@ -2,7 +2,7 @@ import fetchMock from 'jest-fetch-mock';
 
 import { isFedRamp } from '@atlaskit/atlassian-context';
 
-import Client from '../client';
+import type Client from '../client';
 import type FeatureGates from '../client/FeatureGates';
 // eslint-disable-next-line no-duplicate-imports
 import type {

@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 3.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.1
+
+### Patch Changes
+
+- [#182587](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/182587)
+  [`ab1ee31f25e9c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab1ee31f25e9c) -
+  Fixes issue where right click menu would select entire code block.
+- Updated dependencies
+
 ## 3.0.0
 
 ### Major Changes

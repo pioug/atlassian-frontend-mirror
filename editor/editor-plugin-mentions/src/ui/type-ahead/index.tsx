@@ -21,6 +21,7 @@ import type { TeamMember } from '@atlaskit/mention/team-resource';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
+import { createSingleMentionFragment } from '../../editor-commands';
 import type { MentionsPlugin } from '../../mentionsPluginType';
 import { getMentionPluginState } from '../../pm-plugins/utils';
 import type { FireElementsChannelEvent, TeamInfoAttrAnalytics } from '../../types';
@@ -454,6 +455,26 @@ export const createTypeAheadConfig = ({
 
 			if (isXProductUser && mentionProvider && mentionProvider.inviteXProductUser) {
 				mentionProvider.inviteXProductUser(id, name);
+			}
+
+			// This replaces logic below
+			if (fg('platform_mention_insert_mention_refactor')) {
+				return insert(
+					createSingleMentionFragment({
+						mentionProvider,
+						mentionInsertDisplayName,
+						tr: state.tr,
+						sanitizePrivateContent,
+					})({
+						name,
+						id,
+						userType,
+						nickname,
+						localId: mentionLocalId,
+						accessLevel,
+						isXProductUser,
+					}),
+				);
 			}
 
 			// Don't insert into document if document data is sanitized.

@@ -8,7 +8,7 @@
 import { css, jsx } from '@compiled/react';
 
 import { IconButton } from '@atlaskit/button/new';
-import CrossIcon from '@atlaskit/icon/core/close';
+import CrossIcon from '@atlaskit/icon/core/cross';
 import CheckMarkIcon from '@atlaskit/icon/core/migration/check-mark--check';
 import CancelIcon from '@atlaskit/icon/glyph/cross';
 import { B400, N0, N20A, N30A, N50A, N60A } from '@atlaskit/theme/colors';

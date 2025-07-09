@@ -11,6 +11,7 @@ import classnames from 'classnames';
 
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ExtensionProvider, ReferenceEntity } from '../../../extensions';
 import { sharedPluginStateHookMigratorFactory, useSharedPluginState } from '../../../hooks';
@@ -21,6 +22,7 @@ import { overflowShadow } from '../../../ui';
 import type { OverflowShadowProps } from '../../../ui';
 import { calculateBreakoutStyles } from '../../../utils';
 import type { ExtensionsPluginInjectionAPI, MacroInteractionDesignFeatureFlags } from '../../types';
+import { LegacyContentHeader } from '../LegacyContentHeader';
 import ExtensionLozenge from '../Lozenge';
 import { overlay } from '../styles';
 
@@ -87,6 +89,8 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 		extensionNode.type.name === 'extension' &&
 		extensionNode.attrs?.extensionType === 'com.atlassian.confluence.migration' &&
 		extensionNode.attrs?.extensionKey === 'legacy-content';
+	const showLegacyContentHeader =
+		fg('platform_editor_legacy_content_macro_visual_update') && isLegacyContentMacroExtension(node);
 
 	const hasBody = ['bodiedExtension', 'multiBodiedExtension'].includes(node.type.name);
 
@@ -130,6 +134,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 		'with-hover-border': showMacroInteractionDesignUpdates && isNodeHovered,
 		'with-danger-overlay': showMacroInteractionDesignUpdates,
 		'without-frame': removeBorder,
+		'legacy-content': showLegacyContentHeader,
 		[widerLayoutClassName]: shouldBreakout,
 	});
 
@@ -187,7 +192,15 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 
 	return (
 		<Fragment>
-			{showMacroInteractionDesignUpdates && !isLivePageViewMode && (
+			{showLegacyContentHeader && (
+				<LegacyContentHeader
+					isNodeSelected={isNodeSelected}
+					isNodeHovered={isNodeHovered}
+					onMouseEnter={() => handleMouseEvent(true)}
+					onMouseLeave={() => handleMouseEvent(false)}
+				/>
+			)}
+			{!showLegacyContentHeader && showMacroInteractionDesignUpdates && !isLivePageViewMode && (
 				<ExtensionLozenge
 					isNodeSelected={isNodeSelected}
 					isNodeHovered={isNodeHovered}

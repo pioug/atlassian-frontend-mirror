@@ -11,7 +11,11 @@ import { css, cssMap, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
-import { SmartLinkInternalTheme, SmartLinkSize, SmartLinkTheme } from '../../../../../../constants';
+import {
+	type SmartLinkInternalTheme,
+	SmartLinkSize,
+	SmartLinkTheme,
+} from '../../../../../../constants';
 import { useMouseDownEvent } from '../../../../../../state/analytics/useLinkClicked';
 import type { ElementProps } from '../../../../components/elements';
 import type { AnchorTarget } from '../../../../components/types';

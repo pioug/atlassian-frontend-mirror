@@ -171,8 +171,8 @@ export const messages = defineMessages({
 	},
 	productivityCategory: {
 		id: 'fabric.emoji.category.productivity',
-		defaultMessage: 'Productivity',
-		description: 'Emoji productivity category',
+		defaultMessage: 'Atlassian & productivity',
+		description: 'Emoji Atlassian & productivity category',
 	},
 	userUploadsCustomCategory: {
 		id: 'fabric.emoji.category.user.uploads',

@@ -6,7 +6,7 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { IconButton } from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import CrossIcon from '@atlaskit/icon/core/close';
+import CrossIcon from '@atlaskit/icon/core/cross';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import Link from '@atlaskit/link';
 import { fg } from '@atlaskit/platform-feature-flags';

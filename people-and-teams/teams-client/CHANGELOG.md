@@ -1,5 +1,13 @@
 # @atlaskit/teams-client
 
+## 4.6.2
+
+### Patch Changes
+
+- [#182966](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/182966)
+  [`5ef269b09ac45`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5ef269b09ac45) -
+  PTC-12475 Add test cases for 200 and 404 HTTP status codes in is5xx function tests
+
 ## 4.6.1
 
 ### Patch Changes

@@ -9,7 +9,7 @@ import Modal, {
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
 import { useMediaClient } from '@atlaskit/media-client-react';
-import { MediaClient, type FileIdentifier } from '@atlaskit/media-client';
+import { type MediaClient, type FileIdentifier } from '@atlaskit/media-client';
 import { parseError } from './artifactUploader/captions/util';
 import ApiFeedback, { type NotificationTypes } from './apiFeedback';
 import { type WrappedComponentProps, injectIntl } from 'react-intl-next';

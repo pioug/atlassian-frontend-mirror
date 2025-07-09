@@ -1,4 +1,4 @@
-import { ElementName, type SmartLinkSize } from '../../../../constants';
+import { type ElementName, type SmartLinkSize } from '../../../../constants';
 
 export type ElementProps = {
 	/**

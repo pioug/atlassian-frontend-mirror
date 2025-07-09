@@ -1,5 +1,15 @@
 # @atlaskit/modal-dialog
 
+## 14.2.10
+
+### Patch Changes
+
+- [#182316](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/182316)
+  [`3e3e11916be69`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3e3e11916be69) -
+  Migrated the internal usage of @atlaskit/focus-ring which uses Emotion for styling, to the new
+  version built with Compiled CSS-in-JS.
+- Updated dependencies
+
 ## 14.2.9
 
 ### Patch Changes

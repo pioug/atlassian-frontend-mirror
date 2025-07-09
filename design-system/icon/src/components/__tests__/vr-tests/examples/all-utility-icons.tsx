@@ -17,7 +17,6 @@ import { css, jsx } from '@compiled/react';
 
 import { Inline } from '@atlaskit/primitives';
 
-import type { NewCoreIconProps } from '../../../../../src/types';
 import AddIcon from '../../../../../utility/add';
 import ArrowDownIcon from '../../../../../utility/arrow-down';
 import ArrowLeftIcon from '../../../../../utility/arrow-left';
@@ -47,6 +46,7 @@ import StarStarredIcon from '../../../../../utility/star-starred';
 import StarUnstarredIcon from '../../../../../utility/star-unstarred';
 import SuccessIcon from '../../../../../utility/success';
 import WarningIcon from '../../../../../utility/warning';
+import type { NewCoreIconProps } from '../../../../../src/types';
 
 const Icons = [
 	ErrorIcon,

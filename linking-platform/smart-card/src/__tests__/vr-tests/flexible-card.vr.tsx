@@ -209,23 +209,6 @@ snapshot(FlexibleUiElementLink, {
 	},
 });
 snapshot(FlexibleUiElementLozenge, {
-	description:
-		'FlexibleUiElementLozenge Old - remove when cleaning platform-linking-visual-refresh-v2',
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
-		'platform-linking-visual-refresh-v2': false,
-	},
-	variants: [
-		{
-			name: 'light mode',
-			environment: {
-				colorScheme: 'light',
-			},
-		},
-	],
-});
-snapshot(FlexibleUiElementLozenge, {
 	description: 'FlexibleUiElementLozenge',
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
@@ -288,23 +271,6 @@ snapshot(FlexibleUiElementUserAttributes, {
 });
 
 // Hovercard
-snapshot(FlexibleUiHoverCard, {
-	drawsOutsideBounds: true,
-	states: [
-		{
-			selector: {
-				byTestId: 'smart-element-link',
-			},
-			state: 'hovered',
-		},
-	],
-	description: 'FlexibleUiHoverCard Old - remove when cleaning platform-linking-visual-refresh-v2',
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
-		'platform-linking-visual-refresh-v2': false,
-	},
-});
 snapshot(FlexibleUiHoverCard, {
 	drawsOutsideBounds: true,
 	states: [

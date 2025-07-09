@@ -3,7 +3,7 @@ import React, { type ReactNode, useCallback } from 'react';
 import { di } from 'react-magnetic-di';
 
 import { HelperMessage } from '@atlaskit/form';
-import WarningIcon from '@atlaskit/icon/core/warning';
+import StatusWarningIcon from '@atlaskit/icon/core/status-warning';
 import LegacyWarningIcon from '@atlaskit/icon/glyph/warning';
 import Link from '@atlaskit/link';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -147,7 +147,7 @@ export const WarningMessages = () => {
 		<MessageContainer>
 			<HelperMessage testId="jql-editor-warning-message">
 				<Box as="span" paddingInlineEnd="space.050">
-					<WarningIcon
+					<StatusWarningIcon
 						label=""
 						color={token('color.icon.warning', colors.Y400)}
 						LEGACY_size="small"

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import CloseIcon from '@atlaskit/icon/core/close';
-import CloseIconMigration from '@atlaskit/icon/core/migration/close--cross';
+import CrossIcon from '@atlaskit/icon/core/cross';
+import CloseIconMigration from '@atlaskit/icon/core/migration/cross';
 import LegacyCloseIcon from '@atlaskit/icon/glyph/cross';
 import { Inline, Stack } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
@@ -21,7 +21,7 @@ const IconSizeExample = () => {
 			</Inline>
 			<Inline space="space.100">
 				<RowHeader>New icon</RowHeader>
-				<CloseIcon color={token('color.icon.danger')} label="" />
+				<CrossIcon color={token('color.icon.danger')} label="" />
 			</Inline>
 		</Stack>
 	);

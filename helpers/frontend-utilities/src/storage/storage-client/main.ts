@@ -31,7 +31,10 @@ export default class StorageClient {
 		this.handlers = options?.handlers;
 
 		const storageEngine = options?.storageEngine || DEFAULT_STORAGE_ENGINE;
-		if (!Object.prototype.hasOwnProperty.call(window, storageEngine)) {
+		if (
+			typeof window === 'undefined' ||
+			!Object.prototype.hasOwnProperty.call(window, storageEngine)
+		) {
 			mockWindowStorage([storageEngine]);
 		}
 

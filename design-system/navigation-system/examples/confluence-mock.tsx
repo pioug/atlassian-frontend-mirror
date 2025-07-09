@@ -19,7 +19,7 @@ import AppsIcon from '@atlaskit/icon/core/apps';
 import BoardIcon from '@atlaskit/icon/core/board';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import ClockIcon from '@atlaskit/icon/core/clock';
-import CrossIcon from '@atlaskit/icon/core/close';
+import CrossIcon from '@atlaskit/icon/core/cross';
 import GrowDiagonalIcon from '@atlaskit/icon/core/grow-diagonal';
 import InboxIcon from '@atlaskit/icon/core/inbox';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';

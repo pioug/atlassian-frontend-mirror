@@ -13,7 +13,7 @@ import Button from '@atlaskit/button';
 import { IconButton } from '@atlaskit/button/new';
 import { pixelEntryMessages as messages } from '@atlaskit/editor-common/media';
 import Form, { Field } from '@atlaskit/form';
-import CloseIcon from '@atlaskit/icon/core/close';
+import CrossIcon from '@atlaskit/icon/core/cross';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives
 import { Inline, Box, Text, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
@@ -407,7 +407,7 @@ export const PixelEntryComponentNext = ({
 					<Fragment>
 						<Box xcss={dividerStyles}></Box>
 						<IconButton
-							icon={() => <CloseIcon label="" color={token('color.icon.subtlest')} />}
+							icon={() => <CrossIcon label="" color={token('color.icon.subtlest')} />}
 							label={formatMessage(messages.closePixelEntry)}
 							appearance="subtle"
 							onClick={() => {

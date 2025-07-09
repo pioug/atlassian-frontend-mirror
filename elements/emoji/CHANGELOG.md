@@ -1,5 +1,13 @@
 # @atlaskit/emoji
 
+## 69.3.7
+
+### Patch Changes
+
+- [#181337](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/181337)
+  [`fc751d7114e3b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fc751d7114e3b) -
+  [ux] Emoji Picker: Rename Productivity to Atlassian & productivity
+
 ## 69.3.6
 
 ### Patch Changes

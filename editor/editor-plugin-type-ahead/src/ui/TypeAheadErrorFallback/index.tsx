@@ -20,11 +20,11 @@ const minHeightComponentStyles = css({
 
 export const TypeAheadErrorFallback = () => {
 	const intl = useIntl();
-	const header = intl.formatMessage(messages.offlineErrorFallbackHeading);
-	const description = intl.formatMessage(messages.offlineErrorFallbackDesc);
+	const header = intl.formatMessage(messages.typeAheadErrorFallbackHeading);
+	const description = intl.formatMessage(messages.typeAheadErrorFallbackDesc);
 
 	return (
-		<div data-testid="mentions-typeahead-error-boundary-ui" css={minHeightComponentStyles}>
+		<div data-testid="typeahead-error-boundary-ui" css={minHeightComponentStyles}>
 			<EmptyState
 				header={header}
 				renderImage={() => <GenericErrorSVG />}

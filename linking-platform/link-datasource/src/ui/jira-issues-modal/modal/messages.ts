@@ -26,7 +26,7 @@ export const modalMessages = defineMessages({
 		id: 'linkDataSource.jira-issues.searchJiraTitle',
 		description:
 			'The initial modal search state title that gives the user some idea about how to get information',
-		defaultMessage: 'Search for Jira issues',
+		defaultMessage: 'Search for Jira work items',
 	},
 	// delete and remove duplicate from title above once EDM-9407 is merged
 	searchJiraTitle: {
@@ -39,14 +39,14 @@ export const modalMessages = defineMessages({
 		id: 'linkDataSource.jira-issues.searchDescription-basic',
 		description:
 			'The initial modal search state helper message displayed under the search title when basic search mode is selected',
-		defaultMessage: 'Search by keyword for issues to insert.',
+		defaultMessage: 'Search by keyword for work items to insert.',
 	},
 	// delete and remove duplicate from title above once EDM-9407 is merged
 	searchDescriptionForJiraBasicSearch: {
 		id: 'linkDataSource.modal-initial-state.searchDescription-basic',
 		description:
 			'The initial modal search state helper message displayed under the search title when basic search mode is selected',
-		defaultMessage: 'Search by keyword for issues to insert.',
+		defaultMessage: 'Search by keyword for work items to insert.',
 	},
 	searchDescriptionForJiraJQLSearchDuplicate: {
 		id: 'linkDataSource.jira-issues.searchDescription-jql',

@@ -158,7 +158,7 @@ export const overviewMessages = defineMessages({
 	},
 	inlineDialogContentCreatedSelf: {
 		id: 'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self',
-		defaultMessage: "For example, pages, issues, and comments you've created in products.",
+		defaultMessage: "For example, pages, work items, and comments you've created in products.",
 		description:
 			'Examples of what constitutes as created content. Appears when the user hovers over the info icon',
 	},
@@ -261,7 +261,7 @@ export const overviewMessages = defineMessages({
 	inlineDialogDataWillBeDeletedP2Admin: {
 		id: 'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.admin',
 		defaultMessage:
-			'We don’t delete any personal data from content created by users, such as names or email addresses they typed in a page or issue. The product admins need to delete that data manually.',
+			'We don’t delete any personal data from content created by users, such as names or email addresses they typed in a page or work item. The product admins need to delete that data manually.',
 		description:
 			'Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes.',
 	},
@@ -269,7 +269,7 @@ export const overviewMessages = defineMessages({
 	inlineDialogDataWillBeDeletedP2Self: {
 		id: 'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.self',
 		defaultMessage:
-			"We don't delete any personal data from content created by you or other people, such as names or email addresses typed into a page or issue. Your product admins need to delete that data manually.",
+			"We don't delete any personal data from content created by you or other people, such as names or email addresses typed into a page or work item. Your product admins need to delete that data manually.",
 		description:
 			'Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes.',
 	},

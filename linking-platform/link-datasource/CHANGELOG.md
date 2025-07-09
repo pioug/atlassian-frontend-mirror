@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 4.12.2
+
+### Patch Changes
+
+- [#181940](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/181940)
+  [`1a11f9510529b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a11f9510529b) -
+  Replaced issue term with work item and updated tests
+
 ## 4.12.1
 
 ### Patch Changes

@@ -7,7 +7,6 @@ import { useState } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
-import FocusRing from '@atlaskit/focus-ring';
 import { Label } from '@atlaskit/form';
 import {
 	BitbucketIcon,
@@ -79,32 +78,30 @@ export default () => {
 					})}
 				>
 					<Label htmlFor="resize-text">Resize</Label>
-					<FocusRing isInset>
-						<input
-							id="resize-text"
-							type="text"
-							readOnly
-							value={searchTerm[`s${num}`]}
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-							css={css({
-								display: 'block',
-								boxSizing: 'border-box',
-								width: '100%',
-								border: 'none',
-								borderRadius: `${token('border.radius', '3px')} ${token('border.radius', '3px')} 0 0`,
-								color: '#172b4d',
-								fontSize: '24px',
-								marginBlockEnd: token('space.100', '8px'),
-								paddingBlockEnd: token('space.200', '16px'),
-								paddingBlockStart: token('space.200', '16px'),
-								paddingInlineEnd: token('space.200', '16px'),
-								paddingInlineStart: token('space.200', '16px'),
-								'&:hover': {
-									backgroundColor: token('color.background.neutral.subtle.hovered'),
-								},
-							})}
-						/>
-					</FocusRing>
+					<input
+						id="resize-text"
+						type="text"
+						readOnly
+						value={searchTerm[`s${num}`]}
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+						css={css({
+							display: 'block',
+							boxSizing: 'border-box',
+							width: '100%',
+							border: 'none',
+							borderRadius: `${token('border.radius', '3px')} ${token('border.radius', '3px')} 0 0`,
+							color: '#172b4d',
+							fontSize: '24px',
+							marginBlockEnd: token('space.100', '8px'),
+							paddingBlockEnd: token('space.200', '16px'),
+							paddingBlockStart: token('space.200', '16px'),
+							paddingInlineEnd: token('space.200', '16px'),
+							paddingInlineStart: token('space.200', '16px'),
+							'&:hover': {
+								backgroundColor: token('color.background.neutral.subtle.hovered'),
+							},
+						})}
+					/>
 					<StaggeredEntrance columns={1}>
 						{Array(num)
 							.fill(undefined)

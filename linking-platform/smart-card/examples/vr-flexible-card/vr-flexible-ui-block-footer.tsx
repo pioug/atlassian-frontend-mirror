@@ -11,7 +11,7 @@ import { SmartCardProvider } from '@atlaskit/link-provider';
 import { token } from '@atlaskit/tokens';
 
 import { type ActionItem } from '../../src';
-import { SmartLinkSize, SmartLinkStatus } from '../../src/constants';
+import { SmartLinkSize, type SmartLinkStatus } from '../../src/constants';
 import FlexibleCard from '../../src/view/FlexibleCard';
 import { FooterBlock } from '../../src/view/FlexibleCard/components/blocks';
 import {

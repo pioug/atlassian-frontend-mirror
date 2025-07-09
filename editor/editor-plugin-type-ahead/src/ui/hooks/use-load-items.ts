@@ -1,11 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
 
-import type { TypeAheadHandler, TypeAheadItem } from '@atlaskit/editor-common/types';
+import type {
+	ExtractInjectionAPI,
+	TypeAheadHandler,
+	TypeAheadItem,
+} from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
+import { clearListError } from '../../pm-plugins/commands/clear-list-error';
 import { updateListError } from '../../pm-plugins/commands/update-list-error';
 import { updateListItem } from '../../pm-plugins/commands/update-list-items';
+import type { TypeAheadPlugin } from '../../typeAheadPluginType';
 
 const EMPTY_LIST_ITEM: Array<TypeAheadItem> = [];
 export const useLoadItems = (
@@ -13,6 +19,7 @@ export const useLoadItems = (
 	editorView: EditorView,
 	query: string,
 	showViewMore?: boolean,
+	api?: ExtractInjectionAPI<TypeAheadPlugin> | undefined,
 ): Array<TypeAheadItem> => {
 	const [items, setItems] = useState<Array<TypeAheadItem>>(EMPTY_LIST_ITEM);
 	const componentIsMounted = useRef(true);
@@ -31,6 +38,14 @@ export const useLoadItems = (
 		};
 
 		const { current: view } = editorViewRef;
+
+		if (editorExperiment('platform_editor_offline_editing_web', true)) {
+			// Clear any existing error state before making a new request
+			queueMicrotask(() => {
+				api?.core.actions.execute(clearListError());
+			});
+		}
+
 		getItems(options)
 			.then((result) => {
 				const list = result.length > 0 ? result : EMPTY_LIST_ITEM;

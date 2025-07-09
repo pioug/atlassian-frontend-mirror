@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-provider",
-	"version": "3.4.0",
+	"version": "3.4.1",
 	"description": "Contains provider with react context for anything link related and the link http client",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -68,6 +68,9 @@
 			"type": "boolean"
 		},
 		"gryf-5548_smart_card_provider_merge_props": {
+			"type": "boolean"
+		},
+		"platform_linking_force_no_cache_smart_card_client": {
 			"type": "boolean"
 		}
 	},

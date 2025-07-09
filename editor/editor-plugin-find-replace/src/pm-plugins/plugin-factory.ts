@@ -3,6 +3,8 @@ import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import type { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { FindReplacePluginState, Match } from '../types';
 
@@ -11,6 +13,7 @@ import { findReplacePluginKey } from './plugin-key';
 import reducer from './reducer';
 import {
 	createDecorations,
+	findClosestMatch,
 	findDecorationFromMatch,
 	findMatches,
 	findSearchIndex,
@@ -117,7 +120,11 @@ const handleDocChanged = (
 		newIndex = newMatches.findIndex((match) => match.start === selectedMatch.start);
 	}
 	if (newIndex === undefined || newIndex === -1) {
-		newIndex = findSearchIndex(tr.selection.from, newMatches);
+		newIndex =
+			expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true) &&
+			fg('platform_editor_find_and_replace_improvements_1')
+				? findClosestMatch(tr.selection.from, newMatches)
+				: findSearchIndex(tr.selection.from, newMatches);
 	}
 	const newSelectedMatch = newMatches[newIndex];
 

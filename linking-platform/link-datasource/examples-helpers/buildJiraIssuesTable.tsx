@@ -5,7 +5,7 @@ import { SmartCardProvider } from '@atlaskit/link-provider';
 import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
 import { type DatasourceParameters } from '@atlaskit/linking-types';
 
-import { DatasourceTableView } from '../src';
+import { type DatasourceTableView } from '../src';
 import { fetchMessagesForLocale } from '../src/common/utils/locale/fetch-messages-for-locale';
 import { DatasourceExperienceIdProvider } from '../src/contexts/datasource-experience-id';
 import { DataSourceTableViewNoSuspense } from '../src/ui/datasource-table-view/datasourceTableView';

@@ -123,22 +123,6 @@ snapshot(VRInlineProfileCard, {
 	],
 });
 
-snapshot(VRInlineProfileCard, {
-	description: 'inline profile card with platform-linking-visual-refresh-v2 false',
-	featureFlags: {
-		'platform-linking-flexible-card-context': true,
-		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-linking-visual-refresh-v2': false,
-	},
-	drawsOutsideBounds: true,
-	states: [
-		{
-			state: 'hovered',
-			selector: { byTestId: 'hover-card-trigger-wrapper' },
-		},
-	],
-});
-
 // ################################################################
 // ||                                                            ||
 // ||                    Related Links Modal                     ||
@@ -166,7 +150,7 @@ snapshot(RelatedLinksResolvedView, {
 	featureFlags: {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-linking-visual-refresh-v2': [true, false],
+		'platform-linking-visual-refresh-v2': true,
 	},
 });
 
@@ -191,7 +175,7 @@ snapshot(RelatedLinksResolvedViewWithEmptyList, {
 	featureFlags: {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-linking-visual-refresh-v2': [true, false],
+		'platform-linking-visual-refresh-v2': true,
 	},
 });
 
@@ -304,7 +288,7 @@ snapshot(HoverCardAssignedJiraIssue, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': true,
-		'platform-linking-visual-refresh-v2': [true, false],
+		'platform-linking-visual-refresh-v2': true,
 	},
 });
 
@@ -316,7 +300,7 @@ snapshot(HoverCardUnassignedJiraIssue, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': true,
-		'platform-linking-visual-refresh-v2': [true, false],
+		'platform-linking-visual-refresh-v2': true,
 	},
 });
 
@@ -509,7 +493,7 @@ snapshot(HoverCardActions, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': true,
-		'platform-linking-visual-refresh-v2': [true, false],
+		'platform-linking-visual-refresh-v2': true,
 	},
 });
 
@@ -526,7 +510,7 @@ snapshot(HoverCardActions, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': true,
-		'platform-linking-visual-refresh-v2': [true, false],
+		'platform-linking-visual-refresh-v2': true,
 	},
 });
 
@@ -842,25 +826,6 @@ snapshot(FlexibleUiElementLink, {
 	},
 });
 snapshot(FlexibleUiElementLozenge, {
-	description:
-		'FlexibleUiElementLozenge Old - remove when cleaning platform-linking-visual-refresh-v2',
-	featureFlags: {
-		'platform-linking-flexible-card-context': true,
-		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
-		'platform-linking-visual-refresh-v2': false,
-	},
-	variants: [
-		{
-			name: 'light mode',
-			environment: {
-				colorScheme: 'light',
-			},
-		},
-	],
-});
-snapshot(FlexibleUiElementLozenge, {
 	description: 'FlexibleUiElementLozenge',
 	featureFlags: {
 		'platform-linking-flexible-card-context': true,
@@ -919,25 +884,6 @@ snapshot(FlexibleUiElementMedia, {
 });
 
 // Hovercard
-snapshot(FlexibleUiHoverCard, {
-	drawsOutsideBounds: true,
-	states: [
-		{
-			selector: {
-				byTestId: 'smart-element-link',
-			},
-			state: 'hovered',
-		},
-	],
-	description: 'FlexibleUiHoverCard Old - remove when cleaning platform-linking-visual-refresh-v2',
-	featureFlags: {
-		'platform-linking-flexible-card-context': true,
-		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
-		'platform-linking-visual-refresh-v2': false,
-	},
-});
 snapshot(FlexibleUiHoverCard, {
 	drawsOutsideBounds: true,
 	states: [
@@ -1210,7 +1156,7 @@ snapshot(BlockCardJira, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': true,
-		'platform-linking-visual-refresh-v2': [true, false],
+		'platform-linking-visual-refresh-v2': true,
 	},
 });
 snapshot(BlockCardConfluence, {
@@ -1355,41 +1301,11 @@ snapshot(VRBlockProfileCard, {
 	},
 });
 
-snapshot(VRBlockProfileCard, {
-	description: 'block profile card with platform-linking-visual-refresh-v2 false',
-	featureFlags: {
-		'platform-linking-flexible-card-context': true,
-		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-linking-visual-refresh-v2': false,
-	},
-});
-
 // ################################################################
 // ||                                                            ||
 // ||                  Flex Ui Block AI Summary                  ||
 // ||                                                            ||
 // ################################################################
-
-snapshot(FlexUiBlockAiSummaryReady, {
-	drawsOutsideBounds: true,
-	states: [
-		{
-			selector: {
-				byTestId: 'smart-element-link',
-			},
-			state: 'hovered',
-		},
-	],
-	description:
-		'FlexUiBlockAiSummaryReady Old - remove when cleaning platform-linking-visual-refresh-v2',
-	featureFlags: {
-		'platform-linking-flexible-card-context': true,
-		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
-		'platform-linking-visual-refresh-v2': false,
-	},
-});
 snapshot(FlexUiBlockAiSummaryReady, {
 	drawsOutsideBounds: true,
 	states: [
@@ -1420,26 +1336,6 @@ snapshot(FlexUiBlockAiSummaryLoading, {
 			state: 'hovered',
 		},
 	],
-	description:
-		'FlexUiBlockAiSummaryLoading Old - remove when cleaning platform-linking-visual-refresh-v2',
-	featureFlags: {
-		'platform-linking-flexible-card-context': true,
-		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
-		'platform-linking-visual-refresh-v2': false,
-	},
-});
-snapshot(FlexUiBlockAiSummaryLoading, {
-	drawsOutsideBounds: true,
-	states: [
-		{
-			selector: {
-				byTestId: 'smart-element-link',
-			},
-			state: 'hovered',
-		},
-	],
 	description: 'FlexUiBlockAiSummaryLoading',
 	featureFlags: {
 		'platform-linking-flexible-card-context': true,
@@ -1447,27 +1343,6 @@ snapshot(FlexUiBlockAiSummaryLoading, {
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': true,
-	},
-});
-
-snapshot(FlexUiBlockAiSummaryDone, {
-	drawsOutsideBounds: true,
-	states: [
-		{
-			selector: {
-				byTestId: 'smart-element-link',
-			},
-			state: 'hovered',
-		},
-	],
-	description:
-		'FlexUiBlockAiSummaryDone Old - remove when cleaning platform-linking-visual-refresh-v2',
-	featureFlags: {
-		'platform-linking-flexible-card-context': true,
-		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
-		'platform-linking-visual-refresh-v2': false,
 	},
 });
 
@@ -1501,26 +1376,6 @@ snapshot(FlexUiBlockAiSummaryDoneOnMount, {
 			state: 'hovered',
 		},
 	],
-	description:
-		'FlexUiBlockAiSummaryDoneOnMount Old - remove when cleaning platform-linking-visual-refresh-v2',
-	featureFlags: {
-		'platform-linking-flexible-card-context': true,
-		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
-		'platform-linking-visual-refresh-v2': false,
-	},
-});
-snapshot(FlexUiBlockAiSummaryDoneOnMount, {
-	drawsOutsideBounds: true,
-	states: [
-		{
-			selector: {
-				byTestId: 'smart-element-link',
-			},
-			state: 'hovered',
-		},
-	],
 	description: 'FlexUiBlockAiSummaryDoneOnMount',
 	featureFlags: {
 		'platform-linking-flexible-card-context': true,
@@ -1531,26 +1386,6 @@ snapshot(FlexUiBlockAiSummaryDoneOnMount, {
 	},
 });
 
-snapshot(FlexUiBlockAiSummaryError, {
-	drawsOutsideBounds: true,
-	states: [
-		{
-			selector: {
-				byTestId: 'smart-element-link',
-			},
-			state: 'hovered',
-		},
-	],
-	description:
-		'FlexUiBlockAiSummaryError Old - remove when cleaning platform-linking-visual-refresh-v2',
-	featureFlags: {
-		'platform-linking-flexible-card-context': true,
-		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
-		'platform-linking-visual-refresh-v2': false,
-	},
-});
 snapshot(FlexUiBlockAiSummaryError, {
 	drawsOutsideBounds: true,
 	states: [

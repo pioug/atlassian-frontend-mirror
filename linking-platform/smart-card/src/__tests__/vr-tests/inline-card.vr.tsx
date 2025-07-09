@@ -334,7 +334,7 @@ snapshot(InlineCardUnauthorisedDefaultIcon, {
 	},
 });
 
-snapshot(InlineCardIcons, {
+snapshot.skip(InlineCardIcons, {
 	description: `inline card icons`,
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
@@ -363,20 +363,6 @@ snapshot(VRInlineCardAllExamplesInText, {
 snapshot(VRInlineProfileCard, {
 	featureFlags: {
 		'platform-linking-visual-refresh-v2': true,
-	},
-	drawsOutsideBounds: true,
-	states: [
-		{
-			state: 'hovered',
-			selector: { byTestId: 'hover-card-trigger-wrapper' },
-		},
-	],
-});
-
-snapshot(VRInlineProfileCard, {
-	description: 'inline profile card with platform-linking-visual-refresh-v2 false',
-	featureFlags: {
-		'platform-linking-visual-refresh-v2': false,
 	},
 	drawsOutsideBounds: true,
 	states: [

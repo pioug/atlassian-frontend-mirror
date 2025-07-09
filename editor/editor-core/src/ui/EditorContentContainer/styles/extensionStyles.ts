@@ -266,6 +266,17 @@ export const extensionStyles = css({
 			'&.danger > span > div > .extension-label > span': {
 				display: 'inline',
 			},
+			/** Targets legacy content header in LCM extension */
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'&.danger > span > .legacy-content-header': {
+				boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+				backgroundColor: `${token('color.background.danger')}`,
+
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+				'& .status-lozenge-span > span': {
+					backgroundColor: `${token('color.background.accent.red.subtle.hovered')}`,
+				},
+			},
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 			'&:not(.danger).ak-editor-selected-node > span > div .extension-label > span': {
 				display: 'inline',

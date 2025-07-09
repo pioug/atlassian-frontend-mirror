@@ -1,5 +1,37 @@
 # @atlaskit/editor-common
 
+## 107.7.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 107.7.1
+
+### Patch Changes
+
+- [#179943](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/179943)
+  [`3ecd2fde1b7b2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3ecd2fde1b7b2) -
+  [ux] [EDITOR-981] Update extension to use new LegacyContentHeader behind fg
+  'platform_editor_legacy_content_macro_visual_update'
+- Updated dependencies
+
+## 107.7.0
+
+### Minor Changes
+
+- [#182161](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/182161)
+  [`dcf2f7bd931a8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dcf2f7bd931a8) -
+  feat: add useSharedStateWithSelector to editor-common
+
+### Patch Changes
+
+- [#181781](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/181781)
+  [`e0060cc2c2eb7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e0060cc2c2eb7) -
+  ED-28417 Offline Editing: Update the type ahead error to clear on new requests, and make error
+  more generic.
+- Updated dependencies
+
 ## 107.6.1
 
 ### Patch Changes

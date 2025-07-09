@@ -79,15 +79,15 @@ export const typeAheadListMessages = defineMessages({
 		defaultMessage: 'Text shortcut',
 		description: 'Text shortcut',
 	},
-	offlineErrorFallbackHeading: {
-		id: 'fabric.editor.offlineErrorFallbackHeading',
+	typeAheadErrorFallbackHeading: {
+		id: 'fabric.editor.typeAheadErrorFallbackHeading',
 		defaultMessage: 'Something went wrong!',
-		description: 'heading for offline error fallback when mentions are not available',
+		description: 'Error message heading shown when typeahead items fail to load',
 	},
-	offlineErrorFallbackDesc: {
-		id: 'fabric.editor.offlineErrorFallbackDescription',
-		defaultMessage: 'Try reloading the page.',
-		description: 'description for offline error fallback when mentions are not available',
+	typeAheadErrorFallbackDesc: {
+		id: 'fabric.editor.typeAheadErrorFallbackDescription',
+		defaultMessage: 'Please try again.',
+		description: 'Error message description shown when typeahead items fail to load',
 	},
 	viewAllInserts: {
 		id: 'fablric.editor.viewAllInserts',

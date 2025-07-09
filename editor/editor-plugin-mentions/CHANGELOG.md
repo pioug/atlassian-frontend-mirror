@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-mentions
 
+## 5.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.1.0
+
+### Minor Changes
+
+- [#181692](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/181692)
+  [`919d15a436698`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/919d15a436698) -
+  Add insertMention API to mentions so that consumers can create mentions from a toolbar.
+
 ## 5.0.0
 
 ### Major Changes

@@ -1,5 +1,13 @@
 # @af/frontend-utilities
 
+## 3.1.0
+
+### Minor Changes
+
+- [#181656](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/181656)
+  [`3ded7672db3a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3ded7672db3a6) -
+  Enhance StorageClient to handle non-browser environments
+
 ## 3.0.0
 
 ### Major Changes

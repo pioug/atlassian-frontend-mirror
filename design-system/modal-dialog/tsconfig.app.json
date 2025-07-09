@@ -47,9 +47,6 @@
 			"path": "../ds-lib/tsconfig.app.json"
 		},
 		{
-			"path": "../focus-ring/tsconfig.app.json"
-		},
-		{
 			"path": "../icon/tsconfig.app.json"
 		},
 		{

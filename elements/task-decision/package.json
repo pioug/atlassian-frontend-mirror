@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/task-decision",
-	"version": "19.2.5",
+	"version": "19.2.6",
 	"description": "Tasks and decisions react components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -90,11 +90,6 @@
 			"styling": [
 				"compiled"
 			]
-		}
-	},
-	"platform-feature-flags": {
-		"editor_a11y_group_around_action_items": {
-			"type": "boolean"
 		}
 	}
 }

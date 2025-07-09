@@ -1,7 +1,7 @@
 import React from 'react';
 
-import InfoIcon from '@atlaskit/icon/core/information';
 import InfoIconMigration from '@atlaskit/icon/core/migration/information--info';
+import StatusInfoIcon from '@atlaskit/icon/core/status-information';
 import LegacyInfoIcon from '@atlaskit/icon/glyph/info';
 import { Inline, Stack } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
@@ -31,7 +31,7 @@ const IconSecondaryColorExample = () => {
 			</Inline>
 			<Inline space="space.100">
 				<RowHeader>New icon</RowHeader>
-				<InfoIcon color={token('color.icon.selected')} label="" />
+				<StatusInfoIcon color={token('color.icon.selected')} label="" />
 			</Inline>
 		</Stack>
 	);

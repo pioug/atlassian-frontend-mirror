@@ -5,45 +5,45 @@
 
 import React, { forwardRef, useEffect, useRef, useState } from 'react';
 
-import { css, jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
 import rafSchedule from 'raf-schd';
 
+import { cssMap, cx, jsx } from '@atlaskit/css';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import noop from '@atlaskit/ds-lib/noop';
 import useLazyCallback from '@atlaskit/ds-lib/use-lazy-callback';
-import FocusRing from '@atlaskit/focus-ring';
+import { Focusable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 const keylineColor = token('color.border');
 
-const baseStyles = css({
-	display: 'inherit',
-	flex: 'inherit',
-	flexDirection: 'inherit',
-	flexGrow: 1,
-	marginBlockEnd: token('space.0'),
-	marginBlockStart: token('space.0'),
-	marginInlineEnd: token('space.0'),
-	marginInlineStart: token('space.0'),
-	overflowX: 'hidden',
-	overflowY: 'auto',
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-	'@media (min-width: 30rem)': {
-		height: 'unset',
+const styles = cssMap({
+	base: {
+		display: 'inherit',
+		flex: 'inherit',
+		flexDirection: 'inherit',
+		flexGrow: 1,
+		marginBlockEnd: token('space.0'),
+		marginBlockStart: token('space.0'),
+		marginInlineEnd: token('space.0'),
+		marginInlineStart: token('space.0'),
+		overflowX: 'hidden',
 		overflowY: 'auto',
+		'@media (min-width: 30rem)': {
+			// @ts-ignore
+			height: 'unset',
+			overflowY: 'auto',
+		},
+	},
+	topKeyline: {
+		borderBlockStart: `${token('border.width.outline')} solid ${keylineColor}`,
+	},
+	bottomKeyline: {
+		borderBlockEnd: `${token('border.width.outline')} solid ${keylineColor}`,
 	},
 });
 
 const keylineHeight = 2;
-
-const topKeylineStyles = css({
-	borderBlockStart: `${token('border.width.outline')} solid ${keylineColor}`,
-});
-
-const bottomKeylineStyles = css({
-	borderBlockEnd: `${token('border.width.outline')} solid ${keylineColor}`,
-});
 
 interface ScrollContainerProps {
 	/**
@@ -121,24 +121,24 @@ const ScrollContainer = forwardRef<HTMLElement | null, ScrollContainerProps>(
 		}, [setLazyKeylines]);
 
 		return (
-			<FocusRing isInset>
-				<div
-					// tabindex is allowed here so that keyboard users can scroll content
-					// eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-					tabIndex={showContentFocus ? 0 : undefined}
-					role={showContentFocus ? 'region' : undefined}
-					aria-label={showContentFocus ? 'Scrollable content' : undefined}
-					data-testid={testId && `${testId}--scrollable`}
-					ref={mergeRefs([ref, scrollableRef])}
-					css={[
-						baseStyles,
-						showTopKeyline && topKeylineStyles,
-						showBottomKeyline && bottomKeylineStyles,
-					]}
-				>
-					{children}
-				</div>
-			</FocusRing>
+			<Focusable
+				as="div"
+				isInset
+				// tabindex is allowed here so that keyboard users can scroll content
+				// eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+				tabIndex={showContentFocus ? 0 : undefined}
+				role={showContentFocus ? 'region' : undefined}
+				aria-label={showContentFocus ? 'Scrollable content' : undefined}
+				testId={testId && `${testId}--scrollable`}
+				ref={mergeRefs([ref, scrollableRef])}
+				xcss={cx(
+					styles.base,
+					showTopKeyline && styles.topKeyline,
+					showBottomKeyline && styles.bottomKeyline,
+				)}
+			>
+				{children}
+			</Focusable>
 		);
 	},
 );

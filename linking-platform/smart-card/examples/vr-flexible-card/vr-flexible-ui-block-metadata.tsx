@@ -10,7 +10,7 @@ import { SmartCardProvider } from '@atlaskit/link-provider';
 import { token } from '@atlaskit/tokens';
 
 import { type ElementItem, ElementName, MetadataBlock, SmartLinkSize } from '../../src';
-import { SmartLinkStatus } from '../../src/constants';
+import { type SmartLinkStatus } from '../../src/constants';
 import FlexibleCard from '../../src/view/FlexibleCard';
 import { getCardState } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';

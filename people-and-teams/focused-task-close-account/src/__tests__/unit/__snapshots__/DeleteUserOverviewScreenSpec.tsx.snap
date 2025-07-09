@@ -84,7 +84,7 @@ exports[`accessibleSites display text displayed is different when no accessibleS
                   tagName="li"
                 />
                 <Memo(MemoizedFormattedMessage)
-                  defaultMessage="We don’t delete any personal data from content created by users, such as names or email addresses they typed in a page or issue. The product admins need to delete that data manually."
+                  defaultMessage="We don’t delete any personal data from content created by users, such as names or email addresses they typed in a page or work item. The product admins need to delete that data manually."
                   description="Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes."
                   id="focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.admin"
                   tagName="p"
@@ -272,7 +272,7 @@ exports[`accessibleSites display text displayed is different when no accessibleS
                   tagName="li"
                 />
                 <Memo(MemoizedFormattedMessage)
-                  defaultMessage="We don't delete any personal data from content created by you or other people, such as names or email addresses typed into a page or issue. Your product admins need to delete that data manually."
+                  defaultMessage="We don't delete any personal data from content created by you or other people, such as names or email addresses typed into a page or work item. Your product admins need to delete that data manually."
                   description="Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes."
                   id="focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.self"
                   tagName="p"
@@ -330,7 +330,7 @@ exports[`accessibleSites display text displayed is different when no accessibleS
           <StatefulInlineDialog
             content={
               <Memo(MemoizedFormattedMessage)
-                defaultMessage="For example, pages, issues, and comments you've created in products."
+                defaultMessage="For example, pages, work items, and comments you've created in products."
                 description="Examples of what constitutes as created content. Appears when the user hovers over the info icon"
                 id="focused-task-close-account.delete-account.overview.inline-dialog.content-created.self"
               />
@@ -472,7 +472,7 @@ exports[`deactivateUserHandler display warning section is not displayed if the d
                   tagName="li"
                 />
                 <Memo(MemoizedFormattedMessage)
-                  defaultMessage="We don’t delete any personal data from content created by users, such as names or email addresses they typed in a page or issue. The product admins need to delete that data manually."
+                  defaultMessage="We don’t delete any personal data from content created by users, such as names or email addresses they typed in a page or work item. The product admins need to delete that data manually."
                   description="Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes."
                   id="focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.admin"
                   tagName="p"
@@ -621,7 +621,7 @@ exports[`delete screen display content is different when user is deactivated 1`]
                   tagName="li"
                 />
                 <Memo(MemoizedFormattedMessage)
-                  defaultMessage="We don’t delete any personal data from content created by users, such as names or email addresses they typed in a page or issue. The product admins need to delete that data manually."
+                  defaultMessage="We don’t delete any personal data from content created by users, such as names or email addresses they typed in a page or work item. The product admins need to delete that data manually."
                   description="Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes."
                   id="focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.admin"
                   tagName="p"

@@ -160,6 +160,9 @@
 			"path": "../../design-system/spinner/tsconfig.app.json"
 		},
 		{
+			"path": "../../elements/status/tsconfig.app.json"
+		},
+		{
 			"path": "../../elements/task-decision/tsconfig.app.json"
 		},
 		{

@@ -12,7 +12,7 @@ jest.mock('../simultaneousPlayManager');
 jest.mock('@atlaskit/width-detector');
 import { asMock, asMockFunction } from '@atlaskit/media-common/test-helpers';
 import { fakeIntl } from '../../test-helpers';
-import { WidthObserver } from '@atlaskit/width-detector';
+import { type WidthObserver } from '@atlaskit/width-detector';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import React from 'react';
 import { CustomMediaPlayerBase, type CustomMediaPlayerProps } from '..';

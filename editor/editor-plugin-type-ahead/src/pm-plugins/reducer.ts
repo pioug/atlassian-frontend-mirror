@@ -155,6 +155,7 @@ export const createReducer = ({
 		const shouldUpdateListItems = action === ACTIONS.UPDATE_LIST_ITEMS;
 		const shouldUpdateListError = action === ACTIONS.UPDATE_LIST_ERROR;
 		const shouldUpdateSelectedIndex = action === ACTIONS.UPDATE_SELECTED_INDEX;
+		const shouldClearListError = action === ACTIONS.CLEAR_LIST_ERROR;
 
 		if (shouldOpenMenu) {
 			return openMenu(currentPluginState, {
@@ -196,6 +197,11 @@ export const createReducer = ({
 			return {
 				...currentPluginState,
 				selectedIndex: params.selectedIndex,
+			};
+		} else if (shouldClearListError) {
+			return {
+				...currentPluginState,
+				errorInfo: null,
 			};
 		}
 

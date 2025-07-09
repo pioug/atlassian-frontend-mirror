@@ -147,6 +147,9 @@
 			"path": "../../../design-system/spinner/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../../elements/status/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../elements/task-decision/afm-post-office/tsconfig.json"
 		},
 		{

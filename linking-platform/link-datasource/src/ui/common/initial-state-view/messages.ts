@@ -5,7 +5,7 @@ export const initialStateViewMessages = defineMessages({
 		id: 'linkDataSource.modal-initial-state.jiraSearchTitle',
 		description:
 			'The initial modal search state title that gives the user some idea about how to get information',
-		defaultMessage: 'Search for Jira issues',
+		defaultMessage: 'Search for Jira work items',
 	},
 	beta: {
 		id: 'linkDataSource.modal-initial-state.beta',
@@ -18,7 +18,7 @@ export const initialStateViewMessages = defineMessages({
 		id: 'linkDataSource.modal-initial-state.searchTitle',
 		description:
 			'The initial modal search state title that gives the user some idea about how to get information',
-		defaultMessage: 'Search for Jira issues',
+		defaultMessage: 'Search for Jira work items',
 	},
 	searchDescriptionForBasicSearch: {
 		id: 'linkDataSource.modal-initial-state.searchDescription-basic',

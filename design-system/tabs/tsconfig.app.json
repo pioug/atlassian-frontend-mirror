@@ -35,9 +35,6 @@
 			"path": "../../analytics/analytics-next/tsconfig.app.json"
 		},
 		{
-			"path": "../focus-ring/tsconfig.app.json"
-		},
-		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{

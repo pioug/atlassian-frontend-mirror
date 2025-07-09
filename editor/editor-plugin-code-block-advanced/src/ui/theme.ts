@@ -49,10 +49,13 @@ export const cmTheme = CodeMirror.theme({
 	'&.cm-focused .cm-cursor': {
 		borderLeftColor: token('color.text'),
 	},
+	'.cm-gutter': {
+		padding: token('space.100'),
+	},
 	'.cm-gutters': {
 		backgroundColor: token('color.background.neutral'),
 		border: 'none',
-		padding: token('space.100'),
+		padding: token('space.0'),
 		color: token('color.text.subtlest'),
 	},
 	'.cm-lineNumbers .cm-gutterElement': {

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import { MediaClient } from '@atlaskit/media-client';
+import { type MediaClient } from '@atlaskit/media-client';
 
 import { MediaContext } from './MediaProvider';
 import type { MediaParsedSettings } from './mediaSettings';

@@ -12,7 +12,7 @@ import { type ResponseFileItem } from '../../client/media-store/types';
 import type { FileIdentifier } from '../../identifier';
 
 import { type PartialResponseFileItem } from './types';
-import { CommonMediaClientError, fromCommonMediaClientError } from '../../models/errors';
+import { type CommonMediaClientError, fromCommonMediaClientError } from '../../models/errors';
 import { createServerUnauthorizedError } from '../mediaClientErrors';
 
 // --------------------------------------------------------

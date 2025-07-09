@@ -16,24 +16,6 @@ snapshot(FlexUiBlockAiSummaryReady, {
 			state: 'hovered',
 		},
 	],
-	description:
-		'FlexUiBlockAiSummaryReady Old - remove when cleaning platform-linking-visual-refresh-v2',
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
-		'platform-linking-visual-refresh-v2': false,
-	},
-});
-snapshot(FlexUiBlockAiSummaryReady, {
-	drawsOutsideBounds: true,
-	states: [
-		{
-			selector: {
-				byTestId: 'smart-element-link',
-			},
-			state: 'hovered',
-		},
-	],
 	description: 'FlexUiBlockAiSummaryReady',
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
@@ -52,48 +34,11 @@ snapshot(FlexUiBlockAiSummaryLoading, {
 			state: 'hovered',
 		},
 	],
-	description:
-		'FlexUiBlockAiSummaryLoading Old - remove when cleaning platform-linking-visual-refresh-v2',
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
-		'platform-linking-visual-refresh-v2': false,
-	},
-});
-snapshot(FlexUiBlockAiSummaryLoading, {
-	drawsOutsideBounds: true,
-	states: [
-		{
-			selector: {
-				byTestId: 'smart-element-link',
-			},
-			state: 'hovered',
-		},
-	],
 	description: 'FlexUiBlockAiSummaryLoading',
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': true,
-	},
-});
-
-snapshot(FlexUiBlockAiSummaryDone, {
-	drawsOutsideBounds: true,
-	states: [
-		{
-			selector: {
-				byTestId: 'smart-element-link',
-			},
-			state: 'hovered',
-		},
-	],
-	description:
-		'FlexUiBlockAiSummaryDone Old - remove when cleaning platform-linking-visual-refresh-v2',
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
-		'platform-linking-visual-refresh-v2': false,
 	},
 });
 
@@ -125,24 +70,6 @@ snapshot(FlexUiBlockAiSummaryDoneOnMount, {
 			state: 'hovered',
 		},
 	],
-	description:
-		'FlexUiBlockAiSummaryDoneOnMount Old - remove when cleaning platform-linking-visual-refresh-v2',
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
-		'platform-linking-visual-refresh-v2': false,
-	},
-});
-snapshot(FlexUiBlockAiSummaryDoneOnMount, {
-	drawsOutsideBounds: true,
-	states: [
-		{
-			selector: {
-				byTestId: 'smart-element-link',
-			},
-			state: 'hovered',
-		},
-	],
 	description: 'FlexUiBlockAiSummaryDoneOnMount',
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
@@ -151,24 +78,6 @@ snapshot(FlexUiBlockAiSummaryDoneOnMount, {
 	},
 });
 
-snapshot(FlexUiBlockAiSummaryError, {
-	drawsOutsideBounds: true,
-	states: [
-		{
-			selector: {
-				byTestId: 'smart-element-link',
-			},
-			state: 'hovered',
-		},
-	],
-	description:
-		'FlexUiBlockAiSummaryError Old - remove when cleaning platform-linking-visual-refresh-v2',
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
-		'platform-linking-visual-refresh-v2': false,
-	},
-});
 snapshot(FlexUiBlockAiSummaryError, {
 	drawsOutsideBounds: true,
 	states: [

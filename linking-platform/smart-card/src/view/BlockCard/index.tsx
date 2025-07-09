@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react';
+import React, { type PropsWithChildren } from 'react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 import UFOHoldLoad from '@atlaskit/react-ufo/load-hold';

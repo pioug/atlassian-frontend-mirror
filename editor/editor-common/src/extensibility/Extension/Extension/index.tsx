@@ -14,8 +14,11 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ExtensionProvider, ReferenceEntity } from '../../../extensions';
-import { sharedPluginStateHookMigratorFactory, useSharedPluginState } from '../../../hooks';
-import { useSharedPluginStateSelector } from '../../../hooks/useSharedPluginStateSelector/useSharedPluginStateSelector';
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+	useSharedPluginStateWithSelector,
+} from '../../../hooks';
 import type { ProsemirrorGetPosHandler } from '../../../react-node-view';
 import type { EditorAppearance, EditorContainerWidth } from '../../../types';
 import { overflowShadow } from '../../../ui';
@@ -295,12 +298,14 @@ const useExtensionSharedPluginState = sharedPluginStateHookMigratorFactory<
 	ExtensionsPluginInjectionAPI
 >(
 	(pluginInjectionApi) => {
-		const { widthState } = useSharedPluginState(pluginInjectionApi, ['width']);
-		return { widthState: { width: widthState?.width ?? 0, lineLength: widthState?.lineLength } };
-	},
-	(pluginInjectionApi) => {
-		const width = useSharedPluginStateSelector(pluginInjectionApi, 'width.width');
-		const lineLength = useSharedPluginStateSelector(pluginInjectionApi, 'width.lineLength');
+		const { lineLength, width } = useSharedPluginStateWithSelector(
+			pluginInjectionApi,
+			['width'],
+			(states) => ({
+				width: states.widthState?.width ?? 0,
+				lineLength: states.widthState?.lineLength,
+			}),
+		);
 
 		return {
 			widthState: {
@@ -308,6 +313,10 @@ const useExtensionSharedPluginState = sharedPluginStateHookMigratorFactory<
 				lineLength,
 			},
 		};
+	},
+	(pluginInjectionApi) => {
+		const { widthState } = useSharedPluginState(pluginInjectionApi, ['width']);
+		return { widthState: { width: widthState?.width ?? 0, lineLength: widthState?.lineLength } };
 	},
 );
 

@@ -12,7 +12,7 @@ import {
 import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
 import { expandClassNames } from '@atlaskit/editor-common/styles';
 import { findExpand } from '@atlaskit/editor-common/transforms';
-import type { Command } from '@atlaskit/editor-common/types';
+import type { Command, EditorCommand } from '@atlaskit/editor-common/types';
 import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
 import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
@@ -309,4 +309,13 @@ export const setSelectionInsideExpand =
 			return true;
 		}
 		return false;
+	};
+
+export const toggleExpandWithMatch =
+	(_selection: Selection): EditorCommand =>
+	({ tr }) => {
+		// this action exists so that we can keep the plugin types consistent across the
+		// the legacy expand plugin and the single player expand plugin until
+		// we will remove the legacy expand plugin
+		return null;
 	};

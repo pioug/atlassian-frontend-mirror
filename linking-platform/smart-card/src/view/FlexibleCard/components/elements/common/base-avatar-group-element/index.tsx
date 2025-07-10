@@ -8,7 +8,6 @@ import { css, cssMap, jsx } from '@compiled/react';
 import { type IntlShape, useIntl } from 'react-intl-next';
 
 import AtlaskitAvatarGroup from '@atlaskit/avatar-group';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { ElementName, SmartLinkSize } from '../../../../../../constants';
@@ -171,8 +170,7 @@ const BaseAvatarGroup = ({
 	return (
 		<span
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-			css={[stylesMap[size], fg('platform-linking-visual-refresh-v1') && styles]}
-			{...(fg('platform-linking-visual-refresh-v1') ? {} : { ['data-fit-to-content']: true })}
+			css={[stylesMap[size], styles]}
 			data-smart-element={name}
 			data-smart-element-avatar-group
 			data-testid={testId}

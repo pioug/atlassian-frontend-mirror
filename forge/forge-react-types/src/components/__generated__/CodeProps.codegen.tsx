@@ -3,16 +3,27 @@
  *
  * Extract component prop types from UIKit 2 components - CodeProps
  *
- * @codegen <<SignedSource::baf6b565e34d8df53db53b8855ec120d>>
+ * @codegen <<SignedSource::7ea0b6ee7be9f3e5454b38e528c0753f>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/code/__generated__/code.partial.tsx <<SignedSource::6f210b052488fe7ece12d865706a551e>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
-import React from 'react';
-import { Code as PlatformCode } from '@atlaskit/code';
+import { type ReactNode } from 'react';
 
-type PlatformCodeProps = React.ComponentProps<typeof PlatformCode>;
+
+// Serialized type
+type PlatformCodeProps = {
+  /**
+	 * A unique string that appears as a data attribute `data-testid`
+	 * in the rendered code. Serves as a hook for automated tests.
+	 */
+	testId: string;
+  /**
+	 * Content to be rendered in the inline code block.
+	 */
+	children: ReactNode;
+}
 
 export type CodeProps = Pick<
   PlatformCodeProps,

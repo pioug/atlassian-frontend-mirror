@@ -38,7 +38,7 @@ describe('@atlaskit/reactions/components/Counter', () => {
 
 		const wrapper = await screen.findByTestId(RENDER_COMPONENT_WRAPPER);
 		expect(wrapper).toBeInTheDocument();
-		expect(wrapper).toHaveCompiledCss('color', 'var(--ds-text-subtlest,#8993a4)');
+		expect(wrapper).toHaveCompiledCss('color', 'var(--ds-text-subtlest,#6b778c)');
 	});
 
 	it('should render counter with darker font if useDarkerFont is true', async () => {

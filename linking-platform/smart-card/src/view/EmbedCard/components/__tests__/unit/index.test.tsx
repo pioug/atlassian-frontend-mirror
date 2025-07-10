@@ -18,13 +18,8 @@ describe('ExpandedFrame', () => {
 		await expect(container).toBeAccessible();
 	});
 
-	it('should not render an icon when isPlaceholder=true', async () => {
-		render(<ExpandedFrame icon={<span data-testid="icon" />} isPlaceholder={true} />);
-		expect(screen.queryByTestId('icon')).not.toBeInTheDocument();
-	});
-
-	it('should render an icon when isPlaceholder=false', async () => {
-		render(<ExpandedFrame icon={<span data-testid="icon" />} isPlaceholder={false} />);
+	it('should render an icon when provided', async () => {
+		render(<ExpandedFrame icon={<span data-testid="icon" />} />);
 		expect(await screen.findByTestId('icon')).toBeInTheDocument();
 	});
 
@@ -98,20 +93,14 @@ describe('ExpandedFrame', () => {
 		const { container } = render(<ExpandedFrame frameStyle="hide" href="some.url" />);
 		expect(await screen.findByTestId('expanded-frame')).toBeDefined();
 		const embedHeaderElements = container.getElementsByClassName('embed-header');
-		expect(embedHeaderElements).toHaveLength(1);
-
-		const frameStyle = window.getComputedStyle(embedHeaderElements[0]);
-		expect(frameStyle.opacity).toBe('0');
+		expect(embedHeaderElements).toHaveLength(0);
 	});
 
 	it('should not render header and frame when frameStyle = "hide" & placeholder is true', async () => {
 		const { container } = render(<ExpandedFrame frameStyle="hide" isPlaceholder={true} />);
 		expect(await screen.findByTestId('expanded-frame')).toBeDefined();
 		const embedHeaderElements = container.getElementsByClassName('embed-header');
-		expect(embedHeaderElements).toHaveLength(1);
-
-		const frameStyle = window.getComputedStyle(embedHeaderElements[0]);
-		expect(frameStyle.opacity).toBe('0');
+		expect(embedHeaderElements).toHaveLength(0);
 	});
 
 	it('No tooltip is rendered by default', () => {
@@ -151,46 +140,42 @@ describe('ExpandedFrame with CompetitorPrompt', () => {
 	const CompetitorPrompt = () => <Box testId="competitor-prompt">Prompt</Box>;
 
 	ffTest.on('prompt_whiteboard_competitor_link_gate', '', () => {
-		ffTest.on('platform-linking-visual-refresh-v1', '', () => {
-			it('should render CompetitorPrompt when provided and conditions are met', async () => {
-				render(
-					<ExpandedFrame
-						text="foobar"
-						href="https://example.com"
-						CompetitorPrompt={CompetitorPrompt}
-						isPlaceholder={false}
-					/>,
-				);
+		it('should render CompetitorPrompt when provided and conditions are met', async () => {
+			render(
+				<ExpandedFrame
+					text="foobar"
+					href="https://example.com"
+					CompetitorPrompt={CompetitorPrompt}
+					isPlaceholder={false}
+				/>,
+			);
 
-				const competitorPrompt = await screen.findByTestId('competitor-prompt');
-				expect(competitorPrompt).toBeInTheDocument();
-				expect(competitorPrompt).toHaveTextContent('Prompt');
-			});
+			const competitorPrompt = await screen.findByTestId('competitor-prompt');
+			expect(competitorPrompt).toBeInTheDocument();
+			expect(competitorPrompt).toHaveTextContent('Prompt');
+		});
 
-			it('should not render CompetitorPrompt when href is not provided', async () => {
-				render(
-					<ExpandedFrame text="foobar" CompetitorPrompt={CompetitorPrompt} isPlaceholder={false} />,
-				);
+		it('should not render CompetitorPrompt when href is not provided', async () => {
+			render(
+				<ExpandedFrame text="foobar" CompetitorPrompt={CompetitorPrompt} isPlaceholder={false} />,
+			);
 
-				expect(screen.queryByTestId('competitor-prompt')).not.toBeInTheDocument();
-			});
+			expect(screen.queryByTestId('competitor-prompt')).not.toBeInTheDocument();
 		});
 	});
 
 	ffTest.off('prompt_whiteboard_competitor_link_gate', '', () => {
-		ffTest.on('platform-linking-visual-refresh-v1', '', () => {
-			it('should not render CompetitorPrompt when feature flag is off', async () => {
-				render(
-					<ExpandedFrame
-						text="foobar"
-						href="https://example.com"
-						CompetitorPrompt={CompetitorPrompt}
-						isPlaceholder={false}
-					/>,
-				);
+		it('should not render CompetitorPrompt when feature flag is off', async () => {
+			render(
+				<ExpandedFrame
+					text="foobar"
+					href="https://example.com"
+					CompetitorPrompt={CompetitorPrompt}
+					isPlaceholder={false}
+				/>,
+			);
 
-				expect(screen.queryByTestId('competitor-prompt')).not.toBeInTheDocument();
-			});
+			expect(screen.queryByTestId('competitor-prompt')).not.toBeInTheDocument();
 		});
 	});
 });

@@ -15,7 +15,9 @@ snapshot(DefaultExample, {
 			},
 		},
 	],
-	featureFlags: {},
+	featureFlags: {
+		'platform-linking-visual-refresh-link-picker': true,
+	},
 });
 snapshot(SelectedExample, {
 	variants: [
@@ -30,23 +32,7 @@ snapshot(SelectedExample, {
 			},
 		},
 	],
-	featureFlags: {},
-});
-
-snapshot(DefaultExample, {
-	variants: [
-		{
-			name: 'default',
-			environment: {},
-		},
-		{
-			name: 'light mode',
-			environment: {
-				colorScheme: 'light',
-			},
-		},
-	],
 	featureFlags: {
-		'platform-linking-visual-refresh-link-picker': [true, false],
+		'platform-linking-visual-refresh-link-picker': true,
 	},
 });

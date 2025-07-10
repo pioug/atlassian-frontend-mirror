@@ -1,5 +1,13 @@
 # @atlaskit/teams-client
 
+## 4.6.3
+
+### Patch Changes
+
+- [#183439](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183439)
+  [`e038f5e3cbe30`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e038f5e3cbe30) -
+  Export container types
+
 ## 4.6.2
 
 ### Patch Changes

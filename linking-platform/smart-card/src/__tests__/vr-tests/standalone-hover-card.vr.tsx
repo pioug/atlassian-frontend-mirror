@@ -13,36 +13,28 @@ snapshot(HoverCard, {
 	description: 'standalone hover card default',
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 
 snapshot(HoverCardWithPreview, {
 	description: 'standalone hover card with image Preview',
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 
 snapshot(HoverCardForSlackMessage, {
 	description: 'standalone hover card for Slack message',
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 
 snapshot(HoverCardConfluence, {
 	description: 'standalone hover card for Confluence',
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 
 snapshot(HoverCardAssignedJiraIssue, {
@@ -50,7 +42,6 @@ snapshot(HoverCardAssignedJiraIssue, {
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': true,
 	},
 });
@@ -60,7 +51,6 @@ snapshot(HoverCardUnassignedJiraIssue, {
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': true,
 	},
 });
@@ -69,9 +59,7 @@ snapshot(HoverCardJiraProject, {
 	description: 'standalone hover card for Jira Project',
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 
 snapshot(HoverCardForbiddenJira, {
@@ -84,7 +72,6 @@ snapshot(HoverCardForbiddenJira, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
 		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
@@ -99,7 +86,6 @@ snapshot(HoverCardForbiddenJira, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
 		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
@@ -113,9 +99,7 @@ snapshot(HoverCardForbiddenJira, {
 		},
 	],
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 
 snapshot(HoverCardForbiddenJira, {
@@ -127,9 +111,7 @@ snapshot(HoverCardForbiddenJira, {
 		},
 	],
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 
 snapshot(HoverCardForbiddenJira, {
@@ -142,9 +124,7 @@ snapshot(HoverCardForbiddenJira, {
 		},
 	],
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 
 snapshot(HoverCardForbiddenJira, {
@@ -158,7 +138,6 @@ snapshot(HoverCardForbiddenJira, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
 		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
@@ -167,7 +146,5 @@ snapshot(HoverCardForbiddenJira, {
 	description: 'standalone hover card forbidden view with forbidden context for Jira',
 	states: [{ state: 'hovered', selector: { byTestId: 'FORBIDDEN' } }],
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });

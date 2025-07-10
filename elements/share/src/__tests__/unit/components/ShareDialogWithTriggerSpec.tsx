@@ -12,6 +12,7 @@ import {
 
 import WorldIcon from '@atlaskit/icon/core/migration/globe--world';
 import Popup from '@atlaskit/popup';
+import { type Props as SmartUserPickerProps } from '@atlaskit/smart-user-picker';
 import { layers } from '@atlaskit/theme/constants';
 import Aktooltip from '@atlaskit/tooltip';
 // AFP-2532 TODO: Fix automatic suppressions below
@@ -43,6 +44,11 @@ jest.mock('../../../components/LazyShareForm/lazy', () => {
 	return jest.requireActual('../../../components/LazyShareForm/LazyShareForm');
 });
 
+// Mock feature flags
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+	fg: jest.fn(),
+}));
+
 mockPopper();
 
 const mockFormatMessage = (descriptor: any) => descriptor.defaultMessage;
@@ -55,6 +61,8 @@ jest.mock('react-intl-next', () => {
 		injectIntl: (Node: any) => (props: any) => <Node {...props} intl={mockIntl} />,
 	};
 });
+
+type ProductAttributes = SmartUserPickerProps['productAttributes'];
 
 const mockIntlProps: WrappedComponentProps = {
 	intl: { formatMessage: mockFormatMessage } as unknown as IntlShape,
@@ -86,6 +94,12 @@ describe('ShareDialogWithTrigger', () => {
 	function getWrapper(
 		overrides: Partial<PropsOf<ShareDialogWithTriggerInternal>> = {},
 	): ShallowWrapper<ShareDialogWithTriggerProps & WrappedComponentProps> {
+		const defaultMockOriginTracing = {
+			id: 'mock-origin-id',
+			addToUrl: jest.fn(),
+			toAnalyticsAttributes: jest.fn().mockReturnValue({ originId: 'mock-origin-id' }),
+		};
+
 		const props: ShareDialogWithTriggerProps & WrappedComponentProps = {
 			cloudId: 'test-cloud-id',
 			shareAri: 'test-share-ari',
@@ -101,6 +115,17 @@ describe('ShareDialogWithTrigger', () => {
 			showFlags: mockShowFlags,
 			createAnalyticsEvent: mockCreateAnalyticsEvent,
 			product: 'confluence',
+			isPublicLink: false,
+			formShareOrigin: defaultMockOriginTracing,
+			copyLinkOrigin: defaultMockOriginTracing,
+			productAttributes: {
+				projectType: 'software',
+				projectStyle: 'TEAM_MANAGED_PROJECT',
+				userLocation: 'issue:issue',
+				isAdmin: false,
+				isProjectAdmin: false,
+			} as ProductAttributes,
+			loggedInAccountId: 'mock-user-account-id',
 			...overrides,
 			...mockIntlProps,
 		};
@@ -117,10 +142,16 @@ describe('ShareDialogWithTrigger', () => {
 		ShareDialogWithTriggerStates,
 		any
 	> {
+		const defaultMockOriginTracing = {
+			id: 'mock-origin-id',
+			addToUrl: jest.fn(),
+			toAnalyticsAttributes: jest.fn().mockReturnValue({ originId: 'mock-origin-id' }),
+		};
+
 		const props: PropsOf<ShareDialogWithTriggerInternal> = {
 			cloudId: 'test-cloud-id',
 			shareAri: 'test-share-ari',
-			copyLink: 'copyLink',
+			copyLink: 'https://example.com/share-link',
 			loadUserOptions: mockLoadOptions,
 			onTriggerButtonClick: mockOnTriggerButtonClick,
 			onDialogOpen: mockOnDialogOpen,
@@ -128,10 +159,21 @@ describe('ShareDialogWithTrigger', () => {
 			onShareSubmit: mockOnShareSubmit,
 			shareContentType: 'page',
 			shareContentId: 'test-content-id',
-			shareContentSubType: undefined,
+			shareContentSubType: 'blog',
 			showFlags: mockShowFlags,
 			createAnalyticsEvent: mockCreateAnalyticsEvent,
 			product: 'confluence',
+			isPublicLink: false,
+			formShareOrigin: defaultMockOriginTracing,
+			copyLinkOrigin: defaultMockOriginTracing,
+			productAttributes: {
+				projectType: 'software',
+				projectStyle: 'TEAM_MANAGED_PROJECT',
+				userLocation: 'issue:issue',
+				isAdmin: false,
+				isProjectAdmin: false,
+			} as ProductAttributes,
+			loggedInAccountId: 'mock-user-account-id',
 			...overrides,
 			...mockIntlProps,
 		};
@@ -144,10 +186,16 @@ describe('ShareDialogWithTrigger', () => {
 	}
 
 	function renderComponent(overrides: Partial<PropsOf<ShareDialogWithTriggerInternal>> = {}) {
+		const defaultMockOriginTracing = {
+			id: 'mock-origin-id',
+			addToUrl: jest.fn(),
+			toAnalyticsAttributes: jest.fn().mockReturnValue({ originId: 'mock-origin-id' }),
+		};
+
 		const props: PropsOf<ShareDialogWithTriggerInternal> = {
 			cloudId: 'test-cloud-id',
 			shareAri: 'test-share-ari',
-			copyLink: 'copyLink',
+			copyLink: 'https://example.com/share-link',
 			loadUserOptions: mockLoadOptions,
 			onTriggerButtonClick: mockOnTriggerButtonClick,
 			onDialogOpen: mockOnDialogOpen,
@@ -155,10 +203,21 @@ describe('ShareDialogWithTrigger', () => {
 			onShareSubmit: mockOnShareSubmit,
 			shareContentType: 'page',
 			shareContentId: 'test-content-id',
-			shareContentSubType: undefined,
+			shareContentSubType: 'blog',
 			showFlags: mockShowFlags,
 			createAnalyticsEvent: mockCreateAnalyticsEvent,
 			product: 'confluence',
+			isPublicLink: false,
+			formShareOrigin: defaultMockOriginTracing,
+			copyLinkOrigin: defaultMockOriginTracing,
+			productAttributes: {
+				projectType: 'software',
+				projectStyle: 'TEAM_MANAGED_PROJECT',
+				userLocation: 'issue:issue',
+				isAdmin: false,
+				isProjectAdmin: false,
+			} as ProductAttributes,
+			loggedInAccountId: 'mock-user-account-id',
 			...overrides,
 			...mockIntlProps,
 		};
@@ -954,6 +1013,122 @@ describe('ShareDialogWithTrigger', () => {
 
 			const popupContent = renderDialogContent(wrapper);
 			expect(popupContent.contains('Some message')).toBeTruthy();
+		});
+	});
+
+	describe('jiraPageSharedEvent analytics', () => {
+		beforeEach(() => {
+			const fg = require('@atlaskit/platform-feature-flags').fg;
+			fg.mockReturnValue(true);
+		});
+
+		it('should trigger jiraPageSharedEvent for copy link action', () => {
+			const wrapper = getWrapper({
+				shareContentType: 'issue',
+				shareContentSubType: 'task',
+				shareContentId: 'test-issue-123',
+				isPublicLink: false,
+				productAttributes: {
+					projectType: 'software',
+					projectStyle: 'TEAM_MANAGED_PROJECT',
+					userLocation: 'issue:issue',
+					isAdmin: true,
+					isProjectAdmin: false,
+				} as ProductAttributes,
+				loggedInAccountId: 'user-account-123',
+			});
+
+			(wrapper.instance() as any).handleCopyLink();
+
+			expect(mockCreateAnalyticsEvent).toHaveBeenCalledTimes(2);
+			expect(mockCreateAnalyticsEvent.mock.calls[1][0]).toMatchObject({
+				eventType: 'track',
+				action: 'shared',
+				actionSubject: 'page',
+				actionSubjectId: 'copyLink',
+				attributes: {
+					packageName: '@product/platform',
+					packageVersion: expect.any(String),
+					duration: expect.any(Number),
+					source: 'shareModal',
+					contentType: 'issue',
+					projectType: 'software',
+					projectStyle: 'TEAM_MANAGED_PROJECT',
+					userLocation: 'issue:issue',
+					isAdmin: true,
+					isProjectAdmin: false,
+					originId: 'mock-origin-id',
+					contentId: 'test-issue-123',
+					isPublicLink: false,
+					loggedInAccountId: 'user-account-123',
+					shareContentSubType: 'task',
+					externalUsers: [],
+				},
+			});
+		});
+
+		it('should trigger jiraPageSharedEvent on share submit', async () => {
+			const mockOnSubmit = jest.fn().mockResolvedValue({});
+			const shareData: ShareData = {
+				users: [
+					{ type: 'user', id: 'id', name: 'name' },
+					{ type: 'email', id: 'email@atlassian.com', name: 'email' },
+				],
+				comment: {
+					format: 'plain_text',
+					value: 'comment',
+				},
+			};
+			const mockState: Partial<ShareDialogWithTriggerStates> = {
+				isDialogOpen: true,
+				isSharing: false,
+				ignoreIntermediateState: false,
+				defaultValue: shareData,
+			};
+			const wrapper = getWrapper({
+				onShareSubmit: mockOnSubmit,
+				shareContentType: 'issue',
+				shareContentSubType: 'task',
+				shareContentId: 'test-issue-123',
+				isPublicLink: false,
+				productAttributes: {
+					projectType: 'software',
+					projectStyle: 'TEAM_MANAGED_PROJECT',
+					userLocation: 'issue:issue',
+					isAdmin: true,
+					isProjectAdmin: false,
+				} as ProductAttributes,
+				loggedInAccountId: 'user-account-123',
+			});
+
+			wrapper.setState(mockState);
+
+			const popupContent = renderDialogContent(wrapper);
+			popupContent.find(ShareForm).simulate('submit', shareData);
+			expect(mockCreateAnalyticsEvent.mock.calls[1][0]).toMatchObject({
+				eventType: 'track',
+				action: 'shared',
+				actionSubject: 'page',
+				actionSubjectId: 'submitShare',
+				attributes: {
+					packageName: '@product/platform',
+					packageVersion: expect.any(String),
+					duration: expect.any(Number),
+					source: 'shareModal',
+					contentType: 'issue',
+					projectType: 'software',
+					projectStyle: 'TEAM_MANAGED_PROJECT',
+					userLocation: 'issue:issue',
+					isAdmin: true,
+					isProjectAdmin: false,
+					originId: 'mock-origin-id',
+					contentId: 'test-issue-123',
+					isPublicLink: false,
+					loggedInAccountId: 'user-account-123',
+					shareContentSubType: 'task',
+					externalUsers: [],
+				},
+			});
 		});
 	});
 });

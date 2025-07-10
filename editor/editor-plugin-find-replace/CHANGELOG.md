@@ -1,5 +1,33 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 3.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.0
+
+### Minor Changes
+
+- [#179798](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/179798)
+  [`b74544d17393f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b74544d17393f) -
+  [ux] [ED-27963] this change is creating a new Editor Command inside expandPlugin to toggle open
+  expands with active matches from Find&Replace
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.2
+
+### Patch Changes
+
+- [#182839](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/182839)
+  [`81f1c3383bdab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/81f1c3383bdab) -
+  refactor: use useSharedPluginStateWithSelector instead of useSharedPluginStateSelector
+- Updated dependencies
+
 ## 3.0.1
 
 ### Patch Changes

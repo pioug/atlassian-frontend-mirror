@@ -3,8 +3,10 @@ import React from 'react';
 import type { MediaADFAttrs } from '@atlaskit/adf-schema';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import {
+	type NamedPluginStatesFromInjectionAPI,
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import { DEFAULT_IMAGE_HEIGHT, DEFAULT_IMAGE_WIDTH } from '@atlaskit/editor-common/media-single';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
@@ -47,13 +49,21 @@ interface MediaNodeWithProvidersProps {
 	innerComponent: (props: MediaNodeWithPluginStateComponentProps) => React.ReactElement;
 }
 
+const selector = (
+	states: NamedPluginStatesFromInjectionAPI<
+		ExtractInjectionAPI<MediaNextEditorPluginType>,
+		'media'
+	>,
+) => {
+	return {
+		mediaProvider: states.mediaState?.mediaProvider,
+		widthState: undefined,
+	};
+};
+
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
-		const mediaProvider = useSharedPluginStateSelector(pluginInjectionApi, 'media.mediaProvider');
-		return {
-			mediaProvider,
-			widthState: undefined,
-		};
+		return useSharedPluginStateWithSelector(pluginInjectionApi, ['media'], selector);
 	},
 	(pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
 		const { widthState, mediaState } = useSharedPluginState(pluginInjectionApi, ['width', 'media']);

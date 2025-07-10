@@ -5,7 +5,6 @@
 import React from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
@@ -14,8 +13,6 @@ import { type InlinePreloaderStyle } from '../../types';
 import { Frame } from '../Frame';
 import { IconAndTitleLayout, IconTitleWrapper } from '../IconAndTitleLayout';
 import { RightIconPositionWrapper } from '../IconAndTitleLayout/styled';
-
-import { SpinnerWrapperOldVisualRefresh } from './styled';
 
 const styles = cssMap({
 	spinnerWrapper: {
@@ -56,17 +53,11 @@ export const InlineCardResolvingView = ({
 	truncateInline,
 }: InlineCardResolvingViewProps): JSX.Element => {
 	const renderSpinner = React.useCallback(
-		() =>
-			fg('platform-linking-visual-refresh-v1') ? (
-				<Box as="span" xcss={styles.spinnerWrapper}>
-					<Spinner size={14} />
-				</Box>
-			) : (
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-				<SpinnerWrapperOldVisualRefresh className="inline-resolving-spinner">
-					<Spinner size={14} />
-				</SpinnerWrapperOldVisualRefresh>
-			),
+		() => (
+			<Box as="span" xcss={styles.spinnerWrapper}>
+				<Spinner size={14} />
+			</Box>
+		),
 		[],
 	);
 
@@ -95,12 +86,10 @@ export const InlineCardResolvingView = ({
 			truncateInline={truncateInline}
 		>
 			<IconAndTitleLayout
-				icon={fg('platform-linking-visual-refresh-v1') ? renderSpinner() : undefined}
+				icon={renderSpinner()}
 				title={resolvingPlaceholder ?? url}
 				titleTextColor={titleTextColor}
-			>
-				{fg('platform-linking-visual-refresh-v1') ? undefined : renderSpinner()}
-			</IconAndTitleLayout>
+			/>
 		</Frame>
 	);
 };

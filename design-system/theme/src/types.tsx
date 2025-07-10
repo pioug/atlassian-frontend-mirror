@@ -3,8 +3,6 @@
 // Non-deprecated types
 import { type ReactNode } from 'react';
 
-export type colorPaletteType = '8' | '16' | '24';
-
 // Deprecated / legacy types
 export type ThemeModes = 'light' | 'dark';
 export interface Theme {

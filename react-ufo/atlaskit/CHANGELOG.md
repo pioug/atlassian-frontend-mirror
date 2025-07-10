@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.14.11
+
+### Patch Changes
+
+- [#183338](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183338)
+  [`890b79158a11b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/890b79158a11b) -
+  FG cleanup - platform_ufo_vc_observer_new_ssr_abort_listener
+
 ## 3.14.10
 
 ### Patch Changes

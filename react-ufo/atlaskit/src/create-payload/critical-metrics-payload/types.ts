@@ -1,5 +1,5 @@
 import type { InteractionType } from '../../common';
-import { NavigationMetrics } from '../utils/get-navigation-metrics';
+import { type NavigationMetrics } from '../utils/get-navigation-metrics';
 
 export interface CriticalMetricsPayloadProperties {
 	// Basic metadata

@@ -39,20 +39,14 @@ const allVariantsOptions: OptionsType = {
 snapshot(DefaultExample, {
 	...allVariantsOptions,
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
-});
-snapshot(DefaultExample, {
-	...allVariantsOptions,
-	featureFlags: {
-		'platform-linking-visual-refresh-link-picker': [true, false],
+		'platform-linking-visual-refresh-link-picker': true,
 	},
 });
 
 snapshot(WithCancelExample, {
 	...allVariantsOptions,
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
+		'platform-linking-visual-refresh-link-picker': true,
 	},
 });
 
@@ -71,72 +65,60 @@ snapshot(ErrorBoundaryExample, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
+		'platform-linking-visual-refresh-link-picker': true,
 	},
 });
 
 snapshot(PluginErrorExample, {
 	...allVariantsOptions,
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
-});
-snapshot(PluginErrorExample, {
-	...allVariantsOptions,
-	featureFlags: {
-		'platform-linking-visual-refresh-link-picker': [true, false],
+		'platform-linking-visual-refresh-link-picker': true,
 	},
 });
 
 snapshot(UnauthenticatedErrorExample, {
 	...allVariantsOptions,
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
-});
-snapshot(UnauthenticatedErrorExample, {
-	...allVariantsOptions,
-	featureFlags: {
-		'platform-linking-visual-refresh-link-picker': [true, false],
+		'platform-linking-visual-refresh-link-picker': true,
 	},
 });
 
 /** Width examples */
 snapshot(DisableWidthExample, {
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
+		'platform-linking-visual-refresh-link-picker': true,
 	},
 });
 snapshot(DisableWidthWithPluginsExample, {
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
+		'platform-linking-visual-refresh-link-picker': true,
 	},
 });
 snapshot(DisableWidth500Example, {
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
+		'platform-linking-visual-refresh-link-picker': true,
 	},
 });
 snapshot(DisableWidth500ExampleWithPlugins, {
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
+		'platform-linking-visual-refresh-link-picker': true,
 	},
 });
 snapshot(DisableWidth300Example, {
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
+		'platform-linking-visual-refresh-link-picker': true,
 	},
 });
 snapshot(DisableWidth300ExampleWithPlugins, {
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
+		'platform-linking-visual-refresh-link-picker': true,
 	},
 });
 
 /** Padding examples */
 snapshot(ZeroPaddingExample, {
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
+		'platform-linking-visual-refresh-link-picker': true,
 	},
 });
 snapshot(LargePaddingUsingTokensExample, {
@@ -149,24 +131,24 @@ snapshot(LargePaddingUsingTokensExample, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
+		'platform-linking-visual-refresh-link-picker': true,
 	},
 });
 
 snapshot(VaryingPaddingsExample, {
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
+		'platform-linking-visual-refresh-link-picker': true,
 	},
 });
 
 /** Custom empty state */
 snapshot(CustomEmptyStateExample, {
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
+		'platform-linking-visual-refresh-link-picker': true,
 	},
 });
 snapshot(CustomEmptyStateWithAdaptiveHeightExample, {
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
+		'platform-linking-visual-refresh-link-picker': true,
 	},
 });

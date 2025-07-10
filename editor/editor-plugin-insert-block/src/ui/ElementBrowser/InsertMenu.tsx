@@ -15,6 +15,8 @@ import { ELEMENT_ITEM_HEIGHT, ElementBrowser } from '@atlaskit/editor-common/ele
 import {
 	useSharedPluginState,
 	sharedPluginStateHookMigratorFactory,
+	type NamedPluginStatesFromInjectionAPI,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import {
@@ -34,7 +36,6 @@ import {
 	OutsideClickTargetRefContext,
 	withReactEditorViewOuterListeners as withOuterListeners,
 } from '@atlaskit/editor-common/ui-react';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { borderRadius } from '@atlaskit/theme';
 import { N0, N30A, N60A } from '@atlaskit/theme/colors';
@@ -47,13 +48,20 @@ import type { InsertMenuProps, SvgGetterParams } from './types';
 
 export const DEFAULT_HEIGHT = 560;
 
+const selector = (
+	states: NamedPluginStatesFromInjectionAPI<
+		ExtractInjectionAPI<typeof insertBlockPlugin>,
+		'connectivity'
+	>,
+) => {
+	return {
+		connectivityMode: states.connectivityState?.mode,
+	};
+};
+
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<typeof insertBlockPlugin> | undefined) => {
-		const connectivityMode = useSharedPluginStateSelector(api, 'connectivity.mode');
-
-		return {
-			connectivityMode,
-		};
+		return useSharedPluginStateWithSelector(api, ['connectivity'], selector);
 	},
 	(api: ExtractInjectionAPI<typeof insertBlockPlugin> | undefined) => {
 		const { connectivityState } = useSharedPluginState(api, ['connectivity']);
@@ -158,7 +166,6 @@ const InsertMenu = ({
 						featuredItems.filter((item) => [DIAGRAM_TITLE, BLANK_TITLE].includes(item.title))
 							.length === 2;
 					if (featuredWhiteboardsPresent) {
-						expValEquals('confluence_whiteboards_quick_insert_aa', 'cohort', 'control');
 						const pinWhiteboardActionToTop = (
 							featuredItems: QuickInsertItem[],
 							title: string,

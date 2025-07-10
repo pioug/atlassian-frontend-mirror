@@ -1,9 +1,9 @@
-import { InteractionMetrics } from '../../../common';
+import { type InteractionMetrics } from '../../../common';
 import { getConfig } from '../../../config';
 import getBrowserMetadata from '../../utils/get-browser-metadata';
 import getPageVisibilityUpToTTAI from '../../utils/get-page-visibility-up-to-ttai';
 import { LATEST_REACT_UFO_PAYLOAD_VERSION } from '../../utils/get-react-ufo-payload-version';
-import { CriticalMetricsPayload, CriticalMetricsPayloadProperties } from '../types';
+import { type CriticalMetricsPayload, type CriticalMetricsPayloadProperties } from '../types';
 
 import getIsRootSegment from './get-is-root-segment';
 import getSegmentId from './get-segment-id';

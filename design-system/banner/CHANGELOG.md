@@ -1,5 +1,11 @@
 # @atlaskit/banner
 
+## 14.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.0.5
 
 ### Patch Changes

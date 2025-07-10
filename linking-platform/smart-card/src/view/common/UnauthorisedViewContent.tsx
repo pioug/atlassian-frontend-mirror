@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 
 import { FormattedMessage } from 'react-intl-next';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Anchor } from '@atlaskit/primitives/compiled';
 
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
@@ -59,36 +58,18 @@ const UnauthorisedViewContent = ({
 			) : (
 				<FormattedMessage {...messages.connect_unauthorised_account_description_no_provider} />
 			)}{' '}
-			{fg('platform-linking-visual-refresh-v1') ? (
-				<Anchor
-					href={
-						isProductIntegrationSupported
-							? CONTENT_URL_3P_ACCOUNT_AUTH
-							: CONTENT_URL_SECURITY_AND_PERMISSIONS
-					}
-					target="_blank"
-					testId={`${testId}-learn-more`}
-					onClick={handleLearnMoreClick}
-				>
-					<FormattedMessage {...learnMoreMessage} />
-				</Anchor>
-			) : (
-				// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
-				<a
-					href={
-						isProductIntegrationSupported
-							? CONTENT_URL_3P_ACCOUNT_AUTH
-							: CONTENT_URL_SECURITY_AND_PERMISSIONS
-					}
-					target="_blank"
-					data-testid={`${testId}-learn-more`}
-					onClick={handleLearnMoreClick}
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-					style={{ textDecoration: 'underline' }}
-				>
-					<FormattedMessage {...learnMoreMessage} />
-				</a>
-			)}
+			<Anchor
+				href={
+					isProductIntegrationSupported
+						? CONTENT_URL_3P_ACCOUNT_AUTH
+						: CONTENT_URL_SECURITY_AND_PERMISSIONS
+				}
+				target="_blank"
+				testId={`${testId}-learn-more`}
+				onClick={handleLearnMoreClick}
+			>
+				<FormattedMessage {...learnMoreMessage} />
+			</Anchor>
 		</>
 	);
 };

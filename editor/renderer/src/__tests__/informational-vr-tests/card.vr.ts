@@ -56,119 +56,90 @@ import {
 } from './card.fixtures';
 
 snapshotInformational(RendererInlineCardXSS, {
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshotInformational(RendererInlineCard, {
 	prepare: async (page) => {
 		await page.getByTestId('inline-card-resolved-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshotInformational(RendererInlineCardResolving, {
 	prepare: async (page) => {
 		await page.getByTestId('inline-card-resolving-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshotInformational(RendererInlineCardUnauthorized, {
 	prepare: async (page) => {
 		await page.getByTestId('inline-card-unauthorized-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshotInformational(RendererInlineCardForbidden, {
 	prepare: async (page) => {
 		await page.getByTestId('inline-card-forbidden-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshotInformational(RendererInlineCardNotFound, {
 	prepare: async (page) => {
 		await page.getByTestId('inline-card-not-found-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshotInformational(RendererInlineCardErrored, {
 	prepare: async (page) => {
 		await page.getByTestId('inline-card-errored-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
+	featureFlags: {},
+});
+snapshotInformational(RendererBlockCard, {
+	prepare: async (page) => {
+		await page.getByTestId('smart-block-resolved-view').waitFor({ state: 'visible' });
 	},
+	featureFlags: {},
 });
 snapshotInformational(RendererBlockCard, {
 	prepare: async (page) => {
 		await page.getByTestId('smart-block-resolved-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
-});
-snapshotInformational(RendererBlockCard, {
-	prepare: async (page) => {
-		await page.getByTestId('smart-block-resolved-view').waitFor({ state: 'visible' });
-	},
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
 		platform_ssr_smartlink_cards: [true, false],
 	},
 });
 snapshotInformational(RendererBlockCardXSS, {
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshotInformational(RendererBlockCardResolving, {
 	prepare: async (page) => {
 		await page.getByTestId('smart-block-resolving-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshotInformational(RendererBlockCardUnauthorized, {
 	prepare: async (page) => {
 		await page.getByTestId('smart-block-unauthorized-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshotInformational(RendererBlockCardForbidden, {
 	prepare: async (page) => {
 		await page.getByTestId('smart-block-forbidden-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshotInformational(RendererBlockCardNotFound, {
 	prepare: async (page) => {
 		await page.getByTestId('smart-block-not-found-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshotInformational(RendererBlockCardErrored, {
 	prepare: async (page) => {
 		await page.getByTestId('smart-block-errored-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshotInformational(RendererEmbedCard, {
 	prepare: async (page) => {
@@ -232,9 +203,7 @@ snapshotInformational(RendererEmbedCardUnauthorized, {
 	prepare: async (page) => {
 		await page.getByTestId('embed-card-unauthorized-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshotInformational(RendererBlockCardFullWidthLayout, {
 	prepare: async (page) => {
@@ -296,114 +265,86 @@ snapshotInformational(RendererInlineCardRequestAccess, {
 	prepare: async (page) => {
 		await page.getByTestId('inline-card-forbidden-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshotInformational(RendererInlineCardForbiddenPendingRequestAccess, {
 	prepare: async (page) => {
 		await page.getByTestId('inline-card-forbidden-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshotInformational(RendererInlineCardRequestAccessForbidden, {
 	prepare: async (page) => {
 		await page.getByTestId('inline-card-forbidden-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshotInformational(RendererInlineCardRequestAccessDirectAccess, {
 	prepare: async (page) => {
 		await page.getByTestId('inline-card-forbidden-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshotInformational(RendererInlineCardRequestAccessDeniedRequestExists, {
 	prepare: async (page) => {
 		await page.getByTestId('inline-card-forbidden-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshotInformational(RendererInlineCardForbiddenRequestApprovedRequestExists, {
 	prepare: async (page) => {
 		await page.getByTestId('inline-card-forbidden-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshotInformational(RendererInlineCardRequestAccessAccessExists, {
 	prepare: async (page) => {
 		await page.getByTestId('inline-card-forbidden-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 
 snapshotInformational(RendererBlockCardRequestAccess, {
 	prepare: async (page) => {
 		await page.getByTestId('smart-block-forbidden-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshotInformational(RendererBlockCardForbiddenPendingRequestAccess, {
 	prepare: async (page) => {
 		await page.getByTestId('smart-block-forbidden-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshotInformational(RendererBlockCardRequestAccessForbidden, {
 	prepare: async (page) => {
 		await page.getByTestId('smart-block-forbidden-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshotInformational(RendererBlockCardRequestAccessDirectAccess, {
 	prepare: async (page) => {
 		await page.getByTestId('smart-block-forbidden-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshotInformational(RendererBlockCardRequestAccessDeniedRequestExists, {
 	prepare: async (page) => {
 		await page.getByTestId('smart-block-forbidden-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshotInformational(RendererBlockCardForbiddenRequestApprovedRequestExists, {
 	prepare: async (page) => {
 		await page.getByTestId('smart-block-forbidden-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshotInformational(RendererBlockCardRequestAccessAccessExists, {
 	prepare: async (page) => {
 		await page.getByTestId('smart-block-forbidden-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 
 snapshotInformational(RendererEmbedCardRequestAccess, {

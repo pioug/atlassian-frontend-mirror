@@ -38,7 +38,7 @@ import {
 import type { LabelStack, SegmentLabel } from '../interaction-context';
 import { getInteractionId } from '../interaction-id-context';
 import { getVCObserver, newVCObserver } from '../vc';
-import { VCObserverInterface } from '../vc/types';
+import { type VCObserverInterface } from '../vc/types';
 
 import { interactions } from './common/constants';
 import PostInteractionLog from './post-interaction-log';

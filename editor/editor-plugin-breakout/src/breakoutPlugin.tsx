@@ -5,6 +5,7 @@ import { breakout } from '@atlaskit/adf-schema';
 import {
 	useSharedPluginState,
 	sharedPluginStateHookMigratorFactory,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { BreakoutCssClassName } from '@atlaskit/editor-common/styles';
@@ -163,38 +164,45 @@ interface LayoutButtonWrapperProps
 	api: ExtractInjectionAPI<typeof breakoutPlugin> | undefined;
 }
 
-const useOldHook = (api: ExtractInjectionAPI<typeof breakoutPlugin> | undefined) => {
-	// Re-render with `width` (but don't use state) due to https://bitbucket.org/atlassian/%7Bc8e2f021-38d2-46d0-9b7a-b3f7b428f724%7D/pull-requests/24272
-	const { breakoutState, editorViewModeState, editorDisabledState, blockControlsState } =
-		useSharedPluginState(api, [
-			'width',
-			'breakout',
-			'editorViewMode',
-			'editorDisabled',
-			'blockControls',
-		]);
-	return {
-		breakoutNode: breakoutState?.breakoutNode,
-		isDragging: blockControlsState?.isDragging,
-		isPMDragging: blockControlsState?.isPMDragging,
-		mode: editorViewModeState?.mode,
-		editorDisabled: editorDisabledState?.editorDisabled,
-	};
-};
-const useNewHook = (api: ExtractInjectionAPI<typeof breakoutPlugin> | undefined) => {
-	const isDragging = useSharedPluginStateSelector(api, 'blockControls.isDragging');
-	const isPMDragging = useSharedPluginStateSelector(api, 'blockControls.isPMDragging');
-	const mode = useSharedPluginStateSelector(api, 'editorViewMode.mode');
-	const editorDisabled = useSharedPluginStateSelector(api, 'editorDisabled.editorDisabled');
-	return {
-		breakoutNode: undefined,
-		isDragging,
-		isPMDragging,
-		mode,
-		editorDisabled,
-	};
-};
-const useSharedState = sharedPluginStateHookMigratorFactory(useNewHook, useOldHook);
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<typeof breakoutPlugin> | undefined) => {
+		const { editorDisabled, isDragging, isPMDragging, mode } = useSharedPluginStateWithSelector(
+			api,
+			['editorViewMode', 'editorDisabled', 'blockControls'],
+			(states) => ({
+				isDragging: states.blockControlsState?.isDragging,
+				isPMDragging: states.blockControlsState?.isPMDragging,
+				mode: states.editorViewModeState?.mode,
+				editorDisabled: states.editorDisabledState?.editorDisabled,
+			}),
+		);
+		return {
+			breakoutNode: undefined,
+			isDragging,
+			isPMDragging,
+			mode,
+			editorDisabled,
+		};
+	},
+	(api: ExtractInjectionAPI<typeof breakoutPlugin> | undefined) => {
+		// Re-render with `width` (but don't use state) due to https://bitbucket.org/atlassian/%7Bc8e2f021-38d2-46d0-9b7a-b3f7b428f724%7D/pull-requests/24272
+		const { breakoutState, editorViewModeState, editorDisabledState, blockControlsState } =
+			useSharedPluginState(api, [
+				'width',
+				'breakout',
+				'editorViewMode',
+				'editorDisabled',
+				'blockControls',
+			]);
+		return {
+			breakoutNode: breakoutState?.breakoutNode,
+			isDragging: blockControlsState?.isDragging,
+			isPMDragging: blockControlsState?.isPMDragging,
+			mode: editorViewModeState?.mode,
+			editorDisabled: editorDisabledState?.editorDisabled,
+		};
+	},
+);
 
 const LayoutButtonWrapper = ({
 	api,

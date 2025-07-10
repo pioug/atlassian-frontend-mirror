@@ -5,6 +5,8 @@ import { ElementBrowser } from '@atlaskit/editor-common/element-browser';
 import {
 	useSharedPluginState,
 	sharedPluginStateHookMigratorFactory,
+	type NamedPluginStatesFromInjectionAPI,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
@@ -247,47 +249,59 @@ interface ToolbarInsertBlockWithInjectionApiProps
 	appearance: EditorAppearance | undefined;
 }
 
+const selector = (
+	states: NamedPluginStatesFromInjectionAPI<
+		ExtractInjectionAPI<typeof insertBlockPlugin>,
+		| 'hyperlink'
+		| 'date'
+		| 'imageUpload'
+		| 'mention'
+		| 'emoji'
+		| 'blockType'
+		| 'media'
+		| 'typeAhead'
+		| 'placeholderText'
+		| 'insertBlock'
+		| 'connectivity'
+	>,
+) => {
+	return {
+		emojiProviderSelector: states.emojiState?.emojiProvider,
+		showMediaPicker: states.mediaState?.showMediaPicker,
+		mediaAllowsUploads: states.mediaState?.allowsUploads,
+		showElementBrowser: states.insertBlockState?.showElementBrowser,
+		isTypeAheadAllowed: states.typeAheadState?.isAllowed,
+		mentionProvider: states.mentionState?.mentionProvider,
+		canInsertMention: states.mentionState?.canInsertMention,
+		dateEnabled: states.dateState?.isInitialised,
+		placeholderTextAllowInserting: states.placeholderTextState?.allowInserting,
+		connectivityMode: states.connectivityState?.mode,
+		imageUploadEnabled: states.imageUploadState?.enabled,
+		availableWrapperBlockTypes: states.blockTypeState?.availableWrapperBlockTypes,
+		canInsertLink: states.hyperlinkState?.canInsertLink,
+		activeLinkMark: states.hyperlinkState?.activeLinkMark,
+	};
+};
+
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<typeof insertBlockPlugin> | undefined) => {
-		const emojiProviderSelector = useSharedPluginStateSelector(api, 'emoji.emojiProvider', {
-			disabled: editorExperiment('platform_editor_prevent_toolbar_layout_shifts', true),
-		});
-		const showMediaPicker = useSharedPluginStateSelector(api, 'media.showMediaPicker');
-		const mediaAllowsUploads = useSharedPluginStateSelector(api, 'media.allowsUploads');
-		const showElementBrowser = useSharedPluginStateSelector(api, 'insertBlock.showElementBrowser');
-		const isTypeAheadAllowed = useSharedPluginStateSelector(api, 'typeAhead.isAllowed');
-		const mentionProvider = useSharedPluginStateSelector(api, 'mention.mentionProvider');
-		const canInsertMention = useSharedPluginStateSelector(api, 'mention.canInsertMention');
-		const dateEnabled = useSharedPluginStateSelector(api, 'date.isInitialised');
-		const placeholderTextAllowInserting = useSharedPluginStateSelector(
+		return useSharedPluginStateWithSelector(
 			api,
-			'placeholderText.allowInserting',
+			[
+				'hyperlink',
+				'date',
+				'imageUpload',
+				'mention',
+				'emoji',
+				'blockType',
+				'media',
+				'typeAhead',
+				'placeholderText',
+				'insertBlock',
+				'connectivity',
+			],
+			selector,
 		);
-		const connectivityMode = useSharedPluginStateSelector(api, 'connectivity.mode');
-		const imageUploadEnabled = useSharedPluginStateSelector(api, 'imageUpload.enabled');
-		const availableWrapperBlockTypes = useSharedPluginStateSelector(
-			api,
-			'blockType.availableWrapperBlockTypes',
-		);
-		const canInsertLink = useSharedPluginStateSelector(api, 'hyperlink.canInsertLink');
-		const activeLinkMark = useSharedPluginStateSelector(api, 'hyperlink.activeLinkMark');
-
-		return {
-			emojiProviderSelector,
-			showMediaPicker,
-			mediaAllowsUploads,
-			showElementBrowser,
-			isTypeAheadAllowed,
-			mentionProvider,
-			canInsertMention,
-			dateEnabled,
-			placeholderTextAllowInserting,
-			connectivityMode,
-			imageUploadEnabled,
-			availableWrapperBlockTypes,
-			canInsertLink,
-			activeLinkMark,
-		};
 	},
 	(api: ExtractInjectionAPI<typeof insertBlockPlugin> | undefined) => {
 		const {

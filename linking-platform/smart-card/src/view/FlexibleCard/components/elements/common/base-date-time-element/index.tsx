@@ -15,21 +15,6 @@ import type { ElementProps } from '../../../elements';
 
 export type DateTimeType = 'created' | 'modified' | 'sent';
 
-// TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
-const stylesOld = css({
-	color: token('color.text.subtlest', '#626F86'),
-	font: token('font.body.UNSAFE_small'),
-	display: '-webkit-box',
-	overflow: 'hidden',
-	textOverflow: 'ellipsis',
-	wordBreak: 'break-word',
-	WebkitLineClamp: 1,
-	WebkitBoxOrient: 'vertical',
-	'@supports not (-webkit-line-clamp: 1)': {
-		maxHeight: 'calc(1 * 1rem)',
-	},
-});
-
 const styles = css({
 	color: token('color.text.subtle'),
 	font: token('font.body.small'),
@@ -162,8 +147,7 @@ const BaseDateTimeElement = ({
 	return (
 		<span
 			css={[
-				!fg('platform-linking-visual-refresh-v1') && stylesOld,
-				fg('platform-linking-visual-refresh-v1') && styles,
+				styles,
 				fontSize !== undefined &&
 					fg('bandicoots-smart-card-teamwork-context') &&
 					fontOverrideStyleMap[fontSize],

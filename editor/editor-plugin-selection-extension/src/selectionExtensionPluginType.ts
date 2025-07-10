@@ -1,3 +1,4 @@
+import { type ADFEntity } from '@atlaskit/adf-utils/types';
 import type {
 	EditorCommand,
 	NextEditorPlugin,
@@ -8,6 +9,7 @@ import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmo
 import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugin-selection-toolbar';
 
 import type {
+	LinkInsertionOption,
 	SelectionExtension,
 	SelectionExtensionPluginOptions,
 	SelectionExtensionPluginState,
@@ -33,6 +35,15 @@ export type SelectionExtensionPlugin = NextEditorPlugin<
 				selection: SelectionExtensionSelectionInfo;
 			}) => EditorCommand;
 			clearActiveExtension: () => EditorCommand;
+		};
+		actions: {
+			insertSmartLinks: (
+				linkInsertionOption: LinkInsertionOption | LinkInsertionOption[],
+				selectedNodeAdf: ADFEntity,
+			) => {
+				status: 'success' | 'error';
+				message?: string;
+			};
 		};
 	}
 >;

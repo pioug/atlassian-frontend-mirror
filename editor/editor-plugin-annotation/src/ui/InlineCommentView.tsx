@@ -15,7 +15,11 @@ import {
 	EVENT_TYPE,
 	RESOLVE_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import { sharedPluginStateHookMigratorFactory } from '@atlaskit/editor-common/hooks';
+import {
+	type NamedPluginStatesFromInjectionAPI,
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginStateWithSelector,
+} from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import {
@@ -28,6 +32,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
+import { type annotationPlugin } from '../annotationPlugin';
 import type { AnnotationPlugin } from '../annotationPluginType';
 import {
 	closeComponent,
@@ -74,55 +79,56 @@ interface InlineCommentViewProps {
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 }
 
-const useInlineCommentViewPluginState = sharedPluginStateHookMigratorFactory(
-	({ api }: { api: ExtractInjectionAPI<AnnotationPlugin> | undefined; state: EditorState }) => {
-		// eslint-disable-next-line react-hooks/rules-of-hooks
-		const bookmark = useSharedPluginStateSelector(api, 'annotation.bookmark');
-		// eslint-disable-next-line react-hooks/rules-of-hooks
-		const selectedAnnotations = useSharedPluginStateSelector(api, 'annotation.selectedAnnotations');
-		// eslint-disable-next-line react-hooks/rules-of-hooks
-		const annotations = useSharedPluginStateSelector(api, 'annotation.annotations');
-		// eslint-disable-next-line react-hooks/rules-of-hooks
-		const isInlineCommentViewClosed = useSharedPluginStateSelector(
-			api,
-			'annotation.isInlineCommentViewClosed',
-		);
-		// eslint-disable-next-line react-hooks/rules-of-hooks
-		const isOpeningMediaCommentFromToolbar = useSharedPluginStateSelector(
-			api,
-			'annotation.isOpeningMediaCommentFromToolbar',
-		);
-		// eslint-disable-next-line react-hooks/rules-of-hooks
-		const selectAnnotationMethod = useSharedPluginStateSelector(
-			api,
-			'annotation.selectAnnotationMethod',
-		);
+const selector = (
+	states: NamedPluginStatesFromInjectionAPI<
+		ExtractInjectionAPI<typeof annotationPlugin>,
+		'annotation'
+	>,
+) => {
+	return {
+		annotations: states.annotationState?.annotations,
+		bookmark: states.annotationState?.bookmark,
+		isInlineCommentViewClosed: states.annotationState?.isInlineCommentViewClosed,
+		isOpeningMediaCommentFromToolbar: states.annotationState?.isOpeningMediaCommentFromToolbar,
+		selectAnnotationMethod: states.annotationState?.selectAnnotationMethod,
+		selectedAnnotations: states.annotationState?.selectedAnnotations,
+		isAnnotationManagerEnabled: states.annotationState?.isAnnotationManagerEnabled,
+	};
+};
 
-		const isAnnotationManagerEnabled = useSharedPluginStateSelector(
-			api,
-			'annotation.isAnnotationManagerEnabled',
-		);
-
-		return {
-			bookmark,
-			selectedAnnotations,
+const useAnnotationContentComponentPluginState = sharedPluginStateHookMigratorFactory(
+	({
+		api,
+	}: {
+		api: ExtractInjectionAPI<typeof annotationPlugin> | undefined;
+		state: EditorState;
+	}) => {
+		const annotationState = useSharedPluginStateWithSelector(api, ['annotation'], selector);
+		return annotationState;
+	},
+	({
+		state,
+	}: {
+		api: ExtractInjectionAPI<typeof annotationPlugin> | undefined;
+		state: EditorState;
+	}) => {
+		const {
 			annotations,
+			bookmark,
 			isInlineCommentViewClosed,
 			isOpeningMediaCommentFromToolbar,
 			selectAnnotationMethod,
+			selectedAnnotations,
 			isAnnotationManagerEnabled,
-		};
-	},
-	({ state }) => {
-		const inlineCommentState = getPluginState(state);
+		} = getPluginState(state) ?? {};
 		return {
-			bookmark: inlineCommentState?.bookmark,
-			selectedAnnotations: inlineCommentState?.selectedAnnotations,
-			annotations: inlineCommentState?.annotations,
-			isInlineCommentViewClosed: inlineCommentState?.isInlineCommentViewClosed,
-			isOpeningMediaCommentFromToolbar: inlineCommentState?.isOpeningMediaCommentFromToolbar,
-			selectAnnotationMethod: inlineCommentState?.selectAnnotationMethod,
-			isAnnotationManagerEnabled: inlineCommentState?.isAnnotationManagerEnabled,
+			annotations,
+			bookmark,
+			isInlineCommentViewClosed,
+			isOpeningMediaCommentFromToolbar,
+			selectAnnotationMethod,
+			selectedAnnotations,
+			isAnnotationManagerEnabled,
 		};
 	},
 );
@@ -148,8 +154,7 @@ export function InlineCommentView({
 		selectAnnotationMethod,
 		selectedAnnotations,
 		isAnnotationManagerEnabled,
-	} = useInlineCommentViewPluginState({ api: editorAPI, state });
-
+	} = useAnnotationContentComponentPluginState({ api: editorAPI, state });
 	const annotationsList = getAllAnnotations(editorView.state.doc);
 
 	const selection = getSelectionPositions(state, {

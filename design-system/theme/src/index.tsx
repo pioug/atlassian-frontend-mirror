@@ -1,10 +1,9 @@
-import * as colorPalettes from './color-palettes';
 import * as colors from './colors';
 import * as typography from './typography';
 import getTheme from './utils/get-theme';
 import themed from './utils/themed';
 
-export { colors, colorPalettes, typography, getTheme, themed };
+export { colors, typography, getTheme, themed };
 
 export {
 	CHANNEL,
@@ -32,5 +31,4 @@ export type {
 	ThemeModes,
 	ThemeProps,
 	ThemedValue,
-	colorPaletteType,
 } from './types';

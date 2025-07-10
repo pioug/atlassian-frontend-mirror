@@ -13,18 +13,6 @@ import type { MessageProps } from '../../../types';
 import { getFormattedMessage } from '../../../utils';
 import { type ElementProps } from '../../index';
 
-// TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
-const baseStyleOld = css({
-	color: token('color.text.subtlest', '#626F86'),
-	font: token('font.body.UNSAFE_small'),
-	whiteSpace: 'normal',
-	display: '-webkit-box',
-	overflow: 'hidden',
-	textOverflow: 'ellipsis',
-	wordBreak: 'break-word',
-	WebkitBoxOrient: 'vertical',
-});
-
 const baseStyle = css({
 	color: token('color.text.subtle'),
 	font: token('font.body.small'),
@@ -122,8 +110,7 @@ export const BaseTextElement = ({
 	return (
 		<span
 			css={[
-				!fg('platform-linking-visual-refresh-v1') && baseStyleOld,
-				fg('platform-linking-visual-refresh-v1') && baseStyle,
+				baseStyle,
 				fontSize !== undefined &&
 					fg('bandicoots-smart-card-teamwork-context') &&
 					fontOverrideStyleMap[fontSize],

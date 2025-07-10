@@ -67,6 +67,7 @@ export class ExpandNodeView implements NodeView {
 		allowInteractiveExpand: boolean = true,
 		private __livePage = false,
 		private cleanUpEditorDisabledOnChange?: () => void,
+		private isExpanded: boolean | undefined = false,
 	) {
 		this.intl = getIntl();
 		this.nodeViewPortalProviderAPI = nodeViewPortalProviderAPI;
@@ -554,9 +555,17 @@ export class ExpandNodeView implements NodeView {
 				}
 			}
 
-			this.node = node;
-			if (!fg('platform_editor_disable_unnecessary_expand_renders')) {
-				this.updateExpandToggleIcon(this.node);
+			if (expValEquals('platform_editor_toggle_expand_on_match_found', 'isEnabled', true)) {
+				this.node = node;
+				const hasChanged = this.isExpanded !== expandedState.get(node);
+				if (hasChanged) {
+					this.updateExpandToggleIcon(node);
+				}
+			} else {
+				this.node = node;
+				if (!fg('platform_editor_disable_unnecessary_expand_renders')) {
+					this.updateExpandToggleIcon(this.node);
+				}
 			}
 			return true;
 		}
@@ -582,6 +591,9 @@ export class ExpandNodeView implements NodeView {
 			this.renderIcon(this.icon ? this.icon : null, expandedState.get(node) ?? false);
 		}
 		this.updateExpandBodyContentEditable();
+		if (expValEquals('platform_editor_toggle_expand_on_match_found', 'isEnabled', true)) {
+			this.isExpanded = expanded;
+		}
 	}
 
 	updateExpandBodyContentEditable() {

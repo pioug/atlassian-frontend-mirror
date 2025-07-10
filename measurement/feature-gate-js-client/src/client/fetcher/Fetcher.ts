@@ -196,17 +196,22 @@ export default class Fetcher {
 			return IC_FFS_BASE_URL.replace('%s', isolationContextId);
 		}
 		const { protocol, hostname } = window;
-		let baseDomain;
 
-		const domainParts = hostname.split('.');
-		if (domainParts.includes('oasis-stg')) {
-			baseDomain = IC_STAGING_BASE_DOMAIN_URL;
-		} else if (domainParts.includes('atlassian-isolated')) {
-			baseDomain = IC_PROD_BASE_DOMAIN_URL;
-		} else {
-			return null;
+		// Match last subdomain fragment before oasis-stg.com
+		const oasisMatch = hostname.match(/([^.]+)\.oasis-stg\.com$/);
+
+		if (oasisMatch) {
+			return `${protocol}//api.${oasisMatch[1]}.${IC_STAGING_BASE_DOMAIN_URL}`;
 		}
-		return `${protocol}//api.${baseDomain}`;
+
+		// Match last subdomain fragment before atlassian-isolated.net
+		const isolatedMatch = hostname.match(/([^.]+)\.atlassian-isolated\.net$/);
+
+		if (isolatedMatch) {
+			return `${protocol}//api.${isolatedMatch[1]}.${IC_PROD_BASE_DOMAIN_URL}`;
+		}
+
+		return null;
 	}
 
 	static getWindowLocation() {

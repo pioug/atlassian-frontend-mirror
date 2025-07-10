@@ -1,6 +1,7 @@
 import { type INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type {
 	EditorAppearance,
+	EditorCommand,
 	LongPressSelectionPluginOptions,
 	NextEditorPlugin,
 	OptionalPlugin,
@@ -12,6 +13,7 @@ import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmo
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { SelectionMarkerPlugin } from '@atlaskit/editor-plugin-selection-marker';
+import type { Selection } from '@atlaskit/editor-prosemirror/state';
 
 import type { insertExpand, insertExpandWithInputMethod } from './legacyExpand/commands';
 
@@ -73,6 +75,12 @@ export type ExpandPlugin = NextEditorPlugin<
 			 * Insert an expand node and dispatch event with inputMethod specified
 			 */
 			insertExpandWithInputMethod: ReturnType<typeof insertExpandWithInputMethod>;
+		};
+		commands: {
+			/**
+			 * Toggle the expand or nested expand node open
+			 */
+			toggleExpandWithMatch: (selection: Selection) => EditorCommand;
 		};
 	}
 >;

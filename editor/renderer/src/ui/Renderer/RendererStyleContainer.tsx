@@ -2114,7 +2114,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				backgroundColorStyles,
 				tasksAndDecisionsStyles,
 				smartCardStyles,
-				fg('platform-linking-visual-refresh-v1') && smartCardStylesAvatarFix,
+				smartCardStylesAvatarFix,
 				fg('smartcard_avatar_margin_fix') && smartCardStylesAvatarMarginFix,
 				// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 				fg('editor_inline_comments_on_inline_nodes') && rendererAnnotationStyles,

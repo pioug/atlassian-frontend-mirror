@@ -1,5 +1,11 @@
 # @atlaskit/mention
 
+## 24.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.2.4
 
 ### Patch Changes

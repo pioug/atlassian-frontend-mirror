@@ -40,3 +40,5 @@ export type { ReadMediaTokenResponse } from './media';
 export type { TeamInSlack } from './slack';
 
 export type { UserTenure } from './tenure';
+
+export { type Container, ContainerType } from './team-container';

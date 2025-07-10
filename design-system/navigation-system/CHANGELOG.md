@@ -1,5 +1,13 @@
 # @atlassian/navigation-system
 
+## 0.169.1
+
+### Patch Changes
+
+- [#182936](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/182936)
+  [`e51987d54c75f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e51987d54c75f) -
+  Allow aria-haspopup to be set on Search component.
+
 ## 0.169.0
 
 ### Minor Changes

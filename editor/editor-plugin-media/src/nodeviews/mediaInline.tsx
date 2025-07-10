@@ -10,8 +10,10 @@ import { jsx } from '@emotion/react';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import {
+	type NamedPluginStatesFromInjectionAPI,
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import { MediaInlineImageCard } from '@atlaskit/editor-common/media-inline';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
@@ -23,7 +25,6 @@ import type {
 } from '@atlaskit/editor-common/provider-factory';
 import { SelectionBasedNodeView } from '@atlaskit/editor-common/selection-based-node-view';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import { MediaInlineCard } from '@atlaskit/media-card';
@@ -216,32 +217,27 @@ type MediaInlineSharedStateProps = Omit<
 	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
 };
 
+const selector = (
+	states: NamedPluginStatesFromInjectionAPI<
+		ExtractInjectionAPI<MediaNextEditorPluginType>,
+		'editorViewMode' | 'media'
+	>,
+) => {
+	return {
+		viewMode: states.editorViewModeState?.mode,
+		mediaProvider: states.mediaState?.mediaProvider,
+		handleMediaNodeMount: states.mediaState?.handleMediaNodeMount,
+		handleMediaNodeUnmount: states.mediaState?.handleMediaNodeUnmount,
+		allowInlineImages: states.mediaState?.allowInlineImages,
+		addPendingTask: states.mediaState?.addPendingTask,
+		selectedMediaContainerNode: states.mediaState?.selectedMediaContainerNode,
+		mediaClientConfig: states.mediaState?.mediaClientConfig,
+	};
+};
+
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
-		const viewMode = useSharedPluginStateSelector(api, 'editorViewMode.mode');
-		const mediaProvider = useSharedPluginStateSelector(api, 'media.mediaProvider');
-		const handleMediaNodeMount = useSharedPluginStateSelector(api, 'media.handleMediaNodeMount');
-		const handleMediaNodeUnmount = useSharedPluginStateSelector(
-			api,
-			'media.handleMediaNodeUnmount',
-		);
-		const allowInlineImages = useSharedPluginStateSelector(api, 'media.allowInlineImages');
-		const addPendingTask = useSharedPluginStateSelector(api, 'media.addPendingTask');
-		const selectedMediaContainerNode = useSharedPluginStateSelector(
-			api,
-			'media.selectedMediaContainerNode',
-		);
-		const mediaClientConfig = useSharedPluginStateSelector(api, 'media.mediaClientConfig');
-		return {
-			viewMode,
-			mediaProvider,
-			handleMediaNodeMount,
-			handleMediaNodeUnmount,
-			allowInlineImages,
-			addPendingTask,
-			selectedMediaContainerNode,
-			mediaClientConfig,
-		};
+		return useSharedPluginStateWithSelector(api, ['editorViewMode', 'media'], selector);
 	},
 	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
 		const { editorViewModeState, mediaState } = useSharedPluginState(api, [

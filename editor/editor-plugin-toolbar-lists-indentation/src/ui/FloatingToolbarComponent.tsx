@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 import {
 	useSharedPluginState,
 	sharedPluginStateHookMigratorFactory,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
 import { usePluginStateEffect } from '@atlaskit/editor-common/use-plugin-state-effect';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -35,16 +35,25 @@ const FloatingToolbarSettings = {
 
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<ToolbarListsIndentationPlugin> | undefined) => {
-		const bulletListActive = useSharedPluginStateSelector(api, 'list.bulletListActive');
-		const bulletListDisabled = useSharedPluginStateSelector(api, 'list.bulletListDisabled');
-		const orderedListActive = useSharedPluginStateSelector(api, 'list.orderedListActive');
-		const orderedListDisabled = useSharedPluginStateSelector(api, 'list.orderedListDisabled');
-		const isIndentationAllowed = useSharedPluginStateSelector(
-			api,
-			'indentation.isIndentationAllowed',
-		);
-		const indentDisabled = useSharedPluginStateSelector(api, 'indentation.indentDisabled');
-		const outdentDisabled = useSharedPluginStateSelector(api, 'indentation.outdentDisabled');
+		const {
+			bulletListActive,
+			bulletListDisabled,
+			orderedListActive,
+			orderedListDisabled,
+			isIndentationAllowed,
+			indentDisabled,
+			outdentDisabled,
+		} = useSharedPluginStateWithSelector(api, ['list', 'indentation'], (states) => ({
+			bulletListActive: states.listState?.bulletListActive,
+			bulletListDisabled: states.listState?.bulletListDisabled,
+			orderedListActive: states.listState?.orderedListActive,
+			orderedListDisabled: states.listState?.orderedListDisabled,
+			isIndentationAllowed: states.indentationState?.isIndentationAllowed,
+			indentDisabled: states.indentationState?.indentDisabled,
+			outdentDisabled: states.indentationState?.outdentDisabled,
+			// decorationSet is required to re-render PrimaryToolbarComponent component, so that the toolbar states updates regularly
+			decorationSet: states.listState?.decorationSet,
+		}));
 		return {
 			bulletListActive,
 			bulletListDisabled,

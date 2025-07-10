@@ -1,9 +1,12 @@
+import isEqual from 'lodash/isEqual';
+
+import { type ADFEntity } from '@atlaskit/adf-utils/types';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection, type EditorState } from '@atlaskit/editor-prosemirror/state';
 import { CellSelection, type Rect, TableMap } from '@atlaskit/editor-tables';
 
-import { type SelectionExtensionFnOptions, type SelectionRange } from '../../types';
+import { type SelectionRange } from '../../types';
 
 const getSelectedRect = (selection: CellSelection): Rect => {
 	const { $anchorCell, $headCell } = selection;
@@ -15,11 +18,13 @@ const getSelectedRect = (selection: CellSelection): Rect => {
 };
 
 type SelectionInfo = {
-	selectedNode: PMNode;
+	selectedNodeAdf: ADFEntity;
 	selectionRanges: SelectionRange[];
+	selectedNode: PMNode;
+	nodePos: number;
 };
 
-const getSelectionInfoFromSameNode = (selection: TextSelection): SelectionInfo => {
+const getSelectionInfoFromSameNode = (selection: TextSelection) => {
 	const { $from, $to } = selection;
 	return {
 		selectedNode: $from.node(),
@@ -35,11 +40,13 @@ const getSelectionInfoFromSameNode = (selection: TextSelection): SelectionInfo =
 				},
 			},
 		],
+		nodePos: $from.before(), // position before the selection
 	};
 };
 
-const getSelectionInfoFromCellSelection = (selection: CellSelection): SelectionInfo => {
+const getSelectionInfoFromCellSelection = (selection: CellSelection) => {
 	const selectedNode = selection.$anchorCell.node(-1);
+	const nodePos = selection.$anchorCell.before(-1);
 	const selectionRanges: SelectionRange[] = [];
 	const rect = getSelectedRect(selection);
 
@@ -54,15 +61,16 @@ const getSelectionInfoFromCellSelection = (selection: CellSelection): SelectionI
 		});
 	}
 
-	return { selectedNode, selectionRanges };
+	return { selectedNode, selectionRanges, nodePos };
 };
 
-export const getSelectionInfo = (state: EditorState): SelectionExtensionFnOptions => {
+export const getSelectionInfo = (state: EditorState): SelectionInfo => {
 	const selection = state.selection;
 
-	let selectionInfo: SelectionInfo = {
+	let selectionInfo = {
 		selectedNode: selection.$from.node(),
-		selectionRanges: [],
+		selectionRanges: [] as SelectionRange[],
+		nodePos: selection.$from.before(), // default to the position before the selection
 	};
 
 	if (selection instanceof TextSelection) {
@@ -77,7 +85,15 @@ export const getSelectionInfo = (state: EditorState): SelectionExtensionFnOption
 	}
 
 	const serializer = new JSONTransformer();
-	const selectedNodeAdf = serializer.encodeNode(selectionInfo.selectedNode);
+	const { selectionRanges, selectedNode, nodePos } = selectionInfo;
+	const selectedNodeAdf = serializer.encodeNode(selectedNode);
 
-	return { selectedNodeAdf, selectionRanges: selectionInfo.selectionRanges };
+	return { selectedNodeAdf, selectionRanges, selectedNode, nodePos };
+};
+
+export const validateSelectedNode = (selectedNodeAdf: ADFEntity, selectedNode: PMNode): boolean => {
+	const serializer = new JSONTransformer();
+	const selectedNodeAdfFromState = serializer.encodeNode(selectedNode);
+
+	return isEqual(selectedNodeAdf, selectedNodeAdfFromState);
 };

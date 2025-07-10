@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { type RevisionPayloadEntry } from '../../common/vc/types';
 import { SSRPlaceholderHandlers } from '../vc-observer/observers/ssr-placeholders';
 
@@ -137,7 +135,7 @@ export default class VCObserverNew {
 
 		this.viewportObserver?.start();
 
-		if (window?.__SSR_ABORT_LISTENERS__ && fg('platform_ufo_vc_observer_new_ssr_abort_listener')) {
+		if (window?.__SSR_ABORT_LISTENERS__) {
 			const abortListeners = window.__SSR_ABORT_LISTENERS__;
 
 			const aborts = abortListeners.aborts;

@@ -18,7 +18,7 @@ const buildAttributes = (attributes = {}) => ({
 });
 
 const createEvent = (
-	eventType: 'ui' | 'operational',
+	eventType: 'ui' | 'operational' | 'track',
 	source: string,
 	action: string,
 	actionSubject: string,
@@ -191,3 +191,73 @@ const extractMemberCountsFromTeams = (
 	// teams with zero memberships cannot exist in share, so we use that
 	// as the default value for undefined team member counts
 	data.users.filter(checker).map((option) => option.memberCount || 0);
+
+export const jiraPageSharedEvent = ({
+	start,
+	data,
+	shareContentType,
+	shareContentSubType,
+	shareContentId,
+	shareOrigin,
+	isPublicLink = false,
+	productAttributes,
+	loggedInAccountId,
+	source = ANALYTICS_SOURCE,
+	actionSubjectId = 'submitShare',
+}: {
+	start: number;
+	data: DialogContentState;
+	shareContentType?: string;
+	shareContentSubType?: string;
+	shareContentId?: string;
+	shareOrigin?: OriginTracing;
+	isPublicLink?: boolean;
+	productAttributes?: any;
+	loggedInAccountId?: string;
+	source?: string;
+	actionSubjectId?: string;
+}): AnalyticsEventPayload => {
+	const users = extractIdsByType(data, isUser);
+	const externalUsers = extractIdsByType(data, isExternalUser);
+	const groups = extractIdsByType(data, isGroup);
+	const teams = extractIdsByType(data, isTeam);
+	const teamUserCounts = extractMemberCountsFromTeams(data, isTeam);
+	const emails = extractIdsByType(data, isEmail);
+
+	const baseAttributes = {
+		duration: duration(start),
+		source,
+		contentType: shareContentType,
+		projectType: productAttributes?.projectType, // software, business
+		projectStyle: productAttributes?.projectStyle, // TEAM_MANAGED_PROJECT, COMPANY_MANAGED_PROJECT
+		userLocation: productAttributes?.userLocation, // issue:issue, classic-software:rapidboard-board etc.
+		isAdmin: productAttributes?.isAdmin,
+		isProjectAdmin: productAttributes?.isProjectAdmin,
+		...getOriginTracingAttributes(shareOrigin),
+		contentId: shareContentId,
+		isPublicLink,
+		loggedInAccountId,
+		shareContentSubType,
+		externalUsers,
+	};
+
+	// User/team/group data (only for non-copy-link shares)
+	const shareSpecificAttributes =
+		data.users.length > 0
+			? {
+					users,
+					userCount: users.length,
+					teams,
+					teamCount: teams.length,
+					teamCounts: teamUserCounts,
+					groups,
+					groupCount: groups.length,
+					emailCount: emails.length,
+				}
+			: {};
+
+	return createEvent('track', source, 'shared', 'page', actionSubjectId, {
+		...baseAttributes,
+		...shareSpecificAttributes,
+	});
+};

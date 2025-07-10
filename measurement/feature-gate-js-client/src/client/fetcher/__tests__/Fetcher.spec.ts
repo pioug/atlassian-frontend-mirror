@@ -153,45 +153,50 @@ describe('Fetcher', () => {
 			expect(fetchMock.mock.calls[0][0]).toEqual(EXPECTED_KEY_GATEWAY_URL);
 		});
 
-		test('constructs correct staging URL in browser', async () => {
+		test('constructs correct staging URL in browser - single subdomain fragment', async () => {
 			jest.spyOn(Fetcher, 'getWindowLocation').mockReturnValue({
-				hostname: 'foo-bar.pear.oasis-stg.com',
+				hostname: 'pear.oasis-stg.com',
 				protocol: 'https:',
 			} as unknown as Location);
-			fetchMock.mockResponseOnce(JSON.stringify(defaultClientSdkKeyResponseBody));
-			const fetcherOptions = {
-				...defaultFetcherOptions,
-				environment: FeatureGateEnvironment.Staging,
-				useGatewayURL: false,
-				perimeter: PerimeterType.COMMERCIAL,
-				isolationContextId: undefined,
-				apiKey: 'test-api-key',
-			} as FetcherOptions;
-			await Fetcher.fetchClientSdk(fetcherOptions);
-			const expectedUrl = 'https://api.oasis-stg.com/flags/api/v2/frontend/clientSdkKey/test';
-			expect(fetchMock).toHaveBeenCalledTimes(1);
-			expect(fetchMock.mock.calls[0][0]).toEqual(expectedUrl);
+
+			const expectedUrl = 'https://api.pear.oasis-stg.com/flags/api/v2/frontend/clientSdkKey/test';
+
+			await testIcUrlConstruction(expectedUrl, FeatureGateEnvironment.Staging);
 		});
 
-		test('constructs correct prod URL in browser', async () => {
+		test('constructs correct staging URL in browser - multiple subdomain fragments', async () => {
 			jest.spyOn(Fetcher, 'getWindowLocation').mockReturnValue({
-				hostname: 'foo-bar.atlassian-isolated.net',
+				hostname: 'foo.bar.pear.oasis-stg.com',
 				protocol: 'https:',
 			} as unknown as Location);
-			fetchMock.mockResponseOnce(JSON.stringify(defaultClientSdkKeyResponseBody));
-			const fetcherOptions = {
-				...defaultFetcherOptions,
-				environment: FeatureGateEnvironment.Production,
-				useGatewayURL: false,
-				perimeter: PerimeterType.COMMERCIAL,
-				isolationContextId: undefined,
-				apiKey: 'test-api-key',
-			};
-			await Fetcher.fetchClientSdk(fetcherOptions);
+
+			const expectedUrl = 'https://api.pear.oasis-stg.com/flags/api/v2/frontend/clientSdkKey/test';
+
+			await testIcUrlConstruction(expectedUrl, FeatureGateEnvironment.Staging);
+		});
+
+		test('constructs correct prod URL in browser - single subdomain fragment', async () => {
+			jest.spyOn(Fetcher, 'getWindowLocation').mockReturnValue({
+				hostname: 'ic-name.atlassian-isolated.net',
+				protocol: 'https:',
+			} as unknown as Location);
+
 			const expectedUrl =
-				'https://api.atlassian-isolated.net/flags/api/v2/frontend/clientSdkKey/test';
-			expect(fetchMock).toHaveBeenCalledTimes(1);
-			expect(fetchMock.mock.calls[0][0]).toEqual(expectedUrl);
+				'https://api.ic-name.atlassian-isolated.net/flags/api/v2/frontend/clientSdkKey/test';
+
+			await testIcUrlConstruction(expectedUrl, FeatureGateEnvironment.Production);
+		});
+
+		test('constructs correct prod URL in browser - multiple subdomain fragments', async () => {
+			jest.spyOn(Fetcher, 'getWindowLocation').mockReturnValue({
+				hostname: 'admin.foo-bar.ic-name.atlassian-isolated.net',
+				protocol: 'https:',
+			} as unknown as Location);
+
+			const expectedUrl =
+				'https://api.ic-name.atlassian-isolated.net/flags/api/v2/frontend/clientSdkKey/test';
+
+			await testIcUrlConstruction(expectedUrl, FeatureGateEnvironment.Production);
 		});
 
 		test('constructs URL with isolationContextId in non-browser environment', async () => {
@@ -230,37 +235,32 @@ describe('Fetcher', () => {
 
 		test('falls back to STAGING_BASE_URL for staging environment when getApiUrl returns null', async () => {
 			jest.spyOn(Fetcher, 'getWindowLocation').mockReturnValue(undefined);
-			fetchMock.mockResponseOnce(JSON.stringify(defaultClientSdkKeyResponseBody));
-			const fetcherOptions = {
-				...defaultFetcherOptions,
-				environment: FeatureGateEnvironment.Staging,
-				useGatewayURL: false,
-				perimeter: PerimeterType.COMMERCIAL,
-				isolationContextId: undefined,
-				apiKey: 'test-api-key',
-			};
-			await Fetcher.fetchClientSdk(fetcherOptions);
 			const expectedUrl = 'https://api.stg.atlassian.com/flags/api/v2/frontend/clientSdkKey/test';
-			expect(fetchMock).toHaveBeenCalledTimes(1);
-			expect(fetchMock.mock.calls[0][0]).toEqual(expectedUrl);
+
+			testIcUrlConstruction(expectedUrl, FeatureGateEnvironment.Staging);
 		});
 
 		test('falls back to PROD_BASE_URL for production environment when getApiUrl returns null', async () => {
 			jest.spyOn(Fetcher, 'getWindowLocation').mockReturnValue(undefined);
+			const expectedUrl = 'https://api.atlassian.com/flags/api/v2/frontend/clientSdkKey/test';
+
+			testIcUrlConstruction(expectedUrl, FeatureGateEnvironment.Production);
+		});
+
+		async function testIcUrlConstruction(expectedUrl: string, environment: FeatureGateEnvironment) {
 			fetchMock.mockResponseOnce(JSON.stringify(defaultClientSdkKeyResponseBody));
 			const fetcherOptions = {
 				...defaultFetcherOptions,
-				environment: FeatureGateEnvironment.Production,
+				environment: environment,
 				useGatewayURL: false,
 				perimeter: PerimeterType.COMMERCIAL,
 				isolationContextId: undefined,
 				apiKey: 'test-api-key',
 			};
 			await Fetcher.fetchClientSdk(fetcherOptions);
-			const expectedUrl = 'https://api.atlassian.com/flags/api/v2/frontend/clientSdkKey/test';
 			expect(fetchMock).toHaveBeenCalledTimes(1);
 			expect(fetchMock.mock.calls[0][0]).toEqual(expectedUrl);
-		});
+		}
 	});
 
 	describe('fetchExperimentValues', () => {

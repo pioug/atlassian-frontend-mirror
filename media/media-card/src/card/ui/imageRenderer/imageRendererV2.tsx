@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import { jsx, css } from '@compiled/react';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { calculateDimensions, calculateInitialDimensions } from './helpers';
 import type { ImageRendererProps } from './types';
 import { useCurrentValueRef } from '../../../utils/useCurrentValueRef';
@@ -11,6 +11,7 @@ import { ImageRendererWrapper } from './wrapper';
 import { isFileIdentifier } from '@atlaskit/media-client';
 import { fg } from '@atlaskit/platform-feature-flags';
 import UFOCustomData from '@atlaskit/react-ufo/custom-data';
+import { useInteractionContext } from '@atlaskit/react-ufo/interaction-context';
 const baseStyles = css({
 	objectFit: 'contain',
 });
@@ -36,6 +37,8 @@ export const ImageRenderer = ({
 	testId,
 }: ImageRendererProps) => {
 	const onDisplayImageRef = useCurrentValueRef(onDisplayImage);
+	const ufoContext = useInteractionContext();
+
 	useEffect(() => {
 		if (mediaType === 'image') {
 			onDisplayImageRef.current?.();
@@ -46,6 +49,13 @@ export const ImageRenderer = ({
 	const [resolvedDimensions, setResolvedDimensions] = useState<React.CSSProperties>(
 		calculateInitialDimensions(resizeMode),
 	);
+
+	useLayoutEffect(() => {
+		if (!didRender && fg('platfrom_close_blindspot_for_img')) {
+			return ufoContext?.hold('img-loading');
+		}
+	}, [didRender, ufoContext]);
+
 	const imgRef = useRef<HTMLImageElement>(null);
 
 	const onLoad = (evt: React.SyntheticEvent<HTMLImageElement, Event>) => {

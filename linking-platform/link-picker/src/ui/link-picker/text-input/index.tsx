@@ -171,7 +171,7 @@ export const TextInput = ({
 	);
 
 	return (
-		<div css={[baseFieldStyles, fg('platform-linking-visual-refresh-v1') && newFieldStyles]}>
+		<div css={[baseFieldStyles, newFieldStyles]}>
 			<Field label={label} name={name}>
 				{({ fieldProps }) => {
 					return (

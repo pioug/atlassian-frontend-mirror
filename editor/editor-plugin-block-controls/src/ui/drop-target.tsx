@@ -11,9 +11,9 @@ import { type IntlShape } from 'react-intl-next';
 import {
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
 import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
@@ -254,7 +254,9 @@ const HoverZone = ({
 
 const useDropTargetPluginState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<BlockControlsPlugin> | undefined) => {
-		const lineLength = useSharedPluginStateSelector(api, 'width.lineLength');
+		const { lineLength } = useSharedPluginStateWithSelector(api, ['width'], (states) => ({
+			lineLength: states.widthState?.lineLength || DEFAULT_DROP_INDICATOR_WIDTH,
+		}));
 		return {
 			lineLength,
 		};

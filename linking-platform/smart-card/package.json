@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "39.1.0",
+	"version": "39.2.2",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -200,9 +200,6 @@
 			"type": "boolean"
 		},
 		"icon-object-migration": {
-			"type": "boolean"
-		},
-		"platform-linking-visual-refresh-v1": {
 			"type": "boolean"
 		},
 		"confluence-issue-terminology-refresh": {

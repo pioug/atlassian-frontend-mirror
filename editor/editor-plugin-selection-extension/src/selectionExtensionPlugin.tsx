@@ -12,13 +12,15 @@ import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 
+import { insertSmartLinks } from './pm-plugins/actions';
 import { createPlugin, selectionExtensionPluginKey } from './pm-plugins/main';
 import { getSelectionInfo } from './pm-plugins/utils';
 import type { SelectionExtensionPlugin } from './selectionExtensionPluginType';
-import type {
-	SelectionExtension,
-	SelectionExtensionCallbackOptions,
-	SelectionExtensionConfig,
+import {
+	SelectionExtensionActionTypes,
+	type SelectionExtension,
+	type SelectionExtensionCallbackOptions,
+	type SelectionExtensionConfig,
 } from './types';
 import { SelectionExtensionComponentWrapper } from './ui/extension/SelectionExtensionComponentWrapper';
 import { getBoundingBoxFromSelection } from './ui/getBoundingBoxFromSelection';
@@ -51,6 +53,15 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 				({ tr }) => {
 					return tr.setMeta(selectionExtensionPluginKey, { type: 'clear-active-extension' });
 				},
+		},
+		actions: {
+			insertSmartLinks: (linkInsertionOptions, selectedNodeAdf) => {
+				if (!editorViewRef.current) {
+					return { status: 'error', message: 'Editor view is not available' };
+				}
+				const { state, dispatch } = editorViewRef.current;
+				return insertSmartLinks(linkInsertionOptions, selectedNodeAdf)(state, dispatch);
+			},
 		},
 		contentComponent: ({ editorView }) => {
 			return (
@@ -143,9 +154,20 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 					let onClickCallbackOptions: SelectionExtensionCallbackOptions = { selection };
 
 					if (fg('platform_editor_selection_extension_api_v2')) {
-						const { selectedNodeAdf, selectionRanges } = getSelectionInfo(view.state);
+						const { selectedNodeAdf, selectionRanges, selectedNode, nodePos } = getSelectionInfo(
+							view.state,
+						);
 						onClickCallbackOptions = { selectedNodeAdf, selectionRanges };
 						extension.onClick?.(onClickCallbackOptions);
+
+						api?.core?.actions.execute(({ tr }) => {
+							tr.setMeta(selectionExtensionPluginKey, {
+								type: SelectionExtensionActionTypes.SET_SELECTED_NODE,
+								selectedNode,
+								nodePos,
+							});
+							return tr;
+						});
 					} else {
 						if (extension.onClick) {
 							extension.onClick(onClickCallbackOptions);

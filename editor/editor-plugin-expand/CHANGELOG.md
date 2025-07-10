@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-expand
 
+## 4.1.0
+
+### Minor Changes
+
+- [#179798](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/179798)
+  [`b74544d17393f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b74544d17393f) -
+  [ux] [ED-27963] this change is creating a new Editor Command inside expandPlugin to toggle open
+  expands with active matches from Find&Replace
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.0.1
 
 ### Patch Changes

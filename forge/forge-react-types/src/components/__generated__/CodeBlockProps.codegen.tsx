@@ -3,16 +3,64 @@
  *
  * Extract component prop types from UIKit 2 components - CodeBlockProps
  *
- * @codegen <<SignedSource::8ab4ed1e38d2bd1f9ceafe4cbc20f97d>>
+ * @codegen <<SignedSource::8fded8a55e24b0312739eb3ab66f63ca>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/code/__generated__/codeblock.partial.tsx <<SignedSource::88ed38fdfc47db0938e7801195a00403>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
-import React from 'react';
-import { CodeBlock as PlatformCodeBlock } from '@atlaskit/code';
 
-type PlatformCodeBlockProps = React.ComponentProps<typeof PlatformCodeBlock>;
+// Serialized type
+type PlatformCodeBlockProps = {
+  /**
+	 * The code to be formatted.
+	 */
+	text: string;
+  /**
+	 * A unique string that appears as a data attribute `data-testid` in the
+	 * rendered code. Serves as a hook for automated tests.
+	 */
+	testId: string;
+  /**
+	 *  Sets whether to display code line numbers or not.
+	 *  @default true
+	 */
+	showLineNumbers: boolean;
+  /**
+	 * Language reference designed to be populated from `SUPPORTED_LANGUAGES` in
+	 * `design-system/code`. Run against language grammars from PrismJS (full list
+	 * available at [PrismJS documentation](https://prismjs.com/#supported-languages)).
+	 *
+	 * When set to "text" will not perform highlighting. If unsupported language
+	 * provided - code will be treated as "text" with no highlighting.
+	 *
+	 * @default 'text'
+	 */
+	language: "text" | "PHP" | "php" | "php3" | "php4" | "php5" | "Java" | "java" | "CSharp" | "csharp" | "c#" | "Python" | "python" | "py" | "JavaScript" | "javascript" | "js" | "Html" | "html" | "xml" | "C++" | "c++" | "cpp" | "clike" | "Ruby" | "ruby" | "rb" | "duby" | "Objective-C" | "objective-c" | "objectivec" | "obj-c" | "objc" | "C" | "c" | "Swift" | "swift" | "TeX" | "tex" | "latex" | "Shell" | "shell" | "bash" | "sh" | "ksh" | "zsh" | "Scala" | "scala" | "Go" | "go" | "ActionScript" | "actionscript" | "actionscript3" | "as" | "ColdFusion" | "coldfusion" | "JavaFX" | "javafx" | "jfx" | "VbNet" | "vbnet" | "vb.net" | "vfp" | "clipper" | "xbase" | "JSON" | "json" | "MATLAB" | "matlab" | "Groovy" | "groovy" | "SQL" | "sql" | "postgresql" | "postgres" | "plpgsql" | "psql" | "postgresql-console" | "postgres-console" | "tsql" | "t-sql" | "mysql" | "sqlite" | "R" | "r" | "Perl" | "perl" | "pl" | "Lua" | "lua" | "Pascal" | "pas" | "pascal" | "objectpascal" | "delphi" | "XML" | "TypeScript" | "typescript" | "ts" | "CoffeeScript" | "coffeescript" | "coffee-script" | "coffee" | "Haskell" | "haskell" | "hs" | "Puppet" | "puppet" | "Arduino" | "arduino" | "Fortran" | "fortran" | "Erlang" | "erlang" | "erl" | "PowerShell" | "powershell" | "posh" | "ps1" | "psm1" | "Haxe" | "haxe" | "hx" | "hxsl" | "Elixir" | "elixir" | "ex" | "exs" | "Verilog" | "verilog" | "v" | "Rust" | "rust" | "VHDL" | "vhdl" | "Sass" | "sass" | "OCaml" | "ocaml" | "Dart" | "dart" | "CSS" | "css" | "reStructuredText" | "restructuredtext" | "rst" | "rest" | "Kotlin" | "kotlin" | "D" | "d" | "Octave" | "octave" | "QML" | "qbs" | "qml" | "Prolog" | "prolog" | "FoxPro" | "foxpro" | "purebasic" | "Scheme" | "scheme" | "scm" | "CUDA" | "cuda" | "cu" | "Julia" | "julia" | "jl" | "Racket" | "racket" | "rkt" | "Ada" | "ada" | "ada95" | "ada2005" | "Tcl" | "tcl" | "Mathematica" | "mathematica" | "mma" | "nb" | "Autoit" | "autoit" | "StandardML" | "standardmL" | "sml" | "standardml" | "Objective-J" | "objective-j" | "objectivej" | "obj-j" | "objj" | "Smalltalk" | "smalltalk" | "squeak" | "st" | "Vala" | "vala" | "vapi" | "LiveScript" | "livescript" | "live-script" | "XQuery" | "xquery" | "xqy" | "xq" | "xql" | "xqm" | "PlainText" | "plaintext" | "Yaml" | "yaml" | "yml" | "GraphQL" | "graphql" | "AppleScript" | "applescript" | "Clojure" | "clojure" | "Diff" | "diff" | "VisualBasic" | "visualbasic" | "JSX" | "jsx" | "TSX" | "tsx" | "SplunkSPL" | "splunk-spl" | "Dockerfile" | "docker" | "dockerfile" | "HCL" | "hcl" | "terraform" | "NGINX" | "nginx" | "Protocol Buffers" | "protobuf" | "proto" | "Handlebars" | "handlebars" | "mustache" | "Gherkin" | "gherkin" | "cucumber" | "ABAP" | "abap";
+  /**
+	 * Comma delimited lines to highlight.
+	 *
+	 * Example uses:
+	 * - To highlight one line `highlight="3"`
+	 * - To highlight a group of lines `highlight="1-5"`
+	 * - To highlight multiple groups `highlight="1-5,7,10,15-20"`
+	 */
+	highlight: string;
+  /**
+	 * Screen reader text for the start of a highlighted line.
+	 */
+	highlightedStartText: string;
+  /**
+	 * Screen reader text for the end of a highlighted line.
+	 */
+	highlightedEndText: string;
+  /**
+	 * Sets whether long lines will create a horizontally scrolling container.
+	 * When set to `true`, these lines will visually wrap instead.
+	 * @default false
+	 */
+	shouldWrapLongLines: boolean;
+}
 
 export type CodeBlockProps = Pick<
   PlatformCodeBlockProps,

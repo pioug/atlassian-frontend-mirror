@@ -8,8 +8,10 @@ import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import {
+	type NamedPluginStatesFromInjectionAPI,
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { getPosHandler } from '@atlaskit/editor-common/react-node-view';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
@@ -24,7 +26,6 @@ import {
 	MediaSingle as RichMediaWrapper,
 	UnsupportedBlock,
 } from '@atlaskit/editor-common/ui';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { floatingLayouts, isRichMediaInsideOfBlockNode } from '@atlaskit/editor-common/utils';
 import { type EditorViewModePluginState } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { Highlights } from '@atlaskit/editor-plugin-grid';
@@ -68,19 +69,26 @@ interface CardInnerProps {
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent | undefined;
 }
 
+const selector = (
+	states: NamedPluginStatesFromInjectionAPI<
+		ExtractInjectionAPI<typeof cardPlugin>,
+		'width' | 'editorDisabled'
+	>,
+) => {
+	return {
+		widthStateLineLength: states.widthState?.lineLength || 0,
+		widthStateWidth: states.widthState?.width || 0,
+		editorDisabled: states.editorDisabledState?.editorDisabled,
+	};
+};
+
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined) => {
-		const lineLength = useSharedPluginStateSelector(pluginInjectionApi, 'width.lineLength');
-		const width = useSharedPluginStateSelector(pluginInjectionApi, 'width.width');
-		const editorDisabled = useSharedPluginStateSelector(
+		return useSharedPluginStateWithSelector(
 			pluginInjectionApi,
-			'editorDisabled.editorDisabled',
+			['width', 'editorDisabled'],
+			selector,
 		);
-		return {
-			widthStateLineLength: lineLength || 0,
-			widthStateWidth: width || 0,
-			editorDisabled,
-		};
 	},
 	(pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined) => {
 		const { widthState, editorDisabledState } = useSharedPluginState(pluginInjectionApi, [

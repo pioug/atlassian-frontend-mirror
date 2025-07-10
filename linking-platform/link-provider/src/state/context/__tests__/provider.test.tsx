@@ -186,7 +186,7 @@ describe('Provider', () => {
 
 		const { store: newStore } = fn.mock.calls[1][0] as CardContext;
 
-		expect(store).toBe(newStore);
+		expect(store).toStrictEqual(newStore);
 	});
 
 	it('should re-create redux store when initialState prop has updated', () => {

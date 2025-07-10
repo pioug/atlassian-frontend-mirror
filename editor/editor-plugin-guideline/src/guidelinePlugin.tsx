@@ -14,10 +14,11 @@ import type {
 import {
 	useSharedPluginState,
 	sharedPluginStateHookMigratorFactory,
+	type NamedPluginStatesFromInjectionAPI,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorGridLineZIndex } from '@atlaskit/editor-shared-styles';
@@ -70,13 +71,23 @@ const guidelinePMPlugin = new SafePlugin<GuidelinePluginState>({
 	},
 });
 
+const selector = (
+	states: NamedPluginStatesFromInjectionAPI<
+		ExtractInjectionAPI<typeof guidelinePlugin>,
+		'width' | 'guideline'
+	>,
+) => {
+	return {
+		width: states.widthState?.width,
+		lineLength: states.widthState?.lineLength,
+		guidelines: states.guidelineState?.guidelines,
+		rect: states.guidelineState?.rect,
+	};
+};
+
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<typeof guidelinePlugin> | undefined) => {
-		const width = useSharedPluginStateSelector(api, 'width.width');
-		const lineLength = useSharedPluginStateSelector(api, 'width.lineLength');
-		const guidelines = useSharedPluginStateSelector(api, 'guideline.guidelines');
-		const rect = useSharedPluginStateSelector(api, 'guideline.rect');
-		return { width, lineLength, guidelines, rect };
+		return useSharedPluginStateWithSelector(api, ['width', 'guideline'], selector);
 	},
 	(api: ExtractInjectionAPI<typeof guidelinePlugin> | undefined) => {
 		const { widthState, guidelineState } = useSharedPluginState(api, ['width', 'guideline']);

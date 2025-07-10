@@ -1,5 +1,23 @@
 # @atlaskit/renderer
 
+## 120.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 120.1.0
+
+### Minor Changes
+
+- [#182230](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/182230)
+  [`f11dd07fddad7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f11dd07fddad7) -
+  [ux] EDM-11898 cleaning up platform-linking-visual-refresh-v1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 120.0.1
 
 ### Patch Changes

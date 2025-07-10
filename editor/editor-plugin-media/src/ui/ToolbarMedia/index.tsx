@@ -4,13 +4,14 @@ import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import {
+	type NamedPluginStatesFromInjectionAPI,
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import { toolbarMediaMessages } from '@atlaskit/editor-common/media';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import AttachmentIcon from '@atlaskit/icon/core/migration/attachment--editor-attachment';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
@@ -26,14 +27,21 @@ const onClickMediaButton = (showMediaPicker: () => void) => () => {
 	return true;
 };
 
+const selector = (
+	states: NamedPluginStatesFromInjectionAPI<
+		ExtractInjectionAPI<MediaNextEditorPluginType>,
+		'media'
+	>,
+) => {
+	return {
+		allowsUploads: states.mediaState?.allowsUploads,
+		showMediaPicker: states.mediaState?.showMediaPicker,
+	};
+};
+
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
-		const allowsUploads = useSharedPluginStateSelector(api, 'media.allowsUploads');
-		const showMediaPicker = useSharedPluginStateSelector(api, 'media.showMediaPicker');
-		return {
-			allowsUploads,
-			showMediaPicker,
-		};
+		return useSharedPluginStateWithSelector(api, ['media'], selector);
 	},
 	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
 		const { mediaState } = useSharedPluginState(api, ['media']);

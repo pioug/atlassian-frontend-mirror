@@ -43,84 +43,60 @@ const EmbedCardNotFoundDefault = EmbedCardNotFoundView;
 
 snapshot(EmbedCardErrorView, {
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
 		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
 snapshot(EmbedCardForbiddenView, {
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
 		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
 snapshot(EmbedCardForbiddenFixBlurring, {
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshot(EmbedCardForbiddenDefault, {
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
 		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
 snapshot(EmbedCardForbiddenObjectRequestAccess, {
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
 		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
 snapshot(EmbedCardForbiddenSiteDeniedAccess, {
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshot(EmbedCardForbiddenSiteDirectAccess, {
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
 		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
 snapshot(EmbedCardForbiddenSiteForbiddenAccess, {
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshot(EmbedCardForbiddenSitePendingAccess, {
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshot(EmbedCardForbiddenSiteRequestAccess, {
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
 		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
 snapshot(EmbedCardNotFoundView, {
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshot(EmbedCardNotFoundDefault, {
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshot(EmbedCardNotFoundSiteAccessExists, {
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshot(EmbedCardResolvedSmall, {
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshot(EmbedCardResolvedView, {
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshot(EmbedCardResolvedView, {
 	featureFlags: {
@@ -135,137 +111,98 @@ snapshot(EmbedCardResolvedViewCompetitorPrompt, {
 	},
 });
 snapshot(EmbedCardResolvedViewNoPreview, {
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshot(EmbedCardResolvingView, {
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshot(EmbedCardSelected, {
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshot(EmbedCardUnauthorisedView, {
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
 		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
 snapshot(EmbedCardUnauthorisedViewWithProviderImage, {
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
 		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
 snapshot(EmbedCardUnauthorisedViewWithNoAuth, {
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 
 snapshot(EmbedCardFrameWithHref, {
 	description: 'embed card frame should render as a link when there is an href',
 	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshot(EmbedCardFrameWithNoHref, {
 	description: 'embed card frame should not render as a link when there is no href',
 	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshot(EmbedCardFrameWithPlaceholderAndHref, {
 	description:
 		'embed card frame should not be interactive when isPlaceholder=true and href is defined',
 	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshot(EmbedCardFrameWithPlaceholderAndOnClick, {
 	description:
 		'embed card frame should not be interactive when isPlaceholder=true and onClick is defined',
 	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshot(EmbedCardFrameWithNoPlaceholderWithHref, {
 	description:
 		'embed card frame should be interactive when isPlaceholder=false and href is defined',
 	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshot(EmbedCardFrameWithNoPlaceholderWithOnClick, {
 	description:
 		'embed card frame should be interactive when isPlaceholder=false and onClick is defined',
 	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 
 snapshot(EmbedCardFrameStyleHide, {
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
 		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
 snapshot(EmbedCardFrameStyleHideAndSelected, {
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshot(EmbedCardFrameStyleShow, {
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshot(EmbedCardFrameStyleShowAndSelected, {
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshot(EmbedCardFrameStyleShowOnHover, {
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshot(EmbedCardFrameStyleShowOnHover, {
 	description: 'embed card frame style show on hover when hover',
 	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshot(EmbedCardFrameStyleShowOnHoverAndSelected, {
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshot(EmbedCardForbiddenViewFrameHide, {
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
 		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
 snapshot(EmbedCardNotFoundViewFrameHide, {
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshot(EmbedCardUnauthorisedViewFrameHide, {
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
 		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });

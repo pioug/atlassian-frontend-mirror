@@ -1,5 +1,17 @@
 # @atlaskit/editor-core
 
+## 209.1.0
+
+### Minor Changes
+
+- [#182230](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/182230)
+  [`f11dd07fddad7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f11dd07fddad7) -
+  [ux] EDM-11898 cleaning up platform-linking-visual-refresh-v1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 209.0.3
 
 ### Patch Changes

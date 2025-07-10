@@ -144,7 +144,7 @@ describe('Block', () => {
 
 				const elementGroup = await screen.findByTestId('smart-element-group');
 
-				expect(elementGroup).toHaveStyle('gap: var(--ds-space-050,.25rem);');
+				expect(elementGroup).toHaveStyle('gap: var(--ds-space-050,4px);');
 			});
 
 			it('does not override element group size', async () => {
@@ -156,7 +156,7 @@ describe('Block', () => {
 
 				const elementGroup = await screen.findByTestId('smart-element-group');
 
-				expect(elementGroup).toHaveStyle('gap: var(--ds-space-200,1rem);');
+				expect(elementGroup).toHaveStyle('gap: var(--ds-space-200,1pc);');
 			});
 		});
 
@@ -229,11 +229,11 @@ describe('Block', () => {
 
 describe('size', () => {
 	it.each([
-		[SmartLinkSize.XLarge, '1.25rem'],
-		[SmartLinkSize.Large, '1rem'],
-		[SmartLinkSize.Medium, '.5rem'],
-		[SmartLinkSize.Small, '.25rem'],
-		[undefined, '.5rem'],
+		[SmartLinkSize.XLarge, 'var(--ds-space-250,20px)'],
+		[SmartLinkSize.Large, 'var(--ds-space-200,1pc)'],
+		[SmartLinkSize.Medium, 'var(--ds-space-100,8px)'],
+		[SmartLinkSize.Small, 'var(--ds-space-050,4px)'],
+		[undefined, 'var(--ds-space-100,8px)'],
 	])('renders element in %s size', async (size: SmartLinkSize | undefined, expected: string) => {
 		render(<Block size={size}>I am a block.</Block>);
 

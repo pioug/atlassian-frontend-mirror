@@ -9,10 +9,10 @@ import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import {
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import messages from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import {
 	type CollabEditPluginSharedState,
 	type ReadOnlyParticipants,
@@ -42,9 +42,15 @@ const useAvatarsWithPluginState = sharedPluginStateHookMigratorFactory(
 		isInitialised: boolean | undefined;
 		collabEditState: CollabEditPluginSharedState | undefined;
 	} => {
-		const sessionId = useSharedPluginStateSelector(api, 'collabEdit.sessionId');
-		const activeParticipants = useSharedPluginStateSelector(api, 'collabEdit.activeParticipants');
-		const initialised = useSharedPluginStateSelector(api, 'collabEdit.initialised');
+		const { sessionId, activeParticipants, initialised } = useSharedPluginStateWithSelector(
+			api,
+			['collabEdit'],
+			(states) => ({
+				sessionId: states.collabEditState?.sessionId,
+				activeParticipants: states.collabEditState?.activeParticipants,
+				initialised: states.collabEditState?.initialised,
+			}),
+		);
 		return {
 			sessionId,
 			activeParticipants,

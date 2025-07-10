@@ -4,9 +4,9 @@ import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -29,8 +29,12 @@ const FloatingToolbarSettings = {
 
 const useFloatingToolbarComponentPluginState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<AlignmentPlugin> | undefined) => {
-		const align = useSharedPluginStateSelector(api, 'alignment.align');
-		const isEnabled = useSharedPluginStateSelector(api, 'alignment.isEnabled');
+		const { align, isEnabled } = useSharedPluginStateWithSelector(api, ['alignment'], (states) => {
+			return {
+				align: states.alignmentState?.align,
+				isEnabled: states.alignmentState?.isEnabled,
+			};
+		});
 		return {
 			align,
 			isEnabled,

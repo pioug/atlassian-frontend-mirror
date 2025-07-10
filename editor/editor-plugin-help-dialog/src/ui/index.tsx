@@ -12,9 +12,10 @@ import { injectIntl } from 'react-intl-next';
 import {
 	useSharedPluginState,
 	sharedPluginStateHookMigratorFactory,
+	type NamedPluginStatesFromInjectionAPI,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import AkModalDialog, { ModalTransition } from '@atlaskit/modal-dialog';
 
@@ -31,12 +32,19 @@ export interface HelpDialogProps {
 	quickInsertEnabled?: boolean;
 }
 
+const selector = (
+	states: NamedPluginStatesFromInjectionAPI<ExtractInjectionAPI<HelpDialogPlugin>, 'helpDialog'>,
+) => {
+	return {
+		isVisible: states.helpDialogState?.isVisible,
+		imageEnabled: states.helpDialogState?.imageEnabled,
+		aiEnabled: states.helpDialogState?.aiEnabled,
+	};
+};
+
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<HelpDialogPlugin> | undefined) => {
-		const isVisible = useSharedPluginStateSelector(api, 'helpDialog.isVisible');
-		const imageEnabled = useSharedPluginStateSelector(api, 'helpDialog.imageEnabled');
-		const aiEnabled = useSharedPluginStateSelector(api, 'helpDialog.aiEnabled');
-		return { isVisible, imageEnabled, aiEnabled };
+		return useSharedPluginStateWithSelector(api, ['helpDialog'], selector);
 	},
 	(api: ExtractInjectionAPI<HelpDialogPlugin> | undefined) => {
 		const { helpDialogState } = useSharedPluginState(api, ['helpDialog']);

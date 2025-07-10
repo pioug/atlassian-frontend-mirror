@@ -21,19 +21,6 @@ import type { ActionMessage } from '../../actions/action/types';
 import { ActionFooter } from './action-footer';
 import type { ActionBlockProps } from './types';
 
-// TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
-const ignoreContainerPaddingStylesOld = css({
-	display: 'flex',
-	flexDirection: 'column',
-	boxSizing: 'border-box',
-	flexGrow: 1,
-	width: '100%',
-	// We have to find a better way to ignore container padding
-	// This has become more and more of a common use case.
-	marginLeft: 'calc(var(--container-gap-left)  * -1)',
-	marginRight: 'calc(var(--container-gap-right) * -1)',
-});
-
 const ignoreContainerPaddingStyles = css({
 	display: 'flex',
 	flexDirection: 'column',
@@ -161,11 +148,7 @@ const ActionBlock = ({
 
 	return actions ? (
 		<div
-			css={[
-				fg('platform-linking-visual-refresh-v1')
-					? ignoreContainerPaddingStyles
-					: ignoreContainerPaddingStylesOld,
-			]}
+			css={[ignoreContainerPaddingStyles]}
 			ref={blockRef}
 			data-testid={testId}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop

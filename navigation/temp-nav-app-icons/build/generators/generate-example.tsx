@@ -5,7 +5,7 @@ import fs from 'fs-extra';
 import format from '@af/formatting/sync';
 import { createSignedArtifact } from '@atlassian/codegen';
 
-import { Assets } from '../utils';
+import { type Assets } from '../utils';
 
 export default function generateExample(assets: Assets, root: string | undefined) {
 	// Create example utils file with rows of all assets

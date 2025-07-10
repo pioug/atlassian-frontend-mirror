@@ -1,5 +1,20 @@
 # @atlaskit/editor-common
 
+## 107.7.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 107.7.3
+
+### Patch Changes
+
+- [#183109](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183109)
+  [`3fd4ff5c71ef7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3fd4ff5c71ef7) -
+  Migrate to useSharedPluginStateWithSelector
+- Updated dependencies
+
 ## 107.7.2
 
 ### Patch Changes

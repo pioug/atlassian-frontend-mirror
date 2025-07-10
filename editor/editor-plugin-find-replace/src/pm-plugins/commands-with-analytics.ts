@@ -59,23 +59,24 @@ export const findWithAnalytics =
 		})(find(editorView, containerElement, keyword));
 
 export const findNextWithAnalytics =
-	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined, editorView: EditorView) =>
 	({
 		triggerMethod,
 	}: {
 		triggerMethod: TRIGGER_METHOD.KEYBOARD | TRIGGER_METHOD.BUTTON;
-	}): Command =>
-		withAnalytics(editorAnalyticsAPI, {
+	}): Command => {
+		return withAnalytics(editorAnalyticsAPI, {
 			eventType: EVENT_TYPE.TRACK,
 			action: ACTION.FIND_NEXT_PERFORMED,
 			actionSubject: ACTION_SUBJECT.TEXT,
 			attributes: {
 				triggerMethod,
 			},
-		})(findNext());
+		})(findNext(editorView));
+	};
 
 export const findPrevWithAnalytics =
-	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined, editorView: EditorView) =>
 	({
 		triggerMethod,
 	}: {
@@ -88,7 +89,7 @@ export const findPrevWithAnalytics =
 			attributes: {
 				triggerMethod,
 			},
-		})(findPrevious());
+		})(findPrevious(editorView));
 
 export const replaceWithAnalytics =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>

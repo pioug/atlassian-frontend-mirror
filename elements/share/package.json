@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/share",
-	"version": "6.15.0",
+	"version": "6.15.1",
 	"description": "Fabric Share Element",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -142,6 +142,9 @@
 			"type": "boolean"
 		},
 		"jira_client_side_error_handled_track_event": {
+			"type": "boolean"
+		},
+		"page_shared_event_from_share_dialogue": {
 			"type": "boolean"
 		}
 	},

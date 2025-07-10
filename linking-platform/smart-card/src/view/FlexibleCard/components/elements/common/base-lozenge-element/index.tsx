@@ -14,12 +14,6 @@ import type { ElementProps } from '../../../elements';
 
 import LozengeAction from './lozenge-action';
 
-const stylesOld = css({
-	display: 'inline-flex',
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-	lineHeight: 'inherit',
-});
-
 const styles = css({
 	display: 'inline-flex',
 	minWidth: 'fit-content',
@@ -89,11 +83,7 @@ const BaseLozengeElement = ({
 
 	return (
 		<span
-			css={[
-				!fg('platform-linking-visual-refresh-v1') && stylesOld,
-				fg('platform-linking-visual-refresh-v1') && styles,
-			]}
-			{...(fg('platform-linking-visual-refresh-v1') ? {} : { ['data-fit-to-content']: true })}
+			css={[styles]}
 			data-smart-element={name}
 			data-smart-element-lozenge
 			data-testid={testId}

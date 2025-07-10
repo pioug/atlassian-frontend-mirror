@@ -4,9 +4,10 @@ import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
 	useSharedPluginState,
 	sharedPluginStateHookMigratorFactory,
+	type NamedPluginStatesFromInjectionAPI,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI, TypeAheadHandler } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { type mentionsPlugin } from '../mentionsPlugin';
@@ -21,10 +22,17 @@ interface SecondaryToolbarComponentProps {
 	disabled: boolean;
 }
 
+const selector = (
+	states: NamedPluginStatesFromInjectionAPI<ExtractInjectionAPI<typeof mentionsPlugin>, 'mention'>,
+) => {
+	return {
+		mentionProvider: states.mentionState?.mentionProvider,
+	};
+};
+
 const useSharedMentionState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<typeof mentionsPlugin> | undefined) => {
-		const mentionProvider = useSharedPluginStateSelector(api, 'mention.mentionProvider');
-		return { mentionProvider };
+		return useSharedPluginStateWithSelector(api, ['mention'], selector);
 	},
 	(api: ExtractInjectionAPI<typeof mentionsPlugin> | undefined) => {
 		const { mentionState } = useSharedPluginState(api, ['mention']);

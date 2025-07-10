@@ -10,7 +10,6 @@ import { css, cssMap, jsx } from '@compiled/react';
 import { di } from 'react-magnetic-di';
 
 import { fg } from '@atlaskit/platform-feature-flags';
-import { N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -226,23 +225,8 @@ const baseStyleCommon = css({
 	},
 });
 
-// TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
-const backgroundStyleOld = css({
-	backgroundColor: token('elevation.surface.raised', '#FFFFFF'),
-});
-
 const backgroundStyles = css({
 	backgroundColor: token('elevation.surface.raised'),
-});
-
-// TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
-const elevationStylesOld = css({
-	border: `1px solid ${token('color.border', N40)}`,
-	borderRadius: token('border.radius.200', '8px'),
-	marginTop: token('space.025', '2px'),
-	marginRight: token('space.025', '2px'),
-	marginBottom: token('space.025', '2px'),
-	marginLeft: token('space.025', '2px'),
 });
 
 const elevationStyles = css({
@@ -259,22 +243,6 @@ const clickableContainerStyles = css({
 	'a, button, .has-action': {
 		position: 'relative',
 		zIndex: 1,
-	},
-});
-
-// TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
-const gapStyleMapOld = cssMap({
-	xlarge: {
-		gap: '1.25rem 0',
-	},
-	large: {
-		gap: '1rem 0',
-	},
-	medium: {
-		gap: '.5rem 0',
-	},
-	small: {
-		gap: '.25rem 0',
 	},
 });
 
@@ -299,80 +267,32 @@ const gapStyleMap = cssMap({
  * at view/FlexibleCard/components/utils.tsx
  */
 const getPadding = (size?: SmartLinkSize): string => {
-	if (fg('platform-linking-visual-refresh-v1')) {
-		switch (size) {
-			case SmartLinkSize.XLarge:
-				return token('space.300');
-			case SmartLinkSize.Large:
-				return token('space.250');
-			case SmartLinkSize.Medium:
-				return token('space.200');
-			case SmartLinkSize.Small:
-			default:
-				return token('space.100');
-		}
-	}
-
 	switch (size) {
 		case SmartLinkSize.XLarge:
-			return '1.5rem';
+			return token('space.300');
 		case SmartLinkSize.Large:
-			return '1.25rem';
+			return token('space.250');
 		case SmartLinkSize.Medium:
-			return '1rem';
+			return token('space.200');
 		case SmartLinkSize.Small:
 		default:
-			return '.5rem';
+			return token('space.100');
 	}
 };
 
 const getGap = (size?: SmartLinkSize): string => {
-	if (fg('platform-linking-visual-refresh-v1')) {
-		switch (size) {
-			case SmartLinkSize.XLarge:
-				return token('space.250');
-			case SmartLinkSize.Large:
-				return token('space.200');
-			case SmartLinkSize.Medium:
-				return token('space.100');
-			case SmartLinkSize.Small:
-			default:
-				return token('space.050');
-		}
-	}
-
 	switch (size) {
 		case SmartLinkSize.XLarge:
-			return '1.25rem';
+			return token('space.250');
 		case SmartLinkSize.Large:
-			return '1rem';
+			return token('space.200');
 		case SmartLinkSize.Medium:
-			return '.5rem';
+			return token('space.100');
 		case SmartLinkSize.Small:
 		default:
-			return '.25rem';
+			return token('space.050');
 	}
 };
-
-// TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
-const previewOnLeftStyleMapOld = cssMap({
-	xlarge: {
-		paddingLeft: `calc(var(--preview-block-width) + 1.25rem)`,
-		'--container-gap-left': '1.25rem',
-	},
-	large: {
-		paddingLeft: `calc(var(--preview-block-width) + 1rem)`,
-		'--container-gap-left': '1rem',
-	},
-	medium: {
-		paddingLeft: `calc(var(--preview-block-width) + .5rem)`,
-		'--container-gap-left': '.5rem',
-	},
-	small: {
-		paddingLeft: `calc(var(--preview-block-width) + .25rem)`,
-		'--container-gap-left': '.25rem',
-	},
-});
 
 const previewOnLeftStyleMap = cssMap({
 	xlarge: {
@@ -390,26 +310,6 @@ const previewOnLeftStyleMap = cssMap({
 	small: {
 		paddingLeft: `calc(var(--preview-block-width) + ${token('space.100')})`,
 		'--container-gap-left': token('space.100'),
-	},
-});
-
-// TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
-const previewOnRightStyleMapOld = cssMap({
-	xlarge: {
-		paddingRight: `calc(var(--preview-block-width) + 1.25rem)`,
-		'--container-gap-right': '1.25rem',
-	},
-	large: {
-		paddingRight: `calc(var(--preview-block-width) + 1rem)`,
-		'--container-gap-right': '1rem',
-	},
-	medium: {
-		paddingRight: `calc(var(--preview-block-width) + .5rem)`,
-		'--container-gap-right': '.5rem',
-	},
-	small: {
-		paddingRight: `calc(var(--preview-block-width) + .25rem)`,
-		'--container-gap-right': '.25rem',
 	},
 });
 
@@ -459,11 +359,7 @@ const Container = ({
 }: ContainerProps) => {
 	di(HoverCardControl);
 
-	const padding = hidePadding
-		? fg('platform-linking-visual-refresh-v1')
-			? '0px'
-			: '0rem'
-		: getPadding(size);
+	const padding = hidePadding ? '0px' : getPadding(size);
 	const gap = getGap(size);
 
 	const context = fg('platform-linking-flexible-card-context')
@@ -486,7 +382,7 @@ const Container = ({
 		padding: padding,
 	});
 
-	const container = fg('platform-linking-visual-refresh-v1') ? (
+	const container = (
 		<div
 			css={[
 				baseStyleCommon,
@@ -496,26 +392,6 @@ const Container = ({
 				previewOnLeft && previewOnLeftStyleMap[size],
 				previewOnRight && previewOnRightStyleMap[size],
 				!hideElevation && elevationStyles,
-				clickableContainer && clickableContainerStyles,
-			]}
-			data-smart-link-container
-			data-testid={testId}
-		>
-			{clickableContainer ? getLayeredLink(testId, context, children, onClick) : null}
-			{fg('platform-linking-flexible-card-context')
-				? filterChildren(children, removeBlockRestriction)
-				: renderChildren(children, size, theme, status, retry, onClick, removeBlockRestriction)}
-		</div>
-	) : (
-		<div
-			css={[
-				baseStyleCommon,
-				gapStyleMapOld[size],
-				!hideBackground && backgroundStyleOld,
-				containerPaddingStyles,
-				previewOnLeft && previewOnLeftStyleMapOld[size],
-				previewOnRight && previewOnRightStyleMapOld[size],
-				!hideElevation && elevationStylesOld,
 				clickableContainer && clickableContainerStyles,
 			]}
 			data-smart-link-container

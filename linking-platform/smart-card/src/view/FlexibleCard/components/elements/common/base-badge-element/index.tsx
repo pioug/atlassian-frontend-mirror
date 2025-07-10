@@ -5,10 +5,9 @@
  */
 import React, { forwardRef } from 'react';
 
-import { css, cssMap, jsx } from '@compiled/react';
+import { cssMap, jsx } from '@compiled/react';
 import { type MessageDescriptor } from 'react-intl-next';
 
-import { withFeatureFlaggedComponent } from '@atlaskit/linking-common';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -49,51 +48,6 @@ const styles = cssMap({
 const colorMap = cssMap({
 	subtle: { color: token('color.text.subtlest') },
 	default: { color: token('color.text.subtle') },
-});
-
-const badgeStyles = css({
-	alignItems: 'center',
-	display: 'inline-flex',
-	minWidth: 'fit-content',
-});
-
-const iconStyles = css({
-	color: token('color.icon.subtle', '#626F86'),
-	lineHeight: 0,
-	verticalAlign: 'middle',
-	flex: '0 0 auto',
-	height: '1rem',
-	minHeight: '1rem',
-	maxHeight: '1rem',
-	width: '1rem',
-	minWidth: '1rem',
-	maxWidth: '1rem',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'span, svg, img': {
-		height: '1rem',
-		minHeight: '1rem',
-		maxHeight: '1rem',
-		width: '1rem',
-		minWidth: '1rem',
-		maxWidth: '1rem',
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	svg: {
-		padding: 0,
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'img, span, svg': {
-		lineHeight: 0,
-		verticalAlign: 'middle',
-	},
-});
-
-// TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
-const labelStylesOld = css({
-	color: token('color.text.subtlest', '#626F86'),
-	font: token('font.body.UNSAFE_small'),
-	paddingLeft: token('space.025', '0.125rem'),
-	verticalAlign: 'middle',
 });
 
 const messageMapper: {
@@ -222,60 +176,7 @@ const BaseBadgeRefreshNew = forwardRef(
 	},
 );
 
-// On cleanup of platform-linking-visual-refresh-v1, this should become
-// export default withOverrideCss(BaseBadgeElement);
-const BaseBadgeElementRefreshNewWithOverrideCss = withOverrideCss(BaseBadgeRefreshNew);
-
-/**
- * A base element that displays some text with an associated icon.
- * @internal
- * @param {BadgeProps} BadgeProps - The props necessary for the Badge.
- * @see CommentCount
- * @see ViewCount
- * @see ReactCount
- * @see VoteCount
- * @see SubscriberCount
- * @see Priority
- * @see ProgrammingLanguage
- * @see Provider
- */
-const BaseBadgeElementCompiledNew = ({
-	hideIcon = false,
-	icon,
-	label,
-	name,
-	className,
-	testId = 'smart-element-badge',
-	url,
-}: BaseBadgeElementProps): JSX.Element | null => {
-	const formattedMessageOrLabel = getFormattedMessageFromIcon(icon) || label;
-	const badgeIcon = renderAtlaskitIcon(icon, testId) || renderImageIcon(url, testId);
-	if (!formattedMessageOrLabel || !badgeIcon) {
-		return null;
-	}
-	return (
-		<span
-			css={[badgeStyles]}
-			{...(fg('platform-linking-visual-refresh-v1') ? {} : { ['data-fit-to-content']: true })}
-			data-smart-element={name}
-			data-smart-element-badge
-			data-testid={testId}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-			className={className}
-		>
-			{!hideIcon && <span css={iconStyles}>{badgeIcon}</span>}
-			<span css={[labelStylesOld]} data-testid={`${testId}-label`}>
-				{formattedMessageOrLabel}
-			</span>
-		</span>
-	);
-};
-
-export default withFeatureFlaggedComponent(
-	BaseBadgeElementCompiledNew,
-	BaseBadgeElementRefreshNewWithOverrideCss,
-	() => fg('platform-linking-visual-refresh-v1'),
-);
+export default withOverrideCss(BaseBadgeRefreshNew);
 
 export const toBadgeProps = (label?: string): Partial<BaseBadgeElementProps> | undefined => {
 	// Don't render the element if its 0

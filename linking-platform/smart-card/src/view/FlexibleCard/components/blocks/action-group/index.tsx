@@ -14,7 +14,6 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 import DropdownMenu from '@atlaskit/dropdown-menu';
 import MoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -30,19 +29,6 @@ import { filterActionItems } from '../utils';
 
 import ActionGroupItem from './action-group-item';
 import { type ActionGroupProps } from './types';
-
-// TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
-const stylesOld = css({
-	display: 'inline-flex',
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-	lineHeight: '1rem',
-	'> div': {
-		alignItems: 'center',
-		'button:focus-visible': {
-			outlineOffset: token('space.negative.025', '-2px'),
-		},
-	},
-});
 
 const styles = css({
 	display: 'inline-flex',
@@ -179,10 +165,7 @@ const ActionGroup = ({
 
 	return renderableActionItems.length > 0 ? (
 		<div
-			css={[
-				!fg('platform-linking-visual-refresh-v1') && stylesOld,
-				fg('platform-linking-visual-refresh-v1') && styles,
-			]}
+			css={[styles]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className="actions-button-group"
 			data-action-open={isOpen}

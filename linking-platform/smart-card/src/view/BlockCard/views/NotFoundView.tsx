@@ -10,7 +10,6 @@ import { useIntl } from 'react-intl-next';
 import LockLockedIcon from '@atlaskit/icon/core/lock-locked';
 import LegacyLockIcon from '@atlaskit/icon/glyph/lock';
 import { extractSmartLinkProvider } from '@atlaskit/link-extractors';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../messages';
@@ -69,12 +68,7 @@ const NotFoundView = ({
 				LEGACY_size="small"
 				testId={`${testId}-lock-icon`}
 			/>
-			<Text
-				message={description}
-				testId={`${testId}-message`}
-				maxLines={3}
-				css={[fg('platform-linking-visual-refresh-v1') && textStyles]}
-			/>
+			<Text message={description} testId={`${testId}-message`} maxLines={3} css={[textStyles]} />
 		</UnresolvedView>
 	);
 };

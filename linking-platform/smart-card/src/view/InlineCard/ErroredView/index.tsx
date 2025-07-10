@@ -6,11 +6,8 @@ import React from 'react';
 
 import { FormattedMessage } from 'react-intl-next';
 
-import ButtonOld from '@atlaskit/button';
-import { cssMap, jsx } from '@atlaskit/css';
+import { jsx } from '@atlaskit/css';
 import ErrorIcon from '@atlaskit/icon/core/migration/error';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../messages';
@@ -18,14 +15,6 @@ import { HoverCard } from '../../HoverCard';
 import { ActionButton } from '../common/action-button';
 import { Frame } from '../Frame';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
-import { IconStyledButtonOldVisualRefresh } from '../styled';
-import withFrameStyleControl from '../utils/withFrameStyleControl';
-
-const styles = cssMap({
-	iconWrapper: {
-		marginRight: token('space.negative.025'),
-	},
-});
 
 export interface InlineCardErroredViewProps {
 	/** The url to display */
@@ -49,27 +38,13 @@ export interface InlineCardErroredViewProps {
 }
 
 const fallbackIcon = () => {
-	if (fg('platform-linking-visual-refresh-v1')) {
-		return (
-			<ErrorIcon
-				color={token('color.icon.danger')}
-				label="error"
-				LEGACY_size="small"
-				testId="errored-view-default-icon"
-			/>
-		);
-	}
-
 	return (
-		<Box as="span" xcss={styles.iconWrapper}>
-			<ErrorIcon
-				color={token('color.icon.danger')}
-				label="error"
-				LEGACY_size="small"
-				testId="errored-view-default-icon"
-				size="small"
-			/>
-		</Box>
+		<ErrorIcon
+			color={token('color.icon.danger')}
+			label="error"
+			LEGACY_size="small"
+			testId="errored-view-default-icon"
+		/>
 	);
 };
 
@@ -99,27 +74,16 @@ export const InlineCardErroredView = ({
 	);
 
 	const renderActionButton = React.useCallback(() => {
-		const Button = withFrameStyleControl(ButtonOld, frameRef);
 		return (
-			onRetry &&
-			(fg('platform-linking-visual-refresh-v1') ? (
+			onRetry && (
 				<ActionButton onClick={handleRetry}>
 					<FormattedMessage {...messages.try_again} />
 				</ActionButton>
-			) : (
-				<Button
-					spacing="none"
-					component={IconStyledButtonOldVisualRefresh}
-					onClick={handleRetry}
-					role="button"
-				>
-					<FormattedMessage {...messages.try_again} />
-				</Button>
-			))
+			)
 		);
 	}, [handleRetry, onRetry]);
 
-	const content = fg('platform-linking-visual-refresh-v1') ? (
+	const content = (
 		<Frame
 			link={hashAction ? undefined : url}
 			onClick={hashAction ? undefined : onClick}
@@ -133,17 +97,6 @@ export const InlineCardErroredView = ({
 				link={hashAction ? url : undefined}
 				title={url}
 				onClick={hashAction ? onClick : undefined}
-				rightSide={message}
-			/>
-			{renderActionButton()}
-		</Frame>
-	) : (
-		<Frame testId={testId} isSelected={isSelected} ref={frameRef} truncateInline={truncateInline}>
-			<IconAndTitleLayout
-				icon={icon || fallbackIcon()}
-				link={url}
-				title={url}
-				onClick={onClick}
 				rightSide={message}
 			/>
 			{renderActionButton()}

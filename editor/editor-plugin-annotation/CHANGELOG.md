@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-annotation
 
+## 3.0.2
+
+### Patch Changes
+
+- [#183109](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183109)
+  [`3fd4ff5c71ef7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3fd4ff5c71ef7) -
+  Migrate to useSharedPluginStateWithSelector
+- Updated dependencies
+
 ## 3.0.1
 
 ### Patch Changes

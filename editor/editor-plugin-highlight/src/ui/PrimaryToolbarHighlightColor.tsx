@@ -13,6 +13,8 @@ import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
 	useSharedPluginState,
 	sharedPluginStateHookMigratorFactory,
+	type NamedPluginStatesFromInjectionAPI,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import { DynamicStrokeIconDecoration } from '@atlaskit/editor-common/icons';
 import {
@@ -30,7 +32,6 @@ import {
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import type { ToolbarButtonRef } from '@atlaskit/editor-common/ui-menu';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import HighlightIcon from '@atlaskit/icon/core/highlight';
@@ -55,12 +56,19 @@ type PrimaryToolbarHighlightColorProps = {
 	editorView: EditorView;
 } & WrappedComponentProps;
 
+const selector = (
+	states: NamedPluginStatesFromInjectionAPI<ExtractInjectionAPI<HighlightPlugin>, 'highlight'>,
+) => {
+	return {
+		isPaletteOpen: states.highlightState?.isPaletteOpen,
+		highlightDisabled: states.highlightState?.disabled,
+		activeColor: states.highlightState?.activeColor,
+	};
+};
+
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<HighlightPlugin> | undefined) => {
-		const isPaletteOpen = useSharedPluginStateSelector(api, 'highlight.isPaletteOpen');
-		const highlightDisabled = useSharedPluginStateSelector(api, 'highlight.disabled');
-		const activeColor = useSharedPluginStateSelector(api, 'highlight.activeColor');
-		return { isPaletteOpen, highlightDisabled, activeColor };
+		return useSharedPluginStateWithSelector(api, ['highlight'], selector);
 	},
 	(api: ExtractInjectionAPI<HighlightPlugin> | undefined) => {
 		const { highlightState } = useSharedPluginState(api, ['highlight']);

@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from 'react';
 import {
 	useSharedPluginState,
 	sharedPluginStateHookMigratorFactory,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
@@ -13,10 +14,15 @@ import { GlobalStylesWrapper } from './ui/global-styles';
 
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<SelectionMarkerPlugin> | undefined) => {
-		const hasFocus = useSharedPluginStateSelector(api, 'focus.hasFocus');
-		const isOpen = useSharedPluginStateSelector(api, 'typeAhead.isOpen');
-		const editorDisabled = useSharedPluginStateSelector(api, 'editorDisabled.editorDisabled');
-
+		const { hasFocus, isOpen, editorDisabled } = useSharedPluginStateWithSelector(
+			api,
+			['focus', 'typeAhead', 'editorDisabled'],
+			(states) => ({
+				hasFocus: states.focusState?.hasFocus,
+				isOpen: states.typeAheadState?.isOpen,
+				editorDisabled: states.editorDisabledState?.editorDisabled,
+			}),
+		);
 		return {
 			hasFocus,
 			isOpen,

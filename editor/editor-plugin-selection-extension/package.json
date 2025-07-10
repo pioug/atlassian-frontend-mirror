@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-selection-extension",
-	"version": "3.0.1",
+	"version": "3.1.1",
 	"description": "editor-plugin-selection-extension plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -50,6 +50,7 @@
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@babel/runtime": "^7.0.0",
+		"lodash": "^4.17.21",
 		"react-intl-next": "npm:react-intl@^5.18.1",
 		"uuid": "^3.1.0"
 	},

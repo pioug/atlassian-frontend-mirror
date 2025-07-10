@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { IntlProvider } from 'react-intl-next';
 
@@ -19,11 +19,18 @@ import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence
 import AppIcon from '@atlaskit/icon/core/app';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers/exampleMediaFeatureFlags';
+import { xcss, Pressable } from '@atlaskit/primitives';
 import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 
 import { ExampleForgeApp } from '../example-helpers/ExampleForgeApp';
 import enMessages from '../src/i18n/en';
+
+const buttonStyles = xcss({
+	position: 'fixed',
+	bottom: 'space.0',
+	right: 'space.0',
+});
 
 const smartLinksProvider = new ConfluenceCardProvider('staging');
 const smartCardClient = new ConfluenceCardClient('staging');
@@ -42,6 +49,8 @@ function ComposableEditorPage() {
 	const [appearance, setAppearance] = React.useState<EditorAppearance>('full-page');
 	const providers = getExamplesProviders({});
 
+	const [createButton, showCreateButton] = useState<string | null>(null);
+	const selectedNodeAdfRef = React.useRef<any>(null);
 	const editorAnnotationProviders = useEditorAnnotationProviders();
 	const universalPreset = useUniversalPreset({
 		props: {
@@ -160,8 +169,10 @@ function ComposableEditorPage() {
 									return {
 										name: 'Create Multiple work items',
 										icon: AppIcon,
-										onClick: (params) => {
-											console.log(JSON.stringify(params));
+										onClick: ({ selectionRanges, selectedNodeAdf }) => {
+											console.log(JSON.stringify({ selectionRanges, selectedNodeAdf }));
+											showCreateButton('multiple');
+											selectedNodeAdfRef.current = selectedNodeAdf;
 										},
 									};
 								}
@@ -169,8 +180,10 @@ function ComposableEditorPage() {
 								return {
 									name: 'Create work item',
 									icon: AppIcon,
-									onClick: (params) => {
-										console.log(JSON.stringify(params));
+									onClick: ({ selectionRanges, selectedNodeAdf }) => {
+										console.log(JSON.stringify({ selectionRanges, selectedNodeAdf }));
+										showCreateButton('single');
+										selectedNodeAdfRef.current = selectedNodeAdf;
 									},
 								};
 							},
@@ -250,6 +263,57 @@ function ComposableEditorPage() {
 					mentionProvider={Promise.resolve(mentionResourceProvider)}
 					__livePage={true}
 				/>
+				{createButton && (
+					<Pressable
+						xcss={buttonStyles}
+						onClick={() => {
+							createButton === 'single'
+								? editorApi?.selectionExtension.actions.insertSmartLinks(
+										{
+											link: 'https://example.atlassian.net/browse/TEST-123',
+											insertPosition: {
+												pointer: '/content/0',
+												from: 4,
+												to: 4,
+											},
+										},
+										selectedNodeAdfRef.current,
+									)
+								: editorApi?.selectionExtension.actions.insertSmartLinks(
+										[
+											{
+												link: 'https://example.atlassian.net/browse/TEST-123',
+												insertPosition: {
+													pointer: '/content/1/content/0/content/0/content/0/text',
+													from: 0,
+													to: 0,
+												},
+											},
+											{
+												link: 'https://example.atlassian.net/browse/TEST-234',
+												insertPosition: {
+													pointer: '/content/2/content/0/content/0/content/0/text',
+													from: 2,
+													to: 2,
+												},
+											},
+											{
+												link: 'https://example.atlassian.net/browse/TEST-345',
+												insertPosition: {
+													pointer: '/content/3/content/0/content/0/content/0/text',
+													from: 3,
+													to: 3,
+												},
+											},
+										],
+										selectedNodeAdfRef.current,
+									);
+							showCreateButton(null);
+						}}
+					>
+						Create {createButton} link(s)
+					</Pressable>
+				)}
 			</IntlProvider>
 		</SmartCardProvider>
 	);

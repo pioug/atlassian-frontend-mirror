@@ -32,10 +32,12 @@ import {
 } from '../types';
 
 import {
+	ANALYTICS_SOURCE,
 	cancelShare,
 	CHANNEL_ID,
 	copyLinkButtonClicked,
 	formShareSubmitted,
+	jiraPageSharedEvent,
 	type MenuItemSubjectIdType,
 	screenEvent,
 	shareMenuItemClicked,
@@ -335,6 +337,8 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
 			showFlags,
 			isPublicLink,
 			isExtendedShareDialogEnabled,
+			productAttributes,
+			loggedInAccountId,
 		} = this.props;
 		if (!onShareSubmit) {
 			return;
@@ -355,6 +359,24 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
 				shareContentId,
 			}),
 		);
+
+		if (fg('page_shared_event_from_share_dialogue')) {
+			this.createAndFireEvent(
+				jiraPageSharedEvent({
+					start: this.start,
+					data,
+					shareContentType,
+					shareContentSubType,
+					shareContentId,
+					shareOrigin: formShareOrigin,
+					isPublicLink,
+					productAttributes,
+					loggedInAccountId,
+					source: ANALYTICS_SOURCE,
+					actionSubjectId: 'submitShare',
+				}),
+			);
+		}
 
 		onShareSubmit(data)
 			.then(() => {
@@ -410,6 +432,8 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
 			shareContentId,
 			isPublicLink,
 			shareAri,
+			productAttributes,
+			loggedInAccountId,
 		} = this.props;
 		this.createAndFireEvent(
 			copyLinkButtonClicked({
@@ -422,6 +446,25 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
 				shareContentId,
 			}),
 		);
+
+		// Fire the new Jira-specific analytics event when product is Jira and it's a copy link action
+		if (fg('page_shared_event_from_share_dialogue')) {
+			this.createAndFireEvent(
+				jiraPageSharedEvent({
+					start: this.start,
+					data: { users: [], comment: { format: 'plain_text', value: '' } }, // Empty data for copy link
+					shareContentType,
+					shareContentSubType,
+					shareContentId,
+					shareOrigin: copyLinkOrigin,
+					isPublicLink,
+					productAttributes,
+					loggedInAccountId,
+					source: ANALYTICS_SOURCE,
+					actionSubjectId: 'copyLink',
+				}),
+			);
+		}
 	};
 
 	handleIntegrationClick = (integration: Integration) => {

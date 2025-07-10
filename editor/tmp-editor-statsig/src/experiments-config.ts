@@ -433,4 +433,12 @@ export const editorExperimentsConfig = {
 		values: ['control', 'test_blank', 'test_diagram'],
 		defaultValue: 'control',
 	}),
+	// Added 2025-07-07
+	platform_editor_toggle_expand_on_match_found: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_toggle_expand_on_match_found',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 } satisfies Record<string, ExperimentConfigValue>;

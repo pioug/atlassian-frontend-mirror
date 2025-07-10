@@ -3,9 +3,9 @@ import React from 'react';
 import {
 	useSharedPluginState,
 	sharedPluginStateHookMigratorFactory,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI, ToolbarSize } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { TextFormattingPlugin } from '../textFormattingPluginType';
@@ -15,35 +15,55 @@ import { ToolbarType } from './Toolbar/types';
 
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<TextFormattingPlugin> | undefined) => {
-		const isInitialised = useSharedPluginStateSelector(api, 'textFormatting.isInitialised');
-		const formattingIsPresent = useSharedPluginStateSelector(
-			api,
-			'textFormatting.formattingIsPresent',
-		);
-		const emActive = useSharedPluginStateSelector(api, 'textFormatting.emActive');
-		const emDisabled = useSharedPluginStateSelector(api, 'textFormatting.emDisabled');
-		const emHidden = useSharedPluginStateSelector(api, 'textFormatting.emHidden');
-		const codeActive = useSharedPluginStateSelector(api, 'textFormatting.codeActive');
-		const codeDisabled = useSharedPluginStateSelector(api, 'textFormatting.codeDisabled');
-		const codeHidden = useSharedPluginStateSelector(api, 'textFormatting.codeHidden');
-		const underlineActive = useSharedPluginStateSelector(api, 'textFormatting.underlineActive');
-		const underlineDisabled = useSharedPluginStateSelector(api, 'textFormatting.underlineDisabled');
-		const underlineHidden = useSharedPluginStateSelector(api, 'textFormatting.underlineHidden');
-		const strikeActive = useSharedPluginStateSelector(api, 'textFormatting.strikeActive');
-		const strikeDisabled = useSharedPluginStateSelector(api, 'textFormatting.strikeDisabled');
-		const strikeHidden = useSharedPluginStateSelector(api, 'textFormatting.strikeHidden');
-		const strongActive = useSharedPluginStateSelector(api, 'textFormatting.strongActive');
-		const strongDisabled = useSharedPluginStateSelector(api, 'textFormatting.strongDisabled');
-		const strongHidden = useSharedPluginStateSelector(api, 'textFormatting.strongHidden');
-		const superscriptActive = useSharedPluginStateSelector(api, 'textFormatting.superscriptActive');
-		const superscriptDisabled = useSharedPluginStateSelector(
-			api,
-			'textFormatting.superscriptDisabled',
-		);
-		const superscriptHidden = useSharedPluginStateSelector(api, 'textFormatting.superscriptHidden');
-		const subscriptActive = useSharedPluginStateSelector(api, 'textFormatting.subscriptActive');
-		const subscriptDisabled = useSharedPluginStateSelector(api, 'textFormatting.subscriptDisabled');
-		const subscriptHidden = useSharedPluginStateSelector(api, 'textFormatting.subscriptHidden');
+		const {
+			codeActive,
+			codeDisabled,
+			codeHidden,
+			emActive,
+			emDisabled,
+			emHidden,
+			formattingIsPresent,
+			isInitialised,
+			strikeActive,
+			strikeDisabled,
+			strikeHidden,
+			strongActive,
+			strongDisabled,
+			strongHidden,
+			subscriptActive,
+			subscriptDisabled,
+			subscriptHidden,
+			superscriptActive,
+			superscriptDisabled,
+			superscriptHidden,
+			underlineActive,
+			underlineDisabled,
+			underlineHidden,
+		} = useSharedPluginStateWithSelector(api, ['textFormatting'], (states) => ({
+			isInitialised: states.textFormattingState?.isInitialised,
+			formattingIsPresent: states.textFormattingState?.formattingIsPresent,
+			emActive: states.textFormattingState?.emActive,
+			emDisabled: states.textFormattingState?.emDisabled,
+			emHidden: states.textFormattingState?.emHidden,
+			codeActive: states.textFormattingState?.codeActive,
+			codeDisabled: states.textFormattingState?.codeDisabled,
+			codeHidden: states.textFormattingState?.codeHidden,
+			underlineActive: states.textFormattingState?.underlineActive,
+			underlineDisabled: states.textFormattingState?.underlineDisabled,
+			underlineHidden: states.textFormattingState?.underlineHidden,
+			strikeActive: states.textFormattingState?.strikeActive,
+			strikeDisabled: states.textFormattingState?.strikeDisabled,
+			strikeHidden: states.textFormattingState?.strikeHidden,
+			strongActive: states.textFormattingState?.strongActive,
+			strongDisabled: states.textFormattingState?.strongDisabled,
+			strongHidden: states.textFormattingState?.strongHidden,
+			superscriptActive: states.textFormattingState?.superscriptActive,
+			superscriptDisabled: states.textFormattingState?.superscriptDisabled,
+			superscriptHidden: states.textFormattingState?.superscriptHidden,
+			subscriptActive: states.textFormattingState?.subscriptActive,
+			subscriptDisabled: states.textFormattingState?.subscriptDisabled,
+			subscriptHidden: states.textFormattingState?.subscriptHidden,
+		}));
 		return {
 			isInitialised: Boolean(isInitialised),
 			formattingIsPresent,

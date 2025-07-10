@@ -4,6 +4,7 @@ import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
 	useSharedPluginState,
 	sharedPluginStateHookMigratorFactory,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import type {
@@ -12,7 +13,6 @@ import type {
 	QuickInsertSearchOptions,
 	QuickInsertSharedState,
 } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 
@@ -124,14 +124,14 @@ const Modal = ({
 
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<QuickInsertPlugin> | undefined) => {
-		const lazyDefaultItems = useSharedPluginStateSelector(api, 'quickInsert.lazyDefaultItems');
-		const providedItems = useSharedPluginStateSelector(api, 'quickInsert.providedItems');
-		const isElementBrowserModalOpen = useSharedPluginStateSelector(
-			api,
-			'quickInsert.isElementBrowserModalOpen',
-		);
-		const emptyStateHandler = useSharedPluginStateSelector(api, 'quickInsert.emptyStateHandler');
-		const mode = useSharedPluginStateSelector(api, 'connectivity.mode');
+		const { lazyDefaultItems, providedItems, isElementBrowserModalOpen, emptyStateHandler, mode } =
+			useSharedPluginStateWithSelector(api, ['quickInsert', 'connectivity'], (state) => ({
+				lazyDefaultItems: state.quickInsertState?.lazyDefaultItems,
+				providedItems: state.quickInsertState?.providedItems,
+				isElementBrowserModalOpen: state.quickInsertState?.isElementBrowserModalOpen,
+				emptyStateHandler: state.quickInsertState?.emptyStateHandler,
+				mode: state.connectivityState?.mode,
+			}));
 		return {
 			mode,
 			lazyDefaultItems,

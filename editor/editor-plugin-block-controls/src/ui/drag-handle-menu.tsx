@@ -3,15 +3,17 @@ import React from 'react';
 import {
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 
 const useDragHandleMenuPluginState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<BlockControlsPlugin> | undefined) => {
-		const isMenuOpen = useSharedPluginStateSelector(api, 'blockControls.isMenuOpen');
+		const { isMenuOpen } = useSharedPluginStateWithSelector(api, ['blockControls'], (states) => ({
+			isMenuOpen: states.blockControlsState?.isMenuOpen,
+		}));
 		return {
 			isMenuOpen,
 		};

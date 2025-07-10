@@ -6,7 +6,7 @@ import { optimize } from 'svgo';
 import format from '@af/formatting/sync';
 import { createSignedArtifact } from '@atlassian/codegen';
 
-import { Assets, dataCenterApps, svgoConfig, transformSVG } from '../utils';
+import { type Assets, dataCenterApps, svgoConfig, transformSVG } from '../utils';
 
 const utilityIcons = ['more-atlassian-apps', 'custom-link'];
 

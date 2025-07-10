@@ -10,13 +10,14 @@ import { jsx } from '@emotion/react';
 import {
 	useSharedPluginState,
 	sharedPluginStateHookMigratorFactory,
+	type NamedPluginStatesFromInjectionAPI,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type {
 	EditorAppearance,
 	ExtractInjectionAPI,
 	ToolbarUIComponentFactory,
 } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 
 import type { LoomPlugin } from '../loomPluginType';
 import { executeRecordVideo } from '../pm-plugins/commands';
@@ -24,14 +25,21 @@ import { type ButtonComponentProps, type LoomPluginOptions } from '../types';
 
 import ToolbarButtonComponent from './ToolbarButtonComponent';
 
+const selector = (
+	states: NamedPluginStatesFromInjectionAPI<
+		ExtractInjectionAPI<LoomPlugin>,
+		'loom' | 'connectivity'
+	>,
+) => {
+	return {
+		loomEnabled: states.loomState?.isEnabled,
+		connectivityMode: states.connectivityState?.mode,
+	};
+};
+
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<LoomPlugin> | undefined) => {
-		const loomEnabled = useSharedPluginStateSelector(api, 'loom.isEnabled');
-		const connectivityMode = useSharedPluginStateSelector(api, 'connectivity.mode');
-		return {
-			loomEnabled,
-			connectivityMode,
-		};
+		return useSharedPluginStateWithSelector(api, ['loom', 'connectivity'], selector);
 	},
 	(api: ExtractInjectionAPI<LoomPlugin> | undefined) => {
 		const { loomState, connectivityState } = useSharedPluginState(api, ['loom', 'connectivity']);

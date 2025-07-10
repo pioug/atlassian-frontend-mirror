@@ -106,22 +106,11 @@ const stackItemIconStylesCompiled = css({
 	display: 'inline-block',
 });
 
-// TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
-const iconStyleMap = cssMap({
-	true: {
-		color: token('color.text.disabled', '#6B778C'),
-	},
-	false: {
-		color: token('color.icon', '#44546F'),
-	},
-});
-
-const ActionIcon = ({ size, testId, icon, isDisabled, asStackItemIcon }: ActionIconProps) => {
+const ActionIcon = ({ size, testId, icon, asStackItemIcon }: ActionIconProps) => {
 	if (!fg('platform-visual-refresh-icons')) {
 		return (
 			<span
 				css={[
-					!fg('platform-linking-visual-refresh-v1') && iconStyleMap[isDisabled ? 'true' : 'false'],
 					asStackItemIcon && stackItemIconStylesOld,
 					asStackItemIcon && iconSizeStyleMap['20px'],
 					!asStackItemIcon && iconSizeStyleMap[getIconWidth(size)],
@@ -134,13 +123,7 @@ const ActionIcon = ({ size, testId, icon, isDisabled, asStackItemIcon }: ActionI
 	}
 
 	return (
-		<span
-			css={[
-				!fg('platform-linking-visual-refresh-v1') && iconStyleMap[isDisabled ? 'true' : 'false'],
-				stackItemIconStylesCompiled,
-			]}
-			data-testid={`${testId}-icon`}
-		>
+		<span css={[stackItemIconStylesCompiled]} data-testid={`${testId}-icon`}>
 			{icon}
 		</span>
 	);

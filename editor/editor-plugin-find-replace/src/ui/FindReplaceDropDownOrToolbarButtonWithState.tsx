@@ -1,11 +1,9 @@
 import React, { useLayoutEffect, useState } from 'react';
 
 import { TRIGGER_METHOD } from '@atlaskit/editor-common/analytics';
-import { sharedPluginStateHookMigratorFactory } from '@atlaskit/editor-common/hooks';
-import type { Command, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import type { FindReplacePlugin } from '../findReplacePluginType';
 import { blur, toggleMatchCase } from '../pm-plugins/commands';
 import {
 	activateWithAnalytics,
@@ -20,7 +18,6 @@ import type { FindReplaceToolbarButtonWithStateProps } from '../types';
 
 import FindReplaceDropdown from './FindReplaceDropdown';
 import FindReplaceToolbarButton from './FindReplaceToolbarButton';
-import { useFindReplacePluginStateSelector } from './hooks/useFindReplacePluginStateSelector';
 
 // light implementation of useSharedPluginState(). This is due to findreplace
 // being the only plugin that previously used WithPluginState with
@@ -42,39 +39,6 @@ const useSharedPluginStateNoDebounce = (api: FindReplaceToolbarButtonWithStatePr
 	return { findReplaceState: state };
 };
 
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<FindReplacePlugin> | undefined) => {
-		const shouldMatchCase = useFindReplacePluginStateSelector(api, 'shouldMatchCase');
-		const isActive = useFindReplacePluginStateSelector(api, 'isActive');
-		const findText = useFindReplacePluginStateSelector(api, 'findText');
-		const replaceText = useFindReplacePluginStateSelector(api, 'replaceText');
-		const index = useFindReplacePluginStateSelector(api, 'index');
-		const matches = useFindReplacePluginStateSelector(api, 'matches');
-		const shouldFocus = useFindReplacePluginStateSelector(api, 'shouldFocus');
-		return {
-			shouldMatchCase,
-			isActive,
-			findText,
-			replaceText,
-			index,
-			matches,
-			shouldFocus,
-		};
-	},
-	(api: ExtractInjectionAPI<FindReplacePlugin> | undefined) => {
-		const { findReplaceState } = useSharedPluginStateNoDebounce(api);
-		return {
-			shouldMatchCase: findReplaceState?.shouldMatchCase,
-			isActive: findReplaceState?.isActive,
-			findText: findReplaceState?.findText,
-			replaceText: findReplaceState?.replaceText,
-			index: findReplaceState?.index,
-			matches: findReplaceState?.matches,
-			shouldFocus: findReplaceState?.shouldFocus,
-		};
-	},
-);
-
 const FindReplaceToolbarButtonWithState = ({
 	popupsBoundariesElement,
 	popupsMountPoint,
@@ -89,8 +53,16 @@ const FindReplaceToolbarButtonWithState = ({
 	doesNotHaveButton,
 }: FindReplaceToolbarButtonWithStateProps) => {
 	const editorAnalyticsAPI = api?.analytics?.actions;
-	const { shouldMatchCase, isActive, findText, replaceText, index, matches, shouldFocus } =
-		useSharedState(api);
+
+	const { findReplaceState } = useSharedPluginStateNoDebounce(api);
+
+	const shouldMatchCase = findReplaceState?.shouldMatchCase;
+	const isActive = findReplaceState?.isActive;
+	const findText = findReplaceState?.findText;
+	const replaceText = findReplaceState?.replaceText;
+	const index = findReplaceState?.index;
+	const matches = findReplaceState?.matches;
+	const shouldFocus = findReplaceState?.shouldFocus;
 
 	if (!editorView) {
 		return null;
@@ -137,7 +109,7 @@ const FindReplaceToolbarButtonWithState = ({
 		triggerMethod: TRIGGER_METHOD.KEYBOARD | TRIGGER_METHOD.BUTTON;
 	}) => {
 		runWithEditorFocused(() =>
-			dispatchCommand(findNextWithAnalytics(editorAnalyticsAPI)({ triggerMethod })),
+			dispatchCommand(findNextWithAnalytics(editorAnalyticsAPI, editorView)({ triggerMethod })),
 		);
 	};
 	const handleFindPrev = ({
@@ -146,7 +118,7 @@ const FindReplaceToolbarButtonWithState = ({
 		triggerMethod: TRIGGER_METHOD.KEYBOARD | TRIGGER_METHOD.BUTTON;
 	}) => {
 		runWithEditorFocused(() =>
-			dispatchCommand(findPrevWithAnalytics(editorAnalyticsAPI)({ triggerMethod })),
+			dispatchCommand(findPrevWithAnalytics(editorAnalyticsAPI, editorView)({ triggerMethod })),
 		);
 	};
 	const handleReplace = ({

@@ -7,9 +7,10 @@ import {
 import {
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
+	useSharedPluginStateWithSelector,
+	type NamedPluginStatesFromInjectionAPI,
 } from '@atlaskit/editor-common/hooks';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { type ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Box } from '@atlaskit/primitives/compiled';
@@ -26,19 +27,19 @@ import HeaderIcon from './ConfigPanel/Header/HeaderIcon';
 import { onChangeAction } from './context-panel';
 import { SaveIndicator } from './SaveIndicator/SaveIndicator';
 
+const selector = (
+	states: NamedPluginStatesFromInjectionAPI<ExtractInjectionAPI<ExtensionPlugin>, 'extension'>,
+) => {
+	return {
+		showContextPanel: states.extensionState?.showContextPanel,
+		extensionProvider: states.extensionState?.extensionProvider,
+		processParametersAfter: states.extensionState?.processParametersAfter,
+	};
+};
+
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<ExtensionPlugin> | undefined) => {
-		const showContextPanel = useSharedPluginStateSelector(api, 'extension.showContextPanel');
-		const extensionProvider = useSharedPluginStateSelector(api, 'extension.extensionProvider');
-		const processParametersAfter = useSharedPluginStateSelector(
-			api,
-			'extension.processParametersAfter',
-		);
-		return {
-			showContextPanel,
-			extensionProvider,
-			processParametersAfter,
-		};
+		return useSharedPluginStateWithSelector(api, ['extension'], selector);
 	},
 	(api: ExtractInjectionAPI<ExtensionPlugin> | undefined) => {
 		const { extensionState } = useSharedPluginState(api, ['extension']);

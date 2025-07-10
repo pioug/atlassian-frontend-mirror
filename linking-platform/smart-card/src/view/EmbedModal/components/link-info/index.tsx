@@ -27,21 +27,6 @@ import LinkInfoButton from './link-info-button';
 import LinkInfoButtonOld from './link-info-button/old';
 import { type LinkInfoProps } from './types';
 
-const containerStylesOld = css({
-	alignItems: 'center',
-	display: 'flex',
-	gap: token('space.100', '8px'),
-	justifyContent: 'space-between',
-	// AK ModalBody has 2px padding top and bottom.
-	// Using 14px here to create 16px gap between
-	// link info and iframe
-	paddingTop: token('space.300', '24px'),
-	paddingRight: token('space.300', '24px'),
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-	paddingBottom: '14px',
-	paddingLeft: token('space.300', '24px'),
-});
-
 const containerStyles = css({
 	display: 'flex',
 	paddingLeft: token('space.300'),
@@ -69,26 +54,6 @@ const iconCss = css({
 			minWidth: iconSize,
 			maxWidth: iconSize,
 		},
-});
-
-const titleCssOld = css({
-	flex: '1 1 auto',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	h3: {
-		flex: '1 1 auto',
-		font: token('font.heading.small'),
-		fontWeight: token('font.weight.regular'),
-		display: '-webkit-box',
-		marginBottom: 0,
-		overflow: 'hidden',
-		textOverflow: 'ellipsis',
-		wordBreak: 'break-word',
-		WebkitLineClamp: 1,
-		WebkitBoxOrient: 'vertical',
-		'@supports not (-webkit-line-clamp: 1)': {
-			maxHeight: '20px',
-		},
-	},
 });
 
 const titleCss = css({
@@ -243,18 +208,14 @@ const LinkInfo = ({
 	}, [onResizeButtonClick, size, testId]);
 
 	return (
-		<div css={[fg('platform-linking-visual-refresh-v1') ? containerStyles : containerStylesOld]}>
+		<div css={[containerStyles]}>
 			{icon && (
 				<div css={iconCss} data-testid={`${testId}-icon`}>
 					<Icon {...icon} />
 				</div>
 			)}
-			<div css={[fg('platform-linking-visual-refresh-v1') ? titleCss : titleCssOld]}>
-				<Heading
-					size={fg('platform-linking-visual-refresh-v1') ? 'small' : 'medium'}
-					color={fg('platform-linking-visual-refresh-v1') ? 'color.text' : undefined}
-					testId={`${testId}-title`}
-				>
+			<div css={[titleCss]}>
+				<Heading size="small" color="color.text" testId={`${testId}-title`}>
 					{title}
 				</Heading>
 				{/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}

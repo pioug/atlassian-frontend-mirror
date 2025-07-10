@@ -11,7 +11,7 @@ import type {
 	PostInteractionLogPayload,
 	ReactUFOPayload,
 } from '../../src/common/react-ufo-payload-schema';
-import { CriticalMetricsPayload } from '../../src/create-payload/critical-metrics-payload/types';
+import { type CriticalMetricsPayload } from '../../src/create-payload/critical-metrics-payload/types';
 
 import type { WindowWithReactUFOTestGlobals } from './window-type';
 

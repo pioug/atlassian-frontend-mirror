@@ -4,9 +4,9 @@ import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import {
 	useSharedPluginState,
 	sharedPluginStateHookMigratorFactory,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { TextColorPlugin } from '../textColorPluginType';
@@ -29,15 +29,21 @@ interface PrimaryToolbarComponentProps {
 
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<TextColorPlugin> | undefined) => {
-		const color = useSharedPluginStateSelector(api, 'textColor.color');
-		const defaultColor = useSharedPluginStateSelector(api, 'textColor.defaultColor');
-		const palette = useSharedPluginStateSelector(api, 'textColor.palette');
-		const textColorDisabled = useSharedPluginStateSelector(api, 'textColor.disabled');
+		const { color, defaultColor, palette, disabled } = useSharedPluginStateWithSelector(
+			api,
+			['textColor'],
+			(states) => ({
+				color: states.textColorState?.color,
+				defaultColor: states.textColorState?.defaultColor,
+				palette: states.textColorState?.palette,
+				disabled: states.textColorState?.disabled,
+			}),
+		);
 		return {
 			color,
 			defaultColor,
 			palette,
-			textColorDisabled,
+			textColorDisabled: disabled,
 		};
 	},
 	(api: ExtractInjectionAPI<TextColorPlugin> | undefined) => {

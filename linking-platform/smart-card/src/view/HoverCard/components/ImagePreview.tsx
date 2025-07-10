@@ -1,6 +1,5 @@
 import React, { useCallback, useRef, useState } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { extractSmartLinkPreviewImage } from '../../../extractors/flexible/extract-preview';
@@ -20,7 +19,7 @@ const ImagePreview = ({ fallbackElementHeight, response }: ImagePreviewProps) =>
 			setDynamicStyles({
 				borderTopLeftRadius: token('border.radius.200'),
 				borderTopRightRadius: token('border.radius.200'),
-				marginBottom: fg('platform-linking-visual-refresh-v1') ? token('space.100') : '0.5rem',
+				marginBottom: token('space.100'),
 				...(previewHeight ? { height: `${previewHeight}px` } : {}),
 			});
 		}

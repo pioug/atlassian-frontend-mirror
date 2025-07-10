@@ -17,6 +17,7 @@ import {
 import {
 	useSharedPluginState,
 	sharedPluginStateHookMigratorFactory,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
@@ -26,7 +27,6 @@ import type {
 	TypeAheadItem,
 } from '@atlaskit/editor-common/types';
 import { findOverflowScrollParent, Popup } from '@atlaskit/editor-common/ui';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { DecorationSet, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
@@ -118,9 +118,12 @@ const OFFSET = [0, 8];
 
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<TypeAheadPlugin> | undefined) => {
-		const moreElementsInQuickInsertView = useSharedPluginStateSelector(
+		const { moreElementsInQuickInsertView } = useSharedPluginStateWithSelector(
 			api,
-			'featureFlags.moreElementsInQuickInsertView',
+			['featureFlags'],
+			(states) => ({
+				moreElementsInQuickInsertView: states.featureFlagsState?.moreElementsInQuickInsertView,
+			}),
 		);
 		return { moreElementsInQuickInsertView };
 	},

@@ -10,7 +10,6 @@ import noDuplicateDependencies from './rules/no-duplicate-dependencies';
 import noInvalidFeatureFlagUsage from './rules/no-invalid-feature-flag-usage';
 import ensureFeatureFlagPrefix from './rules/ensure-feature-flag-prefix';
 import ensureCriticalDependencyResolutions from './rules/ensure-critical-dependency-resolutions';
-import ensureValidPlatformYarnProtocolUsage from './rules/ensure-valid-platform-yarn-protocol-usage';
 import ensureValidBinValues from './rules/ensure-valid-bin-values';
 import ensureNoPrivateDependencies from './rules/ensure-no-private-dependencies';
 import expandBorderShorthand from './rules/compiled/expand-border-shorthand';
@@ -67,7 +66,6 @@ const rules = {
 	'ensure-test-runner-nested-count': ensureTestRunnerNestedCount,
 	'ensure-atlassian-team': ensureAtlassianTeam,
 	'ensure-critical-dependency-resolutions': ensureCriticalDependencyResolutions,
-	'ensure-valid-platform-yarn-protocol-usage': ensureValidPlatformYarnProtocolUsage,
 	'ensure-valid-bin-values': ensureValidBinValues,
 	'ensure-no-private-dependencies': ensureNoPrivateDependencies,
 	'expand-border-shorthand': expandBorderShorthand,

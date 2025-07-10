@@ -1,5 +1,17 @@
 # @atlaskit/theme
 
+## 19.0.0
+
+### Major Changes
+
+- [#183102](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183102)
+  [`26f68f04ab72e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/26f68f04ab72e) -
+  Removes deprecated colorPalette constants.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.0.3
 
 ### Patch Changes

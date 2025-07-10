@@ -339,9 +339,7 @@ const LinkIconButtonBase = <RouterLinkConfig extends Record<string, any> = never
 				tag={tooltip?.tag}
 				truncate={tooltip?.truncate}
 				component={tooltip?.component}
-				hideTooltipOnClick={
-					tooltip?.hideTooltipOnClick ?? fg('platform-icon-button-dismiss-tooltip-on-click')
-				}
+				hideTooltipOnClick={tooltip?.hideTooltipOnClick}
 				hideTooltipOnMouseDown={tooltip?.hideTooltipOnMouseDown}
 				ignoreTooltipPointerEvents={tooltip?.ignoreTooltipPointerEvents}
 			>

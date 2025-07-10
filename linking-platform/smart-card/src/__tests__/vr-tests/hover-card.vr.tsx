@@ -24,9 +24,7 @@ snapshot(HoverCard, {
 			},
 		},
 	],
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 
 snapshot(HoverCardWithEntities, {
@@ -61,7 +59,6 @@ snapshot(HoverCardActions, {
 	],
 	variants: [{ name: 'light mode', environment: { colorScheme: 'light' } }],
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': true,
 	},
 });
@@ -76,7 +73,6 @@ snapshot(HoverCardActions, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': true,
 	},
 });
@@ -90,7 +86,6 @@ snapshot(HoverCardUnauthorised, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
 		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
@@ -103,9 +98,7 @@ snapshot(HoverCardSSRLoading, {
 			selector: { byTestId: 'hover-card-trigger-wrapper' },
 		},
 	],
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 
 snapshot(HoverCardSSRError, {
@@ -116,9 +109,7 @@ snapshot(HoverCardSSRError, {
 			selector: { byTestId: 'hover-card-trigger-wrapper' },
 		},
 	],
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 
 snapshot(HoverCardPositioning, {
@@ -130,9 +121,7 @@ snapshot(HoverCardPositioning, {
 			selector: { byTestId: 'hover-test-can-open-left' },
 		},
 	],
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 
 snapshot(HoverCardPositioning, {
@@ -144,9 +133,7 @@ snapshot(HoverCardPositioning, {
 			selector: { byTestId: 'hover-test-cannot-open' },
 		},
 	],
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 
 snapshot(HoverCardPositioning, {
@@ -158,7 +145,5 @@ snapshot(HoverCardPositioning, {
 			selector: { byTestId: 'hover-test-can-open-right' },
 		},
 	],
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });

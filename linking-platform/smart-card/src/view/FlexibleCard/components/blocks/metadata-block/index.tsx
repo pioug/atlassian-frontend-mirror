@@ -45,33 +45,6 @@ const truncateStyles = cssMap({
 	},
 });
 
-const sizeStylesOld = cssMap({
-	xlarge: {
-		lineHeight: '1.75rem',
-		'@supports not (-webkit-line-clamp: 1)': {
-			maxHeight: `3.5rem`,
-		},
-	},
-	large: {
-		lineHeight: '1.75rem',
-		'@supports not (-webkit-line-clamp: 1)': {
-			maxHeight: `3.5rem`,
-		},
-	},
-	medium: {
-		lineHeight: '1.5rem',
-		'@supports not (-webkit-line-clamp: 1)': {
-			maxHeight: '3rem',
-		},
-	},
-	small: {
-		lineHeight: '1.5rem',
-		'@supports not (-webkit-line-clamp: 1)': {
-			maxHeight: '3rem',
-		},
-	},
-});
-
 const sizeStyles = cssMap({
 	xlarge: {
 		'@supports not (-webkit-line-clamp: 1)': {
@@ -128,11 +101,7 @@ const ElementItemRenderer = ({
 				align={align}
 				direction={SmartLinkDirection.Horizontal}
 				width={SmartLinkWidth.Flexible}
-				css={[
-					truncateStyles[maxLines],
-					!fg('platform-linking-visual-refresh-v1') && sizeStylesOld[size],
-					fg('platform-linking-visual-refresh-v1') && sizeStyles[size],
-				]}
+				css={[truncateStyles[maxLines], sizeStyles[size]]}
 				size={size}
 			>
 				{elements}
@@ -205,11 +174,7 @@ const MetadataBlock = ({
 					align={SmartLinkAlignment.Left}
 					direction={SmartLinkDirection.Horizontal}
 					width={SmartLinkWidth.Flexible}
-					css={[
-						truncateStyles[maxLinesTotal],
-						!fg('platform-linking-visual-refresh-v1') && sizeStylesOld[size],
-						fg('platform-linking-visual-refresh-v1') && sizeStyles[size],
-					]}
+					css={[truncateStyles[maxLinesTotal], sizeStyles[size]]}
 					size={size}
 				>
 					{primaryElements}
@@ -220,11 +185,7 @@ const MetadataBlock = ({
 					align={SmartLinkAlignment.Right}
 					direction={SmartLinkDirection.Horizontal}
 					width={SmartLinkWidth.Flexible}
-					css={[
-						truncateStyles[maxLinesTotal],
-						!fg('platform-linking-visual-refresh-v1') && sizeStylesOld[size],
-						fg('platform-linking-visual-refresh-v1') && sizeStyles[size],
-					]}
+					css={[truncateStyles[maxLinesTotal], sizeStyles[size]]}
 					size={size}
 				>
 					{secondaryElements}

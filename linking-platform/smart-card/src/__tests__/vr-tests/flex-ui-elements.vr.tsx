@@ -11,21 +11,18 @@ import FlexUiTitleElementView from '../../../examples/vr-flexible-card/vr-flexib
 snapshot(FlexUiDateTimeTextView, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
 snapshot(FlexUiAtlaskitBadgeView, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
 snapshot(FlexUiBaseTextView, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': true,
 		'platform-linking-flexible-card-context': true,
 		'bandicoots-smart-card-teamwork-context': [true, false],
@@ -35,7 +32,6 @@ snapshot(FlexUiBaseTextView, {
 snapshot(FlexUiTitleElementView, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': true,
 		'platform-linking-flexible-card-context': true,
 		'bandicoots-smart-card-teamwork-context': [true, false],
@@ -45,7 +41,6 @@ snapshot(FlexUiTitleElementView, {
 snapshot(FlexUiOwnedByElementView, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': true,
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-additional-flexible-element-props': true,
@@ -56,7 +51,6 @@ snapshot(FlexUiOwnedByElementView, {
 snapshot(FlexUiCustomElementsView, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': true,
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-additional-flexible-element-props': true,
@@ -67,7 +61,6 @@ snapshot(FlexUiCustomElementsView, {
 snapshot(FlexUiModifiedOnView, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': true,
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-additional-flexible-element-props': true,

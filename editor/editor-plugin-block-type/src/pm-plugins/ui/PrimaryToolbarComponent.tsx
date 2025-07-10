@@ -4,9 +4,9 @@ import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 
 import type { BlockTypePlugin } from '../../blockTypePluginType';
 import type { TextBlockTypes } from '../block-types';
@@ -26,14 +26,19 @@ interface PrimaryToolbarComponentProps {
 
 const usePrimaryToolbarComponentPluginState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<BlockTypePlugin> | undefined) => {
-		const currentBlockType = useSharedPluginStateSelector(api, 'blockType.currentBlockType');
-		const blockTypesDisabled = useSharedPluginStateSelector(api, 'blockType.blockTypesDisabled');
-		const availableBlockTypes = useSharedPluginStateSelector(api, 'blockType.availableBlockTypes');
-		const availableBlockTypesInDropdown = useSharedPluginStateSelector(
-			api,
-			'blockType.availableBlockTypesInDropdown',
-		);
-		const formattingIsPresent = useSharedPluginStateSelector(api, 'blockType.formattingIsPresent');
+		const {
+			currentBlockType,
+			blockTypesDisabled,
+			availableBlockTypes,
+			availableBlockTypesInDropdown,
+			formattingIsPresent,
+		} = useSharedPluginStateWithSelector(api, ['blockType'], (states) => ({
+			currentBlockType: states.blockTypeState?.currentBlockType,
+			blockTypesDisabled: states.blockTypeState?.blockTypesDisabled,
+			availableBlockTypes: states.blockTypeState?.availableBlockTypes,
+			availableBlockTypesInDropdown: states.blockTypeState?.availableBlockTypesInDropdown,
+			formattingIsPresent: states.blockTypeState?.formattingIsPresent,
+		}));
 		return {
 			currentBlockType,
 			blockTypesDisabled,

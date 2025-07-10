@@ -157,9 +157,7 @@ snapshot(InlineCardForbiddenDirectAccess, {
 });
 snapshot(InlineCardForbiddenPendingSiteAccess, {
 	description: 'inline card forbidden view with pending site access',
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshot(InlineCardForbiddenDeniedSiteAccess, {
 	description: 'inline card forbidden view with denied site access',
@@ -229,7 +227,6 @@ snapshot(InlineCardUnauthorisedNoAuth, {
 snapshot(InlineCardFontSizeDefault, {
 	description: 'inline card with default font size',
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-inline-lozenge': [true, false],
 	},
 });
@@ -237,7 +234,6 @@ snapshot(InlineCardFontSizeDefault, {
 snapshot(InlineCardFontSize32, {
 	description: 'inline card with 32 font size',
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-inline-lozenge': [true, false],
 	},
 });
@@ -245,7 +241,6 @@ snapshot(InlineCardFontSize32, {
 snapshot(InlineCardFontSize24, {
 	description: 'inline card with 24 font size',
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-inline-lozenge': [true, false],
 	},
 });
@@ -253,21 +248,16 @@ snapshot(InlineCardFontSize24, {
 snapshot(InlineCardFontSize16, {
 	description: 'inline card with 16 font size',
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-inline-lozenge': [true, false],
 	},
 });
 
 snapshot(InlineCardWordWrapResolving, {
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 	waitForReactLazy: true,
 });
 snapshot(InlineCardWordWrapResolved, {
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 	waitForReactLazy: true,
 });
 // Remove on platform-linking-visual-refresh-inline-lozenge cleanup
@@ -275,15 +265,12 @@ snapshot(InlineCardWordWrapResolved, {
 	description: 'inline card word wrap resolved inline lozenge',
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-inline-lozenge': [true, false],
 	},
 	waitForReactLazy: true,
 });
 snapshot(InlineCardWordWrapForbidden, {
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 	waitForReactLazy: true,
 });
 // Remove on platform-linking-visual-refresh-inline-lozenge cleanup
@@ -291,33 +278,24 @@ snapshot(InlineCardWordWrapForbidden, {
 	description: 'inline card word wrap forbidden inline lozenge',
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-inline-lozenge': [true, false],
 	},
 	waitForReactLazy: true,
 });
 snapshot(InlineCardWordWrapForbiddenWithSiteRequestAccess, {
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 	waitForReactLazy: true,
 });
 snapshot(InlineCardWordWrapForbiddenWithSitePendingRequest, {
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 	waitForReactLazy: true,
 });
 snapshot(InlineCardWordWrapNotFoundWithSiteAccessExists, {
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 	waitForReactLazy: true,
 });
 snapshot(InlineCardWordWrapUnAuth, {
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 	waitForReactLazy: true,
 });
 // Design refresh: emotion + legacy icon
@@ -345,7 +323,6 @@ snapshot(VRInlineCardAllExamplesInText, {
 	description: `inline card with all card examples in text`,
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -354,7 +331,6 @@ snapshot(VRInlineCardAllExamplesInText, {
 	description: `inline card with all card examples lozenge`,
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': true,
 		'platform-linking-visual-refresh-inline-lozenge': [true, false],
 	},

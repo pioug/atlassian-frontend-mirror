@@ -1,8 +1,8 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { LabelStack, SegmentLabel } from '../../../interaction-context';
-import { UFOSegmentType } from '../../../segment/segment';
-import { getReactUFOPayloadVersion } from '../../utils/get-react-ufo-payload-version';
+import { type UFOSegmentType } from '../../../segment/segment';
+import { type getReactUFOPayloadVersion } from '../../utils/get-react-ufo-payload-version';
 
 export type SegmentItem = {
 	n: string;

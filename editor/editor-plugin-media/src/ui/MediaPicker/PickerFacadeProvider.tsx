@@ -4,12 +4,13 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { flushSync } from 'react-dom';
 
 import {
+	type NamedPluginStatesFromInjectionAPI,
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { ErrorReporter } from '@atlaskit/editor-common/utils';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import type { BrowserConfig, ClipboardConfig, DropzoneConfig } from '@atlaskit/media-picker/types';
@@ -44,18 +45,23 @@ const dummyMediaPickerObject: CustomMediaPicker = {
 	setUploadParams: () => {},
 };
 
+const selector = (
+	states: NamedPluginStatesFromInjectionAPI<
+		ExtractInjectionAPI<MediaNextEditorPluginType>,
+		'media'
+	>,
+) => {
+	return {
+		mediaProvider: states.mediaState?.mediaProvider,
+		mediaOptions: states.mediaState?.mediaOptions,
+		insertFile: states.mediaState?.insertFile,
+		options: states.mediaState?.options,
+	};
+};
+
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
-		const mediaProvider = useSharedPluginStateSelector(api, 'media.mediaProvider');
-		const mediaOptions = useSharedPluginStateSelector(api, 'media.mediaOptions');
-		const insertFile = useSharedPluginStateSelector(api, 'media.insertFile');
-		const options = useSharedPluginStateSelector(api, 'media.options');
-		return {
-			mediaProvider,
-			mediaOptions,
-			insertFile,
-			options,
-		};
+		return useSharedPluginStateWithSelector(api, ['media'], selector);
 	},
 	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
 		const { mediaState } = useSharedPluginState(api, ['media']);

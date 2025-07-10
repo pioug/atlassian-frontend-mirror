@@ -54,54 +54,44 @@ describe('IconAndTitleLayout', () => {
 			expect(urlIcon).toBeDefined();
 		});
 
-		ffTest.both('platform-linking-visual-refresh-v1', '', () => {
-			ffTest.both('platform-linking-visual-refresh-v2', '', () => {
-				it('should render round image if profile type', () => {
-					renderWithIntl(
-						<IconAndTitleLayout
-							title="title"
-							icon="src-loaded"
-							testId="inline-card-icon"
-							type={['Document', 'Profile']}
-						/>,
-					);
+		ffTest.both('platform-linking-visual-refresh-v2', '', () => {
+			it('should render round image if profile type', () => {
+				renderWithIntl(
+					<IconAndTitleLayout
+						title="title"
+						icon="src-loaded"
+						testId="inline-card-icon"
+						type={['Document', 'Profile']}
+					/>,
+				);
 
-					const urlIcon = screen.getByTestId('inline-card-icon-image');
-					const styles = window.getComputedStyle(urlIcon);
+				const urlIcon = screen.getByTestId('inline-card-icon-image');
+				const styles = window.getComputedStyle(urlIcon);
 
-					if (fg('platform-linking-visual-refresh-v2')) {
-						expect(styles.borderRadius).toContain('--ds-border-radius-circle');
-						return;
-					}
+				if (fg('platform-linking-visual-refresh-v2')) {
+					expect(styles.borderRadius).toContain('--ds-border-radius-circle');
+					return;
+				}
 
-					if (fg('platform-linking-visual-refresh-v1')) {
-						expect(styles.borderRadius).toBe('');
-						return;
-					}
+				expect(styles.borderRadius).toBe('');
+				return;
+			});
 
-					expect(styles.borderRadius).toBe('2px');
-				});
+			it('should not render round image if type is not profile', () => {
+				renderWithIntl(
+					<IconAndTitleLayout
+						title="title"
+						icon="src-loaded"
+						testId="inline-card-icon"
+						type={['Document', 'SomethingElse']}
+					/>,
+				);
 
-				it('should not render round image if type is not profile', () => {
-					renderWithIntl(
-						<IconAndTitleLayout
-							title="title"
-							icon="src-loaded"
-							testId="inline-card-icon"
-							type={['Document', 'SomethingElse']}
-						/>,
-					);
+				const urlIcon = screen.getByTestId('inline-card-icon-image');
+				const styles = window.getComputedStyle(urlIcon);
 
-					const urlIcon = screen.getByTestId('inline-card-icon-image');
-					const styles = window.getComputedStyle(urlIcon);
-
-					if (fg('platform-linking-visual-refresh-v1')) {
-						expect(styles.borderRadius).toBe('');
-						return;
-					}
-
-					expect(styles.borderRadius).toBe('2px');
-				});
+				expect(styles.borderRadius).toBe('');
+				return;
 			});
 		});
 

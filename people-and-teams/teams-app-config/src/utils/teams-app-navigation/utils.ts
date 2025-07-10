@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 
 import { getATLContextUrl, isFedRamp } from '@atlaskit/atlassian-context';
 import { fg } from '@atlaskit/platform-feature-flags';

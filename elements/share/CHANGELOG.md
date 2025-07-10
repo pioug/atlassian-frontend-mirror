@@ -1,5 +1,14 @@
 # @atlaskit/share
 
+## 6.15.1
+
+### Patch Changes
+
+- [#181897](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/181897)
+  [`2fedff5caf26c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2fedff5caf26c) -
+  fire page shared event when user copy link or submit share
+- Updated dependencies
+
 ## 6.15.0
 
 ### Minor Changes

@@ -8,8 +8,10 @@ import {
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import {
+	type NamedPluginStatesFromInjectionAPI,
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
@@ -21,7 +23,6 @@ import type {
 	PMPlugin,
 	PMPluginFactoryParams,
 } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { NodeSelection, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
@@ -65,14 +66,21 @@ type MediaViewerFunctionalComponentProps = {
 	editorView: EditorView;
 };
 
+const selector = (
+	states: NamedPluginStatesFromInjectionAPI<
+		ExtractInjectionAPI<MediaNextEditorPluginType>,
+		'media'
+	>,
+) => {
+	return {
+		onPopupToggle: states.mediaState?.onPopupToggle,
+		setBrowseFn: states.mediaState?.setBrowseFn,
+	};
+};
+
 const useMediaPickerSharedState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
-		const onPopupToggle = useSharedPluginStateSelector(api, 'media.onPopupToggle');
-		const setBrowseFn = useSharedPluginStateSelector(api, 'media.setBrowseFn');
-		return {
-			onPopupToggle,
-			setBrowseFn,
-		};
+		return useSharedPluginStateWithSelector(api, ['media'], selector);
 	},
 	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
 		const { mediaState } = useSharedPluginState(api, ['media']);
@@ -104,19 +112,22 @@ const MediaPickerFunctionalComponent = ({
 	);
 };
 
+const mediaViewerStateSelector = (
+	states: NamedPluginStatesFromInjectionAPI<
+		ExtractInjectionAPI<MediaNextEditorPluginType>,
+		'media'
+	>,
+) => {
+	return {
+		isMediaViewerVisible: states.mediaState?.isMediaViewerVisible,
+		mediaViewerSelectedMedia: states.mediaState?.mediaViewerSelectedMedia,
+		mediaClientConfig: states.mediaState?.mediaClientConfig,
+	};
+};
+
 const useMediaViewerSharedState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
-		const isMediaViewerVisible = useSharedPluginStateSelector(api, 'media.isMediaViewerVisible');
-		const mediaViewerSelectedMedia = useSharedPluginStateSelector(
-			api,
-			'media.mediaViewerSelectedMedia',
-		);
-		const mediaClientConfig = useSharedPluginStateSelector(api, 'media.mediaClientConfig');
-		return {
-			isMediaViewerVisible,
-			mediaViewerSelectedMedia,
-			mediaClientConfig,
-		};
+		return useSharedPluginStateWithSelector(api, ['media'], mediaViewerStateSelector);
 	},
 	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
 		const { mediaState } = useSharedPluginState(api, ['media']);

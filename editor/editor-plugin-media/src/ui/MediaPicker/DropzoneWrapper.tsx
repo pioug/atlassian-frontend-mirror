@@ -1,12 +1,13 @@
 import React from 'react';
 
 import {
+	type NamedPluginStatesFromInjectionAPI,
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { EditorAppearance, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
 import { type MediaClientConfig } from '@atlaskit/media-core';
 import type { DropzoneConfig } from '@atlaskit/media-picker';
@@ -25,14 +26,21 @@ type Props = {
 	appearance: EditorAppearance;
 };
 
+const selector = (
+	states: NamedPluginStatesFromInjectionAPI<
+		ExtractInjectionAPI<MediaNextEditorPluginType>,
+		'media'
+	>,
+) => {
+	return {
+		options: states.mediaState?.options,
+		handleDrag: states.mediaState?.handleDrag,
+	};
+};
+
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
-		const options = useSharedPluginStateSelector(api, 'media.options');
-		const handleDrag = useSharedPluginStateSelector(api, 'media.handleDrag');
-		return {
-			options,
-			handleDrag,
-		};
+		return useSharedPluginStateWithSelector(api, ['media'], selector);
 	},
 	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
 		const { mediaState } = useSharedPluginState(api, ['media']);

@@ -7,10 +7,11 @@ import classnames from 'classnames';
 import {
 	useSharedPluginState,
 	sharedPluginStateHookMigratorFactory,
+	type NamedPluginStatesFromInjectionAPI,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI, GridType } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
@@ -180,13 +181,23 @@ const Grid = ({
 
 const ThemedGrid = withTheme(Grid);
 
+const selector = (
+	states: NamedPluginStatesFromInjectionAPI<
+		ExtractInjectionAPI<typeof gridPlugin>,
+		'grid' | 'width'
+	>,
+) => {
+	return {
+		width: states.widthState?.width,
+		visible: states.gridState?.visible,
+		gridType: states.gridState?.gridType,
+		highlight: states.gridState?.highlight,
+	};
+};
+
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<typeof gridPlugin> | undefined) => {
-		const width = useSharedPluginStateSelector(api, 'width.width');
-		const visible = useSharedPluginStateSelector(api, 'grid.visible');
-		const gridType = useSharedPluginStateSelector(api, 'grid.gridType');
-		const highlight = useSharedPluginStateSelector(api, 'grid.highlight');
-		return { width, visible, gridType, highlight };
+		return useSharedPluginStateWithSelector(api, ['width', 'grid'], selector);
 	},
 	(api: ExtractInjectionAPI<typeof gridPlugin> | undefined) => {
 		const { widthState, gridState } = useSharedPluginState(api, ['width', 'grid']);

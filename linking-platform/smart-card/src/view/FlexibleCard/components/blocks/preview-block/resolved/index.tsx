@@ -6,8 +6,6 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { MediaPlacement } from '../../../../../../constants';
 import { Preview } from '../../../elements';
 import Block from '../../block';
@@ -57,11 +55,7 @@ const PreviewBlockResolvedView = ({
 
 	const updateStyles = useCallback(() => {
 		if (placement === MediaPlacement.Left || placement === MediaPlacement.Right) {
-			const containerPadding = ignoreContainerPadding
-				? fg('platform-linking-visual-refresh-v1')
-					? '0px'
-					: '0rem'
-				: 'var(--container-padding)';
+			const containerPadding = ignoreContainerPadding ? '0px' : 'var(--container-padding)';
 			const newStyle: React.CSSProperties = {
 				...style,
 				position: 'absolute',

@@ -3,7 +3,7 @@ import type { VCResult } from '../../common/vc/types';
 
 import { createRootCriticalMetricsPayload } from './root-metrics';
 import { createSegmentMetricsPayloads } from './segment-metrics/create-segment-metrics';
-import { CriticalMetricsPayload } from './types';
+import { type CriticalMetricsPayload } from './types';
 
 export async function createCriticalMetricsPayloads(
 	interactionId: string,

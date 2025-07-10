@@ -81,11 +81,6 @@ const baseRootContainerStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 	display: 'block !important',
 });
-// To be removed when platform-linking-visual-refresh-v1 is removed
-const oldRootContainerStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-	lineHeight: 'initial',
-});
 
 const formFooterMargin = css({
 	marginTop: token('space.200', '16px'),
@@ -506,10 +501,7 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 			return (
 				<form
 					data-testid={testIds.linkPicker}
-					css={[
-						baseRootContainerStyles,
-						!fg('platform-linking-visual-refresh-v1') && oldRootContainerStyles,
-					]}
+					css={[baseRootContainerStyles]}
 					// Use onSubmitCapture instead of onSubmit so that any possible parent form isn't submitted
 					onSubmitCapture={handleSubmit}
 				>

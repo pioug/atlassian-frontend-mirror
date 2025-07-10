@@ -31,7 +31,6 @@ snapshot(BlockCardErrorView, {
 	description: 'block card error view with design refresh FF',
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
-		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(BlockCardErrorView, {
@@ -42,15 +41,12 @@ snapshot(BlockCardErrorView, {
 });
 snapshot(BlockCardErrorView, {
 	description: 'block card error view - linking refresh only',
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshot(BlockCardForbiddenView, {
 	description: 'block card forbidden view with design refresh FF',
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
-		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(BlockCardForbiddenView, {
@@ -61,16 +57,13 @@ snapshot(BlockCardForbiddenView, {
 });
 snapshot(BlockCardForbiddenView, {
 	description: 'block card forbidden view - linking refresh only',
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshot(BlockCardForbiddenView);
 snapshot(BlockCardNotFoundView, {
 	description: 'block card not found view with design refresh FF',
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
-		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(BlockCardNotFoundView, {
@@ -81,55 +74,36 @@ snapshot(BlockCardNotFoundView, {
 });
 snapshot(BlockCardNotFoundView, {
 	description: 'block card not found view - linking refresh only',
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshot(BlockCardNotFoundSiteAccessExists, {
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshot(BlockCardUnauthorisedView, {
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshot(BlockCardUnauthorisedViewWithNoAuth, {
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshot(BlockCardJira, {
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': true,
 	},
 });
 snapshot(BlockCardConfluence, {
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshot(BlockCardTrello, {
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshot(BlockCardAtlas, {
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshot(BlockCardBitbucket, {
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshot(BlockCardForbiddenViews, {
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
-	},
+	featureFlags: {},
 });
 snapshot(BlockCardLazyIcon1, {
 	description: `block card with lazy load icons, slice 1`,

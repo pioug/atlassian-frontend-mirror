@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-emoji",
-	"version": "4.0.1",
+	"version": "4.0.2",
 	"description": "Emoji plugin for @atlaskit/editor-core",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

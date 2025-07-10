@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "209.0.3",
+	"version": "209.1.0",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -395,9 +395,6 @@
 		"platform_editor_drag_layout_column_into_nodes": {
 			"type": "boolean",
 			"referenceOnly": true
-		},
-		"platform-linking-visual-refresh-v1": {
-			"type": "boolean"
 		},
 		"platform_nested_nbm_analytics_location": {
 			"type": "boolean"

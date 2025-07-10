@@ -5,22 +5,10 @@
 import { css, jsx } from '@compiled/react';
 import Markdown from 'markdown-to-jsx';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import type { AISummaryProps } from './types';
 import UList from './ulist';
-
-const AISummaryCSSStyles = css({
-	font: token('font.body.UNSAFE_small'),
-	wordWrap: 'break-word',
-	wordBreak: 'break-word',
-	whiteSpace: 'normal',
-	WebkitUserSelect: 'text',
-	MozUserSelect: 'text',
-	MsUserSelect: 'text',
-	userSelect: 'text',
-});
 
 const baseStyle = css({
 	color: token('color.text.subtle'),
@@ -54,10 +42,7 @@ const AISummary = ({
 			data-testid={testId}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 			className={className}
-			css={[
-				!fg('platform-linking-visual-refresh-v1') && AISummaryCSSStyles,
-				fg('platform-linking-visual-refresh-v1') && baseStyle,
-			]}
+			css={[baseStyle]}
 			children={content}
 			options={{
 				forceWrapper: true,

@@ -19,7 +19,6 @@ snapshot(FlexUiBlockAiSummaryReady, {
 	description: 'FlexUiBlockAiSummaryReady',
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': true,
 	},
 });
@@ -37,7 +36,6 @@ snapshot(FlexUiBlockAiSummaryLoading, {
 	description: 'FlexUiBlockAiSummaryLoading',
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': true,
 	},
 });
@@ -55,7 +53,6 @@ snapshot(FlexUiBlockAiSummaryDone, {
 	description: 'FlexUiBlockAiSummaryDone',
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': true,
 	},
 });
@@ -73,7 +70,6 @@ snapshot(FlexUiBlockAiSummaryDoneOnMount, {
 	description: 'FlexUiBlockAiSummaryDoneOnMount',
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': true,
 	},
 });
@@ -91,7 +87,6 @@ snapshot(FlexUiBlockAiSummaryError, {
 	description: 'FlexUiBlockAiSummaryError',
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': true,
 	},
 });

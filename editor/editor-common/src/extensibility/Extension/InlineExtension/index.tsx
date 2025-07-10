@@ -11,8 +11,11 @@ import classnames from 'classnames';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { akEditorGutterPaddingDynamic } from '@atlaskit/editor-shared-styles';
 
-import { sharedPluginStateHookMigratorFactory, useSharedPluginState } from '../../../hooks';
-import { useSharedPluginStateSelector } from '../../../hooks/useSharedPluginStateSelector/useSharedPluginStateSelector';
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+	useSharedPluginStateWithSelector,
+} from '../../../hooks';
 import { createWidthContext, WidthContext } from '../../../ui';
 import type { ExtensionsPluginInjectionAPI, MacroInteractionDesignFeatureFlags } from '../../types';
 import ExtensionLozenge from '../Lozenge';
@@ -36,15 +39,19 @@ const useInlineExtensionSharedPluginState = sharedPluginStateHookMigratorFactory
 	ExtensionsPluginInjectionAPI
 >(
 	(pluginInjectionApi) => {
-		const { widthState } = useSharedPluginState(pluginInjectionApi, ['width']);
-		return { widthState: { width: widthState?.width } };
-	},
-	(pluginInjectionApi) => {
-		const width = useSharedPluginStateSelector(pluginInjectionApi, 'width.width');
+		const { width } = useSharedPluginStateWithSelector(pluginInjectionApi, ['width'], (states) => {
+			return {
+				width: states.widthState?.width,
+			};
+		});
 
 		return {
 			widthState: { width },
 		};
+	},
+	(pluginInjectionApi) => {
+		const { widthState } = useSharedPluginState(pluginInjectionApi, ['width']);
+		return { widthState: { width: widthState?.width } };
 	},
 );
 

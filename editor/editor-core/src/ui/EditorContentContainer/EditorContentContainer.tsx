@@ -376,9 +376,8 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 							smartLinksInLivePagesStyles
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							smartLinksInLivePagesStylesOld,
-					fg('platform-linking-visual-refresh-v1') &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						linkingVisualRefreshV1Styles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					linkingVisualRefreshV1Styles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					dateVanillaStyles,
 					fg('platform_editor_typography_ugc')

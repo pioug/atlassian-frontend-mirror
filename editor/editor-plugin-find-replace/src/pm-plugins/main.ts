@@ -30,7 +30,8 @@ export const createPlugin = (
 	return new SafePlugin({
 		key: findReplacePluginKey,
 		state: createPluginState(dispatch, () =>
-			expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
+			expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true) ||
+			expValEquals('platform_editor_toggle_expand_on_match_found', 'isEnabled', true)
 				? { ...initialState, getIntl, api }
 				: { ...initialState },
 		),

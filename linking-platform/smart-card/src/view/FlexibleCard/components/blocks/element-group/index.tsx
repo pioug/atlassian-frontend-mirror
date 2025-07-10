@@ -5,7 +5,6 @@
  */
 import { css, cssMap, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -31,42 +30,6 @@ const alignmentStyleMap = cssMap({
 		MsFlexAlign: 'start',
 		justifyContent: 'flex-start',
 		textAlign: 'left',
-	},
-});
-
-// TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
-const baseStyleBySizeOld = cssMap({
-	xlarge: {
-		alignItems: 'center',
-		display: 'flex',
-		gap: token('space.250', '1.25rem'),
-		minWidth: 0,
-		overflow: 'hidden',
-		lineHeight: '1rem',
-	},
-	large: {
-		alignItems: 'center',
-		display: 'flex',
-		gap: token('space.200', '1rem'),
-		minWidth: 0,
-		overflow: 'hidden',
-		lineHeight: '1rem',
-	},
-	medium: {
-		alignItems: 'center',
-		display: 'flex',
-		gap: token('space.100', '0.5rem'),
-		minWidth: 0,
-		overflow: 'hidden',
-		lineHeight: '1rem',
-	},
-	small: {
-		alignItems: 'center',
-		display: 'flex',
-		gap: token('space.050', '0.25rem'),
-		minWidth: 0,
-		overflow: 'hidden',
-		lineHeight: '1rem',
 	},
 });
 
@@ -112,20 +75,6 @@ const baseStyleByDirection = cssMap({
 	},
 });
 
-const baseStyleOld = css({
-	'&:empty': {
-		display: 'none',
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'& > *': {
-		minWidth: 0,
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'& > [data-fit-to-content]': {
-		minWidth: 'fit-content',
-	},
-});
-
 const baseStyles = css({
 	'&:empty': {
 		display: 'none',
@@ -164,34 +113,6 @@ const horizontalStyleBase = css({
 	wordBreak: 'break-word',
 	WebkitLineClamp: 1,
 	WebkitBoxOrient: 'vertical',
-});
-
-// TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
-const horizontalStyleByHeightOld = cssMap({
-	xlarge: {
-		display: '-webkit-box',
-		'@supports not (-webkit-line-clamp: 1)': {
-			maxHeight: `calc(1 * 1.75rem)`,
-		},
-	},
-	large: {
-		display: '-webkit-box',
-		'@supports not (-webkit-line-clamp: 1)': {
-			maxHeight: `calc(1 * 1.75rem)`,
-		},
-	},
-	medium: {
-		display: '-webkit-box',
-		'@supports not (-webkit-line-clamp: 1)': {
-			maxHeight: `calc(1 * 1.5rem)`,
-		},
-	},
-	small: {
-		display: '-webkit-box',
-		'@supports not (-webkit-line-clamp: 1)': {
-			maxHeight: `calc(1 * 1.5rem)`,
-		},
-	},
 });
 
 const horizontalStyleByHeight = cssMap({
@@ -334,19 +255,14 @@ const ElementGroup = ({
 	return (
 		<div
 			css={[
-				!fg('platform-linking-visual-refresh-v1') && baseStyleBySizeOld[size],
-				fg('platform-linking-visual-refresh-v1') && baseStyleBySize[size],
+				baseStyleBySize[size],
 				baseStyleByDirection[direction],
-				!fg('platform-linking-visual-refresh-v1') && baseStyleOld,
-				fg('platform-linking-visual-refresh-v1') && baseStyles,
+				baseStyles,
 				alignmentStyleMap[align],
 				minWidthStyle,
 				widthStyle[width],
 				isHorizontal && horizontalStyleBase,
-				isHorizontal &&
-					!fg('platform-linking-visual-refresh-v1') &&
-					horizontalStyleByHeightOld[size],
-				isHorizontal && fg('platform-linking-visual-refresh-v1') && horizontalStyleByHeight[size],
+				isHorizontal && horizontalStyleByHeight[size],
 				isHorizontal && align === SmartLinkAlignment.Left && gapStylesLeft[size],
 				isHorizontal && align === SmartLinkAlignment.Right && gapStylesRight[size],
 				positionStyle[position],

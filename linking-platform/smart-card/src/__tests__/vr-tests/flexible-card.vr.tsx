@@ -34,7 +34,6 @@ import FlexibleUiOptions from '../../../examples/vr-flexible-card/vr-flexible-ui
 snapshot(FlexibleUiOptions, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiComposition, {
@@ -48,7 +47,6 @@ snapshot(FlexibleUiComposition, {
 	],
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -63,7 +61,6 @@ snapshot(FlexibleUiBlock, {
 	],
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiBlockTitle, {
@@ -76,7 +73,6 @@ snapshot(FlexibleUiBlockTitle, {
 	],
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
 	},
 });
 // Remove this test on cleanup of platform-linking-flexible-card-unresolved-action
@@ -90,7 +86,6 @@ snapshot(FlexibleUiBlockTitle, {
 	],
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': true,
 		'platform-linking-flexible-card-unresolved-action': [true, false],
 	},
@@ -114,7 +109,6 @@ snapshot(FlexibleUiBlockTitle, {
 	],
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiBlockTitle, {
@@ -136,7 +130,6 @@ snapshot(FlexibleUiBlockTitle, {
 	],
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiBlockMetadata, {
@@ -149,55 +142,46 @@ snapshot(FlexibleUiBlockMetadata, {
 	],
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiBlockSnippet, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiBlockFooter, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiBlockPreviewXLarge, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiBlockPreviewLarge, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiBlockPreviewMedium, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiBlockPreviewSmall, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiBlockPreviewMixedPadding, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiBlockPreviewOverrideCSS, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -205,14 +189,12 @@ snapshot(FlexibleUiBlockPreviewOverrideCSS, {
 snapshot(FlexibleUiElementLink, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiElementLozenge, {
 	description: 'FlexibleUiElementLozenge',
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': true,
 	},
 	variants: [
@@ -234,25 +216,21 @@ snapshot(FlexibleUiElementBadge, {
 	],
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiElementAppliedToComponentsCount, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiElementAvatarGroup, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiElementMedia, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiElementTeamMemberCount, {
@@ -284,7 +262,6 @@ snapshot(FlexibleUiHoverCard, {
 	description: 'FlexibleUiHoverCard',
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': true,
 	},
 });
@@ -300,7 +277,6 @@ snapshot(FlexibleUiHoverCardNoPreviewButton, {
 	],
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -317,7 +293,6 @@ snapshot(FlexibleUiAccessibility, {
 	],
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiAccessibility, {
@@ -333,7 +308,6 @@ snapshot(FlexibleUiAccessibility, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiAccessibilityForbidden, {
@@ -348,7 +322,6 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 	],
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiAccessibilityForbidden, {
@@ -363,7 +336,6 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 	],
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
 	},
 });
 // Remove this test on cleanup of platform-linking-flexible-card-unresolved-action
@@ -379,7 +351,6 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 	],
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': true,
 		'platform-linking-flexible-card-unresolved-action': [true, false],
 	},
@@ -396,7 +367,6 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 	],
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -404,7 +374,6 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 snapshot(FlexibleUiBlockCardErroredStates, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
 	},
 });
 

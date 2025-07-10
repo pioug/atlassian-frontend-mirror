@@ -7,13 +7,14 @@ import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { OnClickCallback } from '@atlaskit/editor-common/card';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import {
+	type NamedPluginStatesFromInjectionAPI,
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { ReactComponentProps, getPosHandler } from '@atlaskit/editor-common/react-node-view';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { getAnalyticsEditorAppearance } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { type Transaction } from '@atlaskit/editor-prosemirror/state';
@@ -69,10 +70,20 @@ export interface SmartCardProps extends CardProps {
 	CompetitorPrompt?: React.ComponentType<{ sourceUrl: string; linkType?: string }>;
 }
 
+const selector = (
+	states: NamedPluginStatesFromInjectionAPI<
+		ExtractInjectionAPI<typeof cardPlugin>,
+		'editorViewMode'
+	>,
+) => {
+	return {
+		mode: states.editorViewModeState?.mode,
+	};
+};
+
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined) => {
-		const mode = useSharedPluginStateSelector(pluginInjectionApi, 'editorViewMode.mode');
-		return { mode };
+		return useSharedPluginStateWithSelector(pluginInjectionApi, ['editorViewMode'], selector);
 	},
 	(pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined) => {
 		const { editorViewModeState } = useSharedPluginState(pluginInjectionApi, ['editorViewMode']);

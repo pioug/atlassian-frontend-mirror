@@ -257,7 +257,6 @@ const IconElement = ({
 	return (
 		<div
 			css={[styles.container, positionStyleMap[position], render && customRenderStyleMap[size]]}
-			{...(fg('platform-linking-visual-refresh-v1') ? {} : { ['data-fit-to-content']: true })}
 			data-smart-element={name}
 			data-smart-element-icon
 			data-testid={testId}

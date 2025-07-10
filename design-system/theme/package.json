@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/theme",
-	"version": "18.0.3",
+	"version": "19.0.0",
 	"description": "Theme contains solutions for global theming, colors, and other useful mixins.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -85,7 +85,6 @@
 		}
 	},
 	"af:exports": {
-		"./color-palettes": "./src/color-palettes.tsx",
 		"./colors": "./src/colors.tsx",
 		"./components": "./src/components.tsx",
 		"./constants": "./src/constants.tsx",
@@ -93,7 +92,6 @@
 		"./typography": "./src/typography.tsx"
 	},
 	"exports": {
-		"./color-palettes": "./src/color-palettes.tsx",
 		"./colors": "./src/colors.tsx",
 		"./components": "./src/components.tsx",
 		"./constants": "./src/constants.tsx",

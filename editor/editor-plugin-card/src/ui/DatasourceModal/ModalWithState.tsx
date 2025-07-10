@@ -1,11 +1,12 @@
 import React from 'react';
 
 import {
+	type NamedPluginStatesFromInjectionAPI,
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { DatasourceModalType, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
 	ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
@@ -31,21 +32,19 @@ type ModalWithStateProps = {
 	editorView: EditorView;
 };
 
+const selector = (
+	states: NamedPluginStatesFromInjectionAPI<ExtractInjectionAPI<typeof cardPlugin>, 'card'>,
+) => {
+	return {
+		cardState: undefined,
+		showDatasourceModal: states.cardState?.showDatasourceModal,
+		datasourceModalType: states.cardState?.datasourceModalType,
+	};
+};
+
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined) => {
-		const showDatasourceModal = useSharedPluginStateSelector(
-			pluginInjectionApi,
-			'card.showDatasourceModal',
-		);
-		const datasourceModalType = useSharedPluginStateSelector(
-			pluginInjectionApi,
-			'card.datasourceModalType',
-		);
-		return {
-			cardState: undefined,
-			showDatasourceModal,
-			datasourceModalType,
-		};
+		return useSharedPluginStateWithSelector(pluginInjectionApi, ['card'], selector);
 	},
 	(pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined) => {
 		const { cardState } = useSharedPluginState(pluginInjectionApi, ['card']);

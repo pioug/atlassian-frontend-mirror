@@ -41,12 +41,12 @@ import {
 	CHANNEL_ID,
 	copyLinkButtonClicked,
 	formShareSubmitted,
+	jiraPageSharedEvent,
 	screenEvent,
 	shareMenuItemClicked,
 	shareSplitButtonEvent,
 	shareTabClicked,
 	shareTriggerButtonClicked,
-	// type TabSubjectIdType,
 } from './analytics/analytics';
 // eslint-disable-next-line no-duplicate-imports
 import type { MenuItemSubjectIdType, TabSubjectIdType } from './analytics/analytics';
@@ -338,6 +338,8 @@ export class ShareDialogWithTriggerInternalLegacy extends React.PureComponent<
 			isPublicLink,
 			createAnalyticsEvent,
 			isExtendedShareDialogEnabled,
+			productAttributes,
+			loggedInAccountId,
 		} = this.props;
 		if (!onShareSubmit) {
 			return;
@@ -358,6 +360,24 @@ export class ShareDialogWithTriggerInternalLegacy extends React.PureComponent<
 				shareContentId,
 			}),
 		);
+
+		if (fg('page_shared_event_from_share_dialogue')) {
+			this.createAndFireEvent(
+				jiraPageSharedEvent({
+					start: this.start,
+					data,
+					shareContentType,
+					shareContentSubType,
+					shareContentId,
+					shareOrigin: formShareOrigin,
+					isPublicLink,
+					productAttributes,
+					loggedInAccountId,
+					source: ANALYTICS_SOURCE,
+					actionSubjectId: 'submitShare',
+				}),
+			);
+		}
 
 		if (createAnalyticsEvent) {
 			createAnalyticsEvent({
@@ -429,6 +449,8 @@ export class ShareDialogWithTriggerInternalLegacy extends React.PureComponent<
 			shareContentId,
 			isPublicLink,
 			shareAri,
+			productAttributes,
+			loggedInAccountId,
 		} = this.props;
 		this.createAndFireEvent(
 			copyLinkButtonClicked({
@@ -441,6 +463,24 @@ export class ShareDialogWithTriggerInternalLegacy extends React.PureComponent<
 				shareContentId,
 			}),
 		);
+
+		if (fg('page_shared_event_from_share_dialogue')) {
+			this.createAndFireEvent(
+				jiraPageSharedEvent({
+					start: this.start,
+					data: { users: [], comment: { format: 'plain_text', value: '' } }, // Empty data for copy link
+					shareContentType,
+					shareContentSubType,
+					shareContentId,
+					shareOrigin: copyLinkOrigin,
+					isPublicLink,
+					productAttributes,
+					loggedInAccountId,
+					source: ANALYTICS_SOURCE,
+					actionSubjectId: 'copyLink',
+				}),
+			);
+		}
 	};
 
 	handleIntegrationClick = (integration: Integration) => {

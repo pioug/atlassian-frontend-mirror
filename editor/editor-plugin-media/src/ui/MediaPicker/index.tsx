@@ -1,11 +1,12 @@
 import React from 'react';
 
 import {
+	type NamedPluginStatesFromInjectionAPI,
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { EditorAppearance, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 
@@ -33,16 +34,22 @@ type MediaPickerProps = {
 	onBrowseFn: (nativeBrowseFn: () => void) => void;
 };
 
+const selector = (
+	states: NamedPluginStatesFromInjectionAPI<
+		ExtractInjectionAPI<MediaNextEditorPluginType>,
+		'focus' | 'connectivity' | 'media'
+	>,
+) => {
+	return {
+		hasFocus: states.focusState?.hasFocus,
+		connectivityMode: states.connectivityState?.mode,
+		mediaOptions: states.mediaState?.mediaOptions,
+	};
+};
+
 const useMediaPickerState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
-		const hasFocus = useSharedPluginStateSelector(api, 'focus.hasFocus');
-		const connectivityMode = useSharedPluginStateSelector(api, 'connectivity.mode');
-		const mediaOptions = useSharedPluginStateSelector(api, 'media.mediaOptions');
-		return {
-			hasFocus,
-			connectivityMode,
-			mediaOptions,
-		};
+		return useSharedPluginStateWithSelector(api, ['focus', 'connectivity', 'media'], selector);
 	},
 	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
 		const { focusState, connectivityState, mediaState } = useSharedPluginState(api, [

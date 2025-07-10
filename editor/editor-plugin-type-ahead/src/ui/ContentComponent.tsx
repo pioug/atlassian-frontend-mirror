@@ -3,10 +3,10 @@ import React from 'react';
 import {
 	useSharedPluginState,
 	sharedPluginStateHookMigratorFactory,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -24,13 +24,23 @@ interface ContentComponentProps {
 
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<TypeAheadPlugin> | undefined) => {
-		const triggerHandler = useSharedPluginStateSelector(api, 'typeAhead.triggerHandler');
-		const errorInfo = useSharedPluginStateSelector(api, 'typeAhead.errorInfo');
-		const decorationElement = useSharedPluginStateSelector(api, 'typeAhead.decorationElement');
-		const decorationSet = useSharedPluginStateSelector(api, 'typeAhead.decorationSet');
-		const query = useSharedPluginStateSelector(api, 'typeAhead.query');
-		const selectedIndex = useSharedPluginStateSelector(api, 'typeAhead.selectedIndex');
-		const items = useSharedPluginStateSelector(api, 'typeAhead.items');
+		const {
+			triggerHandler,
+			items,
+			errorInfo,
+			decorationElement,
+			decorationSet,
+			query,
+			selectedIndex,
+		} = useSharedPluginStateWithSelector(api, ['typeAhead'], (states) => ({
+			triggerHandler: states.typeAheadState?.triggerHandler,
+			items: states.typeAheadState?.items,
+			errorInfo: states.typeAheadState?.errorInfo,
+			decorationElement: states.typeAheadState?.decorationElement,
+			decorationSet: states.typeAheadState?.decorationSet,
+			query: states.typeAheadState?.query,
+			selectedIndex: states.typeAheadState?.selectedIndex,
+		}));
 		return {
 			triggerHandler,
 			items,

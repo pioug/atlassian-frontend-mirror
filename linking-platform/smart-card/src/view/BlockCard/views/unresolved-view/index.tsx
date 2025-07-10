@@ -28,10 +28,6 @@ import {
 
 import { type UnresolvedViewProps } from './types';
 
-const customBlockStylesOld = css({
-	alignItems: 'flex-start',
-});
-
 const customBlockStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'> div': {
@@ -44,32 +40,12 @@ const customBlockStyles = css({
 	alignSelf: 'stretch',
 });
 
-const titleBlockCssOld = css({
-	gap: token('space.100', '0.5em'),
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	"[data-smart-element='Title']": {
-		fontWeight: token('font.weight.semibold'),
-	},
-});
-
 const titleBlockCss = css({
 	gap: token('space.100'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	"[data-smart-element='Title']": {
 		fontWeight: token('font.weight.semibold'),
 		color: token('color.link'),
-	},
-});
-
-const footerBlockCssOld = css({
-	height: '1.5rem',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'.actions-button-group': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		'button, button:hover, button:focus, button:active': {
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-			fontSize: '0.875rem',
-		},
 	},
 });
 
@@ -122,13 +98,13 @@ const UnresolvedView = ({
 				{...titleBlockOptions}
 				hideIcon={!!title}
 				text={title}
-				css={[fg('platform-linking-visual-refresh-v1') ? titleBlockCss : titleBlockCssOld]}
+				css={[titleBlockCss]}
 				{...(fg('platform-linking-flexible-card-context')
 					? undefined
 					: { status: cardState.status as SmartLinkStatus })}
 			/>
 			<CustomBlock
-				css={[fg('platform-linking-visual-refresh-v1') ? customBlockStyles : customBlockStylesOld]}
+				css={[customBlockStyles]}
 				{...(fg('platform-linking-flexible-card-context')
 					? undefined
 					: { status: cardState.status as SmartLinkStatus })}
@@ -145,7 +121,7 @@ const UnresolvedView = ({
 			)}
 			<InternalFooterBlock
 				css={[
-					fg('platform-linking-visual-refresh-v1') ? footerBlockCss : footerBlockCssOld,
+					footerBlockCss,
 					safari && fg('platform-linking-visual-refresh-v2') && footerBlockSafariStyles,
 				]}
 				actions={actions}

@@ -20,6 +20,7 @@ import { browser } from '@atlaskit/editor-common/browser';
 import {
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import {
 	dragToMoveDown,
@@ -359,9 +360,12 @@ type DragHandleProps = {
 
 const useDragHandlePluginState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<BlockControlsPlugin> | undefined) => {
-		const macroInteractionUpdates = useSharedPluginStateSelector(
+		const { macroInteractionUpdates } = useSharedPluginStateWithSelector(
 			api,
-			'featureFlags.macroInteractionUpdates',
+			['featureFlags'],
+			(states) => ({
+				macroInteractionUpdates: states.featureFlagsState?.macroInteractionUpdates,
+			}),
 		);
 		return {
 			macroInteractionUpdates,

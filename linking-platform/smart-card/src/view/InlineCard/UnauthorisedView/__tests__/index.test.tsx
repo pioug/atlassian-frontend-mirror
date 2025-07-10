@@ -3,66 +3,63 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 import { InlineCardUnauthorizedView } from '../index';
 
 describe('Unauthorised View', () => {
 	beforeEach(() => {
 		jest.useFakeTimers();
 	});
-	ffTest.both('platform-linking-visual-refresh-v1', 'with visual refresh fg', () => {
-		it('should have correct text', () => {
-			const testUrl = 'http://unauthorised-test/';
-			const { container } = render(
-				<IntlProvider locale="en">
-					<InlineCardUnauthorizedView url={testUrl} />
-				</IntlProvider>,
-			);
 
-			expect(container).toHaveTextContent(testUrl);
-		});
+	it('should have correct text', () => {
+		const testUrl = 'http://unauthorised-test/';
+		const { container } = render(
+			<IntlProvider locale="en">
+				<InlineCardUnauthorizedView url={testUrl} />
+			</IntlProvider>,
+		);
 
-		it('should have a link to the url', () => {
-			const testUrl = 'http://unauthorised-test/';
-			render(
-				<IntlProvider locale="en">
-					<InlineCardUnauthorizedView url={testUrl} />
-				</IntlProvider>,
-			);
-			const link = screen.getByText(testUrl, { exact: false }).closest('a');
+		expect(container).toHaveTextContent(testUrl);
+	});
 
-			expect(link).not.toBeNull;
-			expect(link!.href).toBe(testUrl);
-		});
+	it('should have a link to the url', () => {
+		const testUrl = 'http://unauthorised-test/';
+		render(
+			<IntlProvider locale="en">
+				<InlineCardUnauthorizedView url={testUrl} />
+			</IntlProvider>,
+		);
+		const link = screen.getByText(testUrl, { exact: false }).closest('a');
 
-		it('should show correct text if action is available', () => {
-			const testUrl = 'http://unauthorised-test/';
+		expect(link).not.toBeNull;
+		expect(link!.href).toBe(testUrl);
+	});
 
-			const { container } = render(
-				<IntlProvider locale="en">
-					<InlineCardUnauthorizedView context="3P" url={testUrl} onAuthorise={jest.fn()} />
-				</IntlProvider>,
-			);
+	it('should show correct text if action is available', () => {
+		const testUrl = 'http://unauthorised-test/';
 
-			expect(container).toHaveTextContent(`${testUrl}Connect your 3P account`);
-		});
+		const { container } = render(
+			<IntlProvider locale="en">
+				<InlineCardUnauthorizedView context="3P" url={testUrl} onAuthorise={jest.fn()} />
+			</IntlProvider>,
+		);
 
-		it('should not redirect user if they do not click on the authorize button', () => {
-			const onClick = jest.fn();
-			const onAuthorise = jest.fn();
-			const testUrl = 'http://unauthorised-test/';
-			render(
-				<IntlProvider locale="en">
-					<InlineCardUnauthorizedView url={testUrl} onClick={onClick} onAuthorise={onAuthorise} />
-				</IntlProvider>,
-			);
+		expect(container).toHaveTextContent(`${testUrl}Connect your 3P account`);
+	});
 
-			const message = screen.getByText(testUrl);
-			fireEvent.click(message!);
-			expect(onClick).toHaveBeenCalled();
-			expect(onAuthorise).not.toHaveBeenCalled();
-		});
+	it('should not redirect user if they do not click on the authorize button', () => {
+		const onClick = jest.fn();
+		const onAuthorise = jest.fn();
+		const testUrl = 'http://unauthorised-test/';
+		render(
+			<IntlProvider locale="en">
+				<InlineCardUnauthorizedView url={testUrl} onClick={onClick} onAuthorise={onAuthorise} />
+			</IntlProvider>,
+		);
+
+		const message = screen.getByText(testUrl);
+		fireEvent.click(message!);
+		expect(onClick).toHaveBeenCalled();
+		expect(onAuthorise).not.toHaveBeenCalled();
 	});
 	it('should capture and report a11y violations', async () => {
 		const testUrl = 'http://unauthorised-test/';

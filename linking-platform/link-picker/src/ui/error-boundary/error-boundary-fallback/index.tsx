@@ -17,10 +17,6 @@ import { MinHeightContainer } from '../../../common/ui/min-height-container';
 const errorBoundaryFallbackStyles = css({
 	font: token('font.heading.xxsmall'),
 });
-const oldErrorBoundaryFallbackStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-	lineHeight: 'initial',
-});
 
 const messages = defineMessages({
 	heading: {
@@ -42,11 +38,7 @@ export const ErrorBoundaryFallback = () => {
 
 	return (
 		<MinHeightContainer
-			css={[
-				fg('platform-linking-visual-refresh-v1')
-					? errorBoundaryFallbackStyles
-					: oldErrorBoundaryFallbackStyles,
-			]}
+			css={[errorBoundaryFallbackStyles]}
 			minHeight={LINK_PICKER_MIN_HEIGHT_IN_PX_FALLBACK}
 			data-testid="link-picker-root-error-boundary-ui"
 		>

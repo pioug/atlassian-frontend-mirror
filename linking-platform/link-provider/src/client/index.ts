@@ -22,7 +22,7 @@ import {
 	isErrorResponse,
 	type SearchProviderInfoResponse,
 } from './types/responses';
-import { ResourcePayload, ResourceType, type InvokeRequest } from './types/requests';
+import { type ResourcePayload, type ResourceType, type InvokeRequest } from './types/requests';
 import { LRUMap } from 'lru_map';
 import uniqBy from 'lodash/uniqBy';
 import { fg } from '@atlaskit/platform-feature-flags';

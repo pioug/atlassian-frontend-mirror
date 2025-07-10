@@ -11,8 +11,10 @@ import { jsx } from '@emotion/react';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import {
+	type NamedPluginStatesFromInjectionAPI,
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
@@ -32,35 +34,31 @@ import type { ForwardRef, getPosHandler, getPosHandlerNode, MediaOptions } from 
 import { MediaSingleNodeNext } from './mediaSingleNext';
 import type { MediaSingleNodeProps, MediaSingleNodeViewProps } from './types';
 
+const selector = (
+	states: NamedPluginStatesFromInjectionAPI<
+		ExtractInjectionAPI<MediaNextEditorPluginType>,
+		'width' | 'editorDisabled' | 'media' | 'annotation' | 'editorViewMode'
+	>,
+) => {
+	return {
+		mediaProviderPromise: states.mediaState?.mediaProvider,
+		addPendingTask: states.mediaState?.addPendingTask,
+		isDrafting: states.annotationState?.isDrafting,
+		targetNodeId: states.annotationState?.targetNodeId,
+		width: states.widthState?.width,
+		lineLength: states.widthState?.lineLength,
+		editorDisabled: states.editorDisabledState?.editorDisabled,
+		viewMode: states.editorViewModeState?.mode,
+	};
+};
+
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
-		const mediaProviderPromise = useSharedPluginStateSelector(
+		return useSharedPluginStateWithSelector(
 			pluginInjectionApi,
-			'media.mediaProvider',
+			['width', 'media', 'annotation', 'editorDisabled', 'editorViewMode'],
+			selector,
 		);
-		const addPendingTask = useSharedPluginStateSelector(pluginInjectionApi, 'media.addPendingTask');
-		const isDrafting = useSharedPluginStateSelector(pluginInjectionApi, 'annotation.isDrafting');
-		const targetNodeId = useSharedPluginStateSelector(
-			pluginInjectionApi,
-			'annotation.targetNodeId',
-		);
-		const width = useSharedPluginStateSelector(pluginInjectionApi, 'width.width');
-		const lineLength = useSharedPluginStateSelector(pluginInjectionApi, 'width.lineLength');
-		const editorDisabled = useSharedPluginStateSelector(
-			pluginInjectionApi,
-			'editorDisabled.editorDisabled',
-		);
-		const viewMode = useSharedPluginStateSelector(pluginInjectionApi, 'editorViewMode.mode');
-		return {
-			mediaProviderPromise,
-			addPendingTask,
-			isDrafting,
-			targetNodeId,
-			width,
-			lineLength,
-			editorDisabled,
-			viewMode,
-		};
 	},
 	(pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
 		const { widthState, mediaState, annotationState, editorDisabledState, editorViewModeState } =

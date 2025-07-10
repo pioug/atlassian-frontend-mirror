@@ -2,15 +2,16 @@ import React from 'react';
 
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import {
+	type NamedPluginStatesFromInjectionAPI,
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type { MediaProvider, ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { EditorDisabledPluginState } from '@atlaskit/editor-plugin-editor-disabled';
 import type { EditorViewModePluginState } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -44,17 +45,25 @@ interface MediaGroupNodeViewInternalProps {
 	pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
 }
 
+const selector = (
+	states: NamedPluginStatesFromInjectionAPI<
+		ExtractInjectionAPI<MediaNextEditorPluginType>,
+		'editorViewMode' | 'editorDisabled'
+	>,
+) => {
+	return {
+		editorDisabled: states.editorDisabledState?.editorDisabled,
+		editorViewMode: states.editorViewModeState?.mode,
+	};
+};
+
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
-		const editorDisabled = useSharedPluginStateSelector(
+		return useSharedPluginStateWithSelector(
 			pluginInjectionApi,
-			'editorDisabled.editorDisabled',
+			['editorDisabled', 'editorViewMode'],
+			selector,
 		);
-		const editorViewMode = useSharedPluginStateSelector(pluginInjectionApi, 'editorViewMode.mode');
-		return {
-			editorDisabled,
-			editorViewMode,
-		};
 	},
 	(pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
 		const { editorDisabledState: editorDisabledPlugin, editorViewModeState: editorViewModePlugin } =

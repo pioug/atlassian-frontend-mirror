@@ -47,11 +47,11 @@ describe('ElementGroup', () => {
 
 	describe('size', () => {
 		it.each([
-			[SmartLinkSize.XLarge, 'var(--ds-space-250,1.25rem)'],
-			[SmartLinkSize.Large, 'var(--ds-space-200,1rem)'],
-			[SmartLinkSize.Medium, 'var(--ds-space-100,.5rem)'],
-			[SmartLinkSize.Small, 'var(--ds-space-050,.25rem)'],
-			[undefined, 'var(--ds-space-100,.5rem)'],
+			[SmartLinkSize.XLarge, 'var(--ds-space-250,20px)'],
+			[SmartLinkSize.Large, 'var(--ds-space-200,1pc)'],
+			[SmartLinkSize.Medium, 'var(--ds-space-100,8px)'],
+			[SmartLinkSize.Small, 'var(--ds-space-050,4px)'],
+			[undefined, 'var(--ds-space-100,8px)'],
 		])(
 			'renders element group in %s size',
 			async (size: SmartLinkSize | undefined, expected: string) => {

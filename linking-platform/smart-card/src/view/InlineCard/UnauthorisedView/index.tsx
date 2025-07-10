@@ -6,12 +6,9 @@ import React from 'react';
 
 import { FormattedMessage } from 'react-intl-next';
 
-import ButtonOld from '@atlaskit/button';
-import { cssMap, jsx } from '@atlaskit/css';
+import { jsx } from '@atlaskit/css';
 import LockLockedIcon from '@atlaskit/icon/core/lock-locked';
 import LegacyLockIcon from '@atlaskit/icon/glyph/lock-filled';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { Box } from '@atlaskit/primitives/compiled';
 import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -21,12 +18,6 @@ import { HoverCard } from '../../HoverCard';
 import { ActionButton } from '../common/action-button';
 import { Frame } from '../Frame';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
-import { IconStyledButtonOldVisualRefresh } from '../styled';
-import withFrameStyleControl from '../utils/withFrameStyleControl';
-
-const styles = cssMap({
-	iconWrapper: { marginRight: token('space.negative.025') },
-});
 
 export interface InlineCardUnauthorizedViewProps {
 	/** The url to display */
@@ -54,26 +45,13 @@ export interface InlineCardUnauthorizedViewProps {
 }
 
 const fallbackUnauthorizedIcon = () => {
-	if (fg('platform-linking-visual-refresh-v1')) {
-		return (
-			<LockLockedIcon
-				color={token('color.icon.danger')}
-				label="error"
-				LEGACY_fallbackIcon={LegacyLockIcon}
-				LEGACY_size="small"
-			/>
-		);
-	}
-
 	return (
-		<Box as="span" xcss={styles.iconWrapper}>
-			<LockLockedIcon
-				color={token('color.icon.danger')}
-				label="error"
-				LEGACY_fallbackIcon={LegacyLockIcon}
-				LEGACY_size="small"
-			/>
-		</Box>
+		<LockLockedIcon
+			color={token('color.icon.danger')}
+			label="error"
+			LEGACY_fallbackIcon={LegacyLockIcon}
+			LEGACY_size="small"
+		/>
 	);
 };
 
@@ -105,27 +83,12 @@ export const InlineCardUnauthorizedView = ({
 	);
 
 	const renderActionButton = React.useCallback(() => {
-		const Button = withFrameStyleControl(ButtonOld, frameRef);
-
-		if (fg('platform-linking-visual-refresh-v1')) {
-			return (
-				<ActionButton onClick={handleConnectAccount} testId="button-connect-account">
-					<FormattedMessage {...messages.connect_link_account_card_name} values={{ context }} />
-				</ActionButton>
-			);
-		}
-
-		return onAuthorise ? (
-			<Button
-				spacing="none"
-				component={IconStyledButtonOldVisualRefresh}
-				onClick={handleConnectAccount}
-				testId="button-connect-account"
-			>
+		return (
+			<ActionButton onClick={handleConnectAccount} testId="button-connect-account">
 				<FormattedMessage {...messages.connect_link_account_card_name} values={{ context }} />
-			</Button>
-		) : undefined;
-	}, [handleConnectAccount, onAuthorise, context]);
+			</ActionButton>
+		);
+	}, [handleConnectAccount, context]);
 
 	const inlineCardUnauthenticatedView = (
 		<Frame testId={testId} isSelected={isSelected} ref={frameRef} truncateInline={truncateInline}>

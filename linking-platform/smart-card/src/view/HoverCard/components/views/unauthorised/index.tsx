@@ -8,7 +8,6 @@ import { css, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { extractSmartLinkProvider } from '@atlaskit/link-extractors';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { useAnalyticsEvents } from '../../../../../common/analytics/generated/use-analytics-events';
@@ -28,22 +27,9 @@ import { LinkIcon } from '../../../../FlexibleCard/components/elements';
 
 import { type HoverCardUnauthorisedProps } from './types';
 
-const connectButtonStylesOld = css({
-	justifyContent: 'flex-end',
-	marginTop: token('space.100', '0.5rem'),
-});
-
 const connectButtonStyles = css({
 	justifyContent: 'flex-end',
 	marginTop: token('space.100'),
-});
-
-const titleBlockStylesOld = css({
-	gap: '0.5rem 0.5rem',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	a: {
-		fontWeight: token('font.weight.medium'),
-	},
 });
 
 const titleBlockStyles = css({
@@ -52,11 +38,6 @@ const titleBlockStyles = css({
 	"[data-smart-element='Title']": {
 		fontWeight: token('font.weight.semibold'),
 	},
-});
-
-const mainTextStylesOld = css({
-	marginTop: token('space.100', '0.5rem'),
-	font: token('font.body.UNSAFE_small'),
 });
 
 const mainTextStyles = css({
@@ -101,20 +82,14 @@ const HoverCardUnauthorisedView = ({
 
 	return (
 		<FlexibleCard {...flexibleCardProps} testId={testId}>
-			<CustomBlock
-				css={[fg('platform-linking-visual-refresh-v1') ? titleBlockStyles : titleBlockStylesOld]}
-				testId={`${testId}-title`}
-			>
+			<CustomBlock css={[titleBlockStyles]} testId={`${testId}-title`}>
 				<LinkIcon />
 				<FormattedMessage
 					{...messages.connect_link_account_card_name}
 					values={{ context: providerName }}
 				/>
 			</CustomBlock>
-			<CustomBlock
-				css={[fg('platform-linking-visual-refresh-v1') ? mainTextStyles : mainTextStylesOld]}
-				testId={`${testId}-content`}
-			>
+			<CustomBlock css={[mainTextStyles]} testId={`${testId}-content`}>
 				<div>
 					<UnauthorisedViewContent
 						providerName={providerName}
@@ -122,12 +97,7 @@ const HoverCardUnauthorisedView = ({
 					/>
 				</div>
 			</CustomBlock>
-			<CustomBlock
-				css={[
-					fg('platform-linking-visual-refresh-v1') ? connectButtonStyles : connectButtonStylesOld,
-				]}
-				testId={`${testId}-button`}
-			>
+			<CustomBlock css={[connectButtonStyles]} testId={`${testId}-button`}>
 				<ActionGroup items={actions} appearance="primary" />
 			</CustomBlock>
 		</FlexibleCard>

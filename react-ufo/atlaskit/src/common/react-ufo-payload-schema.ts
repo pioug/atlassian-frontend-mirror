@@ -1,6 +1,6 @@
-import { createPayloads } from '../create-payload';
+import { type createPayloads } from '../create-payload';
 import { type LabelStack } from '../interaction-context';
-import { VCObserver } from '../vc/vc-observer';
+import { type VCObserver } from '../vc/vc-observer';
 
 import type {
 	AbortReasonType,

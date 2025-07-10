@@ -8,7 +8,7 @@ import { SlideIn, ExitingPersistence, type Durations } from '@atlaskit/motion';
 import { formatLargeNumber } from '../shared/utils';
 
 import { token } from '@atlaskit/tokens';
-import { B400, N90 } from '@atlaskit/theme/colors';
+import { B400, N200 } from '@atlaskit/theme/colors';
 
 const containerStyle = css({
 	display: 'flex',
@@ -21,7 +21,7 @@ const counterLabelStyle = css({
 
 const countStyle = css({
 	font: token('font.body.small'),
-	color: token('color.text.subtlest', N90),
+	color: token('color.text.subtlest', N200),
 	overflow: 'hidden',
 	position: 'relative',
 	paddingTop: token('space.050', '4px'),

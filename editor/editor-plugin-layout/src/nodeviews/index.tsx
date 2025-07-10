@@ -5,6 +5,8 @@ import { type GuidelineConfig } from '@atlaskit/editor-common/guideline';
 import {
 	useSharedPluginState,
 	sharedPluginStateHookMigratorFactory,
+	type NamedPluginStatesFromInjectionAPI,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
@@ -70,10 +72,17 @@ const isEmptyLayout = (node?: PMNode) => {
 	return isEmpty;
 };
 
+const selector = (
+	states: NamedPluginStatesFromInjectionAPI<ExtractInjectionAPI<LayoutPlugin>, 'editorDisabled'>,
+) => {
+	return {
+		editorDisabled: states.editorDisabledState?.editorDisabled,
+	};
+};
+
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<LayoutPlugin> | undefined) => {
-		const editorDisabled = useSharedPluginStateSelector(api, 'editorDisabled.editorDisabled');
-		return { editorDisabled };
+		return useSharedPluginStateWithSelector(api, ['editorDisabled'], selector);
 	},
 	(api: ExtractInjectionAPI<LayoutPlugin> | undefined) => {
 		const { editorDisabledState } = useSharedPluginState(api, ['editorDisabled']);

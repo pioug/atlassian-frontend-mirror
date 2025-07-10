@@ -24,10 +24,6 @@ import ElementGroup from '../../element-group';
 import { filterActionItems } from '../../utils';
 import type { FooterBlockProps } from '../types';
 
-const actionGroupStylesOld = css({
-	maxHeight: '2rem',
-});
-
 const actionGroupStyles = css({
 	maxHeight: token('space.400'),
 });
@@ -67,26 +63,13 @@ const FooterBlockResolvedView = (props: FooterBlockProps) => {
 
 	return (
 		<Block {...props} testId={`${testId}-resolved-view`}>
-			{!hideProvider && (
-				<Provider
-					{...(fg('platform-linking-visual-refresh-v1') ? { appearance: 'subtle' } : {})}
-					testId={`${testId}-provider`}
-				/>
-			)}
+			{!hideProvider && <Provider appearance="subtle" testId={`${testId}-provider`} />}
 			{actions && hasActions ? (
 				<ElementGroup
 					testId="smart-element-group-actions"
 					align={SmartLinkAlignment.Right}
 					direction={SmartLinkDirection.Horizontal}
-					css={[
-						size === SmartLinkSize.XLarge &&
-							fg('platform-linking-visual-refresh-v1') &&
-							actionGroupStyles,
-						size === SmartLinkSize.XLarge &&
-							!fg('platform-linking-visual-refresh-v1') &&
-							actionGroupStylesOld,
-						safari && safariStyles,
-					]}
+					css={[size === SmartLinkSize.XLarge && actionGroupStyles, safari && safariStyles]}
 					width={SmartLinkWidth.Flexible}
 				>
 					<ActionGroup

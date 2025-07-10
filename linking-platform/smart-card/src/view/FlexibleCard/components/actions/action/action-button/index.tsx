@@ -15,7 +15,6 @@ import Button, {
 	LinkButton,
 	LinkIconButton,
 } from '@atlaskit/button/new';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -90,7 +89,7 @@ const tooltipOptions: IconButtonProps['tooltip'] = {
 	hideTooltipOnClick: true,
 };
 
-const ActionButtonRefreshNew = forwardRef(
+const ActionButtonRefresh = forwardRef(
 	(
 		{
 			appearance = 'default',
@@ -226,7 +225,7 @@ const ActionButtonRefreshNew = forwardRef(
 
 // On cleanup of platform-linking-visual-refresh-v1, this should become
 // export default withOverrideCss(ActionButton);
-const ActionButtonRefreshNewWithOverrideCss = withOverrideCss(ActionButtonRefreshNew);
+const ActionButtonRefreshWithOverrideCss = withOverrideCss(ActionButtonRefresh);
 
 // TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
 const ActionButtonNew = ({
@@ -286,20 +285,12 @@ const ActionButtonNew = ({
 	);
 };
 
-const ActionButtonHideLegacyButton = (props: ActionButtonProps): JSX.Element => {
+const ActionButton = (props: ActionButtonProps): JSX.Element => {
 	const ui = useFlexibleUiOptionContext();
 	if (ui?.hideLegacyButton || ui?.removeBlockRestriction) {
-		return <ActionButtonRefreshNewWithOverrideCss {...props} />;
+		return <ActionButtonRefreshWithOverrideCss {...props} />;
 	}
 	return <ActionButtonNew {...props} />;
-};
-
-const ActionButton = (props: ActionButtonProps): JSX.Element => {
-	return fg('platform-linking-visual-refresh-v1') ? (
-		<ActionButtonHideLegacyButton {...props} />
-	) : (
-		<ActionButtonNew {...props} />
-	);
 };
 
 export default ActionButton;

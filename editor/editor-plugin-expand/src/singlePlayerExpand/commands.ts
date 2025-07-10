@@ -13,13 +13,14 @@ import { expandedState } from '@atlaskit/editor-common/expand';
 import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
 import { expandClassNames } from '@atlaskit/editor-common/styles';
 import { findExpand } from '@atlaskit/editor-common/transforms';
-import type { Command } from '@atlaskit/editor-common/types';
+import type { Command, EditorCommand } from '@atlaskit/editor-common/types';
 import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
 import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType, safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { findTable } from '@atlaskit/editor-tables/utils';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { InsertMethod } from '../types';
 import { isNestedInExpand } from '../utils';
@@ -274,4 +275,33 @@ export const focusIcon =
 		}
 
 		return false;
+	};
+
+export const toggleExpandWithMatch =
+	(selection: Selection): EditorCommand =>
+	({ tr }) => {
+		const { expand, nestedExpand } = tr.doc.type.schema.nodes;
+		// if match is inside a nested expand, open the nested expand
+		const nestedExpandNode = findParentNodeOfType(nestedExpand)(selection);
+		if (
+			nestedExpandNode &&
+			expValEquals('platform_editor_toggle_expand_on_match_found', 'isEnabled', true)
+		) {
+			const expanded = expandedState.get(nestedExpandNode.node) ?? false;
+			if (!expanded) {
+				expandedState.set(nestedExpandNode.node, true);
+			}
+		}
+		// if match is (also) inside an expand, open the expand
+		const expandNode = findParentNodeOfType(expand)(selection);
+		if (
+			expandNode &&
+			expValEquals('platform_editor_toggle_expand_on_match_found', 'isEnabled', true)
+		) {
+			const expanded = expandedState.get(expandNode.node) ?? false;
+			if (!expanded) {
+				expandedState.set(expandNode.node, true);
+			}
+		}
+		return tr;
 	};

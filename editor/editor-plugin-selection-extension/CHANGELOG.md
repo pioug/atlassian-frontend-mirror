@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 3.1.1
+
+### Patch Changes
+
+- [#183521](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183521)
+  [`86379b9b3d99e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/86379b9b3d99e) -
+  Insert links to page bottom as fallback when changes detect
+- [#183158](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183158)
+  [`d6096ec5c8ad9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d6096ec5c8ad9) -
+  Migrate to useSharedPluginStateWithSelector
+- Updated dependencies
+
+## 3.1.0
+
+### Minor Changes
+
+- [#181784](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/181784)
+  [`e3cd18b4fc263`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3cd18b4fc263) -
+  Create a new action insertSmartLinks to allow inserting multiple smart links in page
+
 ## 3.0.1
 
 ### Patch Changes

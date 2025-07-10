@@ -1,4 +1,8 @@
-import { InteractionMetrics, ReactProfilerTiming, SegmentInfo } from '../../../../common';
+import {
+	type InteractionMetrics,
+	type ReactProfilerTiming,
+	type SegmentInfo,
+} from '../../../../common';
 import { createSegmentMetricsPayloads } from '../create-segment-metrics';
 
 // Mock the config

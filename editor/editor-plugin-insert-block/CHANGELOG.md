@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 4.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.1.1
+
+### Patch Changes
+
+- [#182839](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/182839)
+  [`81f1c3383bdab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/81f1c3383bdab) -
+  refactor: use useSharedPluginStateWithSelector instead of useSharedPluginStateSelector
+- Updated dependencies
+
+## 4.1.0
+
+### Minor Changes
+
+- [#182006](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/182006)
+  [`1fda4553957d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1fda4553957d0) -
+  removing A/A experiment
+
 ## 4.0.1
 
 ### Patch Changes

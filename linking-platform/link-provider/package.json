@@ -67,9 +67,6 @@
 		"smart_links_noun_support": {
 			"type": "boolean"
 		},
-		"gryf-5548_smart_card_provider_merge_props": {
-			"type": "boolean"
-		},
 		"platform_linking_force_no_cache_smart_card_client": {
 			"type": "boolean"
 		}

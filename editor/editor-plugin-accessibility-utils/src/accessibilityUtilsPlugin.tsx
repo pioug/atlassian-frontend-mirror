@@ -3,10 +3,10 @@ import React from 'react';
 import {
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -88,12 +88,18 @@ export const accessibilityUtilsPlugin: AccessibilityUtilsPlugin = ({ api }) => {
 
 const useAccessibilityUtilsPluginState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<AccessibilityUtilsPlugin> | undefined) => {
-		const ariaLiveElementAttributes = useSharedPluginStateSelector(
+		const { ariaLiveElementAttributes, key, message } = useSharedPluginStateWithSelector(
 			api,
-			'accessibilityUtils.ariaLiveElementAttributes',
+			['accessibilityUtils'],
+			(states) => {
+				return {
+					ariaLiveElementAttributes: states.accessibilityUtilsState?.ariaLiveElementAttributes,
+					key: states.accessibilityUtilsState?.key,
+					message: states.accessibilityUtilsState?.message,
+				};
+			},
 		);
-		const key = useSharedPluginStateSelector(api, 'accessibilityUtils.key');
-		const message = useSharedPluginStateSelector(api, 'accessibilityUtils.message');
+
 		return { ariaLiveElementAttributes, key, message };
 	},
 	(api: ExtractInjectionAPI<AccessibilityUtilsPlugin> | undefined) => {

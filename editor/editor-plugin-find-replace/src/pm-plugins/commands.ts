@@ -4,6 +4,7 @@ import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { Match } from '../types';
 
@@ -123,19 +124,30 @@ export const find = (
 						fg('platform_editor_find_and_replace_improvements_1')
 							? findClosestMatch(selection.from, matches)
 							: findSearchIndex(selection.from, matches);
-					return tr.setSelection(getSelectionForMatch(tr.selection, tr.doc, index, matches));
+					const newSelection = getSelectionForMatch(tr.selection, tr.doc, index, matches);
+					if (
+						expValEqualsNoExposure(
+							'platform_editor_toggle_expand_on_match_found',
+							'isEnabled',
+							true,
+						)
+					) {
+						// the exposure is fired inside toggleExpandWithMatch when user is exposed to the experiment
+						api?.expand?.commands.toggleExpandWithMatch(newSelection)({ tr });
+					}
+					return tr.setSelection(newSelection);
 				}
 				return tr;
 			},
 		),
 	);
 
-export const findNext = () =>
+export const findNext = (editorView: EditorView) =>
 	withScrollIntoView(
 		createCommand(
 			(state: EditorState) => findInDirection(state, 'next'),
 			(tr, state: EditorState) => {
-				const { matches, index } = getPluginState(state);
+				const { matches, index, api } = getPluginState(state);
 				// can't use index from plugin state because if the cursor has moved, it will still be the
 				// OLD index (the find next operation should look for the first match forward starting
 				// from the current cursor position)
@@ -144,22 +156,36 @@ export const findNext = () =>
 					// cursor has not moved, so we just want to find the next in matches array
 					searchIndex = nextIndex(searchIndex, matches.length);
 				}
-				return tr.setSelection(getSelectionForMatch(tr.selection, tr.doc, searchIndex, matches));
+				const newSelection = getSelectionForMatch(tr.selection, tr.doc, searchIndex, matches);
+				if (
+					expValEqualsNoExposure('platform_editor_toggle_expand_on_match_found', 'isEnabled', true)
+				) {
+					// the exposure is fired inside toggleExpandWithMatch when user is exposed to the experiment
+					api?.expand?.commands.toggleExpandWithMatch(newSelection)({ tr });
+				}
+				return tr.setSelection(newSelection);
 			},
 		),
 	);
 
-export const findPrevious = () =>
+export const findPrevious = (editorView: EditorView) =>
 	withScrollIntoView(
 		createCommand(
 			(state: EditorState) => findInDirection(state, 'previous'),
 			(tr, state: EditorState) => {
-				const { matches } = getPluginState(state);
+				const { matches, api } = getPluginState(state);
 				// can't use index from plugin state because if the cursor has moved, it will still be the
 				// OLD index (the find prev operation should look for the first match backward starting
 				// from the current cursor position)
 				const searchIndex = findSearchIndex(state.selection.from, matches, true);
-				return tr.setSelection(getSelectionForMatch(tr.selection, tr.doc, searchIndex, matches));
+				const newSelection = getSelectionForMatch(tr.selection, tr.doc, searchIndex, matches);
+				if (
+					expValEqualsNoExposure('platform_editor_toggle_expand_on_match_found', 'isEnabled', true)
+				) {
+					// the exposure is fired inside toggleExpandWithMatch when user is exposed to the experiment
+					api?.expand?.commands.toggleExpandWithMatch(newSelection)({ tr });
+				}
+				return tr.setSelection(newSelection);
 			},
 		),
 	);

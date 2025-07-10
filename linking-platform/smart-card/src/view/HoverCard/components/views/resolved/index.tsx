@@ -37,62 +37,6 @@ const hiddenSnippetStyles = css({
 	position: 'absolute',
 });
 
-const metadataBlockCssOld = css({
-	gap: '0px',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-	'[data-smart-element-group]:nth-of-type(1)': {
-		flexGrow: 7,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'[data-separator] + [data-separator]::before': {
-			marginRight: token('space.100', '0.5rem'),
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'> span': {
-			marginRight: token('space.100', '0.5rem'),
-		},
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-	'[data-smart-element-group]:nth-of-type(2)': {
-		flexGrow: 3,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'> span': {
-			marginLeft: token('space.100', '0.5rem'),
-		},
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-smart-element-group]': {
-		font: token('font.body.small'),
-	},
-});
-
-/**
- * Moved from HoverCardContent.tsx due to CompiledCSS migration.
- */
-const titleBlockStyleOld = css({
-	gap: token('space.100'),
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-separator] + [data-separator]::before': {
-		marginRight: token('space.100'),
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-smart-element-group]': {
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-		gap: '0.06rem',
-		display: 'flex',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'> [data-smart-element-group]': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-			'> span': {
-				marginRight: token('space.100'),
-			},
-		},
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	"[data-smart-element='Title']": {
-		fontWeight: token('font.weight.semibold'),
-	},
-});
-
 const titleBlockStyles = css({
 	gap: token('space.100'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -165,7 +109,7 @@ const HoverCardResolvedView = ({
 			{...(fg('platform-linking-flexible-card-context')
 				? undefined
 				: { status: SmartLinkStatus.Resolved })}
-			css={[fg('platform-linking-visual-refresh-v1') && snippetBlockCss]}
+			css={[snippetBlockCss]}
 		/>
 	);
 	const aiSummaryMinHeight = snippet ? snippetHeight.current : 0;
@@ -179,12 +123,11 @@ const HoverCardResolvedView = ({
 				{...(fg('platform-linking-flexible-card-context')
 					? undefined
 					: { status: SmartLinkStatus.Resolved })}
-				css={[fg('platform-linking-visual-refresh-v1') ? titleBlockStyles : titleBlockStyleOld]}
+				css={[titleBlockStyles]}
 			/>
 			<MetadataBlock
 				primary={primary}
 				secondary={secondary}
-				css={[!fg('platform-linking-visual-refresh-v1') && metadataBlockCssOld]}
 				maxLines={1}
 				size={SmartLinkSize.Medium}
 				{...(fg('platform-linking-flexible-card-context')
@@ -212,11 +155,7 @@ const HoverCardResolvedView = ({
 					: { status: SmartLinkStatus.Resolved })}
 				isHidden={true}
 			/>
-			<ActionBlock
-				onClick={onActionClick}
-				spaceInline="space.100"
-				css={[fg('platform-linking-visual-refresh-v1') && actionBlockCss]}
-			/>
+			<ActionBlock onClick={onActionClick} spaceInline="space.100" css={[actionBlockCss]} />
 			<AIFooterBlock />
 		</FlexibleCard>
 	);

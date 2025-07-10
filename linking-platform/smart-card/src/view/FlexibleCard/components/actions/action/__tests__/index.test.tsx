@@ -8,12 +8,9 @@ import { css, jsx } from '@compiled/react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import TestIcon from '@atlaskit/icon/core/migration/dashboard--activity';
-import { token } from '@atlaskit/tokens';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { getFlexibleCardTestWrapper } from '../../../../../../__tests__/__utils__/unit-testing-library-helpers';
-import { SmartLinkSize } from '../../../../../../constants';
 import { type InternalFlexibleUiOptions } from '../../../../types';
 import Action from '../index';
 import type { ActionProps } from '../types';
@@ -142,39 +139,16 @@ describe('Action', () => {
 		};
 
 		ffTest.both('platform-linking-flexible-card-context', 'with fg', () => {
-			ffTest.both('platform-linking-visual-refresh-v1', 'with fg', () => {
-				describe.each([true, false])('with ui.hideLegacyButton %s', (hideLegacyButton: boolean) => {
-					runTest({ hideLegacyButton });
-				});
+			describe.each([true, false])('with ui.hideLegacyButton %s', (hideLegacyButton: boolean) => {
+				runTest({ hideLegacyButton });
 			});
 
-			ffTest.on('platform-linking-visual-refresh-v1', 'with fg', () => {
-				describe.each([true, false])(
-					'with ui.removeBlockRestriction %s',
-					(removeBlockRestriction: boolean) => {
-						runTest({ removeBlockRestriction });
-					},
-				);
-			});
-
-			ffTest.off('platform-linking-visual-refresh-v1', 'with fg', () => {
-				describe('size', () => {
-					it.each([
-						[SmartLinkSize.XLarge, '1.5rem'],
-						[SmartLinkSize.Large, '1.5rem'],
-						[SmartLinkSize.Medium, '1rem'],
-						[SmartLinkSize.Small, '1rem'],
-					])('renders action in %s size', async (size: SmartLinkSize, expectedSize: string) => {
-						const testIcon = <TestIcon label="test" color={token('color.icon', '#44546F')} />;
-						render(<Action onClick={() => {}} size={size} testId={testId} icon={testIcon} />);
-
-						const element = await screen.findByTestId(`${testId}-icon`);
-
-						expect(element).toHaveStyle(`height: ${expectedSize}`);
-						expect(element).toHaveStyle(`width: ${expectedSize}`);
-					});
-				});
-			});
+			describe.each([true, false])(
+				'with ui.removeBlockRestriction %s',
+				(removeBlockRestriction: boolean) => {
+					runTest({ removeBlockRestriction });
+				},
+			);
 		});
 	});
 

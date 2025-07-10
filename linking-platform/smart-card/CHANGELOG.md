@@ -1,5 +1,27 @@
 # @atlaskit/smart-card
 
+## 39.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 39.2.1
+
+### Patch Changes
+
+- [#183586](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183586)
+  [`8c608fcfba01d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c608fcfba01d) -
+  Simplifies type to avoid failures in Atlaskit build
+
+## 39.2.0
+
+### Minor Changes
+
+- [#182230](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/182230)
+  [`f11dd07fddad7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f11dd07fddad7) -
+  [ux] EDM-11898 cleaning up platform-linking-visual-refresh-v1
+
 ## 39.1.0
 
 ### Minor Changes

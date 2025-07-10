@@ -109,40 +109,4 @@ describe('VCObserverWrapper', () => {
 		// Verify that window.__SSR_ABORT_LISTENERS__ was removed
 		expect(window.__SSR_ABORT_LISTENERS__).toBeUndefined();
 	});
-
-	it('should work when VCObserverNew is enabled but SSR feature flag is disabled', () => {
-		// Setup
-		const mockUnbind = jest.fn();
-		window.__SSR_ABORT_LISTENERS__ = {
-			unbinds: [mockUnbind],
-			aborts: {
-				wheel: 50,
-			},
-		};
-
-		// Enable VCObserverNew by enabling fy25.03
-		(configModule.isVCRevisionEnabled as jest.Mock).mockImplementation(() => true);
-
-		// Disable the SSR feature flag for VCObserverNew
-		(fg as jest.Mock).mockImplementation((flag: string) => {
-			if (flag === 'platform_ufo_vc_observer_new_ssr_abort_listener') {
-				return false;
-			}
-			return false;
-		});
-
-		// Create VCObserverWrapper and start observers
-		const wrapper = new VCObserverWrapper();
-		wrapper.start({ startTime: 100, experienceKey: 'test' });
-
-		// Verify that both observers are started
-		expect(VCObserver.prototype.start).toHaveBeenCalled();
-		expect(VCObserverNew.prototype.start).toHaveBeenCalled();
-
-		// Verify that the unbind function was still called by the wrapper
-		expect(mockUnbind).toHaveBeenCalled();
-
-		// Verify that window.__SSR_ABORT_LISTENERS__ was removed
-		expect(window.__SSR_ABORT_LISTENERS__).toBeUndefined();
-	});
 });

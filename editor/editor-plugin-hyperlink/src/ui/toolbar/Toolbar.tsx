@@ -17,6 +17,8 @@ import { commandWithMetadata } from '@atlaskit/editor-common/card';
 import {
 	useSharedPluginState,
 	sharedPluginStateHookMigratorFactory,
+	type NamedPluginStatesFromInjectionAPI,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type {
 	EditInsertedState,
@@ -43,7 +45,6 @@ import {
 	RECENT_SEARCH_HEIGHT_IN_PX,
 	RECENT_SEARCH_WIDTH_IN_PX,
 } from '@atlaskit/editor-common/ui';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { normalizeUrl } from '@atlaskit/editor-common/utils';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection, type EditorState } from '@atlaskit/editor-prosemirror/state';
@@ -113,12 +114,19 @@ function getLinkText(
 	return activeLinkMark.node.text;
 }
 
+const selector = (
+	states: NamedPluginStatesFromInjectionAPI<ExtractInjectionAPI<HyperlinkPlugin>, 'hyperlink'>,
+) => {
+	return {
+		timesViewed: states.hyperlinkState?.timesViewed,
+		inputMethod: states.hyperlinkState?.inputMethod,
+		searchSessionId: states.hyperlinkState?.searchSessionId,
+	};
+};
+
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<HyperlinkPlugin> | undefined) => {
-		const timesViewed = useSharedPluginStateSelector(api, 'hyperlink.timesViewed');
-		const inputMethod = useSharedPluginStateSelector(api, 'hyperlink.inputMethod');
-		const searchSessionId = useSharedPluginStateSelector(api, 'hyperlink.searchSessionId');
-		return { timesViewed, inputMethod, searchSessionId };
+		return useSharedPluginStateWithSelector(api, ['hyperlink'], selector);
 	},
 	(api: ExtractInjectionAPI<HyperlinkPlugin> | undefined) => {
 		const { hyperlinkState } = useSharedPluginState(api, ['hyperlink']);

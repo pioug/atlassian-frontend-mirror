@@ -3,9 +3,9 @@ import { useEffect } from 'react';
 import {
 	useSharedPluginState,
 	sharedPluginStateHookMigratorFactory,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { FloatingToolbarConfig, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 
 import { hideToolbar, showToolbar } from './editor-commands/commands';
 import type { PasteOptionsToolbarPlugin } from './pasteOptionsToolbarPluginType';
@@ -16,7 +16,9 @@ import { buildToolbar, isToolbarVisible } from './ui/toolbar';
 
 const useSharedPasteState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<PasteOptionsToolbarPlugin> | undefined) => {
-		const lastContentPasted = useSharedPluginStateSelector(api, 'paste.lastContentPasted');
+		const { lastContentPasted } = useSharedPluginStateWithSelector(api, ['paste'], (states) => ({
+			lastContentPasted: states.pasteState?.lastContentPasted,
+		}));
 		return { lastContentPasted };
 	},
 	(api: ExtractInjectionAPI<PasteOptionsToolbarPlugin> | undefined) => {

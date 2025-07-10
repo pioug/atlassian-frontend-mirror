@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-mentions
 
+## 5.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.1.2
+
+### Patch Changes
+
+- [#182839](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/182839)
+  [`81f1c3383bdab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/81f1c3383bdab) -
+  refactor: use useSharedPluginStateWithSelector instead of useSharedPluginStateSelector
+
 ## 5.1.1
 
 ### Patch Changes

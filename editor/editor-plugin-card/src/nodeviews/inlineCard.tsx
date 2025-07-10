@@ -5,8 +5,10 @@ import uuid from 'uuid/v4';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
+	type NamedPluginStatesFromInjectionAPI,
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import { handleNavigation } from '@atlaskit/editor-common/link';
 import type {
@@ -15,7 +17,6 @@ import type {
 } from '@atlaskit/editor-common/react-node-view';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { UnsupportedInline, findOverflowScrollParent } from '@atlaskit/editor-common/ui';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -222,14 +223,25 @@ export type InlineCardNodeViewProps = Pick<
 	| 'CompetitorPrompt'
 >;
 
+const selector = (
+	states: NamedPluginStatesFromInjectionAPI<
+		ExtractInjectionAPI<typeof cardPlugin>,
+		'selection' | 'editorViewMode'
+	>,
+) => {
+	return {
+		mode: states.editorViewModeState?.mode,
+		selection: states.selectionState?.selection,
+	};
+};
+
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined) => {
-		const mode = useSharedPluginStateSelector(pluginInjectionApi, 'editorViewMode.mode');
-		const selection = useSharedPluginStateSelector(pluginInjectionApi, 'selection.selection');
-		return {
-			mode,
-			selection,
-		};
+		return useSharedPluginStateWithSelector(
+			pluginInjectionApi,
+			['selection', 'editorViewMode'],
+			selector,
+		);
 	},
 	(pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined) => {
 		const { selectionState, editorViewModeState } = useSharedPluginState(pluginInjectionApi, [

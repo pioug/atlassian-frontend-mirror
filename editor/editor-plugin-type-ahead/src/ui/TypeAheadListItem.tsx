@@ -11,6 +11,7 @@ import { useIntl } from 'react-intl-next';
 import {
 	useSharedPluginState,
 	sharedPluginStateHookMigratorFactory,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import { IconFallback } from '@atlaskit/editor-common/quick-insert';
 import { SelectItemMode, typeAheadListMessages } from '@atlaskit/editor-common/type-ahead';
@@ -19,7 +20,6 @@ import {
 	type TypeAheadItem,
 	type TypeAheadItemRenderProps,
 } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import { ButtonItem } from '@atlaskit/menu';
@@ -224,8 +224,12 @@ const CustomItemComponentWrapper = React.memo((props: CustomItemComponentWrapper
 
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<TypeAheadPlugin> | undefined) => {
-		const connectivityMode = useSharedPluginStateSelector(api, 'connectivity.mode');
-		return { connectivityMode };
+		const { mode } = useSharedPluginStateWithSelector(api, ['connectivity'], (states) => {
+			return {
+				mode: states.connectivityState?.mode,
+			};
+		});
+		return { connectivityMode: mode };
 	},
 	(api: ExtractInjectionAPI<TypeAheadPlugin> | undefined) => {
 		const { connectivityState } = useSharedPluginState(api, ['connectivity']);

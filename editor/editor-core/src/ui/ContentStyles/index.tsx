@@ -42,7 +42,6 @@ import {
 	pragmaticResizerStylesForTooltip,
 	ruleSharedStyles,
 	shadowSharedStyle,
-	smartCardSharedStyles,
 	smartCardStyles,
 	tasksAndDecisionsStyles,
 	textColorStyles,
@@ -526,7 +525,7 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
   ${statusNodeStyles()}
   ${annotationSharedStyles()}
   ${smartCardStyles()}
-  ${fg('platform-linking-visual-refresh-v1') ? getSmartCardSharedStyles() : smartCardSharedStyles}
+  ${getSmartCardSharedStyles()}
 	${dateStyles}
   ${dateNodeStyles}
   ${embedCardStyles()}

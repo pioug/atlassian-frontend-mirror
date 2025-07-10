@@ -11,7 +11,6 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import LockLockedIcon from '@atlaskit/icon/core/lock-locked';
 import LegacyLockIcon from '@atlaskit/icon/glyph/lock';
 import { extractSmartLinkProvider } from '@atlaskit/link-extractors';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { extractRequestAccessContextImproved } from '../../../extractors/common/context/extractAccessContext';
@@ -118,7 +117,7 @@ const ForbiddenView = ({
 					),
 					values: messageContext,
 				}}
-				css={[fg('platform-linking-visual-refresh-v1') && textStyles]}
+				css={[textStyles]}
 			/>
 		</UnresolvedView>
 	);

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-placeholder-text
 
+## 3.0.1
+
+### Patch Changes
+
+- [#183158](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183158)
+  [`d6096ec5c8ad9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d6096ec5c8ad9) -
+  Migrate to useSharedPluginStateWithSelector
+- Updated dependencies
+
 ## 3.0.0
 
 ### Major Changes

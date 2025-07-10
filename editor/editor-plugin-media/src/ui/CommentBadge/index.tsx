@@ -6,15 +6,16 @@ import { injectIntl } from 'react-intl-next';
 import type { AnnotationMarkDefinition } from '@atlaskit/adf-schema';
 import { VIEW_METHOD } from '@atlaskit/editor-common/analytics';
 import {
+	type NamedPluginStatesFromInjectionAPI,
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import {
 	CommentBadge as CommentBadgeComponent,
 	CommentBadgeNext,
 } from '@atlaskit/editor-common/media-single';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
@@ -31,19 +32,22 @@ type CommentBadgeProps = {
 	badgeOffsetRight?: string;
 };
 
+const selector = (
+	states: NamedPluginStatesFromInjectionAPI<
+		ExtractInjectionAPI<MediaNextEditorPluginType>,
+		'annotation'
+	>,
+) => {
+	return {
+		selectedAnnotations: states.annotationState?.selectedAnnotations,
+		isInlineCommentViewClosed: states.annotationState?.isInlineCommentViewClosed,
+		annotations: states.annotationState?.annotations,
+	};
+};
+
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
-		const selectedAnnotations = useSharedPluginStateSelector(api, 'annotation.selectedAnnotations');
-		const isInlineCommentViewClosed = useSharedPluginStateSelector(
-			api,
-			'annotation.isInlineCommentViewClosed',
-		);
-		const annotations = useSharedPluginStateSelector(api, 'annotation.annotations');
-		return {
-			selectedAnnotations,
-			isInlineCommentViewClosed,
-			annotations,
-		};
+		return useSharedPluginStateWithSelector(api, ['annotation'], selector);
 	},
 	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
 		const { annotationState } = useSharedPluginState(api, ['annotation']);

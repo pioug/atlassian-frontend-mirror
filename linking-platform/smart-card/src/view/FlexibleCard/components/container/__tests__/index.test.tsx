@@ -39,11 +39,11 @@ describe('Container', () => {
 
 		describe('size', () => {
 			it.each([
-				[SmartLinkSize.XLarge, '1.25rem 0', '1.5rem'],
-				[SmartLinkSize.Large, '1rem 0', '1.25rem'],
-				[SmartLinkSize.Medium, '.5rem 0', '1rem'],
-				[SmartLinkSize.Small, '.25rem 0', '.5rem'],
-				[undefined, '.5rem 0', '1rem'],
+				[SmartLinkSize.XLarge, 'var(--ds-space-250,20px) 0', 'var(--ds-space-300, 24px)'],
+				[SmartLinkSize.Large, 'var(--ds-space-200,1pc) 0', 'var(--ds-space-250, 20px)'],
+				[SmartLinkSize.Medium, 'var(--ds-space-100,8px) 0', 'var(--ds-space-200, 16px)'],
+				[SmartLinkSize.Small, 'var(--ds-space-050,4px) 0', 'var(--ds-space-100, 8px)'],
+				[undefined, 'var(--ds-space-100,8px) 0', 'var(--ds-space-200, 16px)'],
 			])(
 				'renders element in %s size',
 				async (size: SmartLinkSize | undefined, expectedGap: string, expectedPadding: string) => {
@@ -160,8 +160,8 @@ describe('Container', () => {
 		});
 
 		describe('hideElevation', () => {
-			const border = '1px solid var(--ds-border,#dfe1e6)';
-			const borderRadius = 'var(--ds-border-radius-200,8px)';
+			const border = '1px solid var(--ds-border,#091e4224)';
+			const borderRadius = 'var(--ds-border-radius-300,9pt)';
 
 			it('shows elevation by default', async () => {
 				renderContainer();
@@ -192,7 +192,7 @@ describe('Container', () => {
 		});
 
 		describe('hidePadding', () => {
-			const padding = '1rem';
+			const padding = 'var(--ds-space-200, 16px)';
 
 			it('shows padding by default', async () => {
 				renderContainer();

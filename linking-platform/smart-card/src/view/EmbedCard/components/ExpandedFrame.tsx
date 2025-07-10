@@ -14,16 +14,7 @@ import { useMouseDownEvent } from '../../../state/analytics/useLinkClicked';
 import { handleClickCommon } from '../../common/utils';
 import { type FrameStyle } from '../types';
 
-import {
-	className,
-	ContentOldVisualRefresh,
-	HeaderOldVisualRefresh,
-	IconWrapperOldVisualRefresh,
-	LinkWrapperOldVisualRefresh,
-	TextWrapperOldVisualRefresh,
-	TooltipWrapperOldVisualRefresh,
-	WrapperOldVisualRefresh,
-} from './styled';
+import { className } from './styled';
 
 export interface ExpandedFrameProps {
 	isPlaceholder?: boolean;
@@ -93,54 +84,31 @@ export const ExpandedFrame = ({
 		) : null;
 
 	const renderHeader = () => {
-		if (fg('platform-linking-visual-refresh-v1')) {
-			return (
-				frameStyle !== 'hide' && (
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-					<div className="embed-header" css={styles.header}>
-						<div css={styles.leftSection}>
-							<div css={styles.headerIcon}>{icon}</div>
-							<div css={styles.tooltipWrapper}>
-								{!isPlaceholder && (
-									<Tooltip content={text} hideTooltipOnMouseDown>
-										{/* eslint-disable-next-line @atlaskit/design-system/no-html-anchor */}
-										<a
-											css={styles.headerAnchor}
-											href={href}
-											onClick={handleClick}
-											onMouseDown={handleMouseDown}
-										>
-											{text}
-										</a>
-									</Tooltip>
-								)}
-							</div>
-						</div>
-						{CompetitorPromptComponent}
-					</div>
-				)
-			);
-		}
-
 		return (
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			<HeaderOldVisualRefresh className="embed-header" frameStyle={frameStyle}>
-				<IconWrapperOldVisualRefresh isPlaceholder={isPlaceholder}>
-					{!isPlaceholder && icon}
-				</IconWrapperOldVisualRefresh>
-				<TooltipWrapperOldVisualRefresh>
-					<Tooltip content={text} hideTooltipOnMouseDown>
-						<TextWrapperOldVisualRefresh isPlaceholder={isPlaceholder}>
+			frameStyle !== 'hide' && (
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+				<div className="embed-header" css={styles.header}>
+					<div css={styles.leftSection}>
+						<div css={styles.headerIcon}>{icon}</div>
+						<div css={styles.tooltipWrapper}>
 							{!isPlaceholder && (
-								// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
-								<a href={href} onClick={handleClick} onMouseDown={handleMouseDown}>
-									{text}
-								</a>
+								<Tooltip content={text} hideTooltipOnMouseDown>
+									{/* eslint-disable-next-line @atlaskit/design-system/no-html-anchor */}
+									<a
+										css={styles.headerAnchor}
+										href={href}
+										onClick={handleClick}
+										onMouseDown={handleMouseDown}
+									>
+										{text}
+									</a>
+								</Tooltip>
 							)}
-						</TextWrapperOldVisualRefresh>
-					</Tooltip>
-				</TooltipWrapperOldVisualRefresh>
-			</HeaderOldVisualRefresh>
+						</div>
+					</div>
+					{CompetitorPromptComponent}
+				</div>
+			)
 		);
 	};
 
@@ -149,116 +117,54 @@ export const ExpandedFrame = ({
 	const showBackgroundOnHover = interactive && frameStyle !== 'hide';
 
 	const renderContent = () => {
-		if (fg('platform-linking-visual-refresh-v1')) {
-			return (
-				<div
-					data-testid="embed-content-wrapper"
-					css={[
-						styles.contentStyle,
-						setOverflow && allowScrollBar && styles.contentOverflowAuto,
-						interactive &&
-							!showBackgroundAlways &&
-							!showBackgroundOnHover &&
-							styles.contentInteractiveActiveBorder,
-					]}
-					// This fixes an issue with input fields in cross domain iframes (ie. databases and jira fields from different domains)
-					// See: HOT-107830
-					contentEditable={false}
-				>
-					{children}
-				</div>
-			);
-		}
-
 		return (
-			<ContentOldVisualRefresh
+			<div
 				data-testid="embed-content-wrapper"
-				allowScrollBar={allowScrollBar}
-				removeOverflow={!setOverflow}
-				isInteractive={isInteractive()}
-				frameStyle={frameStyle}
+				css={[
+					styles.contentStyle,
+					setOverflow && allowScrollBar && styles.contentOverflowAuto,
+					interactive &&
+						!showBackgroundAlways &&
+						!showBackgroundOnHover &&
+						styles.contentInteractiveActiveBorder,
+				]}
 				// This fixes an issue with input fields in cross domain iframes (ie. databases and jira fields from different domains)
 				// See: HOT-107830
-				contentEditable={'false'}
-				suppressContentEditableWarning={true}
+				contentEditable={false}
 			>
 				{children}
-			</ContentOldVisualRefresh>
+			</div>
 		);
 	};
 
-	if (fg('platform-linking-visual-refresh-v1')) {
-		return (
-			<div
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-				className={className}
-				style={{
-					minWidth: minWidth ? `${minWidth}px` : '',
-					maxWidth: maxWidth ? `${maxWidth}px` : '',
-				}}
-				css={[
-					styles.linkWrapper,
-					inheritDimensions && styles.linkWrapperInheritDimensions,
-					isSelected && frameStyle !== 'hide' && styles.linkWrapperSelected,
-					showBackgroundAlways && styles.linkWrapperBorderAndBackground,
-					showBackgroundOnHover && !showBackgroundAlways && styles.linkWrapperInteractiveNotHidden,
-				]}
-				data-testid={testId}
-				data-trello-do-not-use-override={testId}
-				// Due to limitations of testing library, we can't assert ::after
-				data-is-selected={isSelected}
-				{...((isPlaceholder || !href) && {
-					'data-wrapper-type': 'default',
-					'data-is-interactive': isInteractive(),
-				})}
-			>
-				{renderHeader()}
-				{renderContent()}
-			</div>
-		);
-	}
-
-	if (!isPlaceholder && href) {
-		return (
-			<LinkWrapperOldVisualRefresh
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-				className={className}
-				isInteractive={isInteractive()}
-				isSelected={isSelected}
-				frameStyle={frameStyle}
-				minWidth={minWidth}
-				maxWidth={maxWidth}
-				data-testid={testId}
-				data-trello-do-not-use-override={testId}
-				// Due to limitations of testing library, we can't assert ::after
-				data-is-selected={isSelected}
-				inheritDimensions={inheritDimensions}
-			>
-				{renderHeader()}
-				{renderContent()}
-			</LinkWrapperOldVisualRefresh>
-		);
-	} else {
-		return (
-			<WrapperOldVisualRefresh
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-				className={className}
-				isInteractive={isInteractive()}
-				isSelected={isSelected}
-				minWidth={minWidth}
-				frameStyle={frameStyle}
-				maxWidth={maxWidth}
-				data-testid={testId}
-				data-trello-do-not-use-override={testId}
-				data-is-selected={isSelected}
-				data-wrapper-type="default"
-				data-is-interactive={isInteractive()}
-			>
-				{renderHeader()}
-				{renderContent()}
-			</WrapperOldVisualRefresh>
-		);
-	}
+	return (
+		<div
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+			className={className}
+			style={{
+				minWidth: minWidth ? `${minWidth}px` : '',
+				maxWidth: maxWidth ? `${maxWidth}px` : '',
+			}}
+			css={[
+				styles.linkWrapper,
+				inheritDimensions && styles.linkWrapperInheritDimensions,
+				isSelected && frameStyle !== 'hide' && styles.linkWrapperSelected,
+				showBackgroundAlways && styles.linkWrapperBorderAndBackground,
+				showBackgroundOnHover && !showBackgroundAlways && styles.linkWrapperInteractiveNotHidden,
+			]}
+			data-testid={testId}
+			data-trello-do-not-use-override={testId}
+			// Due to limitations of testing library, we can't assert ::after
+			data-is-selected={isSelected}
+			{...((isPlaceholder || !href) && {
+				'data-wrapper-type': 'default',
+				'data-is-interactive': isInteractive(),
+			})}
+		>
+			{renderHeader()}
+			{renderContent()}
+		</div>
+	);
 };
 
 const styles = cssMap({

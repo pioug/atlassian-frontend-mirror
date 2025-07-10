@@ -8,6 +8,7 @@ import {
 } from 'ts-morph';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import kebabCase from 'lodash/kebabCase';
+import { serializeSymbolType } from './typeSerializer';
 
 const getNames = (symbol: Symbol) => {
 	const name = symbol.getName();
@@ -125,18 +126,37 @@ const isTokenUsed = (token: string, codes: string[]) => {
 	return codes.some((code) => check.test(code));
 };
 
+interface IImportDeclaration {
+	addNamedImport: (namedImport: string) => void;
+	removeNamedImport: (namedImport: string) => void;
+	getText: () => string;
+}
+
 /**
  * implement a custom ImportDeclaration object that allows remove named import
  * and re-generate the modified import statement.
  * This is for solving the edge case raised from DynamicTableProps.
  */
-class ImportDeclarationProxy {
+class ImportDeclarationProxy implements IImportDeclaration {
 	private readonly base: ImportDeclaration;
 
 	private removedNamedImports = new Set<string>();
 
+	private addedNamedImports = new Set<string>();
+
 	constructor(base: ImportDeclaration) {
 		this.base = base;
+	}
+
+	public getBasePackage() {
+		return this.base.getModuleSpecifierValue();
+	}
+
+	public addNamedImport(namedImport: string) {
+		if (this.removedNamedImports.has(namedImport)) {
+			this.removedNamedImports.delete(namedImport);
+		}
+		this.addedNamedImports.add(namedImport);
 	}
 
 	public removeNamedImport(namedImport: string) {
@@ -155,19 +175,52 @@ class ImportDeclarationProxy {
 			return this.base.getText();
 		}
 		let [_, importStatement, importedNames, packageName] = match;
-		importedNames = importedNames.trim();
+		let importedNamesList = importedNames
+			.trim()
+			.split(',')
+			.map((text) => text.trim());
 
 		if (isSharedUIKit2TypesImport(this.base)) {
 			packageName = './types.codegen';
 		}
+
 		if (this.removedNamedImports.size > 0) {
-			importedNames = importedNames!
-				.split(',')
-				.map((text) => text.trim())
-				.filter((text) => !this.removedNamedImports.has(text))
-				.join(', ');
+			importedNamesList = importedNamesList.filter((text) => !this.removedNamedImports.has(text));
 		}
+		if (this.addedNamedImports) {
+			importedNamesList = Array.from(new Set([...importedNamesList, ...this.addedNamedImports]));
+		}
+		importedNames = importedNamesList.sort().join(', ');
 		return `${importStatement}{ ${importedNames} } from '${packageName}';`;
+	}
+}
+
+class SimpleImportDeclaration implements IImportDeclaration {
+	private readonly packageName: string;
+
+	private namedImports = new Set<string>();
+
+	constructor(packageName: string) {
+		this.packageName = packageName;
+	}
+
+	public addNamedImport(namedImport: string) {
+		this.namedImports.add(namedImport);
+	}
+
+	public removeNamedImport(namedImport: string) {
+		this.namedImports.delete(namedImport);
+	}
+
+	public getText() {
+		if (this.namedImports.size === 0) {
+			return `import '${this.packageName}';`;
+		}
+		const importedNames = Array.from(this.namedImports)
+			.sort()
+			.map((name) => `type ${name}`)
+			.join(', ');
+		return `import { ${importedNames} } from '${this.packageName}';`;
 	}
 }
 
@@ -502,6 +555,125 @@ const baseGenerateComponentPropTypeSourceCode = (
 	});
 };
 
+const registeredExternalTypes: Record<
+	string,
+	{
+		package: string;
+		alias?: string;
+	}
+> = {
+	'React.ReactNode': {
+		package: 'react',
+		alias: 'ReactNode',
+	},
+};
+
+// consolidate external types into import declarations
+const consolidateImportDeclarations = (
+	importDeclarations: ImportDeclarationProxy[],
+	externalTypes: Set<string>,
+): IImportDeclaration[] => {
+	const declarations: IImportDeclaration[] = [...importDeclarations];
+	externalTypes.forEach((typeName) => {
+		const typePackage = registeredExternalTypes[typeName];
+		if (typePackage) {
+			const existingImport = importDeclarations.find(
+				(declaration) => declaration.getBasePackage() === typePackage.package,
+			);
+			if (existingImport) {
+				existingImport.addNamedImport(typeName);
+			} else {
+				const newImport = new SimpleImportDeclaration(typePackage.package);
+				newImport.addNamedImport(typePackage.alias ?? typeName);
+				declarations.push(newImport);
+			}
+		}
+	});
+	return declarations;
+};
+
+/**
+ * This function implements the new code generation logic for the component prop types.
+ * Instead of referencing to the ADS component prop types, it generates the prop types
+ * by serializing the ADS component prop types. Hence, it remove the dependency on the
+ * ADS components.
+ */
+const generateComponentPropTypeSourceCodeWithSerializedType = (
+	componentPropSymbol: Symbol,
+	sourceFile: SourceFile,
+	customConsolidator?: CodeConsolidator,
+) => {
+	// 1) extract the prop types from the source file
+	const baseComponentPropSymbol = getBaseComponentSymbol(componentPropSymbol, sourceFile);
+
+	// 2) from the prop type code further extract other relevant types in the source file,
+	//    and separate the platform props type declaration from the rest of the dependent types.
+	//    as this will be used to generate the type code.
+	const [dependentTypeDeclarations, platformPropsTypeDeclaration] = getDependentTypeDeclarations(
+		baseComponentPropSymbol,
+		sourceFile,
+	).reduce(
+		(agg, declarations) => {
+			if (declarations.getName().startsWith('Platform')) {
+				// this is the platform props type declaration, we will use it to generate the type code
+				agg[1] = declarations;
+			} else {
+				agg[0].push(declarations);
+			}
+			return agg;
+		},
+		[[] as TypeAliasDeclaration[], null as TypeAliasDeclaration | null],
+	);
+
+	// 3) extract the import statement
+	const importDeclarations = extractImportDeclarations(
+		sourceFile,
+		baseComponentPropSymbol,
+		dependentTypeDeclarations,
+	);
+
+	// 4) resolve other types definition (not part of the ADS components)
+	const externalTypesCode = resolveExternalTypesCode(
+		sourceFile,
+		baseComponentPropSymbol,
+		dependentTypeDeclarations,
+	);
+
+	// 5) serialize the prop type for the @atlaskit component (e.g. PlatformButtonProps)
+	const [typeDefCode, usedExternalTypes] = serializeSymbolType(
+		baseComponentPropSymbol,
+		sourceFile.getProject().getTypeChecker(),
+	);
+
+	// 6) generate the source file
+	const importCode = consolidateImportDeclarations(importDeclarations, usedExternalTypes)
+		.map((declaration) => declaration.getText())
+		.join('\n');
+
+	const platformPropsTypeDeclarationName = platformPropsTypeDeclaration?.getName();
+	const dependentTypeCode = [
+		...dependentTypeDeclarations.map((typeAlias) => typeAlias.getText()),
+		platformPropsTypeDeclarationName &&
+			`\n// Serialized type\ntype ${platformPropsTypeDeclarationName} = ${typeDefCode}`,
+	]
+		.filter(Boolean)
+		.join('\n');
+
+	const componentPropCode = getComponentPropsTypeCode(baseComponentPropSymbol);
+
+	// 7) get component type code
+	const componentTypeCode = getComponentTypeCode(baseComponentPropSymbol, sourceFile);
+
+	return (customConsolidator ?? consolidateCodeSections)({
+		sourceFile,
+		importCode,
+		externalTypesCode,
+		dependentTypeCode,
+		componentPropCode,
+		componentTypeCode,
+	});
+};
+
 const handleXCSSProp: CodeConsolidator = ({
 	sourceFile,
 	importCode,
@@ -553,11 +725,19 @@ const codeConsolidators: Record<string, CodeConsolidator> = {
 	PressableProps: handleXCSSProp,
 };
 
+const typeSerializableComponentPropSymbols = ['CodeProps', 'CodeBlockProps'];
+
 const generateComponentPropTypeSourceCode = (
 	componentPropSymbol: Symbol,
 	sourceFile: SourceFile,
 ) => {
-	return baseGenerateComponentPropTypeSourceCode(
+	const sourceCodeGenerator = typeSerializableComponentPropSymbols.includes(
+		componentPropSymbol.getName(),
+	)
+		? generateComponentPropTypeSourceCodeWithSerializedType
+		: baseGenerateComponentPropTypeSourceCode;
+
+	return sourceCodeGenerator(
 		componentPropSymbol,
 		sourceFile,
 		codeConsolidators[componentPropSymbol.getName()],

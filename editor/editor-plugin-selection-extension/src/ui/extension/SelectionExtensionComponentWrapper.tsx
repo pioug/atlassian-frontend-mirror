@@ -10,9 +10,9 @@ import {
 import {
 	useSharedPluginState,
 	sharedPluginStateHookMigratorFactory,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { SelectionExtensionPlugin } from '../../selectionExtensionPluginType';
@@ -26,8 +26,14 @@ type SelectionExtensionComponentWrapperProps = {
 
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<SelectionExtensionPlugin> | undefined | null) => {
-		const activeExtension = useSharedPluginStateSelector(api, 'selectionExtension.activeExtension');
-		const mode = useSharedPluginStateSelector(api, 'editorViewMode.mode');
+		const { activeExtension, mode } = useSharedPluginStateWithSelector(
+			api,
+			['selectionExtension', 'editorViewMode'],
+			(states) => ({
+				activeExtension: states.selectionExtensionState?.activeExtension,
+				mode: states.editorViewModeState?.mode,
+			}),
+		);
 		return {
 			editorViewModeState: undefined,
 			mode,

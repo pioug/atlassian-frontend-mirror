@@ -1,5 +1,19 @@
 # @atlaskit/media-card
 
+## 79.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 79.4.0
+
+### Minor Changes
+
+- [#182957](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/182957)
+  [`81c0f0c6cd62f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/81c0f0c6cd62f) -
+  close blindspot for media image
+
 ## 79.3.10
 
 ### Patch Changes

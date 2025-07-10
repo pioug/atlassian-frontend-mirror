@@ -1,11 +1,12 @@
 import React, { memo, useCallback, useMemo, useState } from 'react';
 
 import {
+	type NamedPluginStatesFromInjectionAPI,
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { type Transaction } from '@atlaskit/editor-prosemirror/state';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -24,17 +25,25 @@ export type InlineCardWithAwarenessProps = {
 	isSelected?: boolean;
 };
 
+const selector = (
+	states: NamedPluginStatesFromInjectionAPI<
+		ExtractInjectionAPI<typeof cardPlugin>,
+		'editorViewMode'
+	>,
+) => {
+	return {
+		mode: states.editorViewModeState?.mode,
+	};
+};
+
 const useSharedState = sharedPluginStateHookMigratorFactory(
+	(pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined) => {
+		return useSharedPluginStateWithSelector(pluginInjectionApi, ['editorViewMode'], selector);
+	},
 	(pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined) => {
 		const { editorViewModeState } = useSharedPluginState(pluginInjectionApi, ['editorViewMode']);
 		return {
 			mode: editorViewModeState?.mode,
-		};
-	},
-	(pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined) => {
-		const mode = useSharedPluginStateSelector(pluginInjectionApi, 'editorViewMode.mode');
-		return {
-			mode,
 		};
 	},
 );

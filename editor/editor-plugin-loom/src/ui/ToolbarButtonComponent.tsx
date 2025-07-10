@@ -12,11 +12,12 @@ import { injectIntl } from 'react-intl-next';
 import {
 	useSharedPluginState,
 	sharedPluginStateHookMigratorFactory,
+	type NamedPluginStatesFromInjectionAPI,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import { toolbarInsertBlockMessages } from '@atlaskit/editor-common/messages';
 import type { EditorAppearance, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import VideoIcon from '@atlaskit/icon/core/video';
 import { token } from '@atlaskit/tokens';
 
@@ -38,12 +39,17 @@ const iconMinWidthStyle = css({
 	minWidth: 24,
 });
 
+const selector = (
+	states: NamedPluginStatesFromInjectionAPI<ExtractInjectionAPI<LoomPlugin>, 'width'>,
+) => {
+	return {
+		width: states.widthState?.width,
+	};
+};
+
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<LoomPlugin> | undefined) => {
-		const width = useSharedPluginStateSelector(api, 'width.width');
-		return {
-			width,
-		};
+		return useSharedPluginStateWithSelector(api, ['width'], selector);
 	},
 	(api: ExtractInjectionAPI<LoomPlugin> | undefined) => {
 		const { widthState } = useSharedPluginState(api, ['width']);

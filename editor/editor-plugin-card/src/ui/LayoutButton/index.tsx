@@ -10,13 +10,14 @@ import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import {
+	type NamedPluginStatesFromInjectionAPI,
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { getNextBreakoutMode, getTitle } from '@atlaskit/editor-common/utils';
 import GrowHorizontalIcon from '@atlaskit/icon/core/migration/grow-horizontal--editor-expand';
 import ShrinkHorizontalIcon from '@atlaskit/icon/core/migration/shrink-horizontal--editor-collapse';
@@ -93,17 +94,18 @@ export const LayoutButton = ({
 	);
 };
 
+const selector = (
+	states: NamedPluginStatesFromInjectionAPI<ExtractInjectionAPI<typeof cardPlugin>, 'card'>,
+) => {
+	return {
+		layout: states.cardState?.layout,
+		datasourceTableRef: states.cardState?.datasourceTableRef,
+	};
+};
+
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined) => {
-		const layout = useSharedPluginStateSelector(pluginInjectionApi, 'card.layout');
-		const datasourceTableRef = useSharedPluginStateSelector(
-			pluginInjectionApi,
-			'card.datasourceTableRef',
-		);
-		return {
-			layout,
-			datasourceTableRef,
-		};
+		return useSharedPluginStateWithSelector(pluginInjectionApi, ['card'], selector);
 	},
 	(pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined) => {
 		const { cardState } = useSharedPluginState(pluginInjectionApi, ['card']);

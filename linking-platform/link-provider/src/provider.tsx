@@ -98,15 +98,7 @@ export function SmartCardProvider({
 		[parentContext, providerValue, isPreviewPanelAvailable, openPreviewPanel],
 	);
 
-	return (
-		<SmartCardContext.Provider
-			value={
-				fg('gryf-5548_smart_card_provider_merge_props') ? value : parentContext || providerValue
-			}
-		>
-			{children}
-		</SmartCardContext.Provider>
-	);
+	return <SmartCardContext.Provider value={value}>{children}</SmartCardContext.Provider>;
 }
 export type { CardProviderProps as ProviderProps };
 export default SmartCardProvider;

@@ -12,12 +12,12 @@ import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import {
 	useSharedPluginState,
 	sharedPluginStateHookMigratorFactory,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import type { getPosHandler } from '@atlaskit/editor-common/react-node-view';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI, UiComponentFactoryParams } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { isNodeEmpty } from '@atlaskit/editor-common/utils';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
@@ -190,9 +190,12 @@ type ContentComponentProps = Pick<
 
 const useSharedPlaceholderTextState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<PlaceholderTextPlugin> | undefined) => {
-		const showInsertPanelAt = useSharedPluginStateSelector(
+		const { showInsertPanelAt } = useSharedPluginStateWithSelector(
 			api,
-			'placeholderText.showInsertPanelAt',
+			['placeholderText'],
+			(states) => ({
+				showInsertPanelAt: states.placeholderTextState?.showInsertPanelAt,
+			}),
 		);
 		return { showInsertPanelAt };
 	},

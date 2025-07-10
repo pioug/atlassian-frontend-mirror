@@ -33,9 +33,6 @@
 			"path": "../../editor-plugin-editor-viewmode/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../editor-plugin-find-replace/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../editor-plugin-selection/afm-jira/tsconfig.json"
 		},
 		{

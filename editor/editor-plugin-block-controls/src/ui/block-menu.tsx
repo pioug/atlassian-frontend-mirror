@@ -6,12 +6,12 @@ import { injectIntl } from 'react-intl-next';
 import {
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import { ArrowKeyNavigationType, DropdownMenu } from '@atlaskit/editor-common/ui-menu';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingOverlapPanelZIndex } from '@atlaskit/editor-shared-styles';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -31,8 +31,14 @@ type BlockMenuProps = {
 
 const useBlockMenuPluginState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<BlockControlsPlugin> | undefined) => {
-		const isMenuOpen = useSharedPluginStateSelector(api, 'blockControls.isMenuOpen');
-		const menuTriggerBy = useSharedPluginStateSelector(api, 'blockControls.menuTriggerBy');
+		const { isMenuOpen, menuTriggerBy } = useSharedPluginStateWithSelector(
+			api,
+			['blockControls'],
+			(states) => ({
+				isMenuOpen: states.blockControlsState?.isMenuOpen,
+				menuTriggerBy: states.blockControlsState?.menuTriggerBy,
+			}),
+		);
 		return {
 			isMenuOpen,
 			menuTriggerBy,

@@ -6,13 +6,12 @@ import React from 'react';
 
 import { FormattedMessage } from 'react-intl-next';
 
-import ButtonOld from '@atlaskit/button';
 import { cssMap, jsx } from '@atlaskit/css';
 import LockLockedIcon from '@atlaskit/icon/core/lock-locked';
 import LegacyLockIcon from '@atlaskit/icon/glyph/lock-filled';
 import Lozenge from '@atlaskit/lozenge';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Box, Pressable } from '@atlaskit/primitives/compiled';
+import { Pressable } from '@atlaskit/primitives/compiled';
 import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -23,8 +22,6 @@ import { ActionButton } from '../common/action-button';
 import InlineLozenge from '../common/inline-lozenge';
 import { Frame } from '../Frame';
 import { IconAndTitleLayout, LozengeWrapper } from '../IconAndTitleLayout';
-import { IconStyledButtonOldVisualRefresh } from '../styled';
-import withFrameStyleControl from '../utils/withFrameStyleControl';
 
 const styles = cssMap({
 	iconWrapper: {
@@ -76,28 +73,14 @@ export interface InlineCardForbiddenViewProps {
 }
 
 const fallbackForbiddenIcon = () => {
-	if (fg('platform-linking-visual-refresh-v1')) {
-		return (
-			<LockLockedIcon
-				label="error"
-				color={token('color.icon.danger')}
-				LEGACY_fallbackIcon={LegacyLockIcon}
-				LEGACY_size="small"
-				testId="forbidden-view-fallback-icon"
-			/>
-		);
-	}
-
 	return (
-		<Box as="span" xcss={styles.iconWrapper}>
-			<LockLockedIcon
-				label="error"
-				color={token('color.icon.danger')}
-				LEGACY_fallbackIcon={LegacyLockIcon}
-				LEGACY_size="small"
-				testId="forbidden-view-fallback-icon"
-			/>
-		</Box>
+		<LockLockedIcon
+			label="error"
+			color={token('color.icon.danger')}
+			LEGACY_fallbackIcon={LegacyLockIcon}
+			LEGACY_size="small"
+			testId="forbidden-view-fallback-icon"
+		/>
 	);
 };
 
@@ -146,88 +129,53 @@ export const InlineCardForbiddenView = ({
 	}, [context, requestAccessContext]);
 
 	const renderActionButton = React.useCallback(() => {
-		const Button = withFrameStyleControl(ButtonOld, frameRef);
 		const accessType = requestAccessContext?.accessType;
 		if (hasRequestAccessContextMessage) {
-			if (fg('platform-linking-visual-refresh-v1')) {
-				const isDisabled = accessType === 'PENDING_REQUEST_EXISTS';
-				return (
-					<ActionButton
-						isDisabled={isDisabled}
-						onClick={handleRetry}
-						testId="button-connect-other-account"
-					>
-						{renderForbiddenAccessMessage()}
-					</ActionButton>
-				);
-			}
+			const isDisabled = accessType === 'PENDING_REQUEST_EXISTS';
 			return (
-				<Button
-					spacing="none"
+				<ActionButton
+					isDisabled={isDisabled}
 					onClick={handleRetry}
-					component={IconStyledButtonOldVisualRefresh}
 					testId="button-connect-other-account"
-					role="button"
-					isDisabled={accessType === 'PENDING_REQUEST_EXISTS'}
 				>
 					{renderForbiddenAccessMessage()}
-				</Button>
+				</ActionButton>
 			);
 		}
 		if (onAuthorise) {
-			if (fg('platform-linking-visual-refresh-v1')) {
-				if (fg('platform-linking-visual-refresh-inline-lozenge')) {
-					return (
-						<Pressable
-							xcss={styles.actionButtonLozengeStyleNew}
-							onClick={handleRetry}
-							style={{ font: `inherit` }}
-							testId="button-connect-other-account"
-						>
-							<InlineLozenge
-								appearance="moved"
-								{...(fg('platform-component-visual-refresh') ? { isBold: true } : undefined)}
-							>
-								{renderForbiddenAccessMessage()}
-							</InlineLozenge>
-						</Pressable>
-					);
-				}
-
+			if (fg('platform-linking-visual-refresh-inline-lozenge')) {
 				return (
-					<LozengeWrapper>
-						<Pressable
-							xcss={styles.actionButtonLozengeStyleOld}
-							onClick={handleRetry}
-							testId="button-connect-other-account"
+					<Pressable
+						xcss={styles.actionButtonLozengeStyleNew}
+						onClick={handleRetry}
+						style={{ font: `inherit` }}
+						testId="button-connect-other-account"
+					>
+						<InlineLozenge
+							appearance="moved"
+							{...(fg('platform-component-visual-refresh') ? { isBold: true } : undefined)}
 						>
-							<Lozenge
-								appearance="moved"
-								{...(fg('platform-component-visual-refresh') ? { isBold: true } : undefined)}
-							>
-								{renderForbiddenAccessMessage()}
-							</Lozenge>
-						</Pressable>
-					</LozengeWrapper>
+							{renderForbiddenAccessMessage()}
+						</InlineLozenge>
+					</Pressable>
 				);
 			}
+
 			return (
-				<Button
-					spacing="none"
-					onClick={handleRetry}
-					appearance="subtle-link"
-					testId="button-connect-other-account"
-					role="button"
-				>
-					<LozengeWrapper>
+				<LozengeWrapper>
+					<Pressable
+						xcss={styles.actionButtonLozengeStyleOld}
+						onClick={handleRetry}
+						testId="button-connect-other-account"
+					>
 						<Lozenge
-							appearance={'moved'}
+							appearance="moved"
 							{...(fg('platform-component-visual-refresh') ? { isBold: true } : undefined)}
 						>
 							{renderForbiddenAccessMessage()}
 						</Lozenge>
-					</LozengeWrapper>
-				</Button>
+					</Pressable>
+				</LozengeWrapper>
 			);
 		}
 		return null;

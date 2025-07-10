@@ -10,6 +10,7 @@ import { injectIntl } from 'react-intl-next';
 import {
 	useSharedPluginState,
 	sharedPluginStateHookMigratorFactory,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import {
 	getAriaKeyshortcuts,
@@ -27,7 +28,6 @@ import {
 } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import RedoIcon from '@atlaskit/icon/core/migration/redo';
 import UndoIcon from '@atlaskit/icon/core/migration/undo';
@@ -51,8 +51,10 @@ export interface Props {
 
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<UndoRedoPlugin> | undefined) => {
-		const canUndo = useSharedPluginStateSelector(api, 'history.canUndo');
-		const canRedo = useSharedPluginStateSelector(api, 'history.canRedo');
+		const { canRedo, canUndo } = useSharedPluginStateWithSelector(api, ['history'], (states) => ({
+			canUndo: states.historyState?.canUndo,
+			canRedo: states.historyState?.canRedo,
+		}));
 		return { canUndo, canRedo };
 	},
 	(api: ExtractInjectionAPI<UndoRedoPlugin> | undefined) => {

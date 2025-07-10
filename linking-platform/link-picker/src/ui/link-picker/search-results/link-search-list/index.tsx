@@ -7,7 +7,6 @@ import { forwardRef, Fragment, type KeyboardEvent, useCallback, useRef } from 'r
 import { css, cssMap, jsx } from '@compiled/react';
 import { defineMessages, FormattedMessage } from 'react-intl-next';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
@@ -61,9 +60,6 @@ const baseListTitleStyles = css({
 	marginBottom: token('space.050', '4px'),
 });
 
-const oldListTitleStyles = css({
-	color: token('color.text.subtlest'),
-});
 const newListTitleStyles = css({
 	color: token('color.text.subtle'),
 });
@@ -219,10 +215,7 @@ export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
 			itemsContent = (
 				<Fragment>
 					<div
-						css={[
-							baseListTitleStyles,
-							fg('platform-linking-visual-refresh-v1') ? newListTitleStyles : oldListTitleStyles,
-						]}
+						css={[baseListTitleStyles, newListTitleStyles]}
 						id={testIds.resultListTitle}
 						data-testid={testIds.resultListTitle}
 					>

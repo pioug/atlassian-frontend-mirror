@@ -63,6 +63,7 @@ export const Search = ({
 	iconBefore: IconBefore = SearchIcon,
 	elemAfter,
 	interactionName,
+	'aria-haspopup': ariaHaspopup,
 }: {
 	/**
 	 * Provide an accessible label, often used by screen readers.
@@ -84,6 +85,7 @@ export const Search = ({
 	 * An optional name used to identify events for [React UFO (Unified Frontend Observability) press interactions](https://developer.atlassian.com/platform/ufo/react-ufo/react-ufo/getting-started/#quick-start--press-interactions). For more information, see [React UFO integration into Design System components](https://go.atlassian.com/react-ufo-dst-integration).
 	 */
 	interactionName?: string;
+	'aria-haspopup'?: React.AriaAttributes['aria-haspopup'];
 }) => (
 	<Fragment>
 		<Pressable
@@ -97,6 +99,7 @@ export const Search = ({
 			onClick={onClick}
 			xcss={styles.root}
 			interactionName={interactionName}
+			aria-haspopup={ariaHaspopup}
 		>
 			<span css={styles.iconBefore}>
 				<IconBefore color={token('color.icon.subtle')} spacing="spacious" label="" />
@@ -114,6 +117,7 @@ export const Search = ({
 				icon={SearchIcon}
 				onClick={onClick}
 				interactionName={interactionName}
+				aria-haspopup={ariaHaspopup}
 			/>
 		</Show>
 	</Fragment>

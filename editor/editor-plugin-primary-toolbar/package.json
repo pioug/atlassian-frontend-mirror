@@ -38,18 +38,18 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-prosemirror": "7.0.0",
+		"@atlaskit/editor-prosemirror": "root:*",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"@emotion/react": "^11.7.1"
+		"@babel/runtime": "root:*",
+		"@emotion/react": "root:*"
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"typescript": "~5.4.2"
+		"typescript": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

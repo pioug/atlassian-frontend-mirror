@@ -42,7 +42,7 @@
 	"dependencies": {
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
-		"@babel/runtime": "^7.0.0"
+		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0",
@@ -70,12 +70,12 @@
 		"@atlaskit/visual-regression": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
-		"@compiled/react": "^0.18.3",
-		"@testing-library/react": "^13.4.0",
-		"@testing-library/react-hooks": "^8.0.1",
-		"bind-event-listener": "^3.0.0",
-		"raf-stub": "^2.0.1",
-		"typescript": "~5.4.2"
+		"@compiled/react": "root:*",
+		"@testing-library/react": "root:*",
+		"@testing-library/react-hooks": "root:*",
+		"bind-event-listener": "root:*",
+		"raf-stub": "root:*",
+		"typescript": "root:*"
 	},
 	"keywords": [
 		"atlaskit",

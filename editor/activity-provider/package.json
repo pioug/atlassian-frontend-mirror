@@ -39,12 +39,12 @@
 	},
 	"dependencies": {
 		"@atlaskit/util-service-support": "workspace:^",
-		"@babel/runtime": "^7.0.0"
+		"@babel/runtime": "root:*"
 	},
 	"devDependencies": {
-		"fetch-mock": "^8.0.0",
-		"graphql": "^15.8.0",
-		"typescript": "~5.4.2"
+		"fetch-mock": "root:*",
+		"graphql": "root:*",
+		"typescript": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

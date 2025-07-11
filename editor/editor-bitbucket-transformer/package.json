@@ -29,17 +29,17 @@
 		}
 	},
 	"dependencies": {
-		"@atlaskit/editor-prosemirror": "7.0.0",
-		"@babel/runtime": "^7.0.0"
+		"@atlaskit/editor-prosemirror": "root:*",
+		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@atlaskit/adf-schema": "^47.6.0",
+		"@atlaskit/adf-schema": "root:*",
 		"@atlaskit/editor-json-transformer": "workspace:^",
 		"@atlaskit/editor-test-helpers": "workspace:^",
-		"typescript": "~5.4.2"
+		"typescript": "root:*"
 	},
 	"techstack": {
 		"@repo/internal": {

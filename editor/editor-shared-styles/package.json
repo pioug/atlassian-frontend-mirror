@@ -50,11 +50,11 @@
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"@emotion/react": "^11.7.1"
+		"@babel/runtime": "root:*",
+		"@emotion/react": "root:*"
 	},
 	"devDependencies": {
-		"typescript": "~5.4.2"
+		"typescript": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

@@ -27,8 +27,8 @@
 		"@atlaskit/pragmatic-drag-and-drop": "workspace:^",
 		"@atlaskit/pragmatic-drag-and-drop-hitbox": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"@compiled/react": "^0.18.3"
+		"@babel/runtime": "root:*",
+		"@compiled/react": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0 || ^19.0.0"
@@ -36,11 +36,11 @@
 	"devDependencies": {
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/visual-regression": "workspace:^",
-		"@testing-library/react": "^13.4.0",
-		"react-dom": "^18.2.0",
-		"tiny-invariant": "^1.2.0",
-		"typescript": "~5.4.2",
-		"wait-for-expect": "^1.2.0"
+		"@testing-library/react": "root:*",
+		"react-dom": "root:*",
+		"tiny-invariant": "root:*",
+		"typescript": "root:*",
+		"wait-for-expect": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

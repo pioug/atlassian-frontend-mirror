@@ -42,7 +42,7 @@
 		"@atlaskit/editor-plugin-expand": "workspace:^",
 		"@atlaskit/editor-plugin-mentions": "workspace:^",
 		"@atlaskit/editor-plugin-primary-toolbar": "workspace:^",
-		"@atlaskit/editor-prosemirror": "7.0.0",
+		"@atlaskit/editor-prosemirror": "root:*",
 		"@atlaskit/editor-shared-styles": "workspace:^",
 		"@atlaskit/form": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
@@ -55,21 +55,21 @@
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"@emotion/react": "^11.7.1",
-		"classnames": "^2.2.5",
-		"lodash": "^4.17.21",
-		"raf-schd": "^4.0.3"
+		"@babel/runtime": "root:*",
+		"@emotion/react": "root:*",
+		"classnames": "root:*",
+		"lodash": "root:*",
+		"raf-schd": "root:*"
 	},
 	"devDependencies": {
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/editor-plugin-block-type": "workspace:^",
 		"@atlaskit/editor-plugin-text-formatting": "workspace:^",
-		"@testing-library/react": "^13.4.0",
-		"@testing-library/user-event": "^14.4.3",
-		"mockdate": "^3.0.5",
-		"raf-stub": "^2.0.1",
-		"react-dom": "^18.2.0"
+		"@testing-library/react": "root:*",
+		"@testing-library/user-event": "root:*",
+		"mockdate": "root:*",
+		"raf-stub": "root:*",
+		"react-dom": "root:*"
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",

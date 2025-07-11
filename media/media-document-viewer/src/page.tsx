@@ -8,6 +8,7 @@ import { css } from '@compiled/react';
 
 import { jsx } from '@atlaskit/css';
 import { useStaticCallback } from '@atlaskit/media-common';
+import Spinner from '@atlaskit/spinner';
 
 import { Annotations } from './annotations';
 import { DocumentLinks } from './documentLinks';
@@ -86,6 +87,14 @@ const pageImageStyles = css({
 	imageRendering: 'pixelated',
 });
 
+const pageSpinnerStyles = css({
+	height: '100%',
+	width: '100%',
+	display: 'flex',
+	justifyContent: 'center',
+	alignItems: 'center',
+});
+
 const pageWrapperStyles = css({
 	position: 'relative',
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
@@ -115,12 +124,24 @@ type PageViewProps = {
 	onImageLoad: (event: React.SyntheticEvent<HTMLImageElement>) => void;
 };
 
+const a4Dimensions = { height: 595, width: 842 };
+
 const PageView = forwardRef<HTMLDivElement, PageViewProps>(
 	({ dimensions, imageSrc, content, fonts, pageIndex, zoom, onImageLoad }, ref) => {
-		const style = {
-			width: dimensions ? `calc(var(--document-viewer-zoom) * ${dimensions.width}px)` : 'initial',
-			height: dimensions ? `calc(var(--document-viewer-zoom) * ${dimensions.height}px)` : 'initial',
-		};
+		const style: Record<string, string> = {};
+		if (dimensions) {
+			// contents endpoint has loaded so dimensions are available
+			style.width = `calc(var(--document-viewer-zoom) * ${dimensions.width}px)`;
+			style.height = `calc(var(--document-viewer-zoom) * ${dimensions.height}px)`;
+		} else if (imageSrc) {
+			// contents endpoint has not loaded dimensions but image is loaded so we can use the image dimensions
+			style.width = 'initial';
+			style.height = 'initial';
+		} else {
+			// contents endpoint has not loaded dimensions and image is not loaded so we can use the a4 dimensions
+			style.width = `calc(var(--document-viewer-zoom) * ${a4Dimensions.width}px)`;
+			style.height = `calc(var(--document-viewer-zoom) * ${a4Dimensions.height}px)`;
+		}
 
 		return (
 			<div
@@ -130,6 +151,11 @@ const PageView = forwardRef<HTMLDivElement, PageViewProps>(
 				data-testid={`page-${pageIndex}`}
 				id={`page-${pageIndex + 1}`}
 			>
+				{!imageSrc && (
+					<div css={pageSpinnerStyles}>
+						<Spinner size="large" />
+					</div>
+				)}
 				{imageSrc && (
 					<img
 						style={style}

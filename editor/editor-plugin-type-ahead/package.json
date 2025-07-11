@@ -35,13 +35,13 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^47.6.0",
+		"@atlaskit/adf-schema": "root:*",
 		"@atlaskit/editor-element-browser": "workspace:^",
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
 		"@atlaskit/editor-plugin-connectivity": "workspace:^",
 		"@atlaskit/editor-plugin-context-panel": "workspace:^",
 		"@atlaskit/editor-plugin-metrics": "workspace:^",
-		"@atlaskit/editor-prosemirror": "7.0.0",
+		"@atlaskit/editor-prosemirror": "root:*",
 		"@atlaskit/editor-shared-styles": "workspace:^",
 		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
@@ -52,13 +52,13 @@
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"@emotion/react": "^11.7.1",
-		"lodash": "^4.17.21",
-		"raf-schd": "^4.0.3",
-		"react-virtualized": "^9.8.0",
-		"uuid": "^3.1.0",
-		"w3c-keyname": "^2.1.8"
+		"@babel/runtime": "root:*",
+		"@emotion/react": "root:*",
+		"lodash": "root:*",
+		"raf-schd": "root:*",
+		"react-virtualized": "root:*",
+		"uuid": "root:*",
+		"w3c-keyname": "root:*"
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
@@ -70,10 +70,10 @@
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@atlaskit/visual-regression": "workspace:^",
-		"@testing-library/react": "^13.4.0",
-		"@types/react-virtualized": "^9.18.12",
-		"typescript": "~5.4.2",
-		"wait-for-expect": "^1.2.0"
+		"@testing-library/react": "root:*",
+		"@types/react-virtualized": "root:*",
+		"typescript": "root:*",
+		"wait-for-expect": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

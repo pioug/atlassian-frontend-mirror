@@ -1,5 +1,14 @@
 # @atlaskit/editor-palette
 
+## 2.1.8
+
+### Patch Changes
+
+- [#184251](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/184251)
+  [`be8b910f66de1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be8b910f66de1) -
+  [ED-91152] Clean up experiment editor_text_highlight_orange_to_yellow
+- Updated dependencies
+
 ## 2.1.7
 
 ### Patch Changes

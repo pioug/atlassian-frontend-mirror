@@ -37,7 +37,7 @@
 	"dependencies": {
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
 		"@atlaskit/editor-plugin-quick-insert": "workspace:^",
-		"@atlaskit/editor-prosemirror": "7.0.0",
+		"@atlaskit/editor-prosemirror": "root:*",
 		"@atlaskit/editor-shared-styles": "workspace:^",
 		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
@@ -47,13 +47,13 @@
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"@emotion/react": "^11.7.1",
-		"react-intl-next": "npm:react-intl@^5.18.1",
-		"react-loadable": "^5.1.0"
+		"@babel/runtime": "root:*",
+		"@emotion/react": "root:*",
+		"react-intl-next": "root:*",
+		"react-loadable": "root:*"
 	},
 	"devDependencies": {
-		"@testing-library/react": "^13.4.0"
+		"@testing-library/react": "root:*"
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",

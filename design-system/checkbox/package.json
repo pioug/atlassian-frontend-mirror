@@ -45,8 +45,8 @@
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"@compiled/react": "^0.18.3"
+		"@babel/runtime": "root:*",
+		"@compiled/react": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
@@ -65,11 +65,11 @@
 		"@atlaskit/visual-regression": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
-		"@testing-library/react": "^13.4.0",
-		"jscodeshift": "^17.0.0",
-		"react-dom": "^18.2.0",
-		"storybook-addon-performance": "^0.17.3",
-		"typescript": "~5.4.2"
+		"@testing-library/react": "root:*",
+		"jscodeshift": "root:*",
+		"react-dom": "root:*",
+		"storybook-addon-performance": "root:*",
+		"typescript": "root:*"
 	},
 	"keywords": [
 		"atlaskit",

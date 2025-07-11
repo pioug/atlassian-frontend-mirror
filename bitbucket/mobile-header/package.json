@@ -40,19 +40,19 @@
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"@emotion/styled": "^11.0.0"
+		"@babel/runtime": "root:*",
+		"@emotion/styled": "root:*"
 	},
 	"peerDependencies": {
 		"@emotion/react": "^11.0.0",
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@testing-library/react": "^13.4.0",
-		"@testing-library/user-event": "^14.4.3",
-		"react-dom": "^18.2.0",
-		"react-test-renderer": "^18.2.0",
-		"typescript": "~5.4.2"
+		"@testing-library/react": "root:*",
+		"@testing-library/user-event": "root:*",
+		"react-dom": "root:*",
+		"react-test-renderer": "root:*",
+		"typescript": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

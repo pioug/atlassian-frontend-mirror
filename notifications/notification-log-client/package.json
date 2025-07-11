@@ -34,11 +34,11 @@
 	},
 	"dependencies": {
 		"@atlaskit/util-service-support": "workspace:^",
-		"@babel/runtime": "^7.0.0"
+		"@babel/runtime": "root:*"
 	},
 	"devDependencies": {
-		"fetch-mock": "^8.0.0",
-		"react": "^18.2.0",
-		"typescript": "~5.4.2"
+		"fetch-mock": "root:*",
+		"react": "root:*",
+		"typescript": "root:*"
 	}
 }

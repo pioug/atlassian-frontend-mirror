@@ -33,12 +33,12 @@
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"@compiled/react": "^0.18.3",
-		"codesandboxer": "^1.0.3",
-		"pretty-proptypes": "^1.7.0",
-		"react-markings": "^1.3.0",
-		"string-raw": "^1.0.1"
+		"@babel/runtime": "root:*",
+		"@compiled/react": "root:*",
+		"codesandboxer": "root:*",
+		"pretty-proptypes": "root:*",
+		"react-markings": "root:*",
+		"string-raw": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0",
@@ -48,11 +48,11 @@
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/badge": "workspace:^",
 		"@atlaskit/lozenge": "workspace:^",
-		"@testing-library/react": "^13.4.0",
-		"@testing-library/user-event": "^14.4.3",
-		"enzyme": "^3.10.0",
-		"jest-in-case": "^1.0.2",
-		"react-dom": "^18.2.0",
-		"react-test-renderer": "^18.2.0"
+		"@testing-library/react": "root:*",
+		"@testing-library/user-event": "root:*",
+		"enzyme": "root:*",
+		"jest-in-case": "root:*",
+		"react-dom": "root:*",
+		"react-test-renderer": "root:*"
 	}
 }

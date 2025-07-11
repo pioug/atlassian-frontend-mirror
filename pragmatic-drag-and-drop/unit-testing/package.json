@@ -21,11 +21,11 @@
 		}
 	},
 	"dependencies": {
-		"@babel/runtime": "^7.0.0"
+		"@babel/runtime": "root:*"
 	},
 	"devDependencies": {
-		"tiny-invariant": "^1.2.0",
-		"typescript": "~5.4.2"
+		"tiny-invariant": "root:*",
+		"typescript": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

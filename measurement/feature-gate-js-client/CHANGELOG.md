@@ -1,5 +1,14 @@
 # @atlaskit/feature-gate-js-client
 
+## 5.5.1
+
+### Patch Changes
+
+- [#183684](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183684)
+  [`0610a51885a29`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0610a51885a29) -
+  Fixed construction of feature-flag-service URL based on window location in ICs to correctly
+  include the IC label
+
 ## 5.5.0
 
 ### Minor Changes

@@ -41,10 +41,10 @@
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"@compiled/react": "^0.18.3",
-		"linkify-it": "^3.0.3",
-		"redux": "^3.7.2"
+		"@babel/runtime": "root:*",
+		"@compiled/react": "root:*",
+		"linkify-it": "root:*",
+		"redux": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
@@ -53,15 +53,15 @@
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/link-test-helpers": "workspace:^",
 		"@atlaskit/media-test-helpers": "workspace:^",
-		"@testing-library/react": "^13.4.0",
-		"@testing-library/react-hooks": "^8.0.1",
-		"@types/linkify-it": "^3.0.2",
-		"fetch-mock": "^8.0.0",
-		"react-dom": "^18.2.0",
-		"react-intl-next": "npm:react-intl@^5.18.1",
-		"sinon": "^2.2.0",
-		"typescript": "~5.4.2",
-		"wait-for-expect": "^1.2.0"
+		"@testing-library/react": "root:*",
+		"@testing-library/react-hooks": "root:*",
+		"@types/linkify-it": "root:*",
+		"fetch-mock": "root:*",
+		"react-dom": "root:*",
+		"react-intl-next": "root:*",
+		"sinon": "root:*",
+		"typescript": "root:*",
+		"wait-for-expect": "root:*"
 	},
 	"af:exports": {
 		"./types": "./src/types.ts",

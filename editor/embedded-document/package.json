@@ -42,7 +42,7 @@
 		"@atlaskit/renderer": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/util-service-support": "workspace:^",
-		"@babel/runtime": "^7.0.0"
+		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
@@ -50,9 +50,9 @@
 		"styled-components": "^3.2.6"
 	},
 	"devDependencies": {
-		"enzyme": "^3.10.0",
-		"fetch-mock": "^8.0.0",
-		"react": "^18.2.0",
-		"typescript": "~5.4.2"
+		"enzyme": "root:*",
+		"fetch-mock": "root:*",
+		"react": "root:*",
+		"typescript": "root:*"
 	}
 }

@@ -35,7 +35,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^47.6.0",
+		"@atlaskit/adf-schema": "root:*",
 		"@atlaskit/calendar": "workspace:^",
 		"@atlaskit/css": "workspace:^",
 		"@atlaskit/date": "workspace:^",
@@ -43,7 +43,7 @@
 		"@atlaskit/editor-plugin-annotation": "workspace:^",
 		"@atlaskit/editor-plugin-editor-disabled": "workspace:^",
 		"@atlaskit/editor-plugin-editor-viewmode": "workspace:^",
-		"@atlaskit/editor-prosemirror": "7.0.0",
+		"@atlaskit/editor-prosemirror": "root:*",
 		"@atlaskit/editor-shared-styles": "workspace:^",
 		"@atlaskit/form": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
@@ -54,11 +54,11 @@
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/visually-hidden": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"bind-event-listener": "^3.0.0",
-		"date-fns": "^2.17.0",
-		"react-intl-next": "npm:react-intl@^5.18.1",
-		"react-loadable": "^5.1.0"
+		"@babel/runtime": "root:*",
+		"bind-event-listener": "root:*",
+		"date-fns": "root:*",
+		"react-intl-next": "root:*",
+		"react-loadable": "root:*"
 	},
 	"devDependencies": {
 		"@atlaskit/editor-plugin-composition": "workspace:^",
@@ -72,7 +72,7 @@
 		"@atlaskit/editor-plugin-tasks-and-decisions": "workspace:^",
 		"@atlaskit/editor-plugin-type-ahead": "workspace:^",
 		"@atlaskit/editor-plugin-width": "workspace:^",
-		"@testing-library/react": "^13.4.0"
+		"@testing-library/react": "root:*"
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",

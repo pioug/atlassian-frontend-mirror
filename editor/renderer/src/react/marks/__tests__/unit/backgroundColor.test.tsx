@@ -25,7 +25,7 @@ describe('Renderer - React/Marks/BackgroundColor', () => {
 
 		expect(mark.tagName).toEqual('SPAN');
 		expect(mark).toContainHTML(
-			`<span data-renderer-mark=\"true\" data-background-custom-color=\"#fedec8\" class=\"fabric-background-color-mark\" style=\"--custom-palette-color: var(--ds-background-accent-orange-subtler, #FEDEC8);\">Highlight this!</span>`,
+			`<span data-renderer-mark=\"true\" data-background-custom-color=\"#fedec8\" class=\"fabric-background-color-mark\" style=\"--custom-palette-color: var(--ds-background-accent-yellow-subtler, #F8E6A0);\">Highlight this!</span>`,
 		);
 	});
 

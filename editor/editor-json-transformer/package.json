@@ -41,15 +41,15 @@
 		"./types": "./src/types.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^47.6.0",
+		"@atlaskit/adf-schema": "root:*",
 		"@atlaskit/adf-utils": "workspace:^",
-		"@atlaskit/editor-prosemirror": "7.0.0",
-		"@babel/runtime": "^7.0.0",
-		"lodash": "^4.17.21"
+		"@atlaskit/editor-prosemirror": "root:*",
+		"@babel/runtime": "root:*",
+		"lodash": "root:*"
 	},
 	"devDependencies": {
-		"react": "^18.2.0",
-		"typescript": "~5.4.2"
+		"react": "root:*",
+		"typescript": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

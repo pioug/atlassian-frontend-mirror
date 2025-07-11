@@ -52,11 +52,11 @@
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/util-service-support": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"@compiled/react": "^0.18.3",
-		"react-intl-next": "npm:react-intl@^5.18.1",
-		"use-callback-ref": "^1.2.3",
-		"uuid": "^3.1.0"
+		"@babel/runtime": "root:*",
+		"@compiled/react": "root:*",
+		"react-intl-next": "root:*",
+		"use-callback-ref": "root:*",
+		"uuid": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0",
@@ -69,15 +69,15 @@
 		"@atlaskit/elements-test-helpers": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@atlaskit/util-data-test": "workspace:^",
-		"@testing-library/react": "^13.4.0",
-		"@testing-library/user-event": "^14.4.3",
-		"@types/url-search-params": "^0.10.0",
-		"date-fns": "^2.17.0",
-		"enzyme": "^3.10.0",
-		"fetch-mock": "^8.0.0",
-		"sinon": "^2.2.0",
-		"typescript": "~5.4.2",
-		"url-search-params": "^0.10.0"
+		"@testing-library/react": "root:*",
+		"@testing-library/user-event": "root:*",
+		"@types/url-search-params": "root:*",
+		"date-fns": "root:*",
+		"enzyme": "root:*",
+		"fetch-mock": "root:*",
+		"sinon": "root:*",
+		"typescript": "root:*",
+		"url-search-params": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

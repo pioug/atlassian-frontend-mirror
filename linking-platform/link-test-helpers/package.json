@@ -47,20 +47,20 @@
 		"@atlaskit/link-provider": "workspace:^",
 		"@atlaskit/linking-types": "workspace:^",
 		"@atlaskit/react-ufo": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"@jest/globals": "^26.4.2",
-		"@testing-library/react": "^13.4.0",
-		"fetch-mock": "^8.0.0",
-		"jest-diff": "^29.7.0",
-		"lodash": "^4.17.21",
-		"react-intl-next": "npm:react-intl@^5.18.1"
+		"@babel/runtime": "root:*",
+		"@jest/globals": "root:*",
+		"@testing-library/react": "root:*",
+		"fetch-mock": "root:*",
+		"jest-diff": "root:*",
+		"lodash": "root:*",
+		"react-intl-next": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"react-dom": "^18.2.0",
-		"typescript": "~5.4.2"
+		"react-dom": "root:*",
+		"typescript": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

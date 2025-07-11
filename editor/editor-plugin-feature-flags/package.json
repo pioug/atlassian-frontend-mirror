@@ -26,8 +26,8 @@
 		"singleton": true
 	},
 	"dependencies": {
-		"@atlaskit/editor-prosemirror": "7.0.0",
-		"@babel/runtime": "^7.0.0"
+		"@atlaskit/editor-prosemirror": "root:*",
+		"@babel/runtime": "root:*"
 	},
 	"af:exports": {
 		".": "./src/index.ts"

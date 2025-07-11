@@ -27,7 +27,7 @@
 	"dependencies": {
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
-		"@babel/runtime": "^7.0.0"
+		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
@@ -40,8 +40,8 @@
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlassian/ts-loader": "workspace:^",
-		"mkdirp": "^0.5.1",
-		"typescript": "~5.4.2"
+		"mkdirp": "root:*",
+		"typescript": "root:*"
 	},
 	"keywords": [
 		"atlaskit",

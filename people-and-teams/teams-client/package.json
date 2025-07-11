@@ -61,13 +61,13 @@
 		"@atlaskit/feature-gate-js-client": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/ufo": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"@sentry/browser": "^6.18.2",
-		"date-fns-tz": "^2.0.0",
-		"faker": "^4.1.0",
-		"graphql": "^15.8.0",
-		"graphql-tag": "^2.10.1",
-		"lodash": "^4.17.21"
+		"@babel/runtime": "root:*",
+		"@sentry/browser": "root:*",
+		"date-fns-tz": "root:*",
+		"faker": "root:*",
+		"graphql": "root:*",
+		"graphql-tag": "root:*",
+		"lodash": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
@@ -75,14 +75,14 @@
 	"devDependencies": {
 		"@atlassian/codegen": "workspace:^",
 		"@atlassian/ptc-test-utils": "workspace:^",
-		"@testing-library/react": "^13.4.0",
-		"@testing-library/react-hooks": "^8.0.1",
-		"react-dom": "^18.2.0",
-		"swagger-typescript-api": "^13.0.3",
-		"ts-morph": "^17.0.0",
-		"ts-node": "^10.9.1",
-		"typescript": "~5.4.2",
-		"wait-for-expect": "^1.2.0"
+		"@testing-library/react": "root:*",
+		"@testing-library/react-hooks": "root:*",
+		"react-dom": "root:*",
+		"swagger-typescript-api": "root:*",
+		"ts-morph": "root:*",
+		"ts-node": "root:*",
+		"typescript": "root:*",
+		"wait-for-expect": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

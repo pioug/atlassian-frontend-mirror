@@ -55,41 +55,45 @@ const isCommonComponentPropType = (node: Node) => {
 
 // resolve single level type references (e.g. SupportedLanguages))
 // type SupportedLanguages = 'text' | 'PHP' | 'Java' | 'CSharp' | ...;
-const isSimpleTypeReferenceNode = (node: Node): boolean => {
-	const type = node.getType();
-	if (type.isUnion()) {
-		const unionTypes = type.getUnionTypes();
-		return unionTypes.every((t) => {
-			return t.isString() || t.isStringLiteral() || t.isNumber() || t.isBoolean();
-		});
+const isSimpleTypeReferenceNode = (tsType: TSType): boolean => {
+	if (tsType.isUnion()) {
+		const unionTypes = tsType.getUnionTypes();
+		return unionTypes.every((t) => isBasicType(t));
 	}
 	return false;
 };
 
-const serializeSimpleTypeNode = (node: Node): string => {
-	switch (node.getKind()) {
-		case SyntaxKind.UnionType:
-			const unionType = node.asKindOrThrow(SyntaxKind.UnionType);
-			const unionTypes = unionType.getTypeNodes().map((t) => serializeSimpleTypeNode(t));
-			return unionTypes.join(' | ');
-
-		case SyntaxKind.StringLiteral:
-			return `'${node.asKindOrThrow(SyntaxKind.StringLiteral).getLiteralValue()}'`;
-		case SyntaxKind.TypeReference:
-			// resolve single level type references (e.g. SupportedLanguages))
-			if (isSimpleTypeReferenceNode(node)) {
-				return node
-					.getType()
-					.getUnionTypes()
-					.map((t) => t.getText())
-					.join(' | ');
-			}
+const serializeSimpleTypeNode = (tsType: TSType): string => {
+	if (tsType.isStringLiteral()) {
+		return `'${tsType.getLiteralValue()}'`;
+	} else if (isBasicType(tsType)) {
+		return tsType.getText();
+	} else if (isSimpleTypeReferenceNode(tsType)) {
+		const unionTypes = tsType.getUnionTypes();
+		const serializedTypes = unionTypes.map((t) => serializeSimpleTypeNode(t));
+		return serializedTypes.join(' | ');
 	}
-	return node.getText();
+	return tsType.getText();
+};
+
+const resolveNonNullableType = (propertySignature: PropertySignature): TSType => {
+	const hasOptionalHint = propertySignature.hasQuestionToken();
+	const type = propertySignature.getType();
+	if (!hasOptionalHint) {
+		return type;
+	}
+	// there is a case where `children?: ReactNode` using getNonNullableType() don't return the original ReactNode type
+	if (type.getText().split(' | ').includes('undefined')) {
+		return type.getNonNullableType();
+	}
+	return type;
 };
 
 const serializePropertySignatureCode = (propertySignature: PropertySignature) => {
-	return `${propertySignature.getName()}: ${serializeSimpleTypeNode(propertySignature.getTypeNode()!)};`;
+	const propertyName = propertySignature.getName();
+	const isOptional = propertySignature.hasQuestionToken();
+	const typeCode = serializeSimpleTypeNode(resolveNonNullableType(propertySignature));
+	return `${propertyName}${isOptional ? '?' : ''}: ${typeCode};`;
 };
 
 const flattenPickType = (
@@ -161,8 +165,11 @@ const getUnresolvableTypesBase = (tsType: TSType, unresolvableTypes: Set<string>
 const isBasicType = (tsType: TSType): boolean => {
 	return (
 		tsType.isString() ||
+		tsType.isStringLiteral() ||
 		tsType.isNumber() ||
+		tsType.isNumberLiteral() ||
 		tsType.isBoolean() ||
+		tsType.isBooleanLiteral() ||
 		tsType.isNull() ||
 		tsType.isUndefined() ||
 		tsType.isAny() ||

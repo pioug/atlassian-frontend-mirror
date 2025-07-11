@@ -48,19 +48,19 @@
 	"dependencies": {
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/util-service-support": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"eventemitter2": "^4.1.0",
-		"exponential-backoff": "^3.1.1"
+		"@babel/runtime": "root:*",
+		"eventemitter2": "root:*",
+		"exponential-backoff": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"es6-promise": "^4.0.5",
-		"fetch-mock": "^8.0.0",
-		"jest-extended": "^4.0.2",
-		"sinon": "^2.2.0",
-		"typescript": "~5.4.2"
+		"es6-promise": "root:*",
+		"fetch-mock": "root:*",
+		"jest-extended": "root:*",
+		"sinon": "root:*",
+		"typescript": "root:*"
 	},
 	"platform-feature-flags": {
 		"platform-delay-retries-for-clients-on-fps": {

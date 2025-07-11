@@ -32,14 +32,14 @@
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"styled-components": "^3.2.6"
+		"@babel/runtime": "root:*",
+		"styled-components": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"typescript": "~5.4.2"
+		"typescript": "root:*"
 	},
 	"af:exports": {
 		".": "./src/index.ts"

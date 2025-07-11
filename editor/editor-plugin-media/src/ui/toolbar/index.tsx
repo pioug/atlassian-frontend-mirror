@@ -96,6 +96,7 @@ import { getPixelResizingToolbar, getResizeDropdownOption } from './pixel-resizi
 import {
 	canShowSwitchButtons,
 	downloadMedia,
+	getIsDownloadDisabledByDataSecurityPolicy,
 	getMaxToolbarWidth,
 	getMediaSingleAndMediaInlineSwitcherDropdown,
 	getSelectedLayoutIcon,
@@ -195,10 +196,7 @@ const generateMediaCardFloatingToolbar = (
 	forceFocusSelector: ForceFocusSelector | undefined,
 	isViewOnly: boolean | undefined,
 ): FloatingToolbarItem<Command>[] => {
-	const enforceMediaDataSecurityPolicy =
-		mediaPluginState?.mediaClientConfig?.enforceDataSecurityPolicy;
-	const disableDownloadButton =
-		typeof enforceMediaDataSecurityPolicy === 'boolean' ? enforceMediaDataSecurityPolicy : false;
+	const disableDownloadButton = getIsDownloadDisabledByDataSecurityPolicy(mediaPluginState);
 	const isEditorControlsEnabled = editorExperiment('platform_editor_controls', 'variant1');
 
 	const preview: FloatingToolbarButton<Command> = {
@@ -359,6 +357,7 @@ const generateMediaSingleFloatingToolbar = (
 	let toolbarButtons: FloatingToolbarItem<Command>[] = [];
 	const { hoverDecoration } = pluginInjectionApi?.decorations?.actions ?? {};
 	const isEditorControlsEnabled = editorExperiment('platform_editor_controls', 'variant1');
+	const disableDownloadButton = getIsDownloadDisabledByDataSecurityPolicy(pluginState);
 
 	if (shouldShowImageBorder(state)) {
 		toolbarButtons.push({
@@ -721,6 +720,7 @@ const generateMediaSingleFloatingToolbar = (
 					downloadMedia(pluginState, isViewOnly);
 					return true;
 				},
+				disabled: disableDownloadButton,
 				title: intl.formatMessage(messages.download),
 				supportsViewMode: true,
 			},

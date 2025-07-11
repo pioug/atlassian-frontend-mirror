@@ -42,7 +42,7 @@
 		"@atlaskit/editor-plugin-interaction": "workspace:^",
 		"@atlaskit/editor-plugin-table": "workspace:^",
 		"@atlaskit/editor-plugin-user-intent": "workspace:^",
-		"@atlaskit/editor-prosemirror": "7.0.0",
+		"@atlaskit/editor-prosemirror": "root:*",
 		"@atlaskit/emoji": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/menu": "workspace:^",
@@ -54,13 +54,13 @@
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"@emotion/react": "^11.7.1",
-		"bind-event-listener": "^3.0.0",
-		"lodash": "^4.17.21",
-		"raf-schd": "^4.0.3",
-		"react-intl-next": "npm:react-intl@^5.18.1",
-		"react-loadable": "^5.1.0"
+		"@babel/runtime": "root:*",
+		"@emotion/react": "root:*",
+		"bind-event-listener": "root:*",
+		"lodash": "root:*",
+		"raf-schd": "root:*",
+		"react-intl-next": "root:*",
+		"react-loadable": "root:*"
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
@@ -69,12 +69,12 @@
 	},
 	"devDependencies": {
 		"@atlaskit/visual-regression": "workspace:^",
-		"@testing-library/dom": "^10.1.0",
-		"@testing-library/react": "^13.4.0",
-		"@testing-library/user-event": "^14.4.3",
-		"enzyme": "^3.10.0",
-		"typescript": "~5.4.2",
-		"wait-for-expect": "^1.2.0"
+		"@testing-library/dom": "root:*",
+		"@testing-library/react": "root:*",
+		"@testing-library/user-event": "root:*",
+		"enzyme": "root:*",
+		"typescript": "root:*",
+		"wait-for-expect": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

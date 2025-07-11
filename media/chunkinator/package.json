@@ -35,8 +35,8 @@
 		}
 	},
 	"dependencies": {
-		"@babel/runtime": "^7.0.0",
-		"rxjs": "^5.5.0"
+		"@babel/runtime": "root:*",
+		"rxjs": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
@@ -44,9 +44,9 @@
 	"devDependencies": {
 		"@atlaskit/media-common": "workspace:^",
 		"@atlaskit/media-test-helpers": "workspace:^",
-		"mockdate": "^3.0.5",
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0",
-		"typescript": "~5.4.2"
+		"mockdate": "root:*",
+		"react": "root:*",
+		"react-dom": "root:*",
+		"typescript": "root:*"
 	}
 }

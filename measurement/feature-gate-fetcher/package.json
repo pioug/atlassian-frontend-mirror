@@ -35,11 +35,11 @@
 	},
 	"dependencies": {
 		"@atlaskit/feature-gate-js-client": "workspace:^",
-		"@babel/runtime": "^7.0.0"
+		"@babel/runtime": "root:*"
 	},
 	"devDependencies": {
-		"jest-fetch-mock": "^3.0.3",
-		"typescript": "~5.4.2"
+		"jest-fetch-mock": "root:*",
+		"typescript": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

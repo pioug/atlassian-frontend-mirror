@@ -124,10 +124,10 @@
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/user-picker": "workspace:^",
 		"@atlaskit/util-service-support": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"lodash": "^4.17.21",
-		"memoize-one": "^6.0.0",
-		"uuid": "^3.1.0"
+		"@babel/runtime": "root:*",
+		"lodash": "root:*",
+		"memoize-one": "root:*",
+		"uuid": "root:*"
 	},
 	"peerDependencies": {
 		"js-search": "^2.0.0",
@@ -135,7 +135,7 @@
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
-		"typescript": "~5.4.2"
+		"typescript": "root:*"
 	},
 	"keywords": [
 		"fabric",

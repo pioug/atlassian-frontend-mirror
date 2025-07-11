@@ -37,11 +37,11 @@
 	},
 	"dependencies": {
 		"@atlaskit/jql-editor-common": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"lodash": "^4.17.21",
-		"react-magnetic-di": "^3.1.4",
-		"react-sweet-state": "^2.6.5",
-		"rxjs": "^5.5.0"
+		"@babel/runtime": "root:*",
+		"lodash": "root:*",
+		"react-magnetic-di": "root:*",
+		"react-sweet-state": "root:*",
+		"rxjs": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0",
@@ -49,11 +49,11 @@
 	},
 	"devDependencies": {
 		"@atlaskit/docs": "workspace:^",
-		"@testing-library/jest-dom": "^6.4.5",
-		"@testing-library/react": "^13.4.0",
-		"react-dom": "^18.2.0",
-		"typescript": "~5.4.2",
-		"wait-for-expect": "^1.2.0"
+		"@testing-library/jest-dom": "root:*",
+		"@testing-library/react": "root:*",
+		"react-dom": "root:*",
+		"typescript": "root:*",
+		"wait-for-expect": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

@@ -1,5 +1,13 @@
 # @atlaskit/forge-react-types
 
+## 0.42.8
+
+### Patch Changes
+
+- [#183733](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183733)
+  [`a0bd63639d169`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a0bd63639d169) -
+  Fix types for code and codeblock components
+
 ## 0.42.7
 
 ### Patch Changes

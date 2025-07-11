@@ -41,7 +41,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/feature-gate-js-client": "workspace:^",
-		"@babel/runtime": "^7.0.0"
+		"@babel/runtime": "root:*"
 	},
 	"bugs": {
 		"url": "https://bitbucket.org/atlassian/atlassian-frontend-mirror/issues"

@@ -46,14 +46,14 @@
 		"lint:fix": "yarn eslint:fix && yarn format:prettier"
 	},
 	"dependencies": {
-		"@babel/runtime": "^7.0.0"
+		"@babel/runtime": "root:*"
 	},
 	"devDependencies": {
 		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@atlaskit/visual-regression": "workspace:^",
-		"typescript": "~5.4.2"
+		"typescript": "root:*"
 	},
 	"atlaskit:src": "src/index.ts",
 	"techstack": {

@@ -41,7 +41,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/select": "workspace:^",
-		"@babel/runtime": "^7.0.0"
+		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
@@ -50,7 +50,7 @@
 		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/textfield": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
-		"typescript": "~5.4.2"
+		"typescript": "root:*"
 	},
 	"platform-feature-flags": {},
 	"homepage": "https://atlaskit.atlassian.com/packages/helpers/locale"

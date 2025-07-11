@@ -53,16 +53,16 @@
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"@compiled/react": "^0.18.3",
-		"@types/string-hash": "^1.1.3",
-		"graphql": "^15.8.0",
-		"graphql-tag": "^2.10.1",
-		"react-intl-next": "npm:react-intl@^5.18.1",
-		"react-loosely-lazy": "^1.0.0",
+		"@babel/runtime": "root:*",
+		"@compiled/react": "root:*",
+		"@types/string-hash": "root:*",
+		"graphql": "root:*",
+		"graphql-tag": "root:*",
+		"react-intl-next": "root:*",
+		"react-loosely-lazy": "root:*",
 		"react-router-dom": "^6.28.0",
-		"react-sweet-state": "^2.6.5",
-		"string-hash": "1.1.3"
+		"react-sweet-state": "root:*",
+		"string-hash": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
@@ -73,11 +73,11 @@
 		"@atlaskit/ssr": "workspace:^",
 		"@atlaskit/visual-regression": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
-		"@testing-library/react": "^13.4.0",
-		"@testing-library/react-hooks": "^8.0.1",
-		"@testing-library/user-event": "^14.4.3",
-		"react-dom": "^18.2.0",
-		"typescript": "~5.4.2"
+		"@testing-library/react": "root:*",
+		"@testing-library/react-hooks": "root:*",
+		"@testing-library/user-event": "root:*",
+		"react-dom": "root:*",
+		"typescript": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

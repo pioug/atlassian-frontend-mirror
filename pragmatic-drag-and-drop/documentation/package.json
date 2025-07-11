@@ -40,7 +40,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/platform-feature-flags": "workspace:^",
-		"@babel/runtime": "^7.0.0"
+		"@babel/runtime": "root:*"
 	},
 	"devDependencies": {
 		"@af/integration-testing": "workspace:^",
@@ -61,15 +61,15 @@
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/visual-regression": "workspace:^",
 		"@atlassian/codegen": "workspace:^",
-		"@emotion/react": "^11.7.1",
-		"bind-event-listener": "^3.0.0",
-		"fast-glob": "^3.2.11",
-		"memoize-one": "^6.0.0",
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0",
-		"tiny-invariant": "^1.2.0",
-		"ts-node": "^10.9.1",
-		"typescript": "~5.4.2"
+		"@emotion/react": "root:*",
+		"bind-event-listener": "root:*",
+		"fast-glob": "root:*",
+		"memoize-one": "root:*",
+		"react": "root:*",
+		"react-dom": "root:*",
+		"tiny-invariant": "root:*",
+		"ts-node": "root:*",
+		"typescript": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

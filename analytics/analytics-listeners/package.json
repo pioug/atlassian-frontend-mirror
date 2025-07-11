@@ -45,17 +45,17 @@
 		"@atlaskit/analytics-gas-types": "workspace:^",
 		"@atlaskit/analytics-namespaced-context": "workspace:^",
 		"@atlaskit/analytics-next": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"lodash": "^4.17.21"
+		"@babel/runtime": "root:*",
+		"lodash": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
 		"@atlaskit/tokens": "workspace:^",
-		"@testing-library/react": "^13.4.0",
-		"jest-in-case": "^1.0.2",
-		"typescript": "~5.4.2"
+		"@testing-library/react": "root:*",
+		"jest-in-case": "root:*",
+		"typescript": "root:*"
 	},
 	"keywords": [
 		"fabric",

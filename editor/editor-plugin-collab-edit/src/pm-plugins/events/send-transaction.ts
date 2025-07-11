@@ -2,6 +2,7 @@ import { AnalyticsStep } from '@atlaskit/adf-schema/steps';
 import type { CollabEditProvider, CollabTelepointerPayload } from '@atlaskit/editor-common/collab';
 import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { getSendableSelection } from '../actions';
@@ -68,18 +69,42 @@ export const sendTransaction =
 		const participantsChanged =
 			prevActiveParticipants && !prevActiveParticipants.eq(activeParticipants);
 
-		if (
-			sessionId &&
-			viewMode === 'edit' &&
-			((selectionChanged && !docChangedTransaction) ||
-				(participantsChanged && !hideTelecursorOnLoad))
-		) {
-			const selection = getSendableSelection(newEditorState.selection);
-			const message: CollabTelepointerPayload = {
-				type: 'telepointer',
-				selection,
-				sessionId,
-			};
-			provider.sendMessage(message);
+		if (fg('platform_editor_ai_in_document_streaming')) {
+			// uiEvent is standard metdata (docs: https://prosemirror.net/docs/ref/#state.Transaction)
+			const isPaste = docChangedTransaction?.getMeta('uiEvent') === 'paste';
+
+			if (
+				sessionId &&
+				viewMode === 'edit' &&
+				// Broadcast the position if the selection has changed, and the doc hasn't changed (it is mapped
+				// by the receiver).
+				// If we're pasting content though make an exception (as doc has changed)
+				// as on a ranged selection it results in not clearing the ranged selection after the paste
+				((selectionChanged && (!docChangedTransaction || isPaste)) ||
+					(participantsChanged && !hideTelecursorOnLoad))
+			) {
+				const selection = getSendableSelection(newEditorState.selection);
+				const message: CollabTelepointerPayload = {
+					type: 'telepointer',
+					selection,
+					sessionId,
+				};
+				provider.sendMessage(message);
+			}
+		} else {
+			if (
+				sessionId &&
+				viewMode === 'edit' &&
+				((selectionChanged && !docChangedTransaction) ||
+					(participantsChanged && !hideTelecursorOnLoad))
+			) {
+				const selection = getSendableSelection(newEditorState.selection);
+				const message: CollabTelepointerPayload = {
+					type: 'telepointer',
+					selection,
+					sessionId,
+				};
+				provider.sendMessage(message);
+			}
 		}
 	};

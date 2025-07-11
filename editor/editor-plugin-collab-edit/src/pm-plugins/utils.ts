@@ -27,17 +27,16 @@ import { fg } from '@atlaskit/platform-feature-flags';
 export const _findPointers = (id: string, decorations: DecorationSet): Decoration[] =>
 	decorations
 		.find()
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		.reduce((arr, deco: any) => (deco.spec.pointer.sessionId === id ? arr.concat(deco) : arr), []);
+		.reduce<
+			Decoration[]
+		>((arr, deco) => (deco.spec.pointer.sessionId === id ? arr.concat(deco) : arr), []);
 
 export const findPointers = (id: string, decorations: DecorationSet): Decoration[] =>
-	decorations.find().reduce(
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		(arr, deco: any) => (deco.spec.pointer.presenceId === id ? arr.concat(deco) : arr),
-		[],
-	);
+	decorations
+		.find()
+		.reduce<
+			Decoration[]
+		>((arr, deco) => (deco.spec.pointer.presenceId === id ? arr.concat(deco) : arr), []);
 
 function style(options: { color: string }) {
 	const color = (options && options.color) || 'black';
@@ -70,9 +69,7 @@ export const createTelepointers = (
 	if (isSelection) {
 		const className = `telepointer color-${color} telepointer-selection`;
 		decorations.push(
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			(Decoration as any).inline(
+			Decoration.inline(
 				from,
 				to,
 				{ class: className, 'data-initial': initial },
@@ -116,25 +113,19 @@ export const createTelepointers = (
 
 	return decorations
 		.concat(
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			(Decoration as any).widget(to, spaceJoinerAfter, {
+			Decoration.widget(to, spaceJoinerAfter, {
 				pointer: { sessionId, presenceId },
 				key: `telepointer-${sessionId}-zero`,
 			}),
 		)
 		.concat(
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			(Decoration as any).widget(to, cursor, {
+			Decoration.widget(to, cursor, {
 				pointer: { sessionId, presenceId },
 				key: `telepointer-${sessionId}`,
 			}),
 		)
 		.concat(
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			(Decoration as any).widget(to, spaceJoinerBefore, {
+			Decoration.widget(to, spaceJoinerBefore, {
 				pointer: { sessionId, presenceId },
 				key: `telepointer-${sessionId}-zero`,
 			}),

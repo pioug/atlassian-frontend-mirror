@@ -35,10 +35,10 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:^",
-		"@babel/runtime": "^7.0.0"
+		"@babel/runtime": "root:*"
 	},
 	"devDependencies": {
-		"typescript": "~5.4.2"
+		"typescript": "root:*"
 	},
 	"keywords": [
 		"fabric",

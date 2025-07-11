@@ -200,8 +200,11 @@ class SimpleImportDeclaration implements IImportDeclaration {
 
 	private namedImports = new Set<string>();
 
-	constructor(packageName: string) {
+	private defaultImport?: string;
+
+	constructor(packageName: string, defaultImport?: string) {
 		this.packageName = packageName;
+		this.defaultImport = defaultImport;
 	}
 
 	public addNamedImport(namedImport: string) {
@@ -213,14 +216,16 @@ class SimpleImportDeclaration implements IImportDeclaration {
 	}
 
 	public getText() {
-		if (this.namedImports.size === 0) {
+		if (this.namedImports.size === 0 && !this.defaultImport) {
 			return `import '${this.packageName}';`;
 		}
-		const importedNames = Array.from(this.namedImports)
+		const importedNamesList = Array.from(this.namedImports)
 			.sort()
-			.map((name) => `type ${name}`)
-			.join(', ');
-		return `import { ${importedNames} } from '${this.packageName}';`;
+			.map((name) => `type ${name}`);
+		const importedNames =
+			importedNamesList.length > 0 ? `{ ${importedNamesList.join(', ')} }` : null;
+		const defaultImport = this.defaultImport ? `${this.defaultImport}` : null;
+		return `import ${[defaultImport, importedNames].filter(Boolean).join(', ')} from '${this.packageName}';`;
 	}
 }
 
@@ -559,12 +564,12 @@ const registeredExternalTypes: Record<
 	string,
 	{
 		package: string;
-		alias?: string;
+		defaultImport: string;
 	}
 > = {
 	'React.ReactNode': {
 		package: 'react',
-		alias: 'ReactNode',
+		defaultImport: 'React',
 	},
 };
 
@@ -583,8 +588,13 @@ const consolidateImportDeclarations = (
 			if (existingImport) {
 				existingImport.addNamedImport(typeName);
 			} else {
-				const newImport = new SimpleImportDeclaration(typePackage.package);
-				newImport.addNamedImport(typePackage.alias ?? typeName);
+				const newImport = new SimpleImportDeclaration(
+					typePackage.package,
+					typePackage.defaultImport,
+				);
+				if (!typeName.startsWith(`${typePackage.defaultImport}.`)) {
+					newImport.addNamedImport(typeName);
+				}
 				declarations.push(newImport);
 			}
 		}
@@ -614,8 +624,12 @@ const generateComponentPropTypeSourceCodeWithSerializedType = (
 		sourceFile,
 	).reduce(
 		(agg, declarations) => {
-			if (declarations.getName().startsWith('Platform')) {
-				// this is the platform props type declaration, we will use it to generate the type code
+			if (declarations.getName().startsWith('_Platform')) {
+				// this is the platform props type declaration, we will use it to generate the type code.
+				// this pattern is used when we need to add custom overrides to the platform props type.
+				agg[1] = declarations;
+			} else if (declarations.getName().startsWith('Platform') && !agg[1]) {
+				// we only use this pattern if _Platform is not used. (this is for cases like Code and CodeBlock)
 				agg[1] = declarations;
 			} else {
 				agg[0].push(declarations);
@@ -654,7 +668,7 @@ const generateComponentPropTypeSourceCodeWithSerializedType = (
 	const dependentTypeCode = [
 		...dependentTypeDeclarations.map((typeAlias) => typeAlias.getText()),
 		platformPropsTypeDeclarationName &&
-			`\n// Serialized type\ntype ${platformPropsTypeDeclarationName} = ${typeDefCode}`,
+			`\n// Serialized type\ntype ${platformPropsTypeDeclarationName} = ${typeDefCode};`,
 	]
 		.filter(Boolean)
 		.join('\n');
@@ -725,7 +739,7 @@ const codeConsolidators: Record<string, CodeConsolidator> = {
 	PressableProps: handleXCSSProp,
 };
 
-const typeSerializableComponentPropSymbols = ['CodeProps', 'CodeBlockProps'];
+const typeSerializableComponentPropSymbols = ['CodeProps', 'CodeBlockProps', 'BadgeProps'];
 
 const generateComponentPropTypeSourceCode = (
 	componentPropSymbol: Symbol,

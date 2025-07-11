@@ -42,19 +42,19 @@
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"react-animate-height": "^2.1.0",
-		"react-focus-within": "^2.0.1",
-		"react-intl-next": "npm:react-intl@^5.18.1"
+		"@babel/runtime": "root:*",
+		"react-animate-height": "root:*",
+		"react-focus-within": "root:*",
+		"react-intl-next": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0",
 		"styled-components": "^3.2.6"
 	},
 	"devDependencies": {
-		"@testing-library/react": "^13.4.0",
-		"@testing-library/user-event": "^14.4.3",
-		"typescript": "~5.4.2"
+		"@testing-library/react": "root:*",
+		"@testing-library/user-event": "root:*",
+		"typescript": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

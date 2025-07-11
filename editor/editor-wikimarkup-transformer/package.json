@@ -29,27 +29,27 @@
 		}
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^47.6.0",
+		"@atlaskit/adf-schema": "root:*",
 		"@atlaskit/editor-json-transformer": "workspace:^",
-		"@atlaskit/editor-prosemirror": "7.0.0",
+		"@atlaskit/editor-prosemirror": "root:*",
 		"@atlaskit/theme": "workspace:^",
-		"@babel/runtime": "^7.0.0"
+		"@babel/runtime": "root:*"
 	},
 	"devDependencies": {
-		"@atlaskit/activity": "^1.0.1",
+		"@atlaskit/activity": "root:*",
 		"@atlaskit/editor-core": "workspace:^",
 		"@atlaskit/editor-test-helpers": "workspace:^",
 		"@atlaskit/mention": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/util-data-test": "workspace:^",
-		"@emotion/react": "^11.7.1",
-		"@types/debug": "^4.1.10",
-		"cookie": "^0.3.1",
-		"debug": "^4.3.4",
-		"react": "^18.2.0",
-		"react-intl-next": "npm:react-intl@^5.18.1",
-		"rxjs": "^5.5.0",
-		"typescript": "~5.4.2"
+		"@emotion/react": "root:*",
+		"@types/debug": "root:*",
+		"cookie": "root:*",
+		"debug": "root:*",
+		"react": "root:*",
+		"react-intl-next": "root:*",
+		"rxjs": "root:*",
+		"typescript": "root:*"
 	},
 	"af:exports": {
 		".": "./src/index.ts",

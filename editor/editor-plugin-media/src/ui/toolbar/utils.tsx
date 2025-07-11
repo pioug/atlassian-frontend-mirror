@@ -76,6 +76,16 @@ export const getSelectedNearestMediaContainerNodeAttrs = (
 	);
 };
 
+export const getIsDownloadDisabledByDataSecurityPolicy = (
+	mediaPluginState: MediaPluginState,
+): boolean => {
+	const enforceMediaDataSecurityPolicy =
+		mediaPluginState?.mediaClientConfig?.enforceDataSecurityPolicy;
+	return typeof enforceMediaDataSecurityPolicy === 'boolean'
+		? enforceMediaDataSecurityPolicy
+		: false;
+};
+
 export const downloadMedia = async (
 	mediaPluginState: MediaPluginState,
 	isViewMode?: boolean,

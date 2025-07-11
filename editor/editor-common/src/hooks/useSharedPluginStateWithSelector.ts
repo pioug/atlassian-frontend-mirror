@@ -1,4 +1,5 @@
 import { useLayoutEffect, useMemo, useRef, useState } from 'react';
+import type { MutableRefObject } from 'react';
 
 import debounce from 'lodash/debounce';
 
@@ -118,6 +119,7 @@ export function useSharedPluginStateWithSelector<
 	selector: (states: PluginStates) => SelectorResult,
 ): SelectorResult {
 	const pluginNames = useStaticPlugins(plugins);
+	const selectorRef = useRef<(states: PluginStates) => SelectorResult>(selector);
 
 	// Create a memoized object containing the named plugins
 	const namedExternalPlugins = useMemo(
@@ -132,27 +134,26 @@ export function useSharedPluginStateWithSelector<
 		[injectionApi, pluginNames],
 	);
 
-	return useSharedPluginStateInternal(namedExternalPlugins, selector);
+	return useSharedPluginStateInternal(namedExternalPlugins, selectorRef);
 }
 
 function useSharedPluginStateInternal<P extends NamedPluginKeys, SelectorResult, PluginStates>(
 	externalPlugins: P,
-	selector: (states: PluginStates) => SelectorResult,
+	selector: MutableRefObject<(states: PluginStates) => SelectorResult>,
 ): SelectorResult {
 	const refStates = useRef<PluginStates>(
 		mapValues(externalPlugins, (value) => value?.sharedState.currentState()) as PluginStates,
 	);
 
 	const [pluginStates, setPluginState] = useState<SelectorResult>(() =>
-		selector(refStates.current as PluginStates),
+		selector.current(refStates.current as PluginStates),
 	);
 	const mounted = useRef(false);
 
 	useLayoutEffect(() => {
 		const debouncedPluginStateUpdate = debounce(() => {
 			setPluginState((currentPluginStates) => {
-				// This is to avoid changing behaviour of the hook when selector is not provided.
-				const nextStates = selector({ ...refStates.current });
+				const nextStates = selector.current({ ...refStates.current });
 
 				if (shallowEqual(nextStates, currentPluginStates)) {
 					return currentPluginStates;
@@ -187,9 +188,6 @@ function useSharedPluginStateInternal<P extends NamedPluginKeys, SelectorResult,
 			refStates.current = {} as unknown as PluginStates;
 			unsubs.forEach((cb) => cb?.());
 		};
-		// Do not re-render due to state changes, we only need to check this when
-		// setting up the initial subscription.
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [externalPlugins, selector]);
 
 	return pluginStates;

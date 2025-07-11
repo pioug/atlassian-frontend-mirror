@@ -46,8 +46,8 @@
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"memoize-one": "^6.0.0"
+		"@babel/runtime": "root:*",
+		"memoize-one": "root:*"
 	},
 	"peerDependencies": {
 		"@atlaskit/media-core": "workspace:^",
@@ -61,14 +61,14 @@
 		"@atlaskit/media-core": "workspace:^",
 		"@atlaskit/media-test-helpers": "workspace:^",
 		"@atlaskit/range": "workspace:^",
-		"@emotion/react": "^11.7.1",
-		"@testing-library/react": "^13.4.0",
-		"@testing-library/user-event": "^14.4.3",
-		"date-fns": "^2.17.0",
-		"enzyme": "^3.10.0",
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0",
-		"typescript": "~5.4.2"
+		"@emotion/react": "root:*",
+		"@testing-library/react": "root:*",
+		"@testing-library/user-event": "root:*",
+		"date-fns": "root:*",
+		"enzyme": "root:*",
+		"react": "root:*",
+		"react-dom": "root:*",
+		"typescript": "root:*"
 	},
 	"techstack": {
 		"@repo/internal": {

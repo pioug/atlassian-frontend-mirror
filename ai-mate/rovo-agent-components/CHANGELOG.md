@@ -1,5 +1,13 @@
 # @atlaskit/rovo-agent-components
 
+## 2.12.0
+
+### Minor Changes
+
+- [#182035](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/182035)
+  [`6cb80ec4edf85`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6cb80ec4edf85) -
+  [ux] Show "More" btn on hover / focus only, and when dropdown is opened (Chat Item and Agent Item)
+
 ## 2.11.6
 
 ### Patch Changes

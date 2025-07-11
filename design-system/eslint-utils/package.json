@@ -53,9 +53,9 @@
 		"./context-compat": "./src/context-compat.tsx"
 	},
 	"dependencies": {
-		"@babel/runtime": "^7.0.0",
-		"eslint-codemod-utils": "^1.8.6",
-		"lodash": "^4.17.21"
+		"@babel/runtime": "root:*",
+		"eslint-codemod-utils": "root:*",
+		"lodash": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
@@ -65,11 +65,11 @@
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@atlaskit/visual-regression": "workspace:^",
-		"@testing-library/react": "^13.4.0",
-		"@types/eslint": "^8.56.6",
-		"@types/eslint-scope": "^3.7.3",
-		"react-dom": "^18.2.0",
-		"typescript": "~5.4.2"
+		"@testing-library/react": "root:*",
+		"@types/eslint": "root:*",
+		"@types/eslint-scope": "root:*",
+		"react-dom": "root:*",
+		"typescript": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

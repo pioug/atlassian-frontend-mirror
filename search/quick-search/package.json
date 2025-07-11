@@ -35,20 +35,20 @@
 		"@atlaskit/spinner": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"keycode": "^2.1.7"
+		"@babel/runtime": "root:*",
+		"keycode": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0",
 		"styled-components": "^3.2.6"
 	},
 	"devDependencies": {
-		"enzyme": "^3.10.0",
-		"prop-types": "^15.5.10",
-		"react": "^18.2.0",
-		"sinon": "^2.2.0",
-		"typescript": "~5.4.2",
-		"uuid": "^3.1.0"
+		"enzyme": "root:*",
+		"prop-types": "root:*",
+		"react": "root:*",
+		"sinon": "root:*",
+		"typescript": "root:*",
+		"uuid": "root:*"
 	},
 	"af:exports": {
 		".": "./src/index.ts"

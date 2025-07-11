@@ -25,9 +25,9 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-prosemirror": "7.0.0",
-		"@babel/runtime": "^7.0.0",
-		"raf-schd": "^4.0.3"
+		"@atlaskit/editor-prosemirror": "root:*",
+		"@babel/runtime": "root:*",
+		"raf-schd": "root:*"
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
@@ -35,11 +35,11 @@
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
-		"@testing-library/react": "^13.4.0",
-		"raf-stub": "^2.0.1",
-		"react-dom": "^18.2.0",
-		"typescript": "~5.4.2",
-		"wait-for-expect": "^1.2.0"
+		"@testing-library/react": "root:*",
+		"raf-stub": "root:*",
+		"react-dom": "root:*",
+		"typescript": "root:*",
+		"wait-for-expect": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

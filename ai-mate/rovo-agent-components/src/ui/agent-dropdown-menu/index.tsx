@@ -100,6 +100,7 @@ type AgentDropdownMenuProps = {
 		e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
 		analyticsEvent: UIAnalyticsEvent,
 	) => void;
+	onOpenChange?: React.ComponentProps<typeof DropdownMenu>['onOpenChange'];
 	spacing?: React.ComponentProps<typeof IconButton>['spacing'];
 	appearance?: React.ComponentProps<typeof IconButton>['appearance'];
 	dropdownMenuTestId?: React.ComponentProps<typeof DropdownMenu>['testId'];
@@ -120,6 +121,7 @@ export const AgentDropdownMenu = ({
 	onDuplicateAgent,
 	onDeleteAgent,
 	onViewAgentFullProfileClick,
+	onOpenChange,
 	isForgeAgent,
 	showViewAgentOption = false,
 	onViewAgentClick,
@@ -220,6 +222,7 @@ export const AgentDropdownMenu = ({
 			)}
 			onOpenChange={(args) => {
 				setIsOpen(args.isOpen);
+				onOpenChange?.(args);
 
 				if (!args.isOpen) {
 					setHasBeenCopied(false);

@@ -41,9 +41,9 @@
 		"@atlaskit/media-common": "workspace:^",
 		"@atlaskit/media-ui": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"eventemitter2": "^4.1.0",
-		"lru_map": "^0.4.1"
+		"@babel/runtime": "root:*",
+		"eventemitter2": "root:*",
+		"lru_map": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0",
@@ -57,11 +57,11 @@
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@atlaskit/visual-regression": "workspace:^",
-		"@testing-library/react": "^13.4.0",
-		"@testing-library/react-hooks": "^8.0.1",
-		"react-dom": "^18.2.0",
-		"typescript": "~5.4.2",
-		"wait-for-expect": "^1.2.0"
+		"@testing-library/react": "root:*",
+		"@testing-library/react-hooks": "root:*",
+		"react-dom": "root:*",
+		"typescript": "root:*",
+		"wait-for-expect": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

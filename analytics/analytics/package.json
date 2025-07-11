@@ -20,21 +20,21 @@
 		}
 	},
 	"dependencies": {
-		"@babel/runtime": "^7.0.0",
-		"prop-types": "^15.5.10"
+		"@babel/runtime": "root:*",
+		"prop-types": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
 		"@atlassian/ssr-tests": "workspace:^",
-		"@testing-library/react": "^13.4.0",
-		"@types/react-redux": "^5.0.0",
-		"enzyme": "^3.10.0",
-		"react-dom": "^18.2.0",
-		"react-redux": "^5.1.2",
-		"redux": "^3.7.2",
-		"wait-for-expect": "^1.2.0"
+		"@testing-library/react": "root:*",
+		"@types/react-redux": "root:*",
+		"enzyme": "root:*",
+		"react-dom": "root:*",
+		"react-redux": "root:*",
+		"redux": "root:*",
+		"wait-for-expect": "root:*"
 	},
 	"af:exports": {
 		".": "./src/index.js",

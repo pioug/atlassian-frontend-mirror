@@ -32,8 +32,8 @@
 		}
 	},
 	"dependencies": {
-		"@babel/runtime": "^7.0.0",
-		"raf-schd": "^4.0.3"
+		"@babel/runtime": "root:*",
+		"raf-schd": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
@@ -45,11 +45,11 @@
 		"@atlaskit/ds-lib": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
-		"@compiled/react": "^0.18.3",
-		"@testing-library/react": "^13.4.0",
-		"@types/raf-schd": "^4.0.1",
-		"react-dom": "^18.2.0",
-		"typescript": "~5.4.2"
+		"@compiled/react": "root:*",
+		"@testing-library/react": "root:*",
+		"@types/raf-schd": "root:*",
+		"react-dom": "root:*",
+		"typescript": "root:*"
 	},
 	"keywords": [
 		"atlaskit",

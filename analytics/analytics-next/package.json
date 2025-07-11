@@ -68,11 +68,11 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
+		"@atlaskit/analytics-next-stable-react-context": "root:*",
 		"@atlaskit/platform-feature-flags": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"prop-types": "^15.5.10",
-		"use-memo-one": "^1.1.1"
+		"@babel/runtime": "root:*",
+		"prop-types": "root:*",
+		"use-memo-one": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0",
@@ -81,9 +81,9 @@
 	"devDependencies": {
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
-		"@testing-library/react": "^13.4.0",
-		"storybook-addon-performance": "^0.17.3",
-		"typescript": "~5.4.2"
+		"@testing-library/react": "root:*",
+		"storybook-addon-performance": "root:*",
+		"typescript": "root:*"
 	},
 	"overrides": {
 		"@atlaskit/analytics-next-stable-react-context": {

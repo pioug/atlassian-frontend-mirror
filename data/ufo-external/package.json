@@ -43,14 +43,14 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@babel/runtime": "^7.0.0",
-		"uuid": "^3.1.0"
+		"@babel/runtime": "root:*",
+		"uuid": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"typescript": "~5.4.2"
+		"typescript": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

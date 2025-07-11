@@ -39,8 +39,8 @@
 		"@atlaskit/linking-common": "workspace:^",
 		"@atlaskit/linking-types": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"lru_map": "^0.4.1"
+		"@babel/runtime": "root:*",
+		"lru_map": "root:*"
 	},
 	"peerDependencies": {
 		"@atlaskit/link-provider": "workspace:^",
@@ -49,11 +49,11 @@
 	"devDependencies": {
 		"@atlaskit/link-test-helpers": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
-		"@testing-library/react": "^13.4.0",
-		"@testing-library/react-hooks": "^8.0.1",
-		"react-dom": "^18.2.0",
-		"typescript": "~5.4.2",
-		"wait-for-expect": "^1.2.0"
+		"@testing-library/react": "root:*",
+		"@testing-library/react-hooks": "root:*",
+		"react-dom": "root:*",
+		"typescript": "root:*",
+		"wait-for-expect": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

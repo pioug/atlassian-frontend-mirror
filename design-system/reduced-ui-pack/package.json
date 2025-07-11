@@ -42,15 +42,15 @@
 		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
-		"css-loader": "^2.0.0",
-		"glob": "9.0.0",
-		"jsdom": "^22.0.0",
-		"mkdirp": "^0.5.1",
-		"raw-loader": "^0.5.1",
-		"react": "^18.2.0",
-		"style-loader": "^0.16.1",
-		"svg-sprite": "^1.4.0",
-		"ts-node": "^10.9.1"
+		"css-loader": "root:*",
+		"glob": "root:*",
+		"jsdom": "root:*",
+		"mkdirp": "root:*",
+		"raw-loader": "root:*",
+		"react": "root:*",
+		"style-loader": "root:*",
+		"svg-sprite": "root:*",
+		"ts-node": "root:*"
 	},
 	"af:exports": {
 		".": "./src/bundle.css"

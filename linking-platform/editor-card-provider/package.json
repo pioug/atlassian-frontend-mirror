@@ -42,8 +42,8 @@
 		"@atlaskit/linking-common": "workspace:^",
 		"@atlaskit/linking-types": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"dataloader": "^2.1.0"
+		"@babel/runtime": "root:*",
+		"dataloader": "root:*"
 	},
 	"peerDependencies": {
 		"@atlaskit/link-provider": "workspace:^",
@@ -51,7 +51,7 @@
 	},
 	"devDependencies": {
 		"@atlassian/feature-flags-test-utils": "workspace:^",
-		"typescript": "~5.4.2"
+		"typescript": "root:*"
 	},
 	"platform-feature-flags": {
 		"smartlink_jira_software_form": {

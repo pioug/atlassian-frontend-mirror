@@ -51,10 +51,10 @@
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/visually-hidden": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"@compiled/react": "^0.18.3",
-		"exenv": "^1.2.2",
-		"react-error-boundary": "^3.1.3"
+		"@babel/runtime": "root:*",
+		"@compiled/react": "root:*",
+		"exenv": "root:*",
+		"react-error-boundary": "root:*"
 	},
 	"peerDependencies": {
 		"@emotion/react": "^11.7.1",
@@ -65,15 +65,15 @@
 		"@atlaskit/media-core": "workspace:^",
 		"@atlaskit/media-test-helpers": "workspace:^",
 		"@atlaskit/visual-regression": "workspace:^",
-		"@testing-library/react": "^13.4.0",
-		"@testing-library/user-event": "^14.4.3",
-		"@types/enzyme": "3.1.15",
-		"@types/exenv": "^1.2.0",
-		"enzyme": "^3.10.0",
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0",
-		"react-intl-next": "npm:react-intl@^5.18.1",
-		"typescript": "~5.4.2"
+		"@testing-library/react": "root:*",
+		"@testing-library/user-event": "root:*",
+		"@types/enzyme": "root:*",
+		"@types/exenv": "root:*",
+		"enzyme": "root:*",
+		"react": "root:*",
+		"react-dom": "root:*",
+		"react-intl-next": "root:*",
+		"typescript": "root:*"
 	},
 	"techstack": {
 		"@repo/internal": {

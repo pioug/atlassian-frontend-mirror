@@ -36,7 +36,7 @@
 		"ak-postbuild": "ls -d dist/* | xargs -n 1 copyfiles -u 1 -V src/**/*.{svg,png}"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^47.6.0",
+		"@atlaskit/adf-schema": "root:*",
 		"@atlaskit/analytics-next": "workspace:^",
 		"@atlaskit/atlassian-context": "workspace:^",
 		"@atlaskit/avatar": "workspace:^",
@@ -46,7 +46,7 @@
 		"@atlaskit/css": "workspace:^",
 		"@atlaskit/datetime-picker": "workspace:^",
 		"@atlaskit/dropdown-menu": "workspace:^",
-		"@atlaskit/editor-prosemirror": "7.0.0",
+		"@atlaskit/editor-prosemirror": "root:*",
 		"@atlaskit/empty-state": "workspace:^",
 		"@atlaskit/flag": "workspace:^",
 		"@atlaskit/form": "workspace:^",
@@ -88,14 +88,14 @@
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlaskit/ufo": "workspace:^",
 		"@atlaskit/width-detector": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"@compiled/react": "^0.18.3",
-		"debounce-promise": "^3.1.2",
-		"lodash": "^4.17.21",
-		"react-sweet-state": "^2.6.5",
-		"tiny-invariant": "^1.2.0",
-		"use-debounce": "^3.4.0",
-		"uuid": "^3.1.0"
+		"@babel/runtime": "root:*",
+		"@compiled/react": "root:*",
+		"debounce-promise": "root:*",
+		"lodash": "root:*",
+		"react-sweet-state": "root:*",
+		"tiny-invariant": "root:*",
+		"use-debounce": "root:*",
+		"uuid": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^16.8.0 || ^17.0.0 || ^18.0.0",
@@ -111,16 +111,16 @@
 		"@atlaskit/ssr": "workspace:^",
 		"@atlaskit/visual-regression": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
-		"@faker-js/faker": "^7.5.0",
-		"@testing-library/dom": "^10.1.0",
-		"@testing-library/react": "^13.4.0",
-		"@testing-library/react-hooks": "^8.0.1",
-		"@testing-library/user-event": "^14.4.3",
-		"@types/debounce-promise": "^3.1.2",
-		"fetch-mock": "^8.0.0",
-		"jest-fetch-mock": "^3.0.3",
-		"typescript": "~5.4.2",
-		"wait-for-expect": "^1.2.0"
+		"@faker-js/faker": "root:*",
+		"@testing-library/dom": "root:*",
+		"@testing-library/react": "root:*",
+		"@testing-library/react-hooks": "root:*",
+		"@testing-library/user-event": "root:*",
+		"@types/debounce-promise": "root:*",
+		"fetch-mock": "root:*",
+		"jest-fetch-mock": "root:*",
+		"typescript": "root:*",
+		"wait-for-expect": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

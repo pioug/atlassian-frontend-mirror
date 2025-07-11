@@ -96,9 +96,9 @@
 	"dependencies": {
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
-		"@babel/register": "^7.25.9",
-		"@babel/runtime": "^7.0.0",
-		"@compiled/react": "^0.18.3"
+		"@babel/register": "root:*",
+		"@babel/runtime": "root:*",
+		"@compiled/react": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
@@ -129,17 +129,17 @@
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlaskit/visual-regression": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
-		"@babel/core": "7.24.9",
-		"@codeshift/utils": "^0.2.4",
-		"@testing-library/react": "^13.4.0",
-		"fs-extra": "^4.0.2",
-		"globby": "^6.1.0",
-		"jscodeshift": "^17.0.0",
-		"lodash": "^4.17.21",
-		"nullthrows": "^1.1.1",
-		"pkg-dir": "^4.2.0",
-		"react-dom": "^18.2.0",
-		"ts-node": "^10.9.1"
+		"@babel/core": "root:*",
+		"@codeshift/utils": "root:*",
+		"@testing-library/react": "root:*",
+		"fs-extra": "root:*",
+		"globby": "root:*",
+		"jscodeshift": "root:*",
+		"lodash": "root:*",
+		"nullthrows": "root:*",
+		"pkg-dir": "root:*",
+		"react-dom": "root:*",
+		"ts-node": "root:*"
 	},
 	"keywords": [
 		"atlaskit",

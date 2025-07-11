@@ -43,10 +43,10 @@
 		"@atlaskit/pragmatic-drag-and-drop-hitbox": "workspace:^",
 		"@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"@emotion/react": "^11.7.1",
-		"bind-event-listener": "^3.0.0",
-		"tiny-invariant": "^1.2.0"
+		"@babel/runtime": "root:*",
+		"@emotion/react": "root:*",
+		"bind-event-listener": "root:*",
+		"tiny-invariant": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0",
@@ -58,19 +58,19 @@
 		"@atlaskit/motion": "workspace:^",
 		"@atlaskit/radio": "workspace:^",
 		"@atlaskit/visual-regression": "workspace:^",
-		"@testing-library/dom": "^10.1.0",
-		"@testing-library/react": "^13.4.0",
-		"@testing-library/user-event": "^14.4.3",
-		"@types/react-beautiful-dnd": "^13.1.4",
-		"@types/react-window": "^1.8.5",
-		"jscodeshift": "^17.0.0",
-		"raf-stub": "^2.0.1",
-		"react-beautiful-dnd": "^12.2.0",
-		"react-virtualized": "^9.8.0",
-		"react-window": "^1.8.8",
-		"stylelint": "^15.0.0",
-		"typescript": "~5.4.2",
-		"wait-for-expect": "^1.2.0"
+		"@testing-library/dom": "root:*",
+		"@testing-library/react": "root:*",
+		"@testing-library/user-event": "root:*",
+		"@types/react-beautiful-dnd": "root:*",
+		"@types/react-window": "root:*",
+		"jscodeshift": "root:*",
+		"raf-stub": "root:*",
+		"react-beautiful-dnd": "root:*",
+		"react-virtualized": "root:*",
+		"react-window": "root:*",
+		"stylelint": "root:*",
+		"typescript": "root:*",
+		"wait-for-expect": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

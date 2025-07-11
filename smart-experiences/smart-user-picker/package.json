@@ -46,11 +46,11 @@
 		"@atlaskit/analytics-next": "workspace:^",
 		"@atlaskit/ufo": "workspace:^",
 		"@atlaskit/user-picker": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"lodash": "^4.17.21",
-		"memoize-one": "^6.0.0",
-		"react-intl-next": "npm:react-intl@^5.18.1",
-		"uuid": "^3.1.0"
+		"@babel/runtime": "root:*",
+		"lodash": "root:*",
+		"memoize-one": "root:*",
+		"react-intl-next": "root:*",
+		"uuid": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0",
@@ -59,13 +59,13 @@
 	"devDependencies": {
 		"@atlaskit/select": "workspace:^",
 		"@atlaskit/util-data-test": "workspace:^",
-		"@testing-library/dom": "^10.1.0",
-		"@testing-library/react": "^13.4.0",
-		"@testing-library/user-event": "^14.4.3",
-		"enzyme": "^3.10.0",
-		"fetch-mock": "^8.0.0",
-		"graphql-tag": "^2.10.1",
-		"mock-apollo-client": "^0.1.0",
-		"typescript": "~5.4.2"
+		"@testing-library/dom": "root:*",
+		"@testing-library/react": "root:*",
+		"@testing-library/user-event": "root:*",
+		"enzyme": "root:*",
+		"fetch-mock": "root:*",
+		"graphql-tag": "root:*",
+		"mock-apollo-client": "root:*",
+		"typescript": "root:*"
 	}
 }

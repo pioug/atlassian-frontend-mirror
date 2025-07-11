@@ -1,5 +1,26 @@
 # @atlaskit/editor-statsig-tmp
 
+## 9.3.0
+
+### Minor Changes
+
+- [#184251](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/184251)
+  [`be8b910f66de1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be8b910f66de1) -
+  [ED-91152] Clean up experiment editor_text_highlight_orange_to_yellow
+
+## 9.2.0
+
+### Minor Changes
+
+- [#178699](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/178699)
+  [`52404712b174a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/52404712b174a) -
+  Added a new experiment key for jira work sync and added new logic for issue-reformatter for
+  improve description flow behind an experiment
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.1.0
 
 ### Minor Changes

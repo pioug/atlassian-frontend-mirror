@@ -1,5 +1,13 @@
 # @atlaskit/storybook-addon-design-system
 
+## 3.1.2
+
+### Patch Changes
+
+- [#183895](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183895)
+  [`6b9d473fcf71a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b9d473fcf71a) -
+  [ux] Bump storybook libs to latest v8 version
+
 ## 3.1.1
 
 ### Patch Changes

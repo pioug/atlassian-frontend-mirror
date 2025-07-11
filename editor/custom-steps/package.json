@@ -33,11 +33,11 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^47.6.0",
-		"@atlaskit/editor-prosemirror": "7.0.0",
+		"@atlaskit/adf-schema": "root:*",
+		"@atlaskit/editor-prosemirror": "root:*",
 		"@atlaskit/editor-tables": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"memoize-one": "^6.0.0"
+		"@babel/runtime": "root:*",
+		"memoize-one": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

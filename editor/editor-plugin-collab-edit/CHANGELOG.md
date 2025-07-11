@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 4.0.2
+
+### Patch Changes
+
+- [#183342](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183342)
+  [`2929809030e36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2929809030e36) -
+  Ensures telepointer selection will continue to show while using AI.
+
 ## 4.0.1
 
 ### Patch Changes

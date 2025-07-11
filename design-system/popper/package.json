@@ -24,9 +24,9 @@
 		}
 	},
 	"dependencies": {
-		"@babel/runtime": "^7.0.0",
-		"@popperjs/core": "^2.11.8",
-		"react-popper": "^2.3.0"
+		"@babel/runtime": "root:*",
+		"@popperjs/core": "root:*",
+		"react-popper": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
@@ -43,12 +43,12 @@
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
-		"@compiled/react": "^0.18.3",
-		"@testing-library/react": "^13.4.0",
-		"@testing-library/user-event": "^14.4.3",
-		"react-dom": "^18.2.0",
-		"react-lorem-component": "^0.13.0",
-		"typescript": "~5.4.2"
+		"@compiled/react": "root:*",
+		"@testing-library/react": "root:*",
+		"@testing-library/user-event": "root:*",
+		"react-dom": "root:*",
+		"react-lorem-component": "root:*",
+		"typescript": "root:*"
 	},
 	"keywords": [
 		"atlaskit",

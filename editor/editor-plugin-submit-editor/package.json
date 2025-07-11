@@ -34,16 +34,16 @@
 	},
 	"dependencies": {
 		"@atlaskit/editor-plugin-media": "workspace:^",
-		"@atlaskit/editor-prosemirror": "7.0.0",
-		"@babel/runtime": "^7.0.0"
+		"@atlaskit/editor-prosemirror": "root:*",
+		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@testing-library/react": "^13.4.0",
-		"typescript": "~5.4.2"
+		"@testing-library/react": "root:*",
+		"typescript": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

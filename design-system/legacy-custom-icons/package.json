@@ -317,7 +317,7 @@
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
-		"@babel/runtime": "^7.0.0"
+		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
@@ -328,12 +328,12 @@
 		"@atlaskit/ssr": "workspace:^",
 		"@atlaskit/visual-regression": "workspace:^",
 		"@atlassian/codegen": "workspace:^",
-		"@testing-library/react": "^13.4.0",
-		"enquirer": "^2.3.4",
-		"fs-extra": "^4.0.2",
-		"react-dom": "^18.2.0",
-		"ts-node": "^10.9.1",
-		"typescript": "~5.4.2"
+		"@testing-library/react": "root:*",
+		"enquirer": "root:*",
+		"fs-extra": "root:*",
+		"react-dom": "root:*",
+		"ts-node": "root:*",
+		"typescript": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

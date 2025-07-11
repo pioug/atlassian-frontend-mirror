@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-editor
 
+## 1.5.0
+
+### Minor Changes
+
+- [#184137](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/184137)
+  [`5de7ddbb39301`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5de7ddbb39301) -
+  Add lint rule to enforce editor peer dependencies
+
 ## 1.4.0
 
 ### Minor Changes

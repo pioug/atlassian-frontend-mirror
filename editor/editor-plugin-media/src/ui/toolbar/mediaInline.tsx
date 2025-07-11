@@ -55,7 +55,11 @@ import {
 import { shouldShowImageBorder } from './imageBorder';
 import { getOpenLinkToolbarButtonOption, shouldShowMediaLinkToolbar } from './linking';
 import { LinkToolbarAppearance } from './linking-toolbar-appearance';
-import { downloadMedia, getMediaSingleAndMediaInlineSwitcherDropdown } from './utils';
+import {
+	downloadMedia,
+	getIsDownloadDisabledByDataSecurityPolicy,
+	getMediaSingleAndMediaInlineSwitcherDropdown,
+} from './utils';
 
 import { handleShowMediaViewer } from './index';
 
@@ -105,6 +109,8 @@ export const generateMediaInlineFloatingToolbar = (
 		...(isEditorControlsEnabled && { supportsViewMode: true }),
 	};
 
+	const disableDownloadButton = getIsDownloadDisabledByDataSecurityPolicy(mediaPluginState);
+
 	const download: FloatingToolbarButton<Command> = {
 		id: 'editor.media.card.download',
 		type: 'button',
@@ -113,6 +119,7 @@ export const generateMediaInlineFloatingToolbar = (
 			downloadMedia(mediaPluginState);
 			return true;
 		},
+		disabled: disableDownloadButton,
 		title: intl.formatMessage(messages.download),
 		...(isEditorControlsEnabled && { supportsViewMode: true }),
 	};

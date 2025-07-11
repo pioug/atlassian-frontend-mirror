@@ -126,7 +126,10 @@ export function initialisePressureObserver() {
 				}
 			});
 
-			pressureObserver.observe('cpu', { sampleInterval: 100 }).catch();
+			pressureObserver.observe('cpu', { sampleInterval: 100 }).catch(() => {
+				// Silently handle permission policy restrictions or other observe failures
+				// This prevents unhandled promise rejections from being reported to Sentry
+			});
 		}
 	} catch (err) {
 		/* do nothing, this is a best efforts metric */

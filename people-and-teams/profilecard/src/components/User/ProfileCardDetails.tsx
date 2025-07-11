@@ -4,6 +4,7 @@ import { cssMap, cx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import Lozenge from '@atlaskit/lozenge';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -54,10 +55,28 @@ const styles = cssMap({
 		marginRight: '0',
 		marginLeft: '0',
 	},
+	noMetaLabelWithHighSpecificity: {
+		// Using `&` and id attribute to increase specificity
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'&#profilecard-name-label': {
+			marginTop: token('space.400'),
+			marginBottom: token('space.150'),
+		},
+	},
 	metaLabel: {
 		// Using `&` twice to increase specificity
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'&&': {
+			marginTop: token('space.150'),
+		},
+		marginRight: '0',
+		marginBottom: '0',
+		marginLeft: '0',
+	},
+	metaLabelWithHighSpecificity: {
+		// Using `&` and id attribute to increase specificity
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'&#profilecard-name-label': {
 			marginTop: token('space.150'),
 		},
 		marginRight: '0',
@@ -88,7 +107,13 @@ const renderName = (nickname?: string, fullName?: string, meta?: string) => {
 			xcss={cx(
 				styles.fullNameLabel,
 				styles.activeAccount,
-				meta ? styles.metaLabel : styles.noMetaLabel,
+				meta
+					? fg('platform_editor_profilecard_style_fix')
+						? styles.metaLabelWithHighSpecificity
+						: styles.metaLabel
+					: fg('platform_editor_profilecard_style_fix')
+						? styles.noMetaLabelWithHighSpecificity
+						: styles.noMetaLabel,
 			)}
 			testId="profilecard-name"
 			id="profilecard-name-label"

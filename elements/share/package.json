@@ -61,12 +61,12 @@
 		"@atlaskit/ufo": "workspace:^",
 		"@atlaskit/user-picker": "workspace:^",
 		"@atlaskit/util-service-support": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"@emotion/react": "^11.7.1",
-		"fast-deep-equal": "^3.1.1",
-		"memoize-one": "^6.0.0",
-		"react-intl-next": "npm:react-intl@^5.18.1",
-		"tiny-invariant": "^1.2.0"
+		"@babel/runtime": "root:*",
+		"@emotion/react": "root:*",
+		"fast-deep-equal": "root:*",
+		"memoize-one": "root:*",
+		"react-intl-next": "root:*",
+		"tiny-invariant": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
@@ -75,11 +75,11 @@
 		"@atlaskit/editor-test-helpers": "workspace:^",
 		"@atlaskit/flag": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
-		"@testing-library/react": "^13.4.0",
-		"@testing-library/user-event": "^14.4.3",
-		"enzyme": "^3.10.0",
-		"react": "^18.2.0",
-		"typescript": "~5.4.2"
+		"@testing-library/react": "root:*",
+		"@testing-library/user-event": "root:*",
+		"enzyme": "root:*",
+		"react": "root:*",
+		"typescript": "root:*"
 	},
 	"keywords": [
 		"ui",

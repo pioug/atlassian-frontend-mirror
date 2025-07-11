@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/eslint-plugin-editor",
-	"version": "1.4.0",
+	"version": "1.5.0",
 	"description": "Custom ESLint plugin for Editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -17,13 +17,13 @@
 	},
 	"license": "MIT",
 	"dependencies": {
-		"@babel/runtime": "^7.0.0",
-		"eslint": "^8.57.0"
+		"@babel/runtime": "root:*",
+		"eslint": "root:*"
 	},
 	"devDependencies": {
-		"@types/eslint": "^8.56.6",
+		"@types/eslint": "root:*",
 		"@typescript-eslint/parser": "^5.62.0",
-		"@typescript-eslint/typescript-estree": "^5.56.0",
+		"@typescript-eslint/typescript-estree": "root:*",
 		"@typescript-eslint/utils": "^5.48.1"
 	},
 	"af:exports": {

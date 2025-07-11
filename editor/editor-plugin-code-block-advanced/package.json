@@ -34,27 +34,27 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^47.6.0",
+		"@atlaskit/adf-schema": "root:*",
 		"@atlaskit/editor-plugin-code-block": "workspace:^",
 		"@atlaskit/editor-plugin-editor-disabled": "workspace:^",
 		"@atlaskit/editor-plugin-find-replace": "workspace:^",
 		"@atlaskit/editor-plugin-selection": "workspace:^",
 		"@atlaskit/editor-plugin-selection-marker": "workspace:^",
-		"@atlaskit/editor-prosemirror": "7.0.0",
+		"@atlaskit/editor-prosemirror": "root:*",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"@codemirror/autocomplete": "6.18.4",
-		"@codemirror/commands": "6.7.1",
-		"@codemirror/language": "6.10.8",
-		"@codemirror/language-data": "6.5.1",
-		"@codemirror/state": "6.5.1",
-		"@codemirror/view": "6.36.2",
-		"@lezer/highlight": "1.2.1",
-		"@xiechao/codemirror-lang-handlebars": "^1.0.4",
-		"cm6-graphql": "0.2.0",
-		"codemirror-lang-elixir": "4.0.0"
+		"@babel/runtime": "root:*",
+		"@codemirror/autocomplete": "root:*",
+		"@codemirror/commands": "root:*",
+		"@codemirror/language": "root:*",
+		"@codemirror/language-data": "root:*",
+		"@codemirror/state": "root:*",
+		"@codemirror/view": "root:*",
+		"@lezer/highlight": "root:*",
+		"@xiechao/codemirror-lang-handlebars": "root:*",
+		"cm6-graphql": "root:*",
+		"codemirror-lang-elixir": "root:*"
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
@@ -62,7 +62,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/code": "workspace:^",
-		"typescript": "~5.4.2"
+		"typescript": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

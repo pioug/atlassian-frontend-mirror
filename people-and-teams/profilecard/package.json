@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "23.21.6",
+	"version": "23.21.7",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -93,17 +93,17 @@
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"@compiled/react": "^0.18.3",
-		"@emotion/react": "^11.7.1",
-		"@emotion/styled": "^11.0.0",
-		"date-fns": "^2.17.0",
-		"date-fns-tz": "^2.0.0",
-		"graphql": "^15.8.0",
-		"graphql-tag": "^2.10.1",
-		"lodash": "^4.17.21",
-		"lru_map": "^0.4.1",
-		"react-intl-next": "npm:react-intl@^5.18.1"
+		"@babel/runtime": "root:*",
+		"@compiled/react": "root:*",
+		"@emotion/react": "root:*",
+		"@emotion/styled": "root:*",
+		"date-fns": "root:*",
+		"date-fns-tz": "root:*",
+		"graphql": "root:*",
+		"graphql-tag": "root:*",
+		"lodash": "root:*",
+		"lru_map": "root:*",
+		"react-intl-next": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0",
@@ -113,18 +113,18 @@
 		"@af/visual-regression": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ptc-test-utils": "workspace:^",
-		"@testing-library/react": "^13.4.0",
-		"@testing-library/react-hooks": "^8.0.1",
-		"@testing-library/user-event": "^14.4.3",
-		"@types/react-router-dom": "^4.3.1",
-		"enzyme": "^3.10.0",
-		"es6-promise": "^4.0.5",
-		"fetch-mock": "^8.0.0",
-		"loader-utils": "^1.1.0",
-		"react-router-dom": "^4.2.2",
-		"sinon": "^2.2.0",
-		"typescript": "~5.4.2",
-		"uid": "^0.0.2"
+		"@testing-library/react": "root:*",
+		"@testing-library/react-hooks": "root:*",
+		"@testing-library/user-event": "root:*",
+		"@types/react-router-dom": "root:*",
+		"enzyme": "root:*",
+		"es6-promise": "root:*",
+		"fetch-mock": "root:*",
+		"loader-utils": "root:*",
+		"react-router-dom": "root:*",
+		"sinon": "root:*",
+		"typescript": "root:*",
+		"uid": "root:*"
 	},
 	"keywords": [
 		"ui",
@@ -191,6 +191,9 @@
 			"type": "boolean"
 		},
 		"platform-adopt-teams-nav-config": {
+			"type": "boolean"
+		},
+		"platform_editor_profilecard_style_fix": {
 			"type": "boolean"
 		}
 	},

@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-media
 
+## 5.1.4
+
+### Patch Changes
+
+- [#184004](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/184004)
+  [`a08a65a80b5a3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a08a65a80b5a3) -
+  [ux] Ensure data security policy enforced for download buttons in mediaInline and mediaSingle
+  floating toolbars
+- Updated dependencies
+
 ## 5.1.3
 
 ### Patch Changes

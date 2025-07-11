@@ -56,8 +56,8 @@
 		"@atlaskit/textarea": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"react-intl-next": "npm:react-intl@^5.18.1"
+		"@babel/runtime": "root:*",
+		"react-intl-next": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0",
@@ -67,10 +67,10 @@
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
-		"@testing-library/react": "^13.4.0",
-		"@testing-library/react-hooks": "^8.0.1",
-		"buffer": "^6.0.3",
-		"typescript": "~5.4.2"
+		"@testing-library/react": "root:*",
+		"@testing-library/react-hooks": "root:*",
+		"buffer": "root:*",
+		"typescript": "root:*"
 	},
 	"keywords": [
 		"atlaskit",

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugins",
-	"version": "9.4.33",
+	"version": "9.4.36",
 	"description": "A convenience facade package that exposes all @atlaskit/editor-plugin-* plugins so that users can add this package without having to manually add all their plugins",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -327,7 +327,7 @@
 		"@atlaskit/editor-plugin-user-intent": "workspace:*",
 		"@atlaskit/editor-plugin-user-preferences": "workspace:*",
 		"@atlaskit/editor-plugin-width": "workspace:*",
-		"@babel/runtime": "^7.0.0"
+		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0",
@@ -340,11 +340,11 @@
 		"@atlaskit/ssr": "workspace:^",
 		"@atlaskit/visual-regression": "workspace:^",
 		"@atlassian/ts-loader": "workspace:^",
-		"@manypkg/find-root": "^1.1.0",
-		"@testing-library/react": "^13.4.0",
-		"typescript": "~5.4.2",
-		"wait-for-expect": "^1.2.0",
-		"yargs": "^15.3.1"
+		"@manypkg/find-root": "root:*",
+		"@testing-library/react": "root:*",
+		"typescript": "root:*",
+		"wait-for-expect": "root:*",
+		"yargs": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

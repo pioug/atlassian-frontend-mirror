@@ -37,16 +37,16 @@
 	},
 	"dependencies": {
 		"@atlaskit/jql-parser": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"antlr4-c3": "3.0.1",
-		"antlr4ts": "0.5.0-alpha.4",
-		"assert": "^2.0.0",
-		"util": "^0.12.4"
+		"@babel/runtime": "root:*",
+		"antlr4-c3": "root:*",
+		"antlr4ts": "root:*",
+		"assert": "root:*",
+		"util": "root:*"
 	},
 	"devDependencies": {
 		"@atlaskit/docs": "workspace:^",
-		"typescript": "~5.4.2",
-		"wait-for-expect": "^1.2.0"
+		"typescript": "root:*",
+		"wait-for-expect": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

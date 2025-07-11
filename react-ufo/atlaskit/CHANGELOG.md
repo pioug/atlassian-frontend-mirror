@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.14.12
+
+### Patch Changes
+
+- [#183928](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183928)
+  [`d9580eee2eedc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d9580eee2eedc) -
+  Suppress Sentry NotAllowedError on observe PressureObserver
+
 ## 3.14.11
 
 ### Patch Changes

@@ -41,13 +41,13 @@
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/reactions": "workspace:^",
 		"@atlaskit/renderer": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"date-fns": "^2.17.0",
-		"lodash": "^4.17.21",
-		"react": "^18.2.0",
-		"react-redux": "^5.1.2",
-		"redux": "^3.7.2",
-		"redux-thunk": "^2.3.0"
+		"@babel/runtime": "root:*",
+		"date-fns": "root:*",
+		"lodash": "root:*",
+		"react": "root:*",
+		"react-redux": "root:*",
+		"redux": "root:*",
+		"redux-thunk": "root:*"
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
@@ -56,10 +56,10 @@
 	},
 	"devDependencies": {
 		"@atlaskit/util-data-test": "workspace:^",
-		"@testing-library/react": "^13.4.0",
-		"@types/react-redux": "^5.0.0",
-		"enzyme": "^3.10.0",
-		"typescript": "~5.4.2"
+		"@testing-library/react": "root:*",
+		"@types/react-redux": "root:*",
+		"enzyme": "root:*",
+		"typescript": "root:*"
 	},
 	"af:exports": {
 		".": "./src/index.ts"

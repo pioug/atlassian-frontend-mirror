@@ -28,7 +28,7 @@
 		"singleton": true
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^47.6.0",
+		"@atlaskit/adf-schema": "root:*",
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/custom-steps": "workspace:^",
 		"@atlaskit/editor-palette": "workspace:^",
@@ -42,7 +42,7 @@
 		"@atlaskit/editor-plugin-interaction": "workspace:^",
 		"@atlaskit/editor-plugin-selection": "workspace:^",
 		"@atlaskit/editor-plugin-width": "workspace:^",
-		"@atlaskit/editor-prosemirror": "7.0.0",
+		"@atlaskit/editor-prosemirror": "root:*",
 		"@atlaskit/editor-shared-styles": "workspace:^",
 		"@atlaskit/editor-tables": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
@@ -57,13 +57,13 @@
 		"@atlaskit/toggle": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"@emotion/react": "^11.7.1",
-		"classnames": "^2.2.5",
-		"lodash": "^4.17.21",
-		"memoize-one": "^6.0.0",
-		"raf-schd": "^4.0.3",
-		"uuid": "^3.1.0"
+		"@babel/runtime": "root:*",
+		"@emotion/react": "root:*",
+		"classnames": "root:*",
+		"lodash": "root:*",
+		"memoize-one": "root:*",
+		"raf-schd": "root:*",
+		"uuid": "root:*"
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
@@ -72,7 +72,7 @@
 		"react-intl-next": "*"
 	},
 	"devDependencies": {
-		"typescript": "~5.4.2"
+		"typescript": "root:*"
 	},
 	"af:exports": {
 		"./types": "./src/types/index.ts",

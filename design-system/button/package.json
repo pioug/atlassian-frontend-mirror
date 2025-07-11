@@ -105,9 +105,9 @@
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlaskit/visually-hidden": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"@compiled/react": "^0.18.3",
-		"@emotion/react": "^11.7.1"
+		"@babel/runtime": "root:*",
+		"@compiled/react": "root:*",
+		"@emotion/react": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
@@ -131,13 +131,13 @@
 		"@atlaskit/toggle": "workspace:^",
 		"@atlaskit/visual-regression": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
-		"@testing-library/react": "^13.4.0",
-		"@testing-library/user-event": "^14.4.3",
-		"ast-types": "^0.13.3",
-		"jscodeshift": "^17.0.0",
-		"lodash": "^4.17.21",
-		"react-dom": "^18.2.0",
-		"typescript": "~5.4.2"
+		"@testing-library/react": "root:*",
+		"@testing-library/user-event": "root:*",
+		"ast-types": "root:*",
+		"jscodeshift": "root:*",
+		"lodash": "root:*",
+		"react-dom": "root:*",
+		"typescript": "root:*"
 	},
 	"homepage": "https://atlassian.design/components/button/",
 	"platform-feature-flags": {

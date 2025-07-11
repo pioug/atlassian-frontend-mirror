@@ -37,8 +37,8 @@
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/visually-hidden": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"bind-event-listener": "^3.0.0"
+		"@babel/runtime": "root:*",
+		"bind-event-listener": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0",
@@ -62,13 +62,13 @@
 		"@atlaskit/textfield": "workspace:^",
 		"@atlaskit/toggle": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
-		"@testing-library/react": "^13.4.0",
-		"@testing-library/react-hooks": "^8.0.1",
-		"@testing-library/user-event": "^14.4.3",
-		"jest-in-case": "^1.0.2",
-		"raf-stub": "^2.0.1",
-		"react-dom": "^18.2.0",
-		"typescript": "~5.4.2"
+		"@testing-library/react": "root:*",
+		"@testing-library/react-hooks": "root:*",
+		"@testing-library/user-event": "root:*",
+		"jest-in-case": "root:*",
+		"raf-stub": "root:*",
+		"react-dom": "root:*",
+		"typescript": "root:*"
 	},
 	"keywords": [
 		"atlaskit",

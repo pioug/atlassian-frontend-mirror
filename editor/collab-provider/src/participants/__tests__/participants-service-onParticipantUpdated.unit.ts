@@ -194,7 +194,7 @@ describe('onParticpantUpdated updateParticipantEager', () => {
 	});
 });
 
-describe('onParticpantUpdated updateParticipantLazy', () => {
+describe('onParticipantUpdated updateParticipantLazy', () => {
 	const mockGetUsers = jest.fn().mockReturnValue([
 		{
 			name: hydratedParticipant.name,
@@ -211,6 +211,36 @@ describe('onParticpantUpdated updateParticipantLazy', () => {
 	const emit = jest.fn();
 
 	afterEach(() => jest.clearAllMocks());
+
+	it('should emit presence:joined when participant is ai agent', async () => {
+		const participantsService = participantsServiceConstructor({
+			emit,
+			batchProps: defaultBatchProps,
+		});
+
+		const spyBatchFetchUsers = jest.spyOn(participantsService, 'batchFetchUsers');
+		const aiPayload = {
+			...payload,
+			userId: 'agent:123',
+		};
+
+		// @ts-ignore private variable, ensure we pass conditional to verify we don't actually invoke batch fetch users
+		participantsService.currentlyPollingFetchUsers = false;
+		await participantsService.onParticipantUpdated(aiPayload);
+		expect(emit).toHaveBeenCalledWith('presence', {
+			joined: [
+				{
+					...aiPayload,
+					lastActive: payload.timestamp,
+					name: '',
+					avatar: '',
+					email: '',
+				},
+			],
+		});
+
+		expect(spyBatchFetchUsers).not.toHaveBeenCalled();
+	});
 
 	describe.each([[true], [false]])(
 		'when participant is new and currentlyPollingFetchUsers=%s',

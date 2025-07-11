@@ -36,7 +36,7 @@
 		"@atlaskit/analytics-next": "workspace:^",
 		"@atlaskit/badge": "workspace:^",
 		"@atlaskit/notification-log-client": "workspace:^",
-		"@babel/runtime": "^7.0.0"
+		"@babel/runtime": "root:*"
 	},
 	"techstack": {
 		"@repo/internal": {
@@ -50,7 +50,7 @@
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
-		"@testing-library/react": "^13.4.0",
-		"typescript": "~5.4.2"
+		"@testing-library/react": "root:*",
+		"typescript": "root:*"
 	}
 }

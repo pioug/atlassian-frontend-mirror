@@ -445,6 +445,85 @@ describe('DocumentViewer', () => {
 			const image = await screen.findByTestId('page-0-image');
 			expect(image).toHaveAttribute('alt', '');
 		});
+
+		it('should show spinner while image is loading', async () => {
+			const props = createMockProps({
+				getPageImageUrl: jest.fn().mockImplementation(() => new Promise(() => {})), // Never resolves
+			});
+			render(<DocumentViewer {...props} />);
+			await waitFor(async () => await makeAllIntersectionObserversVisible());
+
+			// Should show spinner while image is loading
+			const spinner = await screen.findByTestId('spinner-wrapper');
+			expect(spinner).toBeInTheDocument();
+
+			// Should not show image yet
+			expect(screen.queryByTestId('page-0-image')).not.toBeInTheDocument();
+		});
+
+		it('should hide spinner when image loads', async () => {
+			const props = createMockProps();
+			render(<DocumentViewer {...props} />);
+			await waitFor(async () => await makeAllIntersectionObserversVisible());
+
+			// Should show image and not show spinner
+			const image = await screen.findByTestId('page-0-image');
+			expect(image).toBeInTheDocument();
+			expect(screen.queryByTestId('spinner-wrapper')).not.toBeInTheDocument();
+		});
+
+		it('should use A4 dimensions as fallback when no content or image dimensions are available', async () => {
+			const props = createMockProps({
+				getContent: jest.fn().mockImplementation(() => new Promise(() => {})), // Never resolves
+				getPageImageUrl: jest.fn().mockImplementation(() => new Promise(() => {})), // Never resolves
+			});
+			render(<DocumentViewer {...props} />);
+			await waitFor(async () => await makeAllIntersectionObserversVisible());
+
+			const page = await screen.findByTestId('page-0');
+			expect(page).toBeInTheDocument();
+
+			// Should use A4 dimensions (842x595) as fallback
+			const expectedWidth = 'calc(var(--document-viewer-zoom) * 842px)';
+			const expectedHeight = 'calc(var(--document-viewer-zoom) * 595px)';
+
+			expect(page).toHaveStyle(`width: ${expectedWidth}`);
+			expect(page).toHaveStyle(`height: ${expectedHeight}`);
+		});
+
+		it('should use content dimensions when available', async () => {
+			const props = createMockProps();
+			render(<DocumentViewer {...props} />);
+			await waitFor(async () => await makeAllIntersectionObserversVisible());
+
+			const page = await screen.findByTestId('page-0');
+			expect(page).toBeInTheDocument();
+
+			// Should use content dimensions (800x600 from mockPageContent)
+			const expectedWidth = 'calc(var(--document-viewer-zoom) * 800px)';
+			const expectedHeight = 'calc(var(--document-viewer-zoom) * 600px)';
+
+			expect(page).toHaveStyle(`width: ${expectedWidth}`);
+			expect(page).toHaveStyle(`height: ${expectedHeight}`);
+		});
+
+		it('should use initial dimensions when image is loaded but no content dimensions', async () => {
+			const props = createMockProps({
+				getContent: jest.fn().mockImplementation(() => new Promise(() => {})), // Never resolves
+			});
+			render(<DocumentViewer {...props} />);
+			await waitFor(async () => await makeAllIntersectionObserversVisible());
+
+			const page = await screen.findByTestId('page-0');
+			const image = await screen.findByTestId('page-0-image');
+
+			expect(page).toBeInTheDocument();
+			expect(image).toBeInTheDocument();
+
+			// Should use initial dimensions when image is loaded but no content
+			expect(page).toHaveStyle('width: initial');
+			expect(page).toHaveStyle('height: initial');
+		});
 	});
 
 	describe('Annotations', () => {

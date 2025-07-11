@@ -32,10 +32,10 @@
 	"dependencies": {
 		"@atlaskit/ds-lib": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"@babel/traverse": "^7.23.2",
-		"@babel/types": "^7.20.0",
-		"bind-event-listener": "^3.0.0"
+		"@babel/runtime": "root:*",
+		"@babel/traverse": "root:*",
+		"@babel/types": "root:*",
+		"bind-event-listener": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
@@ -72,22 +72,22 @@
 		"@atlassian/codegen": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ts-loader": "workspace:^",
-		"@babel/core": "7.24.9",
-		"@compiled/react": "^0.18.3",
-		"@hypermod/utils": "^0.4.2",
-		"@testing-library/react": "^13.4.0",
-		"@testing-library/react-hooks": "^8.0.1",
-		"color-blend": "^4.0.0",
-		"echarts": "^5.4.1",
-		"echarts-for-react": "^3.0.2",
-		"jscodeshift": "^17.0.0",
-		"lodash": "^4.17.21",
-		"postcss": "^8.4.7",
-		"postcss-less": "^6.0.0",
-		"react": "^18.2.0",
-		"react-window": "^1.8.8",
-		"style-dictionary": "^3.8.0",
-		"typescript": "~5.4.2"
+		"@babel/core": "root:*",
+		"@compiled/react": "root:*",
+		"@hypermod/utils": "root:*",
+		"@testing-library/react": "root:*",
+		"@testing-library/react-hooks": "root:*",
+		"color-blend": "root:*",
+		"echarts": "root:*",
+		"echarts-for-react": "root:*",
+		"jscodeshift": "root:*",
+		"lodash": "root:*",
+		"postcss": "root:*",
+		"postcss-less": "root:*",
+		"react": "root:*",
+		"react-window": "root:*",
+		"style-dictionary": "root:*",
+		"typescript": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

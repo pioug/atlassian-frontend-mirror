@@ -27,7 +27,7 @@
 		"@atlaskit/codemod-utils": "workspace:^",
 		"@atlaskit/ds-lib": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
-		"@babel/runtime": "^7.0.0"
+		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
@@ -38,13 +38,13 @@
 		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
-		"@compiled/react": "^0.18.3",
-		"@testing-library/react": "^13.4.0",
-		"@types/color": "^3.0.0",
-		"color": "^3.0.0",
-		"jest-in-case": "^1.0.2",
-		"react-dom": "^18.2.0",
-		"typescript": "~5.4.2"
+		"@compiled/react": "root:*",
+		"@testing-library/react": "root:*",
+		"@types/color": "root:*",
+		"color": "root:*",
+		"jest-in-case": "root:*",
+		"react-dom": "root:*",
+		"typescript": "root:*"
 	},
 	"keywords": [
 		"atlaskit",

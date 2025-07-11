@@ -47,6 +47,16 @@ jest.mock('@atlaskit/media-document-viewer', () => ({
 	DOCUMENT_SCROLL_ROOT_ID: 'document-scroll-root',
 }));
 
+// Mock Spinner from @atlaskit/spinner
+jest.mock('@atlaskit/spinner', () => ({
+	__esModule: true,
+	default: ({ size, appearance }: any) => (
+		<div data-testid="spinner" data-size={size} data-appearance={appearance}>
+			Loading...
+		</div>
+	),
+}));
+
 describe('<DocViewer />', () => {
 	const mockOnSuccess = jest.fn();
 	const mockOnError = jest.fn();
@@ -105,7 +115,7 @@ describe('<DocViewer />', () => {
 	};
 
 	describe('Basic Rendering', () => {
-		it('should render DocumentViewer', async () => {
+		it('should render DocumentViewer with loading state initially', async () => {
 			const [fileItem] = generateSampleFileItem.workingPdfWithRemotePreview();
 			const { mediaApi } = createMockedMediaApi(fileItem);
 
@@ -113,8 +123,15 @@ describe('<DocViewer />', () => {
 			jest.spyOn(mediaApi, 'getDocumentContent').mockResolvedValue(mockDocumentContent);
 			jest.spyOn(mediaApi, 'getDocumentPageImage').mockResolvedValue(new Blob());
 
-			renderDocViewer(fileItem);
+			renderDocViewer(fileItem, mediaApi);
 
+			// Initially, spinner should be visible and document viewer should have opacity 0
+			expect(screen.getByTestId('spinner')).toBeInTheDocument();
+
+			const documentViewerContainer = document.getElementById('document-scroll-root');
+			expect(documentViewerContainer).toHaveStyle('opacity: 0');
+
+			// After loading completes, spinner should be hidden and document viewer should be visible
 			expect(await screen.findByTestId('media-document-viewer')).toBeInTheDocument();
 			expect(screen.getByTestId('document-content')).toBeInTheDocument();
 
@@ -124,6 +141,12 @@ describe('<DocViewer />', () => {
 
 			// Check that password input is not shown
 			expect(screen.queryByPlaceholderText('Enter password')).not.toBeInTheDocument();
+
+			// After successful loading, spinner should be hidden and opacity should be 1
+			await waitFor(() => {
+				expect(screen.queryByTestId('spinner')).not.toBeInTheDocument();
+			});
+			expect(documentViewerContainer).toHaveStyle('opacity: 1');
 		});
 
 		it('should have document scroll root id', async () => {
@@ -360,6 +383,49 @@ describe('<DocViewer />', () => {
 		});
 	});
 
+	describe('Loading State', () => {
+		it('should show spinner initially and hide after successful loading', async () => {
+			const [fileItem] = generateSampleFileItem.workingPdfWithRemotePreview();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
+			jest.spyOn(mediaApi, 'getDocumentContent').mockResolvedValue(mockDocumentContent);
+			jest.spyOn(mediaApi, 'getDocumentPageImage').mockResolvedValue(new Blob());
+
+			renderDocViewer(fileItem, mediaApi);
+
+			// Initially, spinner should be visible
+			expect(screen.getByTestId('spinner')).toBeInTheDocument();
+			expect(screen.getByTestId('spinner')).toHaveAttribute('data-size', 'large');
+			expect(screen.getByTestId('spinner')).toHaveAttribute('data-appearance', 'invert');
+
+			// Document viewer container should have opacity 0
+			const documentViewerContainer = document.getElementById('document-scroll-root');
+			expect(documentViewerContainer).toHaveStyle('opacity: 0');
+
+			// After loading completes, spinner should be hidden and opacity should be 1
+			await screen.findByTestId('media-document-viewer');
+
+			await waitFor(() => {
+				expect(screen.queryByTestId('spinner')).not.toBeInTheDocument();
+				expect(documentViewerContainer).toHaveStyle('opacity: 1');
+			});
+		});
+
+		it('should maintain loading state during password flow', async () => {
+			const [fileItem] = generateSampleFileItem.workingPdfWithRemotePreview();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
+			// First call fails with password required
+			jest.spyOn(mediaApi, 'getDocumentContent').mockRejectedValue(createPasswordRequiredError());
+
+			renderDocViewer(fileItem, mediaApi);
+
+			// Should show password input without spinner when password is required
+			expect(await screen.findByPlaceholderText('Enter password')).toBeInTheDocument();
+			expect(screen.queryByTestId('spinner')).not.toBeInTheDocument();
+		});
+	});
+
 	describe('Component Integration', () => {
 		it('should render zoom controls with correct functionality', async () => {
 			const [fileItem] = generateSampleFileItem.workingPdfWithRemotePreview();
@@ -447,24 +513,6 @@ describe('<DocViewer />', () => {
 					traceContext,
 				);
 			});
-		});
-	});
-
-	it('should call onSuccess when provided', async () => {
-		const [fileItem] = generateSampleFileItem.workingPdfWithRemotePreview();
-		const { mediaApi } = createMockedMediaApi(fileItem);
-		const mockOnSuccessLocal = jest.fn();
-
-		jest.spyOn(mediaApi, 'getDocumentContent').mockResolvedValue(mockDocumentContent);
-		jest.spyOn(mediaApi, 'getDocumentPageImage').mockResolvedValue(new Blob());
-
-		renderDocViewer(fileItem, mediaApi, mockOnSuccessLocal);
-
-		expect(await screen.findByTestId('media-document-viewer')).toBeInTheDocument();
-
-		// Verify onSuccess was called after successful content load
-		await waitFor(() => {
-			expect(mockOnSuccessLocal).toHaveBeenCalledTimes(1);
 		});
 	});
 });

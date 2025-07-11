@@ -4,7 +4,7 @@
  */
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import { N200, N900 } from '@atlaskit/theme/colors';
+import { N400, N900 } from '@atlaskit/theme/colors';
 import type { EmojiDescription } from '../../types';
 import CachingEmoji from './CachingEmoji';
 
@@ -23,7 +23,7 @@ const emojiName = css({
 
 const emojiShortName = css({
 	display: 'block',
-	color: token('color.text.subtle', N200),
+	color: token('color.text.subtle', N400),
 	font: token('font.body.UNSAFE_small'),
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 1,

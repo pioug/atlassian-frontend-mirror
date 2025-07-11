@@ -33,13 +33,13 @@
 	},
 	"dependencies": {
 		"@atlaskit/media-common": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"immer": "^9.0.12",
-		"zustand": "^4.3.9"
+		"@babel/runtime": "root:*",
+		"immer": "root:*",
+		"zustand": "root:*"
 	},
 	"devDependencies": {
-		"typescript": "~5.4.2",
-		"wait-for-expect": "^1.2.0"
+		"typescript": "root:*",
+		"wait-for-expect": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

@@ -49,9 +49,9 @@
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"@emotion/styled": "^11.0.0",
-		"react-intl-next": "npm:react-intl@^5.18.1"
+		"@babel/runtime": "root:*",
+		"@emotion/styled": "root:*",
+		"react-intl-next": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0",
@@ -59,9 +59,9 @@
 		"react-transition-group": "^4.4.1"
 	},
 	"devDependencies": {
-		"@testing-library/react": "^13.4.0",
-		"enzyme": "^3.10.0",
-		"typescript": "~5.4.2"
+		"@testing-library/react": "root:*",
+		"enzyme": "root:*",
+		"typescript": "root:*"
 	},
 	"keywords": [
 		"ui",

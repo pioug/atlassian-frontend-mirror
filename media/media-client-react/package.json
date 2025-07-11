@@ -36,8 +36,8 @@
 	"dependencies": {
 		"@atlaskit/media-client": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"zustand": "^4.3.9"
+		"@babel/runtime": "root:*",
+		"zustand": "root:*"
 	},
 	"peerDependencies": {
 		"@atlaskit/analytics-next": "workspace:^",
@@ -54,13 +54,13 @@
 		"@atlaskit/media-state": "workspace:^",
 		"@atlaskit/media-test-data": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
-		"@testing-library/react": "^13.4.0",
-		"@testing-library/react-hooks": "^8.0.1",
-		"@testing-library/user-event": "^14.4.3",
-		"jest-fetch-mock": "^3.0.3",
-		"msw": "^0.28.1",
-		"react-dom": "^18.2.0",
-		"typescript": "~5.4.2"
+		"@testing-library/react": "root:*",
+		"@testing-library/react-hooks": "root:*",
+		"@testing-library/user-event": "root:*",
+		"jest-fetch-mock": "root:*",
+		"msw": "root:*",
+		"react-dom": "root:*",
+		"typescript": "root:*"
 	},
 	"platform-feature-flags": {
 		"platform_media_cross_client_copy": {

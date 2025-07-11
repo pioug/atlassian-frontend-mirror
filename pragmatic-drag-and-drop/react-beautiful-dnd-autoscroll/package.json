@@ -37,14 +37,14 @@
 	},
 	"dependencies": {
 		"@atlaskit/pragmatic-drag-and-drop": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"css-box-model": "^1.2.0"
+		"@babel/runtime": "root:*",
+		"css-box-model": "root:*"
 	},
 	"devDependencies": {
-		"@emotion/react": "^11.7.1",
-		"raf-stub": "^2.0.1",
-		"typescript": "~5.4.2",
-		"wait-for-expect": "^1.2.0"
+		"@emotion/react": "root:*",
+		"raf-stub": "root:*",
+		"typescript": "root:*",
+		"wait-for-expect": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

@@ -35,13 +35,13 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@babel/runtime": "^7.0.0"
+		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@testing-library/react": "^13.4.0"
+		"@testing-library/react": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

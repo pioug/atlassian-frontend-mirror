@@ -32,12 +32,12 @@
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlaskit/visually-hidden": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"@compiled/react": "^0.18.3",
-		"bind-event-listener": "^3.0.0",
-		"memoize-one": "^6.0.0",
-		"raf-schd": "^4.0.3",
-		"refractor": "^3.6.0"
+		"@babel/runtime": "root:*",
+		"@compiled/react": "root:*",
+		"bind-event-listener": "root:*",
+		"memoize-one": "root:*",
+		"raf-schd": "root:*",
+		"refractor": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
@@ -57,15 +57,15 @@
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/toggle": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
-		"@testing-library/react": "^13.4.0",
-		"@types/jscodeshift": "^0.11.0",
-		"@types/refractor": "^3.0.2",
-		"color-contrast-checker": "^1.5.0",
-		"css-loader": "^2.0.0",
-		"prismjs": "^1.30.0",
-		"react-dom": "^18.2.0",
-		"style-loader": "^0.16.1",
-		"typescript": "~5.4.2"
+		"@testing-library/react": "root:*",
+		"@types/jscodeshift": "root:*",
+		"@types/refractor": "root:*",
+		"color-contrast-checker": "root:*",
+		"css-loader": "root:*",
+		"prismjs": "root:*",
+		"react-dom": "root:*",
+		"style-loader": "root:*",
+		"typescript": "root:*"
 	},
 	"keywords": [
 		"atlaskit",

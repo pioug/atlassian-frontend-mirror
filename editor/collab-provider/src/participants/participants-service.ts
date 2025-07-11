@@ -274,6 +274,12 @@ export class ParticipantsService {
 				userId,
 			};
 			this.participantsState.setBySessionId(sessionId, participant);
+
+			if (isAIProviderID(userId)) {
+				this.emitPresence({ joined: [participant] }, 'handling updated new agent lazy');
+				return;
+			}
+
 			// prevent running multiple debounces concurrently
 			if (!this.currentlyPollingFetchUsers) {
 				void this.batchFetchUsers();

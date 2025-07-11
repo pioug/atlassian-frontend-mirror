@@ -33,20 +33,20 @@
 		"ak-postbuild": "NODE_OPTIONS=--max-old-space-size=4096 webpack --env NODE_ENV=production --env prod --config config/webpack.prod.js"
 	},
 	"dependencies": {
-		"@babel/runtime": "^7.0.0",
-		"react-intl-next": "npm:react-intl@^5.18.1"
+		"@babel/runtime": "root:*",
+		"react-intl-next": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
-		"@testing-library/react": "^13.4.0",
-		"@testing-library/user-event": "^14.4.3",
-		"react-markdown": "^8.0.0",
-		"remark-gfm": "^3.0.0",
-		"typescript": "~5.4.2",
-		"wait-for-expect": "^1.2.0"
+		"@testing-library/react": "root:*",
+		"@testing-library/user-event": "root:*",
+		"react-markdown": "root:*",
+		"remark-gfm": "root:*",
+		"typescript": "root:*",
+		"wait-for-expect": "root:*"
 	},
 	"optionalDependencies": {
 		"@atlassian/embedded-confluence-common": "workspace:^",

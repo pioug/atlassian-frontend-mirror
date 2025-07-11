@@ -49,8 +49,8 @@
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/visually-hidden": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"memoize-one": "^6.0.0"
+		"@babel/runtime": "root:*",
+		"memoize-one": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
@@ -67,10 +67,10 @@
 		"@atlaskit/ssr": "workspace:^",
 		"@atlaskit/visual-regression": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
-		"@testing-library/dom": "^10.1.0",
-		"@testing-library/react": "^13.4.0",
-		"react-dom": "^18.2.0",
-		"typescript": "~5.4.2"
+		"@testing-library/dom": "root:*",
+		"@testing-library/react": "root:*",
+		"react-dom": "root:*",
+		"typescript": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

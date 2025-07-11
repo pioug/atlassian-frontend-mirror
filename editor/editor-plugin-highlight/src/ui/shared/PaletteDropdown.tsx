@@ -13,7 +13,6 @@ import {
 } from '@atlaskit/editor-common/ui-menu';
 import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 type PaletteDropdownProps = {
 	popupsMountPoint?: HTMLElement;
@@ -46,18 +45,16 @@ export const PaletteDropdown = (props: PaletteDropdownProps) => {
 
 	let colorPalette = highlightColorPalette;
 
-	if (editorExperiment('editor_text_highlight_orange_to_yellow', 'test', { exposure: true })) {
-		colorPalette = highlightColorPalette.map((item) => {
-			if (item.label === 'Orange') {
-				return {
-					...item,
-					label: 'Yellow',
-					message: colorPaletteMessages.yellow,
-				};
-			}
-			return item;
-		});
-	}
+	colorPalette = highlightColorPalette.map((item) => {
+		if (item.label === 'Orange') {
+			return {
+				...item,
+				label: 'Yellow',
+				message: colorPaletteMessages.yellow,
+			};
+		}
+		return item;
+	});
 
 	const { selectedRowIndex, selectedColumnIndex } = getSelectedRowAndColumnFromPalette(
 		colorPalette,

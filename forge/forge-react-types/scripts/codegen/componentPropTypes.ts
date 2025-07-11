@@ -189,17 +189,24 @@ const generateSharedTypesFile = (componentOutputDir: string) => {
 	fs.writeFileSync(typesFilePath, signedSourceCode);
 };
 
-const generateComponentPropTypes = (componentName?: string) => {
+const generateComponentPropTypes = (componentNames?: string) => {
 	const componentOutputDir = resolve(__dirname, '..', '..', 'src', 'components', '__generated__');
 	const componentIndexSourceFile = forgeUIProject.addSourceFileAtPath(
 		require.resolve('@atlassian/forge-ui/UIKit'),
 	);
 	try {
+		const componentNamesFilter = componentNames ? componentNames.split(',') : [];
 		const componentPropTypeSymbols = componentIndexSourceFile
 			.getExportSymbols()
-			.filter((symbol) =>
-				symbol.getName().endsWith(componentName ? `${componentName}Props` : 'Props'),
-			)
+			.filter((symbol) => {
+				if (componentNamesFilter.length === 0) {
+					return symbol.getName().endsWith('Props');
+				}
+				const symbolName = symbol.getName();
+				return componentNamesFilter.some((componentName) => {
+					return symbolName === `${componentName}Props`;
+				});
+			})
 			.sort((a, b) => a.getName().localeCompare(b.getName()));
 
 		// generate share types file first

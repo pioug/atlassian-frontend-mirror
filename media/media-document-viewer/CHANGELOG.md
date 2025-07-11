@@ -1,5 +1,13 @@
 # @atlaskit/media-document-viewer
 
+## 0.3.2
+
+### Patch Changes
+
+- [#183808](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183808)
+  [`4436100210ca9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4436100210ca9) -
+  Added spinner to document viewer
+
 ## 0.3.1
 
 ### Patch Changes

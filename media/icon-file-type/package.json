@@ -46,7 +46,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/icon": "workspace:^",
-		"@babel/runtime": "^7.0.0"
+		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
@@ -54,13 +54,13 @@
 	"devDependencies": {
 		"@af/icon-build-process": "workspace:^",
 		"@atlaskit/visual-regression": "workspace:^",
-		"@emotion/styled": "^11.0.0",
-		"enzyme": "^3.10.0",
-		"fs-extra": "^4.0.2",
-		"jscodeshift": "^17.0.0",
-		"pkg-dir": "^4.2.0",
-		"react-dom": "^18.2.0",
-		"ts-node": "^10.9.1"
+		"@emotion/styled": "root:*",
+		"enzyme": "root:*",
+		"fs-extra": "root:*",
+		"jscodeshift": "root:*",
+		"pkg-dir": "root:*",
+		"react-dom": "root:*",
+		"ts-node": "root:*"
 	},
 	"keywords": [
 		"atlaskit",

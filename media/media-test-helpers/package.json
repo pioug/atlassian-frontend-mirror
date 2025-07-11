@@ -41,18 +41,18 @@
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlaskit/ufo": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"@emotion/react": "^11.7.1",
-		"@emotion/styled": "^11.0.0",
-		"@testing-library/react": "^13.4.0",
-		"enzyme": "^3.10.0",
-		"exenv": "^1.2.2",
-		"kakapo": "^4.0.6",
-		"mock-socket": "^9.3.1",
-		"react-intl-next": "npm:react-intl@^5.18.1",
-		"rxjs": "^5.5.0",
-		"uuid": "^3.1.0",
-		"xhr-mock": "^2.4.0"
+		"@babel/runtime": "root:*",
+		"@emotion/react": "root:*",
+		"@emotion/styled": "root:*",
+		"@testing-library/react": "root:*",
+		"enzyme": "root:*",
+		"exenv": "root:*",
+		"kakapo": "root:*",
+		"mock-socket": "root:*",
+		"react-intl-next": "root:*",
+		"rxjs": "root:*",
+		"uuid": "root:*",
+		"xhr-mock": "root:*"
 	},
 	"peerDependencies": {
 		"@atlaskit/media-core": "workspace:^",
@@ -60,9 +60,9 @@
 	},
 	"devDependencies": {
 		"@atlaskit/media-core": "workspace:^",
-		"@types/exenv": "^1.2.0",
-		"react-dom": "^18.2.0",
-		"typescript": "~5.4.2"
+		"@types/exenv": "root:*",
+		"react-dom": "root:*",
+		"typescript": "root:*"
 	},
 	"af:exports": {
 		"./renderWithIntl": "./src/renderWithIntl.tsx",

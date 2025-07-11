@@ -39,7 +39,7 @@
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/icon-lab": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
-		"@babel/runtime": "^7.0.0"
+		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
@@ -52,10 +52,10 @@
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlaskit/visual-regression": "workspace:^",
 		"@atlassian/codegen": "workspace:^",
-		"fs-extra": "^4.0.2",
-		"pkg-dir": "^4.2.0",
-		"react-dom": "^18.2.0",
-		"ts-node": "^10.9.1"
+		"fs-extra": "root:*",
+		"pkg-dir": "root:*",
+		"react-dom": "root:*",
+		"ts-node": "root:*"
 	},
 	"keywords": [
 		"atlaskit",

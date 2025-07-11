@@ -64,10 +64,10 @@
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlaskit/width-detector": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"@emotion/react": "^11.7.1",
-		"chromatism": "^2.6.0",
-		"lodash": "^4.17.21"
+		"@babel/runtime": "root:*",
+		"@emotion/react": "root:*",
+		"chromatism": "root:*",
+		"lodash": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
@@ -94,14 +94,14 @@
 		"@atlaskit/visual-regression": "workspace:^",
 		"@atlassian/switcher": "workspace:^",
 		"@atlassian/switcher-test-utils": "workspace:^",
-		"@testing-library/react": "^13.4.0",
-		"@testing-library/react-hooks": "^8.0.1",
-		"@testing-library/user-event": "^14.4.3",
-		"jest-emotion": "^10.0.32",
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0",
-		"react-intl-next": "npm:react-intl@^5.18.1",
-		"typescript": "~5.4.2"
+		"@testing-library/react": "root:*",
+		"@testing-library/react-hooks": "root:*",
+		"@testing-library/user-event": "root:*",
+		"jest-emotion": "root:*",
+		"react": "root:*",
+		"react-dom": "root:*",
+		"react-intl-next": "root:*",
+		"typescript": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

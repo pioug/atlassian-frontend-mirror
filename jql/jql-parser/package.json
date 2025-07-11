@@ -36,12 +36,12 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@babel/runtime": "^7.0.0",
-		"antlr4ts": "0.5.0-alpha.4"
+		"@babel/runtime": "root:*",
+		"antlr4ts": "root:*"
 	},
 	"devDependencies": {
 		"@atlaskit/docs": "workspace:^",
-		"typescript": "~5.4.2"
+		"typescript": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

@@ -34,9 +34,9 @@
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/textfield": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"@compiled/react": "^0.18.3",
-		"@emotion/react": "^11.7.1"
+		"@babel/runtime": "root:*",
+		"@compiled/react": "root:*",
+		"@emotion/react": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0",
@@ -47,12 +47,12 @@
 		"@atlaskit/elements-test-helpers": "workspace:^",
 		"@atlaskit/visual-regression": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
-		"@testing-library/jest-dom": "^6.4.5",
-		"@testing-library/react": "^13.4.0",
-		"enzyme": "^3.10.0",
-		"react": "^18.2.0",
-		"react-intl-next": "npm:react-intl@^5.18.1",
-		"typescript": "~5.4.2"
+		"@testing-library/jest-dom": "root:*",
+		"@testing-library/react": "root:*",
+		"enzyme": "root:*",
+		"react": "root:*",
+		"react-intl-next": "root:*",
+		"typescript": "root:*"
 	},
 	"keywords": [
 		"ui",

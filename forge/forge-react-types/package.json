@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/forge-react-types",
-	"version": "0.42.7",
+	"version": "0.42.8",
 	"description": "Component types for Forge UI Kit React components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -27,7 +27,6 @@
 		"team": "Forge UI"
 	},
 	"dependencies": {
-		"@atlaskit/badge": "workspace:^",
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/calendar": "workspace:^",
 		"@atlaskit/checkbox": "workspace:^",
@@ -57,22 +56,24 @@
 		"@atlaskit/toggle": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
-		"@babel/runtime": "^7.0.0"
+		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
 		"@atlassian/codegen": "workspace:^",
-		"@types/node": "~20.16.5",
-		"lodash": "^4.17.21",
-		"react": "^18.2.0",
-		"ts-morph": "^17.0.0",
-		"ts-node": "^10.9.1",
-		"typescript": "~5.4.2"
+		"@atlassian/forge-ui": "workspace:^",
+		"@types/node": "root:*",
+		"lodash": "root:*",
+		"react": "root:*",
+		"ts-morph": "root:*",
+		"ts-node": "root:*",
+		"typescript": "root:*"
 	},
 	"scripts": {
-		"codegen": "ts-node ./scripts/codegen-runner.ts"
+		"codegen": "ts-node ./scripts/codegen-runner.ts",
+		"check-types": "ts-node --type-check ./scripts/typechecker.ts"
 	},
 	"sideEffects": [
 		"*.compiled.css"

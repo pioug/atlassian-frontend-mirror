@@ -40,13 +40,13 @@
 		"@atlaskit/link-extractors": "workspace:^",
 		"@atlaskit/linking-common": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"async-retry": "^1.2.3",
-		"dataloader": "^2.1.0",
-		"lodash": "^4.17.21",
-		"lru_map": "^0.4.1",
-		"p-throttle": "^4.1.1",
-		"redux": "^3.7.2"
+		"@babel/runtime": "root:*",
+		"async-retry": "root:*",
+		"dataloader": "root:*",
+		"lodash": "root:*",
+		"lru_map": "root:*",
+		"p-throttle": "root:*",
+		"redux": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
@@ -55,13 +55,13 @@
 		"@atlaskit/linking-types": "workspace:^",
 		"@atlaskit/media-test-helpers": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
-		"@testing-library/react": "^13.4.0",
-		"@testing-library/react-hooks": "^8.0.1",
-		"@types/async-retry": "^1.4.1",
-		"@types/redux": "^3.6.0",
-		"react-dom": "^18.2.0",
-		"typescript": "~5.4.2",
-		"wait-for-expect": "^1.2.0"
+		"@testing-library/react": "root:*",
+		"@testing-library/react-hooks": "root:*",
+		"@types/async-retry": "root:*",
+		"@types/redux": "root:*",
+		"react-dom": "root:*",
+		"typescript": "root:*",
+		"wait-for-expect": "root:*"
 	},
 	"platform-feature-flags": {
 		"smart_links_noun_support": {

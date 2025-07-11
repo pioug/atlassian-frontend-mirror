@@ -42,14 +42,14 @@
 	"dependencies": {
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/react-ufo": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"meros": "^1.3.0"
+		"@babel/runtime": "root:*",
+		"meros": "root:*"
 	},
 	"devDependencies": {
-		"es6-promise": "^4.0.5",
-		"fetch-mock": "^8.0.0",
-		"sinon": "^2.2.0",
-		"typescript": "~5.4.2"
+		"es6-promise": "root:*",
+		"fetch-mock": "root:*",
+		"sinon": "root:*",
+		"typescript": "root:*"
 	},
 	"keywords": [
 		"fabric",

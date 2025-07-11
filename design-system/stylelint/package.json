@@ -52,16 +52,16 @@
 	},
 	"dependencies": {
 		"@atlaskit/tokens": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"postcss-value-parser": "^4.2.0"
+		"@babel/runtime": "root:*",
+		"postcss-value-parser": "root:*"
 	},
 	"peerDependencies": {
 		"stylelint": "^14 || ^15 || ^16"
 	},
 	"devDependencies": {
-		"jest-preset-stylelint": "^5.0.1",
-		"tsup": "^8.5.0",
-		"typescript": "~5.4.2"
+		"jest-preset-stylelint": "root:*",
+		"tsup": "root:*",
+		"typescript": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

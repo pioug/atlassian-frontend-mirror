@@ -1,5 +1,14 @@
 # @atlaskit/editor-common
 
+## 107.7.5
+
+### Patch Changes
+
+- [#183739](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183739)
+  [`4d5f2ac280ef0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4d5f2ac280ef0) -
+  fix: use ref to store selector reference in useSharedPluginStateWithSelector
+- Updated dependencies
+
 ## 107.7.4
 
 ### Patch Changes

@@ -235,15 +235,6 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-03-13
-	editor_text_highlight_orange_to_yellow: createMultivariateExperiment({
-		productKeys: {
-			confluence: 'editor_text_highlight_orange_to_yellow',
-		},
-		param: 'cohort',
-		values: ['control', 'test'],
-		defaultValue: 'control',
-	}),
 	// Added 2025-03-28
 	platform_editor_ai_proactive_ai_nudge_parameters: createMultivariateExperiment({
 		productKeys: {
@@ -339,6 +330,22 @@ export const editorExperimentsConfig = {
 	platform_editor_no_cursor_on_edit_page_init: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_no_cursor_on_edit_page_init',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-07-08 - Jira work sync description comment summary
+	'jira-work-sync-desc-comment-summary': createBooleanExperiment({
+		productKeys: {
+			jira: 'jira-work-sync-desc-comment-summary',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-05-21
+	platform_editor_nodevisibility: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_nodevisibility',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

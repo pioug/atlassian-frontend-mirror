@@ -61,7 +61,7 @@
 		"@atlaskit/editor-plugin-table": "workspace:^",
 		"@atlaskit/editor-plugin-tasks-and-decisions": "workspace:^",
 		"@atlaskit/editor-plugin-type-ahead": "workspace:^",
-		"@atlaskit/editor-prosemirror": "7.0.0",
+		"@atlaskit/editor-prosemirror": "root:*",
 		"@atlaskit/editor-shared-styles": "workspace:^",
 		"@atlaskit/emoji": "workspace:^",
 		"@atlaskit/heading": "workspace:^",
@@ -73,12 +73,12 @@
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"@emotion/react": "^11.7.1",
-		"bind-event-listener": "^3.0.0",
-		"lodash": "^4.17.21",
-		"memoize-one": "^6.0.0",
-		"react-virtualized": "^9.8.0"
+		"@babel/runtime": "root:*",
+		"@emotion/react": "root:*",
+		"bind-event-listener": "root:*",
+		"lodash": "root:*",
+		"memoize-one": "root:*",
+		"react-virtualized": "root:*"
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
@@ -91,9 +91,9 @@
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@atlaskit/visual-regression": "workspace:^",
-		"@testing-library/react": "^13.4.0",
-		"@types/react-virtualized": "^9.18.12",
-		"typescript": "~5.4.2"
+		"@testing-library/react": "root:*",
+		"@types/react-virtualized": "root:*",
+		"typescript": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

@@ -38,9 +38,9 @@
 		"@atlaskit/linking-common": "workspace:^",
 		"@atlaskit/linking-types": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"lru_map": "^0.4.1",
-		"rusha": "^0.8.13"
+		"@babel/runtime": "root:*",
+		"lru_map": "root:*",
+		"rusha": "root:*"
 	},
 	"peerDependencies": {
 		"@atlaskit/link-provider": "workspace:^",
@@ -50,12 +50,12 @@
 		"@af/analytics-codegen": "workspace:^",
 		"@atlaskit/link-picker": "workspace:^",
 		"@atlaskit/link-test-helpers": "workspace:^",
-		"@testing-library/dom": "^10.1.0",
-		"@testing-library/react": "^13.4.0",
-		"@testing-library/react-hooks": "^8.0.1",
-		"@testing-library/user-event": "^14.4.3",
-		"fetch-mock": "^8.0.0",
-		"react-intl-next": "npm:react-intl@^5.18.1"
+		"@testing-library/dom": "root:*",
+		"@testing-library/react": "root:*",
+		"@testing-library/react-hooks": "root:*",
+		"@testing-library/user-event": "root:*",
+		"fetch-mock": "root:*",
+		"react-intl-next": "root:*"
 	},
 	"af:exports": {
 		".": "./src/index.ts",

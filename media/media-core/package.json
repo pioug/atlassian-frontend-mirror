@@ -37,17 +37,17 @@
 		}
 	},
 	"dependencies": {
-		"@babel/runtime": "^7.0.0",
-		"eventemitter2": "^4.1.0",
-		"lru_map": "^0.4.1",
-		"rxjs": "^5.5.0"
+		"@babel/runtime": "root:*",
+		"eventemitter2": "root:*",
+		"lru_map": "root:*",
+		"rxjs": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"react-dom": "^18.2.0",
-		"typescript": "~5.4.2",
-		"wait-for-expect": "^1.2.0"
+		"react-dom": "root:*",
+		"typescript": "root:*",
+		"wait-for-expect": "root:*"
 	}
 }

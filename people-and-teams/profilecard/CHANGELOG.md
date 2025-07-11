@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 23.21.7
+
+### Patch Changes
+
+- [#183594](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183594)
+  [`890f31384ba60`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/890f31384ba60) -
+  fix profile card margin issue in renderer
+
 ## 23.21.6
 
 ### Patch Changes

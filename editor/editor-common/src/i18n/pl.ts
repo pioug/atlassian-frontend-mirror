@@ -10,6 +10,8 @@ export default {
   'editor-common-extensibility-extension-lozenge-editToggle.done.editing': 'Edycja ukończona',
   'editor-common-extensibility-extension-lozenge-editToggle.make.edits': 'Wprowadź zmiany',
   'editor-common-extensibility.macro.button.configure': 'Skonfiguruj makro {macroName}',
+  'editor.extension.legacyContentHeader': 'Starsza treść',
+  'editor.extension.legacyContentHeader.learnMore': 'Dowiedz się więcej',
   'fablric.editor.viewAllInserts': 'Wyświetl wszystkie wstawiane elementy',
   'fabric.editor.action': 'Element akcji',
   'fabric.editor.action.description': 'Utwórz i przypisz elementy akcji',
@@ -210,7 +212,7 @@ export default {
   'fabric.editor.ai.experience-application.rateLimitEnforced':
     'Ostatnio otrzymaliśmy zbyt wiele żądań do Atlassian Intelligence (AI). Spróbuj ponownie za kilka minut lub przeczytaj o <link>nadmiernym wykorzystaniu AI</link>.',
   'fabric.editor.ai.experience-application.tokenLimitExceeded':
-    'Nie można pobrać odpowiedzi. Twoja podpowiedź lub odpowiedź przekroczyła limit tego żądania. Zamknij okno dialogowe i spróbuj ponownie.',
+    'Nie można pobrać odpowiedzi. Twoja podpowiedź lub odpowiedź przekroczyła limit tego wniosku. Zamknij okno dialogowe i spróbuj ponownie.',
   'fabric.editor.ai.experience-application.unhandledErrorMessage':
     'Wystąpiły problemy. Zamknij okno dialogowe i spróbuj ponownie.',
   'fabric.editor.ai.experience.apiError': 'Nie można uzyskać odpowiedzi. Spróbuj ponownie.',
@@ -226,7 +228,7 @@ export default {
   'fabric.editor.ai.experience.footerRightText.agents': 'Obsługiwane przez Rovo',
   'fabric.editor.ai.experience.generatingAiResponse': 'Generowanie',
   'fabric.editor.ai.experience.hipaaContentError':
-    'Atlassian Intelligence nie może przetworzyć Twojego żądania, ponieważ treść zawiera łącza do zawartości podlegających ograniczeniom przepisów HIPAA. Usuń te łącza i spróbuj ponownie.',
+    'Atlassian Intelligence nie może przetworzyć Twojego wniosku, ponieważ treść zawiera łącza do zawartości podlegających ograniczeniom przepisów HIPAA. Usuń te łącza i spróbuj ponownie.',
   'fabric.editor.ai.experience.inputTooShortError':
     'Treść jest za krótka, aby ją podsumować. Dodaj więcej i spróbuj ponownie.',
   'fabric.editor.ai.experience.internalServerError':
@@ -259,10 +261,11 @@ export default {
   'fabric.editor.ai.proactive.preview.insertBelowProactiveRecommendation': 'Wstaw poniżej',
   'fabric.editor.ai.proactive.preview.replaceProactiveRecommendation': 'Zamień',
   'fabric.editor.ai.screens.preview.convoAIBeta':
-    'Żądania generowania treści odwołujące się do adresów URL znajdują się w wersji beta.',
+    'Wnioski o generowanie treści odwołujące się do adresów URL znajdują się w wersji beta.',
   'fabric.editor.ai.selectionToolbar.define.disabled.tooltip': 'Wyróżnij termin, akronim lub skrót',
   'fabric.editor.ai.selectionToolbar.define.title': 'Podaj definicję',
   'fabric.editor.ai.toolbar.askAI.title': 'Zapytaj AI',
+  'fabric.editor.ai.toolbar.askRovoInputButton.label': 'Zapytaj Rovo…',
   'fabric.editor.ai.toolbar.improveWriting.title': 'Popraw styl',
   'fabric.editor.ai.toolbar.improveWriting.tooltip': 'Poproś Atlassian Intelligence o poprawienie wybranego tekstu',
   'fabric.editor.ai.toolbar.simplifiedAI.title': 'AI',
@@ -372,6 +375,7 @@ export default {
   'fabric.editor.configPanel.invalid': 'Nieprawidłowe pole',
   'fabric.editor.configPanel.required': 'Pole wymagane',
   'fabric.editor.configPanel.submit': 'Wyślij',
+  'fabric.editor.contextPanel.panelLabel': 'Panel kontekstu',
   'fabric.editor.copiedToClipboard': 'Skopiowano!',
   'fabric.editor.copyToClipboard': 'Kopiuj',
   'fabric.editor.cornerControl': 'Zaznacz tablicę',
@@ -452,6 +456,8 @@ export default {
   'fabric.editor.elementbrowser.categorylist.category-navigation': 'Nawigacja',
   'fabric.editor.elementbrowser.categorylist.category-reporting': 'Raportowanie',
   'fabric.editor.elementbrowser.categorylist.category-visuals': 'Elementy wizualne i obrazy',
+  'fabric.editor.elementbrowser.featured.whiteboard.description':
+    'Użyj tablicy, aby dodać wizualizacje do swojej strony',
   'fabric.editor.elementbrowser.search.empty-state.heading': 'Brak wyników pasujących do wyszukiwania',
   'fabric.editor.elementbrowser.search.empty-state.sub-heading':
     'Spróbuj wyszukać inny termin lub zapoznaj się z nowymi aplikacjami do produktów Atlassian.',
@@ -678,8 +684,6 @@ export default {
   'fabric.editor.notePanel.description': 'Dodaj uwagę w kolorze',
   'fabric.editor.numberedColumn': 'Kolumna numerowana',
   'fabric.editor.off': '{formattingType} wył.',
-  'fabric.editor.offlineErrorFallbackDescription': 'Spróbuj załadować stronę ponownie.',
-  'fabric.editor.offlineErrorFallbackHeading': 'Coś poszło nie tak',
   'fabric.editor.on': '{formattingType} wł.',
   'fabric.editor.openButtonTitle': 'Otwórz',
   'fabric.editor.openCellOptions': 'Otwórz opcje komórki',
@@ -804,6 +808,8 @@ export default {
   'fabric.editor.tables.resizeTable': 'Zmień rozmiar tabeli',
   'fabric.editor.tables.startedColumnResize': 'Rozpoczęto zmianę rozmiaru kolumny',
   'fabric.editor.task': 'Zadanie',
+  'fabric.editor.taskDecision.markTaskAsCompleted': 'Oznacz zadanie jako ukończone',
+  'fabric.editor.taskDecision.markTaskAsNotCompleted': 'Oznacz zadanie jako nieukończone',
   'fabric.editor.taskPlaceholder': 'Wprowadź swoją akcję, użyj „@”, aby przypisać ją do użytkownika.',
   'fabric.editor.text.formatting.off': 'Formatowanie tekstu wył.',
   'fabric.editor.textColor': 'Kolor tekstu: {selectedColorName}',
@@ -838,6 +844,8 @@ export default {
   'fabric.editor.typeAhead.quickInsertInputLabel': 'Zacznij pisać, aby wyszukać lub filtrować opcje skrótów',
   'fabric.editor.typeAhead.quickInsertInputPlaceholderLabel': 'Wyszukaj',
   'fabric.editor.typeAhead.quickInsertPopupLabel': 'Skróty do wstawiania i formatowania',
+  'fabric.editor.typeAheadErrorFallbackDescription': 'Spróbuj ponownie.',
+  'fabric.editor.typeAheadErrorFallbackHeading': 'Coś poszło nie tak',
   'fabric.editor.typeahead.emojiInputLabel': 'Zacznij pisać, aby wyszukać lub filtrować opcje emoji',
   'fabric.editor.typeahead.emojiListItemLabel': 'Emoji {name} — skrót tekstowy {shortcut}',
   'fabric.editor.typeahead.emojiPopupLabel': 'Skróty emoji',

@@ -38,7 +38,7 @@ export type SelectionExtensionPlugin = NextEditorPlugin<
 		};
 		actions: {
 			insertSmartLinks: (
-				linkInsertionOption: LinkInsertionOption | LinkInsertionOption[],
+				linkInsertionOption: LinkInsertionOption[],
 				selectedNodeAdf: ADFEntity,
 			) => {
 				status: 'success' | 'error';

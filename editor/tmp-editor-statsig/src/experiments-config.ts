@@ -448,4 +448,13 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-07-011
+	cc_editor_interactions_trigger_traceufointeraction: createMultivariateExperiment({
+		productKeys: {
+			confluence: 'cc_editor_interactions_trigger_traceufointeraction',
+		},
+		param: 'cohort',
+		values: ['control', 'all_events', 'only_mousedown_event'],
+		defaultValue: 'control',
+	}),
 } satisfies Record<string, ExperimentConfigValue>;

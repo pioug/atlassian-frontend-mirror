@@ -88,19 +88,28 @@ snapshot(BlockCardUnauthorisedViewWithNoAuth, {
 snapshot(BlockCardJira, {
 	featureFlags: {
 		'platform-linking-visual-refresh-v2': true,
+		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
 });
 snapshot(BlockCardConfluence, {
-	featureFlags: {},
+	featureFlags: {
+		'platform-linking-enable-avatar-data-separator': [true, false],
+	},
 });
 snapshot(BlockCardTrello, {
-	featureFlags: {},
+	featureFlags: {
+		'platform-linking-enable-avatar-data-separator': [true, false],
+	},
 });
 snapshot(BlockCardAtlas, {
-	featureFlags: {},
+	featureFlags: {
+		'platform-linking-enable-avatar-data-separator': [true, false],
+	},
 });
 snapshot(BlockCardBitbucket, {
-	featureFlags: {},
+	featureFlags: {
+		'platform-linking-enable-avatar-data-separator': [true, false],
+	},
 });
 snapshot(BlockCardForbiddenViews, {
 	featureFlags: {},
@@ -110,6 +119,7 @@ snapshot(BlockCardLazyIcon1, {
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
 		'icon-object-migration': true,
+		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
 });
 snapshot(BlockCardLazyIcon2, {
@@ -117,6 +127,7 @@ snapshot(BlockCardLazyIcon2, {
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
 		'icon-object-migration': true,
+		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
 });
 snapshot(BlockCardLazyIcon3, {
@@ -124,6 +135,7 @@ snapshot(BlockCardLazyIcon3, {
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
 		'icon-object-migration': true,
+		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
 });
 snapshot(BlockCardLazyIcon4, {
@@ -131,6 +143,7 @@ snapshot(BlockCardLazyIcon4, {
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
 		'icon-object-migration': true,
+		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
 });
 snapshot(BlockCardLazyIcon5, {
@@ -138,6 +151,7 @@ snapshot(BlockCardLazyIcon5, {
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
 		'icon-object-migration': true,
+		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
 });
 snapshot(BlockCardLazyIcon6, {
@@ -152,6 +166,7 @@ snapshot(BlockCardLazyIconsFileType1, {
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
 		'icon-object-migration': true,
+		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
 });
 snapshot(BlockCardLazyIconsFileType2, {
@@ -159,6 +174,7 @@ snapshot(BlockCardLazyIconsFileType2, {
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
 		'icon-object-migration': true,
+		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
 });
 snapshot(BlockCardLazyIconsFileType3, {
@@ -166,6 +182,7 @@ snapshot(BlockCardLazyIconsFileType3, {
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
 		'icon-object-migration': true,
+		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
 });
 snapshot(BlockCardLazyIconsFileType4, {
@@ -173,12 +190,14 @@ snapshot(BlockCardLazyIconsFileType4, {
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
 		'icon-object-migration': true,
+		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
 });
 snapshot(BlockCardEntities, {
 	description: `block card with entity support`,
 	featureFlags: {
 		smart_links_noun_support: true,
+		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
 });
 

@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 39.3.0
+
+### Minor Changes
+
+- [#181067](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/181067)
+  [`a3e35ac6a074e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3e35ac6a074e) -
+  [ux] Enabled data separator for avatar group
+
 ## 39.2.2
 
 ### Patch Changes

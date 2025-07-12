@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-ufo
 
+## 3.1.0
+
+### Minor Changes
+
+- [#183937](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183937)
+  [`5826fd37730ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5826fd37730ab) -
+  Triggers traceUFOInteraction on first editor interaction to avoid vc90 blindspots
+
 ## 3.0.0
 
 ### Major Changes

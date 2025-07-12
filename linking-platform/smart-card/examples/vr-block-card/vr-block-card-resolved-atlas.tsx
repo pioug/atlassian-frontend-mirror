@@ -23,6 +23,6 @@ export const BlockCardAtlas = () => (
 		<h4>Project</h4>
 		<VRCardView appearance="block" client={new CustomClient()} url={AtlasProject.data.url} />
 		<h4>AtlasGoal</h4>
-		<VRCardView appearance="block" client={new CustomClient()} url={AtlasProject.data.url} />
+		<VRCardView appearance="block" client={new CustomClient()} url={AtlasGoal.data.url} />
 	</div>
 );

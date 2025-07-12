@@ -4,8 +4,13 @@ import mapToInteractionType from './internal/map-to-interaction-type';
 import internal_traceUFOInteraction from './internal/trace-ufo-interaction';
 
 export { default as UNSAFE__DO_NOT_USE_traceUFOInteraction } from './internal/trace-ufo-interaction';
-
-function traceUFOInteraction(name: string, event: UIEvent): void {
+/**
+ * *Warning* Currently this only supports the events with the following types
+ * ```ts
+ * 'click' | 'dblclick' | 'mousedown' | 'mouseenter' | 'mouseover'
+ * ```
+ */
+function traceUFOInteraction(name: string, event: Event | UIEvent): void {
 	if (!event || !event.isTrusted) {
 		return;
 	}

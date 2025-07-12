@@ -24,6 +24,7 @@ import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-p
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 
 import { ExampleForgeApp } from '../example-helpers/ExampleForgeApp';
+import { findTextNodePath } from '../example-helpers/findTextNodePath';
 import enMessages from '../src/i18n/en';
 
 const buttonStyles = xcss({
@@ -51,6 +52,7 @@ function ComposableEditorPage() {
 
 	const [createButton, showCreateButton] = useState<string | null>(null);
 	const selectedNodeAdfRef = React.useRef<any>(null);
+	const selectionRangesRef = React.useRef<any>(null);
 	const editorAnnotationProviders = useEditorAnnotationProviders();
 	const universalPreset = useUniversalPreset({
 		props: {
@@ -173,6 +175,7 @@ function ComposableEditorPage() {
 											console.log(JSON.stringify({ selectionRanges, selectedNodeAdf }));
 											showCreateButton('multiple');
 											selectedNodeAdfRef.current = selectedNodeAdf;
+											selectionRangesRef.current = selectionRanges;
 										},
 									};
 								}
@@ -184,6 +187,7 @@ function ComposableEditorPage() {
 										console.log(JSON.stringify({ selectionRanges, selectedNodeAdf }));
 										showCreateButton('single');
 										selectedNodeAdfRef.current = selectedNodeAdf;
+										selectionRangesRef.current = selectionRanges;
 									},
 								};
 							},
@@ -232,6 +236,49 @@ function ComposableEditorPage() {
 		}
 	};
 
+	const prepareLinksInsertionOption = (createButton: string) => {
+		const selectionRanges = selectionRangesRef.current;
+		const selectedNodeAdf = selectedNodeAdfRef.current;
+
+		if (!selectionRanges || !selectedNodeAdf) {
+			return [];
+		}
+
+		if (createButton === 'single') {
+			return [
+				{
+					link: 'https://example.atlassian.net/browse/TEST-123',
+					insertPosition: {
+						pointer: selectionRanges[0].start.pointer,
+						from: 4,
+						to: 4,
+					},
+				},
+			];
+		} else if (createButton === 'multiple') {
+			const linksInsertionOption = [];
+			for (const range of selectionRanges) {
+				const textNodePath = findTextNodePath(selectedNodeAdf, range.start.pointer);
+				if (!textNodePath) {
+					continue;
+				}
+				const { path, size } = textNodePath;
+				if (path) {
+					linksInsertionOption.push({
+						link: 'https://example.atlassian.net/browse/TEST-123',
+						insertPosition: {
+							pointer: path,
+							from: size || 0,
+							to: size || 0,
+						},
+					});
+				}
+			}
+			return linksInsertionOption;
+		}
+		return [];
+	};
+
 	return (
 		<SmartCardProvider client={smartCardClient}>
 			<EditorExampleControls
@@ -267,47 +314,11 @@ function ComposableEditorPage() {
 					<Pressable
 						xcss={buttonStyles}
 						onClick={() => {
-							createButton === 'single'
-								? editorApi?.selectionExtension.actions.insertSmartLinks(
-										{
-											link: 'https://example.atlassian.net/browse/TEST-123',
-											insertPosition: {
-												pointer: '/content/0',
-												from: 4,
-												to: 4,
-											},
-										},
-										selectedNodeAdfRef.current,
-									)
-								: editorApi?.selectionExtension.actions.insertSmartLinks(
-										[
-											{
-												link: 'https://example.atlassian.net/browse/TEST-123',
-												insertPosition: {
-													pointer: '/content/1/content/0/content/0/content/0/text',
-													from: 0,
-													to: 0,
-												},
-											},
-											{
-												link: 'https://example.atlassian.net/browse/TEST-234',
-												insertPosition: {
-													pointer: '/content/2/content/0/content/0/content/0/text',
-													from: 2,
-													to: 2,
-												},
-											},
-											{
-												link: 'https://example.atlassian.net/browse/TEST-345',
-												insertPosition: {
-													pointer: '/content/3/content/0/content/0/content/0/text',
-													from: 3,
-													to: 3,
-												},
-											},
-										],
-										selectedNodeAdfRef.current,
-									);
+							const createButtonLinks = prepareLinksInsertionOption(createButton);
+							editorApi?.selectionExtension.actions.insertSmartLinks(
+								createButtonLinks,
+								selectedNodeAdfRef.current,
+							);
 							showCreateButton(null);
 						}}
 					>

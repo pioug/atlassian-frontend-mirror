@@ -26,16 +26,12 @@ const insertLinkTr = (
 };
 
 export const insertSmartLinks =
-	(linkInsertionOption: LinkInsertionOption | LinkInsertionOption[], selectedNodeAdf: ADFEntity) =>
+	(linkInsertionOption: LinkInsertionOption[], selectedNodeAdf: ADFEntity) =>
 	(
 		state: EditorState,
 		dispatch: CommandDispatch,
 	): { status: 'success' | 'error'; message?: string } => {
 		const { tr, schema } = state;
-
-		if (!Array.isArray(linkInsertionOption)) {
-			linkInsertionOption = [linkInsertionOption];
-		}
 
 		if (linkInsertionOption.length === 0) {
 			return { status: 'error', message: 'No link insertion options provided' };

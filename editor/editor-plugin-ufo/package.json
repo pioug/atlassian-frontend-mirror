@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-ufo",
-	"version": "3.0.0",
+	"version": "3.1.0",
 	"description": "Ufo plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -37,6 +37,7 @@
 		"@atlaskit/editor-prosemirror": "root:*",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/react-ufo": "workspace:^",
+		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {
@@ -81,6 +82,5 @@
 				"import-no-extraneous-disable-for-examples-and-docs"
 			]
 		}
-	},
-	"platform-feature-flags": {}
+	}
 }

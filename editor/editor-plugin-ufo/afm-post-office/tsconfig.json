@@ -24,6 +24,9 @@
 			"path": "../../../react-ufo/atlaskit/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../tmp-editor-statsig/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../editor-common/afm-post-office/tsconfig.json"
 		}
 	]

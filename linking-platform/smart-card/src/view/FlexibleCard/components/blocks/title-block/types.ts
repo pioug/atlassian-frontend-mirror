@@ -1,6 +1,6 @@
 import type React from 'react';
 
-import { type SmartLinkPosition, type SmartLinkTheme } from '../../../../../constants';
+import { type SmartLinkPosition } from '../../../../../constants';
 import { type RetryOptions } from '../../../types';
 import { type AnchorTarget } from '../../types';
 import {
@@ -60,13 +60,6 @@ export type TitleBlockProps = {
 	position?: SmartLinkPosition;
 
 	/**
-	 * Determines the onClick behaviour of the Link. By default used for analytics.
-	 * @internal
-	 * @deprecated Remove on platform-linking-flexible-card-context cleanup
-	 */
-	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
-
-	/**
 	 * The options that determine the retry behaviour when a Smart Link errors.
 	 * @internal
 	 */
@@ -106,13 +99,6 @@ export type TitleBlockProps = {
 	 * the Smart Link.
 	 */
 	icon?: React.ReactNode;
-
-	/**
-	 * The theme of the link text. Can be Black or Link (default URL blue)
-	 * @internal
-	 * @deprecated Remove on platform-linking-flexible-card-context cleanup
-	 */
-	theme?: SmartLinkTheme;
 
 	/**
 	 * The vertical position of the metadata fields. Internal prop, please DO NOT USE.

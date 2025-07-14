@@ -16,6 +16,7 @@ import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
 import {
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import { focusTableResizer, ToolTipContent } from '@atlaskit/editor-common/keymaps';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
@@ -72,7 +73,6 @@ import {
 	TABLE_HIGHLIGHT_TOLERANCE,
 	TABLE_SNAP_GAP,
 } from '../ui/consts';
-import { useInternalTablePluginStateSelector } from '../ui/hooks/useInternalTablePluginStateSelector';
 
 interface TableResizerProps {
 	width: number;
@@ -185,18 +185,21 @@ const getVisibleGuidelines = (
 	});
 };
 
+const selector = (states: { tableState: TableSharedStateInternal | undefined }) => ({
+	widthToWidest: (states.tableState as TableSharedStateInternal | undefined)?.widthToWidest,
+});
+
 const useSharedState = sharedPluginStateHookMigratorFactory(
-	(pluginInjectionApi: PluginInjectionAPI | undefined) => {
-		const widthToWidest = useInternalTablePluginStateSelector(pluginInjectionApi, 'widthToWidest');
+	(api: PluginInjectionAPI | undefined) => {
+		const { widthToWidest } = useSharedPluginStateWithSelector(api, ['table'], selector);
 		return {
 			widthToWidest,
 		};
 	},
-	(pluginInjectionApi: PluginInjectionAPI | undefined) => {
-		const { tableState } = useSharedPluginState(pluginInjectionApi, ['table']);
-		const tableStateInternal = tableState as TableSharedStateInternal;
+	(api: PluginInjectionAPI | undefined) => {
+		const { tableState } = useSharedPluginState(api, ['table']);
 		return {
-			widthToWidest: tableStateInternal.widthToWidest,
+			widthToWidest: (tableState as TableSharedStateInternal | undefined)?.widthToWidest,
 		};
 	},
 );

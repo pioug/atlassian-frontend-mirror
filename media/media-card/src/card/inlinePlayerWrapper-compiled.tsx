@@ -45,6 +45,8 @@ const borderStyle = css({
 });
 
 export const inlinePlayerClassName = 'media-card-inline-player';
+const LOCAL_WIDTH_VARIABLE = '--media-inline-player-wrapper-width';
+const LOCAL_HEIGHT_VARIABLE = '--media-inline-player-wrapper-height';
 
 const inlinePlayerWrapperStyles = css({
 	overflow: 'hidden',
@@ -52,6 +54,9 @@ const inlinePlayerWrapperStyles = css({
 	position: 'relative',
 	maxWidth: '100%',
 	maxHeight: '100%',
+	width: `var(${LOCAL_WIDTH_VARIABLE})`,
+	height: `var(${LOCAL_HEIGHT_VARIABLE})`,
+
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	video: {
 		width: '100%',
@@ -71,8 +76,8 @@ export const InlinePlayerWrapper = (props: InlinePlayerWrapperProps) => {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={inlinePlayerClassName}
 			style={{
-				width: getDimensionsWithDefault(dimensions).width || '100%',
-				height: getDimensionsWithDefault(dimensions).height || 'auto',
+				[LOCAL_WIDTH_VARIABLE as any]: getDimensionsWithDefault(dimensions).width || '100%',
+				[LOCAL_HEIGHT_VARIABLE as any]: getDimensionsWithDefault(dimensions).height || 'auto',
 			}}
 			css={[
 				inlinePlayerWrapperStyles,

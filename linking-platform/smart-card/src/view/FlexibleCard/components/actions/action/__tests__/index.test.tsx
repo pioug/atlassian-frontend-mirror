@@ -8,8 +8,6 @@ import { css, jsx } from '@compiled/react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 import { getFlexibleCardTestWrapper } from '../../../../../../__tests__/__utils__/unit-testing-library-helpers';
 import { type InternalFlexibleUiOptions } from '../../../../types';
 import Action from '../index';
@@ -138,18 +136,16 @@ describe('Action', () => {
 			});
 		};
 
-		ffTest.both('platform-linking-flexible-card-context', 'with fg', () => {
-			describe.each([true, false])('with ui.hideLegacyButton %s', (hideLegacyButton: boolean) => {
-				runTest({ hideLegacyButton });
-			});
-
-			describe.each([true, false])(
-				'with ui.removeBlockRestriction %s',
-				(removeBlockRestriction: boolean) => {
-					runTest({ removeBlockRestriction });
-				},
-			);
+		describe.each([true, false])('with ui.hideLegacyButton %s', (hideLegacyButton: boolean) => {
+			runTest({ hideLegacyButton });
 		});
+
+		describe.each([true, false])(
+			'with ui.removeBlockRestriction %s',
+			(removeBlockRestriction: boolean) => {
+				runTest({ removeBlockRestriction });
+			},
+		);
 	});
 
 	describe('as dropdown item', () => {

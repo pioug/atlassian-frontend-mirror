@@ -1,5 +1,14 @@
 # @atlaskit/profilecard
 
+## 23.21.8
+
+### Patch Changes
+
+- [#183414](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183414)
+  [`db0ca44a22c0c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/db0ca44a22c0c) -
+  NO-ISSUE Clean up feature gate compiled-migration-profilecard
+- Updated dependencies
+
 ## 23.21.7
 
 ### Patch Changes

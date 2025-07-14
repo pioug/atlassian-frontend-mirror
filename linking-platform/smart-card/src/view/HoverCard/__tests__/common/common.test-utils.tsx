@@ -13,7 +13,11 @@ import {
 	mockUnauthorisedResponse,
 } from '../__mocks__/mocks';
 
-import { type setup as hoverCardSetup, type SetUpParams } from './setup.test-utils';
+import {
+	type setup as hoverCardSetup,
+	mockIntersectionObserver,
+	type SetUpParams,
+} from './setup.test-utils';
 
 const userEventOptionsWithAdvanceTimers = {
 	advanceTimers: jest.advanceTimersByTime,
@@ -62,6 +66,17 @@ export const unauthorizedViewTests = (
 	config: TestConfig,
 ) => {
 	describe('Unauthorized Hover Card', () => {
+		beforeEach(() => {
+			jest.useFakeTimers({ legacyFakeTimers: true });
+			mockIntersectionObserver();
+			act(() => jest.runAllTimers());
+			jest.restoreAllMocks();
+		});
+
+		afterEach(() => {
+			jest.useRealTimers();
+		});
+
 		const authTooltipId = 'hover-card-unauthorised-view';
 		const {
 			testIds: { unauthorizedTestId },

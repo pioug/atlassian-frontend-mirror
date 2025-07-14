@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "39.3.0",
+	"version": "39.4.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -220,9 +220,6 @@
 		"platform-linking-visual-refresh-inline-lozenge": {
 			"type": "boolean"
 		},
-		"platform-linking-flexible-card-unresolved-action": {
-			"type": "boolean"
-		},
 		"smart_links_noun_support": {
 			"type": "boolean"
 		},
@@ -233,9 +230,6 @@
 			"type": "boolean"
 		},
 		"platform-linking-ai-summary-migration-to-convo-ai": {
-			"type": "boolean"
-		},
-		"platform-linking-flexible-card-context": {
 			"type": "boolean"
 		},
 		"dst-a11y__replace-anchor-with-link__linking-platfo": {

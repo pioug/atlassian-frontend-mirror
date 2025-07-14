@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-card
 
+## 7.0.4
+
+### Patch Changes
+
+- [#184895](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/184895)
+  [`facd697d9125e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/facd697d9125e) -
+  Cleanup feature gate to remove card from state on destroy.
+- Updated dependencies
+
 ## 7.0.3
 
 ### Patch Changes

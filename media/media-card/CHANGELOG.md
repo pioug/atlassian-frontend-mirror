@@ -1,5 +1,15 @@
 # @atlaskit/media-card
 
+## 79.4.2
+
+### Patch Changes
+
+- [#184386](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/184386)
+  [`1b5a757305861`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b5a757305861) -
+  Fixed a bug in safari where height for inline video wrapper when inline was not correct in
+  compiled, this
+- Updated dependencies
+
 ## 79.4.1
 
 ### Patch Changes

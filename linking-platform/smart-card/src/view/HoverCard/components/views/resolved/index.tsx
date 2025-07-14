@@ -7,16 +7,10 @@ import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { type JsonLd } from '@atlaskit/json-ld-types';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { useAnalyticsEvents } from '../../../../../common/analytics/generated/use-analytics-events';
-import {
-	CardDisplay,
-	SmartLinkPosition,
-	SmartLinkSize,
-	SmartLinkStatus,
-} from '../../../../../constants';
+import { CardDisplay, SmartLinkPosition, SmartLinkSize } from '../../../../../constants';
 import { succeedUfoExperience } from '../../../../../state/analytics';
 import FlexibleCard from '../../../../FlexibleCard';
 import {
@@ -104,14 +98,7 @@ const HoverCardResolvedView = ({
 		response: cardState.details,
 	});
 
-	const snippet = imagePreview ? null : (
-		<SnippetBlock
-			{...(fg('platform-linking-flexible-card-context')
-				? undefined
-				: { status: SmartLinkStatus.Resolved })}
-			css={[snippetBlockCss]}
-		/>
-	);
+	const snippet = imagePreview ? null : <SnippetBlock css={[snippetBlockCss]} />;
 	const aiSummaryMinHeight = snippet ? snippetHeight.current : 0;
 
 	return (
@@ -120,9 +107,6 @@ const HoverCardResolvedView = ({
 			<TitleBlock
 				{...titleBlockProps}
 				metadataPosition={SmartLinkPosition.Top}
-				{...(fg('platform-linking-flexible-card-context')
-					? undefined
-					: { status: SmartLinkStatus.Resolved })}
 				css={[titleBlockStyles]}
 			/>
 			<MetadataBlock
@@ -130,18 +114,9 @@ const HoverCardResolvedView = ({
 				secondary={secondary}
 				maxLines={1}
 				size={SmartLinkSize.Medium}
-				{...(fg('platform-linking-flexible-card-context')
-					? undefined
-					: { status: SmartLinkStatus.Resolved })}
 			/>
 			{isAISummaryEnabled ? (
-				<AISummaryBlock
-					aiSummaryMinHeight={aiSummaryMinHeight}
-					placeholder={snippet}
-					{...(fg('platform-linking-flexible-card-context')
-						? undefined
-						: { status: SmartLinkStatus.Resolved })}
-				/>
+				<AISummaryBlock aiSummaryMinHeight={aiSummaryMinHeight} placeholder={snippet} />
 			) : (
 				snippet
 			)}
@@ -150,9 +125,6 @@ const HoverCardResolvedView = ({
 				onRender={onSnippetRender}
 				blockRef={snippetBlockRef}
 				css={hiddenSnippetStyles}
-				{...(fg('platform-linking-flexible-card-context')
-					? undefined
-					: { status: SmartLinkStatus.Resolved })}
 				isHidden={true}
 			/>
 			<ActionBlock onClick={onActionClick} spaceInline="space.100" css={[actionBlockCss]} />

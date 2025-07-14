@@ -1,5 +1,13 @@
 # @atlaskit/teams-public
 
+## 0.42.2
+
+### Patch Changes
+
+- [#183882](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183882)
+  [`870803e533f40`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/870803e533f40) -
+  Update team links disconnect dialog message
+
 ## 0.42.1
 
 ### Patch Changes

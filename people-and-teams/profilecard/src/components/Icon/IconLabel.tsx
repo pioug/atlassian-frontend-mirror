@@ -4,7 +4,6 @@ import IconRecent from '@atlaskit/icon/core/migration/clock--recent';
 import IconEmail from '@atlaskit/icon/core/migration/email';
 import IconLocation from '@atlaskit/icon/core/migration/location';
 import OfficeBuildingIcon from '@atlaskit/icon/core/migration/office-building';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { DetailsLabel, DetailsLabelIcon, DetailsLabelText } from '../../styled/Card';
@@ -38,7 +37,7 @@ export default class IconLabel extends React.PureComponent<Props> {
 			<IconElement
 				label={`${this.props.icon}`}
 				LEGACY_size="small"
-				color={fg('compiled-migration-profilecard') ? token('color.text.subtlest') : 'currentColor'}
+				color={token('color.text.subtlest')}
 			/>
 		) : null;
 

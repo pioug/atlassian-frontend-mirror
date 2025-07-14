@@ -286,6 +286,14 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-07-14
+	platform_editor_media_floating_toolbar_early_exit: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_media_floating_toolbar_early_exit',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-04-23
 	platform_renderer_fix_analytics_memo_callback: createBooleanExperiment({
 		productKeys: {
@@ -439,6 +447,15 @@ export const editorExperimentsConfig = {
 		param: 'cohort',
 		values: ['control', 'test_blank', 'test_diagram'],
 		defaultValue: 'control',
+	}),
+	// added out of order to avoid known conflict that will occur otherwise
+	// Added 2025-07-11
+	cc_editor_ufo_hold_table_till_resize_complete: createBooleanExperiment({
+		productKeys: {
+			confluence: 'cc_editor_ufo_hold_table_till_resize_complete',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
 	}),
 	// Added 2025-07-07
 	platform_editor_toggle_expand_on_match_found: createBooleanExperiment({

@@ -77,7 +77,7 @@ export const getSimulatedBetterMetadata = (cardDetails?: JsonLd.Response): Simul
 			};
 		case 'jira-object-provider':
 			const isJiraTask = data['@type']?.includes('atlassian:Task') ?? false;
-			const isJiraPlan = !!data['atlassian:ownedBy'] ?? false;
+			const isJiraPlan = data['atlassian:ownedBy'] ? true : false;
 
 			let topMetadata: ElementItem[] = [
 				{ name: ElementName.AuthorGroup },
@@ -141,14 +141,6 @@ type SimulatedMetadata = {
 	titleMetadata: ElementItem[];
 	topMetadata: ElementItem[];
 	bottomMetadata?: ElementItem[];
-};
-
-/**
- * @deprecated Remove on platform-linking-flexible-card-context cleanup
- */
-export const FlexibleCardUiOptionsOld: InternalFlexibleUiOptions = {
-	hideElevation: true,
-	hideLegacyButton: true,
 };
 
 export const FlexibleCardUiOptions: InternalFlexibleUiOptions = {

@@ -3,8 +3,6 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 import { getFlexibleCardTestWrapper } from '../../../../../__tests__/__utils__/unit-testing-library-helpers';
 import { InternalActionName } from '../../../../../constants';
 import type { FlexibleUiDataContext } from '../../../../../state/flexible-ui-context/types';
@@ -22,61 +20,59 @@ describe('UnresolvedAction', () => {
 	const setup = (data?: FlexibleUiDataContext) =>
 		render(<UnresolvedAction testId="test" />, { wrapper: getFlexibleCardTestWrapper(data) });
 
-	ffTest.both('platform-linking-flexible-card-context', 'with fg', () => {
-		it('should render unresolved action when action data is present in context', async () => {
-			setup({
-				actions: {
-					[InternalActionName.UnresolvedAction]: { descriptor },
+	it('should render unresolved action when action data is present in context', async () => {
+		setup({
+			actions: {
+				[InternalActionName.UnresolvedAction]: { descriptor },
+			},
+		});
+
+		expect(await screen.findByTestId(testId)).toBeInTheDocument();
+		expect(await screen.findByText('Something is wrong.')).toBeInTheDocument();
+	});
+
+	it('should not render unresolved action when action data is not present in context', () => {
+		setup();
+		expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
+	});
+
+	it('should render button when onClick is provided', async () => {
+		setup({
+			actions: {
+				[InternalActionName.UnresolvedAction]: {
+					descriptor,
+					onClick: jest.fn(),
 				},
-			});
-
-			expect(await screen.findByTestId(testId)).toBeInTheDocument();
-			expect(await screen.findByText('Something is wrong.')).toBeInTheDocument();
+			},
 		});
 
-		it('should not render unresolved action when action data is not present in context', () => {
-			setup();
-			expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
+		expect(await screen.findByRole('button')).toBeInTheDocument();
+	});
+
+	it('should not render button if onClick is not provided', () => {
+		setup({
+			actions: {
+				[InternalActionName.UnresolvedAction]: { descriptor },
+			},
 		});
 
-		it('should render button when onClick is provided', async () => {
-			setup({
-				actions: {
-					[InternalActionName.UnresolvedAction]: {
-						descriptor,
-						onClick: jest.fn(),
-					},
+		expect(screen.queryByRole('button')).not.toBeInTheDocument();
+	});
+
+	it('should triggers onClick when button is clicked', async () => {
+		const mockOnClick = jest.fn();
+		setup({
+			actions: {
+				[InternalActionName.UnresolvedAction]: {
+					descriptor,
+					onClick: mockOnClick,
 				},
-			});
-
-			expect(await screen.findByRole('button')).toBeInTheDocument();
+			},
 		});
 
-		it('should not render button if onClick is not provided', () => {
-			setup({
-				actions: {
-					[InternalActionName.UnresolvedAction]: { descriptor },
-				},
-			});
+		const button = await screen.findByRole('button');
+		await userEvent.click(button);
 
-			expect(screen.queryByRole('button')).not.toBeInTheDocument();
-		});
-
-		it('should triggers onClick when button is clicked', async () => {
-			const mockOnClick = jest.fn();
-			setup({
-				actions: {
-					[InternalActionName.UnresolvedAction]: {
-						descriptor,
-						onClick: mockOnClick,
-					},
-				},
-			});
-
-			const button = await screen.findByRole('button');
-			await userEvent.click(button);
-
-			expect(mockOnClick).toHaveBeenCalled();
-		});
+		expect(mockOnClick).toHaveBeenCalled();
 	});
 });

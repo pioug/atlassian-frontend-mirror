@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-table
 
+## 11.1.1
+
+### Patch Changes
+
+- [#185075](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185075)
+  [`0ffa67091b61f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0ffa67091b61f) -
+  Adds resiliency for consumers that end up with multiple table plugins
+- Updated dependencies
+
+## 11.1.0
+
+### Minor Changes
+
+- [#184563](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/184563)
+  [`d5b7a19b7e9ad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d5b7a19b7e9ad) -
+  Adds UFO holds to the table component on load
+
+### Patch Changes
+
+- [#183428](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183428)
+  [`acba3dd7b2daa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/acba3dd7b2daa) -
+  Migrate table to useSharedPluginStateWithSelector
+- Updated dependencies
+
 ## 11.0.3
 
 ### Patch Changes

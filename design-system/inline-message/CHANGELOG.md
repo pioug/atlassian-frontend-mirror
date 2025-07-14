@@ -1,5 +1,13 @@
 # @atlaskit/inline-message
 
+## 15.3.4
+
+### Patch Changes
+
+- [#184952](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/184952)
+  [`d25b30df1d8cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d25b30df1d8cf) -
+  Removes invalid html nesting (Divs in Buttons)
+
 ## 15.3.3
 
 ### Patch Changes

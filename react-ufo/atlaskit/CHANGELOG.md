@@ -1,5 +1,29 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.14.15
+
+### Patch Changes
+
+- [#184833](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/184833)
+  [`009166bfcdca7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/009166bfcdca7) -
+  FG cleanup - platform_ufo_report_memory_usage
+
+## 3.14.14
+
+### Patch Changes
+
+- [#184795](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/184795)
+  [`ce7944d6a2a96`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ce7944d6a2a96) -
+  centrally exclude all data-test\* attribute mutations for TTVC v3
+
+## 3.14.13
+
+### Patch Changes
+
+- [#184565](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/184565)
+  [`c08127cbd5494`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c08127cbd5494) -
+  Fix the third party elements excluded from metric logic for non-react rendered components
+
 ## 3.14.12
 
 ### Patch Changes

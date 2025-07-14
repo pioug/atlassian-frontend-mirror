@@ -9,7 +9,7 @@ import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 
 import { SmartLinkSize } from '../../src/constants';
-import { FlexibleCardContext, FlexibleUiContext } from '../../src/state/flexible-ui-context';
+import { FlexibleCardContext } from '../../src/state/flexible-ui-context';
 import {
 	AssignedToGroup,
 	AuthorGroup,
@@ -53,27 +53,24 @@ export default () => {
 	return (
 		<VRTestWrapper>
 			<FlexibleCardContext.Provider value={{ data: context }}>
-				{/* Remove FlexibleUiContext on cleanup of platform-linking-flexible-card-context */}
-				<FlexibleUiContext.Provider value={context}>
-					{Object.values(SmartLinkSize).map((size, tIdx) => (
-						<React.Fragment key={tIdx}>
-							<h5>{size}</h5>
-							<div css={containerStyles}>
-								<AuthorGroup size={size} testId={`vr-test-author-group-${size}-${tIdx}`} />
-								<CollaboratorGroup
-									size={size}
-									testId={`vr-test-collaborator-group-${size}-${tIdx}`}
-								/>
-								<OwnedByGroup size={size} testId={`vr-test-ownedBy-group-${size}-${tIdx}`} />
-								<AssignedToGroup size={size} testId={`vr-test-assignedTo-group-${size}-${tIdx}`} />
-							</div>
-						</React.Fragment>
-					))}
-					<h5>Override CSS</h5>
-					<div css={containerStyles}>
-						<AuthorGroup css={overrideCss} />
-					</div>
-				</FlexibleUiContext.Provider>
+				{Object.values(SmartLinkSize).map((size, tIdx) => (
+					<React.Fragment key={tIdx}>
+						<h5>{size}</h5>
+						<div css={containerStyles}>
+							<AuthorGroup size={size} testId={`vr-test-author-group-${size}-${tIdx}`} />
+							<CollaboratorGroup
+								size={size}
+								testId={`vr-test-collaborator-group-${size}-${tIdx}`}
+							/>
+							<OwnedByGroup size={size} testId={`vr-test-ownedBy-group-${size}-${tIdx}`} />
+							<AssignedToGroup size={size} testId={`vr-test-assignedTo-group-${size}-${tIdx}`} />
+						</div>
+					</React.Fragment>
+				))}
+				<h5>Override CSS</h5>
+				<div css={containerStyles}>
+					<AuthorGroup css={overrideCss} />
+				</div>
 			</FlexibleCardContext.Provider>
 		</VRTestWrapper>
 	);

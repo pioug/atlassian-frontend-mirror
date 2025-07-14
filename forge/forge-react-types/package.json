@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/forge-react-types",
-	"version": "0.42.8",
+	"version": "0.42.9",
 	"description": "Component types for Forge UI Kit React components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -28,14 +28,12 @@
 	},
 	"dependencies": {
 		"@atlaskit/button": "workspace:^",
-		"@atlaskit/calendar": "workspace:^",
 		"@atlaskit/checkbox": "workspace:^",
 		"@atlaskit/comment": "workspace:^",
 		"@atlaskit/datetime-picker": "workspace:^",
 		"@atlaskit/dynamic-table": "workspace:^",
 		"@atlaskit/empty-state": "workspace:^",
 		"@atlaskit/form": "workspace:^",
-		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/inline-edit": "workspace:^",
 		"@atlaskit/lozenge": "workspace:^",
 		"@atlaskit/modal-dialog": "workspace:^",
@@ -44,7 +42,6 @@
 		"@atlaskit/progress-bar": "workspace:^",
 		"@atlaskit/progress-tracker": "workspace:^",
 		"@atlaskit/radio": "workspace:^",
-		"@atlaskit/range": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/select": "workspace:^",
 		"@atlaskit/spinner": "workspace:^",

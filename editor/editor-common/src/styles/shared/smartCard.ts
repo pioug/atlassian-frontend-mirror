@@ -9,6 +9,7 @@ import {
 	SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -49,9 +50,16 @@ export const smartCardStyles = () => css`
 			}`
 			: ''}
 
-		&.${akEditorSelectedNodeClassName} .${SmartCardSharedCssClassName.LOADER_WRAPPER} > a {
-			${getSelectionStyles([SelectionStyle.BoxShadow])}
-		}
+		${expValEqualsNoExposure('platform_editor_find_and_replace_improvements', 'isEnabled', true) &&
+		fg('platform_editor_find_and_replace_improvements_1')
+			? `
+				&.${akEditorSelectedNodeClassName}:not(.search-match-block) .${SmartCardSharedCssClassName.LOADER_WRAPPER} > a {
+				${getSelectionStyles([SelectionStyle.BoxShadow])}
+			}`
+			: `
+				&.${akEditorSelectedNodeClassName} .${SmartCardSharedCssClassName.LOADER_WRAPPER} > a {
+				${getSelectionStyles([SelectionStyle.BoxShadow])}
+			}`}
 		.${SmartCardSharedCssClassName.LOADER_WRAPPER} > a {
 			/* EDM-1717: box-shadow Safari fix start */
 			z-index: 1;
@@ -143,9 +151,18 @@ export const smartCardStyles = () => css`
 			}
 		}
 
-		&.${akEditorSelectedNodeClassName} .${SmartCardSharedCssClassName.LOADER_WRAPPER} > div::after {
-			${getSelectionStyles([SelectionStyle.BoxShadow])}
-		}
+		${expValEqualsNoExposure('platform_editor_find_and_replace_improvements', 'isEnabled', true) &&
+		fg('platform_editor_find_and_replace_improvements_1')
+			? `
+				&.${akEditorSelectedNodeClassName}:not(.search-match-block) .${SmartCardSharedCssClassName.LOADER_WRAPPER} > div::after {
+					${getSelectionStyles([SelectionStyle.BoxShadow])}
+				}
+			`
+			: `
+				&.${akEditorSelectedNodeClassName} .${SmartCardSharedCssClassName.LOADER_WRAPPER} > div::after {
+					${getSelectionStyles([SelectionStyle.BoxShadow])}
+				}
+			`}
 
 		&.danger {
 			.media-card-frame::after {

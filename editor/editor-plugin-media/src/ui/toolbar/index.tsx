@@ -37,7 +37,7 @@ import type {
 import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
 import type { ForceFocusSelector } from '@atlaskit/editor-plugin-floating-toolbar';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import {
 	contains,
@@ -57,6 +57,7 @@ import SmartLinkCardIcon from '@atlaskit/icon/core/smart-link-card';
 import { mediaFilmstripItemDOMSelector } from '@atlaskit/media-filmstrip';
 import { messages } from '@atlaskit/media-ui';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
@@ -856,6 +857,13 @@ const getMediaTypeMessage = (selectedNodeTypeSingle: string): MessageDescriptor 
 
 export const overflowDropdwonBtnTriggerTestId = 'media-overflow-dropdown-trigger';
 
+const isMediaSelection = (selection: Selection, nodeType: NodeType[]) => {
+	if (selection instanceof NodeSelection) {
+		return nodeType.includes(selection.node.type);
+	}
+	return false;
+};
+
 export const floatingToolbar = (
 	state: EditorState,
 	intl: IntlShape,
@@ -894,6 +902,12 @@ export const floatingToolbar = (
 
 	const isSelectedNodeMediaSingle =
 		state.selection instanceof NodeSelection && state.selection.node.type === mediaSingle;
+
+	if (expValEquals('platform_editor_media_floating_toolbar_early_exit', 'isEnabled', true)) {
+		if (!isMediaSelection(state.selection, nodeType)) {
+			return;
+		}
+	}
 
 	const baseToolbar: MediaToolbarBaseConfig = {
 		title: 'Media floating controls',

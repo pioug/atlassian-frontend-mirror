@@ -8,6 +8,7 @@ import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { NodeView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { openRequestEditPopupAt } from '../pm-plugins/helpers';
 import type { TasksAndDecisionsPlugin } from '../tasksAndDecisionsPluginType';
@@ -107,11 +108,21 @@ export class TaskItemNodeView implements NodeView {
 			this.api?.taskDecision.sharedState.currentState();
 
 		// logic is inspired from packages/elements/task-decision/src/components/ResourcedTaskItem.tsx
-		if (currentTaskDecisionState?.taskDecisionProvider && this.objectId) {
-			currentTaskDecisionState?.taskDecisionProvider.toggleTask(
-				{ localId, objectAri: this.objectId },
-				isDone ? 'DONE' : 'TODO',
-			);
+		if (fg('platform_editor_task_check_status_fix')) {
+			const objectAri = this.getObjectAri();
+			if (currentTaskDecisionState?.taskDecisionProvider && objectAri) {
+				currentTaskDecisionState?.taskDecisionProvider.toggleTask(
+					{ localId, objectAri },
+					nextState,
+				);
+			}
+		} else {
+			if (currentTaskDecisionState?.taskDecisionProvider && this.objectId) {
+				currentTaskDecisionState?.taskDecisionProvider.toggleTask(
+					{ localId, objectAri: this.objectId },
+					isDone ? 'DONE' : 'TODO',
+				);
+			}
 		}
 
 		// SetAttrsStep should be used to prevent task updates from being dropped when mapping task ticks
@@ -153,6 +164,13 @@ export class TaskItemNodeView implements NodeView {
 		if (!isValidUpdate) {
 			return false;
 		}
+		if (fg('platform_editor_task_check_status_fix')) {
+			// Only return false if this is a completely different task
+			if (this.node.attrs.localId !== node.attrs.localId) {
+				return false;
+			}
+		}
+
 		this.updatePlaceholder(node);
 		if (this.domElement && !node.sameMarkup(this.node)) {
 			this.domElement.setAttribute('data-task-state', node.attrs.state);

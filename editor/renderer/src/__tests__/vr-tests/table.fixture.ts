@@ -1,4 +1,4 @@
-import { tableAdf } from '../__fixtures__/full-width-adf';
+import { tableAdf, tableWithNumberedColumnAdf } from '../__fixtures__/full-width-adf';
 import { overflowTableFullWidth, overflowTableWide } from '../__fixtures__/overflow.adf';
 import tableWithWrappedNodesAdf from '../__fixtures__/table-with-wrapped-nodes.adf.json';
 import tableComplexSelectionsAdf from '../__fixtures__/table-complex-selections.adf.json';
@@ -8,6 +8,11 @@ import { generateRendererComponent } from '../__helpers/rendererComponents';
 
 export const TableRenderer = generateRendererComponent({
 	document: tableAdf,
+	appearance: 'full-width',
+});
+
+export const TableRendererWithNumberedColumnFullWidth = generateRendererComponent({
+	document: tableWithNumberedColumnAdf,
 	appearance: 'full-width',
 });
 
@@ -48,6 +53,11 @@ export const TableRendererBackgroundColor = generateRendererComponent({
 	appearance: 'full-page',
 });
 
+export const TableRendereWithNumberedColumnFullPage = generateRendererComponent({
+	document: tableWithNumberedColumnAdf,
+	appearance: 'full-page',
+});
+
 export const TableRendererFullWidthComment = generateRendererComponent({
 	document: overflowTableFullWidth,
 	appearance: 'comment',
@@ -63,6 +73,11 @@ export const TableRendererComment = generateRendererComponent({
 	appearance: 'comment',
 });
 
+export const TableRendererWithNumberedColumnComment = generateRendererComponent({
+	document: tableWithNumberedColumnAdf,
+	appearance: 'comment',
+});
+
 export const TableRendererWithoutAppearance = generateRendererComponent({
 	document: tableAdf,
 	appearance: undefined,
@@ -75,5 +90,10 @@ export const TableRendererFullWidthWithoutAppearance = generateRendererComponent
 
 export const TableRendererWideWithoutAppearance = generateRendererComponent({
 	document: overflowTableWide,
+	appearance: undefined,
+});
+
+export const TableRendererWithNumberedColumnWithoutAppearance = generateRendererComponent({
+	document: tableWithNumberedColumnAdf,
 	appearance: undefined,
 });

@@ -5,7 +5,7 @@ import { IntlProvider } from 'react-intl-next';
 import { avatar1, avatar2, avatar3, image1 as previewImage } from '@atlaskit/link-test-helpers';
 
 import { ActionName, IconType, MediaType, SmartLinkStatus } from '../../src/constants';
-import { FlexibleCardContext, FlexibleUiContext } from '../../src/state/flexible-ui-context';
+import { FlexibleCardContext } from '../../src/state/flexible-ui-context';
 import { isFlexibleUiBlock } from '../../src/utils/flexible';
 import { getContext } from '../utils/flexible-ui';
 
@@ -77,10 +77,7 @@ const renderChildren = (children: React.ReactNode): React.ReactNode =>
 const ExampleContainer = ({ children }: PropsWithChildren<{}>) => (
 	<IntlProvider locale="en">
 		<FlexibleCardContext.Provider value={flexibleCardContext}>
-			{/* Remove FlexibleUiContext on cleanup of platform-linking-flexible-card-context */}
-			<FlexibleUiContext.Provider value={context}>
-				{renderChildren(children)}
-			</FlexibleUiContext.Provider>
+			{renderChildren(children)}
 		</FlexibleCardContext.Provider>
 	</IntlProvider>
 );

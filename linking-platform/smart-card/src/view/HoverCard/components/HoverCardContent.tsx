@@ -15,7 +15,7 @@ import { getIsAISummaryEnabled } from '../../../utils/ai-summary';
 import { fireLinkClickedEvent } from '../../../utils/analytics/click';
 import { type TitleBlockProps } from '../../FlexibleCard/components/blocks/title-block/types';
 import { type FlexibleCardProps } from '../../FlexibleCard/types';
-import { flexibleUiOptions, flexibleUiOptionsOld } from '../styled';
+import { flexibleUiOptions } from '../styled';
 import { type HoverCardContentProps } from '../types';
 import { getMetadata } from '../utils';
 
@@ -119,9 +119,7 @@ const HoverCardContent = ({
 		subtitle: subtitle,
 	};
 
-	const uiOptions = fg('platform-linking-flexible-card-context')
-		? flexibleUiOptions
-		: flexibleUiOptionsOld;
+	const uiOptions = flexibleUiOptions;
 	if (fg('cc-ai-linking-platform-snippet-renderer')) {
 		uiOptions.enableSnippetRenderer = true;
 	}

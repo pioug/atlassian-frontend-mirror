@@ -18,6 +18,7 @@ import JiraRoadMap from '../../../__fixtures__/jira-roadmap';
 import JiraTask from '../../../__fixtures__/jira-task';
 import JiraTimeline from '../../../__fixtures__/jira-timeline';
 import YouTubeVideo from '../../../__fixtures__/youtube-video';
+import { SmartLinkStatus } from '../../../constants';
 import extractFlexibleUiContext from '../index';
 
 describe('extractFlexibleUiContext', () => {
@@ -26,6 +27,7 @@ describe('extractFlexibleUiContext', () => {
 			ffTest.both('cc-ai-linking-platform-snippet-renderer', '', () => {
 				it('returns flexible ui context for bitbucket pull request', () => {
 					const data = extractFlexibleUiContext({
+						status: SmartLinkStatus.Resolved,
 						response: BitbucketPullRequest as JsonLd.Response,
 					});
 					expect(data).toEqual({
@@ -65,8 +67,9 @@ describe('extractFlexibleUiContext', () => {
 						sourceBranch: 'source-branch',
 						state: { text: 'open', appearance: 'inprogress', action: undefined },
 						targetBranch: 'target-branch',
-						title:
-							'bitbucket-object-provider: #61 EDM-3605: Cras ut nisi vitae lectus sagittis mattis',
+						linkTitle: expect.objectContaining({
+							text: 'bitbucket-object-provider: #61 EDM-3605: Cras ut nisi vitae lectus sagittis mattis',
+						}),
 						url: 'https://link-url',
 						...(fg('platform-linking-visual-refresh-v2') && {
 							type: ['atlassian:SourceCodePullRequest', 'Object'],
@@ -83,6 +86,7 @@ describe('extractFlexibleUiContext', () => {
 
 				it('returns flexible ui context for compass scorecard', () => {
 					const data = extractFlexibleUiContext({
+						status: SmartLinkStatus.Resolved,
 						response: CompassScorecard as JsonLd.Response,
 					});
 
@@ -162,7 +166,7 @@ describe('extractFlexibleUiContext', () => {
 						subTasksProgress: undefined,
 						subscriberCount: undefined,
 						targetBranch: undefined,
-						title: 'Component readiness',
+						linkTitle: expect.objectContaining({ text: 'Component readiness' }),
 						url: 'https://ben-just-jwm.jira-dev.com/compass/scorecard/a7c20891-8958-4360-bc5a-8d8a26d7cdfc',
 						viewCount: undefined,
 						voteCount: undefined,
@@ -181,6 +185,7 @@ describe('extractFlexibleUiContext', () => {
 
 				it('returns flexible ui context for confluence page', () => {
 					const data = extractFlexibleUiContext({
+						status: SmartLinkStatus.Resolved,
 						response: ConfluencePage as JsonLd.Response,
 					});
 					expect(data).toEqual({
@@ -225,7 +230,9 @@ describe('extractFlexibleUiContext', () => {
 						provider: { icon: 'Provider:Confluence', label: 'Confluence' },
 						snippet: 'ShipIt 53 is on 9 Dec 2021 and 10 Dec 2021!',
 						subscriberCount: 21,
-						title: 'Everything you need to know about ShipIt53!',
+						linkTitle: expect.objectContaining({
+							text: 'Everything you need to know about ShipIt53!',
+						}),
 						url: 'https://confluence-url/wiki/spaces/space-id/pages/page-id',
 						...(fg('platform-linking-visual-refresh-v2') && {
 							type: ['schema:TextDigitalDocument', 'Document'],
@@ -242,6 +249,7 @@ describe('extractFlexibleUiContext', () => {
 
 				it('returns flexible ui context for confluence blog', () => {
 					const data = extractFlexibleUiContext({
+						status: SmartLinkStatus.Resolved,
 						response: ConfluenceBlog as JsonLd.Response,
 					});
 
@@ -287,7 +295,9 @@ describe('extractFlexibleUiContext', () => {
 						snippet:
 							'A few weeks ago, we announced a brand new award for ShipIt - the Customer Fun Award. The goal was to generate ideas to create fun experiences in our new product, Canvas.',
 						subscriberCount: 17,
-						title: 'Announcing the winners of the Customer Fun Award for ShipIt 53',
+						linkTitle: expect.objectContaining({
+							text: 'Announcing the winners of the Customer Fun Award for ShipIt 53',
+						}),
 						url: 'https://confluence-url/wiki/spaces/space-id/blog/blog-id',
 						...(fg('platform-linking-visual-refresh-v2') && {
 							type: ['schema:BlogPosting', 'Document'],
@@ -304,6 +314,7 @@ describe('extractFlexibleUiContext', () => {
 
 				it('returns flexible ui context confluence space', () => {
 					const data = extractFlexibleUiContext({
+						status: SmartLinkStatus.Resolved,
 						response: ConfluenceSpace as JsonLd.Response,
 					});
 					expect(data).toEqual({
@@ -329,7 +340,7 @@ describe('extractFlexibleUiContext', () => {
 						},
 						linkIcon: { label: 'ShipIt', url: 'https://icon-url', render: undefined },
 						provider: { icon: 'Provider:Confluence', label: 'Confluence' },
-						title: 'ShipIt',
+						linkTitle: expect.objectContaining({ text: 'ShipIt' }),
 						url: 'https://confluence-url/wiki/spaces/space-id',
 						...(fg('platform-linking-visual-refresh-v2') && {
 							type: ['atlassian:Project', 'Object'],
@@ -346,6 +357,7 @@ describe('extractFlexibleUiContext', () => {
 
 				it('returns flexible ui context for confluence template', () => {
 					const data = extractFlexibleUiContext({
+						status: SmartLinkStatus.Resolved,
 						response: ConfluenceTemplate as JsonLd.Response,
 					});
 
@@ -377,8 +389,7 @@ describe('extractFlexibleUiContext', () => {
 						},
 						provider: { icon: 'Provider:Confluence', label: 'Confluence' },
 						snippet: 'Description for templateName_4815162342',
-
-						title: 'templateName_4815162342',
+						linkTitle: expect.objectContaining({ text: 'templateName_4815162342' }),
 						url: 'https://confluence-url/wiki/spaces/space-id/pages/page-id',
 						...(fg('platform-linking-visual-refresh-v2') && {
 							type: ['atlassian:Template', 'Document'],
@@ -395,6 +406,7 @@ describe('extractFlexibleUiContext', () => {
 
 				it('returns flexible ui context for jira task', () => {
 					const data = extractFlexibleUiContext({
+						status: SmartLinkStatus.Resolved,
 						response: JiraTask as JsonLd.Response,
 						actionOptions: { hide: true },
 					});
@@ -414,7 +426,7 @@ describe('extractFlexibleUiContext', () => {
 						provider: { icon: 'Provider:Jira', label: 'Jira' },
 						state: { text: '(Awaiting) Deployment', appearance: 'success' },
 						subscriberCount: 2,
-						title: 'Flexible UI Task',
+						linkTitle: expect.objectContaining({ text: 'Flexible UI Task' }),
 						url: 'https://jira-url/browse/id',
 						...(fg('platform-linking-visual-refresh-v2') && {
 							type: ['atlassian:Task', 'Object'],
@@ -431,6 +443,7 @@ describe('extractFlexibleUiContext', () => {
 
 				it('returns flexible ui context for jira roadmap', () => {
 					const data = extractFlexibleUiContext({
+						status: SmartLinkStatus.Resolved,
 						response: JiraRoadMap as JsonLd.Response,
 					});
 
@@ -470,7 +483,7 @@ describe('extractFlexibleUiContext', () => {
 							render: undefined,
 						},
 						provider: { icon: 'Provider:Jira', label: 'Jira' },
-						title: 'Linking Platform',
+						linkTitle: expect.objectContaining({ text: 'Linking Platform' }),
 						url: 'https://jira-url/projects/project-id/boards/board-id/roadmap',
 						...(fg('platform-linking-visual-refresh-v2') && {
 							type: ['atlassian:Project', 'Object'],
@@ -487,6 +500,7 @@ describe('extractFlexibleUiContext', () => {
 
 				it('returns flexible ui context for jira timeline', () => {
 					const data = extractFlexibleUiContext({
+						status: SmartLinkStatus.Resolved,
 						response: JiraTimeline as JsonLd.Response,
 					});
 
@@ -526,7 +540,7 @@ describe('extractFlexibleUiContext', () => {
 							render: undefined,
 						},
 						provider: { icon: 'Provider:Jira', label: 'Jira' },
-						title: 'Linking Platform',
+						linkTitle: expect.objectContaining({ text: 'Linking Platform' }),
 						url: 'https://jira-url/projects/project-id/boards/board-id/timeline',
 						...(fg('platform-linking-visual-refresh-v2') && {
 							type: ['atlassian:Project', 'Object'],
@@ -543,6 +557,7 @@ describe('extractFlexibleUiContext', () => {
 
 				it('returns flexible ui context for atlas project', () => {
 					const data = extractFlexibleUiContext({
+						status: SmartLinkStatus.Resolved,
 						response: AtlasProject as JsonLd.Response,
 					});
 
@@ -606,7 +621,7 @@ describe('extractFlexibleUiContext', () => {
 							action: undefined,
 						},
 						subscriberCount: 109,
-						title: 'The Superman Project',
+						linkTitle: expect.objectContaining({ text: 'The Superman Project' }),
 						url: 'https://link-url',
 						...(fg('platform-linking-visual-refresh-v2') && {
 							type: ['atlassian:Project', 'Object'],
@@ -623,6 +638,7 @@ describe('extractFlexibleUiContext', () => {
 
 				it('returns flexible ui context for figma', () => {
 					const data = extractFlexibleUiContext({
+						status: SmartLinkStatus.Resolved,
 						response: Figma as JsonLd.Response,
 					});
 
@@ -660,7 +676,7 @@ describe('extractFlexibleUiContext', () => {
 						modifiedOn: '2021-12-14T05:07:13Z',
 						preview: { type: 'image', url: 'https://image-url' },
 						provider: { label: 'Figma', url: 'https://icon-url' },
-						title: 'Flexible Links',
+						linkTitle: expect.objectContaining({ text: 'Flexible Links' }),
 						url: 'https://figma-url/Flexible-Links?node-id=node-id',
 						...(fg('platform-linking-visual-refresh-v2') && {
 							type: ['Document'],
@@ -677,6 +693,7 @@ describe('extractFlexibleUiContext', () => {
 
 				it('returns flexible ui context for youtube video', () => {
 					const data = extractFlexibleUiContext({
+						status: SmartLinkStatus.Resolved,
 						response: YouTubeVideo as JsonLd.Response,
 					});
 
@@ -720,7 +737,7 @@ describe('extractFlexibleUiContext', () => {
 						provider: { label: 'YouTube', url: 'https://icon-url' },
 						snippet:
 							"Atlassian's product strategy, distribution model, and company culture work in concert to create unique value for its customers and a competitive advantage for the company.",
-						title: 'The Atlassian Business Model',
+						linkTitle: expect.objectContaining({ text: 'The Atlassian Business Model' }),
 						url: 'https://youtube-url/watch?v=video-id',
 						...(fg('platform-linking-visual-refresh-v2') && {
 							type: ['Object'],
@@ -737,6 +754,7 @@ describe('extractFlexibleUiContext', () => {
 
 				it('returns flexible ui context for dropbox file', () => {
 					const data = extractFlexibleUiContext({
+						status: SmartLinkStatus.Resolved,
 						response: DropboxFile as JsonLd.Response,
 					});
 
@@ -786,7 +804,7 @@ describe('extractFlexibleUiContext', () => {
 						modifiedOn: '2022-06-30T00:06:16Z',
 						preview: { type: 'image', url: 'https://image-url' },
 						provider: { label: 'Dropbox', url: 'https://icon-url' },
-						title: 'Happy Guy.gif',
+						linkTitle: expect.objectContaining({ text: 'Happy Guy.gif' }),
 						url: 'https://link-url',
 						...(fg('platform-linking-visual-refresh-v2') && {
 							type: ['schema:TextDigitalDocument', 'Object'],
@@ -819,9 +837,9 @@ describe('extractFlexibleUiContext', () => {
 					url,
 				},
 			} as JsonLd.Response;
-			const data = extractFlexibleUiContext({ response });
+			const data = extractFlexibleUiContext({ status: SmartLinkStatus.Resolved, response });
 
-			expect(data?.title).toEqual(url);
+			expect(data?.linkTitle?.text).toEqual(url);
 		});
 
 		describe('actions', () => {
@@ -839,7 +857,12 @@ describe('extractFlexibleUiContext', () => {
 				},
 			} as JsonLd.Response;
 
-			const data = extractFlexibleUiContext({ aiSummaryConfig, response, url: propUrl });
+			const data = extractFlexibleUiContext({
+				status: SmartLinkStatus.Resolved,
+				aiSummaryConfig,
+				response,
+				url: propUrl,
+			});
 			expect(data?.actions?.AISummaryAction?.url).toEqual('prop-url');
 		});
 	});
@@ -849,6 +872,7 @@ describe('extractFlexibleUiContext', () => {
 			describe('with entity support', () => {
 				it('returns flexible ui context for Figma document with entity support', () => {
 					const data = extractFlexibleUiContext({
+						status: SmartLinkStatus.Resolved,
 						response: FigmaEntity as SmartLinkResponse,
 					});
 					expect(data).toEqual(
@@ -883,7 +907,7 @@ describe('extractFlexibleUiContext', () => {
 							linkIcon: { label: 'Flexible Links', url: 'https://icon-url' },
 							modifiedOn: '2025-01-08T22:26:52.501Z',
 							preview: { type: 'image', url: 'https://image-url' },
-							title: 'Flexible Links',
+							linkTitle: expect.objectContaining({ text: 'Flexible Links' }),
 							url: 'https://figma-url/Flexible-Links?node-id=node-id',
 							...(fg('platform-linking-visual-refresh-v2') && {
 								type: ['Document'],
@@ -901,6 +925,7 @@ describe('extractFlexibleUiContext', () => {
 
 				it('returns flexible ui context for Google document with entity support', () => {
 					const data = extractFlexibleUiContext({
+						status: SmartLinkStatus.Resolved,
 						response: DocumentEntity as SmartLinkResponse,
 					});
 					expect(data).toEqual(
@@ -933,7 +958,7 @@ describe('extractFlexibleUiContext', () => {
 							},
 							modifiedOn: '2022-06-22T00:44:14.956Z',
 							preview: { type: 'image', url: 'https://preview-image-url' },
-							title: 'Google Sheets: Public',
+							linkTitle: expect.objectContaining({ text: 'Google Sheets: Public' }),
 							url: 'https://document.com',
 							...(fg('platform-linking-visual-refresh-v2') && {
 								type: ['Document'],

@@ -27,7 +27,6 @@ const MINIMUM_MAX_LINES = 1;
  */
 const SnippetBlock = ({
 	maxLines = DEFAULT_MAX_LINES,
-	status = SmartLinkStatus.Fallback,
 	testId = 'smart-block-snippet',
 	text,
 	isHidden = false,
@@ -49,18 +48,10 @@ const SnippetBlock = ({
 			useFlexibleUiOptionContext()?.enableSnippetRenderer
 		: undefined;
 
-	const cardContext = fg('platform-linking-flexible-card-context')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useFlexibleCardContext()
-		: undefined;
-	if (fg('platform-linking-flexible-card-context')) {
-		if (cardContext?.status !== SmartLinkStatus.Resolved && !text) {
-			return null;
-		}
-	} else {
-		if (status !== SmartLinkStatus.Resolved && !text) {
-			return null;
-		}
+	const cardContext = useFlexibleCardContext();
+
+	if (cardContext?.status !== SmartLinkStatus.Resolved && !text) {
+		return null;
 	}
 
 	const snippetMaxLines = getMaxLines(
@@ -77,9 +68,7 @@ const SnippetBlock = ({
 		return (
 			<Block
 				{...blockProps}
-				{...(fg('platform-linking-flexible-card-context')
-					? { size: blockProps.size ?? cardContext?.ui?.size }
-					: undefined)}
+				size={blockProps.size ?? cardContext?.ui?.size}
 				testId={`${testId}-${statusTestId}-view`}
 			>
 				{snippet}
@@ -91,9 +80,7 @@ const SnippetBlock = ({
 	return (
 		<Block
 			{...blockProps}
-			{...(fg('platform-linking-flexible-card-context')
-				? { size: blockProps.size ?? cardContext?.ui?.size }
-				: undefined)}
+			size={blockProps.size ?? cardContext?.ui?.size}
 			testId={`${testId}-${statusTestId}-view`}
 		>
 			{SnippetReplacement ? (

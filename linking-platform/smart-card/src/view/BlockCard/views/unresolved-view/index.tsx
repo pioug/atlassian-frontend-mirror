@@ -11,7 +11,6 @@ import { browser } from '@atlaskit/linking-common/user-agent';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-import { type SmartLinkStatus } from '../../../../constants';
 import FlexibleCard from '../../../FlexibleCard';
 import {
 	CustomBlock,
@@ -19,12 +18,7 @@ import {
 	PreviewBlock,
 	TitleBlock,
 } from '../../../FlexibleCard/components/blocks';
-import {
-	FlexibleCardUiOptions,
-	FlexibleCardUiOptionsOld,
-	PreviewBlockOptions,
-	titleBlockOptions,
-} from '../utils';
+import { FlexibleCardUiOptions, PreviewBlockOptions, titleBlockOptions } from '../utils';
 
 import { type UnresolvedViewProps } from './types';
 
@@ -87,38 +81,12 @@ const UnresolvedView = ({
 			onError={onError}
 			origin="smartLinkCard"
 			testId={testId}
-			ui={
-				fg('platform-linking-flexible-card-context')
-					? FlexibleCardUiOptions
-					: FlexibleCardUiOptionsOld
-			}
+			ui={FlexibleCardUiOptions}
 			url={url}
 		>
-			<TitleBlock
-				{...titleBlockOptions}
-				hideIcon={!!title}
-				text={title}
-				css={[titleBlockCss]}
-				{...(fg('platform-linking-flexible-card-context')
-					? undefined
-					: { status: cardState.status as SmartLinkStatus })}
-			/>
-			<CustomBlock
-				css={[customBlockStyles]}
-				{...(fg('platform-linking-flexible-card-context')
-					? undefined
-					: { status: cardState.status as SmartLinkStatus })}
-			>
-				{children}
-			</CustomBlock>
-			{showPreview && (
-				<PreviewBlock
-					{...PreviewBlockOptions}
-					{...(fg('platform-linking-flexible-card-context')
-						? undefined
-						: { status: cardState.status as SmartLinkStatus })}
-				/>
-			)}
+			<TitleBlock {...titleBlockOptions} hideIcon={!!title} text={title} css={[titleBlockCss]} />
+			<CustomBlock css={[customBlockStyles]}>{children}</CustomBlock>
+			{showPreview && <PreviewBlock {...PreviewBlockOptions} />}
 			<InternalFooterBlock
 				css={[
 					footerBlockCss,
@@ -126,9 +94,6 @@ const UnresolvedView = ({
 				]}
 				actions={actions}
 				testId="smart-block-card-footer"
-				{...(fg('platform-linking-flexible-card-context')
-					? undefined
-					: { status: cardState.status as SmartLinkStatus })}
 			/>
 		</FlexibleCard>
 	);

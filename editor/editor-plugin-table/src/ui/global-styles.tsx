@@ -8,9 +8,9 @@ import { Global, jsx } from '@emotion/react';
 import {
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 
 import type { PluginInjectionAPI } from '../types';
 
@@ -18,7 +18,9 @@ import { tableStyles } from './common-styles';
 
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(api: PluginInjectionAPI | undefined) => {
-		const mode = useSharedPluginStateSelector(api, 'editorViewMode.mode');
+		const { mode } = useSharedPluginStateWithSelector(api, ['editorViewMode'], (states) => ({
+			mode: states.editorViewModeState?.mode,
+		}));
 		return {
 			mode,
 		};

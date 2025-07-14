@@ -12,7 +12,6 @@ import ModalDialog, {
 import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 
 import { type ContainerTypes } from '../../../common/types';
-import { getContainerProperties } from '../../../common/utils/get-container-properties';
 
 export const messages = defineMessages({
 	disconnectDialogTitle: {
@@ -22,13 +21,27 @@ export const messages = defineMessages({
 	},
 	disconnectDialogDescription: {
 		id: 'ptc-directory.team-profile-page.team-containers.disconnect-dialog.description',
-		defaultMessage: 'This team will no longer be connected to the {containerName} {containerType}.',
+		defaultMessage: `This team will no longer be connected to the {containerName} {containerType, select,
+			JiraProject {Jira project}
+			ConfluenceSpace {Confluence space}
+			LoomSpace {Loom space}
+			other {link}
+		}.`,
 		description: 'Description of the disconnect dialog for team containers',
 	},
 	disconnectDialogDisclaimer: {
 		id: 'ptc-directory.team-profile-page.team-containers.disconnect-dialog.disclaimer',
-		defaultMessage:
-			'Disconnecting the team from the {containerType} will not affect any work connected to the team within the {containerType}.',
+		defaultMessage: `Disconnecting the team from the {containerType, select,
+			JiraProject {project}
+			ConfluenceSpace {space}
+			LoomSpace {space}
+			other {link}
+		} will not affect any work connected to the team within the {containerType, select,
+			JiraProject {project}
+			ConfluenceSpace {space}
+			LoomSpace {space}
+			other {link}
+		}.`,
 		description: 'Disclaimer of the disconnect dialog for team containers',
 	},
 	disconnectDialogDisclaimerFallback: {
@@ -68,7 +81,6 @@ export const DisconnectDialog = ({
 		await onDisconnect();
 		setIsDisconnecting(false);
 	};
-	const { containerTypeText, description } = getContainerProperties({ containerType });
 
 	return (
 		<ModalDialog
@@ -89,22 +101,12 @@ export const DisconnectDialog = ({
 							{...messages.disconnectDialogDescription}
 							values={{
 								containerName: <Text weight="semibold">{containerName}</Text>,
-								containerType: (
-									<>
-										{description} {containerTypeText}
-									</>
-								),
+								containerType,
 							}}
 						/>
 					</Box>
-					{containerTypeText ? (
-						<FormattedMessage
-							{...messages.disconnectDialogDisclaimer}
-							values={{ containerType: containerTypeText }}
-						/>
-					) : (
-						<FormattedMessage {...messages.disconnectDialogDisclaimerFallback} />
-					)}
+
+					<FormattedMessage {...messages.disconnectDialogDisclaimer} values={{ containerType }} />
 				</Stack>
 			</ModalBody>
 			<ModalFooter>

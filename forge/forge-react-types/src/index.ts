@@ -1,7 +1,6 @@
 export type {
 	AdfRendererProps,
 	BadgeProps,
-	BleedProps,
 	BoxProps,
 	ButtonGroupProps,
 	ButtonProps,
@@ -66,7 +65,6 @@ export type {
 	CommentEditorProps,
 	PressableProps,
 	TBadge,
-	TBleed,
 	TBox,
 	TButtonGroup,
 	TButton,

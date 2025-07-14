@@ -33,6 +33,7 @@ import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
 import Heading from '@atlaskit/heading';
 import EditorDoneIcon from '@atlaskit/icon/core/migration/check-mark--editor-done';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Pressable, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -227,7 +228,14 @@ export const RequestToEditPopup = ({
 		onClose();
 	};
 
-	const onHandleCancel = () => {
+	const onHandleCancel = (event: MouseEvent | KeyboardEvent) => {
+		if (fg('platform_editor_task_check_status_fix')) {
+			// Check if the click is on task item checkbox, if so, do not close the popup
+			const target = event.target as Node | null;
+			if (target && (element.contains(target) || element === target)) {
+				return;
+			}
+		}
 		setIsOpen(false);
 		onClose();
 	};

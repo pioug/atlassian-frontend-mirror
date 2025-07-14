@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 3.1.3
+
+### Patch Changes
+
+- [#180962](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/180962)
+  [`1aa3eabc00314`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1aa3eabc00314) -
+  ED-28376 clean up usage of !important in find and replace styles
+- Updated dependencies
+
+## 3.1.2
+
+### Patch Changes
+
+- [#183007](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183007)
+  [`a1cfc7e470ca7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a1cfc7e470ca7) -
+  [ux] ED-28316 wrap find and replace close button to next line if it would overflow
+
 ## 3.1.1
 
 ### Patch Changes

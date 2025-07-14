@@ -1,5 +1,14 @@
 # @atlaskit/renderer
 
+## 120.1.2
+
+### Patch Changes
+
+- [#183601](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183601)
+  [`d1e802247d4cb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d1e802247d4cb) -
+  Fix custom numbered column width calculation
+- Updated dependencies
+
 ## 120.1.1
 
 ### Patch Changes

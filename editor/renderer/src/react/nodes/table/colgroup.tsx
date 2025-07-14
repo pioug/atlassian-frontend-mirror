@@ -156,18 +156,22 @@ const renderScaleDownColgroup = (
 
 	// when table resized and number column is enabled, we need to scale down the table in render
 	if (forceScaleForNumColumn) {
+		const calculatedTableContainerWidth =
+			rendererAppearance === 'comment' && fg('platform_custom_number_column')
+				? sumOfColumns
+				: tableContainerWidth;
 		const scalePercentage = +(
-			(tableContainerWidth - akEditorTableNumberColumnWidth) /
-			tableContainerWidth
+			(calculatedTableContainerWidth - akEditorTableNumberColumnWidth) /
+			calculatedTableContainerWidth
 		);
 
-		const targetMaxWidth = tableContainerWidth - akEditorTableNumberColumnWidth;
+		const targetMaxWidth = calculatedTableContainerWidth - akEditorTableNumberColumnWidth;
 
 		let totalWidthAfterScale = 0;
 		const newScaledTargetWidths = columnWidths.map((width) => {
 			// we need to scale each column UP, to ensure total width of table matches table container
 			const patchedWidth = isTableSmallerThanContainer
-				? (width / sumOfColumns) * (tableContainerWidth - 1)
+				? (width / sumOfColumns) * (calculatedTableContainerWidth - 1)
 				: width;
 			const newWidth = Math.floor(patchedWidth * scalePercentage);
 			totalWidthAfterScale += newWidth;

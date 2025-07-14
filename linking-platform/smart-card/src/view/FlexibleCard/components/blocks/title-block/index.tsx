@@ -6,8 +6,6 @@ import { useCallback, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { SmartLinkStatus } from '../../../../../constants';
 import { useMouseDownEvent } from '../../../../../state/analytics/useLinkClicked';
 import { useFlexibleCardContext } from '../../../../../state/flexible-ui-context';
@@ -65,13 +63,10 @@ const TitleBlock = ({
 	hideTitleTooltip,
 	maxLines,
 	onActionMenuOpenChange,
-	onClick,
-	status: statusProp = SmartLinkStatus.Fallback,
 	showActionOnHover,
 	testId = 'smart-block-title',
 	text,
 	icon,
-	theme,
 	hideRetry,
 	metadataPosition,
 	hideIcon = false,
@@ -82,17 +77,8 @@ const TitleBlock = ({
 	hideIconLoadingSkeleton,
 	...props
 }: TitleBlockProps) => {
-	const cardContext = fg('platform-linking-flexible-card-context')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useFlexibleCardContext()
-		: undefined;
+	const cardContext = useFlexibleCardContext();
 	const { status = SmartLinkStatus.Fallback, ui } = cardContext || {};
-
-	if (!fg('platform-linking-flexible-card-unresolved-action')) {
-		if (hideRetry && props.retry) {
-			delete props.retry;
-		}
-	}
 
 	const [actionDropdownOpen, setActionDropdownOpen] = useState(false);
 	const onDropdownOpenChange = useCallback(
@@ -117,18 +103,15 @@ const TitleBlock = ({
 		<Title
 			hideTooltip={hideTitleTooltip}
 			maxLines={maxLines}
-			{...(fg('platform-linking-flexible-card-context') ? undefined : { onClick })}
 			onMouseDown={onMouseDown}
 			target={anchorTarget}
-			theme={fg('platform-linking-flexible-card-context') ? ui?.theme : theme}
+			theme={ui?.theme}
 			anchorRef={anchorRef}
 			{...overrideText}
 		/>
 	);
 
-	const Component = getTitleBlockViewComponent(
-		fg('platform-linking-flexible-card-context') ? status : statusProp,
-	);
+	const Component = getTitleBlockViewComponent(status);
 
 	return (
 		<Component
@@ -141,11 +124,10 @@ const TitleBlock = ({
 			title={title}
 			metadataPosition={metadataPosition}
 			hideIcon={hideIcon}
-			{...(fg('platform-linking-flexible-card-unresolved-action') ? { hideRetry } : undefined)}
+			hideRetry={hideRetry}
 			icon={icon}
 			hideIconLoadingSkeleton={hideIconLoadingSkeleton}
-			size={fg('platform-linking-flexible-card-context') ? props.size ?? ui?.size : props?.size}
-			{...(fg('platform-linking-flexible-card-context') ? undefined : { theme })}
+			size={props.size ?? ui?.size}
 			CompetitorPrompt={CompetitorPrompt}
 			url={url}
 		/>

@@ -1078,8 +1078,7 @@ export class DocumentService implements DocumentServiceInterface {
 			const enableStepsMergingForSinglePlayer =
 				singlePlayerStepMergingEnabled &&
 				!this.commitStepService.getReadyToCommitStatus() &&
-				this.participantsService.getCollabMode() === SINGLE_COLLAB_MODE &&
-				reason !== 'publish';
+				this.participantsService.getCollabMode() === SINGLE_COLLAB_MODE;
 
 			if (!this.getConnected() || enableStepsMergingForSinglePlayer) {
 				return;

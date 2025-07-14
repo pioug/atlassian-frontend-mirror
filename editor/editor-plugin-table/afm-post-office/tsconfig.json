@@ -84,6 +84,9 @@
 			"path": "../../../design-system/primitives/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../../react-ufo/atlaskit/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/theme/afm-post-office/tsconfig.json"
 		},
 		{

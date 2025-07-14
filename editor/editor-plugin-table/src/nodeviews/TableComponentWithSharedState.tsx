@@ -3,18 +3,23 @@ import React from 'react';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import {
+	type NamedPluginStatesFromInjectionAPI,
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
-import type { GetEditorFeatureFlags, getPosHandlerNode } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
+import type {
+	ExtractInjectionAPI,
+	GetEditorFeatureFlags,
+	getPosHandlerNode,
+} from '@atlaskit/editor-common/types';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { findTable } from '@atlaskit/editor-tables';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
+import type tablePlugin from '../tablePlugin';
 import type { PluginInjectionAPI, TableSharedStateInternal } from '../types';
-import { useInternalTablePluginStateSelector } from '../ui/hooks/useInternalTablePluginStateSelector';
 
 import TableComponent from './TableComponent';
 import type { TableOptions } from './types';
@@ -41,35 +46,60 @@ type TableComponentWithSharedStateProps = {
 
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(api: PluginInjectionAPI | undefined) => {
-		// tableState
-		const isTableResizing = useInternalTablePluginStateSelector(api, 'isTableResizing');
-		const isHeaderColumnEnabled = useInternalTablePluginStateSelector(api, 'isHeaderColumnEnabled');
-		const isHeaderRowEnabled = useInternalTablePluginStateSelector(api, 'isHeaderRowEnabled');
-		const ordering = useInternalTablePluginStateSelector(api, 'ordering');
-		const isResizing = useInternalTablePluginStateSelector(api, 'isResizing');
-		const isInDanger = useInternalTablePluginStateSelector(api, 'isInDanger');
-		const hoveredCell = useInternalTablePluginStateSelector(api, 'hoveredCell');
-		const hoveredRows = useInternalTablePluginStateSelector(api, 'hoveredRows');
-		const isTableHovered = useInternalTablePluginStateSelector(api, 'isTableHovered');
-		const isWholeTableInDanger = useInternalTablePluginStateSelector(api, 'isWholeTableInDanger');
-		// Required so that table controls re-renders
-		useInternalTablePluginStateSelector(api, 'targetCellPosition');
-
-		// mediaState
-		const isFullscreen = useSharedPluginStateSelector(api, 'media.isFullscreen');
-
-		// selectionState
-		const selection = useSharedPluginStateSelector(api, 'selection.selection');
-
-		// editorViewModeState
-		const mode = useSharedPluginStateSelector(api, 'editorViewMode.mode');
-
-		// widthState
-		const width = useSharedPluginStateSelector(api, 'width.width');
-		const lineLength = useSharedPluginStateSelector(api, 'width.lineLength');
-
-		// interactionState
-		const interaction = useSharedPluginStateSelector(api, 'interaction.interactionState');
+		const {
+			isTableResizing,
+			isHeaderColumnEnabled,
+			isHeaderRowEnabled,
+			ordering,
+			isResizing,
+			isInDanger,
+			hoveredCell,
+			hoveredRows,
+			isTableHovered,
+			isWholeTableInDanger,
+			interaction,
+			isFullscreen,
+			lineLength,
+			mode,
+			selection,
+			width,
+		} = useSharedPluginStateWithSelector(
+			api,
+			['table', 'width', 'media', 'selection', 'editorViewMode', 'interaction'],
+			(
+				states: NamedPluginStatesFromInjectionAPI<
+					ExtractInjectionAPI<typeof tablePlugin>,
+					'width' | 'media' | 'selection' | 'editorViewMode' | 'interaction'
+				> & {
+					tableState: TableSharedStateInternal | undefined;
+				},
+			) => ({
+				// tableState
+				isTableResizing: states.tableState?.isTableResizing,
+				isHeaderColumnEnabled: states.tableState?.isHeaderColumnEnabled,
+				isHeaderRowEnabled: states.tableState?.isHeaderRowEnabled,
+				ordering: states.tableState?.ordering,
+				isResizing: states.tableState?.isResizing,
+				isInDanger: states.tableState?.isInDanger,
+				hoveredCell: states.tableState?.hoveredCell,
+				hoveredRows: states.tableState?.hoveredRows,
+				isTableHovered: states.tableState?.isTableHovered,
+				isWholeTableInDanger: states.tableState?.isWholeTableInDanger,
+				// Required so that table control re-renders
+				targetCellPosition: states.tableState?.targetCellPosition,
+				// mediaState
+				isFullscreen: states.mediaState?.isFullscreen,
+				// selectionState
+				selection: states.selectionState?.selection,
+				// editorViewModeState
+				mode: states.editorViewModeState?.mode,
+				// widthState
+				width: states.widthState?.width,
+				lineLength: states.widthState?.lineLength,
+				// interactionState
+				interaction: states.interactionState?.interactionState,
+			}),
+		);
 
 		return {
 			tableState: undefined,

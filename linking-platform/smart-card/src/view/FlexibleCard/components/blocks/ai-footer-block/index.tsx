@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { SmartLinkStatus } from '../../../../../constants';
 import { useFlexibleCardContext } from '../../../../../state/flexible-ui-context';
 
@@ -14,32 +12,17 @@ import type { AIFooterBlockProps } from './types';
  * @param {AIFooterBlockProps} AIFooterBlockProps
  * @see Block
  */
-const AIFooterBlock = ({
-	status,
-	testId = 'smart-ai-footer-block',
-	...props
-}: AIFooterBlockProps) => {
-	const cardContext = fg('platform-linking-flexible-card-context')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useFlexibleCardContext()
-		: undefined;
+const AIFooterBlock = ({ testId = 'smart-ai-footer-block', ...props }: AIFooterBlockProps) => {
+	const cardContext = useFlexibleCardContext();
 
-	if (fg('platform-linking-flexible-card-context')) {
-		if (cardContext?.status !== SmartLinkStatus.Resolved) {
-			return null;
-		}
-	} else {
-		if (status !== SmartLinkStatus.Resolved) {
-			return null;
-		}
+	if (cardContext?.status !== SmartLinkStatus.Resolved) {
+		return null;
 	}
 
 	return (
 		<AIFooterBlockResolvedView
 			{...props}
-			{...(fg('platform-linking-flexible-card-context')
-				? { size: props.size ?? cardContext?.ui?.size }
-				: undefined)}
+			size={props.size ?? cardContext?.ui?.size}
 			testId={testId}
 		/>
 	);

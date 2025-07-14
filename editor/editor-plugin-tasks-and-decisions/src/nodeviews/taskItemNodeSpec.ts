@@ -34,6 +34,8 @@ export const taskItemNodeSpec = () => {
 	};
 };
 
+const getCheckBoxId = (localId: string) => `task-checkbox-${localId}`;
+
 // eslint-disable-next-line jsdoc/require-example
 /**
  * Converts a task item node to a DOM output specification.
@@ -45,9 +47,10 @@ export const taskItemNodeSpec = () => {
  */
 export function taskItemToDom(node: PMNode, placeholder: string, intl: IntlShape): DOMOutputSpec {
 	const checked = node.attrs.state === 'DONE';
+	const checkboxId = getCheckBoxId(node.attrs.localId);
 	const inputAttrs: HTMLInputElementAttrs = {
-		name: node.attrs.localId,
-		id: node.attrs.localId,
+		name: checkboxId,
+		id: checkboxId,
 		type: 'checkbox',
 		'aria-label': intl.formatMessage(
 			checked

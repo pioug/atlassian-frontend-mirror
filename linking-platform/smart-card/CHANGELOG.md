@@ -1,5 +1,16 @@
 # @atlaskit/smart-card
 
+## 39.4.0
+
+### Minor Changes
+
+- [#183803](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183803)
+  [`e4cffc695edfb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e4cffc695edfb) -
+  Clean up and remove FG platform-linking-flexible-card-unresolved-action
+- [#183803](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183803)
+  [`e3dc4a29ca0ff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3dc4a29ca0ff) -
+  Clean up and remove FG platform-linking-flexible-card-context
+
 ## 39.3.0
 
 ### Minor Changes

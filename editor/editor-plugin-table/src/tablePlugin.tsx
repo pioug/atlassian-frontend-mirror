@@ -22,6 +22,7 @@ import { getDomRefFromSelection } from '@atlaskit/editor-common/get-dom-ref-from
 import {
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import { IconTable } from '@atlaskit/editor-common/icons';
 import { toggleTable, tooltip } from '@atlaskit/editor-common/keymaps';
@@ -39,7 +40,6 @@ import type {
 	ExtractInjectionAPI,
 	GetEditorContainerWidth,
 } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { hasParentNodeOfType, safeInsert } from '@atlaskit/editor-prosemirror/utils';
@@ -102,7 +102,9 @@ const defaultGetEditorFeatureFlags = () => ({});
 
 const useTableSharedState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<TablePlugin> | undefined) => {
-		const mode = useSharedPluginStateSelector(api, 'editorViewMode.mode');
+		const { mode } = useSharedPluginStateWithSelector(api, ['editorViewMode'], (states) => ({
+			mode: states.editorViewModeState?.mode,
+		}));
 		return { mode };
 	},
 	(api: ExtractInjectionAPI<TablePlugin> | undefined) => {

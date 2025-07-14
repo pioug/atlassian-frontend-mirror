@@ -1,5 +1,23 @@
 # @atlaskit/editor-core
 
+## 209.1.2
+
+### Patch Changes
+
+- [#180962](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/180962)
+  [`1aa3eabc00314`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1aa3eabc00314) -
+  ED-28376 clean up usage of !important in find and replace styles
+- Updated dependencies
+
+## 209.1.1
+
+### Patch Changes
+
+- [#183032](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183032)
+  [`3e085b471bb52`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3e085b471bb52) -
+  [ux] [ED-28482] fix smart link open button for headings
+- Updated dependencies
+
 ## 209.1.0
 
 ### Minor Changes

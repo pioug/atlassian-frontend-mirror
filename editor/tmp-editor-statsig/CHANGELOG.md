@@ -1,5 +1,21 @@
 # @atlaskit/editor-statsig-tmp
 
+## 9.5.0
+
+### Minor Changes
+
+- [#184968](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/184968)
+  [`a52007f9eed36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a52007f9eed36) -
+  Introduce a performance experiment to avoid running media floating toolbar code unless selected.
+
+## 9.4.0
+
+### Minor Changes
+
+- [#184563](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/184563)
+  [`d5b7a19b7e9ad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d5b7a19b7e9ad) -
+  Adds UFO holds to the table component on load
+
 ## 9.3.0
 
 ### Minor Changes

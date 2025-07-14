@@ -11,6 +11,7 @@ import { browser } from '@atlaskit/editor-common/browser';
 import {
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -33,7 +34,6 @@ import { TableCssClassName as ClassName } from '../../types';
 import type { CellHoverMeta, TableDirection, TableSharedStateInternal } from '../../types';
 import { dragTableInsertColumnButtonSize } from '../consts';
 import { DragPreview } from '../DragPreview';
-import { useInternalTablePluginStateSelector } from '../hooks/useInternalTablePluginStateSelector';
 
 import { HandleIconComponent } from './HandleIconComponent';
 
@@ -315,8 +315,14 @@ const DragHandleComponent = ({
 
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<TablePlugin> | undefined) => {
-		const hoveredColumns = useInternalTablePluginStateSelector(api, 'hoveredColumns');
-		const hoveredRows = useInternalTablePluginStateSelector(api, 'hoveredRows');
+		const { hoveredColumns, hoveredRows } = useSharedPluginStateWithSelector(
+			api,
+			['table'],
+			(states) => ({
+				hoveredColumns: (states.tableState as TableSharedStateInternal)?.hoveredColumns,
+				hoveredRows: (states.tableState as TableSharedStateInternal)?.hoveredRows,
+			}),
+		);
 		return {
 			hoveredColumns,
 			hoveredRows,

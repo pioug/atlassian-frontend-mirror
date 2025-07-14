@@ -112,6 +112,9 @@
 	"platform-feature-flags": {
 		"should-render-to-parent-should-be-true-editor-ai": {
 			"type": "boolean"
+		},
+		"platform_editor_task_check_status_fix": {
+			"type": "boolean"
 		}
 	}
 }

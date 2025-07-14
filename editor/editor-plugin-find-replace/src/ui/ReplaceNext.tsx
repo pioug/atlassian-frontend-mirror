@@ -15,6 +15,7 @@ import { findReplaceMessages as messages } from '@atlaskit/editor-common/message
 import { ValidMessage } from '@atlaskit/form';
 import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down--hipchat-chevron-down';
 import ChevronUpIcon from '@atlaskit/icon/core/migration/chevron-up--hipchat-chevron-up';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline, Text, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -38,8 +39,18 @@ const actionButtonParentInlineStyles = xcss({
 	flexDirection: 'row-reverse',
 });
 
+const actionButtonParentInlineStylesNew = xcss({
+	justifyContent: 'space-between',
+	flexDirection: 'row-reverse',
+	flexWrap: 'wrap',
+});
+
 const actionButtonInlineStyles = xcss({
 	gap: 'space.075',
+});
+
+const closeButtonInlineStyles = xcss({
+	marginRight: 'auto',
 });
 
 export type ReplaceProps = {
@@ -250,7 +261,14 @@ const Replace = ({
 				</div>
 			)}
 			<Box xcss={actionButtonContainerStyles}>
-				<Inline xcss={[actionButtonInlineStyles, actionButtonParentInlineStyles]}>
+				<Inline
+					xcss={
+						expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true) &&
+						fg('platform_editor_find_and_replace_improvements_1')
+							? [actionButtonInlineStyles, actionButtonParentInlineStylesNew]
+							: [actionButtonInlineStyles, actionButtonParentInlineStyles]
+					}
+				>
 					<Inline xcss={actionButtonInlineStyles}>
 						<FindReplaceTooltipButton
 							title={formatMessage(messages.findNext)}
@@ -290,9 +308,18 @@ const Replace = ({
 							{replaceAll}
 						</Button>
 					</Inline>
-					<Button appearance="subtle" testId={closeFindReplaceDialog} onClick={clearSearch}>
-						{closeFindReplaceDialog}
-					</Button>
+					{expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true) &&
+					fg('platform_editor_find_and_replace_improvements_1') ? (
+						<Inline xcss={closeButtonInlineStyles}>
+							<Button appearance="subtle" testId={closeFindReplaceDialog} onClick={clearSearch}>
+								{closeFindReplaceDialog}
+							</Button>
+						</Inline>
+					) : (
+						<Button appearance="subtle" testId={closeFindReplaceDialog} onClick={clearSearch}>
+							{closeFindReplaceDialog}
+						</Button>
+					)}
 				</Inline>
 			</Box>
 		</Box>

@@ -10,7 +10,6 @@ import { SmartCardProvider } from '@atlaskit/link-provider';
 import { token } from '@atlaskit/tokens';
 
 import { type ElementItem, ElementName, MetadataBlock, SmartLinkSize } from '../../src';
-import { type SmartLinkStatus } from '../../src/constants';
 import FlexibleCard from '../../src/view/FlexibleCard';
 import { getCardState } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';
@@ -73,19 +72,15 @@ export default () => {
 			<SmartCardProvider>
 				<h5>Primary metadata</h5>
 				<FlexibleCard cardState={cardState} url="link-url">
-					<MetadataBlock primary={elements} status={cardState.status as SmartLinkStatus} />
+					<MetadataBlock primary={elements} />
 				</FlexibleCard>
 				<h5>Secondary metadata</h5>
 				<FlexibleCard cardState={cardState} url="link-url">
-					<MetadataBlock secondary={elements} status={cardState.status as SmartLinkStatus} />
+					<MetadataBlock secondary={elements} />
 				</FlexibleCard>
 				<h5>Primary and secondary metadata</h5>
 				<FlexibleCard cardState={cardState} url="link-url">
-					<MetadataBlock
-						primary={elements.slice(0, 1)}
-						secondary={elements.slice(1)}
-						status={cardState.status as SmartLinkStatus}
-					/>
+					<MetadataBlock primary={elements.slice(0, 1)} secondary={elements.slice(1)} />
 				</FlexibleCard>
 				<h5>Max lines: 1</h5>
 				<FlexibleCard cardState={cardState} url="link-url">
@@ -93,7 +88,6 @@ export default () => {
 						maxLines={1}
 						primary={multiLineElements}
 						secondary={[...multiLineElements].reverse()}
-						status={cardState.status as SmartLinkStatus}
 					/>
 				</FlexibleCard>
 				<h5>Max lines: 2</h5>
@@ -102,7 +96,6 @@ export default () => {
 						maxLines={2}
 						primary={multiLineElements}
 						secondary={[...multiLineElements].reverse()}
-						status={cardState.status as SmartLinkStatus}
 					/>
 				</FlexibleCard>
 				{Object.values(SmartLinkSize).map((size, idx) => (
@@ -113,18 +106,13 @@ export default () => {
 								primary={multiLineElements}
 								secondary={[...multiLineElements].reverse()}
 								size={size}
-								status={cardState.status as SmartLinkStatus}
 							/>
 						</FlexibleCard>
 					</React.Fragment>
 				))}
 				<h5>Override CSS</h5>
 				<FlexibleCard cardState={cardState} url="link-url">
-					<MetadataBlock
-						css={blockOverrideCss}
-						primary={elements}
-						status={cardState.status as SmartLinkStatus}
-					/>
+					<MetadataBlock css={blockOverrideCss} primary={elements} />
 				</FlexibleCard>
 			</SmartCardProvider>
 		</VRTestWrapper>

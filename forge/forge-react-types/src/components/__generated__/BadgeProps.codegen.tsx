@@ -3,13 +3,13 @@
  *
  * Extract component prop types from UIKit 2 components - BadgeProps
  *
- * @codegen <<SignedSource::70958e2a60c7a0e1b3443db2d24003cc>>
+ * @codegen <<SignedSource::e4726fc9fc56127107db590dd21ef3f6>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/badge/__generated__/index.partial.tsx <<SignedSource::89ad3341c1b8ef4b6fc93df162ac91d3>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
-import React from 'react';
+import type React from 'react';
 
 export type PlatformBadgeProps = Omit<_PlatformBadgeProps, 'children'> & {
 /**
@@ -26,11 +26,7 @@ type _PlatformBadgeProps = {
 	 * Affects the visual style of the badge.
 	 */
 	appearance?: 'added' | 'default' | 'important' | 'primary' | 'primaryInverted' | 'removed';
-  /**
- * The value displayed within the badge. A badge should only be used in cases where you want to represent a number. Use a lozenge for non-numeric information.
- * 
- * @type string | number
- */
+  
 	children?: React.ReactNode;
   /**
 	 * The maximum value to display. Defaults to `99`. If the value is 100, and max is 50, "50+" will be displayed.

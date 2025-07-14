@@ -24,7 +24,6 @@ snapshot(FlexUiBaseTextView, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 		'platform-linking-visual-refresh-v2': true,
-		'platform-linking-flexible-card-context': true,
 		'bandicoots-smart-card-teamwork-context': [true, false],
 	},
 });
@@ -33,7 +32,6 @@ snapshot(FlexUiTitleElementView, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 		'platform-linking-visual-refresh-v2': true,
-		'platform-linking-flexible-card-context': true,
 		'bandicoots-smart-card-teamwork-context': [true, false],
 	},
 });
@@ -42,7 +40,6 @@ snapshot(FlexUiOwnedByElementView, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 		'platform-linking-visual-refresh-v2': true,
-		'platform-linking-flexible-card-context': true,
 		'platform-linking-additional-flexible-element-props': true,
 		'bandicoots-smart-card-teamwork-context': [true, false],
 	},
@@ -52,7 +49,6 @@ snapshot(FlexUiCustomElementsView, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 		'platform-linking-visual-refresh-v2': true,
-		'platform-linking-flexible-card-context': true,
 		'platform-linking-additional-flexible-element-props': true,
 		'bandicoots-smart-card-teamwork-context': true,
 	},
@@ -62,7 +58,6 @@ snapshot(FlexUiModifiedOnView, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 		'platform-linking-visual-refresh-v2': true,
-		'platform-linking-flexible-card-context': true,
 		'platform-linking-additional-flexible-element-props': true,
 		'bandicoots-smart-card-teamwork-context': [true, false],
 	},

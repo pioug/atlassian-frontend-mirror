@@ -29,6 +29,8 @@ import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import type { CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
+import UFOLoadHold from '@atlaskit/react-ufo/load-hold';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { autoSizeTable, clearHoverSelection } from '../pm-plugins/commands';
@@ -146,6 +148,17 @@ interface TableState {
 	tableWrapperHeight?: number;
 }
 
+// Generate a unique ID to prevent collisions when multiple plugin versions exist on the same page
+const generateUniqueTableId = () => {
+	// Use crypto.randomUUID() if available, fallback to Math.random() based approach
+	if (!globalThis.crypto || typeof globalThis.crypto.randomUUID !== 'function') {
+		// Fallback: for older environments (IE).
+		// Not the best fallback, but the crypto.randomUUID is widely available
+		return (Math.random() + 1).toString(36).substring(20);
+	}
+	return crypto.randomUUID();
+};
+
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
 class TableComponent extends React.Component<ComponentProps, TableState> {
@@ -182,6 +195,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
 	private dragAndDropCleanupFn?: CleanupFn;
 	private nodeVisibilityObserverCleanupFn?: CleanupFn;
+	private holdCompleted = false;
+	private dispatchEventName = `tableResized-${generateUniqueTableId()}`;
 
 	constructor(props: ComponentProps) {
 		super(props);
@@ -606,6 +621,16 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 						shouldScaleOnColgroupUpdate,
 						scalePercent,
 					);
+
+					if (expValEquals('cc_editor_ufo_hold_table_till_resize_complete', 'isEnabled', true)) {
+						// Mark table as updated for TableHold component (if no table exists yet, the colgroup update will not have done anything)
+						if (this.table && !this.holdCompleted) {
+							const customTableResizedEvent = new CustomEvent(this.dispatchEventName);
+
+							document.dispatchEvent(customTableResizedEvent);
+							this.holdCompleted = true;
+						}
+					}
 				});
 			}
 		}
@@ -989,6 +1014,9 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				isCommentEditor={options?.isCommentEditor}
 				isChromelessEditor={options?.isChromelessEditor}
 			>
+				{expValEquals('cc_editor_ufo_hold_table_till_resize_complete', 'isEnabled', true) ? (
+					<TableHold dispatchEventName={this.dispatchEventName} />
+				) : null}
 				<div
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className={ClassName.TABLE_STICKY_SENTINEL_TOP}
@@ -1431,3 +1459,37 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 }
 
 export default injectIntl(TableComponent);
+
+/**
+ * This is needed because of how currently the table is resized post client boot up with code that exists outside react
+ *
+ * This can be deleted once https://home.atlassian.com/o/2346a038-3c8c-498b-a79b-e7847859868d/s/a436116f-02ce-4520-8fbb-7301462a1674/project/ATLAS-97756/updates
+ * is rolled out (and doesn't need to be used in the test arm of that change).
+ */
+const TableHold = React.memo(function TableHold({
+	dispatchEventName,
+}: {
+	dispatchEventName: string;
+}) {
+	const [tableUpdateConfirmed, setTableUpdateConfirmed] = React.useState(false);
+
+	React.useEffect(() => {
+		const customEventListener = () => {
+			setTableUpdateConfirmed(true);
+		};
+
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+		document.addEventListener(dispatchEventName, customEventListener);
+
+		return () => {
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+			document.removeEventListener(dispatchEventName, customEventListener);
+		};
+	}, [dispatchEventName]);
+
+	if (tableUpdateConfirmed === false) {
+		return <UFOLoadHold name="editor_table_resize" />;
+	}
+
+	return null;
+});

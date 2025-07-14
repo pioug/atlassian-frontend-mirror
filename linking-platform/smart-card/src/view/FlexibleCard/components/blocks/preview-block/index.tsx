@@ -1,8 +1,5 @@
 import React from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
-import { SmartLinkStatus } from '../../../../../constants';
 import { useFlexibleUiOptionContext } from '../../../../../state/flexible-ui-context';
 
 import PreviewBlockResolvedView from './resolved';
@@ -15,23 +12,16 @@ import { type PreviewBlockProps } from './types';
  * @see Block
  */
 const PreviewBlock = ({
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	status = SmartLinkStatus.Fallback,
 	testId = 'smart-block-preview',
 	overrideUrl,
 	...blockProps
 }: PreviewBlockProps) => {
-	const ui = fg('platform-linking-flexible-card-context')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useFlexibleUiOptionContext()
-		: undefined;
+	const ui = useFlexibleUiOptionContext();
 
 	return (
 		<PreviewBlockResolvedView
 			{...blockProps}
-			{...(fg('platform-linking-flexible-card-context')
-				? { size: blockProps.size ?? ui?.size }
-				: undefined)}
+			size={blockProps.size ?? ui?.size}
 			testId={testId}
 			overrideUrl={overrideUrl}
 		/>

@@ -2,11 +2,14 @@ import React from 'react';
 
 import { TitleBlock } from '../../src';
 import { SmartLinkStatus } from '../../src/constants';
+import { FlexibleCardContext } from '../../src/state/flexible-ui-context';
 
 import ExampleContainer from './example-container';
 
 export default () => (
 	<ExampleContainer>
-		<TitleBlock status={SmartLinkStatus.Resolving} />
+		<FlexibleCardContext.Provider value={{ status: SmartLinkStatus.Resolving }}>
+			<TitleBlock />
+		</FlexibleCardContext.Provider>
 	</ExampleContainer>
 );

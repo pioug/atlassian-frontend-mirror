@@ -1,5 +1,14 @@
 # @atlaskit/collab-provider
 
+## 11.0.2
+
+### Patch Changes
+
+- [#184889](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/184889)
+  [`88f8c910a5608`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88f8c910a5608) -
+  revert publish check for step merging changes
+- Updated dependencies
+
 ## 11.0.1
 
 ### Patch Changes

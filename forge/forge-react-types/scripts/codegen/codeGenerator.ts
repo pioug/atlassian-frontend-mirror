@@ -5,10 +5,21 @@ import {
 	type SourceFile,
 	type TypeAliasDeclaration,
 	type ImportDeclaration,
+	type TypeReferenceNode,
+	SyntaxKind,
 } from 'ts-morph';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import kebabCase from 'lodash/kebabCase';
-import { serializeSymbolType } from './typeSerializer';
+import {
+	serializeTypeReferenceWithPickType,
+	extractPickKeys,
+	extractOmitKeys,
+} from './typeSerializer';
+import {
+	findTypeReferenceFromUnionOrIntersect,
+	getTypeNodeFromSymbol,
+	makePickOrOmitPredicate,
+} from './utils';
 
 const getNames = (symbol: Symbol) => {
 	const name = symbol.getName();
@@ -224,7 +235,7 @@ class SimpleImportDeclaration implements IImportDeclaration {
 			.map((name) => `type ${name}`);
 		const importedNames =
 			importedNamesList.length > 0 ? `{ ${importedNamesList.join(', ')} }` : null;
-		const defaultImport = this.defaultImport ? `${this.defaultImport}` : null;
+		const defaultImport = this.defaultImport ? `type ${this.defaultImport}` : null;
 		return `import ${[defaultImport, importedNames].filter(Boolean).join(', ')} from '${this.packageName}';`;
 	}
 }
@@ -567,10 +578,19 @@ const registeredExternalTypes: Record<
 		defaultImport: string;
 	}
 > = {
-	'React.ReactNode': {
+	'^React..+$': {
 		package: 'react',
 		defaultImport: 'React',
 	},
+};
+
+const findExternalTypeInfo = (typeName: string) => {
+	return (
+		Object.entries(registeredExternalTypes).find(
+			([externalTypePattern]) =>
+				externalTypePattern === typeName || new RegExp(externalTypePattern).test(typeName),
+		)?.[1] ?? null
+	);
 };
 
 // consolidate external types into import declarations
@@ -580,7 +600,7 @@ const consolidateImportDeclarations = (
 ): IImportDeclaration[] => {
 	const declarations: IImportDeclaration[] = [...importDeclarations];
 	externalTypes.forEach((typeName) => {
-		const typePackage = registeredExternalTypes[typeName];
+		const typePackage = findExternalTypeInfo(typeName);
 		if (typePackage) {
 			const existingImport = importDeclarations.find(
 				(declaration) => declaration.getBasePackage() === typePackage.package,
@@ -602,6 +622,62 @@ const consolidateImportDeclarations = (
 	return declarations;
 };
 
+const extractPlatformPropsTypeDeclarationAndTargetPropertyKeys = (
+	rawDependentTypeDeclarations: TypeAliasDeclaration[],
+	baseComponentPropsSymbol: Symbol,
+): {
+	typeDeclaration: TypeAliasDeclaration;
+	baseComponentPropTypeReference: TypeReferenceNode;
+	omitKeys: string[];
+	pickKeys: string[];
+} => {
+	// this pattern is used when there is special JSDoc comments override required to customize component documentation.
+	// e.g. Badge component has:
+	//    PlatformBadgeProps = Omit<_PlatformBadgeProps, 'children'> & {}
+	//    BadgeProps = Pick<PlatformBadgeProps, 'appearance' | 'children' | 'max' | 'testId'>
+	const specialPlatformPropsTypeDeclaration = rawDependentTypeDeclarations.find((declaration) =>
+		declaration.getName().startsWith('_Platform'),
+	);
+	const mainPlatformPropsTypeDeclaration = rawDependentTypeDeclarations.find((declaration) =>
+		declaration.getName().startsWith('Platform'),
+	);
+	if (!mainPlatformPropsTypeDeclaration && !specialPlatformPropsTypeDeclaration) {
+		throw new Error(
+			'Could not find Platform props type declaration from the component prop type source code',
+		);
+	}
+	const platformPropsTypeDeclaration =
+		specialPlatformPropsTypeDeclaration ?? mainPlatformPropsTypeDeclaration;
+
+	const typeWhichPicksPlatformProps = findTypeReferenceFromUnionOrIntersect(
+		getTypeNodeFromSymbol(baseComponentPropsSymbol!)!,
+		makePickOrOmitPredicate('Pick', 'Platform'),
+	);
+	if (!typeWhichPicksPlatformProps) {
+		throw new Error(
+			`Could not find type which picks platform props from the component prop type source code for ${baseComponentPropsSymbol.getName()}`,
+		);
+	}
+	const pickKeys = extractPickKeys(typeWhichPicksPlatformProps);
+	let omitKeys: string[] = [];
+	if (specialPlatformPropsTypeDeclaration && mainPlatformPropsTypeDeclaration) {
+		const omitNode = mainPlatformPropsTypeDeclaration
+			.getTypeNodeOrThrow()
+			.asKindOrThrow(SyntaxKind.IntersectionType)
+			.getTypeNodes()[0]
+			.asKindOrThrow(SyntaxKind.TypeReference);
+		// if there is a special platform props type declaration, we need
+		omitKeys = extractOmitKeys(omitNode);
+	}
+
+	return {
+		typeDeclaration: platformPropsTypeDeclaration!,
+		baseComponentPropTypeReference: typeWhichPicksPlatformProps,
+		pickKeys,
+		omitKeys,
+	};
+};
+
 /**
  * This function implements the new code generation logic for the component prop types.
  * Instead of referencing to the ADS component prop types, it generates the prop types
@@ -619,24 +695,20 @@ const generateComponentPropTypeSourceCodeWithSerializedType = (
 	// 2) from the prop type code further extract other relevant types in the source file,
 	//    and separate the platform props type declaration from the rest of the dependent types.
 	//    as this will be used to generate the type code.
-	const [dependentTypeDeclarations, platformPropsTypeDeclaration] = getDependentTypeDeclarations(
+	const rawDependentTypeDeclarations = getDependentTypeDeclarations(
 		baseComponentPropSymbol,
 		sourceFile,
-	).reduce(
-		(agg, declarations) => {
-			if (declarations.getName().startsWith('_Platform')) {
-				// this is the platform props type declaration, we will use it to generate the type code.
-				// this pattern is used when we need to add custom overrides to the platform props type.
-				agg[1] = declarations;
-			} else if (declarations.getName().startsWith('Platform') && !agg[1]) {
-				// we only use this pattern if _Platform is not used. (this is for cases like Code and CodeBlock)
-				agg[1] = declarations;
-			} else {
-				agg[0].push(declarations);
-			}
-			return agg;
-		},
-		[[] as TypeAliasDeclaration[], null as TypeAliasDeclaration | null],
+	);
+	const {
+		omitKeys,
+		typeDeclaration: platformPropsTypeDeclaration,
+		baseComponentPropTypeReference,
+	} = extractPlatformPropsTypeDeclarationAndTargetPropertyKeys(
+		rawDependentTypeDeclarations,
+		baseComponentPropSymbol,
+	);
+	const dependentTypeDeclarations = rawDependentTypeDeclarations.filter(
+		(declaration) => declaration !== platformPropsTypeDeclaration,
 	);
 
 	// 3) extract the import statement
@@ -654,9 +726,20 @@ const generateComponentPropTypeSourceCodeWithSerializedType = (
 	);
 
 	// 5) serialize the prop type for the @atlaskit component (e.g. PlatformButtonProps)
-	const [typeDefCode, usedExternalTypes] = serializeSymbolType(
-		baseComponentPropSymbol,
-		sourceFile.getProject().getTypeChecker(),
+	const [typeDefCode, usedExternalTypes] = serializeTypeReferenceWithPickType(
+		baseComponentPropTypeReference,
+		({ jsDoc, typeCode, propertySignature }) => {
+			const propertyName = propertySignature.getName();
+			if (omitKeys.includes(propertyName)) {
+				return {
+					typeCode,
+				};
+			}
+			return {
+				jsDoc,
+				typeCode,
+			};
+		},
 	);
 
 	// 6) generate the source file
@@ -739,7 +822,14 @@ const codeConsolidators: Record<string, CodeConsolidator> = {
 	PressableProps: handleXCSSProp,
 };
 
-const typeSerializableComponentPropSymbols = ['CodeProps', 'CodeBlockProps', 'BadgeProps'];
+const typeSerializableComponentPropSymbols = [
+	'CalendarProps',
+	'CodeProps',
+	'CodeBlockProps',
+	'BadgeProps',
+	'HeadingProps',
+	'RangeProps',
+];
 
 const generateComponentPropTypeSourceCode = (
 	componentPropSymbol: Symbol,

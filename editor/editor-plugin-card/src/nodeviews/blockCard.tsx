@@ -12,7 +12,6 @@ import { browser, canRenderDatasource } from '@atlaskit/editor-common/utils';
 import { type EditorViewModePluginState } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, DecorationSource, EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Card as SmartCard } from '@atlaskit/smart-card';
 
 import { Datasource } from '../nodeviews/datasource';
@@ -62,15 +61,13 @@ export class BlockCardComponent extends React.PureComponent<SmartCardProps & { i
 	};
 
 	componentWillUnmount(): void {
-		if (fg('platform_editor_fix_advanced_code_crash')) {
-			this.removeCard();
-		}
+		this.removeCard();
 	}
 
 	private removeCardDispatched = false;
 
 	private removeCard() {
-		if (this.removeCardDispatched && fg('platform_editor_cards_maxcallstackfix')) {
+		if (this.removeCardDispatched) {
 			return;
 		}
 		this.removeCardDispatched = true;
@@ -202,23 +199,7 @@ export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
 
 	destroy() {
 		this.unsubscribe?.();
-		if (fg('platform_editor_fix_advanced_code_crash')) {
-			super.destroy();
-		} else {
-			this.removeCard();
-		}
-	}
-
-	private removeCardDispatched = false;
-
-	private removeCard() {
-		if (this.removeCardDispatched && fg('platform_editor_cards_maxcallstackfix')) {
-			return;
-		}
-		this.removeCardDispatched = true;
-		const { tr } = this.view.state;
-		removeCard({ id: this.id })(tr);
-		this.view.dispatch(tr);
+		super.destroy();
 	}
 }
 

@@ -125,6 +125,53 @@ export const statusStylesMixin_fg_platform_component_visual_refresh = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const statusStylesMixin_fg_platform_component_visual_refresh_with_search_match = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'.statusView-content-wrap:not(.search-match-block)': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'&.ak-editor-selected-node .status-lozenge-span > span': {
+			boxShadow: `0 0 0 2px ${token('color.border.selected')}`,
+		},
+	},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] .lozenge-text': {
+		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+		color: '#292A2E',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color=neutral] > .lozenge-wrapper': {
+		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+		backgroundColor: '#DDDEE1',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color=purple] > .lozenge-wrapper': {
+		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+		backgroundColor: '#D8A0F7',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color=blue] > .lozenge-wrapper': {
+		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+		backgroundColor: '#8FB8F6',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color=yellow] > .lozenge-wrapper': {
+		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+		backgroundColor: '#F9C84E',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color=red] > .lozenge-wrapper': {
+		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+		backgroundColor: '#FD9891',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color=green] > .lozenge-wrapper': {
+		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+		backgroundColor: '#B3DF72',
+	},
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const statusStylesMixin_without_fg_platform_component_visual_refresh = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.statusView-content-wrap': {
@@ -194,3 +241,76 @@ export const statusStylesMixin_without_fg_platform_component_visual_refresh = cs
 		color: token('color.text.success'),
 	},
 });
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const statusStylesMixin_without_fg_platform_component_visual_refresh_with_search_match = css(
+	{
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.statusView-content-wrap:not(.search-match-block)': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'&.ak-editor-selected-node .status-lozenge-span > span': {
+				// getSelectionStyles([SelectionStyle.BoxShadow]);
+				boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
+				borderColor: 'transparent',
+				// hideNativeBrowserTextSelectionStyles
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+				'&::selection, & *::selection': {
+					backgroundColor: 'transparent',
+				},
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+				'&::-moz-selection, & *::-moz-selection': {
+					backgroundColor: 'transparent',
+				},
+			},
+		},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'[data-prosemirror-node-name="status"] > [data-color=neutral] .lozenge-wrapper': {
+			backgroundColor: token('color.background.neutral'),
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'[data-prosemirror-node-name="status"] > [data-color=neutral] .lozenge-text': {
+			color: token('color.text.subtle'),
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'[data-prosemirror-node-name="status"] > [data-color=purple] .lozenge-wrapper': {
+			backgroundColor: token('color.background.discovery'),
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'[data-prosemirror-node-name="status"] > [data-color=purple] .lozenge-text': {
+			color: token('color.text.discovery'),
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'[data-prosemirror-node-name="status"] > [data-color=blue] .lozenge-wrapper': {
+			backgroundColor: token('color.background.information'),
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'[data-prosemirror-node-name="status"] > [data-color=blue] .lozenge-text': {
+			color: token('color.text.information'),
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'[data-prosemirror-node-name="status"] > [data-color=yellow] .lozenge-wrapper': {
+			backgroundColor: token('color.background.warning'),
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'[data-prosemirror-node-name="status"] > [data-color=yellow] .lozenge-text': {
+			color: token('color.text.warning'),
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'[data-prosemirror-node-name="status"] > [data-color=red] .lozenge-wrapper': {
+			backgroundColor: token('color.background.danger'),
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'[data-prosemirror-node-name="status"] > [data-color=red] .lozenge-text': {
+			color: token('color.text.danger'),
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'[data-prosemirror-node-name="status"] > [data-color=green] .lozenge-wrapper': {
+			backgroundColor: token('color.background.success'),
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'[data-prosemirror-node-name="status"] > [data-color=green] .lozenge-text': {
+			color: token('color.text.success'),
+		},
+	},
+);

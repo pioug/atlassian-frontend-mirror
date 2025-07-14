@@ -5,9 +5,9 @@ import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'reac
 import {
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -375,9 +375,11 @@ export const DragControls = ({
 
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<TablePlugin> | undefined) => {
-		const selectionsSelector = useSharedPluginStateSelector(api, 'selection.selection');
+		const { selection } = useSharedPluginStateWithSelector(api, ['selection'], (states) => ({
+			selection: states.selectionState?.selection,
+		}));
 		return {
-			selection: selectionsSelector,
+			selection,
 		};
 	},
 	(api: ExtractInjectionAPI<TablePlugin> | undefined) => {

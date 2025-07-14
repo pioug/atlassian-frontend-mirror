@@ -4,7 +4,6 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 import { cssMap, cx } from '@atlaskit/css';
-import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -105,24 +104,16 @@ export default function Example() {
 	);
 }
 
-const FLAG = 'compiled-migration-profilecard';
-
 const Cards = (props: Partial<TeamProfilecardProps>) => {
 	return (
 		<Inline space="space.300">
 			<Card {...props} />
-			<Card {...props} compiled={true} />
+			<Card {...props} />
 		</Inline>
 	);
 };
 
-const Card = ({
-	compiled = false,
-	...props
-}: Partial<TeamProfilecardProps> & { compiled?: boolean }) => {
-	const booleanFlagResolver = (flagToResolve: string): boolean =>
-		flagToResolve === FLAG && compiled;
-	setBooleanFeatureFlagResolver(booleanFlagResolver);
+const Card = ({ ...props }: Partial<TeamProfilecardProps>) => {
 	return (
 		<Box xcss={cx(css.wrapper)}>
 			<TeamProfileCard {...defaultProps} {...props} />

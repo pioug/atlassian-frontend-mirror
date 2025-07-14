@@ -5,7 +5,6 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import context from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { getFlexibleCardTestWrapper } from '../../../../../../__tests__/__utils__/unit-testing-library-helpers';
@@ -43,576 +42,279 @@ describe('AISummaryBlock', () => {
 		};
 	};
 
-	ffTest.on('platform-linking-flexible-card-context', 'with fg', () => {
-		describe('status', () => {
-			it.each([
-				[SmartLinkStatus.Resolving],
-				[SmartLinkStatus.Forbidden],
-				[SmartLinkStatus.Errored],
-				[SmartLinkStatus.NotFound],
-				[SmartLinkStatus.Unauthorized],
-				[SmartLinkStatus.Fallback],
-			])('should render null when status is %s', (status: SmartLinkStatus) => {
-				const { container } = renderAISummaryBlock(undefined, status);
-				expect(container.children.length).toEqual(0);
-			});
-		});
-
-		describe('ai summary', () => {
-			it('fires expected events when the summary is done', async () => {
-				jest.mocked(useAISummary).mockReturnValue({
-					state: { status: 'loading', content: '' },
-					summariseUrl: jest.fn(),
-				});
-
-				const { spy, rerenderTestComponent } = renderAISummaryBlock({
-					testId: testIdBase,
-				});
-
-				jest.mocked(useAISummary).mockReturnValue({
-					state: { status: 'done', content: '' },
-					summariseUrl: jest.fn(),
-				});
-
-				rerenderTestComponent();
-
-				expect(spy).toBeFiredWithAnalyticEventOnce(
-					{
-						payload: {
-							action: 'viewed',
-							actionSubject: 'summary',
-							attributes: {
-								fromCache: false,
-							},
-						},
-					},
-					ANALYTICS_CHANNEL,
-				);
-				expect(spy).not.toBeFiredWithAnalyticEventOnce(
-					{
-						payload: {
-							action: 'initiated',
-							actionSubject: 'aiInteraction',
-							attributes: {
-								aiFeatureName: 'Smart Links Summary',
-								proactiveAIGenerated: 1,
-								userGeneratedAI: 0,
-							},
-						},
-					},
-					ANALYTICS_CHANNEL,
-				);
-			});
-
-			it('fires expected events when the summary is cached', async () => {
-				jest.mocked(useAISummary).mockReturnValue({
-					state: { status: 'done', content: '' },
-					summariseUrl: jest.fn(),
-				});
-
-				const { spy } = renderAISummaryBlock({
-					testId: testIdBase,
-				});
-				expect(spy).toBeFiredWithAnalyticEventOnce(
-					{
-						payload: {
-							action: 'viewed',
-							actionSubject: 'summary',
-							attributes: {
-								fromCache: true,
-							},
-						},
-					},
-					ANALYTICS_CHANNEL,
-				);
-				expect(spy).toBeFiredWithAnalyticEventOnce(
-					{
-						payload: {
-							action: 'initiated',
-							actionSubject: 'aiInteraction',
-							attributes: {
-								aiFeatureName: 'Smart Links Summary',
-								proactiveAIGenerated: 1,
-								userGeneratedAI: 0,
-							},
-						},
-					},
-					ANALYTICS_CHANNEL,
-				);
-			});
-
-			it('should not render error state indicator', async () => {
-				jest.mocked(useAISummary).mockReturnValue({
-					state: { status: 'error', content: '' },
-					summariseUrl: jest.fn(),
-				});
-
-				renderAISummaryBlock({
-					testId: testIdBase,
-				});
-
-				const indicatorA = screen.queryByTestId(`${testIdBase}-error-indicator-error`);
-
-				expect(indicatorA).not.toBeInTheDocument();
-			});
-
-			it('Display the AI Summary component only when there is summary content available', async () => {
-				jest.mocked(useAISummary).mockReturnValue({
-					state: { status: 'loading', content: '' },
-					summariseUrl: jest.fn(),
-				});
-
-				const aiSummaryTestId = `${testIdBase}-ai-summary`;
-				const { rerenderTestComponent } = renderAISummaryBlock({
-					testId: testIdBase,
-				});
-
-				const AISummary = screen.queryByTestId(aiSummaryTestId);
-				expect(AISummary).not.toBeInTheDocument();
-
-				jest.mocked(useAISummary).mockReturnValue({
-					state: { status: 'loading', content: 'first piece of summary is here' },
-					summariseUrl: jest.fn(),
-				});
-
-				rerenderTestComponent();
-				const AISummaryWithContent = screen.queryByTestId(aiSummaryTestId);
-				expect(AISummaryWithContent).toBeInTheDocument();
-			});
-		});
-
-		describe('metadata', () => {
-			it('should not render footer metadata', async () => {
-				jest.mocked(useAISummary).mockReturnValue({
-					state: { status: 'ready', content: '' },
-					summariseUrl: jest.fn(),
-				});
-
-				renderAISummaryBlock();
-
-				const provider = screen.queryByTestId(`${testIdBase}-provider`);
-				expect(provider).not.toBeInTheDocument();
-			});
-		});
-
-		it('does not render when there is no summary', async () => {
-			jest.mocked(useAISummary).mockReturnValue({
-				state: { status: 'ready', content: '' },
-				summariseUrl: jest.fn(),
-			});
-
-			renderAISummaryBlock();
-
-			const block = screen.queryByTestId('smart-ai-summary-block-resolved-view');
-			expect(block).not.toBeInTheDocument();
-		});
-
-		it('does not render when the summary is loading', async () => {
-			jest.mocked(useAISummary).mockReturnValue({
-				state: { status: 'loading', content: '' },
-				summariseUrl: jest.fn(),
-			});
-
-			renderAISummaryBlock();
-
-			const block = screen.queryByTestId('smart-ai-summary-block-resolved-view');
-			expect(block).not.toBeInTheDocument();
-		});
-
-		it('renders when the summary is loading with content', async () => {
-			jest.mocked(useAISummary).mockReturnValue({
-				state: { status: 'loading', content: 'content' },
-				summariseUrl: jest.fn(),
-			});
-
-			renderAISummaryBlock();
-
-			const block = await screen.findByTestId('smart-ai-summary-block-resolved-view');
-			expect(block).toBeInTheDocument();
-		});
-
-		it('renders when the summary is done', async () => {
-			jest.mocked(useAISummary).mockReturnValue({
-				state: { status: 'done', content: 'content' },
-				summariseUrl: jest.fn(),
-			});
-
-			renderAISummaryBlock();
-
-			const block = await screen.findByTestId('smart-ai-summary-block-resolved-view');
-			expect(block).toBeInTheDocument();
-		});
-
-		it('does not render on error', () => {
-			jest.mocked(useAISummary).mockReturnValue({
-				state: { status: 'error', error: 'UNEXPECTED', content: '' },
-				summariseUrl: jest.fn(),
-			});
-
-			renderAISummaryBlock();
-
-			const block = screen.queryByTestId('smart-ai-summary-block-resolved-view');
-			expect(block).not.toBeInTheDocument();
-		});
-
-		describe('placeholder', () => {
-			const placeholderTestId = 'test-placeholder';
-			const placeholder = <div data-testid={placeholderTestId}></div>;
-
-			it('render placeholder when there is no summary', async () => {
-				jest.mocked(useAISummary).mockReturnValue({
-					state: { status: 'ready', content: '' },
-					summariseUrl: jest.fn(),
-				});
-
-				renderAISummaryBlock({ placeholder });
-
-				const block = await screen.findByTestId(placeholderTestId);
-				expect(block).toBeInTheDocument();
-			});
-
-			it('render placeholder when the summary is loading', async () => {
-				jest.mocked(useAISummary).mockReturnValue({
-					state: { status: 'loading', content: '' },
-					summariseUrl: jest.fn(),
-				});
-
-				renderAISummaryBlock({ placeholder });
-
-				const block = await screen.findByTestId(placeholderTestId);
-				expect(block).toBeInTheDocument();
-			});
-
-			it('does not render placeholder when the summary is loading with content', () => {
-				jest.mocked(useAISummary).mockReturnValue({
-					state: { status: 'loading', content: 'content' },
-					summariseUrl: jest.fn(),
-				});
-
-				renderAISummaryBlock({ placeholder });
-
-				const block = screen.queryByTestId(placeholderTestId);
-				expect(block).not.toBeInTheDocument();
-			});
-
-			it('does not render placeholder when the summary is done', () => {
-				jest.mocked(useAISummary).mockReturnValue({
-					state: { status: 'done', content: 'content' },
-					summariseUrl: jest.fn(),
-				});
-
-				renderAISummaryBlock({ placeholder });
-
-				const block = screen.queryByTestId(placeholderTestId);
-				expect(block).not.toBeInTheDocument();
-			});
-
-			it('renders placeholder on error', async () => {
-				jest.mocked(useAISummary).mockReturnValue({
-					state: { status: 'error', error: 'UNEXPECTED', content: '' },
-					summariseUrl: jest.fn(),
-				});
-
-				renderAISummaryBlock({ placeholder });
-
-				const block = await screen.findByTestId(placeholderTestId);
-				expect(block).toBeInTheDocument();
-			});
+	describe('status', () => {
+		it.each([
+			[SmartLinkStatus.Resolving],
+			[SmartLinkStatus.Forbidden],
+			[SmartLinkStatus.Errored],
+			[SmartLinkStatus.NotFound],
+			[SmartLinkStatus.Unauthorized],
+			[SmartLinkStatus.Fallback],
+		])('should render null when status is %s', (status: SmartLinkStatus) => {
+			const { container } = renderAISummaryBlock(undefined, status);
+			expect(container.children.length).toEqual(0);
 		});
 	});
 
-	ffTest.off('platform-linking-flexible-card-context', 'with fg', () => {
-		describe('status', () => {
-			it.each([
-				[SmartLinkStatus.Resolving],
-				[SmartLinkStatus.Forbidden],
-				[SmartLinkStatus.Errored],
-				[SmartLinkStatus.NotFound],
-				[SmartLinkStatus.Unauthorized],
-				[SmartLinkStatus.Fallback],
-			])('should render null when status is %s', (status: SmartLinkStatus) => {
-				const { container } = renderAISummaryBlock({ status });
-				expect(container.children.length).toEqual(0);
-			});
-		});
-
-		describe('ai summary', () => {
-			it('fires expected events when the summary is done', async () => {
-				jest.mocked(useAISummary).mockReturnValue({
-					state: { status: 'loading', content: '' },
-					summariseUrl: jest.fn(),
-				});
-
-				const { spy, rerenderTestComponent } = renderAISummaryBlock({
-					status: SmartLinkStatus.Resolved,
-					testId: testIdBase,
-				});
-
-				jest.mocked(useAISummary).mockReturnValue({
-					state: { status: 'done', content: '' },
-					summariseUrl: jest.fn(),
-				});
-
-				rerenderTestComponent();
-
-				expect(spy).toBeFiredWithAnalyticEventOnce(
-					{
-						payload: {
-							action: 'viewed',
-							actionSubject: 'summary',
-							attributes: {
-								fromCache: false,
-							},
-						},
-					},
-					ANALYTICS_CHANNEL,
-				);
-				expect(spy).not.toBeFiredWithAnalyticEventOnce(
-					{
-						payload: {
-							action: 'initiated',
-							actionSubject: 'aiInteraction',
-							attributes: {
-								aiFeatureName: 'Smart Links Summary',
-								proactiveAIGenerated: 1,
-								userGeneratedAI: 0,
-							},
-						},
-					},
-					ANALYTICS_CHANNEL,
-				);
-			});
-
-			it('fires expected events when the summary is cached', async () => {
-				jest.mocked(useAISummary).mockReturnValue({
-					state: { status: 'done', content: '' },
-					summariseUrl: jest.fn(),
-				});
-
-				const { spy } = renderAISummaryBlock({
-					status: SmartLinkStatus.Resolved,
-					testId: testIdBase,
-				});
-				expect(spy).toBeFiredWithAnalyticEventOnce(
-					{
-						payload: {
-							action: 'viewed',
-							actionSubject: 'summary',
-							attributes: {
-								fromCache: true,
-							},
-						},
-					},
-					ANALYTICS_CHANNEL,
-				);
-				expect(spy).toBeFiredWithAnalyticEventOnce(
-					{
-						payload: {
-							action: 'initiated',
-							actionSubject: 'aiInteraction',
-							attributes: {
-								aiFeatureName: 'Smart Links Summary',
-								proactiveAIGenerated: 1,
-								userGeneratedAI: 0,
-							},
-						},
-					},
-					ANALYTICS_CHANNEL,
-				);
-			});
-
-			it('should not render error state indicator', async () => {
-				jest.mocked(useAISummary).mockReturnValue({
-					state: { status: 'error', content: '' },
-					summariseUrl: jest.fn(),
-				});
-
-				renderAISummaryBlock({
-					status: SmartLinkStatus.Resolved,
-					testId: testIdBase,
-				});
-
-				const indicatorA = screen.queryByTestId(`${testIdBase}-error-indicator-error`);
-
-				expect(indicatorA).not.toBeInTheDocument();
-			});
-
-			it('Display the AI Summary component only when there is summary content available', async () => {
-				jest.mocked(useAISummary).mockReturnValue({
-					state: { status: 'loading', content: '' },
-					summariseUrl: jest.fn(),
-				});
-
-				const aiSummaryTestId = `${testIdBase}-ai-summary`;
-				const { rerenderTestComponent } = renderAISummaryBlock({
-					status: SmartLinkStatus.Resolved,
-					testId: testIdBase,
-				});
-
-				const AISummary = screen.queryByTestId(aiSummaryTestId);
-				expect(AISummary).not.toBeInTheDocument();
-
-				jest.mocked(useAISummary).mockReturnValue({
-					state: { status: 'loading', content: 'first piece of summary is here' },
-					summariseUrl: jest.fn(),
-				});
-
-				rerenderTestComponent();
-				const AISummaryWithContent = screen.queryByTestId(aiSummaryTestId);
-				expect(AISummaryWithContent).toBeInTheDocument();
-			});
-		});
-
-		describe('metadata', () => {
-			it('should not render footer metadata', async () => {
-				jest.mocked(useAISummary).mockReturnValue({
-					state: { status: 'ready', content: '' },
-					summariseUrl: jest.fn(),
-				});
-
-				renderAISummaryBlock({ status: SmartLinkStatus.Resolved });
-
-				const provider = screen.queryByTestId(`${testIdBase}-provider`);
-				expect(provider).not.toBeInTheDocument();
-			});
-		});
-
-		it('does not render when there is no summary', async () => {
-			jest.mocked(useAISummary).mockReturnValue({
-				state: { status: 'ready', content: '' },
-				summariseUrl: jest.fn(),
-			});
-
-			renderAISummaryBlock({ status: SmartLinkStatus.Resolved });
-
-			const block = screen.queryByTestId('smart-ai-summary-block-resolved-view');
-			expect(block).not.toBeInTheDocument();
-		});
-
-		it('does not render when the summary is loading', async () => {
+	describe('ai summary', () => {
+		it('fires expected events when the summary is done', async () => {
 			jest.mocked(useAISummary).mockReturnValue({
 				state: { status: 'loading', content: '' },
 				summariseUrl: jest.fn(),
 			});
 
-			renderAISummaryBlock({ status: SmartLinkStatus.Resolved });
+			const { spy, rerenderTestComponent } = renderAISummaryBlock({
+				testId: testIdBase,
+			});
 
-			const block = screen.queryByTestId('smart-ai-summary-block-resolved-view');
-			expect(block).not.toBeInTheDocument();
+			jest.mocked(useAISummary).mockReturnValue({
+				state: { status: 'done', content: '' },
+				summariseUrl: jest.fn(),
+			});
+
+			rerenderTestComponent();
+
+			expect(spy).toBeFiredWithAnalyticEventOnce(
+				{
+					payload: {
+						action: 'viewed',
+						actionSubject: 'summary',
+						attributes: {
+							fromCache: false,
+						},
+					},
+				},
+				ANALYTICS_CHANNEL,
+			);
+			expect(spy).not.toBeFiredWithAnalyticEventOnce(
+				{
+					payload: {
+						action: 'initiated',
+						actionSubject: 'aiInteraction',
+						attributes: {
+							aiFeatureName: 'Smart Links Summary',
+							proactiveAIGenerated: 1,
+							userGeneratedAI: 0,
+						},
+					},
+				},
+				ANALYTICS_CHANNEL,
+			);
 		});
 
-		it('renders when the summary is loading with content', async () => {
+		it('fires expected events when the summary is cached', async () => {
+			jest.mocked(useAISummary).mockReturnValue({
+				state: { status: 'done', content: '' },
+				summariseUrl: jest.fn(),
+			});
+
+			const { spy } = renderAISummaryBlock({
+				testId: testIdBase,
+			});
+			expect(spy).toBeFiredWithAnalyticEventOnce(
+				{
+					payload: {
+						action: 'viewed',
+						actionSubject: 'summary',
+						attributes: {
+							fromCache: true,
+						},
+					},
+				},
+				ANALYTICS_CHANNEL,
+			);
+			expect(spy).toBeFiredWithAnalyticEventOnce(
+				{
+					payload: {
+						action: 'initiated',
+						actionSubject: 'aiInteraction',
+						attributes: {
+							aiFeatureName: 'Smart Links Summary',
+							proactiveAIGenerated: 1,
+							userGeneratedAI: 0,
+						},
+					},
+				},
+				ANALYTICS_CHANNEL,
+			);
+		});
+
+		it('should not render error state indicator', async () => {
+			jest.mocked(useAISummary).mockReturnValue({
+				state: { status: 'error', content: '' },
+				summariseUrl: jest.fn(),
+			});
+
+			renderAISummaryBlock({
+				testId: testIdBase,
+			});
+
+			const indicatorA = screen.queryByTestId(`${testIdBase}-error-indicator-error`);
+
+			expect(indicatorA).not.toBeInTheDocument();
+		});
+
+		it('Display the AI Summary component only when there is summary content available', async () => {
+			jest.mocked(useAISummary).mockReturnValue({
+				state: { status: 'loading', content: '' },
+				summariseUrl: jest.fn(),
+			});
+
+			const aiSummaryTestId = `${testIdBase}-ai-summary`;
+			const { rerenderTestComponent } = renderAISummaryBlock({
+				testId: testIdBase,
+			});
+
+			const AISummary = screen.queryByTestId(aiSummaryTestId);
+			expect(AISummary).not.toBeInTheDocument();
+
+			jest.mocked(useAISummary).mockReturnValue({
+				state: { status: 'loading', content: 'first piece of summary is here' },
+				summariseUrl: jest.fn(),
+			});
+
+			rerenderTestComponent();
+			const AISummaryWithContent = screen.queryByTestId(aiSummaryTestId);
+			expect(AISummaryWithContent).toBeInTheDocument();
+		});
+	});
+
+	describe('metadata', () => {
+		it('should not render footer metadata', async () => {
+			jest.mocked(useAISummary).mockReturnValue({
+				state: { status: 'ready', content: '' },
+				summariseUrl: jest.fn(),
+			});
+
+			renderAISummaryBlock();
+
+			const provider = screen.queryByTestId(`${testIdBase}-provider`);
+			expect(provider).not.toBeInTheDocument();
+		});
+	});
+
+	it('does not render when there is no summary', async () => {
+		jest.mocked(useAISummary).mockReturnValue({
+			state: { status: 'ready', content: '' },
+			summariseUrl: jest.fn(),
+		});
+
+		renderAISummaryBlock();
+
+		const block = screen.queryByTestId('smart-ai-summary-block-resolved-view');
+		expect(block).not.toBeInTheDocument();
+	});
+
+	it('does not render when the summary is loading', async () => {
+		jest.mocked(useAISummary).mockReturnValue({
+			state: { status: 'loading', content: '' },
+			summariseUrl: jest.fn(),
+		});
+
+		renderAISummaryBlock();
+
+		const block = screen.queryByTestId('smart-ai-summary-block-resolved-view');
+		expect(block).not.toBeInTheDocument();
+	});
+
+	it('renders when the summary is loading with content', async () => {
+		jest.mocked(useAISummary).mockReturnValue({
+			state: { status: 'loading', content: 'content' },
+			summariseUrl: jest.fn(),
+		});
+
+		renderAISummaryBlock();
+
+		const block = await screen.findByTestId('smart-ai-summary-block-resolved-view');
+		expect(block).toBeInTheDocument();
+	});
+
+	it('renders when the summary is done', async () => {
+		jest.mocked(useAISummary).mockReturnValue({
+			state: { status: 'done', content: 'content' },
+			summariseUrl: jest.fn(),
+		});
+
+		renderAISummaryBlock();
+
+		const block = await screen.findByTestId('smart-ai-summary-block-resolved-view');
+		expect(block).toBeInTheDocument();
+	});
+
+	it('does not render on error', () => {
+		jest.mocked(useAISummary).mockReturnValue({
+			state: { status: 'error', error: 'UNEXPECTED', content: '' },
+			summariseUrl: jest.fn(),
+		});
+
+		renderAISummaryBlock();
+
+		const block = screen.queryByTestId('smart-ai-summary-block-resolved-view');
+		expect(block).not.toBeInTheDocument();
+	});
+
+	describe('placeholder', () => {
+		const placeholderTestId = 'test-placeholder';
+		const placeholder = <div data-testid={placeholderTestId}></div>;
+
+		it('render placeholder when there is no summary', async () => {
+			jest.mocked(useAISummary).mockReturnValue({
+				state: { status: 'ready', content: '' },
+				summariseUrl: jest.fn(),
+			});
+
+			renderAISummaryBlock({ placeholder });
+
+			const block = await screen.findByTestId(placeholderTestId);
+			expect(block).toBeInTheDocument();
+		});
+
+		it('render placeholder when the summary is loading', async () => {
+			jest.mocked(useAISummary).mockReturnValue({
+				state: { status: 'loading', content: '' },
+				summariseUrl: jest.fn(),
+			});
+
+			renderAISummaryBlock({ placeholder });
+
+			const block = await screen.findByTestId(placeholderTestId);
+			expect(block).toBeInTheDocument();
+		});
+
+		it('does not render placeholder when the summary is loading with content', () => {
 			jest.mocked(useAISummary).mockReturnValue({
 				state: { status: 'loading', content: 'content' },
 				summariseUrl: jest.fn(),
 			});
 
-			renderAISummaryBlock({ status: SmartLinkStatus.Resolved });
+			renderAISummaryBlock({ placeholder });
 
-			const block = await screen.findByTestId('smart-ai-summary-block-resolved-view');
-			expect(block).toBeInTheDocument();
+			const block = screen.queryByTestId(placeholderTestId);
+			expect(block).not.toBeInTheDocument();
 		});
 
-		it('renders when the summary is done', async () => {
+		it('does not render placeholder when the summary is done', () => {
 			jest.mocked(useAISummary).mockReturnValue({
 				state: { status: 'done', content: 'content' },
 				summariseUrl: jest.fn(),
 			});
 
-			renderAISummaryBlock({ status: SmartLinkStatus.Resolved });
+			renderAISummaryBlock({ placeholder });
 
-			const block = await screen.findByTestId('smart-ai-summary-block-resolved-view');
-			expect(block).toBeInTheDocument();
+			const block = screen.queryByTestId(placeholderTestId);
+			expect(block).not.toBeInTheDocument();
 		});
 
-		it('does not render on error', () => {
+		it('renders placeholder on error', async () => {
 			jest.mocked(useAISummary).mockReturnValue({
 				state: { status: 'error', error: 'UNEXPECTED', content: '' },
 				summariseUrl: jest.fn(),
 			});
 
-			renderAISummaryBlock({ status: SmartLinkStatus.Resolved });
+			renderAISummaryBlock({ placeholder });
 
-			const block = screen.queryByTestId('smart-ai-summary-block-resolved-view');
-			expect(block).not.toBeInTheDocument();
-		});
-
-		describe('placeholder', () => {
-			const placeholderTestId = 'test-placeholder';
-			const placeholder = <div data-testid={placeholderTestId}></div>;
-
-			it('render placeholder when there is no summary', async () => {
-				jest.mocked(useAISummary).mockReturnValue({
-					state: { status: 'ready', content: '' },
-					summariseUrl: jest.fn(),
-				});
-
-				renderAISummaryBlock({ placeholder, status: SmartLinkStatus.Resolved });
-
-				const block = await screen.findByTestId(placeholderTestId);
-				expect(block).toBeInTheDocument();
-			});
-
-			it('render placeholder when the summary is loading', async () => {
-				jest.mocked(useAISummary).mockReturnValue({
-					state: { status: 'loading', content: '' },
-					summariseUrl: jest.fn(),
-				});
-
-				renderAISummaryBlock({ placeholder, status: SmartLinkStatus.Resolved });
-
-				const block = await screen.findByTestId(placeholderTestId);
-				expect(block).toBeInTheDocument();
-			});
-
-			it('does not render placeholder when the summary is loading with content', () => {
-				jest.mocked(useAISummary).mockReturnValue({
-					state: { status: 'loading', content: 'content' },
-					summariseUrl: jest.fn(),
-				});
-
-				renderAISummaryBlock({ placeholder, status: SmartLinkStatus.Resolved });
-
-				const block = screen.queryByTestId(placeholderTestId);
-				expect(block).not.toBeInTheDocument();
-			});
-
-			it('does not render placeholder when the summary is done', () => {
-				jest.mocked(useAISummary).mockReturnValue({
-					state: { status: 'done', content: 'content' },
-					summariseUrl: jest.fn(),
-				});
-
-				renderAISummaryBlock({ placeholder, status: SmartLinkStatus.Resolved });
-
-				const block = screen.queryByTestId(placeholderTestId);
-				expect(block).not.toBeInTheDocument();
-			});
-
-			it('renders placeholder on error', async () => {
-				jest.mocked(useAISummary).mockReturnValue({
-					state: { status: 'error', error: 'UNEXPECTED', content: '' },
-					summariseUrl: jest.fn(),
-				});
-
-				renderAISummaryBlock({ placeholder, status: SmartLinkStatus.Resolved });
-
-				const block = await screen.findByTestId(placeholderTestId);
-				expect(block).toBeInTheDocument();
-			});
-			it('should capture and report a11y violations', async () => {
-				jest.mocked(useAISummary).mockReturnValue({
-					state: { status: 'error', error: 'UNEXPECTED', content: '' },
-					summariseUrl: jest.fn(),
-				});
-
-				const { container } = renderAISummaryBlock({
-					placeholder,
-					status: SmartLinkStatus.Resolved,
-				});
-
-				await expect(container).toBeAccessible();
-			});
+			const block = await screen.findByTestId(placeholderTestId);
+			expect(block).toBeInTheDocument();
 		});
 	});
 });

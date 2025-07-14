@@ -135,6 +135,7 @@ type NumericSize = \`\${number}px\` | \`\${number}rem\` | \`\${number}vh\` | \`\
 export type SizeIntrinsic = 'min-content' | 'max-content' | 'fit-content' | 'auto' | NumericSize | \`min(\${NumericSize}, \${NumericSize})\` | \`max(\${NumericSize}, \${NumericSize})\`;
 export type Space = ${mapToCssVar(space)} | 0 | '0';
 export type SpaceMargin = Space | 'auto' | '0 auto';
+export type SpaceInset = Space | '50%';
 export type Shadow = ${mapToCssVar(shadow)} | 'initial';
 export type TextColorPressed = ${mapToCssVar(textColorPressed)};
 export type TextColor = 'transparent' | TextColorPressed | ${mapToCssVar(textColor)}
@@ -200,7 +201,7 @@ export interface DesignTokenStyles {
 	borderTopRightRadius: BorderRadius;
 	borderTopWidth: BorderWidth;
 	borderWidth: BorderWidth;
-	bottom: Space;
+	bottom: SpaceInset;
 	boxShadow: Shadow;
 	boxSizing: 'border-box';
 	clear: never;
@@ -220,14 +221,14 @@ export interface DesignTokenStyles {
 	gap: Space;
 	height: SizeIntrinsic;
 	inlineSize: SizeIntrinsic;
-	inset: Space;
-	insetBlock: Space;
-	insetBlockEnd: Space;
-	insetBlockStart: Space;
-	insetInline: Space;
-	insetInlineEnd: Space;
-	insetInlineStart: Space;
-	left: Space;
+	inset: SpaceInset;
+	insetBlock: SpaceInset;
+	insetBlockEnd: SpaceInset;
+	insetBlockStart: SpaceInset;
+	insetInline: SpaceInset;
+	insetInlineEnd: SpaceInset;
+	insetInlineStart: SpaceInset;
+	left: SpaceInset;
 	letterSpacing: never;
 	lineHeight: never;
 	lineHeightStep: never;
@@ -267,10 +268,10 @@ export interface DesignTokenStyles {
 	paddingLeft: Space;
 	paddingRight: Space;
 	paddingTop: Space;
-	right: Space;
+	right: SpaceInset;
 	rowGap: Space;
 	textDecorationLine: 'line-through' | 'underline';
-	top: Space;
+	top: SpaceInset;
 	userModify: never;
 	width: SizeIntrinsic;
 	zIndex: -1 | 0 | 1 | 100 | 200 | 300 | 400 | 500 | 510 | 600 | 700 | 800;

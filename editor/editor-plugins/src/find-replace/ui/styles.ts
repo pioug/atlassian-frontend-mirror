@@ -12,4 +12,5 @@ export {
 	findReplaceStyles,
 	findReplaceStylesNewYellow,
 	findReplaceStylesNewMagenta,
+	findReplaceStylesNewMagentaNoImportant,
 } from '@atlaskit/editor-plugin-find-replace/styles';

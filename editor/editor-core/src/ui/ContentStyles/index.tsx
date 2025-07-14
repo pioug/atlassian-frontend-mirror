@@ -54,6 +54,7 @@ import {
 	findReplaceStyles,
 	findReplaceStylesNewYellow,
 	findReplaceStylesNewMagenta,
+	findReplaceStylesNewMagentaNoImportant,
 } from '@atlaskit/editor-plugins/find-replace/styles';
 import { textHighlightStyle } from '@atlaskit/editor-plugins/paste-options-toolbar/styles';
 import {
@@ -222,14 +223,44 @@ const mentionSelectionStyles = css`
 	}
 `;
 
+const mentionsSelectionStylesWithSearchMatch = css`
+	.danger {
+		.editor-mention-primitive {
+			box-shadow: 0 0 0 ${akEditorSelectedBorderSize}px ${akEditorDeleteBorder};
+			background-color: ${token('color.background.danger', akEditorDeleteBackgroundWithOpacity)};
+		}
+	}
+
+	.${akEditorSelectedNodeClassName}:not(.search-match-block) > .editor-mention-primitive,
+	.${akEditorSelectedNodeClassName}:not(.search-match-block)
+		> .editor-mention-primitive.mention-self,
+	.${akEditorSelectedNodeClassName}:not(.search-match-block)
+		> .editor-mention-primitive.mention-restricted {
+		${getSelectionStyles([SelectionStyle.BoxShadow, SelectionStyle.Background])}
+		/* need to specify dark text colour because personal mentions
+	       (in dark blue) have white text by default */
+		color: ${token('color.text.subtle')}
+	}
+
+	.${akEditorSelectedNodeClassName}.search-match-block > .editor-mention-primitive,
+	.${akEditorSelectedNodeClassName}.search-match-block > .editor-mention-primitive.mention-self,
+	.${akEditorSelectedNodeClassName}.search-match-block
+		> .editor-mention-primitive.mention-restricted {
+		${getSelectionStyles([SelectionStyle.Background])}
+		/* need to specify dark text colour because personal mentions
+	       (in dark blue) have white text by default */
+		color: ${token('color.text.subtle')}
+	}
+`;
+
 const mentionsStyles = css`
 	.${MentionSharedCssClassName.MENTION_CONTAINER} {
 		&.${akEditorSelectedNodeClassName} [data-mention-id] > span {
 			${getSelectionStyles([SelectionStyle.BoxShadow, SelectionStyle.Background])}
 
 			/* need to specify dark text colour because personal mentions
-         (in dark blue) have white text by default */
-      color: ${token('color.text.subtle')};
+			(in dark blue) have white text by default */
+			color: ${token('color.text.subtle')};
 		}
 	}
 
@@ -501,7 +532,10 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
 	${mentionNodeStyles}
 	${fg('platform_editor_centre_mention_padding') &&
 	mentionNodeStylesMixin_fg_platform_editor_centre_mention_padding}
-	${mentionSelectionStyles}
+	${expValEqualsNoExposure('platform_editor_find_and_replace_improvements', 'isEnabled', true) &&
+	fg('platform_editor_find_and_replace_improvements_1')
+		? mentionsSelectionStylesWithSearchMatch
+		: mentionSelectionStyles}
   ${emojiStyles}
   ${tasksAndDecisionsStyles}
   ${gridStyles}
@@ -512,7 +546,9 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
   ${expandStyles()}
   ${expValEqualsNoExposure('platform_editor_find_and_replace_improvements', 'isEnabled', true)
 		? fg('platform_editor_find_and_replace_magenta_match')
-			? findReplaceStylesNewMagenta
+			? fg('platform_editor_find_and_replace_improvements_1')
+				? findReplaceStylesNewMagentaNoImportant
+				: findReplaceStylesNewMagenta
 			: findReplaceStylesNewYellow
 		: findReplaceStyles}
   ${textHighlightStyle}
@@ -521,7 +557,7 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
   /* Switch between the two icons based on the visual refresh feature gate */
 	${fg('platform-visual-refresh-icons') && decisionIconWithVisualRefresh}
 	${!fg('platform-visual-refresh-icons') && decisionIconWithoutVisualRefresh}
-  ${statusStyles}
+  ${statusStyles()}
   ${statusNodeStyles()}
   ${annotationSharedStyles()}
   ${smartCardStyles()}

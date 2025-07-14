@@ -6,7 +6,6 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import mockContext from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { getFlexibleCardTestWrapper } from '../../../../../../__tests__/__utils__/unit-testing-library-helpers';
@@ -28,27 +27,26 @@ describe('FollowAction', () => {
 		);
 	};
 
-	ffTest.both('platform-linking-flexible-card-context', 'with fg', () => {
-		describe('existing follow action button', () => {
-			it('renders follow action button', async () => {
-				setup();
-				const element = await screen.findByTestId(testId);
-				expect(element).toBeInTheDocument();
-				expect(element).toHaveTextContent('Follow');
-			});
+	describe('existing follow action button', () => {
+		it('renders follow action button', async () => {
+			setup();
+			const element = await screen.findByTestId(testId);
+			expect(element).toBeInTheDocument();
+			expect(element).toHaveTextContent('Follow');
+		});
 
-			it('renders tooltip', async () => {
-				const user = userEvent.setup();
-				setup();
+		it('renders tooltip', async () => {
+			const user = userEvent.setup();
+			setup();
 
-				const element = await screen.findByTestId(testId);
-				await user.hover(element);
+			const element = await screen.findByTestId(testId);
+			await user.hover(element);
 
-				const tooltip = await screen.findByRole('tooltip');
-				expect(tooltip).toHaveTextContent('Follow');
-			});
+			const tooltip = await screen.findByRole('tooltip');
+			expect(tooltip).toHaveTextContent('Follow');
 		});
 	});
+
 	it('should capture and report a11y violations', async () => {
 		const { container } = setup();
 		await expect(container).toBeAccessible();

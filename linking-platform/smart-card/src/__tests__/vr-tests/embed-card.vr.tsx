@@ -100,13 +100,11 @@ snapshot(EmbedCardResolvedView, {
 });
 snapshot(EmbedCardResolvedView, {
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
 		prompt_whiteboard_competitor_link_gate: [true, false],
 	},
 });
 snapshot(EmbedCardResolvedViewCompetitorPrompt, {
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': true,
 		prompt_whiteboard_competitor_link_gate: [true, false],
 	},
 });

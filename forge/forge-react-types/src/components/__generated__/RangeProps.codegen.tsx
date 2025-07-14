@@ -3,17 +3,66 @@
  *
  * Extract component prop types from UIKit 2 components - RangeProps
  *
- * @codegen <<SignedSource::8059d330e7cc4a21c671966f6c2496cc>>
+ * @codegen <<SignedSource::630c202e2564f5bfeac2d313285aad09>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/range/__generated__/index.partial.tsx <<SignedSource::66f3c55587192848bc42f9fc146e6c7e>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/range/__generated__/index.partial.tsx <<SignedSource::d9ea91886a193f2c5119bc1ed1b50c71>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
-import React from 'react';
-import PlatformRange from '@atlaskit/range';
 import type { EventHandlerProps } from './types.codegen';
 
-type PlatformRangeProps = React.ComponentProps<typeof PlatformRange>;
+
+// Serialized type
+type PlatformRangeProps = {
+  /**
+	 * Sets the maximum value of the range.
+	 */
+	max?: number;
+  /**
+	 * Sets the minimum value of the range.
+	 */
+	min?: number;
+  
+	name?: string;
+  /**
+	 * Sets the step value for the range.
+	 */
+	step?: number;
+  /**
+	 * Sets the value of the range.
+	 */
+	value?: number;
+  /**
+	 * Hook to be invoked on change of the range.
+	 */
+	onChange?: (value: number) => void;
+  /**
+	 * Sets the default value if range is not set.
+	 */
+	defaultValue?: number;
+  
+	id?: string;
+  /**
+         * Indicates the entered value does not conform to the format expected by the application.
+         * @see aria-errormessage.
+         */
+	"aria-invalid"?: false | true | 'false' | 'true' | 'grammar' | 'spelling';
+  /**
+         * Identifies the element (or elements) that labels the current element.
+         * @see aria-describedby.
+         */
+	"aria-labelledby"?: string;
+  /**
+	 * Sets whether the field range is disabled.
+	 */
+	isDisabled?: boolean;
+  /**
+	 * A `testId` prop is provided for specific elements. This is a unique string
+	 * that appears as a data attribute `data-testid` in the rendered code and
+	 * serves as a hook for automated tests.
+	 */
+	testId?: string;
+};
 
 export type RangeProps = Pick<
   PlatformRangeProps,

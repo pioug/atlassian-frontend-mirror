@@ -5,7 +5,11 @@ import * as analytics from '../../../../utils/analytics/analytics';
 import * as HoverCardComponent from '../../components/HoverCardComponent';
 import { mockBaseResponseWithDownload, mockBaseResponseWithPreview } from '../__mocks__/mocks';
 
-import { type setup as hoverCardSetup, type SetUpParams } from './setup.test-utils';
+import {
+	type setup as hoverCardSetup,
+	mockIntersectionObserver,
+	type SetUpParams,
+} from './setup.test-utils';
 
 type AnalyticsTestConfig = {
 	/**
@@ -25,6 +29,17 @@ export const analyticsTests = (
 	_config: AnalyticsTestConfig,
 ) => {
 	describe('analytics', () => {
+		beforeEach(() => {
+			jest.useFakeTimers({ legacyFakeTimers: true });
+			mockIntersectionObserver();
+			act(() => jest.runAllTimers());
+			jest.restoreAllMocks();
+		});
+
+		afterEach(() => {
+			jest.useRealTimers();
+		});
+
 		it('should fire hover card viewed event with correct data in the analytics context', async () => {
 			const { mockAnalyticsClient } = await setup();
 			await screen.findByTestId('hover-card');

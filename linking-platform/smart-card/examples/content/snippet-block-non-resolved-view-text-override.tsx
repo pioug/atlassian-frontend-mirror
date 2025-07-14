@@ -2,14 +2,14 @@ import React from 'react';
 
 import { SnippetBlock } from '../../src';
 import { SmartLinkStatus } from '../../src/constants';
+import { FlexibleCardContext } from '../../src/state/flexible-ui-context';
 
 import ExampleContainer from './example-container';
 
 export default () => (
 	<ExampleContainer>
-		<SnippetBlock
-			status={SmartLinkStatus.Resolving}
-			text="This is text that overrides the default null description in a non resolved view."
-		/>
+		<FlexibleCardContext.Provider value={{ status: SmartLinkStatus.Resolving }}>
+			<SnippetBlock text="This is text that overrides the default null description in a non resolved view." />
+		</FlexibleCardContext.Provider>
 	</ExampleContainer>
 );

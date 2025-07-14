@@ -1,5 +1,15 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import type { UFOIgnoreHoldsReason } from '../../../../ignore-holds';
 import type { VCObserverEntryType } from '../../types';
+
+// Helper function to find React fiber on an element
+const findReactFiber = (element: HTMLElement) => {
+	const key = Object.keys(element).find(
+		(key) => key.startsWith('__reactFiber$') || key.startsWith('__reactInternalInstance$'),
+	);
+	return key ? (element as any)[key] : null;
+};
 
 // Using the React Fiber tree to traverse up the DOM and check if a node is within a specific component
 // and extract child component props if needed.
@@ -12,14 +22,22 @@ export function checkWithinComponentAndExtractChildProps<T = string>(
 		extractValue?: (props: any) => T;
 	},
 ): { isWithin: boolean; childProp?: T } {
-	// Get the React fiber from the DOM node
-	const key = Object.keys(node).find(
-		(key) => key.startsWith('__reactFiber$') || key.startsWith('__reactInternalInstance$'),
-	);
-	if (!key) {
-		return { isWithin: false };
+	let fiber = null;
+	if (fg('platform_ufo_handle_non_react_element_for_3p')) {
+		// Walk up the DOM tree to find React fiber (handles non-React-rendered elements)
+		let currentElement: HTMLElement | null = node;
+
+		while (currentElement && !fiber) {
+			fiber = findReactFiber(currentElement);
+			if (!fiber) {
+				currentElement = currentElement.parentElement as HTMLElement;
+			}
+		}
+	} else {
+		fiber = findReactFiber(node);
 	}
-	const fiber = (node as any)[key];
+
+	// If no React fiber found, return false
 	if (!fiber) {
 		return { isWithin: false };
 	}

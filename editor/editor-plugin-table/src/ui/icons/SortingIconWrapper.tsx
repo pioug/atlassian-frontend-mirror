@@ -3,10 +3,10 @@ import React from 'react';
 import {
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import { SortingIcon } from '@atlaskit/editor-common/table';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 
 import type { TablePlugin } from '../../tablePluginType';
 
@@ -17,7 +17,9 @@ type SortingIconWrapperProps = SortingIconProps & {
 
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<TablePlugin> | undefined) => {
-		const mode = useSharedPluginStateSelector(api, 'editorViewMode.mode');
+		const { mode } = useSharedPluginStateWithSelector(api, ['editorViewMode'], (states) => ({
+			mode: states.editorViewModeState?.mode,
+		}));
 		return {
 			mode,
 		};

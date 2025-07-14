@@ -1518,6 +1518,175 @@ export const tableAdf: DocNode = {
 	],
 };
 
+export const tableWithNumberedColumnAdf: DocNode = {
+	version: 1,
+	type: 'doc',
+	content: [
+		{
+			type: 'table',
+			attrs: {
+				isNumberColumnEnabled: true,
+				layout: 'default',
+			},
+			content: [
+				{
+					type: 'tableRow',
+					content: [
+						{
+							type: 'tableHeader',
+							attrs: {
+								colspan: 2,
+								colwidth: [233, 100],
+							},
+							content: [
+								{
+									type: 'paragraph',
+									content: [
+										{
+											type: 'text',
+											text: 'header',
+										},
+									],
+								},
+							],
+						},
+						{
+							type: 'tableHeader',
+							attrs: {
+								colwidth: [346],
+								background: '#DEEBFF',
+							},
+							content: [
+								{
+									type: 'paragraph',
+									content: [
+										{
+											type: 'text',
+											text: 'header',
+										},
+									],
+								},
+							],
+						},
+					],
+				},
+				{
+					type: 'tableRow',
+					content: [
+						{
+							type: 'tableCell',
+							attrs: {
+								colwidth: [233],
+							},
+							content: [
+								{
+									type: 'paragraph',
+									content: [
+										{
+											type: 'text',
+											text: 'cell',
+										},
+									],
+								},
+							],
+						},
+						{
+							type: 'tableCell',
+							attrs: {
+								colwidth: [100],
+							},
+							content: [
+								{
+									type: 'paragraph',
+									content: [
+										{
+											type: 'text',
+											text: 'cell',
+										},
+									],
+								},
+							],
+						},
+						{
+							type: 'tableCell',
+							attrs: {
+								colwidth: [346],
+							},
+							content: [
+								{
+									type: 'paragraph',
+									content: [
+										{
+											type: 'text',
+											text: 'cell',
+										},
+									],
+								},
+							],
+						},
+					],
+				},
+				{
+					type: 'tableRow',
+					content: [
+						{
+							type: 'tableCell',
+							attrs: {
+								colwidth: [233],
+							},
+							content: [
+								{
+									type: 'paragraph',
+									content: [
+										{
+											type: 'text',
+											text: 'cell',
+										},
+									],
+								},
+							],
+						},
+						{
+							type: 'tableCell',
+							attrs: {
+								colwidth: [100],
+							},
+							content: [
+								{
+									type: 'paragraph',
+									content: [
+										{
+											type: 'text',
+											text: 'cell',
+										},
+									],
+								},
+							],
+						},
+						{
+							type: 'tableCell',
+							attrs: {
+								colwidth: [346],
+							},
+							content: [
+								{
+									type: 'paragraph',
+									content: [
+										{
+											type: 'text',
+											text: 'cell',
+										},
+									],
+								},
+							],
+						},
+					],
+				},
+			],
+		},
+	],
+};
+
 export const bodiedExtensionNodeAdf: DocNode = {
 	version: 1,
 	type: 'doc',

@@ -1379,30 +1379,6 @@ describe('document-service', () => {
 			},
 		});
 	});
-	describe('commits step if reason is publish', () => {
-		eeTest('platform_editor_enable_single_player_step_merging', {
-			true: () => {
-				const { service, participantsServiceMock, commitStepServiceMock } = createMockService();
-
-				(participantsServiceMock.getCollabMode as jest.Mock).mockReturnValue('single');
-				(commitStepServiceMock.getReadyToCommitStatus as jest.Mock).mockReturnValue(false);
-				(sendableSteps as jest.Mock).mockReturnValue({ steps: ['step1'], origins: ['step'] });
-				service.send(null, null, 'state' as any, undefined, 'publish');
-
-				expect(commitStepServiceMock.commitStepQueue).toBeCalled();
-			},
-			false: () => {
-				const { service, participantsServiceMock, commitStepServiceMock } = createMockService();
-
-				(participantsServiceMock.getCollabMode as jest.Mock).mockReturnValue('single');
-				(commitStepServiceMock.getReadyToCommitStatus as jest.Mock).mockReturnValue(false);
-				(sendableSteps as jest.Mock).mockReturnValue({ steps: ['step1'], origins: ['step'] });
-				service.send(null, null, 'state' as any, undefined, 'publish');
-
-				expect(commitStepServiceMock.commitStepQueue).toBeCalled();
-			},
-		});
-	});
 
 	describe('commits step if ready to commit', () => {
 		eeTest('platform_editor_enable_single_player_step_merging', {

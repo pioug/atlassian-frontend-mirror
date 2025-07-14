@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-media
 
+## 5.1.5
+
+### Patch Changes
+
+- [#184968](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/184968)
+  [`a52007f9eed36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a52007f9eed36) -
+  Introduce a performance experiment to avoid running media floating toolbar code unless selected.
+- Updated dependencies
+
 ## 5.1.4
 
 ### Patch Changes

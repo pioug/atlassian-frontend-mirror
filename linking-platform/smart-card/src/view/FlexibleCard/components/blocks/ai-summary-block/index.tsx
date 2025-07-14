@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { InternalActionName, SmartLinkStatus } from '../../../../../constants';
 import {
 	useFlexibleCardContext,
@@ -18,27 +16,14 @@ import { type AISummaryBlockProps } from './types';
  * @param {AISummaryBlockProps} AISummaryBlock
  * @see Block
  */
-const AISummaryBlock = ({
-	status,
-	testId = 'smart-ai-summary-block',
-	...props
-}: AISummaryBlockProps) => {
-	const cardContext = fg('platform-linking-flexible-card-context')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useFlexibleCardContext()
-		: undefined;
+const AISummaryBlock = ({ testId = 'smart-ai-summary-block', ...props }: AISummaryBlockProps) => {
+	const cardContext = useFlexibleCardContext();
 
 	const context = useFlexibleUiContext();
 	const actionData = context?.actions?.[InternalActionName.AISummaryAction];
 
-	if (fg('platform-linking-flexible-card-context')) {
-		if (cardContext?.status !== SmartLinkStatus.Resolved) {
-			return null;
-		}
-	} else {
-		if (status !== SmartLinkStatus.Resolved) {
-			return null;
-		}
+	if (cardContext?.status !== SmartLinkStatus.Resolved) {
+		return null;
 	}
 
 	if (!actionData?.url) {
@@ -48,9 +33,7 @@ const AISummaryBlock = ({
 	return (
 		<AISummaryBlockResolvedView
 			{...props}
-			{...(fg('platform-linking-flexible-card-context')
-				? { size: props.size ?? cardContext?.ui?.size }
-				: undefined)}
+			size={props.size ?? cardContext?.ui?.size}
 			testId={testId}
 			url={actionData.url}
 		/>

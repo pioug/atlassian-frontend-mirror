@@ -2,13 +2,14 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { forwardRef, memo, useRef, useState } from 'react';
+import React, { forwardRef, memo, useCallback, useRef, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
 import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import __noop from '@atlaskit/ds-lib/noop';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -91,10 +92,34 @@ const InnerBreadcrumbs = forwardRef((props: BreadcrumbsProps, ref: React.Ref<any
 		setExpansionTrigger(false);
 	};
 
-	useOnRevealed(focusFirstRevealed, {
-		isExpanded: shouldExpand!,
-		isDisabled: !isClickedBySpace,
-	});
+	const focusFirstRevealedMemoized = useCallback(() => {
+		if (wrapperRef.current) {
+			const listItems = Array.from(wrapperRef.current.querySelectorAll('li'));
+			const interactiveElements = listItems.map((li) =>
+				li.querySelector<HTMLElement>(interactiveElementSelector),
+			);
+
+			const elementToFocus = interactiveElements[itemsBeforeCollapse];
+			const firstInteractiveElement = interactiveElements[0];
+
+			if (elementToFocus) {
+				elementToFocus.focus && elementToFocus.focus();
+			} else if (firstInteractiveElement) {
+				firstInteractiveElement.focus && firstInteractiveElement.focus();
+			} else {
+				wrapperRef.current.focus();
+			}
+		}
+		setExpansionTrigger(false);
+	}, [setExpansionTrigger, itemsBeforeCollapse, wrapperRef]);
+
+	useOnRevealed(
+		fg('jfp-magma-stability-platform-3') ? focusFirstRevealedMemoized : focusFirstRevealed,
+		{
+			isExpanded: shouldExpand!,
+			isDisabled: !isClickedBySpace,
+		},
+	);
 
 	const handleExpansion = usePlatformLeafEventHandler({
 		fn: (event: React.MouseEvent<Element>, analyticsEvent: UIAnalyticsEvent) => {

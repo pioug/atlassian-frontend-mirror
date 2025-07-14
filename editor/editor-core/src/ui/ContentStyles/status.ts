@@ -12,24 +12,44 @@ import {
 	SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
 const getVisualRefreshStatusStyles = () =>
 	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 	fg('platform-component-visual-refresh')
-		? // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
-			css`
-				&.${akEditorSelectedNodeClassName} .${StatusSharedCssClassName.STATUS_LOZENGE} > span {
-					box-shadow: ${akEditorSelectedBoldBoxShadow};
-				}
-			`
-		: // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
-			css`
-				&.${akEditorSelectedNodeClassName} .${StatusSharedCssClassName.STATUS_LOZENGE} > span {
-					${getSelectionStyles([SelectionStyle.BoxShadow])}
-				}
-			`;
+		? expValEqualsNoExposure('platform_editor_find_and_replace_improvements', 'isEnabled', true) &&
+			fg('platform_editor_find_and_replace_improvements_1')
+			? css({
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values,  @atlaskit/ui-styling-standard/no-imported-style-values
+					[`&.${akEditorSelectedNodeClassName}:not('.search-match-block') .${StatusSharedCssClassName.STATUS_LOZENGE} > span`]:
+						{
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+							boxShadow: akEditorSelectedBoldBoxShadow,
+						},
+				})
+			: // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
+				css`
+					&.${akEditorSelectedNodeClassName} .${StatusSharedCssClassName.STATUS_LOZENGE} > span {
+						box-shadow: ${akEditorSelectedBoldBoxShadow};
+					}
+				`
+		: expValEqualsNoExposure('platform_editor_find_and_replace_improvements', 'isEnabled', true) &&
+			  fg('platform_editor_find_and_replace_improvements_1')
+			? // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
+				css`
+					&.${akEditorSelectedNodeClassName}:not('.search-match-block')
+						.${StatusSharedCssClassName.STATUS_LOZENGE}
+						> span {
+						${getSelectionStyles([SelectionStyle.BoxShadow])}
+					}
+				`
+			: // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
+				css`
+					&.${akEditorSelectedNodeClassName} .${StatusSharedCssClassName.STATUS_LOZENGE} > span {
+						${getSelectionStyles([SelectionStyle.BoxShadow])}
+					}
+				`;
 
 const getStatusColors = () =>
 	fg('platform-component-visual-refresh')
@@ -162,7 +182,7 @@ export const statusNodeStyles = () => css`
 `;
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const statusStyles = css`
+export const statusStyles = () => css`
 	.${TableSharedCssClassName.TABLE_CELL_WRAPPER},
 		.${TableSharedCssClassName.TABLE_HEADER_CELL_WRAPPER},
 		[data-layout-section] {
@@ -175,6 +195,7 @@ export const statusStyles = css`
 			}
 		}
 	}
+
 	.${StatusSharedCssClassName.STATUS_CONTAINER} {
 		> span {
 			cursor: pointer;

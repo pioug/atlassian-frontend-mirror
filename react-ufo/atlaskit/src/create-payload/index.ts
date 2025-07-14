@@ -821,11 +821,7 @@ async function createInteractionMetricsPayload(
 						}
 					: {}),
 
-				...(fg('platform_ufo_report_memory_usage')
-					? {
-							'event:memory:usage': createMemoryStateReport(interaction.start, interaction.end),
-						}
-					: {}),
+				'event:memory:usage': createMemoryStateReport(interaction.start, interaction.end),
 
 				...(criticalPayloadCount !== undefined
 					? {

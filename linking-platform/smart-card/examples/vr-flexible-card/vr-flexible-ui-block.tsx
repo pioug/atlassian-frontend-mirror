@@ -110,11 +110,7 @@ export default () => {
 					}}
 					url="link-url"
 				>
-					<TitleBlock
-						text="Override css on block"
-						css={blockOverrideCss}
-						theme={SmartLinkTheme.Black}
-					/>
+					<TitleBlock text="Override css on block" css={blockOverrideCss} />
 				</FlexibleCard>
 			</SmartCardProvider>
 		</VRTestWrapper>

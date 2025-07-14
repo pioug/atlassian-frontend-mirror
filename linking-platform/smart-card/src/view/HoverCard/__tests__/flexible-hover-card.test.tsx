@@ -40,6 +40,17 @@ describe('hover card over flexible smart links', () => {
 	const triggerTestId = 'smart-block-title-resolved-view';
 	const secondaryChildTestId = 'smart-element-icon';
 
+	beforeEach(() => {
+		jest.useFakeTimers({ legacyFakeTimers: true });
+		mockIntersectionObserver();
+		act(() => jest.runAllTimers());
+		jest.restoreAllMocks();
+	});
+
+	afterEach(() => {
+		jest.useRealTimers();
+	});
+
 	const appearance = 'block' as const;
 	const noop = () => {};
 	const children = (
@@ -114,17 +125,6 @@ describe('hover card over flexible smart links', () => {
 			erroredTestId: 'smart-block-title-errored-view',
 		},
 	};
-
-	beforeEach(() => {
-		jest.useFakeTimers({ legacyFakeTimers: true });
-		mockIntersectionObserver();
-	});
-
-	afterEach(() => {
-		act(() => jest.runAllTimers()); // Suppress act errors after test ends
-		jest.useRealTimers();
-		jest.restoreAllMocks();
-	});
 
 	describe('hover card view', () => {
 		it.each<[string, boolean]>([

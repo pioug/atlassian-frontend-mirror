@@ -1,7 +1,7 @@
 /**
- * This can be used to mock local storage for Edge and other browsers that have disabled local storage setting
+ * This can be used to mock local storage for Edge and other browsers
+ * that have disabled local storage setting
  */
-
 export const STORAGE_MOCK: Storage = {
 	_data: {},
 	length: 0,
@@ -18,15 +18,36 @@ export const STORAGE_MOCK: Storage = {
 		return (this._data = {});
 	},
 	key: function (index: number) {
-		return Object.keys(this._data)[index];
+		const keys = Object.keys(this._data);
+		return keys[index] || null;
 	},
 };
 
 export const mockWindowStorage = (
 	storageToMock: ('localStorage' | 'sessionStorage')[] = ['localStorage', 'sessionStorage'],
-) => {
+): void => {
+	// Handle SSR environment where window is undefined
+	let windowRef: Window & typeof globalThis;
+	if (typeof window === 'undefined') {
+		// Ensure global exists and create window if needed
+		if (typeof global !== 'undefined') {
+			global.window = global.window || ({} as any);
+			windowRef = global.window;
+		} else {
+			// Fallback for environments where global might not exist
+			windowRef = {} as any;
+		}
+	} else {
+		windowRef = window;
+	}
+
+	// Ensure windowRef is always defined and is an object
+	if (!windowRef || typeof windowRef !== 'object') {
+		windowRef = {} as any;
+	}
+
 	for (const storageToMockElement of storageToMock) {
-		Object.defineProperty(window, storageToMockElement, {
+		Object.defineProperty(windowRef, storageToMockElement, {
 			value: { ...STORAGE_MOCK },
 			configurable: true,
 		});

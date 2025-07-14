@@ -11,7 +11,7 @@ import { browser } from '@atlaskit/linking-common/user-agent';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-import { ActionName, ElementName, SmartLinkPosition, SmartLinkStatus } from '../../../constants';
+import { ActionName, ElementName, SmartLinkPosition } from '../../../constants';
 import FlexibleCard from '../../FlexibleCard';
 import {
 	FooterBlock,
@@ -25,7 +25,6 @@ import type { ActionItem } from '../../FlexibleCard/components/blocks/types';
 import { type FlexibleBlockCardProps } from './types';
 import {
 	FlexibleCardUiOptions,
-	FlexibleCardUiOptionsOld,
 	getSimulatedBetterMetadata,
 	PreviewBlockOptions,
 	titleBlockOptions,
@@ -93,11 +92,7 @@ const ResolvedView = ({
 		[],
 	);
 
-	const status = cardState.status as SmartLinkStatus;
-
-	const uiOptions = fg('platform-linking-flexible-card-context')
-		? FlexibleCardUiOptions
-		: FlexibleCardUiOptionsOld;
+	const uiOptions = FlexibleCardUiOptions;
 	if (fg('cc-ai-linking-platform-snippet-renderer')) {
 		uiOptions.enableSnippetRenderer = true;
 	}
@@ -121,35 +116,19 @@ const ResolvedView = ({
 				subtitle={[{ name: ElementName.Location }]}
 				metadataPosition={SmartLinkPosition.Top}
 				css={[titleBlockCss]}
-				{...(fg('platform-linking-flexible-card-context') ? undefined : { status })}
 				CompetitorPrompt={CompetitorPrompt}
 				url={url}
 				hideIconLoadingSkeleton={hideIconLoadingSkeleton}
 			/>
-			<MetadataBlock
-				primary={topMetadata}
-				maxLines={1}
-				{...(fg('platform-linking-flexible-card-context')
-					? undefined
-					: { status: SmartLinkStatus.Resolved })}
-			/>
+			<MetadataBlock primary={topMetadata} maxLines={1} />
 			<SnippetBlock />
-			<MetadataBlock
-				primary={bottomMetadata}
-				maxLines={1}
-				{...(fg('platform-linking-flexible-card-context')
-					? undefined
-					: { status: SmartLinkStatus.Resolved })}
-			/>
+			<MetadataBlock primary={bottomMetadata} maxLines={1} />
 			{!isPreviewBlockErrored ? (
 				<PreviewBlock
 					{...PreviewBlockOptions}
 					onError={() => {
 						setIsPreviewBlockErrored(true);
 					}}
-					{...(fg('platform-linking-flexible-card-context')
-						? undefined
-						: { status: SmartLinkStatus.Resolved })}
 				/>
 			) : null}
 			<FooterBlock
@@ -158,9 +137,6 @@ const ResolvedView = ({
 					safari && fg('platform-linking-visual-refresh-v2') && footerBlockSafariStyles,
 				]}
 				actions={footerActions}
-				{...(fg('platform-linking-flexible-card-context')
-					? undefined
-					: { status: SmartLinkStatus.Resolved })}
 			/>
 		</FlexibleCard>
 	);

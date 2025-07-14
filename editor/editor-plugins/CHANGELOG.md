@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugins
 
+## 9.4.41
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.4.40
+
+### Patch Changes
+
+- [#180962](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/180962)
+  [`1aa3eabc00314`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1aa3eabc00314) -
+  ED-28376 clean up usage of !important in find and replace styles
+- Updated dependencies
+
+## 9.4.39
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.4.38
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.4.37
 
 ### Patch Changes

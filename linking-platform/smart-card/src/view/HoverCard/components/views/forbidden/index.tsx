@@ -13,7 +13,6 @@ import { extractSmartLinkProvider } from '@atlaskit/link-extractors';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-import { SmartLinkStatus } from '../../../../../constants';
 import { extractRequestAccessContextImproved } from '../../../../../extractors/common/context/extractAccessContext';
 import extractHostname from '../../../../../extractors/common/hostname/extractHostname';
 import { messages } from '../../../../../messages';
@@ -72,40 +71,16 @@ const HoverCardForbiddenView = ({
 	const ButtonComponent = fg('platform-smart-card-remove-legacy-button') ? Button : ButtonOld;
 	return (
 		<FlexibleCard {...flexibleCardProps} testId={testId}>
-			<PreviewBlock
-				ignoreContainerPadding={true}
-				css={[basePreviewStyles]}
-				testId={testId}
-				{...(fg('platform-linking-flexible-card-context')
-					? undefined
-					: { status: SmartLinkStatus.Forbidden })}
-			/>
-			<CustomBlock
-				css={[titleBlockStyles]}
-				testId={`${testId}-title`}
-				{...(fg('platform-linking-flexible-card-context')
-					? undefined
-					: { status: SmartLinkStatus.Forbidden })}
-			>
+			<PreviewBlock ignoreContainerPadding={true} css={[basePreviewStyles]} testId={testId} />
+			<CustomBlock css={[titleBlockStyles]} testId={`${testId}-title`}>
 				<FormattedMessage {...messages[titleMessageKey]} values={{ product }} />
 			</CustomBlock>
-			<CustomBlock
-				css={[mainTextStyles]}
-				testId={`${testId}-content`}
-				{...(fg('platform-linking-flexible-card-context')
-					? undefined
-					: { status: SmartLinkStatus.Forbidden })}
-			>
+			<CustomBlock css={[mainTextStyles]} testId={`${testId}-content`}>
 				<FormattedMessage {...messages[descriptiveMessageKey]} values={{ product, hostname }} />
 			</CustomBlock>
 
 			{action && (
-				<CustomBlock
-					css={[connectButtonStyles]}
-					{...(fg('platform-linking-flexible-card-context')
-						? undefined
-						: { status: SmartLinkStatus.Forbidden })}
-				>
+				<CustomBlock css={[connectButtonStyles]}>
 					<ButtonComponent
 						testId={`${testId}-button`}
 						onClick={action?.promise}

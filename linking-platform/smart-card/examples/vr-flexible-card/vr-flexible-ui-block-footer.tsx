@@ -11,7 +11,7 @@ import { SmartCardProvider } from '@atlaskit/link-provider';
 import { token } from '@atlaskit/tokens';
 
 import { type ActionItem } from '../../src';
-import { SmartLinkSize, type SmartLinkStatus } from '../../src/constants';
+import { SmartLinkSize } from '../../src/constants';
 import FlexibleCard from '../../src/view/FlexibleCard';
 import { FooterBlock } from '../../src/view/FlexibleCard/components/blocks';
 import {
@@ -83,7 +83,7 @@ export default () => {
 				))}
 				<h5>Override CSS</h5>
 				<FlexibleCard cardState={getCardState()} url="link-url">
-					<FooterBlock css={blockOverrideCss} status={getCardState().status as SmartLinkStatus} />
+					<FooterBlock css={blockOverrideCss} />
 				</FlexibleCard>
 			</SmartCardProvider>
 		</VRTestWrapper>

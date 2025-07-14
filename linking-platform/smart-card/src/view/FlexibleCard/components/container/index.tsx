@@ -4,30 +4,22 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { useContext } from 'react';
+import React from 'react';
 
 import { css, cssMap, jsx } from '@compiled/react';
 import { di } from 'react-magnetic-di';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-import {
-	MediaPlacement,
-	SmartLinkSize,
-	type SmartLinkStatus,
-	SmartLinkTheme,
-} from '../../../../constants';
-import { FlexibleUiContext, useFlexibleUiContext } from '../../../../state/flexible-ui-context';
+import { MediaPlacement, SmartLinkSize } from '../../../../constants';
+import { useFlexibleUiContext } from '../../../../state/flexible-ui-context';
 import { type FlexibleUiDataContext } from '../../../../state/flexible-ui-context/types';
 import { isFlexUiPreviewPresent } from '../../../../state/flexible-ui-context/utils';
 import {
 	isFlexibleUiBlock,
 	isFlexibleUiPreviewBlock,
-	isFlexibleUiTitleBlock,
 	isStyleCacheProvider,
 } from '../../../../utils/flexible';
-import { type RetryOptions } from '../../types';
 import { TitleBlock } from '../blocks';
 import { type TitleBlockProps } from '../blocks/title-block/types';
 
@@ -66,90 +58,6 @@ const filterChildren = (children: React.ReactNode, removeBlockRestriction?: bool
 	return React.Children.map(children, (child) =>
 		React.isValidElement(child) && isFlexibleUiBlock(child) ? child : undefined,
 	);
-};
-
-const renderChildren = (
-	children: React.ReactNode,
-	containerSize: SmartLinkSize,
-	containerTheme: SmartLinkTheme,
-	status?: SmartLinkStatus,
-	retry?: RetryOptions,
-	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>,
-	removeBlockRestriction?: boolean,
-): React.ReactNode => {
-	return React.Children.map(children, (child) => {
-		if (React.isValidElement(child) && isFlexibleUiBlock(child)) {
-			if (isFlexibleUiTitleBlock(child)) {
-				if (isStyleCacheProvider(child)) {
-					return updateChildrenTitleBlock(child, {
-						onClick,
-						retry,
-						containerSize,
-						status,
-						theme: containerTheme,
-					});
-				} else {
-					const { size: blockSize } = child.props;
-					const size = blockSize || containerSize;
-					return React.cloneElement(child, {
-						// @ts-expect-error
-						onClick,
-						size,
-						status,
-						theme: containerTheme,
-						...(fg('platform-linking-flexible-card-unresolved-action') ? undefined : { retry }),
-					});
-				}
-			}
-
-			const { size: blockSize } = child.props;
-			const size = blockSize || containerSize;
-			if (isStyleCacheProvider(child)) {
-				return updateChildrenBlock(child, size, status);
-			}
-
-			// @ts-expect-error
-			return React.cloneElement(child, { size, status });
-		}
-
-		if (removeBlockRestriction) {
-			return child;
-		}
-	});
-};
-
-const updateChildrenBlock = (
-	node: React.ReactElement,
-	size: SmartLinkSize,
-	status: SmartLinkStatus | undefined,
-) => {
-	const updatedChildren = React.Children.map(node.props.children, (child) => {
-		if (React.isValidElement(child) && isFlexibleUiBlock(child)) {
-			// @ts-expect-error
-			return React.cloneElement(child, { size, status }) as React.ReactElement;
-		}
-		return child;
-	});
-	return React.cloneElement(node, { children: updatedChildren });
-};
-
-const updateChildrenTitleBlock = (
-	node: React.ReactElement,
-	{ containerSize, ...props }: Record<string, unknown>,
-) => {
-	const updatedChildren = React.Children.map(node.props.children, (child) => {
-		if (React.isValidElement(child) && isFlexibleUiTitleBlock(child)) {
-			const { size: blockSize } = child.props as TitleBlockProps;
-			const size = blockSize || containerSize;
-			return React.cloneElement(child, {
-				...props,
-				size,
-			} as TitleBlockProps);
-		} else {
-			return child;
-		}
-	});
-	return React.cloneElement(node, { children: updatedChildren });
 };
 
 /**
@@ -196,14 +104,14 @@ const getLayeredLink = (
 	children?: React.ReactNode,
 	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>,
 ): React.ReactNode => {
-	const { linkTitle, title, url = '' } = context || {};
+	const { linkTitle, url = '' } = context || {};
 	const { anchorTarget: target, text } = getTitleBlockProps(children) || {};
 	return (
 		<LayeredLink
 			onClick={onClick}
 			target={target}
 			testId={testId}
-			text={text || title || linkTitle?.text}
+			text={text || linkTitle?.text}
 			url={url}
 		/>
 	);
@@ -355,18 +263,13 @@ const Container = ({
 	size = SmartLinkSize.Medium,
 	status,
 	testId = 'smart-links-container',
-	theme = SmartLinkTheme.Link,
 }: ContainerProps) => {
 	di(HoverCardControl);
 
 	const padding = hidePadding ? '0px' : getPadding(size);
 	const gap = getGap(size);
 
-	const context = fg('platform-linking-flexible-card-context')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useFlexibleUiContext()
-		: // eslint-disable-next-line react-hooks/rules-of-hooks
-			useContext(FlexibleUiContext);
+	const context = useFlexibleUiContext();
 
 	const { previewOnLeft, previewOnRight } = getChildrenOptions(children, context);
 	const canShowHoverPreview = showHoverPreview && status === 'resolved';
@@ -398,9 +301,7 @@ const Container = ({
 			data-testid={testId}
 		>
 			{clickableContainer ? getLayeredLink(testId, context, children, onClick) : null}
-			{fg('platform-linking-flexible-card-context')
-				? filterChildren(children, removeBlockRestriction)
-				: renderChildren(children, size, theme, status, retry, onClick, removeBlockRestriction)}
+			{filterChildren(children, removeBlockRestriction)}
 		</div>
 	);
 

@@ -24,9 +24,7 @@ export const getContextByStatus = (
 	switch (status) {
 		case SmartLinkStatus.Pending:
 		case SmartLinkStatus.Resolving:
-			return fg('platform-linking-flexible-card-context')
-				? { linkTitle: extractLinkTitle(status, url, response, onClick), url }
-				: { title: url, url };
+			return { linkTitle: extractLinkTitle(status, url, response, onClick), url };
 		case SmartLinkStatus.Resolved:
 			return extractFlexibleUiContext(params);
 		case SmartLinkStatus.Unauthorized:
@@ -37,23 +35,18 @@ export const getContextByStatus = (
 		default:
 			return {
 				url,
-				title: fg('platform-linking-flexible-card-context') ? undefined : url,
 				linkIcon: extractErrorIcon(response, status),
-				linkTitle: fg('platform-linking-flexible-card-context')
-					? extractLinkTitle(status, url, response, onClick)
-					: undefined,
+				linkTitle: extractLinkTitle(status, url, response, onClick),
 				preview: extractSmartLinkPreviewImage(response),
 				provider: extractSmartLinkProviderIcon(response),
-				actions: fg('platform-linking-flexible-card-unresolved-action')
-					? {
-							[InternalActionName.UnresolvedAction]: getRetryOptions(
-								url,
-								status,
-								response,
-								params.onAuthorize,
-							),
-						}
-					: undefined,
+				actions: {
+					[InternalActionName.UnresolvedAction]: getRetryOptions(
+						url,
+						status,
+						response,
+						params.onAuthorize,
+					),
+				},
 				...(fg('bandicoots-smart-card-teamwork-context')
 					? {
 							meta: {

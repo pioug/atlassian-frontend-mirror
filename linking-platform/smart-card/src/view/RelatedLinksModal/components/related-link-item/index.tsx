@@ -7,7 +7,6 @@ import { css, jsx } from '@compiled/react';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-import { SmartLinkStatus } from '../../../../constants';
 import {
 	Card,
 	type ElementItem,
@@ -97,8 +96,6 @@ const RelatedLinkItem = ({ url, testId, isSelected, onFocus }: RelatedLinkItemPr
 					anchorTarget="_blank"
 					css={relatedLinkItemStyles}
 					size={ui.size}
-					theme={ui.theme}
-					status={SmartLinkStatus.Resolved}
 				/>
 			</Card>
 		</div>

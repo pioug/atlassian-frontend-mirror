@@ -229,13 +229,6 @@ export type FlexibleUiDataContext = {
 	 */
 	targetBranch?: string;
 	/**
-	 * Contains the Title of the linked resource.
-	 * @type string
-	 * @see Title
-	 * @deprecated Remove on platform-linking-flexible-card-context cleanup
-	 */
-	title?: string;
-	/**
 	 * Contains the url of the linked resource.
 	 * @type string
 	 * @see Title

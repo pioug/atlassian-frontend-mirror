@@ -156,14 +156,14 @@ const InlineMessage: FC<InlineMessageProps> = ({
 					testId={testId && `${testId}--button`}
 					aria-expanded={isOpen}
 				>
-					<Inline space="space.050" alignBlock="center">
+					<Inline as="span" space="space.050" alignBlock="center">
 						<MessageIcon
 							isOpen={isOpen}
 							appearance={appearance}
 							label={iconLabel}
 							spacing={spacing}
 						/>
-						<Inline space="space.100">
+						<Inline as="span" space="space.100">
 							{title && (
 								<Text weight="medium" testId={testId && `${testId}--title`}>
 									{title}

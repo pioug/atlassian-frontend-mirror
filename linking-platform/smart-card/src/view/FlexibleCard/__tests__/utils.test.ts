@@ -15,7 +15,9 @@ describe('getContextByStatus', () => {
 			status: SmartLinkStatus.Pending,
 		});
 
-		expect(context).toEqual({ title: url, url });
+		expect(context).toEqual(
+			expect.objectContaining({ linkTitle: { text: url, onClick: undefined, url }, url }),
+		);
 	});
 
 	it('return context for Resolving status', () => {
@@ -24,7 +26,9 @@ describe('getContextByStatus', () => {
 			status: SmartLinkStatus.Resolving,
 		});
 
-		expect(context).toEqual({ title: url, url });
+		expect(context).toEqual(
+			expect.objectContaining({ linkTitle: { text: url, onClick: undefined, url }, url }),
+		);
 	});
 
 	ffTest.both('smart_links_noun_support', '', () => {
@@ -61,45 +65,50 @@ describe('getContextByStatus', () => {
 							},
 						},
 					});
-					expect(context).toEqual({
-						actions: {
-							CopyLinkAction: {
-								invokeAction: {
-									actionFn: expect.any(Function),
-									actionSubjectId: 'copyLink',
-									actionType: 'CopyLinkAction',
-									definitionId: 'confluence-object-provider',
-									display: undefined,
-									extensionKey: 'confluence-object-provider',
-									id: undefined,
+
+					expect(context).toEqual(
+						expect.objectContaining({
+							actions: {
+								CopyLinkAction: {
+									invokeAction: {
+										actionFn: expect.any(Function),
+										actionSubjectId: 'copyLink',
+										actionType: 'CopyLinkAction',
+										definitionId: 'confluence-object-provider',
+										display: undefined,
+										extensionKey: 'confluence-object-provider',
+										id: undefined,
+										resourceType: 'page',
+									},
+								},
+								DownloadAction: undefined,
+								FollowAction: undefined,
+								PreviewAction: undefined,
+								AutomationAction: undefined,
+								AISummaryAction: undefined,
+								ViewRelatedLinksAction: undefined,
+							},
+							linkIcon: {
+								icon: 'FileType:Document',
+								label: 'Everything you need to know about ShipIt53!',
+								render: undefined,
+							},
+							provider: { icon: 'Provider:Confluence', label: 'Confluence' },
+							snippet: 'ShipIt 53 is on 9 Dec 2021 and 10 Dec 2021!',
+							linkTitle: expect.objectContaining({
+								text: 'Everything you need to know about ShipIt53!',
+							}),
+							url: 'https://confluence-url/wiki/spaces/space-id/pages/page-id',
+							...(fg('platform-linking-visual-refresh-v2') && {
+								type: ['schema:TextDigitalDocument', 'Document'],
+							}),
+							...(fg('cc-ai-linking-platform-snippet-renderer') && {
+								meta: {
 									resourceType: 'page',
 								},
-							},
-							DownloadAction: undefined,
-							FollowAction: undefined,
-							PreviewAction: undefined,
-							AutomationAction: undefined,
-							AISummaryAction: undefined,
-							ViewRelatedLinksAction: undefined,
-						},
-						linkIcon: {
-							icon: 'FileType:Document',
-							label: 'Everything you need to know about ShipIt53!',
-							render: undefined,
-						},
-						provider: { icon: 'Provider:Confluence', label: 'Confluence' },
-						snippet: 'ShipIt 53 is on 9 Dec 2021 and 10 Dec 2021!',
-						title: 'Everything you need to know about ShipIt53!',
-						url: 'https://confluence-url/wiki/spaces/space-id/pages/page-id',
-						...(fg('platform-linking-visual-refresh-v2') && {
-							type: ['schema:TextDigitalDocument', 'Document'],
+							}),
 						}),
-						...(fg('cc-ai-linking-platform-snippet-renderer') && {
-							meta: {
-								resourceType: 'page',
-							},
-						}),
-					});
+					);
 				});
 
 				it('return context for Unauthorized status', () => {
@@ -108,11 +117,13 @@ describe('getContextByStatus', () => {
 						status: SmartLinkStatus.Unauthorized,
 					});
 
-					expect(context).toEqual({
-						linkIcon: { icon: IconType.Forbidden },
-						title: url,
-						url,
-					});
+					expect(context).toEqual(
+						expect.objectContaining({
+							linkIcon: { icon: IconType.Forbidden },
+							linkTitle: { text: url, onClick: undefined, url },
+							url,
+						}),
+					);
 				});
 
 				it('return context for Forbidden status', () => {
@@ -121,11 +132,13 @@ describe('getContextByStatus', () => {
 						status: SmartLinkStatus.Forbidden,
 					});
 
-					expect(context).toEqual({
-						linkIcon: { icon: IconType.Forbidden },
-						title: url,
-						url,
-					});
+					expect(context).toEqual(
+						expect.objectContaining({
+							linkIcon: { icon: IconType.Forbidden },
+							linkTitle: { text: url, onClick: undefined, url },
+							url,
+						}),
+					);
 				});
 
 				it('return context for NotFound status', () => {
@@ -134,11 +147,13 @@ describe('getContextByStatus', () => {
 						status: SmartLinkStatus.NotFound,
 					});
 
-					expect(context).toEqual({
-						linkIcon: { icon: IconType.Error },
-						title: url,
-						url,
-					});
+					expect(context).toEqual(
+						expect.objectContaining({
+							linkIcon: { icon: IconType.Error },
+							linkTitle: { text: url, onClick: undefined, url },
+							url,
+						}),
+					);
 				});
 
 				it('return context for Errored status', () => {
@@ -147,11 +162,13 @@ describe('getContextByStatus', () => {
 						status: SmartLinkStatus.Errored,
 					});
 
-					expect(context).toEqual({
-						linkIcon: { icon: IconType.Default },
-						title: url,
-						url,
-					});
+					expect(context).toEqual(
+						expect.objectContaining({
+							linkIcon: { icon: IconType.Default },
+							linkTitle: { text: url, onClick: undefined, url },
+							url,
+						}),
+					);
 				});
 
 				it('return context for Fallback status', () => {
@@ -160,11 +177,13 @@ describe('getContextByStatus', () => {
 						status: SmartLinkStatus.Fallback,
 					});
 
-					expect(context).toEqual({
-						linkIcon: { icon: IconType.Default },
-						title: url,
-						url,
-					});
+					expect(context).toEqual(
+						expect.objectContaining({
+							linkIcon: { icon: IconType.Default },
+							linkTitle: { text: url, onClick: undefined, url },
+							url,
+						}),
+					);
 				});
 			});
 		});
@@ -188,31 +207,37 @@ describe('getRetryOptions', () => {
 			it('return default retry option', () => {
 				const retry = getRetryOptions(url, SmartLinkStatus.Forbidden, response());
 
-				expect(retry).toEqual({
-					descriptor: messages.restricted_link,
-				});
+				expect(retry).toEqual(
+					expect.objectContaining({
+						descriptor: messages.restricted_link,
+					}),
+				);
 			});
 
 			it('return retry option for DIRECT_ACCESS', () => {
 				const retry = getRetryOptions(url, SmartLinkStatus.Forbidden, response('DIRECT_ACCESS'));
 
-				expect(retry).toEqual({
-					descriptor: fg('confluence-issue-terminology-refresh')
-						? messages.join_to_viewIssueTermRefresh
-						: messages.join_to_view,
-					onClick: expect.any(Function),
-				});
+				expect(retry).toEqual(
+					expect.objectContaining({
+						descriptor: fg('confluence-issue-terminology-refresh')
+							? messages.join_to_viewIssueTermRefresh
+							: messages.join_to_view,
+						onClick: expect.any(Function),
+					}),
+				);
 			});
 
 			it('return retry option for REQUEST_ACCESS', () => {
 				const retry = getRetryOptions(url, SmartLinkStatus.Forbidden, response('REQUEST_ACCESS'));
 
-				expect(retry).toEqual({
-					descriptor: fg('confluence-issue-terminology-refresh')
-						? messages.request_access_to_viewIssueTermRefresh
-						: messages.request_access_to_view,
-					onClick: expect.any(Function),
-				});
+				expect(retry).toEqual(
+					expect.objectContaining({
+						descriptor: fg('confluence-issue-terminology-refresh')
+							? messages.request_access_to_viewIssueTermRefresh
+							: messages.request_access_to_view,
+						onClick: expect.any(Function),
+					}),
+				);
 			});
 
 			it('return retry option for PENDING_REQUEST_EXISTS', () => {
@@ -222,13 +247,13 @@ describe('getRetryOptions', () => {
 					response('PENDING_REQUEST_EXISTS'),
 				);
 
-				expect(retry).toEqual({ descriptor: messages.pending_request });
+				expect(retry).toEqual(expect.objectContaining({ descriptor: messages.pending_request }));
 			});
 
 			it('return retry option for FORBIDDEN', () => {
 				const retry = getRetryOptions(url, SmartLinkStatus.Forbidden, response('FORBIDDEN'));
 
-				expect(retry).toEqual({ descriptor: messages.forbidden_access });
+				expect(retry).toEqual(expect.objectContaining({ descriptor: messages.forbidden_access }));
 			});
 
 			it('return retry option for DENIED_REQUEST_EXISTS', () => {
@@ -238,17 +263,19 @@ describe('getRetryOptions', () => {
 					response('DENIED_REQUEST_EXISTS'),
 				);
 
-				expect(retry).toEqual({ descriptor: messages.request_denied });
+				expect(retry).toEqual(expect.objectContaining({ descriptor: messages.request_denied }));
 			});
 		});
 
 		it('returns retry option for Unauthorized status', () => {
 			const retry = getRetryOptions(url, SmartLinkStatus.Unauthorized, undefined, () => {});
 
-			expect(retry).toEqual({
-				descriptor: messages.connect_link_account_card_name,
-				onClick: expect.any(Function),
-			});
+			expect(retry).toEqual(
+				expect.objectContaining({
+					descriptor: messages.connect_link_account_card_name,
+					onClick: expect.any(Function),
+				}),
+			);
 		});
 
 		it('does not return retry option for Unauthorized status when onAuthorize is not defined', () => {
@@ -260,7 +287,7 @@ describe('getRetryOptions', () => {
 		it('returns retry option for NotFound status', () => {
 			const retry = getRetryOptions(url, SmartLinkStatus.NotFound);
 
-			expect(retry).toEqual({ descriptor: messages.cannot_find_link });
+			expect(retry).toEqual(expect.objectContaining({ descriptor: messages.cannot_find_link }));
 		});
 	});
 });

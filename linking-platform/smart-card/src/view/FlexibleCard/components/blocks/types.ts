@@ -5,7 +5,6 @@ import {
 	type ElementName,
 	type SmartLinkDirection,
 	type SmartLinkSize,
-	type SmartLinkStatus,
 } from '../../../../constants';
 import { type ActionProps } from '../actions/action/types';
 
@@ -37,14 +36,6 @@ export type BlockProps = {
 	 * default to.
 	 */
 	size?: SmartLinkSize;
-
-	/**
-	 * The status of the Smart Link. Used to conditionally render different blocks
-	 * when Smart Link is in different states.
-	 * @internal
-	 * @deprecated Remove on platform-linking-flexible-card-context cleanup
-	 */
-	status?: SmartLinkStatus;
 
 	/**
 	 * A `testId` prop is provided for specified elements, which is a unique

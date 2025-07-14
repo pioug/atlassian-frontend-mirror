@@ -148,3 +148,42 @@ export const mentionsSelectionStyles = css({
 			],
 	},
 });
+
+// This is mentions styles for mentions selection styles based on the vanilla node view
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const mentionsSelectionStylesWithSearchMatch = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.danger': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.editor-mention-primitive': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			boxShadow: `0 0 0 ${akEditorSelectedBorderSize}px ${akEditorDeleteBorder}`,
+			backgroundColor: token('color.background.danger'),
+		},
+	},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+	[`.${akEditorSelectedNodeClassName}`]: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'> .editor-mention-primitive, > .editor-mention-primitive.mention-self, > .editor-mention-primitive.mention-restricted':
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values,
+			[
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+				backgroundSelectionStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+				hideNativeBrowserTextSelectionStyles,
+				mentionsSelectedColor,
+			],
+	},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+	[`.${akEditorSelectedNodeClassName}:not('.search-match-block')`]: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'> .editor-mention-primitive, > .editor-mention-primitive.mention-self, > .editor-mention-primitive.mention-restricted':
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values,
+			[
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+				boxShadowSelectionStyles,
+			],
+	},
+});

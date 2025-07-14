@@ -6,7 +6,7 @@
 import React, { Fragment } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
@@ -19,23 +19,62 @@ import {
 	TRIGGER_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import { findReplaceMessages as messages } from '@atlaskit/editor-common/messages';
+import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { Label, ValidMessage } from '@atlaskit/form';
 import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down--hipchat-chevron-down';
 import ChevronUpIcon from '@atlaskit/icon/core/migration/chevron-up--hipchat-chevron-up';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Inline, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { token } from '@atlaskit/tokens';
 
 import { FindReplaceTooltipButton } from './FindReplaceTooltipButton';
-import {
-	nextPreviousItemStyles,
-	orderOneStyles,
-	orderZeroStyles,
-	sectionWrapperJustified,
-	sectionWrapperStyles,
-	sectionWrapperStylesAlternate,
-	textFieldWrapper,
-} from './ui-styles';
+import { nextPreviousItemStyles, orderZeroStyles, textFieldWrapper } from './ui-styles';
+
+const sectionWrapperStyles = css({
+	display: 'flex',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'& > *': {
+		display: 'inline-flex',
+		height: '32px',
+		flex: '0 0 auto',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'& > [data-ds--text-field--container]': {
+		display: 'flex',
+		flex: '1 1 auto',
+	},
+});
+
+const sectionWrapperStylesAlternate = css({
+	display: 'flex',
+	padding: token('space.100', '8px'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'& > *': {
+		height: 'unset',
+	},
+});
+
+const sectionWrapperJustified = css({
+	justifyContent: 'space-between',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	fontSize: relativeFontSizeToBase16(14),
+});
+
+const sectionWrapperFlexWrap = css({
+	flexWrap: 'wrap-reverse',
+	gap: token('space.075', '6px'),
+});
+
+const orderOneStyles = css({
+	order: '1',
+});
+
+const orderOneStylesNew = css({
+	order: '1',
+	marginLeft: 'auto',
+});
 
 export type ReplaceProps = {
 	canReplace: boolean;
@@ -302,10 +341,27 @@ class Replace extends React.PureComponent<ReplaceProps & WrappedComponentProps, 
 						)}
 					</div>
 				</div>
-				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
-				<div css={[sectionWrapperStyles, sectionWrapperStylesAlternate, sectionWrapperJustified]}>
-					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
-					<div css={orderOneStyles}>
+				<div
+					css={
+						expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true) &&
+						fg('platform_editor_find_and_replace_improvements_1')
+							? [
+									sectionWrapperStyles,
+									sectionWrapperStylesAlternate,
+									sectionWrapperJustified,
+									sectionWrapperFlexWrap,
+								]
+							: [sectionWrapperStyles, sectionWrapperStylesAlternate, sectionWrapperJustified]
+					}
+				>
+					<div
+						css={
+							expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true) &&
+							fg('platform_editor_find_and_replace_improvements_1')
+								? orderOneStylesNew
+								: orderOneStyles
+						}
+					>
 						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 						<div css={nextPreviousItemStyles}>
 							<FindReplaceTooltipButton

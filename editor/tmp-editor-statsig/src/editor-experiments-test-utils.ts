@@ -95,23 +95,22 @@ function eeTest<ExperimentName extends keyof EditorExperimentsConfig>(
 /**
  * eeTest.describe() Wrapper utility for describe() that runs a test with a editor experiment overides.
  *
- * @example Single experiment
+ * @example
  * ```ts
- * eeTest.describe('Description of test "suite" containing nested suites and tests.', { 'example-boolean': true }, () => {
- *  it('should do the thing', () => {
- * 		expect(editorExperiment('example-boolean', true)).toBe(true);
- * 	});
- * });
+ * eeTest.describe('exp-name', 'description of test').variant(true, () => {
+ *   it('should do the thing', () => {
+ *     expect(editorExperiment('example-boolean', true)).toBe(true);
+ *   });
+ * })
  * ```
  *
- *
- * @example Multiple experiment
+ * @example
  * ```ts
- * eeTest.describe('Description of test "suite" containing nested suites and tests.', { 'example-boolean': true, 'example-multivariate': 'three' }, () => {
- *  it('should do the thing', () => {
- * 		expect(editorExperiment('example-boolean', true)).toBe(true);
- * 	});
- * });
+ * eeTest.describe('exp-name', 'description of test').each(() => {
+ *   it('should do the thing', () => {
+ *     expect(editorExperiment('example-boolean', true)).toBe(true);
+ *   });
+ * })
  * ```
  *
  * API based on next gen ffTest API

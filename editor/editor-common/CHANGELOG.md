@@ -1,5 +1,14 @@
 # @atlaskit/editor-common
 
+## 107.7.6
+
+### Patch Changes
+
+- [#180962](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/180962)
+  [`1aa3eabc00314`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1aa3eabc00314) -
+  ED-28376 clean up usage of !important in find and replace styles
+- Updated dependencies
+
 ## 107.7.5
 
 ### Patch Changes

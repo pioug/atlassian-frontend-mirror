@@ -58,6 +58,7 @@ import { extensionStyles } from './styles/extensionStyles';
 import {
 	findReplaceStyles,
 	findReplaceStylesNewMagenta,
+	findReplaceStylesNewMagentaNoImportant,
 	findReplaceStylesNewYellow,
 } from './styles/findReplaceStyles';
 import { firstBlockNodeStyles } from './styles/firstBlockNodeStyles';
@@ -99,6 +100,7 @@ import {
 	mentionsSelectionStyles,
 	mentionNodeStyles,
 	mentionsStylesMixin_platform_editor_centre_mention_padding,
+	mentionsSelectionStylesWithSearchMatch,
 } from './styles/mentions';
 import {
 	panelStyles,
@@ -132,15 +134,19 @@ import {
 import { selectionToolbarAnimationStyles } from './styles/selectionToolbarStyles';
 import { shadowStyles } from './styles/shadowStyles';
 import {
+	editorControlsSmartCardStyles,
 	linkingVisualRefreshV1Styles,
 	smartCardStyles,
+	smartCardStylesWithSearchMatch,
 	smartLinksInLivePagesStyles,
 	smartLinksInLivePagesStylesOld,
 } from './styles/smartCardStyles';
 import {
 	statusStyles,
 	statusStylesMixin_fg_platform_component_visual_refresh,
+	statusStylesMixin_fg_platform_component_visual_refresh_with_search_match,
 	statusStylesMixin_without_fg_platform_component_visual_refresh,
+	statusStylesMixin_without_fg_platform_component_visual_refresh_with_search_match,
 } from './styles/statusStyles';
 import { tableCommentEditorStyles, tableLayoutFixes } from './styles/tableStyles';
 import {
@@ -304,8 +310,11 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					fg('platform-visual-refresh-icons') && expandStylesMixin_fg_platform_visual_refresh_icons,
 					expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
 						? fg('platform_editor_find_and_replace_magenta_match')
-							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-								findReplaceStylesNewMagenta
+							? fg('platform_editor_find_and_replace_improvements_1')
+								? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+									findReplaceStylesNewMagentaNoImportant
+								: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+									findReplaceStylesNewMagenta
 							: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 								findReplaceStylesNewYellow
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -325,14 +334,39 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					statusStyles,
 					fg('platform-component-visual-refresh')
-						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							statusStylesMixin_fg_platform_component_visual_refresh
-						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							statusStylesMixin_without_fg_platform_component_visual_refresh,
+						? expValEqualsNoExposure(
+								'platform_editor_find_and_replace_improvements',
+								'isEnabled',
+								true,
+							) && fg('platform_editor_find_and_replace_improvements_1')
+							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+								statusStylesMixin_fg_platform_component_visual_refresh_with_search_match
+							: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+								statusStylesMixin_fg_platform_component_visual_refresh
+						: expValEqualsNoExposure(
+									'platform_editor_find_and_replace_improvements',
+									'isEnabled',
+									true,
+							  ) && fg('platform_editor_find_and_replace_improvements_1')
+							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+								statusStylesMixin_without_fg_platform_component_visual_refresh_with_search_match
+							: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+								statusStylesMixin_without_fg_platform_component_visual_refresh,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					annotationStyles,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					smartCardStyles,
+					expValEqualsNoExposure(
+						'platform_editor_find_and_replace_improvements',
+						'isEnabled',
+						true,
+					) && fg('platform_editor_find_and_replace_improvements_1')
+						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							smartCardStylesWithSearchMatch
+						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							smartCardStyles,
+					expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1') &&
+						fg('platform_editor_controls_patch_15') &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						editorControlsSmartCardStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					embedCardStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -445,8 +479,15 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					firstBlockNodeStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					mentionNodeStyles,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					mentionsSelectionStyles,
+					expValEqualsNoExposure(
+						'platform_editor_find_and_replace_improvements',
+						'isEnabled',
+						true,
+					) && fg('platform_editor_find_and_replace_improvements_1')
+						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							mentionsSelectionStylesWithSearchMatch
+						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							mentionsSelectionStyles,
 					fg('platform_editor_centre_mention_padding') &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						mentionsStylesMixin_platform_editor_centre_mention_padding,

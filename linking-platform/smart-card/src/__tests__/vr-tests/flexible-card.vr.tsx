@@ -75,21 +75,6 @@ snapshot(FlexibleUiBlockTitle, {
 		'platform-component-visual-refresh': [true, false],
 	},
 });
-// Remove this test on cleanup of platform-linking-flexible-card-unresolved-action
-snapshot(FlexibleUiBlockTitle, {
-	ignoredErrors: [
-		{
-			pattern: /Can't perform a React state update on a component that hasn't mounted yet/,
-			ignoredBecause: 'react-loadable causing uncaught error to be thrown',
-			jiraIssueId: 'EDM-10562',
-		},
-	],
-	featureFlags: {
-		'platform-component-visual-refresh': true,
-		'platform-linking-visual-refresh-v2': true,
-		'platform-linking-flexible-card-unresolved-action': [true, false],
-	},
-});
 snapshot(FlexibleUiBlockTitle, {
 	description: 'flexible-ui-block-title--title hovered',
 	states: [
@@ -236,14 +221,12 @@ snapshot(FlexibleUiElementMedia, {
 snapshot(FlexibleUiElementTeamMemberCount, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-team-member-count-component': true,
 	},
 });
 snapshot(FlexibleUiElementUserAttributes, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-user-attributes-component': true,
 	},
 });
@@ -338,23 +321,7 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 		'platform-component-visual-refresh': [true, false],
 	},
 });
-// Remove this test on cleanup of platform-linking-flexible-card-unresolved-action
-snapshot(FlexibleUiAccessibilityForbidden, {
-	description: 'flexible=ui-accessibility--error message focused',
-	states: [
-		{
-			selector: {
-				byTestId: 'keyboard-2-errored-view-message',
-			},
-			state: 'focused',
-		},
-	],
-	featureFlags: {
-		'platform-component-visual-refresh': true,
-		'platform-linking-visual-refresh-v2': true,
-		'platform-linking-flexible-card-unresolved-action': [true, false],
-	},
-});
+
 snapshot(FlexibleUiAccessibilityForbidden, {
 	description: 'flexible=ui-accessibility--custom action item focused',
 	states: [

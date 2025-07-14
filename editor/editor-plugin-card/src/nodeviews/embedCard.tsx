@@ -36,7 +36,6 @@ import {
 	DEFAULT_EMBED_CARD_HEIGHT,
 	DEFAULT_EMBED_CARD_WIDTH,
 } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { EmbedResizeMessageListener, Card as SmartCard } from '@atlaskit/smart-card';
 
 import type { cardPlugin } from '../index';
@@ -381,15 +380,13 @@ export class EmbedCardComponent extends React.PureComponent<
 	};
 
 	componentWillUnmount(): void {
-		if (fg('platform_editor_fix_advanced_code_crash')) {
-			this.removeCard();
-		}
+		this.removeCard();
 	}
 
 	private removeCardDispatched = false;
 
 	private removeCard() {
-		if (this.removeCardDispatched && fg('platform_editor_cards_maxcallstackfix')) {
+		if (this.removeCardDispatched) {
 			return;
 		}
 		this.removeCardDispatched = true;
@@ -555,23 +552,7 @@ export class EmbedCard extends ReactNodeView<EmbedCardNodeViewProps> {
 
 	destroy() {
 		this.unsubscribe?.();
-		if (fg('platform_editor_fix_advanced_code_crash')) {
-			super.destroy();
-		} else {
-			this.removeCard();
-		}
-	}
-
-	private removeCardDispatched = false;
-
-	private removeCard() {
-		if (this.removeCardDispatched && fg('platform_editor_cards_maxcallstackfix')) {
-			return;
-		}
-		this.removeCardDispatched = true;
-		const { tr } = this.view.state;
-		removeCard({ id: this.id })(tr);
-		this.view.dispatch(tr);
+		super.destroy();
 	}
 }
 

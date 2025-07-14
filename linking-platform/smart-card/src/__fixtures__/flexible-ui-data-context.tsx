@@ -116,7 +116,6 @@ const context: FlexibleUiDataContext = {
 	teamMemberCount: 3,
 	subTasksProgress: '3/4',
 	targetBranch: 'master',
-	title: 'Link title',
 	url: 'https://www.link-url.com',
 	viewAction: {
 		invokeAction: {

@@ -6,7 +6,7 @@ import { css, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
-import { FlexibleCardContext, FlexibleUiContext } from '../../src/state/flexible-ui-context';
+import { FlexibleCardContext } from '../../src/state/flexible-ui-context';
 import { StoryPoints } from '../../src/view/FlexibleCard/components/elements';
 import { getContext } from '../utils/flexible-ui';
 import { HorizontalWrapper } from '../utils/vr-test';
@@ -27,17 +27,14 @@ export default () => {
 	return (
 		<VRTestWrapper>
 			<FlexibleCardContext.Provider value={{ data: context }}>
-				{/* Remove FlexibleUiContext on cleanup of platform-linking-flexible-card-context */}
-				<FlexibleUiContext.Provider value={context}>
-					<h5>Default View</h5>
-					<HorizontalWrapper>
-						<StoryPoints testId="vr-test-badge-storyPoint" />
-					</HorizontalWrapper>
-					<h5>Override CSS</h5>
-					<HorizontalWrapper>
-						<StoryPoints css={overrideCss} />
-					</HorizontalWrapper>
-				</FlexibleUiContext.Provider>{' '}
+				<h5>Default View</h5>
+				<HorizontalWrapper>
+					<StoryPoints testId="vr-test-badge-storyPoint" />
+				</HorizontalWrapper>
+				<h5>Override CSS</h5>
+				<HorizontalWrapper>
+					<StoryPoints css={overrideCss} />
+				</HorizontalWrapper>
 			</FlexibleCardContext.Provider>
 		</VRTestWrapper>
 	);

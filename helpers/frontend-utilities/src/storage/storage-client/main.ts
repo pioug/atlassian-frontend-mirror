@@ -14,7 +14,6 @@ export type GetStoredItemOptions = {
 };
 
 const DEFAULT_STORAGE_ENGINE = 'localStorage';
-
 export default class StorageClient {
 	private readonly client: Storage;
 	private readonly clientKey: string;
@@ -31,6 +30,7 @@ export default class StorageClient {
 		this.handlers = options?.handlers;
 
 		const storageEngine = options?.storageEngine || DEFAULT_STORAGE_ENGINE;
+
 		if (
 			typeof window === 'undefined' ||
 			!Object.prototype.hasOwnProperty.call(window, storageEngine)
@@ -38,12 +38,14 @@ export default class StorageClient {
 			mockWindowStorage([storageEngine]);
 		}
 
-		this.client = window[storageEngine];
+		// Get window reference after mockWindowStorage has potentially created it
+		const windowRef = typeof window !== 'undefined' ? window : global.window;
+		this.client = windowRef[storageEngine] as Storage;
 	}
 
 	private captureException(e: Error, tags?: Record<string, string>) {
 		if (this.handlers?.captureException) {
-			this.handlers?.captureException(e, tags);
+			this.handlers.captureException(e, tags);
 		}
 	}
 
@@ -58,19 +60,10 @@ export default class StorageClient {
 		},
 	) => {
 		const item = this.client.getItem(this.itemKey(key));
-
 		if (item) {
 			try {
 				const parsedItem: StoredItem = JSON.parse(item);
-
-				// item is expired
 				if (parsedItem.expires && new Date(parsedItem.expires) < new Date()) {
-					/**
-					 * Commented out removing this item, as it is a slightly different state
-					 * to the item not existing that we may want to preserve.
-					 *  this.client.removeItem(this.itemKey(key));
-					 */
-
 					if (!useExpiredItem) {
 						return undefined;
 					}
@@ -78,6 +71,7 @@ export default class StorageClient {
 				return parsedItem.value;
 			} catch (e) {
 				this.captureException(e as Error);
+				return undefined; // Return undefined on parsing error
 			}
 		}
 		return undefined;

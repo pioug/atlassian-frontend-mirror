@@ -37,7 +37,9 @@ const renderResolvedView = ({
 	testId,
 	text,
 	theme,
-}: TitleBlockProps) => {
+}: TitleBlockProps & {
+	theme?: SmartLinkTheme;
+}) => {
 	const cardState = getCardState({
 		data: {
 			'@type': 'atlassian:Project',

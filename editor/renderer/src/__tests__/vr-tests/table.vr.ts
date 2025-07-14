@@ -14,6 +14,10 @@ import {
 	TableRendererWithoutAppearance,
 	TableRendererWideWithoutAppearance,
 	TableRendererFullWidthWithoutAppearance,
+	TableRendererWithNumberedColumnFullWidth,
+	TableRendereWithNumberedColumnFullPage,
+	TableRendererWithNumberedColumnComment,
+	TableRendererWithNumberedColumnWithoutAppearance,
 } from './table.fixture';
 import {
 	TableRendererOverflow,
@@ -22,6 +26,12 @@ import {
 
 snapshot(TableRenderer, {
 	description: 'Table renderer should NOT render a right shadow',
+	featureFlags: {
+		'platform-ssr-table-resize': [true, false],
+	},
+});
+snapshot(TableRendererWithNumberedColumnFullWidth, {
+	description: 'Table renderer should render numbered column',
 	featureFlags: {
 		'platform-ssr-table-resize': [true, false],
 	},
@@ -76,6 +86,13 @@ snapshot(TableRendererBackgroundColor, {
 	},
 });
 
+snapshot(TableRendereWithNumberedColumnFullPage, {
+	description: 'Table renderer should render numbered column in full page',
+	featureFlags: {
+		'platform-ssr-table-resize': [true, false],
+	},
+});
+
 snapshot(TableRendererFullWidthComment, {
 	description: 'Table Comment renderer should render full-with table',
 	featureFlags: {
@@ -88,6 +105,14 @@ snapshot(TableRendererWideComment, {
 		'platform-ssr-table-resize': [true, false],
 	},
 });
+
+snapshot(TableRendererWithNumberedColumnComment, {
+	description: 'Table Comment renderer should render numbered column',
+	featureFlags: {
+		'platform-ssr-table-resize': [true, false],
+	},
+});
+
 snapshot(TableRendererComment, {
 	description: 'Table Comment renderer should render default table',
 	featureFlags: {
@@ -120,6 +145,12 @@ snapshot(TableRendererWideWithoutAppearance, {
 });
 snapshot(TableRendererFullWidthWithoutAppearance, {
 	description: 'Table renderer without appearance should render full-with table',
+	featureFlags: {
+		'platform-ssr-table-resize': [true, false],
+	},
+});
+snapshot(TableRendererWithNumberedColumnWithoutAppearance, {
+	description: 'Table renderer without apperance should render numbered column',
 	featureFlags: {
 		'platform-ssr-table-resize': [true, false],
 	},

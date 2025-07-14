@@ -1,15 +1,6 @@
 import React from 'react';
 
-import { FormattedMessage } from 'react-intl-next';
-
-import { fg } from '@atlaskit/platform-feature-flags';
-import { Box } from '@atlaskit/primitives/compiled';
-
-import {
-	InternalActionName,
-	SmartLinkAlignment,
-	SmartLinkDirection,
-} from '../../../../../../constants';
+import { InternalActionName, SmartLinkAlignment } from '../../../../../../constants';
 import { useFlexibleUiContext } from '../../../../../../state/flexible-ui-context';
 import { UnresolvedAction } from '../../../actions';
 import { LinkIcon } from '../../../elements';
@@ -35,16 +26,8 @@ const TitleBlockErroredView = ({
 	hideIcon,
 	...blockProps
 }: TitleBlockViewProps) => {
-	const { descriptor, onClick, values } = retry || {};
-	const hasAction = onClick !== undefined;
-
-	const context = fg('platform-linking-flexible-card-unresolved-action')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useFlexibleUiContext()
-		: {};
-	const showRetry = fg('platform-linking-flexible-card-unresolved-action')
-		? !hideRetry && Boolean(context?.actions?.[InternalActionName.UnresolvedAction])
-		: false;
+	const context = useFlexibleUiContext();
+	const showRetry = !hideRetry && Boolean(context?.actions?.[InternalActionName.UnresolvedAction]);
 
 	return (
 		<Block {...blockProps} testId={`${testId}-errored-view`}>
@@ -53,18 +36,6 @@ const TitleBlockErroredView = ({
 			{showRetry && (
 				<ElementGroup align={SmartLinkAlignment.Right}>
 					<UnresolvedAction testId={testId} />
-				</ElementGroup>
-			)}
-			{!fg('platform-linking-flexible-card-unresolved-action') && descriptor && (
-				<ElementGroup direction={SmartLinkDirection.Horizontal} align={SmartLinkAlignment.Right}>
-					{/* eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable */}
-					<Box
-						onClick={onClick}
-						testId={`${testId}-errored-view-message`}
-						tabIndex={hasAction ? 0 : -1}
-					>
-						<FormattedMessage {...descriptor} values={values} />
-					</Box>
 				</ElementGroup>
 			)}
 			{actionGroup}

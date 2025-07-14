@@ -5,8 +5,6 @@
  */
 import { cssMap, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import {
 	SmartLinkAlignment,
 	SmartLinkDirection,
@@ -119,78 +117,33 @@ const ElementItemRenderer = ({
  */
 const MetadataBlock = ({
 	maxLines = DEFAULT_MAX_LINES,
-	status = SmartLinkStatus.Fallback,
 	testId = 'smart-block-metadata',
 	primary = [],
 	secondary = [],
 	...blockProps
 }: MetadataBlockProps) => {
-	const cardContext = fg('platform-linking-flexible-card-context')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useFlexibleCardContext()
-		: undefined;
+	const cardContext = useFlexibleCardContext();
 
-	if (fg('platform-linking-flexible-card-context')) {
-		if (
-			(primary.length === 0 && secondary.length === 0) ||
-			cardContext?.status !== SmartLinkStatus.Resolved
-		) {
-			return null;
-		}
-	} else {
-		if ((primary.length === 0 && secondary.length === 0) || status !== SmartLinkStatus.Resolved) {
-			return null;
-		}
+	if (
+		(primary.length === 0 && secondary.length === 0) ||
+		cardContext?.status !== SmartLinkStatus.Resolved
+	) {
+		return null;
 	}
 
-	const { size: sizeProp = SmartLinkSize.Medium } = blockProps;
-	const size = fg('platform-linking-flexible-card-context')
-		? blockProps?.size ?? cardContext?.ui?.size ?? SmartLinkSize.Medium
-		: sizeProp;
+	const size = blockProps?.size ?? cardContext?.ui?.size ?? SmartLinkSize.Medium;
 
 	const maxLinesTotal = getMaxLines(maxLines);
 
-	if (fg('platform-linking-flexible-card-context')) {
-		return (
-			<Block {...blockProps} size={size} testId={`${testId}-resolved-view`}>
-				<ElementItemRenderer items={primary} size={size} maxLines={maxLinesTotal} />
-				<ElementItemRenderer
-					align={SmartLinkAlignment.Right}
-					items={secondary}
-					size={size}
-					maxLines={maxLinesTotal}
-				/>
-			</Block>
-		);
-	}
-
-	const primaryElements = renderElementItems(primary);
-	const secondaryElements = renderElementItems(secondary);
-
 	return (
-		<Block {...blockProps} testId={`${testId}-resolved-view`}>
-			{primaryElements && (
-				<ElementGroup
-					align={SmartLinkAlignment.Left}
-					direction={SmartLinkDirection.Horizontal}
-					width={SmartLinkWidth.Flexible}
-					css={[truncateStyles[maxLinesTotal], sizeStyles[size]]}
-					size={size}
-				>
-					{primaryElements}
-				</ElementGroup>
-			)}
-			{secondaryElements && (
-				<ElementGroup
-					align={SmartLinkAlignment.Right}
-					direction={SmartLinkDirection.Horizontal}
-					width={SmartLinkWidth.Flexible}
-					css={[truncateStyles[maxLinesTotal], sizeStyles[size]]}
-					size={size}
-				>
-					{secondaryElements}
-				</ElementGroup>
-			)}
+		<Block {...blockProps} size={size} testId={`${testId}-resolved-view`}>
+			<ElementItemRenderer items={primary} size={size} maxLines={maxLinesTotal} />
+			<ElementItemRenderer
+				align={SmartLinkAlignment.Right}
+				items={secondary}
+				size={size}
+				maxLines={maxLinesTotal}
+			/>
 		</Block>
 	);
 };

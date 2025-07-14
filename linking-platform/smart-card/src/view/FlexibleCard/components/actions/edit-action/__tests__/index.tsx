@@ -5,7 +5,6 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import mockContext from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { getFlexibleCardTestWrapper } from '../../../../../../__tests__/__utils__/unit-testing-library-helpers';
@@ -27,12 +26,10 @@ describe('EditAction', () => {
 		);
 	};
 
-	ffTest.both('platform-linking-flexible-card-context', 'with fg', () => {
-		it('renders action', async () => {
-			setup({ onClick: () => '' });
-			const element = await screen.findByTestId(testId);
-			expect(element).toBeInTheDocument();
-			expect(element).toHaveTextContent('Edit');
-		});
+	it('renders action', async () => {
+		setup({ onClick: () => '' });
+		const element = await screen.findByTestId(testId);
+		expect(element).toBeInTheDocument();
+		expect(element).toHaveTextContent('Edit');
 	});
 });

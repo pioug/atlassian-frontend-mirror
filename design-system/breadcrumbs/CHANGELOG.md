@@ -1,5 +1,17 @@
 # @atlaskit/breadcrumbs
 
+## 15.2.0
+
+### Minor Changes
+
+- [#183925](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183925)
+  [`70ccc639db4a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/70ccc639db4a5) -
+  Behind a feature gate, made the breadcrumbs more stable by memoizing variables.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.1.3
 
 ### Patch Changes

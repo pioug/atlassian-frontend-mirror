@@ -152,9 +152,7 @@ export function init(
 		initialisePressureObserver();
 	}
 
-	if (fg('platform_ufo_report_memory_usage')) {
-		initialiseMemoryObserver();
-	}
+	initialiseMemoryObserver();
 
 	setUFOConfig(config);
 

@@ -7,10 +7,10 @@ import { injectIntl } from 'react-intl-next';
 import {
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { findTable, isTableSelected, selectTable } from '@atlaskit/editor-tables/utils';
 
 import { clearHoverSelection } from '../../../pm-plugins/commands';
@@ -70,9 +70,11 @@ const DragCornerControlsComponent = ({
 
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<TablePlugin> | undefined) => {
-		const selectionsSelector = useSharedPluginStateSelector(api, 'selection.selection');
+		const { selection } = useSharedPluginStateWithSelector(api, ['selection'], (states) => ({
+			selection: states.selectionState?.selection,
+		}));
 		return {
-			selection: selectionsSelector,
+			selection,
 		};
 	},
 	(api: ExtractInjectionAPI<TablePlugin> | undefined) => {

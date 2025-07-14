@@ -7,7 +7,6 @@ import {
 	extractSmartLinkCreatedOn,
 	extractSmartLinkModifiedBy,
 	extractSmartLinkModifiedOn,
-	extractSmartLinkTitle,
 	extractSmartLinkUrl,
 	extractType,
 } from '@atlaskit/link-extractors';
@@ -107,9 +106,7 @@ const extractFlexibleUiContext = ({
 		dueOn: extractDueOn(data),
 		latestCommit: extractLatestCommit(data as LinkTypeLatestCommit),
 		linkIcon: extractSmartLinkIcon(response),
-		...(fg('platform-linking-flexible-card-context') && {
-			linkTitle: extractLinkTitle(status, props.url, response, onClick),
-		}),
+		linkTitle: extractLinkTitle(status, props.url, response, onClick),
 		location: extractLocation(data),
 		modifiedBy: extractSmartLinkModifiedBy(response),
 		modifiedOn: extractSmartLinkModifiedOn(response),
@@ -129,9 +126,6 @@ const extractFlexibleUiContext = ({
 		...(fg('platform-linking-user-attributes-component') && {
 			userAttributes: extractUserAttributes(data),
 		}),
-		...(fg('platform-linking-flexible-card-context')
-			? undefined
-			: { title: extractSmartLinkTitle(response) || url }),
 		...(fg('platform-linking-team-member-count-component') && {
 			teamMemberCount: extractTeamMemberCount(data),
 		}),

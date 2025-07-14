@@ -1,5 +1,14 @@
 # @atlaskit/tokens
 
+## 5.5.0
+
+### Minor Changes
+
+- [#184245](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/184245)
+  [`f8d9018702c99`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f8d9018702c99) -
+  Update `DesignTokenStyles` type to support using '50%' value for `inset` properties in
+  `@atlaskit/css`.
+
 ## 5.4.1
 
 ### Patch Changes

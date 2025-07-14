@@ -3,7 +3,7 @@
  *
  * Strict design token based typedef representing a subset of safe CSS properties.
  *
- * @codegen <<SignedSource::d9b916cfc0ff7c4ef930bffeb9eac4d2>>
+ * @codegen <<SignedSource::051c591fbf1b8f4a288b93923ff8d5bf>>
  * @codegenCommand yarn build tokens
  */
 export type BackgroundColorHovered =
@@ -330,6 +330,7 @@ export type Space =
 	| 0
 	| '0';
 export type SpaceMargin = Space | 'auto' | '0 auto';
+export type SpaceInset = Space | '50%';
 export type Shadow =
 	| 'var(--ds-shadow-overflow)'
 	| 'var(--ds-shadow-overflow-perimeter)'
@@ -456,7 +457,7 @@ export interface DesignTokenStyles {
 	borderTopRightRadius: BorderRadius;
 	borderTopWidth: BorderWidth;
 	borderWidth: BorderWidth;
-	bottom: Space;
+	bottom: SpaceInset;
 	boxShadow: Shadow;
 	boxSizing: 'border-box';
 	clear: never;
@@ -476,14 +477,14 @@ export interface DesignTokenStyles {
 	gap: Space;
 	height: SizeIntrinsic;
 	inlineSize: SizeIntrinsic;
-	inset: Space;
-	insetBlock: Space;
-	insetBlockEnd: Space;
-	insetBlockStart: Space;
-	insetInline: Space;
-	insetInlineEnd: Space;
-	insetInlineStart: Space;
-	left: Space;
+	inset: SpaceInset;
+	insetBlock: SpaceInset;
+	insetBlockEnd: SpaceInset;
+	insetBlockStart: SpaceInset;
+	insetInline: SpaceInset;
+	insetInlineEnd: SpaceInset;
+	insetInlineStart: SpaceInset;
+	left: SpaceInset;
 	letterSpacing: never;
 	lineHeight: never;
 	lineHeightStep: never;
@@ -523,10 +524,10 @@ export interface DesignTokenStyles {
 	paddingLeft: Space;
 	paddingRight: Space;
 	paddingTop: Space;
-	right: Space;
+	right: SpaceInset;
 	rowGap: Space;
 	textDecorationLine: 'line-through' | 'underline';
-	top: Space;
+	top: SpaceInset;
 	userModify: never;
 	width: SizeIntrinsic;
 	zIndex: -1 | 0 | 1 | 100 | 200 | 300 | 400 | 500 | 510 | 600 | 700 | 800;

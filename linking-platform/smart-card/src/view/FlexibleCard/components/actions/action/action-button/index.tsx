@@ -26,7 +26,6 @@ import { sizeToButtonSpacing } from '../../../utils';
 
 import { type ActionButtonProps } from './types';
 
-// TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
 const IconOnlyLarge = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'button, button:hover, button:focus, button:active': {
@@ -38,13 +37,11 @@ const IconOnlyLarge = css({
 	},
 });
 
-// TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
 const SizeSmall = css({
 	font: token('font.body.UNSAFE_small'),
 	fontWeight: token('font.weight.medium'),
 });
 
-// TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
 const SizeSmallIconOnly = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values,@atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'button, button:hover, button:focus, button:active': {
@@ -55,7 +52,6 @@ const SizeSmallIconOnly = css({
 	},
 });
 
-// TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
 const SizeSmallNotIconOnly = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values,@atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'button, button:hover, button:focus, button:active': {
@@ -223,11 +219,8 @@ const ActionButtonRefresh = forwardRef(
 	},
 );
 
-// On cleanup of platform-linking-visual-refresh-v1, this should become
-// export default withOverrideCss(ActionButton);
 const ActionButtonRefreshWithOverrideCss = withOverrideCss(ActionButtonRefresh);
 
-// TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
 const ActionButtonNew = ({
 	appearance = 'default',
 	content,

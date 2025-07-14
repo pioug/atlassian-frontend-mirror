@@ -1,5 +1,13 @@
 # @atlaskit/forge-react-types
 
+## 0.42.9
+
+### Patch Changes
+
+- [#184873](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/184873)
+  [`44824b4477fc0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/44824b4477fc0) -
+  Improve @atlaskit/forge-react-types for Calendar, Bleed, Code, Heading, and Range components.
+
 ## 0.42.8
 
 ### Patch Changes

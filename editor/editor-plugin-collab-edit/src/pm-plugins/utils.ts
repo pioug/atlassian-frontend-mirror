@@ -88,6 +88,8 @@ export const createTelepointers = (
 	cursor.className = `telepointer color-${color} telepointer-selection-badge`;
 	cursor.style.cssText = `${style({ color: avatarColor.backgroundColor })};`;
 	cursor.setAttribute('data-initial', initial);
+	cursor.setAttribute('aria-label', `${fullName} cursor position`);
+	cursor.setAttribute('role', 'button');
 
 	if (fg('confluence_team_presence_scroll_to_pointer')) {
 		cursor.setAttribute(TELEPOINTER_DATA_SESSION_ID_ATTR, sessionId);
@@ -102,12 +104,14 @@ export const createTelepointers = (
 		fullNameEl.textContent = fullName;
 		fullNameEl.className = 'telepointer-fullname';
 		fullNameEl.style.backgroundColor = avatarColor.backgroundColor;
+		fullNameEl.setAttribute('aria-hidden', 'true');
 		cursor.appendChild(fullNameEl);
 
 		const initialEl = document.createElement('span');
 		initialEl.textContent = initial;
 		initialEl.className = 'telepointer-initial';
 		initialEl.style.backgroundColor = avatarColor.backgroundColor;
+		initialEl.setAttribute('aria-hidden', 'true');
 		cursor.appendChild(initialEl);
 	}
 

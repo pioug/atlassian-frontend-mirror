@@ -1,5 +1,4 @@
 export type { BadgeProps, TBadge } from './BadgeProps.codegen';
-export type { BleedProps, TBleed } from './BleedProps.codegen';
 export type { BoxProps, TBox } from './BoxProps.codegen';
 export type { ButtonGroupProps, TButtonGroup } from './ButtonGroupProps.codegen';
 export type { ButtonProps, TButton } from './ButtonProps.codegen';

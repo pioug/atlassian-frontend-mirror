@@ -7,7 +7,6 @@ import { useCallback, useMemo, useState } from 'react';
 import { css, jsx } from '@compiled/react';
 import { di } from 'react-magnetic-di';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { type FlexibleUiActionName, SmartLinkSize } from '../../../../../constants';
@@ -127,7 +126,7 @@ const ActionBlock = ({
 					onClick={() => onClick(name)}
 					onError={onError}
 					onLoadingChange={onLoadingChange}
-					size={fg('platform-linking-flexible-card-context') ? size || ui?.size : size}
+					size={size || ui?.size}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/design-system/no-unsafe-design-token-usage
 					style={padding && { paddingInline: padding }}
 					hideTooltip={isLoading}

@@ -5,10 +5,10 @@ import React, { useCallback, useMemo, useRef } from 'react';
 import {
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
@@ -64,7 +64,9 @@ const getSelectedColumns = (selection: Selection) => {
 
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<TablePlugin> | undefined) => {
-		const selection = useSharedPluginStateSelector(api, 'selection.selection');
+		const { selection } = useSharedPluginStateWithSelector(api, ['selection'], (states) => ({
+			selection: states.selectionState?.selection,
+		}));
 		return {
 			selection,
 		};

@@ -60,7 +60,7 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin':
     '例如，使用者在產品中建立的頁面、問題和留言。',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':
-    '例如，您在產品中建立的頁面、問題和留言。',
+    '例如，您在產品中建立的頁面、工作項目和留言。',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.admin':
     '您或其他使用者可能已安裝應用程式，這些應用程式會在 Atlassian 產品中新增功能。這些應用程式可能已儲存使用者的設定檔資訊。',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.self':
@@ -82,9 +82,9 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p1.self':
     '我們會將個人資料保留一段時間，以供合法業務或法律目的使用。一些範例包含：',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.admin':
-    '我們不會從使用者建立的內容中刪除任何個人資料，例如他們在頁面或問題中輸入的名稱或電子郵件地址。產品管理員需要手動刪除該資料。',
+    '我們不會從使用者建立的內容中刪除任何個人資料，例如他們在頁面或工作項目中輸入的名稱或電子郵件地址。產品管理員需要手動刪除該資料。',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.self':
-    '我們不會從您或其他使用者建立的內容中刪除任何個人資料，例如在頁面或問題中輸入的名稱或電子郵件地址。產品管理員需要手動刪除該資料。',
+    '我們不會從您或其他使用者建立的內容中刪除任何個人資料，例如在頁面或工作項目中輸入的名稱或電子郵件地址。產品管理員需要手動刪除該資料。',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.admin':
     '使用者有權向其國家/地區的監察機關提請投訴。',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.self':

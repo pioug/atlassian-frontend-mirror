@@ -366,8 +366,13 @@ export type CreatedBy = {
  */
 export type OwnedBy = {
 	name: ElementName.OwnedBy;
+
+	// Note: These types originate from `OwnedByElementProps` however due to compilation issues with Atlaskit
+	// they have been replaced with their direct types
+	// https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183586/overview
 	textPrefix?: 'owned_by' | 'owned_by_override';
 	hideFormat?: boolean;
+	fontSize?: 'font.body' | 'font.body.large' | 'font.body.small' | 'font.body.UNSAFE_small';
 };
 /**
  * Represents the props available for an CreatedOn element.
@@ -424,6 +429,10 @@ export type ModifiedOn = {
 	 * A string which will be displayed before the specified element.
 	 */
 	text?: string;
+	// Note: This type originates from `ModifiedOnElementProps` however due to compilation issues with Atlaskit
+	// it has been replaced with its direct type
+	// https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183586/overview
+	fontSize?: 'font.body' | 'font.body.large' | 'font.body.small' | 'font.body.UNSAFE_small';
 };
 /**
  * Represents the props available for an Preview element.

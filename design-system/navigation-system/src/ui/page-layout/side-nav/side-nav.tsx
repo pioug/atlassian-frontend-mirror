@@ -763,7 +763,7 @@ function SideNavInternal({
 	}
 
 	useResizingWidthCssVarOnRootElement({
-		isEnabled: fg('platform_design_system_nav4_preview_panel_support'),
+		isEnabled: true,
 		cssVar: panelSplitterResizingVar,
 		panelId: sideNavPanelSplitterId,
 	});
@@ -780,7 +780,7 @@ function SideNavInternal({
 					[sideNavVar]: clampedWidth,
 				} as CSSProperties
 			}
-			ref={fg('platform_design_system_nav4_preview_panel_support') ? mergedRef : navRef}
+			ref={mergedRef}
 			css={[
 				styles.root,
 				fg('platform_design_system_nav4_sidenav_border') ? styles.newBorder : styles.oldBorder,
@@ -801,38 +801,28 @@ function SideNavInternal({
 			]}
 			data-testid={testId}
 		>
-			{fg('platform_design_system_nav4_preview_panel_support') && (
-				// This CSS var is used by the `Panel` slot to enforce its maximum width constraint.
-				// When we remove the UNSAFE legacy usage, we can change this to `HoistCssVarToLocalGrid`
+			{/**
+			 * This CSS var is used by the `Panel` slot to enforce its maximum width constraint.
+			 * When we remove the UNSAFE legacy usage, we can change this to `HoistCssVarToLocalGrid`
+			 */}
+			<DangerouslyHoistCssVarToDocumentRoot
+				variableName={sideNavLiveWidthVar}
+				value="0px"
+				mediaQuery={media.above.md}
+				responsiveValue={
+					isExpandedOnDesktop ? `var(${panelSplitterResizingVar}, ${clampedWidth})` : 0
+				}
+			/>
+			{dangerouslyHoistSlotSizes && (
+				// ------ START UNSAFE STYLES ------
+				// These styles are only needed for the UNSAFE legacy use case for Jira + Confluence.
+				// When they aren't needed anymore we can delete them wholesale.
 				<DangerouslyHoistCssVarToDocumentRoot
-					variableName={sideNavLiveWidthVar}
-					value="0px"
-					mediaQuery={media.above.md}
-					responsiveValue={
-						isExpandedOnDesktop ? `var(${panelSplitterResizingVar}, ${clampedWidth})` : 0
-					}
+					variableName={UNSAFE_sideNavLayoutVar}
+					value={`var(${sideNavLiveWidthVar})`}
 				/>
+				// ------ END UNSAFE STYLES ------
 			)}
-
-			{dangerouslyHoistSlotSizes &&
-				(fg('platform_design_system_nav4_preview_panel_support') ? (
-					// ------ START UNSAFE STYLES ------
-					// These styles are only needed for the UNSAFE legacy use case for Jira + Confluence.
-					// When they aren't needed anymore we can delete them wholesale.
-					<DangerouslyHoistCssVarToDocumentRoot
-						variableName={UNSAFE_sideNavLayoutVar}
-						value={`var(${sideNavLiveWidthVar})`}
-					/>
-				) : (
-					<DangerouslyHoistCssVarToDocumentRoot
-						variableName={UNSAFE_sideNavLayoutVar}
-						value="0px"
-						mediaQuery={media.above.md}
-						responsiveValue={isExpandedOnDesktop ? clampedWidth : 0}
-					/>
-					// ------ END UNSAFE STYLES ------
-				))}
-
 			<PanelSplitterProvider
 				panelId={sideNavPanelSplitterId}
 				panelRef={navRef}

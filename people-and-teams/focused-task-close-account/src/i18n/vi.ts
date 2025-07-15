@@ -70,7 +70,7 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin':
     'Ví dụ: các trang, các vấn đề và nhận xét mà họ đã tạo ra trong sản phẩm.',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':
-    'Ví dụ: các trang, các vấn đề và nhận xét mà bạn đã tạo ra trong sản phẩm.',
+    'Ví dụ: các trang, hạng mục công việc và nhận xét mà bạn đã tạo trong sản phẩm.',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.admin':
     'Bạn hoặc những người dùng khác có thể đã cài đặt các ứng dụng bổ sung các tính năng vào sản phẩm Atlassian. Những ứng dụng này có thể đã lưu thông tin hồ sơ người dùng.',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.self':
@@ -92,9 +92,9 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p1.self':
     'Chúng tôi lưu giữ dữ liệu cá nhân trong khoảng thời gian giới hạn khi chúng tôi có hoạt động kinh doanh chính đáng hoặc mục đích hợp pháp. Một số ví dụ bao gồm:',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.admin':
-    'Chúng tôi không xóa bất kỳ dữ liệu cá nhân nào khỏi nội dung do người dùng tạo, như tên hoặc địa chỉ email mà họ đã nhập vào trang hoặc ấn phẩm. Quản trị viên sản phẩm cần xóa dữ liệu đó theo cách thủ công.',
+    'Chúng tôi không xóa bất kỳ dữ liệu cá nhân nào khỏi nội dung do người dùng tạo, như tên hoặc địa chỉ email mà họ đã nhập vào trang hoặc hạng mục công việc. Quản trị viên sản phẩm cần xóa dữ liệu đó theo cách thủ công.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.self':
-    'Chúng tôi không xóa bất kỳ dữ liệu cá nhân nào khỏi nội dung mà bạn hoặc người khác đã tạo, như tên hoặc địa chỉ email đã được nhập vào trang hoặc ấn phẩm. Quản trị viên sản phẩm của bạn cần xóa dữ liệu đó theo cách thủ công.',
+    'Chúng tôi không xóa bất kỳ dữ liệu cá nhân nào khỏi nội dung mà bạn hoặc người khác đã tạo, như tên hoặc địa chỉ email đã được nhập vào trang hoặc hạng mục công việc. Quản trị viên sản phẩm của bạn cần xóa dữ liệu đó theo cách thủ công.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.admin':
     'Người dùng có quyền gửi khiếu nại cho cơ quan quản lý tại quốc gia của họ.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.self':

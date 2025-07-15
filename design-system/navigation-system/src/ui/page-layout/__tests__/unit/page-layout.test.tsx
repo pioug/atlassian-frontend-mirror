@@ -6,6 +6,7 @@ import noop from '@atlaskit/ds-lib/noop';
 
 import { Aside } from '../../aside';
 import { Banner } from '../../banner';
+import { UNSAFE_sideNavLayoutVar } from '../../constants';
 import { Main } from '../../main/main';
 import { Panel } from '../../panel';
 import { Root } from '../../root';
@@ -38,9 +39,12 @@ describe('page layout', () => {
 				</Root>,
 			);
 
-			expect(screen.getByTestId('side-nav')).toHaveTextContent(':root { --leftSidebarWidth: 0px }');
 			expect(screen.getByTestId('side-nav')).toHaveTextContent(
-				'@media (min-width: 64rem) { :root { --leftSidebarWidth: clamp(240px, 300px, 50vw) } }',
+				':root { --leftSidebarWidth: var(--n_sNvlw) }',
+			);
+			expect(screen.getByTestId('side-nav')).toHaveTextContent(':root { --n_sNvlw: 0px }');
+			expect(screen.getByTestId('side-nav')).toHaveTextContent(
+				'@media (min-width: 64rem) { :root { --n_sNvlw: var(--n_snvRsz, clamp(240px, 300px, 50vw)) } }',
 			);
 		});
 
@@ -77,7 +81,7 @@ describe('page layout', () => {
 
 			expect(screen.getByTestId('panel')).toHaveTextContent(':root { --rightPanelWidth: 0px }');
 			expect(screen.getByTestId('panel')).toHaveTextContent(
-				'@media (min-width: 90rem) { :root { --rightPanelWidth: clamp(0px, 399px, 50vw) } }',
+				'@media (min-width: 90rem) { :root { --rightPanelWidth: clamp(399px, 399px, round(nearest, calc((100vw - var(--n_sNvlw, 0px)) / 2), 1px)) } }',
 			);
 		});
 
@@ -97,6 +101,9 @@ describe('page layout', () => {
 		});
 
 		it('should not hoist CSS variables by default', () => {
+			/**
+			 * Intentionally not including SideNav, see test below
+			 */
 			render(
 				<div data-testid="test-wrapper">
 					<Root>
@@ -104,7 +111,6 @@ describe('page layout', () => {
 						<TopNav>
 							<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
 						</TopNav>
-						<SideNav>sidenav</SideNav>
 						<Main>main</Main>
 						<Panel>panel</Panel>
 					</Root>
@@ -112,6 +118,22 @@ describe('page layout', () => {
 			);
 
 			expect(screen.getByTestId('test-wrapper')).not.toHaveTextContent(':root');
+		});
+
+		it('should not hoist legacy CSS variable for SideNav by default', () => {
+			/**
+			 * SideNav is a special case where we hoist a variable by default that's used by the Panel slot.
+			 * So we are asserting specifically that the legacy variable is not hoisted by default.
+			 */
+			render(
+				<div data-testid="test-wrapper">
+					<Root>
+						<SideNav>sidenav</SideNav>
+					</Root>
+				</div>,
+			);
+
+			expect(screen.getByTestId('test-wrapper')).not.toHaveTextContent(UNSAFE_sideNavLayoutVar);
 		});
 	});
 

@@ -2,7 +2,7 @@ import {
 	isIgnored as isIgnoredByGapCursor,
 	isSelectionAtStartOfNode,
 } from '@atlaskit/editor-common/selection';
-import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
+import { isEmptyParagraph, isListItemNode } from '@atlaskit/editor-common/utils';
 import type { Node as PmNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type {
 	EditorState,
@@ -16,9 +16,15 @@ import {
 	TextSelection,
 } from '@atlaskit/editor-prosemirror/state';
 import type { ContentNodeWithPos, NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
-import { findParentNode, flatten } from '@atlaskit/editor-prosemirror/utils';
+import {
+	findParentNode,
+	findParentNodeClosestToPos,
+	flatten,
+	hasParentNode,
+} from '@atlaskit/editor-prosemirror/utils';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { selectionPluginKey } from '../types';
 
@@ -294,16 +300,106 @@ export const findLastChildNodeToSelect = (parent: PmNode): NodeWithPos | undefin
 export const isSelectionAtStartOfParentNode = ($pos: ResolvedPos, selection: Selection) =>
 	isSelectionAtStartOfNode($pos, findSelectableContainerParent(selection)?.node);
 
-export const isSelectionAtEndOfParentNode = ($pos: ResolvedPos, selection: Selection) => {
+export const isSelectionAtEndOfParentNode = ($pos: ResolvedPos, selection: Selection): boolean => {
+	// If the current position is at the end of its parent node's content.
 	const isAtTheEndOfCurrentLevel = $pos.parent.content.size === $pos.parentOffset;
 	if (!isAtTheEndOfCurrentLevel) {
 		return false;
 	}
 
+	// If at the root or parent is selectable, we're at the end
 	if ($pos.depth === 0 || NodeSelection.isSelectable($pos.parent)) {
 		return isAtTheEndOfCurrentLevel;
 	}
 
+	// Handle lists: if in a list inside container and not at the end, return false
+	if (
+		hasParentNode(isListItemNode)(selection) &&
+		isListItemWithinContainerNotAtEnd($pos, selection) &&
+		fg('platform_editor_fix_right_arrow_bug_list_in_layout')
+	) {
+		return false;
+	}
+
+	// Default: if at end of parent's parent
 	const $after = $pos.doc.resolve($pos.after());
 	return $after.parent.content.size === $after.parentOffset;
+};
+
+/**
+ * Determines if the current selection is inside a list item within a container and not at the end of the parent list.
+ *
+ * This is useful for handling edge cases where the selection is within a list inside a container structure,
+ * and we need to know if the selection is not at the logical end of the parent list node.
+ */
+export const isListItemWithinContainerNotAtEnd = (
+	$pos: ResolvedPos,
+	selection: Selection,
+): boolean => {
+	const isInContainerNode = hasParentNode(isContainerNode)(selection);
+	if (!isInContainerNode) {
+		return false;
+	}
+
+	const parentList = findParentNodeClosestToPos($pos, isListItemNode);
+	if (!parentList) {
+		return false;
+	}
+
+	const $parentListPos = $pos.doc.resolve(parentList.pos);
+	const topLevelList = findTopLevelList($pos);
+
+	if (!topLevelList) {
+		return false;
+	}
+
+	const $afterTopLevelList = $pos.doc.resolve(topLevelList.pos + topLevelList.node.nodeSize);
+	const nodeAfterTopLevelList = $afterTopLevelList.nodeAfter;
+
+	const grandParentList = findParentNodeClosestToPos(
+		$pos.doc.resolve($parentListPos.before()),
+		isListItemNode,
+	);
+	const grandParentListPos = grandParentList ? $pos.doc.resolve(grandParentList.pos) : undefined;
+
+	const isLastListItemInParent =
+		// Check if the current list item is the last child in its parent list
+		$parentListPos.index() === $parentListPos.parent.childCount - 1 &&
+		// Check if there is no grandparent list, or if the grandparent list item is also the last child in its parent
+		(!grandParentList ||
+			(grandParentListPos &&
+				grandParentListPos.index() === grandParentListPos.parent.childCount - 1));
+
+	if (!isLastListItemInParent || nodeAfterTopLevelList) {
+		return true;
+	}
+
+	return false;
+};
+
+/**
+ * Determines if the given node is a Container (layoutColumn, panel, expand) node.
+ */
+export const isContainerNode = (node: PmNode | null | undefined) => {
+	const { layoutColumn, panel, expand } = node?.type?.schema?.nodes || {};
+	return Boolean(node && node.type && [panel, expand, layoutColumn].includes(node.type));
+};
+
+/**
+ * Finds the top-level List ancestor of the given position.
+ * Returns the node and its position if found, otherwise returns undefined.
+ */
+export const findTopLevelList = (pos: ResolvedPos): { node: PmNode; pos: number } | undefined => {
+	const { bulletList, orderedList } = pos.doc.type.schema.nodes;
+
+	let currentDepth = pos.depth;
+	let topLevelList: { node: PmNode; pos: number } | undefined;
+	while (currentDepth > 0) {
+		const node = pos.node(currentDepth);
+		if ([bulletList, orderedList].includes(node.type)) {
+			topLevelList = { node, pos: pos.before(currentDepth) };
+		}
+		currentDepth--;
+	}
+	return topLevelList;
 };

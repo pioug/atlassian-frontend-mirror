@@ -300,9 +300,6 @@ snapshot(CompanyHubMockExample, {
 	// On desktop the Panel max width is influenced by the SideNav width.
 	// On mobile the Panel sizing is completely independent of the SideNav.
 	...desktopOnly,
-	featureFlags: {
-		platform_design_system_nav4_preview_panel_support: [true, false],
-	},
 	description: 'Panel should have correct width when there is no SideNav mounted',
 });
 
@@ -327,7 +324,6 @@ snapshot(CompanyHubMockExample, {
 		/* eslint-enable @atlaskit/design-system/no-dark-theme-vr-tests */
 	],
 	featureFlags: {
-		platform_design_system_nav4_preview_panel_support: true,
 		platform_design_system_nav4_panel_default_border: true,
 	},
 	description: 'Panel default background color',

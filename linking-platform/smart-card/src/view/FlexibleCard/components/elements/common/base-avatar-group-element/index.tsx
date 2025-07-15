@@ -16,8 +16,18 @@ import { messages } from '../../../../../../messages';
 import { getFormattedMessageAsString } from '../../../utils';
 import { type ElementProps } from '../../index';
 
+const stylesOld = css({
+	minWidth: 'fit-content',
+});
+
 const styles = css({
 	minWidth: 'fit-content',
+	display: 'inline-flex',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	ul: {
+		marginRight: token('space.100'),
+		marginTop: 0,
+	},
 });
 
 const stylesMap = cssMap({
@@ -171,7 +181,10 @@ const BaseAvatarGroup = ({
 	return (
 		<span
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-			css={[stylesMap[size], styles]}
+			css={[
+				!fg('platform-linking-fix-smart-card-avatar-overrides') && stylesMap[size],
+				fg('platform-linking-fix-smart-card-avatar-overrides') ? styles : stylesOld,
+			]}
 			{...(fg('platform-linking-enable-avatar-data-separator') ? { ['data-separator']: true } : {})}
 			data-smart-element={name}
 			data-smart-element-avatar-group

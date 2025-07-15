@@ -70,7 +70,7 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin':
     'Na przykład strony, zgłoszenia i komentarze, które zostały utworzone w produktach.',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':
-    'Na przykład strony, zgłoszenia i komentarze utworzone w produktach.',
+    'Przykładowo strony, zgłoszenia i komentarze, które zostały utworzone w produktach.',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.admin':
     'Ty lub inni użytkownicy mogą mieć zainstalowane aplikacje, które dodają funkcje do produktów Atlassian. Aplikacje te mogły przechowywać informacje o profilu użytkownika.',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.self':
@@ -92,9 +92,9 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p1.self':
     'Dane osobowe przechowujemy przez ograniczony czas, gdy mamy uzasadnione cele biznesowe lub prawne. Oto kilka przykładów:',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.admin':
-    'Nie usuwamy żadnych danych osobowych z treści tworzonych przez użytkowników, takich jak imiona i nazwiska lub adresy e-mail, które wpisali na stronie lub w zgłoszeniu. Administratorzy produktów muszą usunąć te dane ręcznie.',
+    'Nie usuwamy żadnych danych osobowych z treści utworzonych przez użytkowników, takich jak imiona i nazwiska lub adresy e-mail, które wpisali na stronie lub w zgłoszeniu. Administratorzy produktów muszą usunąć te dane ręcznie.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.self':
-    'Nie usuwamy żadnych danych osobowych z treści stworzonych przez Ciebie lub inne osoby, takich jak imiona i nazwiska lub adresy e-mail wpisane na stronie lub w zgłoszeniu. Administratorzy produktów muszą usunąć te dane ręcznie.',
+    'Nie usuwamy żadnych danych osobowych z treści utworzonych przez Ciebie lub inne osoby, takich jak imiona i nazwiska lub adresy e-mail wpisane na stronie lub w zgłoszeniu. Administratorzy produktów muszą usunąć te dane ręcznie.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.admin':
     'Użytkownicy mają prawo do składania skarg do organu nadzorczego w swoim kraju.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.self':

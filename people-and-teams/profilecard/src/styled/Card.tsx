@@ -4,6 +4,7 @@ import React, { type ReactNode } from 'react';
 import { keyframes as keyframescompiled } from '@compiled/react';
 
 import { cssMap, cx } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -120,6 +121,18 @@ const styles = cssMap({
 		marginRight: token('space.0'),
 		marginLeft: token('space.0'),
 		marginBottom: token('space.0'),
+		whiteSpace: 'nowrap',
+		gap: token('space.100'),
+	},
+	detailsLabelNext: {
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'flex-start',
+		marginTop: token('space.150'),
+		marginRight: token('space.0'),
+		marginLeft: token('space.0'),
+		marginBottom: token('space.0'),
+		paddingLeft: token('space.0'),
 		whiteSpace: 'nowrap',
 		gap: token('space.100'),
 	},
@@ -281,11 +294,19 @@ export const DetailsLabel = ({
 }: {
 	children: ReactNode;
 	extraTopSpace?: boolean;
-}) => (
-	<Box xcss={cx(styles.detailsLabel, extraTopSpace && styles.detailsLabelExtraTopSpace)}>
-		{children}
-	</Box>
-);
+}) =>
+	fg('fix_profilecard_details_label_semantic_html') ? (
+		<Box
+			as="dl"
+			xcss={cx(styles.detailsLabelNext, extraTopSpace && styles.detailsLabelExtraTopSpace)}
+		>
+			{children}
+		</Box>
+	) : (
+		<Box xcss={cx(styles.detailsLabel, extraTopSpace && styles.detailsLabelExtraTopSpace)}>
+			{children}
+		</Box>
+	);
 
 export const DetailsLabelIcon = ({ children }: { children: ReactNode }) => (
 	<Box as="dt" xcss={cx(styles.detailsLabelIcon)}>

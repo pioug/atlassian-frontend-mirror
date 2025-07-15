@@ -65,13 +65,11 @@ const steppedDrag = {
 
 const defaultSideNavWidth = 320;
 
-test.describe('resizing - platform_design_system_nav4_preview_panel_support enabled', () => {
+test.describe('resizing', () => {
 	test.beforeEach(async ({ page, skipAxeCheck }) => {
 		skipAxeCheck();
 
-		await page.visitExample('design-system', 'navigation-system', 'resizable-slots', {
-			featureFlag: 'platform_design_system_nav4_preview_panel_support',
-		});
+		await page.visitExample('design-system', 'navigation-system', 'resizable-slots');
 	});
 
 	test('should maintain proportional width as the side nav grows', async ({ page }) => {

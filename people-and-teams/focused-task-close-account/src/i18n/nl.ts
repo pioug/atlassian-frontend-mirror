@@ -72,7 +72,7 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin':
     "Bijvoorbeeld pagina's, issues en opmerkingen die ze hebben gemaakt in producten.",
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':
-    "Bijvoorbeeld pagina's, issues en opmerkingen die je hebt gemaakt in producten.",
+    "Bijvoorbeeld pagina's, werkitems en opmerkingen die je hebt aangemaakt in producten.",
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.admin':
     'Jij of andere gebruikers hebben misschien apps geïnstalleerd die functies toevoegen aan Atlassian-producten. Deze apps hebben mogelijk profielinformatie van de gebruiker opgeslagen.',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.self':
@@ -94,9 +94,9 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p1.self':
     'We bewaren persoonlijke gegevens voor een beperkte periode om zakelijke of juridische redenen. Voorbeelden zijn onder andere:',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.admin':
-    'We verwijderen geen persoonlijke gegevens uit content die door gebruikers is gemaakt, bijvoorbeeld namen of e-mailadressen die door hen in een pagina of issue zijn gezet. De productbeheerders moeten deze gegevens handmatig verwijderen.',
+    'We verwijderen geen persoonlijke gegevens uit inhoud die door gebruikers is aangemaakt, bijvoorbeeld namen of e-mailadressen die in een pagina of werkitem zijn gezet. De productbeheerders moeten deze gegevens handmatig verwijderen.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.self':
-    'We verwijderen geen persoonlijke gegevens uit content die door jou of andere mensen is gemaakt, bijvoorbeeld namen of e-mailadressen die in een pagina of issue zijn gezet. Je productbeheerders moeten deze gegevens handmatig verwijderen.',
+    'We verwijderen geen persoonlijke gegevens uit inhoud die door jou of andere mensen is aangemaakt, bijvoorbeeld namen of e-mailadressen die in een pagina of werkitem zijn gezet. Je productbeheerders moeten deze gegevens handmatig verwijderen.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.admin':
     'Gebruikers hebben het recht om een klacht in te dienen bij de toezichthoudende autoriteit in hun land.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.self':

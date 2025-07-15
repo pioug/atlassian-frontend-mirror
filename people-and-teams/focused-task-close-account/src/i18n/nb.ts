@@ -70,7 +70,7 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin':
     'For eksempel sider, saker og kommentarer de har opprettet i produkter.',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':
-    'For eksempel sider, saker og kommentarer du har opprettet i produkter.',
+    'Dette kan for eksempel være sider, arbeidsoppgaver og kommentarer du har opprettet i produkter.',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.admin':
     'Du eller andre brukere kan ha installert apper som legger til funksjoner i Atlassian-produkter. Disse appene kan ha lagret brukerens profilinformasjon.',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.self':
@@ -92,9 +92,9 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p1.self':
     'Vi tar vare på personopplysninger i en begrenset tid når vi har legitime grunner forbundet med lov eller forretningsdriften. Noen eksempler inkluderer',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.admin':
-    'Vi sletter ikke personopplysninger fra innhold opprettet av brukere, som navn eller e-postadresser de har skrevet inn på en side eller en sak. Produktadministratorene må slette informasjonen manuelt.',
+    'Vi sletter ikke personopplysninger fra innhold opprettet av brukere, som navn eller e-postadresser de har skrevet inn på en side eller arbeidsoppgave. Produktadministratorene må slette disse opplysningene manuelt.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.self':
-    'Vi sletter ikke personopplysninger fra innhold opprettet av deg eller andre personer, som navn eller e-postadresser dere har skrevet inn på en side eller en sak. Produktadministratorene må slette informasjonen manuelt.',
+    'Vi sletter ikke personopplysninger fra innhold opprettet av deg eller andre personer, som navn eller e-postadresser dere har skrevet inn på en side eller en arbeidsoppgave. Produktadministratorene må slette disse opplysningene manuelt.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.admin':
     'Brukerne har rett til å sende inn klager til tilsynsmyndigheten i landet der de bor.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.self':

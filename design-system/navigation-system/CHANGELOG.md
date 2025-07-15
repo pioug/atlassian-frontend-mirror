@@ -1,5 +1,24 @@
 # @atlassian/navigation-system
 
+## 0.170.0
+
+### Minor Changes
+
+- [#179366](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/179366)
+  [`c1cd1f32a9703`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c1cd1f32a9703) -
+  Adds experimental containment to the `Main` slot behind the
+  `platform_dst_nav4_layering_in_main_slot_fixes` feature gate. When enabled, popups inside of
+  `Main` will automatically stay inside of the slot. This avoids popups from escaping the slot and
+  being hidden behind other slots.
+- [#173274](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/173274)
+  [`e01dc06c9f06e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e01dc06c9f06e) -
+  Cleans up `platform_design_system_nav4_preview_panel_support` feature gate. Panel max width is now
+  constrained to half of the content area.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.169.1
 
 ### Patch Changes

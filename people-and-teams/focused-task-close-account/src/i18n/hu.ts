@@ -68,7 +68,7 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin':
     'Például a termékekben létrehozott oldalak, ügyek és megjegyzések.',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':
-    'Például a termékekben Ön által létrehozott oldalak, ügyek és megjegyzések.',
+    'Például a termékekben általad létrehozott oldalak, ügyek és megjegyzések.',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.admin':
     'Ön vagy más felhasználók olyan alkalmazásokat telepíthettek, amelyek szolgáltatásokkal bővítik az Atlassian-termékeket. Ezek az alkalmazások tárolhatják a felhasználók profiladatait.',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.self':
@@ -90,9 +90,9 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p1.self':
     'Korlátozott ideig megőrizzük a személyes adatokat, ha törvényes üzleti vagy jogi okokból erre szükség van. Ilyen adatok lehetnek például a következők:',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.admin':
-    'Nem töröljük a személyes adatokat a felhasználók által létrehozott tartalomból, így például az oldalakon vagy ügyekben begépelt neveket vagy e-mail-címeket. A termékadminisztrátoroknak kézzel kell törölniük ezeket az adatokat.',
+    'Nem töröljük a személyes adatokat a felhasználók által létrehozott tartalmakból, így például az oldalakon vagy ügyekben megadott neveket vagy e-mail-címeket. A termékadminisztrátoroknak kézzel kell törölniük ezeket az adatokat.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.self':
-    'Nem töröljük a személyes adatokat az Ön vagy más személyek által létrehozott tartalomból, így például az oldalakon vagy ügyekben begépelt neveket vagy e-mail-címeket. Az Ön termékadminisztrátorainak kézzel kell törölniük ezeket az adatokat.',
+    'Nem töröljük a személyes adatokat az általad vagy mások által létrehozott tartalmakból, így például az oldalakon vagy ügyekben megadott neveket vagy e-mail-címeket. A termékadminisztrátoraidnak kézzel kell törölniük ezeket az adatokat.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.admin':
     'A felhasználóknak joguk van arra, hogy panaszt nyújtsanak be az országukban illetékes felügyeleti hatóságnak.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.self':

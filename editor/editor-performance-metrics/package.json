@@ -29,7 +29,8 @@
 		"./timeline": "./src/timeline.ts",
 		"./metrics": "./src/metrics.ts",
 		"./react": "./src/react-api.tsx",
-		"./inp": "./src/inp.ts"
+		"./inp": "./src/inp.ts",
+		"./page-complexity-score": "./src/page-complexity-score/index.ts"
 	},
 	"exports": {
 		".": "./src/index.ts",
@@ -37,7 +38,8 @@
 		"./timeline": "./src/timeline.ts",
 		"./metrics": "./src/metrics.ts",
 		"./react": "./src/react-api.tsx",
-		"./inp": "./src/inp.ts"
+		"./inp": "./src/inp.ts",
+		"./page-complexity-score": "./src/page-complexity-score/index.ts"
 	},
 	"dependencies": {
 		"@babel/runtime": "root:*",
@@ -49,7 +51,9 @@
 	"devDependencies": {
 		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
+		"@atlaskit/checkbox": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
+		"@atlaskit/textarea": "workspace:^",
 		"@testing-library/react": "root:*",
 		"react-dom": "root:*",
 		"typescript": "root:*",
@@ -95,6 +99,9 @@
 		"stricter": [
 			"@atlassian/tangerine/project-structure"
 		]
+	},
+	"scripts": {
+		"build-and-copy-page-score": "npx esbuild ./src/page-complexity-score/index.ts --bundle --platform=neutral --target=es2022 --format=iife --global-name=pageTreeScore | pbcopy"
 	},
 	"name": "@atlaskit/editor-performance-metrics",
 	"version": "2.1.4",

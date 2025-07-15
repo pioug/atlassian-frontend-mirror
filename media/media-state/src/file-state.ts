@@ -60,6 +60,10 @@ type AbuseClassification = {
 	confidence: 'HIGH' | 'MEDIUM' | 'LOW' | 'SYNTHETIC';
 };
 
+type FileMediaMetadata = {
+	duration?: number;
+};
+
 type NonErrorBaseFileState = {
 	name: string;
 	size: number;
@@ -86,12 +90,14 @@ export interface UploadingFileState extends NonErrorBaseFileState {
 export interface ProcessingFileState extends NonErrorBaseFileState {
 	status: 'processing';
 	artifacts?: MediaFileArtifacts;
+	mediaMetadata?: FileMediaMetadata;
 	representations?: MediaRepresentations;
 }
 
 export interface ProcessedFileState extends NonErrorBaseFileState {
 	status: 'processed';
 	artifacts: MediaFileArtifacts;
+	mediaMetadata?: FileMediaMetadata;
 	representations?: MediaRepresentations;
 }
 export interface ProcessingFailedState extends NonErrorBaseFileState {

@@ -1,6 +1,7 @@
 import React, { type ReactNode, useState } from 'react';
 
 import { AVATAR_SIZES } from '@atlaskit/avatar';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Flex, Text, xcss } from '@atlaskit/primitives';
 import Select from '@atlaskit/select';
 

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 4.0.4
+
+### Patch Changes
+
+- [#181011](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/181011)
+  [`bf9c278fde34d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bf9c278fde34d) -
+  [ED-27887] Clean up platform_editor_controls_widget_visibility
+- Updated dependencies
+
 ## 4.0.3
 
 ### Patch Changes

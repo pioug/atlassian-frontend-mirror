@@ -5,6 +5,7 @@ import { teamsClient } from '../../../services';
 import {
 	MOCK_CONNECTED_TEAMS_RESULT,
 	MOCK_TEAM_CONTAINERS,
+	MOCK_TEAM_CONTAINERSV2,
 } from '../../../services/agg-client/mocks';
 
 import { useConnectedTeams, useTeamContainers, useTeamContainersHook } from './index';
@@ -121,6 +122,7 @@ describe('useTeamContainersHook', () => {
 		jest.clearAllMocks();
 	});
 
+	// TODO: Replace this test with the cypher query v2 version below when removing the teams_containers_cypher_query_v2_migration feature gate
 	it('should unlink team containers successfully', async () => {
 		(teamsClient.unlinkTeamContainer as jest.Mock).mockResolvedValueOnce({
 			deleteTeamConnectedToContainer: {
@@ -142,6 +144,7 @@ describe('useTeamContainersHook', () => {
 		expect(fireAnalytics).toHaveBeenCalledWith('succeeded', 'fetchTeamContainers');
 	});
 
+	// TODO: Replace this test with the cypher query v2 version below when removing the teams_containers_cypher_query_v2_migration feature gate
 	it('should skip fetching team containers if unlinking fails', async () => {
 		const mockError = new Error('Failed to unlink');
 		(teamsClient.unlinkTeamContainer as jest.Mock).mockResolvedValueOnce({
@@ -190,5 +193,56 @@ describe('useTeamContainersHook', () => {
 			containerId: 'mock-container-id',
 			numberOfTeams: 2,
 		});
+	});
+});
+
+describe('useTeamContainersHook with cypher query v2', () => {
+	const fireAnalytics = jest.fn();
+	beforeEach(() => {
+		jest.clearAllMocks();
+	});
+
+	it('should unlink team containers successfully', async () => {
+		(teamsClient.unlinkTeamContainer as jest.Mock).mockResolvedValueOnce({
+			deleteTeamConnectedToContainer: {
+				errors: [],
+			},
+		});
+		const { result } = renderHook(() => useTeamContainersHook());
+
+		(teamsClient.getTeamContainers as jest.Mock).mockResolvedValueOnce([{ id: '2' }, { id: '3' }]);
+		await result.current[1].fetchTeamContainers('team-id-126', fireAnalytics);
+
+		const containerId =
+			MOCK_TEAM_CONTAINERSV2.graphStore.cypherQueryV2.edges[0].node.columns[0].value.data.id;
+
+		await result.current[1].unlinkTeamContainers('team-id-126', containerId);
+
+		expect(result.current[0].unlinkError).toBeNull();
+		expect(teamsClient.unlinkTeamContainer).toHaveBeenCalledWith('team-id-126', containerId);
+		expect(result.current[0].teamContainers.length).toEqual(1);
+		expect(fireAnalytics).toHaveBeenCalledWith('succeeded', 'fetchTeamContainers');
+	});
+
+	it('should skip fetching team containers if unlinking fails', async () => {
+		const mockError = new Error('Failed to unlink');
+		(teamsClient.unlinkTeamContainer as jest.Mock).mockResolvedValueOnce({
+			deleteTeamConnectedToContainer: {
+				errors: [mockError],
+			},
+		});
+		const { result } = renderHook(() => useTeamContainersHook());
+
+		(teamsClient.getTeamContainers as jest.Mock).mockResolvedValueOnce(MOCK_TEAM_CONTAINERSV2);
+		await result.current[1].fetchTeamContainers('team-id-127', fireAnalytics);
+
+		const containerId =
+			MOCK_TEAM_CONTAINERSV2.graphStore.cypherQueryV2.edges[0].node.columns[0].value.data.id;
+
+		await result.current[1].unlinkTeamContainers('team-id-127', containerId);
+
+		expect(result.current[0].unlinkError).toEqual(mockError);
+		expect(teamsClient.unlinkTeamContainer).toHaveBeenCalledWith('team-id-127', containerId);
+		expect(fireAnalytics).toHaveBeenCalledWith('succeeded', 'fetchTeamContainers');
 	});
 });

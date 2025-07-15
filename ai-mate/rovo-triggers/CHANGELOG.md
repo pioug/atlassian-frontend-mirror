@@ -1,5 +1,13 @@
 # @atlaskit/rovo-triggers
 
+## 3.1.1
+
+### Patch Changes
+
+- [#181521](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/181521)
+  [`3ddd40e7aeab6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3ddd40e7aeab6) -
+  Update rovo trigger types to include update status operation for workflow builder
+
 ## 3.1.0
 
 ### Minor Changes

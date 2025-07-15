@@ -4,6 +4,7 @@ import { IntlProvider } from 'react-intl-next';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import { cssMap } from '@atlaskit/css';
+import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -23,6 +24,8 @@ const styles = cssMap({
 		width: '600px',
 	},
 });
+
+const FLAG = 'teams_containers_cypher_query_v2_migration';
 
 const CustomContainerCard = ({ containerType, title }: LinkedContainerCardProps) => {
 	return (
@@ -48,6 +51,9 @@ const CustomTeamContainersSkeleton = () => {
 
 export default function Basic() {
 	const locale = 'en';
+	const booleanFlagResolver = (flagToResolve: string): boolean => flagToResolve === FLAG;
+	setBooleanFeatureFlagResolver(booleanFlagResolver);
+
 	return (
 		<Router>
 			<IntlProvider key={locale} locale={locale}>

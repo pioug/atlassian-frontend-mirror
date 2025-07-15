@@ -104,7 +104,7 @@ export const LinkIconElement = (props?: LinkIconElementProps) => {
 export const LocationElement = () => <Location />;
 export const ModifiedByElement = () => <ModifiedBy />;
 
-type ModifiedOnElementProps = Pick<
+export type ModifiedOnElementProps = Pick<
 	React.ComponentProps<typeof ModifiedOn>,
 	'hideDatePrefix' | 'color' | 'onRender' | 'fontSize'
 >;
@@ -261,4 +261,5 @@ export const PreviewAction = (props: PreviewActionProps) => (
 
 export const UnresolvedAction = () => <UnresolvedActionComponent />;
 
+export { CustomUnresolvedAction } from './components/actions';
 export { CustomByAccessTypeElement, CustomByStatusElement } from './components/elements';

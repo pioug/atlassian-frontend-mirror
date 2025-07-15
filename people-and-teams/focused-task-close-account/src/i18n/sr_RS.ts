@@ -9,4 +9,10 @@
 export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created-issue-refresh.admin':
     'Na primer, stranice, radne stavke i komentari koje su napravili u proizvodima.',
+  'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':
+    'Na primer, stranice, radne stavke i komentari koje ste napravili u proizvodima.',
+  'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.admin':
+    'Ne brišemo lične podatke iz sadržaja koje su napravili korisnici, kao što su imena ili e-adrese koje su upisali na stranici ili radnoj stavci. Administratori proizvoda treba ručno da obrišu te podatke.',
+  'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.self':
+    'Ne brišemo lične podatke iz sadržaja koji ste napravili vi ili drugi ljudi, kao što su imena ili e-adrese koje su upisane na stranici ili radnoj stavci. Vaši administratori proizvoda treba ručno da obrišu te podatke.',
 };

@@ -1,5 +1,14 @@
 # @atlaskit/teams-public
 
+## 0.43.0
+
+### Minor Changes
+
+- [#183113](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183113)
+  [`fe0b718376970`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fe0b718376970) -
+  PTC-12484 Migrate team containers query from cypherQuery to cypherQueryV2 API with parameterized
+  queries and updated response structure
+
 ## 0.42.2
 
 ### Patch Changes

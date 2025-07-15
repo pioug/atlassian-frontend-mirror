@@ -34,28 +34,6 @@ import { useResizingWidthCssVarOnRootElement } from './use-resizing-width-css-va
 const panelSplitterResizingVar = '--n_pnlRsz';
 
 /**
- * The bounds for Aside and Panel are purposely set to support the current usage in Jira.
- *
- * Jira sets the slot's width to `0px` when there is no active content to display in it.
- *   - This means the min width needs to support `0px`.
- * The Conversation Assistant component in Jira (rendered in a nav3 RightSidebar, or a nav4 Aside) has a custom resizing
- * implementation, which has a maximum width of `50vw`.
- *   - This means the max width needs to support `50vw`.
- *
- * This is not the final implementation and will be updated once Jira's usage has been fixed.
- * Ticket to track this is: https://jplat.atlassian.net/browse/BLU-3951
- *
- * We're using two different bounds for each slot here, to support the `0px` min width when programatically set using the
- * `defaultWidth` prop, and another one that is used when resizing the slots which has a sensible min width.
- */
-const oldPanelWidthSlotBounds = { min: '0px', max: '50vw' };
-const oldPanelWidthResizeBounds: ResizeBounds = { min: '120px', max: '50vw' };
-
-function getOldResizeBounds() {
-	return oldPanelWidthResizeBounds;
-}
-
-/**
  * We typically use the `defaultWidth` as the minimum resizing width,
  * but for large default widths we fallback to a standard value.
  *
@@ -174,8 +152,8 @@ export function Panel({
 	 *
 	 * It should be between the resize bounds - the minimum is 120px and the maximum is 50% of the viewport width.
 	 *
-	 * When `platform_design_system_nav4_preview_panel_support` is enabled, it is used as the minimum resizing width.
-	 * If the `defaultWidth` is greater then `400px` then `400px` will be used as the minimum resizing width instead.
+	 * This value is also used as the minimum resizing width, except when the `defaultWidth` is greater then `400px`,
+	 * in which case `400px` will be used as the minimum resizing width instead.
 	 */
 	defaultWidth?: number;
 	/**
@@ -240,7 +218,13 @@ export function Panel({
 	 */
 	const minWidth = Math.min(defaultWidth, fallbackResizeMinWidth);
 
-	const getNewResizeBounds = useCallback((): ResizeBounds => {
+	/**
+	 * Returns the bounds for resizing, evaluated lazily when needed.
+	 *
+	 * Defined separately to the slot bounds because the resizing bounds need to be resolvable to a pixel value,
+	 * and the panel's slot bounds use a complex CSS expression.
+	 */
+	const getResizeBounds = useCallback((): ResizeBounds => {
 		const sideNavWidth = sideNavRef.current?.offsetWidth ?? 0;
 		/**
 		 * The panel should not resize larger than the page content, equivalent to the `Main` + `Aside` slots.
@@ -252,13 +236,11 @@ export function Panel({
 		return { min: `${minWidth}px`, max: `${maxWidth}px` };
 	}, [minWidth, sideNavRef]);
 
-	const panelWidthSlotBounds = fg('platform_design_system_nav4_preview_panel_support')
-		? {
-				min: `${minWidth}px`,
-				// `sideNavLiveWidthVar` is not defined if the `SideNav` is not mounted, so we fallback to `0px`.
-				max: `round(nearest, calc((100vw - var(${sideNavLiveWidthVar}, 0px)) / 2), 1px)`,
-			}
-		: oldPanelWidthSlotBounds;
+	const panelWidthSlotBounds = {
+		min: `${minWidth}px`,
+		// `sideNavLiveWidthVar` is not defined if the `SideNav` is not mounted, so we fallback to `0px`.
+		max: `round(nearest, calc((100vw - var(${sideNavLiveWidthVar}, 0px)) / 2), 1px)`,
+	};
 
 	const panelVariableWidth = `clamp(${panelWidthSlotBounds.min}, ${width}px, ${panelWidthSlotBounds.max})`;
 
@@ -316,11 +298,7 @@ export function Panel({
 				panelRef={ref}
 				panelWidth={width}
 				onCompleteResize={setWidth}
-				getResizeBounds={
-					fg('platform_design_system_nav4_preview_panel_support')
-						? getNewResizeBounds
-						: getOldResizeBounds
-				}
+				getResizeBounds={getResizeBounds}
 				resizingCssVar={panelSplitterResizingVar}
 				position="start"
 			>

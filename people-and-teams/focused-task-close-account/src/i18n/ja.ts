@@ -68,7 +68,7 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin':
     '製品で作成したページ、課題、コメントなど。',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':
-    '製品で作成したページ、課題、コメントなど。',
+    'たとえば、製品内で作成したページ、作業項目、コメントなどです。',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.admin':
     'あなた、または他のユーザーがアトラシアン製品に機能を追加するアプリケーションをインストールしている可能性があります。これらのアプリはユーザーのプロファイル情報を保存している可能性があります。',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.self':
@@ -92,7 +92,7 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.admin':
     'ページや課題に入力された名前やメール アドレスなど、ユーザーが作成したコンテンツから個人情報が削除されることはありません。これらの個人情報は製品管理者が手動で削除する必要があります。',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.self':
-    'ページや課題に入力された名前やメール アドレスなど、あなたや他の人が作成したコンテンツから個人情報が削除されることはありません。これらの個人情報は製品管理者が手動で削除する必要があります。',
+    'ページや作業項目に入力された名前やメール アドレスなど、あなたと他のユーザーが作成したコンテンツから個人情報が削除されることはありません。これらの情報は製品管理者が手動で削除する必要があります。',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.admin':
     'ユーザーは自国の監督当局に苦情を提起する権利を有しています。',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.self':

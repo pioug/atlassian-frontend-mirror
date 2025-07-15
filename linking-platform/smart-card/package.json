@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "39.4.0",
+	"version": "40.0.1",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -257,6 +257,12 @@
 			"type": "boolean"
 		},
 		"platform-linking-enable-avatar-data-separator": {
+			"type": "boolean"
+		},
+		"platform_editor_inline_card_selected_state_fix": {
+			"type": "boolean"
+		},
+		"platform-linking-fix-smart-card-avatar-overrides": {
 			"type": "boolean"
 		}
 	},

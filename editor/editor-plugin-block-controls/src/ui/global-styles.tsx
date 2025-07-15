@@ -421,10 +421,7 @@ export const GlobalStylesWrapper = ({
 				globalDnDStyle,
 				extendedHoverZone(),
 				isDragging && extendedDragZone,
-				editorExperiment('platform_editor_controls', 'variant1') &&
-				fg('platform_editor_controls_widget_visibility')
-					? undefined
-					: withInlineNodeStyle,
+				editorExperiment('platform_editor_controls', 'variant1') ? undefined : withInlineNodeStyle,
 				editorExperiment('platform_editor_block_control_optimise_render', true)
 					? quickInsertStyles
 					: undefined,

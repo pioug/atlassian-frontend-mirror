@@ -6,8 +6,18 @@ import {
 	type WithTraceContext,
 } from '@atlaskit/media-common';
 import { type MediaFileEventPayload } from './_mediaFile';
+import { fg } from '@atlaskit/platform-feature-flags';
 
-export type LoadSucceededAttributes = SuccessAttributes & WithFileAttributes & WithTraceContext;
+type WithFeatureFlags = {
+	featureFlags: {
+		media_document_viewer: boolean;
+	};
+};
+
+export type LoadSucceededAttributes = SuccessAttributes &
+	WithFileAttributes &
+	WithTraceContext &
+	WithFeatureFlags;
 
 export type LoadSucceededEventPayload = MediaFileEventPayload<
 	LoadSucceededAttributes,
@@ -33,6 +43,9 @@ export const createLoadSucceededEvent = (
 				fileSize,
 			},
 			traceContext: fileMediatype === 'image' ? traceContext : undefined,
+			featureFlags: {
+				media_document_viewer: fg('media_document_viewer'),
+			},
 		},
 	};
 };

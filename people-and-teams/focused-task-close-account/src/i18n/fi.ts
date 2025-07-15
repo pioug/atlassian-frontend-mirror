@@ -67,7 +67,7 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin':
     'Esimerkiksi, sivut, asiat ja kommentit, jotka hän on luonut tuotteissa.',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':
-    'Esimerkiksi, sivut, asiat ja kommentit, jotka olet luonut tuotteissa.',
+    'Esimerkiksi sivut, työtehtävät ja kommentit, jotka olet luonut tuotteissa.',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.admin':
     'Sinä tai muut käyttäjät olette ehkä asentaneet sovelluksia, jotka lisäävät ominaisuuksia Atlassian-tuotteisiin. Nämä sovellukset ovat saattaneet tallentaa käyttäjän profiilitietoja.',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.self':
@@ -89,9 +89,9 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p1.self':
     'Säilytämme henkilötietoja rajoitetun ajanjakson ajan laillisia liiketoiminnallisia tai oikeudellisia tarkoituksia varten. Esimerkkejä näistä:',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.admin':
-    'Emme poista mitään henkilötietoja käyttäjien luomasta sisällöstä, kuten nimiä tai sähköpostiosoitteita, joita he kirjoittivat sivulle tai asiaan. Tuotteen pääkäyttäjien tulee poistaa nämä tiedot manuaalisesti.',
+    'Emme poista käyttäjien luomasta sisällöstä mitään henkilötietoja, kuten nimiä tai sähköpostiosoitteita, jotka he kirjoittivat sivulle tai työtehtävään. Tuotteen ylläpitäjien tulee poistaa nämä tiedot manuaalisesti.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.self':
-    'Emme poista mitään henkilötietoja sinun tai muiden luomasta sisällöstä, kuten nimiä tai sähköpostiosoitteita, joita he kirjoittivat sivulle tai asiaan. Tuotteen pääkäyttäjiesi tulee poistaa nämä tiedot manuaalisesti.',
+    'Emme poista sinun tai muiden luomasta sisällöstä mitään henkilötietoja, kuten nimiä tai sähköpostiosoitteita, jotka kirjoitettiin sivulle tai työtehtävään. Tuotteesi ylläpitäjien tulee poistaa nämä tiedot manuaalisesti.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.admin':
     'Käyttäjillä on oikeus jättää valituksia maansa valvontaviranomaisille.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.self':

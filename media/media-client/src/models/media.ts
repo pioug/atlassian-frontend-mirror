@@ -17,6 +17,10 @@ export type AbuseClassification = {
 	confidence: 'HIGH' | 'MEDIUM' | 'LOW' | 'SYNTHETIC';
 };
 
+export type FileMediaMetadata = {
+	duration?: number;
+};
+
 export type MediaFile = {
 	readonly id: string;
 	readonly mediaType: MediaType;
@@ -30,6 +34,7 @@ export type MediaFile = {
 	readonly hash?: string;
 	readonly metadataTraceContext?: MediaTraceContext;
 	readonly abuseClassification?: AbuseClassification;
+	readonly mediaMetadata?: FileMediaMetadata;
 };
 
 export type MediaItemDetails = {
@@ -44,6 +49,7 @@ export type MediaItemDetails = {
 	readonly hash?: string;
 	readonly metadataTraceContext?: MediaTraceContext;
 	readonly abuseClassification?: AbuseClassification;
+	readonly mediaMetadata?: FileMediaMetadata;
 };
 
 export type NotFoundMediaItemDetails = {

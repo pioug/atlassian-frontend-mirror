@@ -1,5 +1,13 @@
 # @atlaskit/media-state
 
+## 1.8.0
+
+### Minor Changes
+
+- [#185135](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185135)
+  [`3d2527a53b492`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d2527a53b492) -
+  Add media metadata fields to relevant types/mappings
+
 ## 1.7.0
 
 ### Minor Changes

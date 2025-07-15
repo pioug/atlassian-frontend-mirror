@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 9.6.0
+
+### Minor Changes
+
+- [#185643](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185643)
+  [`5954e6c1fbac5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5954e6c1fbac5) -
+  [ux] [ED-28432] Add orange highlight color and reorder color swatches
+
 ## 9.5.0
 
 ### Minor Changes

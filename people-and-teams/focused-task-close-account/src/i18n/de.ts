@@ -70,7 +70,7 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin':
     'Zum Beispiel Seiten, Vorgänge und Kommentare, die in den Produkten erstellt wurden.',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':
-    'Zum Beispiel Seiten, Vorgänge und Kommentare, die Sie in den Produkten erstellt haben.',
+    'Dies gilt beispielsweise für Seiten, Vorgänge und Kommentare, die Sie in Produkten erstellt haben.',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.admin':
     'Sie und andere Benutzer haben ggf. installierte Apps, die Funktionen zu Atlassian-Produkten hinzufügen. Diese Apps haben ggf. die Profilinformationen des Benutzers gespeichert.',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.self':
@@ -92,9 +92,9 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p1.self':
     'Wir speichern personenbezogene Daten für einen begrenzten Zeitraum, wenn wir dafür notwendige geschäftliche oder legale Zwecke haben. Dazu gehören unter anderem:',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.admin':
-    'Wir löschen keine personenbezogenen Daten von von anderen Personen erstellten Inhalten, wie Namen oder E-Mail-Adressen, die in eine Seite oder einen Vorgang eingegeben wurden. Die Produktadministratoren müssen diese Daten manuell löschen.',
+    'Wir löschen keine personenbezogenen Daten in von anderen Personen erstellten Inhalten, wie Namen oder E-Mail-Adressen, die in eine Seite oder einen Vorgang eingegeben wurden. Die Produktadministratoren müssen diese Daten manuell löschen.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.self':
-    'Wir löschen keine personenbezogenen Daten von von Ihnen oder anderen Personen erstellten Inhalten, wie Namen oder E-Mail-Adressen, die in eine Seite oder einen Vorgang eingegeben wurden. Ihre Produktadministratoren müssen diese Daten manuell löschen.',
+    'Wir löschen keine personenbezogenen Daten in von Ihnen oder anderen Personen erstellten Inhalten, wie Namen oder E-Mail-Adressen, die in eine Seite oder einen Vorgang eingegeben wurden. Die Produktadministratoren müssen diese Daten manuell löschen.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.admin':
     'Benutzer haben das Recht, Beschwerde bei einer Aufsichtsbehörde in ihrem Land einzureichen.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.self':

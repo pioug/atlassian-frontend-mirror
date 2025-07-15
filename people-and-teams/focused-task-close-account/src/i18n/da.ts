@@ -68,7 +68,7 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin':
     'For eksempel sider, opgaver og kommentarer, personen har tilføjet til produkter.',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':
-    'For eksempel sider, opgaver og kommentarer, du har tilføjet til produkter.',
+    'Det gælder bl.a. sider, sager og kommentarer, du har oprettet i produkter.',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.admin':
     'Du og andre brugere kan have installeret apps, der tilføjer funktioner til Atlassian-produkter. Disse apps kan indeholde brugerens profiloplysninger.',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.self':
@@ -90,9 +90,9 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p1.self':
     'Vi beholder private oplysninger i begrænsede tidsrum, når de er påkrævede til drift af lovlig virksomhed eller juridiske formål. Eksempler omfatter:',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.admin':
-    'Vi sletter ikke private oplysninger fra indhold, brugere har oprettet, såsom navne og e-mailadresser, de har indtastet på en side eller i en opgave. Disse oplysninger skal slettes manuelt af produktadministratorerne.',
+    'Vi sletter ikke personoplysninger, såsom navne og e-mailadresser, som brugere har indtastet på en side eller i en sag, fra indhold, som de har oprettet. Disse oplysninger skal produktadministratorerne slette manuelt.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.self':
-    'Vi sletter ikke private oplysninger fra indhold, brugere har oprettet, såsom navne og e-mailadresser, de har indtastet på en side eller i en opgave. Disse oplysninger skal slettes manuelt af produktadministratorerne.',
+    'Vi sletter ikke private oplysninger, såsom navne og e-mailadresser, som brugere har indtastet på en side eller i en sag, fra indhold, de har oprettet. Disse oplysninger skal produktadministratorerne slette manuelt.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.admin':
     'Brugere har ret til at indsende klager til den relevante myndighed i deres land.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.self':

@@ -39,6 +39,16 @@ const styles = cssMap({
 		paddingBottom: token('space.0'),
 		paddingLeft: token('space.0'),
 	},
+	detailedListWrapperNext: {
+		marginTop: token('space.400'),
+		marginRight: token('space.0'),
+		marginBottom: token('space.0'),
+		marginLeft: token('space.0'),
+		paddingTop: token('space.0'),
+		paddingRight: token('space.0'),
+		paddingBottom: token('space.0'),
+		paddingLeft: token('space.0'),
+	},
 	fullNameLabel: {
 		overflow: 'hidden',
 		textOverflow: 'ellipsis',
@@ -258,14 +268,25 @@ export const ProfileCardDetails = (props: ProfilecardProps & AnalyticsWithDurati
 			{renderName(props.nickname, props.fullName, meta)}
 			{meta && <JobTitleLabel>{meta}</JobTitleLabel>}
 			<CustomLozenges lozenges={props.customLozenges} />
-			<Box as="dl" xcss={styles.detailedListWrapper}>
-				<IconLabel icon="email" extraTopSpace={true}>
-					{props.email}
-				</IconLabel>
-				<IconLabel icon="time">{props.timestring}</IconLabel>
-				<IconLabel icon="companyName">{props.companyName}</IconLabel>
-				<IconLabel icon="location">{props.location}</IconLabel>
-			</Box>
+			{fg('fix_profilecard_details_label_semantic_html') ? (
+				<Box xcss={styles.detailedListWrapperNext}>
+					<IconLabel icon="email" extraTopSpace={true}>
+						{props.email}
+					</IconLabel>
+					<IconLabel icon="time">{props.timestring}</IconLabel>
+					<IconLabel icon="companyName">{props.companyName}</IconLabel>
+					<IconLabel icon="location">{props.location}</IconLabel>
+				</Box>
+			) : (
+				<Box as="dl" xcss={styles.detailedListWrapper}>
+					<IconLabel icon="email" extraTopSpace={true}>
+						{props.email}
+					</IconLabel>
+					<IconLabel icon="time">{props.timestring}</IconLabel>
+					<IconLabel icon="companyName">{props.companyName}</IconLabel>
+					<IconLabel icon="location">{props.location}</IconLabel>
+				</Box>
+			)}
 
 			<ReportingLinesDetails
 				reportingLines={props.reportingLines}

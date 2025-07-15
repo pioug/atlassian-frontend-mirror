@@ -474,4 +474,13 @@ export const editorExperimentsConfig = {
 		values: ['control', 'all_events', 'only_mousedown_event'],
 		defaultValue: 'control',
 	}),
+	// Added 2025-07-14
+	platform_editor_add_orange_highlight_color: createMultivariateExperiment({
+		productKeys: {
+			confluence: 'platform_editor_add_orange_highlight_color',
+		},
+		param: 'cohort',
+		values: ['control', 'test'],
+		defaultValue: 'control',
+	}),
 } satisfies Record<string, ExperimentConfigValue>;

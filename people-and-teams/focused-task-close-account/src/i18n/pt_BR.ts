@@ -70,7 +70,7 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin':
     'Por exemplo, páginas, itens e comentários que ele(a) criou em produtos.',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':
-    'Por exemplo, páginas, itens e comentários que você criou em produtos.',
+    'Por exemplo, páginas, tickets e comentários que você criou em produtos.',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.admin':
     'Você ou outros usuários podem ter instalado aplicativos que adicionam funções aos produtos da Atlassian. Esses aplicativos podem ter armazenado as informações de perfil do usuário.',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.self':
@@ -92,9 +92,9 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p1.self':
     'Mantemos dados pessoais por períodos limitados quando temos fins comerciais ou legais legítimos. Alguns exemplos incluem:',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.admin':
-    'Não excluímos dados pessoais de conteúdos criados por usuários, como nomes e endereços de e-mail digitados em uma página ou item. Os administradores do produto precisam excluir esses dados manualmente.',
+    'A gente não exclui nenhum dado pessoal do conteúdo criado pelos usuários, como nomes ou endereços de e-mail que eles digitaram em uma página ou ticket. Os administradores do produto precisam fazer a exclusão manual desses dados.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.self':
-    'Não excluímos dados pessoais de conteúdos criados por você ou outras pessoas, como nomes e endereços de e-mail digitados em uma página ou item. Seus administradores do produto precisam excluir esses dados manualmente.',
+    'A gente não exclui nenhum dado pessoal do conteúdo criado por você ou por outras pessoas, como nomes ou endereços de e-mail digitados em uma página ou ticket. Os administradores do produto precisam fazer a exclusão manual desses dados.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.admin':
     'Usuários têm o direito de enviar queixas à autoridade fiscalizadora do seu país.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.self':

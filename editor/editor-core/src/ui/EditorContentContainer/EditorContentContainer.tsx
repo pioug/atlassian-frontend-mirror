@@ -57,9 +57,8 @@ import {
 import { extensionStyles } from './styles/extensionStyles';
 import {
 	findReplaceStyles,
-	findReplaceStylesNewMagenta,
-	findReplaceStylesNewMagentaNoImportant,
-	findReplaceStylesNewYellow,
+	findReplaceStylesNew,
+	findReplaceStylesNewNoImportant,
 } from './styles/findReplaceStyles';
 import { firstBlockNodeStyles } from './styles/firstBlockNodeStyles';
 import { firstFloatingToolbarButtonStyles } from './styles/floatingToolbarStyles';
@@ -309,14 +308,11 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					fg('platform-visual-refresh-icons') && expandStylesMixin_fg_platform_visual_refresh_icons,
 					expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
-						? fg('platform_editor_find_and_replace_magenta_match')
-							? fg('platform_editor_find_and_replace_improvements_1')
-								? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-									findReplaceStylesNewMagentaNoImportant
-								: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-									findReplaceStylesNewMagenta
+						? fg('platform_editor_find_and_replace_improvements_1')
+							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+								findReplaceStylesNewNoImportant
 							: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-								findReplaceStylesNewYellow
+								findReplaceStylesNew
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							findReplaceStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

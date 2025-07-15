@@ -3,6 +3,7 @@ import { UFOExperience, ExperiencePerformanceTypes, ExperienceTypes } from '@atl
 import { type FileAttributes } from '@atlaskit/media-common';
 import { getMediaEnvironment, getMediaRegion, type RequestMetadata } from '@atlaskit/media-client';
 import { getFeatureFlagKeysAllProducts } from '@atlaskit/media-common';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type PrimaryErrorReason } from '../errors';
 import { type FileStateFlags } from '../components/types';
@@ -51,6 +52,7 @@ export const succeedMediaFileUfoExperience = (properties?: UFOSucceedEventPayloa
 			packageVersion,
 			mediaEnvironment: getMediaEnvironment(),
 			mediaRegion: getMediaRegion(),
+			isMediaDocumentViewerEnabled: fg('media_document_viewer'),
 		},
 	});
 };
@@ -62,6 +64,7 @@ export const failMediaFileUfoExperience = (properties?: UFOFailedEventPayload) =
 		packageVersion,
 		mediaEnvironment: getMediaEnvironment(),
 		mediaRegion: getMediaRegion(),
+		isMediaDocumentViewerEnabled: fg('media_document_viewer'),
 	};
 	getExperience().failure({ metadata: refinedMetadata });
 };

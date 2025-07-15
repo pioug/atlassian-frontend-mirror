@@ -41,6 +41,11 @@ const mainElementStyles = cssMap({
 			position: 'sticky',
 		},
 	},
+	containPaint: {
+		// Clips children that go outside of the slot.
+		// This is effectively already the case due to Main having the lowest z-index of the slots + having its own stacking context.
+		contain: 'paint',
+	},
 });
 
 /**
@@ -99,7 +104,18 @@ export function Main({
 				data-layout-slot
 				className={xcss}
 				role="main"
-				css={[mainElementStyles.root, isFixed && mainElementStyles.fixedContentArea]}
+				css={[
+					mainElementStyles.root,
+					isFixed && mainElementStyles.fixedContentArea,
+					/**
+					 * When enabled the Main slot will:
+					 *
+					 * - clip any children that extend outside (effectively what happened before anyway due to z-indexing)
+					 * - become the containing block for absolute and fixed position descendants
+					 * - act as the boundary for popups, so they will flip and shift to stay inside of Main
+					 */
+					fg('platform_dst_nav4_layering_in_main_slot_fixes') && mainElementStyles.containPaint,
+				]}
 				data-testid={testId}
 			>
 				<MainStickyContext.Provider value={Boolean(isFixed)}>{children}</MainStickyContext.Provider>

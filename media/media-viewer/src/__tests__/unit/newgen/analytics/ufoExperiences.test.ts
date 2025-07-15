@@ -88,6 +88,7 @@ describe('ufoExperience', () => {
 							wasStatusUploading: false,
 							wasStatusProcessing: false,
 						},
+						isMediaDocumentViewerEnabled: false,
 					},
 				});
 			});
@@ -101,6 +102,7 @@ describe('ufoExperience', () => {
 						packageVersion: expect.any(String),
 						mediaEnvironment: mockMediaEnvironment,
 						mediaRegion: mockMediaRegion,
+						isMediaDocumentViewerEnabled: false,
 					},
 				});
 			});
@@ -131,6 +133,7 @@ describe('ufoExperience', () => {
 							wasStatusUploading: false,
 							wasStatusProcessing: false,
 						},
+						isMediaDocumentViewerEnabled: false,
 					},
 				});
 			});
@@ -144,6 +147,7 @@ describe('ufoExperience', () => {
 						packageVersion: expect.any(String),
 						mediaEnvironment: mockMediaEnvironment,
 						mediaRegion: mockMediaRegion,
+						isMediaDocumentViewerEnabled: false,
 					},
 				});
 			});

@@ -20,7 +20,6 @@ import { findParentNode, findParentNodeOfType } from '@atlaskit/editor-prosemirr
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import AddIcon from '@atlaskit/icon/core/add';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Pressable, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -54,18 +53,6 @@ import { VisibilityContainer } from './visibility-container';
 
 const TEXT_PARENT_TYPES = ['paragraph', 'heading', 'blockquote', 'taskItem', 'decisionItem'];
 
-const disabledStyles = xcss({
-	pointerEvents: 'none',
-
-	':hover': {
-		backgroundColor: 'color.background.disabled',
-	},
-
-	':active': {
-		backgroundColor: 'color.background.disabled',
-	},
-});
-
 const stickyButtonStyles = xcss({
 	top: '0',
 	position: 'sticky',
@@ -98,10 +85,6 @@ const stickyButtonStyles = xcss({
 const containerStaticStyles = xcss({
 	position: 'absolute',
 	zIndex: 'card',
-});
-
-const disabledContainerStyles = xcss({
-	cursor: 'not-allowed',
 });
 
 const tooltipContainerStyles = css({
@@ -159,7 +142,6 @@ export const TypeAheadControl = ({
 		api,
 		'featureFlags.macroInteractionUpdates',
 	);
-	const isTypeAheadOpen = useSharedPluginStateSelector(api, 'typeAhead.isOpen');
 
 	const [positionStyles, setPositionStyles] = useState<React.CSSProperties>({ display: 'none' });
 
@@ -370,25 +352,11 @@ export const TypeAheadControl = ({
 				testId="editor-quick-insert-button"
 				type="button"
 				aria-label={formatMessage(messages.insert)}
-				xcss={[
-					stickyButtonStyles,
-					isTypeAheadOpen && !fg('platform_editor_controls_widget_visibility')
-						? disabledStyles
-						: undefined,
-				]}
+				xcss={[stickyButtonStyles]}
 				onClick={handleQuickInsert}
 				onMouseDown={handleMouseDown}
-				isDisabled={!fg('platform_editor_controls_widget_visibility') && isTypeAheadOpen}
 			>
-				<AddIcon
-					label="add"
-					color={
-						isTypeAheadOpen && !fg('platform_editor_controls_widget_visibility')
-							? token('color.icon.disabled')
-							: token('color.icon.subtle')
-					}
-					size="small"
-				/>
+				<AddIcon label="add" color={token('color.icon.subtle')} size="small" />
 			</Pressable>
 		</Tooltip>
 	);
@@ -397,12 +365,7 @@ export const TypeAheadControl = ({
 		<Box
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={positionStyles}
-			xcss={[
-				containerStaticStyles,
-				isTypeAheadOpen &&
-					!fg('platform_editor_controls_widget_visibility') &&
-					disabledContainerStyles,
-			]}
+			xcss={[containerStaticStyles]}
 		>
 			<span
 				css={[

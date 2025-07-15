@@ -25,6 +25,9 @@ import {
 import {
 	TeamContainersQuery,
 	type TeamContainersQueryResponse,
+	TeamContainersQueryV2,
+	type TeamContainersQueryV2Response,
+	type TeamContainersQueryV2Variables,
 	type TeamContainersQueryVariables,
 } from './utils/queries/team-containers-query';
 
@@ -39,22 +42,104 @@ export class AGGClient extends BaseGraphQlClient {
 	async getTeamContainers(teamId: string) {
 		const teamAri = teamIdToAri(teamId);
 		const cypherQuery = `MATCH (team:IdentityTeam {ari: '${teamAri}'})-[:team_connected_to_container]->(container) RETURN container`;
-		const response = await this.makeGraphQLRequest<
-			'graphStore',
-			TeamContainersQueryResponse,
-			TeamContainersQueryVariables
-		>(
-			{
-				query: TeamContainersQuery,
-				variables: {
-					cypherQuery,
+
+		if (fg('teams_containers_cypher_query_v2_migration')) {
+			const response = await this.makeGraphQLRequest<
+				'graphStore',
+				TeamContainersQueryV2Response,
+				TeamContainersQueryV2Variables
+			>(
+				{
+					query: TeamContainersQueryV2,
+					variables: {
+						cypherQuery,
+						params: {
+							id: teamAri,
+						},
+					},
 				},
+				{
+					operationName: 'TeamContainersQueryV2',
+				},
+			);
+
+			return this.processV2Response(response);
+		} else {
+			const response = await this.makeGraphQLRequest<
+				'graphStore',
+				TeamContainersQueryResponse,
+				TeamContainersQueryVariables
+			>(
+				{
+					query: TeamContainersQuery,
+					variables: {
+						cypherQuery,
+					},
+				},
+				{
+					operationName: 'TeamContainersQuery',
+				},
+			);
+
+			return this.processV1Response(response);
+		}
+	}
+
+	private processV2Response(response: { graphStore: TeamContainersQueryV2Response }) {
+		const containersResult = response.graphStore.cypherQueryV2.edges.reduce<TeamContainers>(
+			(containers, edge) => {
+				edge.node.columns.forEach((column) => {
+					const containerData = column.value?.data;
+
+					if (!containerData && fg('enable_team_containers_null_check')) {
+						return;
+					}
+
+					if (containerData?.__typename === 'ConfluenceSpace') {
+						containers.push({
+							id: containerData.id,
+							type: containerData.__typename,
+							name: containerData.confluenceSpaceName || '',
+							icon: `${containerData.links.base}${containerData.icon.path}`,
+							createdDate: new Date(containerData.createdDate),
+							link: `${containerData.links.base}${containerData.links.webUi}`,
+							containerTypeProperties: {
+								subType: undefined,
+								name: undefined,
+							},
+						});
+					} else if (containerData?.__typename === 'JiraProject') {
+						containers.push({
+							id: containerData.id,
+							type: containerData.__typename,
+							name: containerData.jiraProjectName,
+							icon: containerData.avatar.medium,
+							createdDate: new Date(containerData.created),
+							link: containerData.webUrl,
+							containerTypeProperties: {
+								subType: containerData.projectType || '',
+								name: containerData.projectTypeName || '',
+							},
+						});
+					} else if (containerData?.__typename === 'LoomSpace') {
+						containers.push({
+							id: containerData.id,
+							type: containerData.__typename,
+							name: containerData.loomSpaceName,
+							icon: '',
+							link: containerData.url,
+						});
+					}
+				});
+				return containers;
 			},
-			{
-				operationName: 'TeamContainersQuery',
-			},
+			[],
 		);
 
+		return containersResult;
+	}
+
+	private processV1Response(response: { graphStore: TeamContainersQueryResponse }) {
 		const containersResult = response.graphStore.cypherQuery.edges.reduce<TeamContainers>(
 			(containers, edge) => {
 				if (!edge.node.to.data && fg('enable_team_containers_null_check')) {

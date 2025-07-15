@@ -349,6 +349,9 @@ describe('<ItemViewer />', () => {
 						fileMediatype: 'image',
 						status: 'success',
 						traceContext: { traceId: expect.any(String) },
+						featureFlags: {
+							media_document_viewer: false,
+						},
 					},
 					eventType: 'operational',
 				}),
@@ -474,6 +477,9 @@ describe('<ItemViewer />', () => {
 							fileMediatype: undefined,
 							fileMimetype: undefined,
 							fileSize: undefined,
+						},
+						featureFlags: {
+							media_document_viewer: false,
 						},
 					},
 					eventType: 'operational',

@@ -1,5 +1,26 @@
 # @atlaskit/editor-common
 
+## 107.8.0
+
+### Minor Changes
+
+- [#185643](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185643)
+  [`5954e6c1fbac5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5954e6c1fbac5) -
+  [ux] [ED-28432] Add orange highlight color and reorder color swatches
+
+### Patch Changes
+
+- Updated dependencies
+
+## 107.7.7
+
+### Patch Changes
+
+- [#184257](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/184257)
+  [`eec473181c818`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eec473181c818) -
+  Cleanup platform_editor_react18_mention_with_provider_jira fg
+- Updated dependencies
+
 ## 107.7.6
 
 ### Patch Changes

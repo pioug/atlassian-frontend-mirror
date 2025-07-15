@@ -1,5 +1,13 @@
 # @atlaskit/page
 
+## 14.0.1
+
+### Patch Changes
+
+- [#184487](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/184487)
+  [`68f58b418f244`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/68f58b418f244) -
+  Internal refactoring of visual regression tests.
+
 ## 14.0.0
 
 ### Major Changes

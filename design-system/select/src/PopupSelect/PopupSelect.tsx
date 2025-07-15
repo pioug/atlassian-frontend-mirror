@@ -10,6 +10,7 @@ import { Manager, type Modifier, Popper, type PopperProps, Reference } from 'rea
 import { shallowEqualObjects } from 'shallow-equal';
 
 import { IdProvider } from '@atlaskit/ds-lib/use-id';
+import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	type GroupBase,
 	mergeStyles,
@@ -44,7 +45,7 @@ const canUseDOM = () =>
 // Types
 // ==============================
 
-type defaultModifiers = 'offset' | 'preventOverflow';
+type defaultModifiers = 'offset' | 'preventOverflow' | 'flip';
 
 type PopperPropsNoChildren<Modifiers> = Omit<PopperProps<Modifiers>, 'children'>;
 
@@ -164,7 +165,7 @@ interface State<Modifiers = string> {
 // Class
 // ==============================
 
-const modifiers: Modifier<'offset' | 'preventOverflow'>[] = [
+const modifiers: Modifier<defaultModifiers>[] = [
 	{ name: 'offset', options: { offset: [0, 8] } },
 	{
 		name: 'preventOverflow',
@@ -178,8 +179,47 @@ const modifiers: Modifier<'offset' | 'preventOverflow'>[] = [
 	},
 ];
 
+/**
+ * The new defaults match the default modifiers of `@atlaskit/popper`.
+ *
+ * In the future we should investigate using `@atlaskit/popper` instead of
+ * consuming `react-popper` directly.
+ *
+ * Previously the select popup would slide over the trigger to try to stay visible.
+ * This behavior could actually cause it to go offscreen.
+ *
+ * Now it will stay anchored above / below the trigger and cause the
+ * clipping parent to scroll if necessary. This aligns with other popups.
+ */
+const newDefaultModifiers: Modifier<defaultModifiers>[] = [
+	{ name: 'offset', options: { offset: [0, 8] } },
+	{
+		name: 'preventOverflow',
+		enabled: true,
+		options: {
+			padding: 5,
+			boundary: 'clippingParents',
+			rootBoundary: 'document',
+		},
+	},
+	{
+		name: 'flip',
+		options: {
+			flipVariations: false,
+			padding: 5,
+			boundary: 'clippingParents',
+			rootBoundary: 'viewport',
+		},
+	},
+];
+
 const defaultPopperProps: PopperPropsNoChildren<defaultModifiers> = {
 	modifiers,
+	placement: 'bottom-start' as Placement,
+};
+
+const newDefaultPopperProps: PopperPropsNoChildren<defaultModifiers> = {
+	modifiers: newDefaultModifiers,
 	placement: 'bottom-start' as Placement,
 };
 
@@ -211,7 +251,9 @@ export default class PopupSelect<
 		focusLockEnabled: false,
 		isOpen: this.defaultOpenState ?? false,
 		mergedComponents: defaultComponents,
-		mergedPopperProps: defaultPopperProps as PopperPropsNoChildren<defaultModifiers | string>,
+		mergedPopperProps: (fg('platform_dst_nav4_layering_in_main_slot_fixes')
+			? newDefaultPopperProps
+			: defaultPopperProps) as PopperPropsNoChildren<defaultModifiers | string>,
 	};
 
 	static defaultProps = {
@@ -232,7 +274,12 @@ export default class PopupSelect<
 		const newState: Partial<State> = {};
 
 		// Merge consumer and default popper props
-		const mergedPopperProps = { ...defaultPopperProps, ...props.popperProps };
+		const mergedPopperProps = {
+			...(fg('platform_dst_nav4_layering_in_main_slot_fixes')
+				? newDefaultPopperProps
+				: defaultPopperProps),
+			...props.popperProps,
+		};
 		if (!shallowEqualObjects(mergedPopperProps, state.mergedPopperProps)) {
 			newState.mergedPopperProps = mergedPopperProps;
 		}

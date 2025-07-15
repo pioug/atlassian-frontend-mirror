@@ -69,7 +69,7 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin':
     'Por ejemplo, páginas, incidencias y comentarios que han creado en los productos.',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':
-    'Por ejemplo, páginas, incidencias y comentarios que has creado en los productos.',
+    'Por ejemplo, páginas, actividades y comentarios que hayas creado en los productos.',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.admin':
     'Es posible que tú u otros usuarios hayáis instalado aplicaciones que añadan funciones a los productos de Atlassian. Estas aplicaciones pueden haber almacenado la información del perfil del usuario.',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.self':
@@ -91,9 +91,9 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p1.self':
     'En caso de que los datos personales sean necesarios para fines empresariales o legales legítimos, los conservamos durante períodos de tiempo limitados. Por ejemplo:',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.admin':
-    'No eliminamos ningún dato personal del contenido creado por los usuarios, como nombres o direcciones de correo electrónico escritas en una página o una incidencia. Los administradores del producto son quienes deben eliminar esos datos manualmente.',
+    'No eliminamos ningún dato personal del contenido creado por los usuarios, como nombres o direcciones de correo electrónico escritas en una página o una actividad. Los administradores de productos son quienes deben eliminar esos datos manualmente.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.self':
-    'No eliminamos ningún dato personal del contenido que creas tú o crean otras personas, como nombres o direcciones de correo electrónico escritas en una página o una incidencia. Los administradores del producto son quienes deben eliminar esos datos manualmente.',
+    'No eliminamos ningún dato personal del contenido creado por ti u otras personas, como nombres o direcciones de correo electrónico escritas en una página o una actividad. Los administradores del producto son quienes deben eliminar esos datos manualmente.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.admin':
     'Los usuarios tienen derecho a presentar denuncias a la autoridad de control de su país.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.self':

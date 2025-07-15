@@ -90,6 +90,7 @@ export {
 	FollowAction,
 	PreviewAction,
 	UnresolvedAction,
+	CustomUnresolvedAction,
 } from './view/FlexibleCard/external';
 export type {
 	ActionItem,

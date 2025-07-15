@@ -378,90 +378,12 @@ test.describe('legacy CSS variables - platform_design_system_nav4_live_resizing_
  * For the side nav variable, this behavior was implemented under a different flag than the other slots.
  * It had existing test coverage, but it didn't test the variable directly like this test suite does.
  * Adding these tests here for consistency.
+ *
+ * TODO: when cleaning up platform_design_system_nav4_live_resizing_css_vars merge this describe into the above.
  */
-test.describe('legacy CSS variables - platform_design_system_nav4_preview_panel_support disabled', () => {
+test.describe('legacy CSS variables', () => {
 	test('sidenav CSS variable does not update until drag finishes', async ({ page }) => {
 		await page.visitExample('design-system', 'navigation-system', 'legacy-var-testing');
-
-		// Only Main + SideNav will be mounted
-		await page.getByRole('radio', { name: 'SideNav' }).click();
-
-		const sideNav = page.getByRole('navigation', { name: 'Side navigation' });
-		const legacyVarSpy = page.getByTestId('legacy-var-spy');
-
-		// Width should be 320px by default (defined in the example)
-		await expect(sideNav).toHaveWidth(320);
-
-		// The legacy var should have the same width as the panel
-		await expect(legacyVarSpy).toHaveWidth(320);
-
-		// Resize the aside `100px` right
-		await dragByOffset({
-			page,
-			locator: page.getByTestId('side-nav-slot-panel-splitter'),
-			offset: { x: 100, y: 0 },
-			shouldDrop: false,
-		});
-
-		// The legacy var has not been updated yet
-		await expect(legacyVarSpy).toHaveWidth(320);
-
-		// End the drag
-		await page.mouse.up();
-
-		// The legacy var has now been updated after the drop
-		await expect(legacyVarSpy).toHaveWidth(420);
-	});
-
-	test('sidenav CSS variable resolves to 0px when it is an overlay', async ({ page }) => {
-		// Small viewport so that the SideNav is an overlay
-		await page.setViewportSize(viewportSize.small);
-
-		await page.visitExample('design-system', 'navigation-system', 'legacy-var-testing');
-
-		// Only Main + SideNav will be mounted
-		await page.getByRole('radio', { name: 'SideNav' }).click();
-
-		const sideNav = page.getByRole('navigation', { name: 'Side navigation' });
-		const legacyVarSpy = page.getByTestId('legacy-var-spy');
-
-		await page.getByRole('button', { name: 'Expand sidebar' }).click();
-
-		// Width should be 320px by default (defined in the example)
-		await expect(sideNav).toHaveWidth(320);
-
-		// The legacy var resolves to 0px because the SideNav is an overlay
-		await expect(legacyVarSpy).toHaveWidth(0);
-
-		// Resize the panel `100px` right
-		await dragByOffset({
-			page,
-			locator: page.getByTestId('side-nav-slot-panel-splitter'),
-			offset: { x: 100, y: 0 },
-			shouldDrop: false,
-		});
-
-		// The legacy var resolves to 0px because the SideNav is an overlay
-		await expect(legacyVarSpy).toHaveWidth(0);
-
-		// End the drag
-		await page.mouse.up();
-
-		// The legacy var resolves to 0px because the SideNav is an overlay
-		await expect(legacyVarSpy).toHaveWidth(0);
-	});
-});
-
-/**
- * For the side nav variable, this behavior was implemented under a different flag than the other slots.
- * It had existing test coverage, but it didn't test the variable directly like this test suite does.
- * Adding these tests here for consistency.
- */
-test.describe('legacy CSS variables - platform_design_system_nav4_preview_panel_support enabled', () => {
-	test('sidenav CSS variable does not update until drag finishes', async ({ page }) => {
-		await page.visitExample('design-system', 'navigation-system', 'legacy-var-testing', {
-			featureFlag: 'platform_design_system_nav4_preview_panel_support',
-		});
 
 		// Only Main + SideNav will be mounted
 		await page.getByRole('radio', { name: 'SideNav' }).click();

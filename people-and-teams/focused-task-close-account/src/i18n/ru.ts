@@ -68,7 +68,7 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin':
     'Например, его страницы, задачи и комментарии в продуктах.',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':
-    'Например, ваши страницы, задачи и комментарии в продуктах.',
+    'Например, страницы, задачи и комментарии в продуктах.',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.admin':
     'Возможно, вы или другие пользователи устанавливали приложения, расширяющие функции продуктов Atlassian. В таких приложениях также может храниться информация из профилей пользователей.',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.self':
@@ -90,9 +90,9 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p1.self':
     'В силу юридических причин мы храним личные данные пользователей в течение ограниченного времени. Вот несколько примеров:',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.admin':
-    'Мы не удаляем личные данные из контента, созданного пользователями (например, имена и адреса электронной почты, указанные на странице или в задаче). Эти данные удаляют администраторы вручную.',
+    'Мы не удаляем персональные данные из контента, созданного пользователями (например, имена или адреса электронной почты, указанные на странице или в задаче). Администраторы продукта должны удалить эти данные вручную.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.self':
-    'Мы не удаляем личные данные из контента, созданного вами или другими пользователями (например, имена и адреса электронной почты, указанные на странице или в задаче). Эти данные удаляют администраторы вручную.',
+    'Мы не удаляем персональные данные из контента, созданного вами или другими пользователями (например, имена или адреса электронной почты, указанные на странице или в задаче). Администраторы продукта должны удалить эти данные вручную.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.admin':
     'Пользователи имеют право подать жалобу в контролирующие органы по месту жительства.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.self':

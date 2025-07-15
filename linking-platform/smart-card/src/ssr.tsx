@@ -4,6 +4,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import uuid from 'uuid';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { CardProps } from './types';
 import { context } from './utils/analytics/analytics';
@@ -31,6 +32,21 @@ export const CardSSR = (props: CardSSRProps) => {
 
 		return <LoadingCardLink {...cardProps} />;
 	};
+
+	if (fg('platform_editor_inline_card_selected_state_fix')) {
+		const Component = cardProps.appearance === 'inline' ? 'span' : 'div';
+
+		return (
+			<AnalyticsContext data={context}>
+				<ErrorBoundary FallbackComponent={errorBoundaryFallbackComponent}>
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
+					<Component className="loader-wrapper">
+						<CardWithUrlContent {...cardProps} />
+					</Component>
+				</ErrorBoundary>
+			</AnalyticsContext>
+		);
+	}
 
 	return (
 		<AnalyticsContext data={context}>

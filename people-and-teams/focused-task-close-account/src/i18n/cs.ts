@@ -67,7 +67,7 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin':
     'Například stránky, požadavky a komentáře, které v produktech vytvořili.',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':
-    'Například stránky, požadavky a komentáře, které jste v produktech vytvořili.',
+    'Například stránky, požadavky a komentáře, které jste vytvořili v produktech.',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.admin':
     'Vy nebo jiní uživatelé jste si mohli nainstalovat aplikace, které přidávají do produktů Atlassian funkce. Tyto aplikace mohly uložit údaje o uživatelském profilu.',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.self':
@@ -89,9 +89,9 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p1.self':
     'Osobní údaje uchováváme po omezenou dobu, z oprávněných obchodních nebo právných důvodů. Některé příklady zahrnují:',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.admin':
-    'Nemažeme žádné osobní údaje z obsahu vytvořeného uživateli, jako jsou jména nebo e-mailové adresy, které uvedli na stránce nebo v požadavku. Administrátoři produktů musí tyto údaje smazat ručně.',
+    'Nemažeme žádné osobní údaje z obsahu vytvořeného uživateli, jako jsou jména nebo e-mailové adresy, které uvedli na stránce nebo v požadavku. Správci produktů musí tyto údaje smazat ručně.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.self':
-    'Nemažeme žádné osobní údaje z obsahu vytvořeného vámi nebo dalšími lidmi, jako jsou jména nebo e-mailové adresy uvedené na stránce nebo v požadavku. Administrátoři vašich produktů musí tyto údaje smazat ručně.',
+    'Nemažeme žádné osobní údaje z obsahu vytvořeného vámi nebo dalšími lidmi, například jména nebo e-mailové adresy uvedené na stránce nebo v požadavku. Správci produktů musí tyto údaje odstranit ručně.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.admin':
     'Uživatelé mají právo podat stížnost dozorovému úřadu ve své zemi.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.self':

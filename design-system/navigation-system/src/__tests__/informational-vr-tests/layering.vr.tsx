@@ -2,6 +2,7 @@ import { Device, type Hooks, type SnapshotTestOptions } from '@af/visual-regress
 import { snapshotInformational } from '@atlassian/gemini';
 
 import { ScrollableNoPanelVR, ScrollableVR } from '../../../examples/composition';
+import { LayersInMainShouldForceOpenLayers } from '../../../examples/layers-in-main';
 
 const mobileOnlyOptions: SnapshotTestOptions<Hooks> = {
 	drawsOutsideBounds: true,
@@ -10,6 +11,17 @@ const mobileOnlyOptions: SnapshotTestOptions<Hooks> = {
 			device: Device.MOBILE_CHROME,
 			environment: { colorScheme: 'light' },
 			name: 'mobile',
+		},
+	],
+};
+
+const desktopOnlyOptions: SnapshotTestOptions<Hooks> = {
+	drawsOutsideBounds: true,
+	variants: [
+		{
+			device: Device.DESKTOP_CHROME,
+			environment: { colorScheme: 'light' },
+			name: 'desktop',
 		},
 	],
 };
@@ -31,5 +43,28 @@ snapshotInformational(ScrollableNoPanelVR, {
 	description: 'Side nav expanded on mobile without panel',
 	prepare: async (page) => {
 		await page.getByTestId('side-nav-toggle-button').click();
+	},
+});
+
+snapshotInformational(LayersInMainShouldForceOpenLayers, {
+	...desktopOnlyOptions,
+	description: 'layers in main slot',
+	featureFlags: {
+		platform_dst_nav4_layering_in_main_slot_fixes: [true, false],
+		'platform-component-visual-refresh': true,
+		platform_design_system_nav4_panel_default_border: true,
+	},
+});
+
+snapshotInformational(LayersInMainShouldForceOpenLayers, {
+	...desktopOnlyOptions,
+	description: 'layers in main slot short viewport',
+	featureFlags: {
+		platform_dst_nav4_layering_in_main_slot_fixes: [true, false],
+		'platform-component-visual-refresh': true,
+		platform_design_system_nav4_panel_default_border: true,
+	},
+	prepare: async (page) => {
+		await page.setViewportSize({ width: 1280, height: 400 });
 	},
 });

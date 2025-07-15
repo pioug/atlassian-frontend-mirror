@@ -65,7 +65,7 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin':
     '예를 들어 사용자가 제품 내에서 만든 페이지, 이슈 및 댓글입니다.',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':
-    '예를 들어 귀하가 제품 내에서 만든 페이지, 이슈 및 댓글입니다.',
+    '예를 들어 제품 내에서 만든 페이지, 업무 항목 및 댓글입니다.',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.admin':
     '귀하 또는 다른 사용자가 Atlassian 제품에 기능을 추가하는 앱을 설치했을 수 있습니다. 이런 앱은 사용자의 프로필 정보를 저장했을 수 있습니다.',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.self':
@@ -87,9 +87,9 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p1.self':
     'Atlassian은 합법적인 비즈니스 또는 법률상의 목적이 있으면 제한된 기간 동안 개인 데이터를 보존합니다. 일부 예는 다음과 같습니다.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.admin':
-    '페이지 또는 이슈에 입력한 이름 또는 이메일 주소와 같이 사용자가 만든 콘텐츠 내의 개인적인 정보는 삭제되지 않습니다. 제품 관리자가 수동으로 이런 데이터를 삭제해야 합니다.',
+    '페이지 또는 업무 항목에 입력한 이름 또는 이메일 주소와 같이 사용자가 만든 콘텐츠 내의 개인 데이터는 삭제하지 않습니다. 제품 관리자가 수동으로 이러한 데이터를 삭제해야 합니다.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.self':
-    '페이지 또는 이슈에 입력한 이름 또는 이메일 주소와 같이 사용자 또는 다른 사용자가 만든 콘텐츠 내의 개인적인 정보는 삭제되지 않습니다. 제품 관리자가 수동으로 이런 데이터를 삭제해야 합니다.',
+    '페이지 또는 업무 항목에 입력한 이름 또는 이메일 주소와 같이 귀하 또는 다른 사용자가 만든 콘텐츠 내의 개인 데이터는 삭제하지 않습니다. 제품 관리자가 수동으로 이러한 데이터를 삭제해야 합니다.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.admin':
     '사용자의 자신의 국가의 감독 기관에 이의 사항을 제출할 권리가 있습니다.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.self':

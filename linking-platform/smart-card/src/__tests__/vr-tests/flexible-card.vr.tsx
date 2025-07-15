@@ -211,6 +211,7 @@ snapshot(FlexibleUiElementAppliedToComponentsCount, {
 snapshot(FlexibleUiElementAvatarGroup, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
+		'platform-linking-fix-smart-card-avatar-overrides': [true, false],
 	},
 });
 snapshot(FlexibleUiElementMedia, {

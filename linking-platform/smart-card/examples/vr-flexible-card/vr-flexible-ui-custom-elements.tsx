@@ -37,30 +37,43 @@ import {
 import { SmartCardProvider } from '../../src/state';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
-type AccessType =
-	| 'REQUEST_ACCESS'
-	| 'PENDING_REQUEST_EXISTS'
-	| 'FORBIDDEN'
-	| 'DENIED_REQUEST_EXISTS'
-	| 'DIRECT_ACCESS';
-
-const textMessageMap: Record<AccessType, string> = {
-	REQUEST_ACCESS: 'REQUEST_ACCESS',
-	PENDING_REQUEST_EXISTS: 'PENDING_REQUEST_EXISTS',
-	FORBIDDEN: 'FORBIDDEN',
-	DENIED_REQUEST_EXISTS: 'DENIED_REQUEST_EXISTS',
-	DIRECT_ACCESS: 'DIRECT_ACCESS',
+type AccessTypeTextProps = {
+	type: string;
 };
 
-const AccessTypeText = (): JSX.Element => {
+const AccessTypeText = ({ type }: AccessTypeTextProps): JSX.Element => {
 	return (
 		<CustomByAccessTypeElement
-			REQUEST_ACCESS={textMessageMap['REQUEST_ACCESS']}
-			PENDING_REQUEST_EXISTS={textMessageMap['PENDING_REQUEST_EXISTS']}
-			FORBIDDEN={textMessageMap['FORBIDDEN']}
-			DENIED_REQUEST_EXISTS={textMessageMap['DENIED_REQUEST_EXISTS']}
-			DIRECT_ACCESS={textMessageMap['DIRECT_ACCESS']}
-			fallback="FALLBACK"
+			REQUEST_ACCESS={{
+				id: `${type}-REQUEST_ACCESS`,
+				defaultMessage: `${type}-REQUEST_ACCESS`,
+				description: 'REQUEST_ACCESS',
+			}}
+			PENDING_REQUEST_EXISTS={{
+				id: `${type}-PENDING_REQUEST_EXISTS`,
+				defaultMessage: `${type}-PENDING_REQUEST_EXISTS`,
+				description: 'PENDING_REQUEST_EXISTS',
+			}}
+			FORBIDDEN={{
+				id: `${type}-FORBIDDEN`,
+				defaultMessage: `${type}-FORBIDDEN`,
+				description: 'FORBIDDEN',
+			}}
+			DENIED_REQUEST_EXISTS={{
+				id: `${type}-DENIED_REQUEST_EXISTS`,
+				defaultMessage: `${type}-DENIED_REQUEST_EXISTS`,
+				description: 'DENIED_REQUEST_EXISTS',
+			}}
+			DIRECT_ACCESS={{
+				id: `${type}-DIRECT_ACCESS`,
+				defaultMessage: `${type}-DIRECT_ACCESS`,
+				description: 'DIRECT_ACCESS',
+			}}
+			fallback={{
+				id: `${type}-FALLBACK`,
+				defaultMessage: `${type}-FALLBACK`,
+				description: 'FALLBACK',
+			}}
 		/>
 	);
 };
@@ -119,11 +132,11 @@ export default () => {
 										<TitleElement />
 										<CustomByStatusElement
 											resolved={<span>RESOLVED</span>}
-											forbidden={<AccessTypeText />}
-											not_found={<AccessTypeText />}
-											unauthorized={<AccessTypeText />}
-											errored={<AccessTypeText />}
-											pending={<AccessTypeText />}
+											forbidden={<AccessTypeText type="FORBIDDEN" />}
+											not_found={<AccessTypeText type="NOT_FOUND" />}
+											unauthorized={<AccessTypeText type="UNAUTHORIZED" />}
+											errored={<AccessTypeText type="ERRORED" />}
+											pending={<AccessTypeText type="PENDING" />}
 										/>
 									</Stack>
 								</Card>

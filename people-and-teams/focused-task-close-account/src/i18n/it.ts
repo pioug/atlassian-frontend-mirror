@@ -67,7 +67,7 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin':
     'Ad esempio, pagine, ticket e commenti che hanno creato nei prodotti.',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':
-    'Ad esempio, pagine, ticket e commenti che hai creato nei prodotti.',
+    'Alcuni esempi sono pagine, ticket e commenti che hai creato nei prodotti.',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.admin':
     'È possibile che in alcune app installate da te o da altri utenti per aggiungere funzionalità ai prodotti Atlassian, siano memorizzate informazioni del profilo dell’utente.',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.self':
@@ -89,9 +89,9 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p1.self':
     'I dati personali vengono conservati per periodi di tempo limitati per legittime finalità commerciali o legali. Alcuni esempi comprendono:',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.admin':
-    'Non viene eliminato alcun dato personale dal contenuto creato dagli utenti, ad esempio nomi o indirizzi e-mail inseriti in una pagina o in un ticket. Tali dati devono essere eliminati manualmente dagli amministratori di prodotto.',
+    'Non viene eliminato alcun dato personale dal contenuto creato dagli utenti, ad esempio nomi o indirizzi e-mail inseriti in una pagina o in un ticket. Tali dati devono essere eliminati manualmente dagli amministratori del prodotto.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.self':
-    'Non viene eliminato alcun dato personale dal contenuto creato da te o da altri utenti, ad esempio nomi o indirizzi e-mail inseriti in una pagina o in un ticket. Tali dati devono essere eliminati manualmente dagli amministratori di prodotto.',
+    'Non viene eliminato alcun dato personale dal contenuto creato da te o da altri utenti, ad esempio nomi o indirizzi e-mail inseriti in una pagina o in un ticket. Gli amministratori del prodotto dovranno eliminare tali dati manualmente.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.admin':
     'Gli utenti hanno il diritto di presentare i reclami all’autorità di sorveglianza nel proprio paese.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.self':

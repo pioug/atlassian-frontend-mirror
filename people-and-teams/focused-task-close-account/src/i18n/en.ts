@@ -69,7 +69,7 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin':
     "For example, pages, issues, and comments they've created in products.",
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':
-    "For example, pages, issues, and comments you've created in products.",
+    "For example, pages, work items, and comments you've created in products.",
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.admin':
     'You or other users may have installed apps that add features to Atlassian products. These apps may have stored the user’s profile information.',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.self':
@@ -91,9 +91,9 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p1.self':
     'We keep personal data for limited periods when we have legitimate business or legal purposes. Some examples include:',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.admin':
-    'We don’t delete any personal data from content created by users, such as names or email addresses they typed in a page or issue. The product admins need to delete that data manually.',
+    'We don’t delete any personal data from content created by users, such as names or email addresses they typed in a page or work item. The product admins need to delete that data manually.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.self':
-    "We don't delete any personal data from content created by you or other people, such as names or email addresses typed into a page or issue. Your product admins need to delete that data manually.",
+    "We don't delete any personal data from content created by you or other people, such as names or email addresses typed into a page or work item. Your product admins need to delete that data manually.",
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.admin':
     'Users have the right to submit complaints to the supervisory authority in their country.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.self':

@@ -42,12 +42,10 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 		];
 
 		if (editorExperiment('platform_editor_controls', 'variant1')) {
-			if (fg('platform_editor_controls_widget_visibility')) {
-				pmPlugins.push({
-					name: 'blockControlsInteractionTrackingPlugin',
-					plugin: createInteractionTrackingPlugin,
-				});
-			}
+			pmPlugins.push({
+				name: 'blockControlsInteractionTrackingPlugin',
+				plugin: createInteractionTrackingPlugin,
+			});
 			pmPlugins.push({
 				name: 'firstNodeDec',
 				plugin: firstNodeDecPlugin,

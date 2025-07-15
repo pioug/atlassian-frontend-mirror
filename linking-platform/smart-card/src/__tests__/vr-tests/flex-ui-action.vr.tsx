@@ -10,6 +10,10 @@ import {
 } from '../../../examples/vr-flexible-card/vr-flexible-ui-action';
 import FlexibleUiBlockActionList from '../../../examples/vr-flexible-card/vr-flexible-ui-block-action';
 import FlexibleUiBlockActionGroup from '../../../examples/vr-flexible-card/vr-flexible-ui-block-action-group';
+import {
+	FlexibleUiCustomUnresolvedAction,
+	FlexibleUiCustomUnresolvedActionOnlyShowIfAction,
+} from '../../../examples/vr-flexible-card/vr-flexible-ui-custom-unresolved-action';
 
 snapshot(FlexibleUiBlockActionDanger, {
 	featureFlags: {
@@ -71,5 +75,22 @@ snapshot(FlexibleUiBlockActionGroup, {
 	states: [{ selector: { byTestId: 'smart-action-delete-action' }, state: 'focused' }],
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
+	},
+});
+
+snapshot(FlexibleUiCustomUnresolvedActionOnlyShowIfAction, {
+	featureFlags: {
+		'platform-component-visual-refresh': true,
+		'platform-linking-additional-flexible-element-props': true,
+		'bandicoots-smart-card-teamwork-context': true,
+		'platform-linking-visual-refresh-v2': true,
+	},
+});
+snapshot(FlexibleUiCustomUnresolvedAction, {
+	featureFlags: {
+		'platform-component-visual-refresh': true,
+		'platform-linking-additional-flexible-element-props': true,
+		'bandicoots-smart-card-teamwork-context': true,
+		'platform-linking-visual-refresh-v2': true,
 	},
 });

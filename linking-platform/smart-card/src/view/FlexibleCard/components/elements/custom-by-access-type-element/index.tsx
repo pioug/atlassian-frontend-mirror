@@ -1,7 +1,10 @@
 import React from 'react';
 
+import { type MessageDescriptor } from 'react-intl-next';
+
 import type { Prettify } from '@atlaskit/linking-common';
 
+import { InternalActionName } from '../../../../../constants';
 import { useFlexibleCardContext } from '../../../../../state/flexible-ui-context';
 import { BaseTextElement, type BaseTextElementProps } from '../common';
 
@@ -13,8 +16,8 @@ type AccessType =
 	| 'DENIED_REQUEST_EXISTS';
 
 export type CustomElementByAccessTypeProps = Prettify<
-	Pick<BaseTextElementProps, 'className' | 'testId' | 'color'> &
-		Partial<Record<AccessType | 'fallback', string>>
+	Pick<BaseTextElementProps, 'className' | 'testId' | 'color' | 'fontSize'> &
+		Partial<Record<AccessType | 'fallback', MessageDescriptor>>
 >;
 
 const CustomElementByAccessType = ({
@@ -25,14 +28,22 @@ const CustomElementByAccessType = ({
 	const context = useFlexibleCardContext();
 	const accessType = context?.data?.meta?.accessType;
 
-	const text = props[accessType as AccessType] ?? props.fallback;
-	if (!text) {
+	const descriptor = props[accessType as AccessType] ?? props.fallback;
+	if (!descriptor) {
 		return null;
 	}
 
+	const values = context?.data?.actions?.[InternalActionName.UnresolvedAction]?.values;
+
 	return (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-		<BaseTextElement {...props} content={text} className={className} testId={testId} hideFormat />
+		<BaseTextElement
+			{...props}
+			message={{ descriptor, values }}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			className={className}
+			testId={testId}
+			hideFormat
+		/>
 	);
 };
 

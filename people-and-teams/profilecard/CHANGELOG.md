@@ -1,5 +1,24 @@
 # @atlaskit/profilecard
 
+## 23.21.10
+
+### Patch Changes
+
+- [#181827](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/181827)
+  [`9bbba56baf22b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9bbba56baf22b) -
+  ENGHEALTH-27994 Ensures dt and dd elements are direct children of dl element as required by WCAG
+  guidelines
+
+## 23.21.9
+
+### Patch Changes
+
+- [#183113](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183113)
+  [`fe0b718376970`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fe0b718376970) -
+  PTC-12484 Migrate team containers query from cypherQuery to cypherQueryV2 API with parameterized
+  queries and updated response structure
+- Updated dependencies
+
 ## 23.21.8
 
 ### Patch Changes

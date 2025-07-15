@@ -185,10 +185,7 @@ export const dragHandleDecoration = ({
 			// 		key,
 			// 	);
 
-			if (
-				editorExperiment('platform_editor_controls', 'variant1') &&
-				fg('platform_editor_controls_widget_visibility')
-			) {
+			if (editorExperiment('platform_editor_controls', 'variant1')) {
 				ReactDOM.render(
 					createElement(DragHandleWithVisibility, {
 						view,

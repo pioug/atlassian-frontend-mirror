@@ -1,5 +1,38 @@
 # @atlaskit/smart-card
 
+## 40.0.1
+
+### Patch Changes
+
+- [#185136](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185136)
+  [`dba7f7bc32bbb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dba7f7bc32bbb) -
+  [ux] ED-28127 Fix Smart links selected style
+
+## 40.0.0
+
+### Major Changes
+
+- [#182438](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/182438)
+  [`0dc9384260f43`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0dc9384260f43) -
+  [ux] Modified key of AccessType values in CustomElementByAccessTypeProps to be a MessageDescriptor
+  instead of a string for language translation safety.
+
+  For migration, modify the previous string type to use a MessageDescriptor from `react-intl-next`
+
+### Minor Changes
+
+- [#182438](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/182438)
+  [`38b28eac64441`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38b28eac64441) -
+  Add fontSize prop export to CustomElementByType element and, exported action
+  CustomUnresolvedAction, modified subset of ElementItem types to accept props when dynamically
+  creating elements within blocks such as MetadataBlock
+
+### Patch Changes
+
+- [#183756](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183756)
+  [`935936bc5eb64`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/935936bc5eb64) -
+  [ux] EDM-12566 Removing avatar group css overrides for smart-card
+
 ## 39.4.0
 
 ### Minor Changes

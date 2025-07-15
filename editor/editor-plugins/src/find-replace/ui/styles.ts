@@ -10,7 +10,6 @@ export {
 	darkModeSearchMatchClass,
 	searchMatchExpandTitleClass,
 	findReplaceStyles,
-	findReplaceStylesNewYellow,
-	findReplaceStylesNewMagenta,
-	findReplaceStylesNewMagentaNoImportant,
+	findReplaceStylesNew,
+	findReplaceStylesNewNoImportant,
 } from '@atlaskit/editor-plugin-find-replace/styles';

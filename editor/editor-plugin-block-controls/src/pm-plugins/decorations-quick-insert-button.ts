@@ -11,7 +11,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
-import { QuickInsertWithVisibility, TypeAheadControl } from '../ui/quick-insert-button';
+import { QuickInsertWithVisibility } from '../ui/quick-insert-button';
 
 import { type AnchorRectCache } from './utils/anchor-utils';
 import { getActiveBlockMarks } from './utils/marks';
@@ -119,42 +119,22 @@ export const quickInsertButtonDecoration = ({
 				return element;
 			}
 
-			// all changes already under experiment
-			if (fg('platform_editor_controls_widget_visibility')) {
-				nodeViewPortalProviderAPI.render(
-					() =>
-						createElement(QuickInsertWithVisibility, {
-							api,
-							getPos,
-							formatMessage,
-							view,
-							nodeType,
-							anchorName,
-							rootAnchorName,
-							rootNodeType: rootNodeType ?? nodeType,
-							anchorRectCache,
-						}),
-					element,
-					key,
-				);
-			} else {
-				nodeViewPortalProviderAPI.render(
-					() =>
-						createElement(TypeAheadControl, {
-							api,
-							getPos,
-							formatMessage,
-							view,
-							nodeType,
-							anchorName,
-							rootAnchorName,
-							rootNodeType: rootNodeType ?? nodeType,
-							anchorRectCache,
-						}),
-					element,
-					key,
-				);
-			}
+			nodeViewPortalProviderAPI.render(
+				() =>
+					createElement(QuickInsertWithVisibility, {
+						api,
+						getPos,
+						formatMessage,
+						view,
+						nodeType,
+						anchorName,
+						rootAnchorName,
+						rootNodeType: rootNodeType ?? nodeType,
+						anchorRectCache,
+					}),
+				element,
+				key,
+			);
 
 			return element;
 		},

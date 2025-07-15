@@ -118,7 +118,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "0.42.2",
+	"version": "0.43.0",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -146,6 +146,9 @@
 			"type": "boolean"
 		},
 		"fix_team_link_card_a11y": {
+			"type": "boolean"
+		},
+		"teams_containers_cypher_query_v2_migration": {
 			"type": "boolean"
 		}
 	}

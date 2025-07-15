@@ -71,7 +71,7 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin':
     'Це, наприклад, сторінки, проблеми й коментарі, створені користувачем у продуктах.',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':
-    'Це, наприклад, сторінки, проблеми й коментарі, створені вами в продуктах.',
+    'Це, наприклад, сторінки, елементи завдання та коментарі, створені вами в продуктах.',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.admin':
     'Ви або інші користувачі могли встановити додатки, які додають певні функції до продуктів Atlassian. Ці додатки могли зберігати інформацію з профілю користувача.',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.self':
@@ -93,9 +93,9 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p1.self':
     'Ми зберігаємо персональні дані протягом обмеженого часу для законних юридичних або бізнес-цілей. До них належать, наприклад, такі:',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.admin':
-    'Ми не видаляємо персональні дані з вмісту, створеного користувачами, як-от імена або електронні адреси, введені на сторінці або в даних проблеми. Адміністратори продуктів повинні видаляти такі дані вручну.',
+    'Ми не видаляємо персональні дані зі створеного користувачами вмісту, як-от імена або адреси електронної пошти, введені на сторінці або в елементі завдання. Адміністратори продуктів повинні видаляти такі дані вручну.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.self':
-    'Ми не видаляємо персональні дані з вмісту, створеного вами або іншими користувачами, як-от імена або електронні адреси, введені на сторінці або в даних проблеми. Адміністратори продуктів повинні видаляти такі дані вручну.',
+    'Ми не видаляємо персональні дані із створеного вами або іншими користувачами вмісту, як-от імена або адреси електронної пошти, введені на сторінці або в елементі завдання. Адміністратори продуктів повинні видаляти такі дані вручну.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.admin':
     'Користувачі мають право подавати скарги до органів наглядового контролю своєї країни.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.self':

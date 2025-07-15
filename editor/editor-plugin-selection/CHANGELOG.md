@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-selection
 
+## 3.0.2
+
+### Patch Changes
+
+- [#184967](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/184967)
+  [`c868ad3f120c0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c868ad3f120c0) -
+  [ux] Fix bug: pressing right arrow from listItem in layout/extended/panel skips next listItem and
+  selects container instead
+- Updated dependencies
+
 ## 3.0.1
 
 ### Patch Changes

@@ -18,6 +18,7 @@ export {
 export { textColorPalette } from './ColorPalette/Palettes/textColorPalette';
 export {
 	highlightColorPalette,
+	highlightColorPaletteNext,
 	REMOVE_HIGHLIGHT_COLOR,
 } from './ColorPalette/Palettes/highlightColorPalette';
 export {

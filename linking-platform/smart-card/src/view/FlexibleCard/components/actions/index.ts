@@ -13,3 +13,4 @@ export { default as UnresolvedAction } from './unresolved-action';
 export { default as AISummaryAction } from './ai-summary-action';
 export { default as AutomationAction } from './automation-action';
 export { default as ViewRelatedLinksAction } from './view-related-links-action';
+export { default as CustomUnresolvedAction } from './custom-unresolved-action';

@@ -68,7 +68,7 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin':
     'ตัวอย่างเช่น หน้าข้อมูล ปัญหา และความคิดเห็นต่าง ๆ ที่ผู้ใช้เหล่านั้นได้สร้างไว้ในผลิตภัณฑ์',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':
-    'ตัวอย่างเช่น หน้าข้อมูล ปัญหา และความคิดเห็นต่าง ๆ ที่คุณได้สร้างไว้ในผลิตภัณฑ์',
+    'ตัวอย่างเช่น หน้าข้อมูล ตั๋ว และความคิดเห็นที่คุณได้สร้างขึ้นในผลิตภัณฑ์',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.admin':
     'คุณหรือผู้ใช้อื่นอาจได้ติดตั้งแอปที่เพิ่มคุณสมบัติต่าง ๆ ไปยังผลิตภัณฑ์ของ Atlassian ซึ่งแอปเหล่านี้อาจเก็บข้อมูลโปรไฟล์ของผู้ใช้',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.self':
@@ -90,9 +90,9 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p1.self':
     'เราเก็บข้อมูลส่วนบุคคลไว้ในระยะเวลาที่จำกัดเมื่อเรามีธุรกิจที่ถูกต้องตามกฎหมายหรือมีจุดประสงค์ในเชิงกฎหมาย ตัวอย่างเช่น:',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.admin':
-    'เราไม่ลบข้อมูลส่วนบุคคลใด ๆ จากเนื้อหาที่ผู้ใช้สร้างขึ้นเอง เช่น ชื่อหรือที่อยู่อีเมลที่ผู้ใช้พิมพ์ไว้ในหน้าเพจหรือปัญหา ผู้ดูแลผลิตภัณฑ์จำเป็นต้องลบข้อมูลนั้นด้วยตนเอง',
+    'เราไม่ลบข้อมูลส่วนบุคคลใด ๆ จากเนื้อหาที่ผู้ใช้สร้างขึ้นเอง เช่น ชื่อหรือที่อยู่อีเมลที่ผู้ใช้พิมพ์ไว้ในหน้าข้อมูลหรือตั๋ว ผู้ดูแลผลิตภัณฑ์จำเป็นต้องลบข้อมูลนั้นด้วยตนเอง',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.self':
-    'เราไม่ลบข้อมูลส่วนบุคคลใด ๆ จากเนื้อหาที่คุณหรือผู้ใช้อื่นสร้างขึ้นเอง เช่น ชื่อหรือที่อยู่อีเมลที่คุณพิมพ์ไว้ในหน้าเพจหรือปัญหา ผู้ดูแลผลิตภัณฑ์ของคุณจำเป็นต้องลบข้อมูลนั้นด้วยตนเอง',
+    'เราไม่ลบข้อมูลส่วนบุคคลใด ๆ จากเนื้อหาที่คุณหรือผู้ใช้อื่นสร้างขึ้นเอง เช่น ชื่อหรือที่อยู่อีเมลที่คุณพิมพ์ไว้ในหน้าข้อมูลหรือตั๋ว ผู้ดูแลผลิตภัณฑ์ของคุณจำเป็นต้องลบข้อมูลนั้นด้วยตนเอง',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.admin':
     'ผู้ใช้มีสิทธิ์ส่งคำร้องไปยังหน่วยงานที่มีหน้าที่ในการกำกับดูแลในประเทศของตนได้',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.self':

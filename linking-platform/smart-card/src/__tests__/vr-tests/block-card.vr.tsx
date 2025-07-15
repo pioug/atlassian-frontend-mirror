@@ -88,26 +88,31 @@ snapshot(BlockCardUnauthorisedViewWithNoAuth, {
 snapshot(BlockCardJira, {
 	featureFlags: {
 		'platform-linking-visual-refresh-v2': true,
+		'platform-linking-fix-smart-card-avatar-overrides': [true, false],
 		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
 });
 snapshot(BlockCardConfluence, {
 	featureFlags: {
+		'platform-linking-fix-smart-card-avatar-overrides': [true, false],
 		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
 });
 snapshot(BlockCardTrello, {
 	featureFlags: {
+		'platform-linking-fix-smart-card-avatar-overrides': [true, false],
 		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
 });
 snapshot(BlockCardAtlas, {
 	featureFlags: {
+		'platform-linking-fix-smart-card-avatar-overrides': [true, false],
 		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
 });
 snapshot(BlockCardBitbucket, {
 	featureFlags: {
+		'platform-linking-fix-smart-card-avatar-overrides': [true, false],
 		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
 });
@@ -119,6 +124,7 @@ snapshot(BlockCardLazyIcon1, {
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
 		'icon-object-migration': true,
+		'platform-linking-fix-smart-card-avatar-overrides': [true, false],
 		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
 });
@@ -127,6 +133,7 @@ snapshot(BlockCardLazyIcon2, {
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
 		'icon-object-migration': true,
+		'platform-linking-fix-smart-card-avatar-overrides': [true, false],
 		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
 });
@@ -135,6 +142,7 @@ snapshot(BlockCardLazyIcon3, {
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
 		'icon-object-migration': true,
+		'platform-linking-fix-smart-card-avatar-overrides': [true, false],
 		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
 });
@@ -143,6 +151,7 @@ snapshot(BlockCardLazyIcon4, {
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
 		'icon-object-migration': true,
+		'platform-linking-fix-smart-card-avatar-overrides': [true, false],
 		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
 });
@@ -151,6 +160,7 @@ snapshot(BlockCardLazyIcon5, {
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
 		'icon-object-migration': true,
+		'platform-linking-fix-smart-card-avatar-overrides': [true, false],
 		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
 });
@@ -159,6 +169,7 @@ snapshot(BlockCardLazyIcon6, {
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
 		'icon-object-migration': true,
+		'platform-linking-fix-smart-card-avatar-overrides': [true, false],
 	},
 });
 snapshot(BlockCardLazyIconsFileType1, {
@@ -166,6 +177,7 @@ snapshot(BlockCardLazyIconsFileType1, {
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
 		'icon-object-migration': true,
+		'platform-linking-fix-smart-card-avatar-overrides': [true, false],
 		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
 });
@@ -175,6 +187,7 @@ snapshot(BlockCardLazyIconsFileType2, {
 		'platform-visual-refresh-icons': true,
 		'icon-object-migration': true,
 		'platform-linking-enable-avatar-data-separator': [true, false],
+		'platform-linking-fix-smart-card-avatar-overrides': [true, false],
 	},
 });
 snapshot(BlockCardLazyIconsFileType3, {
@@ -183,6 +196,7 @@ snapshot(BlockCardLazyIconsFileType3, {
 		'platform-visual-refresh-icons': true,
 		'icon-object-migration': true,
 		'platform-linking-enable-avatar-data-separator': [true, false],
+		'platform-linking-fix-smart-card-avatar-overrides': [true, false],
 	},
 });
 snapshot(BlockCardLazyIconsFileType4, {
@@ -191,6 +205,7 @@ snapshot(BlockCardLazyIconsFileType4, {
 		'platform-visual-refresh-icons': true,
 		'icon-object-migration': true,
 		'platform-linking-enable-avatar-data-separator': [true, false],
+		'platform-linking-fix-smart-card-avatar-overrides': [true, false],
 	},
 });
 snapshot(BlockCardEntities, {
@@ -198,11 +213,13 @@ snapshot(BlockCardEntities, {
 	featureFlags: {
 		smart_links_noun_support: true,
 		'platform-linking-enable-avatar-data-separator': [true, false],
+		'platform-linking-fix-smart-card-avatar-overrides': [true, false],
 	},
 });
 
 snapshot(VRBlockProfileCard, {
 	featureFlags: {
 		'platform-linking-visual-refresh-v2': true,
+		'platform-linking-fix-smart-card-avatar-overrides': [true, false],
 	},
 });

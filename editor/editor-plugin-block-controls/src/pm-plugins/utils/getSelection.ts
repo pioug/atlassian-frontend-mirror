@@ -130,10 +130,7 @@ const newGetSelection = (tr: Transaction, start: number) => {
 };
 
 export const getSelection = (tr: Transaction, start: number) => {
-	if (
-		editorExperiment('platform_editor_controls', 'variant1') &&
-		fg('platform_editor_controls_widget_visibility')
-	) {
+	if (editorExperiment('platform_editor_controls', 'variant1')) {
 		return newGetSelection(tr, start);
 	}
 
@@ -174,8 +171,7 @@ export const setCursorPositionAtMovedNode = (tr: Transaction, start: number): Tr
 	if (
 		node?.type.name === 'paragraph' &&
 		node?.childCount === 0 &&
-		editorExperiment('platform_editor_controls', 'variant1') &&
-		fg('platform_editor_controls_widget_visibility')
+		editorExperiment('platform_editor_controls', 'variant1')
 	) {
 		const selection = new TextSelection(tr.doc.resolve(start));
 		tr.setSelection(selection);

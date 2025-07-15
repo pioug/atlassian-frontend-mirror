@@ -82,14 +82,18 @@ const MockLoading = ({ getItem, onError }: { getItem: () => unknown; onError: ()
 	return isLoading ? <UFOLoadHold name="wait-for-item" /> : null;
 };
 
-const withGeminiInteractionContext = (Component: React.ComponentType<unknown>) => () => (
-	<GeminiInteractionContext>
-		<Component />
-	</GeminiInteractionContext>
-);
+const withGeminiInteractionContext = <P extends object>(Component: React.ComponentType<P>) =>
+	((props: P) => (
+		<GeminiInteractionContext>
+			<Component {...props} />
+		</GeminiInteractionContext>
+	)) as React.ComponentType<P>;
 
-export const withWaitForItem = (Component: React.ComponentType<any>, getItem: () => unknown) =>
-	withGeminiInteractionContext(() => {
+export const withWaitForItem = <P extends object>(
+	Component: React.ComponentType<P>,
+	getItem: () => unknown,
+) =>
+	withGeminiInteractionContext((props: P) => {
 		const [error, setError] = useState(false);
 
 		const onError = useCallback(() => {
@@ -103,7 +107,7 @@ export const withWaitForItem = (Component: React.ComponentType<any>, getItem: ()
 		return (
 			<>
 				<MockLoading getItem={getItem} onError={onError} />
-				<Component />
+				<Component {...(props ?? {})} />
 			</>
 		);
-	});
+	}) satisfies typeof Component;

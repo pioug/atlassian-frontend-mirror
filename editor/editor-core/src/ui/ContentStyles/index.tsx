@@ -52,9 +52,8 @@ import type { EditorAppearance, FeatureFlags } from '@atlaskit/editor-common/typ
 import { blocktypeStyles } from '@atlaskit/editor-plugins/block-type/styles';
 import {
 	findReplaceStyles,
-	findReplaceStylesNewYellow,
-	findReplaceStylesNewMagenta,
-	findReplaceStylesNewMagentaNoImportant,
+	findReplaceStylesNew,
+	findReplaceStylesNewNoImportant,
 } from '@atlaskit/editor-plugins/find-replace/styles';
 import { textHighlightStyle } from '@atlaskit/editor-plugins/paste-options-toolbar/styles';
 import {
@@ -545,11 +544,9 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
   ${extensionStyles}
   ${expandStyles()}
   ${expValEqualsNoExposure('platform_editor_find_and_replace_improvements', 'isEnabled', true)
-		? fg('platform_editor_find_and_replace_magenta_match')
-			? fg('platform_editor_find_and_replace_improvements_1')
-				? findReplaceStylesNewMagentaNoImportant
-				: findReplaceStylesNewMagenta
-			: findReplaceStylesNewYellow
+		? fg('platform_editor_find_and_replace_improvements_1')
+			? findReplaceStylesNewNoImportant
+			: findReplaceStylesNew
 		: findReplaceStyles}
   ${textHighlightStyle}
   ${taskDecisionStyles}

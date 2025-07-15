@@ -1,5 +1,13 @@
 # @af/frontend-utilities
 
+## 3.1.1
+
+### Patch Changes
+
+- [#183085](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183085)
+  [`34ea4a1ef1719`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/34ea4a1ef1719) -
+  Correctly mock storage in non-browser environments and clear mocks between tests
+
 ## 3.1.0
 
 ### Minor Changes

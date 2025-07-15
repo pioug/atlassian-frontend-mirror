@@ -5,6 +5,7 @@ import { render, screen } from '@testing-library/react';
 import IconRecent from '@atlaskit/icon/core/migration/clock--recent';
 import IconEmail from '@atlaskit/icon/core/migration/email';
 import IconLocation from '@atlaskit/icon/core/migration/location';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { IconLabel } from '../../components/Icon';
 
@@ -41,12 +42,29 @@ describe('Profilecard', () => {
 			});
 		});
 
-		it('should capture and report a11y violations', async () => {
-			const { container } = render(<IconLabel icon="location">Labeltext</IconLabel>);
-			// Known violation: The <dt> and <dd> elements in LabelIcon are not wrapped by a <dl> element within LabelIcon itself.
-			// However, there is a <dl> element in LabelIcon's parent component, so overall the structure is correct.
-			// This may cause an accessibility violation when testing the LabelIcon element in isolation.
-			await expect(container).toBeAccessible({ violationCount: 1 });
-		});
+		ffTest.off(
+			'fix_profilecard_details_label_semantic_html',
+			'fix_profilecard_details_label_semantic_html is off',
+			() => {
+				it('should capture and report a11y violations', async () => {
+					const { container } = render(<IconLabel icon="location">Labeltext</IconLabel>);
+					// Known violation: The <dt> and <dd> elements in LabelIcon are not wrapped by a <dl> element within LabelIcon itself.
+					// However, there is a <dl> element in LabelIcon's parent component, so overall the structure is correct.
+					// This may cause an accessibility violation when testing the LabelIcon element in isolation.
+					await expect(container).toBeAccessible({ violationCount: 1 });
+				});
+			},
+		);
+
+		ffTest.on(
+			'fix_profilecard_details_label_semantic_html',
+			'fix_profilecard_details_label_semantic_html is on',
+			() => {
+				it('should capture and report a11y violations', async () => {
+					const { container } = render(<IconLabel icon="location">Labeltext</IconLabel>);
+					await expect(container).toBeAccessible();
+				});
+			},
+		);
 	});
 });

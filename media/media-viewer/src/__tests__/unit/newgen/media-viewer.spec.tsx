@@ -159,6 +159,9 @@ describe('<MediaViewer />', () => {
 							fileMimetype: fileAttributes.fileMimetype,
 							status: 'success',
 							traceContext: undefined,
+							featureFlags: {
+								media_document_viewer: false,
+							},
 						},
 						eventType: 'operational',
 					}),
@@ -250,6 +253,9 @@ describe('<MediaViewer />', () => {
 							fileMimetype: fileAttributes.fileMimetype,
 							status: 'success',
 							traceContext: undefined,
+							featureFlags: {
+								media_document_viewer: false,
+							},
 						},
 						eventType: 'operational',
 					}),
@@ -599,6 +605,9 @@ describe('<MediaViewer />', () => {
 							fileMimetype: fileAttributes.fileMimetype,
 							status: 'success',
 							traceContext: { traceId: expect.any(String) },
+							featureFlags: {
+								media_document_viewer: false,
+							},
 						},
 						eventType: 'operational',
 					}),

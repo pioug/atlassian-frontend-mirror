@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-highlight
 
+## 3.0.4
+
+### Patch Changes
+
+- [#185643](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185643)
+  [`5954e6c1fbac5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5954e6c1fbac5) -
+  [ux] [ED-28432] Add orange highlight color and reorder color swatches
+- Updated dependencies
+
 ## 3.0.3
 
 ### Patch Changes

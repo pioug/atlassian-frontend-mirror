@@ -165,6 +165,21 @@ export type StatusCategory = 'TODO' | 'IN_PROGRESS' | 'DONE' | 'UNDEFINED';
 export type RuleConfig = {
 	[key: string]: string;
 };
+export type AddStatusRovoPayload = {
+	statusName: string;
+	statusCategory: StatusCategory;
+};
+export type UpdateStatusRovoPayload = {
+	oldStatusName: string;
+	oldStatusCategory: StatusCategory;
+	newStatusName: string;
+	newStatusCategory: StatusCategory;
+};
+export type DeleteStatusRovoPayload = {
+	statusId: string;
+	statusName: string;
+	statusCategory: StatusCategory;
+};
 export type AddNewTransitionRovoPayload = {
 	id: TransitionId;
 	name: string;
@@ -195,38 +210,33 @@ export type DeleteTransitionRovoPayload = {
 };
 export type AddRuleRovoPayload = {
 	ruleTemplateKey: string;
-	transitionId: TransitionId;
 	ruleConfig: RuleConfig;
-	ruleType: string;
 	ruleDescription: string;
+	transitionId: TransitionId;
 };
 export type UpdateRuleRovoPayload = {
 	ruleTemplateKey: string;
-	transitionId: TransitionId;
 	ruleConfig: RuleConfig;
+	transitionId: TransitionId;
 	ruleIdBeingEdited: string;
+	ruleDescription: string;
 };
 export type DeleteRuleRovoPayload = {
 	ruleId: string;
+	ruleTemplateKey: string;
+	ruleDescription: string;
 };
-export type AddStatusRovoPayload = {
-	statusName: string;
-	statusCategory: StatusCategory;
-};
-export type DeleteStatusRovoPayload = {
-	statusId: string;
-	statusName: string;
-	statusCategory: StatusCategory;
-};
+
 export type JiraWorkflowWizardAction =
+	| { operationType: 'ADD_STATUS'; payload: AddStatusRovoPayload }
+	| { operationType: 'UPDATE_STATUS'; payload: UpdateStatusRovoPayload }
+	| { operationType: 'DELETE_STATUS'; payload: DeleteStatusRovoPayload }
 	| { operationType: 'ADD_TRANSITION'; payload: AddNewTransitionRovoPayload }
 	| { operationType: 'UPDATE_TRANSITION'; payload: UpdateTransitionRovoPayload }
 	| { operationType: 'DELETE_TRANSITION'; payload: DeleteTransitionRovoPayload }
 	| { operationType: 'ADD_RULE'; payload: AddRuleRovoPayload }
 	| { operationType: 'UPDATE_RULE'; payload: UpdateRuleRovoPayload }
-	| { operationType: 'DELETE_RULE'; payload: DeleteRuleRovoPayload }
-	| { operationType: 'ADD_STATUS'; payload: AddStatusRovoPayload }
-	| { operationType: 'DELETE_STATUS'; payload: DeleteStatusRovoPayload };
+	| { operationType: 'DELETE_RULE'; payload: DeleteRuleRovoPayload };
 
 export type JiraWorkflowWizardActionsPayload = PayloadCore<
 	'jira-workflow-wizard-actions',

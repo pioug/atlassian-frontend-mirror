@@ -41,7 +41,13 @@
 			"path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/checkbox/tsconfig.app.json"
+		},
+		{
 			"path": "../../../build/website/docs/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/textarea/tsconfig.app.json"
 		}
 	]
 }

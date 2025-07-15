@@ -8,7 +8,8 @@ import {
 import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { highlightColorPalette } from '@atlaskit/editor-common/ui-color';
+import { highlightColorPalette, highlightColorPaletteNext } from '@atlaskit/editor-common/ui-color';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { changeColor } from '../editor-commands/change-color';
 import { togglePalette } from '../editor-commands/palette';
@@ -28,22 +29,26 @@ export function keymapPlugin({ api }: { api: ExtractInjectionAPI<HighlightPlugin
 	);
 
 	const analyticsApi = api?.analytics?.actions;
-	// NOTE: This will work with fallback until we clean up `editor_text_highlight_orange_to_yellow`
-	const color = highlightColorPalette.find(({ label }) => label === 'Yellow') || {
-		value: '#fedec8',
-	};
-	bindKeymapWithCommand(
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-		applyYellowHighlight.common!,
-		editorCommandToPMCommand(
-			changeColor(analyticsApi)({
-				color: color.value,
-				inputMethod: INPUT_METHOD.SHORTCUT,
-			}),
-		),
-		list,
-	);
+	const color = expValEquals('platform_editor_add_orange_highlight_color', 'cohort', 'test')
+		? highlightColorPaletteNext.find(({ label }) => label === 'Yellow')
+		: highlightColorPalette.find(({ label }) => label === 'Yellow') || {
+				value: '#fedec8',
+			};
+
+	if (color) {
+		bindKeymapWithCommand(
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			applyYellowHighlight.common!,
+			editorCommandToPMCommand(
+				changeColor(analyticsApi)({
+					color: color.value,
+					inputMethod: INPUT_METHOD.SHORTCUT,
+				}),
+			),
+			list,
+		);
+	}
 
 	return keymap(list) as SafePlugin;
 }

@@ -1,5 +1,14 @@
 # @atlaskit/media-viewer
 
+## 52.4.7
+
+### Patch Changes
+
+- [#185556](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185556)
+  [`8aa55d31f5ace`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8aa55d31f5ace) -
+  Added featureFlags attribute to loadSucceded event to trace performance changes per feature flag
+- Updated dependencies
+
 ## 52.4.6
 
 ### Patch Changes

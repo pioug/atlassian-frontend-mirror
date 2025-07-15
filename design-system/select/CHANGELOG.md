@@ -1,5 +1,16 @@
 # @atlaskit/select
 
+## 21.2.0
+
+### Minor Changes
+
+- [#179366](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/179366)
+  [`675f6b4bd17c3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/675f6b4bd17c3) -
+  Adds experimental changes to default popper behavior in `PopupSelect` behind the
+  `platform_dst_nav4_layering_in_main_slot_fixes` feature gate. When enabled, `PopupSelect` popups
+  will no longer slide across the trigger. Instead they will behave like other popups and stay
+  anchored next to the trigger.
+
 ## 21.1.1
 
 ### Patch Changes

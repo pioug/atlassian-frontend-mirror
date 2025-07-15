@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugins
 
+## 9.4.44
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.4.43
+
+### Patch Changes
+
+- [#185513](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185513)
+  [`ee3b4336e4aa9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee3b4336e4aa9) -
+  ED-28408 clean up fg platform_editor_find_and_replace_magenta_match
+- Updated dependencies
+
+## 9.4.42
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.4.41
 
 ### Patch Changes

@@ -68,7 +68,7 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin':
     'Till exempel sidor, ärenden och kommentarer som de har skapat i produkter.',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':
-    'Till exempel sidor, ärenden och kommentarer som du har skapat i produkter.',
+    'Till exempel sidor, arbetsuppgifter och kommentarer som du har skapat i produkter.',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.admin':
     'Du eller andra användare kan ha installerat appar som lägger till funktioner till Atlassian-produkter. Dessa appar kan ha lagrat användarens profilinformation.',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.self':
@@ -90,9 +90,9 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p1.self':
     'Vi sparar personuppgifter under begränsade tidsperioder när vi har legitima verksamhetsskäl eller juridiska skäl. Några exempel är:',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.admin':
-    'Vi tar inte bort några personuppgifter från innehåll som har skapats av användare, till exempel namn eller e-postadresser som de skrivit på en sida eller ett ärende. Produktadministratörerna måste ta bort dessa data manuellt.',
+    'Vi tar inte bort några personuppgifter från innehåll som har skapats av användare, till exempel namn eller e-postadresser som de skrivit på en sida eller arbetsuppgift. Produktadministratörerna måste ta bort dessa data manuellt.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.self':
-    'Vi tar inte bort några personuppgifter från innehåll som har skapats av dig eller andra personer, till exempel namn eller e-postadresser som har skrivits på en sida eller i ett ärende. Produktadministratörerna måste ta bort dessa data manuellt.',
+    'Vi tar inte bort några personuppgifter från innehåll som har skapats av dig eller andra personer, till exempel namn eller e-postadresser som har skrivits på en sida eller arbetsuppgift. Produktadministratörerna måste radera dessa data manuellt.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.admin':
     'Användare har rätt att framföra klagomål till tillsynsmyndigheten i användarens land.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.self':

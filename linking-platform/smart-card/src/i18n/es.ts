@@ -122,6 +122,7 @@ export default {
   'fabric.linking.open_issue_in_jira-issue-term-refresh': 'Abrir actividad en Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Abrir enlace en una nueva pestaña',
   'fabric.linking.owned_by': 'Propiedad de {context}',
+  'fabric.linking.owned_by_override': 'De {context}',
   'fabric.linking.pending_request': 'Tu solicitud de acceso está pendiente',
   'fabric.linking.preview_close': 'Cerrar vista previa',
   'fabric.linking.preview_description': 'Abre una vista previa a pantalla completa de este enlace',

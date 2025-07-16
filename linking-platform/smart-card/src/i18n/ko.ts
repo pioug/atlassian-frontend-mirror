@@ -120,6 +120,7 @@ export default {
   'fabric.linking.open_issue_in_jira-issue-term-refresh': 'Jira에서 업무 항목 열기',
   'fabric.linking.open_link_in_a_new_tab': '새 탭에서 링크 열기',
   'fabric.linking.owned_by': '소유자: {context}',
+  'fabric.linking.owned_by_override': '담당자 {context}',
   'fabric.linking.pending_request': '액세스 요청이 보류 중입니다',
   'fabric.linking.preview_close': '미리 보기 닫기',
   'fabric.linking.preview_description': '이 링크의 전체 화면 미리 보기를 엽니다',

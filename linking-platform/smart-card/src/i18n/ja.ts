@@ -122,6 +122,7 @@ export default {
   'fabric.linking.open_issue_in_jira-issue-term-refresh': 'Jira で作業項目を開く',
   'fabric.linking.open_link_in_a_new_tab': 'リンクを新しいタブで開く',
   'fabric.linking.owned_by': '所有者: {context}',
+  'fabric.linking.owned_by_override': '所有者: {context}',
   'fabric.linking.pending_request': 'アクセス リクエストは保留中です。',
   'fabric.linking.preview_close': 'プレビューを閉じる',
   'fabric.linking.preview_description': 'このリンクの全画面プレビューを開きます',

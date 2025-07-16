@@ -99,6 +99,7 @@ export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 				attributeName === 'data-auto-scrollable' ||
 				attributeName === 'id' ||
 				attributeName === 'tabindex' ||
+				attributeName === 'data-is-ttvc-ready' ||
 				NON_VISUAL_ARIA_ATTRIBUTES.includes(attributeName)
 			) {
 				return false;

@@ -129,6 +129,7 @@ export default {
     'Pretraži stranice za umetanje prema ključnoj riječi.',
   'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
     'Koristi JQL (Jira Query Language) za pretraživanje radnih predmeta.',
+  'linkDataSource.modal-initial-state.searchTitle': 'Pretraži pitanja u Jiri',
   'linkDataSource.modal-initial-state.searchTitle-issue-term-refresh': 'Pretraži Jira radne predmete',
   'linkDataSource.noResultsFound': 'Nisu pronađeni rezultati',
   'linkDataSource.render-type.boolean.false': 'Ne',

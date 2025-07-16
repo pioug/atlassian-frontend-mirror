@@ -3,8 +3,6 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { expectElementWithText } from '../../../../../__tests__/__utils__/unit-helpers';
 import { IconAndTitleLayout } from '../../index';
@@ -54,45 +52,37 @@ describe('IconAndTitleLayout', () => {
 			expect(urlIcon).toBeDefined();
 		});
 
-		ffTest.both('platform-linking-visual-refresh-v2', '', () => {
-			it('should render round image if profile type', () => {
-				renderWithIntl(
-					<IconAndTitleLayout
-						title="title"
-						icon="src-loaded"
-						testId="inline-card-icon"
-						type={['Document', 'Profile']}
-					/>,
-				);
+		it('should render round image if profile type', () => {
+			renderWithIntl(
+				<IconAndTitleLayout
+					title="title"
+					icon="src-loaded"
+					testId="inline-card-icon"
+					type={['Document', 'Profile']}
+				/>,
+			);
 
-				const urlIcon = screen.getByTestId('inline-card-icon-image');
-				const styles = window.getComputedStyle(urlIcon);
+			const urlIcon = screen.getByTestId('inline-card-icon-image');
+			const styles = window.getComputedStyle(urlIcon);
 
-				if (fg('platform-linking-visual-refresh-v2')) {
-					expect(styles.borderRadius).toContain('--ds-border-radius-circle');
-					return;
-				}
+			expect(styles.borderRadius).toContain('--ds-border-radius-circle');
+		});
 
-				expect(styles.borderRadius).toBe('');
-				return;
-			});
+		it('should not render round image if type is not profile', () => {
+			renderWithIntl(
+				<IconAndTitleLayout
+					title="title"
+					icon="src-loaded"
+					testId="inline-card-icon"
+					type={['Document', 'SomethingElse']}
+				/>,
+			);
 
-			it('should not render round image if type is not profile', () => {
-				renderWithIntl(
-					<IconAndTitleLayout
-						title="title"
-						icon="src-loaded"
-						testId="inline-card-icon"
-						type={['Document', 'SomethingElse']}
-					/>,
-				);
+			const urlIcon = screen.getByTestId('inline-card-icon-image');
+			const styles = window.getComputedStyle(urlIcon);
 
-				const urlIcon = screen.getByTestId('inline-card-icon-image');
-				const styles = window.getComputedStyle(urlIcon);
-
-				expect(styles.borderRadius).toBe('');
-				return;
-			});
+			expect(styles.borderRadius).toBe('');
+			return;
 		});
 
 		it('renders default icon if neither icon nor url provided', () => {

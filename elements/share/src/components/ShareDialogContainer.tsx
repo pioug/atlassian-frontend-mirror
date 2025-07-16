@@ -372,6 +372,7 @@ export class ShareDialogContainerInternal extends React.Component<
 			dialogPlacement,
 			loadUserOptions,
 			renderCustomTriggerButton,
+			customTriggerButtonIcon,
 			shareContentType,
 			shareContentSubType,
 			shareContentId,
@@ -429,6 +430,7 @@ export class ShareDialogContainerInternal extends React.Component<
 						onDialogOpen={this.handleDialogOpen}
 						onShareSubmit={this.handleSubmitShare}
 						renderCustomTriggerButton={renderCustomTriggerButton}
+						customTriggerButtonIcon={customTriggerButtonIcon}
 						shareContentType={shareContentType}
 						shareContentSubType={shareContentSubType}
 						shareContentId={shareContentId}

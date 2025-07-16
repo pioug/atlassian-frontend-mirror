@@ -3,6 +3,7 @@ import React from 'react';
 import CrossIcon from '@atlaskit/icon/core/cross';
 import CloseIconMigration from '@atlaskit/icon/core/migration/cross';
 import LegacyCloseIcon from '@atlaskit/icon/glyph/cross';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Inline, Stack } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 

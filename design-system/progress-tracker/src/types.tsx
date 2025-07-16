@@ -1,7 +1,7 @@
 /**
  * Ideally these are exported by @atlaskit/page
  */
-export type Spacing = 'comfortable' | 'cosy' | 'compact';
+export type Spacing = 'comfortable' | 'cozy' | 'compact';
 
 export type Status = 'unvisited' | 'visited' | 'current' | 'disabled';
 

@@ -5,12 +5,10 @@
 import { css, jsx } from '@compiled/react';
 import { defineMessages, useIntl } from 'react-intl-next';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { LINK_PICKER_MIN_HEIGHT_IN_PX_FALLBACK } from '../../../common/constants';
 import { GenericErrorSVG } from '../../../common/generic-error-svg';
-import { GenericErrorSVGV2 } from '../../../common/generic-error-svg-v2';
 import { EmptyState } from '../../../common/ui/empty-state';
 import { MinHeightContainer } from '../../../common/ui/min-height-container';
 
@@ -44,11 +42,7 @@ export const ErrorBoundaryFallback = () => {
 		>
 			<EmptyState
 				header={header}
-				renderImage={
-					fg('platform-linking-visual-refresh-link-picker')
-						? () => <GenericErrorSVGV2 />
-						: () => <GenericErrorSVG />
-				}
+				renderImage={() => <GenericErrorSVG />}
 				description={description}
 			/>
 		</MinHeightContainer>

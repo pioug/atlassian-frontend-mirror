@@ -61,6 +61,11 @@ const initialState: State = {
 	connectedTeams: initialConnectedTeamsState,
 };
 
+function containersEqual<T extends { id: string }>(arr1: T[], arr2: T[]) {
+	const sortById = (a: T, b: T) => a.id.localeCompare(b.id);
+	return JSON.stringify([...arr1].sort(sortById)) === JSON.stringify([...arr2].sort(sortById));
+}
+
 const actions = {
 	fetchTeamContainers:
 		(
@@ -80,6 +85,32 @@ const actions = {
 			} catch (err) {
 				fireAnalytics(AnalyticsAction.FAILED, 'fetchTeamContainers', err as Error);
 				setState({ teamContainers: [], error: err as Error, loading: false, hasLoaded: true });
+			}
+		},
+	refetchTeamContainers:
+		(
+			fireAnalytics: (action: string, actionSubject: string, error?: Error) => void,
+		): Action<State> =>
+		async ({ setState, getState }) => {
+			const { teamId } = getState();
+			if (!teamId) {
+				return;
+			}
+			try {
+				const containers = await teamsClient.getTeamContainers(teamId);
+				fireAnalytics(AnalyticsAction.SUCCEEDED, 'refetchTeamContainers');
+				// optimisation to avoid unnecessary state updates
+				if (!containersEqual(containers, getState().teamContainers)) {
+					setState({ teamContainers: containers, loading: false, error: null, hasLoaded: true });
+				}
+			} catch (err) {
+				fireAnalytics(AnalyticsAction.FAILED, 'refetchTeamContainers', err as Error);
+				setState({
+					teamContainers: getState().teamContainers,
+					error: err as Error,
+					loading: false,
+					hasLoaded: true,
+				});
 			}
 		},
 	fetchNumberOfConnectedTeams:
@@ -277,6 +308,7 @@ export const useTeamContainers = (teamId: string, enable = true) => {
 		addTeamContainer: actions.addTeamContainer,
 		unlinkTeamContainers: (containerId: string) =>
 			actions.unlinkTeamContainers(teamId, containerId),
+		refetchTeamContainers: () => actions.refetchTeamContainers(fireOperationalAnalytics),
 	};
 };
 

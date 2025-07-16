@@ -25,9 +25,7 @@ snapshot(RelatedLinksModal, {
 			},
 		},
 	],
-	featureFlags: {
-		'platform-linking-visual-refresh-v2': true,
-	},
+	featureFlags: {},
 });
 
 snapshot(RelatedLinksResolvedView, {
@@ -48,9 +46,7 @@ snapshot(RelatedLinksResolvedView, {
 			},
 		},
 	],
-	featureFlags: {
-		'platform-linking-visual-refresh-v2': true,
-	},
+	featureFlags: {},
 });
 
 snapshot(RelatedLinksResolvedViewWithEmptyList, {
@@ -71,9 +67,7 @@ snapshot(RelatedLinksResolvedViewWithEmptyList, {
 			},
 		},
 	],
-	featureFlags: {
-		'platform-linking-visual-refresh-v2': true,
-	},
+	featureFlags: {},
 });
 
 snapshot(RelatedLinksModalErroredView, {
@@ -94,9 +88,7 @@ snapshot(RelatedLinksModalErroredView, {
 			},
 		},
 	],
-	featureFlags: {
-		'platform-linking-visual-refresh-v2': true,
-	},
+	featureFlags: {},
 });
 
 snapshot(RelatedLinksModalUnavailableView, {
@@ -117,9 +109,7 @@ snapshot(RelatedLinksModalUnavailableView, {
 			},
 		},
 	],
-	featureFlags: {
-		'platform-linking-visual-refresh-v2': true,
-	},
+	featureFlags: {},
 });
 
 snapshot(RelatedLinksModalResolvingView, {
@@ -140,7 +130,5 @@ snapshot(RelatedLinksModalResolvingView, {
 			},
 		},
 	],
-	featureFlags: {
-		'platform-linking-visual-refresh-v2': true,
-	},
+	featureFlags: {},
 });

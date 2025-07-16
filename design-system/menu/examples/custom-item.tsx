@@ -6,7 +6,7 @@ import { cssMap, jsx } from '@compiled/react';
 
 import Icon from '@atlaskit/icon';
 import { CustomItem, type CustomItemComponentProps } from '@atlaskit/menu';
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import { B100 } from '@atlaskit/theme/colors';
 
 import Slack from './icons/slack';
@@ -24,7 +24,13 @@ const CustomComponent = ({ children, href, ...props }: CustomComponentWithHrefPr
 	);
 };
 
-const styles = cssMap({
+const containerStyles = cssMap({
+	root: {
+		width: '500px',
+	},
+});
+
+const customItemStyles = cssMap({
 	root: {
 		position: 'relative',
 		overflow: 'hidden',
@@ -57,11 +63,16 @@ export default () => (
 	 * no negative impacts to assistive technologies.
 	 */
 	// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable
-	<Box onClick={(e: React.MouseEvent) => e.preventDefault()} role="presentation">
+	<Box
+		onClick={(e: React.MouseEvent) => e.preventDefault()}
+		role="presentation"
+		xcss={containerStyles.root}
+	>
 		<CustomItem
 			href="/navigation-system"
 			component={CustomComponent}
-			css={[styles.root, styles.interactive]}
+			css={[customItemStyles.root, customItemStyles.interactive]}
+			testId="first-item"
 		>
 			CustomItem
 		</CustomItem>
@@ -69,7 +80,7 @@ export default () => (
 			href="/navigation-system-1"
 			isSelected
 			component={CustomComponent}
-			css={[styles.root, styles.interactive]}
+			css={[customItemStyles.root, customItemStyles.interactive]}
 		>
 			isSelected CustomItem
 		</CustomItem>
@@ -77,7 +88,7 @@ export default () => (
 			href="/navigation-system-2"
 			isDisabled
 			component={CustomComponent}
-			css={styles.root}
+			css={customItemStyles.root}
 		>
 			isDisabled CustomItem
 		</CustomItem>
@@ -85,7 +96,7 @@ export default () => (
 			href="/navigation-system-3"
 			component={CustomComponent}
 			iconBefore={<Icon glyph={Slack} label="" />}
-			css={[styles.root, styles.interactive]}
+			css={[customItemStyles.root, customItemStyles.interactive]}
 		>
 			iconBefore CustomItem
 		</CustomItem>
@@ -94,7 +105,7 @@ export default () => (
 			component={CustomComponent}
 			iconBefore={<Icon glyph={Slack} label="" />}
 			description="Next-gen software project"
-			css={[styles.root, styles.interactive]}
+			css={[customItemStyles.root, customItemStyles.interactive]}
 		>
 			iconBefore and description CustomItem
 		</CustomItem>

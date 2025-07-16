@@ -5,13 +5,23 @@ import ButtonItem from '../../../examples/button-item';
 snapshot(ButtonItem, {
 	variants: [
 		{
-			name: 'Default',
-			environment: {},
-		},
-		{
 			name: 'Light',
 			environment: {
 				colorScheme: 'light',
+			},
+		},
+	],
+	states: [
+		{
+			state: 'hovered',
+			selector: {
+				byTestId: 'first-item',
+			},
+		},
+		{
+			state: 'focused',
+			selector: {
+				byTestId: 'first-item',
 			},
 		},
 	],

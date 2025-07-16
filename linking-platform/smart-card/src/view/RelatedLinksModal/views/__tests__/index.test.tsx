@@ -40,7 +40,7 @@ describe('RelatedLinksModal views', () => {
 
 		// a modal component has role dialog
 		const modal = await screen.findByRole('dialog');
-		const modalTitle = await screen.findByText('Recent links');
+		const modalTitle = await screen.findByText('Related links');
 		const closeButton = await screen.findByRole('button', { name: 'Close' });
 
 		expect(modal).toBeInTheDocument();
@@ -80,10 +80,10 @@ describe('RelatedLinksModal views', () => {
 			const modal = await screen.findByRole('dialog');
 			expect(modal).toBeInTheDocument();
 
-			const incomingLinksHeading = await screen.findByText('Found In');
+			const incomingLinksHeading = await screen.findByText('Found in');
 			expect(incomingLinksHeading).toBeInTheDocument();
 
-			const outgoingLinksHeading = await screen.findByText('Includes Links To');
+			const outgoingLinksHeading = await screen.findByText('Includes links to');
 			expect(outgoingLinksHeading).toBeInTheDocument();
 
 			const allLinks = await screen.findAllByTestId('smart-element-link');
@@ -105,10 +105,10 @@ describe('RelatedLinksModal views', () => {
 			const modal = await screen.findByRole('dialog');
 			expect(modal).toBeInTheDocument();
 
-			const incomingLinksHeading = await screen.findByText('Found In');
+			const incomingLinksHeading = await screen.findByText('Found in');
 			expect(incomingLinksHeading).toBeInTheDocument();
 
-			const outgoingLinksHeading = await screen.findByText('Includes Links To');
+			const outgoingLinksHeading = await screen.findByText('Includes links to');
 			expect(outgoingLinksHeading).toBeInTheDocument();
 
 			const allLinks = screen.queryAllByRole('links');
@@ -182,11 +182,11 @@ describe('RelatedLinksModal views', () => {
 			const image = await screen.findByTestId('related-links-error-svg');
 			expect(image).toBeInTheDocument();
 
-			const errorHeader = await screen.findByText('Something went wrong');
+			const errorHeader = await screen.findByText("We're having trouble loading related links");
 			expect(errorHeader).toBeInTheDocument();
 
 			const errorDescription = await screen.findByText(
-				'We ran into an issue trying to load recent links. Check your connection or refresh to try again.',
+				'Check your connection or refresh the page to try again',
 			);
 			expect(errorDescription).toBeInTheDocument();
 		});
@@ -208,11 +208,11 @@ describe('RelatedLinksModal views', () => {
 			const image = await screen.findByTestId('related-links-unavailable-svg');
 			expect(image).toBeInTheDocument();
 
-			const unavailableHeader = await screen.findByText('No recent links');
+			const unavailableHeader = await screen.findByText("We couldn't find any related links");
 			expect(unavailableHeader).toBeInTheDocument();
 
 			const unavailableDescription = await screen.findByText(
-				"We didn't find any links to show here. We continuously review and add recent links for updated pages or other content types.",
+				'We continuously review and add related links for updated pages or other content types',
 			);
 			expect(unavailableDescription).toBeInTheDocument();
 		});

@@ -10,7 +10,6 @@ import { useMemo } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 import LinkIcon from '@atlaskit/icon/core/migration/link';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -205,9 +204,7 @@ const renderImageIcon = (
 				url={url}
 				width={width}
 				height={width}
-				{...(fg('platform-linking-visual-refresh-v2') && {
-					appearance,
-				})}
+				appearance={appearance}
 				hideLoadingSkeleton={hideLoadingSkeleton}
 			/>
 		);
@@ -239,14 +236,7 @@ const IconElement = ({
 		return (
 			overrideIcon ||
 			render?.() ||
-			renderImageIcon(
-				defaultIcon,
-				url,
-				testId,
-				size,
-				fg('platform-linking-visual-refresh-v2') ? appearance : undefined,
-				hideLoadingSkeleton,
-			) ||
+			renderImageIcon(defaultIcon, url, testId, size, appearance, hideLoadingSkeleton) ||
 			renderAtlaskitIcon(icon, testId, size) ||
 			defaultIcon
 		);

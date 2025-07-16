@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Heading from '@atlaskit/heading';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline, type Space, Stack } from '@atlaskit/primitives';
 
 const spacingValues: Space[] = [

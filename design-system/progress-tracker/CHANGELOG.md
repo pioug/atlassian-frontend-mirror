@@ -1,5 +1,14 @@
 # @atlaskit/progress-tracker
 
+## 10.3.0
+
+### Minor Changes
+
+- [#185065](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185065)
+  [`e5274f9f73365`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e5274f9f73365) -
+  Replaces 'cosy' spacing prop with 'cozy' to align with standard US spelling. (cosy is still
+  functional).
+
 ## 10.2.2
 
 ### Patch Changes

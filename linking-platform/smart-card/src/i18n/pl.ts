@@ -40,7 +40,7 @@ export default {
   'fabric.linking.ai_summary_error_generic':
     'Atlassian Intelligence (AI) nie odpowiada. Spróbuj ponownie później lub <a>sprawdź status AI</a>.',
   'fabric.linking.ai_summary_error_hipaa_content_detected':
-    'Atlassian Intelligence nie może przetworzyć Twojego żądania, ponieważ treść zawiera łącza do zawartości podlegających ograniczeniom przepisów HIPAA.',
+    'Atlassian Intelligence nie może przetworzyć Twojego wniosku, ponieważ treść zawiera łącza do zawartości podlegających ograniczeniom przepisów HIPAA.',
   'fabric.linking.assigned_to': 'Przypisano do {context}',
   'fabric.linking.automation-action.confluence.page.modal.description':
     'Zastosuj automatyzacje do <b>{name}</b>.{br}Opcje dostępne do wyboru są kontrolowane przez administratorów Confluence i przestrzeni.',
@@ -122,6 +122,7 @@ export default {
   'fabric.linking.open_issue_in_jira-issue-term-refresh': 'Otwórz zgłoszenie w systemie Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Otwórz łącze na nowej karcie',
   'fabric.linking.owned_by': 'Właściciel: {context}',
+  'fabric.linking.owned_by_override': 'Autor: {context}',
   'fabric.linking.pending_request': 'Twój wniosek o dostęp oczekuje na rozpatrzenie',
   'fabric.linking.preview_close': 'Zamknij podgląd',
   'fabric.linking.preview_description': 'Otwórz podgląd tego łącza na pełnym ekranie',

@@ -2,9 +2,11 @@ import React from 'react';
 
 import { useColorMode, useSetColorMode, useSetTheme, useTheme } from '@atlaskit/app-provider';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box } from '@atlaskit/primitives';
 
 const AppProviderThemeCodeBlock = `import React from 'react';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box } from '@atlaskit/primitives';
 import AppProvider from '@atlaskit/app-provider';
 

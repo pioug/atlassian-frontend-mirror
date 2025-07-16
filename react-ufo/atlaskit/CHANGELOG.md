@@ -1,5 +1,14 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.0.0
+
+### Major Changes
+
+- [#185849](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185849)
+  [`5570de66b8d30`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5570de66b8d30) -
+  change default TTVC version to v3, remove deprecated config fields, deprecate Placeholder
+  component
+
 ## 3.14.15
 
 ### Patch Changes

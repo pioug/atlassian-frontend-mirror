@@ -15,9 +15,7 @@ snapshot(DefaultExample, {
 			},
 		},
 	],
-	featureFlags: {
-		'platform-linking-visual-refresh-link-picker': true,
-	},
+	featureFlags: {},
 });
 snapshot(SelectedExample, {
 	variants: [
@@ -32,7 +30,5 @@ snapshot(SelectedExample, {
 			},
 		},
 	],
-	featureFlags: {
-		'platform-linking-visual-refresh-link-picker': true,
-	},
+	featureFlags: {},
 });

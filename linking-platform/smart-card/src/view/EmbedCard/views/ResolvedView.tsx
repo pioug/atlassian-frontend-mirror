@@ -1,7 +1,6 @@
 import React from 'react';
 
 import LinkGlyph from '@atlaskit/icon/core/migration/link';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { useThemeObserver } from '@atlaskit/tokens';
 
 import { getPreviewUrlWithTheme, isProfileType } from '../../../utils';
@@ -81,8 +80,6 @@ export const EmbedCardResolvedView = React.forwardRef<
 			[],
 		);
 
-		const profileType = isProfileType(type) && fg('platform-linking-visual-refresh-v2');
-
 		let icon = React.useMemo(() => {
 			if (React.isValidElement(iconFromContext)) {
 				return iconFromContext;
@@ -91,12 +88,10 @@ export const EmbedCardResolvedView = React.forwardRef<
 				<ImageIcon
 					src={src}
 					default={linkGlyph}
-					{...(fg('platform-linking-visual-refresh-v2') && {
-						appearance: profileType ? 'round' : 'square',
-					})}
+					appearance={isProfileType(type) ? 'round' : 'square'}
 				/>
 			);
-		}, [iconFromContext, src, linkGlyph, profileType]);
+		}, [iconFromContext, src, linkGlyph, type]);
 
 		const themeState = useThemeObserver();
 		let previewUrl = preview?.src;

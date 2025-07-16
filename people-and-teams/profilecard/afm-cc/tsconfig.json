@@ -1,114 +1,111 @@
 {
-    "extends": "../../../../tsconfig.entry-points.confluence.json",
-    "compilerOptions": {
-        "declaration": true,
-        "target": "es5",
-        "composite": true,
-        "outDir": "../../../../../confluence/tsDist/@atlaskit__profilecard",
-        "rootDir": "../"
-    },
-    "include": [
-        "../src/**/*.ts",
-        "../src/**/*.tsx"
-    ],
-    "exclude": [
-        "../src/**/__tests__/*",
-        "../src/**/*.test.*",
-        "../src/**/test.*"
-    ],
-    "references": [
-        {
-            "path": "../../../analytics/analytics-next/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../uip/atlassian-context/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/avatar/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/avatar-group/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/button/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/css/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/dropdown-menu/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/empty-state/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../measurement/feature-gate-js-client/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/focus-ring/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../team-central/give-kudos/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/heading/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/icon/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/link/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/logo/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/lozenge/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/menu/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/modal-dialog/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../people-teams-ui-public/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/popup/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/primitives/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../ai-mate/rovo-agent-components/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../ai-mate/rovo-triggers/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/spinner/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../teams-app-config/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../teams-avatar/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../teams-public/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/theme/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/tokens/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/tooltip/afm-cc/tsconfig.json"
-        }
-    ]
+	"extends": "../../../../tsconfig.entry-points.confluence.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"composite": true,
+		"outDir": "../../../../../confluence/tsDist/@atlaskit__profilecard",
+		"rootDir": "../"
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../uip/atlassian-context/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/avatar/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/avatar-group/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/button/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/css/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/dropdown-menu/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/empty-state/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../measurement/feature-gate-js-client/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../team-central/give-kudos/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/heading/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/link/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/logo/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/lozenge/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/menu/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/modal-dialog/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../people-teams-ui-public/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/popup/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../ai-mate/rovo-agent-components/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../ai-mate/rovo-triggers/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/spinner/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../teams-app-config/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../teams-avatar/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../teams-public/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-cc/tsconfig.json"
+		}
+	]
 }

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/navigation-system",
-	"version": "0.170.0",
+	"version": "0.171.0",
 	"description": "The latest navigation system for Atlassian products.",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"author": "Atlassian Pty Ltd",
@@ -254,9 +254,6 @@
 			"type": "boolean"
 		},
 		"platform_fix_component_state_update_for_suspense": {
-			"type": "boolean"
-		},
-		"platform_design_system_nav_logo_interaction_states": {
 			"type": "boolean"
 		},
 		"platform_design_system_nav4_panel_mobile_width_fix": {

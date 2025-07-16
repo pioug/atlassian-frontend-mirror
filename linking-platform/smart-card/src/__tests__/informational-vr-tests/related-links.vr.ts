@@ -26,9 +26,7 @@ snapshotInformational(RelatedLinksResolvedView, {
 			},
 		},
 	],
-	featureFlags: {
-		'platform-linking-visual-refresh-v2': true,
-	},
+	featureFlags: {},
 });
 
 snapshotInformational(RelatedLinksResolvedView, {
@@ -53,7 +51,5 @@ snapshotInformational(RelatedLinksResolvedView, {
 			},
 		},
 	],
-	featureFlags: {
-		'platform-linking-visual-refresh-v2': true,
-	},
+	featureFlags: {},
 });

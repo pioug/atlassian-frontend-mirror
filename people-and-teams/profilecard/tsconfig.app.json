@@ -56,9 +56,6 @@
 			"path": "../../design-system/empty-state/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/focus-ring/tsconfig.app.json"
-		},
-		{
 			"path": "../../team-central/give-kudos/tsconfig.app.json"
 		},
 		{

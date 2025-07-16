@@ -13,6 +13,7 @@ const ProgrammaticFlagDismissExample = () => {
 			title="Can I leave yet?"
 			description="Dismiss me by clicking the button on the page"
 			icon={<InfoIcon label="Info" />}
+			testId="MyFlagTestId"
 		/>,
 	]);
 

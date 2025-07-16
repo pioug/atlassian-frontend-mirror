@@ -150,7 +150,7 @@ export default {
   'linkDataSource.jira-issues.searchDescription-basic': 'Tìm kiếm từ khóa cho vấn đề để chèn.',
   'linkDataSource.jira-issues.searchDescription-jql':
     'Sử dụng JQL (Ngôn ngữ Đặt câu hỏi trên Jira) để tìm kiếm các vấn đề.',
-  'linkDataSource.jira-issues.searchJiraTitle': 'Tìm kiếm vấn đề Jira',
+  'linkDataSource.jira-issues.searchJiraTitle': 'Tìm kiếm hạng mục công việc Jira',
   'linkDataSource.unableToLoadItems': 'Không thể tải được các mục',
   'linkDataSource.unableToLoadResults': 'Không tải được kết quả',
   'linkDataSource.jira-issues.unableToLoadResults.visual-refresh-sllv':
@@ -158,7 +158,7 @@ export default {
   'linkDataSource.jira-issues.unableToLoadResultsOld': 'Không tải được kết quả',
   'linkDataSource.modal-initial-state.beta': 'Beta',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Tìm kiếm trang Confluence',
-  'linkDataSource.modal-initial-state.jiraSearchTitle': 'Tìm kiếm vấn đề Jira',
+  'linkDataSource.modal-initial-state.jiraSearchTitle': 'Tìm kiếm hạng mục công việc Jira',
   'linkDataSource.modal-initial-state.learnMoreLinkOld': 'Tìm hiểu cách tìm kiếm bằng JQL',
   'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
     'Tìm kiếm từ khóa của hạng mục công việc để chèn.',

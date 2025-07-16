@@ -182,10 +182,10 @@ export default {
   'linkDataSource.jira-issues.noResultsFoundOld': '⁣⁢No results found⁪⁬⁯‌⁡؜‌‌⁮⁭⁡⁭⁡⁪⁪‍⁡⁣⁤',
   'linkDataSource.jira-issues.refresh': '⁣⁢Refresh؜⁠⁫⁯؜⁬⁠⁡⁡⁮⁬⁫⁯⁡⁫⁪‍⁭⁭⁪⁪⁭؜⁫؜⁣⁤',
   'linkDataSource.jira-issues.searchDescription-basic':
-    '⁣⁢Search by keyword for issues to insert.؜‍⁪⁠⁬⁡⁭⁯⁬⁡⁮⁯‍‍⁮⁫‌⁭⁪‌⁡⁭‍⁫؜؜⁣⁤',
+    '⁣⁢Search by keyword for work items to insert.؜⁯⁠⁪‍؜⁯‌؜⁫⁫⁬⁮⁠؜⁡⁡⁮‌⁫⁠⁣⁤',
   'linkDataSource.jira-issues.searchDescription-jql':
     '⁣⁢Use JQL (Jira Query Language) to search for issues.⁭⁠‌؜؜⁠‌⁫⁫⁯؜؜‌؜⁯⁠⁮⁬⁡⁣⁤',
-  'linkDataSource.jira-issues.searchJiraTitle': '⁣⁢Search for Jira issues؜⁬‌⁬⁯⁫⁠؜⁭⁭⁬⁯⁠⁯⁠؜‌⁯⁠⁬⁫⁫⁣⁤',
+  'linkDataSource.jira-issues.searchJiraTitle': '⁣⁢Search for Jira work items‍⁯؜⁡⁯⁠⁬⁡⁫‍؜‌⁭⁮⁡⁯⁭⁡⁡⁫⁫⁮⁬⁣⁤',
   'linkDataSource.jira-issues.unableToLoadItems': '⁣⁢Unable to load items⁪⁮⁠⁠⁮⁭⁭⁪⁫⁠‌‌⁠‌⁯⁮⁯‌⁠⁠⁯؜؜⁫⁣⁤',
   'linkDataSource.jira-issues.unableToLoadResults':
     '⁣⁢We ran into an issue trying to fetch results⁭⁭⁮‍⁡‍⁫‌⁫⁠⁯⁫⁭⁫‌⁮⁡‍⁡؜؜⁬⁣⁤',
@@ -195,7 +195,7 @@ export default {
   'linkDataSource.modal-initial-state.beta': '⁣⁢Beta⁠؜‌⁠⁠⁪⁬⁯⁮⁯؜⁭⁡⁡⁠⁡⁬‌⁯⁮⁣⁤',
   'linkDataSource.modal-initial-state.confluenceSearchTitle':
     '⁣⁢Search for Confluence pages⁮⁬⁬؜‌⁮؜⁮‍⁬⁫‌⁬‍؜⁮‌؜⁡‍⁫⁭⁬‌⁠‍⁣⁤',
-  'linkDataSource.modal-initial-state.jiraSearchTitle': '⁣⁢Search for Jira issues⁯⁭⁡‍‌⁭⁫⁬⁡؜⁯‌⁪⁮‍؜⁭⁠⁭⁣⁤',
+  'linkDataSource.modal-initial-state.jiraSearchTitle': '⁣⁢Search for Jira work items‍⁯⁡⁪⁫⁠؜‌⁮⁫‌⁡‌⁠⁠‌⁬‍⁡؜⁪⁪⁬⁣⁤',
   'linkDataSource.modal-initial-state.learnMoreLink': '⁣⁢Find out more about searching with JQL؜⁯⁫⁭⁡⁡؜‍⁭⁪⁫⁪‍‌⁠⁬‍⁡‌⁪⁣⁤',
   'linkDataSource.modal-initial-state.learnMoreLinkOld': '⁣⁢Learn how to search with JQL⁫⁪⁫⁠⁪؜⁡‌⁯⁡⁪⁬⁮⁭‍‍⁣⁤',
   'linkDataSource.modal-initial-state.searchDescription-basic':
@@ -210,7 +210,7 @@ export default {
     '⁣⁢Use JQL (Jira Query Language) to search for issues.⁪⁫⁯⁡⁡⁪⁡⁡⁡⁬⁡⁬؜⁡‌⁠⁫⁡⁫⁡⁫⁯⁮⁣⁤',
   'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
     '⁣⁢Use JQL (Jira Query Language) to search for work items.‍⁭⁪‌⁡⁫⁠⁯⁠؜⁡⁮⁭⁬‌⁮؜‌⁪⁫⁣⁤',
-  'linkDataSource.modal-initial-state.searchTitle': '⁣⁢Search for Jira issues⁠⁯⁬؜⁬⁡⁭⁭‌‍⁮⁫⁫⁭⁪⁡‍⁪⁬‍⁫⁣⁤',
+  'linkDataSource.modal-initial-state.searchTitle': '⁣⁢Search for Jira work items⁬‍⁮‍⁮‍⁯‌⁭⁡⁭⁪⁪⁡‌⁬⁣⁤',
   'linkDataSource.modal-initial-state.searchTitle-issue-term-refresh':
     '⁣⁢Search for Jira work items‌⁠‌⁭⁮⁬⁫⁯؜⁯؜⁬‌⁯⁭⁡⁡⁬⁡⁬‌⁯‍⁣⁤',
   'linkDataSource.no.jira.sites.access.description':

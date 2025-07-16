@@ -7,6 +7,7 @@ import { type ChangeEvent, useState } from 'react';
 import { Checkbox } from '@atlaskit/checkbox';
 import { jsx } from '@atlaskit/css';
 import { Fieldset } from '@atlaskit/form';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 
 type Checkboxes = Record<string, boolean>;

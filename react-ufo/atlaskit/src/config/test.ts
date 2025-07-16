@@ -10,8 +10,6 @@ import {
 	getInteractionRate,
 	getMostRecentVCRevision,
 	getPostInteractionRate,
-	getRemoveInteractionsUFOPrefixes,
-	getRemovePageSegmentsUFOPrefixes,
 	getTypingPerformanceTracingMethod,
 	getUfoNameOverrides,
 	isVCRevisionEnabled,
@@ -41,7 +39,7 @@ describe('UFO Configuration Module', () => {
 				vc: { enabled: true },
 			};
 			setUFOConfig(config);
-			expect(getEnabledVCRevisions()).toEqual(['fy25.02']);
+			expect(getEnabledVCRevisions()).toEqual(['fy25.03']);
 		});
 
 		it('should return revisions based on experienceKey when config is set', () => {
@@ -182,30 +180,6 @@ describe('UFO Configuration Module', () => {
 			};
 			setUFOConfig(config);
 			expect(getAwaitBM3TTIList()).toEqual(['event1', 'event2']);
-		});
-	});
-
-	describe('getRemovePageSegmentsUFOPrefixes', () => {
-		it('should return the correct flag for removing page segment UFO prefixes', () => {
-			const config = {
-				product: 'testProduct',
-				region: 'testRegion',
-				removePageSegmentsUFOPrefixes: true,
-			};
-			setUFOConfig(config);
-			expect(getRemovePageSegmentsUFOPrefixes()).toBe(true);
-		});
-	});
-
-	describe('getRemoveInteractionsUFOPrefixes', () => {
-		it('should return the correct flag for removing interaction UFO prefixes', () => {
-			const config = {
-				product: 'testProduct',
-				region: 'testRegion',
-				removeInteractionsUFOPrefixes: true,
-			};
-			setUFOConfig(config);
-			expect(getRemoveInteractionsUFOPrefixes()).toBe(true);
 		});
 	});
 

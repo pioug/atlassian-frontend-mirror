@@ -3,6 +3,7 @@
  * @jsx jsx
  */
 import { cssMap, jsx } from '@atlaskit/css';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Text } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 

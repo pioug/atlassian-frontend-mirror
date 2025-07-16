@@ -154,7 +154,7 @@ export default {
     'Suchen Sie nach Vorgängen, indem Sie ein Schlüsselwort eingeben.',
   'linkDataSource.jira-issues.searchDescription-jql':
     'Suchen Sie mithilfe von JQL (Jira-Abfragesprache) nach Vorgängen.',
-  'linkDataSource.jira-issues.searchJiraTitle': 'Nach Jira-Vorgängen suchen',
+  'linkDataSource.jira-issues.searchJiraTitle': 'Jira-Vorgänge suchen',
   'linkDataSource.unableToLoadItems': 'Elemente konnten nicht geladen werden',
   'linkDataSource.unableToLoadResults': 'Ergebnisse konnten nicht geladen werden',
   'linkDataSource.jira-issues.unableToLoadResults.visual-refresh-sllv':
@@ -162,7 +162,7 @@ export default {
   'linkDataSource.jira-issues.unableToLoadResultsOld': 'Ergebnisse konnten nicht geladen werden',
   'linkDataSource.modal-initial-state.beta': 'Beta',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Nach Confluence-Seiten suchen',
-  'linkDataSource.modal-initial-state.jiraSearchTitle': 'Nach Jira-Vorgängen suchen',
+  'linkDataSource.modal-initial-state.jiraSearchTitle': 'Jira-Vorgänge suchen',
   'linkDataSource.modal-initial-state.learnMoreLinkOld': 'Weitere Informationen zur Suche mit JQL',
   'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
     'Suchen Sie nach Vorgängen zum Einfügen, indem Sie ein Schlüsselwort eingeben.',

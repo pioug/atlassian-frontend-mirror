@@ -302,14 +302,6 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-05-08
-	editor_ai_converge_free_gen_on_rovo: createBooleanExperiment({
-		productKeys: {
-			confluence: 'editor_ai_converge_free_gen_on_rovo',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-05-26
 	platform_editor_stop_width_reflows: createBooleanExperiment({
 		productKeys: {
@@ -378,14 +370,6 @@ export const editorExperimentsConfig = {
 	platform_editor_toolbar_rerender_optimization_exp: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_toolbar_rerender_optimization_exp',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-05-30
-	platform_editor_controls_toolbar_pinning_exp: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_controls_toolbar_pinning_exp',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

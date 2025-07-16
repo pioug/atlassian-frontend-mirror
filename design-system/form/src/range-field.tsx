@@ -1,4 +1,4 @@
-import React, { type FC, type ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 
 import Field, { type FieldProps, type Meta } from './field';
 
@@ -37,9 +37,25 @@ export interface RangeFieldProps {
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/form/docs/fields#rangefield-reference)
  * - [Usage](https://atlaskit.atlassian.com/packages/design-system/form/docs/fields#rangefield-reference)
  */
-const RangeField: FC<RangeFieldProps> = ({ children, ...strippedProps }) => (
-	// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-	<Field<number> {...strippedProps} transform={Number}>
+const RangeField = ({
+	children,
+	defaultValue,
+	id,
+	isDisabled,
+	label,
+	name,
+	...strippedProps
+}: RangeFieldProps) => (
+	<Field<number>
+		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+		{...strippedProps}
+		defaultValue={defaultValue}
+		id={id}
+		isDisabled={isDisabled}
+		label={label}
+		name={name}
+		transform={Number}
+	>
 		{({ fieldProps: { isInvalid, isRequired, ...fieldProps }, ...rest }) =>
 			// isInvalid and isRequired are specifically invalid for range inputs
 			children({ fieldProps, ...rest })

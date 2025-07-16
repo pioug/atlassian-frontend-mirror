@@ -210,7 +210,5 @@ snapshot(EmbedCardResolvedViewEntities, {
 	},
 });
 snapshot(VREmbedProfileObject, {
-	featureFlags: {
-		'platform-linking-visual-refresh-v2': true,
-	},
+	featureFlags: {},
 });

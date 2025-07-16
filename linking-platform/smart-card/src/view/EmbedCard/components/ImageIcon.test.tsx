@@ -3,8 +3,6 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 
 import { renderWithIntl } from '@atlaskit/link-test-helpers';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { ImageIcon, type ImageIconProps } from './ImageIcon';
 
@@ -35,27 +33,21 @@ describe('ImageIcon', () => {
 		await expect(container).toBeAccessible();
 	});
 
-	ffTest.both('platform-linking-visual-refresh-v2', '', () => {
-		it('should render with round appearance', () => {
-			setup({ appearance: 'round' });
+	it('should render with round appearance', () => {
+		setup({ appearance: 'round' });
 
-			const image = screen.getByRole('img');
-			const style = window.getComputedStyle(image);
+		const image = screen.getByRole('img');
+		const style = window.getComputedStyle(image);
 
-			expect(style.borderRadius).toContain(
-				fg('platform-linking-visual-refresh-v2')
-					? '--ds-border-radius-circle'
-					: '--ds-border-radius',
-			);
-		});
+		expect(style.borderRadius).toContain('--ds-border-radius-circle');
+	});
 
-		it('should not render with round appearance', () => {
-			setup();
+	it('should not render with round appearance', () => {
+		setup();
 
-			const image = screen.getByRole('img');
-			const style = window.getComputedStyle(image);
+		const image = screen.getByRole('img');
+		const style = window.getComputedStyle(image);
 
-			expect(style.borderRadius).toContain('--ds-border-radius');
-		});
+		expect(style.borderRadius).toContain('--ds-border-radius');
 	});
 });

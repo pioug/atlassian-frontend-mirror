@@ -149,7 +149,7 @@ export default {
   'linkDataSource.refresh': 'Vernieuwen',
   'linkDataSource.jira-issues.searchDescription-basic': 'Zoek met trefwoorden om issues toe te voegen.',
   'linkDataSource.jira-issues.searchDescription-jql': 'Gebruik JQL ( Jira Query Language) om te zoeken naar issues.',
-  'linkDataSource.jira-issues.searchJiraTitle': 'Zoek naar Jira-issues',
+  'linkDataSource.jira-issues.searchJiraTitle': 'Zoeken naar Jira-werkitems',
   'linkDataSource.unableToLoadItems': 'Kan items niet laden',
   'linkDataSource.unableToLoadResults': 'Resultaten kunnen niet worden geladen',
   'linkDataSource.jira-issues.unableToLoadResults.visual-refresh-sllv':
@@ -157,7 +157,7 @@ export default {
   'linkDataSource.jira-issues.unableToLoadResultsOld': 'Resultaten kunnen niet worden geladen',
   'linkDataSource.modal-initial-state.beta': 'Bèta',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': "Zoeken naar Confluence-pagina's",
-  'linkDataSource.modal-initial-state.jiraSearchTitle': 'Zoek naar Jira-issues',
+  'linkDataSource.modal-initial-state.jiraSearchTitle': 'Zoeken naar Jira-werkitems',
   'linkDataSource.modal-initial-state.learnMoreLinkOld': 'Meer informatie over zoeken met JQL',
   'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
     'Zoek met trefwoorden naar werkitems om in te voegen.',

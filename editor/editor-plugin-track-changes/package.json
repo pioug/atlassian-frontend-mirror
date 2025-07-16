@@ -37,7 +37,7 @@
 		"@atlaskit/editor-prosemirror": "root:*",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
-		"prosemirror-changeset": "^2.2.1"
+		"prosemirror-changeset": "root:*"
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",

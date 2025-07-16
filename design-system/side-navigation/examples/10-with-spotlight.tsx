@@ -13,6 +13,7 @@ import {
 	SpotlightTarget,
 	SpotlightTransition,
 } from '@atlaskit/onboarding';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline, Text } from '@atlaskit/primitives';
 import {
 	ButtonItem,

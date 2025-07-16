@@ -1,0 +1,36 @@
+{
+	"extends": "../../../../tsconfig.entry-points.rovo-extension.json",
+	"compilerOptions": {
+		"target": "es5",
+		"lib": [
+			"ES2021.String"
+		],
+		"outDir": "../../../../../rovo-extension/tsDist/@atlaskit__eslint-plugin-design-system/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../eslint-utils/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../icon/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../icon-lab/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../tokens/afm-rovo-extension/tsconfig.json"
+		}
+	]
+}

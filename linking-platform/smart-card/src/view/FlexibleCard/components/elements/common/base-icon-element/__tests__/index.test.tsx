@@ -8,7 +8,6 @@ import { css, jsx } from '@compiled/react';
 import { render, screen } from '@testing-library/react';
 
 import type { GlyphProps } from '@atlaskit/icon/types';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { IconType } from '../../../../../../../constants';
@@ -84,16 +83,12 @@ describe('Element: Icon', () => {
 		expect(element).toBeTruthy();
 	});
 
-	ffTest.both('platform-linking-visual-refresh-v2', '', () => {
-		it('should send appearance prop to image icon', async () => {
-			render(<IconElement icon={IconType.Document} url="src-loaded" appearance="round" />);
+	it('should send appearance prop to image icon', async () => {
+		render(<IconElement icon={IconType.Document} url="src-loaded" appearance="round" />);
 
-			await screen.findByTestId('smart-element-icon-image');
+		await screen.findByTestId('smart-element-icon-image');
 
-			expect(screen.getByTestId(mockAppearanceTestId)).toHaveTextContent(
-				fg('platform-linking-visual-refresh-v2') ? 'round' : 'no-appearance',
-			);
-		});
+		expect(screen.getByTestId(mockAppearanceTestId)).toHaveTextContent('round');
 	});
 
 	it('renders AtlaskitIcon when url is not provided', async () => {

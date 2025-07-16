@@ -124,6 +124,7 @@ export default {
   'fabric.linking.open_issue_in_jira-issue-term-refresh': 'Åbn sag i Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Åbn link i en ny fane',
   'fabric.linking.owned_by': 'Ejet af {context}',
+  'fabric.linking.owned_by_override': 'Af {context}',
   'fabric.linking.pending_request': 'Din anmodning om adgang afventer behandling',
   'fabric.linking.preview_close': 'Luk forhåndsvisning',
   'fabric.linking.preview_description': 'Åbn en forhåndsvisning i fuld skærm af dette link',

@@ -123,6 +123,7 @@ export default {
   'fabric.linking.open_issue_in_jira-issue-term-refresh': 'Åpne arbeidsoppgaven i Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Åpne kobling i en ny fane',
   'fabric.linking.owned_by': 'Eid av {context}',
+  'fabric.linking.owned_by_override': 'Fra {context}',
   'fabric.linking.pending_request': 'Avventer svar på forespørselen din om tilgang',
   'fabric.linking.preview_close': 'Lukk forhåndsvisning',
   'fabric.linking.preview_description': 'Åpne en forhåndsvisning av denne koblingen i fullskjerm',

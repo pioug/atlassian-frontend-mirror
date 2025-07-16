@@ -40,9 +40,9 @@
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"@compiled/react": "^0.18.3",
-		"react-transition-group": "^4.4.1"
+		"@babel/runtime": "root:*",
+		"@compiled/react": "root:*",
+		"react-transition-group": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0",
@@ -50,12 +50,12 @@
 		"react-intl-next": "*"
 	},
 	"devDependencies": {
-		"@atlaskit/navigation": "^37.0.0",
-		"@types/react-transition-group": "^2.0.6",
-		"algoliasearch": "^3.35.1",
-		"enzyme": "^3.10.0",
-		"react-test-renderer": "^18.2.0",
-		"typescript": "~5.4.2"
+		"@atlaskit/navigation": "root:*",
+		"@types/react-transition-group": "root:*",
+		"algoliasearch": "root:*",
+		"enzyme": "root:*",
+		"react-test-renderer": "root:*",
+		"typescript": "root:*"
 	},
 	"keywords": [
 		"atlaskit",

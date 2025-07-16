@@ -26,7 +26,6 @@ export const editorUGCTokensDefault = css({
 /**
  * Use when fg('platform_editor_typography_ugc') is enabled, but none of the following are enabled:
  * - fg('platform-dst-jira-web-fonts')
- * - fg('confluence_typography_refreshed')
  * - fg('atlas_editor_typography_refreshed')
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
@@ -51,7 +50,6 @@ export const editorUGCTokensModernized = css({
 /**
  * Use when fg('platform_editor_typography_ugc') is enabled and one of the following are enabled:
  * - fg('platform-dst-jira-web-fonts')
- * - fg('confluence_typography_refreshed')
  * - fg('atlas_editor_typography_refreshed')
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles

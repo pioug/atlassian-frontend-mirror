@@ -7,7 +7,6 @@ import { useCallback, useMemo } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { browser } from '@atlaskit/linking-common/user-agent';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -47,10 +46,8 @@ const FooterBlockResolvedView = (props: FooterBlockProps) => {
 		[actions, context],
 	);
 
-	const { safari = false } = fg('platform-linking-visual-refresh-v2')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useMemo(() => browser(), [])
-		: {};
+	// eslint-disable-next-line react-hooks/rules-of-hooks
+	const { safari = false } = useMemo(() => browser(), []);
 
 	const onDropdownOpenChange = useCallback(
 		(isOpen: boolean) => {

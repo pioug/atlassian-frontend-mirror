@@ -4,6 +4,7 @@ import AppProvider, { type RouterLinkComponentProps } from '@atlaskit/app-provid
 import { ButtonGroup } from '@atlaskit/button';
 import { LinkButton, LinkIconButton } from '@atlaskit/button/new';
 import AddIcon from '@atlaskit/icon/glyph/add';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Stack } from '@atlaskit/primitives';
 
 type MyRouterLinkConfig = {

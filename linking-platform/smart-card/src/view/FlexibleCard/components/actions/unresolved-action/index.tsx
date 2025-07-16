@@ -2,7 +2,7 @@ import React from 'react';
 
 import { FormattedMessage } from 'react-intl-next';
 
-import { cssMap } from '@atlaskit/css';
+import { cssMap, cx } from '@atlaskit/css';
 import { Box, Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -13,13 +13,22 @@ const styles = cssMap({
 	button: {
 		display: 'contents',
 	},
+	padding: {
+		paddingInline: token('space.150'),
+	},
 	message: {
 		paddingBlock: token('space.0'),
 		paddingInline: token('space.0'),
 	},
 });
 
-const UnresolvedAction = ({ testId = 'unresolved-action' }: { testId?: string }) => {
+const UnresolvedAction = ({
+	testId = 'unresolved-action',
+	hasPadding = false,
+}: {
+	testId?: string;
+	hasPadding?: boolean;
+}) => {
 	const context = useFlexibleUiContext();
 	const data = context?.actions?.[InternalActionName.UnresolvedAction];
 	if (!data) {
@@ -33,7 +42,7 @@ const UnresolvedAction = ({ testId = 'unresolved-action' }: { testId?: string })
 		<Box
 			testId={`${testId}-errored-view-message`}
 			tabIndex={hasAction ? 0 : undefined}
-			xcss={styles.message}
+			xcss={cx(styles.message, hasPadding && styles.padding)}
 		>
 			<FormattedMessage {...descriptor} values={values} />
 		</Box>

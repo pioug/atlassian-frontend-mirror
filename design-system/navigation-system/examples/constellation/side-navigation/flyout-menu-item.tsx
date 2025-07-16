@@ -21,6 +21,7 @@ import {
 	MenuSection,
 	MenuSectionHeading,
 } from '@atlaskit/navigation-system/side-nav-items/menu-section';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
 

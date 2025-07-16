@@ -58,9 +58,7 @@ snapshot(HoverCardActions, {
 		},
 	],
 	variants: [{ name: 'light mode', environment: { colorScheme: 'light' } }],
-	featureFlags: {
-		'platform-linking-visual-refresh-v2': true,
-	},
+	featureFlags: {},
 });
 
 snapshot(HoverCardActions, {
@@ -72,9 +70,7 @@ snapshot(HoverCardActions, {
 			selector: { byTestId: 'hover-card-trigger-wrapper' },
 		},
 	],
-	featureFlags: {
-		'platform-linking-visual-refresh-v2': true,
-	},
+	featureFlags: {},
 });
 
 snapshot(HoverCardUnauthorised, {

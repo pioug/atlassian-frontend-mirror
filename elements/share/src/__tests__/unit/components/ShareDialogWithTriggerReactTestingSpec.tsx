@@ -88,6 +88,34 @@ ffTest.both('share-compiled-migration', 'share-compiled-migration', () => {
 			expect(screen.getByRole('button', { name: 'Share' })).toBeVisible();
 		});
 
+		it('should render the share dialog with custom trigger button if given', () => {
+			const mockRenderCustomTriggerButton = jest.fn(() => <button>Custom Trigger</button>);
+
+			renderShare({
+				renderCustomTriggerButton: mockRenderCustomTriggerButton,
+			});
+
+			expect(screen.getByRole('button', { name: 'Custom Trigger' })).toBeVisible();
+		});
+
+		it('should pass an Icon to the custom trigger button if it is given', () => {
+			const mockRenderCustomTriggerButton = jest.fn(() => <button>Custom Trigger</button>);
+			const mockCustomTriggerButtonIcon = jest.fn().mockReturnValue(<>Custom Icon</>);
+			renderShare({
+				renderCustomTriggerButton: mockRenderCustomTriggerButton,
+				customTriggerButtonIcon: mockCustomTriggerButtonIcon,
+			});
+
+			expect(screen.getByRole('button', { name: 'Custom Trigger' })).toBeVisible();
+			expect(mockRenderCustomTriggerButton).toHaveBeenCalledTimes(1);
+			expect(mockRenderCustomTriggerButton).toHaveBeenCalledWith(
+				expect.objectContaining({
+					iconBefore: mockCustomTriggerButtonIcon,
+				}),
+				expect.any(Object),
+			);
+		});
+
 		it('should call onTriggerButtonClick when the trigger button is clicked', async () => {
 			renderShare({});
 			await userEvent.click(screen.getByRole('button', { name: 'Share' }));

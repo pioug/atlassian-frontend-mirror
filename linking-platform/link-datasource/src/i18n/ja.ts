@@ -162,6 +162,7 @@ export default {
   'linkDataSource.modal-initial-state.searchDescription-confluence': '挿入するページをキーワードで検索します。',
   'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
     'JQL (Jira クエリ言語) を使用して作業項目を検索します。',
+  'linkDataSource.modal-initial-state.searchTitle': 'Jira の課題を検索',
   'linkDataSource.modal-initial-state.searchTitle-issue-term-refresh': 'Jira 作業項目を検索',
   'linkDataSource.render-type.boolean.false': 'いいえ',
   'linkDataSource.render-type.boolean.true': 'はい',

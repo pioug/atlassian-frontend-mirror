@@ -2,8 +2,6 @@ import React, { lazy, useCallback } from 'react';
 
 import { FormattedMessage } from 'react-intl-next';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { useAnalyticsEvents } from '../../../../../common/analytics/generated/use-analytics-events';
 import { messages } from '../../../../../messages';
 import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
@@ -42,13 +40,7 @@ const ViewRelatedLinksAction = ({
 
 	return actionData ? (
 		<Action
-			content={
-				<FormattedMessage
-					{...(fg('platform-linking-visual-refresh-v2')
-						? messages.related_links_view_related_links
-						: messages.related_links_view_related_urls)}
-				/>
-			}
+			content={<FormattedMessage {...messages.related_links_view_related_links} />}
 			icon={<RelatedLinksActionIcon />}
 			onClick={onClick}
 			testId="smart-action-view-related-links-action"

@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -97,20 +97,15 @@ const FloatingToolbarHighlightColor = ({
 	editorView,
 }: FloatingToolbarHighlightColorProps) => {
 	const toolbarItemRef = useRef<ToolbarButtonRef>(null);
-	const [isDropdownOpenLocal, setIsDropdownOpenLocal] = useState(false);
 	const { activeColor, disabled, isPaletteOpen } = useSharedState(pluginInjectionApi);
 
 	const setDropdownOpen = (isOpen: boolean) => {
-		if (fg('platform_editor_controls_patch_14')) {
-			if (!disabled && editorView && pluginInjectionApi) {
-				const { state, dispatch } = editorView;
-				setPalette(pluginInjectionApi)({
-					isPaletteOpen: isOpen,
-					inputMethod: INPUT_METHOD.FLOATING_TB,
-				})(state, dispatch);
-			}
-		} else {
-			setIsDropdownOpenLocal(isOpen);
+		if (!disabled && editorView && pluginInjectionApi) {
+			const { state, dispatch } = editorView;
+			setPalette(pluginInjectionApi)({
+				isPaletteOpen: isOpen,
+				inputMethod: INPUT_METHOD.FLOATING_TB,
+			})(state, dispatch);
 		}
 
 		pluginInjectionApi?.analytics?.actions.fireAnalyticsEvent({
@@ -124,10 +119,7 @@ const FloatingToolbarHighlightColor = ({
 		});
 	};
 
-	const isDropdownOpenShared = !!isPaletteOpen;
-	const isDropdownOpen = fg('platform_editor_controls_patch_14')
-		? isDropdownOpenShared
-		: isDropdownOpenLocal;
+	const isDropdownOpen = !!isPaletteOpen;
 
 	const {
 		handleClick,
@@ -172,11 +164,7 @@ const FloatingToolbarHighlightColor = ({
 					disabled={disabled}
 					selected={isDropdownOpen}
 					aria-label={title}
-					aria-keyshortcuts={
-						fg('platform_editor_controls_patch_14')
-							? getAriaKeyshortcuts(toggleHighlightPalette)
-							: undefined
-					}
+					aria-keyshortcuts={getAriaKeyshortcuts(toggleHighlightPalette)}
 					aria-expanded={isDropdownOpen}
 					aria-haspopup
 					title={title}

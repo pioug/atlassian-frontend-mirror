@@ -56,7 +56,7 @@ describe('should pass basic aXe audit', () => {
 		},
 		[
 			{ name: 'Default', jsx: <ProgressTracker items={items} /> },
-			{ name: 'Cosy', jsx: <ProgressTracker items={items} spacing="cosy" /> },
+			{ name: 'Cosy', jsx: <ProgressTracker items={items} spacing="cozy" /> },
 			{
 				name: 'Comfortable',
 				jsx: <ProgressTracker items={items} spacing="comfortable" />,

@@ -2,12 +2,9 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import type { PropsWithChildren } from 'react';
-
 import { FormattedMessage } from 'react-intl-next';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -38,18 +35,11 @@ const RelatedLinksList = ({
 	selected,
 	handleSelectedUpdate,
 }: RelatedLinksListProp) => {
-	const TitleWrapper = ({ children }: PropsWithChildren<object>) =>
-		fg('platform-linking-visual-refresh-v2') ? (
-			<Box xcss={styles.sectionTitle}>{children}</Box>
-		) : (
-			<Box xcss={styles.sectionTitleOld}>{children}</Box>
-		);
-
 	return (
 		<Stack testId={testId}>
-			<TitleWrapper>
+			<Box xcss={styles.sectionTitle}>
 				<FormattedMessage {...title} />
-			</TitleWrapper>
+			</Box>
 			{urls.length > 0 && (
 				<Box>
 					{urls.map((url, idx) => (

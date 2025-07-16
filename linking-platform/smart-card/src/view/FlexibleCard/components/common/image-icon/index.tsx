@@ -53,7 +53,7 @@ const ImageIcon = ({
 					width,
 					height,
 				}}
-				css={appearance === 'round' && fg('platform-linking-visual-refresh-v2') && styles.roundImg}
+				css={appearance === 'round' && styles.roundImg}
 				onError={() => setHasImageErrored(true)}
 			/>
 		);
@@ -71,9 +71,7 @@ const ImageIcon = ({
 							width,
 							height,
 						}}
-						css={
-							appearance === 'round' && fg('platform-linking-visual-refresh-v2') && styles.roundImg
-						}
+						css={appearance === 'round' && styles.roundImg}
 					/>
 				}
 				errored={defaultIcon}

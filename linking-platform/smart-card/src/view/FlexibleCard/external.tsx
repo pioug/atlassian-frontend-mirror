@@ -259,7 +259,9 @@ export const PreviewAction = (props: PreviewActionProps) => (
 	<PreviewActionComponent {...toActionProps(props)} />
 );
 
-export const UnresolvedAction = () => <UnresolvedActionComponent />;
+export const UnresolvedAction = (props: { hasPadding?: boolean }) => (
+	<UnresolvedActionComponent {...props} />
+);
 
 export { CustomUnresolvedAction } from './components/actions';
 export { CustomByAccessTypeElement, CustomByStatusElement } from './components/elements';

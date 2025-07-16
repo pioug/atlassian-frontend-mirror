@@ -824,9 +824,13 @@ const codeConsolidators: Record<string, CodeConsolidator> = {
 
 const typeSerializableComponentPropSymbols = [
 	'CalendarProps',
+	'CheckboxProps',
 	'CodeProps',
 	'CodeBlockProps',
 	'BadgeProps',
+	'EmptyStateProps',
+	'ErrorMessageProps',
+	'LozengeProps',
 	'HeadingProps',
 	'RangeProps',
 ];

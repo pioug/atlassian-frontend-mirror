@@ -1,0 +1,45 @@
+{
+	"extends": "../../../../tsconfig.entry-points.rovo-extension.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../rovo-extension/tsDist/@atlaskit__popup/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../css/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../ds-lib/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../layering/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../popper/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../portal/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../primitives/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../tokens/afm-rovo-extension/tsconfig.json"
+		}
+	]
+}

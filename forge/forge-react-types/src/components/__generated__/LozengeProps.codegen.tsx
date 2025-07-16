@@ -3,16 +3,40 @@
  *
  * Extract component prop types from UIKit 2 components - LozengeProps
  *
- * @codegen <<SignedSource::25dee9ab928c0059e43d176df9313264>>
+ * @codegen <<SignedSource::0ef732d9e1b715ee6f4229d3ef5b4649>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/lozenge/__generated__/index.partial.tsx <<SignedSource::e362dbb308b0f7785d47bb5e9aa46ab0>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
-import React from 'react';
-import PlatformLozenge from '@atlaskit/lozenge';
+import type React from 'react';
 
-type PlatformLozengeProps = React.ComponentProps<typeof PlatformLozenge>;
+
+// Serialized type
+type PlatformLozengeProps = {
+  /**
+	 * Elements to be rendered inside the lozenge. This should ideally be just a word or two.
+	 */
+	children?: React.ReactNode;
+  /**
+	 * A `testId` prop is provided for specified elements, which is a unique
+	 * string that appears as a data attribute `data-testid` in the rendered code,
+	 * serving as a hook for automated tests
+	 */
+	testId?: string;
+  /**
+	 * Determines whether to apply the bold style or not.
+	 */
+	isBold?: boolean;
+  /**
+	 * The appearance type.
+	 */
+	appearance?: 'default' | 'inprogress' | 'moved' | 'new' | 'removed' | 'success';
+  /**
+	 * max-width of lozenge container. Default to 200px.
+	 */
+	maxWidth?: string | number;
+};
 
 export type LozengeProps = Pick<
   PlatformLozengeProps,

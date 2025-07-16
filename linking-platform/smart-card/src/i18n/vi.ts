@@ -123,6 +123,7 @@ export default {
   'fabric.linking.open_issue_in_jira-issue-term-refresh': 'Mở hạng mục công việc trong Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Mở liên kết trong tab mới',
   'fabric.linking.owned_by': 'Sở hữu bởi {context}',
+  'fabric.linking.owned_by_override': 'Của {context}',
   'fabric.linking.pending_request': 'Đang chờ xử lý yêu cầu quyền truy cập của bạn',
   'fabric.linking.preview_close': 'Đóng bản xem trước',
   'fabric.linking.preview_description': 'Mở bản xem trước toàn màn hình của liên kết này',

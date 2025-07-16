@@ -9,7 +9,6 @@ import Link from '@atlaskit/link';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { GenericErrorSVG } from '../../../../common/generic-error-svg';
-import { GenericErrorSVGV2 } from '../../../../common/generic-error-svg-v2';
 import { EmptyState } from '../../../../common/ui/empty-state';
 
 export const CONTACT_SUPPORT_LINK = 'https://support.atlassian.com/contact/';
@@ -80,17 +79,13 @@ export const LinkSearchError = ({ onRetry }: LinkSearchErrorProps) => {
 				/>
 			}
 			action={
-				onRetry && fg('platform-linking-visual-refresh-link-picker') ? (
+				onRetry ? (
 					<ButtonComponent appearance="primary" onClick={onRetry}>
 						<FormattedMessage {...messages.searchErrorAction} />
 					</ButtonComponent>
 				) : null
 			}
-			renderImage={
-				fg('platform-linking-visual-refresh-link-picker')
-					? () => <GenericErrorSVGV2 />
-					: () => <GenericErrorSVG />
-			}
+			renderImage={() => <GenericErrorSVG />}
 		/>
 	);
 };

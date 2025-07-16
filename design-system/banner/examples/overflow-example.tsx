@@ -2,6 +2,7 @@ import React from 'react';
 
 import Banner from '@atlaskit/banner';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Stack, Text } from '@atlaskit/primitives';
 
 const Padded = ({ children }: { children: React.ReactNode }) => (

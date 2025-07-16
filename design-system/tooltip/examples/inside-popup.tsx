@@ -9,6 +9,7 @@ import { jsx } from '@compiled/react';
 import Button from '@atlaskit/button/new';
 import { fg, setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
 import Popup, { type ContentProps, type TriggerProps } from '@atlaskit/popup';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import Tooltip from '@atlaskit/tooltip';
 

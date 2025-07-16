@@ -194,6 +194,32 @@ describe('useTeamContainersHook', () => {
 			numberOfTeams: 2,
 		});
 	});
+
+	it('can refetch team containers', async () => {
+		const fireAnalytics = jest.fn();
+		let teamId = 'team-id-124';
+		const error = new Error('Failed to fetch');
+
+		(teamsClient.getTeamContainers as jest.Mock)
+			.mockResolvedValueOnce([{ id: 'first' }])
+			.mockResolvedValueOnce([{ id: 'second' }])
+			.mockRejectedValueOnce(error);
+
+		const { result } = renderHook(() => useTeamContainersHook());
+
+		await act(async () => result.current[1].fetchTeamContainers(teamId, fireAnalytics));
+		expect(result.current[0].teamContainers).toEqual([{ id: 'first' }]);
+		expect(fireAnalytics).toHaveBeenNthCalledWith(1, 'succeeded', 'fetchTeamContainers');
+
+		await act(async () => result.current[1].refetchTeamContainers(fireAnalytics));
+		expect(result.current[0].teamContainers).toEqual([{ id: 'second' }]);
+		expect(fireAnalytics).toHaveBeenNthCalledWith(2, 'succeeded', 'refetchTeamContainers');
+
+		//@note: running this test alone because react-sweet-state state can conflict when tests run together
+		await act(async () => result.current[1].refetchTeamContainers(fireAnalytics));
+		expect(fireAnalytics).toHaveBeenNthCalledWith(3, 'failed', 'refetchTeamContainers', error);
+		expect(result.current[0].teamContainers).toEqual([{ id: 'second' }]);
+	});
 });
 
 describe('useTeamContainersHook with cypher query v2', () => {

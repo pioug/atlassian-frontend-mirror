@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Heading, { HeadingContextProvider } from '@atlaskit/heading';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Bleed, Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 
 const blockStyles = xcss({

@@ -16,6 +16,7 @@ import {
 import { Label } from '@atlaskit/form';
 import Heading from '@atlaskit/heading';
 import LocaleSelect, { type Locale } from '@atlaskit/locale/LocaleSelect';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box } from '@atlaskit/primitives';
 import Select, { components, type ValueType } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';

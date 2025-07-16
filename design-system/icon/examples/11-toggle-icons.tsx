@@ -1,6 +1,7 @@
 import React, { type ComponentType, useState } from 'react';
 import { B400, N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box } from '@atlaskit/primitives';
 import Button from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';

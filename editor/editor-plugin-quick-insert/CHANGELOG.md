@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 3.0.3
+
+### Patch Changes
+
+- [#186309](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/186309)
+  [`286ffe3c6aa33`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/286ffe3c6aa33) -
+  [ED-28522] Fix a regression where view more button in quick insert in comment editor is shown,
+  which it should not
+
 ## 3.0.2
 
 ### Patch Changes

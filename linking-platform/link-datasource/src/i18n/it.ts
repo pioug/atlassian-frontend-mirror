@@ -153,7 +153,7 @@ export default {
   'linkDataSource.refresh': 'Aggiorna',
   'linkDataSource.jira-issues.searchDescription-basic': 'Cerca i ticket da inserire in base a una parola chiave.',
   'linkDataSource.jira-issues.searchDescription-jql': 'Usa JQL (Jira Query Language) per cercare i ticket.',
-  'linkDataSource.jira-issues.searchJiraTitle': 'Cerca ticket Jira',
+  'linkDataSource.jira-issues.searchJiraTitle': 'Cerca i ticket Jira',
   'linkDataSource.unableToLoadItems': 'Impossibile caricare gli elementi',
   'linkDataSource.unableToLoadResults': 'Impossibile caricare i risultati',
   'linkDataSource.jira-issues.unableToLoadResults.visual-refresh-sllv':
@@ -161,7 +161,7 @@ export default {
   'linkDataSource.jira-issues.unableToLoadResultsOld': 'Impossibile caricare i risultati',
   'linkDataSource.modal-initial-state.beta': 'Beta',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Cerca nelle pagine Confluence',
-  'linkDataSource.modal-initial-state.jiraSearchTitle': 'Cerca nei ticket Jira',
+  'linkDataSource.modal-initial-state.jiraSearchTitle': 'Cerca i ticket Jira',
   'linkDataSource.modal-initial-state.learnMoreLinkOld': 'Scopri come cercare con JQL',
   'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
     'Cerca per parola chiave i ticket da inserire.',

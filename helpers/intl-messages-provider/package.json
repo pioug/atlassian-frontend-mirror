@@ -36,7 +36,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@babel/runtime": "^7.0.0"
+		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0",
@@ -46,10 +46,10 @@
 	"devDependencies": {
 		"@atlaskit/ssr": "workspace:^",
 		"@atlaskit/visual-regression": "workspace:^",
-		"@testing-library/react": "^13.4.0",
-		"@testing-library/react-hooks": "^8.0.1",
-		"typescript": "~5.4.2",
-		"wait-for-expect": "^1.2.0"
+		"@testing-library/react": "root:*",
+		"@testing-library/react-hooks": "root:*",
+		"typescript": "root:*",
+		"wait-for-expect": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

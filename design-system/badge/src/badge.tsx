@@ -7,6 +7,7 @@ import { memo, type ReactNode } from 'react';
 import { cssMap as cssMapUnbound, jsx } from '@compiled/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Text, type TextColor } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 

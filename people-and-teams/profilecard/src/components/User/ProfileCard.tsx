@@ -5,7 +5,6 @@ import { FormattedMessage } from 'react-intl-next';
 import { type AnalyticsEventPayload, withAnalyticsEvents } from '@atlaskit/analytics-next';
 import Avatar from '@atlaskit/avatar';
 import { LinkButton } from '@atlaskit/button/new';
-import FocusRing from '@atlaskit/focus-ring';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Spinner from '@atlaskit/spinner';
 import { N0 } from '@atlaskit/theme/colors';
@@ -250,30 +249,28 @@ const Actions = ({
 				const isKudos = action.id === GIVE_KUDOS_ACTION_ID;
 
 				const button = (
-					<FocusRing isInset key={`profile-card-action-focus-ring_${action.id || index}`}>
-						<LinkButton
-							appearance="default"
-							key={action.id || index}
-							onClick={(event: React.MouseEvent<HTMLElement>, ...args: any) =>
-								onActionClick(action, args, event, index)
-							}
-							href={action.link || ''}
-							autoFocus={index === 0 && isTriggeredUsingKeyboard}
-							id={`action-button-${action.id}`}
-							aria-labelledby={
-								fg('enable_userprofilecard_arialabelfix')
-									? `action-button-${action.id} profilecard-name-label`
-									: ''
-							}
-						>
-							{action.label}
-							{isKudos && (
-								<AnimationWrapper>
-									<KudosBlobAnimation />
-								</AnimationWrapper>
-							)}
-						</LinkButton>
-					</FocusRing>
+					<LinkButton
+						appearance="default"
+						key={action.id || index}
+						onClick={(event: React.MouseEvent<HTMLElement>, ...args: any) =>
+							onActionClick(action, args, event, index)
+						}
+						href={action.link || ''}
+						autoFocus={index === 0 && isTriggeredUsingKeyboard}
+						id={`action-button-${action.id}`}
+						aria-labelledby={
+							fg('enable_userprofilecard_arialabelfix')
+								? `action-button-${action.id} profilecard-name-label`
+								: ''
+						}
+					>
+						{action.label}
+						{isKudos && (
+							<AnimationWrapper>
+								<KudosBlobAnimation />
+							</AnimationWrapper>
+						)}
+					</LinkButton>
 				);
 
 				if (isKudos) {

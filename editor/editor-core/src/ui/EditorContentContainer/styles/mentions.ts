@@ -177,7 +177,7 @@ export const mentionsSelectionStylesWithSearchMatch = css({
 	},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-	[`.${akEditorSelectedNodeClassName}:not('.search-match-block')`]: {
+	[`.${akEditorSelectedNodeClassName}:not(.search-match-block)`]: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'> .editor-mention-primitive, > .editor-mention-primitive.mention-self, > .editor-mention-primitive.mention-restricted':
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values,

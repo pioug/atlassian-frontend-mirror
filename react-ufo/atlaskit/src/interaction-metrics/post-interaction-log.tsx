@@ -126,7 +126,6 @@ export default class PostInteractionLog {
 		this.sinkHandlerFn({
 			lastInteractionFinish: this.lastInteractionFinish,
 			reactProfilerTimings: this.reactProfilerTimings,
-			// NOTE: invoking `getVCResult` at latest possible point in time here (not earlier) to get the most accurate result (from performance.now())
 			postInteractionFinishVCResult,
 			lastInteractionFinishVCResult: this.lastInteractionFinishVCResult,
 		});

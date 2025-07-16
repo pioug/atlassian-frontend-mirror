@@ -3,6 +3,7 @@ import React from 'react';
 import InfoIconMigration from '@atlaskit/icon/core/migration/information--info';
 import StatusInfoIcon from '@atlaskit/icon/core/status-information';
 import LegacyInfoIcon from '@atlaskit/icon/glyph/info';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Inline, Stack } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 

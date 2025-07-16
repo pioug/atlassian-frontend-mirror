@@ -1,5 +1,13 @@
 # @atlaskit/menu
 
+## 8.0.8
+
+### Patch Changes
+
+- [#184403](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/184403)
+  [`aa0e4e09ed566`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa0e4e09ed566) -
+  Internal refactoring of visual regression tests.
+
 ## 8.0.7
 
 ### Patch Changes

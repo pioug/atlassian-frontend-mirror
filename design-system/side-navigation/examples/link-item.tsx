@@ -2,6 +2,7 @@ import React, { type MouseEvent } from 'react';
 
 import BookIcon from '@atlaskit/icon/glyph/book';
 import EmojiAtlassianIcon from '@atlaskit/icon/glyph/emoji/atlassian';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box } from '@atlaskit/primitives';
 import { LinkItem } from '@atlaskit/side-navigation';
 

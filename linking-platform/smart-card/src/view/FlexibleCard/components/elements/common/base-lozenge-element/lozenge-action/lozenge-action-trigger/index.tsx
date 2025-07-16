@@ -9,7 +9,6 @@ import { css, cx, jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
 import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
-import { withFeatureFlaggedComponent } from '@atlaskit/linking-common';
 import Lozenge from '@atlaskit/lozenge';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
@@ -71,59 +70,6 @@ const triggerButtonStyles = css({
 		borderRadius: '5px',
 	},
 });
-
-const LozengeActionTriggerOld = ({
-	appearance,
-	isOpen,
-	testId,
-	text,
-	triggerRef,
-	...props
-}: LozengeActionTriggerProps) => {
-	const [isBold, setIsBold] = useState(false);
-
-	const onMouseEnter = useCallback(() => setIsBold(true), []);
-	const onMouseLeave = useCallback(() => setIsBold(false), []);
-
-	const lozenge = useMemo(
-		() => (
-			<Lozenge
-				appearance={appearance}
-				isBold={fg('platform-component-visual-refresh') ? true : isBold}
-			>
-				<span css={triggerLozengeStyles}>
-					<span>{text}</span>
-					<Box as="span" xcss={styles.chevronDown}>
-						<ChevronDownIcon
-							color="currentColor"
-							label="options"
-							LEGACY_size="medium"
-							LEGACY_margin="-4px -8px -4px -7px"
-							size="small"
-						/>
-					</Box>
-				</span>
-			</Lozenge>
-		),
-		[appearance, isBold, text],
-	);
-
-	return (
-		// eslint-disable-next-line @atlaskit/design-system/no-html-button
-		<button
-			type="button"
-			{...props}
-			css={triggerButtonStyles}
-			data-action-open={isOpen}
-			data-testid={`${testId}--trigger`}
-			onMouseEnter={onMouseEnter}
-			onMouseLeave={onMouseLeave}
-			ref={triggerRef}
-		>
-			{lozenge}
-		</button>
-	);
-};
 
 const LozengeActionTrigger = ({
 	appearance,
@@ -228,6 +174,4 @@ const LozengeActionTrigger = ({
 	);
 };
 
-export default withFeatureFlaggedComponent(LozengeActionTriggerOld, LozengeActionTrigger, () =>
-	fg('platform-linking-visual-refresh-v2'),
-);
+export default LozengeActionTrigger;

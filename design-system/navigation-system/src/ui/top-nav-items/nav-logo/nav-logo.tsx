@@ -8,6 +8,7 @@ import { cssMap, cx, jsx } from '@compiled/react';
 
 import type { LogoProps } from '@atlaskit/logo';
 import { fg } from '@atlaskit/platform-feature-flags';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Anchor } from '@atlaskit/primitives';
 import type {
 	IconProps as TempIconProps,
@@ -221,13 +222,11 @@ export const NavLogo = ({
 			// eslint-disable-next-line @compiled/no-suppress-xcss
 			xcss={cx(
 				anchorStyles.root,
-				fg('platform_design_system_nav_logo_interaction_states') &&
-					anchorStyles.customLogoBorderRadius,
-				fg('platform_design_system_nav_logo_interaction_states') && anchorStyles.newMargin,
-				fg('platform_design_system_nav_logo_interaction_states') &&
-					(hasCustomTheme
-						? anchorStyles.newInteractionStatesCustomTheming
-						: anchorStyles.newInteractionStates),
+				anchorStyles.customLogoBorderRadius,
+				anchorStyles.newMargin,
+				hasCustomTheme
+					? anchorStyles.newInteractionStatesCustomTheming
+					: anchorStyles.newInteractionStates,
 			)}
 			onClick={onClick}
 		>

@@ -126,6 +126,7 @@ export default {
   'fabric.linking.open_issue_in_jira-issue-term-refresh': 'Ügy megnyitása a Jirában',
   'fabric.linking.open_link_in_a_new_tab': 'Link megnyitása új lapon',
   'fabric.linking.owned_by': 'Tulajdonos: {context}',
+  'fabric.linking.owned_by_override': '{context} által',
   'fabric.linking.pending_request': 'A hozzáférési kérelmed függőben van',
   'fabric.linking.preview_close': 'Előnézet bezárása',
   'fabric.linking.preview_description': 'A link teljes képernyős előnézetének megnyitása',

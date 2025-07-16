@@ -125,6 +125,7 @@ export default {
   'fabric.linking.open_issue_in_jira-issue-term-refresh': 'Відкрити елемент завдання в Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Відкрити посилання в новій вкладці',
   'fabric.linking.owned_by': 'Власник: {context}',
+  'fabric.linking.owned_by_override': 'Від {context}',
   'fabric.linking.pending_request': 'Запит на надання доступу в очікуванні',
   'fabric.linking.preview_close': 'Закрити вікно попереднього перегляду',
   'fabric.linking.preview_description': 'Відкрийте посилання в повноекранному режимі для попереднього перегляду',

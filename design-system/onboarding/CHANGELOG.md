@@ -1,5 +1,13 @@
 # @atlaskit/onboarding
 
+## 14.2.6
+
+### Patch Changes
+
+- [#184470](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/184470)
+  [`c73eb5a206371`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c73eb5a206371) -
+  Internal refactoring of visual regression tests.
+
 ## 14.2.5
 
 ### Patch Changes

@@ -1,5 +1,6 @@
 import React from 'react';
 
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline, Text, xcss } from '@atlaskit/primitives';
 
 const TextBoxStyles = xcss({

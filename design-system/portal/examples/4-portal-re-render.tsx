@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import Portal from '@atlaskit/portal';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 

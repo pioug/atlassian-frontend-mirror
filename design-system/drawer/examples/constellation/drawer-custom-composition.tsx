@@ -11,6 +11,7 @@ import Lorem from 'react-lorem-component';
 import Button from '@atlaskit/button/new';
 import { cssMap, jsx } from '@atlaskit/css';
 import { Drawer, DrawerCloseButton, DrawerContent } from '@atlaskit/drawer';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Stack, Text } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 

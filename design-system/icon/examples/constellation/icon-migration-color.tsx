@@ -3,6 +3,7 @@ import React from 'react';
 import StarIconMigration from '@atlaskit/icon/core/migration/star-starred--star-filled';
 import StarIcon from '@atlaskit/icon/core/star-starred';
 import LegacyStarIcon from '@atlaskit/icon/glyph/star-filled';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Inline, Stack } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 

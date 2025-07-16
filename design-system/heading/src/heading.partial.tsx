@@ -7,6 +7,7 @@ import { forwardRef, type ReactNode, type Ref } from 'react';
 import { cssMap as unboundedCssMap } from '@compiled/react';
 
 import { cssMap, jsx } from '@atlaskit/css';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { UNSAFE_inverseColorMap } from '@atlaskit/primitives';
 import { UNSAFE_useSurface } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';

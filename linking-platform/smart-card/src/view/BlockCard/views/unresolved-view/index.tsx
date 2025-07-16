@@ -8,7 +8,6 @@ import { useMemo } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { browser } from '@atlaskit/linking-common/user-agent';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import FlexibleCard from '../../../FlexibleCard';
@@ -67,10 +66,8 @@ const UnresolvedView = ({
 	title,
 	url,
 }: UnresolvedViewProps) => {
-	const { safari = false } = fg('platform-linking-visual-refresh-v2')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useMemo(() => browser(), [])
-		: {};
+	// eslint-disable-next-line react-hooks/rules-of-hooks
+	const { safari = false } = useMemo(() => browser(), []);
 
 	return (
 		<FlexibleCard
@@ -88,10 +85,7 @@ const UnresolvedView = ({
 			<CustomBlock css={[customBlockStyles]}>{children}</CustomBlock>
 			{showPreview && <PreviewBlock {...PreviewBlockOptions} />}
 			<InternalFooterBlock
-				css={[
-					footerBlockCss,
-					safari && fg('platform-linking-visual-refresh-v2') && footerBlockSafariStyles,
-				]}
+				css={[footerBlockCss, safari && footerBlockSafariStyles]}
 				actions={actions}
 				testId="smart-block-card-footer"
 			/>

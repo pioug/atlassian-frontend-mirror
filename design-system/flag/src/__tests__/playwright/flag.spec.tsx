@@ -5,7 +5,7 @@ const flagTestId1 = "[data-testid='MyFlagTestId--1']";
 const flagTestId2 = "[data-testid='MyFlagTestId--2']";
 const flagActionTestId1 = "[data-testid='MyFlagTestId--1'] [data-testid='MyFlagAction']";
 const flagActionTestId2 = "[data-testid='MyFlagTestId--2'] [data-testid='MyFlagAction']";
-const dismissFlag = "[aria-label='Dismiss']";
+const dismissFlag = "[data-testid='MyFlagTestId--2-dismiss']";
 
 test('Flag and Flag actions should be able to be identified and clicked by data-testid', async ({
 	page,

@@ -1,6 +1,7 @@
 /* eslint-disable @atlaskit/ui-styling-standard/no-unsafe-selectors */
 import React from 'react';
 
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline, media, Stack, xcss } from '@atlaskit/primitives';
 
 const aboveStyles = xcss({

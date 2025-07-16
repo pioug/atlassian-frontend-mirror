@@ -4,6 +4,7 @@ import AttachmentIcon from '@atlaskit/icon/core/attachment';
 import ImageIcon from '@atlaskit/icon/core/image';
 import OfficeBuildingIcon from '@atlaskit/icon/core/office-building';
 import StopwatchIcon from '@atlaskit/icon/core/stopwatch';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Inline } from '@atlaskit/primitives';
 
 const IconDefaultNewExample = () => {

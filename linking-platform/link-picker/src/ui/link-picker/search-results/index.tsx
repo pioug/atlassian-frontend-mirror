@@ -7,7 +7,6 @@ import { Fragment, type KeyboardEvent } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner/spinner';
 import Tabs, { Tab, TabList } from '@atlaskit/tabs';
@@ -153,11 +152,7 @@ export const SearchResults = ({
 					)}
 
 					{error
-						? activePlugin?.errorFallback?.(error, retry) ?? (
-								<LinkSearchError
-									onRetry={fg('platform-linking-visual-refresh-link-picker') ? retry : undefined}
-								/>
-							)
+						? activePlugin?.errorFallback?.(error, retry) ?? <LinkSearchError onRetry={retry} />
 						: null}
 				</Fragment>
 			)}

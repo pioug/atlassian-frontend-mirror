@@ -4,7 +4,6 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -18,15 +17,6 @@ import {
 } from '../../../../index';
 import { type FlexibleUiOptions } from '../../../FlexibleCard/types';
 import { type RelatedLinkItemProp } from '../types';
-
-const hoverStyleOld = css({
-	'&:hover': {
-		backgroundColor: token('color.background.input.hovered'),
-		borderRadius: token('border.radius.100'),
-		marginInline: token('space.negative.100'),
-		paddingInline: token('space.100'),
-	},
-});
 
 const hoverStyle = css({
 	'&:hover': {
@@ -69,29 +59,21 @@ const RelatedLinkItem = ({ url, testId, isSelected, onFocus }: RelatedLinkItemPr
 		hideBackground: true,
 		theme: SmartLinkTheme.Black,
 		clickableContainer: true,
-		size: fg('platform-linking-visual-refresh-v2') ? SmartLinkSize.Medium : SmartLinkSize.Large,
+		size: SmartLinkSize.Medium,
 	};
 
 	return (
 		// eslint-disable-next-line jsx-a11y/no-static-element-interactions
 		<div
 			data-testId={testId}
-			css={[
-				fg('platform-linking-visual-refresh-v2') && baseStyle,
-				fg('platform-linking-visual-refresh-v2') ? hoverStyle : hoverStyleOld,
-				isSelected && fg('platform-linking-visual-refresh-v2') && selectedStyle,
-			]}
+			css={[baseStyle, hoverStyle, isSelected && selectedStyle]}
 			onFocus={onFocus}
 		>
 			<Card appearance="block" ui={ui} url={url}>
 				<TitleBlock
 					maxLines={1}
 					hideTitleTooltip={true}
-					position={
-						fg('platform-linking-visual-refresh-v2')
-							? SmartLinkPosition.Top
-							: SmartLinkPosition.Center
-					}
+					position={SmartLinkPosition.Top}
 					subtitle={subtitle}
 					anchorTarget="_blank"
 					css={relatedLinkItemStyles}

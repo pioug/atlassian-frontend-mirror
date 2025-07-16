@@ -153,7 +153,7 @@ export default {
   'linkDataSource.jira-issues.searchDescription-basic': 'Wyszukaj zgłoszenia do wstawienia według słowa kluczowego.',
   'linkDataSource.jira-issues.searchDescription-jql':
     'Użyj zapytań w języku JQL (Jira Query Language), aby wyszukiwać zgłoszenia.',
-  'linkDataSource.jira-issues.searchJiraTitle': 'Wyszukaj zgłoszenia Jira',
+  'linkDataSource.jira-issues.searchJiraTitle': 'Wyszukaj zgłoszenia Jiry',
   'linkDataSource.unableToLoadItems': 'Nie można załadować elementów',
   'linkDataSource.unableToLoadResults': 'Nie można załadować wyników',
   'linkDataSource.jira-issues.unableToLoadResults.visual-refresh-sllv':
@@ -161,7 +161,7 @@ export default {
   'linkDataSource.jira-issues.unableToLoadResultsOld': 'Nie można załadować wyników',
   'linkDataSource.modal-initial-state.beta': 'Beta',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Wyszukaj strony Confluence',
-  'linkDataSource.modal-initial-state.jiraSearchTitle': 'Wyszukaj zgłoszenia Jira',
+  'linkDataSource.modal-initial-state.jiraSearchTitle': 'Wyszukaj zgłoszenia Jiry',
   'linkDataSource.modal-initial-state.learnMoreLinkOld': 'Dowiedz się, jak wyszukiwać przy użyciu zapytań JQL',
   'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
     'Wyszukaj zgłoszenia do wstawienia według słowa kluczowego.',

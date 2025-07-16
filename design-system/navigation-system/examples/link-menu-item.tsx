@@ -19,6 +19,7 @@ import {
 	COLLAPSE_ELEM_BEFORE,
 	LinkMenuItem,
 } from '@atlaskit/navigation-system/side-nav-items/link-menu-item';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Stack } from '@atlaskit/primitives';
 
 const styles = cssMap({

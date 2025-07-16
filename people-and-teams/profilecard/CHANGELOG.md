@@ -1,5 +1,14 @@
 # @atlaskit/profilecard
 
+## 23.21.11
+
+### Patch Changes
+
+- [#185745](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185745)
+  [`992d6ccd14405`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/992d6ccd14405) -
+  Removed usage of @atlaskit/focus-ring (deprecated)
+- Updated dependencies
+
 ## 23.21.10
 
 ### Patch Changes

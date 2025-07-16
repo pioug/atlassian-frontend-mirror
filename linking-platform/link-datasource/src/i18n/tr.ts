@@ -166,6 +166,7 @@ export default {
     'Eklemek için sayfaları anahtar kelimeye göre arayın.',
   'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
     'Bilet aramak için JQL (Jira Sorgu Dili) kullanın.',
+  'linkDataSource.modal-initial-state.searchTitle': 'Jira konuları arayın',
   'linkDataSource.modal-initial-state.searchTitle-issue-term-refresh': 'Jira biletleri arayın',
   'linkDataSource.render-type.boolean.false': 'Hayır',
   'linkDataSource.render-type.boolean.true': 'Evet',

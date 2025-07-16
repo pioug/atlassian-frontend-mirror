@@ -124,6 +124,7 @@ export default {
   'fabric.linking.open_issue_in_jira-issue-term-refresh': 'Open werkitem in Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Open de link in een nieuw tabblad',
   'fabric.linking.owned_by': 'Eigendom van {context}',
+  'fabric.linking.owned_by_override': 'Door {context}',
   'fabric.linking.pending_request': 'Je toegangsaanvraag wordt behandeld.',
   'fabric.linking.preview_close': 'Voorbeeldweergave sluiten',
   'fabric.linking.preview_description': 'Open een voorvertoning in volledig scherm van deze link',

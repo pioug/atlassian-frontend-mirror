@@ -42,6 +42,7 @@ import { MenuList } from '@atlaskit/navigation-system/side-nav-items/menu-list';
 import { Search, Settings } from '@atlaskit/navigation-system/top-nav-items';
 import PageHeader from '@atlaskit/page-header';
 import { Popup, PopupContent, PopupTrigger } from '@atlaskit/popup/experimental';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline, Stack } from '@atlaskit/primitives';
 import Skeleton from '@atlaskit/skeleton';
 

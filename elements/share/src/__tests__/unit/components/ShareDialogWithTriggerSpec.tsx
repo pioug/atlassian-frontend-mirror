@@ -482,13 +482,48 @@ describe('ShareDialogWithTrigger', () => {
 		});
 	});
 
+	describe('customTriggerButtonIcon prop', () => {
+		it('should pass an Icon to the CustomTriggerButton if it is given', () => {
+			const mockRenderCustomTriggerButton: jest.Mock = jest.fn(() => <button />);
+			const mockCustomTriggerButtonIcon: jest.Mock = jest.fn().mockReturnValue(<>Custom Icon</>);
+			const wrapper = getMountWrapper({
+				isDisabled: false,
+				renderCustomTriggerButton: mockRenderCustomTriggerButton,
+				customTriggerButtonIcon: mockCustomTriggerButtonIcon,
+				shareFormTitle: 'Share this page',
+			});
+			expect(mockRenderCustomTriggerButton).toHaveBeenCalledTimes(1);
+			expect(mockRenderCustomTriggerButton).toHaveBeenCalledWith(
+				{
+					error: (
+						wrapper.find(ShareDialogWithTriggerInternal).state() as ShareDialogWithTriggerStates
+					).shareError,
+					isDisabled: Boolean(wrapper.props().isDisabled),
+					isSelected: (
+						wrapper.find(ShareDialogWithTriggerInternal).state() as ShareDialogWithTriggerStates
+					).isDialogOpen,
+					onClick: (wrapper.find(ShareDialogWithTriggerInternal).instance() as any).onTriggerClick,
+					iconBefore: wrapper.find(ShareDialogWithTriggerInternal).props().customTriggerButtonIcon,
+				},
+				{
+					'aria-controls': undefined,
+					'aria-expanded': false,
+					'aria-haspopup': true,
+					ref: expect.any(Function),
+				},
+			);
+			expect(wrapper.find(ShareDialogWithTriggerInternal).prop('customTriggerButtonIcon')).toEqual(
+				mockCustomTriggerButtonIcon,
+			);
+		});
+	});
+
 	describe('shareFormTitle prop', () => {
 		it('should be passed to the ShareForm', () => {
 			const wrapper = getMountWrapper({
 				shareFormTitle: 'Share this page',
 			});
 			wrapper.setState({ isDialogOpen: true });
-
 			const popupContent = renderDialogContent(wrapper);
 
 			const ShareFormProps = popupContent.find(ShareForm).props();

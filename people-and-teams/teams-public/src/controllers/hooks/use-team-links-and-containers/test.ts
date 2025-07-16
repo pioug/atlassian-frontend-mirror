@@ -51,6 +51,7 @@ describe('useTeamLinksAndContainers', () => {
 	const mockFetchWebLinkTitle = jest.fn();
 	const mockAddTeamContainer = jest.fn();
 	const mockUnlinkTeamContainers = jest.fn();
+	const mockRefetchTeamContainers = jest.fn();
 
 	beforeEach(() => {
 		jest.spyOn(useTeamContainersModule, 'useTeamContainers').mockReturnValue({
@@ -70,6 +71,7 @@ describe('useTeamLinksAndContainers', () => {
 			},
 			addTeamContainer: mockAddTeamContainer,
 			unlinkTeamContainers: mockUnlinkTeamContainers,
+			refetchTeamContainers: mockRefetchTeamContainers,
 		});
 
 		jest.spyOn(useTeamWebLinksModule, 'useTeamWebLinks').mockReturnValue([
@@ -165,6 +167,7 @@ describe('useTeamLinksAndContainers', () => {
 			},
 			addTeamContainer: mockAddTeamContainer,
 			unlinkTeamContainers: mockUnlinkTeamContainers,
+			refetchTeamContainers: mockRefetchTeamContainers,
 		});
 
 		const { result } = renderHook(() => useTeamLinksAndContainers(teamId));
@@ -189,6 +192,7 @@ describe('useTeamLinksAndContainers', () => {
 			},
 			addTeamContainer: mockAddTeamContainer,
 			unlinkTeamContainers: mockUnlinkTeamContainers,
+			refetchTeamContainers: mockRefetchTeamContainers,
 		});
 
 		const { result } = renderHook(() => useTeamLinksAndContainers(teamId));
@@ -244,6 +248,7 @@ describe('useTeamLinksAndContainers', () => {
 			},
 			addTeamContainer: mockAddTeamContainer,
 			unlinkTeamContainers: mockUnlinkTeamContainers,
+			refetchTeamContainers: mockRefetchTeamContainers,
 		});
 
 		const { result } = renderHook(() => useTeamLinksAndContainers(teamId));
@@ -308,6 +313,7 @@ describe('useTeamLinksAndContainers', () => {
 			},
 			addTeamContainer: mockAddTeamContainer,
 			unlinkTeamContainers: mockUnlinkTeamContainers,
+			refetchTeamContainers: mockRefetchTeamContainers,
 		});
 
 		jest.spyOn(useTeamWebLinksModule, 'useTeamWebLinks').mockReturnValueOnce([

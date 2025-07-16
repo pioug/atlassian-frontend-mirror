@@ -180,7 +180,6 @@ snapshot(FlexibleUiElementLozenge, {
 	description: 'FlexibleUiElementLozenge',
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v2': true,
 	},
 	variants: [
 		{
@@ -246,7 +245,6 @@ snapshot(FlexibleUiHoverCard, {
 	description: 'FlexibleUiHoverCard',
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v2': true,
 	},
 });
 snapshot(FlexibleUiHoverCardNoPreviewButton, {

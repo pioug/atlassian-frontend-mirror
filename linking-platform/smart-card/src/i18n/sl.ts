@@ -123,6 +123,7 @@ export default {
   'fabric.linking.open_issue_in_jira-issue-term-refresh': 'Odpri delovni element v storitvi Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Odpri povezavo na novem zavihku',
   'fabric.linking.owned_by': 'V lasti {context}',
+  'fabric.linking.owned_by_override': 'Imetnik: {context}',
   'fabric.linking.pending_request': 'Vaša zahteva za dostop je v teku',
   'fabric.linking.preview_close': 'Zapri predogled',
   'fabric.linking.preview_description': 'Odpre celozaslonski predogled te povezave',

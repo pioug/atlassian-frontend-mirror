@@ -49,6 +49,7 @@ import {
 	RIGHT_SIDEBAR_WIDTH,
 	TOP_NAVIGATION_HEIGHT,
 } from '@atlaskit/page-layout';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline } from '@atlaskit/primitives';
 import { Hide } from '@atlaskit/primitives/responsive';
 import { token, useThemeObserver } from '@atlaskit/tokens';

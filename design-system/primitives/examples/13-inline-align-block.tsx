@@ -1,5 +1,6 @@
 import React from 'react';
 
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 
 const alignBlockItems = ['start', 'center', 'end', 'baseline', 'stretch', undefined] as const;

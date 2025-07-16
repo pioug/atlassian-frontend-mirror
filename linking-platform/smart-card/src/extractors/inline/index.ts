@@ -9,7 +9,6 @@ import {
 } from '@atlaskit/link-extractors';
 import { type CardProviderRenderers } from '@atlaskit/link-provider';
 import type { SmartLinkResponse } from '@atlaskit/linking-types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getEmptyJsonLd } from '../../utils/jsonld';
 import { type InlineCardResolvedViewProps } from '../../view/InlineCard/ResolvedView';
@@ -64,8 +63,6 @@ export const extractInlineProps = (
 		lozenge: extractLozenge(jsonLd),
 		titleTextColor: extractTitleTextColor(jsonLd),
 		titlePrefix: extractTitlePrefix(jsonLd, renderers, 'inline'),
-		...(fg('platform-linking-visual-refresh-v2') && {
-			type: extractType(jsonLd),
-		}),
+		type: extractType(jsonLd),
 	};
 };

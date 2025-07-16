@@ -5,10 +5,10 @@ import UFOLoadHold from '../load-hold';
 import { LazySuspense, type LazySuspenseProps, WaitContext } from './loosely-lazy';
 
 /**
- * Provides a placeholder for lazily loaded content, improving perceived performance.
+ * @private
+ * @deprecated Use `atlaskit/react-ufo/suspense` instead.
  *
- * Named placeholders are especially useful for analyzing page load breakdowns
- * in performance monitoring tools like Performance Portal.
+ * Provides a placeholder for lazily loaded content (via react-loosely-lazy), improving perceived performance.
  */
 export default function Placeholder({
 	name,

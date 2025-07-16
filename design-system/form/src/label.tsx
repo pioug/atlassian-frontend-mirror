@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type FC, type ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 import { jsx } from '@compiled/react';
 
@@ -37,7 +37,7 @@ const fieldsetLabelStyles = css({
  * It's recommended that a label has a `space.050` spacing above its associated
  * control element.
  */
-export const Label: FC<LabelProps> = ({ children, htmlFor, id, testId }) => (
+export const Label = ({ children, htmlFor, id, testId }: LabelProps) => (
 	<label css={fieldsetLabelStyles} id={id} htmlFor={htmlFor} data-testid={testId}>
 		{children}
 	</label>
@@ -48,6 +48,6 @@ export const Label: FC<LabelProps> = ({ children, htmlFor, id, testId }) => (
  *
  * A Legend represents a caption for a fieldset in a user interface.
  */
-export const Legend: FC<LegendProps> = ({ children }) => {
+export const Legend = ({ children }: LegendProps) => {
 	return <legend css={fieldsetLabelStyles}>{children}</legend>;
 };

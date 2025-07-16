@@ -5,7 +5,7 @@ import type { RevisionPayloadVCDetails } from '../common/vc/types';
 function getLateMutations(
 	vcDetails: RevisionPayloadVCDetails,
 	lastInteractionFinish: LastInteractionFinishInfo,
-	postInteractionFinishVCRatios: Record<string, number>,
+	postInteractionFinishVCRatios?: Record<string, number>,
 ): LateMutation[] {
 	// Map to track which elements are already seen for each timestamp
 	const seen = new Map<number, Set<string>>();
@@ -32,7 +32,7 @@ function getLateMutations(
 			result.push({
 				time: details.t,
 				element,
-				viewportHeatmapPercentage: postInteractionFinishVCRatios[element] || 0,
+				viewportHeatmapPercentage: postInteractionFinishVCRatios?.[element] || 0,
 			});
 		}
 	}

@@ -10,6 +10,7 @@ import Modal, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline, Pressable, Stack, Text, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
 import Tooltip from '@atlaskit/tooltip';

@@ -1,36 +1,12 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { memo } from 'react';
+import React, { memo } from 'react';
 
-import { cssMap, jsx } from '@atlaskit/css';
+import { IconButton } from '@atlaskit/button/new';
 import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down--hipchat-chevron-down';
 import ChevronUpIcon from '@atlaskit/icon/core/migration/chevron-up--hipchat-chevron-up';
 import CloseIcon from '@atlaskit/icon/core/migration/close--cross';
-import { Pressable } from '@atlaskit/primitives/compiled';
-import { token } from '@atlaskit/tokens';
 
 import { flagTextColorToken } from '../theme';
 import { type AppearanceTypes } from '../types';
-
-const styles = cssMap({
-	button: {
-		display: 'flex',
-		width: '24px',
-		height: '24px',
-		paddingTop: token('space.0'),
-		paddingRight: token('space.0'),
-		paddingBottom: token('space.0'),
-		paddingLeft: token('space.0'),
-		alignItems: 'center',
-		justifyContent: 'center',
-		flex: '0 0 auto',
-		borderStyle: 'none',
-		cursor: 'pointer',
-		whiteSpace: 'nowrap',
-	},
-});
 
 interface DismissButtonProps {
 	appearance: AppearanceTypes;
@@ -61,23 +37,23 @@ const DismissButtonComponent = ({
 	}
 
 	return (
-		<Pressable
-			xcss={styles.button}
+		<IconButton
+			icon={(iconProps) => (
+				<ButtonIcon
+					{...iconProps}
+					LEGACY_size={size}
+					size="small"
+					label=""
+					color={flagTextColorToken[appearance]}
+				/>
+			)}
+			appearance="subtle"
+			spacing="compact"
+			label={buttonLabel}
 			onClick={onClick}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-			style={{ background: 'none' }}
 			aria-expanded={isBold ? isExpanded : undefined}
 			testId={buttonTestId}
-			aria-label={buttonLabel}
-		>
-			<ButtonIcon
-				label=""
-				LEGACY_size={size}
-				LEGACY_primaryColor={flagTextColorToken[appearance]}
-				color={flagTextColorToken[appearance]}
-				size="small"
-			/>
-		</Pressable>
+		/>
 	);
 };
 

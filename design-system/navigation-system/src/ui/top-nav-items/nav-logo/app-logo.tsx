@@ -7,7 +7,6 @@ import React, { useCallback, useRef } from 'react';
 import { cssMap, cx, jsx } from '@compiled/react';
 
 import type { LogoProps } from '@atlaskit/logo';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Anchor, Inline, Text } from '@atlaskit/primitives';
 import type { IconProps as TempIconProps } from '@atlaskit/temp-nav-app-icons/types';
 import { token } from '@atlaskit/tokens';
@@ -160,11 +159,10 @@ export const AppLogo = ({
 			// eslint-disable-next-line @compiled/no-suppress-xcss
 			xcss={cx(
 				anchorStyles.root,
-				fg('platform_design_system_nav_logo_interaction_states') && anchorStyles.newMargin,
-				fg('platform_design_system_nav_logo_interaction_states') &&
-					(hasCustomTheme
-						? anchorStyles.newInteractionStatesCustomTheming
-						: anchorStyles.newInteractionStates),
+				anchorStyles.newMargin,
+				hasCustomTheme
+					? anchorStyles.newInteractionStatesCustomTheming
+					: anchorStyles.newInteractionStates,
 			)}
 			onClick={onClick}
 		>

@@ -70,10 +70,8 @@ const ResolvedView = ({
 }: FlexibleBlockCardProps) => {
 	const [isPreviewBlockErrored, setIsPreviewBlockErrored] = useState<boolean>(false);
 
-	const { safari = false } = fg('platform-linking-visual-refresh-v2')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useMemo(() => browser(), [])
-		: {};
+	// eslint-disable-next-line react-hooks/rules-of-hooks
+	const { safari = false } = useMemo(() => browser(), []);
 
 	useEffect(() => {
 		setIsPreviewBlockErrored(false);
@@ -132,10 +130,7 @@ const ResolvedView = ({
 				/>
 			) : null}
 			<FooterBlock
-				css={[
-					footerBlockCss,
-					safari && fg('platform-linking-visual-refresh-v2') && footerBlockSafariStyles,
-				]}
+				css={[footerBlockCss, safari && footerBlockSafariStyles]}
 				actions={footerActions}
 			/>
 		</FlexibleCard>

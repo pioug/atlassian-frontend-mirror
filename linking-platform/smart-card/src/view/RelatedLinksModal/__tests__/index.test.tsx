@@ -131,9 +131,9 @@ describe('RelatedLinksModal', () => {
 		setup({ ari });
 
 		const modal = await screen.findByRole('dialog');
-		const modalTitle = await screen.findByText('Recent links');
-		const incomingLinksTitle = await screen.findByText('Found In');
-		const outgoingLinksTitle = await screen.findByText('Includes Links To');
+		const modalTitle = await screen.findByText('Related links');
+		const incomingLinksTitle = await screen.findByText('Found in');
+		const outgoingLinksTitle = await screen.findByText('Includes links to');
 		const closeButton = await screen.findByRole('button', { name: 'Close' });
 
 		expect(modal).toBeInTheDocument();
@@ -182,8 +182,8 @@ describe('RelatedLinksModal', () => {
 
 		setup({ ari });
 
-		const incomingLinksTitle = await screen.findByText('Found In');
-		const outgoingLinksTitle = await screen.findByText('Includes Links To');
+		const incomingLinksTitle = await screen.findByText('Found in');
+		const outgoingLinksTitle = await screen.findByText('Includes links to');
 		expect(incomingLinksTitle).toBeInTheDocument();
 		expect(outgoingLinksTitle).toBeInTheDocument();
 
@@ -224,8 +224,8 @@ describe('RelatedLinksModal', () => {
 
 		setup({ ari });
 
-		const incomingLinksTitle = await screen.findByText('Found In');
-		const outgoingLinksTitle = await screen.findByText('Includes Links To');
+		const incomingLinksTitle = await screen.findByText('Found in');
+		const outgoingLinksTitle = await screen.findByText('Includes links to');
 		expect(incomingLinksTitle).toBeInTheDocument();
 		expect(outgoingLinksTitle).toBeInTheDocument();
 
@@ -262,8 +262,8 @@ describe('RelatedLinksModal', () => {
 
 		setup({ ari, client: mockClient });
 
-		const incomingLinksTitle = await screen.findByText('Found In');
-		const outgoingLinksTitle = await screen.findByText('Includes Links To');
+		const incomingLinksTitle = await screen.findByText('Found in');
+		const outgoingLinksTitle = await screen.findByText('Includes links to');
 		expect(incomingLinksTitle).toBeInTheDocument();
 		expect(outgoingLinksTitle).toBeInTheDocument();
 
@@ -300,8 +300,8 @@ describe('RelatedLinksModal', () => {
 
 		setup({ ari });
 
-		const incomingLinksTitle = await screen.findByText('Found In');
-		const outgoingLinksTitle = await screen.findByText('Includes Links To');
+		const incomingLinksTitle = await screen.findByText('Found in');
+		const outgoingLinksTitle = await screen.findByText('Includes links to');
 
 		expect(incomingLinksTitle).toBeInTheDocument();
 		expect(outgoingLinksTitle).toBeInTheDocument();
@@ -341,8 +341,8 @@ describe('RelatedLinksModal', () => {
 		setup({ ari });
 
 		const modal = await screen.findByRole('dialog');
-		const modalTitle = await screen.findByText('Recent links');
-		const unavailableTitle = await screen.findByText('No recent links');
+		const modalTitle = await screen.findByText('Related links');
+		const unavailableTitle = await screen.findByText("We couldn't find any related links");
 		const closeButton = await screen.findByRole('button', { name: 'Close' });
 
 		expect(modal).toBeInTheDocument();
@@ -376,7 +376,7 @@ describe('RelatedLinksModal', () => {
 		const allLinks = screen.queryAllByRole('link');
 		expect(allLinks.length).toBe(0);
 
-		const unavailableTitle = await screen.findByText('No recent links');
+		const unavailableTitle = await screen.findByText("We couldn't find any related links");
 		expect(unavailableTitle).toBeInTheDocument();
 
 		expect(mockGetIncomingOutgoingAris).toHaveBeenCalledTimes(1);
@@ -391,8 +391,8 @@ describe('RelatedLinksModal', () => {
 		setup({ ari: '' });
 
 		const modal = await screen.findByRole('dialog');
-		const modalTitle = await screen.findByText('Recent links');
-		const errorTitle = await screen.findByText('Something went wrong');
+		const modalTitle = await screen.findByText('Related links');
+		const errorTitle = await screen.findByText("We're having trouble loading related links");
 		const closeButton = await screen.findByRole('button', { name: 'Close' });
 
 		expect(modal).toBeInTheDocument();
@@ -414,8 +414,8 @@ describe('RelatedLinksModal', () => {
 		setup({ ari });
 
 		const modal = await screen.findByRole('dialog');
-		const modalTitle = await screen.findByText('Recent links');
-		const errorTitle = await screen.findByText('Something went wrong');
+		const modalTitle = await screen.findByText('Related links');
+		const errorTitle = await screen.findByText("We're having trouble loading related links");
 		const closeButton = await screen.findByRole('button', { name: 'Close' });
 
 		expect(modal).toBeInTheDocument();
@@ -447,8 +447,8 @@ describe('RelatedLinksModal', () => {
 		setup({ ari });
 
 		const modal = await screen.findByRole('dialog');
-		const modalTitle = await screen.findByText('Recent links');
-		const errorTitle = await screen.findByText('Something went wrong');
+		const modalTitle = await screen.findByText('Related links');
+		const errorTitle = await screen.findByText("We're having trouble loading related links");
 		const closeButton = await screen.findByRole('button', { name: 'Close' });
 
 		expect(modal).toBeInTheDocument();
@@ -479,8 +479,8 @@ describe('RelatedLinksModal', () => {
 
 		setup({ ari });
 
-		const incomingLinksTitle = await screen.findByText('Found In');
-		const outgoingLinksTitle = await screen.findByText('Includes Links To');
+		const incomingLinksTitle = await screen.findByText('Found in');
+		const outgoingLinksTitle = await screen.findByText('Includes links to');
 
 		expect(incomingLinksTitle).toBeInTheDocument();
 		expect(outgoingLinksTitle).toBeInTheDocument();

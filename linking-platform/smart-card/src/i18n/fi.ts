@@ -124,6 +124,7 @@ export default {
   'fabric.linking.open_issue_in_jira-issue-term-refresh': 'Avaa työtehtävä Jirassa',
   'fabric.linking.open_link_in_a_new_tab': 'Avaa linkki uudessa välilehdessä',
   'fabric.linking.owned_by': 'Omistaja: {context}',
+  'fabric.linking.owned_by_override': 'Tekijä: {context}',
   'fabric.linking.pending_request': 'Käyttöoikeuspyyntösi on vireillä',
   'fabric.linking.preview_close': 'Sulje esikatselu',
   'fabric.linking.preview_description': 'Avaa tämän linkin koko näytön esikatselu',

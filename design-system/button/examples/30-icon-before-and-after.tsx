@@ -11,6 +11,7 @@ import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import GraphLineIcon from '@atlaskit/icon/glyph/graph-line';
 import LightbulbIcon from '@atlaskit/icon/glyph/lightbulb';
 import MoreIcon from '@atlaskit/icon/glyph/more';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Stack } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 

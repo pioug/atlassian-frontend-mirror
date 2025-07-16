@@ -127,6 +127,7 @@ export default {
   'fabric.linking.open_issue_in_jira-issue-term-refresh': 'Vorgang in Jira öffnen',
   'fabric.linking.open_link_in_a_new_tab': 'Link in neuer Registerkarte öffnen',
   'fabric.linking.owned_by': 'Besitzer: {context}',
+  'fabric.linking.owned_by_override': 'Von {context}',
   'fabric.linking.pending_request': 'Ihre Zugriffsanfrage ist ausstehend.',
   'fabric.linking.preview_close': 'Vorschau beenden',
   'fabric.linking.preview_description': 'Es wird eine Vorschau dieses Links im Vollbildmodus geöffnet.',

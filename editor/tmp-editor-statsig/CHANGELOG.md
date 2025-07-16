@@ -1,5 +1,16 @@
 # @atlaskit/editor-statsig-tmp
 
+## 9.7.0
+
+### Minor Changes
+
+- [#185577](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185577)
+  [`56dba46f231aa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/56dba46f231aa) -
+  [EDITOR-837] Cleanup experiment editor_ai_converge_free_gen_on_rovo
+- [#185617](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185617)
+  [`c766e636b2d44`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c766e636b2d44) -
+  ED-28220 clean up exp platform_editor_controls_toolbar_pinning_exp
+
 ## 9.6.0
 
 ### Minor Changes

@@ -35,9 +35,6 @@
 			"path": "../../design-system/button/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/checkbox/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/comment/tsconfig.app.json"
 		},
 		{
@@ -50,16 +47,10 @@
 			"path": "../../editor/editor-json-transformer/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/empty-state/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/form/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/inline-edit/tsconfig.app.json"
-		},
-		{
-			"path": "../../design-system/lozenge/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/modal-dialog/tsconfig.app.json"

@@ -148,9 +148,8 @@ export function init(
 		return;
 	}
 
-	if (fg('platform_ufo_report_cpu_usage')) {
-		initialisePressureObserver();
-	}
+	// Initialize pressure observer for CPU usage monitoring
+	initialisePressureObserver();
 
 	initialiseMemoryObserver();
 

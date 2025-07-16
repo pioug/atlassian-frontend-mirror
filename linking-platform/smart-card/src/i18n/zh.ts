@@ -113,6 +113,7 @@ export default {
   'fabric.linking.open_issue_in_jira-issue-term-refresh': '在 Jira 中打开工作项',
   'fabric.linking.open_link_in_a_new_tab': '在新选项卡中打开链接',
   'fabric.linking.owned_by': '负责人：{context}',
+  'fabric.linking.owned_by_override': '作者：{context}',
   'fabric.linking.pending_request': '您的访问请求正等待处理',
   'fabric.linking.preview_close': '关闭预览',
   'fabric.linking.preview_description': '打开此链接的全屏预览',

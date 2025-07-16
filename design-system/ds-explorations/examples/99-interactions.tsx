@@ -12,6 +12,7 @@ import { Code } from '@atlaskit/code';
 import { UNSAFE_InteractionSurface as InteractionSurface } from '@atlaskit/ds-explorations';
 import Heading from '@atlaskit/heading';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline, Pressable, Stack, Text, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';

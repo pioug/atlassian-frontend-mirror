@@ -2,7 +2,6 @@ import React from 'react';
 
 import EmptyState from '@atlaskit/empty-state';
 import type { EmptyStateProps } from '@atlaskit/empty-state/types';
-import Image from '@atlaskit/image';
 import Text from '@atlaskit/primitives/text';
 
 import exampleImage from './img/example-image.png';
@@ -16,7 +15,8 @@ const props = {
 			small description text like this.
 		</Text>
 	),
-	renderImage: () => <Image src={exampleImage} width={48} alt="" />,
+	imageUrl: exampleImage,
+	maxImageWidth: 48,
 };
 
 export default () => <EmptyState {...props} />;

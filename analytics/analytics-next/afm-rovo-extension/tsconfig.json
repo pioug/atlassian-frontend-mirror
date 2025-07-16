@@ -1,0 +1,26 @@
+{
+	"extends": "../../../../tsconfig.entry-points.rovo-extension.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../rovo-extension/tsDist/@atlaskit__analytics-next/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/performance/examples.tsx",
+		"../docs/*"
+	],
+	"references": [
+		{
+			"path": "../../../platform/feature-flags/afm-rovo-extension/tsconfig.json"
+		}
+	]
+}

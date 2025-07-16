@@ -149,22 +149,15 @@ export type MessageKey =
 	| RequestAccessMessageKey
 	| 'related'
 	| 'generic_error_message'
-	| 'related_links_modal_error_header'
 	| 'related_links_modal_error_title'
-	| 'related_links_modal_error_message'
 	| 'related_links_modal_error_description'
-	| 'related_links_modal_unavailable_header'
 	| 'related_links_modal_unavailable_title'
-	| 'related_links_modal_unavailable_message'
 	| 'related_links_modal_unavailable_description'
 	| 'related_links_modal_title'
-	| 'related_links_modal_title_v2'
 	| 'related_links_view_related_urls'
 	| 'related_links_view_related_links'
 	| 'related_links_found_in'
-	| 'related_links_found_in_v2'
 	| 'related_links_includes_links_to'
-	| 'related_links_includes_links_to_v2'
 	| 'related_links_not_found'
 	| 'join_to_viewIssueTermRefresh'
 	| 'open_issue_in_jiraIssueTermRefresh'
@@ -928,11 +921,6 @@ export const messages: Messages = defineMessages({
 	},
 	related_links_modal_title: {
 		id: 'fabric.linking.related_links_modal_title',
-		defaultMessage: 'Recent links',
-		description: 'Shown as the title for the related links modal',
-	},
-	related_links_modal_title_v2: {
-		id: 'fabric.linking.related_links_modal_title_v2',
 		defaultMessage: 'Related links',
 		description: 'Shown as the title for the related links modal',
 	},
@@ -948,11 +936,6 @@ export const messages: Messages = defineMessages({
 	},
 	related_links_found_in: {
 		id: 'fabric.linking.related_links_found_in',
-		defaultMessage: 'Found In',
-		description: 'Informs the user of the resources are found in the given url',
-	},
-	related_links_found_in_v2: {
-		id: 'fabric.linking.related_links_found_in_v2',
 		defaultMessage: 'Found in',
 		description: 'Informs the user of the resources are found in the given url',
 	},
@@ -963,18 +946,8 @@ export const messages: Messages = defineMessages({
 	},
 	related_links_includes_links_to: {
 		id: 'fabric.linking.related_links_includes_links_to',
-		defaultMessage: 'Includes Links To',
-		description: 'Informs the user of the resources the url links to',
-	},
-	related_links_includes_links_to_v2: {
-		id: 'fabric.linking.related_links_includes_links_to_v2',
 		defaultMessage: 'Includes links to',
 		description: 'Informs the user of the resources the url links to',
-	},
-	related_links_modal_error_header: {
-		id: 'fabric.linking.related_links_modal_error_header',
-		defaultMessage: 'Something went wrong',
-		description: 'Title for related links error',
 	},
 	related_links_modal_error_title: {
 		id: 'fabric.linking.related_links_modal_error_title',
@@ -986,12 +959,6 @@ export const messages: Messages = defineMessages({
 		defaultMessage: `We couldn't find any related links`,
 		description: 'Title for related links error',
 	},
-	related_links_modal_error_message: {
-		id: 'fabric.linking.related_links_modal_error_message',
-		defaultMessage:
-			'We ran into an issue trying to load recent links. Check your connection or refresh to try again.',
-		description: 'Informs the user that there was a problem loading related links',
-	},
 	related_links_modal_error_description: {
 		id: 'fabric.linking.related_links_modal_error_description',
 		defaultMessage: 'Check your connection or refresh the page to try again',
@@ -1002,18 +969,6 @@ export const messages: Messages = defineMessages({
 		defaultMessage:
 			'We continuously review and add related links for updated pages or other content types',
 		description: 'Informs the user that there was a problem loading related links',
-	},
-	related_links_modal_unavailable_header: {
-		id: 'fabric.linking.related_links_modal_unavailable_header',
-		defaultMessage: 'No recent links',
-		description: 'Title for related links being unavailable',
-	},
-	related_links_modal_unavailable_message: {
-		id: 'fabric.linking.related_links_modal_unavailable_message',
-		defaultMessage:
-			"We didn't find any links to show here. We continuously review and add recent links for updated pages or other content types.",
-		description:
-			'Informs the user that related links were not found but may be available in the future',
 	},
 	join_to_viewIssueTermRefresh: {
 		id: 'fabric.linking.join_to_view-issue-term-refresh',

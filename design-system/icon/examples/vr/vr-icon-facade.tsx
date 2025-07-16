@@ -3,6 +3,7 @@ import React, { type FC } from 'react';
 import { type Size } from '@atlaskit/icon';
 import { IconFacade } from '@atlaskit/icon/base';
 import DashboardIcon from '@atlaskit/icon/core/dashboard';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 
 const iconRowStyles = xcss({

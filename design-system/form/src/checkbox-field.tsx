@@ -1,4 +1,4 @@
-import React, { type FC, type ReactNode, useCallback } from 'react';
+import React, { type ReactNode, useCallback } from 'react';
 
 import Field, { type FieldProps, type Meta } from './field';
 
@@ -52,9 +52,16 @@ interface CheckboxProps {
  * - [Code] https://atlaskit.atlassian.com/packages/design-system/form/docs/fields#checkboxfield-reference
  * - [Usage] https://atlaskit.atlassian.com/packages/design-system/form/docs/fields#checkboxfield-reference
  */
-const CheckboxField: FC<CheckboxProps> = (props) => {
-	const { children, defaultIsChecked = false, value, ...rest } = props;
-
+const CheckboxField = ({
+	children,
+	defaultIsChecked = false,
+	isDisabled,
+	isRequired,
+	label,
+	name,
+	value,
+	...rest
+}: CheckboxProps) => {
 	// Maintains a memoised list of the default values
 	const defaultValue = useCallback(
 		(currentValue: string[] = []) =>
@@ -67,6 +74,10 @@ const CheckboxField: FC<CheckboxProps> = (props) => {
 			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 			{...rest}
 			defaultValue={defaultValue}
+			isDisabled={isDisabled}
+			isRequired={isRequired}
+			label={label}
+			name={name}
 			transform={(event, currentValue: string[]) =>
 				event.currentTarget.checked && currentValue
 					? [...currentValue, value]
@@ -89,6 +100,10 @@ const CheckboxField: FC<CheckboxProps> = (props) => {
 			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 			{...rest}
 			defaultValue={defaultIsChecked}
+			isDisabled={isDisabled}
+			isRequired={isRequired}
+			label={label}
+			name={name}
 			transform={(event) => event.currentTarget.checked}
 		>
 			{({ fieldProps: { value: fieldValue, ...otherFieldProps }, ...others }) =>
@@ -103,10 +118,6 @@ const CheckboxField: FC<CheckboxProps> = (props) => {
 			}
 		</Field>
 	);
-};
-
-CheckboxField.defaultProps = {
-	defaultIsChecked: false,
 };
 
 export default CheckboxField;

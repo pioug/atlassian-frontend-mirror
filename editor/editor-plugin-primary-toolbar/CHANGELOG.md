@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-primary-toolbar
 
+## 4.1.0
+
+### Minor Changes
+
+- [#185617](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185617)
+  [`c766e636b2d44`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c766e636b2d44) -
+  ED-28220 clean up exp platform_editor_controls_toolbar_pinning_exp
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.0.1
 
 ### Patch Changes

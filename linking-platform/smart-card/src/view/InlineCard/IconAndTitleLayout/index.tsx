@@ -11,7 +11,6 @@ import ImageLoader from 'react-render-image';
 
 import { cssMap } from '@atlaskit/css';
 import LinkIcon from '@atlaskit/icon/core/migration/link';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { B400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -121,7 +120,7 @@ export const IconAndTitleLayout = ({
 		return icon;
 	}, [emoji, icon]);
 
-	const profileType = fg('platform-linking-visual-refresh-v2') ? isProfileType(type) : false;
+	const profileType = isProfileType(type);
 
 	const renderImageIcon = React.useCallback(
 		(errored: React.ReactNode, testId: string) => {

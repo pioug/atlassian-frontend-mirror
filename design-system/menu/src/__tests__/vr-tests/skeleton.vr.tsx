@@ -1,20 +1,16 @@
-import { snapshot } from '@af/visual-regression';
+import { type Hooks, snapshot, type SnapshotTestOptions } from '@af/visual-regression';
 
 import SkeletonItems, { SkeletonItemLoaded } from '../../../examples/06-skeleton-items';
 
-snapshot(SkeletonItems, {
-	variants: [
-		{
-			name: 'Default',
-			environment: {},
+const variants: SnapshotTestOptions<Hooks>['variants'] = [
+	{
+		name: 'Light',
+		environment: {
+			colorScheme: 'light',
 		},
-		{
-			name: 'Light',
-			environment: {
-				colorScheme: 'light',
-			},
-		},
-	],
-});
+	},
+];
 
-snapshot(SkeletonItemLoaded);
+snapshot(SkeletonItems, { variants });
+
+snapshot(SkeletonItemLoaded, { variants });

@@ -30,6 +30,8 @@ const containerStyles = css({
 
 const spacingOptions = {
 	comfortable: token('space.500', '40px'),
+	cozy: token('space.200', '16px'),
+	// @deprecated left for backwards compatibility
 	cosy: token('space.200', '16px'),
 	compact: token('space.050', '4px'),
 };
@@ -79,7 +81,7 @@ export interface ProgressTrackerProps {
  */
 const ProgressTracker = ({
 	items = [],
-	spacing = 'cosy',
+	spacing = 'cozy',
 	render = {
 		link: ({ item }: LinkComponentProps) => (
 			// Anchor content is coming from another location

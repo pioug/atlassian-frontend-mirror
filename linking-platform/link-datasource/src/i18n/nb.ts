@@ -149,7 +149,7 @@ export default {
   'linkDataSource.refresh': 'Oppdater',
   'linkDataSource.jira-issues.searchDescription-basic': 'Finn sakene du vil sette inn, ved å søke etter nøkkelord.',
   'linkDataSource.jira-issues.searchDescription-jql': 'Bruk JQL (Jira Query Language) for å søke etter saker.',
-  'linkDataSource.jira-issues.searchJiraTitle': 'Søk etter Jira-saker',
+  'linkDataSource.jira-issues.searchJiraTitle': 'Søk etter Jira-arbeidsoppgaver',
   'linkDataSource.unableToLoadItems': 'Kan ikke laste inn elementer',
   'linkDataSource.unableToLoadResults': 'Kan ikke laste inn resultater',
   'linkDataSource.jira-issues.unableToLoadResults.visual-refresh-sllv':
@@ -157,7 +157,7 @@ export default {
   'linkDataSource.jira-issues.unableToLoadResultsOld': 'Kan ikke laste inn resultater',
   'linkDataSource.modal-initial-state.beta': 'Beta',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Søk etter Confluence-sider',
-  'linkDataSource.modal-initial-state.jiraSearchTitle': 'Søk etter Jira-saker',
+  'linkDataSource.modal-initial-state.jiraSearchTitle': 'Søk etter Jira-arbeidsoppgaver',
   'linkDataSource.modal-initial-state.learnMoreLinkOld': 'Finn ut hvordan du søker med JQL',
   'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
     'Finn arbeidsoppgavene du vil sette inn, ved å søke etter nøkkelord.',

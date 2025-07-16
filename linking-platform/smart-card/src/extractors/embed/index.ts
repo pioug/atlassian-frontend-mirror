@@ -45,8 +45,6 @@ export const extractEmbedProps = (
 			: extractEmbedPreview(jsonLd, platform, iframeUrlType),
 		isTrusted: extractIsTrusted(meta),
 		isSupportTheming: extractIsSupportTheming(meta),
-		...(fg('platform-linking-visual-refresh-v2') && {
-			type: extractType(jsonLd),
-		}),
+		type: extractType(jsonLd),
 	};
 };

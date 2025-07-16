@@ -482,6 +482,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
 			intl: { formatMessage },
 			isDisabled,
 			renderCustomTriggerButton,
+			customTriggerButtonIcon,
 			triggerButtonIcon,
 			triggerButtonTooltipText,
 			triggerButtonTooltipPosition,
@@ -505,6 +506,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
 					isDisabled,
 					isSelected: isDialogOpen,
 					onClick: this.onTriggerClick,
+					iconBefore: customTriggerButtonIcon,
 				},
 				triggerProps,
 			);

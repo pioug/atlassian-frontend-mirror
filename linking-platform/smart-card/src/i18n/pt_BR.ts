@@ -123,6 +123,7 @@ export default {
   'fabric.linking.open_issue_in_jira-issue-term-refresh': 'Abrir ticket no Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Abrir link em uma nova guia',
   'fabric.linking.owned_by': 'Pertence a {context}',
+  'fabric.linking.owned_by_override': 'Por {context}',
   'fabric.linking.pending_request': 'A solicitação de acesso está pendente',
   'fabric.linking.preview_close': 'Fechar pré-visualização',
   'fabric.linking.preview_description': 'Abre uma pré-visualização em tela cheia deste link',

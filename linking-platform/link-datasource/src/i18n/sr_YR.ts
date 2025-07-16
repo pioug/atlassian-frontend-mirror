@@ -129,6 +129,7 @@ export default {
     'Претражујте по кључној речи странице које ћете уметнути.',
   'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
     'Користите JQL (Jira језик за упите) за претрагу радних ставки.',
+  'linkDataSource.modal-initial-state.searchTitle': 'Претрага Jira проблема',
   'linkDataSource.modal-initial-state.searchTitle-issue-term-refresh': 'Претрага Jira радних ставки',
   'linkDataSource.noResultsFound': 'Нема резултата',
   'linkDataSource.render-type.boolean.false': 'Не',

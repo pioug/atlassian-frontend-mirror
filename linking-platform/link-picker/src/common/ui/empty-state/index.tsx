@@ -4,16 +4,10 @@
  */
 import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Flex, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
-	container: {
-		marginBlockStart: token('space.600'),
-		marginBlockEnd: token('space.600'),
-		textAlign: 'center',
-	},
 	containerV2: {
 		paddingTop: token('space.300'),
 		paddingRight: token('space.600'),
@@ -39,51 +33,27 @@ export const EmptyState = ({
 	action,
 	renderImage,
 }: EmptyStateProps) => {
-	if (fg('platform-linking-visual-refresh-link-picker')) {
-		return (
-			<Flex
-				xcss={styles.containerV2}
-				testId={testId}
-				direction="column"
-				alignItems="center"
-				gap="space.200"
-			>
-				{renderImage?.()}
-
-				<Heading size="small" as="h2">
-					{header}
-				</Heading>
-
-				{description && (
-					<Text as="p" color="color.text">
-						{description}
-					</Text>
-				)}
-
-				{action && action}
-			</Flex>
-		);
-	}
-
 	return (
 		<Flex
-			xcss={styles.container}
+			xcss={styles.containerV2}
 			testId={testId}
 			direction="column"
 			alignItems="center"
-			gap="space.300"
+			gap="space.200"
 		>
 			{renderImage?.()}
-			<Flex direction="column" alignItems="center" gap="space.200">
-				<Heading size="medium" as="h2">
-					{header}
-				</Heading>
-				{description && (
-					<Text as="p" color="color.text">
-						{description}
-					</Text>
-				)}
-			</Flex>
+
+			<Heading size="small" as="h2">
+				{header}
+			</Heading>
+
+			{description && (
+				<Text as="p" color="color.text">
+					{description}
+				</Text>
+			)}
+
+			{action && action}
 		</Flex>
 	);
 };

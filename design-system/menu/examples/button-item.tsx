@@ -5,6 +5,7 @@
 
 import { cssMap, jsx } from '@compiled/react';
 
+import UnstarredIcon from '@atlaskit/icon/core/star-unstarred';
 import { ButtonItem } from '@atlaskit/menu';
 import { B400, B50, N10, N200, N30, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -12,8 +13,14 @@ import { token } from '@atlaskit/tokens';
 import ImgIcon from './common/img-icon';
 import Yeti from './icons/yeti.png';
 
+const containerStyles = cssMap({
+	root: {
+		width: 500,
+	},
+});
+
 // Mimics overrides in side-navigation
-const styles = cssMap({
+const customItemStyles = cssMap({
 	root: {
 		paddingBlockStart: token('space.100', '8px'),
 		paddingInlineEnd: token('space.300', '24px'),
@@ -52,11 +59,14 @@ const styles = cssMap({
 	},
 });
 
+const loremText =
+	'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates incidunt nisi, esse ullam fugit omnis libero neque facilis magnam quaerat dolor iste consequuntur placeat, rerum numquam, eum tempora! Accusamus, quidem?';
+
 export default () => (
-	<div data-testid="button-items">
-		<ButtonItem>Activate</ButtonItem>
+	<div data-testid="button-items" css={containerStyles.root}>
+		<ButtonItem testId="first-item">Activate</ButtonItem>
 		<ButtonItem isDisabled>Activate</ButtonItem>
-		<ButtonItem>Activate</ButtonItem>
+		<ButtonItem isSelected>Activate</ButtonItem>
 		<ButtonItem description="Next-gen software project">Activate</ButtonItem>
 		<ButtonItem description="Legacy software project" isDisabled>
 			Activate
@@ -64,13 +74,38 @@ export default () => (
 		<ButtonItem iconBefore={<ImgIcon src={Yeti} alt="" />} description="Next-gen software project">
 			Activate
 		</ButtonItem>
-		<ButtonItem css={styles.root} description="Style overrides">
+		<ButtonItem iconBefore={<UnstarredIcon label="" />}>With iconBefore prop</ButtonItem>
+		<ButtonItem iconAfter={<UnstarredIcon label="" />}>With iconAfter prop</ButtonItem>
+		<ButtonItem iconBefore={<UnstarredIcon label="" />} iconAfter={<UnstarredIcon label="" />}>
+			With both iconAfter and iconBefore prop
+		</ButtonItem>
+		<ButtonItem
+			description={loremText}
+			iconBefore={<UnstarredIcon label="" />}
+			iconAfter={<UnstarredIcon label="" />}
+		>
+			{loremText}
+		</ButtonItem>
+		<ButtonItem
+			description={loremText}
+			iconBefore={<UnstarredIcon label="" />}
+			iconAfter={<UnstarredIcon label="" />}
+			shouldTitleWrap
+			shouldDescriptionWrap
+		>
+			{loremText}
+		</ButtonItem>
+		<ButtonItem css={customItemStyles.root} description="Style overrides">
 			Activate
 		</ButtonItem>
-		<ButtonItem isDisabled css={[styles.root, styles.disabled]} description="Style overrides">
+		<ButtonItem
+			isDisabled
+			css={[customItemStyles.root, customItemStyles.disabled]}
+			description="Style overrides"
+		>
 			Activate
 		</ButtonItem>
-		<ButtonItem css={styles.root} description="Style overrides">
+		<ButtonItem css={customItemStyles.root} description="Style overrides">
 			Activate
 		</ButtonItem>
 	</div>

@@ -1,5 +1,13 @@
 # @atlaskit/form
 
+## 12.0.12
+
+### Patch Changes
+
+- [#182760](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/182760)
+  [`971d04b4835b3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/971d04b4835b3) -
+  Remove React.FC from all form components.
+
 ## 12.0.11
 
 ### Patch Changes

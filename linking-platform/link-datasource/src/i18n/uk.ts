@@ -155,7 +155,7 @@ export default {
   'linkDataSource.jira-issues.searchDescription-basic':
     'Використовуйте ключове слово для пошуку завдань, які потрібно вставити.',
   'linkDataSource.jira-issues.searchDescription-jql': 'Використовуйте JQL (Jira Query Language) для пошуку завдань.',
-  'linkDataSource.jira-issues.searchJiraTitle': 'Пошук завдань Jira',
+  'linkDataSource.jira-issues.searchJiraTitle': 'Пошук елементів завдання Jira',
   'linkDataSource.unableToLoadItems': 'Не вдалося завантажити елементи',
   'linkDataSource.unableToLoadResults': 'Не вдалося завантажити результати',
   'linkDataSource.jira-issues.unableToLoadResults.visual-refresh-sllv':
@@ -163,7 +163,7 @@ export default {
   'linkDataSource.jira-issues.unableToLoadResultsOld': 'Не вдалося завантажити результати',
   'linkDataSource.modal-initial-state.beta': 'Бета-версія',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Пошук сторінок Confluence',
-  'linkDataSource.modal-initial-state.jiraSearchTitle': 'Пошук завдань Jira',
+  'linkDataSource.modal-initial-state.jiraSearchTitle': 'Пошук елементів завдання Jira',
   'linkDataSource.modal-initial-state.learnMoreLinkOld': 'Дізнайтеся, як виконувати пошук засобами JQL',
   'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
     'Шукайте елементи завдання, які потрібно вставити, за ключовим словом.',

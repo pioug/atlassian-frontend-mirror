@@ -32,6 +32,7 @@ import {
 	Help,
 	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Inline, Stack } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 

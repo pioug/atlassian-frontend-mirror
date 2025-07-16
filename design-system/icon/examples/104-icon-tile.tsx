@@ -4,6 +4,7 @@ import Heading from '@atlaskit/heading';
 import { IconTile } from '@atlaskit/icon';
 import AddIcon from '@atlaskit/icon/core/add';
 import { type NewCoreIconProps } from '@atlaskit/icon/types';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Inline, Stack, xcss } from '@atlaskit/primitives';
 
 const styles = xcss({ padding: 'space.200' });

@@ -7,7 +7,6 @@ import { forwardRef, Fragment, type KeyboardEvent } from 'react';
 import { css, jsx } from '@compiled/react';
 import { type IntlShape, useIntl } from 'react-intl-next';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives/compiled';
 import { B100, B400, B50, N20, N300, N400, N40A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -114,13 +113,9 @@ const ListItemSubtitle = ({ items: [firstItem, secondItem] }: SubtitleProps) => 
 			</div>
 			{secondItem && (
 				<div css={[listItemContainerInnerStylesA11yRefresh]}>
-					{fg('platform-linking-visual-refresh-link-picker') ? (
-						<span css={listItemContainerInnerStylesSeparatorLinkPickerRefresh}>
-							<Fragment>&nbsp; •&nbsp; </Fragment>
-						</span>
-					) : (
+					<span css={listItemContainerInnerStylesSeparatorLinkPickerRefresh}>
 						<Fragment>&nbsp; •&nbsp; </Fragment>
-					)}
+					</span>
 					<Fragment>{secondItem}</Fragment>
 				</div>
 			)}

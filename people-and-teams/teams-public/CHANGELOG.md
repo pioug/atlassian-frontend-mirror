@@ -1,5 +1,13 @@
 # @atlaskit/teams-public
 
+## 0.44.0
+
+### Minor Changes
+
+- [#186199](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/186199)
+  [`635062ffae3bf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/635062ffae3bf) -
+  Add refetchTeamContainers action to the teamContainersStore
+
 ## 0.43.0
 
 ### Minor Changes

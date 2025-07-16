@@ -3,16 +3,28 @@
  *
  * Extract component prop types from UIKit 2 components - ErrorMessageProps
  *
- * @codegen <<SignedSource::f2821b3d824a19e37d6d769695a883f4>>
+ * @codegen <<SignedSource::e5e94f85cf8efd7d6cc06b1355785c4b>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/form/__generated__/error-message.partial.tsx <<SignedSource::3758488a0115c629a624fcaae1f524c7>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
-import React from 'react';
-import { ErrorMessage as PlatformErrorMessage } from '@atlaskit/form';
+import type React from 'react';
 
-type PlatformErrorMessageProps = React.ComponentProps<typeof PlatformErrorMessage>;
+
+// Serialized type
+type PlatformErrorMessageProps = {
+  /**
+	 * The content of the message
+	 */
+	children: React.ReactNode;
+  /**
+	 * A testId prop is provided for specified elements, which is a unique string
+	 *  that appears as a data attribute data-testid in the rendered code,
+	 *  serving as a hook for automated tests
+	 */
+	testId?: string;
+};
 
 export type ErrorMessageProps = Pick<
   PlatformErrorMessageProps,

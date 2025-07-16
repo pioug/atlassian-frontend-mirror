@@ -1,5 +1,14 @@
 # @atlaskit/forge-react-types
 
+## 0.42.10
+
+### Patch Changes
+
+- [#186460](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/186460)
+  [`a06d9cf8482bf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a06d9cf8482bf) -
+  Improve prop types for Checkbox, EmptyState, ErrorMessage, and Lozenge components
+- Updated dependencies
+
 ## 0.42.9
 
 ### Patch Changes

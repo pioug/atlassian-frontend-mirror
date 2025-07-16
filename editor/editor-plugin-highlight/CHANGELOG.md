@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-highlight
 
+## 3.0.5
+
+### Patch Changes
+
+- [#185655](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185655)
+  [`3d2b715fc1fac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d2b715fc1fac) -
+  [ED-28416] clean up feature gate platform_editor_controls_patch_14
+
 ## 3.0.4
 
 ### Patch Changes

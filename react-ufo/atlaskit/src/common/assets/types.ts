@@ -10,7 +10,7 @@ export type AssetsConfigPreloadedArgs = {
 };
 
 export type AssetsConfig = {
-	allowedTypes: string[];
+	allowedTypes?: string[];
 	classification: {
 		all: boolean;
 		allAtlassian: (args: AssetsConfigAllAtlassianArgs) => boolean;

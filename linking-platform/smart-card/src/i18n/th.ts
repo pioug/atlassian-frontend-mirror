@@ -122,6 +122,7 @@ export default {
   'fabric.linking.open_issue_in_jira-issue-term-refresh': 'ตั๋วที่เปิดอยู่ใน Jira',
   'fabric.linking.open_link_in_a_new_tab': 'เปิดลิงก์ในแถบใหม่',
   'fabric.linking.owned_by': 'เจ้าของคือ {context}',
+  'fabric.linking.owned_by_override': 'โดย {context}',
   'fabric.linking.pending_request': 'คำขอการเข้าถึงของคุณกำลังรอดำเนินการ',
   'fabric.linking.preview_close': 'ปิดการแสดงตัวอย่าง',
   'fabric.linking.preview_description': 'เปิดตัวอย่างแบบเต็มหน้าจอของลิงก์นี้',

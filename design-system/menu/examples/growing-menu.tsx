@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { ButtonItem, MenuGroup, Section } from '@atlaskit/menu';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Stack } from '@atlaskit/primitives';
 
 import ImgIcon from './common/img-icon';

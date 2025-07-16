@@ -123,6 +123,7 @@ export default {
   'fabric.linking.open_issue_in_jira-issue-term-refresh': 'Открыть задачу в Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Открыть ссылку в новой вкладке',
   'fabric.linking.owned_by': 'Владелец: {context}',
+  'fabric.linking.owned_by_override': 'Ответственный: {context}',
   'fabric.linking.pending_request': 'Ваш запрос на доступ ожидает рассмотрения',
   'fabric.linking.preview_close': 'Закрыть предварительный просмотр',
   'fabric.linking.preview_description': 'Предварительный просмотр ссылки в полноэкранном режиме',

@@ -37,10 +37,9 @@ import {
 import { selectionToolbarPluginKey } from './pm-plugins/plugin-key';
 import type { SelectionToolbarPlugin } from './selectionToolbarPluginType';
 import type { ToolbarDocking } from './types';
-import { getOverflowFloatingToolbarConfig } from './ui/overflow-toolbar-config';
 import { PageVisibilityWatcher } from './ui/PageVisibilityWatcher';
 import { getPinOptionToolbarConfig } from './ui/pin-toolbar-config';
-import { PrimaryToolbarComponent, PrimaryToolbarComponentNew } from './ui/PrimaryToolbarComponent';
+import { PrimaryToolbarComponent } from './ui/PrimaryToolbarComponent';
 
 type SelectionToolbarPluginState = {
 	selectionStable: boolean;
@@ -75,34 +74,14 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 	const { userPreferencesProvider, contextualFormattingEnabled } = config;
 
 	if (editorExperiment('platform_editor_controls', 'variant1', { exposure: true })) {
-		if (editorExperiment('platform_editor_controls_toolbar_pinning_exp', true)) {
-			primaryToolbarComponent = ({ disabled }) => {
-				return <PrimaryToolbarComponentNew api={api} disabled={disabled} />;
-			};
+		primaryToolbarComponent = ({ disabled }) => {
+			return <PrimaryToolbarComponent api={api} disabled={disabled} />;
+		};
 
-			api?.primaryToolbar?.actions.registerComponent({
-				name: 'pinToolbar',
-				component: primaryToolbarComponent,
-			});
-		} else {
-			primaryToolbarComponent = ({
-				popupsBoundariesElement,
-				popupsMountPoint,
-				popupsScrollableElement,
-			}) => (
-				<PrimaryToolbarComponent
-					api={api}
-					popupsBoundariesElement={popupsBoundariesElement}
-					popupsMountPoint={popupsMountPoint}
-					popupsScrollableElement={popupsScrollableElement}
-				/>
-			);
-
-			api?.primaryToolbar?.actions.registerComponent({
-				name: 'overflowMenu',
-				component: primaryToolbarComponent,
-			});
-		}
+		api?.primaryToolbar?.actions.registerComponent({
+			name: 'pinToolbar',
+			component: primaryToolbarComponent,
+		});
 	}
 
 	let previousToolbarDocking: ToolbarDocking | null =
@@ -404,19 +383,9 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 									?.toolbarDockingPosition
 							: toolbarDocking;
 
-					if (editorExperiment('platform_editor_controls_toolbar_pinning_exp', true)) {
-						items.push(
-							...getPinOptionToolbarConfig({ api, toolbarDocking: toolbarDockingPref, intl }),
-						);
-					} else {
-						items.push(
-							...getOverflowFloatingToolbarConfig({
-								api,
-								toolbarDocking: toolbarDockingPref,
-								intl,
-							}),
-						);
-					}
+					items.push(
+						...getPinOptionToolbarConfig({ api, toolbarDocking: toolbarDockingPref, intl }),
+					);
 				}
 
 				let onPositionCalculated;

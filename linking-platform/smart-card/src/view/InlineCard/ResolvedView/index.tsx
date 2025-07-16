@@ -117,9 +117,7 @@ export class InlineCardResolvedView extends React.Component<InlineCardResolvedVi
 					icon={icon}
 					title={title}
 					titleTextColor={titleTextColor}
-					{...(fg('platform-linking-visual-refresh-v2') && {
-						type,
-					})}
+					type={type}
 				/>
 				{this.renderLozenge()}
 			</Frame>

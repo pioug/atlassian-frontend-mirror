@@ -113,6 +113,7 @@ export default {
   'fabric.linking.open_issue_in_jira-issue-term-refresh': 'Jira 中的待處理工作項目',
   'fabric.linking.open_link_in_a_new_tab': '在新分頁中開啟連結',
   'fabric.linking.owned_by': '負責人：{context}',
+  'fabric.linking.owned_by_override': '作者：{context}',
   'fabric.linking.pending_request': '您的存取要求擱置中',
   'fabric.linking.preview_close': '關閉預覽',
   'fabric.linking.preview_description': '開啟此連結的全螢幕預覽',

@@ -63,6 +63,8 @@ export type ShareDialogContainerProps = {
 	productId: ProductId;
 	/** Render function for a custom Share Dialog Trigger Button. */
 	renderCustomTriggerButton?: RenderCustomTriggerButton;
+	/** An Icon used for the custom Share Dialog Trigger Button */
+	customTriggerButtonIcon?: React.ComponentType<NewCoreIconProps>;
 	/** Atlassian Resource Identifier of a Site resource to be shared. */
 	shareAri: string;
 	/** Content Type of the resource to be shared. It will also affect on the successful share message in the flag. A pre-defined list as follows:*/

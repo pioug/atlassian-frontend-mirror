@@ -25,6 +25,7 @@ import {
 } from '@atlaskit/navigation-system/top-nav-items';
 import { Notifications } from '@atlaskit/navigation-system/top-nav-items/notifications';
 import { fg } from '@atlaskit/platform-feature-flags';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Stack } from '@atlaskit/primitives';
 import { JiraIcon } from '@atlaskit/temp-nav-app-icons/jira';
 

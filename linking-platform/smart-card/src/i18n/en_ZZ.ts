@@ -131,6 +131,7 @@ export default {
   'fabric.linking.open_issue_in_jira-issue-term-refresh': '⁣⁢Open work item in Jira⁭⁭⁠⁯⁯⁠⁯⁮‍⁯؜⁮⁯⁪⁪⁯‌⁪⁫⁫⁣⁤',
   'fabric.linking.open_link_in_a_new_tab': '⁣⁢Open link in a new tab⁪؜⁯⁮⁮⁪⁭⁮⁯⁡⁭⁮⁮⁬⁫‍⁮⁫‍⁠⁡‍‌⁪⁣⁤',
   'fabric.linking.owned_by': '⁣⁢Owned by {context}⁯⁪⁪⁪⁪⁮⁫⁠⁮‍⁪⁫⁭⁪‍⁫⁬⁮⁬⁣⁤',
+  'fabric.linking.owned_by_override': '⁣⁢By {context}⁪‌⁪⁬⁫⁮⁬⁯⁠⁠‌⁭⁬؜⁪‌⁪‍⁬⁪⁮⁡؜⁮⁡‍⁫⁣⁤',
   'fabric.linking.pending_request': '⁣⁢Your access request is pending⁮⁭⁮⁭⁯⁮⁪⁡⁭⁫⁠⁫⁫⁯⁬⁬‌⁬⁪⁠⁣⁤',
   'fabric.linking.preview_close': '⁣⁢Close preview⁮⁡⁮⁫⁫‍⁫⁪‍⁮‍⁭⁬‌‌⁯⁭⁮⁮‍⁫؜⁬‌⁬؜⁬⁠⁣⁤',
   'fabric.linking.preview_description': '⁣⁢Open a full screen preview of this link⁫⁫⁡⁪⁭⁫⁪⁫⁠⁪⁭⁮⁭‍⁬⁭⁡⁠⁭⁪⁮⁠⁣⁤',

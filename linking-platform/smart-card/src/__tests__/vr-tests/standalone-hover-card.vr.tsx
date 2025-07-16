@@ -41,18 +41,14 @@ snapshot(HoverCardAssignedJiraIssue, {
 	description: 'standalone hover card for Assigned Jira Issue',
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'platform-linking-visual-refresh-v2': true,
-	},
+	featureFlags: {},
 });
 
 snapshot(HoverCardUnassignedJiraIssue, {
 	description: 'standalone hover card for Unassigned Jira Issue',
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'platform-linking-visual-refresh-v2': true,
-	},
+	featureFlags: {},
 });
 
 snapshot(HoverCardJiraProject, {

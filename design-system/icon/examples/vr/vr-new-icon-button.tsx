@@ -8,6 +8,7 @@ import AddIcon from '../../core/add';
 import ChevronDownIcon from '../../utility/chevron-down';
 
 import Heading from '@atlaskit/heading';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Inline, Stack, xcss } from '@atlaskit/primitives';
 
 const FFAddIcon = (props: ComponentProps<typeof AddIcon>) => (

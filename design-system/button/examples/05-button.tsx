@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/new';
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 
 export default function ButtonExample() {
 	return (

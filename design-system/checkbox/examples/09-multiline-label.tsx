@@ -8,6 +8,7 @@ import { jsx } from '@compiled/react';
 
 import { Checkbox } from '@atlaskit/checkbox';
 import { cssMap } from '@atlaskit/css';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Stack } from '@atlaskit/primitives';
 
 const styles = cssMap({

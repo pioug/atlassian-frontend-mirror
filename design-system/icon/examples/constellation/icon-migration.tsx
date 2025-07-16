@@ -3,6 +3,7 @@ import React from 'react';
 import LikeIconMigration from '@atlaskit/icon/core/migration/thumbs-up--like';
 import LikeIcon from '@atlaskit/icon/core/thumbs-up';
 import LegacyLikeIcon from '@atlaskit/icon/glyph/like';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline, Stack, Text, xcss } from '@atlaskit/primitives';
 
 const TextBoxStyles = xcss({ width: '150px' });

@@ -8,6 +8,7 @@ import { jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
 
 import { cssMap } from '@atlaskit/css';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Anchor } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 

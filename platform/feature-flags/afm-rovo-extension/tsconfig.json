@@ -1,0 +1,21 @@
+{
+	"extends": "../../../../tsconfig.entry-points.rovo-extension.json",
+	"include": [
+		"../src/**/*.ts"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"compilerOptions": {
+		"outDir": "../../../../../rovo-extension/tsDist/@atlaskit__platform-feature-flags/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"references": [
+		{
+			"path": "../../../measurement/feature-gate-js-client/afm-rovo-extension/tsconfig.json"
+		}
+	]
+}

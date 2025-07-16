@@ -9,6 +9,7 @@ import {
 } from 'react-resource-router';
 
 import AppProvider, { type RouterLinkComponentProps, useRouterLink } from '@atlaskit/app-provider';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box } from '@atlaskit/primitives';
 
 type LinkConfig = Pick<LinkProps, 'to' | 'href' | 'replace'>;

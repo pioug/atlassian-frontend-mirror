@@ -2,6 +2,7 @@ import React from 'react';
 
 import SVG from '@atlaskit/icon/svg';
 import type { SVGProps } from '@atlaskit/icon/types';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box } from '@atlaskit/primitives';
 import { B300, G300 } from '@atlaskit/theme/colors';
 

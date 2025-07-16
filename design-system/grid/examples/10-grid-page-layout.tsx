@@ -9,6 +9,7 @@ import {
 	RightPanel,
 	TopNavigation,
 } from '@atlaskit/page-layout';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { media, UNSAFE_BREAKPOINTS_CONFIG } from '@atlaskit/primitives/responsive';
 import Stack from '@atlaskit/primitives/stack';

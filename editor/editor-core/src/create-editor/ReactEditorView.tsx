@@ -525,16 +525,14 @@ export function ReactEditorView(props: EditorViewProps) {
 				});
 			}
 
-			if (!fg('platform_editor_migrate_state_updates')) {
-				config.current?.onEditorViewStateUpdatedCallbacks.forEach((entry) => {
-					entry.callback({
-						originalTransaction,
-						transactions,
-						oldEditorState,
-						newEditorState,
-					});
+			config.current?.onEditorViewStateUpdatedCallbacks.forEach((entry) => {
+				entry.callback({
+					originalTransaction,
+					transactions,
+					oldEditorState,
+					newEditorState,
 				});
-			}
+			});
 		},
 		[],
 	);

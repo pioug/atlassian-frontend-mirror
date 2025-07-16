@@ -87,7 +87,6 @@ snapshot(BlockCardUnauthorisedViewWithNoAuth, {
 });
 snapshot(BlockCardJira, {
 	featureFlags: {
-		'platform-linking-visual-refresh-v2': true,
 		'platform-linking-fix-smart-card-avatar-overrides': [true, false],
 		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
@@ -219,7 +218,6 @@ snapshot(BlockCardEntities, {
 
 snapshot(VRBlockProfileCard, {
 	featureFlags: {
-		'platform-linking-visual-refresh-v2': true,
 		'platform-linking-fix-smart-card-avatar-overrides': [true, false],
 	},
 });

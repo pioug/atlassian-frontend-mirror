@@ -38,16 +38,12 @@ const allVariantsOptions: OptionsType = {
 
 snapshot(DefaultExample, {
 	...allVariantsOptions,
-	featureFlags: {
-		'platform-linking-visual-refresh-link-picker': true,
-	},
+	featureFlags: {},
 });
 
 snapshot(WithCancelExample, {
 	...allVariantsOptions,
-	featureFlags: {
-		'platform-linking-visual-refresh-link-picker': true,
-	},
+	featureFlags: {},
 });
 
 snapshot(ErrorBoundaryExample, {
@@ -64,62 +60,42 @@ snapshot(ErrorBoundaryExample, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
-	featureFlags: {
-		'platform-linking-visual-refresh-link-picker': true,
-	},
+	featureFlags: {},
 });
 
 snapshot(PluginErrorExample, {
 	...allVariantsOptions,
-	featureFlags: {
-		'platform-linking-visual-refresh-link-picker': true,
-	},
+	featureFlags: {},
 });
 
 snapshot(UnauthenticatedErrorExample, {
 	...allVariantsOptions,
-	featureFlags: {
-		'platform-linking-visual-refresh-link-picker': true,
-	},
+	featureFlags: {},
 });
 
 /** Width examples */
 snapshot(DisableWidthExample, {
-	featureFlags: {
-		'platform-linking-visual-refresh-link-picker': true,
-	},
+	featureFlags: {},
 });
 snapshot(DisableWidthWithPluginsExample, {
-	featureFlags: {
-		'platform-linking-visual-refresh-link-picker': true,
-	},
+	featureFlags: {},
 });
 snapshot(DisableWidth500Example, {
-	featureFlags: {
-		'platform-linking-visual-refresh-link-picker': true,
-	},
+	featureFlags: {},
 });
 snapshot(DisableWidth500ExampleWithPlugins, {
-	featureFlags: {
-		'platform-linking-visual-refresh-link-picker': true,
-	},
+	featureFlags: {},
 });
 snapshot(DisableWidth300Example, {
-	featureFlags: {
-		'platform-linking-visual-refresh-link-picker': true,
-	},
+	featureFlags: {},
 });
 snapshot(DisableWidth300ExampleWithPlugins, {
-	featureFlags: {
-		'platform-linking-visual-refresh-link-picker': true,
-	},
+	featureFlags: {},
 });
 
 /** Padding examples */
 snapshot(ZeroPaddingExample, {
-	featureFlags: {
-		'platform-linking-visual-refresh-link-picker': true,
-	},
+	featureFlags: {},
 });
 snapshot(LargePaddingUsingTokensExample, {
 	variants: [
@@ -130,25 +106,17 @@ snapshot(LargePaddingUsingTokensExample, {
 			},
 		},
 	],
-	featureFlags: {
-		'platform-linking-visual-refresh-link-picker': true,
-	},
+	featureFlags: {},
 });
 
 snapshot(VaryingPaddingsExample, {
-	featureFlags: {
-		'platform-linking-visual-refresh-link-picker': true,
-	},
+	featureFlags: {},
 });
 
 /** Custom empty state */
 snapshot(CustomEmptyStateExample, {
-	featureFlags: {
-		'platform-linking-visual-refresh-link-picker': true,
-	},
+	featureFlags: {},
 });
 snapshot(CustomEmptyStateWithAdaptiveHeightExample, {
-	featureFlags: {
-		'platform-linking-visual-refresh-link-picker': true,
-	},
+	featureFlags: {},
 });

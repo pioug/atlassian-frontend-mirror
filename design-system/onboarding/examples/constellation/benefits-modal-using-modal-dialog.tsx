@@ -4,6 +4,7 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import Image from '@atlaskit/image';
 import Modal, { CloseButton, ModalTitle, ModalTransition } from '@atlaskit/modal-dialog';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Stack, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 

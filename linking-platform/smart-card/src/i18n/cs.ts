@@ -122,6 +122,7 @@ export default {
   'fabric.linking.open_issue_in_jira-issue-term-refresh': 'Otevřít požadavek v Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Otevřít odkaz na nové kartě',
   'fabric.linking.owned_by': 'Vlastník: {context}',
+  'fabric.linking.owned_by_override': 'Od autora {context}',
   'fabric.linking.pending_request': 'Vaše žádost o přístup čeká na vyřízení.',
   'fabric.linking.preview_close': 'Zavřít náhled',
   'fabric.linking.preview_description': 'Otevřít náhled tohoto odkazu na celé obrazovce',

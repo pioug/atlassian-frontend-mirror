@@ -1,5 +1,14 @@
 # @atlassian/navigation-system
 
+## 0.171.0
+
+### Minor Changes
+
+- [#176815](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/176815)
+  [`5eed9ac0e28c3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5eed9ac0e28c3) -
+  Cleans up the `platform_design_system_nav_logo_interaction_states` feature gate. The nav logo will
+  now always have interaction states.
+
 ## 0.170.0
 
 ### Minor Changes

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Heading from '@atlaskit/heading';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Inline, Stack, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 

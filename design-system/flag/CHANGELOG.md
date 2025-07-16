@@ -1,5 +1,13 @@
 # @atlaskit/flag
 
+## 17.2.2
+
+### Patch Changes
+
+- [#185048](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185048)
+  [`216bdb050fde5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/216bdb050fde5) -
+  Replaces custom dismiss button implementation with the default base button
+
 ## 17.2.1
 
 ### Patch Changes

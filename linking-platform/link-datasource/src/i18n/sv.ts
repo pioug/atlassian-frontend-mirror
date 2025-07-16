@@ -149,7 +149,7 @@ export default {
   'linkDataSource.refresh': 'Uppdatera',
   'linkDataSource.jira-issues.searchDescription-basic': 'Sök på nyckelord för att hitta ärenden att infoga.',
   'linkDataSource.jira-issues.searchDescription-jql': 'Använd JQL (Jira Query Language) för att söka efter ärenden.',
-  'linkDataSource.jira-issues.searchJiraTitle': 'Sök efter Jira-ärenden',
+  'linkDataSource.jira-issues.searchJiraTitle': 'Sök efter Jira-arbetsuppgifter',
   'linkDataSource.unableToLoadItems': 'Det gick inte att läsa in objekten',
   'linkDataSource.unableToLoadResults': 'Det gick inte att läsa in resultat',
   'linkDataSource.jira-issues.unableToLoadResults.visual-refresh-sllv':
@@ -157,7 +157,7 @@ export default {
   'linkDataSource.jira-issues.unableToLoadResultsOld': 'Det gick inte att läsa in resultat',
   'linkDataSource.modal-initial-state.beta': 'Beta',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Sök efter Confluence-sidor',
-  'linkDataSource.modal-initial-state.jiraSearchTitle': 'Sök efter Jira-ärenden',
+  'linkDataSource.modal-initial-state.jiraSearchTitle': 'Sök efter Jira-arbetsuppgifter',
   'linkDataSource.modal-initial-state.learnMoreLinkOld': 'Läs mer om hur du söker med JQL',
   'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
     'Sök på nyckelord för att hitta arbetsuppgifter att infoga.',

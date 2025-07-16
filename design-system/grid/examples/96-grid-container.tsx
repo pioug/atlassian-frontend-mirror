@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Grid, { GridContainer, GridItem } from '@atlaskit/grid';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 
 const itemStyles = xcss({

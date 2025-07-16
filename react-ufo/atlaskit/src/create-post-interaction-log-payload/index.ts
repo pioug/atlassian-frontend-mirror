@@ -4,7 +4,12 @@ import coinflip from '../coinflip';
 import { type PostInteractionLogOutput, type ReactProfilerTiming } from '../common';
 import type { LateMutation } from '../common/react-ufo-payload-schema';
 import { type RevisionPayload } from '../common/vc/types';
-import { getConfig, getMostRecentVCRevision, getPostInteractionRate } from '../config';
+import {
+	DEFAULT_TTVC_REVISION,
+	getConfig,
+	getMostRecentVCRevision,
+	getPostInteractionRate,
+} from '../config';
 import { isSegmentLabel, sanitizeUfoName } from '../create-payload/common/utils';
 import { getReactUFOPayloadVersion } from '../create-payload/utils/get-react-ufo-payload-version';
 import { getPageVisibilityState } from '../hidden-timing';
@@ -180,7 +185,7 @@ function createPostInteractionLogPayload({
 
 	const mostRecentVCRevision = fg('platform_ufo_post_interaction_most_recent_vc_rev')
 		? getMostRecentVCRevision(lastInteractionFinish.ufoName)
-		: 'fy25.02';
+		: DEFAULT_TTVC_REVISION;
 
 	let lastInteractionFinishVC90: number | null = null;
 	let lastInteractionFinishVCClean: boolean = false;
@@ -196,7 +201,7 @@ function createPostInteractionLogPayload({
 		lastInteractionFinishVC90 = lastInteractionFinishRevision['metric:vc90'] ?? null;
 	}
 
-	let postInteractionFinishVCRatios: Record<string, number> = {};
+	let postInteractionFinishVCRatios: Record<string, number> | undefined = {};
 	let postInteractionFinishVCClean: boolean = false;
 	let revisedVC90: number | null = null;
 	let lateMutations: LateMutation[] = [];
@@ -210,10 +215,7 @@ function createPostInteractionLogPayload({
 
 	if (postInteractionFinishRevision?.clean) {
 		postInteractionFinishVCClean = true;
-		postInteractionFinishVCRatios = postInteractionFinishVCResult?.['ufo:vc:ratios'] as Record<
-			string,
-			number
-		>;
+		postInteractionFinishVCRatios = postInteractionFinishRevision.ratios;
 
 		if (typeof lastInteractionFinishVC90 === 'number') {
 			revisedVC90 = postInteractionFinishRevision['metric:vc90'] ?? null;

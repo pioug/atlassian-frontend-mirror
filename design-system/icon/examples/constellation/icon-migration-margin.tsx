@@ -3,6 +3,7 @@ import React from 'react';
 import ChevronIcon from '@atlaskit/icon/core/chevron-down';
 import ChevronIconMigration from '@atlaskit/icon/core/migration/chevron-down';
 import LegacyChevronIcon from '@atlaskit/icon/glyph/chevron-down';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 

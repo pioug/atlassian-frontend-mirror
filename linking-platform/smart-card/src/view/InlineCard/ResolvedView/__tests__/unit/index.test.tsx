@@ -4,9 +4,7 @@ import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { type LozengeProps } from '../../../../../types';
 import { InlineCardResolvedView } from '../../index';
@@ -54,22 +52,16 @@ describe('ResolvedView', () => {
 		);
 	});
 
-	ffTest.both('platform-linking-visual-refresh-v2', '', () => {
-		it('should send type to IconAndTitleLayout', () => {
-			render(
-				<InlineCardResolvedView
-					icon="some-link-to-icon"
-					title="some text content"
-					type={['Document', 'Profile']}
-				/>,
-			);
+	it('should send type to IconAndTitleLayout', () => {
+		render(
+			<InlineCardResolvedView
+				icon="some-link-to-icon"
+				title="some text content"
+				type={['Document', 'Profile']}
+			/>,
+		);
 
-			if (fg('platform-linking-visual-refresh-v2')) {
-				expect(screen.getByTestId(mockTypeTestId)).toHaveTextContent('Document, Profile');
-			} else {
-				expect(screen.getByTestId(mockTypeTestId)).toBeEmptyDOMElement();
-			}
-		});
+		expect(screen.getByTestId(mockTypeTestId)).toHaveTextContent('Document, Profile');
 	});
 
 	it('should not render icon when one is not provided', async () => {

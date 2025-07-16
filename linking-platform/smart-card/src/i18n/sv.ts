@@ -122,6 +122,7 @@ export default {
   'fabric.linking.open_issue_in_jira-issue-term-refresh': 'Öppna arbetsuppgiften i Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Öppna länk i en ny flik',
   'fabric.linking.owned_by': 'Ägs av {context}',
+  'fabric.linking.owned_by_override': 'Av {context}',
   'fabric.linking.pending_request': 'Din åtkomstförfrågan väntar på svar',
   'fabric.linking.preview_close': 'Stäng förhandsvisning',
   'fabric.linking.preview_description': 'Öppna en förhandsvisning av länken i helskärm',

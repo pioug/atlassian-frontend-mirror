@@ -1,0 +1,48 @@
+{
+	"extends": "../../../../tsconfig.entry-points.rovo-extension.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../rovo-extension/tsDist/@atlaskit__section-message/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../button/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../monorepo-tooling/codemod-utils/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../css/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../heading/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../icon/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../primitives/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../theme/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../tokens/afm-rovo-extension/tsconfig.json"
+		}
+	]
+}

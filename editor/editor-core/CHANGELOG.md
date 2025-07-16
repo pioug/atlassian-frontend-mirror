@@ -1,5 +1,40 @@
 # @atlaskit/editor-core
 
+## 209.1.7
+
+### Patch Changes
+
+- [#186321](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/186321)
+  [`777290660084a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/777290660084a) -
+  ED-28528 fix mentions selected state box shadow disappearing
+- Updated dependencies
+
+## 209.1.6
+
+### Patch Changes
+
+- [#185630](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185630)
+  [`3535873b417f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3535873b417f3) -
+  Remove FG platform_editor_migrate_state_updates
+- Updated dependencies
+
+## 209.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 209.1.4
+
+### Patch Changes
+
+- [#185411](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185411)
+  [`219a9a6529f86`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/219a9a6529f86) -
+  Removing references to confluence_typography_refreshed feature gate from comments.
+- [#185411](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185411)
+  [`219a9a6529f86`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/219a9a6529f86) -
+  Removing references of confluence_typography_refreshed feature gate from comments.
+
 ## 209.1.3
 
 ### Patch Changes

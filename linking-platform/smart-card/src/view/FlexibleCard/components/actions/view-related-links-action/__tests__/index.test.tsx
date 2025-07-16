@@ -57,7 +57,7 @@ describe('ViewRelatedLinksAction', () => {
 		const element = await findByTestId(testId);
 
 		expect(element).toBeInTheDocument();
-		expect(element).toHaveTextContent('View recent links');
+		expect(element).toHaveTextContent('View related links');
 	});
 
 	it('does not render related links action if action data is not present', async () => {
@@ -95,11 +95,11 @@ describe('ViewRelatedLinksAction', () => {
 		const modal = await findByRole('dialog');
 		expect(modal).toBeInTheDocument();
 
-		const modalTitle = await findByText('Recent links');
+		const modalTitle = await findByText('Related links');
 		expect(modalTitle).toBeInTheDocument();
 
 		// will render unavailable view
-		const unavailableView = await findByText('No recent links');
+		const unavailableView = await findByText("We couldn't find any related links");
 		expect(unavailableView).toBeInTheDocument();
 
 		const closeButton = await findByRole('button', { name: 'Close' });

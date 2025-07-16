@@ -2,6 +2,7 @@ import React from 'react';
 
 import { IconButton, LinkIconButton } from '@atlaskit/button/new';
 import StarFilledIcon from '@atlaskit/icon/glyph/star-filled';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Inline, xcss } from '@atlaskit/primitives';
 
 const wrapperStyles = xcss({

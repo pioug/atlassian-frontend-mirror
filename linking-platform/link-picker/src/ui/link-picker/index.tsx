@@ -573,13 +573,11 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 								onClear={handleClear}
 								onChange={handleChangeText}
 							/>
-							{fg('platform-linking-visual-refresh-link-picker') && (
-								<HelperMessage testId={testIds.linkHelperText}>
-									{customMessages?.linkHelperTextLabel
-										? intl.formatMessage(customMessages?.linkHelperTextLabel)
-										: intl.formatMessage(linkTextMessages.linkHelperTextLabel)}
-								</HelperMessage>
-							)}
+							<HelperMessage testId={testIds.linkHelperText}>
+								{customMessages?.linkHelperTextLabel
+									? intl.formatMessage(customMessages?.linkHelperTextLabel)
+									: intl.formatMessage(linkTextMessages.linkHelperTextLabel)}
+							</HelperMessage>
 						</Fragment>
 					)}
 					{moveSubmitButton && (

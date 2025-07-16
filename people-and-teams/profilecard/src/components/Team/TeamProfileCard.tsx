@@ -5,7 +5,6 @@ import { FormattedMessage, useIntl } from 'react-intl-next';
 import Avatar from '@atlaskit/avatar';
 import AvatarGroup, { type AvatarGroupProps } from '@atlaskit/avatar-group';
 import Button, { IconButton, LinkButton } from '@atlaskit/button/new';
-import FocusRing from '@atlaskit/focus-ring';
 import MoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
 import { LinkItem, MenuGroup } from '@atlaskit/menu';
 import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon';
@@ -239,21 +238,19 @@ const ActionButton = ({
 	const isGiveKudosActionButton = action.id === GIVE_KUDOS_ACTION_ID;
 
 	const actionButton = (
-		<FocusRing isInset>
-			<LinkButton
-				key={action.id || index}
-				onClick={onActionClick(action, analytics, index)}
-				href={action.link || ''}
-				shouldFitContainer
-			>
-				{action.label}
-				{isGiveKudosActionButton && (
-					<AnimationWrapper>
-						<KudosBlobAnimation />
-					</AnimationWrapper>
-				)}
-			</LinkButton>
-		</FocusRing>
+		<LinkButton
+			key={action.id || index}
+			onClick={onActionClick(action, analytics, index)}
+			href={action.link || ''}
+			shouldFitContainer
+		>
+			{action.label}
+			{isGiveKudosActionButton && (
+				<AnimationWrapper>
+					<KudosBlobAnimation />
+				</AnimationWrapper>
+			)}
+		</LinkButton>
 	);
 
 	if (isGiveKudosActionButton) {

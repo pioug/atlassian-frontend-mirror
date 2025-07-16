@@ -27,11 +27,6 @@ import { LinkPickerSubmitButton } from './link-picker-submit-button';
 const formFooterStyles = css({
 	display: 'flex',
 	justifyContent: 'flex-end',
-});
-
-const formFooterV2Styles = css({
-	display: 'flex',
-	justifyContent: 'flex-end',
 	paddingTop: token('space.200'),
 });
 
@@ -148,9 +143,7 @@ export const FormFooter = memo(
 		const ButtonComponent = fg('platform-link-picker-remove-legacy-button') ? NewButton : Button;
 		return (
 			<footer
-				css={[
-					fg('platform-linking-visual-refresh-link-picker') ? formFooterV2Styles : formFooterStyles,
-				]}
+				css={[formFooterStyles]}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 				className={className}
 				{...restProps}

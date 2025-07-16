@@ -83,7 +83,6 @@ snapshot(FlexibleUiCustomUnresolvedActionOnlyShowIfAction, {
 		'platform-component-visual-refresh': true,
 		'platform-linking-additional-flexible-element-props': true,
 		'bandicoots-smart-card-teamwork-context': true,
-		'platform-linking-visual-refresh-v2': true,
 	},
 });
 snapshot(FlexibleUiCustomUnresolvedAction, {
@@ -91,6 +90,5 @@ snapshot(FlexibleUiCustomUnresolvedAction, {
 		'platform-component-visual-refresh': true,
 		'platform-linking-additional-flexible-element-props': true,
 		'bandicoots-smart-card-teamwork-context': true,
-		'platform-linking-visual-refresh-v2': true,
 	},
 });

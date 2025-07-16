@@ -1,4 +1,5 @@
 import type { AnalyticsEventPayload } from '@atlaskit/analytics-next';
+import { type NewCoreIconProps } from '@atlaskit/icon';
 import type { Placement } from '@atlaskit/popper';
 import type { TriggerProps } from '@atlaskit/popup';
 
@@ -15,6 +16,7 @@ export type RenderCustomTriggerButton = (
 		isDisabled?: boolean;
 		isSelected?: boolean;
 		onClick: () => void;
+		iconBefore?: React.ComponentType<NewCoreIconProps>;
 	},
 	triggerProps: TriggerProps,
 ) => React.ReactNode;
@@ -38,6 +40,7 @@ export type ShareDialogWithTriggerProps = Pick<
 	| 'onDialogClose'
 	| 'onUserSelectionChange'
 	| 'renderCustomTriggerButton'
+	| 'customTriggerButtonIcon'
 	| 'shareContentType'
 	| 'shareContentSubType'
 	| 'shareContentId'

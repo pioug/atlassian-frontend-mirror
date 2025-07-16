@@ -63,7 +63,6 @@ snapshotInformational(TopNavWithTempNavAppIcon, {
 	description: 'nav logo hover',
 	featureFlags: {
 		'platform-team25-app-icon-tiles': true,
-		platform_design_system_nav_logo_interaction_states: true,
 	},
 	prepare: async (page) => {
 		await page.getByRole('link', { name: 'Home page' }).hover();
@@ -75,7 +74,6 @@ snapshotInformational(TopNavWithTempNavAppIcon, {
 	description: 'nav logo pressed',
 	featureFlags: {
 		'platform-team25-app-icon-tiles': true,
-		platform_design_system_nav_logo_interaction_states: true,
 	},
 	prepare: async (page) => {
 		await page.getByRole('link', { name: 'Home page' }).hover();
@@ -88,7 +86,6 @@ snapshotInformational(TopNavigationThemingSingleExample, {
 	description: 'nav logo hover - custom theming',
 	featureFlags: {
 		'platform-team25-app-icon-tiles': true,
-		platform_design_system_nav_logo_interaction_states: true,
 	},
 	prepare: async (page) => {
 		await page.getByRole('link', { name: 'Home page' }).hover();
@@ -100,7 +97,6 @@ snapshotInformational(TopNavigationThemingSingleExample, {
 	description: 'nav logo pressed - custom theming',
 	featureFlags: {
 		'platform-team25-app-icon-tiles': true,
-		platform_design_system_nav_logo_interaction_states: true,
 	},
 	prepare: async (page) => {
 		await page.getByRole('link', { name: 'Home page' }).hover();
@@ -113,7 +109,6 @@ snapshotInformational(TopNavWithLongProductName, {
 	featureFlags: {
 		'platform-team25-app-icon-tiles': true,
 		platform_design_system_nav4_top_nav_columns: true,
-		platform_design_system_nav_logo_interaction_states: true,
 	},
 	prepare: async (page) => {
 		// Reduce the viewport size to remove whitespace but include the tooltip

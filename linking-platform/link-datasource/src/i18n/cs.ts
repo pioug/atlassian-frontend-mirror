@@ -149,7 +149,7 @@ export default {
   'linkDataSource.jira-issues.searchDescription-basic':
     'Vyhledejte požadavky, které chcete vložit, pomocí klíčového slova.',
   'linkDataSource.jira-issues.searchDescription-jql': 'Vyhledávejte požadavky pomocí JQL (Jira Query Language).',
-  'linkDataSource.jira-issues.searchJiraTitle': 'Vyhledejte požadavky Jira',
+  'linkDataSource.jira-issues.searchJiraTitle': 'Vyhledat požadavky Jira',
   'linkDataSource.unableToLoadItems': 'Načtení položek se nezdařilo',
   'linkDataSource.unableToLoadResults': 'Načtení výsledků se nezdařilo',
   'linkDataSource.jira-issues.unableToLoadResults.visual-refresh-sllv':
@@ -157,7 +157,7 @@ export default {
   'linkDataSource.jira-issues.unableToLoadResultsOld': 'Načtení výsledků se nezdařilo',
   'linkDataSource.modal-initial-state.beta': 'Beta',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Vyhledat stránky Confluence',
-  'linkDataSource.modal-initial-state.jiraSearchTitle': 'Vyhledejte požadavky Jira',
+  'linkDataSource.modal-initial-state.jiraSearchTitle': 'Vyhledat požadavky Jira',
   'linkDataSource.modal-initial-state.learnMoreLinkOld': 'Jak vyhledávat pomocí JQL',
   'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
     'Vyhledejte požadavky, které chcete vložit, pomocí klíčového slova.',

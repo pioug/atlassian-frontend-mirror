@@ -331,15 +331,12 @@ snapshot(VRInlineCardAllExamplesInText, {
 	description: `inline card with all card examples lozenge`,
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'platform-linking-visual-refresh-v2': true,
 		'platform-linking-visual-refresh-inline-lozenge': [true, false],
 	},
 });
 
 snapshot(VRInlineProfileCard, {
-	featureFlags: {
-		'platform-linking-visual-refresh-v2': true,
-	},
+	featureFlags: {},
 	drawsOutsideBounds: true,
 	states: [
 		{

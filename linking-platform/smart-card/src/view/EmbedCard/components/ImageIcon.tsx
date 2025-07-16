@@ -7,7 +7,6 @@ import React from 'react';
 import { cssMap, jsx } from '@compiled/react';
 import ImageLoader from 'react-render-image';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { Image } from './styled';
@@ -48,9 +47,7 @@ export const ImageIcon = ({
 			alt={alt}
 			size={size}
 			title={title}
-			css={
-				appearance === 'round' && fg('platform-linking-visual-refresh-v2') && styles.roundedImage
-			}
+			css={appearance === 'round' && styles.roundedImage}
 		/>
 	);
 

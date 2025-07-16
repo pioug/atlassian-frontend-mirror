@@ -70,6 +70,7 @@ describe('ShareDialogContainer', () => {
 	let mockShortenerClient: UrlShortenerClient;
 	let mockShowFlags: jest.Mock;
 	let mockRenderCustomTriggerButton: jest.Mock;
+	let mockCustomTriggerButtonIcon: jest.Mock;
 	const mockTriggerButtonTooltipText = 'Share Tooltip';
 	const mockTriggerButtonTooltipPosition: TooltipPosition = 'mouse';
 	const mockShortLinkData = {
@@ -127,6 +128,7 @@ describe('ShareDialogContainer', () => {
 		};
 		mockShowFlags = jest.fn();
 		mockRenderCustomTriggerButton = jest.fn();
+		mockCustomTriggerButtonIcon = jest.fn();
 	});
 	afterEach(() => {
 		mockShareServiceClient.mockRestore();
@@ -148,6 +150,7 @@ describe('ShareDialogContainer', () => {
 			originTracingFactory: mockOriginTracingFactory,
 			productId: mockProductId,
 			renderCustomTriggerButton: mockRenderCustomTriggerButton,
+			customTriggerButtonIcon: mockCustomTriggerButtonIcon,
 			shareAri: mockShareAri,
 			shareContentType: mockShareContentType,
 			shareLink: mockShareLink,
@@ -178,6 +181,7 @@ describe('ShareDialogContainer', () => {
 			originTracingFactory: mockOriginTracingFactory,
 			productId: mockProductId,
 			renderCustomTriggerButton: mockRenderCustomTriggerButton,
+			customTriggerButtonIcon: mockCustomTriggerButtonIcon,
 			shareAri: mockShareAri,
 			shareContentType: mockShareContentType,
 			shareLink: mockShareLink,
@@ -227,6 +231,9 @@ describe('ShareDialogContainer', () => {
 		expect(shareDialogWithTrigger.prop('loadUserOptions')).toEqual(mockLoadUserOptions);
 		expect(shareDialogWithTrigger.prop('renderCustomTriggerButton')).toEqual(
 			mockRenderCustomTriggerButton,
+		);
+		expect(shareDialogWithTrigger.prop('customTriggerButtonIcon')).toEqual(
+			mockCustomTriggerButtonIcon,
 		);
 		expect(shareDialogWithTrigger.prop('shouldCloseOnEscapePress')).toEqual(
 			mockShouldCloseOnEscapePress,

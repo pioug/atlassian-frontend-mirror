@@ -1,5 +1,17 @@
 # @atlaskit/link-picker
 
+## 3.7.0
+
+### Minor Changes
+
+- [#183604](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183604)
+  [`5c816a7817b76`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5c816a7817b76) -
+  EDM-12172 cleaning up platform-linking-visual-refresh-link-picker
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.6.3
 
 ### Patch Changes

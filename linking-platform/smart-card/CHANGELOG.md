@@ -1,5 +1,21 @@
 # @atlaskit/smart-card
 
+## 40.2.0
+
+### Minor Changes
+
+- [#185964](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185964)
+  [`7285ac5df3686`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7285ac5df3686) - -
+  [ux] Adds ability for actions in smart links to have inline padding (for TwC Panel)
+
+## 40.1.0
+
+### Minor Changes
+
+- [#183465](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183465)
+  [`5ea19e41e8e5d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5ea19e41e8e5d) -
+  EDM-11899 cleaning up platform-linking-visual-refresh-v2 fg
+
 ## 40.0.1
 
 ### Patch Changes

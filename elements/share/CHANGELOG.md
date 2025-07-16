@@ -1,5 +1,19 @@
 # @atlaskit/share
 
+## 6.16.0
+
+### Minor Changes
+
+- [#185948](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185948)
+  [`169677f95fce5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/169677f95fce5) -
+  [ux] Add a new customTriggerButtonIcon prop to the Share Dialog Component. This prop is passed to
+  the renderCustomTriggerButton function, allowing consumers to dynamically update the icon
+  displayed on the custom trigger button.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.15.1
 
 ### Patch Changes

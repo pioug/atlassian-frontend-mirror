@@ -3,8 +3,6 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 
 import { renderWithIntl } from '@atlaskit/link-test-helpers';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { EmbedCardResolvedView, type EmbedCardResolvedViewProps } from './ResolvedView';
 
@@ -38,21 +36,15 @@ describe('EmbedCardResolvedView', () => {
 		await expect(container).toBeAccessible();
 	});
 
-	ffTest.both('platform-linking-visual-refresh-v2', '', () => {
-		it('should render square icon', () => {
-			setup();
+	it('should render square icon', () => {
+		setup();
 
-			expect(screen.getByTestId(mockAppearanceTestId)).toHaveTextContent(
-				fg('platform-linking-visual-refresh-v2') ? 'square' : 'no-appearance',
-			);
-		});
+		expect(screen.getByTestId(mockAppearanceTestId)).toHaveTextContent('square');
+	});
 
-		it('should render round icon', () => {
-			setup({ type: ['Document', 'Profile'] });
+	it('should render round icon', () => {
+		setup({ type: ['Document', 'Profile'] });
 
-			expect(screen.getByTestId(mockAppearanceTestId)).toHaveTextContent(
-				fg('platform-linking-visual-refresh-v2') ? 'round' : 'no-appearance',
-			);
-		});
+		expect(screen.getByTestId(mockAppearanceTestId)).toHaveTextContent('round');
 	});
 });

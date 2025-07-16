@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-ufo",
-	"version": "3.14.15",
+	"version": "4.0.0",
 	"description": "Parts of React UFO that are publicly available",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -61,6 +61,7 @@
 		"./short-id": "./src/short-id/index.ts",
 		"./ssr": "./src/ssr/index.ts",
 		"./ssr-scripts": "./src/vc/vc-observer/observers/ssr-placeholders/ssr-scripts/index.ts",
+		"./suspense": "./src/suspense/index.ts",
 		"./trace-interaction": "./src/trace-interaction/index.ts",
 		"./trace-pageload": "./src/trace-pageload/index.ts",
 		"./trace-press": "./src/trace-press/index.ts",
@@ -108,6 +109,7 @@
 		"./short-id": "./src/short-id/index.ts",
 		"./ssr": "./src/ssr/index.ts",
 		"./ssr-scripts": "./src/vc/vc-observer/observers/ssr-placeholders/ssr-scripts/index.ts",
+		"./suspense": "./src/suspense/index.ts",
 		"./trace-interaction": "./src/trace-interaction/index.ts",
 		"./trace-pageload": "./src/trace-pageload/index.ts",
 		"./trace-press": "./src/trace-press/index.ts",
@@ -177,9 +179,6 @@
 		"platform_ufo_canvas_heatmap_full_precision": {
 			"type": "boolean"
 		},
-		"platform_ufo_report_cpu_usage": {
-			"type": "boolean"
-		},
 		"platform_ufo_enable_media_for_ttvc_v3": {
 			"type": "boolean"
 		},
@@ -187,6 +186,9 @@
 			"type": "boolean"
 		},
 		"ufo_return_relative_request_start": {
+			"type": "boolean"
+		},
+		"platform_ufo_remove_deprecated_config_fields": {
 			"type": "boolean"
 		},
 		"platform_ufo_ttvc_exclude_data_test_attribute": {

@@ -188,15 +188,21 @@ function getPPSMetrics(interaction: InteractionMetrics) {
 				})
 			: null;
 
-	if (config?.shouldCalculateLighthouseMetricsFromTTAI && PPSMetricsAtTTAI !== null) {
-		return PPSMetricsAtTTAI;
-	}
+	if (fg('platform_ufo_remove_deprecated_config_fields')) {
+		if (PPSMetricsAtTTAI !== null) {
+			return PPSMetricsAtTTAI;
+		}
+	} else {
+		if (config?.shouldCalculateLighthouseMetricsFromTTAI && PPSMetricsAtTTAI !== null) {
+			return PPSMetricsAtTTAI;
+		}
 
-	if (PPSMetricsAtTTI !== null) {
-		return {
-			...PPSMetricsAtTTI,
-			'metrics@ttai': PPSMetricsAtTTAI,
-		};
+		if (PPSMetricsAtTTI !== null) {
+			return {
+				...PPSMetricsAtTTI,
+				'metrics@ttai': PPSMetricsAtTTAI,
+			};
+		}
 	}
 
 	return {};
@@ -686,7 +692,10 @@ async function createInteractionMetricsPayload(
 	const pageVisibilityAtTTI = getPageVisibilityUpToTTI(interaction);
 	const pageVisibilityAtTTAI = getPageVisibilityUpToTTAI(interaction);
 
-	const segments = config.killswitchNestedSegments ? [] : knownSegments;
+	const segments =
+		!fg('platform_ufo_remove_deprecated_config_fields') && config.killswitchNestedSegments
+			? []
+			: knownSegments;
 	const segmentTree =
 		getReactUFOPayloadVersion(interaction.type) === '2.0.0'
 			? buildSegmentTree(segments.map((segment) => segment.labelStack))
@@ -815,11 +824,8 @@ async function createInteractionMetricsPayload(
 					: 'custom.interaction-metrics',
 				'experience:name': newUFOName,
 
-				...(fg('platform_ufo_report_cpu_usage')
-					? {
-							'event:cpu:usage': createPressureStateReport(interaction.start, interaction.end),
-						}
-					: {}),
+				// Include CPU usage monitoring data
+				'event:cpu:usage': createPressureStateReport(interaction.start, interaction.end),
 
 				'event:memory:usage': createMemoryStateReport(interaction.start, interaction.end),
 

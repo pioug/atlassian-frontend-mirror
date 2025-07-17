@@ -1,5 +1,16 @@
 # @atlaskit/logo
 
+## 19.5.2
+
+### Patch Changes
+
+- [#185530](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185530)
+  [`555824150f707`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/555824150f707) -
+  Fixed inconsistency in `aria-label` handling between old and new logo designs. When label is an
+  empty string, new logos (with `shouldUseNewLogoDesign`) now correctly remove the `aria-label`
+  attribute to make them decorative, matching the behavior of old logos.
+- Updated dependencies
+
 ## 19.5.1
 
 ### Patch Changes

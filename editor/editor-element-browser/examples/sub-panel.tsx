@@ -4,6 +4,7 @@ import { makeKeyMapWithCommon } from '@atlaskit/editor-common/keymaps';
 import AngleBracketsIcon from '@atlaskit/icon/core/angle-brackets';
 import GridIcon from '@atlaskit/icon/core/grid';
 import TaskIcon from '@atlaskit/icon/core/task';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Stack, xcss } from '@atlaskit/primitives';
 
 import { type ItemData } from '../src/ui/ItemType';

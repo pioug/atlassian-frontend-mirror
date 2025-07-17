@@ -9320,6 +9320,7 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
   --ak-editor--breakout-wide-layout-width: 905px;
   --ak-editor--breakout-full-page-guttering-padding: calc(var(--ak-editor--large-gutter-padding) * 2 + var(--ak-editor--default-gutter-padding));
   --ak-editor--breakout-fallback-width: calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding));
+  --ak-editor--large-gutter-padding: 72px;
   --editor-font-ugc-token-heading-h1: normal 600 1.71429em/1.16667 "Atlassian Sans",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif;
   --editor-font-ugc-token-heading-h2: normal 600 1.42857em/1.2 "Atlassian Sans",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif;
   --editor-font-ugc-token-heading-h3: normal 600 1.14286em/1.25 "Atlassian Sans",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif;
@@ -14162,6 +14163,7 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
   --ak-editor--breakout-wide-layout-width: 905px;
   --ak-editor--breakout-full-page-guttering-padding: calc(var(--ak-editor--large-gutter-padding) * 2 + var(--ak-editor--default-gutter-padding));
   --ak-editor--breakout-fallback-width: calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding));
+  --ak-editor--large-gutter-padding: 52px;
   --editor-font-ugc-token-heading-h1: normal 600 1.71429em/1.16667 "Atlassian Sans",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif;
   --editor-font-ugc-token-heading-h2: normal 600 1.42857em/1.2 "Atlassian Sans",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif;
   --editor-font-ugc-token-heading-h3: normal 600 1.14286em/1.25 "Atlassian Sans",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif;

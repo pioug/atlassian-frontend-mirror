@@ -1,6 +1,7 @@
 import React, { memo, useState } from 'react';
 
 import { Section } from '@atlaskit/menu';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Stack, xcss } from '@atlaskit/primitives';
 
 import type { ItemData } from './ItemType';

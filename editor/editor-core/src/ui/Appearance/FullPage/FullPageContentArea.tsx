@@ -31,6 +31,8 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
 	FULL_PAGE_EDITOR_TOOLBAR_HEIGHT,
 	akEditorGutterPaddingDynamic,
+	akEditorGutterPaddingReduced,
+	akEditorFullPageNarrowBreakout,
 } from '@atlaskit/editor-shared-styles';
 import { scrollbarStyles } from '@atlaskit/editor-shared-styles/scrollbar';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -233,11 +235,25 @@ const contentAreaReducedHeaderSpace = css({
 });
 
 const editorContentGutterStyle = () => {
-	return css({
-		boxSizing: 'border-box',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		padding: `0 ${akEditorGutterPaddingDynamic()}px`,
-	});
+	if (expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true)) {
+		return css({
+			boxSizing: 'border-box',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+			padding: `0 ${akEditorGutterPaddingDynamic()}px`,
+
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-container-queries, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			[`@container editor-area (max-width: ${akEditorFullPageNarrowBreakout}px)`]: {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+				padding: `0 ${akEditorGutterPaddingReduced}px`,
+			},
+		});
+	} else {
+		return css({
+			boxSizing: 'border-box',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+			padding: `0 ${akEditorGutterPaddingDynamic()}px`,
+		});
+	}
 };
 
 // new styles
@@ -339,6 +355,14 @@ const editorContentGutterStyleFG = css({
 const editorContentGutterStyles = css({
 	boxSizing: 'border-box',
 	padding: '0 52px',
+});
+
+const editorContentReducedGutterStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-container-queries, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+	[`@container editor-area (max-width: ${akEditorFullPageNarrowBreakout}px)`]: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		padding: `0 ${akEditorGutterPaddingReduced}px`,
+	},
 });
 
 const contentAreaNew = css({
@@ -547,6 +571,11 @@ const Content = React.forwardRef<
 												fg('platform_editor_controls_increase_full_page_gutter') &&
 													editorExperiment('platform_editor_controls', 'variant1') &&
 													editorContentGutterStyleFG,
+												expValEquals(
+													'platform_editor_preview_panel_responsiveness',
+													'isEnabled',
+													true,
+												) && editorContentReducedGutterStyles,
 											]
 										: [
 												// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766

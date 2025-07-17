@@ -1,0 +1,96 @@
+{
+	"extends": "../../../../tsconfig.entry-points.rovo-extension.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../rovo-extension/tsDist/@atlaskit__media-viewer/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/button/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/code/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/css/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/form/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/heading/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../icon-file-type/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon-lab/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../media-client/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../media-client-react/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../media-common/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../media-document-viewer/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../media-svg/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../media-ui/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/portal/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/side-navigation/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/spinner/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/textfield/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../data/ufo-external/afm-rovo-extension/tsconfig.json"
+		}
+	]
+}

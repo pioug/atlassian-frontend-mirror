@@ -2,6 +2,7 @@ import React, { memo } from 'react';
 
 import Heading from '@atlaskit/heading';
 import { Section } from '@atlaskit/menu';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline, xcss } from '@atlaskit/primitives';
 
 import { IconButtonItem } from './IconButtonItem';

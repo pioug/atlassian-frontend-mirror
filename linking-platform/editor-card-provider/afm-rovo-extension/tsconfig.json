@@ -1,0 +1,45 @@
+{
+	"extends": "../../../../tsconfig.entry-points.rovo-extension.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../rovo-extension/tsDist/@atlaskit__editor-card-provider/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../../measurement/feature-gate-js-client/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../json-ld-types/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../link-client-extension/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../link-extractors/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../linking-common/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../linking-types/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../link-provider/afm-rovo-extension/tsconfig.json"
+		}
+	]
+}

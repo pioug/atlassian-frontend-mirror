@@ -6,6 +6,7 @@ import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { TRIGGER_METHOD } from '@atlaskit/editor-common/analytics';
 import { ArrowKeyNavigationType, Dropdown } from '@atlaskit/editor-common/ui-menu';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 
 import type { FindReplaceProps } from './FindReplace';

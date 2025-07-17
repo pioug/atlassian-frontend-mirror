@@ -449,6 +449,14 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-07-15
+	platform_editor_preview_panel_responsiveness: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_preview_panel_responsiveness',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-07-011
 	cc_editor_interactions_trigger_traceufointeraction: createMultivariateExperiment({
 		productKeys: {

@@ -1,6 +1,7 @@
 import React, { Suspense, lazy, useMemo } from 'react';
 
 import type { ExtensionManifest } from '@atlaskit/editor-common/extensions';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 

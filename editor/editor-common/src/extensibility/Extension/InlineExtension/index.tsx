@@ -9,7 +9,12 @@ import { jsx } from '@emotion/react';
 import classnames from 'classnames';
 
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
-import { akEditorGutterPaddingDynamic } from '@atlaskit/editor-shared-styles';
+import {
+	akEditorGutterPaddingDynamic,
+	akEditorGutterPaddingReduced,
+	akEditorFullPageNarrowBreakout,
+} from '@atlaskit/editor-shared-styles';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {
 	sharedPluginStateHookMigratorFactory,
@@ -79,9 +84,21 @@ const InlineExtension = (props: Props) => {
 		'with-hover-border': showMacroInteractionDesignUpdates && isNodeHovered,
 	});
 
-	const rendererContainerWidth = widthState.width
-		? widthState.width - akEditorGutterPaddingDynamic() * 2
-		: 0;
+	let rendererContainerWidth = 0;
+	if (expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true)) {
+		if (widthState.width) {
+			const padding =
+				widthState.width > akEditorFullPageNarrowBreakout
+					? akEditorGutterPaddingDynamic()
+					: akEditorGutterPaddingReduced;
+
+			rendererContainerWidth = widthState.width - padding * 2;
+		}
+	} else {
+		rendererContainerWidth = widthState.width
+			? widthState.width - akEditorGutterPaddingDynamic() * 2
+			: 0;
+	}
 
 	const handleMouseEvent = (didHover: boolean) => {
 		if (setIsNodeHovered) {

@@ -4,6 +4,7 @@ import { useIntl } from 'react-intl-next';
 
 import { type MediaType } from '@atlaskit/adf-schema';
 import InfoIcon from '@atlaskit/icon/core/migration/information--info';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';

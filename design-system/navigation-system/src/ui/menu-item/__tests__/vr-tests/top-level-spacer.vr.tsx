@@ -1,6 +1,6 @@
 import { type Hooks, snapshot, type SnapshotTestOptions } from '@af/visual-regression';
 
-import { GlobalAppsExample } from '../../../../../examples/constellation/side-navigation/global-apps';
+import { TopLevelSpacerExample } from '../../../../../examples/top-level-spacer';
 
 const lightModeVariant: SnapshotTestOptions<Hooks>['variants'] = [
 	{
@@ -9,7 +9,7 @@ const lightModeVariant: SnapshotTestOptions<Hooks>['variants'] = [
 	},
 ];
 
-snapshot(GlobalAppsExample, {
+snapshot(TopLevelSpacerExample, {
 	variants: lightModeVariant,
 	featureFlags: {
 		'platform-visual-refresh-icons': true,

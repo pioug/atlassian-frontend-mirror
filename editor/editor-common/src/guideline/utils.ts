@@ -3,7 +3,10 @@ import {
 	akEditorDefaultLayoutWidth,
 	akEditorFullWidthLayoutWidth,
 	akEditorGutterPaddingDynamic,
+	akEditorGutterPaddingReduced,
+	akEditorFullPageNarrowBreakout,
 } from '@atlaskit/editor-shared-styles';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { getMediaSinglePixelWidth, roundToNearest } from '../media-single';
 
@@ -64,8 +67,15 @@ export const getGuidelineTypeFromKey = (
  * Calculates container or full editor width taking in account editor full width layout
  * width and editor gutter padding.
  */
-export const getContainerWidthOrFullEditorWidth = (containerWidth: number) =>
-	Math.min(containerWidth - akEditorGutterPaddingDynamic() * 2, akEditorFullWidthLayoutWidth) / 2;
+export const getContainerWidthOrFullEditorWidth = (containerWidth: number) => {
+	const padding =
+		containerWidth <= akEditorFullPageNarrowBreakout &&
+		expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true)
+			? akEditorGutterPaddingReduced
+			: akEditorGutterPaddingDynamic();
+
+	return Math.min(containerWidth - padding * 2, akEditorFullWidthLayoutWidth) / 2;
+};
 
 /**
  *

@@ -1,6 +1,7 @@
 import React, { type MouseEvent, useCallback, useEffect, useMemo } from 'react';
 
 import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/analytics-next';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import { CardDisplay } from '../../constants';
@@ -98,7 +99,8 @@ function Component({
 				ari &&
 				name &&
 				openPreviewPanel &&
-				isPreviewPanelAvailable?.({ ari })
+				isPreviewPanelAvailable?.({ ari }) &&
+				!fg('platform_editor_preview_panel_linking')
 			) {
 				event.preventDefault();
 				event.stopPropagation();

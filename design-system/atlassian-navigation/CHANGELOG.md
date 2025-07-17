@@ -1,5 +1,16 @@
 # @atlaskit/atlassian-navigation
 
+## 5.3.6
+
+### Patch Changes
+
+- [#185731](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185731)
+  [`58822a702f803`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/58822a702f803) -
+  [ux] Updated Atlassian navigation buttons to use subtle background states that match the default
+  background token. Hovered state now uses `color.background.neutral.subtle.hovered` instead of
+  `color.background.neutral.hovered`. Pressed state now uses
+  `color.background.neutral.subtle.pressed` instead of `color.background.neutral.pressed`.
+
 ## 5.3.5
 
 ### Patch Changes

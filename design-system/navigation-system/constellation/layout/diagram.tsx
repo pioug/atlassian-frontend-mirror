@@ -88,16 +88,6 @@ const styles = cssMap({
 		gridArea: 'panel',
 		paddingInlineStart: token('space.0'),
 	},
-	borderOverlay: {
-		gridRow: 3,
-		gridColumnStart: 2,
-		gridColumnEnd: -1,
-		borderWidth: '1px',
-		borderColor: token('color.border'),
-		borderBlockStartStyle: 'solid',
-		borderInlineStartStyle: 'solid',
-		borderStartStartRadius: token('border.radius.200'),
-	},
 });
 
 export const PageLayoutDiagram = () => (
@@ -106,7 +96,7 @@ export const PageLayoutDiagram = () => (
 			<div css={styles.placeholder}>Banner</div>
 		</div>
 		<div css={[styles.slot, styles.topBarSlot]}>
-			<div css={styles.placeholder}>Top bar</div>
+			<div css={styles.placeholder}>Top nav</div>
 		</div>
 		<div css={[styles.slot, styles.sideNavSlot]}>
 			<div css={styles.placeholder}>Side nav</div>
@@ -120,6 +110,5 @@ export const PageLayoutDiagram = () => (
 		<div css={[styles.slot, styles.panelSlot]}>
 			<div css={styles.placeholder}>Panel</div>
 		</div>
-		<div css={styles.borderOverlay} />
 	</div>
 );

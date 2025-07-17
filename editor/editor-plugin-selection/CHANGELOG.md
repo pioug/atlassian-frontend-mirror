@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-selection
 
+## 3.0.3
+
+### Patch Changes
+
+- [#184963](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/184963)
+  [`f6b81506eb05b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f6b81506eb05b) -
+  [ux][ED-25230] Bug fix: inability to navigate between layout columns using arrow keys
+- Updated dependencies
+
 ## 3.0.2
 
 ### Patch Changes

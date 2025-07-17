@@ -1,0 +1,291 @@
+{
+	"extends": "../../../../tsconfig.entry-points.rovo-extension.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../rovo-extension/tsDist/@atlaskit__editor-plugins/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../editor-plugin-accessibility-utils/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-alignment/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-analytics/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-annotation/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-avatar-group/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-base/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-batch-attribute-updates/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-before-primary-toolbar/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-better-type-history/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-block-controls/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-block-type/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-border/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-breakout/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-caption/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-card/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-clear-marks-on-empty-doc/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-clipboard/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-code-bidi-warning/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-code-block/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-collab-edit/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-composition/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-connectivity/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-content-insertion/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-context-identifier/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-context-panel/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-copy-button/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-custom-autoformat/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-data-consumer/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-date/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-decorations/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-editor-disabled/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-editor-viewmode/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-editor-viewmode-effects/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-emoji/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-engagement-platform/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-expand/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-extension/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-feature-flags/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-feedback-dialog/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-find-replace/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-floating-toolbar/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-focus/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-fragment/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-grid/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-guideline/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-help-dialog/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-highlight/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-history/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-hyperlink/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-image-upload/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-indentation/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-insert-block/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-interaction/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-layout/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-list/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-loom/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-max-content-size/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-media/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-media-insert/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-mentions/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-metrics/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-ncs-step-metrics/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-panel/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-paste/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-paste-options-toolbar/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-placeholder/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-placeholder-text/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-primary-toolbar/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-quick-insert/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-rule/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-save-on-enter/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-scroll-into-view/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-selection/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-selection-extension/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-selection-marker/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-selection-toolbar/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-status/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-submit-editor/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-table/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-tasks-and-decisions/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-text-color/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-text-formatting/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-toolbar-lists-indentation/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-type-ahead/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-ufo/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-undo-redo/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-unsupported-content/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-user-intent/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-user-preferences/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-width/afm-rovo-extension/tsconfig.json"
+		}
+	]
+}

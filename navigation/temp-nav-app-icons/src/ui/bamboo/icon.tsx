@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3b2abe15a196d9b260d4163f043d7a1c>>
+ * @codegen <<SignedSource::e235764598011d7e6fcb75b2257be900>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -25,11 +25,11 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
  * to enable the new design by default.
  *
  */
-export function BambooIcon({ size, appearance = 'brand', label, testId }: AppIconProps) {
+export function BambooIcon({ size, appearance = 'brand', label = 'Bamboo', testId }: AppIconProps) {
 	return (
 		<IconWrapper
 			svg={svg}
-			label={label || 'Bamboo'}
+			label={label}
 			isDataCenter={true}
 			appearance={appearance}
 			size={size}

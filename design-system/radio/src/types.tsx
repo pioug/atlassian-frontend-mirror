@@ -1,4 +1,4 @@
-import { type ReactNode, type SyntheticEvent } from 'react';
+import { type ReactNode } from 'react';
 
 import { type UIAnalyticsEvent, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 
@@ -17,7 +17,6 @@ export type OptionsPropType = Array<OptionPropType>;
 
 export type RadioValue = string;
 
-// If updating props in OwnProps, also update in ExtractReactTypeProps
 type OwnProps = {
 	/**
 	 * The `aria-label` attribute associated with the radio element.
@@ -75,65 +74,3 @@ export type RadioProps = Combine<
 	OwnProps
 > &
 	WithAnalyticsEventsProps;
-
-// Maintained for extract react types so it's clear what methods exist
-export interface ExtractReactTypeProps extends WithAnalyticsEventsProps {
-	/**
-	 * The aria-label attribute associated with the radio element.
-	 */
-	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
-	ariaLabel?: string;
-	/**
-	 * Marks this as a disabled field.
-	 */
-	isDisabled?: boolean;
-	/**
-	 * Marks this as a required field.
-	 */
-	isRequired?: boolean;
-	/**
-	 * Marks this as an invalid field.
-	 */
-	isInvalid?: boolean;
-	/**
-	 * Set the field as checked.
-	 */
-	isChecked?: boolean;
-	/**
-	 * The label value for the input rendered to the DOM.
-	 */
-	label?: ReactNode;
-	/**
-	 * Field name, must be unique to the radio group.
-	 */
-	name?: string;
-	/**
-	 * `onChange` event handler, passed into the props of each `Radio` Component instantiated within RadioGroup.
-	 */
-	onChange?: (e: React.ChangeEvent<HTMLInputElement>, analyticsEvent: UIAnalyticsEvent) => void;
-	onBlur?: React.FocusEventHandler<HTMLInputElement>;
-	onFocus?: React.FocusEventHandler<HTMLInputElement>;
-	onMouseDown?: React.MouseEventHandler;
-	onMouseUp?: React.MouseEventHandler;
-	onMouseEnter?: React.MouseEventHandler;
-	onMouseLeave?: React.MouseEventHandler;
-	/**
-	 * `onInvalid` event handler, passed into the props of each `Radio` component instantiated within `RadioGroup`.
-	 */
-	onInvalid?: (e: SyntheticEvent<any>) => void;
-	/**
-	 * Field value.
-	 */
-	value?: RadioValue;
-	/**
-	 * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests
-	 * we have two different `testId`s generated based on the one you pass to the Radio component:
-	 * - `{testId}--radio-input` to check if it got changed to checked/unchecked.
-	 * - `{testId}--radio-label` to click the input.
-	 */
-	testId?: string;
-	/**
-	 * Additional information to be included in the `context` of analytics events that come from radio.
-	 */
-	analyticsContext?: Record<string, any>;
-}

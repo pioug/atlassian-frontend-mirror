@@ -2,6 +2,7 @@ import React, { type ReactNode, useEffect, useState } from 'react';
 
 import debounce from 'lodash/debounce';
 
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 

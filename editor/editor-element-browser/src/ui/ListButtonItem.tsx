@@ -4,6 +4,7 @@ import { ToolTipContent, formatShortcut } from '@atlaskit/editor-common/keymaps'
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import Lozenge from '@atlaskit/lozenge';
 import { ButtonItem } from '@atlaskit/menu';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline, Text, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';

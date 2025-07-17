@@ -1,0 +1,209 @@
+---
+title: Side nav items
+description: Menu items and elements for the side nav area.
+order: 1
+---
+
+import SectionMessage from '@atlaskit/section-message';
+
+import { LinkMenuItemExample } from '../../examples/constellation/side-nav-items/link-menu-item';
+import { ButtonMenuItemExample } from '../../examples/constellation/side-nav-items/button-menu-item';
+import { ExpandableMenuItemDefaultVariantExample } from '../../examples/constellation/side-nav-items/expandable-menu-item-default-variant';
+import { ExpandableMenuItemLinkVariantExample } from '../../examples/constellation/side-nav-items/expandable-menu-item-link-variant';
+import { FlyoutMenuItemExample } from '../../examples/constellation/side-nav-items/flyout-menu-item';
+import { ElemBeforeExample } from '../../examples/constellation/side-nav-items/elem-before';
+import { ElemAfterExample } from '../../examples/constellation/side-nav-items/elem-after';
+import { ContainerAvatarExample } from '../../examples/constellation/side-nav-items/container-avatar';
+import { ActionsAndActionsOnHoverExample } from '../../examples/constellation/side-nav-items/actions-and-actions-on-hover';
+import { TruncationExample } from '../../examples/constellation/side-nav-items/truncation';
+import { MenuSectionExample } from '../../examples/constellation/side-nav-items/menu-section';
+import { MenuDividerExample } from '../../examples/constellation/side-nav-items/menu-divider';
+import { TopLevelSpacerExample } from '../../examples/constellation/side-nav-items/top-level-spacer';
+import { RightToLeftExample } from '../../examples/constellation/side-nav-items/right-to-left';
+
+These components can be used within the side nav. For other components that can be used within the
+[side nav](/components/navigation-system/layout/examples#side-nav), see
+[navigation experience guidelines (Atlassians only)](<(https://hello.atlassian.net/wiki/x/rBE7MAE)>).
+
+## Menu items
+
+There are four types of side nav menu items:
+
+1. [Link menu item](#link-menu-item)
+2. [Button menu item](#button-menu-item)
+3. [Expandable menu item](#expandable-menu-item)
+4. [Flyout menu item](#flyout-menu-item)
+
+Within menu items, you can customize [`elemBefore`](#elembefore), [`elemAfter`](#elemafter),
+[`actions`](#actions) and [`actionsOnHover`](#actionsonhover).
+
+### Link menu item
+
+A menu item that is wrapped in an anchor tag `<a>`. This is the most common type of menu item, as
+most menu items are used to send people to another location.
+
+For menu items that trigger an action, instead use [button menu item](#button-menu-item).
+
+Use the [app provider](/components/app-provider/examples) to specify a custom router link component.
+
+<Example Component={LinkMenuItemExample} />
+
+### Button menu item
+
+A menu item wrapped in a button tag `<button>`. Use this component when you have an action that does
+something other than navigating to another location.
+
+- [Avoid disabling button menu items](https://atlassian.design/components/button/usage#avoid-disabling-buttons)
+  as this can cause accessibility problems. When disabled, [`actions`](#actions) and
+  [`actionsOnHover`](#actionsonhover) will not display.
+- Be cautious of using [`elemAfter`](#elemafter) in menu item disabled states, as it may result in
+  an unintended appearance if this component has no disabled states.
+
+<Example Component={ButtonMenuItemExample} />
+
+### Expandable menu item
+
+#### Default (button)
+
+A menu item that expands to expose other menu items. Use this component to form nested navigation
+hierarchies.
+
+- Expandable menu item will always display something in [`elemBefore`](#elembefore). If no element
+  is provided, it will display a chevron icon by default. If an element is provided, a chevron icon
+  will replace the element for hover, press and focus states.
+- Unlike other menu items, it does not support a `description`.
+- When expandable menu item is open, any [`actionsOnHover`](#actionsonhover) will display
+  permanently.
+- Every menu item type can be nested inside an expandable menu item.
+
+<Example Component={ExpandableMenuItemDefaultVariantExample} />
+
+#### Link
+
+The expandable menu item can also be a link location.
+
+- In this variant, the [`elemBefore`](#elembefore) chevron is an icon button so the menu can be
+  opened and closed independently from navigating to the link location.
+- A tootlip is not applied to the icon button.
+
+<Example Component={ExpandableMenuItemLinkVariantExample} />
+
+### Flyout menu item
+
+A menu item that triggers a popup (flyout menu content) to expose side nav items. It can also
+contain other items, such as search bars and filters.
+
+- The flyout menu always displays a chevron icon at the end position.
+- Unlike other menu items, it does not support a `description`, [`elemAfter`](#elemafter),
+  [`actions`](#actions) or [`actionsOnHover`](#actionsonhover).
+- The flyout menu content has a fixed 400px width. Height is not defined and can be set by makers.
+
+<Example Component={FlyoutMenuItemExample} />
+
+#### Responsive flyout menu
+
+At [breakpoints](/foundations/grid-beta/#breakpoints) `s` and below (less than 1024px), the flyout
+menu content converts to a modal.
+
+The modal max height is 50% of the viewport height. The modal has a 4px margin.
+
+To see an example of this, open the [flyout menu item example](#flyout-menu-item) above in
+codesandbox and resize your browser.
+
+## Menu item customization
+
+### elemBefore
+
+A slot for custom elements to be added to the start position of the menu item.
+
+- Only one element is allowed. Recommended usages are icons, [ContainerAvatar](#container-avatar),
+  and app tiles. For [expandable link menu item](#expandable-menu-item), it will render an icon
+  button without a tooltip.
+- When no `elemBefore` is provided, the menu item will maintain the empty space. You can remove this
+  space by passing in the `COLLAPSE_ELEM_BEFORE` symbol. Consider how this will impact the overall
+  visual hierarchy before using.
+
+<!--
+TODO: add this line when the usage tab has been added
+When using icons and icon buttons, follow the [usage guidance](/components/navigation-system/side-nav-items/usage) on the correct sizes.
+-->
+
+<Example Component={ElemBeforeExample} />
+
+#### ContainerAvatar
+
+A container for displaying images that are styled to look like an avatar, but with the correct
+sizing for the side nav menu items.
+
+- Use to display avatars in [elemBefore](#elembefore) (do not use regular avatar).
+- Only use ContainerAvatar with the side nav menu items.
+
+<Example Component={ContainerAvatarExample} />
+
+### elemAfter
+
+A slot for custom elements to be added to the end position of the menu item.
+
+- Optional for all menu items except [flyout menu item](#flyout-menu-item), which doesn’t offer this
+  slot.
+- Can be more than one element, although we recommended avoiding where possible due to space
+  constraints. Recommended usages are for non-interactive elements such as small icons (12px),
+  badge, and lozenge.
+- Disappears when [`actionsOnHover`](#actionsonhover) display. If [`actions`](#actions) are present,
+  these take the end position and shift `elemAfter` to the left.
+
+<Example Component={ElemAfterExample} />
+
+### actions and actionsOnHover
+
+Slots for icon buttons that trigger actions independent from the menu item.
+
+- Note that `actions` always display, and `actionsOnHover` display when interacting with the menu
+  item (hover, press, and focus states). When an [expandable menu item](#expandable-menu-item) is
+  open, if `actionsOnHover` are present they will display on default.
+- Always use subtle compact [icon buttons](/components/button/icon-button/examples) in these slots
+  and enable tooltips. When using more than one icon button, apply 4px spacing.
+- If the icon button triggers a
+  [dropdown menu](/components/dropdown-menu/examples#default-placement), use the default (cozy)
+  density and default `bottom-start` placement, and follow dropdown menu best practice.
+- Do not apply side nav items in dropdown menus triggered by `actions` or `actionsOnHover`.
+
+<Example Component={ActionsAndActionsOnHoverExample} />
+
+### Truncation
+
+When the label or description of side nav menu items exceed the available horizontal space, the text
+becomes truncated. Tooltips expose the full menu label and are positioned right-start.
+
+<Example Component={TruncationExample} />
+
+### Menu section and menu section heading
+
+Use **menu section** to group related menu items. This is important for accessibility as it acts as
+a landmark for assistive technology.
+
+A **menu section heading** is optional. When using, make sure it’s both a visual heading and ARIA
+label to name a menu section.
+
+<Example Component={MenuSectionExample} />
+
+### Menu divider
+
+A graphic devider to separate menu items or sections.
+
+Reserve for use in [flyout menu content](#flyout-menu-item). Avoid using directly in the side nav,
+use [top level spacer](#top-level-spacer) instead to create separation.
+
+<Example Component={MenuDividerExample} />
+
+### Top level spacer
+
+A 12px space to separate level 0 menu items or sections.
+
+<Example Component={TopLevelSpacerExample} />
+
+### Right to left languages
+
+All side nav items support right to left languages.
+
+<Example Component={RightToLeftExample} />

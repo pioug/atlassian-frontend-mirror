@@ -20,6 +20,7 @@ import Form, { ErrorMessage, Field, FormFooter, MessageWrapper } from '@atlaskit
 import ExpandIcon from '@atlaskit/icon/core/grow-diagonal';
 import { default as EditorFilePreviewIconLegacy } from '@atlaskit/icon/glyph/editor/file-preview';
 import { getMediaClient } from '@atlaskit/media-client-react';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Flex, Inline, Stack, xcss } from '@atlaskit/primitives';
 import SectionMessage from '@atlaskit/section-message';
 import TextField from '@atlaskit/textfield';

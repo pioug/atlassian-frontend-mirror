@@ -18,6 +18,7 @@ import type {
 } from '@atlaskit/editor-common/extensions';
 import { getExtensionKeyAndNodeKey } from '@atlaskit/editor-common/extensions';
 import Heading from '@atlaskit/heading';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import TextArea from '@atlaskit/textarea';
 // Ignored via go/ees005

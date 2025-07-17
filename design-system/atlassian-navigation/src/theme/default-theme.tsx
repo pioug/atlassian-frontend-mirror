@@ -32,7 +32,7 @@ const defaultTheme: { mode: Mode } = {
 		iconButton: {
 			active: {
 				color: token('color.text.subtle', B400),
-				backgroundColor: token('color.background.neutral.pressed', hexToRGBA(B50, 0.6)),
+				backgroundColor: token('color.background.neutral.subtle.pressed', hexToRGBA(B50, 0.6)),
 				boxShadow: '',
 			},
 			default: {
@@ -47,7 +47,7 @@ const defaultTheme: { mode: Mode } = {
 			},
 			hover: {
 				color: token('color.text.subtle', B400),
-				backgroundColor: token('color.background.neutral.hovered', hexToRGBA(B50, 0.9)),
+				backgroundColor: token('color.background.neutral.subtle.hovered', hexToRGBA(B50, 0.9)),
 				boxShadow: '',
 			},
 			selected: {
@@ -76,7 +76,7 @@ const defaultTheme: { mode: Mode } = {
 		primaryButton: {
 			active: {
 				color: token('color.text.subtle', B400),
-				backgroundColor: token('color.background.neutral.pressed', hexToRGBA(B50, 0.7)),
+				backgroundColor: token('color.background.neutral.subtle.pressed', hexToRGBA(B50, 0.7)),
 				boxShadow: '',
 			},
 			default: {
@@ -91,7 +91,7 @@ const defaultTheme: { mode: Mode } = {
 			},
 			hover: {
 				color: token('color.text.subtle', B400),
-				backgroundColor: token('color.background.neutral.hovered', hexToRGBA(B50, 0.9)),
+				backgroundColor: token('color.background.neutral.subtle.hovered', hexToRGBA(B50, 0.9)),
 				boxShadow: '',
 			},
 			selected: {

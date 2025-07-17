@@ -11,11 +11,14 @@ import { type NodeType } from '@atlaskit/editor-prosemirror/model';
 import {
 	akEditorGutterPaddingDynamic,
 	akEditorGutterPadding,
+	akEditorGutterPaddingReduced,
+	akEditorFullPageNarrowBreakout,
 	akEditorCalculatedWideLayoutWidth,
 	akEditorFullWidthLayoutWidth,
 	akEditorDefaultLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 const WIDTHS = {
 	MIN: akEditorDefaultLayoutWidth,
@@ -64,8 +67,15 @@ export const getGuidelines = memoizeOne(
 		}
 		const { width, lineLength } = getEditorWidth() || {};
 
+		const padding =
+			width &&
+			width <= akEditorFullPageNarrowBreakout &&
+			expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true)
+				? akEditorGutterPaddingReduced
+				: akEditorGutterPaddingDynamic();
+
 		const fullWidth = width
-			? Math.min(WIDTHS.MAX, width - 2 * akEditorGutterPaddingDynamic() - akEditorGutterPadding)
+			? Math.min(WIDTHS.MAX, width - 2 * padding - akEditorGutterPadding)
 			: undefined;
 
 		if (fg('platform_editor_breakout_resizing_hello_release')) {

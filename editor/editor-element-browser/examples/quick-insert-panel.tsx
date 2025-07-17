@@ -5,6 +5,7 @@ import type { QuickInsertItemId } from '@atlaskit/editor-common/provider-factory
 import Heading from '@atlaskit/heading';
 import DecisionIcon from '@atlaskit/icon/core/decision';
 import TaskIcon from '@atlaskit/icon/core/task';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Stack, xcss } from '@atlaskit/primitives';
 
 import type { QuickInsertPanelItem } from '../src/types';

@@ -8,8 +8,11 @@ import {
 	akEditorFullWidthLayoutWidth,
 	akEditorGutterPadding,
 	akEditorGutterPaddingDynamic,
+	akEditorGutterPaddingReduced,
+	akEditorFullPageNarrowBreakout,
 	breakoutWideScaleRatio,
 } from '@atlaskit/editor-shared-styles';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { EditorAppearance } from '../types';
 import { floatingLayouts, isRichMediaInsideOfBlockNode } from '../utils/rich-media-utils';
@@ -132,10 +135,15 @@ export const calcMediaSingleMaxWidth = (
 	containerWidth: number,
 	editorAppearance?: EditorAppearance,
 ) => {
+	const fullPagePadding =
+		editorAppearance === 'full-page' &&
+		containerWidth <= akEditorFullPageNarrowBreakout &&
+		expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true)
+			? akEditorGutterPaddingReduced
+			: akEditorGutterPaddingDynamic();
+
 	const fullWidthPadding =
-		editorAppearance === 'full-page'
-			? akEditorGutterPaddingDynamic() * 2
-			: akEditorGutterPadding * 2;
+		editorAppearance === 'full-page' ? fullPagePadding * 2 : akEditorGutterPadding * 2;
 	return Math.min(containerWidth - fullWidthPadding, akEditorFullWidthLayoutWidth);
 };
 

@@ -92,6 +92,7 @@ export {
 	UnresolvedAction,
 	CustomUnresolvedAction,
 } from './view/FlexibleCard/external';
+export { getObjectAri, getObjectName, getObjectIconUrl } from './state/helpers';
 export type {
 	ActionItem,
 	ElementItem,

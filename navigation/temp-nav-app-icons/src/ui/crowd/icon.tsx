@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ca3f3b40ae4a8724ec5aa3619ab359ce>>
+ * @codegen <<SignedSource::737475caba8467007ea15db78e7ae272>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -25,11 +25,11 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
  * to enable the new design by default.
  *
  */
-export function CrowdIcon({ size, appearance = 'brand', label, testId }: AppIconProps) {
+export function CrowdIcon({ size, appearance = 'brand', label = 'Crowd', testId }: AppIconProps) {
 	return (
 		<IconWrapper
 			svg={svg}
-			label={label || 'Crowd'}
+			label={label}
 			isDataCenter={true}
 			appearance={appearance}
 			size={size}

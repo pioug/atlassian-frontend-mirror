@@ -175,7 +175,7 @@ export const FullPageEditor = (props: ComponentProps) => {
 		}) || {};
 
 	if (!fg('platform_editor_use_preferences_plugin')) {
-		if (!toolbarDocking && fg('platform_editor_controls_toolbar_ssr_fix')) {
+		if (!toolbarDocking) {
 			// This is a workaround for the rendering issue with the selection toolbar
 			// where using useSharedPluginStateSelector or useSharedPluginState the state are not
 			// available when the editor is first loaded. and cause the toolbar to blink.
@@ -207,24 +207,13 @@ export const FullPageEditor = (props: ComponentProps) => {
 					isEditorToolbarHidden = true;
 				}
 			}
-		} else if (fg('platform_editor_controls_toolbar_ssr_fix')) {
+		} else {
 			if (toolbarDocking === 'none') {
 				primaryToolbarComponents = [];
 
 				if (!hasCustomComponents(customPrimaryToolbarComponents)) {
 					isEditorToolbarHidden = true;
 				}
-			}
-		} else {
-			if (toolbarDocking !== 'top') {
-				primaryToolbarComponents = [];
-			}
-
-			if (
-				!primaryToolbarComponents?.length &&
-				!hasCustomComponents(customPrimaryToolbarComponents)
-			) {
-				isEditorToolbarHidden = true;
 			}
 		}
 	}

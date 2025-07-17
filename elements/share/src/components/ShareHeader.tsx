@@ -4,6 +4,7 @@ import { FormattedMessage } from 'react-intl-next';
 
 import Heading from '@atlaskit/heading';
 import { fg } from '@atlaskit/platform-feature-flags';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 
 import { messages } from '../i18n';

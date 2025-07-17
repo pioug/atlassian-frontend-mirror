@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d8fd0670fddb75769ae951030219ac6b>>
+ * @codegen <<SignedSource::bf714453512d29992419d0b1472039ec>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -32,7 +32,7 @@ export function CustomerServiceManagementIcon({
 	iconColor,
 	size,
 	appearance = 'brand',
-	label,
+	label = 'Customer Service Management',
 	testId,
 }: ThemedIconProps) {
 	return (
@@ -40,7 +40,7 @@ export function CustomerServiceManagementIcon({
 			svg={svg}
 			customThemeSvg={customThemeSvg}
 			iconColor={iconColor}
-			label={label || 'Customer Service Management'}
+			label={label}
 			appearance={appearance}
 			size={size}
 			testId={testId}

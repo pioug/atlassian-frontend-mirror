@@ -1,5 +1,19 @@
 # @atlassian/navigation-system
 
+## 0.172.0
+
+### Minor Changes
+
+- [#185771](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185771)
+  [`bfdde20acda9d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bfdde20acda9d) -
+  Fixing issue where `<PanelSplitter>` would throw an error if it was suspended with `<Suspense>`.
+
+### Patch Changes
+
+- [#177943](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/177943)
+  [`db7d983a24821`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/db7d983a24821) -
+  Updated package description and docs.
+
 ## 0.171.0
 
 ### Minor Changes

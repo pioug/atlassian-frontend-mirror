@@ -1,5 +1,23 @@
 # @atlaskit/renderer
 
+## 120.1.6
+
+### Patch Changes
+
+- [#187144](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/187144)
+  [`a16147d8fbdfe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a16147d8fbdfe) -
+  Bump @atlaskit/adf-schema to v49.0.5
+- Updated dependencies
+
+## 120.1.5
+
+### Patch Changes
+
+- [#183363](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183363)
+  [`01c81dc79f641`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/01c81dc79f641) -
+  add legacy extension node height reservation
+- Updated dependencies
+
 ## 120.1.4
 
 ### Patch Changes

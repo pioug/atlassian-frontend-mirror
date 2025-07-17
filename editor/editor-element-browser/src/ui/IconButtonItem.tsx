@@ -1,6 +1,7 @@
 import React, { forwardRef, memo, useMemo, type Ref } from 'react';
 
 import { ToolTipContent } from '@atlaskit/editor-common/keymaps';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Pressable, Stack, Text, xcss } from '@atlaskit/primitives';
 import Tooltip from '@atlaskit/tooltip';
 

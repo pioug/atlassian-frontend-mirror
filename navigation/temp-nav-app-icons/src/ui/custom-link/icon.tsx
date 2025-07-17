@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::cb5ed2f8ba9662a35bdc6a86c6f4249c>>
+ * @codegen <<SignedSource::2fc93ee170eb04ee5a9334f77fc8c4e4>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -24,7 +24,12 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
  * to enable the new design by default.
  *
  */
-export function CustomLinkIcon({ size, appearance = 'brand', label, testId }: UtilityIconProps) {
+export function CustomLinkIcon({
+	size,
+	appearance = 'brand',
+	label = 'Custom Link',
+	testId,
+}: UtilityIconProps) {
 	return (
 		<IconWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);

@@ -28,9 +28,14 @@ import { chainCommands } from '@atlaskit/editor-prosemirror/commands';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { akEditorGutterPaddingDynamic } from '@atlaskit/editor-shared-styles';
+import {
+	akEditorGutterPaddingDynamic,
+	akEditorGutterPaddingReduced,
+	akEditorFullPageNarrowBreakout,
+} from '@atlaskit/editor-shared-styles';
 import { findTable } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { setTableAlignmentWithTableContentWithPosWithAnalytics } from '../pm-plugins/commands/commands-with-analytics';
@@ -143,6 +148,13 @@ const getResizerMinWidth = (node: PMNode) => {
 	return minColumnWidth + 1;
 };
 
+const getPadding = (containerWidth: number) => {
+	return containerWidth <= akEditorFullPageNarrowBreakout &&
+		expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true)
+		? akEditorGutterPaddingReduced
+		: akEditorGutterPaddingDynamic();
+};
+
 /**
  * When guidelines are outside the viewport, filter them out, do not show
  * So the guideline container won't make the fabric-editor-popup-scroll-parent overflow
@@ -168,10 +180,10 @@ const getVisibleGuidelines = (
 		// For PTW we need to ensure that dynamic guideline never gets excluded: 1181 should be > width + guidelineVisibleAdjustment
 		// guidelineVisibleAdjustment is set as a negative value, so we making it positive and adding + 1
 		const preserve_table_widths_adjustment = -1 * PRESERVE_TABLE_GUIDELINES_LENGTH_OFFSET + 1;
-
+		const padding = getPadding(containerWidth);
 		guidelineVisibleAdjustment = isFullWidthModeEnabled
 			? preserve_table_widths_adjustment // guidelineVisibleAdjustment = -2, if lineLength = 1180, 1181 < 1180 + 2 is true.
-			: -2 * akEditorGutterPaddingDynamic() + preserve_table_widths_adjustment; // guidelineVisibleAdjustment = -62, if containerWidth is 1244, 1181 < 1244 - 62 = 1182 is true.
+			: -2 * padding + preserve_table_widths_adjustment; // guidelineVisibleAdjustment = -62, if containerWidth is 1244, 1181 < 1244 - 62 = 1182 is true.
 	}
 	const width = isTableScalingEnabled && isFullWidthModeEnabled ? lineLength : containerWidth;
 
@@ -296,12 +308,13 @@ export const TableResizer = ({
 		({ gap, keys }: { gap: number; keys: string[] }) => {
 			if (gap !== currentGap.current) {
 				currentGap.current = gap;
+
 				const visibleGuidelines = getVisibleGuidelines(
 					isTableScalingEnabled
 						? defaultGuidelinesForPreserveTable(
 								PRESERVE_TABLE_GUIDELINES_LENGTH_OFFSET,
 								isFullWidthModeEnabled
-									? lineLength + 2 * akEditorGutterPaddingDynamic()
+									? lineLength + 2 * getPadding(containerWidth)
 									: containerWidth,
 								excludeGuidelineConfig,
 							)
@@ -332,7 +345,7 @@ export const TableResizer = ({
 							? defaultTablePreserveSnappingWidths(
 									PRESERVE_TABLE_SNAPPING_LENGTH_OFFSET, // was hardcoded to 0, using PRESERVE_TABLE_SNAPPING_LENGTH_OFFSET instead.
 									isFullWidthModeEnabled
-										? lineLength + 2 * akEditorGutterPaddingDynamic()
+										? lineLength + 2 * getPadding(containerWidth)
 										: containerWidth,
 									excludeGuidelineConfig,
 								)
@@ -428,9 +441,7 @@ export const TableResizer = ({
 			isTableScalingEnabled
 				? defaultGuidelinesForPreserveTable(
 						PRESERVE_TABLE_GUIDELINES_LENGTH_OFFSET,
-						isFullWidthModeEnabled
-							? lineLength + 2 * akEditorGutterPaddingDynamic()
-							: containerWidth,
+						isFullWidthModeEnabled ? lineLength + 2 * getPadding(containerWidth) : containerWidth,
 						excludeGuidelineConfig,
 					)
 				: defaultGuidelines,
@@ -476,7 +487,7 @@ export const TableResizer = ({
 			}
 
 			const editorContainerWidth = isFullWidthModeEnabled
-				? lineLength + 2 * akEditorGutterPaddingDynamic()
+				? lineLength + 2 * getPadding(containerWidth)
 				: containerWidth;
 
 			const closestSnap =

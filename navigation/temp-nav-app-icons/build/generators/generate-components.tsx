@@ -164,13 +164,13 @@ ${customThemeSvg ? `const customThemeSvg = \`${customThemeSvg}\`;\n` : ''}
  */
 export function ${componentName}({
 		${customThemeSvg ? 'iconColor, ' : ''}
-		${customThemeSvg && (type === 'logo' || type === 'logo-cs') ? 'textColor,' : ''} size, appearance = "brand", label, testId
+		${customThemeSvg && (type === 'logo' || type === 'logo-cs') ? 'textColor,' : ''} size, appearance = "brand", ${type === 'icon' ? `label = "${productLabel}"` : 'label'}, testId
 	}: ${propType}) {
 	return <${WrapperName}
 			svg={svg} ${customThemeSvg ? 'customThemeSvg={customThemeSvg}' : ''}
 			${customThemeSvg ? 'iconColor={iconColor}' : ''}
 			${customThemeSvg && type === 'logo' ? 'textColor={textColor}' : ''}
-			${utilityIcons.includes(name) ? 'label={label}' : `label={label || "${productLabel}"}`}
+			${utilityIcons.includes(name) ? 'label={label}' : type === 'icon' ? 'label={label}' : `label={label || "${productLabel}"}`}
 			${dataCenterApps.includes(name) ? 'isDataCenter={true}' : ''}
 			appearance={appearance}
 			size={size}

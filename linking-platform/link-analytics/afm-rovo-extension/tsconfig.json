@@ -1,0 +1,42 @@
+{
+	"extends": "../../../../tsconfig.entry-points.rovo-extension.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../rovo-extension/tsDist/@atlaskit__link-analytics/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../json-ld-types/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../link-client-extension/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../linking-common/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../linking-types/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../link-provider/afm-rovo-extension/tsconfig.json"
+		}
+	]
+}

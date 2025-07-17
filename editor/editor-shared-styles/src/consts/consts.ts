@@ -69,6 +69,8 @@ export const akEditorGutterPaddingDynamic = () =>
 	editorExperiment('platform_editor_controls', 'variant1')
 		? 72
 		: 52;
+export const akEditorGutterPaddingReduced = 24;
+export const akEditorFullPageNarrowBreakout = 768;
 export const akEditorMobileBreakoutPoint = 720;
 export const akEditorTableCellMinWidth = 48;
 export const akEditorTableLegacyCellMinWidth = 128;

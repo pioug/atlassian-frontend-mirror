@@ -3,7 +3,6 @@
  * @jsx jsx
  */
 import {
-	Fragment,
 	type ReactNode,
 	useCallback,
 	useContext,
@@ -29,7 +28,7 @@ import { preventUnhandled } from '@atlaskit/pragmatic-drag-and-drop/prevent-unha
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
-import { PanelSplitterContext } from './context';
+import { PanelSplitterContext, type PanelSplitterContextType } from './context';
 import { convertResizeBoundToPixels } from './convert-resize-bound-to-pixels';
 import { getPercentageWithinPixelBounds } from './get-percentage-within-pixel-bounds';
 import { getPixelWidth, getWidthFromDragLocation } from './get-width';
@@ -40,7 +39,6 @@ import type {
 	ResizeEndCallback,
 	ResizeStartCallback,
 } from './types';
-import { useTextDirection } from './use-text-direction';
 
 const containerStyles = cssMap({
 	root: {
@@ -147,6 +145,7 @@ type PanelSplitterDragData = {
 	initialWidth: number;
 	resizingWidth: string;
 	resizeBounds: ResizeBounds;
+	direction: 'ltr' | 'rtl';
 };
 
 const panelSplitterDragDataSymbol = Symbol('panel-splitter-drag-data');
@@ -161,30 +160,34 @@ export function isPanelSplitterDragData(
 	return data[panelSplitterDragDataSymbol] === true;
 }
 
+function getTextDirection(element: HTMLElement): 'ltr' | 'rtl' {
+	const { direction } = window.getComputedStyle(element);
+	return direction === 'rtl' ? 'rtl' : 'ltr';
+}
+
 const PortaledPanelSplitter = ({
 	label,
 	onResizeStart,
 	onResizeEnd,
 	testId,
-}: PanelSplitterProps): JSX.Element | null => {
+	panelId,
+	panelWidth,
+	onCompleteResize,
+	getResizeBounds,
+	panel,
+	portal,
+	resizingCssVar,
+	position,
+}: PanelSplitterProps & { panel: HTMLElement; portal: HTMLElement } & Pick<
+		PanelSplitterContextType,
+		| 'panelId'
+		| 'panelWidth'
+		| 'onCompleteResize'
+		| 'getResizeBounds'
+		| 'resizingCssVar'
+		| 'position'
+	>): ReactNode => {
 	const splitterRef = useRef<HTMLDivElement | null>(null);
-
-	const panelSplitterContext = useContext(PanelSplitterContext);
-	invariant(panelSplitterContext, 'Panel splitter context must be set');
-	const {
-		panelId,
-		panelWidth,
-		onCompleteResize,
-		getResizeBounds,
-		panelRef,
-		resizingCssVar,
-		portalRef,
-		position,
-		isEnabled,
-	} = panelSplitterContext;
-	invariant(portalRef.current, 'Portal ref must be set');
-
-	const direction = useTextDirection(portalRef.current);
 	const labelId = useId();
 	// Separate state used for the input range width to remove the UI's dependency on the "persisted" layout state value being updated
 	const [rangeInputValue, setRangeInputValue] = useState(panelWidth);
@@ -203,10 +206,6 @@ const PortaledPanelSplitter = ({
 	const openLayerObserver = useOpenLayerObserver();
 
 	useEffect(() => {
-		if (!isEnabled) {
-			return;
-		}
-
 		const splitter = splitterRef.current;
 		invariant(splitter, 'Splitter ref must be set');
 
@@ -221,9 +220,7 @@ const PortaledPanelSplitter = ({
 					preventUnhandled.start();
 				},
 				getInitialData() {
-					invariant(panelRef.current, 'Panel ref must be set');
-
-					const initialWidth = getPixelWidth(panelRef.current);
+					const initialWidth = getPixelWidth(panel);
 
 					/**
 					 * The drag calculations require the actual computed width of the element
@@ -235,6 +232,10 @@ const PortaledPanelSplitter = ({
 						initialWidth,
 						resizingWidth: `${initialWidth}px`,
 						resizeBounds: getResizeBounds(),
+						// Only computing text direction when we need it, just as the drag is starting.
+						// Recomputing text direction on each new drag in case the text direction
+						// has changed. This is unlikely, but being safe.
+						direction: getTextDirection(panel),
 					});
 				},
 				onDragStart({ source }) {
@@ -248,7 +249,7 @@ const PortaledPanelSplitter = ({
 				onDrag({ location, source }) {
 					invariant(isPanelSplitterDragData(source.data));
 
-					const { initialWidth, resizeBounds } = source.data;
+					const { initialWidth, resizeBounds, direction } = source.data;
 
 					/**
 					 * How wide the element would be if there were no width constraints,
@@ -263,7 +264,7 @@ const PortaledPanelSplitter = ({
 
 					const resizingWidth = `clamp(${resizeBounds.min}, ${targetWidth}px, ${resizeBounds.max})`;
 
-					panelRef.current?.style.setProperty(resizingCssVar, resizingWidth);
+					panel.style.setProperty(resizingCssVar, resizingWidth);
 
 					source.data.resizingWidth = resizingWidth;
 				},
@@ -271,17 +272,16 @@ const PortaledPanelSplitter = ({
 					invariant(isPanelSplitterDragData(source.data));
 
 					preventUnhandled.stop();
-					invariant(panelRef.current, 'Panel ref must be set');
 					invariant(isPanelSplitterDragData(source.data));
 
-					const finalWidth = getPixelWidth(panelRef.current);
+					const finalWidth = getPixelWidth(panel);
 					onCompleteResize(finalWidth);
 					onResizeEnd?.({
 						initialWidth: source.data.initialWidth,
 						finalWidth,
 					});
 
-					panelRef.current.style.removeProperty(resizingCssVar);
+					panel.style.removeProperty(resizingCssVar);
 				},
 			}),
 		);
@@ -289,12 +289,10 @@ const PortaledPanelSplitter = ({
 		onCompleteResize,
 		onResizeStart,
 		onResizeEnd,
-		panelRef,
+		panel,
 		resizingCssVar,
 		panelWidth,
-		direction,
 		position,
-		isEnabled,
 		openLayerObserver,
 		panelId,
 		getResizeBounds,
@@ -390,10 +388,6 @@ const PortaledPanelSplitter = ({
 		[rangeInputValue, rangeInputBounds],
 	);
 
-	if (!isEnabled) {
-		return null;
-	}
-
 	return createPortal(
 		<div
 			css={[
@@ -422,19 +416,8 @@ const PortaledPanelSplitter = ({
 				<span css={lineStyles.root} />
 			</div>
 		</div>,
-		portalRef.current,
+		portal,
 	);
-};
-
-// Ensures that the component is only rendered on a client. Uses a `useEffect`, which is not run on servers.
-const ClientOnly = ({ children }: { children: ReactNode }): JSX.Element => {
-	const [hasMounted, setHasMounted] = useState(false);
-
-	useEffect(() => {
-		setHasMounted(true);
-	}, []);
-
-	return <Fragment>{hasMounted ? children : null}</Fragment>;
 };
 
 /**
@@ -457,13 +440,121 @@ export const PanelSplitter = ({
 	onResizeStart,
 	onResizeEnd,
 	testId,
-}: PanelSplitterProps): JSX.Element => (
-	<ClientOnly>
+}: PanelSplitterProps): ReactNode => {
+	const [panel, setPanel] = useState<HTMLElement | null>(null);
+	const [portal, setPortal] = useState<HTMLElement | null>(null);
+	const context = useContext(PanelSplitterContext);
+	invariant(context, 'Panel splitter context not set');
+	const {
+		panelRef,
+		portalRef,
+		isEnabled,
+		panelId,
+		panelWidth,
+		onCompleteResize,
+		getResizeBounds,
+		resizingCssVar,
+		position,
+	} = context;
+
+	/**
+	 * **Explanation**
+	 *
+	 * _How React Suspense works_
+	 *
+	 * When a component is suspended:
+	 *
+	 * - it is _not_ "unmounted" and effects are _not_ cleaned up
+	 * - refs to react managed elements are cleared
+	 * - react adds `display:none !important` as an inline style to hide the element
+	 * - state is preserved
+	 *
+	 * When a suspended component is resumed:
+	 * - `display:none !important` inline style is removed
+	 * - it will re-render (without the refs set)
+	 * - refs will be set
+	 * - `useEffect` will _not_ re-run
+	 *
+	 * [More details](https://x.com/alexandereardon/status/1944617494569992440)
+	 *
+	 * _What does this mean for the panel splitter?_
+	 *
+	 * - The panel splitter renders into content into a react managed element (eg managed by Aside)
+	 * - When UI is suspended the portal ref is cleared
+	 * - After a suspense, we will get a render with cleared refs
+	 * - 🔥 This is problematic if we want to portal into that ref during the render
+	 *
+	 * _Approach: initial render_
+	 *
+	 * - We cannot portal the panel splitter until after the refs are initially set
+	 * - Effects run after refs being set. In an effect we set the ref values (which are populated),
+	 *   trigger a re-render and then portal into the refs.
+	 *
+	 * _Approach: suspense_
+	 *
+	 * - We put the refs into react `state` after every render
+	 * - The refs in `state` will not be cleared by suspending as effects are not run, or cleaned up,
+	 *   when components are suspended / resumed.
+	 * - After the post suspense render, we can use the `portalRef` (which was captured in an effect)
+	 *   to continue to portal into.
+	 *
+	 * _Why not store `portalRef` in `state` in `<PanelSplitterProvider>`?_
+	 *
+	 * - The `portalRef` is set high in the tree, so a re-render will cause a
+	 *   large amount of components to re-render (eg the whole sidebar)
+	 * - After a suspense, we would need to do _another_ large re-render to propagate the new refs
+	 * - With our current approach, any changes to `portalRef` will cause a re-render low in the tree
+	 *   (just in the `<PanelSplitter>`)
+	 */
+
+	// We want this effect to run after each render (see above)
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	useEffect(() => {
+		// Don't need to do anything
+		if (!isEnabled) {
+			return;
+		}
+
+		// It is safe to access refs in useEffect, even with Suspense
+
+		const panelEl = panelRef.current;
+		const portalEl = portalRef.current;
+		invariant(panelEl, 'panelRef not set');
+		invariant(portalEl, 'portal element not set');
+
+		// Doing our own check, as this results in fewer re-renders than react
+		// (which also does it's own checks to see if a re-render should occur)
+		if (panelEl === panel && portalEl === portal) {
+			return;
+		}
+
+		// If refs don't change, react won't cause infinite loops
+		setPanel(panelEl);
+		setPortal(portalEl);
+	});
+
+	if (!isEnabled) {
+		return null;
+	}
+
+	if (!portal || !panel) {
+		return null;
+	}
+
+	return (
 		<PortaledPanelSplitter
 			label={label}
 			onResizeStart={onResizeStart}
 			onResizeEnd={onResizeEnd}
 			testId={testId}
+			panelId={panelId}
+			panel={panel}
+			portal={portal}
+			panelWidth={panelWidth}
+			onCompleteResize={onCompleteResize}
+			getResizeBounds={getResizeBounds}
+			resizingCssVar={resizingCssVar}
+			position={position}
 		/>
-	</ClientOnly>
-);
+	);
+};

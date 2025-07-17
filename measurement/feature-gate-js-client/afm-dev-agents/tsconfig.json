@@ -1,0 +1,24 @@
+{
+	"extends": "../../../../tsconfig.entry-points.dev-agents.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../dev-agents/tsDist/@atlaskit__feature-gate-js-client/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../../uip/atlassian-context/afm-dev-agents/tsconfig.json"
+		}
+	]
+}

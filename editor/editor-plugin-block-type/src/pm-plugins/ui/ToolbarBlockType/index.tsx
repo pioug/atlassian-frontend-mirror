@@ -18,6 +18,7 @@ import { DropdownMenuWithKeyboardNavigation as DropdownMenu } from '@atlaskit/ed
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 import TextIcon from '@atlaskit/icon/core/text';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { ThemeMutationObserver } from '@atlaskit/tokens';

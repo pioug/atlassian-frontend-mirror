@@ -8,6 +8,8 @@ import {
 } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { type Transaction } from '@atlaskit/editor-prosemirror/state';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { getObjectAri, getObjectName, getObjectIconUrl } from '@atlaskit/smart-card';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { type cardPlugin } from '../cardPlugin';
@@ -15,6 +17,7 @@ import { registerRemoveOverlay } from '../pm-plugins/actions';
 import { pluginKey } from '../pm-plugins/plugin-key';
 import { AwarenessWrapper } from '../ui/AwarenessWrapper';
 import OpenButtonOverlay from '../ui/OpenButtonOverlay';
+import PanelButtonOverlay from '../ui/PanelButtonOverlay';
 
 import type { SmartCardProps } from './genericCard';
 import { InlineCard } from './inlineCard';
@@ -185,9 +188,55 @@ export const InlineCardWithAwareness = memo(
 			);
 		}, [mode, editorAppearance]);
 
-		const innerCard = shouldShowOpenButtonOverlay
+		let innerCard = shouldShowOpenButtonOverlay
 			? innerCardWithOpenButtonOverlay
 			: innerCardOriginal;
+
+		if (fg('platform_editor_preview_panel_linking')) {
+			const cardState = cardContext?.value?.store?.getState()[node.attrs.url];
+			if (cardState) {
+				const ari = getObjectAri(cardState.details);
+				const name = getObjectName(cardState.details);
+				const iconUrl = getObjectIconUrl(cardState.details);
+				const isPanelAvailable = ari && cardContext?.value?.isPreviewPanelAvailable?.({ ari });
+				const openPreviewPanel = cardContext?.value?.openPreviewPanel;
+
+				const handleOpenGlancePanelClick = () => {
+					if (openPreviewPanel && isPanelAvailable) {
+						openPreviewPanel({
+							url: node.attrs.url,
+							ari,
+							name: name || '',
+							iconUrl,
+						});
+					}
+				};
+
+				const innerCardWithPanelButtonOverlay = (
+					<PanelButtonOverlay
+						isVisible={isResolvedViewRendered}
+						editorAppearance={editorAppearance}
+						onClick={handleOpenGlancePanelClick}
+					>
+						<InlineCard
+							node={node}
+							view={view}
+							getPos={getPos}
+							useAlternativePreloader={useAlternativePreloader}
+							actionOptions={actionOptions}
+							onResolve={onResolve}
+							onClick={onClick}
+							cardContext={cardContext}
+							isHovered={isHovered}
+							isPageSSRed={isPageSSRed}
+							pluginInjectionApi={pluginInjectionApi}
+						/>
+					</PanelButtonOverlay>
+				);
+				innerCard =
+					isPanelAvailable && openPreviewPanel ? innerCardWithPanelButtonOverlay : innerCard;
+			}
+		}
 
 		const getPosFunction = typeof getPos === 'function' ? getPos : undefined;
 		const placeholderUniqId = getPosFunction?.() || 0;

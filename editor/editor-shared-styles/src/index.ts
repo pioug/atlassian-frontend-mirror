@@ -24,6 +24,8 @@ export {
 	akEditorGridLineZIndex,
 	akEditorGutterPadding,
 	akEditorGutterPaddingDynamic,
+	akEditorGutterPaddingReduced,
+	akEditorFullPageNarrowBreakout,
 	akEditorMediaResizeHandlerPadding,
 	akEditorMediaResizeHandlerPaddingWide,
 	akEditorMenuZIndex,

@@ -1,5 +1,23 @@
 # @atlaskit/editor-common
 
+## 107.8.3
+
+### Patch Changes
+
+- [#187144](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/187144)
+  [`a16147d8fbdfe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a16147d8fbdfe) -
+  Bump @atlaskit/adf-schema to v49.0.5
+- Updated dependencies
+
+## 107.8.2
+
+### Patch Changes
+
+- [#185795](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185795)
+  [`82707bc751346`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/82707bc751346) -
+  [ED-28204] clean up feature gate platform_editor_floating_toolbar_dropdown_flicker
+- Updated dependencies
+
 ## 107.8.1
 
 ### Patch Changes

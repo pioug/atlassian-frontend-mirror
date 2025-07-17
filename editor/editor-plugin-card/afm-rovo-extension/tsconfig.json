@@ -1,0 +1,114 @@
+{
+	"extends": "../../../../tsconfig.entry-points.rovo-extension.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../rovo-extension/tsDist/@atlaskit__editor-plugin-card/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/button/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../custom-steps/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-analytics/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-base/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-connectivity/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-decorations/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-editor-disabled/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-editor-viewmode/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-feature-flags/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-floating-toolbar/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-grid/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-width/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-shared-styles/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../helpers/frontend-utilities/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/link/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/link-analytics/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/link-client-extension/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/link-datasource/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/linking-common/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/linking-types/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/menu/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/smart-card/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/link-provider/afm-rovo-extension/tsconfig.json"
+		}
+	]
+}

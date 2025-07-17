@@ -3,6 +3,7 @@ import React from 'react';
 import { FormattedMessage, type MessageDescriptor } from 'react-intl-next';
 
 import { ButtonItem } from '@atlaskit/menu';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 
 const iconContainerStyles = xcss({

@@ -312,6 +312,7 @@ export const RendererFunctionalComponent = (
 				emojiResourceConfig: props.emojiResourceConfig,
 				smartLinks: props.smartLinks,
 				extensionViewportSizes: props.extensionViewportSizes,
+				getExtensionHeight: props.getExtensionHeight,
 				allowCopyToClipboard: props.allowCopyToClipboard,
 				allowWrapCodeBlock: props.allowWrapCodeBlock,
 				allowCustomPanels: props.allowCustomPanels,

@@ -5,6 +5,7 @@ import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import type { DOMOutputSpec, NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { akEditorGutterPaddingDynamic } from '@atlaskit/editor-shared-styles';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { generateColgroup, getResizerMinWidth } from '../pm-plugins/table-resizing/utils/colgroup';
 import { TABLE_MAX_WIDTH } from '../pm-plugins/table-resizing/utils/consts';
@@ -25,7 +26,13 @@ export const tableNodeSpecWithFixedToDOM = (
 	return {
 		...tableNode,
 		toDOM: (node: PMNode): DOMOutputSpec => {
-			const gutterPadding = akEditorGutterPaddingDynamic() * 2;
+			const gutterPadding = () => {
+				if (expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true)) {
+					return 'calc(var(--ak-editor--large-gutter-padding) * 2)';
+				} else {
+					return `${akEditorGutterPaddingDynamic() * 2}px`;
+				}
+			};
 
 			const alignmentStyle = Object.entries(getAlignmentStyle(node.attrs.layout))
 				.map(([k, v]) => `${kebabCase(k)}: ${kebabCase(v)}`)
@@ -129,7 +136,7 @@ export const tableNodeSpecWithFixedToDOM = (
 					'div',
 					{
 						class: 'pm-table-resizer-container',
-						style: `width: min(calc(100cqw - ${gutterPadding}px), ${tableWidthAttribute});`,
+						style: `width: min(calc(100cqw - ${gutterPadding()}), ${tableWidthAttribute});`,
 					},
 					[
 						'div',
@@ -139,7 +146,7 @@ export const tableNodeSpecWithFixedToDOM = (
 								position: 'relative',
 								userSelect: 'auto',
 								boxSizing: 'border-box',
-								'--ak-editor-table-gutter-padding': `${gutterPadding}px`,
+								'--ak-editor-table-gutter-padding': `${gutterPadding()}`,
 								'--ak-editor-table-max-width': `${TABLE_MAX_WIDTH}px`,
 								'--ak-editor-table-min-width': `${tableMinWidth}px`,
 								minWidth: 'var(--ak-editor-table-min-width)',

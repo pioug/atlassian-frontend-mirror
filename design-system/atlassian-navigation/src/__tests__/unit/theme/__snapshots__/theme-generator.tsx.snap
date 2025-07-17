@@ -33,7 +33,7 @@ exports[`generateTheme atlassian theme should match theme object for "create" 1`
 exports[`generateTheme atlassian theme should match theme object for "iconButton" 1`] = `
 {
   "active": {
-    "backgroundColor": "var(--ds-background-neutral-pressed, rgba(222, 235, 255, 0.6))",
+    "backgroundColor": "var(--ds-background-neutral-subtle-pressed, rgba(222, 235, 255, 0.6))",
     "boxShadow": "",
     "color": "var(--ds-text-subtle, #0052CC)",
   },
@@ -48,7 +48,7 @@ exports[`generateTheme atlassian theme should match theme object for "iconButton
     "color": "var(--ds-text-subtle, #344563)",
   },
   "hover": {
-    "backgroundColor": "var(--ds-background-neutral-hovered, rgba(222, 235, 255, 0.9))",
+    "backgroundColor": "var(--ds-background-neutral-subtle-hovered, rgba(222, 235, 255, 0.9))",
     "boxShadow": "",
     "color": "var(--ds-text-subtle, #0052CC)",
   },
@@ -75,7 +75,7 @@ exports[`generateTheme atlassian theme should match theme object for "navigation
 exports[`generateTheme atlassian theme should match theme object for "primaryButton" 1`] = `
 {
   "active": {
-    "backgroundColor": "var(--ds-background-neutral-pressed, rgba(222, 235, 255, 0.7))",
+    "backgroundColor": "var(--ds-background-neutral-subtle-pressed, rgba(222, 235, 255, 0.7))",
     "boxShadow": "",
     "color": "var(--ds-text-subtle, #0052CC)",
   },
@@ -90,7 +90,7 @@ exports[`generateTheme atlassian theme should match theme object for "primaryBut
     "color": "var(--ds-text-subtle, #344563)",
   },
   "hover": {
-    "backgroundColor": "var(--ds-background-neutral-hovered, rgba(222, 235, 255, 0.9))",
+    "backgroundColor": "var(--ds-background-neutral-subtle-hovered, rgba(222, 235, 255, 0.9))",
     "boxShadow": "",
     "color": "var(--ds-text-subtle, #0052CC)",
   },

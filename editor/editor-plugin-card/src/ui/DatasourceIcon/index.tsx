@@ -2,6 +2,7 @@ import React from 'react';
 
 import SmartLinkListIcon from '@atlaskit/icon/core/smart-link-list';
 import type { CustomGlyphProps, GlyphProps } from '@atlaskit/icon/types';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Flex, xcss } from '@atlaskit/primitives';
 
 const IconDatasourceGlyph = (props: CustomGlyphProps) => {

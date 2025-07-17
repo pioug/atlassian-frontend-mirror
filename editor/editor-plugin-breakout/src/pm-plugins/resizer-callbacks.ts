@@ -6,6 +6,8 @@ import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
 	akEditorGutterPaddingDynamic,
 	akEditorGutterPadding,
+	akEditorGutterPaddingReduced,
+	akEditorFullPageNarrowBreakout,
 	akEditorDefaultLayoutWidth,
 	akEditorFullWidthLayoutWidth,
 	akEditorCalculatedWideLayoutWidth,
@@ -17,6 +19,7 @@ import type {
 	DragLocationHistory,
 	ElementDragType,
 } from '@atlaskit/pragmatic-drag-and-drop/types';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { BreakoutPlugin } from '../breakoutPluginType';
 import { setBreakoutWidth } from '../editor-commands/set-breakout-width';
@@ -53,10 +56,14 @@ export function getProposedWidth({
 		RESIZE_RATIO *
 		directionMultiplier;
 
-	const containerWidth =
-		(api?.width.sharedState?.currentState()?.width || 0) -
-		2 * akEditorGutterPaddingDynamic() -
-		akEditorGutterPadding;
+	const width = api?.width.sharedState?.currentState()?.width || 0;
+	const padding =
+		width <= akEditorFullPageNarrowBreakout &&
+		expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true)
+			? akEditorGutterPaddingReduced
+			: akEditorGutterPaddingDynamic();
+
+	const containerWidth = width - 2 * padding - akEditorGutterPadding;
 
 	// the node width may be greater than the container width so we resize using the smaller value
 	const proposedWidth = Math.min(initialWidth, containerWidth) + diffX;

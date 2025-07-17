@@ -1,5 +1,14 @@
 # @atlaskit/editor-json-transformer
 
+## 8.24.4
+
+### Patch Changes
+
+- [#187144](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/187144)
+  [`a16147d8fbdfe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a16147d8fbdfe) -
+  Bump @atlaskit/adf-schema to v49.0.5
+- Updated dependencies
+
 ## 8.24.3
 
 ### Patch Changes

@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import coinflip from '../coinflip';
 import { type PostInteractionLogOutput, type ReactProfilerTiming } from '../common';
 import type { LateMutation } from '../common/react-ufo-payload-schema';
@@ -183,9 +181,8 @@ function createPostInteractionLogPayload({
 		lastInteractionFinish.end - lastInteractionFinish.start,
 	);
 
-	const mostRecentVCRevision = fg('platform_ufo_post_interaction_most_recent_vc_rev')
-		? getMostRecentVCRevision(lastInteractionFinish.ufoName)
-		: DEFAULT_TTVC_REVISION;
+	const mostRecentVCRevision =
+		getMostRecentVCRevision(lastInteractionFinish.ufoName) ?? DEFAULT_TTVC_REVISION;
 
 	let lastInteractionFinishVC90: number | null = null;
 	let lastInteractionFinishVCClean: boolean = false;

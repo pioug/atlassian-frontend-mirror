@@ -17,8 +17,8 @@ import type {
 	Command,
 	CommandDispatch,
 	ConfirmDialogOptions,
-	DropdownOptions,
 	DropdownOptionT,
+	DropdownOptions,
 	FloatingToolbarDropdown,
 	FloatingToolbarHandler,
 	FloatingToolbarItem,
@@ -26,7 +26,7 @@ import type {
 	Icon,
 	typeOption,
 } from '@atlaskit/editor-common/types';
-import { cellBackgroundColorPalette, DEFAULT_BORDER_COLOR } from '@atlaskit/editor-common/ui-color';
+import { DEFAULT_BORDER_COLOR, cellBackgroundColorPalette } from '@atlaskit/editor-common/ui-color';
 import {
 	closestElement,
 	getChildrenInfo,

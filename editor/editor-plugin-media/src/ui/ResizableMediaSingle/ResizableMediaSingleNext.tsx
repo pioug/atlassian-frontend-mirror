@@ -53,8 +53,11 @@ import {
 	akEditorDefaultLayoutWidth,
 	akEditorFullWidthLayoutWidth,
 	akEditorGutterPaddingDynamic,
+	akEditorGutterPaddingReduced,
+	akEditorFullPageNarrowBreakout,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {
 	MEDIA_PLUGIN_IS_RESIZING_KEY,
@@ -159,14 +162,17 @@ const calcUnwrappedLayout = (
 		return 'center';
 	}
 
-	if (
-		width <
-		Math.min(containerWidth - akEditorGutterPaddingDynamic() * 2, akEditorFullWidthLayoutWidth)
-	) {
+	const padding =
+		containerWidth <= akEditorFullPageNarrowBreakout &&
+		expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true)
+			? akEditorGutterPaddingReduced
+			: akEditorGutterPaddingDynamic();
+
+	if (width < Math.min(containerWidth - padding * 2, akEditorFullWidthLayoutWidth)) {
 		return 'wide';
 	}
 
-	// set full width to be containerWidth - akEditorGutterPaddingDynamic() * 2
+	// set full width to be containerWidth - padding * 2
 	// instead of containerWidth - akEditorBreakoutPadding,
 	// so that we have image aligned with text
 	return 'full-width';

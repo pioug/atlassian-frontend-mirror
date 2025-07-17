@@ -1,0 +1,74 @@
+---
+title: Custom theming
+order: 2
+---
+
+import { CustomThemingRgbObjectExample } from '../../examples/constellation/layout/custom-theming--rgb-object';
+import { CustomThemingParseHexExample } from '../../examples/constellation/layout/custom-theming--parse-hex';
+import { CustomThemingParseRgbExample } from '../../examples/constellation/layout/custom-theming--parse-rgb';
+import { CustomThemingParseHslExample } from '../../examples/constellation/layout/custom-theming--parse-hsl';
+import { CustomThemingParseUserColorExample } from '../../examples/constellation/layout/custom-theming--parse-user-color';
+
+Top navigation supports custom theming through the `UNSAFE_theme` prop.
+
+Enable custom theming by providing both:
+
+- `backgroundColor` which determines the background color of the top bar
+- `highlightColor` which determines the background color of the create button (from
+  [top nav items](/components/navigation-system/top-nav-items))
+
+Both of these colors should be provided as RGB objects, which can be derived using our
+[color string parsing utilities](#color-string-parsing).
+
+White or black text is automatically chosen to maximize contrast.
+
+<Example Component={CustomThemingRgbObjectExample} />
+
+## Color string parsing
+
+Custom theme colors should be provided as RGB objects, but are typically obtained from users as
+strings.
+
+We provide a number of utilities for parsing color strings into an RGB object format. These parsing
+utilities are completely optional, and you are able to create your own.
+
+## `parseHex`
+
+Use `parseHex` to parse a CSS hex color string into an RGB object. It will return `null` on failure.
+
+If an alpha channel is present it will be ignored.
+
+<Example Component={CustomThemingParseHexExample} />
+
+## `parseRgb`
+
+Use `parseRgb` to parse a CSS `rgb` color string into an RGB object. It will return `null` on
+failure.
+
+The fractional parts of non-integer values will be ignored, and only the legacy comma-separated
+syntax is supported.
+
+<Example Component={CustomThemingParseRgbExample} />
+
+## `parseHsl`
+
+Use `parseHsl` to parse a CSS `hsl` color string into an RGB object. It will return `null` on
+failure.
+
+The fractional parts of non-integer values will be ignored, and only the legacy comma-separated
+syntax is supported.
+
+<Example Component={CustomThemingParseHslExample} />
+
+## `parseUserColor`
+
+Use `parseUserColor` to parse a CSS color string without knowing the format used. It will return
+`null` on failure.
+
+Supported CSS color string formats are:
+
+- hex colors
+- `rgb()` color functions
+- `hsl()` color functions
+
+<Example Component={CustomThemingParseUserColorExample} />

@@ -11,6 +11,7 @@ import {
 	FloatingToolbarButton as Button,
 	FloatingToolbarSeparator,
 } from '@atlaskit/editor-common/ui';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 
 const containerStyles = xcss({

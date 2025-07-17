@@ -16,6 +16,7 @@ import LegacyButton from '@atlaskit/button/standard-button';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import LegacyExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss, Inline } from '@atlaskit/primitives';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';

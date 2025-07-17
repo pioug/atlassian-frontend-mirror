@@ -281,18 +281,19 @@ export function findMatches({
 }
 
 export function findClosestMatch(selectionPos: number, matches: Match[]): number {
-	const forwardMatchIndex = Math.max(
-		matches.findIndex((match) => match.start >= selectionPos),
-		0,
-	);
-	if (forwardMatchIndex === 0) {
+	const forwardMatchIndex = matches.findIndex((match) => match.start >= selectionPos);
+
+	if (forwardMatchIndex === -1) {
+		// if there are no forward matches, it must be the last match
+		return matches.length > 0 ? matches.length - 1 : 0;
+	} else if (forwardMatchIndex === 0) {
 		return forwardMatchIndex;
 	}
 
 	const backwardMatchIndex = forwardMatchIndex - 1;
 
 	const forwardMatchPos = matches[forwardMatchIndex].start;
-	const backwardMatchPos = matches[backwardMatchIndex].end;
+	const backwardMatchPos = matches[backwardMatchIndex].start;
 
 	if (forwardMatchPos - selectionPos < selectionPos - backwardMatchPos) {
 		return forwardMatchIndex;

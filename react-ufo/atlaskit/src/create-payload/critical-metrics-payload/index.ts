@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import type { InteractionMetrics } from '../../common';
 import type { VCResult } from '../../common/vc/types';
 
@@ -12,7 +14,9 @@ export async function createCriticalMetricsPayloads(
 ): Promise<CriticalMetricsPayload[]> {
 	const [rootPayload, segmentPayloads] = await Promise.all([
 		createRootCriticalMetricsPayload(interactionId, interaction, vcMetrics),
-		createSegmentMetricsPayloads(interactionId, interaction),
+		fg('platform_ufo_segment_critical_metrics')
+			? createSegmentMetricsPayloads(interactionId, interaction)
+			: [],
 	]);
-	return [rootPayload, ...segmentPayloads];
+	return [rootPayload, ...segmentPayloads].filter((v): v is CriticalMetricsPayload => v != null);
 }

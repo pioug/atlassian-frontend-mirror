@@ -47,7 +47,7 @@ jest.mock('../get-is-root-segment', () => ({
 
 jest.mock('../get-segment-status', () => ({
 	__esModule: true,
-	default: () => ({ status: 'success', abortReason: undefined }),
+	default: () => ({ status: 'SUCCEEDED', abortReason: undefined }),
 }));
 
 describe('createSegmentMetricsPayloads', () => {

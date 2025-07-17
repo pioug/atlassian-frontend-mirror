@@ -9,7 +9,7 @@ jest.mock('../../../hidden-timing', () => ({
 }));
 jest.mock('../../utils/get-page-visibility-up-to-ttai', () => jest.fn(() => 'visible'));
 jest.mock('../../utils/get-interaction-status', () =>
-	jest.fn(() => ({ originalInteractionStatus: 'SUCCESS' })),
+	jest.fn(() => ({ originalInteractionStatus: 'SUCCEEDED' })),
 );
 jest.mock('../../common/utils', () => ({ sanitizeUfoName: (name: string) => name }));
 jest.mock('../../utils/get-ttai', () => jest.fn(() => 1234));
@@ -73,15 +73,16 @@ const baseInteraction: InteractionMetrics = {
 describe('createRootCriticalMetricsPayload', () => {
 	it('should create a valid payload with expected properties', async () => {
 		const payload = await createRootCriticalMetricsPayload('id1', baseInteraction);
+		expect(payload).not.toBeNull();
 		expect(payload).toHaveProperty('actionSubject', 'experience');
 		expect(payload).toHaveProperty('action', 'measured');
 		expect(payload).toHaveProperty('eventType', 'operational');
 		expect(payload).toHaveProperty('source', 'measured');
 		expect(payload).toHaveProperty('tags');
-		expect(payload.attributes.properties['event:product']).toBe('jira');
-		expect(payload.attributes.properties['event:region']).toBe('us');
-		expect(payload.attributes.properties['experience:name']).toBe('test-ufo');
-		expect(payload.attributes.properties.metrics).toMatchObject({
+		expect(payload!.attributes.properties['event:product']).toBe('jira');
+		expect(payload!.attributes.properties['event:region']).toBe('us');
+		expect(payload!.attributes.properties['experience:name']).toBe('test-ufo');
+		expect(payload!.attributes.properties.metrics).toMatchObject({
 			fp: 1,
 			fcp: 2,
 			lcp: 3,
@@ -92,8 +93,8 @@ describe('createRootCriticalMetricsPayload', () => {
 			tbtObserved: 11,
 			cls: 0.1,
 		});
-		expect(payload.attributes.properties.status).toBe('SUCCESS');
-		expect(payload.attributes.properties.errorCount).toBe(0);
+		expect(payload!.attributes.properties.status).toBe('SUCCEEDED');
+		expect(payload!.attributes.properties.errorCount).toBe(0);
 	});
 
 	it('should throw if config is missing', async () => {
@@ -114,7 +115,7 @@ describe('createRootCriticalMetricsPayload', () => {
 			]),
 		};
 		const payload = await createRootCriticalMetricsPayload('id1', interaction);
-		expect(payload.attributes.properties.cohortingCustomData).toEqual({ foo: 'bar', baz: '123' });
+		expect(payload!.attributes.properties.cohortingCustomData).toEqual({ foo: 'bar', baz: '123' });
 	});
 
 	it('should include errorCount if errors are present', async () => {
@@ -126,7 +127,7 @@ describe('createRootCriticalMetricsPayload', () => {
 			],
 		};
 		const payload = await createRootCriticalMetricsPayload('id1', interaction);
-		expect(payload.attributes.properties.errorCount).toBe(2);
+		expect(payload!.attributes.properties.errorCount).toBe(2);
 	});
 
 	it('should include hold info metrics when holds are present', async () => {
@@ -139,7 +140,7 @@ describe('createRootCriticalMetricsPayload', () => {
 		};
 		const payload = await createRootCriticalMetricsPayload('id1', interaction);
 		// Earliest hold should be hold2 (start: 1050), so earliestHoldStart = 1050 - 1000 = 50
-		expect(payload.attributes.properties.metrics.earliestHoldStart).toBe(50);
+		expect(payload!.attributes.properties.metrics.earliestHoldStart).toBe(50);
 	});
 
 	it('should include responsiveness metrics when present', async () => {
@@ -151,8 +152,8 @@ describe('createRootCriticalMetricsPayload', () => {
 			},
 		};
 		const payload = await createRootCriticalMetricsPayload('id1', interaction);
-		expect(payload.attributes.properties.metrics.inputDelay).toBe(26); // rounded
-		expect(payload.attributes.properties.metrics.inp).toBe(150); // rounded
+		expect(payload!.attributes.properties.metrics.inputDelay).toBe(26); // rounded
+		expect(payload!.attributes.properties.metrics.inp).toBe(150); // rounded
 	});
 
 	it('should handle different interaction types', async () => {
@@ -162,8 +163,8 @@ describe('createRootCriticalMetricsPayload', () => {
 			routeName: 'test-route',
 		};
 		const payload = await createRootCriticalMetricsPayload('id1', interaction);
-		expect(payload.attributes.properties.type).toBe('press');
-		expect(payload.attributes.properties.routeName).toBe('test-route');
+		expect(payload!.attributes.properties.type).toBe('press');
+		expect(payload!.attributes.properties.routeName).toBe('test-route');
 	});
 
 	it('should include TTVC metrics when provided', async () => {
@@ -176,7 +177,7 @@ describe('createRootCriticalMetricsPayload', () => {
 		};
 
 		const payload = await createRootCriticalMetricsPayload('id1', baseInteraction, mockVCMetrics);
-		expect(payload.attributes.properties.metrics.ttvc).toEqual([
+		expect(payload!.attributes.properties.metrics.ttvc).toEqual([
 			{ revision: 'fy25.01', vc90: 1500 },
 		]);
 	});
@@ -190,27 +191,27 @@ describe('createRootCriticalMetricsPayload', () => {
 			abortedByInteractionName: 'next-interaction',
 		};
 		const payload = await createRootCriticalMetricsPayload('id1', interaction);
-		expect(payload.attributes.properties.abortReason).toBe('timeout');
-		expect(payload.attributes.properties.previousInteractionName).toBe('previous-interaction');
-		expect(payload.attributes.properties.isPreviousInteractionAborted).toBe(true);
-		expect(payload.attributes.properties.abortedByInteractionName).toBe('next-interaction');
+		expect(payload!.attributes.properties.abortReason).toBe('timeout');
+		expect(payload!.attributes.properties.previousInteractionName).toBe('previous-interaction');
+		expect(payload!.attributes.properties.isPreviousInteractionAborted).toBe(true);
+		expect(payload!.attributes.properties.abortedByInteractionName).toBe('next-interaction');
 	});
 
 	it('should include timing information', async () => {
 		const payload = await createRootCriticalMetricsPayload('id1', baseInteraction);
-		expect(payload.attributes.properties.start).toBe(1000);
-		expect(payload.attributes.properties.end).toBe(2000);
-		expect(payload.attributes.properties.interactionId).toBe('id1');
-		expect(payload.attributes.properties.rate).toBe(1);
+		expect(payload!.attributes.properties.start).toBe(1000);
+		expect(payload!.attributes.properties.end).toBe(2000);
+		expect(payload!.attributes.properties.interactionId).toBe('id1');
+		expect(payload!.attributes.properties.rate).toBe(1);
 	});
 
 	it('should include event metadata', async () => {
 		const payload = await createRootCriticalMetricsPayload('id1', baseInteraction);
-		expect(payload.attributes.properties['event:schema']).toBe('1.0.0');
-		expect(payload.attributes.properties['event:source']).toEqual({
+		expect(payload!.attributes.properties['event:schema']).toBe('1.0.0');
+		expect(payload!.attributes.properties['event:source']).toEqual({
 			name: 'react-ufo/web',
 			version: '1.2.3',
 		});
-		expect(payload.attributes.properties['experience:key']).toBe('custom.ufo.critical-metrics');
+		expect(payload!.attributes.properties['experience:key']).toBe('custom.ufo.critical-metrics');
 	});
 });

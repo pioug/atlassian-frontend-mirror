@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e131442262633a0186010909fd09bd16>>
+ * @codegen <<SignedSource::62d7ed5486f2fde4ab85bad091e6130c>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -24,14 +24,13 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
  * to enable the new design by default.
  *
  */
-export function AnalyticsIcon({ size, appearance = 'brand', label, testId }: AppIconProps) {
+export function AnalyticsIcon({
+	size,
+	appearance = 'brand',
+	label = 'Analytics',
+	testId,
+}: AppIconProps) {
 	return (
-		<IconWrapper
-			svg={svg}
-			label={label || 'Analytics'}
-			appearance={appearance}
-			size={size}
-			testId={testId}
-		/>
+		<IconWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);
 }

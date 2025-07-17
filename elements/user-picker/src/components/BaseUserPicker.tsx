@@ -1,5 +1,4 @@
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { type UFOExperience, UFOExperienceState } from '@atlaskit/ufo';
 import debounce from 'lodash/debounce';
 import React from 'react';
@@ -492,14 +491,12 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 				const valueIds: string[] = value.map((item) => item.data.id);
 				filteredOptions = options.filter((option) => valueIds.indexOf(option.data.id) === -1);
 			}
-			return groupByTypeOrder && fg('support_group_by_type_for_user_picker')
+			return groupByTypeOrder
 				? groupOptionsByType(filteredOptions.slice(0, maxOptions), groupByTypeOrder)
 				: filteredOptions.slice(0, maxOptions);
 		}
 
-		return groupByTypeOrder && fg('support_group_by_type_for_user_picker')
-			? groupOptionsByType(options, groupByTypeOrder)
-			: options;
+		return groupByTypeOrder ? groupOptionsByType(options, groupByTypeOrder) : options;
 	};
 
 	private getAppearance = (): Appearance =>

@@ -1,5 +1,13 @@
 # @atlaskit/radio
 
+## 8.1.5
+
+### Patch Changes
+
+- [#186117](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/186117)
+  [`f13d15fae9df4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f13d15fae9df4) -
+  Remove unused type in radio.
+
 ## 8.1.4
 
 ### Patch Changes

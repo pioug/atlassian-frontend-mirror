@@ -11,6 +11,9 @@ const akEditorFullWidthLayoutWidth = 1800;
 // The breakpoint for small devices is 1266px, copied from getBreakpoint in platform/packages/editor/editor-common/src/ui/WidthProvider/index.tsx
 const akEditorBreakpointForSmallDevice = `1266px`;
 
+const akEditorGutterPaddingReduced = 24;
+const akEditorFullPageNarrowBreakout = 768;
+
 // jest warning: JSDOM version (22) doesn't support the new @container CSS rule
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const baseStyles = css({
@@ -56,5 +59,25 @@ export const baseStyles = css({
 		'.ProseMirror': {
 			'--ak-editor--breakout-wide-layout-width': `${akEditorCalculatedWideLayoutWidth}px`,
 		},
+	},
+});
+
+// This is to avoid using akEditorGutterPaddingDynamic()
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const editorLargeGutterPuddingBaseStyles = css({
+	'--ak-editor--large-gutter-padding': '52px',
+});
+
+// This is to avoid using akEditorGutterPaddingDynamic
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const editorLargeGutterPuddingBaseStylesEditorControls = css({
+	'--ak-editor--large-gutter-padding': '72px',
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const editorLargeGutterPuddingReducedBaseStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-container-queries, @atlaskit/ui-styling-standard/no-unsafe-values
+	[`@container editor-area (max-width: ${akEditorFullPageNarrowBreakout}px)`]: {
+		'--ak-editor--large-gutter-padding': `${akEditorGutterPaddingReduced}px`,
 	},
 });

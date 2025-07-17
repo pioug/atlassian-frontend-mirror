@@ -1,0 +1,111 @@
+{
+	"extends": "../../../../tsconfig.entry-points.rovo-extension.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../rovo-extension/tsDist/@atlaskit__profilecard/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../uip/atlassian-context/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/avatar/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/avatar-group/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/button/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/css/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/dropdown-menu/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/empty-state/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../measurement/feature-gate-js-client/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../team-central/give-kudos/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/heading/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/link/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/logo/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/lozenge/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/menu/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/modal-dialog/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../people-teams-ui-public/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/popup/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../ai-mate/rovo-agent-components/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../ai-mate/rovo-triggers/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/spinner/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../teams-app-config/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../teams-avatar/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../teams-public/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-rovo-extension/tsconfig.json"
+		}
+	]
+}

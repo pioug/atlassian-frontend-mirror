@@ -1,0 +1,42 @@
+{
+	"extends": "../../../../tsconfig.entry-points.rovo-extension.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../rovo-extension/tsDist/@atlaskit__editor-plugin-paste-options-toolbar/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../editor-markdown-transformer/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-analytics/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-paste/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-shared-styles/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-rovo-extension/tsconfig.json"
+		}
+	]
+}

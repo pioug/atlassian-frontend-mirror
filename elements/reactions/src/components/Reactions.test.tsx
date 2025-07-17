@@ -239,7 +239,7 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 		// click a different reaction tab
 		await userEvent.click(tabToClick!);
 
-		const closeBtn = screen.getByText('Close');
+		const closeBtn = screen.getByText('Close Modal');
 		await userEvent.click(closeBtn);
 
 		expect(onDialogOpenCallback).toBeCalledWith(

@@ -8,6 +8,8 @@ import type { UnsupportedContentLevelsTracking } from '@atlaskit/editor-common/u
 import type { ADFStage } from '@atlaskit/editor-common/validator';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EmojiResourceConfig } from '@atlaskit/emoji/resource';
+import type { GetPMNodeHeight } from '@atlaskit/editor-common/extensibility';
+
 import type { ReactSerializerInit, RendererContext, Serializer } from '../';
 import type { TextHighlighter, ExtensionViewportSize } from '../react/types';
 import type { RenderOutputStat } from '../render-document';
@@ -59,6 +61,7 @@ export interface RendererProps {
 	emojiResourceConfig?: EmojiResourceConfig;
 	smartLinks?: SmartLinksOptions;
 	extensionViewportSizes?: ExtensionViewportSize[];
+	getExtensionHeight?: GetPMNodeHeight;
 	allowAnnotations?: boolean;
 	annotationProvider?: AnnotationProviders | null;
 	innerRef?: React.RefObject<HTMLDivElement>;

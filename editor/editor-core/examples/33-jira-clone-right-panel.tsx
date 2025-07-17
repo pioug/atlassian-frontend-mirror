@@ -16,6 +16,7 @@ import ShareIcon from '@atlaskit/icon/core/migration/share';
 import MoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
 import LikeIcon from '@atlaskit/icon/core/migration/thumbs-up--like';
 import { RightSidebar, TopNavigation } from '@atlaskit/page-layout';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 

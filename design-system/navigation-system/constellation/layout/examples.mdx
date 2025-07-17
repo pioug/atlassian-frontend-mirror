@@ -1,31 +1,19 @@
 ---
 title: Layout
-description:
-  Layout components define consistent areas for navigation menus and other elements in the page
-  structure.
+description: Layout components define a page’s structure and the areas for navigation and content.
 order: 1
 ---
 
 import SectionMessage from '@atlaskit/section-message';
 
-import { BannerLayoutExample } from '../../examples/constellation/layout/banner';
-import { TopNavLayoutExample } from '../../examples/constellation/layout/top-nav';
-import { MainLayoutExample } from '../../examples/constellation/layout/main';
-import { SideNavLayoutExample } from '../../examples/constellation/layout/side-nav';
-import { SideNavSlotsExample } from '../../examples/constellation/layout/side-nav-slots';
-import { AsideLayoutExample } from '../../examples/constellation/layout/aside';
-import { PanelLayoutExample } from '../../examples/constellation/layout/panel';
-import { PanelSplitterLayoutExample } from '../../examples/constellation/layout/panel-splitter';
-import { AdvancedLayoutExample } from '../../examples/constellation/layout/advanced-layout';
 import { CustomSkipLinkExample } from '../../examples/constellation/layout/custom-skip-links';
 import { ExpandSideNavButtonExample } from '../../examples/constellation/layout/expand-side-nav';
 import { ToggleSideNavKeyboardShortcutExample } from '../../examples/constellation/layout/toggle-side-nav-keyboard-shortcut';
 
 import { PageLayoutDiagram } from './diagram';
 
-## Layout
-
-The full page layout with all areas rendered has the structure depicted below.
+The full page layout with all areas rendered has the structure depicted below, or see the
+[interactive example](/components/navigation-system/examples#examples).
 
 <PageLayoutDiagram />
 
@@ -36,45 +24,69 @@ When composing your page layout ensure that:
 
 ## Layout areas
 
-These are the distinct areas in the navigation layout. These components are designed to contain
-other components and content.
+These are the distinct areas in the layout. These components are designed to contain other
+components and content.
 
-### Root
-
-The root component of the navigation system, wrapping the entire view. It provides the React
-contexts that power the layout.
+For examples see
+[ready-made navigation experiences (Atlassians only)](https://hello.atlassian.net/wiki/x/rBE7MAE).
 
 ### Banner
 
-Use the `Banner` area to render a [banner component](/components/banner). It will always be
-displayed at the top of the screen.
+Use the `Banner` area to render a [banner](/components/banner) component. It will always display at
+the top of the screen.
 
-<Example Component={BannerLayoutExample} appearance="source-only" />
+### Top nav
 
-### TopNav
+Use the `TopNav` to render [top nav items](/components/navigation-system/top-nav-items).
 
-Use the `TopNav` to render [top nav items](/components/navigation-system/top-nav-items). It will
-display at the top of the screen, below the banner if one is present.
+- It will display at the top of the screen, below the banner if one is present. It has a fixed
+  height of `48px`.
+- Use the [top nav slots](#top-nav-slots) to position actions within top nav.
+- The top nav is responsive, with the [top nav items](/components/navigation-system/top-nav-items)
+  changing according to the viewport size.
 
-<Example Component={TopNavLayoutExample} appearance="source-only" />
+#### Top nav slots
+
+The TopNav has three layout components that you must use to position
+[top nav items](/components/navigation-system/top-nav-items) within the top nav flexbox.
+
+- `TopNavStart`. Area for left-aligned items.
+- `TopNavMiddle`. Area for centre-aligned items.
+- `TopNavEnd`. Area for right-aligned items.
+
+#### Top nav custom theming
+
+See the [custom theming](/components/navigation-system/layout/custom-theming) tab.
 
 ### Side nav
 
-Use the `SideNav` area to render
-[side navigation items](/components/navigation-system/side-navigation). It will show on the left of
-the screen.
+- Use the `SideNav` to render [side nav items](/components/navigation-system/side-nav-items). It
+  will show on the left of the screen. The default width of the side nav is `320px`.
+- Use the [side nav slots](#side-nav-slots) to position content within the side nav.
+- The side nav is collapsable and expandable, resizable, responsive, and offers flyout behaviour.
 
-Use the [side nav area components](#side-nav-areas) to position content within areas of the side
-nav.
+#### Side nav slots
 
-You can optionally render a [panel splitter](#panel-splitter) as a child to make the side navigation
-slot resizable.
+The `SideNav` has three layout components that you can use to position components within the side
+nav flexbox.
 
-<Example Component={SideNavLayoutExample} appearance="source-only" />
+- `SideNavHeader`. The top part of the side nav.
+- `SideNavContent`. The middle part of the side nav. It acts as a scroll container. It will grow to
+  take up the available space — this is used to push the footer to the bottom of the side nav.
+- `SideNavFooter`. The bottom part of the side nav.
 
-#### Programmatically toggling the side nav
+Note: make sure to render `SideNavContent` to ensure that the footer is positioned at the bottom of
+the side nav, simulating a sticky footer.
 
-There are two hooks available for toggling the side nav.
+#### Side nav collapse/expand
+
+The side nav can be collapsed and expanded using the the `SideNavToggleButton` from
+[top nav items](/components/navigation-system/top-nav-items).
+
+There are two hooks available for programmatically toggling the side nav.
+
+- `useExpandSideNav`
+- `useToggleSideNav`
 
 <SectionMessage title="Usage">
 	These hooks need to be used by components that are rendered as a child of <a href="#root">Root</a>
@@ -98,68 +110,119 @@ This is useful for toggling the side nav based on a keyboard shortcut.
 
 <Example Component={ToggleSideNavKeyboardShortcutExample} appearance="source-only" />
 
-### Side nav areas
+#### Side nav flyout
 
-The side nav has three layout components that you can use to position components within the side nav
-flexbox.
+- In the collapsed state, hovering over the `SideNavToggleButton` from
+  [top nav items](/components/navigation-system/top-nav-items) will trigger the side nav to open as
+  an overlay. Moving the curser away will close it. If there are any open supported ADS layering
+  components (e.g. Popups, Dropdown menus) within the side nav, the flyout will stay locked open,
+  until the layering components are closed.
 
-<Example Component={SideNavSlotsExample} appearance="source-only" />
+- The expansion and collapse of the side nav flyout is animated on **supported browsers**.
+  Currently, Firefox does not support the animation. Instead, it will instantly expand and collapse.
 
-#### SideNavHeader
+See the [interactive example](/components/navigation-system/examples#examples).
 
-The top part of the side nav.
+#### Side nav resizing
 
-#### SideNavContent
+- You can optionally render a [panel splitter](#resizable-areas) as a child to make the side nav
+  resizable. It is resized using the drag handle. When hovering on the drag handle the mouse pointer
+  changes to a resize pointer.
+- The side nav can be resized to a minimum width of 240px, and a maximum width equal to 50% of the
+  total viewport width. It retains this resized width even after collapsing, reopening, or
+  refreshing the page. When resizing, any open layer components (e.g. popups, dropdowns, selects,
+  tooltips) will be closed. See the interactive example.
 
-The middle part of the side nav. It acts as a scroll container.
+See the [interactive example](/components/navigation-system/examples#examples).
 
-It will grow to take up the available space in the side nav — this is used to push the footer to the
-bottom of the side nav.
+#### Side nav responsive
 
-#### SideNavFooter
+- At `s`, `xs`, and `xxs` breakpoints (i.e. viewports smaller than 1024px), the side nav
+  automatically collapses to make room for the content. Users have the option to manually open or
+  close the side nav according to their preferences. Doing so will open it as an overlay.
+- At `xs` and `xxs` breakpoints (i.e. viewports smaller than 768px), the max width of the overlay
+  side nav is either 320px or 90% of the screen width - whichever value is smaller.
 
-The bottom part of the side nav.
-
-**Note:** make sure to render `SideNavContent` as well to ensure that the footer is positioned at
-the bottom of the side nav, simulating a sticky footer.
-
-### Side nav flyout
-
-The `SideNav` has a flyout feature - where it will overlay on top of the main content when the user
-hovers over the `SideNavToggleButton` in the top bar, if the side nav was collapsed.
-
-- Hovering over the side nav will keep it in the flyout state.
-- Hovering away from the side nav will collapse the flyout.
-  - If there are any open supported ADS layering components (e.g. Popups, Dropdown menus) within the
-    side nav, the flyout will stay locked open, until the layering components are closed.
-
-The expansion and collapse of the side nav flyout is animated on **supported browsers**. Currently,
-Firefox does not support the animation. Instead, it will instantly expand and collapse.
+See the [interactive example](/components/navigation-system/examples#examples).
 
 ### Main
 
-Use the `Main` area for the main page content. It has a fluid width and will expand to fill
-available space.
+Use `Main` for the [page header](/components/page-header) and main page content. It will expand to
+fill available space.
 
-<Example Component={MainLayoutExample} appearance="source-only" />
+- On large viewports `Main` can be fixed, meaning it will have its own scroll container and not use
+  the body scroll.
+- On small viewports, the element will always use body scroll, to make it easier to scroll the page
+  when the content is tall.
 
 ### Aside
 
+`Aside` is rendered to the right of the `Main` area.
+
+- The default width of the Aside is 330px, and it is resizable and responsive.
+- On large viewports the Aside can be fixed, meaning it will have its own scroll container and not
+  use the body scroll.
+- On small viewports, the element will always use body scroll, to make it easier to scroll the page
+  when the content is tall.
+
 The `Aside` is rendered to the right of the `Main` area.
 
-You can optionally render a [panel splitter](#panel-splitter) as a child to make the aside area
+See the [interactive example](/components/navigation-system/examples#examples).
+
+#### Aside resizing
+
+You can optionally render a [panel splitter](#resizable-areas) as a child to make the `Aside`
 resizable.
 
-<Example Component={AsideLayoutExample} appearance="source-only" />
+- It is resized using the drag handle. When hovering on the drag handle the mouse pointer changes to
+  a resize pointer.
+- The `Aside` can be resized to a minimum width of 120px, and a maximum width equal to 50% of the
+  total viewport width. It retains this resized width even after refreshing the page.
+
+See the [interactive example](/components/navigation-system/examples#examples).
+
+#### Aside responsive
+
+At `s`, `xs`, and `xxs` breakpoints (i.e. viewports smaller than 1024px), the `Aside` moves below
+the `Main` area, and conforms to `Main` width and behaviour.
+
+See the [interactive example](/components/navigation-system/examples#examples).
 
 ### Panel
 
 The `Panel` is rendered to the right of the `Main` and `Aside` areas.
 
-You can optionally render a [panel splitter](#panel-splitter) as a child to make the panel area
-resizable.
+- The default width of the panel is `365px`, which can be modified using the `defaultWidth` prop.
+- The panel is collapsable and expandable, resizable, and responsive.
 
-<Example Component={PanelLayoutExample} appearance="source-only" />
+Common usage is to house
+[Preview panel (Atlassians only)](https://atlaskit-website-staging.stg-east.frontend.public.atl-paas.net/#/packages/navigation/preview-panel)
+
+#### Panel collapse/expand
+
+The panel can be collapsed and expanded using a trigger of your choosing.
+
+See the [interactive example](/components/navigation-system/examples#examples).
+
+#### Panel resizing
+
+You can optionally render a [panel splitter](#resizable-areas) as a child to make the panel
+resizable. It can be resized using the drag handle. When hovering on the drag handle the mouse
+pointer changes to a resize pointer.
+
+- The panel can be resized larger than the `defaultWidth` to a maximum of 50% of content area
+  (viewport minus `side nav area`).
+- It retains this resized width even after collapsing, reopening, or refreshing the page.
+- It has no ability to resize smaller than `defaultWidth`.
+
+See the [interactive example](/components/navigation-system/examples#examples).
+
+#### Panel responsive
+
+At `m` breakpoints (between 1024-1440px), the `Panel` will overlay `Aside`. At `s` breakpoints and
+below (less than 1024px) it will start to overlay the `Main` area.
+
+See the [interactive example](/components/navigation-system/examples#examples).
 
 ## Resizable areas
 
@@ -171,25 +234,32 @@ Resizing is supported for the following areas:
 - `Aside`
 - `Panel`
 
-<Example Component={PanelSplitterLayoutExample} appearance="source-only" />
+See the [interactive example](/components/navigation-system/examples#examples).
 
-## Advanced layouts
+| Area      | Default width      | Min width             | Max width                                    |
+| --------- | ------------------ | --------------------- | -------------------------------------------- |
+| `SideNav` | 320px              | 240px                 | 50% of viewport width                        |
+| `Aside`   | 330px (modifiable) | 120px                 | 50% of viewport width                        |
+| `Panel`   | 365px (modifiable) | Same as default width | 50% of content area (viewport minus SideNav) |
 
-<SectionMessage appearance="warning" title="Use with caution">
-	We recommend aligning with our standard page layout wherever possible. Advanced layouts require
-	you to maintain additional complexity.
-</SectionMessage>
+## Responsive
 
-Advanced layouts can be created inside of the [main area](#main).
+Layout areas respond to the viewport size. See default behaviour below, or the
+[interactive example](/components/navigation-system/examples#examples).
 
-<Example Component={AdvancedLayoutExample} appearance="source-only" />
+| Breakpoint | Viewport      | Side nav                    | Aside        | Panel                                                       |
+| ---------- | ------------- | --------------------------- | ------------ | ----------------------------------------------------------- |
+| `xxs`      | 320 - 479px   | Collapsed; opens as overlay | Below Main   | Collapsed; opens as overlay (over Main)                     |
+| `xs`       | 480 - 767px   | Collapsed; opens as overlay | Below Main   | Collapsed; opens as overlay (over Main)                     |
+| `s`        | 768 - 1023px  | Collapsed; opens as overlay | Below Main   | Collapsed; opens as overlay (over Main)                     |
+| `m`        | 1024 - 1439px | Expanded (inline)           | Next to Main | Collapsed; opens inline (or as overlay if Aside is present) |
+| `l`        | 1440 - 1767px | Expanded (inline)           | Next to Main | Collapsed; Opens inline                                     |
+| `xl`       | 1768+px       | Expanded (inline)           | Next to Main | Collapsed; Opens inline                                     |
 
-### Custom skip links
+## Custom skip links
 
-Use `useSkipLink` to register custom skip links where appropriate.
-
-The `useSkipLink` hook accepts an optional third argument to manually specify the index of the skip
-link in the list.
+Use `useSkipLink` to register custom skip links where appropriate. The `useSkipLink` hook accepts an
+optional third argument to manually specify the index of the skip link in the list.
 
 You can also optionally use the `useSkipLinkId` hook to retrieve a unique ID for use for your skip
 link.

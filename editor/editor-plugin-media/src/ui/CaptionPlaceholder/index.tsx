@@ -10,6 +10,7 @@ import { FormattedMessage } from 'react-intl-next';
 
 import { captionMessages as messages } from '@atlaskit/editor-common/media';
 import { CAPTION_PLACEHOLDER_ID } from '@atlaskit/editor-common/media-single';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Pressable, Text, xcss } from '@atlaskit/primitives';
 import { N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';

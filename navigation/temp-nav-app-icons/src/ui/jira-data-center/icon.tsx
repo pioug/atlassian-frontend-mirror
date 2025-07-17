@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::970fb397f7980ed3c6e9adb81d160b18>>
+ * @codegen <<SignedSource::be11a29c939ff0f2a727a12285a62df7>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -25,11 +25,16 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
  * to enable the new design by default.
  *
  */
-export function JiraDataCenterIcon({ size, appearance = 'brand', label, testId }: AppIconProps) {
+export function JiraDataCenterIcon({
+	size,
+	appearance = 'brand',
+	label = 'Jira Data Center',
+	testId,
+}: AppIconProps) {
 	return (
 		<IconWrapper
 			svg={svg}
-			label={label || 'Jira Data Center'}
+			label={label}
 			isDataCenter={true}
 			appearance={appearance}
 			size={size}

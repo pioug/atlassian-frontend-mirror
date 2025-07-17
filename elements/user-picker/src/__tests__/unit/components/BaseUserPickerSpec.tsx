@@ -8,7 +8,7 @@ import { type ConcurrentExperience, type UFOExperience, ufologger } from '@atlas
 import { mount, shallow, type ReactWrapper } from 'enzyme';
 import debounce from 'lodash/debounce';
 import React from 'react';
-import { fg } from '@atlaskit/platform-feature-flags';
+
 import {
 	BaseUserPicker,
 	BaseUserPickerWithoutAnalytics,
@@ -44,14 +44,6 @@ mockDebounce.mockImplementation((fn) => {
 	debouncedFn.flush = jest.fn();
 	return debouncedFn;
 });
-
-/**
- * ffTest.on is causing some issues, given the mock is only temporary I'm just manually mocking the fg function
- */
-jest.mock('@atlaskit/platform-feature-flags', () => ({
-	...jest.requireActual('@atlaskit/platform-feature-flags'),
-	fg: jest.fn(),
-}));
 
 const mockFormatMessage = (descriptor: any) => descriptor.defaultMessage;
 const mockIntl = { formatMessage: mockFormatMessage };
@@ -1175,18 +1167,15 @@ describe('BaseUserPicker', () => {
 				expect(onChange).toHaveBeenCalledWith(mixedOptions.slice(0, 8), 'select-option');
 			});
 
-			it('should not group options by type if groupByTypeOrder is disabled', () => {
-				(fg as jest.Mock).mockReturnValue(false);
+			it('should not group options by type if groupByTypeOrder is undefined', () => {
 				const component = shallowUserPicker({
 					options: mixedOptions,
-					groupByTypeOrder: ['team', 'group'],
 				});
 				const select = component.find(Select);
 				expect(select.prop('options')).toEqual(selectableMixedOptions);
 			});
 
-			it('should group options by type if groupByTypeOrder is enabled', () => {
-				(fg as jest.Mock).mockReturnValue(true);
+			it('should group options by type if groupByTypeOrder is passed', () => {
 				const component = shallowUserPicker({
 					options: mixedOptions,
 					groupByTypeOrder: ['team', 'group'],

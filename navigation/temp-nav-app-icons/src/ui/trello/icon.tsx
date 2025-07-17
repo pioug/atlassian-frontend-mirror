@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::89fdf77b0d498ce3b1ceb564e71bdafe>>
+ * @codegen <<SignedSource::05385a6d8a6e0950a657f507588ba895>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -32,7 +32,7 @@ export function TrelloIcon({
 	iconColor,
 	size,
 	appearance = 'brand',
-	label,
+	label = 'Trello',
 	testId,
 }: ThemedIconProps) {
 	return (
@@ -40,7 +40,7 @@ export function TrelloIcon({
 			svg={svg}
 			customThemeSvg={customThemeSvg}
 			iconColor={iconColor}
-			label={label || 'Trello'}
+			label={label}
 			appearance={appearance}
 			size={size}
 			testId={testId}

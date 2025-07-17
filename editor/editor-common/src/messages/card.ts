@@ -63,6 +63,11 @@ export const messages = defineMessages({
 		defaultMessage: 'Open',
 		description: 'Title for a button that opens a link when clicked.',
 	},
+	panelButtonTitle: {
+		id: 'fabric.editor.panelButtonTitle',
+		defaultMessage: 'Panel',
+		description: 'Title for a button that opens side panel when clicked.',
+	},
 	embedTitle: {
 		id: 'fabric.editor.embedTitle',
 		defaultMessage: 'Embed',

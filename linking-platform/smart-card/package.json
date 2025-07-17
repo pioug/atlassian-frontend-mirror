@@ -253,6 +253,9 @@
 		"platform_renderer_blindspots": {
 			"type": "boolean"
 		},
+		"platform_editor_preview_panel_linking": {
+			"type": "boolean"
+		},
 		"platform-linking-enable-avatar-data-separator": {
 			"type": "boolean"
 		},

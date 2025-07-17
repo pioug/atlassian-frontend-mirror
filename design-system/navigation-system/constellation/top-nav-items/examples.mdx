@@ -1,0 +1,101 @@
+---
+title: Top nav items
+description: Buttons and elements for the top nav.
+order: 1
+---
+
+import SectionMessage from '@atlaskit/section-message';
+
+import { TopNavStartLayoutExample } from '../../examples/constellation/top-nav-items/top-nav-start';
+import { TopNavMiddleLayoutExample } from '../../examples/constellation/top-nav-items/top-nav-middle';
+import { TopNavEndLayoutExample } from '../../examples/constellation/top-nav-items/top-nav-end';
+import { NavLogoExample } from '../../examples/constellation/top-nav-items/nav-logo';
+import { CustomNavLogoExample } from '../../examples/constellation/top-nav-items/custom-nav-logo';
+import { CustomThemingLogoExample } from '../../examples/constellation/top-nav-items/custom-theming--logo';
+import { CustomThemingSearchExample } from '../../examples/constellation/top-nav-items/custom-theming--search';
+import { CustomThemingButtonsExample } from '../../examples/constellation/top-nav-items/custom-theming--buttons';
+
+These components are designed to go in the
+[top bar layout area](/components/navigation-system/layout/examples#top-bar).
+
+## TopNavStart
+
+TopNavStart are displayed in the left of the top bar.
+
+<Example Component={TopNavStartLayoutExample} />
+
+## TopNavMiddle
+
+Use `TopNavMiddle` for actions which are common between products. These are displayed in the center
+of the top bar.
+
+This area will grow and shrink with the available space.
+
+<SectionMessage>
+
+The search bar must be the first child in `TopNavMiddle`, in line with our design specifications. If
+this is not the case, you may see unexpected layout behavior.
+
+</SectionMessage>
+
+<Example Component={TopNavMiddleLayoutExample} />
+
+## TopNavEnd
+
+Use `TopNavEnd` for actions related to the current user. These are displayed in the right of the top
+bar.
+
+<Example Component={TopNavEndLayoutExample} />
+
+## Navigation logo
+
+Use the `NavLogo` component to display a logo in the top bar. It will switch to an icon at small
+viewport widths.
+
+<Example Component={NavLogoExample} />
+
+### Custom logos
+
+Do not provide explicit width and height values when using custom logos. Otherwise they will not
+respect the container size.
+
+<Example Component={CustomNavLogoExample} />
+
+## Custom theming
+
+Custom theming is set on the [top nav](/components/navigation-system/layout/examples#top-nav).
+
+### Logos
+
+Logos and icons from the [Logo](/components/logo) package will automatically consume the theme when
+used with the `NavLogo` component.
+
+Custom logos uploaded by organization admins are unaffected by theming.
+
+<Example Component={CustomThemingLogoExample} />
+
+### Search
+
+Use the `useLegacySearchTheme()` hook to obtain a theme value that is compatible with existing
+Search Platform components.
+
+<SectionMessage appearance="warning" title="Use sparingly">
+
+Do not create new components that rely on the `useLegacySearchTheme()` hook. It is only intended for
+backwards compatibility, and may be deprecated if the Search Platform evolves.
+
+</SectionMessage>
+
+<Example Component={CustomThemingSearchExample} />
+
+### Buttons
+
+Do not use [Button](/components/button) inside of the top navigation.
+
+Use the action components exported from this package (such as `AppSwitcher` and `Create`) as they
+will automatically consume the custom theme.
+
+Custom actions can be created using `EndItem` for icon buttons and `TopNavButton` for buttons with
+visible text.
+
+<Example Component={CustomThemingButtonsExample} />

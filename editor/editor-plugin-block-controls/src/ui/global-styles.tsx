@@ -14,6 +14,8 @@ import {
 	akEditorCalculatedWideLayoutWidth,
 	akEditorCalculatedWideLayoutWidthSmallViewport,
 	akEditorGutterPaddingDynamic,
+	akEditorGutterPaddingReduced,
+	akEditorFullPageNarrowBreakout,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { layers } from '@atlaskit/theme/constants';
@@ -123,6 +125,22 @@ const extendedHoverZone = () =>
 			display: 'none',
 		},
 	});
+
+const extendHoverZoneReduced = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+		[`&& [data-drag-handler-anchor-depth="0"]${dragHandlerAnchorSelector}::after`]: {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-container-queries, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			[`@container editor-area (max-width: ${akEditorFullPageNarrowBreakout}px)`]: {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+				left: `-${akEditorGutterPaddingReduced}px`,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+				width: `${akEditorGutterPaddingReduced}px`,
+			},
+		},
+	},
+});
 
 const extendedDragZone = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -421,6 +439,9 @@ export const GlobalStylesWrapper = ({
 				globalDnDStyle,
 				extendedHoverZone(),
 				isDragging && extendedDragZone,
+				expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true)
+					? extendHoverZoneReduced
+					: undefined,
 				editorExperiment('platform_editor_controls', 'variant1') ? undefined : withInlineNodeStyle,
 				editorExperiment('platform_editor_block_control_optimise_render', true)
 					? quickInsertStyles

@@ -16,6 +16,7 @@ import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
 import TextIcon from '@atlaskit/icon/core/text';
 import { default as TextStyleIconLegacy } from '@atlaskit/icon/glyph/editor/text-style';
 import { fg } from '@atlaskit/platform-feature-flags';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';

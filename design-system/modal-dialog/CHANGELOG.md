@@ -1,5 +1,13 @@
 # @atlaskit/modal-dialog
 
+## 14.2.12
+
+### Patch Changes
+
+- [#186153](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/186153)
+  [`4389a7b035d36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4389a7b035d36) -
+  Add testid for modal-dialog to confirm a TTVC blindspot is caused by modal dialog
+
 ## 14.2.11
 
 ### Patch Changes

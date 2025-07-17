@@ -5,7 +5,10 @@ import {
 	akEditorDefaultLayoutWidth,
 	akEditorFullWidthLayoutWidth,
 	akEditorGutterPaddingDynamic,
+	akEditorGutterPaddingReduced,
+	akEditorFullPageNarrowBreakout,
 } from '@atlaskit/editor-shared-styles';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 const numberOfLanesInDefaultLayoutWidth = 12;
 
@@ -29,6 +32,13 @@ export type GuidelineExcludeConfig = {
 	breakoutPoints: boolean;
 };
 
+const getPadding = (editorContainerWith: number) => {
+	return editorContainerWith <= akEditorFullPageNarrowBreakout &&
+		expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true)
+		? akEditorGutterPaddingReduced
+		: akEditorGutterPaddingDynamic();
+};
+
 // FF TablePreserve for calculateDefaultSnappings
 export const calculateDefaultTablePreserveSnappings = (
 	lengthOffset = 0,
@@ -38,10 +48,11 @@ export const calculateDefaultTablePreserveSnappings = (
 		breakoutPoints: false,
 	},
 ) => {
+	const padding = getPadding(editorContainerWith);
 	const dynamicFullWidthLine =
-		editorContainerWith - akEditorGutterPaddingDynamic() * 2 >= akEditorFullWidthLayoutWidth
+		editorContainerWith - padding * 2 >= akEditorFullWidthLayoutWidth
 			? akEditorFullWidthLayoutWidth
-			: editorContainerWith - akEditorGutterPaddingDynamic() * 2;
+			: editorContainerWith - padding * 2;
 
 	const guides = [dynamicFullWidthLine - lengthOffset];
 
@@ -77,7 +88,8 @@ export const defaultTablePreserveSnappingWidths = (
 		breakoutPoints: false,
 	},
 ) => {
-	return editorContainerWidth - akEditorGutterPaddingDynamic() * 2 > akEditorFullWidthLayoutWidth
+	const padding = getPadding(editorContainerWidth);
+	return editorContainerWidth - padding * 2 > akEditorFullWidthLayoutWidth
 		? calculateDefaultSnappings()
 		: calculateDefaultTablePreserveSnappings(lengthOffset, editorContainerWidth, exclude); // lengthOffset was hardcoded 0 here, created PRESERVE_TABLE_SNAPPING_LENGTH_OFFSET instead.
 };

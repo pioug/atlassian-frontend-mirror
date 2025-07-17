@@ -7,6 +7,7 @@ import { jsx } from '@emotion/react';
 
 import { browser } from '@atlaskit/editor-common/browser';
 import type { Keymap } from '@atlaskit/editor-common/keymaps';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 

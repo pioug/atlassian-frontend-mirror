@@ -117,6 +117,10 @@ export async function createSegmentMetricsPayloads(
 		const ttai = Math.round(endTime - startTime);
 
 		const { status, abortReason: segmentAbortReason } = getSegmentStatus(interaction, segment);
+		if (status !== 'SUCCEEDED') {
+			// To reduce payload sent from the client, we don't send critical perf metrics for non-success interactions
+			continue;
+		}
 
 		const properties: CriticalMetricsPayloadProperties = {
 			// Basic metadata

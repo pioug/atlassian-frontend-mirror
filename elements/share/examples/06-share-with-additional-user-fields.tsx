@@ -15,6 +15,7 @@ import { type IconButtonProps } from '@atlaskit/button/new';
 import { Field } from '@atlaskit/form';
 import WorldIcon from '@atlaskit/icon/core/migration/globe--world';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import SectionMessage from '@atlaskit/section-message';
 import Select, { type ValueType } from '@atlaskit/select';

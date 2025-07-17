@@ -26,6 +26,7 @@ interface Props {
 	localId?: string;
 	marks?: PMMark[];
 	extensionViewportSizes?: ExtensionViewportSize[];
+	nodeHeight?: string;
 }
 
 type AllOrNone<T> = T | { [K in keyof T]?: never };
@@ -76,6 +77,7 @@ export const renderExtension = (
 	removeOverflow?: boolean,
 	extensionId?: string,
 	extensionViewportSizes?: ExtensionViewportSize[],
+	nodeHeight?: string,
 ) => {
 	const overflowContainerClass = !removeOverflow
 		? RendererCssClassName.EXTENSION_OVERFLOW_CONTAINER
@@ -87,7 +89,14 @@ export const renderExtension = (
 		isTopLevel && ['wide', 'full-width'].includes(layout)
 			? RendererCssClassName.EXTENSION_CENTER_ALIGN
 			: '';
+	/**
+	 * To reduce cumulative layout shift, we check installed manifest values (viewportSize) for Forge and extension node parameters
+	 * for Connect (legacy). As Connect is being phased out, we want Forge to also start to store its expected height
+	 * in node parameters, especially for dynamic content macros. LegacyMacroStyledElements implements logic similar to here
+	 * as the extension handler in CFE for legacy macros and Connect.
+	 */
 	const viewportSize = getViewportSize(extensionId, extensionViewportSizes);
+	const extensionHeight = nodeHeight || viewportSize;
 	return (
 		<WidthConsumer>
 			{({ width }) => (
@@ -98,7 +107,8 @@ export const renderExtension = (
 					style={{
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						width: isTopLevel ? calcBreakoutWidth(layout, width) : '100%',
-						minHeight: viewportSize,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+						minHeight: extensionHeight,
 					}}
 					data-layout={layout}
 				>
@@ -119,7 +129,9 @@ const Extension = (props: React.PropsWithChildren<Props & OverflowShadowProps>) 
 		path = [],
 		extensionViewportSizes,
 		parameters,
+		nodeHeight,
 	} = props;
+
 	return (
 		<ExtensionRenderer
 			// Ignored via go/ees005
@@ -142,6 +154,7 @@ const Extension = (props: React.PropsWithChildren<Props & OverflowShadowProps>) 
 							undefined,
 							parameters?.extensionId,
 							extensionViewportSizes,
+							nodeHeight,
 						);
 					}
 				} catch (e) {
@@ -160,6 +173,7 @@ const Extension = (props: React.PropsWithChildren<Props & OverflowShadowProps>) 
 					undefined,
 					parameters?.extensionId,
 					extensionViewportSizes,
+					nodeHeight,
 				);
 			}}
 		</ExtensionRenderer>

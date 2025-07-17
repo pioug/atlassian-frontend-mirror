@@ -1,7 +1,5 @@
 import React, { PureComponent } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { OutsideClickTargetRefContext, withReactEditorViewOuterListeners } from '../../ui-react';
 import type { WithOutsideClickProps } from '../../ui-react/with-react-editor-view-outer-listeners';
 import type { OpenChangedEvent } from '../../ui/DropList';
@@ -80,12 +78,7 @@ export class Dropdown extends PureComponent<Props, State> {
 	};
 
 	componentDidUpdate(prevProps: Readonly<Props>): void {
-		if (
-			!prevProps.isOpen &&
-			this.props.isOpen &&
-			this.state.target &&
-			fg('platform_editor_floating_toolbar_dropdown_flicker')
-		) {
+		if (!prevProps.isOpen && this.props.isOpen && this.state.target) {
 			// Dropdown flickers when opens as placement is calculated in Popup component and updated after the first render.
 			// popupPlacement is set to ['bottom', 'left'] by default, but it may not be the correct placement and is required in DropdownList.
 			// To avoid flicker we calculate placement here and set it to state when the dropdown opens.

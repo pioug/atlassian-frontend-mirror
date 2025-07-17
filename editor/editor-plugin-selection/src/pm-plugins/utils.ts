@@ -321,6 +321,14 @@ export const isSelectionAtEndOfParentNode = ($pos: ResolvedPos, selection: Selec
 		return false;
 	}
 
+	// Handle layout columns: if another node follows, not at end
+	if (
+		isSelectionAtEndOfLayoutColumn($pos) &&
+		fg('platform_editor_fix_right_arrow_nav_bug_in_layout')
+	) {
+		return false;
+	}
+
 	// Default: if at end of parent's parent
 	const $after = $pos.doc.resolve($pos.after());
 	return $after.parent.content.size === $after.parentOffset;
@@ -402,4 +410,34 @@ export const findTopLevelList = (pos: ResolvedPos): { node: PmNode; pos: number 
 		currentDepth--;
 	}
 	return topLevelList;
+};
+
+/**
+ * Determines whether the current selection position is at the end of a layout column node.
+ */
+export const isSelectionAtEndOfLayoutColumn = ($pos: ResolvedPos): boolean => {
+	const layoutColumnParent = findParentNodeClosestToPos($pos, isLayoutColumnNode);
+	if (!layoutColumnParent) {
+		return false;
+	}
+
+	const grandParentDepth = $pos.depth - 1;
+	if (grandParentDepth < 0) {
+		return false;
+	}
+	const { layoutColumn } = $pos.doc.type.schema.nodes;
+
+	const grandParent = $pos.node(grandParentDepth);
+	const afterPos = layoutColumnParent.pos + layoutColumnParent.node.nodeSize;
+	const $after = $pos.doc.resolve(afterPos);
+
+	return Boolean($after.nodeAfter) && grandParent.type === layoutColumn;
+};
+
+/**
+ * Determines if the given node is a LayoutColumn node.
+ */
+export const isLayoutColumnNode = (node: PmNode | null | undefined) => {
+	const { layoutColumn } = node?.type?.schema?.nodes || {};
+	return Boolean(node && node.type && node.type === layoutColumn);
 };

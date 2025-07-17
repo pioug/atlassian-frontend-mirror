@@ -14,7 +14,10 @@ import {
 	akEditorFullWidthLayoutWidth,
 	akEditorGutterPaddingDynamic,
 	akEditorTableNumberColumnWidth,
+	akEditorGutterPaddingReduced,
+	akEditorFullPageNarrowBreakout,
 } from '@atlaskit/editor-shared-styles';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { TableOptions } from '../../../nodeviews/types';
 
@@ -33,8 +36,16 @@ export function getLayoutSize(
 	const { isFullWidthModeEnabled } = options;
 
 	if (isFullWidthModeEnabled) {
+		let padding: number = akEditorGutterPaddingDynamic();
+		if (
+			containerWidth <= akEditorFullPageNarrowBreakout &&
+			expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true)
+		) {
+			padding = akEditorGutterPaddingReduced;
+		}
+
 		return containerWidth
-			? Math.min(containerWidth - akEditorGutterPaddingDynamic() * 2, akEditorFullWidthLayoutWidth)
+			? Math.min(containerWidth - padding * 2, akEditorFullWidthLayoutWidth)
 			: akEditorFullWidthLayoutWidth;
 	}
 

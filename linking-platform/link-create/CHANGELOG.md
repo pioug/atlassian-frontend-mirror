@@ -1,5 +1,13 @@
 # @atlaskit/link-create
 
+## 4.2.2
+
+### Patch Changes
+
+- [#186419](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/186419)
+  [`4464c7e383adf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4464c7e383adf) -
+  NAVX-1054 cleaning up platform link create button migration fg
+
 ## 4.2.1
 
 ### Patch Changes

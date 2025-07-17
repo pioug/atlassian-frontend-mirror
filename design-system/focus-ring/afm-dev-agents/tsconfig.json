@@ -1,0 +1,24 @@
+{
+	"extends": "../../../../tsconfig.entry-points.dev-agents.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../dev-agents/tsDist/@atlaskit__focus-ring/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../tokens/afm-dev-agents/tsconfig.json"
+		}
+	]
+}

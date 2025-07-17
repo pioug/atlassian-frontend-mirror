@@ -1,0 +1,33 @@
+{
+	"extends": "../../../../tsconfig.entry-points.rovo-extension.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../rovo-extension/tsDist/@atlaskit__editor-plugin-ncs-step-metrics/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../editor-plugin-analytics/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-collab-edit/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../helpers/frontend-utilities/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-rovo-extension/tsconfig.json"
+		}
+	]
+}

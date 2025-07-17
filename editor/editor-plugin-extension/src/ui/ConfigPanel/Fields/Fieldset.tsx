@@ -19,6 +19,7 @@ import type {
 import { configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
 import Heading from '@atlaskit/heading';
 import AddCircleIcon from '@atlaskit/icon/core/migration/add--add-circle';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Text, xcss } from '@atlaskit/primitives';
 import SectionMessage from '@atlaskit/section-message';
 import Select from '@atlaskit/select';

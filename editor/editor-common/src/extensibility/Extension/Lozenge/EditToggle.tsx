@@ -11,6 +11,7 @@ import { defineMessages, useIntl } from 'react-intl-next';
 
 import CheckMarkIcon from '@atlaskit/icon/core/check-mark';
 import EditIcon from '@atlaskit/icon/core/edit';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Flex, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 

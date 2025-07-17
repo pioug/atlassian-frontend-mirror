@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::81f4c1de45b57b13035f93b68808f5c0>>
+ * @codegen <<SignedSource::d7e353680649504e5005ac163dde6655>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -33,7 +33,7 @@ export function AssetsIcon({
 	iconColor,
 	size,
 	appearance = 'brand',
-	label,
+	label = 'Assets',
 	testId,
 }: ThemedIconProps) {
 	return (
@@ -41,7 +41,7 @@ export function AssetsIcon({
 			svg={svg}
 			customThemeSvg={customThemeSvg}
 			iconColor={iconColor}
-			label={label || 'Assets'}
+			label={label}
 			appearance={appearance}
 			size={size}
 			testId={testId}

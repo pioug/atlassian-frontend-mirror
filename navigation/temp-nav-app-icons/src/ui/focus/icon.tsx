@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::469d0b4a1a6ecbb9b2067716e40060e8>>
+ * @codegen <<SignedSource::bc3eeb7d4cfaf5ff93494f75e1a18082>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -24,14 +24,8 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
  * to enable the new design by default.
  *
  */
-export function FocusIcon({ size, appearance = 'brand', label, testId }: AppIconProps) {
+export function FocusIcon({ size, appearance = 'brand', label = 'Focus', testId }: AppIconProps) {
 	return (
-		<IconWrapper
-			svg={svg}
-			label={label || 'Focus'}
-			appearance={appearance}
-			size={size}
-			testId={testId}
-		/>
+		<IconWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);
 }

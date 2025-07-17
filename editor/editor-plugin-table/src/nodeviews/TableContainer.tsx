@@ -22,9 +22,12 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
 	akEditorDefaultLayoutWidth,
 	akEditorGutterPaddingDynamic,
+	akEditorGutterPaddingReduced,
+	akEditorFullPageNarrowBreakout,
 	akEditorMobileBreakoutPoint,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { setTableAlignmentWithTableContentWithPosWithAnalytics } from '../pm-plugins/commands/commands-with-analytics';
@@ -252,6 +255,13 @@ const useSharedState = sharedPluginStateHookMigratorFactory(
 	},
 );
 
+const getPadding = (containerWidth: number) => {
+	return containerWidth <= akEditorFullPageNarrowBreakout &&
+		expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true)
+		? akEditorGutterPaddingReduced
+		: akEditorGutterPaddingDynamic();
+};
+
 export const ResizableTableContainer = React.memo(
 	({
 		children,
@@ -355,6 +365,7 @@ export const ResizableTableContainer = React.memo(
 
 		let responsiveContainerWidth = 0;
 		const resizeHandleSpacing = 12;
+		const padding = getPadding(containerWidth);
 		// When Full width editor enabled, a Mac OS user can change "ak-editor-content-area" width by
 		// updating Settings -> Appearance -> Show scroll bars from "When scrolling" to "Always". It causes
 		// issues when viwport width is less than full width Editor's width. To detect avoid them
@@ -366,7 +377,7 @@ export const ResizableTableContainer = React.memo(
 			// scrollbarWidth can vary. Values can be 14, 15, 16 and up to 20px;
 			responsiveContainerWidth = isTableScalingEnabled
 				? lineLength
-				: containerWidth - akEditorGutterPaddingDynamic() * 2 - resizeHandleSpacing;
+				: containerWidth - padding * 2 - resizeHandleSpacing;
 
 			// platform_editor_table_fw_numcol_overflow_fix:
 			// lineLength is undefined on first paint → width: NaN → wrapper expands to page
@@ -380,8 +391,7 @@ export const ResizableTableContainer = React.memo(
 			// 2) TODO: widen lineLength to `number|undefined` and remove this block.
 			if (fg('platform_editor_table_fw_numcol_overflow_fix')) {
 				if (isTableScalingEnabled && !Number.isFinite(responsiveContainerWidth)) {
-					responsiveContainerWidth =
-						containerWidth - akEditorGutterPaddingDynamic() * 2 - resizeHandleSpacing;
+					responsiveContainerWidth = containerWidth - padding * 2 - resizeHandleSpacing;
 				}
 			}
 		} else if (isCommentEditor) {
@@ -392,8 +402,8 @@ export const ResizableTableContainer = React.memo(
 			// a DIV with className="ak-editor-content-area". This DIV has padding left and padding right.
 			// padding left = padding right = akEditorGutterPadding = 32
 			responsiveContainerWidth = isTableScalingEnabled
-				? containerWidth - akEditorGutterPaddingDynamic() * 2
-				: containerWidth - akEditorGutterPaddingDynamic() * 2 - resizeHandleSpacing;
+				? containerWidth - padding * 2
+				: containerWidth - padding * 2 - resizeHandleSpacing;
 		}
 		const width =
 			!node.attrs.width && isCommentEditor

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::aba08b6208c28b8e946fa0ece3f05df7>>
+ * @codegen <<SignedSource::a48cd0ac1ce9dea97cb133dca9e33de4>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -32,7 +32,7 @@ export function BitbucketIcon({
 	iconColor,
 	size,
 	appearance = 'brand',
-	label,
+	label = 'Bitbucket',
 	testId,
 }: ThemedIconProps) {
 	return (
@@ -40,7 +40,7 @@ export function BitbucketIcon({
 			svg={svg}
 			customThemeSvg={customThemeSvg}
 			iconColor={iconColor}
-			label={label || 'Bitbucket'}
+			label={label}
 			appearance={appearance}
 			size={size}
 			testId={testId}

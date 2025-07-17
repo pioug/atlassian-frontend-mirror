@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 3.1.5
+
+### Patch Changes
+
+- [#186324](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/186324)
+  [`71cfee4b93d26`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71cfee4b93d26) -
+  ED-28529 fix scroll to closest match if there are no forward matches for find and replace
+- Updated dependencies
+
 ## 3.1.4
 
 ### Patch Changes

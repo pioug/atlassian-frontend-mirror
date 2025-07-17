@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::34fb347e5ffeba73663aeacecaefce54>>
+ * @codegen <<SignedSource::d9b6abfb98a7cc46c15cd5bb68394677>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -24,14 +24,13 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
  * to enable the new design by default.
  *
  */
-export function StatuspageIcon({ size, appearance = 'brand', label, testId }: AppIconProps) {
+export function StatuspageIcon({
+	size,
+	appearance = 'brand',
+	label = 'Statuspage',
+	testId,
+}: AppIconProps) {
 	return (
-		<IconWrapper
-			svg={svg}
-			label={label || 'Statuspage'}
-			appearance={appearance}
-			size={size}
-			testId={testId}
-		/>
+		<IconWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);
 }

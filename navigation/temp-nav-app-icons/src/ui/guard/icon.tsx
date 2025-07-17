@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::469e5ed278fccb4166bd745311b6b130>>
+ * @codegen <<SignedSource::9cb16fe47b2bb06a618d6f42235f4d0b>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -24,14 +24,8 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
  * to enable the new design by default.
  *
  */
-export function GuardIcon({ size, appearance = 'brand', label, testId }: AppIconProps) {
+export function GuardIcon({ size, appearance = 'brand', label = 'Guard', testId }: AppIconProps) {
 	return (
-		<IconWrapper
-			svg={svg}
-			label={label || 'Guard'}
-			appearance={appearance}
-			size={size}
-			testId={testId}
-		/>
+		<IconWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);
 }

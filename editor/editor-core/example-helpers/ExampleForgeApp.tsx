@@ -9,6 +9,7 @@ import Button from '@atlaskit/button/new';
 import { type SelectionExtensionComponentProps } from '@atlaskit/editor-plugin-selection-extension';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Popup } from '@atlaskit/popup';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { xcss, Box } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 

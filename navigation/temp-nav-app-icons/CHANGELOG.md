@@ -1,5 +1,15 @@
 # @atlaskit/temp-nav-app-icons
 
+## 0.9.1
+
+### Patch Changes
+
+- [#185530](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185530)
+  [`f62520039d23f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f62520039d23f) -
+  Updated icon components to properly handle empty label prop. Removed default fallback values in
+  icon components to allow empty strings to pass through to IconWrapper, enabling proper decorative
+  behavior when label="" is provided.
+
 ## 0.9.0
 
 ### Minor Changes

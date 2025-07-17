@@ -13,6 +13,7 @@ import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { cardMessages } from '@atlaskit/editor-common/messages';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Anchor, Box, Text, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 

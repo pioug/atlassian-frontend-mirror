@@ -1,0 +1,75 @@
+{
+	"extends": "../../../../tsconfig.entry-points.rovo-extension.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../rovo-extension/tsDist/@atlaskit__jql-editor/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-gas-types/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../analytics/analytics-next/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/avatar/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/button/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/form/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../jql-ast/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../jql-autocomplete/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../jql-editor-common/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../jql-parser/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/legacy-custom-icons/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/link/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/spinner/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-rovo-extension/tsconfig.json"
+		}
+	]
+}

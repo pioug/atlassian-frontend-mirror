@@ -10,6 +10,7 @@ import classnames from 'classnames';
 import { FormattedMessage, defineMessages } from 'react-intl-next';
 
 import CustomizeIcon from '@atlaskit/icon/core/customize';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';

@@ -13,3 +13,5 @@ export function ExpandSideNavButtonExample({ onClick }: { onClick: () => void })
 
 	return <Button onClick={handleLaunchSpotlight}>Launch spotlight</Button>;
 }
+
+export default ExpandSideNavButtonExample;

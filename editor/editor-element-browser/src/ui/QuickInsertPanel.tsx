@@ -2,6 +2,7 @@ import React, { memo, useCallback } from 'react';
 
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import Section from '@atlaskit/menu/section';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Stack, Text, xcss } from '@atlaskit/primitives';
 
 import type { OnSelectItem, QuickInsertPanelProps } from '../types';

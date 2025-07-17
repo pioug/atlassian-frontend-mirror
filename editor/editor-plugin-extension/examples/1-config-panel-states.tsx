@@ -9,6 +9,7 @@ import { IntlProvider } from 'react-intl-next';
 import { DefaultExtensionProvider } from '@atlaskit/editor-common/extensions';
 import type { ExtensionManifest, ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import Link from '@atlaskit/link';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';

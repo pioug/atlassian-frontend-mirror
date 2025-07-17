@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7ffb877be556adbf53c9ab9495cd23a4>>
+ * @codegen <<SignedSource::55187565d76d0ab70107b394d5174d9a>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -24,14 +24,8 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
  * to enable the new design by default.
  *
  */
-export function LoomIcon({ size, appearance = 'brand', label, testId }: AppIconProps) {
+export function LoomIcon({ size, appearance = 'brand', label = 'Loom', testId }: AppIconProps) {
 	return (
-		<IconWrapper
-			svg={svg}
-			label={label || 'Loom'}
-			appearance={appearance}
-			size={size}
-			testId={testId}
-		/>
+		<IconWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);
 }

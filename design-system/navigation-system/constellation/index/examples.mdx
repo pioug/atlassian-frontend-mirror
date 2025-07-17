@@ -1,21 +1,19 @@
 import SectionMessage from '@atlaskit/section-message';
 
-import { IntegrationLayoutExample } from '../../examples/constellation/integration';
+import { InteractiveLayoutExample } from '../../examples/constellation/interactive-layout';
 
-Navigation is how users get around a site to complete their tasks.
+Navigation is how users get around a site to complete their tasks. The navigation-system package
+provides the following:
 
-## Overview
+- [Layout](/components/navigation-system/layout) defines a page’s structure and the areas for
+  navigation and content.
+- [Side nav items](/components/navigation-system/side-nav-items) create different sections, actions,
+  and links in the side nav.
+- [Top nav items](/components/navigation-system/top-nav-items) provide familiar actions and
+  utilities in the top nav.
 
-Atlassian’s navigation is made of these basic parts:
-
-- The [layout](/components/navigation-system/layout) defines clear areas for navigation elements
-- [Side navigation menus](/components/navigation-system/side-navigation) create a consistent feel
-  for actions and links
-- [Top navigation elements](/components/navigation-system/top-navigation) provide familiar spots for
-  common features
-
-These layout and menu areas contain the app switcher, search, and other key features in Atlassian
-products.
+For ready-made navigation experiences see
+[navigation guidelines (Atlassians only)](https://hello.atlassian.net/wiki/spaces/GLOBALNAV/pages/5104144812/Nav4+resources+for+makers).
 
 <SectionMessage title="Required: Compiled CSS configuration">
 	<p>
@@ -31,14 +29,15 @@ products.
 	</p>
 </SectionMessage>
 
-<!-- TODO: add go-link to hub. [Get details on navigation parts and what goes in them (Atlassians only)](/link-text)
- -->
+## Examples
 
-## Basic example
+To see in full screen interactive example below, open the code sandbox below.
 
-To see in full-screen, open the code sandbox below.
+<Example Component={InteractiveLayoutExample} appearance="source-only" />
 
-<!-- Only showing source to prevent nested context errors, as the example's `Root` is nested
-inside the docs website's `Root` -->
+## Related
 
-<Example Component={IntegrationLayoutExample} appearance="source-only" />
+- [Layout](/components/navigation-system/layout)
+- [Side nav items](/components/navigation-system/side-nav-items)
+- [Top nav items](/components/navigation-system/top-nav-items)
+- [Navigation experience guidelines (Atlassians only)](https://hello.atlassian.net/wiki/spaces/GLOBALNAV/pages/5104144812/Nav4+resources+for+makers)

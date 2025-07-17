@@ -1,0 +1,132 @@
+{
+	"extends": "../../../../tsconfig.entry-points.rovo-extension.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../rovo-extension/tsDist/@atlaskit__editor-plugin-extension/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../adf-utils/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../analytics/analytics-next/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/avatar/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/button/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/checkbox/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/datetime-picker/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-json-transformer/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-analytics/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-connectivity/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-context-identifier/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-context-panel/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-decorations/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-feature-flags/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-width/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-shared-styles/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-tables/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/empty-state/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/form/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/heading/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/link/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/radio/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/section-message/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/select/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../smart-experiences/smart-user-picker/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/spinner/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tabs/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/textarea/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/textfield/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/toggle/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-rovo-extension/tsconfig.json"
+		}
+	]
+}

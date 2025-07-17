@@ -4,6 +4,7 @@ import UserPicker from '../src';
 import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
 // eslint-disable-next-line @atlaskit/design-system/no-unsupported-drag-and-drop-libraries
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Stack, xcss } from '@atlaskit/primitives';
 import Heading from '@atlaskit/heading';
 

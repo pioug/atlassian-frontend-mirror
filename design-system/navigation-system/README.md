@@ -1,6 +1,6 @@
 # Navigation System
 
-The latest navigation system for Atlassian products.
+The latest navigation system for Atlassian apps.
 
 Atlassian’s navigation is made of these basic parts:
 

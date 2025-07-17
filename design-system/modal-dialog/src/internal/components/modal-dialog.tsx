@@ -152,6 +152,7 @@ const ModalDialog = (
 
 	const id = useId();
 	const titleId = `modal-dialog-title-${id}`;
+	const defaultTestId = testId || 'modal-dialog';
 
 	useEffect(() => {
 		// Modal dialogs can appear on top of iframe elements that are on another domain.
@@ -181,8 +182,8 @@ const ModalDialog = (
 	});
 
 	const modalDialogContext = useMemo(
-		() => ({ testId, titleId, onClose, hasProvidedOnClose }),
-		[testId, titleId, onClose, hasProvidedOnClose],
+		() => ({ testId: defaultTestId, titleId, onClose, hasProvidedOnClose }),
+		[defaultTestId, titleId, onClose, hasProvidedOnClose],
 	);
 
 	useCloseOnEscapePress({
@@ -195,7 +196,7 @@ const ModalDialog = (
 		<Positioner
 			stackIndex={stackIndex!}
 			shouldScrollInViewport={shouldScrollInViewport}
-			testId={testId}
+			testId={defaultTestId}
 		>
 			<ModalContext.Provider value={modalDialogContext}>
 				<ScrollContext.Provider value={shouldScrollInViewport}>
@@ -222,7 +223,7 @@ const ModalDialog = (
 								className={bottomFadeInProps.className}
 								role="dialog"
 								aria-labelledby={label ? undefined : titleId}
-								data-testid={testId}
+								data-testid={defaultTestId}
 								data-modal-stack={stackIndex}
 								tabIndex={-1}
 								aria-modal={true}

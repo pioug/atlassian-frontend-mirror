@@ -11,6 +11,7 @@ import LinkFilledIcon from '@atlaskit/icon/core/migration/link--link-filled';
 import CheckCircleIcon from '@atlaskit/icon/core/migration/success--check-circle';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Popup, { type TriggerProps } from '@atlaskit/popup';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { G300 } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';

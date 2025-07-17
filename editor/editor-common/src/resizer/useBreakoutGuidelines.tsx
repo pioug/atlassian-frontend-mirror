@@ -6,9 +6,12 @@ import {
 	akEditorFullWidthLayoutWidth,
 	akEditorGutterPadding,
 	akEditorGutterPaddingDynamic,
+	akEditorGutterPaddingReduced,
+	akEditorFullPageNarrowBreakout,
 	breakoutWideScaleRatio,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { type GuidelineConfig } from '../guideline';
@@ -65,8 +68,16 @@ export function useBreakoutGuidelines(
 			fg('platform_editor_layout_guideline_full_width_fix')
 				? akEditorCalculatedWideLayoutWidth
 				: wideCalWithRatio;
+
+		const padding =
+			width &&
+			width <= akEditorFullPageNarrowBreakout &&
+			expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true)
+				? akEditorGutterPaddingReduced
+				: akEditorGutterPaddingDynamic();
+
 		const layoutCalculatedWidth = width
-			? width - (akEditorGutterPaddingDynamic() + dynamicFullWidthGuidelineOffset) * 2
+			? width - (padding + dynamicFullWidthGuidelineOffset) * 2
 			: undefined;
 		const fullWidth =
 			width && layoutCalculatedWidth

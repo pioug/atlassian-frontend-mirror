@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::65528d01051e2440957695d1086e2643>>
+ * @codegen <<SignedSource::4b1a960d2db34ca3f44ef8828b3815ae>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -28,13 +28,13 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
 export function BitbucketDataCenterIcon({
 	size,
 	appearance = 'brand',
-	label,
+	label = 'Bitbucket Data Center',
 	testId,
 }: AppIconProps) {
 	return (
 		<IconWrapper
 			svg={svg}
-			label={label || 'Bitbucket Data Center'}
+			label={label}
 			isDataCenter={true}
 			appearance={appearance}
 			size={size}

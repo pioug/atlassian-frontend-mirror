@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/navigation-system",
-	"version": "0.171.0",
+	"version": "0.172.0",
 	"description": "The latest navigation system for Atlassian products.",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"author": "Atlassian Pty Ltd",
@@ -125,8 +125,8 @@
 					"sortKey": 1
 				},
 				{
-					"title": "Side navigation",
-					"id": "side-navigation",
+					"title": "Side nav items",
+					"id": "side-nav-items",
 					"status": {
 						"type": "alpha",
 						"description": "This package is experimental. We may make frequent breaking changes with limited notice."
@@ -134,8 +134,8 @@
 					"sortKey": 2
 				},
 				{
-					"title": "Top navigation",
-					"id": "top-navigation",
+					"title": "Top nav items",
+					"id": "top-nav-items",
 					"status": {
 						"type": "alpha",
 						"description": "This package is experimental. We may make frequent breaking changes with limited notice."

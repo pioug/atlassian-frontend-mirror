@@ -15,6 +15,7 @@ import { pixelEntryMessages as messages } from '@atlaskit/editor-common/media';
 import Form, { Field } from '@atlaskit/form';
 import CrossIcon from '@atlaskit/icon/core/cross';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Inline, Box, Text, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';

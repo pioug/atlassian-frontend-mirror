@@ -33,7 +33,7 @@ export async function createRootCriticalMetricsPayload(
 	interactionId: string,
 	interaction: InteractionMetrics,
 	vcMetrics?: VCResult & { 'metric:vc90'?: number | null },
-): Promise<CriticalMetricsPayload> {
+): Promise<CriticalMetricsPayload | null> {
 	const config = getConfig();
 	if (!config) {
 		throw Error('UFO Configuration not provided');
@@ -57,6 +57,12 @@ export async function createRootCriticalMetricsPayload(
 	const pageVisibilityAtTTI = getPageVisibilityUpToTTI(interaction);
 	const pageVisibilityAtTTAI = getPageVisibilityUpToTTAI(interaction);
 	const interactionStatus = getInteractionStatus(interaction);
+
+	if (interactionStatus.originalInteractionStatus !== 'SUCCEEDED') {
+		// To reduce payload sent from the client, we don't send critical perf metrics for non-success interactions
+		return null;
+	}
+
 	const newUFOName = sanitizeUfoName(ufoName);
 
 	// Get performance metrics

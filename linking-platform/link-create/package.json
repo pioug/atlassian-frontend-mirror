@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-create",
-	"version": "4.2.1",
+	"version": "4.2.2",
 	"description": "The driver component of meta creation flow",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -129,9 +129,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform-link-create-button-migration": {
-			"type": "boolean"
-		},
 		"dst-a11y__replace-anchor-with-link__linking-platfo": {
 			"type": "boolean"
 		},

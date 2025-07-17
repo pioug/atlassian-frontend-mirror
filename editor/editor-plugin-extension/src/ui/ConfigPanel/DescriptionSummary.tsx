@@ -4,6 +4,7 @@ import { useIntl } from 'react-intl-next';
 
 import type { ExtensionManifest } from '@atlaskit/editor-common/extensions';
 import { configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Text, xcss } from '@atlaskit/primitives';
 
 import { HelpLink } from './HelpLink';

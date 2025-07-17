@@ -1,8 +1,11 @@
 import React from 'react';
 import type { ComponentType } from 'react';
+
 import type { Fragment, Mark, Node } from '@atlaskit/editor-prosemirror/model';
 import { MarkType } from '@atlaskit/editor-prosemirror/model';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { type GetPMNodeHeight } from '@atlaskit/editor-common/extensibility';
+
 import type { Serializer } from '../serializer';
 import type {
 	RendererAppearance,
@@ -80,6 +83,7 @@ export interface ReactSerializerInit {
 	emojiResourceConfig?: EmojiResourceConfig;
 	smartLinks?: SmartLinksOptions;
 	extensionViewportSizes?: ExtensionViewportSize[];
+	getExtensionHeight?: GetPMNodeHeight;
 	allowCopyToClipboard?: boolean;
 	allowWrapCodeBlock?: boolean;
 	allowPlaceholderText?: boolean;
@@ -188,6 +192,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 	private emojiResourceConfig?: EmojiResourceConfig;
 	private smartLinks?: SmartLinksOptions;
 	private extensionViewportSizes?: ExtensionViewportSize[];
+	private getExtensionHeight?: GetPMNodeHeight;
 	private allowAnnotations: boolean = false;
 	private allowSelectAllTrap?: boolean;
 	private nodeComponents?: NodeComponentsProps;
@@ -233,6 +238,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		this.emojiResourceConfig = init.emojiResourceConfig;
 		this.smartLinks = init.smartLinks;
 		this.extensionViewportSizes = init.extensionViewportSizes;
+		this.getExtensionHeight = init.getExtensionHeight;
 		this.allowSelectAllTrap = init.allowSelectAllTrap;
 		this.nodeComponents = init.nodeComponents;
 		this.allowWindowedCodeBlock = init.allowWindowedCodeBlock;
@@ -604,9 +610,11 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 	}
 
 	private getExtensionProps(node: Node, path: Array<Node> = []) {
+		const testHeight = this.getExtensionHeight?.(node);
 		return {
 			...this.getProps(node, path),
 			extensionViewportSizes: this.extensionViewportSizes,
+			nodeHeight: testHeight,
 		};
 	}
 

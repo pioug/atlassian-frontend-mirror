@@ -14,6 +14,7 @@ import Form, { RequiredAsterisk } from '@atlaskit/form';
 import EmailIcon from '@atlaskit/icon/core/migration/email';
 import ErrorIcon from '@atlaskit/icon/core/migration/error';
 import { MenuGroup } from '@atlaskit/menu';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline, xcss } from '@atlaskit/primitives';
 import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
 import { N300, R400 } from '@atlaskit/theme/colors';

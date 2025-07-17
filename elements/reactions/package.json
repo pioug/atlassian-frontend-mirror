@@ -127,9 +127,6 @@
 		"platform-component-visual-refresh": {
 			"type": "boolean"
 		},
-		"platform-make-accessible-close-button": {
-			"type": "boolean"
-		},
 		"platform-reactions-offset-based-popper": {
 			"type": "boolean"
 		},

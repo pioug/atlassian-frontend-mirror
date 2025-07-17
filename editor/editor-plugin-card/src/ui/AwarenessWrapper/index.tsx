@@ -8,6 +8,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { SmartCardProps } from '../../nodeviews/genericCard';
@@ -109,8 +110,16 @@ export const AwarenessWrapper = ({
 		[setOverlayHoveredStyles],
 	);
 
+	const isPreviewPanelAvailable = cardContext?.value?.isPreviewPanelAvailable;
+	const shouldShowGlancePanel =
+		(isPreviewPanelAvailable || false) && fg('platform_editor_preview_panel_linking');
+
 	const cardWithOverlay = useMemo(() => {
-		if (shouldShowLinkOverlay && !editorExperiment('platform_editor_controls', 'variant1')) {
+		if (
+			shouldShowLinkOverlay &&
+			!shouldShowGlancePanel &&
+			!editorExperiment('platform_editor_controls', 'variant1')
+		) {
 			return (
 				<InlineCardOverlay
 					isSelected={isSelected}
@@ -133,6 +142,7 @@ export const AwarenessWrapper = ({
 		isHovered,
 		url,
 		handleOverlayChange,
+		shouldShowGlancePanel,
 	]);
 
 	const isInline = appearance === 'inline';

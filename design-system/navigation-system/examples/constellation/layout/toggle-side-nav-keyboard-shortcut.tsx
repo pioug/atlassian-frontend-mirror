@@ -21,3 +21,5 @@ export function ToggleSideNavKeyboardShortcutExample(): void {
 		});
 	}, [toggleSideNav]);
 }
+
+export default ToggleSideNavKeyboardShortcutExample;

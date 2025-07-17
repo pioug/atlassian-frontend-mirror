@@ -8,8 +8,11 @@ import {
 	akEditorFullWidthLayoutWidth,
 	akEditorGutterPadding,
 	akEditorGutterPaddingDynamic,
+	akEditorGutterPaddingReduced,
+	akEditorFullPageNarrowBreakout,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { EditorAnalyticsAPI } from '../analytics';
@@ -199,8 +202,14 @@ const BreakoutResizer = ({
 			widthState.lineLength !== undefined &&
 			widthState.width !== undefined
 		) {
+			const padding =
+				widthState.width <= akEditorFullPageNarrowBreakout &&
+				expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true)
+					? akEditorGutterPaddingReduced
+					: akEditorGutterPaddingDynamic();
+
 			newMaxWidth = Math.min(
-				widthState.width - akEditorGutterPaddingDynamic() * 2 - akEditorGutterPadding,
+				widthState.width - padding * 2 - akEditorGutterPadding,
 				akEditorFullWidthLayoutWidth,
 			);
 

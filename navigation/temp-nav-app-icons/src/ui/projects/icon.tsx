@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f4d3f16de51e4d778d33c0fb582acc7a>>
+ * @codegen <<SignedSource::ae4772cca6d16bf931ca75f21c37faa7>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -24,14 +24,13 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
  * to enable the new design by default.
  *
  */
-export function ProjectsIcon({ size, appearance = 'brand', label, testId }: AppIconProps) {
+export function ProjectsIcon({
+	size,
+	appearance = 'brand',
+	label = 'Projects',
+	testId,
+}: AppIconProps) {
 	return (
-		<IconWrapper
-			svg={svg}
-			label={label || 'Projects'}
-			appearance={appearance}
-			size={size}
-			testId={testId}
-		/>
+		<IconWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);
 }

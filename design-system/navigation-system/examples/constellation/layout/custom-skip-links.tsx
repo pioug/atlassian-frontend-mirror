@@ -8,3 +8,5 @@ export function CustomSkipLinkExample() {
 
 	return <div id={id} />;
 }
+
+export default CustomSkipLinkExample;

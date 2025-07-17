@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::69f1957d8357a0540afe1a0a1f616b2e>>
+ * @codegen <<SignedSource::46e5325ca16a481422af5c181121030b>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -24,14 +24,8 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
  * to enable the new design by default.
  *
  */
-export function TalentIcon({ size, appearance = 'brand', label, testId }: AppIconProps) {
+export function TalentIcon({ size, appearance = 'brand', label = 'Talent', testId }: AppIconProps) {
 	return (
-		<IconWrapper
-			svg={svg}
-			label={label || 'Talent'}
-			appearance={appearance}
-			size={size}
-			testId={testId}
-		/>
+		<IconWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);
 }

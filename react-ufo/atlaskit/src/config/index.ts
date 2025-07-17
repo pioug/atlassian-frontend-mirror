@@ -44,7 +44,7 @@ type Rates = {
 	readonly [key: string]: number;
 };
 
-export type TTVCRevisions = 'fy25.01' | 'fy25.02' | 'fy25.03';
+export type TTVCRevision = 'fy25.01' | 'fy25.02' | 'fy25.03';
 export const DEFAULT_TTVC_REVISION = 'fy25.03';
 
 // Defensively typed, since this is directly user-editable
@@ -109,8 +109,8 @@ export type Config = {
 		 *   i.e. every element for all `byExperience` entry configs should exist in the `all` config
 		 */
 		readonly enabledVCRevisions?: {
-			all: readonly TTVCRevisions[];
-			byExperience?: Record<string, readonly TTVCRevisions[]>;
+			all: readonly TTVCRevision[];
+			byExperience?: Record<string, readonly TTVCRevision[]>;
 		};
 	};
 	readonly postInteractionLog?: {
@@ -168,7 +168,7 @@ const isValidConfigArray = <T>(array: any): array is T[] => {
 	return Array.isArray(array) && array.length > 0;
 };
 
-export function getEnabledVCRevisions(experienceKey: string = ''): readonly TTVCRevisions[] {
+export function getEnabledVCRevisions(experienceKey: string = ''): readonly TTVCRevision[] {
 	try {
 		if (!config) {
 			return [];
@@ -194,7 +194,7 @@ export function getEnabledVCRevisions(experienceKey: string = ''): readonly TTVC
 	}
 }
 
-export function isVCRevisionEnabled(revision: TTVCRevisions, experienceKey?: string) {
+export function isVCRevisionEnabled(revision: TTVCRevision, experienceKey?: string) {
 	return getEnabledVCRevisions(experienceKey).includes(revision);
 }
 

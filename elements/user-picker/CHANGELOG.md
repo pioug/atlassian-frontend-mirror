@@ -1,5 +1,17 @@
 # @atlaskit/user-picker
 
+## 11.4.0
+
+### Minor Changes
+
+- [#185784](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185784)
+  [`7b6c046532f88`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b6c046532f88) -
+  remove fg support_group_by_type_for_user_picker
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.3.3
 
 ### Patch Changes

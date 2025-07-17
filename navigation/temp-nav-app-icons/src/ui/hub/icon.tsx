@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c01eebe5cf23cae1c70f75114e5269d6>>
+ * @codegen <<SignedSource::826142130c83ecce3a55557ab8c9ff78>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -36,14 +36,8 @@ const svg = `<svg height="100%" viewBox="0 0 32 32">
  * to enable the new design by default.
  *
  */
-export function HubIcon({ size, appearance = 'brand', label, testId }: AppIconProps) {
+export function HubIcon({ size, appearance = 'brand', label = 'Hub', testId }: AppIconProps) {
 	return (
-		<IconWrapper
-			svg={svg}
-			label={label || 'Hub'}
-			appearance={appearance}
-			size={size}
-			testId={testId}
-		/>
+		<IconWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);
 }

@@ -1,0 +1,103 @@
+{
+	"extends": "../../../../tsconfig.entry-points.rovo-extension.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../rovo-extension/tsDist/@atlaskit__editor-core/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/stories/*"
+	],
+	"references": [
+		{
+			"path": "../../activity-provider/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../analytics/analytics-namespaced-context/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../analytics/analytics-next/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/button/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/css/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-json-transformer/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-performance-metrics/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-quick-insert/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-user-preferences/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugins/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-shared-styles/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../elements/emoji/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/link/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../media/media-card/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../elements/mention/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags-react/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../react-ufo/atlaskit/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../elements/task-decision/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/width-detector/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/link-provider/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../media/media-core/afm-rovo-extension/tsconfig.json"
+		}
+	]
+}

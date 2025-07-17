@@ -17,9 +17,7 @@ import { useModal } from '@atlaskit/modal-dialog';
 import Tooltip from '@atlaskit/tooltip';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import ChevronLeftIcon from '@atlaskit/icon/core/chevron-left';
-import CrossIcon from '@atlaskit/icon/core/cross';
 import { ResourcedEmoji } from '@atlaskit/emoji/element';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { messages } from '../shared/i18n';
 import { Counter } from './Counter';
@@ -157,21 +155,6 @@ interface ReactionsDialogModalHeaderProps {
 	handleCloseReactionsDialog: OnCloseHandler;
 }
 
-type CloseButtonProp = Pick<ReactionsDialogModalHeaderProps, 'handleCloseReactionsDialog'>;
-const CloseButtonCustom = ({ handleCloseReactionsDialog }: CloseButtonProp) => {
-	const intl = useIntl();
-
-	return (
-		<IconButton
-			onClick={handleCloseReactionsDialog}
-			icon={CrossIcon}
-			label={intl.formatMessage(messages.closeReactionsDialog)}
-			appearance="subtle"
-			isTooltipDisabled={false}
-		/>
-	);
-};
-
 type LeftNavigationButtonProp = Pick<ReactionsDialogModalHeaderProps, 'handlePreviousPage'>;
 const LeftNavigationButton = ({ handlePreviousPage }: LeftNavigationButtonProp) => {
 	const intl = useIntl();
@@ -265,11 +248,7 @@ export const ReactionsDialogHeader = ({
 						count: totalReactionsCount,
 					})}
 				</Heading>
-				{fg('platform-make-accessible-close-button') ? (
-					<CloseButton onClick={handleCloseReactionsDialog} />
-				) : (
-					<CloseButtonCustom handleCloseReactionsDialog={handleCloseReactionsDialog} />
-				)}
+				<CloseButton onClick={handleCloseReactionsDialog} />
 			</Flex>
 			<Inline>
 				<div css={customTabListStyles} id="reactions-dialog-tabs-list">

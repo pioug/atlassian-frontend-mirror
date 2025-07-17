@@ -70,6 +70,8 @@ import {
 	akEditorFullWidthLayoutWidth,
 	akEditorGutterPadding,
 	akEditorGutterPaddingDynamic,
+	akEditorGutterPaddingReduced,
+	akEditorFullPageNarrowBreakout,
 	akEditorSelectedBorderColor,
 	akEditorSelectedBorderSize,
 	akEditorSelectedNodeClassName,
@@ -442,6 +444,15 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
 			--ak-editor--breakout-wide-layout-width: ${akEditorCalculatedWideLayoutWidth}px;
 		}
 	}
+
+	${expValEqualsNoExposure('platform_editor_preview_panel_responsiveness', 'isEnabled', true)
+		? css`
+				/* container editor-area is defined in platform/packages/editor/editor-core/src/ui/Appearance/FullPage/StyledComponents.ts */
+				@container editor-area (max-width: ${akEditorFullPageNarrowBreakout}px) {
+					--ak-editor--large-gutter-padding: ${akEditorGutterPaddingReduced}px;
+				}
+			`
+		: null}
 
 	.ProseMirror {
 		outline: none;

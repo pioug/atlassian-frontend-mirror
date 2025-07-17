@@ -1,5 +1,29 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.0.3
+
+### Patch Changes
+
+- [#186813](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/186813)
+  [`b0dd8177f1f10`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b0dd8177f1f10) -
+  HOT-119287 only produce critical metrics for root and successful interaction
+
+## 4.0.2
+
+### Patch Changes
+
+- [#185693](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185693)
+  [`c8e0df9e675c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c8e0df9e675c4) -
+  FG cleanup platform_ufo_post_interaction_most_recent_vc_rev
+
+## 4.0.1
+
+### Patch Changes
+
+- [#184818](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/184818)
+  [`a4cc23a9d8a35`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4cc23a9d8a35) -
+  FG cleanup - platform_ufo_report_cpu_usage
+
 ## 4.0.0
 
 ### Major Changes

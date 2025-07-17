@@ -26,7 +26,12 @@ import {
 } from './styles/aiPanel';
 import { annotationStyles } from './styles/annotationStyles';
 import { backgroundColorStyles } from './styles/backgroundColorStyles';
-import { baseStyles } from './styles/baseStyles';
+import {
+	baseStyles,
+	editorLargeGutterPuddingBaseStyles,
+	editorLargeGutterPuddingBaseStylesEditorControls,
+	editorLargeGutterPuddingReducedBaseStyles,
+} from './styles/baseStyles';
 import { blockMarksStyles } from './styles/blockMarksStyles';
 import {
 	blocktypeStyles,
@@ -193,6 +198,18 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 		const isFullPage = appearance === 'full-page' || appearance === 'full-width';
 		const isComment = appearance === 'comment';
 
+		const style = expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true)
+			? {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					'--ak-editor-base-font-size': `${editorFontSize({ theme })}px`,
+				}
+			: {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					'--ak-editor-base-font-size': `${editorFontSize({ theme })}px`,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					'--ak-editor--large-gutter-padding': `${akEditorGutterPaddingDynamic()}px`,
+				};
+
 		return (
 			<div
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -201,6 +218,16 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 				css={[
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					baseStyles,
+					// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+					fg('platform_editor_controls_increase_full_page_gutter') &&
+					editorExperiment('platform_editor_controls', 'variant1')
+						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							editorLargeGutterPuddingBaseStylesEditorControls
+						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							editorLargeGutterPuddingBaseStyles,
+					expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true) &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						editorLargeGutterPuddingReducedBaseStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					whitespaceStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -508,14 +535,8 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 				]}
 				data-editor-scroll-container={isScrollable ? 'true' : undefined}
 				data-testid="editor-content-container"
-				style={
-					{
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						'--ak-editor-base-font-size': `${editorFontSize({ theme })}px`,
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						'--ak-editor--large-gutter-padding': `${akEditorGutterPaddingDynamic()}px`,
-					} as React.CSSProperties
-				}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+				style={style as React.CSSProperties}
 			>
 				{children}
 			</div>

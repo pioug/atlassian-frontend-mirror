@@ -1,0 +1,66 @@
+{
+	"extends": "../../../../tsconfig.entry-points.townsquare.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../townsquare/tsDist/@atlaskit__editor-plugin-toolbar-lists-indentation/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../../design-system/css/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-analytics/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-block-type/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-feature-flags/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-indentation/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-list/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-primary-toolbar/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-selection-toolbar/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-tasks-and-decisions/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-shared-styles/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-townsquare/tsconfig.json"
+		}
+	]
+}

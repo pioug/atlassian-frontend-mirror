@@ -2,6 +2,7 @@
 import { css } from '@emotion/react';
 
 import { bulletListSelector, orderedListSelector } from '@atlaskit/adf-schema';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { browser } from '../../utils/browser';
 
@@ -18,8 +19,8 @@ const getItemCounterLeftPadding = (itemCounterDigitsSize: number): string => {
 	//  the font-size ever enlarges.
 	let paddingLeft = `2.385ch`;
 
-	if (itemCounterDigitsSize >= 3) {
-		// When there are 3 or more digits, we use a combination of "ch" units and
+	if (itemCounterDigitsSize >= (fg('platform_editor_ol_padding_fix') ? 2 : 3)) {
+		// When there are 2 or more digits, we use a combination of "ch" units and
 		// pixel values so that while the computed padding grows if font-size ever
 		// enlarges, it doesn't over-scale with each digit (because of the fixed pixel
 		// portion of the computed value). This way, very large item counters will not

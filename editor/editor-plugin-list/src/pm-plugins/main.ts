@@ -14,6 +14,7 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ListState } from '../types';
 
@@ -75,7 +76,7 @@ export const getDecorations = (
 					order: node?.attrs?.order,
 				});
 
-				if (digitsSize && digitsSize > 2) {
+				if (digitsSize && digitsSize > (fg('platform_editor_ol_padding_fix') ? 1 : 2)) {
 					decorations.push(
 						Decoration.node(from, to, {
 							style: getOrderedListInlineStyles(digitsSize, 'string'),

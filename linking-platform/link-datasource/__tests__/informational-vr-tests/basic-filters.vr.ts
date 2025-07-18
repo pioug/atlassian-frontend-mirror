@@ -77,7 +77,7 @@ snapshotInformational(WithModal, {
 	},
 	description: 'basic mode with basic filters',
 	featureFlags: {
-		'platform-linking-visual-refresh-sllv': [true, false],
+		'platform-linking-visual-refresh-sllv': true,
 		'replace-legacy-button-in-sllv': true,
 	},
 });
@@ -93,7 +93,7 @@ snapshotInformational(WithIssueModalWithParameters, {
 		byTestId: 'jlol-basic-filter-container',
 	},
 	featureFlags: {
-		'platform-linking-visual-refresh-sllv': [true, false],
+		'platform-linking-visual-refresh-sllv': true,
 	},
 	waitForHold: true,
 });
@@ -113,7 +113,7 @@ filters.forEach((filter) => {
 		description: `${filter} open trigger`,
 		featureFlags: {
 			'platform-component-visual-refresh': [true, false],
-			'platform-linking-visual-refresh-sllv': [true, false],
+			'platform-linking-visual-refresh-sllv': true,
 		},
 		waitForHold: true,
 	});
@@ -127,7 +127,7 @@ filters.forEach((filter) => {
 		description: `${filter} open and option selected`,
 		featureFlags: {
 			'platform-component-visual-refresh': [true, false],
-			'platform-linking-visual-refresh-sllv': [true, false],
+			'platform-linking-visual-refresh-sllv': true,
 		},
 		waitForHold: true,
 	});
@@ -140,7 +140,7 @@ filters.forEach((filter) => {
 		},
 		description: `${filter} closed and multiple options selected`,
 		featureFlags: {
-			'platform-linking-visual-refresh-sllv': [true, false],
+			'platform-linking-visual-refresh-sllv': true,
 		},
 		waitForHold: true,
 	});
@@ -161,7 +161,7 @@ filters.forEach((filter) => {
 		description: `${filter} open and search text entered`,
 		featureFlags: {
 			'platform-component-visual-refresh': [true, false],
-			'platform-linking-visual-refresh-sllv': [true, false],
+			'platform-linking-visual-refresh-sllv': true,
 		},
 		waitForHold: true,
 	});
@@ -186,7 +186,7 @@ filters.forEach((filter) => {
 		},
 		description: `${filter} open and view loading state`,
 		featureFlags: {
-			'platform-linking-visual-refresh-sllv': [true, false],
+			'platform-linking-visual-refresh-sllv': true,
 		},
 		waitForHold: true,
 	});
@@ -229,35 +229,12 @@ filters.forEach((filter) => {
 			await page
 				.getByTestId(`jlol-basic-filter-${filter}-popup-select-select--container`)
 				.waitFor({ state: 'visible' });
-			await page.fill(`#jlol-basic-filter-${filter}-popup-select--input`, `error-message`);
-
-			await page
-				.getByRole('heading', { name: 'Something went wrong', exact: true })
-				.waitFor({ state: 'visible' });
-
-			await component.getByTestId(`jlol-basic-filter-${filter}--error-message`);
-		},
-		description: `${filter} open and view error state`,
-		featureFlags: {
-			'platform-linking-visual-refresh-sllv': false,
-		},
-		waitForHold: true,
-	});
-
-	snapshotInformational(BasicFiltersVR, {
-		...options,
-
-		prepare: async (page: Page, component: Locator) => {
-			await component.getByTestId(`jlol-basic-filter-${filter}-trigger`).click();
-			await page
-				.getByTestId(`jlol-basic-filter-${filter}-popup-select-select--container`)
-				.waitFor({ state: 'visible' });
 			await page.keyboard.press('Tab');
 		},
 		description: `${filter} open and focus show more button - replace-legacy-button-in-sllv enabled`,
 		featureFlags: {
 			'platform-component-visual-refresh': [true, false],
-			'platform-linking-visual-refresh-sllv': [true, false],
+			'platform-linking-visual-refresh-sllv': true,
 			'replace-legacy-button-in-sllv': true,
 		},
 		waitForHold: true,

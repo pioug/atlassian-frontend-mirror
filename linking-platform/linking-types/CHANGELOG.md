@@ -1,5 +1,13 @@
 # @atlaskit/linking-types
 
+## 14.0.0
+
+### Major Changes
+
+- [#186963](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/186963)
+  [`182e8c5b1a888`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/182e8c5b1a888) -
+  NAVX-1050 adding message and conversation entity types and using entity data to render slack links
+
 ## 13.0.0
 
 ### Major Changes

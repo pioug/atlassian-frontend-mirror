@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "209.1.8",
+	"version": "209.1.10",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -489,10 +489,6 @@
 			"referenceOnly": true
 		},
 		"editor_a11y_aria_label_removal_popup": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_editor_controls_patch_13": {
 			"type": "boolean",
 			"referenceOnly": true
 		},

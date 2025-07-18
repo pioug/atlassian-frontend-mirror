@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-list
 
+## 5.0.3
+
+### Patch Changes
+
+- [#187247](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/187247)
+  [`4baf71295fd8e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4baf71295fd8e) -
+  [ux] Dynamically calculate the character width of ordered lists when number of list items is 2 or
+  more
+- Updated dependencies
+
 ## 5.0.2
 
 ### Patch Changes

@@ -24,7 +24,6 @@ const chromeBugWorkaroundVariants: SnapshotTestOptions<Hooks>['variants'] = [
 
 snapshotInformational(TopNavigationStressExample, {
 	description: 'breakpoint xs',
-	featureFlags: { platform_design_system_nav4_top_nav_columns: true },
 	variants: chromeBugWorkaroundVariants,
 	prepare: async (page: Page) => {
 		await page.setViewportSize({
@@ -36,7 +35,6 @@ snapshotInformational(TopNavigationStressExample, {
 
 snapshotInformational(TopNavigationStressExample, {
 	description: 'breakpoint sm',
-	featureFlags: { platform_design_system_nav4_top_nav_columns: true },
 	variants: chromeBugWorkaroundVariants,
 	prepare: async (page: Page) => {
 		await page.setViewportSize({
@@ -48,7 +46,6 @@ snapshotInformational(TopNavigationStressExample, {
 
 snapshotInformational(TopNavigationStressExample, {
 	description: 'breakpoint md',
-	featureFlags: { platform_design_system_nav4_top_nav_columns: true },
 	variants: chromeBugWorkaroundVariants,
 	prepare: async (page: Page) => {
 		await page.setViewportSize({
@@ -60,7 +57,6 @@ snapshotInformational(TopNavigationStressExample, {
 
 snapshotInformational(TopNavigationStressExample, {
 	description: 'breakpoint lg',
-	featureFlags: { platform_design_system_nav4_top_nav_columns: true },
 	variants: chromeBugWorkaroundVariants,
 	prepare: async (page: Page) => {
 		await page.setViewportSize({
@@ -72,7 +68,6 @@ snapshotInformational(TopNavigationStressExample, {
 
 snapshotInformational(TopNavigationStressExample, {
 	description: 'breakpoint xl',
-	featureFlags: { platform_design_system_nav4_top_nav_columns: true },
 	variants: chromeBugWorkaroundVariants,
 	prepare: async (page: Page) => {
 		await page.setViewportSize({
@@ -88,10 +83,6 @@ snapshotInformational(TopNavigationStressExample, {
 
 snapshotInformational(CompositionVR, {
 	description: 'breakpoint md - composition',
-	featureFlags: {
-		platform_design_system_nav4_top_nav_columns: true,
-		platform_design_system_nav4_top_nav_min_widths: true,
-	},
 	variants: chromeBugWorkaroundVariants,
 	prepare: async (page: Page) => {
 		await page.setViewportSize({
@@ -103,10 +94,6 @@ snapshotInformational(CompositionVR, {
 
 snapshotInformational(CompositionVR, {
 	description: 'breakpoint lg - composition',
-	featureFlags: {
-		platform_design_system_nav4_top_nav_columns: true,
-		platform_design_system_nav4_top_nav_min_widths: true,
-	},
 	variants: chromeBugWorkaroundVariants,
 	prepare: async (page: Page) => {
 		await page.setViewportSize({
@@ -118,10 +105,6 @@ snapshotInformational(CompositionVR, {
 
 snapshotInformational(CompositionVR, {
 	description: 'breakpoint xl - composition',
-	featureFlags: {
-		platform_design_system_nav4_top_nav_columns: true,
-		platform_design_system_nav4_top_nav_min_widths: true,
-	},
 	variants: chromeBugWorkaroundVariants,
 	prepare: async (page: Page) => {
 		await page.setViewportSize({
@@ -133,10 +116,6 @@ snapshotInformational(CompositionVR, {
 
 snapshotInformational(TopNavigationStressExample, {
 	description: 'breakpoint xs - with min widths',
-	featureFlags: {
-		platform_design_system_nav4_top_nav_columns: true,
-		platform_design_system_nav4_top_nav_min_widths: true,
-	},
 	variants: chromeBugWorkaroundVariants,
 	prepare: async (page: Page) => {
 		await page.setViewportSize({
@@ -148,10 +127,6 @@ snapshotInformational(TopNavigationStressExample, {
 
 snapshotInformational(TopNavigationStressExample, {
 	description: 'breakpoint sm - with min widths',
-	featureFlags: {
-		platform_design_system_nav4_top_nav_columns: true,
-		platform_design_system_nav4_top_nav_min_widths: true,
-	},
 	variants: chromeBugWorkaroundVariants,
 	prepare: async (page: Page) => {
 		await page.setViewportSize({
@@ -163,10 +138,6 @@ snapshotInformational(TopNavigationStressExample, {
 
 snapshotInformational(TopNavigationStressExample, {
 	description: 'breakpoint md - with min widths',
-	featureFlags: {
-		platform_design_system_nav4_top_nav_columns: true,
-		platform_design_system_nav4_top_nav_min_widths: true,
-	},
 	variants: chromeBugWorkaroundVariants,
 	prepare: async (page: Page) => {
 		await page.setViewportSize({
@@ -178,10 +149,6 @@ snapshotInformational(TopNavigationStressExample, {
 
 snapshotInformational(TopNavigationStressExample, {
 	description: 'breakpoint lg - with min widths',
-	featureFlags: {
-		platform_design_system_nav4_top_nav_columns: true,
-		platform_design_system_nav4_top_nav_min_widths: true,
-	},
 	variants: chromeBugWorkaroundVariants,
 	prepare: async (page: Page) => {
 		await page.setViewportSize({
@@ -193,10 +160,6 @@ snapshotInformational(TopNavigationStressExample, {
 
 snapshotInformational(TopNavigationStressExample, {
 	description: 'breakpoint xl - with min widths',
-	featureFlags: {
-		platform_design_system_nav4_top_nav_columns: true,
-		platform_design_system_nav4_top_nav_min_widths: true,
-	},
 	variants: chromeBugWorkaroundVariants,
 	prepare: async (page: Page) => {
 		await page.setViewportSize({

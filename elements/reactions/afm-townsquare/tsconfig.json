@@ -1,0 +1,99 @@
+{
+	"extends": "../../../../tsconfig.entry-points.townsquare.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../townsquare/tsDist/@atlaskit__reactions/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-gas-types/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../analytics/analytics-namespaced-context/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../analytics/analytics-next/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/avatar/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/button/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/css/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../emoji/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/heading/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/link/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/modal-dialog/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/motion/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags-react/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/popper/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/popup/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/portal/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../react-ufo/atlaskit/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/spinner/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tabs/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../data/ufo-external/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../util-service-support/afm-townsquare/tsconfig.json"
+		}
+	]
+}

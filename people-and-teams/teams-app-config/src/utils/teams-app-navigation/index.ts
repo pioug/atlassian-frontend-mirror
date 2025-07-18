@@ -1,6 +1,7 @@
-import { type NavigationAction, type NavigationResult } from './types';
+import { type NavigationAction, type NavigationResult, type RequireOrgIdOrCloudId } from './types';
 import {
 	generatePath,
+	generateTeamsAppPath,
 	getHostProductFromPath,
 	getPathAndQuery,
 	isTeamsAppEnabled,
@@ -32,4 +33,12 @@ export const navigateToTeamsApp = (action: NavigationAction): NavigationResult =
 		target: actionWithDefaults.shouldOpenInSameTab ? '_self' : '_blank',
 	};
 	return result;
+};
+
+/**
+ * This function generates a URL for navigating to the Teams app based on a path and search params.
+ * This _always_ returns a Teams app URL, regardless of feature gates & context.
+ */
+export const toTeamsAppURL = (path: string, search: string, config: RequireOrgIdOrCloudId) => {
+	return generateTeamsAppPath(path, config, new URLSearchParams(search));
 };

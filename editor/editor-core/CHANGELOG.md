@@ -1,5 +1,27 @@
 # @atlaskit/editor-core
 
+## 209.1.10
+
+### Patch Changes
+
+- [#185723](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185723)
+  [`751aeb4580469`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/751aeb4580469) -
+  ED-28315 clean up fg platform_editor_controls_patch_13
+- Updated dependencies
+
+## 209.1.9
+
+### Patch Changes
+
+- [#185940](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185940)
+  [`456bee393c4d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/456bee393c4d3) -
+  [ux] When editor-area is less than 768px wide, we reduce editor gutters to 24px in Full-page
+  editor.
+- [#177925](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/177925)
+  [`4f971def5d8fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4f971def5d8fd) -
+  [ux] ED-28293: clean up platform_editor_controls_toolbar_ssr_fix
+- Updated dependencies
+
 ## 209.1.8
 
 ### Patch Changes

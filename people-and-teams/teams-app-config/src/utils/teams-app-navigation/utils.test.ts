@@ -3,8 +3,14 @@ import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { hostname, openInNewTab, pathname, redirect } from '../../common/utils';
 
-import type { NavigationActionCommon } from './types';
-import { generatePath, getHostProductFromPath, isTeamsAppEnabled, onNavigateBase } from './utils';
+import type { NavigationActionCommon, RequireOrgIdOrCloudId } from './types';
+import {
+	generatePath,
+	generateTeamsAppPath,
+	getHostProductFromPath,
+	isTeamsAppEnabled,
+	onNavigateBase,
+} from './utils';
 
 jest.mock('@atlaskit/atlassian-context', () => ({
 	getATLContextUrl: jest.fn((product: string) => {
@@ -24,9 +30,13 @@ jest.mock('../../common/utils', () => ({
 	pathname: jest.fn(() => '/jira/somepath'),
 }));
 
-const baseConfig: NavigationActionCommon = {
+const orgAndCloudId: RequireOrgIdOrCloudId = {
 	orgId: 'org123',
 	cloudId: 'cloud123',
+};
+
+const baseConfig: NavigationActionCommon = {
+	...orgAndCloudId,
 	push: jest.fn(),
 	hostProduct: 'jira',
 	shouldOpenInSameTab: false,
@@ -34,6 +44,67 @@ const baseConfig: NavigationActionCommon = {
 };
 
 describe('teams app navigation utils', () => {
+	describe('generateTeamsAppPath', () => {
+		it('should generate the correct path for a path without people prefix', () => {
+			const config = {
+				...orgAndCloudId,
+			};
+			const path = 'somepath';
+			const expectedPath = `https://home.atlassian.com/o/${config.orgId}/people/somepath?cloudId=${config.cloudId}`;
+			expect(generateTeamsAppPath(path, config)).toEqual(expectedPath);
+		});
+		it('should generate the correct path for a path with people prefix', () => {
+			const config = {
+				...orgAndCloudId,
+			};
+			const path = 'people/somepath';
+			const expectedPath = `https://home.atlassian.com/o/${config.orgId}/people/somepath?cloudId=${config.cloudId}`;
+			expect(generateTeamsAppPath(path, config)).toEqual(expectedPath);
+		});
+		it('should generate the correct path for a path with people prefix & leading slash', () => {
+			const config = {
+				...orgAndCloudId,
+			};
+			const path = '/people/somepath';
+			const expectedPath = `https://home.atlassian.com/o/${config.orgId}/people/somepath?cloudId=${config.cloudId}`;
+			expect(generateTeamsAppPath(path, config)).toEqual(expectedPath);
+		});
+		it('should generate the correct path for a path with people prefix and no orgId', () => {
+			const config: RequireOrgIdOrCloudId = {
+				cloudId: 'cloud123',
+				orgId: undefined,
+			};
+			const path = 'people/somepath';
+			const expectedPath = `https://home.atlassian.com/people/somepath?cloudId=${config.cloudId}`;
+			expect(generateTeamsAppPath(path, config)).toEqual(expectedPath);
+		});
+		describe('FedRamp', () => {
+			beforeEach(() => {
+				(isFedRamp as jest.Mock).mockReturnValue(true);
+				(hostname as jest.Mock).mockReturnValue('hello-fedramp.atlassian-us-gov.net');
+			});
+			afterAll(() => {
+				(isFedRamp as jest.Mock).mockReturnValue(false);
+				(hostname as jest.Mock).mockReturnValue('hello.atlassian.net');
+			});
+			it('should generate the correct path for a path without people prefix', () => {
+				const config = {
+					...orgAndCloudId,
+				};
+				const path = 'somepath';
+				const expectedPath = `https://teams.atlassian-us-gov.com/somepath?cloudId=${config.cloudId}`;
+				expect(generateTeamsAppPath(path, config)).toEqual(expectedPath);
+			});
+			it('should generate the correct path for a path with people prefix', () => {
+				const config = {
+					...orgAndCloudId,
+				};
+				const path = 'people/somepath';
+				const expectedPath = `https://teams.atlassian-us-gov.com/somepath?cloudId=${config.cloudId}`;
+				expect(generateTeamsAppPath(path, config)).toEqual(expectedPath);
+			});
+		});
+	});
 	describe('generatePath', () => {
 		ffTest.off('should-redirect-directory-to-teams-app', 'without Teams app redirect', () => {
 			it('should generate the correct path for Jira', () => {

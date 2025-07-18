@@ -1,0 +1,103 @@
+{
+	"extends": "../../../../tsconfig.entry-points.townsquare.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../townsquare/tsDist/@atlaskit__editor-core/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/stories/*"
+	],
+	"references": [
+		{
+			"path": "../../activity-provider/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../analytics/analytics-namespaced-context/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../analytics/analytics-next/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/button/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/css/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-json-transformer/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-performance-metrics/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-quick-insert/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-user-preferences/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugins/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-shared-styles/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../elements/emoji/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/link/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../media/media-card/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../elements/mention/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags-react/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../react-ufo/atlaskit/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../elements/task-decision/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/width-detector/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/link-provider/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../media/media-core/afm-townsquare/tsconfig.json"
+		}
+	]
+}

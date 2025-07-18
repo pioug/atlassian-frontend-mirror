@@ -26,7 +26,7 @@ export const ShowMore = ({ onClick }: ShowMoreProps) => {
 			{(message) => (
 				<Tooltip content={message}>
 					<IconButton
-						label={messages.moreEmoji.defaultMessage}
+						label={message}
 						onClick={onClick}
 						testId={RENDER_SHOWMORE_TESTID}
 						icon={EditorMoreIcon}

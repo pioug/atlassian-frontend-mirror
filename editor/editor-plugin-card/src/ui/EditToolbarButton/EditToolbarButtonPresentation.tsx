@@ -20,7 +20,6 @@ import {
 import EditIcon from '@atlaskit/icon/core/edit';
 import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
 import { ButtonItem } from '@atlaskit/menu';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Flex } from '@atlaskit/primitives/compiled';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
@@ -79,10 +78,9 @@ const EditToolbarButtonPresentation = ({
 	const isControlsOn = expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1');
 	const icon = isControlsOn ? <EditIcon label="" /> : undefined;
 
-	const tooltipContent =
-		isControlsOn && fg('platform_editor_controls_patch_13')
-			? intl.formatMessage(linkToolbarMessages.editLink)
-			: undefined;
+	const tooltipContent = isControlsOn
+		? intl.formatMessage(linkToolbarMessages.editLink)
+		: undefined;
 
 	switch (editVariant) {
 		case 'edit-link': {

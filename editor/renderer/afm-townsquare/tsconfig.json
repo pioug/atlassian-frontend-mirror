@@ -1,0 +1,129 @@
+{
+	"extends": "../../../../tsconfig.entry-points.townsquare.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../townsquare/tsDist/@atlaskit__renderer/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../adf-utils/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../analytics/analytics-listeners/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../analytics/analytics-namespaced-context/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../analytics/analytics-next/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/button/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/code/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-json-transformer/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-palette/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-shared-styles/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-tables/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../elements/emoji/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../measurement/feature-gate-js-client/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/link/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/link-datasource/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../media/media-card/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../media/media-client/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../media/media-client-react/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../media/media-common/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../media/media-filmstrip/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../media/media-ui/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../media/media-viewer/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags-react/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../react-ufo/atlaskit/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/smart-card/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../elements/status/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../elements/task-decision/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/visually-hidden/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/link-provider/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../media/media-core/afm-townsquare/tsconfig.json"
+		}
+	]
+}

@@ -273,6 +273,9 @@
 		},
 		"platform_custom_number_column": {
 			"type": "boolean"
+		},
+		"platform_editor_ol_padding_fix": {
+			"type": "boolean"
 		}
 	},
 	"af:exports": {

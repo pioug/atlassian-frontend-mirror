@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 
 import Lorem from 'react-lorem-component';
-import { Transition } from 'react-transition-group';
 
+import { cssMap } from '@atlaskit/css';
+import Heading from '@atlaskit/heading';
+import { ExitingPersistence, SlideIn } from '@atlaskit/motion';
 import { Spotlight, SpotlightManager, SpotlightTransition } from '@atlaskit/onboarding';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { token } from '@atlaskit/tokens';
+import { Stack } from '@atlaskit/primitives/compiled';
 
 import { Highlight } from './styled';
 
@@ -14,12 +15,15 @@ interface State {
 	spotlightIsVisible: boolean;
 }
 
-type AnimationState = { [key: string]: any };
+const targetElementStyles = cssMap({
+	root: {
+		width: '240px',
+	},
+});
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export default class SpotlightNodeExample extends Component<Object, State> {
 	drawer = React.createRef<HTMLElement>();
-	nodeRef = React.createRef<HTMLElement>();
 	state = { drawerIsVisible: false, spotlightIsVisible: false };
 
 	showDrawer = () => {
@@ -51,58 +55,48 @@ export default class SpotlightNodeExample extends Component<Object, State> {
 		const duration = 300;
 		return (
 			<SpotlightManager>
-				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-				<p style={{ marginBottom: token('space.200', '1em') }}>
-					Use <code>targetNode</code> when you can&apos;t wrap the target in a{' '}
-					<code>{'<SpotlightTarget />'}</code>. For example you need to wait for the node to be
-					present in the DOM.
-				</p>
+				<Stack alignInline="start" space="space.200">
+					<p>
+						Use <code>targetNode</code> when you can&apos;t wrap the target in a{' '}
+						<code>{'<SpotlightTarget />'}</code>. For example you need to wait for the node to be
+						present in the DOM.
+					</p>
 
-				<button type="button" onClick={this.toggleDrawer}>
-					{drawerIsVisible ? 'Close' : 'Open'}
-				</button>
+					<button type="button" onClick={this.toggleDrawer}>
+						{drawerIsVisible ? 'Close' : 'Open'}
+					</button>
 
-				<Transition
-					in={drawerIsVisible}
-					mountOnEnter
-					unmountOnExit
-					appear
-					timeout={duration}
-					onExit={this.hideSpotlight}
-					onEntered={() => window.setTimeout(this.showSpotlight, duration)}
-					{...(fg('platform_design_system_team_transition_group_r18') && {
-						nodeRef: this.nodeRef,
-					})}
-				>
-					{(state: string) => {
-						if (state === 'exited') {
-							return null;
-						}
-						const base = {
-							transition: `opacity ${duration}ms, transform ${duration}ms`,
-							marginTop: token('space.250', '20px'),
-						};
-						const anim: Record<string, AnimationState> = {
-							entering: { opacity: 0, transform: 'translateX(-100%)' },
-							entered: { opacity: 1, transform: 'translateX(0)' },
-							exiting: { opacity: 0, transform: 'translateX(-50%)' },
-						};
-						const style = { ...base, ...anim[state] };
-						return (
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							<div style={style}>
-								<Highlight ref={this.drawer} color="green">
-									{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-									<div style={{ width: 240 }}>
-										{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-										<h3 style={{ marginBottom: token('space.250', '20px') }}>Animated Element</h3>
-										<Lorem count={2} />
+					<ExitingPersistence appear>
+						{drawerIsVisible && (
+							<SlideIn
+								enterFrom="left"
+								onFinish={(state) => {
+									if (state === 'entering') {
+										window.setTimeout(this.showSpotlight, duration);
+									}
+
+									if (state === 'exiting') {
+										this.hideSpotlight();
+										return;
+									}
+								}}
+							>
+								{({ ref, className, style }) => (
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-classname-prop
+									<div ref={ref} style={style} className={className}>
+										<Highlight ref={this.drawer} color="green">
+											<Stack space="space.100" xcss={targetElementStyles.root}>
+												<Heading size="medium">Animated Element</Heading>
+												<Lorem count={2} />
+											</Stack>
+										</Highlight>
 									</div>
-								</Highlight>
-							</div>
-						);
-					}}
-				</Transition>
+								)}
+							</SlideIn>
+						)}
+					</ExitingPersistence>
+				</Stack>
+
 				<SpotlightTransition>
 					{spotlightIsVisible && this.drawer.current ? (
 						<Spotlight

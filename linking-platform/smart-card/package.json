@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "40.2.0",
+	"version": "40.3.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -263,6 +263,9 @@
 			"type": "boolean"
 		},
 		"platform-linking-fix-smart-card-avatar-overrides": {
+			"type": "boolean"
+		},
+		"platform-linking-slack-entity-support": {
 			"type": "boolean"
 		}
 	},

@@ -1,5 +1,13 @@
 # @atlaskit/teams-client
 
+## 4.6.4
+
+### Patch Changes
+
+- [#187179](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/187179)
+  [`50dbbc97b636b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/50dbbc97b636b) -
+  Exported 'ApiTeamContainerCreationPayload' from '/types' entrypoint
+
 ## 4.6.3
 
 ### Patch Changes

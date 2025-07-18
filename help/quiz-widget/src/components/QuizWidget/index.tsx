@@ -20,6 +20,7 @@ import {
 	NavAction,
 } from './styled';
 import { type QuizElement, type QuizInterface } from './types';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Flex, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 

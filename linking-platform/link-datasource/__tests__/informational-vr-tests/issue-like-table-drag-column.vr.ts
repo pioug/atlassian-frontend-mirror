@@ -26,6 +26,6 @@ snapshotInformational(VRInformationalIssueLikeTable, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-visual-refresh-sllv': [true, false],
+		'platform-linking-visual-refresh-sllv': true,
 	},
 });

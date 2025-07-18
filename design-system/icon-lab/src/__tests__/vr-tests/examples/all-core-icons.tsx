@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::fc986b666631f83547ad57b45061b37f>>
+ * @codegen <<SignedSource::9f9b4b450adafa57c0305070ae6f90e3>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -15,6 +15,7 @@ import React from 'react';
 
 import { css, jsx } from '@compiled/react';
 
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import type { NewCoreIconProps } from '@atlaskit/icon';
 import { Inline } from '@atlaskit/primitives';
 
@@ -44,6 +45,7 @@ import BeachUmbrellaIcon from '../../../../core/beach-umbrella';
 import BluetoothIcon from '../../../../core/bluetooth';
 import BlurIcon from '../../../../core/blur';
 import BookOpenIcon from '../../../../core/book-open';
+import BooleanIcon from '../../../../core/boolean';
 import BrowserExtensionIcon from '../../../../core/browser-extension';
 import CalculateIcon from '../../../../core/calculate';
 import CloudOfflineIcon from '../../../../core/cloud-offline';
@@ -500,6 +502,7 @@ const Icons = [
 	DiagramSymbolConnectorOnPageIcon,
 	AiGenerativeAudioBriefingIcon,
 	TeamworkGraphIcon,
+	BooleanIcon,
 ];
 
 const groupSize = 20;
@@ -553,6 +556,8 @@ export const MediumIconGroup9 = allMediumExamples[9];
 export const MediumIconGroup10 = allMediumExamples[10];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const MediumIconGroup11 = allMediumExamples[11];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const MediumIconGroup12 = allMediumExamples[12];
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const SmallIconGroup0 = allSmallExamples[0];
@@ -578,3 +583,5 @@ export const SmallIconGroup9 = allSmallExamples[9];
 export const SmallIconGroup10 = allSmallExamples[10];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const SmallIconGroup11 = allSmallExamples[11];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const SmallIconGroup12 = allSmallExamples[12];

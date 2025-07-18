@@ -1,10 +1,7 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { RadioGroupContext } from '../../radio/dropdown-item-radio-group';
 import { SelectionStoreContext } from '../context/selection-store';
-import resetOptionsInGroup from '../utils/reset-options-in-group';
 
 type RadioStateArgs = {
 	id: string;
@@ -59,11 +56,7 @@ function useRadioState({ id, isSelected, defaultSelected }: RadioStateArgs): Rad
 	if (persistedIsSelected === undefined) {
 		const existing = getGroupState(group);
 
-		const newGroupState = fg('platform_dst_dropdown_radio_default_selected_fix')
-			? // FF on: only the current is changed
-				{ ...existing, [id]: defaultSelected || false }
-			: // FF off: everything else also gets set to false
-				{ ...resetOptionsInGroup(existing || {}), [id]: defaultSelected || false };
+		const newGroupState = { ...existing, [id]: defaultSelected || false };
 
 		setGroupState(group, newGroupState);
 	}

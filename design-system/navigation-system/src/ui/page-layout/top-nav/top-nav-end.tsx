@@ -9,7 +9,6 @@ import { cx, jsx } from '@compiled/react';
 import { cssMap } from '@atlaskit/css';
 import { useLayoutEffect } from '@atlaskit/ds-lib/use-layout-effect';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
-import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
 import { UNSAFE_useMediaQuery as useMediaQuery } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -25,8 +24,6 @@ const containerStyles = cssMap({
 		justifyContent: 'end',
 		// Used for SSR to keep space for the dropdown to be rendered into
 		minWidth: '32px',
-	},
-	newLayoutStyles: {
 		'@media (min-width: 48rem)': {
 			/**
 			 * We set `minWidth: '32px'` to prevent reflow on mobile when the 'more menu' appears
@@ -43,10 +40,8 @@ const containerStyles = cssMap({
 			 */
 			minWidth: 'max-content',
 		},
-	},
-	// Sets a minimum width on the column so that it matches TopNavStart
-	// TopNavStart has this so that the search aligns with the side nav
-	contentMinWidthStyles: {
+		// Sets a minimum width on the column so that it matches TopNavStart
+		// TopNavStart has this so that the search aligns with the side nav
 		'@media (min-width: 64rem)': {
 			// Intrinsic width of content without wrapping
 			// The actual grid column can still be larger
@@ -129,15 +124,7 @@ export function TopNavEnd({
 	}, [query]);
 
 	return (
-		<nav
-			aria-label={label}
-			css={[
-				containerStyles.root,
-				fg('platform_design_system_nav4_top_nav_columns') && containerStyles.newLayoutStyles,
-				fg('platform_design_system_nav4_top_nav_min_widths') &&
-					containerStyles.contentMinWidthStyles,
-			]}
-		>
+		<nav aria-label={label} css={containerStyles.root}>
 			{isMobile ? (
 				<Popup
 					isOpen={isOpen}

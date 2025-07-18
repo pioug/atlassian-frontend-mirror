@@ -109,8 +109,15 @@ test.describe('width-provider when table resizing is enabled', () => {
 	});
 });
 
-test('should capture and report a11y violations', async ({ renderer }) => {
-	renderer.page.getByRole('table');
+test.describe('a11y violations', () => {
+	test.use({
+		platformFeatureFlags: {
+			platform_editor_hyperlink_underline: true, // this flag is to fix the a11y violations link-in-text-block
+		},
+	});
+	test('should capture and report a11y violations', async ({ renderer }) => {
+		renderer.page.getByRole('table');
 
-	await expect(renderer.page).toBeAccessible({ violationCount: 3 });
+		await expect(renderer.page).toBeAccessible({ violationCount: 2 });
+	});
 });

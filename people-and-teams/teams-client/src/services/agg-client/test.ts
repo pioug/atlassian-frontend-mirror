@@ -122,4 +122,73 @@ describe('AGGClient', () => {
 			expect(result).toEqual(MOCK_USER.user);
 		});
 	});
+
+	describe('queryTeamHasAgents', () => {
+		const teamId = 'team123';
+
+		it('should call makeGraphQLRequest with correct parameters', async () => {
+			const makeRequestSpy = jest
+				.spyOn(AGGClient.prototype, 'makeGraphQLRequest')
+				.mockResolvedValue({ graphStore: { teamHasAgents: { edges: [] } } });
+			await aggClient.queryTeamHasAgents(teamId);
+			expect(makeRequestSpy).toHaveBeenCalledWith(
+				{
+					query: expect.stringContaining('TeamHasAgentsQuery'),
+					variables: {
+						id: `ari:cloud:identity::team/${teamId}`,
+					},
+				},
+				{
+					operationName: 'TeamHasAgentsQuery',
+				},
+			);
+		});
+
+		it('should return an empty array if no agents are found', async () => {
+			jest.spyOn(AGGClient.prototype, 'makeGraphQLRequest').mockResolvedValue({
+				graphStore: { teamHasAgents: { edges: [] } },
+			});
+
+			const result = await aggClient.queryTeamHasAgents(teamId);
+			expect(result).toEqual([]);
+		});
+
+		it('should return the correct agents', async () => {
+			const mockResponse = {
+				graphStore: {
+					teamHasAgents: {
+						edges: [
+							{
+								node: {
+									id: 'ari:cloud:identity::user/agent1',
+									name: 'Agent One',
+									picture: 'url1',
+								},
+							},
+							{
+								node: {
+									id: 'ari:cloud:identity::user/agent2',
+									name: 'Agent Two',
+									picture: 'url2',
+								},
+							},
+						],
+					},
+				},
+			};
+			jest.spyOn(AGGClient.prototype, 'makeGraphQLRequest').mockResolvedValue(mockResponse);
+
+			const result = await aggClient.queryTeamHasAgents(teamId);
+			expect(result).toEqual([
+				{
+					associationId: { teamId, memberId: 'agent1' },
+					agent: { id: 'ari:cloud:identity::user/agent1', fullName: 'Agent One', avatarUrl: 'url1' },
+				},
+				{
+					associationId: { teamId, memberId: 'agent2' },
+					agent: { id: 'ari:cloud:identity::user/agent2', fullName: 'Agent Two', avatarUrl: 'url2' },
+				},
+			]);
+		});
+	});
 });

@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 40.3.0
+
+### Minor Changes
+
+- [#186963](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/186963)
+  [`182e8c5b1a888`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/182e8c5b1a888) -
+  NAVX-1050 adding message and conversation entity types and using entity data to render slack links
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 40.2.0
 
 ### Minor Changes

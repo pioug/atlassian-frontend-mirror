@@ -7,7 +7,6 @@ import React from 'react';
 import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
@@ -16,15 +15,6 @@ const styles = cssMap({
 		width: '100%',
 		gridColumn: 2,
 		alignItems: 'center',
-	},
-	oldLayoutStyles: {
-		display: 'flex',
-		justifyContent: 'end',
-		'@media (min-width: 30rem)': {
-			justifyContent: 'center',
-		},
-	},
-	newLayoutStyles: {
 		/**
 		 * On small viewports the search is an icon button.
 		 *
@@ -96,16 +86,5 @@ export function TopNavMiddle({
 	 */
 	children: React.ReactNode;
 }) {
-	return (
-		<div
-			css={[
-				styles.root,
-				fg('platform_design_system_nav4_top_nav_columns')
-					? styles.newLayoutStyles
-					: styles.oldLayoutStyles,
-			]}
-		>
-			{children}
-		</div>
-	);
+	return <div css={styles.root}>{children}</div>;
 }

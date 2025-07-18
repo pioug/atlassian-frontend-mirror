@@ -35,7 +35,7 @@ snapshotInformational(VRJiraIssueTableHoverable, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-visual-refresh-sllv': [true, false],
+		'platform-linking-visual-refresh-sllv': true,
 	},
 	waitForHold: true,
 });
@@ -47,7 +47,7 @@ snapshotInformational(VREmptyStateHoverable, {
 	},
 	description: 'empty state table on a hoverable surface',
 	featureFlags: {
-		'platform-linking-visual-refresh-sllv': [true, false],
+		'platform-linking-visual-refresh-sllv': true,
 	},
 	waitForHold: true,
 });

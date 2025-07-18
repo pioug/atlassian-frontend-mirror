@@ -3,14 +3,12 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 import DropdownMenu, { DropdownItemRadio, DropdownItemRadioGroup } from '../../index';
 
 /**
  * With the FF off the default selected state is not persisted.
  */
-ffTest.on('platform_dst_dropdown_radio_default_selected_fix', 'Dropdown item radio', () => {
+describe('Dropdown item radio', () => {
 	it('should persist default selected state', async () => {
 		render(
 			<DropdownMenu trigger="Views" shouldRenderToParent>

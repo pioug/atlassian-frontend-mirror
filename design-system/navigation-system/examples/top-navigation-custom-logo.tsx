@@ -6,11 +6,17 @@ import { jsx } from '@compiled/react';
 
 import { Root } from '@atlaskit/navigation-system/layout/root';
 import { SideNavToggleButton } from '@atlaskit/navigation-system/layout/side-nav';
-import { TopNav, TopNavMiddle, TopNavStart } from '@atlaskit/navigation-system/layout/top-nav';
+import {
+	TopNav,
+	TopNavEnd,
+	TopNavMiddle,
+	TopNavStart,
+} from '@atlaskit/navigation-system/layout/top-nav';
 import {
 	AppSwitcher,
 	CreateButton,
 	NavLogo,
+	Profile,
 	Search,
 } from '@atlaskit/navigation-system/top-nav-items';
 
@@ -48,6 +54,9 @@ const TopNavigationCustomLogoInstance = ({
 					<Search onClick={() => alert('mobile search')} label="Search" />
 					<CreateButton onClick={() => alert('create')}>Create</CreateButton>
 				</TopNavMiddle>
+				<TopNavEnd>
+					<Profile label="Profile" />
+				</TopNavEnd>
 			</TopNav>
 		</Root>
 	</WithResponsiveViewport>

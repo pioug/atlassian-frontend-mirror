@@ -1,0 +1,87 @@
+{
+	"extends": "../../../../tsconfig.entry-points.townsquare.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../townsquare/tsDist/@atlaskit__help/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/button/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/checkbox/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/form/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/heading/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../help-article/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../help-layout/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/legacy-custom-icons/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../notifications/notification-indicator/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../notifications/notification-log-client/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/radio/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/section-message/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/select/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/spinner/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/textarea/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/textfield/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-townsquare/tsconfig.json"
+		}
+	]
+}

@@ -9,10 +9,7 @@ import { createIntersectionObserver, type VCIntersectionObserver } from './inter
 import createMutationObserver from './mutation-observer';
 import createPerformanceObserver from './performance-observer';
 import { type MutationData } from './types';
-import {
-	checkThirdPartySegmentWithIgnoreReason,
-	createMutationTypeWithIgnoredReason,
-} from './utils/get-component-name-and-child-props';
+import checkWithinComponentAndExtractChildProps from './utils/check-within-component-and-extract-child-props';
 import isInVCIgnoreIfNoLayoutShiftMarker from './utils/is-in-vc-ignore-if-no-layout-shift-marker';
 
 function isElementVisible(element: Element) {
@@ -267,13 +264,12 @@ export default class ViewportObserver {
 				continue;
 			}
 
-			const { isWithinThirdPartySegment, ignoredReason } =
-				checkThirdPartySegmentWithIgnoreReason(addedNode);
+			const { isWithin: isWithinThirdPartySegment } = checkWithinComponentAndExtractChildProps(
+				addedNode,
+				'UFOThirdPartySegment',
+			);
 			if (isWithinThirdPartySegment) {
-				const assignedReason = createMutationTypeWithIgnoredReason(
-					ignoredReason || 'third-party-element',
-				);
-				this.intersectionObserver?.watchAndTag(addedNode, assignedReason);
+				this.intersectionObserver?.watchAndTag(addedNode, 'mutation:third-party-element');
 				continue;
 			}
 
@@ -330,14 +326,13 @@ export default class ViewportObserver {
 				};
 			}
 
-			const { isWithinThirdPartySegment, ignoredReason } =
-				checkThirdPartySegmentWithIgnoreReason(target);
+			const { isWithin: isWithinThirdPartySegment } = checkWithinComponentAndExtractChildProps(
+				target,
+				'UFOThirdPartySegment',
+			);
 			if (isWithinThirdPartySegment) {
-				const assignedReason = createMutationTypeWithIgnoredReason(
-					ignoredReason || 'third-party-element',
-				);
 				return {
-					type: assignedReason,
+					type: 'mutation:third-party-element',
 					mutationData: {
 						attributeName,
 						oldValue,

@@ -5,12 +5,13 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import { ReplaceAroundStep, ReplaceStep, type Step } from '@atlaskit/editor-prosemirror/transform';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { token } from '@atlaskit/tokens';
 
 import { TOGGLE_TRACK_CHANGES_ACTION as ACTION } from './types';
 
-export const trackChangesPluginKey = new PluginKey('trackChangesPlugin');
+export const trackChangesPluginKey = new PluginKey<TrackChangesPluginState>('trackChangesPlugin');
 
 type TrackChangesPluginState = {
 	shouldChangesBeDispalyed: boolean;
@@ -43,7 +44,13 @@ export const createTrackChangesPlugin = () => {
 					}
 				}
 
-				if (!tr.docChanged || tr.getMeta('isRemote')) {
+				const isDocChanged =
+					tr.docChanged &&
+					tr.steps.some(
+						(step: Step) => step instanceof ReplaceStep || step instanceof ReplaceAroundStep,
+					);
+
+				if (!isDocChanged || tr.getMeta('isRemote') || tr.getMeta('addToHistory') === false) {
 					// If no document changes, return the old changeSet
 					return state;
 				}

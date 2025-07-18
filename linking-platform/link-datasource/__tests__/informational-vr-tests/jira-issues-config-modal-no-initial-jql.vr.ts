@@ -12,7 +12,7 @@ snapshotInformational(JiraIssuesConfigModalNoInitialJql, {
 	drawsOutsideBounds: true,
 	description: 'Jira Issues Config Modal No Initial Jql toggle to Basic mode',
 	featureFlags: {
-		'platform-linking-visual-refresh-sllv': [true, false],
+		'platform-linking-visual-refresh-sllv': true,
 		'replace-legacy-button-in-sllv': true,
 	},
 });

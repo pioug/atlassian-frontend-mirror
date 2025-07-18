@@ -741,9 +741,7 @@ export const getToolbarConfig =
 												);
 											},
 										},
-										...(extensionApi &&
-										extensionState?.extensionProvider &&
-										fg('platform_editor_controls_patch_13')
+										...(extensionApi && extensionState?.extensionProvider
 											? [{ type: 'separator' }]
 											: []),
 										{

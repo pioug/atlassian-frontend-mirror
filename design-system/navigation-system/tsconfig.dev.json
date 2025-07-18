@@ -137,6 +137,9 @@
 			"path": "../select/tsconfig.app.json"
 		},
 		{
+			"path": "../skeleton/tsconfig.app.json"
+		},
+		{
 			"path": "../tabs/tsconfig.app.json"
 		},
 		{

@@ -1,0 +1,36 @@
+{
+	"extends": "../../../../tsconfig.entry-points.townsquare.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../townsquare/tsDist/@atlaskit__editor-plugin-analytics/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-listeners/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../analytics/analytics-next/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-feature-flags/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-tables/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-townsquare/tsconfig.json"
+		}
+	]
+}

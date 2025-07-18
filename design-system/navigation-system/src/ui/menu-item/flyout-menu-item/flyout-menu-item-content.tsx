@@ -2,11 +2,21 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { forwardRef, useCallback, useContext } from 'react';
+import React, {
+	forwardRef,
+	useCallback,
+	useContext,
+	useEffect,
+	useMemo,
+	useRef,
+	useState,
+} from 'react';
 
 import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
+import mergeRefs from '@atlaskit/ds-lib/merge-refs';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { PopupContent } from '@atlaskit/popup/experimental';
 import { token } from '@atlaskit/tokens';
 
@@ -61,6 +71,10 @@ export const FlyoutMenuItemContent = forwardRef<HTMLDivElement, FlyoutMenuItemCo
 			setIsOpen(false);
 		}, [setIsOpen, onClose]);
 
+		const InnerWrapper = fg('platform_dst_nav4_flyout_update_on_resize')
+			? UpdatePopperOnContentResize
+			: NoOpWrapper;
+
 		return (
 			<PopupContent
 				appearance="UNSAFE_modal-below-sm"
@@ -85,8 +99,99 @@ export const FlyoutMenuItemContent = forwardRef<HTMLDivElement, FlyoutMenuItemCo
 				 */
 				shouldDisableGpuAcceleration
 			>
-				{() => <div ref={forwardedRef}>{children}</div>}
+				{({ update }) => (
+					<InnerWrapper ref={forwardedRef} update={update}>
+						{children}
+					</InnerWrapper>
+				)}
 			</PopupContent>
 		);
+	},
+);
+
+const NoOpWrapper = forwardRef(
+	(
+		{ children }: { children: React.ReactNode },
+		forwardedRef: React.ForwardedRef<HTMLDivElement>,
+	) => {
+		return <div ref={forwardedRef}>{children}</div>;
+	},
+);
+
+function createResizeObserver(update: ResizeObserverCallback) {
+	return new ResizeObserver(update);
+}
+
+/**
+ * Will call the Popper.js `update()` method to recalculate positioning, when the flyout menu changes size.
+ * This is the size of the scroll container, NOT the scroll content.
+ *
+ * We could potentially bake this into `@atlaskit/popup` or `@atlaskit/popper` but there are a few
+ * reasons to keep it scoped to flyout menus for now:
+ *
+ * 1. It's easier to unwind
+ * 2. We've only had bug reports for flyout menus
+ * 3. Popup exposes the `update` function so consumers can already do this themselves if necessary
+ * 4. Flyout menus are a lot more restricted to other popups, it might not make sense more generally
+ */
+const UpdatePopperOnContentResize = forwardRef(
+	(
+		{ update, children }: { update: () => void; children: React.ReactNode },
+		forwardedRef: React.ForwardedRef<HTMLDivElement>,
+	) => {
+		/**
+		 * Storing our `update` function in a ref so that we have a stable reference to it.
+		 * We need this because our `ResizeObserver` callback cannot be changed after creating it.
+		 */
+		const updateRef = useRef(update);
+
+		useEffect(() => {
+			updateRef.current = update;
+		}, [update]);
+
+		/**
+		 * Stable function that calls the latest `update` function by calling it through the stable ref.
+		 */
+		const triggerUpdate: ResizeObserverCallback = useCallback(() => {
+			updateRef.current?.();
+		}, []);
+
+		const [resizeObserver] = useState(() => createResizeObserver(triggerUpdate));
+
+		/**
+		 * This is a callback ref that will update which `HTMLElement` we are observing,
+		 * if or when the underlying `HTMLElement` changes or unmounts.
+		 */
+		const observeCallbackRef = useCallback(
+			(element: HTMLElement | null) => {
+				/**
+				 * Unobserves all observed elements.
+				 * Allows us to cleanup without needing to store a reference to the previous element.
+				 */
+				resizeObserver.disconnect();
+
+				if (!element) {
+					return;
+				}
+
+				resizeObserver.observe(element);
+			},
+			[resizeObserver],
+		);
+
+		/**
+		 * We need to memoize the ref otherwise `triggerUpdate` is repeatedly called.
+		 *
+		 * This stems from ResizeObserver firing once after calling `.observe()` even if there
+		 * was no resize.
+		 *
+		 * Without memoizing the ref, the update causes a rerender, which causes the ref to
+		 * get recreated, which triggers an update and so on in a loop.
+		 */
+		const ref = useMemo(() => {
+			return mergeRefs([forwardedRef, observeCallbackRef]);
+		}, [forwardedRef, observeCallbackRef]);
+
+		return <div ref={ref}>{children}</div>;
 	},
 );

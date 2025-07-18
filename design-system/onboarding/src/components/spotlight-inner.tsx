@@ -12,7 +12,6 @@ import Portal from '@atlaskit/portal';
 import { type ScrollLogicalPosition, type SpotlightProps } from '../types';
 import { type ElementBoundingBox, ElementBox } from '../utils/use-element-box';
 
-import { Fade } from './animation';
 import Clone from './clone';
 import NodeResolverSpotlightInner from './node-resolver-spotlight-inner';
 import SpotlightDialog from './spotlight-dialog';
@@ -117,36 +116,6 @@ class SpotlightInner extends React.Component<SpotlightInnerProps, State> {
 		};
 	};
 
-	/**
-	 * Only exists to avoid duplication with the `platform_dst_onboarding_react_transition_group` flag.
-	 *
-	 * TODO: Make this inline in `render` when cleaning up `platform_dst_onboarding_react_transition_group`.
-	 */
-	renderSpotlightDialog({ animationStyles }: { animationStyles: React.CSSProperties }) {
-		const { targetNode, testId } = this.props;
-		const { replacementElement } = this.state;
-
-		return (
-			<SpotlightDialog
-				testId={`${testId}--dialog`}
-				actions={this.props.actions}
-				actionsBeforeElement={this.props.actionsBeforeElement}
-				children={this.props.children}
-				dialogPlacement={this.props.dialogPlacement}
-				dialogWidth={this.props.dialogWidth}
-				footer={this.props.footer}
-				header={this.props.header}
-				heading={this.props.heading}
-				titleId={this.props.titleId}
-				label={this.props.label}
-				headingAfterElement={this.props.headingAfterElement}
-				image={this.props.image}
-				targetNode={replacementElement || targetNode}
-				animationStyles={animationStyles}
-			/>
-		);
-	}
-
 	render() {
 		const {
 			pulse,
@@ -205,34 +174,43 @@ class SpotlightInner extends React.Component<SpotlightInnerProps, State> {
 						)}
 						{TargetReplacement && !replacementElement ? null : (
 							<Layering isDisabled={false}>
-								{fg('platform_dst_onboarding_react_transition_group') ? (
-									<ExitingPersistence appear>
-										{isOpen && (
-											<FadeIn
-												onFinish={(state) => {
-													state === 'exiting' && onExited();
-												}}
-												duration="medium"
-											>
-												{({ ref, className, style }) => (
-													<div
-														ref={ref}
-														// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-														className={className}
-														// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-														style={style}
-													>
-														{this.renderSpotlightDialog({ animationStyles: {} })}
-													</div>
-												)}
-											</FadeIn>
-										)}
-									</ExitingPersistence>
-								) : (
-									<Fade hasEntered={isOpen} onExited={onExited}>
-										{(animationStyles) => this.renderSpotlightDialog({ animationStyles })}
-									</Fade>
-								)}
+								<ExitingPersistence appear>
+									{isOpen && (
+										<FadeIn
+											onFinish={(state) => {
+												state === 'exiting' && onExited();
+											}}
+											duration="medium"
+										>
+											{({ ref, className, style }) => (
+												<div
+													ref={ref}
+													// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+													className={className}
+													// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+													style={style}
+												>
+													<SpotlightDialog
+														testId={`${testId}--dialog`}
+														actions={this.props.actions}
+														actionsBeforeElement={this.props.actionsBeforeElement}
+														children={this.props.children}
+														dialogPlacement={this.props.dialogPlacement}
+														dialogWidth={this.props.dialogWidth}
+														footer={this.props.footer}
+														header={this.props.header}
+														heading={this.props.heading}
+														titleId={this.props.titleId}
+														label={this.props.label}
+														headingAfterElement={this.props.headingAfterElement}
+														image={this.props.image}
+														targetNode={replacementElement || targetNode}
+													/>
+												</div>
+											)}
+										</FadeIn>
+									)}
+								</ExitingPersistence>
 							</Layering>
 						)}
 						<ScrollLock />

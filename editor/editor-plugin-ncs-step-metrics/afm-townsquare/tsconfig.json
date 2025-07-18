@@ -1,0 +1,33 @@
+{
+	"extends": "../../../../tsconfig.entry-points.townsquare.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../townsquare/tsDist/@atlaskit__editor-plugin-ncs-step-metrics/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../editor-plugin-analytics/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-collab-edit/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../helpers/frontend-utilities/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-townsquare/tsconfig.json"
+		}
+	]
+}

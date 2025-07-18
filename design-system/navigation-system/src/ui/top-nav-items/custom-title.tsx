@@ -8,7 +8,6 @@ import { forwardRef, type ReactNode } from 'react';
 import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { useHasCustomTheme } from './themed/has-custom-theme-context';
@@ -23,6 +22,8 @@ const styles = cssMap({
 		// There should be `12px` between the logo and the custom title.
 		// There is already `4px` of padding on the logo and a `4px` flex gap between the logo and the title.
 		paddingInlineStart: token('space.050'),
+		// The `TopNavStart` container has no padding, so the title needs padding at the end.
+		paddingInlineEnd: token('space.100'),
 		display: 'none',
 		// Hiding the CustomTitle on smaller viewports
 		'@media (min-width: 64rem)': {
@@ -38,9 +39,6 @@ const styles = cssMap({
 	// Text color used in standard light/dark mode. Custom theming will use an inherited `color` value.
 	subtleText: {
 		color: token('color.text.subtle'),
-	},
-	paddingInlineEnd: {
-		paddingInlineEnd: token('space.100'),
 	},
 });
 
@@ -76,9 +74,6 @@ export const CustomTitle = forwardRef(function CustomTitle(
 				// With custom theming, the text will inherit the `color` set on the `TopNav`.
 				// In the future we might want an explicit CSS var for this color, such as a subtle theme-aware color.
 				!hasCustomTheme && styles.subtleText,
-				// This flag removes the padding on the end of the `TopNavStart` container,
-				// so we need to make sure that the title itself has padding.
-				fg('platform_design_system_nav4_top_nav_min_widths') && styles.paddingInlineEnd,
 			]}
 			data-testid={testId}
 		>

@@ -3,6 +3,8 @@ import React, { Suspense } from 'react';
 import { act, render, screen, waitForElementToBeRemoved } from '@testing-library/react';
 import invariant from 'tiny-invariant';
 
+import { withResolvers } from '@atlaskit/ds-lib/with-resolvers';
+
 import { PanelSplitter } from '../../panel-splitter/panel-splitter';
 import { Root } from '../../root';
 import { SideNav } from '../../side-nav/side-nav';
@@ -14,27 +16,6 @@ import {
 	type ResetConsoleErrorFn,
 	resetMatchMedia,
 } from './test-utils';
-
-// Sadly we cannot use Promise.withResolvers() in platform yet
-function withResolvers<TPromiseValue>(): {
-	promise: Promise<TPromiseValue>;
-	resolve: (value: TPromiseValue | PromiseLike<TPromiseValue>) => void;
-	reject: (reason?: any) => void;
-} {
-	let resolve;
-	let reject;
-
-	const promise = new Promise<TPromiseValue>((res, rej) => {
-		resolve = res;
-		reject = rej;
-	});
-
-	// to make sure types are correctly narrowed
-	invariant(resolve);
-	invariant(reject);
-
-	return { resolve, reject, promise };
-}
 
 let resetConsoleErrorSpyFn: ResetConsoleErrorFn;
 beforeAll(() => {

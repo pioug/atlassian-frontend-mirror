@@ -10,6 +10,7 @@ import ConfluenceBlog from '../../../__fixtures__/confluence-blog';
 import ConfluencePage from '../../../__fixtures__/confluence-page';
 import ConfluenceSpace from '../../../__fixtures__/confluence-space';
 import ConfluenceTemplate from '../../../__fixtures__/confluence-template';
+import ConversationEntity from '../../../__fixtures__/conversation-entity';
 import DocumentEntity from '../../../__fixtures__/document-entity';
 import DropboxFile from '../../../__fixtures__/dropbox-file';
 import Figma from '../../../__fixtures__/figma';
@@ -17,6 +18,7 @@ import FigmaEntity from '../../../__fixtures__/figma-entity';
 import JiraRoadMap from '../../../__fixtures__/jira-roadmap';
 import JiraTask from '../../../__fixtures__/jira-task';
 import JiraTimeline from '../../../__fixtures__/jira-timeline';
+import MessageEntity from '../../../__fixtures__/message-entity';
 import YouTubeVideo from '../../../__fixtures__/youtube-video';
 import { SmartLinkStatus } from '../../../constants';
 import extractFlexibleUiContext from '../index';
@@ -940,6 +942,104 @@ describe('extractFlexibleUiContext', () => {
 						}),
 					}),
 				);
+			});
+
+			ffTest.on('platform-linking-slack-entity-support', '', () => {
+				it('returns flexible ui context for Slack message with entity support', () => {
+					const data = extractFlexibleUiContext({
+						status: SmartLinkStatus.Resolved,
+						response: MessageEntity as SmartLinkResponse,
+					});
+					expect(data).toEqual(
+						expect.objectContaining({
+							actions: {
+								CopyLinkAction: {
+									invokeAction: expect.objectContaining({
+										actionSubjectId: 'copyLink',
+										actionType: 'CopyLinkAction',
+										definitionId: 'e1bfa9cc-ecfe-4466-bcfb-8759bf9a1c60',
+										display: undefined,
+										extensionKey: 'slack-object-provider',
+										id: undefined,
+										resourceType: 'message',
+									}),
+								},
+								DownloadAction: undefined,
+								FollowAction: undefined,
+								PreviewAction: undefined,
+								AutomationAction: undefined,
+								AISummaryAction: undefined,
+								ViewRelatedLinksAction: undefined,
+							},
+							linkIcon: {
+								label: 'Message from Mel Policicchio in #swifties',
+								url: 'https://a.slack-edge.com/80588/marketing/img/meta/favicon-32.png',
+							},
+							createdOn: '2025-05-30T15:45:15.934Z',
+							linkTitle: {
+								text: 'Message from Mel Policicchio in #swifties',
+								url: 'https://atlassian.slack.com/archives/C02NKSU9XME/p1748619915934759',
+							},
+							url: 'https://atlassian.slack.com/archives/C02NKSU9XME/p1748619915934759',
+							type: ['schema:Message'],
+							...(fg('cc-ai-linking-platform-snippet-renderer') && {
+								meta: {
+									objectId: 'slack-id',
+									resourceType: 'file',
+									tenantId: 'slack-tenant',
+								},
+							}),
+						}),
+					);
+				});
+
+				it('returns flexible ui context for Slack channel with entity support', () => {
+					const data = extractFlexibleUiContext({
+						status: SmartLinkStatus.Resolved,
+						response: ConversationEntity as SmartLinkResponse,
+					});
+					expect(data).toEqual(
+						expect.objectContaining({
+							actions: {
+								CopyLinkAction: {
+									invokeAction: expect.objectContaining({
+										actionSubjectId: 'copyLink',
+										actionType: 'CopyLinkAction',
+										definitionId: 'e1bfa9cc-ecfe-4466-bcfb-8759bf9a1c60',
+										display: undefined,
+										extensionKey: 'slack-object-provider',
+										id: undefined,
+										resourceType: 'channel',
+									}),
+								},
+								DownloadAction: undefined,
+								FollowAction: undefined,
+								PreviewAction: undefined,
+								AutomationAction: undefined,
+								AISummaryAction: undefined,
+								ViewRelatedLinksAction: undefined,
+							},
+							linkIcon: {
+								label: '#swifties',
+								url: 'https://a.slack-edge.com/80588/marketing/img/meta/favicon-32.png',
+							},
+							modifiedOn: '2025-06-07T11:15:08.398Z',
+							linkTitle: {
+								text: '#swifties',
+								url: 'https://atlassian.enterprise.slack.com/archives/C02NKSU9XME',
+							},
+							url: 'https://atlassian.enterprise.slack.com/archives/C02NKSU9XME',
+							type: ['Document'],
+							...(fg('cc-ai-linking-platform-snippet-renderer') && {
+								meta: {
+									objectId: 'slack-id',
+									resourceType: 'file',
+									tenantId: 'slack-tenant',
+								},
+							}),
+						}),
+					);
+				});
 			});
 		});
 	});

@@ -1,5 +1,17 @@
 # @atlaskit/rovo-agent-components
 
+## 2.13.0
+
+### Minor Changes
+
+- [#186683](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/186683)
+  [`538ec6ba100e3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/538ec6ba100e3) -
+  Deprecate useBrowseAgentsUI, split BrowseAgentsContent to BrowseAgentsContentNew and
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.12.0
 
 ### Minor Changes

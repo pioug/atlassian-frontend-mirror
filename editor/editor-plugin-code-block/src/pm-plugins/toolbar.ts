@@ -140,10 +140,7 @@ export const getToolbarConfig =
 				] as const);
 
 		let copyAndDeleteButtonMenuItems: FloatingToolbarItem<Command>[] = [];
-		if (
-			expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1') &&
-			fg('platform_editor_controls_patch_13')
-		) {
+		if (expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1')) {
 			const overflowMenuOptions: FloatingToolbarOverflowDropdownOptions<Command> = [
 				{
 					title: formatMessage(commonMessages.delete),
@@ -221,8 +218,7 @@ export const getToolbarConfig =
 			nodeType,
 			items: [
 				languageSelect,
-				...(expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1') &&
-				fg('platform_editor_controls_patch_13')
+				...(expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1')
 					? []
 					: [separator]),
 				codeBlockWrapButton,

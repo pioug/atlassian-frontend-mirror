@@ -30,14 +30,12 @@ const anchorStyles = cssMap({
 			textDecoration: 'none',
 			color: 'inherit',
 		},
-	},
-	newMargin: {
 		// Additional margin is added to the left of the interactive element, to create visual alignment
 		// with the app tile icon and the other icon buttons that use normal (non-tile) icons.
 		marginInlineStart: token('space.050'),
 	},
 	// This is the same between app-logo and nav-logo
-	newInteractionStates: {
+	interactionStates: {
 		'&:hover': {
 			backgroundColor: token('color.background.neutral.subtle.hovered'),
 		},
@@ -48,7 +46,7 @@ const anchorStyles = cssMap({
 			backgroundColor: `${token('color.background.neutral.subtle.pressed')}!important`,
 		},
 	},
-	newInteractionStatesCustomTheming: {
+	interactionStatesCustomTheming: {
 		'&:hover': {
 			backgroundColor: 'var(--ds-top-bar-button-background-hovered)',
 		},
@@ -159,10 +157,9 @@ export const AppLogo = ({
 			// eslint-disable-next-line @compiled/no-suppress-xcss
 			xcss={cx(
 				anchorStyles.root,
-				anchorStyles.newMargin,
 				hasCustomTheme
-					? anchorStyles.newInteractionStatesCustomTheming
-					: anchorStyles.newInteractionStates,
+					? anchorStyles.interactionStatesCustomTheming
+					: anchorStyles.interactionStates,
 			)}
 			onClick={onClick}
 		>

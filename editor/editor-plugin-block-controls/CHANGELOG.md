@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 4.0.8
+
+### Patch Changes
+
+- [#185723](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185723)
+  [`751aeb4580469`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/751aeb4580469) -
+  ED-28315 clean up fg platform_editor_controls_patch_13
+- Updated dependencies
+
+## 4.0.7
+
+### Patch Changes
+
+- [#185940](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185940)
+  [`456bee393c4d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/456bee393c4d3) -
+  [ux] When editor-area is less than 768px wide, we reduce editor gutters to 24px in Full-page
+  editor.
+- Updated dependencies
+
 ## 4.0.6
 
 ### Patch Changes

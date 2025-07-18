@@ -1,12 +1,16 @@
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import {
+	extractEntity,
 	extractPersonAssignedTo,
 	extractPersonCreatedBy,
 	extractPersonOwnedBy,
 	extractPersonUpdatedBy,
+	isEntityPresent,
 	type LinkPerson,
 	type LinkTypeUpdatedBy,
 } from '@atlaskit/link-extractors';
+import type { SmartLinkResponse } from '@atlaskit/linking-types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type LinkLocation } from '../../state/flexible-ui-context/types';
 
@@ -32,6 +36,26 @@ export type LinkCommentType =
 export const extractCommentCount = (data: JsonLd.Data.BaseData) =>
 	extractValue<LinkCommentType, number>(data, 'schema:commentCount');
 
+/**
+ * Should be moved to link-extractors when jsonLd is deprecated
+ */
+export const extractSmartLinkCommentCount = (response?: SmartLinkResponse): number | undefined => {
+	if (!response || !response.data) {
+		return undefined;
+	}
+
+	if (fg('platform-linking-slack-entity-support')) {
+		if (isEntityPresent(response)) {
+			const entity = extractEntity(response);
+			return entity && 'commentCount' in entity && typeof entity.commentCount === 'number'
+				? entity?.commentCount
+				: undefined;
+		}
+	}
+
+	return response?.data && extractCommentCount(response?.data as JsonLd.Data.BaseData);
+};
+
 export const extractAppliedToComponentsCount = (data: JsonLd.Data.BaseData) =>
 	extractValue<JsonLd.Data.Project, number>(data, 'atlassian:appliedToComponentsCount');
 
@@ -49,6 +73,28 @@ type LinkReactCountType =
 	| JsonLd.Data.Task;
 export const extractReactCount = (data: JsonLd.Data.BaseData) =>
 	extractValue<LinkReactCountType, number>(data, 'atlassian:reactCount');
+
+/**
+ * Should be moved to link-extractors when jsonLd is deprecated
+ */
+export const extractSmartLinkReactCount = (response?: SmartLinkResponse): number | undefined => {
+	if (!response || !response.data) {
+		return undefined;
+	}
+
+	if (fg('platform-linking-slack-entity-support')) {
+		if (isEntityPresent(response)) {
+			const entity = extractEntity(response);
+			const reactions =
+				entity && 'reactions' in entity && Array.isArray(entity.reactions)
+					? entity.reactions
+					: undefined;
+			return reactions?.reduce((total, reaction) => total + reaction?.total, 0);
+		}
+	}
+
+	return response?.data && extractReactCount(response?.data as JsonLd.Data.BaseData);
+};
 
 type LinkVoteCountType =
 	| JsonLd.Data.Document
@@ -182,6 +228,23 @@ export const extractReadTime = (data: JsonLd.Data.BaseData): string | undefined 
 
 export const extractSentOn = (data: JsonLd.Data.BaseData): string | undefined => {
 	return extractValue<JsonLd.Data.Message, string>(data, 'dateSent');
+};
+
+/**
+ * Should be moved to link-extractors when jsonLd is deprecated
+ */
+export const extractSmartLinkSentOn = (response?: SmartLinkResponse): string | undefined => {
+	if (!response || !response.data) {
+		return undefined;
+	}
+
+	if (fg('platform-linking-slack-entity-support')) {
+		if (isEntityPresent(response)) {
+			return extractEntity(response)?.createdAt;
+		}
+	}
+
+	return response?.data && extractSentOn(response?.data as JsonLd.Data.BaseData);
 };
 
 export const extractStoryPoints = (data: JsonLd.Data.BaseData): number | undefined => {

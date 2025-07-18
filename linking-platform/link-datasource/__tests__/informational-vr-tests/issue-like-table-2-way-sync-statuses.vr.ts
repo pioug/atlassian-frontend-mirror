@@ -16,7 +16,7 @@ snapshotInformational(VRIssueLikeTableStatusLoading, {
 	},
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-visual-refresh-sllv': [true, false],
+		'platform-linking-visual-refresh-sllv': true,
 	},
 	ignoredErrors: [
 		{
@@ -37,7 +37,7 @@ snapshotInformational(VRIssueLikeTableStatus, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-sllv': [true, false],
+		'platform-linking-visual-refresh-sllv': true,
 	},
 	ignoredErrors: [
 		{
@@ -60,7 +60,7 @@ snapshotInformational(VRIssueLikeTableStatus, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-sllv': [true, false],
+		'platform-linking-visual-refresh-sllv': true,
 	},
 	ignoredErrors: [
 		{

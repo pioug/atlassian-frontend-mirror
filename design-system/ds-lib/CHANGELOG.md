@@ -1,5 +1,19 @@
 # @atlaskit/ds-lib
 
+## 4.1.0
+
+### Minor Changes
+
+- [#186591](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/186591)
+  [`4568f6d3493c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4568f6d3493c7) -
+  Adding `withResolvers` util which has the same behaviour as `Promise.withResolvers()`
+
+  ```ts
+  import { withResolvers } from '@atlaskit/ds-lib/with-resolvers';
+
+  const { promise, resolve, reject } = withResolvers();
+  ```
+
 ## 4.0.1
 
 ### Patch Changes

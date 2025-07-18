@@ -270,6 +270,16 @@ const metadata: IconMetadata = {
 		id: '22279:21587',
 		usage: 'Known uses: None',
 	},
+	boolean: {
+		keywords: ['true', 'false', 'binary', 'boolean', 'on', 'off'],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Data Experiences (AVP)',
+		type: 'core',
+		status: 'published',
+		id: '52032:2802',
+		usage: 'Reserved for representing boolean data types and operations.',
+	},
 	'browser-extension': {
 		keywords: ['extension', 'puzzle piece', 'add on', 'jigsaw', 'chrome web store'],
 		categorization: 'single-purpose',

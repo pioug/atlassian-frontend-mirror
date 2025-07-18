@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::69e2f5e4400c193f05108e6527d5df3a>>
+ * @codegen <<SignedSource::59d8a75c79fa0b35dd10dab96bfdaf23>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -572,6 +572,27 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Known uses: None',
 		team: 'Design System Team',
+		status: 'published',
+	},
+	boolean: {
+		keywords: [
+			'boolean',
+			'icon',
+			'icon-lab',
+			'core',
+			'true',
+			'false',
+			'binary',
+			'boolean',
+			'on',
+			'off',
+		],
+		componentName: 'BooleanIcon',
+		package: '@atlaskit/icon-lab/core/boolean',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing boolean data types and operations.',
+		team: 'Data Experiences (AVP)',
 		status: 'published',
 	},
 	'browser-extension': {

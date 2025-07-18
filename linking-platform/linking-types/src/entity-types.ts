@@ -136,6 +136,31 @@ export type DocumentAttributes = {
 	collaborators?: User[];
 };
 
+export type Reactions = {
+	reactionType: string;
+	total: number;
+};
+
+export type MessageAttributes = {
+	hidden?: boolean;
+	isPinned?: boolean;
+	lastActive?: string;
+	attachments?: Attachment[];
+	commentCount?: number;
+	reactions?: Reactions[];
+};
+
+export type ConversationAttributes = {
+	type?: string;
+	membershipType?: string;
+	workspace?: string;
+	topic?: string;
+	isArchived?: boolean;
+	members?: User[];
+	memberCount?: number;
+	lastActive?: string;
+};
+
 /**
  * The base shape of supported nouns as defined by data depot.
  * @see https://developer.atlassian.com/cloud/jsw-data-depot/supported-nouns/common-attributes-and-shapes/
@@ -177,6 +202,10 @@ export interface ProjectEntity extends BaseEntity {
 
 export interface DocumentEntity extends BaseEntity, DocumentAttributes {}
 
+export interface MessageEntity extends BaseEntity, MessageAttributes {}
+
+export interface ConversationEntity extends BaseEntity, ConversationAttributes {}
+
 export interface UnsupportedEntity extends BaseEntity {
 	[x: string | number | symbol]: unknown;
 }
@@ -191,4 +220,6 @@ export type EntityType =
 	| ProjectEntity
 	| WorkItemEntity
 	| DocumentEntity
+	| MessageEntity
+	| ConversationEntity
 	| UnsupportedEntity;

@@ -200,10 +200,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 			isSelectedViaDragHandle: key.getState(editorState)?.isSelectedViaDragHandle ?? false,
 		};
 
-		if (
-			editorExperiment('platform_editor_controls', 'variant1') &&
-			fg('platform_editor_controls_patch_13')
-		) {
+		if (editorExperiment('platform_editor_controls', 'variant1')) {
 			sharedState.isMouseOut =
 				interactionTrackingPluginKey.getState(editorState)?.isMouseOut ?? false;
 		}

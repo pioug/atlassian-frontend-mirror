@@ -9297,10 +9297,10 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
 @keyframes animation-6 {
   from {
     opacity: 0;
-    -webkit-transform: translateY(-16px);
-    -moz-transform: translateY(-16px);
-    -ms-transform: translateY(-16px);
-    transform: translateY(-16px);
+    -webkit-transform: translateY(16px);
+    -moz-transform: translateY(16px);
+    -ms-transform: translateY(16px);
+    transform: translateY(16px);
   }
 
   to {
@@ -14122,10 +14122,10 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
 @keyframes animation-6 {
   from {
     opacity: 0;
-    -webkit-transform: translateY(-16px);
-    -moz-transform: translateY(-16px);
-    -ms-transform: translateY(-16px);
-    transform: translateY(-16px);
+    -webkit-transform: translateY(16px);
+    -moz-transform: translateY(16px);
+    -ms-transform: translateY(16px);
+    transform: translateY(16px);
   }
 
   to {
@@ -14140,10 +14140,10 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
 @keyframes animation-6 {
   from {
     opacity: 0;
-    -webkit-transform: translateY(-16px);
-    -moz-transform: translateY(-16px);
-    -ms-transform: translateY(-16px);
-    transform: translateY(-16px);
+    -webkit-transform: translateY(16px);
+    -moz-transform: translateY(16px);
+    -ms-transform: translateY(16px);
+    transform: translateY(16px);
   }
 
   to {

@@ -68,10 +68,6 @@ interface SpotlightDialogProps {
 	 * The spotlight target node.
 	 */
 	targetNode: HTMLElement;
-	/**
-	 * Contains the animation styles to apply to the component.
-	 */
-	animationStyles: Object;
 
 	/**
 	 * A `testId` prop is provided for specified elements,
@@ -128,7 +124,6 @@ class SpotlightDialogComponent extends Component<SpotlightDialogProps, State> {
 		const {
 			actions,
 			actionsBeforeElement,
-			animationStyles,
 			children,
 			dialogPlacement,
 			dialogWidth,
@@ -187,7 +182,7 @@ class SpotlightDialogComponent extends Component<SpotlightDialogProps, State> {
 						<FocusLock disabled={focusLockDisabled} returnFocus={false} autoFocus>
 							<Box
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-								style={{ ...style, ...animationStyles }}
+								style={style}
 								ref={ref}
 								aria-modal={true}
 								role="dialog"

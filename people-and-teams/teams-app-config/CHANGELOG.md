@@ -1,5 +1,13 @@
 # @atlaskit/teams-app-config
 
+## 1.10.0
+
+### Minor Changes
+
+- [#185547](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185547)
+  [`896469b8a8f62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/896469b8a8f62) -
+  Export function that always returns Teams app URL regardless of flags & context
+
 ## 1.9.1
 
 ### Patch Changes

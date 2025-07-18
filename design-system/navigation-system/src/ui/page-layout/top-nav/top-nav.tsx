@@ -7,7 +7,6 @@ import { useContext } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 import type { StrictXCSSProp } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { useSkipLink } from '../../../context/skip-links/skip-links-context';
@@ -54,15 +53,6 @@ const styles = cssMap({
 			// This is only applicable to the JIRA pages that use EntryPoint such as /jira/projects or /jira/software/projects/.../calendar
 			display: 'contents',
 		},
-	},
-	oldLayoutStyles: {
-		'@media (min-width: 64rem)': {
-			// The top bar is set so for as long as possible the center grid item
-			// ("common actions") are visually centered between the start and end grid items.
-			gridTemplateColumns: '1fr 3fr 1fr',
-		},
-	},
-	newLayoutStyles: {
 		// The layout switches at the same breakpoint as when the search bar becomes an icon button.
 		'@media (min-width: 48rem)': {
 			// Using `1fr` for the left and right columns allows them to stay equal for as long as possible
@@ -116,12 +106,7 @@ export function TopNav({
 			<header
 				id={id}
 				data-layout-slot
-				css={[
-					styles.root,
-					fg('platform_design_system_nav4_top_nav_columns')
-						? styles.newLayoutStyles
-						: styles.oldLayoutStyles,
-				]}
+				css={styles.root}
 				className={xcss}
 				data-testid={testId}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop

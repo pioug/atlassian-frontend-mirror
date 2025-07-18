@@ -181,6 +181,15 @@ export class TeamsClient {
 	}
 
 	/**
+	 * Get the agents associated with the team
+	 * @param {string} userId
+	 * @returns {Promise}
+	 */
+	async queryTeamHasAgents(teamId: string): Promise<AwaitedReturn<typeof aggClient.queryTeamHasAgents>> {
+		return this._aggClient.queryTeamHasAgents(teamId);
+	}
+
+	/**
 	 * Get user information of a member of a team
 	 * @param {string} userId
 	 * @returns {Promise<CloudUser>}

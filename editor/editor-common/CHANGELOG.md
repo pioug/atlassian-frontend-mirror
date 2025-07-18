@@ -1,5 +1,28 @@
 # @atlaskit/editor-common
 
+## 107.8.5
+
+### Patch Changes
+
+- [#187247](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/187247)
+  [`4baf71295fd8e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4baf71295fd8e) -
+  [ux] Dynamically calculate the character width of ordered lists when number of list items is 2 or
+  more
+- Updated dependencies
+
+## 107.8.4
+
+### Patch Changes
+
+- [#185940](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185940)
+  [`456bee393c4d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/456bee393c4d3) -
+  [ux] When editor-area is less than 768px wide, we reduce editor gutters to 24px in Full-page
+  editor.
+- [#183772](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183772)
+  [`8b2280a6cd32a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8b2280a6cd32a) -
+  [ux] ED-28391: Added panel hover button for jira in edit mode"
+- Updated dependencies
+
 ## 107.8.3
 
 ### Patch Changes

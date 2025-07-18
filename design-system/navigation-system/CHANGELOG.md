@@ -1,5 +1,38 @@
 # @atlassian/navigation-system
 
+## 0.174.0
+
+### Minor Changes
+
+- [#186591](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/186591)
+  [`66ab2cbaba968`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/66ab2cbaba968) -
+  Internal refactor of a test. No public API or behaviour changes.
+- [#187173](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/187173)
+  [`c3ac41e33f28b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c3ac41e33f28b) -
+  Cleans up the `platform_design_system_nav4_top_nav_columns` and
+  `platform_design_system_nav4_top_nav_min_widths` feature gates. This enables technical
+  improvements to the top nav layout for all consumers.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.173.0
+
+### Minor Changes
+
+- [#185107](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185107)
+  [`3ae5a09dc3f3c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3ae5a09dc3f3c) -
+  Changes the flyout menu to recalculate its position when its content changes size. This fixes
+  issues where the flyout menu could become misaligned or offscreen. This change is behind the
+  `platform_dst_nav4_flyout_update_on_resize` feature gate.
+
+### Patch Changes
+
+- [#187177](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/187177)
+  [`adea77e90c396`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/adea77e90c396) -
+  Internal refactoring. There are no visible changes.
+
 ## 0.172.0
 
 ### Minor Changes

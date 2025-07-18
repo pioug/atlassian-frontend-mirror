@@ -1,5 +1,14 @@
 # @atlaskit/onboarding
 
+## 14.3.0
+
+### Minor Changes
+
+- [#187608](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/187608)
+  [`b447e727a9968`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b447e727a9968) -
+  Cleans up the `platform_dst_onboarding_react_transition_group` feature gate. Animations are now
+  done using `@atlaskit/motion`, and `react-transition-group` has been removed.
+
 ## 14.2.6
 
 ### Patch Changes

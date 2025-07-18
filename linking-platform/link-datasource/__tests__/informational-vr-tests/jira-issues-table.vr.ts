@@ -26,7 +26,7 @@ snapshotInformational(JiraIssuesTable, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-visual-refresh-sllv': [true, false],
+		'platform-linking-visual-refresh-sllv': true,
 	},
 });
 snapshotInformational(JiraIssuesTable, {
@@ -49,7 +49,7 @@ snapshotInformational(JiraIssuesTable, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-visual-refresh-sllv': [true, false],
+		'platform-linking-visual-refresh-sllv': true,
 	},
 });
 snapshotInformational(JiraIssuesTable, {
@@ -71,7 +71,7 @@ snapshotInformational(JiraIssuesTable, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-visual-refresh-sllv': [true, false],
+		'platform-linking-visual-refresh-sllv': true,
 	},
 });
 snapshotInformational(JiraIssuesTable, {
@@ -93,7 +93,7 @@ snapshotInformational(JiraIssuesTable, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-visual-refresh-sllv': [true, false],
+		'platform-linking-visual-refresh-sllv': true,
 	},
 });
 snapshotInformational(JiraIssuesTable, {
@@ -116,7 +116,7 @@ snapshotInformational(JiraIssuesTable, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-visual-refresh-sllv': [true, false],
+		'platform-linking-visual-refresh-sllv': true,
 	},
 });
 snapshotInformational(JiraIssuesTable, {
@@ -138,7 +138,7 @@ snapshotInformational(JiraIssuesTable, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-visual-refresh-sllv': [true, false],
+		'platform-linking-visual-refresh-sllv': true,
 	},
 });
 
@@ -154,7 +154,7 @@ snapshotInformational(JiraIssuesTableSingleRow, {
 	drawsOutsideBounds: true,
 	description: 'Hovering over summary',
 	featureFlags: {
-		'platform-linking-visual-refresh-sllv': [true, false],
+		'platform-linking-visual-refresh-sllv': true,
 	},
 });
 
@@ -172,7 +172,7 @@ snapshotInformational(JiraIssuesTable, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-visual-refresh-sllv': [true, false],
+		'platform-linking-visual-refresh-sllv': true,
 	},
 });
 
@@ -190,7 +190,7 @@ snapshotInformational(JiraIssuesTable, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-visual-refresh-sllv': [true, false],
+		'platform-linking-visual-refresh-sllv': true,
 	},
 });
 
@@ -208,7 +208,7 @@ snapshotInformational(JiraIssuesTable, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-visual-refresh-sllv': [true, false],
+		'platform-linking-visual-refresh-sllv': true,
 	},
 });
 
@@ -226,7 +226,7 @@ snapshotInformational(JiraIssuesTable, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-visual-refresh-sllv': [true, false],
+		'platform-linking-visual-refresh-sllv': true,
 	},
 });
 
@@ -244,7 +244,7 @@ snapshotInformational(JiraIssuesTable, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-visual-refresh-sllv': [true, false],
+		'platform-linking-visual-refresh-sllv': true,
 	},
 });
 
@@ -268,6 +268,6 @@ snapshotInformational(JiraIssuesTable, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-visual-refresh-sllv': [true, false],
+		'platform-linking-visual-refresh-sllv': true,
 	},
 });

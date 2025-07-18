@@ -1,12 +1,10 @@
 import { useMemo } from 'react';
 
 import type { ToolbarSize } from '@atlaskit/editor-common/types';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import {
 	ButtonsMenuMinimal,
-	ButtonsMenuCompact,
 	ToolbarButtonsStrong,
 	ToolbarButtonsStrongItalic,
 	ResponsiveCustomButtonToolbarMinimal,
@@ -28,11 +26,7 @@ export const useResponsiveIconTypeButtons = ({
 	let ResponsiveCustomButtonToolbar: Record<ToolbarSize, IconTypes[]> =
 		ResponsiveCustomButtonToolbarCompact;
 	if (expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1')) {
-		if (fg('platform_editor_controls_patch_13')) {
-			ResponsiveCustomButtonToolbar = ResponsiveCustomButtonToolbarMinimal;
-		} else {
-			ResponsiveCustomButtonToolbar = ResponsiveCustomButtonToolbarCompact;
-		}
+		ResponsiveCustomButtonToolbar = ResponsiveCustomButtonToolbarMinimal;
 	}
 
 	const iconTypeList = useMemo(
@@ -45,11 +39,7 @@ export const useResponsiveIconTypeButtons = ({
 	}
 
 	if (expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1')) {
-		if (fg('platform_editor_controls_patch_13')) {
-			return ToolbarButtonsStrong;
-		} else {
-			return ToolbarButtonsStrongItalic;
-		}
+		return ToolbarButtonsStrong;
 	} else {
 		return ToolbarButtonsStrongItalic;
 	}
@@ -64,11 +54,7 @@ export const useResponsiveIconTypeMenu = ({
 }) => {
 	let ResponsiveCustomMenu: Record<ToolbarSize, IconTypes[]> = ResponsiveCustomMenuCompact;
 	if (expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1')) {
-		if (fg('platform_editor_controls_patch_13')) {
-			ResponsiveCustomMenu = ResponsiveCustomMenuMinimal;
-		} else {
-			ResponsiveCustomMenu = ResponsiveCustomMenuCompact;
-		}
+		ResponsiveCustomMenu = ResponsiveCustomMenuMinimal;
 	}
 
 	const iconTypeList = useMemo(
@@ -81,11 +67,7 @@ export const useResponsiveIconTypeMenu = ({
 	}
 
 	if (expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1')) {
-		if (fg('platform_editor_controls_patch_13')) {
-			return ButtonsMenuMinimal;
-		} else {
-			return ButtonsMenuCompact;
-		}
+		return ButtonsMenuMinimal;
 	} else {
 		return ToolbarButtonsStrongItalic;
 	}

@@ -4,7 +4,6 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { handleKeyDown } from './handle-key-down';
@@ -52,10 +51,7 @@ export const createInteractionTrackingPlugin = () => {
 					isEditing: false,
 				};
 
-				if (
-					editorExperiment('platform_editor_controls', 'variant1') &&
-					fg('platform_editor_controls_patch_13')
-				) {
+				if (editorExperiment('platform_editor_controls', 'variant1')) {
 					state.isMouseOut = false;
 				}
 
@@ -69,17 +65,6 @@ export const createInteractionTrackingPlugin = () => {
 				const meta = tr.getMeta(interactionTrackingPluginKey) as
 					| InteractionTrackingMeta
 					| undefined;
-
-				if (!fg('platform_editor_controls_patch_13')) {
-					switch (meta?.type) {
-						case 'startEditing':
-							return { isEditing: true };
-						case 'stopEditing':
-							return { isEditing: false };
-					}
-
-					return pluginState;
-				}
 
 				const newState: Partial<InteractionTrackingPluginState> = {};
 				switch (meta?.type) {
@@ -108,39 +93,37 @@ export const createInteractionTrackingPlugin = () => {
 			},
 		},
 
-		view:
-			editorExperiment('platform_editor_controls', 'variant1') &&
-			fg('platform_editor_controls_patch_13')
-				? (view: EditorView) => {
-						const editorContentArea = view.dom.closest('.ak-editor-content-area');
+		view: editorExperiment('platform_editor_controls', 'variant1')
+			? (view: EditorView) => {
+					const editorContentArea = view.dom.closest('.ak-editor-content-area');
 
-						let unbindMouseEnter: UnbindFn;
-						let unbindMouseLeave: UnbindFn;
+					let unbindMouseEnter: UnbindFn;
+					let unbindMouseLeave: UnbindFn;
 
-						if (editorContentArea) {
-							unbindMouseEnter = bind(editorContentArea, {
-								type: 'mouseenter',
-								listener: () => {
-									handleMouseEnter(view);
-								},
-							});
-
-							unbindMouseLeave = bind(editorContentArea, {
-								type: 'mouseleave',
-								listener: () => {
-									handleMouseLeave(view);
-								},
-							});
-						}
-
-						return {
-							destroy: () => {
-								unbindMouseEnter?.();
-								unbindMouseLeave?.();
+					if (editorContentArea) {
+						unbindMouseEnter = bind(editorContentArea, {
+							type: 'mouseenter',
+							listener: () => {
+								handleMouseEnter(view);
 							},
-						};
+						});
+
+						unbindMouseLeave = bind(editorContentArea, {
+							type: 'mouseleave',
+							listener: () => {
+								handleMouseLeave(view);
+							},
+						});
 					}
-				: undefined,
+
+					return {
+						destroy: () => {
+							unbindMouseEnter?.();
+							unbindMouseLeave?.();
+						},
+					};
+				}
+			: undefined,
 	});
 };
 

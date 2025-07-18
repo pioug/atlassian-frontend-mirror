@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-breakout
 
+## 3.0.5
+
+### Patch Changes
+
+- [#185940](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185940)
+  [`456bee393c4d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/456bee393c4d3) -
+  [ux] When editor-area is less than 768px wide, we reduce editor gutters to 24px in Full-page
+  editor.
+- Updated dependencies
+
 ## 3.0.4
 
 ### Patch Changes

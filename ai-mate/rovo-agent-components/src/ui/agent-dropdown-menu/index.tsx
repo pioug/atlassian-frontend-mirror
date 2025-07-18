@@ -114,6 +114,7 @@ type AgentDropdownMenuProps = {
 	ViewAgentFullProfileProps;
 
 export const AgentDropdownMenu = ({
+	// TODO https://product-fabric.atlassian.net/browse/RAGE-655 `isAgentCreatedByUser` is not needed if `loadAgentPermissions` is provided
 	isAgentCreatedByUser,
 	isAutodevTemplateAgent,
 	onEditAgent,

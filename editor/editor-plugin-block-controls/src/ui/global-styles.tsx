@@ -35,14 +35,12 @@ const dragHandlerAnchorSelector =
 	'[data-drag-handler-anchor-name]:not([data-drag-handler-node-type="tableRow"], [data-drag-handler-node-type="media"])';
 
 const gutterPaddingWidth = () =>
-	editorExperiment('platform_editor_controls', 'variant1') &&
-	fg('platform_editor_controls_patch_13')
+	editorExperiment('platform_editor_controls', 'variant1')
 		? `${akEditorGutterPaddingDynamic()}px`
 		: '100%';
 
 const gutterPaddingLeft = () =>
-	editorExperiment('platform_editor_controls', 'variant1') &&
-	fg('platform_editor_controls_patch_13')
+	editorExperiment('platform_editor_controls', 'variant1')
 		? `-${akEditorGutterPaddingDynamic()}px`
 		: '-100px';
 

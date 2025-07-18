@@ -1,5 +1,15 @@
 # @atlaskit/toggle
 
+## 15.0.11
+
+### Patch Changes
+
+- [#187142](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/187142)
+  [`ffd74c7e8e61d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ffd74c7e8e61d) -
+  Refactors the focus-ring behaviour of toggle to be entirely css based rather than js. Allowing us
+  to remove complex interaction logic.
+- Updated dependencies
+
 ## 15.0.10
 
 ### Patch Changes

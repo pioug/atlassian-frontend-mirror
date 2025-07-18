@@ -19,7 +19,6 @@ import type {
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { ButtonItemProps } from '@atlaskit/menu';
 import { HeadingItem } from '@atlaskit/menu';
-import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize } from '@atlaskit/theme/constants';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -29,11 +28,6 @@ export const menuItemDimensions = {
 	width: 175,
 	height: 32,
 };
-
-const separatorStyles = css({
-	background: token('color.border'),
-	height: token('space.025', '1px'),
-});
 
 const separatorStylesThin = css({
 	background: token('color.border'),
@@ -115,9 +109,7 @@ const Dropdown = memo((props: Props & WrappedComponentProps) => {
 								<div
 									// eslint-disable-next-line react/no-array-index-key
 									key={idx}
-									css={
-										fg('platform_editor_controls_patch_13') ? separatorStylesThin : separatorStyles
-									}
+									css={separatorStylesThin}
 								/>
 							);
 						}

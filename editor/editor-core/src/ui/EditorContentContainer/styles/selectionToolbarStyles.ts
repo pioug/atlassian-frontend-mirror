@@ -3,7 +3,7 @@ import { css, keyframes } from '@emotion/react'; // eslint-disable-line @atlaski
 const fadeIn = keyframes({
 	from: {
 		opacity: 0,
-		transform: 'translateY(-16px)',
+		transform: 'translateY(16px)',
 	},
 	to: {
 		opacity: 1,

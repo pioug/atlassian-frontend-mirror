@@ -20,15 +20,7 @@ const styles = cssMap({
 		display: 'flex',
 		gap: token('space.050'),
 		gridColumn: 1,
-	},
-	// Adds extra padding between the logo and search bar when they are pressed against each other
-	logoPaddingStyles: {
-		'@media (min-width: 30rem)': {
-			paddingInlineEnd: token('space.075'),
-		},
-	},
-	// Sets a minimum width on the content so that it aligns with the side nav (when side nav is at default width)
-	contentMinWidthStyles: {
+		// Sets a minimum width on the content so that it aligns with the side nav (when side nav is at default width)
 		'@media (min-width: 64rem)': {
 			// Intrinsic width of content without wrapping
 			// The actual grid column can still be larger
@@ -80,13 +72,7 @@ export function TopNavStart({
 
 	return (
 		<div
-			css={[
-				styles.root,
-				fg('platform_design_system_nav4_top_nav_min_widths')
-					? styles.contentMinWidthStyles
-					: // Removing the extra logo padding when applying the content min width
-						styles.logoPaddingStyles,
-			]}
+			css={styles.root}
 			ref={fg('platform_fix_component_state_update_for_suspense') ? elementRef : ref}
 			data-testid={testId}
 		>

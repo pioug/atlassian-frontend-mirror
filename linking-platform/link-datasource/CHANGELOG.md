@@ -1,5 +1,19 @@
 # @atlaskit/link-datasource
 
+## 4.13.5
+
+### Patch Changes
+
+- [#187040](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/187040)
+  [`892342abba2c3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/892342abba2c3) -
+  NAVX-1048 removing all false snapshots for `platform-linking-visual-refresh-sllv`
+
+## 4.13.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.13.3
 
 ### Patch Changes

@@ -1,0 +1,78 @@
+{
+	"extends": "../../../../tsconfig.entry-points.townsquare.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../townsquare/tsDist/@atlaskit__teams-public/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/avatar/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/button/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/css/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/dropdown-menu/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../measurement/feature-gate-js-client/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/heading/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/image/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/link/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/logo/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/modal-dialog/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../people-teams-ui-public/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../teams-client/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-townsquare/tsconfig.json"
+		}
+	]
+}

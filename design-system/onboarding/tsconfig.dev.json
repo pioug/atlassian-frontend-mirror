@@ -65,6 +65,9 @@
 			"path": "../ds-lib/tsconfig.app.json"
 		},
 		{
+			"path": "../heading/tsconfig.app.json"
+		},
+		{
 			"path": "../icon/tsconfig.app.json"
 		},
 		{
@@ -80,7 +83,7 @@
 			"path": "../modal-dialog/tsconfig.app.json"
 		},
 		{
-			"path": "../../platform/feature-flags/tsconfig.app.json"
+			"path": "../motion/tsconfig.app.json"
 		},
 		{
 			"path": "../primitives/tsconfig.app.json"

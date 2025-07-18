@@ -5,6 +5,7 @@ import { getOrderedListInlineStyles } from '@atlaskit/editor-common/styles';
 
 import { getItemCounterDigitsSize, resolveOrder } from '@atlaskit/editor-common/utils';
 import { getListIndentLevel } from '../utils/lists';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 type ExtraProps = {
 	'data-item-counter-digits'?: number;
@@ -27,7 +28,10 @@ export default function OrderedList(props: {
 		order: props.order,
 		itemsCount: props?.content?.length,
 	});
-	if (itemCounterDigitsSize && itemCounterDigitsSize > 2) {
+	if (
+		itemCounterDigitsSize &&
+		itemCounterDigitsSize > (fg('platform_editor_ol_padding_fix') ? 1 : 2)
+	) {
 		extraProps.style = getOrderedListInlineStyles(itemCounterDigitsSize, 'object');
 	}
 	if (props.order !== undefined) {

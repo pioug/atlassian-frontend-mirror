@@ -32,7 +32,7 @@ snapshotInformational(JiraIssuesTableReadonly, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-visual-refresh-sllv': [true, false],
+		'platform-linking-visual-refresh-sllv': true,
 	},
 });
 
@@ -62,6 +62,6 @@ snapshotInformational(JiraIssuesTableNoWrapControl, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-visual-refresh-sllv': [true, false],
+		'platform-linking-visual-refresh-sllv': true,
 	},
 });

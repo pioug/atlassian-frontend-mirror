@@ -1,0 +1,96 @@
+{
+	"extends": "../../../../tsconfig.entry-points.townsquare.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../townsquare/tsDist/@atlaskit__editor-plugin-block-controls/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../editor-plugin-accessibility-utils/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-analytics/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-editor-disabled/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-feature-flags/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-interaction/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-metrics/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-quick-insert/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-selection/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-type-ahead/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-user-intent/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-width/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-shared-styles/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-tables/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/link/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../pragmatic-drag-and-drop/core/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../pragmatic-drag-and-drop/auto-scroll/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../pragmatic-drag-and-drop/react-drop-indicator/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-townsquare/tsconfig.json"
+		}
+	]
+}

@@ -7,7 +7,6 @@ import type {
 	TypeAheadItem,
 } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { closeTypeAhead } from '../../pm-plugins/commands/close-type-ahead';
 import { insertTypeAheadItem } from '../../pm-plugins/commands/insert-type-ahead-item';
@@ -91,7 +90,7 @@ export const useItemInsert = (
 				sourceListItem.length === 0 ||
 				!triggerHandler ||
 				// View more item is only added for keyboard navigation and should not be considered as a valid item to be inserted
-				(onlyHasViewMoreItem(sourceListItem) && fg('platform_editor_controls_patch_13'))
+				onlyHasViewMoreItem(sourceListItem)
 			) {
 				const text = `${triggerHandler.trigger}${query}`;
 				onTextInsert({
@@ -135,7 +134,7 @@ export const useItemInsert = (
 			if (
 				_items.length === 1 &&
 				// View more item is only added for keyboard navigation and should not be considered as a valid item to be inserted
-				(!onlyHasViewMoreItem(_items) || !fg('platform_editor_controls_patch_13'))
+				!onlyHasViewMoreItem(_items)
 			) {
 				queueMicrotask(() => {
 					onItemInsert({ mode, query, index: 0 });

@@ -41,4 +41,10 @@ export type { TeamInSlack } from './slack';
 
 export type { UserTenure } from './tenure';
 
-export { type Container, ContainerType } from './team-container';
+export type { TeamAgentAssociation } from './association';
+
+export {
+	type ApiTeamContainerCreationPayload,
+	type Container,
+	ContainerType,
+} from './team-container';

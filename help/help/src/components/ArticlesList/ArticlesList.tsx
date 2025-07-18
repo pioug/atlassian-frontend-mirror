@@ -3,6 +3,7 @@ import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import AnimateHeight from 'react-animate-height';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 
 import { type ArticleItem } from '../../model/Article';

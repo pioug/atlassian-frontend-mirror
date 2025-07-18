@@ -1,5 +1,13 @@
 # @atlaskit/reactions
 
+## 33.2.3
+
+### Patch Changes
+
+- [#187672](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/187672)
+  [`e01d743f3c06b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e01d743f3c06b) -
+  use formatted message rather than default message for show more button label
+
 ## 33.2.2
 
 ### Patch Changes

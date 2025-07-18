@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-card
 
+## 7.0.9
+
+### Patch Changes
+
+- [#185723](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185723)
+  [`751aeb4580469`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/751aeb4580469) -
+  ED-28315 clean up fg platform_editor_controls_patch_13
+- Updated dependencies
+
+## 7.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.0.7
+
+### Patch Changes
+
+- [#183772](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183772)
+  [`8b2280a6cd32a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8b2280a6cd32a) -
+  [ux] ED-28391: Added panel hover button for jira in edit mode"
+- Updated dependencies
+
 ## 7.0.6
 
 ### Patch Changes

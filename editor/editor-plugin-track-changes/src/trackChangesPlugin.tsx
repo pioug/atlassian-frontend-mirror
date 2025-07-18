@@ -28,7 +28,9 @@ export const trackChangesPlugin: TrackChangesPlugin = () => ({
 			};
 		}
 		return {
-			isDisplayingChanges: Boolean(trackChangesPluginKey.getState(editorState)?.enable),
+			isDisplayingChanges: Boolean(
+				trackChangesPluginKey.getState(editorState)?.shouldChangesBeDispalyed,
+			),
 		};
 	},
 });

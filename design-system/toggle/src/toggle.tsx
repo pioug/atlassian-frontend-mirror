@@ -2,18 +2,9 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, {
-	type FocusEvent,
-	forwardRef,
-	type KeyboardEvent,
-	memo,
-	useEffect,
-	useRef,
-	useState,
-} from 'react';
+import React, { forwardRef, memo, useState } from 'react';
 
 import { css, cssMap, jsx } from '@compiled/react';
-import { bindAll } from 'bind-event-listener';
 
 import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import __noop from '@atlaskit/ds-lib/noop';
@@ -47,7 +38,12 @@ const basicStyles = css({
 	paddingInlineEnd: token('space.025'),
 	paddingInlineStart: token('space.025'),
 	transition: 'transform 0.2s ease',
-
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'&:has(:focus-visible)': {
+		borderColor: token('color.border.focused', B200),
+		borderStyle: 'solid',
+		borderWidth: '2px',
+	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'&[data-disabled]:not([data-checked])': {
 		backgroundColor: token('color.background.disabled', N20),
@@ -132,14 +128,6 @@ const basicStyles = css({
 	},
 });
 
-const borderStyles = css({
-	'&:focus-within': {
-		borderColor: token('color.border.focused', B200),
-		borderStyle: 'solid',
-		borderWidth: '2px',
-	},
-});
-
 const iconStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'> span > span': {
@@ -220,47 +208,9 @@ const Toggle = memo(
 
 		const isControlled = typeof isChecked === 'undefined';
 		const [checked, setChecked] = useState(defaultChecked);
-		const [isKeyboardUsed, setIsKeyboardUsed] = useState<boolean | null>(true);
-		const wrapperRef = useRef<HTMLLabelElement>(null);
-
-		useEffect(() => {
-			if (id && wrapperRef.current && wrapperRef.current.parentElement) {
-				/*
-					DSP-21524 Handling the click on <label> that is linked via "for" attribute.
-					By default click on the label fires absolutely same onclick event as click on the input element.
-					To differentiate keyboard click from mouse we need this additional listener.
-				*/
-				const linkedLabel: HTMLLabelElement | null = wrapperRef.current.parentElement.querySelector(
-					`label[for="${id}"]`,
-				);
-				if (linkedLabel) {
-					const unbind = bindAll(linkedLabel, [
-						{
-							type: 'click',
-							listener: (event) => {
-								setIsKeyboardUsed(false);
-								if (event?.detail > 1) {
-									/*
-									DSP-21524 double or triple click on label initiating the text selection for label text and adds additional step to tab order.
-									So here we set the isKeyboardUsed to true, to display focus ring on next Tab press
-									*/
-									setIsKeyboardUsed(true);
-								}
-							},
-						},
-					]);
-					return unbind;
-				}
-			}
-		}, [id, wrapperRef, isKeyboardUsed]);
 
 		const handleBlur = usePlatformLeafEventHandler({
-			fn: (event: FocusEvent<HTMLInputElement>, analyticsEvent: UIAnalyticsEvent) => {
-				if (!isKeyboardUsed) {
-					setIsKeyboardUsed(true);
-				}
-				providedOnBlur(event, analyticsEvent);
-			},
+			fn: providedOnBlur,
 			action: 'blur',
 			analyticsData: analyticsContext,
 			...analyticsAttributes,
@@ -285,12 +235,6 @@ const Toggle = memo(
 			...analyticsAttributes,
 		});
 
-		const onLabelKeyDown = (event: KeyboardEvent<HTMLElement>) => {
-			if ([' ', 'Tab', 'Space'].includes(event.key)) {
-				setIsKeyboardUsed(true);
-			}
-		};
-
 		const shouldChecked = isControlled ? checked : isChecked;
 
 		const controlProps = {
@@ -298,11 +242,6 @@ const Toggle = memo(
 			'data-disabled': isDisabled ? isDisabled : undefined,
 			'data-size': size,
 			'data-testid': testId ? testId : undefined,
-			// DSP-21524 Because label gets focus ring via focus-within and focus-within also triggers by mouse click we have to manually control the ring appearance.
-			onKeyDown: onLabelKeyDown,
-			onMouseDown: () => {
-				setIsKeyboardUsed(false);
-			},
 		};
 
 		const legacyIconSize = iconSizeMap[size];
@@ -313,11 +252,9 @@ const Toggle = memo(
 				{...controlProps}
 				css={[
 					basicStyles,
-					isKeyboardUsed && borderStyles,
 					size === 'large' && !fg('platform-visual-refresh-icons') && iconStyles,
 					sizeStyles[size],
 				]}
-				ref={wrapperRef}
 			>
 				{label ? (
 					<span id={labelId} hidden>

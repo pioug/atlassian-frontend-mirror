@@ -1,7 +1,7 @@
 export type HostProduct = 'jira' | 'confluence' | 'home';
 
 // Require at least one of orgId or cloudId
-type RequireOrgIdOrCloudId =
+export type RequireOrgIdOrCloudId =
 	| {
 			orgId: string;
 			/**

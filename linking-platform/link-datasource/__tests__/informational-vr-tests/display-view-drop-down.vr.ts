@@ -14,7 +14,7 @@ snapshotInformational(WithJiraIssuesModal, {
 	description: 'jira issues modal with drop down closed',
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-visual-refresh-sllv': [true, false],
+		'platform-linking-visual-refresh-sllv': true,
 		'replace-legacy-button-in-sllv': true,
 	},
 });
@@ -25,7 +25,7 @@ snapshotInformational(WithJiraIssuesModal, {
 	description: 'jira issues modal with an open drop down',
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-visual-refresh-sllv': [true, false],
+		'platform-linking-visual-refresh-sllv': true,
 		'replace-legacy-button-in-sllv': true,
 	},
 });
@@ -38,7 +38,7 @@ snapshotInformational(WithJiraIssuesModal, {
 	description: 'jira issues modal after selecting Inline link from the drop down',
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-visual-refresh-sllv': [true, false],
+		'platform-linking-visual-refresh-sllv': true,
 		'replace-legacy-button-in-sllv': true,
 	},
 });
@@ -51,7 +51,7 @@ snapshotInformational(WithJiraIssuesModal, {
 	description: 'jira issues modal after selecting Inline link with open drop down',
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-visual-refresh-sllv': [true, false],
+		'platform-linking-visual-refresh-sllv': true,
 		'replace-legacy-button-in-sllv': true,
 	},
 });
@@ -59,7 +59,7 @@ snapshotInformational(WithConfluenceSearchModal, {
 	description: 'confluence search modal with drop down closed',
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-visual-refresh-sllv': [true, false],
+		'platform-linking-visual-refresh-sllv': true,
 		'replace-legacy-button-in-sllv': true,
 	},
 });
@@ -70,7 +70,7 @@ snapshotInformational(WithConfluenceSearchModal, {
 	description: 'confluence search modal with an open drop down',
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-visual-refresh-sllv': [true, false],
+		'platform-linking-visual-refresh-sllv': true,
 		'replace-legacy-button-in-sllv': true,
 	},
 });
@@ -82,7 +82,7 @@ snapshotInformational(WithConfluenceSearchModal, {
 	description: 'confluence search modal after selecting Inline link from the drop down',
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-visual-refresh-sllv': [true, false],
+		'platform-linking-visual-refresh-sllv': true,
 		'replace-legacy-button-in-sllv': true,
 	},
 });
@@ -95,7 +95,7 @@ snapshotInformational(WithConfluenceSearchModal, {
 	description: 'confluence search modal after selecting Inline link with open drop down',
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-visual-refresh-sllv': [true, false],
+		'platform-linking-visual-refresh-sllv': true,
 		'replace-legacy-button-in-sllv': true,
 	},
 });

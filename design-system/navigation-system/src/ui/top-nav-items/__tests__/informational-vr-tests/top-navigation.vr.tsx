@@ -108,7 +108,6 @@ snapshotInformational(TopNavWithLongProductName, {
 	description: 'long product name tooltip',
 	featureFlags: {
 		'platform-team25-app-icon-tiles': true,
-		platform_design_system_nav4_top_nav_columns: true,
 	},
 	prepare: async (page) => {
 		// Reduce the viewport size to remove whitespace but include the tooltip

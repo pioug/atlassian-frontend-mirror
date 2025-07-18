@@ -1,5 +1,14 @@
 # @atlaskit/dropdown-menu
 
+## 16.2.0
+
+### Minor Changes
+
+- [#187681](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/187681)
+  [`64c917433bf89`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64c917433bf89) -
+  Cleans up `platform_dst_dropdown_radio_default_selected_fix` feature gate. Default selected items
+  for radio group dropdowns are now correctly persisted.
+
 ## 16.1.4
 
 ### Patch Changes

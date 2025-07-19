@@ -6,7 +6,11 @@ import { BaseGraphQlClient } from '../graphql-client';
 import { logException } from '../sentry/main';
 
 import { type AGGPageInfoVariables, type ResultWithPageInfo } from './types';
-import { TeamHasAgentsQuery, type TeamHasAgentsQueryResponse, type TeamHasAgentsQueryVariable } from './utils/queries/team-has-agents-query';
+import {
+	TeamHasAgentsQuery,
+	type TeamHasAgentsQueryResponse,
+	type TeamHasAgentsQueryVariable,
+} from './utils/queries/team-has-agents-query';
 import TeamMembershipsQuery, {
 	type TeamMembershipQueryResponse,
 	type TeamMembershipQueryVariables,
@@ -89,7 +93,6 @@ export class AGGClient extends BaseGraphQlClient {
 		return response.user;
 	}
 
-
 	async queryTeamHasAgents(teamId: string): Promise<TeamAgentAssociation[]> {
 		const teamAri = toTeamARI(teamId);
 
@@ -112,7 +115,10 @@ export class AGGClient extends BaseGraphQlClient {
 		return this.processTeamHasAgentsResponse(teamId, response.graphStore);
 	}
 
-	private processTeamHasAgentsResponse(teamId: string, response: TeamHasAgentsQueryResponse): TeamAgentAssociation[] {
+	private processTeamHasAgentsResponse(
+		teamId: string,
+		response: TeamHasAgentsQueryResponse,
+	): TeamAgentAssociation[] {
 		return response.teamHasAgents.edges.map(({ node }) => ({
 			associationId: {
 				teamId,
@@ -122,7 +128,7 @@ export class AGGClient extends BaseGraphQlClient {
 				id: node.id,
 				fullName: node.name,
 				avatarUrl: node.picture,
-			}
+			},
 		}));
 	}
 }

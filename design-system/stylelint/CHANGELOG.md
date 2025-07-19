@@ -1,5 +1,13 @@
 # @atlaskit/stylelint-design-system
 
+## 4.1.0
+
+### Minor Changes
+
+- [#186090](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/186090)
+  [`3162f2036ddae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3162f2036ddae) -
+  Add auto-fix logic for spacing values that map to spacing tokens
+
 ## 4.0.0
 
 ### Major Changes

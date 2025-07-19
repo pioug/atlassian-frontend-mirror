@@ -7,6 +7,7 @@ import { GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
 import { type TriggerProps } from '@atlaskit/popup/types';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box } from '@atlaskit/primitives';
 import { layers } from '@atlaskit/theme/constants';
 

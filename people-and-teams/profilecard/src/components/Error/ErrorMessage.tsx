@@ -4,6 +4,7 @@ import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/new';
 import CrossCircleIcon from '@atlaskit/icon/core/cross-circle';
 import IconError from '@atlaskit/icon/glyph/cross-circle';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Text } from '@atlaskit/primitives';
 
 import { ErrorTitle, ErrorWrapper } from '../../styled/Error';

@@ -4,6 +4,7 @@ import React from 'react';
 
 import { fireEvent, render, waitFor } from '@testing-library/react';
 
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Text } from '@atlaskit/primitives';
 
 import ProfileCardTrigger from '../../../components/common/ProfileCardTrigger';

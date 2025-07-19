@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import {
 	type FileIdentifier,
@@ -13,6 +13,8 @@ import {
 	type MediaTraceContext,
 	type SSR,
 } from '@atlaskit/media-common';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { useInteractionContext } from '@atlaskit/react-ufo/interaction-context';
 
 import { createFailedSSRObject, extractErrorInfo, type SSRStatus } from './analytics';
 import { ensureMediaFilePreviewError, ImageLoadError, MediaFilePreviewError } from './errors';
@@ -87,6 +89,14 @@ export const useFilePreview = ({
 		server: { status: 'unknown' },
 		client: { status: 'unknown' },
 	});
+	const ufoContext = useInteractionContext();
+	const [isLoading, setIsLoading] = useState<boolean>(false);
+
+	useLayoutEffect(() => {
+		if (isLoading && fg('platform_close_image_blindspot_2')) {
+			return ufoContext?.hold('img-loading');
+		}
+	}, [ufoContext, isLoading]);
 
 	const requestDimensions = useMemo(
 		() => (dimensions ? createRequestDimensions(dimensions) : undefined),
@@ -215,7 +225,7 @@ export const useFilePreview = ({
 			// We block any possible future call to this method regardless of the outcome (success or fail)
 			// If it fails, the normal preview fetch should occur after the file state is fetched anyways
 			setUpfrontPreviewStatus('resolving');
-
+			setIsLoading(true);
 			const fetchedDimensions = { ...requestDimensions };
 			getAndCacheRemotePreviewRef
 				.current()
@@ -230,6 +240,7 @@ export const useFilePreview = ({
 					// NO need to log error. If this call fails, a refetch will happen after
 				})
 				.finally(() => {
+					setIsLoading(false);
 					setUpfrontPreviewStatus('resolved');
 				});
 		}
@@ -265,7 +276,7 @@ export const useFilePreview = ({
 			// Local preview is available only if it's supported by browser and supported by Media Card (isSupportedLocalPreview)
 			// For example, SVGs are mime type NOT supported by browser but media type supported by Media Card (image)
 			// Then, local Preview NOT available
-
+			setIsLoading(true);
 			getAndCacheLocalPreview(
 				identifier.id,
 				localBinary,
@@ -278,6 +289,9 @@ export const useFilePreview = ({
 					setIsBannedLocalPreview(true);
 					// CXP-2723 TODO: We might have to wrap this error in MediaCardError
 					setNonCriticalError(e);
+				})
+				.finally(() => {
+					setIsLoading(false);
 				});
 		}
 		// Remote Preview ----------------------------------------------------------------
@@ -292,6 +306,7 @@ export const useFilePreview = ({
 			upfrontPreviewStatus === 'resolved' &&
 			isBackendPreviewReady
 		) {
+			setIsLoading(true);
 			getAndCacheRemotePreviewRef
 				.current()
 				.then(setPreview)
@@ -304,6 +319,9 @@ export const useFilePreview = ({
 						// If there is already a preview, we consider it a non-critical error
 						setNonCriticalError(wrappedError);
 					}
+				})
+				.finally(() => {
+					setIsLoading(false);
 				});
 		}
 	}, [

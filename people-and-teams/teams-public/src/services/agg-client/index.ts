@@ -277,5 +277,5 @@ export class AGGClient extends BaseGraphQlClient {
 }
 
 export const aggClient = new AGGClient(DEFAULT_CONFIG.stargateRoot, {
-	logException: () => { },
+	logException: () => {},
 });

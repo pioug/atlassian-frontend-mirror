@@ -125,6 +125,7 @@ export type ProductType =
 	| 'ATLAS'
 	| 'BITBUCKET'
 	| 'TRELLO'
+	| 'CSM'
 	| 'JSW'
 	| 'JWM'
 	| 'JSM'

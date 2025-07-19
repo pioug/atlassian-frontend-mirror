@@ -182,11 +182,19 @@ describe('AGGClient', () => {
 			expect(result).toEqual([
 				{
 					associationId: { teamId, memberId: 'agent1' },
-					agent: { id: 'ari:cloud:identity::user/agent1', fullName: 'Agent One', avatarUrl: 'url1' },
+					agent: {
+						id: 'ari:cloud:identity::user/agent1',
+						fullName: 'Agent One',
+						avatarUrl: 'url1',
+					},
 				},
 				{
 					associationId: { teamId, memberId: 'agent2' },
-					agent: { id: 'ari:cloud:identity::user/agent2', fullName: 'Agent Two', avatarUrl: 'url2' },
+					agent: {
+						id: 'ari:cloud:identity::user/agent2',
+						fullName: 'Agent Two',
+						avatarUrl: 'url2',
+					},
 				},
 			]);
 		});

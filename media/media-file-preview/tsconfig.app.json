@@ -48,6 +48,9 @@
 		},
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
+			"path": "../../react-ufo/atlaskit/tsconfig.app.json"
 		}
 	],
 	"files": []

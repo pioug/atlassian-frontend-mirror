@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::608f46f9cc8653226152a8edc34849d6>>
+ * @codegen <<SignedSource::96e803ae8ae873736bab690b2af62bed>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { ESLint } from 'eslint';
@@ -41,6 +41,7 @@ export default {
 		'@atlaskit/design-system/no-unsupported-drag-and-drop-libraries': 'error',
 		'@atlaskit/design-system/no-utility-icons': 'warn',
 		'@atlaskit/design-system/use-button-group-label': 'warn',
+		'@atlaskit/design-system/use-correct-field': 'warn',
 		'@atlaskit/design-system/use-cx-function-in-xcss': 'error',
 		'@atlaskit/design-system/use-datetime-picker-calendar-button': 'warn',
 		'@atlaskit/design-system/use-drawer-label': 'warn',

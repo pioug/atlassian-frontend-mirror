@@ -1,5 +1,17 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.18.0
+
+### Minor Changes
+
+- [#187514](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/187514)
+  [`c159d1d45ed81`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c159d1d45ed81) -
+  Add new rule to check that inputs use the correct field component from form.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.17.3
 
 ### Patch Changes

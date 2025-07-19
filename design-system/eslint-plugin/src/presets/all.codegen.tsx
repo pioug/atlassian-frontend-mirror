@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::aaf4f1ee2f2db236ebed7b77de426181>>
+ * @codegen <<SignedSource::b727e6e2b1813b88da0df6ff6083be3c>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { ESLint } from 'eslint';
@@ -55,6 +55,7 @@ export default {
 		'@atlaskit/design-system/no-utility-icons': 'warn',
 		'@atlaskit/design-system/prefer-primitives': 'warn',
 		'@atlaskit/design-system/use-button-group-label': 'warn',
+		'@atlaskit/design-system/use-correct-field': 'warn',
 		'@atlaskit/design-system/use-cx-function-in-xcss': 'error',
 		'@atlaskit/design-system/use-datetime-picker-calendar-button': 'warn',
 		'@atlaskit/design-system/use-drawer-label': 'warn',

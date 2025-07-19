@@ -1,5 +1,13 @@
 # @atlaskit/linking-common
 
+## 9.2.0
+
+### Minor Changes
+
+- [#187594](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/187594)
+  [`fcfc7ea4a531b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fcfc7ea4a531b) -
+  integrate editor card provider into Hub Editor
+
 ## 9.1.4
 
 ### Patch Changes

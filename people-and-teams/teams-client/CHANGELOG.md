@@ -1,5 +1,13 @@
 # @atlaskit/teams-client
 
+## 4.7.0
+
+### Minor Changes
+
+- [#186624](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/186624)
+  [`dd17d7a4e9bf5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dd17d7a4e9bf5) -
+  Fetch agents associated with the team from UGS
+
 ## 4.6.4
 
 ### Patch Changes

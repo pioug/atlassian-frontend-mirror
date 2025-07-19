@@ -185,7 +185,9 @@ export class TeamsClient {
 	 * @param {string} userId
 	 * @returns {Promise}
 	 */
-	async queryTeamHasAgents(teamId: string): Promise<AwaitedReturn<typeof aggClient.queryTeamHasAgents>> {
+	async queryTeamHasAgents(
+		teamId: string,
+	): Promise<AwaitedReturn<typeof aggClient.queryTeamHasAgents>> {
 		return this._aggClient.queryTeamHasAgents(teamId);
 	}
 

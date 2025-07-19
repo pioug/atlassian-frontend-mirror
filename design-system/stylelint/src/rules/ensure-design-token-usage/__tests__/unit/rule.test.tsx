@@ -263,6 +263,10 @@ testRule({
 			code: 'display: var(--display-type);',
 			description: 'should accept css variables for non spacing related rules',
 		},
+		{
+			code: 'margin: var(--ds-space-0) var(--ds-space-100);',
+			description: 'should accept compound spacing values with tokens',
+		},
 	],
 	reject: [
 		{
@@ -308,6 +312,29 @@ testRule({
 			description: 'should only reject multi-part <length> values',
 			warnings: [
 				{ message: messages.noHardcodedSpacing },
+				{ message: messages.noHardcodedSpacing },
+				{ message: messages.noHardcodedSpacing },
+			],
+		},
+		{
+			code: 'margin: 15px;',
+			description: 'should reject single pixel values',
+			message: messages.noHardcodedSpacing,
+		},
+		{
+			code: 'gap: 1.2rem;',
+			description: 'should reject single rem values',
+			message: messages.noHardcodedSpacing,
+		},
+		{
+			code: 'padding: 100vh;',
+			description: 'should reject viewport units',
+			message: messages.noHardcodedSpacing,
+		},
+		{
+			code: 'margin: var(--ds-space-0) 7px var(--ds-space-100) 1.2rem;',
+			description: 'should reject compound spacing values with mixed tokens and hardcoded values',
+			warnings: [
 				{ message: messages.noHardcodedSpacing },
 				{ message: messages.noHardcodedSpacing },
 			],
@@ -361,6 +388,86 @@ testRule({
 			code: 'font-size: 10;',
 			description: 'should reject non-token values in typography rules',
 			warnings: [{ message: messages.noHardcodedTypography }],
+		},
+	],
+});
+
+testRule({
+	plugins: [plugin],
+	ruleName,
+	config: { spacing: true },
+	fix: true,
+	accept: [
+		{
+			code: 'gap: var(--ds-space-300);',
+			description: 'should accept spacing token values',
+		},
+		{
+			code: `gap: ${token('space.025')};`,
+			description: 'should accept spacing token values via calls to token()',
+		},
+		{
+			code: 'z-index: 1;',
+			description: 'should accept length values for non-spacing css rules',
+		},
+	],
+	reject: [
+		{
+			code: 'margin: 8px;',
+			fixed: 'margin: var(--ds-space-100, 8px);',
+			description: 'should autofix pixel values to design tokens',
+			message: messages.noHardcodedSpacing,
+		},
+		{
+			code: 'padding: 2px;',
+			fixed: 'padding: var(--ds-space-025, 2px);',
+			description: 'should autofix small pixel values to design tokens',
+			message: messages.noHardcodedSpacing,
+		},
+		{
+			code: 'gap: 12px;',
+			fixed: 'gap: var(--ds-space-150, 12px);',
+			description: 'should autofix 12px to space.150',
+			message: messages.noHardcodedSpacing,
+		},
+		{
+			code: 'margin: 0.5rem;',
+			fixed: 'margin: var(--ds-space-100, 0.5rem);',
+			description: 'should autofix rem values to design tokens',
+			message: messages.noHardcodedSpacing,
+		},
+		{
+			code: 'padding: 0.125rem;',
+			fixed: 'padding: var(--ds-space-025, 0.125rem);',
+			description: 'should autofix small rem values to design tokens',
+			message: messages.noHardcodedSpacing,
+		},
+		{
+			code: 'gap: 0;',
+			fixed: 'gap: var(--ds-space-0, 0);',
+			description: 'should autofix unitless zero to space.0',
+			message: messages.noHardcodedSpacing,
+		},
+		{
+			code: 'margin: -8px;',
+			fixed: 'margin: var(--ds-space-negative-100, -8px);',
+			description: 'should autofix negative pixel values to negative design tokens',
+			message: messages.noHardcodedSpacing,
+		},
+		{
+			code: 'padding: -0.5rem;',
+			fixed: 'padding: var(--ds-space-negative-100, -0.5rem);',
+			description: 'should autofix negative rem values to negative design tokens',
+			message: messages.noHardcodedSpacing,
+		},
+		{
+			code: 'margin: 8px 12px;',
+			fixed: 'margin: var(--ds-space-100, 8px) var(--ds-space-150, 12px);',
+			description: 'should autofix multiple spacing values in shorthand properties',
+			warnings: [
+				{ message: messages.noHardcodedSpacing },
+				{ message: messages.noHardcodedSpacing },
+			],
 		},
 	],
 });

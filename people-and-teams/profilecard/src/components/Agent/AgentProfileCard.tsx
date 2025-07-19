@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useIntl } from 'react-intl-next';
 
 import { type AnalyticsEventPayload, useAnalyticsEvents } from '@atlaskit/analytics-next';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Stack, xcss } from '@atlaskit/primitives';
 import {
 	AgentAvatar,

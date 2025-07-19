@@ -1,5 +1,21 @@
 # @atlaskit/media-file-preview
 
+## 0.11.6
+
+### Patch Changes
+
+- [#187759](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/187759)
+  [`cb2080ec93b3c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cb2080ec93b3c) -
+  Add UFO hold to reduce TTAI blindspot gap
+
+## 0.11.5
+
+### Patch Changes
+
+- [#186676](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/186676)
+  [`0fa7265b4e380`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0fa7265b4e380) -
+  Cleanup remove media script after SSR feature gate
+
 ## 0.11.4
 
 ### Patch Changes

@@ -6,6 +6,7 @@ import { IconButton } from '@atlaskit/button/new';
 import MoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
 import { MenuGroup, Section } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box } from '@atlaskit/primitives';
 
 import { messages } from './messages';

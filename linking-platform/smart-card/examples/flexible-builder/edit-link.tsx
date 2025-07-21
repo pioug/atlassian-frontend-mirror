@@ -3,6 +3,7 @@ import React, { useCallback, useState } from 'react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import { type JsonLd } from '@atlaskit/json-ld-types';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Stack, xcss } from '@atlaskit/primitives';
 
 import JsonldEditorInput from '../jsonld-editor/jsonld-editor-input';

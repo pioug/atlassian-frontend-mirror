@@ -170,6 +170,7 @@ const gridAutoFlowMap = {
  *
  * @example
  * ```tsx
+ * // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
  * import { Grid, Box } from '@atlaskit/primitives'
  *
  * const Component = () => (

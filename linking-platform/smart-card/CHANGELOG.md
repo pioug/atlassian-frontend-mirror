@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 40.4.0
+
+### Minor Changes
+
+- [#188355](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188355)
+  [`07b7e58bfcd24`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/07b7e58bfcd24) -
+  [ux] Modify CustomByStatusElement props to accept a React.ReactNode and MessageDescriptor
+
 ## 40.3.0
 
 ### Minor Changes

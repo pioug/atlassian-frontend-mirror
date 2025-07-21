@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 4.13.6
+
+### Patch Changes
+
+- [#188519](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188519)
+  [`74377e57c5459`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/74377e57c5459) -
+  NO-ISSUE Fixing failing a11y in linking-platform
+
 ## 4.13.5
 
 ### Patch Changes

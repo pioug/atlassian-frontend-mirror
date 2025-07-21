@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::8954530a27c74e4d2f42daa5785e189f>>
+ * @codegen <<SignedSource::c6d9be28510316b22f4e800a2753aae8>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -4279,6 +4279,7 @@ const metadata: Record<string, metadata> = {
 		],
 		componentName: 'StatusErrorIcon',
 		package: '@atlaskit/icon/core/status-error',
+		oldName: ['error'],
 		type: 'core',
 		categorization: 'single-purpose',
 		usage:
@@ -4299,6 +4300,7 @@ const metadata: Record<string, metadata> = {
 		],
 		componentName: 'StatusInformationIcon',
 		package: '@atlaskit/icon/core/status-information',
+		oldName: ['editor/info', 'editor/panel', 'info'],
 		type: 'core',
 		categorization: 'single-purpose',
 		usage:
@@ -4321,6 +4323,7 @@ const metadata: Record<string, metadata> = {
 		],
 		componentName: 'StatusSuccessIcon',
 		package: '@atlaskit/icon/core/status-success',
+		oldName: ['check-circle', 'editor/success'],
 		type: 'core',
 		categorization: 'single-purpose',
 		usage:
@@ -4354,6 +4357,7 @@ const metadata: Record<string, metadata> = {
 		],
 		componentName: 'StatusWarningIcon',
 		package: '@atlaskit/icon/core/status-warning',
+		oldName: ['editor/warning', 'warning'],
 		type: 'core',
 		categorization: 'single-purpose',
 		usage:

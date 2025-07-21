@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Card } from '../src';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Flex, xcss } from '@atlaskit/primitives';
 import Heading from '@atlaskit/heading';
 import type { FileIdentifier, MediaClientConfig } from '@atlaskit/media-client';

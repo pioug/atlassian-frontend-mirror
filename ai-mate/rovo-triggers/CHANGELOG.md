@@ -1,5 +1,14 @@
 # @atlaskit/rovo-triggers
 
+## 3.1.3
+
+### Patch Changes
+
+- [#188287](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188287)
+  [`51b3b61c573f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/51b3b61c573f3) -
+  Rovo types for Jira Workflow Builder agent are updated to include statusId for add status
+  operations.
+
 ## 3.1.2
 
 ### Patch Changes

@@ -9,6 +9,7 @@ import { type MediaType } from '@atlaskit/media-client';
 import { TouchScrollable } from 'react-scrolllock';
 import { useMergeRefs } from 'use-callback-ref';
 import { token } from '@atlaskit/tokens';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import Heading from '@atlaskit/heading';
 

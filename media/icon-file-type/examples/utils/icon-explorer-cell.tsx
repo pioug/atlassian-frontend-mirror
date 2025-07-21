@@ -14,6 +14,7 @@ import Modal, {
 import Tooltip from '@atlaskit/tooltip';
 import { N30A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Inline } from '@atlaskit/primitives';
 
 // eslint-disable-next-line @atlaskit/design-system/no-html-anchor, @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard

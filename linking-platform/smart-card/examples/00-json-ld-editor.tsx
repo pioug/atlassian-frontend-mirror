@@ -1,5 +1,6 @@
 import React from 'react';
 
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Grid, xcss } from '@atlaskit/primitives';
 import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
 

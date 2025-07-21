@@ -166,6 +166,7 @@ export type RuleConfig = {
 	[key: string]: string;
 };
 export type AddStatusRovoPayload = {
+	statusId: StatusId;
 	statusName: string;
 	statusCategory: StatusCategory;
 };

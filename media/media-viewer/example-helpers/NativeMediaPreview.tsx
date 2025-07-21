@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { type MediaClient, type Identifier, type MediaFileArtifacts } from '@atlaskit/media-client';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Pressable, xcss } from '@atlaskit/primitives';
 
 type NativeMediaViewerProps = {

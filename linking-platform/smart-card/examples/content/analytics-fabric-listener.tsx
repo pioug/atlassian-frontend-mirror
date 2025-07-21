@@ -6,6 +6,7 @@ import { AnalyticsContext } from '@atlaskit/analytics-next';
 import Heading from '@atlaskit/heading';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { ResolvedClient, ResolvedClientUrl } from '@atlaskit/link-test-helpers';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 
 import { Card } from '../../src';

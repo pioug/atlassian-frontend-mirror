@@ -984,4 +984,77 @@ describe('legion-client', () => {
 			expect(result).toEqual(mockResponse);
 		});
 	});
+
+	describe('addAgentsToTeam', () => {
+		const teamId = 'test-team-id';
+		const agents = ['agent1', 'agent2'];
+
+		it('should add single agent to team', async () => {
+			const singleAgent = ['agent1'];
+			mockPostResource.mockReturnValue(Promise.resolve());
+
+			await legionClient.addAgentsToTeam(teamId, singleAgent);
+
+			expect(mockPostResource).toHaveBeenCalledWith(`${v4UrlPath}/${teamId}/agents`, {
+				agents: singleAgent,
+			});
+		});
+
+		it('should handle empty agents array', async () => {
+			const emptyAgents: string[] = [];
+			mockPostResource.mockReturnValue(Promise.resolve());
+
+			await expect(legionClient.addAgentsToTeam(teamId, emptyAgents)).rejects.toThrow(
+				'Missing agents to add',
+			);
+
+			expect(mockPostResource).not.toHaveBeenCalledWith(`${v4UrlPath}/${teamId}/agents`, {
+				agents: emptyAgents,
+			});
+		});
+
+		it('should handle multiple agents', async () => {
+			const multipleAgents = ['agent1', 'agent2', 'agent3', 'agent4'];
+			mockPostResource.mockReturnValue(Promise.resolve());
+
+			await legionClient.addAgentsToTeam(teamId, multipleAgents);
+
+			expect(mockPostResource).toHaveBeenCalledWith(`${v4UrlPath}/${teamId}/agents`, {
+				agents: multipleAgents,
+			});
+		});
+
+		it('should handle API response with success', async () => {
+			const mockResponse = {
+				addedAgents: agents,
+				errors: [],
+			};
+			mockPostResource.mockReturnValue(Promise.resolve(mockResponse));
+
+			const result = await legionClient.addAgentsToTeam(teamId, agents);
+
+			expect(mockPostResource).toHaveBeenCalledWith(`${v4UrlPath}/${teamId}/agents`, { agents });
+			expect(result).toEqual(mockResponse);
+		});
+
+		it('should handle API errors gracefully', async () => {
+			const errorResponse = new Error('Failed to add agents');
+			mockPostResource.mockRejectedValue(errorResponse);
+
+			await expect(legionClient.addAgentsToTeam(teamId, agents)).rejects.toThrow(
+				'Failed to add agents',
+			);
+
+			expect(mockPostResource).toHaveBeenCalledWith(`${v4UrlPath}/${teamId}/agents`, { agents });
+		});
+
+		it('should work with team ARI format', async () => {
+			const teamAri = 'ari:cloud:teams::team/test-team-id';
+			mockPostResource.mockReturnValue(Promise.resolve());
+
+			await legionClient.addAgentsToTeam(teamAri, agents);
+
+			expect(mockPostResource).toHaveBeenCalledWith(`${v4UrlPath}/test-team-id/agents`, { agents });
+		});
+	});
 });

@@ -1,5 +1,20 @@
 # @atlaskit/teams-client
 
+## 4.8.1
+
+### Patch Changes
+
+- [`f3d7777b4d9c3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f3d7777b4d9c3) -
+  Added isverified filter
+
+## 4.8.0
+
+### Minor Changes
+
+- [#188281](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188281)
+  [`6ae2a10ea13be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6ae2a10ea13be) -
+  Implemented the client to add agents to the new connection pattern
+
 ## 4.7.0
 
 ### Minor Changes

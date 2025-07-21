@@ -14,7 +14,6 @@ import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
 
 import SidebarContainer from '../example-helpers/SidebarContainer';
 
-import { InviteToEditButton } from './3-collab';
 import FullPageExample, { getAppearance, LOCALSTORAGE_defaultDocKey } from './5-full-page';
 
 const disabledBlanket = css({
@@ -74,7 +73,6 @@ const ExampleEditorComponent = () => {
 							userId: collabSessionId,
 							defaultDoc,
 						}),
-						inviteToEditComponent: InviteToEditButton,
 					},
 					elementBrowser: {
 						showModal: true,

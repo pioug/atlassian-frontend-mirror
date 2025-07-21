@@ -2,6 +2,7 @@ import React from 'react';
 
 import Button from '@atlaskit/button/standard-button';
 import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Inline, xcss } from '@atlaskit/primitives';
 import Toggle from '@atlaskit/toggle';
 import { token } from '@atlaskit/tokens';

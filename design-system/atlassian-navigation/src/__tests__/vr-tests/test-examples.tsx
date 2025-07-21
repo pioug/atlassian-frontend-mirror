@@ -4,6 +4,7 @@ import __noop from '@atlaskit/ds-lib/noop';
 import NotificationIcon from '@atlaskit/icon/core/migration/notification';
 import { JiraIcon, JiraLogo } from '@atlaskit/logo';
 import { NotificationIndicator } from '@atlaskit/notification-indicator';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Stack } from '@atlaskit/primitives';
 
 import { DefaultCreate } from '../../../examples/shared/create';

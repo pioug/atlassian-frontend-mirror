@@ -360,6 +360,17 @@ export class TeamsClient {
 	}
 
 	/**
+	 * Add agent to a team
+	 */
+	async addAgentsToTeam(
+		...args: Parameters<typeof defaultLegionClient.addAgentsToTeam>
+	): Promise<AwaitedReturn<typeof defaultLegionClient.addAgentsToTeam>> {
+		return this.measurePerformance('addAgentToTeam', () =>
+			this._legionClient.addAgentsToTeam(...args),
+		);
+	}
+
+	/**
 	 * Cancel a join request to a private team
 	 */
 	async cancelJoinRequest(teamId: string): Promise<void> {

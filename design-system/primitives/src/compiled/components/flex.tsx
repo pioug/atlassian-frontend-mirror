@@ -149,6 +149,7 @@ const styles = cssMap({
  *
  * @example
  * ```tsx
+ * // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
  * import { Flex, Box } from '@atlaskit/primitives'
  *
  * const Component = () => (

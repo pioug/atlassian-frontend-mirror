@@ -3,6 +3,7 @@ import React from 'react';
 import { ErrorBoundary, type FallbackProps } from 'react-error-boundary';
 
 import Heading from '@atlaskit/heading';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 
 import { SmartLinkModalContext } from '../src/state/modal';

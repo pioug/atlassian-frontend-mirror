@@ -3,6 +3,7 @@ import React, { useMemo } from 'react';
 import { withErrorBoundary } from 'react-error-boundary';
 
 import { CodeBlock } from '@atlaskit/code';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 
 import { toComponentProps, toObjectString } from '../utils/common';

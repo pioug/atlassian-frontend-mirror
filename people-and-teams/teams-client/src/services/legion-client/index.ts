@@ -28,6 +28,7 @@ import { DEFAULT_CONFIG } from '../constants';
 import { RestClient } from '../rest-client';
 
 import {
+	type LegionAssociateAgentResponse,
 	type LegionLinkResponseV3,
 	type LegionLinkResponseV4,
 	type LegionPaginatedResponse,
@@ -48,6 +49,11 @@ export interface OriginQuery {
 	 */
 	cloudId?: string;
 	product?: string | null;
+}
+
+export interface SortField {
+	field: string;
+	order: 'asc' | 'desc';
 }
 
 /**
@@ -73,6 +79,7 @@ export interface AllTeamsQuery {
 	memberAccountIds?: string[];
 	useDefaultSort?: boolean;
 	showEmptyTeams?: boolean;
+	sortBy?: SortField[];
 }
 
 /**
@@ -224,12 +231,9 @@ export class LegionClient extends RestClient implements LegionClient {
 				cursor: allTeamsQuery.cursor || '',
 				sortBy: allTeamsQuery.useDefaultSort
 					? null
-					: [
-							{
-								field: 'displayName',
-								order: 'asc',
-							},
-						],
+					: allTeamsQuery.sortBy && allTeamsQuery.sortBy.length > 0
+						? allTeamsQuery.sortBy
+						: [{ field: 'displayName', order: 'asc' }],
 				membership: { memberAccountIds: allTeamsQuery.memberAccountIds },
 				showEmptyTeams: allTeamsQuery.showEmptyTeams,
 			});
@@ -397,6 +401,24 @@ export class LegionClient extends RestClient implements LegionClient {
 		)}/membership/join?${this.constructProductOriginParams(originQuery)}`;
 
 		return this.postResource(url);
+	}
+
+	async addAgentsToTeam(teamId: string, agents: string[]): Promise<LegionAssociateAgentResponse> {
+		if (!agents || agents.length === 0) {
+			const missingAgentsError = new Error('Missing agents to add');
+			this.logException(missingAgentsError, 'addAgentToTeam');
+			throw missingAgentsError;
+		}
+
+		try {
+			const url = `${v4UrlPath}/${this.trimTeamARI(teamId)}/agents`;
+
+			return this.postResource<LegionAssociateAgentResponse>(url, { agents });
+		} catch (e) {
+			this.logException(e, 'addAgentToTeam');
+
+			throw e;
+		}
 	}
 
 	async cancelJoinRequest(teamId: string): Promise<void> {

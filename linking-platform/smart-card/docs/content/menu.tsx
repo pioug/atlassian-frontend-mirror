@@ -1,6 +1,7 @@
 import React from 'react';
 
 import PageIcon from '@atlaskit/icon/core/page';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Grid, Inline, Pressable, Stack, Text, xcss } from '@atlaskit/primitives';
 
 import { LinkItemGroups } from '../utils/doc-quick-links';

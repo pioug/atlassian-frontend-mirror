@@ -20,6 +20,6 @@ test.describe('datasource', () => {
 		const locator = renderer.page.locator(DATASOURCE_TABLE_VIEW);
 		await expect(locator).toBeVisible();
 
-		await expect(renderer.page).toBeAccessible({ violationCount: 3 });
+		await expect(renderer.page).toBeAccessible({ violationCount: 2 });
 	});
 });

@@ -23,6 +23,15 @@ export interface LegionTeamMembershipResponse {
 	};
 }
 
+export interface LegionAssociateAgentResponse {
+	agents: string[];
+	errors: {
+		accountId: string;
+		code: string;
+		message: string;
+	}[];
+}
+
 export interface LegionTeamBaseResponseV3 {
 	id: string;
 	displayName: string;

@@ -6,6 +6,7 @@ import SelectClearIcon from '@atlaskit/icon/core/migration/cross-circle--select-
 import HipchatChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down--hipchat-chevron-down';
 import Button from '@atlaskit/button/standard-button';
 import { fg } from '@atlaskit/platform-feature-flags';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Stack, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';

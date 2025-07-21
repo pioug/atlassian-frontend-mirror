@@ -181,7 +181,7 @@ describe('AGGClient', () => {
 			const result = await aggClient.queryTeamHasAgents(teamId);
 			expect(result).toEqual([
 				{
-					associationId: { teamId, memberId: 'agent1' },
+					associationId: { teamId, accountId: 'agent1' },
 					agent: {
 						id: 'ari:cloud:identity::user/agent1',
 						fullName: 'Agent One',
@@ -189,7 +189,7 @@ describe('AGGClient', () => {
 					},
 				},
 				{
-					associationId: { teamId, memberId: 'agent2' },
+					associationId: { teamId, accountId: 'agent2' },
 					agent: {
 						id: 'ari:cloud:identity::user/agent2',
 						fullName: 'Agent Two',

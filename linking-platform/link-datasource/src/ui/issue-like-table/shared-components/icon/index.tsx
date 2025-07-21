@@ -52,7 +52,7 @@ export function SharedIconComponent({
 			<Inline>
 				<img
 					src={iconUrl}
-					alt={label}
+					alt={label?.toLowerCase() !== text?.toLowerCase() ? label : ''}
 					css={fg('platform-linking-visual-refresh-sllv') && styles.iconStyles}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					style={

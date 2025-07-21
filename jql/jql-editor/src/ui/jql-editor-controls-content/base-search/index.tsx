@@ -4,6 +4,7 @@ import { LoadingButton } from '@atlaskit/button';
 import { IconButton } from '@atlaskit/button/new';
 import SearchIcon from '@atlaskit/icon/core/migration/search--editor-search';
 import { fg } from '@atlaskit/platform-feature-flags';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 
 const style: CSSProperties = {

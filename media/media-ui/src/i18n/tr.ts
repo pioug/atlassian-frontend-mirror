@@ -159,7 +159,7 @@ export default {
   'fabric.media.upload_photo': 'Bir fotoğraf yükleyin',
   'fabric.media.video': 'video',
   'fabric.media.video_captions_delete_captions_confirmation_description':
-    'Lütfen bu alt yazıları silmek istediğinizi doğrulayın.',
+    'Lütfen bu alt yazıyı silmek istediğinizi doğrulayın.',
   'fabric.media.video_captions_delete_captions_confirmation_header': 'Alt Yazıyı Sil',
   'fabric.media.video_captions_delete_error_description': 'Alt yazı silinemedi.',
   'fabric.media.video_captions_delete_success_description': 'Alt yazı bu videodan başarıyla kaldırıldı',

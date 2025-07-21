@@ -2,6 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 
 import { act, fireEvent, render, screen } from '@testing-library/react';
 
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Text } from '@atlaskit/primitives';
 
 import * as raf from '../../../../__tests__/unit/__utils__/raf';

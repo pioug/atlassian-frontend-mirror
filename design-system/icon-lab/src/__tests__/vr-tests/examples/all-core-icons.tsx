@@ -17,6 +17,7 @@ import { css, jsx } from '@compiled/react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import type { NewCoreIconProps } from '@atlaskit/icon';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Inline } from '@atlaskit/primitives';
 
 import AiGenerativeAudioBriefingIcon from '../../../../core/ai-generative-audio-briefing';

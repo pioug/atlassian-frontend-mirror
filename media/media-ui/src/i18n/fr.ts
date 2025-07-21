@@ -159,17 +159,17 @@ export default {
   'fabric.media.upload_photo': 'Importer une photo',
   'fabric.media.video': 'vidéo',
   'fabric.media.video_captions_delete_captions_confirmation_description':
-    'Veuillez confirmer la suppression de cette légende.',
-  'fabric.media.video_captions_delete_captions_confirmation_header': 'Supprimer la légende',
+    'Veuillez confirmer la suppression de ces sous-titres.',
+  'fabric.media.video_captions_delete_captions_confirmation_header': 'Supprimer les sous-titres',
   'fabric.media.video_captions_delete_error_description': 'Impossible de supprimer les sous-titres codés.',
   'fabric.media.video_captions_delete_success_description': 'Les sous-titres codés ont été supprimés de cette vidéo.',
   'fabric.media.video_captions_enable': 'Sous-titres codés',
   'fabric.media.video_captions_select_captions': 'Sélectionner les sous-titres',
-  'fabric.media.video_captions_upload_captions_form_header': 'Téléverser les sous-titres',
+  'fabric.media.video_captions_upload_captions_form_header': 'Charger les sous-titres',
   'fabric.media.video_captions_upload_captions_form_language_picker': 'Sélectionner la langue du fichier',
-  'fabric.media.video_captions_upload_error_description': 'Échec du téléchargement de la légende.',
+  'fabric.media.video_captions_upload_error_description': 'Impossible de charger le sous-titre.',
   'fabric.media.video_captions_upload_success_description':
-    'La légende a été téléchargée avec succès pour cette vidéo.',
+    'Les sous-titres codés ont bien été chargés pour cette vidéo.',
   'fabric.media.video_seeker_assistive_text_time_value':
     '{currentTimeHours} {currentTimeMinutes} {currentTimeSeconds} sur {videoTotalHours} {videoTotalMinutes} {videoTotalSeconds}',
   'fabric.media.video_seeker_label_assistive_text': 'Curseur de recherche',

@@ -15,6 +15,7 @@ import { headerAndSidebarBackgroundColor } from './viewers/modalSpinner';
 import { ArchiveSideBarWidth } from './viewers/archiveSidebar/styles';
 import { token } from '@atlaskit/tokens';
 import { borderRadius } from '@atlaskit/theme/constants';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import Heading from '@atlaskit/heading';
 

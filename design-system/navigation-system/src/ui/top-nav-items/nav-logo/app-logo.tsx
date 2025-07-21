@@ -7,6 +7,7 @@ import React, { useCallback, useRef } from 'react';
 import { cssMap, cx, jsx } from '@compiled/react';
 
 import type { LogoProps } from '@atlaskit/logo';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Anchor, Inline, Text } from '@atlaskit/primitives';
 import type { IconProps as TempIconProps } from '@atlaskit/temp-nav-app-icons/types';
 import { token } from '@atlaskit/tokens';

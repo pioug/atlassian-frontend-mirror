@@ -1,5 +1,13 @@
 # @atlaskit/reactions
 
+## 33.2.4
+
+### Patch Changes
+
+- [#188592](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188592)
+  [`c6827409589d7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c6827409589d7) -
+  Exported 'ReactionSummary' type
+
 ## 33.2.3
 
 ### Patch Changes

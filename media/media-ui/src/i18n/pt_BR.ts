@@ -156,7 +156,8 @@ export default {
   'fabric.media.upload_file_from': 'Carregar um arquivo do {name}',
   'fabric.media.upload_photo': 'Carregar uma foto',
   'fabric.media.video': 'vídeo',
-  'fabric.media.video_captions_delete_captions_confirmation_description': 'Confirme que você que excluir esta legenda.',
+  'fabric.media.video_captions_delete_captions_confirmation_description':
+    'Confirme que você quer excluir esta legenda.',
   'fabric.media.video_captions_delete_captions_confirmation_header': 'Excluir legenda',
   'fabric.media.video_captions_delete_error_description': 'Falha ao excluir a legenda.',
   'fabric.media.video_captions_delete_success_description': 'A legenda foi removida com sucesso deste vídeo.',

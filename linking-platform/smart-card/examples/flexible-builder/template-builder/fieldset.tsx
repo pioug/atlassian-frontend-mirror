@@ -1,6 +1,7 @@
 import React, { type PropsWithChildren, useCallback, useState } from 'react';
 
 import { IconButton } from '@atlaskit/button/new';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Grid, Pressable, xcss } from '@atlaskit/primitives';
 
 import ChevronIcon from './chevron-icon';

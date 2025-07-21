@@ -4,6 +4,7 @@ import { I18NWrapper } from '@atlaskit/media-test-helpers';
 
 import { MainWrapper } from '../example-helpers/MainWrapper';
 import { PDFPasswordInput } from '../src/viewers/doc/pdfPasswordInput';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 
 // Set background color to match media viewer because

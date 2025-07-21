@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::8e57fe95166708ae18ff2411ff7480c2>>
+ * @codegen <<SignedSource::cae31e528de4db3de51c9723a601ad4a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -15,8 +15,10 @@ import React from 'react';
 
 import { css, jsx } from '@compiled/react';
 
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Inline } from '@atlaskit/primitives';
 
+import type { NewCoreIconProps } from '../../../../../src/types';
 import AddIcon from '../../../../../utility/add';
 import ArrowDownIcon from '../../../../../utility/arrow-down';
 import ArrowLeftIcon from '../../../../../utility/arrow-left';
@@ -46,7 +48,6 @@ import StarStarredIcon from '../../../../../utility/star-starred';
 import StarUnstarredIcon from '../../../../../utility/star-unstarred';
 import SuccessIcon from '../../../../../utility/success';
 import WarningIcon from '../../../../../utility/warning';
-import type { NewCoreIconProps } from '../../../../../src/types';
 
 const Icons = [
 	ErrorIcon,

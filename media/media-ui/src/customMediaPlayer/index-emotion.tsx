@@ -14,6 +14,7 @@ import VideoHdFilledIcon from '@atlaskit/icon-lab/core/video-hd-filled';
 import DownloadIcon from '@atlaskit/icon/core/migration/download';
 
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { xcss, Box, Flex } from '@atlaskit/primitives';
 
 import MediaButton from '../MediaButton';

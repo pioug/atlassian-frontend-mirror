@@ -11,6 +11,7 @@ import { ArrowsWrapper, RightWrapper, LeftWrapper, Arrow } from './styleWrappers
 import { getSelectedIndex } from './utils';
 import { createNavigatedEvent } from './analytics/events/ui/navigated';
 import { fireAnalytics } from './analytics';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Pressable, xcss } from '@atlaskit/primitives';
 import { type NewCoreIconProps } from '@atlaskit/icon';
 

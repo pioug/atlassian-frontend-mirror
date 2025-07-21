@@ -4,6 +4,7 @@ import { AnalyticsListener } from '@atlaskit/analytics-next';
 import Heading from '@atlaskit/heading';
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Flex, xcss } from '@atlaskit/primitives';
 
 import { Card } from '../../src';

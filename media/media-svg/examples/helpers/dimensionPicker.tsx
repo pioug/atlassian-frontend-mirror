@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 
 import { Label } from '@atlaskit/form';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Flex, xcss } from '@atlaskit/primitives';
 import Range from '@atlaskit/range';
 

@@ -25,6 +25,7 @@ import {
 	UnAuthClientWithProviderImage,
 	UnicornResolvedClient,
 } from '@atlaskit/link-test-helpers';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Grid } from '@atlaskit/primitives';
 import { Box, Stack } from '@atlaskit/primitives/compiled';
 import { Card, TitleElement } from '@atlaskit/smart-card';

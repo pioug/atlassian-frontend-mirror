@@ -269,26 +269,14 @@ export const ProfileCardDetails = (props: ProfilecardProps & AnalyticsWithDurati
 			{renderName(props.nickname, props.fullName, meta)}
 			{meta && <JobTitleLabel>{meta}</JobTitleLabel>}
 			<CustomLozenges lozenges={props.customLozenges} />
-			{fg('fix_profilecard_details_label_semantic_html') ? (
-				<Box xcss={styles.detailedListWrapperNext}>
-					<IconLabel icon="email" extraTopSpace={true}>
-						{props.email}
-					</IconLabel>
-					<IconLabel icon="time">{props.timestring}</IconLabel>
-					<IconLabel icon="companyName">{props.companyName}</IconLabel>
-					<IconLabel icon="location">{props.location}</IconLabel>
-				</Box>
-			) : (
-				<Box as="dl" xcss={styles.detailedListWrapper}>
-					<IconLabel icon="email" extraTopSpace={true}>
-						{props.email}
-					</IconLabel>
-					<IconLabel icon="time">{props.timestring}</IconLabel>
-					<IconLabel icon="companyName">{props.companyName}</IconLabel>
-					<IconLabel icon="location">{props.location}</IconLabel>
-				</Box>
-			)}
-
+			<Box xcss={styles.detailedListWrapperNext}>
+				<IconLabel icon="email" extraTopSpace={true}>
+					{props.email}
+				</IconLabel>
+				<IconLabel icon="time">{props.timestring}</IconLabel>
+				<IconLabel icon="companyName">{props.companyName}</IconLabel>
+				<IconLabel icon="location">{props.location}</IconLabel>
+			</Box>
 			<ReportingLinesDetails
 				reportingLines={props.reportingLines}
 				reportingLinesProfileUrl={props.reportingLinesProfileUrl}

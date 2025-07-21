@@ -122,7 +122,7 @@ export class AGGClient extends BaseGraphQlClient {
 		return response.teamHasAgents.edges.map(({ node }) => ({
 			associationId: {
 				teamId,
-				memberId: toUserId(node.id),
+				accountId: toUserId(node.id),
 			},
 			agent: {
 				id: node.id,

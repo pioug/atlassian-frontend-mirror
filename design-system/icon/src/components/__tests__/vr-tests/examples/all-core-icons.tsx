@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::e19812b364709dce3539c7f6f0336489>>
+ * @codegen <<SignedSource::b6ca95c894e09def886f28934a64674c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -15,6 +15,7 @@ import React from 'react';
 
 import { css, jsx } from '@compiled/react';
 
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Inline } from '@atlaskit/primitives';
 
 import AccessibilityIcon from '../../../../../core/accessibility';

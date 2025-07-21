@@ -13,6 +13,7 @@ import { useIntl } from 'react-intl-next';
 import { cardMessages } from '@atlaskit/editor-common/messages';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import PanelRightIcon from '@atlaskit/icon/core/panel-right';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Pressable, Text, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 

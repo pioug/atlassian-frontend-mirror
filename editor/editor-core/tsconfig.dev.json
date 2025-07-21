@@ -274,12 +274,6 @@
 			"path": "../../design-system/section-message/tsconfig.app.json"
 		},
 		{
-			"path": "../../elements/share/tsconfig.app.json"
-		},
-		{
-			"path": "../../smart-experiences/smart-user-picker/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/spinner/tsconfig.app.json"
 		},
 		{

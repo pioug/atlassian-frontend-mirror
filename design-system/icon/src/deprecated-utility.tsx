@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createDeprecatedIconDocs` in icon-build-process/src/create-deprecated-icon-docs.tsx.
  *
- * @codegen <<SignedSource::ec9654a23699788f0dfeb0bccea011b6>>
+ * @codegen <<SignedSource::56892aca4678057bf1259d468dd867f8>>
  * @codegenCommand yarn build:icon-glyphs
  */
 const deprecatedIcons: Record<string, { message: string; unfixable?: boolean }> = {

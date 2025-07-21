@@ -1,0 +1,75 @@
+{
+	"extends": "../../../../tsconfig.entry-points.dev-agents.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../dev-agents/tsDist/@atlaskit__navigation-system/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-dev-agents/tsconfig.json"
+		},
+		{
+			"path": "../../avatar/afm-dev-agents/tsconfig.json"
+		},
+		{
+			"path": "../../button/afm-dev-agents/tsconfig.json"
+		},
+		{
+			"path": "../../css/afm-dev-agents/tsconfig.json"
+		},
+		{
+			"path": "../../ds-lib/afm-dev-agents/tsconfig.json"
+		},
+		{
+			"path": "../../icon/afm-dev-agents/tsconfig.json"
+		},
+		{
+			"path": "../../layering/afm-dev-agents/tsconfig.json"
+		},
+		{
+			"path": "../../logo/afm-dev-agents/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-dev-agents/tsconfig.json"
+		},
+		{
+			"path": "../../popup/afm-dev-agents/tsconfig.json"
+		},
+		{
+			"path": "../../../pragmatic-drag-and-drop/core/afm-dev-agents/tsconfig.json"
+		},
+		{
+			"path": "../../../pragmatic-drag-and-drop/hitbox/afm-dev-agents/tsconfig.json"
+		},
+		{
+			"path": "../../../pragmatic-drag-and-drop/react-drop-indicator/afm-dev-agents/tsconfig.json"
+		},
+		{
+			"path": "../../primitives/afm-dev-agents/tsconfig.json"
+		},
+		{
+			"path": "../../../navigation/temp-nav-app-icons/afm-dev-agents/tsconfig.json"
+		},
+		{
+			"path": "../../tokens/afm-dev-agents/tsconfig.json"
+		},
+		{
+			"path": "../../tooltip/afm-dev-agents/tsconfig.json"
+		},
+		{
+			"path": "../../visually-hidden/afm-dev-agents/tsconfig.json"
+		}
+	]
+}

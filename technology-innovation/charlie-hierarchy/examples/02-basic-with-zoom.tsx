@@ -3,6 +3,7 @@ import React from 'react';
 import { hierarchy } from '@visx/hierarchy';
 import { Zoom } from '@visx/zoom';
 
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 
 import { CharlieHierarchy } from '../src';

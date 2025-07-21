@@ -6,6 +6,7 @@ import Button from '@atlaskit/button/standard-button';
 import DropdownMenu, { DropdownItemRadio, DropdownItemRadioGroup } from '@atlaskit/dropdown-menu';
 import MoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
 import { fg } from '@atlaskit/platform-feature-flags';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import Range from '@atlaskit/range/range';
 import { token } from '@atlaskit/tokens';

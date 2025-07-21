@@ -6,6 +6,7 @@ import React from 'react';
 
 import { jsx } from '@compiled/react';
 
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 
 const containerStyles = xcss({

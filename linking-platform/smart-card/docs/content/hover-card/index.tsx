@@ -27,6 +27,7 @@ ${code`
 import { IntlProvider } from 'react-intl-next';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { HoverCard } from '@atlaskit/smart-card/hover-card';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box } from '@atlaskit/primitives';
 
 // To use staging environment, you must be logged in at

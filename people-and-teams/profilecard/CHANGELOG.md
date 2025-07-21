@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 23.21.13
+
+### Patch Changes
+
+- [#187228](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/187228)
+  [`c706eb2104c43`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c706eb2104c43) -
+  Clean up fix_profilecard_details_label_semantic_html
+
 ## 23.21.12
 
 ### Patch Changes

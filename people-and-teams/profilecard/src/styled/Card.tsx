@@ -4,7 +4,6 @@ import React, { type ReactNode } from 'react';
 import { keyframes as keyframescompiled } from '@compiled/react';
 
 import { cssMap, cx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -294,19 +293,14 @@ export const DetailsLabel = ({
 }: {
 	children: ReactNode;
 	extraTopSpace?: boolean;
-}) =>
-	fg('fix_profilecard_details_label_semantic_html') ? (
-		<Box
-			as="dl"
-			xcss={cx(styles.detailsLabelNext, extraTopSpace && styles.detailsLabelExtraTopSpace)}
-		>
-			{children}
-		</Box>
-	) : (
-		<Box xcss={cx(styles.detailsLabel, extraTopSpace && styles.detailsLabelExtraTopSpace)}>
-			{children}
-		</Box>
-	);
+}) => (
+	<Box
+		as="dl"
+		xcss={cx(styles.detailsLabelNext, extraTopSpace && styles.detailsLabelExtraTopSpace)}
+	>
+		{children}
+	</Box>
+);
 
 export const DetailsLabelIcon = ({ children }: { children: ReactNode }) => (
 	<Box as="dt" xcss={cx(styles.detailsLabelIcon)}>

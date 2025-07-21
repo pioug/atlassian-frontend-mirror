@@ -1,5 +1,26 @@
 # @atlaskit/icon
 
+## 27.4.0
+
+### Minor Changes
+
+- [#188287](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188287)
+  [`ecadaec5669f6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ecadaec5669f6) -
+  Updated migration mapping for several icon entrypoints.
+
+  **`@atlaskit/icon/core/migration`**
+
+  - `close--cross → cross`
+  - `close--editor-close → cross--editor-close`
+  - `error → status-error--error`
+  - `information--editor-info → status-information--editor-info`
+  - `information--editor-panel → status-information--editor-panel`
+  - `information--info → status-information--info`
+  - `success--check-circle → status-success--check-circle`
+  - `success--editor-success → status-success--editor-success`
+  - `warning--editor-warning → status-warning--editor-warning`
+  - `warning → status-warning--warning`
+
 ## 27.3.0
 
 ### Minor Changes

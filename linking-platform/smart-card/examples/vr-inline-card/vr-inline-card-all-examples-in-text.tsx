@@ -11,6 +11,7 @@ import ImageLoader from 'react-render-image';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { AtlasProject, ResolvingClient } from '@atlaskit/link-test-helpers';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { Card } from '@atlaskit/smart-card';
 

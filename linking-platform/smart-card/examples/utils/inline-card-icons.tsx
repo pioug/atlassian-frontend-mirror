@@ -3,6 +3,7 @@ import React from 'react';
 import type { JsonLd } from '@atlaskit/json-ld-types';
 import { CardClient } from '@atlaskit/link-provider';
 import { generateContext, type GenerateContextProp } from '@atlaskit/link-test-helpers';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Flex, xcss } from '@atlaskit/primitives';
 import type { Card } from '@atlaskit/smart-card';
 import type { CardSSR } from '@atlaskit/smart-card/ssr';

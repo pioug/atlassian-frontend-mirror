@@ -49,7 +49,7 @@ export type {
 	StorePropInput,
 	State,
 } from './types';
-export { ReactionUpdateType, ReactionStatus } from './types';
+export { ReactionUpdateType, ReactionStatus, type ReactionSummary } from './types';
 
 export const constants = {
 	DefaultReactions,

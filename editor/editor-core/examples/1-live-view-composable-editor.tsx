@@ -19,6 +19,7 @@ import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence
 import AppIcon from '@atlaskit/icon/core/app';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers/exampleMediaFeatureFlags';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { xcss, Pressable } from '@atlaskit/primitives';
 import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';

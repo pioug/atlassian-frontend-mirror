@@ -22,7 +22,5 @@ snapshotInformational(VRIssueLikeTable, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
-	featureFlags: {
-		'platform-linking-visual-refresh-sllv': true,
-	},
+	featureFlags: {},
 });

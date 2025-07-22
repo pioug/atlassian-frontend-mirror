@@ -2,5 +2,8 @@
 // Entry file in package.json
 
 export { contentInsertionPlugin } from './contentInsertionPlugin';
-export type { ContentInsertionPlugin } from './contentInsertionPluginType';
+export type {
+	ContentInsertionPlugin,
+	ContentInsertionDependencies,
+} from './contentInsertionPluginType';
 export type { InsertNodeAPI } from './types';

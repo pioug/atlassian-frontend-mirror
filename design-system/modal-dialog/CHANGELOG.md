@@ -1,5 +1,18 @@
 # @atlaskit/modal-dialog
 
+## 14.3.0
+
+### Minor Changes
+
+- [#173162](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/173162)
+  [`a3b23b79f4d68`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3b23b79f4d68) -
+  Adds a new `FullScreenModalDialog` component which is exposed behind the `/full-screen`
+  entrypoint.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.2.12
 
 ### Patch Changes

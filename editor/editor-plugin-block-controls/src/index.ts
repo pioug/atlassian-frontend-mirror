@@ -7,4 +7,7 @@ export type {
 	BlockControlsSharedState,
 	HandleOptions,
 	MoveNodeMethod,
+	BlockControlsPluginDependencies,
+	PluginState,
+	MoveNode,
 } from './blockControlsPluginType';

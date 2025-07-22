@@ -19,6 +19,10 @@ export default {
   'ptc-directory.team-profile-page.team-containers.add-loom-space-description': 'Loom',
   'ptc-directory.team-profile-page.team-containers.add-loom-space-title': 'スペースを追加する',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.cancel-button': 'キャンセル',
+  'ptc-directory.team-profile-page.team-containers.disconnect-dialog.description':
+    '{containerType, select, JiraProject {このチームは Jira プロジェクト {containerName} に接続されなくなります。} ConfluenceSpace {このチームは Confluence スペース {containerName} に接続されなくなります。} LoomSpace {このチームは Loom スペース {containerName} に接続されなくなります。} other {このチームはリンク {containerName} に接続されなくなります。}}',
+  'ptc-directory.team-profile-page.team-containers.disconnect-dialog.disclaimer':
+    '{containerType, select, JiraProject {{containerType, select, JiraProject {プロジェクトとチームの連携を解除しても、プロジェクト内でチームに関連付けられている作業には影響しません。} ConfluenceSpace {スペースとチームの連携を解除しても、プロジェクト内でチームに関連付けられている作業には影響しません。} LoomSpace {スペースとチームの連携を解除しても、プロジェクト内でチームに関連付けられている作業には影響しません。} other {リンクとチームの連携を解除しても、プロジェクト内でチームに関連付けられている作業には影響しません。}}} ConfluenceSpace {{containerType, select, JiraProject {プロジェクトとチームの連携を解除しても、スペース内でチームに関連付けられている作業には影響しません。} ConfluenceSpace {スペースとチームの連携を解除しても、スペース内でチームに関連付けられている作業には影響しません。} LoomSpace {スペースとチームの連携を解除しても、スペース内でチームに関連付けられている作業には影響しません。} other {リンクとチームの連携を解除しても、スペース内でチームに関連付けられている作業には影響しません。}}} LoomSpace {{containerType, select, JiraProject {プロジェクトとチームの連携を解除しても、スペース内でチームに関連付けられている作業には影響しません。} ConfluenceSpace {スペースとチームの連携を解除しても、スペース内でチームに関連付けられている作業には影響しません。} LoomSpace {スペースとチームの連携を解除しても、スペース内でチームに関連付けられている作業には影響しません。} other {リンクとチームの連携を解除しても、スペース内でチームに関連付けられている作業には影響しません。}}} other {{containerType, select, JiraProject {プロジェクトとチームの連携を解除しても、リンク内でチームに関連付けられている作業には影響しません。} ConfluenceSpace {スペースとチームの連携を解除しても、リンク内でチームに関連付けられている作業には影響しません。} LoomSpace {スペースとチームの連携を解除しても、リンク内でチームに関連付けられている作業には影響しません。} other {リンクとチームの連携を解除しても、リンク内でチームに関連付けられている作業には影響しません。}}}}',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.disclaimer-fallback':
     'チームとのリンクを解除しても、チームに関連付けられている作業には影響しません。',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.remove-button': '削除',

@@ -13,7 +13,6 @@ snapshot(JiraIssuesTable, {
 	],
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'platform-linking-visual-refresh-sllv': [true, false],
 		fix_a11y_issues_inline_edit: true,
 	},
 });

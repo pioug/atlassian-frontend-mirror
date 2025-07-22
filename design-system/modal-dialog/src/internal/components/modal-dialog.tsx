@@ -16,12 +16,12 @@ import FadeIn from '@atlaskit/motion/fade-in';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { type CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
 
-import type { KeyboardOrMouseEvent, ModalDialogProps } from '../../types';
 import { ModalContext, ScrollContext } from '../context';
 import useOnMotionFinish from '../hooks/use-on-motion-finish';
 import { disableDraggingToCrossOriginIFramesForElement } from '../pragmatic-drag-and-drop/disable-dragging-to-cross-origin-iframes/element';
 import { disableDraggingToCrossOriginIFramesForExternal } from '../pragmatic-drag-and-drop/disable-dragging-to-cross-origin-iframes/external';
 import { disableDraggingToCrossOriginIFramesForTextSelection } from '../pragmatic-drag-and-drop/disable-dragging-to-cross-origin-iframes/text-selection';
+import type { InternalModalDialogProps } from '../types';
 import { dialogHeight, dialogWidth } from '../utils';
 
 import Positioner from './positioner';
@@ -56,7 +56,6 @@ const dialogStyles = cssMap({
 			},
 			// @ts-expect-error
 			maxWidth: 'inherit',
-			borderRadius: token('border.radius', '3px'),
 			boxShadow: token('elevation.shadow.overlay'),
 			// @ts-expect-error
 			marginInlineEnd: 'inherit',
@@ -92,6 +91,11 @@ const dialogStyles = cssMap({
 			flexDirection: 'inherit',
 		},
 	},
+	borderRadius: {
+		'@media (min-width: 30rem)': {
+			borderRadius: token('border.radius', '3px'),
+		},
+	},
 });
 
 const viewportScrollStyles = css({
@@ -123,17 +127,7 @@ const bodyScrollStyles = css({
 	},
 });
 
-const ModalDialog = (
-	props: ModalDialogProps & {
-		/**
-		 * A boolean for if the onClose is provided. We define a `noop` as our onClose
-		 * at the top level, but we need to know if one is provided for the close
-		 * button to be rendered.
-		 */
-		hasProvidedOnClose: boolean;
-		onClose: (value: KeyboardOrMouseEvent) => void;
-	},
-) => {
+const ModalDialog = (props: InternalModalDialogProps) => {
 	const {
 		width = 'medium',
 		shouldScrollInViewport = false,
@@ -148,6 +142,7 @@ const ModalDialog = (
 		children,
 		label,
 		testId,
+		isFullScreen = false,
 	} = props;
 
 	const id = useId();
@@ -182,8 +177,8 @@ const ModalDialog = (
 	});
 
 	const modalDialogContext = useMemo(
-		() => ({ testId: defaultTestId, titleId, onClose, hasProvidedOnClose }),
-		[defaultTestId, titleId, onClose, hasProvidedOnClose],
+		() => ({ testId: defaultTestId, titleId, onClose, hasProvidedOnClose, isFullScreen }),
+		[defaultTestId, titleId, onClose, hasProvidedOnClose, isFullScreen],
 	);
 
 	useCloseOnEscapePress({
@@ -197,10 +192,17 @@ const ModalDialog = (
 			stackIndex={stackIndex!}
 			shouldScrollInViewport={shouldScrollInViewport}
 			testId={defaultTestId}
+			isFullScreen={isFullScreen}
 		>
 			<ModalContext.Provider value={modalDialogContext}>
 				<ScrollContext.Provider value={shouldScrollInViewport}>
-					<FadeIn entranceDirection="bottom" onFinish={onMotionFinish}>
+					<FadeIn
+						/**
+						 * We don't want a 'slide in' for the full screen modals.
+						 */
+						entranceDirection={isFullScreen ? undefined : 'bottom'}
+						onFinish={onMotionFinish}
+					>
 						{(bottomFadeInProps) => (
 							// TODO: Use `dialog` element instead of overriding section semantics (DSP-11588)
 							<section
@@ -217,6 +219,7 @@ const ModalDialog = (
 								}
 								css={[
 									dialogStyles.root,
+									!isFullScreen && dialogStyles.borderRadius,
 									shouldScrollInViewport ? viewportScrollStyles : bodyScrollStyles,
 								]}
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop

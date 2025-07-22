@@ -8,25 +8,17 @@ import {
 } from '../../examples/vr/table-loading-error-vr';
 
 snapshot(GenericLoadingErrorVR, {
-	featureFlags: {
-		'platform-linking-visual-refresh-sllv': [true, false],
-	},
+	featureFlags: {},
 });
 
 snapshot(GenericLoadingErrorWithoutRefreshVR, {
-	featureFlags: {
-		'platform-linking-visual-refresh-sllv': [true, false],
-	},
+	featureFlags: {},
 });
 
 snapshot(JiraLoadingErrorVR, {
-	featureFlags: {
-		'platform-linking-visual-refresh-sllv': [true, false],
-	},
+	featureFlags: {},
 });
 
 snapshot(ConfluenceLoadingErrorVR, {
-	featureFlags: {
-		'platform-linking-visual-refresh-sllv': [true, false],
-	},
+	featureFlags: {},
 });

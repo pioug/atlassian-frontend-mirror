@@ -116,12 +116,12 @@ export default {
   'linkDataSource.jira-issues.searchDescription-basic': 'Претражујте према кључној речи проблеме које ћете уметнути.',
   'linkDataSource.jira-issues.searchDescription-jql':
     'Користите JQL (Jira језик за упите) да бисте претраживали проблеме.',
-  'linkDataSource.jira-issues.searchJiraTitle': 'Претрага Jira проблема',
+  'linkDataSource.jira-issues.searchJiraTitle': 'Претрага Jira радних ставки',
   'linkDataSource.unableToLoadItems': 'Није успело учитавање ставки',
   'linkDataSource.jira-issues.unableToLoadResults': 'Није успело учитавање резултата',
   'linkDataSource.modal-initial-state.beta': 'Бета',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Претражите Confluence странице',
-  'linkDataSource.modal-initial-state.jiraSearchTitle': 'Претрага Jira проблема',
+  'linkDataSource.modal-initial-state.jiraSearchTitle': 'Претрага Jira радних ставки',
   'linkDataSource.modal-initial-state.learnMoreLink': 'Сазнајте како се користи JQL претрага',
   'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
     'Претражујте по кључној речи радне ставке које ћете уметнути.',
@@ -129,7 +129,6 @@ export default {
     'Претражујте по кључној речи странице које ћете уметнути.',
   'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
     'Користите JQL (Jira језик за упите) за претрагу радних ставки.',
-  'linkDataSource.modal-initial-state.searchTitle': 'Претрага Jira проблема',
   'linkDataSource.modal-initial-state.searchTitle-issue-term-refresh': 'Претрага Jira радних ставки',
   'linkDataSource.noResultsFound': 'Нема резултата',
   'linkDataSource.render-type.boolean.false': 'Не',

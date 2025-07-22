@@ -15,6 +15,7 @@ import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
 import commonMessages, { panelMessages as messages } from '@atlaskit/editor-common/messages';
 import { getPanelTypeBackgroundNoTokens } from '@atlaskit/editor-common/panel';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type {
 	Command,
 	ExtractInjectionAPI,
@@ -43,7 +44,6 @@ import SuccessIcon from '@atlaskit/icon/core/migration/success--editor-success';
 import WarningIcon from '@atlaskit/icon/core/migration/warning--editor-warning';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import RemoveEmojiIcon from '@atlaskit/icon/glyph/editor/remove-emoji';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { changePanelType, removePanel } from '../editor-actions/actions';
 import type { PanelPlugin } from '../index';
@@ -80,11 +80,9 @@ export const getToolbarItems = (
 	state?: EditorState,
 	api?: ExtractInjectionAPI<PanelPlugin>,
 ): FloatingToolbarItem<Command>[] => {
+	const isNewEditorToolbarDisabled = !areToolbarFlagsEnabled();
 	// TODO: ED-14403 - investigate why these titles are not getting translated for the tooltips
-	const items: FloatingToolbarItem<Command>[] = editorExperiment(
-		'platform_editor_controls',
-		'control',
-	)
+	const items: FloatingToolbarItem<Command>[] = isNewEditorToolbarDisabled
 		? [
 				{
 					id: 'editor.panel.info',
@@ -313,7 +311,7 @@ export const getToolbarItems = (
 		}
 	}
 
-	if (editorExperiment('platform_editor_controls', 'control')) {
+	if (isNewEditorToolbarDisabled) {
 		if (state) {
 			items.push({
 				type: 'separator',
@@ -417,7 +415,7 @@ export const getToolbarConfig = (
 			options.allowCustomPanel ? panelColor : undefined,
 			options.allowCustomPanel ? panelIcon || isStandardPanel(panelType) : undefined,
 			state,
-			editorExperiment('platform_editor_controls', 'variant1') ? api : undefined,
+			areToolbarFlagsEnabled() ? api : undefined,
 		);
 
 		const getDomRef = (editorView: EditorView) => {

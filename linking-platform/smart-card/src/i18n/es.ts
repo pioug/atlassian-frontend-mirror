@@ -143,22 +143,13 @@ export default {
   'fabric.linking.read_time': '{context} min de lectura',
   'fabric.linking.related': 'Relacionado',
   'fabric.linking.related_links_found_in': 'Encontrado en',
-  'fabric.linking.related_links_found_in_v2': 'Encontrado en',
   'fabric.linking.related_links_includes_links_to': 'Incluye enlaces a',
-  'fabric.linking.related_links_includes_links_to_v2': 'Incluye enlaces a',
   'fabric.linking.related_links_modal_error_description':
     'Comprueba tu conexión o actualiza la página para volver a intentarlo',
-  'fabric.linking.related_links_modal_error_header': 'Se ha producido un error',
-  'fabric.linking.related_links_modal_error_message':
-    'Hemos tenido una incidencia al cargar enlaces recientes. Comprueba tu conexión o actualiza para volver a intentarlo.',
   'fabric.linking.related_links_modal_error_title': 'Tenemos problemas para cargar los enlaces relacionados',
-  'fabric.linking.related_links_modal_title': 'Enlaces recientes',
-  'fabric.linking.related_links_modal_title_v2': 'Enlaces relacionados',
+  'fabric.linking.related_links_modal_title': 'Enlaces relacionados',
   'fabric.linking.related_links_modal_unavailable_description':
     'Revisamos y añadimos continuamente enlaces relacionados de las páginas actualizadas u otros tipos de contenido',
-  'fabric.linking.related_links_modal_unavailable_header': 'Sin enlaces recientes',
-  'fabric.linking.related_links_modal_unavailable_message':
-    'No hemos encontrado ningún enlace para mostrar aquí. Revisamos y añadimos continuamente enlaces recientes de las páginas actualizadas u otros tipos de contenido.',
   'fabric.linking.related_links_modal_unavailable_title': 'Ningún enlace relacionado encontrado',
   'fabric.linking.related_links_not_found': 'No hemos encontrado ningún enlace que mostrar aquí.',
   'fabric.linking.related_links_view_related_links': 'Ver enlaces relacionados',

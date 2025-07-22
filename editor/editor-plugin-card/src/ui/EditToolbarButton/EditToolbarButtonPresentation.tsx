@@ -9,6 +9,7 @@ import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { linkToolbarMessages, cardMessages as messages } from '@atlaskit/editor-common/messages';
+import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import {
 	FloatingToolbarButton as Button,
 	FloatingToolbarSeparator as Separator,
@@ -21,7 +22,6 @@ import EditIcon from '@atlaskit/icon/core/edit';
 import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
 import { ButtonItem } from '@atlaskit/menu';
 import { Flex } from '@atlaskit/primitives/compiled';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 
 import { focusEditorView } from '../../pm-plugins/utils';
@@ -75,10 +75,10 @@ const EditToolbarButtonPresentation = ({
 		}
 	}, [currentAppearance, datasourceId, editorAnalyticsApi, editorView, extensionKey]);
 
-	const isControlsOn = expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1');
-	const icon = isControlsOn ? <EditIcon label="" /> : undefined;
+	const isNewEditorToolbarEnabled = areToolbarFlagsEnabled();
+	const icon = isNewEditorToolbarEnabled ? <EditIcon label="" /> : undefined;
 
-	const tooltipContent = isControlsOn
+	const tooltipContent = isNewEditorToolbarEnabled
 		? intl.formatMessage(linkToolbarMessages.editLink)
 		: undefined;
 
@@ -92,7 +92,7 @@ const EditToolbarButtonPresentation = ({
 						icon={icon}
 						tooltipContent={tooltipContent}
 					>
-						{!isControlsOn && (
+						{!isNewEditorToolbarEnabled && (
 							<FormattedMessage
 								// Ignored via go/ees005
 								// eslint-disable-next-line react/jsx-props-no-spreading
@@ -100,7 +100,7 @@ const EditToolbarButtonPresentation = ({
 							/>
 						)}
 					</Button>
-					{!isControlsOn && <Separator />}
+					{!isNewEditorToolbarEnabled && <Separator />}
 				</Flex>
 			);
 		}
@@ -119,7 +119,7 @@ const EditToolbarButtonPresentation = ({
 						/>
 					</Button>
 
-					{!isControlsOn && <Separator />}
+					{!isNewEditorToolbarEnabled && <Separator />}
 				</Flex>
 			);
 		}
@@ -148,7 +148,7 @@ const EditToolbarButtonPresentation = ({
 						/>
 					</Button>
 
-					{!isControlsOn && <Separator />}
+					{!isNewEditorToolbarEnabled && <Separator />}
 				</Flex>
 			);
 

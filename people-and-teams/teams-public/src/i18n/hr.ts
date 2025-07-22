@@ -9,6 +9,9 @@
 export default {
   'platform.teams.containers.empty-web-link-description': 'Dodaj bilo koju poveznicu na web',
   'platform.teams.containers.web-link-title-description': 'Poveznica na web',
+  'ptc-directory.team-containers.disconnect-button.tooltip': 'Prekini vezu',
+  'ptc-directory.team-containers.edit-link': 'Uredi vezu',
+  'ptc-directory.team-containers.remove-link': 'Ukloni',
   'ptc-directory.team-profile-page.team-containers.add-confluence-space-description': 'Confluence',
   'ptc-directory.team-profile-page.team-containers.add-confluence-space-title': 'Dodaj prostor',
   'ptc-directory.team-profile-page.team-containers.add-jira-project-description': 'Jira',
@@ -16,8 +19,13 @@ export default {
   'ptc-directory.team-profile-page.team-containers.add-loom-space-description': 'Loom',
   'ptc-directory.team-profile-page.team-containers.add-loom-space-title': 'Dodaj prostor',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.cancel-button': 'Odustani',
+  'ptc-directory.team-profile-page.team-containers.disconnect-dialog.description':
+    '{containerType, select, JiraProject {Ovaj tim više neće biti povezan s projektom u Jiri {containerName}.} ConfluenceSpace {Ovaj tim više neće biti povezan s prostorom u Confluenceu {containerName}.} LoomSpace {Ovaj tim više neće biti povezan s prostorom u Loomu {containerName}.} other {Ovaj tim više neće biti povezan s poveznicom {containerName}.}}',
+  'ptc-directory.team-profile-page.team-containers.disconnect-dialog.disclaimer':
+    '{containerType, select, JiraProject {{containerType, select, JiraProject {Prekidanje veze tima s projektom neće utjecati na rad povezan s timom unutar projekta.} ConfluenceSpace {Prekidanje veze tima s prostorom neće utjecati na rad povezan s timom unutar projekta.} LoomSpace {Prekidanje veze tima s prostorom neće utjecati na rad povezan s timom unutar projekta.} other {Prekidanje veze tima s poveznicom neće utjecati na rad povezan s timom unutar projekta.}}} ConfluenceSpace {{containerType, select, JiraProject {Prekidanje veze tima s projektom neće utjecati na rad povezan s timom unutar prostora.} ConfluenceSpace {Prekidanje veze tima s prostorom neće utjecati na rad povezan s timom unutar prostora.} LoomSpace {Prekidanje veze tima s prostorom neće utjecati na rad povezan s timom unutar prostora.} other {Prekidanje veze tima s poveznicom neće utjecati na rad povezan s timom unutar prostora.}}} LoomSpace {{containerType, select, JiraProject {Prekidanje veze tima s projektom neće utjecati na rad povezan s timom unutar prostora.} ConfluenceSpace {Prekidanje veze tima s prostorom neće utjecati na rad povezan s timom unutar prostora.} LoomSpace {Prekidanje veze tima s prostorom neće utjecati na rad povezan s timom unutar prostora.} other {Prekidanje veze tima s poveznicom neće utjecati na rad povezan s timom unutar prostora.}}} other {{containerType, select, JiraProject {Prekidanje veze tima s projektom neće utjecati na rad povezan s timom unutar poveznice.} ConfluenceSpace {Prekidanje veze tima s prostorom neće utjecati na rad povezan s timom unutar poveznice.} LoomSpace {Prekidanje veze tima s prostorom neće utjecati na rad povezan s timom unutar poveznice.} other {Prekidanje veze tima s poveznicom neće utjecati na rad povezan s timom unutar poveznice.}}}}',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.disclaimer-fallback':
     'Prekid veze tima s poveznicom neće utjecati na rad povezan s timom.',
+  'ptc-directory.team-profile-page.team-containers.disconnect-dialog.remove-button': 'Ukloni',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.title': 'Prekini vezu s mjestom',
   'ptc-directory.team-profile-page.team-containers.show-less': 'Prikaži manje',
   'ptc-directory.team-profile-page.team-containers.show-more': 'Prikaži više',

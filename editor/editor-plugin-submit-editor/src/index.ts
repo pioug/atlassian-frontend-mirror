@@ -2,4 +2,8 @@
 // Entry file in package.json
 
 export { submitEditorPlugin } from './submitEditorPlugin';
-export type { SubmitEditorPlugin, SubmitEditorPluginOptions } from './submitEditorPluginType';
+export type {
+	SubmitEditorPlugin,
+	SubmitEditorPluginOptions,
+	SubmitEditorPluginDependencies,
+} from './submitEditorPluginType';

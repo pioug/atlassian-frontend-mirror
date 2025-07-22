@@ -1,5 +1,13 @@
 # @atlaskit/portal
 
+## 5.1.3
+
+### Patch Changes
+
+- [#188581](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188581)
+  [`cd147bef0fd60`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd147bef0fd60) -
+  Internal refactoring of tests.
+
 ## 5.1.2
 
 ### Patch Changes

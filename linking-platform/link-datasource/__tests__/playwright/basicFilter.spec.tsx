@@ -66,7 +66,7 @@ test.describe('JiraIssuesModal: Basic Filters', () => {
 		const initialDatasourceTable = page.getByTestId('datasource-modal--initial-state-view');
 
 		await page.getByTestId('jlol-basic-filter-project-trigger').click();
-		await page.locator('#react-select-3-option-0 span').first().click();
+		await page.locator('#react-select-2-option-0 span').first().click();
 
 		// expect that the initial state view will no longer be visible
 		await expect(initialDatasourceTable).toBeHidden();
@@ -78,9 +78,9 @@ test.describe('JiraIssuesModal: Basic Filters', () => {
 		await loadExample(page);
 
 		await page.getByTestId('jlol-basic-filter-assignee-trigger').click();
-		await page.locator('#react-select-3-option-0').click();
+		await page.locator('#react-select-2-option-0').click();
 
-		await expect(page.locator('#react-select-3-option-0')).toHaveText('Unassigned');
+		await expect(page.locator('#react-select-2-option-0')).toHaveText('Unassigned');
 
 		await page.fill('#jlol-basic-filter-assignee-popup-select--input', `empty-message`);
 
@@ -88,8 +88,8 @@ test.describe('JiraIssuesModal: Basic Filters', () => {
 
 		await page.type('#jlol-basic-filter-assignee-popup-select--input', ``);
 		await page.keyboard.press('Backspace');
-		await page.waitForSelector('#react-select-3-option-0');
+		await page.waitForSelector('#react-select-2-option-0');
 
-		await expect(page.locator('#react-select-3-option-0')).toHaveText('administrators');
+		await expect(page.locator('#react-select-2-option-0')).toHaveText('administrators');
 	});
 });

@@ -6,8 +6,7 @@ import React from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-import { N0, N20, N30A, N60, N700 } from '@atlaskit/theme/colors';
+import { N30A, N60, N700 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -31,23 +30,6 @@ export interface ModeSwitcherProps<T extends string = string> {
 	onOptionValueChange: (selectedOptionValue: T) => void;
 	selectedOptionValue?: string;
 }
-
-const modeSwitcherStylesOld = css({
-	alignItems: 'center',
-	backgroundColor: token('color.background.neutral', N20),
-	borderRadius: token('space.050', '4px'),
-	boxSizing: 'border-box',
-	display: 'inline-flex',
-	gap: token('space.050', '4px'),
-	paddingTop: token('space.050', '4px'),
-	paddingRight: token('space.050', '4px'),
-	paddingBottom: token('space.050', '4px'),
-	paddingLeft: token('space.050', '4px'),
-	'&:disabled': {
-		opacity: '0.5',
-	},
-	marginLeft: token('space.250', '20px'),
-});
 
 const modeSwitcherStyles = css({
 	alignItems: 'center',
@@ -78,25 +60,6 @@ const modeInputStyles = css({
 	display: 'none',
 });
 
-const modeSwitcherLabelStylesOld = css({
-	color: token('color.text.subtlest', N700),
-	font: token('font.body.UNSAFE_small'),
-	fontWeight: token('font.weight.semibold'),
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-	textTransform: 'uppercase',
-
-	paddingTop: token('space.050', '4px'),
-	paddingRight: token('space.050', '4px'),
-	paddingBottom: token('space.050', '4px'),
-	paddingLeft: token('space.050', '4px'),
-	borderRadius: token('space.050', '4px'),
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	':hover': {
-		cursor: 'pointer',
-		backgroundColor: token('color.background.neutral.subtle.hovered', N30A),
-	},
-});
-
 const modeSwitcherLabelStyles = css({
 	color: token('color.text.subtlest', N700),
 	boxSizing: 'border-box',
@@ -118,20 +81,6 @@ const modeSwitcherLabelStyles = css({
 	':hover': {
 		cursor: 'pointer',
 		backgroundColor: token('color.background.neutral.subtle.hovered', N30A),
-	},
-});
-
-const modeSwitcherLabelSelectedStylesOld = css({
-	backgroundColor: token('color.background.input.pressed', N0),
-	borderRadius: token('space.050', '4px'),
-	boxShadow: token(
-		'elevation.shadow.overflow',
-		'0px 0px 1px rgba(9, 30, 66, 0.12), 0px 0px 8px rgba(9, 30, 66, 0.16)',
-	),
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	':hover': {
-		cursor: 'pointer',
-		backgroundColor: token('color.background.input.pressed', N0),
 	},
 });
 
@@ -181,10 +130,7 @@ export const ModeSwitcher = <T extends string = string>(props: ModeSwitcherProps
 
 	return options.length > 0 ? (
 		<fieldset
-			css={[
-				fg('platform-linking-visual-refresh-sllv') ? modeSwitcherStyles : modeSwitcherStylesOld,
-				isCompact && compactModeSwitcherStyles,
-			]}
+			css={[modeSwitcherStyles, isCompact && compactModeSwitcherStyles]}
 			data-testid="mode-toggle-container"
 			disabled={isDisabled}
 		>
@@ -193,63 +139,34 @@ export const ModeSwitcher = <T extends string = string>(props: ModeSwitcherProps
 
 				return (
 					<Tooltip key={value} content={tooltipText}>
-						{(tooltipProps) =>
-							fg('platform-linking-visual-refresh-sllv') ? (
-								<label
-									{...tooltipProps}
-									key={value}
-									css={[
-										modeSwitcherLabelStyles,
-										isCompact && compactModeSwitcherLabelStyles,
-										isSelected && modeSwitcherLabelSelectedStyles,
-										isDisabled && modeSwitcherDisabledStyles,
-										isOptionDisabled && modeSwitcherLabelDisabledStyles,
-										isOptionDisabled && modeSwitcherDisabledStyles,
-									]}
-									data-testid={`mode-toggle-${value}`}
-								>
-									{label}
-									{/* eslint-disable-next-line @atlaskit/design-system/no-html-radio */}
-									<input
-										aria-checked={isSelected}
-										aria-disabled={isOptionDisabled}
-										checked={isSelected}
-										css={modeInputStyles}
-										disabled={isOptionDisabled}
-										onChange={handleModeChange}
-										type="radio"
-										value={value}
-									/>
-								</label>
-							) : (
-								<label
-									{...tooltipProps}
-									key={value}
-									css={[
-										modeSwitcherLabelStylesOld,
-										isCompact && compactModeSwitcherLabelStyles,
-										isSelected && modeSwitcherLabelSelectedStylesOld,
-										isDisabled && modeSwitcherDisabledStyles,
-										isOptionDisabled && modeSwitcherLabelDisabledStyles,
-										isOptionDisabled && modeSwitcherDisabledStyles,
-									]}
-									data-testid={`mode-toggle-${value}`}
-								>
-									{label}
-									{/* eslint-disable-next-line @atlaskit/design-system/no-html-radio */}
-									<input
-										aria-checked={isSelected}
-										aria-disabled={isOptionDisabled}
-										checked={isSelected}
-										css={modeInputStyles}
-										disabled={isOptionDisabled}
-										onChange={handleModeChange}
-										type="radio"
-										value={value}
-									/>
-								</label>
-							)
-						}
+						{(tooltipProps) => (
+							<label
+								{...tooltipProps}
+								key={value}
+								css={[
+									modeSwitcherLabelStyles,
+									isCompact && compactModeSwitcherLabelStyles,
+									isSelected && modeSwitcherLabelSelectedStyles,
+									isDisabled && modeSwitcherDisabledStyles,
+									isOptionDisabled && modeSwitcherLabelDisabledStyles,
+									isOptionDisabled && modeSwitcherDisabledStyles,
+								]}
+								data-testid={`mode-toggle-${value}`}
+							>
+								{label}
+								{/* eslint-disable-next-line @atlaskit/design-system/no-html-radio */}
+								<input
+									aria-checked={isSelected}
+									aria-disabled={isOptionDisabled}
+									checked={isSelected}
+									css={modeInputStyles}
+									disabled={isOptionDisabled}
+									onChange={handleModeChange}
+									type="radio"
+									value={value}
+								/>
+							</label>
+						)}
 					</Tooltip>
 				);
 			})}

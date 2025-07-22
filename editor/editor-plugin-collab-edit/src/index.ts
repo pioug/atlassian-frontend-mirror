@@ -2,7 +2,11 @@
 // Entry file in package.json
 
 export { collabEditPlugin } from './collabEditPlugin';
-export type { CollabEditPlugin, CollabEditPluginOptions } from './collabEditPluginType';
+export type {
+	CollabEditPlugin,
+	CollabEditPluginOptions,
+	CollabEditPluginDependencies,
+} from './collabEditPluginType';
 export type {
 	CollabInitializedMetadata,
 	CollabEditPluginSharedState,

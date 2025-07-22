@@ -5,7 +5,5 @@ import ConfluenceSearchConfigModalNoInstances from '../../examples/vr/confluence
 snapshot(ConfluenceSearchConfigModalNoInstances, {
 	description: 'Confluence search config modal no instances view',
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'platform-linking-visual-refresh-sllv': [true, false],
-	},
+	featureFlags: {},
 });

@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 5.1.0
+
+### Minor Changes
+
+- [#189314](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/189314)
+  [`22c6251496010`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22c6251496010) -
+  Exported missing types that were already being inferred from existing exports
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.0.6
+
+### Patch Changes
+
+- [#188597](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188597)
+  [`4de5a96f3e24c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4de5a96f3e24c) -
+  [ED-28523] Enable new editor element toolbars UI for Jira
+- Updated dependencies
+
+## 5.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.0.4
 
 ### Patch Changes

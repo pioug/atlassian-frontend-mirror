@@ -19,6 +19,12 @@ export default {
   'ptc-directory.team-profile-page.team-containers.add-loom-space-description': 'Loom',
   'ptc-directory.team-profile-page.team-containers.add-loom-space-title': '스페이스 추가',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.cancel-button': '취소',
+  'ptc-directory.team-profile-page.team-containers.disconnect-dialog.description':
+    '{containerType, select, JiraProject {이 팀은 더 이상 {containerName} Jira 프로젝트에 연결되지 않습니다.} ConfluenceSpace {이 팀은 더 이상 {containerName} Confluence 스페이스에 연결되지 않습니다.} LoomSpace {이 팀은 더 이상 {containerName} Loom 스페이스에 연결되지 않습니다.} other {이 팀은 더 이상 {containerName} 링크에 연결되지 않습니다.}}',
+  'ptc-directory.team-profile-page.team-containers.disconnect-dialog.disclaimer':
+    '{containerType, select, JiraProject {{containerType, select, JiraProject {프로젝트에서 팀을 연결 해제해도 프로젝트 내의 팀과 연결된 업무에 영향을 주지 않습니다.} ConfluenceSpace {스페이스에서 팀을 연결 해제해도 프로젝트 내의 팀과 연결된 업무에 영향을 주지 않습니다.} LoomSpace {스페이스에서 팀을 연결 해제해도 프로젝트 내의 팀과 연결된 업무에 영향을 주지 않습니다.} other {링크에서 팀을 연결 해제해도 프로젝트 내의 팀과 연결된 업무에 영향을 주지 않습니다.}}} ConfluenceSpace {{containerType, select, JiraProject {프로젝트에서 팀을 연결 해제해도 스페이스 내의 팀과 연결된 업무에 영향을 주지 않습니다.} ConfluenceSpace {스페이스에서 팀을 연결 해제해도 스페이스 내의 팀과 연결된 업무에 영향을 주지 않습니다.} LoomSpace {스페이스에서 팀을 연결 해제해도 스페이스 내의 팀과 연결된 업무에 영향을 주지 않습니다.} other {링크에서 팀을 연결 해제해도 스페이스 내의 팀과 연결된 업무에 영향을 주지 않습니다.}}} LoomSpace {{containerType, select, JiraProject {프로젝트에서 팀을 연결 해제해도 스페이스 내의 팀과 연결된 업무에 영향을 주지 않습니다.} ConfluenceSpace {스페이스에서 팀을 연결 해제해도 스페이스 내의 팀과 연결된 업무에 영향을 주지 않습니다.} LoomSpace {스페이스에서 팀을 연결 해제해도 스페이스 내의 팀과 연결된 업무에 영향을 주지 않습니다.} other {링크에서 팀을 연결 해제해도 스페이스 내의 팀과 연결된 업무에 영향을 주지 않습니다.}}} other {{containerType, select, JiraProject {프로젝트에서 팀을 연결 해제해도 링크 내의 팀과 연결된 업무에 영향을 주지 않습니다.} ConfluenceSpace {스페이스에서 팀을 연결 해제해도 링크 내의 팀과 연결된 업무에 영향을 주지 않습니다.} LoomSpace {스페이스에서 팀을 연결 해제해도 링크 내의 팀과 연결된 업무에 영향을 주지 않습니다.} other {링크에서 팀을 연결 해제해도 링크 내의 팀과 연결된 업무에 영향을 주지 않습니다.}}}}',
+  'ptc-directory.team-profile-page.team-containers.disconnect-dialog.disclaimer-fallback':
+    '링크에서 팀을 연결 해제해도 팀에 연결된 작업에 영향을 주지 않습니다.',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.remove-button': '제거',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.title': '작업 영역 연결 해제',
   'ptc-directory.team-profile-page.team-containers.show-less': '간단히 보기',

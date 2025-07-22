@@ -17,11 +17,6 @@ describe('BasicSearchInput', () => {
 					onSearch={mockOnSearch}
 					searchTerm="testing"
 					testId="basic-search-input"
-					placeholder={{
-						id: 'test',
-						description: 'placeholder',
-						defaultMessage: 'custom placeholder',
-					}}
 					ariaLabel={{
 						id: 'test',
 						description: 'placeholder',
@@ -69,9 +64,9 @@ describe('BasicSearchInput', () => {
 	});
 
 	it('calls onSearch on form submit', async () => {
-		const { getByPlaceholderText, mockOnSearch } = setup();
+		const { findByTestId, mockOnSearch } = setup();
 
-		const input = getByPlaceholderText('custom placeholder');
+		const input = await findByTestId('basic-search-input--basic-search-input');
 
 		fireEvent.click(input);
 		fireEvent.submit(input);
@@ -88,11 +83,6 @@ describe('BasicSearchInput', () => {
 					onSearch={mockOnSearch}
 					searchTerm="testing"
 					testId="basic-search-input"
-					placeholder={{
-						id: 'test',
-						description: 'placeholder',
-						defaultMessage: 'custom placeholder',
-					}}
 					ariaLabel={{
 						id: 'test',
 						description: 'placeholder',

@@ -34,14 +34,14 @@ const metadata: IconMetadata = {
 		usage: 'Single purpose - Reserved for Rovo Agent.',
 	},
 	'ai-chat': {
-		keywords: ['Rovo', 'AI', 'chat agent', 'ai'],
+		keywords: ['Rovo', 'AI', 'chat agent'],
 		categorization: 'single-purpose',
 		location: '@atlaskit/icon',
-		team: 'Design System Team',
+		team: 'Central AI',
 		type: 'core',
 		status: 'published',
-		id: '9267:17518',
-		usage: 'Single purpose - Reserved for Rovo Chat.',
+		id: '49020:11049',
+		usage: 'Reserved for Rovo Chat.',
 	},
 	'ai-generative-text-summary': {
 		keywords: ['summarize', 'summarise', 'summary', 'automation', 'AI'],
@@ -728,7 +728,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'core',
 		status: 'published',
-		id: '15048:8413',
+		id: '49020:13359',
 		usage:
 			'Single purpose - Reserved for contracting or reducing the width of an element to its smallest size.',
 	},
@@ -739,7 +739,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'core',
 		status: 'published',
-		id: '15048:8447',
+		id: '49020:13447',
 		usage:
 			'Single purpose - Reserved for contracting or reducing the height of an element to its smallest size.',
 	},

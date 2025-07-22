@@ -62,22 +62,20 @@ describe('Element: Text', () => {
 		expect(element.textContent).toBe(messages.cannot_find_link.defaultMessage);
 	});
 
-	ffTest.on('platform-linking-additional-flexible-element-props', 'FG enabled', () => {
-		it('renders content as priority when hideFormat is true', async () => {
-			const message = {
-				descriptor: messages.created_by,
-				values: { context: 'someone' },
-			};
+	it('renders content as priority when hideFormat is true', async () => {
+		const message = {
+			descriptor: messages.created_by,
+			values: { context: 'someone' },
+		};
 
-			const content = 'random text';
-			render(<Text content={content} message={message} hideFormat />);
+		const content = 'random text';
+		render(<Text content={content} message={message} hideFormat />);
 
-			const element = await screen.findByTestId(testId);
+		const element = await screen.findByTestId(testId);
 
-			expect(element).toBeTruthy();
-			expect(element.getAttribute('data-smart-element-text')).toBeTruthy();
-			expect(element).toHaveTextContent(content);
-		});
+		expect(element).toBeTruthy();
+		expect(element.getAttribute('data-smart-element-text')).toBeTruthy();
+		expect(element).toHaveTextContent(content);
 	});
 
 	it('renders formatted messages with values', async () => {

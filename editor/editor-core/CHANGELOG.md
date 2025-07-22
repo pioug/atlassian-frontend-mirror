@@ -1,5 +1,52 @@
 # @atlaskit/editor-core
 
+## 209.1.11
+
+### Patch Changes
+
+- [#188277](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188277)
+  [`9e6d67b625ac9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e6d67b625ac9) -
+  [ux] Hides drag controls for all nodes and resize handles on expands and layouts on narrow
+  screens.
+- [#187022](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/187022)
+  [`667172449febe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/667172449febe) -
+  [ux] ENGHEALTH-27831 made editor scroll container focusable by keyboard for accessibility
+- [#188604](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188604)
+  [`2447351dcf766`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2447351dcf766) - ##
+  What? Remove entry-points to table plugin:
+
+  - `@atlaskit/editor-plugin-table/commands`
+  - `@atlaskit/editor-plugin-table/plugin-key`
+  - `@atlaskit/editor-plugin-table/ui/consts`
+  - `@atlaskit/editor-plugins/table/ui/consts`
+  - `@atlaskit/editor-plugins/table/plugin-key`
+  - `@atlaskit/editor-plugins/table/commands`
+
+  ## Why?
+
+  These entry-points allow for dangerous practices by directly manipulating internal prosemirror
+  state.
+
+  This change should not affect most consumers as these should not be used.
+
+  ## How to update
+
+  Table state can be read and changed via the public plugin interface which is safe and well tested.
+
+  Example:
+
+  ```ts
+  // Table actions
+  editorApi?.table.actions.insertTable(...);
+
+  // Read the table state
+  const tableState = useSharedPluginStateWithSelector(editorApi, ['table'], ({ tableState }) => {
+    return { ... };
+  })
+  ```
+
+- Updated dependencies
+
 ## 209.1.10
 
 ### Patch Changes

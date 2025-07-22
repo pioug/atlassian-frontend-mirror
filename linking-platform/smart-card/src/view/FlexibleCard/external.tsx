@@ -72,10 +72,7 @@ type CommentCountElementProps = Pick<
 >;
 
 export const CommentCountElement = (props?: CommentCountElementProps) => {
-	if (fg('platform-linking-additional-flexible-element-props')) {
-		return <CommentCount color={props?.color} onRender={props?.onRender} />;
-	}
-	return <CommentCount />;
+	return <CommentCount color={props?.color} onRender={props?.onRender} />;
 };
 
 export const CreatedOnElement = () => <CreatedOn />;
@@ -90,15 +87,12 @@ type LinkIconElementProps = Prettify<
 >;
 
 export const LinkIconElement = (props?: LinkIconElementProps) => {
-	if (fg('platform-linking-additional-flexible-element-props')) {
-		return (
-			<LinkIcon
-				size={props?.iconTileSize === 24 ? SmartLinkSize.Large : SmartLinkSize.Medium}
-				render={props?.render}
-			/>
-		);
-	}
-	return <LinkIcon />;
+	return (
+		<LinkIcon
+			size={props?.iconTileSize === 24 ? SmartLinkSize.Large : SmartLinkSize.Medium}
+			render={props?.render}
+		/>
+	);
 };
 
 export const LocationElement = () => <Location />;
@@ -110,17 +104,14 @@ export type ModifiedOnElementProps = Pick<
 >;
 
 export const ModifiedOnElement = (props?: ModifiedOnElementProps) => {
-	if (fg('platform-linking-additional-flexible-element-props')) {
-		return (
-			<ModifiedOn
-				hideDatePrefix={props?.hideDatePrefix}
-				color={props?.color}
-				onRender={props?.onRender}
-				fontSize={props?.fontSize}
-			/>
-		);
-	}
-	return <ModifiedOn />;
+	return (
+		<ModifiedOn
+			hideDatePrefix={props?.hideDatePrefix}
+			color={props?.color}
+			onRender={props?.onRender}
+			fontSize={props?.fontSize}
+		/>
+	);
 };
 
 export type OwnedByElementProps = Pick<
@@ -129,30 +120,24 @@ export type OwnedByElementProps = Pick<
 >;
 
 export const OwnedByElement = (props?: OwnedByElementProps) => {
-	if (fg('platform-linking-additional-flexible-element-props')) {
-		return (
-			<OwnedBy
-				hideFormat={props?.hideFormat}
-				color={props?.color}
-				onRender={props?.onRender}
-				{...(fg('bandicoots-smart-card-teamwork-context')
-					? {
-							textPrefix: props?.textPrefix,
-							fontSize: props?.fontSize,
-						}
-					: undefined)}
-			/>
-		);
-	}
-	return <OwnedBy />;
+	return (
+		<OwnedBy
+			hideFormat={props?.hideFormat}
+			color={props?.color}
+			onRender={props?.onRender}
+			{...(fg('bandicoots-smart-card-teamwork-context')
+				? {
+						textPrefix: props?.textPrefix,
+						fontSize: props?.fontSize,
+					}
+				: undefined)}
+		/>
+	);
 };
 
 type OwnedByGroupElementProps = Pick<React.ComponentProps<typeof OwnedByGroup>, 'onRender'>;
 export const OwnedByGroupElement = (props?: OwnedByGroupElementProps) => {
-	if (fg('platform-linking-additional-flexible-element-props')) {
-		return <OwnedByGroup onRender={props?.onRender} />;
-	}
-	return <OwnedByGroup />;
+	return <OwnedByGroup onRender={props?.onRender} />;
 };
 
 type PreviewElementProps = {
@@ -160,10 +145,7 @@ type PreviewElementProps = {
 };
 
 export const PreviewElement = (props?: PreviewElementProps) => {
-	if (fg('platform-linking-additional-flexible-element-props')) {
-		return <Preview overrideUrl={props?.url} />;
-	}
-	return <Preview />;
+	return <Preview overrideUrl={props?.url} />;
 };
 
 export const PriorityElement = () => <Priority />;
@@ -172,10 +154,7 @@ export const ProviderElement = () => <Provider />;
 
 type ReactCountElementProps = Pick<React.ComponentProps<typeof ReactCount>, 'color' | 'onRender'>;
 export const ReactCountElement = (props?: ReactCountElementProps) => {
-	if (fg('platform-linking-additional-flexible-element-props')) {
-		return <ReactCount color={props?.color} onRender={props?.onRender} />;
-	}
-	return <ReactCount />;
+	return <ReactCount color={props?.color} onRender={props?.onRender} />;
 };
 
 export const ReadTimeElement = () => <ReadTime />;

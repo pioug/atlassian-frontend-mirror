@@ -13,6 +13,7 @@ import commonMessages, {
 	cardMessages,
 	mediaAndEmbedToolbarMessages,
 } from '@atlaskit/editor-common/messages';
+import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type {
 	Command,
 	DropdownOptionT,
@@ -93,20 +94,18 @@ export const generateMediaInlineFloatingToolbar = (
 
 	const items: FloatingToolbarItem<Command>[] = [];
 
-	const isEditorControlsEnabled = editorExperiment('platform_editor_controls', 'variant1');
+	const isNewEditorToolbarEnabled = areToolbarFlagsEnabled();
 
 	const preview: FloatingToolbarButton<Command> = {
 		id: 'editor.media.viewer',
 		testId: 'file-preview-toolbar-button',
 		type: 'button',
-		icon: editorExperiment('platform_editor_controls', 'variant1')
-			? GrowDiagonalIcon
-			: MaximizeIcon,
+		icon: isNewEditorToolbarEnabled ? GrowDiagonalIcon : MaximizeIcon,
 		title: intl.formatMessage(messages.preview),
 		onClick: () => {
 			return handleShowMediaViewer({ mediaPluginState, api: pluginInjectionApi }) ?? false;
 		},
-		...(isEditorControlsEnabled && { supportsViewMode: true }),
+		...(isNewEditorToolbarEnabled && { supportsViewMode: true }),
 	};
 
 	const disableDownloadButton = getIsDownloadDisabledByDataSecurityPolicy(mediaPluginState);
@@ -121,10 +120,10 @@ export const generateMediaInlineFloatingToolbar = (
 		},
 		disabled: disableDownloadButton,
 		title: intl.formatMessage(messages.download),
-		...(isEditorControlsEnabled && { supportsViewMode: true }),
+		...(isNewEditorToolbarEnabled && { supportsViewMode: true }),
 	};
 
-	if (!isEditorControlsEnabled) {
+	if (!isNewEditorToolbarEnabled) {
 		items.push(
 			{
 				id: 'editor.media.view.switcher.inline',

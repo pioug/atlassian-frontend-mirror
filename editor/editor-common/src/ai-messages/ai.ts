@@ -36,10 +36,10 @@ export const aiMessages = defineMessages({
 		defaultMessage: 'Ask AI',
 		description: 'Title for an option to use Atlassian Intellgience',
 	},
-	askRovoInputButtonLabel: {
-		id: 'fabric.editor.ai.toolbar.askRovoInputButton.label',
-		defaultMessage: 'Ask Rovo...',
-		description: 'Label for the input button prompting user to type a query to Rovo.',
+	askRovoAiSplitButtonLabel: {
+		id: 'fabric.editor.ai.toolbar.askRovoAiSplitButton.label',
+		defaultMessage: 'Ask Rovo AI',
+		description: 'Label for the button prompting user to type a query to Rovo.',
 	},
 	askAIToolbarIconTooltip: {
 		id: 'fabric.editor.ai.toolbar.tryAI.tooltip',

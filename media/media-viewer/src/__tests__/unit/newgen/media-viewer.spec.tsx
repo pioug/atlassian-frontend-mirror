@@ -99,6 +99,27 @@ describe('<MediaViewer />', () => {
 		});
 	});
 
+	it('should have the role dialog for blanket', async () => {
+		const [fileItem, identifier] = generateSampleFileItem.workingVideo();
+		const { mediaApi } = createMockedMediaApi(fileItem);
+
+		render(
+			<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+				<MediaViewer
+					selectedItem={identifier}
+					items={[identifier]}
+					collectionName={identifier.collectionName || ''}
+					mediaClientConfig={fakeMediaClientConfig}
+				/>
+			</MockedMediaClientProvider>,
+		);
+
+		const blanketComponent = screen.getByRole('dialog');
+		expect(blanketComponent).toBeVisible();
+		expect(blanketComponent).toHaveAttribute('aria-modal', 'true');
+		expect(blanketComponent).toHaveAttribute('aria-labelledby', 'media.media-viewer.file.name');
+	});
+
 	describe('Opening Media Viewer', () => {
 		it('should render local preview for pdf documents', async () => {
 			const [fileItem, identifier] = generateSampleFileItem.workingPdfWithLocalPreview();

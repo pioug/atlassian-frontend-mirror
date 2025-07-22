@@ -1,19 +1,23 @@
-import React, { useCallback, useState } from 'react';
-
-import Lorem from 'react-lorem-component';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { Fragment, useCallback, useState } from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import Checkbox from '@atlaskit/checkbox';
-import { cssMap } from '@atlaskit/css';
-import { Field } from '@atlaskit/form';
-import ModalDialog, {
+import { Code } from '@atlaskit/code';
+import { cssMap, jsx } from '@atlaskit/css';
+import { Field, FormFooter, FormSection, HelperMessage } from '@atlaskit/form';
+import Modal, {
 	ModalBody,
 	ModalFooter,
 	ModalHeader,
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
+import { FullScreenModalDialog } from '@atlaskit/modal-dialog/full-screen';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -21,16 +25,30 @@ const sizes = ['large', 'medium', 'small'];
 
 const multipleContainerStyles = cssMap({
 	root: {
-		maxWidth: '400px',
+		maxWidth: '600px',
 		paddingInlineStart: token('space.200'),
 		paddingInlineEnd: token('space.200'),
-		paddingBlockStart: token('space.200'),
-		paddingBlockEnd: token('space.200'),
 	},
 });
 
-export default function NestedDemo() {
+const modalContentStyles = cssMap({
+	root: {
+		boxSizing: 'border-box',
+		width: '100%',
+		height: '100%',
+		backgroundColor: token('color.background.accent.magenta.subtlest'),
+		paddingInline: token('space.300'),
+		paddingBlock: token('space.300'),
+	},
+	longContent: {
+		height: '150vh',
+	},
+});
+
+export default function NestedModalExample() {
 	const [shouldScrollInViewport, setShouldScrollInViewPort] = useState(false);
+	const [hasLongContent, setHasLongContent] = useState(false);
+	const [isFullScreen, setIsFullScreen] = useState(false);
 	const [openModals, setOpenModals] = useState<{ [key: string]: boolean }>({});
 
 	const open = useCallback(
@@ -55,30 +73,69 @@ export default function NestedDemo() {
 		console.info(`The exit animation of the "${name}" modal has completed.`);
 	};
 
-	return (
-		<Box xcss={multipleContainerStyles.root} padding="space.200">
-			<Field name="sb" label="Scrolling behavior">
-				{() => (
-					<Checkbox
-						label="Should scroll within the viewport"
-						name="scroll"
-						testId="scroll"
-						onChange={(e) => setShouldScrollInViewPort(e.target.checked)}
-						isChecked={shouldScrollInViewport}
-					/>
-				)}
-			</Field>
+	const ModalRootComponent = isFullScreen ? FullScreenModalDialog : Modal;
 
-			<ButtonGroup label="Modal options">
-				<Button
-					aria-haspopup="dialog"
-					appearance="primary"
-					testId="large"
-					onClick={() => open('large')}
-				>
-					Open
-				</Button>
-			</ButtonGroup>
+	return (
+		<Box xcss={multipleContainerStyles.root}>
+			<div>
+				<FormSection>
+					<Field name="sb" label="Scrolling behavior">
+						{() => (
+							<Checkbox
+								label="Should scroll within the viewport"
+								name="scroll"
+								testId="scroll"
+								onChange={(e) => setShouldScrollInViewPort(e.target.checked)}
+								isChecked={shouldScrollInViewport}
+							/>
+						)}
+					</Field>
+
+					<Field name="content" label="Content">
+						{() => (
+							<Checkbox
+								label="Has long content"
+								name="content"
+								testId="content"
+								onChange={(e) => setHasLongContent(e.target.checked)}
+								isChecked={hasLongContent}
+							/>
+						)}
+					</Field>
+
+					<Field name="full-screen" label="Appearance">
+						{() => (
+							<Fragment>
+								<Checkbox
+									label="Full screen"
+									name="full-screen"
+									testId="full-screen"
+									onChange={(e) => setIsFullScreen(e.target.checked)}
+									isChecked={isFullScreen}
+								/>
+								<HelperMessage>
+									Full screen mode will ignore the <Code>width</Code>, <Code>height</Code> and{' '}
+									<Code>shouldScrollInViewport</Code> props.
+								</HelperMessage>
+							</Fragment>
+						)}
+					</Field>
+				</FormSection>
+
+				<FormFooter align="start">
+					<ButtonGroup label="Modal options">
+						<Button
+							aria-haspopup="dialog"
+							appearance="primary"
+							testId="large"
+							onClick={() => open('large')}
+						>
+							Open
+						</Button>
+					</ButtonGroup>
+				</FormFooter>
+			</div>
+
 			<p>
 				For illustrative purposes three {'"stacked"'} modals can be opened in this demo, though ADG3
 				recommends only two at any time.
@@ -94,7 +151,7 @@ export default function NestedDemo() {
 				return (
 					<ModalTransition key={name}>
 						{openModals[name] && (
-							<ModalDialog
+							<ModalRootComponent
 								shouldScrollInViewport={shouldScrollInViewport}
 								onClose={() => close(name)}
 								onCloseComplete={() => handleCloseComplete(name)}
@@ -106,8 +163,28 @@ export default function NestedDemo() {
 								<ModalHeader hasCloseButton>
 									<ModalTitle>Modal: {name}</ModalTitle>
 								</ModalHeader>
-								<ModalBody>
-									<Lorem count={2} />
+								<ModalBody hasInlinePadding={false}>
+									<div
+										css={[
+											modalContentStyles.root,
+											hasLongContent && modalContentStyles.longContent,
+										]}
+									>
+										<p>
+											Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nam nobis delectus
+											accusamus iusto atque excepturi qui, mollitia, labore voluptas quo ipsum
+											accusantium. Itaque iure hic, voluptatum consequatur quae vitae sit.
+										</p>
+										<p>
+											Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci id mollitia,
+											autem provident atque explicabo enim saepe beatae voluptates facilis optio
+											quaerat harum suscipit tempora laudantium itaque maiores? Illum, consequuntur.
+											Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae et
+											necessitatibus ducimus beatae, corrupti soluta! Quibusdam, mollitia, quos
+											ipsam voluptatibus deserunt dolorem quia consequuntur fugit nisi dolorum iure
+											in corporis?
+										</p>
+									</div>
 								</ModalBody>
 								<ModalFooter>
 									<Button
@@ -128,7 +205,7 @@ export default function NestedDemo() {
 										</Button>
 									)}
 								</ModalFooter>
-							</ModalDialog>
+							</ModalRootComponent>
 						)}
 					</ModalTransition>
 				);

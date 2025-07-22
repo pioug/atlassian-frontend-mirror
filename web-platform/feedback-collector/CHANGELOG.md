@@ -1,5 +1,13 @@
 # @atlaskit/feedback-collector
 
+## 14.3.0
+
+### Minor Changes
+
+- [#177991](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/177991)
+  [`309e093d70774`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/309e093d70774) -
+  [ux] [ED-28358] add disableSubmitButton prop to feedback collector
+
 ## 14.2.1
 
 ### Patch Changes

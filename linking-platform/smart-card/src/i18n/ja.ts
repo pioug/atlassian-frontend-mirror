@@ -142,22 +142,10 @@ export default {
   'fabric.linking.priority_undefined': '未定義',
   'fabric.linking.read_time': '読了時間 {context} 分',
   'fabric.linking.related': '関連',
-  'fabric.linking.related_links_found_in': '次のリソース内に見つかりました。',
-  'fabric.linking.related_links_found_in_v2': 'ソース元',
-  'fabric.linking.related_links_includes_links_to': '次へのリンクが含まれています。',
-  'fabric.linking.related_links_includes_links_to_v2': '次へのリンクが含まれています',
   'fabric.linking.related_links_modal_error_description': '接続を確認するか、ページを更新してもう一度お試しください',
-  'fabric.linking.related_links_modal_error_header': '問題が発生しました',
-  'fabric.linking.related_links_modal_error_message':
-    '最近のリンクを読み込もうとして問題が発生しました。接続を確認するか、更新してやり直してください。',
   'fabric.linking.related_links_modal_error_title': '関連リンクの読み込み中に問題が発生しました',
-  'fabric.linking.related_links_modal_title': '最近閲覧したリンク',
-  'fabric.linking.related_links_modal_title_v2': '関連リンク',
   'fabric.linking.related_links_modal_unavailable_description':
     '更新されたページやその他のコンテンツ タイプについて継続的に確認し、関連リンクを追加していきます',
-  'fabric.linking.related_links_modal_unavailable_header': '最近のリンクはありません',
-  'fabric.linking.related_links_modal_unavailable_message':
-    'ここに表示するリンクが見つかりませんでした。更新されたページやその他のコンテンツ タイプについて継続的に確認し、最近のリンクを追加していきます。',
   'fabric.linking.related_links_modal_unavailable_title': '関連リンクが見つかりませんでした',
   'fabric.linking.related_links_not_found': 'ここに表示するリンクが見つかりませんでした。',
   'fabric.linking.related_links_view_related_links': '関連リンクを表示',

@@ -315,8 +315,8 @@ const PlainJiraIssuesConfigModal = (props: ConnectedJiraConfigModalProps) => {
 	const renderIssuesModeContent = useCallback(() => {
 		const selectedJiraSiteUrl = selectedJiraSite?.url;
 		const getDescriptionMessage = () => {
-			if (currentSearchMethod === 'basic' && fg('platform-linking-visual-refresh-sllv')) {
-				return initialStateViewMessages.searchDescriptionForBasicSearchVisualRefreshSllv;
+			if (currentSearchMethod === 'basic') {
+				return initialStateViewMessages.searchDescriptionForBasicSearchSllv;
 			}
 
 			if (fg('confluence-issue-terminology-refresh')) {
@@ -331,44 +331,21 @@ const PlainJiraIssuesConfigModal = (props: ConnectedJiraConfigModalProps) => {
 		};
 
 		if (status === 'rejected' && jqlUrl) {
-			if (fg('platform-linking-visual-refresh-sllv')) {
-				return (
-					<ModalLoadingError
-						errorMessage={
-							jqlUrl ? (
-								<FormattedMessage
-									{...modalMessages.checkConnectionWithSourceVisualRefreshSllv}
-									values={{
-										a: (urlText: React.ReactNode[]) => (
-											<LinkComponent href={jqlUrl}>{urlText}</LinkComponent>
-										),
-									}}
-								/>
-							) : undefined
-						}
-						onRefresh={() => reset({ shouldForceRequest: true })}
-					/>
-				);
-			}
-
 			return (
 				<ModalLoadingError
 					errorMessage={
 						jqlUrl ? (
 							<FormattedMessage
-								{...modalMessages.checkConnectionWithSource}
+								{...modalMessages.checkConnectionWithSourceVisualRefreshSllv}
 								values={{
-									a: (urlText: React.ReactNode[]) =>
-										fg('dst-a11y__replace-anchor-with-link__linking-platfo') ? (
-											<LinkComponent href={jqlUrl}>{urlText}</LinkComponent>
-										) : (
-											// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
-											<a href={jqlUrl}>{urlText}</a>
-										),
+									a: (urlText: React.ReactNode[]) => (
+										<LinkComponent href={jqlUrl}>{urlText}</LinkComponent>
+									),
 								}}
 							/>
 						) : undefined
 					}
+					onRefresh={() => reset({ shouldForceRequest: true })}
 				/>
 			);
 		} else if (status === 'unauthorized') {
@@ -405,12 +382,10 @@ const PlainJiraIssuesConfigModal = (props: ConnectedJiraConfigModalProps) => {
 											href: jqlSupportDocumentLink,
 											text: initialStateViewMessages.learnMoreLinkOld,
 										}
-									: fg('platform-linking-visual-refresh-sllv')
-										? {
-												href: jqlSupportDocumentLink,
-												text: initialStateViewMessages.learnMoreLink,
-											}
-										: undefined
+									: {
+											href: jqlSupportDocumentLink,
+											text: initialStateViewMessages.learnMoreLink,
+										}
 							}
 						/>
 					)}
@@ -544,14 +519,10 @@ const PlainJiraIssuesConfigModal = (props: ConnectedJiraConfigModalProps) => {
 								url={jqlUrl}
 								prefixTextType="issue"
 								testId="jira-datasource-modal-total-issues-count"
-								styles={
-									fg('platform-linking-visual-refresh-sllv')
-										? {
-												color: token('color.text'),
-												font: token('font.heading.xxsmall'),
-											}
-										: undefined
-								}
+								styles={{
+									color: token('color.text'),
+									font: token('font.heading.xxsmall'),
+								}}
 							/>
 						)}
 						<CancelButton
@@ -565,13 +536,7 @@ const PlainJiraIssuesConfigModal = (props: ConnectedJiraConfigModalProps) => {
 								url={urlToInsert}
 								getAnalyticsPayload={getInsertButtonAnalyticsPayload}
 							>
-								{fg('platform-linking-visual-refresh-sllv') ? (
-									<FormattedMessage {...modalMessages.insertIssuesButtonTextIssueTermSllv} />
-								) : fg('confluence-issue-terminology-refresh') ? (
-									<FormattedMessage {...modalMessages.insertIssuesButtonTextIssueTermRefresh} />
-								) : (
-									<FormattedMessage {...modalMessages.insertIssuesButtonText} />
-								)}
+								<FormattedMessage {...modalMessages.insertIssuesButtonTextIssueTermSllv} />
 							</InsertButton>
 						)}
 					</ModalFooter>

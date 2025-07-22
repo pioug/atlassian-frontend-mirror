@@ -1,7 +1,5 @@
 import { type UnbindFn } from 'bind-event-listener';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import type {
 	ComponentsLogType,
 	RevisionPayload,
@@ -420,8 +418,7 @@ export class VCObserver implements VCObserverInterface {
 				// Only create revision debug details if callbacks exist
 				const shouldCreateDebugDetails =
 					typeof window.__ufo_devtool_onVCRevisionReady__ === 'function' ||
-					(typeof window.__on_ufo_vc_debug_data_ready === 'function' &&
-						fg('platform_ufo_emit_vc_debug_data'));
+					typeof window.__on_ufo_vc_debug_data_ready === 'function';
 
 				if (shouldCreateDebugDetails) {
 					const v1RevisionDebugDetails = getVCRevisionDebugDetails({
@@ -453,10 +450,7 @@ export class VCObserver implements VCObserverInterface {
 						window.__ufo_devtool_onVCRevisionReady__?.(v2RevisionDebugDetails);
 					}
 
-					if (
-						typeof window.__on_ufo_vc_debug_data_ready === 'function' &&
-						fg('platform_ufo_emit_vc_debug_data')
-					) {
+					if (typeof window.__on_ufo_vc_debug_data_ready === 'function') {
 						if (!isTTVCv1Disabled) {
 							window.__on_ufo_vc_debug_data_ready?.(v1RevisionDebugDetails);
 						}

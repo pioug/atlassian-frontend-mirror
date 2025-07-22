@@ -17,6 +17,7 @@ import type { Item } from '@atlaskit/editor-common/floating-toolbar';
 import { areSameItems, messages } from '@atlaskit/editor-common/floating-toolbar';
 import commonMessages from '@atlaskit/editor-common/messages';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type { ExtractInjectionAPI, SelectOption } from '@atlaskit/editor-common/types';
 import {
 	Announcer,
@@ -102,10 +103,7 @@ export function groupItems(items: Item[]): GroupedItems {
 				} else {
 					finalOutput.push(item);
 				}
-			} else if (
-				item.type === 'separator' &&
-				editorExperiment('platform_editor_controls', 'variant1')
-			) {
+			} else if (item.type === 'separator' && areToolbarFlagsEnabled()) {
 				const isLeadingSeparator = i === 0;
 				const isTrailingSeparator = i === items.length - 1;
 				const isDuplicateSeparator = items[i - 1]?.type === 'separator';
@@ -419,7 +417,7 @@ const ToolbarItems = React.memo(
 						/>
 					);
 				case 'separator':
-					if (editorExperiment('platform_editor_controls', 'variant1')) {
+					if (areToolbarFlagsEnabled()) {
 						return item.fullHeight ? <Separator key={idx} fullHeight={true} /> : null;
 					}
 					return <Separator key={idx} fullHeight={item.fullHeight} />;
@@ -439,11 +437,7 @@ const ToolbarItems = React.memo(
 								// Ignored via go/ees005
 								// eslint-disable-next-line react/no-array-index-key
 								key={index}
-								css={
-									editorExperiment('platform_editor_controls', 'variant1')
-										? buttonGroupStylesNew
-										: buttonGroupStyles
-								}
+								css={areToolbarFlagsEnabled() ? buttonGroupStylesNew : buttonGroupStyles}
 								role="radiogroup"
 								aria-label={groupLabel ?? undefined}
 								data-testid="editor-floating-toolbar-grouped-buttons"
@@ -529,7 +523,7 @@ const toolbarContainer = (
 					},
 				)
 			: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-				editorExperiment('platform_editor_controls', 'variant1')
+				areToolbarFlagsEnabled()
 				? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					css(
 						{
@@ -556,7 +550,7 @@ const toolbarContainer = (
 							}),
 					),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-		editorExperiment('platform_editor_controls', 'variant1')
+		areToolbarFlagsEnabled()
 			? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				css({ minHeight: token('space.500') })
 			: undefined,
@@ -617,7 +611,7 @@ const toolbarOverflow = ({
 						},
 					},
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-					editorExperiment('platform_editor_controls', 'variant1')
+					areToolbarFlagsEnabled()
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							css({
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
@@ -750,7 +744,7 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 
 	render() {
 		const { items, className, node, intl, scrollable, mediaAssistiveMessage } = this.props;
-		const isEditorControlsEnabled = editorExperiment('platform_editor_controls', 'variant1');
+		const isNewEditorToolbarEnabled = areToolbarFlagsEnabled();
 
 		if (!items || !items.length) {
 			return null;
@@ -788,7 +782,7 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 						data-testid="editor-floating-toolbar"
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 						className={className}
-						onMouseDown={isEditorControlsEnabled ? this.captureMouseEvent : undefined}
+						onMouseDown={isNewEditorToolbarEnabled ? this.captureMouseEvent : undefined}
 					>
 						<Announcer
 							text={
@@ -800,7 +794,7 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 							}
 							delay={250}
 						/>
-						{scrollable && isEditorControlsEnabled && (
+						{scrollable && isNewEditorToolbarEnabled && (
 							<ScrollButton
 								intl={intl}
 								scrollContainerRef={this.scrollContainerRef}
@@ -831,7 +825,7 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 							/>
 						</div>
 						{scrollable &&
-							(isEditorControlsEnabled ? (
+							(isNewEditorToolbarEnabled ? (
 								<ScrollButton
 									intl={intl}
 									scrollContainerRef={this.scrollContainerRef}

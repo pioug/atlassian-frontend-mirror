@@ -4,7 +4,5 @@ import ModeSwitcher from '../../examples/vr/mode-switcher-vr';
 
 snapshot(ModeSwitcher, {
 	description: 'Mode switcher',
-	featureFlags: {
-		'platform-linking-visual-refresh-sllv': [true, false],
-	},
+	featureFlags: {},
 });

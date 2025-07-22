@@ -4,4 +4,5 @@ export { userPreferencesPlugin } from './userPreferencesPlugin';
 export type {
 	UserPreferencesPlugin,
 	UserPreferencesPluginOptions,
+	UserPreferencesSharedState,
 } from './userPreferencesPluginType';

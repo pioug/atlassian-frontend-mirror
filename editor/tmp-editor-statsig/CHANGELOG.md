@@ -1,5 +1,16 @@
 # @atlaskit/editor-statsig-tmp
 
+## 9.9.0
+
+### Minor Changes
+
+- [#188597](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188597)
+  [`4de5a96f3e24c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4de5a96f3e24c) -
+  [ED-28523] Enable new editor element toolbars UI for Jira
+- [#177991](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/177991)
+  [`309e093d70774`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/309e093d70774) -
+  [ux] [ED-28358] add disableSubmitButton prop to feedback collector
+
 ## 9.8.0
 
 ### Minor Changes

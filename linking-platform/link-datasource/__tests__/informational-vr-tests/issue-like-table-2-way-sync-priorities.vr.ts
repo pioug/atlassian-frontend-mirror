@@ -9,16 +9,13 @@ import {
 } from '../../examples/vr/issue-like-table-priorities';
 
 snapshotInformational(VRIssueLikeTablePrioritiesLoading, {
-	// TODO: Rename this test when cleaning platform-linking-visual-refresh-sllv
-	description: 'Priority column - inline edit with flags enabled - loading',
+	description: 'Priority column - inline edit - loading',
 	prepare: async (page: Page) => {
 		await page.locator('[data-testid="link-datasource-render-type--icon"]').first().click();
 		await page.getByRole('listbox').getByText('Loading').waitFor({ state: 'visible' });
 	},
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'platform-linking-visual-refresh-sllv': true,
-	},
+	featureFlags: {},
 	ignoredErrors: [
 		{
 			pattern: /(received unsupported error)|(The above error occurred in the)/,
@@ -30,8 +27,7 @@ snapshotInformational(VRIssueLikeTablePrioritiesLoading, {
 });
 
 snapshotInformational(VRIssueLikeTablePriorities, {
-	// TODO: Rename this test when cleaning platform-linking-visual-refresh-sllv
-	description: 'Priority column - inline edit with flags enabled - options',
+	description: 'Priority column - inline edit - options',
 	prepare: async (page: Page) => {
 		await page.getByTestId('link-datasource-render-type--icon').first().click();
 
@@ -39,9 +35,7 @@ snapshotInformational(VRIssueLikeTablePriorities, {
 		await page.getByRole('listbox').getByText('Blocker').waitFor({ state: 'visible' });
 	},
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'platform-linking-visual-refresh-sllv': true,
-	},
+	featureFlags: {},
 	ignoredErrors: [
 		{
 			pattern: /(received unsupported error)|(The above error occurred in the)/,
@@ -53,8 +47,7 @@ snapshotInformational(VRIssueLikeTablePriorities, {
 });
 
 snapshotInformational(VRIssueLikeTablePriorities, {
-	// TODO: Rename this test when cleaning platform-linking-visual-refresh-sllv
-	description: 'Priority column - inline edit with flags enabled - options tooltip',
+	description: 'Priority column - inline edit - options tooltip',
 	prepare: async (page: Page) => {
 		await page.getByTestId('link-datasource-render-type--icon').first().click();
 
@@ -62,9 +55,7 @@ snapshotInformational(VRIssueLikeTablePriorities, {
 		await page.getByRole('listbox').getByText('Low').hover();
 	},
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'platform-linking-visual-refresh-sllv': true,
-	},
+	featureFlags: {},
 	ignoredErrors: [
 		{
 			pattern: /(received unsupported error)|(The above error occurred in the)/,

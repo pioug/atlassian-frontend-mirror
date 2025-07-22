@@ -3,8 +3,6 @@ import React, { useEffect } from 'react';
 import { useIntl } from 'react-intl-next';
 import { useDebouncedCallback } from 'use-debounce';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { useDatasourceAnalyticsEvents } from '../../../../../analytics';
 import { SpotSearchNoResult } from '../../../../../common/ui/spot/error-state/search-no-result';
 import { SEARCH_DEBOUNCE_MS } from '../constants';
@@ -39,16 +37,8 @@ const CustomNoOptionsMessage = ({ filterName }: { filterName: string }) => {
 					alt={formatMessage(asyncPopupSelectMessages.noOptionsMessage)}
 				/>
 			}
-			message={
-				fg('platform-linking-visual-refresh-sllv')
-					? asyncPopupSelectMessages.noOptionsMessage
-					: asyncPopupSelectMessages.noOptionsMessageOld
-			}
-			description={
-				fg('platform-linking-visual-refresh-sllv')
-					? asyncPopupSelectMessages.noOptionsDescription
-					: undefined
-			}
+			message={asyncPopupSelectMessages.noOptionsMessage}
+			description={asyncPopupSelectMessages.noOptionsDescription}
 			testId={`${filterName}--no-options-message`}
 		/>
 	);

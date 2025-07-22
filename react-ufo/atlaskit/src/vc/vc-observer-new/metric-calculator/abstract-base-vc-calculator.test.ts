@@ -449,15 +449,9 @@ describe('AbstractVCCalculatorBase V1', () => {
 			);
 		});
 
-		it('should calculate debug details when __on_ufo_vc_debug_data_ready exists with feature flag', async () => {
-			// Set up debug data callback and enable feature flag
+		it('should calculate debug details when __on_ufo_vc_debug_data_ready exists', async () => {
+			// Set up debug data callback
 			(window as any).__on_ufo_vc_debug_data_ready = mockDebugDataCallback;
-			mockFg.mockImplementation((key) => {
-				if (key === 'platform_ufo_emit_vc_debug_data') {
-					return true;
-				}
-				return false;
-			});
 
 			const allEntries: VCObserverEntry[] = [
 				{
@@ -488,40 +482,6 @@ describe('AbstractVCCalculatorBase V1', () => {
 					interactionId: 'test-interaction-id',
 				}),
 			);
-		});
-
-		it('should not calculate debug details when __on_ufo_vc_debug_data_ready exists but feature flag is disabled', async () => {
-			// Set up debug data callback but disable feature flag
-			(window as any).__on_ufo_vc_debug_data_ready = mockDebugDataCallback;
-			mockFg.mockImplementation((key) => {
-				if (key === 'platform_ufo_emit_vc_debug_data') {
-					return false;
-				}
-				return false;
-			});
-
-			const allEntries: VCObserverEntry[] = [
-				{
-					time: 100,
-					data: {
-						type: 'mutation:element',
-						elementName: 'included-div',
-						rect: new DOMRect(),
-						visible: true,
-					},
-				},
-			];
-
-			await mockCalculator.calculate({
-				orderedEntries: allEntries,
-				startTime: 0,
-				stopTime: 1000,
-				interactionId: 'test-interaction-id',
-				isPostInteraction: false,
-			});
-
-			// Verify that debug data callback was not called
-			expect(mockDebugDataCallback).not.toHaveBeenCalled();
 		});
 
 		it('should not calculate debug details for post-interaction scenarios', async () => {

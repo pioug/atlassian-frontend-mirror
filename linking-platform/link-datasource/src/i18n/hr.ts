@@ -116,12 +116,12 @@ export default {
   'linkDataSource.refresh': 'Osvježi',
   'linkDataSource.jira-issues.searchDescription-basic': 'Pretraži pitanja za umetanje prema ključnoj riječi.',
   'linkDataSource.jira-issues.searchDescription-jql': 'Koristi JQL (Jira Query Language) za pretraživanje pitanja.',
-  'linkDataSource.jira-issues.searchJiraTitle': 'Pretraži pitanja u Jiri',
+  'linkDataSource.jira-issues.searchJiraTitle': 'Pretraži Jira radne predmete',
   'linkDataSource.unableToLoadItems': 'Nije moguće učitati stavke',
   'linkDataSource.jira-issues.unableToLoadResults': 'Nije moguće učitati rezultate',
   'linkDataSource.modal-initial-state.beta': 'Beta',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Pretraži Confluence stranice',
-  'linkDataSource.modal-initial-state.jiraSearchTitle': 'Pretraži pitanja u Jiri',
+  'linkDataSource.modal-initial-state.jiraSearchTitle': 'Pretraži Jira radne predmete',
   'linkDataSource.modal-initial-state.learnMoreLink': 'Saznaj kako pretraživati pomoću JQL-a',
   'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
     'Pretraži radne predmete za umetanje prema ključnoj riječi.',
@@ -129,7 +129,6 @@ export default {
     'Pretraži stranice za umetanje prema ključnoj riječi.',
   'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
     'Koristi JQL (Jira Query Language) za pretraživanje radnih predmeta.',
-  'linkDataSource.modal-initial-state.searchTitle': 'Pretraži pitanja u Jiri',
   'linkDataSource.modal-initial-state.searchTitle-issue-term-refresh': 'Pretraži Jira radne predmete',
   'linkDataSource.noResultsFound': 'Nisu pronađeni rezultati',
   'linkDataSource.render-type.boolean.false': 'Ne',

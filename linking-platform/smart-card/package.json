@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "40.4.0",
+	"version": "40.4.2",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -221,9 +221,6 @@
 			"type": "boolean"
 		},
 		"platform-smart-card-remove-legacy-button": {
-			"type": "boolean"
-		},
-		"platform-linking-additional-flexible-element-props": {
 			"type": "boolean"
 		},
 		"platform-linking-ai-summary-migration-to-convo-ai": {

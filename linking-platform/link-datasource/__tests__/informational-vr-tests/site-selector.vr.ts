@@ -11,7 +11,5 @@ snapshotInformational(SiteSelector, {
 	},
 	description: 'platform-linking-visual-refresh-sllv is enabled',
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'platform-linking-visual-refresh-sllv': true,
-	},
+	featureFlags: {},
 });

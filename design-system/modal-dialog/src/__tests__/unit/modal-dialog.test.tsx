@@ -9,8 +9,8 @@ import noop from '@atlaskit/ds-lib/noop';
 
 import { width } from '../../internal/utils';
 import ModalBody from '../../modal-body';
+import ModalDialog from '../../modal-dialog';
 import ModalTransition from '../../modal-transition';
-import ModalDialog from '../../modal-wrapper';
 import { type ModalDialogProps } from '../../types';
 
 jest.mock('raf-schd', () => (fn: Function) => fn);

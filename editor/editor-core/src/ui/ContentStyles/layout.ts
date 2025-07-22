@@ -15,7 +15,6 @@ import {
 	LAYOUT_SECTION_MARGIN,
 } from '@atlaskit/editor-common/styles';
 import { TableCssClassName } from '@atlaskit/editor-plugins/table/types';
-import { tableMarginFullWidthMode } from '@atlaskit/editor-plugins/table/ui/consts';
 import {
 	akEditorDeleteBackground,
 	akEditorDeleteBorder,
@@ -406,7 +405,7 @@ export const layoutStyles = (viewMode?: 'edit' | 'view') => css`
 	.fabric-editor--full-width-mode .ProseMirror {
 		[data-layout-section] {
 			.${TableCssClassName.TABLE_CONTAINER} {
-				margin: 0 ${tableMarginFullWidthMode}px;
+				margin: 0 ${token('space.025')}px;
 			}
 		}
 	}

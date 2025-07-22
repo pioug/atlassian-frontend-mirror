@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "107.8.5",
+	"version": "107.9.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -118,7 +118,8 @@
 		"./median": "./src/utils/median.ts",
 		"./ugc-tokens": "./src/ugc-tokens/index.ts",
 		"./get-dom-ref-from-selection": "./src/utils/get-dom-ref-from-selection.ts",
-		"./ncs-step-metrics": "./src/ncs-step-metrics/index.ts"
+		"./ncs-step-metrics": "./src/ncs-step-metrics/index.ts",
+		"./toolbar-flag-check": "./src/toolbar-flag-check.ts"
 	},
 	"exports": {
 		"./prosemirror-dom-metadata": "./src/prosemirror-dom-metadata/index.ts",
@@ -211,7 +212,8 @@
 		"./median": "./src/utils/median.ts",
 		"./ugc-tokens": "./src/ugc-tokens/index.ts",
 		"./get-dom-ref-from-selection": "./src/utils/get-dom-ref-from-selection.ts",
-		"./ncs-step-metrics": "./src/ncs-step-metrics/index.ts"
+		"./ncs-step-metrics": "./src/ncs-step-metrics/index.ts",
+		"./toolbar-flag-check": "./src/toolbar-flag-check.ts"
 	},
 	"dependencies": {
 		"@atlaskit/activity-provider": "workspace:^",
@@ -417,9 +419,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_bordered_panel_nested_in_table": {
-			"type": "boolean"
-		},
-		"confluence_preload_extension_providers": {
 			"type": "boolean"
 		},
 		"platform_editor_r18_fix_selection_resync": {

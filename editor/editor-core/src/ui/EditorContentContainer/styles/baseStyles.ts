@@ -12,7 +12,7 @@ const akEditorFullWidthLayoutWidth = 1800;
 const akEditorBreakpointForSmallDevice = `1266px`;
 
 const akEditorGutterPaddingReduced = 24;
-const akEditorFullPageNarrowBreakout = 768;
+const akEditorFullPageNarrowBreakout = 600;
 
 // jest warning: JSDOM version (22) doesn't support the new @container CSS rule
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles

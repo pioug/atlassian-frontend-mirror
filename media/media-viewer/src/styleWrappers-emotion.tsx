@@ -438,8 +438,15 @@ type DataTestID = {
 type BlanketProps = DataTestID & Children & ClassName;
 // We are keeping this data-testid since JIRA is still using it in their codebase to perform checks. Before removing this, we need to ensure this 'media-viewer-popup' test id is not being used anywhere else in other codebases
 export const Blanket = ({ 'data-testid': datatestId, className, children }: BlanketProps) => (
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-	<div css={blanketStyles} data-testid={datatestId} className={className}>
+	<div
+		css={blanketStyles}
+		data-testid={datatestId}
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+		className={className}
+		role="dialog"
+		aria-modal="true"
+		aria-labelledby="media.media-viewer.file.name"
+	>
 		{children}
 	</div>
 );
@@ -716,7 +723,7 @@ export const MetadataFileName = ({
 	children,
 }: MetadataFileNameProps) => (
 	<div css={metadataFileNameStyles}>
-		<Heading as="h1" size="medium" testId={datatestId}>
+		<Heading as="h1" id="media.media-viewer.file.name" size="medium" testId={datatestId}>
 			{children}
 		</Heading>
 	</div>

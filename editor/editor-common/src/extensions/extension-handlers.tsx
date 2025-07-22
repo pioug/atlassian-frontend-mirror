@@ -3,8 +3,6 @@ import React from 'react';
 import type { LoadingComponentProps } from 'react-loadable';
 import Loadable from 'react-loadable';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { getExtensionKeyAndNodeKey, resolveImport, resolveImportSync } from './manifest-helpers';
 import type {
 	ExtensionParams,
@@ -128,27 +126,21 @@ export function getNodeRenderer<T extends Parameters>(
 		any
 	>({
 		loader: () => {
-			if (fg('confluence_preload_extension_providers')) {
-				const maybePromise = getExtensionModuleNodeMaybePreloaded(
-					extensionProvider,
-					extensionType,
-					extensionKey,
-				);
-				if (maybePromise instanceof Promise) {
-					return maybePromise.then((node) => resolveImport(node.render()));
-				} else {
-					const preloaded = (maybePromise as PreloadableExtensionModuleNode)?.renderSync?.();
-					// Only product implemented preloading will return sync result
-					// However the out-of-box won't handle this. Confluence uses a custom implementation
-					return preloaded
-						? // eslint-disable-next-line @typescript-eslint/no-explicit-any
-							(resolveImportSync(preloaded) as any)
-						: resolveImport(maybePromise.render());
-				}
+			const maybePromise = getExtensionModuleNodeMaybePreloaded(
+				extensionProvider,
+				extensionType,
+				extensionKey,
+			);
+			if (maybePromise instanceof Promise) {
+				return maybePromise.then((node) => resolveImport(node.render()));
 			} else {
-				return getExtensionModuleNode(extensionProvider, extensionType, extensionKey).then((node) =>
-					resolveImport(node.render()),
-				);
+				const preloaded = (maybePromise as PreloadableExtensionModuleNode)?.renderSync?.();
+				// Only product implemented preloading will return sync result
+				// However the out-of-box won't handle this. Confluence uses a custom implementation
+				return preloaded
+					? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+						(resolveImportSync(preloaded) as any)
+					: resolveImport(maybePromise.render());
 			}
 		},
 		loading: ExtensionLoading,

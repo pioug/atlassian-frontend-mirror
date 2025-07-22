@@ -13,6 +13,7 @@ import { addColumnAfter, addRowAfter, backspace, tooltip } from '@atlaskit/edito
 import commonMessages, { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import { isSelectionTableNestedInTable } from '@atlaskit/editor-common/nesting';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
+import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type {
 	Command,
 	CommandDispatch,
@@ -493,6 +494,7 @@ export const getToolbarConfig =
 		const isTableScalingEnabled = options?.isTableScalingEnabled || false;
 		const nodeType = state.schema.nodes.table;
 		const toolbarTitle = 'Table floating controls';
+		const isNewEditorToolbarEnabled = areToolbarFlagsEnabled();
 
 		if (editorExperiment('platform_editor_controls', 'variant1')) {
 			let isDragHandleMenuOpened = false;
@@ -602,7 +604,7 @@ export const getToolbarConfig =
 					)
 				: [];
 
-			const colorPicker = editorExperiment('platform_editor_controls', 'control')
+			const colorPicker = !isNewEditorToolbarEnabled
 				? getColorPicker(state, menu, intl, editorAnalyticsAPI, getEditorView)
 				: [];
 
@@ -668,7 +670,6 @@ export const getToolbarConfig =
 				onBlur: clearHoverSelection(),
 			});
 
-			const shouldGroupWithoutSeparators = editorExperiment('platform_editor_controls', 'variant1');
 			// testId is required to show focus on trigger button on ESC key press
 			// see hideOnEsc in platform/packages/editor/editor-plugin-floating-toolbar/src/ui/Dropdown.tsx
 			const overflowDropdownTestId = 'table-overflow-dropdown-trigger';
@@ -685,13 +686,13 @@ export const getToolbarConfig =
 				zIndex: akEditorFloatingPanelZIndex + 1, // Place the context menu slightly above the others
 				items: [
 					menu,
-					...(!shouldGroupWithoutSeparators ? [separator(menu.hidden)] : []),
+					...(!isNewEditorToolbarEnabled ? [separator(menu.hidden)] : []),
 					...alignmentMenu,
-					...(!shouldGroupWithoutSeparators ? [separator(alignmentMenu.length === 0)] : []),
+					...(!isNewEditorToolbarEnabled ? [separator(alignmentMenu.length === 0)] : []),
 					...cellItems,
 					...columnSettingsItems,
 					...colorPicker,
-					...((editorExperiment('platform_editor_controls', 'control')
+					...((!isNewEditorToolbarEnabled
 						? ([
 								{
 									type: 'extensions-placeholder',
@@ -702,7 +703,7 @@ export const getToolbarConfig =
 								deleteButton,
 							] as Array<FloatingToolbarItem<Command>>)
 						: [
-								shouldGroupWithoutSeparators && { type: 'separator', fullHeight: true },
+								isNewEditorToolbarEnabled && { type: 'separator', fullHeight: true },
 								{
 									type: 'overflow-dropdown',
 									testId: overflowDropdownTestId,
@@ -909,7 +910,7 @@ const getColumnSettingItems = (
 		});
 	}
 
-	if (items.length !== 0 && !editorExperiment('platform_editor_controls', 'variant1')) {
+	if (items.length !== 0 && !areToolbarFlagsEnabled()) {
 		items.push({
 			type: 'separator',
 		});

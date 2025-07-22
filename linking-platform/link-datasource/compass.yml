@@ -7,7 +7,7 @@ description: >-
   resources or data points within the platform.
 configVersion: 1
 typeId: CAPABILITY
-ownerId: 'ari:cloud:identity::team/9683a6ac-2d3f-44c8-a0fe-56128ca69e20'
+ownerId: 'ari:cloud:identity::team/e738fbc3-d778-4660-aa11-5697a458ffa7'
 fields:
   isMonorepoProject: false
   tier: 4
@@ -18,13 +18,13 @@ links:
     url: 'https://atlassian.signalfx.com/#/dashboard/Gm8VEROA0AQ?groupId=Fcva05QA4AA&configId=Gm8VFYeAwAI&startTime=-31d&endTime=Now'
   - name: ''
     type: PROJECT
-    url: 'https://product-fabric.atlassian.net/jira/software/c/projects/EDM/boards/5176'
+    url: 'https://hello.jira.atlassian.cloud/jira/software/projects/NAVX/boards/14605'
   - name: ''
     type: CHAT_CHANNEL
-    url: 'https://atlassian.enterprise.slack.com/archives/CFKGAQZRV'
+    url: 'https://atlassian.enterprise.slack.com/archives/C07TNMDEVHC'
   - name: ''
     type: ON_CALL
-    url: 'https://atlassian.app.opsgenie.com/settings/schedule/detail/b9c8b313-dd6d-4a41-8eeb-d7a9df55be9d'
+    url: 'https://hello.jira.atlassian.cloud/jira/ops/teams/e738fbc3-d778-4660-aa11-5697a458ffa7/on-call'
 relationships: null
 labels: null
 customFields:
@@ -40,7 +40,7 @@ customFields:
       - 6abcbe4f-1063-4cf7-8b32-58ebd01078da
   - name: Engineering Manager
     type: user
-    value: 'ari:cloud:identity::user/712020:bc050a72-a59d-487f-8b54-73358ba67dd0'
+    value: 'ari:cloud:identity::user/712020:3eb290b3-ff87-40f2-a7ef-4ee9d0ae10bd'
   - name: FFP per month
     type: number
     value: null

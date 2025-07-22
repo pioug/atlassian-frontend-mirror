@@ -81,14 +81,12 @@ snapshot(FlexibleUiBlockActionGroup, {
 snapshot(FlexibleUiCustomUnresolvedActionOnlyShowIfAction, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'platform-linking-additional-flexible-element-props': true,
 		'bandicoots-smart-card-teamwork-context': true,
 	},
 });
 snapshot(FlexibleUiCustomUnresolvedAction, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'platform-linking-additional-flexible-element-props': true,
 		'bandicoots-smart-card-teamwork-context': true,
 	},
 });

@@ -77,7 +77,6 @@ snapshotInformational(WithModal, {
 	},
 	description: 'basic mode with basic filters',
 	featureFlags: {
-		'platform-linking-visual-refresh-sllv': true,
 		'replace-legacy-button-in-sllv': true,
 	},
 });
@@ -92,9 +91,7 @@ snapshotInformational(WithIssueModalWithParameters, {
 	selector: {
 		byTestId: 'jlol-basic-filter-container',
 	},
-	featureFlags: {
-		'platform-linking-visual-refresh-sllv': true,
-	},
+	featureFlags: {},
 	waitForHold: true,
 });
 
@@ -113,7 +110,6 @@ filters.forEach((filter) => {
 		description: `${filter} open trigger`,
 		featureFlags: {
 			'platform-component-visual-refresh': [true, false],
-			'platform-linking-visual-refresh-sllv': true,
 		},
 		waitForHold: true,
 	});
@@ -127,7 +123,6 @@ filters.forEach((filter) => {
 		description: `${filter} open and option selected`,
 		featureFlags: {
 			'platform-component-visual-refresh': [true, false],
-			'platform-linking-visual-refresh-sllv': true,
 		},
 		waitForHold: true,
 	});
@@ -139,9 +134,7 @@ filters.forEach((filter) => {
 			await selectOption(page, filter);
 		},
 		description: `${filter} closed and multiple options selected`,
-		featureFlags: {
-			'platform-linking-visual-refresh-sllv': true,
-		},
+		featureFlags: {},
 		waitForHold: true,
 	});
 
@@ -161,7 +154,6 @@ filters.forEach((filter) => {
 		description: `${filter} open and search text entered`,
 		featureFlags: {
 			'platform-component-visual-refresh': [true, false],
-			'platform-linking-visual-refresh-sllv': true,
 		},
 		waitForHold: true,
 	});
@@ -185,9 +177,7 @@ filters.forEach((filter) => {
 				.waitFor({ state: 'visible' });
 		},
 		description: `${filter} open and view loading state`,
-		featureFlags: {
-			'platform-linking-visual-refresh-sllv': true,
-		},
+		featureFlags: {},
 		waitForHold: true,
 	});
 
@@ -214,10 +204,8 @@ filters.forEach((filter) => {
 
 			await component.getByTestId(`jlol-basic-filter-${filter}--no-options-message`);
 		},
-		description: `${filter} open and view empty state - platform-linking-visual-refresh-sllv true`,
-		featureFlags: {
-			'platform-linking-visual-refresh-sllv': true,
-		},
+		description: `${filter} open and view empty state`,
+		featureFlags: {},
 		waitForHold: true,
 	});
 
@@ -234,7 +222,6 @@ filters.forEach((filter) => {
 		description: `${filter} open and focus show more button - replace-legacy-button-in-sllv enabled`,
 		featureFlags: {
 			'platform-component-visual-refresh': [true, false],
-			'platform-linking-visual-refresh-sllv': true,
 			'replace-legacy-button-in-sllv': true,
 		},
 		waitForHold: true,

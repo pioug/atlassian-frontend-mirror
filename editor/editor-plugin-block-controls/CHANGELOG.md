@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 4.1.0
+
+### Minor Changes
+
+- [#189314](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/189314)
+  [`22c6251496010`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22c6251496010) -
+  Exported missing types that were already being inferred from existing exports
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.9
+
+### Patch Changes
+
+- [#188277](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188277)
+  [`9e6d67b625ac9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e6d67b625ac9) -
+  [ux] Hides drag controls for all nodes and resize handles on expands and layouts on narrow
+  screens.
+- Updated dependencies
+
 ## 4.0.8
 
 ### Patch Changes

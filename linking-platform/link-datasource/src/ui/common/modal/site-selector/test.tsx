@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fireEvent, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import { mockSiteData } from '@atlaskit/link-test-helpers/datasource';
@@ -26,16 +26,16 @@ describe('SiteSelector', () => {
 			</IntlProvider>,
 		);
 
-		const getSiteSelector = () => document.getElementsByClassName('my-selector__control')[0];
+		const getSiteSelector = async () => component.findByTestId('my-selector__control');
 
 		// react-select doesn't seem to handle click events well
-		const openSiteSelector = () => fireEvent.mouseDown(getSiteSelector());
+		const openSiteSelector = async () => (await getSiteSelector()).click();
 
-		const getMenuOptions = () =>
-			[...document.getElementsByClassName('my-selector__option')] as HTMLElement[];
+		const getMenuOptions = async () =>
+			component.findAllByTestId('my-selector-select--option', { exact: false });
 
-		const getSelectedOptions = () =>
-			[...document.getElementsByClassName('my-selector__option--is-selected')] as HTMLElement[];
+		const getSelectedOptions = async () =>
+			(await getMenuOptions()).filter((option) => option.getAttribute('aria-selected') === 'true');
 
 		return {
 			...component,
@@ -49,23 +49,23 @@ describe('SiteSelector', () => {
 	it('should display the selected site on load', async () => {
 		const { getSiteSelector } = renderSiteSelector();
 
-		expect(getSiteSelector()).toHaveTextContent('hello');
+		expect(await getSiteSelector()).toHaveTextContent('hello');
 	});
 
 	it('should only select one site on mount', async () => {
 		const { openSiteSelector, getSelectedOptions } = renderSiteSelector();
 
-		openSiteSelector();
+		await openSiteSelector();
 
-		expect(getSelectedOptions().length).toEqual(1);
+		expect((await getSelectedOptions()).length).toEqual(1);
 	});
 
 	it('should call onSiteSelection callback with selected site name', async () => {
 		const { openSiteSelector, getMenuOptions } = renderSiteSelector();
 
-		openSiteSelector();
-		const jiraSiteDropdownItems = getMenuOptions();
-		fireEvent.click(jiraSiteDropdownItems[3]);
+		await openSiteSelector();
+		const jiraSiteDropdownItems = await getMenuOptions();
+		jiraSiteDropdownItems[3].click();
 
 		expect(mockOnSiteSelection).toHaveBeenCalledWith(mockSiteData[3]);
 	});
@@ -73,9 +73,9 @@ describe('SiteSelector', () => {
 	it('should display site names in alphabetical order', async () => {
 		const { getMenuOptions, openSiteSelector } = renderSiteSelector();
 
-		openSiteSelector();
+		await openSiteSelector();
 
-		const dropdownItems = getMenuOptions().map((item) => item.textContent);
+		const dropdownItems = (await getMenuOptions()).map((item) => item.textContent);
 		const sortedDropdownItems = [...dropdownItems].sort();
 
 		expect(dropdownItems).toEqual(sortedDropdownItems);

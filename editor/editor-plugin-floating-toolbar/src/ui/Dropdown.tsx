@@ -9,6 +9,7 @@ import React, { Component } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type {
 	CommandDispatch,
 	DropdownOptions,
@@ -27,7 +28,6 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import { Divider } from './Divider';
@@ -145,7 +145,7 @@ export default class Dropdown extends Component<Props, State> {
 					selected={isOpen}
 					disabled={disabled}
 					tooltipContent={tooltip}
-					ariaHasPopup={editorExperiment('platform_editor_controls', 'variant1') ? true : undefined}
+					ariaHasPopup={areToolbarFlagsEnabled() ? true : undefined}
 					onMount={onMount}
 					pulse={pulse}
 					spotlightConfig={spotlightConfig}

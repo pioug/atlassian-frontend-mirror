@@ -1,5 +1,34 @@
 # @atlaskit/editor-common
 
+## 107.9.0
+
+### Minor Changes
+
+- [#188597](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188597)
+  [`4de5a96f3e24c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4de5a96f3e24c) -
+  [ED-28523] Enable new editor element toolbars UI for Jira
+
+### Patch Changes
+
+- [#187640](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/187640)
+  [`fe73e3c5b62fa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fe73e3c5b62fa) -
+  [ux] [EDITOR-1063] added new ask rovo split button
+- Updated dependencies
+
+## 107.8.6
+
+### Patch Changes
+
+- [#188277](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188277)
+  [`9e6d67b625ac9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e6d67b625ac9) -
+  [ux] Hides drag controls for all nodes and resize handles on expands and layouts on narrow
+  screens.
+- [#188587](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188587)
+  [`a44e2e93a078c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a44e2e93a078c) -
+  Clean up confluence_preload_extension_providers. Preload extension if preload function is
+  implemented
+- Updated dependencies
+
 ## 107.8.5
 
 ### Patch Changes

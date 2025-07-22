@@ -70,7 +70,7 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin':
     'Örnek olarak kullanıcının ürünlerde oluşturduğu sayfalar, konular ve yorumlar verilebilir.',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':
-    'Örnek olarak ürünlerde oluşturduğunuz sayfalar, konular ve yorumlar verilebilir.',
+    'Buna örnek olarak ürünlerde oluşturduğunuz sayfalar, biletler ve yorumlar verilebilir.',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.admin':
     'Siz veya diğer kullanıcılar, Atlassian ürünlerine özellik ekleyen uygulamalar yüklemiş olabilirsiniz. Bu uygulamalar kullanıcının profil bilgilerini depolamış olabilir.',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.self':
@@ -92,9 +92,9 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p1.self':
     'İşle ilgili veya hukuki meşru amaçlarımız doğrultusunda kişisel verileri sınırlı bir süre için saklarız. Buna örnek olarak şunlar verilebilir:',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.admin':
-    'Kullanıcılar tarafından oluşturulan içeriklerde bulunan, bir sayfaya veya konuya girilmiş adlar veya e-posta adresleri gibi kişisel verileri silmeyiz. Ürün yöneticilerinin bu verileri manuel olarak silmesi gerekir.',
+    'Kullanıcılar tarafından oluşturulan içeriklerde bulunan, bir sayfaya veya bilete girilmiş adlar veya e-posta adresleri gibi kişisel verileri silmeyiz. Ürün yöneticilerinin bu verileri manuel olarak silmesi gerekir.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.self':
-    'Sizin oluşturduğunuz veya diğer kişiler tarafından oluşturulan içeriklerde bulunan, bir sayfaya veya konuya girilmiş adlar ve e-posta adresleri gibi kişisel verileri silmeyiz. Ürün yöneticilerinizin bu verileri manuel olarak silmesi gerekir.',
+    'Sizin oluşturduğunuz veya diğer kişiler tarafından oluşturulan içeriklerde bulunan, bir sayfaya veya bilete girilmiş adlar ve e-posta adresleri gibi kişisel verileri silmeyiz. Ürün yöneticilerinizin bu verileri manuel olarak silmesi gerekir.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.admin':
     'Kullanıcılar dilerlerse bulundukları ülkedeki denetleyici kuruma şikayetlerini gönderebilir.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.self':

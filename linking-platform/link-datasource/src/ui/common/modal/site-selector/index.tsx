@@ -10,9 +10,8 @@ import { type MessageDescriptor, useIntl } from 'react-intl-next';
 import Button from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
-import Select, { type OptionType, PopupSelect, type ValueType } from '@atlaskit/select';
+import { type OptionType, PopupSelect, type ValueType } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 
 import type { Site } from '../../../../common/types';
@@ -65,74 +64,34 @@ export const SiteSelector = (props: SiteSelectorProps) => {
 
 	return (
 		<Box xcss={styles.dropdownContainerStyles}>
-			{fg('platform-linking-visual-refresh-sllv') ? (
-				<Heading size="medium" as="h1">
-					{formatMessage(label)}
-				</Heading>
-			) : (
-				formatMessage(label)
-			)}
+			<Heading size="medium" as="h1">
+				{formatMessage(label)}
+			</Heading>
 
 			{availableSites && availableSites.length > 1 && (
 				<span data-testid={`${testId}--trigger`}>
-					{fg('platform-linking-visual-refresh-sllv') ? (
-						<PopupSelect
-							searchThreshold={10}
-							maxMenuWidth={300}
-							minMenuWidth={300}
-							isLoading={!availableSites}
-							testId={testId}
-							onChange={onChange}
-							value={selectedSiteOption}
-							label={formatMessage(siteSelectorMessages.chooseSite)}
-							options={availableSitesOptions}
-							placeholder={formatMessage(siteSelectorMessages.chooseSite)}
-							target={({ isOpen, ...triggerProps }) => (
-								<Button
-									{...triggerProps}
-									isSelected={isOpen}
-									iconAfter={() => <ChevronDownIcon label="" color="currentColor" size="small" />}
-									testId={`${testId}__control`}
-								>
-									{selectedSiteOption?.label || formatMessage(siteSelectorMessages.chooseSite)}
-								</Button>
-							)}
-						/>
-					) : (
-						<Select
-							classNamePrefix={testId}
-							isLoading={!availableSites}
-							onChange={onChange}
-							options={availableSitesOptions}
-							placeholder={formatMessage(siteSelectorMessages.chooseSiteOld)}
-							// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
-							styles={{
-								container: (css) => ({
-									...css,
-									font: token('font.body'),
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-									zIndex: 11,
-								}),
-								// prevents the popup menu with available sites from being too narrow
-								// if the selected site is much shorter than the other options
-								menu: ({ width, ...css }) => ({
-									...css,
-									minWidth: '100%',
-									width: 'max-content',
-									// font-weight has to be overridden here so that it gets applied after the font styles in teh css element above
-									fontWeight: token('font.weight.medium', '500'),
-								}),
-								valueContainer: ({ width, ...css }) => ({
-									...css,
-									// font-weight has to be overridden here so that it gets applied after the font styles in teh css element above
-									fontWeight: token('font.weight.medium', '500'),
-								}),
-							}}
-							testId={testId}
-							value={selectedSiteOption}
-							label={formatMessage(siteSelectorMessages.chooseSiteOld)}
-						/>
-					)}
+					<PopupSelect
+						searchThreshold={10}
+						maxMenuWidth={300}
+						minMenuWidth={300}
+						isLoading={!availableSites}
+						testId={testId}
+						onChange={onChange}
+						value={selectedSiteOption}
+						label={formatMessage(siteSelectorMessages.chooseSite)}
+						options={availableSitesOptions}
+						placeholder={formatMessage(siteSelectorMessages.chooseSite)}
+						target={({ isOpen, ...triggerProps }) => (
+							<Button
+								{...triggerProps}
+								isSelected={isOpen}
+								iconAfter={() => <ChevronDownIcon label="" color="currentColor" size="small" />}
+								testId={`${testId}__control`}
+							>
+								{selectedSiteOption?.label || formatMessage(siteSelectorMessages.chooseSite)}
+							</Button>
+						)}
+					/>
 				</span>
 			)}
 		</Box>

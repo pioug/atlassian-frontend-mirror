@@ -1,5 +1,13 @@
 # @atlaskit/link-picker
 
+## 3.8.0
+
+### Minor Changes
+
+- [#187677](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/187677)
+  [`0457dab862cc6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0457dab862cc6) -
+  NAVX-1132 cleaning up platform link picker remove legacy button fg
+
 ## 3.7.0
 
 ### Minor Changes

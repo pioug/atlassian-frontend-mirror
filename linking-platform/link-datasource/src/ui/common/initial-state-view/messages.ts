@@ -56,8 +56,8 @@ export const initialStateViewMessages = defineMessages({
 			'The initial modal search state helper message displayed under the search title when basic search mode is selected',
 		defaultMessage: 'Search by keyword for work items to insert.',
 	},
-	searchDescriptionForBasicSearchVisualRefreshSllv: {
-		id: 'linkDataSource.modal-initial-state.searchDescription-basic.visualRefreshSllv',
+	searchDescriptionForBasicSearchSllv: {
+		id: 'linkDataSource.modal-initial-state.searchDescription-basic.Sllv',
 		description:
 			'The initial modal search state helper message displayed under the search title when basic search mode is selected',
 		defaultMessage: 'Start typing or use JQL to search.',

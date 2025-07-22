@@ -6,6 +6,7 @@ export type {
 	PastePluginOptions,
 	PastePluginState,
 	LastContentPasted,
+	PastePluginDependencies,
 } from './pastePluginType';
 
 export { pastePlugin } from './pastePlugin';

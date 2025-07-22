@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 120.1.7
+
+### Patch Changes
+
+- [#184123](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/184123)
+  [`3b9f5e54172a8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b9f5e54172a8) -
+  [COMPLEXIT-273] Clean up feature gate cc_complexit_reduce_portal_rerenders
+
 ## 120.1.6
 
 ### Patch Changes

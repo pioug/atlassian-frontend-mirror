@@ -2,7 +2,11 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 
 export { annotationPlugin } from './annotationPlugin';
-export type { AnnotationPlugin, AnnotationPluginOptions } from './annotationPluginType';
+export type {
+	AnnotationPlugin,
+	AnnotationPluginOptions,
+	AnnotationPluginDependencies,
+} from './annotationPluginType';
 export type {
 	AnnotationInfo,
 	AnnotationProviders,

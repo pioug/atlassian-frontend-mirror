@@ -17,4 +17,5 @@ export type {
 	ButtonComponentProps,
 	ButtonComponent,
 	RenderButton,
+	PositionType,
 } from './types';

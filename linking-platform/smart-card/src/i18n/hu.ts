@@ -146,23 +146,11 @@ export default {
   'fabric.linking.priority_undefined': 'Nincs meghatározva',
   'fabric.linking.read_time': '{context} perc olvasási idő',
   'fabric.linking.related': 'Kapcsolódó',
-  'fabric.linking.related_links_found_in': 'Itt található:',
-  'fabric.linking.related_links_found_in_v2': 'Itt található:',
-  'fabric.linking.related_links_includes_links_to': 'A következőkre mutató linkeket tartalmaz:',
-  'fabric.linking.related_links_includes_links_to_v2': 'A következőkre mutató linkeket tartalmaz:',
   'fabric.linking.related_links_modal_error_description':
     'Ellenőrizd a kapcsolatodat, frissítsd az oldalt, és próbálkozz újra',
-  'fabric.linking.related_links_modal_error_header': 'Hiba történt',
-  'fabric.linking.related_links_modal_error_message':
-    'Hiba történt a legutóbbi linkek betöltése során. Ha szeretnéd újra megpróbálni, ellenőrizd a hálózati kapcsolatot vagy frissíts.',
   'fabric.linking.related_links_modal_error_title': 'Probléma merült fel a kapcsolódó linkek betöltése során',
-  'fabric.linking.related_links_modal_title': 'Legutóbbi linkek',
-  'fabric.linking.related_links_modal_title_v2': 'Kapcsolódó linkek',
   'fabric.linking.related_links_modal_unavailable_description':
     'Folyamatosan ellenőrizzük és hozzáadjuk a kapcsolódó linkeket, hogy frissített oldalakat és más tartalomtípusokat kapj',
-  'fabric.linking.related_links_modal_unavailable_header': 'Nincsenek nemrégiben megtekintett linkek',
-  'fabric.linking.related_links_modal_unavailable_message':
-    'Nem találtunk itt megjeleníthető linkeket. Folyamatosan ellenőrizzük és hozzáadjuk a legutóbbi linkeket, hogy frissített oldalakat és más tartalomtípusokat kapj.',
   'fabric.linking.related_links_modal_unavailable_title': 'Nem találtunk kapcsolódó linkeket',
   'fabric.linking.related_links_not_found': 'Nem találtunk itt megjeleníthető linkeket.',
   'fabric.linking.related_links_view_related_links': 'Kapcsolódó linkek megtekintése',

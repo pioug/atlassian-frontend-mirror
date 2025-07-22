@@ -1,5 +1,68 @@
 # @atlaskit/editor-plugin-table
 
+## 12.1.0
+
+### Minor Changes
+
+- [#189314](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/189314)
+  [`22c6251496010`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22c6251496010) -
+  Exported missing types that were already being inferred from existing exports
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.1
+
+### Patch Changes
+
+- [#188597](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188597)
+  [`4de5a96f3e24c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4de5a96f3e24c) -
+  [ED-28523] Enable new editor element toolbars UI for Jira
+- Updated dependencies
+
+## 12.0.0
+
+### Major Changes
+
+- [#188604](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188604)
+  [`2447351dcf766`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2447351dcf766) - ##
+  What? Remove entry-points to table plugin:
+
+  - `@atlaskit/editor-plugin-table/commands`
+  - `@atlaskit/editor-plugin-table/plugin-key`
+  - `@atlaskit/editor-plugin-table/ui/consts`
+  - `@atlaskit/editor-plugins/table/ui/consts`
+  - `@atlaskit/editor-plugins/table/plugin-key`
+  - `@atlaskit/editor-plugins/table/commands`
+
+  ## Why?
+
+  These entry-points allow for dangerous practices by directly manipulating internal prosemirror
+  state.
+
+  This change should not affect most consumers as these should not be used.
+
+  ## How to update
+
+  Table state can be read and changed via the public plugin interface which is safe and well tested.
+
+  Example:
+
+  ```ts
+  // Table actions
+  editorApi?.table.actions.insertTable(...);
+
+  // Read the table state
+  const tableState = useSharedPluginStateWithSelector(editorApi, ['table'], ({ tableState }) => {
+    return { ... };
+  })
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.1.5
 
 ### Patch Changes

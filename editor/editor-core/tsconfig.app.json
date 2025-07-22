@@ -94,6 +94,9 @@
 			"path": "../editor-plugin-breakout/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-caption/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-card/tsconfig.app.json"
 		},
 		{
@@ -154,10 +157,19 @@
 			"path": "../editor-plugin-focus/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-grid/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-help-dialog/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-history/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-hyperlink/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-indentation/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-plugin-insert-block/tsconfig.app.json"
@@ -167,6 +179,9 @@
 		},
 		{
 			"path": "../editor-plugin-layout/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-list/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-plugin-max-content-size/tsconfig.app.json"
@@ -188,6 +203,9 @@
 		},
 		{
 			"path": "../editor-plugin-paste/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-paste-options-toolbar/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-plugin-placeholder/tsconfig.app.json"
@@ -230,6 +248,9 @@
 		},
 		{
 			"path": "../editor-plugin-type-ahead/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-undo-redo/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-plugin-user-preferences/tsconfig.app.json"

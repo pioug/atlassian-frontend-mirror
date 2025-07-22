@@ -34,9 +34,7 @@ snapshotInformational(VRJiraIssueTableHoverable, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
-	featureFlags: {
-		'platform-linking-visual-refresh-sllv': true,
-	},
+	featureFlags: {},
 	waitForHold: true,
 });
 
@@ -46,8 +44,6 @@ snapshotInformational(VREmptyStateHoverable, {
 		await page.hover(hoverableContainerSelector);
 	},
 	description: 'empty state table on a hoverable surface',
-	featureFlags: {
-		'platform-linking-visual-refresh-sllv': true,
-	},
+	featureFlags: {},
 	waitForHold: true,
 });

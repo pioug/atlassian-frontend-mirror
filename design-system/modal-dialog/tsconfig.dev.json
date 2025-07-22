@@ -98,6 +98,9 @@
 			"path": "../link/tsconfig.app.json"
 		},
 		{
+			"path": "../onboarding/tsconfig.app.json"
+		},
+		{
 			"path": "../popup/tsconfig.app.json"
 		},
 		{

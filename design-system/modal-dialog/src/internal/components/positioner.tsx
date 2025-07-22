@@ -4,7 +4,7 @@
  */
 import { type CSSProperties, type ReactNode } from 'react';
 
-import { css, jsx } from '@compiled/react';
+import { css, cssMap, jsx } from '@compiled/react';
 
 import { easeInOut } from '@atlaskit/motion/curves';
 import { durations } from '@atlaskit/motion/durations';
@@ -29,29 +29,35 @@ const positionerStyles = css({
 	insetInlineStart: 0,
 });
 
-const viewportScrollStyles = css({
-	height: 'auto',
-	position: 'relative',
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-	'@media (min-width: 30rem)': {
-		margin: `${gutter}px auto`,
-		pointerEvents: 'none',
+const scrollStyles = cssMap({
+	// Scroll is on the viewport and the modal grows in height indefinitely
+	viewport: {
+		height: 'auto',
+		position: 'relative',
+		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+		'@media (min-width: 30rem)': {
+			margin: `${gutter}px auto`,
+			pointerEvents: 'none',
+		},
 	},
-});
-
-const bodyScrollStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-	'@media (min-width: 30rem)': {
-		maxWidth: maxWidthDimensions,
-		maxHeight: maxHeightDimensions,
-		position: 'absolute',
-		insetBlockStart: `${gutter}px`,
-		insetInlineEnd: 0,
-		insetInlineStart: 0,
-		marginInlineEnd: 'auto',
-		marginInlineStart: 'auto',
-		pointerEvents: 'none',
+	// Scroll is on the modal body and the modal fits in the viewport
+	body: {
+		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+		'@media (min-width: 30rem)': {
+			maxWidth: maxWidthDimensions,
+			maxHeight: maxHeightDimensions,
+			position: 'absolute',
+			insetBlockStart: `${gutter}px`,
+			insetInlineEnd: 0,
+			insetInlineStart: 0,
+			marginInlineEnd: 'auto',
+			marginInlineStart: 'auto',
+			pointerEvents: 'none',
+		},
 	},
+	// Full screen modals only support body scrolling.
+	// We don't need any extra scroll styles for full screen modals.
+	fullScreen: {},
 });
 
 const stackTransitionStyles = css({
@@ -81,10 +87,33 @@ interface PositionerProps {
 	stackIndex: number;
 	shouldScrollInViewport: boolean;
 	testId?: string;
+	isFullScreen: boolean;
+}
+
+type ModalScrollBehavior = 'viewport' | 'body' | 'fullScreen';
+
+function getScrollBehavior({
+	isFullScreen,
+	shouldScrollInViewport,
+}: {
+	isFullScreen: boolean;
+	shouldScrollInViewport: boolean;
+}): ModalScrollBehavior {
+	if (isFullScreen) {
+		return 'fullScreen';
+	}
+
+	if (shouldScrollInViewport) {
+		return 'viewport';
+	}
+
+	return 'body';
 }
 
 const Positioner = (props: PositionerProps) => {
-	const { children, stackIndex, shouldScrollInViewport, testId } = props;
+	const { children, stackIndex, shouldScrollInViewport, testId, isFullScreen } = props;
+
+	const scrollBehavior = getScrollBehavior({ isFullScreen, shouldScrollInViewport });
 
 	return (
 		<div
@@ -102,7 +131,7 @@ const Positioner = (props: PositionerProps) => {
 				stackTransitionStyles,
 				/* We only want to apply transform on modals shifting to the back of the stack. */
 				stackIndex > 0 ? stackTransformStyles : stackIdleStyles,
-				shouldScrollInViewport ? viewportScrollStyles : bodyScrollStyles,
+				scrollStyles[scrollBehavior],
 			]}
 			data-testid={testId && `${testId}--positioner`}
 		>

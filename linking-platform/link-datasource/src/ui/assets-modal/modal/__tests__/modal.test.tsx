@@ -469,21 +469,23 @@ describe('AssetsConfigModal', () => {
 					},
 				});
 				await waitFor(() => {
-					expect(getByText('No results found')).toBeInTheDocument();
+					expect(getByText("We couldn't find anything matching your search")).toBeInTheDocument();
 					expect(getByRole('button', { name: 'Update table' })).toBeEnabled();
 				});
 			});
 		});
 
-		describe('when an error occurs on data request', () => {
+		describe('when an er  ror occurs on data request', () => {
 			it('should show network error message', async () => {
-				const { getByRole, getByText } = await setup({
+				const { getByTestId, getByText } = await setup({
 					parameters: undefined,
 					datasourceTableHookState: getErrorDatasourceTableHookState(),
 				});
 				await waitFor(() => {
-					expect(getByText('Unable to load results')).toBeInTheDocument();
-					expect(getByRole('button', { name: 'Insert objects' })).toBeDisabled();
+					expect(getByText('We ran into an issue trying to fetch results')).toBeInTheDocument();
+					expect(getByTestId('assets-datasource-modal--insert-button').textContent).toEqual(
+						'Insert objects',
+					);
 				});
 			});
 			it("should call 'reset' on search button click", async () => {

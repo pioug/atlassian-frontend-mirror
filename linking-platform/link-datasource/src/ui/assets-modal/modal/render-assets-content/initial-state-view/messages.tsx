@@ -1,12 +1,6 @@
 import { defineMessages } from 'react-intl-next';
 
 export const initialStateViewMessages = defineMessages({
-	searchTitleOld: {
-		id: 'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitleOld',
-		description:
-			'The initial search state title that gives the user some idea about how to get information',
-		defaultMessage: 'Search for objects',
-	},
 	searchTitle: {
 		id: 'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle',
 		description:

@@ -90,7 +90,7 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p1.self':
     '正当な業務上または法律上の目的で、個人情報を限られた期間保管します。例:',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.admin':
-    'ページや課題に入力された名前やメール アドレスなど、ユーザーが作成したコンテンツから個人情報が削除されることはありません。これらの個人情報は製品管理者が手動で削除する必要があります。',
+    'ページや作業項目に入力された名前やメール アドレスなど、ユーザーが作成したコンテンツから個人情報が削除されることはありません。これらの情報は製品管理者が手動で削除する必要があります。',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.self':
     'ページや作業項目に入力された名前やメール アドレスなど、あなたと他のユーザーが作成したコンテンツから個人情報が削除されることはありません。これらの情報は製品管理者が手動で削除する必要があります。',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.admin':

@@ -12,10 +12,11 @@ import type {
 	HeadingLevelsAndNormalText,
 } from '@atlaskit/editor-common/types';
 import { filterChildrenBetween, wrapSelectionIn } from '@atlaskit/editor-common/utils';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { Slice, Fragment } from '@atlaskit/editor-prosemirror/model';
+import { Fragment, Slice, type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { liftTarget } from '@atlaskit/editor-prosemirror/transform';
 import { CellSelection } from '@atlaskit/editor-tables';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { TextBlockTypes } from '../block-types';
 import { HEADINGS_BY_NAME, NORMAL_TEXT } from '../block-types';
@@ -77,17 +78,33 @@ export function setHeading(
 					return;
 				}
 
-				const content = $from.node().content;
+				if (fg('platform_editor_bugfix_remove_block_quote')) {
+					// First, lift the content out of the blockquote
+					const targetLiftDepth = liftTarget(range);
+					if (targetLiftDepth || targetLiftDepth === 0) {
+						tr.lift(range, targetLiftDepth);
+					}
 
-				const headingNode = schema.nodes.heading.createChecked(
-					{
+					// Then apply the heading block type to the lifted content
+					// We need to recalculate positions after the lift operation
+					const newFrom = tr.mapping.map($from.pos);
+					const newTo = tr.mapping.map($to.pos);
+					tr.setBlockType(newFrom, newTo, schema.nodes.heading, {
 						level,
-					},
-					content,
-				);
+					});
+				} else {
+					const content = $from.node().content;
 
-				const slice = new Slice(Fragment.from(headingNode), 0, 0);
-				tr.replaceRange(range.start, range.end, slice);
+					const headingNode = schema.nodes.heading.createChecked(
+						{
+							level,
+						},
+						content,
+					);
+
+					const slice = new Slice(Fragment.from(headingNode), 0, 0);
+					tr.replaceRange(range.start, range.end, slice);
+				}
 			} else {
 				tr.setBlockType($from.pos, $to.pos, schema.nodes.heading, {
 					level,
@@ -140,7 +157,20 @@ export function setNormalText(fromBlockQuote?: boolean): EditorCommand {
 				if (!range) {
 					return;
 				}
-				tr.lift(range, 0);
+
+				if (fg('platform_editor_bugfix_remove_block_quote')) {
+					// First, lift the content out of the blockquote
+					const targetLiftDepth = liftTarget(range);
+					if (targetLiftDepth || targetLiftDepth === 0) {
+						tr.lift(range, targetLiftDepth);
+					}
+				} else {
+					tr.lift(range, 0);
+				}
+
+				const newFrom = tr.mapping.map($from.pos);
+				const newTo = tr.mapping.map($to.pos);
+				tr.setBlockType(newFrom, newTo, schema.nodes.paragraph, {});
 			} else {
 				tr.setBlockType($from.pos, $to.pos, schema.nodes.paragraph);
 			}

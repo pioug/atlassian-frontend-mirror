@@ -2,4 +2,9 @@
 // Entry file in package.json
 
 export { connectivityPlugin } from './connectivityPlugin';
-export type { ConnectivityPlugin, Mode, PluginState } from './connectivityPluginType';
+export type {
+	ConnectivityPlugin,
+	Mode,
+	PluginState,
+	PublicPluginState,
+} from './connectivityPluginType';

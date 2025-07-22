@@ -31,6 +31,7 @@ import {
 	linkMessages,
 	linkToolbarMessages as linkToolbarCommonMessages,
 } from '@atlaskit/editor-common/messages';
+import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type {
 	AlignType,
 	Command,
@@ -54,7 +55,6 @@ import EditIcon from '@atlaskit/icon/core/edit';
 import LinkBrokenIcon from '@atlaskit/icon/core/migration/link-broken--editor-unlink';
 import LinkExternalIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -264,11 +264,7 @@ export const getToolbarConfig =
 						metadata.title = activeLinkMark.node.text;
 					}
 
-					const isEditorControlsOn = expValEqualsNoExposure(
-						'platform_editor_controls',
-						'cohort',
-						'variant1',
-					);
+					const isNewEditorToolbarEnabled = areToolbarFlagsEnabled();
 
 					const cardActions = pluginInjectionApi?.card?.actions;
 					const startingToolbarItems = cardActions?.getStartingToolbarItems(
@@ -276,7 +272,7 @@ export const getToolbarConfig =
 						link,
 						editInsertedLink(editorAnalyticsApi),
 						metadata,
-						isEditorControlsOn ? state : undefined,
+						isNewEditorToolbarEnabled ? state : undefined,
 					) ?? [
 						{
 							id: 'editor.link.edit',
@@ -284,9 +280,9 @@ export const getToolbarConfig =
 							type: 'button',
 							onClick: editInsertedLink(editorAnalyticsApi),
 							title: editLink,
-							showTitle: isEditorControlsOn ? false : true,
+							showTitle: isNewEditorToolbarEnabled ? false : true,
 							metadata: metadata,
-							icon: isEditorControlsOn ? EditIcon : undefined,
+							icon: isNewEditorToolbarEnabled ? EditIcon : undefined,
 						},
 						{
 							type: 'separator',
@@ -322,7 +318,7 @@ export const getToolbarConfig =
 
 					const items: Array<FloatingToolbarItem<Command>> = [
 						...startingToolbarItems,
-						...((isEditorControlsOn && fg('platform_editor_controls_patch_15')
+						...((isNewEditorToolbarEnabled && fg('platform_editor_controls_patch_15')
 							? [
 									unlinkButton,
 									{

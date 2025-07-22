@@ -3019,8 +3019,7 @@ describe('vc-observer', () => {
 		});
 
 		describe('__on_ufo_vc_debug_data_ready', () => {
-			test('should be called with v1 and v2 data when ff is enabled and TTVC v1 is enabled', async () => {
-				mockFg.mockImplementation((flag) => flag === 'platform_ufo_emit_vc_debug_data');
+			test('should be called with v1 and v2 data when TTVC v1 is enabled', async () => {
 				vc.start({ startTime: 0 });
 				await vc.getVCResult({
 					start: 0,
@@ -3044,9 +3043,8 @@ describe('vc-observer', () => {
 				);
 			});
 
-			test('should be called with only v2 data when ff is enabled and TTVC v1 is disabled', async () => {
+			test('should be called with only v2 data when TTVC v1 is disabled', async () => {
 				mockIsVCRevisionEnabled.mockImplementation((revision) => revision === 'fy25.02');
-				mockFg.mockImplementation((flag) => flag === 'platform_ufo_emit_vc_debug_data');
 
 				vc.start({ startTime: 0 });
 				await vc.getVCResult({
@@ -3065,20 +3063,6 @@ describe('vc-observer', () => {
 					}),
 				);
 			});
-
-			test('should not be called when ff is disabled', async () => {
-				vc.start({ startTime: 0 });
-				await vc.getVCResult({
-					start: 0,
-					stop: 100,
-					tti: 3,
-					prefix: '',
-					isEventAborted: false,
-					experienceKey: 'test',
-				});
-
-				expect(onUfoVcDebugDataReady).not.toHaveBeenCalled();
-			});
 		});
 
 		test('should not call any debug callbacks when isPostInteraction is true', async () => {
@@ -3087,7 +3071,6 @@ describe('vc-observer', () => {
 				oldDomUpdates: true,
 				isPostInteraction: true,
 			});
-			mockFg.mockImplementation((flag) => flag === 'platform_ufo_emit_vc_debug_data');
 
 			vc.start({ startTime: 0 });
 			await vc.getVCResult({

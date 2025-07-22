@@ -1,5 +1,15 @@
 # @atlaskit/editor-shared-styles
 
+## 3.5.1
+
+### Patch Changes
+
+- [#188277](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188277)
+  [`9e6d67b625ac9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e6d67b625ac9) -
+  [ux] Hides drag controls for all nodes and resize handles on expands and layouts on narrow
+  screens.
+- Updated dependencies
+
 ## 3.5.0
 
 ### Minor Changes

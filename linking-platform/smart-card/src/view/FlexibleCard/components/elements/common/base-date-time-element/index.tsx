@@ -136,7 +136,7 @@ const BaseDateTimeElement = ({
 	}
 
 	let content;
-	if (hideDatePrefix && fg('platform-linking-additional-flexible-element-props')) {
+	if (hideDatePrefix) {
 		content = context;
 	} else if (text) {
 		content = `${text} ${context}`;
@@ -153,8 +153,7 @@ const BaseDateTimeElement = ({
 					fontOverrideStyleMap[fontSize],
 			]}
 			style={{
-				color:
-					color && fg('platform-linking-additional-flexible-element-props') ? color : undefined,
+				color,
 			}}
 			data-separator
 			data-smart-element={name}

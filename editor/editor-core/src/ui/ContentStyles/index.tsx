@@ -40,6 +40,7 @@ import {
 	pragmaticResizerStyles,
 	pragmaticStylesLayoutFirstNodeResizeHandleFix,
 	pragmaticResizerStylesForTooltip,
+	pragmaticResizerStylesWithReducedEditorGutter,
 	ruleSharedStyles,
 	shadowSharedStyle,
 	smartCardStyles,
@@ -578,6 +579,7 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
   ${pragmaticResizerStyles()}
   ${pragmaticStylesLayoutFirstNodeResizeHandleFix()}
   ${pragmaticResizerStylesForTooltip()}
+  ${pragmaticResizerStylesWithReducedEditorGutter()}
   ${aiPanelStyles(props.colorMode)}
   ${firstBlockNodeStylesNew}
 	${fg('platform_editor_vanilla_codebidi_warning') && codeBidiWarningStyles}
@@ -680,6 +682,9 @@ export const createEditorContentStyle = (styles?: SerializedStyles) => {
 					css={[memoizedStyle, styles]}
 					data-editor-scroll-container="true"
 					data-testid="editor-content-container"
+					// eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- Adding tabIndex here because this is a scrollable container and it needs to be focusable so keyboard users can scroll it.
+					tabIndex={fg('platform_editor_editor_container_a11y_focus') ? 0 : undefined}
+					role={fg('platform_editor_editor_container_a11y_focus') ? 'region' : undefined}
 				>
 					{children}
 				</div>

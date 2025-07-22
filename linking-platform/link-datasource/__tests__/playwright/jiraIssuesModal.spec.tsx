@@ -2,7 +2,7 @@ import type { Page } from '@playwright/test';
 
 import { expect, test } from '@af/integration-testing';
 
-const sitePickerSelector = '.jira-datasource-modal--site-selector__control';
+const sitePickerSelector = '[data-testid="jira-datasource-modal--site-selector__control"]';
 
 test.describe('JiraIssuesModal', () => {
 	async function setup(
@@ -125,7 +125,7 @@ test.describe('JiraIssuesModal', () => {
 		await page.locator(sitePickerSelector).click();
 		await page.getByText('testNoAccess', { exact: true }).click();
 		await page.getByTestId('jira-datasource-modal--basic-search-button').click();
-		await expect(page.getByText("You don't have access to the following site:")).toBeVisible();
+		await expect(page.getByText("You don't have access to")).toBeVisible();
 		await expect(page.getByText('https://test7.atlassian.net')).toBeVisible();
 		await expect(
 			page.getByText('To request access, contact your site administrator.'),

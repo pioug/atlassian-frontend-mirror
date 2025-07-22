@@ -1,7 +1,6 @@
 import React, { type ReactNode } from 'react';
 
 import { cssMap, cx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -53,7 +52,7 @@ export const ContentContainer = ({ children, withTableBorder }: ContentContainer
 			xcss={cx(
 				styles.contentContainerStyles,
 				withTableBorder && styles.tableContainerStyles,
-				fg('platform-linking-visual-refresh-sllv') && styles.contentContainerRemoveBorderStyles,
+				styles.contentContainerRemoveBorderStyles,
 			)}
 		>
 			{children}

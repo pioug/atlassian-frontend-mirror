@@ -118,6 +118,8 @@ export interface Props {
 	customFeedbackOptions?: OptionType[];
 	/** Optional ref to return focus to after feedback form is closed */
 	shouldReturnFocusRef?: React.RefObject<HTMLElement>;
+	/** Disable submit button to allow custom content to handle validation */
+	disableSubmitButton?: boolean;
 }
 
 const MAX_SUMMARY_LENGTH_CHARS = 100;
@@ -523,6 +525,7 @@ export default class FeedbackCollector extends Component<Props> {
 				customTextAreaLabel={this.props.customTextAreaLabel}
 				customFeedbackOptions={this.props.customFeedbackOptions}
 				shouldReturnFocusRef={this.props.shouldReturnFocusRef}
+				disableSubmitButton={this.props.disableSubmitButton}
 			/>
 		);
 	}

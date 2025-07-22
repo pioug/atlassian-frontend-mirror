@@ -3,7 +3,6 @@ import React from 'react';
 import { cx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex } from '@atlaskit/primitives/compiled';
 import { components, type MenuListComponentProps } from '@atlaskit/select';
 import Spinner from '@atlaskit/spinner';
@@ -19,10 +18,6 @@ import ShowMoreButton from './showMoreButton';
 const styles = cssMap({
 	inlineSpinnerStyles: {
 		paddingTop: token('space.075'),
-	},
-	showMoreButtonBoxStylesOld: {
-		paddingLeft: token('space.075'),
-		paddingTop: token('space.100'),
 	},
 	showMoreButtonBoxStyles: {
 		paddingTop: token('space.100'),
@@ -84,13 +79,7 @@ const CustomMenuList = ({ children, ...props }: MenuListComponentProps<SelectOpt
 				{children}
 
 				{shouldDisplayShowMore && handleShowMore && (
-					<Box
-						xcss={cx(
-							fg('platform-linking-visual-refresh-sllv')
-								? styles.showMoreButtonBoxStyles
-								: styles.showMoreButtonBoxStylesOld,
-						)}
-					>
+					<Box xcss={cx(styles.showMoreButtonBoxStyles)}>
 						<ShowMoreButton onShowMore={handleShowMore} filterName={filterName} />
 					</Box>
 				)}

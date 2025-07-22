@@ -79,6 +79,7 @@ export {
 	pragmaticResizerStyles,
 	pragmaticStylesLayoutFirstNodeResizeHandleFix,
 	pragmaticResizerStylesForTooltip,
+	pragmaticResizerStylesWithReducedEditorGutter,
 } from './shared/resizer';
 export { gridStyles, GRID_GUTTER } from './shared/grid';
 export {

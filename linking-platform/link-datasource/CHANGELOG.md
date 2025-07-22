@@ -1,5 +1,17 @@
 # @atlaskit/link-datasource
 
+## 4.14.0
+
+### Minor Changes
+
+- [#187680](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/187680)
+  [`c3972a2178120`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c3972a2178120) -
+  NAVX-1048 cleaning up SLLV design refresh fg
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.13.6
 
 ### Patch Changes

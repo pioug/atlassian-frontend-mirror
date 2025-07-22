@@ -110,11 +110,6 @@ export const modalMessages = defineMessages({
 		defaultMessage:
 			'Check your connection and refresh, or <a>open this project in Jira</a> to review.',
 	},
-	insertIssuesButtonTextIssueTermRefresh: {
-		id: 'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh',
-		description: 'Button text to insert the displayed content',
-		defaultMessage: 'Insert work items',
-	},
 	insertIssuesButtonTextIssueTermSllv: {
 		id: 'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-sllv',
 		description: 'Button text to insert the displayed content',

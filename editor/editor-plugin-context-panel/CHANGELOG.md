@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-context-panel
 
+## 5.1.0
+
+### Minor Changes
+
+- [#189314](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/189314)
+  [`22c6251496010`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22c6251496010) -
+  Exported missing types that were already being inferred from existing exports
+
 ## 5.0.1
 
 ### Patch Changes

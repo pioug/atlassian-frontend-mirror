@@ -4,7 +4,6 @@ import isEqual from 'lodash/isEqual';
 import { useIntl } from 'react-intl-next';
 import { useDebouncedCallback } from 'use-debounce';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { type ValueType } from '@atlaskit/select';
 
 import type { Site } from '../../../../../common/types';
@@ -118,11 +117,7 @@ const AsyncPopupSelect = ({
 
 	const shouldShowFooter = (status === 'resolved' || isLoadingMore) && filterOptionsLength > 0; // footer should not disappear when there is an inline spinner for loading more data
 	const shouldDisplayShowMoreButton = status === 'resolved' && !!pageCursor && !areAllResultsLoaded;
-	const triggerButtonLabel = formatMessage(
-		!fg('platform-linking-visual-refresh-sllv') && filterType === 'type'
-			? asyncPopupSelectMessages.typeLabelOld
-			: asyncPopupSelectMessages[`${filterType}Label`],
-	);
+	const triggerButtonLabel = formatMessage(asyncPopupSelectMessages[`${filterType}Label`]);
 
 	return (
 		<FilterPopupSelect
@@ -136,11 +131,7 @@ const AsyncPopupSelect = ({
 			selectedOptions={selectedOptions}
 			options={popupSelectOptions}
 			buttonLabel={triggerButtonLabel}
-			searchPlaceholder={
-				fg('platform-linking-visual-refresh-sllv')
-					? formatMessage(asyncPopupSelectMessages[`${filterType}SearchPlaceholder`])
-					: undefined
-			}
+			searchPlaceholder={formatMessage(asyncPopupSelectMessages[`${filterType}SearchPlaceholder`])}
 			onInputChange={handleInputChange}
 			onSelectionChange={handleOptionSelection}
 			onMenuOpen={handleMenuOpen}

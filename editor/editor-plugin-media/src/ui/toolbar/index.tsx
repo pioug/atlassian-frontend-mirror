@@ -23,6 +23,7 @@ import commonMessages, {
 	cardMessages,
 	mediaAndEmbedToolbarMessages,
 } from '@atlaskit/editor-common/messages';
+import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type {
 	Command,
 	DropdownOptions,
@@ -198,15 +199,13 @@ const generateMediaCardFloatingToolbar = (
 	isViewOnly: boolean | undefined,
 ): FloatingToolbarItem<Command>[] => {
 	const disableDownloadButton = getIsDownloadDisabledByDataSecurityPolicy(mediaPluginState);
-	const isEditorControlsEnabled = editorExperiment('platform_editor_controls', 'variant1');
+	const isNewEditorToolbarEnabled = areToolbarFlagsEnabled();
 
 	const preview: FloatingToolbarButton<Command> = {
 		id: 'editor.media.viewer',
 		testId: 'file-preview-toolbar-button',
 		type: 'button',
-		icon: editorExperiment('platform_editor_controls', 'variant1')
-			? GrowDiagonalIcon
-			: MaximizeIcon,
+		icon: isNewEditorToolbarEnabled ? GrowDiagonalIcon : MaximizeIcon,
 		title: intl.formatMessage(messages.preview),
 		onClick: () => {
 			return handleShowMediaViewer({ mediaPluginState, api: pluginInjectionApi }) ?? false;
@@ -225,17 +224,17 @@ const generateMediaCardFloatingToolbar = (
 		},
 		title: intl.formatMessage(messages.download),
 		disabled: disableDownloadButton,
-		...(isEditorControlsEnabled && { supportsViewMode: true }),
+		...(isNewEditorToolbarEnabled && { supportsViewMode: true }),
 	};
 
-	if (isViewOnly && !isEditorControlsEnabled) {
+	if (isViewOnly && !isNewEditorToolbarEnabled) {
 		return [];
 	}
 
 	const { mediaGroup } = state.schema.nodes;
 	const items: FloatingToolbarItem<Command>[] = [];
 
-	if (!isEditorControlsEnabled) {
+	if (!isNewEditorToolbarEnabled) {
 		items.push(
 			{
 				id: 'editor.media.view.switcher.inline',
@@ -357,7 +356,7 @@ const generateMediaSingleFloatingToolbar = (
 
 	let toolbarButtons: FloatingToolbarItem<Command>[] = [];
 	const { hoverDecoration } = pluginInjectionApi?.decorations?.actions ?? {};
-	const isEditorControlsEnabled = editorExperiment('platform_editor_controls', 'variant1');
+	const isNewEditorToolbarEnabled = areToolbarFlagsEnabled();
 	const disableDownloadButton = getIsDownloadDisabledByDataSecurityPolicy(pluginState);
 
 	if (shouldShowImageBorder(state)) {
@@ -384,7 +383,7 @@ const generateMediaSingleFloatingToolbar = (
 				);
 			},
 		});
-		if (!isEditorControlsEnabled) {
+		if (!isNewEditorToolbarEnabled) {
 			toolbarButtons.push({ type: 'separator' });
 		}
 	}
@@ -422,7 +421,7 @@ const generateMediaSingleFloatingToolbar = (
 		);
 
 		const addLayoutDropdownToToolbar = () => {
-			if (editorExperiment('platform_editor_controls', 'variant1')) {
+			if (isNewEditorToolbarEnabled) {
 				const layoutDropdown = buildLayoutDropdown(
 					state,
 					intl,
@@ -471,7 +470,7 @@ const generateMediaSingleFloatingToolbar = (
 					toolbarButtons = [
 						...toolbarButtons,
 						trigger,
-						...(isEditorControlsEnabled
+						...(isNewEditorToolbarEnabled
 							? []
 							: [{ type: 'separator' } as FloatingToolbarItem<Command>]),
 					];
@@ -515,7 +514,7 @@ const generateMediaSingleFloatingToolbar = (
 					mediaAndEmbedToolbarMessages.changeToMediaSingle,
 				);
 
-				if (!isEditorControlsEnabled) {
+				if (!isNewEditorToolbarEnabled) {
 					toolbarButtons.push(
 						{
 							type: 'button',
@@ -613,13 +612,13 @@ const generateMediaSingleFloatingToolbar = (
 				}
 				return [sizeInput];
 			}
-			if (!isEditorControlsEnabled) {
+			if (!isNewEditorToolbarEnabled) {
 				toolbarButtons.push(sizeInput);
 				toolbarButtons.push({ type: 'separator' });
 			}
 		}
 
-		if (!isEditorControlsEnabled) {
+		if (!isNewEditorToolbarEnabled) {
 			if (allowCommentsOnMedia) {
 				toolbarButtons.push(commentButton(intl, state, pluginInjectionApi, onCommentButtonMount), {
 					type: 'separator',
@@ -685,9 +684,7 @@ const generateMediaSingleFloatingToolbar = (
 							id: 'editor.media.viewer',
 							testId: 'file-preview-toolbar-button',
 							type: 'button',
-							icon: editorExperiment('platform_editor_controls', 'variant1')
-								? GrowDiagonalIcon
-								: MaximizeIcon,
+							icon: MaximizeIcon,
 							title: intl.formatMessage(messages.preview),
 							onClick: () => {
 								return (
@@ -729,7 +726,7 @@ const generateMediaSingleFloatingToolbar = (
 		);
 	}
 
-	if (!isEditorControlsEnabled) {
+	if (!isNewEditorToolbarEnabled) {
 		if (allowAltTextOnImages) {
 			toolbarButtons.push(altTextButton(intl, state, pluginInjectionApi?.analytics?.actions), {
 				type: 'separator',
@@ -781,9 +778,7 @@ const generateMediaSingleFloatingToolbar = (
 						id: 'editor.media.viewer',
 						testId: 'file-preview-toolbar-button',
 						type: 'button',
-						icon: editorExperiment('platform_editor_controls', 'variant1')
-							? GrowDiagonalIcon
-							: MaximizeIcon,
+						icon: GrowDiagonalIcon,
 						title: intl.formatMessage(messages.preview),
 						onClick: () => {
 							return (
@@ -1031,7 +1026,7 @@ export const floatingToolbar = (
 		);
 	}
 
-	if (!mediaPluginState.isResizing && editorExperiment('platform_editor_controls', 'variant1')) {
+	if (!mediaPluginState.isResizing && areToolbarFlagsEnabled()) {
 		updateToFullHeightSeparator(items);
 
 		const customOptions: FloatingToolbarOverflowDropdownOptions<Command> = [

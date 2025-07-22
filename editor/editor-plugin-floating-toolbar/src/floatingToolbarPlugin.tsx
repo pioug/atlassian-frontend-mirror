@@ -25,6 +25,7 @@ import {
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type {
 	Command,
 	ExtractInjectionAPI,
@@ -339,7 +340,7 @@ export function ContentComponent({
 		);
 	}
 
-	if (editorExperiment('platform_editor_controls', 'variant1')) {
+	if (areToolbarFlagsEnabled()) {
 		// Consolidate floating toolbar items
 		const toolbarItemsArray = Array.isArray(items) ? items : items?.(node);
 		const overflowDropdownItems = toolbarItemsArray.filter(

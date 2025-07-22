@@ -25,19 +25,6 @@ export const loadingErrorMessages = defineMessages({
 		description: 'Message letting user know that they do not have access to this content',
 		defaultMessage: "You don't have access to this content",
 	},
-	accessRequiredWithSiteDuplicate: {
-		id: 'linkDataSource.accessRequiredWithSite',
-		description:
-			'Message letting user know that they do not have access to the site that will be listed below this message',
-		defaultMessage: "You don't have access to the following site:",
-	},
-	//delete and remove duplicate from title above
-	accessRequiredWithSiteOld: {
-		id: 'linkDataSource.jira-issues.accessRequiredWithSiteOld',
-		description:
-			'Message letting user know that they do not have access to the site that will be listed below this message',
-		defaultMessage: "You don't have access to the following site:",
-	},
 	accessRequiredWithSite: {
 		id: 'linkDataSource.jira-issues.accessRequiredWithSite',
 		description:
@@ -71,17 +58,6 @@ export const loadingErrorMessages = defineMessages({
 			'Instructions to let the user know how to resolve the network error that occurred or to try again at a different time',
 		defaultMessage: 'Check your connection and refresh, or try again later.',
 	},
-	noResultsFoundDuplicate: {
-		id: 'linkDataSource.noResultsFound',
-		description: 'Status message letting the user know their query did not have any results',
-		defaultMessage: 'No results found',
-	},
-	//delete and remove duplicate from title above
-	noResultsFoundOld: {
-		id: 'linkDataSource.jira-issues.noResultsFoundOld',
-		description: 'Status message letting the user know their query did not have any results',
-		defaultMessage: 'No results found',
-	},
 	noResultsFound: {
 		id: 'linkDataSource.jira-issues.noResultsFound',
 		description: 'Status message letting the user know their query did not have any results',
@@ -109,34 +85,8 @@ export const loadingErrorMessages = defineMessages({
 			'Error state message letting the user know we were unable the load the requested list of items',
 		defaultMessage: 'Unable to load items',
 	},
-	// TODO Delete when cleaning platform-linking-visual-refresh-sllv
-	unableToLoadItemsOld: {
-		id: 'linkDataSource.jira-issues.unableToLoadItems',
-		description:
-			'Error state message letting the user know we were unable the load the requested list of items',
-		defaultMessage: 'Unable to load items',
-	},
-	unableToLoadResultsDuplicate: {
-		id: 'linkDataSource.unableToLoadResults',
-		description:
-			'Error state message letting the user know we were unable the load the requested list of results',
-		defaultMessage: 'Unable to load results',
-	},
-	//delete and remove duplicate from title above
-	unableToLoadResultsOld: {
-		id: 'linkDataSource.jira-issues.unableToLoadResultsOld',
-		description:
-			'Error state message letting the user know we were unable the load the requested list of results',
-		defaultMessage: 'Unable to load results',
-	},
 	unableToLoadResults: {
 		id: 'linkDataSource.jira-issues.unableToLoadResults',
-		description:
-			'Error state message letting the user know we were unable the load the requested list of results',
-		defaultMessage: 'We ran into an issue trying to fetch results',
-	},
-	unableToLoadResultsVisualRefreshSllv: {
-		id: 'linkDataSource.jira-issues.unableToLoadResults.visual-refresh-sllv',
 		description:
 			'Error state message letting the user know we were unable the load the requested list of results',
 		defaultMessage: 'We ran into an issue trying to fetch results',

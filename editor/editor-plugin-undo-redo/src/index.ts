@@ -2,4 +2,4 @@
 // Entry file in package.json
 
 export { undoRedoPlugin } from './undoRedoPlugin';
-export type { UndoRedoPlugin } from './undoRedoPluginType';
+export type { UndoRedoPlugin, UndoRedoAction } from './undoRedoPluginType';

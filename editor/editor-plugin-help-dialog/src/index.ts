@@ -5,6 +5,7 @@ export type {
 	HelpDialogPlugin,
 	HelpDialogSharedState,
 	HelpDialogPluginOptions,
+	HelpDialogDependencies,
 } from './helpDialogPluginType';
 export { helpDialogPlugin } from './helpDialogPlugin';
 // DO NOT COPY DISABLING THIS RULE. We are disabling it for a special existing case.

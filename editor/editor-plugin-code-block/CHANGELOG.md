@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-code-block
 
+## 5.0.4
+
+### Patch Changes
+
+- [#188597](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188597)
+  [`4de5a96f3e24c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4de5a96f3e24c) -
+  [ED-28523] Enable new editor element toolbars UI for Jira
+- Updated dependencies
+
 ## 5.0.3
 
 ### Patch Changes

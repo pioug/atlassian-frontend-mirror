@@ -3,11 +3,9 @@ import React from 'react';
 import { cssMap } from '@compiled/react';
 import { FormattedMessage, FormattedNumber } from 'react-intl-next';
 
-import Heading from '@atlaskit/heading';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Flex } from '@atlaskit/primitives/compiled';
 import LinkUrl from '@atlaskit/smart-card/link-url';
-import { N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { footerMessages } from '../../../table-footer/messages';
@@ -25,10 +23,6 @@ interface TableSearchCountProps {
 	prefixTextType: 'issue' | 'result' | 'item';
 	searchCount: number;
 	testId?: string;
-	/**
-	 * This attribute is only consumed when the fg
-	 * `platform-linking-visual-refresh-sllv` is enabled.
-	 */
 	styles?: React.CSSProperties;
 }
 
@@ -43,21 +37,15 @@ const ItemCountWrapper = ({
 			href={url}
 			target="_blank"
 			testId="item-count-url"
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={{
-				color: fg('platform-linking-visual-refresh-sllv')
-					? token('color.text.subtlest')
-					: token('color.text.accent.gray', N800),
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				color: token('color.text.subtlest'),
 				textDecoration: !url ? 'none' : '',
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				...(fg('platform-linking-visual-refresh-sllv') && additionalStyles),
+				...additionalStyles,
 			}}
 		>
-			{fg('platform-linking-visual-refresh-sllv') ? (
-				children
-			) : (
-				<Heading size="xxsmall">{children}</Heading>
-			)}
+			{children}
 		</LinkUrl>
 	</Flex>
 );

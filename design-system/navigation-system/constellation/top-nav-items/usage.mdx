@@ -1,0 +1,79 @@
+---
+title: Top nav items
+description: Buttons and elements for the top nav.
+order: 3
+---
+
+import topNavDo1 from './images/top-nav-do-1.png';
+import topNavDont1 from './images/top-nav-dont-1.png';
+import topNavDo2 from './images/top-nav-do-2.png';
+import topNavDont2 from './images/top-nav-dont-2.png';
+
+## Usage
+
+Use top nav items to create common utilities in
+the [top nav](/components/navigation-system/top-nav-items).
+
+![Diagram of the navigation system top nav](./images/top-nav-anatomy.png)
+
+1. **Start items:** Left-aligned buttons.
+2. **Middle items:** Centre-aligned actions.
+3. **End items:** Right-aligned buttons.
+
+## Follow Atlassian's navigation patterns
+
+The current navigation has specific menu items that are similar across apps. Make sure your top
+navigation follows Atlassian patterns consistently,
+[see navigation experience guidelines (Atlassians only)](https://hello.atlassian.net/wiki/spaces/navx/pages/5104144812).
+
+## Best practices
+
+### Use the top nav items provided
+
+<DoDont
+	type="do"
+	image={{
+		url: topNavDo1,
+		alt: 'Two buttons, one outlined and one solid purple, both labeled "Button".',
+	}}
+>
+	Use the top nav items provided.
+</DoDont>
+
+<DoDont
+	type="dont"
+	image={{
+		url: topNavDont1,
+		alt: 'Two buttons, one outlined and one solid purple, both labeled "Button".',
+	}}
+>
+	Don't use regular button in the top nav, as it won't respect custom theming.
+</DoDont>
+
+### Don't add elements to the top nav area
+
+<DoDont
+	type="do"
+	image={{
+		url: topNavDo2,
+		alt: 'A segment of a top navigation bar showing standard Atlassian icons and a highlighted "ate" item.',
+	}}
+>
+	Use the top nav items as intended.
+</DoDont>
+
+<DoDont
+	type="dont"
+	image={{
+		url: topNavDont2,
+		alt: 'A segment of a top navigation bar showing standard Atlassian icons with an additional "Logout" button and a diamond icon.',
+	}}
+>
+	Don't add elements to the top nav, which may negatively impact consistency across apps.
+</DoDont>
+
+## Related
+
+- [Layout](/components/navigation-system/layout)
+- [Side nav items](/components/navigation-system/side-nav-items)
+- [Navigation experience guidelines (Atlassians only)](https://hello.atlassian.net/wiki/spaces/navx/pages/5104144812)

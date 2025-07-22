@@ -126,6 +126,7 @@ import {
 	pragmaticResizerStylesNew,
 	pragmaticStylesLayoutFirstNodeResizeHandleFix,
 	pragmaticResizerStylesForTooltip,
+	pragmaticResizerStylesWithReducedEditorGutter,
 	resizerStyles,
 } from './styles/resizerStyles';
 import { ruleStyles } from './styles/rule';
@@ -462,6 +463,15 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 						fg('platform_editor_breakout_resizing_hello_release') &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						pragmaticResizerStylesForTooltip,
+					expValEqualsNoExposure(
+						'platform_editor_preview_panel_responsiveness',
+						'isEnabled',
+						true,
+					) &&
+						(editorExperiment('advanced_layouts', true) ||
+							expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true)) &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						pragmaticResizerStylesWithReducedEditorGutter,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					aiPanelBaseStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -537,6 +547,11 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 				data-testid="editor-content-container"
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 				style={style as React.CSSProperties}
+				// eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- Adding tabIndex here because this is a scrollable container and it needs to be focusable so keyboard users can scroll it.
+				tabIndex={isScrollable && fg('platform_editor_editor_container_a11y_focus') ? 0 : undefined}
+				role={
+					isScrollable && fg('platform_editor_editor_container_a11y_focus') ? 'region' : undefined
+				}
 			>
 				{children}
 			</div>

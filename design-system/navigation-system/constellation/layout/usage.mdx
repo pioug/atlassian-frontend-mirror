@@ -1,0 +1,122 @@
+---
+title: Layout
+description: Layout components define a page’s structure and the areas for navigation and content.
+order: 4
+---
+
+import layoutDo from './images/layout-do.png';
+import layoutDont from './images/layout-dont.png';
+
+## Usage
+
+Use layout to compose the structure of your application. It also defines the page behavior and
+navigational areas.
+
+When applying components to the navigational areas,
+[see navigation experience guidelines (Atlassians only)](https://hello.atlassian.net/wiki/spaces/navx/pages/5104144812).
+
+![Diagram of the navigation system layout areas](./images/layout-anatomy.png)
+
+<ol>
+	<li>
+		<strong>Banner:</strong> Optional. Use to display a <a href="/components/banner">banner</a>.
+	</li>
+	<li>
+		<strong>Top nav:</strong> Use to display{' '}
+		<a href="/components/navigation-system/top-nav-items">top nav items</a>.
+		<ol type="a">
+			<li>
+				<strong>Top nav start:</strong> Area for left-aligned actions.
+			</li>
+			<li>
+				<strong>Top nav middle:</strong> Area for centre-aligned actions.
+			</li>
+			<li>
+				<strong>Top nav end:</strong> Area for right-aligned actions.
+			</li>
+		</ol>
+	</li>
+	<li>
+		<strong>Side nav:</strong> Use to display{' '}
+		<a href="/components/navigation-system/side-nav-items">side nav items</a>. Is resizable and
+		collapsible.
+		<ol type="a" start="4">
+			<li>
+				<strong>Side nav header:</strong> Optional. Top part of the side nav (fixed).
+			</li>
+			<li>
+				<strong>Side nav content:</strong> Middle part of the side nav. Acts as the scroll
+				container.
+			</li>
+			<li>
+				<strong>Side nav footer:</strong> Optional. Bottom part of the side nav (fixed).
+			</li>
+		</ol>
+	</li>
+	<li>
+		<strong>Main:</strong> Use for the page content. Expands to fill available space.
+	</li>
+	<li>
+		<strong>Aside:</strong> Optional. Use to display supporting or supplementary content. Is
+		resizable.
+	</li>
+	<li>
+		<strong>Panel:</strong> Optional. Use to display supporting or supplementary content. Is
+		resizable and collapsible.
+	</li>
+</ol>
+
+### The difference between Aside, Panel and Modal dialog
+
+The main difference between Aside, Panel and Modal dialog is their behaviours:
+
+- **Aside** is not collapsible, while **Panel** can be collapsible.
+- **Panel** and **Aside** present content alongside the **Main** area, while **Modal dialog** exists
+  in a layer above the page.
+- On small viewports (1024px and below), the **Panel** becomes an overlay, while the **Aside** moves
+  below **Main**.
+
+#### Usage guidance:
+
+- Use **Aside** for content that needs to be constantly visible and accessible without requiring the
+  user to open it, or have the ability to close it.
+- Use **Panel** for contextual information or tertiary actions that complement the user's workflow.
+  Panels enable greater multitasking by functioning as an additional work space, while keeping users
+  connected to their primary task.
+- Use **Modal dialog** when you need your user to focus their attention on a single or specific
+  task, like requiring a decision or action before they can return to their primary task.
+
+## Best practices
+
+### Design using grid in the Main area
+
+<DoDont
+	type="do"
+	image={{
+		url: layoutDo,
+		alt: 'A layout with a grid overlay on the Main area.',
+	}}
+	isFullWidth
+>
+	When designing, use <a href="/foundations/grid-beta">Grid</a> to position content within the Main
+	area only.
+</DoDont>
+
+<DoDont
+	type="dont"
+	image={{
+		url: layoutDont,
+		alt: 'A layout with a grid overlay on the Main area, but also on the Side nav, Aside and Panel areas.',
+	}}
+	isFullWidth
+>
+	Don't include Side nav, Aside or Panel areas as part of your Grid.
+</DoDont>
+
+## Related
+
+- [Page header](/components/page-header)
+- [Side nav items](/components/navigation-system/side-nav-items)
+- [Top nav items](/components/navigation-system/top-nav-items)
+- [Navigation experience guidelines (Atlassians only)](https://hello.atlassian.net/wiki/spaces/navx/pages/5104144812)
+- [Preview panel (Atlassians only)](https://atlaskit-website-staging.stg-east.frontend.public.atl-paas.net/#/packages/navigation/preview-panel)

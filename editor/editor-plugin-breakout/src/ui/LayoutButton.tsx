@@ -25,12 +25,14 @@ import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos, findParentDomRefOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { akEditorFullPageNarrowBreakout } from '@atlaskit/editor-shared-styles';
 import GrowHorizontalIcon from '@atlaskit/icon/core/grow-horizontal';
 import ShrinkHorizontalIcon from '@atlaskit/icon/core/shrink-horizontal';
 import CollapseIcon from '@atlaskit/icon/glyph/editor/collapse';
 import ExpandIcon from '@atlaskit/icon/glyph/editor/expand';
 import { B300, N20A, N300 } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -52,6 +54,17 @@ const toolbarButtonWrapperStyles = css({
 			background: token('color.background.neutral.hovered', B300),
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 			color: `${token('color.icon', 'white')} !important`,
+		},
+	},
+});
+
+const toolbarButtonNarrowScreenStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-container-queries, @atlaskit/ui-styling-standard/no-imported-style-values,  @atlaskit/design-system/no-nested-styles,  @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	[`@container editor-area (max-width: ${akEditorFullPageNarrowBreakout}px)`]: {
+		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+		'&& button': {
+			visibility: 'hidden',
+			opacity: 0,
 		},
 	},
 });
@@ -187,7 +200,16 @@ const LayoutButton = ({
 			forcePlacement={true}
 			zIndex={belowOtherPopupsZIndex}
 		>
-			<div css={toolbarButtonWrapperStyles}>
+			<div
+				css={[
+					toolbarButtonWrapperStyles,
+					expValEqualsNoExposure(
+						'platform_editor_preview_panel_responsiveness',
+						'isEnabled',
+						true,
+					) && toolbarButtonNarrowScreenStyles,
+				]}
+			>
 				<ToolbarButton
 					title={title}
 					testId={titleMessage.id}

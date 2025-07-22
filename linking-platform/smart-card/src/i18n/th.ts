@@ -143,22 +143,13 @@ export default {
   'fabric.linking.read_time': 'อ่าน {context} นาที',
   'fabric.linking.related': 'เกี่ยวข้อง',
   'fabric.linking.related_links_found_in': 'พบใน',
-  'fabric.linking.related_links_found_in_v2': 'พบใน',
-  'fabric.linking.related_links_includes_links_to': 'รวมลิงก์ไปยัง',
-  'fabric.linking.related_links_includes_links_to_v2': 'รวมลิงก์ที่เชื่อมโยงไปยัง',
+  'fabric.linking.related_links_includes_links_to': 'รวมถึงลิงก์ไปยัง',
   'fabric.linking.related_links_modal_error_description':
     'ตรวจสอบการเชื่อมต่อของคุณ หรือรีเฟรชหน้าข้อมูลเพื่อลองอีกครั้ง',
-  'fabric.linking.related_links_modal_error_header': 'เกิดข้อผิดพลาดบางอย่าง',
-  'fabric.linking.related_links_modal_error_message':
-    'เราพบปัญหาบางอย่างในขณะที่กำลังโหลดลิงก์ล่าสุด โปรดตรวจสอบการเชื่อมต่อของคุณ หรือรีเฟรชเพื่อลองอีกครั้ง',
   'fabric.linking.related_links_modal_error_title': 'เรากำลังประสบปัญหาในการโหลดลิงก์ที่เกี่ยวข้อง',
-  'fabric.linking.related_links_modal_title': 'ลิงก์ล่าสุด',
-  'fabric.linking.related_links_modal_title_v2': 'ลิงก์ที่เกี่ยวข้อง',
+  'fabric.linking.related_links_modal_title': 'ลิงก์ที่เกี่ยวข้อง',
   'fabric.linking.related_links_modal_unavailable_description':
     'เราจะตรวจสอบอย่างต่อเนื่องและเพิ่มลิงก์ที่เกี่ยวข้องสำหรับหน้าข้อมูลที่อัปเดตหรือประเภทเนื้อหาอื่น ๆ',
-  'fabric.linking.related_links_modal_unavailable_header': 'ไม่มีลิงก์ล่าสุด',
-  'fabric.linking.related_links_modal_unavailable_message':
-    'เราไม่พบลิงก์ที่จะแสดงที่นี่ เราตรวจสอบอย่างต่อเนื่องและเพิ่มลิงก์ล่าสุดสำหรับหน้าข้อมูลที่อัปเดตหรือประเภทเนื้อหาอื่น ๆ',
   'fabric.linking.related_links_modal_unavailable_title': 'เราไม่พบลิงก์ที่เกี่ยวข้องใด ๆ',
   'fabric.linking.related_links_not_found': 'เราไม่พบลิงก์ที่จะแสดงที่นี่',
   'fabric.linking.related_links_view_related_links': 'ดูลิงก์ที่เกี่ยวข้อง',

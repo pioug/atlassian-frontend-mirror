@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import { appearancePropsMap } from '@atlaskit/editor-common/card';
 import type { CardProvider } from '@atlaskit/editor-common/provider-factory';
+import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type {
 	Command,
 	FloatingToolbarCustom,
@@ -18,7 +19,6 @@ import {
 import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Flex } from '@atlaskit/primitives/compiled';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { HyperlinkToolbarAppearanceProps } from './HyperlinkToolbarAppearance';
 import { LinkAppearanceMenu } from './LinkToolbarAppearanceDropdown';
@@ -154,10 +154,7 @@ const CustomHyperlinkDropdown = (
 					settingsConfig={settingsConfig}
 				/>
 			</UiDropdown>
-			{!(
-				expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1') &&
-				fg('platform_editor_controls_patch_15')
-			) && <Separator />}
+			{!(areToolbarFlagsEnabled() && fg('platform_editor_controls_patch_15')) && <Separator />}
 		</Flex>
 	);
 };

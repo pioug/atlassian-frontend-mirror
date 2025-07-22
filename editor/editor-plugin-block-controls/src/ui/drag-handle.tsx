@@ -38,7 +38,10 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { akEditorTableToolbarSize } from '@atlaskit/editor-shared-styles/consts';
+import {
+	akEditorTableToolbarSize,
+	akEditorFullPageNarrowBreakout,
+} from '@atlaskit/editor-shared-styles/consts';
 import DragHandleVerticalIcon from '@atlaskit/icon/core/drag-handle-vertical';
 import DragHandlerIcon from '@atlaskit/icon/glyph/drag-handler';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -46,6 +49,7 @@ import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -187,6 +191,14 @@ const dragHandleButtonStyles = css({
 
 	'&:hover:disabled': {
 		backgroundColor: token('color.background.disabled', 'transparent'),
+	},
+});
+
+const dragHandleButtonSmallScreenStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-container-queries, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+	[`@container editor-area (max-width: ${akEditorFullPageNarrowBreakout}px)`]: {
+		opacity: 0,
+		visibility: 'hidden',
 	},
 });
 
@@ -1159,6 +1171,9 @@ export const DragHandle = ({
 					isLayoutColumn &&
 					layoutColumnDragHandleStyles,
 				dragHandleSelected && hasHadInteraction && selectedStyles,
+				expValEqualsNoExposure('platform_editor_preview_panel_responsiveness', 'isEnabled', true) &&
+					editorExperiment('platform_editor_controls', 'control') &&
+					dragHandleButtonSmallScreenStyles,
 			]}
 			ref={buttonRef}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

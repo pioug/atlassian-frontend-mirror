@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-import { css, jsx } from '@compiled/react';
+import { cssMap, jsx } from '@compiled/react';
 import { TouchScrollable } from 'react-scrolllock';
 
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -15,31 +15,25 @@ import { useModal } from './hooks';
 import ScrollContainer from './internal/components/scroll-container';
 import useScroll from './internal/hooks/use-scroll';
 
-const bodyStyles = css({
-	/* This ensures the body fills the whole space between header and footer. */
-	flex: '1 1 auto',
-});
-
-const fontStyles = css({
-	font: token('font.body'),
-});
-
-/**
- * Adding the padding here avoids cropping the keyline on its sides.
- * The combined vertical spacing is maintained by subtracting the
- * keyline height from header and footer using negative margins.
- */
-const bodyScrollStyles = css({
-	paddingBlock: token('border.width.outline'),
-	paddingInline: token('space.300'),
-});
-
-/**
- * Keylines will not be shown if scrolling in viewport so we do
- * not account for them in this case.
- */
-const viewportScrollStyles = css({
-	paddingInline: token('space.300'),
+const styles = cssMap({
+	root: {
+		/* This ensures the body fills the whole space between header and footer. */
+		flex: '1 1 auto',
+	},
+	font: {
+		font: token('font.body'),
+	},
+	paddingBlock: {
+		/**
+		 * Adding the padding here avoids cropping the keyline on its sides.
+		 * The combined vertical spacing is maintained by subtracting the
+		 * keyline height from header and footer using negative margins.
+		 */
+		paddingBlock: token('border.width.outline'),
+	},
+	paddingInline: {
+		paddingInline: token('space.300'),
+	},
 });
 
 export interface ModalBodyProps {
@@ -54,6 +48,11 @@ export interface ModalBodyProps {
 	 * serving as a hook for automated tests.
 	 */
 	testId?: string;
+
+	/**
+	 * Determines whether inline padding will be applied. Defaults to true.
+	 */
+	hasInlinePadding?: boolean;
 }
 
 /**
@@ -66,7 +65,7 @@ export interface ModalBodyProps {
  * - [Usage](https://atlassian.design/components/modal-dialog/usage)
  */
 const ModalBody = (props: ModalBodyProps) => {
-	const { children, testId: userDefinedTestId } = props;
+	const { children, testId: userDefinedTestId, hasInlinePadding = true } = props;
 	const { testId: modalTestId } = useModal();
 	const shouldScrollInViewport = useScroll();
 
@@ -75,9 +74,9 @@ const ModalBody = (props: ModalBodyProps) => {
 	return shouldScrollInViewport ? (
 		<div
 			css={[
-				bodyStyles,
-				viewportScrollStyles,
-				fg('platform_ads_explicit_font_styles') && fontStyles,
+				styles.root,
+				hasInlinePadding && styles.paddingInline,
+				fg('platform_ads_explicit_font_styles') && styles.font,
 			]}
 			data-testid={testId}
 		>
@@ -88,9 +87,14 @@ const ModalBody = (props: ModalBodyProps) => {
 			<ScrollContainer testId={userDefinedTestId || modalTestId}>
 				<div
 					css={[
-						bodyStyles,
-						bodyScrollStyles,
-						fg('platform_ads_explicit_font_styles') && fontStyles,
+						styles.root,
+						/**
+						 * Adding block padding for scroll keylines, which are only shown when the scrolling
+						 * is on the container.
+						 */
+						styles.paddingBlock,
+						hasInlinePadding && styles.paddingInline,
+						fg('platform_ads_explicit_font_styles') && styles.font,
 					]}
 					data-testid={testId}
 				>

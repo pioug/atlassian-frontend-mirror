@@ -151,24 +151,15 @@ export default {
   'fabric.linking.priority_undefined': '⁣⁢Undefined⁯⁫⁯⁠⁡⁪⁡؜⁪⁫‌⁪⁡⁬⁫⁠⁭⁮‍⁠⁯⁡⁠⁬⁣⁤',
   'fabric.linking.read_time': '⁣⁢{context} min read؜⁮⁯⁬‍⁠⁭⁯؜‌⁫⁪⁬⁬⁪⁠⁪⁠⁭⁬⁣⁤',
   'fabric.linking.related': '⁣⁢Related⁭⁭⁫‌⁬‍⁡‌⁠⁠⁡⁬⁮⁯‍⁡⁡⁡‌⁫⁫⁠؜⁣⁤',
-  'fabric.linking.related_links_found_in': '⁣⁢Found In⁫⁡⁭⁬‍⁬‍؜⁫⁮‍⁫؜⁬⁮⁬⁠⁪‌‍⁯⁪‌⁠⁫⁪؜⁣⁤',
-  'fabric.linking.related_links_found_in_v2': '⁣⁢Found in⁪‍⁡⁮⁪؜⁠⁠⁬⁫؜⁮⁫‌⁬⁮⁡‍⁮⁠⁠⁭‌⁡⁭؜⁣⁤',
-  'fabric.linking.related_links_includes_links_to': '⁣⁢Includes Links To⁡⁠⁪؜⁮⁫‌؜‌⁫⁮⁠⁫⁭‌⁡‌‍⁮‍⁫⁮⁬‌⁣⁤',
-  'fabric.linking.related_links_includes_links_to_v2': '⁣⁢Includes links to⁡⁬⁠⁯⁯⁯⁪‍⁯⁬⁠؜⁫⁬⁭⁭⁮‌⁡⁬⁪⁮⁣⁤',
+  'fabric.linking.related_links_found_in': '⁣⁢Found in⁡⁮‍⁬؜⁠‍⁪‌⁠⁪⁪⁬⁭⁮‍⁬⁣⁤',
+  'fabric.linking.related_links_includes_links_to': '⁣⁢Includes links to⁠⁠‍؜⁫⁭⁪⁠⁡‍⁡⁭⁡⁫⁡⁯⁫⁡⁯⁬⁣⁤',
   'fabric.linking.related_links_modal_error_description':
     '⁣⁢Check your connection or refresh the page to try again⁭‌‍‌⁠⁭⁫‍⁪⁡‌⁠⁮⁪⁮⁡⁣⁤',
-  'fabric.linking.related_links_modal_error_header': '⁣⁢Something went wrong‌⁪⁯؜⁡⁬⁠‍⁠⁬⁡⁬⁭‌‌‌‍‍⁭⁮⁣⁤',
-  'fabric.linking.related_links_modal_error_message':
-    '⁣⁢We ran into an issue trying to load recent links. Check your connection or refresh to try again.⁬‍⁡⁠؜⁪⁪‌‍⁪⁯⁮⁭‍⁠⁯⁬⁠⁮⁭⁣⁤',
   'fabric.linking.related_links_modal_error_title':
     "⁣⁢We're having trouble loading related links‌⁬؜⁪⁫⁯⁫؜⁫⁫⁬‌‍⁪؜‌⁬⁫⁡⁯⁬⁡⁣⁤",
-  'fabric.linking.related_links_modal_title': '⁣⁢Recent links⁫⁯؜⁡⁫⁮⁬⁠⁯‍‌⁠⁠‌⁭؜⁪⁯‍⁪⁯⁯⁣⁤',
-  'fabric.linking.related_links_modal_title_v2': '⁣⁢Related links⁯⁯⁭‍‌‌⁫⁮؜⁮⁫⁫؜⁭؜⁭⁠؜‌⁡‌⁪⁠⁣⁤',
+  'fabric.linking.related_links_modal_title': '⁣⁢Related links⁠‍⁮⁡⁠⁫⁫؜⁯‌⁪⁪‍‌؜⁮⁪⁮؜⁡⁯⁮⁣⁤',
   'fabric.linking.related_links_modal_unavailable_description':
     '⁣⁢We continuously review and add related links for updated pages or other content types‍⁡⁡⁡‍‌⁡؜⁪⁮⁠⁫؜⁯؜⁪⁠⁫⁡⁮⁡⁪⁣⁤',
-  'fabric.linking.related_links_modal_unavailable_header': '⁣⁢No recent links‌⁡؜⁪⁡⁠⁪⁬⁠⁭⁪⁮⁪⁬‍⁬‌‍⁪⁡⁮⁪⁡⁯⁣⁤',
-  'fabric.linking.related_links_modal_unavailable_message':
-    "⁣⁢We didn't find any links to show here. We continuously review and add recent links for updated pages or other content types.⁭⁬⁭؜⁠؜‌‍‍⁯⁭‍⁡⁡⁭⁪⁡⁣⁤",
   'fabric.linking.related_links_modal_unavailable_title':
     "⁣⁢We couldn't find any related links⁭‍⁬⁫⁭؜‌⁭⁯⁡⁡‍‌⁬‌⁠⁫⁪⁭⁮⁭⁮؜⁣⁤",
   'fabric.linking.related_links_not_found': "⁣⁢We didn't find any links to show here.⁭⁡⁡⁬‌‌‍⁠‌؜⁮⁪⁡⁫⁫‍‍‍⁯‌⁬⁮⁡‌⁣⁤",

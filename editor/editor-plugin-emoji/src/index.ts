@@ -6,5 +6,8 @@ export type {
 	EmojiPluginOptions,
 	EmojiPluginState,
 	EmojiPluginSharedState,
+	EmojiPluginDependencies,
+	EmojiPluginActions,
+	EmojiPluginCommands,
 } from './emojiPluginType';
 export { emojiPlugin } from './emojiPlugin';

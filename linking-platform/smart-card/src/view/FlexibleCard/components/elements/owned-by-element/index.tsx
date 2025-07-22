@@ -22,13 +22,9 @@ const OwnedByElement = (props: OwnedByElementProps): JSX.Element | null => {
 			)
 		: null;
 
-	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-	if (fg('platform-linking-additional-flexible-element-props')) {
-		// eslint-disable-next-line react-hooks/rules-of-hooks
-		useEffect(() => {
-			onRender?.(!!data);
-		}, [data, onRender]);
-	}
+	useEffect(() => {
+		onRender?.(!!data);
+	}, [data, onRender]);
 
 	return data ? <BaseTextElement {...data} {...restProps} name={ElementName.OwnedBy} /> : null;
 };

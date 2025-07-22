@@ -12,6 +12,7 @@ import { injectIntl } from 'react-intl-next';
 
 import type { ExtensionAPI, ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import { DropdownMenuItem } from '@atlaskit/editor-common/floating-toolbar';
+import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type {
 	DropdownOptionT,
 	FloatingToolbarOverflowDropdownOptions,
@@ -21,7 +22,6 @@ import type { ButtonItemProps } from '@atlaskit/menu';
 import { HeadingItem } from '@atlaskit/menu';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize } from '@atlaskit/theme/constants';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 export const menuItemDimensions = {
@@ -83,7 +83,7 @@ export interface DropdownButtonItemProps extends ButtonItemProps {
 const Dropdown = memo((props: Props & WrappedComponentProps) => {
 	const { hide, dispatchCommand, items, intl, editorView, showSelected = true } = props;
 
-	if (editorExperiment('platform_editor_controls', 'variant1')) {
+	if (areToolbarFlagsEnabled()) {
 		return (
 			<div css={menuContainerStyles} role="menu">
 				{items

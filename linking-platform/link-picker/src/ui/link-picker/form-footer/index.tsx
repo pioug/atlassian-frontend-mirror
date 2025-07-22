@@ -7,11 +7,10 @@ import { memo } from 'react';
 import { css, jsx } from '@compiled/react';
 import { defineMessages, type MessageDescriptor, useIntl } from 'react-intl-next';
 
-import Button, { ButtonGroup } from '@atlaskit/button';
-import NewButton from '@atlaskit/button/new';
+import { ButtonGroup } from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
 import EditorAddIcon from '@atlaskit/icon/core/add';
 import EditorAddIconLegacy from '@atlaskit/icon/glyph/editor/add';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
@@ -95,52 +94,29 @@ export const FormFooter = memo(
 			return null;
 		}
 
-		const createButton = (pluginAction: LinkPickerPluginAction) =>
-			fg('platform-link-picker-remove-legacy-button') ? (
-				<NewButton
-					testId={testIds.actionButton}
-					onClick={pluginAction.callback}
-					appearance="default"
-					iconBefore={() => (
-						<EditorAddIcon
-							label=""
-							LEGACY_size="medium"
-							LEGACY_fallbackIcon={EditorAddIconLegacy}
-							color="currentColor"
-							size="small"
-						/>
-					)}
-					isDisabled={isSubmitting}
-					aria-labelledby={isSubmitting ? submitMessageId : undefined}
-				>
-					{typeof pluginAction.label === 'string'
-						? pluginAction.label
-						: intl.formatMessage(pluginAction.label)}
-				</NewButton>
-			) : (
-				<Button
-					testId={testIds.actionButton}
-					onClick={pluginAction.callback}
-					appearance="default"
-					iconBefore={
-						<EditorAddIcon
-							label=""
-							LEGACY_size="medium"
-							LEGACY_fallbackIcon={EditorAddIconLegacy}
-							color="currentColor"
-							size="small"
-						/>
-					}
-					isDisabled={isSubmitting}
-					aria-labelledby={isSubmitting ? submitMessageId : undefined}
-				>
-					{typeof pluginAction.label === 'string'
-						? pluginAction.label
-						: intl.formatMessage(pluginAction.label)}
-				</Button>
-			);
+		const createButton = (pluginAction: LinkPickerPluginAction) => (
+			<Button
+				testId={testIds.actionButton}
+				onClick={pluginAction.callback}
+				appearance="default"
+				iconBefore={() => (
+					<EditorAddIcon
+						label=""
+						LEGACY_size="medium"
+						LEGACY_fallbackIcon={EditorAddIconLegacy}
+						color="currentColor"
+						size="small"
+					/>
+				)}
+				isDisabled={isSubmitting}
+				aria-labelledby={isSubmitting ? submitMessageId : undefined}
+			>
+				{typeof pluginAction.label === 'string'
+					? pluginAction.label
+					: intl.formatMessage(pluginAction.label)}
+			</Button>
+		);
 
-		const ButtonComponent = fg('platform-link-picker-remove-legacy-button') ? NewButton : Button;
 		return (
 			<footer
 				css={[formFooterStyles]}
@@ -160,7 +136,7 @@ export const FormFooter = memo(
 				{action && <div css={formFooterActionStyles}>{createButton(action)}</div>}
 				<ButtonGroup>
 					{onCancel && (
-						<ButtonComponent
+						<Button
 							appearance="subtle"
 							onClick={onCancel}
 							testId={testIds.cancelButton}
@@ -168,7 +144,7 @@ export const FormFooter = memo(
 							aria-labelledby={isSubmitting ? submitMessageId : undefined}
 						>
 							{intl.formatMessage(messages.cancelButton)}
-						</ButtonComponent>
+						</Button>
 					)}
 
 					{!hideSubmitButton && (

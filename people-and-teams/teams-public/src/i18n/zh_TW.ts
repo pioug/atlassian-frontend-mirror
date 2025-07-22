@@ -19,6 +19,12 @@ export default {
   'ptc-directory.team-profile-page.team-containers.add-loom-space-description': 'Loom',
   'ptc-directory.team-profile-page.team-containers.add-loom-space-title': '新增空間',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.cancel-button': '取消',
+  'ptc-directory.team-profile-page.team-containers.disconnect-dialog.description':
+    '{containerType, select, JiraProject {這個團隊將不再連接至 {containerName} Jira 專案。} ConfluenceSpace {這個團隊將不再連接至 {containerName} Confluence 空間。} LoomSpace {這個團隊將不再連接至 {containerName} Loom 空間。} other {這個團隊將不再連接至 {containerName} 連結。}}',
+  'ptc-directory.team-profile-page.team-containers.disconnect-dialog.disclaimer':
+    '{containerType, select, JiraProject {{containerType, select, JiraProject {如果中斷此團隊與專案的連接，不會影響在專案中連接至團隊的任何工作。} ConfluenceSpace {如果中斷此團隊與空間的連接，不會影響在專案中連接至團隊的任何工作。} LoomSpace {如果中斷此團隊與空間的連接，不會影響在專案中連接至團隊的任何工作。} other {如果中斷此團隊與連結的連接，不會影響在專案中連接至團隊的任何工作。}}} ConfluenceSpace {{containerType, select, JiraProject {如果中斷此團隊與專案的連接，不會影響在空間中連接至團隊的任何工作。} ConfluenceSpace {如果中斷此團隊與空間的連接，不會影響在空間中連接至團隊的任何工作。} LoomSpace {如果中斷此團隊與空間的連接，不會影響在空間中連接至團隊的任何工作。} other {如果中斷此團隊與連結的連接，不會影響在空間中連接至團隊的任何工作。}}} LoomSpace {{containerType, select, JiraProject {如果中斷此團隊與專案的連接，不會影響在空間中連接至團隊的任何工作。} ConfluenceSpace {如果中斷此團隊與空間的連接，不會影響在空間中連接至團隊的任何工作。} LoomSpace {如果中斷此團隊與空間的連接，不會影響在空間中連接至團隊的任何工作。} other {如果中斷此團隊與連結的連接，不會影響在空間中連接至團隊的任何工作。}}} other {{containerType, select, JiraProject {如果中斷此團隊與專案的連接，不會影響在連結中連接至團隊的任何工作。} ConfluenceSpace {如果中斷此團隊與空間的連接，不會影響在連結中連接至團隊的任何工作。} LoomSpace {如果中斷此團隊與空間的連接，不會影響在連結中連接至團隊的任何工作。} other {如果中斷此團隊與連結的連接，不會影響在連結中連接至團隊的任何工作。}}}}',
+  'ptc-directory.team-profile-page.team-containers.disconnect-dialog.disclaimer-fallback':
+    '將團隊與連結中斷連接後，不會影響與團隊連接的任何工作。',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.remove-button': '移除',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.title': '連接位置',
   'ptc-directory.team-profile-page.team-containers.show-less': '顯示較少',

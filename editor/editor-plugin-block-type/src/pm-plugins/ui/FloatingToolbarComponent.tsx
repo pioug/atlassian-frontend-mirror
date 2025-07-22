@@ -70,9 +70,9 @@ export function FloatingToolbarComponent({ api }: FloatingToolbarComponentProps)
 	} = useFloatingToolbarComponentPluginState(api);
 
 	const boundSetBlockType = useCallback(
-		(name: TextBlockTypes) =>
+		(name: TextBlockTypes, fromBlockQuote?: boolean) =>
 			api?.core?.actions.execute(
-				api?.blockType?.commands?.setTextLevel(name, INPUT_METHOD.FLOATING_TB),
+				api?.blockType?.commands?.setTextLevel(name, INPUT_METHOD.FLOATING_TB, fromBlockQuote),
 			),
 		[api],
 	);

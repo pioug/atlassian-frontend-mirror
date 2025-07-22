@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-ufo",
-	"version": "4.0.3",
+	"version": "4.1.0",
 	"description": "Parts of React UFO that are publicly available",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -35,6 +35,7 @@
 		"./create-payload": "./src/create-payload/index.ts",
 		"./create-post-interaction-log-payload": "./src/create-post-interaction-log-payload/index.ts",
 		"./custom-data": "./src/custom-data/index.ts",
+		"./custom-cohort-data": "./src/custom-cohort-data/index.ts",
 		"./custom-mark": "./src/custom-mark/index.ts",
 		"./custom-spans": "./src/custom-spans/index.ts",
 		"./custom-timings": "./src/custom-timings/index.ts",
@@ -83,6 +84,7 @@
 		"./create-payload": "./src/create-payload/index.ts",
 		"./create-post-interaction-log-payload": "./src/create-post-interaction-log-payload/index.ts",
 		"./custom-data": "./src/custom-data/index.ts",
+		"./custom-cohort-data": "./src/custom-cohort-data/index.ts",
 		"./custom-mark": "./src/custom-mark/index.ts",
 		"./custom-spans": "./src/custom-spans/index.ts",
 		"./custom-timings": "./src/custom-timings/index.ts",
@@ -180,9 +182,6 @@
 			"type": "boolean"
 		},
 		"platform_ufo_enable_media_for_ttvc_v3": {
-			"type": "boolean"
-		},
-		"platform_ufo_emit_vc_debug_data": {
 			"type": "boolean"
 		},
 		"ufo_return_relative_request_start": {

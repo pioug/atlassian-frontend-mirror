@@ -15,6 +15,19 @@ tester.run('use-correct-field', rule, {
 				{({ fieldProps }) => <TextField {...fieldProps} />}
 			</Field>
 		`,
+		// Should pass for nested normal field
+		`
+			import { Field } from '@atlaskit/form';
+			import Textfield from '@atlaskit/textfield';
+
+			<Field aria-required={true} name="username" defaultValue="" label="Username" isRequired>
+				{({ fieldProps }) => {
+					<Bing>
+						<TextField {...fieldProps} />
+					</Bing>
+				}}
+			</Field>
+		`,
 		// Should pass for normal field and other imports
 		`
 			import { Field } from '@atlaskit/form';
@@ -75,6 +88,80 @@ tester.run('use-correct-field', rule, {
 
 								<CheckboxField name="remember" isRequired>
 									{({ fieldProps }) => <Checkbox {...fieldProps} label="Remember me" />}
+								</CheckboxField>
+							`,
+						},
+					],
+				},
+			],
+		},
+		// Should not pass if checkbox in nested normal field
+		{
+			code: outdent`
+				import { Field } from '@atlaskit/form';
+				import Checkbox from '@atlaskit/checkbox';
+
+				<Field name="remember" isRequired>
+					{({ fieldProps }) => {
+						<Bing>
+							<Checkbox {...fieldProps} label="Remember me" />
+						</Bing>
+					}}
+				</Field>
+    `,
+			errors: [
+				{
+					messageId: 'useCheckboxField',
+					suggestions: [
+						{
+							desc: useCheckboxFieldMessage,
+							output: outdent`
+								import { CheckboxField, Field } from '@atlaskit/form';
+								import Checkbox from '@atlaskit/checkbox';
+
+								<CheckboxField name="remember" isRequired>
+									{({ fieldProps }) => {
+										<Bing>
+											<Checkbox {...fieldProps} label="Remember me" />
+										</Bing>
+									}}
+								</CheckboxField>
+							`,
+						},
+					],
+				},
+			],
+		},
+		// Should not pass if checkbox in nested fragment normal field
+		{
+			code: outdent`
+				import { Field } from '@atlaskit/form';
+				import Checkbox from '@atlaskit/checkbox';
+
+				<Field name="remember" isRequired>
+					{({ fieldProps }) => {
+						<>
+							<Checkbox {...fieldProps} label="Remember me" />
+						</>
+					}}
+				</Field>
+    `,
+			errors: [
+				{
+					messageId: 'useCheckboxField',
+					suggestions: [
+						{
+							desc: useCheckboxFieldMessage,
+							output: outdent`
+								import { CheckboxField, Field } from '@atlaskit/form';
+								import Checkbox from '@atlaskit/checkbox';
+
+								<CheckboxField name="remember" isRequired>
+									{({ fieldProps }) => {
+										<>
+											<Checkbox {...fieldProps} label="Remember me" />
+										</>
+									}}
 								</CheckboxField>
 							`,
 						},

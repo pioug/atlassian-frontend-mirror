@@ -22,6 +22,7 @@ export type Themes =
 	| 'atlassian-legacy-dark'
 	| 'atlassian-shape'
 	| 'atlassian-spacing'
+	| 'atlassian-typography'
 	| 'atlassian-typography-refreshed'
 	| 'atlassian-typography-modernized'
 	| 'atlassian-typography-adg3';
@@ -78,6 +79,7 @@ export const themeIds = [
 	'legacy-dark',
 	'spacing',
 	'shape',
+	'typography',
 	'typography-adg3',
 	'typography-modernized',
 	'typography-refreshed',
@@ -249,6 +251,14 @@ const themeConfig: Record<Themes | ThemeOverrides, ThemeConfig> = {
 			type: 'spacing',
 		},
 	},
+	'atlassian-typography': {
+		id: 'typography',
+		displayName: 'Atlassian Typography',
+		palette: 'typographyPalette',
+		attributes: {
+			type: 'typography',
+		},
+	},
 	'atlassian-typography-adg3': {
 		id: 'typography-adg3',
 		displayName: 'ADG3 Typography',
@@ -345,6 +355,11 @@ export interface ThemeState {
 	contrastMode: ThemeContrastModes;
 	shape?: Extract<ThemeIds, 'shape'>;
 	spacing: Extract<ThemeIds, 'spacing'>;
+	/**
+	 * @deprecated 'typography-adg3' is deprecated, use 'typography' instead
+	 * @deprecated 'typography-modernized' is deprecated, use 'typography' instead
+	 * @deprecated 'typography-refreshed' is deprecated, use 'typography' instead
+	 */
 	typography?: Extract<
 		ThemeIds,
 		'typography' | 'typography-adg3' | 'typography-modernized' | 'typography-refreshed'
@@ -371,6 +386,9 @@ export const themeStateDefaults: ThemeStateDefaults = {
 	shape: undefined,
 	spacing: 'spacing',
 	typography: () => {
+		if (fg('platform-default-typography-refreshed')) {
+			return 'typography';
+		}
 		if (fg('platform-default-typography-modernized')) {
 			return 'typography-modernized';
 		}

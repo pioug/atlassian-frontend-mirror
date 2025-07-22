@@ -321,7 +321,7 @@ const outOfTheBoxAgentAvatar: {
 		),
 		color: yellowColor,
 	},
-	jira_workflow_wizard_agent: {
+	jira_workflow_builder_agent: {
 		getRender: (size: SizeType) => (
 			<WorkflowBuilderAvatar
 				size={AVATAR_SIZES[size]}

@@ -135,8 +135,6 @@ const setup = (
 };
 
 const setupBasicFilter = async ({
-	getByTestId,
-	queryByTestId,
 	openPicker = true,
 	filterType = 'status',
 }: RenderResult & {
@@ -183,7 +181,7 @@ describe('JiraSearchContainer', () => {
 	});
 
 	it('changes to correct input mode when an option is selected', async () => {
-		const { getByTestId, getByPlaceholderText } = setup();
+		const { getByTestId } = setup();
 
 		// switch to jql search
 		await userEvent.click(getByTestId('mode-toggle-jql'));
@@ -191,7 +189,7 @@ describe('JiraSearchContainer', () => {
 
 		// switch to basic search
 		await userEvent.click(getByTestId('mode-toggle-basic'));
-		expect(getByPlaceholderText('Search for issues by keyword')).toBeInTheDocument();
+		expect(getByTestId('jira-datasource-modal--basic-search-input')).toBeInTheDocument();
 	});
 
 	it('should call onSearchMethodChange when mode changes', async () => {
@@ -224,14 +222,13 @@ describe('JiraSearchContainer', () => {
 	});
 
 	it('displays an initial jql query and does not switch back to jql search mode if user searches using basic text', async () => {
-		const { getByTestId, getByPlaceholderText, mockOnSearch, mockSetSearchBarJql, rerender } =
-			setup({
-				parameters: {
-					...initialParameters,
-					jql: 'status = "0. On Hold"',
-				},
-				searchBarJql: 'status = "0. On Hold"',
-			});
+		const { getByTestId, mockOnSearch, mockSetSearchBarJql, rerender } = setup({
+			parameters: {
+				...initialParameters,
+				jql: 'status = "0. On Hold"',
+			},
+			searchBarJql: 'status = "0. On Hold"',
+		});
 		// switch to jql search
 		await userEvent.click(getByTestId('mode-toggle-jql'));
 
@@ -241,7 +238,7 @@ describe('JiraSearchContainer', () => {
 		);
 		// switch to basic, type, and search
 		await userEvent.click(getByTestId('mode-toggle-basic'));
-		const basicTextInput = getByPlaceholderText('Search for issues by keyword');
+		const basicTextInput = getByTestId('jira-datasource-modal--basic-search-input');
 		await userEvent.type(basicTextInput, 'testing');
 		await userEvent.keyboard('{Enter}');
 
@@ -423,12 +420,11 @@ describe('JiraSearchContainer', () => {
 	});
 
 	it('calls onSearch with Basic search', async () => {
-		const { getByTestId, getByPlaceholderText, mockOnSearch, mockSetSearchBarJql, rerender } =
-			setup();
+		const { getByTestId, mockOnSearch, mockSetSearchBarJql, rerender } = setup();
 
 		await userEvent.click(getByTestId('mode-toggle-basic'));
 
-		await userEvent.type(getByPlaceholderText('Search for issues by keyword'), 'testing');
+		await userEvent.type(getByTestId('jira-datasource-modal--basic-search-input'), 'testing');
 		await userEvent.keyboard('{Enter}');
 
 		expect(mockSetSearchBarJql).toHaveBeenCalledWith(
@@ -456,11 +452,11 @@ describe('JiraSearchContainer', () => {
 	});
 
 	it('persists basic text search on toggle', async () => {
-		const { getByTestId, getByPlaceholderText } = setup();
+		const { getByTestId } = setup();
 
 		await userEvent.click(getByTestId('mode-toggle-basic'));
 
-		const basicTextInput = getByPlaceholderText('Search for issues by keyword');
+		const basicTextInput = getByTestId('jira-datasource-modal--basic-search-input');
 		await userEvent.type(basicTextInput, 'testing');
 		await userEvent.keyboard('{Enter}');
 
@@ -471,13 +467,7 @@ describe('JiraSearchContainer', () => {
 	});
 
 	it('persists jql order keys on basic text input changes', async () => {
-		const {
-			getByTestId,
-			getLatestJQLEditorProps,
-			getByPlaceholderText,
-			mockSetSearchBarJql,
-			rerender,
-		} = setup();
+		const { getByTestId, getLatestJQLEditorProps, mockSetSearchBarJql, rerender } = setup();
 
 		await userEvent.click(getByTestId('mode-toggle-jql'));
 
@@ -498,7 +488,7 @@ describe('JiraSearchContainer', () => {
 
 		await userEvent.click(getByTestId('mode-toggle-basic'));
 
-		const basicTextInput = getByPlaceholderText('Search for issues by keyword');
+		const basicTextInput = getByTestId('jira-datasource-modal--basic-search-input');
 		await userEvent.type(basicTextInput, 'testing');
 		await userEvent.keyboard('{Enter}');
 
@@ -515,13 +505,7 @@ describe('JiraSearchContainer', () => {
 	});
 
 	it('uses default order keys if given invalid keys', async () => {
-		const {
-			getByTestId,
-			getLatestJQLEditorProps,
-			getByPlaceholderText,
-			rerender,
-			mockSetSearchBarJql,
-		} = setup();
+		const { getByTestId, getLatestJQLEditorProps, rerender, mockSetSearchBarJql } = setup();
 
 		await userEvent.click(getByTestId('mode-toggle-jql'));
 
@@ -538,7 +522,7 @@ describe('JiraSearchContainer', () => {
 
 		await userEvent.click(getByTestId('mode-toggle-basic'));
 
-		await userEvent.type(getByPlaceholderText('Search for issues by keyword'), 'testing');
+		await userEvent.type(getByTestId('jira-datasource-modal--basic-search-input'), 'testing');
 		await userEvent.keyboard('{Enter}');
 
 		expect(mockSetSearchBarJql).toHaveBeenCalledWith(
@@ -559,13 +543,7 @@ describe('JiraSearchContainer', () => {
 	});
 
 	it('has default JQL query when basic search input is empty', async () => {
-		const {
-			getLatestJQLEditorProps,
-			getByPlaceholderText,
-			getByTestId,
-			rerender,
-			mockSetSearchBarJql,
-		} = setup();
+		const { getLatestJQLEditorProps, getByTestId, rerender, mockSetSearchBarJql } = setup();
 
 		// has default query before any user input
 		await userEvent.click(getByTestId('mode-toggle-jql'));
@@ -573,7 +551,7 @@ describe('JiraSearchContainer', () => {
 
 		// persists default query if user enters empty string to basic search
 		await userEvent.click(getByTestId('mode-toggle-basic'));
-		const basicTextInput = getByPlaceholderText('Search for issues by keyword');
+		const basicTextInput = getByTestId('jira-datasource-modal--basic-search-input');
 		await userEvent.type(basicTextInput, '  ');
 		await userEvent.keyboard('{Enter}');
 
@@ -745,7 +723,7 @@ describe('JiraSearchContainer', () => {
 		await userEvent.click(statusTriggerButton);
 
 		expect(screen.queryByTestId('jlol-basic-filter-container')).toHaveTextContent(
-			'ProjectTypeStatus: AuthorizeAssignee',
+			'ProjectWork typeStatus: AuthorizeAssignee',
 		);
 
 		const projectTriggerButton = await screen.findByTestId(`jlol-basic-filter-project-trigger`);
@@ -763,7 +741,7 @@ describe('JiraSearchContainer', () => {
 		await userEvent.click(projectTriggerButton);
 
 		expect(screen.queryByTestId('jlol-basic-filter-container')).toHaveTextContent(
-			'Project: AuthorizeTypeStatus: AuthorizeAssignee',
+			'Project: AuthorizeWork typeStatus: AuthorizeAssignee',
 		);
 	});
 
@@ -792,7 +770,7 @@ describe('JiraSearchContainer', () => {
 		await userEvent.click(statusTriggerButton);
 
 		expect(screen.queryByTestId('jlol-basic-filter-container')).toHaveTextContent(
-			'ProjectTypeStatus: AuthorizeAssignee',
+			'ProjectWork typeStatus: AuthorizeAssignee',
 		);
 
 		rerender(
@@ -811,7 +789,7 @@ describe('JiraSearchContainer', () => {
 		);
 
 		expect(screen.queryByTestId('jlol-basic-filter-container')).toHaveTextContent(
-			'ProjectTypeStatus',
+			'ProjectWork typeStatusAssignee',
 		);
 	});
 
@@ -931,7 +909,7 @@ describe('JiraSearchContainer', () => {
 				filter: 'status',
 			},
 		});
-		const { getByTestId, getByPlaceholderText, mockFetchHydratedJqlOptions } = renderResult;
+		const { getByTestId, mockFetchHydratedJqlOptions } = renderResult;
 
 		await setupBasicFilter({
 			...renderResult,
@@ -940,7 +918,7 @@ describe('JiraSearchContainer', () => {
 		});
 
 		await userEvent.click(getByTestId('mode-toggle-basic'));
-		const basicTextInput = getByPlaceholderText('Search for issues by keyword');
+		const basicTextInput = getByTestId('jira-datasource-modal--basic-search-input');
 		await userEvent.type(basicTextInput, 'testing');
 		await userEvent.keyboard('{Enter}');
 
@@ -1019,8 +997,7 @@ describe('JiraSearchContainer', () => {
 	it('BasicFilterContainer: should persist filter values when calling onSearch after an input is entered', async () => {
 		const renderResult = setup();
 
-		const { getByPlaceholderText, mockOnSearch, getByTestId, rerender, mockSetSearchBarJql } =
-			renderResult;
+		const { mockOnSearch, getByTestId, rerender, mockSetSearchBarJql } = renderResult;
 
 		const { triggerButton } = await setupBasicFilter({
 			...renderResult,
@@ -1038,7 +1015,7 @@ describe('JiraSearchContainer', () => {
 		invariant(triggerButton);
 		await userEvent.click(triggerButton);
 
-		const basicTextInput = getByPlaceholderText('Search for issues by keyword');
+		const basicTextInput = getByTestId('jira-datasource-modal--basic-search-input');
 		await userEvent.type(basicTextInput, 'testing');
 		await userEvent.keyboard('{Enter}');
 
@@ -1082,14 +1059,8 @@ describe('JiraSearchContainer', () => {
 			'(text ~ "testing*" or summary ~ "testing*") and status in (Authorize) ORDER BY created DESC';
 		const renderResult = setup();
 
-		const {
-			getByPlaceholderText,
-			mockOnSearch,
-			getByTestId,
-			getLatestJQLEditorProps,
-			rerender,
-			mockSetSearchBarJql,
-		} = renderResult;
+		const { mockOnSearch, getByTestId, getLatestJQLEditorProps, rerender, mockSetSearchBarJql } =
+			renderResult;
 
 		const { triggerButton } = await setupBasicFilter({
 			...renderResult,
@@ -1107,7 +1078,7 @@ describe('JiraSearchContainer', () => {
 		invariant(triggerButton);
 		await userEvent.click(triggerButton);
 
-		const basicTextInput = getByPlaceholderText('Search for issues by keyword');
+		const basicTextInput = getByTestId('jira-datasource-modal--basic-search-input');
 		await userEvent.type(basicTextInput, 'testing');
 		await userEvent.keyboard('{Enter}');
 
@@ -1167,10 +1138,10 @@ describe('Analytics: JiraSearchContainer', () => {
 
 	describe('ui.form.submitted.basicSearch', () => {
 		it('should fire event on search button click', async () => {
-			const { getByPlaceholderText, getByTestId } = setup();
+			const { getByTestId } = setup();
 
 			await userEvent.click(getByTestId('mode-toggle-basic'));
-			const basicTextInput = getByPlaceholderText('Search for issues by keyword');
+			const basicTextInput = getByTestId('jira-datasource-modal--basic-search-input');
 			await userEvent.type(basicTextInput, 'testing');
 
 			await userEvent.click(getByTestId('jira-datasource-modal--basic-search-button'));
@@ -1190,10 +1161,10 @@ describe('Analytics: JiraSearchContainer', () => {
 		});
 
 		it('should fire event on enter key press', async () => {
-			const { getByPlaceholderText, getByTestId } = setup();
+			const { getByTestId } = setup();
 
 			await userEvent.click(getByTestId('mode-toggle-basic'));
-			const basicTextInput = getByPlaceholderText('Search for issues by keyword');
+			const basicTextInput = getByTestId('jira-datasource-modal--basic-search-input');
 			await userEvent.type(basicTextInput, 'testing');
 			await userEvent.keyboard('{Enter}');
 

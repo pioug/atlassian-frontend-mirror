@@ -1,5 +1,59 @@
 # @atlaskit/editor-plugins
 
+## 10.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.0
+
+### Major Changes
+
+- [#188604](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188604)
+  [`2447351dcf766`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2447351dcf766) - ##
+  What? Remove entry-points to table plugin:
+
+  - `@atlaskit/editor-plugin-table/commands`
+  - `@atlaskit/editor-plugin-table/plugin-key`
+  - `@atlaskit/editor-plugin-table/ui/consts`
+  - `@atlaskit/editor-plugins/table/ui/consts`
+  - `@atlaskit/editor-plugins/table/plugin-key`
+  - `@atlaskit/editor-plugins/table/commands`
+
+  ## Why?
+
+  These entry-points allow for dangerous practices by directly manipulating internal prosemirror
+  state.
+
+  This change should not affect most consumers as these should not be used.
+
+  ## How to update
+
+  Table state can be read and changed via the public plugin interface which is safe and well tested.
+
+  Example:
+
+  ```ts
+  // Table actions
+  editorApi?.table.actions.insertTable(...);
+
+  // Read the table state
+  const tableState = useSharedPluginStateWithSelector(editorApi, ['table'], ({ tableState }) => {
+    return { ... };
+  })
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.4.54
 
 ### Patch Changes

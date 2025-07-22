@@ -104,8 +104,8 @@ export const BaseTextElement = ({
 		},
 	});
 
-	const newContent = hideFormat && content ? content : getFormattedMessage(message) || content;
-	const oldContent = getFormattedMessage(message) || content;
+	const formattedContent =
+		hideFormat && content ? content : getFormattedMessage(message) || content;
 
 	return (
 		<span
@@ -118,8 +118,7 @@ export const BaseTextElement = ({
 				dynamicCss,
 			]}
 			style={{
-				color:
-					color && fg('platform-linking-additional-flexible-element-props') ? color : undefined,
+				color,
 			}}
 			data-separator
 			data-smart-element={name}
@@ -128,7 +127,7 @@ export const BaseTextElement = ({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 			className={className}
 		>
-			{fg('platform-linking-additional-flexible-element-props') ? newContent : oldContent}
+			{formattedContent}
 		</span>
 	);
 };
@@ -139,10 +138,7 @@ export const toFormattedTextProps = (
 	descriptor: MessageDescriptor,
 	context?: string,
 ): Partial<BaseTextElementProps> | undefined => {
-	if (fg('platform-linking-additional-flexible-element-props')) {
-		return context ? { message: { descriptor, values: { context } }, content: context } : undefined;
-	}
-	return context ? { message: { descriptor, values: { context } } } : undefined;
+	return context ? { message: { descriptor, values: { context } }, content: context } : undefined;
 };
 
 export const toTextProps = (content?: string): Partial<BaseTextElementProps> | undefined => {

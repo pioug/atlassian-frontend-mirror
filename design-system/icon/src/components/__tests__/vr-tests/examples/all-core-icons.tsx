@@ -568,7 +568,6 @@ const Icons = [
 	PriorityTrivialIcon,
 	SpreadsheetIcon,
 	AppsIcon,
-	AiChatIcon,
 	ThumbsDownIcon,
 	PulseIcon,
 	LibraryIcon,
@@ -618,9 +617,7 @@ const Icons = [
 	MinimizeIcon,
 	MaximizeIcon,
 	ExpandHorizontalIcon,
-	CollapseHorizontalIcon,
 	ExpandVerticalIcon,
-	CollapseVerticalIcon,
 	GrowVerticalIcon,
 	ShrinkVerticalIcon,
 	ScalesIcon,
@@ -743,6 +740,9 @@ const Icons = [
 	WarningIcon,
 	CaptureIcon,
 	CloseIcon,
+	AiChatIcon,
+	CollapseHorizontalIcon,
+	CollapseVerticalIcon,
 ];
 
 const groupSize = 20;

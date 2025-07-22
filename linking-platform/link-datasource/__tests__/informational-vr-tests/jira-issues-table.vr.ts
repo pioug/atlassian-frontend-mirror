@@ -25,9 +25,7 @@ snapshotInformational(JiraIssuesTable, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
-	featureFlags: {
-		'platform-linking-visual-refresh-sllv': true,
-	},
+	featureFlags: {},
 });
 snapshotInformational(JiraIssuesTable, {
 	prepare: async (page: Page, _component: Locator) => {
@@ -48,9 +46,7 @@ snapshotInformational(JiraIssuesTable, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
-	featureFlags: {
-		'platform-linking-visual-refresh-sllv': true,
-	},
+	featureFlags: {},
 });
 snapshotInformational(JiraIssuesTable, {
 	prepare: async (page: Page, _component: Locator) => {
@@ -70,9 +66,7 @@ snapshotInformational(JiraIssuesTable, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
-	featureFlags: {
-		'platform-linking-visual-refresh-sllv': true,
-	},
+	featureFlags: {},
 });
 snapshotInformational(JiraIssuesTable, {
 	prepare: async (page: Page, _component: Locator) => {
@@ -92,9 +86,7 @@ snapshotInformational(JiraIssuesTable, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
-	featureFlags: {
-		'platform-linking-visual-refresh-sllv': true,
-	},
+	featureFlags: {},
 });
 snapshotInformational(JiraIssuesTable, {
 	prepare: async (page: Page, _component: Locator) => {
@@ -115,9 +107,7 @@ snapshotInformational(JiraIssuesTable, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
-	featureFlags: {
-		'platform-linking-visual-refresh-sllv': true,
-	},
+	featureFlags: {},
 });
 snapshotInformational(JiraIssuesTable, {
 	prepare: async (page: Page, _component: Locator) => {
@@ -137,9 +127,7 @@ snapshotInformational(JiraIssuesTable, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
-	featureFlags: {
-		'platform-linking-visual-refresh-sllv': true,
-	},
+	featureFlags: {},
 });
 
 snapshotInformational(JiraIssuesTableSingleRow, {
@@ -153,9 +141,7 @@ snapshotInformational(JiraIssuesTableSingleRow, {
 	},
 	drawsOutsideBounds: true,
 	description: 'Hovering over summary',
-	featureFlags: {
-		'platform-linking-visual-refresh-sllv': true,
-	},
+	featureFlags: {},
 });
 
 snapshotInformational(JiraIssuesTable, {
@@ -171,9 +157,7 @@ snapshotInformational(JiraIssuesTable, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
-	featureFlags: {
-		'platform-linking-visual-refresh-sllv': true,
-	},
+	featureFlags: {},
 });
 
 snapshotInformational(JiraIssuesTable, {
@@ -189,9 +173,7 @@ snapshotInformational(JiraIssuesTable, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
-	featureFlags: {
-		'platform-linking-visual-refresh-sllv': true,
-	},
+	featureFlags: {},
 });
 
 snapshotInformational(JiraIssuesTable, {
@@ -207,9 +189,7 @@ snapshotInformational(JiraIssuesTable, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
-	featureFlags: {
-		'platform-linking-visual-refresh-sllv': true,
-	},
+	featureFlags: {},
 });
 
 snapshotInformational(JiraIssuesTable, {
@@ -225,9 +205,7 @@ snapshotInformational(JiraIssuesTable, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
-	featureFlags: {
-		'platform-linking-visual-refresh-sllv': true,
-	},
+	featureFlags: {},
 });
 
 snapshotInformational(JiraIssuesTable, {
@@ -243,9 +221,7 @@ snapshotInformational(JiraIssuesTable, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
-	featureFlags: {
-		'platform-linking-visual-refresh-sllv': true,
-	},
+	featureFlags: {},
 });
 
 snapshotInformational(JiraIssuesTable, {
@@ -267,7 +243,5 @@ snapshotInformational(JiraIssuesTable, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
-	featureFlags: {
-		'platform-linking-visual-refresh-sllv': true,
-	},
+	featureFlags: {},
 });

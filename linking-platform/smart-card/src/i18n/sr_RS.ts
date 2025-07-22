@@ -145,13 +145,7 @@ export default {
   'fabric.linking.related': 'Srodno',
   'fabric.linking.related_links_found_in': 'Pronađeno u',
   'fabric.linking.related_links_includes_links_to': 'Sadrži linkove do',
-  'fabric.linking.related_links_modal_error_header': 'Došlo je do greške',
-  'fabric.linking.related_links_modal_error_message':
-    'Došlo je do greške kod pokušaja učitavanja nedavnih linkova. Proverite vezu ili osvežite da biste probali ponovo.',
-  'fabric.linking.related_links_modal_title': 'Nedavni linkovi',
-  'fabric.linking.related_links_modal_unavailable_header': 'Nema nedavnih linkova',
-  'fabric.linking.related_links_modal_unavailable_message':
-    'Nismo pronašli linkove koje možemo ovde da prikažemo. Neprekidno pregledamo i dodajemo nedavne linkove za ažurirane stranice ili druge tipove sadržaja.',
+  'fabric.linking.related_links_modal_title': 'Srodni linkovi',
   'fabric.linking.related_links_not_found': 'Nismo pronašli linkove koje možemo ovde da prikažemo.',
   'fabric.linking.related_links_view_related_urls': 'Prikaži nedavne linkove',
   'fabric.linking.request_access': 'Zatražite pristup',

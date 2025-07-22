@@ -5,7 +5,6 @@
  */
 import { cssMap, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex, Inline } from '@atlaskit/primitives/compiled';
 
 const styles = cssMap({
@@ -53,11 +52,7 @@ export function SharedIconComponent({
 				<img
 					src={iconUrl}
 					alt={label?.toLowerCase() !== text?.toLowerCase() ? label : ''}
-					css={fg('platform-linking-visual-refresh-sllv') && styles.iconStyles}
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					style={
-						fg('platform-linking-visual-refresh-sllv') ? {} : { minWidth: '24px', maxWidth: '24px' }
-					} // having just width: '24px' shrinks it when table width is reduced
+					css={styles.iconStyles}
 				/>
 			</Inline>
 			{text && (

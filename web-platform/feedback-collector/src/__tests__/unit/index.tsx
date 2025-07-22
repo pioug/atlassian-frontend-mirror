@@ -780,6 +780,40 @@ We have some formatting here
 			const label = screen.getByText('test label name');
 			expect(label).toBeInTheDocument();
 		});
+
+		describe('disableSubmitButton', () => {
+			const enterFormData = () => {
+				const select = screen.getAllByRole('combobox')[0];
+				fireEvent.change(select, { target: { value: 'comment' } });
+				fireEvent.keyDown(select, { key: 'Enter', code: 13 });
+
+				const textarea = screen.getByRole('textbox');
+				fireEvent.change(textarea, { target: { value: 'Some comment' } });
+			};
+
+			test('should disable submit button when disableSubmitButton is true and other fields are filled in', () => {
+				render(
+					<FeedbackForm
+						locale={'en'}
+						onClose={() => {}}
+						onSubmit={async () => {}}
+						disableSubmitButton
+					/>,
+				);
+				enterFormData();
+
+				const submitBtn = screen.getByTestId('feedbackCollectorSubmitBtn');
+				expect(submitBtn).toBeDisabled();
+			});
+
+			test('should not disable submit button when disableSubmitButton is undefined', () => {
+				render(<FeedbackForm locale={'en'} onClose={() => {}} onSubmit={async () => {}} />);
+				enterFormData();
+
+				const submitBtn = screen.getByTestId('feedbackCollectorSubmitBtn');
+				expect(submitBtn).not.toBeDisabled();
+			});
+		});
 	});
 
 	describe('Feedback Flag', () => {

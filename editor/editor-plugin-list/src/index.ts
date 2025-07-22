@@ -12,4 +12,10 @@ export type {
 	ToggleOrderedList,
 } from './types';
 export { listPlugin } from './listPlugin';
-export type { ListPlugin } from './listPluginType';
+export type {
+	ListPlugin,
+	ListPluginDependencies,
+	ListPluginActions,
+	ListPluginCommands,
+	ListPluginSharedState,
+} from './listPluginType';

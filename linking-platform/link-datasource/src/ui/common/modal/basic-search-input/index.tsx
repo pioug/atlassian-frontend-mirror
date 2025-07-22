@@ -26,11 +26,6 @@ export interface BasicSearchInputProps {
 	searchTerm: string;
 	fullWidth?: boolean;
 	testId: string;
-	/**
-	 * @private
-	 * @deprecated Remove on FG clean up of `platform-linking-visual-refresh-sllv`
-	 */
-	placeholder: MessageDescriptor;
 	ariaLabel: MessageDescriptor;
 }
 
@@ -46,11 +41,6 @@ const formStyles = css({
 	flex: 1,
 });
 
-const formWithMaxWidthStylesOld = css({
-	flex: 1,
-	maxWidth: 250,
-});
-
 const formWithMaxWidthStyles = css({
 	flex: 1,
 	maxWidth: 300,
@@ -64,7 +54,6 @@ export const BasicSearchInput = ({
 	searchTerm,
 	fullWidth,
 	testId,
-	placeholder,
 	ariaLabel,
 }: BasicSearchInputProps) => {
 	const { formatMessage } = useIntl();
@@ -81,16 +70,7 @@ export const BasicSearchInput = ({
 	};
 
 	return (
-		<form
-			css={[
-				fullWidth
-					? formStyles
-					: fg('platform-linking-visual-refresh-sllv')
-						? formWithMaxWidthStyles
-						: formWithMaxWidthStylesOld,
-			]}
-			onSubmit={handleFormSubmit}
-		>
+		<form css={[fullWidth ? formStyles : formWithMaxWidthStyles]} onSubmit={handleFormSubmit}>
 			<Textfield
 				elemAfterInput={
 					fg('replace-legacy-button-in-sllv') ? (
@@ -144,14 +124,9 @@ export const BasicSearchInput = ({
 				}
 				autoFocus
 				onChange={onChange}
-				placeholder={
-					fg('platform-linking-visual-refresh-sllv') ? undefined : formatMessage(placeholder)
-				}
 				testId={`${testId}--basic-search-input`}
 				value={searchTerm}
-				aria-label={formatMessage(
-					fg('platform-linking-visual-refresh-sllv') ? ariaLabel : placeholder,
-				)}
+				aria-label={formatMessage(ariaLabel)}
 			/>
 		</form>
 	);

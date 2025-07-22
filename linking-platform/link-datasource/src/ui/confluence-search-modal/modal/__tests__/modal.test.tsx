@@ -61,6 +61,7 @@ describe('ConfluenceSearchConfigModal', () => {
 		initialState: 'datasource-modal--initial-state-view',
 		modalTitle: 'confluence-search-datasource-modal--title',
 		basicSearchInput: 'confluence-search-datasource-modal--basic-search-input',
+		basicSearchInputPlaceholder: 'confluence-search-placeholder',
 		noContent: 'no-confluence-instances-content',
 		noResults: 'datasource-modal--no-results',
 		emptyState: 'confluence-search-datasource-modal--empty-state',
@@ -673,9 +674,9 @@ describe('ConfluenceSearchConfigModal', () => {
 			});
 
 			expect(await screen.findByTestId(testIds.basicSearchInput)).toBeInTheDocument();
-			expect(
-				(await screen.findByTestId(testIds.basicSearchInput)).getAttribute('placeholder'),
-			).toEqual('Enter keywords to find pages, attachments, and more');
+			expect((await screen.findByTestId(testIds.basicSearchInputPlaceholder)).textContent).toEqual(
+				'Enter keywords to find pages, attachments, and more',
+			);
 		});
 
 		it('should not display results count', async () => {
@@ -1339,7 +1340,9 @@ describe('ConfluenceSearchConfigModal', () => {
 				hookState: { ...getDefaultHookState(), responseItems: [] },
 			});
 
-			expect(await screen.findByText('No results found')).toBeInTheDocument();
+			expect(
+				await screen.findByText("We couldn't find anything matching your search"),
+			).toBeInTheDocument();
 			expect(await screen.findByTestId(testIds.insertButton)).not.toBeDisabled();
 		});
 
@@ -1349,7 +1352,9 @@ describe('ConfluenceSearchConfigModal', () => {
 				viewMode: 'inline',
 			});
 
-			expect(screen.queryByText('No results found')).not.toBeInTheDocument();
+			expect(
+				screen.queryByText("We couldn't find anything matching your search"),
+			).not.toBeInTheDocument();
 			expect(await screen.findByRole('button', { name: 'Insert results' })).not.toBeDisabled();
 			await userEvent.click(await screen.findByRole('button', { name: 'Insert results' }));
 			expect(onInsert).toHaveBeenCalledTimes(1);
@@ -1362,7 +1367,9 @@ describe('ConfluenceSearchConfigModal', () => {
 				hookState: { ...getErrorHookState() },
 			});
 
-			expect(await screen.findByText('Unable to load results')).toBeInTheDocument();
+			expect(
+				await screen.findByText('We ran into an issue trying to fetch results'),
+			).toBeInTheDocument();
 			expect(await screen.findByTestId(testIds.insertButton)).toBeDisabled();
 		});
 
@@ -1372,7 +1379,9 @@ describe('ConfluenceSearchConfigModal', () => {
 				viewMode: 'inline',
 			});
 
-			expect(screen.queryByText('Unable to load results')).not.toBeInTheDocument();
+			expect(
+				screen.queryByText('We ran into an issue trying to fetch results'),
+			).not.toBeInTheDocument();
 		});
 
 		it('should show no results message on a 403 aka forbidden status', async () => {
@@ -1392,9 +1401,7 @@ describe('ConfluenceSearchConfigModal', () => {
 			});
 
 			// results view
-			expect(
-				await screen.findByText("You don't have access to the following site:"),
-			).toBeInTheDocument();
+			expect(await screen.findByText("You don't have access to")).toBeInTheDocument();
 			expect(await screen.findByTestId(testIds.insertButton)).toBeDisabled();
 		});
 
@@ -1406,10 +1413,8 @@ describe('ConfluenceSearchConfigModal', () => {
 					url: 'https://hello.atlassian.net',
 				});
 
-				expect(getSiteSelectorText()).toEqual('Choose site');
-				expect(
-					await screen.findByText("You don't have access to the following site:"),
-				).toBeInTheDocument();
+				expect(await getSiteSelectorText()).toEqual('Select a site');
+				expect(await screen.findByText("You don't have access to")).toBeInTheDocument();
 				expect(await screen.findByText('https://hello.atlassian.net')).toBeInTheDocument();
 			});
 
@@ -1419,7 +1424,7 @@ describe('ConfluenceSearchConfigModal', () => {
 					mockSiteDataOverride: mockSiteData.slice(3),
 				});
 
-				expect(getSiteSelectorText()).toEqual('Choose site');
+				expect(await getSiteSelectorText()).toEqual('Select a site');
 				expect(
 					await screen.findByText("You don't have access to this content"),
 				).toBeInTheDocument();
@@ -1432,7 +1437,7 @@ describe('ConfluenceSearchConfigModal', () => {
 					url: '',
 				});
 
-				expect(getSiteSelectorText()).toEqual('Choose site');
+				expect(await getSiteSelectorText()).toEqual('Select a site');
 				expect(
 					await screen.findByText("You don't have access to this content"),
 				).toBeInTheDocument();

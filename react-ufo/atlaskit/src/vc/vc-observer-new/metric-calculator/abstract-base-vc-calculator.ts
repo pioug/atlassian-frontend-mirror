@@ -164,8 +164,7 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 		const shouldCalculateDebugDetails =
 			!isPostInteraction &&
 			(typeof window?.__ufo_devtool_onVCRevisionReady__ === 'function' ||
-				(typeof window?.__on_ufo_vc_debug_data_ready === 'function' &&
-					fg('platform_ufo_emit_vc_debug_data')));
+				typeof window?.__on_ufo_vc_debug_data_ready === 'function');
 
 		if (shouldCalculateDebugDetails && allEntries && vcLogs) {
 			// Pre-sort vcLogs by time for efficient lookups
@@ -264,11 +263,7 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 			}
 		}
 
-		if (
-			v3RevisionDebugDetails &&
-			typeof window?.__on_ufo_vc_debug_data_ready === 'function' &&
-			fg('platform_ufo_emit_vc_debug_data')
-		) {
+		if (v3RevisionDebugDetails && typeof window?.__on_ufo_vc_debug_data_ready === 'function') {
 			try {
 				window?.__on_ufo_vc_debug_data_ready?.(v3RevisionDebugDetails);
 			} catch (e) {

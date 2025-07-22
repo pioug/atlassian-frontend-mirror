@@ -5,9 +5,9 @@ import { render, screen } from '@testing-library/react';
 import noop from '@atlaskit/ds-lib/noop';
 
 import { useModal } from '../../hooks';
+import ModalDialog from '../../modal-dialog';
 import ModalHeader from '../../modal-header';
 import ModalTitle from '../../modal-title';
-import ModalDialog from '../../modal-wrapper';
 
 describe('<ModalTitle />', () => {
 	it('modal dialog should use aria-labelledby to reference the title text', () => {

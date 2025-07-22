@@ -1,5 +1,6 @@
 import { isCodeBlockWordWrapEnabled } from '@atlaskit/editor-common/code-block';
 import commonMessages, { codeBlockButtonMessages } from '@atlaskit/editor-common/messages';
+import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type {
 	Command,
 	ExtractInjectionAPI,
@@ -17,7 +18,6 @@ import CopyIcon from '@atlaskit/icon/core/migration/copy';
 import RemoveIcon from '@atlaskit/icon/core/migration/delete--editor-remove';
 import TextWrapIcon from '@atlaskit/icon/core/text-wrap';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import {
 	changeLanguage,
@@ -109,6 +109,8 @@ export const getToolbarConfig =
 			type: 'separator',
 		};
 
+		const isNewEditorToolbarEnabled = areToolbarFlagsEnabled();
+
 		const copyToClipboardItems = !allowCopyToClipboard
 			? []
 			: ([
@@ -140,7 +142,7 @@ export const getToolbarConfig =
 				] as const);
 
 		let copyAndDeleteButtonMenuItems: FloatingToolbarItem<Command>[] = [];
-		if (expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1')) {
+		if (isNewEditorToolbarEnabled) {
 			const overflowMenuOptions: FloatingToolbarOverflowDropdownOptions<Command> = [
 				{
 					title: formatMessage(commonMessages.delete),
@@ -218,9 +220,7 @@ export const getToolbarConfig =
 			nodeType,
 			items: [
 				languageSelect,
-				...(expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1')
-					? []
-					: [separator]),
+				...(isNewEditorToolbarEnabled ? [] : [separator]),
 				codeBlockWrapButton,
 				...copyAndDeleteButtonMenuItems,
 			],

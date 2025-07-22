@@ -1,5 +1,13 @@
 # @atlaskit/rovo-agent-components
 
+## 2.13.1
+
+### Patch Changes
+
+- [#188589](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188589)
+  [`c27342e248d6b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c27342e248d6b) -
+  Update to fix the workflow builder icon mapping to use the correct icon.
+
 ## 2.13.0
 
 ### Minor Changes

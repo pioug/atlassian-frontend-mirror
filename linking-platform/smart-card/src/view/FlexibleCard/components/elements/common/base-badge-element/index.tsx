@@ -8,7 +8,6 @@ import React, { forwardRef } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 import { type MessageDescriptor } from 'react-intl-next';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -159,8 +158,7 @@ const BaseBadgeRefreshNew = forwardRef(
 				css={[styles.container, colorMap[appearance]]}
 				ref={ref}
 				style={{
-					color:
-						color && fg('platform-linking-additional-flexible-element-props') ? color : undefined,
+					color,
 				}}
 			>
 				{!hideIcon && (

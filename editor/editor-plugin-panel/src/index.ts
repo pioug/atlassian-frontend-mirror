@@ -2,4 +2,9 @@
 // Entry file in package.json
 
 export { default as panelPlugin } from './panelPlugin';
-export type { PanelPlugin, PanelPluginConfig, PanelPluginOptions } from './panelPluginType';
+export type {
+	PanelPlugin,
+	PanelPluginConfig,
+	PanelPluginOptions,
+	PanelPluginDependencies,
+} from './panelPluginType';

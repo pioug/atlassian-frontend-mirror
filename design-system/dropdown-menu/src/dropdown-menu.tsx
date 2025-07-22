@@ -108,6 +108,7 @@ const DropdownMenu = <T extends HTMLElement = any>({
 	label,
 	interactionName,
 	strategy,
+	menuLabel,
 }: DropdownMenuProps<T>) => {
 	const [isLocalOpen, setLocalIsOpen] = useControlledState(isOpen, () => defaultOpen);
 	const triggerRef = useRef<HTMLElement | null>(null);
@@ -353,6 +354,7 @@ const DropdownMenu = <T extends HTMLElement = any>({
 							isTriggeredUsingKeyboard={isTriggeredUsingKeyboard}
 							autoFocus={autoFocus}
 							testId={testId && `${testId}--menu-wrapper`}
+							menuLabel={menuLabel}
 						>
 							{children}
 						</MenuWrapper>

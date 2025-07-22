@@ -1,7 +1,10 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 
-import { akEditorDeleteIconColor } from '@atlaskit/editor-shared-styles';
+import {
+	akEditorDeleteIconColor,
+	akEditorFullPageNarrowBreakout,
+} from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -549,4 +552,48 @@ export const pragmaticResizerStyles = () => {
 			bottom: token('space.150', '12px'),
 		},
 	});
+};
+
+export const pragmaticResizerStylesWithReducedEditorGutter = () => {
+	if (
+		expValEqualsNoExposure('platform_editor_preview_panel_responsiveness', 'isEnabled', true) &&
+		(expValEqualsNoExposure('advanced_layouts', 'isEnabled', true) ||
+			expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true))
+	) {
+		return css({
+			/* container editor-area is defined in platform/packages/editor/editor-core/src/ui/Appearance/FullPage/StyledComponents.ts */
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-container-queries, @atlaskit/ui-styling-standard/no-unsafe-values,  @atlaskit/ui-styling-standard/no-imported-style-values
+			[`@container editor-area (max-width: ${akEditorFullPageNarrowBreakout}px)`]: {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+				'.fabric-editor-breakout-mark': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+					'&:has([data-prosemirror-node-name="expand"]), &:has([data-prosemirror-node-name="layoutSection"])':
+						{
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+							'> .pm-breakout-resize-handle-container': {
+								opacity: 0,
+								visibility: 'hidden',
+							},
+						},
+
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+					'&:has([data-prosemirror-node-name="layoutSection"])': {
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
+						[`.${resizerItemClassName}`]: {
+							willChange: 'width',
+
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+							'&:hover, &.display-handle': {
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
+								[`& > .${handleWrapperClass} > .${resizerHandleClassName}`]: {
+									visibility: 'hidden',
+									opacity: 0,
+								},
+							},
+						},
+					},
+				},
+			},
+		});
+	}
 };

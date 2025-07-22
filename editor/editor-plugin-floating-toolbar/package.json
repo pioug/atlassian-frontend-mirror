@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-floating-toolbar",
-	"version": "5.0.4",
+	"version": "5.1.0",
 	"description": "Floating toolbar plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

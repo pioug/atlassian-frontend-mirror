@@ -144,22 +144,13 @@ export default {
   'fabric.linking.read_time': '{context} min å lese',
   'fabric.linking.related': 'Beslektet',
   'fabric.linking.related_links_found_in': 'Funnet i',
-  'fabric.linking.related_links_found_in_v2': 'Funnet i',
   'fabric.linking.related_links_includes_links_to': 'Inkluderer koblinger til',
-  'fabric.linking.related_links_includes_links_to_v2': 'Inkluderer koblinger til',
   'fabric.linking.related_links_modal_error_description':
     'Sjekk nettverkstilkoblingen, eller oppdater siden for å prøve på nytt',
-  'fabric.linking.related_links_modal_error_header': 'Det oppstod en feil',
-  'fabric.linking.related_links_modal_error_message':
-    'Det oppstod et problem under innlasting av nylige koblinger. Sjekk tilkoblingen eller oppdater for å prøve igjen.',
   'fabric.linking.related_links_modal_error_title': 'Vi har problemer med å laste relaterte koblinger',
-  'fabric.linking.related_links_modal_title': 'Nylige koblinger',
-  'fabric.linking.related_links_modal_title_v2': 'Relaterte koblinger',
+  'fabric.linking.related_links_modal_title': 'Relaterte koblinger',
   'fabric.linking.related_links_modal_unavailable_description':
     'Vi gjennomgår og legger stadig til relaterte koblinger for oppdaterte sider eller andre innholdstyper',
-  'fabric.linking.related_links_modal_unavailable_header': 'Ingen nylige koblinger',
-  'fabric.linking.related_links_modal_unavailable_message':
-    'Vi finner ingen koblinger å vise her. Vi gjennomgår og legger stadig til nylige koblinger for oppdaterte sider eller andre innholdstyper.',
   'fabric.linking.related_links_modal_unavailable_title': 'Vi finner ingen relaterte koblinger',
   'fabric.linking.related_links_not_found': 'Vi finner ingen koblinger å vise her.',
   'fabric.linking.related_links_view_related_links': 'Vis relaterte koblinger',

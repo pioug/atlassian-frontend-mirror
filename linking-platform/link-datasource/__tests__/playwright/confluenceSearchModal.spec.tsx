@@ -2,7 +2,8 @@ import type { Page } from '@playwright/test';
 
 import { expect, test } from '@af/integration-testing';
 
-const sitePickerSelector = '.confluence-search-datasource-modal--site-selector__control';
+const sitePickerSelector =
+	'[data-testid="confluence-search-datasource-modal--site-selector__control"]';
 
 test.describe('ConfluenceSearchModal', () => {
 	async function setup(
@@ -25,14 +26,14 @@ test.describe('ConfluenceSearchModal', () => {
 
 		const currentSelectedSite = await page.locator(sitePickerSelector).textContent();
 
-		await expect(currentSelectedSite?.replace('\n', ' ')).toEqual('hello');
+		expect(currentSelectedSite?.replace('\n', ' ')).toEqual('hello');
 
 		await page.locator(sitePickerSelector).click();
 		await page.getByText('test1', { exact: true }).click();
 
 		const newSelectedSite = await page.locator(sitePickerSelector).textContent();
 
-		await expect(newSelectedSite?.replace('\n', ' ')).toEqual('test1');
+		expect(newSelectedSite?.replace('\n', ' ')).toEqual('test1');
 	});
 
 	test('should show issues in a table when basic searched', async ({ page }) => {
@@ -59,7 +60,7 @@ test.describe('ConfluenceSearchModal', () => {
 		await page.locator(sitePickerSelector).click();
 		await page.getByText('testNoAccess', { exact: true }).click();
 		await page.getByTestId('confluence-search-datasource-modal--basic-search-button').click();
-		await expect(page.getByText("You don't have access to the following site:")).toBeVisible();
+		await expect(page.getByText("You don't have access to")).toBeVisible();
 		await expect(page.getByText('https://test7.atlassian.net')).toBeVisible();
 		await expect(
 			page.getByText('To request access, contact your site administrator.'),

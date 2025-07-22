@@ -11,6 +11,11 @@ export default defineMessages({
 		defaultMessage: 'More actions',
 		description: 'More actions dropdown menu label',
 	},
+	moreActionsForLabel: {
+		id: 'rovo-chat.view-agent.more-actions-for-label',
+		defaultMessage: 'More actions for {agentName}',
+		description: 'More actions dropdown menu label',
+	},
 	duplicateAgent: {
 		id: 'rovo-chat.view-agent.duplicate-agent',
 		defaultMessage: 'Duplicate Agent',

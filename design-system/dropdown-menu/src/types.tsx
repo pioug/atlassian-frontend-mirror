@@ -240,6 +240,11 @@ interface InternalDropdownMenuProps<TriggerElement extends HTMLElement = any> {
 	 * The default is `fixed`.
 	 */
 	strategy?: 'absolute' | 'fixed';
+
+	/**
+	 * Provide an accessible label for the menu element for assistive technology.
+	 */
+	menuLabel?: string;
 }
 
 type StandardDropdownMenuProps<TriggerElement extends HTMLElement = any> =

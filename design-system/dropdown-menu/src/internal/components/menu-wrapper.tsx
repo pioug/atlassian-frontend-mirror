@@ -60,6 +60,7 @@ const MenuWrapper = ({
 	testId,
 	isTriggeredUsingKeyboard,
 	autoFocus,
+	menuLabel,
 }: MenuWrapperProps) => {
 	const { menuItemRefs } = useContext(FocusManagerContext);
 
@@ -112,6 +113,7 @@ const MenuWrapper = ({
 			role="menu"
 			spacing={spacing}
 			testId={testId && `${testId}--menu-group`}
+			menuLabel={menuLabel}
 		>
 			{isLoading ? (
 				<LoadingIndicator

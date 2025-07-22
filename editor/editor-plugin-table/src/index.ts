@@ -12,4 +12,10 @@ export {
 	default as tablePlugin,
 } from './tablePlugin';
 // eslint-disable-next-line @atlaskit/editor/only-export-plugin
-export type { TablePlugin, TablePluginOptions } from './tablePluginType';
+export type {
+	TablePlugin,
+	TablePluginOptions,
+	TablePluginDependencies,
+	TablePluginActions,
+	TablePluginCommands,
+} from './tablePluginType';

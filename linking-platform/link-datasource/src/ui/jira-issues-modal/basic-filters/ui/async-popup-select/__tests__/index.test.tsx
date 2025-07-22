@@ -79,7 +79,7 @@ describe('Testing AsyncPopupSelect', () => {
 		it.each<[BasicFilterFieldType, string]>([
 			['project', 'Project'],
 			['assignee', 'Assignee'],
-			['type', 'Type'],
+			['type', 'Work type'],
 			['status', 'Status'],
 		])('should render the correct label for %s filter button', (filterType, label) => {
 			const { queryByTestId } = setup({ filterType });
@@ -116,7 +116,7 @@ describe('Testing AsyncPopupSelect', () => {
 			it.each<[BasicFilterFieldType, string]>([
 				['project', 'Project: Authorize'],
 				['assignee', 'Assignee: Authorize'],
-				['type', 'Type: Authorize'],
+				['type', 'Work type: Authorize'],
 				['status', 'Status: Authorize'],
 			])(
 				'should render the correct label for %s filter button when a single option has been selected',
@@ -145,7 +145,7 @@ describe('Testing AsyncPopupSelect', () => {
 			it.each<[BasicFilterFieldType, string]>([
 				['project', 'Project: Authorize+1'],
 				['assignee', 'Assignee: Authorize+1'],
-				['type', 'Type: Authorize+1'],
+				['type', 'Work type: Authorize+1'],
 				['status', 'Status: Authorize+1'],
 			])(
 				'should render the correct label for %s filter button when multiple options have been selected',
@@ -279,7 +279,7 @@ describe('Testing AsyncPopupSelect', () => {
 		});
 
 		expect(queryByTestId('jlol-basic-filter-status--no-options-message')).toBeInTheDocument();
-		expect(getByText('No matches found')).toBeInTheDocument();
+		expect(getByText("We couldn't find anything matching your search")).toBeInTheDocument();
 	});
 
 	it('should show the error state UI when the status is rejected', () => {
@@ -292,7 +292,7 @@ describe('Testing AsyncPopupSelect', () => {
 
 		expect(queryByTestId('jlol-basic-filter-status--error-message')).toBeInTheDocument();
 
-		expect(getByText('Something went wrong')).toBeInTheDocument();
+		expect(getByText('We ran into an issue trying to load results')).toBeInTheDocument();
 	});
 
 	it('should show the show more button when the status is resolved, pageCursor exists and totalCount is not equal to filterOptions length', () => {
@@ -507,7 +507,7 @@ describe('Testing AsyncPopupSelect', () => {
 		);
 
 		expect(input).toBeVisible();
-		expect(input).toHaveAttribute('aria-label', 'Search');
+		expect(input).toHaveAttribute('aria-label', 'Search for status');
 	});
 
 	it('should focus the search input after opening the picker', async () => {

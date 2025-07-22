@@ -1,5 +1,27 @@
 # @atlaskit/icon
 
+## 27.5.0
+
+### Minor Changes
+
+- [#188295](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188295)
+  [`301478c2f2125`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/301478c2f2125) -
+  This release updates icons in `@atlaskit/icon`.
+
+  ### Updated:
+
+  **`@atlaskit/icon/core`**
+
+  - `ai-chat`
+  - `collapse-horizontal`
+  - `collapse-vertical`
+  - `expand-horizontal`
+  - `expand-vertical`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.4.0
 
 ### Minor Changes

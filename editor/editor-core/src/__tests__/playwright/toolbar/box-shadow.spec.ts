@@ -28,6 +28,6 @@ test.describe('Box shadow with short browsers', () => {
 		const toolbar = EditorMainToolbarModel.from(editor);
 		await expect(toolbar.wrapper).toBeVisible();
 
-		await expect(editor.page).toBeAccessible({ violationCount: 1 });
+		await expect(editor.page).toBeAccessible();
 	});
 });

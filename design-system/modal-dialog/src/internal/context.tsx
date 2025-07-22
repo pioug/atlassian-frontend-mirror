@@ -26,6 +26,11 @@ export type ModalAttributes = {
 	 * button to be rendered.
 	 */
 	hasProvidedOnClose?: boolean;
+
+	/**
+	 * Whether or not the modal is fullscreen (when `width="full"` is passed to the modal).
+	 */
+	isFullScreen: boolean;
 };
 
 /* eslint-disable @repo/internal/react/require-jsdoc */

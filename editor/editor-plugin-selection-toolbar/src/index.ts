@@ -6,3 +6,4 @@ export type {
 	SelectionToolbarPlugin,
 	SelectionToolbarPluginOptions,
 } from './selectionToolbarPluginType';
+export type { ToolbarDocking } from './types';

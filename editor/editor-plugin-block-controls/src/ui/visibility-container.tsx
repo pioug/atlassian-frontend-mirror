@@ -1,9 +1,18 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React from 'react';
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { css, jsx } from '@emotion/react';
 
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
+import { akEditorFullPageNarrowBreakout } from '@atlaskit/editor-shared-styles';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 
@@ -26,12 +35,38 @@ const hiddenStyles = xcss({
 	visibility: 'hidden',
 });
 
+const baseStylesCSS = css({
+	transition: 'opacity 0.1s ease-in-out, visibility 0.1s ease-in-out',
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-container-queries, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+	[`@container editor-area (max-width: ${akEditorFullPageNarrowBreakout}px)`]: {
+		opacity: 0,
+		visibility: 'hidden',
+	},
+});
+
+const visibleStylesCSS = css({
+	opacity: 1,
+	visibility: 'visible',
+});
+
+const hiddenStylesCSS = css({
+	opacity: 0,
+	visibility: 'hidden',
+});
+
 export const VisibilityContainer = ({ api, children }: VisibilityContainerProps) => {
 	const isTypeAheadOpen = useSharedPluginStateSelector(api, 'typeAhead.isOpen');
 	const isEditing = useSharedPluginStateSelector(api, 'blockControls.isEditing');
 	const isMouseOut = useSharedPluginStateSelector(api, 'blockControls.isMouseOut');
 
 	const shouldHide = isTypeAheadOpen || isEditing || isMouseOut;
+
+	if (expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true)) {
+		return (
+			<div css={[baseStylesCSS, shouldHide ? hiddenStylesCSS : visibleStylesCSS]}>{children}</div>
+		);
+	}
 
 	return <Box xcss={[baseStyles, shouldHide ? hiddenStyles : visibleStyles]}>{children}</Box>;
 };

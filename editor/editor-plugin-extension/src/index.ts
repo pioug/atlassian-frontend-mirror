@@ -8,5 +8,9 @@ export type {
 	InsertOrReplaceExtensionType,
 	RunMacroAutoConvert,
 	RejectSave,
+	ExtensionPluginDependencies,
+	ExtensionState,
+	ExtensionAction,
+	ExtensionPluginActions,
 } from './extensionPluginType';
 export { extensionPlugin } from './extensionPlugin';

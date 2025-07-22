@@ -142,23 +142,11 @@ export default {
   'fabric.linking.priority_undefined': 'Nedefinováno',
   'fabric.linking.read_time': '{context} min. čtení',
   'fabric.linking.related': 'Souvisící',
-  'fabric.linking.related_links_found_in': 'Nalezeno v:',
-  'fabric.linking.related_links_found_in_v2': 'Nalezeno v:',
-  'fabric.linking.related_links_includes_links_to': 'Zahrnuje odkazy na:',
-  'fabric.linking.related_links_includes_links_to_v2': 'Zahrnuje odkazy na:',
   'fabric.linking.related_links_modal_error_description':
     'Zkontrolujte připojení nebo obnovte stránku a zkuste to znovu.',
-  'fabric.linking.related_links_modal_error_header': 'Něco se pokazilo',
-  'fabric.linking.related_links_modal_error_message':
-    'Při pokusu o načtení nedávných odkazů se vyskytl problém. Zkontrolujte připojení nebo obnovte stránku a zkuste to znovu.',
   'fabric.linking.related_links_modal_error_title': 'Při načítání souvisejících odkazů se vyskytly problémy',
-  'fabric.linking.related_links_modal_title': 'Nedávné odkazy',
-  'fabric.linking.related_links_modal_title_v2': 'Související odkazy',
   'fabric.linking.related_links_modal_unavailable_description':
     'Neustále kontrolujeme a přidáváme související odkazy na aktualizované stránky nebo jiné typy obsahu.',
-  'fabric.linking.related_links_modal_unavailable_header': 'Žádné nedávné odkazy',
-  'fabric.linking.related_links_modal_unavailable_message':
-    'Nebyly nalezeny žádné odkazy, které bychom tu mohli zobrazit. Neustále kontrolujeme a přidáváme odkazy na nedávno aktualizované stránky nebo jiné typy obsahu.',
   'fabric.linking.related_links_modal_unavailable_title': 'Nepodařilo se najít žádné související odkazy',
   'fabric.linking.related_links_not_found': 'Nebyly nalezeny žádné odkazy, které bychom tu mohli zobrazit.',
   'fabric.linking.related_links_view_related_links': 'Zobrazit související odkazy',

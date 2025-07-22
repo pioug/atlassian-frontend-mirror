@@ -40,6 +40,7 @@ import type {
 } from '@atlaskit/editor-plugins/primary-toolbar';
 import { tableCommentEditorStyles } from '@atlaskit/editor-plugins/table/ui/common-styles';
 import { akEditorMobileBreakoutPoint } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -397,6 +398,11 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 														overflowY: 'auto',
 													})
 												: null
+										}
+										isScrollable={
+											maxHeight && fg('platform_editor_editor_container_a11y_focus')
+												? true
+												: undefined
 										}
 										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 										className={classnames('ak-editor-content-area', {

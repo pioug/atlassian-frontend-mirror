@@ -147,6 +147,7 @@ describe('<Header />', () => {
 			const heading = await screen.findByRole('heading', { level: 1 });
 			expect(heading).toBeVisible();
 			expect(heading).toHaveTextContent('img.png');
+			expect(heading).toHaveAttribute('id', 'media.media-viewer.file.name');
 		});
 
 		describe('File collectionName', () => {

@@ -188,7 +188,7 @@ describe('Analytics: JiraIssuesConfigModal', () => {
 
 		const actionAttributeTests = (
 			actionSubjectId: 'insert' | 'cancel',
-			buttonName: 'Insert issues' | 'Cancel',
+			buttonName: 'Insert results' | 'Cancel',
 			defaultAttributes: any,
 		) => {
 			describe('with "actions" attribute', () => {
@@ -310,7 +310,7 @@ describe('Analytics: JiraIssuesConfigModal', () => {
 		};
 
 		describe('insert', () => {
-			const INSERT_BUTTON_NAME = 'Insert issues';
+			const INSERT_BUTTON_NAME = 'Insert results';
 			const INSERT_ACTION_SUBJECT_ID = 'insert';
 			let defaultAttributes = {};
 

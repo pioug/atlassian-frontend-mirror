@@ -7,6 +7,7 @@ export type {
 	ConfigWithNodeInfo,
 	FloatingToolbarPluginData,
 	FloatingToolbarPluginState,
+	FloatingToolbarPluginDependencies,
 } from './floatingToolbarPluginType';
 
 export { floatingToolbarPlugin } from './floatingToolbarPlugin';

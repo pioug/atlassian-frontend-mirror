@@ -5,4 +5,5 @@ export { toolbarListsIndentationPlugin } from './toolbarListsIndentationPlugin';
 export type {
 	ToolbarListsIndentationPlugin,
 	ToolbarListsIndentationPluginOptions,
+	ToolbarListsIndentationPluginDependencies,
 } from './toolbarListsIndentationPluginType';

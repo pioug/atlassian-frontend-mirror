@@ -1005,10 +1005,20 @@ const smartCardStylesAvatarFix = css({
 	},
 });
 
+// fg smartcard_avatar_margin_fix
 const smartCardStylesAvatarMarginFix = css({
 	[`.${SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER}`]: {
 		'ul, ol': {
 			marginRight: 'inherit',
+		},
+	},
+});
+
+// fg platform_editor_avatar_group_margin_fix
+const smartCardStylesAvatarMarginFix2 = css({
+	[`.${SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER}`]: {
+		'ul, ol': {
+			marginTop: 0,
 		},
 	},
 });
@@ -2116,6 +2126,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				smartCardStyles,
 				smartCardStylesAvatarFix,
 				fg('smartcard_avatar_margin_fix') && smartCardStylesAvatarMarginFix,
+				fg('platform_editor_avatar_group_margin_fix') && smartCardStylesAvatarMarginFix2,
 				// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 				fg('editor_inline_comments_on_inline_nodes') && rendererAnnotationStyles,
 				// eslint-disable-next-line @atlaskit/platform/no-preconditioning, @atlaskit/platform/ensure-feature-flag-prefix

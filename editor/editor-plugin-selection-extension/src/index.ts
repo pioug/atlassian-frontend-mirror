@@ -7,4 +7,7 @@ export type {
 	SelectionExtensionComponentProps,
 	SelectionExtensionPluginOptions,
 	SelectionExtension,
+	LinkInsertionOption,
+	SelectionExtensionPluginState,
+	SelectionExtensionSelectionInfo,
 } from './types';

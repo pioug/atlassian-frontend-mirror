@@ -70,14 +70,11 @@ snapshot(ErrorExample, {
 	...options,
 	featureFlags: {
 		'platform_bandicoots-link-picker-css': [true, false],
-		'platform-link-picker-remove-legacy-button': [true, false],
 	},
 });
 snapshot(ErrorExample, {
 	...options,
-	featureFlags: {
-		'platform-link-picker-remove-legacy-button': [true, false],
-	},
+	featureFlags: {},
 });
 snapshot(LoadingResultsWithTabs, {
 	...options,

@@ -2,14 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment, useEffect } from 'react';
+import { useEffect } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import Button from '@atlaskit/button/standard-button';
 import AKLink from '@atlaskit/link';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline, Text } from '@atlaskit/primitives/compiled';
 import { fontFallback } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
@@ -20,14 +19,7 @@ import { SpotErrorSearch } from '../../../common/ui/spot/error-state/search';
 import { loadingErrorMessages } from './messages';
 
 const styles = cssMap({
-	errorContainerStylesOld: {
-		display: 'grid',
-		gap: token('space.200', '16px'),
-		placeItems: 'center',
-		placeSelf: 'center',
-	},
-	// TODO Rename errorContainerStylesNew to errorContainerStyles when cleaning platform-linking-visual-refresh-sllv
-	errorContainerStylesNew: {
+	errorContainerStyles: {
 		display: 'grid',
 		gap: token('space.200', '16px'),
 		placeItems: 'center',
@@ -67,53 +59,31 @@ export const LoadingError = ({ onRefresh, url }: LoadingErrorProps) => {
 	}, [fireEvent]);
 
 	let connectionErrorMessage = loadingErrorMessages.checkConnection;
-	if (fg('platform-linking-visual-refresh-sllv')) {
-		if (url && isConfluenceSearch(url)) {
-			connectionErrorMessage = loadingErrorMessages.checkConnectionConfluence;
-		}
-		if (url && isJiraIssuesList(url)) {
-			connectionErrorMessage = loadingErrorMessages.checkConnectionJira;
-		}
+	if (url && isConfluenceSearch(url)) {
+		connectionErrorMessage = loadingErrorMessages.checkConnectionConfluence;
+	}
+	if (url && isJiraIssuesList(url)) {
+		connectionErrorMessage = loadingErrorMessages.checkConnectionJira;
 	}
 
-	// TODO: Move it to inline when cleaning platform-linking-visual-refresh-sllv
-	const FGWrapper = fg('platform-linking-visual-refresh-sllv') ? 'div' : Fragment;
-
 	return (
-		<FGWrapper
-			{...(fg('platform-linking-visual-refresh-sllv') && {
-				contentEditable: false,
-			})}
-		>
-			<Box
-				xcss={
-					fg('platform-linking-visual-refresh-sllv')
-						? styles.errorContainerStylesNew
-						: styles.errorContainerStylesOld
-				}
-				testId="datasource--loading-error"
-			>
+		<div contentEditable={false}>
+			<Box xcss={styles.errorContainerStyles} testId="datasource--loading-error">
 				<SpotErrorSearch size={'xlarge'} alt="" />
 				<Box xcss={styles.errorMessageContainerStyles}>
 					<Inline as="span" xcss={styles.errorMessageStyles}>
-						{fg('platform-linking-visual-refresh-sllv') ? (
-							<FormattedMessage {...loadingErrorMessages.unableToLoadResultsVisualRefreshSllv} />
-						) : (
-							<FormattedMessage {...loadingErrorMessages.unableToLoadItemsOld} />
-						)}
+						<FormattedMessage {...loadingErrorMessages.unableToLoadResults} />
 					</Inline>
 					<Text as="p">
 						<FormattedMessage
 							{...connectionErrorMessage}
-							{...(fg('platform-linking-visual-refresh-sllv') && {
-								values: {
-									a: (chunks: React.ReactNode) => (
-										<AKLink href={url || ''} target="blank">
-											{chunks}
-										</AKLink>
-									),
-								},
-							})}
+							values={{
+								a: (chunks: React.ReactNode) => (
+									<AKLink href={url || ''} target="blank">
+										{chunks}
+									</AKLink>
+								),
+							}}
 						/>
 					</Text>
 					{onRefresh && (
@@ -123,6 +93,6 @@ export const LoadingError = ({ onRefresh, url }: LoadingErrorProps) => {
 					)}
 				</Box>
 			</Box>
-		</FGWrapper>
+		</div>
 	);
 };

@@ -144,14 +144,8 @@ export default {
   'fabric.linking.read_time': '{context} min branja',
   'fabric.linking.related': 'Povezano',
   'fabric.linking.related_links_found_in': 'Najdeno v',
-  'fabric.linking.related_links_includes_links_to': 'Vključuje povezavo do',
-  'fabric.linking.related_links_modal_error_header': 'Prišlo je do napake',
-  'fabric.linking.related_links_modal_error_message':
-    'Pri nalaganju nedavnih povezav je prišlo do težave. Preverite povezavo ali osvežite, če želite poskusiti znova.',
-  'fabric.linking.related_links_modal_title': 'Nedavne povezave',
-  'fabric.linking.related_links_modal_unavailable_header': 'Ni nedavnih povezav',
-  'fabric.linking.related_links_modal_unavailable_message':
-    'Najti ni bilo mogoče nobenih povezav, ki bi lahko bile prikazane tukaj. Nenehno pregledujemo in dodajamo nedavne povezave za posodobljene strani ali druge vrste vsebine.',
+  'fabric.linking.related_links_includes_links_to': 'Vključuje povezave do',
+  'fabric.linking.related_links_modal_title': 'Povezane povezave',
   'fabric.linking.related_links_not_found': 'Najti ni bilo mogoče nobenih povezav, ki bi lahko bile prikazane tukaj.',
   'fabric.linking.related_links_view_related_urls': 'Ogled nedavnih povezav',
   'fabric.linking.request_access': 'Zahtevaj dostop',

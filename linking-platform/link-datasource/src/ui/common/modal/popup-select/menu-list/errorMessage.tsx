@@ -3,8 +3,6 @@ import React, { useEffect } from 'react';
 import { useIntl } from 'react-intl-next';
 import { useDebouncedCallback } from 'use-debounce';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { useDatasourceAnalyticsEvents } from '../../../../../analytics';
 import { type ErrorShownBasicSearchDropdownAttributesType } from '../../../../../analytics/generated/analytics.types';
 import { SpotError } from '../../../../../common/ui/spot/error-state/error';
@@ -52,16 +50,8 @@ const CustomErrorMessage = ({ filterName, errors }: { filterName: string; errors
 			icon={
 				<SpotError size={'medium'} alt={formatMessage(asyncPopupSelectMessages.errorMessage)} />
 			}
-			message={
-				fg('platform-linking-visual-refresh-sllv')
-					? asyncPopupSelectMessages.errorMessage
-					: asyncPopupSelectMessages.errorMessageOld
-			}
-			description={
-				fg('platform-linking-visual-refresh-sllv')
-					? asyncPopupSelectMessages.errorDescription
-					: undefined
-			}
+			message={asyncPopupSelectMessages.errorMessage}
+			description={asyncPopupSelectMessages.errorDescription}
 			testId={`${filterName}--error-message`}
 		/>
 	);

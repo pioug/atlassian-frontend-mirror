@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.18.1
+
+### Patch Changes
+
+- [#188850](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188850)
+  [`8b19a85abe51e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8b19a85abe51e) -
+  Add nmore cases to the new use correct field rule.
+- Updated dependencies
+
 ## 13.18.0
 
 ### Minor Changes

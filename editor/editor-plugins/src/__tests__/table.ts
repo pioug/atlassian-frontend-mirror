@@ -25,28 +25,4 @@ describe('table wrapper', () => {
 		const wrapperKeys = Object.keys(wrapper).sort();
 		expect(originalKeys).toEqual(wrapperKeys);
 	});
-
-	it('check ./table/ui/consts exports all the same variables as the original', () => {
-		const original = require('@atlaskit/editor-plugin-table/ui/consts');
-		const wrapper = require('../table/ui/consts');
-		const originalKeys = Object.keys(original).sort();
-		const wrapperKeys = Object.keys(wrapper).sort();
-		expect(originalKeys).toEqual(wrapperKeys);
-	});
-
-	it('check ./table/plugin-key exports all the same variables as the original', () => {
-		const original = require('@atlaskit/editor-plugin-table/plugin-key');
-		const wrapper = require('../table/pm-plugins/plugin-key');
-		const originalKeys = Object.keys(original).sort();
-		const wrapperKeys = Object.keys(wrapper).sort();
-		expect(originalKeys).toEqual(wrapperKeys);
-	});
-
-	it('check ./table/commands exports all the same variables as the original', () => {
-		const original = require('@atlaskit/editor-plugin-table/commands');
-		const wrapper = require('../table/pm-plugins/commands/index');
-		const originalKeys = Object.keys(original).sort();
-		const wrapperKeys = Object.keys(wrapper).sort();
-		expect(originalKeys).toEqual(wrapperKeys);
-	});
 });

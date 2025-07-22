@@ -2,7 +2,7 @@
 // Entry file in package.json
 
 export { default as datePlugin } from './datePlugin';
-export type { DatePlugin } from './datePluginType';
+export type { DatePlugin, DatePluginDependencies } from './datePluginType';
 export type {
 	DatePluginSharedState,
 	DatePluginConfig,

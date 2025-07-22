@@ -1,7 +1,6 @@
 import React, { Fragment, useCallback, useRef, useState } from 'react';
 
-import Button from '@atlaskit/button';
-import NewButton from '@atlaskit/button/new';
+import Button from '@atlaskit/button/new';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
 import { Box, Stack } from '@atlaskit/primitives/compiled';
@@ -37,7 +36,6 @@ function TestContentResize() {
 	const [isAdaptiveHeight, setIsAdaptiveHeight] = useState(false);
 	const plugins = useRef([new Plugin()]);
 
-	const ButtonComponent = fg('platform-link-picker-remove-legacy-button') ? NewButton : Button;
 	return (
 		<Fragment>
 			<PageHeader>
@@ -95,18 +93,16 @@ function TestContentResize() {
 				)}
 				placement="right-start"
 				trigger={({ ref, ...triggerProps }) => (
-					<ButtonComponent
+					<Button
 						{...triggerProps}
 						testId="trigger"
 						ref={ref}
 						appearance="primary"
 						isSelected={isOpen}
 						onClick={handleToggle}
-						// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						style={{ position: 'fixed', bottom: 350 }}
 					>
 						Toggle
-					</ButtonComponent>
+					</Button>
 				)}
 				shouldRenderToParent={fg('should-render-to-parent-should-be-true-linking-pla')}
 			/>

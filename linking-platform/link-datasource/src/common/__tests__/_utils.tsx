@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { type queries } from '@testing-library/dom';
-import { act, fireEvent, render, type RenderResult } from '@testing-library/react';
+import { act, fireEvent, type queries, render, type RenderResult } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 import invariant from 'tiny-invariant';
 
@@ -324,26 +323,29 @@ export const setupFactory = <Parameters extends DatasourceParameters, InsertArgs
 		}
 
 		const selectNewInstanceSite = async () => {
-			const siteSelectorTrigger = document.getElementsByClassName(
+			const siteSelectorTrigger = getByTestId(
 				`${providerType}-datasource-modal--site-selector__control`,
-			)[0];
-
-			fireEvent.mouseDown(siteSelectorTrigger);
-
-			const availableJiraSiteDropdownItems = [
-				...document.getElementsByClassName(
-					`${providerType}-datasource-modal--site-selector__option`,
-				),
-			] as HTMLElement[];
+			);
 
 			act(() => {
-				fireEvent.click(availableJiraSiteDropdownItems[0]);
+				siteSelectorTrigger.click();
+			});
+
+			const availableJiraSiteDropdownItem = getByTestId(
+				`${providerType}-datasource-modal--site-selector-select--option-0`,
+			);
+
+			act(() => {
+				fireEvent.click(availableJiraSiteDropdownItem);
 			});
 		};
 
-		const getSiteSelectorText = () =>
-			document.getElementsByClassName(`${providerType}-datasource-modal--site-selector__control`)[0]
-				?.textContent;
+		const getSiteSelectorText = async () => {
+			const siteSelector = await component.queryByTestId(
+				`${providerType}-datasource-modal--site-selector__control`,
+			);
+			return siteSelector?.textContent;
+		};
 
 		const getConfigModalTitleText = async () => {
 			const modalTitle = await component.findByTestId(
@@ -351,7 +353,7 @@ export const setupFactory = <Parameters extends DatasourceParameters, InsertArgs
 			);
 			const modalTitleTextContent = modalTitle?.textContent;
 
-			const siteSelectorText = getSiteSelectorText();
+			const siteSelectorText = await getSiteSelectorText();
 			if (!siteSelectorText) {
 				return modalTitleTextContent;
 			}

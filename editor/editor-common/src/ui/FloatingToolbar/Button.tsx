@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
 import Button from '@atlaskit/button/custom-theme-button';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 import Tooltip, { type TooltipProps } from '@atlaskit/tooltip';
 
+import { areToolbarFlagsEnabled } from '../../toolbar-flag-check';
 import type { ButtonAppearance } from '../../types';
 import type { FloatingToolbarButtonSpotlightConfig } from '../../types/floating-toolbar';
 import { Pulse } from '../Pulse/Pulse';
@@ -148,9 +148,7 @@ export default ({
 												state: themeProps.state,
 												mode: themeProps.mode,
 											})),
-										...(editorExperiment('platform_editor_controls', 'variant1')
-											? customSizeAndPadding
-											: {}),
+										...(areToolbarFlagsEnabled() ? customSizeAndPadding : {}),
 									},
 									...rest,
 								};
@@ -161,9 +159,7 @@ export default ({
 							role={isRadioButton ? 'radio' : undefined}
 							aria-expanded={ariaHasPopup ? selected : undefined}
 							aria-controls={ariaHasPopup ? areaControls : undefined}
-							spacing={
-								editorExperiment('platform_editor_controls', 'variant1') ? 'default' : 'compact'
-							}
+							spacing={areToolbarFlagsEnabled() ? 'default' : 'compact'}
 							href={href}
 							target={target}
 							appearance={appearance}

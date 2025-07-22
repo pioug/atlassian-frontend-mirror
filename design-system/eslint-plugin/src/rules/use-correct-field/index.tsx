@@ -118,6 +118,16 @@ const rule = createLintRule({
 
 					while (q.length > 0 && !found) {
 						const child = q.pop();
+						if ('children' in child) {
+							for (const innerChild of child.children) {
+								q.push(innerChild);
+							}
+						} else if (
+							isNodeOfType(child, 'BlockStatement') &&
+							isNodeOfType(child.body[0], 'ExpressionStatement')
+						) {
+							q.push(child.body[0].expression);
+						}
 
 						if (
 							!isNodeOfType(child, 'JSXElement') ||

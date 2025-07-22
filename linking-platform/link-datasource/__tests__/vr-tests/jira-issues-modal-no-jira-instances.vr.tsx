@@ -5,7 +5,5 @@ import { JiraIssuesConfigModalNoJiraInstancesState } from '../../examples/vr/jir
 snapshot(JiraIssuesConfigModalNoJiraInstancesState, {
 	description: 'Jira issues config modal no jira instances view',
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'platform-linking-visual-refresh-sllv': [true, false],
-	},
+	featureFlags: {},
 });

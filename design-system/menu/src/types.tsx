@@ -68,6 +68,11 @@ export interface MenuGroupProps extends MenuGroupSizing {
 	 * Useful when needing to stop propagation of child events.
 	 */
 	onClick?: (event: React.MouseEvent | React.KeyboardEvent) => void;
+
+	/**
+	 * Provide an accessible label via `aria-label` for the menu element for assistive technology.
+	 */
+	menuLabel?: string;
 }
 
 export interface SectionProps {

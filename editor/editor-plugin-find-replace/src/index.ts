@@ -7,4 +7,8 @@ export type {
 	FindReplacePluginState,
 } from './types';
 export { findReplacePlugin } from './findReplacePlugin';
-export type { FindReplacePlugin, FindReplacePluginOptions } from './findReplacePluginType';
+export type {
+	FindReplacePlugin,
+	FindReplacePluginOptions,
+	FindReplacePluginDependencies,
+} from './findReplacePluginType';

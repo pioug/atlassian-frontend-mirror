@@ -111,9 +111,9 @@ describe('JiraIssuesConfigModal', () => {
 		expect(onCancel).toHaveBeenCalledTimes(1);
 	});
 
-	it('should call onInsert when "Insert Issues" button is clicked', async () => {
+	it('should call onInsert when "Insert results" button is clicked', async () => {
 		const { onInsert } = await setup();
-		const insertButton = await screen.findByRole('button', { name: 'Insert issues' });
+		const insertButton = await screen.findByRole('button', { name: 'Insert results' });
 		await user.click(insertButton);
 
 		expect(onInsert).toHaveBeenCalledTimes(1);
@@ -459,7 +459,7 @@ describe('JiraIssuesConfigModal', () => {
 			});
 
 			expect(screen.getByTestId('mode-toggle-basic').querySelector('input')).toBeChecked();
-			expect(screen.getByText('Search by keyword for issues to insert.')).toBeInTheDocument();
+			expect(screen.getByText('Search for issues by keyword')).toBeInTheDocument();
 
 			expect(screen.queryByText('Beta')).not.toBeInTheDocument();
 			expect(
@@ -482,7 +482,7 @@ describe('JiraIssuesConfigModal', () => {
 				parameters: { cloudId: '', jql: '' },
 				hookState: getEmptyHookState(),
 			});
-			const button = screen.getByRole('button', { name: 'Insert issues' });
+			const button = screen.getByRole('button', { name: 'Insert results' });
 			expect(button).toBeDisabled();
 		});
 
@@ -506,7 +506,7 @@ describe('JiraIssuesConfigModal', () => {
 				hookState: getLoadingHookState(),
 			});
 
-			const button = screen.getByRole('button', { name: 'Insert issues' });
+			const button = screen.getByRole('button', { name: 'Insert results' });
 			expect(button).toBeDisabled();
 		});
 	});
@@ -761,7 +761,7 @@ describe('JiraIssuesConfigModal', () => {
 
 		it('should have enabled Insert button', async () => {
 			await setup();
-			const button = screen.getByRole('button', { name: 'Insert issues' });
+			const button = screen.getByRole('button', { name: 'Insert results' });
 			expect(button).not.toBeDisabled();
 		});
 
@@ -771,7 +771,7 @@ describe('JiraIssuesConfigModal', () => {
 			const toggleButton = screen.getByTestId('mode-toggle-basic');
 			await user.click(toggleButton);
 
-			const basicTextInput = await screen.findByPlaceholderText('Search for issues by keyword');
+			const basicTextInput = await screen.findByTestId('jira-search-placeholder');
 			await user.type(basicTextInput, 'testing');
 
 			const insertButton = await screen.findByTestId('jira-datasource-modal--insert-button');
@@ -868,7 +868,7 @@ describe('JiraIssuesConfigModal', () => {
 			});
 
 			const insertIssuesButton = await screen.findByRole('button', {
-				name: 'Insert issues',
+				name: 'Insert results',
 			});
 			insertIssuesButton.click();
 
@@ -1178,10 +1178,12 @@ describe('JiraIssuesConfigModal', () => {
 				hookState: { ...getDefaultHookState(), responseItems: [] },
 			});
 
-			expect(screen.getByText('No results found')).toBeInTheDocument();
-			expect(screen.getByRole('button', { name: 'Insert issues' })).not.toBeDisabled();
+			expect(
+				screen.getByText(`We couldn't find anything matching your search`),
+			).toBeInTheDocument();
+			expect(screen.getByRole('button', { name: 'Insert results' })).not.toBeDisabled();
 
-			await user.click(screen.getByRole('button', { name: 'Insert issues' }));
+			await user.click(screen.getByRole('button', { name: 'Insert results' }));
 			expect(onInsert).toHaveBeenCalledTimes(1);
 		});
 
@@ -1191,9 +1193,11 @@ describe('JiraIssuesConfigModal', () => {
 				viewMode: 'inline',
 			});
 
-			expect(screen.queryByText('No results found')).not.toBeInTheDocument();
-			expect(screen.getByRole('button', { name: 'Insert issues' })).not.toBeDisabled();
-			await user.click(screen.getByRole('button', { name: 'Insert issues' }));
+			expect(
+				screen.queryByText("We couldn't find anything matching your search"),
+			).not.toBeInTheDocument();
+			expect(screen.getByRole('button', { name: 'Insert results' })).not.toBeDisabled();
+			await user.click(screen.getByRole('button', { name: 'Insert results' }));
 			expect(onInsert).toHaveBeenCalledTimes(1);
 		});
 	});
@@ -1204,8 +1208,8 @@ describe('JiraIssuesConfigModal', () => {
 				hookState: { ...getErrorHookState() },
 			});
 
-			expect(screen.getByText('Unable to load results')).toBeInTheDocument();
-			expect(screen.getByRole('button', { name: 'Insert issues' })).toBeDisabled();
+			expect(screen.getByText(`We ran into an issue trying to fetch results`)).toBeInTheDocument();
+			expect(screen.getByRole('button', { name: 'Insert results' })).toBeDisabled();
 		});
 
 		it('should not show network error message in count view mode', async () => {
@@ -1214,7 +1218,9 @@ describe('JiraIssuesConfigModal', () => {
 				viewMode: 'inline',
 			});
 
-			expect(screen.queryByText('Unable to load results')).not.toBeInTheDocument();
+			expect(
+				screen.queryByText(`We ran into an issue trying to fetch results`),
+			).not.toBeInTheDocument();
 		});
 
 		it('should show no results message on a 403 aka forbidden status', async () => {
@@ -1225,7 +1231,7 @@ describe('JiraIssuesConfigModal', () => {
 			// issue view
 			expect(screen.getByTestId('datasource-modal--no-results')).toBeInTheDocument();
 			// button is still clickable since users are able to insert on no results found
-			expect(screen.getByRole('button', { name: 'Insert issues' })).not.toBeDisabled();
+			expect(screen.getByRole('button', { name: 'Insert results' })).not.toBeDisabled();
 		});
 
 		it('should show unauthorized error message', async () => {
@@ -1234,13 +1240,13 @@ describe('JiraIssuesConfigModal', () => {
 			});
 
 			// issue view
-			expect(screen.getByText("You don't have access to the following site:")).toBeInTheDocument();
-			expect(screen.getByRole('button', { name: 'Insert issues' })).toBeDisabled();
+			expect(screen.getByText("You don't have access to")).toBeInTheDocument();
+			expect(screen.getByRole('button', { name: 'Insert results' })).toBeDisabled();
 
 			// count view
 			switchMode('inline');
-			expect(screen.getByText("You don't have access to the following site:")).toBeInTheDocument();
-			expect(screen.getByRole('button', { name: 'Insert issues' })).toBeDisabled();
+			expect(screen.getByText("You don't have access to")).toBeInTheDocument();
+			expect(screen.getByRole('button', { name: 'Insert results' })).toBeDisabled();
 		});
 
 		// TODO: further refactoring in EDM-9573
@@ -1252,8 +1258,8 @@ describe('JiraIssuesConfigModal', () => {
 			});
 
 			expect(screen.getByTestId('datasource-modal--loading-error')).toBeInTheDocument();
-			expect(screen.getByText('Unable to load results')).toBeInTheDocument();
-			expect(screen.getByRole('button', { name: 'Insert issues' })).toBeDisabled();
+			expect(screen.getByText(`We ran into an issue trying to fetch results`)).toBeInTheDocument();
+			expect(screen.getByRole('button', { name: 'Insert results' })).toBeDisabled();
 		});
 
 		describe('during editing (unauthorized)', () => {
@@ -1264,10 +1270,8 @@ describe('JiraIssuesConfigModal', () => {
 					url: 'https://hello.atlassian.net',
 				});
 
-				expect(getSiteSelectorText()).toEqual('Choose site');
-				expect(
-					screen.getByText("You don't have access to the following site:"),
-				).toBeInTheDocument();
+				expect(await getSiteSelectorText()).toEqual('Select a site');
+				expect(screen.getByText("You don't have access to")).toBeInTheDocument();
 				expect(screen.getByText('https://hello.atlassian.net')).toBeInTheDocument();
 			});
 
@@ -1277,7 +1281,7 @@ describe('JiraIssuesConfigModal', () => {
 					mockSiteDataOverride: mockSiteData.slice(3),
 				});
 
-				expect(getSiteSelectorText()).toEqual('Choose site');
+				expect(await getSiteSelectorText()).toEqual('Select a site');
 				expect(screen.getByText("You don't have access to this content")).toBeInTheDocument();
 			});
 
@@ -1288,7 +1292,7 @@ describe('JiraIssuesConfigModal', () => {
 					url: '',
 				});
 
-				expect(getSiteSelectorText()).toEqual('Choose site');
+				expect(await getSiteSelectorText()).toEqual('Select a site');
 				expect(screen.getByText("You don't have access to this content")).toBeInTheDocument();
 			});
 		});

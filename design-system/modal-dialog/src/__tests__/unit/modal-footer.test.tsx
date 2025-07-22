@@ -5,8 +5,8 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import noop from '@atlaskit/ds-lib/noop';
 
 import { useModal } from '../../hooks';
+import ModalDialog from '../../modal-dialog';
 import ModalFooter from '../../modal-footer';
-import ModalDialog from '../../modal-wrapper';
 
 jest.mock('raf-schd', () => (fn: Function) => fn);
 jest.mock('@atlaskit/ds-lib/warn-once');

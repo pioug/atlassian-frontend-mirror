@@ -146,22 +146,13 @@ export default {
   'fabric.linking.read_time': 'Текст на {context} хв',
   'fabric.linking.related': 'Пов’язані ресурси',
   'fabric.linking.related_links_found_in': 'Знайдено в:',
-  'fabric.linking.related_links_found_in_v2': 'Знайдено в:',
-  'fabric.linking.related_links_includes_links_to': 'Містить посилання на:',
-  'fabric.linking.related_links_includes_links_to_v2': 'Містить посилання на',
+  'fabric.linking.related_links_includes_links_to': 'Містить посилання на',
   'fabric.linking.related_links_modal_error_description':
     'Перевірте підключення або оновіть сторінку й повторіть спробу',
-  'fabric.linking.related_links_modal_error_header': 'Сталася помилка',
-  'fabric.linking.related_links_modal_error_message':
-    'Під час спроби завантажити останні посилання сталася помилка. Перевірте з’єднання або оновіть сторінку, щоб повторити спробу.',
   'fabric.linking.related_links_modal_error_title': 'Не вдалося завантажити пов’язані посилання',
-  'fabric.linking.related_links_modal_title': 'Нещодавні посилання',
-  'fabric.linking.related_links_modal_title_v2': 'Пов’язані посилання',
+  'fabric.linking.related_links_modal_title': 'Пов’язані посилання',
   'fabric.linking.related_links_modal_unavailable_description':
     'Ми постійно переглядаємо й додаємо пов’язані посилання на оновлені сторінки або інші типи вмісту',
-  'fabric.linking.related_links_modal_unavailable_header': 'Немає нових посилань',
-  'fabric.linking.related_links_modal_unavailable_message':
-    'Немає посилань для відображення. Ми постійно переглядаємо й додаємо останні посилання на оновлені сторінки або інші типи вмісту.',
   'fabric.linking.related_links_modal_unavailable_title': 'Не вдалося знайти пов’язані посилання',
   'fabric.linking.related_links_not_found': 'Немає посилань для відображення.',
   'fabric.linking.related_links_view_related_links': 'Переглянути пов’язані посилання',

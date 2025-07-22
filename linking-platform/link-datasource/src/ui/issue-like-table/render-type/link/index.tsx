@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 
 import { type Link } from '@atlaskit/linking-types';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Card } from '@atlaskit/smart-card';
 import { HoverCard } from '@atlaskit/smart-card/hover-card';
 import LinkUrl from '@atlaskit/smart-card/link-url';
@@ -36,7 +35,7 @@ const LinkRenderType = ({ style, url, text, testId = LINK_TYPE_TEST_ID }: LinkPr
 					// NOTE: This will no longer apply styles to `@atlaskit/link` when platform_editor_hyperlink_underline is enabled.
 					// Wrap `@atlaskit/link` in a Text component to provide font styles to Link
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-					{...(fg('platform-linking-visual-refresh-sllv') ? {} : { style: { ...linkStyle } })}
+					style={linkStyle}
 					data-testid={testId}
 					target="_blank"
 				>

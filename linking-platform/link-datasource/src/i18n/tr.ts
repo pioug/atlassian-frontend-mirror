@@ -148,7 +148,7 @@ export default {
   'linkDataSource.refresh': 'Yenile',
   'linkDataSource.jira-issues.searchDescription-basic': 'Eklemek için konuları anahtar kelimeye göre arayın.',
   'linkDataSource.jira-issues.searchDescription-jql': 'Konu aramak için JQL (Jira Sorgu Dili) kullanın.',
-  'linkDataSource.jira-issues.searchJiraTitle': 'Jira konuları arayın',
+  'linkDataSource.jira-issues.searchJiraTitle': 'Jira biletleri arayın',
   'linkDataSource.unableToLoadItems': 'Öğeler yüklenemiyor',
   'linkDataSource.unableToLoadResults': 'Sonuçlar yüklenemiyor',
   'linkDataSource.jira-issues.unableToLoadResults.visual-refresh-sllv':
@@ -156,7 +156,7 @@ export default {
   'linkDataSource.jira-issues.unableToLoadResultsOld': 'Sonuçlar yüklenemiyor',
   'linkDataSource.modal-initial-state.beta': 'Beta',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Confluence sayfaları arayın',
-  'linkDataSource.modal-initial-state.jiraSearchTitle': 'Jira konuları arayın',
+  'linkDataSource.modal-initial-state.jiraSearchTitle': 'Jira biletleri arayın',
   'linkDataSource.modal-initial-state.learnMoreLinkOld': 'JQL ile nasıl arama yapacağınızı öğrenin',
   'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
     'Eklemek için biletleri anahtar kelimeye göre arayın.',
@@ -166,7 +166,6 @@ export default {
     'Eklemek için sayfaları anahtar kelimeye göre arayın.',
   'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
     'Bilet aramak için JQL (Jira Sorgu Dili) kullanın.',
-  'linkDataSource.modal-initial-state.searchTitle': 'Jira konuları arayın',
   'linkDataSource.modal-initial-state.searchTitle-issue-term-refresh': 'Jira biletleri arayın',
   'linkDataSource.render-type.boolean.false': 'Hayır',
   'linkDataSource.render-type.boolean.true': 'Evet',

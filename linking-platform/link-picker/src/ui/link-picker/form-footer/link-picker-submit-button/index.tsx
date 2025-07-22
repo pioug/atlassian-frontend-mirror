@@ -2,9 +2,7 @@ import React from 'react';
 
 import { defineMessages, type MessageDescriptor, useIntl } from 'react-intl-next';
 
-import LoadingButton from '@atlaskit/button/loading-button';
 import Button from '@atlaskit/button/new';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { LinkPickerState, LinkSearchListItemData } from '../../../../common/types';
 
@@ -60,9 +58,8 @@ export const LinkPickerSubmitButton = ({
 		items,
 	);
 
-	const ButtonComponent = fg('platform-link-picker-remove-legacy-button') ? Button : LoadingButton;
 	return (
-		<ButtonComponent
+		<Button
 			type="submit"
 			appearance="primary"
 			testId={testId}
@@ -73,6 +70,6 @@ export const LinkPickerSubmitButton = ({
 			{customSubmitButtonLabel
 				? intl.formatMessage(customSubmitButtonLabel)
 				: intl.formatMessage(insertButtonMsg)}
-		</ButtonComponent>
+		</Button>
 	);
 };

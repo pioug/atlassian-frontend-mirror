@@ -3,3 +3,4 @@
 
 export { userIntentPlugin } from './userIntentPlugin';
 export type { UserIntentPlugin } from './userIntentPluginType';
+export type { UserIntent } from './pm-plugins/types';

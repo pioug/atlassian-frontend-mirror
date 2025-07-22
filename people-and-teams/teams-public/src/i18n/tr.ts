@@ -7,10 +7,29 @@
  */
 //Turkish (Turkey)
 export default {
+  'platform.teams.containers.empty-web-link-description': 'Bir web bağlantısı ekleyin',
+  'platform.teams.containers.web-link-title-description': 'Web bağlantısı',
+  'ptc-directory.team-containers.disconnect-button.tooltip': 'Bağlantıyı kes',
+  'ptc-directory.team-containers.edit-link': 'Bağlantıyı düzenle',
+  'ptc-directory.team-containers.remove-link': 'Kaldır',
   'ptc-directory.team-profile-page.team-containers.add-confluence-space-description': 'Confluence',
+  'ptc-directory.team-profile-page.team-containers.add-confluence-space-title': 'Alan ekleyin',
   'ptc-directory.team-profile-page.team-containers.add-jira-project-description': 'Jira',
+  'ptc-directory.team-profile-page.team-containers.add-jira-project-title': 'Proje ekleyin',
   'ptc-directory.team-profile-page.team-containers.add-loom-space-description': 'Loom',
+  'ptc-directory.team-profile-page.team-containers.add-loom-space-title': 'Alan ekleyin',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.cancel-button': 'İptal',
+  'ptc-directory.team-profile-page.team-containers.disconnect-dialog.description':
+    '{containerType, select, JiraProject {Bu takım artık {containerName} Jira projesine bağlı olmayacak.} ConfluenceSpace {Bu takım artık {containerName} Confluence alanına bağlı olmayacak.} LoomSpace {Bu takım artık {containerName} Loom alanına bağlı olmayacak.} other {Bu takım artık {containerName} bağlantısına bağlı olmayacak.}}',
+  'ptc-directory.team-profile-page.team-containers.disconnect-dialog.disclaimer':
+    '{containerType, select, JiraProject {{containerType, select, JiraProject {Takımın projeyle bağlantısının kaldırılması projede takıma bağlı hiçbir bileti etkilemez.} ConfluenceSpace {Takımın alanla bağlantısının kaldırılması projede takıma bağlı hiçbir bileti etkilemez.} LoomSpace {Takımın alanla bağlantısının kaldırılması projede takıma bağlı hiçbir bileti etkilemez.} other {Takımın kapsayıcıyla bağlantısının kaldırılması projede takıma bağlı hiçbir bileti etkilemez.}}} ConfluenceSpace {{containerType, select, JiraProject {Takımın projeyle bağlantısının kaldırılması alanda takıma bağlı hiçbir bileti etkilemez.} ConfluenceSpace {Takımın alanla bağlantısının kaldırılması alanda takıma bağlı hiçbir bileti etkilemez.} LoomSpace {Takımın alanla bağlantısının kaldırılması alanda takıma bağlı hiçbir bileti etkilemez.} other {Takımın bu kapsayıcıyla bağlantısının kaldırılması alanda takıma bağlı hiçbir bileti etkilemez.}}} LoomSpace {{containerType, select, JiraProject {Takımın projeyle bağlantısının kaldırılması alanda takıma bağlı hiçbir bileti etkilemez.} ConfluenceSpace {Takımın alanla bağlantısının kaldırılması alanda takıma bağlı hiçbir bileti etkilemez.} LoomSpace {Takımın alanla bağlantısının kaldırılması alanda takıma bağlı hiçbir bileti etkilemez.} other {Takımın bu kapsayıcıyla bağlantısının kaldırılması alanda takıma bağlı hiçbir bileti etkilemez.}}} other {{containerType, select, JiraProject {Takımların projeyle bağlantısının kaldırılması bağlantıda takıma bağlı hiçbir bileti etkilemez.} ConfluenceSpace {Takımların alanla bağlantısının kaldırılması bağlantıda takıma bağlı hiçbir bileti etkilemez.} LoomSpace {Takımların alanla bağlantısının kaldırılması bağlantıda takıma bağlı hiçbir bileti etkilemez.} other {Takımların kapsayıcıyla bağlantısının kaldırılması bağlantıda takıma bağlı hiçbir bileti etkilemez.}}}}',
+  'ptc-directory.team-profile-page.team-containers.disconnect-dialog.disclaimer-fallback':
+    'Takımın bağlantıdan kopması, takıma bağlı herhangi bir işi etkilemez.',
+  'ptc-directory.team-profile-page.team-containers.disconnect-dialog.remove-button': 'Kaldır',
+  'ptc-directory.team-profile-page.team-containers.disconnect-dialog.title': 'Yer bağlantısını kesin',
   'ptc-directory.team-profile-page.team-containers.show-less': 'Daha az göster',
   'ptc-directory.team-profile-page.team-containers.show-more': 'Daha fazla göster',
+  'ptc.team-profile-page.team-containers.empty-state.description':
+    'Takımınız nerede çalıştıklarını göstermek için Jira projelerini, Confluence alanlarını buraya bağlayabilir',
+  'ptc.team-profile-page.team-containers.empty-state.title': 'Takımınızın çalıştığı yerleri ekleyin',
 };

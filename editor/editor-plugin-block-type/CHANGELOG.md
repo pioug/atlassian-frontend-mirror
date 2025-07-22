@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-block-type
 
+## 6.1.0
+
+### Minor Changes
+
+- [#189314](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/189314)
+  [`22c6251496010`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22c6251496010) -
+  Exported missing types that were already being inferred from existing exports
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.0.6
+
+### Patch Changes
+
+- [#188518](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188518)
+  [`713b78fb27820`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/713b78fb27820) -
+  Fixed block quote not changing to normal text and splitting tables when normal text is selected in
+  toolbar
+- Updated dependencies
+
 ## 6.0.5
 
 ### Patch Changes

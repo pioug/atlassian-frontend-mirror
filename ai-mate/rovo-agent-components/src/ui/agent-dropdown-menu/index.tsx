@@ -91,6 +91,7 @@ type AgentDropdownMenuProps = {
 	isAgentCreatedByUser: boolean;
 	isAutodevTemplateAgent?: boolean;
 	agentId: string;
+	agentName?: string;
 	onEditAgent?: React.ComponentProps<typeof DropdownItem>['onClick'];
 	onCopyAgent?: React.ComponentProps<typeof DropdownItem>['onClick'];
 	onDuplicateAgent?: React.ComponentProps<typeof DropdownItem>['onClick'];
@@ -134,6 +135,7 @@ export const AgentDropdownMenu = ({
 	loadAgentPermissions,
 	loadPermissionsOnMount,
 	shouldTriggerStopPropagation,
+	agentName,
 }: AgentDropdownMenuProps) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const { formatMessage } = useIntl();
@@ -204,7 +206,11 @@ export const AgentDropdownMenu = ({
 				<IconButton
 					{...props}
 					icon={MoreIcon}
-					label={formatMessage(messages.moreActionsLabel)}
+					label={
+						agentName && fg('a11y_agents_fixes')
+							? formatMessage(messages.moreActionsForLabel, { agentName: agentName })
+							: formatMessage(messages.moreActionsLabel)
+					}
 					ref={triggerRef}
 					spacing={spacing}
 					appearance={appearance}

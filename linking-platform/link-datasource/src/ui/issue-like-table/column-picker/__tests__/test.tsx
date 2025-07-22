@@ -287,8 +287,8 @@ describe('Column picker', () => {
 
 				const popupList = (await findByText('Matt')).closest(OPTION_LIST_CLASS);
 				invariant(popupList);
-				// The +1 is for compiled css style element being inserted
-				expect(popupList.children).toHaveLength(SELECT_ITEMS_MAXIMUM_THRESHOLD - 1 + 1);
+				// The +2 is for compiled css style element being inserted
+				expect(popupList.children).toHaveLength(SELECT_ITEMS_MAXIMUM_THRESHOLD - 1 + 2);
 				expect((popupList.children[popupList.children.length - 1] as HTMLElement).innerText).toBe(
 					`Option ${SELECT_ITEMS_MAXIMUM_THRESHOLD - 1}`,
 				);
@@ -307,8 +307,8 @@ describe('Column picker', () => {
 
 			const popupList = (await findByText('Matt')).closest(OPTION_LIST_CLASS);
 			invariant(popupList);
-			// The +2 is for compiled css style element being inserted
-			expect(popupList.children).toHaveLength(SELECT_ITEMS_MAXIMUM_THRESHOLD + 1 + 2);
+			// The +3 is for compiled css style element being inserted
+			expect(popupList.children).toHaveLength(SELECT_ITEMS_MAXIMUM_THRESHOLD + 1 + 3);
 			expect((popupList.children[popupList.children.length - 1] as HTMLElement).innerText).toBe(
 				'Your search returned too many results.Try again with more specific keywords.',
 			);

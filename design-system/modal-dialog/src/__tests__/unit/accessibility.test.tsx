@@ -7,7 +7,7 @@ import { axe } from '@af/accessibility-testing';
 import Button from '@atlaskit/button/new';
 
 import { ModalBody, ModalFooter, ModalHeader, ModalTitle, ModalTransition } from '../../index';
-import Modal from '../../modal-wrapper';
+import Modal from '../../modal-dialog';
 
 it('Basic Modal should not fail aXe audit', async () => {
 	const { container } = render(

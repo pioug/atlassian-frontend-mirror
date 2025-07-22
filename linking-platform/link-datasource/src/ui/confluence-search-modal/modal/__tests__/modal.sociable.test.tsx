@@ -36,7 +36,7 @@ describe('ConfluenceSearchConfigModal', () => {
 	const userChangeSite = async (site: string) => {
 		const trigger = await within(
 			await screen.findByTestId('confluence-search-datasource-modal--site-selector--trigger'),
-		).findByRole('combobox');
+		).findByRole('button');
 		await userEvent.type(trigger, site);
 		await userEvent.type(trigger, '{enter}');
 	};
@@ -349,11 +349,11 @@ describe('ConfluenceSearchConfigModal', () => {
 		expect(onInsert).toHaveBeenCalledWith(
 			expect.objectContaining({
 				attrs: expect.objectContaining({
-					url: 'https://world.atlassian.net/wiki/search?text=search+term+2',
+					url: 'https://hello.atlassian.net/wiki/search?text=search+term+2',
 					datasource: expect.objectContaining({
 						id: 'confluence-datasource-id',
 						parameters: expect.objectContaining({
-							cloudId: '2',
+							cloudId: '1',
 							searchString: 'search term 2',
 							spaceKeys: ['space-key-1'],
 						}),

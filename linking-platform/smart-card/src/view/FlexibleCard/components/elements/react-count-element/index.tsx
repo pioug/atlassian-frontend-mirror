@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { ElementName, IconType } from '../../../../../constants';
 import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
 import { BaseBadgeElement, type BaseBadgeElementProps, toBadgeProps } from '../common';
@@ -15,13 +13,10 @@ const ReactCountElement = (props: ReactCountElementProps): JSX.Element | null =>
 	const data = context ? toBadgeProps(context.reactCount?.toString()) : null;
 
 	const { onRender, ...restProps } = props || {};
-	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-	if (fg('platform-linking-additional-flexible-element-props')) {
-		// eslint-disable-next-line react-hooks/rules-of-hooks
-		useEffect(() => {
-			onRender?.(!!data);
-		}, [data, onRender]);
-	}
+
+	useEffect(() => {
+		onRender?.(!!data);
+	}, [data, onRender]);
 
 	return data ? (
 		<BaseBadgeElement

@@ -1,5 +1,14 @@
 # @atlaskit/media-viewer
 
+## 52.4.8
+
+### Patch Changes
+
+- [#187406](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/187406)
+  [`849af586beb91`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/849af586beb91) -
+  Added role for the media container to make screen reader virtual key navigation appropriate
+- Updated dependencies
+
 ## 52.4.7
 
 ### Patch Changes

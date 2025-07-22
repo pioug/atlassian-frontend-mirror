@@ -1,4 +1,4 @@
-export { default } from './modal-wrapper';
+export { default } from './modal-dialog';
 export { default as ModalTransition } from './modal-transition';
 export type {
 	KeyboardOrMouseEvent,

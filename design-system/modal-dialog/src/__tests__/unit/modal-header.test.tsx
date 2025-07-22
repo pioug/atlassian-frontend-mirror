@@ -6,8 +6,8 @@ import noop from '@atlaskit/ds-lib/noop';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 
 import { useModal } from '../../hooks';
+import ModalDialog from '../../modal-dialog';
 import ModalHeader from '../../modal-header';
-import ModalDialog from '../../modal-wrapper';
 
 jest.mock('raf-schd', () => (fn: Function) => fn);
 jest.mock('@atlaskit/ds-lib/warn-once');

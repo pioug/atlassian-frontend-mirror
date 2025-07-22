@@ -2,4 +2,10 @@
 // Entry file in package.json
 
 export { mediaInsertPlugin } from './mediaInsertPlugin';
-export type { MediaInsertPlugin, MediaInsertPluginState } from './mediaInsertPluginType';
+export type {
+	MediaInsertPlugin,
+	MediaInsertPluginState,
+	MediaInsertPluginDependencies,
+	MediaInsertPluginCommands,
+	MediaInsertPluginConfig,
+} from './mediaInsertPluginType';

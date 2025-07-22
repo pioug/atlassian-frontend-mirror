@@ -5,8 +5,9 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
+
+import { areToolbarFlagsEnabled } from '../../toolbar-flag-check';
 
 const separator = css({
 	background: token('color.border'),
@@ -39,10 +40,7 @@ type SeparatorProps = {
 
 export default ({ fullHeight }: SeparatorProps) => (
 	<div
-		css={[
-			editorExperiment('platform_editor_controls', 'variant1') ? separatorNew : separator,
-			fullHeight && separatorFullHeight,
-		]}
+		css={[areToolbarFlagsEnabled() ? separatorNew : separator, fullHeight && separatorFullHeight]}
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 		className="separator"
 	/>

@@ -59,6 +59,8 @@ interface Props {
 	customFeedbackOptions?: OptionType[];
 	/** React Ref to focus on close */
 	shouldReturnFocusRef?: React.RefObject<HTMLElement>;
+	/** Disable submit button to allow custom content to handle validation */
+	disableSubmitButton?: boolean;
 }
 
 export interface OptionType {
@@ -86,6 +88,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 	customTextAreaLabel,
 	customFeedbackOptions = [],
 	shouldReturnFocusRef,
+	disableSubmitButton,
 }) => {
 	const [canBeContacted, setCanBeContacted] = useState<FormFields['canBeContacted']>(false);
 	const [description, setDescription] = useState<FormFields['description']>('');
@@ -99,7 +102,8 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 	const canShowTextField = isTypeSelected() || !showTypeField;
 
 	const hasDescription = description || hasDescriptionDefaultValue;
-	const isDisabled = showTypeField ? !isTypeSelected() || !hasDescription : !hasDescription;
+	const isDisabled =
+		disableSubmitButton || (showTypeField ? !isTypeSelected() || !hasDescription : !hasDescription);
 
 	const getFieldLabels = (
 		record?: Partial<Record<SelectValue, SelectOptionDetails>>,

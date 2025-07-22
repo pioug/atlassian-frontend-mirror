@@ -4,6 +4,7 @@
 export { typeAheadPlugin } from './typeAheadPlugin';
 export type { TypeAheadPlugin } from './typeAheadPluginType';
 export type {
+	OpenTypeAheadProps,
 	TypeAheadHandler,
 	TypeAheadInputMethod,
 	TypeAheadPluginOptions,

@@ -110,13 +110,13 @@ const metadata: Record<string, metadata> = {
 		status: 'published',
 	},
 	'ai-chat': {
-		keywords: ['ai-chat', 'aichat', 'icon', 'core', 'Rovo', 'AI', 'chat agent', 'ai'],
+		keywords: ['ai-chat', 'aichat', 'icon', 'core', 'Rovo', 'AI', 'chat agent'],
 		componentName: 'AiChatIcon',
 		package: '@atlaskit/icon/core/ai-chat',
 		type: 'core',
 		categorization: 'single-purpose',
-		usage: 'Single purpose - Reserved for Rovo Chat.',
-		team: 'Design System Team',
+		usage: 'Reserved for Rovo Chat.',
+		team: 'Central AI',
 		status: 'published',
 	},
 	'ai-generative-text-summary': {

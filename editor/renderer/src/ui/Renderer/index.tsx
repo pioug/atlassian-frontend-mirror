@@ -591,33 +591,23 @@ export const RendererFunctionalComponent = (
 
 const RendererFunctionalComponentMemoized = React.memo(RendererFunctionalComponent);
 
-const RendererFunctionalComponentWithPortalContext = (
-	props: ComponentProps<typeof RendererFunctionalComponent>,
-) => {
-	const { portal, ...propsWithoutPortal } = props;
+const RendererFunctionalComponentWithPortalContext = React.memo(
+	(props: ComponentProps<typeof RendererFunctionalComponent>) => {
+		// If nodeComponents are provided, we don't remove portal from props and use context instead,
+		// because we can't guarantee compatibility with existing Atlaskit Renderer consumers.
+		if (props.nodeComponents) {
+			return React.createElement(RendererFunctionalComponentMemoized, props);
+		}
 
-	return (
-		<PortalContext.Provider value={portal}>
-			{/* eslint-disable-next-line react/jsx-props-no-spreading */}
-			<RendererFunctionalComponent {...propsWithoutPortal} />
-		</PortalContext.Provider>
-	);
-};
+		const { portal, ...propsWithoutPortal } = props;
 
-const RendererFunctionalComponentWithPortalContextMemoized = React.memo(
-	RendererFunctionalComponentWithPortalContext,
+		return (
+			<PortalContext.Provider value={portal}>
+				{React.createElement(RendererFunctionalComponent, propsWithoutPortal)}
+			</PortalContext.Provider>
+		);
+	},
 );
-
-const getRendererComponent = (nodeComponents: RendererProps['nodeComponents']) => {
-	// If nodeComponents are provided, for now we don't want to remove portal from props
-	// and use context instead because at this time we cannot guarantee that existing
-	// consumers of Atlaskit Renderer will update to use the new portal context.
-	if (!Boolean(nodeComponents) && fg('cc_complexit_reduce_portal_rerenders')) {
-		return RendererFunctionalComponentWithPortalContextMemoized;
-	}
-
-	return RendererFunctionalComponentMemoized;
-};
 
 /**
  *
@@ -630,10 +620,8 @@ export function Renderer(props: RendererProps) {
 	const { skipValidation, allowNestedTables } = useContext(ValidationContext) || {};
 	const validationOverrides = useMemo(() => ({ allowNestedTables }), [allowNestedTables]);
 
-	const RendererComponent = getRendererComponent(props.nodeComponents);
-
 	return (
-		<RendererComponent
+		<RendererFunctionalComponentWithPortalContext
 			// Ignored via go/ees005
 			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...props}

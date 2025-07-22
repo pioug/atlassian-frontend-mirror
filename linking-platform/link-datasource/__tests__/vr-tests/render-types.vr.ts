@@ -6,8 +6,5 @@ snapshot(RenderAllTypes, {
 	description: 'Render all types',
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		featureFlags: {
-			'platform-linking-visual-refresh-sllv': [true, false],
-		},
 	},
 });

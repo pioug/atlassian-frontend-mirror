@@ -6,18 +6,9 @@ import { useIntl } from 'react-intl-next';
 import Button from '@atlaskit/button/new';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import CustomizeIcon from '@atlaskit/icon/core/customize';
-import BoardIcon from '@atlaskit/icon/core/migration/board';
-import ChevronDownIconOld from '@atlaskit/icon/core/migration/chevron-down';
 import { type DatasourceResponseSchemaProperty } from '@atlaskit/linking-types';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
-import {
-	CheckboxOption,
-	createFilter,
-	type ModifierList,
-	type OptionType,
-	PopupSelect,
-} from '@atlaskit/select';
+import { createFilter, type ModifierList, type OptionType, PopupSelect } from '@atlaskit/select';
 import Tooltip from '@atlaskit/tooltip';
 
 import { succeedUfoExperience } from '../../../analytics/ufoExperiences';
@@ -124,13 +115,11 @@ export const ColumnPicker = ({
 		}
 	}, [allOptions, experienceId]);
 
-	const MenuOption = fg('platform-linking-visual-refresh-sllv') ? MenuItem : CheckboxOption;
-
 	return (
 		<PopupSelect
 			classNamePrefix={'column-picker-popup'}
 			testId={'column-picker-popup'}
-			components={{ Option: MenuOption, MenuList: ConcatenatedMenuList }}
+			components={{ Option: MenuItem, MenuList: ConcatenatedMenuList }}
 			filterOption={createFilter({ ignoreAccents: false })}
 			options={allOptions}
 			value={selectedOptions}
@@ -155,31 +144,12 @@ export const ColumnPicker = ({
 							{...triggerProps}
 							isSelected={isOpen}
 							spacing="compact"
-							appearance={fg('platform-linking-visual-refresh-sllv') ? 'default' : 'subtle'}
+							appearance={'default'}
 							testId="column-picker-trigger-button"
 							iconBefore={() => (
 								<Box as="span" xcss={styles.chevronIconStyles}>
-									{fg('platform-linking-visual-refresh-sllv') ? (
-										<CustomizeIcon label="customize" />
-									) : (
-										<BoardIcon
-											color="currentColor"
-											label="board"
-											LEGACY_size="medium"
-											spacing="spacious"
-											LEGACY_margin="0 0 0 4px"
-										/>
-									)}
-									{fg('platform-linking-visual-refresh-sllv') ? (
-										<ChevronDownIcon label="down" size="small" />
-									) : (
-										<ChevronDownIconOld
-											color="currentColor"
-											label="down"
-											LEGACY_size="medium"
-											size="small"
-										/>
-									)}
+									<CustomizeIcon label="customize" />
+									<ChevronDownIcon label="down" size="small" />
 								</Box>
 							)}
 						>

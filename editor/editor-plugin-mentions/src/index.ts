@@ -2,7 +2,11 @@
 // Entry file in package.json
 
 export { mentionsPlugin } from './mentionsPlugin';
-export type { MentionsPlugin } from './mentionsPluginType';
+export type {
+	MentionsPlugin,
+	MentionPluginDependencies,
+	MentionActions,
+} from './mentionsPluginType';
 export type {
 	MentionPluginConfig,
 	MentionPluginOptions,
@@ -10,3 +14,4 @@ export type {
 	MentionSharedState,
 	MentionsChangedHandler,
 } from './types';
+export type { InsertMentionParameters } from './editor-commands';

@@ -144,22 +144,13 @@ export default {
   'fabric.linking.read_time': '{context} minutos de leitura',
   'fabric.linking.related': 'Relacionado',
   'fabric.linking.related_links_found_in': 'Encontrado em',
-  'fabric.linking.related_links_found_in_v2': 'Encontrado em',
   'fabric.linking.related_links_includes_links_to': 'Inclui links para',
-  'fabric.linking.related_links_includes_links_to_v2': 'Inclui links para',
   'fabric.linking.related_links_modal_error_description':
     'Verifique sua conexão ou atualize a página para tentar de novo',
-  'fabric.linking.related_links_modal_error_header': 'Algo deu errado',
-  'fabric.linking.related_links_modal_error_message':
-    'Ocorreu um erro ao carregar os links recentes. Verifique a conexão ou atualize a página para tentar de novo.',
   'fabric.linking.related_links_modal_error_title': 'Ocorreu um problema ao carregar links relacionados',
-  'fabric.linking.related_links_modal_title': 'Links recentes',
-  'fabric.linking.related_links_modal_title_v2': 'Links relacionados',
+  'fabric.linking.related_links_modal_title': 'Links relacionados',
   'fabric.linking.related_links_modal_unavailable_description':
     'A gente está sempre analisando e adicionando links relacionados para páginas atualizadas ou outros tipos de conteúdo',
-  'fabric.linking.related_links_modal_unavailable_header': 'Sem links recentes',
-  'fabric.linking.related_links_modal_unavailable_message':
-    'A gente não encontrou nenhum link para mostrar aqui. A gente está sempre analisando e adicionando links recentes para páginas atualizadas ou outros tipos de conteúdo.',
   'fabric.linking.related_links_modal_unavailable_title': 'Não foi possível encontrar nenhum link relacionado',
   'fabric.linking.related_links_not_found': 'A gente não encontrou nenhum link para mostrar aqui.',
   'fabric.linking.related_links_view_related_links': 'Exibir links relacionados',

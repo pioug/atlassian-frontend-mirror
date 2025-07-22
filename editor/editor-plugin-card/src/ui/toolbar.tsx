@@ -35,6 +35,7 @@ import {
 	FLOATING_TOOLBAR_LINKPICKER_CLASSNAME,
 	richMediaClassName,
 } from '@atlaskit/editor-common/styles';
+import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type {
 	Command,
 	ExtractInjectionAPI,
@@ -65,7 +66,6 @@ import CogIcon from '@atlaskit/icon/core/migration/settings--editor-settings';
 import SettingsIcon from '@atlaskit/icon/core/settings';
 import { fg } from '@atlaskit/platform-feature-flags';
 import type { CardAppearance } from '@atlaskit/smart-card';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { cardPlugin } from '../index';
@@ -286,7 +286,7 @@ const buildAlignmentOptions = (
 	analyticsApi: EditorAnalyticsAPI | undefined,
 	cardOptions?: CardOptions,
 ): FloatingToolbarItem<Command>[] => {
-	if (editorExperiment('platform_editor_controls', 'variant1')) {
+	if (areToolbarFlagsEnabled()) {
 		return buildLayoutDropdown(
 			state,
 			intl,
@@ -365,6 +365,8 @@ const generateToolbarItems =
 				title: title,
 			};
 		}
+
+		const isNewEditorToolbarDisabled = !areToolbarFlagsEnabled();
 
 		const currentAppearance = appearanceForNodeType(node.type);
 		const { hoverDecoration } = pluginInjectionApi?.decorations?.actions ?? {};
@@ -522,10 +524,7 @@ const generateToolbarItems =
 						},
 					];
 
-			const toolbarItems: Array<FloatingToolbarItem<Command>> = editorExperiment(
-				'platform_editor_controls',
-				'control',
-			)
+			const toolbarItems: Array<FloatingToolbarItem<Command>> = isNewEditorToolbarDisabled
 				? [
 						...editItems,
 						...commentItems,
@@ -604,7 +603,7 @@ const generateToolbarItems =
 					pluginInjectionApi?.analytics?.actions,
 					cardOptions,
 				);
-				if (alignmentOptions.length && !editorExperiment('platform_editor_controls', 'variant1')) {
+				if (alignmentOptions.length && isNewEditorToolbarDisabled) {
 					alignmentOptions.push({
 						type: 'separator',
 					});
@@ -621,7 +620,7 @@ const generateToolbarItems =
 
 				toolbarItems.unshift(
 					...getToolbarViewedItem(url, currentAppearance),
-					editorExperiment('platform_editor_controls', 'control')
+					isNewEditorToolbarDisabled
 						? {
 								type: 'custom',
 								fallback: [],
@@ -657,7 +656,7 @@ const generateToolbarItems =
 								),
 								isDatasourceView: isDatasource,
 							}),
-					...(showDatasourceAppearance && editorExperiment('platform_editor_controls', 'control')
+					...(showDatasourceAppearance && isNewEditorToolbarDisabled
 						? [
 								{
 									type: 'custom',
@@ -675,13 +674,13 @@ const generateToolbarItems =
 								} satisfies FloatingToolbarItem<never>,
 							]
 						: []),
-					...(expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1')
+					...(!isNewEditorToolbarDisabled
 						? []
 						: [{ type: 'separator' } as FloatingToolbarItem<Command>]),
 				);
 			}
 
-			if (editorExperiment('platform_editor_controls', 'variant1')) {
+			if (!isNewEditorToolbarDisabled) {
 				const hoverDecorationProps = (nodeType: NodeType | NodeType[], className?: string) => ({
 					onMouseEnter: hoverDecoration?.(nodeType, true, className),
 					onMouseLeave: hoverDecoration?.(nodeType, false, className),
@@ -747,9 +746,7 @@ const getUnlinkButtonGroup = (
 					iconFallback: UnlinkIcon,
 					onClick: withToolbarMetadata(unlinkCard(node, state, editorAnalyticsApi)),
 				},
-				...(expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1')
-					? []
-					: [{ type: 'separator' }]),
+				...(areToolbarFlagsEnabled() ? [] : [{ type: 'separator' }]),
 			] as Array<FloatingToolbarItem<Command>>)
 		: [];
 };
@@ -784,6 +781,7 @@ const getDatasourceButtonGroup = (
 	pluginInjectionApi?: ExtractInjectionAPI<typeof cardPlugin>,
 ): FloatingToolbarItem<Command>[] => {
 	const toolbarItems: Array<FloatingToolbarItem<Command>> = [];
+	const isNewEditorToolbarDisabled = !areToolbarFlagsEnabled();
 
 	const canShowAppearanceSwitch = () => {
 		// we do not show smart-link or the datasource icons when the node does not have a url to resolve
@@ -798,7 +796,7 @@ const getDatasourceButtonGroup = (
 
 		const { url } = metadata;
 
-		if (editorExperiment('platform_editor_controls', 'control')) {
+		if (isNewEditorToolbarDisabled) {
 			toolbarItems.push(
 				{
 					type: 'custom',
@@ -896,12 +894,12 @@ const getDatasourceButtonGroup = (
 			href: node.attrs.url,
 			target: '_blank',
 		});
-		if (editorExperiment('platform_editor_controls', 'control')) {
+		if (isNewEditorToolbarDisabled) {
 			toolbarItems.push({ type: 'separator' });
 		}
 	}
 
-	if (editorExperiment('platform_editor_controls', 'control')) {
+	if (isNewEditorToolbarDisabled) {
 		toolbarItems.push(
 			{
 				type: 'copy-button',
@@ -1055,7 +1053,7 @@ export const getStartingToolbarItems = (
 					},
 				];
 
-		if (editorExperiment('platform_editor_controls', 'variant1')) {
+		if (areToolbarFlagsEnabled()) {
 			const hyperlinkAppearance = [
 				getCustomHyperlinkAppearanceDropdown({
 					url: link,
@@ -1138,10 +1136,7 @@ export const getEndingToolbarItems =
 		 * Require either provider to be supplied (controls link preferences)
 		 * Or explicit user preferences config in order to enable button
 		 */
-		if (
-			(options.provider || options.userPreferencesLink) &&
-			editorExperiment('platform_editor_controls', 'control')
-		) {
+		if ((options.provider || options.userPreferencesLink) && !areToolbarFlagsEnabled()) {
 			return [
 				{ type: 'separator' },
 				getSettingsButton(intl, api?.analytics?.actions, options.userPreferencesLink),

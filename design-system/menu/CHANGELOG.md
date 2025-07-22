@@ -1,5 +1,14 @@
 # @atlaskit/menu
 
+## 8.0.9
+
+### Patch Changes
+
+- [#188621](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188621)
+  [`94981059e9ba8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/94981059e9ba8) -
+  Added accessible label for MenuGroup in DropdownMenu
+- Updated dependencies
+
 ## 8.0.8
 
 ### Patch Changes

@@ -15,9 +15,7 @@ snapshotInformational(VRIssueLikeTableStatusLoading, {
 		await page.getByRole('listbox').getByText('Loading').waitFor({ state: 'visible' });
 	},
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'platform-linking-visual-refresh-sllv': true,
-	},
+	featureFlags: {},
 	ignoredErrors: [
 		{
 			pattern: /(received unsupported error)|(The above error occurred in the)/,
@@ -37,7 +35,6 @@ snapshotInformational(VRIssueLikeTableStatus, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-sllv': true,
 	},
 	ignoredErrors: [
 		{
@@ -60,7 +57,6 @@ snapshotInformational(VRIssueLikeTableStatus, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-sllv': true,
 	},
 	ignoredErrors: [
 		{

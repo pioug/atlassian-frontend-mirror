@@ -141,21 +141,12 @@ export default {
   'fabric.linking.read_time': '{context}분 읽기',
   'fabric.linking.related': '관련',
   'fabric.linking.related_links_found_in': '찾은 위치',
-  'fabric.linking.related_links_found_in_v2': '찾은 위치',
   'fabric.linking.related_links_includes_links_to': '다음에 대한 링크 포함',
-  'fabric.linking.related_links_includes_links_to_v2': '다음에 대한 링크 포함',
   'fabric.linking.related_links_modal_error_description': '연결을 확인하거나 페이지를 새로 고친 후 다시 시도하세요',
-  'fabric.linking.related_links_modal_error_header': '문제가 발생했습니다',
-  'fabric.linking.related_links_modal_error_message':
-    '최근 링크를 로드하는 동안 문제가 발생했습니다. 연결 상태를 확인하거나 페이지를 새로 고쳐 다시 시도하세요.',
   'fabric.linking.related_links_modal_error_title': '관련 링크를 로드하는 동안 문제가 발생했습니다',
-  'fabric.linking.related_links_modal_title': '최근 링크',
-  'fabric.linking.related_links_modal_title_v2': '관련 링크',
+  'fabric.linking.related_links_modal_title': '관련 링크',
   'fabric.linking.related_links_modal_unavailable_description':
     'Atlassian은 업데이트된 페이지 또는 기타 콘텐츠 유형의 관련 링크를 지속적으로 검토 및 추가합니다',
-  'fabric.linking.related_links_modal_unavailable_header': '최근 링크 없음',
-  'fabric.linking.related_links_modal_unavailable_message':
-    '여기에 표시할 링크를 찾지 못했습니다. Atlassian은 업데이트된 페이지 또는 기타 콘텐츠 유형의 최근 링크를 지속적으로 검토 및 추가합니다.',
   'fabric.linking.related_links_modal_unavailable_title': '관련 링크를 찾을 수 없습니다',
   'fabric.linking.related_links_not_found': '여기에 표시할 링크를 찾지 못했습니다.',
   'fabric.linking.related_links_view_related_links': '관련 링크 보기',

@@ -1,5 +1,22 @@
 # @atlaskit/smart-card
 
+## 40.4.2
+
+### Patch Changes
+
+- [#187879](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/187879)
+  [`59db869a4c7ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/59db869a4c7ac) -
+  clean up platform-linking-additional-flexible-element-props fg
+
+## 40.4.1
+
+### Patch Changes
+
+- [#188956](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188956)
+  [`3603ac0cc766d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3603ac0cc766d) -
+  NAVX-1051 Fixing eng-health a11y violation with jest test
+- Updated dependencies
+
 ## 40.4.0
 
 ### Minor Changes

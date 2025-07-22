@@ -441,6 +441,14 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-06-26
+	platform_editor_feedback_mandatory_rating: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_feedback_mandatory_rating',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-07-07
 	platform_editor_toggle_expand_on_match_found: createBooleanExperiment({
 		productKeys: {
@@ -474,5 +482,14 @@ export const editorExperimentsConfig = {
 		param: 'cohort',
 		values: ['control', 'test'],
 		defaultValue: 'control',
+	}),
+	//Added 2025-07-16
+	platform_editor_toolbar_aifc: createBooleanExperiment({
+		productKeys: {
+			jira: 'platform_editor_toolbar_aifc',
+			confluence: 'platform_editor_toolbar_aifc',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
 	}),
 } satisfies Record<string, ExperimentConfigValue>;

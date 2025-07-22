@@ -1,5 +1,17 @@
 # @atlaskit/tokens
 
+## 5.6.0
+
+### Minor Changes
+
+- [#188275](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188275)
+  [`3be70f03be763`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3be70f03be763) -
+  Deprecating existing typography theme ids (`typography-adg3`, `typography-modernized` and
+  `typography-refreshed`) in favour of a new `typography` theme id. Using the new `typography` theme
+  id enables the latest refreshed typography resulting in no functional change. This new
+  `typography` theme id is enabled by default behind a feature flag. If testing successful, this
+  change will be made available in a later release.
+
 ## 5.5.0
 
 ### Minor Changes

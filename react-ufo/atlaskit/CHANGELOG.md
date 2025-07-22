@@ -1,5 +1,14 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.1.0
+
+### Minor Changes
+
+- [#185569](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185569)
+  [`1c7b682d3bd6a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c7b682d3bd6a) -
+  Adds UFOCustomCohortData component and addUFOCustomCohortData function to separate cohorting data
+  (important for analytics) from general debugging data.
+
 ## 4.0.3
 
 ### Patch Changes

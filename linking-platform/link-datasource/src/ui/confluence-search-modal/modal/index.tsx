@@ -8,7 +8,6 @@ import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
 import LinkComponent from '@atlaskit/link';
 import { type DatasourceParameters } from '@atlaskit/linking-types';
 import { ModalBody, ModalFooter, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -262,7 +261,7 @@ export const PlainConfluenceSearchConfigModal = (
 
 	const renderTableModalContent = useCallback(() => {
 		if (status === 'rejected') {
-			if (selectedConfluenceSite && fg('platform-linking-visual-refresh-sllv')) {
+			if (selectedConfluenceSite) {
 				return (
 					<ModalLoadingError
 						errorMessage={
@@ -431,14 +430,10 @@ export const PlainConfluenceSearchConfigModal = (
 							url={confluenceSearchUrl}
 							prefixTextType="result"
 							testId="confluence-search-datasource-modal-total-results-count"
-							styles={
-								fg('platform-linking-visual-refresh-sllv')
-									? {
-											color: token('color.text'),
-											font: token('font.heading.xxsmall'),
-										}
-									: undefined
-							}
+							styles={{
+								color: token('color.text'),
+								font: token('font.heading.xxsmall'),
+							}}
 						/>
 					)}
 					<CancelButton

@@ -4,7 +4,6 @@ import { cssMap } from '@compiled/react';
 import { useIntl } from 'react-intl-next';
 import { useDebouncedCallback } from 'use-debounce';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex, Text } from '@atlaskit/primitives/compiled';
 
 import { BasicSearchInput } from '../../common/modal/basic-search-input';
@@ -140,7 +139,6 @@ const ConfluenceSearchContainer = ({
 					onChange={handleSearchChange}
 					onSearch={onSearch}
 					searchTerm={searchBarSearchString}
-					placeholder={searchMessages.searchLabel}
 					ariaLabel={searchMessages.searchLabel}
 					fullWidth={false}
 				/>
@@ -151,11 +149,9 @@ const ConfluenceSearchContainer = ({
 					isHydrating={status === 'loading'}
 				/>
 			</Flex>
-			{fg('platform-linking-visual-refresh-sllv') && (
-				<Text size="small" color="color.text.subtlest" testId="confluence-search-placeholder">
-					{formatMessage(searchMessages.searchLabel)}
-				</Text>
-			)}
+			<Text size="small" color="color.text.subtlest" testId="confluence-search-placeholder">
+				{formatMessage(searchMessages.searchLabel)}
+			</Text>
 		</Box>
 	);
 };

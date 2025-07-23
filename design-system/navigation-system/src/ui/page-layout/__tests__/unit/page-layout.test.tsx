@@ -14,7 +14,7 @@ import { SideNav } from '../../side-nav/side-nav';
 import { SideNavToggleButton } from '../../side-nav/toggle-button';
 import { TopNav } from '../../top-nav/top-nav';
 
-import { resetMatchMedia, setMediaQuery } from './test-utils';
+import { resetMatchMedia, setMediaQuery } from './_test-utils';
 
 const originalNodeEnv = process.env.NODE_ENV;
 

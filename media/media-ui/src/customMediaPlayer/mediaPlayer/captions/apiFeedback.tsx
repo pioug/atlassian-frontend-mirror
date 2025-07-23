@@ -1,7 +1,7 @@
 import React from 'react';
 import { AutoDismissFlag, FlagGroup } from '@atlaskit/flag';
-import SuccessIcon from '@atlaskit/icon/core/migration/success--check-circle';
-import ErrorIcon from '@atlaskit/icon/core/migration/error';
+import SuccessIcon from '@atlaskit/icon/core/migration/status-success--check-circle';
+import ErrorIcon from '@atlaskit/icon/core/migration/status-error--error';
 import { token } from '@atlaskit/tokens';
 import { type WrappedComponentProps, injectIntl } from 'react-intl-next';
 import { messages } from '../../../messages';

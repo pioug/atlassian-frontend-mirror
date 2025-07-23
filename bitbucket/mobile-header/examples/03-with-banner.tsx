@@ -6,7 +6,7 @@ import styled from '@emotion/styled';
 import Banner from '@atlaskit/banner';
 import { IconButton } from '@atlaskit/button/new';
 import MenuIcon from '@atlaskit/icon/core/menu';
-import WarningIcon from '@atlaskit/icon/core/migration/warning';
+import WarningIcon from '@atlaskit/icon/core/migration/status-warning--warning';
 import LegacyRoomMenuIcon from '@atlaskit/icon/glyph/room-menu';
 import Navigation from '@atlaskit/navigation';
 

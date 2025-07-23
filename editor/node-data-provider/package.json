@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/node-data-provider",
-	"version": "4.1.2",
+	"version": "4.2.0",
 	"description": "Node data provider for @atlaskit/editor-core plugins and @atlaskit/renderer",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -19,25 +19,14 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"af:exports": {
-		".": "./src/index.ts",
-		"./plugin-hooks": "./src/plugin-hooks.ts",
-		"./content": "./src/consumption/content.tsx",
-		"./cache": "./src/cache.ts",
-		"./emoji-provider": "./src/providers/emoji.ts",
-		"./get-confluence-page-providers": "./src/get-providers/confluence-page.ts"
+		".": "./src/index.ts"
 	},
 	"exports": {
-		".": "./src/index.ts",
-		"./plugin-hooks": "./src/plugin-hooks.ts",
-		"./content": "./src/consumption/content.tsx",
-		"./cache": "./src/cache.ts",
-		"./emoji-provider": "./src/providers/emoji.ts",
-		"./get-confluence-page-providers": "./src/get-providers/confluence-page.ts"
+		".": "./src/index.ts"
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "root:*",
 		"@atlaskit/adf-utils": "workspace:^",
-		"@atlaskit/emoji": "workspace:^",
 		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {
@@ -45,8 +34,6 @@
 	},
 	"devDependencies": {
 		"@atlaskit/editor-test-helpers": "workspace:^",
-		"@testing-library/react": "root:*",
-		"@testing-library/react-hooks": "root:*",
 		"typescript": "root:*"
 	},
 	"techstack": {

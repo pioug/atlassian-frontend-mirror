@@ -1,5 +1,22 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.19.1
+
+### Patch Changes
+
+- [#188952](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188952)
+  [`1a88e6e2601ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a88e6e2601ae) -
+  Migrated usage of renamed/deprecated icons
+- Updated dependencies
+
+## 13.19.0
+
+### Minor Changes
+
+- [#187495](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/187495)
+  [`8c0b4fd35134d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c0b4fd35134d) -
+  Introduces new ESLint rule to identify unused variables in cssMap.
+
 ## 13.18.1
 
 ### Patch Changes

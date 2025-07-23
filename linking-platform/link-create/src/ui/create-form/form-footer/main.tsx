@@ -6,7 +6,7 @@ import { css, jsx } from '@compiled/react';
 import { useIntl } from 'react-intl-next';
 
 import { ButtonGroup } from '@atlaskit/button';
-import ErrorIcon from '@atlaskit/icon/core/migration/error';
+import ErrorIcon from '@atlaskit/icon/core/migration/status-error--error';
 import { token } from '@atlaskit/tokens';
 
 import { Button } from '../../../common/ui/Button';

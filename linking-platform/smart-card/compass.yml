@@ -15,7 +15,7 @@ fields:
 links:
   - name: ''
     type: CHAT_CHANNEL
-    url: 'https://atlassian.enterprise.slack.com/archives/C07TNMDEVHC'
+    url: 'https://atlassian.enterprise.slack.com/archives/CFKGAQZRV'
   - name: ''
     type: ON_CALL
     url: 'https://hello.jira.atlassian.cloud/jira/ops/teams/e738fbc3-d778-4660-aa11-5697a458ffa7/on-call'

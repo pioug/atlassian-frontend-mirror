@@ -15,6 +15,12 @@ export type TrackChangesPlugin = NextEditorPlugin<
 			 * Defaults to false.
 			 */
 			isDisplayingChanges: boolean;
+			/**
+			 * If there are changes in the document that determine if track changes button
+			 * should be enabled.
+			 * This will only be false initially before any changes in the session.
+			 */
+			isShowDiffAvailable: boolean;
 		};
 	}
 >;

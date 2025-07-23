@@ -376,31 +376,37 @@ describe('commitStepQueue', () => {
 
 		describe('backpressure delay handling', () => {
 			it(`Resets readyToCommit flag after ${RESET_READYTOCOMMIT_INTERVAL_MS}`, () => {
-				presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
+				const lockStepsMock = jest.fn();
+				presetCommitStepQueue([fakeStep], 1, 'user1', 'client1', { lockSteps: lockStepsMock });
 				expect(commitStepService.getReadyToCommitStatus()).toBe(false);
 				jest.advanceTimersByTime(RESET_READYTOCOMMIT_INTERVAL_MS);
+				expect(lockStepsMock).toHaveBeenCalledTimes(1);
 				expect(commitStepService.getReadyToCommitStatus()).toBe(true);
 			});
 
 			it('should honour back pressure delay sent from BE ack', () => {
 				jest.runOnlyPendingTimers();
 				broadcastMockImplementation({ type: 'SUCCESS', version: 2, delay: 500 });
-				presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
+				const lockStepsMock = jest.fn();
+				presetCommitStepQueue([fakeStep], 1, 'user1', 'client1', { lockSteps: lockStepsMock });
 				expect(commitStepService.getReadyToCommitStatus()).toBe(false);
 				jest.advanceTimersByTime(260);
 				expect(commitStepService.getReadyToCommitStatus()).toBe(false);
 				jest.advanceTimersByTime(260);
+				expect(lockStepsMock).toHaveBeenCalledTimes(1);
 				expect(commitStepService.getReadyToCommitStatus()).toBe(true);
 			});
 
 			it('should wait 680ms when no backpressure delay is sent', () => {
 				jest.runOnlyPendingTimers();
 				broadcastMockImplementation({ type: 'SUCCESS', version: 2 });
-				presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
+				const lockStepsMock = jest.fn();
+				presetCommitStepQueue([fakeStep], 1, 'user1', 'client1', { lockSteps: lockStepsMock });
 				expect(commitStepService.getReadyToCommitStatus()).toBe(false);
 				jest.advanceTimersByTime(600);
 				expect(commitStepService.getReadyToCommitStatus()).toBe(false);
 				jest.advanceTimersByTime(100);
+				expect(lockStepsMock).toHaveBeenCalledTimes(1);
 				expect(commitStepService.getReadyToCommitStatus()).toBe(true);
 			});
 
@@ -480,12 +486,15 @@ describe('commitStepQueue', () => {
 				const { commitStepService, presetCommitStepQueue } = createTestHelpers({
 					offlineBroadcast: true,
 				});
+				const lockStepsMock = jest.fn();
 
 				presetCommitStepQueue([fakeStep], 1, 'user1', 'client1', {
 					__livePage: false,
 					hasRecovered: false,
 					collabMode: 'collab',
+					lockSteps: lockStepsMock,
 				});
+				expect(lockStepsMock).toHaveBeenCalledTimes(1);
 				expect(commitStepService.getReadyToCommitStatus()).toBe(true);
 			});
 

@@ -16,7 +16,7 @@ import {
 	type ExtensionDeprecationStatus,
 } from '@atlaskit/editor-common/extensions';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
-import CrossIcon from '@atlaskit/icon/core/migration/close--cross';
+import CrossIcon from '@atlaskit/icon/core/migration/cross';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Text, xcss } from '@atlaskit/primitives';
 import { N200 } from '@atlaskit/theme/colors';

@@ -25,11 +25,15 @@ export const trackChangesPlugin: TrackChangesPlugin = () => ({
 		if (!editorState) {
 			return {
 				isDisplayingChanges: false,
+				isShowDiffAvailable: false,
 			};
 		}
 		return {
 			isDisplayingChanges: Boolean(
-				trackChangesPluginKey.getState(editorState)?.shouldChangesBeDispalyed,
+				trackChangesPluginKey.getState(editorState)?.shouldChangesBeDisplayed,
+			),
+			isShowDiffAvailable: Boolean(
+				trackChangesPluginKey.getState(editorState)?.isShowDiffAvailable,
 			),
 		};
 	},

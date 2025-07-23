@@ -1,7 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { usePrefetch } from '../../../state';
 import { startUfoExperience } from '../../../state/analytics/ufoExperiences';
 import { shouldSample } from '../../../utils/shouldSample';
@@ -31,11 +29,7 @@ export function LazyIntersectionObserverCard(props: CardWithUrlContentProps) {
 		(entries, observer) => {
 			const isVisible = entries.some((entry) => entry.isIntersecting);
 			if (isVisible) {
-				if (fg('send-smart-link-rendered-ufo-event-half-time')) {
-					if (shouldSendRenderedUFOEvent) {
-						startUfoExperience('smart-link-rendered', id);
-					}
-				} else {
+				if (shouldSendRenderedUFOEvent) {
 					startUfoExperience('smart-link-rendered', id);
 				}
 				setIsIntersecting(true);

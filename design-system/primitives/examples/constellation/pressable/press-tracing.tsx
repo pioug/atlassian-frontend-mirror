@@ -9,7 +9,7 @@ import __noop from '@atlaskit/ds-lib/noop';
 import { FlagsProvider, useFlags } from '@atlaskit/flag';
 import Heading from '@atlaskit/heading';
 import CheckMarkIcon from '@atlaskit/icon/core/migration/check-mark--check';
-import InformationIcon from '@atlaskit/icon/core/migration/information--info';
+import InformationIcon from '@atlaskit/icon/core/migration/status-information--info';
 import InteractionContext from '@atlaskit/interaction-context';
 import { ZoomIn } from '@atlaskit/motion';
 import { Box, Inline, Pressable, Stack } from '@atlaskit/primitives/compiled';

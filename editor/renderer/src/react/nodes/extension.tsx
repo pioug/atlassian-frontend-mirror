@@ -108,7 +108,7 @@ export const renderExtension = (
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						width: isTopLevel ? calcBreakoutWidth(layout, width) : '100%',
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-						minHeight: extensionHeight,
+						minHeight: `${extensionHeight}px`,
 					}}
 					data-layout={layout}
 				>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
-import ErrorIcon from '@atlaskit/icon/core/migration/error';
+import ErrorIcon from '@atlaskit/icon/core/migration/status-error--error';
 import InlineDialog from '@atlaskit/inline-dialog';
 import InlineEdit from '@atlaskit/inline-edit';
 import { Box } from '@atlaskit/primitives/compiled';

@@ -8,7 +8,7 @@ import { css, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import ErrorIcon from '@atlaskit/icon/core/migration/error';
+import ErrorIcon from '@atlaskit/icon/core/migration/status-error--error';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { N800, R50, R500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';

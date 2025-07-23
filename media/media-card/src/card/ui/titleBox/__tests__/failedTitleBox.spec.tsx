@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import { FailedTitleBox } from '../failedTitleBox';
 import { Breakpoint } from '../../common';
 import { TitleBoxWrapper } from '../titleBoxComponents';
-import EditorWarningIcon from '@atlaskit/icon/core/migration/warning--editor-warning';
+import EditorWarningIcon from '@atlaskit/icon/core/migration/status-warning--editor-warning';
 import { FormattedMessage } from 'react-intl-next';
 
 describe('FailedTitleBox', () => {

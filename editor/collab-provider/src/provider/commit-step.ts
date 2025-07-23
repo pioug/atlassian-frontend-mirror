@@ -16,8 +16,6 @@ import { createLogger } from '../helpers/utils';
 import type AnalyticsHelper from '../analytics/analytics-helper';
 import type { InternalError } from '../errors/internal-errors';
 import type { GetResolvedEditorStateReason } from '@atlaskit/editor-common/types';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 const logger = createLogger('commit-step', 'black');
@@ -82,6 +80,7 @@ export class CommitStepService {
 		if (reason === 'publish' && this.lastBroadcastRequestAcked) {
 			if (fg('skip_collab_provider_delay_on_publish')) {
 				clearTimeout(commitWaitTimer);
+				lockSteps();
 				this.readyToCommit = true;
 			} // no-op if fg is turned off
 		}
@@ -95,6 +94,7 @@ export class CommitStepService {
 
 		// this timer is a fallback for if an ACK from BE is lost - stop the queue from getting indefinitely locked
 		const fallbackTimer = setTimeout(() => {
+			lockSteps();
 			this.readyToCommit = true;
 			this.lastBroadcastRequestAcked = true;
 			logger('reset readyToCommit by timer');
@@ -168,12 +168,7 @@ export class CommitStepService {
 
 					clearTimeout(fallbackTimer); // clear the fallback timer, ack was successfully sent/recieved
 					commitWaitTimer = setTimeout(() => {
-						if (
-							editorExperiment('platform_editor_offline_editing_web', true) ||
-							expValEquals('platform_editor_enable_single_player_step_merging', 'isEnabled', true)
-						) {
-							lockSteps();
-						}
+						lockSteps();
 						// unlock the queue after waiting for delay
 						this.readyToCommit = true;
 						logger('reset readyToCommit');
@@ -213,6 +208,7 @@ export class CommitStepService {
 			}
 		} catch (error) {
 			// if the broadcast failed for any reason, we shouldn't keep the queue locked as the BE has not recieved any message
+			lockSteps();
 			this.readyToCommit = true;
 			this.analyticsHelper?.sendErrorEvent(error, ADD_STEPS_BROADCAST_ERROR_MSG);
 			this.emit('commit-status', { status: 'failure', version });

@@ -9,7 +9,7 @@
 export default {
   'fabric.editor.headingLink.ascSortingLabel': 'aufsteigend',
   'fabric.editor.headingLink.copied': 'Kopiert!',
-  'fabric.editor.headingLink.copyAnchorLink': 'Link in Überschrift kopieren',
+  'fabric.editor.headingLink.copyAnchorLink': 'Link zur Überschrift kopieren',
   'fabric.editor.headingLink.copyAriaLabel': 'Kopieren',
   'fabric.editor.headingLink.descSortingLabel': 'absteigend',
   'fabric.editor.headingLink.failedToCopy': 'Kopieren ist fehlgeschlagen',

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { AutoDismissFlag, FlagGroup } from '@atlaskit/flag';
-import SuccessIcon from '@atlaskit/icon/core/migration/success--check-circle';
+import SuccessIcon from '@atlaskit/icon/core/migration/status-success--check-circle';
 import { G300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 

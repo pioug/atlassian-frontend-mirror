@@ -648,7 +648,7 @@ export default {
   'fabric.editor.moveColumnRight': '{0, plural, one {Siirrä sarake oikealle} other {Siirrä sarakkeet oikealle}}',
   'fabric.editor.moveDownDown': '{0, plural, one {Siirrä rivi alas} other {Siirrä rivit alas}}',
   'fabric.editor.moveRowUp': '{0, plural, one {Siirrä rivi ylös} other {Siirrä rivit ylös}}',
-  'fabric.editor.navigate.toolbar.askAI': 'Kysy AI:lta',
+  'fabric.editor.navigate.toolbar.askAI': 'Kysy tekoälyltä',
   'fabric.editor.navigate.toolbar.editor': 'Siirry editorin työkalupalkkiin',
   'fabric.editor.navigate.toolbar.floating': 'Siirry kelluvaan työkalupalkkiin',
   'fabric.editor.noResultsFound': 'Ei tuloksia',

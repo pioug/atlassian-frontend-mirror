@@ -1,5 +1,29 @@
 # @atlaskit/teams-public
 
+## 0.46.0
+
+### Minor Changes
+
+- [#186163](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/186163)
+  [`217c313ed51d4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/217c313ed51d4) -
+  Use new package to check product permission
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.45.1
+
+### Patch Changes
+
+- [#188487](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188487)
+  [`649828c41c955`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/649828c41c955) -
+  Updated styling for teams containers empty state
+- [#188952](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188952)
+  [`1a88e6e2601ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a88e6e2601ae) -
+  Migrated usage of renamed/deprecated icons
+- Updated dependencies
+
 ## 0.45.0
 
 ### Minor Changes

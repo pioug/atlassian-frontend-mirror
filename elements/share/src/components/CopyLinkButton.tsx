@@ -8,7 +8,7 @@ import React, { type ReactElement } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import LinkFilledIcon from '@atlaskit/icon/core/migration/link--link-filled';
-import CheckCircleIcon from '@atlaskit/icon/core/migration/success--check-circle';
+import CheckCircleIcon from '@atlaskit/icon/core/migration/status-success--check-circle';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Popup, { type TriggerProps } from '@atlaskit/popup';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss

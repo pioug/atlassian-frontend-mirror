@@ -2,7 +2,7 @@ import React from 'react';
 
 import { FormattedMessage } from 'react-intl-next';
 
-import CrossIcon from '@atlaskit/icon/core/migration/close--cross';
+import CrossIcon from '@atlaskit/icon/core/migration/cross';
 
 import { messages } from '../../../../../messages';
 import Action from '../action';

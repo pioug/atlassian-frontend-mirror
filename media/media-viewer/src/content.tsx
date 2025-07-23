@@ -1,6 +1,6 @@
 import React from 'react';
 import { Component, type ReactElement } from 'react';
-import CrossIcon from '@atlaskit/icon/core/migration/close--cross';
+import CrossIcon from '@atlaskit/icon/core/migration/cross';
 import { MediaButton, hideControlsClassName, InactivityDetector } from '@atlaskit/media-ui';
 import { CloseButtonWrapper, ContentWrapper } from './styleWrappers';
 import { type WithShowControlMethodProp } from '@atlaskit/media-ui';

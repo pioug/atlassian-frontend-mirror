@@ -2,7 +2,7 @@ import React from 'react';
 
 import noop from '@atlaskit/ds-lib/noop';
 import Flag from '@atlaskit/flag';
-import ErrorIcon from '@atlaskit/icon/core/migration/error';
+import ErrorIcon from '@atlaskit/icon/core/migration/status-error--error';
 import { token } from '@atlaskit/tokens';
 
 const FlagErrorExample = () => {

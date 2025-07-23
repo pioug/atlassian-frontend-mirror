@@ -10,13 +10,13 @@ import { css, jsx } from '@emotion/react';
 import {
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type {
 	EditorAppearance,
 	OptionalPlugin,
 	PublicPluginAPI,
 } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { ViewMode, EditorViewModePlugin } from '@atlaskit/editor-plugins/editor-viewmode';
 import type {
 	MaxContentSizePlugin,
@@ -134,11 +134,15 @@ const useEditorViewModePluginState = sharedPluginStateHookMigratorFactory<
 	PublicPluginAPI<OptionalPlugin<EditorViewModePlugin>> | undefined
 >(
 	(pluginInjectionApi) => {
-		const { editorViewModeState } = useSharedPluginState(pluginInjectionApi, ['editorViewMode']);
-		return editorViewModeState?.mode;
+		return useSharedPluginStateWithSelector(
+			pluginInjectionApi,
+			['editorViewMode'],
+			(states) => states?.editorViewModeState?.mode,
+		);
 	},
 	(pluginInjectionApi) => {
-		return useSharedPluginStateSelector(pluginInjectionApi, 'editorViewMode.mode');
+		const { editorViewModeState } = useSharedPluginState(pluginInjectionApi, ['editorViewMode']);
+		return editorViewModeState?.mode;
 	},
 );
 
@@ -240,18 +244,19 @@ const useMaxContentSizePluginState = sharedPluginStateHookMigratorFactory<
 	PublicPluginAPI<OptionalPlugin<MaxContentSizePlugin>> | undefined
 >(
 	(pluginInjectionApi) => {
-		const { maxContentSizeState } = useSharedPluginState(pluginInjectionApi, ['maxContentSize']);
-		return { maxContentSizeState };
-	},
-	(pluginInjectionApi) => {
-		const maxContentSizeReached = useSharedPluginStateSelector(
+		const maxContentSizeReached = useSharedPluginStateWithSelector(
 			pluginInjectionApi,
-			'maxContentSize.maxContentSizeReached',
+			['maxContentSize'],
+			(states) => states?.maxContentSizeState?.maxContentSizeReached,
 		);
 		return {
 			maxContentSizeState:
 				maxContentSizeReached === undefined ? undefined : { maxContentSizeReached },
 		};
+	},
+	(pluginInjectionApi) => {
+		const { maxContentSizeState } = useSharedPluginState(pluginInjectionApi, ['maxContentSize']);
+		return { maxContentSizeState };
 	},
 );
 

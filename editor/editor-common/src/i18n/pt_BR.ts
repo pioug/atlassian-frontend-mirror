@@ -658,7 +658,7 @@ export default {
     '{0, plural, one {Mover coluna para a direita} other {Mover colunas para a direita}}',
   'fabric.editor.moveDownDown': '{0, plural, one {Mover linha para baixo} other {Mover linhas para baixo}}',
   'fabric.editor.moveRowUp': '{0, plural, one {Mover linha para cima} other {Mover linhas para cima}}',
-  'fabric.editor.navigate.toolbar.askAI': 'Perguntar ao Atlassian Intelligence',
+  'fabric.editor.navigate.toolbar.askAI': 'Perguntar à IA',
   'fabric.editor.navigate.toolbar.editor': 'Navegue até a barra de ferramentas do editor',
   'fabric.editor.navigate.toolbar.floating': 'Navegue até a barra de ferramentas flutuante',
   'fabric.editor.noResultsFound': 'Sem resultados',

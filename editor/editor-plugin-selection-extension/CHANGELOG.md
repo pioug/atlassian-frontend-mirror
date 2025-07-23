@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 3.2.1
+
+### Patch Changes
+
+- [#189233](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/189233)
+  [`0fe3ab9a767d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0fe3ab9a767d5) -
+  FG cleanup for platform_editor_fix_get_selection_state_mismatch
+- Updated dependencies
+
 ## 3.2.0
 
 ### Minor Changes

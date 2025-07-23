@@ -52,7 +52,7 @@ import { cursorStyles } from './styles/cursorStyles';
 import { dateStyles, dateVanillaStyles } from './styles/dateStyles';
 import { editorUGCTokensDefault, editorUGCTokensRefreshed } from './styles/editorUGCTokenStyles';
 import { embedCardStyles } from './styles/embedCardStyles';
-import { emojiStyles } from './styles/emoji';
+import { emojiStyles, emojiStylesWithSelectorFixes } from './styles/emoji';
 import {
 	expandStyles,
 	expandStylesMixin_fg_platform_editor_nested_dnd_styles_changes,
@@ -91,12 +91,7 @@ import {
 	layoutSelectedStylesNotAdvanced,
 	layoutStylesForView,
 } from './styles/layout';
-import {
-	hyperLinkFloatingToolbarStyles,
-	linkLegacyIconStylesFix,
-	linkStyles,
-	linkStylesOld,
-} from './styles/link';
+import { hyperLinkFloatingToolbarStyles, linkLegacyIconStylesFix, linkStyles } from './styles/link';
 import { listsStyles, listsStylesSafariFix } from './styles/list';
 import { mediaAlignmentStyles, mediaGroupStyles, mediaStyles } from './styles/mediaStyles';
 import {
@@ -444,7 +439,7 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							paragraphStylesOld,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					fg('platform_editor_hyperlink_underline') ? linkStyles : linkStylesOld,
+					linkStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					browser.safari && listsStylesSafariFix,
 					expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true)
@@ -524,8 +519,11 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					fg('platform_editor_centre_mention_padding') &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						mentionsStylesMixin_platform_editor_centre_mention_padding,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					emojiStyles,
+					fg('platform_editor_fix_emoji_style_selectors')
+						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							emojiStylesWithSelectorFixes
+						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							emojiStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					panelViewStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

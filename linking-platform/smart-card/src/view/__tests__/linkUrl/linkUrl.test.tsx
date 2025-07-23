@@ -6,7 +6,6 @@ import { act, createEvent, fireEvent, render, screen, waitFor } from '@testing-l
 import userEvent from '@testing-library/user-event';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
 import LinkUrl from '../../LinkUrl';
@@ -149,37 +148,35 @@ describe('LinkUrl', () => {
 		});
 	});
 
-	ffTest.on('do-not-show-link-mismatch-warning-for-same-origin', 'fix is on', () => {
-		describe('when current document origin and href url origin are the same', () => {
-			describe('and origins of urls in href and title are different', () => {
-				it('should show safety warning message', () => {
-					checkWarningPresence(
-						`${window.location.origin}/path?query=1`,
-						'http://other.origin.com/path?query=1',
-						true,
-						true,
-					);
-				});
+	describe('when current document origin and href url origin are the same', () => {
+		describe('and origins of urls in href and title are different', () => {
+			it('should show safety warning message', () => {
+				checkWarningPresence(
+					`${window.location.origin}/path?query=1`,
+					'http://other.origin.com/path?query=1',
+					true,
+					true,
+				);
+			});
+		});
+
+		describe('and origins of urls in href and title are the same', () => {
+			it('should not show safety warning message even if path is different', () => {
+				checkWarningPresence(
+					`${window.location.origin}/path1`,
+					`${window.location.origin}/path2`,
+					true,
+					false,
+				);
 			});
 
-			describe('and origins of urls in href and title are the same', () => {
-				it('should not show safety warning message even if path is different', () => {
-					checkWarningPresence(
-						`${window.location.origin}/path1`,
-						`${window.location.origin}/path2`,
-						true,
-						false,
-					);
-				});
-
-				it('should not show safety warning message even if query is different', () => {
-					checkWarningPresence(
-						`${window.location.origin}/path1?query=1`,
-						`${window.location.origin}/path1?query=2`,
-						true,
-						false,
-					);
-				});
+			it('should not show safety warning message even if query is different', () => {
+				checkWarningPresence(
+					`${window.location.origin}/path1?query=1`,
+					`${window.location.origin}/path1?query=2`,
+					true,
+					false,
+				);
 			});
 		});
 	});

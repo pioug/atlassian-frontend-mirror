@@ -25,11 +25,13 @@
 	"atlaskit:src": "src/index.ts",
 	"af:exports": {
 		"./navigation": "./src/utils/teams-app-navigation/index.ts",
-		"./types": "./src/utils/teams-app-navigation/types.ts"
+		"./types": "./src/common/types.ts",
+		"./is-teams-app-enabled": "./src/common/utils/is-teams-app-enabled/index.ts"
 	},
 	"exports": {
 		"./navigation": "./src/utils/teams-app-navigation/index.ts",
-		"./types": "./src/utils/teams-app-navigation/types.ts"
+		"./types": "./src/common/types.ts",
+		"./is-teams-app-enabled": "./src/common/utils/is-teams-app-enabled/index.ts"
 	},
 	"scripts": {
 		"test:coverage": "(cd ../../.. && yarn test 'packages/people-and-teams/teams-app-config/src' --coverage --coverageProvider=v8 --collectCoverageFrom='[\"packages/people-and-teams/teams-app-config/src/**\", \"!packages/people-and-teams/teams-app-config/src/**/**/types.ts\", \"!packages/people-and-teams/teams-app-config/src/ui/**/styled.tsx\"]')"
@@ -37,6 +39,7 @@
 	"dependencies": {
 		"@atlaskit/atlassian-context": "workspace:^",
 		"@atlaskit/css": "workspace:^",
+		"@atlaskit/feature-gate-js-client": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
@@ -95,7 +98,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-app-config",
-	"version": "1.10.0",
+	"version": "1.10.1",
 	"description": "Teams App related config",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

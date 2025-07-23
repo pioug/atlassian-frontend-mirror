@@ -778,6 +778,7 @@ export default {
   'fabric.editor.panel.custom': 'Custom',
   'fabric.editor.panel.emoji': 'Add emoji',
   'fabric.editor.panel.panelsGroup': 'Panel Types',
+  'fabric.editor.panelButtonTitle': 'Panel',
   'fabric.editor.pasteOptions': 'Paste options',
   'fabric.editor.pastePlainText': 'Paste plain text',
   'fabric.editor.placeholderAltText': 'Describe this image with alt text',

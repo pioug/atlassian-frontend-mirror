@@ -23,7 +23,7 @@ import {
 	parseCssErrorRegex,
 	type ResetConsoleErrorFn,
 	resetMatchMedia,
-} from './test-utils';
+} from './_test-utils';
 
 function ControlledPopupSelect({ options }: { options: OptionType[] }) {
 	const [isOpen, setIsOpen] = useState(true);

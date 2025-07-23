@@ -63,6 +63,9 @@
 			"path": "../../../design-system/primitives/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../teams-app-internal-product-permissions/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../teams-client/afm-townsquare/tsconfig.json"
 		},
 		{

@@ -14,6 +14,7 @@ import Button from '@atlaskit/button/new';
 import {
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import messages from '@atlaskit/editor-common/messages';
 import { GRID_GUTTER } from '@atlaskit/editor-common/styles';
@@ -24,7 +25,6 @@ import type {
 } from '@atlaskit/editor-common/types';
 import { WidthConsumer, WidthProvider } from '@atlaskit/editor-common/ui';
 import { ToolbarArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type {
 	EditorViewModePlugin,
 	EditorViewModePluginState,
@@ -192,22 +192,16 @@ const useCommentEditorPluginsStates = sharedPluginStateHookMigratorFactory<
 	| undefined
 >(
 	(pluginInjectionApi) => {
-		return useSharedPluginState(pluginInjectionApi, [
-			'maxContentSize',
-			'primaryToolbar',
-			'editorViewMode',
-		]);
-	},
-	(pluginInjectionApi) => {
-		const maxContentSizeReached = useSharedPluginStateSelector(
-			pluginInjectionApi,
-			'maxContentSize.maxContentSizeReached',
-		);
-		const primaryToolbarComponents = useSharedPluginStateSelector(
-			pluginInjectionApi,
-			'primaryToolbar.components',
-		);
-		const editorViewMode = useSharedPluginStateSelector(pluginInjectionApi, 'editorViewMode.mode');
+		const { maxContentSizeReached, primaryToolbarComponents, editorViewMode } =
+			useSharedPluginStateWithSelector(
+				pluginInjectionApi,
+				['maxContentSize', 'primaryToolbar', 'editorViewMode'],
+				(states) => ({
+					maxContentSizeReached: states.maxContentSizeState?.maxContentSizeReached,
+					primaryToolbarComponents: states.primaryToolbarState?.components,
+					editorViewMode: states.editorViewModeState?.mode,
+				}),
+			);
 
 		return {
 			maxContentSizeState:
@@ -217,6 +211,13 @@ const useCommentEditorPluginsStates = sharedPluginStateHookMigratorFactory<
 				: { components: primaryToolbarComponents },
 			editorViewModeState: !editorViewMode ? undefined : { mode: editorViewMode },
 		};
+	},
+	(pluginInjectionApi) => {
+		return useSharedPluginState(pluginInjectionApi, [
+			'maxContentSize',
+			'primaryToolbar',
+			'editorViewMode',
+		]);
 	},
 );
 

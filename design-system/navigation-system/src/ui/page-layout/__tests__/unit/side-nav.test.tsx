@@ -19,7 +19,7 @@ import {
 	type ResetConsoleErrorFn,
 	resetMatchMedia,
 	setMediaQuery,
-} from './test-utils';
+} from './_test-utils';
 
 describe('Side nav', () => {
 	let resetConsoleErrorSpyFn: ResetConsoleErrorFn;

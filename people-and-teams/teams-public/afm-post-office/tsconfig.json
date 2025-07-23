@@ -63,6 +63,9 @@
 			"path": "../../../design-system/primitives/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../teams-app-internal-product-permissions/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../teams-client/afm-post-office/tsconfig.json"
 		},
 		{

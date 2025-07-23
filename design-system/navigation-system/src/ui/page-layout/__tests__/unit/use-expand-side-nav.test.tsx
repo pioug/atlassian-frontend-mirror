@@ -10,7 +10,7 @@ import {
 	SideNavVisibilityState,
 } from '../../side-nav/visibility-context';
 
-import { resetMatchMedia, setMediaQuery } from './test-utils';
+import { resetMatchMedia, setMediaQuery } from './_test-utils';
 
 describe('useExpandSideNav', () => {
 	beforeEach(() => {

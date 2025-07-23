@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
-import CloseIcon from '@atlaskit/icon/core/migration/close--cross';
+import CrossIcon from '@atlaskit/icon/core/migration/cross';
 import {
 	Spotlight,
 	SpotlightManager,
@@ -59,7 +59,7 @@ const SpotlightDialogPlacement = () => {
 						headingAfterElement={
 							<Button
 								iconBefore={
-									<CloseIcon
+									<CrossIcon
 										label="Close"
 										LEGACY_primaryColor={N0}
 										color={token('color.icon.inverse')}

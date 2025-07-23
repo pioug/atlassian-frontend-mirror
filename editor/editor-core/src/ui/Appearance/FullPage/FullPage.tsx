@@ -11,6 +11,7 @@ import { browser } from '@atlaskit/editor-common/browser';
 import {
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { OptionalPlugin, PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { ContextPanelWidthProvider } from '@atlaskit/editor-common/ui';
@@ -116,6 +117,26 @@ const useFullPageEditorPluginsStates = sharedPluginStateHookMigratorFactory<
 	| undefined
 >(
 	(pluginInjectionApi) => {
+		const { interactionState, primaryToolbarComponents, editorViewMode } =
+			useSharedPluginStateWithSelector(
+				pluginInjectionApi,
+				['primaryToolbar', 'interaction', 'editorViewMode'],
+				(states) => ({
+					primaryToolbarComponents: states.primaryToolbarState?.components,
+					interactionState: states.interactionState?.interactionState,
+					editorViewMode: states.editorViewModeState?.mode,
+				}),
+			);
+
+		return {
+			primaryToolbarState: !primaryToolbarComponents
+				? undefined
+				: { components: primaryToolbarComponents },
+			editorViewModeState: !editorViewMode ? undefined : { mode: editorViewMode },
+			interactionState,
+		};
+	},
+	(pluginInjectionApi) => {
 		const sharedState = useSharedPluginState(pluginInjectionApi, [
 			'editorViewMode',
 			'primaryToolbar',
@@ -125,25 +146,6 @@ const useFullPageEditorPluginsStates = sharedPluginStateHookMigratorFactory<
 			primaryToolbarState: sharedState?.primaryToolbarState,
 			editorViewModeState: sharedState?.editorViewModeState,
 			interactionState: sharedState?.interactionState?.interactionState,
-		};
-	},
-	(pluginInjectionApi) => {
-		const primaryToolbarComponents = useSharedPluginStateSelector(
-			pluginInjectionApi,
-			'primaryToolbar.components',
-		);
-		const editorViewMode = useSharedPluginStateSelector(pluginInjectionApi, 'editorViewMode.mode');
-		const interactionState = useSharedPluginStateSelector(
-			pluginInjectionApi,
-			'interaction.interactionState',
-		);
-
-		return {
-			primaryToolbarState: !primaryToolbarComponents
-				? undefined
-				: { components: primaryToolbarComponents },
-			editorViewModeState: !editorViewMode ? undefined : { mode: editorViewMode },
-			interactionState,
 		};
 	},
 );

@@ -23,7 +23,6 @@ import type {
 	EmojiProvider,
 	EmojiResourceConfig,
 } from '@atlaskit/emoji';
-import { type EmojiNodeDataProvider } from '@atlaskit/node-data-provider/emoji-provider';
 
 type SetInlineCommentDraftState = (
 	drafting: boolean,
@@ -51,7 +50,6 @@ type EditorViewModePluginType = NextEditorPlugin<
 >;
 export interface EmojiPluginOptions {
 	headless?: boolean;
-	emojiNodeDataProvider?: EmojiNodeDataProvider;
 	emojiProvider?: Promise<EmojiProvider>;
 }
 

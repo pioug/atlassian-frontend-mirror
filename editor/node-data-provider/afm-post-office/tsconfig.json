@@ -19,9 +19,6 @@
 	"references": [
 		{
 			"path": "../../adf-utils/afm-post-office/tsconfig.json"
-		},
-		{
-			"path": "../../../elements/emoji/afm-post-office/tsconfig.json"
 		}
 	]
 }

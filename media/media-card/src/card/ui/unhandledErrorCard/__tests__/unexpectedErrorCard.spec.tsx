@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import WarningIcon from '@atlaskit/icon/core/migration/warning--editor-warning';
+import WarningIcon from '@atlaskit/icon/core/migration/status-warning--editor-warning';
 import { UnhandledErrorCard } from '..';
 
 describe('<UnhandledErrorCard />', () => {

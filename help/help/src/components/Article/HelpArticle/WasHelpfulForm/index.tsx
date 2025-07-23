@@ -19,7 +19,7 @@ import { RadioGroup } from '@atlaskit/radio';
 import { Checkbox } from '@atlaskit/checkbox';
 import TextArea from '@atlaskit/textarea';
 import { token } from '@atlaskit/tokens';
-import CheckCircleIcon from '@atlaskit/icon/core/migration/success--check-circle';
+import CheckCircleIcon from '@atlaskit/icon/core/migration/status-success--check-circle';
 import { colors } from '@atlaskit/theme';
 import { css, jsx } from '@compiled/react';
 import { Text } from '@atlaskit/primitives/compiled';

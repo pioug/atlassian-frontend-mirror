@@ -4,7 +4,7 @@ import Button from '@atlaskit/button';
 import CheckIcon from '@atlaskit/icon/core/migration/check-mark--check';
 import ChevronLeftLargeIcon from '@atlaskit/icon/core/migration/chevron-left--chevron-left-large';
 import ChevronRightLargeIcon from '@atlaskit/icon/core/migration/chevron-right--chevron-right-large';
-import CrossIcon from '@atlaskit/icon/core/migration/close--cross';
+import CrossIcon from '@atlaskit/icon/core/migration/cross';
 import { Radio } from '@atlaskit/radio';
 import Spinner from '@atlaskit/spinner';
 import {

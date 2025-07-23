@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 4.1.1
+
+### Patch Changes
+
+- [#186446](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/186446)
+  [`2f05ee4fe3130`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f05ee4fe3130) -
+  Enables the collab telepointer to send a custom selection to remote instead of the one defined on
+  the transaction
+
 ## 4.1.0
 
 ### Minor Changes

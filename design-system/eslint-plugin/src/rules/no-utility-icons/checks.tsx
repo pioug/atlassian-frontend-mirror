@@ -10,7 +10,7 @@ type ReturnObject = {
 
 const specialCases: { [oldImport: string]: string } = {
 	'@atlaskit/icon/utility/migration/cross--editor-close':
-		'@atlaskit/icon/core/migration/close--editor-close',
+		'@atlaskit/icon/core/migration/cross--editor-close',
 };
 
 const iconPropsinNewButton = ['icon', 'iconBefore', 'iconAfter'];

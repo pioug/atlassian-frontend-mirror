@@ -18,7 +18,7 @@ import { contextPanelPlugin } from '@atlaskit/editor-plugins/context-panel';
 import { customAutoformatPlugin } from '@atlaskit/editor-plugins/custom-autoformat';
 import { dataConsumerPlugin } from '@atlaskit/editor-plugins/data-consumer';
 import { datePlugin } from '@atlaskit/editor-plugins/date';
-import { emojiPlugin, type EmojiPluginOptions } from '@atlaskit/editor-plugins/emoji';
+import { emojiPlugin } from '@atlaskit/editor-plugins/emoji';
 import { expandPlugin } from '@atlaskit/editor-plugins/expand';
 import { extensionPlugin, type ExtensionPluginOptions } from '@atlaskit/editor-plugins/extension';
 import { feedbackDialogPlugin } from '@atlaskit/editor-plugins/feedback-dialog';
@@ -87,9 +87,6 @@ export type InitialPluginConfiguration = {
 				taskLocalId?: string;
 			}[],
 		) => void;
-	};
-	emoji?: {
-		emojiNodeDataProvider?: EmojiPluginOptions['emojiNodeDataProvider'];
 	};
 	tasksAndDecisionsPlugin?: {
 		hasEditPermission?: boolean;
@@ -263,7 +260,6 @@ export default function createUniversalPresetInternal({
 				emojiPlugin,
 				{
 					emojiProvider: props.emojiProvider,
-					emojiNodeDataProvider: initialPluginConfiguration?.emoji?.emojiNodeDataProvider,
 				},
 			],
 			Boolean(props.emojiProvider),

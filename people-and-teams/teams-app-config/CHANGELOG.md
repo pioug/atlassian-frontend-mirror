@@ -1,5 +1,13 @@
 # @atlaskit/teams-app-config
 
+## 1.10.1
+
+### Patch Changes
+
+- [#189096](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/189096)
+  [`c8aae2746a4f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c8aae2746a4f0) -
+  Add experiment checks to isTeamsAppEnabled
+
 ## 1.10.0
 
 ### Minor Changes

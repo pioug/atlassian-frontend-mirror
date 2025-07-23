@@ -115,6 +115,36 @@ snapshot(RadioExample, {
 });
 
 snapshot(RadioExample, {
+	description: 'Legacy style - checked - disabled - hovered',
+	states: [
+		{
+			state: 'hovered',
+			selector: {
+				byTestId: 'weather-sunny--radio-input',
+			},
+		},
+	],
+});
+
+snapshot(RadioExample, {
+	description: 'Legacy style - checked - disabled - hovered and focused',
+	states: [
+		{
+			state: 'hovered',
+			selector: {
+				byTestId: 'weather-sunny--radio-input',
+			},
+		},
+		{
+			state: 'focused',
+			selector: {
+				byTestId: 'weather-sunny--radio-input',
+			},
+		},
+	],
+});
+
+snapshot(RadioExample, {
 	description: 'Visual refresh style',
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
@@ -244,6 +274,42 @@ snapshot(RadioExample, {
 		'platform-visual-refresh-icons': true,
 	},
 	states: [
+		{
+			state: 'focused',
+			selector: {
+				byTestId: 'weather-sunny--radio-input',
+			},
+		},
+	],
+});
+
+snapshot(RadioExample, {
+	description: 'Visual refresh style - checked - disabled - hovered',
+	featureFlags: {
+		'platform-visual-refresh-icons': true,
+	},
+	states: [
+		{
+			state: 'hovered',
+			selector: {
+				byTestId: 'weather-sunny--radio-input',
+			},
+		},
+	],
+});
+
+snapshot(RadioExample, {
+	description: 'Visual refresh style - checked - disabled - hovered and focused',
+	featureFlags: {
+		'platform-visual-refresh-icons': true,
+	},
+	states: [
+		{
+			state: 'hovered',
+			selector: {
+				byTestId: 'weather-sunny--radio-input',
+			},
+		},
 		{
 			state: 'focused',
 			selector: {

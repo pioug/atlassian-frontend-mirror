@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/new';
-import WarningIcon from '@atlaskit/icon/core/migration/warning';
+import WarningIcon from '@atlaskit/icon/core/migration/status-warning--warning';
 import { token } from '@atlaskit/tokens';
 
 const ButtonIconOverrideExample = () => {

@@ -1,5 +1,40 @@
 # @atlaskit/renderer
 
+## 120.1.11
+
+### Patch Changes
+
+- [#188198](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188198)
+  [`19d5545b5d8df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/19d5545b5d8df) -
+  [ux] EDM-10717 Clean up platform_editor_hyperlink_underline
+- Updated dependencies
+
+## 120.1.10
+
+### Patch Changes
+
+- [#187548](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/187548)
+  [`bf0521a222e39`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bf0521a222e39) -
+  Clean up `platform_breakout_cls` feature flag that was implemented to eliminate breakout content
+  layout shift
+- Updated dependencies
+
+## 120.1.9
+
+### Patch Changes
+
+- [#188906](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188906)
+  [`0cf3b0f47d7ca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0cf3b0f47d7ca) -
+  fix SSR styling
+
+## 120.1.8
+
+### Patch Changes
+
+- [#187914](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/187914)
+  [`b0e2ddab3570f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b0e2ddab3570f) -
+  [ux] Fix avatar group alignment in block card container
+
 ## 120.1.7
 
 ### Patch Changes

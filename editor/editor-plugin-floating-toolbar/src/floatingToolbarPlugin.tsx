@@ -58,7 +58,7 @@ import { createPlugin as floatingToolbarDataPluginFactory } from './pm-plugins/t
 import { pluginKey as dataPluginKey } from './pm-plugins/toolbar-data/plugin-key';
 import { findNode } from './pm-plugins/utils';
 import { ConfirmationModal } from './ui/ConfirmationModal';
-import { ToolbarLoader } from './ui/ToolbarLoader';
+import Toolbar from './ui/Toolbar';
 import { consolidateOverflowDropdownItems } from './ui/utils';
 
 // TODO: AFP-2532 - Fix automatic suppressions below
@@ -465,7 +465,7 @@ export function ContentComponent({
 					providers={['extensionProvider']}
 					renderNode={(providers) => {
 						return (
-							<ToolbarLoader
+							<Toolbar
 								target={targetRef}
 								// Ignored via go/ees005
 								// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -586,8 +586,6 @@ export function floatingToolbarPluginFactory(options: {
 		key: pluginKey,
 		state: {
 			init: () => {
-				// Use this point to preload the UI
-				ToolbarLoader.preload();
 				return { getConfigWithNodeInfo };
 			},
 			apply,

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
 import Button, { IconButton } from '@atlaskit/button/new';
-import CloseIcon from '@atlaskit/icon/core/migration/close--cross';
 import CommentAddIcon from '@atlaskit/icon/core/migration/comment-add--media-services-add-comment';
+import CrossIcon from '@atlaskit/icon/core/migration/cross';
 import {
 	Spotlight,
 	SpotlightManager,
@@ -32,7 +32,7 @@ const SpotlightHeadingAfterElement = () => {
 					<Spotlight
 						headingAfterElement={
 							<IconButton
-								icon={CloseIcon}
+								icon={CrossIcon}
 								appearance="subtle"
 								onClick={() => end()}
 								label="Close"

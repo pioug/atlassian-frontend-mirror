@@ -1,11 +1,14 @@
 import type React from 'react';
 
 import { getATLContextUrl, isFedRamp } from '@atlaskit/atlassian-context';
-import { fg } from '@atlaskit/platform-feature-flags';
 
+import type {
+	NavigationAction,
+	NavigationActionCommon,
+	RequireOrgIdOrCloudId,
+} from '../../common/types';
 import { hostname, openInNewTab, origin, pathname, redirect } from '../../common/utils';
-
-import type { NavigationAction, NavigationActionCommon, RequireOrgIdOrCloudId } from './types';
+import { isTeamsAppEnabled } from '../../common/utils/is-teams-app-enabled';
 
 export function generateTeamsAppPath(
 	path: string,
@@ -132,21 +135,6 @@ export function isFedRampStaging(): boolean {
 		return true;
 	}
 	return false;
-}
-
-export function isTeamsAppEnabled(config: Pick<NavigationActionCommon, 'userHasNav4Enabled'>) {
-	if (!fg('should-redirect-directory-to-teams-app')) {
-		// This is the base switch, without it, teams app is not enabled
-		return false;
-	}
-
-	if (isFedRamp()) {
-		// In FedRamp, we are ignoring the Nav4 dependency
-		return true;
-	}
-
-	// We have a hard dependency on Nav4 being enabled in order to use the teams app
-	return config.userHasNav4Enabled === undefined ? true : config.userHasNav4Enabled;
 }
 
 export function getHostProductFromPath() {

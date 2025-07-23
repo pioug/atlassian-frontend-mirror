@@ -11,7 +11,4 @@ snapshot(CaptionLong, {
 
 snapshot(CaptionComplicated, {
 	description: 'should render complicated caption correctly',
-	featureFlags: {
-		platform_editor_hyperlink_underline: true,
-	},
 });

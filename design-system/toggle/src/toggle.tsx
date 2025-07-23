@@ -10,7 +10,7 @@ import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/an
 import __noop from '@atlaskit/ds-lib/noop';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import CheckMarkIcon from '@atlaskit/icon/core/migration/check-mark--editor-done';
-import CloseIcon from '@atlaskit/icon/core/migration/close--editor-close';
+import CloseIcon from '@atlaskit/icon/core/migration/cross--editor-close';
 import type { Size as IconSize } from '@atlaskit/icon/types';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { B200, G400, G500, N0, N20, N200, N400, N70 } from '@atlaskit/theme/colors';

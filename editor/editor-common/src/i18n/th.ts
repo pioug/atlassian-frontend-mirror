@@ -231,7 +231,7 @@ export default {
   'fabric.editor.ai.toolbar.titleText': 'Atlassian Intelligence',
   'fabric.editor.ai.toolbar.tryAI.title': 'ลองใช้ AI',
   'fabric.editor.ai.toolbar.tryAI.tooltip': 'เปิด Atlassian Intelligence',
-  'fabric.editor.ai.toolbar.tryAI.tooltip.quickCommand': "ถาม Atlassian Intelligence ด้วย {key}+'",
+  'fabric.editor.ai.toolbar.tryAI.tooltip.quickCommand': "ถาม AI ด้วย {key}+'",
   'fabric.editor.alignCenter': 'จัดแนวตรงกลาง',
   'fabric.editor.alignImageCenter': 'จัดแนวตรงกลาง',
   'fabric.editor.alignImageLeft': 'จัดแนวด้านซ้าย',

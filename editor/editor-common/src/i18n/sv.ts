@@ -649,7 +649,7 @@ export default {
   'fabric.editor.moveColumnRight': '{0, plural, one {Flytta kolumn åt höger} other {Flytta kolumner åt höger}}',
   'fabric.editor.moveDownDown': '{0, plural, one {Flytta rad nedåt} other {Flytta rader nedåt}}',
   'fabric.editor.moveRowUp': '{0, plural, one {Flytta rad uppåt} other {Flytta rader uppåt}}',
-  'fabric.editor.navigate.toolbar.askAI': 'Fråga Atlassian Intelligence',
+  'fabric.editor.navigate.toolbar.askAI': 'Fråga AI',
   'fabric.editor.navigate.toolbar.editor': 'Gå till verktygsfältet för redigering',
   'fabric.editor.navigate.toolbar.floating': 'Gå till det svävande verktygsfältet',
   'fabric.editor.noResultsFound': 'Inga resultat',

@@ -6,7 +6,7 @@ import { token } from '@atlaskit/tokens';
 import React from 'react';
 import { css, jsx } from '@compiled/react';
 import { R500 } from '@atlaskit/theme/colors';
-import WarningIcon from '@atlaskit/icon/core/migration/warning';
+import WarningIcon from '@atlaskit/icon/core/migration/status-warning--warning';
 import { Frame } from '../Frame';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
 import { AKIconWrapper } from '../Icon';

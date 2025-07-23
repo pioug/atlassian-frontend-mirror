@@ -1,5 +1,21 @@
 # @atlaskit/icon
 
+## 27.6.0
+
+### Minor Changes
+
+- [#189716](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/189716)
+  [`b5788cebd1812`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b5788cebd1812) -
+  Legacy icons have been deprecated and will be removed in a future release
+
+## 27.5.1
+
+### Patch Changes
+
+- [#188952](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188952)
+  [`1a88e6e2601ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a88e6e2601ae) -
+  Migrated usage of renamed/deprecated icons
+
 ## 27.5.0
 
 ### Minor Changes

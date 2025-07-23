@@ -1,6 +1,6 @@
 import React, { type FC, type ReactNode } from 'react';
 
-import WarningIcon from '@atlaskit/icon/core/migration/warning';
+import WarningIcon from '@atlaskit/icon/core/migration/status-warning--warning';
 import Inline from '@atlaskit/primitives/inline';
 import { Y500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';

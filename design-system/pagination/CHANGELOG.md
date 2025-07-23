@@ -1,5 +1,14 @@
 # @atlaskit/pagination
 
+## 16.1.7
+
+### Patch Changes
+
+- [#188454](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188454)
+  [`94461a8439c5c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/94461a8439c5c) -
+  Internal refactoring of visual regression tests.
+- Updated dependencies
+
 ## 16.1.6
 
 ### Patch Changes

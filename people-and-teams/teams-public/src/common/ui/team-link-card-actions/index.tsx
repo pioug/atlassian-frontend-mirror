@@ -6,7 +6,7 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { IconButton } from '@atlaskit/button/new';
 import { cssMap, cx } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import CrossIcon from '@atlaskit/icon/core/close';
+import CrossIcon from '@atlaskit/icon/core/cross';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { Box } from '@atlaskit/primitives/compiled';
 import Tooltip from '@atlaskit/tooltip';

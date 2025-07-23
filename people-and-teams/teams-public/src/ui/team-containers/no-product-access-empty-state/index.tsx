@@ -4,10 +4,11 @@ import { defineMessages, FormattedMessage } from 'react-intl-next';
 
 import { cssMap } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import { NoProductAccessIcon } from './no-product-access-icon';
+import { NoProductAccessIcon, NoProductAccessIconNext } from './no-product-access-icon';
 
 const styles = cssMap({
 	emptyStateContainer: {
@@ -15,6 +16,16 @@ const styles = cssMap({
 		borderColor: token('color.border'),
 		borderRadius: token('border.radius.100'),
 		paddingInline: token('space.400'),
+		outlineWidth: token('border.width'),
+		outlineColor: token('color.border'),
+		outlineStyle: 'solid',
+	},
+	emptyStateContainerNext: {
+		borderWidth: token('border.width'),
+		borderColor: token('color.border'),
+		borderRadius: token('border.radius.100'),
+		paddingInline: token('space.200'),
+		paddingBlock: token('space.200'),
 		outlineWidth: token('border.width'),
 		outlineColor: token('color.border'),
 		outlineStyle: 'solid',
@@ -28,13 +39,20 @@ export const NoProductAccessState = () => {
 	return (
 		<Stack
 			space="space.100"
-			xcss={styles.emptyStateContainer}
+			xcss={
+				fg('enable-team-profile-refactor')
+					? styles.emptyStateContainerNext
+					: styles.emptyStateContainer
+			}
 			testId="team-containers-no-product-access-state"
 		>
-			<Inline alignBlock="center">
-				<NoProductAccessIcon />
-				<Box xcss={styles.contentWrapper}>
-					<Stack space="space.100">
+			<Inline
+				alignBlock="center"
+				space={fg('enable-team-profile-refactor') ? 'space.200' : undefined}
+			>
+				{fg('enable-team-profile-refactor') ? <NoProductAccessIconNext /> : <NoProductAccessIcon />}
+				<Box xcss={fg('enable-team-profile-refactor') ? undefined : styles.contentWrapper}>
+					<Stack space={fg('enable-team-profile-refactor') ? 'space.200' : 'space.100'}>
 						<Heading size="small">
 							<FormattedMessage {...messages.teamContainerEmptyStateTitle} />
 						</Heading>

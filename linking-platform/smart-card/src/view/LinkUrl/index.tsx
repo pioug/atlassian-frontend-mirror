@@ -4,7 +4,6 @@ import { di } from 'react-magnetic-di';
 
 import { withAnalyticsContext } from '@atlaskit/analytics-next';
 import AKLink from '@atlaskit/link';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { withLinkClickedEvent } from '../../utils/analytics/click';
 import { LinkAnalyticsContext } from '../../utils/analytics/LinkAnalyticsContext';
@@ -34,14 +33,13 @@ const LinkUrl = ({
 	di(LinkComponent, useLinkWarningModal);
 	const { isLinkSafe, showSafetyWarningModal, ...linkWarningModalProps } = useLinkWarningModal();
 
-	const Link =
-		isLinkComponent && fg('platform_editor_hyperlink_underline') ? LinkComponent : Anchor;
+	const Link = isLinkComponent ? LinkComponent : Anchor;
 
 	return (
 		<>
 			<LinkAnalyticsContext url={href} display="url">
 				<Link
-					data-testid={testId}
+					{...(isLinkComponent ? { testId } : { 'data-testid': testId })}
 					href={href || ''}
 					onClick={(e) => {
 						if (!checkSafety) {

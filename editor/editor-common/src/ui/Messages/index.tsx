@@ -7,8 +7,8 @@ import type { ReactNode } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import ErrorIcon from '@atlaskit/icon/core/migration/error';
-import SuccessIcon from '@atlaskit/icon/core/migration/success--editor-success';
+import ErrorIcon from '@atlaskit/icon/core/migration/status-error--error';
+import SuccessIcon from '@atlaskit/icon/core/migration/status-success--editor-success';
 import { token } from '@atlaskit/tokens';
 
 const errorColor = css({

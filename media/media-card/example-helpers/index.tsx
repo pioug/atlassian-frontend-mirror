@@ -11,7 +11,7 @@ import {
 	createPollingMaxAttemptsError,
 	createRateLimitedError,
 } from '@atlaskit/media-client/test-helpers';
-import CrossIcon from '@atlaskit/icon/core/migration/close--cross';
+import CrossIcon from '@atlaskit/icon/core/migration/cross';
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { payloadPublisher } from '@atlassian/ufo';
 

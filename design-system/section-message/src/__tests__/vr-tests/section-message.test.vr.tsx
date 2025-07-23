@@ -16,20 +16,10 @@ snapshot(Basic, {
 });
 
 snapshot(AppearanceVariations, {
-	variants: [
-		{
-			name: 'no preference',
-			environment: {
-				colorScheme: 'no-preference',
-			},
-		},
-		{
-			name: 'light mode',
-			environment: {
-				colorScheme: 'light',
-			},
-		},
-	],
+	featureFlags: {
+		platform_dst_section_message_discovery_icon: [true, false],
+		'platform-visual-refresh-icons': [true, false],
+	},
 });
 
 snapshot(Actions, {

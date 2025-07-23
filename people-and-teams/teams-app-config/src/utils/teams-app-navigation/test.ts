@@ -1,5 +1,7 @@
-import type { NavigationAction, NavigationActionCommon } from './types';
-import { generatePath, getPathAndQuery, isTeamsAppEnabled } from './utils';
+import type { NavigationAction, NavigationActionCommon } from '../../common/types';
+import { isTeamsAppEnabled } from '../../common/utils/is-teams-app-enabled';
+
+import { generatePath, getPathAndQuery } from './utils';
 
 import { navigateToTeamsApp } from './index';
 
@@ -16,6 +18,8 @@ jest.mock('../../common/utils', () => ({
 	openInNewTab: jest.fn(),
 	redirect: jest.fn(),
 }));
+
+jest.mock('../../common/utils/is-teams-app-enabled');
 
 jest.mock('./utils');
 

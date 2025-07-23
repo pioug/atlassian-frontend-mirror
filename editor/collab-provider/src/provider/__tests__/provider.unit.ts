@@ -1543,6 +1543,7 @@ describe('Provider', () => {
 					},
 					steps: [],
 					emit: jest.fn(),
+					lockSteps: jest.fn(),
 				});
 			}).not.toThrow();
 		});

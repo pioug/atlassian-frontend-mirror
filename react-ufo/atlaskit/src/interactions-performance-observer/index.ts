@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { getActiveInteraction } from '../interaction-metrics';
 import getElementName, { type SelectorConfig } from '../vc/vc-observer-new/get-unique-element-name';
 
@@ -97,10 +95,7 @@ export const setInteractionPerformanceEvent = (entry: PerformanceEventTiming) =>
 				inputDelay:
 					interaction.responsiveness?.inputDelay || entry.processingStart - entry.startTime,
 			};
-			if (
-				interaction.ufoName === 'unknown' &&
-				fg('platform_ufo_enable_unknown_interactions_elements')
-			) {
+			if (interaction.ufoName === 'unknown') {
 				if (entry.target) {
 					const componentHierarchy = getReactComponentHierarchy(entry.target as HTMLElement);
 					interaction.unknownElementHierarchy = componentHierarchy;

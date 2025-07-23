@@ -493,7 +493,7 @@ export default {
   'fabric.editor.externalMediaFile': 'File multimediale esterno',
   'fabric.editor.failed_to_upload': 'Impossibile caricare',
   'fabric.editor.feedbackDialog': 'Lascia un feedback',
-  'fabric.editor.feedbackDialog.description': 'Raccontaci la tua esperienza usando il nuovo editor',
+  'fabric.editor.feedbackDialog.description': "Raccontaci la tua esperienza con l'utilizzo dell'editor Cloud",
   'fabric.editor.find': 'Trova',
   'fabric.editor.findNext': 'Trova successivo',
   'fabric.editor.findPrevious': 'Trova precedente',

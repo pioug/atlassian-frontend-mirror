@@ -2162,10 +2162,8 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				isAdvancedLayoutsOn && layoutSectionForAdvancedLayoutsStyles,
 				!useBlockRenderForCodeBlock && gridRenderForCodeBlockStyles,
 				browser.safari && codeBlockInListSafariFixStyles,
-				appearance === 'full-page' && fg('platform_breakout_cls') ? responsiveBreakoutWidth : null,
-				appearance === 'full-width' && fg('platform_breakout_cls')
-					? responsiveBreakoutWidthFullWidth
-					: null,
+				appearance === 'full-page' && responsiveBreakoutWidth,
+				appearance === 'full-width' && responsiveBreakoutWidthFullWidth,
 			]}
 			data-testid={testId}
 		>

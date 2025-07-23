@@ -313,7 +313,7 @@ export default {
   'fabric.editor.breakout.resizeCodeBlock': 'Redimensionar el fragmento de código',
   'fabric.editor.breakout.resizeElement': 'Redimensionar el elemento',
   'fabric.editor.breakout.resizeExpand': 'Redimensiona la ampliación',
-  'fabric.editor.breakout.resizeLayout': 'Redimensionar diseño',
+  'fabric.editor.breakout.resizeLayout': 'Redimensionar el diseño',
   'fabric.editor.breakoutFullWidthLabel': 'Anchura completa',
   'fabric.editor.breakoutWideWidthLabel': 'Ancho',
   'fabric.editor.bug': 'Error',

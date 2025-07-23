@@ -11,7 +11,7 @@ export default () => (
 	<div>
 		<DropdownMenu trigger="New behavior" testId="dropdown" shouldRenderToParent>
 			<DropdownItemGroup>
-				<DropdownItem>Move</DropdownItem>
+				<DropdownItem testId="dropdown--item">Move</DropdownItem>
 				<DropdownItem>Clone</DropdownItem>
 			</DropdownItemGroup>
 		</DropdownMenu>

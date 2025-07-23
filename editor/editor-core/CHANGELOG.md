@@ -1,5 +1,45 @@
 # @atlaskit/editor-core
 
+## 209.2.3
+
+### Patch Changes
+
+- [#188198](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188198)
+  [`19d5545b5d8df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/19d5545b5d8df) -
+  [ux] EDM-10717 Clean up platform_editor_hyperlink_underline
+- Updated dependencies
+
+## 209.2.2
+
+### Patch Changes
+
+- [#189737](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/189737)
+  [`db61cedd893b2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/db61cedd893b2) -
+  Fix migrator hook order in editor-core
+- Updated dependencies
+
+## 209.2.1
+
+### Patch Changes
+
+- [#189696](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/189696)
+  [`a28dd0703ccac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a28dd0703ccac) -
+  [ux] Adjust emoji CSS selectors to be more specific/accurate and not target content byline
+- Updated dependencies
+
+## 209.2.0
+
+### Minor Changes
+
+- [#188356](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188356)
+  [`5a2110350abd3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a2110350abd3) -
+  [https://product-fabric.atlassian.net/browse/ED-28554](ED-28554) - clean up EmojiNodeDataProvider
+  spike
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 209.1.11
 
 ### Patch Changes

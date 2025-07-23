@@ -10,7 +10,7 @@ import { FormattedMessage } from 'react-intl-next';
 import Heading from '@atlaskit/heading';
 import DownloadIcon from '@atlaskit/icon/core/download';
 import FullscreenExitIcon from '@atlaskit/icon/core/fullscreen-exit';
-import CrossIcon from '@atlaskit/icon/core/migration/close--cross';
+import CrossIcon from '@atlaskit/icon/core/migration/cross';
 import VidFullScreenOnIcon from '@atlaskit/icon/core/migration/fullscreen-enter--vid-full-screen-on';
 import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
 import DownloadIconLegacy from '@atlaskit/icon/glyph/download';

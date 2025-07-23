@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
 
-import EditorWarningIcon from '@atlaskit/icon/core/migration/warning--editor-warning';
+import EditorWarningIcon from '@atlaskit/icon/core/migration/status-warning--editor-warning';
 import { messages } from '@atlaskit/media-ui';
 import { R300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';

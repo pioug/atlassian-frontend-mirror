@@ -3,8 +3,6 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 
 import AKLink from '@atlaskit/link';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import * as UseLinkWarningModalExports from './LinkWarningModal/hooks/use-link-warning-modal';
 import type { LinkUrlProps } from './types';
@@ -31,7 +29,7 @@ describe('LinkUrl', () => {
 		spyOnAtlaskitLink.mockClear();
 	});
 
-	ffTest.both('platform_editor_hyperlink_underline', 'with a11y accessibilty gate', () => {
+	describe('with a11y accessibilty gate', () => {
 		it('should capture and report a11y violations', async () => {
 			const { container } = render(<TestComponent isLinkComponent />);
 			await expect(container).toBeAccessible();
@@ -45,12 +43,7 @@ describe('LinkUrl', () => {
 
 		it('should call atlaskit Link component', () => {
 			render(<TestComponent isLinkComponent />);
-
-			if (fg('platform_editor_hyperlink_underline')) {
-				expect(spyOnAtlaskitLink).toHaveBeenCalled();
-			} else {
-				expect(spyOnAtlaskitLink).not.toHaveBeenCalled();
-			}
+			expect(spyOnAtlaskitLink).toHaveBeenCalled();
 		});
 	});
 

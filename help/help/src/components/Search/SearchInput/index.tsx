@@ -14,7 +14,7 @@ import Button from '@atlaskit/button/custom-theme-button';
 import { gridSize } from '@atlaskit/theme/constants';
 import Spinner from '@atlaskit/spinner';
 import SearchIcon from '@atlaskit/icon/core/migration/search';
-import EditorCloseIcon from '@atlaskit/icon/core/migration/close--editor-close';
+import EditorCloseIcon from '@atlaskit/icon/core/migration/cross--editor-close';
 import { css, jsx } from '@compiled/react';
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 

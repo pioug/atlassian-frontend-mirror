@@ -2,7 +2,7 @@ import React from 'react';
 
 import Button from '@atlaskit/button/new';
 import { AutoDismissFlag, FlagGroup } from '@atlaskit/flag';
-import SuccessIcon from '@atlaskit/icon/core/migration/success--check-circle';
+import SuccessIcon from '@atlaskit/icon/core/migration/status-success--check-circle';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

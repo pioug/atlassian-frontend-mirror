@@ -1,4 +1,11 @@
 import React from 'react';
+
+import { cssMap } from '@atlaskit/css';
+import Image from '@atlaskit/image';
+import { Box } from '@atlaskit/primitives/compiled';
+
+import NoProductAccessSVG from '../../../../common/assets/NoProductAccess.svg';
+
 function TeamContainersNoProductAccess() {
 	return (
 		<svg
@@ -55,10 +62,25 @@ function TeamContainersNoProductAccess() {
 	);
 }
 
+const styles = cssMap({
+	icon: {
+		minWidth: '80px',
+		maxWidth: '80px',
+	},
+});
+
 export function NoProductAccessIcon() {
 	return (
 		<div>
 			<TeamContainersNoProductAccess />
 		</div>
+	);
+}
+
+export function NoProductAccessIconNext() {
+	return (
+		<Box xcss={styles.icon}>
+			<Image src={NoProductAccessSVG} alt="" />
+		</Box>
 	);
 }

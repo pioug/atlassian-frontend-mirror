@@ -1,5 +1,13 @@
 # @atlaskit/popup
 
+## 4.3.5
+
+### Patch Changes
+
+- [#188521](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188521)
+  [`3ffa5eae8fa80`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3ffa5eae8fa80) -
+  Internal refactoring of tests.
+
 ## 4.3.4
 
 ### Patch Changes

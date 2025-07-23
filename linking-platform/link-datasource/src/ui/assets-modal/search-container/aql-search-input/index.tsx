@@ -13,7 +13,7 @@ import { ErrorMessage, Field } from '@atlaskit/form';
 import CrossCircleIcon from '@atlaskit/icon/core/migration/cross-circle';
 import QuestionCircleIcon from '@atlaskit/icon/core/migration/question-circle';
 import SearchIcon from '@atlaskit/icon/core/migration/search--editor-search';
-import CheckCircleIcon from '@atlaskit/icon/core/migration/success--check-circle';
+import CheckCircleIcon from '@atlaskit/icon/core/migration/status-success--check-circle';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';

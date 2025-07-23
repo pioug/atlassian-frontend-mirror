@@ -1,5 +1,13 @@
 # @atlaskit/radio
 
+## 8.1.6
+
+### Patch Changes
+
+- [#188571](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188571)
+  [`aa2315ba7c52e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa2315ba7c52e) -
+  [ux] Adds css rule to style radio as disabled when it is both disabled and checked
+
 ## 8.1.5
 
 ### Patch Changes

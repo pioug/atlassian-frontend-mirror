@@ -12,11 +12,11 @@ import Transition from 'react-transition-group/Transition';
 import {
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
+	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import { contextPanelMessages } from '@atlaskit/editor-common/messages';
 import type { OptionalPlugin, PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { ContextPanelConsumer } from '@atlaskit/editor-common/ui';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { type ContextPanelPlugin } from '@atlaskit/editor-plugins/context-panel';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
@@ -217,11 +217,15 @@ const useContextPanelSharedState = sharedPluginStateHookMigratorFactory<
 	PublicPluginAPI<[ContextPanelPlugin]> | undefined
 >(
 	(pluginInjectionApi) => {
-		const { contextPanelState } = useSharedPluginState(pluginInjectionApi, ['contextPanel']);
-		return contextPanelState?.contents;
+		return useSharedPluginStateWithSelector(
+			pluginInjectionApi,
+			['contextPanel'],
+			(states) => states?.contextPanelState?.contents,
+		);
 	},
 	(pluginInjectionApi) => {
-		return useSharedPluginStateSelector(pluginInjectionApi, 'contextPanel.contents');
+		const { contextPanelState } = useSharedPluginState(pluginInjectionApi, ['contextPanel']);
+		return contextPanelState?.contents;
 	},
 );
 

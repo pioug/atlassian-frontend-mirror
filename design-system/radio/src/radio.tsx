@@ -145,12 +145,13 @@ const radioStyles = css({
 	},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'&:disabled, &:disabled:hover, &:disabled:focus, &:disabled:active, &:disabled[data-invalid]': {
-		cursor: 'not-allowed',
-		'--radio-background-color': token('color.background.disabled', N20),
-		'--radio-border-color': token('color.border.disabled', N20),
-		'--radio-dot-color': token('color.icon.disabled', N70),
-	},
+	'&:disabled, &:disabled:hover, &:disabled:focus, &:disabled:active, &:disabled[data-invalid], &:disabled:checked, &:disabled:checked:hover, &:disabled:checked:focus, &:disabled:checked:active':
+		{
+			cursor: 'not-allowed',
+			'--radio-background-color': token('color.background.disabled', N20),
+			'--radio-border-color': token('color.border.disabled', N20),
+			'--radio-dot-color': token('color.icon.disabled', N70),
+		},
 });
 
 const newRadioStyles = css({

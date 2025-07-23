@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 5.1.1
+
+### Patch Changes
+
+- [#189045](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/189045)
+  [`66b7ad7a0630e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/66b7ad7a0630e) -
+  disable dynamic import for floating toolbar
+
 ## 5.1.0
 
 ### Minor Changes

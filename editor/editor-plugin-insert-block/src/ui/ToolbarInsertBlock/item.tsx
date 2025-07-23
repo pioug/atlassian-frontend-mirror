@@ -28,13 +28,13 @@ import DecisionIcon from '@atlaskit/icon/core/migration/decision--editor-decisio
 import EmojiIcon from '@atlaskit/icon/core/migration/emoji--editor-emoji';
 import GridIcon from '@atlaskit/icon/core/migration/grid--editor-table';
 import ImageIcon from '@atlaskit/icon/core/migration/image--editor-image';
-import InformationIcon from '@atlaskit/icon/core/migration/information--editor-info';
 import LayoutTwoColumnsIcon from '@atlaskit/icon/core/migration/layout-two-columns--editor-layout-two-equal';
 import LinkIcon from '@atlaskit/icon/core/migration/link--editor-link';
 import MentionIcon from '@atlaskit/icon/core/migration/mention--editor-mention';
 import HorizontalRuleIcon from '@atlaskit/icon/core/migration/minus--editor-horizontal-rule';
 import QuotationMarkIcon from '@atlaskit/icon/core/migration/quotation-mark--quote';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/migration/show-more-horizontal--editor-more';
+import InformationIcon from '@atlaskit/icon/core/migration/status-information--editor-info';
 import TaskIcon from '@atlaskit/icon/core/task';
 import CheckboxCheckedIconLegacy from '@atlaskit/icon/glyph/editor/task';
 import PlaceholderTextIcon from '@atlaskit/icon/glyph/media-services/text';

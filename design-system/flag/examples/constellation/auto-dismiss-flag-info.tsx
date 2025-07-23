@@ -2,7 +2,7 @@ import React from 'react';
 
 import Button from '@atlaskit/button/new';
 import { AutoDismissFlag, FlagGroup } from '@atlaskit/flag';
-import InformationIcon from '@atlaskit/icon/core/migration/information--info';
+import InformationIcon from '@atlaskit/icon/core/migration/status-information--info';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

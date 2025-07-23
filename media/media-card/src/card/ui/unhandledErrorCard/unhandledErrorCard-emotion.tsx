@@ -6,7 +6,7 @@ import { Component } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
-import WarningIcon from '@atlaskit/icon/core/migration/warning--editor-warning';
+import WarningIcon from '@atlaskit/icon/core/migration/status-warning--editor-warning';
 import { N20, N800, Y500 } from '@atlaskit/theme/colors';
 import { center, borderRadius } from '@atlaskit/media-ui';
 import { type CardDimensions } from '../../../types';

@@ -16,7 +16,7 @@ import {
 	parseCssErrorRegex,
 	type ResetConsoleErrorFn,
 	resetMatchMedia,
-} from '../../../../ui/page-layout/__tests__/unit/test-utils';
+} from '../../../../ui/page-layout/__tests__/unit/_test-utils';
 import { Aside } from '../../../../ui/page-layout/aside';
 import { Banner } from '../../../../ui/page-layout/banner';
 import { Main } from '../../../../ui/page-layout/main/main';

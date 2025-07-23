@@ -512,4 +512,25 @@ test.describe('Popup focus behavior', () => {
 		await expect(popupContent).toBeHidden();
 		await expect(popupTrigger).toBeFocused();
 	});
+
+	test('should respect initial focus ref for setting initial focus', async ({ page }) => {
+		await page.visitExample('design-system', 'popup', 'setting-focus');
+
+		// Select the Button 1 radio option, which determines the initial focus ref
+		await page.getByRole('radio', { name: 'Button 1' }).check();
+
+		await page.getByRole('button', { name: 'Open Popup' }).click();
+
+		// Button 1 should have initial focus
+		await expect(page.getByRole('button', { name: 'Button 1' })).toBeFocused();
+	});
+
+	test('should respect disabling autoFocus', async ({ page }) => {
+		await page.visitExample('design-system', 'popup', 'popup-disable-autofocus-vr');
+
+		await page.getByRole('button', { name: 'Open Popup' }).click();
+
+		// The close popup button stays focused
+		await expect(page.getByRole('button', { name: 'Close Popup' })).toBeFocused();
+	});
 });

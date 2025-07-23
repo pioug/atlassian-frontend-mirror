@@ -43,7 +43,6 @@ const actions: ProductPermissionsActions = {
 				}
 
 				const permissions: ProductPermissionsResponse[] = await response.json();
-
 				dispatch(actions.setPermissions(permissions));
 			} catch (error: unknown) {
 				dispatch(actions.setError(new Error('Failed to fetch product permissions')));

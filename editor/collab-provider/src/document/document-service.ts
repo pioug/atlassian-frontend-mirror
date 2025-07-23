@@ -1028,20 +1028,20 @@ export class DocumentService implements DocumentServiceInterface {
 	 * If we are going to commit unconfirmed steps
 	 * we need to lock them to ensure they don't get
 	 * mutated in: `packages/editor/editor-plugin-collab-edit/src/pm-plugins/mergeUnconfirmed.ts`
-	 * @param stepOrigins - Optional - if not provided, get unconfirmed step origins from current state
 	 */
-	lockSteps = (stepOrigins?: readonly Transaction[]) => {
-		let origins = stepOrigins;
-
-		// If no stepOrigins provided, get them from current state
-		if (!origins) {
+	lockSteps = () => {
+		if (
+			editorExperiment('platform_editor_offline_editing_web', true) ||
+			expValEquals('platform_editor_enable_single_player_step_merging', 'isEnabled', true)
+		) {
 			const currentState = this.getState?.();
 			if (currentState) {
-				const unconfirmedStepsData = sendableSteps(currentState);
-				origins = unconfirmedStepsData?.origins;
+				this.lockStepOrigins(sendableSteps(currentState)?.origins ?? []);
 			}
 		}
+	};
 
+	lockStepOrigins = (origins: readonly Transaction[] | undefined) => {
 		origins?.forEach((origin) => {
 			if (origin instanceof Transaction) {
 				return origin.setMeta('mergeIsLocked', true);
@@ -1090,7 +1090,7 @@ export class DocumentService implements DocumentServiceInterface {
 			return;
 		}
 		if (offlineEditingEnabled || singlePlayerStepMergingEnabled) {
-			this.lockSteps(unconfirmedStepsData.origins);
+			this.lockStepOrigins(unconfirmedStepsData.origins);
 		}
 
 		const unconfirmedSteps = unconfirmedStepsData.steps;

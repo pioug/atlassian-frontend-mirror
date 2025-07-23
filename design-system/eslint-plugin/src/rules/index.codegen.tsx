@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3c4282c17de41bbfb755836f00326036>>
+ * @codegen <<SignedSource::53ad66d79f989ce9beb46ee0186685b2>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import consistentCssPropUsage from './consistent-css-prop-usage';
@@ -45,6 +45,7 @@ import noStyledTaggedTemplateExpression from './no-styled-tagged-template-expres
 import noUnsafeDesignTokenUsage from './no-unsafe-design-token-usage';
 import noUnsafeStyleOverrides from './no-unsafe-style-overrides';
 import noUnsupportedDragAndDropLibraries from './no-unsupported-drag-and-drop-libraries';
+import noUnusedCssMap from './no-unused-css-map';
 import noUtilityIcons from './no-utility-icons';
 import preferPrimitives from './prefer-primitives';
 import useButtonGroupLabel from './use-button-group-label';
@@ -112,6 +113,7 @@ export const rules = {
 	'no-unsafe-design-token-usage': noUnsafeDesignTokenUsage,
 	'no-unsafe-style-overrides': noUnsafeStyleOverrides,
 	'no-unsupported-drag-and-drop-libraries': noUnsupportedDragAndDropLibraries,
+	'no-unused-css-map': noUnusedCssMap,
 	'no-utility-icons': noUtilityIcons,
 	'prefer-primitives': preferPrimitives,
 	'use-button-group-label': useButtonGroupLabel,

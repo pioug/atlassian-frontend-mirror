@@ -1,10 +1,15 @@
-import { type NavigationAction, type NavigationResult, type RequireOrgIdOrCloudId } from './types';
+import {
+	type NavigationAction,
+	type NavigationResult,
+	type RequireOrgIdOrCloudId,
+} from '../../common/types';
+import { isTeamsAppEnabled } from '../../common/utils/is-teams-app-enabled';
+
 import {
 	generatePath,
 	generateTeamsAppPath,
 	getHostProductFromPath,
 	getPathAndQuery,
-	isTeamsAppEnabled,
 	onNavigateBase,
 } from './utils';
 

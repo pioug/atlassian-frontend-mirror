@@ -1,5 +1,21 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.1.2
+
+### Patch Changes
+
+- [#188412](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188412)
+  [`4c4fdba396a9f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4c4fdba396a9f) -
+  Clean up fg for unknown elements
+
+## 4.1.1
+
+### Patch Changes
+
+- [#187972](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/187972)
+  [`fff3f06f3e5e1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fff3f06f3e5e1) -
+  FG cleanup - platform_ufo_emit_vc_debug_data
+
 ## 4.1.0
 
 ### Minor Changes

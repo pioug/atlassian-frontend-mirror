@@ -107,6 +107,10 @@ function Editor() {
 	const { preset, editorApi } = usePreset(createPreset);
 
 	const isSelected = useSharedPluginStateSelector(editorApi, 'trackChanges.isDisplayingChanges');
+	const isShowDiffAvailable = useSharedPluginStateSelector(
+		editorApi,
+		'trackChanges.isShowDiffAvailable',
+	);
 
 	return (
 		<Box xcss={styles.everythingContainer}>
@@ -117,6 +121,7 @@ function Editor() {
 						editorApi?.core.actions.execute(editorApi?.trackChanges.commands.toggleChanges);
 					}}
 					isSelected={isSelected}
+					isDisabled={!(isShowDiffAvailable ?? false)}
 				>
 					Show Diff
 				</Button>

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Button from '@atlaskit/button/new';
 import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer';
 import Flag, { FlagGroup } from '@atlaskit/flag';
-import InformationIcon from '@atlaskit/icon/core/migration/information--info';
+import InformationIcon from '@atlaskit/icon/core/migration/status-information--info';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

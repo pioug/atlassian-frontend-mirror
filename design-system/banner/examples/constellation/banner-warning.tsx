@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Banner from '@atlaskit/banner';
-import WarningIcon from '@atlaskit/icon/core/migration/warning';
+import WarningIcon from '@atlaskit/icon/core/migration/status-warning--warning';
 import Link from '@atlaskit/link';
 
 const BannerWarningExample = () => {

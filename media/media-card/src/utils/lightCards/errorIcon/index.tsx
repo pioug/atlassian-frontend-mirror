@@ -5,7 +5,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { Component } from 'react';
-import WarningIcon from '@atlaskit/icon/core/migration/warning--editor-warning';
+import WarningIcon from '@atlaskit/icon/core/migration/status-warning--editor-warning';
 
 import { errorIconWrapperStyles } from './styles';
 

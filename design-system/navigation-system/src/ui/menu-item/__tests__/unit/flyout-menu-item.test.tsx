@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { type MouseEvent } from 'react';
 
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { bind } from 'bind-event-listener';
 
 import HomeIcon from '@atlaskit/icon/core/home';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { ButtonMenuItem } from '../../button-menu-item';
 import { FlyoutMenuItem } from '../../flyout-menu-item/flyout-menu-item';
@@ -118,21 +120,142 @@ describe('FlyoutMenuItem', () => {
 		expect(screen.queryByText('Item 1')).not.toBeInTheDocument();
 	});
 
-	it('should close the popup when the popup is open and a click occurs outside of the popup', async () => {
-		render(
-			<FlyoutMenuItem isDefaultOpen>
-				<FlyoutMenuItemTrigger>Trigger</FlyoutMenuItemTrigger>
-				<FlyoutMenuItemContent>
-					<ButtonMenuItem>Item 1</ButtonMenuItem>
-				</FlyoutMenuItemContent>
-			</FlyoutMenuItem>,
-		);
+	describe('flyout content should close when clicking outside of popup', () => {
+		test('no event stopping', async () => {
+			render(
+				<FlyoutMenuItem isDefaultOpen>
+					<FlyoutMenuItemTrigger>Trigger</FlyoutMenuItemTrigger>
+					<FlyoutMenuItemContent>
+						<ButtonMenuItem>Item 1</ButtonMenuItem>
+					</FlyoutMenuItemContent>
+				</FlyoutMenuItem>,
+			);
 
-		expect(screen.queryByText('Item 1')).toBeVisible();
+			expect(screen.queryByText('Item 1')).toBeVisible();
 
-		await userEvent.click(document.body);
+			await userEvent.click(document.body);
 
-		expect(screen.queryByText('Item 1')).not.toBeInTheDocument();
+			expect(screen.queryByText('Item 1')).not.toBeInTheDocument();
+		});
+	});
+
+	ffTest.on('platform_dst_nav4_flyout_use_capture_outside', 'Click outside of flyout', () => {
+		test('bubble phase event listener stops event', async () => {
+			const cleanup = bind(window, {
+				type: 'click',
+				listener(event) {
+					event.stopImmediatePropagation();
+				},
+				// bubble phase listener
+				options: { capture: false },
+			});
+
+			render(
+				<FlyoutMenuItem isDefaultOpen>
+					<FlyoutMenuItemTrigger>Trigger</FlyoutMenuItemTrigger>
+					<FlyoutMenuItemContent>
+						<ButtonMenuItem>Item 1</ButtonMenuItem>
+					</FlyoutMenuItemContent>
+				</FlyoutMenuItem>,
+			);
+
+			expect(screen.queryByText('Item 1')).toBeVisible();
+
+			await userEvent.click(document.body);
+
+			expect(screen.queryByText('Item 1')).not.toBeInTheDocument();
+
+			cleanup();
+		});
+
+		test('high capture phase event listener stops event', async () => {
+			// not adding to `window` as this event listener would be added
+			// before the Popup one is added, and would stop the event before
+			// the Popup could process it
+			const cleanup1 = bind(document.body, {
+				type: 'click',
+				listener(event) {
+					event.stopImmediatePropagation();
+				},
+				// capture phase listener
+				options: { capture: true, once: true },
+			});
+			render(
+				<FlyoutMenuItem isDefaultOpen>
+					<FlyoutMenuItemTrigger>Trigger</FlyoutMenuItemTrigger>
+					<FlyoutMenuItemContent>
+						<ButtonMenuItem>Item 1</ButtonMenuItem>
+					</FlyoutMenuItemContent>
+				</FlyoutMenuItem>,
+			);
+			// This will be added after the added window capture listener
+			// used to close outside clicks, so we can add to the window
+			const cleanup2 = bind(window, {
+				type: 'click',
+				listener(event) {
+					event.stopImmediatePropagation();
+				},
+				// capture phase listener
+				options: { capture: true, once: true },
+			});
+
+			expect(screen.queryByText('Item 1')).toBeVisible();
+
+			await userEvent.click(document.body);
+
+			expect(screen.queryByText('Item 1')).not.toBeInTheDocument();
+
+			cleanup1();
+			cleanup2();
+		});
+
+		test('react bubble event listener stops event', async () => {
+			const onClick = jest.fn((event: MouseEvent) => event.stopPropagation());
+			render(
+				<>
+					<button type="button" data-testid="my-button" onClick={onClick}>
+						Hi there
+					</button>
+					<FlyoutMenuItem isDefaultOpen>
+						<FlyoutMenuItemTrigger>Trigger</FlyoutMenuItemTrigger>
+						<FlyoutMenuItemContent>
+							<ButtonMenuItem>Item 1</ButtonMenuItem>
+						</FlyoutMenuItemContent>
+					</FlyoutMenuItem>
+				</>,
+			);
+
+			expect(screen.queryByText('Item 1')).toBeVisible();
+
+			await userEvent.click(screen.getByTestId('my-button'));
+
+			expect(onClick).toHaveBeenCalled();
+			expect(screen.queryByText('Item 1')).not.toBeInTheDocument();
+		});
+
+		test('react capture event listener stops event', async () => {
+			const onClick = jest.fn((event: MouseEvent) => event.stopPropagation());
+			render(
+				<>
+					<button type="button" data-testid="my-button" onClickCapture={onClick}>
+						Hi there
+					</button>
+					<FlyoutMenuItem isDefaultOpen>
+						<FlyoutMenuItemTrigger>Trigger</FlyoutMenuItemTrigger>
+						<FlyoutMenuItemContent>
+							<ButtonMenuItem>Item 1</ButtonMenuItem>
+						</FlyoutMenuItemContent>
+					</FlyoutMenuItem>
+				</>,
+			);
+
+			expect(screen.queryByText('Item 1')).toBeVisible();
+
+			await userEvent.click(screen.getByTestId('my-button'));
+
+			expect(onClick).toHaveBeenCalled();
+			expect(screen.queryByText('Item 1')).not.toBeInTheDocument();
+		});
 	});
 
 	it('should close the popup when the escape key is pressed', async () => {

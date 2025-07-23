@@ -5,8 +5,6 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import type { BreakoutMarkAttrs } from '@atlaskit/adf-schema';
-import { WidthConsumer } from '@atlaskit/editor-common/ui';
-import { calcBreakoutWithCustomWidth, calcBreakoutWidth } from '@atlaskit/editor-common/utils';
 import {
 	akEditorDefaultLayoutWidth,
 	akEditorFullWidthLayoutWidth,
@@ -14,7 +12,7 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import type { MarkProps } from '../types';
-import { fg } from '@atlaskit/platform-feature-flags';
+
 import type { BreakoutMode } from '@atlaskit/editor-common/types';
 
 const wrapperStyles = css({
@@ -46,41 +44,23 @@ const getWidth = (width: number | null, mode: BreakoutMode) => {
  */
 export default function Breakout(props: MarkProps<BreakoutMarkAttrs>) {
 	return (
-		<WidthConsumer>
-			{({ width }) => (
-				<div
-					css={wrapperStyles}
-					data-mode={props.mode}
-					// Ignored via go/ees005
-					// eslint-disable-next-line react/jsx-props-no-spreading
-					{...(editorExperiment('advanced_layouts', true) && {
-						'data-has-width': !!props.width,
-						'data-width': props.width,
-					})}
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					style={
-						fg('platform_breakout_cls')
-							? {
-									width: getWidth('width' in props ? props.width : null, props.mode),
-								}
-							: {
-									width: editorExperiment('advanced_layouts', true)
-										? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-											calcBreakoutWithCustomWidth(
-												props.mode,
-												'width' in props ? props.width : null,
-												width,
-											)
-										: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-											calcBreakoutWidth(props.mode, width),
-								}
-					}
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-					className="fabric-editor-breakout-mark fabric-editor-block-mark"
-				>
-					{props.children}
-				</div>
-			)}
-		</WidthConsumer>
+		<div
+			css={wrapperStyles}
+			data-mode={props.mode}
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
+			{...(editorExperiment('advanced_layouts', true) && {
+				'data-has-width': !!props.width,
+				'data-width': props.width,
+			})}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+			style={{
+				width: getWidth('width' in props ? props.width : null, props.mode),
+			}}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+			className="fabric-editor-breakout-mark fabric-editor-block-mark"
+		>
+			{props.children}
+		</div>
 	);
 }

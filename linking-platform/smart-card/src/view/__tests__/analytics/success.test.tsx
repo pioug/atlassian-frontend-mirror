@@ -12,7 +12,6 @@ import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/ana
 import { type CardClient, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { asMock, type JestFunction } from '@atlaskit/media-test-helpers';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { CardAction, TitleBlock } from '../../../index';
 import * as ufoWrapper from '../../../state/analytics/ufoExperiences';
@@ -406,47 +405,22 @@ describe('smart-card: success analytics', () => {
 			);
 		});
 
-		describe('should fire UFO render experience analytics event when coin flip ends with tail', () => {
-			ffTest(
-				'send-smart-link-rendered-ufo-event-half-time',
-				async () => {
-					asMock(shouldSample).mockReturnValue(false);
-					const mockUrl = 'https://this.is.the.sixth.url';
-					render(
-						<IntlProvider locale="en">
-							<Provider client={mockClient}>
-								<Card testId="resolvedCard1" appearance="inline" url={mockUrl} />
-							</Provider>
-						</IntlProvider>,
-					);
-					const resolvedView = await screen.findByTestId('resolvedCard1-resolved-view');
-					const resolvedCard = screen.getByRole('button');
-					expect(resolvedView).toBeTruthy();
-					expect(resolvedCard).toBeTruthy();
-
-					expect(mockStartUfoExperience).not.toHaveBeenCalledWith(
-						'smart-link-rendered',
-						'some-uuid-1',
-					);
-				},
-				async () => {
-					asMock(shouldSample).mockReturnValue(false);
-					const mockUrl = 'https://this.is.the.sixth.url';
-					render(
-						<IntlProvider locale="en">
-							<Provider client={mockClient}>
-								<Card testId="resolvedCard1" appearance="inline" url={mockUrl} />
-							</Provider>
-						</IntlProvider>,
-					);
-					const resolvedView = await screen.findByTestId('resolvedCard1-resolved-view');
-					const resolvedCard = screen.getByRole('button');
-					expect(resolvedView).toBeTruthy();
-					expect(resolvedCard).toBeTruthy();
-
-					expect(mockStartUfoExperience).toHaveBeenCalledWith('smart-link-rendered', 'some-uuid-1');
-				},
+		it('should fire UFO render experience analytics event when coin flip ends with tail', async () => {
+			asMock(shouldSample).mockReturnValue(false);
+			const mockUrl = 'https://this.is.the.sixth.url';
+			render(
+				<IntlProvider locale="en">
+					<Provider client={mockClient}>
+						<Card testId="resolvedCard1" appearance="inline" url={mockUrl} />
+					</Provider>
+				</IntlProvider>,
 			);
+			const resolvedView = await screen.findByTestId('resolvedCard1-resolved-view');
+			const resolvedCard = screen.getByRole('button');
+			expect(resolvedView).toBeTruthy();
+			expect(resolvedCard).toBeTruthy();
+
+			expect(mockStartUfoExperience).not.toHaveBeenCalledWith('smart-link-rendered', 'some-uuid-1');
 		});
 
 		it('should not send repeated render success events when non-essential props are changed', async () => {

@@ -1,5 +1,28 @@
 # @atlaskit/section-message
 
+## 8.3.0
+
+### Minor Changes
+
+- [#189208](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/189208)
+  [`b8cad439e7f12`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b8cad439e7f12) -
+  [ux] We are testing a change behind a feature flag. Discovery appearance section messages will be
+  updated from the 'question mark circle' icon to the 'discovery' icon. If this fix is successful it
+  will be available in a later release.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.2.10
+
+### Patch Changes
+
+- [#188952](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188952)
+  [`1a88e6e2601ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a88e6e2601ae) -
+  Migrated usage of renamed/deprecated icons
+- Updated dependencies
+
 ## 8.2.9
 
 ### Patch Changes

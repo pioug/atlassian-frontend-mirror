@@ -2,7 +2,6 @@ import { type MouseEvent, useState } from 'react';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { normalizeUrl } from '@atlaskit/linking-common/url';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { ANALYTICS_CHANNEL } from '../../../../utils/analytics';
 
@@ -74,15 +73,13 @@ export const useLinkWarningModal = () => {
 			return true;
 		}
 
-		if (fg('do-not-show-link-mismatch-warning-for-same-origin')) {
-			const currentAtlassianProductOrigin = window.location.origin;
-			const isSafeToIgnoreNonOriginDifferences =
-				hrefUrl?.origin === currentAtlassianProductOrigin &&
-				linkTextUrl?.origin === currentAtlassianProductOrigin;
+		const currentAtlassianProductOrigin = window.location.origin;
+		const isSafeToIgnoreNonOriginDifferences =
+			hrefUrl?.origin === currentAtlassianProductOrigin &&
+			linkTextUrl?.origin === currentAtlassianProductOrigin;
 
-			if (isSafeToIgnoreNonOriginDifferences) {
-				return true;
-			}
+		if (isSafeToIgnoreNonOriginDifferences) {
+			return true;
 		}
 
 		const httpProtocols = ['http:', 'https:'];

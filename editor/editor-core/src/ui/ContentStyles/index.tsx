@@ -107,7 +107,7 @@ import {
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const linkStyles = css`
 	.ProseMirror {
-		${linkSharedStyle()}
+		${linkSharedStyle}
 	}
 `;
 
@@ -322,6 +322,30 @@ const emojiStyles = css`
 	}
 
 	.${akEditorSelectedNodeClassName} {
+		.${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_IMAGE} {
+			border-radius: 2px;
+			${getSelectionStyles([SelectionStyle.Blanket, SelectionStyle.BoxShadow])}
+		}
+	}
+`;
+
+const emojiStylesWithSelectorFixes = css`
+	.ProseMirror .${EmojiSharedCssClassName.EMOJI_CONTAINER} {
+		display: inline-block;
+	}
+
+	.ProseMirror
+		:is(.${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_IMAGE}) {
+		background: no-repeat transparent;
+		display: inline-block;
+		height: ${defaultEmojiHeight}px;
+		max-height: ${defaultEmojiHeight}px;
+		cursor: pointer;
+		vertical-align: middle;
+		user-select: all;
+	}
+
+	.ProseMirror .${akEditorSelectedNodeClassName} {
 		.${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_IMAGE} {
 			border-radius: 2px;
 			${getSelectionStyles([SelectionStyle.Blanket, SelectionStyle.BoxShadow])}
@@ -547,7 +571,7 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
 	fg('platform_editor_find_and_replace_improvements_1')
 		? mentionsSelectionStylesWithSearchMatch
 		: mentionSelectionStyles}
-  ${emojiStyles}
+  ${fg('platform_editor_fix_emoji_style_selectors') ? emojiStylesWithSelectorFixes : emojiStyles}
   ${tasksAndDecisionsStyles}
   ${gridStyles}
   ${linkStyles}

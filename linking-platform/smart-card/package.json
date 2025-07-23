@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "40.4.2",
+	"version": "40.5.1",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -175,9 +175,6 @@
 		".": "./src/index.ts"
 	},
 	"platform-feature-flags": {
-		"send-smart-link-rendered-ufo-event-half-time": {
-			"type": "boolean"
-		},
 		"platform-visual-refresh-icons": {
 			"type": "boolean"
 		},
@@ -193,9 +190,6 @@
 		"platform_bandicoots-smartlink-unresolved-error-key": {
 			"type": "boolean"
 		},
-		"platform_editor_hyperlink_underline": {
-			"type": "boolean"
-		},
 		"platform-smart-card-shift-key": {
 			"type": "boolean"
 		},
@@ -203,9 +197,6 @@
 			"type": "boolean"
 		},
 		"confluence-issue-terminology-refresh": {
-			"type": "boolean"
-		},
-		"do-not-show-link-mismatch-warning-for-same-origin": {
 			"type": "boolean"
 		},
 		"fix_a11y_violation_in_hover_card_trigger": {

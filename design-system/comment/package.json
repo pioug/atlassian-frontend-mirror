@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/comment",
-	"version": "13.0.15",
+	"version": "13.0.16",
 	"description": "A comment displays discussions and user feedback.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

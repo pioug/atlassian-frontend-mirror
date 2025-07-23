@@ -14,7 +14,7 @@ import { messages } from '@atlaskit/media-ui';
 import { xcss, Box, Flex, Text } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import ErrorIcon from '@atlaskit/icon/core/migration/error';
+import ErrorIcon from '@atlaskit/icon/core/migration/status-error--error';
 import Heading from '@atlaskit/heading';
 
 interface PDFPasswordInputProps {

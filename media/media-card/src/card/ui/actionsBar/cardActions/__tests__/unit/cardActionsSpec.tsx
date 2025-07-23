@@ -3,7 +3,7 @@ import { createEvent, fireEvent, render, type RenderResult, within } from '@test
 import { screen } from '@testing-library/react';
 
 import AnnotateIcon from '@atlaskit/icon/core/edit';
-import CrossIcon from '@atlaskit/icon/core/migration/close--cross';
+import CrossIcon from '@atlaskit/icon/core/migration/cross';
 import { AnalyticsListener, type UIAnalyticsEventHandler } from '@atlaskit/analytics-next';
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 

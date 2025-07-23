@@ -1,0 +1,1 @@
+export { useProductPermissions } from './main';

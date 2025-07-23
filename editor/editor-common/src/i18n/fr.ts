@@ -11,6 +11,7 @@ export default {
   'editor-common-extensibility-extension-lozenge-editToggle.make.edits': 'Apporter des modifications',
   'editor-common-extensibility.macro.button.configure': 'Configurer {macroName}',
   'editor.extension.legacyContentHeader': 'Contenu hérité',
+  'editor.extension.legacyContentHeader.contentHasLimitedFunctionality': 'Ce contenu a des fonctionnalités limitées,',
   'editor.extension.legacyContentHeader.learnMore': 'En savoir plus',
   'fablric.editor.viewAllInserts': 'Afficher tous les éléments insérables',
   'fabric.editor.action': 'Tâche',

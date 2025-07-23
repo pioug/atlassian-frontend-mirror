@@ -2,7 +2,7 @@ import React, { type ReactElement } from 'react';
 
 import { cssMap, cx } from '@atlaskit/css';
 import LinkFilledIcon from '@atlaskit/icon/core/migration/link--link-filled';
-import CheckCircleIcon from '@atlaskit/icon/core/migration/success--check-circle';
+import CheckCircleIcon from '@atlaskit/icon/core/migration/status-success--check-circle';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Popup, { type TriggerProps } from '@atlaskit/popup';
 import { Box } from '@atlaskit/primitives/compiled';

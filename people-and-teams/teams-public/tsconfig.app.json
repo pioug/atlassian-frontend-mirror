@@ -71,6 +71,9 @@
 			"path": "../../design-system/primitives/tsconfig.app.json"
 		},
 		{
+			"path": "../teams-app-internal-product-permissions/tsconfig.app.json"
+		},
+		{
 			"path": "../teams-client/tsconfig.app.json"
 		},
 		{

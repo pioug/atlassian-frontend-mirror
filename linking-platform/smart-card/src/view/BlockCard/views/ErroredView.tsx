@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 
-import WarningIcon from '@atlaskit/icon/core/migration/warning';
+import WarningIcon from '@atlaskit/icon/core/migration/status-warning--warning';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../messages';

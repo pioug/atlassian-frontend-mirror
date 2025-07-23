@@ -4,7 +4,7 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import noop from '@atlaskit/ds-lib/noop';
 import { FlagsProvider, useFlags } from '@atlaskit/flag';
-import InformationIcon from '@atlaskit/icon/core/migration/information--info';
+import InformationIcon from '@atlaskit/icon/core/migration/status-information--info';
 import { token } from '@atlaskit/tokens';
 
 const actions = [

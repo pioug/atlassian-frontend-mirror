@@ -9,7 +9,6 @@ import noop from '@atlaskit/ds-lib/noop';
 import useControlledState from '@atlaskit/ds-lib/use-controlled';
 import useFocus from '@atlaskit/ds-lib/use-focus-event';
 import ExpandIcon from '@atlaskit/icon/core/migration/chevron-down';
-import { fg } from '@atlaskit/platform-feature-flags';
 import Popup, { type TriggerProps } from '@atlaskit/popup';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize as gridSizeFn, layers } from '@atlaskit/theme/constants';
@@ -195,10 +194,7 @@ const DropdownMenu = <T extends HTMLElement = any>({
 				// Don't focus the trigger if the click was outside of the menu
 				const isClickOutsideMenu =
 					event?.target instanceof HTMLElement && event.target.closest?.('[role="menu"]') === null;
-				const shouldPreventFocus =
-					isClickOutsideMenu &&
-					document.activeElement !== document.body && // except if clicking on the body
-					fg('platform_design_system_team_dropdown_return_focus');
+				const shouldPreventFocus = isClickOutsideMenu && document.activeElement !== document.body; // except if clicking on the body
 				if (!shouldPreventFocus) {
 					requestAnimationFrame(() => {
 						triggerRef.current?.focus();

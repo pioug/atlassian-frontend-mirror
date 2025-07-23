@@ -39,9 +39,9 @@ import DeleteIcon from '@atlaskit/icon/core/delete';
 import EmojiRemoveIcon from '@atlaskit/icon/core/emoji-remove';
 import CrossCircleIcon from '@atlaskit/icon/core/migration/cross-circle--editor-error';
 import DiscoveryIcon from '@atlaskit/icon/core/migration/discovery--editor-note';
-import InformationIcon from '@atlaskit/icon/core/migration/information--editor-info';
-import SuccessIcon from '@atlaskit/icon/core/migration/success--editor-success';
-import WarningIcon from '@atlaskit/icon/core/migration/warning--editor-warning';
+import InformationIcon from '@atlaskit/icon/core/migration/status-information--editor-info';
+import SuccessIcon from '@atlaskit/icon/core/migration/status-success--editor-success';
+import WarningIcon from '@atlaskit/icon/core/migration/status-warning--editor-warning';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import RemoveEmojiIcon from '@atlaskit/icon/glyph/editor/remove-emoji';
 

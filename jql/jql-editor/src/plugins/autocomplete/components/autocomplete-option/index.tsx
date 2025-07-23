@@ -8,7 +8,7 @@ import AlignTextLeftIcon from '@atlaskit/icon/core/align-text-left';
 import CalendarIcon from '@atlaskit/icon/core/calendar';
 import ClockIcon from '@atlaskit/icon/core/clock';
 import DataNumberIcon from '@atlaskit/icon/core/data-number';
-import InfoIcon from '@atlaskit/icon/core/migration/information--editor-panel';
+import InfoIcon from '@atlaskit/icon/core/migration/status-information--editor-panel';
 import PersonAvatarIcon from '@atlaskit/icon/core/person-avatar';
 import TagIcon from '@atlaskit/icon/core/tag';
 import CheckboxIcon from '@atlaskit/icon/core/task';

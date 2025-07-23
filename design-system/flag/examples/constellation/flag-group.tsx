@@ -3,10 +3,10 @@ import React, { type ReactElement, type ReactNode, useCallback, useState } from 
 import Button from '@atlaskit/button/new';
 import noop from '@atlaskit/ds-lib/noop';
 import Flag, { FlagGroup } from '@atlaskit/flag';
-import ErrorIcon from '@atlaskit/icon/core/migration/error';
-import InformationIcon from '@atlaskit/icon/core/migration/information--info';
-import SuccessIcon from '@atlaskit/icon/core/migration/success--check-circle';
-import WarningIcon from '@atlaskit/icon/core/migration/warning';
+import ErrorIcon from '@atlaskit/icon/core/migration/status-error--error';
+import InformationIcon from '@atlaskit/icon/core/migration/status-information--info';
+import SuccessIcon from '@atlaskit/icon/core/migration/status-success--check-circle';
+import WarningIcon from '@atlaskit/icon/core/migration/status-warning--warning';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

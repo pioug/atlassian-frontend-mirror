@@ -247,9 +247,6 @@
 			"path": "../../design-system/modal-dialog/tsconfig.app.json"
 		},
 		{
-			"path": "../node-data-provider/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/page-layout/tsconfig.app.json"
 		},
 		{

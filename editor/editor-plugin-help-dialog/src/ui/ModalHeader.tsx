@@ -10,7 +10,7 @@ import { FormattedMessage, injectIntl } from 'react-intl-next';
 import { helpDialogMessages as messages } from '@atlaskit/editor-common/messages';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import Heading from '@atlaskit/heading';
-import CloseIcon from '@atlaskit/icon/core/migration/close--cross';
+import CrossIcon from '@atlaskit/icon/core/migration/cross';
 import type { OnCloseHandler } from '@atlaskit/modal-dialog';
 
 import { header, toolbarButton } from './styles';
@@ -37,7 +37,7 @@ const ModalHeader = injectIntl(({ intl: { formatMessage }, onClose }: ModalHeade
 					title={formatMessage(messages.closeHelpDialog)}
 					spacing="compact"
 					iconBefore={
-						<CloseIcon
+						<CrossIcon
 							label={formatMessage(messages.closeHelpDialog)}
 							color="currentColor"
 							spacing="spacious"

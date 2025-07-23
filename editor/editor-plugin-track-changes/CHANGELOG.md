@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-track-changes
 
+## 2.1.0
+
+### Minor Changes
+
+- [#189258](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/189258)
+  [`e6411aa283a9e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e6411aa283a9e) -
+  Exposes new state to track if the diff plugin is available for use (ie. for external buttons).
+  Defaults to false and is set to true when changes are available.
+
 ## 2.0.0
 
 ### Major Changes

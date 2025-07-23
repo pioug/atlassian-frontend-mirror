@@ -4,14 +4,6 @@ import {
 	RendererWithFilteredTextHighlighter,
 } from '../__helpers/renderer-with-text-highlighter';
 
-const featureFlags = {
-	platform_editor_hyperlink_underline: true,
-};
+snapshot(RendererWithTextHighlighter);
 
-snapshot(RendererWithTextHighlighter, {
-	featureFlags,
-});
-
-snapshot(RendererWithFilteredTextHighlighter, {
-	featureFlags,
-});
+snapshot(RendererWithFilteredTextHighlighter);

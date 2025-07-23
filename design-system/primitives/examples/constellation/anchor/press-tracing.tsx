@@ -4,7 +4,7 @@ import { cssMap } from '@atlaskit/css';
 import __noop from '@atlaskit/ds-lib/noop';
 import { FlagsProvider, useFlags } from '@atlaskit/flag';
 import Heading from '@atlaskit/heading';
-import InformationIcon from '@atlaskit/icon/core/migration/information--info';
+import InformationIcon from '@atlaskit/icon/core/migration/status-information--info';
 import Image from '@atlaskit/image';
 import InteractionContext from '@atlaskit/interaction-context';
 import { Anchor, Box, Inline, Stack } from '@atlaskit/primitives/compiled';

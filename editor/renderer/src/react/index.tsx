@@ -610,11 +610,10 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 	}
 
 	private getExtensionProps(node: Node, path: Array<Node> = []) {
-		const testHeight = this.getExtensionHeight?.(node);
 		return {
 			...this.getProps(node, path),
 			extensionViewportSizes: this.extensionViewportSizes,
-			nodeHeight: testHeight,
+			nodeHeight: this.getExtensionHeight?.(node),
 		};
 	}
 

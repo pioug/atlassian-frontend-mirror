@@ -63,6 +63,9 @@
 			"path": "../../../design-system/primitives/afm-rovo-extension/tsconfig.json"
 		},
 		{
+			"path": "../../teams-app-internal-product-permissions/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../teams-client/afm-rovo-extension/tsconfig.json"
 		},
 		{

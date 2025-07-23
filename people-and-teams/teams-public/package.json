@@ -49,6 +49,7 @@
 		"@atlaskit/people-teams-ui-public": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
+		"@atlaskit/teams-app-internal-product-permissions": "workspace:^",
 		"@atlaskit/teams-client": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
@@ -118,7 +119,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "0.45.0",
+	"version": "0.46.0",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -149,6 +150,12 @@
 			"type": "boolean"
 		},
 		"teams_containers_cypher_query_v2_migration": {
+			"type": "boolean"
+		},
+		"enable-team-profile-refactor": {
+			"type": "boolean"
+		},
+		"migrate-product-permissions": {
 			"type": "boolean"
 		}
 	}

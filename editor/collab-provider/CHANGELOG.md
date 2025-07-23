@@ -1,5 +1,14 @@
 # @atlaskit/collab-provider
 
+## 11.0.5
+
+### Patch Changes
+
+- [#189298](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/189298)
+  [`3a30a4daecf45`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a30a4daecf45) -
+  always lock steps before setting readyToCommit:true
+- Updated dependencies
+
 ## 11.0.4
 
 ### Patch Changes

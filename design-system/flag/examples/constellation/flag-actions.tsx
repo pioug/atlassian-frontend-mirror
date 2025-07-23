@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Flag from '@atlaskit/flag';
-import SuccessIcon from '@atlaskit/icon/core/migration/success--check-circle';
+import SuccessIcon from '@atlaskit/icon/core/migration/status-success--check-circle';
 import { token } from '@atlaskit/tokens';
 
 const FlagActionsExample = () => {

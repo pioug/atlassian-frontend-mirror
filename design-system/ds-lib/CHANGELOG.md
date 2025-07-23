@@ -1,5 +1,36 @@
 # @atlaskit/ds-lib
 
+## 4.2.0
+
+### Minor Changes
+
+- [#189855](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/189855)
+  [`75f651c9b221b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/75f651c9b221b) -
+  Adding a `once` function. `once` creates a new `function` that only allows an existing `function`
+  to be called once.
+
+  ```tsx
+  import once from '@atlaskit/ds-lib/once';
+
+  function getGreeting(name: string): string {
+  	return `Hello ${name}`;
+  }
+  const getGreetingOnce = once(getGreeting);
+
+  getGreetingOnce('Alex');
+  // getGreeting called and "Hello Alex" is returned
+  // "Hello Alex" is put into the cache.
+  // returns "Hello Alex"
+
+  getGreetingOnce('Sam');
+  // getGreeting is not called
+  // "Hello Alex" is returned from the cache.
+
+  getGreetingOnce('Greg');
+  // getGreeting is not called
+  // "Hello Alex" is returned from the cache.
+  ```
+
 ## 4.1.0
 
 ### Minor Changes

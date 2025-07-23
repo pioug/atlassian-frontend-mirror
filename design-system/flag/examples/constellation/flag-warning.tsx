@@ -2,7 +2,7 @@ import React from 'react';
 
 import noop from '@atlaskit/ds-lib/noop';
 import Flag from '@atlaskit/flag';
-import WarningIcon from '@atlaskit/icon/core/migration/warning';
+import WarningIcon from '@atlaskit/icon/core/migration/status-warning--warning';
 import { token } from '@atlaskit/tokens';
 
 const FlagWarningExample = () => {

@@ -4,7 +4,7 @@ import { styled } from '@compiled/react';
 import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import { DatePicker } from '@atlaskit/datetime-picker';
-import ErrorIcon from '@atlaskit/icon/core/migration/error';
+import ErrorIcon from '@atlaskit/icon/core/migration/status-error--error';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
 import { N0, N20, N30, R400 } from '@atlaskit/theme/colors';

@@ -7,7 +7,7 @@ import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers';
 
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/test-helpers';
 
-import EditorPanelIcon from '@atlaskit/icon/core/migration/information--editor-panel';
+import EditorPanelIcon from '@atlaskit/icon/core/migration/status-information--editor-panel';
 import { fakeIntl } from '@atlaskit/media-test-helpers';
 import { Header } from '../../../header';
 import { render, screen, waitFor } from '@testing-library/react';

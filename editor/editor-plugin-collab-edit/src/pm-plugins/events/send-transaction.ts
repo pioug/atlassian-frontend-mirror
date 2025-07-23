@@ -1,7 +1,11 @@
 import { AnalyticsStep } from '@atlaskit/adf-schema/steps';
 import type { CollabEditProvider, CollabTelepointerPayload } from '@atlaskit/editor-common/collab';
 import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
-import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
+import type {
+	EditorState,
+	Transaction,
+	SelectionBookmark,
+} from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -70,18 +74,36 @@ export const sendTransaction =
 			prevActiveParticipants && !prevActiveParticipants.eq(activeParticipants);
 
 		if (fg('platform_editor_ai_in_document_streaming')) {
+			if (!sessionId || viewMode !== 'edit') {
+				return;
+			}
+
 			// uiEvent is standard metdata (docs: https://prosemirror.net/docs/ref/#state.Transaction)
 			const isPaste = docChangedTransaction?.getMeta('uiEvent') === 'paste';
 
-			if (
-				sessionId &&
-				viewMode === 'edit' &&
+			// If this metadata is truthy then it means a selection bookmark might be declared as the meta value OR the transaction
+			// doesn't want the tr.selection to be sent to remote users at all.
+			const remoteSelectionBookmark: SelectionBookmark | boolean | undefined =
+				originalTransaction.getMeta('useSelectionBookmarkForRemote');
+
+			if (!!remoteSelectionBookmark) {
+				if (remoteSelectionBookmark !== true && 'resolve' in remoteSelectionBookmark) {
+					const selection = remoteSelectionBookmark.resolve(newEditorState.doc);
+
+					const message: CollabTelepointerPayload = {
+						type: 'telepointer',
+						selection: getSendableSelection(selection),
+						sessionId,
+					};
+					provider.sendMessage(message);
+				}
+			} else if (
 				// Broadcast the position if the selection has changed, and the doc hasn't changed (it is mapped
 				// by the receiver).
 				// If we're pasting content though make an exception (as doc has changed)
 				// as on a ranged selection it results in not clearing the ranged selection after the paste
-				((selectionChanged && (!docChangedTransaction || isPaste)) ||
-					(participantsChanged && !hideTelecursorOnLoad))
+				(selectionChanged && (!docChangedTransaction || isPaste)) ||
+				(participantsChanged && !hideTelecursorOnLoad)
 			) {
 				const selection = getSendableSelection(newEditorState.selection);
 				const message: CollabTelepointerPayload = {

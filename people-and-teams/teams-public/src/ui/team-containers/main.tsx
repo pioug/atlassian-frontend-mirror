@@ -8,13 +8,17 @@ import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Grid, Inline, Stack } from '@atlaskit/primitives';
+import {
+	hasProductPermission,
+	useProductPermissions,
+} from '@atlaskit/teams-app-internal-product-permissions';
 import { N0, N90 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { type ContainerTypes, type TeamContainer } from '../../common/types';
 import { AnalyticsAction, usePeopleAndTeamAnalytics } from '../../common/utils/analytics';
-import { hasProductPermission } from '../../controllers';
-import { useProductPermissions } from '../../controllers/hooks/use-product-permission';
+import { hasProductPermission as hasProductPermissionOld } from '../../controllers';
+import { useProductPermissions as useProductPermissionsOld } from '../../controllers/hooks/use-product-permission';
 import {
 	useTeamContainers,
 	useTeamContainersHook,
@@ -77,7 +81,19 @@ export const TeamContainers = ({
 	const { data: productPermissions, loading: productPermissionIsLoading } = useProductPermissions({
 		userId,
 		cloudId,
+		options: {
+			enabled: fg('migrate-product-permissions'),
+		},
 	});
+
+	const { data: productPermissionsOld, loading: productPermissionIsLoadingOld } =
+		useProductPermissionsOld(
+			{
+				userId,
+				cloudId,
+			},
+			{ enabled: !fg('migrate-product-permissions') },
+		);
 
 	useEffect(() => {
 		if (fg('enable_web_links_in_team_containers')) {
@@ -113,25 +129,44 @@ export const TeamContainers = ({
 			const hasLoomSpace = containersToCheck.some((container) => container.type === 'LoomSpace');
 			const hasWebLink = containersToCheck.some((container) => container.type === 'WebLink');
 
-			setShowAddContainer({
-				Jira:
-					!hasJiraProject &&
-					!!productPermissions &&
-					!!hasProductPermission(productPermissions, 'jira'),
-				Confluence:
-					!hasConfluenceSpace &&
-					!!productPermissions &&
-					!!hasProductPermission(productPermissions, 'confluence'),
-				Loom:
-					!hasLoomSpace &&
-					!!productPermissions &&
-					!!hasProductPermission(productPermissions, 'loom'),
-				WebLink: !hasWebLink,
-			});
+			setShowAddContainer(
+				fg('migrate-product-permissions')
+					? {
+							Jira:
+								!hasJiraProject &&
+								!!productPermissions &&
+								!!hasProductPermission(productPermissions, 'jira'),
+							Confluence:
+								!hasConfluenceSpace &&
+								!!productPermissions &&
+								!!hasProductPermission(productPermissions, 'confluence'),
+							Loom:
+								!hasLoomSpace &&
+								!!productPermissions &&
+								!!hasProductPermission(productPermissions, 'loom'),
+							WebLink: !hasWebLink,
+						}
+					: {
+							Jira:
+								!hasJiraProject &&
+								!!productPermissionsOld &&
+								!!hasProductPermissionOld(productPermissionsOld, 'jira'),
+							Confluence:
+								!hasConfluenceSpace &&
+								!!productPermissionsOld &&
+								!!hasProductPermissionOld(productPermissionsOld, 'confluence'),
+							Loom:
+								!hasLoomSpace &&
+								!!productPermissionsOld &&
+								!!hasProductPermissionOld(productPermissionsOld, 'loom'),
+							WebLink: !hasWebLink,
+						},
+			);
 		}
 	}, [
 		isDisplayedOnProfileCard,
 		productPermissions,
+		productPermissionsOld,
 		filteredTeamContainers,
 		filteredTeamLinks,
 		maxNumberOfContainersToShow,
@@ -215,22 +250,31 @@ export const TeamContainers = ({
 	const TeamContainersSkeletonComponent =
 		components?.TeamContainersSkeleton || TeamContainersSkeleton;
 
-	if (loading || productPermissionIsLoading) {
+	if (
+		loading ||
+		(fg('migrate-product-permissions') ? productPermissionIsLoading : productPermissionIsLoadingOld)
+	) {
 		return <TeamContainersSkeletonComponent numberOfContainers={maxNumberOfContainersToShow} />;
 	}
+
+	const hasAnyProductPermission =
+		(productPermissions &&
+			(hasProductPermission(productPermissions, 'jira') ||
+				hasProductPermission(productPermissions, 'confluence') ||
+				hasProductPermission(productPermissions, 'loom')) &&
+			fg('migrate-product-permissions')) ||
+		(productPermissionsOld &&
+			(hasProductPermissionOld(productPermissionsOld, 'jira') ||
+				hasProductPermissionOld(productPermissionsOld, 'confluence') ||
+				hasProductPermissionOld(productPermissionsOld, 'loom')) &&
+			!fg('migrate-product-permissions'));
 
 	if (
 		(fg('enable_web_links_in_team_containers')
 			? filteredTeamLinks.length === 0
 			: filteredTeamContainers.length === 0) &&
 		!isDisplayedOnProfileCard &&
-		(!productPermissions ||
-			!(
-				productPermissions &&
-				(hasProductPermission(productPermissions, 'jira') ||
-					hasProductPermission(productPermissions, 'confluence') ||
-					hasProductPermission(productPermissions, 'loom'))
-			))
+		!hasAnyProductPermission
 	) {
 		return <NoProductAccessState />;
 	}

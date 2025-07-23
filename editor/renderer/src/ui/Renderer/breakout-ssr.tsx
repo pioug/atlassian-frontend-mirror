@@ -33,7 +33,6 @@ export function BreakoutSSRInlineScript({ noOpSSRInlineScript }: { noOpSSRInline
 	const id = Math.floor(Math.random() * (9999999999 - 9999 + 1)) + 9999;
 	const shouldSkipScript = {
 		table: fg('platform-ssr-table-resize'),
-		breakout: fg('platform_breakout_cls'),
 	};
 
 	return (
@@ -49,10 +48,7 @@ export function BreakoutSSRInlineScript({ noOpSSRInlineScript }: { noOpSSRInline
 	);
 }
 
-export function createBreakoutInlineScript(
-	id: number,
-	shouldSkipScript: { table: boolean; breakout: boolean },
-) {
+export function createBreakoutInlineScript(id: number, shouldSkipScript: { table: boolean }) {
 	return `
 	 (function(window){
 		if(typeof window !== 'undefined' && window.__RENDERER_BYPASS_BREAKOUT_SSR__) {
@@ -69,7 +65,6 @@ export const breakoutInlineScriptContext = `
   breakoutConsts.mapBreakpointToLayoutMaxWidth = ${breakoutConsts.mapBreakpointToLayoutMaxWidth.toString()};
   breakoutConsts.getBreakpoint = ${breakoutConsts.getBreakpoint.toString()};
   breakoutConsts.calcBreakoutWidth = ${breakoutConsts.calcBreakoutWidth.toString()};
-  breakoutConsts.calcBreakoutWithCustomWidth = ${breakoutConsts.calcBreakoutWithCustomWidth.toString()};
   breakoutConsts.calcLineLength = ${breakoutConsts.calcLineLength.toString()};
   breakoutConsts.calcWideWidth = ${breakoutConsts.calcWideWidth.toString()};
   breakoutConsts.FullPagePadding = ${FullPagePadding.toString()};
@@ -80,7 +75,7 @@ export const breakoutInlineScriptContext = `
 function applyBreakoutAfterSSR(
 	id: string,
 	breakoutConsts: BreakoutConstsType,
-	shouldSkipBreakoutScript: { table: boolean; breakout: boolean },
+	shouldSkipBreakoutScript: { table: boolean },
 ) {
 	const MEDIA_NODE_TYPE = 'mediaSingle';
 	const WIDE_LAYOUT_MODES = ['full-width', 'wide', 'custom'];
@@ -128,7 +123,6 @@ function applyBreakoutAfterSSR(
 					// eslint-disable-next-line @atlaskit/editor/no-as-casting
 					const node = maybeNode as HTMLElement;
 					const mode = node.dataset.mode || node.dataset.layout || '';
-					const resizedBreakout = node.dataset.hasWidth === 'true';
 
 					if (!mode || !WIDE_LAYOUT_MODES.includes(mode)) {
 						return;
@@ -139,10 +133,7 @@ function applyBreakoutAfterSSR(
 						return;
 					}
 
-					if (
-						shouldSkipBreakoutScript.breakout &&
-						node.classList.contains('fabric-editor-breakout-mark')
-					) {
+					if (node.classList.contains('fabric-editor-breakout-mark')) {
 						return;
 					}
 
@@ -153,14 +144,6 @@ function applyBreakoutAfterSSR(
 						const rendererWidth = renderer!.offsetWidth;
 						const effectiveWidth = rendererWidth - breakoutConsts.padding;
 						width = `${Math.min(parseInt(node.style.width), effectiveWidth)}px`;
-					} else if (resizedBreakout) {
-						width = breakoutConsts.calcBreakoutWithCustomWidth(breakoutConsts)(
-							mode as 'full-width' | 'wide',
-							Number(node.dataset.width) || null,
-							// Ignored via go/ees005
-							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-							renderer!.offsetWidth,
-						);
 					} else {
 						// Ignored via go/ees005
 						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion

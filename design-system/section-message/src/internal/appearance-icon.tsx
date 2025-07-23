@@ -1,10 +1,12 @@
 import React, { type ComponentType } from 'react';
 
-import ErrorIcon from '@atlaskit/icon/core/migration/error';
-import InfoIcon from '@atlaskit/icon/core/migration/information--info';
+import DiscoveryIcon from '@atlaskit/icon/core/migration/discovery--editor-note';
 import QuestionCircleIcon from '@atlaskit/icon/core/migration/question-circle';
-import SuccessIcon from '@atlaskit/icon/core/migration/success--check-circle';
-import WarningIcon from '@atlaskit/icon/core/migration/warning';
+import ErrorIcon from '@atlaskit/icon/core/migration/status-error--error';
+import InfoIcon from '@atlaskit/icon/core/migration/status-information--info';
+import SuccessIcon from '@atlaskit/icon/core/migration/status-success--check-circle';
+import WarningIcon from '@atlaskit/icon/core/migration/status-warning--warning';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { B50, B500, G50, G500, P50, P500, R50, R500, Y50, Y500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -14,10 +16,11 @@ interface AppearanceIconSchema {
 	backgroundColor: string;
 	primaryIconColor: string;
 	Icon: ComponentType<any>;
+	LegacyFallbackIcon?: ComponentType<any>;
 }
 
 const appearanceIconSchema: {
-	[key in Appearance]: AppearanceIconSchema;
+	[key in Appearance | 'discoveryUpdated']: AppearanceIconSchema;
 } = {
 	information: {
 		backgroundColor: token('color.background.information', B50),
@@ -44,10 +47,20 @@ const appearanceIconSchema: {
 		Icon: QuestionCircleIcon,
 		primaryIconColor: token('color.icon.discovery', P500),
 	},
+	discoveryUpdated: {
+		backgroundColor: token('color.background.discovery', P50),
+		Icon: DiscoveryIcon,
+		primaryIconColor: token('color.icon.discovery', P500),
+	},
 };
 
 export function getAppearanceIconStyles(appearance: Appearance, icon: SectionMessageProps['icon']) {
-	const appearanceIconStyles = appearanceIconSchema[appearance] || appearanceIconSchema.information;
+	const appearanceIconStyles =
+		appearanceIconSchema[
+			appearance === 'discovery' && fg('platform_dst_section_message_discovery_icon')
+				? 'discoveryUpdated'
+				: appearance
+		] || appearanceIconSchema.information;
 	const AppearanceIcon = ({
 		size,
 		primaryColor,

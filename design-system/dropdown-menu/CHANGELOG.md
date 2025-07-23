@@ -1,5 +1,18 @@
 # @atlaskit/dropdown-menu
 
+## 16.3.0
+
+### Minor Changes
+
+- [#187451](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/187451)
+  [`c40feaf938dc1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c40feaf938dc1) -
+  This cleans up the feature flag references for focus improvements when interactive elements are
+  clicked outside of the menu, making them fully available to all people.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.2.1
 
 ### Patch Changes

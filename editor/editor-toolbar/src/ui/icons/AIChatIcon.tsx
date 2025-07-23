@@ -8,5 +8,5 @@ type AIChatIconProps = {
 };
 
 export const AIChatIcon = ({ label, testId }: AIChatIconProps) => (
-	<RovoLogoIcon label={label} testId={testId} size="small" appearance="neutral" />
+	<RovoLogoIcon label={label} testId={testId} size="small" />
 );

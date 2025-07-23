@@ -1,78 +1,81 @@
 {
-    "extends": "../../../../tsconfig.entry-points.confluence.json",
-    "compilerOptions": {
-        "target": "es5",
-        "composite": true,
-        "outDir": "../../../../../confluence/tsDist/@atlaskit__teams-public",
-        "rootDir": "../"
-    },
-    "include": [
-        "../src/**/*.ts",
-        "../src/**/*.tsx"
-    ],
-    "exclude": [
-        "../src/**/__tests__/*",
-        "../src/**/*.test.*",
-        "../src/**/test.*",
-        "../src/**/examples.*"
-    ],
-    "references": [
-        {
-            "path": "../../../analytics/analytics-next/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/avatar/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/button/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/css/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/dropdown-menu/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../measurement/feature-gate-js-client/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/heading/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/icon/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/image/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/link/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/logo/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/modal-dialog/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../people-teams-ui-public/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/primitives/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../teams-client/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/theme/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/tokens/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/tooltip/afm-cc/tsconfig.json"
-        }
-    ]
+	"extends": "../../../../tsconfig.entry-points.confluence.json",
+	"compilerOptions": {
+		"target": "es5",
+		"composite": true,
+		"outDir": "../../../../../confluence/tsDist/@atlaskit__teams-public",
+		"rootDir": "../"
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/avatar/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/button/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/css/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/dropdown-menu/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../measurement/feature-gate-js-client/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/heading/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/image/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/link/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/logo/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/modal-dialog/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../people-teams-ui-public/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../teams-app-internal-product-permissions/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../teams-client/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-cc/tsconfig.json"
+		}
+	]
 }

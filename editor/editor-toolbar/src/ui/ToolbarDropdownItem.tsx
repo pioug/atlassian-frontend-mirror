@@ -22,23 +22,29 @@ const styles = cssMap({
 		minHeight: '36px',
 		paddingLeft: token('space.150'),
 		paddingRight: token('space.150'),
-
+		'&:focus-visible': {
+			outlineOffset: token('space.negative.025'),
+			borderRadius: token('border.radius'),
+		},
+	},
+	enabled: {
 		'&:hover': {
 			backgroundColor: token('color.background.neutral.subtle.hovered'),
 		},
-
 		'&:active': {
 			backgroundColor: token('color.background.neutral.subtle.pressed'),
 		},
 	},
+	disabled: {
+		color: token('color.text.disabled'),
+		cursor: 'not-allowed',
+	},
 	selected: {
 		backgroundColor: token('color.background.selected'),
 		color: token('color.text.selected'),
-
 		'&:hover': {
 			backgroundColor: token('color.background.selected.hovered'),
 		},
-
 		'&:active': {
 			backgroundColor: token('color.background.selected.pressed'),
 		},
@@ -73,6 +79,7 @@ type ToolbarDropdownItemProps = {
 	isSelected?: boolean;
 	children?: React.ReactNode;
 	textStyle?: TextStyle;
+	isDisabled?: boolean;
 };
 
 export const ToolbarDropdownItem = ({
@@ -82,6 +89,7 @@ export const ToolbarDropdownItem = ({
 	isSelected,
 	children,
 	textStyle = 'normal',
+	isDisabled,
 }: ToolbarDropdownItemProps) => {
 	return (
 		<DropdownItem
@@ -92,7 +100,6 @@ export const ToolbarDropdownItem = ({
 			component={({
 				children,
 				'data-testid': testId,
-				disabled,
 				draggable,
 				onClick,
 				onDragStart,
@@ -102,8 +109,11 @@ export const ToolbarDropdownItem = ({
 			}) => (
 				<Pressable
 					testId={testId}
-					xcss={cx(styles.toolbarDropdownItem, isSelected && styles.selected)}
-					isDisabled={disabled}
+					xcss={cx(
+						styles.toolbarDropdownItem,
+						isDisabled ? styles.disabled : isSelected ? styles.selected : styles.enabled,
+					)}
+					isDisabled={isDisabled}
 					draggable={draggable}
 					onClick={onClick}
 					onDragStart={onDragStart}

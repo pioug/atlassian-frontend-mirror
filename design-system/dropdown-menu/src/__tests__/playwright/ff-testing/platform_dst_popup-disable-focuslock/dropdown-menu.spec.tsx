@@ -27,7 +27,7 @@ test('Verify that Dropdown Menu is able to open - stateless', async ({ page }) =
 
 test.describe('Keyboard navigation', () => {
 	const triggerTestId = 'dropdown--trigger';
-	const contentTestId = 'dropdown--content';
+	const contentTestId = 'dropdown--item';
 
 	test('Verify that Dropdown Menu is closing on Tab press and focus on the next interactive element', async ({
 		page,

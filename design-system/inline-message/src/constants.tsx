@@ -1,7 +1,7 @@
-import ErrorIcon from '@atlaskit/icon/core/migration/error';
-import InformationIcon from '@atlaskit/icon/core/migration/information--info';
-import SuccessIcon from '@atlaskit/icon/core/migration/success--check-circle';
-import WarningIcon from '@atlaskit/icon/core/migration/warning';
+import ErrorIcon from '@atlaskit/icon/core/migration/status-error--error';
+import InformationIcon from '@atlaskit/icon/core/migration/status-information--info';
+import SuccessIcon from '@atlaskit/icon/core/migration/status-success--check-circle';
+import WarningIcon from '@atlaskit/icon/core/migration/status-warning--warning';
 
 import type { IconAppearanceMap } from './types';
 

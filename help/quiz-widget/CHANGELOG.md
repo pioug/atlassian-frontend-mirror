@@ -1,5 +1,14 @@
 # @atlaskit/quiz-widget
 
+## 3.0.8
+
+### Patch Changes
+
+- [#188952](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188952)
+  [`1a88e6e2601ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a88e6e2601ae) -
+  Migrated usage of renamed/deprecated icons
+- Updated dependencies
+
 ## 3.0.7
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/ds-lib",
-	"version": "4.1.0",
+	"version": "4.2.0",
 	"description": "Reusable utilities and hooks specific to design system.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -37,6 +37,7 @@
 		"./noop": "./src/utils/noop.tsx",
 		"./deprecation-warning": "./src/utils/deprecation-warning.tsx",
 		"./device-check": "./src/utils/device-check.tsx",
+		"./once": "./src/utils/once.tsx",
 		"./warn-once": "./src/utils/warn-once.tsx",
 		"./merge-refs": "./src/utils/merge-refs.tsx",
 		"./with-resolvers": "./src/utils/with-resolvers.tsx",
@@ -58,6 +59,7 @@
 		"./noop": "./src/utils/noop.tsx",
 		"./deprecation-warning": "./src/utils/deprecation-warning.tsx",
 		"./device-check": "./src/utils/device-check.tsx",
+		"./once": "./src/utils/once.tsx",
 		"./use-id": "./src/utils/use-id.tsx",
 		"./warn-once": "./src/utils/warn-once.tsx",
 		"./merge-refs": "./src/utils/merge-refs.tsx",

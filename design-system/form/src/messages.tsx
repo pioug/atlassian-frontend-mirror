@@ -6,8 +6,8 @@
 import { createContext, type ReactNode, useContext, useEffect, useRef, useState } from 'react';
 
 import { css, cssMap, jsx } from '@atlaskit/css';
-import ErrorIcon from '@atlaskit/icon/core/migration/error';
-import SuccessIcon from '@atlaskit/icon/core/migration/success--editor-success';
+import ErrorIcon from '@atlaskit/icon/core/migration/status-error--error';
+import SuccessIcon from '@atlaskit/icon/core/migration/status-success--editor-success';
 import { token } from '@atlaskit/tokens';
 
 import { FieldId } from './field-id-context';

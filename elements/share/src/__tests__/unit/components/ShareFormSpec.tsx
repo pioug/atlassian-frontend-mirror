@@ -7,7 +7,7 @@ import { FormattedMessage, IntlProvider } from 'react-intl-next';
 import Button from '@atlaskit/button/new';
 import { shallowWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import Form, { type FormProps, HelperMessage } from '@atlaskit/form';
-import ErrorIcon from '@atlaskit/icon/core/migration/error';
+import ErrorIcon from '@atlaskit/icon/core/migration/status-error--error';
 import { MenuGroup } from '@atlaskit/menu';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box } from '@atlaskit/primitives';

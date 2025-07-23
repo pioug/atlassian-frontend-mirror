@@ -7,6 +7,12 @@ import { token } from '@atlaskit/tokens';
 
 import { type IconComponent, type ToolbarButtonGroupLocation } from '../types';
 
+const ICON_COLOR = {
+	default: token('color.icon.subtle'),
+	disabled: token('color.icon.disabled'),
+	selected: token('color.icon.selected'),
+};
+
 const styles = cssMap({
 	button: {
 		display: 'flex',
@@ -21,22 +27,29 @@ const styles = cssMap({
 		fontWeight: token('font.weight.medium'),
 		paddingLeft: token('space.100'),
 		paddingRight: token('space.100'),
-
+		'&:focus-visible': {
+			outlineOffset: '0',
+			zIndex: 1,
+			position: 'relative',
+		},
+	},
+	enabled: {
 		'&:hover': {
 			backgroundColor: token('color.background.neutral.subtle.hovered'),
 		},
-
 		'&:active': {
 			backgroundColor: token('color.background.neutral.subtle.pressed'),
 		},
 	},
+	disabled: {
+		color: token('color.text.disabled'),
+		cursor: 'not-allowed',
+	},
 	selected: {
 		backgroundColor: token('color.background.selected'),
-
 		'&:hover': {
 			backgroundColor: token('color.background.selected.hovered'),
 		},
-
 		'&:active': {
 			backgroundColor: token('color.background.selected.pressed'),
 		},
@@ -75,6 +88,7 @@ type ToolbarButtonProps = Partial<TriggerProps> & {
 	label: string;
 	icon: IconComponent;
 	groupLocation?: ToolbarButtonGroupLocation;
+	isDisabled?: boolean;
 };
 
 export const ToolbarButton = forwardRef(
@@ -93,15 +107,21 @@ export const ToolbarButton = forwardRef(
 			onFocus,
 			testId,
 			groupLocation,
+			isDisabled,
 		}: ToolbarButtonProps,
 		ref: Ref<HTMLButtonElement>,
 	) => {
+		const iconColor = isDisabled
+			? ICON_COLOR.disabled
+			: isSelected
+				? ICON_COLOR.selected
+				: ICON_COLOR.default;
 		return (
 			<Pressable
 				ref={ref}
 				xcss={cx(
 					styles.button,
-					isSelected && styles.selected,
+					isDisabled ? styles.disabled : isSelected ? styles.selected : styles.enabled,
 					groupLocation === 'start' && styles.groupStart,
 					groupLocation === 'middle' && styles.groupMiddle,
 					groupLocation === 'end' && styles.groupEnd,
@@ -114,12 +134,9 @@ export const ToolbarButton = forwardRef(
 				onBlur={onBlur}
 				onFocus={onFocus}
 				testId={testId}
+				isDisabled={isDisabled}
 			>
-				<IconComponent
-					label={label}
-					size="medium"
-					color={isSelected ? token('color.icon.selected') : token('color.icon.subtle')}
-				/>
+				<IconComponent label={label} size="medium" color={iconColor} />
 				{children}
 			</Pressable>
 		);

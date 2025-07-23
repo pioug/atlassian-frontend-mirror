@@ -19,9 +19,6 @@
 	"references": [
 		{
 			"path": "../../adf-utils/afm-rovo-extension/tsconfig.json"
-		},
-		{
-			"path": "../../../elements/emoji/afm-rovo-extension/tsconfig.json"
 		}
 	]
 }

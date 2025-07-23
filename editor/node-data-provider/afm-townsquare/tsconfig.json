@@ -19,9 +19,6 @@
 	"references": [
 		{
 			"path": "../../adf-utils/afm-townsquare/tsconfig.json"
-		},
-		{
-			"path": "../../../elements/emoji/afm-townsquare/tsconfig.json"
 		}
 	]
 }

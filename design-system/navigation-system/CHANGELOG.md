@@ -1,5 +1,19 @@
 # @atlassian/navigation-system
 
+## 0.175.0
+
+### Minor Changes
+
+- [#189410](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/189410)
+  [`5e491d9960a3f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5e491d9960a3f) -
+  When a `FlyoutMenuItemContent` is open, clicking outside the content will close the flyout. We
+  have improved this functionality to make it more resilient to application code that stops events.
+  This changed is behind the feature flag `"platform_dst_nav4_flyout_use_capture_outside"`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.174.0
 
 ### Minor Changes

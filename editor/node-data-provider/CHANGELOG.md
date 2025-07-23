@@ -1,5 +1,14 @@
 # @atlaskit/node-data-provider
 
+## 4.2.0
+
+### Minor Changes
+
+- [#188356](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188356)
+  [`5a2110350abd3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a2110350abd3) -
+  [https://product-fabric.atlassian.net/browse/ED-28554](ED-28554) - clean up EmojiNodeDataProvider
+  spike
+
 ## 4.1.2
 
 ### Patch Changes

@@ -1,5 +1,37 @@
 # @atlaskit/smart-card
 
+## 40.5.1
+
+### Patch Changes
+
+- [#188198](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188198)
+  [`19d5545b5d8df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/19d5545b5d8df) -
+  [ux] EDM-10717 Clean up platform_editor_hyperlink_underline
+
+## 40.5.0
+
+### Minor Changes
+
+- [#189158](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/189158)
+  [`aea9c37b3cfb2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aea9c37b3cfb2) -
+  Cleanup do-not-show-link-mismatch-warning-for-same-origin FF
+- [#189145](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/189145)
+  [`2aa0440a09569`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2aa0440a09569) -
+  Clean up send-smart-link-rendered-ufo-event-half-time FF
+
+### Patch Changes
+
+- Updated dependencies
+
+## 40.4.3
+
+### Patch Changes
+
+- [#188952](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188952)
+  [`1a88e6e2601ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a88e6e2601ae) -
+  Migrated usage of renamed/deprecated icons
+- Updated dependencies
+
 ## 40.4.2
 
 ### Patch Changes

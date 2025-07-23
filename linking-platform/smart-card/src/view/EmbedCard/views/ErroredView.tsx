@@ -8,7 +8,7 @@ import { FormattedMessage } from 'react-intl-next';
 
 import ButtonOld from '@atlaskit/button';
 import Button from '@atlaskit/button/new';
-import ErrorIcon from '@atlaskit/icon/core/migration/error';
+import ErrorIcon from '@atlaskit/icon/core/migration/status-error--error';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { R300 } from '@atlaskit/theme/colors';

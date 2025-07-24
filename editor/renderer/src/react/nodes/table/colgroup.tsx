@@ -100,7 +100,10 @@ const renderScaleDownColgroup = (
 		allowTableResizing,
 		isTopLevelRenderer,
 	} = props;
-	if (!columnWidths) {
+	if (
+		!columnWidths ||
+		(columnWidths.every((width) => width === 0) && fg('platform_editor_numbered_column_in_include'))
+	) {
 		return [];
 	}
 

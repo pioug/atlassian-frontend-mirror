@@ -55,8 +55,7 @@ const CustomItem = memo(
 				UNSAFE_isDraggable,
 				interactionName,
 				...rest
-			}: // Type needed on props to extract types with extract react types.
-			CustomItemProps,
+			},
 			ref,
 		) => {
 			const onMouseDownHandler = onMouseDown;

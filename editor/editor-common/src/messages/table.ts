@@ -1,6 +1,11 @@
 import { defineMessages } from 'react-intl-next';
 
 export const messages = defineMessages({
+	tableScrollRegion: {
+		id: 'fabric.editor.tableScrollRegion',
+		defaultMessage: 'Table scroll region',
+		description: 'Label for the scrollable region of a table, used for accessibility purposes.',
+	},
 	tableOptions: {
 		id: 'fabric.editor.tableOptions',
 		defaultMessage: 'Table options',

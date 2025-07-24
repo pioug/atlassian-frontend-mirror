@@ -33,6 +33,9 @@
 			"path": "../../icon/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../link/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../../platform/feature-flags/afm-townsquare/tsconfig.json"
 		},
 		{

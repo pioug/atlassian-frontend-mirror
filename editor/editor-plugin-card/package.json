@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-card",
-	"version": "7.1.0",
+	"version": "7.2.0",
 	"description": "Card plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -117,9 +117,6 @@
 	},
 	"platform-feature-flags": {
 		"editor_inline_comments_paste_insert_nodes": {
-			"type": "boolean"
-		},
-		"linking_platform_smart_links_in_live_pages": {
 			"type": "boolean"
 		},
 		"confluence-issue-terminology-refresh": {

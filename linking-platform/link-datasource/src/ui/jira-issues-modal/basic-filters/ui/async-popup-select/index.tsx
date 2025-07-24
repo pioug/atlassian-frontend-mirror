@@ -144,6 +144,7 @@ const AsyncPopupSelect = ({
 				handleShowMore,
 				errors,
 				showMore: shouldDisplayShowMoreButton,
+				filterLabel: triggerButtonLabel,
 			}}
 		/>
 	);

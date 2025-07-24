@@ -14,6 +14,7 @@ import { CARD_GAP_PX, HOVER_CARD_Z_INDEX } from '../styled';
 import { type HoverCardComponentProps, type HoverCardContentProps } from '../types';
 
 export const HOVER_CARD_SOURCE = 'smartLinkPreviewHoverCard';
+const HOVER_CARD_TRIGGRER_WRAPPER = 'hover-card-trigger-wrapper';
 
 const FADE_IN_DELAY = 500;
 const FADE_OUT_DELAY = 300;
@@ -229,7 +230,10 @@ export const HoverCardComponent = ({
 					onMouseMove={setMousePosition}
 					onClick={onChildClick}
 					onContextMenu={onContextMenuClick}
-					data-testid="hover-card-trigger-wrapper"
+					data-testid={HOVER_CARD_TRIGGRER_WRAPPER}
+					{...(fg('platform_editor_preview_panel_linking')
+						? { className: HOVER_CARD_TRIGGRER_WRAPPER }
+						: {})}
 					{...(fg('fix_a11y_violation_in_hover_card_trigger') ? { role: 'button' } : {})}
 				>
 					{children}

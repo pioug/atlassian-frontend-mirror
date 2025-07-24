@@ -22,6 +22,7 @@ export const darkModeSearchMatchClass = 'search-match-dark';
 export const searchMatchExpandTitleClass = 'search-match-expand-title';
 
 const inlineCardSelector = '.loader-wrapper>a';
+const inlineCardWithHoverPreviewSelector = '.hover-card-trigger-wrapper>a';
 const statusSelector = '.lozenge-wrapper';
 const mentionSelector = '.editor-mention-primitive';
 const dateSelector = '.date-lozenger-container>span';
@@ -104,9 +105,10 @@ export const findReplaceStylesNew = css({
 			`,
 		},
 
-		[`${inlineCardSelector}, ${statusSelector}, ${mentionSelector}, ${dateSelector}`]: {
-			boxShadow: `0px 0px 0px 4px ${token('color.background.accent.magenta.subtler')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.subtler.pressed')}`,
-		},
+		[`${inlineCardSelector}, ${inlineCardWithHoverPreviewSelector}, ${statusSelector}, ${mentionSelector}, ${dateSelector}`]:
+			{
+				boxShadow: `0px 0px 0px 4px ${token('color.background.accent.magenta.subtler')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.subtler.pressed')}`,
+			},
 	},
 	[`.${blockSearchMatchClass}.${selectedBlockSearchMatchClass}`]: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -117,9 +119,10 @@ export const findReplaceStylesNew = css({
 			`,
 		},
 
-		[`${inlineCardSelector}, ${statusSelector}, ${mentionSelector}, ${dateSelector}`]: {
-			boxShadow: `0px 0px 0px 4px ${token('color.background.accent.magenta.subtlest.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.subtler.pressed')}`,
-		},
+		[`${inlineCardSelector}, ${inlineCardWithHoverPreviewSelector}, ${statusSelector}, ${mentionSelector}, ${dateSelector}`]:
+			{
+				boxShadow: `0px 0px 0px 4px ${token('color.background.accent.magenta.subtlest.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.subtler.pressed')}`,
+			},
 	},
 
 	/** With node selection */
@@ -133,10 +136,11 @@ export const findReplaceStylesNew = css({
 			`,
 		},
 
-		[`${inlineCardSelector}, ${statusSelector}, ${mentionSelector}, ${dateSelector}`]: {
-			// TODO: ED-28376 - will clean up !important later
-			boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.magenta.subtler')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.subtler.pressed')} !important`,
-		},
+		[`${inlineCardSelector}, ${inlineCardWithHoverPreviewSelector}, ${statusSelector}, ${mentionSelector}, ${dateSelector}`]:
+			{
+				// TODO: ED-28376 - will clean up !important later
+				boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.magenta.subtler')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.subtler.pressed')} !important`,
+			},
 	},
 	[`.${blockSearchMatchClass}.${selectedBlockSearchMatchClass}.ak-editor-selected-node`]: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -148,10 +152,11 @@ export const findReplaceStylesNew = css({
 			`,
 		},
 
-		[`${inlineCardSelector}, ${statusSelector}, ${mentionSelector}, ${dateSelector}`]: {
-			// TODO: ED-28376 - will clean up !important later
-			boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.magenta.subtlest.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.subtler.pressed')} !important`,
-		},
+		[`${inlineCardSelector}, ${inlineCardWithHoverPreviewSelector}, ${statusSelector}, ${mentionSelector}, ${dateSelector}`]:
+			{
+				// TODO: ED-28376 - will clean up !important later
+				boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.magenta.subtlest.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.subtler.pressed')} !important`,
+			},
 	},
 
 	/** Dark mode */
@@ -165,9 +170,10 @@ export const findReplaceStylesNew = css({
 			`,
 		},
 
-		[`${inlineCardSelector}, ${statusSelector}, ${mentionSelector}, ${dateSelector}`]: {
-			boxShadow: `0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}`,
-		},
+		[`${inlineCardSelector}, ${inlineCardWithHoverPreviewSelector}, ${statusSelector}, ${mentionSelector}, ${dateSelector}`]:
+			{
+				boxShadow: `0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}`,
+			},
 	},
 
 	[`.${blockSearchMatchClass}.${selectedBlockSearchMatchClass}.${darkModeSearchMatchClass}`]: {
@@ -179,9 +185,10 @@ export const findReplaceStylesNew = css({
 			`,
 		},
 
-		[`${inlineCardSelector}, ${statusSelector}, ${mentionSelector}, ${dateSelector}`]: {
-			boxShadow: `0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.hovered')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}`,
-		},
+		[`${inlineCardSelector}, ${inlineCardWithHoverPreviewSelector}, ${statusSelector}, ${mentionSelector}, ${dateSelector}`]:
+			{
+				boxShadow: `0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.hovered')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}`,
+			},
 	},
 
 	/** With node selection */
@@ -195,9 +202,10 @@ export const findReplaceStylesNew = css({
 			`,
 		},
 
-		[`${inlineCardSelector}, ${statusSelector}, ${mentionSelector}, ${dateSelector}`]: {
-			boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')} !important`,
-		},
+		[`${inlineCardSelector}, ${inlineCardWithHoverPreviewSelector}, ${statusSelector}, ${mentionSelector}, ${dateSelector}`]:
+			{
+				boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')} !important`,
+			},
 	},
 
 	[`.${blockSearchMatchClass}.${selectedBlockSearchMatchClass}.${darkModeSearchMatchClass}.ak-editor-selected-node`]:
@@ -211,9 +219,10 @@ export const findReplaceStylesNew = css({
 			`,
 			},
 
-			[`${inlineCardSelector}, ${statusSelector}, ${mentionSelector}, ${dateSelector}`]: {
-				boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.hovered')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')} !important`,
-			},
+			[`${inlineCardSelector}, ${inlineCardWithHoverPreviewSelector}, ${statusSelector}, ${mentionSelector}, ${dateSelector}`]:
+				{
+					boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.hovered')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')} !important`,
+				},
 		},
 
 	/** Expand title match styles */
@@ -334,9 +343,10 @@ export const findReplaceStylesNewNoImportant = css({
 			`,
 		},
 
-		[`${inlineCardSelector}, ${statusSelector}, ${mentionSelector}, ${dateSelector}`]: {
-			boxShadow: `0px 0px 0px 4px ${token('color.background.accent.magenta.subtler')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.subtler.pressed')}`,
-		},
+		[`${inlineCardSelector}, ${inlineCardWithHoverPreviewSelector}, ${statusSelector}, ${mentionSelector}, ${dateSelector}`]:
+			{
+				boxShadow: `0px 0px 0px 4px ${token('color.background.accent.magenta.subtler')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.subtler.pressed')}`,
+			},
 	},
 	[`.${blockSearchMatchClass}.${selectedBlockSearchMatchClass}`]: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -347,9 +357,10 @@ export const findReplaceStylesNewNoImportant = css({
 			`,
 		},
 
-		[`${inlineCardSelector}, ${statusSelector}, ${mentionSelector}, ${dateSelector}`]: {
-			boxShadow: `0px 0px 0px 4px ${token('color.background.accent.magenta.subtlest.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.subtler.pressed')}`,
-		},
+		[`${inlineCardSelector}, ${inlineCardWithHoverPreviewSelector}, ${statusSelector}, ${mentionSelector}, ${dateSelector}`]:
+			{
+				boxShadow: `0px 0px 0px 4px ${token('color.background.accent.magenta.subtlest.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.subtler.pressed')}`,
+			},
 	},
 
 	/** With node selection */
@@ -369,9 +380,10 @@ export const findReplaceStylesNewNoImportant = css({
 			`,
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		[`${inlineCardSelector}, ${statusSelector}, ${mentionSelector}, ${dateSelector}`]: {
-			boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.magenta.subtler')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.subtler.pressed')}`,
-		},
+		[`${inlineCardSelector}, ${inlineCardWithHoverPreviewSelector}, ${statusSelector}, ${mentionSelector}, ${dateSelector}`]:
+			{
+				boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.magenta.subtler')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.subtler.pressed')}`,
+			},
 	},
 	[`.${blockSearchMatchClass}.${selectedBlockSearchMatchClass}.ak-editor-selected-node`]: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -383,9 +395,10 @@ export const findReplaceStylesNewNoImportant = css({
 			`,
 		},
 
-		[`${inlineCardSelector}, ${statusSelector}, ${mentionSelector}, ${dateSelector}`]: {
-			boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.magenta.subtlest.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.subtler.pressed')}`,
-		},
+		[`${inlineCardSelector}, ${inlineCardWithHoverPreviewSelector}, ${statusSelector}, ${mentionSelector}, ${dateSelector}`]:
+			{
+				boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.magenta.subtlest.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.subtler.pressed')}`,
+			},
 	},
 
 	/** Dark mode */
@@ -399,9 +412,10 @@ export const findReplaceStylesNewNoImportant = css({
 			`,
 		},
 
-		[`${inlineCardSelector}, ${statusSelector}, ${mentionSelector}, ${dateSelector}`]: {
-			boxShadow: `0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}`,
-		},
+		[`${inlineCardSelector}, ${inlineCardWithHoverPreviewSelector}, ${statusSelector}, ${mentionSelector}, ${dateSelector}`]:
+			{
+				boxShadow: `0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}`,
+			},
 	},
 
 	[`.${blockSearchMatchClass}.${selectedBlockSearchMatchClass}.${darkModeSearchMatchClass}`]: {
@@ -413,9 +427,10 @@ export const findReplaceStylesNewNoImportant = css({
 			`,
 		},
 
-		[`${inlineCardSelector}, ${statusSelector}, ${mentionSelector}, ${dateSelector}`]: {
-			boxShadow: `0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.hovered')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}`,
-		},
+		[`${inlineCardSelector}, ${inlineCardWithHoverPreviewSelector}, ${statusSelector}, ${mentionSelector}, ${dateSelector}`]:
+			{
+				boxShadow: `0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.hovered')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}`,
+			},
 	},
 
 	/** With node selection */
@@ -430,9 +445,10 @@ export const findReplaceStylesNewNoImportant = css({
 			`,
 			},
 
-			[`${inlineCardSelector}, ${statusSelector}, ${mentionSelector}, ${dateSelector}`]: {
-				boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}`,
-			},
+			[`${inlineCardSelector}, ${inlineCardWithHoverPreviewSelector}, ${statusSelector}, ${mentionSelector}, ${dateSelector}`]:
+				{
+					boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}`,
+				},
 		},
 
 	[`.${blockSearchMatchClass}.${selectedBlockSearchMatchClass}.${darkModeSearchMatchClass}.ak-editor-selected-node`]:
@@ -446,9 +462,10 @@ export const findReplaceStylesNewNoImportant = css({
 			`,
 			},
 
-			[`${inlineCardSelector}, ${statusSelector}, ${mentionSelector}, ${dateSelector}`]: {
-				boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.hovered')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}`,
-			},
+			[`${inlineCardSelector}, ${inlineCardWithHoverPreviewSelector}, ${statusSelector}, ${mentionSelector}, ${dateSelector}`]:
+				{
+					boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.hovered')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}`,
+				},
 		},
 
 	/** Expand title match styles */

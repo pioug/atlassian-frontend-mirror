@@ -14,10 +14,12 @@ import type {
 	ExtensionToolbarButton,
 } from '../extensions';
 import { getContextualToolbarItemsFromModule } from '../extensions';
+import { areToolbarFlagsEnabled } from '../toolbar-flag-check';
 import type { DropdownOptionT } from '../types';
 import { nodeToJSON } from '../utils';
 
 import { DropdownMenuItem } from './DropdownMenuItem';
+import { DropdownSeparator } from './DropdownSeparator';
 
 export interface DropdownMenuOptions {
 	hide: Function;
@@ -188,6 +190,7 @@ export const DropdownMenuExtensionItems = (props: OverflowExtensionPlaceholderPr
 					/>
 				);
 			})}
+			{areToolbarFlagsEnabled() && <DropdownSeparator />}
 		</>
 	);
 };

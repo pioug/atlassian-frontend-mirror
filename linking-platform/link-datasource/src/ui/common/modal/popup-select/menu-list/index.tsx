@@ -36,6 +36,7 @@ export type CustomMenuListProps = {
 	handleShowMore?: () => void;
 	filterName: string;
 	errors?: unknown[];
+	filterLabel?: string;
 };
 
 const CustomMenuList = ({ children, ...props }: MenuListComponentProps<SelectOption, true>) => {
@@ -48,6 +49,7 @@ const CustomMenuList = ({ children, ...props }: MenuListComponentProps<SelectOpt
 		errors,
 		showMore,
 		handleShowMore,
+		filterLabel,
 	}: CustomMenuListProps =
 		// @ts-ignore - https://product-fabric.atlassian.net/browse/DSP-21000
 		props.selectProps.menuListProps;
@@ -80,7 +82,11 @@ const CustomMenuList = ({ children, ...props }: MenuListComponentProps<SelectOpt
 
 				{shouldDisplayShowMore && handleShowMore && (
 					<Box xcss={cx(styles.showMoreButtonBoxStyles)}>
-						<ShowMoreButton onShowMore={handleShowMore} filterName={filterName} />
+						<ShowMoreButton
+							onShowMore={handleShowMore}
+							filterName={filterName}
+							filterLabel={filterLabel}
+						/>
 					</Box>
 				)}
 

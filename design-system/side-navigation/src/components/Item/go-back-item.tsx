@@ -32,8 +32,7 @@ const GoBackItem = forwardRef<HTMLElement, ButtonItemProps>(
 			onClick,
 			isSelected,
 			...rest
-		}: // Type needed on props to extract types with extract react types.
-		ButtonItemProps,
+		},
 		ref,
 	) => {
 		const [isInteracted, setIsInteracted] = useState(false);

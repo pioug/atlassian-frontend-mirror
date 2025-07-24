@@ -5,7 +5,6 @@
 		"**/docs/**/*",
 		"**/__tests__/**/*",
 		"**/vr-tests/**/*",
-		"**/__perf__/**/*",
 		"**/*.test.*",
 		"**/test.*",
 		"**/test-*",
@@ -45,6 +44,9 @@
 		},
 		{
 			"path": "../icon/tsconfig.app.json"
+		},
+		{
+			"path": "../link/tsconfig.app.json"
 		},
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"

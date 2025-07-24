@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/icon",
-	"version": "27.6.0",
+	"version": "27.6.1",
 	"description": "An icon is a symbol representing a command, device, directory, or common action.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -27,7 +27,7 @@
 					"id": "icon-legacy",
 					"sortKey": 1,
 					"status": {
-						"type": "intent-to-deprecate",
+						"type": "deprecated",
 						"description": "Legacy icons (`@atlaskit/icon/glyph`) are deprecated. We recommend migrating to our new iconography system.",
 						"actions": [
 							{
@@ -45,7 +45,8 @@
 					"title": "Icon tile",
 					"id": "icon-tile",
 					"status": {
-						"type": "open-alpha"
+						"type": "open-alpha",
+						"description": "This is an experiment. We may make frequent breaking changes with limited notice."
 					},
 					"sortKey": 2
 				},

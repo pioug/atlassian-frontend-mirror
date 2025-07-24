@@ -1,38 +1,38 @@
 {
-    "extends": "../../../../tsconfig.entry-points.confluence.json",
-    "compilerOptions": {
-        "target": "es5",
-        "composite": true,
-        "outDir": "../../../../../confluence/tsDist/@atlaskit__smart-hooks",
-        "rootDir": "../"
-    },
-    "include": [
-        "../src/**/*.ts",
-        "../src/**/*.tsx"
-    ],
-    "exclude": [
-        "../src/**/__tests__/*",
-        "../src/**/*.test.*",
-        "../src/**/test.*"
-    ],
-    "references": [
-        {
-            "path": "../../../analytics/analytics-gas-types/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../analytics/analytics-listeners/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../analytics/analytics-next/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../smart-common/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../data/ufo-external/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../elements/user-picker/afm-cc/tsconfig.json"
-        }
-    ]
+	"extends": "../../../../tsconfig.entry-points.confluence.json",
+	"compilerOptions": {
+		"target": "es5",
+		"composite": true,
+		"outDir": "../../../../../confluence/tsDist/@atlaskit__smart-hooks",
+		"rootDir": "../"
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-gas-types/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../analytics/analytics-listeners/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../analytics/analytics-next/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../smart-common/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../data/ufo-external/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../elements/user-picker/afm-cc/tsconfig.json"
+		}
+	]
 }

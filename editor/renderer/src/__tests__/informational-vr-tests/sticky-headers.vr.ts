@@ -18,19 +18,35 @@ import {
 	StickyHeadersTableMergedRows,
 } from './sticky-headers.fixture';
 
-async function scrollToPos(page: Page, pos: number) {
-	return page.evaluate((pos: number) => {
-		if (!window) {
-			return;
+async function scrollToPos(page: Page, pos: number, timeout = 5000) {
+	const scrollContainer = page.locator('#testscrollcontainer');
+	await scrollContainer.waitFor({ state: 'visible' });
+
+	const elementHandle = await scrollContainer.elementHandle();
+
+	// perform the scroll in playwright test
+	await scrollContainer.evaluate((container: HTMLElement, targetPos: number) => {
+		if (container) {
+			container.scrollTo(0, targetPos);
 		}
-		document.querySelector('#testscrollcontainer')?.scrollTo(0, pos);
-		// wait for the scroll animation
-		return new Promise((resolve) => {
-			setTimeout(() => {
-				resolve(null);
-			}, 50);
-		});
 	}, pos);
+
+	// Then wait for the scroll position to match the target
+	await page.waitForFunction(
+		({ elementHandle: element, pos: targetPos }) => {
+			if (!element) {
+				return false;
+			}
+
+			const currentPos = element.scrollTop;
+			if (currentPos === targetPos) {
+				return true;
+			}
+			throw new Error(`Scroll mismatch: expected ${targetPos}, got ${currentPos}`);
+		},
+		{ elementHandle, pos },
+		{ timeout },
+	);
 }
 
 snapshotInformational(StickyHeaderUnResizedTableRenderer, {

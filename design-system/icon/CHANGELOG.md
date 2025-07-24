@@ -1,5 +1,14 @@
 # @atlaskit/icon
 
+## 27.6.1
+
+### Patch Changes
+
+- [#189756](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/189756)
+  [`87618db7faf04`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/87618db7faf04) -
+  Updated usage of deprecated migration icons
+- Updated dependencies
+
 ## 27.6.0
 
 ### Minor Changes

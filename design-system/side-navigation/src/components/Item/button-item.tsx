@@ -64,25 +64,22 @@ const styles = cssMap({
  * - [Examples](https://atlassian.design/components/side-navigation/examples#button-item)
  * - [Code](https://atlassian.design/components/side-navigation/code)
  */
-const ButtonItem = forwardRef<HTMLElement, ButtonItemProps>(
-	// Type needed on props to extract types with extract react types.
-	({ className, ...props }: ButtonItemProps, ref) => {
-		const { shouldRender } = useShouldNestedElementRender();
-		if (!shouldRender) {
-			return null;
-		}
+const ButtonItem = forwardRef<HTMLElement, ButtonItemProps>(({ className, ...props }, ref) => {
+	const { shouldRender } = useShouldNestedElementRender();
+	if (!shouldRender) {
+		return null;
+	}
 
-		return (
-			<Button
-				ref={ref}
-				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
-				css={[styles.root, props.isSelected && styles.selectedStyles]}
-				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides, @atlaskit/ui-styling-standard/no-classname-prop
-				className={className}
-				{...props}
-			/>
-		);
-	},
-);
+	return (
+		<Button
+			ref={ref}
+			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
+			css={[styles.root, props.isSelected && styles.selectedStyles]}
+			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides, @atlaskit/ui-styling-standard/no-classname-prop
+			className={className}
+			{...props}
+		/>
+	);
+});
 
 export default ButtonItem;

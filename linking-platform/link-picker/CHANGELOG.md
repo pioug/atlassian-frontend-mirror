@@ -1,5 +1,14 @@
 # @atlaskit/link-picker
 
+## 3.8.1
+
+### Patch Changes
+
+- [#190017](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/190017)
+  [`be9794796c535`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be9794796c535) -
+  NAVX-1184 fixing eng-health a11y violations within unit tests
+- Updated dependencies
+
 ## 3.8.0
 
 ### Minor Changes

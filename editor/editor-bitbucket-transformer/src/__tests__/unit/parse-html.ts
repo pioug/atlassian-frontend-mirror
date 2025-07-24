@@ -31,6 +31,7 @@ import {
 	media,
 	inlineCard,
 	extension,
+	expand,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Mark } from '@atlaskit/editor-prosemirror/model';
@@ -1226,6 +1227,34 @@ describe('BitbucketTransformer: parser', () => {
 						'</div>',
 				),
 			).toEqualDocument(doc(code_block({ language: 'suggestion' })('this is a suggestion')));
+		});
+	});
+
+	describe('code reviewer expand panel', () => {
+		it('should convert reasoning code block to reasoning expand panel if shouldParseCodeReviewerReasoning is true', () => {
+			expect(
+				parse(
+					'<div class="codehilite language-reasoning">' +
+						'<pre><span></span><code>this is a reasoning panel</code></pre>' +
+						'</div>',
+					{ shouldParseCodeReviewerReasoning: true },
+				),
+			).toEqualDocument(
+				doc(
+					expand({
+						__expanded: true,
+						title: 'View full reasoning',
+					})(p('this is a reasoning panel')),
+				),
+			);
+		});
+
+		it('should remove reasoning code block if shouldParseCodeReviewerReasoning is false', () => {
+			expect(
+				parse(
+					'<div class="codehilite language-reasoning">' + '<pre><span></span></pre>' + '</div>',
+				),
+			).toEqualDocument(doc(p('')));
 		});
 	});
 });

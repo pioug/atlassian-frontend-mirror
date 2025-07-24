@@ -139,7 +139,6 @@ import {
 	smartCardStyles,
 	smartCardStylesWithSearchMatch,
 	smartLinksInLivePagesStyles,
-	smartLinksInLivePagesStylesOld,
 } from './styles/smartCardStyles';
 import {
 	statusStyles,
@@ -424,11 +423,8 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 							layoutColumnMartinTopFixesNew
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							layoutColumnMartinTopFixesOld,
-					fg('linking_platform_smart_links_in_live_pages')
-						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							smartLinksInLivePagesStyles
-						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							smartLinksInLivePagesStylesOld,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					smartLinksInLivePagesStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					linkingVisualRefreshV1Styles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

@@ -164,3 +164,4 @@ export { DropdownMenuExtensionItems } from './DropdownMenuExtensionItems';
 export { DropdownMenuItem } from './DropdownMenuItem';
 export type { DropdownMenuItemProps } from './DropdownMenuItem';
 export { default as messages } from './messages';
+export { DropdownSeparator } from './DropdownSeparator';

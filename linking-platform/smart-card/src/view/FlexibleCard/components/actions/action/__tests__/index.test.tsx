@@ -8,6 +8,8 @@ import { css, jsx } from '@compiled/react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import DropdownMenu, { DropdownItemGroup } from '@atlaskit/dropdown-menu';
+
 import { getFlexibleCardTestWrapper } from '../../../../../../__tests__/__utils__/unit-testing-library-helpers';
 import { type InternalFlexibleUiOptions } from '../../../../types';
 import Action from '../index';
@@ -23,11 +25,9 @@ describe('Action', () => {
 	const testId = 'smart-action';
 
 	it('should capture and report a11y violations', async () => {
-		const { container } = render(<Action onClick={() => {}} testId={testId} />);
+		const { container } = render(<Action onClick={() => {}} testId={testId} content="test" />);
 
-		await expect(container).toBeAccessible({
-			violationCount: 1,
-		});
+		await expect(container).toBeAccessible();
 	});
 
 	it('renders action', async () => {
@@ -152,12 +152,14 @@ describe('Action', () => {
 		it('should capture and report a11y violations', async () => {
 			const text = 'spaghetti';
 			const { container } = render(
-				<Action asDropDownItem={true} onClick={() => {}} content={text} />,
+				<DropdownMenu trigger="open menu">
+					<DropdownItemGroup>
+						<Action asDropDownItem={true} onClick={() => {}} content={text} ariaLabel={text} />
+					</DropdownItemGroup>
+				</DropdownMenu>,
 			);
 
-			await expect(container).toBeAccessible({
-				violationCount: 1,
-			});
+			await expect(container).toBeAccessible();
 		});
 
 		it('renders action', async () => {

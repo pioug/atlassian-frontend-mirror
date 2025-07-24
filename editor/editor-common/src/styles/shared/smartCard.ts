@@ -79,16 +79,10 @@ export const smartCardStyles = () => css`
 
 	.${SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER} {
 		.${SmartCardSharedCssClassName.LOADER_WRAPPER} > div {
-			cursor: ${
-				// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration
-				fg('linking_platform_smart_links_in_live_pages') ? 'text' : 'pointer'
-			};
+			cursor: pointer;
 
 			a {
-				cursor: ${
-					// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration
-					fg('linking_platform_smart_links_in_live_pages') ? 'pointer' : 'auto'
-				};
+				cursor: auto;
 			}
 		}
 
@@ -141,10 +135,7 @@ export const smartCardStyles = () => css`
 		.${SmartCardSharedCssClassName.LOADER_WRAPPER} > div {
 			cursor: pointer;
 			a {
-				cursor: ${
-					// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration
-					fg('linking_platform_smart_links_in_live_pages') ? 'pointer' : 'auto'
-				};
+				cursor: auto;
 			}
 			&::after {
 				transition: box-shadow 0s;

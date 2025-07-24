@@ -84,7 +84,7 @@ export const findReplaceStylesNew = css({
 		},
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.loader-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
+		'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
 			{
 				boxShadow: `0px 0px 0px 4px ${token('color.background.accent.magenta.subtler')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.subtler.pressed')}`,
 			},
@@ -100,7 +100,7 @@ export const findReplaceStylesNew = css({
 		},
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.loader-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
+		'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
 			{
 				boxShadow: `0px 0px 0px 4px ${token('color.background.accent.magenta.subtlest.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.subtler.pressed')}`,
 			},
@@ -119,7 +119,7 @@ export const findReplaceStylesNew = css({
 		},
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.loader-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
+		'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
 			{
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 				boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.magenta.subtler')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.subtler.pressed')} !important`,
@@ -137,7 +137,7 @@ export const findReplaceStylesNew = css({
 		},
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.loader-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
+		'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
 			{
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 				boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.magenta.subtlest.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.subtler.pressed')} !important`,
@@ -157,7 +157,7 @@ export const findReplaceStylesNew = css({
 		},
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.loader-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
+		'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
 			{
 				boxShadow: `0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}`,
 			},
@@ -174,7 +174,7 @@ export const findReplaceStylesNew = css({
 		},
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.loader-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
+		'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
 			{
 				boxShadow: `0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.hovered')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}`,
 			},
@@ -193,7 +193,7 @@ export const findReplaceStylesNew = css({
 		},
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.loader-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
+		'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
 			{
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 				boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')} !important`,
@@ -211,7 +211,7 @@ export const findReplaceStylesNew = css({
 		},
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.loader-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
+		'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
 			{
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 				boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.hovered')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')} !important`,
@@ -345,7 +345,7 @@ export const findReplaceStylesNewNoImportant = css({
 		},
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.loader-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
+		'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
 			{
 				boxShadow: `0px 0px 0px 4px ${token('color.background.accent.magenta.subtler')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.subtler.pressed')}`,
 			},
@@ -361,7 +361,7 @@ export const findReplaceStylesNewNoImportant = css({
 		},
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.loader-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
+		'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
 			{
 				boxShadow: `0px 0px 0px 4px ${token('color.background.accent.magenta.subtlest.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.subtler.pressed')}`,
 			},
@@ -378,7 +378,7 @@ export const findReplaceStylesNewNoImportant = css({
 			`,
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.loader-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
+		'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
 			{
 				boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.magenta.subtler')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.subtler.pressed')}`,
 			},
@@ -395,7 +395,7 @@ export const findReplaceStylesNewNoImportant = css({
 		},
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.loader-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
+		'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
 			{
 				boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.magenta.subtlest.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.subtler.pressed')}`,
 			},
@@ -414,7 +414,7 @@ export const findReplaceStylesNewNoImportant = css({
 		},
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.loader-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
+		'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
 			{
 				boxShadow: `0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}`,
 			},
@@ -431,7 +431,7 @@ export const findReplaceStylesNewNoImportant = css({
 		},
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.loader-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
+		'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
 			{
 				boxShadow: `0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.hovered')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}`,
 			},
@@ -450,7 +450,7 @@ export const findReplaceStylesNewNoImportant = css({
 		},
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.loader-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
+		'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
 			{
 				boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}`,
 			},
@@ -467,7 +467,7 @@ export const findReplaceStylesNewNoImportant = css({
 		},
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.loader-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
+		'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
 			{
 				boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.hovered')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}`,
 			},

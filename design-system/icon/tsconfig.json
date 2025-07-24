@@ -1,7 +1,6 @@
 {
   "extends": "../../../tsconfig.json",
   "include": [
-    "__perf__",
     "build",
     "./src/**/*.ts",
     "./src/**/*.tsx",

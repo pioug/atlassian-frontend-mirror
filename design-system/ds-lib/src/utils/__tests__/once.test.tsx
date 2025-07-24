@@ -44,22 +44,6 @@ test('underlying function should only be called once', () => {
 	expect(cached()).toBe('Call count: 0');
 });
 
-test('cache clearing', () => {
-	let callCount = 0;
-	function getCount(): string {
-		return `Call count: ${callCount++}`;
-	}
-	const cached = once(getCount);
-
-	expect(cached()).toBe('Call count: 0');
-	expect(cached()).toBe('Call count: 0');
-
-	cached.clear();
-
-	expect(cached()).toBe('Call count: 1');
-	expect(cached()).toBe('Call count: 1');
-});
-
 test('if the function throws, the cache should not be set', () => {
 	let callCount = 0;
 	function maybeThrow({ shouldThrow }: { shouldThrow: boolean }): string {

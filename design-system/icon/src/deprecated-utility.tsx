@@ -185,6 +185,38 @@ const deprecatedIcons: Record<string, { message: string; unfixable?: boolean }> 
 		message:
 			'The icon "drag-handle--drag-handler" is deprecated in favour of "drag-handle-vertical--drag-handler" from “@atlaskit/icon/core/migration”',
 	},
+	'@atlaskit/icon/core/migration/error': {
+		message:
+			'The icon "error" is deprecated in favour of "status-error--error" from “@atlaskit/icon/core/migration”',
+	},
+	'@atlaskit/icon/core/migration/information--editor-info': {
+		message:
+			'The icon "information--editor-info" is deprecated in favour of "status-information--editor-info" from “@atlaskit/icon/core/migration”',
+	},
+	'@atlaskit/icon/core/migration/information--editor-panel': {
+		message:
+			'The icon "information--editor-panel" is deprecated in favour of "status-information--editor-panel" from “@atlaskit/icon/core/migration”',
+	},
+	'@atlaskit/icon/core/migration/information--info': {
+		message:
+			'The icon "information--info" is deprecated in favour of "status-information--info" from “@atlaskit/icon/core/migration”',
+	},
+	'@atlaskit/icon/core/migration/success--check-circle': {
+		message:
+			'The icon "success--check-circle" is deprecated in favour of "status-success--check-circle" from “@atlaskit/icon/core/migration”',
+	},
+	'@atlaskit/icon/core/migration/success--editor-success': {
+		message:
+			'The icon "success--editor-success" is deprecated in favour of "status-success--editor-success" from “@atlaskit/icon/core/migration”',
+	},
+	'@atlaskit/icon/core/migration/warning--editor-warning': {
+		message:
+			'The icon "warning--editor-warning" is deprecated in favour of "status-warning--editor-warning" from “@atlaskit/icon/core/migration”',
+	},
+	'@atlaskit/icon/core/migration/warning': {
+		message:
+			'The icon "warning" is deprecated in favour of "status-warning--warning" from “@atlaskit/icon/core/migration”',
+	},
 };
 
 export default deprecatedIcons;

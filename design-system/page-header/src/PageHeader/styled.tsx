@@ -48,7 +48,7 @@ const titleStyles = css({
 const titleWrapperStyles = css({
 	display: 'flex',
 	alignItems: 'flex-start',
-	flexWrap: 'wrap',
+	flexWrap: 'nowrap',
 });
 
 const titleWrapperTruncateStyles = css({
@@ -58,8 +58,9 @@ const titleWrapperTruncateStyles = css({
 const titleContainerStyles = css({
 	minWidth: 0,
 	maxWidth: '100%',
-	flex: '1 0 auto',
+	flex: '1 1 auto',
 	marginBlockEnd: token('space.100', '8px'),
+	overflowWrap: 'break-word',
 });
 
 const actionStyles = css({

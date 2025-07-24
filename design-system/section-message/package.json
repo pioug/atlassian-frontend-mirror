@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/section-message",
-	"version": "8.3.0",
+	"version": "8.4.0",
 	"description": "A section message is used to alert users to a particular section of the screen.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -49,6 +49,7 @@
 		"@atlaskit/css": "workspace:^",
 		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/link": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
@@ -67,7 +68,6 @@
 		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/ds-lib": "workspace:^",
 		"@atlaskit/form": "workspace:^",
-		"@atlaskit/link": "workspace:^",
 		"@atlaskit/range": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
@@ -100,6 +100,9 @@
 	"homepage": "https://atlassian.design/components/section-message/",
 	"platform-feature-flags": {
 		"platform_section_message_action_migration": {
+			"type": "boolean"
+		},
+		"platform_dst_section_message_actions_as_link": {
 			"type": "boolean"
 		},
 		"platform_ads_explicit_font_styles": {

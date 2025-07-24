@@ -494,7 +494,7 @@ const generateMediaSingleFloatingToolbar = (
 			} else {
 				toolbarButtons = [...toolbarButtons, ...layoutButtons];
 
-				if (layoutButtons.length) {
+				if (layoutButtons.length && !isNewEditorToolbarEnabled) {
 					toolbarButtons.push({ type: 'separator' });
 				}
 			}
@@ -563,6 +563,14 @@ const generateMediaSingleFloatingToolbar = (
 					});
 				}
 			}
+		}
+
+		// A separator is needed regardless switcher is enabled or not
+		if (expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true)) {
+			toolbarButtons.push({
+				type: 'separator',
+				fullHeight: true,
+			});
 		}
 
 		// Pixel Entry Toolbar Support

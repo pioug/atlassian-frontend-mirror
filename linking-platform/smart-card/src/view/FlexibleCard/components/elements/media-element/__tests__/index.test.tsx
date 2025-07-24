@@ -17,7 +17,7 @@ jest.mock('react-render-image', () => ({ src, errored, onError }: any) => {
 			return errored;
 		case 'src-loaded':
 		default:
-			return <img data-testid="smart-element-media-image" src="src-loaded" />;
+			return <img data-testid="smart-element-media-image" src="src-loaded" alt="" />;
 	}
 });
 
@@ -27,9 +27,7 @@ describe('Element: Media', () => {
 	it('should capture and report a11y violations', async () => {
 		const { container } = render(<MediaElement type={MediaType.Image} url="src-loaded" />);
 
-		await expect(container).toBeAccessible({
-			violationCount: 1,
-		});
+		await expect(container).toBeAccessible();
 	});
 
 	it('renders element', async () => {

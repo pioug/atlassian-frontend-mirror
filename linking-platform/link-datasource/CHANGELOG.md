@@ -1,5 +1,26 @@
 # @atlaskit/link-datasource
 
+## 4.14.4
+
+### Patch Changes
+
+- [#189751](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/189751)
+  [`3b3db60fb9bd1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b3db60fb9bd1) -
+  NAVX-1166 Adding descriptive aria label to show more filter type button
+- [#190017](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/190017)
+  [`be9794796c535`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be9794796c535) -
+  NAVX-1184 fixing eng-health a11y violations within unit tests
+- Updated dependencies
+
+## 4.14.3
+
+### Patch Changes
+
+- [#189827](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/189827)
+  [`2730bff18e673`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2730bff18e673) -
+  NAVX-1176 adding aria-expanded to SLLV filter buttons
+- Updated dependencies
+
 ## 4.14.2
 
 ### Patch Changes

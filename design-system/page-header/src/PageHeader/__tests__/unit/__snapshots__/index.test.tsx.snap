@@ -16,18 +16,18 @@ exports[`@atlaskit/page-header should render correctly 1`] = `
     <style
       data-cmpld="true"
     >
-      ._1e0c1txw{display:flex}._4cvr1y6m{align-items:flex-start}._1n261g80{flex-wrap:wrap}._1n261q9c{flex-wrap:nowrap}
+      ._1e0c1txw{display:flex}._4cvr1y6m{align-items:flex-start}._1n261q9c{flex-wrap:nowrap}
     </style>
     <div
-      class="_1e0c1txw _4cvr1y6m _1n261g80"
+      class="_1e0c1txw _4cvr1y6m _1n261q9c"
     >
       <style
         data-cmpld="true"
       >
-        ._16jlkb7n{flex-grow:1}._1o9zidpf{flex-shrink:0}._i0dl1wug{flex-basis:auto}._1ul9idpf{min-width:0}._p12f1osq{max-width:100%}._6rthu2gc{margin-block-end:var(--ds-space-100,8px)}._1o9zkb7n{flex-shrink:1}
+        ._16jlkb7n{flex-grow:1}._1o9zkb7n{flex-shrink:1}._i0dl1wug{flex-basis:auto}._1ul9idpf{min-width:0}._p12f1osq{max-width:100%}._6rthu2gc{margin-block-end:var(--ds-space-100,8px)}._1i4q1hna{overflow-wrap:break-word}
       </style>
       <div
-        class="_16jlkb7n _1o9zidpf _i0dl1wug _1ul9idpf _p12f1osq _6rthu2gc"
+        class="_16jlkb7n _1o9zkb7n _i0dl1wug _1ul9idpf _p12f1osq _6rthu2gc _1i4q1hna"
       >
         <style
           data-cmpld="true"
@@ -44,7 +44,7 @@ exports[`@atlaskit/page-header should render correctly 1`] = `
       <style
         data-cmpld="true"
       >
-        ._16jlidpf{flex-grow:0}._ahbq1wug{margin-inline-start:auto}._bozgxy5q{padding-inline-start:var(--ds-space-400,2pc)}
+        ._16jlidpf{flex-grow:0}._1o9zidpf{flex-shrink:0}._ahbq1wug{margin-inline-start:auto}._bozgxy5q{padding-inline-start:var(--ds-space-400,2pc)}
       </style>
       <div
         class="_16jlidpf _1o9zidpf _i0dl1wug _p12f1osq _6rthu2gc _ahbq1wug _bozgxy5q _o5721q9c"
@@ -93,25 +93,25 @@ exports[`@atlaskit/page-header should render correctly with disableTitleStyles p
     <style
       data-cmpld="true"
     >
-      ._1e0c1txw{display:flex}._4cvr1y6m{align-items:flex-start}._1n261g80{flex-wrap:wrap}._1n261q9c{flex-wrap:nowrap}
+      ._1e0c1txw{display:flex}._4cvr1y6m{align-items:flex-start}._1n261q9c{flex-wrap:nowrap}
     </style>
     <div
-      class="_1e0c1txw _4cvr1y6m _1n261g80"
+      class="_1e0c1txw _4cvr1y6m _1n261q9c"
     >
       <style
         data-cmpld="true"
       >
-        ._16jlkb7n{flex-grow:1}._1o9zidpf{flex-shrink:0}._i0dl1wug{flex-basis:auto}._1ul9idpf{min-width:0}._p12f1osq{max-width:100%}._6rthu2gc{margin-block-end:var(--ds-space-100,8px)}._1o9zkb7n{flex-shrink:1}
+        ._16jlkb7n{flex-grow:1}._1o9zkb7n{flex-shrink:1}._i0dl1wug{flex-basis:auto}._1ul9idpf{min-width:0}._p12f1osq{max-width:100%}._6rthu2gc{margin-block-end:var(--ds-space-100,8px)}._1i4q1hna{overflow-wrap:break-word}
       </style>
       <div
-        class="_16jlkb7n _1o9zidpf _i0dl1wug _1ul9idpf _p12f1osq _6rthu2gc"
+        class="_16jlkb7n _1o9zkb7n _i0dl1wug _1ul9idpf _p12f1osq _6rthu2gc _1i4q1hna"
       >
         Test
       </div>
       <style
         data-cmpld="true"
       >
-        ._16jlidpf{flex-grow:0}._ahbq1wug{margin-inline-start:auto}._bozgxy5q{padding-inline-start:var(--ds-space-400,2pc)}._o5721q9c{white-space:nowrap}
+        ._16jlidpf{flex-grow:0}._1o9zidpf{flex-shrink:0}._ahbq1wug{margin-inline-start:auto}._bozgxy5q{padding-inline-start:var(--ds-space-400,2pc)}._o5721q9c{white-space:nowrap}
       </style>
       <div
         class="_16jlidpf _1o9zidpf _i0dl1wug _p12f1osq _6rthu2gc _ahbq1wug _bozgxy5q _o5721q9c"

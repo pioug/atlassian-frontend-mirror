@@ -11,7 +11,7 @@ import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import type { ExtensionAPI, ExtensionProvider } from '@atlaskit/editor-common/extensions';
-import { DropdownMenuItem } from '@atlaskit/editor-common/floating-toolbar';
+import { DropdownMenuItem, DropdownSeparator } from '@atlaskit/editor-common/floating-toolbar';
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type {
 	DropdownOptionT,
@@ -28,11 +28,6 @@ export const menuItemDimensions = {
 	width: 175,
 	height: 32,
 };
-
-const separatorStylesThin = css({
-	background: token('color.border'),
-	height: '1px',
-});
 
 const headingStyles = css({
 	padding: `${token('space.200', '16px')} 0 ${token('space.100', '8px')}`,
@@ -105,13 +100,8 @@ const Dropdown = memo((props: Props & WrappedComponentProps) => {
 							);
 						}
 						if (item.type === 'separator') {
-							return (
-								<div
-									// eslint-disable-next-line react/no-array-index-key
-									key={idx}
-									css={separatorStylesThin}
-								/>
-							);
+							// eslint-disable-next-line react/no-array-index-key
+							return <DropdownSeparator key={idx} />;
 						}
 						if (item.type === 'overflow-dropdown-heading') {
 							return (

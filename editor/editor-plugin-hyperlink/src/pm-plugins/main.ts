@@ -1,5 +1,3 @@
-import { type MouseEvent } from 'react';
-
 import { type IntlShape } from 'react-intl-next';
 import uuid from 'uuid';
 
@@ -7,28 +5,20 @@ import { type INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { OnClickCallback } from '@atlaskit/editor-common/card';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import type { HyperlinkState, LinkToolbarState } from '@atlaskit/editor-common/link';
-import {
-	handleNavigation,
-	InsertStatus,
-	LinkAction,
-	getActiveLinkMark,
-} from '@atlaskit/editor-common/link';
+import { InsertStatus, LinkAction, getActiveLinkMark } from '@atlaskit/editor-common/link';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorAppearance, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { canLinkBeCreatedInRange, shallowEqual } from '@atlaskit/editor-common/utils';
-import { DOMSerializer, type Node } from '@atlaskit/editor-prosemirror/model';
+import { type Node } from '@atlaskit/editor-prosemirror/model';
 import { PluginKey, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type {
 	EditorState,
 	ReadonlyTransaction,
 	Selection,
 } from '@atlaskit/editor-prosemirror/state';
-import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 import type { HyperlinkPlugin } from '../hyperlinkPluginType';
-
-import { ButtonWrapper } from './decorations';
 
 const mapTransactionToState = (
 	state: LinkToolbarState,
@@ -212,7 +202,6 @@ export const plugin = (
 							};
 
 					state = {
-						...(__livePage && fg('linking_platform_smart_links_in_live_pages') && state),
 						activeText: state.activeText,
 						canInsertLink: state.canInsertLink,
 						inputMethod,
@@ -220,80 +209,6 @@ export const plugin = (
 						editorAppearance,
 						...stateForAnalytics,
 					};
-
-					if (fg('linking_platform_smart_links_in_live_pages')) {
-						const isViewMode =
-							pluginInjectionApi?.editorViewMode?.sharedState.currentState()?.mode === 'view';
-
-						if (__livePage && !isViewMode) {
-							if (action === LinkAction.SET_CONFIGURE_DROPDOWN_OPEN) {
-								const configureDropdownOpen = tr.getMeta(stateKey).isOpen;
-								// Hide overlay when the dropdown is closed (state is updated to false)
-								const decorations = configureDropdownOpen
-									? {}
-									: { decorations: DecorationSet.empty };
-								state = {
-									...state,
-									...decorations,
-									configureDropdownOpen,
-								};
-							}
-							if (action === LinkAction.SET_CONFIGURE_BUTTON_TARGET_POS) {
-								const configureButtonTargetPos = tr.getMeta(stateKey).pos;
-								const targetPosHasChanged =
-									pluginState.configureButtonTargetPos !== configureButtonTargetPos;
-								let decorations = pluginState.decorations;
-
-								if (targetPosHasChanged && state.configureDropdownOpen !== true) {
-									if (configureButtonTargetPos === undefined) {
-										decorations = DecorationSet.empty;
-									} else {
-										const decoration = Decoration.widget(configureButtonTargetPos, (view) => {
-											return ButtonWrapper({
-												editorView: view,
-												pos: configureButtonTargetPos,
-												stateKey,
-												intl,
-												onOpenLinkClick: (event) => {
-													if (
-														configureButtonTargetPos === undefined ||
-														typeof configureButtonTargetPos !== 'number'
-													) {
-														return;
-													}
-													const node = view.state.tr.doc.nodeAt(configureButtonTargetPos);
-													if (node === null) {
-														return;
-													}
-													const url = node.marks.find((mark) => mark.type.name === 'link')?.attrs
-														.href as string | undefined;
-
-													if (!url) {
-														return;
-													}
-
-													handleNavigation({
-														fireAnalyticsEvent:
-															pluginInjectionApi?.analytics?.actions.fireAnalyticsEvent,
-														onClickCallback,
-														url,
-														event,
-													});
-												},
-											});
-										});
-										decorations = DecorationSet.create(newState.doc, [decoration]);
-									}
-								}
-
-								state = {
-									...state,
-									configureButtonTargetPos,
-									decorations,
-								};
-							}
-						}
-					}
 				}
 
 				const hasPositionChanged =
@@ -323,13 +238,8 @@ export const plugin = (
 		},
 		key: stateKey,
 		props: {
-			decorations: (state: EditorState) => {
-				if (__livePage && fg('linking_platform_smart_links_in_live_pages')) {
-					const { decorations } = stateKey.getState(state) ?? {};
-					return decorations;
-				} else {
-					return DecorationSet.empty;
-				}
+			decorations: () => {
+				return DecorationSet.empty;
 			},
 			handleDOMEvents: {
 				// Ignored via go/ees005
@@ -369,74 +279,9 @@ export const plugin = (
 					return false;
 				},
 			},
-			...(__livePage &&
-				fg('linking_platform_smart_links_in_live_pages') && {
-					markViews: {
-						link: (mark, view, inline) => {
-							const toDOM = mark.type.spec.toDOM;
-							if (!toDOM) {
-								throw new Error('toDom method missing');
-							}
-							const dom = DOMSerializer.renderSpec(document, toDOM(mark, inline)).dom;
-
-							if (!(dom instanceof HTMLElement)) {
-								throw new Error('Error rendering hyperlink spec to dom');
-							}
-
-							const setTargetElementPos = (val: number | undefined) => {
-								const tr = view.state.tr;
-								tr.setMeta(stateKey, {
-									type: LinkAction.SET_CONFIGURE_BUTTON_TARGET_POS,
-									pos: val,
-								});
-								view.dispatch(tr);
-							};
-
-							dom.onmouseenter = () => {
-								const { activeLinkMark, configureButtonTargetPos } =
-									stateKey.getState(view.state) ?? {};
-								if (!activeLinkMark) {
-									const nodePos = view.posAtDOM(dom, -1);
-									if (nodePos !== configureButtonTargetPos) {
-										setTargetElementPos(nodePos);
-									}
-								}
-							};
-
-							dom.onmouseleave = () => {
-								const { configureButtonTargetPos } = stateKey.getState(view.state) ?? {};
-								if (configureButtonTargetPos !== undefined) {
-									setTargetElementPos(undefined);
-								}
-							};
-
-							dom.onclick = (event) => {
-								if (isDirectTarget(event, dom)) {
-									const url = mark.attrs.href;
-									// event is globalThis.MouseEvent, while handleNavigation
-									// (and editor-common OnClickCallback) require React.MouseEvent
-									const reactMouseEvent = event as unknown as MouseEvent<HTMLAnchorElement>;
-									handleNavigation({
-										fireAnalyticsEvent: pluginInjectionApi?.analytics?.actions.fireAnalyticsEvent,
-										onClickCallback,
-										url,
-										event: reactMouseEvent,
-									});
-								}
-							};
-							return {
-								dom: dom,
-							};
-						},
-					},
-				}),
 		},
 	});
 
 function isLinkDirectTarget(event: MouseEvent) {
 	return event?.target instanceof HTMLElement && event.target.tagName === 'A';
-}
-
-function isDirectTarget(event: Event, element: HTMLElement) {
-	return event?.target instanceof HTMLElement && event.target === element;
 }

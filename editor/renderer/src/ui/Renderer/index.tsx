@@ -75,6 +75,7 @@ import { getBaseFontSize } from './get-base-font-size';
 import { removeEmptySpaceAroundContent } from './rendererHelper';
 import { useMemoFromPropsDerivative } from './useMemoFromPropsDerivative';
 import { PortalContext } from './PortalContext';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 export const NORMAL_SEVERITY_THRESHOLD = 2000;
 export const DEGRADED_SEVERITY_THRESHOLD = 3000;
@@ -629,7 +630,7 @@ export function Renderer(props: RendererProps) {
 			isTopLevelRenderer={
 				// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 				fg('issue_table_single_line_row_height_fast_follows')
-					? props.isTopLevelRenderer ?? isTopLevelRenderer
+					? (props.isTopLevelRenderer ?? isTopLevelRenderer)
 					: isTopLevelRenderer
 			}
 			skipValidation={skipValidation}
@@ -741,7 +742,7 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 			}
 
 			const mutateTelepointer = (mutations: MutationRecord[]) => {
-				mutations.forEach((mutation: MutationRecord) => {
+				mutations.forEach((mutation: MutationRecord, index) => {
 					if (initialUpdate.current) {
 						const oldTelepointer = renderer.querySelector(`#${TELEPOINTER_ID}`);
 						if (oldTelepointer) {
@@ -763,6 +764,45 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 							// Ignored via go/ees005
 							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 							parentNode!.appendChild(createTelepointer());
+						}
+					}
+
+					/**
+					 * When streaming ADF content, we may receive mutations where nodes get
+					 * replaced, rather than have characterData updated.
+					 *
+					 * Telepointer changes will also cause a childList mutation, so we manually ignore it.
+					 * Telepointer changes are always a singular node-adds or node-removes.
+					 */
+					if (
+						expValEqualsNoExposure('platform_editor_ai_iw_adf_streaming', 'isEnabled', true) &&
+						mutation.type === 'childList' &&
+						!(
+							(mutation.addedNodes.length === 1 &&
+								(mutation.addedNodes[0] as Element)?.id === TELEPOINTER_ID) ||
+							(mutation.removedNodes.length === 1 &&
+								(mutation.removedNodes[0] as Element)?.id === TELEPOINTER_ID)
+						)
+					) {
+						const lastChild = renderer.lastChild;
+						if (lastChild) {
+							/**
+							 * We want to place telepointer inside content (which has data-renderer-start-pos) and
+							 * inside lines in codeblocks (which have data-ds--code--row).
+							 */
+							const contentElements = (lastChild as Element).querySelectorAll(
+								'[data-renderer-start-pos],[data-ds--code--row]',
+							);
+							const lastElement = contentElements[contentElements.length - 1];
+
+							const oldTelepointer = renderer.querySelector(`#${TELEPOINTER_ID}`);
+							if (lastElement) {
+								oldTelepointer?.remove();
+								lastElement?.appendChild(createTelepointer());
+							} else {
+								oldTelepointer?.remove();
+								lastChild?.appendChild(createTelepointer());
+							}
 						}
 					}
 				});

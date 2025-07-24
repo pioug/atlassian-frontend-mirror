@@ -1,5 +1,33 @@
 # @atlaskit/editor-common
 
+## 107.11.0
+
+### Minor Changes
+
+- [#189119](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/189119)
+  [`3422f57cf2b75`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3422f57cf2b75) -
+  Removing linking_platform_smart_links_in_live_pages FF
+
+### Patch Changes
+
+- [#189936](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/189936)
+  [`7e6e647a47247`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e6e647a47247) -
+  ED-28593 - content update for type-ahead error.
+- Updated dependencies
+
+## 107.10.0
+
+### Minor Changes
+
+- [#190422](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/190422)
+  [`232f2b56060b1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/232f2b56060b1) -
+  [ENGHEALTH-27833] Make table's with overflow scrolling a labelled focusable region that users can
+  tab to so keyboard users can navigate the scrollable region
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 107.9.2
 
 ### Patch Changes

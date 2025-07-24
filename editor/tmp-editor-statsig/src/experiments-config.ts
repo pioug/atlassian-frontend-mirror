@@ -465,6 +465,14 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-07-23
+	platform_editor_renderer_breakout_fix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_renderer_breakout_fix',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-07-011
 	cc_editor_interactions_trigger_traceufointeraction: createMultivariateExperiment({
 		productKeys: {

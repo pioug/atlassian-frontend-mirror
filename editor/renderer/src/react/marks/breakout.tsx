@@ -14,6 +14,7 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import type { MarkProps } from '../types';
 
 import type { BreakoutMode } from '@atlaskit/editor-common/types';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 const wrapperStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
@@ -28,6 +29,9 @@ const getWidth = (width: number | null, mode: BreakoutMode) => {
 		return `min(${width}px, var(--ak-editor--breakout-container-without-gutter-width))`;
 	} else {
 		if (mode === 'full-width') {
+			if (expValEquals('platform_editor_renderer_breakout_fix', 'isEnabled', true)) {
+				return `min(${akEditorFullWidthLayoutWidth}px, var(--ak-editor--breakout-container-without-gutter-width))`;
+			}
 			return `max(${akEditorDefaultLayoutWidth}px, min(${akEditorFullWidthLayoutWidth}px, var(--ak-editor--breakout-container-without-gutter-width)))`;
 		}
 		if (mode === 'wide') {

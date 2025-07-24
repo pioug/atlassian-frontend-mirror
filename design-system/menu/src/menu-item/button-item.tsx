@@ -20,76 +20,73 @@ import type { ButtonItemProps } from '../types';
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/menu)
  */
 const ButtonItem = memo(
-	forwardRef<HTMLElement, ButtonItemProps>(
-		// Type needed on props to extract types with extract react types.
-		(props: ButtonItemProps, ref) => {
-			const {
-				children,
-				description,
-				iconAfter,
-				iconBefore,
-				isDisabled = false,
-				isSelected = false,
-				onClick,
-				testId,
-				onMouseDown,
-				shouldTitleWrap,
-				shouldDescriptionWrap,
-				className: UNSAFE_className,
-				interactionName,
-				...rest
-			} = props;
-			const onMouseDownHandler = onMouseDown;
+	forwardRef<HTMLElement, ButtonItemProps>((props, ref) => {
+		const {
+			children,
+			description,
+			iconAfter,
+			iconBefore,
+			isDisabled = false,
+			isSelected = false,
+			onClick,
+			testId,
+			onMouseDown,
+			shouldTitleWrap,
+			shouldDescriptionWrap,
+			className: UNSAFE_className,
+			interactionName,
+			...rest
+		} = props;
+		const onMouseDownHandler = onMouseDown;
 
-			const interactionContext = useContext<InteractionContextType | null>(InteractionContext);
+		const interactionContext = useContext<InteractionContextType | null>(InteractionContext);
 
-			const handleClick = useCallback(
-				(e: React.MouseEvent<HTMLButtonElement>) => {
-					interactionContext?.tracePress(interactionName, e.timeStamp);
-					onClick?.(e);
-				},
-				[onClick, interactionContext, interactionName],
-			);
+		const handleClick = useCallback(
+			(e: React.MouseEvent<HTMLButtonElement>) => {
+				interactionContext?.tracePress(interactionName, e.timeStamp);
+				onClick?.(e);
+			},
+			[onClick, interactionContext, interactionName],
+		);
 
-			if (!children) {
-				return null;
-			}
+		if (!children) {
+			return null;
+		}
 
-			return (
-				<MenuItemPrimitive
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-					className={UNSAFE_className}
-					{...rest}
-					iconBefore={iconBefore}
-					iconAfter={iconAfter}
-					isDisabled={isDisabled}
-					isSelected={isSelected}
-					isTitleHeading={false}
-					description={description}
-					title={children}
-					shouldTitleWrap={shouldTitleWrap}
-					shouldDescriptionWrap={shouldDescriptionWrap}
-					testId={testId && `${testId}--primitive`}
-				>
-					{({ children, className }) => (
-						<button
-							data-testid={testId}
-							{...rest}
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-							className={className}
-							ref={ref as Ref<HTMLButtonElement>}
-							disabled={isDisabled}
-							onClick={handleClick}
-							onMouseDown={onMouseDownHandler}
-							type="button"
-						>
-							{children}
-						</button>
-					)}
-				</MenuItemPrimitive>
-			);
-		},
-	),
+		return (
+			<MenuItemPrimitive
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+				className={UNSAFE_className}
+				{...rest}
+				iconBefore={iconBefore}
+				iconAfter={iconAfter}
+				isDisabled={isDisabled}
+				isSelected={isSelected}
+				isTitleHeading={false}
+				description={description}
+				title={children}
+				shouldTitleWrap={shouldTitleWrap}
+				shouldDescriptionWrap={shouldDescriptionWrap}
+				testId={testId && `${testId}--primitive`}
+			>
+				{({ children, className }) => (
+					<button
+						data-testid={testId}
+						{...rest}
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+						className={className}
+						ref={ref as Ref<HTMLButtonElement>}
+						disabled={isDisabled}
+						onClick={handleClick}
+						onMouseDown={onMouseDownHandler}
+						type="button"
+					>
+						{children}
+					</button>
+				)}
+			</MenuItemPrimitive>
+		);
+	}),
 );
 
 export default ButtonItem;

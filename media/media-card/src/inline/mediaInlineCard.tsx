@@ -67,6 +67,9 @@ export const MediaInlineCardInternal: FC<MediaInlineCardProps & WrappedComponent
 		error: MediaCardError = new MediaCardError('missing-error-data'),
 		failReason?: 'failed-processing',
 	) => {
+		if (isFailedEventSent) {
+			return;
+		}
 		const payload = failReason
 			? getFailedProcessingStatusPayload(identifier.id, fileState)
 			: getErrorStatusPayload(identifier.id, error, fileState);
@@ -148,27 +151,34 @@ export const MediaInlineCardInternal: FC<MediaInlineCardProps & WrappedComponent
 		const errorMessage =
 			fileState?.status === 'uploading' ? messages.failed_to_upload : messages.couldnt_load_file;
 		const errorReason = fileState?.status === 'uploading' ? 'upload' : 'metadata-fetch';
-		!isFailedEventSent &&
-			fireFailedOperationalEvent(new MediaCardError(errorReason, subscribeError));
+		fireFailedOperationalEvent(new MediaCardError(errorReason, subscribeError));
 
-		return (
-			<MediaInlineCardErroredView
-				innerRef={copyNodeRef}
-				message={(intl || defaultIntl).formatMessage(errorMessage)}
-				isSelected={isSelected}
-			/>
+		return renderContent(
+			<>
+				<MediaInlineCardErroredView
+					innerRef={copyNodeRef}
+					message={(intl || defaultIntl).formatMessage(errorMessage)}
+					isSelected={isSelected}
+					onClick={onMediaInlineCardClick}
+				/>
+				{renderMediaViewer()}
+			</>,
 		);
 	}
 
 	if (fileState?.status === 'error') {
 		const error = new MediaCardError('error-file-state', toCommonMediaClientError(fileState));
-		!isFailedEventSent && fireFailedOperationalEvent(error);
-		return (
-			<MediaInlineCardErroredView
-				innerRef={copyNodeRef}
-				message={(intl || defaultIntl).formatMessage(messages.couldnt_load_file)}
-				isSelected={isSelected}
-			/>
+		fireFailedOperationalEvent(error);
+		return renderContent(
+			<>
+				<MediaInlineCardErroredView
+					innerRef={copyNodeRef}
+					message={(intl || defaultIntl).formatMessage(messages.couldnt_load_file)}
+					isSelected={isSelected}
+					onClick={onMediaInlineCardClick}
+				/>
+				{renderMediaViewer()}
+			</>,
 		);
 	}
 
@@ -178,13 +188,17 @@ export const MediaInlineCardInternal: FC<MediaInlineCardProps & WrappedComponent
 			'metadata-fetch',
 			new FileFetcherError('emptyFileName', { id: fileState.id }),
 		);
-		!isFailedEventSent && fireFailedOperationalEvent(error);
-		return (
-			<MediaInlineCardErroredView
-				innerRef={copyNodeRef}
-				message={(intl || defaultIntl).formatMessage(messages.couldnt_load_file)}
-				isSelected={isSelected}
-			/>
+		fireFailedOperationalEvent(error);
+		return renderContent(
+			<>
+				<MediaInlineCardErroredView
+					innerRef={copyNodeRef}
+					message={(intl || defaultIntl).formatMessage(messages.couldnt_load_file)}
+					isSelected={isSelected}
+					onClick={onMediaInlineCardClick}
+				/>
+				{renderMediaViewer()}
+			</>,
 		);
 	}
 
@@ -210,7 +224,7 @@ export const MediaInlineCardInternal: FC<MediaInlineCardProps & WrappedComponent
 
 	// Failed to process should still display the loaded view and enable Media Client to download
 	if (fileState?.status === 'failed-processing') {
-		!isFailedEventSent && fireFailedOperationalEvent(undefined, 'failed-processing');
+		fireFailedOperationalEvent(undefined, 'failed-processing');
 	}
 
 	const { mediaType, name, mimeType } = fileState;
@@ -223,7 +237,6 @@ export const MediaInlineCardInternal: FC<MediaInlineCardProps & WrappedComponent
 			name={name}
 		/>
 	);
-	const mediaViewer = renderMediaViewer();
 
 	let formattedDate;
 	if (fileState.createdAt) {
@@ -247,7 +260,7 @@ export const MediaInlineCardInternal: FC<MediaInlineCardProps & WrappedComponent
 						isSelected={isSelected}
 					/>
 				</Tooltip>
-				{mediaViewer}
+				{renderMediaViewer()}
 			</>,
 		);
 	} else {
@@ -260,7 +273,7 @@ export const MediaInlineCardInternal: FC<MediaInlineCardProps & WrappedComponent
 					onClick={onMediaInlineCardClick}
 					isSelected={isSelected}
 				/>
-				{mediaViewer}
+				{renderMediaViewer()}
 			</>,
 		);
 	}

@@ -81,12 +81,12 @@ export const typeAheadListMessages = defineMessages({
 	},
 	typeAheadErrorFallbackHeading: {
 		id: 'fabric.editor.typeAheadErrorFallbackHeading',
-		defaultMessage: 'Something went wrong!',
+		defaultMessage: 'Something went wrong',
 		description: 'Error message heading shown when typeahead items fail to load',
 	},
 	typeAheadErrorFallbackDesc: {
 		id: 'fabric.editor.typeAheadErrorFallbackDescription',
-		defaultMessage: 'Please try again.',
+		defaultMessage: 'No results available. Try again.',
 		description: 'Error message description shown when typeahead items fail to load',
 	},
 	viewAllInserts: {

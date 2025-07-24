@@ -74,8 +74,7 @@ interface CustomItemPropsHack {
  * Specific implementation of headers and footers are provided in the examples folder.
  */
 const CustomItem: CustomItemPropsHack = forwardRef<HTMLElement, CustomItemProps>(
-	// Type needed on props to extract types with extract react types.
-	({ className, ...props }: CustomItemProps, ref) => {
+	({ className, ...props }, ref) => {
 		const { shouldRender } = useShouldNestedElementRender();
 		if (!shouldRender) {
 			return null;

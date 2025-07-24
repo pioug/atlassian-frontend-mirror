@@ -1,5 +1,13 @@
 # @atlaskit/editor-bitbucket-transformer
 
+## 9.2.3
+
+### Patch Changes
+
+- [#190276](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/190276)
+  [`2b97b58d7f91b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2b97b58d7f91b) -
+  add the ability to display code reviewer reasoning expand panel
+
 ## 9.2.2
 
 ### Patch Changes

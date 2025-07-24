@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-card
 
+## 7.2.0
+
+### Minor Changes
+
+- [#189119](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/189119)
+  [`3422f57cf2b75`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3422f57cf2b75) -
+  Removing linking_platform_smart_links_in_live_pages FF
+
+### Patch Changes
+
+- [#187274](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/187274)
+  [`06b83ebb34346`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/06b83ebb34346) -
+  [ux] ED-28390 platformise open hover button
+- [#187671](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/187671)
+  [`f0b9b62ce032f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f0b9b62ce032f) -
+  [ux] ED-28547: Added hover card when hover smartlinks
+- Updated dependencies
+
 ## 7.1.0
 
 ### Minor Changes

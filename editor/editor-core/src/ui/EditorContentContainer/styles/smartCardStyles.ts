@@ -393,33 +393,6 @@ export const smartLinksInLivePagesStyles = css({
 	[`.${SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER}`]: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
 		[`.${SmartCardSharedCssClassName.LOADER_WRAPPER} > div`]: {
-			cursor: 'text',
-
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-			a: {
-				cursor: 'pointer',
-			},
-		},
-	},
-
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
-	[`.${SmartCardSharedCssClassName.EMBED_CARD_CONTAINER}`]: {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
-		[`.${SmartCardSharedCssClassName.LOADER_WRAPPER} > div`]: {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-			a: {
-				cursor: 'pointer',
-			},
-		},
-	},
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const smartLinksInLivePagesStylesOld = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
-	[`.${SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER}`]: {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
-		[`.${SmartCardSharedCssClassName.LOADER_WRAPPER} > div`]: {
 			cursor: 'pointer',
 
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors

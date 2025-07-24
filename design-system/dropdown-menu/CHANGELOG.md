@@ -1,5 +1,11 @@
 # @atlaskit/dropdown-menu
 
+## 16.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.3.0
 
 ### Minor Changes

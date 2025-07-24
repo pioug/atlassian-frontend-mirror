@@ -13,13 +13,14 @@ import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { cardMessages } from '@atlaskit/editor-common/messages';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
+import PanelRightIcon from '@atlaskit/icon/core/panel-right';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Anchor, Box, Text, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import { visitCardLinkAnalytics } from '../toolbar';
 
-import type { OpenButtonOverlayProps } from './types';
+import type { HoverLinkOverlayProps } from './types';
 
 const containerStyles = css({
 	position: 'relative',
@@ -74,19 +75,23 @@ const MIN_AVAILABLE_SPACE_WITH_LABEL_OVERLAY = 45;
 const ICON_WIDTH = 16;
 const DEFAULT_OPEN_TEXT_WIDTH = 28; // Default open text width in English
 
-const OpenButtonOverlay = ({
+const HoverLinkOverlay = ({
 	children,
 	isVisible = false,
 	url,
 	editorAppearance,
 	editorAnalyticsApi,
 	view,
-}: React.PropsWithChildren<OpenButtonOverlayProps>) => {
+	onClick,
+	showPanelButton = false,
+}: React.PropsWithChildren<HoverLinkOverlayProps>) => {
 	const { formatMessage } = useIntl();
-	const label = formatMessage(cardMessages.openButtonTitle);
+	const label = showPanelButton
+		? formatMessage(cardMessages.panelButtonTitle)
+		: formatMessage(cardMessages.openButtonTitle);
 
 	const containerRef = useRef<HTMLSpanElement>(null);
-	const openButtonRef = useRef<HTMLAnchorElement>(null);
+	const hoverLinkButtonRef = useRef<HTMLAnchorElement>(null);
 	const hiddenTextRef = useRef<HTMLDivElement>(null);
 	const [showLabel, setShowLabel] = useState(true);
 	const [isHovered, setHovered] = useState(false);
@@ -97,7 +102,7 @@ const OpenButtonOverlay = ({
 			return;
 		}
 		const cardWidth = containerRef.current?.offsetWidth;
-		const openButtonWidth = openButtonRef.current?.offsetWidth;
+		const openButtonWidth = hoverLinkButtonRef.current?.offsetWidth;
 
 		// Get the hidden text width
 		if (!openTextWidthRef.current) {
@@ -140,14 +145,20 @@ const OpenButtonOverlay = ({
 	};
 
 	const handleDoubleClick = () => {
-		sendVisitLinkAnalytics(INPUT_METHOD.DOUBLE_CLICK);
+		if (!showPanelButton) {
+			sendVisitLinkAnalytics(INPUT_METHOD.DOUBLE_CLICK);
 
-		// Double click opens the link in a new tab
-		window.open(url, '_blank');
+			// Double click opens the link in a new tab
+			window.open(url, '_blank');
+		}
 	};
 
-	const handleClick = () => {
-		sendVisitLinkAnalytics(INPUT_METHOD.BUTTON);
+	const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+		if (showPanelButton && onClick) {
+			onClick(event);
+		} else {
+			sendVisitLinkAnalytics(INPUT_METHOD.BUTTON);
+		}
 	};
 
 	return (
@@ -160,16 +171,14 @@ const OpenButtonOverlay = ({
 			onMouseLeave={() => handleOverlayChange(false)}
 		>
 			{children}
-
 			<span css={hiddenTextStyle} aria-hidden="true">
 				<Text ref={hiddenTextRef} size="small" maxLines={1}>
 					{label}
 				</Text>
 			</span>
-
 			{isHovered && (
 				<Anchor
-					ref={openButtonRef}
+					ref={hoverLinkButtonRef}
 					xcss={linkStyles}
 					href={url}
 					target="_blank"
@@ -182,7 +191,7 @@ const OpenButtonOverlay = ({
 					onClick={handleClick}
 				>
 					<Box xcss={iconWrapperStyles} data-inlinecard-button-overlay="icon-wrapper-line-height">
-						<LinkExternalIcon label="" />
+						{showPanelButton ? <PanelRightIcon label="" /> : <LinkExternalIcon label="" />}
 					</Box>
 					{showLabel && (
 						<Text size="small" color="color.text.subtle" maxLines={1}>
@@ -195,4 +204,4 @@ const OpenButtonOverlay = ({
 	);
 };
 
-export default OpenButtonOverlay;
+export default HoverLinkOverlay;

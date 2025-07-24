@@ -114,11 +114,11 @@ describe('<LinkSearchList />', () => {
 			activeIndex: -1,
 			ariaControls: '',
 			ariaLabelledBy: '',
-			role: '',
+			role: 'listbox',
 			id: '',
 			adaptiveHeight: false,
 		} as const;
 		const { container } = render(<LinkSearchList {...defaultOptions} />);
-		await expect(container).toBeAccessible({ violationCount: 2 });
+		await expect(container).toBeAccessible();
 	});
 });

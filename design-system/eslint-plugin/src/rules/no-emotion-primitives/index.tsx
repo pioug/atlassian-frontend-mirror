@@ -44,7 +44,8 @@ export const rule: Rule.RuleModule = createLintRule({
 			recommended: false,
 		},
 		messages: {
-			'no-emotion-primitives': 'Use @atlaskit/primitives/compiled instead of @atlaskit/primitives',
+			'no-emotion-primitives':
+				'Use @atlaskit/primitives/compiled instead of @atlaskit/primitives. Refer to go/akcss for more information.',
 		},
 		schema,
 	},

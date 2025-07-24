@@ -67,8 +67,7 @@ const styles = cssMap({
  * - [Code](https://atlassian.design/components/side-navigation/code)
  */
 const LinkItem = forwardRef<HTMLElement, LinkItemProps>(
-	// Type needed on props to extract types with extract react types.
-	({ href, children, className, ...rest }: LinkItemProps, ref) => {
+	({ href, children, className, ...rest }, ref) => {
 		const { shouldRender } = useShouldNestedElementRender();
 		if (!shouldRender) {
 			return null;

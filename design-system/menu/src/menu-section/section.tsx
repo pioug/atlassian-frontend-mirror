@@ -111,8 +111,7 @@ const Section = forwardRef<HTMLElement, SectionProps>(
 			// @ts-expect-error
 			className: UNSAFE_className,
 			...rest
-		}: // Type needed on props to extract types with extract react types.
-		SectionProps,
+		},
 		ref,
 	) => {
 		const content = isList ? (

@@ -80,11 +80,6 @@ describe('Frame', () => {
 			await expect(container).toBeAccessible();
 		});
 
-		it('should not be accessible with empty whitespace as children', async () => {
-			const { container } = render(<Frame link="www.link-url"> </Frame>);
-			await expect(container).toBeAccessible({ violationCount: 1 });
-		});
-
 		it('should be accessible with span', async () => {
 			const { container } = render(<Frame />);
 			await expect(container).toBeAccessible();

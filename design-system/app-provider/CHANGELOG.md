@@ -1,5 +1,15 @@
 # @atlaskit/app-provider
 
+## 2.3.0
+
+### Minor Changes
+
+- [#190373](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/190373)
+  [`73d6aa20aadb3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73d6aa20aadb3) -
+  Default typography theme changed to modernized behind feature flag
+  `platform-default-typography-refreshed`. If testing is successful the change will be available in
+  a later release.
+
 ## 2.2.1
 
 ### Patch Changes

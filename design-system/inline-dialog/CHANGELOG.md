@@ -1,5 +1,11 @@
 # @atlaskit/inline-dialog
 
+## 17.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.2.4
 
 ### Patch Changes

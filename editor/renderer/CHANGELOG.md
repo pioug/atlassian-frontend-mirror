@@ -1,5 +1,41 @@
 # @atlaskit/renderer
 
+## 120.2.2
+
+### Patch Changes
+
+- [#188983](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188983)
+  [`4db0e4a06b450`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4db0e4a06b450) -
+  EDITOR-1122: Fix telepointer not updating when childList is mutated instead of characterData.
+  Behind platform_editor_ai_iw_adf_streaming
+- Updated dependencies
+
+## 120.2.1
+
+### Patch Changes
+
+- [#190087](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/190087)
+  [`3a050d48dee0c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a050d48dee0c) -
+  [ux] [CONFCLOUD-82045] Fixes regression where numbered take up too much space inside include
+  macros
+- [#190422](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/190422)
+  [`232f2b56060b1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/232f2b56060b1) -
+  [ENGHEALTH-27833] Make table's with overflow scrolling a labelled focusable region that users can
+  tab to so keyboard users can navigate the scrollable region
+- Updated dependencies
+
+## 120.2.0
+
+### Minor Changes
+
+- [#190110](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/190110)
+  [`0fc96695978de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0fc96695978de) -
+  Fix breakout width calculation in full width
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 120.1.11
 
 ### Patch Changes

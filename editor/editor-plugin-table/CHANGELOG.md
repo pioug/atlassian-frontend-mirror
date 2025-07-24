@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-table
 
+## 12.1.2
+
+### Patch Changes
+
+- [#190422](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/190422)
+  [`232f2b56060b1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/232f2b56060b1) -
+  [ENGHEALTH-27833] Make table's with overflow scrolling a labelled focusable region that users can
+  tab to so keyboard users can navigate the scrollable region
+- Updated dependencies
+
 ## 12.1.1
 
 ### Patch Changes

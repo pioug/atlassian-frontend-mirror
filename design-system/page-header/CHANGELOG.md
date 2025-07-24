@@ -1,5 +1,13 @@
 # @atlaskit/page-header
 
+## 12.1.0
+
+### Minor Changes
+
+- [#187159](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/187159)
+  [`efff388232387`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/efff388232387) -
+  [ux] Fixes the actions panel positioning on small screens
+
 ## 12.0.6
 
 ### Patch Changes

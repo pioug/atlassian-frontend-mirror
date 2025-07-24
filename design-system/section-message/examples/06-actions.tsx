@@ -10,20 +10,27 @@ const Example = () => (
 		testId="section-message"
 		actions={[
 			<SectionMessageAction testId="no-href-or-click">
-				No href or onClick (span)
+				No href or onClick (renders a span)
 			</SectionMessageAction>,
 			<SectionMessageAction testId="with-href" href="https://https://atlassian.design/">
-				With href (anchor)
+				With href (renders a link)
+			</SectionMessageAction>,
+			<SectionMessageAction
+				testId="with-href"
+				href="https://https://atlassian.design/"
+				target="_blank"
+			>
+				With href that opens in new window (renders a link)
 			</SectionMessageAction>,
 			<SectionMessageAction testId="with-click" onClick={noop}>
-				With onClick (button)
+				With onClick (renders a button)
 			</SectionMessageAction>,
 			<SectionMessageAction
 				testId="with-both"
 				onClick={noop}
 				href="https://https://atlassian.design/"
 			>
-				With href and onClick (anchor)
+				With href and onClick (renders a link)
 			</SectionMessageAction>,
 		]}
 	>

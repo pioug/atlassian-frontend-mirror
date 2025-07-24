@@ -7,7 +7,7 @@ import {
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { type Transaction } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection, type Transaction } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { getObjectAri, getObjectName, getObjectIconUrl } from '@atlaskit/smart-card';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -16,8 +16,7 @@ import { type cardPlugin } from '../cardPlugin';
 import { registerRemoveOverlay } from '../pm-plugins/actions';
 import { pluginKey } from '../pm-plugins/plugin-key';
 import { AwarenessWrapper } from '../ui/AwarenessWrapper';
-import OpenButtonOverlay from '../ui/OpenButtonOverlay';
-import PanelButtonOverlay from '../ui/PanelButtonOverlay';
+import HoverLinkOverlay from '../ui/HoverLinkOverlay';
 
 import type { SmartCardProps } from './genericCard';
 import { InlineCard } from './inlineCard';
@@ -31,22 +30,31 @@ export type InlineCardWithAwarenessProps = {
 const selector = (
 	states: NamedPluginStatesFromInjectionAPI<
 		ExtractInjectionAPI<typeof cardPlugin>,
-		'editorViewMode'
+		'selection' | 'editorViewMode'
 	>,
 ) => {
 	return {
 		mode: states.editorViewModeState?.mode,
+		selection: states.selectionState?.selection,
 	};
 };
 
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined) => {
-		return useSharedPluginStateWithSelector(pluginInjectionApi, ['editorViewMode'], selector);
+		return useSharedPluginStateWithSelector(
+			pluginInjectionApi,
+			['selection', 'editorViewMode'],
+			selector,
+		);
 	},
 	(pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined) => {
-		const { editorViewModeState } = useSharedPluginState(pluginInjectionApi, ['editorViewMode']);
+		const { selectionState, editorViewModeState } = useSharedPluginState(pluginInjectionApi, [
+			'selection',
+			'editorViewMode',
+		]);
 		return {
 			mode: editorViewModeState?.mode,
+			selection: selectionState?.selection,
 		};
 	},
 );
@@ -103,11 +111,14 @@ export const InlineCardWithAwareness = memo(
 			[isOverlayEnabled],
 		);
 
-		const { mode } = useSharedState(pluginInjectionApi);
+		const { mode, selection } = useSharedState(pluginInjectionApi);
+		const floatingToolbarNode = selection instanceof NodeSelection && selection.node;
+		const showHoverPreview =
+			floatingToolbarNode !== node && fg('platform_editor_preview_panel_linking');
 
 		const innerCardWithOpenButtonOverlay = useMemo(
 			() => (
-				<OpenButtonOverlay
+				<HoverLinkOverlay
 					isVisible={isResolvedViewRendered}
 					url={node.attrs.url}
 					editorAppearance={editorAppearance}
@@ -126,8 +137,9 @@ export const InlineCardWithAwareness = memo(
 						isHovered={isHovered}
 						isPageSSRed={isPageSSRed}
 						pluginInjectionApi={pluginInjectionApi}
+						showHoverPreview={showHoverPreview}
 					/>
-				</OpenButtonOverlay>
+				</HoverLinkOverlay>
 			),
 			[
 				isResolvedViewRendered,
@@ -143,6 +155,7 @@ export const InlineCardWithAwareness = memo(
 				isHovered,
 				isPageSSRed,
 				pluginInjectionApi,
+				showHoverPreview,
 			],
 		);
 
@@ -160,6 +173,7 @@ export const InlineCardWithAwareness = memo(
 					isHovered={isHovered}
 					isPageSSRed={isPageSSRed}
 					pluginInjectionApi={pluginInjectionApi}
+					showHoverPreview={showHoverPreview}
 				/>
 			),
 			[
@@ -174,6 +188,7 @@ export const InlineCardWithAwareness = memo(
 				view,
 				isPageSSRed,
 				pluginInjectionApi,
+				showHoverPreview,
 			],
 		);
 
@@ -184,7 +199,8 @@ export const InlineCardWithAwareness = memo(
 				(mode === 'edit' ||
 					editorAppearance === 'comment' ||
 					shouldShowOpenButtonOverlayInChomeless) &&
-				editorExperiment('platform_editor_controls', 'variant1')
+				(editorExperiment('platform_editor_controls', 'variant1') ||
+					fg('platform_editor_preview_panel_linking'))
 			);
 		}, [mode, editorAppearance]);
 
@@ -201,8 +217,11 @@ export const InlineCardWithAwareness = memo(
 				const isPanelAvailable = ari && cardContext?.value?.isPreviewPanelAvailable?.({ ari });
 				const openPreviewPanel = cardContext?.value?.openPreviewPanel;
 
-				const handleOpenGlancePanelClick = () => {
+				const handleOpenGlancePanelClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
 					if (openPreviewPanel && isPanelAvailable) {
+						// Prevent anchor default behaviour(click to open the anchor link)
+						// When glance panel is available, let openPreviewPanel handle it
+						event.preventDefault();
 						openPreviewPanel({
 							url: node.attrs.url,
 							ari,
@@ -213,9 +232,13 @@ export const InlineCardWithAwareness = memo(
 				};
 
 				const innerCardWithPanelButtonOverlay = (
-					<PanelButtonOverlay
+					<HoverLinkOverlay
 						isVisible={isResolvedViewRendered}
+						url={node.attrs.url}
 						editorAppearance={editorAppearance}
+						editorAnalyticsApi={pluginInjectionApi?.analytics?.actions}
+						view={view}
+						showPanelButton={!!isPanelAvailable}
 						onClick={handleOpenGlancePanelClick}
 					>
 						<InlineCard
@@ -230,8 +253,9 @@ export const InlineCardWithAwareness = memo(
 							isHovered={isHovered}
 							isPageSSRed={isPageSSRed}
 							pluginInjectionApi={pluginInjectionApi}
+							showHoverPreview={showHoverPreview}
 						/>
-					</PanelButtonOverlay>
+					</HoverLinkOverlay>
 				);
 				innerCard =
 					isPanelAvailable && openPreviewPanel ? innerCardWithPanelButtonOverlay : innerCard;

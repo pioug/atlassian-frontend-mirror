@@ -4,6 +4,7 @@ import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+import DropdownMenu from '@atlaskit/dropdown-menu';
 
 import { ActionName } from '../../../../../../../../../index';
 import * as useInvokeClientAction from '../../../../../../../../../state/hooks/use-invoke-client-action';
@@ -30,7 +31,9 @@ describe('LozengeActionError', () => {
 		return render(
 			<FabricAnalyticsListeners client={mockAnalyticsClient}>
 				<IntlProvider locale="en">
-					<LozengeActionError testId={testId} {...props} />,
+					<DropdownMenu trigger="open menu">
+						<LozengeActionError testId={testId} {...props} />
+					</DropdownMenu>
 				</IntlProvider>
 			</FabricAnalyticsListeners>,
 		);
@@ -46,6 +49,9 @@ describe('LozengeActionError', () => {
 			url,
 			invokePreviewAction: { actionFn: jest.fn(), actionType: ActionName.PreviewAction },
 		});
+
+		const dropdownMenu = await screen.findByText('open menu');
+		dropdownMenu.click();
 
 		// make sure icon is loaded
 		const icon = await screen.findByTestId(`${testId}-icon`);
@@ -68,6 +74,9 @@ describe('LozengeActionError', () => {
 			errorMessage: TEXT_ERROR_MESSAGE,
 		});
 
+		const dropdownMenu = await screen.findByText('open menu');
+		dropdownMenu.click();
+
 		// make sure icon is loaded
 		const icon = await screen.findByTestId(`${testId}-icon`);
 		expect(icon).toBeDefined();
@@ -88,6 +97,9 @@ describe('LozengeActionError', () => {
 			errorMessage: MESSAGE_PROP_ERROR_MESSAGE,
 		});
 
+		const dropdownMenu = await screen.findByText('open menu');
+		dropdownMenu.click();
+
 		// make sure icon is loaded
 		const icon = await screen.findByTestId(`${testId}-icon`);
 		expect(icon).toBeDefined();
@@ -104,6 +116,9 @@ describe('LozengeActionError', () => {
 			errorMessage: TEXT_ERROR_MESSAGE,
 			maxLineNumber: MAX_LINE_NUMBER,
 		});
+
+		const dropdownMenu = await screen.findByText('open menu');
+		dropdownMenu.click();
 
 		// make sure icon is loaded
 		const icon = await screen.findByTestId(`${testId}-icon`);
@@ -126,6 +141,9 @@ describe('LozengeActionError', () => {
 			url,
 		});
 
+		const dropdownMenu = await screen.findByText('open menu');
+		dropdownMenu.click();
+
 		// make sure an error link is present
 		const link = await screen.findByTestId(`${testId}-open-embed`);
 		expect(link).toBeDefined();
@@ -143,6 +161,6 @@ describe('LozengeActionError', () => {
 			invokePreviewAction: { actionFn: jest.fn(), actionType: ActionName.PreviewAction },
 			url,
 		});
-		await expect(container).toBeAccessible({ violationCount: 1 });
+		await expect(container).toBeAccessible();
 	});
 });

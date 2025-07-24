@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { memo, useCallback, useEffect, useMemo, useRef } from 'react';
 
 import rafSchedule from 'raf-schd';
 import uuid from 'uuid/v4';
@@ -10,7 +10,6 @@ import {
 	useSharedPluginState,
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
-import { handleNavigation } from '@atlaskit/editor-common/link';
 import type {
 	InlineNodeViewComponentProps,
 	getInlineNodeViewProducer,
@@ -18,7 +17,6 @@ import type {
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { UnsupportedInline, findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Card as SmartCard } from '@atlaskit/smart-card';
@@ -28,7 +26,6 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { type cardPlugin } from '../cardPlugin';
 import { registerCard, removeCard } from '../pm-plugins/actions';
 import { getAwarenessProps } from '../pm-plugins/utils';
-import OverlayWrapper from '../ui/ConfigureOverlay';
 import { visitCardLinkAnalytics } from '../ui/toolbar';
 
 import type { SmartCardProps } from './genericCard';
@@ -207,7 +204,6 @@ export const InlineCard = memo(
 );
 
 const WrappedInlineCardWithAwareness = Card(InlineCardWithAwareness, UnsupportedInline);
-const WrappedInlineCard = Card(InlineCard, UnsupportedInline);
 
 export type InlineCardNodeViewProps = Pick<
 	SmartCardProps,
@@ -218,7 +214,6 @@ export type InlineCardNodeViewProps = Pick<
 	| 'enableInlineUpgradeFeatures'
 	| 'pluginInjectionApi'
 	| 'onClickCallback'
-	| '__livePage'
 	| 'isPageSSRed'
 	| 'CompetitorPrompt'
 >;
@@ -274,62 +269,15 @@ export function InlineCardNodeView(
 		enableInlineUpgradeFeatures,
 		pluginInjectionApi,
 		onClickCallback,
-		__livePage,
 		isPageSSRed,
 		CompetitorPrompt,
 	} = props;
 
-	const [isOverlayHovered, setIsOverlayHovered] = useState(false);
-	const { mode, selection } = useSharedState(pluginInjectionApi);
-
-	const floatingToolbarNode = selection instanceof NodeSelection && selection.node;
+	const { mode } = useSharedState(pluginInjectionApi);
 
 	const url = node.attrs.url;
 	const CompetitorPromptComponent =
 		CompetitorPrompt && url ? <CompetitorPrompt sourceUrl={url} linkType="inline" /> : null;
-
-	if (__livePage && fg('linking_platform_smart_links_in_live_pages')) {
-		const showHoverPreview = floatingToolbarNode !== node;
-		const livePagesHoverCardFadeInDelay = 800;
-
-		const inlineCard = (
-			<WrappedInlineCard
-				isHovered={isOverlayHovered}
-				node={node}
-				view={view}
-				getPos={getPos}
-				actionOptions={actionOptions}
-				useAlternativePreloader={useAlternativePreloader}
-				onClickCallback={onClickCallback}
-				showHoverPreview={showHoverPreview}
-				hoverPreviewOptions={{ fadeInDelay: livePagesHoverCardFadeInDelay }}
-				isPageSSRed={isPageSSRed}
-			/>
-		);
-
-		return mode === 'view' ? (
-			inlineCard
-		) : (
-			<>
-				<OverlayWrapper
-					targetElementPos={getPos()}
-					view={view}
-					isHoveredCallback={setIsOverlayHovered}
-					onOpenLinkClick={(event) => {
-						handleNavigation({
-							fireAnalyticsEvent: pluginInjectionApi?.analytics?.actions.fireAnalyticsEvent,
-							onClickCallback,
-							url,
-							event,
-						});
-					}}
-				>
-					{inlineCard}
-				</OverlayWrapper>
-				{fg('prompt_whiteboard_competitor_link_gate') && CompetitorPromptComponent}
-			</>
-		);
-	}
 
 	return (
 		<>

@@ -36,7 +36,6 @@ export interface SectionProps {
 	isList?: boolean;
 }
 
-// Type needed on props to extract types with extract react types.
 /**
  * __Section__
  *
@@ -46,7 +45,7 @@ export interface SectionProps {
  * - [Examples](https://atlassian.design/components/side-navigation/examples#section)
  * - [Code](https://atlassian.design/components/side-navigation/code)
  */
-const Section = forwardRef<HTMLElement, SectionProps>((props: SectionProps, ref) => {
+const Section = forwardRef<HTMLElement, SectionProps>((props, ref) => {
 	const { shouldRender } = useShouldNestedElementRender();
 	if (!shouldRender) {
 		return props.children as JSX.Element;

@@ -80,6 +80,7 @@ const PopupTrigger = forwardRef<HTMLElement, PopupTriggerProps>(
 					isDisabled={isDisabled}
 					iconAfter={() => <ChevronDownIcon label="" color="currentColor" size="small" />}
 					testId={`${triggerButtonTestId}--button`}
+					aria-expanded={isSelected}
 				>
 					<Flex>
 						<Box xcss={styles.triggerButtonLabelStyles}>

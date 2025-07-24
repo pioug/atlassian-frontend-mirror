@@ -45,32 +45,10 @@ getGreetingOnce('Greg');
 // "Hello Alex" is returned from the cache.
 ```
 
-You can clear the cache of a onced `function` by using the `.clear()` `function` property.
+Notes:
 
-```tsx
-import once from '@atlaskit/ds-lib/once';
-
-function getGreeting(name: string): string {
-	return `Hello ${name}`;
-}
-const getGreetingOnce = once(getGreeting);
-
-getGreetingOnce('Alex');
-// getGreeting called and "Hello Alex" is returned.
-// "Hello Alex" is put into the cache
-// getGreetingOnce function returns "Hello Alex"
-
-getGreetingOnce('Sam');
-// getGreeting is not called
-// "Hello Alex" is returned from cache
-
-getGreetingOnce.clear();
-
-getGreetingOnce('Greg');
-// getGreeting is called and "Hello Greg" is returned.
-// "Hello Greg" is put into the cache
-// "Hello Greg" is returned.
-```
+- If the `onced` function throws, then the return value of the function is not cached
+- Respects call site context (`this`) when executing the onced function
 
 ### `warnOnce()`
 

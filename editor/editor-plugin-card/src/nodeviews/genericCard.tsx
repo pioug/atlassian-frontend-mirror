@@ -98,7 +98,6 @@ const WithClickHandler = ({
 	url,
 	onClickCallback,
 	children,
-	__livePage,
 }: {
 	pluginInjectionApi: ExtractInjectionAPI<CardPlugin> | undefined;
 	onClickCallback?: OnClickCallback;
@@ -106,7 +105,6 @@ const WithClickHandler = ({
 	children: (props: {
 		onClick: ((e: React.MouseEvent<HTMLAnchorElement>) => void) | undefined;
 	}) => React.ReactNode;
-	__livePage?: boolean;
 }) => {
 	const { mode } = useSharedState(pluginInjectionApi);
 	const onClick = useCallback(
@@ -122,27 +120,6 @@ const WithClickHandler = ({
 		},
 		[url, onClickCallback],
 	);
-
-	if (fg('linking_platform_smart_links_in_live_pages')) {
-		// Ignored via go/ees007
-		// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
-		/**
-		 * @todo: Add a check to determine if we're currently in a live page once ED-23920 and plugin
-		 * is complete. The logic for which should allow navigation if we're in a live page and no callback
-		 * has been provided. E.g.
-		 *
-		 * const allowNavigation = isLivePage && !onClickCallback;
-		 */
-		const allowNavigation = __livePage && !onClickCallback;
-
-		return (
-			<>
-				{children({
-					onClick: allowNavigation ? undefined : onClick,
-				})}
-			</>
-		);
-	}
 
 	// Setting `onClick` to `undefined` ensures clicks on smartcards navigate to the URL.
 	// If in view mode and not overriding with onClickCallback option, then allow smartlinks to navigate on click.
@@ -223,7 +200,6 @@ export function Card(
 						pluginInjectionApi={pluginInjectionApi}
 						onClickCallback={onClickCallback}
 						url={url}
-						__livePage={this.props.__livePage}
 					>
 						{({ onClick }) => (
 							<WithCardContext>

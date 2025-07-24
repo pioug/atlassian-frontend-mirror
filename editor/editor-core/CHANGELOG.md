@@ -1,5 +1,17 @@
 # @atlaskit/editor-core
 
+## 209.3.0
+
+### Minor Changes
+
+- [#189119](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/189119)
+  [`3422f57cf2b75`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3422f57cf2b75) -
+  Removing linking_platform_smart_links_in_live_pages FF
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 209.2.3
 
 ### Patch Changes

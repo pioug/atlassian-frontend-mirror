@@ -1,5 +1,29 @@
 # @atlaskit/ds-lib
 
+## 5.0.0
+
+### Major Changes
+
+- [#190351](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/190351)
+  [`c7fc5282f52c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c7fc5282f52c6) -
+  Removing `.clear()` from `once` result functions (`once` was only recently added). This was done
+  to prevent accidental exposure of `.clear()` to consumers when it would not be safe to clear the
+  `once` cache (for example, with `cleanup` functions where we always want to prevent double
+  calling). If we need a `once` variant in the future that requires the onced function cache to be
+  clearable, we can create a new `onceWithClear` utility for that.
+
+  ```tsx
+  import once from '@atlaskit/ds-lib/once';
+
+  function getGreeting(name: string): string {
+  	return `Hello ${name}`;
+  }
+  const getGreetingOnce = once(getGreeting);
+
+  // ❌ Can no longer call `.clear()` on onced functions
+  getGreetingOnce.clear();
+  ```
+
 ## 4.2.0
 
 ### Minor Changes

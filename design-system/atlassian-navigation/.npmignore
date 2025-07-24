@@ -4,6 +4,5 @@ examples/shared/
 index.ts
 constellation/
 docs/
-__perf__/
 tsconfig.app.json
 tsconfig.dev.json

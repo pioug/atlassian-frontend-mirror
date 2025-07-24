@@ -37,106 +37,103 @@ const preventEvent = (e: MouseEvent | KeyboardEvent) => {
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/menu)
  */
 const LinkItem = memo(
-	forwardRef<HTMLElement, LinkItemProps>(
-		// Type needed on props to extract types with extract react types.
-		(props: LinkItemProps, ref) => {
-			const {
-				children,
-				href,
-				description,
-				iconAfter,
-				iconBefore,
-				isDisabled = false,
-				isSelected = false,
-				onClick,
-				testId,
-				onMouseDown,
-				shouldTitleWrap,
-				shouldDescriptionWrap,
-				className: UNSAFE_className,
-				UNSAFE_shouldDisableRouterLink,
-				UNSAFE_isDraggable,
-				interactionName,
-				...rest
-			} = props;
-			const onMouseDownHandler = onMouseDown;
+	forwardRef<HTMLElement, LinkItemProps>((props, ref) => {
+		const {
+			children,
+			href,
+			description,
+			iconAfter,
+			iconBefore,
+			isDisabled = false,
+			isSelected = false,
+			onClick,
+			testId,
+			onMouseDown,
+			shouldTitleWrap,
+			shouldDescriptionWrap,
+			className: UNSAFE_className,
+			UNSAFE_shouldDisableRouterLink,
+			UNSAFE_isDraggable,
+			interactionName,
+			...rest
+		} = props;
+		const onMouseDownHandler = onMouseDown;
 
-			const RouterLink = useRouterLink();
-			const interactionContext = useContext<InteractionContextType | null>(InteractionContext);
+		const RouterLink = useRouterLink();
+		const interactionContext = useContext<InteractionContextType | null>(InteractionContext);
 
-			const handleClick: MouseEventHandler<HTMLAnchorElement> = useCallback(
-				(e) => {
-					interactionContext?.tracePress(interactionName, e.timeStamp);
-					onClick?.(e);
-				},
-				[onClick, interactionContext, interactionName],
-			);
+		const handleClick: MouseEventHandler<HTMLAnchorElement> = useCallback(
+			(e) => {
+				interactionContext?.tracePress(interactionName, e.timeStamp);
+				onClick?.(e);
+			},
+			[onClick, interactionContext, interactionName],
+		);
 
-			if (!children) {
-				return null;
-			}
+		if (!children) {
+			return null;
+		}
 
-			const isExternal = typeof href === 'string' && IS_EXTERNAL_LINK_REGEX.test(href);
-			const isNonHttpBased = typeof href === 'string' && IS_NON_HTTP_BASED.test(href);
-			const isEmptyHref = href == null || href === '';
+		const isExternal = typeof href === 'string' && IS_EXTERNAL_LINK_REGEX.test(href);
+		const isNonHttpBased = typeof href === 'string' && IS_NON_HTTP_BASED.test(href);
+		const isEmptyHref = href == null || href === '';
 
-			/**
-			 * Renders a router link if:
-			 *
-			 * - a link component is set in the app provider
-			 * - it's not an external link (starting with `http://` or `https://`)
-			 * - it's not a non-HTTP-based link (e.g. emails, phone numbers, hash links etc.)
-			 * - it doesn't have an empty href (e.g. href="" or href={undefined})
-			 */
-			const isRouterLink =
-				!UNSAFE_shouldDisableRouterLink &&
-				RouterLink &&
-				!isExternal &&
-				!isNonHttpBased &&
-				!isEmptyHref;
+		/**
+		 * Renders a router link if:
+		 *
+		 * - a link component is set in the app provider
+		 * - it's not an external link (starting with `http://` or `https://`)
+		 * - it's not a non-HTTP-based link (e.g. emails, phone numbers, hash links etc.)
+		 * - it doesn't have an empty href (e.g. href="" or href={undefined})
+		 */
+		const isRouterLink =
+			!UNSAFE_shouldDisableRouterLink &&
+			RouterLink &&
+			!isExternal &&
+			!isNonHttpBased &&
+			!isEmptyHref;
 
-			const Component = isRouterLink ? RouterLink : 'a';
+		const Component = isRouterLink ? RouterLink : 'a';
 
-			return (
-				<MenuItemPrimitive
-					{...rest}
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-					className={UNSAFE_className}
-					iconBefore={iconBefore}
-					iconAfter={iconAfter}
-					isSelected={isSelected}
-					isDisabled={isDisabled}
-					isTitleHeading={false}
-					description={description}
-					shouldTitleWrap={shouldTitleWrap}
-					shouldDescriptionWrap={shouldDescriptionWrap}
-					title={children}
-					testId={testId && `${testId}--primitive`}
-				>
-					{({ children, className }) => (
-						<Component
-							data-testid={testId}
-							data-is-router-link={testId ? (isRouterLink ? 'true' : 'false') : undefined}
-							data-vc="link-item"
-							{...rest}
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-							className={className}
-							// @ts-expect-error
-							href={isDisabled ? undefined : href}
-							{...(UNSAFE_isDraggable ? {} : { draggable: false, onDragStart: preventEvent })}
-							onMouseDown={isDisabled ? preventEvent : onMouseDownHandler}
-							onClick={isDisabled ? preventEvent : handleClick}
-							aria-current={isSelected ? 'page' : undefined}
-							aria-disabled={isDisabled}
-							ref={ref as Ref<HTMLAnchorElement>}
-						>
-							{children}
-						</Component>
-					)}
-				</MenuItemPrimitive>
-			);
-		},
-	),
+		return (
+			<MenuItemPrimitive
+				{...rest}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+				className={UNSAFE_className}
+				iconBefore={iconBefore}
+				iconAfter={iconAfter}
+				isSelected={isSelected}
+				isDisabled={isDisabled}
+				isTitleHeading={false}
+				description={description}
+				shouldTitleWrap={shouldTitleWrap}
+				shouldDescriptionWrap={shouldDescriptionWrap}
+				title={children}
+				testId={testId && `${testId}--primitive`}
+			>
+				{({ children, className }) => (
+					<Component
+						data-testid={testId}
+						data-is-router-link={testId ? (isRouterLink ? 'true' : 'false') : undefined}
+						data-vc="link-item"
+						{...rest}
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+						className={className}
+						// @ts-expect-error
+						href={isDisabled ? undefined : href}
+						{...(UNSAFE_isDraggable ? {} : { draggable: false, onDragStart: preventEvent })}
+						onMouseDown={isDisabled ? preventEvent : onMouseDownHandler}
+						onClick={isDisabled ? preventEvent : handleClick}
+						aria-current={isSelected ? 'page' : undefined}
+						aria-disabled={isDisabled}
+						ref={ref as Ref<HTMLAnchorElement>}
+					>
+						{children}
+					</Component>
+				)}
+			</MenuItemPrimitive>
+		);
+	}),
 );
 
 export default LinkItem;

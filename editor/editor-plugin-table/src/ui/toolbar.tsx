@@ -742,7 +742,9 @@ export const getToolbarConfig =
 												);
 											},
 										},
-										...(extensionApi && extensionState?.extensionProvider
+										...(extensionApi &&
+										extensionState?.extensionProvider &&
+										!areToolbarFlagsEnabled()
 											? [{ type: 'separator' }]
 											: []),
 										{

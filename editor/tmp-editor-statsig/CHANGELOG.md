@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 9.10.0
+
+### Minor Changes
+
+- [#190110](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/190110)
+  [`0fc96695978de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0fc96695978de) -
+  Fix breakout width calculation in full width
+
 ## 9.9.0
 
 ### Minor Changes

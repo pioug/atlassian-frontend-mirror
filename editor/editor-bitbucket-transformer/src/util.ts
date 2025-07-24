@@ -59,6 +59,7 @@ export function transformHtml(
 	options: {
 		disableBitbucketLinkStripping?: boolean;
 		shouldParseCodeSuggestions?: boolean;
+		shouldParseCodeReviewerReasoning?: boolean;
 		shouldParseImageResizingAttributes?: boolean;
 	},
 ): HTMLElement {
@@ -95,6 +96,33 @@ export function transformHtml(
 			}
 		});
 	}
+
+	// convert reasoning code block to a expand panel if ff on if it is off remove the reasoning code block
+	Array.from(el.querySelectorAll('div.language-reasoning')).forEach(function (div) {
+		const expandDiv = document.createElement('div');
+
+		// convert to expand panel
+		expandDiv.setAttribute('data-node-type', 'expand');
+		expandDiv.setAttribute('data-title', 'View full reasoning');
+		expandDiv.setAttribute('data-expanded', 'false');
+
+		div.textContent?.split('\n').forEach(function (line) {
+			if (!line.trim()) {
+				return;
+			}
+
+			const p = document.createElement('p');
+			p.textContent = line;
+			expandDiv.appendChild(p);
+		});
+
+		if (div.parentNode) {
+			if (options.shouldParseCodeReviewerReasoning) {
+				div.parentNode.insertBefore(expandDiv, div);
+			}
+			div.parentNode.removeChild(div);
+		}
+	});
 
 	// Convert mention containers, i.e.:
 	//   <a href="/abodera/" rel="nofollow" title="@abodera" class="mention mention-me">Artur Bodera</a>

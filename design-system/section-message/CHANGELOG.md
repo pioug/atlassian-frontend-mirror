@@ -1,5 +1,15 @@
 # @atlaskit/section-message
 
+## 8.4.0
+
+### Minor Changes
+
+- [#189812](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/189812)
+  [`1a7ddaeaf04ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a7ddaeaf04ce) -
+  [ux] We are testing a change behind a feature flag. Section message action link styles will
+  reflect and utilize `@atlaskit/link`, being regular font weight and also now support `target`
+  attributes. If this fix is successful it will be available in a later release.
+
 ## 8.3.0
 
 ### Minor Changes

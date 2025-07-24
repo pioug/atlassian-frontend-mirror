@@ -18,7 +18,7 @@ const defaultThemeSettings = (): Theme => ({
 	dark: 'dark',
 	light: 'light',
 	spacing: 'spacing',
-	typography: fg('platform-default-typography-modernized') ? 'typography-modernized' : undefined,
+	typography: fg('platform-default-typography-refreshed') ? 'typography' : undefined,
 });
 
 const ColorModeContext = createContext<ReconciledColorMode | undefined>(undefined);

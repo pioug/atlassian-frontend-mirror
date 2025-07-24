@@ -1,14 +1,19 @@
-import React, { memo } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { Fragment, memo } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
-import { cssMap, cx } from '@atlaskit/css';
+import { cssMap, cx, jsx } from '@atlaskit/css';
+import Link from '@atlaskit/link';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Anchor, Box, Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import type { SectionMessageActionProps } from './types';
 
-const styles = cssMap({
+const stylesOld = cssMap({
 	common: {
 		color: token('color.link'),
 		font: token('font.body'),
@@ -52,6 +57,33 @@ const styles = cssMap({
 	},
 });
 
+const styles = cssMap({
+	common: {
+		font: token('font.body'),
+	},
+	anchor: {
+		fontWeight: token('font.weight.regular'),
+	},
+	pressable: {
+		color: token('color.link'),
+		fontWeight: token('font.weight.medium'),
+		backgroundColor: 'transparent',
+		paddingTop: token('space.0'),
+		paddingRight: token('space.0'),
+		paddingBottom: token('space.0'),
+		paddingLeft: token('space.0'),
+
+		'&:hover': {
+			textDecoration: 'underline',
+			color: token('color.link'),
+		},
+
+		'&:active': {
+			color: token('color.link.pressed'),
+		},
+	},
+});
+
 /**
  * __Section message action__
  *
@@ -67,15 +99,26 @@ const SectionMessageAction = memo(function SectionMessageAction({
 	href,
 	testId,
 	linkComponent,
+	target,
 }: SectionMessageActionProps) {
 	if (!linkComponent && fg('platform_section_message_action_migration')) {
 		if (href) {
+			if (fg('platform_dst_section_message_actions_as_link')) {
+				return (
+					<span css={[styles.common, styles.anchor]}>
+						<Link testId={testId} onClick={onClick} href={href} target={target}>
+							{children}
+						</Link>
+					</span>
+				);
+			}
+
 			return (
 				<Anchor
 					testId={testId}
 					onClick={onClick}
 					href={href}
-					xcss={cx(styles.common, styles.anchor)}
+					xcss={cx(stylesOld.common, stylesOld.anchor)}
 				>
 					{children}
 				</Anchor>
@@ -84,14 +127,27 @@ const SectionMessageAction = memo(function SectionMessageAction({
 
 		if (onClick) {
 			return (
-				<Pressable testId={testId} onClick={onClick} xcss={cx(styles.common, styles.pressable)}>
+				<Pressable
+					testId={testId}
+					onClick={onClick}
+					xcss={cx(
+						fg('platform_dst_section_message_actions_as_link') ? styles.common : stylesOld.common,
+						fg('platform_dst_section_message_actions_as_link')
+							? styles.pressable
+							: stylesOld.pressable,
+					)}
+				>
 					{children}
 				</Pressable>
 			);
 		}
 
 		return (
-			<Box as="span" testId={testId}>
+			<Box
+				as="span"
+				testId={testId}
+				xcss={fg('platform_dst_section_message_actions_as_link') && styles.common}
+			>
 				{children}
 			</Box>
 		);
@@ -109,7 +165,7 @@ const SectionMessageAction = memo(function SectionMessageAction({
 			{children}
 		</Button>
 	) : (
-		<>{children}</>
+		<Fragment>{children}</Fragment>
 	);
 });
 

@@ -85,6 +85,59 @@ describe('<MediaInlineCard />', () => {
 		expect(mediaViewer).toBeTruthy();
 	});
 
+	it('should render MediaViewer when in error state and clicked', async () => {
+		const [fileItem, identifier] = generateSampleFileItem.workingJpegWithRemotePreview();
+		const { mediaApi } = createMockedMediaApi(fileItem);
+
+		jest.spyOn(mediaApi, 'getItems').mockRejectedValue(new Error('some-error'));
+
+		render(
+			<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+				<MediaInlineCard
+					identifier={identifier}
+					mediaClientConfig={dummyMediaClientConfig}
+					shouldOpenMediaViewer
+				/>
+			</MockedMediaClientProvider>,
+		);
+		const erroredView = await screen.findByTestId('media-inline-card-errored-view');
+
+		erroredView.click();
+
+		const mediaViewer = await screen.findByTestId('media-viewer-popup');
+
+		expect(mediaViewer).toBeTruthy();
+	});
+
+	it('should render MediaViewer when the file has no name', async () => {
+		const [fileItem, identifier] = generateSampleFileItem.workingJpegWithRemotePreview();
+		// Remove the name from the file item to simulate a file with no name
+		// @ts-ignore
+		delete fileItem.details.name;
+		const { mediaApi } = createMockedMediaApi(fileItem);
+
+		render(
+			<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+				<MediaInlineCard
+					identifier={identifier}
+					mediaClientConfig={dummyMediaClientConfig}
+					shouldOpenMediaViewer
+				/>
+			</MockedMediaClientProvider>,
+		);
+
+		// Should render errored view when file has no name
+		const erroredView = await screen.findByTestId('media-inline-card-errored-view');
+		expect(erroredView).toBeTruthy();
+
+		// Click on the errored view to open MediaViewer
+		erroredView.click();
+
+		// MediaViewer should be rendered
+		const mediaViewer = await screen.findByTestId('media-viewer-popup');
+		expect(mediaViewer).toBeTruthy();
+	});
+
 	it('should call onClick callback when provided', async () => {
 		const onClick = jest.fn();
 		const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();

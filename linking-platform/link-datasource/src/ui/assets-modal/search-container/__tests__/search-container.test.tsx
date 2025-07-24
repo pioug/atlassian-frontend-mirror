@@ -5,6 +5,7 @@ import { IntlProvider } from 'react-intl-next';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { EVENT_CHANNEL } from '../../../../analytics';
 import {
@@ -143,12 +144,15 @@ describe('AssetsSearchContainer', () => {
 			expect(mockOnSearch).not.toHaveBeenCalled();
 		});
 	});
-	it('should capture and report a11y violations', async () => {
-		const { container } = await renderAssetsSearchContainer({
-			aql: validAqlQuery,
-			objectSchema: undefined,
-			objectSchemas: undefined,
+
+	ffTest.on('fix_a11y_issues_inline_edit', '', () => {
+		it('should capture and report a11y violations', async () => {
+			const { container } = await renderAssetsSearchContainer({
+				aql: validAqlQuery,
+				objectSchema: undefined,
+				objectSchemas: undefined,
+			});
+			await expect(container).toBeAccessible();
 		});
-		await expect(container).toBeAccessible({ violationCount: 1 });
 	});
 });

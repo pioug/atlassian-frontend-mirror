@@ -65,7 +65,7 @@ describe('DateRangePicker', () => {
 		};
 
 		const onSelectionChange = jest.fn();
-		const { rerender } = render(buildTestFixture(onSelectionChange, { filterName }));
+		const { rerender, container } = render(buildTestFixture(onSelectionChange, { filterName }));
 
 		return {
 			getFromDatePickerMockProps,
@@ -73,6 +73,7 @@ describe('DateRangePicker', () => {
 			rerender,
 			spy,
 			onSelectionChange,
+			container,
 		};
 	};
 
@@ -705,5 +706,11 @@ describe('DateRangePicker', () => {
 				EVENT_CHANNEL,
 			);
 		});
+	});
+
+	it('should capture and report a11y violations', async () => {
+		const { container } = setup();
+
+		await expect(container).toBeAccessible();
 	});
 });

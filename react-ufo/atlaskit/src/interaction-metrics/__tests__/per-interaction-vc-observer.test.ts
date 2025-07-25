@@ -22,6 +22,8 @@ jest.mock('../../config', () => ({
 	getCapabilityRate: jest.fn(),
 	getAwaitBM3TTIList: jest.fn(() => []),
 	getInteractionTimeout: jest.fn(() => 60000),
+	getPostInteractionRate: jest.fn(() => 1),
+	getExperimentalInteractionRate: jest.fn(() => 0),
 }));
 
 // Mock coinflip

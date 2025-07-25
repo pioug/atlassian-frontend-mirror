@@ -1,5 +1,6 @@
 import { css } from '@emotion/react'; // eslint-disable-line
 
+import { akEditorFullPageNarrowBreakout } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 
 import { boxShadowSelectionStyles, hideNativeBrowserTextSelectionStyles } from './selectionStyles';
@@ -384,6 +385,25 @@ export const smartCardStylesWithSearchMatch = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
 	[`.${FLOATING_TOOLBAR_LINKPICKER_CLASSNAME}`]: {
 		padding: 0,
+	},
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const smartCardStylesWithSearchMatchAndPreviewPanelResponsiveness = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-container-queries, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+	[`@container editor-area (max-width: ${akEditorFullPageNarrowBreakout}px)`]: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		[`.${SmartCardSharedCssClassName.EMBED_CARD_CONTAINER}.ak-editor-selected-node .${SmartCardSharedCssClassName.LOADER_WRAPPER} > div`]:
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			[
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+				boxShadowSelectionStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+				hideNativeBrowserTextSelectionStyles,
+				{
+					borderRadius: token('border.radius.200', '8px'),
+				},
+			],
 	},
 });
 

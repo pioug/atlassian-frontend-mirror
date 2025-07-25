@@ -27,10 +27,10 @@ export interface BlockInsertMenuProps {
 	onRef(el: HTMLElement): void;
 	onPlusButtonRef(el: HTMLElement): void;
 	onClick: React.MouseEventHandler;
-	onItemActivated(attrs: { item: MenuItem }): void;
+	onItemActivated?: (attrs: { item: MenuItem }) => void; // Remove when platform_editor_remove_unused_block_insert_props is cleaned up
 	onInsert: OnInsert;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	onOpenChange(attrs: any): void;
+	onOpenChange?: (attrs: any) => void; // Remove when platform_editor_remove_unused_block_insert_props is cleaned up
 	togglePlusMenuVisibility(): void;
 	onKeyDown?: React.KeyboardEventHandler;
 	pluginInjectionApi: ExtractInjectionAPI<InsertBlockPlugin> | undefined;

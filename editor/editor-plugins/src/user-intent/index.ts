@@ -2,4 +2,4 @@
 // Disable no-re-export rule for entry point files
 /* eslint-disable @atlaskit/editor/no-re-export */
 export { userIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
-export type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
+export type { UserIntentPlugin, UserIntent } from '@atlaskit/editor-plugin-user-intent';

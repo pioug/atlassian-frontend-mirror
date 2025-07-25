@@ -18,6 +18,9 @@
 	],
 	"references": [
 		{
+			"path": "../../../uip/atlassian-context/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../chunkinator/afm-jira/tsconfig.json"
 		},
 		{

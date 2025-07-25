@@ -17,6 +17,7 @@ export interface OptionConfig {
 	disabled?: boolean;
 	hidden?: boolean;
 	tooltip?: string;
+	description?: string;
 }
 
 export type CardReplacementInputMethod =

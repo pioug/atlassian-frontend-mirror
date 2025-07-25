@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-table
 
+## 12.1.4
+
+### Patch Changes
+
+- [#190680](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/190680)
+  [`c27708467595b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c27708467595b) -
+  [ux] ENGHEALTH-32145 A11y violation detected for rule "label" for "@af/editor-plugin-table-tests"
+  from "Editor: Jenga"
+- Updated dependencies
+
+## 12.1.3
+
+### Patch Changes
+
+- [#189903](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/189903)
+  [`f5ccd32e607db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f5ccd32e607db) -
+  [ED-28567] Add/remove missing/extra separators in media, table and panel toolbars shown in Jira
+- Updated dependencies
+
 ## 12.1.2
 
 ### Patch Changes

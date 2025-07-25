@@ -17,6 +17,7 @@ import { createPlugin, selectionExtensionPluginKey } from './pm-plugins/main';
 import { getSelectionInfo } from './pm-plugins/utils';
 import type { SelectionExtensionPlugin } from './selectionExtensionPluginType';
 import {
+	type DynamicSelectionExtension,
 	SelectionExtensionActionTypes,
 	type SelectionExtension,
 	type SelectionExtensionCallbackOptions,
@@ -25,6 +26,8 @@ import {
 import { SelectionExtensionComponentWrapper } from './ui/extension/SelectionExtensionComponentWrapper';
 import { getBoundingBoxFromSelection } from './ui/getBoundingBoxFromSelection';
 import { selectionToolbar } from './ui/selectionToolbar';
+
+type SelectionExtensionStaticOrDynamic = SelectionExtension | DynamicSelectionExtension;
 
 export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config }) => {
 	const editorViewRef: Record<'current', EditorView | null> = { current: null };
@@ -136,52 +139,59 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 					return { text, from, to, coords };
 				};
 
-				const handleOnExtensionClick = (view: EditorView) => (extension: SelectionExtension) => {
-					const selection = getSelection(view);
+				const handleOnExtensionClick =
+					(view: EditorView) => (extension: SelectionExtensionStaticOrDynamic) => {
+						const selection = getSelection(view);
 
-					if (extension.component) {
-						api?.core.actions.execute(
-							api?.selectionExtension.commands.setActiveExtension({
-								extension,
-								selection,
-							}),
-						);
-					}
-
-					let onClickCallbackOptions: SelectionExtensionCallbackOptions = { selection };
-
-					if (fg('platform_editor_selection_extension_api_v2')) {
-						const { selectedNodeAdf, selectionRanges, selectedNode, nodePos } = getSelectionInfo(
-							view.state,
-						);
-						onClickCallbackOptions = { selectedNodeAdf, selectionRanges };
-						extension.onClick?.(onClickCallbackOptions);
-
-						api?.core?.actions.execute(({ tr }) => {
-							tr.setMeta(selectionExtensionPluginKey, {
-								type: SelectionExtensionActionTypes.SET_SELECTED_NODE,
-								selectedNode,
-								nodePos,
-							});
-							return tr;
-						});
-					} else {
-						if (extension.onClick) {
-							extension.onClick(onClickCallbackOptions);
+						if (extension.component) {
+							api?.core.actions.execute(
+								api?.selectionExtension.commands.setActiveExtension({
+									extension,
+									selection,
+								}),
+							);
 						}
-					}
-				};
+
+						let onClickCallbackOptions: SelectionExtensionCallbackOptions = { selection };
+
+						if (fg('platform_editor_selection_extension_api_v2')) {
+							const { selectedNodeAdf, selectionRanges, selectedNode, nodePos } = getSelectionInfo(
+								view.state,
+							);
+							onClickCallbackOptions = { selectedNodeAdf, selectionRanges };
+							extension.onClick?.(onClickCallbackOptions);
+
+							api?.core?.actions.execute(({ tr }) => {
+								tr.setMeta(selectionExtensionPluginKey, {
+									type: SelectionExtensionActionTypes.SET_SELECTED_NODE,
+									selectedNode,
+									nodePos,
+								});
+								return tr;
+							});
+						} else {
+							if (extension.onClick) {
+								extension.onClick(onClickCallbackOptions);
+							}
+						}
+					};
 
 				const convertExtensionToDropdownMenuItem = (
-					extension: SelectionExtension,
+					extension: SelectionExtensionStaticOrDynamic,
 					rank?: number,
 				) => {
+					const disabled =
+						extension?.isDisabled instanceof Function
+							? extension?.isDisabled?.({
+									selection: editorViewRef.current
+										? getSelection(editorViewRef.current)
+										: undefined,
+								})
+							: extension?.isDisabled;
 					return {
 						title: extension.name,
 						icon: extension.icon ? <extension.icon label={''} /> : undefined,
-						disabled: extension?.isDisabled?.({
-							selection: editorViewRef.current ? getSelection(editorViewRef.current) : undefined,
-						}),
+						disabled,
 						rank,
 						onClick: () => {
 							editorViewRef.current && handleOnExtensionClick(editorViewRef.current)(extension);
@@ -226,7 +236,7 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 				/**
 				 * Add a heading to the external extensions
 				 */
-				const getExternalExtensions = (extensions: SelectionExtension[]) => {
+				const getExternalExtensions = (extensions: SelectionExtensionConfig[]) => {
 					const prefilteredExtensions = prefilterExtensions(extensions);
 
 					let externalExtensions: (OverflowDropdownOption<Command> | OverflowDropdownHeading)[] =

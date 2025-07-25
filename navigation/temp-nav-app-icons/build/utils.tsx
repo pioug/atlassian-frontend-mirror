@@ -14,6 +14,7 @@ const collectionColors = {
 
 export const dataCenterApps = [
 	'jira-data-center',
+	'jira-service-management-data-center',
 	'confluence-data-center',
 	'bitbucket-data-center',
 	'crowd',
@@ -56,6 +57,14 @@ export const transformSVG = (
 	isThemable: boolean = false,
 ) => {
 	let updatedSvg = svg;
+
+	// Error if the height is not 24 or 32
+	if (
+		/height="(\d+)"/.test(updatedSvg) &&
+		!['24', '32'].includes(updatedSvg.match(/height="(\d+)"/)?.[1] || '')
+	) {
+		throw new Error(`Invalid height for ${name}: ${updatedSvg.match(/height="(\d+)"/)?.[1]}`);
+	}
 
 	updatedSvg = updatedSvg.replace('fill="none"', '');
 	updatedSvg = updatedSvg.replace(/width="\d+"/, '');

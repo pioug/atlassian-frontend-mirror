@@ -4,6 +4,7 @@
 export { cardPlugin } from '@atlaskit/editor-plugin-card';
 export type {
 	CardPlugin,
+	CardPluginDependencies,
 	Request,
 	CardPluginOptions,
 	CardPluginState,

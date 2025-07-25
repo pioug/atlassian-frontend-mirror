@@ -5,4 +5,7 @@ export { mediaInsertPlugin } from '@atlaskit/editor-plugin-media-insert';
 export type {
 	MediaInsertPlugin,
 	MediaInsertPluginState,
+	MediaInsertPluginDependencies,
+	MediaInsertPluginCommands,
+	MediaInsertPluginConfig,
 } from '@atlaskit/editor-plugin-media-insert';

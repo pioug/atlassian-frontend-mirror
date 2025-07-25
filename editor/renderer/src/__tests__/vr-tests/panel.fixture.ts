@@ -21,3 +21,9 @@ export const PanelRendererNestedInTable = generateRendererComponent({
 	appearance: 'full-width',
 	allowCustomPanels: true,
 });
+
+export const PanelFullPageRenderer = generateRendererComponent({
+	document: panelNodeAdf,
+	appearance: 'full-page',
+	allowCustomPanels: true,
+});

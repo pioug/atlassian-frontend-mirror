@@ -5,4 +5,5 @@ export { avatarGroupPlugin } from '@atlaskit/editor-plugin-avatar-group';
 export type {
 	AvatarGroupPlugin,
 	AvatarGroupPluginOptions,
+	AvatarGroupPluginDependencies,
 } from '@atlaskit/editor-plugin-avatar-group';

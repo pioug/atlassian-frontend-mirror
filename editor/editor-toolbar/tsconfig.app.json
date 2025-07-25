@@ -50,6 +50,9 @@
 			"path": "../../design-system/logo/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/menu/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/popup/tsconfig.app.json"
 		},
 		{

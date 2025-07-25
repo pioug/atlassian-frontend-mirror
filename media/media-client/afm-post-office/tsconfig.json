@@ -18,6 +18,9 @@
 	],
 	"references": [
 		{
+			"path": "../../../uip/atlassian-context/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../chunkinator/afm-post-office/tsconfig.json"
 		},
 		{

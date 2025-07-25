@@ -7,30 +7,29 @@
 		"rootDir": "../",
 		"composite": true
 	},
-	"include": [
-		"../src/**/*.ts",
-		"../src/**/*.tsx"
-	],
-	"exclude": [
-		"../src/**/__tests__/*",
-		"../src/**/*.test.*",
-		"../src/**/test.*"
-	],
+	"include": ["../src/**/*.ts", "../src/**/*.tsx"],
+	"exclude": ["../src/**/__tests__/*", "../src/**/*.test.*", "../src/**/test.*"],
 	"references": [
 		{
 			"path": "../../button/afm-volt/tsconfig.json"
 		},
 		{
-			"path": "../../icon/afm-volt/tsconfig.json"
+			"path": "../../ds-lib/afm-volt/tsconfig.json"
 		},
 		{
-			"path": "../../inline-dialog/afm-volt/tsconfig.json"
+			"path": "../../icon/afm-volt/tsconfig.json"
 		},
 		{
 			"path": "../../link/afm-volt/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../popper/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../popup/afm-volt/tsconfig.json"
 		},
 		{
 			"path": "../../primitives/afm-volt/tsconfig.json"

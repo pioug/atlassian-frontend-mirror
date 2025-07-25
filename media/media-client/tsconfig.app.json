@@ -34,6 +34,9 @@
 	"files": ["../../../typings/rusha.d.ts", "../../../typings/fetch-mock.d.ts"],
 	"references": [
 		{
+			"path": "../../uip/atlassian-context/tsconfig.app.json"
+		},
+		{
 			"path": "../chunkinator/tsconfig.app.json"
 		},
 		{

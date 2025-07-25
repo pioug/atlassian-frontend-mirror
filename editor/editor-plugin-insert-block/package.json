@@ -149,6 +149,9 @@
 		},
 		"confluence-whiteboards-quick-insert-eligible": {
 			"type": "boolean"
+		},
+		"platform_editor_remove_unused_block_insert_props": {
+			"type": "boolean"
 		}
 	}
 }

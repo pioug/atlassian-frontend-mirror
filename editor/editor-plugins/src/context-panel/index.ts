@@ -6,4 +6,7 @@ export type {
 	ContextPanelPlugin,
 	ContextPanelPluginOptions,
 	ApplyChangeHandler,
+	HideObjectSidebar,
+	HideObjectSidebarById,
+	ShowObjectSidebar,
 } from '@atlaskit/editor-plugin-context-panel';

@@ -40,9 +40,9 @@ describe('editor experiments', () => {
 		setupEditorExperiments('test');
 
 		// @ts-ignore
-		expect(editorExperiment('test-boolean', true)).toBe(false);
+		expect(editorExperiment('test-boolean', true)).toBe(true);
 		// @ts-ignore
-		expect(editorExperiment('test-boolean', false)).toBe(true);
+		expect(editorExperiment('test-boolean', false)).toBe(false);
 		// @ts-ignore
 		expect(editorExperiment('test-multivariate', 'not default value')).toBe(false);
 		// @ts-ignore

@@ -133,9 +133,6 @@ export const useHasFocusEvent = ({ id, updateSubscriber }: ListenEventProps) => 
 
 		const removeFocus = () => {
 			setHasFocus(false);
-			if (document.activeElement instanceof HTMLElement) {
-				document.activeElement.blur();
-			}
 		};
 
 		const removeHoverEffect = () => {
@@ -260,9 +257,6 @@ export const useAnnotationClickEvent = (
 				annotations: [],
 				clickElementTarget: undefined,
 			});
-			if (document.activeElement instanceof HTMLElement) {
-				document.activeElement.blur();
-			}
 		};
 
 		if (!isAnnotationManagerEnabled) {

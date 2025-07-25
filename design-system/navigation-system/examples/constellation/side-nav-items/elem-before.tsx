@@ -1,7 +1,7 @@
 import React from 'react';
 
-import ClockIcon from '@atlaskit/icon/core/migration/clock--recent';
-import HomeIcon from '@atlaskit/icon/core/migration/home';
+import ClockIcon from '@atlaskit/icon/core/clock';
+import HomeIcon from '@atlaskit/icon/core/home';
 import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
 import { ContainerAvatar } from '@atlaskit/navigation-system/side-nav-items/container-avatar';
 import {
@@ -26,7 +26,7 @@ import { MockSideNav } from './common/mock-side-nav';
 
 export function ElemBeforeExample() {
 	return (
-		<Inline spread="space-between">
+		<Inline space="space.600">
 			<MockSideNav>
 				<SideNavContent>
 					<MenuList>

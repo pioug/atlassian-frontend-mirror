@@ -32,7 +32,6 @@ import {
 	OutsideClickTargetRefContext,
 	withReactEditorViewOuterListeners as withOuterListeners,
 } from '@atlaskit/editor-common/ui-react';
-import type { DropdownItem } from '@atlaskit/editor-plugin-block-type';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 import { EmojiPicker as AkEmojiPicker } from '@atlaskit/emoji/picker';
 import type { EmojiId } from '@atlaskit/emoji/types';
@@ -561,9 +560,15 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 						onPlusButtonRef={this.handlePlusButtonRef}
 						onClick={this.handleClick}
 						onKeyDown={this.handleOpenByKeyboard}
-						onItemActivated={this.insertInsertMenuItem}
+						onItemActivated={
+							fg('platform_editor_remove_unused_block_insert_props')
+								? undefined
+								: this.insertInsertMenuItem
+						}
+						onOpenChange={
+							fg('platform_editor_remove_unused_block_insert_props') ? undefined : this.onOpenChange
+						}
 						onInsert={this.insertInsertMenuItem as OnInsert}
-						onOpenChange={this.onOpenChange}
 						togglePlusMenuVisibility={this.togglePlusMenuVisibility}
 						showElementBrowserLink={this.props.showElementBrowserLink || false}
 						pluginInjectionApi={this.props.pluginInjectionApi}
@@ -880,7 +885,7 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 			inputMethod: INPUT_METHOD.TOOLBAR,
 		});
 
-	private insertInsertMenuItem = ({ item }: { item: DropdownItem }) =>
+	private insertInsertMenuItem = ({ item }: { item: MenuItem }) =>
 		this.onItemActivated({
 			item,
 			inputMethod: INPUT_METHOD.INSERT_MENU,

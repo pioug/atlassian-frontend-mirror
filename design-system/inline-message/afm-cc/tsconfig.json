@@ -7,30 +7,29 @@
 		"outDir": "../../../../../confluence/tsDist/@atlaskit__inline-message",
 		"rootDir": "../"
 	},
-	"include": [
-		"../src/**/*.ts",
-		"../src/**/*.tsx"
-	],
-	"exclude": [
-		"../src/**/__tests__/*",
-		"../src/**/*.test.*",
-		"../src/**/test.*"
-	],
+	"include": ["../src/**/*.ts", "../src/**/*.tsx"],
+	"exclude": ["../src/**/__tests__/*", "../src/**/*.test.*", "../src/**/test.*"],
 	"references": [
 		{
 			"path": "../../button/afm-cc/tsconfig.json"
 		},
 		{
-			"path": "../../icon/afm-cc/tsconfig.json"
+			"path": "../../ds-lib/afm-cc/tsconfig.json"
 		},
 		{
-			"path": "../../inline-dialog/afm-cc/tsconfig.json"
+			"path": "../../icon/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../link/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../popper/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../popup/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../primitives/afm-cc/tsconfig.json"

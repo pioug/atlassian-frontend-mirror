@@ -44,7 +44,7 @@ describe('Inline message should be found by data-testid', () => {
 		const inlineMessageComponent = 'the-inline-message';
 		const inlineMessageTitle = 'the-inline-message--title';
 		const inlineMessageText = 'the-inline-message--text';
-		const inlineMessageContent = 'the-inline-message--inline-dialog';
+		const inlineMessageContent = 'the-inline-message--popup';
 
 		render(createWrapper('the-inline-message'));
 		expect(screen.getByTestId(inlineMessageBtn)).toBeInTheDocument();

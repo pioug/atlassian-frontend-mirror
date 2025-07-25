@@ -4,7 +4,7 @@ const inlineMessageBtn = "[data-testid='the-inline-message--button']";
 const inlineMessageComponent = "[data-testid='the-inline-message']";
 const inlineMessageTitle = "[data-testid='the-inline-message--title']";
 const inlineMessageText = "[data-testid='the-inline-message--text']";
-const inlineMessageContent = "[data-testid='the-inline-message--inline-dialog']";
+const inlineMessageContent = "[data-testid='the-inline-message--popup']";
 const messageHeading = 'h2';
 
 test('InlineMessage should be able to be identified and clicked by data-testid', async ({
@@ -24,7 +24,7 @@ test('InlineMessage should be able to be identified and clicked by data-testid',
 		'Use data-testid for reliable testing',
 	);
 
-	// Check for inline dialog / message.
+	// Check for popup / message.
 	await page.locator(inlineMessageBtn).first().click();
 	await expect(page.locator(inlineMessageContent).first()).toBeVisible();
 	await expect(page.locator(messageHeading).first()).toHaveText(

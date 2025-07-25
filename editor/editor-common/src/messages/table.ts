@@ -297,6 +297,12 @@ export const messages = defineMessages({
 		description:
 			'The row drag handle to move the row within the table. Click to open a menu for more row options.',
 	},
+	dragHandleZone: {
+		id: 'fabric.editor.dragHandleZone',
+		defaultMessage: 'Activate drag handle zone',
+		description:
+			'The drag handle zone to trigger the drag handle to move the row/column within the table.',
+	},
 	columnDragHandle: {
 		id: 'fabric.editor.columnDragHandle',
 		defaultMessage: 'Column options',

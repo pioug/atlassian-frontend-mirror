@@ -37,6 +37,7 @@ export const appOrder = [
 	'Analytics',
 	'Admin',
 	'Jira Data Center',
+	'Jira Service Management Data Center',
 	'Confluence Data Center',
 	'Bitbucket Data Center',
 	'Bamboo',

@@ -40,6 +40,7 @@ snapshotInformational(BlockExtensionWithSmartLink, {
 		const toolbarModel = EditorExtensionFloatingToolbarModel.from(editor);
 		await toolbarModel.waitForStable();
 		await toolbarModel.removeButton.hover();
+		await toolbarModel.waitForTooltip();
 	},
 });
 
@@ -81,6 +82,7 @@ snapshotInformational(InlineExtensionWithSmartLink, {
 		const toolbarModel = EditorExtensionFloatingToolbarModel.from(editor);
 		await toolbarModel.waitForStable();
 		await toolbarModel.removeButton.hover();
+		await toolbarModel.waitForTooltip();
 	},
 });
 
@@ -134,6 +136,7 @@ snapshotInformational(BodiedExtensionWithSmartLink, {
 		const toolbarModel = EditorExtensionFloatingToolbarModel.from(editor);
 		await toolbarModel.waitForStable();
 		await toolbarModel.removeButton.hover();
+		await toolbarModel.waitForTooltip();
 	},
 });
 
@@ -163,6 +166,7 @@ snapshotInformational(EmptyBodiedExtension, {
 		const toolbarModel = EditorExtensionFloatingToolbarModel.from(editor);
 		await toolbarModel.waitForStable();
 		await toolbarModel.removeButton.hover();
+		await toolbarModel.waitForTooltip();
 	},
 });
 

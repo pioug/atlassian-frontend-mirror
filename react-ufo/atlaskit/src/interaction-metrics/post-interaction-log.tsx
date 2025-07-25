@@ -46,6 +46,10 @@ export default class PostInteractionLog {
 		this.vcObserver?.start({ startTime });
 	}
 
+	stopVCObserver() {
+		this.vcObserver?.stop();
+	}
+
 	setVCObserverSSRConfig(
 		vcObserverSSRConfig: {
 			ssr: number | undefined;
@@ -103,9 +107,7 @@ export default class PostInteractionLog {
 	async sendPostInteractionLog() {
 		if (!this.hasData() || !this.lastInteractionFinish || !this.sinkHandlerFn) {
 			this.reset();
-			if (getConfig()?.experimentalInteractionMetrics?.enabled) {
-				this.vcObserver?.stop();
-			}
+			this.vcObserver?.stop();
 			return;
 		}
 
@@ -119,9 +121,7 @@ export default class PostInteractionLog {
 			experienceKey: this.lastInteractionFinish.ufoName,
 		});
 
-		if (getConfig()?.experimentalInteractionMetrics?.enabled) {
-			this.vcObserver?.stop();
-		}
+		this.vcObserver?.stop();
 
 		this.sinkHandlerFn({
 			lastInteractionFinish: this.lastInteractionFinish,

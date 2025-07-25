@@ -4,5 +4,7 @@
 export { indentationPlugin } from '@atlaskit/editor-plugin-indentation';
 export type {
 	IndentationPlugin,
+	IndentationPluginDependencies,
+	IndentationPluginActions,
 	IndentationInputMethod,
 } from '@atlaskit/editor-plugin-indentation';

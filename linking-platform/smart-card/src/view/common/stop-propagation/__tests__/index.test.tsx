@@ -20,4 +20,17 @@ describe('StopPropagation', () => {
 
 		expect(onClick).not.toHaveBeenCalled();
 	});
+
+	it('should capture and report a11y violations', async () => {
+		const onClick = jest.fn();
+		const { container } = render(
+			<div onClick={onClick}>
+				<StopPropagation>
+					<button>Click</button>
+				</StopPropagation>
+			</div>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
 });

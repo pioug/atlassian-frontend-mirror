@@ -96,6 +96,7 @@ export const logoDocsSchema: LogoDocsSchema[] = [
 	{ name: 'teams', type: 'new', category: 'app' },
 	// Data Center
 	{ name: 'jira-data-center', type: 'new', category: 'app' },
+	{ name: 'jira-service-management-data-center', type: 'new', category: 'app' },
 	{ name: 'confluence-data-center', type: 'new', category: 'app' },
 	{ name: 'bitbucket-data-center', type: 'new', category: 'app' },
 	{ name: 'bamboo', type: 'new', category: 'app' },

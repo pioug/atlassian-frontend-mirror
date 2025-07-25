@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::4e821406ccf278819650faa3d3ec9c01>>
+ * @codegen <<SignedSource::b96aa24268d3e6eebdff8752efceb5f2>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -264,6 +264,7 @@ import RefreshIcon from '../../../../../core/refresh';
 import ReleaseIcon from '../../../../../core/release';
 import RetryIcon from '../../../../../core/retry';
 import RoadmapIcon from '../../../../../core/roadmap';
+import RovoChatIcon from '../../../../../core/rovo-chat';
 import ScalesIcon from '../../../../../core/scales';
 import ScorecardIcon from '../../../../../core/scorecard';
 import ScreenIcon from '../../../../../core/screen';
@@ -743,6 +744,7 @@ const Icons = [
 	AiChatIcon,
 	CollapseHorizontalIcon,
 	CollapseVerticalIcon,
+	RovoChatIcon,
 ];
 
 const groupSize = 20;

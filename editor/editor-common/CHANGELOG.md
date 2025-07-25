@@ -1,5 +1,41 @@
 # @atlaskit/editor-common
 
+## 107.12.3
+
+### Patch Changes
+
+- [#185241](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185241)
+  [`0d1bffce3fedd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d1bffce3fedd) -
+  [ux] View embed as block card when page width smaller or equal to 600px
+
+## 107.12.2
+
+### Patch Changes
+
+- [#190502](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/190502)
+  [`3eedf393ab015`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3eedf393ab015) -
+  ENGHEALTH-31576 Update ariaExpanded value to be false when search list is not present in
+  HyperlinkAddToolbar
+- Updated dependencies
+
+## 107.12.1
+
+### Patch Changes
+
+- [#190680](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/190680)
+  [`c27708467595b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c27708467595b) -
+  [ux] ENGHEALTH-32145 A11y violation detected for rule "label" for "@af/editor-plugin-table-tests"
+  from "Editor: Jenga"
+- Updated dependencies
+
+## 107.12.0
+
+### Minor Changes
+
+- [#189903](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/189903)
+  [`f5ccd32e607db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f5ccd32e607db) -
+  [ED-28567] Add/remove missing/extra separators in media, table and panel toolbars shown in Jira
+
 ## 107.11.0
 
 ### Minor Changes

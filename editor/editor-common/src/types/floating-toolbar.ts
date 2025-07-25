@@ -85,6 +85,7 @@ export interface DropdownOptionT<T extends Object> {
 	tooltip?: string;
 	elemAfter?: React.ReactNode;
 	icon?: React.ReactNode;
+	description?: string;
 }
 
 export type typeOption =

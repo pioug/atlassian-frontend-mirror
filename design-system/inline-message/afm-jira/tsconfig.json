@@ -21,16 +21,22 @@
 			"path": "../../button/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../icon/afm-jira/tsconfig.json"
+			"path": "../../ds-lib/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../inline-dialog/afm-jira/tsconfig.json"
+			"path": "../../icon/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../link/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../popper/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../popup/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../primitives/afm-jira/tsconfig.json"

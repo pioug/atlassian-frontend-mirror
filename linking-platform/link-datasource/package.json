@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "4.14.4",
+	"version": "4.14.6",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -199,6 +199,9 @@
 			"type": "boolean"
 		},
 		"platform-linking-sllv-show-more-aria-label": {
+			"type": "boolean"
+		},
+		"navx-1180-sllv-return-focus-on-escape": {
 			"type": "boolean"
 		}
 	},

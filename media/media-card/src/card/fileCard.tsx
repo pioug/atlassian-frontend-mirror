@@ -558,9 +558,7 @@ export const FileCard = ({
 		}
 
 		// Abort VC when click file card
-		if (fg('platform_abort_vc_click_file_card')) {
-			pressTracing();
-		}
+		pressTracing();
 	};
 
 	//----------------------------------------------------------------//

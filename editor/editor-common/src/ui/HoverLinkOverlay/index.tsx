@@ -9,8 +9,7 @@ import React, { useLayoutEffect, useRef, useState } from 'react';
 import { css, jsx } from '@emotion/react'; // eslint-disable-line @atlaskit/ui-styling-standard/use-compiled
 import { useIntl } from 'react-intl-next';
 
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { cardMessages } from '@atlaskit/editor-common/messages';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import PanelRightIcon from '@atlaskit/icon/core/panel-right';
@@ -18,7 +17,14 @@ import PanelRightIcon from '@atlaskit/icon/core/panel-right';
 import { Anchor, Box, Text, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
-import { visitCardLinkAnalytics } from '../toolbar';
+import {
+	type ACTION_SUBJECT_ID,
+	buildVisitedNonHyperLinkPayload,
+	type EditorAnalyticsAPI,
+	INPUT_METHOD,
+} from '../../analytics';
+import { cardMessages } from '../../messages';
+import { type Command } from '../../types';
 
 import type { HoverLinkOverlayProps } from './types';
 
@@ -75,11 +81,45 @@ const MIN_AVAILABLE_SPACE_WITH_LABEL_OVERLAY = 45;
 const ICON_WIDTH = 16;
 const DEFAULT_OPEN_TEXT_WIDTH = 28; // Default open text width in English
 
+const visitCardLinkAnalytics =
+	(
+		editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+		inputMethod:
+			| INPUT_METHOD.FLOATING_TB
+			| INPUT_METHOD.TOOLBAR
+			| INPUT_METHOD.BUTTON
+			| INPUT_METHOD.DOUBLE_CLICK
+			| INPUT_METHOD.META_CLICK,
+	): Command =>
+	(state, dispatch) => {
+		if (!(state.selection instanceof NodeSelection)) {
+			return false;
+		}
+
+		const { type } = state.selection.node;
+
+		if (dispatch) {
+			const { tr } = state;
+			editorAnalyticsApi?.attachAnalyticsEvent(
+				buildVisitedNonHyperLinkPayload(
+					type.name as
+						| ACTION_SUBJECT_ID.CARD_INLINE
+						| ACTION_SUBJECT_ID.CARD_BLOCK
+						| ACTION_SUBJECT_ID.EMBEDS,
+					inputMethod,
+				),
+			)(tr);
+
+			dispatch(tr);
+		}
+		return true;
+	};
+
 const HoverLinkOverlay = ({
 	children,
 	isVisible = false,
 	url,
-	editorAppearance,
+	compactPadding = false,
 	editorAnalyticsApi,
 	view,
 	onClick,
@@ -184,7 +224,7 @@ const HoverLinkOverlay = ({
 					target="_blank"
 					style={{
 						paddingBlock:
-							editorAppearance === 'comment' || editorAppearance === 'chromeless'
+							compactPadding
 								? '1px'
 								: token('space.025'),
 					}}

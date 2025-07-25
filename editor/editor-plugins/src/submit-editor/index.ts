@@ -5,4 +5,5 @@ export { submitEditorPlugin } from '@atlaskit/editor-plugin-submit-editor';
 export type {
 	SubmitEditorPlugin,
 	SubmitEditorPluginOptions,
+	SubmitEditorPluginDependencies,
 } from '@atlaskit/editor-plugin-submit-editor';

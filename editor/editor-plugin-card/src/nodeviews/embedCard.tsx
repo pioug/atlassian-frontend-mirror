@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type ComponentProps } from 'react';
 
 import rafSchedule from 'raf-schd';
 import uuid from 'uuid/v4';
@@ -26,6 +26,7 @@ import {
 	MediaSingle as RichMediaWrapper,
 	UnsupportedBlock,
 } from '@atlaskit/editor-common/ui';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { floatingLayouts, isRichMediaInsideOfBlockNode } from '@atlaskit/editor-common/utils';
 import { type EditorViewModePluginState } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { Highlights } from '@atlaskit/editor-plugin-grid';
@@ -33,15 +34,19 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
+	akEditorFullPageNarrowBreakout,
 	DEFAULT_EMBED_CARD_HEIGHT,
 	DEFAULT_EMBED_CARD_WIDTH,
 } from '@atlaskit/editor-shared-styles';
+import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
 import { EmbedResizeMessageListener, Card as SmartCard } from '@atlaskit/smart-card';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { cardPlugin } from '../index';
 import { registerCard, removeCard } from '../pm-plugins/actions';
 import ResizableEmbedCard from '../ui/ResizableEmbedCard';
 
+import { BlockCardComponent } from './blockCard';
 import type { SmartCardProps } from './genericCard';
 import { Card } from './genericCard';
 
@@ -108,7 +113,6 @@ const CardInner = ({
 	getLineLength,
 	view,
 	smartCard,
-	eventDispatcher,
 	updateSize,
 	getPos,
 	aspectRatio,
@@ -473,7 +477,60 @@ export class EmbedCardComponent extends React.PureComponent<
 	}
 }
 
-const WrappedBlockCard = Card(EmbedCardComponent, UnsupportedBlock);
+export const EmbedOrBlockCardComponent = (props: ComponentProps<typeof EmbedCardComponent>) => {
+	const width = useSharedPluginStateSelector(props.pluginInjectionApi, 'width.width');
+	const viewAsBlockCard = width && width <= akEditorFullPageNarrowBreakout;
+
+	return viewAsBlockCard ? (
+		<BlockCardComponent
+			id={props.id}
+			node={props.node}
+			view={props.view}
+			getPos={props.getPos}
+			pluginInjectionApi={props.pluginInjectionApi}
+			actionOptions={props.actionOptions}
+			onClick={props.onClick}
+			CompetitorPrompt={props.CompetitorPrompt}
+			allowResizing={props.allowResizing}
+			fullWidthMode={props.fullWidthMode}
+			dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
+			eventDispatcher={props.eventDispatcher}
+			cardContext={props.cardContext}
+			smartCard={props.smartCard}
+			hasPreview={props.hasPreview}
+			liveHeight={props.liveHeight}
+			initialAspectRatio={props.initialAspectRatio}
+		/>
+	) : (
+		<EmbedCardComponent
+			id={props.id}
+			node={props.node}
+			view={props.view}
+			getPos={props.getPos}
+			pluginInjectionApi={props.pluginInjectionApi}
+			actionOptions={props.actionOptions}
+			onClick={props.onClick}
+			CompetitorPrompt={props.CompetitorPrompt}
+			allowResizing={props.allowResizing}
+			fullWidthMode={props.fullWidthMode}
+			dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
+			eventDispatcher={props.eventDispatcher}
+			cardContext={props.cardContext}
+			smartCard={props.smartCard}
+			hasPreview={props.hasPreview}
+			liveHeight={props.liveHeight}
+			initialAspectRatio={props.initialAspectRatio}
+		/>
+	);
+};
+
+const WrappedEmbedCardWithCondition = componentWithCondition(
+	() => expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true),
+	EmbedOrBlockCardComponent,
+	EmbedCardComponent,
+);
+
+const WrappedEmbedCard = Card(WrappedEmbedCardWithCondition, UnsupportedBlock);
 
 export type EmbedCardNodeViewProps = Pick<
 	SmartCardProps,
@@ -534,7 +591,7 @@ export class EmbedCard extends ReactNodeView<EmbedCardNodeViewProps> {
 		} = this.reactComponentProps;
 
 		return (
-			<WrappedBlockCard
+			<WrappedEmbedCard
 				node={this.node}
 				view={this.view}
 				eventDispatcher={eventDispatcher}
@@ -588,6 +645,7 @@ export const embedCardNodeView =
 			onClickCallback: onClickCallback,
 			CompetitorPrompt,
 		};
+
 		return new EmbedCard(
 			node,
 			view,

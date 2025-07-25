@@ -2,4 +2,8 @@
 // Disable no-re-export rule for entry point files
 /* eslint-disable @atlaskit/editor/no-re-export */
 export { layoutPlugin } from '@atlaskit/editor-plugin-layout';
-export type { LayoutPlugin, LayoutPluginOptions } from '@atlaskit/editor-plugin-layout';
+export type {
+	LayoutPlugin,
+	LayoutPluginDependencies,
+	LayoutPluginOptions,
+} from '@atlaskit/editor-plugin-layout';

@@ -72,4 +72,10 @@ describe('MessagesProvider', () => {
 
 		expect(await screen.findByText('Translated string')).toBeInTheDocument();
 	});
+
+	it('should capture and report a11y violations', async () => {
+		const { container } = setup(props);
+
+		await expect(container).toBeAccessible();
+	});
 });

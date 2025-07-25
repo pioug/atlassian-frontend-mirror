@@ -1,4 +1,5 @@
-import { snapshot } from '@af/visual-regression';
+import { Device, snapshot } from '@af/visual-regression';
+import { flagsForVrTestsWithReducedPadding } from '@atlaskit/editor-test-helpers/advanced-layouts-flags';
 import {
 	TableRenderer,
 	TableRendererWideOverflow,
@@ -154,4 +155,26 @@ snapshot(TableRendererWithNumberedColumnWithoutAppearance, {
 	featureFlags: {
 		'platform-ssr-table-resize': [true, false],
 	},
+});
+
+snapshot(TableRendererOverflow, {
+	...flagsForVrTestsWithReducedPadding,
+	description: 'full-page renderer should have 24px padding on narrow screen',
+	variants: [
+		{
+			name: 'mobile device',
+			device: Device.MOBILE_CHROME,
+		},
+	],
+});
+
+snapshot(FullWidthTableRendererFullWidth, {
+	...flagsForVrTestsWithReducedPadding,
+	description: 'full-width renderer should have no padding on narrow screen',
+	variants: [
+		{
+			name: 'mobile device',
+			device: Device.MOBILE_CHROME,
+		},
+	],
 });

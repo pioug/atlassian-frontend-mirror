@@ -2,4 +2,7 @@
 // Disable no-re-export rule for entry point files
 /* eslint-disable @atlaskit/editor/no-re-export */
 export { pasteOptionsToolbarPlugin } from '@atlaskit/editor-plugin-paste-options-toolbar';
-export type { PasteOptionsToolbarPlugin } from '@atlaskit/editor-plugin-paste-options-toolbar';
+export type {
+	PasteOptionsToolbarPlugin,
+	PasteOptionsToolbarPluginDependencies,
+} from '@atlaskit/editor-plugin-paste-options-toolbar';

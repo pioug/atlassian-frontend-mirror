@@ -1,8 +1,8 @@
 import React, { type ReactNode } from 'react';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import GrowVerticalIcon from '@atlaskit/icon/core/grow-vertical';
-import ChevronRightIcon from '@atlaskit/icon/core/migration/chevron-right';
 import { token } from '@atlaskit/tokens';
 
 type TListMembership = 'first' | 'last' | 'only' | 'standard';

@@ -4,6 +4,9 @@
 export { statusPlugin } from '@atlaskit/editor-plugin-status';
 export type {
 	StatusPlugin,
+	StatusPluginDependencies,
+	StatusPluginActions,
+	StatusPluginCommands,
 	StatusState,
 	StatusType,
 	StatusPluginOptions,

@@ -13,20 +13,5 @@ export type IconAppearance = 'connectivity' | 'confirmation' | 'info' | 'warning
 
 export type IconSpacing = 'spacious' | 'compact';
 
-// cannot import from flow types, should be removed after InlineDialog conversion
-export type InlineDialogPlacement =
-	| 'auto-start'
-	| 'auto'
-	| 'auto-end'
-	| 'top-start'
-	| 'top'
-	| 'top-end'
-	| 'right-start'
-	| 'right'
-	| 'right-end'
-	| 'bottom-end'
-	| 'bottom'
-	| 'bottom-start'
-	| 'left-end'
-	| 'left'
-	| 'left-start';
+// Using Popup's placement type after InlineDialog conversion
+export type { Placement as PopupPlacement } from '@atlaskit/popper';

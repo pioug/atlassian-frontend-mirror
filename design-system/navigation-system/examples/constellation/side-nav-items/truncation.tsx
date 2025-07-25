@@ -1,6 +1,6 @@
 import React from 'react';
 
-import HomeIcon from '@atlaskit/icon/core/migration/home';
+import HomeIcon from '@atlaskit/icon/core/home';
 import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
 import {
 	ExpandableMenuItem,

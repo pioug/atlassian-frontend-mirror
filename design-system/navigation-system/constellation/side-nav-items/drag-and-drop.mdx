@@ -1,6 +1,6 @@
 ---
-title: Drag and drop for side nav items
-# description: Adding drag and drop to the sidebar
+title: Side nav items
+description: Menu items and elements for the side nav area.
 order: 2
 ---
 
@@ -62,7 +62,7 @@ menu item draggable there are two things you need to do:
 1. Set `hasDragIndicator` to `true` on the menu item
 2. Make the menu item `draggable()`
 
-### `hasDragIndicator`
+### hasDragIndicator
 
 Setting `hasDragIndicator` to true on a menu item will enable visual affordances on the menu item to
 make it clear that the item is draggable:
@@ -736,7 +736,7 @@ Some possible options:
   after it has been moved
 - Lookup elements with data attributes after the drop. Not ideal, but can get the job done.
 
-## `useMenuItemDragAndDrop`
+## useMenuItemDragAndDrop
 
 We have created a `react` hook `useMenuItemDragAndDrop()` which takes care of a lot of plumbing when
 setting up drag and drop for menu items in the sidebar. We strongly recommend that you start with
@@ -897,7 +897,7 @@ parent expandable menu items when the drag finishes.
 
 ## Special guidance
 
-### `ExpandableMenuItem`
+### ExpandableMenuItem
 
 Sometimes you want the `ExpandableMenuItemTrigger` to be your drop target, and sometimes you want
 the `ExpandableMenuItemTrigger` and the `ExpandableMenuItemContent` to be a single drop target.
@@ -998,7 +998,7 @@ export function ProjectsMenuItem() {
 }
 ```
 
-### `ExpandableMenuItemTrigger`
+### ExpandableMenuItemTrigger
 
 #### Drag start
 
@@ -1038,7 +1038,7 @@ An example: Dragging Filter A and the drop operation is a `"combine"` on a colla
 `ExpandableMenuItemTrigger`. Outcome: Filter B should be expanded to make Filter A visible after the
 drop.
 
-### `FlyoutMenuItemTrigger`
+### FlyoutMenuItemTrigger
 
 #### Drag start
 

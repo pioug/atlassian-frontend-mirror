@@ -84,6 +84,10 @@ import {
 	JiraServiceManagementLogoCS as NewJSMLogo,
 } from '@atlaskit/temp-nav-app-icons/jira-service-management';
 import {
+	JiraServiceManagementDataCenterIcon as NewJiraServiceManagementDataCenterIcon,
+	JiraServiceManagementDataCenterLogoCS as NewJiraServiceManagementDataCenterLogo,
+} from '@atlaskit/temp-nav-app-icons/jira-service-management-data-center';
+import {
 	LoomIcon as NewLoomIcon,
 	LoomLogoCS as NewLoomLogo,
 } from '@atlaskit/temp-nav-app-icons/loom';
@@ -563,6 +567,31 @@ export const JiraDataCenterIcon = tempSizeWrapper(NewJiraDataCenterIcon);
  * - [Usage](https://atlassian.design/components/{packageName}/usage)
  */
 export const JiraDataCenterLogo = tempSizeWrapper(NewJiraDataCenterLogo);
+
+/**
+ * __Jira Service Management Data Center icon__
+ *
+ * The Jira Service Management Data Center icon without an accompanying wordmark.
+ *
+ * - [Examples](https://atlassian.design/components/{packageName}/examples)
+ * - [Code](https://atlassian.design/components/{packageName}/code)
+ * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ */
+export const JiraServiceManagementDataCenterIcon = tempSizeWrapper(
+	NewJiraServiceManagementDataCenterIcon,
+);
+/**
+ * __Jira Service Management Data Center logo__
+ *
+ * The Jira Service Management Data Center logo with both the wordmark and the icon combined.
+ *
+ * - [Examples](https://atlassian.design/components/{packageName}/examples)
+ * - [Code](https://atlassian.design/components/{packageName}/code)
+ * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ */
+export const JiraServiceManagementDataCenterLogo = tempSizeWrapper(
+	NewJiraServiceManagementDataCenterLogo,
+);
 
 /**
  * __Atlassian Administration icon__

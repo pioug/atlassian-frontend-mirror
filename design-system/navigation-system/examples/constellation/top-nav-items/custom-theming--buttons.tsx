@@ -1,6 +1,6 @@
 import React from 'react';
 
-import AngleBracketsIcon from '@atlaskit/icon/core/migration/angle-brackets--code';
+import AngleBracketsIcon from '@atlaskit/icon/core/angle-brackets';
 import { RovoIcon } from '@atlaskit/logo';
 import { EndItem, TopNavEnd } from '@atlaskit/navigation-system';
 import { parseHex } from '@atlaskit/navigation-system/experimental/color-utils/parse-hex';

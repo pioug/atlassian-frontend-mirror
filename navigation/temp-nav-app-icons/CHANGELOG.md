@@ -1,5 +1,13 @@
 # @atlaskit/temp-nav-app-icons
 
+## 0.9.2
+
+### Patch Changes
+
+- [#188580](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188580)
+  [`13f2094aaff70`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/13f2094aaff70) -
+  New components changes to support `@atlaskit/logo`.
+
 ## 0.9.1
 
 ### Patch Changes

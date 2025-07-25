@@ -4,9 +4,12 @@
 export { mentionsPlugin } from '@atlaskit/editor-plugin-mentions';
 export type {
 	MentionsPlugin,
+	MentionPluginDependencies,
+	MentionActions,
 	MentionPluginConfig,
 	MentionPluginOptions,
 	MentionsPluginOptions,
 	MentionSharedState,
 	MentionsChangedHandler,
+	InsertMentionParameters,
 } from '@atlaskit/editor-plugin-mentions';

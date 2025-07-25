@@ -457,6 +457,13 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	platform_editor_smart_card_otp: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_smart_card_otp',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-07-15
 	platform_editor_preview_panel_responsiveness: createBooleanExperiment({
 		productKeys: {
@@ -469,6 +476,14 @@ export const editorExperimentsConfig = {
 	platform_editor_renderer_breakout_fix: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_renderer_breakout_fix',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-07-24
+	editor_enghealth_hyperlink_toolbar_aria_values: createBooleanExperiment({
+		productKeys: {
+			confluence: 'editor_enghealth_hyperlink_toolbar_aria_values',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -496,6 +511,14 @@ export const editorExperimentsConfig = {
 		productKeys: {
 			jira: 'platform_editor_toolbar_aifc',
 			confluence: 'platform_editor_toolbar_aifc',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-07-24
+	platform_editor_enghealth_table_plugin_lable_rule: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_enghealth_table_plugin_lable_rule',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

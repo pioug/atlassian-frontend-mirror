@@ -444,6 +444,7 @@ export const setupFactory = <Parameters extends DatasourceParameters, InsertArgs
 			findByLabelText,
 			rerender,
 			queryByText,
+			component,
 			renderComponent,
 			onCancel,
 			onInsert,

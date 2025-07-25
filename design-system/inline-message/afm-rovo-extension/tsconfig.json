@@ -21,16 +21,22 @@
 			"path": "../../button/afm-rovo-extension/tsconfig.json"
 		},
 		{
-			"path": "../../icon/afm-rovo-extension/tsconfig.json"
+			"path": "../../ds-lib/afm-rovo-extension/tsconfig.json"
 		},
 		{
-			"path": "../../inline-dialog/afm-rovo-extension/tsconfig.json"
+			"path": "../../icon/afm-rovo-extension/tsconfig.json"
 		},
 		{
 			"path": "../../link/afm-rovo-extension/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../popper/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../popup/afm-rovo-extension/tsconfig.json"
 		},
 		{
 			"path": "../../primitives/afm-rovo-extension/tsconfig.json"

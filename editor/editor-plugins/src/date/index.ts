@@ -4,6 +4,7 @@
 export { datePlugin } from '@atlaskit/editor-plugin-date';
 export type {
 	DatePlugin,
+	DatePluginDependencies,
 	DatePluginSharedState,
 	DatePluginConfig,
 	DatePluginOptions,

@@ -18,8 +18,11 @@ import {
 	Layout5ColWithWidthAndLayout5ColWithWideRenderer,
 	Layout5ColWithWidthInFullWidthRenderer,
 } from './layout.fixture';
-import { snapshot } from '@af/visual-regression';
-import { flagsForVrTests } from '@atlaskit/editor-test-helpers/advanced-layouts-flags';
+import { Device, snapshot } from '@af/visual-regression';
+import {
+	flagsForVrTests,
+	flagsForVrTestsWithReducedPadding,
+} from '@atlaskit/editor-test-helpers/advanced-layouts-flags';
 
 snapshot(OverflowLayoutRenderer);
 snapshot(Layout2ColRenderer);
@@ -37,6 +40,28 @@ snapshot(Layout3ColWithDifferentTextRenderer);
 
 snapshot(Layout3ColWithWidthRenderer, {
 	...flagsForVrTests,
+});
+
+snapshot(Layout3ColWithWidthRenderer, {
+	...flagsForVrTestsWithReducedPadding,
+	description: 'full-page renderer should have 24px side padding on narrow screen',
+	variants: [
+		{
+			name: 'mobile device',
+			device: Device.MOBILE_CHROME,
+		},
+	],
+});
+
+snapshot(Layout3ColRenderer, {
+	...flagsForVrTestsWithReducedPadding,
+	description: 'full-width renderer should have no side padding on narrow screen',
+	variants: [
+		{
+			name: 'mobile device',
+			device: Device.MOBILE_CHROME,
+		},
+	],
 });
 
 snapshot(Layout4ColWithWidthRenderer, {

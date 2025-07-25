@@ -892,4 +892,10 @@ describe('Analytics: AsyncPopupSelect', () => {
 			EVENT_CHANNEL,
 		);
 	});
+
+	it('should capture and report a11y violations', async () => {
+		const { container } = setup();
+
+		await expect(container).toBeAccessible();
+	});
 });

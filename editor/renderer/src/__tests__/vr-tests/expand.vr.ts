@@ -1,6 +1,8 @@
-import { snapshot } from '@af/visual-regression';
+import { Device, snapshot } from '@af/visual-regression';
+import { flagsForVrTestsWithReducedPadding } from '@atlaskit/editor-test-helpers/advanced-layouts-flags';
 import {
 	ExpandRenderer,
+	ExpandFullPageRenderer,
 	ExpandHoveredRenderer,
 	ExpandWrappedRenderer,
 	ExpandDefaultModeRenderer,
@@ -10,6 +12,28 @@ import {
 } from './expand.fixture';
 
 snapshot(ExpandRenderer);
+
+snapshot(ExpandRenderer, {
+	...flagsForVrTestsWithReducedPadding,
+	description: 'full-width renderer should have no padding on narrow screen',
+	variants: [
+		{
+			name: 'mobile device',
+			device: Device.MOBILE_CHROME,
+		},
+	],
+});
+
+snapshot(ExpandFullPageRenderer, {
+	...flagsForVrTestsWithReducedPadding,
+	description: 'full-page renderer should have 24px padding on narrow screen',
+	variants: [
+		{
+			name: 'mobile device',
+			device: Device.MOBILE_CHROME,
+		},
+	],
+});
 
 snapshot(ExpandHoveredRenderer, {
 	description: 'should render a border on hover of a collapsed top level expand',

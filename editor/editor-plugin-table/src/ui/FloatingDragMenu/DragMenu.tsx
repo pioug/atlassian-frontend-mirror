@@ -44,6 +44,7 @@ import {
 import PaintBucketIcon from '@atlaskit/icon/core/migration/paint-bucket--editor-background-color';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import Toggle from '@atlaskit/toggle';
 
 import { clearHoverSelection, hoverColumns, hoverRows } from '../../pm-plugins/commands';
@@ -447,6 +448,15 @@ const DragMenu = React.memo(
 							<div css={toggleStyles}>
 								<Toggle
 									id="toggle-header-column"
+									label={
+										expValEquals(
+											'platform_editor_enghealth_table_plugin_lable_rule',
+											'isEnabled',
+											true,
+										)
+											? formatMessage(messages.headerColumn)
+											: undefined
+									}
 									onChange={toggleHeaderColumn}
 									isChecked={checkIfHeaderColumnEnabled(selection)}
 								/>
@@ -462,6 +472,15 @@ const DragMenu = React.memo(
 							<div css={toggleStyles}>
 								<Toggle
 									id="toggle-header-row"
+									label={
+										expValEquals(
+											'platform_editor_enghealth_table_plugin_lable_rule',
+											'isEnabled',
+											true,
+										)
+											? formatMessage(messages.headerRow)
+											: undefined
+									}
 									onChange={toggleHeaderRow}
 									isChecked={checkIfHeaderRowEnabled(selection)}
 								/>
@@ -480,6 +499,11 @@ const DragMenu = React.memo(
 					<div css={toggleStyles}>
 						<Toggle
 							id="toggle-row-numbers"
+							label={
+								expValEquals('platform_editor_enghealth_table_plugin_lable_rule', 'isEnabled', true)
+									? formatMessage(messages.numberedColumn)
+									: undefined
+							}
 							onChange={toggleRowNumbers}
 							isChecked={checkIfNumberColumnEnabled(selection)}
 						/>

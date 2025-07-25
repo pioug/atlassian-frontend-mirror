@@ -295,7 +295,7 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 		return true;
 	}
 
-	viewShouldUpdate(nextNode: PMNode, decorations?: Array<Decoration>): boolean {
+	viewShouldUpdate(nextNode: PMNode, _decorations?: Array<Decoration>): boolean {
 		if (this._viewShouldUpdate) {
 			return this._viewShouldUpdate(nextNode);
 		}

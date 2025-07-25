@@ -21,6 +21,7 @@ import Page16Icon from '@atlaskit/icon-object/glyph/page/16';
 import CrossCircleIcon from '@atlaskit/icon/core/migration/cross-circle';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Pressable, xcss } from '@atlaskit/primitives';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -614,7 +615,16 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 						</div>
 						<PanelTextInput
 							role="combobox"
-							ariaExpanded
+							ariaExpanded={
+								expValEquals(
+									'editor_enghealth_hyperlink_toolbar_aria_values',
+									'isEnabled',
+									true,
+									false,
+								)
+									? items && items.length > 0 && !isLoading
+									: true
+							}
 							ariaActiveDescendant={ariaActiveDescendant}
 							ariaControls={linkSearchListId}
 							ariaAutoComplete

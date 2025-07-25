@@ -1,5 +1,6 @@
 ---
-title: Custom theming
+title: Layout
+description: Layout components define a page’s structure and the areas for navigation and content.
 order: 2
 ---
 
@@ -32,7 +33,7 @@ strings.
 We provide a number of utilities for parsing color strings into an RGB object format. These parsing
 utilities are completely optional, and you are able to create your own.
 
-## `parseHex`
+## parseHex
 
 Use `parseHex` to parse a CSS hex color string into an RGB object. It will return `null` on failure.
 
@@ -40,7 +41,7 @@ If an alpha channel is present it will be ignored.
 
 <Example Component={CustomThemingParseHexExample} />
 
-## `parseRgb`
+## parseRgb
 
 Use `parseRgb` to parse a CSS `rgb` color string into an RGB object. It will return `null` on
 failure.
@@ -50,7 +51,7 @@ syntax is supported.
 
 <Example Component={CustomThemingParseRgbExample} />
 
-## `parseHsl`
+## parseHsl
 
 Use `parseHsl` to parse a CSS `hsl` color string into an RGB object. It will return `null` on
 failure.
@@ -60,7 +61,7 @@ syntax is supported.
 
 <Example Component={CustomThemingParseHslExample} />
 
-## `parseUserColor`
+## parseUserColor
 
 Use `parseUserColor` to parse a CSS color string without knowing the format used. It will return
 `null` on failure.

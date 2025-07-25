@@ -24,6 +24,8 @@ export const WideTableRendererFullWidth = generateRendererComponent({
 export const FullWidthTableRendererFullWidth = generateRendererComponent({
 	document: overflowTableFullWidth,
 	appearance: 'full-width',
+	UNSTABLE_allowTableAlignment: true,
+	UNSTABLE_allowTableResizing: true,
 });
 
 export const TableRendererWideOverflow = generateRendererComponent({

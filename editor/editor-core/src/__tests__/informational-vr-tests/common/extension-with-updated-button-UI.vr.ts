@@ -47,6 +47,7 @@ snapshotInformational(BlockExtension, {
 		const toolbarModel = EditorExtensionFloatingToolbarModel.from(editor);
 		await toolbarModel.waitForStable();
 		await toolbarModel.removeButton.hover();
+		await toolbarModel.waitForTooltip();
 	},
 });
 
@@ -88,6 +89,7 @@ snapshotInformational(BlockExtensionWithSmartLink, {
 		const toolbarModel = EditorExtensionFloatingToolbarModel.from(editor);
 		await toolbarModel.waitForStable();
 		await toolbarModel.fullWidth();
+		await toolbarModel.waitForTooltip();
 	},
 });
 
@@ -117,6 +119,7 @@ snapshotInformational(InlineExtension, {
 		const toolbarModel = EditorExtensionFloatingToolbarModel.from(editor);
 		await toolbarModel.waitForStable();
 		await toolbarModel.removeButton.hover();
+		await toolbarModel.waitForTooltip();
 	},
 });
 
@@ -214,6 +217,7 @@ snapshotInformational(BodiedExtension, {
 		const toolbarModel = EditorExtensionFloatingToolbarModel.from(editor);
 		await toolbarModel.waitForStable();
 		await toolbarModel.removeButton.hover();
+		await toolbarModel.waitForTooltip();
 	},
 });
 
@@ -255,6 +259,7 @@ snapshotInformational(BodiedExtensionWithSmartLink, {
 		const toolbarModel = EditorExtensionFloatingToolbarModel.from(editor);
 		await toolbarModel.waitForStable();
 		await toolbarModel.fullWidth();
+		await toolbarModel.waitForTooltip();
 	},
 });
 

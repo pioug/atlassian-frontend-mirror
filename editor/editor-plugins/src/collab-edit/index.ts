@@ -5,6 +5,7 @@ export { collabEditPlugin } from '@atlaskit/editor-plugin-collab-edit';
 export type {
 	CollabEditPlugin,
 	CollabEditPluginOptions,
+	CollabEditPluginDependencies,
 	CollabInitializedMetadata,
 	CollabEditPluginSharedState,
 	ReadOnlyParticipants,

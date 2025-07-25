@@ -3,8 +3,8 @@ import React from 'react';
 import { IconButton } from '@atlaskit/button/new';
 import AddIcon from '@atlaskit/icon/core/add';
 import ChartBarIcon from '@atlaskit/icon/core/chart-bar';
+import HomeIcon from '@atlaskit/icon/core/home';
 import InboxIcon from '@atlaskit/icon/core/inbox';
-import HomeIcon from '@atlaskit/icon/core/migration/home';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import Lozenge from '@atlaskit/lozenge';
 import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
@@ -61,7 +61,7 @@ function MoreAction() {
 // This means there is no href provided.
 export function ExpandableMenuItemDefaultVariantExample() {
 	return (
-		<Inline spread="space-between">
+		<Inline space="space.600">
 			<MockSideNav>
 				<SideNavContent>
 					<MenuList>

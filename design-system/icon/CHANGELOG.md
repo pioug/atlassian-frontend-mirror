@@ -1,5 +1,25 @@
 # @atlaskit/icon
 
+## 27.7.0
+
+### Minor Changes
+
+- [#190687](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/190687)
+  [`2b0322c52ee19`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2b0322c52ee19) -
+  This release adds and updates icons in `@atlaskit/icon`.
+
+  ### Added:
+
+  **`@atlaskit/icon/core`**
+
+  - `rovo-chat`
+
+  ### Updated:
+
+  **`@atlaskit/icon/core`**
+
+  - `ai-chat`
+
 ## 27.6.1
 
 ### Patch Changes

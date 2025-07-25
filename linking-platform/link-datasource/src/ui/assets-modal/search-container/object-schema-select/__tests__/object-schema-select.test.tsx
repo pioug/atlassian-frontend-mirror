@@ -136,4 +136,17 @@ describe('AssetsObjectSchemaSelect', () => {
 			expect(onSubmitMock).not.toHaveBeenCalled();
 		});
 	});
+
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<AssetsObjectSchemaSelect
+				workspaceId={workspaceId}
+				initialObjectSchemas={undefined}
+				value={undefined}
+			/>,
+			{ wrapper: formWrapper },
+		);
+
+		await expect(container).toBeAccessible();
+	});
 });

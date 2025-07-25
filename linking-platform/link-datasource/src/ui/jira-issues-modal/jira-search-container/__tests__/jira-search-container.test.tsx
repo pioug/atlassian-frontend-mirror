@@ -1129,6 +1129,12 @@ describe('JiraSearchContainer', () => {
 
 		expect(screen.queryByTestId('jira-datasource-modal--basic-search-input')).toHaveValue('hello');
 	});
+
+	it('should capture and report a11y violations', async () => {
+		const { container } = setup();
+
+		await expect(container).toBeAccessible();
+	});
 });
 
 describe('Analytics: JiraSearchContainer', () => {

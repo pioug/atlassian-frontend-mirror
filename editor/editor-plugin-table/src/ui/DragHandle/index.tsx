@@ -20,6 +20,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { findTable, TableMap } from '@atlaskit/editor-tables';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { getPluginState as getDnDPluginState } from '../../pm-plugins/drag-and-drop/plugin-factory';
@@ -250,6 +251,11 @@ const DragHandleComponent = ({
 					}
 				}}
 				onClick={onClick}
+				aria-label={
+					expValEquals('platform_editor_enghealth_table_plugin_lable_rule', 'isEnabled', true)
+						? formatMessage(messages.dragHandleZone)
+						: undefined
+				}
 			/>
 			<button
 				type="button"

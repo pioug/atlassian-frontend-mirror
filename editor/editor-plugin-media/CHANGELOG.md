@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-media
 
+## 5.2.2
+
+### Patch Changes
+
+- [#189903](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/189903)
+  [`f5ccd32e607db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f5ccd32e607db) -
+  [ED-28567] Add/remove missing/extra separators in media, table and panel toolbars shown in Jira
+- Updated dependencies
+
 ## 5.2.1
 
 ### Patch Changes

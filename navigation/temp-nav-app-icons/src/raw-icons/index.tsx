@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b73aed6b5f5f66d4bd6a39c939cb6564>>
+ * @codegen <<SignedSource::d6714cd348d1c10436a8ee86a23e84c3>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 export const adminIcon =
@@ -49,6 +49,8 @@ export const jiraDataCenterIcon =
 	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'> <path fill='%23fff' d='M6 .5h12A5.5 5.5 0 0 1 23.5 6v12a5.5 5.5 0 0 1-5.5 5.5H6A5.5 5.5 0 0 1 .5 18V6A5.5 5.5 0 0 1 6 .5'/> <path stroke='%23dddee1' d='M6 .5h12A5.5 5.5 0 0 1 23.5 6v12a5.5 5.5 0 0 1-5.5 5.5H6A5.5 5.5 0 0 1 .5 18V6A5.5 5.5 0 0 1 6 .5Z'/> <path fill='%231868db' d='M8.974 15.523H7.62c-2.04 0-3.502-1.249-3.502-3.078h7.271c.377 0 .62.268.62.647v7.317c-1.817 0-3.036-1.472-3.036-3.525zm3.591-3.636h-1.352c-2.04 0-3.503-1.227-3.503-3.056h7.272c.376 0 .642.245.642.625v7.317c-1.817 0-3.059-1.473-3.059-3.525zm3.614-3.614h-1.353c-2.04 0-3.502-1.249-3.502-3.078h7.271c.377 0 .62.268.62.624v7.318c-1.817 0-3.036-1.473-3.036-3.525z'/> </svg> ";
 export const jiraProductDiscoveryIcon =
 	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'> <path fill='%23c97cf4' d='M0 6a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6z'/> <path fill='%23101214' d='M13.467 4.882a9.47 9.47 0 0 0 5.422 0c.159-.035.265.07.23.229-.513 1.85-.513 3.558 0 5.408.035.14-.072.264-.23.211a10.1 10.1 0 0 0-5.422 0c-.142.053-.265-.07-.212-.211.476-1.85.476-3.559 0-5.408-.053-.159.07-.264.212-.23m.724 6.553v.3c0 1.39-.972 2.412-2.173 2.412a2.153 2.153 0 0 1-2.154-2.166c0-1.198.971-2.15 2.331-2.15h.353V5.62c-.176-.017-.353-.017-.53-.017a6.387 6.387 0 0 0-6.393 6.394 6.37 6.37 0 0 0 6.393 6.377c3.533 0 6.411-2.854 6.411-6.377v-.563z'/> </svg> ";
+export const jiraServiceManagementDataCenterIcon =
+	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 25 24'> <path fill='%23fff' d='M6.417.5h12a5.5 5.5 0 0 1 5.5 5.5v12a5.5 5.5 0 0 1-5.5 5.5h-12a5.5 5.5 0 0 1-5.5-5.5V6a5.5 5.5 0 0 1 5.5-5.5'/> <path stroke='%23dddee1' d='M6.417.5h12a5.5 5.5 0 0 1 5.5 5.5v12a5.5 5.5 0 0 1-5.5 5.5h-12a5.5 5.5 0 0 1-5.5-5.5V6a5.5 5.5 0 0 1 5.5-5.5Z'/> <path fill='%231868db' d='M14.117 10.203h4.464c.67 0 .899.637.49 1.144l-6.98 8.616c-2.257-1.798-2.044-4.643-.393-6.72zm-3.45 3.433H6.205c-.67 0-.899-.638-.49-1.144l6.981-8.617c2.256 1.799 2.011 4.61.376 6.704z'/> </svg> ";
 export const jiraServiceManagementIcon =
 	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'> <path fill='%23ffc716' d='M0 6a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6z'/> <path fill='%23101214' d='M13.744 10.156h4.578c.688 0 .922.654.503 1.174l-7.16 8.837c-2.314-1.845-2.096-4.763-.402-6.892zm-3.538 3.521H5.63c-.688 0-.923-.654-.504-1.173l7.16-8.837c2.315 1.844 2.063 4.728.386 6.875z'/> </svg> ";
 export const jiraIcon =
@@ -102,6 +104,7 @@ const rawIcons = {
 	hub: hubIcon,
 	jiraDataCenter: jiraDataCenterIcon,
 	jiraProductDiscovery: jiraProductDiscoveryIcon,
+	jiraServiceManagementDataCenter: jiraServiceManagementDataCenterIcon,
 	jiraServiceManagement: jiraServiceManagementIcon,
 	jira: jiraIcon,
 	loomInternal: loomInternalIcon,

@@ -2,4 +2,9 @@
 // Disable no-re-export rule for entry point files
 /* eslint-disable @atlaskit/editor/no-re-export */
 export { connectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
-export type { ConnectivityPlugin, Mode, PluginState } from '@atlaskit/editor-plugin-connectivity';
+export type {
+	ConnectivityPlugin,
+	Mode,
+	PluginState,
+	PublicPluginState,
+} from '@atlaskit/editor-plugin-connectivity';

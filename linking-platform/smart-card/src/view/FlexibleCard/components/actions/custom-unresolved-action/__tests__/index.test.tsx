@@ -213,6 +213,21 @@ describe('CustomUnresolvedAction', () => {
 			const errorText = await screen.findByText('Something is wrong.');
 			expect(container).toContainElement(errorText);
 		});
+
+		it('should capture and report a11y violations', async () => {
+			const { container } = setup(
+				({ children }: { children: React.ReactNode }) => (
+					<div data-testId="container-wrapper">{children}</div>
+				),
+				{
+					actions: {
+						[InternalActionName.UnresolvedAction]: { descriptor },
+					},
+				},
+			);
+
+			await expect(container).toBeAccessible();
+		});
 	});
 
 	describe('inherited tests from UnresolvedAction', () => {

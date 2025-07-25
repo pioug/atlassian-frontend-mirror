@@ -129,4 +129,10 @@ describe('Analytics: AssetsConfigModal', () => {
 			actionAttributeTests(CANCEL_BUTTON_ACTION_SUBJECT_ID, CANCEL_BUTTON_NAME);
 		});
 	});
+
+	it('should capture and report a11y violations', async () => {
+		const { component } = await setup();
+
+		await expect(component.container).toBeAccessible();
+	});
 });

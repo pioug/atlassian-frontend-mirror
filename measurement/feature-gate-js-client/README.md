@@ -609,7 +609,7 @@ describe('with mocked experiments and gates', () => {
 
 		MockedFeatureGates.getExperiment.mockImplementation((experimentName) => {
 			const values = overrides.configs[experimentName] || {};
-			return new DynamicConfig(experimentName, values, {
+			return new DynamicConfig(experimentName, values, 'rule-id', {
 				time: Date.now(),
 				reason: EvaluationReason.LocalOverride,
 			});
@@ -694,7 +694,7 @@ cy.stub(
 
 cy.stub(FeatureGates, 'getExperiment', (experimentName) => {
 	const values = overrides.configs[experimentName] || {};
-	return new DynamicConfig(experimentName, values, {
+	return new DynamicConfig(experimentName, values, 'rule-id', {
 		time: Date.now(),
 		reason: EvaluationReason.LocalOverride,
 	});
@@ -793,6 +793,77 @@ cy.featureGateOverrides({
 		'example-gate': true,
 	},
 }).visit('http://localhost:3001');
+```
+
+### Playwright
+
+Similar to Cypress, Playwright requires you to apply your stubs after a page has loaded. We can utilise [page.addInitScript](https://playwright.dev/docs/api/class-page#page-add-init-script) to hook into this lifecycle in order to stub `window.__FEATUREGATES_JS__`.
+
+#### Overriding values
+
+```typescript
+import {
+  LocalOverrides,
+  DynamicConfig,
+  EvaluationReason,
+} from '@atlaskit/feature-gate-js-client';
+import { Page } from '@playwright/test';
+
+export async function withFeatureGateOverrides(
+  page: Page,
+  overrides: LocalOverrides,
+) {
+  await page.addInitScript(
+    ({ overridesSerialized, localOverrideReason }) => {
+      const FeatureGates = {
+        initialize: () => Promise.resolve(),
+        checkGate: (gateName: string) => {
+          return overridesSerialized.gates?.[gateName] ?? false;
+        },
+
+        getExperiment: (experimentName: string) => {
+          const values = overridesSerialized.configs?.[experimentName] || {};
+          return new DynamicConfig(experimentName, values, 'rule-id', {
+            time: Date.now(),
+            reason: localOverrideReason,
+          });
+        },
+      };
+
+      window.__FEATUREGATES_JS__ = {
+        ...window.__FEATUREGATES_JS__,
+        ...FeatureGates,
+      };
+    },
+    {
+      overridesSerialized: overrides,
+      localOverrideReason: EvaluationReason.LocalOverride,
+    },
+  );
+}
+```
+
+Below is an example of consuming this
+
+```typescript
+import { expect, test } from '@playwright/test';
+import { withFeatureGateOverrides } from './utils/statsig';
+
+test.describe('Playwright test suite', () => {
+  test.beforeEach(async ({ page }) => {
+    await withFeatureGateOverrides(page, {
+      configs: {},
+      gates: {
+        your_feature_gate: true,
+      },
+      layers: {},
+    });
+  });
+
+  test('should pass', async ({ page }) => {
+    await expect(1).toEqual(1);
+  });
+});
 ```
 
 ### Storybook

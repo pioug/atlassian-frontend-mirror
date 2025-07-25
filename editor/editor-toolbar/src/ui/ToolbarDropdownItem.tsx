@@ -1,7 +1,8 @@
-import React, { type ReactNode } from 'react';
+import React, { type ReactNode, forwardRef, type Ref } from 'react';
 
 import { cssMap, cx } from '@atlaskit/css';
 import { DropdownItem } from '@atlaskit/dropdown-menu';
+import type { CustomItemComponentProps } from '@atlaskit/menu/types';
 import { Box, Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -72,14 +73,58 @@ const styles = cssMap({
 	},
 });
 
+export type CustomDropdownMenuItemButtonProps = CustomItemComponentProps & {
+	'aria-haspopup'?: boolean;
+	'aria-disabled'?: boolean;
+	'aria-pressed'?: boolean;
+};
+
+const CustomDropdownMenuItemButton = forwardRef<
+	HTMLButtonElement,
+	CustomDropdownMenuItemButtonProps
+>(
+	(
+		{
+			children,
+			'data-testid': testId,
+			'aria-haspopup': ariaHasPopup,
+			'aria-disabled': ariaDisabled,
+			'aria-pressed': ariaPressed,
+			onClick,
+			tabIndex,
+		},
+		ref,
+	) => (
+		<Pressable
+			testId={testId}
+			xcss={cx(
+				styles.toolbarDropdownItem,
+				ariaDisabled ? styles.disabled : ariaPressed ? styles.selected : styles.enabled,
+			)}
+			onClick={onClick}
+			tabIndex={tabIndex}
+			aria-haspopup={ariaHasPopup}
+			aria-expanded={ariaHasPopup ? (ariaPressed ? true : false) : undefined}
+			aria-pressed={ariaPressed}
+			aria-disabled={ariaDisabled}
+			ref={ref}
+		>
+			{children}
+		</Pressable>
+	),
+);
+
 type ToolbarDropdownItemProps = {
-	onClick: () => void;
+	onClick?: (e: React.MouseEvent | React.KeyboardEvent) => void;
 	elemBefore?: ReactNode;
 	elemAfter?: ReactNode;
 	isSelected?: boolean;
 	children?: React.ReactNode;
 	textStyle?: TextStyle;
 	isDisabled?: boolean;
+	hasNestedDropdownMenu?: boolean;
+	triggerRef?: Ref<HTMLButtonElement>;
+	testId?: string;
 };
 
 export const ToolbarDropdownItem = ({
@@ -90,42 +135,22 @@ export const ToolbarDropdownItem = ({
 	children,
 	textStyle = 'normal',
 	isDisabled,
-}: ToolbarDropdownItemProps) => {
-	return (
-		<DropdownItem
-			onClick={onClick}
-			elemBefore={elemBefore}
-			elemAfter={elemAfter}
-			isSelected={isSelected}
-			component={({
-				children,
-				'data-testid': testId,
-				draggable,
-				onClick,
-				onDragStart,
-				onMouseDown,
-				ref,
-				tabIndex,
-			}) => (
-				<Pressable
-					testId={testId}
-					xcss={cx(
-						styles.toolbarDropdownItem,
-						isDisabled ? styles.disabled : isSelected ? styles.selected : styles.enabled,
-					)}
-					isDisabled={isDisabled}
-					draggable={draggable}
-					onClick={onClick}
-					onDragStart={onDragStart}
-					onMouseDown={onMouseDown}
-					tabIndex={tabIndex}
-					ref={ref}
-				>
-					{children}
-				</Pressable>
-			)}
-		>
-			<Box xcss={styles[textStyle]}>{children}</Box>
-		</DropdownItem>
-	);
-};
+	hasNestedDropdownMenu,
+	triggerRef,
+	testId,
+}: ToolbarDropdownItemProps) => (
+	<DropdownItem
+		onClick={onClick}
+		elemBefore={elemBefore}
+		elemAfter={elemAfter}
+		isSelected={isSelected}
+		isDisabled={isDisabled}
+		aria-haspopup={hasNestedDropdownMenu}
+		aria-pressed={isSelected}
+		ref={triggerRef}
+		component={CustomDropdownMenuItemButton}
+		testId={testId}
+	>
+		<Box xcss={styles[textStyle]}>{children}</Box>
+	</DropdownItem>
+);

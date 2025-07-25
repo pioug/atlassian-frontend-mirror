@@ -10,4 +10,5 @@ export type {
 	LinkInsertionOption,
 	SelectionExtensionPluginState,
 	SelectionExtensionSelectionInfo,
+	DynamicSelectionExtension,
 } from './types';

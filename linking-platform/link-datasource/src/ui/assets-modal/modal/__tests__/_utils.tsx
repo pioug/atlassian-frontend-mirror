@@ -308,6 +308,7 @@ export const setup = async (
 		getByTestId,
 		queryByTestId,
 		getByText,
+		component,
 		onCancel,
 		onInsert,
 		onAnalyticFireEvent,

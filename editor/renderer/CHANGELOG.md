@@ -1,5 +1,31 @@
 # @atlaskit/renderer
 
+## 120.2.5
+
+### Patch Changes
+
+- [#189276](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/189276)
+  [`95e1796eaa4d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/95e1796eaa4d0) -
+  [ux] Applies reduced padding in Full page renderer on narrow screens.
+- Updated dependencies
+
+## 120.2.4
+
+### Patch Changes
+
+- [#185241](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185241)
+  [`0d1bffce3fedd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d1bffce3fedd) -
+  [ux] View embed as block card when page width smaller or equal to 600px
+- Updated dependencies
+
+## 120.2.3
+
+### Patch Changes
+
+- [#187434](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/187434)
+  [`32a92d196a307`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/32a92d196a307) -
+  Removes fg cc_complexit_fe_reduce_rerender_2
+
 ## 120.2.2
 
 ### Patch Changes

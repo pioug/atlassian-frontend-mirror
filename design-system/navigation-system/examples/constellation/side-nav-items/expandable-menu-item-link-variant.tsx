@@ -9,8 +9,8 @@ import { IconButton } from '@atlaskit/button/new';
 import { cssMap, jsx } from '@atlaskit/css';
 import AddIcon from '@atlaskit/icon/core/add';
 import ChartBarIcon from '@atlaskit/icon/core/chart-bar';
+import HomeIcon from '@atlaskit/icon/core/home';
 import InboxIcon from '@atlaskit/icon/core/inbox';
-import HomeIcon from '@atlaskit/icon/core/migration/home';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import Lozenge from '@atlaskit/lozenge';
 import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
@@ -73,7 +73,7 @@ export function ExpandableMenuItemLinkVariantExample() {
 	const [isMenuItemSelected, setIsMenuItemSelected] = useState(false);
 
 	return (
-		<Inline spread="space-between">
+		<Inline space="space.600">
 			<div css={mockSideNavStyles.root}>
 				<SideNavContent>
 					<MenuList>

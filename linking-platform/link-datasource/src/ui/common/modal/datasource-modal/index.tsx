@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 
 import Modal, { type ModalDialogProps } from '@atlaskit/modal-dialog';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useDatasourceAnalyticsEvents } from '../../../../analytics';
 
@@ -23,7 +24,7 @@ export const DatasourceModal = ({ testId, onClose, children }: DatasourceModalPr
 			onClose={onClose}
 			width="calc(100% - 80px)"
 			shouldScrollInViewport={true}
-			shouldReturnFocus={false}
+			shouldReturnFocus={fg('navx-1180-sllv-return-focus-on-escape') ? true : false}
 		>
 			<ScreenEvent />
 			{children}

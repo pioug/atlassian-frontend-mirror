@@ -15,17 +15,21 @@ import {
 	WidthConsumer,
 	UnsupportedBlock,
 	MediaSingle as UIMediaSingle,
+	WidthContext,
 } from '@atlaskit/editor-common/ui';
 
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import {
 	akEditorDefaultLayoutWidth,
+	akEditorFullPageNarrowBreakout,
 	akEditorFullWidthLayoutWidth,
 	DEFAULT_EMBED_CARD_HEIGHT,
 	DEFAULT_EMBED_CARD_WIDTH,
 } from '@atlaskit/editor-shared-styles';
 import type { RichMediaLayout } from '@atlaskit/adf-schema';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { CardErrorBoundary } from './fallback';
 
@@ -34,6 +38,7 @@ import { FullPagePadding } from '../../ui/Renderer/style';
 import { getCardClickHandler } from '../utils/getCardClickHandler';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { usePortal } from '../../ui/Renderer/PortalContext';
+import BlockCard from './blockCard';
 
 const embedCardWrapperStyles = css({
 	width: '100%',
@@ -56,7 +61,7 @@ const uIMediaSingleLayoutStyles = css({
 	transform: 'translateX(-50%)',
 });
 
-export default function EmbedCard(props: {
+type EmbedCardInternalProps = {
 	url?: string;
 	data?: object;
 	eventHandlers?: EventHandlers;
@@ -69,7 +74,9 @@ export default function EmbedCard(props: {
 	isInsideOfBlockNode?: boolean;
 	smartLinks?: SmartLinksOptions;
 	isInsideOfInlineExtension?: boolean;
-}) {
+};
+
+function EmbedCardInternal(props: EmbedCardInternalProps) {
 	const {
 		url,
 		data,
@@ -272,3 +279,56 @@ export default function EmbedCard(props: {
 		</AnalyticsContext>
 	);
 }
+
+export const EmbedOrBlockCardInternal = ({
+	url,
+	data,
+	eventHandlers,
+	portal,
+	originalHeight,
+	originalWidth,
+	width: embedWidth,
+	layout,
+	rendererAppearance,
+	isInsideOfBlockNode,
+	smartLinks,
+	isInsideOfInlineExtension,
+}: EmbedCardInternalProps) => {
+	const { width } = useContext(WidthContext);
+	const viewAsBlockCard = width && width <= akEditorFullPageNarrowBreakout;
+
+	return viewAsBlockCard ? (
+		<BlockCard
+			url={url}
+			data={data}
+			eventHandlers={eventHandlers}
+			portal={portal}
+			layout={layout}
+			rendererAppearance={rendererAppearance}
+			smartLinks={smartLinks}
+		/>
+	) : (
+		<EmbedCardInternal
+			url={url}
+			data={data}
+			eventHandlers={eventHandlers}
+			portal={portal}
+			originalHeight={originalHeight}
+			originalWidth={originalWidth}
+			width={embedWidth}
+			layout={layout}
+			rendererAppearance={rendererAppearance}
+			isInsideOfBlockNode={isInsideOfBlockNode}
+			smartLinks={smartLinks}
+			isInsideOfInlineExtension={isInsideOfInlineExtension}
+		/>
+	);
+};
+
+const EmbedCardWithCondition = componentWithCondition(
+	() => expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true),
+	EmbedOrBlockCardInternal,
+	EmbedCardInternal,
+);
+
+export default EmbedCardWithCondition;

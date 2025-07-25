@@ -5,4 +5,5 @@ export { toolbarListsIndentationPlugin } from '@atlaskit/editor-plugin-toolbar-l
 export type {
 	ToolbarListsIndentationPlugin,
 	ToolbarListsIndentationPluginOptions,
+	ToolbarListsIndentationPluginDependencies,
 } from '@atlaskit/editor-plugin-toolbar-lists-indentation';

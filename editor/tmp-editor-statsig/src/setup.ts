@@ -2,6 +2,12 @@
 // Entry file in package.json
 
 import { editorExperimentsConfig } from './experiments-config';
+import {
+	testBooleanOverrides,
+	testMultivariateOverrides,
+	type EditorExperimentOverridesBoolean,
+	type EditorExperimentOverridesMultivariate,
+} from './exp-test-overrides';
 
 export type EditorExperimentOverrides = Partial<{
 	[ExperimentName in keyof typeof editorExperimentsConfig]: (typeof editorExperimentsConfig)[ExperimentName]['defaultValue'];
@@ -56,6 +62,25 @@ export function setupEditorExperiments(
 		}, {});
 
 		_overrides = groupOverrides;
+	}
+
+	if (product === 'test') {
+		// Enforce expectation - file overrides, then global overrides, then default to true for boolean
+		// experiments, then last result use the default value
+		const testOverrides: EditorExperimentOverrides = Object.fromEntries(
+			Object.entries(editorExperimentsConfig).map(([key, value]) => {
+				const defaultValue = typeof value.defaultValue === 'boolean' ? true : value.defaultValue;
+				return [
+					key,
+					groupOverrides?.[key as keyof EditorExperimentOverrides] ??
+						testMultivariateOverrides[key as keyof EditorExperimentOverridesMultivariate] ??
+						testBooleanOverrides[key as keyof EditorExperimentOverridesBoolean] ??
+						defaultValue,
+				];
+			}),
+		);
+
+		_overrides = testOverrides;
 	}
 	_product = product;
 

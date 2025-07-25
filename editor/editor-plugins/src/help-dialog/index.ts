@@ -6,4 +6,5 @@ export type {
 	HelpDialogPlugin,
 	HelpDialogSharedState,
 	HelpDialogPluginOptions,
+	HelpDialogDependencies,
 } from '@atlaskit/editor-plugin-help-dialog';

@@ -4,27 +4,27 @@
  */
 import { type FC, type ReactNode, useCallback, useState } from 'react';
 
-import { css, cssMap, jsx } from '@compiled/react';
+import { cssMap, jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button';
-import InlineDialog, { type InlineDialogProps } from '@atlaskit/inline-dialog';
-import { Inline, Text } from '@atlaskit/primitives/compiled';
+import { useId } from '@atlaskit/ds-lib/use-id';
+import Popup, { type PopupProps } from '@atlaskit/popup';
+import { Box, Inline, Pressable, Text } from '@atlaskit/primitives/compiled';
 import { B300, G200, P200, R300, Y200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import type { IconAppearance, IconSpacing, InlineDialogPlacement } from '../../types';
+import type { IconAppearance, IconSpacing, PopupPlacement } from '../../types';
 import MessageIcon from '../message-icon';
 
-interface InlineMessageProps extends Pick<InlineDialogProps, 'fallbackPlacements'> {
+interface InlineMessageProps extends Pick<PopupProps, 'fallbackPlacements'> {
 	/**
-	 * The elements to be displayed by the inline dialog.
+	 * The elements to be displayed by the popup.
 	 */
 	children?: ReactNode;
 	/**
-	 * The placement to be passed to the inline dialog. Determines where around
+	 * The placement to be passed to the popup. Determines where around
 	 * the text the dialog is displayed.
 	 */
-	placement?: InlineDialogPlacement;
+	placement?: PopupPlacement;
 	/**
 	 * Text to display second.
 	 */
@@ -48,7 +48,7 @@ interface InlineMessageProps extends Pick<InlineDialogProps, 'fallbackPlacements
 	 *
 	 * The value of `testId` is attached to the different sub-components in Inline Message:
 	 *  - `testId`: the top-level inline message component
-	 *  - `testId--inline-dialog`: the content of the message
+	 *  - `testId--popup`: the content of the message
 	 *  - `testId--button`: the button element that opens the dialog on press
 	 *  - `testId--title`: the title of the message
 	 *  - `testId--text`: the text of the message
@@ -59,21 +59,40 @@ interface InlineMessageProps extends Pick<InlineDialogProps, 'fallbackPlacements
 	 */
 	iconLabel?: string;
 }
-
-const rootStyles = css({
-	display: 'inline-block',
-	maxWidth: '100%',
-	'&:focus': {
-		outline: '1px solid',
+const styles = cssMap({
+	contentStyles: {
+		paddingInlineStart: token('space.300'),
+		paddingInlineEnd: token('space.300'),
+		paddingBlockStart: token('space.200'),
+		paddingBlockEnd: token('space.200'),
 	},
-	'&:hover': {
-		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		'[data-ds--inline-message--icon]': {
+	rootStyles: {
+		display: 'inline-block',
+		maxWidth: '100%',
+		'&:focus': {
+			outline: '1px solid',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'&:hover [data-ds--inline-message--icon]': {
 			// Legacy style
 			color: 'var(--icon-accent-color)',
 		},
-		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		'[data-ds--inline-message--button]': {
+	},
+	pressableStyles: {
+		display: 'inline-flex',
+		backgroundColor: token('color.background.neutral.subtle'),
+		color: token('color.text.subtle'),
+		whiteSpace: 'nowrap',
+		paddingBlock: token('space.0'),
+		paddingInline: token('space.0'),
+		position: 'relative',
+		alignItems: 'baseline',
+		maxWidth: '100%',
+		height: 'auto',
+		width: 'auto',
+		verticalAlign: 'baseline',
+		font: token('font.body'),
+		'&:hover': {
 			textDecoration: 'underline',
 		},
 	},
@@ -131,6 +150,7 @@ const InlineMessage: FC<InlineMessageProps> = ({
 	fallbackPlacements,
 }) => {
 	const [isOpen, setIsOpen] = useState(false);
+	const id = useId();
 
 	const toggleDialog = useCallback(() => {
 		setIsOpen((oldState) => !oldState);
@@ -139,50 +159,58 @@ const InlineMessage: FC<InlineMessageProps> = ({
 	const onCloseDialog = useCallback(() => setIsOpen(false), [setIsOpen]);
 
 	return (
-		<div css={[rootStyles, iconColor[appearance]]} data-testid={testId}>
-			<InlineDialog
+		<div css={[styles.rootStyles, iconColor[appearance]]} data-testid={testId}>
+			<Popup
 				onClose={onCloseDialog}
-				content={children}
+				content={() => <Box xcss={styles.contentStyles}>{children}</Box>}
 				isOpen={isOpen}
 				placement={placement}
-				testId={testId && `${testId}--inline-dialog`}
+				testId={testId && `${testId}--popup`}
 				fallbackPlacements={fallbackPlacements}
-			>
-				<Button
-					data-ds--inline-message--button
-					appearance="subtle-link"
-					onClick={toggleDialog}
-					spacing="none"
-					testId={testId && `${testId}--button`}
-					aria-expanded={isOpen}
-				>
-					<Inline as="span" space="space.050" alignBlock="center">
-						<MessageIcon
-							isOpen={isOpen}
-							appearance={appearance}
-							label={iconLabel}
-							spacing={spacing}
-						/>
-						<Inline as="span" space="space.100">
-							{title && (
-								<Text weight="medium" testId={testId && `${testId}--title`}>
-									{title}
-								</Text>
-							)}
-							{secondaryText && (
-								<Text
-									weight="medium"
-									color="color.text.subtlest"
-									maxLines={1}
-									testId={testId && `${testId}--text`}
-								>
-									{secondaryText}
-								</Text>
-							)}
+				shouldRenderToParent={true}
+				role="dialog"
+				titleId={id}
+				shouldDisableFocusLock={true}
+				autoFocus={false}
+				trigger={({ ref, ...triggerProps }) => (
+					<Pressable
+						{...triggerProps}
+						ref={ref}
+						id={id}
+						data-ds--inline-message--button
+						onClick={toggleDialog}
+						testId={testId && `${testId}--button`}
+						xcss={styles.pressableStyles}
+						aria-expanded={isOpen}
+					>
+						<Inline as="span" space="space.050" alignBlock="center">
+							<MessageIcon
+								isOpen={isOpen}
+								appearance={appearance}
+								label={iconLabel}
+								spacing={spacing}
+							/>
+							<Inline as="span" space="space.100">
+								{title && (
+									<Text weight="medium" testId={testId && `${testId}--title`}>
+										{title}
+									</Text>
+								)}
+								{secondaryText && (
+									<Text
+										weight="medium"
+										color="color.text.subtlest"
+										maxLines={1}
+										testId={testId && `${testId}--text`}
+									>
+										{secondaryText}
+									</Text>
+								)}
+							</Inline>
 						</Inline>
-					</Inline>
-				</Button>
-			</InlineDialog>
+					</Pressable>
+				)}
+			/>
 		</div>
 	);
 };

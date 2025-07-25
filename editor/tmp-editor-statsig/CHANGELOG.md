@@ -1,5 +1,27 @@
 # @atlaskit/editor-statsig-tmp
 
+## 9.12.0
+
+### Minor Changes
+
+- [#190655](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/190655)
+  [`b74e88d5ebade`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b74e88d5ebade) -
+  [https://product-fabric.atlassian.net/browse/ED-28597](ED-28597) - add
+  platform_editor_smart_card_otp editor Statsig experiment
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.11.0
+
+### Minor Changes
+
+- [#190680](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/190680)
+  [`c27708467595b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c27708467595b) -
+  [ux] ENGHEALTH-32145 A11y violation detected for rule "label" for "@af/editor-plugin-table-tests"
+  from "Editor: Jenga"
+
 ## 9.10.0
 
 ### Minor Changes

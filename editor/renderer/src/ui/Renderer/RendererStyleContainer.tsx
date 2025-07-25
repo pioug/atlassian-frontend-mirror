@@ -31,6 +31,8 @@ import {
 	akEditorBlockquoteBorderColor,
 	akEditorCalculatedWideLayoutWidth,
 	akEditorCalculatedWideLayoutWidthSmallViewport,
+	akEditorFullPageNarrowBreakout,
+	akEditorGutterPaddingReduced,
 	akEditorDefaultLayoutWidth,
 	akEditorFullWidthLayoutWidth,
 	akEditorGutterPadding,
@@ -284,6 +286,21 @@ const responsiveBreakoutWidthFullWidth = css({
 	},
 });
 
+const responsiveBreakoutWidthWithReducedPadding = css({
+	'--ak-editor--breakout-container-without-gutter-width': `calc(100cqw - var(--ak-renderer--full-page-gutter) * 2)`,
+
+	// Corresponds to the legacyContentStyles from `@atlaskit/editor-core` meant to introduce responsive breakout width.
+	'--ak-editor--breakout-wide-layout-width': `${akEditorCalculatedWideLayoutWidthSmallViewport}px`,
+
+	[`@media (min-width: ${akEditorBreakpointForSmallDevice})`]: {
+		'--ak-editor--breakout-wide-layout-width': `${akEditorCalculatedWideLayoutWidth}px`,
+	},
+
+	[`@media (max-width: ${akEditorFullPageNarrowBreakout}px)`]: {
+		'--ak-editor--breakout-container-without-gutter-width': `calc(100cqw - var(--ak-renderer--full-page-gutter) * 2)`,
+	},
+});
+
 const hideHeadingCopyLinkWrapperStyles = css({
 	'& h1, & h2, & h3, & h4, & h5, & h6': {
 		[`.${HeadingAnchorWrapperClassName}`]: {
@@ -312,6 +329,19 @@ const rendererFullPageStyles = css({
 	margin: '0 auto',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
 	padding: `0 ${FullPagePadding}px`,
+});
+
+const rendererFullPageStylesWithReducedPadding = css({
+	'--ak-renderer--full-page-gutter': `${FullPagePadding}px`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+	maxWidth: `${akEditorDefaultLayoutWidth}px`,
+	margin: '0 auto',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+	padding: `0 var(--ak-renderer--full-page-gutter)`,
+
+	[`@media (max-width: ${akEditorFullPageNarrowBreakout}px)`]: {
+		'--ak-renderer--full-page-gutter': `${akEditorGutterPaddingReduced}px`,
+	},
 });
 
 const rendererFullWidthStyles = css({
@@ -2073,6 +2103,11 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 	} = props;
 
 	const isAdvancedLayoutsOn = editorExperiment('advanced_layouts', true);
+	const isPreviewPanelResponsivenessOn = editorExperiment(
+		'platform_editor_preview_panel_responsiveness',
+		true,
+		{ exposure: true },
+	);
 
 	return (
 		// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, @atlassian/a11y/interactive-element-not-keyboard-focusable
@@ -2095,7 +2130,10 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 			css={[
 				baseStyles,
 				hideHeadingCopyLinkWrapperStyles,
-				appearance === 'full-page' && rendererFullPageStyles,
+				appearance === 'full-page' &&
+					isPreviewPanelResponsivenessOn &&
+					rendererFullPageStylesWithReducedPadding,
+				appearance === 'full-page' && !isPreviewPanelResponsivenessOn && rendererFullPageStyles,
 				appearance === 'full-width' && rendererFullWidthStyles,
 				appearance === 'full-width' &&
 					!isTableResizingEnabled(appearance) &&
@@ -2162,7 +2200,10 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				isAdvancedLayoutsOn && layoutSectionForAdvancedLayoutsStyles,
 				!useBlockRenderForCodeBlock && gridRenderForCodeBlockStyles,
 				browser.safari && codeBlockInListSafariFixStyles,
-				appearance === 'full-page' && responsiveBreakoutWidth,
+				appearance === 'full-page' && !isPreviewPanelResponsivenessOn && responsiveBreakoutWidth,
+				appearance === 'full-page' &&
+					isPreviewPanelResponsivenessOn &&
+					responsiveBreakoutWidthWithReducedPadding,
 				appearance === 'full-width' && responsiveBreakoutWidthFullWidth,
 			]}
 			data-testid={testId}

@@ -147,9 +147,6 @@
 		"platform_media_resume_video_on_token_expiry": {
 			"type": "boolean"
 		},
-		"platform_abort_vc_click_file_card": {
-			"type": "boolean"
-		},
 		"platfrom_close_blindspot_for_img": {
 			"type": "boolean"
 		}

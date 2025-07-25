@@ -18,6 +18,9 @@
 	],
 	"references": [
 		{
+			"path": "../../../uip/atlassian-context/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../chunkinator/afm-rovo-extension/tsconfig.json"
 		},
 		{

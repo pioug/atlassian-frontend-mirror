@@ -5,6 +5,9 @@ export { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 export type {
 	HyperlinkPlugin,
 	HyperlinkPluginOptions,
+	HyperlinkPluginDependencies,
+	HyperlinkPluginActions,
+	HyperlinkPluginSharedState,
 	HideLinkToolbar,
 	ShowLinkToolbar,
 	InsertLink,

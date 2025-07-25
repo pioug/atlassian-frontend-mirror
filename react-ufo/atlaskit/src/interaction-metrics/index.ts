@@ -23,7 +23,14 @@ import type {
 	Span,
 	SpanType,
 } from '../common';
-import { getAwaitBM3TTIList, getCapabilityRate, getConfig, getInteractionTimeout } from '../config';
+import {
+	getAwaitBM3TTIList,
+	getCapabilityRate,
+	getConfig,
+	getExperimentalInteractionRate,
+	getInteractionTimeout,
+	getPostInteractionRate,
+} from '../config';
 import {
 	experimentalVC,
 	getExperimentalVCMetrics,
@@ -747,7 +754,10 @@ export function abort(interactionId: string, abortReason: AbortReasonType) {
 		callCancelCallbacks(interaction);
 		interaction.abortReason = abortReason;
 		finishInteraction(interactionId, interaction);
-		if (getConfig()?.experimentalInteractionMetrics?.enabled) {
+		postInteractionLog.reset();
+		postInteractionLog.stopVCObserver();
+
+		if (coinflip(getExperimentalInteractionRate(interaction.ufoName, interaction.type))) {
 			onExperimentalInteractionComplete(interactionId, interaction);
 			remove(interactionId);
 		}
@@ -761,7 +771,10 @@ export function abortByNewInteraction(interactionId: string, interactionName: st
 		interaction.abortReason = 'new_interaction';
 		interaction.abortedByInteractionName = interactionName;
 		finishInteraction(interactionId, interaction);
-		if (getConfig()?.experimentalInteractionMetrics?.enabled) {
+		postInteractionLog.reset();
+		postInteractionLog.stopVCObserver();
+
+		if (coinflip(getExperimentalInteractionRate(interaction.ufoName, interaction.type))) {
 			onExperimentalInteractionComplete(interactionId, interaction);
 			remove(interactionId);
 		}
@@ -780,7 +793,10 @@ export function abortAll(abortReason: AbortReasonType, abortedByInteractionName?
 		}
 
 		finishInteraction(interactionId, interaction);
-		if (getConfig()?.experimentalInteractionMetrics?.enabled) {
+		postInteractionLog.reset();
+		postInteractionLog.stopVCObserver();
+
+		if (coinflip(getExperimentalInteractionRate(interaction.ufoName, interaction.type))) {
 			onExperimentalInteractionComplete(interactionId, interaction);
 			remove(interactionId);
 		}
@@ -803,7 +819,7 @@ export function addNewInteraction(
 	routeName?: string | null,
 	trace: TraceIdContext | null = null,
 ) {
-	if (getConfig()?.postInteractionLog?.enabled) {
+	if (coinflip(getPostInteractionRate(routeName || ufoName, type))) {
 		postInteractionLog.reset();
 	}
 	let vcObserver: VCObserverInterface | undefined;
@@ -929,9 +945,13 @@ export function addNewInteraction(
 		// Use per-interaction VC observer if available, otherwise fall back to global
 		const observer = vcObserver || getVCObserver();
 		observer.start({ startTime, experienceKey: ufoName });
-		postInteractionLog.startVCObserver({ startTime });
-		if (getConfig()?.experimentalInteractionMetrics?.enabled) {
-			experimentalVC.start({ startTime });
+		if (type === 'transition' || fg('platform_ufo_enable_vc_observer_per_interaction')) {
+			if (coinflip(getPostInteractionRate(routeName || ufoName, type))) {
+				postInteractionLog.startVCObserver({ startTime });
+			}
+			if (coinflip(getExperimentalInteractionRate(ufoName, type))) {
+				experimentalVC.start({ startTime });
+			}
 		}
 	}
 

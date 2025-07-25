@@ -5,4 +5,5 @@ export { userPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences'
 export type {
 	UserPreferencesPlugin,
 	UserPreferencesPluginOptions,
+	UserPreferencesSharedState,
 } from '@atlaskit/editor-plugin-user-preferences';

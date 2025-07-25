@@ -307,4 +307,66 @@ describe('useSmartCardState()', () => {
 		expect(elementA).toHaveTextContent(expected);
 		expect(elementA).toStrictEqual(elementB);
 	});
+
+	it('should capture and report a11y violations', async () => {
+		const definitionId = 'foo';
+		const someUrlState = createState(definitionId);
+		const someUrl = 'some.url';
+		const urlToUpdate = 'https://some-unrelated-url.example.com';
+		const initialState: CardStore = {
+			[someUrl]: someUrlState,
+		};
+
+		const wrapper = generateWrapper({ storeOptions: { initialState } });
+		const dispatchSpy = jest.fn();
+
+		const FetchingComponent = () => {
+			const { store } = useSmartLinkContext();
+
+			const load = useCallback(() => {
+				dispatchSpy();
+				store.dispatch(
+					cardAction(
+						ACTION_RESOLVED,
+						{
+							url: urlToUpdate,
+						},
+						createState(definitionId).details,
+					),
+				);
+			}, [store]);
+
+			return <button onClick={load}>Load URL</button>;
+		};
+
+		const Component = ({
+			url,
+			testId,
+			onRender,
+		}: {
+			url: string;
+			testId: string;
+			onRender: () => void;
+		}) => {
+			const state = useSmartCardState(url);
+			onRender();
+			return <div data-testid={testId}>{state.details?.meta?.definitionId}</div>;
+		};
+
+		const spyA = jest.fn();
+		const spyB = jest.fn();
+
+		const { container } = render(
+			<>
+				<Component testId="preloaded-link" url={someUrl} onRender={spyA} />
+				<Component testId="link-to-load" url={urlToUpdate} onRender={spyB} />
+				<FetchingComponent />
+			</>,
+			{
+				wrapper,
+			},
+		);
+
+		await expect(container).toBeAccessible();
+	});
 });

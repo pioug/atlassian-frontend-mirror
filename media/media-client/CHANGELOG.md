@@ -1,5 +1,13 @@
 # @atlaskit/media-client
 
+## 35.2.0
+
+### Minor Changes
+
+- [#188575](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188575)
+  [`f5ac80e740159`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f5ac80e740159) -
+  Add feature flag and logic that disable CDN delivery for requests from Isolated Cloud
+
 ## 35.1.0
 
 ### Minor Changes

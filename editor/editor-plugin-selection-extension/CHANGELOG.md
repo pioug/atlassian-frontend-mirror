@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 3.3.0
+
+### Minor Changes
+
+- [#191056](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/191056)
+  [`ecf381c9ee85c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ecf381c9ee85c) -
+  Update isDisabled prop as boolean type in dynamic configuration
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.2.1
 
 ### Patch Changes

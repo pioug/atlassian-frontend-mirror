@@ -46,3 +46,8 @@ export const CodeBlockRendererWithBreakout = generateRendererComponent({
 	document: codeBlockWithBreakoutAdf,
 	appearance: 'full-page',
 });
+
+export const CodeBlockRendererWithBreakoutFullWidth = generateRendererComponent({
+	document: codeBlockWithBreakoutAdf,
+	appearance: 'full-width',
+});

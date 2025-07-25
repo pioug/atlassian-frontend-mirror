@@ -102,4 +102,10 @@ describe('MetadataBlock', () => {
 			expect(container.children.length).toEqual(0);
 		});
 	});
+
+	it('should capture and report a11y violations', async () => {
+		const { container } = renderMetadataBlock();
+
+		await expect(container).toBeAccessible();
+	});
 });

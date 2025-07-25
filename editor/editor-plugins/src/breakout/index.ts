@@ -6,4 +6,5 @@ export type {
 	BreakoutPlugin,
 	BreakoutPluginOptions,
 	BreakoutPluginState,
+	BreakoutPluginDependencies,
 } from '@atlaskit/editor-plugin-breakout';

@@ -1,5 +1,13 @@
 # @atlaskit/link-provider
 
+## 3.4.2
+
+### Patch Changes
+
+- [#191110](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/191110)
+  [`14f7f807a5bdc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14f7f807a5bdc) -
+  NAVX-1184 adding a11y unit tests to linking-platform packages missing a11y coverage
+
 ## 3.4.1
 
 ### Patch Changes

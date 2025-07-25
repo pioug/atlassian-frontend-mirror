@@ -107,4 +107,10 @@ describe('PreviewBlock', () => {
 			expect(block).toBeDefined();
 		});
 	});
+
+	it('should capture and report a11y violations', async () => {
+		const { container } = renderPreviewBlock();
+
+		await expect(container).toBeAccessible();
+	});
 });

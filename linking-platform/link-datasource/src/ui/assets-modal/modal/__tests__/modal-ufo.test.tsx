@@ -164,4 +164,10 @@ describe('UFO metrics: AssetsConfigModal', () => {
 			});
 		});
 	});
+
+	it('should capture and report a11y violations', async () => {
+		const { component } = await setup();
+
+		await expect(component.container).toBeAccessible();
+	});
 });

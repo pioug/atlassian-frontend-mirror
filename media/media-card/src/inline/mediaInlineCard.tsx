@@ -29,7 +29,6 @@ import {
 	getSucceededStatusPayload,
 } from './mediaInlineCardAnalytics';
 import { useCopyIntent } from '@atlaskit/media-client-react';
-import { fg } from '@atlaskit/platform-feature-flags';
 import usePressTracing from '@atlaskit/react-ufo/use-press-tracing';
 
 export interface MediaInlineCardProps {
@@ -100,9 +99,7 @@ export const MediaInlineCardInternal: FC<MediaInlineCardProps & WrappedComponent
 		}
 
 		// Abort VC when click media inline card
-		if (fg('platform_abort_vc_click_file_card')) {
-			pressTracing();
-		}
+		pressTracing();
 	};
 
 	const onMediaViewerClose = () => setMediaViewerVisible(false);

@@ -2,7 +2,7 @@
 	"extends": "../../../../tsconfig.entry-points.jira.json",
 	"compilerOptions": {
 		"target": "es5",
-		"outDir": "../../../../../tsDist/@atlaskit__editor-plugin-toolbar-lists-indentation/app",
+		"outDir": "../../../../../tsDist/@atlaskit__editor-plugin-track-changes/app",
 		"rootDir": "../",
 		"composite": true
 	},
@@ -17,45 +17,6 @@
 		"../src/**/examples.*"
 	],
 	"references": [
-		{
-			"path": "../../../design-system/css/afm-jira/tsconfig.json"
-		},
-		{
-			"path": "../../editor-plugin-analytics/afm-jira/tsconfig.json"
-		},
-		{
-			"path": "../../editor-plugin-block-type/afm-jira/tsconfig.json"
-		},
-		{
-			"path": "../../editor-plugin-feature-flags/afm-jira/tsconfig.json"
-		},
-		{
-			"path": "../../editor-plugin-indentation/afm-jira/tsconfig.json"
-		},
-		{
-			"path": "../../editor-plugin-list/afm-jira/tsconfig.json"
-		},
-		{
-			"path": "../../editor-plugin-primary-toolbar/afm-jira/tsconfig.json"
-		},
-		{
-			"path": "../../editor-plugin-selection-toolbar/afm-jira/tsconfig.json"
-		},
-		{
-			"path": "../../editor-plugin-tasks-and-decisions/afm-jira/tsconfig.json"
-		},
-		{
-			"path": "../../editor-shared-styles/afm-jira/tsconfig.json"
-		},
-		{
-			"path": "../../../design-system/icon/afm-jira/tsconfig.json"
-		},
-		{
-			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
-		},
-		{
-			"path": "../../tmp-editor-statsig/afm-jira/tsconfig.json"
-		},
 		{
 			"path": "../../../design-system/tokens/afm-jira/tsconfig.json"
 		},

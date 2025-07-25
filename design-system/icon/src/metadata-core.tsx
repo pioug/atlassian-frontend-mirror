@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::07d16387e185cb32efefa66a9ed874c7>>
+ * @codegen <<SignedSource::2137cfdbae9d58a93fc12e3f0d877fc3>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -110,12 +110,12 @@ const metadata: Record<string, metadata> = {
 		status: 'published',
 	},
 	'ai-chat': {
-		keywords: ['ai-chat', 'aichat', 'icon', 'core', 'Rovo', 'AI', 'chat agent'],
+		keywords: ['ai-chat', 'aichat', 'icon', 'core', 'Rovo', 'AI', 'chat agent', 'white label'],
 		componentName: 'AiChatIcon',
 		package: '@atlaskit/icon/core/ai-chat',
 		type: 'core',
 		categorization: 'single-purpose',
-		usage: 'Reserved for Rovo Chat.',
+		usage: 'Reserved for white label Rovo experiences.',
 		team: 'Central AI',
 		status: 'published',
 	},
@@ -3784,6 +3784,16 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for roadmaps in Jira or Trello.',
 		team: 'Design System Team',
+		status: 'published',
+	},
+	'rovo-chat': {
+		keywords: ['rovo-chat', 'rovochat', 'icon', 'core', 'Rovo', 'AI', 'chat agent'],
+		componentName: 'RovoChatIcon',
+		package: '@atlaskit/icon/core/rovo-chat',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for branded Rovo chat experiences.',
+		team: 'Central AI',
 		status: 'published',
 	},
 	scales: {

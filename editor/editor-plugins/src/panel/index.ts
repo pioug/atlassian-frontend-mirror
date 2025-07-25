@@ -6,4 +6,5 @@ export type {
 	PanelPlugin,
 	PanelPluginConfig,
 	PanelPluginOptions,
+	PanelPluginDependencies,
 } from '@atlaskit/editor-plugin-panel';

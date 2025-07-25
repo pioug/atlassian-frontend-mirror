@@ -2,7 +2,7 @@
 	"extends": "../../../../tsconfig.entry-points.post-office.json",
 	"compilerOptions": {
 		"target": "es5",
-		"outDir": "../../../../../post-office/tsDist/@atlaskit__editor-plugin-toolbar-lists-indentation/app",
+		"outDir": "../../../../../post-office/tsDist/@atlaskit__editor-plugin-track-changes/app",
 		"rootDir": "../",
 		"composite": true
 	},
@@ -18,10 +18,10 @@
 	],
 	"references": [
 		{
-			"path": "../editor-common/tsconfig.app.json"
+			"path": "../../../design-system/tokens/afm-post-office/tsconfig.json"
 		},
 		{
-			"path": "../../design-system/tokens/tsconfig.app.json"
+			"path": "../../editor-common/afm-post-office/tsconfig.json"
 		}
 	]
 }

@@ -9,4 +9,8 @@ export type {
 	InsertOrReplaceExtensionType,
 	RunMacroAutoConvert,
 	RejectSave,
+	ExtensionPluginDependencies,
+	ExtensionState,
+	ExtensionAction,
+	ExtensionPluginActions,
 } from '@atlaskit/editor-plugin-extension';

@@ -1,5 +1,41 @@
 # @atlaskit/editor-plugins
 
+## 10.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.1.0
+
+### Minor Changes
+
+- [#190819](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/190819)
+  [`20420774e83cc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/20420774e83cc) -
+  Include Track chages plugin
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.0.7
 
 ### Patch Changes

@@ -94,6 +94,12 @@ export const messages = defineMessages({
 		defaultMessage: 'Display an interactive preview of a link',
 		description: 'Description for option to display link as an embedded object.',
 	},
+	embedToBlockCardWarning: {
+		id: 'fabric.editor.embedToBlockCardWarning',
+		defaultMessage: 'Displays as a card on small screens',
+		description:
+			'Warning message to show the user that embed card will be displayed as a block card on small screens.',
+	},
 	editDropdownExpandIconLabel: {
 		id: 'fabric.editor.editDropdownExpandIconLabel',
 		defaultMessage: 'Expand dropdown menu',

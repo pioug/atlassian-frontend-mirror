@@ -12,4 +12,8 @@ export type {
 	ToggleBulletList,
 	ToggleOrderedList,
 	ListPlugin,
+	ListPluginDependencies,
+	ListPluginActions,
+	ListPluginCommands,
+	ListPluginSharedState,
 } from '@atlaskit/editor-plugin-list';

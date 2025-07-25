@@ -59,6 +59,8 @@ import {
 	JiraLogo,
 	JiraProductDiscoveryIcon,
 	JiraProductDiscoveryLogo,
+	JiraServiceManagementDataCenterIcon,
+	JiraServiceManagementDataCenterLogo,
 	JiraServiceManagementIcon,
 	JiraServiceManagementLogo,
 	JiraSoftwareIcon,
@@ -147,6 +149,11 @@ const logoMap: {
 	{ name: 'studio', logo: StudioLogo, icon: StudioIcon },
 	{ name: 'teams', logo: TeamsLogo, icon: TeamsIcon },
 	{ name: 'jira-data-center', logo: JiraDataCenterLogo, icon: JiraDataCenterIcon },
+	{
+		name: 'jira-service-management-data-center',
+		logo: JiraServiceManagementDataCenterLogo,
+		icon: JiraServiceManagementDataCenterIcon,
+	},
 	{
 		name: 'confluence-data-center',
 		logo: ConfluenceDataCenterLogo,

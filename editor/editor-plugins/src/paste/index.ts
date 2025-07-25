@@ -7,4 +7,5 @@ export type {
 	PastePluginOptions,
 	PastePluginState,
 	LastContentPasted,
+	PastePluginDependencies,
 } from '@atlaskit/editor-plugin-paste';

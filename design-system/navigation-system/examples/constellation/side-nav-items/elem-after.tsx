@@ -1,8 +1,8 @@
 import React from 'react';
 
 import Badge from '@atlaskit/badge';
+import HomeIcon from '@atlaskit/icon/core/home';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
-import HomeIcon from '@atlaskit/icon/core/migration/home';
 import Lozenge from '@atlaskit/lozenge';
 import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
 import { LinkMenuItem } from '@atlaskit/navigation-system/side-nav-items/link-menu-item';

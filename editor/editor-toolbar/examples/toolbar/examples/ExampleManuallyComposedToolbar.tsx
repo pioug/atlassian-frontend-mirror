@@ -7,10 +7,19 @@ import { token } from '@atlaskit/tokens';
 import { ColorIndicatorWrapper } from '../../../src/ui/ColorIndicatorWrapper';
 import { AddIcon } from '../../../src/ui/icons/AddIcon';
 import { AIAdjustLengthIcon } from '../../../src/ui/icons/AIAdjustLengthIcon';
+import { AICasualIcon } from '../../../src/ui/icons/AICasualIcon';
+import { AIChangeToneIcon } from '../../../src/ui/icons/AIChangeToneIcon';
 import { AIChatIcon } from '../../../src/ui/icons/AIChatIcon';
 import { AICommandIcon } from '../../../src/ui/icons/AICommandIcon';
+import { AIHeartIcon } from '../../../src/ui/icons/AIHeartIcon';
+import { AILenghtenIcon } from '../../../src/ui/icons/AILengthenIcon';
+import { AIBriefcaseIcon } from '../../../src/ui/icons/AIProfessionalIcon';
+import { AIShortenIcon } from '../../../src/ui/icons/AIShortenIcon';
+import { AISpellcheckIcon } from '../../../src/ui/icons/AISpellcheckIcon';
+import { AITranslateIcon } from '../../../src/ui/icons/AITranslateIcon';
 import { AppsIcon } from '../../../src/ui/icons/AppsIcon';
 import { BoldIcon } from '../../../src/ui/icons/BoldIcon';
+import { ClearFormattingIcon } from '../../../src/ui/icons/ClearFormattingIcon';
 import { CommentIcon } from '../../../src/ui/icons/CommentIcon';
 import { HeadingFiveIcon } from '../../../src/ui/icons/HeadingFiveIcon';
 import { HeadingFourIcon } from '../../../src/ui/icons/HeadingFourIcon';
@@ -23,6 +32,7 @@ import { LinkIcon } from '../../../src/ui/icons/LinkIcon';
 import { ListBulletedIcon } from '../../../src/ui/icons/ListBulletedIcon';
 import { ListNumberedIcon } from '../../../src/ui/icons/ListNumberedIcon';
 import { MoreItemsIcon } from '../../../src/ui/icons/MoreItemsIcon';
+import { NestedDropdownRightIcon } from '../../../src/ui/icons/NestedDropdownRightIcon';
 import { PinIcon } from '../../../src/ui/icons/PinIcon';
 import { PinnedIcon } from '../../../src/ui/icons/PinnedIcon';
 import { QuoteIcon } from '../../../src/ui/icons/QuoteIcon';
@@ -32,9 +42,12 @@ import { Toolbar } from '../../../src/ui/Toolbar';
 import { ToolbarButton } from '../../../src/ui/ToolbarButton';
 import { ToolbarButtonGroup } from '../../../src/ui/ToolbarButtonGroup';
 import { ToolbarDivider } from '../../../src/ui/ToolbarDivider';
+import { ToolbarDropdownDivider } from '../../../src/ui/ToolbarDropdownDivider';
 import { ToolbarDropdownItem } from '../../../src/ui/ToolbarDropdownItem';
+import { ToolbarDropdownItemSection } from '../../../src/ui/ToolbarDropdownItemSection';
 import { ToolbarDropdownMenu } from '../../../src/ui/ToolbarDropdownMenu';
 import { ToolbarKeyboardShortcutHint } from '../../../src/ui/ToolbarKeyboardShortcutHint';
+import { ToolbarNestedDropdownMenu } from '../../../src/ui/ToolbarNestedDropdownMenu';
 import { ToolbarSection } from '../../../src/ui/ToolbarSection';
 import { ToolbarTooltip } from '../../../src/ui/ToolbarTooltip';
 
@@ -136,16 +149,89 @@ export const ExampleManuallyComposedToolbar = () => {
 							</ToolbarButton>
 						</ToolbarTooltip>
 						<ToolbarDropdownMenu icon={MoreItemsIcon} label="More formatting" groupLocation="end">
-							<ToolbarDropdownItem
-								elemBefore={<AIAdjustLengthIcon label="Adjust length" />}
-								onClick={onClick('Adjust length')}
-								isDisabled={isAdjustLengthDisabled}
-							>
-								Adjust length
-							</ToolbarDropdownItem>
+							<ToolbarDropdownItemSection>
+								<ToolbarNestedDropdownMenu
+									elemBefore={<AIAdjustLengthIcon label="Adjust length" />}
+									text="Adjust length"
+									elemAfter={<NestedDropdownRightIcon label={'Choose desired tone'} />}
+									isDisabled={isAdjustLengthDisabled}
+								>
+									<ToolbarDropdownItemSection>
+										<ToolbarDropdownItem
+											elemBefore={<AIShortenIcon label="Make shorter" />}
+											onClick={onClick('Make shorter')}
+										>
+											Make shorter
+										</ToolbarDropdownItem>
+										<ToolbarDropdownItem
+											elemBefore={<AILenghtenIcon label="Make longer" />}
+											onClick={onClick('Make longer')}
+										>
+											Make longer
+										</ToolbarDropdownItem>
+									</ToolbarDropdownItemSection>
+								</ToolbarNestedDropdownMenu>
+								<ToolbarNestedDropdownMenu
+									elemBefore={<AIChangeToneIcon label="Change tone" />}
+									text="Change tone"
+									elemAfter={<NestedDropdownRightIcon label={'Choose desired tone'} />}
+								>
+									<ToolbarDropdownItemSection>
+										<ToolbarDropdownItem
+											elemBefore={<AIBriefcaseIcon label="More professional" />}
+											onClick={onClick('More professional')}
+										>
+											More professional
+										</ToolbarDropdownItem>
+										<ToolbarDropdownItem
+											elemBefore={<AICasualIcon label="More casual" />}
+											onClick={onClick('More casual')}
+										>
+											More casual
+										</ToolbarDropdownItem>
+										<ToolbarDropdownItem
+											elemBefore={<AIHeartIcon label="More empathetic" />}
+											onClick={onClick('More empathetic')}
+										>
+											More empathetic
+										</ToolbarDropdownItem>
+									</ToolbarDropdownItemSection>
+								</ToolbarNestedDropdownMenu>
+								<ToolbarDropdownItem
+									elemBefore={<AISpellcheckIcon label="Fix spelling and grammar" />}
+									onClick={onClick('Fix spelling and grammar')}
+								>
+									Fix spelling and grammar
+								</ToolbarDropdownItem>
+								<ToolbarNestedDropdownMenu
+									elemBefore={<AITranslateIcon label="Translate" />}
+									text="Translate"
+									elemAfter={<NestedDropdownRightIcon label={'Choose language option'} />}
+								>
+									<ToolbarDropdownItemSection>
+										<ToolbarDropdownItem
+											elemBefore={<AITranslateIcon label="Language 1" />}
+											onClick={onClick('Language 1')}
+										>
+											Language 1
+										</ToolbarDropdownItem>
+										<ToolbarDropdownItem
+											elemBefore={<AITranslateIcon label="Language 2" />}
+											onClick={onClick('More casual')}
+										>
+											Language 2
+										</ToolbarDropdownItem>
+										<ToolbarDropdownItem
+											elemBefore={<AITranslateIcon label="Language 3" />}
+											onClick={onClick('Language 3')}
+										>
+											Language 3
+										</ToolbarDropdownItem>
+									</ToolbarDropdownItemSection>
+								</ToolbarNestedDropdownMenu>
+							</ToolbarDropdownItemSection>
 						</ToolbarDropdownMenu>
 					</ToolbarButtonGroup>
-
 					<ToolbarButtonGroup>
 						<ToolbarTooltip content="Improve writing">
 							<ToolbarButton
@@ -182,78 +268,80 @@ export const ExampleManuallyComposedToolbar = () => {
 								label="Text styles"
 								isDisabled={isTextStylesDisabled}
 							>
-								<ToolbarDropdownItem
-									elemBefore={<TextIcon label="Normal text" />}
-									elemAfter={<ToolbarKeyboardShortcutHint shortcut="⌘⌥0" />}
-									onClick={onClick('Normal text', onSetTextStyle('normal'))}
-									isSelected={textStyle === 'normal'}
-									textStyle="normal"
-								>
-									Normal text
-								</ToolbarDropdownItem>
-								<ToolbarDropdownItem
-									elemBefore={<HeadingOneIcon label="Heading One" />}
-									elemAfter={<ToolbarKeyboardShortcutHint shortcut="⌘⌥1" />}
-									onClick={onClick('Heading one', onSetTextStyle('heading1'))}
-									isSelected={textStyle === 'heading1'}
-									textStyle="heading1"
-								>
-									Heading 1
-								</ToolbarDropdownItem>
-								<ToolbarDropdownItem
-									elemBefore={<HeadingTwoIcon label="Heading Two" />}
-									elemAfter={<ToolbarKeyboardShortcutHint shortcut="⌘⌥2" />}
-									onClick={onClick('Heading two', onSetTextStyle('heading2'))}
-									isSelected={textStyle === 'heading2'}
-									textStyle="heading2"
-								>
-									Heading 2
-								</ToolbarDropdownItem>
-								<ToolbarDropdownItem
-									elemBefore={<HeadingThreeIcon label="Heading Three" />}
-									elemAfter={<ToolbarKeyboardShortcutHint shortcut="⌘⌥3" />}
-									onClick={onClick('Heading three', onSetTextStyle('heading3'))}
-									isSelected={textStyle === 'heading3'}
-									textStyle="heading3"
-								>
-									Heading 3
-								</ToolbarDropdownItem>
-								<ToolbarDropdownItem
-									elemBefore={<HeadingFourIcon label="Heading Four" />}
-									elemAfter={<ToolbarKeyboardShortcutHint shortcut="⌘⌥4" />}
-									onClick={onClick('Heading four', onSetTextStyle('heading4'))}
-									isSelected={textStyle === 'heading4'}
-									textStyle="heading4"
-								>
-									Heading 4
-								</ToolbarDropdownItem>
-								<ToolbarDropdownItem
-									elemBefore={<HeadingFiveIcon label="Heading Five" />}
-									elemAfter={<ToolbarKeyboardShortcutHint shortcut="⌘⌥5" />}
-									onClick={onClick('Heading five', onSetTextStyle('heading5'))}
-									isSelected={textStyle === 'heading5'}
-									textStyle="heading5"
-								>
-									Heading 5
-								</ToolbarDropdownItem>
-								<ToolbarDropdownItem
-									elemBefore={<HeadingSixIcon label="Heading Six" />}
-									elemAfter={<ToolbarKeyboardShortcutHint shortcut="⌘⌥6" />}
-									onClick={onClick('Heading six', onSetTextStyle('heading6'))}
-									isSelected={textStyle === 'heading6'}
-									textStyle="heading6"
-								>
-									Heading 6
-								</ToolbarDropdownItem>
-								<ToolbarDropdownItem
-									elemBefore={<QuoteIcon label="Quote" />}
-									elemAfter={<ToolbarKeyboardShortcutHint shortcut="⌘⌥9" />}
-									onClick={onClick('Quote', onSetTextStyle('quote'))}
-									isSelected={textStyle === 'quote'}
-									textStyle="normal"
-								>
-									Quote
-								</ToolbarDropdownItem>
+								<ToolbarDropdownItemSection>
+									<ToolbarDropdownItem
+										elemBefore={<TextIcon label="Normal text" />}
+										elemAfter={<ToolbarKeyboardShortcutHint shortcut="⌘⌥0" />}
+										onClick={onClick('Normal text', onSetTextStyle('normal'))}
+										isSelected={textStyle === 'normal'}
+										textStyle="normal"
+									>
+										Normal text
+									</ToolbarDropdownItem>
+									<ToolbarDropdownItem
+										elemBefore={<HeadingOneIcon label="Heading One" />}
+										elemAfter={<ToolbarKeyboardShortcutHint shortcut="⌘⌥1" />}
+										onClick={onClick('Heading one', onSetTextStyle('heading1'))}
+										isSelected={textStyle === 'heading1'}
+										textStyle="heading1"
+									>
+										Heading 1
+									</ToolbarDropdownItem>
+									<ToolbarDropdownItem
+										elemBefore={<HeadingTwoIcon label="Heading Two" />}
+										elemAfter={<ToolbarKeyboardShortcutHint shortcut="⌘⌥2" />}
+										onClick={onClick('Heading two', onSetTextStyle('heading2'))}
+										isSelected={textStyle === 'heading2'}
+										textStyle="heading2"
+									>
+										Heading 2
+									</ToolbarDropdownItem>
+									<ToolbarDropdownItem
+										elemBefore={<HeadingThreeIcon label="Heading Three" />}
+										elemAfter={<ToolbarKeyboardShortcutHint shortcut="⌘⌥3" />}
+										onClick={onClick('Heading three', onSetTextStyle('heading3'))}
+										isSelected={textStyle === 'heading3'}
+										textStyle="heading3"
+									>
+										Heading 3
+									</ToolbarDropdownItem>
+									<ToolbarDropdownItem
+										elemBefore={<HeadingFourIcon label="Heading Four" />}
+										elemAfter={<ToolbarKeyboardShortcutHint shortcut="⌘⌥4" />}
+										onClick={onClick('Heading four', onSetTextStyle('heading4'))}
+										isSelected={textStyle === 'heading4'}
+										textStyle="heading4"
+									>
+										Heading 4
+									</ToolbarDropdownItem>
+									<ToolbarDropdownItem
+										elemBefore={<HeadingFiveIcon label="Heading Five" />}
+										elemAfter={<ToolbarKeyboardShortcutHint shortcut="⌘⌥5" />}
+										onClick={onClick('Heading five', onSetTextStyle('heading5'))}
+										isSelected={textStyle === 'heading5'}
+										textStyle="heading5"
+									>
+										Heading 5
+									</ToolbarDropdownItem>
+									<ToolbarDropdownItem
+										elemBefore={<HeadingSixIcon label="Heading Six" />}
+										elemAfter={<ToolbarKeyboardShortcutHint shortcut="⌘⌥6" />}
+										onClick={onClick('Heading six', onSetTextStyle('heading6'))}
+										isSelected={textStyle === 'heading6'}
+										textStyle="heading6"
+									>
+										Heading 6
+									</ToolbarDropdownItem>
+									<ToolbarDropdownItem
+										elemBefore={<QuoteIcon label="Quote" />}
+										elemAfter={<ToolbarKeyboardShortcutHint shortcut="⌘⌥9" />}
+										onClick={onClick('Quote', onSetTextStyle('quote'))}
+										isSelected={textStyle === 'quote'}
+										textStyle="normal"
+									>
+										Quote
+									</ToolbarDropdownItem>
+								</ToolbarDropdownItemSection>
 							</ToolbarDropdownMenu>
 						</ToolbarTooltip>
 					</ToolbarButtonGroup>
@@ -273,24 +361,36 @@ export const ExampleManuallyComposedToolbar = () => {
 							/>
 						</ToolbarTooltip>
 						<ToolbarDropdownMenu icon={MoreItemsIcon} label="More formatting" groupLocation="end">
-							<ToolbarDropdownItem
-								elemBefore={<BoldIcon label="Bold" />}
-								elemAfter={<ToolbarKeyboardShortcutHint shortcut="⌘B" />}
-								onClick={onClick('Bold', onToggleFormatting('bold'))}
-								isSelected={formatting.bold}
-								isDisabled={isBoldDisabled}
-							>
-								Bold
-							</ToolbarDropdownItem>
-							<ToolbarDropdownItem
-								elemBefore={<ItalicIcon label="Italic" />}
-								elemAfter={<ToolbarKeyboardShortcutHint shortcut="⌘I" />}
-								onClick={onClick('Italic', onToggleFormatting('italic'))}
-								isSelected={formatting.italic}
-								isDisabled={isItalicDisabled}
-							>
-								Italic
-							</ToolbarDropdownItem>
+							<ToolbarDropdownItemSection>
+								<ToolbarDropdownItem
+									elemBefore={<BoldIcon label="Bold" />}
+									elemAfter={<ToolbarKeyboardShortcutHint shortcut="⌘B" />}
+									onClick={onClick('Bold', onToggleFormatting('bold'))}
+									isSelected={formatting.bold}
+									isDisabled={isBoldDisabled}
+								>
+									Bold
+								</ToolbarDropdownItem>
+								<ToolbarDropdownItem
+									elemBefore={<ItalicIcon label="Italic" />}
+									elemAfter={<ToolbarKeyboardShortcutHint shortcut="⌘I" />}
+									onClick={onClick('Italic', onToggleFormatting('italic'))}
+									isSelected={formatting.italic}
+									isDisabled={isItalicDisabled}
+								>
+									Italic
+								</ToolbarDropdownItem>
+							</ToolbarDropdownItemSection>
+							<ToolbarDropdownDivider />
+							<ToolbarDropdownItemSection>
+								<ToolbarDropdownItem
+									elemBefore={<ClearFormattingIcon label="Clear formatting" />}
+									elemAfter={<ToolbarKeyboardShortcutHint shortcut="⌘\" />}
+									onClick={onClick('Clear formatting')}
+								>
+									Clear formatting
+								</ToolbarDropdownItem>
+							</ToolbarDropdownItemSection>
 						</ToolbarDropdownMenu>
 					</ToolbarButtonGroup>
 
@@ -312,12 +412,14 @@ export const ExampleManuallyComposedToolbar = () => {
 								label="Text color"
 								isDisabled={isTextColorDisabled}
 							>
-								<ToolbarDropdownItem
-									elemBefore={<TextIcon label="Text color" />}
-									onClick={onClick('Text color')}
-								>
-									Text color
-								</ToolbarDropdownItem>
+								<ToolbarDropdownItemSection>
+									<ToolbarDropdownItem
+										elemBefore={<TextIcon label="Text color" />}
+										onClick={onClick('Text color')}
+									>
+										Text color
+									</ToolbarDropdownItem>
+								</ToolbarDropdownItemSection>
 							</ToolbarDropdownMenu>
 						</ToolbarTooltip>
 					</ToolbarButtonGroup>
@@ -345,24 +447,26 @@ export const ExampleManuallyComposedToolbar = () => {
 							label="Lists, indentation and alignment"
 							groupLocation="end"
 						>
-							<ToolbarDropdownItem
-								elemBefore={<ListBulletedIcon label="Bulleted list" />}
-								elemAfter={<ToolbarKeyboardShortcutHint shortcut="⌘⇧8" />}
-								onClick={onClick('Bulleted list', onToggleListOrAlignment('bulleted'))}
-								isSelected={listOrAlignment === 'bulleted'}
-								isDisabled={isBulletedListDisabled}
-							>
-								Bulleted list
-							</ToolbarDropdownItem>
-							<ToolbarDropdownItem
-								elemBefore={<ListNumberedIcon label="Numbered list" />}
-								elemAfter={<ToolbarKeyboardShortcutHint shortcut="⌘⇧7" />}
-								onClick={onClick('Numbered list', onToggleListOrAlignment('numbered'))}
-								isSelected={listOrAlignment === 'numbered'}
-								isDisabled={isNumberedListDisabled}
-							>
-								Numbered list
-							</ToolbarDropdownItem>
+							<ToolbarDropdownItemSection>
+								<ToolbarDropdownItem
+									elemBefore={<ListBulletedIcon label="Bulleted list" />}
+									elemAfter={<ToolbarKeyboardShortcutHint shortcut="⌘⇧8" />}
+									onClick={onClick('Bulleted list', onToggleListOrAlignment('bulleted'))}
+									isSelected={listOrAlignment === 'bulleted'}
+									isDisabled={isBulletedListDisabled}
+								>
+									Bulleted list
+								</ToolbarDropdownItem>
+								<ToolbarDropdownItem
+									elemBefore={<ListNumberedIcon label="Numbered list" />}
+									elemAfter={<ToolbarKeyboardShortcutHint shortcut="⌘⇧7" />}
+									onClick={onClick('Numbered list', onToggleListOrAlignment('numbered'))}
+									isSelected={listOrAlignment === 'numbered'}
+									isDisabled={isNumberedListDisabled}
+								>
+									Numbered list
+								</ToolbarDropdownItem>
+							</ToolbarDropdownItemSection>
 						</ToolbarDropdownMenu>
 					</ToolbarButtonGroup>
 				</ToolbarSection>
@@ -407,13 +511,15 @@ export const ExampleManuallyComposedToolbar = () => {
 								label="Apps and extensions"
 								isDisabled={isAppsAndExtensionsDisabled}
 							>
-								<ToolbarDropdownItem
-									elemBefore={<AddIcon label="Create Jira work item" />}
-									onClick={onClick('Create Jira work item')}
-									isDisabled={isCreateJiraWorkItemDisabled}
-								>
-									Create Jira work item
-								</ToolbarDropdownItem>
+								<ToolbarDropdownItemSection>
+									<ToolbarDropdownItem
+										elemBefore={<AddIcon label="Create Jira work item" />}
+										onClick={onClick('Create Jira work item')}
+										isDisabled={isCreateJiraWorkItemDisabled}
+									>
+										Create Jira work item
+									</ToolbarDropdownItem>
+								</ToolbarDropdownItemSection>
 							</ToolbarDropdownMenu>
 						</ToolbarTooltip>
 					</ToolbarButtonGroup>

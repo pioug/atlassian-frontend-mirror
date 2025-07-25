@@ -1,5 +1,6 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 import { isCommercial } from './isCommercial';
+import { isIsolatedCloud } from '@atlaskit/atlassian-context';
 
 export const MEDIA_CDN_MAP: { [key: string]: string } = {
 	'api.media.atlassian.com': 'media-cdn.atlassian.com',
@@ -16,6 +17,13 @@ export function mapToMediaCdnUrl(url: string, token: string) {
 	if (!isCommercial() || tokenLength > MEDIA_TOKEN_LENGTH_LIMIT) {
 		return url;
 	}
+
+	if (fg('platform_disable_isolated_cloud_media_cdn_delivery')) {
+		if (isIsolatedCloud()) {
+			return url;
+		}
+	}
+
 	// eslint-disable-next-line @atlaskit/platform/no-preconditioning
 	if (fg('platform_media_cdn_delivery') && fg('platform_media_cdn_single_host')) {
 		try {

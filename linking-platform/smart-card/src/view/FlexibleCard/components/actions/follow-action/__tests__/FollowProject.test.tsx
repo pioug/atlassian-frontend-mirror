@@ -107,4 +107,10 @@ describe('Follow Project Action', () => {
 			title: <FormattedMessage {...messages.follow_project_error} />,
 		});
 	});
+
+	it('should capture and report a11y violations', async () => {
+		const { container } = setup();
+
+		await expect(container).toBeAccessible();
+	});
 });

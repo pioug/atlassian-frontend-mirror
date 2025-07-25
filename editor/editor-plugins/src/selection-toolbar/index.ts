@@ -5,4 +5,5 @@ export { selectionToolbarPlugin } from '@atlaskit/editor-plugin-selection-toolba
 export type {
 	SelectionToolbarPlugin,
 	SelectionToolbarPluginOptions,
+	ToolbarDocking,
 } from '@atlaskit/editor-plugin-selection-toolbar';

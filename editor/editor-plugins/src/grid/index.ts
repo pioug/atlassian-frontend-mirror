@@ -4,6 +4,10 @@
 export { gridPlugin } from '@atlaskit/editor-plugin-grid';
 export type {
 	GridPlugin,
+	GridPluginDependencies,
+	GridPluginSharedState,
+	GridPluginActions,
+	GridPluginConfiguration,
 	CreateDisplayGrid,
 	Highlights,
 	GridPluginOptions,

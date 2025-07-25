@@ -89,6 +89,8 @@ export const generateRendererComponent = (
 export const TableRendererOverflow = generateRendererComponent({
 	document: overflowTable,
 	appearance: 'full-page',
+	UNSTABLE_allowTableAlignment: true,
+	UNSTABLE_allowTableResizing: true,
 });
 
 export const TableRendererWithInlineComments = () => (

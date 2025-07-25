@@ -4,6 +4,7 @@
 export { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 export type {
 	TypeAheadPlugin,
+	OpenTypeAheadProps,
 	TypeAheadHandler,
 	TypeAheadInputMethod,
 	TypeAheadPluginOptions,

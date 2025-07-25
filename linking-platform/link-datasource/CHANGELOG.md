@@ -1,5 +1,22 @@
 # @atlaskit/link-datasource
 
+## 4.14.6
+
+### Patch Changes
+
+- [#191110](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/191110)
+  [`14f7f807a5bdc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14f7f807a5bdc) -
+  NAVX-1184 adding a11y unit tests to linking-platform packages missing a11y coverage
+- Updated dependencies
+
+## 4.14.5
+
+### Patch Changes
+
+- [#189884](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/189884)
+  [`e57a4d8f2ed72`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e57a4d8f2ed72) -
+  NAVX-1180 datasource modal should return focus when closed
+
 ## 4.14.4
 
 ### Patch Changes

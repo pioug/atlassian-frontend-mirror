@@ -21,16 +21,22 @@
 			"path": "../../button/afm-townsquare/tsconfig.json"
 		},
 		{
-			"path": "../../icon/afm-townsquare/tsconfig.json"
+			"path": "../../ds-lib/afm-townsquare/tsconfig.json"
 		},
 		{
-			"path": "../../inline-dialog/afm-townsquare/tsconfig.json"
+			"path": "../../icon/afm-townsquare/tsconfig.json"
 		},
 		{
 			"path": "../../link/afm-townsquare/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../popper/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../popup/afm-townsquare/tsconfig.json"
 		},
 		{
 			"path": "../../primitives/afm-townsquare/tsconfig.json"

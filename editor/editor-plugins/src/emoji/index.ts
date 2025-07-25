@@ -7,4 +7,7 @@ export type {
 	EmojiPluginOptions,
 	EmojiPluginState,
 	EmojiPluginSharedState,
+	EmojiPluginDependencies,
+	EmojiPluginActions,
+	EmojiPluginCommands,
 } from '@atlaskit/editor-plugin-emoji';

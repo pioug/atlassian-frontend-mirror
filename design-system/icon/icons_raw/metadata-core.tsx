@@ -34,14 +34,14 @@ const metadata: IconMetadata = {
 		usage: 'Single purpose - Reserved for Rovo Agent.',
 	},
 	'ai-chat': {
-		keywords: ['Rovo', 'AI', 'chat agent'],
+		keywords: ['Rovo', 'AI', 'chat agent', 'white label'],
 		categorization: 'single-purpose',
 		location: '@atlaskit/icon',
 		team: 'Central AI',
 		type: 'core',
 		status: 'published',
 		id: '49020:11049',
-		usage: 'Reserved for Rovo Chat.',
+		usage: 'Reserved for white label Rovo experiences.',
 	},
 	'ai-generative-text-summary': {
 		keywords: ['summarize', 'summarise', 'summary', 'automation', 'AI'],
@@ -728,7 +728,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'core',
 		status: 'published',
-		id: '49020:13359',
+		id: '15048:8413',
 		usage:
 			'Single purpose - Reserved for contracting or reducing the width of an element to its smallest size.',
 	},
@@ -739,7 +739,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'core',
 		status: 'published',
-		id: '49020:13447',
+		id: '15048:8447',
 		usage:
 			'Single purpose - Reserved for contracting or reducing the height of an element to its smallest size.',
 	},
@@ -2566,6 +2566,16 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13903',
 		usage: 'Single purpose - Reserved for roadmaps in Jira or Trello.',
+	},
+	'rovo-chat': {
+		keywords: ['Rovo', 'AI', 'chat agent'],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon',
+		team: 'Central AI',
+		type: 'core',
+		status: 'published',
+		id: '51043:8754',
+		usage: 'Reserved for branded Rovo chat experiences.',
 	},
 	scales: {
 		keywords: ['scales', 'rule', 'law'],

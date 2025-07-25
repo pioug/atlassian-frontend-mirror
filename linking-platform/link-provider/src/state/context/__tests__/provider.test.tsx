@@ -213,4 +213,16 @@ describe('Provider', () => {
 
 		expect(store).not.toBe(newStore);
 	});
+
+	it('should capture and report a11y violations', async () => {
+		const fn = jest.fn();
+		const client = new CardClient();
+		const { container } = render(
+			<SmartCardProvider client={client}>
+				<Context.Consumer>{fn}</Context.Consumer>
+			</SmartCardProvider>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
 });

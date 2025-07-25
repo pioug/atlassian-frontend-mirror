@@ -123,4 +123,10 @@ describe('Analytics: ConfluenceSearchContainer', () => {
 			);
 		});
 	});
+
+	it('should capture and report a11y violations', async () => {
+		const { container } = setup();
+
+		await expect(container.container).toBeAccessible();
+	});
 });

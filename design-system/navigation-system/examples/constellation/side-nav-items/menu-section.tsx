@@ -53,7 +53,7 @@ function MoreAction() {
 
 export function MenuSectionExample() {
 	return (
-		<Inline spread="space-between">
+		<Inline space="space.600">
 			<MockSideNav>
 				<SideNavContent>
 					<MenuList>

@@ -26,12 +26,14 @@
 	"af:exports": {
 		".": "./src/index.ts",
 		"./team-containers": "./src/ui/team-containers/index.ts",
-		"./loom-avatar": "./src/common/ui/loom-avatar/index.ts"
+		"./loom-avatar": "./src/common/ui/loom-avatar/index.ts",
+		"./i18n": "./src/i18n/index.ts"
 	},
 	"exports": {
 		".": "./src/index.ts",
 		"./team-containers": "./src/ui/team-containers/index.ts",
-		"./loom-avatar": "./src/common/ui/loom-avatar/index.ts"
+		"./loom-avatar": "./src/common/ui/loom-avatar/index.ts",
+		"./i18n": "./src/i18n/index.ts"
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:^",
@@ -119,7 +121,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "0.46.0",
+	"version": "0.47.0",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

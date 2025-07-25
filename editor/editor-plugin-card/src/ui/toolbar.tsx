@@ -66,6 +66,7 @@ import CogIcon from '@atlaskit/icon/core/migration/settings--editor-settings';
 import SettingsIcon from '@atlaskit/icon/core/settings';
 import { fg } from '@atlaskit/platform-feature-flags';
 import type { CardAppearance } from '@atlaskit/smart-card';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { cardPlugin } from '../index';
@@ -243,7 +244,13 @@ export const floatingToolbar = (
 				if (isEmbedCard) {
 					// Ignored via go/ees005
 					// eslint-disable-next-line @atlaskit/editor/no-as-casting
-					return element.querySelector(`.${richMediaClassName}`) as HTMLElement;
+					const richMediaElement = element.querySelector(`.${richMediaClassName}`) as HTMLElement;
+					if (!expValEquals('platform_editor_preview_panel_responsiveness', 'isEnabled', true)) {
+						return richMediaElement;
+					}
+					if (richMediaElement) {
+						return richMediaElement;
+					}
 				}
 				return element;
 			},

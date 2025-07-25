@@ -2,11 +2,11 @@ import React from 'react';
 
 import { IconButton } from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';
-import AlignTextLeftIcon from '@atlaskit/icon/core/migration/align-text-left--editor-align-left';
-import BoardIcon from '@atlaskit/icon/core/migration/board';
-import ClockIcon from '@atlaskit/icon/core/migration/clock--recent';
-import FilterIcon from '@atlaskit/icon/core/migration/filter';
-import SearchIcon from '@atlaskit/icon/core/migration/search';
+import AlignTextLeftIcon from '@atlaskit/icon/core/align-text-left';
+import BoardIcon from '@atlaskit/icon/core/board';
+import ClockIcon from '@atlaskit/icon/core/clock';
+import FilterIcon from '@atlaskit/icon/core/filter';
+import SearchIcon from '@atlaskit/icon/core/search';
 import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
 import { ContainerAvatar } from '@atlaskit/navigation-system/side-nav-items/container-avatar';
 import {

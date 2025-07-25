@@ -7,4 +7,5 @@ export type {
 	BasePluginState,
 	BasePluginOptions,
 	ScrollGutterPluginOptions,
+	Callback,
 } from '@atlaskit/editor-plugin-base';

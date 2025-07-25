@@ -1,114 +1,117 @@
 {
-    "extends": "../../../../tsconfig.entry-points.confluence.json",
-    "compilerOptions": {
-        "target": "es5",
-        "composite": true,
-        "outDir": "../../../../../confluence/tsDist/@atlaskit__editor-plugin-card",
-        "rootDir": "../"
-    },
-    "include": [
-        "../src/**/*.ts",
-        "../src/**/*.tsx"
-    ],
-    "exclude": [
-        "../src/**/__tests__/*",
-        "../src/**/*.test.*",
-        "../src/**/test.*",
-        "../src/**/examples.*"
-    ],
-    "references": [
-        {
-            "path": "../../../analytics/analytics-next/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/button/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../custom-steps/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../editor-plugin-analytics/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../editor-plugin-base/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../editor-plugin-connectivity/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../editor-plugin-decorations/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../editor-plugin-editor-disabled/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../editor-plugin-editor-viewmode/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../editor-plugin-feature-flags/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../editor-plugin-floating-toolbar/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../editor-plugin-grid/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../editor-plugin-width/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../editor-shared-styles/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../helpers/frontend-utilities/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/icon/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/link/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../linking-platform/link-analytics/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../linking-platform/link-client-extension/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../linking-platform/link-datasource/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../linking-platform/linking-common/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../linking-platform/linking-types/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/menu/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/primitives/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../linking-platform/smart-card/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/theme/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../tmp-editor-statsig/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/tokens/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../editor-common/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../linking-platform/link-provider/afm-cc/tsconfig.json"
-        }
-    ]
+	"extends": "../../../../tsconfig.entry-points.confluence.json",
+	"compilerOptions": {
+		"target": "es5",
+		"composite": true,
+		"outDir": "../../../../../confluence/tsDist/@atlaskit__editor-plugin-card",
+		"rootDir": "../"
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/button/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../custom-steps/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-analytics/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-base/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-connectivity/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-decorations/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-editor-disabled/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-editor-viewmode/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-feature-flags/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-floating-toolbar/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-grid/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-width/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-shared-styles/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../helpers/frontend-utilities/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/link/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/link-analytics/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/link-client-extension/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/link-datasource/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/linking-common/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/linking-types/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/menu/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags-react/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/smart-card/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/link-provider/afm-cc/tsconfig.json"
+		}
+	]
 }

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { IconButton } from '@atlaskit/button/new';
 import AddIcon from '@atlaskit/icon/core/add';
-import HomeIcon from '@atlaskit/icon/core/migration/home';
+import HomeIcon from '@atlaskit/icon/core/home';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import Lozenge from '@atlaskit/lozenge';
 import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
@@ -40,7 +40,7 @@ function MoreAction() {
 
 export function ActionsAndActionsOnHoverExample() {
 	return (
-		<Inline spread="space-between">
+		<Inline space="space.600">
 			<MockSideNav>
 				<SideNavContent>
 					<MenuList>

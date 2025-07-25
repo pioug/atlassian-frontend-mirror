@@ -124,3 +124,5 @@ export type { OpenChangedEvent } from './DropList';
 export { sharedMultiBodiedExtensionStyles } from './MultiBodiedExtension';
 
 export { default as TableSelectorPopup, type TableSelectorPopupProps } from './TableSelector';
+
+export { default as HoverLinkOverlay } from './HoverLinkOverlay';

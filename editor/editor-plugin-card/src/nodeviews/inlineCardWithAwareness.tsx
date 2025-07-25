@@ -7,6 +7,7 @@ import {
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { HoverLinkOverlay } from '@atlaskit/editor-common/ui';
 import { NodeSelection, type Transaction } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { getObjectAri, getObjectName, getObjectIconUrl } from '@atlaskit/smart-card';
@@ -16,7 +17,6 @@ import { type cardPlugin } from '../cardPlugin';
 import { registerRemoveOverlay } from '../pm-plugins/actions';
 import { pluginKey } from '../pm-plugins/plugin-key';
 import { AwarenessWrapper } from '../ui/AwarenessWrapper';
-import HoverLinkOverlay from '../ui/HoverLinkOverlay';
 
 import type { SmartCardProps } from './genericCard';
 import { InlineCard } from './inlineCard';
@@ -121,7 +121,7 @@ export const InlineCardWithAwareness = memo(
 				<HoverLinkOverlay
 					isVisible={isResolvedViewRendered}
 					url={node.attrs.url}
-					editorAppearance={editorAppearance}
+					compactPadding={editorAppearance === 'comment' || editorAppearance === 'chromeless'}
 					editorAnalyticsApi={pluginInjectionApi?.analytics?.actions}
 					view={view}
 				>
@@ -235,7 +235,7 @@ export const InlineCardWithAwareness = memo(
 					<HoverLinkOverlay
 						isVisible={isResolvedViewRendered}
 						url={node.attrs.url}
-						editorAppearance={editorAppearance}
+						compactPadding={editorAppearance === 'comment' || editorAppearance === 'chromeless'}
 						editorAnalyticsApi={pluginInjectionApi?.analytics?.actions}
 						view={view}
 						showPanelButton={!!isPanelAvailable}

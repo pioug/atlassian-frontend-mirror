@@ -2,26 +2,32 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import { useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { type Mark } from '@atlaskit/editor-prosemirror/model';
-import { Card } from '@atlaskit/smart-card';
+import { useSmartCardContext } from '@atlaskit/link-provider';
+import { Card, getObjectAri, getObjectIconUrl, getObjectName } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
-import { UnsupportedInline } from '@atlaskit/editor-common/ui';
+import { HoverLinkOverlay, UnsupportedInline } from '@atlaskit/editor-common/ui';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { AnalyticsContext } from '@atlaskit/analytics-next';
+import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
+import type { HoverLinkOverlayProps } from '@atlaskit/editor-common/src/ui/HoverLinkOverlay/types';
 
 import { CardErrorBoundary } from './fallback';
 import type { WithSmartCardStorageProps } from '../../ui/SmartCardStorage';
 import { withSmartCardStorage } from '../../ui/SmartCardStorage';
 import { getCardClickHandler } from '../utils/getCardClickHandler';
 import type { SmartLinksOptions } from '../../types/smartLinksOptions';
-import { AnalyticsContext } from '@atlaskit/analytics-next';
+
 import {
 	useInlineAnnotationProps,
 	type MarkDataAttributes,
 } from '../../ui/annotations/element/useInlineAnnotationProps';
 import { usePortal } from '../../ui/Renderer/PortalContext';
+import type { RendererAppearance } from '../../ui/Renderer/types';
 
 export interface InlineCardProps extends MarkDataAttributes {
 	url?: string;
@@ -30,11 +36,24 @@ export interface InlineCardProps extends MarkDataAttributes {
 	portal?: HTMLElement;
 	smartLinks?: SmartLinksOptions;
 	marks?: Mark[];
+	rendererAppearance?: RendererAppearance;
 }
+const HoverLinkOverlayNoop = (props: React.PropsWithChildren<HoverLinkOverlayProps>) => (
+	<div>{props.children}</div>
+);
+
+const HoverLinkOverlayWithCondition = componentWithCondition(
+	() => fg('platform_editor_preview_panel_linking'),
+	HoverLinkOverlay,
+	HoverLinkOverlayNoop,
+);
 
 const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
-	const { url, data, eventHandlers, smartLinks } = props;
+	const { url, data, eventHandlers, smartLinks, rendererAppearance } = props;
 	const portal = usePortal(props);
+	const cardContext = useSmartCardContext();
+	const [isResolvedViewRendered, setIsResolvedViewRendered] = useState(false);
+
 	const onClick = getCardClickHandler(eventHandlers, url);
 	const cardProps = {
 		url,
@@ -105,6 +124,28 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 		}
 	};
 
+	const cardState = cardContext?.value?.store?.getState()[url || ''];
+
+	const ari = getObjectAri(cardState?.details);
+	const name = getObjectName(cardState?.details);
+	const iconUrl = getObjectIconUrl(cardState?.details);
+	const isPanelAvailable = ari && cardContext?.value?.isPreviewPanelAvailable?.({ ari });
+	const openPreviewPanel = cardContext?.value?.openPreviewPanel;
+
+	const handleOpenGlancePanelClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+		if (openPreviewPanel && isPanelAvailable) {
+			// Prevent anchor default behaviour(click to open the anchor link)
+			// When glance panel is available, let openPreviewPanel handle it
+			event.preventDefault();
+			openPreviewPanel({
+				url: url || '',
+				ari,
+				name: name || '',
+				iconUrl,
+			});
+		}
+	};
+
 	return (
 		<AnalyticsContext data={analyticsData}>
 			<span
@@ -121,22 +162,34 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 					// eslint-disable-next-line react/jsx-props-no-spreading
 					{...cardProps}
 				>
-					<Card
-						appearance="inline"
-						showHoverPreview={!hideHoverPreview}
-						actionOptions={actionOptions}
-						// Ignored via go/ees005
-						// eslint-disable-next-line react/jsx-props-no-spreading
-						{...cardProps}
-						onResolve={(data) => {
-							if (!data.url || !data.title) {
-								return;
-							}
+					<HoverLinkOverlayWithCondition
+						isVisible={isResolvedViewRendered}
+						url={url || ''}
+						compactPadding={rendererAppearance === 'comment'}
+						showPanelButton={!!isPanelAvailable}
+						onClick={handleOpenGlancePanelClick}
+					>
+						<Card
+							appearance="inline"
+							showHoverPreview={!hideHoverPreview}
+							actionOptions={actionOptions}
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/jsx-props-no-spreading
+							{...cardProps}
+							onResolve={(data) => {
+								if (!data.url || !data.title) {
+									return;
+								}
 
-							props.smartCardStorage.set(data.url, data.title);
-						}}
-						onError={onError}
-					/>
+								props.smartCardStorage.set(data.url, data.title);
+
+								if (data.title) {
+									setIsResolvedViewRendered(true);
+								}
+							}}
+							onError={onError}
+						/>
+					</HoverLinkOverlayWithCondition>
 					{CompetitorPromptComponent}
 				</CardErrorBoundary>
 			</span>

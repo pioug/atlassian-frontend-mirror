@@ -9,6 +9,7 @@ import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmo
 import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugin-selection-toolbar';
 
 import type {
+	DynamicSelectionExtension,
 	LinkInsertionOption,
 	SelectionExtension,
 	SelectionExtensionPluginOptions,
@@ -31,7 +32,7 @@ export type SelectionExtensionPlugin = NextEditorPlugin<
 				extension,
 				selection,
 			}: {
-				extension: SelectionExtension;
+				extension: SelectionExtension | DynamicSelectionExtension;
 				selection: SelectionExtensionSelectionInfo;
 			}) => EditorCommand;
 			clearActiveExtension: () => EditorCommand;

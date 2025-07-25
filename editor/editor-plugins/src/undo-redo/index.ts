@@ -2,4 +2,4 @@
 // Disable no-re-export rule for entry point files
 /* eslint-disable @atlaskit/editor/no-re-export */
 export { undoRedoPlugin } from '@atlaskit/editor-plugin-undo-redo';
-export type { UndoRedoPlugin } from '@atlaskit/editor-plugin-undo-redo';
+export type { UndoRedoPlugin, UndoRedoAction } from '@atlaskit/editor-plugin-undo-redo';

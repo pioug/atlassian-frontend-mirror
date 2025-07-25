@@ -138,6 +138,7 @@ import {
 	linkingVisualRefreshV1Styles,
 	smartCardStyles,
 	smartCardStylesWithSearchMatch,
+	smartCardStylesWithSearchMatchAndPreviewPanelResponsiveness,
 	smartLinksInLivePagesStyles,
 } from './styles/smartCardStyles';
 import {
@@ -381,6 +382,13 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 							smartCardStylesWithSearchMatch
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							smartCardStyles,
+					expValEqualsNoExposure(
+						'platform_editor_preview_panel_responsiveness',
+						'isEnabled',
+						true,
+					) &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						smartCardStylesWithSearchMatchAndPreviewPanelResponsiveness,
 					expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1') &&
 						fg('platform_editor_controls_patch_15') &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

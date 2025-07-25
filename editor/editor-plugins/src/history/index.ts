@@ -2,4 +2,8 @@
 // Disable no-re-export rule for entry point files
 /* eslint-disable @atlaskit/editor/no-re-export */
 export { historyPlugin } from '@atlaskit/editor-plugin-history';
-export type { HistoryPlugin, HistoryPluginState } from '@atlaskit/editor-plugin-history';
+export type {
+	HistoryPlugin,
+	HistoryPluginState,
+	HistoryPluginSharedState,
+} from '@atlaskit/editor-plugin-history';

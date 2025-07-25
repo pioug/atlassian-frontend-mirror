@@ -1,5 +1,17 @@
 # @atlaskit/logo
 
+## 19.6.0
+
+### Minor Changes
+
+- [#188580](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188580)
+  [`0f6c63fbd303f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f6c63fbd303f) -
+  **Added**: **`JiraServiceManagementDataCenterLogo`** and **`JiraServiceManagementDataCenterIcon`**
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.5.3
 
 ### Patch Changes
@@ -29,8 +41,11 @@
 
 - [#179339](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/179339)
   [`b4951bab10eb2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b4951bab10eb2) -
-  Adds logos for Crowd and Bamboo, and a new raw-icons entrypoint with string-encoded versions of
-  all logo icons for use in favicons and other scenarios where React components cannot be used
+  **Added**:
+  - **`CrowdLogo`** and **`CrowdIcon`**
+  - **`BambooLogo`** and **`BambooIcon`**
+  - **`raw-icons`** entrypoint with string-encoded versions of all logo icons for use in favicons
+    and other scenarios where React components cannot be used
 
 ### Patch Changes
 
@@ -42,8 +57,15 @@
 
 - [#177235](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/177235)
   [`227f5ae9544a1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/227f5ae9544a1) -
-  Update Loom attribution logo to support new design language. Add Loom Blurple logo that has new
-  design, with the Loom blurple color
+
+  **Updated**:
+
+  - **`LoomAttributionLogo`** and **`LoomAttributionIcon`**: support new logo design language.
+
+  **Added**:
+
+  - **`LoomBlurpleLogo`** and **`LoomBlurpleIcon`**: matches the new logo design language, but using
+    Loom's blurple color
 
 ### Patch Changes
 
@@ -63,10 +85,10 @@
 
 - [#176906](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/176906)
   [`86b046c9bf641`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/86b046c9bf641) -
-  Adds three new app logos and icons:
-  - `BitbucketDataCenterLogo` and `BitbucketDataCenterIcon`
-  - `JiraDataCenterLogo` and `JiraDataCenterIcon`
-  - `ConfluenceDataCenterLogo` and `ConfluenceDataCenterIcon`
+  **Added**:
+  - **`BitbucketDataCenterLogo`** and **`BitbucketDataCenterIcon`**
+  - **`JiraDataCenterLogo`** and **`JiraDataCenterIcon`**
+  - **`ConfluenceDataCenterLogo`** and **`ConfluenceDataCenterIcon`**
 
 ### Patch Changes
 
@@ -78,8 +100,17 @@
 
 - [#173001](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/173001)
   [`445bba751a18a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/445bba751a18a) -
-  Add Admin, Analytics and Align Icons. Add feature flagging to AtlassianAdmin,
-  AtlassianAdministration and AtlassianAnalytics logos/icons
+  **Added**:
+
+  - **`AdminLogo`** and **`AdminIcon`**
+  - **`AnalyticsLogo`** and **`AnalyticsIcon`**
+  - **`AlignLogo`** and **`AlignIcon`**
+
+  **Updated**: Feature flagging added to:
+
+  - **`AtlassianAdministrationLogo`** and **`AtlassianAdministrationIcon`**
+  - **`AtlassianAnalyticsLogo`** and **`AtlassianAnalyticsIcon`**
+  - **`AtlassianAlignLogo`** and **`AtlassianAlignIcon`**
 
 ## 19.1.0
 
@@ -87,8 +118,8 @@
 
 - [#169522](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/169522)
   [`e55cd122d35de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e55cd122d35de) -
-  Added a new prop, shouldUseNewLogoDesign, to allow new logo designs to be enabled ahead of feature
-  flag roll-out
+  Added a new prop, `shouldUseNewLogoDesign`, to allow new logo designs to be enabled ahead of
+  feature flag roll-out
 
 ## 19.0.1
 
@@ -104,8 +135,9 @@
 
 - [#163522](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/163522)
   [`76358104532e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76358104532e5) -
-  Removed `admin`, `align`, `analytics`, `company-hub` and `guard-detect` logos. These logos have
-  been feature flagged behind existing entry points.
+  **Removed**:
+  - `admin`, `align`, `analytics`, `company-hub` and `guard-detect` logos
+  - These logos have been feature flagged behind existing entry points.
 
 ### Patch Changes
 
@@ -129,9 +161,10 @@
 
 - [#154600](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154600)
   [`d573e939cabe3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d573e939cabe3) -
-  Adds 'xxsmall' size to Logo, that maps to the same size as 'xsmall'. In a future major bump of
-  this component, the 'xsmall' size will be updated to render logos at 20px height; please migrate
-  any usages before then.
+  Adds `xxsmall` size to Logo, that maps to the same size as `xsmall`.
+
+  In a future major bump of this component, the `xsmall` size will be updated to render logos at
+  20px height; please migrate any usages before then.
 
 ## 18.0.0
 
@@ -147,7 +180,11 @@
 
 - [#148090](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148090)
   [`6b95a2eecc267`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b95a2eecc267) -
-  Removed deprecated HalpIcon, HalpLogo, and AtlassianStartLogo.
+
+  **Removed deprecated logos**:
+
+  - `HalpIcon`, `HalpLogo`
+  - `AtlassianStartLogo`
 
 ## 16.0.3
 

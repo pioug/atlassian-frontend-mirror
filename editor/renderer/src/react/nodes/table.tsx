@@ -40,6 +40,7 @@ import {
 	isFullWidthAppearance,
 	isFullWidthOrFullPageAppearance,
 } from '../utils/appearance';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { TableStickyScrollbar } from './TableStickyScrollbar';
@@ -507,8 +508,15 @@ export class TableContainer extends React.Component<
 		// `renderWidth` cannot be depended on during SSR
 		const isRenderWidthValid = !!renderWidth && renderWidth > 0;
 
-		const renderWidthCSS =
-			rendererAppearance === 'full-page' ? `100cqw - ${FullPagePadding}px * 2` : `100cqw`;
+		const fullPageRendererWidthCSS = expValEquals(
+			'platform_editor_preview_panel_responsiveness',
+			'isEnabled',
+			true,
+		)
+			? 'calc(100cqw - var(--ak-renderer--full-page-gutter) * 2)'
+			: `100cqw - ${FullPagePadding}px * 2`;
+
+		const renderWidthCSS = rendererAppearance === 'full-page' ? fullPageRendererWidthCSS : `100cqw`;
 
 		const calcDefaultLayoutWidthByAppearance = (
 			rendererAppearance: RendererAppearance,
@@ -938,6 +946,7 @@ const TableWithWidth = (
 	if (fg('platform-ssr-table-resize')) {
 		const colWidthsSum =
 			props.columnWidths?.reduce((total: number, val: number) => total + val, 0) || 0;
+
 		if (colWidthsSum || props.allowTableResizing) {
 			// Ignored via go/ees005
 			// eslint-disable-next-line react/jsx-props-no-spreading

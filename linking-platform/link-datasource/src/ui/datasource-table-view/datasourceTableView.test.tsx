@@ -650,6 +650,12 @@ describe('DatasourceTableView', () => {
 
 		expect(getByTestId('item-count').textContent).toEqual('2 items');
 	});
+
+	it('should capture and report a11y violations', async () => {
+		const { container } = setup();
+
+		await expect(container).toBeAccessible();
+	});
 });
 
 describe('Analytics: DatasourceTableView', () => {

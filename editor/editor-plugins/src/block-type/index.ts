@@ -8,6 +8,7 @@ export type {
 	BlockType,
 	BlockTypeState,
 	InputMethod,
+	ClearFormattingInputMethod,
 	DropdownItem,
 	TextBlockTypes,
 } from '@atlaskit/editor-plugin-block-type';

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/temp-nav-app-icons",
-	"version": "0.9.1",
+	"version": "0.9.2",
 	"description": "A temporary package to house app and brand icon tiles. This package is a stop gap until these use cases are properly incorporated into the design system.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -71,6 +71,7 @@
 		"./teams": "./src/entry-points/teams.tsx",
 		"./trello": "./src/entry-points/trello.tsx",
 		"./jira-data-center": "./src/entry-points/jira-data-center.tsx",
+		"./jira-service-management-data-center": "./src/entry-points/jira-service-management-data-center.tsx",
 		"./confluence-data-center": "./src/entry-points/confluence-data-center.tsx",
 		"./bitbucket-data-center": "./src/entry-points/bitbucket-data-center.tsx"
 	},
@@ -113,6 +114,7 @@
 		"./teams": "./src/entry-points/teams.tsx",
 		"./trello": "./src/entry-points/trello.tsx",
 		"./jira-data-center": "./src/entry-points/jira-data-center.tsx",
+		"./jira-service-management-data-center": "./src/entry-points/jira-service-management-data-center.tsx",
 		"./confluence-data-center": "./src/entry-points/confluence-data-center.tsx",
 		"./bitbucket-data-center": "./src/entry-points/bitbucket-data-center.tsx"
 	},

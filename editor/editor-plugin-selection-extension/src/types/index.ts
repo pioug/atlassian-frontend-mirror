@@ -40,6 +40,10 @@ export type SelectionExtension = {
 	component?: React.ComponentType<SelectionExtensionComponentProps>;
 };
 
+export type DynamicSelectionExtension = Omit<SelectionExtension, 'isDisabled'> & {
+	isDisabled?: boolean;
+};
+
 // inspired by content api operation https://bitbucket.org/atlassian/pf-adf-service/src/master/src/lib/update/types.ts
 export type SelectionPointer = {
 	pointer: string;
@@ -60,7 +64,7 @@ export type SelectionExtensionFnOptions = {
 export type SelectionExtensionFn = ({
 	selectedNodeAdf,
 	selectionRanges,
-}: SelectionExtensionFnOptions) => SelectionExtension;
+}: SelectionExtensionFnOptions) => DynamicSelectionExtension;
 
 export type SelectionExtensionConfig = SelectionExtension | SelectionExtensionFn;
 

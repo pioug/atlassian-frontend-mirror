@@ -4,5 +4,6 @@
 export { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 export type {
 	ContentInsertionPlugin,
+	ContentInsertionDependencies,
 	InsertNodeAPI,
 } from '@atlaskit/editor-plugin-content-insertion';

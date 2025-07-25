@@ -10,7 +10,7 @@ import type { OptionConfig } from './types';
 export const getDropdownOption = (
 	intl: IntlShape,
 	dispatchCommand: (command: Command) => void,
-	{ disabled, onClick, selected, appearance, testId, tooltip }: OptionConfig,
+	{ disabled, onClick, selected, appearance, testId, tooltip, description }: OptionConfig,
 ): DropdownOptionT<Function> => {
 	const { title, icon: Icon } = appearancePropsMap[appearance ?? 'url'];
 
@@ -22,5 +22,6 @@ export const getDropdownOption = (
 		testId,
 		selected,
 		tooltip: tooltip ?? '',
+		description,
 	};
 };

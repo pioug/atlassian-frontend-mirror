@@ -122,12 +122,16 @@ describe('eeTest', () => {
 					true: () => {
 						// @ts-ignore
 						expect(editorExperiment('example-boolean', true)).toBe(true);
-						expect(_overrides).toEqual({ 'example-boolean': true, 'example-multivariate': 'one' });
+						expect(_overrides).toEqual(
+							expect.objectContaining({ 'example-boolean': true, 'example-multivariate': 'one' }),
+						);
 					},
 					false: () => {
 						// @ts-ignore
 						expect(editorExperiment('example-boolean', false)).toBe(true);
-						expect(_overrides).toEqual({ 'example-boolean': false, 'example-multivariate': 'one' });
+						expect(_overrides).toEqual(
+							expect.objectContaining({ 'example-boolean': false, 'example-multivariate': 'one' }),
+						);
 					},
 				},
 				{
@@ -172,20 +176,26 @@ describe('eeTest', () => {
 					one: () => {
 						// @ts-ignore
 						expect(editorExperiment('example-multivariate', 'one')).toBe(true);
-						expect(_overrides).toEqual({ 'example-multivariate': 'one', 'example-boolean': true });
+						expect(_overrides).toEqual(
+							expect.objectContaining({ 'example-multivariate': 'one', 'example-boolean': true }),
+						);
 					},
 					two: () => {
 						// @ts-ignore
 						expect(editorExperiment('example-multivariate', 'two')).toBe(true);
-						expect(_overrides).toEqual({ 'example-multivariate': 'two', 'example-boolean': true });
+						expect(_overrides).toEqual(
+							expect.objectContaining({ 'example-multivariate': 'two', 'example-boolean': true }),
+						);
 					},
 					three: () => {
 						// @ts-ignore
 						expect(editorExperiment('example-multivariate', 'three')).toBe(true);
-						expect(_overrides).toEqual({
-							'example-multivariate': 'three',
-							'example-boolean': true,
-						});
+						expect(_overrides).toEqual(
+							expect.objectContaining({
+								'example-multivariate': 'three',
+								'example-boolean': true,
+							}),
+						);
 					},
 				},
 				{ 'example-boolean': true },

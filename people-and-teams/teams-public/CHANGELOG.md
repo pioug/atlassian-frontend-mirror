@@ -1,5 +1,17 @@
 # @atlaskit/teams-public
 
+## 0.47.0
+
+### Minor Changes
+
+- [#189979](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/189979)
+  [`4b9a2b0f4b74f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b9a2b0f4b74f) -
+  NO-ISSUE Pass translation files to ptc-embeddable-directory loader
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.46.0
 
 ### Minor Changes

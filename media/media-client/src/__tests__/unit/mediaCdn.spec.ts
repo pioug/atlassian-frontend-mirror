@@ -1,15 +1,30 @@
 import { mapToMediaCdnUrl } from '../../utils/mediaCdn';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
+import { isIsolatedCloud } from '@atlaskit/atlassian-context';
+
+jest.mock('@atlaskit/atlassian-context', () => ({
+	...jest.requireActual('@atlaskit/atlassian-context'),
+	isIsolatedCloud: jest.fn(),
+}));
 
 describe('mediaCdn', () => {
 	beforeEach(() => {
 		setBooleanFeatureFlagResolver(() => true);
+		(isIsolatedCloud as jest.Mock).mockReturnValue(false);
+
 		jsdom.reconfigure({
 			url: 'https://hello.atlassian.net',
 		});
 	});
 
-	it('should map to cdn url if mapping found', () => {
+	it('should not map to cdn url if isolated cloud', () => {
+		(isIsolatedCloud as jest.Mock).mockReturnValue(true);
+
+		const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
+		expect(mapToMediaCdnUrl(originalUrl, '')).toBe(originalUrl);
+	});
+
+	it('should map to cdn url if mapping found and not isolated cloud', () => {
 		const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
 		expect(mapToMediaCdnUrl(originalUrl, '')).toBe(
 			'https://media-cdn.atlassian.com/path/to/resource',
@@ -61,6 +76,59 @@ describe('mediaCdn', () => {
 		jsdom.reconfigure({
 			url: 'https://hello.atlassian.net',
 		});
+		expect(mapToMediaCdnUrl(originalUrl, '')).toBe(
+			'https://media-cdn.atlassian.com/path/to/resource',
+		);
+	});
+
+	it('should not map to cdn url when platform_media_cdn_delivery is disabled', () => {
+		setBooleanFeatureFlagResolver((flagName: string) => {
+			switch (flagName) {
+				case 'platform_media_cdn_delivery':
+					return false;
+				case 'platform_disable_isolated_cloud_media_cdn_delivery':
+				case 'platform_media_cdn_single_host':
+					return true;
+				default:
+					return true;
+			}
+		});
+
+		const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
+		expect(mapToMediaCdnUrl(originalUrl, '')).toBe(originalUrl);
+	});
+
+	it('should not map to cdn url when platform_media_cdn_single_host is disabled', () => {
+		setBooleanFeatureFlagResolver((flagName: string) => {
+			switch (flagName) {
+				case 'platform_media_cdn_single_host':
+					return false;
+				case 'platform_disable_isolated_cloud_media_cdn_delivery':
+				case 'platform_media_cdn_delivery':
+					return true;
+				default:
+					return true;
+			}
+		});
+
+		const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
+		expect(mapToMediaCdnUrl(originalUrl, '')).toBe(originalUrl);
+	});
+
+	it('should map to cdn url when platform_disable_isolated_cloud_media_cdn_delivery is disabled but other flags are enabled', () => {
+		setBooleanFeatureFlagResolver((flagName: string) => {
+			switch (flagName) {
+				case 'platform_disable_isolated_cloud_media_cdn_delivery':
+					return false;
+				case 'platform_media_cdn_delivery':
+				case 'platform_media_cdn_single_host':
+					return true;
+				default:
+					return true;
+			}
+		});
+
+		const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
 		expect(mapToMediaCdnUrl(originalUrl, '')).toBe(
 			'https://media-cdn.atlassian.com/path/to/resource',
 		);

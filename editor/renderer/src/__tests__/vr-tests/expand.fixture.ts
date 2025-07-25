@@ -41,3 +41,8 @@ export const ExpandRendererWithReactLooselyLazy = generateRendererComponent({
 	appearance: 'full-width',
 	nodeComponents: looselyLazyNodes,
 });
+
+export const ExpandFullPageRenderer = generateRendererComponent({
+	document: expandADF('full-width'),
+	appearance: 'full-page',
+});

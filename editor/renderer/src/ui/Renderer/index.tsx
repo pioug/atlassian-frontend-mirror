@@ -630,13 +630,11 @@ export function Renderer(props: RendererProps) {
 			isTopLevelRenderer={
 				// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 				fg('issue_table_single_line_row_height_fast_follows')
-					? (props.isTopLevelRenderer ?? isTopLevelRenderer)
+					? props.isTopLevelRenderer ?? isTopLevelRenderer
 					: isTopLevelRenderer
 			}
 			skipValidation={skipValidation}
-			validationOverrides={
-				fg('cc_complexit_fe_reduce_rerender_2') ? validationOverrides : { allowNestedTables }
-			}
+			validationOverrides={validationOverrides}
 		/>
 	);
 }

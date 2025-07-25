@@ -18,6 +18,9 @@
 	],
 	"references": [
 		{
+			"path": "../../../uip/atlassian-context/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../chunkinator/afm-townsquare/tsconfig.json"
 		},
 		{

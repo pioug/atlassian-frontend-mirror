@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-card
 
+## 7.2.1
+
+### Patch Changes
+
+- [#185241](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185241)
+  [`0d1bffce3fedd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d1bffce3fedd) -
+  [ux] View embed as block card when page width smaller or equal to 600px
+- Updated dependencies
+
 ## 7.2.0
 
 ### Minor Changes

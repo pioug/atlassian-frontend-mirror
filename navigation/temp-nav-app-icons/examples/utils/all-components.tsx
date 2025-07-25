@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::69ba3e9b01b55fc2c1ed1d63502d96e0>>
+ * @codegen <<SignedSource::a562da6e2d6de65d14161bdba944aa84>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -63,6 +63,10 @@ import {
 	JiraServiceManagementLogo,
 	JiraServiceManagementLogoCS,
 } from '@atlaskit/temp-nav-app-icons/jira-service-management';
+import {
+	JiraServiceManagementDataCenterIcon,
+	JiraServiceManagementDataCenterLogoCS,
+} from '@atlaskit/temp-nav-app-icons/jira-service-management-data-center';
 import { LoomIcon, LoomLogo, LoomLogoCS } from '@atlaskit/temp-nav-app-icons/loom';
 import { LoomAttributionLogoCS } from '@atlaskit/temp-nav-app-icons/loom-attribution';
 import {
@@ -296,6 +300,16 @@ export const rows: Array<{
 		Icon32: (props) => <JiraProductDiscoveryIcon {...props} size="32" />,
 		Logo: (props) => <JiraProductDiscoveryLogo {...props} />,
 		LogoCS: (props) => <JiraProductDiscoveryLogoCS {...props} />,
+	},
+	{
+		name: 'Jira Service Management Data Center',
+		Icon12: (props) => <JiraServiceManagementDataCenterIcon {...props} size="12" />,
+		Icon16: (props) => <JiraServiceManagementDataCenterIcon {...props} size="16" />,
+		Icon20: (props) => <JiraServiceManagementDataCenterIcon {...props} size="20" />,
+		Icon24: (props) => <JiraServiceManagementDataCenterIcon {...props} size="24" />,
+		Icon32: (props) => <JiraServiceManagementDataCenterIcon {...props} size="32" />,
+		Logo: null,
+		LogoCS: (props) => <JiraServiceManagementDataCenterLogoCS {...props} />,
 	},
 	{
 		name: 'Jira Service Management',

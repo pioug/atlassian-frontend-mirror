@@ -8,4 +8,5 @@ export type {
 	ConfigWithNodeInfo,
 	FloatingToolbarPluginData,
 	FloatingToolbarPluginState,
+	FloatingToolbarPluginDependencies,
 } from '@atlaskit/editor-plugin-floating-toolbar';

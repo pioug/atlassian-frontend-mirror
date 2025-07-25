@@ -1,5 +1,13 @@
 # @atlaskit/feature-gate-js-client
 
+## 5.5.2
+
+### Patch Changes
+
+- [#190772](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/190772)
+  [`b8433e7dc84ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b8433e7dc84ab) -
+  Updated README.md by adding documentation for playwright e2e mocking
+
 ## 5.5.1
 
 ### Patch Changes

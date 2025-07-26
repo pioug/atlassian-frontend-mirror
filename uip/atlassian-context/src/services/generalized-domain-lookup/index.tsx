@@ -25,6 +25,8 @@ import {
  * For Non Isolated Cloud, the domain will be determined by the perimeter and environment combination unless the subdomain belongs in the list of global domains or overrides.
  * For Isolated Cloud, the domain type defaults to the vanity name pattern.
  *
+ * Warning: Currently unsupported in SSR for the time-being.
+ *
  * @param subdomain - The Atlassian experience subdomain
  * @param envType - The environment to get the domain for ('dev', 'staging', or 'prod'). When in Isolated Cloud, the same value will be returned for all env types.
  * @returns The full domain associated with the subdomain for the given environment
@@ -137,6 +139,7 @@ function getDomainForNonIsolatedCloud(
  * Gets the full URL for an Atlassian experience in the context of the current request
  * Returns undefined only when a new perimeter has been created that is not yet supported by the atlassian-context library
  *
+ * Warning: Currently unsupported in SSR for the time-being.
  * @param subdomain - The Atlassian experience subdomain
  * @param The environment to get the domain for ('dev', 'staging', or 'prod'). When in Isolated Cloud, the same value will be returned for all env types.
  * @returns The full URL for the given subdomain and environment

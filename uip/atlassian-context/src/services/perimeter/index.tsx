@@ -8,6 +8,8 @@ import { type AtlCtxCookieValues, parseAtlCtxCookies } from '../atl-cookies-look
 /**
  * Determines if the current perimeter is an Isolated Cloud L2 perimeter
  *
+ * Warning: Currently unsupported in SSR for the time-being.
+ *
  * @returns {boolean} - True if the current perimeter is an Isolated Cloud perimeter, false otherwise
  */
 export function isIsolatedCloud(): boolean {
@@ -29,6 +31,8 @@ export function isIsolatedCloud(): boolean {
  * Determines if the current perimeter is FedRAMP Moderate.
  * Please note that FedRAMP Moderate is not currently in Isolated Cloud, but when it is, this function will still return true.
  *
+ * Warning: Currently unsupported in SSR for the time-being.
+ *
  * @returns {boolean} - True if the current perimeter is FedRAMP Moderate, false otherwise
  */
 export function isFedrampModerate(): boolean {
@@ -42,6 +46,8 @@ export function isFedrampModerate(): boolean {
 
 /**
  * Retrieves the customer selected IC domain name.
+ *
+ * Warning: Currently unsupported in SSR for the time-being.
  *
  * @returns {string | undefined} - The Isolated Cloud domain name if applicable, undefined otherwise (ex. if not in Isolated Cloud)
  */

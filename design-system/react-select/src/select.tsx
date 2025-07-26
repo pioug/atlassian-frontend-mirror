@@ -444,7 +444,8 @@ export interface SelectProps<Option, IsMulti extends boolean, Group extends Grou
 	/**
 	 * Style modifier methods
 	 *
-	 * A basic example can be found at the bottom of the [Replacing builtins](https://react-select.com/advanced#replacing-builtins) documentation.
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-14529 Internal documentation for deprecation (no external access)}
+	 * Use the `components` API with the xcss prop for custom styling.
 	 */
 	styles: StylesConfig<Option, IsMulti, Group>;
 	/**

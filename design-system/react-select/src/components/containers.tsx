@@ -70,7 +70,7 @@ export const SelectContainer = <Option, IsMulti extends boolean, Group extends G
 	return (
 		<div
 			css={[
-				fg('compiled-react-select') ? containerStyles.default : containerStyles.default,
+				containerStyles.default,
 				isRtl && containerStyles.rtl,
 				isDisabled && containerStyles.disabled,
 				fg('platform_design_system_team_safari_input_fix') && containerStyles.ff_safari_input_fix,

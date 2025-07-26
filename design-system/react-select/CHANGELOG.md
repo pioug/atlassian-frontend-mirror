@@ -1,5 +1,20 @@
 # @atlaskit/react-select
 
+## 3.3.0
+
+### Minor Changes
+
+- [#190303](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/190303)
+  [`ad9134117de54`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ad9134117de54) -
+  Deprecation of the `styles` prop. For styling purposes, use the `components` API with the `xcss`
+  prop.
+
+### Patch Changes
+
+- [#190337](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/190337)
+  [`d94e09ebf7502`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d94e09ebf7502) -
+  Clean up unused compiled-react-select feature flag
+
 ## 3.2.1
 
 ### Patch Changes

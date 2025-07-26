@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugins
 
+## 10.1.5
+
+### Patch Changes
+
+- [#191572](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/191572)
+  [`5ede75934b28c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5ede75934b28c) -
+  Introduce AI Orchestrator Plugin
+
+## 10.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.1.3
 
 ### Patch Changes

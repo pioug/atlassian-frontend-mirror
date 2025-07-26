@@ -1,5 +1,13 @@
 # @atlaskit/atlassian-context
 
+## 0.3.2
+
+### Patch Changes
+
+- [#190969](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/190969)
+  [`078bcb2c4c623`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/078bcb2c4c623) -
+  Updates docs to indicate temporary incompatibility with SSR
+
 ## 0.3.1
 
 ### Patch Changes

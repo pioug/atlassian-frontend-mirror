@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-card
 
+## 7.2.2
+
+### Patch Changes
+
+- [#191381](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/191381)
+  [`efd66bb003bb4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/efd66bb003bb4) -
+  [ux] Show warning on embed option in smart link card appearance dropdown
+- Updated dependencies
+
 ## 7.2.1
 
 ### Patch Changes

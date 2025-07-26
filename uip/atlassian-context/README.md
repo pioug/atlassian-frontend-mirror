@@ -2,8 +2,12 @@
 
 Provides perimeter-specific URL resolution and helps identify which environment a product is running in.
 
-Read more about it here:
+Read more about the original considerations here:
 https://hello.atlassian.net/wiki/spaces/FEDRAMP/pages/2561199256/UI+Isolation
+
+## Ownership
+In 2025, ownership of the library was transferred to Regulated Industries. Please reach out to #help-cross-boundary for any help.
+
 
 ## Installation
 
@@ -160,17 +164,24 @@ if (isFedRamp()) {
 
 
 ### isFedrampModerate()
+_Disclaimer July 2025:_ SSR is currently NOT supported, though the team is currently working through an alternate implementation.
+
 Returns true if the current perimeter is in FedRAMP-Moderate. 
 
 ### isIsolatedCloud()
+_Disclaimer July 2025:_ SSR is currently NOT supported, though the team is currently working through an alternate implementation.
+
 Returns true if the current perimeter is in Isolated Cloud. 
 
 ### isolatedCloudDomain()
+_Disclaimer July 2025:_ SSR is currently NOT supported, though the team is currently working through an alternate implementation.
 Returns the current `ic_domain`. If the current perimeter is not an L2 IC (ex. the current fedramp-moderate or regular commercial), then undefined is returned.
 
 
 
 ### getDomainInContext(subdomain, environment)
+_Disclaimer July 2025:_ SSR is currently NOT supported, though the team is currently working through an alternate implementation.
+
 Returns the full domain (including support for Isolation Cloud) for a given Atlassian service or experience. 
 
 Important: Note that the library currently does NOT guarantee that the requested domain exists! It is assumed that when a user requests the full domain for a specific service, they already know the domain exists.
@@ -231,6 +242,8 @@ getDomainInContext('new-service') // returns "new-service.services.<icLabel>.<ba
 ```
 
 ### getUrlForDomainInContext(subdomain, environment)
+_Disclaimer July 2025:_ SSR is currently NOT supported, though the team is currently working through an alternate implementation.
+
 Returns the full url a given Atlassian service (including support for Isolation Cloud) by appending the current URL scheme to the result of `getDomainInContext(subdomain, environment)`.
 
 ```js

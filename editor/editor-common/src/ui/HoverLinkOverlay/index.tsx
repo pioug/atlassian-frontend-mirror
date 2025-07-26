@@ -223,10 +223,7 @@ const HoverLinkOverlay = ({
 					href={url}
 					target="_blank"
 					style={{
-						paddingBlock:
-							compactPadding
-								? '1px'
-								: token('space.025'),
+						paddingBlock: compactPadding ? '1px' : token('space.025'),
 					}}
 					onClick={handleClick}
 				>

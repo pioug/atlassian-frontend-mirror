@@ -10,4 +10,5 @@ export type {
 	LinkInsertionOption,
 	SelectionExtensionPluginState,
 	SelectionExtensionSelectionInfo,
+	DynamicSelectionExtension,
 } from '@atlaskit/editor-plugin-selection-extension';

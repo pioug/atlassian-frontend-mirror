@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 120.2.6
+
+### Patch Changes
+
+- [#190768](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/190768)
+  [`45e3e754cfcc1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/45e3e754cfcc1) -
+  [ux] Add open and panel hover buttons to inline smart card
+
 ## 120.2.5
 
 ### Patch Changes

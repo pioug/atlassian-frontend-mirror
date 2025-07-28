@@ -85,6 +85,26 @@ export const content = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const extensionContent = css({
+	boxSizing: 'border-box',
+	paddingTop: token('space.100', '8px'),
+	paddingBottom: token('space.100', '8px'),
+	background: token('elevation.surface', 'white'),
+	border: `1px solid ${token('color.border')}`,
+	borderRadius: token('border.radius', '3px'),
+	cursor: 'initial',
+	width: '100%',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'&.remove-border': {
+		border: 'none',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'&.hide-content': {
+		display: 'none',
+	},
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const contentWrapper = css({
 	padding: `0 ${token('space.100', '8px')} ${token('space.100', '8px')}`,
 	display: 'flex',

@@ -582,7 +582,7 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 			popupsScrollableElement,
 			dispatchAnalyticsEvent,
 		}) {
-			if (expValEquals('platform_editor_usesharedpluginstateselector', 'isEnabled', true)) {
+			if (expValEquals('platform_editor_usesharedpluginstatewithselector', 'isEnabled', true)) {
 				return (
 					<ContentComponent
 						api={api}

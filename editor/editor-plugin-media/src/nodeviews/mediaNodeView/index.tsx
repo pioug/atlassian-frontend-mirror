@@ -84,7 +84,7 @@ const MediaNodeWithProviders = ({
 		'interaction.interactionState',
 	);
 	return innerComponent({
-		width: widthState, // Remove when platform_editor_usesharedpluginstateselector is cleaned up
+		width: widthState, // Remove when platform_editor_usesharedpluginstatewithselector is cleaned up
 		mediaProvider: mediaProvider ? Promise.resolve(mediaProvider) : undefined,
 		interactionState,
 	});

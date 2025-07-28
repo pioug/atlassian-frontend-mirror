@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 5.6.2
+
+### Patch Changes
+
+- [#191847](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/191847)
+  [`b3cf5dce34f70`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b3cf5dce34f70) -
+  Internal change to default typography theme configuration.
+
 ## 5.6.1
 
 ### Patch Changes

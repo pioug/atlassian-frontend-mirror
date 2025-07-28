@@ -133,21 +133,25 @@ const styles = cssMap({
 	},
 	disabled: {
 		cursor: 'not-allowed',
-		backgroundColor: token('color.background.disabled', 'rgba(9, 30, 66, 0.04)'),
 		color: token('color.text.disabled'),
 		'&:hover': {
-			// @ts-expect-error
-			backgroundColor: token('color.background.disabled', 'rgba(9, 30, 66, 0.04)'),
 			color: token('color.text.disabled'),
 		},
 		'&:active': {
 			// @ts-expect-error
-			backgroundColor: token('color.background.disabled', 'rgba(9, 30, 66, 0.04)'),
-			// @ts-expect-error
 			color: token('color.text.disabled'),
 		},
-		'&::after': {
-			content: 'none',
+	},
+	// Shared diabled styles for primary, warning, danger, and discovery appearances
+	sharedDisabled: {
+		backgroundColor: token('color.background.disabled', 'rgba(9, 30, 66, 0.04)'),
+		'&:hover': {
+			// @ts-expect-error
+			backgroundColor: token('color.background.disabled', 'rgba(9, 30, 66, 0.04)'),
+		},
+		'&:active': {
+			// @ts-expect-error
+			backgroundColor: token('color.background.disabled', 'rgba(9, 30, 66, 0.04)'),
 		},
 	},
 	spacingCompact: {
@@ -265,6 +269,20 @@ const defaultStyles = cssMap({
 			backgroundColor: token('color.background.neutral.subtle.pressed'),
 			// @ts-expect-error
 			color: token('color.text.subtle'),
+		},
+	},
+	disabledRefreshed: {
+		backgroundColor: 'transparent',
+		'&:hover': {
+			// @ts-expect-error
+			backgroundColor: 'transparent',
+		},
+		'&:active': {
+			// @ts-expect-error
+			backgroundColor: 'transparent',
+		},
+		'&::after': {
+			borderColor: token('color.border.disabled'),
 		},
 	},
 });
@@ -448,6 +466,20 @@ const subtleStyles = cssMap({
 			backgroundColor: token('color.background.neutral.subtle.pressed', '#B3D4FF'),
 			// @ts-expect-error
 			color: token('color.text.subtle'),
+		},
+	},
+	disabledRefreshed: {
+		backgroundColor: 'transparent',
+		'&:hover': {
+			// @ts-expect-error
+			backgroundColor: 'transparent',
+		},
+		'&:active': {
+			// @ts-expect-error
+			backgroundColor: 'transparent',
+		},
+		'&::after': {
+			borderColor: token('color.border.disabled'),
 		},
 	},
 });
@@ -689,6 +721,15 @@ const ButtonBase = React.forwardRef(
 					// TODO: remove me once we kill color fallbacks
 					isSelected && appearance === 'discovery' && selectedStyles.discovery,
 					isDisabled && styles.disabled,
+					isDisabled &&
+						(!fg('platform-component-visual-refresh') ||
+							(appearance !== 'default' && appearance !== 'subtle')) &&
+						styles.sharedDisabled,
+					isDisabled &&
+						appearance === 'default' &&
+						(fg('platform-component-visual-refresh')
+							? defaultStyles.disabledRefreshed
+							: defaultStyles.disabled),
 					isCircle && !isSplitButton && styles.circle,
 					spacing === 'compact' && styles.spacingCompact,
 					hasIconBefore && styles.buttonIconBefore,

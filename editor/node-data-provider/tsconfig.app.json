@@ -32,6 +32,12 @@
 	},
 	"references": [
 		{
+			"path": "../editor-common/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-json-transformer/tsconfig.app.json"
+		},
+		{
 			"path": "../../elements/emoji/tsconfig.app.json"
 		}
 	],

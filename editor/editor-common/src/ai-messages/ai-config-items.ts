@@ -110,6 +110,20 @@ export const aiConfigItemMessages = defineMessages({
 		description: 'Placeholder text in the prompt input guiding user interaction.',
 	},
 
+	// Adjust Length
+	adjustLengthNestingParentTitle: {
+		id: 'fabric.editor.ai.config.item.changeTone.adjustLengthNestingParentTitle',
+		defaultMessage: 'Adjust length',
+		description:
+			'Describes a (nested) option to use Atlassian Intelligence to adjust length of content currently selected by the user',
+	},
+	adjustLengthNestingParentShortTitle: {
+		id: 'fabric.editor.ai.config.item.changeTone.adjustLengthNestingParentShortTitle',
+		defaultMessage: 'Length',
+		description:
+			'Describes a (nested) option to use Atlassian Intelligence to adjust length with a short title of content currently selected by the user',
+	},
+
 	// Change tone messages
 	changeToneNestingParentTitlePostGA: {
 		id: 'fabric.editor.ai.config.item.changeTone.nestingParentTitlePostGA',

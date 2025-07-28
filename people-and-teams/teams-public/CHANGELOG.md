@@ -1,5 +1,17 @@
 # @atlaskit/teams-public
 
+## 0.48.0
+
+### Minor Changes
+
+- [#187832](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/187832)
+  [`68ed62073dd56`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/68ed62073dd56) -
+  Integrate useRequestedContainers to team containers
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.47.0
 
 ### Minor Changes

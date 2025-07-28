@@ -1,5 +1,18 @@
 # @atlaskit/node-data-provider
 
+## 4.3.0
+
+### Minor Changes
+
+- [#191314](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/191314)
+  [`ff7de5572e25d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ff7de5572e25d) -
+  [https://product-fabric.atlassian.net/browse/ED-28587](ED-28587) - implement NodeDataProvider and
+  prefetchNodeDataProvidersData for One Tick Provider project
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.2.0
 
 ### Minor Changes

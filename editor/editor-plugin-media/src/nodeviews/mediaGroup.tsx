@@ -32,7 +32,7 @@ interface MediaGroupNodeViewProps {
 }
 
 interface RenderFn {
-	// remove next two plugin states when cleaning up `platform_editor_usesharedpluginstateselector`
+	// remove next two plugin states when cleaning up `platform_editor_usesharedpluginstatewithselector`
 	editorDisabledPlugin?: EditorDisabledPluginState;
 	editorViewModePlugin?: EditorViewModePluginState | null;
 	editorDisabled?: boolean;

@@ -95,6 +95,7 @@ const Content = ({
 	color = 'standard',
 	href,
 	linkComponent,
+	testId,
 }: ContentProps) => {
 	const Link = linkComponent ?? 'a';
 
@@ -103,6 +104,7 @@ const Content = ({
 			<Link
 				href={href}
 				data-color={color}
+				data-testid={testId ? `${testId}--link` : undefined}
 				css={[
 					fg('platform-component-visual-refresh') ? baseStyles : baseStylesOld,
 					fg('platform-component-visual-refresh') ? linkStyles : linkStylesOld,

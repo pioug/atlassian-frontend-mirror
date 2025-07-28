@@ -5,7 +5,6 @@ import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import { DatePicker } from '@atlaskit/datetime-picker';
 import ErrorIcon from '@atlaskit/icon/core/migration/status-error--error';
-import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
 import { N0, N20, N30, R400 } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
@@ -188,7 +187,7 @@ export const DateRangePicker = ({
 					<CustomDateWrapper>
 						<DatePickersWrapper>
 							<DatePicker
-								shouldShowCalendarButton={fg('platform_linking_set_should_show_calender_button')}
+								shouldShowCalendarButton
 								maxDate={todayDate}
 								innerProps={{ style: { width: 140 } }}
 								testId="date-from-picker"
@@ -209,7 +208,7 @@ export const DateRangePicker = ({
 							/>
 							<FormattedMessage {...dateRangeMessages.dateRangeToLabel} />
 							<DatePicker
-								shouldShowCalendarButton={fg('platform_linking_set_should_show_calender_button')}
+								shouldShowCalendarButton
 								maxDate={todayDate}
 								innerProps={{ style: { width: 140 } }}
 								testId="date-to-picker"

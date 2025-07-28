@@ -1,5 +1,37 @@
 # @atlaskit/editor-statsig-tmp
 
+## 9.15.0
+
+### Minor Changes
+
+- [#190691](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/190691)
+  [`e4343163813c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e4343163813c4) -
+  [ux] [JRACLOUD-95277] When numbered column is on, use percentage scaling for colWidths if the
+  tableWidth is less than the maxWidth and the column width is greater than the min colWidth
+
+## 9.14.0
+
+### Minor Changes
+
+- [#189832](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/189832)
+  [`a3b339a1e6839`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3b339a1e6839) -
+  [ux] ED-28512 Update styling to fix card flickering issue in bodiedExtension
+
+### Patch Changes
+
+- [#190588](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/190588)
+  [`b22e308cfd320`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b22e308cfd320) -
+  Replace experiment key platform_editor_useSharedPluginStateSelector with
+  platform_editor_useSharedPluginStateWithSelector
+
+## 9.13.0
+
+### Minor Changes
+
+- [#191209](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/191209)
+  [`814220fd4e624`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/814220fd4e624) -
+  EDITOR-1151 Enable ADF support for change tone and spelling and grammar.
+
 ## 9.12.0
 
 ### Minor Changes

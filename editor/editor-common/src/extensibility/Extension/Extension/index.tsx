@@ -12,6 +12,7 @@ import classnames from 'classnames';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ExtensionProvider, ReferenceEntity } from '../../../extensions';
 import {
@@ -32,6 +33,7 @@ import { overlay } from '../styles';
 import { isEmptyBodiedMacro } from './extension-utils';
 import {
 	content,
+	extensionContent,
 	contentWrapper,
 	header,
 	overflowWrapperStyles,
@@ -193,6 +195,10 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 		}
 	};
 
+	const extensionContentStyles = expValEquals('platform_editor_extension_styles', 'isEnabled', true)
+		? extensionContent
+		: content;
+
 	return (
 		<Fragment>
 			{showLegacyContentHeader && (
@@ -276,7 +282,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 								<div
 									data-testid="extension-content"
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-									css={content}
+									css={extensionContentStyles}
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 									className={contentClassNames}
 								>

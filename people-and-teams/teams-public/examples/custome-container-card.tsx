@@ -13,7 +13,7 @@ import type { LinkedContainerCardProps } from '../src/ui/team-containers/linked-
 
 import { mockTeamContainersQueries } from './mocks/mockTeamContainersQueries';
 
-mockTeamContainersQueries();
+mockTeamContainersQueries.data();
 
 const styles = cssMap({
 	root: {

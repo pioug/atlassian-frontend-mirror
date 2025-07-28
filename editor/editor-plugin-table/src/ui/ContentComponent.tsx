@@ -7,6 +7,10 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
 import { getDomRefFromSelection } from '@atlaskit/editor-common/get-dom-ref-from-selection';
+import {
+	type NamedPluginStatesFromInjectionAPI,
+	useSharedPluginStateWithSelector,
+} from '@atlaskit/editor-common/hooks';
 import { ResizerBreakoutModeLabel } from '@atlaskit/editor-common/resizer';
 import {
 	type ExtractInjectionAPI,
@@ -17,7 +21,9 @@ import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
+import type tablePlugin from '../tablePlugin';
 import { type TablePlugin, type TablePluginOptions } from '../tablePluginType';
+import { type TableSharedStateInternal } from '../types';
 
 import FloatingContextualButton from './FloatingContextualButton';
 import FloatingContextualMenu from './FloatingContextualMenu';
@@ -28,7 +34,6 @@ import FloatingDragMenu from './FloatingDragMenu';
 import FloatingInsertButton from './FloatingInsertButton';
 import { FloatingToolbarLabel } from './FloatingToolbarLabel/FloatingToolbarLabel';
 import { GlobalStylesWrapper } from './global-styles';
-import { useInternalTablePluginStateSelector } from './hooks/useInternalTablePluginStateSelector';
 import { SizeSelector } from './SizeSelector';
 import { FullWidthDisplay } from './TableFullWidthLabel';
 
@@ -45,6 +50,41 @@ export type ContentComponentProps = {
 	defaultGetEditorFeatureFlags: GetEditorFeatureFlags;
 };
 
+const selector = (
+	states: NamedPluginStatesFromInjectionAPI<ExtractInjectionAPI<typeof tablePlugin>, ''> & {
+		tableState: TableSharedStateInternal | undefined;
+	},
+) => ({
+	resizingTableLocalId: states.tableState?.resizingTableLocalId,
+	resizingTableRef: states.tableState?.resizingTableRef,
+	isTableResizing: states.tableState?.isTableResizing,
+	isResizing: states.tableState?.isResizing,
+	widthToWidest: states.tableState?.widthToWidest,
+	tableNode: states.tableState?.tableNode,
+	targetCellPosition: states.tableState?.targetCellPosition,
+	isContextualMenuOpen: states.tableState?.isContextualMenuOpen,
+	tableRef: states.tableState?.tableRef,
+	pluginConfig: states.tableState?.pluginConfig,
+	insertColumnButtonIndex: states.tableState?.insertColumnButtonIndex,
+	insertRowButtonIndex: states.tableState?.insertRowButtonIndex,
+	isHeaderColumnEnabled: states.tableState?.isHeaderColumnEnabled,
+	isHeaderRowEnabled: states.tableState?.isHeaderRowEnabled,
+	isDragAndDropEnabled: states.tableState?.isDragAndDropEnabled,
+	tableWrapperTarget: states.tableState?.tableWrapperTarget,
+	isCellMenuOpenByKeyboard: states.tableState?.isCellMenuOpenByKeyboard,
+	stickyHeader: states.tableState?.stickyHeader,
+	dragMenuDirection: states.tableState?.dragMenuDirection,
+	dragMenuIndex: states.tableState?.dragMenuIndex,
+	isDragMenuOpen: states.tableState?.isDragMenuOpen,
+	isSizeSelectorOpen: states.tableState?.isSizeSelectorOpen,
+	sizeSelectorTargetRef: states.tableState?.sizeSelectorTargetRef,
+
+	// IMPORTANT: hovered states are used by FloatingDragMenu component to render popup in the correct location
+	hoveredRows: states.tableState?.hoveredRows,
+	hoveredColumns: states.tableState?.hoveredColumns,
+	hoveredCell: states.tableState?.hoveredCell,
+});
+
 const ContentComponentInternal = ({
 	api,
 	editorView,
@@ -60,41 +100,33 @@ const ContentComponentInternal = ({
 	const editorAnalyticsAPI = api?.analytics?.actions;
 	const ariaNotifyPlugin = api?.accessibilityUtils?.actions.ariaNotify;
 
-	const resizingTableLocalId = useInternalTablePluginStateSelector(api, 'resizingTableLocalId');
-	const resizingTableRef = useInternalTablePluginStateSelector(api, 'resizingTableRef');
-	const isTableResizing = useInternalTablePluginStateSelector(api, 'isTableResizing');
-	const isResizing = useInternalTablePluginStateSelector(api, 'isResizing');
-	const widthToWidest = useInternalTablePluginStateSelector(api, 'widthToWidest');
-
-	const tableNode = useInternalTablePluginStateSelector(api, 'tableNode');
-	const targetCellPosition = useInternalTablePluginStateSelector(api, 'targetCellPosition');
-	const isContextualMenuOpen = useInternalTablePluginStateSelector(api, 'isContextualMenuOpen');
-	const tableRef = useInternalTablePluginStateSelector(api, 'tableRef');
-	const pluginConfig = useInternalTablePluginStateSelector(api, 'pluginConfig');
-	const insertColumnButtonIndex = useInternalTablePluginStateSelector(
-		api,
-		'insertColumnButtonIndex',
-	);
-	const insertRowButtonIndex = useInternalTablePluginStateSelector(api, 'insertRowButtonIndex');
-	const isHeaderColumnEnabled = useInternalTablePluginStateSelector(api, 'isHeaderColumnEnabled');
-	const isHeaderRowEnabled = useInternalTablePluginStateSelector(api, 'isHeaderRowEnabled');
-	const isDragAndDropEnabled = useInternalTablePluginStateSelector(api, 'isDragAndDropEnabled');
-	const tableWrapperTarget = useInternalTablePluginStateSelector(api, 'tableWrapperTarget');
-	const isCellMenuOpenByKeyboard = useInternalTablePluginStateSelector(
-		api,
-		'isCellMenuOpenByKeyboard',
-	);
+	const {
+		resizingTableLocalId,
+		resizingTableRef,
+		isTableResizing,
+		isResizing,
+		widthToWidest,
+		tableNode,
+		targetCellPosition,
+		isContextualMenuOpen,
+		tableRef,
+		pluginConfig,
+		insertColumnButtonIndex,
+		insertRowButtonIndex,
+		isHeaderColumnEnabled,
+		isHeaderRowEnabled,
+		isDragAndDropEnabled,
+		tableWrapperTarget,
+		isCellMenuOpenByKeyboard,
+		stickyHeader,
+		dragMenuDirection,
+		dragMenuIndex,
+		isDragMenuOpen,
+		isSizeSelectorOpen,
+		sizeSelectorTargetRef,
+	} = useSharedPluginStateWithSelector(api, ['table'], selector);
 
 	const { allowControls } = pluginConfig ?? {};
-
-	const stickyHeader = useInternalTablePluginStateSelector(api, 'stickyHeader');
-
-	const dragMenuDirection = useInternalTablePluginStateSelector(api, 'dragMenuDirection');
-	const dragMenuIndex = useInternalTablePluginStateSelector(api, 'dragMenuIndex');
-	const isDragMenuOpen = useInternalTablePluginStateSelector(api, 'isDragMenuOpen');
-
-	const isSizeSelectorOpen = useInternalTablePluginStateSelector(api, 'isSizeSelectorOpen');
-	const sizeSelectorTargetRef = useInternalTablePluginStateSelector(api, 'sizeSelectorTargetRef');
 
 	return (
 		<>

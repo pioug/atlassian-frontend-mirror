@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { type Mark } from '@atlaskit/editor-prosemirror/model';
@@ -14,7 +14,6 @@ import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
-import type { HoverLinkOverlayProps } from '@atlaskit/editor-common/src/ui/HoverLinkOverlay/types';
 
 import { CardErrorBoundary } from './fallback';
 import type { WithSmartCardStorageProps } from '../../ui/SmartCardStorage';
@@ -29,6 +28,7 @@ import {
 import { usePortal } from '../../ui/Renderer/PortalContext';
 import type { RendererAppearance } from '../../ui/Renderer/types';
 
+type HoverLinkOverlayProps = React.ComponentProps<typeof HoverLinkOverlay>;
 export interface InlineCardProps extends MarkDataAttributes {
 	url?: string;
 	data?: object;
@@ -38,8 +38,8 @@ export interface InlineCardProps extends MarkDataAttributes {
 	marks?: Mark[];
 	rendererAppearance?: RendererAppearance;
 }
-const HoverLinkOverlayNoop = (props: React.PropsWithChildren<HoverLinkOverlayProps>) => (
-	<div>{props.children}</div>
+const HoverLinkOverlayNoop = (props: HoverLinkOverlayProps) => (
+	<Fragment>{props.children}</Fragment>
 );
 
 const HoverLinkOverlayWithCondition = componentWithCondition(

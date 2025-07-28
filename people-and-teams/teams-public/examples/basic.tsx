@@ -12,7 +12,7 @@ import { TeamContainers } from '../src';
 
 import { mockTeamContainersQueries } from './mocks/mockTeamContainersQueries';
 
-mockTeamContainersQueries();
+mockTeamContainersQueries.data();
 
 const styles = cssMap({
 	root: {

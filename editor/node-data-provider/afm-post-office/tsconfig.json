@@ -19,6 +19,12 @@
 	"references": [
 		{
 			"path": "../../adf-utils/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-json-transformer/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-post-office/tsconfig.json"
 		}
 	]
 }

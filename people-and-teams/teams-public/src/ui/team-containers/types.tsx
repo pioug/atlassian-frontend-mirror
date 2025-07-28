@@ -1,5 +1,7 @@
 import { type ComponentType } from 'react';
 
+import { type OnRequestedContainerTimeout } from '../../controllers/hooks/use-requested-container';
+
 import { type LinkedContainerCardProps } from './linked-container-card';
 import { type TeamContainersSkeletonProps } from './team-containers-skeleton';
 
@@ -47,6 +49,10 @@ export interface TeamContainerProps {
 	 * The maximum number of containers to show
 	 */
 	maxNumberOfContainersToShow?: number;
+	/**
+	 * The function to call when the requested container times out
+	 */
+	onRequestedContainerTimeout?: OnRequestedContainerTimeout;
 }
 
 export interface TeamContainersComponent {

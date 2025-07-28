@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/node-data-provider",
-	"version": "4.2.0",
+	"version": "4.3.0",
 	"description": "Node data provider for @atlaskit/editor-core plugins and @atlaskit/renderer",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -8,7 +8,7 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"atlassian": {
-		"team": "Editor: Core Experiences",
+		"team": "Editor: Lego",
 		"singleton": true
 	},
 	"repository": "https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo",
@@ -27,13 +27,14 @@
 	"dependencies": {
 		"@atlaskit/adf-schema": "root:*",
 		"@atlaskit/adf-utils": "workspace:^",
+		"@atlaskit/editor-json-transformer": "workspace:^",
+		"@atlaskit/editor-prosemirror": "root:^",
 		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"@atlaskit/editor-common": "workspace:^"
 	},
 	"devDependencies": {
-		"@atlaskit/editor-test-helpers": "workspace:^",
 		"typescript": "root:*"
 	},
 	"techstack": {

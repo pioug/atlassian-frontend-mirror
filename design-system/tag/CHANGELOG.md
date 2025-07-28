@@ -1,5 +1,15 @@
 # @atlaskit/tag
 
+## 14.1.0
+
+### Minor Changes
+
+- [#187935](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/187935)
+  [`2ee75bd0e7f23`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2ee75bd0e7f23) -
+  Changes:
+  - Fix bug where removable gray tags rendered incorrect colors for the close button.
+  - Add testId to links in link tags to allow links to be targeted by tests
+
 ## 14.0.16
 
 ### Patch Changes

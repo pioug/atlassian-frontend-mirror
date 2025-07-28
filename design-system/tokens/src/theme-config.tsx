@@ -386,11 +386,11 @@ export const themeStateDefaults: ThemeStateDefaults = {
 	shape: undefined,
 	spacing: 'spacing',
 	typography: () => {
+		if (fg('platform-disable-default-typography')) {
+			return undefined;
+		}
 		if (fg('platform-default-typography-refreshed')) {
 			return 'typography';
-		}
-		if (fg('platform-default-typography-modernized')) {
-			return 'typography-modernized';
 		}
 		return undefined;
 	},

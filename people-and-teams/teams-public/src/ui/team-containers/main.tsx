@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { defineMessages, FormattedMessage } from 'react-intl-next';
 
@@ -19,6 +19,7 @@ import { type ContainerTypes, type TeamContainer } from '../../common/types';
 import { AnalyticsAction, usePeopleAndTeamAnalytics } from '../../common/utils/analytics';
 import { hasProductPermission as hasProductPermissionOld } from '../../controllers';
 import { useProductPermissions as useProductPermissionsOld } from '../../controllers/hooks/use-product-permission';
+import { useRequestedContainers } from '../../controllers/hooks/use-requested-container';
 import {
 	useTeamContainers,
 	useTeamContainersHook,
@@ -30,6 +31,7 @@ import { DisconnectDialogLazy } from './disconnect-dialog/async';
 import { LinkedContainerCard } from './linked-container-card';
 import { NoProductAccessState } from './no-product-access-empty-state';
 import { TeamContainersSkeleton } from './team-containers-skeleton';
+import { LinkedContainerCardSkeleton } from './team-containers-skeleton/linked-container-card-skeleton';
 import { TeamLinkCard } from './team-link-card';
 import { type TeamContainerProps } from './types';
 
@@ -47,6 +49,7 @@ export const TeamContainers = ({
 	teamId,
 	onAddAContainerClick,
 	onEditContainerClick,
+	onRequestedContainerTimeout = () => {},
 	components,
 	userId,
 	cloudId,
@@ -60,6 +63,7 @@ export const TeamContainers = ({
 		teamId,
 		true,
 	);
+	const { requestedContainers } = useRequestedContainers({ teamId, onRequestedContainerTimeout });
 	const [_, actions] = useTeamContainersHook();
 	const [showMore, setShowMore] = useState(false);
 	const [isDisconnectDialogOpen, setIsDisconnectDialogOpen] = useState(false);
@@ -98,7 +102,12 @@ export const TeamContainers = ({
 	useEffect(() => {
 		if (fg('enable_web_links_in_team_containers')) {
 			if (isDisplayedOnProfileCard && filterContainerId) {
-				setFilteredTeamLinks(teamLinks.filter((container) => container.id !== filterContainerId));
+				setFilteredTeamLinks(
+					teamLinks.filter(
+						(container) =>
+							container.id !== filterContainerId && !requestedContainers.includes(container.type),
+					),
+				);
 			} else {
 				setFilteredTeamLinks(teamLinks);
 			}
@@ -111,7 +120,7 @@ export const TeamContainers = ({
 				setFilteredTeamContainers(teamContainers);
 			}
 		}
-	}, [teamLinks, teamContainers, isDisplayedOnProfileCard, filterContainerId]);
+	}, [teamLinks, teamContainers, isDisplayedOnProfileCard, filterContainerId, requestedContainers]);
 
 	useEffect(() => {
 		const containersToCheck = fg('enable_web_links_in_team_containers')
@@ -120,48 +129,43 @@ export const TeamContainers = ({
 		if (containersToCheck.length > maxNumberOfContainersToShow || isDisplayedOnProfileCard) {
 			setShowAddContainer({ Jira: false, Confluence: false, Loom: false, WebLink: false });
 		} else {
-			const hasJiraProject = containersToCheck.some(
-				(container) => container.type === 'JiraProject',
-			);
-			const hasConfluenceSpace = containersToCheck.some(
-				(container) => container.type === 'ConfluenceSpace',
-			);
-			const hasLoomSpace = containersToCheck.some((container) => container.type === 'LoomSpace');
-			const hasWebLink = containersToCheck.some((container) => container.type === 'WebLink');
+			const containerExists = (type: ContainerTypes) =>
+				containersToCheck.some((container) => container.type === type);
 
-			setShowAddContainer(
-				fg('migrate-product-permissions')
-					? {
-							Jira:
-								!hasJiraProject &&
-								!!productPermissions &&
-								!!hasProductPermission(productPermissions, 'jira'),
-							Confluence:
-								!hasConfluenceSpace &&
-								!!productPermissions &&
-								!!hasProductPermission(productPermissions, 'confluence'),
-							Loom:
-								!hasLoomSpace &&
-								!!productPermissions &&
-								!!hasProductPermission(productPermissions, 'loom'),
-							WebLink: !hasWebLink,
-						}
-					: {
-							Jira:
-								!hasJiraProject &&
-								!!productPermissionsOld &&
-								!!hasProductPermissionOld(productPermissionsOld, 'jira'),
-							Confluence:
-								!hasConfluenceSpace &&
-								!!productPermissionsOld &&
-								!!hasProductPermissionOld(productPermissionsOld, 'confluence'),
-							Loom:
-								!hasLoomSpace &&
-								!!productPermissionsOld &&
-								!!hasProductPermissionOld(productPermissionsOld, 'loom'),
-							WebLink: !hasWebLink,
-						},
-			);
+			const containerRequested = (type: ContainerTypes) => requestedContainers.includes(type);
+
+			const showContainer = (
+				containerExists: boolean,
+				isRequesting: boolean,
+				product: 'confluence' | 'jira' | 'loom',
+			) => {
+				if (containerExists || isRequesting) {
+					return false;
+				}
+
+				if (fg('migrate-product-permissions')) {
+					return (productPermissions && hasProductPermission(productPermissions, product)) || false;
+				}
+				return (
+					(productPermissionsOld && hasProductPermissionOld(productPermissionsOld, product)) ||
+					false
+				);
+			};
+
+			setShowAddContainer({
+				Jira: showContainer(
+					containerExists('JiraProject'),
+					containerRequested('JiraProject'),
+					'jira',
+				),
+				Confluence: showContainer(
+					containerExists('ConfluenceSpace'),
+					containerRequested('ConfluenceSpace'),
+					'confluence',
+				),
+				Loom: showContainer(containerExists('LoomSpace'), containerRequested('LoomSpace'), 'loom'),
+				WebLink: !containerExists('WebLink'),
+			});
 		}
 	}, [
 		isDisplayedOnProfileCard,
@@ -170,6 +174,7 @@ export const TeamContainers = ({
 		filteredTeamContainers,
 		filteredTeamLinks,
 		maxNumberOfContainersToShow,
+		requestedContainers,
 	]);
 
 	const handleShowMore = () => {
@@ -250,32 +255,45 @@ export const TeamContainers = ({
 	const TeamContainersSkeletonComponent =
 		components?.TeamContainersSkeleton || TeamContainersSkeleton;
 
-	if (
-		loading ||
-		(fg('migrate-product-permissions') ? productPermissionIsLoading : productPermissionIsLoadingOld)
-	) {
+	const hasNoPermissions = useMemo(() => {
+		if (fg('migrate-product-permissions')) {
+			return (
+				productPermissions &&
+				!hasProductPermission(productPermissions, 'jira') &&
+				!hasProductPermission(productPermissions, 'confluence') &&
+				!hasProductPermission(productPermissions, 'loom')
+			);
+		}
+		return (
+			productPermissionsOld &&
+			!hasProductPermissionOld(productPermissionsOld, 'jira') &&
+			!hasProductPermissionOld(productPermissionsOld, 'confluence') &&
+			!hasProductPermissionOld(productPermissionsOld, 'loom')
+		);
+	}, [productPermissions, productPermissionsOld]);
+
+	const hasNoContainers = useMemo(() => {
+		if (fg('enable_web_links_in_team_containers')) {
+			return filteredTeamLinks.length === 0;
+		}
+		return filteredTeamContainers.length === 0;
+	}, [filteredTeamLinks, filteredTeamContainers]);
+
+	const isLoading = useMemo(() => {
+		if (loading) {
+			return true;
+		}
+		if (fg('migrate-product-permissions')) {
+			return productPermissionIsLoading;
+		}
+		return productPermissionIsLoadingOld;
+	}, [loading, productPermissionIsLoading, productPermissionIsLoadingOld]);
+
+	if (isLoading) {
 		return <TeamContainersSkeletonComponent numberOfContainers={maxNumberOfContainersToShow} />;
 	}
 
-	const hasAnyProductPermission =
-		(productPermissions &&
-			(hasProductPermission(productPermissions, 'jira') ||
-				hasProductPermission(productPermissions, 'confluence') ||
-				hasProductPermission(productPermissions, 'loom')) &&
-			fg('migrate-product-permissions')) ||
-		(productPermissionsOld &&
-			(hasProductPermissionOld(productPermissionsOld, 'jira') ||
-				hasProductPermissionOld(productPermissionsOld, 'confluence') ||
-				hasProductPermissionOld(productPermissionsOld, 'loom')) &&
-			!fg('migrate-product-permissions'));
-
-	if (
-		(fg('enable_web_links_in_team_containers')
-			? filteredTeamLinks.length === 0
-			: filteredTeamContainers.length === 0) &&
-		!isDisplayedOnProfileCard &&
-		!hasAnyProductPermission
-	) {
+	if (hasNoContainers && !isDisplayedOnProfileCard && hasNoPermissions) {
 		return <NoProductAccessState />;
 	}
 
@@ -286,6 +304,9 @@ export const TeamContainers = ({
 					templateColumns="repeat(auto-fill, minmax(300px, 1fr))"
 					gap={isDisplayedOnProfileCard ? 'space.0' : 'space.100'}
 				>
+					{requestedContainers.map((containerType) => (
+						<LinkedContainerCardSkeleton key={containerType} containerType={containerType} />
+					))}
 					{fg('enable_web_links_in_team_containers')
 						? filteredTeamLinks.slice(0, maxNumberOfContainersToShow).map((container) => {
 								return (

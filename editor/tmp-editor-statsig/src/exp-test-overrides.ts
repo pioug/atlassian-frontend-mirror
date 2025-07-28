@@ -63,7 +63,6 @@ export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	platform_editor_offline_editing_web: false,
 	platform_editor_tables_drag_and_drop: false,
 	platform_editor_tables_table_selector: false,
-	platform_editor_usesharedpluginstateselector: false,
 	platform_editor_media_floating_toolbar_early_exit: false,
 	platform_renderer_fix_analytics_memo_callback: false,
 	platform_editor_stop_width_reflows: false,

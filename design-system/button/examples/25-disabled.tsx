@@ -29,7 +29,7 @@ export default function DisabledExample() {
 		<Box padding="space.200">
 			<Stack space="space.300" alignInline="start">
 				<Checkbox
-					label="Disable buttons"
+					label="Disable all buttons"
 					isChecked={isDisabled}
 					onChange={() => setIsDisabled((value) => !value)}
 				/>
@@ -52,6 +52,7 @@ export default function DisabledExample() {
 										<th>Default</th>
 										<th>Selected</th>
 										{!isIconButton && <th>Icon after</th>}
+										<th>Disabled</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -92,6 +93,18 @@ export default function DisabledExample() {
 													</Component>
 												</td>
 											)}
+											<td>
+												<Component
+													// @ts-ignore
+													appearance={appearance}
+													isDisabled
+													onClick={() => {
+														console.log('click');
+													}}
+												>
+													Disabled
+												</Component>
+											</td>
 										</tr>
 									))}
 								</tbody>

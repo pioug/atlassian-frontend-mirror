@@ -36,6 +36,12 @@
 			"path": "../../../measurement/feature-gate-js-client/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/flag/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../helpers/frontend-utilities/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/heading/afm-post-office/tsconfig.json"
 		},
 		{

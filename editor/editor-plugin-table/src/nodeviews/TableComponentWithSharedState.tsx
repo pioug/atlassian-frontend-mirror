@@ -16,6 +16,7 @@ import type {
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { findTable } from '@atlaskit/editor-tables';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type tablePlugin from '../tablePlugin';
@@ -204,7 +205,10 @@ export const TableComponentWithSharedState = ({
 
 	const isLivePageViewMode = mode === 'view';
 
-	if (editorExperiment('platform_editor_usesharedpluginstateselector', false) && !tableState) {
+	if (
+		expValEquals('platform_editor_usesharedpluginstatewithselector', 'isEnabled', false) &&
+		!tableState
+	) {
 		return null;
 	}
 
@@ -250,7 +254,7 @@ export const TableComponentWithSharedState = ({
 			isResizing={isResizing}
 			getNode={getNode}
 			containerWidth={
-				editorExperiment('platform_editor_usesharedpluginstateselector', true)
+				editorExperiment('platform_editor_usesharedpluginstatewithselector', true)
 					? {
 							width: width ?? 0,
 							lineLength,

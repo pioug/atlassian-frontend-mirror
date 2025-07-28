@@ -18,7 +18,7 @@ import {
 	type ReadOnlyParticipants,
 } from '@atlaskit/editor-plugin-collab-edit';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { AvatarGroupPlugin } from '../avatarGroupPluginType';
 
@@ -85,11 +85,17 @@ const AvatarsWithPluginState = (props: AvatarsWithPluginStateProps & WrappedComp
 	const { sessionId, activeParticipants, isInitialised, collabEditState } =
 		useAvatarsWithPluginState(editorAPI);
 
-	if (!collabEditState && editorExperiment('platform_editor_usesharedpluginstateselector', false)) {
+	if (
+		!collabEditState &&
+		expValEquals('platform_editor_usesharedpluginstatewithselector', 'isEnabled', false)
+	) {
 		return null;
 	}
 
-	if (!isInitialised && editorExperiment('platform_editor_usesharedpluginstateselector', true)) {
+	if (
+		!isInitialised &&
+		expValEquals('platform_editor_usesharedpluginstatewithselector', 'isEnabled', true)
+	) {
 		return null;
 	}
 

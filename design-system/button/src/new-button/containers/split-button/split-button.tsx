@@ -164,6 +164,9 @@ const buttonStyles = cssMap({
 		outlineStyle: 'solid',
 		outlineWidth: 1,
 	},
+	defaultAppearanceDisabledContainer: {
+		outlineColor: token('color.border.disabled'),
+	},
 });
 
 /**
@@ -182,9 +185,12 @@ export const SplitButtonContainer = ({
 		<div
 			css={[
 				appearance === 'default' &&
-					!isDisabled &&
 					fg('platform-component-visual-refresh') &&
 					buttonStyles.defaultAppearanceContainer,
+				appearance === 'default' &&
+					isDisabled &&
+					fg('platform-component-visual-refresh') &&
+					buttonStyles.defaultAppearanceDisabledContainer,
 				buttonStyles.splitButton,
 			]}
 		>

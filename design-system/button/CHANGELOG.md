@@ -1,5 +1,15 @@
 # @atlaskit/button
 
+## 23.3.0
+
+### Minor Changes
+
+- [#191380](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/191380)
+  [`c65ad6bb7b13a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c65ad6bb7b13a) -
+  Updates the visual appearance of disabled buttons with `default` and `subtle` appearances. This
+  change only affects buttons behind a feature flag for Atlassian's new design language, and will be
+  made available in a later release.
+
 ## 23.2.8
 
 ### Patch Changes

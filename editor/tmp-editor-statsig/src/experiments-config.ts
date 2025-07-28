@@ -34,6 +34,15 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-07-24
+	editor_prevent_numbered_column_too_big_jira: createBooleanExperiment({
+		productKeys: {
+			confluence: 'editor_prevent_numbered_column_too_big_jira',
+			jira: 'editor_prevent_numbered_column_too_big_jira',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-06-02
 	platform_editor_block_control_optimise_render: createBooleanExperiment({
 		productKeys: {
@@ -286,6 +295,14 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-07-24
+	platform_editor_usesharedpluginstatewithselector: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_usesharedpluginstatewithselector',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-07-14
 	platform_editor_media_floating_toolbar_early_exit: createBooleanExperiment({
 		productKeys: {
@@ -398,10 +415,26 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-06-18
+	platform_editor_ai_ct_sg_adf_streaming: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_ai_ct_sg_adf_streaming',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-07-07
 	platform_editor_ai_remove_trivial_prompts_cc: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_ai_remove_trivial_prompts_cc',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	//Added 2025-07-25
+	platform_editor_extension_styles: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_extension_styles',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

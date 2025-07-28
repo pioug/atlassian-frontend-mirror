@@ -28,7 +28,6 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { setTableAlignmentWithTableContentWithPosWithAnalytics } from '../pm-plugins/commands/commands-with-analytics';
 import { getPluginState } from '../pm-plugins/plugin-factory';
@@ -117,7 +116,10 @@ const AlignmentTableContainer = ({
 		useAlignmentTableContainerSharedState(pluginInjectionApi);
 
 	useEffect(() => {
-		if (!tableState && editorExperiment('platform_editor_usesharedpluginstateselector', false)) {
+		if (
+			!tableState &&
+			expValEquals('platform_editor_usesharedpluginstatewithselector', 'isEnabled', false)
+		) {
 			return;
 		}
 

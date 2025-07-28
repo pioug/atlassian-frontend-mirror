@@ -36,6 +36,12 @@
 			"path": "../../../measurement/feature-gate-js-client/afm-rovo-extension/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/flag/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../helpers/frontend-utilities/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/heading/afm-rovo-extension/tsconfig.json"
 		},
 		{

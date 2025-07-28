@@ -8,6 +8,8 @@ import { type HelpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
 import { MockActivityResource } from '@atlaskit/editor-test-helpers/example-helpers';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import Form, { Field, FormFooter } from '@atlaskit/form';
+import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
+import { ReactRenderer } from '@atlaskit/renderer';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 import { currentUser, getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
@@ -30,19 +32,22 @@ export type Props = {
 
 export type State = {
 	isExpanded?: boolean;
-	defaultValue?: Node | string | Object;
+	isEditingMode?: boolean;
 	assistiveLabel?: string;
 };
 
+const LOCALSTORAGE_DOC_KEY = 'fabric.editor.example.comment';
+
 const mediaProvider = storyMediaProviderFactory();
+const smartCardClient = new CardClient('staging');
 
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class CommentEditorJiraBento extends React.Component<Props, State> {
 	state = {
 		isExpanded: false,
-		defaultValue: '',
 		assistiveLabel: 'Default: ',
+		isEditingMode: true,
 	};
 
 	private providers = {
@@ -56,7 +61,7 @@ export class CommentEditorJiraBento extends React.Component<Props, State> {
 
 	onChange = (actions: EditorActions) => () => {
 		actions.getValue().then((value) => {
-			this.setState({ defaultValue: value });
+			localStorage.setItem(LOCALSTORAGE_DOC_KEY, JSON.stringify(value));
 		});
 	};
 
@@ -67,6 +72,9 @@ export class CommentEditorJiraBento extends React.Component<Props, State> {
 	};
 
 	render() {
+		const savedDoc = localStorage.getItem(LOCALSTORAGE_DOC_KEY);
+		const document = savedDoc ? JSON.parse(savedDoc) : undefined;
+
 		return (
 			<IntlProvider locale="en">
 				<div>
@@ -77,7 +85,7 @@ export class CommentEditorJiraBento extends React.Component<Props, State> {
 					>
 						{({ formProps }) => (
 							<form
-								{...formProps}
+								onSubmit={formProps.onSubmit}
 								style={{
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 									display: 'flex',
@@ -89,7 +97,17 @@ export class CommentEditorJiraBento extends React.Component<Props, State> {
 							>
 								<Field label="Assistive Label" name="assistiveLabel">
 									{({ fieldProps }) => (
-										<Textfield placeholder="Enter assistiveLabel" {...fieldProps} />
+										<Textfield
+											placeholder="Enter assistiveLabel"
+											id={fieldProps.id}
+											name={fieldProps.name}
+											value={fieldProps.value}
+											onChange={fieldProps.onChange}
+											onBlur={fieldProps.onBlur}
+											onFocus={fieldProps.onFocus}
+											isDisabled={fieldProps.isDisabled}
+											isInvalid={fieldProps.isInvalid}
+										/>
 									)}
 								</Field>
 								<FormFooter>
@@ -101,62 +119,160 @@ export class CommentEditorJiraBento extends React.Component<Props, State> {
 						)}
 					</Form>
 				</div>
-				<EditorContext>
-					<WithEditorActions
-						render={(actions) => (
-							<CollapsedEditor
-								isExpanded={this.state.isExpanded}
-								onFocus={this.onFocus}
-								placeholder="Add a comment..."
-							>
-								<ComposableEditorWrapper
-									appearance="comment"
-									defaultValue={this.state.defaultValue}
-									shouldFocus={true}
-									disabled={false}
-									onCancel={() => this.setState({ isExpanded: false })}
-									onChange={this.onChange(actions)}
-									onSave={() => this.setState({ isExpanded: false })}
-									{...this.providers}
-									media={{
-										provider: mediaProvider,
-										allowMediaSingle: true,
-									}}
-									allowRule={true}
-									allowTextColor={true}
-									allowTables={{
-										allowControls: true,
-									}}
-									allowPanel={true}
-									allowHelpDialog={true}
-									placeholder="We support markdown! Try **bold**, `inline code`, or ``` for code blocks."
-									useStickyToolbar={true}
-									assistiveLabel={this.state.assistiveLabel}
-								/>
-							</CollapsedEditor>
-						)}
-					/>
-				</EditorContext>
+				{this.state.isEditingMode ? (
+					<EditorContext>
+						<WithEditorActions
+							render={(actions) => (
+								<CollapsedEditor
+									isExpanded={this.state.isExpanded}
+									onFocus={this.onFocus}
+									placeholder="Add a comment..."
+								>
+									<ComposableEditorWrapper
+										appearance="comment"
+										defaultValue={document}
+										shouldFocus={true}
+										disabled={false}
+										onCancel={() => this.setState({ isExpanded: false })}
+										onChange={this.onChange(actions)}
+										onSave={() => {
+											this.setState({ isEditingMode: false });
+											this.setState({ isExpanded: false });
+										}}
+										emojiProvider={this.providers.emojiProvider}
+										mentionProvider={this.providers.mentionProvider}
+										activityProvider={this.providers.activityProvider}
+										media={{
+											provider: mediaProvider,
+											allowMediaSingle: true,
+										}}
+										allowRule={true}
+										allowTextColor={true}
+										allowTables={{
+											allowControls: true,
+											allowNumberColumn: true,
+											allowColumnResizing: true,
+											allowHeaderRow: true,
+											allowMergeCells: true,
+											allowTableResizing: true,
+										}}
+										allowPanel={true}
+										allowHelpDialog={true}
+										placeholder="We support markdown! Try **bold**, `inline code`, or ``` for code blocks."
+										useStickyToolbar={true}
+										assistiveLabel={this.state.assistiveLabel}
+									/>
+								</CollapsedEditor>
+							)}
+						/>
+					</EditorContext>
+				) : (
+					<div
+						style={{
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							margin: '16px',
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							padding: '16px',
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							border: '1px solid #ccc',
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							borderRadius: '4px',
+						}}
+					>
+						<SmartCardProvider client={smartCardClient}>
+							<ReactRenderer
+								document={document}
+								appearance="comment"
+								allowHeadingAnchorLinks
+								allowColumnSorting
+								adfStage="stage0"
+								UNSTABLE_allowTableAlignment
+								UNSTABLE_allowTableResizing
+								eventHandlers={{
+									onUnhandledClick: (e) => {
+										// eslint-disable-next-line no-console
+										console.log('onUnhandledClick called');
+										this.setState({ isEditingMode: true, isExpanded: true });
+									},
+								}}
+							/>
+						</SmartCardProvider>
+					</div>
+				)}
 			</IntlProvider>
 		);
 	}
 }
 
-const ComposableEditorWrapper = (props: EditorProps) => {
-	const universalPreset = useUniversalPreset({ props });
+const ComposableEditorWrapper = ({
+	appearance,
+	defaultValue,
+	shouldFocus,
+	disabled,
+	onCancel,
+	onChange,
+	onSave,
+	emojiProvider,
+	mentionProvider,
+	activityProvider,
+	media,
+	allowRule,
+	allowTextColor,
+	allowTables,
+	allowPanel,
+	allowHelpDialog,
+	placeholder,
+	useStickyToolbar,
+	assistiveLabel,
+}: EditorProps) => {
+	const universalPreset = useUniversalPreset({
+		props: {
+			appearance,
+			defaultValue,
+			shouldFocus,
+			disabled,
+			onCancel,
+			onChange,
+			onSave,
+			emojiProvider,
+			mentionProvider,
+			activityProvider,
+			media,
+			allowRule,
+			allowTextColor,
+			allowTables,
+			allowPanel,
+			allowHelpDialog,
+			placeholder,
+			useStickyToolbar,
+			assistiveLabel,
+		},
+	});
 	const { preset, editorApi } = usePreset(() => universalPreset, [universalPreset]);
 
 	return (
 		<ComposableEditor
 			preset={preset}
-			{...props}
+			appearance={appearance}
+			defaultValue={defaultValue}
+			shouldFocus={shouldFocus}
+			disabled={disabled}
+			onCancel={onCancel}
+			onChange={onChange}
+			onSave={onSave}
+			emojiProvider={emojiProvider}
+			mentionProvider={mentionProvider}
+			activityProvider={activityProvider}
+			media={media}
+			useStickyToolbar={useStickyToolbar}
+			assistiveLabel={assistiveLabel}
 			primaryToolbarComponents={
 				<ToolbarHelp
 					titlePosition="top"
 					title="Help"
 					key="help"
 					editorApi={
-						props.allowHelpDialog ? (editorApi as ExtractInjectionAPI<HelpDialogPlugin>) : undefined
+						allowHelpDialog ? (editorApi as ExtractInjectionAPI<HelpDialogPlugin>) : undefined
 					}
 				/>
 			}
@@ -165,5 +281,10 @@ const ComposableEditorWrapper = (props: EditorProps) => {
 };
 
 export default function CommentExample(props?: Props) {
-	return <CommentEditorJiraBento {...props} />;
+	return (
+		<CommentEditorJiraBento
+			editorProps={props?.editorProps}
+			replacementDoc={props?.replacementDoc}
+		/>
+	);
 }

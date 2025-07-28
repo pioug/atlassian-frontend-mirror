@@ -32,8 +32,8 @@ import CollapseIcon from '@atlaskit/icon/glyph/editor/collapse';
 import ExpandIcon from '@atlaskit/icon/glyph/editor/expand';
 import { B300, N20A, N300 } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import type { BreakoutPlugin, BreakoutPluginState } from '../breakoutPluginType';
@@ -72,7 +72,7 @@ const toolbarButtonNarrowScreenStyles = css({
 export interface Props {
 	editorView: EditorView;
 	mountPoint?: HTMLElement;
-	// delete `node` when cleaning up `platform_editor_usesharedpluginstateselector`
+	// delete `node` when cleaning up `platform_editor_usesharedpluginstatewithselector`
 	node: PMNode | null;
 	boundariesElement?: HTMLElement;
 	scrollableElement?: HTMLElement;
@@ -151,7 +151,11 @@ const LayoutButton = ({
 
 	const { state } = editorView;
 
-	const exitCondition = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+	const exitCondition = expValEquals(
+		'platform_editor_usesharedpluginstatewithselector',
+		'isEnabled',
+		true,
+	)
 		? !isBreakoutNodePresent
 		: !node;
 
@@ -159,7 +163,11 @@ const LayoutButton = ({
 		return null;
 	}
 
-	const breakoutMode = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+	const breakoutMode = expValEquals(
+		'platform_editor_usesharedpluginstatewithselector',
+		'isEnabled',
+		true,
+	)
 		? breakoutModeProp
 		: getBreakoutMode(editorView.state);
 	const titleMessage = getTitle(breakoutMode);

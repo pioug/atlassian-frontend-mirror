@@ -19,6 +19,12 @@
 	"references": [
 		{
 			"path": "../../adf-utils/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-json-transformer/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-townsquare/tsconfig.json"
 		}
 	]
 }

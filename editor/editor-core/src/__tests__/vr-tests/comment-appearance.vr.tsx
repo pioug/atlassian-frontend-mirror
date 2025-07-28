@@ -4,7 +4,7 @@ import { EmptyCommentEditor, CommentEditorTwoLineToolbar } from './comment-appea
 
 snapshot(EmptyCommentEditor, {
 	featureFlags: {
-		platform_editor_usesharedpluginstateselector: [true, false],
+		platform_editor_usesharedpluginstatewithselector: [true, false],
 	},
 });
 

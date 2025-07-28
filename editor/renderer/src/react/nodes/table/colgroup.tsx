@@ -5,6 +5,7 @@ import { tableCellBorderWidth, tableCellMinWidth } from '@atlaskit/editor-common
 import {
 	akEditorTableNumberColumnWidth,
 	akEditorTableLegacyCellMinWidth,
+	akEditorTableCellMinWidth,
 } from '@atlaskit/editor-shared-styles';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
@@ -13,6 +14,7 @@ import { useFeatureFlags } from '../../../use-feature-flags';
 import type { RendererContextProps } from '../../../renderer-context';
 import { useRendererContext } from '../../../renderer-context';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 // we allow scaling down column widths by no more than 30%
 // this intends to reduce unwanted scrolling in the Renderer in these scenarios:
@@ -251,7 +253,41 @@ const renderScaleDownColgroup = (
 			isNumberColumnEnabled: isNumberColumnEnabled,
 		});
 	}
+	if (
+		isNumberColumnEnabled &&
+		(tableWidth < maxTableWidth || maxTableWidth === 0) &&
+		expValEquals('editor_prevent_numbered_column_too_big_jira', 'isEnabled', true)
+	) {
+		const fixedColWidths = targetWidths.map(
+			(width) =>
+				fixColumnWidth(width, tableWidth, maxTableWidth, zeroWidthColumnsCount, scaleDownPercent) ||
+				cellMinWidth,
+		);
+		const sumFixedColumnWidths = colWidthSum(fixedColWidths);
 
+		return fixedColWidths.map((colWidth) => {
+			const width = Math.max(colWidth, cellMinWidth);
+
+			if (colWidth > akEditorTableCellMinWidth) {
+				// To make sure the numbered column isn't scaled, use
+				// percentages for the other columns.
+				// Calculate the percentage based on the sum of the fixed column widths
+				return {
+					width: `${(width / sumFixedColumnWidths) * 100}%`,
+				};
+			} else {
+				// If the column is equal to or less than the minimum cell width, we need to return a fixed pixel width.
+				// This is to prevent columns being scaled below the minimum cell width.
+				const style = width ? { width: `${width}px` } : {};
+				return style;
+			}
+		});
+	}
+
+	/**
+	 * When cleaning up editor_prevent_numbered_column_too_big_jira experiment,
+	 * resuse the fixedColWidths const to avoid code duplication.
+	 */
 	return targetWidths.map((colWidth) => {
 		const width =
 			fixColumnWidth(

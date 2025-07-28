@@ -4,6 +4,6 @@ import { EmptyFullPageEditor } from './full-page-appearance.fixtures';
 
 snapshot(EmptyFullPageEditor, {
 	featureFlags: {
-		platform_editor_usesharedpluginstateselector: [true, false],
+		platform_editor_usesharedpluginstatewithselector: [true, false],
 	},
 });

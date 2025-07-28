@@ -241,11 +241,11 @@ var themeStateDefaults = exports.themeStateDefaults = {
   shape: undefined,
   spacing: 'spacing',
   typography: function typography() {
+    if ((0, _platformFeatureFlags.fg)('platform-disable-default-typography')) {
+      return undefined;
+    }
     if ((0, _platformFeatureFlags.fg)('platform-default-typography-refreshed')) {
       return 'typography';
-    }
-    if ((0, _platformFeatureFlags.fg)('platform-default-typography-modernized')) {
-      return 'typography-modernized';
     }
     return undefined;
   },

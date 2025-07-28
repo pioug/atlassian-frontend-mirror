@@ -1,5 +1,27 @@
 # @atlaskit/renderer
 
+## 120.3.0
+
+### Minor Changes
+
+- [#190691](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/190691)
+  [`e4343163813c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e4343163813c4) -
+  [ux] [JRACLOUD-95277] When numbered column is on, use percentage scaling for colWidths if the
+  tableWidth is less than the maxWidth and the column width is greater than the min colWidth
+
+### Patch Changes
+
+- Updated dependencies
+
+## 120.2.7
+
+### Patch Changes
+
+- [#191865](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/191865)
+  [`972dbb190b357`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/972dbb190b357) -
+  [ux] Fix smart link line break bug in client side rendering
+- Updated dependencies
+
 ## 120.2.6
 
 ### Patch Changes

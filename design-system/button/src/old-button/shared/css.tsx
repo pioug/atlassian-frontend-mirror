@@ -75,7 +75,7 @@ const defaultStyles: CSSObject = {
 	background: token('color.background.neutral.subtle'),
 	color: token('color.text'),
 
-	'&:not([disabled])::after': {
+	'&::after': {
 		...defaultAfterStyles,
 		content: '""',
 		borderColor: token('color.border'),
@@ -90,6 +90,18 @@ const defaultStyles: CSSObject = {
 	},
 
 	'&[data-has-overlay="true"]:not([disabled]):hover': {
+		background: token('color.background.neutral.subtle'),
+	},
+
+	'&:disabled[disabled]': {
+		background: token('color.background.neutral.subtle'),
+	},
+
+	'&:disabled[disabled]:hover': {
+		background: token('color.background.neutral.subtle'),
+	},
+
+	'&:disabled[disabled]:active': {
 		background: token('color.background.neutral.subtle'),
 	},
 };

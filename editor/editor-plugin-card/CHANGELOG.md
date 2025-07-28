@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-card
 
+## 7.2.3
+
+### Patch Changes
+
+- [#190588](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/190588)
+  [`b22e308cfd320`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b22e308cfd320) -
+  Replace experiment key platform_editor_useSharedPluginStateSelector with
+  platform_editor_useSharedPluginStateWithSelector
+- Updated dependencies
+
 ## 7.2.2
 
 ### Patch Changes

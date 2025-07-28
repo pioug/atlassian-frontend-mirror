@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 4.15.0
+
+### Minor Changes
+
+- [#191152](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/191152)
+  [`a3d8c4e7ad18a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3d8c4e7ad18a) -
+  Removing FG that set shouldShowCalendarButton on a modal
+
 ## 4.14.6
 
 ### Patch Changes

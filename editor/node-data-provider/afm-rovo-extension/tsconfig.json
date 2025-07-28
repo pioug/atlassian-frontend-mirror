@@ -19,6 +19,12 @@
 	"references": [
 		{
 			"path": "../../adf-utils/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-json-transformer/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-rovo-extension/tsconfig.json"
 		}
 	]
 }

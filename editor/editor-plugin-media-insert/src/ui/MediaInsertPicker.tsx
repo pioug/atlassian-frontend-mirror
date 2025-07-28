@@ -11,20 +11,24 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import { getDomRefFromSelection } from '@atlaskit/editor-common/get-dom-ref-from-selection';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+	useSharedPluginStateWithSelector,
+} from '@atlaskit/editor-common/hooks';
 import { mediaInsertMessages } from '@atlaskit/editor-common/messages';
+import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import {
 	PlainOutsideClickTargetRefContext,
 	Popup,
 	withOuterListeners,
 } from '@atlaskit/editor-common/ui';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import Tabs, { Tab, TabList, useTabPanel } from '@atlaskit/tabs';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
+import { type MediaInsertPlugin } from '../mediaInsertPluginType';
 import { type MediaInsertPickerProps } from '../types';
 
 import { useFocusEditor } from './hooks/use-focus-editor';
@@ -50,6 +54,30 @@ const CustomTabPanel = ({ children }: { children: React.ReactNode }) => {
 	);
 };
 
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(pluginInjectionApi: ExtractInjectionAPI<MediaInsertPlugin> | undefined) => {
+		return useSharedPluginStateWithSelector(
+			pluginInjectionApi,
+			['media', 'mediaInsert'],
+			(states) => ({
+				mediaProvider: states.mediaState?.mediaProvider,
+				isOpen: states.mediaInsertState?.isOpen,
+				mountInfo: states.mediaInsertState?.mountInfo,
+			}),
+		);
+	},
+	(pluginInjectionApi: ExtractInjectionAPI<MediaInsertPlugin> | undefined) => {
+		const { mediaState, mediaInsertState } = useSharedPluginState(pluginInjectionApi, [
+			'media',
+			'mediaInsert',
+		]);
+		return {
+			mediaProvider: mediaState?.mediaProvider,
+			isOpen: mediaInsertState?.isOpen,
+			mountInfo: mediaInsertState?.mountInfo,
+		};
+	},
+);
 export const MediaInsertPicker = ({
 	api,
 	editorView,
@@ -63,36 +91,7 @@ export const MediaInsertPicker = ({
 	insertFile,
 	isOnlyExternalLinks = false,
 }: MediaInsertPickerProps) => {
-	const { isOpen: oldIsOpen, mountInfo: oldMountInfo } =
-		useSharedPluginState(api, ['mediaInsert'], {
-			disabled: expValEquals('platform_editor_usesharedpluginstateselector', 'isEnabled', true),
-		})?.mediaInsertState ?? {};
-	const oldMediaProvider = useSharedPluginState(api, ['media'], {
-		disabled: expValEquals('platform_editor_usesharedpluginstateselector', 'isEnabled', true),
-	})?.mediaState?.mediaProvider;
-	const isOpenSelector = useSharedPluginStateSelector(api, 'mediaInsert.isOpen', {
-		disabled: !expValEquals('platform_editor_usesharedpluginstateselector', 'isEnabled', true),
-	});
-	const mountInfoSelector = useSharedPluginStateSelector(api, 'mediaInsert.mountInfo', {
-		disabled: !expValEquals('platform_editor_usesharedpluginstateselector', 'isEnabled', true),
-	});
-	const mediaProviderSelector = useSharedPluginStateSelector(api, 'media.mediaProvider', {
-		disabled: !expValEquals('platform_editor_usesharedpluginstateselector', 'isEnabled', true),
-	});
-
-	const isOpen = expValEquals('platform_editor_usesharedpluginstateselector', 'isEnabled', true)
-		? isOpenSelector
-		: oldIsOpen;
-	const mountInfo = expValEquals('platform_editor_usesharedpluginstateselector', 'isEnabled', true)
-		? mountInfoSelector
-		: oldMountInfo;
-	const mediaProvider = expValEquals(
-		'platform_editor_usesharedpluginstateselector',
-		'isEnabled',
-		true,
-	)
-		? mediaProviderSelector
-		: oldMediaProvider;
+	const { mediaProvider, isOpen, mountInfo } = useSharedState(api);
 
 	let targetRef: HTMLElement | undefined;
 	let mountPoint: HTMLElement | undefined;

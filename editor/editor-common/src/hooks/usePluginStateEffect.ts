@@ -165,7 +165,7 @@ function usePluginStateEffectInternal<P extends NamedPluginKeys>(
 	useLayoutEffect(() => {
 		if (
 			options.disabled ||
-			!expValEquals('platform_editor_usesharedpluginstateselector', 'isEnabled', true)
+			!expValEquals('platform_editor_usesharedpluginstatewithselector', 'isEnabled', true)
 		) {
 			return;
 		}
@@ -179,7 +179,7 @@ function usePluginStateEffectInternal<P extends NamedPluginKeys>(
 	useEffect(() => {
 		if (
 			options.disabled ||
-			expValEquals('platform_editor_usesharedpluginstateselector', 'isEnabled', true)
+			expValEquals('platform_editor_usesharedpluginstatewithselector', 'isEnabled', true)
 		) {
 			return;
 		}

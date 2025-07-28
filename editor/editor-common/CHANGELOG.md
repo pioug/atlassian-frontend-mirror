@@ -1,5 +1,37 @@
 # @atlaskit/editor-common
 
+## 107.12.7
+
+### Patch Changes
+
+- [#191897](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/191897)
+  [`1140bdc0adf81`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1140bdc0adf81) -
+  [EDITOR-1174] Update length list and change into a parent type for in document streaming
+- Updated dependencies
+
+## 107.12.6
+
+### Patch Changes
+
+- [#190588](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/190588)
+  [`b22e308cfd320`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b22e308cfd320) -
+  Replace experiment key platform_editor_useSharedPluginStateSelector with
+  platform_editor_useSharedPluginStateWithSelector
+- [#189832](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/189832)
+  [`a3b339a1e6839`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3b339a1e6839) -
+  [ux] ED-28512 Update extension content styles to use box-sizing and removing unused padding to fix
+  flickering issue when cards is nested inside extension nodes
+- Updated dependencies
+
+## 107.12.5
+
+### Patch Changes
+
+- [#188416](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188416)
+  [`3d0ab988998ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d0ab988998ae) -
+  [EDITOR-1067] Adding new actions to plus button in editor new command palette
+- Updated dependencies
+
 ## 107.12.4
 
 ### Patch Changes

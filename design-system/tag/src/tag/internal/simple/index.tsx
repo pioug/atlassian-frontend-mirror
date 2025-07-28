@@ -32,6 +32,7 @@ const SimpleTagComponent = forwardRef(
 				color={color}
 				href={href}
 				linkComponent={linkComponent}
+				testId={testId}
 			/>
 		);
 

@@ -1,36 +1,36 @@
 {
-    "extends": "../../../../tsconfig.entry-points.confluence.json",
-    "compilerOptions": {
-        "declaration": true,
-        "target": "es5",
-        "composite": true,
-        "outDir": "../../../../../confluence/tsDist/@atlaskit__media-image",
-        "rootDir": "../"
-    },
-    "include": [
-        "../src/**/*.ts",
-        "../src/**/*.tsx"
-    ],
-    "exclude": [
-        "../src/**/__tests__/*",
-        "../src/**/*.test.*",
-        "../src/**/test.*"
-    ],
-    "references": [
-        {
-            "path": "../../media-client/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../media-client-react/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../media-common/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../media-file-preview/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
-        }
-    ]
+	"extends": "../../../../tsconfig.entry-points.confluence.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"composite": true,
+		"outDir": "../../../../../confluence/tsDist/@atlaskit__media-image",
+		"rootDir": "../"
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../media-client/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../media-client-react/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../media-common/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../media-file-preview/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+		}
+	]
 }

@@ -9,7 +9,6 @@
 export default {
   'linkDataSource.accessInstructions': 'Để yêu cầu quyền truy cập, hãy liên hệ với quản trị viên trang web của bạn.',
   'linkDataSource.accessRequired': 'Bạn không có quyền truy cập nội dung này',
-  'linkDataSource.accessRequiredWithSite': 'Bạn không có quyền truy cập vào',
   'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': 'Trợ giúp về cú pháp',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Tìm qua AQL',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Chọn sơ đồ',
@@ -23,7 +22,6 @@ export default {
     'Bắt đầu nhập hoặc sử dụng AQL để tìm kiếm.',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
     'Tìm kiếm đối tượng hoặc loại đối tượng',
-  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitleOld': 'Tìm kiếm các đối tượng',
   'linkDataSource.assets.configmodal.insertIssuesButtonText': '{objectsCount, plural, other {Chèn đối tượng}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Chèn đối tượng từ',
   'linkDataSource.assets.configmodal.updateObjectsButtonText': 'Cập nhật bảng',
@@ -106,7 +104,7 @@ export default {
   'linkDataSource.issue-line-table.fetch-action-error-generic-title': 'Chúng tôi đang gặp sự cố khi tải các tùy chọn',
   'linkDataSource.issue-line-table.unwrap-text': 'Không xuống dòng tự động',
   'linkDataSource.issue-line-table.wrap-text': 'Xuống dòng tự động',
-  'linkDataSource.jira-issues.accessRequiredWithSiteOld': 'Bạn không có quyền truy cập vào trang web sau đây:',
+  'linkDataSource.accessRequiredWithSite': 'Bạn không có quyền truy cập vào',
   'linkDataSource.jira-issues.checkConnection.confluence':
     'Kiểm tra kết nối của bạn rồi làm mới hoặc <a>mở yêu cầu tìm kiếm này trong Confluence</a> để xem xét.',
   'linkDataSource.jira-issues.checkConnection.jira':
@@ -121,9 +119,7 @@ export default {
   'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder-issue-term-refresh':
     'Tìm kiếm hạng mục công việc theo từ khóa',
   'linkDataSource.site-selector.configmodal.chooseSite': 'Chọn trang web',
-  'linkDataSource.jira-issues.configmodal.chooseSiteOld': 'Chọn trang web',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Chèn vấn đề',
-  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': 'Chèn hạng mục công việc',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-sllv': 'Chèn kết quả',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Chèn vấn đề Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Chèn hạng mục công việc Jira',
@@ -143,27 +139,21 @@ export default {
   'linkDataSource.jira-issues.learnMoreLink': 'Tìm hiểu thêm về cách tìm kiếm với JQL',
   'linkDataSource.no.jira.sites.access.description': 'Hãy liên hệ với quản trị viên để yêu cầu quyền truy cập.',
   'linkDataSource.no.jira.sites.access.title': 'Bạn không có quyền truy cập vào bất kỳ trang Jira nào',
-  'linkDataSource.noResultsFound': 'Không tìm thấy kết quả',
+  'linkDataSource.noResultsFound': 'Chúng tôi không tìm thấy bất kỳ kết quả nào khớp với tìm kiếm của bạn',
   'linkDataSource.jira-issues.noResultsFound.description': 'Hãy thử lại bằng cụm từ tìm kiếm khác.',
-  'linkDataSource.jira-issues.noResultsFoundOld': 'Không tìm thấy kết quả',
   'linkDataSource.refresh': 'Làm mới',
   'linkDataSource.jira-issues.searchDescription-basic': 'Tìm kiếm từ khóa cho vấn đề để chèn.',
   'linkDataSource.jira-issues.searchDescription-jql':
     'Sử dụng JQL (Ngôn ngữ Đặt câu hỏi trên Jira) để tìm kiếm các vấn đề.',
   'linkDataSource.jira-issues.searchJiraTitle': 'Tìm kiếm hạng mục công việc Jira',
-  'linkDataSource.unableToLoadItems': 'Không thể tải được các mục',
-  'linkDataSource.unableToLoadResults': 'Không tải được kết quả',
-  'linkDataSource.jira-issues.unableToLoadResults.visual-refresh-sllv':
-    'Chúng tôi đã gặp vấn đề khi cố tìm nạp kết quả',
-  'linkDataSource.jira-issues.unableToLoadResultsOld': 'Không tải được kết quả',
+  'linkDataSource.unableToLoadResults': 'Chúng tôi đã gặp vấn đề khi cố tìm nạp kết quả',
   'linkDataSource.modal-initial-state.beta': 'Beta',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Tìm kiếm trang Confluence',
   'linkDataSource.modal-initial-state.jiraSearchTitle': 'Tìm kiếm hạng mục công việc Jira',
   'linkDataSource.modal-initial-state.learnMoreLinkOld': 'Tìm hiểu cách tìm kiếm bằng JQL',
   'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
     'Tìm kiếm từ khóa của hạng mục công việc để chèn.',
-  'linkDataSource.modal-initial-state.searchDescription-basic.visualRefreshSllv':
-    'Bắt đầu nhập hoặc sử dụng JQL để tìm kiếm.',
+  'linkDataSource.modal-initial-state.searchDescription-basic.Sllv': 'Bắt đầu nhập hoặc sử dụng JQL để tìm kiếm.',
   'linkDataSource.modal-initial-state.searchDescription-confluence': 'Tìm kiếm trang để chèn bằng từ khóa.',
   'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
     'Sử dụng JQL (Ngôn ngữ Đặt câu hỏi trên Jira) để tìm kiếm các hạng mục công việc.',
@@ -183,4 +173,5 @@ export default {
   'linkDataSource.table-footer.power-by-jsm': 'Được hỗ trợ bởi Tài sản trong Jira Service Management',
   'linkDataSource.table-footer.powered-by-assets': 'Hoạt động trên nền tảng Assets',
   'linkDataSource.table-footer.refresh': 'Làm mới',
+  'linkDataSource.unableToLoadItems': 'Không thể tải được các mục',
 };

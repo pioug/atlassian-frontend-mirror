@@ -8,7 +8,7 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"atlassian": {
-		"team": "Linking Platform - Link Provider",
+		"team": "Navigation Experiences - Linking Platform",
 		"singleton": true,
 		"website": {
 			"name": "SmartCardProvider"

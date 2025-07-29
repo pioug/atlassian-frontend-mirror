@@ -1,4 +1,5 @@
 import type { EditorCommand, NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { ShowDiffPlugin } from '@atlaskit/editor-plugin-show-diff';
 
 export type TrackChangesPlugin = NextEditorPlugin<
 	'trackChanges',
@@ -22,5 +23,6 @@ export type TrackChangesPlugin = NextEditorPlugin<
 			 */
 			isShowDiffAvailable: boolean;
 		};
+		dependencies: [ShowDiffPlugin];
 	}
 >;

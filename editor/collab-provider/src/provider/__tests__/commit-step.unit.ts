@@ -7,7 +7,6 @@ import { CommitStepService, RESET_READYTOCOMMIT_INTERVAL_MS } from '../commit-st
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import { EVENT_STATUS } from '../../helpers/const';
 import { createSocketIOCollabProvider } from '../../socket-io-provider';
@@ -410,28 +409,14 @@ describe('commitStepQueue', () => {
 				expect(commitStepService.getReadyToCommitStatus()).toBe(true);
 			});
 
-			describe('skipping backpressure delay on publish', () => {
-				ffTest(
-					'skip_collab_provider_delay_on_publish',
-					() => {
-						jest.runOnlyPendingTimers();
-						broadcastMockImplementation({ type: 'SUCCESS', version: 2, delay: 500 });
-						presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
-						expect(commitStepService.getReadyToCommitStatus()).toBe(false);
-						presetCommitStepQueue([fakeStep], 1, 'user1', 'client1', { isPublish: true });
-						// publish should trigger another broadcast
-						expect(broadcastSpy).toHaveBeenCalledTimes(2);
-					},
-					() => {
-						jest.runOnlyPendingTimers();
-						broadcastMockImplementation({ type: 'SUCCESS', version: 2, delay: 500 });
-						presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
-						expect(commitStepService.getReadyToCommitStatus()).toBe(false);
-						presetCommitStepQueue([fakeStep], 1, 'user1', 'client1', { isPublish: true });
-						// publish is blocked because FG is off
-						expect(broadcastSpy).toHaveBeenCalledTimes(1);
-					},
-				);
+			it('skips backpressure delay on publish', () => {
+				jest.runOnlyPendingTimers();
+				broadcastMockImplementation({ type: 'SUCCESS', version: 2, delay: 500 });
+				presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
+				expect(commitStepService.getReadyToCommitStatus()).toBe(false);
+				presetCommitStepQueue([fakeStep], 1, 'user1', 'client1', { isPublish: true });
+				// publish should trigger another broadcast
+				expect(broadcastSpy).toHaveBeenCalledTimes(2);
 			});
 		});
 

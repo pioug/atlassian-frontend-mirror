@@ -4,6 +4,7 @@ import Basic from '../../../examples/00-basic-example';
 import AppearanceVariations from '../../../examples/01-appearance-variations';
 import Actions from '../../../examples/06-actions';
 import ExplicitFontStyles from '../../../examples/07-explicit-font-styles';
+import Dismissible from '../../../examples/08-dismissible';
 import Testing from '../../../examples/99-testing';
 
 snapshot(Basic, {
@@ -49,3 +50,5 @@ snapshot(ExplicitFontStyles, {
 		platform_ads_explicit_font_styles: [true, false],
 	},
 });
+
+snapshot(Dismissible);

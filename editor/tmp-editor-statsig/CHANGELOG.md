@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 9.16.0
+
+### Minor Changes
+
+- [#192346](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/192346)
+  [`a2de3fc822824`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2de3fc822824) -
+  [JRACLOUD-95277] Modifying experiment name
+
 ## 9.15.0
 
 ### Minor Changes

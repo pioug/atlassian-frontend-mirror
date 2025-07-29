@@ -14,7 +14,7 @@ import { Box, xcss } from '@atlaskit/primitives';
 import Tooltip from '@atlaskit/tooltip';
 
 export default function InsidePopupExample() {
-	setBooleanFeatureFlagResolver((key) => key === 'platform-tooltip-focus-visible');
+	setBooleanFeatureFlagResolver((key) => key === 'platform-tooltip-focus-visible-new');
 	const [isOpen, setIsOpen] = useState(false);
 
 	const renderContent = ({ setInitialFocusRef }: ContentProps) => (

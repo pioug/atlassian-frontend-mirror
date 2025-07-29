@@ -32,7 +32,6 @@ const iconMap = (key?: string) => {
 				label="Info"
 				LEGACY_primaryColor={token('color.icon.information')}
 				color={token('color.icon.information')}
-				spacing="spacious"
 			/>
 		),
 		success: (
@@ -40,7 +39,6 @@ const iconMap = (key?: string) => {
 				label="Success"
 				LEGACY_primaryColor={token('color.icon.success')}
 				color={token('color.icon.success')}
-				spacing="spacious"
 			/>
 		),
 		warning: (
@@ -48,7 +46,6 @@ const iconMap = (key?: string) => {
 				label="Warning"
 				LEGACY_primaryColor={token('color.icon.warning')}
 				color={token('color.icon.warning')}
-				spacing="spacious"
 			/>
 		),
 		error: (
@@ -56,7 +53,6 @@ const iconMap = (key?: string) => {
 				label="Error"
 				LEGACY_primaryColor={token('color.icon.danger')}
 				color={token('color.icon.danger')}
-				spacing="spacious"
 			/>
 		),
 	};

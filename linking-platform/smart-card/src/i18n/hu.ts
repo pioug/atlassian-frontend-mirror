@@ -146,9 +146,12 @@ export default {
   'fabric.linking.priority_undefined': 'Nincs meghatározva',
   'fabric.linking.read_time': '{context} perc olvasási idő',
   'fabric.linking.related': 'Kapcsolódó',
+  'fabric.linking.related_links_found_in': 'Itt található:',
+  'fabric.linking.related_links_includes_links_to': 'A következőkre mutató linkeket tartalmaz:',
   'fabric.linking.related_links_modal_error_description':
     'Ellenőrizd a kapcsolatodat, frissítsd az oldalt, és próbálkozz újra',
   'fabric.linking.related_links_modal_error_title': 'Probléma merült fel a kapcsolódó linkek betöltése során',
+  'fabric.linking.related_links_modal_title': 'Kapcsolódó linkek',
   'fabric.linking.related_links_modal_unavailable_description':
     'Folyamatosan ellenőrizzük és hozzáadjuk a kapcsolódó linkeket, hogy frissített oldalakat és más tartalomtípusokat kapj',
   'fabric.linking.related_links_modal_unavailable_title': 'Nem találtunk kapcsolódó linkeket',

@@ -164,4 +164,11 @@ export const aiMessages = defineMessages({
 		description:
 			'When there is selection, show the selected content in the AI dynamic surface panel',
 	},
+
+	// Telepointer
+	aiRovoTelepointer: {
+		id: 'fabric.editor.ai.telepointer.rovo',
+		defaultMessage: 'Rovo',
+		description: 'This is the name which appears in the AI telepointer',
+	},
 });

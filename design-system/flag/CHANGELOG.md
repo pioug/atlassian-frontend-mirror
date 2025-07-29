@@ -1,5 +1,18 @@
 # @atlaskit/flag
 
+## 17.3.0
+
+### Minor Changes
+
+- [#191911](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/191911)
+  [`c1fc152f611b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c1fc152f611b8) - -
+  An `icon` is no longer a required prop and will be provided by default, but still allow overrides
+  - Icons will now display consistently regardless of their spacing
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.2.4
 
 ### Patch Changes

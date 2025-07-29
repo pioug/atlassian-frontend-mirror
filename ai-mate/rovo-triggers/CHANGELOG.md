@@ -1,5 +1,13 @@
 # @atlaskit/rovo-triggers
 
+## 3.1.4
+
+### Patch Changes
+
+- [#191387](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/191387)
+  [`6f7cc8d725008`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6f7cc8d725008) -
+  [ux] adding transition id to delete rule payload
+
 ## 3.1.3
 
 ### Patch Changes

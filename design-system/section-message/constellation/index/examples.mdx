@@ -8,6 +8,7 @@ import SectionMessageError from '../../examples/constellation/section-message-er
 import SectionMessageSuccess from '../../examples/constellation/section-message-success';
 import SectionMessageDiscovery from '../../examples/constellation/section-message-discovery';
 import SectionMessageActions from '../../examples/constellation/section-message-actions';
+import SectionMessageDismissible from '../../examples/constellation/section-message-dismissible';
 
 ## Appearance
 
@@ -72,3 +73,11 @@ An action will render a button if you supply an `onClick` handler, or a link if 
 with router libraries.
 
 <Example Component={SectionMessageActions} packageName="@atlaskit/section-message" />
+
+## Dismissible
+
+Use the `isDismissible` prop to allow users to dismiss the message using a button.
+
+The message will be removed from the page, however it requires additional logic to persist the removal across page loads or remounts.
+
+<Example Component={SectionMessageDismissible} packageName="@atlaskit/section-message" />

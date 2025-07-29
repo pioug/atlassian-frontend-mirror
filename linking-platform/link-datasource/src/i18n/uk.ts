@@ -9,7 +9,6 @@
 export default {
   'linkDataSource.accessInstructions': 'Щоб надіслати запит на доступ, зверніться до адміністратора сайту.',
   'linkDataSource.accessRequired': 'У вас немає доступу до цього вмісту',
-  'linkDataSource.accessRequiredWithSite': 'У вас немає доступу до',
   'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': 'Довідка із синтаксису',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Пошук через AQL',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Вибрати схему',
@@ -23,7 +22,6 @@ export default {
     'Почніть вводити запит або скористайтесь AQL для пошуку.',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
     "Пошук об’єктів або типів об'єктів",
-  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitleOld': 'Пошук об’єктів',
   'linkDataSource.assets.configmodal.insertIssuesButtonText':
     '{objectsCount, plural, one {Вставити об’єкт(-и)} few {Вставити об’єкти} many {Вставити об’єкти} other {Вставити об’єкти}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Вставка об’єктів з',
@@ -110,7 +108,7 @@ export default {
   'linkDataSource.issue-line-table.fetch-action-error-generic-title': 'Не вдається отримати варіанти',
   'linkDataSource.issue-line-table.unwrap-text': 'Розгорнути текст',
   'linkDataSource.issue-line-table.wrap-text': 'Згорнути текст',
-  'linkDataSource.jira-issues.accessRequiredWithSiteOld': 'У вас немає доступу до цього сайту:',
+  'linkDataSource.accessRequiredWithSite': 'У вас немає доступу до',
   'linkDataSource.jira-issues.checkConnection.confluence':
     'Перевірте з’єднання та оновіть сторінку або <a>перегляньте цей пошуковий запит у Confluence</a>.',
   'linkDataSource.jira-issues.checkConnection.jira':
@@ -124,10 +122,8 @@ export default {
   'linkDataSource.jira-issues.configmodal.basicModeText': 'Простий',
   'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder-issue-term-refresh':
     'Пошук елементів завдань за ключовим словом',
-  'linkDataSource.site-selector.configmodal.chooseSite': 'Вибрати сайт',
-  'linkDataSource.jira-issues.configmodal.chooseSiteOld': 'Вибрати сайт',
+  'linkDataSource.site-selector.configmodal.chooseSite': 'Виберіть сайт',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Вставити завдання',
-  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': 'Вставити елементи завдань',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-sllv': 'Вставити результати',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Вставте завдання Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Вставте елементи завдань Jira',
@@ -148,26 +144,21 @@ export default {
   'linkDataSource.jira-issues.learnMoreLink': 'Докладніше про пошук засобами JQL',
   'linkDataSource.no.jira.sites.access.description': 'Щоб запитати доступ, зверніться до адміністратора.',
   'linkDataSource.no.jira.sites.access.title': 'У вас немає доступу до жодного сайту Jira',
-  'linkDataSource.noResultsFound': 'Немає результатів',
+  'linkDataSource.noResultsFound': 'Не знайдено результатів за вашим запитом',
   'linkDataSource.jira-issues.noResultsFound.description': 'Повторіть спробу, увівши інший запит.',
-  'linkDataSource.jira-issues.noResultsFoundOld': 'Немає результатів',
   'linkDataSource.refresh': 'Оновити',
   'linkDataSource.jira-issues.searchDescription-basic':
     'Використовуйте ключове слово для пошуку завдань, які потрібно вставити.',
   'linkDataSource.jira-issues.searchDescription-jql': 'Використовуйте JQL (Jira Query Language) для пошуку завдань.',
   'linkDataSource.jira-issues.searchJiraTitle': 'Пошук елементів завдання Jira',
-  'linkDataSource.unableToLoadItems': 'Не вдалося завантажити елементи',
-  'linkDataSource.unableToLoadResults': 'Не вдалося завантажити результати',
-  'linkDataSource.jira-issues.unableToLoadResults.visual-refresh-sllv':
-    'Під час спроби отримати результати сталася помилка',
-  'linkDataSource.jira-issues.unableToLoadResultsOld': 'Не вдалося завантажити результати',
+  'linkDataSource.unableToLoadResults': 'Під час спроби отримати результати сталася помилка',
   'linkDataSource.modal-initial-state.beta': 'Бета-версія',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Пошук сторінок Confluence',
   'linkDataSource.modal-initial-state.jiraSearchTitle': 'Пошук елементів завдання Jira',
   'linkDataSource.modal-initial-state.learnMoreLinkOld': 'Дізнайтеся, як виконувати пошук засобами JQL',
   'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
     'Шукайте елементи завдання, які потрібно вставити, за ключовим словом.',
-  'linkDataSource.modal-initial-state.searchDescription-basic.visualRefreshSllv':
+  'linkDataSource.modal-initial-state.searchDescription-basic.Sllv':
     'Почніть вводити запит або скористайтеся JQL для пошуку.',
   'linkDataSource.modal-initial-state.searchDescription-confluence':
     'Шукайте сторінки, які потрібно вставити, за ключовим словом.',
@@ -193,4 +184,5 @@ export default {
   'linkDataSource.table-footer.power-by-jsm': 'Розділ «Ресурси» в Jira Service Management',
   'linkDataSource.table-footer.powered-by-assets': 'Розділ «Ресурси»',
   'linkDataSource.table-footer.refresh': 'Оновити',
+  'linkDataSource.unableToLoadItems': 'Не вдалося завантажити елементи',
 };

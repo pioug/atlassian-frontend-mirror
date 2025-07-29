@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "4.15.0",
+	"version": "4.16.1",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -25,7 +25,7 @@
 	],
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
-		"team": "Linking Platform",
+		"team": "Navigation Experiences - Linking Platform",
 		"i18n": true,
 		"website": {
 			"name": "Link Datasource"
@@ -165,9 +165,6 @@
 		"./i18n/*": "./src/i18n/*.ts"
 	},
 	"platform-feature-flags": {
-		"platform-datasources-inline-edit-id-checks": {
-			"type": "boolean"
-		},
 		"platform-datasources-enable-two-way-sync-assignee": {
 			"type": "boolean"
 		},

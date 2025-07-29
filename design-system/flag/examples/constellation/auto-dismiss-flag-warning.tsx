@@ -40,7 +40,6 @@ const AutoDismissFlagWarningExample = () => {
 									label="Warning"
 									LEGACY_secondaryColor={token('color.background.warning.bold')}
 									color={token('color.icon')}
-									spacing="spacious"
 								/>
 							}
 							key={flagId}

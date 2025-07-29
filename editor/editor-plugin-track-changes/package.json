@@ -34,10 +34,9 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
+		"@atlaskit/editor-plugin-show-diff": "workspace:*",
 		"@atlaskit/editor-prosemirror": "root:*",
-		"@atlaskit/tokens": "workspace:^",
-		"@babel/runtime": "root:*",
-		"prosemirror-changeset": "root:*"
+		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",

@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import { type FieldProps } from '@atlaskit/form';
 import { Layering } from '@atlaskit/layering';
 import { type Icon } from '@atlaskit/linking-types';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { type FilterOptionOption } from '@atlaskit/react-select';
 import Select from '@atlaskit/select';
 import Tooltip from '@atlaskit/tooltip';
@@ -60,11 +59,7 @@ const IconEditType = (props: IconEditTypeProps) => {
 				defaultMenuIsOpen
 				// We can't update this field if we don't have an ID - however the ID
 				// is typed optional.
-				options={
-					fg('platform-datasources-inline-edit-id-checks')
-						? options.filter((option) => option.id)
-						: options
-				}
+				options={options.filter((option) => option.id)}
 				menuPlacement="auto"
 				isLoading={isLoading}
 				filterOption={filterOption}

@@ -28,13 +28,15 @@ const isTableColumnResized = (columnWidths: Array<number>) => {
 	return !!filteredWidths.length;
 };
 
-const fixColumnWidth = (
-	columnWidth: number,
-	_tableWidth: number,
-	_layoutWidth: number,
-	zeroWidthColumnsCount: number,
-	scaleDownPercent: number,
-): number => {
+const fixColumnWidth = ({
+	columnWidth,
+	zeroWidthColumnsCount,
+	scaleDownPercent,
+}: {
+	columnWidth: number;
+	zeroWidthColumnsCount: number;
+	scaleDownPercent: number;
+}): number => {
 	if (columnWidth === 0) {
 		return columnWidth;
 	}
@@ -256,11 +258,11 @@ const renderScaleDownColgroup = (
 	if (
 		isNumberColumnEnabled &&
 		(tableWidth < maxTableWidth || maxTableWidth === 0) &&
-		expValEquals('editor_prevent_numbered_column_too_big_jira', 'isEnabled', true)
+		expValEquals('editor_prevent_numbered_column_too_big_jira_1', 'isEnabled', true)
 	) {
 		const fixedColWidths = targetWidths.map(
 			(width) =>
-				fixColumnWidth(width, tableWidth, maxTableWidth, zeroWidthColumnsCount, scaleDownPercent) ||
+				fixColumnWidth({ columnWidth: width, zeroWidthColumnsCount, scaleDownPercent }) ||
 				cellMinWidth,
 		);
 		const sumFixedColumnWidths = colWidthSum(fixedColWidths);
@@ -285,18 +287,13 @@ const renderScaleDownColgroup = (
 	}
 
 	/**
-	 * When cleaning up editor_prevent_numbered_column_too_big_jira experiment,
+	 * When cleaning up editor_prevent_numbered_column_too_big_jira_1 experiment,
 	 * resuse the fixedColWidths const to avoid code duplication.
 	 */
 	return targetWidths.map((colWidth) => {
 		const width =
-			fixColumnWidth(
-				colWidth,
-				minTableWidth,
-				maxTableWidth,
-				zeroWidthColumnsCount,
-				scaleDownPercent,
-			) || cellMinWidth;
+			fixColumnWidth({ columnWidth: colWidth, zeroWidthColumnsCount, scaleDownPercent }) ||
+			cellMinWidth;
 		const style = width ? { width: `${width}px` } : {};
 		return style;
 	});

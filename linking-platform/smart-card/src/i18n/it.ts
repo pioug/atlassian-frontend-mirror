@@ -143,9 +143,12 @@ export default {
   'fabric.linking.priority_undefined': 'Non definita',
   'fabric.linking.read_time': '{context} minuti di lettura',
   'fabric.linking.related': 'Correlate',
+  'fabric.linking.related_links_found_in': 'Trovate in',
+  'fabric.linking.related_links_includes_links_to': 'Include link a',
   'fabric.linking.related_links_modal_error_description':
     'Controlla la connessione oppure aggiorna la pagina per riprovare',
   'fabric.linking.related_links_modal_error_title': 'Stiamo riscontrando problemi nel caricamento dei link correlati',
+  'fabric.linking.related_links_modal_title': 'Link correlati',
   'fabric.linking.related_links_modal_unavailable_description':
     'Esaminiamo e aggiungiamo continuamente i link correlati per le pagine o altri tipi di contenuti aggiornati',
   'fabric.linking.related_links_modal_unavailable_title': 'Non è stato possibile trovare link correlati',

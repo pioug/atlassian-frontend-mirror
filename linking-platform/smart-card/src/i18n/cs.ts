@@ -142,9 +142,12 @@ export default {
   'fabric.linking.priority_undefined': 'Nedefinováno',
   'fabric.linking.read_time': '{context} min. čtení',
   'fabric.linking.related': 'Souvisící',
+  'fabric.linking.related_links_found_in': 'Nalezeno v:',
+  'fabric.linking.related_links_includes_links_to': 'Zahrnuje odkazy na:',
   'fabric.linking.related_links_modal_error_description':
     'Zkontrolujte připojení nebo obnovte stránku a zkuste to znovu.',
   'fabric.linking.related_links_modal_error_title': 'Při načítání souvisejících odkazů se vyskytly problémy',
+  'fabric.linking.related_links_modal_title': 'Související odkazy',
   'fabric.linking.related_links_modal_unavailable_description':
     'Neustále kontrolujeme a přidáváme související odkazy na aktualizované stránky nebo jiné typy obsahu.',
   'fabric.linking.related_links_modal_unavailable_title': 'Nepodařilo se najít žádné související odkazy',

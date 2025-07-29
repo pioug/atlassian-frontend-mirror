@@ -9,7 +9,6 @@
 export default {
   'linkDataSource.accessInstructions': 'アクセス権をリクエストするには、サイト管理者にお問い合わせください。',
   'linkDataSource.accessRequired': 'このコンテンツへのアクセス権がありません',
-  'linkDataSource.accessRequiredWithSite': '以下のサイトへのアクセス権がありません',
   'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': '構文ヘルプ',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'AQL で検索',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': 'スキーマを選択',
@@ -22,7 +21,6 @@ export default {
     '語句を入力するか、AQL を使って検索できます。',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
     'オブジェクトまたはオブジェクト タイプの検索',
-  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitleOld': 'オブジェクトを検索する',
   'linkDataSource.assets.configmodal.insertIssuesButtonText': '{objectsCount, plural, other {オブジェクトを挿入}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'オブジェクトの挿入元',
   'linkDataSource.assets.configmodal.updateObjectsButtonText': 'テーブルを更新',
@@ -105,7 +103,7 @@ export default {
   'linkDataSource.issue-line-table.fetch-action-error-generic-title': 'オプションの取得中に問題が発生しました',
   'linkDataSource.issue-line-table.unwrap-text': 'テキストの折り返しを解除',
   'linkDataSource.issue-line-table.wrap-text': 'テキストを折り返す',
-  'linkDataSource.jira-issues.accessRequiredWithSiteOld': '次のサイトへのアクセス権がありません。',
+  'linkDataSource.accessRequiredWithSite': '以下のサイトへのアクセス権がありません',
   'linkDataSource.jira-issues.checkConnection.confluence':
     '接続をチェックして更新するか、<a>Confluence でこの検索を開いて</a>確認してください。',
   'linkDataSource.jira-issues.checkConnection.jira':
@@ -119,9 +117,7 @@ export default {
   'linkDataSource.jira-issues.configmodal.basicModeText': '基本',
   'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder-issue-term-refresh': 'キーワードで作業項目を検索',
   'linkDataSource.site-selector.configmodal.chooseSite': 'サイトを選択',
-  'linkDataSource.jira-issues.configmodal.chooseSiteOld': 'サイトを選択',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': '課題を挿入',
-  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': '作業項目を挿入',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-sllv': '結果を挿入',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Jira 課題を挿入する',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Jira 作業項目を挿入する',
@@ -140,25 +136,20 @@ export default {
   'linkDataSource.jira-issues.learnMoreLink': 'JQL 検索の詳細',
   'linkDataSource.no.jira.sites.access.description': 'アクセスをリクエストするには、管理者にお問い合わせください。',
   'linkDataSource.no.jira.sites.access.title': 'Jira サイトへのアクセス権がありません',
-  'linkDataSource.noResultsFound': '結果が見つかりません',
+  'linkDataSource.noResultsFound': '検索内容に一致する結果がありません。',
   'linkDataSource.jira-issues.noResultsFound.description': '別の検索語句でもう一度お試しください。',
-  'linkDataSource.jira-issues.noResultsFoundOld': '結果が見つかりません',
   'linkDataSource.refresh': '更新',
   'linkDataSource.jira-issues.searchDescription-basic': '挿入する課題をキーワードで検索します。',
   'linkDataSource.jira-issues.searchDescription-jql': 'JQL (Jira クエリ言語) を使用して課題を検索します。',
   'linkDataSource.jira-issues.searchJiraTitle': 'Jira 作業項目を検索する',
-  'linkDataSource.unableToLoadItems': 'アイテムを読み込めません',
-  'linkDataSource.unableToLoadResults': '結果を読み込めません',
-  'linkDataSource.jira-issues.unableToLoadResults.visual-refresh-sllv': '結果の取得中に問題が発生しました',
-  'linkDataSource.jira-issues.unableToLoadResultsOld': '結果を読み込めません',
+  'linkDataSource.unableToLoadResults': '結果の取得中に問題が発生しました',
   'linkDataSource.modal-initial-state.beta': 'ベータ版',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Confluence ページを検索',
   'linkDataSource.modal-initial-state.jiraSearchTitle': 'Jira 作業項目を検索する',
   'linkDataSource.modal-initial-state.learnMoreLinkOld': 'JQL による検索の詳細',
   'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
     '挿入する作業項目をキーワードで検索します。',
-  'linkDataSource.modal-initial-state.searchDescription-basic.visualRefreshSllv':
-    '語句を入力するか、JQL を使って検索できます。',
+  'linkDataSource.modal-initial-state.searchDescription-basic.Sllv': '語句を入力するか、JQL を使って検索できます。',
   'linkDataSource.modal-initial-state.searchDescription-confluence': '挿入するページをキーワードで検索します。',
   'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
     'JQL (Jira クエリ言語) を使用して作業項目を検索します。',
@@ -178,4 +169,5 @@ export default {
   'linkDataSource.table-footer.power-by-jsm': '使用ソリューション: Jira Service Management のアセット',
   'linkDataSource.table-footer.powered-by-assets': 'アセットを使用',
   'linkDataSource.table-footer.refresh': '更新',
+  'linkDataSource.unableToLoadItems': 'アイテムを読み込めません',
 };

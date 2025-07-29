@@ -1,5 +1,13 @@
 # @atlaskit/section-message
 
+## 8.5.0
+
+### Minor Changes
+
+- [#191290](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/191290)
+  [`65bf86ed3a096`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/65bf86ed3a096) -
+  Adds new prop `isDismissible` that allows messages to be dismissed and removed from the page.
+
 ## 8.4.0
 
 ### Minor Changes

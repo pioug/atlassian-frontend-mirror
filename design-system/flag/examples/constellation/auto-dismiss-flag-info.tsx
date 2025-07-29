@@ -40,7 +40,6 @@ const AutoDismissFlagInfoExample = () => {
 									label="Info"
 									LEGACY_secondaryColor={token('color.background.neutral.bold')}
 									color={token('color.icon.inverse')}
-									spacing="spacious"
 								/>
 							}
 							key={flagId}

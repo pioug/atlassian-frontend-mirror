@@ -1,5 +1,22 @@
 # @atlaskit/renderer
 
+## 120.3.2
+
+### Patch Changes
+
+- [#192346](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/192346)
+  [`a2de3fc822824`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2de3fc822824) -
+  [JRACLOUD-95277] Modifying experiment name
+- Updated dependencies
+
+## 120.3.1
+
+### Patch Changes
+
+- [#191987](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/191987)
+  [`6c17ad8eb833e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6c17ad8eb833e) -
+  Removed import to '@atlaskit/editor-common/src/'
+
 ## 120.3.0
 
 ### Minor Changes

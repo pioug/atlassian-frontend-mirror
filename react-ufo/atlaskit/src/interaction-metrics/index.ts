@@ -76,7 +76,6 @@ export const postInteractionLog = new PostInteractionLog();
 const interactionQueue: { id: string; data: InteractionMetrics }[] = [];
 const segmentCache = new Map<string, SegmentInfo>();
 const CLEANUP_TIMEOUT = 60 * 1000;
-const CLEANUP_TIMEOUT_AFTER_APDEX = 15 * 1000;
 
 interface SegmentObserver {
 	onAdd: (segment: SegmentInfo) => void;
@@ -972,9 +971,6 @@ export function addBrowserMetricEvent(event: BM3Event) {
 			(interaction.type === 'page_load' || interaction.type === 'transition') &&
 			event.config?.type === 'PAGE_LOAD'
 		) {
-			if (!fg('platform_ufo_timeout_simplification')) {
-				interaction.changeTimeout(CLEANUP_TIMEOUT_AFTER_APDEX);
-			}
 			removeHoldByID(interaction.id, interaction.ufoName);
 		}
 	}
@@ -993,9 +989,6 @@ export function addApdexToAll(apdex: ApdexType) {
 			// do nothing
 		}
 		if (interaction.type === 'page_load' || interaction.type === 'transition') {
-			if (!fg('platform_ufo_timeout_simplification')) {
-				interaction.changeTimeout(CLEANUP_TIMEOUT_AFTER_APDEX);
-			}
 			removeHoldByID(key, interaction.ufoName);
 		}
 	});
@@ -1023,9 +1016,6 @@ export function addApdex(
 			// do nothing
 		}
 		if (interaction.type === 'page_load' || interaction.type === 'transition') {
-			if (!fg('platform_ufo_timeout_simplification')) {
-				interaction.changeTimeout(CLEANUP_TIMEOUT_AFTER_APDEX);
-			}
 			removeHoldByID(interactionId, interaction.ufoName);
 		}
 	}

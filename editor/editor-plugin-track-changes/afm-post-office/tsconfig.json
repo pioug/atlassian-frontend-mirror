@@ -18,7 +18,7 @@
 	],
 	"references": [
 		{
-			"path": "../../../design-system/tokens/afm-post-office/tsconfig.json"
+			"path": "../../editor-plugin-show-diff/afm-post-office/tsconfig.json"
 		},
 		{
 			"path": "../../editor-common/afm-post-office/tsconfig.json"

@@ -1,9 +1,15 @@
-import React, { forwardRef } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { Children, forwardRef, Fragment, type ReactElement, useCallback, useState } from 'react';
 
-import { cssMap } from '@atlaskit/css';
+import { IconButton } from '@atlaskit/button/new';
+import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
+import CrossIcon from '@atlaskit/icon/core/migration/cross';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
+import { Inline, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { getAppearanceIconStyles } from './internal/appearance-icon';
@@ -13,10 +19,15 @@ const sectionMessageStyles = cssMap({
 	container: {
 		wordBreak: 'break-word',
 		borderRadius: token('border.radius'),
+		paddingBlock: token('space.200'),
+		paddingInline: token('space.200'),
 	},
-	bleed: {
+	iconContainer: {
 		display: 'flex',
 		marginBlock: token('space.negative.025'),
+	},
+	contentContainer: {
+		flexGrow: 1,
 	},
 	content: {
 		color: token('color.text'),
@@ -24,6 +35,27 @@ const sectionMessageStyles = cssMap({
 	},
 	actionsContainer: {
 		font: token('font.body'),
+	},
+	dismissButtonContainer: {
+		marginTop: token('space.negative.025'),
+	},
+});
+
+const appearanceStyles = cssMap({
+	information: {
+		backgroundColor: token('color.background.information'),
+	},
+	warning: {
+		backgroundColor: token('color.background.warning'),
+	},
+	error: {
+		backgroundColor: token('color.background.danger'),
+	},
+	success: {
+		backgroundColor: token('color.background.success'),
+	},
+	discovery: {
+		backgroundColor: token('color.background.discovery'),
 	},
 });
 
@@ -37,9 +69,15 @@ const sectionMessageStyles = cssMap({
  * - [Usage](https://atlassian.design/components/section-message/usage)
  */
 const SectionMessage = forwardRef<HTMLElement, SectionMessageProps>(function SectionMessage(
-	{ children, appearance = 'information', actions, title, icon, testId },
+	{ children, appearance = 'information', actions, title, icon, isDismissible, testId },
 	ref,
 ) {
+	const [dismissed, setDismissed] = useState<boolean>(false);
+
+	const handleDismiss = useCallback(() => {
+		setDismissed(true);
+	}, []);
+
 	const {
 		primaryIconColor: primaryColor,
 		backgroundColor: secondaryColor,
@@ -47,22 +85,19 @@ const SectionMessage = forwardRef<HTMLElement, SectionMessageProps>(function Sec
 	} = getAppearanceIconStyles(appearance, icon);
 
 	const actionElements =
-		actions && (actions as React.ReactElement).type === React.Fragment
-			? (actions as React.ReactElement).props.children
+		actions && (actions as ReactElement).type === Fragment
+			? (actions as ReactElement).props.children
 			: actions;
-	const actionsArray = React.Children.toArray(actionElements);
+	const actionsArray = Children.toArray(actionElements);
 
-	return (
-		<Box
-			as="section"
-			backgroundColor={appearanceMap[appearance]}
-			padding="space.200"
-			testId={testId}
+	return isDismissible && dismissed ? null : (
+		<section
+			data-testid={testId}
 			ref={ref}
-			xcss={sectionMessageStyles.container}
+			css={[sectionMessageStyles.container, appearanceStyles[appearance]]}
 		>
 			<Inline space="space.200" alignBlock="stretch">
-				<Box xcss={sectionMessageStyles.bleed}>
+				<div css={sectionMessageStyles.iconContainer}>
 					<Icon
 						size="medium"
 						primaryColor={primaryColor}
@@ -72,14 +107,18 @@ const SectionMessage = forwardRef<HTMLElement, SectionMessageProps>(function Sec
 						color={primaryColor}
 						spacing="spacious"
 					/>
-				</Box>
-				<Stack space="space.100" testId={testId && `${testId}--content`}>
+				</div>
+				<Stack
+					space="space.100"
+					testId={testId && `${testId}--content`}
+					xcss={sectionMessageStyles.contentContainer}
+				>
 					{!!title && (
 						<Heading as="h2" size="small">
 							{title}
 						</Heading>
 					)}
-					<Box xcss={sectionMessageStyles.content}>{children}</Box>
+					<div css={sectionMessageStyles.content}>{children}</div>
 					{actionsArray.length > 0 && (
 						<Inline
 							shouldWrap
@@ -102,18 +141,22 @@ const SectionMessage = forwardRef<HTMLElement, SectionMessageProps>(function Sec
 						</Inline>
 					)}
 				</Stack>
+				{isDismissible && (
+					<div css={sectionMessageStyles.dismissButtonContainer}>
+						<IconButton
+							testId={testId && `${testId}--dismiss-button`}
+							label="Dismiss"
+							icon={CrossIcon}
+							appearance="subtle"
+							onClick={handleDismiss}
+							spacing="compact"
+						/>
+					</div>
+				)}
 			</Inline>
-		</Box>
+		</section>
 	);
 });
-
-const appearanceMap = {
-	information: 'color.background.information',
-	warning: 'color.background.warning',
-	error: 'color.background.danger',
-	success: 'color.background.success',
-	discovery: 'color.background.discovery',
-} as const;
 
 SectionMessage.displayName = 'SectionMessage';
 

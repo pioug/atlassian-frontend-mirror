@@ -1,5 +1,32 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.1.7
+
+### Patch Changes
+
+- [#190129](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/190129)
+  [`396971b979d5d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/396971b979d5d) -
+  FG cleanup - platform_ufo_ignore_extra_attributes
+- [#190121](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/190121)
+  [`5541b82436020`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5541b82436020) -
+  FG cleanup - platform_ufo_timeout_simplification
+
+## 4.1.6
+
+### Patch Changes
+
+- [#192382](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/192382)
+  [`5f4f054f58647`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f4f054f58647) -
+  Add hard limit for findReactFiber
+
+## 4.1.5
+
+### Patch Changes
+
+- [#191818](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/191818)
+  [`f8f8080d07991`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f8f8080d07991) -
+  clean up ff platform_ufo_rev_ratios
+
 ## 4.1.4
 
 ### Patch Changes

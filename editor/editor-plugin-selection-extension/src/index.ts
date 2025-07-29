@@ -11,4 +11,5 @@ export type {
 	SelectionExtensionPluginState,
 	SelectionExtensionSelectionInfo,
 	DynamicSelectionExtension,
+	ReplaceWithAdfResult,
 } from './types';

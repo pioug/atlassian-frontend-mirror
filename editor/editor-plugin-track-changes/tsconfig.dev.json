@@ -134,6 +134,9 @@
 			"path": "../editor-plugin-selection/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-show-diff/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-status/tsconfig.app.json"
 		},
 		{

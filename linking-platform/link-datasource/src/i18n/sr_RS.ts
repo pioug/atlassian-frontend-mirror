@@ -9,7 +9,6 @@
 export default {
   'linkDataSource.accessInstructions': 'Pristup možete da zatražite od administratora sajta.',
   'linkDataSource.accessRequired': 'Nemate pristup ovom sadržaju',
-  'linkDataSource.accessRequiredWithSite': 'Nemate pristup sledećem sajtu:',
   'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': 'Pomoć za sintaksu',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Pretraži uz AQL',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Izaberite šemu',
@@ -99,7 +98,6 @@ export default {
     'Pretražujte radne stavke prema ključnoj reči',
   'linkDataSource.jira-issues.configmodal.chooseSite': 'Odaberite sajt',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Umetni probleme',
-  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': 'Umetni radne stavke',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Umetnite Jira probleme',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Umetnite Jira radne stavke',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Umetnite Jira probleme iz:',
@@ -117,7 +115,6 @@ export default {
   'linkDataSource.jira-issues.searchDescription-jql':
     'Koristite JQL (Jira jezik za upite) da biste pretraživali probleme.',
   'linkDataSource.jira-issues.searchJiraTitle': 'Pretraga Jira radnih stavki',
-  'linkDataSource.unableToLoadItems': 'Nije uspelo učitavanje stavki',
   'linkDataSource.jira-issues.unableToLoadResults': 'Nije uspelo učitavanje rezultata',
   'linkDataSource.modal-initial-state.beta': 'Beta',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Pretražite Confluence stranice',
@@ -125,12 +122,12 @@ export default {
   'linkDataSource.modal-initial-state.learnMoreLink': 'Saznajte kako se koristi JQL pretraga',
   'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
     'Pretražujte po ključnoj reči radne stavke koje ćete umetnuti.',
+  'linkDataSource.modal-initial-state.searchDescription-basic.Sllv': 'Počnite da kucate ili koristite JQL za pretragu.',
   'linkDataSource.modal-initial-state.searchDescription-confluence':
     'Pretražujte po ključnoj reči stranice koje ćete umetnuti.',
   'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
     'Koristite JQL (Jira jezik za upite) za pretragu radnih stavki.',
   'linkDataSource.modal-initial-state.searchTitle-issue-term-refresh': 'Pretraga Jira radnih stavki',
-  'linkDataSource.noResultsFound': 'Nema rezultata',
   'linkDataSource.render-type.boolean.false': 'Ne',
   'linkDataSource.render-type.boolean.true': 'Da',
   'linkDataSource.render-type.user.default.display.name': 'Nedodeljeno',
@@ -142,7 +139,6 @@ export default {
     '{searchCount, plural, one {{searchCount,number} stavka} few {{searchCount,number} stavke} many {{searchCount,number} stavki} other {{searchCount,number} stavki}}',
   'linkDataSource.search.configmodal.resultCountText':
     '{searchCount, plural, one {{searchCount,number} rezultat} few {{searchCount,number} rezultata} many {{searchCount,number} rezultata} other {{searchCount,number} rezultata}}',
-  'linkDataSource.site-selector.configmodal.chooseSite': 'Odaberite sajt',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'Upravo sinhronizovano',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Sinhronizovano {date}',
   'linkDataSource.table-footer.item': '{itemCount, plural, one {stavka} few {stavke} many {stavki} other {stavki}}',
@@ -150,5 +146,5 @@ export default {
   'linkDataSource.table-footer.power-by-jsm': 'Omogućavaju Resursi u Jira Service Management',
   'linkDataSource.table-footer.powered-by-assets': 'Omogućavaju Resursi',
   'linkDataSource.table-footer.refresh': 'Osveži',
-  'linkDataSource.unableToLoadResults': 'Nije uspelo učitavanje rezultata',
+  'linkDataSource.unableToLoadItems': 'Nije uspelo učitavanje stavki',
 };

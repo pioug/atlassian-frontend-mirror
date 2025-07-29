@@ -103,6 +103,9 @@ describe('AbstractVCCalculatorBase WithDebugInfo', () => {
 			revision: 'test-revision',
 			clean: true,
 			'metric:vc90': 100,
+			ratios: {
+				div: 0,
+			},
 			vcDetails: {
 				'25': { t: 100, e: ['div1', 'div2'] },
 				'50': { t: 100, e: ['div1', 'div2'] },

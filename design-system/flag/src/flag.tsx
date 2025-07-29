@@ -59,13 +59,6 @@ const descriptionStyles = css({
 	overflowWrap: 'anywhere', // For cases where a single word is longer than the container (e.g. filenames)
 });
 
-const oldIconWrapperStyles = css({
-	display: 'flex',
-	alignItems: 'start',
-	flexShrink: 0,
-	color: `var(${CSS_VAR_ICON_COLOR})`,
-});
-
 const iconWrapperStyles = css({
 	display: 'flex',
 	minWidth: '24px',
@@ -207,24 +200,14 @@ const Flag: FC<FlagProps> = (props) => {
 	return (
 		<div role="alert" css={flagWrapperStyles} data-testid={testId} {...autoDismissProps}>
 			<Box padding="space.200" backgroundColor={flagBackgroundColor[appearance]} xcss={styles.flag}>
-				<Inline
-					alignBlock={fg('platform_ads_component_no_icon_spacing_support') ? 'start' : 'stretch'}
-					space="space.200"
-				>
+				<Inline alignBlock="start" space="space.200">
 					<div
-						css={[
-							fg('platform_ads_component_no_icon_spacing_support')
-								? iconWrapperStyles
-								: oldIconWrapperStyles,
-						]}
+						css={iconWrapperStyles}
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						style={{ [CSS_VAR_ICON_COLOR]: iconColor } as CSSProperties}
 						data-testid={testId && `${testId}-icon-container`}
 					>
-						{icon ||
-							(iconGlyph && fg('platform_ads_component_no_icon_spacing_support')
-								? iconGlyph
-								: null)}
+						{icon || iconGlyph}
 					</div>
 					<span css={transitionStyles}>
 						<Stack

@@ -82,9 +82,6 @@
 		"platform_collab_provider_tracingheaders": {
 			"type": "boolean"
 		},
-		"skip_collab_provider_delay_on_publish": {
-			"type": "boolean"
-		},
 		"platform-editor-reconcile-return-generated-steps": {
 			"type": "boolean"
 		},

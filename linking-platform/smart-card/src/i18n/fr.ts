@@ -143,9 +143,12 @@ export default {
   'fabric.linking.priority_undefined': 'Non définie',
   'fabric.linking.read_time': '{context} min de lecture',
   'fabric.linking.related': 'Associé',
+  'fabric.linking.related_links_found_in': 'Trouvées dans',
+  'fabric.linking.related_links_includes_links_to': 'Inclut des liens vers',
   'fabric.linking.related_links_modal_error_description':
     'Vérifiez votre connexion ou actualisez la page, puis réessayez',
   'fabric.linking.related_links_modal_error_title': 'Nous ne parvenons pas à charger les liens associés',
+  'fabric.linking.related_links_modal_title': 'Liens associés',
   'fabric.linking.related_links_modal_unavailable_description':
     "Nous vérifions et ajoutons en permanence des liens associés pour les pages mises à jour ou d'autres types de contenu",
   'fabric.linking.related_links_modal_unavailable_title': "Nous n'avons trouvé aucun lien associé",

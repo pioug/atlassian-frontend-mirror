@@ -16,7 +16,7 @@ const mockGetBooleanFF = fg as jest.MockedFunction<typeof fg>;
 
 describe('Tooltip', () => {
 	beforeEach(() => {
-		mockGetBooleanFF.mockImplementation((key) => key === 'platform-tooltip-focus-visible');
+		mockGetBooleanFF.mockImplementation((key) => key === 'platform-tooltip-focus-visible-new');
 		HTMLElement.prototype.matches = jest.fn().mockReturnValue(true);
 		jest.useFakeTimers();
 	});

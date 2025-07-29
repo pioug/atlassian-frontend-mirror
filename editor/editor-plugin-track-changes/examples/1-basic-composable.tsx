@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { IntlProvider } from 'react-intl-next';
+
 import Button from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
 import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
@@ -34,6 +36,7 @@ import { placeholderTextPlugin } from '@atlaskit/editor-plugin-placeholder-text'
 import { quickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 import { rulePlugin } from '@atlaskit/editor-plugin-rule';
 import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
+import { showDiffPlugin } from '@atlaskit/editor-plugin-show-diff';
 import { statusPlugin } from '@atlaskit/editor-plugin-status';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { tasksAndDecisionsPlugin } from '@atlaskit/editor-plugin-tasks-and-decisions';
@@ -101,6 +104,7 @@ const createPreset = () =>
 				nativeStatusSupported: true,
 			},
 		])
+		.add(showDiffPlugin)
 		.add(trackChangesPlugin);
 
 function Editor() {
@@ -113,21 +117,23 @@ function Editor() {
 	);
 
 	return (
-		<Box xcss={styles.everythingContainer}>
-			<Box xcss={styles.aboveEditor}>
-				<Button
-					appearance="primary"
-					onClick={() => {
-						editorApi?.core.actions.execute(editorApi?.trackChanges.commands.toggleChanges);
-					}}
-					isSelected={isSelected}
-					isDisabled={!(isShowDiffAvailable ?? false)}
-				>
-					Show Diff
-				</Button>
+		<IntlProvider locale="en">
+			<Box xcss={styles.everythingContainer}>
+				<Box xcss={styles.aboveEditor}>
+					<Button
+						appearance="primary"
+						onClick={() => {
+							editorApi?.core.actions.execute(editorApi?.trackChanges.commands.toggleChanges);
+						}}
+						isSelected={isSelected}
+						isDisabled={!(isShowDiffAvailable ?? false)}
+					>
+						Show Diff
+					</Button>
+				</Box>
+				<ComposableEditor preset={preset} appearance="comment" />
 			</Box>
-			<ComposableEditor preset={preset} appearance="comment" />
-		</Box>
+		</IntlProvider>
 	);
 }
 

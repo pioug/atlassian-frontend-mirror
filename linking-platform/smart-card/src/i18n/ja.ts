@@ -142,8 +142,11 @@ export default {
   'fabric.linking.priority_undefined': '未定義',
   'fabric.linking.read_time': '読了時間 {context} 分',
   'fabric.linking.related': '関連',
+  'fabric.linking.related_links_found_in': 'ソース元',
+  'fabric.linking.related_links_includes_links_to': '次へのリンクが含まれています',
   'fabric.linking.related_links_modal_error_description': '接続を確認するか、ページを更新してもう一度お試しください',
   'fabric.linking.related_links_modal_error_title': '関連リンクの読み込み中に問題が発生しました',
+  'fabric.linking.related_links_modal_title': '関連リンク',
   'fabric.linking.related_links_modal_unavailable_description':
     '更新されたページやその他のコンテンツ タイプについて継続的に確認し、関連リンクを追加していきます',
   'fabric.linking.related_links_modal_unavailable_title': '関連リンクが見つかりませんでした',

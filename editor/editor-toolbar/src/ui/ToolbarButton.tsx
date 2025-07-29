@@ -89,6 +89,7 @@ type ToolbarButtonProps = Partial<TriggerProps> & {
 	icon: IconComponent;
 	groupLocation?: ToolbarButtonGroupLocation;
 	isDisabled?: boolean;
+	ariaKeyshortcuts?: string;
 };
 
 export const ToolbarButton = forwardRef(
@@ -108,6 +109,7 @@ export const ToolbarButton = forwardRef(
 			testId,
 			groupLocation,
 			isDisabled,
+			ariaKeyshortcuts,
 		}: ToolbarButtonProps,
 		ref: Ref<HTMLButtonElement>,
 	) => {
@@ -126,9 +128,11 @@ export const ToolbarButton = forwardRef(
 					groupLocation === 'middle' && styles.groupMiddle,
 					groupLocation === 'end' && styles.groupEnd,
 				)}
+				aria-pressed={isSelected}
 				aria-expanded={ariaExpanded}
 				aria-haspopup={ariaHasPopup}
 				aria-controls={ariaControls}
+				aria-keyshortcuts={ariaKeyshortcuts}
 				data-ds--level={dataDsLevel}
 				onClick={onClick}
 				onBlur={onBlur}

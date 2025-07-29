@@ -9,7 +9,6 @@
 export default {
   'linkDataSource.accessInstructions': '⁣⁢To request access, contact your site administrator.‍⁡؜⁡⁫‍⁪⁫‍‍⁯⁫‌‌⁪⁪⁭‍؜⁭‌⁣⁤',
   'linkDataSource.accessRequired': "⁣⁢You don't have access to this content⁯⁠⁬⁪⁫‌⁪‌‌‌؜‍‌⁭⁮‍؜⁬‌⁮⁡⁣⁤",
-  'linkDataSource.accessRequiredWithSite': "⁣⁢You don't have access to the following site:‌⁮⁠⁯⁯‌⁪⁬‍؜‍⁪⁯؜⁮⁯‌⁬‌⁪‍‌⁣⁤",
   'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': '⁣⁢Syntax help⁪⁠⁠⁭⁡⁭⁬⁠⁡⁫⁠؜⁯⁬⁫⁠⁭⁬‍⁠⁣⁤',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': '⁣⁢Search via AQL⁡⁡⁬؜⁮؜⁮⁡‍؜⁯⁫⁮؜⁮⁮‌⁮⁭‌⁫⁣⁤',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': '⁣⁢Select schema⁪⁫⁪⁠⁭‌⁫⁮⁭⁡⁭⁯⁬⁡⁮⁬⁬؜‍⁬‌⁯⁣⁤',
@@ -23,8 +22,6 @@ export default {
     '⁣⁢Start typing or use AQL to search.⁠⁠⁬‌⁠⁯⁯⁫⁡‌⁭‍⁪⁬؜‌⁡⁯⁪‍⁠⁮⁪؜⁣⁤',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
     '⁣⁢Search for objects or object types⁮؜⁯‌‌⁫⁬‍⁪⁡⁯⁮⁡⁮⁮⁠⁬⁡⁠⁡‍⁭⁣⁤',
-  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitleOld':
-    '⁣⁢Search for objects⁯⁬⁬⁭⁫⁠؜⁬‍⁯⁯⁮⁮⁬⁯⁪؜⁡⁬⁮‍⁮⁠⁣⁤',
   'linkDataSource.assets.configmodal.insertIssuesButtonText':
     '{objectsCount, plural, one {⁣⁢Insert object؜⁪⁭‌؜‌⁯⁮؜⁭؜⁮⁪⁡⁬؜⁪⁫⁠⁪⁭⁪‌⁣⁤} other {⁣⁢Insert objects؜⁪⁭‌؜‌⁯⁮؜⁭؜⁮⁪⁡⁬؜⁪⁫⁠⁪⁭⁪‌⁣⁤}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': '⁣⁢Insert objects from⁫‍؜‌⁭⁠⁬؜⁠؜⁪⁡‌⁬⁯⁯‍⁯⁪⁫⁣⁤',
@@ -125,8 +122,6 @@ export default {
     '⁣⁢To request access, contact your site administrator.⁪⁬⁪⁫⁫⁬⁮⁡⁯⁪⁮⁪⁯؜⁯⁫⁫⁮؜⁬⁣⁤',
   'linkDataSource.jira-issues.accessRequired': "⁣⁢You don't have access to this content⁠⁪‍⁬⁠⁫⁯⁫⁮⁬⁫⁪⁡⁠⁮⁭⁭⁯‌⁭⁬⁭⁭‌‌⁠⁣⁤",
   'linkDataSource.jira-issues.accessRequiredWithSite': "⁣⁢You don't have access to⁬؜⁭⁬⁬⁡‌⁫⁬⁯⁬⁯؜⁡⁭⁯⁬⁪⁡⁫⁭⁮‌⁣⁤",
-  'linkDataSource.jira-issues.accessRequiredWithSiteOld':
-    "⁣⁢You don't have access to the following site:⁫‍⁠؜⁪‌‍‍⁪⁠⁭‌‍⁪‍⁯⁠⁬⁭⁯⁪⁪⁪⁮⁣⁤",
   'linkDataSource.jira-issues.checkConnection':
     '⁣⁢Check your connection and refresh, or try again later.⁮⁭‌⁠⁯⁯⁠⁪⁫‍‍‍⁡⁬⁫‌⁡؜⁪⁠⁯⁠⁣⁤',
   'linkDataSource.jira-issues.checkConnection.confluence':
@@ -145,10 +140,7 @@ export default {
   'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder-issue-term-refresh':
     '⁣⁢Search for work items by keyword؜⁬⁬؜⁮‌⁬⁮⁡‌؜؜⁫⁯‍⁭⁠⁯⁭؜⁫⁮⁠⁣⁤',
   'linkDataSource.jira-issues.configmodal.chooseSite': '⁣⁢Select a site⁫⁭⁮‍⁡؜⁬⁯⁬؜⁡⁠⁭⁫⁠؜⁪⁯⁪⁬؜‌‍‍⁣⁤',
-  'linkDataSource.jira-issues.configmodal.chooseSiteOld': '⁣⁢Choose site⁠⁪؜⁠⁫؜⁡⁫⁬⁡⁪⁮؜⁠‌⁯⁮⁪⁪‌⁣⁤',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': '⁣⁢Insert issues⁭⁫⁫⁭⁬⁫⁫⁬⁮⁬⁪⁮⁬⁮⁯‍⁫⁯⁭⁪⁡⁬⁡‌‍⁣⁤',
-  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh':
-    '⁣⁢Insert work items⁯⁮⁭⁡⁮⁪⁯⁯⁭⁪⁪⁬⁫⁮؜‌‍⁪⁣⁤',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-sllv':
     '⁣⁢Insert results⁡⁮⁮⁬؜⁯⁪⁫⁬‌‌⁠‍⁡⁬⁭؜؜⁠⁭⁣⁤',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': '⁣⁢Insert Jira issues⁡⁡⁭‌⁯؜⁮⁮‌⁬‌⁬⁯‍؜⁮⁮⁠⁬⁭⁫⁬‍⁭⁣⁤',
@@ -179,19 +171,14 @@ export default {
   'linkDataSource.jira-issues.noResultsFound': "⁣⁢We couldn't find anything matching your search⁡؜⁬⁡‍⁫⁬⁪⁮⁫⁬⁬⁠⁪‌⁯‌؜⁣⁤",
   'linkDataSource.jira-issues.noResultsFound.description':
     '⁣⁢Try again with a different term.⁡⁭⁬⁭‌⁯⁫⁡⁠⁫⁭⁯⁪‌⁯؜⁠⁮‍⁬‍⁡⁠⁠⁣⁤',
-  'linkDataSource.jira-issues.noResultsFoundOld': '⁣⁢No results found⁪⁬⁯‌⁡؜‌‌⁮⁭⁡⁭⁡⁪⁪‍⁡⁣⁤',
   'linkDataSource.jira-issues.refresh': '⁣⁢Refresh؜⁠⁫⁯؜⁬⁠⁡⁡⁮⁬⁫⁯⁡⁫⁪‍⁭⁭⁪⁪⁭؜⁫؜⁣⁤',
   'linkDataSource.jira-issues.searchDescription-basic':
     '⁣⁢Search by keyword for work items to insert.؜⁯⁠⁪‍؜⁯‌؜⁫⁫⁬⁮⁠؜⁡⁡⁮‌⁫⁠⁣⁤',
   'linkDataSource.jira-issues.searchDescription-jql':
     '⁣⁢Use JQL (Jira Query Language) to search for issues.⁭⁠‌؜؜⁠‌⁫⁫⁯؜؜‌؜⁯⁠⁮⁬⁡⁣⁤',
   'linkDataSource.jira-issues.searchJiraTitle': '⁣⁢Search for Jira work items‍⁯؜⁡⁯⁠⁬⁡⁫‍؜‌⁭⁮⁡⁯⁭⁡⁡⁫⁫⁮⁬⁣⁤',
-  'linkDataSource.jira-issues.unableToLoadItems': '⁣⁢Unable to load items⁪⁮⁠⁠⁮⁭⁭⁪⁫⁠‌‌⁠‌⁯⁮⁯‌⁠⁠⁯؜؜⁫⁣⁤',
   'linkDataSource.jira-issues.unableToLoadResults':
     '⁣⁢We ran into an issue trying to fetch results⁭⁭⁮‍⁡‍⁫‌⁫⁠⁯⁫⁭⁫‌⁮⁡‍⁡؜؜⁬⁣⁤',
-  'linkDataSource.jira-issues.unableToLoadResults.visual-refresh-sllv':
-    '⁣⁢We ran into an issue trying to fetch results⁪⁡⁡‍‍؜‍‌‍‍⁯؜⁫⁯⁠⁯⁯⁯؜‍⁡⁣⁤',
-  'linkDataSource.jira-issues.unableToLoadResultsOld': '⁣⁢Unable to load results⁬‌⁪⁭⁡؜‌⁠؜⁡⁮⁪⁬⁭‍⁬‍‌⁡⁫؜⁫⁮⁯⁣⁤',
   'linkDataSource.modal-initial-state.beta': '⁣⁢Beta⁠؜‌⁠⁠⁪⁬⁯⁮⁯؜⁭⁡⁡⁠⁡⁬‌⁯⁮⁣⁤',
   'linkDataSource.modal-initial-state.confluenceSearchTitle':
     '⁣⁢Search for Confluence pages⁮⁬⁬؜‌⁮؜⁮‍⁬⁫‌⁬‍؜⁮‌؜⁡‍⁫⁭⁬‌⁠‍⁣⁤',
@@ -202,8 +189,8 @@ export default {
     '⁣⁢Search by keyword for issues to insert.⁪⁯؜⁬⁭⁮‌⁯؜⁡⁡⁪⁬؜⁮⁯⁫‌⁯⁣⁤',
   'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
     '⁣⁢Search by keyword for work items to insert.‌⁫⁭⁮‍⁯⁭⁬⁪⁬⁮‍⁭⁯⁯⁡⁯⁮‌⁠⁬⁫⁮⁬⁣⁤',
-  'linkDataSource.modal-initial-state.searchDescription-basic.visualRefreshSllv':
-    '⁣⁢Start typing or use JQL to search.‌⁮⁪⁯‌؜⁪⁪‍⁪⁪⁮⁮⁪⁮⁡⁫⁬⁮⁫⁭⁫⁣⁤',
+  'linkDataSource.modal-initial-state.searchDescription-basic.Sllv':
+    '⁣⁢Start typing or use JQL to search.⁮⁡⁯؜⁫⁪⁬⁭⁬⁭⁪⁡⁮⁪⁯⁬⁣⁤',
   'linkDataSource.modal-initial-state.searchDescription-confluence':
     '⁣⁢Search by keyword for pages to insert.⁫⁬⁠⁡⁫⁡⁠⁬⁪⁠⁠⁬⁠⁪⁭⁡⁭⁫⁬⁪؜⁯⁣⁤',
   'linkDataSource.modal-initial-state.searchDescription-jql':
@@ -216,7 +203,6 @@ export default {
   'linkDataSource.no.jira.sites.access.description':
     '⁣⁢To request access, contact your admin.⁫⁠؜‌⁪⁠؜⁬⁯⁮⁡⁯⁬⁠⁮⁯⁮⁠⁭؜⁪⁠⁠⁬⁣⁤',
   'linkDataSource.no.jira.sites.access.title': "⁣⁢You don't have access to any Jira sites‍؜⁮⁡⁮‌⁮⁬⁡⁠⁠⁫‌⁡⁠⁯⁫⁯⁣⁤",
-  'linkDataSource.noResultsFound': '⁣⁢No results found⁯⁭⁭⁠‍⁡⁬⁪⁮⁭⁬⁫‍؜⁯⁡‌⁪⁯⁭⁠⁮⁣⁤',
   'linkDataSource.refresh': '⁣⁢Refresh⁭‌؜⁬⁫⁭‌⁯⁠⁠⁯⁯‌‌⁡⁡‌⁪⁪⁯⁠⁣⁤',
   'linkDataSource.render-type.boolean.false': '⁣⁢No⁪⁡⁠؜⁡⁮⁡⁫؜⁮⁯⁠⁯⁠⁮⁭⁪⁠⁫؜⁪⁣⁤',
   'linkDataSource.render-type.boolean.true': '⁣⁢Yes‍⁫⁫⁬⁠⁡⁠⁡⁪⁬⁡⁭⁭⁡‍⁫⁫؜‍⁪⁪؜⁮⁬⁣⁤',
@@ -229,7 +215,6 @@ export default {
     '{searchCount, plural, one {⁣⁢{searchCount,number} item⁫⁠‌⁠‍⁬؜⁭⁮⁠؜⁠⁬‌⁬⁡⁬⁯⁠‌⁪⁯⁬⁣⁤} other {⁣⁢{searchCount,number} items⁫⁠‌⁠‍⁬؜⁭⁮⁠؜⁠⁬‌⁬⁡⁬⁯⁠‌⁪⁯⁬⁣⁤}}',
   'linkDataSource.search.configmodal.resultCountText':
     '{searchCount, plural, one {⁣⁢{searchCount,number} result⁪⁠⁭⁫⁬⁠⁯⁫⁫⁫‌⁯⁠‍⁭⁠⁭‌⁭⁪‌‍؜⁣⁤} other {⁣⁢{searchCount,number} results⁪⁠⁭⁫⁬⁠⁯⁫⁫⁫‌⁯⁠‍⁭⁠⁭‌⁭⁪‌‍؜⁣⁤}}',
-  'linkDataSource.site-selector.configmodal.chooseSite': '⁣⁢Choose site⁠؜⁯⁠⁭⁪‍⁬؜‌⁬‌⁯⁡⁬⁫⁭⁣⁤',
   'linkDataSource.table-footer.date_formatter.under_one_minute': '⁣⁢Synced just now⁪‌‌‌‍⁬⁫⁭⁫⁬⁡⁠⁫⁭؜⁪⁪؜⁬‍⁮؜⁪⁠⁭⁫⁣⁤',
   'linkDataSource.table-footer.date_formatter.under_over_minute': '⁣⁢Synced {date}‌⁯⁯⁬⁮⁯⁫؜⁮⁯⁬⁠⁠⁮⁡⁭؜⁠؜⁯‌⁣⁤',
   'linkDataSource.table-footer.item':
@@ -239,5 +224,4 @@ export default {
   'linkDataSource.table-footer.powered-by-assets': '⁣⁢Powered by Assets‌⁠؜⁮⁠⁪⁫⁮‍⁯⁭⁭؜؜‌⁮‌⁡‌⁠؜‌⁠⁣⁤',
   'linkDataSource.table-footer.refresh': '⁣⁢Refresh⁠⁫⁡⁫‍⁡⁭⁠⁬⁠⁠⁪⁠‌؜‌⁮⁬⁪⁪⁪⁫⁣⁤',
   'linkDataSource.unableToLoadItems': '⁣⁢Unable to load items⁫⁠⁫‌⁠⁬⁪⁬⁠‌⁭‌⁠⁬⁯⁡⁫⁪⁭⁬⁫‌⁣⁤',
-  'linkDataSource.unableToLoadResults': '⁣⁢Unable to load results⁬‍؜‍⁪⁠⁠⁪⁠⁪⁬⁯⁪‍؜⁮⁭‍⁡⁭⁬⁣⁤',
 };

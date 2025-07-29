@@ -66,6 +66,12 @@ export interface ToggleProps extends WithAnalyticsEventsProps {
 	isChecked?: boolean;
 
 	/**
+	 * If defined, it displays a spinner within the toggle.
+	 * This prop is useful when the toggle's state is being fetched or updated asynchronously.
+	 */
+	isLoading?: boolean;
+
+	/**
 	 * Text value which will be associated with toggle input using aria-labelledby attribute.
 	 *
 	 * Use only when you can't use a visible label for the toggle.

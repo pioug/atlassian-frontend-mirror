@@ -9,7 +9,6 @@
 export default {
   'linkDataSource.accessInstructions': 'Zatraži pristup tako da kontaktiraš svog administratora web-mjesta.',
   'linkDataSource.accessRequired': 'Nemaš pristup ovom sadržaju',
-  'linkDataSource.accessRequiredWithSite': 'Nemaš pristup sljedećem web-mjestu:',
   'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': 'Pomoć za sintaksu',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Pretraži pomoću AQL-a',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Odaberi shemu',
@@ -100,7 +99,6 @@ export default {
     'Pretraži radne predmete prema ključnoj riječi',
   'linkDataSource.jira-issues.configmodal.chooseSite': 'Odaberi web-mjesto',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Umetni pitanja',
-  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': 'Umetni radne predmete',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Umetni Jira pitanja',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Umetni Jira radne predmete',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Umetni Jira pitanja iz',
@@ -117,7 +115,6 @@ export default {
   'linkDataSource.jira-issues.searchDescription-basic': 'Pretraži pitanja za umetanje prema ključnoj riječi.',
   'linkDataSource.jira-issues.searchDescription-jql': 'Koristi JQL (Jira Query Language) za pretraživanje pitanja.',
   'linkDataSource.jira-issues.searchJiraTitle': 'Pretraži Jira radne predmete',
-  'linkDataSource.unableToLoadItems': 'Nije moguće učitati stavke',
   'linkDataSource.jira-issues.unableToLoadResults': 'Nije moguće učitati rezultate',
   'linkDataSource.modal-initial-state.beta': 'Beta',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Pretraži Confluence stranice',
@@ -125,12 +122,13 @@ export default {
   'linkDataSource.modal-initial-state.learnMoreLink': 'Saznaj kako pretraživati pomoću JQL-a',
   'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
     'Pretraži radne predmete za umetanje prema ključnoj riječi.',
+  'linkDataSource.modal-initial-state.searchDescription-basic.Sllv':
+    'Počnite upisivati ili upotrijebite JQL za pretraživanje.',
   'linkDataSource.modal-initial-state.searchDescription-confluence':
     'Pretraži stranice za umetanje prema ključnoj riječi.',
   'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
     'Koristi JQL (Jira Query Language) za pretraživanje radnih predmeta.',
   'linkDataSource.modal-initial-state.searchTitle-issue-term-refresh': 'Pretraži Jira radne predmete',
-  'linkDataSource.noResultsFound': 'Nisu pronađeni rezultati',
   'linkDataSource.render-type.boolean.false': 'Ne',
   'linkDataSource.render-type.boolean.true': 'Da',
   'linkDataSource.render-type.user.default.display.name': 'Nedodijeljeno',
@@ -142,7 +140,6 @@ export default {
     '{searchCount, plural, one {{searchCount,number} stavka} few {{searchCount,number} stavke} many {{searchCount,number} stavki} other {{searchCount,number} stavki}}',
   'linkDataSource.search.configmodal.resultCountText':
     '{searchCount, plural, one {{searchCount,number} rezultat} few {{searchCount,number} rezultata} many {{searchCount,number} rezultata} other {{searchCount,number} rezultata}}',
-  'linkDataSource.site-selector.configmodal.chooseSite': 'Odaberi web-mjesto',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'Sinkronizirano upravo sada',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Sinkronizirano {date}',
   'linkDataSource.table-footer.item': '{itemCount, plural, one {stavka} few {stavke} many {stavki} other {stavki}}',
@@ -150,5 +147,5 @@ export default {
   'linkDataSource.table-footer.power-by-jsm': 'Omogućuje Assets u Jira Service Managementu',
   'linkDataSource.table-footer.powered-by-assets': 'Pruža Assets',
   'linkDataSource.table-footer.refresh': 'Osvježi',
-  'linkDataSource.unableToLoadResults': 'Nije moguće učitati rezultate',
+  'linkDataSource.unableToLoadItems': 'Nije moguće učitati stavke',
 };

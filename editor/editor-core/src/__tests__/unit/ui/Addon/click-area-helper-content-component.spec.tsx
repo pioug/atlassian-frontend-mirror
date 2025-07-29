@@ -5,11 +5,10 @@ import { screen, render, fireEvent } from '@testing-library/react';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { basePlugin } from '@atlaskit/editor-plugins/base';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import * as clickAreaHelper from '../../../../ui/Addon/click-area-helper';
 
-describe('should not call the click handler on content components', () => {
+it('should not call the click handler on content components', async () => {
 	const Editor = () => {
 		const { preset } = usePreset((b) => b.add(basePlugin));
 		return (
@@ -23,40 +22,21 @@ describe('should not call the click handler on content components', () => {
 			/>
 		);
 	};
-	ffTest(
-		'platform_editor_content_component_ignore_click',
-		async () => {
-			const outsideEditorclickHandler = jest.spyOn(
-				clickAreaHelper,
-				'outsideProsemirrorEditorClickHandler',
-			);
-
-			render(<Editor />);
-
-			const contentComponent = await screen.findByTestId('contentComponent');
-			fireEvent.mouseDown(contentComponent);
-
-			expect(outsideEditorclickHandler).not.toHaveBeenCalled();
-			outsideEditorclickHandler.mockClear();
-		},
-		async () => {
-			const outsideEditorclickHandler = jest.spyOn(
-				clickAreaHelper,
-				'outsideProsemirrorEditorClickHandler',
-			);
-
-			render(<Editor />);
-
-			const contentComponent = await screen.findByTestId('contentComponent');
-			fireEvent.mouseDown(contentComponent);
-
-			expect(outsideEditorclickHandler).toHaveBeenCalled();
-			outsideEditorclickHandler.mockClear();
-		},
+	const outsideEditorclickHandler = jest.spyOn(
+		clickAreaHelper,
+		'outsideProsemirrorEditorClickHandler',
 	);
+
+	render(<Editor />);
+
+	const contentComponent = await screen.findByTestId('contentComponent');
+	fireEvent.mouseDown(contentComponent);
+
+	expect(outsideEditorclickHandler).not.toHaveBeenCalled();
+	outsideEditorclickHandler.mockClear();
 });
 
-describe('should not call the click handler on content components as an array', () => {
+it('should not call the click handler on content components as an array', async () => {
 	const Editor = () => {
 		const { preset } = usePreset((b) => b.add(basePlugin));
 		return (
@@ -76,35 +56,16 @@ describe('should not call the click handler on content components as an array', 
 			/>
 		);
 	};
-	ffTest(
-		'platform_editor_content_component_ignore_click',
-		async () => {
-			const outsideEditorclickHandler = jest.spyOn(
-				clickAreaHelper,
-				'outsideProsemirrorEditorClickHandler',
-			);
-
-			render(<Editor />);
-
-			const contentComponent = await screen.findByTestId('contentComponent');
-			fireEvent.mouseDown(contentComponent);
-
-			expect(outsideEditorclickHandler).not.toHaveBeenCalled();
-			outsideEditorclickHandler.mockClear();
-		},
-		async () => {
-			const outsideEditorclickHandler = jest.spyOn(
-				clickAreaHelper,
-				'outsideProsemirrorEditorClickHandler',
-			);
-
-			render(<Editor />);
-
-			const contentComponent = await screen.findByTestId('contentComponent');
-			fireEvent.mouseDown(contentComponent);
-
-			expect(outsideEditorclickHandler).toHaveBeenCalled();
-			outsideEditorclickHandler.mockClear();
-		},
+	const outsideEditorclickHandler = jest.spyOn(
+		clickAreaHelper,
+		'outsideProsemirrorEditorClickHandler',
 	);
+
+	render(<Editor />);
+
+	const contentComponent = await screen.findByTestId('contentComponent');
+	fireEvent.mouseDown(contentComponent);
+
+	expect(outsideEditorclickHandler).not.toHaveBeenCalled();
+	outsideEditorclickHandler.mockClear();
 });

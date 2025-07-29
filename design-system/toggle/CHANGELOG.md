@@ -1,5 +1,18 @@
 # @atlaskit/toggle
 
+## 15.1.0
+
+### Minor Changes
+
+- [#188921](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188921)
+  [`6be3eef87d2ed`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6be3eef87d2ed) -
+  Added `isLoading` prop to handle async actions where the toggle's state is being fetched or
+  updated asynchronously
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.0.13
 
 ### Patch Changes

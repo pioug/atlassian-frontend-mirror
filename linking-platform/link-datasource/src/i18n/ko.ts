@@ -9,7 +9,6 @@
 export default {
   'linkDataSource.accessInstructions': '액세스 권한을 요청하려면 사이트 관리자에게 문의하세요.',
   'linkDataSource.accessRequired': '이 콘텐츠에 대한 액세스 권한이 없습니다',
-  'linkDataSource.accessRequiredWithSite': '다음에 대한 액세스 권한이 없음:',
   'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': '구문 도움말',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'AQL로 검색',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': '스키마 선택',
@@ -22,7 +21,6 @@ export default {
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
     '입력을 시작하거나 AQL을 사용하여 검색합니다.',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle': '개체 또는 개체 유형 검색',
-  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitleOld': '개체 검색',
   'linkDataSource.assets.configmodal.insertIssuesButtonText': '{objectsCount, plural, other {개체 삽입}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': '다음의 개체 삽입',
   'linkDataSource.assets.configmodal.updateObjectsButtonText': '표 업데이트',
@@ -103,7 +101,7 @@ export default {
   'linkDataSource.issue-line-table.fetch-action-error-generic-title': '옵션을 가져오는 동안 문제가 발생했습니다',
   'linkDataSource.issue-line-table.unwrap-text': '텍스트 줄 바꿈 해제',
   'linkDataSource.issue-line-table.wrap-text': '텍스트 줄 바꿈',
-  'linkDataSource.jira-issues.accessRequiredWithSiteOld': '다음 사이트에 대한 액세스 권한이 없습니다.',
+  'linkDataSource.accessRequiredWithSite': '다음에 대한 액세스 권한이 없음:',
   'linkDataSource.jira-issues.checkConnection.confluence':
     '연결을 확인하고 새로 고치거나 <a>Confluence에서 이 검색을 열어</a> 검토하세요.',
   'linkDataSource.jira-issues.checkConnection.jira':
@@ -116,9 +114,7 @@ export default {
   'linkDataSource.jira-issues.configmodal.basicModeText': '기본',
   'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder-issue-term-refresh': '키워드로 업무 항목 검색',
   'linkDataSource.site-selector.configmodal.chooseSite': '사이트 선택',
-  'linkDataSource.jira-issues.configmodal.chooseSiteOld': '사이트 선택',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': '이슈 삽입',
-  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': '업무 항목 삽입',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-sllv': '결과 삽입',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Jira 이슈 삽입',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Jira 업무 항목 삽입',
@@ -136,25 +132,20 @@ export default {
   'linkDataSource.jira-issues.learnMoreLink': 'JQL을 사용한 검색에 대해 자세히 알아보기',
   'linkDataSource.no.jira.sites.access.description': '액세스를 요청하려면 관리자에게 문의하세요.',
   'linkDataSource.no.jira.sites.access.title': 'Jira 사이트에 대한 액세스 권한이 없습니다',
-  'linkDataSource.noResultsFound': '결과 없음',
+  'linkDataSource.noResultsFound': '검색 조건과 일치하는 사항을 찾지 못했습니다',
   'linkDataSource.jira-issues.noResultsFound.description': '다른 검색어로 다시 시도하세요.',
-  'linkDataSource.jira-issues.noResultsFoundOld': '결과 없음',
   'linkDataSource.refresh': '새로 고침',
   'linkDataSource.jira-issues.searchDescription-basic': '삽입할 이슈를 키워드로 검색하세요.',
   'linkDataSource.jira-issues.searchDescription-jql': 'JQL(Jira Query Language)을 사용하여 이슈를 검색하세요.',
   'linkDataSource.jira-issues.searchJiraTitle': 'Jira 업무 항목 검색',
-  'linkDataSource.unableToLoadItems': '항목을 로드할 수 없음',
-  'linkDataSource.unableToLoadResults': '결과를 로드할 수 없음',
-  'linkDataSource.jira-issues.unableToLoadResults.visual-refresh-sllv': '결과를 가져오는 동안 문제가 발생했습니다',
-  'linkDataSource.jira-issues.unableToLoadResultsOld': '결과를 로드할 수 없음',
+  'linkDataSource.unableToLoadResults': '결과를 가져오는 동안 문제가 발생했습니다',
   'linkDataSource.modal-initial-state.beta': '베타',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Confluence 페이지 검색',
   'linkDataSource.modal-initial-state.jiraSearchTitle': 'Jira 업무 항목 검색',
   'linkDataSource.modal-initial-state.learnMoreLinkOld': 'JQL로 검색하는 방법 알아보기',
   'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
     '삽입할 업무 항목을 키워드로 검색합니다.',
-  'linkDataSource.modal-initial-state.searchDescription-basic.visualRefreshSllv':
-    '입력을 시작하거나 JQL을 사용하여 검색합니다.',
+  'linkDataSource.modal-initial-state.searchDescription-basic.Sllv': '입력을 시작하거나 JQL을 사용하여 검색합니다.',
   'linkDataSource.modal-initial-state.searchDescription-confluence': '삽입할 페이지를 키워드로 검색합니다.',
   'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
     'JQL(Jira 쿼리 언어)을 사용하여 업무 항목을 검색하세요.',
@@ -174,4 +165,5 @@ export default {
   'linkDataSource.table-footer.power-by-jsm': 'Jira Service Management의 자산에서 제공',
   'linkDataSource.table-footer.powered-by-assets': '자산 기반',
   'linkDataSource.table-footer.refresh': '새로 고침',
+  'linkDataSource.unableToLoadItems': '항목을 로드할 수 없음',
 };

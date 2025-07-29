@@ -1,63 +1,63 @@
 {
-    "extends": "../../../../tsconfig.entry-points.confluence.json",
-    "compilerOptions": {
-        "declaration": true,
-        "target": "es5",
-        "composite": true,
-        "outDir": "../../../../../confluence/tsDist/@atlaskit__datetime-picker",
-        "rootDir": "../"
-    },
-    "include": [
-        "../src/**/*.ts",
-        "../src/**/*.tsx"
-    ],
-    "exclude": [
-        "../src/**/__tests__/*",
-        "../src/**/*.test.*",
-        "../src/**/test.*"
-    ],
-    "references": [
-        {
-            "path": "../../../analytics/analytics-next/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../button/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../calendar/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../css/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../ds-lib/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../icon/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../layering/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../locale/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../popper/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../primitives/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../select/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../tokens/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../visually-hidden/afm-cc/tsconfig.json"
-        }
-    ]
+	"extends": "../../../../tsconfig.entry-points.confluence.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"composite": true,
+		"outDir": "../../../../../confluence/tsDist/@atlaskit__datetime-picker",
+		"rootDir": "../"
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../button/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../calendar/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../css/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../ds-lib/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../icon/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../layering/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../locale/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../popper/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../primitives/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../select/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../tokens/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../visually-hidden/afm-cc/tsconfig.json"
+		}
+	]
 }

@@ -1,45 +1,45 @@
 {
-    "extends": "../../../../tsconfig.entry-points.confluence.json",
-    "compilerOptions": {
-        "target": "es5",
-        "composite": true,
-        "outDir": "../../../../../confluence/tsDist/@atlaskit__primitives",
-        "rootDir": "../"
-    },
-    "include": [
-        "../src/**/*.ts",
-        "../src/**/*.tsx"
-    ],
-    "exclude": [
-        "../src/**/__tests__/*",
-        "../src/**/*.test.*",
-        "../src/**/test.*",
-        "../src/**/examples.*"
-    ],
-    "references": [
-        {
-            "path": "../../../analytics/analytics-next/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../app-provider/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../css/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../ds-lib/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../observability/interaction-context/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../tokens/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../visually-hidden/afm-cc/tsconfig.json"
-        }
-    ]
+	"extends": "../../../../tsconfig.entry-points.confluence.json",
+	"compilerOptions": {
+		"target": "es5",
+		"composite": true,
+		"outDir": "../../../../../confluence/tsDist/@atlaskit__primitives",
+		"rootDir": "../"
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../app-provider/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../css/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../ds-lib/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../observability/interaction-context/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../tokens/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../visually-hidden/afm-cc/tsconfig.json"
+		}
+	]
 }

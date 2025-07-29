@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-create",
-	"version": "4.2.3",
+	"version": "4.2.4",
 	"description": "The driver component of meta creation flow",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -8,7 +8,7 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"atlassian": {
-		"team": "Linking Platform",
+		"team": "Navigation Experiences - Linking Platform",
 		"website": {
 			"name": "LinkCreate"
 		},

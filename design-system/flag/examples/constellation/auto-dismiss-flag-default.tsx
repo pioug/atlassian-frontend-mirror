@@ -40,7 +40,6 @@ const AutoDismissFlagDefaultExample = () => {
 									LEGACY_primaryColor={token('color.icon.success')}
 									LEGACY_size="medium"
 									color={token('color.icon.success')}
-									spacing="spacious"
 								/>
 							}
 							key={flagId}

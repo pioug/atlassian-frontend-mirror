@@ -9,7 +9,6 @@
 export default {
   'linkDataSource.accessInstructions': 'Para solicitar acceso, ponte en contacto con tu administrador del sitio.',
   'linkDataSource.accessRequired': 'No tienes acceso a este contenido',
-  'linkDataSource.accessRequiredWithSite': 'No tienes acceso a',
   'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': 'Ayuda de Sintaxis',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Buscar con AQL',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Seleccionar esquema',
@@ -23,7 +22,6 @@ export default {
     'Empieza a escribir o utiliza AQL para buscar.',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
     'Busca objetos o tipos de objetos',
-  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitleOld': 'Buscar objetos',
   'linkDataSource.assets.configmodal.insertIssuesButtonText':
     '{objectsCount, plural, one {Insertar objeto} other {Insertar objetos}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Insertar objetos de',
@@ -109,7 +107,7 @@ export default {
     'Estamos teniendo algunos problemas para obtener las opciones',
   'linkDataSource.issue-line-table.unwrap-text': 'Desajustar texto',
   'linkDataSource.issue-line-table.wrap-text': 'Ajustar texto',
-  'linkDataSource.jira-issues.accessRequiredWithSiteOld': 'No tienes acceso al siguiente sitio:',
+  'linkDataSource.accessRequiredWithSite': 'No tienes acceso a',
   'linkDataSource.jira-issues.checkConnection.confluence':
     'Comprueba la conexión y actualiza, o bien <a>abre esta búsqueda en Confluence</a> para revisarla.',
   'linkDataSource.jira-issues.checkConnection.jira':
@@ -123,10 +121,8 @@ export default {
   'linkDataSource.jira-issues.configmodal.basicModeText': 'Básica',
   'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder-issue-term-refresh':
     'Buscar actividades por palabra clave',
-  'linkDataSource.site-selector.configmodal.chooseSite': 'Elegir sitio',
-  'linkDataSource.jira-issues.configmodal.chooseSiteOld': 'Elegir sitio',
+  'linkDataSource.site-selector.configmodal.chooseSite': 'Seleccionar un sitio',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Insertar incidencias',
-  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': 'Insertar actividades',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-sllv': 'Insertar resultados',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Insertar incidencias de Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Insertar actividades de Jira',
@@ -147,25 +143,20 @@ export default {
   'linkDataSource.jira-issues.learnMoreLink': 'Obtener más información sobre cómo realizar búsquedas con JQL',
   'linkDataSource.no.jira.sites.access.description': 'Para solicitar acceso, ponte en contacto con tu administrador.',
   'linkDataSource.no.jira.sites.access.title': 'No tienes acceso a ningún sitio de Jira',
-  'linkDataSource.noResultsFound': 'No se han encontrado resultados',
+  'linkDataSource.noResultsFound': 'No se han encontrado resultados de búsqueda',
   'linkDataSource.jira-issues.noResultsFound.description': 'Prueba con otro término.',
-  'linkDataSource.jira-issues.noResultsFoundOld': 'No se han encontrado resultados',
   'linkDataSource.refresh': 'Actualizar',
   'linkDataSource.jira-issues.searchDescription-basic': 'Busca por palabras clave para insertar incidencias.',
   'linkDataSource.jira-issues.searchDescription-jql': 'Utiliza JQL (Jira Query Language) para buscar incidencias.',
   'linkDataSource.jira-issues.searchJiraTitle': 'Busca actividades de Jira',
-  'linkDataSource.unableToLoadItems': 'No se han podido cargar los elementos',
-  'linkDataSource.unableToLoadResults': 'No se pueden cargar los resultados',
-  'linkDataSource.jira-issues.unableToLoadResults.visual-refresh-sllv': 'Error al intentar obtener los resultados',
-  'linkDataSource.jira-issues.unableToLoadResultsOld': 'No se pueden cargar los resultados',
+  'linkDataSource.unableToLoadResults': 'Error al intentar obtener los resultados',
   'linkDataSource.modal-initial-state.beta': 'Beta',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Buscar páginas de Confluence',
   'linkDataSource.modal-initial-state.jiraSearchTitle': 'Busca actividades de Jira',
   'linkDataSource.modal-initial-state.learnMoreLinkOld': 'Más información sobre cómo buscar con JQL',
   'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
     'Busca por palabras clave para insertar actividades.',
-  'linkDataSource.modal-initial-state.searchDescription-basic.visualRefreshSllv':
-    'Empieza a escribir o utiliza JQL para buscar.',
+  'linkDataSource.modal-initial-state.searchDescription-basic.Sllv': 'Empieza a escribir o utiliza JQL para buscar.',
   'linkDataSource.modal-initial-state.searchDescription-confluence': 'Busca por palabras clave para insertar páginas.',
   'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
     'Utiliza JQL (Jira Query Language) para buscar actividades.',
@@ -188,4 +179,5 @@ export default {
   'linkDataSource.table-footer.power-by-jsm': 'Con la tecnología de Activos en Jira Service Management',
   'linkDataSource.table-footer.powered-by-assets': 'Con tecnología de Activos',
   'linkDataSource.table-footer.refresh': 'Actualizar',
+  'linkDataSource.unableToLoadItems': 'No se han podido cargar los elementos',
 };

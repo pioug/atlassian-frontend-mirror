@@ -28,19 +28,16 @@ const rotate = keyframes({
 
 /**
  * There are three parts to the load in animation:
- * 1. Fade in
- * 2. Accelerated spin
- * 3. Stretch the spinner line
+ * 1. Accelerated spin
+ * 2. Stretch the spinner line
  */
 const loadIn = keyframes({
 	from: {
 		transform: 'rotate(50deg)',
-		opacity: 0,
 		strokeDashoffset: 60,
 	},
 	to: {
 		transform: 'rotate(230deg)',
-		opacity: 1,
 		strokeDashoffset: 50,
 	},
 });
@@ -61,10 +58,6 @@ const styles = cssMap({
 		 * When the animation completes, stay at the last frame of the animation.
 		 */
 		animationFillMode: 'forwards',
-		/**
-		 * We are going to animate this in.
-		 */
-		opacity: 0,
 	},
 	wrapperStyles: {
 		display: 'inline-flex',
@@ -76,8 +69,6 @@ const styles = cssMap({
 	circleStyles: {
 		fill: 'none',
 		strokeDasharray: 60,
-		strokeDashoffset: 'inherit',
-		strokeLinecap: 'round',
 		strokeWidth: 1.5,
 		'@media screen and (forced-colors: active)': {
 			filter: 'grayscale(100%)',

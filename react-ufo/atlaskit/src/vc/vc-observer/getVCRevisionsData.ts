@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import type { InteractionMetrics } from '../../common/common/types';
 import type { RevisionPayload, RevisionPayloadEntry, VCRatioType } from '../../common/vc/types';
 import { isVCRevisionEnabled } from '../../config';
@@ -71,7 +69,7 @@ export function getVCRevisionsData({
 			vcDetails: createVCDetails(calculatedVC, shouldHaveVCmetric),
 		};
 
-		if (shouldHaveVCmetric && fg('platform_ufo_rev_ratios')) {
+		if (shouldHaveVCmetric) {
 			revision.ratios = ratios;
 		}
 
@@ -86,7 +84,7 @@ export function getVCRevisionsData({
 			vcDetails: createVCDetails(calculatedVCNext, shouldHaveVCmetric),
 		};
 
-		if (shouldHaveVCmetric && fg('platform_ufo_rev_ratios')) {
+		if (shouldHaveVCmetric) {
 			revision.ratios = ratios;
 		}
 

@@ -12,7 +12,7 @@ jest.mock('@atlaskit/platform-feature-flags');
 const mockGetBooleanFF = fg as jest.MockedFunction<typeof fg>;
 
 it('Basic Tooltip should not fail aXe audit', async () => {
-	mockGetBooleanFF.mockImplementation((key) => key === 'platform-tooltip-focus-visible');
+	mockGetBooleanFF.mockImplementation((key) => key === 'platform-tooltip-focus-visible-new');
 	HTMLElement.prototype.matches = jest.fn().mockReturnValue(true);
 	const { container } = render(
 		<Tooltip content="Hello World">

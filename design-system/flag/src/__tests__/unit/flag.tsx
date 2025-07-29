@@ -5,7 +5,6 @@ import userEvent from '@testing-library/user-event';
 
 import noop from '@atlaskit/ds-lib/noop';
 import { Box, Text } from '@atlaskit/primitives/compiled';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import Flag from '../../flag';
 import FlagGroup from '../../flag-group';
@@ -209,37 +208,14 @@ describe('Flag', () => {
 		});
 	});
 
-	ffTest.off(
-		'platform_ads_component_no_icon_spacing_support',
-		'icon spacing support is disabled',
-		() => {
-			describe('icons', () => {
-				test('do not render by default, if not provided', () => {
-					render(<Flag id="" title="Flag" testId="flag-test" />);
+	describe('icons', () => {
+		test('render by default, if not provided', () => {
+			render(<Flag id="" title="Flag" testId="flag-test" />);
 
-					const iconContainer = screen.getByTestId('flag-test-icon-container');
+			const iconContainer = screen.getByTestId('flag-test-icon-container');
 
-					expect(iconContainer).toBeInTheDocument();
-					expect(iconContainer).toBeEmptyDOMElement();
-				});
-			});
-		},
-	);
-
-	ffTest.on(
-		'platform_ads_component_no_icon_spacing_support',
-		'icon spacing support is enabled',
-		() => {
-			describe('icons', () => {
-				test('render by default, if not provided', () => {
-					render(<Flag id="" title="Flag" testId="flag-test" />);
-
-					const iconContainer = screen.getByTestId('flag-test-icon-container');
-
-					expect(iconContainer).toBeInTheDocument();
-					expect(iconContainer).not.toBeEmptyDOMElement();
-				});
-			});
-		},
-	);
+			expect(iconContainer).toBeInTheDocument();
+			expect(iconContainer).not.toBeEmptyDOMElement();
+		});
+	});
 });

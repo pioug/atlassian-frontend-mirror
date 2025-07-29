@@ -1,5 +1,14 @@
 # @atlaskit/editor-toolbar
 
+## 0.0.3
+
+### Patch Changes
+
+- [#192616](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/192616)
+  [`b97ca8e19b601`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b97ca8e19b601) -
+  [ED-28595] add aria-attributes to toolbar button and toolbar dropdown item
+- Updated dependencies
+
 ## 0.0.2
 
 ### Patch Changes

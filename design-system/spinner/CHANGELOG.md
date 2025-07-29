@@ -1,5 +1,13 @@
 # @atlaskit/spinner
 
+## 19.0.0
+
+### Major Changes
+
+- [#188921](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/188921)
+  [`3184132558d36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3184132558d36) -
+  Spinner no longer fades in on load and `xsmall` size changed from `8px` to `12px`
+
 ## 18.0.6
 
 ### Patch Changes

@@ -1,45 +1,45 @@
 {
-    "extends": "../../../../tsconfig.entry-points.confluence.json",
-    "compilerOptions": {
-        "declaration": true,
-        "target": "es5",
-        "composite": true,
-        "outDir": "../../../../../confluence/tsDist/@atlaskit__popup",
-        "rootDir": "../"
-    },
-    "include": [
-        "../src/**/*.ts",
-        "../src/**/*.tsx"
-    ],
-    "exclude": [
-        "../src/**/__tests__/*",
-        "../src/**/*.test.*",
-        "../src/**/test.*"
-    ],
-    "references": [
-        {
-            "path": "../../css/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../ds-lib/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../layering/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../popper/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../portal/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../primitives/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../tokens/afm-cc/tsconfig.json"
-        }
-    ]
+	"extends": "../../../../tsconfig.entry-points.confluence.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"composite": true,
+		"outDir": "../../../../../confluence/tsDist/@atlaskit__popup",
+		"rootDir": "../"
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../css/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../ds-lib/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../layering/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../popper/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../portal/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../primitives/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../tokens/afm-cc/tsconfig.json"
+		}
+	]
 }

@@ -7,6 +7,7 @@ import { EditorWithElementBrowser } from './element-browser.fixtures';
 
 snapshotInformational(EditorWithElementBrowser, {
 	description: 'Insert Menu with elementBrowser enabled',
+	mouseReset: true,
 	selector: {
 		byTestId: 'element-browser',
 	},

@@ -130,3 +130,6 @@ export type SelectionExtensionPluginState = {
 	startTrackChanges?: boolean;
 	docChangedAfterClick?: boolean;
 };
+
+export type ReplaceWithAdfStatus = 'success' | 'document-changed' | 'failed-to-replace';
+export type ReplaceWithAdfResult = { status: ReplaceWithAdfStatus };

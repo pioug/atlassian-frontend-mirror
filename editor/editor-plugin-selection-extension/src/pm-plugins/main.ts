@@ -1,9 +1,10 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey, type ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
-import { ReplaceAroundStep, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
+import { ReplaceAroundStep, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+import { fg } from '@atlaskit/platform-feature-flags';
 
-import { type SelectionExtensionPluginState, SelectionExtensionActionTypes } from '../types';
+import { SelectionExtensionActionTypes, type SelectionExtensionPluginState } from '../types';
 
 export const selectionExtensionPluginKey = new PluginKey<SelectionExtensionPluginState>(
 	'selectionExtensionPlugin',
@@ -63,6 +64,18 @@ export const createPlugin = () => {
 						startTrackChanges: false, // Reset the flag to stop tracking after the document has changed
 					};
 				}
+				// clear activeExtension if the selection has changed and not empty
+				if (
+					tr.selectionSet &&
+					!tr.selection.empty &&
+					fg('platform_editor_clear_active_extension_fix')
+				) {
+					return {
+						...pluginState,
+						activeExtension: undefined, // Clear active extension on selection change
+					};
+				}
+
 				return pluginState;
 			},
 		},

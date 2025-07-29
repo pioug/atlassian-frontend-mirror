@@ -9,7 +9,6 @@
 export default {
   'linkDataSource.accessInstructions': 'Приступ можете да затражите од администратора сајта.',
   'linkDataSource.accessRequired': 'Немате приступ овом садржају',
-  'linkDataSource.accessRequiredWithSite': 'Немате приступ следећем сајту:',
   'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': 'Помоћ за синтаксу',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Претражи уз AQL',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Изаберите шему',
@@ -99,7 +98,6 @@ export default {
     'Претражујте радне ставке према кључној речи',
   'linkDataSource.jira-issues.configmodal.chooseSite': 'Одаберите сајт',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Уметни проблеме',
-  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': 'Уметни радне ставке',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Уметните Jira проблеме',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Уметните Jira радне ставке',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Уметните Jira проблеме из:',
@@ -117,7 +115,6 @@ export default {
   'linkDataSource.jira-issues.searchDescription-jql':
     'Користите JQL (Jira језик за упите) да бисте претраживали проблеме.',
   'linkDataSource.jira-issues.searchJiraTitle': 'Претрага Jira радних ставки',
-  'linkDataSource.unableToLoadItems': 'Није успело учитавање ставки',
   'linkDataSource.jira-issues.unableToLoadResults': 'Није успело учитавање резултата',
   'linkDataSource.modal-initial-state.beta': 'Бета',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Претражите Confluence странице',
@@ -125,12 +122,12 @@ export default {
   'linkDataSource.modal-initial-state.learnMoreLink': 'Сазнајте како се користи JQL претрага',
   'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
     'Претражујте по кључној речи радне ставке које ћете уметнути.',
+  'linkDataSource.modal-initial-state.searchDescription-basic.Sllv': 'Почните да куцате или користите JQL за претрагу.',
   'linkDataSource.modal-initial-state.searchDescription-confluence':
     'Претражујте по кључној речи странице које ћете уметнути.',
   'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
     'Користите JQL (Jira језик за упите) за претрагу радних ставки.',
   'linkDataSource.modal-initial-state.searchTitle-issue-term-refresh': 'Претрага Jira радних ставки',
-  'linkDataSource.noResultsFound': 'Нема резултата',
   'linkDataSource.render-type.boolean.false': 'Не',
   'linkDataSource.render-type.boolean.true': 'Да',
   'linkDataSource.render-type.user.default.display.name': 'Недодељено',
@@ -142,7 +139,6 @@ export default {
     '{searchCount, plural, one {Ставка: {searchCount,number}} other {Ставке: {searchCount,number}}}',
   'linkDataSource.search.configmodal.resultCountText':
     '{searchCount, plural, one {Резултат: {searchCount,number}} other {Резултати: {searchCount,number}}}',
-  'linkDataSource.site-selector.configmodal.chooseSite': 'Одаберите сајт',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'Управо синхронизовано',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Синхронизовано {date}',
   'linkDataSource.table-footer.item': '{itemCount, plural, one {ставка} other {ставке/и}}',
@@ -150,5 +146,5 @@ export default {
   'linkDataSource.table-footer.power-by-jsm': 'Омогућавају Ресурси у Jira Service Management',
   'linkDataSource.table-footer.powered-by-assets': 'Омогућавају Ресурси',
   'linkDataSource.table-footer.refresh': 'Освежи',
-  'linkDataSource.unableToLoadResults': 'Није успело учитавање резултата',
+  'linkDataSource.unableToLoadItems': 'Није успело учитавање ставки',
 };

@@ -1,7 +1,7 @@
 import { type PresetSize } from './types';
 
 export const presetSizes: { [K in PresetSize]: number } = {
-	xsmall: 8,
+	xsmall: 12,
 	small: 16,
 	medium: 24,
 	large: 48,

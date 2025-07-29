@@ -144,9 +144,12 @@ export default {
   'fabric.linking.priority_undefined': 'Niet gedefinieerd',
   'fabric.linking.read_time': '{context} min. leestijd',
   'fabric.linking.related': 'Gerelateerd',
+  'fabric.linking.related_links_found_in': 'Gevonden in',
+  'fabric.linking.related_links_includes_links_to': 'Inclusief links naar',
   'fabric.linking.related_links_modal_error_description':
     'Controleer je verbinding of vernieuw de pagina om het opnieuw te proberen',
   'fabric.linking.related_links_modal_error_title': 'Er zijn wat problemen met het laden van gerelateerde links',
+  'fabric.linking.related_links_modal_title': 'Gerelateerde links',
   'fabric.linking.related_links_modal_unavailable_description':
     "We beoordelen links voortdurend en voegen regelmatig gerelateerde links toe voor bijgewerkte pagina's of andere inhoudstypen",
   'fabric.linking.related_links_modal_unavailable_title': 'Er zijn geen gerelateerde links gevonden',

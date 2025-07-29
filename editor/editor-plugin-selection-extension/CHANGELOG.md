@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 3.3.1
+
+### Patch Changes
+
+- [#191736](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/191736)
+  [`5c91794777225`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5c91794777225) -
+  Clear activeExtension when selection changed
+
 ## 3.3.0
 
 ### Minor Changes

@@ -9,7 +9,6 @@
 export default {
   'linkDataSource.accessInstructions': 'Če želite zahtevati dostop, se obrnite na skrbnika spletnega mesta.',
   'linkDataSource.accessRequired': 'Nimate dostopa do te vsebine',
-  'linkDataSource.accessRequiredWithSite': 'Nimate dostopa do naslednjega spletnega mesta:',
   'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': 'Pomoč za skladnjo',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Išči prek AQL',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Izberite shemo',
@@ -102,7 +101,6 @@ export default {
     'Iščite delovne elemente po ključni besedi',
   'linkDataSource.jira-issues.configmodal.chooseSite': 'Izberi spletno mesto',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Vstavi zadeve',
-  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': 'Vstavi delovne elemente',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Vstavljanje zadev Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Vstavljanje delovnih elementov Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Vstavljanje zadev Jira iz',
@@ -119,7 +117,6 @@ export default {
   'linkDataSource.jira-issues.searchDescription-basic': 'Iščite zadeve, ki jih želite vstaviti, po ključni besedi.',
   'linkDataSource.jira-issues.searchDescription-jql': 'Za iskanje zadev uporabite JQL (Jira Query Language).',
   'linkDataSource.jira-issues.searchJiraTitle': 'Iskanje delovnih elementov Jira',
-  'linkDataSource.unableToLoadItems': 'Elementov ni mogoče naložiti',
   'linkDataSource.jira-issues.unableToLoadResults': 'Rezultatov ni mogoče naložiti',
   'linkDataSource.modal-initial-state.beta': 'Beta',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Iskanje strani Confluence',
@@ -127,12 +124,12 @@ export default {
   'linkDataSource.modal-initial-state.learnMoreLink': 'Več o iskanju z JQL',
   'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
     'Iskanje delovnih elementov za vstavljanje po ključni besedi.',
+  'linkDataSource.modal-initial-state.searchDescription-basic.Sllv': 'Začni tipkati ali uporabi JQL za iskanje.',
   'linkDataSource.modal-initial-state.searchDescription-confluence':
     'Iskanje po ključni besedi za strani, ki jih želite vstaviti.',
   'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
     'Za iskanje delovnih elementov uporabite JQL (Jira Query Language).',
   'linkDataSource.modal-initial-state.searchTitle-issue-term-refresh': 'Iskanje delovnih elementov Jira',
-  'linkDataSource.noResultsFound': 'Najti ni mogoče nobenega rezultata',
   'linkDataSource.render-type.boolean.false': 'Ne',
   'linkDataSource.render-type.boolean.true': 'Da',
   'linkDataSource.render-type.user.default.display.name': 'Nedodeljeno',
@@ -144,7 +141,6 @@ export default {
     '{searchCount, plural, one {{searchCount,number} element} two {{searchCount,number} elementa} few {{searchCount,number} elementi} other {{searchCount,number} elementov}}',
   'linkDataSource.search.configmodal.resultCountText':
     '{searchCount, plural, one {{searchCount,number} rezultat} two {{searchCount,number} rezultata} few {{searchCount,number} rezultati} other {{searchCount,number} rezultatov}}',
-  'linkDataSource.site-selector.configmodal.chooseSite': 'Izberi spletno mesto',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'Pravkar sinhronizirano',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Sinhronizirano {date}',
   'linkDataSource.table-footer.item':
@@ -153,5 +149,5 @@ export default {
   'linkDataSource.table-footer.power-by-jsm': 'Omogočajo sredstva v storitvi Jira Service Management',
   'linkDataSource.table-footer.powered-by-assets': 'Omogočajo sredstva',
   'linkDataSource.table-footer.refresh': 'Osveži',
-  'linkDataSource.unableToLoadResults': 'Rezultatov ni mogoče naložiti',
+  'linkDataSource.unableToLoadItems': 'Elementov ni mogoče naložiti',
 };

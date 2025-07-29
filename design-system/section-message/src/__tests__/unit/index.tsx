@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { fireEvent, queryByAttribute, render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import noop from '@atlaskit/ds-lib/noop';
 import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
@@ -363,6 +364,7 @@ describe('SectionMessage', () => {
 						ff,
 					);
 				},
+				// eslint-disable-next-line @repo/internal/react/use-noop
 				() => {},
 			);
 		});
@@ -416,5 +418,42 @@ describe('SectionMessage', () => {
 		const svgs = screen.getAllByRole('presentation');
 		expect(svgs).toHaveLength(1);
 		expect(svgs[0].tagName).toBe('svg');
+	});
+
+	describe('dismissible', () => {
+		it('should not render a dismiss button by default', () => {
+			render(<SectionMessage testId="section-message">boo</SectionMessage>);
+
+			const dismissButton = screen.queryByTestId('section-message--dismiss-button');
+
+			expect(dismissButton).not.toBeInTheDocument();
+		});
+		it('should render a dismiss button when enabled', () => {
+			render(
+				<SectionMessage testId="section-message" isDismissible>
+					boo
+				</SectionMessage>,
+			);
+
+			const dismissButton = screen.getByTestId('section-message--dismiss-button');
+
+			expect(dismissButton).toBeInTheDocument();
+		});
+		it('should dismiss the message when clicked', async () => {
+			render(
+				<SectionMessage testId="section-message" isDismissible>
+					boo
+				</SectionMessage>,
+			);
+
+			const sectionMessage = screen.getByTestId('section-message');
+			const dismissButton = screen.getByTestId('section-message--dismiss-button');
+
+			expect(sectionMessage).toBeInTheDocument();
+
+			await userEvent.click(dismissButton);
+
+			expect(sectionMessage).not.toBeInTheDocument();
+		});
 	});
 });

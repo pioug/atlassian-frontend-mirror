@@ -1,10 +1,8 @@
 import React, { type ReactNode, Suspense } from 'react';
 
-import { act, render, screen, waitForElementToBeRemoved } from '@testing-library/react';
-import invariant from 'tiny-invariant';
+import { render, screen, waitForElementToBeRemoved } from '@testing-library/react';
 
-import once from '@atlaskit/ds-lib/once';
-import { withResolvers } from '@atlaskit/ds-lib/with-resolvers';
+import { getSuspenseResource } from '@af/react-unit-testing/suspense-resource';
 
 export function resetMatchMedia() {
 	const mediaNoop: MediaQueryList = {
@@ -192,73 +190,10 @@ export function filterFromConsoleErrorOutput(searchString: RegExp): ResetConsole
 // See: https://github.com/jsdom/jsdom/issues/3236
 export const parseCssErrorRegex = /Could not parse CSS stylesheet/;
 
-export type TResource = {
-	read: () => void | never;
-	load: () => {
-		complete: () => void;
-		fail: () => void;
-	};
-};
-
-type TState =
-	| {
-			type: 'idle';
-	  }
-	| {
-			type: 'pending';
-			promise: Promise<void>;
-	  };
-
-export function getResource(): TResource {
-	let state: TState = {
-		type: 'idle',
-	};
-
-	function read(): void | never {
-		if (state.type === 'pending') {
-			throw state.promise;
-		}
-	}
-
-	function load() {
-		invariant(state.type === 'idle', 'Promise already pending for resource');
-
-		const { promise, resolve, reject } = withResolvers<void>();
-
-		state = {
-			type: 'pending',
-			promise,
-		};
-
-		const complete = once(function complete() {
-			invariant(state.type === 'pending');
-			state = {
-				type: 'idle',
-			};
-			act(() => resolve());
-		});
-
-		const fail = once(function fail(reason?: any) {
-			invariant(state.type === 'pending');
-			state = {
-				type: 'idle',
-			};
-			act(() => reject(reason));
-		});
-
-		return { complete, fail };
-	}
-
-	return {
-		read,
-		load,
-	};
-}
-
 // TODO: pull into a jest matcher:
 // expect(<App/>).toWorkWithSuspense();
 export async function runSuspenseTest(node: ReactNode) {
-	const resource = getResource();
+	const resource = getSuspenseResource();
 
 	function ResourceContent() {
 		resource.read();

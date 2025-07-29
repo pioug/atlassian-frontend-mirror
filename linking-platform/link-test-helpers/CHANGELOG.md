@@ -1,5 +1,17 @@
 # @atlaskit/link-test-helpers
 
+## 8.3.0
+
+### Minor Changes
+
+- [#191067](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/191067)
+  [`ede531b6a7c94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ede531b6a7c94) -
+  Clean up platform-datasources-inline-edit-id-checks ff
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.2.2
 
 ### Patch Changes

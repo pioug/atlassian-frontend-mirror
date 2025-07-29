@@ -182,6 +182,7 @@
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
 		"@af/integration-testing": "workspace:^",
+		"@af/react-unit-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/app-provider": "workspace:^",
 		"@atlaskit/badge": "workspace:^",

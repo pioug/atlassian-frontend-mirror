@@ -4,13 +4,13 @@ import { createTrackChangesPlugin, trackChangesPluginKey } from './pm-plugins/ma
 import { TOGGLE_TRACK_CHANGES_ACTION as ACTION } from './pm-plugins/types';
 import type { TrackChangesPlugin } from './trackChangesPluginType';
 
-export const trackChangesPlugin: TrackChangesPlugin = () => ({
+export const trackChangesPlugin: TrackChangesPlugin = ({ api }) => ({
 	name: 'trackChanges',
 	pmPlugins() {
 		return [
 			{
 				name: 'trackChangesPlugin',
-				plugin: createTrackChangesPlugin,
+				plugin: () => createTrackChangesPlugin(api),
 			},
 		];
 	},

@@ -376,26 +376,25 @@ function Tooltip({
 		}
 	}, []);
 
-	const onFocus = useCallback(() => {
-		// Check if focus-visible
-		// Prevents tooltips from showing when focus is not visible,
-		// i.e., when focus is moved onto tooltip trigger inside a popup on open
-		try {
-			if (
-				targetRef.current &&
-				!targetRef.current.matches(':focus-visible') &&
-				fg('platform-tooltip-focus-visible')
-			) {
-				return;
+	const onFocus = useCallback(
+		(e: React.FocusEvent<HTMLElement>) => {
+			// Check if focus-visible
+			// Prevents tooltips from showing when focus is not visible,
+			// i.e., when focus is moved onto tooltip trigger inside a popup on open
+			try {
+				if (!e.target.matches(':focus-visible') && fg('platform-tooltip-focus-visible-new')) {
+					return;
+				}
+			} catch (_) {
+				// Ignore errors from environments that don't support :focus-visible
 			}
-		} catch (_) {
-			// Ignore errors from environments that don't support :focus-visible
-		}
 
-		// TODO: this does not play well with `hideTooltipOnMouseDown`
-		// as "focus" will occur after the "mousedown".
-		tryShowTooltip({ type: 'keyboard' });
-	}, [tryShowTooltip]);
+			// TODO: this does not play well with `hideTooltipOnMouseDown`
+			// as "focus" will occur after the "mousedown".
+			tryShowTooltip({ type: 'keyboard' });
+		},
+		[tryShowTooltip],
+	);
 
 	const onBlur = useCallback(() => {
 		if (apiRef.current) {
@@ -596,7 +595,5 @@ function Tooltip({
 		</>
 	);
 }
-
-Tooltip.displayName = 'Tooltip';
 
 export default Tooltip;

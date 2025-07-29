@@ -40,7 +40,6 @@ const AutoDismissFlagSuccessExample = () => {
 									label="Success"
 									LEGACY_secondaryColor={token('color.background.success.bold')}
 									color={token('color.icon.inverse')}
-									spacing="spacious"
 								/>
 							}
 							key={flagId}

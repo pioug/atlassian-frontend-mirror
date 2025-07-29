@@ -11,7 +11,6 @@ export const TableRenderer = generateRendererComponent({
 	appearance: 'full-width',
 });
 
-// This is the one with errors
 export const TableRendererWithNumberedColumnFullWidth = generateRendererComponent({
 	document: tableWithNumberedColumnAdf,
 	appearance: 'full-width',

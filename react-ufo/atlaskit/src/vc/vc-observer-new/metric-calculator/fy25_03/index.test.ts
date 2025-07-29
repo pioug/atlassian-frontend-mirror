@@ -141,9 +141,6 @@ describe('VCCalculator_FY25_03', () => {
 		});
 
 		describe('should filter out non-visual attributes', () => {
-			beforeEach(() => {
-				mockFg.mockImplementation((flag) => flag === 'platform_ufo_ignore_extra_attributes');
-			});
 			it('should return false for data-testid attribute', () => {
 				const entry: VCObserverEntry = {
 					time: 0,

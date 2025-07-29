@@ -9,7 +9,6 @@
 export default {
   'linkDataSource.accessInstructions': 'Neem contact op met je sitebeheerder om toegang aan te vragen.',
   'linkDataSource.accessRequired': 'Je hebt geen toegang tot deze inhoud',
-  'linkDataSource.accessRequiredWithSite': 'Je hebt geen toegang tot',
   'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': 'Syntaxhulp',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Zoeken via AQL',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Selecteer schema',
@@ -23,7 +22,6 @@ export default {
     'Begin met typen of gebruik een AQL om te zoeken.',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
     'Zoeken naar objecten en objecttypen',
-  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitleOld': 'Objecten zoeken',
   'linkDataSource.assets.configmodal.insertIssuesButtonText':
     '{objectsCount, plural, one {Object invoegen} other {Objecten invoegen}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Objecten invoegen van',
@@ -108,7 +106,7 @@ export default {
     'Er is een probleem opgetreden bij het ophalen van de opties',
   'linkDataSource.issue-line-table.unwrap-text': 'Tekst niet teruglopen',
   'linkDataSource.issue-line-table.wrap-text': 'Tekst teruglopen',
-  'linkDataSource.jira-issues.accessRequiredWithSiteOld': 'Je hebt geen toegang tot de volgende site:',
+  'linkDataSource.accessRequiredWithSite': 'Je hebt geen toegang tot',
   'linkDataSource.jira-issues.checkConnection.confluence':
     'Controleer je verbinding en vernieuw de pagina of <a>open deze zoekopdracht in Confluence</a> ter controle.',
   'linkDataSource.jira-issues.checkConnection.jira':
@@ -122,10 +120,8 @@ export default {
   'linkDataSource.jira-issues.configmodal.basicModeText': 'Basis',
   'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder-issue-term-refresh':
     'Zoek naar werkitems met trefwoorden',
-  'linkDataSource.site-selector.configmodal.chooseSite': 'Site kiezen',
-  'linkDataSource.jira-issues.configmodal.chooseSiteOld': 'Site kiezen',
+  'linkDataSource.site-selector.configmodal.chooseSite': 'Selecteer een site',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Issues invoegen',
-  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': 'Werkitems invoegen',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-sllv': 'Resultaten invoegen',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Jira-issues invoegen',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Jira-werkitems invoegen',
@@ -143,26 +139,20 @@ export default {
   'linkDataSource.jira-issues.learnMoreLink': 'Ontdek meer informatie over zoeken met JQL',
   'linkDataSource.no.jira.sites.access.description': 'Neem contact op met je beheerder om toegang aan te vragen.',
   'linkDataSource.no.jira.sites.access.title': 'Je hebt geen toegang tot Jira-sites',
-  'linkDataSource.noResultsFound': 'Geen resultaten gevonden',
+  'linkDataSource.noResultsFound': 'We hebben geen resultaten gevonden die aan je zoekopdracht voldoen',
   'linkDataSource.jira-issues.noResultsFound.description': 'Probeer het opnieuw met een andere term.',
-  'linkDataSource.jira-issues.noResultsFoundOld': 'Geen resultaten gevonden',
   'linkDataSource.refresh': 'Vernieuwen',
   'linkDataSource.jira-issues.searchDescription-basic': 'Zoek met trefwoorden om issues toe te voegen.',
   'linkDataSource.jira-issues.searchDescription-jql': 'Gebruik JQL ( Jira Query Language) om te zoeken naar issues.',
   'linkDataSource.jira-issues.searchJiraTitle': 'Zoeken naar Jira-werkitems',
-  'linkDataSource.unableToLoadItems': 'Kan items niet laden',
-  'linkDataSource.unableToLoadResults': 'Resultaten kunnen niet worden geladen',
-  'linkDataSource.jira-issues.unableToLoadResults.visual-refresh-sllv':
-    'Er is iets misgegaan bij het ophalen van de resultaten',
-  'linkDataSource.jira-issues.unableToLoadResultsOld': 'Resultaten kunnen niet worden geladen',
+  'linkDataSource.unableToLoadResults': 'Er is iets misgegaan bij het ophalen van de resultaten',
   'linkDataSource.modal-initial-state.beta': 'Bèta',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': "Zoeken naar Confluence-pagina's",
   'linkDataSource.modal-initial-state.jiraSearchTitle': 'Zoeken naar Jira-werkitems',
   'linkDataSource.modal-initial-state.learnMoreLinkOld': 'Meer informatie over zoeken met JQL',
   'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
     'Zoek met trefwoorden naar werkitems om in te voegen.',
-  'linkDataSource.modal-initial-state.searchDescription-basic.visualRefreshSllv':
-    'Begin met typen of gebruik een JQL om te zoeken.',
+  'linkDataSource.modal-initial-state.searchDescription-basic.Sllv': 'Begin met typen of gebruik een JQL om te zoeken.',
   'linkDataSource.modal-initial-state.searchDescription-confluence':
     "Zoek met trefwoorden naar pagina's om in te voegen.",
   'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
@@ -186,4 +176,5 @@ export default {
   'linkDataSource.table-footer.power-by-jsm': 'Aangestuurd door Assets in Jira Service Management',
   'linkDataSource.table-footer.powered-by-assets': 'Aangedreven door Assets',
   'linkDataSource.table-footer.refresh': 'Vernieuwen',
+  'linkDataSource.unableToLoadItems': 'Kan items niet laden',
 };

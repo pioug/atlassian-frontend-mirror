@@ -1,5 +1,4 @@
 import countBy from 'lodash/countBy';
-import { fg } from '@atlaskit/platform-feature-flags';
 import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { ADD_STEPS_TYPE, EVENT_ACTION, EVENT_STATUS } from '../helpers/const';
 import type {
@@ -78,11 +77,9 @@ export class CommitStepService {
 		let commitWaitTimer;
 		// if publishing and not waiting for an ACK, then clear the commit timer and proceed, skipping the timer
 		if (reason === 'publish' && this.lastBroadcastRequestAcked) {
-			if (fg('skip_collab_provider_delay_on_publish')) {
-				clearTimeout(commitWaitTimer);
-				lockSteps();
-				this.readyToCommit = true;
-			} // no-op if fg is turned off
+			clearTimeout(commitWaitTimer);
+			lockSteps();
+			this.readyToCommit = true;
 		}
 		if (!this.readyToCommit) {
 			logger('Not ready to commit, skip');

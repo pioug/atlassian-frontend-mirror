@@ -35,10 +35,9 @@ export const editorExperimentsConfig = {
 		defaultValue: false,
 	}),
 	// Added 2025-07-24
-	editor_prevent_numbered_column_too_big_jira: createBooleanExperiment({
+	editor_prevent_numbered_column_too_big_jira_1: createBooleanExperiment({
 		productKeys: {
-			confluence: 'editor_prevent_numbered_column_too_big_jira',
-			jira: 'editor_prevent_numbered_column_too_big_jira',
+			jira: 'editor_prevent_numbered_column_too_big_jira_1',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

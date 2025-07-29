@@ -1,5 +1,14 @@
 # @atlaskit/editor-common
 
+## 107.12.8
+
+### Patch Changes
+
+- [#192684](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/192684)
+  [`b23111c9d18ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b23111c9d18ba) -
+  Updated the AI telepointer for inline streaming with new styles and set "Rovo" as the label
+- Updated dependencies
+
 ## 107.12.7
 
 ### Patch Changes

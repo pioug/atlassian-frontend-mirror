@@ -263,6 +263,9 @@
 			"path": "../editor-plugin-selection-toolbar/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-show-diff/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-status/tsconfig.app.json"
 		},
 		{

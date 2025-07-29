@@ -226,6 +226,7 @@ export type DeleteRuleRovoPayload = {
 	ruleId: string;
 	ruleTemplateKey: string;
 	ruleDescription: string;
+	transitionId: TransitionId;
 };
 
 export type JiraWorkflowWizardAction =

@@ -18,7 +18,7 @@
 	],
 	"references": [
 		{
-			"path": "../../../design-system/tokens/afm-townsquare/tsconfig.json"
+			"path": "../../editor-plugin-show-diff/afm-townsquare/tsconfig.json"
 		},
 		{
 			"path": "../../editor-common/afm-townsquare/tsconfig.json"

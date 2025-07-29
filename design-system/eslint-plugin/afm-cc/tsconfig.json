@@ -1,36 +1,36 @@
 {
-    "extends": "../../../../tsconfig.entry-points.confluence.json",
-    "compilerOptions": {
-        "target": "es5",
-        "lib": [
-            "ES2021.String"
-        ],
-        "composite": true,
-        "outDir": "../../../../../confluence/tsDist/@atlaskit__eslint-plugin-design-system",
-        "rootDir": "../"
-    },
-    "include": [
-        "../src/**/*.ts",
-        "../src/**/*.tsx"
-    ],
-    "exclude": [
-        "../src/**/__tests__/*",
-        "../__tests__/*",
-        "../src/**/*.test.*",
-        "../src/**/test.*"
-    ],
-    "references": [
-        {
-            "path": "../../eslint-utils/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../icon/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../icon-lab/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../tokens/afm-cc/tsconfig.json"
-        }
-    ]
+	"extends": "../../../../tsconfig.entry-points.confluence.json",
+	"compilerOptions": {
+		"target": "es5",
+		"lib": [
+			"ES2021.String"
+		],
+		"composite": true,
+		"outDir": "../../../../../confluence/tsDist/@atlaskit__eslint-plugin-design-system",
+		"rootDir": "../"
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../eslint-utils/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../icon/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../icon-lab/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../tokens/afm-cc/tsconfig.json"
+		}
+	]
 }

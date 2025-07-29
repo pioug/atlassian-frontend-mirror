@@ -93,6 +93,7 @@ export interface TeamLinkCardProps {
 	};
 	iconsLoading?: boolean;
 	iconHasLoaded?: boolean;
+	openInNewTab?: boolean;
 }
 
 export const TeamLinkCard = ({
@@ -106,6 +107,7 @@ export const TeamLinkCard = ({
 	onEditLinkClick,
 	iconsLoading,
 	iconHasLoaded,
+	openInNewTab,
 }: TeamLinkCardProps) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { description, icon, containerTypeText } = getContainerProperties({
@@ -165,7 +167,7 @@ export const TeamLinkCard = ({
 		}
 	};
 
-	const handleLinkClick = () => {
+	const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
 		const baseAttributes = { container: containerType, containerId };
 		const attributes =
 			containerType === 'WebLink' && link
@@ -177,6 +179,11 @@ export const TeamLinkCard = ({
 			actionSubjectId: 'teamContainer',
 			attributes,
 		});
+
+		if(openInNewTab) {
+			e.preventDefault();
+			window.open(link || '#', '_blank', 'noopener, noreferrer');
+		}
 	};
 
 	return (

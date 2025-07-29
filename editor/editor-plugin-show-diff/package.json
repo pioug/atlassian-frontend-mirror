@@ -1,0 +1,85 @@
+{
+	"name": "@atlaskit/editor-plugin-show-diff",
+	"version": "0.0.0",
+	"description": "ShowDiff plugin for @atlaskit/editor-core",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "Editor: Lego",
+		"releaseModel": "continuous",
+		"singleton": true
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"af:exports": {
+		".": "./src/index.ts"
+	},
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"dependencies": {
+		"@atlaskit/editor-prosemirror": "root:*",
+		"@atlaskit/tokens": "workspace:^",
+		"@babel/runtime": "root:*",
+		"prosemirror-changeset": "root:*"
+	},
+	"peerDependencies": {
+		"@atlaskit/editor-common": "workspace:^",
+		"react": "^18.2.0"
+	},
+	"devDependencies": {
+		"typescript": "root:*"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"code-structure": [
+				"editor-plugin"
+			],
+			"import-structure": [
+				"atlassian-conventions"
+			],
+			"circular-dependencies": [
+				"file-and-folder-level"
+			]
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"analytics": [
+				"analytics-next"
+			],
+			"design-tokens": [
+				"color"
+			],
+			"theming": [
+				"react-context"
+			],
+			"ui-components": [
+				"lite-mode"
+			],
+			"deprecation": "no-deprecated-imports",
+			"styling": [
+				"emotion",
+				"emotion"
+			],
+			"imports": [
+				"import-no-extraneous-disable-for-examples-and-docs"
+			]
+		}
+	}
+}

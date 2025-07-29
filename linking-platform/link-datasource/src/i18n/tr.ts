@@ -9,7 +9,6 @@
 export default {
   'linkDataSource.accessInstructions': 'Erişim talep etmek için site yöneticinizle iletişime geçin.',
   'linkDataSource.accessRequired': 'Bu içeriğe erişiminiz yok',
-  'linkDataSource.accessRequiredWithSite': 'Şuna erişiminiz yok:',
   'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': 'Söz dizimi yardımı',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'AQL ile arayın',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Şema seçin',
@@ -23,7 +22,6 @@ export default {
     'Aramak için yazmaya başlayın veya AQL kullanın.',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
     'Nesne veya nesne türleri arayın',
-  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitleOld': 'Nesne arayın',
   'linkDataSource.assets.configmodal.insertIssuesButtonText':
     '{objectsCount, plural, one {Nesne ekle} other {Nesne ekle}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Şuradan nesne ekleyin:',
@@ -107,7 +105,7 @@ export default {
   'linkDataSource.issue-line-table.fetch-action-error-generic-title': 'Seçenekler alınırken bir sorun yaşandı',
   'linkDataSource.issue-line-table.unwrap-text': 'Metnin kaydırmasını kaldır',
   'linkDataSource.issue-line-table.wrap-text': 'Metni kaydır',
-  'linkDataSource.jira-issues.accessRequiredWithSiteOld': 'Şu siteye erişiminiz yok:',
+  'linkDataSource.accessRequiredWithSite': 'Şuna erişiminiz yok:',
   'linkDataSource.jira-issues.checkConnection.confluence':
     "Bağlantınızı kontrol edip sayfayı yenileyin veya incelemek için <a>bu aramayı Confluence'ta açın</a>.",
   'linkDataSource.jira-issues.checkConnection.jira':
@@ -120,10 +118,8 @@ export default {
   'linkDataSource.jira-issues.configmodal.basicModeText': 'Temel',
   'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder-issue-term-refresh':
     'Biletleri anahtar kelimeye göre arayın',
-  'linkDataSource.site-selector.configmodal.chooseSite': 'Site seçin',
-  'linkDataSource.jira-issues.configmodal.chooseSiteOld': 'Site seçin',
+  'linkDataSource.site-selector.configmodal.chooseSite': 'Bir site seçin',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Konu ekle',
-  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': 'Bilet ekle',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-sllv': 'Sonuçları ekle',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Jira konuları ekleyin',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Jira biletleri ekleyin',
@@ -142,26 +138,20 @@ export default {
   'linkDataSource.jira-issues.learnMoreLink': 'JQL ile arama yapmak hakkında daha fazla bilgi edinin',
   'linkDataSource.no.jira.sites.access.description': 'Erişim talep etmek için yöneticinizle iletişime geçin.',
   'linkDataSource.no.jira.sites.access.title': 'Hiçbir Jira sitesine erişiminiz yok',
-  'linkDataSource.noResultsFound': 'Sonuç bulunamadı',
+  'linkDataSource.noResultsFound': 'Aramanızla eşleşen sonuç bulunamadı',
   'linkDataSource.jira-issues.noResultsFound.description': 'Farklı bir terim aramayı deneyin.',
-  'linkDataSource.jira-issues.noResultsFoundOld': 'Sonuç bulunamadı',
   'linkDataSource.refresh': 'Yenile',
   'linkDataSource.jira-issues.searchDescription-basic': 'Eklemek için konuları anahtar kelimeye göre arayın.',
   'linkDataSource.jira-issues.searchDescription-jql': 'Konu aramak için JQL (Jira Sorgu Dili) kullanın.',
   'linkDataSource.jira-issues.searchJiraTitle': 'Jira biletleri arayın',
-  'linkDataSource.unableToLoadItems': 'Öğeler yüklenemiyor',
-  'linkDataSource.unableToLoadResults': 'Sonuçlar yüklenemiyor',
-  'linkDataSource.jira-issues.unableToLoadResults.visual-refresh-sllv':
-    'Sonuçları almaya çalışırken bir sorunla karşılaşıldı',
-  'linkDataSource.jira-issues.unableToLoadResultsOld': 'Sonuçlar yüklenemiyor',
+  'linkDataSource.unableToLoadResults': 'Sonuçları almaya çalışırken bir sorunla karşılaşıldı',
   'linkDataSource.modal-initial-state.beta': 'Beta',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Confluence sayfaları arayın',
   'linkDataSource.modal-initial-state.jiraSearchTitle': 'Jira biletleri arayın',
   'linkDataSource.modal-initial-state.learnMoreLinkOld': 'JQL ile nasıl arama yapacağınızı öğrenin',
   'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
     'Eklemek için biletleri anahtar kelimeye göre arayın.',
-  'linkDataSource.modal-initial-state.searchDescription-basic.visualRefreshSllv':
-    'Aramak için yazmaya başlayın veya JQL kullanın.',
+  'linkDataSource.modal-initial-state.searchDescription-basic.Sllv': 'Aramak için yazmaya başlayın veya JQL kullanın.',
   'linkDataSource.modal-initial-state.searchDescription-confluence':
     'Eklemek için sayfaları anahtar kelimeye göre arayın.',
   'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
@@ -185,4 +175,5 @@ export default {
   'linkDataSource.table-footer.power-by-jsm': "Jira Service Management'ta Varlıklar tarafından desteklenir",
   'linkDataSource.table-footer.powered-by-assets': 'Varlıklar tarafından desteklenir',
   'linkDataSource.table-footer.refresh': 'Yenile',
+  'linkDataSource.unableToLoadItems': 'Öğeler yüklenemiyor',
 };

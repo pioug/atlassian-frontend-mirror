@@ -35,7 +35,7 @@
 			"path": "../editor-common/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/tokens/tsconfig.app.json"
+			"path": "../editor-plugin-show-diff/tsconfig.app.json"
 		}
 	]
 }

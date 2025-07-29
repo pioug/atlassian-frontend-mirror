@@ -1,5 +1,13 @@
 # @atlaskit/tooltip
 
+## 20.4.0
+
+### Minor Changes
+
+- [#191801](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/191801)
+  [`2896372588f0c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2896372588f0c) -
+  [ux] Fix tooltip focusing behavior
+
 ## 20.3.3
 
 ### Patch Changes

@@ -9,7 +9,6 @@
 export default {
   'linkDataSource.accessInstructions': 'Ta kontakt med nettstedsadministratoren din for å be om tilgang.',
   'linkDataSource.accessRequired': 'Du har ikke tilgang til dette innholdet',
-  'linkDataSource.accessRequiredWithSite': 'Du har ikke tilgang til',
   'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': 'Syntaks-hjelp',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Søk via AQL',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Velg oppsett',
@@ -23,7 +22,6 @@ export default {
     'Begynn å skrive eller bruk AQL for å søke.',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
     'Søk etter objekter eller objekttyper',
-  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitleOld': 'Søk etter objekter',
   'linkDataSource.assets.configmodal.insertIssuesButtonText':
     '{objectsCount, plural, one {Sett inn objekt} other {Sett inn objekter}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Sett inn objekter fra',
@@ -107,7 +105,7 @@ export default {
   'linkDataSource.issue-line-table.fetch-action-error-generic-title': 'Vi har problemer med å hente alternativer',
   'linkDataSource.issue-line-table.unwrap-text': 'Fjern linjebryting',
   'linkDataSource.issue-line-table.wrap-text': 'Legg til linjebryting',
-  'linkDataSource.jira-issues.accessRequiredWithSiteOld': 'Du har ikke tilgang til følgende nettsted:',
+  'linkDataSource.accessRequiredWithSite': 'Du har ikke tilgang til',
   'linkDataSource.jira-issues.checkConnection.confluence':
     'Sjekk tilkoblingen og oppdater, eller <a>åpne dette søket i Confluence</a> for å gjennomgå.',
   'linkDataSource.jira-issues.checkConnection.jira':
@@ -121,10 +119,8 @@ export default {
   'linkDataSource.jira-issues.configmodal.basicModeText': 'Grunnleggende',
   'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder-issue-term-refresh':
     'Søk etter arbeidsoppgaver med nøkkelord',
-  'linkDataSource.site-selector.configmodal.chooseSite': 'Velg nettsted',
-  'linkDataSource.jira-issues.configmodal.chooseSiteOld': 'Velg nettsted',
+  'linkDataSource.site-selector.configmodal.chooseSite': 'Velg et nettsted',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Sett inn saker',
-  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': 'Sett inn arbeidsoppgaver',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-sllv': 'Sett inn resultatene',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Sett inn Jira-saker',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Sett inn Jira-arbeidsoppgaver',
@@ -143,26 +139,20 @@ export default {
   'linkDataSource.jira-issues.learnMoreLink': 'Finn ut mer om å søke med JQL',
   'linkDataSource.no.jira.sites.access.description': 'Kontakt administratoren for å be om tilgang.',
   'linkDataSource.no.jira.sites.access.title': 'Du har ikke tilgang til Jira-nettsteder',
-  'linkDataSource.noResultsFound': 'Finner ingen resultater',
+  'linkDataSource.noResultsFound': 'Vi fant ikke noe som samsvarte med søket',
   'linkDataSource.jira-issues.noResultsFound.description': 'Prøv igjen med et annet begrep.',
-  'linkDataSource.jira-issues.noResultsFoundOld': 'Finner ingen resultater',
   'linkDataSource.refresh': 'Oppdater',
   'linkDataSource.jira-issues.searchDescription-basic': 'Finn sakene du vil sette inn, ved å søke etter nøkkelord.',
   'linkDataSource.jira-issues.searchDescription-jql': 'Bruk JQL (Jira Query Language) for å søke etter saker.',
   'linkDataSource.jira-issues.searchJiraTitle': 'Søk etter Jira-arbeidsoppgaver',
-  'linkDataSource.unableToLoadItems': 'Kan ikke laste inn elementer',
-  'linkDataSource.unableToLoadResults': 'Kan ikke laste inn resultater',
-  'linkDataSource.jira-issues.unableToLoadResults.visual-refresh-sllv':
-    'Det oppstod et problem under henting av resultatene',
-  'linkDataSource.jira-issues.unableToLoadResultsOld': 'Kan ikke laste inn resultater',
+  'linkDataSource.unableToLoadResults': 'Det oppstod et problem under henting av resultatene',
   'linkDataSource.modal-initial-state.beta': 'Beta',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Søk etter Confluence-sider',
   'linkDataSource.modal-initial-state.jiraSearchTitle': 'Søk etter Jira-arbeidsoppgaver',
   'linkDataSource.modal-initial-state.learnMoreLinkOld': 'Finn ut hvordan du søker med JQL',
   'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
     'Finn arbeidsoppgavene du vil sette inn, ved å søke etter nøkkelord.',
-  'linkDataSource.modal-initial-state.searchDescription-basic.visualRefreshSllv':
-    'Begynn å skrive eller bruk JQL for å søke.',
+  'linkDataSource.modal-initial-state.searchDescription-basic.Sllv': 'Begynn å skrive eller bruk JQL for å søke.',
   'linkDataSource.modal-initial-state.searchDescription-confluence':
     'Finn sidene du vil sette inn, ved å søke etter nøkkelord.',
   'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
@@ -186,4 +176,5 @@ export default {
   'linkDataSource.table-footer.power-by-jsm': 'Levert av Ressurser i Jira Service Management',
   'linkDataSource.table-footer.powered-by-assets': 'Levert av Ressurser',
   'linkDataSource.table-footer.refresh': 'Oppdater',
+  'linkDataSource.unableToLoadItems': 'Kan ikke laste inn elementer',
 };

@@ -36,10 +36,16 @@
 			"path": "../../primitives/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../spinner/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../theme/afm-post-office/tsconfig.json"
 		},
 		{
 			"path": "../../tokens/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../visually-hidden/afm-post-office/tsconfig.json"
 		}
 	]
 }

@@ -142,6 +142,9 @@ describe('AbstractVCCalculatorBase V1', () => {
 			revision: 'test-revision',
 			clean: true,
 			'metric:vc90': 100,
+			ratios: {
+				div: 0,
+			},
 			vcDetails: {
 				'25': { t: 100, e: ['div1', 'div2'] },
 				'50': { t: 100, e: ['div1', 'div2'] },
@@ -209,12 +212,9 @@ describe('AbstractVCCalculatorBase V1', () => {
 		);
 	});
 
-	it('should include ratios when feature flag is enabled', async () => {
-		// Enable the ratios feature flag
+	it('should include ratios', async () => {
+		// Mock the feature flag for other features
 		mockFg.mockImplementation((key) => {
-			if (key === 'platform_ufo_rev_ratios') {
-				return true;
-			}
 			if (key === 'platform_ufo_ttvc_v3_devtool') {
 				return false;
 			}
@@ -263,46 +263,6 @@ describe('AbstractVCCalculatorBase V1', () => {
 		// element2 area = 200 * 100 = 20000, ratio = 20000/786432 ≈ 0.02544
 		expect(result?.ratios?.element1).toBeCloseTo(5000 / (1024 * 768), 5);
 		expect(result?.ratios?.element2).toBeCloseTo(20000 / (1024 * 768), 5);
-	});
-
-	it('should not include ratios when feature flag is disabled', async () => {
-		// Disable the ratios feature flag
-		mockFg.mockImplementation((key) => {
-			if (key === 'platform_ufo_rev_ratios') {
-				return false;
-			}
-			if (key === 'platform_ufo_ttvc_v3_devtool') {
-				return false;
-			}
-			return false;
-		});
-
-		// Mock successful VC calculation
-		jest.spyOn(percentileCalc, 'calculateTTVCPercentiles').mockResolvedValue({
-			'90': { t: 1000, e: ['element1'] },
-		});
-
-		const mockEntries: VCObserverEntry[] = [
-			{
-				time: 100,
-				data: {
-					type: 'mutation:element',
-					elementName: 'element1',
-					rect: { width: 100, height: 50, x: 0, y: 0 } as DOMRect,
-					visible: true,
-				},
-			},
-		];
-
-		const result = await calculator.calculate({
-			startTime: 0,
-			stopTime: 1000,
-			orderedEntries: mockEntries,
-			isPostInteraction: false,
-		});
-
-		expect(result).toBeDefined();
-		expect(result?.ratios).toBeUndefined();
 	});
 
 	describe('Debug info calculation optimization', () => {

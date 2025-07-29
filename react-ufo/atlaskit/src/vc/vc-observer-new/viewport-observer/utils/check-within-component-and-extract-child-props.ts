@@ -3,6 +3,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import findReactFiber from './find-react-fiber';
 import getComponentName from './get-component-name';
 
+const DEFAULT_MAX_LEVEL = 20;
 // Using the React Fiber tree to traverse up the DOM and check if a node is within a specific component
 // and extract child component props if needed.
 export default function checkWithinComponentAndExtractChildProps<T = string>(
@@ -18,12 +19,13 @@ export default function checkWithinComponentAndExtractChildProps<T = string>(
 	if (fg('platform_ufo_handle_non_react_element_for_3p')) {
 		// Walk up the DOM tree to find React fiber (handles non-React-rendered elements)
 		let currentElement: HTMLElement | null = node;
-
-		while (currentElement && !fiber) {
+		let levelsTraversed = 0;
+		while (currentElement && !fiber && levelsTraversed < DEFAULT_MAX_LEVEL) {
 			fiber = findReactFiber(currentElement);
 			if (!fiber) {
 				currentElement = currentElement.parentElement as HTMLElement;
 			}
+			levelsTraversed++;
 		}
 	} else {
 		fiber = findReactFiber(node);

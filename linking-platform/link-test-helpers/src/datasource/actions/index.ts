@@ -201,6 +201,7 @@ export const mockActionsExecution = (mockExecutionDelay: number) => {
 export const cannedStatuses = [
 	{
 		id: '11',
+		transitionId: '101',
 		text: 'Backlog',
 		style: {
 			appearance: 'default',
@@ -208,6 +209,7 @@ export const cannedStatuses = [
 	},
 	{
 		id: '21',
+		transitionId: '201',
 		text: 'Selected for Development',
 		style: {
 			appearance: 'moved',
@@ -215,6 +217,7 @@ export const cannedStatuses = [
 	},
 	{
 		id: '31',
+		transitionId: '301',
 		text: 'In Progress',
 		style: {
 			appearance: 'inprogress',
@@ -222,6 +225,7 @@ export const cannedStatuses = [
 	},
 	{
 		id: '41',
+		transitionId: '401',
 		text: 'Done',
 		style: {
 			appearance: 'success',
@@ -229,6 +233,7 @@ export const cannedStatuses = [
 	},
 	{
 		id: '51',
+		transitionId: '501',
 		text: 'Pending',
 		style: {
 			appearance: 'removed',
@@ -236,6 +241,7 @@ export const cannedStatuses = [
 	},
 	{
 		id: '61',
+		transitionId: '601',
 		text: 'some new status',
 		style: {
 			appearance: 'new',

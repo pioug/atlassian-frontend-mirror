@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "40.5.3",
+	"version": "40.5.4",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -17,7 +17,7 @@
 	],
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
-		"team": "Linking Platform",
+		"team": "Navigation Experiences - Linking Platform",
 		"website": {
 			"name": "Smart Card"
 		}

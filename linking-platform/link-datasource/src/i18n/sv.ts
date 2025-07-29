@@ -9,7 +9,6 @@
 export default {
   'linkDataSource.accessInstructions': 'Kontakta din webbplatsadministratör för att begära tillgång:',
   'linkDataSource.accessRequired': 'Du har inte åtkomst till det här innehållet',
-  'linkDataSource.accessRequiredWithSite': 'Du har inte tillgång till',
   'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': 'Syntaxhjälp',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Sök via AQL',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Välj schema',
@@ -23,7 +22,6 @@ export default {
     'Börja skriva eller använd AQL för att söka.',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
     'Sök efter objekt eller objektstyper',
-  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitleOld': 'Sök efter objekt',
   'linkDataSource.assets.configmodal.insertIssuesButtonText':
     '{objectsCount, plural, one {Infoga objekt} other {Infoga objekt}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Infoga objekt från',
@@ -107,7 +105,7 @@ export default {
   'linkDataSource.issue-line-table.fetch-action-error-generic-title': 'Vi har problem med att hämta alternativ',
   'linkDataSource.issue-line-table.unwrap-text': 'Radbryt inte text',
   'linkDataSource.issue-line-table.wrap-text': 'Radbryt text',
-  'linkDataSource.jira-issues.accessRequiredWithSiteOld': 'Du har inte tillgång till följande webbplats:',
+  'linkDataSource.accessRequiredWithSite': 'Du har inte tillgång till',
   'linkDataSource.jira-issues.checkConnection.confluence':
     'Kontrollera din anslutning och uppdatera, eller <a>öppna sökfrågan i Confluence</a> för att granska.',
   'linkDataSource.jira-issues.checkConnection.jira':
@@ -121,10 +119,8 @@ export default {
   'linkDataSource.jira-issues.configmodal.basicModeText': 'Grundläggande',
   'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder-issue-term-refresh':
     'Sök efter arbetsuppgifter med nyckelord',
-  'linkDataSource.site-selector.configmodal.chooseSite': 'Välj webbplats',
-  'linkDataSource.jira-issues.configmodal.chooseSiteOld': 'Välj webbplats',
+  'linkDataSource.site-selector.configmodal.chooseSite': 'Välj en webbplats',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Infoga ärende',
-  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': 'Infoga arbetsuppgift',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-sllv': 'Infoga resultat',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Infoga Jira-ärenden',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Infoga Jira-arbetsuppgifter',
@@ -143,26 +139,20 @@ export default {
   'linkDataSource.jira-issues.learnMoreLink': 'Ta reda på mer om att söka med JQL',
   'linkDataSource.no.jira.sites.access.description': 'Kontakta din administratör för att begära åtkomst.',
   'linkDataSource.no.jira.sites.access.title': 'Du har inte tillgång till några Jira-webbplatser',
-  'linkDataSource.noResultsFound': 'Inga resultat hittades',
+  'linkDataSource.noResultsFound': 'Vi hittade inget som matchade din sökning',
   'linkDataSource.jira-issues.noResultsFound.description': 'Försök med ett annat sökord.',
-  'linkDataSource.jira-issues.noResultsFoundOld': 'Inga resultat hittades',
   'linkDataSource.refresh': 'Uppdatera',
   'linkDataSource.jira-issues.searchDescription-basic': 'Sök på nyckelord för att hitta ärenden att infoga.',
   'linkDataSource.jira-issues.searchDescription-jql': 'Använd JQL (Jira Query Language) för att söka efter ärenden.',
   'linkDataSource.jira-issues.searchJiraTitle': 'Sök efter Jira-arbetsuppgifter',
-  'linkDataSource.unableToLoadItems': 'Det gick inte att läsa in objekten',
-  'linkDataSource.unableToLoadResults': 'Det gick inte att läsa in resultat',
-  'linkDataSource.jira-issues.unableToLoadResults.visual-refresh-sllv':
-    'Ett fel uppstod när vi försökte hämta resultaten',
-  'linkDataSource.jira-issues.unableToLoadResultsOld': 'Det gick inte att läsa in resultat',
+  'linkDataSource.unableToLoadResults': 'Ett fel uppstod när vi försökte hämta resultaten',
   'linkDataSource.modal-initial-state.beta': 'Beta',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Sök efter Confluence-sidor',
   'linkDataSource.modal-initial-state.jiraSearchTitle': 'Sök efter Jira-arbetsuppgifter',
   'linkDataSource.modal-initial-state.learnMoreLinkOld': 'Läs mer om hur du söker med JQL',
   'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
     'Sök på nyckelord för att hitta arbetsuppgifter att infoga.',
-  'linkDataSource.modal-initial-state.searchDescription-basic.visualRefreshSllv':
-    'Börja skriva eller använd JQL för att söka.',
+  'linkDataSource.modal-initial-state.searchDescription-basic.Sllv': 'Börja skriva eller använd JQL för att söka.',
   'linkDataSource.modal-initial-state.searchDescription-confluence': 'Sök på nyckelord för att hitta sidor att infoga.',
   'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
     'Använd JQL (Jira Query Language) för att söka efter arbetsuppgifter.',
@@ -185,4 +175,5 @@ export default {
   'linkDataSource.table-footer.power-by-jsm': 'Drivs av Tilllgångar i Jira Service Management',
   'linkDataSource.table-footer.powered-by-assets': 'Drivs av Tillgångar',
   'linkDataSource.table-footer.refresh': 'Uppdatera',
+  'linkDataSource.unableToLoadItems': 'Det gick inte att läsa in objekten',
 };

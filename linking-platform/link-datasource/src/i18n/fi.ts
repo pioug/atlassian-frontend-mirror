@@ -9,7 +9,6 @@
 export default {
   'linkDataSource.accessInstructions': 'Pyydä käyttöoikeutta ottamalla yhteyttä sivuston ylläpitäjään.',
   'linkDataSource.accessRequired': 'Sinulla ei ole oikeutta tähän sisältöön',
-  'linkDataSource.accessRequiredWithSite': 'Sinulla ei ole käyttöoikeutta sivustoon',
   'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': 'Syntaksiohje',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Hae AQL:n kautta',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Valitse kaavio',
@@ -21,7 +20,6 @@ export default {
     'Aloita haku kirjoittamalla tai käyttämällä AQL:ää.',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
     'Hae objekteja tai objektityyppejä',
-  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitleOld': 'Hae objekteja',
   'linkDataSource.assets.configmodal.insertIssuesButtonText':
     '{objectsCount, plural, one {Lisää kohde} other {Lisää kohteet}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Lisää objekteja kohteesta',
@@ -107,7 +105,7 @@ export default {
   'linkDataSource.issue-line-table.fetch-action-error-generic-title': 'Vaihtoehtojen haussa on ongelma',
   'linkDataSource.issue-line-table.unwrap-text': 'Poista tekstin rivitys',
   'linkDataSource.issue-line-table.wrap-text': 'Rivitä teksti',
-  'linkDataSource.jira-issues.accessRequiredWithSiteOld': 'Sinulla ei ole pääsyä seuraavaan sivustoon:',
+  'linkDataSource.accessRequiredWithSite': 'Sinulla ei ole käyttöoikeutta sivustoon',
   'linkDataSource.jira-issues.checkConnection.confluence':
     'Tarkista yhteys ja päivitä sivu tai <a>avaa tämä haku Confluencessa</a> tarkastelua varten.',
   'linkDataSource.jira-issues.checkConnection.jira':
@@ -122,9 +120,7 @@ export default {
   'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder-issue-term-refresh':
     'Hae työtehtäviä avainsanoilla',
   'linkDataSource.site-selector.configmodal.chooseSite': 'Valitse sivusto',
-  'linkDataSource.jira-issues.configmodal.chooseSiteOld': 'Valitse sivusto',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Lisää asiat',
-  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': 'Lisää työtehtävät',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-sllv': 'Lisää tuloksia',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Lisää Jira-asioita',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Lisää Jira-työtehtäviä',
@@ -143,24 +139,20 @@ export default {
   'linkDataSource.jira-issues.learnMoreLink': 'Lue lisää JQL-hausta',
   'linkDataSource.no.jira.sites.access.description': 'Pyydä pääsyä ottamalla yhteys ylläpitäjään.',
   'linkDataSource.no.jira.sites.access.title': 'Sinulla ei ole pääsyä mihinkään Jira-sivustoon',
-  'linkDataSource.noResultsFound': 'Tuloksia ei löytynyt',
+  'linkDataSource.noResultsFound': 'Emme löytäneet yhtään hakuasi vastaavaa tulosta',
   'linkDataSource.jira-issues.noResultsFound.description': 'Yritä uudelleen eri hakutermillä.',
-  'linkDataSource.jira-issues.noResultsFoundOld': 'Tuloksia ei löytynyt',
   'linkDataSource.refresh': 'Päivitä',
   'linkDataSource.jira-issues.searchDescription-basic': 'Etsi lisättäviä asioita avainsanan mukaan.',
   'linkDataSource.jira-issues.searchDescription-jql': 'Käytä JQL:ää (Jira Query Language) asioiden hakemiseen.',
   'linkDataSource.jira-issues.searchJiraTitle': 'Hae Jira-työtehtäviä',
-  'linkDataSource.unableToLoadItems': 'Kohteiden lataus ei onnistu',
-  'linkDataSource.unableToLoadResults': 'Tulosten lataus epäonnistui',
-  'linkDataSource.jira-issues.unableToLoadResults.visual-refresh-sllv': 'Tuloksia noudettaessa ilmeni ongelma',
-  'linkDataSource.jira-issues.unableToLoadResultsOld': 'Tulosten lataus epäonnistui',
+  'linkDataSource.unableToLoadResults': 'Tuloksia noudettaessa ilmeni ongelma',
   'linkDataSource.modal-initial-state.beta': 'Beeta',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Etsi Confluence-sivuja',
   'linkDataSource.modal-initial-state.jiraSearchTitle': 'Hae Jira-työtehtäviä',
   'linkDataSource.modal-initial-state.learnMoreLinkOld': 'Lue lisää JQL-hausta',
   'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
     'Etsi lisättäviä työtehtäviä avainsanan mukaan.',
-  'linkDataSource.modal-initial-state.searchDescription-basic.visualRefreshSllv':
+  'linkDataSource.modal-initial-state.searchDescription-basic.Sllv':
     'Aloita haku kirjoittamalla tai käyttämällä JQL:ää.',
   'linkDataSource.modal-initial-state.searchDescription-confluence': 'Etsi lisättäviä sivuja avainsanan mukaan.',
   'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
@@ -184,4 +176,5 @@ export default {
   'linkDataSource.table-footer.power-by-jsm': 'Palvelun tarjoaa Jira Service Managementin Resurssit',
   'linkDataSource.table-footer.powered-by-assets': 'Palvelun tarjoaa Resurssit',
   'linkDataSource.table-footer.refresh': 'Päivitä',
+  'linkDataSource.unableToLoadItems': 'Kohteiden lataus ei onnistu',
 };

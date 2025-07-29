@@ -9,7 +9,6 @@
 export default {
   'linkDataSource.accessInstructions': 'Chcete-li požádat o přístup, obraťte se na správce webu.',
   'linkDataSource.accessRequired': 'K tomuto obsahu nemáte přístup',
-  'linkDataSource.accessRequiredWithSite': 'Nemáte přístup k webu',
   'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': 'Nápověda k syntaxi',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Vyhledat pomocí AQL',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Vyberte schéma.',
@@ -23,7 +22,6 @@ export default {
     'Chcete-li vyhledávat, začněte psát nebo použijte dotaz AQL.',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
     'Vyhledat objekty nebo typy objektů',
-  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitleOld': 'Vyhledat objekty',
   'linkDataSource.assets.configmodal.insertIssuesButtonText':
     '{objectsCount, plural, one {Vložit objekt} few {Vložit objekty} many {Vložit objekty} other {Vložit objekty}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Vložit objekty z:',
@@ -107,7 +105,7 @@ export default {
   'linkDataSource.issue-line-table.fetch-action-error-generic-title': 'Při načítání možností došlo k problémům',
   'linkDataSource.issue-line-table.unwrap-text': 'Zrušit zalamování textu',
   'linkDataSource.issue-line-table.wrap-text': 'Zalomit text',
-  'linkDataSource.jira-issues.accessRequiredWithSiteOld': 'K následujícímu webu nemáte přístup:',
+  'linkDataSource.accessRequiredWithSite': 'Nemáte přístup k webu',
   'linkDataSource.jira-issues.checkConnection.confluence':
     'Zkontrolujte připojení a obnovte stránku nebo <a>otevřete toto vyhledávání v Confluence</a> a zkontrolujte jej.',
   'linkDataSource.jira-issues.checkConnection.jira':
@@ -121,10 +119,8 @@ export default {
   'linkDataSource.jira-issues.configmodal.basicModeText': 'Základní',
   'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder-issue-term-refresh':
     'Vyhledat požadavky pomocí klíčového slova',
-  'linkDataSource.site-selector.configmodal.chooseSite': 'Vyberte web.',
-  'linkDataSource.jira-issues.configmodal.chooseSiteOld': 'Vyberte web.',
+  'linkDataSource.site-selector.configmodal.chooseSite': 'Vyberte web',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Vložit požadavky',
-  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': 'Vložit požadavky',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-sllv': 'Vložit výsledky',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Vložit požadavky Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Vložit požadavky Jira',
@@ -142,26 +138,21 @@ export default {
   'linkDataSource.jira-issues.learnMoreLink': 'Další informace o vyhledávání pomocí JQL',
   'linkDataSource.no.jira.sites.access.description': 'Chcete-li požádat o přístup, obraťte se na správce.',
   'linkDataSource.no.jira.sites.access.title': 'Nemáte přístup k žádným webům Jira',
-  'linkDataSource.noResultsFound': 'Nebyly nalezeny žádné výsledky',
+  'linkDataSource.noResultsFound': 'Vašemu vyhledávání neodpovídají žádné výsledky',
   'linkDataSource.jira-issues.noResultsFound.description': 'Zkuste to znovu s jiným termínem.',
-  'linkDataSource.jira-issues.noResultsFoundOld': 'Nebyly nalezeny žádné výsledky',
   'linkDataSource.refresh': 'Obnovit',
   'linkDataSource.jira-issues.searchDescription-basic':
     'Vyhledejte požadavky, které chcete vložit, pomocí klíčového slova.',
   'linkDataSource.jira-issues.searchDescription-jql': 'Vyhledávejte požadavky pomocí JQL (Jira Query Language).',
   'linkDataSource.jira-issues.searchJiraTitle': 'Vyhledat požadavky Jira',
-  'linkDataSource.unableToLoadItems': 'Načtení položek se nezdařilo',
-  'linkDataSource.unableToLoadResults': 'Načtení výsledků se nezdařilo',
-  'linkDataSource.jira-issues.unableToLoadResults.visual-refresh-sllv':
-    'Při pokusu o načtení výsledků se vyskytl problém.',
-  'linkDataSource.jira-issues.unableToLoadResultsOld': 'Načtení výsledků se nezdařilo',
+  'linkDataSource.unableToLoadResults': 'Při pokusu o načtení výsledků se vyskytl problém.',
   'linkDataSource.modal-initial-state.beta': 'Beta',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Vyhledat stránky Confluence',
   'linkDataSource.modal-initial-state.jiraSearchTitle': 'Vyhledat požadavky Jira',
   'linkDataSource.modal-initial-state.learnMoreLinkOld': 'Jak vyhledávat pomocí JQL',
   'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
     'Vyhledejte požadavky, které chcete vložit, pomocí klíčového slova.',
-  'linkDataSource.modal-initial-state.searchDescription-basic.visualRefreshSllv':
+  'linkDataSource.modal-initial-state.searchDescription-basic.Sllv':
     'Chcete-li vyhledávat, začněte psát nebo použijte dotaz JQL.',
   'linkDataSource.modal-initial-state.searchDescription-confluence':
     'Vyhledejte stránky, které chcete vložit, pomocí klíčového slova.',
@@ -186,4 +177,5 @@ export default {
   'linkDataSource.table-footer.power-by-jsm': 'Využívá technologii Aktiva v Jira Service Management',
   'linkDataSource.table-footer.powered-by-assets': 'Využívá Aktiva',
   'linkDataSource.table-footer.refresh': 'Obnovit',
+  'linkDataSource.unableToLoadItems': 'Načtení položek se nezdařilo',
 };

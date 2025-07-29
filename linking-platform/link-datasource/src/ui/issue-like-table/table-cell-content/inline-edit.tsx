@@ -6,7 +6,6 @@ import { useIntl } from 'react-intl-next';
 import AKInlineEdit from '@atlaskit/inline-edit';
 import { type AtomicActionExecuteResponse } from '@atlaskit/linking-types';
 import { type DatasourceDataResponseItem, type Link } from '@atlaskit/linking-types/datasource';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { useSmartLinkReload } from '@atlaskit/smart-card/hooks';
 import { token } from '@atlaskit/tokens';
@@ -217,29 +216,21 @@ export const InlineEdit = ({
 
 			let updateValue: string | undefined;
 
-			if (fg('platform-datasources-inline-edit-id-checks')) {
-				try {
-					// TODO: Refactor types so that valid update values are guaranteed for
-					// all object types. Invalid options should be filtered out of options -
-					// this frontend error flag is a last resort.
-					updateValue = newGetBackendUpdateValue(newValue);
-				} catch {
-					// Show an error as the new value that was going to be sent to the
-					// backend is invalid (and would have failed anyway, silently to the user)
-					showErrorFlag({});
-					onUpdateItem(ari, existingData);
-					setIsEditing(false);
-					return;
-				}
+			try {
+				// TODO: Refactor types so that valid update values are guaranteed for
+				// all object types. Invalid options should be filtered out of options -
+				// this frontend error flag is a last resort.
+				updateValue = newGetBackendUpdateValue(newValue);
+			} catch {
+				// Show an error as the new value that was going to be sent to the
+				// backend is invalid (and would have failed anyway, silently to the user)
+				showErrorFlag({});
+				onUpdateItem(ari, existingData);
+				setIsEditing(false);
+				return;
 			}
 
-			execute(
-				updateValue !== undefined && fg('platform-datasources-inline-edit-id-checks')
-					? updateValue
-					: // Old behaviour is preserved in non-FFed path: errors thrown by getBackendUpdateValue are caught by
-						// the error boundary, _not_ by the catch block & frontend flag here.
-						getBackendUpdateValue(newValue),
-			)
+			execute(updateValue !== undefined ? updateValue : getBackendUpdateValue(newValue))
 				.then(refreshDatasourceItem)
 				.catch((error) => {
 					const status = error && typeof error === 'object' ? error.status : undefined;

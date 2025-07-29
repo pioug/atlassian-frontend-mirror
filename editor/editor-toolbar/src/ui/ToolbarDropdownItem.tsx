@@ -77,6 +77,7 @@ export type CustomDropdownMenuItemButtonProps = CustomItemComponentProps & {
 	'aria-haspopup'?: boolean;
 	'aria-disabled'?: boolean;
 	'aria-pressed'?: boolean;
+	'aria-keyshortcuts'?: string;
 };
 
 const CustomDropdownMenuItemButton = forwardRef<
@@ -90,6 +91,7 @@ const CustomDropdownMenuItemButton = forwardRef<
 			'aria-haspopup': ariaHasPopup,
 			'aria-disabled': ariaDisabled,
 			'aria-pressed': ariaPressed,
+			'aria-keyshortcuts': ariaKeyshortcuts,
 			onClick,
 			tabIndex,
 		},
@@ -107,6 +109,7 @@ const CustomDropdownMenuItemButton = forwardRef<
 			aria-expanded={ariaHasPopup ? (ariaPressed ? true : false) : undefined}
 			aria-pressed={ariaPressed}
 			aria-disabled={ariaDisabled}
+			aria-keyshortcuts={ariaKeyshortcuts}
 			ref={ref}
 		>
 			{children}
@@ -125,6 +128,7 @@ type ToolbarDropdownItemProps = {
 	hasNestedDropdownMenu?: boolean;
 	triggerRef?: Ref<HTMLButtonElement>;
 	testId?: string;
+	ariaKeyshortcuts?: string;
 };
 
 export const ToolbarDropdownItem = ({
@@ -138,6 +142,7 @@ export const ToolbarDropdownItem = ({
 	hasNestedDropdownMenu,
 	triggerRef,
 	testId,
+	ariaKeyshortcuts,
 }: ToolbarDropdownItemProps) => (
 	<DropdownItem
 		onClick={onClick}
@@ -147,6 +152,7 @@ export const ToolbarDropdownItem = ({
 		isDisabled={isDisabled}
 		aria-haspopup={hasNestedDropdownMenu}
 		aria-pressed={isSelected}
+		aria-keyshortcuts={ariaKeyshortcuts}
 		ref={triggerRef}
 		component={CustomDropdownMenuItemButton}
 		testId={testId}

@@ -13,11 +13,15 @@ import CheckMarkIcon from '@atlaskit/icon/core/migration/check-mark--editor-done
 import CloseIcon from '@atlaskit/icon/core/migration/cross--editor-close';
 import type { Size as IconSize } from '@atlaskit/icon/types';
 import { fg } from '@atlaskit/platform-feature-flags';
+import Spinner from '@atlaskit/spinner';
 import { B200, G400, G500, N0, N20, N200, N400, N70 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
+import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import IconContainer from './icon-container';
 import { type Size, type ToggleProps } from './types';
+
+const LOADING_LABEL = ', Loading';
 
 const basicStyles = css({
 	display: 'inline-block',
@@ -199,6 +203,7 @@ const Toggle = memo(
 			name = '',
 			value = '',
 			isChecked,
+			isLoading,
 			analyticsContext,
 			id,
 			testId,
@@ -208,6 +213,7 @@ const Toggle = memo(
 
 		const isControlled = typeof isChecked === 'undefined';
 		const [checked, setChecked] = useState(defaultChecked);
+		const loadingLabelId = useId();
 
 		const handleBlur = usePlatformLeafEventHandler({
 			fn: providedOnBlur,
@@ -258,7 +264,7 @@ const Toggle = memo(
 			>
 				{label ? (
 					<span id={labelId} hidden>
-						{label}
+						{isLoading ? `${label}${LOADING_LABEL}` : label}
 					</span>
 				) : null}
 				<input
@@ -273,27 +279,40 @@ const Toggle = memo(
 					type="checkbox"
 					value={value}
 					data-testid={testId && `${testId}--input`}
-					aria-labelledby={label ? labelId : undefined}
+					aria-labelledby={
+						isLoading && label ? `${labelId} ${loadingLabelId}` : label ? labelId : undefined
+					}
 					aria-describedby={descriptionId}
 				/>
 				<IconContainer size={size} isHidden={!shouldChecked} position="left">
-					<CheckMarkIcon
-						label=""
-						color="currentColor"
-						LEGACY_size={legacyIconSize}
-						testId={testId && `${testId}--toggle-check-icon`}
-						size="small"
-					/>
+					{isLoading && shouldChecked ? (
+						<Spinner size="xsmall" appearance="invert" />
+					) : (
+						<CheckMarkIcon
+							label=""
+							color="currentColor"
+							LEGACY_size={legacyIconSize}
+							testId={testId && `${testId}--toggle-check-icon`}
+							size="small"
+						/>
+					)}
 				</IconContainer>
 				<IconContainer size={size} isHidden={shouldChecked} position="right">
-					<CloseIcon
-						label=""
-						color="currentColor"
-						LEGACY_size={legacyIconSize}
-						testId={testId && `${testId}--toggle-cross-icon`}
-						size="small"
-					/>
+					{isLoading && !shouldChecked ? (
+						<Spinner size="xsmall" appearance="invert" />
+					) : (
+						<CloseIcon
+							label=""
+							color="currentColor"
+							LEGACY_size={legacyIconSize}
+							testId={testId && `${testId}--toggle-cross-icon`}
+							size="small"
+						/>
+					)}
 				</IconContainer>
+				{isLoading && !label && (
+					<VisuallyHidden id={loadingLabelId}>{LOADING_LABEL}</VisuallyHidden>
+				)}
 			</label>
 		);
 	}),

@@ -1,93 +1,93 @@
 {
-    "extends": "../../../../tsconfig.entry-points.confluence.json",
-    "compilerOptions": {
-        "declaration": true,
-        "target": "es5",
-        "composite": true,
-        "outDir": "../../../../../confluence/tsDist/@atlaskit__share",
-        "rootDir": "../"
-    },
-    "include": [
-        "../src/**/*.ts",
-        "../src/**/*.tsx"
-    ],
-    "exclude": [
-        "../src/**/__tests__/*",
-        "../src/**/*.test.*",
-        "../src/**/test.*"
-    ],
-    "references": [
-        {
-            "path": "../../../analytics/analytics-next/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/button/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/css/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/dropdown-menu/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/form/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/heading/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/icon/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/link/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/menu/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/popper/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/popup/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/portal/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/primitives/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../smart-experiences/smart-user-picker/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/spinner/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/tabs/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/textarea/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/theme/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/tokens/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/tooltip/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../data/ufo-external/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../user-picker/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../util-service-support/afm-cc/tsconfig.json"
-        }
-    ]
+	"extends": "../../../../tsconfig.entry-points.confluence.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"composite": true,
+		"outDir": "../../../../../confluence/tsDist/@atlaskit__share",
+		"rootDir": "../"
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/button/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/css/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/dropdown-menu/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/form/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/heading/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/link/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/menu/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/popper/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/popup/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/portal/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../smart-experiences/smart-user-picker/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/spinner/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tabs/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/textarea/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../data/ufo-external/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../user-picker/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../util-service-support/afm-cc/tsconfig.json"
+		}
+	]
 }

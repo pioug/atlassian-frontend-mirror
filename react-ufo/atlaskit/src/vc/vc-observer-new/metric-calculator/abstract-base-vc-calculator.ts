@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import type {
 	RevisionPayloadEntry,
 	RevisionPayloadVCDetails,
@@ -319,9 +317,7 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 			vcDetails: vcDetails ?? undefined,
 		};
 
-		if (fg('platform_ufo_rev_ratios')) {
-			result.ratios = this.calculateRatios(filteredEntries);
-		}
+		result.ratios = this.calculateRatios(filteredEntries);
 
 		return result;
 	}

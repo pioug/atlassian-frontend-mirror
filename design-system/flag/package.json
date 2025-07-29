@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/flag",
-	"version": "17.2.4",
+	"version": "17.3.0",
 	"description": "A flag is used for confirmations, alerts, and acknowledgments that require minimal user interaction, often displayed using a flag group.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -120,9 +120,6 @@
 	},
 	"homepage": "https://atlassian.design/components/flag/",
 	"platform-feature-flags": {
-		"platform_ads_component_no_icon_spacing_support": {
-			"type": "boolean"
-		},
 		"platform_ads_explicit_font_styles": {
 			"type": "boolean"
 		}

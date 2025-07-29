@@ -9,7 +9,6 @@
 export default {
   'linkDataSource.accessInstructions': 'Kontakt din sideadministrator for at anmode om adgang.',
   'linkDataSource.accessRequired': 'Du har ikke adgang til dette indhold',
-  'linkDataSource.accessRequiredWithSite': 'Du har ikke adgang til',
   'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': 'Syntakshjælp',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Søg via AQL',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Vælg skema',
@@ -23,7 +22,6 @@ export default {
     'Begynd at indtaste, eller brug AQL for at søge.',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
     'Søg efter objekter eller objekttyper',
-  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitleOld': 'Søg efter objekter',
   'linkDataSource.assets.configmodal.insertIssuesButtonText':
     '{objectsCount, plural, one {Indsæt objekt} other {Indsæt objekter}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Indsæt objekter fra',
@@ -106,7 +104,7 @@ export default {
   'linkDataSource.issue-line-table.fetch-action-error-generic-title': 'Vi har problemer med at hente muligheder',
   'linkDataSource.issue-line-table.unwrap-text': 'Fjern ombrydning af tekst',
   'linkDataSource.issue-line-table.wrap-text': 'Ombryd tekst',
-  'linkDataSource.jira-issues.accessRequiredWithSiteOld': 'Du har ikke adgang til følgende website:',
+  'linkDataSource.accessRequiredWithSite': 'Du har ikke adgang til',
   'linkDataSource.jira-issues.checkConnection.confluence':
     'Tjek din forbindelse, og genindlæs, eller <a>åbn denne søgning i Confluence</a> for at gennemgå den.',
   'linkDataSource.jira-issues.checkConnection.jira':
@@ -120,10 +118,8 @@ export default {
   'linkDataSource.jira-issues.configmodal.basicModeText': 'Basis',
   'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder-issue-term-refresh':
     'Søg efter sager efter søgeord',
-  'linkDataSource.site-selector.configmodal.chooseSite': 'Vælg website',
-  'linkDataSource.jira-issues.configmodal.chooseSiteOld': 'Vælg website',
+  'linkDataSource.site-selector.configmodal.chooseSite': 'Vælg et website',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Indsæt sager',
-  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': 'Indsæt sager',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-sllv': 'Indsæt resultater',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Indsæt Jira-sager',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Indsæt Jira-sager',
@@ -141,26 +137,20 @@ export default {
   'linkDataSource.jira-issues.learnMoreLink': 'Få mere at vide om at søge med JQL',
   'linkDataSource.no.jira.sites.access.description': 'Kontakt din administrator for at anmode om adgang.',
   'linkDataSource.no.jira.sites.access.title': 'Du har ikke adgang til nogen Jira-sider',
-  'linkDataSource.noResultsFound': 'Ingen resultater fundet',
+  'linkDataSource.noResultsFound': 'Vi kunne ikke finde noget, der matchede din søgning',
   'linkDataSource.jira-issues.noResultsFound.description': 'Prøv igen med et andet ord.',
-  'linkDataSource.jira-issues.noResultsFoundOld': 'Ingen resultater fundet',
   'linkDataSource.refresh': 'Opdater',
   'linkDataSource.jira-issues.searchDescription-basic': 'Brug søgeord til at søge efter sager, der skal indsættes.',
   'linkDataSource.jira-issues.searchDescription-jql': 'Brug JQL (Jira Query Language) til at søge efter sager.',
   'linkDataSource.jira-issues.searchJiraTitle': 'Søg efter Jira-sager',
-  'linkDataSource.unableToLoadItems': 'Kunne ikke indlæse elementer',
-  'linkDataSource.unableToLoadResults': 'Kunne ikke indlæse resultater',
-  'linkDataSource.jira-issues.unableToLoadResults.visual-refresh-sllv':
-    'Vi løb ind i et problem, da vi forsøgte at hente resultater',
-  'linkDataSource.jira-issues.unableToLoadResultsOld': 'Kunne ikke indlæse resultater',
+  'linkDataSource.unableToLoadResults': 'Vi løb ind i et problem, da vi forsøgte at hente resultater',
   'linkDataSource.modal-initial-state.beta': 'Beta',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Søg efter Confluence-sider',
   'linkDataSource.modal-initial-state.jiraSearchTitle': 'Søg efter Jira-sager',
   'linkDataSource.modal-initial-state.learnMoreLinkOld': 'Lær, hvordan du søger med JQL',
   'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
     'Brug søgeord til at søge efter sager, der skal indsættes.',
-  'linkDataSource.modal-initial-state.searchDescription-basic.visualRefreshSllv':
-    'Begynd at indtaste, eller brug JQL til at søge.',
+  'linkDataSource.modal-initial-state.searchDescription-basic.Sllv': 'Begynd at indtaste, eller brug JQL til at søge.',
   'linkDataSource.modal-initial-state.searchDescription-confluence':
     'Brug søgeord til at søge efter sider, der skal indsættes.',
   'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
@@ -184,4 +174,5 @@ export default {
   'linkDataSource.table-footer.power-by-jsm': 'Leveret af Aktiver i Jira Service Management',
   'linkDataSource.table-footer.powered-by-assets': 'Drevet af Aktiver',
   'linkDataSource.table-footer.refresh': 'Opdater',
+  'linkDataSource.unableToLoadItems': 'Kunne ikke indlæse elementer',
 };

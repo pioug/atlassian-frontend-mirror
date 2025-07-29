@@ -11,8 +11,7 @@ const FlagActionsExample = () => {
 				<SuccessIcon
 					LEGACY_primaryColor={token('color.icon.success')}
 					color={token('color.icon.success')}
-					spacing="spacious"
-					label="Success"
+					label=""
 				/>
 			}
 			id="1"

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-svg",
-	"version": "2.1.4",
+	"version": "2.1.5",
 	"description": "For fetching and rendering SVGs secure and responsively",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

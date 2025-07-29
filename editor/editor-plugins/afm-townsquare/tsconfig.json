@@ -246,6 +246,9 @@
 			"path": "../../editor-plugin-selection-toolbar/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-show-diff/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-status/afm-townsquare/tsconfig.json"
 		},
 		{

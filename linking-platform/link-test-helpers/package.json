@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-test-helpers",
-	"version": "8.2.2",
+	"version": "8.3.0",
 	"description": "Collection of test helpers used in linking platform examples and specs",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -8,7 +8,7 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"atlassian": {
-		"team": "Linking Platform"
+		"team": "Navigation Experiences - Linking Platform"
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"main": "dist/cjs/index.js",

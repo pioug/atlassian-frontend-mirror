@@ -142,9 +142,12 @@ export default {
   'fabric.linking.priority_undefined': 'Ej definierad',
   'fabric.linking.read_time': '{context} minuters läsning',
   'fabric.linking.related': 'Relaterat',
+  'fabric.linking.related_links_found_in': 'Hittades i',
+  'fabric.linking.related_links_includes_links_to': 'Inkluderar länkar till',
   'fabric.linking.related_links_modal_error_description':
     'Kontrollera din anslutning eller uppdatera sidan om du vill försöka igen',
   'fabric.linking.related_links_modal_error_title': 'Vi har problem med att läsa in relaterade länkar',
+  'fabric.linking.related_links_modal_title': 'Relaterade länkar',
   'fabric.linking.related_links_modal_unavailable_description':
     'Vi granskar kontinuerligt och lägger till relaterade länkar för uppdaterade sidor eller andra innehållstyper',
   'fabric.linking.related_links_modal_unavailable_title': 'Vi hittade inga relaterade länkar.',

@@ -91,78 +91,6 @@ describe('interaction-metrics timeout behavior', () => {
 			expect(interaction!.type).toBe('page_load');
 		});
 
-		it('should reduce timeout to 15s when BrowserMetricEvent is added for page_load', () => {
-			const interactionId = 'test-interaction-2';
-			const startTime = 1000;
-
-			// Set the current interaction ID so addBrowserMetricEvent can find it
-			DefaultInteractionID.current = interactionId;
-
-			addNewInteraction(
-				interactionId,
-				'test-ufo-name',
-				'page_load',
-				startTime,
-				1,
-				null,
-				null,
-				null,
-			);
-
-			// Clear the initial setTimeout call
-			mockSetTimeout.mockClear();
-			mockClearTimeout.mockClear();
-
-			// Advance time so the changeTimeout logic can work
-			mockPerformanceNow.mockReturnValue(2000);
-
-			const bm3Event = createBM3Event();
-			addBrowserMetricEvent(bm3Event);
-
-			// Should clear old timeout and set new 15s timeout
-			expect(mockClearTimeout).toHaveBeenCalled();
-			expect(mockSetTimeout).toHaveBeenCalledWith(
-				expect.any(Function),
-				15000, // CLEANUP_TIMEOUT_AFTER_APDEX
-			);
-		});
-
-		it('should reduce timeout to 15s when BrowserMetricEvent is added for transition', () => {
-			const interactionId = 'test-interaction-3';
-			const startTime = 1000;
-
-			// Set the current interaction ID so addBrowserMetricEvent can find it
-			DefaultInteractionID.current = interactionId;
-
-			addNewInteraction(
-				interactionId,
-				'test-ufo-name',
-				'transition',
-				startTime,
-				1,
-				null,
-				null,
-				null,
-			);
-
-			// Clear the initial setTimeout call
-			mockSetTimeout.mockClear();
-			mockClearTimeout.mockClear();
-
-			// Advance time so the changeTimeout logic can work
-			mockPerformanceNow.mockReturnValue(2000);
-
-			const bm3Event = createBM3Event();
-			addBrowserMetricEvent(bm3Event);
-
-			// Should clear old timeout and set new 15s timeout
-			expect(mockClearTimeout).toHaveBeenCalled();
-			expect(mockSetTimeout).toHaveBeenCalledWith(
-				expect.any(Function),
-				15000, // CLEANUP_TIMEOUT_AFTER_APDEX
-			);
-		});
-
 		it('should NOT reduce timeout for press interactions when BrowserMetricEvent is added', () => {
 			const interactionId = 'test-interaction-4';
 			const startTime = 1000;
@@ -182,101 +110,6 @@ describe('interaction-metrics timeout behavior', () => {
 			// Should NOT change timeout for press interactions
 			expect(mockClearTimeout).not.toHaveBeenCalled();
 			expect(mockSetTimeout).not.toHaveBeenCalled();
-		});
-
-		it('should reduce timeout to 15s when apdex is added to specific interaction', () => {
-			const interactionId = 'test-interaction-5';
-			const startTime = 1000;
-
-			addNewInteraction(
-				interactionId,
-				'test-ufo-name',
-				'page_load',
-				startTime,
-				1,
-				null,
-				null,
-				null,
-			);
-
-			// Clear the initial setTimeout call
-			mockSetTimeout.mockClear();
-			mockClearTimeout.mockClear();
-
-			// Advance time so the changeTimeout logic can work
-			mockPerformanceNow.mockReturnValue(2000);
-
-			const apdexInfo: ApdexType = {
-				key: 'test-apdex',
-				stopTime: 6000,
-				startTime: 5500,
-			};
-
-			addApdex(interactionId, apdexInfo);
-
-			// Should clear old timeout and set new 15s timeout
-			expect(mockClearTimeout).toHaveBeenCalled();
-			expect(mockSetTimeout).toHaveBeenCalledWith(
-				expect.any(Function),
-				15000, // CLEANUP_TIMEOUT_AFTER_APDEX
-			);
-		});
-
-		it('should reduce timeout to 15s for all interactions when apdex is added to all', () => {
-			const interactionId1 = 'test-interaction-6a';
-			const interactionId2 = 'test-interaction-6b';
-			const startTime = 1000;
-
-			// Create two interactions
-			addNewInteraction(
-				interactionId1,
-				'test-ufo-name-1',
-				'page_load',
-				startTime,
-				1,
-				null,
-				null,
-				null,
-			);
-			addNewInteraction(
-				interactionId2,
-				'test-ufo-name-2',
-				'transition',
-				startTime,
-				1,
-				null,
-				null,
-				null,
-			);
-
-			// Clear the initial setTimeout calls
-			mockSetTimeout.mockClear();
-			mockClearTimeout.mockClear();
-
-			// Advance time so the changeTimeout logic can work
-			mockPerformanceNow.mockReturnValue(2000);
-
-			const apdex: ApdexType = {
-				key: 'test-apdex-all',
-				stopTime: 7000,
-				startTime: 6500,
-			};
-
-			addApdexToAll(apdex);
-
-			// Should clear old timeouts and set new 15s timeouts - called twice (once for each interaction)
-			expect(mockClearTimeout).toHaveBeenCalledTimes(2);
-			expect(mockSetTimeout).toHaveBeenCalledTimes(2);
-			expect(mockSetTimeout).toHaveBeenNthCalledWith(
-				1,
-				expect.any(Function),
-				15000, // CLEANUP_TIMEOUT_AFTER_APDEX
-			);
-			expect(mockSetTimeout).toHaveBeenNthCalledWith(
-				2,
-				expect.any(Function),
-				15000, // CLEANUP_TIMEOUT_AFTER_APDEX
-			);
 		});
 
 		it('should NOT reduce timeout for press interactions when apdex is added', () => {
@@ -359,14 +192,7 @@ describe('interaction-metrics timeout behavior', () => {
 		});
 	});
 
-	describe('simplified timeout behavior (with feature flag)', () => {
-		beforeEach(() => {
-			// Enable the feature flag for simplified behavior tests
-			mockFg.mockImplementation((flagName: string) => {
-				return flagName === 'platform_ufo_timeout_simplification';
-			});
-		});
-
+	describe('simplified timeout behavior', () => {
 		it('should create interaction with 60s timeout and keep it', () => {
 			const interactionId = 'test-interaction-8';
 			const startTime = 1000;

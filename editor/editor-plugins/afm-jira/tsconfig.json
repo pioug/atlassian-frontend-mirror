@@ -246,6 +246,9 @@
 			"path": "../../editor-plugin-selection-toolbar/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-show-diff/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-status/afm-jira/tsconfig.json"
 		},
 		{

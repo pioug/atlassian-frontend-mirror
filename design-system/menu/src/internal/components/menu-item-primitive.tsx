@@ -63,12 +63,6 @@ const styles = cssMap({
 			},
 		},
 	},
-	beforeAfterElementOld: {
-		display: 'flex',
-		alignItems: 'center',
-		justifyContent: 'center',
-		flexShrink: 0,
-	},
 	beforeAfterElement: {
 		display: 'flex',
 		minWidth: 24,
@@ -260,12 +254,7 @@ const MenuItemPrimitive = ({
 							{iconBefore && (
 								<span
 									data-item-elem-before
-									css={[
-										fg('platform_ads_component_no_icon_spacing_support') &&
-											styles.beforeAfterElement,
-										!fg('platform_ads_component_no_icon_spacing_support') &&
-											styles.beforeAfterElementOld,
-									]}
+									css={styles.beforeAfterElement}
 									data-testid={testId && `${testId}--icon-before`}
 								>
 									{iconBefore}
@@ -299,12 +288,7 @@ const MenuItemPrimitive = ({
 							{iconAfter && (
 								<span
 									data-item-elem-after
-									css={[
-										fg('platform_ads_component_no_icon_spacing_support') &&
-											styles.beforeAfterElement,
-										!fg('platform_ads_component_no_icon_spacing_support') &&
-											styles.beforeAfterElementOld,
-									]}
+									css={styles.beforeAfterElement}
 									data-testid={testId && `${testId}--icon-after`}
 								>
 									{iconAfter}

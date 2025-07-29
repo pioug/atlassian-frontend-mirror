@@ -275,6 +275,7 @@ export const ExampleManuallyComposedToolbar = () => {
 										onClick={onClick('Normal text', onSetTextStyle('normal'))}
 										isSelected={textStyle === 'normal'}
 										textStyle="normal"
+										ariaKeyshortcuts="⌘⌥0"
 									>
 										Normal text
 									</ToolbarDropdownItem>
@@ -284,6 +285,7 @@ export const ExampleManuallyComposedToolbar = () => {
 										onClick={onClick('Heading one', onSetTextStyle('heading1'))}
 										isSelected={textStyle === 'heading1'}
 										textStyle="heading1"
+										ariaKeyshortcuts="⌘⌥1"
 									>
 										Heading 1
 									</ToolbarDropdownItem>
@@ -293,6 +295,7 @@ export const ExampleManuallyComposedToolbar = () => {
 										onClick={onClick('Heading two', onSetTextStyle('heading2'))}
 										isSelected={textStyle === 'heading2'}
 										textStyle="heading2"
+										ariaKeyshortcuts="⌘⌥2"
 									>
 										Heading 2
 									</ToolbarDropdownItem>
@@ -302,6 +305,7 @@ export const ExampleManuallyComposedToolbar = () => {
 										onClick={onClick('Heading three', onSetTextStyle('heading3'))}
 										isSelected={textStyle === 'heading3'}
 										textStyle="heading3"
+										ariaKeyshortcuts="⌘⌥3"
 									>
 										Heading 3
 									</ToolbarDropdownItem>
@@ -311,6 +315,7 @@ export const ExampleManuallyComposedToolbar = () => {
 										onClick={onClick('Heading four', onSetTextStyle('heading4'))}
 										isSelected={textStyle === 'heading4'}
 										textStyle="heading4"
+										ariaKeyshortcuts="⌘⌥4"
 									>
 										Heading 4
 									</ToolbarDropdownItem>
@@ -320,6 +325,7 @@ export const ExampleManuallyComposedToolbar = () => {
 										onClick={onClick('Heading five', onSetTextStyle('heading5'))}
 										isSelected={textStyle === 'heading5'}
 										textStyle="heading5"
+										ariaKeyshortcuts="⌘⌥5"
 									>
 										Heading 5
 									</ToolbarDropdownItem>
@@ -329,6 +335,7 @@ export const ExampleManuallyComposedToolbar = () => {
 										onClick={onClick('Heading six', onSetTextStyle('heading6'))}
 										isSelected={textStyle === 'heading6'}
 										textStyle="heading6"
+										ariaKeyshortcuts="⌘⌥6"
 									>
 										Heading 6
 									</ToolbarDropdownItem>
@@ -338,6 +345,7 @@ export const ExampleManuallyComposedToolbar = () => {
 										onClick={onClick('Quote', onSetTextStyle('quote'))}
 										isSelected={textStyle === 'quote'}
 										textStyle="normal"
+										ariaKeyshortcuts="⌘⌥9"
 									>
 										Quote
 									</ToolbarDropdownItem>
@@ -358,6 +366,7 @@ export const ExampleManuallyComposedToolbar = () => {
 								groupLocation="start"
 								isSelected={formatting.bold || formatting.italic}
 								isDisabled={formatting.italic ? isItalicDisabled : isBoldDisabled}
+								ariaKeyshortcuts={formatting.italic && !formatting.bold ? '⌘I' : '⌘B'}
 							/>
 						</ToolbarTooltip>
 						<ToolbarDropdownMenu icon={MoreItemsIcon} label="More formatting" groupLocation="end">
@@ -368,6 +377,7 @@ export const ExampleManuallyComposedToolbar = () => {
 									onClick={onClick('Bold', onToggleFormatting('bold'))}
 									isSelected={formatting.bold}
 									isDisabled={isBoldDisabled}
+									ariaKeyshortcuts="⌘B"
 								>
 									Bold
 								</ToolbarDropdownItem>
@@ -377,6 +387,7 @@ export const ExampleManuallyComposedToolbar = () => {
 									onClick={onClick('Italic', onToggleFormatting('italic'))}
 									isSelected={formatting.italic}
 									isDisabled={isItalicDisabled}
+									ariaKeyshortcuts="⌘I"
 								>
 									Italic
 								</ToolbarDropdownItem>
@@ -387,6 +398,7 @@ export const ExampleManuallyComposedToolbar = () => {
 									elemBefore={<ClearFormattingIcon label="Clear formatting" />}
 									elemAfter={<ToolbarKeyboardShortcutHint shortcut="⌘\" />}
 									onClick={onClick('Clear formatting')}
+									ariaKeyshortcuts="⌘\"
 								>
 									Clear formatting
 								</ToolbarDropdownItem>
@@ -454,6 +466,7 @@ export const ExampleManuallyComposedToolbar = () => {
 									onClick={onClick('Bulleted list', onToggleListOrAlignment('bulleted'))}
 									isSelected={listOrAlignment === 'bulleted'}
 									isDisabled={isBulletedListDisabled}
+									ariaKeyshortcuts="⌘⇧8"
 								>
 									Bulleted list
 								</ToolbarDropdownItem>
@@ -463,6 +476,7 @@ export const ExampleManuallyComposedToolbar = () => {
 									onClick={onClick('Numbered list', onToggleListOrAlignment('numbered'))}
 									isSelected={listOrAlignment === 'numbered'}
 									isDisabled={isNumberedListDisabled}
+									ariaKeyshortcuts="⌘⇧7"
 								>
 									Numbered list
 								</ToolbarDropdownItem>
@@ -549,9 +563,9 @@ export const ExampleManuallyComposedToolbar = () => {
 Last action: ${lastAction || 'None'}
 Text style:  ${textStyle}
 Formatting:  ${Object.entries(formatting)
-					.filter(([, value]) => value)
-					.map(([key]) => key)
-					.join(', ')}
+						.filter(([, value]) => value)
+						.map(([key]) => key)
+						.join(', ')}
 List/Align:  ${listOrAlignment}
 Pinning:     ${pinning}
 				`}

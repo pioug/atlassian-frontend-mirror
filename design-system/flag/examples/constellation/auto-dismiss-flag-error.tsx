@@ -40,7 +40,6 @@ const AutoDismissFlagErrorExample = () => {
 									label="Error"
 									LEGACY_secondaryColor={token('color.background.danger.bold')}
 									color={token('color.icon.inverse')}
-									spacing="spacious"
 								/>
 							}
 							key={flagId}

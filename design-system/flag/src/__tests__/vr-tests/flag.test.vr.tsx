@@ -6,26 +6,10 @@ import AllFlagsLegacyIcons from '../../../examples/02-all-flags-legacy-icons';
 import FlagsDifferentIcons from '../../../examples/18-different-icons';
 import ExplicitFontStyles from '../../../examples/19-explicit-font-styles';
 
-snapshot(AllFlagsExample, {
-	featureFlags: {
-		platform_ads_component_no_icon_spacing_support: [true, false],
-	},
-});
-snapshot(AllFlagsDefaultIconsExample, {
-	featureFlags: {
-		platform_ads_component_no_icon_spacing_support: [true, false],
-	},
-});
-snapshot(AllFlagsLegacyIcons, {
-	featureFlags: {
-		platform_ads_component_no_icon_spacing_support: [true, false],
-	},
-});
-snapshot(FlagsDifferentIcons, {
-	featureFlags: {
-		platform_ads_component_no_icon_spacing_support: [true, false],
-	},
-});
+snapshot(AllFlagsExample);
+snapshot(AllFlagsDefaultIconsExample);
+snapshot(AllFlagsLegacyIcons);
+snapshot(FlagsDifferentIcons);
 
 snapshot(ExplicitFontStyles, {
 	description: 'Explicit font styles - default state',

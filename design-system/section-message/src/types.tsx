@@ -37,6 +37,12 @@ export interface SectionMessageProps {
 	 */
 	icon?: React.ElementType;
 	/**
+	 * Displays a dismiss button, that allows the user to dismiss the message.
+	 * It will be removed from the DOM immediately and will not be re-rendered.
+	 * It does not handle persistence of the dismissed state across page reloads or remounts.
+	 */
+	isDismissible?: boolean;
+	/**
 	 * A `testId` prop is a unique string that appears as a data attribute `data-testid`
 	 * in the rendered code, serving as a hook for automated tests.
 	 */

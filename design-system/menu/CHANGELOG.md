@@ -1,5 +1,13 @@
 # @atlaskit/menu
 
+## 8.1.0
+
+### Minor Changes
+
+- [#191911](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/191911)
+  [`c1fc152f611b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c1fc152f611b8) -
+  Icons will now display consistently in menu items regardless of their spacing
+
 ## 8.0.9
 
 ### Patch Changes

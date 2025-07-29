@@ -162,6 +162,7 @@ describe('vc-observer', () => {
 					w: VIEWPORT_WIDTH,
 					h: VIEWPORT_HEIGHT,
 				},
+				'vc:ssrRatio': undefined,
 				'vc:updates': [{ time: 5, vc: 100, elements: ['body > div'] }],
 				'vc:time': expect.any(Number),
 				'vc:total': 10000,
@@ -184,6 +185,9 @@ describe('vc-observer', () => {
 					{
 						clean: true,
 						'metric:vc90': 5,
+						ratios: {
+							'body > div': 1,
+						},
 						revision: 'fy25.01',
 						vcDetails: {
 							'25': {
@@ -227,6 +231,9 @@ describe('vc-observer', () => {
 					{
 						clean: true,
 						'metric:vc90': 5,
+						ratios: {
+							'body > div': 1,
+						},
 						revision: 'fy25.02',
 						vcDetails: {
 							'25': {
@@ -379,6 +386,7 @@ describe('vc-observer', () => {
 					w: VIEWPORT_WIDTH,
 					h: VIEWPORT_HEIGHT,
 				},
+				'vc:ssrRatio': undefined,
 				'vc:updates': [
 					{ time: 5, vc: 50, elements: ['div#a'] },
 					{ time: 10, vc: 75, elements: ['div#b'] },
@@ -409,6 +417,12 @@ describe('vc-observer', () => {
 					{
 						clean: true,
 						'metric:vc90': 15,
+						ratios: {
+							'div#a': 1,
+							'div#b': 0.5,
+							'div#c': 0.25,
+							'div#d': 0.0625,
+						},
 						revision: 'fy25.01',
 						vcDetails: {
 							'25': {
@@ -452,6 +466,12 @@ describe('vc-observer', () => {
 					{
 						clean: true,
 						'metric:vc90': 15,
+						ratios: {
+							'div#a': 1,
+							'div#b': 0.5,
+							'div#c': 0.25,
+							'div#d': 0.0625,
+						},
 						revision: 'fy25.02',
 						vcDetails: {
 							'25': {
@@ -642,6 +662,7 @@ describe('vc-observer', () => {
 					w: VIEWPORT_WIDTH,
 					h: VIEWPORT_HEIGHT,
 				},
+				'vc:ssrRatio': undefined,
 				'vc:updates': [
 					{ time: 5, vc: 50, elements: ['div#a'] },
 					{ time: 10, vc: 75, elements: ['div#b'] },
@@ -672,6 +693,12 @@ describe('vc-observer', () => {
 					{
 						clean: true,
 						'metric:vc90': 15,
+						ratios: {
+							'div#a': 1,
+							'div#b': 0.5,
+							'div#c': 0.25,
+							'div#d': 0.0625,
+						},
 						revision: 'fy25.01',
 						vcDetails: {
 							'25': {
@@ -715,6 +742,12 @@ describe('vc-observer', () => {
 					{
 						clean: true,
 						'metric:vc90': 15,
+						ratios: {
+							'div#a': 1,
+							'div#b': 0.5,
+							'div#c': 0.25,
+							'div#d': 0.0625,
+						},
 						revision: 'fy25.02',
 						vcDetails: {
 							'25': {
@@ -868,6 +901,7 @@ describe('vc-observer', () => {
 					w: VIEWPORT_WIDTH,
 					h: VIEWPORT_HEIGHT,
 				},
+				'vc:ssrRatio': undefined,
 				'vc:updates': [
 					{ time: 5, vc: 75, elements: ['div#a'] },
 					{ time: 15, vc: 93.8, elements: ['div#c'] },
@@ -901,6 +935,12 @@ describe('vc-observer', () => {
 					{
 						clean: true,
 						'metric:vc90': 15,
+						ratios: {
+							'div#a': 1,
+							'div#b': 0.5,
+							'div#c': 0.25,
+							'div#d': 0.0625,
+						},
 						revision: 'fy25.01',
 						vcDetails: {
 							'25': {
@@ -944,6 +984,12 @@ describe('vc-observer', () => {
 					{
 						clean: true,
 						'metric:vc90': 15,
+						ratios: {
+							'div#a': 1,
+							'div#b': 0.5,
+							'div#c': 0.25,
+							'div#d': 0.0625,
+						},
 						revision: 'fy25.02',
 						vcDetails: {
 							'25': {
@@ -1096,6 +1142,7 @@ describe('vc-observer', () => {
 					w: VIEWPORT_WIDTH,
 					h: VIEWPORT_HEIGHT,
 				},
+				'vc:ssrRatio': undefined,
 				'vc:updates': [
 					{ time: 5, vc: 75, elements: ['div#a'] },
 					//{ time: 10, vc: 75, elements: ['div#b'] },
@@ -1126,6 +1173,12 @@ describe('vc-observer', () => {
 					{
 						clean: true,
 						'metric:vc90': 15,
+						ratios: {
+							'div#a': 1,
+							'div#b': 0.5,
+							'div#c': 0.25,
+							'div#d': 0.0625,
+						},
 						revision: 'fy25.01',
 						vcDetails: {
 							'25': {
@@ -1169,6 +1222,12 @@ describe('vc-observer', () => {
 					{
 						clean: true,
 						'metric:vc90': 15,
+						ratios: {
+							'div#a': 1,
+							'div#b': 0.5,
+							'div#c': 0.25,
+							'div#d': 0.0625,
+						},
 						revision: 'fy25.02',
 						vcDetails: {
 							'25': {
@@ -1282,6 +1341,7 @@ describe('vc-observer', () => {
 					w: VIEWPORT_WIDTH,
 					h: VIEWPORT_HEIGHT,
 				},
+				'vc:ssrRatio': undefined,
 				'vc:updates': [{ time: 5, vc: 100, elements: ['div#a'] }],
 				'vc:time': expect.any(Number),
 				'vc:total': 10000,
@@ -1302,6 +1362,9 @@ describe('vc-observer', () => {
 					{
 						clean: true,
 						'metric:vc90': 5,
+						ratios: {
+							'div#a': 1,
+						},
 						revision: 'fy25.01',
 						vcDetails: {
 							'25': {
@@ -1345,6 +1408,9 @@ describe('vc-observer', () => {
 					{
 						clean: true,
 						'metric:vc90': 5,
+						ratios: {
+							'div#a': 1,
+						},
 						revision: 'fy25.02',
 						vcDetails: {
 							'25': {
@@ -1456,6 +1522,7 @@ describe('vc-observer', () => {
 					w: VIEWPORT_WIDTH,
 					h: VIEWPORT_HEIGHT,
 				},
+				'vc:ssrRatio': undefined,
 				'vc:updates': [{ time: 10, vc: 100, elements: ['div#b'] }],
 				'vc:time': expect.any(Number),
 				'vc:total': 2500,
@@ -1476,6 +1543,9 @@ describe('vc-observer', () => {
 					{
 						clean: true,
 						'metric:vc90': 10,
+						ratios: {
+							'div#b': 0.25,
+						},
 						revision: 'fy25.01',
 						vcDetails: {
 							'25': {
@@ -1519,6 +1589,9 @@ describe('vc-observer', () => {
 					{
 						clean: true,
 						'metric:vc90': 10,
+						ratios: {
+							'div#b': 0.25,
+						},
 						revision: 'fy25.02',
 						vcDetails: {
 							'25': {
@@ -1659,6 +1732,9 @@ describe('vc-observer', () => {
 					{
 						clean: true,
 						'metric:vc90': 10,
+						ratios: {
+							'div#b': 0.5,
+						},
 						revision: 'fy25.01',
 						vcDetails: {
 							'25': {
@@ -1702,6 +1778,9 @@ describe('vc-observer', () => {
 					{
 						clean: true,
 						'metric:vc90': 10,
+						ratios: {
+							'div#b': 0.5,
+						},
 						revision: 'fy25.02',
 						vcDetails: {
 							'25': {
@@ -1795,12 +1874,16 @@ describe('vc-observer', () => {
 					w: VIEWPORT_WIDTH,
 					h: VIEWPORT_HEIGHT,
 				},
+				'vc:ssrRatio': undefined,
 				'vc:time': expect.any(Number),
 				'vc:ignored': [],
 				'vc:rev': [
 					{
 						clean: true,
 						'metric:vc90': 5,
+						ratios: {
+							'body > div': 1,
+						},
 						revision: 'fy25.02',
 						vcDetails: {
 							'25': {
@@ -1918,12 +2001,19 @@ describe('vc-observer', () => {
 					w: VIEWPORT_WIDTH,
 					h: VIEWPORT_HEIGHT,
 				},
+				'vc:ssrRatio': undefined,
 				'vc:time': expect.any(Number),
 				'vc:ignored': [],
 				'vc:rev': [
 					{
 						clean: true,
 						'metric:vc90': 15,
+						ratios: {
+							'div#a': 1,
+							'div#b': 0.5,
+							'div#c': 0.25,
+							'div#d': 0.0625,
+						},
 						revision: 'fy25.02',
 						vcDetails: {
 							'25': {
@@ -2079,12 +2169,19 @@ describe('vc-observer', () => {
 					w: VIEWPORT_WIDTH,
 					h: VIEWPORT_HEIGHT,
 				},
+				'vc:ssrRatio': undefined,
 				'vc:time': expect.any(Number),
 				'vc:ignored': [],
 				'vc:rev': [
 					{
 						clean: true,
 						'metric:vc90': 15,
+						ratios: {
+							'div#a': 1,
+							'div#b': 0.5,
+							'div#c': 0.25,
+							'div#d': 0.0625,
+						},
 						revision: 'fy25.02',
 						vcDetails: {
 							'25': {
@@ -2203,6 +2300,7 @@ describe('vc-observer', () => {
 					w: VIEWPORT_WIDTH,
 					h: VIEWPORT_HEIGHT,
 				},
+				'vc:ssrRatio': undefined,
 				'vc:time': expect.any(Number),
 				'vc:ignored': [
 					{
@@ -2214,6 +2312,12 @@ describe('vc-observer', () => {
 					{
 						clean: true,
 						'metric:vc90': 15,
+						ratios: {
+							'div#a': 1,
+							'div#b': 0.5,
+							'div#c': 0.25,
+							'div#d': 0.0625,
+						},
 						revision: 'fy25.02',
 						vcDetails: {
 							'25': {
@@ -2337,6 +2441,12 @@ describe('vc-observer', () => {
 					{
 						clean: true,
 						'metric:vc90': 15,
+						ratios: {
+							'div#a': 1,
+							'div#b': 0.5,
+							'div#c': 0.25,
+							'div#d': 0.0625,
+						},
 						revision: 'fy25.02',
 						vcDetails: {
 							'25': {
@@ -2421,6 +2531,9 @@ describe('vc-observer', () => {
 					{
 						clean: true,
 						'metric:vc90': 5,
+						ratios: {
+							'div#a': 1,
+						},
 						revision: 'fy25.02',
 						vcDetails: {
 							'25': {
@@ -2503,6 +2616,9 @@ describe('vc-observer', () => {
 					{
 						clean: true,
 						'metric:vc90': 10,
+						ratios: {
+							'div#b': 0.25,
+						},
 						revision: 'fy25.02',
 						vcDetails: {
 							'25': {
@@ -2588,6 +2704,9 @@ describe('vc-observer', () => {
 					{
 						clean: true,
 						'metric:vc90': 10,
+						ratios: {
+							'div#b': 0.5,
+						},
 						revision: 'fy25.02',
 						vcDetails: {
 							'25': {
@@ -2674,6 +2793,9 @@ describe('vc-observer', () => {
 					{
 						clean: true,
 						'metric:vc90': 10,
+						ratios: {
+							'div#b': 0.95,
+						},
 						revision: 'fy25.02',
 						vcDetails: {
 							'25': {

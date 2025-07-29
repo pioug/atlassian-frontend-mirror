@@ -29,7 +29,6 @@ const FlagGroupExample = () => {
 					label="Info"
 					LEGACY_primaryColor={token('color.icon.information')}
 					color={token('color.icon.information')}
-					spacing="spacious"
 				/>
 			),
 			id: id,
@@ -46,7 +45,6 @@ const FlagGroupExample = () => {
 					label="Info"
 					LEGACY_primaryColor={token('color.icon.information')}
 					color={token('color.icon.information')}
-					spacing="spacious"
 				/>
 			),
 			title: `${flagCount.current++}: Whoa a new flag!`,
@@ -62,7 +60,6 @@ const FlagGroupExample = () => {
 					label="Info"
 					LEGACY_primaryColor={token('color.icon.information')}
 					color={token('color.icon.information')}
-					spacing="spacious"
 				/>
 			),
 			title: `${flagCount.current++}: Whoa a new flag!`,

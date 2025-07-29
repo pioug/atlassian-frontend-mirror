@@ -57,5 +57,5 @@ export interface TeamContainerProps {
 
 export interface TeamContainersComponent {
 	ContainerCard: ComponentType<LinkedContainerCardProps>;
-	TeamContainersSkeleton: ComponentType<TeamContainersSkeletonProps>;
+	TeamContainersSkeleton?: ComponentType<TeamContainersSkeletonProps>;
 }

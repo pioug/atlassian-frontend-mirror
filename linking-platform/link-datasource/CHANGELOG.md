@@ -1,5 +1,19 @@
 # @atlaskit/link-datasource
 
+## 4.16.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.16.0
+
+### Minor Changes
+
+- [#191067](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/191067)
+  [`ede531b6a7c94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ede531b6a7c94) -
+  Clean up platform-datasources-inline-edit-id-checks ff
+
 ## 4.15.0
 
 ### Minor Changes

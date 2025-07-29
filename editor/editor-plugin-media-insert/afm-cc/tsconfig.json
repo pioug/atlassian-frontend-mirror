@@ -1,75 +1,75 @@
 {
-    "extends": "../../../../tsconfig.entry-points.confluence.json",
-    "compilerOptions": {
-        "target": "es5",
-        "composite": true,
-        "outDir": "../../../../../confluence/tsDist/@atlaskit__editor-plugin-media-insert",
-        "rootDir": "../"
-    },
-    "include": [
-        "../src/**/*.ts",
-        "../src/**/*.tsx"
-    ],
-    "exclude": [
-        "../src/**/__tests__/*",
-        "../src/**/*.test.*",
-        "../src/**/test.*",
-        "../src/**/examples.*"
-    ],
-    "references": [
-        {
-            "path": "../../../design-system/button/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../editor-plugin-analytics/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../editor-plugin-media/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../editor-shared-styles/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/form/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/icon/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../media/media-card/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../media/media-client/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../media/media-client-react/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../media/media-picker/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/primitives/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/section-message/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/tabs/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/textfield/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../tmp-editor-statsig/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../editor-common/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/tokens/afm-cc/tsconfig.json"
-        }
-    ]
+	"extends": "../../../../tsconfig.entry-points.confluence.json",
+	"compilerOptions": {
+		"target": "es5",
+		"composite": true,
+		"outDir": "../../../../../confluence/tsDist/@atlaskit__editor-plugin-media-insert",
+		"rootDir": "../"
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../../design-system/button/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-analytics/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-media/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-shared-styles/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/form/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../media/media-card/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../media/media-client/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../media/media-client-react/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../media/media-picker/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/section-message/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tabs/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/textfield/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-cc/tsconfig.json"
+		}
+	]
 }

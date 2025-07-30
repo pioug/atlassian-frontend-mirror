@@ -1,5 +1,14 @@
 # @atlaskit/media-card
 
+## 79.4.6
+
+### Patch Changes
+
+- [#192828](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/192828)
+  [`a798dd56b4aba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a798dd56b4aba) -
+  Fixes A11Y issues
+- Updated dependencies
+
 ## 79.4.5
 
 ### Patch Changes

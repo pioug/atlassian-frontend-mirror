@@ -25,9 +25,9 @@ import {
 	AppLogo,
 	AppSwitcher,
 	CreateButton,
+	CustomLogo,
 	CustomTitle,
 	Help,
-	NavLogo,
 	Notifications,
 	Profile,
 	Settings,
@@ -41,10 +41,10 @@ import { WithResponsiveViewport } from './utils/example-utils';
 import { MockRoot } from './utils/mock-root';
 import { MockSearch } from './utils/mock-search';
 
-const connieNavLogo = <AppLogo href="" icon={ConfluenceIcon} name="Confluence" label="Home page" />;
+const connieCustomLogo = <AppLogo href="" icon={ConfluenceIcon} name="Confluence" label="Home page" />;
 // Stress test nav responsive behaviour with a wide logo
-const wideNavLogo = (
-	<NavLogo
+const wideCustomLogo = (
+	<CustomLogo
 		href=""
 		icon={() => <img alt="" src={placeholder200x20} />}
 		logo={() => <img alt="" src={placeholder200x20} />}
@@ -102,11 +102,11 @@ const defaultTopNavMiddle = (
 );
 
 function TopNavigationInstance({
-	navLogo,
+	CustomLogo,
 	topNavEnd = defaultTopNavEnd,
 	topNavMiddle = defaultTopNavMiddle,
 }: {
-	navLogo: ReactNode;
+	CustomLogo: ReactNode;
 	topNavEnd?: ReactNode;
 	topNavMiddle?: ReactNode;
 }) {
@@ -120,7 +120,7 @@ function TopNavigationInstance({
 						expandLabel="Expand sidebar"
 					/>
 					<AppSwitcher label="Switch apps" />
-					{navLogo}
+					{CustomLogo}
 					<CustomTitle>Custom app title</CustomTitle>
 				</TopNavStart>
 				<TopNavMiddle>{topNavMiddle}</TopNavMiddle>
@@ -138,28 +138,28 @@ export default function TopNavigationStressExample() {
 					<Heading as="h2" size="small">
 						Wide left column
 					</Heading>
-					<TopNavigationInstance navLogo={wideNavLogo} />
+					<TopNavigationInstance CustomLogo={wideCustomLogo} />
 				</Stack>
 
 				<Stack space="space.100">
 					<Heading as="h2" size="small">
 						Wide right column
 					</Heading>
-					<TopNavigationInstance navLogo={connieNavLogo} topNavEnd={extendedTopNavEnd} />
+					<TopNavigationInstance CustomLogo={connieCustomLogo} topNavEnd={extendedTopNavEnd} />
 				</Stack>
 
 				<Stack space="space.100">
 					<Heading as="h2" size="small">
 						Small left and right column
 					</Heading>
-					<TopNavigationInstance navLogo={connieNavLogo} />
+					<TopNavigationInstance CustomLogo={connieCustomLogo} />
 				</Stack>
 
 				<Stack space="space.100">
 					<Heading as="h2" size="small">
 						Wide left and right column
 					</Heading>
-					<TopNavigationInstance navLogo={wideNavLogo} topNavEnd={extendedTopNavEnd} />
+					<TopNavigationInstance CustomLogo={wideCustomLogo} topNavEnd={extendedTopNavEnd} />
 				</Stack>
 
 				<Stack space="space.100">
@@ -167,7 +167,7 @@ export default function TopNavigationStressExample() {
 						No create button
 					</Heading>
 					<TopNavigationInstance
-						navLogo={wideNavLogo}
+						CustomLogo={wideCustomLogo}
 						topNavEnd={extendedTopNavEnd}
 						topNavMiddle={<MockSearch />}
 					/>
@@ -178,7 +178,7 @@ export default function TopNavigationStressExample() {
 						No common actions
 					</Heading>
 					<TopNavigationInstance
-						navLogo={wideNavLogo}
+						CustomLogo={wideCustomLogo}
 						topNavEnd={extendedTopNavEnd}
 						topNavMiddle={null}
 					/>
@@ -189,7 +189,7 @@ export default function TopNavigationStressExample() {
 						Extra common actions
 					</Heading>
 					<TopNavigationInstance
-						navLogo={wideNavLogo}
+						CustomLogo={wideCustomLogo}
 						topNavEnd={extendedTopNavEnd}
 						topNavMiddle={
 							<Fragment>
@@ -209,7 +209,7 @@ export default function TopNavigationStressExample() {
 						Super wide right column
 					</Heading>
 					<TopNavigationInstance
-						navLogo={connieNavLogo}
+						CustomLogo={connieCustomLogo}
 						topNavEnd={
 							<Fragment>
 								{upgradeButton}
@@ -225,7 +225,7 @@ export default function TopNavigationStressExample() {
 						Trial upgrade button
 					</Heading>
 					<TopNavigationInstance
-						navLogo={connieNavLogo}
+						CustomLogo={connieCustomLogo}
 						topNavEnd={
 							<Fragment>
 								<EditionAwarenessButton status="default" icon="upgrade" upgradeIconType="gem">

@@ -10,7 +10,7 @@ type SkeletonProps = {
 	width: string | number;
 	height: string | number;
 	/**
-	 * Defaults to 100px to allow for any reasonable size skeleton having rounded corners.
+	 * Controls the border radius, or rounding of the skeleton's corners.
 	 */
 	borderRadius?: string | number;
 	/**
@@ -67,7 +67,7 @@ const activeShimmerStyles = css({
 const Skeleton = ({
 	width,
 	height,
-	borderRadius = '100px',
+	borderRadius = '4px',
 	color,
 	ShimmeringEndColor,
 	isShimmering = false,

@@ -1,5 +1,13 @@
 # @atlaskit/atlassian-context
 
+## 0.4.0
+
+### Minor Changes
+
+- [#192348](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/192348)
+  [`7d7f464d11b3e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7d7f464d11b3e) -
+  Adds new function that returns the id of the current IC if applicable
+
 ## 0.3.2
 
 ### Patch Changes

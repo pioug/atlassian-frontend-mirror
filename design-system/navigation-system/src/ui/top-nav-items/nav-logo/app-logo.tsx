@@ -9,7 +9,6 @@ import { cssMap, cx, jsx } from '@compiled/react';
 import type { LogoProps } from '@atlaskit/logo';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Anchor, Inline, Text } from '@atlaskit/primitives';
-import type { IconProps as TempIconProps } from '@atlaskit/temp-nav-app-icons/types';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -130,7 +129,7 @@ export const AppLogo = ({
 	/**
 	 * The icon to render.
 	 */
-	icon: ((props: LogoProps) => JSX.Element) | ((props: TempIconProps) => JSX.Element);
+	icon: ((props: LogoProps) => JSX.Element);
 	/**
 	 * Handler called on click.
 	 */
@@ -171,7 +170,11 @@ export const AppLogo = ({
 				aria-label={label}
 			>
 				<div css={[iconContainerStyles.root]}>
-					<LogoRenderer logoOrIcon={icon} />
+					<LogoRenderer
+						// Top nav always uses the new logo design
+						shouldUseNewLogoDesign={true}
+						logoOrIcon={icon}
+					/>
 				</div>
 				<span css={logoTextStyles.root}>
 					<Tooltip

@@ -768,7 +768,7 @@ const createPropFixes = ({
 }) => {
 	const fixes: Rule.Fix[] = [];
 
-	const { spacing, size } = metadata;
+	const { spacing, size, importSource } = metadata;
 	if (shouldUseMigrationPath && !legacyImportNode) {
 		return fixes;
 	}
@@ -803,8 +803,16 @@ const createPropFixes = ({
 				if (size && sizeProp.value) {
 					// update size prop with new replacement size
 					fixes.push(fixer.replaceText(sizeProp.value, `"${size}"`));
-				} else {
-					// remove size prop if no new replacement size is specified
+				} else if (importSource.startsWith('@atlaskit/icon/glyph/')) {
+					// only remove size prop for glyph entry points if no new replacement size is specified
+					fixes.push(fixer.remove(sizeProp));
+				} else if (
+					sizeProp.value &&
+					sizeProp.value.type === 'Literal' &&
+					typeof sizeProp.value.value === 'string' &&
+					sizeProp.value.value === 'medium'
+				) {
+					// if size is medium, we can remove it as it is the default size
 					fixes.push(fixer.remove(sizeProp));
 				}
 			}

@@ -150,7 +150,9 @@ describe('ViewportObserver', () => {
 
 			it('should handle rll placeholder elements', () => {
 				const targetElement = document.createElement('div');
+				targetElement.setAttribute('data-vc-ignore-if-no-layout-shift', 'true');
 				const rllNode = document.createElement('div');
+				targetElement.appendChild(rllNode);
 				mockIsRLLPlaceholderHydration.mockReturnValue(true);
 				onChildListMutation({
 					target: new WeakRef(targetElement),
@@ -179,8 +181,10 @@ describe('ViewportObserver', () => {
 
 			it('should handle element remount', () => {
 				const targetElement = document.createElement('div');
+				targetElement.setAttribute('data-vc-ignore-if-no-layout-shift', 'true');
 				const oldNode = document.createElement('div');
 				oldNode.id = 'id1';
+				targetElement.appendChild(oldNode);
 
 				const oldRect = new DOMRect(0, 0, 10, 10);
 				intersectionOnEntry({
@@ -193,6 +197,7 @@ describe('ViewportObserver', () => {
 
 				const newNode = document.createElement('div');
 				newNode.id = 'id1'; // same id as old
+				targetElement.appendChild(newNode);
 
 				onChildListMutation({
 					target: new WeakRef(targetElement),
@@ -209,8 +214,10 @@ describe('ViewportObserver', () => {
 
 			it('should handle element replacement', () => {
 				const targetElement = document.createElement('div');
+				targetElement.setAttribute('data-vc-ignore-if-no-layout-shift', 'true');
 				const oldNode = document.createElement('div');
 				oldNode.id = 'old';
+				targetElement.appendChild(oldNode);
 
 				const oldRect = new DOMRect(0, 0, 10, 10);
 				intersectionOnEntry({
@@ -223,6 +230,7 @@ describe('ViewportObserver', () => {
 
 				const newNode = document.createElement('div');
 				newNode.id = 'new';
+				targetElement.appendChild(newNode);
 				const newRect = new DOMRect(0, 0, 10, 10);
 
 				onChildListMutation({

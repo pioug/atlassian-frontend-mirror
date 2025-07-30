@@ -139,6 +139,7 @@ exports[`WikiMarkup => ADF Formatters - Strong should detect strong mark at end 
         },
         {
           "attrs": {
+            "localId": null,
             "text": "
 ",
           },

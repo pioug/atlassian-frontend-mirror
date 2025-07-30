@@ -18,6 +18,7 @@ exports[`JIRA wiki markup - File Link should find file link in the text 1`] = `
             "collection": "",
             "height": null,
             "id": "abc-123",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,

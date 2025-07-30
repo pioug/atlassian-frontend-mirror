@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { AtlassianIcon, AtlassianLogo } from '@atlaskit/logo';
+import { ConfluenceIcon } from '@atlaskit/logo';
 import { TopNavEnd, TopNavMiddle, TopNavStart } from '@atlaskit/navigation-system/layout/top-nav';
 import {
+	AppLogo,
 	AppSwitcher,
 	CreateButton,
 	Help,
-	NavLogo,
 	Profile,
 	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
@@ -18,10 +18,10 @@ export const MockContent = () => {
 		<>
 			<TopNavStart>
 				<AppSwitcher label="App switcher" />
-				<NavLogo
+				<AppLogo
 					href="https://www.atlassian.design"
-					logo={AtlassianLogo}
-					icon={AtlassianIcon}
+					icon={ConfluenceIcon}
+					name="Confluence"
 					label="Home page"
 				/>
 			</TopNavStart>

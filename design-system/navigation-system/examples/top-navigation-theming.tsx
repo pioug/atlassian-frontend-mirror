@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react';
 
 import AKBadge from '@atlaskit/badge';
-import { JiraIcon as JiraIconOld, JiraLogo as JiraLogoOld } from '@atlaskit/logo';
+import { AtlassianIcon, AtlassianLogo, JiraIcon } from '@atlaskit/logo';
 import { parseHex } from '@atlaskit/navigation-system/experimental/color-utils/parse-hex';
 import { parseHsl } from '@atlaskit/navigation-system/experimental/color-utils/parse-hsl';
 import { parseRgb } from '@atlaskit/navigation-system/experimental/color-utils/parse-rgb';
@@ -17,17 +17,15 @@ import {
 	AppSwitcher,
 	ChatButton,
 	CreateButton,
+	CustomLogo,
 	CustomTitle,
 	Help,
-	NavLogo,
 	Profile,
 	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
 import { Notifications } from '@atlaskit/navigation-system/top-nav-items/notifications';
-import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Stack } from '@atlaskit/primitives';
-import { JiraIcon } from '@atlaskit/temp-nav-app-icons/jira';
 
 // TODO: consider exposing this type properly, but it isn't needed for normal usage
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
@@ -39,7 +37,13 @@ import { MockSearch } from './utils/mock-search';
 
 const Badge = () => <AKBadge appearance="important">{5}</AKBadge>;
 
-const TopNavigationThemingInstance = ({ customTheme }: { customTheme?: CustomTheme }) => {
+const TopNavigationThemingInstance = ({
+	customTheme,
+	useCustomLogo,
+}: {
+	customTheme?: CustomTheme;
+	useCustomLogo?: boolean;
+}) => {
 	const [isAppSwitcherSelected, toggleIsAppSwitcherSelected] = useReducer(
 		(isSelected) => !isSelected,
 		false,
@@ -73,18 +77,18 @@ const TopNavigationThemingInstance = ({ customTheme }: { customTheme?: CustomThe
 						onClick={toggleIsAppSwitcherSelected}
 						isSelected={isAppSwitcherSelected}
 					/>
-					{fg('platform-team25-app-icon-tiles') ? (
+					{useCustomLogo ? (
+						<CustomLogo
+							href="http://www.atlassian.design"
+							icon={AtlassianIcon}
+							logo={AtlassianLogo}
+							label="Home page"
+						/>
+					) : (
 						<AppLogo
 							href="http://www.atlassian.design"
 							icon={JiraIcon}
 							name="Jira"
-							label="Home page"
-						/>
-					) : (
-						<NavLogo
-							href="http://www.atlassian.design"
-							icon={JiraIconOld}
-							logo={JiraLogoOld}
 							label="Home page"
 						/>
 					)}
@@ -155,6 +159,15 @@ export const TopNavigationThemingSingleExample = () => (
 	<WithResponsiveViewport>
 		<TopNavigationThemingInstance
 			customTheme={{ backgroundColor: parseHex('#000448'), highlightColor: parseHex('#6FF2B4') }}
+		/>
+	</WithResponsiveViewport>
+);
+
+export const TopNavigationThemingSingleExampleCustomLogo = () => (
+	<WithResponsiveViewport>
+		<TopNavigationThemingInstance
+			customTheme={{ backgroundColor: parseHex('#000448'), highlightColor: parseHex('#6FF2B4') }}
+			useCustomLogo
 		/>
 	</WithResponsiveViewport>
 );

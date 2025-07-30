@@ -62,6 +62,7 @@
 		"@atlaskit/visual-regression": "workspace:^",
 		"@atlassian/codegen": "workspace:^",
 		"@emotion/react": "root:*",
+		"@tanstack/react-virtual": "root:*",
 		"bind-event-listener": "root:*",
 		"fast-glob": "root:*",
 		"memoize-one": "root:*",

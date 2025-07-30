@@ -4,6 +4,7 @@ import type { ComponentType } from 'react';
 import type { Fragment, Mark, Node } from '@atlaskit/editor-prosemirror/model';
 import { MarkType } from '@atlaskit/editor-prosemirror/model';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { type GetPMNodeHeight } from '@atlaskit/editor-common/extensibility';
 
 import type { Serializer } from '../serializer';
@@ -268,7 +269,10 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 			case 'media':
 				return this.getMediaProps(node, path);
 			case 'emoji':
-				return this.getEmojiProps(node);
+				return this.getEmojiProps(
+					node,
+					expValEquals('cc_comments_include_path_for_renderer_emojis', 'isEnabled', true) ? path : undefined
+				);
 			case 'extension':
 			case 'bodiedExtension':
 				return this.getExtensionProps(node, path);
@@ -617,9 +621,9 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		};
 	}
 
-	private getEmojiProps(node: Node) {
+	private getEmojiProps(node: Node, path: Array<Node> = []) {
 		return {
-			...this.getProps(node),
+			...this.getProps(node, path),
 			resourceConfig: this.emojiResourceConfig,
 		};
 	}

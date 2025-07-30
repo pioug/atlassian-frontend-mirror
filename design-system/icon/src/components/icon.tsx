@@ -136,6 +136,8 @@ const secondaryTransparentHcmStyles = css({
 /**
  * __Icon__
  *
+ * @deprecated Custom Icon is deprecated and will be removed from `atlaskit/icon` in an upcoming major release. Please use either an existing icon from @atlaskit/icon or @atlaskit/icon-lab, or contributing to @atlaskit/icon-lab directly. For third party logos, use an SVG element along with a label.
+ *
  * An icon is used as a visual representation of common actions and commands to provide context.
  *
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)

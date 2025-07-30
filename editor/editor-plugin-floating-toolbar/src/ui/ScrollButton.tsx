@@ -16,15 +16,15 @@ import { token } from '@atlaskit/tokens';
 const rightSideStyles = xcss({
 	borderLeft: `solid ${token('color.border')} 1px`,
 	right: 'space.0',
-	borderTopRightRadius: '3px',
-	borderBottomRightRadius: '3px',
+	borderTopRightRadius: 'border.radius.100',
+	borderBottomRightRadius: 'border.radius.100',
 });
 
 const leftSideStyles = xcss({
 	borderRight: `solid ${token('color.border')} 1px`,
 	left: 'space.0',
-	borderTopLeftRadius: '3px',
-	borderBottomLeftRadius: '3px',
+	borderTopLeftRadius: 'border.radius.100',
+	borderBottomLeftRadius: 'border.radius.100',
 });
 
 const buttonCommonStyles = xcss({

@@ -1,5 +1,32 @@
 # @atlaskit/editor-core
 
+## 209.3.4
+
+### Patch Changes
+
+- [#193091](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/193091)
+  [`7e879ace28cec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e879ace28cec) -
+  AFO-4081 cleanup ttvc v3 ff
+- Updated dependencies
+
+## 209.3.3
+
+### Patch Changes
+
+- [#192710](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/192710)
+  [`b3b30f3bc4453`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b3b30f3bc4453) -
+  Internal changes to how border radius and border width values are applied. No visual change.
+- Updated dependencies
+
+## 209.3.2
+
+### Patch Changes
+
+- [#191913](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/191913)
+  [`6d1e56695e91d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d1e56695e91d) -
+  EDITOR-1131 Bump adf-schema package to 50.0.0
+- Updated dependencies
+
 ## 209.3.1
 
 ### Patch Changes

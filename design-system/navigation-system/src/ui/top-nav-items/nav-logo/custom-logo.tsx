@@ -20,9 +20,6 @@ import { useHasCustomTheme } from '../themed/has-custom-theme-context';
 
 import { LogoRenderer } from './logo-renderer';
 
-export const themedLogoIcon = '--ds-top-bar-logo-icon';
-export const themedLogoText = '--ds-top-bar-logo-text';
-
 const anchorStyles = cssMap({
 	root: {
 		display: 'flex',
@@ -133,14 +130,14 @@ const logoContainerStyles = cssMap({
 });
 
 /**
- * __Nav logo__
+ * __Custom logo__
  *
- * Custom image logo for the top navigation.
+ * Custom logo for the top navigation.
  *
  * To provide a responsive experience, it requires both a logo and an icon component.
  * The logo component will be used for large viewports, and the icon component will be used for small viewports.
  */
-export const NavLogo = ({
+export const CustomLogo = ({
 	href,
 	logo,
 	icon,

@@ -60,9 +60,6 @@
 			"path": "../../primitives/afm-dev-agents/tsconfig.json"
 		},
 		{
-			"path": "../../../navigation/temp-nav-app-icons/afm-dev-agents/tsconfig.json"
-		},
-		{
 			"path": "../../tokens/afm-dev-agents/tsconfig.json"
 		},
 		{

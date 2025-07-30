@@ -25,15 +25,33 @@ function containersEqual<T>(arr1: T[], arr2: T[]) {
 function getRequestedContainersFromUrl() {
 	const searchParams = new URLSearchParams(window.location.search);
 	const values = searchParams.get('requestedContainers')?.split(',').filter(Boolean) || [];
-	return values
+	const containers = values
 		.filter((value): value is ContainerType =>
 			Object.values(ContainerType).includes(value as ContainerType),
 		)
 		.map((value) => CONTAINER_MAP[value as ContainerType]);
+
+	if (containers.length === 0) {
+		return [];
+	}
+	return userCanAccessFeature() ? containers : [];
 }
 
 function containerDisplayName(container: ContainerTypes) {
 	return CONTAINER_HUMAN_NAMES[container];
+}
+
+function convertContainerToType(container: ContainerTypes) {
+	switch (container) {
+		case 'ConfluenceSpace':
+			return ContainerType.CONFLUENCE_SPACE;
+		case 'JiraProject':
+			return ContainerType.JIRA_PROJECT;
+		case 'LoomSpace':
+			return ContainerType.LOOM_SPACE;
+		default:
+			return null;
+	}
 }
 
 function userCanAccessFeature() {
@@ -59,9 +77,25 @@ let POLLING_DURATION = 10000;
  * Ensures only one callback is pending at a time.
  *
  * @param callback - The async function to poll.
+ * @param onTimeout - Optional callback to execute when polling times out.
  * @returns An object with polling controls and state: startPolling, stopPolling, isPolling, hasTimedOut.
  */
-function useAsyncPolling(callback: () => Promise<void> | void) {
+function useAsyncPolling(
+	callback: () => Promise<void> | void,
+	{
+		onTimeout,
+	}: {
+		onTimeout?: ({
+			startPolling,
+			stopPolling,
+			reset,
+		}: {
+			startPolling: () => void;
+			stopPolling: () => void;
+			reset: () => void;
+		}) => void;
+	} = {},
+) {
 	const [hasTimedOut, setHasTimedOut] = useState(false);
 	const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 	const [isPolling, setIsPolling] = useState(false);
@@ -74,6 +108,16 @@ function useAsyncPolling(callback: () => Promise<void> | void) {
 		}
 		setIsPolling(false);
 		setHasTimedOut(false);
+		setIsPending(false);
+	}, []);
+
+	const reset = useCallback(() => {
+		if (timeoutRef.current) {
+			clearTimeout(timeoutRef.current);
+			timeoutRef.current = null;
+		}
+		setHasTimedOut(false);
+		setIsPolling(false);
 		setIsPending(false);
 	}, []);
 
@@ -90,8 +134,11 @@ function useAsyncPolling(callback: () => Promise<void> | void) {
 		timeoutRef.current = setTimeout(() => {
 			stopPolling();
 			setHasTimedOut(true);
+			if (onTimeout) {
+				onTimeout({ startPolling, stopPolling, reset });
+			}
 		}, POLLING_DURATION);
-	}, [stopPolling]);
+	}, [stopPolling, onTimeout, reset]);
 
 	const wrappedCallback = useCallback(async () => {
 		if (isPending) {
@@ -108,6 +155,7 @@ function useAsyncPolling(callback: () => Promise<void> | void) {
 	useInterval(isPolling ? wrappedCallback : () => {}, isPolling ? POLLING_INTERVAL : null);
 
 	return {
+		reset,
 		startPolling,
 		stopPolling,
 		isPolling,
@@ -122,5 +170,7 @@ export {
 	containersEqual,
 	getRequestedContainersFromUrl,
 	containerDisplayName,
+	CONTAINER_MAP,
 	userCanAccessFeature,
+	convertContainerToType,
 };

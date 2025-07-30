@@ -1,5 +1,13 @@
 # @atlaskit/prosemirror-collab
 
+## 0.17.8
+
+### Patch Changes
+
+- [#191913](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/191913)
+  [`6d1e56695e91d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d1e56695e91d) -
+  EDITOR-1131 Bump adf-schema package to 50.0.0
+
 ## 0.17.7
 
 ### Patch Changes

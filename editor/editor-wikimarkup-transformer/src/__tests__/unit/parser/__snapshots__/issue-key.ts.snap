@@ -123,6 +123,7 @@ exports[`JIRA wiki markup - Issue key (smart card) should not parse issues insid
     {
       "attrs": {
         "language": "java",
+        "localId": null,
         "uniqueId": null,
       },
       "content": [
@@ -168,6 +169,7 @@ exports[`JIRA wiki markup - Issue key (smart card) should not parse issues insid
     {
       "attrs": {
         "layout": "center",
+        "localId": null,
         "width": null,
         "widthType": null,
       },
@@ -185,6 +187,7 @@ exports[`JIRA wiki markup - Issue key (smart card) should not parse issues insid
             "collection": "",
             "height": 183,
             "id": "abc-123",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -218,6 +221,7 @@ exports[`JIRA wiki markup - Issue key (smart card) should not parse issues insid
     {
       "attrs": {
         "language": null,
+        "localId": null,
         "uniqueId": null,
       },
       "content": [
@@ -281,6 +285,7 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issue inside a h
         {
           "attrs": {
             "data": null,
+            "localId": null,
             "url": "https://instance.atlassian.net/browse/ABC-10#icft=ABC-10",
           },
           "type": "inlineCard",
@@ -309,6 +314,7 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issue inside a h
         {
           "attrs": {
             "data": null,
+            "localId": null,
             "url": "https://instance.atlassian.net/browse/ABC-10#icft=ABC-10",
           },
           "type": "inlineCard",
@@ -337,6 +343,7 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issue inside a h
         {
           "attrs": {
             "data": null,
+            "localId": null,
             "url": "https://instance.atlassian.net/browse/ABC-10#icft=ABC-10",
           },
           "type": "inlineCard",
@@ -365,6 +372,7 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issue inside a h
         {
           "attrs": {
             "data": null,
+            "localId": null,
             "url": "https://instance.atlassian.net/browse/ABC-10#icft=ABC-10",
           },
           "type": "inlineCard",
@@ -393,6 +401,7 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issue inside a h
         {
           "attrs": {
             "data": null,
+            "localId": null,
             "url": "https://instance.atlassian.net/browse/ABC-10#icft=ABC-10",
           },
           "type": "inlineCard",
@@ -421,6 +430,7 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issue inside a h
         {
           "attrs": {
             "data": null,
+            "localId": null,
             "url": "https://instance.atlassian.net/browse/ABC-10#icft=ABC-10",
           },
           "type": "inlineCard",
@@ -437,8 +447,14 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issue inside a l
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -452,6 +468,7 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issue inside a l
                 {
                   "attrs": {
                     "data": null,
+                    "localId": null,
                     "url": "https://instance.atlassian.net/browse/ABC-10#icft=ABC-10",
                   },
                   "type": "inlineCard",
@@ -491,6 +508,7 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issue inside a p
     },
     {
       "attrs": {
+        "localId": null,
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
@@ -506,6 +524,7 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issue inside a p
             {
               "attrs": {
                 "data": null,
+                "localId": null,
                 "url": "https://instance.atlassian.net/browse/ABC-10#icft=ABC-10",
               },
               "type": "inlineCard",
@@ -548,6 +567,7 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issue inside a p
         {
           "attrs": {
             "data": null,
+            "localId": null,
             "url": "https://instance.atlassian.net/browse/ABC-10#icft=ABC-10",
           },
           "type": "inlineCard",
@@ -580,6 +600,9 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issue inside a q
       "type": "paragraph",
     },
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
           "attrs": {
@@ -589,6 +612,7 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issue inside a q
             {
               "attrs": {
                 "data": null,
+                "localId": null,
                 "url": "https://instance.atlassian.net/browse/ABC-10#icft=ABC-10",
               },
               "type": "inlineCard",
@@ -630,12 +654,16 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issue inside a t
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -659,6 +687,7 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issue inside a t
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -670,6 +699,7 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issue inside a t
                     {
                       "attrs": {
                         "data": null,
+                        "localId": null,
                         "url": "https://instance.atlassian.net/browse/ABC-10#icft=ABC-10",
                       },
                       "type": "inlineCard",
@@ -706,6 +736,7 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issue inside bra
         {
           "attrs": {
             "data": null,
+            "localId": null,
             "url": "https://instance.atlassian.net/browse/ABC-10#icft=ABC-10",
           },
           "type": "inlineCard",
@@ -737,6 +768,7 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issues after an 
         {
           "attrs": {
             "data": null,
+            "localId": null,
             "url": "https://instance.atlassian.net/browse/ABC-10#icft=ABC-10",
           },
           "type": "inlineCard",
@@ -768,6 +800,7 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issues in betwee
         {
           "attrs": {
             "data": null,
+            "localId": null,
             "url": "https://instance.atlassian.net/browse/ABC-10#icft=ABC-10",
           },
           "type": "inlineCard",
@@ -779,6 +812,7 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issues in betwee
         {
           "attrs": {
             "data": null,
+            "localId": null,
             "url": "https://instance.atlassian.net/browse/ABC-20#icft=ABC-20",
           },
           "type": "inlineCard",
@@ -810,6 +844,7 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issues inside a 
         {
           "attrs": {
             "data": null,
+            "localId": null,
             "url": "https://instance.atlassian.net/browse/ABC-10#icft=ABC-10",
           },
           "type": "inlineCard",
@@ -830,8 +865,14 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issues inside a 
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -845,6 +886,7 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issues inside a 
                 {
                   "attrs": {
                     "data": null,
+                    "localId": null,
                     "url": "https://instance.atlassian.net/browse/ABC-10#icft=ABC-10",
                   },
                   "type": "inlineCard",
@@ -882,6 +924,7 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issues inside ex
         {
           "attrs": {
             "data": null,
+            "localId": null,
             "url": "https://instance.atlassian.net/browse/ABC-10#icft=ABC-10",
           },
           "type": "inlineCard",
@@ -913,6 +956,7 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issues inside pa
         {
           "attrs": {
             "data": null,
+            "localId": null,
             "url": "https://instance.atlassian.net/browse/ABC-10#icft=ABC-10",
           },
           "type": "inlineCard",
@@ -944,6 +988,7 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issues that end 
         {
           "attrs": {
             "data": null,
+            "localId": null,
             "url": "https://instance.atlassian.net/browse/ABC-10#icft=ABC-10",
           },
           "type": "inlineCard",
@@ -955,6 +1000,7 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issues that end 
         {
           "attrs": {
             "data": null,
+            "localId": null,
             "url": "https://instance.atlassian.net/browse/ABC-10#icft=ABC-10",
           },
           "type": "inlineCard",
@@ -986,6 +1032,7 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issues that end 
         {
           "attrs": {
             "data": null,
+            "localId": null,
             "url": "https://instance.atlassian.net/browse/ABC-10#icft=ABC-10",
           },
           "type": "inlineCard",
@@ -997,6 +1044,7 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issues that end 
         {
           "attrs": {
             "data": null,
+            "localId": null,
             "url": "https://instance.atlassian.net/browse/ABC-20#icft=ABC-20",
           },
           "type": "inlineCard",
@@ -1028,6 +1076,7 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issues that end 
         {
           "attrs": {
             "data": null,
+            "localId": null,
             "url": "https://instance.atlassian.net/browse/ABC-10#icft=ABC-10",
           },
           "type": "inlineCard",
@@ -1039,6 +1088,7 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issues that end 
         {
           "attrs": {
             "data": null,
+            "localId": null,
             "url": "https://instance.atlassian.net/browse/ABC-20#icft=ABC-20",
           },
           "type": "inlineCard",
@@ -1066,6 +1116,7 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issues that end 
         {
           "attrs": {
             "data": null,
+            "localId": null,
             "url": "https://instance.atlassian.net/browse/ABC-10#icft=ABC-10",
           },
           "type": "inlineCard",
@@ -1077,6 +1128,7 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issues that end 
         {
           "attrs": {
             "data": null,
+            "localId": null,
             "url": "https://instance.atlassian.net/browse/ABC-20#icft=ABC-20",
           },
           "type": "inlineCard",
@@ -1104,6 +1156,7 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse more than one is
         {
           "attrs": {
             "data": null,
+            "localId": null,
             "url": "https://instance.atlassian.net/browse/ABC-10#icft=ABC-10",
           },
           "type": "inlineCard",
@@ -1115,6 +1168,7 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse more than one is
         {
           "attrs": {
             "data": null,
+            "localId": null,
             "url": "https://instance.atlassian.net/browse/ABC-20#icft=ABC-20",
           },
           "type": "inlineCard",

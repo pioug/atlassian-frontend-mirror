@@ -1,6 +1,12 @@
+import type { JSONNode } from '@atlaskit/editor-json-transformer';
 import { extractSmartLinkEmbed } from '@atlaskit/link-extractors';
+import { NodeDataProvider } from '@atlaskit/node-data-provider';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import {
+	type BlockCardAdf,
+	type EmbedCardAdf,
 	type CardAdf,
+	type InlineCardAdf,
 	type CardAppearance,
 	type DatasourceAdf,
 	getStatus,
@@ -124,7 +130,13 @@ const isJiraIssueNavigator = (url: string) =>
 
 export const isJiraWorkItem = (url: string): boolean => /\/browse\/((?:\w+)-(?:\d+))/i.test(url);
 
-export class EditorCardProvider implements CardProvider {
+type CardNode = InlineCardAdf | BlockCardAdf | EmbedCardAdf;
+
+export class EditorCardProvider
+	extends NodeDataProvider<CardNode, JsonLd.Response>
+	implements CardProvider
+{
+	override readonly name: string;
 	private baseUrl: string;
 	private resolverUrl: string;
 	private providersData?: ProvidersData;
@@ -140,6 +152,9 @@ export class EditorCardProvider implements CardProvider {
 		product?: ProductType,
 		onResolve?: (url: string) => void,
 	) {
+		super();
+
+		this.name = 'editorCardProvider';
 		this.baseUrl = baseUrlOverride || getBaseUrl(envKey);
 		this.resolverUrl = getResolverUrl(envKey, baseUrlOverride);
 		this.transformer = new Transformer();
@@ -157,6 +172,31 @@ export class EditorCardProvider implements CardProvider {
 		}
 	}
 
+	override nodeDataKey(node: CardNode): string {
+		// We can use URL as a key here, because CardClient returns the same data for the same URL
+		// regardless of the type of card (inline, block, embed).
+		return node.attrs.url;
+	}
+
+	override fetchNodesData(nodes: CardNode[]): Promise<JsonLd.Response[]> {
+		const promises = nodes.map((node) => {
+			const url = node.attrs.url;
+
+			return this.cardClient.fetchData(url);
+		});
+
+		return Promise.all(promises);
+	}
+
+	override isNodeSupported(node: JSONNode): node is CardNode {
+		return (
+			['inlineCard', 'blockCard', 'embedCard'].includes(node.type) &&
+			!!node.attrs &&
+			'url' in node.attrs &&
+			typeof node.attrs.url === 'string'
+		);
+	}
+
 	private async batchProviders(
 		keys: ReadonlyArray<string>,
 	): Promise<Array<ProvidersData | undefined>> {
@@ -168,7 +208,14 @@ export class EditorCardProvider implements CardProvider {
 
 	private async checkLinkResolved(resourceUrl: string): Promise<boolean | undefined> {
 		try {
-			const response = await this.cardClient.fetchData(resourceUrl);
+			const response = expValEquals('platform_editor_smart_card_otp', 'isEnabled', true)
+				? // It's ok to cast any resourceUrl to inlineCard here, because only URL is important for the request.
+					await this.getDataAsPromise_DO_NOT_USE_OUTSIDE_MIGRATIONS({
+						type: 'inlineCard',
+						attrs: { url: resourceUrl },
+					})
+				: await this.cardClient.fetchData(resourceUrl);
+
 			if (getStatus(response) !== 'not_found') {
 				return true;
 			}
@@ -181,7 +228,14 @@ export class EditorCardProvider implements CardProvider {
 		resourceUrl: string,
 	): Promise<JsonLd.Response<JsonLd.Data.BaseData> | undefined> {
 		try {
-			const response = await this.cardClient.fetchData(resourceUrl);
+			const response = expValEquals('platform_editor_smart_card_otp', 'isEnabled', true)
+				? // It's ok to cast any resourceUrl to inlineCard here, because only URL is important for the request.
+					await this.getDataAsPromise_DO_NOT_USE_OUTSIDE_MIGRATIONS({
+						type: 'inlineCard',
+						attrs: { url: resourceUrl },
+					})
+				: await this.cardClient.fetchData(resourceUrl);
+
 			if (getStatus(response) !== 'not_found') {
 				return response;
 			}
@@ -358,7 +412,13 @@ export class EditorCardProvider implements CardProvider {
 	 */
 	private async canBeResolvedAsEmbed(url: string) {
 		try {
-			const details = await this.cardClient.fetchData(url);
+			const details = expValEquals('platform_editor_smart_card_otp', 'isEnabled', true)
+				? // It's ok to cast any resourceUrl to inlineCard here, because only URL is important for the request.
+					await this.getDataAsPromise_DO_NOT_USE_OUTSIDE_MIGRATIONS({
+						type: 'inlineCard',
+						attrs: { url },
+					})
+				: await this.cardClient.fetchData(url);
 
 			if (!details) {
 				return false;
@@ -384,7 +444,14 @@ export class EditorCardProvider implements CardProvider {
 	 */
 	private async getDatasourceFromResolveResponse(url: string) {
 		try {
-			const response = await this.cardClient.fetchData(url);
+			const response = expValEquals('platform_editor_smart_card_otp', 'isEnabled', true)
+				? // It's ok to cast any resourceUrl to inlineCard here, because only URL is important for the request.
+					await this.getDataAsPromise_DO_NOT_USE_OUTSIDE_MIGRATIONS({
+						type: 'inlineCard',
+						attrs: { url },
+					})
+				: await this.cardClient.fetchData(url);
+
 			const datasources = (response && (response as JsonLdDatasourceResponse).datasources) || [];
 			if (datasources.length > 0) {
 				// For now we only have one datasource expected even though it is in an array.

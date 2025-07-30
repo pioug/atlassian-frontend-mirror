@@ -6,7 +6,7 @@ props:
   packageName: '@atlaskit/navigation-system/top-nav-items'
   exports:
     - AppSwitcher
-    - NavLogo
+    - CustomLogo
     - Notifications
     - Profile
     - Settings
@@ -26,11 +26,17 @@ The trigger button for the app switcher.
 
 <TSMorphProps exportName="AppSwitcher" packageName="@atlaskit/navigation-system/top-nav-items" />
 
-### NavLogo
+### AppLogo
 
-The product logo for the top navigation.
+The app logo for the top navigation, when an app logo from `@atlaskit/logo` is used.
 
-<TSMorphProps exportName="NavLogo" packageName="@atlaskit/navigation-system/top-nav-items" />
+<TSMorphProps exportName="AppLogo" packageName="@atlaskit/navigation-system/top-nav-items" />
+
+### CustomLogo
+
+The logo for the top navigation, when a custom icon and logo component are used.
+
+<TSMorphProps exportName="CustomLogo" packageName="@atlaskit/navigation-system/top-nav-items" />
 
 ### Search
 

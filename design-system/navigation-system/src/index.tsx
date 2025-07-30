@@ -59,7 +59,7 @@ export type { ResizeBounds } from './ui/page-layout/panel-splitter/types';
 
 export { TopNavStart } from './ui/page-layout/top-nav/top-nav-start';
 export { AppSwitcher } from './ui/top-nav-items/app-switcher';
-export { NavLogo } from './ui/top-nav-items/nav-logo/nav-logo';
+export { CustomLogo } from './ui/top-nav-items/nav-logo/custom-logo';
 export { AppLogo } from './ui/top-nav-items/nav-logo/app-logo';
 export { TopNavMiddle } from './ui/page-layout/top-nav/top-nav-middle';
 export { Search } from './ui/top-nav-items/search';

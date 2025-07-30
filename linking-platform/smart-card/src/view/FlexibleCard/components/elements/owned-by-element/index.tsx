@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { ElementName } from '../../../../../constants';
 import { messages } from '../../../../../messages';
 import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
@@ -15,12 +13,7 @@ export type OwnedByElementProps = BaseTextElementProps & {
 const OwnedByElement = (props: OwnedByElementProps): JSX.Element | null => {
 	const context = useFlexibleUiContext();
 	const { onRender, textPrefix = 'owned_by', ...restProps } = props || {};
-	const data = context
-		? toFormattedTextProps(
-				fg('bandicoots-smart-card-teamwork-context') ? messages[textPrefix] : messages.owned_by,
-				context?.ownedBy,
-			)
-		: null;
+	const data = context ? toFormattedTextProps(messages[textPrefix], context?.ownedBy) : null;
 
 	useEffect(() => {
 		onRender?.(!!data);

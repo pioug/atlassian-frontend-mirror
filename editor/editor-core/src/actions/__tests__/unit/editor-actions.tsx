@@ -251,6 +251,9 @@ describe('Editor Actions', () => {
 			content: [
 				{
 					type: 'tableRow',
+					attrs: {
+						localId: null,
+					},
 					content: [
 						{
 							type: 'tableCell',
@@ -259,6 +262,7 @@ describe('Editor Actions', () => {
 								rowspan: 1,
 								colwidth: null,
 								background: null,
+								localId: null,
 							},
 							content: [
 								{

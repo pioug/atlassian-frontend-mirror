@@ -56,7 +56,7 @@ describe('Confluence Transformer', () => {
 			)(defaultSchema);
 
 			expect(confluenceTransformer.encode(pmDoc)).toEqual(
-				'<blockquote><fab:media-single layout="center"><fab:media media-id="397edf6e-2d0f-4d78-a855-4158fcc594e7" media-type="file" media-collection="contentId-4113639891" width="1024" height="1024"/><fab:adf><![CDATA[{"type":"caption","content":[{"type":"text","text":"Caption on media in quote"}]}]]></fab:adf></fab:media-single></blockquote>',
+				'<blockquote><fab:media-single layout=\"center\"><fab:media media-id=\"397edf6e-2d0f-4d78-a855-4158fcc594e7\" media-type=\"file\" media-collection=\"contentId-4113639891\" width=\"1024\" height=\"1024\"/><fab:adf><![CDATA[{\"type\":\"caption\",\"attrs\":{\"localId\":null},\"content\":[{\"type\":\"text\",\"text\":\"Caption on media in quote\"}]}]]></fab:adf></fab:media-single></blockquote>',
 			);
 		});
 

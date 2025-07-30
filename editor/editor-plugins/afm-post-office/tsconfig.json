@@ -48,6 +48,9 @@
 			"path": "../../editor-plugin-block-controls/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-block-menu/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-block-type/afm-post-office/tsconfig.json"
 		},
 		{

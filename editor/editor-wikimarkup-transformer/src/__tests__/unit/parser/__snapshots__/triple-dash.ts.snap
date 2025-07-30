@@ -14,6 +14,7 @@ exports[`JIRA wiki markup - Triple Dash should not replace with triple dashes wh
         },
         {
           "attrs": {
+            "localId": null,
             "text": "
 ",
           },
@@ -25,6 +26,7 @@ exports[`JIRA wiki markup - Triple Dash should not replace with triple dashes wh
         },
         {
           "attrs": {
+            "localId": null,
             "text": "
 ",
           },
@@ -36,6 +38,7 @@ exports[`JIRA wiki markup - Triple Dash should not replace with triple dashes wh
         },
         {
           "attrs": {
+            "localId": null,
             "text": "
 ",
           },

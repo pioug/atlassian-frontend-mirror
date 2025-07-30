@@ -1,60 +1,60 @@
 {
-    "extends": "../../../../tsconfig.entry-points.confluence.json",
-    "compilerOptions": {
-        "declaration": true,
-        "target": "es5",
-        "composite": true,
-        "outDir": "../../../../../confluence/tsDist/@atlaskit__button",
-        "rootDir": "../"
-    },
-    "include": [
-        "../src/**/*.ts",
-        "../src/**/*.tsx"
-    ],
-    "exclude": [
-        "../src/**/__tests__/*",
-        "../src/**/*.test.*",
-        "../src/**/test.*"
-    ],
-    "references": [
-        {
-            "path": "../../../analytics/analytics-next/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../css/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../ds-lib/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../focus-ring/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../icon/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../observability/interaction-context/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../primitives/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../spinner/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../theme/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../tokens/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../tooltip/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../visually-hidden/afm-cc/tsconfig.json"
-        }
-    ]
+	"extends": "../../../../tsconfig.entry-points.confluence.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"composite": true,
+		"outDir": "../../../../../confluence/tsDist/@atlaskit__button",
+		"rootDir": "../"
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../css/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../ds-lib/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../focus-ring/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../icon/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../observability/interaction-context/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../primitives/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../spinner/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../theme/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../tokens/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../tooltip/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../visually-hidden/afm-cc/tsconfig.json"
+		}
+	]
 }

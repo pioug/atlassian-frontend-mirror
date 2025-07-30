@@ -81,12 +81,10 @@ snapshot(FlexibleUiBlockActionGroup, {
 snapshot(FlexibleUiCustomUnresolvedActionOnlyShowIfAction, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'bandicoots-smart-card-teamwork-context': true,
 	},
 });
 snapshot(FlexibleUiCustomUnresolvedAction, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'bandicoots-smart-card-teamwork-context': true,
 	},
 });

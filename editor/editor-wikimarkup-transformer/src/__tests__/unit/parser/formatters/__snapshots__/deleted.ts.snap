@@ -139,6 +139,7 @@ exports[`WikiMarkup => ADF Formatters - deleted should detect deleted mark at en
         },
         {
           "attrs": {
+            "localId": null,
             "text": "
 ",
           },

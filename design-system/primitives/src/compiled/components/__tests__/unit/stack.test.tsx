@@ -71,4 +71,16 @@ describe('Stack', () => {
 			gap: 'var(--ds-space-100,8px)',
 		});
 	});
+
+	it('should apply aria attributes', () => {
+		render(
+			<Stack aria-modal="true" testId={testId}>
+				child
+			</Stack>,
+		);
+
+		const element = screen.getByTestId(testId);
+		expect(element).toBeInTheDocument();
+		expect(element).toHaveAttribute('aria-modal', 'true');
+	});
 });

@@ -6,6 +6,7 @@ exports[`JIRA wiki markup - Images and attachments [CS-216] should parse media f
     {
       "attrs": {
         "layout": "center",
+        "localId": null,
         "width": null,
         "widthType": null,
       },
@@ -23,6 +24,7 @@ exports[`JIRA wiki markup - Images and attachments [CS-216] should parse media f
             "collection": "",
             "height": 183,
             "id": "uuid-ScreenShot",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -56,6 +58,7 @@ exports[`JIRA wiki markup - Images and attachments [CS-1404] should parse attach
             "collection": "",
             "height": null,
             "id": "uuid-a-doc (jadsjdasjadsjkdasjk)",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -76,6 +79,7 @@ exports[`JIRA wiki markup - Images and attachments [CS-1404] should parse attach
             "collection": "",
             "height": null,
             "id": "uuid-not-empty (askjsajnkjknads)",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -105,12 +109,16 @@ exports[`JIRA wiki markup - Images and attachments [CS-1404] should parse attach
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -141,6 +149,7 @@ exports[`JIRA wiki markup - Images and attachments [CS-1404] should parse attach
                         "collection": "",
                         "height": null,
                         "id": "uuid-a-doc (jadsjdasjadsjkdasjk)",
+                        "localId": null,
                         "occurrenceKey": null,
                         "type": "file",
                         "url": null,
@@ -161,6 +170,7 @@ exports[`JIRA wiki markup - Images and attachments [CS-1404] should parse attach
                         "collection": "",
                         "height": null,
                         "id": "uuid-not-empty (askjsajnkjknads)",
+                        "localId": null,
                         "occurrenceKey": null,
                         "type": "file",
                         "url": null,
@@ -179,6 +189,7 @@ exports[`JIRA wiki markup - Images and attachments [CS-1404] should parse attach
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -226,6 +237,7 @@ exports[`JIRA wiki markup - Images and attachments [CS-1404] should parse attach
             "collection": "",
             "height": null,
             "id": "uuid-a-doc (jadsjdasjadsjkdasjk)",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -246,6 +258,7 @@ exports[`JIRA wiki markup - Images and attachments [CS-1404] should parse attach
             "collection": "",
             "height": null,
             "id": "uuid-not-empty (askjsajnkjknads)",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -279,6 +292,7 @@ exports[`JIRA wiki markup - Images and attachments [CS-1404] should parse attach
             "collection": "",
             "height": null,
             "id": "uuid-a-doc (jadsjdasjadsjkdasjk)",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -299,6 +313,7 @@ exports[`JIRA wiki markup - Images and attachments [CS-1404] should parse attach
             "collection": "",
             "height": null,
             "id": "uuid-not-empty (askjsajnkjknads)",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -332,6 +347,7 @@ exports[`JIRA wiki markup - Images and attachments [CS-1404] should parse attach
             "collection": "",
             "height": null,
             "id": "uuid-a-doc (jadsjdasjadsjkdasjk)",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -357,6 +373,7 @@ exports[`JIRA wiki markup - Images and attachments [CS-1404] should parse attach
             "collection": "",
             "height": null,
             "id": "uuid-not-empty (askjsajnkjknads)",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -390,6 +407,7 @@ exports[`JIRA wiki markup - Images and attachments [CS-1404] should parse attach
             "collection": "",
             "height": null,
             "id": "uuid-a-doc (jadsjdasjadsjkdasjk)",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -427,6 +445,7 @@ exports[`JIRA wiki markup - Images and attachments [CS-1404] should parse attach
             "collection": "",
             "height": null,
             "id": "uuid-not-empty (askjsajnkjknads)",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -460,6 +479,7 @@ exports[`JIRA wiki markup - Images and attachments [CS-1404] should parse consec
             "collection": "",
             "height": null,
             "id": "uuid-file1",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -480,6 +500,7 @@ exports[`JIRA wiki markup - Images and attachments [CS-1404] should parse consec
             "collection": "",
             "height": null,
             "id": "uuid-file2",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -500,6 +521,7 @@ exports[`JIRA wiki markup - Images and attachments [CS-1404] should parse consec
             "collection": "",
             "height": null,
             "id": "uuid-file3",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -533,6 +555,7 @@ exports[`JIRA wiki markup - Images and attachments [CS-1404] should parse list o
             "collection": "",
             "height": null,
             "id": "uuid-a-doc (jadsjdasjadsjkdasjk)",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -553,6 +576,7 @@ exports[`JIRA wiki markup - Images and attachments [CS-1404] should parse list o
             "collection": "",
             "height": null,
             "id": "uuid-not-empty (askjsajnkjknads)",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -578,6 +602,7 @@ exports[`JIRA wiki markup - Images and attachments [CS-1404] should parse list o
             "collection": "",
             "height": null,
             "id": "uuid-a-doc (jadsjdasjadsjkdasjk)",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -598,6 +623,7 @@ exports[`JIRA wiki markup - Images and attachments [CS-1404] should parse list o
             "collection": "",
             "height": null,
             "id": "uuid-not-empty (askjsajnkjknads)",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -619,6 +645,7 @@ exports[`JIRA wiki markup - Images and attachments [CS-1879] should parse media 
     {
       "attrs": {
         "layout": "center",
+        "localId": null,
         "width": null,
         "widthType": null,
       },
@@ -636,6 +663,7 @@ exports[`JIRA wiki markup - Images and attachments [CS-1879] should parse media 
             "collection": "",
             "height": 183,
             "id": "foo.png",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -657,6 +685,7 @@ exports[`JIRA wiki markup - Images and attachments [CS-1879] should parse media 
     {
       "attrs": {
         "layout": "center",
+        "localId": null,
         "width": null,
         "widthType": null,
       },
@@ -674,6 +703,7 @@ exports[`JIRA wiki markup - Images and attachments [CS-1879] should parse media 
             "collection": "",
             "height": 183,
             "id": "foo.png",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -695,6 +725,7 @@ exports[`JIRA wiki markup - Images and attachments [CS-1879] should parse media 
     {
       "attrs": {
         "layout": "center",
+        "localId": null,
         "width": null,
         "widthType": null,
       },
@@ -712,6 +743,7 @@ exports[`JIRA wiki markup - Images and attachments [CS-1879] should parse media 
             "collection": "",
             "height": 183,
             "id": "foo.png",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -745,6 +777,7 @@ exports[`JIRA wiki markup - Images and attachments [CS-3136] should keep two med
             "collection": "",
             "height": null,
             "id": "2.png",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -758,6 +791,7 @@ exports[`JIRA wiki markup - Images and attachments [CS-3136] should keep two med
     {
       "attrs": {
         "layout": "center",
+        "localId": null,
         "width": null,
         "widthType": null,
       },
@@ -775,6 +809,7 @@ exports[`JIRA wiki markup - Images and attachments [CS-3136] should keep two med
             "collection": "",
             "height": 183,
             "id": "2.png",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -808,6 +843,7 @@ exports[`JIRA wiki markup - Images and attachments Should parse image with links
     {
       "attrs": {
         "layout": "center",
+        "localId": null,
         "width": null,
         "widthType": null,
       },
@@ -825,6 +861,7 @@ exports[`JIRA wiki markup - Images and attachments Should parse image with links
             "collection": "",
             "height": 250,
             "id": "73b39312-2853-486c-bc63-9ce187c4bfc7",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -867,6 +904,7 @@ exports[`JIRA wiki markup - Images and attachments should add collection from co
     {
       "attrs": {
         "layout": "center",
+        "localId": null,
         "width": null,
         "widthType": null,
       },
@@ -884,6 +922,7 @@ exports[`JIRA wiki markup - Images and attachments should add collection from co
             "collection": "my-test-collection",
             "height": 183,
             "id": "9db1eca8-8257-4763-92fb-e6417f9e34c9",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -905,6 +944,7 @@ exports[`JIRA wiki markup - Images and attachments should clamp media with perce
     {
       "attrs": {
         "layout": "center",
+        "localId": null,
         "width": 100,
         "widthType": null,
       },
@@ -922,6 +962,7 @@ exports[`JIRA wiki markup - Images and attachments should clamp media with perce
             "collection": "",
             "height": null,
             "id": "fizzbuzz.txt",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -943,6 +984,7 @@ exports[`JIRA wiki markup - Images and attachments should find absolute URL imag
     {
       "attrs": {
         "layout": "center",
+        "localId": null,
         "width": null,
         "widthType": null,
       },
@@ -960,6 +1002,7 @@ exports[`JIRA wiki markup - Images and attachments should find absolute URL imag
             "collection": "",
             "height": 183,
             "id": "",
+            "localId": null,
             "occurrenceKey": null,
             "type": "external",
             "url": "http://www.host.com/image.gif",
@@ -993,6 +1036,7 @@ exports[`JIRA wiki markup - Images and attachments should find attachments in mu
     {
       "attrs": {
         "layout": "center",
+        "localId": null,
         "width": null,
         "widthType": null,
       },
@@ -1010,6 +1054,7 @@ exports[`JIRA wiki markup - Images and attachments should find attachments in mu
             "collection": "",
             "height": 183,
             "id": "uuid-image",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -1043,6 +1088,7 @@ exports[`JIRA wiki markup - Images and attachments should find attachments with 
     {
       "attrs": {
         "layout": "center",
+        "localId": null,
         "width": null,
         "widthType": null,
       },
@@ -1060,6 +1106,7 @@ exports[`JIRA wiki markup - Images and attachments should find attachments with 
             "collection": "",
             "height": 400,
             "id": "uuid-quicktime",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -1081,6 +1128,7 @@ exports[`JIRA wiki markup - Images and attachments should find attachments with 
     {
       "attrs": {
         "layout": "center",
+        "localId": null,
         "width": 50,
         "widthType": null,
       },
@@ -1098,6 +1146,7 @@ exports[`JIRA wiki markup - Images and attachments should find attachments with 
             "collection": "",
             "height": null,
             "id": "fizzbuzz.txt",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -1119,6 +1168,7 @@ exports[`JIRA wiki markup - Images and attachments should find images in a multi
     {
       "attrs": {
         "layout": "center",
+        "localId": null,
         "width": null,
         "widthType": null,
       },
@@ -1136,6 +1186,7 @@ exports[`JIRA wiki markup - Images and attachments should find images in a multi
             "collection": "",
             "height": 183,
             "id": "uuid-Kapture",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -1169,6 +1220,7 @@ exports[`JIRA wiki markup - Images and attachments should find images in the tex
     {
       "attrs": {
         "layout": "center",
+        "localId": null,
         "width": null,
         "widthType": null,
       },
@@ -1186,6 +1238,7 @@ exports[`JIRA wiki markup - Images and attachments should find images in the tex
             "collection": "",
             "height": 183,
             "id": "uuid-image",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -1219,6 +1272,7 @@ exports[`JIRA wiki markup - Images and attachments should transform attachment n
             "collection": "",
             "height": null,
             "id": "document.pdf",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -1244,6 +1298,7 @@ exports[`JIRA wiki markup - Images and attachments should transform attachment n
     {
       "attrs": {
         "layout": "center",
+        "localId": null,
         "width": null,
         "widthType": null,
       },
@@ -1261,6 +1316,7 @@ exports[`JIRA wiki markup - Images and attachments should transform attachment n
             "collection": "",
             "height": 183,
             "id": "uuid-image",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -1294,6 +1350,7 @@ exports[`JIRA wiki markup - Images and attachments should transform filename to 
             "collection": "",
             "height": null,
             "id": "document.pdf",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -1315,6 +1372,7 @@ exports[`JIRA wiki markup - Images and attachments should transform filename to 
     {
       "attrs": {
         "layout": "center",
+        "localId": null,
         "width": null,
         "widthType": null,
       },
@@ -1332,6 +1390,7 @@ exports[`JIRA wiki markup - Images and attachments should transform filename to 
             "collection": "",
             "height": 183,
             "id": "Screen Shot.jpeg",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,

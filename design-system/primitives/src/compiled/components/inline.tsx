@@ -3,6 +3,7 @@
  * @jsx jsx
  */
 import {
+	type AriaAttributes,
 	Children,
 	type ElementType,
 	type FC,
@@ -76,7 +77,8 @@ export type InlineProps<T extends ElementType = 'div'> = {
 	 * Forwarded ref element.
 	 */
 	ref?: React.ComponentPropsWithRef<T>['ref'];
-} & BasePrimitiveProps;
+} & BasePrimitiveProps &
+	AriaAttributes;
 
 const styles = cssMap({
 	separator: {
@@ -128,6 +130,7 @@ const Inline = memo(
 				testId,
 				role,
 				children: rawChildren,
+				...ariaAttributes
 			}: InlineProps<T>,
 			ref: Ref<any>,
 		) => {
@@ -148,6 +151,7 @@ const Inline = memo(
 
 			return (
 				<Flex
+					{...ariaAttributes}
 					as={as}
 					role={role}
 					alignItems={alignItems}

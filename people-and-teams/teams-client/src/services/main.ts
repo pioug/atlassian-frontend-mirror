@@ -370,6 +370,14 @@ export class TeamsClient {
 		);
 	}
 
+	async removeAgentTeamAssociation(
+		...args: Parameters<typeof defaultLegionClient.removeAgentTeamAssociation>
+	): Promise<AwaitedReturn<typeof defaultLegionClient.removeAgentTeamAssociation>> {
+		return this.measurePerformance('removeAgentTeamAssociation', () =>
+			this._legionClient.removeAgentTeamAssociation(...args),
+		);
+	}
+
 	/**
 	 * Cancel a join request to a private team
 	 */

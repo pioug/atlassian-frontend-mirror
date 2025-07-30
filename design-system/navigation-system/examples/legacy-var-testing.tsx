@@ -8,7 +8,7 @@ import { type ChangeEvent, useCallback, useState } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 import Heading from '@atlaskit/heading';
-import { AtlassianIcon, AtlassianLogo } from '@atlaskit/logo';
+import { ConfluenceIcon } from '@atlaskit/logo';
 import { Aside } from '@atlaskit/navigation-system/layout/aside';
 import { Main } from '@atlaskit/navigation-system/layout/main';
 import { Panel } from '@atlaskit/navigation-system/layout/panel';
@@ -22,10 +22,10 @@ import {
 	TopNavStart,
 } from '@atlaskit/navigation-system/layout/top-nav';
 import {
+	AppLogo,
 	AppSwitcher,
 	CreateButton,
 	Help,
-	NavLogo,
 	Search,
 	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
@@ -109,7 +109,7 @@ export function ResizableSlots() {
 						expandLabel="Expand sidebar"
 					/>
 					<AppSwitcher label="Switch apps" />
-					<NavLogo href="" logo={AtlassianLogo} icon={AtlassianIcon} label="Home page" />
+					<AppLogo href="" icon={ConfluenceIcon} name="Confluence" label="Home page" />
 				</TopNavStart>
 				<TopNavMiddle>
 					<Search label="Search" />

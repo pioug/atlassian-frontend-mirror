@@ -967,39 +967,20 @@ describe('@atlaskit/editor-core', () => {
 		},
 	);
 
-	describe('platform_vc_ignore_no_ls_mutation_marker feature flag', () => {
-		ffTest.on('platform_vc_ignore_no_ls_mutation_marker', '', () => {
-			it('should add data-vc-ignore-if-no-layout-shift attribute when feature flag is enabled', () => {
-				const editorProps = {};
+	describe('data-vc-ignore-if-no-layout-shift', () => {
+		it('should add data-vc-ignore-if-no-layout-shift attribute when feature flag is enabled', () => {
+			const editorProps = {};
 
-				const result = renderWithIntl(
-					<ReactEditorView
-						{...requiredProps()}
-						preset={createUniversalPreset({ props: editorProps })}
-						editorProps={editorProps}
-					/>,
-				);
+			const result = renderWithIntl(
+				<ReactEditorView
+					{...requiredProps()}
+					preset={createUniversalPreset({ props: editorProps })}
+					editorProps={editorProps}
+				/>,
+			);
 
-				const editorElement = result.container.querySelector('[data-editor-id]');
-				expect(editorElement).toHaveAttribute('data-vc-ignore-if-no-layout-shift', 'true');
-			});
-		});
-
-		ffTest.off('platform_vc_ignore_no_ls_mutation_marker', '', () => {
-			it('should not add data-vc-ignore-if-no-layout-shift attribute when feature flag is disabled', () => {
-				const editorProps = {};
-
-				const result = renderWithIntl(
-					<ReactEditorView
-						{...requiredProps()}
-						preset={createUniversalPreset({ props: editorProps })}
-						editorProps={editorProps}
-					/>,
-				);
-
-				const editorElement = result.container.querySelector('[data-editor-id]');
-				expect(editorElement).not.toHaveAttribute('data-vc-ignore-if-no-layout-shift');
-			});
+			const editorElement = result.container.querySelector('[data-editor-id]');
+			expect(editorElement).toHaveAttribute('data-vc-ignore-if-no-layout-shift', 'true');
 		});
 	});
 
@@ -1064,14 +1045,21 @@ describe('@atlaskit/editor-core', () => {
 				content: [
 					{
 						type: 'blockquote',
+						attrs: {
+							localId: null,
+						},
 						content: [
 							{
 								type: 'layoutSection',
+								attrs: {
+									localId: null,
+								},
 								content: [
 									{
 										type: 'layoutColumn',
 										attrs: {
 											width: 33.33,
+											localId: null,
 										},
 										content: [
 											{
@@ -1092,6 +1080,7 @@ describe('@atlaskit/editor-core', () => {
 										type: 'layoutColumn',
 										attrs: {
 											width: 66.66,
+											localId: null,
 										},
 										content: [
 											{
@@ -1135,14 +1124,21 @@ describe('@atlaskit/editor-core', () => {
 				content: [
 					{
 						type: 'blockquote',
+						attrs: {
+							localId: null,
+						},
 						content: [
 							{
 								type: 'layoutSection',
+								attrs: {
+									localId: null,
+								},
 								content: [
 									{
 										type: 'layoutColumn',
 										attrs: {
 											width: 33.33,
+											localId: null,
 										},
 										content: [
 											{
@@ -1163,6 +1159,7 @@ describe('@atlaskit/editor-core', () => {
 										type: 'layoutColumn',
 										attrs: {
 											width: 66.66,
+											localId: null,
 										},
 										content: [
 											{

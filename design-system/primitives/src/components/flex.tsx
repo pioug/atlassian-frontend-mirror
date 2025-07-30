@@ -59,6 +59,11 @@ export type FlexProps<T extends ElementType = 'div'> = {
 	children: ReactNode;
 
 	/**
+	 * The [HTML `id` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id).
+	 */
+	id?: string;
+
+	/**
 	 * Forwarded ref element.
 	 */
 	ref?: React.ComponentPropsWithRef<T>['ref'];
@@ -139,6 +144,7 @@ const Flex = memo(
 				direction,
 				wrap,
 				xcss,
+				id,
 			}: FlexProps<T>,
 			ref: Ref<any>,
 		) => {
@@ -146,6 +152,7 @@ const Flex = memo(
 
 			return (
 				<Component
+					id={id}
 					role={role}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className={resolvedStyles.static}

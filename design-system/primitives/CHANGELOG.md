@@ -1,5 +1,16 @@
 # @atlaskit/primitives
 
+## 14.11.0
+
+### Minor Changes
+
+- [#192701](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/192701)
+  [`4d5732a51de3b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4d5732a51de3b) -
+  Flex, Inline, and Stack now support passing through native ARIA attributes.
+- [#193136](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/193136)
+  [`deefc1d6ebaa6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/deefc1d6ebaa6) -
+  [ux] Added HTML id attribute to Flex and Flex-based primitives
+
 ## 14.10.2
 
 ### Patch Changes

@@ -66,6 +66,7 @@ exports[`JIRA wiki markup - Text [ESS-2539] shoudld keep text after multiple for
         },
         {
           "attrs": {
+            "localId": null,
             "text": "
 ",
           },
@@ -73,6 +74,7 @@ exports[`JIRA wiki markup - Text [ESS-2539] shoudld keep text after multiple for
         },
         {
           "attrs": {
+            "localId": null,
             "text": "
 ",
           },
@@ -80,6 +82,7 @@ exports[`JIRA wiki markup - Text [ESS-2539] shoudld keep text after multiple for
         },
         {
           "attrs": {
+            "localId": null,
             "text": "
 ",
           },
@@ -191,6 +194,7 @@ exports[`JIRA wiki markup - Text should ignore leading spaces on each line 1`] =
         },
         {
           "attrs": {
+            "localId": null,
             "text": "
 ",
           },
@@ -258,6 +262,9 @@ exports[`JIRA wiki markup - Text should replace four dashes with a ruler + ignor
       "type": "paragraph",
     },
     {
+      "attrs": {
+        "localId": null,
+      },
       "type": "rule",
     },
     {
@@ -291,6 +298,7 @@ exports[`JIRA wiki markup - Text should respect \\ as a line break 1`] = `
         },
         {
           "attrs": {
+            "localId": null,
             "text": "
 ",
           },
@@ -322,6 +330,7 @@ exports[`JIRA wiki markup - Text should respect \\\\ as a line break 1`] = `
         },
         {
           "attrs": {
+            "localId": null,
             "text": "
 ",
           },

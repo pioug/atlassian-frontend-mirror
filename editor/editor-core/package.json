@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "209.3.1",
+	"version": "209.3.4",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -535,9 +535,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_centre_mention_padding": {
-			"type": "boolean"
-		},
-		"platform_vc_ignore_no_ls_mutation_marker": {
 			"type": "boolean"
 		},
 		"platform_editor_fix_code_block_bg_color_in_macro_2": {

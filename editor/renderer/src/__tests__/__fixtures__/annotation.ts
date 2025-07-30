@@ -297,6 +297,7 @@ export const mediaWithAnnotation = (annotationId: string) => ({
 		layout: 'center',
 		width: 426,
 		widthType: 'pixel',
+		localId: null,
 	},
 	content: [
 		{
@@ -308,6 +309,7 @@ export const mediaWithAnnotation = (annotationId: string) => ({
 				collection: 'contentId-3533084563',
 				type: 'file',
 				height: 1197,
+				localId: null,
 			},
 			marks: [
 				{
@@ -378,6 +380,7 @@ export const docWithTextAndMedia = {
 				layout: 'center',
 				width: 426,
 				widthType: 'pixel',
+				localId: null,
 			},
 			content: [
 				{
@@ -389,10 +392,14 @@ export const docWithTextAndMedia = {
 						alt: '568c02f0-5949-4465-8f43-e7f9b1f7ead5.png',
 						width: 500,
 						height: 500,
+						localId: null,
 					},
 				},
 				{
 					type: 'caption',
+					attrs: {
+						localId: null,
+					},
 					content: [
 						{
 							type: 'text',
@@ -413,10 +420,15 @@ export const docWithTextAndMedia = {
 			content: [
 				{
 					type: 'tableRow',
+					attrs: {
+						localId: null,
+					},
 					content: [
 						{
 							type: 'tableHeader',
-							attrs: {},
+							attrs: {
+								localId: null,
+							},
 							content: [
 								{
 									type: 'paragraph',
@@ -428,10 +440,15 @@ export const docWithTextAndMedia = {
 				},
 				{
 					type: 'tableRow',
+					attrs: {
+						localId: null,
+					},
 					content: [
 						{
 							type: 'tableCell',
-							attrs: {},
+							attrs: {
+								localId: null,
+							},
 							content: [
 								{
 									type: 'mediaSingle',
@@ -439,6 +456,7 @@ export const docWithTextAndMedia = {
 										layout: 'center',
 										width: 426,
 										widthType: 'pixel',
+										localId: null,
 									},
 									content: [
 										{
@@ -450,10 +468,14 @@ export const docWithTextAndMedia = {
 												alt: 'catt.jpeg',
 												width: 2121,
 												height: 1194,
+												localId: null,
 											},
 										},
 										{
 											type: 'caption',
+											attrs: {
+												localId: null,
+											},
 											content: [
 												{
 													type: 'text',
@@ -473,10 +495,15 @@ export const docWithTextAndMedia = {
 				},
 				{
 					type: 'tableRow',
+					attrs: {
+						localId: null,
+					},
 					content: [
 						{
 							type: 'tableCell',
-							attrs: {},
+							attrs: {
+								localId: null,
+							},
 							content: [
 								{
 									type: 'paragraph',
@@ -508,6 +535,7 @@ export const docWithInlineNodes = {
 						shortName: ':slight_smile:',
 						id: '1f642',
 						text: '🙂',
+						localId: null,
 					},
 				},
 				{
@@ -523,6 +551,7 @@ export const docWithInlineNodes = {
 					type: 'date',
 					attrs: {
 						timestamp: '1572480000000',
+						localId: null,
 					},
 				},
 				{

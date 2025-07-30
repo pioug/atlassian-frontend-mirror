@@ -8,6 +8,7 @@ import type { Linter } from 'eslint';
 import camelCase from 'lodash/camelCase';
 import outdent from 'outdent';
 // @ts-expect-error - platform needs to change module resolution
+// eslint-disable-next-line import/default
 import tsxApi from 'tsx/cjs/api';
 
 import format from '@af/formatting/sync';

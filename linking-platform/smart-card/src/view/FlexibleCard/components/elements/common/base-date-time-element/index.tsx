@@ -7,7 +7,6 @@ import { selectUnit } from '@formatjs/intl-utils';
 import { FormattedMessage, type MessageDescriptor, useIntl } from 'react-intl-next';
 
 import type { Prettify } from '@atlaskit/linking-common';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../../../../messages';
@@ -146,12 +145,7 @@ const BaseDateTimeElement = ({
 
 	return (
 		<span
-			css={[
-				styles,
-				fontSize !== undefined &&
-					fg('bandicoots-smart-card-teamwork-context') &&
-					fontOverrideStyleMap[fontSize],
-			]}
+			css={[styles, fontSize !== undefined && fontOverrideStyleMap[fontSize]]}
 			style={{
 				color,
 			}}

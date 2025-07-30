@@ -47,13 +47,9 @@ export const getContextByStatus = (
 						params.onAuthorize,
 					),
 				},
-				...(fg('bandicoots-smart-card-teamwork-context')
-					? {
-							meta: {
-								accessType: response?.meta?.requestAccess?.accessType,
-							},
-						}
-					: undefined),
+				meta: {
+					accessType: response?.meta?.requestAccess?.accessType,
+				},
 			};
 	}
 };

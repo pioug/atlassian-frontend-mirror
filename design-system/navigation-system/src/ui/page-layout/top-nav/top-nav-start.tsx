@@ -53,7 +53,7 @@ export function TopNavStart({
 	/**
 	 * The content of the layout area.
 	 *
-	 * Should contain `SideNavToggleButton`, `AppSwitcher`, and `NavLogo` components.
+	 * Should contain `SideNavToggleButton`, `AppSwitcher`, and `AppLogo`/`CustomLogo` components.
 	 */
 	children: React.ReactNode;
 	/**

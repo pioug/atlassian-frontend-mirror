@@ -34,4 +34,7 @@ export default {
   'ptc.team-profile-page.team-containers.empty-state.description':
     'Your team can link their Jira projects, Confluence spaces here to show where they work',
   'ptc.team-profile-page.team-containers.empty-state.title': 'Add the places your team works',
+  'teams-public..team-containers.timeout-description': 'Something went wrong. Verify your connection and retry.',
+  'teams-public.team-containers.timeout-action': 'Try again',
+  'teams-public.team-containers.timeout-title': 'We’re couldn’t connect your spaces',
 };

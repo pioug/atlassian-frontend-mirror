@@ -17,7 +17,7 @@ import GrowDiagonalIcon from '@atlaskit/icon/core/grow-diagonal';
 import InboxIcon from '@atlaskit/icon/core/inbox';
 import ProjectIcon from '@atlaskit/icon/core/project';
 import ShrinkDiagonalIcon from '@atlaskit/icon/core/shrink-diagonal';
-import { AtlassianIcon, AtlassianLogo } from '@atlaskit/logo';
+import { ConfluenceIcon } from '@atlaskit/logo';
 import { Aside } from '@atlaskit/navigation-system/layout/aside';
 import { Banner } from '@atlaskit/navigation-system/layout/banner';
 import { Main } from '@atlaskit/navigation-system/layout/main';
@@ -38,10 +38,10 @@ import {
 import { LinkMenuItem } from '@atlaskit/navigation-system/side-nav-items/link-menu-item';
 import { MenuList } from '@atlaskit/navigation-system/side-nav-items/menu-list';
 import {
+	AppLogo,
 	AppSwitcher,
 	CreateButton,
 	Help,
-	NavLogo,
 	Notifications,
 	Profile,
 	Search,
@@ -117,7 +117,7 @@ export default function FullScreenModeExample() {
 								expandLabel="Expand sidebar"
 							/>
 							<AppSwitcher label="Switch apps" />
-							<NavLogo href="" logo={AtlassianLogo} icon={AtlassianIcon} label="Home page" />
+							<AppLogo href="" icon={ConfluenceIcon} name="Confluence" label="Home page" />
 						</TopNavStart>
 						<TopNavMiddle>
 							<Search label="Search" />

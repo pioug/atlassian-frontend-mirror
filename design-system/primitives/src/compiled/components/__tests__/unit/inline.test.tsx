@@ -88,4 +88,16 @@ describe('Inline', () => {
 			rowGap: 'var(--ds-space-100,8px)',
 		});
 	});
+
+	it('should apply aria attributes', () => {
+		render(
+			<Inline aria-modal="true" testId={testId}>
+				child
+			</Inline>,
+		);
+
+		const element = screen.getByTestId(testId);
+		expect(element).toBeInTheDocument();
+		expect(element).toHaveAttribute('aria-modal', 'true');
+	});
 });

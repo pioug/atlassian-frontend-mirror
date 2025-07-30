@@ -65,6 +65,9 @@
 			"path": "../editor-plugin-block-controls/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-block-menu/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-block-type/tsconfig.app.json"
 		},
 		{

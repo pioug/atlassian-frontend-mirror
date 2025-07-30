@@ -50,8 +50,8 @@ import { Divider } from '@atlaskit/navigation-system/side-nav-items/menu-section
 import {
 	AppSwitcher,
 	CreateButton,
+	CustomLogo,
 	Help,
-	NavLogo,
 	Notifications,
 	Search,
 	Settings,
@@ -125,7 +125,7 @@ export default function LayersInMain({
 							expandLabel="Expand sidebar"
 						/>
 						<AppSwitcher label="Switch apps" />
-						<NavLogo href="" logo={AtlassianLogo} icon={AtlassianIcon} label="Home page" />
+						<CustomLogo href="" logo={AtlassianLogo} icon={AtlassianIcon} label="Home page" />
 					</TopNavStart>
 					<TopNavMiddle>
 						<Search label="Search" />

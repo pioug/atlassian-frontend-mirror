@@ -231,7 +231,7 @@ describe(name, () => {
 			const oldConsole = console.error;
 			// eslint-disable-next-line no-console
 			console.error = jest.fn();
-			let createAnalyticsEvent = jest.fn(
+			const createAnalyticsEvent = jest.fn(
 				() =>
 					({
 						fire() {},
@@ -427,6 +427,9 @@ describe(name, () => {
 							content: [
 								{
 									type: 'tableRow',
+									attrs: {
+										localId: null,
+									},
 									content: [
 										{
 											type: 'tableHeader',
@@ -435,6 +438,7 @@ describe(name, () => {
 												colspan: 1,
 												colwidth: null,
 												rowspan: 1,
+												localId: null,
 											},
 											content: [
 												{
@@ -452,6 +456,7 @@ describe(name, () => {
 												colspan: 1,
 												colwidth: null,
 												rowspan: 1,
+												localId: null,
 											},
 											content: [
 												{
@@ -469,6 +474,7 @@ describe(name, () => {
 												colspan: 1,
 												colwidth: null,
 												rowspan: 1,
+												localId: null,
 											},
 											content: [
 												{
@@ -483,6 +489,9 @@ describe(name, () => {
 								},
 								{
 									type: 'tableRow',
+									attrs: {
+										localId: null,
+									},
 									content: [
 										{
 											type: 'tableCell',
@@ -491,6 +500,7 @@ describe(name, () => {
 												colspan: 1,
 												colwidth: null,
 												rowspan: 1,
+												localId: null,
 											},
 											content: [
 												{
@@ -498,6 +508,7 @@ describe(name, () => {
 													attrs: {
 														__expanded: true,
 														title: '',
+														localId: null,
 													},
 													content: [
 														{
@@ -525,6 +536,7 @@ describe(name, () => {
 												colspan: 1,
 												colwidth: null,
 												rowspan: 1,
+												localId: null,
 											},
 											content: [
 												{
@@ -542,6 +554,7 @@ describe(name, () => {
 												colspan: 1,
 												colwidth: null,
 												rowspan: 1,
+												localId: null,
 											},
 											content: [
 												{
@@ -572,10 +585,15 @@ describe(name, () => {
 							content: [
 								{
 									type: 'tableRow',
+									attrs: {
+										localId: null,
+									},
 									content: [
 										{
 											type: 'tableHeader',
-											attrs: {},
+											attrs: {
+												localId: null,
+											},
 											content: [
 												{
 													attrs: {
@@ -588,7 +606,9 @@ describe(name, () => {
 										},
 										{
 											type: 'tableHeader',
-											attrs: {},
+											attrs: {
+												localId: null,
+											},
 											content: [
 												{
 													attrs: {
@@ -601,7 +621,9 @@ describe(name, () => {
 										},
 										{
 											type: 'tableHeader',
-											attrs: {},
+											attrs: {
+												localId: null,
+											},
 											content: [
 												{
 													attrs: {
@@ -616,15 +638,21 @@ describe(name, () => {
 								},
 								{
 									type: 'tableRow',
+									attrs: {
+										localId: null,
+									},
 									content: [
 										{
 											type: 'tableCell',
-											attrs: {},
+											attrs: {
+												localId: null,
+											},
 											content: [
 												{
 													type: 'nestedExpand',
 													attrs: {
 														title: '',
+														localId: null,
 													},
 													content: [
 														{
@@ -642,7 +670,9 @@ describe(name, () => {
 										},
 										{
 											type: 'tableCell',
-											attrs: {},
+											attrs: {
+												localId: null,
+											},
 											content: [
 												{
 													attrs: {
@@ -655,7 +685,9 @@ describe(name, () => {
 										},
 										{
 											type: 'tableCell',
-											attrs: {},
+											attrs: {
+												localId: null,
+											},
 											content: [
 												{
 													attrs: {
@@ -683,6 +715,9 @@ describe(name, () => {
 					content: [
 						{
 							type: 'blockquote',
+							attrs: {
+								localId: null,
+							},
 							content: [
 								{
 									type: 'unsupportedBlock',
@@ -703,6 +738,9 @@ describe(name, () => {
 					content: [
 						{
 							type: 'blockquote',
+							attrs: {
+								localId: null,
+							},
 							content: [
 								{
 									type: 'paragraph1',
@@ -729,6 +767,7 @@ describe(name, () => {
 						{
 							type: 'panel',
 							attrs: {
+								localId: null,
 								panelType: 'info',
 								panelColor: null,
 								panelIcon: null,
@@ -757,6 +796,7 @@ describe(name, () => {
 						{
 							type: 'panel',
 							attrs: {
+								localId: null,
 								panelType: 'info',
 							},
 							content: [
@@ -785,6 +825,7 @@ describe(name, () => {
 						{
 							type: 'layoutSection',
 							attrs: {
+								localId: null,
 								columnRuleStyle: null,
 							},
 							content: [
@@ -802,13 +843,19 @@ describe(name, () => {
 													content: [{ type: 'text', text: 'hello' }],
 												},
 											],
-											attrs: { width: 50 },
+											attrs: {
+												width: 50,
+												localId: null,
+											},
 										},
 									},
 								},
 								{
 									type: 'layoutColumn',
-									attrs: { width: 50 },
+									attrs: {
+										width: 50,
+										localId: null,
+									},
 									content: [
 										{
 											attrs: {
@@ -830,6 +877,9 @@ describe(name, () => {
 					content: [
 						{
 							type: 'layoutSection',
+							attrs: {
+								localId: null,
+							},
 							content: [
 								{
 									type: 'layoutCol',
@@ -849,6 +899,7 @@ describe(name, () => {
 									],
 									attrs: {
 										width: 50,
+										localId: null,
 									},
 								},
 								{
@@ -869,6 +920,7 @@ describe(name, () => {
 									],
 									attrs: {
 										width: 50,
+										localId: null,
 									},
 								},
 							],
@@ -886,6 +938,7 @@ describe(name, () => {
 						{
 							type: 'layoutSection',
 							attrs: {
+								localId: null,
 								columnRuleStyle: null,
 							},
 							content: [
@@ -907,6 +960,7 @@ describe(name, () => {
 									],
 									attrs: {
 										width: 33.33,
+										localId: null,
 									},
 								},
 								{
@@ -927,6 +981,7 @@ describe(name, () => {
 									],
 									attrs: {
 										width: 33.33,
+										localId: null,
 									},
 								},
 								{
@@ -947,6 +1002,7 @@ describe(name, () => {
 									],
 									attrs: {
 										width: 33.33,
+										localId: null,
 									},
 								},
 								{
@@ -967,6 +1023,7 @@ describe(name, () => {
 									],
 									attrs: {
 										width: 33.33,
+										localId: null,
 									},
 								},
 								{
@@ -987,6 +1044,7 @@ describe(name, () => {
 									],
 									attrs: {
 										width: 33.33,
+										localId: null,
 									},
 								},
 								{
@@ -1010,6 +1068,7 @@ describe(name, () => {
 											],
 											attrs: {
 												width: 33.33,
+												localId: null,
 											},
 										},
 									},
@@ -1025,6 +1084,9 @@ describe(name, () => {
 					content: [
 						{
 							type: 'layoutSection',
+							attrs: {
+								localId: null,
+							},
 							content: [
 								{
 									type: 'layoutColumn',
@@ -1044,6 +1106,7 @@ describe(name, () => {
 									],
 									attrs: {
 										width: 33.33,
+										localId: null,
 									},
 								},
 								{
@@ -1064,6 +1127,7 @@ describe(name, () => {
 									],
 									attrs: {
 										width: 33.33,
+										localId: null,
 									},
 								},
 								{
@@ -1084,6 +1148,7 @@ describe(name, () => {
 									],
 									attrs: {
 										width: 33.33,
+										localId: null,
 									},
 								},
 								{
@@ -1104,6 +1169,7 @@ describe(name, () => {
 									],
 									attrs: {
 										width: 33.33,
+										localId: null,
 									},
 								},
 								{
@@ -1124,6 +1190,7 @@ describe(name, () => {
 									],
 									attrs: {
 										width: 33.33,
+										localId: null,
 									},
 								},
 								{
@@ -1144,6 +1211,7 @@ describe(name, () => {
 									],
 									attrs: {
 										width: 33.33,
+										localId: null,
 									},
 								},
 							],
@@ -1160,11 +1228,17 @@ describe(name, () => {
 					content: [
 						{
 							type: 'layoutSection',
-							attrs: { columnRuleStyle: null },
+							attrs: {
+								columnRuleStyle: null,
+								localId: null,
+							},
 							content: [
 								{
 									type: 'layoutColumn',
-									attrs: { width: 50 },
+									attrs: {
+										width: 50,
+										localId: null,
+									},
 									content: [
 										{
 											type: 'unsupportedBlock',
@@ -1179,7 +1253,10 @@ describe(name, () => {
 								},
 								{
 									type: 'layoutColumn',
-									attrs: { width: 50 },
+									attrs: {
+										width: 50,
+										localId: null,
+									},
 									content: [
 										{
 											attrs: {
@@ -1201,6 +1278,9 @@ describe(name, () => {
 					content: [
 						{
 							type: 'layoutSection',
+							attrs: {
+								localId: null,
+							},
 							content: [
 								{
 									type: 'layoutColumn',
@@ -1217,6 +1297,7 @@ describe(name, () => {
 									],
 									attrs: {
 										width: 50,
+										localId: null,
 									},
 								},
 								{
@@ -1237,6 +1318,7 @@ describe(name, () => {
 									],
 									attrs: {
 										width: 50,
+										localId: null,
 									},
 								},
 							],
@@ -1255,6 +1337,7 @@ describe(name, () => {
 							type: 'codeBlock',
 							attrs: {
 								language: 'none',
+								localId: null,
 								uniqueId: null,
 							},
 							content: [
@@ -1284,6 +1367,7 @@ describe(name, () => {
 							type: 'codeBlock',
 							attrs: {
 								language: 'none',
+								localId: null,
 							},
 							content: [
 								{
@@ -1505,7 +1589,10 @@ describe(name, () => {
 
 			['bulletList', 'orderedList'].forEach((listType) => {
 				it(`should wrap in unsupportedBlock node for listItem node inside ${listType}`, () => {
-					const orderedListAttributes = listType === 'orderedList' ? { attrs: { order: 1 } } : {};
+					const orderedListAttributes =
+						listType === 'orderedList'
+							? { attrs: { order: 1, localId: null } }
+							: { attrs: { localId: null } };
 					const expected = {
 						type: 'doc',
 						content: [
@@ -1515,6 +1602,9 @@ describe(name, () => {
 								content: [
 									{
 										type: 'listItem',
+										attrs: {
+											localId: null,
+										},
 										content: [
 											{
 												type: 'unsupportedBlock',
@@ -1543,9 +1633,13 @@ describe(name, () => {
 						content: [
 							{
 								type: listType,
+								...orderedListAttributes,
 								content: [
 									{
 										type: 'listItem',
+										attrs: {
+											localId: null,
+										},
 										content: [
 											{
 												type: 'invalidChildComponent',
@@ -1658,6 +1752,7 @@ describe(name, () => {
 									type: 'placeholder',
 									attrs: {
 										text: 'text',
+										localId: null,
 									},
 									marks: [
 										{
@@ -1686,6 +1781,7 @@ describe(name, () => {
 									type: 'placeholder',
 									attrs: {
 										text: 'text',
+										localId: null,
 									},
 									marks: [unsupportedMark],
 								},
@@ -1718,6 +1814,7 @@ describe(name, () => {
 									type: 'placeholder',
 									attrs: {
 										text: 'text',
+										localId: null,
 									},
 									marks: [
 										{
@@ -1746,6 +1843,7 @@ describe(name, () => {
 									type: 'placeholder',
 									attrs: {
 										text: 'text',
+										localId: null,
 									},
 									marks: [unsupportedMark],
 								},
@@ -1767,6 +1865,7 @@ describe(name, () => {
 							type: 'panel',
 							attrs: {
 								panelType: 'success',
+								localId: null,
 							},
 							content: [
 								{
@@ -1799,7 +1898,7 @@ describe(name, () => {
 							attrs: {
 								originalValue: {
 									type: 'panel',
-									attrs: { panelType: 'success' },
+									attrs: { panelType: 'success', localId: null },
 									content: [
 										{
 											attrs: {
@@ -1828,11 +1927,15 @@ describe(name, () => {
 					content: [
 						{
 							type: 'layoutSection',
+							attrs: {
+								localId: null,
+							},
 							content: [
 								{
 									type: 'layoutColumn',
 									attrs: {
 										width: 50,
+										localId: null,
 									},
 									content: [
 										{
@@ -1848,6 +1951,7 @@ describe(name, () => {
 									type: 'layoutColumn',
 									attrs: {
 										width: 50,
+										localId: null,
 									},
 									content: [
 										{
@@ -1873,11 +1977,11 @@ describe(name, () => {
 					content: [
 						{
 							type: 'layoutSection',
-							attrs: { columnRuleStyle: null },
+							attrs: { columnRuleStyle: null, localId: null },
 							content: [
 								{
 									type: 'layoutColumn',
-									attrs: { width: 50 },
+									attrs: { width: 50, localId: null },
 									content: [
 										{
 											attrs: {
@@ -1889,7 +1993,7 @@ describe(name, () => {
 								},
 								{
 									type: 'layoutColumn',
-									attrs: { width: 50 },
+									attrs: { width: 50, localId: null },
 									content: [
 										{
 											attrs: {
@@ -1925,11 +2029,15 @@ describe(name, () => {
 						content: [
 							{
 								type: 'layoutSection',
+								attrs: {
+									localId: null,
+								},
 								content: [
 									{
 										type: 'layoutColumn',
 										attrs: {
 											width: 50,
+											localId: null,
 										},
 										content: [
 											{
@@ -1945,6 +2053,7 @@ describe(name, () => {
 										type: 'layoutColumn',
 										attrs: {
 											width: 50,
+											localId: null,
 										},
 										content: [
 											{
@@ -1977,11 +2086,11 @@ describe(name, () => {
 						content: [
 							{
 								type: 'layoutSection',
-								attrs: { columnRuleStyle: null },
+								attrs: { columnRuleStyle: null, localId: null },
 								content: [
 									{
 										type: 'layoutColumn',
-										attrs: { width: 50 },
+										attrs: { width: 50, localId: null },
 										content: [
 											{
 												attrs: {
@@ -1993,7 +2102,7 @@ describe(name, () => {
 									},
 									{
 										type: 'layoutColumn',
-										attrs: { width: 50 },
+										attrs: { width: 50, localId: null },
 										content: [
 											{
 												attrs: {
@@ -2032,10 +2141,14 @@ describe(name, () => {
 							content: [
 								{
 									type: 'layoutSection',
+									attrs: {
+										localId: null,
+									},
 									content: [
 										{
 											type: 'layoutColumn',
 											attrs: {
+												localId: null,
 												newAttribute1: 'someVal',
 											},
 											content: [
@@ -2058,6 +2171,7 @@ describe(name, () => {
 											type: 'layoutColumn',
 											attrs: {
 												width: 50,
+												localId: null,
 											},
 											content: [
 												{
@@ -2079,11 +2193,13 @@ describe(name, () => {
 							content: [
 								{
 									type: 'layoutSection',
-									attrs: { columnRuleStyle: null },
+									attrs: { columnRuleStyle: null, localId: null },
 									content: [
 										{
 											type: 'layoutColumn',
-											attrs: {},
+											attrs: {
+												localId: null,
+											},
 											content: [
 												{
 													attrs: {
@@ -2114,7 +2230,7 @@ describe(name, () => {
 										},
 										{
 											type: 'layoutColumn',
-											attrs: { width: 50 },
+											attrs: { width: 50, localId: null },
 											content: [
 												{
 													attrs: {
@@ -2357,6 +2473,7 @@ describe(name, () => {
 								{
 									type: 'panel',
 									attrs: {
+										localId: null,
 										panelType: PanelType.INFO,
 										panelColor: null,
 										panelIcon: null,
@@ -2435,6 +2552,7 @@ describe(name, () => {
 								{
 									type: 'panel',
 									attrs: {
+										localId: null,
 										panelType: PanelType.INFO,
 										panelColor: null,
 										panelIcon: null,
@@ -2520,6 +2638,7 @@ describe(name, () => {
 								{
 									type: 'panel',
 									attrs: {
+										localId: null,
 										panelType: PanelType.INFO,
 										panelColor: null,
 										panelIcon: null,
@@ -2661,6 +2780,7 @@ describe(name, () => {
 									attrs: {
 										language: 'javascript',
 										uniqueId: null,
+										localId: null,
 									},
 									marks: [
 										{
@@ -2719,6 +2839,7 @@ describe(name, () => {
 									attrs: {
 										language: 'javascript',
 										uniqueId: null,
+										localId: null,
 									},
 									marks: [
 										{
@@ -2782,6 +2903,7 @@ describe(name, () => {
 									attrs: {
 										language: null,
 										uniqueId: null,
+										localId: null,
 									},
 									marks: [
 										{
@@ -2839,6 +2961,7 @@ describe(name, () => {
 									attrs: {
 										language: null,
 										uniqueId: null,
+										localId: null,
 									},
 									marks: [
 										{

@@ -24,6 +24,7 @@ exports[`WikiMarkup => ADF - force line break ESS-2359 should detect hardbreaks 
       "content": [
         {
           "attrs": {
+            "localId": null,
             "text": "
 ",
           },
@@ -35,6 +36,7 @@ exports[`WikiMarkup => ADF - force line break ESS-2359 should detect hardbreaks 
         },
         {
           "attrs": {
+            "localId": null,
             "text": "
 ",
           },
@@ -58,6 +60,7 @@ exports[`WikiMarkup => ADF - force line break ESS-2359 should detect hardbreaks 
         },
         {
           "attrs": {
+            "localId": null,
             "text": "
 ",
           },
@@ -105,6 +108,7 @@ exports[`WikiMarkup => ADF - force line break should detect the correct force li
         },
         {
           "attrs": {
+            "localId": null,
             "text": "
 ",
           },
@@ -136,6 +140,7 @@ exports[`WikiMarkup => ADF - force line break should detect the correct force li
         },
         {
           "attrs": {
+            "localId": null,
             "text": "
 ",
           },
@@ -147,6 +152,7 @@ exports[`WikiMarkup => ADF - force line break should detect the correct force li
         },
         {
           "attrs": {
+            "localId": null,
             "text": "
 ",
           },
@@ -178,6 +184,7 @@ exports[`WikiMarkup => ADF - force line break should detect the force line break
         },
         {
           "attrs": {
+            "localId": null,
             "text": "
 ",
           },

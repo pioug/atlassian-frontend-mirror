@@ -60,9 +60,6 @@
 			"path": "../../primitives/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../../navigation/temp-nav-app-icons/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../tokens/afm-jira/tsconfig.json"
 		},
 		{

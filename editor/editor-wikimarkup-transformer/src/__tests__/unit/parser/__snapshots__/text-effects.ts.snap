@@ -42,8 +42,14 @@ exports[`JIRA wiki markup - Text effects ADFEXP-38 bullet items should not conta
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -87,10 +93,14 @@ exports[`JIRA wiki markup - Text effects ADFEXP-38 ordered list should not conta
   "content": [
     {
       "attrs": {
+        "localId": null,
         "order": 1,
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -1433,6 +1443,7 @@ exports[`JIRA wiki markup - Text effects should convert double baskslash to a ha
         },
         {
           "attrs": {
+            "localId": null,
             "text": "
 ",
           },
@@ -1668,6 +1679,7 @@ exports[`JIRA wiki markup - Text effects should not apply marks on separate line
         },
         {
           "attrs": {
+            "localId": null,
             "text": "
 ",
           },
@@ -1839,6 +1851,7 @@ exports[`JIRA wiki markup - Text effects should not fail while applying marks to
         },
         {
           "attrs": {
+            "localId": null,
             "text": "
 ",
           },
@@ -2007,6 +2020,7 @@ exports[`JIRA wiki markup - Text effects should not search for monospace text in
     {
       "attrs": {
         "language": "java",
+        "localId": null,
         "uniqueId": null,
       },
       "content": [

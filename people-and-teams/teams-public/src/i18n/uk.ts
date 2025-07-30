@@ -32,4 +32,7 @@ export default {
   'ptc.team-profile-page.team-containers.empty-state.description':
     'Ваша команда може зв’язати свої проєкти Jira й розділи Confluence тут, щоб відобразити, з чим вона працює',
   'ptc.team-profile-page.team-containers.empty-state.title': 'Додайте місця роботи вашої команди',
+  'teams-public..team-containers.timeout-description': 'Сталася помилка. Перевірте з’єднання та повторіть спробу.',
+  'teams-public.team-containers.timeout-action': 'Повторити спробу',
+  'teams-public.team-containers.timeout-title': 'Не вдалося підключити розділи',
 };

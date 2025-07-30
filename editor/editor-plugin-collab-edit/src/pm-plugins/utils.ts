@@ -104,6 +104,7 @@ export const createTelepointers = (
 		fullNameEl.textContent = fullName;
 		fullNameEl.className = 'telepointer-fullname';
 		fullNameEl.style.backgroundColor = avatarColor.backgroundColor;
+		fullNameEl.style.color = avatarColor.textColor;
 		fullNameEl.setAttribute('aria-hidden', 'true');
 		cursor.appendChild(fullNameEl);
 
@@ -111,6 +112,7 @@ export const createTelepointers = (
 		initialEl.textContent = initial;
 		initialEl.className = 'telepointer-initial';
 		initialEl.style.backgroundColor = avatarColor.backgroundColor;
+		initialEl.style.color = avatarColor.textColor;
 		initialEl.setAttribute('aria-hidden', 'true');
 		cursor.appendChild(initialEl);
 	}

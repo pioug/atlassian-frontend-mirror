@@ -5,6 +5,7 @@ exports[`JIRA wiki markup - headings [CS-310] should ignore heading text when fa
   "content": [
     {
       "attrs": {
+        "localId": null,
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
@@ -58,6 +59,7 @@ exports[`JIRA wiki markup - headings should allow heading inside panel 1`] = `
   "content": [
     {
       "attrs": {
+        "localId": null,
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
@@ -137,6 +139,7 @@ exports[`JIRA wiki markup - headings should treat h7 as usual text inside macro 
   "content": [
     {
       "attrs": {
+        "localId": null,
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,

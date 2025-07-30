@@ -65,19 +65,16 @@ describe('Per-interaction VC observer', () => {
 		}
 	});
 
-	describe('when platform_ufo_enable_vc_observer_per_interaction is enabled', () => {
+	describe('when VC is enabled', () => {
 		beforeEach(() => {
-			(fg as jest.MockedFunction<typeof fg>).mockImplementation((flagName: string) => {
-				if (flagName === 'platform_ufo_enable_vc_observer_per_interaction') {
-					return true;
-				}
-				return false;
+			(getConfig as jest.MockedFunction<typeof getConfig>).mockReturnValue({
+				product: 'test',
+				region: 'test',
+				vc: { enabled: true },
 			});
 		});
 
 		it('should create a per-interaction VC observer for transition interactions', () => {
-			(fg as jest.MockedFunction<typeof fg>).mockReturnValue(true);
-
 			const interactionId = 'test-transition-interaction';
 			const startTime = 1000;
 
@@ -104,12 +101,9 @@ describe('Per-interaction VC observer', () => {
 			});
 		});
 
-		it('should create a per-interaction VC observer for press interactions when VC is enabled', () => {
+		it('should create a per-interaction VC observer for press interactions when feature flag is enabled', () => {
 			(fg as jest.MockedFunction<typeof fg>).mockImplementation((flagName: string) => {
 				if (flagName === 'platform_ufo_enable_vc_press_interactions') {
-					return true;
-				}
-				if (flagName === 'platform_ufo_enable_vc_observer_per_interaction') {
 					return true;
 				}
 				return false;
@@ -133,8 +127,6 @@ describe('Per-interaction VC observer', () => {
 		});
 
 		it('should stop the per-interaction VC observer when interaction is removed', () => {
-			(fg as jest.MockedFunction<typeof fg>).mockReturnValue(true);
-
 			const interactionId = 'test-cleanup-interaction';
 			const startTime = 1000;
 
@@ -162,20 +154,20 @@ describe('Per-interaction VC observer', () => {
 		});
 	});
 
-	describe('when platform_ufo_enable_vc_press_interactions is disabled', () => {
+	describe('when VC is disabled', () => {
 		beforeEach(() => {
-			(fg as jest.MockedFunction<typeof fg>).mockImplementation((flagName: string) => {
-				if (flagName === 'platform_ufo_enable_vc_press_interactions') {
-					return false;
-				}
-				return false;
+			(getConfig as jest.MockedFunction<typeof getConfig>).mockReturnValue({
+				product: 'test',
+				region: 'test',
+				// When VC is disabled, config.vc should be undefined or null
+				vc: undefined,
 			});
+			// When VC is disabled, newVCObserver should not be called
+			(newVCObserver as jest.MockedFunction<typeof newVCObserver>).mockClear();
 		});
 
-		it('should not create a per-interaction VC observer', () => {
-			(fg as jest.MockedFunction<typeof fg>).mockReturnValue(false);
-
-			const interactionId = 'test-disabled-interaction';
+		it('should not create a per-interaction VC observer when VC is disabled', () => {
+			const interactionId = 'test-disabled-vc-interaction';
 			const startTime = 1000;
 
 			// Set the current interaction ID
@@ -195,11 +187,9 @@ describe('Per-interaction VC observer', () => {
 			const interaction = getActiveInteraction();
 			expect(interaction).toBeDefined();
 			expect(interaction?.vcObserver).toBeUndefined();
-			// Should still call start on the global observer
-			expect(mockVCObserver.start).toHaveBeenCalledWith({
-				startTime,
-				experienceKey: 'test-ufo-name',
-			});
+			expect(mockVCObserver.start).not.toHaveBeenCalled();
+			// newVCObserver should not be called when VC is disabled
+			expect(newVCObserver).not.toHaveBeenCalled();
 		});
 	});
 });

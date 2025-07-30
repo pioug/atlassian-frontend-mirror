@@ -4,6 +4,7 @@
  */
 import { jsx } from '@compiled/react';
 
+import { AtlassianIcon, AtlassianLogo } from '@atlaskit/logo';
 import { Root } from '@atlaskit/navigation-system/layout/root';
 import { SideNavToggleButton } from '@atlaskit/navigation-system/layout/side-nav';
 import {
@@ -15,7 +16,7 @@ import {
 import {
 	AppSwitcher,
 	CreateButton,
-	NavLogo,
+	CustomLogo,
 	Profile,
 	Search,
 } from '@atlaskit/navigation-system/top-nav-items';
@@ -27,11 +28,11 @@ import placeholder20x200 from './images/20x200.png';
 import { WithResponsiveViewport } from './utils/example-utils';
 
 const TopNavigationCustomLogoInstance = ({
-	logoUrl,
-	iconUrl,
+	logo,
+	icon,
 }: {
-	logoUrl: string;
-	iconUrl: string;
+	logo: typeof AtlassianLogo | (() => JSX.Element);
+	icon: typeof AtlassianIcon | (() => JSX.Element);
 }) => (
 	<WithResponsiveViewport>
 		{/**
@@ -43,10 +44,10 @@ const TopNavigationCustomLogoInstance = ({
 				<TopNavStart>
 					<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
 					<AppSwitcher label="App switcher" onClick={() => alert('app switcher')} />
-					<NavLogo
+					<CustomLogo
 						href="http://www.atlassian.design"
-						logo={() => <img alt="" src={logoUrl} />}
-						icon={() => <img alt="" src={iconUrl} />}
+						logo={logo}
+						icon={icon}
 						label="Home page"
 					/>
 				</TopNavStart>
@@ -62,22 +63,46 @@ const TopNavigationCustomLogoInstance = ({
 	</WithResponsiveViewport>
 );
 
-export const TopNavigationCustomLogo200x20Example = () => (
-	<TopNavigationCustomLogoInstance logoUrl={placeholder200x20} iconUrl={placeholder200x20} />
+// eslint-disable-next-line @atlaskit/design-system/no-html-image
+const generateImageComponent = (image: string) => () => <img alt="" src={image} />;
+
+export const TopNavigationCustomLogoExample = () => (
+	<TopNavigationCustomLogoInstance logo={AtlassianLogo} icon={AtlassianIcon} />
 );
 
-export const TopNavigationCustomLogo200x200Example = () => (
-	<TopNavigationCustomLogoInstance logoUrl={placeholder200x200} iconUrl={placeholder200x200} />
+export const TopNavigationCustomLogoImage200x20Example = () => (
+	<TopNavigationCustomLogoInstance
+		logo={generateImageComponent(placeholder200x20)}
+		icon={generateImageComponent(placeholder200x20)}
+	/>
 );
 
-export const TopNavigationCustomLogo20x20Example = () => (
-	<TopNavigationCustomLogoInstance logoUrl={placeholder20x20} iconUrl={placeholder20x20} />
+export const TopNavigationCustomLogoImage200x200Example = () => (
+	<TopNavigationCustomLogoInstance
+		logo={generateImageComponent(placeholder200x200)}
+		icon={generateImageComponent(placeholder200x200)}
+	/>
 );
 
-export const TopNavigationCustomLogo20x200Example = () => (
-	<TopNavigationCustomLogoInstance logoUrl={placeholder20x200} iconUrl={placeholder20x200} />
+export const TopNavigationCustomLogoImage20x20Example = () => (
+	<TopNavigationCustomLogoInstance
+		logo={generateImageComponent(placeholder20x20)}
+		icon={generateImageComponent(placeholder20x20)}
+	/>
 );
 
-export default function TopNavigationCustomLogoExample() {
-	return <TopNavigationCustomLogoInstance logoUrl={placeholder200x20} iconUrl={placeholder20x20} />;
+export const TopNavigationCustomLogoImage20x200Example = () => (
+	<TopNavigationCustomLogoInstance
+		logo={generateImageComponent(placeholder20x200)}
+		icon={generateImageComponent(placeholder20x200)}
+	/>
+);
+
+export default function TopNavigationCustomLogoImageExample() {
+	return (
+		<TopNavigationCustomLogoInstance
+			logo={generateImageComponent(placeholder200x20)}
+			icon={generateImageComponent(placeholder20x20)}
+		/>
+	);
 }

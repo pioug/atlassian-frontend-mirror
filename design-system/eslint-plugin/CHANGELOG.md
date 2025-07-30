@@ -1,5 +1,15 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.19.2
+
+### Patch Changes
+
+- [#192592](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/192592)
+  [`558893bdbc7c3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/558893bdbc7c3) -
+  Fixed no-legacy-icons auto fixer to retain size prop when migrating from migration to final core
+  entry point
+- Updated dependencies
+
 ## 13.19.1
 
 ### Patch Changes

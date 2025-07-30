@@ -4,28 +4,35 @@ order: 0
 
 import BasicSkeleton from '../../examples/constellation/skeleton-basic';
 import ShimmeringSkeleton from '../../examples/constellation/skeleton-shimmering';
-import ColorCostomizedSkeleton from '../../examples/constellation/skeleton-customized-color.tsx';
-import AnimationColorCostomizedSkeleton from '../../examples/constellation/skeleton-customized-animation-color.tsx';
+import ColorCustomizedSkeleton from '../../examples/constellation/skeleton-customized-color.tsx';
+import ShapeCustomizedSkeleton from '../../examples/constellation/skeleton-customized-shape.tsx';
+import AnimationColorCustomizedSkeleton from '../../examples/constellation/skeleton-customized-animation-color.tsx';
 
 ## Basic
 
-<Example Component={BasicSkeleton} packageName="@atlaskit/skeleton" />
+<Example Component={BasicSkeleton} packageName="@atlaskit/skeleton" backgroundColor="white" />
 
 ## Shimmering effect
 
 The shimmering animation can be controlled via the `isShimmering` prop.
 
-<Example Component={ShimmeringSkeleton} packageName="@atlaskit/skeleton" />
+<Example Component={ShimmeringSkeleton} packageName="@atlaskit/skeleton"  backgroundColor="white"/>
+
+## Customized shape
+
+Use `width`, `height`, and `borderRadius` to control the shape.
+
+<Example Component={ShapeCustomizedSkeleton} packageName="@atlaskit/skeleton"  backgroundColor="white"/>
 
 ## Customized color
 
-The default skeleton color can be overrided via the `color` prop.
+The default skeleton color can be overridden via the `color` prop.
 
-<Example Component={ColorCostomizedSkeleton} packageName="@atlaskit/skeleton" />
+<Example Component={ColorCustomizedSkeleton} packageName="@atlaskit/skeleton"  backgroundColor="white"/>
 
 ## Customized shimmering animation color
 
-The default shimmering animation `from` and `to` colors can be overrided via the `color` and
+The default shimmering animation `from` and `to` colors can be overridden via the `color` and
 `ShimmeringEndColor` prop.
 
-<Example Component={AnimationColorCostomizedSkeleton} packageName="@atlaskit/skeleton" />
+<Example Component={AnimationColorCustomizedSkeleton} packageName="@atlaskit/skeleton"  backgroundColor="white"/>

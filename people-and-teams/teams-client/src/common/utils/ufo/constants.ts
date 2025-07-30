@@ -66,6 +66,7 @@ const TeamsClientExperienceKeyList = [
 	'getAriFromUrl',
 	'getWebLinkTitle',
 	'addAgentToTeam',
+	'removeAgentTeamAssociation',
 ] as const;
 export type TeamsClientExperienceKeys = (typeof TeamsClientExperienceKeyList)[number];
 

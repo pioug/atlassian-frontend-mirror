@@ -64,9 +64,7 @@ describe('Image navigator', () => {
 				{ wrapper: AllTheProviders },
 			);
 
-			await expect(container).toBeAccessible({
-				violationCount: 1,
-			});
+			await expect(container).toBeAccessible();
 		});
 
 		it('should have image cropper', async () => {
@@ -358,9 +356,7 @@ describe('Image navigator', () => {
 				{ wrapper: AllTheProviders },
 			);
 
-			await expect(container).toBeAccessible({
-				violationCount: 1,
-			});
+			await expect(container).toBeAccessible();
 		});
 
 		it('should clear state', async () => {

@@ -12,7 +12,7 @@ import { TopNavStart } from '../../../page-layout/top-nav/top-nav-start';
 import { AppSwitcher } from '../../app-switcher';
 import { CreateButton } from '../../create-button';
 import { Help } from '../../help';
-import { NavLogo } from '../../nav-logo/nav-logo';
+import { CustomLogo } from '../../nav-logo/custom-logo';
 import { Search } from '../../search';
 import { Settings } from '../../settings';
 
@@ -22,7 +22,7 @@ describe('TopNavigation', () => {
 			<TopNav>
 				<TopNavStart>
 					<AppSwitcher label="App switcher" />
-					<NavLogo
+					<CustomLogo
 						href="http://www.atlassian.design"
 						logo={AtlassianLogo}
 						icon={AtlassianIcon}
@@ -44,11 +44,11 @@ describe('TopNavigation', () => {
 });
 
 describe('TopNavStart', () => {
-	describe('NavLogo', () => {
+	describe('CustomLogo', () => {
 		it('should be accessible', async () => {
 			const { container } = render(
 				<TopNavStart>
-					<NavLogo
+					<CustomLogo
 						href="http://www.atlassian.design"
 						logo={AtlassianLogo}
 						icon={AtlassianIcon}
@@ -62,7 +62,7 @@ describe('TopNavStart', () => {
 		it('should be in the document', () => {
 			render(
 				<TopNavStart>
-					<NavLogo
+					<CustomLogo
 						href="http://www.atlassian.design"
 						logo={AtlassianLogo}
 						icon={AtlassianIcon}
@@ -79,7 +79,7 @@ describe('TopNavStart', () => {
 
 			render(
 				<TopNavStart>
-					<NavLogo
+					<CustomLogo
 						href="http://www.atlassian.design"
 						logo={AtlassianLogo}
 						icon={AtlassianIcon}

@@ -35,10 +35,16 @@
 			"path": "./tsconfig.app.json"
 		},
 		{
+			"path": "../../editor/editor-json-transformer/tsconfig.app.json"
+		},
+		{
 			"path": "../../measurement/feature-gate-js-client/tsconfig.app.json"
 		},
 		{
 			"path": "../json-ld-types/tsconfig.app.json"
+		},
+		{
+			"path": "../link-provider/tsconfig.app.json"
 		},
 		{
 			"path": "../linking-common/tsconfig.app.json"

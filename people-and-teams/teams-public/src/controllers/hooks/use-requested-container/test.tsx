@@ -1,9 +1,11 @@
 import React from 'react';
 
 import { act, renderHook as rtlRenderHook } from '@testing-library/react';
+import { renderToString } from 'react-dom/server';
 import { IntlProvider } from 'react-intl-next';
 
 import FeatureGates from '@atlaskit/feature-gate-js-client';
+import { type FlagProps } from '@atlaskit/flag';
 import { ContainerType } from '@atlaskit/teams-client/types';
 
 import { type ContainerTypes } from '../../../common/types';
@@ -17,6 +19,7 @@ jest.mock('../use-team-containers');
 jest.mock('@atlaskit/feature-gate-js-client');
 
 const teamId = 'abc-123';
+const cloudId = '123-abc';
 
 function urlSearchParams(search: string) {
 	const mockGet = jest.fn();
@@ -53,7 +56,7 @@ async function advancePollingTimeout() {
 function renderHook() {
 	const onRequestedContainerTimeout = jest.fn();
 	const view = rtlRenderHook(
-		() => useRequestedContainers({ teamId, onRequestedContainerTimeout }),
+		() => useRequestedContainers({ teamId, cloudId, onRequestedContainerTimeout }),
 		{
 			wrapper: ({ children }) => <IntlProvider locale="en">{children}</IntlProvider>,
 		},
@@ -220,4 +223,54 @@ test('will not call refetchTeamContainers if there is already a request in progr
 
 	await advancePolling();
 	expect(refetchTeamContainers).toHaveBeenCalledTimes(2);
+});
+
+describe('on timeout', () => {
+	test('calls onRequestedContainerTimeout if provided', async () => {
+		urlSearchParams(`?requestedContainers=${ContainerType.CONFLUENCE_SPACE}`);
+		const { onRequestedContainerTimeout } = renderHook();
+
+		await advancePollingTimeout();
+		expect(onRequestedContainerTimeout).toHaveBeenCalled();
+	});
+
+	test('user has option to try again', async () => {
+		urlSearchParams(`?requestedContainers=${ContainerType.CONFLUENCE_SPACE}`);
+		const { onRequestedContainerTimeout } = renderHook();
+
+		const onAction = jest.fn();
+
+		onRequestedContainerTimeout.mockImplementation((createFlag) => {
+			const flag = createFlag({ onAction });
+			const tryAgain = flag.actions[0].onClick;
+			tryAgain?.({ flagId: flag.id });
+		});
+
+		await advancePollingTimeout();
+
+		expect(onAction).toHaveBeenCalled();
+	});
+
+	test("if user has tried again, and containers still aren't available then they provided the option to contact support", async () => {
+		urlSearchParams(`?requestedContainers=${ContainerType.CONFLUENCE_SPACE}`);
+		const { onRequestedContainerTimeout } = renderHook();
+		let flags: FlagProps[] = [];
+
+		const onAction = jest.fn();
+
+		onRequestedContainerTimeout.mockImplementation((createFlag) => {
+			const flag = createFlag({ onAction });
+			flags.push(flag);
+			const tryAgain = flag.actions[0].onClick;
+			tryAgain?.({ flagId: flag.id });
+		});
+
+		await advancePollingTimeout();
+		await advancePollingTimeout();
+
+		expect(flags.length).toBe(2);
+
+		expect(renderToString(flags[0].actions?.[0].content)).toContain('Try again');
+		expect(renderToString(flags[1].actions?.[0].content)).toContain('Contact support');
+	});
 });

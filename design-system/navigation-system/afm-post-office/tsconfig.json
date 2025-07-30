@@ -60,9 +60,6 @@
 			"path": "../../primitives/afm-post-office/tsconfig.json"
 		},
 		{
-			"path": "../../../navigation/temp-nav-app-icons/afm-post-office/tsconfig.json"
-		},
-		{
 			"path": "../../tokens/afm-post-office/tsconfig.json"
 		},
 		{

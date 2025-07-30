@@ -10,6 +10,7 @@ import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugin-selection-t
 
 import type {
 	DynamicSelectionExtension,
+	InsertAdfAtEndOfDocResult,
 	LinkInsertionOption,
 	ReplaceWithAdfResult,
 	SelectionExtension,
@@ -46,7 +47,8 @@ export type SelectionExtensionPlugin = NextEditorPlugin<
 				status: 'success' | 'error';
 				message?: string;
 			};
-			replaceWithAdf: (selectedNodeAdf: ADFEntity) => ReplaceWithAdfResult;
+			replaceWithAdf: (nodeAdf: ADFEntity) => ReplaceWithAdfResult;
+			insertAdfAtEndOfDoc: (nodeAdf: ADFEntity) => InsertAdfAtEndOfDocResult;
 		};
 	}
 >;

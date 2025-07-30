@@ -1,5 +1,21 @@
 # @atlaskit/smart-card
 
+## 40.5.6
+
+### Patch Changes
+
+- [#192710](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/192710)
+  [`b3b30f3bc4453`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b3b30f3bc4453) -
+  Internal changes to how border radius and border width values are applied. No visual change.
+
+## 40.5.5
+
+### Patch Changes
+
+- [#190445](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/190445)
+  [`c720eb26b262f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c720eb26b262f) -
+  Clean up FG bandicoots-smart-card-teamwork-context
+
 ## 40.5.4
 
 ### Patch Changes

@@ -1,30 +1,30 @@
 {
-    "extends": "../../../../tsconfig.entry-points.confluence.json",
-    "compilerOptions": {
-        "declaration": true,
-        "target": "es5",
-        "composite": true,
-        "outDir": "../../../../../confluence/tsDist/@atlaskit__analytics-listeners",
-        "rootDir": "../"
-    },
-    "include": [
-        "../src/**/*.ts",
-        "../src/**/*.tsx"
-    ],
-    "exclude": [
-        "../src/**/__tests__/*",
-        "../src/**/*.test.*",
-        "../src/**/test.*"
-    ],
-    "references": [
-        {
-            "path": "../../analytics-gas-types/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../analytics-namespaced-context/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../analytics-next/afm-cc/tsconfig.json"
-        }
-    ]
+	"extends": "../../../../tsconfig.entry-points.confluence.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"composite": true,
+		"outDir": "../../../../../confluence/tsDist/@atlaskit__analytics-listeners",
+		"rootDir": "../"
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../analytics-gas-types/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../analytics-namespaced-context/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../analytics-next/afm-cc/tsconfig.json"
+		}
+	]
 }

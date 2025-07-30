@@ -6,7 +6,7 @@ import { Bleed, Grid, Text, xcss } from '@atlaskit/primitives';
 const boxStyles = xcss({
 	borderColor: 'color.border',
 	borderStyle: 'dashed',
-	borderRadius: '3px',
+	borderRadius: 'border.radius.100',
 	borderWidth: 'border.width',
 	marginTop: 'space.150',
 	padding: 'space.100',

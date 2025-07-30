@@ -18,11 +18,11 @@ import { useHasCustomTheme } from '../themed/has-custom-theme-context';
 export const themedLogoIcon = '--ds-top-bar-logo-icon';
 export const themedLogoText = '--ds-top-bar-logo-text';
 
-export function LogoRenderer({ logoOrIcon }: React.ComponentProps<typeof LogoRendererNoMemo>) {
+export function LogoRenderer({ logoOrIcon, shouldUseNewLogoDesign }: React.ComponentProps<typeof LogoRendererNoMemo>) {
 	return fg('jiv-20710-fix-nav-rerender') ? (
-		<LogoRendererMemo logoOrIcon={logoOrIcon} />
+		<LogoRendererMemo logoOrIcon={logoOrIcon} shouldUseNewLogoDesign={shouldUseNewLogoDesign} />
 	) : (
-		<LogoRendererNoMemo logoOrIcon={logoOrIcon} />
+		<LogoRendererNoMemo logoOrIcon={logoOrIcon} shouldUseNewLogoDesign={shouldUseNewLogoDesign} />
 	);
 }
 
@@ -30,24 +30,27 @@ const LogoRendererMemo = memo(LogoRendererNoMemo);
 
 function LogoRendererNoMemo({
 	logoOrIcon: LogoOrIcon,
+	shouldUseNewLogoDesign,
 }: {
 	logoOrIcon:
 		| ((props: LogoProps) => JSX.Element)
 		| ((props: TempLogoProps) => JSX.Element)
 		| ((props: TempIconProps) => JSX.Element);
+	shouldUseNewLogoDesign?: boolean;
 }) {
 	const hasCustomTheme = useHasCustomTheme();
 
 	if (hasCustomTheme) {
 		return (
 			<LogoOrIcon
-				size="small"
 				label=""
+				size="small"
+				shouldUseNewLogoDesign={shouldUseNewLogoDesign}
 				iconColor={`var(${themedLogoIcon})`}
 				textColor={`var(${themedLogoText})`}
 			/>
 		);
 	}
 
-	return <LogoOrIcon size="small" label="" appearance="brand" />;
+	return <LogoOrIcon size="small" shouldUseNewLogoDesign={shouldUseNewLogoDesign} label="" appearance="brand" />;
 }

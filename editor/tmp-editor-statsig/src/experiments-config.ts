@@ -555,4 +555,12 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-07-29
+	cc_comments_include_path_for_renderer_emojis: createBooleanExperiment({
+		productKeys: {
+			confluence: 'cc_comments_include_path_for_renderer_emojis',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 } satisfies Record<string, ExperimentConfigValue>;

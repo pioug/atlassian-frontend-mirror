@@ -32,7 +32,12 @@ export default function All() {
 			</Stack>
 			<Stack space="space.050">
 				<Text>Custom dimensions</Text>
-				<Skeleton width="20px" height="20px" testId="skeleton-dimensions-avatar" />
+				<Skeleton
+					width="20px"
+					height="20px"
+					borderRadius={10}
+					testId="skeleton-dimensions-avatar"
+				/>
 				<Skeleton width="20px" height="20px" borderRadius={0} testId="skeleton-dimensions-icon" />
 				<Skeleton width="130px" height="8px" testId="skeleton-dimensions-text" />
 				<Skeleton width="400px" height="48px" borderRadius={3} testId="skeleton-dimensions-block" />

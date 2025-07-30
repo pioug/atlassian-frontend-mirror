@@ -1,63 +1,63 @@
 {
-    "extends": "../../../../tsconfig.entry-points.confluence.json",
-    "compilerOptions": {
-        "target": "es5",
-        "composite": true,
-        "outDir": "../../../../../confluence/tsDist/@atlaskit__editor-plugin-layout",
-        "rootDir": "../"
-    },
-    "include": [
-        "../src/**/*.ts",
-        "../src/**/*.tsx"
-    ],
-    "exclude": [
-        "../src/**/__tests__/*",
-        "../src/**/*.test.*",
-        "../src/**/test.*",
-        "../src/**/examples.*"
-    ],
-    "references": [
-        {
-            "path": "../../editor-plugin-analytics/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../editor-plugin-decorations/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../editor-plugin-editor-disabled/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../editor-plugin-guideline/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../editor-plugin-interaction/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../editor-plugin-selection/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../editor-plugin-width/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../editor-shared-styles/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/icon/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/icon-lab/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../tmp-editor-statsig/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../design-system/tokens/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../editor-common/afm-cc/tsconfig.json"
-        }
-    ]
+	"extends": "../../../../tsconfig.entry-points.confluence.json",
+	"compilerOptions": {
+		"target": "es5",
+		"composite": true,
+		"outDir": "../../../../../confluence/tsDist/@atlaskit__editor-plugin-layout",
+		"rootDir": "../"
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../editor-plugin-analytics/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-decorations/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-editor-disabled/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-guideline/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-interaction/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-selection/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-width/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-shared-styles/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon-lab/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-cc/tsconfig.json"
+		}
+	]
 }

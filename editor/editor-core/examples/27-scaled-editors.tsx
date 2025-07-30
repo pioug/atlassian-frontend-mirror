@@ -22,7 +22,7 @@ const user = xcss({
 
 const avatar = xcss({
 	marginRight: 'space.050',
-	borderRadius: '50%',
+	borderRadius: 'border.radius.circle',
 	height: '24px',
 	width: '24px',
 });

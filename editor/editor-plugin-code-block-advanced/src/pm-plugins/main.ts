@@ -1,4 +1,5 @@
 import type { Extension } from '@codemirror/state';
+import type { IntlShape } from 'react-intl-next';
 
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -12,6 +13,7 @@ import { shiftArrowDownWorkaround, shiftArrowUpWorkaround } from './shiftArrowKe
 interface Props {
 	api: ExtractInjectionAPI<CodeBlockAdvancedPlugin> | undefined;
 	extensions: Extension[];
+	getIntl: () => IntlShape;
 }
 
 export const createPlugin = (props: Props) => {

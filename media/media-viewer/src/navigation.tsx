@@ -33,7 +33,7 @@ export type NavigationSource = 'keyboard' | 'mouse';
 const wrapperStyles = xcss({
 	width: '40px',
 	height: '40px',
-	borderRadius: '100%',
+	borderRadius: 'border.radius.circle',
 	padding: 'space.0',
 	// @ts-ignore
 	backgroundColor: '#9FADBC',

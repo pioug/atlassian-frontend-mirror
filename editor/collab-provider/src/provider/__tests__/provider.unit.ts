@@ -58,6 +58,7 @@ import * as Telepointer from '../../participants/telepointers-helper';
 import { createSocketIOCollabProvider } from '../../socket-io-provider';
 import { CommitStepService } from '../commit-step';
 // @ts-ignore only used for mock
+// eslint-disable-next-line import/default
 import ProseMirrorCollab from '@atlaskit/prosemirror-collab';
 import { ProviderInitialisationError } from '../../errors/custom-errors';
 import type { InternalError } from '../../errors/internal-errors';

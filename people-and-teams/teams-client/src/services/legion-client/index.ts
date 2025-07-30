@@ -421,6 +421,18 @@ export class LegionClient extends RestClient implements LegionClient {
 		}
 	}
 
+	async removeAgentTeamAssociation(teamId: string, agentId: string): Promise<null> {
+		try {
+			const url = `${v4UrlPath}/${this.trimTeamARI(teamId)}/agents/${agentId}`;
+
+			return this.deleteResource<null>(url);
+		} catch (e) {
+			this.logException(e, 'removeAgentTeamAssociation');
+
+			throw e;
+		}
+	}
+
 	async cancelJoinRequest(teamId: string): Promise<void> {
 		return this.deleteResource(`${v4UrlPath}/${this.trimTeamARI(teamId)}/membership/request`);
 	}

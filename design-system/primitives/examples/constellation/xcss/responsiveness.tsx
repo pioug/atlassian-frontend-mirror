@@ -15,7 +15,7 @@ const cardStyles = xcss({
 	borderColor: 'color.border',
 	borderWidth: 'border.width.outline',
 	borderStyle: 'solid',
-	borderRadius: '2px',
+	borderRadius: 'border.radius.050',
 	[media.above.xxs]: {
 		backgroundColor: 'color.background.accent.red.subtler',
 	},

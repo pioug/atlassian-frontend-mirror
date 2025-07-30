@@ -1,5 +1,5 @@
 export { AppSwitcher } from '../../ui/top-nav-items/app-switcher';
-export { NavLogo } from '../../ui/top-nav-items/nav-logo/nav-logo';
+export { CustomLogo } from '../../ui/top-nav-items/nav-logo/custom-logo';
 export { AppLogo } from '../../ui/top-nav-items/nav-logo/app-logo';
 export { Search } from '../../ui/top-nav-items/search';
 export { ChatButton } from '../../ui/top-nav-items/chat-button';

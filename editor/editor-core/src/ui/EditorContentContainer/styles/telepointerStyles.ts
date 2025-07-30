@@ -174,7 +174,6 @@ export const telepointerStyle = css({
 				font: token('font.body.small'),
 				paddingLeft: token('space.050'),
 				paddingRight: token('space.050'),
-				color: token('color.text.inverse'),
 				borderRadius: '0 2px 2px 0',
 			},
 			'.telepointer-initial': {

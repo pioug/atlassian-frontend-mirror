@@ -18,6 +18,9 @@
 	],
 	"references": [
 		{
+			"path": "../../../editor/editor-json-transformer/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../measurement/feature-gate-js-client/afm-jira/tsconfig.json"
 		},
 		{
@@ -36,7 +39,13 @@
 			"path": "../../linking-types/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../editor/node-data-provider/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../editor/tmp-editor-statsig/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../link-provider/afm-jira/tsconfig.json"

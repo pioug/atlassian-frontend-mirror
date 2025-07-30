@@ -6,6 +6,7 @@ import { render } from 'react-dom';
 import type RendererActions from '../../../../../actions/index';
 import { RendererContext } from '../../../../RendererActionsContext';
 // @ts-ignore
+// eslint-disable-next-line import/default
 import MounterMock from '../../mounter';
 import { RangeValidator } from '../../range-validator';
 

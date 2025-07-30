@@ -2,7 +2,14 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type ElementType, forwardRef, memo, type ReactNode, type Ref } from 'react';
+import {
+	type AriaAttributes,
+	type ElementType,
+	forwardRef,
+	memo,
+	type ReactNode,
+	type Ref,
+} from 'react';
 
 import { jsx } from '@compiled/react';
 
@@ -50,7 +57,8 @@ export type StackProps<T extends ElementType = 'div'> = {
 	 * Forwarded ref element.
 	 */
 	ref?: React.ComponentPropsWithRef<T>['ref'];
-} & BasePrimitiveProps;
+} & BasePrimitiveProps &
+	AriaAttributes;
 
 const styles = cssMap({
 	hug: { flexGrow: 0 },
@@ -88,11 +96,13 @@ const Stack = memo(
 				testId,
 				xcss,
 				role,
+				...ariaAttributes
 			}: StackProps<T>,
 			ref: Ref<any>,
 		) => {
 			return (
 				<Flex
+					{...ariaAttributes}
 					as={as}
 					role={role}
 					gap={space}

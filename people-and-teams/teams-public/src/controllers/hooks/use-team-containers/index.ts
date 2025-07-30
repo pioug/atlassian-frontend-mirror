@@ -303,12 +303,17 @@ export const useTeamContainers = (teamId: string, enable = true) => {
 		}
 	}, [teamId, actions, enable, fireOperationalAnalytics]);
 
+	const refetchTeamContainers = useCallback(
+		async () => actions.refetchTeamContainers(fireOperationalAnalytics),
+		[actions, fireOperationalAnalytics],
+	);
+
 	return {
 		...state,
 		addTeamContainer: actions.addTeamContainer,
 		unlinkTeamContainers: (containerId: string) =>
 			actions.unlinkTeamContainers(teamId, containerId),
-		refetchTeamContainers: () => actions.refetchTeamContainers(fireOperationalAnalytics),
+		refetchTeamContainers,
 	};
 };
 

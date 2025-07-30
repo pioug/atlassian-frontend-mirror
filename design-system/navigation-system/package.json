@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/navigation-system",
-	"version": "0.175.1",
+	"version": "0.176.0",
 	"description": "The latest navigation system for Atlassian products.",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"author": "Atlassian Pty Ltd",
@@ -166,7 +166,6 @@
 		"@atlaskit/pragmatic-drag-and-drop-hitbox": "workspace:^",
 		"@atlaskit/pragmatic-drag-and-drop-react-drop-indicator": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
-		"@atlaskit/temp-nav-app-icons": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlaskit/visually-hidden": "workspace:^",
@@ -200,6 +199,7 @@
 		"@atlaskit/pragmatic-drag-and-drop-auto-scroll": "workspace:^",
 		"@atlaskit/select": "workspace:^",
 		"@atlaskit/skeleton": "workspace:^",
+		"@atlaskit/temp-nav-app-icons": "workspace:^",
 		"@atlaskit/textfield": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/gemini": "workspace:^",

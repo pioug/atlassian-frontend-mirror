@@ -5,4 +5,5 @@ export type StyledBarProps = {
 	breakpoint: Breakpoint;
 	positionBottom: boolean;
 	showOnTop: boolean;
+	ariaLabel?: string;
 };

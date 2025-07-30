@@ -1,4 +1,5 @@
 import { type Extension } from '@codemirror/state';
+import type { IntlShape } from 'react-intl-next';
 
 import { withLazyLoading } from '@atlaskit/editor-common/lazy-node-view';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -10,6 +11,7 @@ import type { CodeBlockAdvancedPlugin } from '../codeBlockAdvancedPluginType';
 interface Props {
 	api: ExtractInjectionAPI<CodeBlockAdvancedPlugin> | undefined;
 	extensions: Extension[];
+	getIntl: () => IntlShape;
 }
 
 export const lazyCodeBlockView = (props: Props) => {

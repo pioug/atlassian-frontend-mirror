@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { IntlProvider } from 'react-intl-next';
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -7,10 +7,12 @@ import { cssMap } from '@atlaskit/css';
 import Flag, { FlagGroup, type FlagProps } from '@atlaskit/flag';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
+import { ContainerType } from '@atlaskit/teams-client/types';
 import { token } from '@atlaskit/tokens';
 
 import { type TeamContainerProps, TeamContainers } from '../src';
 
+import { mockCreateTeam } from './mocks/mockCreateTeam';
 import { mockPermissions } from './mocks/mockPermissions';
 import { mockTeamContainersQueries } from './mocks/mockTeamContainersQueries';
 
@@ -24,8 +26,9 @@ const styles = cssMap({
 	},
 });
 
-mockTeamContainersQueries.delayedData();
+mockTeamContainersQueries.data([]);
 mockPermissions.allow();
+
 const FLAG = 'teams_containers_cypher_query_v2_migration';
 
 export default function RequestedContainers() {
@@ -34,9 +37,17 @@ export default function RequestedContainers() {
 	const booleanFlagResolver = (flagToResolve: string): boolean => flagToResolve === FLAG;
 	setBooleanFeatureFlagResolver(booleanFlagResolver);
 
+	useEffect(() => {
+		setTimeout(() => {
+			mockTeamContainersQueries.data(['ConfluenceSpace']);
+		}, 5000);
+	}, []);
+
 	const onRequestedContainerTimeout: TeamContainerProps['onRequestedContainerTimeout'] =
 		useCallback((createFlag: (opts: { onAction: (flagId: string) => void }) => FlagProps) => {
 			const dismissFlag = (flagId: string) => {
+				mockCreateTeam.success([ContainerType.LOOM_SPACE]);
+				mockTeamContainersQueries.data(['ConfluenceSpace', 'LoomSpace']);
 				setFlags((current) => current.filter((flag) => flag.id !== flagId));
 			};
 			const flag = createFlag({ onAction: dismissFlag });

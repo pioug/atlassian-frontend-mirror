@@ -114,6 +114,7 @@ exports[`WikiMarkup => ADF Formatters - monospace should detect monospace mark a
         },
         {
           "attrs": {
+            "localId": null,
             "text": "
 ",
           },

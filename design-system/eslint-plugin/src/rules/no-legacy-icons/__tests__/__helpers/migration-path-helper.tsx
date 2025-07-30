@@ -4,6 +4,63 @@
 export const migrationPathTests = [
 	{
 		options: [{ shouldUseMigrationPath: false }],
+		name: 'Basic, auto-migratable icon, migrate from migration path to final core path',
+		code: `
+		import UnlinkIcon from '@atlaskit/icon/core/migration/link-broken--unlink';
+
+		<UnlinkIcon label="" />
+		`,
+		output: `
+		import UnlinkIcon from '@atlaskit/icon/core/link-broken';
+
+		<UnlinkIcon label="" />
+		`,
+		errors: [
+			{
+				messageId: 'noLegacyIconsAutoMigration',
+			},
+		],
+	},
+	{
+		options: [{ shouldUseMigrationPath: false }],
+		name: 'Basic, auto-migratable small icon, migrate from migration path to final core path',
+		code: `
+		import UnlinkIcon from '@atlaskit/icon/core/migration/link-broken--unlink';
+
+		<UnlinkIcon LEGACY_size="small" size="small" label="" />
+		`,
+		output: `
+		import UnlinkIcon from '@atlaskit/icon/core/link-broken';
+
+		<UnlinkIcon  size="small" label="" />
+		`,
+		errors: [
+			{
+				messageId: 'noLegacyIconsAutoMigration',
+			},
+		],
+	},
+	{
+		options: [{ shouldUseMigrationPath: false }],
+		name: 'Basic, auto-migratable medium icon, migrate from migration path to final core path',
+		code: `
+		import UnlinkIcon from '@atlaskit/icon/core/migration/link-broken--unlink';
+
+		<UnlinkIcon LEGACY_size="medium" size="medium" label="" />
+		`,
+		output: `
+		import UnlinkIcon from '@atlaskit/icon/core/link-broken';
+
+		<UnlinkIcon   label="" />
+		`,
+		errors: [
+			{
+				messageId: 'noLegacyIconsAutoMigration',
+			},
+		],
+	},
+	{
+		options: [{ shouldUseMigrationPath: false }],
 		name: 'Icon that imported from the core migration path, with LEGACY_color prop',
 		code: `
 		import AddIcon from '@atlaskit/icon/core/migration/add';

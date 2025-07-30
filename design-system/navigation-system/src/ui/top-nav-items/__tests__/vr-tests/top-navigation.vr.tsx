@@ -9,10 +9,11 @@ import {
 	TopNavigationExample,
 } from '../../../../../examples/top-navigation';
 import {
-	TopNavigationCustomLogo200x200Example,
-	TopNavigationCustomLogo200x20Example,
-	TopNavigationCustomLogo20x200Example,
-	TopNavigationCustomLogo20x20Example,
+	TopNavigationCustomLogoExample,
+	TopNavigationCustomLogoImage200x200Example,
+	TopNavigationCustomLogoImage200x20Example,
+	TopNavigationCustomLogoImage20x200Example,
+	TopNavigationCustomLogoImage20x20Example,
 } from '../../../../../examples/top-navigation-custom-logo';
 import TopNavigationThemedButtonsExample from '../../../../../examples/top-navigation-themed-buttons';
 import {
@@ -20,6 +21,7 @@ import {
 	TopNavigationThemingHSLExample,
 	TopNavigationThemingRGBExample,
 	TopNavigationThemingSingleExample,
+	TopNavigationThemingSingleExampleCustomLogo,
 } from '../../../../../examples/top-navigation-theming';
 import { TopNavigationThemingLoggedOutExample } from '../../../../../examples/top-navigation-theming-logged-out';
 
@@ -49,7 +51,6 @@ const lightModeVariant: SnapshotTestOptions<Hooks>['variants'] = [
 
 snapshot(TopNavigationExample, {
 	variants: [variants.desktop, variants.mobile],
-	featureFlags: { 'platform-team25-app-icon-tiles': [true, false] },
 });
 
 snapshot(TopNavSideNavCollapsed, defaultOptions);
@@ -79,7 +80,6 @@ snapshot(TopNavigationThemingSingleExample, {
 snapshot(TopNavigationThemingExample, {
 	description: 'theming is enabled',
 	variants: [variants.desktop],
-	featureFlags: { 'platform-team25-app-icon-tiles': [true, false] },
 });
 
 snapshot(TopNavigationThemingHSLExample, {
@@ -89,6 +89,11 @@ snapshot(TopNavigationThemingHSLExample, {
 
 snapshot(TopNavigationThemingRGBExample, {
 	description: 'theme is applied with an RGB color',
+	variants: [variants.desktop],
+});
+
+snapshot(TopNavigationThemingSingleExampleCustomLogo, {
+	description: 'theme is applied with CustomLogo',
 	variants: [variants.desktop],
 });
 
@@ -113,10 +118,11 @@ snapshot(TopNavigationEnlargedSearchInput, {
 	],
 });
 
-snapshot(TopNavigationCustomLogo200x200Example, defaultOptions);
-snapshot(TopNavigationCustomLogo200x20Example, defaultOptions);
-snapshot(TopNavigationCustomLogo20x200Example, defaultOptions);
-snapshot(TopNavigationCustomLogo20x20Example, defaultOptions);
+snapshot(TopNavigationCustomLogoExample, defaultOptions);
+snapshot(TopNavigationCustomLogoImage200x200Example, defaultOptions);
+snapshot(TopNavigationCustomLogoImage200x20Example, defaultOptions);
+snapshot(TopNavigationCustomLogoImage20x200Example, defaultOptions);
+snapshot(TopNavigationCustomLogoImage20x20Example, defaultOptions);
 
 snapshot(TopNavigationThemingLoggedOutExample, {
 	description: 'log in button',

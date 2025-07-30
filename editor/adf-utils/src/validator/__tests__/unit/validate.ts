@@ -80,6 +80,10 @@ describe('validate invalid schema', () => {
 		'heading-with-invalid-local-id.json',
 		'mention-with-invalid-local-id.json',
 		'paragraph-with-invalid-local-id.json',
+		// these should be allowed as we added localId attributes in adf-schema 50.0.0
+		'blockQuote-with-attrs.json',
+		'listItem-with-attrs.json',
+		'rule-with-attrs.json',
 	];
 	const expectAnyErrorList = [
 		'extension-with-empty-local-id.json',

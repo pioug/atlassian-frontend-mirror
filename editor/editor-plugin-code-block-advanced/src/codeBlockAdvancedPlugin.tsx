@@ -18,7 +18,8 @@ export const codeBlockAdvancedPlugin: CodeBlockAdvancedPlugin = ({ api, config }
 		return [
 			{
 				name: 'codeBlockAdvancedPlugin',
-				plugin: () => createPlugin({ api, extensions: config?.extensions ?? [] }),
+				plugin: ({ getIntl }) =>
+					createPlugin({ api, extensions: config?.extensions ?? [], getIntl }),
 			},
 		];
 	},

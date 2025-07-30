@@ -12,4 +12,5 @@ export type {
 	SelectionExtensionSelectionInfo,
 	DynamicSelectionExtension,
 	ReplaceWithAdfResult,
+	InsertAdfAtEndOfDocResult,
 } from './types';

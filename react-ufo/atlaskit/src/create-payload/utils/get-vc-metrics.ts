@@ -4,7 +4,6 @@ import { type InteractionMetrics } from '../../common';
 import type { RevisionPayload, VCResult } from '../../common/vc/types';
 import { getConfig, getMostRecentVCRevision } from '../../config';
 import { postInteractionLog } from '../../interaction-metrics';
-import { getVCObserver } from '../../vc';
 
 import getInteractionStatus from './get-interaction-status';
 import getPageVisibilityUpToTTAI from './get-page-visibility-up-to-ttai';
@@ -38,7 +37,11 @@ async function getVCMetrics(
 		pageVisibilityUpToTTAI === 'visible';
 
 	// Use per-interaction VC observer if available, otherwise fall back to global
-	const observer = interaction.vcObserver || getVCObserver();
+	const observer = interaction.vcObserver;
+
+	if (!observer) {
+		return {};
+	}
 
 	if (!shouldReportVCMetrics && fg('platform_ufo_no_vc_on_aborted')) {
 		observer.stop(interaction.ufoName);
@@ -70,12 +73,7 @@ async function getVCMetrics(
 		...ssr,
 	});
 
-	if (fg('platform_ufo_enable_vc_observer_per_interaction')) {
-		observer.stop(interaction.ufoName);
-	}
-	if (config.experimentalInteractionMetrics?.enabled) {
-		observer.stop(interaction.ufoName);
-	}
+	observer.stop(interaction.ufoName);
 
 	postInteractionLog.setLastInteractionFinishVCResult(result);
 

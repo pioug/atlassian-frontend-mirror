@@ -154,6 +154,7 @@ exports[`WikiMarkup => ADF Formatters - Subscript should detect subscript mark a
         },
         {
           "attrs": {
+            "localId": null,
             "text": "
 ",
           },

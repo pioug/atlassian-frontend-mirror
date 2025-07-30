@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 const GLOBAL_RLL_HANDLERS_KEY = '__REACT_UFO_RLL_PLACEHOLDER_HANDLERS__';
 
 export class RLLPlaceholderHandlers {
@@ -48,10 +46,6 @@ export class RLLPlaceholderHandlers {
 			typeof document === 'undefined' ||
 			typeof window.document === 'undefined'
 		) {
-			return;
-		}
-
-		if (!fg('platform_ufo_rll_placeholder_ignore')) {
 			return;
 		}
 

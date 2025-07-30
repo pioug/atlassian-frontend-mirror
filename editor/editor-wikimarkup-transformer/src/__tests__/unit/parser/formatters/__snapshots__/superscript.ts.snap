@@ -118,6 +118,7 @@ exports[`WikiMarkup => ADF Formatters - Superscript should detect superscript ma
         },
         {
           "attrs": {
+            "localId": null,
             "text": "
 ",
           },

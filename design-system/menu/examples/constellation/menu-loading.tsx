@@ -27,7 +27,7 @@ const iconContainerStyles = xcss({
 	height: 'size.200',
 	width: 'size.200',
 	background: 'linear-gradient(180deg, #4E86EE 0%, #3562C1 100%), #4E86EE',
-	borderRadius: '3px',
+	borderRadius: 'border.radius.100',
 });
 
 const buttonContainerStyles = xcss({

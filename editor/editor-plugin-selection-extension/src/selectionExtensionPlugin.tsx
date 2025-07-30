@@ -13,6 +13,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { insertSmartLinks } from './pm-plugins/actions';
+import { insertAdfAtEndOfDoc } from './pm-plugins/actions/insertAdfAtEndOfDoc';
 import { replaceWithAdf } from './pm-plugins/actions/replaceWithAdf';
 import { createPlugin, selectionExtensionPluginKey } from './pm-plugins/main';
 import { getSelectionInfo } from './pm-plugins/utils';
@@ -66,12 +67,19 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 				const { state, dispatch } = editorViewRef.current;
 				return insertSmartLinks(linkInsertionOptions, selectedNodeAdf)(state, dispatch);
 			},
-			replaceWithAdf: (modifiedNodeAdf) => {
+			replaceWithAdf: (nodeAdf) => {
 				if (!editorViewRef.current) {
 					return { status: 'failed-to-replace' };
 				}
 				const { state, dispatch } = editorViewRef.current;
-				return replaceWithAdf(modifiedNodeAdf)(state, dispatch);
+				return replaceWithAdf(nodeAdf)(state, dispatch);
+			},
+			insertAdfAtEndOfDoc: (nodeAdf) => {
+				if (!editorViewRef.current) {
+					return { status: 'failed' };
+				}
+				const { state, dispatch } = editorViewRef.current;
+				return insertAdfAtEndOfDoc(nodeAdf)(state, dispatch);
 			},
 		},
 		contentComponent: ({ editorView }) => {

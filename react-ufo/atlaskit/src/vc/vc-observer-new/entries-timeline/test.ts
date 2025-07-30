@@ -2,11 +2,20 @@ import type { VCObserverEntry } from '../types'; // Adjust the path as necessary
 
 import EntriesTimeline from './index'; // Adjust the path as necessary
 
+// Mock performance.now() to ensure consistent timing behavior
+const mockPerformanceNow = jest.spyOn(performance, 'now');
+
 describe('EntryTimeline', () => {
 	let timeline: EntriesTimeline;
 
 	beforeEach(() => {
+		// Set a fixed time for consistent test behavior
+		mockPerformanceNow.mockReturnValue(1000);
 		timeline = new EntriesTimeline();
+	});
+
+	afterEach(() => {
+		jest.clearAllMocks();
 	});
 
 	const createEntry = (time: number, name: string): VCObserverEntry => {

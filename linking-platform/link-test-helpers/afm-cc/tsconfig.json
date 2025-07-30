@@ -1,33 +1,33 @@
 {
-    "extends": "../../../../tsconfig.entry-points.confluence.json",
-    "compilerOptions": {
-        "declaration": true,
-        "target": "es5",
-        "composite": true,
-        "outDir": "../../../../../confluence/tsDist/@atlaskit__link-test-helpers",
-        "rootDir": "../"
-    },
-    "include": [
-        "../src/**/*.ts",
-        "../src/**/*.tsx"
-    ],
-    "exclude": [
-        "../src/**/__tests__/*",
-        "../src/**/*.test.*",
-        "../src/**/test.*"
-    ],
-    "references": [
-        {
-            "path": "../../json-ld-types/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../link-provider/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../linking-types/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../react-ufo/atlaskit/afm-cc/tsconfig.json"
-        }
-    ]
+	"extends": "../../../../tsconfig.entry-points.confluence.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"composite": true,
+		"outDir": "../../../../../confluence/tsDist/@atlaskit__link-test-helpers",
+		"rootDir": "../"
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../json-ld-types/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../link-provider/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../linking-types/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../react-ufo/atlaskit/afm-cc/tsconfig.json"
+		}
+	]
 }

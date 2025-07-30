@@ -2,7 +2,7 @@ import React from 'react';
 
 import PremiumIcon from '@atlaskit/icon/core/premium';
 import StarUnstarredIcon from '@atlaskit/icon/core/star-unstarred';
-import { AtlassianIcon, AtlassianLogo } from '@atlaskit/logo';
+import { ConfluenceIcon } from '@atlaskit/logo';
 import { MenuListItem } from '@atlaskit/navigation-system';
 import {
 	TopNavButton,
@@ -10,7 +10,7 @@ import {
 } from '@atlaskit/navigation-system/experimental/top-nav-button';
 import { SideNavToggleButton } from '@atlaskit/navigation-system/layout/side-nav';
 import { TopNav, TopNavEnd, TopNavStart } from '@atlaskit/navigation-system/layout/top-nav';
-import { AppSwitcher, NavLogo } from '@atlaskit/navigation-system/top-nav-items';
+import { AppLogo, AppSwitcher } from '@atlaskit/navigation-system/top-nav-items';
 
 import { MockRoot } from './utils/mock-root';
 
@@ -40,10 +40,10 @@ export default function TopNavigationThemedButtonsExample() {
 				<TopNavStart>
 					<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
 					<AppSwitcher label="App switcher" />
-					<NavLogo
+					<AppLogo
 						href="http://www.atlassian.design"
-						logo={AtlassianLogo}
-						icon={AtlassianIcon}
+						icon={ConfluenceIcon}
+						name="Confluence"
 						label="Home page"
 					/>
 				</TopNavStart>

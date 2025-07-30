@@ -60,9 +60,6 @@
 			"path": "../../primitives/afm-rovo-extension/tsconfig.json"
 		},
 		{
-			"path": "../../../navigation/temp-nav-app-icons/afm-rovo-extension/tsconfig.json"
-		},
-		{
 			"path": "../../tokens/afm-rovo-extension/tsconfig.json"
 		},
 		{

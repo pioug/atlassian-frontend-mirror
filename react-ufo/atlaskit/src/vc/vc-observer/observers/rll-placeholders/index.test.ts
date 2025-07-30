@@ -1,15 +1,5 @@
 import { RLLPlaceholderHandlers } from './index';
 
-// Mock feature flags
-jest.mock('@atlaskit/platform-feature-flags', () => ({
-	fg: jest.fn().mockImplementation((flag: string) => {
-		if (flag === 'platform_ufo_rll_placeholder_ignore') {
-			return true;
-		}
-		return false;
-	}),
-}));
-
 // Mock window and document for testing
 const mockWindow = {
 	innerWidth: 1920,

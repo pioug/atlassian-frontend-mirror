@@ -37,6 +37,23 @@ export enum SchemaStage {
 
 const isType = (type: string) => (node: PMNode | PMMark) => node.type.name === type;
 
+// Create a Set of node types that should have empty attrs removed
+const NODES_WITH_EMPTY_ATTRS_REMOVAL = new Set([
+	'paragraph',
+	'layoutSection',
+	'blockquote',
+	'nestedExpand',
+	'bulletList',
+	'listItem',
+	'orderedList',
+	'rule',
+	'caption',
+	'tableRow',
+	'media',
+	'mediaSingle',
+	'mediaInline',
+]);
+
 const isCodeBlock = isType('codeBlock');
 const isMediaNode = isType('media');
 const isMediaInline = isType('mediaInline');
@@ -133,14 +150,12 @@ const toJSON = (node: PMNode, mentionMap?: Record<string, string | undefined>): 
 		};
 	}
 
-	// Remove the attrs property if it's empty, this is currently limited to paragraph nodes.
-	if (isParagraph(node) && obj.attrs && !Object.keys(obj.attrs).length) {
-		delete obj.attrs;
-	}
-
-	// Hard break has optional attr.text which was added for PM <-> ADF compatibility.
-	// No need to preserve it.
-	if (isHardBreak(node)) {
+	if (
+		(NODES_WITH_EMPTY_ATTRS_REMOVAL.has(node.type.name) &&
+			obj.attrs &&
+			!Object.keys(obj.attrs).length) ||
+		isHardBreak(node)
+	) {
 		delete obj.attrs;
 	}
 

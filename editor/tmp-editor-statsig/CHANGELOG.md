@@ -1,5 +1,17 @@
 # @atlaskit/editor-statsig-tmp
 
+## 9.17.0
+
+### Minor Changes
+
+- [#191617](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/191617)
+  [`49f632112178c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/49f632112178c) -
+  Bugfix - pass path for emojis during renderer serialization to generate correct renderer_start_pos
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.16.0
 
 ### Minor Changes

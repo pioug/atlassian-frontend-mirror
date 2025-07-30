@@ -8,6 +8,7 @@ import { Fragment, Suspense, useEffect, useLayoutEffect, useState } from 'react'
 
 import { css, jsx } from '@compiled/react';
 
+import { getActiveInteraction } from '@atlaskit/react-ufo/interaction-metrics';
 import UFOLoadHold from '@atlaskit/react-ufo/load-hold';
 import UFOSegment from '@atlaskit/react-ufo/segment';
 
@@ -148,6 +149,10 @@ function SSRFallback() {
 		// Trigger SSRPlaceholderHandlers to collect existing SSR placeholders
 		if (window.__vcObserver && window.__vcObserver.collectSSRPlaceholders) {
 			window.__vcObserver.collectSSRPlaceholders();
+		}
+		const interaction = getActiveInteraction();
+		if (interaction && interaction.vcObserver && typeof interaction.vcObserver.collectSSRPlaceholders === 'function') {
+			interaction.vcObserver.collectSSRPlaceholders();
 		}
 	}, []);
 

@@ -25,7 +25,6 @@ import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-p
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 
 import { ExampleForgeApp } from '../example-helpers/ExampleForgeApp';
-import { findTextNodePath } from '../example-helpers/findTextNodePath';
 import enMessages from '../src/i18n/en';
 
 const buttonStyles = xcss({
@@ -237,49 +236,6 @@ function ComposableEditorPage() {
 		}
 	};
 
-	const prepareLinksInsertionOption = (createButton: string) => {
-		const selectionRanges = selectionRangesRef.current;
-		const selectedNodeAdf = selectedNodeAdfRef.current;
-
-		if (!selectionRanges || !selectedNodeAdf) {
-			return [];
-		}
-
-		if (createButton === 'single') {
-			return [
-				{
-					link: 'https://example.atlassian.net/browse/TEST-123',
-					insertPosition: {
-						pointer: selectionRanges[0].start.pointer,
-						from: 4,
-						to: 4,
-					},
-				},
-			];
-		} else if (createButton === 'multiple') {
-			const linksInsertionOption = [];
-			for (const range of selectionRanges) {
-				const textNodePath = findTextNodePath(selectedNodeAdf, range.start.pointer);
-				if (!textNodePath) {
-					continue;
-				}
-				const { path, size } = textNodePath;
-				if (path) {
-					linksInsertionOption.push({
-						link: 'https://example.atlassian.net/browse/TEST-123',
-						insertPosition: {
-							pointer: path,
-							from: size || 0,
-							to: size || 0,
-						},
-					});
-				}
-			}
-			return linksInsertionOption;
-		}
-		return [];
-	};
-
 	return (
 		<SmartCardProvider client={smartCardClient}>
 			<EditorExampleControls
@@ -315,11 +271,87 @@ function ComposableEditorPage() {
 					<Pressable
 						xcss={buttonStyles}
 						onClick={() => {
-							const createButtonLinks = prepareLinksInsertionOption(createButton);
-							editorApi?.selectionExtension.actions.insertSmartLinks(
-								createButtonLinks,
-								selectedNodeAdfRef.current,
-							);
+							const modifiedNodeAdf = JSON.parse(JSON.stringify(selectedNodeAdfRef.current));
+
+							if (modifiedNodeAdf.type === 'table') {
+								for (const content of modifiedNodeAdf.content) {
+									if (content.type === 'tableRow' && content.content.length > 0) {
+										const firstCell = content.content[0];
+										if (firstCell.type === 'tableCell') {
+											if (firstCell.content.length > 0) {
+												const lastChild = firstCell.content[firstCell.content.length - 1];
+												if (lastChild.type === 'paragraph') {
+													lastChild.content.push({
+														type: 'inlineCard',
+														attrs: {
+															url: 'https://example.atlassian.net/browse/TEST-123',
+														},
+													});
+												} else {
+													firstCell.content.push({
+														type: 'paragraph',
+														content: [
+															{
+																type: 'inlineCard',
+																attrs: {
+																	url: 'https://example.atlassian.net/browse/TEST-123',
+																},
+															},
+														],
+													});
+												}
+											} else {
+												firstCell.content.push({
+													type: 'paragraph',
+													content: [
+														{
+															type: 'inlineCard',
+															attrs: {
+																url: 'https://example.atlassian.net/browse/TEST-123',
+															},
+														},
+													],
+												});
+											}
+										}
+									}
+								}
+							}
+							const result = editorApi?.selectionExtension.actions.replaceWithAdf(modifiedNodeAdf);
+
+							if (result?.status === 'document-changed') {
+								const fallbackADF = {
+									type: 'panel',
+									attrs: {
+										panelType: 'info',
+									},
+									content: [
+										{
+											type: 'paragraph',
+											content: [{ type: 'text', text: 'fallback to insert at page bottom' }],
+										},
+										{
+											type: 'paragraph',
+											content: [
+												{
+													type: 'inlineCard',
+													attrs: { url: 'https://example.atlassian.net/browse/TEST-123' },
+												},
+											],
+										},
+										{
+											type: 'paragraph',
+											content: [
+												{
+													type: 'inlineCard',
+													attrs: { url: 'https://example.atlassian.net/browse/TEST-456' },
+												},
+											],
+										},
+									],
+								};
+								editorApi?.selectionExtension.actions.insertAdfAtEndOfDoc(fallbackADF);
+							}
 							showCreateButton(null);
 						}}
 					>

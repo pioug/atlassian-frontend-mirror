@@ -1,5 +1,20 @@
 # @atlaskit/editor-common
 
+## 107.12.10
+
+### Patch Changes
+
+- [#191913](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/191913)
+  [`6d1e56695e91d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d1e56695e91d) -
+  EDITOR-1131 Bump adf-schema package to 50.0.0
+- Updated dependencies
+
+## 107.12.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 107.12.8
 
 ### Patch Changes

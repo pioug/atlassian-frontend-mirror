@@ -34,6 +34,7 @@ exports[`JIRA wiki markup - Misc [CS-480] this is not a list 1`] = `
         },
         {
           "attrs": {
+            "localId": null,
             "text": "
 ",
           },
@@ -66,6 +67,7 @@ exports[`JIRA wiki markup - Misc ESS-2440 should render consecutive emojis corre
         {
           "attrs": {
             "id": "atlassian-check_mark",
+            "localId": null,
             "shortName": ":check_mark:",
             "text": ":check_mark:",
           },
@@ -74,6 +76,7 @@ exports[`JIRA wiki markup - Misc ESS-2440 should render consecutive emojis corre
         {
           "attrs": {
             "id": "atlassian-yellow_star",
+            "localId": null,
             "shortName": ":yellow_star:",
             "text": ":yellow_star:",
           },
@@ -82,6 +85,7 @@ exports[`JIRA wiki markup - Misc ESS-2440 should render consecutive emojis corre
         {
           "attrs": {
             "id": "atlassian-info",
+            "localId": null,
             "shortName": ":info:",
             "text": ":info:",
           },
@@ -115,6 +119,9 @@ exports[`JIRA wiki markup - Misc It should be possible to have a ruler as the fi
       "type": "paragraph",
     },
     {
+      "attrs": {
+        "localId": null,
+      },
       "type": "rule",
     },
   ],
@@ -126,6 +133,9 @@ exports[`JIRA wiki markup - Misc It should be possible to have a ruler as the on
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "type": "rule",
     },
   ],
@@ -148,6 +158,7 @@ exports[`JIRA wiki markup - Misc an emoji at the end of line should still be emo
         {
           "attrs": {
             "id": "1f642",
+            "localId": null,
             "shortName": ":slight_smile:",
             "text": "🙂",
           },
@@ -172,6 +183,7 @@ exports[`JIRA wiki markup - Misc an emoji itself should work too 1`] = `
         {
           "attrs": {
             "id": "1f642",
+            "localId": null,
             "shortName": ":slight_smile:",
             "text": "🙂",
           },
@@ -240,6 +252,7 @@ exports[`JIRA wiki markup - Misc an emoji with characters before and after with 
         {
           "attrs": {
             "id": "1f642",
+            "localId": null,
             "shortName": ":slight_smile:",
             "text": "🙂",
           },
@@ -272,6 +285,7 @@ exports[`JIRA wiki markup - Misc an emoji with characters before should still be
         {
           "attrs": {
             "id": "1f642",
+            "localId": null,
             "shortName": ":slight_smile:",
             "text": "🙂",
           },
@@ -302,6 +316,7 @@ exports[`JIRA wiki markup - Misc should escape macros 1`] = `
     },
     {
       "attrs": {
+        "localId": null,
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
@@ -358,6 +373,7 @@ exports[`JIRA wiki markup - Misc should find emojis and mentions in text 1`] = `
         {
           "attrs": {
             "id": "1f642",
+            "localId": null,
             "shortName": ":slight_smile:",
             "text": "🙂",
           },
@@ -404,6 +420,7 @@ exports[`JIRA wiki markup - Misc should find emojis in text 1`] = `
         {
           "attrs": {
             "id": "1f642",
+            "localId": null,
             "shortName": ":slight_smile:",
             "text": "🙂",
           },
@@ -416,6 +433,7 @@ exports[`JIRA wiki markup - Misc should find emojis in text 1`] = `
         {
           "attrs": {
             "id": "atlassian-yellow_star",
+            "localId": null,
             "shortName": ":yellow_star:",
             "text": ":yellow_star:",
           },
@@ -460,6 +478,7 @@ exports[`JIRA wiki markup - Misc should find emojis in text with marks 1`] = `
         {
           "attrs": {
             "id": "1f642",
+            "localId": null,
             "shortName": ":slight_smile:",
             "text": "🙂",
           },
@@ -484,6 +503,7 @@ exports[`JIRA wiki markup - Misc should find emojis in text with marks 1`] = `
         {
           "attrs": {
             "id": "atlassian-yellow_star",
+            "localId": null,
             "shortName": ":yellow_star:",
             "text": ":yellow_star:",
           },

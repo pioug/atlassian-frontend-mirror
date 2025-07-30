@@ -133,3 +133,5 @@ export type SelectionExtensionPluginState = {
 
 export type ReplaceWithAdfStatus = 'success' | 'document-changed' | 'failed-to-replace';
 export type ReplaceWithAdfResult = { status: ReplaceWithAdfStatus };
+
+export type InsertAdfAtEndOfDocResult = { status: 'success' | 'failed' };

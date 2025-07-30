@@ -8,7 +8,6 @@ test.describe('ReactUFO: RLL hydration simulation', () => {
 		examplePage: 'rll-simulation',
 		featureFlags: [
 			'platform_ufo_rll_placeholder_ignore',
-			'platform_vc_ignore_no_ls_mutation_marker',
 		],
 	});
 

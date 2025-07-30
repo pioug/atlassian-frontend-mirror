@@ -44,7 +44,7 @@ import {
 } from '../feature-flags-accessed';
 import type { LabelStack, SegmentLabel } from '../interaction-context';
 import { getInteractionId } from '../interaction-id-context';
-import { getVCObserver, newVCObserver } from '../vc';
+import { newVCObserver } from '../vc';
 import { type VCObserverInterface } from '../vc/types';
 
 import { interactions } from './common/constants';
@@ -617,8 +617,10 @@ function finishInteraction(
 	callCleanUpCallbacks(data);
 	if (getConfig()?.vc?.stopVCAtInteractionFinish) {
 		// Use per-interaction VC observer if available, otherwise fall back to global
-		const observer = data.vcObserver || getVCObserver();
-		data.vc = observer.getVCRawData();
+		const observer = data.vcObserver;
+		if (observer) {
+			data.vc = observer.getVCRawData();
+		}
 	}
 
 	if (!getConfig()?.experimentalInteractionMetrics?.enabled) {
@@ -860,9 +862,7 @@ export function addNewInteraction(
 			ssrEnablePageLayoutPlaceholder: config.vc.ssrEnablePageLayoutPlaceholder,
 			disableSizeAndPositionCheck: config.vc.disableSizeAndPositionCheck,
 		};
-		vcObserver = fg('platform_ufo_enable_vc_observer_per_interaction')
-			? newVCObserver(vcOptions)
-			: undefined;
+		vcObserver = newVCObserver(vcOptions);
 	}
 
 	// Create per-interaction VC observer when feature flag is enabled
@@ -942,22 +942,24 @@ export function addNewInteraction(
 	}
 	if (type === 'transition' || type === 'page_load') {
 		// Use per-interaction VC observer if available, otherwise fall back to global
-		const observer = vcObserver || getVCObserver();
-		observer.start({ startTime, experienceKey: ufoName });
-		if (type === 'transition' || fg('platform_ufo_enable_vc_observer_per_interaction')) {
-			if (coinflip(getPostInteractionRate(routeName || ufoName, type))) {
-				postInteractionLog.startVCObserver({ startTime });
-			}
-			if (coinflip(getExperimentalInteractionRate(ufoName, type))) {
-				experimentalVC.start({ startTime });
-			}
+		const observer = vcObserver;
+		if (observer) {
+			observer.start({ startTime, experienceKey: ufoName });
+		}
+		if (coinflip(getPostInteractionRate(routeName || ufoName, type))) {
+			postInteractionLog.startVCObserver({ startTime });
+		}
+		if (coinflip(getExperimentalInteractionRate(ufoName, type))) {
+			experimentalVC.start({ startTime });
 		}
 	}
 
 	if (type === 'press' && fg('platform_ufo_enable_vc_press_interactions')) {
 		// Use per-interaction VC observer if available, otherwise fall back to global
-		const observer = vcObserver || getVCObserver();
-		observer.start({ startTime, experienceKey: ufoName });
+		const observer = vcObserver;
+		if (observer) {
+			observer.start({ startTime, experienceKey: ufoName });
+		}
 	}
 }
 

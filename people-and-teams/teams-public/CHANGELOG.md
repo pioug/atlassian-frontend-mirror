@@ -1,5 +1,17 @@
 # @atlaskit/teams-public
 
+## 0.50.0
+
+### Minor Changes
+
+- [#189223](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/189223)
+  [`2b465d07bf40a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2b465d07bf40a) -
+  Update useRequestedContainers to support try again behaviour
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.49.0
 
 ### Minor Changes

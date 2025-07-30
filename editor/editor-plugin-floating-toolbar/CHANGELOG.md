@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 5.1.3
+
+### Patch Changes
+
+- [#192710](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/192710)
+  [`b3b30f3bc4453`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b3b30f3bc4453) -
+  Internal changes to how border radius and border width values are applied. No visual change.
+
 ## 5.1.2
 
 ### Patch Changes

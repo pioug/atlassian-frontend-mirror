@@ -1,16 +1,21 @@
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { defineMessages, useIntl } from 'react-intl-next';
 
 import { type FlagProps } from '@atlaskit/flag';
+import LinkExternalIcon from '@atlaskit/icon/core/link-external';
+import { Flex } from '@atlaskit/primitives/compiled';
+import { HttpError, teamsClient } from '@atlaskit/teams-client';
+import { type ApiTeamContainerCreationPayload } from '@atlaskit/teams-client/types';
 
-import { type ContainerTypes } from '../../../common/types';
 import { useTeamContainers } from '../use-team-containers';
 
 import {
 	containerDisplayName,
 	containersEqual,
+	convertContainerToType,
 	getRequestedContainersFromUrl,
+	POLLING_INTERVAL,
 	useAsyncPolling,
 	userCanAccessFeature,
 } from './utils';
@@ -33,70 +38,39 @@ type OnRequestedContainerTimeout = (
  */
 function useRequestedContainers({
 	teamId,
+	cloudId,
 	onRequestedContainerTimeout,
 }: {
 	teamId: string;
+	cloudId: string;
 	onRequestedContainerTimeout?: OnRequestedContainerTimeout;
 }) {
 	const { formatMessage } = useIntl();
 	const { refetchTeamContainers, teamContainers } = useTeamContainers(teamId);
+	const [isTryingAgain, setIsTryingAgain] = useState(false);
+	const tryAgainCountRef = useRef(0);
+	const [refetchErrorCount, setRefetchErrorCount] = useState(0);
+
 	const [requestedContainers, setRequestedContainers] = useState(() =>
-		userCanAccessFeature() ? getRequestedContainersFromUrl() : [],
+		getRequestedContainersFromUrl(),
 	);
 
 	const checkContainers = useCallback(async () => {
-		await refetchTeamContainers();
+		try {
+			await refetchTeamContainers();
+		} catch (error) {
+			setRefetchErrorCount((prev) => prev + 1);
+		}
 	}, [refetchTeamContainers]);
 
-	const { startPolling, stopPolling, isPolling, hasTimedOut } = useAsyncPolling(checkContainers);
+	const onTimeout = useCallback(
+		({ startPolling, reset }: { startPolling: () => void; reset: () => void }) => {
+			if (!onRequestedContainerTimeout) {
+				return;
+			}
 
-	const checkForContainer = (container: ContainerTypes) => {
-		if (!requestedContainers.includes(container)) {
-			setRequestedContainers((prev) => [...prev, container]);
-		}
-		startPolling();
-	};
-
-	useEffect(() => {
-		if (!userCanAccessFeature()) {
-			return;
-		}
-
-		if (hasTimedOut) {
-			return;
-		}
-
-		const containerCount = requestedContainers.length;
-
-		if (isPolling && containerCount === 0) {
-			stopPolling();
-			return;
-		}
-
-		if (!isPolling && containerCount > 0) {
-			startPolling();
-		}
-	}, [isPolling, requestedContainers.length, hasTimedOut, startPolling, stopPolling]);
-
-	useEffect(() => {
-		const containersNotFound = requestedContainers.filter(
-			(containerType) =>
-				!teamContainers.some((teamContainer) => teamContainer.type === containerType),
-		);
-
-		if (!containersEqual(containersNotFound, requestedContainers)) {
-			setRequestedContainers(containersNotFound);
-		}
-	}, [requestedContainers, checkContainers, teamContainers]);
-
-	useEffect(() => {
-		if (hasTimedOut && onRequestedContainerTimeout) {
-			const action = () => {
-				// @todo: send request to retry creating containers
-				// This will be implemented in the next pull request
-			};
-			const flagId = `requested-container-timeout-${requestedContainers.join('-')}`;
-			const createFlag = ({ onAction }: { onAction: (flagId: string) => void }) => ({
+			const flagId = `requested-container-timeout-${requestedContainers.join('-')}-${tryAgainCountRef.current}`;
+			const createTryAgainFlag = ({ onAction }: { onAction: (flagId: string) => void }) => ({
 				id: flagId,
 				title:
 					requestedContainers.length === 1
@@ -109,17 +83,151 @@ function useRequestedContainers({
 					{
 						content: formatMessage(messages.timeoutAction),
 						onClick: () => {
-							action();
 							onAction(flagId);
+							tryAgainAction();
 						},
 					},
 				],
 			});
-			onRequestedContainerTimeout(createFlag);
-		}
-	}, [hasTimedOut, onRequestedContainerTimeout, requestedContainers, formatMessage]);
+			const createContactSupportFlag = ({ onAction }: { onAction: (flagId: string) => void }) => ({
+				id: flagId,
+				title: formatMessage(messages.noConnectionTitle),
+				description: formatMessage(messages.noConnectionDescription),
+				actions: [
+					{
+						content: (
+							<Flex alignItems="center" columnGap="space.100">
+								{formatMessage(messages.noConnectionAction)}
+								<LinkExternalIcon label="" />
+							</Flex>
+						),
+						onClick: () => {
+							onAction(flagId);
+						},
+						href: 'https://support.atlassian.com/contact/#/&support_type=customer',
+					},
+				],
+			});
 
-	return { requestedContainers, checkForContainer };
+			const tryAgainAction = async () => {
+				setIsTryingAgain(true);
+				tryAgainCountRef.current = tryAgainCountRef.current + 1;
+
+				//todo: add analytics event here
+
+				const containers = requestedContainers
+					.map((container) => {
+						return { type: convertContainerToType(container), containerSiteId: cloudId };
+					})
+					.filter(({ type }) => Boolean(type)) as ApiTeamContainerCreationPayload['containers'];
+
+				try {
+					const response = await teamsClient.createTeamContainers({ teamId, containers });
+					const containersNotCreated = requestedContainers.filter(
+						(containerType) =>
+							!response.containersCreated?.some(
+								(container) => container.containerType === convertContainerToType(containerType),
+							),
+					);
+
+					//containers are still being created
+					if (containersNotCreated.length > 0) {
+						startPolling();
+					} else {
+						//all containers created so reset and update state
+						reset();
+						await refetchTeamContainers();
+					}
+				} catch (error) {
+					if (error instanceof HttpError) {
+						if (error.status === 500) {
+							//only allow for 2 retries
+							if (tryAgainCountRef.current < 2) {
+								return setTimeout(() => {
+									//bug: this can cause two flags to be shown
+									tryAgainAction();
+								}, POLLING_INTERVAL);
+							}
+						}
+					}
+
+					onRequestedContainerTimeout(createContactSupportFlag);
+				} finally {
+					setIsTryingAgain(false);
+				}
+			};
+			onRequestedContainerTimeout(
+				tryAgainCountRef.current === 0 ? createTryAgainFlag : createContactSupportFlag,
+			);
+		},
+		[
+			cloudId,
+			formatMessage,
+			onRequestedContainerTimeout,
+			refetchTeamContainers,
+			requestedContainers,
+			teamId,
+		],
+	);
+
+	const { startPolling, stopPolling, isPolling, hasTimedOut } = useAsyncPolling(checkContainers, {
+		onTimeout,
+	});
+
+	useEffect(() => {
+		if (!userCanAccessFeature()) {
+			return;
+		}
+
+		//stop gap to prevent sending too many failed errors
+		if (refetchErrorCount > 3) {
+			stopPolling();
+			//todo: add analytics event here
+			return;
+		}
+
+		if (hasTimedOut || isTryingAgain) {
+			return;
+		}
+
+		const containerCount = requestedContainers.length;
+
+		if (isPolling && containerCount === 0) {
+			stopPolling();
+			return;
+		}
+
+		if (!isPolling && containerCount > 0) {
+			setIsTryingAgain(false);
+			startPolling();
+		}
+	}, [
+		isPolling,
+		refetchErrorCount,
+		requestedContainers.length,
+		hasTimedOut,
+		startPolling,
+		stopPolling,
+		isTryingAgain,
+	]);
+
+	useEffect(() => {
+		const containersNotFound = requestedContainers.filter(
+			(containerType) =>
+				!teamContainers.some((teamContainer) => teamContainer.type === containerType),
+		);
+
+		if (!containersEqual(containersNotFound, requestedContainers)) {
+			setRequestedContainers(containersNotFound);
+		}
+	}, [requestedContainers, checkContainers, teamContainers]);
+
+	const containersLoading = useMemo(
+		() => ((hasTimedOut && !isTryingAgain) || refetchErrorCount > 3 ? [] : requestedContainers),
+		[hasTimedOut, requestedContainers, isTryingAgain, refetchErrorCount],
+	);
+
+	return { requestedContainers: containersLoading };
 }
 
 const messages = defineMessages({
@@ -134,7 +242,7 @@ const messages = defineMessages({
 		description: 'Title for the timeout flag',
 	},
 	timeoutDescription: {
-		id: 'teams-public..team-containers.timeout-description',
+		id: 'teams-public.team-containers.timeout-description',
 		defaultMessage: 'Something went wrong. Verify your connection and retry.',
 		description: 'Description for the timeout flag',
 	},
@@ -142,6 +250,21 @@ const messages = defineMessages({
 		id: 'teams-public.team-containers.timeout-action',
 		defaultMessage: 'Try again',
 		description: 'Action text for the timeout flag',
+	},
+	noConnectionTitle: {
+		id: 'teams-public.team-containers.timeout-no-connection-title',
+		defaultMessage: 'Connection failed',
+		description: 'Title for the no connection flag',
+	},
+	noConnectionDescription: {
+		id: 'teams-public.team-containers.timeout-no-connection-description',
+		defaultMessage: 'Try manually creating the space yourself.',
+		description: 'Description for the no connection flag',
+	},
+	noConnectionAction: {
+		id: 'teams-public.team-containers.timeout-no-connection-action',
+		defaultMessage: 'Contact support',
+		description: 'Action text for the no connection flag',
 	},
 });
 

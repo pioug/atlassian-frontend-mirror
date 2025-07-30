@@ -48,6 +48,9 @@
 			"path": "../../editor-plugin-block-controls/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-block-menu/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-block-type/afm-townsquare/tsconfig.json"
 		},
 		{

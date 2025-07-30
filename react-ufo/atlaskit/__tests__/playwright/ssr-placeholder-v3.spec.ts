@@ -3,10 +3,9 @@
 /* eslint-disable compat/compat */
 import { expect, test } from './fixtures';
 
-test.describe('ReactUFO: data-vc-ignore-if-no-layout-shift true', () => {
+test.describe('ReactUFO: ssr-placeholder-v3', () => {
 	test.use({
 		examplePage: 'ssr-placeholder-v3',
-		featureFlags: ['platform_ufo_vc_v3_ssr_placeholder'],
 	});
 
 	test(`VC90 should match when the [main-div] is first visible`, async ({

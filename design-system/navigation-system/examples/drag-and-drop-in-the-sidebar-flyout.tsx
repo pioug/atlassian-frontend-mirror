@@ -11,7 +11,7 @@ import invariant from 'tiny-invariant';
 import { cssMap } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import StarUnstarredIcon from '@atlaskit/icon/core/star-unstarred';
-import { AtlassianIcon, AtlassianLogo } from '@atlaskit/logo';
+import { ConfluenceIcon } from '@atlaskit/logo';
 import { Main } from '@atlaskit/navigation-system/layout/main';
 import { Panel } from '@atlaskit/navigation-system/layout/panel';
 import { PanelSplitter } from '@atlaskit/navigation-system/layout/panel-splitter';
@@ -25,7 +25,7 @@ import {
 import { TopNav, TopNavStart } from '@atlaskit/navigation-system/layout/top-nav';
 import { ButtonMenuItem } from '@atlaskit/navigation-system/side-nav-items/button-menu-item';
 import { MenuList } from '@atlaskit/navigation-system/side-nav-items/menu-list';
-import { AppSwitcher, NavLogo } from '@atlaskit/navigation-system/top-nav-items';
+import { AppLogo, AppSwitcher } from '@atlaskit/navigation-system/top-nav-items';
 import {
 	draggable,
 	dropTargetForElements,
@@ -124,7 +124,7 @@ export default function SidebarExample() {
 							defaultCollapsed
 						/>
 						<AppSwitcher label="Switch apps" />
-						<NavLogo href="" logo={AtlassianLogo} icon={AtlassianIcon} label="Home page" />
+						<AppLogo href="" icon={ConfluenceIcon} name="Confluence" label="Home page" />
 					</TopNavStart>
 				</TopNav>
 				<SideNav defaultCollapsed testId="side-nav">

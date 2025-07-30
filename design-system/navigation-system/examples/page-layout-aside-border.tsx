@@ -11,7 +11,7 @@ import Heading from '@atlaskit/heading';
 import AppsIcon from '@atlaskit/icon/core/apps';
 import InboxIcon from '@atlaskit/icon/core/inbox';
 import ProjectIcon from '@atlaskit/icon/core/project';
-import { AtlassianIcon, AtlassianLogo } from '@atlaskit/logo';
+import { ConfluenceIcon } from '@atlaskit/logo';
 import { Aside } from '@atlaskit/navigation-system/layout/aside';
 import { Main } from '@atlaskit/navigation-system/layout/main';
 import { PanelSplitter } from '@atlaskit/navigation-system/layout/panel-splitter';
@@ -30,10 +30,10 @@ import {
 import { LinkMenuItem } from '@atlaskit/navigation-system/side-nav-items/link-menu-item';
 import { MenuList } from '@atlaskit/navigation-system/side-nav-items/menu-list';
 import {
+	AppLogo,
 	AppSwitcher,
 	CreateButton,
 	Help,
-	NavLogo,
 	Notifications,
 	Profile,
 	Search,
@@ -76,7 +76,7 @@ export default function AsideBorderExample() {
 							expandLabel="Expand sidebar"
 						/>
 						<AppSwitcher label="Switch apps" />
-						<NavLogo href="" logo={AtlassianLogo} icon={AtlassianIcon} label="Home page" />
+						<AppLogo href="" icon={ConfluenceIcon} name="Confluence" label="Home page" />
 					</TopNavStart>
 					<TopNavMiddle>
 						<Search label="Search" />

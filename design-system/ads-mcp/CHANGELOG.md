@@ -1,5 +1,14 @@
 # @atlaskit/ads-mcp
 
+## 0.2.2
+
+### Patch Changes
+
+- [#185231](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185231)
+  [`8cd7b52d423d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8cd7b52d423d1) -
+  Internal changes resulting from update to @atlaskit/navigation-system
+- Updated dependencies
+
 ## 0.2.1
 
 ### Patch Changes

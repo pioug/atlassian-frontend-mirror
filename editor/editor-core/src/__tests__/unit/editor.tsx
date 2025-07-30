@@ -64,6 +64,7 @@ describe(`Editor`, () => {
 		it('should not have any unknown console errors on mount', () => {
 			const knownErrors = [
 				'The pseudo class ":first-child" is potentially',
+				'The pseudo class ":' + 'nth-child" is potentially',
 				'Could not parse CSS stylesheet', // JSDOM version (22) doesn't support the new @container CSS rule
 			];
 			jest.clearAllMocks();

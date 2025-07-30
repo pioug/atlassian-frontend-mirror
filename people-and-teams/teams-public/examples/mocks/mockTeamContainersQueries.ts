@@ -1,5 +1,7 @@
 import fetchMock from 'fetch-mock/cjs/client';
 
+import { type ContainerTypes } from '../../src/common/types';
+
 const jiraProject = {
 	node: {
 		columns: [
@@ -51,50 +53,62 @@ const confluenceSpace = {
 	},
 };
 
+const loomSpace = {
+	node: {
+		columns: [
+			{
+				key: 'container',
+				value: {
+					data: {
+						__typename: 'LoomSpace',
+						id: '5',
+						loomSpaceName: 'Loom Space 1',
+						type: 'loom',
+						createdDate: '2021-01-01',
+						links: {
+							base: 'https://example.com',
+							webUi: '/loom',
+						},
+						icon: {
+							path: '/wiki/icon.png',
+						},
+					},
+				},
+			},
+		],
+	},
+};
+
 export const mockTeamContainersQueries = {
-	data: () =>
+	data: (containerTypes: ContainerTypes[] = ['JiraProject', 'ConfluenceSpace', 'LoomSpace']) =>
 		fetchMock.post({
 			matcher: (url: string) => url.includes('/gateway/api/graphql?q=TeamContainersQueryV2'),
 			response: () => {
+				const containers = containerTypes
+					.map((type) => {
+						switch (type) {
+							case 'JiraProject':
+								return jiraProject;
+							case 'ConfluenceSpace':
+								return confluenceSpace;
+							case 'LoomSpace':
+								return loomSpace;
+							default:
+								return null;
+						}
+					})
+					.filter(Boolean);
 				return {
 					data: {
-						graphStore: { cypherQueryV2: { edges: [jiraProject, confluenceSpace] } },
+						graphStore: {
+							cypherQueryV2: { edges: containers },
+						},
 					},
 				};
 			},
 			name: 'getTeamContainers',
 			overwriteRoutes: true,
 		}),
-	delayedData: () => {
-		fetchMock.post({
-			matcher: (url: string) => url.includes('/gateway/api/graphql?q=TeamContainersQueryV2'),
-			response: () => {
-				return {
-					data: {
-						graphStore: { cypherQueryV2: { edges: [] } },
-					},
-				};
-			},
-			repeat: 1,
-			name: 'getTeamContainersDelayedInitial',
-			overwriteRoutes: true,
-		});
-		fetchMock.post({
-			matcher: (url: string) => url.includes('/gateway/api/graphql?q=TeamContainersQueryV2'),
-			response: () =>
-				new Promise((resolve) => {
-					setTimeout(() => {
-						resolve({
-							data: {
-								graphStore: { cypherQueryV2: { edges: [jiraProject, confluenceSpace] } },
-							},
-						});
-					}, 5000);
-				}),
-			name: 'getTeamContainersDelayed',
-			overwriteRoutes: true,
-		});
-	},
 	noData: () =>
 		fetchMock.post({
 			matcher: (url: string) => url.includes('/gateway/api/graphql?q=TeamContainersQueryV2'),

@@ -9,7 +9,6 @@
 import React from 'react';
 
 import type { Prettify } from '@atlaskit/linking-common';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SmartLinkSize } from '../../constants';
 
@@ -125,12 +124,8 @@ export const OwnedByElement = (props?: OwnedByElementProps) => {
 			hideFormat={props?.hideFormat}
 			color={props?.color}
 			onRender={props?.onRender}
-			{...(fg('bandicoots-smart-card-teamwork-context')
-				? {
-						textPrefix: props?.textPrefix,
-						fontSize: props?.fontSize,
-					}
-				: undefined)}
+			textPrefix={props?.textPrefix}
+			fontSize={props?.fontSize}
 		/>
 	);
 };
@@ -187,9 +182,9 @@ export const TitleElement = (props?: TitleElementProps) => (
 		hideTooltip={props?.hideTooltip}
 		maxLines={props?.maxLines}
 		target={props?.target}
-		{...(fg('bandicoots-smart-card-teamwork-context')
-			? { theme: props?.theme, size: props?.size, testId: props?.testId }
-			: undefined)}
+		theme={props?.theme}
+		size={props?.size}
+		testId={props?.testId}
 		{...(props?.text ? { text: props?.text } : undefined)}
 	/>
 );

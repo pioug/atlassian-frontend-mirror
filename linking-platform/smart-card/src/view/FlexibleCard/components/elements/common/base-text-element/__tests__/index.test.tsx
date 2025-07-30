@@ -6,8 +6,6 @@ import { css, jsx } from '@compiled/react';
 import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 import { messages } from '../../../../../../../messages';
 import Text from '../index';
 
@@ -111,37 +109,14 @@ describe('Element: Text', () => {
 		expect(element).toHaveCompiledCss('color', '#000');
 	});
 
-	ffTest.on(
-		'bandicoots-smart-card-teamwork-context',
-		'FG bandicoots-smart-card-teamwork-context  enabled',
-		() => {
-			it('renders with font size override', async () => {
-				const content = 'random text';
-				render(<Text content={content} fontSize="font.body.large" />);
-				const element = await screen.findByTestId(testId);
-				expect(element).toBeVisible();
-				expect(element).toHaveCompiledCss(
-					'font',
-					'var(--ds-font-body-large,normal 400 1pc/24px ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)',
-				);
-			});
-		},
-	);
-
-	ffTest.off(
-		'bandicoots-smart-card-teamwork-context',
-		'FG bandicoots-smart-card-teamwork-context off',
-		() => {
-			it('does not render with font size override', async () => {
-				const content = 'random text';
-				render(<Text content={content} fontSize="font.body.large" />);
-				const element = await screen.findByTestId(testId);
-				expect(element).toBeVisible();
-				expect(element).not.toHaveCompiledCss(
-					'font',
-					'var(--ds-font-body-large,normal 400 1pc/24px ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)',
-				);
-			});
-		},
-	);
+	it('renders with font size override', async () => {
+		const content = 'random text';
+		render(<Text content={content} fontSize="font.body.large" />);
+		const element = await screen.findByTestId(testId);
+		expect(element).toBeVisible();
+		expect(element).toHaveCompiledCss(
+			'font',
+			'var(--ds-font-body-large,normal 400 1pc/24px ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)',
+		);
+	});
 });

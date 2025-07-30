@@ -7,7 +7,7 @@ import { jsx } from '@compiled/react';
 import AKBadge from '@atlaskit/badge';
 import AtlassianIntelligenceIcon from '@atlaskit/icon/core/atlassian-intelligence';
 import SearchIcon from '@atlaskit/icon/core/search';
-import { AtlassianIcon, AtlassianLogo } from '@atlaskit/logo';
+import { ConfluenceIcon } from '@atlaskit/logo';
 import { Root } from '@atlaskit/navigation-system/layout/root';
 import { SideNavToggleButton } from '@atlaskit/navigation-system/layout/side-nav';
 import {
@@ -23,14 +23,11 @@ import {
 	CreateButton,
 	EndItem,
 	Help,
-	NavLogo,
 	Profile,
 	Search,
 	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
 import { Notifications } from '@atlaskit/navigation-system/top-nav-items/notifications';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { JiraIcon } from '@atlaskit/temp-nav-app-icons/jira';
 import { token } from '@atlaskit/tokens';
 
 import { WithResponsiveViewport } from './utils/example-utils';
@@ -49,21 +46,12 @@ export const TopNavigationExample = () => (
 				<TopNavStart>
 					<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
 					<AppSwitcher label="App switcher" onClick={() => alert('app switcher')} />
-					{fg('platform-team25-app-icon-tiles') ? (
 						<AppLogo
 							href="http://www.atlassian.design"
-							icon={JiraIcon}
-							name="Jira"
+							icon={ConfluenceIcon}
+							name="Confluence"
 							label="Home page"
 						/>
-					) : (
-						<NavLogo
-							href="http://www.atlassian.design"
-							icon={AtlassianIcon}
-							logo={AtlassianLogo}
-							label="Home page"
-						/>
-					)}
 				</TopNavStart>
 				<TopNavMiddle>
 					<Search onClick={() => alert('mobile search')} label="Search" />

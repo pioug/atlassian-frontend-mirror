@@ -2,7 +2,14 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type ElementType, forwardRef, memo, type ReactNode, type Ref } from 'react';
+import {
+	type AriaAttributes,
+	type ElementType,
+	forwardRef,
+	memo,
+	type ReactNode,
+	type Ref,
+} from 'react';
 
 import { jsx } from '@compiled/react';
 
@@ -68,7 +75,8 @@ export type FlexProps<T extends ElementType = 'div'> = {
 	 * Forwarded ref element.
 	 */
 	ref?: React.ComponentPropsWithRef<T>['ref'];
-} & BasePrimitiveProps;
+} & BasePrimitiveProps &
+	AriaAttributes;
 
 const rowGapMap = cssMap({
 	'space.0': { rowGap: token('space.0', '0px') },
@@ -176,11 +184,13 @@ const Flex = memo(
 				direction,
 				wrap,
 				xcss,
+				...ariaAttributes
 			}: FlexProps<T>,
 			ref: Ref<any>,
 		) => {
 			return (
 				<Component
+					{...ariaAttributes}
 					role={role}
 					className={xcss}
 					css={[

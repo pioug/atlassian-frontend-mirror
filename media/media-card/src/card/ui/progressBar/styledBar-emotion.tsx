@@ -8,13 +8,14 @@ import { type StyledBarProps } from './types';
 import { styledBarStyles } from './styles';
 
 export const StyledBar = (props: StyledBarProps) => {
-	const { progress, breakpoint, positionBottom, showOnTop } = props;
+	const { progress, breakpoint, positionBottom, showOnTop, ariaLabel } = props;
 
 	return (
 		<div
 			id="styledBar"
 			role="progressbar"
 			aria-valuenow={progress}
+			aria-label={ariaLabel}
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={styledBarStyles({
 				progress,

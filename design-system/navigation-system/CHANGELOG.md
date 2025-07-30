@@ -1,5 +1,19 @@
 # @atlassian/navigation-system
 
+## 0.176.0
+
+### Minor Changes
+
+- [#185231](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185231)
+  [`453cf3e421ea9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/453cf3e421ea9) - -
+  `NavLogo` has been renamed to `CustomLogo`
+  - Fixed issue where `AppLogo` may render old `@atlaskit/logo` designs when certain feature flags
+    are disabled
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.175.1
 
 ### Patch Changes

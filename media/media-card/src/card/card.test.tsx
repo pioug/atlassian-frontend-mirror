@@ -3972,9 +3972,7 @@ describe('Card ', () => {
 					</MockedMediaClientProvider>,
 				);
 
-				await expect(container).toBeAccessible({
-					violationCount: 1,
-				});
+				await expect(container).toBeAccessible();
 			});
 
 			it('should attach an uploading file status flag with value as true', async () => {

@@ -2,7 +2,7 @@ import React from 'react';
 
 import AKBadge from '@atlaskit/badge';
 import AtlassianIntelligenceIcon from '@atlaskit/icon/core/atlassian-intelligence';
-import { AtlassianIcon, AtlassianLogo } from '@atlaskit/logo';
+import { ConfluenceIcon } from '@atlaskit/logo';
 import { Root } from '@atlaskit/navigation-system/layout/root';
 import { SideNavToggleButton } from '@atlaskit/navigation-system/layout/side-nav';
 import {
@@ -12,12 +12,12 @@ import {
 	TopNavStart,
 } from '@atlaskit/navigation-system/layout/top-nav';
 import {
+	AppLogo,
 	AppSwitcher,
 	ChatButton,
 	CreateButton,
 	EndItem,
 	Help,
-	NavLogo,
 	Profile,
 	Search,
 	Settings,
@@ -39,10 +39,10 @@ const TopNavSideNavCollapsed = () => (
 						expandLabel="Expand sidebar"
 					/>
 					<AppSwitcher label="App switcher" onClick={() => alert('app switcher')} />
-					<NavLogo
+					<AppLogo
 						href="http://www.atlassian.design"
-						icon={AtlassianIcon}
-						logo={AtlassianLogo}
+						icon={ConfluenceIcon}
+						name="Confluence"
 						label="Home page"
 					/>
 				</TopNavStart>

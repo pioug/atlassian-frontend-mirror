@@ -462,16 +462,6 @@ describe('VCObserverNew', () => {
 	});
 
 	describe('SSR functionality', () => {
-		beforeEach(() => {
-			// Enable SSR feature flag for these tests
-			(fg as jest.Mock).mockImplementation((flag: string) => {
-				if (flag === 'platform_ufo_vc_v3_ssr_placeholder') {
-					return true;
-				}
-				return false;
-			});
-		});
-
 		describe('SSR placeholder initialization', () => {
 			it('should initialize SSR placeholder handler when feature flag is enabled', () => {
 				const config: VCObserverNewConfig = {

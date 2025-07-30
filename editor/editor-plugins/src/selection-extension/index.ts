@@ -11,4 +11,5 @@ export type {
 	SelectionExtensionPluginState,
 	SelectionExtensionSelectionInfo,
 	DynamicSelectionExtension,
+	ReplaceWithAdfResult,
 } from '@atlaskit/editor-plugin-selection-extension';

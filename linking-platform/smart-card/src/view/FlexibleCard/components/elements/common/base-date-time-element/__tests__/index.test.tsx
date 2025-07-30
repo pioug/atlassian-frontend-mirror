@@ -6,8 +6,6 @@ import { css, jsx } from '@compiled/react';
 import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 import BaseDateTime from '../index';
 
 describe('Element: BaseDateTime', () => {
@@ -34,57 +32,21 @@ describe('Element: BaseDateTime', () => {
 		await expect(container).toBeAccessible();
 	});
 
-	ffTest.off(
-		'bandicoots-smart-card-teamwork-context',
-		'FG bandicoots-smart-card-teamwork-context off',
-		() => {
-			it('does not render with font size override', async () => {
-				const eightDaysBack = new Date(mockedNow - 1000 * 60 * 60 * 24 * 8);
-				render(
-					<IntlProvider locale="en">
-						<BaseDateTime
-							date={new Date(eightDaysBack)}
-							type="created"
-							fontSize="font.body.large"
-						/>
-					</IntlProvider>,
-				);
-				const element = await screen.findByTestId(testId);
-				expect(element).toBeTruthy();
-				expect(element).toHaveTextContent('Created on Jan 17, 2022');
-				expect(element).not.toHaveCompiledCss(
-					'font',
-					'var(--ds-font-body-large,normal 400 1pc/24px ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)',
-				);
-			});
-		},
-	);
-
-	ffTest.on(
-		'bandicoots-smart-card-teamwork-context',
-		'FG bandicoots-smart-card-teamwork-context on',
-		() => {
-			it('does not render with font size override', async () => {
-				const eightDaysBack = new Date(mockedNow - 1000 * 60 * 60 * 24 * 8);
-				render(
-					<IntlProvider locale="en">
-						<BaseDateTime
-							date={new Date(eightDaysBack)}
-							type="created"
-							fontSize="font.body.large"
-						/>
-					</IntlProvider>,
-				);
-				const element = await screen.findByTestId(testId);
-				expect(element).toBeTruthy();
-				expect(element).toHaveTextContent('Created on Jan 17, 2022');
-				expect(element).toHaveCompiledCss(
-					'font',
-					'var(--ds-font-body-large,normal 400 1pc/24px ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)',
-				);
-			});
-		},
-	);
+	it('does not render with font size override', async () => {
+		const eightDaysBack = new Date(mockedNow - 1000 * 60 * 60 * 24 * 8);
+		render(
+			<IntlProvider locale="en">
+				<BaseDateTime date={new Date(eightDaysBack)} type="created" fontSize="font.body.large" />
+			</IntlProvider>,
+		);
+		const element = await screen.findByTestId(testId);
+		expect(element).toBeTruthy();
+		expect(element).toHaveTextContent('Created on Jan 17, 2022');
+		expect(element).toHaveCompiledCss(
+			'font',
+			'var(--ds-font-body-large,normal 400 1pc/24px ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)',
+		);
+	});
 
 	describe('with relative mode', () => {
 		it('should render created at element', async () => {

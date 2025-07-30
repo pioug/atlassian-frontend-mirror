@@ -63,7 +63,11 @@ export const TeamContainers = ({
 		teamId,
 		true,
 	);
-	const { requestedContainers } = useRequestedContainers({ teamId, onRequestedContainerTimeout });
+	const { requestedContainers } = useRequestedContainers({
+		teamId,
+		cloudId,
+		onRequestedContainerTimeout,
+	});
 	const [_, actions] = useTeamContainersHook();
 	const [showMore, setShowMore] = useState(false);
 	const [isDisconnectDialogOpen, setIsDisconnectDialogOpen] = useState(false);

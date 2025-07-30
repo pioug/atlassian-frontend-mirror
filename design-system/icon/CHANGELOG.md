@@ -1,5 +1,13 @@
 # @atlaskit/icon
 
+## 27.8.0
+
+### Minor Changes
+
+- [#193177](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/193177)
+  [`5b373c4d14e0c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5b373c4d14e0c) -
+  Deprecated custom icon and custom SVG
+
 ## 27.7.0
 
 ### Minor Changes

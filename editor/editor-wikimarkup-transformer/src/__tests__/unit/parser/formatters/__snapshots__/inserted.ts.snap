@@ -139,6 +139,7 @@ exports[`WikiMarkup => ADF Formatters - inserted should detect inserted mark at 
         },
         {
           "attrs": {
+            "localId": null,
             "text": "
 ",
           },

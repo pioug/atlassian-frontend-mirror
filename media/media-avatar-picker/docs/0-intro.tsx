@@ -31,6 +31,26 @@ ${(<AtlassianInternalWarning />)}
   * Image size > 10Mib - if the user uploads or drops an image greater than 10Mib in size, an error message will be shown
   
   See the \`errorMessage\` property below to set your own custom error message if required.
+
+  ### Accessibility
+
+  This component is designed to be fully accessible and follows WCAG guidelines:
+
+  #### Keyboard Navigation
+  * **Image Cropping**: Use arrow keys to move and position the image within the crop area
+  * **Tab Navigation**: All interactive elements are accessible via keyboard
+  * **Focus Management**: Clear visual focus indicators throughout the interface
+
+  #### Screen Reader Support
+  * **ARIA Labels**: Descriptive labels for all interactive elements
+  * **Live Announcements**: Real-time feedback when moving images during cropping
+  * **Semantic Markup**: Proper roles and structure for assistive technologies
+
+  #### Features
+  * Fully keyboard accessible image cropping and navigation
+  * Screen reader announcements for image positioning
+  * High contrast focus indicators
+  * Logical tab order throughout the interface
   
   ### Note
   - **Client-side only** : 

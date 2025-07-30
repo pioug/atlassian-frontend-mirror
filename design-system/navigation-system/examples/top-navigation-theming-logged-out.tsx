@@ -1,12 +1,12 @@
 import React, { useReducer } from 'react';
 
-import { AtlassianIcon, AtlassianLogo } from '@atlaskit/logo';
+import { ConfluenceIcon } from '@atlaskit/logo';
 import {
+	AppLogo,
 	AppSwitcher,
 	CreateButton,
 	Help,
 	LogIn,
-	NavLogo,
 	SideNavToggleButton,
 	TopNav,
 	TopNavEnd,
@@ -44,10 +44,10 @@ const TopNavigationThemingInstance = ({ customTheme }: { customTheme?: CustomThe
 						onClick={toggleIsAppSwitcherSelected}
 						isSelected={isAppSwitcherSelected}
 					/>
-					<NavLogo
+					<AppLogo
 						href="http://www.atlassian.design"
-						logo={AtlassianLogo}
-						icon={AtlassianIcon}
+						icon={ConfluenceIcon}
+						name="Confluence"
 						label="Home page"
 					/>
 				</TopNavStart>

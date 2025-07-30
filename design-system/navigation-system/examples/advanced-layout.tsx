@@ -6,11 +6,11 @@
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
-import { AtlassianIcon, AtlassianLogo } from '@atlaskit/logo';
+import { HomeIcon } from '@atlaskit/logo';
 import { Main } from '@atlaskit/navigation-system/layout/main';
 import { Root } from '@atlaskit/navigation-system/layout/root';
 import { TopNav, TopNavStart } from '@atlaskit/navigation-system/layout/top-nav';
-import { NavLogo } from '@atlaskit/navigation-system/top-nav-items';
+import { AppLogo } from '@atlaskit/navigation-system/top-nav-items';
 import PageHeader from '@atlaskit/page-header';
 import { Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -96,7 +96,7 @@ export const AdvancedLayoutExample = () => (
 	<Root>
 		<TopNav>
 			<TopNavStart>
-				<NavLogo href="" logo={AtlassianLogo} icon={AtlassianIcon} label="Home page" />
+				<AppLogo href="" icon={HomeIcon} name="Home" label="Home page" />
 			</TopNavStart>
 		</TopNav>
 		<Main isFixed>

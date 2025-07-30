@@ -16,7 +16,7 @@ import Heading from '@atlaskit/heading';
 import AiChatIcon from '@atlaskit/icon/core/ai-chat';
 import CrossIcon from '@atlaskit/icon/core/cross';
 import GrowDiagonalIcon from '@atlaskit/icon/core/grow-diagonal';
-import { ConfluenceIcon, ConfluenceLogo } from '@atlaskit/logo';
+import { ConfluenceIcon } from '@atlaskit/logo';
 import { TopNavButton } from '@atlaskit/navigation-system/experimental/top-nav-button';
 import { Main } from '@atlaskit/navigation-system/layout/main';
 import { Panel } from '@atlaskit/navigation-system/layout/panel';
@@ -30,9 +30,9 @@ import {
 } from '@atlaskit/navigation-system/layout/top-nav';
 import { MenuListItem } from '@atlaskit/navigation-system/side-nav-items/menu-list-item';
 import {
+	AppLogo,
 	AppSwitcher,
 	CreateButton,
-	NavLogo,
 	Notifications,
 	Profile,
 } from '@atlaskit/navigation-system/top-nav-items';
@@ -118,7 +118,7 @@ export function CompanyHubMockExample({ defaultPanelWidth = 440 }: { defaultPane
 				<TopNav>
 					<TopNavStart>
 						<AppSwitcher label="Switch apps" />
-						<NavLogo href="" logo={ConfluenceLogo} icon={ConfluenceIcon} label="Home page" />
+						<AppLogo href="" icon={ConfluenceIcon} name="Confluence" label="Home page" />
 					</TopNavStart>
 					<TopNavMiddle>
 						<MockSearch />

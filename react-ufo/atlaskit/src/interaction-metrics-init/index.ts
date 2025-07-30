@@ -16,7 +16,6 @@ import {
 } from '../interaction-metrics';
 import { getPerformanceObserver } from '../interactions-performance-observer';
 import { initialiseMemoryObserver, initialisePressureObserver } from '../machine-utilisation';
-import { getVCObserver } from '../vc';
 
 import scheduleIdleCallback from './schedule-idle-callback';
 
@@ -168,14 +167,6 @@ export function init(
 		postInteractionLog.initializeVCObserver(vcOptions);
 		if (config?.experimentalInteractionMetrics?.enabled) {
 			experimentalVC.initialize(vcOptions).start({ startTime: 0 });
-		}
-
-		if (!fg('platform_ufo_enable_vc_observer_per_interaction')) {
-			getVCObserver(vcOptions).start({ startTime: 0 });
-
-			if (config.postInteractionLog?.enabled) {
-				postInteractionLog.startVCObserver({ startTime: 0 });
-			}
 		}
 	}
 

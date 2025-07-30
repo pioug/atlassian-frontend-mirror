@@ -1,5 +1,18 @@
 # @atlaskit/editor-card-provider
 
+## 5.2.0
+
+### Minor Changes
+
+- [#191942](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/191942)
+  [`6b5ec599e6dfd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b5ec599e6dfd) -
+  [https://product-fabric.atlassian.net/browse/ED-28596](ED-28596) - extend EditorCardProvider from
+  NodeDataProvider
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.1.3
 
 ### Patch Changes

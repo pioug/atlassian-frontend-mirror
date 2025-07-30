@@ -1,14 +1,12 @@
-import { isFedrampModerate, isIsolatedCloud, isolatedCloudDomain } from './index';
-
-const mockDocument = { cookie: '' } as Document;
-globalThis.document = mockDocument;
+import { isFedrampModerate, isIsolatedCloud, isolatedCloudDomain, isolationContextId } from './index';
 
 describe('Perimeter Detection', () => {
 	afterEach(() => {
-		global.document.cookie = 'Atl-Ctx-Perimeter=; expires=Thu, 01 Jan 1970 00:00:00 GMT';
-		global.document.cookie =
+		globalThis.document.cookie = 'Atl-Ctx-Perimeter=; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+		globalThis.document.cookie =
 			'Atl-Ctx-Isolation-Context-Domain=; expires=Thu, 01 Jan 1970 00:00:00 GMT';
-		global.document.cookie = 'Atl-Ctx-Isolation-Context-Id=; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+		globalThis.document.cookie =
+			'Atl-Ctx-Isolation-Context-Id=; expires=Thu, 01 Jan 1970 00:00:00 GMT';
 	});
 
 	describe('Cookie-based perimeter detection', () => {
@@ -38,7 +36,7 @@ describe('Perimeter Detection', () => {
 
 			expect(isFedrampModerate()).toBe(false);
 			expect(isIsolatedCloud()).toBe(false);
-			global.document.cookie = 'other-cookie=; expires=Thu, 01 Jan 1970 00:00:00 GMT'; // clear cookie
+			globalThis.document.cookie = 'other-cookie=; expires=Thu, 01 Jan 1970 00:00:00 GMT'; // clear cookie
 		});
 	});
 
@@ -57,6 +55,24 @@ describe('Perimeter Detection', () => {
 
 		it('returns undefined for non-isolated cloud environments (commercial)', () => {
 			expect(isolatedCloudDomain()).toBeUndefined();
+		});
+	});
+
+	describe('Get isolationContextId', () => {
+		it('returns id for isolated cloud environments', () => {
+			globalThis.document.cookie = 'Atl-Ctx-Perimeter=commercial';
+			globalThis.document.cookie = 'Atl-Ctx-Isolation-Context-Id=ic-123';
+
+			expect(isolationContextId()).toBe('ic-123');
+		});
+
+		it('returns undefined for non-isolated cloud environments (fedramp)', () => {
+			globalThis.document.cookie = 'Atl-Ctx-Perimeter=fedramp-moderate';
+			expect(isolationContextId()).toBeUndefined();
+		});
+
+		it('returns undefined for non-isolated cloud environments (commercial)', () => {
+			expect(isolationContextId()).toBeUndefined();
 		});
 	});
 });

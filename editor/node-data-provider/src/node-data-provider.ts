@@ -35,6 +35,22 @@ type CacheData<Data> = Record<
 >;
 
 /**
+ * Represents the payload passed to the callback function when data is fetched.
+ * It can either contain an error or the fetched data.
+ */
+type CallbackPayload<Data> =
+	| {
+			/** An error that occurred while fetching data. */
+			error: Error;
+			data?: undefined;
+	  }
+	| {
+			/** Fetched data for the node. */
+			data: Data;
+			error?: undefined;
+	  };
+
+/**
  * A Node Data Provider is responsible for fetching and caching data associated with specific ProseMirror nodes.
  * It supports a cache-first-then-network strategy, with initial data potentially provided via SSR.
  *
@@ -95,14 +111,9 @@ export abstract class NodeDataProvider<Node extends JSONNode, Data> {
 	 */
 	setSSRData(ssrData: SSRData<Data> = {}): void {
 		this.cacheVersion++;
-		this.cache = Object.entries(ssrData).reduce<CacheData<Data>>((acc, [key, data]) => {
-			acc[key] = {
-				source: 'ssr',
-				data,
-			};
-
-			return acc;
-		}, {});
+		this.cache = Object.fromEntries(
+			Object.entries(ssrData).map(([key, data]) => [key, { data, source: 'ssr' }]),
+		);
 	}
 
 	/**
@@ -145,69 +156,77 @@ export abstract class NodeDataProvider<Node extends JSONNode, Data> {
 	 * ```
 	 *
 	 * @param node The node (or its ProseMirror representation) for which to fetch data.
-	 * @param callback The function to call when data is available.
+	 * @param callback The callback function to call with the fetched data or an error.
 	 */
-	getData(node: Node | PMNode, callback: (data: Data) => void): void {
+	getData(node: Node | PMNode, callback: (payload: CallbackPayload<Data>) => void): void {
 		// Move implementation to a separate async method
 		// to keep this method synchronous and avoid async/await in the public API.
 		void this.getDataAsync(node, callback);
 	}
 
-	private async getDataAsync(node: Node | PMNode, callback: (data: Data) => void): Promise<void> {
-		const jsonNode: JSONNode = 'toJSON' in node ? node.toJSON() : node;
+	private async getDataAsync(
+		node: Node | PMNode,
+		callback: (payload: CallbackPayload<Data>) => void,
+	): Promise<void> {
+		try {
+			const jsonNode: JSONNode = 'toJSON' in node ? node.toJSON() : node;
 
-		if (!this.isNodeSupported(jsonNode)) {
-			// eslint-disable-next-line no-console
-			console.error(`The ${this.constructor.name} doesn't support Node ${jsonNode.type}.`);
-			return;
-		}
-
-		const dataKey = this.nodeDataKey(jsonNode);
-
-		const dataFromCache = this.cache[dataKey];
-
-		if (dataFromCache !== undefined) {
-			// If we have the data in the SSR data, we can use it directly
-			if (isPromise(dataFromCache.data)) {
-				callback(await dataFromCache.data);
-			} else {
-				callback(dataFromCache.data);
-			}
-
-			if (isSSR()) {
-				// If we are in SSR, we don't want to fetch the data again, as it is already available in the SSR data
+			if (!this.isNodeSupported(jsonNode)) {
+				// eslint-disable-next-line no-console
+				console.error(`The ${this.constructor.name} doesn't support Node ${jsonNode.type}.`);
 				return;
 			}
-		}
 
-		// If no data is available in the cache or the data is from the network,
-		// we need to fetch it from the network.
-		if (dataFromCache?.source !== 'network') {
-			// Store the current cache version before making the request,
-			// so we can check if the cache has changed while we are waiting for the network response.
-			const cacheVersionBeforeRequest = this.cacheVersion;
+			const dataKey = this.nodeDataKey(jsonNode);
 
-			const dataPromise = this.fetchNodesData([jsonNode]).then(([value]) => value);
-			// Store the promise in the cache to avoid multiple requests for the same data
-			this.cache[dataKey] = {
-				source: 'network',
-				data: dataPromise,
-			};
+			const dataFromCache = this.cache[dataKey];
 
-			const data = await dataPromise;
-			// We need to call the callback with the data with result even if the cache version has changed,
-			// so all promises that are waiting for the data can resolve.
-			callback(data);
+			if (dataFromCache !== undefined) {
+				// If we have the data in the SSR data, we can use it directly
+				if (isPromise(dataFromCache.data)) {
+					callback({ data: await dataFromCache.data });
+				} else {
+					callback({ data: dataFromCache.data });
+				}
 
-			// If the cache version has changed, we don't want to use the data from the network
-			// because it could be stale data.
-			if (cacheVersionBeforeRequest === this.cacheVersion) {
-				// Replace promise with the resolved data in the cache
+				if (isSSR()) {
+					// If we are in SSR, we don't want to fetch the data again, as it is already available in the SSR data
+					return;
+				}
+			}
+
+			// If no data is available in the cache or the data is from the network,
+			// we need to fetch it from the network.
+			if (dataFromCache?.source !== 'network') {
+				// Store the current cache version before making the request,
+				// so we can check if the cache has changed while we are waiting for the network response.
+				const cacheVersionBeforeRequest = this.cacheVersion;
+
+				const dataPromise = this.fetchNodesData([jsonNode]).then(([value]) => value);
+				// Store the promise in the cache to avoid multiple requests for the same data
 				this.cache[dataKey] = {
 					source: 'network',
-					data,
+					data: dataPromise,
 				};
+
+				const data = await dataPromise;
+				// We need to call the callback with the data with result even if the cache version has changed,
+				// so all promises that are waiting for the data can resolve.
+				callback({ data });
+
+				// If the cache version has changed, we don't want to use the data from the network
+				// because it could be stale data.
+				if (cacheVersionBeforeRequest === this.cacheVersion) {
+					// Replace promise with the resolved data in the cache
+					this.cache[dataKey] = {
+						source: 'network',
+						data,
+					};
+				}
 			}
+		} catch (error) {
+			// If an error occurs, we call the callback with the error
+			callback({ error: error instanceof Error ? error : new Error(String(error)) });
 		}
 	}
 
@@ -230,7 +249,13 @@ export abstract class NodeDataProvider<Node extends JSONNode, Data> {
 	getDataAsPromise_DO_NOT_USE_OUTSIDE_MIGRATIONS(node: Node | PMNode): Promise<Data> {
 		return new Promise<Data>((resolve, reject) => {
 			try {
-				return this.getData(node, resolve);
+				this.getData(node, (payload) => {
+					if (payload.error) {
+						reject(payload.error);
+					} else {
+						resolve(payload.data);
+					}
+				});
 			} catch (error) {
 				reject(error);
 			}

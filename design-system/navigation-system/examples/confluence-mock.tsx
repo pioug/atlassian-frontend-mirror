@@ -27,7 +27,7 @@ import LockUnlockedIcon from '@atlaskit/icon/core/lock-unlocked';
 import PremiumIcon from '@atlaskit/icon/core/premium';
 import ProjectIcon from '@atlaskit/icon/core/project';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
-import { ConfluenceIcon, ConfluenceLogo } from '@atlaskit/logo';
+import { ConfluenceIcon } from '@atlaskit/logo';
 import Lozenge from '@atlaskit/lozenge';
 import { MenuList } from '@atlaskit/navigation-system';
 import { Banner } from '@atlaskit/navigation-system/layout/banner';
@@ -56,10 +56,10 @@ import { LinkMenuItem } from '@atlaskit/navigation-system/side-nav-items/link-me
 import { MenuListItem } from '@atlaskit/navigation-system/side-nav-items/menu-list-item';
 import { Divider } from '@atlaskit/navigation-system/side-nav-items/menu-section';
 import {
+	AppLogo,
 	AppSwitcher,
 	CreateButton,
 	Help,
-	NavLogo,
 	Notifications,
 	Profile,
 	Settings,
@@ -155,7 +155,7 @@ export default function ConfluenceMockExample({}: {}) {
 							expandLabel="Expand sidebar"
 						/>
 						<AppSwitcher label="Switch apps" />
-						<NavLogo href="" logo={ConfluenceLogo} icon={ConfluenceIcon} label="Home page" />
+						<AppLogo href="" icon={ConfluenceIcon} name="Confluence" label="Home page" />
 					</TopNavStart>
 					<TopNavMiddle>
 						<MockSearch />

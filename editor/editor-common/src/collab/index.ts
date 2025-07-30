@@ -780,7 +780,6 @@ export const telepointerStyle = css`
 				font: ${token('font.body.small')};
 				padding-left: ${token('space.050')};
 				padding-right: ${token('space.050')};
-				color: ${token('color.text.inverse')};
 				border-radius: 0 2px 2px 0;
 			}
 

@@ -22,7 +22,7 @@ import SettingsIcon from '@atlaskit/icon/core/settings';
 import ShowMoreHorizontalCoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import StarUnstarredIcon from '@atlaskit/icon/core/star-unstarred';
 import Link from '@atlaskit/link';
-import { AtlassianIcon, AtlassianLogo } from '@atlaskit/logo';
+import { JiraIcon } from '@atlaskit/logo';
 import { MenuList } from '@atlaskit/navigation-system';
 import { Aside } from '@atlaskit/navigation-system/layout/aside';
 import { Banner } from '@atlaskit/navigation-system/layout/banner';
@@ -51,10 +51,10 @@ import { LinkMenuItem } from '@atlaskit/navigation-system/side-nav-items/link-me
 import { MenuListItem } from '@atlaskit/navigation-system/side-nav-items/menu-list-item';
 import { Divider } from '@atlaskit/navigation-system/side-nav-items/menu-section';
 import {
+	AppLogo,
 	AppSwitcher,
 	CreateButton,
 	Help,
-	NavLogo,
 	Notifications,
 	Profile,
 	Search,
@@ -296,7 +296,7 @@ export default function Composition({
 							expandLabel="Expand sidebar"
 						/>
 						<AppSwitcher label="Switch apps" />
-						<NavLogo href="" logo={AtlassianLogo} icon={AtlassianIcon} label="Home page" />
+						<AppLogo href="" icon={JiraIcon} name="Confluence" label="Home page" />
 					</TopNavStart>
 					<TopNavMiddle>
 						{isMockProductSearch ? <MockSearch /> : <Search label="Search" />}

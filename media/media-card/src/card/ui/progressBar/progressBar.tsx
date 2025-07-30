@@ -7,6 +7,7 @@ export type ProgressBarProps = {
 	breakpoint?: Breakpoint;
 	positionBottom?: boolean;
 	showOnTop?: boolean;
+	ariaLabel?: string;
 };
 
 export const getNormalizedProgress = (progress?: number) => {
@@ -18,6 +19,7 @@ export const ProgressBar = ({
 	breakpoint = Breakpoint.SMALL,
 	positionBottom = false,
 	showOnTop = false,
+	ariaLabel = 'Loading progress',
 }: ProgressBarProps) => {
 	return (
 		<StyledBar
@@ -25,6 +27,7 @@ export const ProgressBar = ({
 			breakpoint={breakpoint}
 			positionBottom={positionBottom}
 			showOnTop={showOnTop}
+			ariaLabel={ariaLabel}
 		/>
 	);
 };

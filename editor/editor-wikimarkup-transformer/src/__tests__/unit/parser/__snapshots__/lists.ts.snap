@@ -4,8 +4,14 @@ exports[`JIRA wiki markup - Lists [CS-617] should not ignore double and triple d
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -23,6 +29,9 @@ exports[`JIRA wiki markup - Lists [CS-617] should not ignore double and triple d
           "type": "listItem",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -51,8 +60,14 @@ exports[`JIRA wiki markup - Lists ADFEXP-371 should correctly parse color macro 
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -63,6 +78,7 @@ exports[`JIRA wiki markup - Lists ADFEXP-371 should correctly parse color macro 
             {
               "attrs": {
                 "language": "java",
+                "localId": null,
                 "uniqueId": null,
               },
               "content": [
@@ -99,10 +115,14 @@ exports[`JIRA wiki markup - Lists ADFEXP-371 should have emphasis mark along wit
   "content": [
     {
       "attrs": {
+        "localId": null,
         "order": 1,
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -143,10 +163,14 @@ exports[`JIRA wiki markup - Lists ADFEXP-371 should have strikethrough mark alon
   "content": [
     {
       "attrs": {
+        "localId": null,
         "order": 1,
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -187,10 +211,14 @@ exports[`JIRA wiki markup - Lists ADFEXP-371 should have strikethrough mark alon
   "content": [
     {
       "attrs": {
+        "localId": null,
         "order": 1,
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -231,10 +259,14 @@ exports[`JIRA wiki markup - Lists ADFEXP-371 should have strong mark along with 
   "content": [
     {
       "attrs": {
+        "localId": null,
         "order": 1,
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -275,10 +307,14 @@ exports[`JIRA wiki markup - Lists ADFEXP-371 should not have emphasis mark along
   "content": [
     {
       "attrs": {
+        "localId": null,
         "order": 1,
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -295,6 +331,7 @@ exports[`JIRA wiki markup - Lists ADFEXP-371 should not have emphasis mark along
             {
               "attrs": {
                 "language": "java",
+                "localId": null,
                 "uniqueId": null,
               },
               "content": [
@@ -332,8 +369,14 @@ exports[`JIRA wiki markup - Lists ADFEXP-371 should parse codeblock inside a col
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -344,6 +387,7 @@ exports[`JIRA wiki markup - Lists ADFEXP-371 should parse codeblock inside a col
             {
               "attrs": {
                 "language": "java",
+                "localId": null,
                 "uniqueId": null,
               },
               "content": [
@@ -369,8 +413,14 @@ exports[`JIRA wiki markup - Lists ADFEXP-371 should parse codeblock inside a nof
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -381,6 +431,7 @@ exports[`JIRA wiki markup - Lists ADFEXP-371 should parse codeblock inside a nof
             {
               "attrs": {
                 "language": null,
+                "localId": null,
                 "uniqueId": null,
               },
               "content": [
@@ -407,10 +458,14 @@ exports[`JIRA wiki markup - Lists ADFEXP-371 should parse color and code macro w
   "content": [
     {
       "attrs": {
+        "localId": null,
         "order": 1,
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -446,6 +501,7 @@ exports[`JIRA wiki markup - Lists ADFEXP-371 should parse color and code macro w
             {
               "attrs": {
                 "language": "java",
+                "localId": null,
                 "uniqueId": null,
               },
               "content": [
@@ -484,10 +540,14 @@ exports[`JIRA wiki markup - Lists ADFEXP-371 should parse color and code macro w
   "content": [
     {
       "attrs": {
+        "localId": null,
         "order": 1,
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -520,6 +580,7 @@ exports[`JIRA wiki markup - Lists ADFEXP-371 should parse color and code macro w
             {
               "attrs": {
                 "language": "java",
+                "localId": null,
                 "uniqueId": null,
               },
               "content": [
@@ -546,14 +607,19 @@ exports[`JIRA wiki markup - Lists ADFEXP-371 should parse image macro inside a c
   "content": [
     {
       "attrs": {
+        "localId": null,
         "order": 1,
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "layout": "center",
+                "localId": null,
                 "width": null,
                 "widthType": null,
               },
@@ -571,6 +637,7 @@ exports[`JIRA wiki markup - Lists ADFEXP-371 should parse image macro inside a c
                     "collection": "",
                     "height": 183,
                     "id": "",
+                    "localId": null,
                     "occurrenceKey": null,
                     "type": "external",
                     "url": "http://example.com/?insection",
@@ -597,10 +664,14 @@ exports[`JIRA wiki markup - Lists ADFEXP-371 should parse image macro inside a n
   "content": [
     {
       "attrs": {
+        "localId": null,
         "order": 1,
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -611,6 +682,7 @@ exports[`JIRA wiki markup - Lists ADFEXP-371 should parse image macro inside a n
             {
               "attrs": {
                 "language": null,
+                "localId": null,
                 "uniqueId": null,
               },
               "content": [
@@ -636,8 +708,14 @@ exports[`JIRA wiki markup - Lists ADFEXP-371 should parse invalid ADF macro insi
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -648,6 +726,7 @@ exports[`JIRA wiki markup - Lists ADFEXP-371 should parse invalid ADF macro insi
             {
               "attrs": {
                 "language": null,
+                "localId": null,
                 "uniqueId": null,
               },
               "content": [
@@ -674,10 +753,14 @@ exports[`JIRA wiki markup - Lists ADFS-453 should NOT create a list of more than
   "content": [
     {
       "attrs": {
+        "localId": null,
         "order": 1,
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -706,8 +789,14 @@ exports[`JIRA wiki markup - Lists ESS-2539 Should render list separated by ruler
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -720,6 +809,7 @@ exports[`JIRA wiki markup - Lists ESS-2539 Should render list separated by ruler
                 },
                 {
                   "attrs": {
+                    "localId": null,
                     "text": "
 ",
                   },
@@ -739,11 +829,20 @@ exports[`JIRA wiki markup - Lists ESS-2539 Should render list separated by ruler
       "type": "bulletList",
     },
     {
+      "attrs": {
+        "localId": null,
+      },
       "type": "rule",
     },
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -752,8 +851,14 @@ exports[`JIRA wiki markup - Lists ESS-2539 Should render list separated by ruler
               "type": "paragraph",
             },
             {
+              "attrs": {
+                "localId": null,
+              },
               "content": [
                 {
+                  "attrs": {
+                    "localId": null,
+                  },
                   "content": [
                     {
                       "attrs": {
@@ -766,6 +871,7 @@ exports[`JIRA wiki markup - Lists ESS-2539 Should render list separated by ruler
                         },
                         {
                           "attrs": {
+                            "localId": null,
                             "text": "
 ",
                           },
@@ -819,8 +925,14 @@ exports[`JIRA wiki markup - Lists should allow pipes in a list, and not render a
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -842,10 +954,14 @@ exports[`JIRA wiki markup - Lists should allow pipes in a list, and not render a
     },
     {
       "attrs": {
+        "localId": null,
         "order": 1,
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -874,8 +990,14 @@ exports[`JIRA wiki markup - Lists should be able to create nested list with - 1`
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -890,8 +1012,14 @@ exports[`JIRA wiki markup - Lists should be able to create nested list with - 1`
               "type": "paragraph",
             },
             {
+              "attrs": {
+                "localId": null,
+              },
               "content": [
                 {
+                  "attrs": {
+                    "localId": null,
+                  },
                   "content": [
                     {
                       "attrs": {
@@ -909,6 +1037,9 @@ exports[`JIRA wiki markup - Lists should be able to create nested list with - 1`
                   "type": "listItem",
                 },
                 {
+                  "attrs": {
+                    "localId": null,
+                  },
                   "content": [
                     {
                       "attrs": {
@@ -943,8 +1074,14 @@ exports[`JIRA wiki markup - Lists should break out the media group 1`] = `
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -979,6 +1116,7 @@ exports[`JIRA wiki markup - Lists should break out the media group 1`] = `
             "collection": "",
             "height": null,
             "id": "abc-0",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -990,8 +1128,14 @@ exports[`JIRA wiki markup - Lists should break out the media group 1`] = `
       "type": "mediaGroup",
     },
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -1020,8 +1164,14 @@ exports[`JIRA wiki markup - Lists should break out the media group but merge sep
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -1056,6 +1206,7 @@ exports[`JIRA wiki markup - Lists should break out the media group but merge sep
             "collection": "",
             "height": null,
             "id": "abc-1",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -1076,6 +1227,7 @@ exports[`JIRA wiki markup - Lists should break out the media group but merge sep
             "collection": "",
             "height": null,
             "id": "abc-2",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -1096,6 +1248,7 @@ exports[`JIRA wiki markup - Lists should break out the media group but merge sep
             "collection": "",
             "height": null,
             "id": "abc-3",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -1116,6 +1269,7 @@ exports[`JIRA wiki markup - Lists should break out the media group but merge sep
             "collection": "",
             "height": null,
             "id": "abc-4",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -1127,8 +1281,14 @@ exports[`JIRA wiki markup - Lists should break out the media group but merge sep
       "type": "mediaGroup",
     },
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -1163,6 +1323,7 @@ exports[`JIRA wiki markup - Lists should break out the media group but merge sep
             "collection": "",
             "height": null,
             "id": "abc-5",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -1183,6 +1344,7 @@ exports[`JIRA wiki markup - Lists should break out the media group but merge sep
             "collection": "",
             "height": null,
             "id": "abc-6",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -1203,6 +1365,7 @@ exports[`JIRA wiki markup - Lists should break out the media group but merge sep
             "collection": "",
             "height": null,
             "id": "abc-7",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -1223,6 +1386,7 @@ exports[`JIRA wiki markup - Lists should break out the media group but merge sep
             "collection": "",
             "height": null,
             "id": "abc-8",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -1242,8 +1406,14 @@ exports[`JIRA wiki markup - Lists should break out the media group even in neste
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -1258,8 +1428,14 @@ exports[`JIRA wiki markup - Lists should break out the media group even in neste
               "type": "paragraph",
             },
             {
+              "attrs": {
+                "localId": null,
+              },
               "content": [
                 {
+                  "attrs": {
+                    "localId": null,
+                  },
                   "content": [
                     {
                       "attrs": {
@@ -1300,6 +1476,7 @@ exports[`JIRA wiki markup - Lists should break out the media group even in neste
             "collection": "",
             "height": null,
             "id": "abc-0",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -1311,8 +1488,14 @@ exports[`JIRA wiki markup - Lists should break out the media group even in neste
       "type": "mediaGroup",
     },
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -1321,8 +1504,14 @@ exports[`JIRA wiki markup - Lists should break out the media group even in neste
               "type": "paragraph",
             },
             {
+              "attrs": {
+                "localId": null,
+              },
               "content": [
                 {
+                  "attrs": {
+                    "localId": null,
+                  },
                   "content": [
                     {
                       "attrs": {
@@ -1340,6 +1529,9 @@ exports[`JIRA wiki markup - Lists should break out the media group even in neste
                   "type": "listItem",
                 },
                 {
+                  "attrs": {
+                    "localId": null,
+                  },
                   "content": [
                     {
                       "attrs": {
@@ -1363,6 +1555,9 @@ exports[`JIRA wiki markup - Lists should break out the media group even in neste
           "type": "listItem",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -1391,8 +1586,14 @@ exports[`JIRA wiki markup - Lists should continue list if rule is followed by te
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -1413,11 +1614,20 @@ exports[`JIRA wiki markup - Lists should continue list if rule is followed by te
       "type": "bulletList",
     },
     {
+      "attrs": {
+        "localId": null,
+      },
       "type": "rule",
     },
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -1446,8 +1656,14 @@ exports[`JIRA wiki markup - Lists should convert blockquotes into paragraphs 1`]
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -1476,8 +1692,14 @@ exports[`JIRA wiki markup - Lists should convert headings into paragraphs 1`] = 
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -1511,8 +1733,14 @@ exports[`JIRA wiki markup - Lists should convert rules into paragraphs 1`] = `
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -1527,6 +1755,9 @@ exports[`JIRA wiki markup - Lists should convert rules into paragraphs 1`] = `
       "type": "bulletList",
     },
     {
+      "attrs": {
+        "localId": null,
+      },
       "type": "rule",
     },
   ],
@@ -1538,8 +1769,14 @@ exports[`JIRA wiki markup - Lists should correctly insert a 5 dash ruler if it o
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -1560,11 +1797,20 @@ exports[`JIRA wiki markup - Lists should correctly insert a 5 dash ruler if it o
       "type": "bulletList",
     },
     {
+      "attrs": {
+        "localId": null,
+      },
       "type": "rule",
     },
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -1579,8 +1825,14 @@ exports[`JIRA wiki markup - Lists should correctly insert a 5 dash ruler if it o
               "type": "paragraph",
             },
             {
+              "attrs": {
+                "localId": null,
+              },
               "content": [
                 {
+                  "attrs": {
+                    "localId": null,
+                  },
                   "content": [
                     {
                       "attrs": {
@@ -1595,8 +1847,14 @@ exports[`JIRA wiki markup - Lists should correctly insert a 5 dash ruler if it o
                       "type": "paragraph",
                     },
                     {
+                      "attrs": {
+                        "localId": null,
+                      },
                       "content": [
                         {
+                          "attrs": {
+                            "localId": null,
+                          },
                           "content": [
                             {
                               "attrs": {
@@ -1629,6 +1887,9 @@ exports[`JIRA wiki markup - Lists should correctly insert a 5 dash ruler if it o
       "type": "bulletList",
     },
     {
+      "attrs": {
+        "localId": null,
+      },
       "type": "rule",
     },
   ],
@@ -1640,8 +1901,14 @@ exports[`JIRA wiki markup - Lists should correctly insert a ruler if it occurs w
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -1662,11 +1929,20 @@ exports[`JIRA wiki markup - Lists should correctly insert a ruler if it occurs w
       "type": "bulletList",
     },
     {
+      "attrs": {
+        "localId": null,
+      },
       "type": "rule",
     },
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -1681,8 +1957,14 @@ exports[`JIRA wiki markup - Lists should correctly insert a ruler if it occurs w
               "type": "paragraph",
             },
             {
+              "attrs": {
+                "localId": null,
+              },
               "content": [
                 {
+                  "attrs": {
+                    "localId": null,
+                  },
                   "content": [
                     {
                       "attrs": {
@@ -1697,8 +1979,14 @@ exports[`JIRA wiki markup - Lists should correctly insert a ruler if it occurs w
                       "type": "paragraph",
                     },
                     {
+                      "attrs": {
+                        "localId": null,
+                      },
                       "content": [
                         {
+                          "attrs": {
+                            "localId": null,
+                          },
                           "content": [
                             {
                               "attrs": {
@@ -1731,6 +2019,9 @@ exports[`JIRA wiki markup - Lists should correctly insert a ruler if it occurs w
       "type": "bulletList",
     },
     {
+      "attrs": {
+        "localId": null,
+      },
       "type": "rule",
     },
   ],
@@ -1743,10 +2034,14 @@ exports[`JIRA wiki markup - Lists should create a list if started with multiple 
   "content": [
     {
       "attrs": {
+        "localId": null,
         "order": 1,
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -1756,10 +2051,14 @@ exports[`JIRA wiki markup - Lists should create a list if started with multiple 
             },
             {
               "attrs": {
+                "localId": null,
                 "order": 1,
               },
               "content": [
                 {
+                  "attrs": {
+                    "localId": null,
+                  },
                   "content": [
                     {
                       "attrs": {
@@ -1794,8 +2093,14 @@ exports[`JIRA wiki markup - Lists should create a list if started with multiple 
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -1804,8 +2109,14 @@ exports[`JIRA wiki markup - Lists should create a list if started with multiple 
               "type": "paragraph",
             },
             {
+              "attrs": {
+                "localId": null,
+              },
               "content": [
                 {
+                  "attrs": {
+                    "localId": null,
+                  },
                   "content": [
                     {
                       "attrs": {
@@ -1840,8 +2151,14 @@ exports[`JIRA wiki markup - Lists should create list of mentions with rule in mi
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -1865,6 +2182,9 @@ exports[`JIRA wiki markup - Lists should create list of mentions with rule in mi
           "type": "listItem",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -1891,11 +2211,20 @@ exports[`JIRA wiki markup - Lists should create list of mentions with rule in mi
       "type": "bulletList",
     },
     {
+      "attrs": {
+        "localId": null,
+      },
       "type": "rule",
     },
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -1913,6 +2242,9 @@ exports[`JIRA wiki markup - Lists should create list of mentions with rule in mi
           "type": "listItem",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -1933,8 +2265,14 @@ exports[`JIRA wiki markup - Lists should create list of mentions with rule in mi
               "type": "paragraph",
             },
             {
+              "attrs": {
+                "localId": null,
+              },
               "content": [
                 {
+                  "attrs": {
+                    "localId": null,
+                  },
                   "content": [
                     {
                       "attrs": {
@@ -1975,8 +2313,14 @@ exports[`JIRA wiki markup - Lists should create single list mention 1`] = `
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -2012,10 +2356,14 @@ exports[`JIRA wiki markup - Lists should find mixed ordered -> unordered lists 1
   "content": [
     {
       "attrs": {
+        "localId": null,
         "order": 1,
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -2033,6 +2381,9 @@ exports[`JIRA wiki markup - Lists should find mixed ordered -> unordered lists 1
           "type": "listItem",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -2047,8 +2398,14 @@ exports[`JIRA wiki markup - Lists should find mixed ordered -> unordered lists 1
               "type": "paragraph",
             },
             {
+              "attrs": {
+                "localId": null,
+              },
               "content": [
                 {
+                  "attrs": {
+                    "localId": null,
+                  },
                   "content": [
                     {
                       "attrs": {
@@ -2066,6 +2423,9 @@ exports[`JIRA wiki markup - Lists should find mixed ordered -> unordered lists 1
                   "type": "listItem",
                 },
                 {
+                  "attrs": {
+                    "localId": null,
+                  },
                   "content": [
                     {
                       "attrs": {
@@ -2083,6 +2443,9 @@ exports[`JIRA wiki markup - Lists should find mixed ordered -> unordered lists 1
                   "type": "listItem",
                 },
                 {
+                  "attrs": {
+                    "localId": null,
+                  },
                   "content": [
                     {
                       "attrs": {
@@ -2106,6 +2469,9 @@ exports[`JIRA wiki markup - Lists should find mixed ordered -> unordered lists 1
           "type": "listItem",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -2134,8 +2500,14 @@ exports[`JIRA wiki markup - Lists should find mixed unordered -> ordered lists 1
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -2153,6 +2525,9 @@ exports[`JIRA wiki markup - Lists should find mixed unordered -> ordered lists 1
           "type": "listItem",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -2168,10 +2543,14 @@ exports[`JIRA wiki markup - Lists should find mixed unordered -> ordered lists 1
             },
             {
               "attrs": {
+                "localId": null,
                 "order": 1,
               },
               "content": [
                 {
+                  "attrs": {
+                    "localId": null,
+                  },
                   "content": [
                     {
                       "attrs": {
@@ -2189,6 +2568,9 @@ exports[`JIRA wiki markup - Lists should find mixed unordered -> ordered lists 1
                   "type": "listItem",
                 },
                 {
+                  "attrs": {
+                    "localId": null,
+                  },
                   "content": [
                     {
                       "attrs": {
@@ -2206,6 +2588,9 @@ exports[`JIRA wiki markup - Lists should find mixed unordered -> ordered lists 1
                   "type": "listItem",
                 },
                 {
+                  "attrs": {
+                    "localId": null,
+                  },
                   "content": [
                     {
                       "attrs": {
@@ -2229,6 +2614,9 @@ exports[`JIRA wiki markup - Lists should find mixed unordered -> ordered lists 1
           "type": "listItem",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -2258,10 +2646,14 @@ exports[`JIRA wiki markup - Lists should find ordered lists 1`] = `
   "content": [
     {
       "attrs": {
+        "localId": null,
         "order": 1,
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -2279,6 +2671,9 @@ exports[`JIRA wiki markup - Lists should find ordered lists 1`] = `
           "type": "listItem",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -2296,6 +2691,9 @@ exports[`JIRA wiki markup - Lists should find ordered lists 1`] = `
           "type": "listItem",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -2324,8 +2722,14 @@ exports[`JIRA wiki markup - Lists should find the full content of a list item pr
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -2338,6 +2742,7 @@ exports[`JIRA wiki markup - Lists should find the full content of a list item pr
                 },
                 {
                   "attrs": {
+                    "localId": null,
                     "text": "
 ",
                   },
@@ -2365,8 +2770,14 @@ exports[`JIRA wiki markup - Lists should find unordered lists where items start 
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -2384,6 +2795,9 @@ exports[`JIRA wiki markup - Lists should find unordered lists where items start 
           "type": "listItem",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -2398,8 +2812,14 @@ exports[`JIRA wiki markup - Lists should find unordered lists where items start 
               "type": "paragraph",
             },
             {
+              "attrs": {
+                "localId": null,
+              },
               "content": [
                 {
+                  "attrs": {
+                    "localId": null,
+                  },
                   "content": [
                     {
                       "attrs": {
@@ -2422,6 +2842,9 @@ exports[`JIRA wiki markup - Lists should find unordered lists where items start 
                   "type": "listItem",
                 },
                 {
+                  "attrs": {
+                    "localId": null,
+                  },
                   "content": [
                     {
                       "attrs": {
@@ -2445,6 +2868,9 @@ exports[`JIRA wiki markup - Lists should find unordered lists where items start 
           "type": "listItem",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -2473,8 +2899,14 @@ exports[`JIRA wiki markup - Lists should find unordered lists where items start 
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -2492,6 +2924,9 @@ exports[`JIRA wiki markup - Lists should find unordered lists where items start 
           "type": "listItem",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -2509,6 +2944,9 @@ exports[`JIRA wiki markup - Lists should find unordered lists where items start 
           "type": "listItem",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -2537,8 +2975,14 @@ exports[`JIRA wiki markup - Lists should find unordered lists where items start 
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -2556,6 +3000,9 @@ exports[`JIRA wiki markup - Lists should find unordered lists where items start 
           "type": "listItem",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -2573,6 +3020,9 @@ exports[`JIRA wiki markup - Lists should find unordered lists where items start 
           "type": "listItem",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -2601,8 +3051,14 @@ exports[`JIRA wiki markup - Lists should handle lists with quad dash symbols 1`]
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -2617,8 +3073,14 @@ exports[`JIRA wiki markup - Lists should handle lists with quad dash symbols 1`]
               "type": "paragraph",
             },
             {
+              "attrs": {
+                "localId": null,
+              },
               "content": [
                 {
+                  "attrs": {
+                    "localId": null,
+                  },
                   "content": [
                     {
                       "attrs": {
@@ -2627,8 +3089,14 @@ exports[`JIRA wiki markup - Lists should handle lists with quad dash symbols 1`]
                       "type": "paragraph",
                     },
                     {
+                      "attrs": {
+                        "localId": null,
+                      },
                       "content": [
                         {
+                          "attrs": {
+                            "localId": null,
+                          },
                           "content": [
                             {
                               "attrs": {
@@ -2637,8 +3105,14 @@ exports[`JIRA wiki markup - Lists should handle lists with quad dash symbols 1`]
                               "type": "paragraph",
                             },
                             {
+                              "attrs": {
+                                "localId": null,
+                              },
                               "content": [
                                 {
+                                  "attrs": {
+                                    "localId": null,
+                                  },
                                   "content": [
                                     {
                                       "attrs": {
@@ -2668,6 +3142,9 @@ exports[`JIRA wiki markup - Lists should handle lists with quad dash symbols 1`]
                   "type": "listItem",
                 },
                 {
+                  "attrs": {
+                    "localId": null,
+                  },
                   "content": [
                     {
                       "attrs": {
@@ -2702,8 +3179,14 @@ exports[`JIRA wiki markup - Lists should insert a if it is followed by an empty 
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -2724,6 +3207,9 @@ exports[`JIRA wiki markup - Lists should insert a if it is followed by an empty 
       "type": "bulletList",
     },
     {
+      "attrs": {
+        "localId": null,
+      },
       "type": "rule",
     },
   ],
@@ -2735,8 +3221,14 @@ exports[`JIRA wiki markup - Lists should jump over empty lines in macro successf
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -2753,6 +3245,7 @@ exports[`JIRA wiki markup - Lists should jump over empty lines in macro successf
             {
               "attrs": {
                 "language": "java",
+                "localId": null,
                 "uniqueId": null,
               },
               "content": [
@@ -2767,6 +3260,9 @@ exports[`JIRA wiki markup - Lists should jump over empty lines in macro successf
           "type": "listItem",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -2796,10 +3292,14 @@ exports[`JIRA wiki markup - Lists should lift action list inside an orderedList 
   "content": [
     {
       "attrs": {
+        "localId": null,
         "order": 1,
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -2876,10 +3376,14 @@ exports[`JIRA wiki markup - Lists should lift action list inside an orderedList 
     },
     {
       "attrs": {
+        "localId": null,
         "order": 1,
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -2908,8 +3412,14 @@ exports[`JIRA wiki markup - Lists should not be a list item if it follows by a l
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -2922,6 +3432,7 @@ exports[`JIRA wiki markup - Lists should not be a list item if it follows by a l
                 },
                 {
                   "attrs": {
+                    "localId": null,
                     "text": "
 ",
                   },
@@ -2933,6 +3444,7 @@ exports[`JIRA wiki markup - Lists should not be a list item if it follows by a l
                 },
                 {
                   "attrs": {
+                    "localId": null,
                     "text": "
 ",
                   },
@@ -2960,8 +3472,14 @@ exports[`JIRA wiki markup - Lists should not break {color} macro to differnt lin
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -3046,8 +3564,14 @@ exports[`JIRA wiki markup - Lists should not fail for multiple lists 1`] = `
       "type": "paragraph",
     },
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -3065,6 +3589,9 @@ exports[`JIRA wiki markup - Lists should not fail for multiple lists 1`] = `
           "type": "listItem",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -3082,6 +3609,9 @@ exports[`JIRA wiki markup - Lists should not fail for multiple lists 1`] = `
           "type": "listItem",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -3099,6 +3629,9 @@ exports[`JIRA wiki markup - Lists should not fail for multiple lists 1`] = `
           "type": "listItem",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -3131,8 +3664,14 @@ exports[`JIRA wiki markup - Lists should not fail for multiple lists 1`] = `
       "type": "paragraph",
     },
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -3161,8 +3700,14 @@ exports[`JIRA wiki markup - Lists should support codeBlock in listItem now 1`] =
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -3180,6 +3725,9 @@ exports[`JIRA wiki markup - Lists should support codeBlock in listItem now 1`] =
           "type": "listItem",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -3196,6 +3744,7 @@ exports[`JIRA wiki markup - Lists should support codeBlock in listItem now 1`] =
             {
               "attrs": {
                 "language": "java",
+                "localId": null,
                 "uniqueId": null,
               },
               "content": [
@@ -3221,12 +3770,19 @@ exports[`JIRA wiki markup - Lists should use mediaSingle nodes 1`] = `
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "layout": "center",
+                "localId": null,
                 "width": null,
                 "widthType": null,
               },
@@ -3244,6 +3800,7 @@ exports[`JIRA wiki markup - Lists should use mediaSingle nodes 1`] = `
                     "collection": "",
                     "height": 183,
                     "id": "abc-attached",
+                    "localId": null,
                     "occurrenceKey": null,
                     "type": "file",
                     "url": null,

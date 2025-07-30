@@ -1,5 +1,29 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.1.10
+
+### Patch Changes
+
+- [#193091](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/193091)
+  [`7e879ace28cec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e879ace28cec) -
+  AFO-4081 cleanup ttvc v3 ff
+
+## 4.1.9
+
+### Patch Changes
+
+- [#192603](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/192603)
+  [`75c6397ec21b6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/75c6397ec21b6) -
+  Clean fg observer per interaction
+
+## 4.1.8
+
+### Patch Changes
+
+- [#192707](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/192707)
+  [`400679111bbaf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/400679111bbaf) -
+  AFO-39898 cleanup ff platform_ufo_rll_placeholder_ignore
+
 ## 4.1.7
 
 ### Patch Changes

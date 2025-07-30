@@ -1,5 +1,13 @@
 # @atlaskit/media-avatar-picker
 
+## 26.1.11
+
+### Patch Changes
+
+- [#192828](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/192828)
+  [`a798dd56b4aba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a798dd56b4aba) -
+  Fixes A11Y issues
+
 ## 26.1.10
 
 ### Patch Changes

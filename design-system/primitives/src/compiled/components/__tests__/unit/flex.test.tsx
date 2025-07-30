@@ -92,4 +92,16 @@ describe('Flex component', () => {
 			flexWrap: 'wrap',
 		});
 	});
+
+	it('should apply aria attributes', () => {
+		render(
+			<Flex aria-modal="true" testId={testId}>
+				child
+			</Flex>,
+		);
+
+		const element = screen.getByTestId(testId);
+		expect(element).toBeInTheDocument();
+		expect(element).toHaveAttribute('aria-modal', 'true');
+	});
 });

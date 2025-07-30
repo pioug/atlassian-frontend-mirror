@@ -32,6 +32,9 @@
 	},
 	"references": [
 		{
+			"path": "../../editor/editor-json-transformer/tsconfig.app.json"
+		},
+		{
 			"path": "../../measurement/feature-gate-js-client/tsconfig.app.json"
 		},
 		{
@@ -50,7 +53,13 @@
 			"path": "../linking-common/tsconfig.app.json"
 		},
 		{
+			"path": "../../editor/node-data-provider/tsconfig.app.json"
+		},
+		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
+			"path": "../../editor/tmp-editor-statsig/tsconfig.app.json"
 		}
 	]
 }

@@ -49,6 +49,11 @@ export type StackProps<T extends ElementType = 'div'> = {
 	children: ReactNode;
 
 	/**
+	 * The [HTML `id` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id).
+	 */
+	id?: string;
+
+	/**
 	 * Forwarded ref element.
 	 */
 	ref?: React.ComponentPropsWithRef<T>['ref'];
@@ -90,6 +95,7 @@ const Stack = memo(
 				testId,
 				xcss,
 				role,
+				id,
 			}: StackProps<T>,
 			ref: Ref<any>,
 		) => {
@@ -104,6 +110,7 @@ const Stack = memo(
 
 			return (
 				<Flex
+					id={id}
 					as={as}
 					role={role}
 					gap={space}

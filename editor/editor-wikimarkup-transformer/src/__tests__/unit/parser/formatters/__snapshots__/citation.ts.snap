@@ -114,6 +114,7 @@ exports[`WikiMarkup => ADF Formatters - citation should detect citation mark at 
         },
         {
           "attrs": {
+            "localId": null,
             "text": "
 ",
           },

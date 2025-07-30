@@ -14,12 +14,16 @@ exports[`JIRA wiki markup - Tables [CS-1404] should parse multiple attachments s
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -50,6 +54,7 @@ exports[`JIRA wiki markup - Tables [CS-1404] should parse multiple attachments s
                         "collection": "",
                         "height": null,
                         "id": "abc-123",
+                        "localId": null,
                         "occurrenceKey": null,
                         "type": "file",
                         "url": null,
@@ -70,6 +75,7 @@ exports[`JIRA wiki markup - Tables [CS-1404] should parse multiple attachments s
                         "collection": "",
                         "height": null,
                         "id": "abc-456",
+                        "localId": null,
                         "occurrenceKey": null,
                         "type": "file",
                         "url": null,
@@ -107,6 +113,7 @@ exports[`JIRA wiki markup - Tables [CS-1404] should parse multiple attachments s
                         "collection": "",
                         "height": null,
                         "id": "abc-123",
+                        "localId": null,
                         "occurrenceKey": null,
                         "type": "file",
                         "url": null,
@@ -127,6 +134,7 @@ exports[`JIRA wiki markup - Tables [CS-1404] should parse multiple attachments s
                         "collection": "",
                         "height": null,
                         "id": "abc-456",
+                        "localId": null,
                         "occurrenceKey": null,
                         "type": "file",
                         "url": null,
@@ -145,6 +153,7 @@ exports[`JIRA wiki markup - Tables [CS-1404] should parse multiple attachments s
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -188,12 +197,16 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to tab
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -222,6 +235,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to tab
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -250,6 +264,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to tab
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -277,12 +292,16 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to tab
           "type": "tableRow",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -311,6 +330,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to tab
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -334,6 +354,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to tab
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -356,12 +377,16 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to tab
           "type": "tableRow",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -390,6 +415,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to tab
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -413,6 +439,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to tab
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -456,18 +483,28 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to tab
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
                 {
+                  "attrs": {
+                    "localId": null,
+                  },
                   "content": [
                     {
+                      "attrs": {
+                        "localId": null,
+                      },
                       "content": [
                         {
                           "attrs": {
@@ -500,6 +537,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to tab
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -528,6 +566,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to tab
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -555,21 +594,29 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to tab
           "type": "tableRow",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
                 {
                   "attrs": {
+                    "localId": null,
                     "order": 1,
                   },
                   "content": [
                     {
+                      "attrs": {
+                        "localId": null,
+                      },
                       "content": [
                         {
                           "attrs": {
@@ -602,6 +649,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to tab
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -625,6 +673,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to tab
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -647,18 +696,28 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to tab
           "type": "tableRow",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
                 {
+                  "attrs": {
+                    "localId": null,
+                  },
                   "content": [
                     {
+                      "attrs": {
+                        "localId": null,
+                      },
                       "content": [
                         {
                           "attrs": {
@@ -691,6 +750,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to tab
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -714,6 +774,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to tab
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -757,18 +818,28 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to tab
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
                 {
+                  "attrs": {
+                    "localId": null,
+                  },
                   "content": [
                     {
+                      "attrs": {
+                        "localId": null,
+                      },
                       "content": [
                         {
                           "attrs": {
@@ -791,6 +862,9 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to tab
                       "type": "listItem",
                     },
                     {
+                      "attrs": {
+                        "localId": null,
+                      },
                       "content": [
                         {
                           "attrs": {
@@ -813,6 +887,9 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to tab
                       "type": "listItem",
                     },
                     {
+                      "attrs": {
+                        "localId": null,
+                      },
                       "content": [
                         {
                           "attrs": {
@@ -835,6 +912,9 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to tab
                       "type": "listItem",
                     },
                     {
+                      "attrs": {
+                        "localId": null,
+                      },
                       "content": [
                         {
                           "attrs": {
@@ -887,12 +967,16 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should not add the strong marks to
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -921,6 +1005,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should not add the strong marks to
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -949,6 +1034,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should not add the strong marks to
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -976,12 +1062,16 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should not add the strong marks to
           "type": "tableRow",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -1010,6 +1100,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should not add the strong marks to
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -1033,6 +1124,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should not add the strong marks to
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -1055,12 +1147,16 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should not add the strong marks to
           "type": "tableRow",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -1089,6 +1185,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should not add the strong marks to
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -1112,6 +1209,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should not add the strong marks to
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -1155,18 +1253,23 @@ exports[`JIRA wiki markup - Tables ADFEXP-191 Should not add the strong marks to
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
                 {
                   "attrs": {
                     "language": "java",
+                    "localId": null,
                     "uniqueId": null,
                   },
                   "content": [
@@ -1205,18 +1308,23 @@ exports[`JIRA wiki markup - Tables ADFEXP-191 Should not add the strong marks to
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
                 {
                   "attrs": {
                     "language": "json",
+                    "localId": null,
                     "uniqueId": null,
                   },
                   "content": [
@@ -1255,18 +1363,23 @@ exports[`JIRA wiki markup - Tables ADFEXP-191 Should not add the strong marks to
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
                 {
                   "attrs": {
                     "language": null,
+                    "localId": null,
                     "uniqueId": null,
                   },
                   "content": [
@@ -1285,6 +1398,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-191 Should not add the strong marks to
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -1313,6 +1427,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-191 Should not add the strong marks to
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -1340,12 +1455,16 @@ exports[`JIRA wiki markup - Tables ADFEXP-191 Should not add the strong marks to
           "type": "tableRow",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -1374,6 +1493,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-191 Should not add the strong marks to
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -1397,6 +1517,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-191 Should not add the strong marks to
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -1419,12 +1540,16 @@ exports[`JIRA wiki markup - Tables ADFEXP-191 Should not add the strong marks to
           "type": "tableRow",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -1453,6 +1578,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-191 Should not add the strong marks to
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -1476,6 +1602,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-191 Should not add the strong marks to
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -1519,18 +1646,28 @@ exports[`JIRA wiki markup - Tables ADFEXP-191 Should not add the strong marks to
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
                 {
+                  "attrs": {
+                    "localId": null,
+                  },
                   "content": [
                     {
+                      "attrs": {
+                        "localId": null,
+                      },
                       "content": [
                         {
                           "attrs": {
@@ -1552,6 +1689,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-191 Should not add the strong marks to
                         {
                           "attrs": {
                             "language": null,
+                            "localId": null,
                             "uniqueId": null,
                           },
                           "content": [
@@ -1596,12 +1734,16 @@ exports[`JIRA wiki markup - Tables ADFS-80 Pipes inside invalid links do not clo
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -1624,12 +1766,16 @@ exports[`JIRA wiki markup - Tables ADFS-80 Pipes inside invalid links do not clo
           "type": "tableRow",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -1652,12 +1798,16 @@ exports[`JIRA wiki markup - Tables ADFS-80 Pipes inside invalid links do not clo
           "type": "tableRow",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -1696,12 +1846,16 @@ exports[`JIRA wiki markup - Tables ADFS-80 Pipes inside invalid links do not clo
           "type": "tableRow",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -1745,12 +1899,16 @@ exports[`JIRA wiki markup - Tables ADFS-700 Should not consider trailing spaces 
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -1773,12 +1931,16 @@ exports[`JIRA wiki markup - Tables ADFS-700 Should not consider trailing spaces 
           "type": "tableRow",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -1822,12 +1984,16 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -1856,6 +2022,7 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -1883,12 +2050,16 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
           "type": "tableRow",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -1912,6 +2083,7 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -1941,12 +2113,16 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -1970,6 +2146,7 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -1986,12 +2163,16 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
           "type": "tableRow",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -2015,6 +2196,7 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -2050,12 +2232,16 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -2079,6 +2265,7 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -2095,12 +2282,16 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
           "type": "tableRow",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -2124,6 +2315,7 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -2153,12 +2345,16 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -2182,6 +2378,7 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -2205,6 +2402,7 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -2221,12 +2419,16 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
           "type": "tableRow",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -2250,6 +2452,7 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -2267,6 +2470,7 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -2296,12 +2500,16 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -2325,6 +2533,7 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -2342,6 +2551,7 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -2364,12 +2574,16 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
           "type": "tableRow",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -2393,6 +2607,7 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -2410,6 +2625,7 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -2453,12 +2669,16 @@ exports[`JIRA wiki markup - Tables HOT-87510 should respect emoji first in table
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -2487,6 +2707,7 @@ exports[`JIRA wiki markup - Tables HOT-87510 should respect emoji first in table
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -2507,6 +2728,7 @@ exports[`JIRA wiki markup - Tables HOT-87510 should respect emoji first in table
                     {
                       "attrs": {
                         "id": "atlassian-warning",
+                        "localId": null,
                         "shortName": ":warning:",
                         "text": ":warning:",
                       },
@@ -2532,6 +2754,7 @@ exports[`JIRA wiki markup - Tables HOT-87510 should respect emoji first in table
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -2552,6 +2775,7 @@ exports[`JIRA wiki markup - Tables HOT-87510 should respect emoji first in table
                     {
                       "attrs": {
                         "id": "atlassian-warning",
+                        "localId": null,
                         "shortName": ":warning:",
                         "text": ":warning:",
                       },
@@ -2577,6 +2801,7 @@ exports[`JIRA wiki markup - Tables HOT-87510 should respect emoji first in table
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -2597,6 +2822,7 @@ exports[`JIRA wiki markup - Tables HOT-87510 should respect emoji first in table
                     {
                       "attrs": {
                         "id": "atlassian-warning",
+                        "localId": null,
                         "shortName": ":warning:",
                         "text": ":warning:",
                       },
@@ -2622,6 +2848,7 @@ exports[`JIRA wiki markup - Tables HOT-87510 should respect emoji first in table
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -2642,6 +2869,7 @@ exports[`JIRA wiki markup - Tables HOT-87510 should respect emoji first in table
                     {
                       "attrs": {
                         "id": "atlassian-warning",
+                        "localId": null,
                         "shortName": ":warning:",
                         "text": ":warning:",
                       },
@@ -2667,6 +2895,7 @@ exports[`JIRA wiki markup - Tables HOT-87510 should respect emoji first in table
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -2687,6 +2916,7 @@ exports[`JIRA wiki markup - Tables HOT-87510 should respect emoji first in table
                     {
                       "attrs": {
                         "id": "atlassian-warning",
+                        "localId": null,
                         "shortName": ":warning:",
                         "text": ":warning:",
                       },
@@ -2711,12 +2941,16 @@ exports[`JIRA wiki markup - Tables HOT-87510 should respect emoji first in table
           "type": "tableRow",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -2740,6 +2974,7 @@ exports[`JIRA wiki markup - Tables HOT-87510 should respect emoji first in table
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -2763,6 +2998,7 @@ exports[`JIRA wiki markup - Tables HOT-87510 should respect emoji first in table
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -2786,6 +3022,7 @@ exports[`JIRA wiki markup - Tables HOT-87510 should respect emoji first in table
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -2809,6 +3046,7 @@ exports[`JIRA wiki markup - Tables HOT-87510 should respect emoji first in table
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -2832,6 +3070,7 @@ exports[`JIRA wiki markup - Tables HOT-87510 should respect emoji first in table
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -2875,12 +3114,16 @@ exports[`JIRA wiki markup - Tables macros should convert a nestedExpand into an 
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -2904,6 +3147,7 @@ exports[`JIRA wiki markup - Tables macros should convert a nestedExpand into an 
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -2931,6 +3175,7 @@ exports[`JIRA wiki markup - Tables macros should convert a nestedExpand into an 
     {
       "attrs": {
         "__expanded": true,
+        "localId": null,
         "title": "title",
       },
       "content": [
@@ -2974,12 +3219,16 @@ exports[`JIRA wiki markup - Tables macros should keep nestedExpand inside a tabl
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -3003,12 +3252,14 @@ exports[`JIRA wiki markup - Tables macros should keep nestedExpand inside a tabl
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
                 {
                   "attrs": {
                     "__expanded": true,
+                    "localId": null,
                     "title": "title",
                   },
                   "type": "nestedExpand",
@@ -3041,12 +3292,16 @@ exports[`JIRA wiki markup - Tables macros should parse anchor 1`] = `
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -3090,18 +3345,23 @@ exports[`JIRA wiki markup - Tables macros should parse code 1`] = `
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
                 {
                   "attrs": {
                     "language": "javascript",
+                    "localId": null,
                     "uniqueId": null,
                   },
                   "content": [
@@ -3140,12 +3400,16 @@ exports[`JIRA wiki markup - Tables macros should parse color 1`] = `
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -3163,6 +3427,7 @@ exports[`JIRA wiki markup - Tables macros should parse color 1`] = `
                 },
                 {
                   "attrs": {
+                    "localId": null,
                     "panelColor": null,
                     "panelIcon": null,
                     "panelIconId": null,
@@ -3207,18 +3472,23 @@ exports[`JIRA wiki markup - Tables macros should parse noformat 1`] = `
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
                 {
                   "attrs": {
                     "language": null,
+                    "localId": null,
                     "uniqueId": null,
                   },
                   "content": [
@@ -3257,17 +3527,22 @@ exports[`JIRA wiki markup - Tables macros should parse panel 1`] = `
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
                 {
                   "attrs": {
+                    "localId": null,
                     "panelColor": null,
                     "panelIcon": null,
                     "panelIconId": null,
@@ -3318,16 +3593,23 @@ exports[`JIRA wiki markup - Tables macros should parse quote 1`] = `
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
                 {
+                  "attrs": {
+                    "localId": null,
+                  },
                   "content": [
                     {
                       "attrs": {
@@ -3372,12 +3654,16 @@ exports[`JIRA wiki markup - Tables should convert table with header column 1`] =
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -3406,6 +3692,7 @@ exports[`JIRA wiki markup - Tables should convert table with header column 1`] =
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -3434,6 +3721,7 @@ exports[`JIRA wiki markup - Tables should convert table with header column 1`] =
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -3461,12 +3749,16 @@ exports[`JIRA wiki markup - Tables should convert table with header column 1`] =
           "type": "tableRow",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -3495,6 +3787,7 @@ exports[`JIRA wiki markup - Tables should convert table with header column 1`] =
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -3518,6 +3811,7 @@ exports[`JIRA wiki markup - Tables should convert table with header column 1`] =
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -3540,12 +3834,16 @@ exports[`JIRA wiki markup - Tables should convert table with header column 1`] =
           "type": "tableRow",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -3574,6 +3872,7 @@ exports[`JIRA wiki markup - Tables should convert table with header column 1`] =
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -3597,6 +3896,7 @@ exports[`JIRA wiki markup - Tables should convert table with header column 1`] =
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -3640,12 +3940,16 @@ exports[`JIRA wiki markup - Tables should find and convert tables 1`] = `
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -3674,6 +3978,7 @@ exports[`JIRA wiki markup - Tables should find and convert tables 1`] = `
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -3702,6 +4007,7 @@ exports[`JIRA wiki markup - Tables should find and convert tables 1`] = `
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -3729,12 +4035,16 @@ exports[`JIRA wiki markup - Tables should find and convert tables 1`] = `
           "type": "tableRow",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -3758,6 +4068,7 @@ exports[`JIRA wiki markup - Tables should find and convert tables 1`] = `
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -3781,6 +4092,7 @@ exports[`JIRA wiki markup - Tables should find and convert tables 1`] = `
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -3803,12 +4115,16 @@ exports[`JIRA wiki markup - Tables should find and convert tables 1`] = `
           "type": "tableRow",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -3832,6 +4148,7 @@ exports[`JIRA wiki markup - Tables should find and convert tables 1`] = `
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -3855,6 +4172,7 @@ exports[`JIRA wiki markup - Tables should find and convert tables 1`] = `
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -3899,12 +4217,16 @@ exports[`JIRA wiki markup - Tables should find text nodes at the end of the tabl
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -3933,6 +4255,7 @@ exports[`JIRA wiki markup - Tables should find text nodes at the end of the tabl
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -3960,12 +4283,16 @@ exports[`JIRA wiki markup - Tables should find text nodes at the end of the tabl
           "type": "tableRow",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -3989,6 +4316,7 @@ exports[`JIRA wiki markup - Tables should find text nodes at the end of the tabl
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -4003,6 +4331,7 @@ exports[`JIRA wiki markup - Tables should find text nodes at the end of the tabl
                     },
                     {
                       "attrs": {
+                        "localId": null,
                         "text": "
 ",
                       },
@@ -4014,6 +4343,7 @@ exports[`JIRA wiki markup - Tables should find text nodes at the end of the tabl
                     },
                     {
                       "attrs": {
+                        "localId": null,
                         "text": "
 ",
                       },
@@ -4025,6 +4355,7 @@ exports[`JIRA wiki markup - Tables should find text nodes at the end of the tabl
                     },
                     {
                       "attrs": {
+                        "localId": null,
                         "text": "
 ",
                       },
@@ -4065,12 +4396,16 @@ exports[`JIRA wiki markup - Tables should not include new line text in table 1`]
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -4099,6 +4434,7 @@ exports[`JIRA wiki markup - Tables should not include new line text in table 1`]
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -4159,12 +4495,16 @@ exports[`JIRA wiki markup - Tables should not render trailing space into a new c
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -4188,6 +4528,7 @@ exports[`JIRA wiki markup - Tables should not render trailing space into a new c
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -4231,12 +4572,16 @@ exports[`JIRA wiki markup - Tables should not terminate non-empty cell on whites
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -4265,6 +4610,7 @@ exports[`JIRA wiki markup - Tables should not terminate non-empty cell on whites
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -4293,6 +4639,7 @@ exports[`JIRA wiki markup - Tables should not terminate non-empty cell on whites
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -4320,12 +4667,16 @@ exports[`JIRA wiki markup - Tables should not terminate non-empty cell on whites
           "type": "tableRow",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -4342,8 +4693,14 @@ exports[`JIRA wiki markup - Tables should not terminate non-empty cell on whites
                   "type": "paragraph",
                 },
                 {
+                  "attrs": {
+                    "localId": null,
+                  },
                   "content": [
                     {
+                      "attrs": {
+                        "localId": null,
+                      },
                       "content": [
                         {
                           "attrs": {
@@ -4371,6 +4728,7 @@ exports[`JIRA wiki markup - Tables should not terminate non-empty cell on whites
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -4394,6 +4752,7 @@ exports[`JIRA wiki markup - Tables should not terminate non-empty cell on whites
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -4437,12 +4796,16 @@ exports[`JIRA wiki markup - Tables should parse properly links inside a cell 1`]
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -4471,6 +4834,7 @@ exports[`JIRA wiki markup - Tables should parse properly links inside a cell 1`]
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -4499,6 +4863,7 @@ exports[`JIRA wiki markup - Tables should parse properly links inside a cell 1`]
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -4531,6 +4896,7 @@ exports[`JIRA wiki markup - Tables should parse properly links inside a cell 1`]
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -4611,18 +4977,23 @@ exports[`JIRA wiki markup - Tables should parse properly medias inside a cell 1`
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
                 {
                   "attrs": {
                     "layout": "center",
+                    "localId": null,
                     "width": null,
                     "widthType": null,
                   },
@@ -4640,6 +5011,7 @@ exports[`JIRA wiki markup - Tables should parse properly medias inside a cell 1`
                         "collection": "",
                         "height": 400,
                         "id": "abc-789",
+                        "localId": null,
                         "occurrenceKey": null,
                         "type": "file",
                         "url": null,
@@ -4678,12 +5050,16 @@ exports[`JIRA wiki markup - Tables should process \\r\\n correctly 1`] = `
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -4712,6 +5088,7 @@ exports[`JIRA wiki markup - Tables should process \\r\\n correctly 1`] = `
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -4739,12 +5116,16 @@ exports[`JIRA wiki markup - Tables should process \\r\\n correctly 1`] = `
           "type": "tableRow",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -4768,6 +5149,7 @@ exports[`JIRA wiki markup - Tables should process \\r\\n correctly 1`] = `
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -4811,12 +5193,16 @@ exports[`JIRA wiki markup - Tables should remove trailing space before and after
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -4840,6 +5226,7 @@ exports[`JIRA wiki markup - Tables should remove trailing space before and after
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -4862,12 +5249,16 @@ exports[`JIRA wiki markup - Tables should remove trailing space before and after
           "type": "tableRow",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -4891,6 +5282,7 @@ exports[`JIRA wiki markup - Tables should remove trailing space before and after
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -4934,12 +5326,16 @@ exports[`JIRA wiki markup - Tables should remove whole row if no content is pres
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -4968,6 +5364,7 @@ exports[`JIRA wiki markup - Tables should remove whole row if no content is pres
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -4996,6 +5393,7 @@ exports[`JIRA wiki markup - Tables should remove whole row if no content is pres
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -5023,18 +5421,28 @@ exports[`JIRA wiki markup - Tables should remove whole row if no content is pres
           "type": "tableRow",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
                 {
+                  "attrs": {
+                    "localId": null,
+                  },
                   "content": [
                     {
+                      "attrs": {
+                        "localId": null,
+                      },
                       "content": [
                         {
                           "attrs": {
@@ -5062,6 +5470,7 @@ exports[`JIRA wiki markup - Tables should remove whole row if no content is pres
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -5085,6 +5494,7 @@ exports[`JIRA wiki markup - Tables should remove whole row if no content is pres
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [

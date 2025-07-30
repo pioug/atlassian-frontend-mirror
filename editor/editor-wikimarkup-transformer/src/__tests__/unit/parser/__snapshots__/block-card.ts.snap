@@ -20,6 +20,7 @@ exports[`JIRA wiki markup - Block Card should create Block Card between lines of
         "data": null,
         "datasource": null,
         "layout": null,
+        "localId": null,
         "url": "http://...",
         "width": null,
       },
@@ -62,6 +63,7 @@ exports[`JIRA wiki markup - Block Card should create Block Card for old represen
         "data": null,
         "datasource": null,
         "layout": null,
+        "localId": null,
         "url": "http://...",
         "width": null,
       },
@@ -104,6 +106,7 @@ exports[`JIRA wiki markup - Block Card should create Block Card if preceded and 
         "data": null,
         "datasource": null,
         "layout": null,
+        "localId": null,
         "url": "http://...",
         "width": null,
       },
@@ -134,6 +137,7 @@ exports[`JIRA wiki markup - Block Card should create Block Card with nothing els
         "data": null,
         "datasource": null,
         "layout": null,
+        "localId": null,
         "url": "http://...",
         "width": null,
       },
@@ -152,6 +156,7 @@ exports[`JIRA wiki markup - Block Card should create Block Card with whitespace 
         "data": null,
         "datasource": null,
         "layout": null,
+        "localId": null,
         "url": "http://...",
         "width": null,
       },
@@ -174,6 +179,7 @@ exports[`JIRA wiki markup - Block Card should create Block Card with whitespace 
         "data": null,
         "datasource": null,
         "layout": null,
+        "localId": null,
         "url": "http://...",
         "width": null,
       },
@@ -198,17 +204,22 @@ exports[`JIRA wiki markup - Block Card should create Block Cards in panel 1`] = 
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
                 {
                   "attrs": {
+                    "localId": null,
                     "panelColor": null,
                     "panelIcon": null,
                     "panelIconId": null,
@@ -236,6 +247,7 @@ exports[`JIRA wiki markup - Block Card should create Block Cards in panel 1`] = 
                     "data": null,
                     "datasource": null,
                     "layout": null,
+                    "localId": null,
                     "url": "http://...",
                     "width": null,
                   },
@@ -243,6 +255,7 @@ exports[`JIRA wiki markup - Block Card should create Block Cards in panel 1`] = 
                 },
                 {
                   "attrs": {
+                    "localId": null,
                     "panelColor": null,
                     "panelIcon": null,
                     "panelIconId": null,
@@ -293,12 +306,16 @@ exports[`JIRA wiki markup - Block Card should create Block Cards in table 1`] = 
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -307,6 +324,7 @@ exports[`JIRA wiki markup - Block Card should create Block Cards in table 1`] = 
                     "data": null,
                     "datasource": null,
                     "layout": null,
+                    "localId": null,
                     "url": "http://...",
                     "width": null,
                   },
@@ -344,6 +362,7 @@ exports[`JIRA wiki markup - Block Card should create embedCard (it is a block no
     {
       "attrs": {
         "layout": "center",
+        "localId": null,
         "originalHeight": null,
         "originalWidth": null,
         "url": "http://...",
@@ -382,18 +401,23 @@ exports[`JIRA wiki markup - Block Card should create embedCard inside table 1`] 
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
                 {
                   "attrs": {
                     "layout": "center",
+                    "localId": null,
                     "originalHeight": null,
                     "originalWidth": null,
                     "url": "http://...",
@@ -429,12 +453,16 @@ exports[`JIRA wiki markup - Block Card should recover existing Block Cards 1`] =
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -443,6 +471,7 @@ exports[`JIRA wiki markup - Block Card should recover existing Block Cards 1`] =
                     "data": null,
                     "datasource": null,
                     "layout": null,
+                    "localId": null,
                     "url": "https://aolrich-automation.atlassian.net/browse/SOF-1",
                     "width": null,
                   },
@@ -456,6 +485,7 @@ exports[`JIRA wiki markup - Block Card should recover existing Block Cards 1`] =
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
+                "localId": null,
                 "rowspan": 1,
               },
               "content": [
@@ -464,6 +494,7 @@ exports[`JIRA wiki markup - Block Card should recover existing Block Cards 1`] =
                     "data": null,
                     "datasource": null,
                     "layout": null,
+                    "localId": null,
                     "url": "https://aolrich-automation.atlassian.net/browse/SOF-1",
                     "width": null,
                   },
@@ -495,6 +526,7 @@ exports[`JIRA wiki markup - Block Card should recover existing Block Cards 1`] =
         "data": null,
         "datasource": null,
         "layout": null,
+        "localId": null,
         "url": "https://aolrich-automation.atlassian.net/browse/SOF-1",
         "width": null,
       },

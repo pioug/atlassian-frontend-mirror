@@ -5,6 +5,7 @@ exports[`JIRA wiki markup - Macros [CS-602] macro keyword is case insensitive 1`
   "content": [
     {
       "attrs": {
+        "localId": null,
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
@@ -38,6 +39,7 @@ exports[`JIRA wiki markup - Macros [CS-1470] code macro converts to code node wi
     {
       "attrs": {
         "language": "java",
+        "localId": null,
         "uniqueId": null,
       },
       "content": [
@@ -61,6 +63,7 @@ exports[`JIRA wiki markup - Macros [CS-1470] code macro converts to code node wi
     {
       "attrs": {
         "language": "xml",
+        "localId": null,
         "uniqueId": null,
       },
       "content": [
@@ -82,6 +85,7 @@ exports[`JIRA wiki markup - Macros [CS-1470] noformat macro converts to code nod
     {
       "attrs": {
         "language": null,
+        "localId": null,
         "uniqueId": null,
       },
       "content": [
@@ -123,6 +127,7 @@ exports[`JIRA wiki markup - Macros [CS-3139] code macro accepts C++ as language 
     {
       "attrs": {
         "language": "c++",
+        "localId": null,
         "uniqueId": null,
       },
       "content": [
@@ -143,10 +148,14 @@ exports[`JIRA wiki markup - Macros ADFEXP-492: Code block renders correctly insi
   "content": [
     {
       "attrs": {
+        "localId": null,
         "order": 1,
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -163,6 +172,7 @@ exports[`JIRA wiki markup - Macros ADFEXP-492: Code block renders correctly insi
             {
               "attrs": {
                 "language": "java",
+                "localId": null,
                 "uniqueId": null,
               },
               "content": [
@@ -191,10 +201,14 @@ exports[`JIRA wiki markup - Macros ADFEXP-492: Code block renders correctly insi
   "content": [
     {
       "attrs": {
+        "localId": null,
         "order": 1,
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -211,6 +225,7 @@ exports[`JIRA wiki markup - Macros ADFEXP-492: Code block renders correctly insi
             {
               "attrs": {
                 "language": "java",
+                "localId": null,
                 "uniqueId": null,
               },
               "content": [
@@ -239,10 +254,14 @@ exports[`JIRA wiki markup - Macros ADFEXP-492: Code block renders correctly insi
   "content": [
     {
       "attrs": {
+        "localId": null,
         "order": 1,
       },
       "content": [
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
               "attrs": {
@@ -259,6 +278,7 @@ exports[`JIRA wiki markup - Macros ADFEXP-492: Code block renders correctly insi
             {
               "attrs": {
                 "language": "java",
+                "localId": null,
                 "uniqueId": null,
               },
               "content": [
@@ -330,6 +350,7 @@ exports[`JIRA wiki markup - Macros ADFS-719 should place invalid adf macro insid
     {
       "attrs": {
         "language": null,
+        "localId": null,
         "uniqueId": null,
       },
       "content": [
@@ -379,6 +400,7 @@ exports[`JIRA wiki markup - Macros ESS-2539 should not ignore the newline if the
         },
         {
           "attrs": {
+            "localId": null,
             "text": "
 ",
           },
@@ -419,6 +441,7 @@ exports[`JIRA wiki markup - Macros Should take only first occurrence of attribut
     {
       "attrs": {
         "language": "java",
+        "localId": null,
         "uniqueId": null,
       },
       "content": [
@@ -457,6 +480,7 @@ exports[`JIRA wiki markup - Macros Should work with multiple equal signs in a si
     {
       "attrs": {
         "language": "java",
+        "localId": null,
         "uniqueId": null,
       },
       "content": [
@@ -505,6 +529,7 @@ exports[`JIRA wiki markup - Macros should collapse and join outer macros 1`] = `
   "content": [
     {
       "attrs": {
+        "localId": null,
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
@@ -545,6 +570,9 @@ exports[`JIRA wiki markup - Macros should collapse and join outer macros 1`] = `
       "type": "panel",
     },
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
           "attrs": {
@@ -557,6 +585,7 @@ exports[`JIRA wiki markup - Macros should collapse and join outer macros 1`] = `
     },
     {
       "attrs": {
+        "localId": null,
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
@@ -592,6 +621,9 @@ exports[`JIRA wiki markup - Macros should collapse and join outer macros 1`] = `
       "type": "paragraph",
     },
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
           "attrs": {
@@ -612,6 +644,7 @@ exports[`JIRA wiki markup - Macros should collapse outer macros 1`] = `
   "content": [
     {
       "attrs": {
+        "localId": null,
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
@@ -640,6 +673,9 @@ exports[`JIRA wiki markup - Macros should collapse outer macros 1`] = `
       "type": "panel",
     },
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
           "attrs": {
@@ -689,6 +725,9 @@ exports[`JIRA wiki markup - Macros should convert multiple quotes containing str
       "type": "paragraph",
     },
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
           "attrs": {
@@ -706,6 +745,9 @@ exports[`JIRA wiki markup - Macros should convert multiple quotes containing str
       "type": "blockquote",
     },
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
           "attrs": {
@@ -732,6 +774,7 @@ exports[`JIRA wiki markup - Macros should convert panels 1`] = `
   "content": [
     {
       "attrs": {
+        "localId": null,
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
@@ -780,6 +823,9 @@ exports[`JIRA wiki markup - Macros should convert simple quotes into a top level
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
           "attrs": {
@@ -817,6 +863,9 @@ exports[`JIRA wiki markup - Macros should convert string with quote into paragra
       "type": "paragraph",
     },
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
           "attrs": {
@@ -843,6 +892,7 @@ exports[`JIRA wiki markup - Macros should lift attachment node when it is inside
   "content": [
     {
       "attrs": {
+        "localId": null,
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
@@ -880,6 +930,7 @@ exports[`JIRA wiki markup - Macros should lift attachment node when it is inside
             "collection": "",
             "height": null,
             "id": "abc-file11",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -900,6 +951,7 @@ exports[`JIRA wiki markup - Macros should lift attachment node when it is inside
             "collection": "",
             "height": null,
             "id": "abc-file12",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -920,6 +972,7 @@ exports[`JIRA wiki markup - Macros should lift attachment node when it is inside
             "collection": "",
             "height": null,
             "id": "abc-file13",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -932,6 +985,7 @@ exports[`JIRA wiki markup - Macros should lift attachment node when it is inside
     },
     {
       "attrs": {
+        "localId": null,
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
@@ -963,6 +1017,7 @@ exports[`JIRA wiki markup - Macros should lift attachment node when it is inside
             "collection": "",
             "height": null,
             "id": "abc-file21",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -983,6 +1038,7 @@ exports[`JIRA wiki markup - Macros should lift attachment node when it is inside
             "collection": "",
             "height": null,
             "id": "abc-file22",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -1003,6 +1059,7 @@ exports[`JIRA wiki markup - Macros should lift attachment node when it is inside
             "collection": "",
             "height": null,
             "id": "abc-file23",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -1023,6 +1080,7 @@ exports[`JIRA wiki markup - Macros should lift attachment node when it is inside
             "collection": "",
             "height": null,
             "id": "abc-file31",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -1043,6 +1101,7 @@ exports[`JIRA wiki markup - Macros should lift attachment node when it is inside
             "collection": "",
             "height": null,
             "id": "abc-file32",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -1063,6 +1122,7 @@ exports[`JIRA wiki markup - Macros should lift attachment node when it is inside
             "collection": "",
             "height": null,
             "id": "abc-file33",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -1075,6 +1135,7 @@ exports[`JIRA wiki markup - Macros should lift attachment node when it is inside
     },
     {
       "attrs": {
+        "localId": null,
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
@@ -1112,6 +1173,7 @@ exports[`JIRA wiki markup - Macros should lift attachment node when it is inside
             "collection": "",
             "height": null,
             "id": "abc-file41",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -1132,6 +1194,7 @@ exports[`JIRA wiki markup - Macros should lift attachment node when it is inside
             "collection": "",
             "height": null,
             "id": "abc-file42",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -1152,6 +1215,7 @@ exports[`JIRA wiki markup - Macros should lift attachment node when it is inside
             "collection": "",
             "height": null,
             "id": "abc-file43",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,
@@ -1164,6 +1228,7 @@ exports[`JIRA wiki markup - Macros should lift attachment node when it is inside
     },
     {
       "attrs": {
+        "localId": null,
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
@@ -1196,6 +1261,7 @@ exports[`JIRA wiki markup - Macros should lift rule node when it is inside macro
   "content": [
     {
       "attrs": {
+        "localId": null,
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
@@ -1219,10 +1285,14 @@ exports[`JIRA wiki markup - Macros should lift rule node when it is inside macro
       "type": "panel",
     },
     {
+      "attrs": {
+        "localId": null,
+      },
       "type": "rule",
     },
     {
       "attrs": {
+        "localId": null,
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
@@ -1255,6 +1325,7 @@ exports[`JIRA wiki markup - Macros should map panel bgColor in colorName to pane
   "content": [
     {
       "attrs": {
+        "localId": null,
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
@@ -1304,6 +1375,7 @@ exports[`JIRA wiki markup - Macros should map panel bgColor in hex value to pane
   "content": [
     {
       "attrs": {
+        "localId": null,
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
@@ -1353,6 +1425,7 @@ exports[`JIRA wiki markup - Macros should map panel bgColor in hex value to pane
   "content": [
     {
       "attrs": {
+        "localId": null,
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
@@ -1403,6 +1476,7 @@ exports[`JIRA wiki markup - Macros should not process code contents 1`] = `
     {
       "attrs": {
         "language": "xml",
+        "localId": null,
         "uniqueId": null,
       },
       "content": [
@@ -1424,6 +1498,7 @@ exports[`JIRA wiki markup - Macros should not process noformat contents 1`] = `
     {
       "attrs": {
         "language": null,
+        "localId": null,
         "uniqueId": null,
       },
       "content": [
@@ -1462,6 +1537,7 @@ exports[`JIRA wiki markup - Macros should process code with title 1`] = `
     {
       "attrs": {
         "language": "java",
+        "localId": null,
         "uniqueId": null,
       },
       "content": [
@@ -1521,6 +1597,9 @@ exports[`JIRA wiki markup - Macros should render attachment nodes inside quotes 
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
           "attrs": {
@@ -1549,6 +1628,7 @@ exports[`JIRA wiki markup - Macros should render attachment nodes inside quotes 
                 "collection": "",
                 "height": null,
                 "id": "abc-file11",
+                "localId": null,
                 "occurrenceKey": null,
                 "type": "file",
                 "url": null,
@@ -1569,6 +1649,7 @@ exports[`JIRA wiki markup - Macros should render attachment nodes inside quotes 
                 "collection": "",
                 "height": null,
                 "id": "abc-file12",
+                "localId": null,
                 "occurrenceKey": null,
                 "type": "file",
                 "url": null,
@@ -1589,6 +1670,7 @@ exports[`JIRA wiki markup - Macros should render attachment nodes inside quotes 
                 "collection": "",
                 "height": null,
                 "id": "abc-file13",
+                "localId": null,
                 "occurrenceKey": null,
                 "type": "file",
                 "url": null,
@@ -1614,6 +1696,7 @@ exports[`JIRA wiki markup - Macros should render attachment nodes inside quotes 
                 "collection": "",
                 "height": null,
                 "id": "abc-file21",
+                "localId": null,
                 "occurrenceKey": null,
                 "type": "file",
                 "url": null,
@@ -1634,6 +1717,7 @@ exports[`JIRA wiki markup - Macros should render attachment nodes inside quotes 
                 "collection": "",
                 "height": null,
                 "id": "abc-file22",
+                "localId": null,
                 "occurrenceKey": null,
                 "type": "file",
                 "url": null,
@@ -1654,6 +1738,7 @@ exports[`JIRA wiki markup - Macros should render attachment nodes inside quotes 
                 "collection": "",
                 "height": null,
                 "id": "abc-file23",
+                "localId": null,
                 "occurrenceKey": null,
                 "type": "file",
                 "url": null,
@@ -1674,6 +1759,7 @@ exports[`JIRA wiki markup - Macros should render attachment nodes inside quotes 
                 "collection": "",
                 "height": null,
                 "id": "abc-file31",
+                "localId": null,
                 "occurrenceKey": null,
                 "type": "file",
                 "url": null,
@@ -1694,6 +1780,7 @@ exports[`JIRA wiki markup - Macros should render attachment nodes inside quotes 
                 "collection": "",
                 "height": null,
                 "id": "abc-file32",
+                "localId": null,
                 "occurrenceKey": null,
                 "type": "file",
                 "url": null,
@@ -1714,6 +1801,7 @@ exports[`JIRA wiki markup - Macros should render attachment nodes inside quotes 
                 "collection": "",
                 "height": null,
                 "id": "abc-file33",
+                "localId": null,
                 "occurrenceKey": null,
                 "type": "file",
                 "url": null,
@@ -1751,6 +1839,7 @@ exports[`JIRA wiki markup - Macros should render attachment nodes inside quotes 
                 "collection": "",
                 "height": null,
                 "id": "abc-file41",
+                "localId": null,
                 "occurrenceKey": null,
                 "type": "file",
                 "url": null,
@@ -1771,6 +1860,7 @@ exports[`JIRA wiki markup - Macros should render attachment nodes inside quotes 
                 "collection": "",
                 "height": null,
                 "id": "abc-file42",
+                "localId": null,
                 "occurrenceKey": null,
                 "type": "file",
                 "url": null,
@@ -1791,6 +1881,7 @@ exports[`JIRA wiki markup - Macros should render attachment nodes inside quotes 
                 "collection": "",
                 "height": null,
                 "id": "abc-file43",
+                "localId": null,
                 "occurrenceKey": null,
                 "type": "file",
                 "url": null,
@@ -1826,6 +1917,7 @@ exports[`JIRA wiki markup - Macros should render green success panel 1`] = `
   "content": [
     {
       "attrs": {
+        "localId": null,
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
@@ -1857,6 +1949,9 @@ exports[`JIRA wiki markup - Macros should render list in a blockquote 1`] = `
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
           "attrs": {
@@ -1871,8 +1966,14 @@ exports[`JIRA wiki markup - Macros should render list in a blockquote 1`] = `
           "type": "paragraph",
         },
         {
+          "attrs": {
+            "localId": null,
+          },
           "content": [
             {
+              "attrs": {
+                "localId": null,
+              },
               "content": [
                 {
                   "attrs": {
@@ -1925,6 +2026,7 @@ exports[`JIRA wiki markup - Macros should render red error panel 1`] = `
   "content": [
     {
       "attrs": {
+        "localId": null,
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
@@ -1968,6 +2070,9 @@ exports[`JIRA wiki markup - Macros should render rule node if it is on the top l
       "type": "paragraph",
     },
     {
+      "attrs": {
+        "localId": null,
+      },
       "type": "rule",
     },
     {
@@ -2003,6 +2108,9 @@ exports[`JIRA wiki markup - Macros should split nodes if there is more than one 
       "type": "paragraph",
     },
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
           "attrs": {
@@ -2021,6 +2129,7 @@ exports[`JIRA wiki markup - Macros should split nodes if there is more than one 
     },
     {
       "attrs": {
+        "localId": null,
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
@@ -2044,6 +2153,9 @@ exports[`JIRA wiki markup - Macros should split nodes if there is more than one 
       "type": "panel",
     },
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
           "attrs": {
@@ -2094,6 +2206,7 @@ exports[`JIRA wiki markup - Macros should support strings with a wrong order of 
     },
     {
       "attrs": {
+        "localId": null,
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
@@ -2117,6 +2230,9 @@ exports[`JIRA wiki markup - Macros should support strings with a wrong order of 
       "type": "panel",
     },
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
           "attrs": {
@@ -2129,6 +2245,7 @@ exports[`JIRA wiki markup - Macros should support strings with a wrong order of 
     },
     {
       "attrs": {
+        "localId": null,
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
@@ -2164,6 +2281,9 @@ exports[`JIRA wiki markup - Macros should support strings with a wrong order of 
       "type": "paragraph",
     },
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
           "attrs": {
@@ -2202,6 +2322,7 @@ exports[`JIRA wiki markup - Macros should title of noformat 1`] = `
     {
       "attrs": {
         "language": null,
+        "localId": null,
         "uniqueId": null,
       },
       "content": [
@@ -2221,6 +2342,9 @@ exports[`JIRA wiki markup - Macros should transform h1 to Bold and Uppercase und
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
           "attrs": {
@@ -2251,6 +2375,9 @@ exports[`JIRA wiki markup - Macros should transform h2 to Bold and Italic under 
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
           "attrs": {
@@ -2284,6 +2411,9 @@ exports[`JIRA wiki markup - Macros should transform h3 to Bold under blockquote 
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
           "attrs": {
@@ -2314,6 +2444,9 @@ exports[`JIRA wiki markup - Macros should transform h4 to Bold and Gray under bl
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
           "attrs": {
@@ -2350,6 +2483,9 @@ exports[`JIRA wiki markup - Macros should transform h5 to Italic and Gray under 
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
           "attrs": {
@@ -2386,6 +2522,9 @@ exports[`JIRA wiki markup - Macros should transform h6 to Gray under blockquote 
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
           "attrs": {

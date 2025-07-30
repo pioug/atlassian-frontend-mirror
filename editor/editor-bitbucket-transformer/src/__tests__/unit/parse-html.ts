@@ -1230,12 +1230,12 @@ describe('BitbucketTransformer: parser', () => {
 		});
 	});
 
-	describe('code reviewer expand panel', () => {
-		it('should convert reasoning code block to reasoning expand panel if shouldParseCodeReviewerReasoning is true', () => {
+	describe('expand panel', () => {
+		it('should convert expand code block to expand panel if shouldParseCodeReviewerReasoning is true', () => {
 			expect(
 				parse(
-					'<div class="codehilite language-reasoning">' +
-						'<pre><span></span><code>this is a reasoning panel</code></pre>' +
+					'<div class="codehilite language-expand">' +
+						'<pre><span></span><code>this is the expand panel title\nthis is the expand panel body line 1\nthis is line 2</code></pre>' +
 						'</div>',
 					{ shouldParseCodeReviewerReasoning: true },
 				),
@@ -1243,16 +1243,17 @@ describe('BitbucketTransformer: parser', () => {
 				doc(
 					expand({
 						__expanded: true,
-						title: 'View full reasoning',
-					})(p('this is a reasoning panel')),
+						title: 'this is the expand panel title',
+					})(p('this is the expand panel body line 1'),
+					   p('this is line 2')),
 				),
 			);
 		});
 
-		it('should remove reasoning code block if shouldParseCodeReviewerReasoning is false', () => {
+		it('should remove expand code block if shouldParseCodeReviewerReasoning is false', () => {
 			expect(
 				parse(
-					'<div class="codehilite language-reasoning">' + '<pre><span></span></pre>' + '</div>',
+					'<div class="codehilite language-expand">' + '<pre><span></span></pre>' + '</div>',
 				),
 			).toEqualDocument(doc(p('')));
 		});

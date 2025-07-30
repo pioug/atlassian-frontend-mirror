@@ -21,6 +21,7 @@ const styles = cssMap({
 		paddingRight: token('space.100'),
 		paddingBottom: token('space.100'),
 		paddingLeft: token('space.100'),
+		marginBottom: token('space.100'),
 		borderWidth: '1px',
 		borderStyle: 'solid',
 		borderColor: token('color.border'),

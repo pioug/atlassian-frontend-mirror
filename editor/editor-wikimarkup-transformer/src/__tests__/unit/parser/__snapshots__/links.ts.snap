@@ -311,6 +311,7 @@ exports[`JIRA wiki markup - Links [CS-787] should convert back to inline card 1`
         {
           "attrs": {
             "data": null,
+            "localId": null,
             "url": "https://www.dropbox.com/s/2mh79iuglsnmbwf/Get%20Started%20with%20Dropbox.pdf?dl=0",
           },
           "type": "inlineCard",
@@ -374,6 +375,7 @@ exports[`JIRA wiki markup - Links [EX-500] should jump over the link if it is in
         },
         {
           "attrs": {
+            "localId": null,
             "text": "
 ",
           },
@@ -385,6 +387,7 @@ exports[`JIRA wiki markup - Links [EX-500] should jump over the link if it is in
         },
         {
           "attrs": {
+            "localId": null,
             "text": "
 ",
           },
@@ -778,6 +781,7 @@ exports[`JIRA wiki markup - Links should create Media Image and Link from linkab
     {
       "attrs": {
         "layout": "center",
+        "localId": null,
         "width": null,
         "widthType": null,
       },
@@ -795,6 +799,7 @@ exports[`JIRA wiki markup - Links should create Media Image and Link from linkab
             "collection": "",
             "height": 183,
             "id": "abc-123",
+            "localId": null,
             "occurrenceKey": null,
             "type": "file",
             "url": null,

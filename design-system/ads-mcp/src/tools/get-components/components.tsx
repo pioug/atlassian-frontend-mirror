@@ -1803,7 +1803,7 @@ import { PanelSplitter } from '@atlaskit/navigation-system/layout/panel-splitter
 import { Root } from '@atlaskit/navigation-system/layout/root';
 import { SideNav, SideNavContent, SideNavFooter, SideNavToggleButton } from '@atlaskit/navigation-system/layout/side-nav';
 import { TopNav, TopNavEnd, TopNavMiddle, TopNavStart } from '@atlaskit/navigation-system/layout/top-nav';
-import { Help, NavLogo } from '@atlaskit/navigation-system/top-nav-items';
+import { Help, CustomLogo } from '@atlaskit/navigation-system/top-nav-items';
 
 <Root>
   <TopNav>
@@ -1812,7 +1812,7 @@ import { Help, NavLogo } from '@atlaskit/navigation-system/top-nav-items';
         collapseLabel="Collapse sidebar"
         expandLabel="Expand sidebar"
       />
-      <NavLogo
+      <CustomLogo
         href="#"
         logo={AtlassianLogo}
         icon={AtlassianIcon}

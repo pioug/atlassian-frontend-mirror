@@ -51,13 +51,14 @@ const styleChild = css({
 });
 
 export const StyledBar = (props: StyledBarProps) => {
-	const { progress, breakpoint, positionBottom, showOnTop } = props;
+	const { progress, breakpoint, positionBottom, showOnTop, ariaLabel } = props;
 
 	return (
 		<div
 			id="styledBar"
 			role="progressbar"
 			aria-valuenow={progress}
+			aria-label={ariaLabel}
 			style={{
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 				...generateResponsiveStyles(breakpoint, positionBottom, showOnTop),

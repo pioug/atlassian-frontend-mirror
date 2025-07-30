@@ -9,8 +9,10 @@ import {
 	type StateEffect,
 } from '@codemirror/state';
 import { EditorView as CodeMirror, lineNumbers, type ViewUpdate, gutters } from '@codemirror/view';
+import type { IntlShape } from 'react-intl-next';
 
 import { isCodeBlockWordWrapEnabled } from '@atlaskit/editor-common/code-block';
+import { blockTypeMessages } from '@atlaskit/editor-common/messages';
 import { type RelativeSelectionPos } from '@atlaskit/editor-common/selection';
 import type {
 	getPosHandler,
@@ -47,6 +49,7 @@ import { LanguageLoader } from './languages/loader';
 interface ConfigProps {
 	api: ExtractInjectionAPI<CodeBlockAdvancedPlugin> | undefined;
 	extensions: Extension[];
+	getIntl: () => IntlShape;
 }
 
 // Based on: https://prosemirror.net/examples/codemirror/
@@ -90,6 +93,8 @@ class CodeBlockAdvancedNodeView implements NodeView {
 			});
 			this.updating = false;
 		});
+		const { formatMessage } = config.getIntl();
+		const formattedAriaLabel = formatMessage(blockTypeMessages.codeblock);
 
 		this.cm = new CodeMirror({
 			doc: this.node.textContent,
@@ -136,6 +141,7 @@ class CodeBlockAdvancedNodeView implements NodeView {
 				prosemirrorDecorationPlugin(this.pmFacet, view, getPos),
 				tripleClickSelectAllExtension(),
 				firstCodeBlockInDocument(getPos),
+				CodeMirror.contentAttributes.of({ 'aria-label': formattedAriaLabel }),
 			],
 		});
 

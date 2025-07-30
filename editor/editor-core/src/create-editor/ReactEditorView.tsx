@@ -935,9 +935,7 @@ export function ReactEditorView(props: EditorViewProps) {
 						id={EDIT_AREA_ID}
 						aria-describedby={assistiveDescribedBy}
 						data-editor-id={editorId.current}
-						data-vc-ignore-if-no-layout-shift={
-							fg('platform_vc_ignore_no_ls_mutation_marker') ? true : undefined
-						}
+						data-vc-ignore-if-no-layout-shift={true}
 					/>
 				</>
 			);

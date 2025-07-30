@@ -6,7 +6,6 @@ import { css, cssMap, jsx } from '@compiled/react';
 import type { MessageDescriptor } from 'react-intl-next';
 
 import type { Prettify } from '@atlaskit/linking-common';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import type { MessageProps } from '../../../types';
@@ -111,9 +110,7 @@ export const BaseTextElement = ({
 		<span
 			css={[
 				baseStyle,
-				fontSize !== undefined &&
-					fg('bandicoots-smart-card-teamwork-context') &&
-					fontOverrideStyleMap[fontSize],
+				fontSize !== undefined && fontOverrideStyleMap[fontSize],
 				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 				dynamicCss,
 			]}

@@ -96,7 +96,7 @@ invoke the `configure()` function with the provided data.
 
 ### configure()
 
-_Disclaimer:_ This does not need to be invoked for the `isFedrampModerate()`, `isIsolatedCloud()`, `isolatedCloudDomain()`, `getDomainInContext(...)`, and `getUrlForDomainInContext(...)` functions.
+_Disclaimer:_ This does not need to be invoked for the `isFedrampModerate()`, `isIsolatedCloud()`, `isolatedCloudDomain()`, `isolationContextId()`, `getDomainInContext(...)`, and `getUrlForDomainInContext(...)` functions.
 
 Takes the data, and stores in `window.ATL_CONTEXT_DOMAIN` for later use.
 
@@ -176,6 +176,11 @@ Returns true if the current perimeter is in Isolated Cloud.
 ### isolatedCloudDomain()
 _Disclaimer July 2025:_ SSR is currently NOT supported, though the team is currently working through an alternate implementation.
 Returns the current `ic_domain`. If the current perimeter is not an L2 IC (ex. the current fedramp-moderate or regular commercial), then undefined is returned.
+
+
+### isolationContextId()
+_Disclaimer July 2025:_ SSR is currently NOT supported, though the team is currently working through an alternate implementation.
+Returns the current isolation context identifier (ex: `ic-123`). If the current perimeter is not an L2 IC (such as if the perimeter is fedramp-moderate or regular commercial), then undefined is returned.
 
 
 

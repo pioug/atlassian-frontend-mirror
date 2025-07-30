@@ -76,6 +76,11 @@ export type InlineProps<T extends ElementType = 'div'> = {
 	children: ReactNode;
 
 	/**
+	 * The [HTML `id` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id).
+	 */
+	id?: string;
+
+	/**
 	 * Forwarded ref element.
 	 */
 	ref?: React.ComponentPropsWithRef<T>['ref'];
@@ -131,6 +136,7 @@ const Inline = memo(
 				xcss,
 				testId,
 				role,
+				id,
 				children: rawChildren,
 			}: InlineProps<T>,
 			ref: Ref<any>,
@@ -160,6 +166,7 @@ const Inline = memo(
 
 			return (
 				<Flex
+					id={id}
 					as={as}
 					role={role}
 					alignItems={alignItems}

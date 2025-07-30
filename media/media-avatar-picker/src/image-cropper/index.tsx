@@ -226,6 +226,7 @@ export class ImageCropper extends Component<ImageCropperProp & WrappedComponentP
 						style={maskStyles}
 						tabIndex={0}
 						onKeyDown={this.onKeyDown}
+						role="button"
 						aria-label={formatMessage(messages.image_cropper_arrow_keys_label)}
 					/>
 				) : (
@@ -236,6 +237,7 @@ export class ImageCropper extends Component<ImageCropperProp & WrappedComponentP
 						style={maskStyles}
 						tabIndex={0}
 						onKeyDown={this.onKeyDown}
+						role="button"
 						aria-label={formatMessage(messages.image_cropper_arrow_keys_label)}
 					/>
 				)}

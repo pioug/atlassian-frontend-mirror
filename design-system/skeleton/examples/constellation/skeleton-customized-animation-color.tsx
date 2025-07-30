@@ -9,6 +9,6 @@ export default () => (
 		height="16px"
 		color={token('color.background.accent.gray.subtle')}
 		ShimmeringEndColor={token('color.background.accent.gray.bolder')}
-		testId="skeleton"
+		isShimmering
 	/>
 );

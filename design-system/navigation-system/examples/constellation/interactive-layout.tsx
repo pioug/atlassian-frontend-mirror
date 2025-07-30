@@ -15,7 +15,7 @@ import Heading from '@atlaskit/heading';
 import AppsIcon from '@atlaskit/icon/core/apps';
 import InboxIcon from '@atlaskit/icon/core/inbox';
 import ProjectIcon from '@atlaskit/icon/core/project';
-import { AtlassianIcon, AtlassianLogo } from '@atlaskit/logo';
+import { ConfluenceIcon } from '@atlaskit/logo';
 import { Aside } from '@atlaskit/navigation-system/layout/aside';
 import { Banner } from '@atlaskit/navigation-system/layout/banner';
 import { Main } from '@atlaskit/navigation-system/layout/main';
@@ -36,10 +36,10 @@ import {
 import { LinkMenuItem } from '@atlaskit/navigation-system/side-nav-items/link-menu-item';
 import { MenuList } from '@atlaskit/navigation-system/side-nav-items/menu-list';
 import {
+	AppLogo,
 	AppSwitcher,
 	CreateButton,
 	Help,
-	NavLogo,
 	Notifications,
 	Profile,
 	Search,
@@ -131,8 +131,8 @@ export function InteractiveLayoutExample() {
 				<TopNav>
 					<TopNavStart>
 						<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+						<AppLogo href="" icon={ConfluenceIcon} label="Home page" name="Confluence" />
 						<AppSwitcher label="Switch apps" />
-						<NavLogo href="" logo={AtlassianLogo} icon={AtlassianIcon} label="Home page" />
 					</TopNavStart>
 
 					<TopNavMiddle>

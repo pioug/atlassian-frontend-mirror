@@ -21,7 +21,7 @@ import SettingsIcon from '@atlaskit/icon/core/settings';
 import ShowMoreHorizontal from '@atlaskit/icon/core/show-more-horizontal';
 import StarUnstarredIcon from '@atlaskit/icon/core/star-unstarred';
 import { useNotifyOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
-import { AtlassianIcon, AtlassianLogo } from '@atlaskit/logo';
+import { ConfluenceIcon } from '@atlaskit/logo';
 import { Main } from '@atlaskit/navigation-system/layout/main';
 import { PanelSplitter } from '@atlaskit/navigation-system/layout/panel-splitter';
 import { Root } from '@atlaskit/navigation-system/layout/root';
@@ -46,10 +46,10 @@ import { LinkMenuItem } from '@atlaskit/navigation-system/side-nav-items/link-me
 import { MenuList } from '@atlaskit/navigation-system/side-nav-items/menu-list';
 import { Divider } from '@atlaskit/navigation-system/side-nav-items/menu-section';
 import {
+	AppLogo,
 	AppSwitcher,
 	CreateButton,
 	Help,
-	NavLogo,
 	Search,
 	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
@@ -105,7 +105,7 @@ export default function SideNavFlyout({
 							expandLabel="Expand sidebar"
 						/>
 						<AppSwitcher label="Switch apps" />
-						<NavLogo href="" logo={AtlassianLogo} icon={AtlassianIcon} label="Home page" />
+						<AppLogo href="" icon={ConfluenceIcon} name="Confluence" label="Home page" />
 					</TopNavStart>
 					<TopNavMiddle>
 						<Search label="Search" />

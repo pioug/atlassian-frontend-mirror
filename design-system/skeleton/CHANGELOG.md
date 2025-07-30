@@ -1,5 +1,13 @@
 # @atlaskit/skeleton
 
+## 2.1.0
+
+### Minor Changes
+
+- [#192775](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/192775)
+  [`3774afb555e41`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3774afb555e41) -
+  Reduces the default `borderRadius` from `100px` to `4px`.
+
 ## 2.0.3
 
 ### Patch Changes

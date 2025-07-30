@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { isContainedWithinMediaWrapper } from '../../vc-observer/media-wrapper/vc-utils';
 import isNonVisualStyleMutation from '../../vc-observer/observers/non-visual-styles/is-non-visual-style-mutation';
 import { RLLPlaceholderHandlers } from '../../vc-observer/observers/rll-placeholders';
@@ -65,22 +63,20 @@ export type ViewPortObserverConstructorArgs = {
 const createElementMutationsWatcher =
 	(removedNodeRects: (DOMRect | undefined)[]) =>
 	({ target, rect }: { rect: DOMRectReadOnly; target: HTMLElement }) => {
-		const isNoLsMarkerEnabled = fg('platform_vc_ignore_no_ls_mutation_marker');
 		const isInIgnoreLsMarker = isInVCIgnoreIfNoLayoutShiftMarker(target);
 
-		if (!isInIgnoreLsMarker && isNoLsMarkerEnabled) {
+		if (!isInIgnoreLsMarker) {
 			return 'mutation:element';
 		}
 
 		const isRLLPlaceholder = RLLPlaceholderHandlers.getInstance().isRLLPlaceholderHydration(rect);
-		if (isRLLPlaceholder && (!isNoLsMarkerEnabled || isInIgnoreLsMarker)) {
+		if (isRLLPlaceholder && isInIgnoreLsMarker) {
 			return 'mutation:rll-placeholder';
 		}
 
 		const wasDeleted = removedNodeRects.some((nr) => sameRectDimensions(nr, rect));
-		// When fg('platform_vc_ignore_no_ls_mutation_marker') is not enabled,
-		// no layout shift mutation is excluded as per existing fy25.03 logic
-		if (wasDeleted && (!isNoLsMarkerEnabled || isInIgnoreLsMarker)) {
+		
+		if (wasDeleted && isInIgnoreLsMarker) {
 			return 'mutation:element-replacement';
 		}
 
@@ -178,7 +174,7 @@ export default class ViewportObserver {
 			}
 
 			// SSR hydration logic
-			if (this.getSSRState && fg('platform_ufo_vc_v3_ssr_placeholder')) {
+			if (this.getSSRState) {
 				const ssrState = this.getSSRState();
 				const SSRStateEnum = { normal: 1, waitingForFirstRender: 2, ignoring: 3 };
 
@@ -211,7 +207,7 @@ export default class ViewportObserver {
 			}
 
 			// SSR placeholder logic - check and handle with await
-			if (this.getSSRPlaceholderHandler && fg('platform_ufo_vc_v3_ssr_placeholder')) {
+			if (this.getSSRPlaceholderHandler) {
 				const ssrPlaceholderHandler = this.getSSRPlaceholderHandler();
 				if (ssrPlaceholderHandler) {
 					if (
@@ -250,11 +246,8 @@ export default class ViewportObserver {
 			});
 
 			const isInIgnoreLsMarker = isInVCIgnoreIfNoLayoutShiftMarker(addedNode);
-			const isNoLsMarkerEnabled = fg('platform_vc_ignore_no_ls_mutation_marker');
 
-			// When fg('platform_vc_ignore_no_ls_mutation_marker') is not enabled,
-			// no layout shift mutation is excluded as per existing fy25.03 logic
-			if (sameDeletedNode && (!isNoLsMarkerEnabled || isInIgnoreLsMarker)) {
+			if (sameDeletedNode && isInIgnoreLsMarker) {
 				this.intersectionObserver?.watchAndTag(addedNode, 'mutation:remount');
 				continue;
 			}

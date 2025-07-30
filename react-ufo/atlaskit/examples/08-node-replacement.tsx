@@ -102,7 +102,7 @@ export default function Example() {
 	return (
 		<UFOSegment name="app-root">
 			<UFOLoadHold name="app-to-replace" hold={isLoading} />
-			<div data-testid="main" ref={contentRef} css={mainStyles}></div>
+			<div data-testid="main" ref={contentRef} css={mainStyles} data-vc-ignore-if-no-layout-shift={true}></div>
 		</UFOSegment>
 	);
 }

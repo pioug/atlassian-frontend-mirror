@@ -8,8 +8,8 @@ import { jsx } from '@compiled/react';
 
 import AKBadge from '@atlaskit/badge';
 import { Label } from '@atlaskit/form';
-import { AtlassianIcon, AtlassianLogo } from '@atlaskit/logo';
-import { AppLogo, Main, Root, SideNav } from '@atlaskit/navigation-system';
+import { ConfluenceIcon } from '@atlaskit/logo';
+import { Main, Root, SideNav } from '@atlaskit/navigation-system';
 import { SideNavToggleButton } from '@atlaskit/navigation-system/layout/side-nav';
 import {
 	TopNav,
@@ -18,17 +18,15 @@ import {
 	TopNavStart,
 } from '@atlaskit/navigation-system/layout/top-nav';
 import {
+	AppLogo,
 	AppSwitcher,
 	ChatButton,
 	CreateButton,
 	Help,
-	NavLogo,
 	Profile,
 	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
 import { Notifications } from '@atlaskit/navigation-system/top-nav-items/notifications';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { JiraIcon } from '@atlaskit/temp-nav-app-icons/jira';
 
 // TODO: consider exposing this type properly, but it isn't needed for normal usage
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
@@ -68,21 +66,12 @@ const TopNavigation = ({ customTheme }: { customTheme?: CustomTheme }) => {
 					onClick={toggleIsAppSwitcherSelected}
 					isSelected={isAppSwitcherSelected}
 				/>
-				{fg('platform-team25-app-icon-tiles') ? (
 					<AppLogo
 						href="http://www.atlassian.design"
-						icon={JiraIcon}
-						name="Jira"
+						icon={ConfluenceIcon}
+						name="Confluence"
 						label="Home page"
 					/>
-				) : (
-					<NavLogo
-						href="http://www.atlassian.design"
-						logo={AtlassianLogo}
-						icon={AtlassianIcon}
-						label="Home page"
-					/>
-				)}
 			</TopNavStart>
 			<TopNavMiddle>
 				<MockSearch />

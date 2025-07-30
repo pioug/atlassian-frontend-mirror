@@ -4,6 +4,9 @@ exports[`JIRA wiki markup - blockquote [CS-607] should not need a whitespace 1`]
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
           "attrs": {
@@ -29,6 +32,9 @@ exports[`JIRA wiki markup - blockquote Blockquote 1`] = `
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
           "attrs": {
@@ -54,10 +60,14 @@ exports[`JIRA wiki markup - blockquote Blockquote macro with nested codeblock 1`
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
           "attrs": {
             "language": "javascript",
+            "localId": null,
             "uniqueId": null,
           },
           "content": [
@@ -80,6 +90,9 @@ exports[`JIRA wiki markup - blockquote Blockquote macro with nested mediaGroup 1
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
           "content": [
@@ -96,6 +109,7 @@ exports[`JIRA wiki markup - blockquote Blockquote macro with nested mediaGroup 1
                 "collection": "",
                 "height": null,
                 "id": "file1.txt",
+                "localId": null,
                 "occurrenceKey": null,
                 "type": "file",
                 "url": null,
@@ -116,6 +130,7 @@ exports[`JIRA wiki markup - blockquote Blockquote macro with nested mediaGroup 1
                 "collection": "",
                 "height": null,
                 "id": "file2.txt",
+                "localId": null,
                 "occurrenceKey": null,
                 "type": "file",
                 "url": null,
@@ -138,10 +153,14 @@ exports[`JIRA wiki markup - blockquote Blockquote macro with nested mediaSingle 
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
           "attrs": {
             "layout": "center",
+            "localId": null,
             "width": null,
             "widthType": null,
           },
@@ -159,6 +178,7 @@ exports[`JIRA wiki markup - blockquote Blockquote macro with nested mediaSingle 
                 "collection": "",
                 "height": 183,
                 "id": "abc-1",
+                "localId": null,
                 "occurrenceKey": null,
                 "type": "file",
                 "url": null,
@@ -181,10 +201,14 @@ exports[`JIRA wiki markup - blockquote Blockquote with nested codeblock 1`] = `
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
           "attrs": {
             "language": "javascript",
+            "localId": null,
             "uniqueId": null,
           },
           "content": [
@@ -207,6 +231,9 @@ exports[`JIRA wiki markup - blockquote Blockquote with nested mediaGroup 1`] = `
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
           "content": [
@@ -223,6 +250,7 @@ exports[`JIRA wiki markup - blockquote Blockquote with nested mediaGroup 1`] = `
                 "collection": "",
                 "height": null,
                 "id": "file1.txt",
+                "localId": null,
                 "occurrenceKey": null,
                 "type": "file",
                 "url": null,
@@ -243,6 +271,7 @@ exports[`JIRA wiki markup - blockquote Blockquote with nested mediaGroup 1`] = `
                 "collection": "",
                 "height": null,
                 "id": "file2.txt",
+                "localId": null,
                 "occurrenceKey": null,
                 "type": "file",
                 "url": null,
@@ -257,6 +286,9 @@ exports[`JIRA wiki markup - blockquote Blockquote with nested mediaGroup 1`] = `
       "type": "blockquote",
     },
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
           "attrs": {
@@ -276,10 +308,14 @@ exports[`JIRA wiki markup - blockquote Blockquote with nested mediaSingle 1`] = 
 {
   "content": [
     {
+      "attrs": {
+        "localId": null,
+      },
       "content": [
         {
           "attrs": {
             "layout": "center",
+            "localId": null,
             "width": null,
             "widthType": null,
           },
@@ -297,6 +333,7 @@ exports[`JIRA wiki markup - blockquote Blockquote with nested mediaSingle 1`] = 
                 "collection": "",
                 "height": 183,
                 "id": "abc-1",
+                "localId": null,
                 "occurrenceKey": null,
                 "type": "file",
                 "url": null,

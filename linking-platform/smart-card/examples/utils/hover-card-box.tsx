@@ -7,7 +7,7 @@ const boxStyles = xcss({
 	backgroundColor: 'color.background.information',
 	borderColor: 'color.border.information',
 	borderStyle: 'solid',
-	borderRadius: '3px',
+	borderRadius: 'border.radius.100',
 	borderWidth: 'border.width',
 	padding: 'space.100',
 	textAlign: 'center',

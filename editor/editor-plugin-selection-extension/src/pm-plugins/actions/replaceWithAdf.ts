@@ -7,7 +7,7 @@ import { type ReplaceWithAdfResult, SelectionExtensionActionTypes } from '../../
 import { selectionExtensionPluginKey } from '../main';
 
 export const replaceWithAdf =
-	(modifiedNodeAdf: ADFEntity) =>
+	(nodeAdf: ADFEntity) =>
 	(state: EditorState, dispatch: CommandDispatch): ReplaceWithAdfResult => {
 		const { tr, schema } = state;
 
@@ -35,7 +35,7 @@ export const replaceWithAdf =
 
 			const endPos = selectedNode.nodeSize + nodePos;
 
-			const modifiedNode = Node.fromJSON(schema, modifiedNodeAdf);
+			const modifiedNode = Node.fromJSON(schema, nodeAdf);
 			modifiedNode.check();
 			tr.replaceWith(nodePos, endPos, modifiedNode).scrollIntoView();
 			dispatch(tr);

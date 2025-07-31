@@ -54,7 +54,7 @@ const NewUser = () => (
 					<Button>Learn about Agile</Button>
 				</Option>
 				<Option>
-					<Button>Explore the product</Button>
+					<Button>Explore the app</Button>
 				</Option>
 				<Option>
 					<Button>Setting it up for my team</Button>

@@ -34,7 +34,6 @@ export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = 
 };
 
 export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
-	platform_editor_enghealth_table_plugin_lable_rule: false,
 	platform_editor_feedback_mandatory_rating: false,
 	platform_editor_preview_panel_responsiveness: false,
 	platform_editor_renderer_breakout_fix: false,

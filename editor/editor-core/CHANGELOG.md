@@ -1,5 +1,35 @@
 # @atlaskit/editor-core
 
+## 209.4.0
+
+### Minor Changes
+
+- [#193889](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/193889)
+  [`6d4374ce318fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d4374ce318fd) -
+  [EDITOR-1073] Add i18n for Track Changes button & toggle button on toolbar with plugin option
+
+### Patch Changes
+
+- Updated dependencies
+
+## 209.3.6
+
+### Patch Changes
+
+- [#193870](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/193870)
+  [`703c443a064fe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/703c443a064fe) -
+  [ux] EDITOR-342 clean up nested table feature gate platform_editor_nested_table_drag_controls
+- Updated dependencies
+
+## 209.3.5
+
+### Patch Changes
+
+- [#193709](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/193709)
+  [`9f25c72b75349`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f25c72b75349) -
+  EDITOR-338 Cleans up nested tables feature gate platform_editor_nested_tables_column_drag_fix
+- Updated dependencies
+
 ## 209.3.4
 
 ### Patch Changes

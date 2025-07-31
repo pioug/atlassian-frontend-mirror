@@ -243,7 +243,6 @@ export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
 						{items.map((item, index) => (
 							<LinkSearchListItem
 								id={`${testIds.searchResultItem}-${index}`}
-								role={role && 'option'}
 								item={item}
 								selected={selectedIndex === index}
 								active={activeIndex === index}

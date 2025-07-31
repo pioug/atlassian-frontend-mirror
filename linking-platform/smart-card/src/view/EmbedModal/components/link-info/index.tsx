@@ -218,8 +218,7 @@ const LinkInfo = ({
 				<Heading size="small" color="color.text" testId={`${testId}-title`}>
 					{title}
 				</Heading>
-				{/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
-				<span tabIndex={0} />
+				<span tabIndex={0} role="button" aria-hidden={true} />
 			</div>
 			<div css={actionCss}>
 				{downloadButton}

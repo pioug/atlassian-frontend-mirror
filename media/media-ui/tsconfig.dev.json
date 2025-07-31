@@ -25,7 +25,13 @@
 		"**/codemods/**/*.ts",
 		"**/codemods/**/*.tsx",
 		"./example-helpers/**/*",
-		"./src/test-helpers/**/*"
+		"./src/test-helpers/**/*",
+		"**/stories.ts",
+		"**/stories.tsx",
+		"**/stories/*.ts",
+		"**/stories/*.tsx",
+		"**/stories/**/*.ts",
+		"**/stories/**/*.tsx"
 	],
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {

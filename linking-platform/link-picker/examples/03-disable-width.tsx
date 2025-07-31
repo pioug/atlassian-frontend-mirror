@@ -30,8 +30,7 @@ function CustomWidth() {
 
 	return (
 		<Fragment>
-			{/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-			<label>Container Width</label>
+			<h4>Container Width</h4>
 			<Range min={200} max={1000} step={20} value={width} onChange={(value) => setWidth(value)} />
 			<div style={{ width }}>
 				<LinkPicker plugins={plugins} onSubmit={NOOP} onCancel={NOOP} disableWidth />

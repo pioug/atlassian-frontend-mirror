@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 9.18.0
+
+### Minor Changes
+
+- [#193268](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/193268)
+  [`4a345f374785e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4a345f374785e) -
+  [ux] ED-28208 Fix pasting table into selected table results in a nested table
+
 ## 9.17.0
 
 ### Minor Changes

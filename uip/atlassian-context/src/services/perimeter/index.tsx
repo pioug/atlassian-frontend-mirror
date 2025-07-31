@@ -60,10 +60,10 @@ export function isolatedCloudDomain(): string | undefined {
  * Returns the Isolation Context identifier
  *
  * Warning: Currently unsupported in SSR for the time-being.
- * 
+ *
  * @returns {string | undefined} - The Isolation Context ID if applicable, undefined otherwise (ex. if not in Isolated Cloud)
  */
 export function isolationContextId(): string | undefined {
-   const atlCtxCookieValues: AtlCtxCookieValues | undefined = parseAtlCtxCookies();
-   return atlCtxCookieValues?.icId
+	const atlCtxCookieValues: AtlCtxCookieValues | undefined = parseAtlCtxCookies();
+	return atlCtxCookieValues?.icId;
 }

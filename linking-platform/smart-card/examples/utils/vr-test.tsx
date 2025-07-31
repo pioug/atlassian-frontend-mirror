@@ -80,3 +80,26 @@ export const LozengeActionWithPreviewExample = {
 		},
 	},
 };
+
+export const LozengeActionErrorExample = {
+	read: {
+		action: {
+			actionType: SmartLinkActionType.GetStatusTransitionsAction,
+			resourceIdentifiers: {
+				issueKey: 'some-id',
+			},
+		},
+		providerKey: 'object-provider',
+	},
+	update: {
+		action: { ...LozengeActionExample.update.action },
+		providerKey: LozengeActionExample.update.providerKey,
+		details: {
+			...LozengeActionWithPreviewExample.update.details,
+			invokePreviewAction: {
+				actionFn: () => Promise.resolve(),
+				actionType: 'preview',
+			},
+		},
+	},
+};

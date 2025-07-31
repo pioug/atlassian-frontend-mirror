@@ -61,6 +61,7 @@ const AgentProfileCard = ({
 		onViewFullProfile,
 	} = useAgentUrlActions({
 		cloudId: cloudId || '',
+		source: 'agentProfileCard',
 	});
 
 	const [isStarred, setIsStarred] = useState(false);

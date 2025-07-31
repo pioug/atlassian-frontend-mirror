@@ -1,5 +1,13 @@
 # @atlaskit/editor-toolbar
 
+## 0.0.4
+
+### Patch Changes
+
+- [#192343](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/192343)
+  [`9cb0878241016`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9cb0878241016) -
+  ED-28736 more extensible selection extensions API
+
 ## 0.0.3
 
 ### Patch Changes

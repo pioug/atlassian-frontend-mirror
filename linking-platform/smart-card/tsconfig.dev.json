@@ -28,7 +28,13 @@
 		"./src/extractors/common/__mocks__/**/*",
 		"./src/utils/analytics/__mocks__/**/*",
 		"./src/utils/mocks.tsx",
-		"./src/utils/test-utils.tsx"
+		"./src/utils/test-utils.tsx",
+		"**/stories.ts",
+		"**/stories.tsx",
+		"**/stories/*.ts",
+		"**/stories/*.tsx",
+		"**/stories/**/*.ts",
+		"**/stories/**/*.tsx"
 	],
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {

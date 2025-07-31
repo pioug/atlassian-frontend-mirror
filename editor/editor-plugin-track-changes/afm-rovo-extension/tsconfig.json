@@ -14,11 +14,28 @@
 		"../src/**/__tests__/*",
 		"../src/**/*.test.*",
 		"../src/**/test.*",
-		"../src/**/examples.*"
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
 	],
 	"references": [
 		{
+			"path": "../../../design-system/button/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-history/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-primary-toolbar/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-show-diff/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon-lab/afm-rovo-extension/tsconfig.json"
 		},
 		{
 			"path": "../../editor-common/afm-rovo-extension/tsconfig.json"

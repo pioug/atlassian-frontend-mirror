@@ -27,6 +27,11 @@ export const corePlugin: CorePlugin = ({ config }) => {
 	const scheduleDocumentRequest = createThrottleSchedule(returnDocumentRequest);
 	return {
 		name: 'core',
+		getSharedState(state) {
+			return {
+				schema: state?.schema,
+			};
+		},
 		actions: {
 			execute: (command) => {
 				const editorView = config?.getEditorView();

@@ -4,17 +4,27 @@ import { cssMap } from '@compiled/react';
 
 import CloseIcon from '@atlaskit/icon/core/cross-circle';
 import SearchIcon from '@atlaskit/icon/core/search';
-import { Box } from '@atlaskit/primitives/compiled';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box, Pressable } from '@atlaskit/primitives/compiled';
 import { components, type DropdownIndicatorProps } from '@atlaskit/select';
+import { token } from '@atlaskit/tokens';
 
 import { type SelectOption } from './types';
 
 const styles = cssMap({
+	customDropdownIndicatorStylesOld: {
+		display: 'flex',
+		cursor: 'pointer',
+		justifyContent: 'center',
+		width: '32px',
+	},
 	customDropdownIndicatorStyles: {
 		display: 'flex',
 		cursor: 'pointer',
 		justifyContent: 'center',
 		width: '32px',
+		backgroundColor: 'transparent',
+		color: token('color.text.subtle'),
 	},
 });
 
@@ -23,21 +33,38 @@ const CustomDropdownIndicator = (props: DropdownIndicatorProps<SelectOption, tru
 
 	return (
 		<components.DropdownIndicator {...props}>
-			{/* eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable */}
-			<Box
-				xcss={styles.customDropdownIndicatorStyles}
-				onClick={() => {
-					if (selectProps.inputValue) {
-						selectProps.onInputChange &&
-							selectProps.onInputChange('', {
-								action: 'input-change',
-								prevInputValue: selectProps.inputValue,
-							});
-					}
-				}}
-			>
-				{selectProps.inputValue ? <CloseIcon label="" /> : <SearchIcon label="" />}
-			</Box>
+			{fg('navx-1184-fix-smart-link-a11y-interactive-states') ? (
+				<Pressable
+					xcss={styles.customDropdownIndicatorStyles}
+					onClick={() => {
+						if (selectProps.inputValue) {
+							selectProps.onInputChange &&
+								selectProps.onInputChange('', {
+									action: 'input-change',
+									prevInputValue: selectProps.inputValue,
+								});
+						}
+					}}
+				>
+					{selectProps.inputValue ? <CloseIcon label="" /> : <SearchIcon label="" />}
+				</Pressable>
+			) : (
+				// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable
+				<Box
+					xcss={styles.customDropdownIndicatorStylesOld}
+					onClick={() => {
+						if (selectProps.inputValue) {
+							selectProps.onInputChange &&
+								selectProps.onInputChange('', {
+									action: 'input-change',
+									prevInputValue: selectProps.inputValue,
+								});
+						}
+					}}
+				>
+					{selectProps.inputValue ? <CloseIcon label="" /> : <SearchIcon label="" />}
+				</Box>
+			)}
 		</components.DropdownIndicator>
 	);
 };

@@ -1,5 +1,23 @@
 # @atlaskit/teams-public
 
+## 0.50.2
+
+### Patch Changes
+
+- [#193176](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/193176)
+  [`99ab921c9d13f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/99ab921c9d13f) -
+  Update requested containers to remove search params on success/failure
+- Updated dependencies
+
+## 0.50.1
+
+### Patch Changes
+
+- [#190537](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/190537)
+  [`cc7e5ed8bb6e1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cc7e5ed8bb6e1) -
+  Update the polling interval for the requested containers hook
+- Updated dependencies
+
 ## 0.50.0
 
 ### Minor Changes

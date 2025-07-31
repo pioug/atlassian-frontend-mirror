@@ -1,5 +1,18 @@
 # @atlaskit/react-select
 
+## 3.4.0
+
+### Minor Changes
+
+- [#192272](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/192272)
+  [`94b0093816679`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/94b0093816679) -
+  conditionally handle the blur & menu close for the select based on the focusable elements other
+  than options
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.3.1
 
 ### Patch Changes

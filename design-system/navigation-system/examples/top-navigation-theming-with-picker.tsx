@@ -66,12 +66,12 @@ const TopNavigation = ({ customTheme }: { customTheme?: CustomTheme }) => {
 					onClick={toggleIsAppSwitcherSelected}
 					isSelected={isAppSwitcherSelected}
 				/>
-					<AppLogo
-						href="http://www.atlassian.design"
-						icon={ConfluenceIcon}
-						name="Confluence"
-						label="Home page"
-					/>
+				<AppLogo
+					href="http://www.atlassian.design"
+					icon={ConfluenceIcon}
+					name="Confluence"
+					label="Home page"
+				/>
 			</TopNavStart>
 			<TopNavMiddle>
 				<MockSearch />

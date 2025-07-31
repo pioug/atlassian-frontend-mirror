@@ -1,7 +1,6 @@
 {
   "extends": "../../../tsconfig.json",
-  "compilerOptions": {
-  },
+  "compilerOptions": {},
   "include": [
     "./typings/*.*",
     "./src/**/*.ts",
@@ -9,6 +8,12 @@
     "./examples/*.ts",
     "./examples/*.tsx",
     "./example-helpers/*.ts",
-    "./example-helpers/*.tsx"
+    "./example-helpers/*.tsx",
+    "**/stories.ts",
+    "**/stories.tsx",
+    "**/stories/*.ts",
+    "**/stories/*.tsx",
+    "**/stories/**/*.ts",
+    "**/stories/**/*.tsx"
   ]
 }

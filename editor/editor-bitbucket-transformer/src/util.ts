@@ -52,24 +52,24 @@ function removeSpecialCharacters(node: Node) {
 
 function parseContent(text: string): { title: string; body: string } | null {
 	const newlineIndex = text.indexOf('\n');
-	
+
 	if (newlineIndex === -1) {
-	  // skip rendering the expand if it doesn’t have multiple lines
-	  return null;
+		// skip rendering the expand if it doesn’t have multiple lines
+		return null;
 	}
 
 	const title = text.substring(0, newlineIndex).trim();
-  	const body = text.substring(newlineIndex + 1).trim();
-	
+	const body = text.substring(newlineIndex + 1).trim();
+
 	if (!body || body.length === 0) {
 		return null;
 	}
 
 	return {
-	  title,
-	  body
+		title,
+		body,
 	};
-  }
+}
 
 /**
  * This function gets markup rendered by Bitbucket server and transforms it into markup that
@@ -121,22 +121,24 @@ export function transformHtml(
 	// convert expand code block to a expand panel if ff on if it is off remove the expand code block
 	Array.from(el.querySelectorAll('div.language-expand')).forEach(function (div) {
 		const parsedResult = parseContent(div.textContent || '');
-		
+
 		if (div.parentNode) {
 			if (options.shouldParseCodeReviewerReasoning && parsedResult) {
 				const expandDiv = document.createElement('div');
 				expandDiv.setAttribute('data-node-type', 'expand');
 				expandDiv.setAttribute('data-title', parsedResult.title);
 				expandDiv.setAttribute('data-expanded', 'false');
-				
+
 				parsedResult.body.split('\n').forEach(function (line) {
-					if (!line.trim()) {return;}
-					
+					if (!line.trim()) {
+						return;
+					}
+
 					const p = document.createElement('p');
 					p.textContent = line;
 					expandDiv.appendChild(p);
 				});
-				
+
 				div.parentNode.insertBefore(expandDiv, div);
 			}
 			div.parentNode.removeChild(div);

@@ -183,7 +183,6 @@ export const LinkSearchListItem = forwardRef<HTMLDivElement, LinkSearchListItemP
 			item,
 			selected,
 			id,
-			role,
 			onSelect,
 			tabIndex,
 			onKeyDown,
@@ -197,7 +196,6 @@ export const LinkSearchListItem = forwardRef<HTMLDivElement, LinkSearchListItemP
 		const subtitleItems = item.subtitleItems || getDefaultSubtitleItems(item, intl);
 
 		return (
-			// eslint-disable-next-line jsx-a11y/no-static-element-interactions
 			<div
 				css={[
 					listItemBaseStyles,
@@ -205,7 +203,7 @@ export const LinkSearchListItem = forwardRef<HTMLDivElement, LinkSearchListItemP
 					selected && listItemSelected,
 					listItemFocusStyles,
 				]}
-				role={role}
+				role="option"
 				id={id}
 				aria-selected={selected}
 				data-testid={testIds.searchResultItem}

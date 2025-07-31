@@ -1,6 +1,5 @@
 {
-  "compilerOptions": {
-  },
+  "compilerOptions": {},
   "extends": "../../../tsconfig.json",
   "include": [
     "__tests__/**/*.ts",
@@ -10,6 +9,12 @@
     "examples/**/*.ts",
     "examples/**/*.tsx",
     "src/**/*.ts",
-    "src/**/*.tsx"
+    "src/**/*.tsx",
+    "**/stories.ts",
+    "**/stories.tsx",
+    "**/stories/*.ts",
+    "**/stories/*.tsx",
+    "**/stories/**/*.ts",
+    "**/stories/**/*.tsx"
   ]
 }

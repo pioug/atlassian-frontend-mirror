@@ -4,13 +4,19 @@
 export { selectionExtensionPlugin } from './selectionExtensionPlugin';
 export type { SelectionExtensionPlugin } from './selectionExtensionPluginType';
 export type {
-	SelectionExtensionComponentProps,
-	SelectionExtensionPluginOptions,
-	SelectionExtension,
+	BlockMenuExtensionConfiguration,
+	DynamicSelectionExtension,
+	ExtensionConfiguration,
+	ExtensionMenuItemConfiguration,
+	ExtensionToolbarItemConfiguration,
+	InsertAdfAtEndOfDocResult,
 	LinkInsertionOption,
+	ReplaceWithAdfResult,
+	SelectionExtension,
+	SelectionExtensionComponentProps,
+	SelectionExtensionConfig,
+	SelectionExtensionPluginOptions,
 	SelectionExtensionPluginState,
 	SelectionExtensionSelectionInfo,
-	DynamicSelectionExtension,
-	ReplaceWithAdfResult,
-	InsertAdfAtEndOfDocResult,
+	ToolbarExtensionConfiguration,
 } from './types';

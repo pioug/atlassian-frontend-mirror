@@ -49,6 +49,7 @@ import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
@@ -1192,6 +1193,11 @@ export const DragHandle = ({
 			disabled={dragHandleDisabled}
 			data-editor-block-ctrl-drag-handle
 			data-testid="block-ctrl-drag-handle"
+			aria-label={
+				expValEquals('platform_editor_drag_handle_aria_label', 'isEnabled', true)
+					? formatMessage(blockControlsMessages.dragToMove)
+					: ''
+			}
 		>
 			<Box
 				xcss={iconWrapperStyles}

@@ -15,18 +15,39 @@ import { findNodesToPrefetch } from './find-nodes-to-prefetch';
  * }
  */
 type SsrData = { [dataKey: string]: unknown };
+
 /**
  * Represents the aggregated SSR data for all node data providers.
- * It's a map where each key is a provider's name and the value is the {@link SsrData} for that provider.
- * This structure is used to hydrate the client-side caches.
+ * Each key is a provider's name, and the value contains the fetch status, duration,
+ * and a map of node data keys to their prefetched data.
  *
  * @example
+ * ```
  * {
- *   'mentionProvider': { 'mention-1': { id: '1', name: 'John Doe' } },
- *   'emojiProvider': { 'emoji-123': { shortName: ':smile:', representation: '😊' } }
+ *   mentionProvider: {
+ *     success: true,
+ *     duration: 220,
+ *     data: {
+ *       'mention-1': { id: '1', name: 'John Doe' }
+ *     }
+ *   },
+ *   emojiProvider: {
+ *     success: true,
+ *     duration: 110,
+ *     data: {
+ *       'emoji-123': { shortName: ':smile:', representation: '😊' }
+ *     }
+ *   }
  * }
+ * ```
  */
-type NodeDataProvidersSsrData = { [providerName: string]: SsrData };
+type NodeDataProvidersSsrData = {
+	[providerName: string]: {
+		success: boolean;
+		duration: number;
+		data: SsrData;
+	};
+};
 
 interface Props {
 	/**
@@ -93,7 +114,7 @@ interface Props {
  *   },
  * ];
  *
- * window['__SSR_EDITOR_NODE_DATA_PROVIDERS_DATA__'] = await prefetchNodeDataProvidersData({
+ * const data = await prefetchNodeDataProvidersData({
  *   providers,
  *   doc,
  *   timeout: 1_000,
@@ -103,7 +124,7 @@ interface Props {
  *
  * @param props The properties for prefetching node data.
  * @returns Record of provider names to their respective SSR data,
- *          where each SSR data is a record of node data keys to the fetched data.
+ *          success status, and duration of the fetch operation.
  */
 export async function prefetchNodeDataProvidersData({
 	providers,
@@ -139,15 +160,22 @@ export async function prefetchNodeDataProvidersData({
 	interface ProviderResult {
 		provider: NodeDataProvider<JSONNode, unknown>;
 		nodes: JSONNode[];
+		success: boolean;
+		duration: number;
 		data: unknown[];
 	}
 
 	const promises = nodesWithProviders.map<Promise<ProviderResult>>(
 		async ({ nodes, provider, timeout }) => {
+			const start = performance.now();
+			function getDurationFromStart() {
+				return Math.min(performance.now() - start, timeout);
+			}
+
 			try {
-				const timeoutPromise = new Promise<unknown[]>((resolve) => {
+				const timeoutPromise = new Promise<unknown[]>((_, reject) => {
 					setTimeout(() => {
-						resolve([]);
+						reject();
 					}, timeout);
 				});
 
@@ -155,12 +183,16 @@ export async function prefetchNodeDataProvidersData({
 
 				return {
 					provider,
+					success: true,
+					duration: getDurationFromStart(),
 					nodes,
 					data,
 				};
 			} catch {
 				return {
 					provider,
+					success: false,
+					duration: getDurationFromStart(),
 					nodes,
 					data: [],
 				};
@@ -170,16 +202,25 @@ export async function prefetchNodeDataProvidersData({
 
 	const results = await Promise.all(promises);
 
-	return results.reduce<NodeDataProvidersSsrData>((acc, { provider, nodes, data }) => {
-		acc[provider.name] = data.reduce<SsrData>((providerSsrData, nodeData, nodeIndex) => {
-			const node = nodes[nodeIndex];
-			const nodeDataKey = provider.nodeDataKey(node);
+	return results.reduce<NodeDataProvidersSsrData>(
+		(acc, { provider, success, duration, nodes, data }) => {
+			const ssrData = data.reduce<SsrData>((providerSsrData, nodeData, nodeIndex) => {
+				const node = nodes[nodeIndex];
+				const nodeDataKey = provider.nodeDataKey(node);
 
-			providerSsrData[nodeDataKey] = nodeData;
+				providerSsrData[nodeDataKey] = nodeData;
 
-			return providerSsrData;
-		}, {});
+				return providerSsrData;
+			}, {});
 
-		return acc;
-	}, {});
+			acc[provider.name] = {
+				data: ssrData,
+				success,
+				duration,
+			};
+
+			return acc;
+		},
+		{},
+	);
 }

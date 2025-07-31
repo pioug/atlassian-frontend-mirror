@@ -563,9 +563,9 @@ export const ExampleManuallyComposedToolbar = () => {
 Last action: ${lastAction || 'None'}
 Text style:  ${textStyle}
 Formatting:  ${Object.entries(formatting)
-						.filter(([, value]) => value)
-						.map(([key]) => key)
-						.join(', ')}
+					.filter(([, value]) => value)
+					.map(([key]) => key)
+					.join(', ')}
 List/Align:  ${listOrAlignment}
 Pinning:     ${pinning}
 				`}

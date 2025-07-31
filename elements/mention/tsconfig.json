@@ -6,7 +6,13 @@
     "./docs/**/*.ts",
     "./docs/**/*.tsx",
     "./examples/**/*.ts",
-    "./examples/**/*.tsx"],
-  "compilerOptions": {
-  }
+    "./examples/**/*.tsx",
+    "**/stories.ts",
+    "**/stories.tsx",
+    "**/stories/*.ts",
+    "**/stories/*.tsx",
+    "**/stories/**/*.ts",
+    "**/stories/**/*.tsx"
+  ],
+  "compilerOptions": {}
 }

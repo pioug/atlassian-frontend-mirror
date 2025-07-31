@@ -15,7 +15,7 @@ export default function Example() {
 				id="toggle-controlled"
 				onChange={() => setIsChecked((prev) => !prev)}
 				isChecked={isChecked}
-                isLoading={true}
+				isLoading={true}
 			/>
 		</>
 	);

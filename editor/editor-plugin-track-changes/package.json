@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-track-changes",
-	"version": "2.1.1",
+	"version": "2.3.0",
 	"description": "ShowDiff plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -34,9 +34,14 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
+		"@atlaskit/button": "workspace:^",
+		"@atlaskit/editor-plugin-history": "workspace:*",
+		"@atlaskit/editor-plugin-primary-toolbar": "workspace:^",
 		"@atlaskit/editor-plugin-show-diff": "workspace:*",
 		"@atlaskit/editor-prosemirror": "root:*",
-		"@babel/runtime": "root:*"
+		"@atlaskit/icon-lab": "workspace:^",
+		"@babel/runtime": "root:*",
+		"react-intl-next": "root:*"
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",

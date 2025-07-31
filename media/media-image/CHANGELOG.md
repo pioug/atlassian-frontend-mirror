@@ -1,5 +1,13 @@
 # @atlaskit/media-image
 
+## 20.1.0
+
+### Minor Changes
+
+- [#192283](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/192283)
+  [`7caa838fc933e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7caa838fc933e) -
+  fixing some ts typecheck errors
+
 ## 20.0.5
 
 ### Patch Changes

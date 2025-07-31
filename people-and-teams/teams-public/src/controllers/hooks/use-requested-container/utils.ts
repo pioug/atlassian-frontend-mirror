@@ -18,13 +18,15 @@ const CONTAINER_HUMAN_NAMES: Record<string, string> = {
 	LoomSpace: 'Loom space',
 };
 
+const SEARCH_PARAM_NAME = 'requestedContainers';
+
 function containersEqual<T>(arr1: T[], arr2: T[]) {
 	return JSON.stringify([...arr1].sort()) === JSON.stringify([...arr2].sort());
 }
 
 function getRequestedContainersFromUrl() {
 	const searchParams = new URLSearchParams(window.location.search);
-	const values = searchParams.get('requestedContainers')?.split(',').filter(Boolean) || [];
+	const values = searchParams.get(SEARCH_PARAM_NAME)?.split(',').filter(Boolean) || [];
 	const containers = values
 		.filter((value): value is ContainerType =>
 			Object.values(ContainerType).includes(value as ContainerType),
@@ -35,6 +37,12 @@ function getRequestedContainersFromUrl() {
 		return [];
 	}
 	return userCanAccessFeature() ? containers : [];
+}
+
+function removeRequestedContainersFromUrl() {
+	const searchParams = new URLSearchParams(window.location.search);
+	searchParams.delete(SEARCH_PARAM_NAME);
+	window.history.replaceState({}, '', `${window.location.pathname}?${searchParams.toString()}`);
 }
 
 function containerDisplayName(container: ContainerTypes) {
@@ -66,9 +74,8 @@ function userCanAccessFeature() {
 	return false;
 }
 
-//@todo: PTC-12250 update these to P90 value
 let POLLING_INTERVAL = 1000;
-let POLLING_DURATION = 10000;
+let POLLING_DURATION = 15000;
 
 /**
  * Hook for polling an async callback at a fixed interval, with timeout and pending state management.
@@ -173,4 +180,5 @@ export {
 	CONTAINER_MAP,
 	userCanAccessFeature,
 	convertContainerToType,
+	removeRequestedContainersFromUrl,
 };

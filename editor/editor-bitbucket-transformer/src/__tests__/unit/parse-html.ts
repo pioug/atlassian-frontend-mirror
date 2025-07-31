@@ -1244,17 +1244,14 @@ describe('BitbucketTransformer: parser', () => {
 					expand({
 						__expanded: true,
 						title: 'this is the expand panel title',
-					})(p('this is the expand panel body line 1'),
-					   p('this is line 2')),
+					})(p('this is the expand panel body line 1'), p('this is line 2')),
 				),
 			);
 		});
 
 		it('should remove expand code block if shouldParseCodeReviewerReasoning is false', () => {
 			expect(
-				parse(
-					'<div class="codehilite language-expand">' + '<pre><span></span></pre>' + '</div>',
-				),
+				parse('<div class="codehilite language-expand">' + '<pre><span></span></pre>' + '</div>'),
 			).toEqualDocument(doc(p('')));
 		});
 	});

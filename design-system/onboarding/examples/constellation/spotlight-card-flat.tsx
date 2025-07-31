@@ -56,7 +56,7 @@ const SpotlightCardIsFlat = () => {
 						<Button>Learn about agile</Button>
 					</Option>
 					<Option>
-						<Button>Explore the product</Button>
+						<Button>Explore the app</Button>
 					</Option>
 					<Option>
 						<Button>How to set up Jira for your team</Button>

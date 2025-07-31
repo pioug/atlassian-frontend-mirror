@@ -481,6 +481,14 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-07-30
+	platform_editor_drag_handle_aria_label: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_drag_handle_aria_label',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-07-07
 	platform_editor_toggle_expand_on_match_found: createBooleanExperiment({
 		productKeys: {
@@ -559,6 +567,14 @@ export const editorExperimentsConfig = {
 	cc_comments_include_path_for_renderer_emojis: createBooleanExperiment({
 		productKeys: {
 			confluence: 'cc_comments_include_path_for_renderer_emojis',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-07-30
+	platform_editor_pasting_nested_table_fix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_pasting_nested_table_fix',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

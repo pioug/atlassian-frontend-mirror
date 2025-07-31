@@ -16,6 +16,7 @@ import {
 	convertContainerToType,
 	getRequestedContainersFromUrl,
 	POLLING_INTERVAL,
+	removeRequestedContainersFromUrl,
 	useAsyncPolling,
 	userCanAccessFeature,
 } from './utils';
@@ -156,6 +157,7 @@ function useRequestedContainers({
 					setIsTryingAgain(false);
 				}
 			};
+			removeRequestedContainersFromUrl();
 			onRequestedContainerTimeout(
 				tryAgainCountRef.current === 0 ? createTryAgainFlag : createContactSupportFlag,
 			);
@@ -193,6 +195,7 @@ function useRequestedContainers({
 		const containerCount = requestedContainers.length;
 
 		if (isPolling && containerCount === 0) {
+			removeRequestedContainersFromUrl();
 			stopPolling();
 			return;
 		}

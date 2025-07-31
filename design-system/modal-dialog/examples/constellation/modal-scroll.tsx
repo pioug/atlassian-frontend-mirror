@@ -62,12 +62,12 @@ export default function Example() {
 							</Heading>
 
 							<p>
-								Focusing on the details gives people confidence in our products. Weave a consistent
+								Focusing on the details gives people confidence in our apps. Weave a consistent
 								story across our fabric and be diligent about vocabulary across all messaging by
-								being brand conscious across products to create a seamless flow across all the
-								things. Let people know that they can jump in and start working expecting to find a
+								being brand conscious across apps to create a seamless flow across all the things.
+								Let people know that they can jump in and start working expecting to find a
 								dependable experience across all the things. Keep teams in the loop about what is
-								happening by informing them of relevant features, products and opportunities for
+								happening by informing them of relevant features, apps and opportunities for
 								success. Be on the journey with them and highlight the key points that will help
 								them the most - right now. Be in the moment by focusing attention on the important
 								bits first.

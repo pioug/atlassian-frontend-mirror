@@ -223,6 +223,7 @@ const ComposableEditorWrapper = ({
 	allowHelpDialog,
 	placeholder,
 	useStickyToolbar,
+	allowUndoRedoButtons = true,
 	assistiveLabel,
 }: EditorProps) => {
 	const universalPreset = useUniversalPreset({
@@ -246,6 +247,7 @@ const ComposableEditorWrapper = ({
 			placeholder,
 			useStickyToolbar,
 			assistiveLabel,
+			allowUndoRedoButtons,
 		},
 	});
 	const { preset, editorApi } = usePreset(() => universalPreset, [universalPreset]);
@@ -263,6 +265,7 @@ const ComposableEditorWrapper = ({
 			emojiProvider={emojiProvider}
 			mentionProvider={mentionProvider}
 			activityProvider={activityProvider}
+			allowUndoRedoButtons={true}
 			media={media}
 			useStickyToolbar={useStickyToolbar}
 			assistiveLabel={assistiveLabel}

@@ -1,5 +1,5 @@
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
-import { type MenuItem } from '@atlaskit/editor-common/ui-menu';
+import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
@@ -78,6 +78,7 @@ type SelectionExtensionModes = ViewMode;
 export type SelectionExtensionPluginOptions = {
 	pageModes?: SelectionExtensionModes | SelectionExtensionModes[];
 	extensions?: SelectionExtensions;
+	extensionList?: ExtensionConfiguration[];
 };
 
 /**
@@ -121,7 +122,11 @@ export type UpdateActiveExtensionAction =
 
 export type SelectionExtensionPluginState = {
 	activeExtension?: {
+		// NEXT PR: extension should become optional
+		// extension?: SelectionExtension;
 		extension: SelectionExtension;
+		// NEXT PR: content component will be needed to render the new selected extension
+		// contentComponent?: React.ComponentType<SelectionExtensionComponentProps>;
 		selection: SelectionExtensionSelectionInfo;
 		coords: SelectionExtensionCoords;
 	};
@@ -135,3 +140,42 @@ export type ReplaceWithAdfStatus = 'success' | 'document-changed' | 'failed-to-r
 export type ReplaceWithAdfResult = { status: ReplaceWithAdfStatus };
 
 export type InsertAdfAtEndOfDocResult = { status: 'success' | 'failed' };
+
+export type ExtensionSource = 'first-party' | 'external';
+
+export type ExtensionConfiguration = {
+	key: string;
+	source: ExtensionSource;
+	inlineToolbar?: ToolbarExtensionConfiguration;
+	primaryToolbar?: ToolbarExtensionConfiguration;
+	blockMenu?: BlockMenuExtensionConfiguration;
+};
+
+export type GetToolbarItemFn = () => ExtensionToolbarItemConfiguration;
+
+export type GetMenuItemsFn = () => ExtensionMenuItemConfiguration[];
+
+export type ToolbarExtensionConfiguration = {
+	getToolbarItem?: GetToolbarItemFn;
+	getMenuItems?: GetMenuItemsFn;
+};
+
+export type BlockMenuExtensionConfiguration = {
+	getMenuItems?: GetMenuItemsFn;
+};
+
+export type ExtensionToolbarItemConfiguration = {
+	icon: React.ComponentType<React.PropsWithChildren<{ label: string }>>;
+	tooltip: string;
+	isDisabled?: boolean;
+	onClick?: () => void;
+	label?: string;
+};
+
+export type ExtensionMenuItemConfiguration = {
+	label: string;
+	icon: React.ComponentType<React.PropsWithChildren<{ label: string }>>;
+	onClick?: () => void;
+	isDisabled?: boolean;
+	contentComponent?: React.ComponentType<SelectionExtensionComponentProps>;
+};

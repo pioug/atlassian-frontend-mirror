@@ -23,9 +23,16 @@ const cloudId = '123-abc';
 
 function urlSearchParams(search: string) {
 	const mockGet = jest.fn();
+	const mockDelete = jest.fn();
 	const realParams = new URLSearchParams(search);
 	mockGet.mockReturnValue(realParams.get('requestedContainers'));
-	jest.spyOn(window, 'URLSearchParams').mockImplementation(() => ({ get: mockGet }) as any);
+	jest
+		.spyOn(window, 'URLSearchParams')
+		.mockImplementation(() => ({ get: mockGet, delete: mockDelete }) as any);
+	return {
+		get: mockGet,
+		delete: mockDelete,
+	};
 }
 
 function setUpTeamContainers(containers: ContainerTypes[] = []) {
@@ -89,7 +96,7 @@ test('checks containers from the URL params and waits until they are available',
 		ContainerType.LOOM_SPACE,
 	];
 
-	urlSearchParams(`?requestedContainers=${requestedContainers.join(',')}`);
+	const searchParams = urlSearchParams(`?requestedContainers=${requestedContainers.join(',')}`);
 
 	const { result, rerender } = renderHook();
 	expect(result.current.requestedContainers).toEqual([
@@ -106,6 +113,8 @@ test('checks containers from the URL params and waits until they are available',
 
 	refetchContainers(rerender, ['ConfluenceSpace', 'JiraProject', 'LoomSpace']);
 	expect(result.current.requestedContainers).toEqual([]);
+
+	expect(searchParams.delete).toHaveBeenCalledWith('requestedContainers');
 });
 
 describe('experiment cohort checks', () => {
@@ -172,15 +181,16 @@ test('does not poll if there are no requested containers', async () => {
 });
 
 test("will time out if the containers aren't found", async () => {
-	const MAX_REFETCH_CALLS = 11;
+	const MAX_REFETCH_CALLS = 16; // 15 seconds / 1 second interval = 15 calls + 1 initial call
 	const refetchTeamContainers = setUpTeamContainers();
-	urlSearchParams(`?requestedContainers=${ContainerType.CONFLUENCE_SPACE}`);
+	const searchParams = urlSearchParams(`?requestedContainers=${ContainerType.CONFLUENCE_SPACE}`);
 	const { result, onRequestedContainerTimeout } = renderHook();
 	expect(result.current.requestedContainers).toEqual(['ConfluenceSpace']);
 	await advancePolling();
 	expect(refetchTeamContainers).toHaveBeenCalledTimes(1);
 	await advancePollingTimeout();
 	expect(onRequestedContainerTimeout).toHaveBeenCalled();
+	expect(searchParams.delete).toHaveBeenCalledWith('requestedContainers');
 
 	//verify that the polling stops after the timeout
 	expect(refetchTeamContainers).toHaveBeenCalledTimes(MAX_REFETCH_CALLS);

@@ -10,8 +10,13 @@
     "examples-helpers/*.ts",
     "docs/examples/basic-jira-issues-config-modal.tsx",
     "docs/examples/basic-confluence-search-config-modal.tsx",
-    "docs/examples/basic-assets-config-modal.tsx"
+    "docs/examples/basic-assets-config-modal.tsx",
+    "**/stories.ts",
+    "**/stories.tsx",
+    "**/stories/*.ts",
+    "**/stories/*.tsx",
+    "**/stories/**/*.ts",
+    "**/stories/**/*.tsx"
   ],
-  "compilerOptions": {
-  }
+  "compilerOptions": {}
 }

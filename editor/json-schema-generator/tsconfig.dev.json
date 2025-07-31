@@ -25,7 +25,13 @@
 		"**/codemods/**/*.ts",
 		"**/codemods/**/*.tsx",
 		"./src/cli.ts",
-		"./src/json-schema-nodes/number-schema-node.ts"
+		"./src/json-schema-nodes/number-schema-node.ts",
+		"**/stories.ts",
+		"**/stories.tsx",
+		"**/stories/*.ts",
+		"**/stories/*.tsx",
+		"**/stories/**/*.ts",
+		"**/stories/**/*.tsx"
 	],
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {

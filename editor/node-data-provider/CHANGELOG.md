@@ -1,5 +1,14 @@
 # @atlaskit/node-data-provider
 
+## 4.5.0
+
+### Minor Changes
+
+- [#193382](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/193382)
+  [`5c827a7e9ac42`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5c827a7e9ac42) -
+  [https://product-fabric.atlassian.net/browse/ED-28627](ED-28627) - add `duration` and `success` to
+  `prefetchNodeDataProvidersData` result
+
 ## 4.4.0
 
 ### Minor Changes

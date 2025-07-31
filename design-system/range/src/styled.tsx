@@ -6,7 +6,6 @@ import { type CSSProperties, forwardRef } from 'react';
 
 import { css, cssMap, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { B200, B300, B400, N30, N40, N50A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -216,23 +215,13 @@ export const Input = forwardRef((props: InputProps, ref: React.Ref<HTMLInputElem
 				} as CSSProperties
 			}
 			ref={ref}
-			css={[
-				baseStyles,
-				webkitStyles,
-				firefoxStyles,
-				themeStyles,
-				fg('platform_dst_range_a11y') && rangeA11yStyles,
-			]}
+			css={[baseStyles, webkitStyles, firefoxStyles, themeStyles, rangeA11yStyles]}
 		/>
 	);
 
-	if (fg('platform_dst_range_a11y')) {
-		return (
-			<div css={[trackStyles.root, strippedProps.disabled && trackStyles.disabled]}>{input}</div>
-		);
-	}
-
-	return input;
+	return (
+		<div css={[trackStyles.root, strippedProps.disabled && trackStyles.disabled]}>{input}</div>
+	);
 });
 
 Input.displayName = 'InputRange';

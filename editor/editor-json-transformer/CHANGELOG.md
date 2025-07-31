@@ -1,5 +1,13 @@
 # @atlaskit/editor-json-transformer
 
+## 8.25.0
+
+### Minor Changes
+
+- [#193192](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/193192)
+  [`8e0b7ecbc293f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8e0b7ecbc293f) -
+  [ux] EDITOR-1186 - keep nested table in adf
+
 ## 8.24.5
 
 ### Patch Changes

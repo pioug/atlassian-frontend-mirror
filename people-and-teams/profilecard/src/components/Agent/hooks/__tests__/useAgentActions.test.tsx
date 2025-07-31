@@ -1,17 +1,40 @@
 import { renderHook } from '@testing-library/react-hooks';
 
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { useRovoPostMessageToPubsub } from '@atlaskit/rovo-triggers';
+import { navigateToTeamsApp } from '@atlaskit/teams-app-config/navigation';
 
+import { fireEvent } from '../../../../util/analytics';
+import { encodeParamsToUrl } from '../../../../util/url';
 import { useAgentUrlActions } from '../useAgentActions';
 
 jest.mock('@atlaskit/rovo-triggers');
+jest.mock('@atlaskit/analytics-next');
+jest.mock('@atlaskit/teams-app-config/navigation');
+jest.mock('../../../../util/analytics');
+jest.mock('../../../../util/url');
 
 const useRovoPostMessageToPubsubMock = useRovoPostMessageToPubsub as jest.MockedFunction<
 	typeof useRovoPostMessageToPubsub
 >;
 
+const useAnalyticsEventsMock = useAnalyticsEvents as jest.MockedFunction<typeof useAnalyticsEvents>;
+
+const navigateToTeamsAppMock = navigateToTeamsApp as jest.MockedFunction<typeof navigateToTeamsApp>;
+
+const fireEventMock = fireEvent as jest.MockedFunction<typeof fireEvent>;
+
+const encodeParamsToUrlMock = encodeParamsToUrl as jest.MockedFunction<typeof encodeParamsToUrl>;
+
 describe('useAgentUrlActions', () => {
+	const cloudId = 'cloudId';
+	const source = 'source';
+
 	const publishWithPostMessageMock = jest.fn();
+	const createAnalyticsEventMock = jest.fn();
+	const windowOpenSpy = jest.spyOn(window, 'open').mockImplementation(() => null);
+	const writeTextSpy = jest.fn();
+	const onNavigateMock = jest.fn();
 
 	beforeEach(() => {
 		jest.clearAllMocks();
@@ -19,11 +42,28 @@ describe('useAgentUrlActions', () => {
 			publishWithPostMessage: publishWithPostMessageMock,
 			isWaitingForAck: false,
 		});
+		useAnalyticsEventsMock.mockReturnValue({
+			createAnalyticsEvent: createAnalyticsEventMock,
+		});
+		navigateToTeamsAppMock.mockReturnValue({
+			onNavigate: onNavigateMock,
+			href: 'https://example.com/agent/test-agent-id',
+			target: '_blank',
+		});
+		encodeParamsToUrlMock.mockImplementation((url, params) => `${url}?encoded=params`);
+
+		// Mock clipboard API
+		Object.defineProperty(navigator, 'clipboard', {
+			value: {
+				writeText: writeTextSpy,
+			},
+			writable: true,
+		});
 	});
 
 	describe('onConversationStarter', () => {
 		it('should call publishWithPostMessage', () => {
-			const { result } = renderHook(() => useAgentUrlActions({ cloudId: 'cloudId' }));
+			const { result } = renderHook(() => useAgentUrlActions({ cloudId, source }));
 			const { onConversationStarter } = result.current;
 
 			const agentId = 'agentId';
@@ -49,7 +89,7 @@ describe('useAgentUrlActions', () => {
 
 	describe('onOpenChat', () => {
 		it('should call publishWithPostMessage', () => {
-			const { result } = renderHook(() => useAgentUrlActions({ cloudId: 'cloudId' }));
+			const { result } = renderHook(() => useAgentUrlActions({ cloudId, source }));
 			const { onOpenChat } = result.current;
 
 			const agentId = 'agentId';
@@ -68,6 +108,111 @@ describe('useAgentUrlActions', () => {
 					},
 				},
 				onAcknowledgeTimeout: expect.any(Function),
+			});
+		});
+	});
+
+	describe('onEditAgent', () => {
+		it('should open the correct URL and fire analytics event', () => {
+			const { result } = renderHook(() => useAgentUrlActions({ cloudId, source }));
+			const { onEditAgent } = result.current;
+
+			const agentId = 'test-agent-id';
+			onEditAgent(agentId);
+
+			expect(encodeParamsToUrlMock).toHaveBeenCalledWith(
+				'http://home.atlassian.com/chat/agents/test-agent-id/edit',
+				{
+					cloudId: 'cloudId',
+					rovoChatCloudId: 'cloudId',
+				},
+			);
+			expect(windowOpenSpy).toHaveBeenCalledWith(
+				'http://home.atlassian.com/chat/agents/test-agent-id/edit?encoded=params',
+				'_blank',
+				'noopener, noreferrer',
+			);
+			expect(fireEventMock).toHaveBeenCalledWith(createAnalyticsEventMock, {
+				action: 'clicked',
+				actionSubject: 'button',
+				actionSubjectId: 'editAgentButton',
+				attributes: { agentId: 'test-agent-id', source },
+			});
+		});
+	});
+
+	describe('onDuplicateAgent', () => {
+		it('should open the correct URL and fire analytics event', () => {
+			const { result } = renderHook(() => useAgentUrlActions({ cloudId, source }));
+			const { onDuplicateAgent } = result.current;
+
+			const agentId = 'test-agent-id';
+			onDuplicateAgent(agentId);
+
+			expect(encodeParamsToUrlMock).toHaveBeenCalledWith(
+				'http://home.atlassian.com/chat/agents/new',
+				{
+					cloudId: 'cloudId',
+					rovoChatCloudId: 'cloudId',
+					rovoChatAgentId: 'test-agent-id',
+					rovoChatPathway: 'agents-create',
+				},
+			);
+			expect(windowOpenSpy).toHaveBeenCalledWith(
+				'http://home.atlassian.com/chat/agents/new?encoded=params',
+				'_blank',
+				'noopener, noreferrer',
+			);
+			expect(fireEventMock).toHaveBeenCalledWith(createAnalyticsEventMock, {
+				action: 'clicked',
+				actionSubject: 'button',
+				actionSubjectId: 'duplicateAgentButton',
+				attributes: { agentId: 'test-agent-id', source },
+			});
+		});
+	});
+
+	describe('onCopyAgent', () => {
+		it('should copy agent URL to clipboard and fire analytics event', () => {
+			const { result } = renderHook(() => useAgentUrlActions({ cloudId, source }));
+			const { onCopyAgent } = result.current;
+
+			const agentId = 'test-agent-id';
+			onCopyAgent(agentId);
+
+			expect(writeTextSpy).toHaveBeenCalledWith(
+				`${window.location.origin}/people/agent/test-agent-id`,
+			);
+			expect(fireEventMock).toHaveBeenCalledWith(createAnalyticsEventMock, {
+				action: 'clicked',
+				actionSubject: 'button',
+				actionSubjectId: 'copyAgentLinkButton',
+				attributes: { agentId, source },
+			});
+		});
+	});
+
+	describe('onViewFullProfile', () => {
+		it('should navigate to agent profile and fire analytics event', () => {
+			const { result } = renderHook(() => useAgentUrlActions({ cloudId, source }));
+			const { onViewFullProfile } = result.current;
+
+			const agentId = 'test-agent-id';
+			onViewFullProfile(agentId);
+
+			expect(navigateToTeamsAppMock).toHaveBeenCalledWith({
+				type: 'AGENT',
+				payload: {
+					agentId,
+				},
+				cloudId: 'cloudId',
+				shouldOpenInSameTab: false,
+			});
+			expect(fireEventMock).toHaveBeenCalledWith(createAnalyticsEventMock, {
+				action: 'clicked',
+				actionSubject: 'button',
+				actionSubjectId: 'viewAgentFullProfileButton',
+				attributes: { agentId, source },
 			});
 		});
 	});

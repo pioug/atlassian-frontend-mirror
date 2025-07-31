@@ -25,7 +25,11 @@ export const getToolbarComponents = ({
 		configuration = toolbarConfigurationV2(true, shouldShowUndoRedoGroup);
 	} else {
 		const shouldShowFindGroup = !!contextualFormattingEnabled;
-		configuration = toolbarConfiguration(shouldShowFindGroup);
+		if (fg('platform_editor_ai_in_document_streaming')) {
+			configuration = toolbarConfigurationV3(shouldShowFindGroup);
+		} else {
+			configuration = toolbarConfiguration(shouldShowFindGroup);
+		}
 	}
 
 	return configuration
@@ -45,6 +49,22 @@ export const getToolbarComponents = ({
 			return acc;
 		}, []);
 };
+
+const trackChangesGroup: ToolbarElementConfig[] = [
+	{
+		name: 'separator',
+		enabled: (componentRegistry) =>
+			componentRegistry.has('undoRedo') || componentRegistry.has('trackChanges'),
+	},
+	{
+		name: 'undoRedoPlugin',
+		enabled: (componentRegistry) => componentRegistry.has('undoRedoPlugin'),
+	},
+	{
+		name: 'trackChanges',
+		enabled: (componentRegistry) => componentRegistry.has('trackChanges'),
+	},
+];
 
 const undoRedoGroup: ToolbarElementConfig[] = [
 	{
@@ -171,6 +191,18 @@ const findGroup: ToolbarElementConfig[] = [
 	},
 ];
 
+const toolbarConfigurationV3 = (shouldShowFindGroup: boolean): ToolbarElementConfig[] => [
+	...spellCheckGroup,
+	...blockTypeGroup,
+	...textFormattingGroup,
+	...alignmentGroup,
+	...textColorGroup,
+	...listFormattingGroup,
+	...insertBlockGroup,
+	...(shouldShowFindGroup ? others : othersGroupNoFind),
+	...trackChangesGroup,
+];
+
 const toolbarConfiguration = (shouldShowFindGroup: boolean): ToolbarElementConfig[] => [
 	...undoRedoGroup,
 	...spellCheckGroup,
@@ -202,6 +234,9 @@ const toolbarConfigurationV2 = (
 	...listFormattingGroup,
 	...hyperlinkGroup,
 	...(shouldShowInsertBlock ? insertBlockGroup : []),
+	{
+		name: 'selectionExtension',
+	},
 	...pinToolbar,
 	{
 		name: 'beforePrimaryToolbar',

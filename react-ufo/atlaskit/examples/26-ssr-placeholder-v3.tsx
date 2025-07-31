@@ -151,7 +151,11 @@ function SSRFallback() {
 			window.__vcObserver.collectSSRPlaceholders();
 		}
 		const interaction = getActiveInteraction();
-		if (interaction && interaction.vcObserver && typeof interaction.vcObserver.collectSSRPlaceholders === 'function') {
+		if (
+			interaction &&
+			interaction.vcObserver &&
+			typeof interaction.vcObserver.collectSSRPlaceholders === 'function'
+		) {
 			interaction.vcObserver.collectSSRPlaceholders();
 		}
 	}, []);

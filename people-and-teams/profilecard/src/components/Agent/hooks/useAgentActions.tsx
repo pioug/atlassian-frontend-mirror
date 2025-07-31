@@ -1,10 +1,12 @@
 import { useCallback } from 'react';
 
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { getATLContextUrl } from '@atlaskit/atlassian-context';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { useRovoPostMessageToPubsub } from '@atlaskit/rovo-triggers';
 import { navigateToTeamsApp } from '@atlaskit/teams-app-config/navigation';
 
+import { fireEvent } from '../../../util/analytics';
 import { encodeParamsToUrl } from '../../../util/url';
 
 export const firstCharUpper = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
@@ -23,8 +25,9 @@ const createRovoParams = (params: {
 	return rovoParams;
 };
 
-export const useAgentUrlActions = ({ cloudId }: { cloudId: string }) => {
+export const useAgentUrlActions = ({ cloudId, source }: { cloudId: string; source: string }) => {
 	const { publishWithPostMessage } = useRovoPostMessageToPubsub();
+	const { createAnalyticsEvent } = useAnalyticsEvents();
 
 	const onEditAgent = useCallback(
 		(agentId: string) => {
@@ -34,12 +37,26 @@ export const useAgentUrlActions = ({ cloudId }: { cloudId: string }) => {
 				...createRovoParams({ cloudId }),
 			});
 			window.open(urlWithParams, '_blank', 'noopener, noreferrer');
+
+			fireEvent(createAnalyticsEvent, {
+				action: 'clicked',
+				actionSubject: 'button',
+				actionSubjectId: 'editAgentButton',
+				attributes: { agentId, source },
+			});
 		},
-		[cloudId],
+		[cloudId, createAnalyticsEvent, source],
 	);
 
 	const onCopyAgent = (agentId: string) => {
 		navigator.clipboard.writeText(`${window.location.origin}/people/agent/${agentId}`);
+
+		fireEvent(createAnalyticsEvent, {
+			action: 'clicked',
+			actionSubject: 'button',
+			actionSubjectId: 'copyAgentLinkButton',
+			attributes: { agentId, source },
+		});
 	};
 
 	const onDuplicateAgent = useCallback(
@@ -51,8 +68,15 @@ export const useAgentUrlActions = ({ cloudId }: { cloudId: string }) => {
 			});
 
 			window.open(urlWithParams, '_blank', 'noopener, noreferrer');
+
+			fireEvent(createAnalyticsEvent, {
+				action: 'clicked',
+				actionSubject: 'button',
+				actionSubjectId: 'duplicateAgentButton',
+				attributes: { agentId, source },
+			});
 		},
-		[cloudId],
+		[cloudId, createAnalyticsEvent, source],
 	);
 
 	const onConversationStarter = ({ agentId, prompt }: { agentId: string; prompt: string }) => {
@@ -129,6 +153,13 @@ export const useAgentUrlActions = ({ cloudId }: { cloudId: string }) => {
 				'noopener, noreferrer',
 			);
 		}
+
+		fireEvent(createAnalyticsEvent, {
+			action: 'clicked',
+			actionSubject: 'button',
+			actionSubjectId: 'viewAgentFullProfileButton',
+			attributes: { agentId, source },
+		});
 	};
 
 	return {

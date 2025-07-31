@@ -2,12 +2,14 @@ import React, { useCallback, useState } from 'react';
 
 import { defineMessages, useIntl } from 'react-intl-next';
 
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/new';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline, xcss } from '@atlaskit/primitives';
 import { AgentDropdownMenu, ChatPillIcon } from '@atlaskit/rovo-agent-components';
 
 import { type ProfileClient, type RovoAgentProfileCardInfo } from '../../types';
+import { fireEvent } from '../../util/analytics';
 
 import { AgentDeleteConfirmationModal } from './AgentDeleteConfirmationModal';
 
@@ -68,6 +70,8 @@ export const AgentActions = ({
 	resourceClient,
 }: AgentActionsProps) => {
 	const { formatMessage } = useIntl();
+	const { createAnalyticsEvent } = useAnalyticsEvents();
+
 	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 	const isForgeAgent = agent.creator_type === 'FORGE' || agent.creator_type === 'THIRD_PARTY';
 
@@ -81,6 +85,20 @@ export const AgentActions = ({
 			isDeleteEnabled: AGENT_DEACTIVATE.permitted,
 		};
 	}, [agent.id, resourceClient]);
+
+	const handleDeleteAgent = useCallback(() => {
+		fireEvent(createAnalyticsEvent, {
+			action: 'clicked',
+			actionSubject: 'button',
+			actionSubjectId: 'deleteAgentButton',
+			attributes: {
+				agentId: agent.id,
+				source: 'agentProfileCard',
+			},
+		});
+
+		setIsDeleteModalOpen(true);
+	}, [agent.id, createAnalyticsEvent]);
 
 	return (
 		<>
@@ -107,7 +125,7 @@ export const AgentActions = ({
 				<AgentDropdownMenu
 					agentId={agent.id}
 					isAgentCreatedByUser={isAgentCreatedByCurrentUser ?? false}
-					onDeleteAgent={() => setIsDeleteModalOpen(true)}
+					onDeleteAgent={handleDeleteAgent}
 					onEditAgent={onEditAgent}
 					onDuplicateAgent={onDuplicateAgent}
 					onCopyAgent={onCopyAgent}

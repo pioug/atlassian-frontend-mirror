@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 40.6.0
+
+### Minor Changes
+
+- [#191974](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/191974)
+  [`e04653dbc86fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e04653dbc86fd) -
+  NAVX-1184 Removing and fixing eslint a11y rules from linking-platform packages
+
 ## 40.5.6
 
 ### Patch Changes

@@ -1,60 +1,66 @@
 {
-    "extends": "../../../../tsconfig.entry-points.confluence.json",
-    "compilerOptions": {
-        "declaration": true,
-        "target": "es5",
-        "composite": true,
-        "outDir": "../../../../../confluence/tsDist/@atlaskit__collab-provider",
-        "rootDir": "../"
-    },
-    "include": [
-        "../src/**/*.ts",
-        "../src/**/*.tsx"
-    ],
-    "exclude": [
-        "../src/**/__tests__/*",
-        "../src/**/*.test.*",
-        "../src/**/test.*"
-    ],
-    "references": [
-        {
-            "path": "../../adf-utils/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../analytics/analytics-gas-types/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../analytics/analytics-listeners/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../elements/anonymous-assets/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../editor-json-transformer/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../measurement/feature-gate-js-client/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../prosemirror-collab/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../react-ufo/atlaskit/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../tmp-editor-statsig/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../data/ufo-external/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../elements/util-service-support/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../editor-common/afm-cc/tsconfig.json"
-        }
-    ]
+	"extends": "../../../../tsconfig.entry-points.confluence.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"composite": true,
+		"outDir": "../../../../../confluence/tsDist/@atlaskit__collab-provider",
+		"rootDir": "../"
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
+	],
+	"references": [
+		{
+			"path": "../../adf-utils/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../analytics/analytics-gas-types/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../analytics/analytics-listeners/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../elements/anonymous-assets/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-json-transformer/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../measurement/feature-gate-js-client/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../prosemirror-collab/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../react-ufo/atlaskit/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../data/ufo-external/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../elements/util-service-support/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-cc/tsconfig.json"
+		}
+	]
 }

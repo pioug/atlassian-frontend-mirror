@@ -22,9 +22,8 @@ function urlWithCard(url: string) {
 	return (
 		<>
 			<p>
-				This URL:{' '}
-				{/* eslint-disable-next-line @atlaskit/design-system/no-html-anchor, jsx-a11y/anchor-is-valid */}
-				<a>{url}</a>
+				This URL: {/* eslint-disable-next-line @atlaskit/design-system/no-html-anchor */}
+				<a href={url}>{url}</a>
 				maps to this card:
 			</p>
 			<Card url={url} appearance="block" />

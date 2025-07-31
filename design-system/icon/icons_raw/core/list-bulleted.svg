@@ -1,5 +1,5 @@
 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M0.5 4.25C0.5 3.42157 1.17157 2.75 2 2.75C2.82843 2.75 3.5 3.42157 3.5 4.25C3.5 5.07843 2.82843 5.75 2 5.75C1.17157 5.75 0.5 5.07843 0.5 4.25Z" fill="#44546F"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M0.5 11.75C0.5 10.9216 1.17157 10.25 2 10.25C2.82843 10.25 3.5 10.9216 3.5 11.75C3.5 12.5784 2.82843 13.25 2 13.25C1.17157 13.25 0.5 12.5784 0.5 11.75Z" fill="#44546F"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M16 5L6 5V3.5L16 3.5V5ZM16 12.5L6 12.5V11L16 11V12.5Z" fill="#44546F"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M0.5 4.25C0.5 3.42157 1.17157 2.75 2 2.75C2.82843 2.75 3.5 3.42157 3.5 4.25C3.5 5.07843 2.82843 5.75 2 5.75C1.17157 5.75 0.5 5.07843 0.5 4.25Z" fill="#292A2E"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M0.5 11.75C0.5 10.9216 1.17157 10.25 2 10.25C2.82843 10.25 3.5 10.9216 3.5 11.75C3.5 12.5784 2.82843 13.25 2 13.25C1.17157 13.25 0.5 12.5784 0.5 11.75Z" fill="#292A2E"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M16 5L6 5V3.5L16 3.5V5ZM16 12.5L6 12.5V11L16 11V12.5Z" fill="#292A2E"/>
 </svg>

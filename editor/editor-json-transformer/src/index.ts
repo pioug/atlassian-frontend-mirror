@@ -20,7 +20,7 @@ import { defaultSchema, getSchemaBasedOnStage } from '@atlaskit/adf-schema/schem
 import type { Mark as PMMark, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 
 import { markOverrideRuleFor } from './markOverrideRules';
-import { sanitizeNode } from './sanitize/sanitize-node';
+import { sanitizeNode, type SanitizeNodeOptions } from './sanitize/sanitize-node';
 import type { JSONDocNode, JSONNode } from './types';
 
 export type { JSONDocNode, JSONNode } from './types';
@@ -253,11 +253,11 @@ export class JSONTransformer implements Transformer<JSONDocNode> {
 		this.mentionMap = mentionMap;
 	}
 
-	encode(node: PMNode): JSONDocNode {
+	encode(node: PMNode, options: SanitizeNodeOptions = {}): JSONDocNode {
 		const content: JSONNode[] = [];
 
 		node.content.forEach((child) => {
-			content.push(sanitizeNode(toJSON(child, this.mentionMap)));
+			content.push(sanitizeNode(toJSON(child, this.mentionMap), options));
 		});
 
 		if (!content || isEqual(content, emptyDoc.content)) {

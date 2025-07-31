@@ -75,7 +75,7 @@ const createElementMutationsWatcher =
 		}
 
 		const wasDeleted = removedNodeRects.some((nr) => sameRectDimensions(nr, rect));
-		
+
 		if (wasDeleted && isInIgnoreLsMarker) {
 			return 'mutation:element-replacement';
 		}

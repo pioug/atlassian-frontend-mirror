@@ -1,12 +1,18 @@
 {
-	"extends": "../../../tsconfig.json",
-	"include": [
-		"examples/**/*.ts",
-		"examples/**/*.tsx",
-		"example-helpers/**/*.ts",
-		"example-helpers/**/*.tsx",
-		"src/**/*.ts",
-		"src/**/*.tsx"
-	],
-	"compilerOptions": {}
+  "extends": "../../../tsconfig.json",
+  "include": [
+    "examples/**/*.ts",
+    "examples/**/*.tsx",
+    "example-helpers/**/*.ts",
+    "example-helpers/**/*.tsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "**/stories.ts",
+    "**/stories.tsx",
+    "**/stories/*.ts",
+    "**/stories/*.tsx",
+    "**/stories/**/*.ts",
+    "**/stories/**/*.tsx"
+  ],
+  "compilerOptions": {}
 }

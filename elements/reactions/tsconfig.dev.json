@@ -26,7 +26,13 @@
 		"**/codemods/**/*.tsx",
 		"./local-config-example.ts",
 		"./local-config-template.ts",
-		"./proxy.ts"
+		"./proxy.ts",
+		"**/stories.ts",
+		"**/stories.tsx",
+		"**/stories/*.ts",
+		"**/stories/*.tsx",
+		"**/stories/**/*.ts",
+		"**/stories/**/*.tsx"
 	],
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {

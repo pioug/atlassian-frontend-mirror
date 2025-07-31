@@ -27,8 +27,7 @@ const iframeContent = `
 `;
 
 const MockIFrame = injectable(IFrame, ({ childRef, ...props }) => (
-	// eslint-disable-next-line jsx-a11y/iframe-has-title
-	<iframe ref={childRef} {...props} srcDoc={iframeContent} />
+	<iframe ref={childRef} {...props} srcDoc={iframeContent} title={props.title} />
 ));
 
 const mockHoverCardControl = injectable(HoverCardControl, (props) => (

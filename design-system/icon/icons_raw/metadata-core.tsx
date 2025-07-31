@@ -12,6 +12,7 @@ const metadata: IconMetadata = {
 		usage:
 			'Reserved for representing accessibility and accessibility-related features and settings',
 		slackChannel: '#icon-contributions',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	add: {
 		keywords: ['create', 'plus', 'jira status'],
@@ -22,6 +23,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13884',
 		usage: 'Single purpose - Reserved for creating and adding an object.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'ai-agent': {
 		keywords: ['Rovo', 'AI', 'chat agent', 'ai'],
@@ -32,6 +34,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13751',
 		usage: 'Single purpose - Reserved for Rovo Agent.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'ai-chat': {
 		keywords: ['Rovo', 'AI', 'chat agent', 'white label'],
@@ -42,6 +45,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '49020:11049',
 		usage: 'Reserved for white label Rovo experiences.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'ai-generative-text-summary': {
 		keywords: ['summarize', 'summarise', 'summary', 'automation', 'AI'],
@@ -53,6 +57,7 @@ const metadata: IconMetadata = {
 		id: '21965:18295',
 		usage: 'Reserved for summarizing content with Atlassian Intelligence & Loom',
 		slackChannel: '#feedback-loom-vizrefresh',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	alert: {
 		keywords: ['alert', 'event', 'operations'],
@@ -63,6 +68,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '10688:8297',
 		usage: 'Single purpose - Reserved for alerts in JSM and Compass.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'align-image-center': {
 		keywords: ['content', 'media', 'image', 'alignment', 'centre'],
@@ -73,6 +79,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '13667:8514',
 		usage: 'Single purpose - Reserved for center aligning media and content.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'align-image-left': {
 		keywords: ['content', 'media', 'image', 'alignment', 'left'],
@@ -83,6 +90,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '13667:8515',
 		usage: 'Single purpose - Reserved for left aligning media and content.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'align-image-right': {
 		keywords: ['content', 'media', 'image', 'alignment', 'right'],
@@ -93,6 +101,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '15077:13891',
 		usage: 'Single purpose - Reserved for right aligning media and content.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'align-text-center': {
 		keywords: ['alignment', 'text', 'content'],
@@ -103,6 +112,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '10522:18918',
 		usage: 'Multi purpose - Known uses: align text center, align center.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'align-text-left': {
 		keywords: ['alignment', 'text', 'content', 'summary'],
@@ -113,6 +123,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13752',
 		usage: 'Multi purpose - Known uses: align text left, align content left, summary.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'align-text-right': {
 		keywords: ['alignment', 'text', 'content'],
@@ -123,6 +134,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '10522:18917',
 		usage: 'Multi purpose - Known uses: align text right, align content right.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'angle-brackets': {
 		keywords: ['code', '<>', '</>', 'syntax', 'jira status'],
@@ -133,6 +145,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13796',
 		usage: 'Multi purpose - Known uses: code or source code in Bitbucket and Jira.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	api: {
 		keywords: ['application programming interface', 'api', 'operations'],
@@ -143,6 +156,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '22169:7287',
 		usage: 'Reserved for representing Application Programming Interfaces (APIs).',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	app: {
 		keywords: ['add-on', 'add on', 'plugin', 'external app', 'third-party app'],
@@ -153,6 +167,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13750',
 		usage: 'Single purpose - Reserved for marketplace apps and integrations across products.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'app-switcher': {
 		keywords: ['application switcher', 'change product', 'switch product', 'product switcher'],
@@ -163,6 +178,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '15119:14082',
 		usage: 'Single purpose - Reserved for app switcher in global product navigation.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'app-switcher-legacy': {
 		keywords: ['application switcher', 'change product', 'switch product', 'product switcher'],
@@ -173,6 +189,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '15119:14081',
 		usage: 'Single purpose - Reserved for the legacy app switcher in global product navigation.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	apps: {
 		keywords: ['third-party', 'applications'],
@@ -183,6 +200,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '9267:17515',
 		usage: 'Single purpose - Reserved for adding or viewing apps.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'archive-box': {
 		keywords: ['file box'],
@@ -193,6 +211,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13753',
 		usage: 'Multi purpose - Known uses: archiving pages, storage.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'arrow-down': {
 		keywords: ['down', 'bottom', 'sorting'],
@@ -203,6 +222,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13755',
 		usage: 'Multi purpose - Know uses: sorting table headers or Bitbucket code difference.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'arrow-down-left': {
 		keywords: ['diagonal arrow', 'down', 'left', 'south west'],
@@ -213,6 +233,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:26566',
 		usage: 'Known uses: Adding content from Rovo Chat into Editor.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'arrow-down-right': {
 		keywords: ['diagonal arrow', 'down', 'right', 'south east'],
@@ -223,6 +244,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:26949',
 		usage: 'Known uses: TBC',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'arrow-left': {
 		keywords: ['back', 'previous'],
@@ -233,6 +255,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13756',
 		usage: 'Multi purpose - Known uses: back to previous screen, previous slide.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'arrow-right': {
 		keywords: ['forward', 'next', 'link'],
@@ -243,6 +266,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13757',
 		usage: 'Multi purpose - Known uses: link to nested menu item, a linked menu item, next slide.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'arrow-up': {
 		keywords: ['improvement', 'jira status'],
@@ -253,6 +277,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13758',
 		usage: 'Multi purpose - Known uses: back to top.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'arrow-up-left': {
 		keywords: ['diagonal arrow', 'up', 'right', 'north east'],
@@ -263,6 +288,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:26304',
 		usage: 'Known uses: TBC',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'arrow-up-right': {
 		keywords: ['open', 'diagonal arrow'],
@@ -273,6 +299,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13754',
 		usage: 'Multi purpose',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	assets: {
 		keywords: ['assets', 'CMDB', 'configuration management database'],
@@ -283,6 +310,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '22169:6878',
 		usage: 'Reserved for JSM Assets.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'atlassian-intelligence': {
 		keywords: ['AI'],
@@ -293,6 +321,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13760',
 		usage: 'Single purpose - Reserved for Atlassian Intelligence products or experiences.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	attachment: {
 		keywords: ['paperclip', 'attach', 'attachment'],
@@ -303,6 +332,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13761',
 		usage: 'Reserved for attaching files to work types or other objects.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	audio: {
 		keywords: ['music', 'musical note'],
@@ -313,6 +343,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13871',
 		usage: '📦 @atlaskit/icon/core/audio',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	automation: {
 		keywords: ['lightningbolt', 'automation rule'],
@@ -323,6 +354,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13763',
 		usage: 'Single purpose - Reserved to represent an Automation.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	backlog: {
 		keywords: ['rows'],
@@ -333,6 +365,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13765',
 		usage: 'Single purpose - Reserved for backlogs in Jira.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	basketball: {
 		keywords: ['ball', 'sports', 'basketball'],
@@ -343,6 +376,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '13823:9569',
 		usage: 'Multi purpose - Known usages: Sport emoji category.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	board: {
 		keywords: ['columns', 'active sprint'],
@@ -353,6 +387,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13767',
 		usage: 'Single purpose - Reserved for boards in Jira.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	boards: {
 		keywords: [],
@@ -363,6 +398,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13768',
 		usage: 'Single purpose - Reserved as the icon to represent multiple boards.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'book-with-bookmark': {
 		keywords: ['knowledge base', 'article'],
@@ -374,6 +410,7 @@ const metadata: IconMetadata = {
 		id: '9267:17504',
 		usage:
 			'Multi purpose - Known uses: knowledge bases, articles, and other representations of books or info.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	border: {
 		keywords: ['border', 'image border', 'content border', 'editor', 'confluence'],
@@ -384,6 +421,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:21742',
 		usage: 'Reserved for toggling the visibility of a border on an object.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	branch: {
 		keywords: ['git branch', 'bitbucket branch', 'branches', 'jira status'],
@@ -394,6 +432,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13770',
 		usage: 'Single purpose - Reserved for branches in Bitbucket and Jira.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	briefcase: {
 		keywords: ['suitcase', 'toolbox', 'operations', 'business'],
@@ -404,6 +443,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13923',
 		usage: 'Multi purpose - Known uses: Job title in Atlas, Operations in JSM.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	bug: {
 		keywords: ['bug report', 'test'],
@@ -414,6 +454,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13771',
 		usage: 'Multi purpose - Known uses: Request types in JSM, bugs in Jira.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	calendar: {
 		keywords: ['date', 'month', 'day', 'year', 'jira status'],
@@ -425,6 +466,7 @@ const metadata: IconMetadata = {
 		id: '7594:13774',
 		usage:
 			'Multi purpose - Known uses: date metadata, date input field, calendar view, jira status.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'calendar-plus': {
 		keywords: ['calendar', 'add', 'plus', 'schedule'],
@@ -435,6 +477,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '22186:17945',
 		usage: 'Known uses: Auto-scheduling in Jira Plans. Scheduled dates.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	camera: {
 		keywords: [],
@@ -445,6 +488,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13776',
 		usage: 'Multi purpose - Known uses: upload photo in Trello, photos.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	capture: {
 		keywords: ['focus', 'focus area', 'capture'],
@@ -460,6 +504,7 @@ const metadata: IconMetadata = {
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	card: {
 		keywords: ['card'],
@@ -470,6 +515,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '22169:6527',
 		usage: 'Known uses: Representing cards in Trello. Toggling card detail in Jira.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	cash: {
 		keywords: ['currency', 'money', 'cash', 'dollar', 'bill', 'work type'],
@@ -480,6 +526,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '14020:9615',
 		usage: "Known usages: 'Sales' work type.",
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	changes: {
 		keywords: ['jira status', 'horizontal arrows'],
@@ -490,6 +537,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13778',
 		usage: 'Single purpose - Reserved for changes in Jira.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'chart-bar': {
 		keywords: ['graph', 'bar', 'analytics', 'report'],
@@ -501,6 +549,7 @@ const metadata: IconMetadata = {
 		id: '7594:13840',
 		usage:
 			'Multi purpose - Known uses: Reports in JSM, Space Analytics in Confluence, and other graph charts.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'chart-matrix': {
 		keywords: ['dot chart', 'graph', 'matrix', ''],
@@ -511,6 +560,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13841',
 		usage: 'Multi purpose - Known uses: Matrix view in in JPD, and other matrix charts.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'chart-pie': {
 		keywords: ['segment', 'chart', 'graph', 'pie'],
@@ -521,6 +571,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13780',
 		usage: 'Multi purpose - Known uses: pie charts.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'chart-trend': {
 		keywords: ['reports', 'graph', 'impact effort', ''],
@@ -531,6 +582,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13843',
 		usage: 'Multi purpose - Known uses: charts, reports in Jira, and sprint insights.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'chat-widget': {
 		keywords: ['chat', 'widget', 'virtual service agent', 'vsa'],
@@ -541,6 +593,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '22212:19794',
 		usage: 'Reserved for representing a chat widget triggered by a floating action button.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'check-circle': {
 		keywords: ['tick', 'yes', 'completed', 'filled'],
@@ -552,6 +605,7 @@ const metadata: IconMetadata = {
 		id: '7594:13783',
 		usage:
 			'Known uses: completed items, productivity emoji category. Completed task work type in JSM Calendar view.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'check-mark': {
 		keywords: ['tick'],
@@ -562,6 +616,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13782',
 		usage: 'Multi purpose - Known uses: table cells, checkboxes.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'checkbox-checked': {
 		keywords: ['filled', 'checked', 'select all'],
@@ -573,6 +628,7 @@ const metadata: IconMetadata = {
 		id: '7594:13784',
 		usage:
 			'Multi purpose - Reserved for interactive checkbox experiences. Consider using the checkbox component.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'checkbox-indeterminate': {
 		keywords: ['filled', 'mixed'],
@@ -584,6 +640,7 @@ const metadata: IconMetadata = {
 		id: '7594:13785',
 		usage:
 			'Multi purpose - Reserved for interactive checkbox experiences. Consider using the checkbox component.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'checkbox-unchecked': {
 		keywords: ['unchecked'],
@@ -595,6 +652,7 @@ const metadata: IconMetadata = {
 		id: '7594:13786',
 		usage:
 			'Multi purpose - Reserved for interactive checkbox experiences. Consider using the checkbox component.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'chevron-double-left': {
 		keywords: ['double chevron', 'previous year', 'left'],
@@ -606,6 +664,7 @@ const metadata: IconMetadata = {
 		id: '45680:8535',
 		usage: 'Known uses: Navigate to previous year in calendar/date picker',
 		slackChannel: '#icon-contributions',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'chevron-double-right': {
 		keywords: ['double chevron', 'right', 'next year'],
@@ -617,6 +676,7 @@ const metadata: IconMetadata = {
 		id: '45680:8993',
 		usage: 'Known uses: Navigate to next year in calendar/date picker',
 		slackChannel: '#icon-contributions',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'chevron-down': {
 		keywords: ['chevron down', 'expand', 'open'],
@@ -629,6 +689,7 @@ const metadata: IconMetadata = {
 		usage:
 			'Do not use 16px chevrons within buttons, icon buttons, or dropdowns to maintain visual cohesion with ADS which uses 12px chevrons.\nKnown uses: Open dropdown menu, expanded tree item, collapse tree item',
 		slackChannel: '#icon-contributions',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'chevron-left': {
 		keywords: ['chevron left', 'back', 'previous'],
@@ -641,6 +702,7 @@ const metadata: IconMetadata = {
 		usage:
 			'Do not use 16px chevrons within buttons, icon buttons, or dropdowns to maintain visual cohesion with ADS which uses 12px chevrons.\nKnown uses: Navigate back, show previous page of pagination results',
 		slackChannel: '#icon-contributions',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'chevron-right': {
 		keywords: ['chevron right', 'next', 'collapsed', 'expand', 'show children'],
@@ -653,6 +715,7 @@ const metadata: IconMetadata = {
 		usage:
 			'Do not use 16px chevrons within buttons, icon buttons, or dropdowns to maintain visual cohesion with ADS which uses 12px chevrons.\nKnown uses: Next page of pagination results, collapsed tree item, expand tree item',
 		slackChannel: '#icon-contributions',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'chevron-up': {
 		keywords: ['chevron up', 'close dropdown menu', 'collapse'],
@@ -665,6 +728,7 @@ const metadata: IconMetadata = {
 		usage:
 			'Do not use 16px chevrons within buttons, icon buttons, or dropdowns to maintain visual cohesion with ADS which uses 12px chevrons.\nKnown uses: Close dropdown menu',
 		slackChannel: '#icon-contributions',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'child-work-items': {
 		keywords: ['children', 'child', 'related', 'work items'],
@@ -675,6 +739,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13791',
 		usage: 'Reserved for child work items.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	clipboard: {
 		keywords: ['clipboard', 'paste'],
@@ -685,6 +750,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:25599',
 		usage: 'Known uses: Pasting content from clipboard.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	clock: {
 		keywords: ['time', 'recent', 'history'],
@@ -695,6 +761,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13793',
 		usage: 'Known uses: recent, time input, sprint time remaining, overdue task work type status.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	close: {
 		keywords: ['cross', 'x', 'close', 'remove'],
@@ -710,6 +777,7 @@ const metadata: IconMetadata = {
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'cloud-arrow-up': {
 		keywords: ['deployments', 'up arrow'],
@@ -720,6 +788,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13795',
 		usage: 'Multi purpose - Known uses: deployments in Jira.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'collapse-horizontal': {
 		keywords: ['collapse', 'width', 'horizontal arrows'],
@@ -731,6 +800,7 @@ const metadata: IconMetadata = {
 		id: '15048:8413',
 		usage:
 			'Single purpose - Reserved for contracting or reducing the width of an element to its smallest size.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'collapse-vertical': {
 		keywords: ['collapse', 'height', 'vertical arrows'],
@@ -742,6 +812,7 @@ const metadata: IconMetadata = {
 		id: '15048:8447',
 		usage:
 			'Single purpose - Reserved for contracting or reducing the height of an element to its smallest size.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	comment: {
 		keywords: ['speech bubble'],
@@ -752,6 +823,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13798',
 		usage: 'Single purpose - Reserved for comments on objects.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'comment-add': {
 		keywords: ['speech bubble', 'plus'],
@@ -762,6 +834,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13799',
 		usage: 'Single purpose - Reserved for adding a comment to an object.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	commit: {
 		keywords: ['git commit', 'bitbucket commit'],
@@ -772,6 +845,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13800',
 		usage: 'Single purpose - Reserved for commits in Jira or Bitbucket.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	compass: {
 		keywords: ['template'],
@@ -782,6 +856,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13930',
 		usage: 'Multi purpose - Known uses: templates.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	component: {
 		keywords: ['lego', 'brick', 'block'],
@@ -792,6 +867,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13801',
 		usage: 'Single purpose - Reserved for components in Jira and Compass.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'content-width-narrow': {
 		keywords: ['content', 'media', 'image', 'width', 'fixed', 'narrow'],
@@ -802,6 +878,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '13667:8449',
 		usage: 'Single purpose - Reserved for setting media and content to a narrow width.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'content-width-wide': {
 		keywords: ['content', 'media', 'image', 'width', 'fixed', 'wide'],
@@ -812,6 +889,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '13667:8450',
 		usage: 'Single purpose - Reserved for setting media and content to a wide width.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'content-wrap-left': {
 		keywords: ['content', 'media', 'image', 'alignment', 'left', 'inline', 'wrap'],
@@ -822,6 +900,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '15311:14668',
 		usage: 'Single purpose - Reserved for left aligning media and content with wrapping enabled.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'content-wrap-right': {
 		keywords: ['content', 'media', 'image', 'alignment', 'right', 'inline', 'wrap'],
@@ -832,6 +911,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '15311:14669',
 		usage: 'Single purpose - Reserved for right aligning media and content with wrapping enabled.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	copy: {
 		keywords: ['copy', 'object'],
@@ -842,6 +922,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13803',
 		usage: 'Single purpose - Reserved for copying data such as text, code or other objects.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'credit-card': {
 		keywords: ['payment', 'invoice'],
@@ -852,6 +933,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13804',
 		usage: 'Multi purpose - Known uses: billing in Admin, invoices in PPC, payments.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	cross: {
 		keywords: ['cross', 'x', 'close', 'remove'],
@@ -862,6 +944,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13805',
 		usage: 'Known uses: closing modals, panels, and transient views; removing tags',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'cross-circle': {
 		keywords: ['x', 'exit', 'clear', 'no', 'filled'],
@@ -872,6 +955,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13806',
 		usage: 'Multi purpose - Known uses: clear text field, error status.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'curly-brackets': {
 		keywords: ['curly brackets', 'braces', 'smart value'],
@@ -882,6 +966,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:30448',
 		usage: 'Known uses: Represents Smart values in Proforma.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	customize: {
 		keywords: ['customise', 'configure', 'modify', 'preferences', 'settings', 'sliders'],
@@ -892,6 +977,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13870',
 		usage: 'Multi purpose - Known uses: customize sidebar, customize view, settings.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	dashboard: {
 		keywords: ['activity', 'view'],
@@ -902,6 +988,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13808',
 		usage: 'Single purpose - Reserved for dashboards in Jira.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'data-flow': {
 		keywords: ['relationship', 'data', 'flow chart'],
@@ -912,6 +999,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '15048:9209',
 		usage: 'Multi purpose - Known usages: Database schema in Jira.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'data-number': {
 		keywords: ['numbers', '123', 'proforma', 'datatype'],
@@ -922,6 +1010,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:27473',
 		usage: 'Known uses: Representing number datatype fields in Proforma and databases.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'data-string': {
 		keywords: ['string', 'letters', 'abc', 'proforma', 'datatype'],
@@ -932,6 +1021,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:27211',
 		usage: 'Known uses: Representing string datatype fields in Proforma and databases.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	database: {
 		keywords: ['spreadsheet', 'table', 'data', 'cells'],
@@ -942,6 +1032,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13809',
 		usage: 'Single purpose - Reserved for databases in Confluence.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	decision: {
 		keywords: ['fork', 'diagonal arrow'],
@@ -952,6 +1043,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13810',
 		usage: 'Single purpose - Reserved for decisions.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	defect: {
 		keywords: ['defect', 'fragile', 'cracked', 'work type'],
@@ -962,6 +1054,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '14012:6781',
 		usage: 'Reserved for defect work type.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	delete: {
 		keywords: ['trash', 'bin', 'remove'],
@@ -972,6 +1065,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13935',
 		usage: 'Single purpose - Reserved for removing or deleting an object.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	department: {
 		keywords: ['organization', 'organisation', 'org chart', 'hierarchy'],
@@ -983,6 +1077,7 @@ const metadata: IconMetadata = {
 		id: '7594:13811',
 		usage:
 			'Single purpose - Reserved for departments, reporting lines, or other tree chart representations.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'device-mobile': {
 		keywords: ['iphone', 'mobile phone', 'cell phone'],
@@ -993,6 +1088,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '9267:17501',
 		usage: 'Multi purpose - Known uses: call, contact us.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	devices: {
 		keywords: ['devices', 'assets', 'laptop', 'phone', 'hardware', 'work type'],
@@ -1003,6 +1099,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '14668:26875',
 		usage: "Known usages: 'Asset' work type.",
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	discovery: {
 		keywords: ['discovery', 'note', 'filled', 'onboarding', 'status'],
@@ -1019,6 +1116,7 @@ const metadata: IconMetadata = {
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	download: {
 		keywords: ['down arrow', 'file download'],
@@ -1029,6 +1127,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13829',
 		usage: 'Single purpose - Reserved for file downloads.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'drag-handle-horizontal': {
 		keywords: ['drag handler', 'reorder', 'move', 'reorder horizontal'],
@@ -1040,6 +1139,7 @@ const metadata: IconMetadata = {
 		id: '37548:11093',
 		usage: 'Reserved for dragging elements along a horizontal axis.',
 		slackChannel: '#icon-contributions',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'drag-handle-vertical': {
 		keywords: ['drag handler', 'reorder', 'move', 'reorder vertical'],
@@ -1051,6 +1151,7 @@ const metadata: IconMetadata = {
 		id: '7594:13814',
 		usage: 'Reserved for dragging elements along a vertical axis.',
 		slackChannel: '#icon-contributions',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	edit: {
 		keywords: ['pencil', 'pencil on page'],
@@ -1061,6 +1162,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13815',
 		usage: 'Single purpose - Reserved for editing objects.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'edit-bulk': {
 		keywords: ['edit', 'pencil', 'multiple', 'bulk', 'change'],
@@ -1071,6 +1173,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '14928:8564',
 		usage: 'Single purpose - Reserved for editing multiple objects in bulk.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	email: {
 		keywords: ['envelope', 'message'],
@@ -1081,6 +1184,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13817',
 		usage: 'Single purpose - Reserved for when an email-related things.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	emoji: {
 		keywords: ['smiley face', 'emoticon'],
@@ -1091,6 +1195,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13818',
 		usage: "Single purpose - Reserved for Editor as a category for Emoji's.",
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'emoji-add': {
 		keywords: ['smiley face', 'emoticon', 'plus'],
@@ -1101,6 +1206,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13819',
 		usage: 'Single purpose - Reserved for adding an emoji reaction.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'emoji-casual': {
 		keywords: ['emoij', 'casual', 'sunglasses', 'chill', 'relaxed'],
@@ -1111,6 +1217,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:19809',
 		usage: 'Reserved for representing a casual or relaxed tone or sentiment.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'emoji-neutral': {
 		keywords: ['emoji', 'neutral', 'ambivalent'],
@@ -1121,6 +1228,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:19491',
 		usage: 'Reserved for representing a neutral tone or sentiment.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'emoji-remove': {
 		keywords: ['emoji', 'remove', 'strikethrough'],
@@ -1131,6 +1239,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:20705',
 		usage: 'Reserved for removing emoji.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	epic: {
 		keywords: ['lightning bolt', 'jira status', 'filled'],
@@ -1141,6 +1250,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13821',
 		usage: 'Single purpose - Reserved for epics in Jira.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	error: {
 		keywords: ['filled', 'status', 'danger', 'exclamation', '!', 'error'],
@@ -1157,6 +1267,7 @@ const metadata: IconMetadata = {
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'exclamation-square': {
 		keywords: ['!', 'exclaim', 'square', 'work type'],
@@ -1168,6 +1279,7 @@ const metadata: IconMetadata = {
 		id: '32261:7339',
 		usage: 'Known uses: Exclamation work type.',
 		slackChannel: '#icon-contributions',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'expand-horizontal': {
 		keywords: ['expand', 'width', 'horizontal arrows', 'maximum width', 'stretch', 'fit'],
@@ -1178,6 +1290,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '15048:8396',
 		usage: 'Single purpose - Reserved for expanding an element to its maximum width.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'expand-vertical': {
 		keywords: ['expand', 'height', 'vertical arrows', 'maximum height', 'stretch', 'fit'],
@@ -1188,6 +1301,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '15048:8430',
 		usage: 'Single purpose - Reserved for expanding an element to its maximum height.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'eye-open': {
 		keywords: ['watch', 'visible', 'visbility', 'permissions'],
@@ -1199,6 +1313,7 @@ const metadata: IconMetadata = {
 		id: '7594:13828',
 		usage:
 			'Multi purpose - Known uses: watch page in Confluence, show password in text field, and following in Atlas.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'eye-open-filled': {
 		keywords: ['watching', 'visible', 'visbility', 'permissions', 'filled'],
@@ -1209,6 +1324,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13827',
 		usage: 'Multi purpose - Known uses: watched pages in Confluence.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'eye-open-strikethrough': {
 		keywords: ['unwatch', 'invisible', 'visibility', 'permissions'],
@@ -1220,6 +1336,7 @@ const metadata: IconMetadata = {
 		id: '15311:15289',
 		usage:
 			'Multi purpose - Intended uses: unwatch page in Confluence, hide password in text field, and unfollow in Atlas.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	feed: {
 		keywords: ['feed', 'updates', 'release notes', "what's new"],
@@ -1230,6 +1347,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13878',
 		usage: 'Single purpose - Reserved for update feeds in Atlassian Home.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	feedback: {
 		keywords: ['diagonal arrow', 'chat bubble', 'survey', 'critique'],
@@ -1240,6 +1358,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '9267:17508',
 		usage: 'Single purpose - Known uses: customer feedback.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	field: {
 		keywords: ['field', 'form', 'input', 'label'],
@@ -1250,6 +1369,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '15048:9988',
 		usage: 'Multi purpose - Known usages: Field suggestions provided by Atlassian Intelligence.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'field-alert': {
 		keywords: ['field', 'alert', 'warning', 'change'],
@@ -1260,6 +1380,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '22087:5727',
 		usage: 'Known uses: Changed field values in Automation.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'field-checkbox-group': {
 		keywords: ['form', 'field', 'input type', 'checkbox', 'multi-select', 'options'],
@@ -1270,6 +1391,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '22115:10768',
 		usage: 'Known uses: Checkbox group field type in Proforma.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'field-dropdown': {
 		keywords: ['form', 'field', 'select', 'dropdown'],
@@ -1280,6 +1402,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '22087:6313',
 		usage: 'Known uses: Dropdown field type in Proforma.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'field-radio-group': {
 		keywords: ['form', 'field', 'input type', 'radio', 'single-select', 'options'],
@@ -1290,6 +1413,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '22115:11177',
 		usage: 'Known uses: Radio group field type in Proforma.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	file: {
 		keywords: ['document', 'file', 'paper'],
@@ -1301,6 +1425,7 @@ const metadata: IconMetadata = {
 		id: '15311:15785',
 		usage:
 			"Multi purpose - Known uses: document, file. Do not use to represent a page — use the dedicated 'Page' icon instead.",
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	files: {
 		keywords: ['documents', 'files', 'papers'],
@@ -1312,6 +1437,7 @@ const metadata: IconMetadata = {
 		id: '15372:16620',
 		usage:
 			"Multi purpose - Known uses: documents, files. Do not use to represent pages — use the dedicated 'Pages' icon instead.",
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	filter: {
 		keywords: ['funnel', 'refine'],
@@ -1322,6 +1448,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13831',
 		usage: 'Single purpose - Reserved for filterting data or objects.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	flag: {
 		keywords: ['important', 'emoji category'],
@@ -1332,6 +1459,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13832',
 		usage: 'Multi purpose - Known uses: flags in Editor, feature flags.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'flag-filled': {
 		keywords: ['flag', 'important', 'filled'],
@@ -1342,6 +1470,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13833',
 		usage: 'Multi purpose - Known uses: active feature flags.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	flask: {
 		keywords: ['labs', 'test', 'erlenmeyer flask', 'beaker'],
@@ -1352,6 +1481,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13825',
 		usage: 'Multi purpose - Known uses: labs in Jira.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'focus-area': {
 		keywords: ['focus', 'focus area', 'capture'],
@@ -1362,6 +1492,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13777',
 		usage: 'Reserved for representing Focus Areas.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'folder-closed': {
 		keywords: ['directory'],
@@ -1372,6 +1503,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13834',
 		usage: 'Single purpose - Reserved for folders in Confluence.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'folder-open': {
 		keywords: ['directory'],
@@ -1382,6 +1514,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13835',
 		usage: 'Single purpose - Reserved for open folders in Confluence.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	form: {
 		keywords: ['form', 'fields'],
@@ -1392,6 +1525,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '22087:6051',
 		usage: 'Known uses: Represents forms across Atlassian products, including Proforma.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'fullscreen-enter': {
 		keywords: ['full screen'],
@@ -1402,6 +1536,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13838',
 		usage: 'Single purpose - Reserved for full screen videos or objects.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'fullscreen-exit': {
 		keywords: ['un-full screen', 'un-fullscreen'],
@@ -1412,6 +1547,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13837',
 		usage: 'Single purpose - Reserved for return screen videos or objects.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	glasses: {
 		keywords: ['glasses', 'knowledge', 'learning', 'spectacles', 'education'],
@@ -1423,6 +1559,7 @@ const metadata: IconMetadata = {
 		id: '21965:19229',
 		usage:
 			'Known uses: Changing tone of written content to Educational with Atlassian Intelligence.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	globe: {
 		keywords: ['world'],
@@ -1434,6 +1571,7 @@ const metadata: IconMetadata = {
 		id: '7594:13946',
 		usage:
 			'Multi purpose - Known uses: public link in Confluence share dialog, global rules in Automation.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	goal: {
 		keywords: ['target'],
@@ -1444,6 +1582,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13839',
 		usage: 'Single purpose - Reserved for goals in Atlas.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	grid: {
 		keywords: ['view all content', 'tile view', 'layout', 'grid', 'tiles'],
@@ -1455,6 +1594,7 @@ const metadata: IconMetadata = {
 		id: '7594:13844',
 		usage:
 			'Multi purpose - Known uses: spaces in Confluence, and grid view, all content in Confluence.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'grow-diagonal': {
 		keywords: ['grow', 'width and height', 'diagonal arrows'],
@@ -1466,6 +1606,7 @@ const metadata: IconMetadata = {
 		id: '7594:13865',
 		usage:
 			'Single purpose - Reserved for increasing the size of an element when height and width are changed concurrently.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'grow-horizontal': {
 		keywords: ['grow', 'width', 'horizontal arrows'],
@@ -1476,6 +1617,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13824',
 		usage: 'Single purpose - Reserved for increasing the width of an element.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'grow-vertical': {
 		keywords: ['grow', 'height', 'vertical arrows'],
@@ -1486,6 +1628,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '15048:8464',
 		usage: 'Single purpose - Reserved for increasing the height of an element.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	hashtag: {
 		keywords: ['tag', 'topic', 'pound'],
@@ -1496,6 +1639,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13846',
 		usage: 'Multi purpose - Known uses: topics in Atlas, tags.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	headphones: {
 		keywords: ['audio', 'music', 'headphones'],
@@ -1506,6 +1650,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13847',
 		usage: 'Known uses: music, audio.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	heart: {
 		keywords: ['like', 'love', 'emoji category'],
@@ -1516,6 +1661,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13924',
 		usage: 'Multi purpose - Known uses: emoji symbols in Editor.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	highlight: {
 		keywords: ['highlight', 'highlighter', 'stabilo', 'pen'],
@@ -1526,6 +1672,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '12239:3676',
 		usage: 'Single purpose - Reserved for highlight text tool in Confluence Editor.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	home: {
 		keywords: ['house', 'building'],
@@ -1537,6 +1684,7 @@ const metadata: IconMetadata = {
 		id: '7594:13849',
 		usage:
 			'Single purpose - Reserved for home in navigation. When a user clicks on this, they should return to the homepage.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	image: {
 		keywords: ['picture', 'asset'],
@@ -1547,6 +1695,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13850',
 		usage: 'Multi purpose - Known uses: images, image upload.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'image-fullscreen': {
 		keywords: ['image', 'fullscreen', 'enlarge'],
@@ -1557,6 +1706,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:23873',
 		usage: 'Reserved for viewing an image in a fullscreen view or modal.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'image-inline': {
 		keywords: ['image', 'layout', 'inline'],
@@ -1567,6 +1717,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:23163',
 		usage: 'Reserved for representing inline images in Editor.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'image-scaled': {
 		keywords: ['image', 'layout', 'scaled'],
@@ -1577,6 +1728,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:23546',
 		usage: 'Reserved for representing scaled images in layouts akin to display block.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	inbox: {
 		keywords: ['document tray', 'work', 'letter', 'post'],
@@ -1587,6 +1739,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13936',
 		usage: "Multi purpose - Known uses: 'Your work' in Confluence, inbox, mail.",
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	incident: {
 		keywords: ['witches hat', 'traffic cone', 'jira status'],
@@ -1597,6 +1750,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13852',
 		usage: 'Single purpose - Reserved for incidents in Jira.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	information: {
 		keywords: ['info', 'filled', 'status', 'information'],
@@ -1613,6 +1767,7 @@ const metadata: IconMetadata = {
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'information-circle': {
 		keywords: ['information', 'circle', 'info'],
@@ -1625,6 +1780,7 @@ const metadata: IconMetadata = {
 		usage:
 			'Known uses: For highlighting information when less visual emphasis is needed within the UI compared to the filled information status icon.',
 		slackChannel: '#icon-contributions',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'key-result': {
 		keywords: ['target', 'bullseye', 'key result', 'arrow', 'bow', 'archery', 'OKR'],
@@ -1635,6 +1791,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '20137:25766',
 		usage: 'Reserved for representing key results.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'layout-one-column': {
 		keywords: ['layout', 'column', '1 col'],
@@ -1645,6 +1802,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '19993:16029',
 		usage: 'Reserved for single column layout option in Confluence Editor',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'layout-three-columns': {
 		keywords: ['layout', 'columns', '3 col', '3 cols'],
@@ -1655,6 +1813,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '13122:4954',
 		usage: 'Single purpose - Reserved for 3 column layout option in Confluence Editor.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'layout-three-columns-sidebars': {
 		keywords: ['layout', 'columns', '3 col', '3 cols', 'sidebars', 'asides'],
@@ -1666,6 +1825,7 @@ const metadata: IconMetadata = {
 		id: '13122:4952',
 		usage:
 			'Single purpose - Reserved for 3 column layout with left and right sidebars option in Confluence Editor.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'layout-two-columns': {
 		keywords: ['layout', 'columns', '2 col', '2 cols'],
@@ -1676,6 +1836,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '13122:4955',
 		usage: 'Single purpose - Reserved for 2 column layout option in Confluence Editor.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'layout-two-columns-sidebar-left': {
 		keywords: ['layout', 'columns', '2 col', '2 cols', 'sidebar', 'aside'],
@@ -1687,6 +1848,7 @@ const metadata: IconMetadata = {
 		id: '13122:4951',
 		usage:
 			'Single purpose - Reserved for 2 column layout with left sidebar option in Confluence Editor.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'layout-two-columns-sidebar-right': {
 		keywords: ['layout', 'columns', '2 col', '2 cols', 'sidebar', 'aside'],
@@ -1698,6 +1860,7 @@ const metadata: IconMetadata = {
 		id: '13122:4953',
 		usage:
 			'Single purpose - Reserved for 2 column layout with right sidebar option in Confluence Editor.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	library: {
 		keywords: ['library', 'drawer', 'drawers', 'filing cabinet'],
@@ -1708,6 +1871,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '10290:15790',
 		usage: 'Single purpose - Reserved for library view in Atlassian Home.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	lightbulb: {
 		keywords: ['idea', 'initiative', 'tip', 'learnings'],
@@ -1718,6 +1882,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13856',
 		usage: 'Known uses: learnings in Atlas.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	link: {
 		keywords: ['url', 'hyperlink', 'website', 'www', 'http', ''],
@@ -1728,6 +1893,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13858',
 		usage: 'Single purpose - Reserved for links, urls, or copy link.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'link-broken': {
 		keywords: [
@@ -1747,6 +1913,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13859',
 		usage: 'Single purpose - Reserved for removing a link.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'link-external': {
 		keywords: [
@@ -1771,6 +1938,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13876',
 		usage: 'Single purpose - Reserved for links that open up a new tab.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'list-bulleted': {
 		keywords: ['bullets', 'unordered list'],
@@ -1781,6 +1949,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13772',
 		usage: 'Multi purpose - Known uses: bulleted lists, view all.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'list-checklist': {
 		keywords: ['list', 'check mark', 'to-do', 'requirements', 'checklist', 'work type'],
@@ -1791,6 +1960,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '14012:9332',
 		usage: "Known usages: Checklist, 'Requirement' work type.",
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'list-numbered': {
 		keywords: ['list', 'numbers'],
@@ -1801,6 +1971,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '12239:3675',
 		usage: 'Multi purpose - Known usages: Numbered list in Confluence Editor.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'lobby-bell': {
 		keywords: ['ding', 'risks'],
@@ -1811,6 +1982,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '9267:17499',
 		usage: 'Multi purpose - Known uses: risks in Atlas.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	location: {
 		keywords: ['map', 'pin', 'address'],
@@ -1821,6 +1993,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13861',
 		usage: 'Multi purpose - Known uses: location in Atlas.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'lock-locked': {
 		keywords: [
@@ -1839,6 +2012,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13862',
 		usage: 'Multi purpose - Known uses: secure password in textfields, locked page in Confluence.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'lock-unlocked': {
 		keywords: ['open permissions', 'unrestricted access', 'security', 'insecure', 'authentication'],
@@ -1849,6 +2023,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13863',
 		usage: 'Multi purpose - Known uses: unlocked page in Confluence.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'log-in': {
 		keywords: ['sign in', 'enter', 'account'],
@@ -1859,6 +2034,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13913',
 		usage: 'Single purpose - Reserved for log in.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'log-out': {
 		keywords: ['sign out', 'exit', 'account'],
@@ -1869,6 +2045,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13914',
 		usage: 'Single purpose - Reserved for log out.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'magic-wand': {
 		keywords: ['magic', 'wand', 'suggestion'],
@@ -1879,6 +2056,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '14896:9684',
 		usage: 'Multi purpose',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	markdown: {
 		keywords: ['markdown', 'md', 'markup'],
@@ -1889,6 +2067,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:21032',
 		usage: 'Reserved for representing the Markdown markup language.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	marketplace: {
 		keywords: ['app store', 'storefront', 'stand', 'third-party developer'],
@@ -1899,6 +2078,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13864',
 		usage: 'Single purpose - Reserved for Atlassian Marketplace.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	maximize: {
 		keywords: ['diagonal', 'resize', 'enlarge'],
@@ -1910,6 +2090,7 @@ const metadata: IconMetadata = {
 		id: '15048:8375',
 		usage:
 			'Single purpose - Reserved for resizing screens, panels, modals, or media to its maximum size.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	megaphone: {
 		keywords: ['announcement', 'bullhorn', 'feedback', 'news'],
@@ -1920,6 +2101,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13866',
 		usage: 'Multi purpose - Known uses: feedback in products.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	mention: {
 		keywords: ['at symbol', '@', 'tag', 'username'],
@@ -1930,6 +2112,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13867',
 		usage: 'Single purpose - Reserved for user mentions.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	menu: {
 		keywords: ['menu', 'top navigation', '3 lines', 'hamburger'],
@@ -1940,6 +2123,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '15130:14160',
 		usage: 'Single purpose - Reserved for accessing the menu in global product navigation.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'merge-failure': {
 		keywords: ['git merge', 'bitbucket merge', 'merge fail', 'cross', 'x'],
@@ -1951,6 +2135,7 @@ const metadata: IconMetadata = {
 		id: '14928:8296',
 		usage:
 			'Single purpose - Reserved for branches in Bitbucket and Jira that have failed to merge.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'merge-success': {
 		keywords: ['git merge', 'bitbucket merge', 'merge success', 'check mark'],
@@ -1962,6 +2147,7 @@ const metadata: IconMetadata = {
 		id: '14928:8275',
 		usage:
 			'Single purpose - Reserved for branches in Bitbucket and Jira that have successfully merged.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	microphone: {
 		keywords: ['mic', 'mic on', 'voice', 'speak'],
@@ -1972,6 +2158,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13762',
 		usage: 'Multi purpose - Known uses: record sounds in Trello.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	minimize: {
 		keywords: ['minimize', 'dock'],
@@ -1983,6 +2170,7 @@ const metadata: IconMetadata = {
 		id: '14928:8582',
 		usage:
 			'Single purpose - Reserved for minimizing or docking modals to the bottom of the viewport.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	minus: {
 		keywords: ['rule', 'horizontal line', 'divider', 'minus', 'subtract'],
@@ -1993,6 +2181,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '15311:6908',
 		usage: 'Multi purpose - Known uses: horizontal rule in Editor.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'minus-square': {
 		keywords: ['square', 'minus', 'subtract', 'work type'],
@@ -2003,6 +2192,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '14882:13155',
 		usage: "Known usages: 'Remove feature' work type.",
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	node: {
 		keywords: ['page', 'dot', 'page tree', 'navigation'],
@@ -2013,6 +2203,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13873',
 		usage: 'Single purpose - Reserved for a non-expandable item in a page tree.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	note: {
 		keywords: ['note', 'post-it', 'sticky'],
@@ -2023,6 +2214,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '14012:6723',
 		usage: 'Single purpose - Reserved for notes.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	notification: {
 		keywords: ['bell', 'alert'],
@@ -2034,6 +2226,7 @@ const metadata: IconMetadata = {
 		id: '7594:13874',
 		usage:
 			'Single purpose - Reserved for notifications within global product navigation and within product screens.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'notification-muted': {
 		keywords: ['bell', 'alert', 'notification', 'mute'],
@@ -2044,6 +2237,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '15442:12919',
 		usage: 'Single purpose - Reserved for muting or disabling notifications.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	objective: {
 		keywords: ['target', 'bullseye', 'objective'],
@@ -2054,6 +2248,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '15683:29260',
 		usage: 'Single purpose - Reserved for objectives.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'office-building': {
 		keywords: ['organization', 'organisation', 'business'],
@@ -2064,6 +2259,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13875',
 		usage: 'Multi purpose - Known uses: office in Atlas, company.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'on-call': {
 		keywords: ['phone', 'on-call', 'support'],
@@ -2074,6 +2270,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '14928:8469',
 		usage: 'Single purpose - Reserved for representing on-call across Atlassian products.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	operations: {
 		keywords: ['incident management', 'alerting', 'opsgenie', 'it operations', 'it ops', 'radar'],
@@ -2084,6 +2281,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '15512:14068',
 		usage: 'Single purpose - Reserved for IT Operations.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	page: {
 		keywords: ['single page', 'feed', 'document', 'jira status'],
@@ -2094,6 +2292,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13877',
 		usage: 'Single purpose - Reserved for pages in Confluence.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	pages: {
 		keywords: ['multiple pages', 'feeds', 'documents'],
@@ -2104,6 +2303,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13879',
 		usage: 'Single purpose - Reserved for multipe pages in Confluence.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'paint-bucket': {
 		keywords: ['paint', 'bucket', 'fill', 'background', 'customize'],
@@ -2114,6 +2314,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '15048:9556',
 		usage: 'Multi purpose - Known usages: Customize fill color.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'paint-palette': {
 		keywords: ['background', 'customize'],
@@ -2124,6 +2325,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '14151:11257',
 		usage: 'Multi purpose - Known usages: Customize.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'panel-left': {
 		keywords: ['detail view', 'left rail', 'drawer', 'preview panel', 'sidebar'],
@@ -2135,6 +2337,7 @@ const metadata: IconMetadata = {
 		id: '22087:7529',
 		usage:
 			'Reserved for opening a preview panel to the left of the viewport edge. Use for right-to-left languages which invert the navigational chrome.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'panel-right': {
 		keywords: ['detail view', 'right rail', 'drawer', 'preview panel', 'sidebar'],
@@ -2146,6 +2349,7 @@ const metadata: IconMetadata = {
 		id: '22087:7211',
 		usage:
 			'Reserved for opening a preview panel to the right of the viewport edge. Use only for left-to-right languages.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	pen: {
 		keywords: ['pen tool', 'nib', 'fountain pen', 'design', 'work type'],
@@ -2156,6 +2360,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '14014:9421',
 		usage: "Known usages: 'Design task' work type.",
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'people-group': {
 		keywords: ['users', 'customers', 'people'],
@@ -2166,6 +2371,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '14695:27455',
 		usage: 'Single purpose - Known uses: representing a group or collection of people or users.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	person: {
 		keywords: ['user', 'customer'],
@@ -2176,6 +2382,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13764',
 		usage: 'Single purpose - Known uses: representing a person or user, owner, contributor.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'person-add': {
 		keywords: ['user', 'customer', 'plus'],
@@ -2186,6 +2393,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13938',
 		usage: 'Single purpose - Reserved for adding a user to an object.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'person-added': {
 		keywords: ['user', 'customer', 'check', 'tick'],
@@ -2196,6 +2404,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13939',
 		usage: 'Single purpose - Reserved for a user added to an object.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'person-avatar': {
 		keywords: ['user', 'customer'],
@@ -2206,6 +2415,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13937',
 		usage: 'Single purpose - Reserved for user avatar.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'person-offboard': {
 		keywords: ['user', 'customer', 'right arrow'],
@@ -2216,6 +2426,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '9267:17505',
 		usage: '📦 @atlaskit/icon/core/person-offboard',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'person-remove': {
 		keywords: ['person', 'remove', 'delete', 'unfollow'],
@@ -2226,6 +2437,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:28628',
 		usage: 'Reserved for removing and unfollowing people and teammates.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'person-warning': {
 		keywords: ['person', 'warning', 'alert'],
@@ -2236,6 +2448,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:28244',
 		usage: 'Reserved for showing a warning related to a person or teammate.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	phone: {
 		keywords: ['call', 'dial out'],
@@ -2246,6 +2459,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13775',
 		usage: 'Multi purpose - Known uses: call us, phone number input.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	pin: {
 		keywords: ['push pin', 'thumbtack', 'tack'],
@@ -2256,6 +2470,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '9267:17506',
 		usage: 'Known uses: unpinned fields.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'pin-filled': {
 		keywords: ['push pin', 'thumbtack', 'tack', 'filled'],
@@ -2266,6 +2481,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '9267:17507',
 		usage: 'Known uses: pinned fields.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'plus-square': {
 		keywords: ['square', 'plus', 'add', 'work type'],
@@ -2276,6 +2492,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '14012:6780',
 		usage: "Known usages: 'New feature' work type.",
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'power-plug': {
 		keywords: ['plug-in', 'add-on', 'socket'],
@@ -2286,6 +2503,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13916',
 		usage: 'Multi purpose - Known uses: plugins, add ons.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	premium: {
 		keywords: ['AI', 'sparkles', 'stars', 'new', 'feature'],
@@ -2296,6 +2514,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13886',
 		usage: 'Single purpose - Reserved for premium features.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'presenter-mode': {
 		keywords: ['pointer', 'cursor', 'presentation', 'present'],
@@ -2306,6 +2525,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13885',
 		usage: 'Single purpose - Reserved for presenter mode in Confluence.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	printer: {
 		keywords: ['print'],
@@ -2316,6 +2536,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13888',
 		usage: 'Multi purpose - Known uses: print page, print-friendly view.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'priority-blocker': {
 		keywords: ['blocked', 'showstopper', 'work type status'],
@@ -2326,6 +2547,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13889',
 		usage: 'Reserved for blocker work type priority.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'priority-critical': {
 		keywords: ['priority', 'work type status'],
@@ -2336,6 +2558,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13890',
 		usage: 'Reserved for critical work type priority.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'priority-high': {
 		keywords: ['priority', 'work type status'],
@@ -2346,6 +2569,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13891',
 		usage: 'Reserved for high work type priority.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'priority-highest': {
 		keywords: ['priority', 'work type status'],
@@ -2356,6 +2580,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13892',
 		usage: 'Reserved for highest work type priority.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'priority-low': {
 		keywords: ['priority', 'work type status'],
@@ -2366,6 +2591,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13893',
 		usage: 'Reserved for low work type priority.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'priority-lowest': {
 		keywords: ['priority', 'work type status'],
@@ -2376,6 +2602,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13894',
 		usage: 'Reserved for lowest work type priority.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'priority-major': {
 		keywords: ['priority', 'work type status'],
@@ -2386,6 +2613,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13895',
 		usage: 'Reserved for major work type priority.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'priority-medium': {
 		keywords: ['priority', 'work type status'],
@@ -2396,6 +2624,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '9267:17510',
 		usage: 'Reserved for medium work type priority.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'priority-minor': {
 		keywords: ['priority', 'work type status'],
@@ -2406,6 +2635,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '9267:17509',
 		usage: 'Reserved for minor work type priority.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'priority-trivial': {
 		keywords: ['priority', 'work type status'],
@@ -2416,6 +2646,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '9267:17511',
 		usage: 'Reserved for trivial work type priority.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	problem: {
 		keywords: ['stop', 'priority', 'work type status'],
@@ -2426,6 +2657,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13896',
 		usage: 'Reserved for problem work type priority.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	project: {
 		keywords: ['rocket', 'rocketship', 'spaceship'],
@@ -2436,6 +2668,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13897',
 		usage: 'Single purpose - Reserved for projects in Jira.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'project-status': {
 		keywords: ['status', 'traffic lights'],
@@ -2446,6 +2679,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '22399:8392',
 		usage: 'Reserved for representing project status in Atlassian Home.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'projection-screen': {
 		keywords: ['present', 'presentation', 'projector screen', 'keynote'],
@@ -2456,6 +2690,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '15048:9926',
 		usage: 'Multi purpose - Intended usages: Presentation mode.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'pull-request': {
 		keywords: ['git pull request', 'bitbucket pull request', 'jira status'],
@@ -2466,6 +2701,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13898',
 		usage: 'Single purpose - Reserved for pull requests.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	pulse: {
 		keywords: ['pulse', 'wave', 'heartbeat', 'health'],
@@ -2476,6 +2712,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '10290:15789',
 		usage: 'Single purpose - Known uses: work health in Atlassian Home.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'question-circle': {
 		keywords: ['help', 'answers', 'faq', 'jira status'],
@@ -2486,6 +2723,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13899',
 		usage: 'Multi purpose - Known uses: help, tip.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'quotation-mark': {
 		keywords: ['quote', 'testimonial', 'blockquote', 'jira status'],
@@ -2496,6 +2734,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13901',
 		usage: 'Multi purpose - Known uses: blockquote, comment, testimonial, blogs in Confluence.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'radio-checked': {
 		keywords: ['radio', 'input type', 'selected'],
@@ -2506,6 +2745,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '22087:9007',
 		usage: 'Reserved for the selected state of radio controls.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'radio-unchecked': {
 		keywords: ['radio', 'input type', 'unselected'],
@@ -2516,6 +2756,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '22087:9269',
 		usage: 'Reserved for the unselected state of radio controls.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	redo: {
 		keywords: ['editor', 'redo', 'backwards'],
@@ -2526,6 +2767,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13836',
 		usage: 'Single purpose - Reserved for redo in Editor.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	refresh: {
 		keywords: ['refresh', 'reload', 'update', 'circular arrows', 'replay'],
@@ -2536,6 +2778,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '15048:9192',
 		usage: 'Reserved for reloading or replaying content',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	release: {
 		keywords: ['ship', 'boat'],
@@ -2546,6 +2789,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13910',
 		usage: 'Single purpose - Reserved for releases in Jira.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	retry: {
 		keywords: ['try again', ''],
@@ -2556,6 +2800,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '9267:17503',
 		usage: 'Single purpose - Reserved for retry.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	roadmap: {
 		keywords: [],
@@ -2566,6 +2811,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13903',
 		usage: 'Single purpose - Reserved for roadmaps in Jira or Trello.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'rovo-chat': {
 		keywords: ['Rovo', 'AI', 'chat agent'],
@@ -2576,6 +2822,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '51043:8754',
 		usage: 'Reserved for branded Rovo chat experiences.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	scales: {
 		keywords: ['scales', 'rule', 'law'],
@@ -2586,6 +2833,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '15048:8520',
 		usage: 'Multi purpose - Known usages: Customer rating in Jira.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	scorecard: {
 		keywords: ['tick', 'check', 'circle', 'unfinished'],
@@ -2596,6 +2844,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13904',
 		usage: 'Single purpose - Reserved for Scorecard in Analytics.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	screen: {
 		keywords: ['display', 'monitor', 'desktop'],
@@ -2606,6 +2855,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13905',
 		usage: 'Multi purpose - Known uses: assets in Jira.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'screen-plus': {
 		keywords: ['screen', 'display', 'monitor', 'plus', 'add'],
@@ -2616,6 +2866,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:30121',
 		usage: 'Known uses: TBC',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	search: {
 		keywords: ['magnifying glass'],
@@ -2626,6 +2877,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13906',
 		usage: 'Single purpose - Reserved for searching objects.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	send: {
 		keywords: ['submit', 'paper airplane', 'paper aeroplane'],
@@ -2636,6 +2888,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '9267:17500',
 		usage: 'Single purpose - Reserved for sending messages in Rovo Chat.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	settings: {
 		keywords: ['system preferences', 'gear', 'cog'],
@@ -2646,6 +2899,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13907',
 		usage: 'Single purpose - Reserved for any object or user settings.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	shapes: {
 		keywords: ['objects', 'whiteboard', 'asset', 'graphic'],
@@ -2656,6 +2910,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13759',
 		usage: 'Single purpose - Reserved for shapes in Whiteboards.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	share: {
 		keywords: ['share', 'access'],
@@ -2666,6 +2921,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13908',
 		usage: 'Single purpose - Reserved for sharing an object.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	shield: {
 		keywords: ['security', 'secure', 'safety', 'defence', 'protection', 'guard'],
@@ -2677,6 +2933,7 @@ const metadata: IconMetadata = {
 		id: '7594:13909',
 		usage:
 			'Multi purpose - Known uses: classifications in Enterprise Trust, security in Jira (Spork)',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'shield-strikethrough': {
 		keywords: [
@@ -2696,6 +2953,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '25239:6058',
 		usage: 'Known uses: No classification in Enterprise Trust',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	shortcut: {
 		keywords: ['addshortcut', 'square', 'plus'],
@@ -2706,6 +2964,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13749',
 		usage: 'Single purpose - Reserved for shortcuts in Jira.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'show-more-horizontal': {
 		keywords: ['ellipses', 'three dots', 'meatball', 'more actions'],
@@ -2716,6 +2975,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13812',
 		usage: 'Single purpose - Reserved for more action menus.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'show-more-vertical': {
 		keywords: ['three dots', 'kebab', 'more actions'],
@@ -2726,6 +2986,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13813',
 		usage: 'Single purpose - Reserved for more action menus, traditionally on mobile.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'shrink-diagonal': {
 		keywords: ['resize', 'diagonal arrows'],
@@ -2737,6 +2998,7 @@ const metadata: IconMetadata = {
 		id: '7594:13869',
 		usage:
 			'Single purpose - Reserved for shrinking the height and width of modals, panels, media, or objects.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'shrink-horizontal': {
 		keywords: ['contract', 'width', 'horizontal arrows'],
@@ -2747,6 +3009,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13802',
 		usage: 'Single purpose - Reserved for contracting or reducing the width of an element.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'shrink-vertical': {
 		keywords: ['contract', 'height', 'vertical arrows'],
@@ -2757,6 +3020,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '15048:8497',
 		usage: 'Single purpose - Reserved for contracting or reducing the height of an element.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'sidebar-collapse': {
 		keywords: ['navigation', 'close sidebar'],
@@ -2767,6 +3031,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13911',
 		usage: 'Single purpose - Reserved for collapsing the navigation sidebar.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'sidebar-expand': {
 		keywords: ['navigation', 'open sidebar'],
@@ -2777,6 +3042,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13912',
 		usage: 'Single purpose - Reserved for expanding the navigation sidebar.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'smart-link': {
 		keywords: ['smart link'],
@@ -2787,6 +3053,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '22087:8109',
 		usage: 'Reserved for representing Smart links.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'smart-link-card': {
 		keywords: ['smart link', 'url', 'card', 'link preview'],
@@ -2797,6 +3064,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '20096:23599',
 		usage: 'Reserved for representing Smart link preview cards.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'smart-link-embed': {
 		keywords: ['smart link', 'url', 'embed'],
@@ -2807,6 +3075,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '20096:27323',
 		usage: 'Reserved for representing Smart link embeds.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'smart-link-inline': {
 		keywords: ['smart link', 'url', 'inline'],
@@ -2817,6 +3086,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '20040:19782',
 		usage: 'Reserved for representing inline Smart link lozenges.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'smart-link-list': {
 		keywords: ['smart link', 'url', 'embed', 'list', 'table', 'linked search results'],
@@ -2827,6 +3097,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '20096:31059',
 		usage: 'Reserved for representing Smart link embedded link lists.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	snippet: {
 		keywords: ['scissors', 'cut'],
@@ -2837,6 +3108,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13915',
 		usage: 'Single purpose - Reserved for snippets in Bitbucket.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'sort-ascending': {
 		keywords: ['data', 'sort', 'up'],
@@ -2847,6 +3119,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '14863:28619',
 		usage: 'Single purpose - Reserved for sorting data.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'sort-descending': {
 		keywords: ['data', 'sort', 'down'],
@@ -2857,6 +3130,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '14863:28618',
 		usage: 'Single purpose - Reserved for sorting data.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	spreadsheet: {
 		keywords: ['table', 'cells', 'data'],
@@ -2867,6 +3141,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '9267:17514',
 		usage: 'Single purpose - Reserved for spreadsheets.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	sprint: {
 		keywords: ['loop', 'iterate'],
@@ -2877,6 +3152,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13917',
 		usage: 'Single purpose - Reserved for sprints in Jira.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'star-starred': {
 		keywords: ['favourite', 'star', 'starred', 'filled'],
@@ -2887,6 +3163,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13919',
 		usage: 'Single purpose - Reserved for starred or favourited objects.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'star-unstarred': {
 		keywords: ['favourite', 'star'],
@@ -2897,6 +3174,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13918',
 		usage: 'Single purpose - Reserved for starring or favoriting objects.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'status-discovery': {
 		keywords: ['discovery', 'note', 'filled', 'onboarding', 'status'],
@@ -2908,6 +3186,7 @@ const metadata: IconMetadata = {
 		id: '13725:6450',
 		usage:
 			'Reserved for discovery statuses and messaging.\nFilled status icons provide higher visual contrast to draw attention to important information.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'status-error': {
 		keywords: ['filled', 'status', 'danger', 'exclamation', '!', 'error'],
@@ -2919,6 +3198,7 @@ const metadata: IconMetadata = {
 		id: '7594:13822',
 		usage:
 			'Reserved for error statuses and messaging.\nFilled status icons provide higher visual contrast to draw attention to important information.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'status-information': {
 		keywords: ['info', 'filled', 'status', 'information'],
@@ -2930,6 +3210,7 @@ const metadata: IconMetadata = {
 		id: '7594:13853',
 		usage:
 			"Reserved for information statuses and messaging. \nFilled status icons provide higher visual contrast to draw attention to important information.\nFor information tooltips, use the unfilled 'information circle' icon.",
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'status-success': {
 		keywords: ['tick', 'completed', 'success', 'filled', 'check mark', 'status'],
@@ -2941,6 +3222,7 @@ const metadata: IconMetadata = {
 		id: '13677:9311',
 		usage:
 			'Reserved for success statuses and messaging. Filled status icons provide higher visual contrast to draw attention to important information.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'status-verified': {
 		keywords: ['verified badge', 'status'],
@@ -2952,6 +3234,7 @@ const metadata: IconMetadata = {
 		id: '21965:29793',
 		usage:
 			'Reserved for representing verified content.\nFilled status icons provide higher visual contrast draw attention to important information.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'status-warning': {
 		keywords: ['alert', 'filled', 'exclamation', '!', 'warning', 'status'],
@@ -2963,6 +3246,7 @@ const metadata: IconMetadata = {
 		id: '7594:13944',
 		usage:
 			'Reserved for warning statuses.\nFilled status icons provide higher visual contrast to draw attention to important information.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	stopwatch: {
 		keywords: ['timer'],
@@ -2973,6 +3257,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13920',
 		usage: 'Multi purpose - Known uses: timer in Confluence Whiteboards.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	story: {
 		keywords: ['bookmark', 'work type'],
@@ -2983,6 +3268,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13921',
 		usage: 'Reserved for story work type.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'stroke-weight-extra-large': {
 		keywords: [
@@ -3002,6 +3288,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '34959:38709',
 		usage: 'Reserved for representing the thickest border stroke width.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'stroke-weight-large': {
 		keywords: [
@@ -3021,6 +3308,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:22836',
 		usage: 'Reserved for representing thick border stroke widths.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'stroke-weight-medium': {
 		keywords: [
@@ -3040,6 +3328,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:22397',
 		usage: 'Reserved for representing medium border stroke widths.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'stroke-weight-small': {
 		keywords: [
@@ -3059,6 +3348,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:22070',
 		usage: 'Reserved for representing thin border stroke widths.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	subtasks: {
 		keywords: ['todo', 'checklist', 'work type'],
@@ -3069,6 +3359,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13922',
 		usage: 'Reserved for subtask work type.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	success: {
 		keywords: ['tick', 'completed', 'success', 'filled', 'check mark', 'status'],
@@ -3085,6 +3376,7 @@ const metadata: IconMetadata = {
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	support: {
 		keywords: ['support', 'help', 'life raft', 'life ring', 'lifebuoy', 'life preserver'],
@@ -3095,6 +3387,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '22285:27614',
 		usage: 'Reserved for representing help support.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'table-cell-clear': {
 		keywords: ['table', 'cell', 'clear', 'empty'],
@@ -3105,6 +3398,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:13569',
 		usage: 'Reserved for clearing the contents of table cells.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'table-cell-merge': {
 		keywords: ['table', 'cell', 'merge', 'combine', 'join'],
@@ -3115,6 +3409,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:4958',
 		usage: 'Reserved for merging table cells.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'table-cell-split': {
 		keywords: ['table', 'cell', 'split', 'divide', 'separate'],
@@ -3125,6 +3420,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:13062',
 		usage: 'Reserved for splitting joined table cells.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'table-column-add-left': {
 		keywords: ['table', 'column', 'add', 'plus', 'left', 'before'],
@@ -3135,6 +3431,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:13831',
 		usage: 'Reserved for adding a table column to the left of the selected column.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'table-column-add-right': {
 		keywords: ['table', 'column', 'add', 'right', 'after'],
@@ -3145,6 +3442,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:14223',
 		usage: 'Reserved for adding a table column to the right of the selected column.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'table-column-delete': {
 		keywords: ['table', 'column', 'delete', 'remove', 'x'],
@@ -3155,6 +3453,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:15668',
 		usage: 'Reserved for deleting a table column.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'table-column-move-left': {
 		keywords: ['table', 'column', 'move', 'left', 'arrow'],
@@ -3165,6 +3464,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:16819',
 		usage: 'Reserved for moving a table column to the left of its current location.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'table-column-move-right': {
 		keywords: ['table', 'column', 'move', 'right', 'arrow'],
@@ -3175,6 +3475,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:17146',
 		usage: 'Reserved for moving a table column to the right of its current location.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'table-columns-distribute': {
 		keywords: ['table', 'columns', 'distribute', 'even', 'equidistant'],
@@ -3185,6 +3486,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:16436',
 		usage: 'Reserved for distributing the width of table columns evenly.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'table-row-add-above': {
 		keywords: ['table', 'row', 'add', 'plus', 'above', 'up'],
@@ -3195,6 +3497,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:14958',
 		usage: 'Reserved for adding a table row above the selected row.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'table-row-add-below': {
 		keywords: ['table', 'row', 'add', 'plus', 'below', 'down'],
@@ -3205,6 +3508,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:15285',
 		usage: 'Reserved for adding a table row below the selected row.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'table-row-delete': {
 		keywords: ['table', 'row', 'delete', 'remove', 'x'],
@@ -3215,6 +3519,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:16053',
 		usage: 'Reserved for deleting a table row.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'table-row-move-down': {
 		keywords: ['table', 'row', 'move', 'down', 'arrow', 'after'],
@@ -3225,6 +3530,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:17968',
 		usage: 'Reserved for moving a table row below its current location.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'table-row-move-up': {
 		keywords: ['table', 'row', 'move', 'up', 'arrow', 'above'],
@@ -3235,6 +3541,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:17585',
 		usage: 'Reserved for moving a table row above its current location.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	tag: {
 		keywords: ['label', 'topic'],
@@ -3245,6 +3552,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13925',
 		usage: 'Single purpose - Reserved for tags in Atlas.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'takeout-food': {
 		keywords: ['takeaway', 'takeout', 'food', 'burger', 'drink'],
@@ -3255,6 +3563,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '13802:9422',
 		usage: 'Multi purpose - Known usages: Food emoji category.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	target: {
 		keywords: ['target', 'bullseye'],
@@ -3265,6 +3574,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '15048:9159',
 		usage: 'Single purpose - Reserved for targets.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	task: {
 		keywords: ['single task', 'todo', 'list', 'check mark', 'tick'],
@@ -3275,6 +3585,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13927',
 		usage: 'Single purpose - Reserved for tasks in Jira.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'task-in-progress': {
 		keywords: ['calendar', 'task', 'status', 'in progress'],
@@ -3285,6 +3596,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:25048',
 		usage: 'Reserved for in progress task status. Used in JSM Calendar view.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'task-to-do': {
 		keywords: ['calendar', 'task', 'to-do', 'todo', 'status'],
@@ -3295,6 +3607,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:24266',
 		usage: 'Reserved for to-do task status. Used in JSM Calendar view.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	tasks: {
 		keywords: ['multiple tasks', 'todo', 'list', 'check mark', 'tick'],
@@ -3305,6 +3618,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13928',
 		usage: 'Single purpose - Reserved for multiple tasks in Jira.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	teams: {
 		keywords: ['infinite love', 'people', 'persons', 'customers', 'users'],
@@ -3315,6 +3629,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13929',
 		usage: 'Single purpose - Reserved for teams in Atlassian.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	text: {
 		keywords: ['character', 'font', 'letter', 'type', 'typography', 'text'],
@@ -3325,6 +3640,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '13863:11334',
 		usage: 'Single purpose - Reserved for representing text objects.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'text-bold': {
 		keywords: ['text', 'type', 'bold', 'font'],
@@ -3335,6 +3651,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '12239:3679',
 		usage: 'Single purpose - Reserved for bolding text.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'text-heading': {
 		keywords: ['text', 'heading', 'H', 'editor', 'text style'],
@@ -3346,6 +3663,7 @@ const metadata: IconMetadata = {
 		id: '32277:8179',
 		usage: 'Reserved for representing heading styles',
 		slackChannel: '#icon-contributions',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'text-indent-left': {
 		keywords: ['text', 'outdent', 'left', 'arrow'],
@@ -3356,6 +3674,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '12239:3674',
 		usage: 'Single purpose - Reserved for shifting the indent of text content left.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'text-indent-right': {
 		keywords: ['text', 'indent', 'right', 'arrow'],
@@ -3366,6 +3685,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '12239:3678',
 		usage: 'Single purpose - Reserved for shifting the indent of text content right.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'text-italic': {
 		keywords: ['text', 'type', 'italic', 'font'],
@@ -3376,6 +3696,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '12239:3677',
 		usage: 'Single purpose - Reserved for italicizing text.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'text-shorten': {
 		keywords: ['text', 'shorten', 'abbreviate', 'condense', 'AI'],
@@ -3386,6 +3707,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:18846',
 		usage: 'Reserved for shortening text content with Atlassian Intelligence.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'text-spellcheck': {
 		keywords: ['text', 'spelling', 'typo', 'spellcheck'],
@@ -3396,6 +3718,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '15108:12020',
 		usage: 'Single purpose - Reserved for spellchecking.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'text-strikethrough': {
 		keywords: ['text', 'strikethrough', 'editor', 'cross out'],
@@ -3407,6 +3730,7 @@ const metadata: IconMetadata = {
 		id: '32277:7419',
 		usage: 'Reserved for strikethrough text tool',
 		slackChannel: '#icon-contributions',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'text-style': {
 		keywords: ['characters', 'font', 'letters', 'type', 'typography'],
@@ -3417,6 +3741,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13932',
 		usage: 'Single purpose - Reserved for text styles in Editor.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'text-underline': {
 		keywords: ['text', 'underline', 'U', 'editor'],
@@ -3428,6 +3753,7 @@ const metadata: IconMetadata = {
 		id: '32277:7828',
 		usage: 'Reserved for underlined text tool',
 		slackChannel: '#icon-contributions',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'text-wrap': {
 		keywords: ['text', 'wrap', 'line wrap'],
@@ -3438,6 +3764,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:20322',
 		usage: 'Reserved for wrapping text so it spans multiple lines.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	theme: {
 		keywords: ['theme', 'light mode', 'dark mode', 'theme switcher'],
@@ -3448,6 +3775,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '15048:9270',
 		usage: 'Single purpose - Reserved for representing themes and theme switching.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'thumbs-down': {
 		keywords: ['vote', 'downvote', 'dislike', 'feedback', 'hand'],
@@ -3458,6 +3786,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '9267:17522',
 		usage: 'Multi purpose - Known uses: voting, feedback in AI.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'thumbs-up': {
 		keywords: ['vote', 'upvote', 'like', 'feedback', 'hand'],
@@ -3468,6 +3797,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13857',
 		usage: 'Multi purpose - Known uses: voting options in Jira, like.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	timeline: {
 		keywords: ['gantt', 'calendar'],
@@ -3478,6 +3808,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13933',
 		usage: 'Single purpose - Reserved for timelines in Jira or Trello.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	tools: {
 		keywords: ['tools', 'wrench', 'spanner', 'screwdriver'],
@@ -3488,6 +3819,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '14520:13420',
 		usage: "Known usages: 'Service request' Jira work type.",
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	transition: {
 		keywords: ['connector', 'movement'],
@@ -3498,6 +3830,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13934',
 		usage: 'Single purpose - Reserved for transitions in Analytics.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	translate: {
 		keywords: ['translate', 'language', 'i18n', 'internationalization', 'internationalisation'],
@@ -3508,6 +3841,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:21359',
 		usage: 'Reserved for representing language translations.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	tree: {
 		keywords: ['tree', 'nature'],
@@ -3518,6 +3852,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '13802:9330',
 		usage: 'Multi purpose - Known usages: Nature emoji category.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	undo: {
 		keywords: ['backward', 'mistake', 'correct'],
@@ -3528,6 +3863,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13766',
 		usage: 'Single purpose - Reserved for undo in Editor.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	upload: {
 		keywords: ['stream', 'file'],
@@ -3538,6 +3874,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13830',
 		usage: 'Single purpose - Reserved for upload in Editor.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'vehicle-car': {
 		keywords: ['car', 'transportation', 'vehicle'],
@@ -3548,6 +3885,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '13822:9490',
 		usage: 'Multi purpose - Known usages: Transport emoji category.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	video: {
 		keywords: ['media', 'movie'],
@@ -3558,6 +3896,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13940',
 		usage: 'Single purpose - Reserved for representing video content across Atlassian and Loom.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'video-next': {
 		keywords: ['skip', 'next', 'media', 'forward'],
@@ -3568,6 +3907,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13872',
 		usage: 'Single purpose - Reserved for next video in Media.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'video-next-overlay': {
 		keywords: ['skip', 'next', 'media', 'forward', 'filled'],
@@ -3578,6 +3918,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '15347:13359',
 		usage: 'Single purpose - Reserved for next video when icon is overlayed on Media.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'video-pause': {
 		keywords: ['media', 'video'],
@@ -3588,6 +3929,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13882',
 		usage: 'Single purpose - Reserved for pause video in Media.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'video-pause-overlay': {
 		keywords: ['media', 'video', 'filled'],
@@ -3598,6 +3940,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '15317:13160',
 		usage: 'Single purpose - Reserved for pause video when icon is overlayed on Media.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'video-play': {
 		keywords: ['media', 'video'],
@@ -3608,6 +3951,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13883',
 		usage: 'Single purpose - Reserved for play video in Media.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'video-play-overlay': {
 		keywords: ['media', 'video', 'filled'],
@@ -3618,6 +3962,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '15317:13161',
 		usage: 'Single purpose - Reserved for play video when icon is overlayed on Media.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'video-previous': {
 		keywords: ['media', 'video', 'back', 'previous'],
@@ -3628,6 +3973,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13887',
 		usage: 'Single purpose - Reserved for previous video in Media.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'video-previous-overlay': {
 		keywords: ['media', 'video', 'back', 'previous', 'filled'],
@@ -3638,6 +3984,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '15347:13323',
 		usage: 'Single purpose - Reserved for previous video when icon is overlayed on Media.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'video-skip-backward-fifteen': {
 		keywords: ['video', 'media', 'skip', 'backwards', '15', 'seconds'],
@@ -3648,6 +3995,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '26513:8726',
 		usage: 'Reserved for skipping video content backward by 15 seconds.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'video-skip-backward-ten': {
 		keywords: ['video', 'media', 'skip', 'backwards', '10', 'seconds'],
@@ -3658,6 +4006,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '22087:8689',
 		usage: 'Reserved for skipping video content backwards by 10 seconds.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'video-skip-forward-fifteen': {
 		keywords: ['video', 'media', 'skip', 'forward', '15', 'seconds'],
@@ -3668,6 +4017,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '26513:6444',
 		usage: 'Reserved for skipping video content forward by 15 seconds.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'video-skip-forward-ten': {
 		keywords: ['video', 'media', 'skip', 'forward', '10', 'seconds'],
@@ -3678,6 +4028,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '22087:8371',
 		usage: 'Reserved for skipping video content forward by 10 seconds.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'video-stop': {
 		keywords: ['video', 'stop'],
@@ -3688,6 +4039,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:28955',
 		usage: 'Reserved for stopping video content.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'video-stop-overlay': {
 		keywords: ['video', 'stop', 'overlay', 'inverse'],
@@ -3698,6 +4050,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '21965:29273',
 		usage: 'Reserved for stopping video content. Use on dark or translucent backgrounds.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'volume-high': {
 		keywords: ['louder', 'volume up'],
@@ -3708,6 +4061,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13941',
 		usage: '📦 @atlaskit/icon/core/volume-high',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'volume-low': {
 		keywords: ['quiter', 'volume down'],
@@ -3718,6 +4072,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13942',
 		usage: '📦 @atlaskit/icon/core/volume-low',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'volume-muted': {
 		keywords: ['volume off', 'no volume'],
@@ -3728,6 +4083,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13943',
 		usage: '📦 @atlaskit/icon/core/volume-muted',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	warning: {
 		keywords: ['alert', 'filled', 'exclamation', '!', 'warning', 'status'],
@@ -3744,6 +4100,7 @@ const metadata: IconMetadata = {
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	whiteboard: {
 		keywords: ['shapes', 'canvas'],
@@ -3754,6 +4111,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13945',
 		usage: 'Single purpose - Reserved for whiteboards in Confluence.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'work-item': {
 		keywords: ['check mark', 'tick', 'work item', 'work type'],
@@ -3764,6 +4122,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13854',
 		usage: 'Reserved for work items.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'work-items': {
 		keywords: ['check mark', 'tick', 'work items', 'work type'],
@@ -3774,6 +4133,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13855',
 		usage: 'Reserved for representing multiple work items.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'zoom-in': {
 		keywords: ['magnify', 'magnifying glass'],
@@ -3784,6 +4144,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13947',
 		usage: 'Single purpose - Reserved for zooming in of an object or view.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'zoom-out': {
 		keywords: ['minify', 'magnifying glass'],
@@ -3794,6 +4155,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '7594:13948',
 		usage: 'Single purpose - Reserved for zooming out of an object or view.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 };
 

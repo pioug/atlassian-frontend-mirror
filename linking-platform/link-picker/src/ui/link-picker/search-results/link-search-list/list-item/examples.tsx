@@ -34,7 +34,6 @@ const createExample = (props: Partial<LinkSearchListItemProps> = {}) => {
 					onSelect={NOOP}
 					onKeyDown={NOOP}
 					onFocus={NOOP}
-					role="option"
 					{...props}
 				/>
 			</div>

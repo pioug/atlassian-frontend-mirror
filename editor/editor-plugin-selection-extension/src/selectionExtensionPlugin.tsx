@@ -19,14 +19,16 @@ import { createPlugin, selectionExtensionPluginKey } from './pm-plugins/main';
 import { getSelectionInfo } from './pm-plugins/utils';
 import type { SelectionExtensionPlugin } from './selectionExtensionPluginType';
 import {
-	type DynamicSelectionExtension,
 	SelectionExtensionActionTypes,
+	type DynamicSelectionExtension,
 	type SelectionExtension,
 	type SelectionExtensionCallbackOptions,
 	type SelectionExtensionConfig,
 } from './types';
 import { SelectionExtensionComponentWrapper } from './ui/extension/SelectionExtensionComponentWrapper';
+import { getMenuItemExtensions, getToolbarItemExtensions } from './ui/extensions';
 import { getBoundingBoxFromSelection } from './ui/getBoundingBoxFromSelection';
+import { LegacyPrimaryToolbarComponent } from './ui/LegacyToolbarComponent';
 import { selectionToolbar } from './ui/selectionToolbar';
 
 type SelectionExtensionStaticOrDynamic = SelectionExtension | DynamicSelectionExtension;
@@ -35,6 +37,24 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 	const editorViewRef: Record<'current', EditorView | null> = { current: null };
 	let cachedSelection: Selection;
 	let cachedOverflowMenuOptions: FloatingToolbarOverflowDropdown<Command>['options'] | undefined;
+
+	const { extensionList = [], extensions = {} } = config || {};
+	const { firstParty = [], external = [] } = extensions || {};
+
+	if (fg('platform_editor_selection_extension_api_v2')) {
+		const primaryToolbarItemExtensions = getToolbarItemExtensions(extensionList, 'primaryToolbar');
+
+		if (primaryToolbarItemExtensions?.length) {
+			api?.primaryToolbar?.actions?.registerComponent({
+				name: 'selectionExtension',
+				component: () => (
+					<LegacyPrimaryToolbarComponent
+						primaryToolbarItemExtensions={primaryToolbarItemExtensions}
+					/>
+				),
+			});
+		}
+	}
 
 	return {
 		name: 'selectionExtension',
@@ -81,6 +101,10 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 				const { state, dispatch } = editorViewRef.current;
 				return insertAdfAtEndOfDoc(nodeAdf)(state, dispatch);
 			},
+			// NEXT PR: Implement this to return selectedNodeAdf, selectionRanges
+			// getSelectionAdf: () => {},
+			// NEXT PR: Implement this to return text, coords
+			// getSelectionText: () => {},
 		},
 		contentComponent: ({ editorView }) => {
 			return (
@@ -97,27 +121,17 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 					return;
 				}
 
-				const { pageModes, extensions } = config;
+				const { pageModes } = config;
 
-				/**
-				 * Extensions Config Validation
-				 *
-				 * Check whether plugin contains any selection extensions
-				 */
-				if (
-					(!extensions?.firstParty || extensions.firstParty.length === 0) &&
-					(!extensions?.external || extensions.external.length === 0)
-				) {
+				// Extensions Config Validation
+				// Check whether plugin contains any selection extensions
+				if (!firstParty?.length && !external?.length && !extensionList?.length) {
 					return;
 				}
 
-				/**
-				 * Content Mode Validation
-				 *
-				 * Check if pageModes is provided and matches against current content mode
-				 *
-				 * TODO: This will eventially transition from mode to contentMode
-				 */
+				// Content Mode Validation
+				// Check if pageModes is provided and matches against current content mode
+				// This will eventially transition from mode to contentMode
 				const editorContentMode = api?.editorViewMode?.sharedState.currentState()?.mode;
 
 				if (pageModes) {
@@ -135,11 +149,8 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 					}
 				}
 
-				/**
-				 * Active Extension
-				 *
-				 * Check if there is an active extension and hide the selection extension dropdown
-				 */
+				// Active Extension
+				// Check if there is an active extension and hide the selection extension dropdown
 				const selectionExtensionState = selectionExtensionPluginKey.getState(state);
 				if (selectionExtensionState?.activeExtension) {
 					return;
@@ -249,9 +260,7 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 					});
 				};
 
-				/**
-				 * Add a heading to the external extensions
-				 */
+				// Add a heading to the external extensions
 				const getExternalExtensions = (extensions: SelectionExtensionConfig[]) => {
 					const prefilteredExtensions = prefilterExtensions(extensions);
 
@@ -274,23 +283,33 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 					return externalExtensions;
 				};
 
+				// NEXT PR: Make sure we cache the whole generated selection toolbar
+				// also debug this to make sure it's actually preventing unnecessary re-renders / work
 				if (
 					cachedOverflowMenuOptions &&
 					state.selection.eq(cachedSelection) &&
 					fg('platform_editor_selection_extension_api_v2')
 				) {
-					return selectionToolbar(cachedOverflowMenuOptions);
+					return selectionToolbar({ overflowOptions: cachedOverflowMenuOptions, extensionList });
+				}
+
+				let allFirstParty = [...firstParty];
+				let allExternal = [...external];
+
+				if (fg('platform_editor_selection_extension_api_v2')) {
+					allFirstParty = [...firstParty, ...getMenuItemExtensions(extensionList, 'first-party')];
+					allExternal = [...external, ...getMenuItemExtensions(extensionList, 'external')];
 				}
 
 				const groupedExtensionsArray = [
-					...getFirstPartyExtensions(extensions.firstParty || []),
-					...getExternalExtensions(extensions.external || []),
+					...getFirstPartyExtensions(allFirstParty),
+					...getExternalExtensions(allExternal),
 				];
 
 				cachedOverflowMenuOptions = groupedExtensionsArray;
 				cachedSelection = state.selection;
 
-				return selectionToolbar(groupedExtensionsArray);
+				return selectionToolbar({ overflowOptions: cachedOverflowMenuOptions, extensionList });
 			},
 		},
 		pmPlugins: () => [

@@ -8,8 +8,13 @@
     "./examples/**/*.ts",
     "./examples/**/*.tsx",
     "./examples-helpers/**/*.ts",
-    "./examples-helpers/**/*.tsx"
+    "./examples-helpers/**/*.tsx",
+    "**/stories.ts",
+    "**/stories.tsx",
+    "**/stories/*.ts",
+    "**/stories/*.tsx",
+    "**/stories/**/*.ts",
+    "**/stories/**/*.tsx"
   ],
-  "compilerOptions": {
-  }
+  "compilerOptions": {}
 }

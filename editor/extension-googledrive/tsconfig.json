@@ -1,14 +1,25 @@
 {
-	"extends": "../../../tsconfig.json",
-	"include": [
-		"./src/**/*",
-		"./src/**/*.tsx",
-		"./docs/**/*.ts",
-		"./docs/**/*.tsx",
-		"./examples/**/*.ts",
-		"./examples/**/*.tsx"
-	],
-	"compilerOptions": {
-		"types": ["node", "jest", "@testing-library/jest-dom", "gapi"]
-	}
+  "extends": "../../../tsconfig.json",
+  "include": [
+    "./src/**/*",
+    "./src/**/*.tsx",
+    "./docs/**/*.ts",
+    "./docs/**/*.tsx",
+    "./examples/**/*.ts",
+    "./examples/**/*.tsx",
+    "**/stories.ts",
+    "**/stories.tsx",
+    "**/stories/*.ts",
+    "**/stories/*.tsx",
+    "**/stories/**/*.ts",
+    "**/stories/**/*.tsx"
+  ],
+  "compilerOptions": {
+    "types": [
+      "node",
+      "jest",
+      "@testing-library/jest-dom",
+      "gapi"
+    ]
+  }
 }

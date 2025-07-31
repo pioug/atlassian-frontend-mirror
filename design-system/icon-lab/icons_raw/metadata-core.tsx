@@ -11,6 +11,7 @@ const metadata: IconMetadata = {
 		id: '48272:2316',
 		usage:
 			'Reserved for Audio Briefings, a new feature launching within Confluence to help people develop an expanded awareness on a topic by generating AI-powered podcasts about their work.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'ai-generative-chapters': {
 		keywords: ['book', 'AI', 'automation'],
@@ -22,6 +23,7 @@ const metadata: IconMetadata = {
 		id: '42096:38146',
 		usage: 'Reserved for auto chapters functionality in Loom.',
 		slackChannel: '#feedback-loom-vizrefresh',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'ai-generative-cleanup': {
 		keywords: ['broom', 'tidy', 'clean up'],
@@ -33,6 +35,7 @@ const metadata: IconMetadata = {
 		id: '43414:37403',
 		usage: 'Reserved for automated cleanup and tidy functionality',
 		slackChannel: '#icon-contributions',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'ai-generative-remove': {
 		keywords: ['eraser', 'AI', 'automation'],
@@ -44,6 +47,7 @@ const metadata: IconMetadata = {
 		id: '42096:50922',
 		usage: 'Reserved for remove filler words functionality in Loom',
 		slackChannel: '#feedback-loom-vizrefresh',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'ai-generative-remove-silence': {
 		keywords: ['empty', 'AI', 'automation', 'pauses', 'silences'],
@@ -55,6 +59,7 @@ const metadata: IconMetadata = {
 		id: '42096:53828',
 		usage: 'Reserved for silence removal functionality in Loom',
 		slackChannel: '#feedback-loom-vizrefresh',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'ai-generative-text': {
 		keywords: ['pencil', 'AI', 'automation'],
@@ -66,6 +71,7 @@ const metadata: IconMetadata = {
 		id: '42096:40317',
 		usage: 'Reserved for auto draft functionality in Loom.',
 		slackChannel: '#feedback-loom-vizrefresh',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'ai-generative-text-title': {
 		keywords: ['text', 'AI', 'automation', 'header'],
@@ -77,6 +83,7 @@ const metadata: IconMetadata = {
 		id: '42096:44083',
 		usage: 'Reserved for auto titles functionality in Loom',
 		slackChannel: '#feedback-loom-vizrefresh',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'align-content-bottom': {
 		keywords: ['align', 'alignment', 'content', 'bottom', 'vertical'],
@@ -87,6 +94,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '34895:17080',
 		usage: 'Used for aligning bottom edges of content in Whiteboards',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'align-content-center-horizontal': {
 		keywords: ['align', 'alignment', 'content', 'center', 'middle', 'horizontal'],
@@ -97,6 +105,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '34895:14885',
 		usage: 'Used for aligning horizontal centers of content in Whiteboards',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'align-content-center-vertical': {
 		keywords: ['align', 'alignment', 'content', 'center', 'vertical'],
@@ -107,6 +116,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '34895:16237',
 		usage: 'Used for aligning vertical centers of content in Whiteboards',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'align-content-left': {
 		keywords: ['align', 'alignment', 'content', 'left', 'horizontal'],
@@ -117,6 +127,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '34895:14473',
 		usage: 'Used for aligning left edges of content in Whiteboards',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'align-content-right': {
 		keywords: ['align', 'alignment', 'content', 'right', 'horizontal'],
@@ -127,6 +138,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '34895:15297',
 		usage: 'Used for aligning right edges of content in Whiteboards',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'align-content-top': {
 		keywords: ['align', 'alignment', 'content', 'top', 'vertical'],
@@ -137,6 +149,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '34895:15767',
 		usage: 'Used for aligning top edges of content in Whiteboards',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'align-position-bottom': {
 		keywords: ['align', 'alignment', 'middle', 'text position', 'bottom', 'vertical'],
@@ -147,6 +160,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '35810:31263',
 		usage: 'Bottom-aligned text position within sticky notes in Whiteboards.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'align-position-center-vertical': {
 		keywords: ['align', 'alignment', 'middle', 'center', 'text position', 'vertical'],
@@ -157,6 +171,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '35810:30793',
 		usage: 'Center-aligned text position within sticky notes in Whiteboards.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'align-position-top': {
 		keywords: ['align', 'alignment', 'top edge', 'text position', 'vertical'],
@@ -167,6 +182,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '35810:30323',
 		usage: 'Top-aligned text position within sticky notes in Whiteboards.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'arrows-diagonal-up-right-down-left': {
 		keywords: ['Arrows', 'Switch', 'Space', 'Swap', 'crossflow'],
@@ -177,6 +193,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '36799:1489',
 		usage: 'Used within Jira Pages to connect or switch to a Space or page.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'assets-data-manager': {
 		keywords: ['data manager', 'assets', 'CMDB', 'configuration management database'],
@@ -187,6 +204,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '26733:8692',
 		usage: 'Reserved for JSM Assets.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'assets-graph': {
 		keywords: ['assets', 'graph'],
@@ -197,6 +215,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '40946:3077',
 		usage: 'Reserved for representing Assets graph',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'assets-schema': {
 		keywords: ['assets', 'CMDB', 'configuration management database'],
@@ -207,6 +226,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '26723:6335',
 		usage: 'Reserved for JSM Assets.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	atom: {
 		keywords: ['atom', 'molecule', 'atomic design'],
@@ -217,6 +237,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '43249:36176',
 		slackChannel: '#icon-contributions',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'audio-waveform': {
 		keywords: ['waveform', 'audio', 'soundwave', 'dialogue', 'speak'],
@@ -227,6 +248,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '42096:87925',
 		usage: 'Known uses: show waveform editor in Loom.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'beach-umbrella': {
 		keywords: ['vacation', 'beach umbrella', 'sun shade', 'holiday'],
@@ -237,6 +259,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '38223:4224',
 		usage: 'User-selectable icon choice for calendars',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	bluetooth: {
 		keywords: ['bluetooth', 'connectivity', 'bt'],
@@ -248,6 +271,7 @@ const metadata: IconMetadata = {
 		id: '43249:36757',
 		usage: 'Reserved for Bluetooth',
 		slackChannel: '#icon-contributions',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	blur: {
 		keywords: [],
@@ -259,6 +283,7 @@ const metadata: IconMetadata = {
 		id: '42075:10798',
 		usage: 'Reserved for blurring an element in Loom',
 		slackChannel: '#feedback-loom-vizrefresh',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'book-open': {
 		keywords: ['book', 'knowledgebase article'],
@@ -269,6 +294,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '22279:21587',
 		usage: 'Known uses: None',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	boolean: {
 		keywords: ['true', 'false', 'binary', 'boolean', 'on', 'off'],
@@ -279,6 +305,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '52032:2802',
 		usage: 'Reserved for representing boolean data types and operations.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'browser-extension': {
 		keywords: ['extension', 'puzzle piece', 'add on', 'jigsaw', 'chrome web store'],
@@ -290,6 +317,7 @@ const metadata: IconMetadata = {
 		id: '42075:13658',
 		usage: 'Reserved for chrome extensions',
 		slackChannel: '#feedback-loom-vizrefresh',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	calculate: {
 		keywords: ['Calculate', 'databases', 'summation'],
@@ -300,6 +328,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '37846:2200',
 		usage: 'Calculate for databases',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'cloud-offline': {
 		keywords: ['cloud', 'offline', 'disconnected', 'strikethrough'],
@@ -310,6 +339,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '33429:14280',
 		usage: "Reserved for showing when a connection can't be established to the cloud.",
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'cloud-saved': {
 		keywords: ['cloud', 'check mark', 'saved', 'success'],
@@ -320,6 +350,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '33429:16365',
 		usage: 'Reserved for showing saved status after successful cloud synchronisation.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	coins: {
 		keywords: ['money', 'loose change', 'currency'],
@@ -330,6 +361,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '14151:11114',
 		usage: 'Multi purpose',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'colour-none': {
 		keywords: ['Colour', 'Color', 'Remove', 'None', 'Colour picker'],
@@ -340,6 +372,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '40576:10655',
 		usage: "Remove colours from Whiteboard's colour picker",
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	compare: {
 		keywords: ['compare', 'git', 'bitbucket', 'diff'],
@@ -350,6 +383,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '45810:476',
 		usage: 'Reserved for compare functionality in Bitbucket.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'compass-hinged': {
 		keywords: ['compass', 'calipers', 'divider'],
@@ -360,6 +394,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '43245:34876',
 		slackChannel: '#icon-contributions',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'continue-when': {
 		keywords: [],
@@ -371,6 +406,7 @@ const metadata: IconMetadata = {
 		id: '38222:2653',
 		usage: 'Reserved for continue when delay in automation.',
 		slackChannel: '#help-automation-design',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'cross-octagon': {
 		keywords: ['cross', 'stop', 'block', 'octagon'],
@@ -381,6 +417,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '14062:9760',
 		usage: 'Multi purpose',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	cursor: {
 		keywords: ['Whiteboards', 'Cursor'],
@@ -391,6 +428,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '34970:5306',
 		usage: 'Selecting the cursor in Whiteboards',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'cursor-strikethrough': {
 		keywords: ['Cursor', 'Cursors', 'Hide cursor', 'Whiteboard cursor', 'Cursor strikethrough'],
@@ -401,6 +439,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '34970:6687',
 		usage: 'Hide collaborator cursors in the Whiteboard',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'database-storage': {
 		keywords: ['database', 'db', 'storage', 'sql'],
@@ -412,6 +451,7 @@ const metadata: IconMetadata = {
 		id: '33278:7485',
 		usage: 'Known uses: SQL database in Developer Console',
 		slackChannel: '#forge-sql',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'database-storage-cache': {
 		keywords: ['database', 'db', 'storage', 'sql', 'cache'],
@@ -423,6 +463,7 @@ const metadata: IconMetadata = {
 		id: '33278:8324',
 		usage: 'Known uses: Storage cache in Developer Console.',
 		slackChannel: '#forge-sql',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'diagram-symbol-action': {
 		keywords: ['diagram', 'symbol', 'action'],
@@ -433,6 +474,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '46664:38466',
 		usage: 'Reserved for action diagram symbol.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'diagram-symbol-alternate-process': {
 		keywords: ['diagram', 'symbol', 'alternate process'],
@@ -443,6 +485,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '46664:39452',
 		usage: 'Reserved for alternate process diagram symbol.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'diagram-symbol-collate': {
 		keywords: ['diagram', 'symbol', 'collate'],
@@ -453,6 +496,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '46664:43271',
 		usage: 'Reserved for collate diagram symbol.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'diagram-symbol-comment-left': {
 		keywords: ['comment', 'left', 'diagram', 'symbol'],
@@ -463,6 +507,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '44846:1634',
 		usage: 'Reserved for comment left diagram symbol.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'diagram-symbol-comment-right': {
 		keywords: ['comment', 'right', 'diagram', 'symbol'],
@@ -473,6 +518,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '44846:6059',
 		usage: 'Reserved for comment right diagram symbol.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'diagram-symbol-connector-off-page': {
 		keywords: ['off-page', 'diagram', 'symbol', 'connector'],
@@ -483,6 +529,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '44846:10389',
 		usage: 'Reserved for off-page connector diagram symbol.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'diagram-symbol-connector-on-page': {
 		keywords: ['diagram', 'symbol', 'on-page', 'connector'],
@@ -493,6 +540,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '46664:46171',
 		usage: 'Reserved for on-page connector diagram symbol.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'diagram-symbol-database': {
 		keywords: ['diagram', 'symbol', 'database'],
@@ -503,6 +551,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '44846:6467',
 		usage: 'Reserved for database diagram symbol.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'diagram-symbol-decision': {
 		keywords: ['diagram', 'symbol', 'decision'],
@@ -513,6 +562,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '46664:40438',
 		usage: 'Reserved for decision diagram symbol.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'diagram-symbol-delay': {
 		keywords: ['diagram', 'symbol', 'delay'],
@@ -523,6 +573,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '44846:6875',
 		usage: 'Reserved for delay diagram symbol.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'diagram-symbol-display': {
 		keywords: ['diagram', 'symbol', 'display'],
@@ -533,6 +584,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '44846:7411',
 		usage: 'Reserved for display diagram symbol.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'diagram-symbol-document': {
 		keywords: ['diagram', 'symbol', 'document'],
@@ -543,6 +595,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '44846:7880',
 		usage: 'Reserved for single document diagram symbol.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'diagram-symbol-documents': {
 		keywords: ['diagram', 'symbol', 'multiple documents'],
@@ -553,6 +606,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '44846:9981',
 		usage: 'Reserved for multiple documents diagram symbol',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'diagram-symbol-hard-disk': {
 		keywords: ['diagram', 'symbol', 'hard disk', 'hard drive', 'storage'],
@@ -563,6 +617,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '44846:8288',
 		usage: 'Reserved for hard disk diagram symbol.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'diagram-symbol-input-output': {
 		keywords: ['diagram', 'symbol', 'input', 'output'],
@@ -573,6 +628,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '46664:42416',
 		usage: 'Reserved for input or output diagram symbols.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'diagram-symbol-internal-storage': {
 		keywords: ['diagram', 'symbol', 'internal storage'],
@@ -583,6 +639,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '44846:8757',
 		usage: 'Reserved for internal storage diagram symbol.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'diagram-symbol-loop-limit': {
 		keywords: ['diagram', 'symbol', 'loop limit'],
@@ -593,6 +650,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '46664:45182',
 		usage: 'Reserved for loop limit diagram symbol.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'diagram-symbol-manual-input': {
 		keywords: ['diagram', 'symbol', 'manual input'],
@@ -603,6 +661,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '44846:11802',
 		usage: 'Reserved for manual input diagram symbol.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'diagram-symbol-manual-operation': {
 		keywords: ['diagram', 'symbol', 'manual operation'],
@@ -613,6 +672,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '44846:9165',
 		usage: 'Reserved for manual operation diagram symbol.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'diagram-symbol-merge': {
 		keywords: ['diagram', 'symbol', 'merge', 'triangle'],
@@ -623,6 +683,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '46664:44193',
 		usage: 'Reserved for merge diagram symbol.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'diagram-symbol-mind-map': {
 		keywords: ['diagram', 'symbol', 'mind map'],
@@ -633,6 +694,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '44846:9573',
 		usage: 'Reserved for mind map diagram symbol.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'diagram-symbol-or': {
 		keywords: ['diagram', 'symbol', 'or', 'logic'],
@@ -643,6 +705,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '44846:13696',
 		usage: 'Reserved for or diagram symbol.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'diagram-symbol-predefined-process': {
 		keywords: ['diagram', 'symbol', 'predefined process'],
@@ -653,6 +716,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '44846:10797',
 		usage: 'Reserved for predefined process diagram symbol.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'diagram-symbol-preparation': {
 		keywords: ['diagram', 'symbol', 'preparation'],
@@ -663,6 +727,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '44846:11394',
 		usage: 'Reserved for preparation diagram symbol.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'diagram-symbol-sort': {
 		keywords: ['diagram', 'symbol', 'sort'],
@@ -673,6 +738,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '46664:41427',
 		usage: 'Reserved for sort diagram symbol.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'diagram-symbol-stored-data': {
 		keywords: ['diagram', 'symbol', 'stored data'],
@@ -683,6 +749,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '44846:12746',
 		usage: 'Reserved for stored data diagram symbol.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'diagram-symbol-summing-junction': {
 		keywords: ['diagram', 'symbol', 'summing junction', 'cross'],
@@ -693,6 +760,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '44846:13215',
 		usage: 'Reserved for summing junction diagram symbol.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'diagram-symbol-terminator': {
 		keywords: ['diagram', 'symbol', 'terminator', 'terminal', 'start point', 'end point'],
@@ -703,6 +771,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '44846:12338',
 		usage: 'Reserved for terminator (start or end point) diagram symbol.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'distribute-spacing-horizontal': {
 		keywords: ['Distribute', 'Horizontal spacing', 'Tidy up', 'Clean up'],
@@ -714,6 +783,7 @@ const metadata: IconMetadata = {
 		id: '40576:10120',
 		usage:
 			'Evenly distributing the horizontal space between multiple selected objects on Whiteboards',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'distribute-spacing-vertical': {
 		keywords: ['Distribute', 'Vertical spacing', 'Clean up', 'Tidy'],
@@ -725,6 +795,7 @@ const metadata: IconMetadata = {
 		id: '40573:9585',
 		usage:
 			'Evenly distributing the vertical space between multiple selected objects on Whiteboards',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'divider-element': {
 		keywords: ['divider', 'line break', 'horizontal rule'],
@@ -736,6 +807,7 @@ const metadata: IconMetadata = {
 		id: '37481:23722',
 		usage: 'Reserved for inserting divider elements in Confluence',
 		slackChannel: '#editor-controls-project',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'dock-toolbar-top': {
 		keywords: ['dock to top', 'fix to top', 'pin to top'],
@@ -747,6 +819,7 @@ const metadata: IconMetadata = {
 		id: '40591:17031',
 		usage: 'Reserved for docking a toolbar to the top of a page',
 		slackChannel: '#Editor-design',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	draw: {
 		keywords: ['pencil', 'drawing', 'annotate'],
@@ -758,6 +831,7 @@ const metadata: IconMetadata = {
 		id: '43245:5629',
 		usage: 'For drawing and annotation',
 		slackChannel: '#icon-contributions',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'drop-shadow': {
 		keywords: ['Drop shadow'],
@@ -768,6 +842,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '34970:8105',
 		usage: 'Toggle drop shadow on and off',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	duplicate: {
 		keywords: ['clone', 'duplicate', 'plus'],
@@ -779,6 +854,7 @@ const metadata: IconMetadata = {
 		id: '34645:8165',
 		usage: 'Reserved for cloning and duplicating objects.',
 		slackChannel: '#icon-contributions',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	editions: {
 		keywords: ['gem', 'premium', 'diamond', 'precious stone', 'editions'],
@@ -790,6 +866,7 @@ const metadata: IconMetadata = {
 		id: '13269:2278',
 		usage:
 			'Reserved for representing premium features and functionality. Editions may replace the current premium sparkle icon.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'expand-element': {
 		keywords: ['expand', 'editor object'],
@@ -801,6 +878,7 @@ const metadata: IconMetadata = {
 		id: '37481:1524',
 		usage: 'Reserved for inserting expand elements in Confluence',
 		slackChannel: '#editor-controls-project',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	eyedropper: {
 		keywords: ['eyedropper', 'pipette', 'color picker', 'color sample'],
@@ -812,6 +890,7 @@ const metadata: IconMetadata = {
 		id: '43249:35526',
 		usage: 'Sampling a color with a color picker',
 		slackChannel: '#icon-contributions',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'field-text': {
 		keywords: ['form', 'input', 'label', 'cursor', 'text field'],
@@ -822,6 +901,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '15048:9987',
 		usage: 'Multi purpose',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'folder-shared': {
 		keywords: ['Shared', 'User', 'Public'],
@@ -833,6 +913,7 @@ const metadata: IconMetadata = {
 		id: '42075:19713',
 		usage: 'Reserved for shared folders',
 		slackChannel: '#feedback-loom-vizrefresh',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'generative-date': {
 		keywords: ['calendar', 'suggested date'],
@@ -843,6 +924,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '46125:5168',
 		usage: 'Reserved for suggested dates.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'generative-indicator': {
 		keywords: ['AI', 'suggested', 'generative', 'suggestion'],
@@ -853,6 +935,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '46125:641',
 		usage: 'Reserved for indicating generative and suggested content.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	gift: {
 		keywords: ['gift', 'present'],
@@ -863,6 +946,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '38217:3180',
 		usage: 'User-selectable icon choice for calendars',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'globe-strikethrough': {
 		keywords: ['globe', 'strikethrough', 'private', 'not public'],
@@ -873,6 +957,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '42096:69001',
 		usage: 'Known uses: Limited share permissions which are not public',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'group-selection': {
 		keywords: ['group', 'selection', 'layers'],
@@ -883,6 +968,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '34895:31327',
 		usage: 'Grouping selected objects in Whiteboards',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'group-ungroup-selection': {
 		keywords: ['ungroup', 'selection', 'layers'],
@@ -893,6 +979,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '34895:31739',
 		usage: 'Ungrouping selected objects in Whiteboards',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'hand-closed': {
 		keywords: ['hand tool', 'closed hand', 'grab', 'moving'],
@@ -903,6 +990,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '46664:10045',
 		usage: 'Known uses: Hand tool in Whiteboards when actively moving objects.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'hand-open': {
 		keywords: ['hand tool', 'open hand', 'move tool'],
@@ -913,6 +1001,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '46664:8903',
 		usage: 'Known uses: Hand tool in Whiteboards for moving objects.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'hand-raised': {
 		keywords: ['hand', 'farewell', 'wave'],
@@ -923,6 +1012,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '34895:34788',
 		usage: 'Used for farewell feed in Atlassian Home.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	history: {
 		keywords: ['version control', 'past', 'arrow', 'clock', 'time', 'history', 'recent'],
@@ -934,6 +1024,7 @@ const metadata: IconMetadata = {
 		id: '42075:14213',
 		usage: 'Reserved for history and recent',
 		slackChannel: '#feedback-loom-vizrefresh',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	hourglass: {
 		keywords: [],
@@ -945,6 +1036,7 @@ const metadata: IconMetadata = {
 		id: '44510:5003',
 		usage: 'Aging or expiring items',
 		slackChannel: 'joel unger',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'if-else': {
 		keywords: ['condition', 'statement', 'branch'],
@@ -956,6 +1048,7 @@ const metadata: IconMetadata = {
 		id: '37740:3430',
 		usage: 'Reserved for If Else conditions',
 		slackChannel: '#help-automation-design',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'image-alt-text': {
 		keywords: [],
@@ -967,6 +1060,7 @@ const metadata: IconMetadata = {
 		id: '39011:1640',
 		usage: 'Reserved for creating alt text for an image',
 		slackChannel: '#editor-design',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'image-crop': {
 		keywords: ['crop', 'crop tool', 'trim'],
@@ -977,6 +1071,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '39049:1523',
 		usage: 'Reserved for cropping images',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'image-strikethrough': {
 		keywords: ['image', 'strikethrough', 'hide images'],
@@ -988,6 +1083,7 @@ const metadata: IconMetadata = {
 		id: '46133:1790',
 		usage: 'Known uses: Represents "hide images" action in Loom Workflows.',
 		slackChannel: '#pod-workflows',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	incognito: {
 		keywords: ['Whiteboards', 'Private', 'Incognito'],
@@ -998,6 +1094,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '34970:7547',
 		usage: 'Toggle Whiteboards private mode on and off.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	initiative: {
 		keywords: ['crystal ball', 'system object', 'work collection', 'work type'],
@@ -1008,6 +1105,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '25239:6752',
 		usage: 'Reserved for initiative work type.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	jira: {
 		keywords: [],
@@ -1018,6 +1116,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '34970:9609',
 		usage: 'Representing JIRA',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'jira-add': {
 		keywords: ['Jira', 'Work items', 'Create'],
@@ -1028,6 +1127,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '40922:9669',
 		usage: 'Reserved for adding Jira work items',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'jira-upload': {
 		keywords: ['Jira', 'Work items', 'Import', 'Arrow up'],
@@ -1038,6 +1138,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '40922:10304',
 		usage: 'Reserved for importing Jira work items',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	kanban: {
 		keywords: [],
@@ -1049,6 +1150,7 @@ const metadata: IconMetadata = {
 		id: '44028:34212',
 		usage: 'Kanban board',
 		slackChannel: '@joel unger',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'layout-five-columns': {
 		keywords: ['layout', 'columns', '5 col', '5 cols'],
@@ -1059,6 +1161,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '41494:11358',
 		usage: 'Reserved for 5 column layout option in Confluence Editor.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'layout-four-columns': {
 		keywords: ['layout', 'columns', '4 col', '4 cols'],
@@ -1069,6 +1172,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '41494:10898',
 		usage: 'Reserved for 4 columns layout option in Confluence Editor.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'layout-three-columns-sidebars-left': {
 		keywords: ['layout', 'columns', '3 col', '3 cols', 'sidebars', 'asides'],
@@ -1079,6 +1183,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '43213:8591',
 		usage: 'Reserved for 3 column layout with 2 sidebars on left option in Confluence Editor.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'layout-three-columns-sidebars-right': {
 		keywords: ['layout', 'columns', '3 col', '3 cols', 'sidebars', 'asides'],
@@ -1089,6 +1194,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '43213:12486',
 		usage: 'Reserved for 3 column layout with 2 sidebars on right option in Confluence Editor.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'link-restricted-access': {
 		keywords: ['link', 'strikethrough', 'limited'],
@@ -1099,6 +1205,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '42096:69321',
 		usage: 'Reserved for when there is limited link permissions',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	lozenge: {
 		keywords: ['insert', 'status', 'badge'],
@@ -1109,6 +1216,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '19872:15541',
 		usage: 'Reserved for inserting status lozenges in Editor.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'microphone-strikethrough': {
 		keywords: ['mic', 'no audio', 'off'],
@@ -1119,6 +1227,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '42096:69641',
 		usage: 'Reserved for no microphone input',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'milestone-complete': {
 		keywords: ['milestone', 'completed', 'check mark', 'roadmaps', 'calendar'],
@@ -1129,6 +1238,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '46125:6451',
 		usage: 'Reserved for representing a completed milestone.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'milestone-incomplete': {
 		keywords: ['milestone', 'incompleted', 'roadmaps', 'calendar'],
@@ -1139,6 +1249,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '46125:6899',
 		usage: 'Reserved for representing an incomplete milestone.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'milestone-multiple': {
 		keywords: ['milestone', 'milestones', 'multiple milestones', 'roadmaps', 'calendar'],
@@ -1149,6 +1260,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '46125:5616',
 		usage: 'Reserved for use when multiple milestones occur on a single date or point in time.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'milestone-overdue': {
 		keywords: ['overdue', 'past due', 'milestone', 'roadmaps', 'calendar'],
@@ -1159,6 +1271,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '46125:6064',
 		usage: 'Reserved for representing an overdue milestone.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'node-parallel-bottom-left': {
 		keywords: ['Node', 'Parallel', 'Bottom', 'Left'],
@@ -1169,6 +1282,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '40584:19825',
 		usage: 'Reserved for whiteboard’s node parallel-bottom-left',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'node-parallel-bottom-right': {
 		keywords: ['Node', 'parallel', 'bottom', 'right'],
@@ -1179,6 +1293,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '40584:21557',
 		usage: 'Reserved for whiteboard’s node parallel-bottom-right',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'node-parallel-top-left': {
 		keywords: ['Node', 'Parallel', 'Top', 'Left'],
@@ -1189,6 +1304,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '40584:20487',
 		usage: 'Reserved for whiteboard’s node parallel-top-left',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'node-parallel-top-right': {
 		keywords: ['Node', 'parallel', 'top', 'right'],
@@ -1199,6 +1315,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '40584:22039',
 		usage: 'Reserved for whiteboard’s node parallel-top-right',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'node-single-left': {
 		keywords: ['Node', 'Single', 'Left'],
@@ -1209,6 +1326,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '40584:19295',
 		usage: 'Reserved for whiteboard’s node single-left alignment',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'node-single-right': {
 		keywords: ['Node', 'single', 'right'],
@@ -1219,6 +1337,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '40584:21027',
 		usage: 'Reserved for whiteboard’s node single-right',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	notepad: {
 		keywords: ['Card', 'Note', 'Notepad', 'Memo'],
@@ -1229,6 +1348,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '40949:7714',
 		usage: "Whiteboard component 'card'",
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'page-live-doc': {
 		keywords: ['page', 'live edit', 'lightning bolt', 'multiplayer', 'document', 'live doc'],
@@ -1239,6 +1359,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '34342:7619',
 		usage: 'Reserved for Live Document content type.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'paint-brush': {
 		keywords: ['brush', 'appearance', 'paint'],
@@ -1249,6 +1370,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '14012:6657',
 		usage: 'Multi purpose',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'paint-roller': {
 		keywords: ['roller', 'background', 'paint'],
@@ -1259,6 +1381,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '14012:6658',
 		usage: 'Multi purpose',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	panel: {
 		keywords: ['panel', 'card'],
@@ -1269,6 +1392,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '37184:3289',
 		usage: 'Panel category in Confluence',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'party-popper': {
 		keywords: ['party', 'celebrate', 'celebration', 'confetti'],
@@ -1279,6 +1403,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '38217:3528',
 		usage: 'User-selectable icon choice for calendars',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	pencil: {
 		keywords: ['compose', 'write', 'pen'],
@@ -1290,6 +1415,7 @@ const metadata: IconMetadata = {
 		id: '42075:12317',
 		usage: 'Known uses: compose video title in Loom',
 		slackChannel: '#feedback-loom-vizrefresh',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'person-voiceover': {
 		keywords: ['voice', 'speak', 'speech', 'human', 'user'],
@@ -1301,6 +1427,7 @@ const metadata: IconMetadata = {
 		id: '42096:64640',
 		usage: 'Known uses: voiceover within Loom Variables',
 		slackChannel: '#feedback-loom-vizrefresh',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'pin-strikethrough': {
 		keywords: ['push pin', 'thumbtack', 'tack', 'unpin'],
@@ -1311,6 +1438,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '42715:8474',
 		usage: 'Known uses: Unpinning comments in Jira',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'plus-circle': {
 		keywords: ['add'],
@@ -1322,6 +1450,7 @@ const metadata: IconMetadata = {
 		id: '42075:31518',
 		usage: 'Known uses: add task in Loom',
 		slackChannel: '#feedback-loom-vizrefresh',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	power: {
 		keywords: ['energy', 'turn on', 'turn off', 'power off'],
@@ -1333,6 +1462,7 @@ const metadata: IconMetadata = {
 		id: '42075:32465',
 		usage: 'Known uses: Turn off Loom companion in Chrome extension',
 		slackChannel: '#feedback-loom-vizrefresh',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'qr-code': {
 		keywords: ['QR code', 'barcode'],
@@ -1343,6 +1473,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '26733:10661',
 		usage: 'Reserved for QR code experiences.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'queue-pop-in': {
 		keywords: ['Queues', 'pop-in', 'pop in', 'move back to sidebar'],
@@ -1353,6 +1484,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '36839:5653',
 		usage: 'Reserved for JSM queue navigation to move back to sidebar',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'queue-pop-out': {
 		keywords: ['pop-out', 'pop out', 'Queues', 'Move out from sidebar'],
@@ -1363,6 +1495,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '36849:2586',
 		usage: 'Reserved for JSM queue navigation to pop out from sidebar',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	randomize: {
 		keywords: ['randomize', 'randomise', 'shuffle'],
@@ -1373,6 +1506,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '46664:37047',
 		usage: 'Reserved for randomizing or shuffling functionality.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	repeat: {
 		keywords: ['recur', 'recurring', 'repeat', 'repeating'],
@@ -1384,6 +1518,7 @@ const metadata: IconMetadata = {
 		id: '39662:2817',
 		usage: 'Reserved for setting objects to recur (eg Work items, Forms)',
 		slackChannel: '#horizon-pandora-eng',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'reply-left': {
 		keywords: ['arrow', 'reply', 'respond', 'message'],
@@ -1394,6 +1529,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '42096:69961',
 		usage: 'Known uses: replying to a message thread',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'reply-right': {
 		keywords: [],
@@ -1404,6 +1540,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '42096:70281',
 		usage: 'Known uses: replying to a message thread',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	return: {
 		keywords: ['submit', 'return', 'enter', 'confirm'],
@@ -1415,6 +1552,7 @@ const metadata: IconMetadata = {
 		id: '42181:10648',
 		usage: 'Reserved for submitting text fields without dedicated button, mainly AI prompts',
 		slackChannel: '#avp-design',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'roadmaps-plan': {
 		keywords: ['roadmaps', 'roadmap', 'plan'],
@@ -1425,6 +1563,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '9267:17512',
 		usage: 'Reserved for roadmaps plan.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'roadmaps-service': {
 		keywords: ['roadmaps', 'service', 'roadmap'],
@@ -1435,6 +1574,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '9267:17513',
 		usage: 'Reserved for roadmaps service.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	save: {
 		keywords: ['floppy disk', 'save', 'floppy drive', 'storage', 'diskette'],
@@ -1446,6 +1586,7 @@ const metadata: IconMetadata = {
 		id: '43245:6194',
 		usage: 'Reserved for saving',
 		slackChannel: '#icon-contributions',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'screen-record': {
 		keywords: ['screen recorder', 'camera', 'cam bubble'],
@@ -1456,6 +1597,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '42096:74674',
 		usage: 'Known uses: screen recorder with the cam bubble for Loom',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	section: {
 		keywords: ['section', 'related content'],
@@ -1466,6 +1608,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '34895:35851',
 		usage: 'Used for section tool in Whiteboards',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'shape-diamond': {
 		keywords: ['diamond', 'shape tool'],
@@ -1476,6 +1619,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '34982:50849',
 		usage: 'Diamond shape tool in Whiteboards',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'shape-ellipse': {
 		keywords: ['ellipse', 'circle', 'shape tool'],
@@ -1486,6 +1630,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '34982:50437',
 		usage: 'Ellipse shape tool in Whiteboards',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'shape-parallelogram-skew-left': {
 		keywords: ['parallelogram', 'skewed', 'left', 'shape tool'],
@@ -1496,6 +1641,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '34982:49594',
 		usage: 'Left parallelogram shape tool in Whiteboards',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'shape-parallelogram-skew-right': {
 		keywords: ['parallelogram', 'skewed', 'shape tool', 'right'],
@@ -1506,6 +1652,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '34982:49182',
 		usage: 'Right parallelogram shape tool in Whiteboards',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'shape-rectangle': {
 		keywords: ['shape tool', 'rectangle', 'square'],
@@ -1516,6 +1663,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '34972:46759',
 		usage: 'Rectangle shape tool in Whiteboards',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'shape-rectangle-rounded': {
 		keywords: ['shape tool', 'rectangle', 'rounded', 'square'],
@@ -1526,6 +1674,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '34972:47171',
 		usage: 'Rounded rectangle shape tool in Whiteboards',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'shape-triangle': {
 		keywords: ['triangle', 'shape tool', 'equilateral'],
@@ -1536,6 +1685,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '34982:48712',
 		usage: 'Triangle shape tool in Whiteboards',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'shape-triangle-inverted': {
 		keywords: ['triangle', 'shape tool', 'equilateral'],
@@ -1546,6 +1696,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '34982:51261',
 		usage: 'Upside down triangle shape tool in Whiteboards',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	signature: {
 		keywords: ['signature', 'scribble', 'author', 'authour', 'sticky note', 'post-it'],
@@ -1556,6 +1707,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '34857:1500',
 		usage: 'Toggle author visibility on sticky notes in Whiteboards.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'sort-options': {
 		keywords: ['sorting', 'ordering', 'alphabetization', 'alphabetisation', 'reordering'],
@@ -1566,6 +1718,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '39345:3314',
 		usage: 'Reserved for accessing sorting options.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	spaces: {
 		keywords: ['space', 'spaces', 'projects'],
@@ -1578,6 +1731,7 @@ const metadata: IconMetadata = {
 		usage:
 			'Reserved for use for Jira Projects for now. This will replace the Jira rocket. \n\nMore context: Later, it will eventually replace the Confluence Spaces icon later when Jira Projects -> Jira Spaces. This is a planned phased rollout.',
 		slackChannel: '#jira-design-system-figma-libraries',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'speedometer-left': {
 		keywords: ['speed', 'performance', 'dial', 'slow'],
@@ -1588,6 +1742,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '42096:70985',
 		usage: 'Known uses: video is set to a slower playback speed',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'speedometer-right': {
 		keywords: ['speed', 'performance', 'dial', 'fast'],
@@ -1598,6 +1753,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '14531:7329',
 		usage: 'Known uses: video is set to a faster playback speed',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'speedometer-up': {
 		keywords: ['speed', 'performance', 'dial'],
@@ -1608,6 +1764,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '42096:70665',
 		usage: 'Known uses: video is set a normal playback speed',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'split-parallel': {
 		keywords: ['router', 'branches'],
@@ -1619,6 +1776,7 @@ const metadata: IconMetadata = {
 		id: '38222:3275',
 		usage: 'Reserved for split parallel branches in Automation',
 		slackChannel: '#help-automation-design',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	stamp: {
 		keywords: ['stamp', 'rubber stamp', 'handstamp'],
@@ -1629,6 +1787,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '34895:33830',
 		usage: 'Used for stamp tool in Whiteboards',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	sticker: {
 		keywords: ['sticker', 'peel-off'],
@@ -1639,6 +1798,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '34895:33198',
 		usage: 'Used for sticker tool in Whiteboards',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'stroke-curvature-curved': {
 		keywords: ['line tool', 'shape property', 'stroke style', 'border', 'smooth'],
@@ -1649,6 +1809,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '34982:53538',
 		usage: 'Reserved for curved line type setting for line tool in Whiteboards.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'stroke-curvature-dynamic': {
 		keywords: ['line tool', 'shape property', 'stroke style', 'border'],
@@ -1659,6 +1820,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '34982:53072',
 		usage: 'Reserved for dynamic line type setting for line tool in Whiteboards',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'stroke-curvature-straight': {
 		keywords: ['line tool', 'shape property', 'stroke style', 'sharp corners', 'border'],
@@ -1669,6 +1831,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '34982:54004',
 		usage: 'Reserved for straight line type setting for line tool in Whiteboards',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'stroke-properties': {
 		keywords: ['stroke properties', 'border options'],
@@ -1679,6 +1842,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '34982:54840',
 		usage: 'Reserved for stroke properties in Whiteboards',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'stroke-style-dashed': {
 		keywords: ['border', 'stroke', 'border style', 'dashed', 'outline'],
@@ -1689,6 +1853,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '34972:44125',
 		usage: 'Reserved for representing dashed stroke and border styles.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'stroke-style-dotted': {
 		keywords: ['border', 'stroke', 'border style', 'dotted', 'outline'],
@@ -1699,6 +1864,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '34972:42884',
 		usage: 'Reserved for representing dotted stroke and border styles.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'stroke-style-solid': {
 		keywords: ['border', 'stroke', 'border style', 'solid', 'outline'],
@@ -1709,6 +1875,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '34959:42208',
 		usage: 'Reserved for representing solid stroke and border styles.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	studio: {
 		keywords: ['studio', 'atlassian studio'],
@@ -1719,6 +1886,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '42768:12786',
 		usage: 'Reserved for functional representation of Atlassian Studio',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'suggested-edit': {
 		keywords: ['AI', 'suggestion', 'suggested edit', 'suggest', 'generative'],
@@ -1729,6 +1897,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '37184:4281',
 		usage: 'Reserved for suggestions powered by Atlassian Intelligence',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	sunset: {
 		keywords: ['sun', 'horizon', 'farewell', 'goodbye', 'sky', 'farewell feed'],
@@ -1739,6 +1908,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '33454:1935',
 		usage: 'Farewell feed in hello.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	swap: {
 		keywords: ['Swap', 'Jira status', 'Whiteboards', 'Smart section'],
@@ -1749,6 +1919,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '34961:2665',
 		usage: 'Swapping between Jira tickets in Whiteboard smart section',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'switch-case': {
 		keywords: ['conditions', 'if', 'else', 'else if'],
@@ -1760,6 +1931,7 @@ const metadata: IconMetadata = {
 		id: '38222:4582',
 		usage: 'Reserved for switch case conditions in automation',
 		slackChannel: '#help-automation-design',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	sync: {
 		keywords: ['sync', 'synch', 'synchronise', 'synchronize', 'saving', 'arrows'],
@@ -1770,6 +1942,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '33429:18763',
 		usage: 'Reserved for syncing changes and save operations.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	tab: {
 		keywords: ['key', 'tab'],
@@ -1781,6 +1954,7 @@ const metadata: IconMetadata = {
 		id: '42430:37472',
 		usage: 'Reserved for representing tab key.',
 		slackChannel: '#icon-contributions',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'takeout-container': {
 		keywords: ['takeout', 'food', 'takeaway'],
@@ -1791,6 +1965,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '14151:10764',
 		usage: 'Known usages: Alternative option for food emoji category.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	talent: {
 		keywords: ['talent', 'person', 'star'],
@@ -1801,6 +1976,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '41418:13168',
 		usage: 'Reserved for functional representation of Talent app',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'teamwork-graph': {
 		keywords: ['teamwork graph'],
@@ -1811,6 +1987,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '48309:5050',
 		usage: 'Reserved for Teamwork Graph features.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	telescope: {
 		keywords: ['telescope', 'scope', 'discover', 'discovery'],
@@ -1821,6 +1998,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '43218:2261',
 		usage: 'Known uses: Discover feature in Atlassian Home',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	template: {
 		keywords: ['template', 'templates'],
@@ -1831,6 +2009,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '34895:30637',
 		usage: 'Used for templates in Whiteboards',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'text-adjust-length': {
 		keywords: ['text length', 'change text length', 'adjust text length'],
@@ -1841,6 +2020,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '46226:5732',
 		usage: 'Reserved for accessing text length generative AI actions.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'text-audio-transcript': {
 		keywords: ['microphone', 'script', 'paragraph'],
@@ -1852,6 +2032,7 @@ const metadata: IconMetadata = {
 		id: '42096:57122',
 		usage: 'Reserved for viewing transcript in Loom',
 		slackChannel: '#feedback-loom-vizrefresh',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'text-bold-italic': {
 		keywords: ['Text', 'Type', 'Font', 'Bold', 'Italic'],
@@ -1862,6 +2043,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '40584:14547',
 		usage: 'Reserved for bold text with italic',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'text-bold-italic-strikethrough': {
 		keywords: ['Text', 'Type', 'strikethrough', 'Bold', 'Italic'],
@@ -1872,6 +2054,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '40581:13117',
 		usage: 'Reserved for italic bold text with a strikethrough',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'text-bold-italic-underline': {
 		keywords: ['Text', 'Type', 'Font', 'Bold', 'Italic', 'Underline'],
@@ -1882,6 +2065,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '40581:14223',
 		usage: 'Reserved for bold italic text with underline',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'text-bold-italic-underline-strikethrough': {
 		keywords: ['text formatting', 'bold', 'underline', 'strikethrough', 'italic'],
@@ -1892,6 +2076,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '40743:11377',
 		usage: 'Reserved for bold italic text with underline and strikethrough',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'text-bold-strikethrough': {
 		keywords: ['Text', 'Type', 'Bold', 'strikethrough'],
@@ -1902,6 +2087,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '40581:12385',
 		usage: 'Reserved for bold strikethrough text',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'text-bold-underline': {
 		keywords: ['bold', 'underline', 'text formatting'],
@@ -1912,6 +2098,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '40743:10409',
 		usage: 'Reserved for bold text with underline',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'text-bold-underline-strikethrough': {
 		keywords: ['text formatting', 'bold', 'strikethrough', 'underline'],
@@ -1922,6 +2109,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '40743:12351',
 		usage: 'Reserved for bold text with underline and strikethrough',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'text-conclusion-add': {
 		keywords: ['text', 'conclusion', 'AI', 'generative'],
@@ -1932,6 +2120,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '37184:2645',
 		usage: 'Confluence Editor AI action for generating a conclusion',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'text-heading-five': {
 		keywords: ['heading 5', 'H5', 'text style'],
@@ -1943,6 +2132,7 @@ const metadata: IconMetadata = {
 		id: '42216:18751',
 		usage: 'Reserved for H5 / Heading 5 text style',
 		slackChannel: '#editor-design',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'text-heading-four': {
 		keywords: ['heading 4', 'H4', 'text style'],
@@ -1954,6 +2144,7 @@ const metadata: IconMetadata = {
 		id: '42216:17878',
 		usage: 'Reserved for H4 / Heading 4 text style',
 		slackChannel: '#editor-design',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'text-heading-one': {
 		keywords: ['Heading 1', 'H1', 'text style'],
@@ -1965,6 +2156,7 @@ const metadata: IconMetadata = {
 		id: '42015:7585',
 		usage: 'Reserved for H1 / Heading 1 text style',
 		slackChannel: '#Editor-design',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'text-heading-six': {
 		keywords: ['heading 6', 'H6', 'text style'],
@@ -1976,6 +2168,7 @@ const metadata: IconMetadata = {
 		id: '42216:19624',
 		usage: 'Reserved for H6 / Heading 6 text style',
 		slackChannel: '#editor-design',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'text-heading-three': {
 		keywords: ['heading 3', 'H3', 'text style'],
@@ -1987,6 +2180,7 @@ const metadata: IconMetadata = {
 		id: '42106:77338',
 		usage: 'Reserved for H3 / Heading 3 text style',
 		slackChannel: '#editor-design',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'text-heading-two': {
 		keywords: ['Heading 2', 'H2', 'text style'],
@@ -1998,6 +2192,7 @@ const metadata: IconMetadata = {
 		id: '42106:35610',
 		usage: 'Reserved for H2 / Heading 2 text style',
 		slackChannel: '#editor-design',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'text-introduction-add': {
 		keywords: ['text', 'introduction', 'AI', 'generative'],
@@ -2008,6 +2203,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '37184:2993',
 		usage: 'Confluence Editor AI action for generating an introduction',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'text-italic-strikethrough': {
 		keywords: ['Text', 'Type', 'Font', 'Italic', 'Strikethrough'],
@@ -2018,6 +2214,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '40584:16873',
 		usage: 'Reserved for italic text with strikethrough',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'text-italic-underline': {
 		keywords: ['Text', 'Type', 'Font', 'Underline', 'Italic'],
@@ -2028,6 +2225,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '40584:17539',
 		usage: 'Reserved for italic text with underline',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'text-italic-underline-strikethrough': {
 		keywords: ['text formatting', 'italic', 'underline', 'strikethrough'],
@@ -2038,6 +2236,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '40743:13080',
 		usage: 'Reserved for italic text with underline and strikethrough',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'text-lengthen': {
 		keywords: ['text', 'lengthen', 'expand', 'AI', 'generative'],
@@ -2048,6 +2247,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '37184:3933',
 		usage: 'Lengthening text content with Atlassian Intelligence',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'text-letter-case': {
 		keywords: [
@@ -2067,6 +2267,7 @@ const metadata: IconMetadata = {
 		id: '44118:41694',
 		usage: 'Reserved for letter casing and text-transform',
 		slackChannel: '#icon-contributions',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'text-paragraph': {
 		keywords: ['text', 'paragraph break', 'AI', 'generative', 'reformat'],
@@ -2078,6 +2279,7 @@ const metadata: IconMetadata = {
 		id: '37184:4629',
 		usage:
 			'Confluence Editor AI action for reformatting paragraphs into multiple shorter paragraphs',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'text-rephrase': {
 		keywords: ['text', 'rephrase', 'AI', 'generative'],
@@ -2088,6 +2290,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '37184:3585',
 		usage: 'Confluence Editor AI action for rephrasing text',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'text-subscript': {
 		keywords: ['subscript', 'text formatting'],
@@ -2099,6 +2302,7 @@ const metadata: IconMetadata = {
 		id: '44549:637',
 		usage: 'Reserved for subscript text formatting.',
 		slackChannel: '#editor-design',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'text-superscript': {
 		keywords: ['superscript', 'text formatting'],
@@ -2110,6 +2314,7 @@ const metadata: IconMetadata = {
 		id: '44556:4256',
 		usage: 'Reserved for superscript text formatting.',
 		slackChannel: '#Editor-design',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'text-underline-strikethrough': {
 		keywords: ['text', 'type', 'font', 'strikethrough', 'underline'],
@@ -2120,6 +2325,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '40584:18624',
 		usage: 'Reserved for underline text with a strikethrough',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	ticket: {
 		keywords: ['stub', 'ticket'],
@@ -2130,6 +2336,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '14196:13220',
 		usage: 'Multi purpose',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	tidy: {
 		keywords: ['Tidy', 'Clean up', 'Tidy up', 'Grid'],
@@ -2140,6 +2347,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '34970:11670',
 		usage: 'Tidy up objects on Whiteboards',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	variable: {
 		keywords: [],
@@ -2151,6 +2359,7 @@ const metadata: IconMetadata = {
 		id: '42096:36042',
 		usage: 'Reserved for Variables functionality in Loom',
 		slackChannel: '#feedback-loom-vizrefresh',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'vehicle-airplane': {
 		keywords: ['plane', 'airplane', 'aeroplane', 'travel', 'vehicle'],
@@ -2161,6 +2370,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '38223:3876',
 		usage: 'User-selectable icon choice for calendars',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'vehicle-train': {
 		keywords: ['transportation', 'vehicle', 'car'],
@@ -2171,6 +2381,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '13786:9073',
 		usage: 'Known usages: Alternative option for transport emoji category.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'video-captions-stylized': {
 		keywords: ['CC', 'subtitles'],
@@ -2182,6 +2393,7 @@ const metadata: IconMetadata = {
 		id: '42096:48503',
 		usage: 'Reserved for stylized captions functionality in Loom',
 		slackChannel: '#feedback-loom-vizrefresh',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'video-clip': {
 		keywords: ['film', 'film strip', 'video', 'media', 'file'],
@@ -2193,6 +2405,7 @@ const metadata: IconMetadata = {
 		id: '42075:11695',
 		usage: 'Known uses: add clip in Loom video editor',
 		slackChannel: '#feedback-loom-vizrefresh',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'video-closed-captions': {
 		keywords: ['CC', 'closed captions', 'subtitles'],
@@ -2203,6 +2416,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '42096:68297',
 		usage: 'Reserved for enabling closed captions for videos.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'video-closed-captions-filled': {
 		keywords: [],
@@ -2213,6 +2427,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '42096:68617',
 		usage: 'Reserved to show that closed captions are enabled for videos.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'video-hd': {
 		keywords: ['high definition', 'hi def'],
@@ -2223,6 +2438,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '40278:3615',
 		usage: 'Single purpose - Reserved for enabling high definition videos',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'video-hd-filled': {
 		keywords: ['high definition', 'hi def'],
@@ -2233,6 +2449,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '40650:21827',
 		usage: 'Single purpose - Reserved to show that high definition is enabled for videos',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'video-miniplayer': {
 		keywords: ['picture in picture', 'PIP'],
@@ -2244,6 +2461,7 @@ const metadata: IconMetadata = {
 		id: '42075:24003',
 		usage: 'Reserved for picture-in-picture functionality for videos.',
 		slackChannel: '#feedback-loom-vizrefresh',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'video-overlay-tools': {
 		keywords: ['overlays', 'video', 'add text', 'add arrow', 'add box'],
@@ -2254,6 +2472,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '42096:78317',
 		usage: 'Reserved for overlays over a video.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'video-play-circle': {
 		keywords: ['video', 'start'],
@@ -2265,6 +2484,7 @@ const metadata: IconMetadata = {
 		id: '42075:26112',
 		usage: 'Known uses: play video in Loom',
 		slackChannel: '#feedback-loom-vizrefresh',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'video-record': {
 		keywords: ['live', 'circle', 'ellipse', 'recording'],
@@ -2276,6 +2496,7 @@ const metadata: IconMetadata = {
 		id: '42087:34452',
 		usage: 'Reserved for when a video is recording',
 		slackChannel: '#feedback-loom-vizrefresh',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'video-rewind-overlay': {
 		keywords: ['rewind back'],
@@ -2286,6 +2507,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '42096:72772',
 		usage: 'Reserved for rewinding videos.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'video-skip-backward-five': {
 		keywords: ['video', 'media', 'skip', 'forward', '5', 'seconds'],
@@ -2296,6 +2518,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '42096:67913',
 		usage: 'Reserved for skipping video content backward by 5 seconds.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'video-skip-forward-five': {
 		keywords: ['video', 'media', 'skip', 'forward', '5', 'seconds'],
@@ -2306,6 +2529,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '42096:72132',
 		usage: 'Reserved for skipping video content forward by 5 seconds.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'video-strikethrough': {
 		keywords: ['video', 'no video', 'camera off', 'off'],
@@ -2316,6 +2540,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '42096:72452',
 		usage: 'Reserved for no video input',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'video-theater-mode': {
 		keywords: ['theater mode', 'view', 'viewport', 'video', 'wide'],
@@ -2326,6 +2551,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '42096:77623',
 		usage: 'Reserved for theater mode functionality within video player.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'video-timeline-clip-split': {
 		keywords: ['split', 'clip', 'edit', 'enhance', 'video', 'timeline', 'trim'],
@@ -2336,6 +2562,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '42096:75687',
 		usage: 'Reserved for split clip functionality in Loom.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'video-timeline-editor': {
 		keywords: ['track', 'edit', 'video'],
@@ -2347,6 +2574,7 @@ const metadata: IconMetadata = {
 		id: '42087:34943',
 		usage: 'Reserved for timeline editor functionality in Loom',
 		slackChannel: '#feedback-loom-vizrefresh',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'video-watch-later-remove': {
 		keywords: ['bookmark', 'x', 'remove', 'cross'],
@@ -2357,6 +2585,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '42096:83109',
 		usage: 'Reserved for watch later functionality in Loom',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'video-watch-later-saved': {
 		keywords: ['bookmark', 'check', 'saved'],
@@ -2367,6 +2596,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '42096:80171',
 		usage: 'Reserved for watch later functionality in Loom',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'view-type-board-home': {
 		keywords: ['board view', 'databases', 'home', 'default view'],
@@ -2377,6 +2607,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '37878:2088',
 		usage: 'Home view for database board layout',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'view-type-card-home': {
 		keywords: ['card view', 'databases', 'home', 'default view'],
@@ -2387,6 +2618,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '37849:3085',
 		usage: 'Home view for database card layout',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'view-type-table-home': {
 		keywords: ['table view', 'databases', 'home', 'default view'],
@@ -2397,6 +2629,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '37849:2650',
 		usage: 'Home view for database table layout',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	vulnerability: {
 		keywords: ['vulnerability', 'security', 'alert', 'warning'],
@@ -2407,6 +2640,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '22279:20982',
 		usage: 'Reserved for security vulnerabilities.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	wallet: {
 		keywords: ['money', 'sales', 'payment', 'wallet'],
@@ -2417,6 +2651,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '14151:10946',
 		usage: 'Multi purpose',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'warning-outline': {
 		keywords: ['warning', 'exclamation', 'overdue', 'past due', 'late'],
@@ -2427,6 +2662,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '36692:9337',
 		usage: 'Low-impact warnings. Overdue dates in Atlassian Home.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	webhook: {
 		keywords: ['api', 'callback', 'payload'],
@@ -2438,6 +2674,7 @@ const metadata: IconMetadata = {
 		id: '37740:2659',
 		usage: 'Reserved for using a webhook to send data between applications via HTTP',
 		slackChannel: '#help-automation-design',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'welcome-feed': {
 		keywords: ['welcome', 'hello', 'blog', 'smile', 'intro'],
@@ -2449,6 +2686,7 @@ const metadata: IconMetadata = {
 		id: '32051:1614',
 		usage: 'Known uses: Intro blog feed picker on Hello',
 		slackChannel: '#cc-insights-and-reporting',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'work-item-add': {
 		keywords: ['work item', 'work type', 'add', 'plus', 'create'],
@@ -2459,6 +2697,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '39421:3488',
 		usage: 'Reserved for adding or creating a new work item.',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'workflow-controls': {
 		keywords: ['orchestration'],
@@ -2470,6 +2709,7 @@ const metadata: IconMetadata = {
 		id: '38222:5661',
 		usage: 'Reserved for workflow controls in automation',
 		slackChannel: '#help-automation-design',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	wrench: {
 		keywords: ['wrench', 'spanner', 'tool'],
@@ -2480,6 +2720,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '14520:13419',
 		usage: 'Multi purpose',
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 };
 

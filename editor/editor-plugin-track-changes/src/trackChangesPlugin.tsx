@@ -1,40 +1,64 @@
+import React from 'react';
+
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { createTrackChangesPlugin, trackChangesPluginKey } from './pm-plugins/main';
 import { TOGGLE_TRACK_CHANGES_ACTION as ACTION } from './pm-plugins/types';
 import type { TrackChangesPlugin } from './trackChangesPluginType';
+import { TrackChangesToolbarButton } from './ui/TrackChangesToolbarButton';
 
-export const trackChangesPlugin: TrackChangesPlugin = ({ api }) => ({
-	name: 'trackChanges',
-	pmPlugins() {
-		return [
-			{
-				name: 'trackChangesPlugin',
-				plugin: () => createTrackChangesPlugin(api),
-			},
-		];
-	},
-	commands: {
-		toggleChanges: ({ tr }: { tr: Transaction }) => {
-			return tr.setMeta(trackChangesPluginKey, {
-				action: ACTION.TOGGLE_TRACK_CHANGES,
-			});
+export const trackChangesPlugin: TrackChangesPlugin = ({ api, config: options }) => {
+	const primaryToolbarComponent = () => {
+		return <TrackChangesToolbarButton api={api} />;
+	};
+
+	if (options?.showOnToolbar === true) {
+		api?.primaryToolbar?.actions?.registerComponent({
+			name: 'trackChanges',
+			component: primaryToolbarComponent,
+		});
+	}
+
+	return {
+		name: 'trackChanges',
+		pmPlugins() {
+			return [
+				{
+					name: 'trackChangesPlugin',
+					plugin: () => createTrackChangesPlugin(api),
+				},
+			];
 		},
-	},
-	getSharedState: (editorState: EditorState | undefined) => {
-		if (!editorState) {
+		commands: {
+			toggleChanges: ({ tr }: { tr: Transaction }) => {
+				return tr.setMeta(trackChangesPluginKey, {
+					action: ACTION.TOGGLE_TRACK_CHANGES,
+				});
+			},
+			resetBaseline: ({ tr }: { tr: Transaction }) => {
+				if (!api?.trackChanges?.sharedState.currentState()?.isShowDiffAvailable) {
+					return null;
+				}
+				return tr.setMeta(trackChangesPluginKey, {
+					action: ACTION.RESET_BASELINE,
+				});
+			},
+		},
+		getSharedState: (editorState: EditorState | undefined) => {
+			if (!editorState) {
+				return {
+					isDisplayingChanges: false,
+					isShowDiffAvailable: false,
+				};
+			}
 			return {
-				isDisplayingChanges: false,
-				isShowDiffAvailable: false,
+				isDisplayingChanges: Boolean(
+					trackChangesPluginKey.getState(editorState)?.shouldChangesBeDisplayed,
+				),
+				isShowDiffAvailable: Boolean(
+					trackChangesPluginKey.getState(editorState)?.isShowDiffAvailable,
+				),
 			};
-		}
-		return {
-			isDisplayingChanges: Boolean(
-				trackChangesPluginKey.getState(editorState)?.shouldChangesBeDisplayed,
-			),
-			isShowDiffAvailable: Boolean(
-				trackChangesPluginKey.getState(editorState)?.isShowDiffAvailable,
-			),
-		};
-	},
-});
+		},
+	};
+};

@@ -25,25 +25,27 @@ export type PrimaryToolbarPlugin = NextEditorPlugin<
 export type ComponentRegistry = Map<string, ToolbarUIComponentFactory>;
 
 export type ToolbarElementNames =
-	| 'separator'
-	| 'undoRedoPlugin'
-	| 'blockType'
-	| 'textFormatting'
-	| 'alignment'
-	| 'textColor'
-	| 'highlight'
-	| 'hyperlink'
-	| 'toolbarListsIndentation'
-	| 'insertBlock'
-	| 'beforePrimaryToolbar'
-	| 'avatarGroup'
-	| 'findReplace'
 	| 'aiExperience'
 	| 'aiSimplified'
+	| 'alignment'
+	| 'avatarGroup'
+	| 'beforePrimaryToolbar'
+	| 'blockType'
+	| 'findReplace'
+	| 'highlight'
+	| 'hyperlink'
+	| 'insertBlock'
 	| 'loom'
-	| 'spellCheck'
 	| 'overflowMenu'
-	| 'pinToolbar';
+	| 'pinToolbar'
+	| 'selectionExtension'
+	| 'separator'
+	| 'spellCheck'
+	| 'textColor'
+	| 'textFormatting'
+	| 'toolbarListsIndentation'
+	| 'trackChanges'
+	| 'undoRedoPlugin';
 
 export type ToolbarElementConfig = {
 	name: ToolbarElementNames;

@@ -46,12 +46,12 @@ export const TopNavigationExample = () => (
 				<TopNavStart>
 					<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
 					<AppSwitcher label="App switcher" onClick={() => alert('app switcher')} />
-						<AppLogo
-							href="http://www.atlassian.design"
-							icon={ConfluenceIcon}
-							name="Confluence"
-							label="Home page"
-						/>
+					<AppLogo
+						href="http://www.atlassian.design"
+						icon={ConfluenceIcon}
+						name="Confluence"
+						label="Home page"
+					/>
 				</TopNavStart>
 				<TopNavMiddle>
 					<Search onClick={() => alert('mobile search')} label="Search" />

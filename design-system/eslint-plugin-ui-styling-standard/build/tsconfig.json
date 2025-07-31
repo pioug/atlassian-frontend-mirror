@@ -2,7 +2,9 @@
   "extends": "../tsconfig",
   "compilerOptions": {
     "target": "es5",
-    "lib": ["ES2021.String"],
+    "lib": [
+      "ES2021.String"
+    ],
     "paths": {}
   },
   "include": [
@@ -13,6 +15,12 @@
     "../src/**/__tests__/*",
     "../__tests__/*",
     "../src/**/*.test.*",
-    "../src/**/test.*"
+    "../src/**/test.*",
+    "../src/**/examples.*",
+    "../src/**/examples/*",
+    "../src/**/examples/**/*",
+    "../src/**/*.stories.*",
+    "../src/**/stories/*",
+    "../src/**/stories/**/*"
   ]
 }

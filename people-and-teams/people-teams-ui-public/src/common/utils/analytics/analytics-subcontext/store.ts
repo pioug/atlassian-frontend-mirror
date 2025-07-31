@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import { createHook, createStore, type StoreActionApi } from 'react-sweet-state';
 
-type InjectedEventAttributes = { teamId?: string };
+type InjectedEventAttributes = { teamId?: string; consumer?: string };
 type InjectedEventAttributeKey = keyof InjectedEventAttributes;
 
 type PeopleTeamsAnalyticsSubcontextState = {

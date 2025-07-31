@@ -1,4 +1,10 @@
-import type { EditorCommand, NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type {
+	EditorCommand,
+	NextEditorPlugin,
+	OptionalPlugin,
+} from '@atlaskit/editor-common/types';
+import type { HistoryPlugin } from '@atlaskit/editor-plugin-history';
+import { type PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 import type { ShowDiffPlugin } from '@atlaskit/editor-plugin-show-diff';
 
 export type TrackChangesPlugin = NextEditorPlugin<
@@ -9,6 +15,31 @@ export type TrackChangesPlugin = NextEditorPlugin<
 			 * Toggles the displaying of changes in the editor.
 			 */
 			toggleChanges: EditorCommand;
+			/**
+			 * Resets the baseline used for tracking changes in the editor.
+			 */
+			resetBaseline: EditorCommand;
+		};
+		dependencies: [
+			/**
+			 * Primary toolbar plugin for registering the track changes button.
+			 */
+			OptionalPlugin<PrimaryToolbarPlugin>,
+			/**
+			 * For ensuring the tracked changes align with the history
+			 */
+			OptionalPlugin<HistoryPlugin>,
+			/**
+			 * Show diff plugin for showing the changes in a diff view.
+			 */
+			ShowDiffPlugin,
+		];
+		pluginConfiguration?: {
+			/**
+			 * Whether the track changes button should be shown on the toolbar.
+			 * Defaults to false.
+			 */
+			showOnToolbar?: boolean;
 		};
 		sharedState: {
 			/**
@@ -23,6 +54,5 @@ export type TrackChangesPlugin = NextEditorPlugin<
 			 */
 			isShowDiffAvailable: boolean;
 		};
-		dependencies: [ShowDiffPlugin];
 	}
 >;

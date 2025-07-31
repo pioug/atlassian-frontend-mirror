@@ -271,7 +271,9 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 			case 'emoji':
 				return this.getEmojiProps(
 					node,
-					expValEquals('cc_comments_include_path_for_renderer_emojis', 'isEnabled', true) ? path : undefined
+					expValEquals('cc_comments_include_path_for_renderer_emojis', 'isEnabled', true)
+						? path
+						: undefined,
 				);
 			case 'extension':
 			case 'bodiedExtension':

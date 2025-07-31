@@ -13,6 +13,12 @@
     "../src/**/__tests__/*",
     "../src/**/__tests_external__/*",
     "../src/**/*.test.*",
-    "../src/**/test.*"
+    "../src/**/test.*",
+    "../src/**/examples.*",
+    "../src/**/examples/*",
+    "../src/**/examples/**/*",
+    "../src/**/*.stories.*",
+    "../src/**/stories/*",
+    "../src/**/stories/**/*"
   ]
 }

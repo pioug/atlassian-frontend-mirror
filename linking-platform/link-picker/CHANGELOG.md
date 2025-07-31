@@ -1,5 +1,17 @@
 # @atlaskit/link-picker
 
+## 3.9.0
+
+### Minor Changes
+
+- [#191974](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/191974)
+  [`e04653dbc86fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e04653dbc86fd) -
+  NAVX-1184 Removing and fixing eslint a11y rules from linking-platform packages
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.8.4
 
 ### Patch Changes

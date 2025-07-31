@@ -24,6 +24,7 @@ import { floatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar'
 import { focusPlugin } from '@atlaskit/editor-plugin-focus';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { historyPlugin } from '@atlaskit/editor-plugin-history';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import { imageUploadPlugin } from '@atlaskit/editor-plugin-image-upload';
 import { insertBlockPlugin } from '@atlaskit/editor-plugin-insert-block';
@@ -104,6 +105,7 @@ const createPreset = () =>
 				nativeStatusSupported: true,
 			},
 		])
+		.add(historyPlugin)
 		.add(showDiffPlugin)
 		.add(trackChangesPlugin);
 

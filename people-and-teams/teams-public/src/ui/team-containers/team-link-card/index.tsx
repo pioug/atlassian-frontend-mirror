@@ -180,7 +180,7 @@ export const TeamLinkCard = ({
 			attributes,
 		});
 
-		if(openInNewTab) {
+		if (openInNewTab) {
 			e.preventDefault();
 			window.open(link || '#', '_blank', 'noopener, noreferrer');
 		}

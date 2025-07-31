@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-primary-toolbar",
-	"version": "4.1.0",
+	"version": "4.1.2",
 	"description": "Primary toolbar plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -87,6 +87,10 @@
 		}
 	},
 	"platform-feature-flags": {
+		"platform_editor_ai_in_document_streaming": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"platform_editor_undo_redo_find_on_primary_toolbar": {
 			"type": "boolean"
 		}

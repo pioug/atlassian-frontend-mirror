@@ -6,6 +6,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
+import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugin-selection-toolbar';
 
 import type {
@@ -26,6 +27,7 @@ export type SelectionExtensionPlugin = NextEditorPlugin<
 		dependencies: [
 			OptionalPlugin<AnalyticsPlugin>,
 			OptionalPlugin<EditorViewModePlugin>,
+			OptionalPlugin<PrimaryToolbarPlugin>,
 			SelectionToolbarPlugin,
 		];
 		sharedState: SelectionExtensionPluginState | null;

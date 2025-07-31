@@ -129,7 +129,7 @@ export const AppLogo = ({
 	/**
 	 * The icon to render.
 	 */
-	icon: ((props: LogoProps) => JSX.Element);
+	icon: (props: LogoProps) => JSX.Element;
 	/**
 	 * Handler called on click.
 	 */

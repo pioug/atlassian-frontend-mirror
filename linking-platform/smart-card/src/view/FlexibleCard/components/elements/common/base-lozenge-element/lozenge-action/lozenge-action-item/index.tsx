@@ -25,8 +25,7 @@ const LozengeActionItem = ({ appearance, id, onClick, testId, text }: LozengeAct
 	}, []);
 
 	return (
-		// eslint-disable-next-line jsx-a11y/no-static-element-interactions
-		<span onMouseEnter={handleMouseEnter}>
+		<span onMouseEnter={handleMouseEnter} role="presentation">
 			<DropdownItem onClick={handleClick} testId={testId}>
 				<Lozenge
 					appearance={appearance}

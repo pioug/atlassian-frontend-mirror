@@ -10,8 +10,13 @@
     "example-utils/**/*.ts",
     "example-utils/**/*.tsx",
     "src/**/*.ts",
-    "src/**/*.tsx"
+    "src/**/*.tsx",
+    "**/stories.ts",
+    "**/stories.tsx",
+    "**/stories/*.ts",
+    "**/stories/*.tsx",
+    "**/stories/**/*.ts",
+    "**/stories/**/*.tsx"
   ],
-  "compilerOptions": {
-  }
+  "compilerOptions": {}
 }

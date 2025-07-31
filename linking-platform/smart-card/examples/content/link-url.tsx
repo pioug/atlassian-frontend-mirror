@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Link from '@atlaskit/link';
+
 import LinkUrl from '../../src/view/LinkUrl';
 
 export default () => (
@@ -31,8 +33,9 @@ export default () => (
 				<br />
 				<LinkUrl href="https://www.atlassian.com/solutions/devops">
 					<p>Help</p>
-					{/* eslint-disable-next-line @atlaskit/design-system/no-html-anchor, jsx-a11y/anchor-is-valid */}
-					<a>https://www.atlassian.com/solutions/devops</a>
+					<Link href="https://www.atlassian.com/solutions/devops">
+						https://www.atlassian.com/solutions/devops
+					</Link>
 				</LinkUrl>
 			</li>
 			<li>

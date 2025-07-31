@@ -14,11 +14,28 @@
 		"../src/**/__tests__/*",
 		"../src/**/*.test.*",
 		"../src/**/test.*",
-		"../src/**/examples.*"
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
 	],
 	"references": [
 		{
+			"path": "../../../design-system/button/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-history/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-primary-toolbar/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-show-diff/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon-lab/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../editor-common/afm-jira/tsconfig.json"

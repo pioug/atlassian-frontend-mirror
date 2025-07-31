@@ -97,6 +97,9 @@ export type InitialPluginConfiguration = {
 	extensionPlugin?: {
 		__rendererExtensionOptions?: ExtensionPluginOptions['__rendererExtensionOptions'];
 	};
+	trackChangesPlugin?: {
+		showOnToolbar?: boolean;
+	};
 };
 
 /**

@@ -1,5 +1,14 @@
 # @atlaskit/range
 
+## 9.2.0
+
+### Minor Changes
+
+- [#192312](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/192312)
+  [`8deb240800b82`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8deb240800b82) -
+  This cleans up the feature flag references for color contrast improvements, making them fully
+  available to all people.
+
 ## 9.1.5
 
 ### Patch Changes

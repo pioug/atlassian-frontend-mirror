@@ -1,5 +1,14 @@
 # @atlaskit/profilecard
 
+## 23.21.21
+
+### Patch Changes
+
+- [#192008](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/192008)
+  [`191a9be1b1ba0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/191a9be1b1ba0) -
+  added agent edit/duplicate/delete/view/copy action analytics
+- Updated dependencies
+
 ## 23.21.20
 
 ### Patch Changes

@@ -32,10 +32,22 @@
 	},
 	"references": [
 		{
+			"path": "../../design-system/button/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-common/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-history/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-primary-toolbar/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-show-diff/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/icon-lab/tsconfig.app.json"
 		}
 	]
 }

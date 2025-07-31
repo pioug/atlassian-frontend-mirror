@@ -2482,6 +2482,25 @@ test('onMenuClose() function prop to be called on blur', async () => {
 	expect(onMenuCloseSpy).toHaveBeenCalledTimes(1);
 });
 
+test('hitting tab with Other Focusable Elements should not call onMenuClose & onBlur props', async () => {
+	let onMenuCloseSpy = jest.fn();
+	let onBlurSpy = jest.fn();
+	render(
+		<Select
+			{...BASIC_PROPS}
+			onBlur={onBlurSpy}
+			onInputChange={jest.fn()}
+			onMenuClose={onMenuCloseSpy}
+			hasOtherFocusableElements
+		/>,
+	);
+	screen.getByTestId(`${testId}-select--input`)!.focus();
+	const user = userEvent.setup();
+	await user.tab();
+	expect(onMenuCloseSpy).not.toHaveBeenCalled();
+	expect(onBlurSpy).not.toHaveBeenCalled();
+});
+
 cases(
 	'placeholder',
 	({ props, expectPlaceholder = 'Select...' }) => {

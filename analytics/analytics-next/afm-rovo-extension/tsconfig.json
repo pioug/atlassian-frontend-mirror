@@ -16,7 +16,13 @@
 		"../src/**/*.test.*",
 		"../src/**/test.*",
 		"../src/performance/examples.tsx",
-		"../docs/*"
+		"../docs/*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
 	],
 	"references": [
 		{

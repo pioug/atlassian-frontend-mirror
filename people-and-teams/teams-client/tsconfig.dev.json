@@ -26,7 +26,13 @@
 		"**/codemods/**/*.tsx",
 		"./src/mocks/team-link.ts",
 		"./src/mocks/team.ts",
-		"./src/mocks/with-faker.ts"
+		"./src/mocks/with-faker.ts",
+		"**/stories.ts",
+		"**/stories.tsx",
+		"**/stories/*.ts",
+		"**/stories/*.tsx",
+		"**/stories/**/*.ts",
+		"**/stories/**/*.tsx"
 	],
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {

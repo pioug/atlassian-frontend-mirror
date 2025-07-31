@@ -29,6 +29,16 @@
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__spotlight/app"
 	},
-	"references": [],
+	"references": [
+		{
+			"path": "../css/tsconfig.app.json"
+		},
+		{
+			"path": "../primitives/tsconfig.app.json"
+		},
+		{
+			"path": "../tokens/tsconfig.app.json"
+		}
+	],
 	"files": []
 }

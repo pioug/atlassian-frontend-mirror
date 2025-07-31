@@ -41,7 +41,9 @@ import { WithResponsiveViewport } from './utils/example-utils';
 import { MockRoot } from './utils/mock-root';
 import { MockSearch } from './utils/mock-search';
 
-const connieCustomLogo = <AppLogo href="" icon={ConfluenceIcon} name="Confluence" label="Home page" />;
+const connieCustomLogo = (
+	<AppLogo href="" icon={ConfluenceIcon} name="Confluence" label="Home page" />
+);
 // Stress test nav responsive behaviour with a wide logo
 const wideCustomLogo = (
 	<CustomLogo

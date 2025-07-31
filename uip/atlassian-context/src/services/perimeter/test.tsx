@@ -1,4 +1,9 @@
-import { isFedrampModerate, isIsolatedCloud, isolatedCloudDomain, isolationContextId } from './index';
+import {
+	isFedrampModerate,
+	isIsolatedCloud,
+	isolatedCloudDomain,
+	isolationContextId,
+} from './index';
 
 describe('Perimeter Detection', () => {
 	afterEach(() => {

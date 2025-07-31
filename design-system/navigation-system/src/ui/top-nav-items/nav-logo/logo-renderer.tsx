@@ -18,7 +18,10 @@ import { useHasCustomTheme } from '../themed/has-custom-theme-context';
 export const themedLogoIcon = '--ds-top-bar-logo-icon';
 export const themedLogoText = '--ds-top-bar-logo-text';
 
-export function LogoRenderer({ logoOrIcon, shouldUseNewLogoDesign }: React.ComponentProps<typeof LogoRendererNoMemo>) {
+export function LogoRenderer({
+	logoOrIcon,
+	shouldUseNewLogoDesign,
+}: React.ComponentProps<typeof LogoRendererNoMemo>) {
 	return fg('jiv-20710-fix-nav-rerender') ? (
 		<LogoRendererMemo logoOrIcon={logoOrIcon} shouldUseNewLogoDesign={shouldUseNewLogoDesign} />
 	) : (
@@ -52,5 +55,12 @@ function LogoRendererNoMemo({
 		);
 	}
 
-	return <LogoOrIcon size="small" shouldUseNewLogoDesign={shouldUseNewLogoDesign} label="" appearance="brand" />;
+	return (
+		<LogoOrIcon
+			size="small"
+			shouldUseNewLogoDesign={shouldUseNewLogoDesign}
+			label=""
+			appearance="brand"
+		/>
+	);
 }

@@ -7,15 +7,22 @@ import { Spotlight } from './index';
 const testId = 'spotlight';
 
 describe('Spotlight', () => {
-	it('should capture and report a11y violations', async () => {
+	it('captures and report a11y violations', async () => {
 		const { container } = render(<Spotlight testId={testId} />);
 
 		await expect(container).toBeAccessible();
 	});
 
-	it('should find Spotlight by its testid', async () => {
+	it('finds Spotlight by its testid', async () => {
 		render(<Spotlight testId={testId} />);
 
 		expect(screen.getByTestId(testId)).toBeTruthy();
+	});
+
+	it('forwards ref correctly', () => {
+		const ref = React.createRef<HTMLDivElement>();
+		render(<Spotlight ref={ref}>Hello, world!</Spotlight>);
+		expect(ref.current).toBeDefined();
+		expect(ref.current?.textContent).toEqual('Hello, world!');
 	});
 });

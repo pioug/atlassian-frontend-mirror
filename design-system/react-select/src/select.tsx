@@ -312,6 +312,10 @@ export interface SelectProps<Option, IsMulti extends boolean, Group extends Grou
 	 */
 	isSearchable: boolean;
 	/**
+	 * Indicate whether menu contains other focusable elements, like footer or header
+	 */
+	hasOtherFocusableElements?: boolean;
+	/**
 	 * This sets the aria-label attribute. It sets an accessible name for the select, for people who use assistive technology. Use of a visible label is highly recommended for greater accessibility support.
 	 */
 	label?: string;
@@ -525,6 +529,7 @@ export const defaultProps = {
 	isMulti: false,
 	isRtl: false,
 	isSearchable: true,
+	hasOtherFocusableElements: false,
 	isOptionDisabled: isOptionDisabledBuiltin,
 	loadingMessage: () => 'Loading...',
 	maxMenuHeight: 300,
@@ -839,6 +844,7 @@ export default class Select<
 	openAfterFocus = false;
 	scrollToFocusedOptionOnUpdate = false;
 	userIsDragging?: boolean;
+	lastPressedKey?: string = '';
 
 	// Refs
 	// ------------------------------
@@ -1037,12 +1043,19 @@ export default class Select<
 		this.props.onMenuOpen();
 	}
 	onMenuClose() {
-		this.onInputChange('', {
-			action: 'menu-close',
-			prevInputValue: this.props.inputValue,
-		});
+		if (
+			!this.props.hasOtherFocusableElements ||
+			(this.props.hasOtherFocusableElements && this.lastPressedKey !== 'Tab')
+		) {
+			this.onInputChange('', {
+				action: 'menu-close',
+				prevInputValue: this.props.inputValue,
+			});
 
-		this.props.onMenuClose();
+			this.props.onMenuClose();
+		} else {
+			this.lastPressedKey = '';
+		}
 	}
 	onInputChange(newValue: string, actionMeta: InputActionMeta) {
 		this.props.onInputChange(newValue, actionMeta);
@@ -1750,8 +1763,14 @@ export default class Select<
 			this.inputRef!.focus();
 			return;
 		}
+
 		if (this.props.onBlur) {
-			this.props.onBlur(event);
+			if (
+				!this.props.hasOtherFocusableElements ||
+				(this.props.hasOtherFocusableElements && this.lastPressedKey !== 'Tab')
+			) {
+				this.props.onBlur(event);
+			}
 		}
 		this.onInputChange('', { action: 'input-blur', prevInputValue });
 		if (fg('platform_dst_select_menu_close_on_blur')) {
@@ -1818,6 +1837,10 @@ export default class Select<
 			if (event.defaultPrevented) {
 				return;
 			}
+		}
+
+		if (this.props.hasOtherFocusableElements) {
+			this.lastPressedKey = event.key;
 		}
 
 		// Block option hover events when the user has just pressed a key

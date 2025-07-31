@@ -239,7 +239,7 @@ export default function ConfluenceMockExample({}: {}) {
 								<Text as="p">
 									The Atlassian Design System provides a complete set of UI components, patterns,
 									and guidelines for creating consistent and beautiful user experiences across
-									Atlassian products.
+									Atlassian apps.
 								</Text>
 								<Text as="p">
 									Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi labore corporis

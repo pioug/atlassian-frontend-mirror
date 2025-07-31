@@ -1159,16 +1159,12 @@ export const baseTableStyles = (props: {
 	}
 
 	/* nested tables */
-	${fg('platform_editor_nested_table_drag_controls')
-		? `
-		.${ClassName.TABLE_CONTAINER} {
-			.${ClassName.TABLE_STICKY} .${ClassName.DRAG_COLUMN_CONTROLS_WRAPPER} {
-				position: absolute;
-				z-index: ${akEditorUnitZIndex};
-			}
+	.${ClassName.TABLE_CONTAINER} {
+		.${ClassName.TABLE_STICKY} .${ClassName.DRAG_COLUMN_CONTROLS_WRAPPER} {
+			position: absolute;
+			z-index: ${akEditorUnitZIndex};
 		}
-		`
-		: ''}
+	}
 
 	.${ClassName.TABLE_NODE_WRAPPER} {
 		padding-bottom: 0px;

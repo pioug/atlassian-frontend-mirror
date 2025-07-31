@@ -12,16 +12,22 @@ const LoadingExample = () => {
 	return (
 		<Stack>
 			<Label htmlFor="toggle">Async actions</Label>
-			<Toggle id="toggle" isChecked={isChecked} isLoading={isLoading} descriptionId="toggle-description" onChange={() => {
-				setIsLoading(!isLoading)
-				if (timeoutRef.current) {
-					clearTimeout(timeoutRef.current);
-				}
-				timeoutRef.current = setTimeout(() => {
-					toggle(!isChecked);
-					setIsLoading(false);
-				}, 2000);
-			}} />
+			<Toggle
+				id="toggle"
+				isChecked={isChecked}
+				isLoading={isLoading}
+				descriptionId="toggle-description"
+				onChange={() => {
+					setIsLoading(!isLoading);
+					if (timeoutRef.current) {
+						clearTimeout(timeoutRef.current);
+					}
+					timeoutRef.current = setTimeout(() => {
+						toggle(!isChecked);
+						setIsLoading(false);
+					}, 2000);
+				}}
+			/>
 		</Stack>
 	);
 };

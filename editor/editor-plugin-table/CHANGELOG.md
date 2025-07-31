@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 12.1.8
+
+### Patch Changes
+
+- [#193870](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/193870)
+  [`703c443a064fe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/703c443a064fe) -
+  [ux] EDITOR-342 clean up nested table feature gate platform_editor_nested_table_drag_controls
+
 ## 12.1.7
 
 ### Patch Changes

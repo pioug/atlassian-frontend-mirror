@@ -4,8 +4,13 @@
     "./src/**/*.ts",
     "./examples/*.ts",
     "./examples/*.tsx",
-    "./example-helpers/*.ts"
+    "./example-helpers/*.ts",
+    "**/stories.ts",
+    "**/stories.tsx",
+    "**/stories/*.ts",
+    "**/stories/*.tsx",
+    "**/stories/**/*.ts",
+    "**/stories/**/*.tsx"
   ],
-  "compilerOptions": {
-  }
+  "compilerOptions": {}
 }

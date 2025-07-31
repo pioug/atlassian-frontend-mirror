@@ -63,11 +63,11 @@ const RelatedLinkItem = ({ url, testId, isSelected, onFocus }: RelatedLinkItemPr
 	};
 
 	return (
-		// eslint-disable-next-line jsx-a11y/no-static-element-interactions
 		<div
 			data-testId={testId}
 			css={[baseStyle, hoverStyle, isSelected && selectedStyle]}
 			onFocus={onFocus}
+			role="presentation"
 		>
 			<Card appearance="block" ui={ui} url={url}>
 				<TitleBlock

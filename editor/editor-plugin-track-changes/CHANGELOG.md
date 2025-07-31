@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-track-changes
 
+## 2.3.0
+
+### Minor Changes
+
+- [#193889](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/193889)
+  [`6d4374ce318fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d4374ce318fd) -
+  [EDITOR-1073] Add i18n for Track Changes button & toggle button on toolbar with plugin option
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.2.0
+
+### Minor Changes
+
+- [#193685](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/193685)
+  [`ee3ba46cb3d0a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee3ba46cb3d0a) -
+  [EDITOR-1073] Add undo/ redo & show diff to comment toolbar
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.1.1
 
 ### Patch Changes

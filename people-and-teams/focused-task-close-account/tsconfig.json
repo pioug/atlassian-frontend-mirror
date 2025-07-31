@@ -1,13 +1,18 @@
 {
   "extends": "../../../tsconfig.json",
-  "compilerOptions": {
-  },
+  "compilerOptions": {},
   "include": [
     "./src/**/*.ts",
     "./src/**/*.tsx",
     "./docs/**/*.ts",
     "./docs/**/*.tsx",
     "./examples/**/*.ts",
-    "./examples/**/*.tsx"
+    "./examples/**/*.tsx",
+    "**/stories.ts",
+    "**/stories.tsx",
+    "**/stories/*.ts",
+    "**/stories/*.tsx",
+    "**/stories/**/*.ts",
+    "**/stories/**/*.tsx"
   ]
 }

@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::cae31e528de4db3de51c9723a601ad4a>>
+ * @codegen <<SignedSource::9fd1341eaafd77248d041f01cb74123c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -18,7 +18,6 @@ import { css, jsx } from '@compiled/react';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Inline } from '@atlaskit/primitives';
 
-import type { NewCoreIconProps } from '../../../../../src/types';
 import AddIcon from '../../../../../utility/add';
 import ArrowDownIcon from '../../../../../utility/arrow-down';
 import ArrowLeftIcon from '../../../../../utility/arrow-left';
@@ -48,40 +47,41 @@ import StarStarredIcon from '../../../../../utility/star-starred';
 import StarUnstarredIcon from '../../../../../utility/star-unstarred';
 import SuccessIcon from '../../../../../utility/success';
 import WarningIcon from '../../../../../utility/warning';
+import type { NewCoreIconProps } from '../../../../../src/types';
 
 const Icons = [
-	ErrorIcon,
-	InformationIcon,
-	CrossCircleIcon,
-	CheckCircleIcon,
-	ChevronRightIcon,
 	AddIcon,
-	ChevronLeftIcon,
-	ChevronDownIcon,
-	WarningIcon,
-	ChevronUpIcon,
-	ShowMoreVerticalIcon,
-	ShowMoreHorizontalIcon,
-	StarStarredIcon,
-	StarUnstarredIcon,
-	LinkExternalIcon,
-	LockUnlockedIcon,
-	LockLockedIcon,
-	CheckMarkIcon,
-	CrossIcon,
-	SuccessIcon,
-	ArrowUpIcon,
+	ArrowDownIcon,
 	ArrowLeftIcon,
 	ArrowRightIcon,
-	ArrowDownIcon,
-	DragHandleIcon,
+	ArrowUpIcon,
+	CheckCircleIcon,
+	CheckMarkIcon,
 	ChevronDoubleLeftIcon,
 	ChevronDoubleRightIcon,
-	DragHandleVerticalIcon,
+	ChevronDownIcon,
+	ChevronLeftIcon,
+	ChevronRightIcon,
+	ChevronUpIcon,
+	CrossIcon,
+	CrossCircleIcon,
+	DragHandleIcon,
 	DragHandleHorizontalIcon,
+	DragHandleVerticalIcon,
+	ErrorIcon,
+	InformationIcon,
+	LinkExternalIcon,
+	LockLockedIcon,
+	LockUnlockedIcon,
+	ShowMoreHorizontalIcon,
+	ShowMoreVerticalIcon,
+	StarStarredIcon,
+	StarUnstarredIcon,
+	SuccessIcon,
+	WarningIcon,
 ];
 
-const groupSize = 20;
+const groupSize = 50;
 const IconWrapperStyles = css({ width: 304 });
 
 function createIconGroupComponent(
@@ -110,5 +110,3 @@ for (let i = 0; i < Icons.length; i += groupSize) {
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const MediumIconGroup0 = allMediumExamples[0];
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const MediumIconGroup1 = allMediumExamples[1];

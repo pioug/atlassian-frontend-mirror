@@ -9,8 +9,13 @@
     "examples/**/*.tsx",
     "src/**/*.ts",
     "src/**/*.tsx",
-    "scripts"
+    "scripts",
+    "**/stories.ts",
+    "**/stories.tsx",
+    "**/stories/*.ts",
+    "**/stories/*.tsx",
+    "**/stories/**/*.ts",
+    "**/stories/**/*.tsx"
   ],
-  "compilerOptions": {
-  }
+  "compilerOptions": {}
 }

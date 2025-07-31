@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-primary-toolbar
 
+## 4.1.2
+
+### Patch Changes
+
+- [#192343](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/192343)
+  [`9cb0878241016`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9cb0878241016) -
+  ED-28736 more extensible selection extensions API
+
+## 4.1.1
+
+### Patch Changes
+
+- [#193685](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/193685)
+  [`ee3ba46cb3d0a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee3ba46cb3d0a) -
+  [EDITOR-1073] Add undo/ redo & show diff to comment toolbar
+- Updated dependencies
+
 ## 4.1.0
 
 ### Minor Changes

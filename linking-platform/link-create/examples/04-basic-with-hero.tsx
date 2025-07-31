@@ -148,8 +148,5 @@ export default function CreateBasic() {
 }
 
 const ModalHero = () => {
-	return (
-		//  eslint-disable-next-line jsx-a11y/img-redundant-alt
-		<img src={whiteboardSvg} alt="Whiteboard Image" />
-	);
+	return <img src={whiteboardSvg} alt="Whiteboard" />;
 };

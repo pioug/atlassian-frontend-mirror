@@ -26,7 +26,13 @@
 		"**/codemods/**/*.tsx",
 		"./example-helpers/**/*",
 		"./src/parser/error.ts",
-		"./src/parser/tokenize/file-link.ts"
+		"./src/parser/tokenize/file-link.ts",
+		"**/stories.ts",
+		"**/stories.tsx",
+		"**/stories/*.ts",
+		"**/stories/*.tsx",
+		"**/stories/**/*.ts",
+		"**/stories/**/*.tsx"
 	],
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {

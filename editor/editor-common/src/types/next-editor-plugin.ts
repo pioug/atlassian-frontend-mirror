@@ -27,6 +27,13 @@ export type CorePlugin = NextEditorPlugin<
 			// Optional analytics callback to fire events - core plugin isn't able to consume AnalyticsPlugin as a dependency like other plugins
 			fireAnalyticsEvent?: FireAnalyticsCallback;
 		};
+		sharedState: {
+			/**
+			 * The schema of the editor. It is guarranteed to be static for its lifecycle
+			 * so is safe to use `currentState`
+			 */
+			schema: Schema | undefined;
+		};
 		actions: {
 			/**
 			 * Dispatches an EditorCommand to ProseMirror

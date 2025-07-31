@@ -66,7 +66,7 @@ async function main() {
 		const [vrExampleCore, vrTestCore] = createVRTest(
 			coreIconMetadata,
 			'../../../..',
-			20,
+			50,
 			'core',
 			true,
 		);
@@ -125,7 +125,7 @@ async function main() {
 			const [vrExampleUtility, vrTestUtility] = createVRTest(
 				utilityIconMetadata,
 				'../../../..',
-				20,
+				50,
 				'utility',
 				true,
 			);

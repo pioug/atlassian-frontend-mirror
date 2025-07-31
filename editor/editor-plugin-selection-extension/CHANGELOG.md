@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 3.4.1
+
+### Patch Changes
+
+- [#192343](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/192343)
+  [`9cb0878241016`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9cb0878241016) -
+  ED-28736 more extensible selection extensions API
+- Updated dependencies
+
+## 3.4.0
+
+### Minor Changes
+
+- [#193092](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/193092)
+  [`1e21bb09f7d00`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1e21bb09f7d00) -
+  new api to insert ADF at the bottom of document
+
 ## 3.3.1
 
 ### Patch Changes

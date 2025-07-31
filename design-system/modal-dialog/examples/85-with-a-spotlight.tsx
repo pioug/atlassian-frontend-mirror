@@ -72,9 +72,9 @@ export default function ModalWithSpotlight() {
 			{isModalOpen && (
 				<ModalDialog onOpenComplete={handleModalOpenComplete}>
 					<ModalHeader>
-						<ModalTitle>Issue Transition</ModalTitle>
+						<ModalTitle>Work Item Transition</ModalTitle>
 					</ModalHeader>
-					<ModalBody>This is Issue Transition Modal Body.</ModalBody>
+					<ModalBody>This is Work Item Transition Modal Body.</ModalBody>
 					<ModalFooter>
 						<Button appearance="subtle" onClick={close}>
 							Cancel

@@ -77,8 +77,7 @@ export const DefaultCreateWithModalTitle = createExample({
 });
 
 export const DefaultCreateWithModalHero = createExample({
-	//  eslint-disable-next-line jsx-a11y/img-redundant-alt
-	modalHero: <img src={whiteboardSvg} alt="Whiteboard Image" />,
+	modalHero: <img src={whiteboardSvg} alt="Whiteboard" />,
 });
 export const DefaultCreateWithEditButton = createExampleWithEdit({});
 

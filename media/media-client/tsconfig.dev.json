@@ -24,7 +24,13 @@
 		"**/codemods/**/*.ts",
 		"**/codemods/**/*.tsx",
 		"./example-helpers/**/*",
-		"./src/client/__mocks__/**/*"
+		"./src/client/__mocks__/**/*",
+		"**/stories.ts",
+		"**/stories.tsx",
+		"**/stories/*.ts",
+		"**/stories/*.tsx",
+		"**/stories/**/*.ts",
+		"**/stories/**/*.tsx"
 	],
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {

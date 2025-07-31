@@ -5,6 +5,7 @@ export { ToolbarDropdownItem } from './ui/ToolbarDropdownItem';
 export { ToolbarDropdownMenu } from './ui/ToolbarDropdownMenu';
 export { ToolbarKeyboardShortcutHint } from './ui/ToolbarKeyboardShortcutHint';
 export { ToolbarSection } from './ui/ToolbarSection';
+export { ToolbarTooltip } from './ui/ToolbarTooltip';
 
 export { AIAdjustLengthIcon } from './ui/icons/AIAdjustLengthIcon';
 export { AIChatIcon } from './ui/icons/AIChatIcon';
@@ -30,4 +31,4 @@ export { QuoteIcon } from './ui/icons/QuoteIcon';
 export { TextColorIcon } from './ui/icons/TextColorIcon';
 export { TextIcon } from './ui/icons/TextIcon';
 
-export type { ToolbarButtonGroupLocation } from './types';
+export type { IconComponent, ToolbarButtonGroupLocation } from './types';

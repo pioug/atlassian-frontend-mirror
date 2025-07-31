@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/teams-client",
-	"version": "4.8.2",
+	"version": "4.9.1",
 	"description": "A client to retrieve team related data",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -119,6 +119,9 @@
 	},
 	"platform-feature-flags": {
 		"enable_edit_team_name_external_type_teams": {
+			"type": "boolean"
+		},
+		"fix_query_settings_context": {
 			"type": "boolean"
 		}
 	}

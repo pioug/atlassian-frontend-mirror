@@ -26,7 +26,13 @@
 		"**/codemods/**/*.tsx",
 		"./src/static/generator/generate.ts",
 		"./src/static/generator/image-sources.ts",
-		"./src/static/generator/types/**/*"
+		"./src/static/generator/types/**/*",
+		"**/stories.ts",
+		"**/stories.tsx",
+		"**/stories/*.ts",
+		"**/stories/*.tsx",
+		"**/stories/**/*.ts",
+		"**/stories/**/*.tsx"
 	],
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {

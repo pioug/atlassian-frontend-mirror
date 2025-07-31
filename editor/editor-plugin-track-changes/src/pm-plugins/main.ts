@@ -6,6 +6,8 @@ import { ReplaceAroundStep, ReplaceStep, type Step } from '@atlaskit/editor-pros
 
 import type { TrackChangesPlugin } from '../trackChangesPluginType';
 
+import { filterSteps } from './filterSteps';
+import { InvertableStep } from './invertableStep';
 import { TOGGLE_TRACK_CHANGES_ACTION as ACTION } from './types';
 
 export const trackChangesPluginKey = new PluginKey<TrackChangesPluginState>('trackChangesPlugin');
@@ -14,16 +16,11 @@ type TrackChangesPluginState = {
 	shouldChangesBeDisplayed: boolean;
 	isShowDiffAvailable: boolean;
 	steps: InvertableStep[];
+	allocations: Set<number>;
 };
 
-export class InvertableStep {
-	constructor(
-		readonly step: Step,
-		readonly inverted: Step,
-	) {}
-}
-
-const getBaselineFromSteps = (doc: PMNode, steps: InvertableStep[]) => {
+// Exported for test purposes
+export const getBaselineFromSteps = (doc: PMNode, steps: InvertableStep[]) => {
 	for (const step of steps.slice().reverse()) {
 		const result = step.inverted.apply(doc);
 		if (result.failed === null && result.doc) {
@@ -47,10 +44,18 @@ export const createTrackChangesPlugin = (
 					steps: [],
 					shouldChangesBeDisplayed: false,
 					isShowDiffAvailable: false,
+					allocations: new Set<number>(),
 				};
 			},
 			apply(tr, state) {
 				const metadata = tr.getMeta(trackChangesPluginKey);
+				if (metadata && metadata.action === ACTION.RESET_BASELINE) {
+					return {
+						...state,
+						steps: [],
+						isShowDiffAvailable: false,
+					};
+				}
 				if (metadata && metadata.action === ACTION.TOGGLE_TRACK_CHANGES) {
 					resetBaseline = true;
 					return {
@@ -70,16 +75,28 @@ export const createTrackChangesPlugin = (
 					return state;
 				}
 
+				// If we don't have the history plugin don't limit the change tracking
+				const historyState = api?.history?.sharedState.currentState();
+				const currentAllocation = historyState
+					? // Combine both done + undone so we have the total "distance".
+						historyState.done.eventCount + historyState.undone.eventCount
+					: (state.steps.at(-1)?.allocation ?? 0) + 1;
+
 				const newSteps = tr.steps.map(
-					(step, idx) => new InvertableStep(step, step.invert(tr.docs[idx])),
+					(step, idx) => new InvertableStep(step, step.invert(tr.docs[idx]), currentAllocation),
 				);
-				const steps = resetBaseline ? newSteps : [...state.steps, ...newSteps];
+				const concatSteps = resetBaseline ? newSteps : [...state.steps, ...newSteps];
 
 				resetBaseline = false;
+				const { allocations, steps } = filterSteps(
+					concatSteps,
+					state.allocations.add(currentAllocation),
+				);
 
 				// Create a new ChangeSet based on document changes
 				return {
 					...state,
+					allocations,
 					steps,
 					shouldChangesBeDisplayed: false,
 					isShowDiffAvailable: true,

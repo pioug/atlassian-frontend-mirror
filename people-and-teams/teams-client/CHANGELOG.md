@@ -1,5 +1,21 @@
 # @atlaskit/teams-client
 
+## 4.9.1
+
+### Patch Changes
+
+- [#193849](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/193849)
+  [`4a8c4dffd99ef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4a8c4dffd99ef) -
+  Fix the context setting issue in the query setting query
+
+## 4.9.0
+
+### Minor Changes
+
+- [#193026](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/193026)
+  [`602d16d569c4f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/602d16d569c4f) -
+  Implemented the logic to remove agents associated with the team
+
 ## 4.8.2
 
 ### Patch Changes

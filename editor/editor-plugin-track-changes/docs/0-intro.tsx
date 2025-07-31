@@ -30,11 +30,47 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
-type TrackChangesPlugin = NextEditorPlugin<'trackChanges', {
-	commands: {
-		toggleChanges: EditorCommand
-	}
-}>;
+type TrackChangesPlugin = NextEditorPlugin<
+  'trackChanges',
+  {
+    commands: {
+      /**
+       * Toggles the displaying of changes in the editor.
+       */
+      toggleChanges: EditorCommand;
+    };
+    dependencies: [
+      /**
+       * Primary toolbar plugin for registering the track changes button.
+       */
+      OptionalPlugin<PrimaryToolbarPlugin>,
+      /**
+       * Show diff plugin for showing the changes in a diff view.
+       */
+      ShowDiffPlugin,
+    ];
+    pluginConfiguration?: {
+      /**
+       * Whether the track changes button should be shown on the toolbar.
+       * Defaults to false.
+       */
+      showOnToolbar?: boolean;
+    };
+    sharedState: {
+      /**
+       * Whether the track changes feature is currently displaying changes.
+       * Defaults to false.
+       */
+      isDisplayingChanges: boolean;
+      /**
+       * If there are changes in the document that determine if track changes button
+       * should be enabled.
+       * This will only be false initially before any changes in the session.
+       */
+      isShowDiffAvailable: boolean;
+    };
+  }
+>;
 `}
 
   ### Example Usage
@@ -51,7 +87,8 @@ import { basePlugin } from '@atlaskit/editor-plugins/base';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import { trackChangesPlugin } from '../src/trackChangesPlugin';
+import { showDiffPlugin } from '@atlaskit/editor-plugin-show-diff';
+import { trackChangesPlugin } from '@atlaskit/editor-plugin-track-changes';
 
 const styles = cssMap({
 	aboveEditor: {
@@ -69,7 +106,7 @@ const styles = cssMap({
 function Editor() {
 	const { preset, editorApi } = usePreset(
 		(builder) =>
-			builder.add(basePlugin).add(trackChangesPlugin),
+			builder.add(basePlugin).add(showDiffPlugin).add(trackChangesPlugin),
 		[],
 	);
 

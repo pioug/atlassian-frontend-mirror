@@ -1,20 +1,48 @@
-import React from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { forwardRef, type ReactNode } from 'react';
 
-interface SpotlightProps {
+import { cssMap, jsx } from '@atlaskit/css';
+import { Box } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
+
+const styles = cssMap({
+	root: {
+		position: 'relative',
+		width: '295px',
+		backgroundColor: token('color.background.neutral.bold'),
+		borderRadius: token('border.radius.200'),
+	},
+});
+
+export interface SpotlightProps {
+	/**
+	 * A `testId` prop is provided for specified elements, which is a unique
+	 * string that appears as a data attribute `data-testid` in the rendered code,
+	 * serving as a hook for automated tests
+	 */
 	testId?: string;
+
+	/**
+	 * Elements to be rendered inside the spotlight.
+	 */
+	children?: ReactNode;
 }
 
-// TODO: Fill in the component {description} and ensure links point to the correct {packageName} location.
-// Remove links that the component does not have (such as usage). If there are no links remove them all.
 /**
  * __Spotlight__
  *
- * A spotlight {description}.
+ * The base UI card that wraps composable spotlight components.
  *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
  */
-export const Spotlight = ({ testId }: SpotlightProps) => {
-	return <div data-testid={testId}>TODO</div>;
-};
+export const Spotlight = forwardRef<HTMLDivElement, SpotlightProps>(
+	({ children, testId }: SpotlightProps, ref) => {
+		return (
+			<Box ref={ref} xcss={styles.root} testId={testId}>
+				{children}
+			</Box>
+		);
+	},
+);

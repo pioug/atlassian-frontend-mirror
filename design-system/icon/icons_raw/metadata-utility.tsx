@@ -16,6 +16,7 @@ const metadata: IconMetadata = {
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'arrow-down': {
 		keywords: ['down', 'bottom', 'sorting'],
@@ -31,6 +32,7 @@ const metadata: IconMetadata = {
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'arrow-left': {
 		keywords: ['back', 'previous'],
@@ -46,6 +48,7 @@ const metadata: IconMetadata = {
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'arrow-right': {
 		keywords: ['forward', 'next', 'link'],
@@ -61,6 +64,7 @@ const metadata: IconMetadata = {
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'arrow-up': {
 		keywords: ['improvement', 'jira status'],
@@ -76,6 +80,7 @@ const metadata: IconMetadata = {
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'check-circle': {
 		keywords: ['tick', 'yes', 'checkmark'],
@@ -91,6 +96,7 @@ const metadata: IconMetadata = {
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'check-mark': {
 		keywords: ['tick'],
@@ -106,6 +112,7 @@ const metadata: IconMetadata = {
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'chevron-double-left': {
 		keywords: ['calendar year', '<<', 'less than', 'previous'],
@@ -122,6 +129,7 @@ const metadata: IconMetadata = {
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'chevron-double-right': {
 		keywords: ['calendar year', '>>', 'greater than', 'next'],
@@ -138,6 +146,7 @@ const metadata: IconMetadata = {
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'chevron-down': {
 		keywords: ['accordion', 'down'],
@@ -153,6 +162,7 @@ const metadata: IconMetadata = {
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'chevron-left': {
 		keywords: ['less than', '<', 'previous'],
@@ -168,6 +178,7 @@ const metadata: IconMetadata = {
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'chevron-right': {
 		keywords: ['greater than', '>', 'next'],
@@ -183,6 +194,7 @@ const metadata: IconMetadata = {
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'chevron-up': {
 		keywords: ['up', 'accordion'],
@@ -198,6 +210,7 @@ const metadata: IconMetadata = {
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	cross: {
 		keywords: ['remove', 'clear', 'x'],
@@ -213,6 +226,7 @@ const metadata: IconMetadata = {
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'cross-circle': {
 		keywords: ['x', 'exit', 'clear', 'no', 'filled', 'form'],
@@ -228,6 +242,7 @@ const metadata: IconMetadata = {
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'drag-handle': {
 		keywords: ['drag handler', 'drag dots', 'reorder', 'move'],
@@ -243,6 +258,7 @@ const metadata: IconMetadata = {
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'drag-handle-horizontal': {
 		keywords: ['drag', 'drag handler', 'reorder columns', 'move'],
@@ -259,6 +275,7 @@ const metadata: IconMetadata = {
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'drag-handle-vertical': {
 		keywords: ['drag', 'drag handler', 'move', 'reorder rows'],
@@ -275,6 +292,7 @@ const metadata: IconMetadata = {
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	error: {
 		keywords: ['filled', 'status', 'form', 'helper'],
@@ -290,6 +308,7 @@ const metadata: IconMetadata = {
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	information: {
 		keywords: ['info', 'filled', 'helper', 'tip', 'form'],
@@ -305,6 +324,7 @@ const metadata: IconMetadata = {
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'link-external': {
 		keywords: [
@@ -335,6 +355,7 @@ const metadata: IconMetadata = {
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'lock-locked': {
 		keywords: [
@@ -360,6 +381,7 @@ const metadata: IconMetadata = {
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'lock-unlocked': {
 		keywords: [
@@ -383,6 +405,7 @@ const metadata: IconMetadata = {
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'show-more-horizontal': {
 		keywords: ['ellipses', 'three dots', 'meatball', 'more actions', 'secondary', 'tertiary'],
@@ -398,6 +421,7 @@ const metadata: IconMetadata = {
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'show-more-vertical': {
 		keywords: ['three dots', 'kebab', 'more actions', 'secondary', 'tertiary'],
@@ -413,6 +437,7 @@ const metadata: IconMetadata = {
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'star-starred': {
 		keywords: ['favourite', 'star', 'starred', 'filled', 'menu', 'secondary', 'tertiary'],
@@ -428,6 +453,7 @@ const metadata: IconMetadata = {
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'star-unstarred': {
 		keywords: ['favourite', 'star', 'form', 'secondary', 'tertiary'],
@@ -443,6 +469,7 @@ const metadata: IconMetadata = {
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	success: {
 		keywords: ['tick', 'yes', 'success', 'filled'],
@@ -458,6 +485,7 @@ const metadata: IconMetadata = {
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	warning: {
 		keywords: ['alert', 'danger', 'triangle', 'filled', 'secondary', 'tertiary'],
@@ -473,6 +501,7 @@ const metadata: IconMetadata = {
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
+		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 };
 

@@ -15,7 +15,13 @@
 		"../src/**/__tests__/*",
 		"../src/storybook/**/*.tsx",
 		"../src/**/*.test.*",
-		"../src/**/test.*"
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
 	],
 	"references": [
 		{

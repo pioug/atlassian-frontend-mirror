@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::134a06e43bb890a55a642b329b81e2cf>>
+ * @codegen <<SignedSource::8716f2981efb6d982f8a732fb3982cdd>>
  * @codegenCommand yarn build:icon-glyphs
  */
 import { snapshot } from '@af/visual-regression';
@@ -17,17 +17,6 @@ import {
 	MediumIconGroup5,
 	MediumIconGroup6,
 	MediumIconGroup7,
-	MediumIconGroup8,
-	MediumIconGroup9,
-	MediumIconGroup10,
-	MediumIconGroup11,
-	MediumIconGroup12,
-	MediumIconGroup13,
-	MediumIconGroup14,
-	MediumIconGroup15,
-	MediumIconGroup16,
-	MediumIconGroup17,
-	MediumIconGroup18,
 	SmallIconGroup0,
 	SmallIconGroup1,
 	SmallIconGroup2,
@@ -36,17 +25,6 @@ import {
 	SmallIconGroup5,
 	SmallIconGroup6,
 	SmallIconGroup7,
-	SmallIconGroup8,
-	SmallIconGroup9,
-	SmallIconGroup10,
-	SmallIconGroup11,
-	SmallIconGroup12,
-	SmallIconGroup13,
-	SmallIconGroup14,
-	SmallIconGroup15,
-	SmallIconGroup16,
-	SmallIconGroup17,
-	SmallIconGroup18,
 } from './examples/all-core-icons';
 
 snapshot(MediumIconGroup0, {
@@ -129,116 +107,6 @@ snapshot(MediumIconGroup7, {
 		},
 	],
 });
-snapshot(MediumIconGroup8, {
-	variants: [
-		{
-			name: 'Medium Group 8',
-			environment: {
-				colorScheme: 'light',
-			},
-		},
-	],
-});
-snapshot(MediumIconGroup9, {
-	variants: [
-		{
-			name: 'Medium Group 9',
-			environment: {
-				colorScheme: 'light',
-			},
-		},
-	],
-});
-snapshot(MediumIconGroup10, {
-	variants: [
-		{
-			name: 'Medium Group 10',
-			environment: {
-				colorScheme: 'light',
-			},
-		},
-	],
-});
-snapshot(MediumIconGroup11, {
-	variants: [
-		{
-			name: 'Medium Group 11',
-			environment: {
-				colorScheme: 'light',
-			},
-		},
-	],
-});
-snapshot(MediumIconGroup12, {
-	variants: [
-		{
-			name: 'Medium Group 12',
-			environment: {
-				colorScheme: 'light',
-			},
-		},
-	],
-});
-snapshot(MediumIconGroup13, {
-	variants: [
-		{
-			name: 'Medium Group 13',
-			environment: {
-				colorScheme: 'light',
-			},
-		},
-	],
-});
-snapshot(MediumIconGroup14, {
-	variants: [
-		{
-			name: 'Medium Group 14',
-			environment: {
-				colorScheme: 'light',
-			},
-		},
-	],
-});
-snapshot(MediumIconGroup15, {
-	variants: [
-		{
-			name: 'Medium Group 15',
-			environment: {
-				colorScheme: 'light',
-			},
-		},
-	],
-});
-snapshot(MediumIconGroup16, {
-	variants: [
-		{
-			name: 'Medium Group 16',
-			environment: {
-				colorScheme: 'light',
-			},
-		},
-	],
-});
-snapshot(MediumIconGroup17, {
-	variants: [
-		{
-			name: 'Medium Group 17',
-			environment: {
-				colorScheme: 'light',
-			},
-		},
-	],
-});
-snapshot(MediumIconGroup18, {
-	variants: [
-		{
-			name: 'Medium Group 18',
-			environment: {
-				colorScheme: 'light',
-			},
-		},
-	],
-});
 
 snapshot(SmallIconGroup0, {
 	variants: [
@@ -314,116 +182,6 @@ snapshot(SmallIconGroup7, {
 	variants: [
 		{
 			name: 'Small Group 7',
-			environment: {
-				colorScheme: 'light',
-			},
-		},
-	],
-});
-snapshot(SmallIconGroup8, {
-	variants: [
-		{
-			name: 'Small Group 8',
-			environment: {
-				colorScheme: 'light',
-			},
-		},
-	],
-});
-snapshot(SmallIconGroup9, {
-	variants: [
-		{
-			name: 'Small Group 9',
-			environment: {
-				colorScheme: 'light',
-			},
-		},
-	],
-});
-snapshot(SmallIconGroup10, {
-	variants: [
-		{
-			name: 'Small Group 10',
-			environment: {
-				colorScheme: 'light',
-			},
-		},
-	],
-});
-snapshot(SmallIconGroup11, {
-	variants: [
-		{
-			name: 'Small Group 11',
-			environment: {
-				colorScheme: 'light',
-			},
-		},
-	],
-});
-snapshot(SmallIconGroup12, {
-	variants: [
-		{
-			name: 'Small Group 12',
-			environment: {
-				colorScheme: 'light',
-			},
-		},
-	],
-});
-snapshot(SmallIconGroup13, {
-	variants: [
-		{
-			name: 'Small Group 13',
-			environment: {
-				colorScheme: 'light',
-			},
-		},
-	],
-});
-snapshot(SmallIconGroup14, {
-	variants: [
-		{
-			name: 'Small Group 14',
-			environment: {
-				colorScheme: 'light',
-			},
-		},
-	],
-});
-snapshot(SmallIconGroup15, {
-	variants: [
-		{
-			name: 'Small Group 15',
-			environment: {
-				colorScheme: 'light',
-			},
-		},
-	],
-});
-snapshot(SmallIconGroup16, {
-	variants: [
-		{
-			name: 'Small Group 16',
-			environment: {
-				colorScheme: 'light',
-			},
-		},
-	],
-});
-snapshot(SmallIconGroup17, {
-	variants: [
-		{
-			name: 'Small Group 17',
-			environment: {
-				colorScheme: 'light',
-			},
-		},
-	],
-});
-snapshot(SmallIconGroup18, {
-	variants: [
-		{
-			name: 'Small Group 18',
 			environment: {
 				colorScheme: 'light',
 			},

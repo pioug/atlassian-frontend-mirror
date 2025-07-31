@@ -9,7 +9,17 @@ import { removeMarks, removeNonAnnotationMarks } from './remove-marks';
 const hasNestedTable = (tableCellNode: ADFEntity) =>
 	tableCellNode.content?.some((node) => node?.type === 'table');
 
-export function sanitizeNode(json: JSONNode): JSONNode {
+export interface SanitizeNodeOptions {
+	/**
+	 * If true, nested tables will not be transformed to a extension.
+	 * This is useful when you want to keep the nested structure for further processing.
+	 */
+	keepNestedTables?: boolean;
+}
+
+export function sanitizeNode(json: JSONNode, options: SanitizeNodeOptions = {}): JSONNode {
+	const { keepNestedTables = false } = options;
+
 	const sanitizedJSON = traverse(json, {
 		text: (node) => {
 			if (!node || !Array.isArray(node.marks)) {
@@ -35,12 +45,12 @@ export function sanitizeNode(json: JSONNode): JSONNode {
 		},
 		tableCell: (node) => {
 			if (hasNestedTable(node)) {
-				return transformNestedTableNodeOutgoingDocument(node);
+				return keepNestedTables ? node : transformNestedTableNodeOutgoingDocument(node);
 			}
 		},
 		tableHeader: (node) => {
 			if (hasNestedTable(node)) {
-				return transformNestedTableNodeOutgoingDocument(node);
+				return keepNestedTables ? node : transformNestedTableNodeOutgoingDocument(node);
 			}
 		},
 		emoji: removeNonAnnotationMarks,

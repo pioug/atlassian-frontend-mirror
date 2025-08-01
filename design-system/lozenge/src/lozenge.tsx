@@ -86,7 +86,7 @@ const stylesNew = cssMapUnbounded({
 		boxSizing: 'border-box',
 		position: 'static',
 		blockSize: 'min-content',
-		borderRadius: '3px',
+		borderRadius: token('border.radius.100', '3px'),
 		overflow: 'hidden',
 		paddingInlineStart: token('space.050'),
 		paddingInlineEnd: token('space.050'),

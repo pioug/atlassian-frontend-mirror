@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 4.1.4
+
+### Patch Changes
+
+- [`c08b561ac933b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c08b561ac933b) -
+  [ux] Fixes a regression where isSelectedViaDragHandle state wasn't updated correctly.
+- Updated dependencies
+
+## 4.1.3
+
+### Patch Changes
+
+- [#193381](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/193381)
+  [`468cb58f0615b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/468cb58f0615b) -
+  ENGHEALTH-32254 Add aria label to buttons for accessibility
+- Updated dependencies
+
 ## 4.1.2
 
 ### Patch Changes

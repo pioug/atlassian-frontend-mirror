@@ -3,8 +3,7 @@
  * @jsx jsx
  */
 import { cssMap, jsx } from '@atlaskit/css';
-import { Text } from '@atlaskit/primitives/compiled';
-import { Spotlight } from '@atlaskit/spotlight';
+import { Spotlight, SpotlightHeader, SpotlightHeadline } from '@atlaskit/spotlight';
 
 const styles = cssMap({
 	root: {
@@ -16,7 +15,9 @@ export default function Basic() {
 	return (
 		<div css={styles.root}>
 			<Spotlight testId="spotlight">
-				<Text color="color.text.inverse">Hello</Text>
+				<SpotlightHeader>
+					<SpotlightHeadline>Headline</SpotlightHeadline>
+				</SpotlightHeader>
 			</Spotlight>
 		</div>
 	);

@@ -1,7 +1,7 @@
 {
 	"name": "@atlaskit/navigation-system",
-	"version": "0.176.0",
-	"description": "The latest navigation system for Atlassian products.",
+	"version": "0.176.1",
+	"description": "The latest navigation system for Atlassian apps.",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"author": "Atlassian Pty Ltd",
 	"publishConfig": {

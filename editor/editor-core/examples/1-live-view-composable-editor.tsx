@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 import { IntlProvider } from 'react-intl-next';
 
@@ -25,6 +25,7 @@ import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-p
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 
 import { ExampleForgeApp } from '../example-helpers/ExampleForgeApp';
+import { useNoteSelectionExtension } from '../example-helpers/useNoteSelectionExtension';
 import enMessages from '../src/i18n/en';
 
 const buttonStyles = xcss({
@@ -49,6 +50,8 @@ function getDefaultValue() {
 function ComposableEditorPage() {
 	const [appearance, setAppearance] = React.useState<EditorAppearance>('full-page');
 	const providers = getExamplesProviders({});
+
+	const editorApiRef: any = useRef<typeof editorApi | null>(null);
 
 	const [createButton, showCreateButton] = useState<string | null>(null);
 	const selectedNodeAdfRef = React.useRef<any>(null);
@@ -149,7 +152,7 @@ function ComposableEditorPage() {
 			},
 		},
 	});
-
+	const noteSelectionExtension = useNoteSelectionExtension(editorApiRef.current);
 	// Memoise the preset otherwise we will re-render the editor too often
 	const { preset, editorApi } = usePreset(() => {
 		return universalPreset
@@ -221,6 +224,7 @@ function ComposableEditorPage() {
 							},
 						],
 					},
+					extensionList: noteSelectionExtension.extensionList,
 				},
 			]);
 

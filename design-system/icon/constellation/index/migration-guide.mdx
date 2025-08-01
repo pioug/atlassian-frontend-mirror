@@ -13,7 +13,7 @@ import SectionMessage, { SectionMessageAction } from '@atlaskit/section-message'
 ## Migration guide
 
 <SectionMessage
-	title="Atlassian products are currently migrating to new icons"
+	title="Atlassian apps are currently migrating to new icons"
 	actions={[
 		<SectionMessageAction href="/whats-new/atlassian-ui-refresh-updates">
 			Atlassian UI refresh updates
@@ -48,8 +48,8 @@ migration guide to get started.
 
 #### Feature flagging new icons
 
-Atlassian products can feature flag between the new icon components, and the legacy icons, via the
-`migration` entrypoint - or manually via the `LEGACY_fallbackIcon` prop.
+Atlassian apps can switch between the new icon components and the legacy icons using feature flags
+and the `migration` entrypoint - or switch manually via the `LEGACY_fallbackIcon` prop.
 
 <Example
 	Component={IconMigration}
@@ -111,7 +111,7 @@ adjustments to the legacy icons.
 ### Marketplace partners and app developers
 
 We recommend all partners start migrating your apps from the legacy icons to the new iconography
-system, to match the visual language of Atlassian products.
+system to match Atlassian's new visual language.
 
 The new iconography system as part of the Atlassian Design System is now in General Availability,
 and we have deprecated the legacy iconography system. It will be removed at the end of the 6-month

@@ -26,7 +26,7 @@ const styles = cssMap({
 		flex: '1 1 auto',
 		flexDirection: 'column',
 		backgroundColor: token('elevation.surface.overlay'),
-		borderRadius: '3px',
+		borderRadius: token('border.radius.100'),
 		boxShadow: token('elevation.shadow.overlay'),
 		pointerEvents: 'auto',
 	},

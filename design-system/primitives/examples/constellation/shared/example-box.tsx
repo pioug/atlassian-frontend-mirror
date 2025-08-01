@@ -11,7 +11,7 @@ import { token } from '@atlaskit/tokens';
 const styles = cssMap({
 	block: {
 		display: 'flex',
-		borderRadius: '3px',
+		borderRadius: token('border.radius.100'),
 		minWidth: '2rem',
 		minHeight: '2rem',
 		borderStyle: 'solid',

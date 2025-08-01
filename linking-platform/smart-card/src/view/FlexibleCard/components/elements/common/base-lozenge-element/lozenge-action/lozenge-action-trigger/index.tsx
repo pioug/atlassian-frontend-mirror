@@ -57,7 +57,7 @@ const triggerButtonStyles = css({
 	padding: 0,
 	textTransform: 'unset',
 	borderStyle: 'solid',
-	borderWidth: '2px',
+	borderWidth: token('border.width.outline'),
 	borderColor: 'transparent',
 	marginTop: token('space.025', '2px'),
 	marginRight: token('space.025', '2px'),

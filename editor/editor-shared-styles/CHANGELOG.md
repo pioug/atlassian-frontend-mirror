@@ -1,5 +1,12 @@
 # @atlaskit/editor-shared-styles
 
+## 3.5.2
+
+### Patch Changes
+
+- [`373e833d95d52`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/373e833d95d52) -
+  [ux] COMMIT-19456:Fix forge app coords bug
+
 ## 3.5.1
 
 ### Patch Changes

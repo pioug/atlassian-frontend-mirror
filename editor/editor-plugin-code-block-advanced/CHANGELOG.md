@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 3.0.5
+
+### Patch Changes
+
+- [#194707](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/194707)
+  [`03234d0ecc5a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/03234d0ecc5a6) -
+  Cleanup feature gate to fix right click in code blocks
+- Updated dependencies
+
 ## 3.0.4
 
 ### Patch Changes

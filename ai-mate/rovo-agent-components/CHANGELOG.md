@@ -1,5 +1,14 @@
 # @atlaskit/rovo-agent-components
 
+## 3.0.0
+
+### Major Changes
+
+- [#193947](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/193947)
+  [`737237ee5c52f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/737237ee5c52f) -
+  Removed unused `isAgentCreatedByUser` prop from agent dropdown actions component. This has been
+  replaced by a permissions call via `loadAgentPermissions`.
+
 ## 2.13.1
 
 ### Patch Changes

@@ -320,6 +320,7 @@ export const apply = (
 		isPMDragging,
 		isShiftDown,
 		lastDragCancelled,
+		isSelectedViaDragHandle,
 	} = currentState;
 
 	let isActiveNodeDeleted = false;
@@ -685,10 +686,21 @@ export const apply = (
 		isMenuOpenNew = !isMenuOpen;
 	}
 
-	const isSelectedViaDragHandle: boolean =
-		meta?.isSelectedViaDragHandle !== undefined &&
+	let isSelectedViaDragHandleNew;
+	if (
 		editorExperiment('platform_editor_controls', 'variant1') &&
-		meta?.isSelectedViaDragHandle;
+		expValEquals('platform_editor_controls_block_controls_state_fix', 'isEnabled', true)
+	) {
+		isSelectedViaDragHandleNew =
+			meta?.isSelectedViaDragHandle !== undefined
+				? meta?.isSelectedViaDragHandle
+				: isSelectedViaDragHandle;
+	} else {
+		isSelectedViaDragHandleNew =
+			meta?.isSelectedViaDragHandle !== undefined &&
+			editorExperiment('platform_editor_controls', 'variant1') &&
+			meta?.isSelectedViaDragHandle;
+	}
 
 	return {
 		decorations,
@@ -708,7 +720,7 @@ export const apply = (
 		multiSelectDnD,
 		isShiftDown: meta?.isShiftDown ?? isShiftDown,
 		lastDragCancelled: meta?.lastDragCancelled ?? lastDragCancelled,
-		isSelectedViaDragHandle,
+		isSelectedViaDragHandle: isSelectedViaDragHandleNew,
 	};
 };
 

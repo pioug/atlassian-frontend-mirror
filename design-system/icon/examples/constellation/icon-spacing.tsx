@@ -66,7 +66,7 @@ const iconContainerStyles = cssMap({
 		borderRadius: token('border.radius.100'),
 		borderColor: token('color.border.accent.magenta'),
 		lineHeight: 0,
-		borderWidth: '1px',
+		borderWidth: token('border.width'),
 	},
 });
 const IconContainer = ({ children }: { children: React.ReactChild }) => (

@@ -95,6 +95,7 @@ export interface Props {
 	pulse?: boolean;
 	spotlightConfig?: FloatingToolbarButtonSpotlightConfig;
 	shouldFitContainer?: boolean;
+	alignX?: 'left' | 'right' | 'center';
 }
 
 export interface State {
@@ -130,6 +131,7 @@ export default class Dropdown extends Component<Props, State> {
 			pulse,
 			spotlightConfig,
 			shouldFitContainer,
+			alignX,
 		} = this.props;
 
 		let trigger;
@@ -206,6 +208,7 @@ export default class Dropdown extends Component<Props, State> {
 			 * https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/pull-requests/137394/overview?commentId=8130003
 			 */
 			<UiDropdown
+				alignX={alignX}
 				mountTo={mountPoint}
 				boundariesElement={boundariesElement}
 				scrollableElement={scrollableElement}

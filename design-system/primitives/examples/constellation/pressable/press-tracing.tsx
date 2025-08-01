@@ -22,7 +22,7 @@ const styles = cssMap({
 		borderWidth: token('border.width'),
 		borderStyle: 'solid',
 		borderColor: token('color.border'),
-		borderRadius: '3px',
+		borderRadius: token('border.radius.100'),
 		height: '44px',
 		width: '44px',
 		display: 'flex',

@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 3.4.3
+
+### Patch Changes
+
+- [`86db72552d6a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/86db72552d6a0) -
+  Add Apis to get selection adf and text information
+
+## 3.4.2
+
+### Patch Changes
+
+- [`373e833d95d52`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/373e833d95d52) -
+  [ux] COMMIT-19456:Fix forge app coords bug
+- Updated dependencies
+
 ## 3.4.1
 
 ### Patch Changes

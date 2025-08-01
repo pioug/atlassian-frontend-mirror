@@ -20,19 +20,22 @@ const props = {
 	imageUrl: exampleImage,
 };
 
-it('Basic EmptyState should not fail aXe audit', async () => {
-	const { container } = render(<EmptyState {...props} />);
-	await axe(container);
-});
+it('All EmptyState components should not fail aXe audit', async () => {
+	// Test basic EmptyState
+	const { container: emptyStateContainer, unmount: unmountEmptyState } = render(
+		<EmptyState {...props} />,
+	);
+	await axe(emptyStateContainer);
+	unmountEmptyState();
 
-it('Basic Image should not fail aXe audit', async () => {
-	const { container } = render(
+	// Test HeaderImage
+	const { container: imageContainer, unmount: unmountImage } = render(
 		<HeaderImage maxHeight={props.maxHeight} maxWidth={props.maxWidth} src={props.imageUrl} />,
 	);
-	await axe(container);
-});
+	await axe(imageContainer);
+	unmountImage();
 
-it('Basic SpinnerContainer should not fail aXe audit', async () => {
-	const { container } = render(<SpinnerContainer />);
-	await axe(container);
+	// Test SpinnerContainer
+	const { container: spinnerContainer } = render(<SpinnerContainer />);
+	await axe(spinnerContainer);
 });

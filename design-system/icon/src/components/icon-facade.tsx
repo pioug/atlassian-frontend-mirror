@@ -44,7 +44,12 @@ export const IconFacade = memo(function IconFacade({
 		// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 		fg('platform-visual-refresh-icons-legacy-facade');
 
-	if (useNewIcon && NewIcon && (iconSize === 'small' || iconSize === 'medium')) {
+	if (
+		useNewIcon &&
+		NewIcon &&
+		(iconSize === 'small' || iconSize === 'medium') &&
+		!fg('platform-visual-refresh-icons-facade-removal')
+	) {
 		if (props.iconType === 'utility') {
 			const Icon = NewIcon as React.ComponentType<UNSAFE_NewUtilityGlyphProps>;
 			return (

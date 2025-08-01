@@ -41,6 +41,12 @@
 			"path": "../../editor-plugin-selection-toolbar/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-user-preferences/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-shared-styles/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../editor-tables/afm-post-office/tsconfig.json"
 		},
 		{

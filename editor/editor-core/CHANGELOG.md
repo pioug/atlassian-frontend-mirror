@@ -1,5 +1,17 @@
 # @atlaskit/editor-core
 
+## 209.5.0
+
+### Minor Changes
+
+- [#192090](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/192090)
+  [`f4fdeb6190597`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f4fdeb6190597) -
+  Add toolbarPlugin to both default preset + confluence full page preset
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 209.4.0
 
 ### Minor Changes

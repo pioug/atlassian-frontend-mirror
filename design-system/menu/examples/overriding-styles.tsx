@@ -20,7 +20,7 @@ const styles = cssMap({
 		paddingBlockEnd: token('space.150', '12px'),
 		paddingInlineStart: token('space.250', '20px'),
 		borderStyle: 'solid',
-		borderWidth: '1px',
+		borderWidth: token('border.width'),
 		borderColor: '#CDCDCD',
 		backgroundColor: 'aliceblue',
 		borderRadius: 3,

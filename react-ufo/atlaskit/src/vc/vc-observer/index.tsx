@@ -1,5 +1,7 @@
 import { type UnbindFn } from 'bind-event-listener';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import type {
 	ComponentsLogType,
 	RevisionPayload,
@@ -326,18 +328,24 @@ export class VCObserver implements VCObserverInterface {
 					if (isTTVCv1Disabled) {
 						const duration = vcNext.VC[key];
 						if (duration !== null && duration !== undefined) {
-							performance.measure(`VC${key}`, { start, duration });
-							performance.measure(`VC_Next${key}`, { start, duration });
+							if (!fg('ufo_chrome_devtools_uplift')) {
+								performance.measure(`VC${key}`, { start, duration });
+								performance.measure(`VC_Next${key}`, { start, duration });
+							}
 						}
 					} else {
 						const ttvcV1duration = VC[key];
 						if (ttvcV1duration !== null && ttvcV1duration !== undefined) {
-							performance.measure(`VC${key}`, { start, duration: ttvcV1duration });
+							if (!fg('ufo_chrome_devtools_uplift')) {
+								performance.measure(`VC${key}`, { start, duration: ttvcV1duration });
+							}
 						}
 
 						const ttvcV2duration = vcNext.VC[key];
 						if (ttvcV2duration !== null && ttvcV2duration !== undefined) {
-							performance.measure(`VC_Next${key}`, { start, duration: ttvcV2duration });
+							if (!fg('ufo_chrome_devtools_uplift')) {
+								performance.measure(`VC_Next${key}`, { start, duration: ttvcV2duration });
+							}
 						}
 					}
 				});

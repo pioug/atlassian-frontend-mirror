@@ -42,6 +42,7 @@ import { selectionToolbarPlugin } from '@atlaskit/editor-plugins/selection-toolb
 import { submitEditorPlugin } from '@atlaskit/editor-plugins/submit-editor';
 import { textFormattingPlugin } from '@atlaskit/editor-plugins/text-formatting';
 import type { TextFormattingPluginOptions } from '@atlaskit/editor-plugins/text-formatting';
+import { toolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import type { TypeAheadPluginOptions } from '@atlaskit/editor-plugins/type-ahead';
 import { typeAheadPlugin } from '@atlaskit/editor-plugins/type-ahead';
 import { undoRedoPlugin } from '@atlaskit/editor-plugins/undo-redo';
@@ -138,6 +139,7 @@ export function createDefaultPreset(options: DefaultPresetPluginOptions): Defaul
 		.add(decorationsPlugin)
 		.add([typeAheadPlugin, options.typeAhead])
 		.maybeAdd(historyPlugin, Boolean(options.allowUndoRedoButtons))
+		.maybeAdd(toolbarPlugin, expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true))
 		.add([primaryToolbarPlugin, { contextualFormattingEnabled: isFullPage }])
 		.maybeAdd(
 			undoRedoPlugin,

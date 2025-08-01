@@ -3,12 +3,13 @@
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
 	},
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"description": "Common UI for Toolbars across the platform",
 	"atlassian": {
-		"team": "Editor"
+		"team": "Editor: Jenga",
+		"releaseModel": "continuous"
 	},
-	"repository": "https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo",
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
 	"main": "dist/cjs/index.js",

@@ -52,7 +52,7 @@ const toggleStyles = cssMap({
 		paddingInlineStart: token('space.100'),
 		paddingInlineEnd: token('space.100'),
 		backgroundColor: token('color.background.neutral'),
-		borderRadius: '3px',
+		borderRadius: token('border.radius.100'),
 		'&:hover': {
 			backgroundColor: token('color.background.neutral.hovered'),
 		},
@@ -65,7 +65,7 @@ const toggleStyles = cssMap({
 const showcaseWrapperStyles = cssMap({
 	root: {
 		backgroundColor: token('color.background.neutral'),
-		borderRadius: '3px',
+		borderRadius: token('border.radius.100'),
 		boxShadow: '0 0 0 1px rgba(0, 0, 0, 0.1)',
 		paddingBlockStart: token('space.100'),
 		paddingBlockEnd: token('space.100'),

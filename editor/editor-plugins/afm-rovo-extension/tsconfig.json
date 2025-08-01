@@ -275,6 +275,9 @@
 			"path": "../../editor-plugin-text-formatting/afm-rovo-extension/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-toolbar/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-toolbar-lists-indentation/afm-rovo-extension/tsconfig.json"
 		},
 		{

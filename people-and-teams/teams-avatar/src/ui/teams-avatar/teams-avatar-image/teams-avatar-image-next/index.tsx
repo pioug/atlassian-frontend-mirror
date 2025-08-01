@@ -126,7 +126,7 @@ const borderRadiusMap = cssMap({
 		borderRadius: '6px',
 	},
 	medium: {
-		borderRadius: '8px',
+		borderRadius: token('border.radius.200'),
 	},
 	large: {
 		borderRadius: '10px',

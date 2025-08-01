@@ -8,9 +8,11 @@ import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugin-selection-toolbar';
+import type { UserPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences';
 
 import type {
 	DynamicSelectionExtension,
+	SelectionAdfResult,
 	InsertAdfAtEndOfDocResult,
 	LinkInsertionOption,
 	ReplaceWithAdfResult,
@@ -18,6 +20,7 @@ import type {
 	SelectionExtensionPluginOptions,
 	SelectionExtensionPluginState,
 	SelectionExtensionSelectionInfo,
+	SelectionTextResult,
 } from './types';
 
 export type SelectionExtensionPlugin = NextEditorPlugin<
@@ -28,6 +31,7 @@ export type SelectionExtensionPlugin = NextEditorPlugin<
 			OptionalPlugin<AnalyticsPlugin>,
 			OptionalPlugin<EditorViewModePlugin>,
 			OptionalPlugin<PrimaryToolbarPlugin>,
+			OptionalPlugin<UserPreferencesPlugin>,
 			SelectionToolbarPlugin,
 		];
 		sharedState: SelectionExtensionPluginState | null;
@@ -51,6 +55,8 @@ export type SelectionExtensionPlugin = NextEditorPlugin<
 			};
 			replaceWithAdf: (nodeAdf: ADFEntity) => ReplaceWithAdfResult;
 			insertAdfAtEndOfDoc: (nodeAdf: ADFEntity) => InsertAdfAtEndOfDocResult;
+			getSelectionAdf: () => SelectionAdfResult;
+			getSelectionText: () => SelectionTextResult;
 		};
 	}
 >;

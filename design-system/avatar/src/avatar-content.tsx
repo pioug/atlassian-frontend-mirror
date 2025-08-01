@@ -131,27 +131,27 @@ const widthHeightMap = cssMap({
 
 const borderRadiusMap = unboundCssMap({
 	xsmall: {
-		borderRadius: '2px',
+		borderRadius: token('border.radius.050'),
 		'&::after': {
-			borderRadius: '2px',
+			borderRadius: token('border.radius.050'),
 		},
 	},
 	small: {
-		borderRadius: '2px',
+		borderRadius: token('border.radius.050'),
 		'&::after': {
-			borderRadius: '2px',
+			borderRadius: token('border.radius.050'),
 		},
 	},
 	medium: {
-		borderRadius: '3px',
+		borderRadius: token('border.radius.100', '3px'),
 		'&::after': {
-			borderRadius: '3px',
+			borderRadius: token('border.radius.100', '3px'),
 		},
 	},
 	large: {
-		borderRadius: '3px',
+		borderRadius: token('border.radius.100', '3px'),
 		'&::after': {
-			borderRadius: '3px',
+			borderRadius: token('border.radius.100', '3px'),
 		},
 	},
 	xlarge: {
@@ -161,9 +161,9 @@ const borderRadiusMap = unboundCssMap({
 		},
 	},
 	xxlarge: {
-		borderRadius: '12px',
+		borderRadius: token('border.radius.300'),
 		'&::after': {
-			borderRadius: '12px',
+			borderRadius: token('border.radius.300'),
 		},
 	},
 });

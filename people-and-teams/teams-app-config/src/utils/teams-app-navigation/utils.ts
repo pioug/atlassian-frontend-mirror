@@ -117,6 +117,8 @@ export function getPathAndQuery(action: NavigationAction): PathAndQuery {
 			return { path: `search/people`, query: new URLSearchParams(action.payload.query) };
 		case 'USER_WORK':
 			return { path: `${stripAriFromId(action.payload.userId)}/work` };
+		case 'CURRENT_USER_PROFILE':
+			return { path: 'me' };
 		default:
 			return { path: '' };
 	}

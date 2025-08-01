@@ -6,6 +6,7 @@ import { type ReactNode } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { Box, Flex, Inline, Stack } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 import ExampleBox from '../shared/example-box';
 
@@ -19,7 +20,7 @@ const styles = cssMap({
 
 	visualContainer: {
 		display: 'flex',
-		borderRadius: '2px',
+		borderRadius: token('border.radius.050'),
 		height: '6rem',
 	},
 });

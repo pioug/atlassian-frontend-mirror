@@ -20,6 +20,7 @@ import {
 	type Node as PMNode,
 } from '@atlaskit/editor-prosemirror/model';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { type LayoutPlugin } from '../layoutPluginType';
@@ -144,7 +145,10 @@ const LayoutBreakoutResizer = ({
 		selectIntoLayout(view, pos, 0);
 	}, [getPos, view]);
 
-	if (interactionState === 'hasNotHadInteraction') {
+	if (
+		interactionState === 'hasNotHadInteraction' &&
+		!expValEquals('platform_editor_breakout_interaction_rerender', 'isEnabled', true)
+	) {
 		return null;
 	}
 
@@ -159,6 +163,10 @@ const LayoutBreakoutResizer = ({
 				editorExperiment('platform_editor_breakout_resizing', true)
 					? true
 					: editorDisabled === true || !isBreakoutAvailable(view.state.schema)
+			}
+			hidden={
+				interactionState === 'hasNotHadInteraction' &&
+				expValEquals('platform_editor_breakout_interaction_rerender', 'isEnabled', true)
 			}
 			parentRef={parentRef}
 			editorAnalyticsApi={pluginInjectionApi?.analytics?.actions}

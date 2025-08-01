@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-track-changes
 
+## 2.4.0
+
+### Minor Changes
+
+- [#193925](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/193925)
+  [`696d65f882441`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/696d65f882441) -
+  Implement `resetBaseline` command for track changes plugin which can be called to reset the diff
+  history.
+
 ## 2.3.0
 
 ### Minor Changes

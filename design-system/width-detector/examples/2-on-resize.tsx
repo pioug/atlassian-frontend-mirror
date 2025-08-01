@@ -6,6 +6,7 @@ import React from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
+import { token } from '@atlaskit/tokens';
 import WidthDetector from '@atlaskit/width-detector';
 
 import { debounce } from './utils/debounce';
@@ -30,7 +31,7 @@ const styles = cssMap({
 		backgroundColor: 'rgb(0, 0, 0, 0.6)',
 		color: 'white',
 		padding: '10px',
-		borderRadius: '3px',
+		borderRadius: token('border.radius.100'),
 	},
 });
 

@@ -52,6 +52,9 @@
 			"path": "../section-message/tsconfig.app.json"
 		},
 		{
+			"path": "../tokens/tsconfig.app.json"
+		},
+		{
 			"path": "../../uip/ssr-tests/tsconfig.app.json"
 		}
 	]

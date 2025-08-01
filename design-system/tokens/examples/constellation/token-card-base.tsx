@@ -7,6 +7,7 @@ import { cssMap, type CSSProperties, jsx } from '@compiled/react';
 
 import GlobeIcon from '@atlaskit/icon/core/migration/globe--world';
 import { type NewGlyphColorProps } from '@atlaskit/icon/types';
+import { token } from '@atlaskit/tokens';
 
 const backgroundColorCssVar = '--card-background-color';
 const borderCssVar = '--card-border';
@@ -24,8 +25,8 @@ const styles = cssMap({
 		minWidth: 'fit-content',
 		padding: '1em',
 		alignItems: 'center',
-		columnGap: '8px',
-		borderRadius: '3px',
+		columnGap: token('space.100'),
+		borderRadius: token('border.radius.100'),
 		fontSize: '24px',
 		transition: 'box-shadow 200ms, background 200ms, border 200ms',
 		flexBasis: '0',

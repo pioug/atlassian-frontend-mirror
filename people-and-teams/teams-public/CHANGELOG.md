@@ -1,5 +1,12 @@
 # @atlaskit/teams-public
 
+## 0.50.3
+
+### Patch Changes
+
+- [`49ad6b3374d93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/49ad6b3374d93) -
+  Clean up enable_web_links_in_team_containers feature gate
+
 ## 0.50.2
 
 ### Patch Changes

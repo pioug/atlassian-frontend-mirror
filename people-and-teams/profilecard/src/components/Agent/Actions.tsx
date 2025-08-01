@@ -15,7 +15,6 @@ import { AgentDeleteConfirmationModal } from './AgentDeleteConfirmationModal';
 
 type AgentActionsProps = {
 	agent: RovoAgentProfileCardInfo;
-	isAgentCreatedByCurrentUser?: boolean;
 	onEditAgent: () => void;
 	onCopyAgent: () => void;
 	onDuplicateAgent: () => void;
@@ -59,7 +58,6 @@ const actionsWrapperStyles = xcss({
 });
 
 export const AgentActions = ({
-	isAgentCreatedByCurrentUser,
 	onEditAgent,
 	onDeleteAgent,
 	onDuplicateAgent,
@@ -124,7 +122,6 @@ export const AgentActions = ({
 
 				<AgentDropdownMenu
 					agentId={agent.id}
-					isAgentCreatedByUser={isAgentCreatedByCurrentUser ?? false}
 					onDeleteAgent={handleDeleteAgent}
 					onEditAgent={onEditAgent}
 					onDuplicateAgent={onDuplicateAgent}

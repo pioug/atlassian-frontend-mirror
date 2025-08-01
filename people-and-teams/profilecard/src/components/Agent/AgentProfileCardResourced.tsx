@@ -24,10 +24,9 @@ export type AgentProfileCardResourcedProps = {
 	resourceClient: ProfileClient;
 	trigger?: TriggerType;
 	children?: React.ReactNode;
-	viewingUserId?: string;
-	product?: string;
 	addFlag?: (flag: Flag) => void;
 } & AgentActionsType;
+
 export const AgentProfileCardResourced = (props: AgentProfileCardResourcedProps) => {
 	const [agentData, setAgentData] = useState<RovoAgentProfileCardInfo>();
 	const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -147,8 +146,6 @@ export const AgentProfileCardResourced = (props: AgentProfileCardResourcedProps)
 				agent={agentData}
 				isLoading={isLoading}
 				hasError={!!error}
-				isCreatedByViewingUser={creatorUserId === props.viewingUserId}
-				product={props.product}
 				onConversationStartersClick={props.onConversationStartersClick}
 				onChatClick={props.onChatClick}
 				addFlag={props.addFlag}

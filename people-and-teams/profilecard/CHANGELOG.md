@@ -1,5 +1,27 @@
 # @atlaskit/profilecard
 
+## 24.0.0
+
+### Major Changes
+
+- [#193947](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/193947)
+  [`c6101121ae1df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c6101121ae1df) -
+  Removed unused component props in response to the removal of `isAgentCreatedByUser` from the agent
+  dropdown actions component. Changes:
+
+  - `AgentProfileCard`: removed `isCreatedByViewingUser` / `product` props. `isCreatedByViewingUser`
+    is no longer needed for action dropdown permission checks, and `product` is an unused prop
+  - `AgentProfileCardResourced`: removed `viewingUserId` / `product` props. `viewingUserId` is no
+    longer needed for action dropdown permission checks, and `product` is an unused prop
+
+  Also updated consumer components to remove these props.
+
+### Patch Changes
+
+- [`49ad6b3374d93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/49ad6b3374d93) -
+  Clean up enable_web_links_in_team_containers feature gate
+- Updated dependencies
+
 ## 23.21.21
 
 ### Patch Changes

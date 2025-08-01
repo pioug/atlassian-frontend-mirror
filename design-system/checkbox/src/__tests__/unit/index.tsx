@@ -31,18 +31,19 @@ describe('@atlaskit/checkbox', () => {
 	});
 	describe('<Checkbox />', () => {
 		describe('<Checkbox /> stateless: should not use state isChecked property when passing it as props', () => {
-			it('keeps isChecked as false when passing it as prop and clicking', () => {
-				renderCheckbox({ isChecked: false });
-				const checkbox = screen.getByLabelText(/stub/);
+			it('keeps isChecked state when passed as prop and clicking', () => {
+				// Test isChecked false remains false
+				const { unmount } = renderCheckbox({ isChecked: false });
+				let checkbox = screen.getByLabelText(/stub/);
 
 				checkbox.click();
 
 				expect(checkbox).not.toBeChecked();
-			});
+				unmount();
 
-			it('keeps isChecked as true when passing it as prop and calling onChange', () => {
+				// Test isChecked true remains true
 				renderCheckbox({ isChecked: true });
-				const checkbox = screen.getByLabelText(/stub/);
+				checkbox = screen.getByLabelText(/stub/);
 
 				checkbox.click();
 

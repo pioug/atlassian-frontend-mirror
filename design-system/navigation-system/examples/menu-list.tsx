@@ -19,7 +19,7 @@ const styles = cssMap({
 	root: {
 		width: '300px',
 		borderColor: token('color.border.accent.gray'),
-		borderWidth: '1px',
+		borderWidth: token('border.width'),
 		borderStyle: 'solid',
 	},
 });

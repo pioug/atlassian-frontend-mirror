@@ -69,7 +69,7 @@ export type NavigationActionPeople = {
 
 export type NavigationActionPayloadVariants =
 	| {
-			type: 'LANDING' | 'DIRECTORY' | 'TEAMS_DIRECTORY';
+			type: 'LANDING' | 'DIRECTORY' | 'TEAMS_DIRECTORY' | 'CURRENT_USER_PROFILE';
 	  }
 	| {
 			type: 'USER';

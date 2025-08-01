@@ -12,7 +12,13 @@ export default function () {
 		<IntlProvider locale="en">
 			<Box padding="space.400">
 				<Inline alignBlock="center" alignInline="center">
-					<AgentDropdownMenu agentId="1" isAgentCreatedByUser={true} isForgeAgent={false} />
+					<AgentDropdownMenu
+						agentId="1"
+						isForgeAgent={false}
+						loadAgentPermissions={() =>
+							Promise.resolve({ isEditEnabled: true, isDeleteEnabled: true })
+						}
+					/>
 				</Inline>
 			</Box>
 		</IntlProvider>

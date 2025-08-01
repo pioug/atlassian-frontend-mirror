@@ -90,6 +90,11 @@ export type SelectionExtensionPluginConfiguration = SelectionExtensionPluginOpti
 
 export type SelectionExtensionCoords = { left: number; right: number; top: number; bottom: number };
 
+export type BoundingBoxOffset = {
+	top: number;
+	bottom: number;
+};
+
 export type InsertPosition = {
 	pointer: string;
 	// can set from/to if selection is a text node
@@ -140,6 +145,16 @@ export type ReplaceWithAdfStatus = 'success' | 'document-changed' | 'failed-to-r
 export type ReplaceWithAdfResult = { status: ReplaceWithAdfStatus };
 
 export type InsertAdfAtEndOfDocResult = { status: 'success' | 'failed' };
+
+export type SelectionAdfResult = {
+	selectedNodeAdf?: ADFEntity;
+	selectionRanges?: SelectionRange[];
+} | null;
+
+export type SelectionTextResult = {
+	text: string;
+	coords: SelectionExtensionCoords;
+} | null;
 
 export type ExtensionSource = 'first-party' | 'external';
 

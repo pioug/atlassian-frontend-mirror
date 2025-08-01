@@ -75,22 +75,22 @@ const sizeStyles = cssMap({
 
 const borderRadiusMap = cssMap({
 	xsmall: {
-		borderRadius: token('border.radius.050', '2px'),
+		borderRadius: token('border.radius.050'),
 	},
 	small: {
-		borderRadius: token('border.radius.050', '2px'),
+		borderRadius: token('border.radius.050'),
 	},
 	medium: {
-		borderRadius: '3px',
+		borderRadius: token('border.radius.100', '3px'),
 	},
 	large: {
-		borderRadius: '3px',
+		borderRadius: token('border.radius.100', '3px'),
 	},
 	xlarge: {
 		borderRadius: '6px',
 	},
 	xxlarge: {
-		borderRadius: token('border.radius.300', '12px'),
+		borderRadius: token('border.radius.300'),
 	},
 });
 

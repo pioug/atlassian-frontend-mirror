@@ -23,7 +23,7 @@ const styles = cssMap({
 		width: '300px',
 	},
 	blackBorder: {
-		borderWidth: '1px',
+		borderWidth: token('border.width'),
 		borderStyle: 'solid',
 		borderColor: 'black',
 		borderRadius: token('border.radius.100', '3px'),

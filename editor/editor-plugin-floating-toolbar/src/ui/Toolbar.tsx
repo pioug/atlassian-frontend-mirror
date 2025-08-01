@@ -35,6 +35,7 @@ import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -158,6 +159,8 @@ const ToolbarItems = React.memo(
 				undefined
 			: popupsMountPoint;
 
+		const isNewEditorToolbarEnabled = areToolbarFlagsEnabled();
+
 		const renderItem = (item: Item, idx: number) => {
 			switch (item.type) {
 				case 'button':
@@ -268,6 +271,11 @@ const ToolbarItems = React.memo(
 				case 'overflow-dropdown':
 					return (
 						<Dropdown
+							alignX={
+								expValEqualsNoExposure('platform_editor_toolbar_aifc', 'isEnabled', true)
+									? 'right'
+									: undefined
+							}
 							key={idx}
 							title={intl.formatMessage(commonMessages.viewMore)}
 							icon={<ShowMoreHorizontalIcon label="" spacing="spacious" />}
@@ -417,7 +425,7 @@ const ToolbarItems = React.memo(
 						/>
 					);
 				case 'separator':
-					if (areToolbarFlagsEnabled()) {
+					if (isNewEditorToolbarEnabled) {
 						return item.fullHeight ? <Separator key={idx} fullHeight={true} /> : null;
 					}
 					return <Separator key={idx} fullHeight={item.fullHeight} />;
@@ -437,7 +445,7 @@ const ToolbarItems = React.memo(
 								// Ignored via go/ees005
 								// eslint-disable-next-line react/no-array-index-key
 								key={index}
-								css={areToolbarFlagsEnabled() ? buttonGroupStylesNew : buttonGroupStyles}
+								css={isNewEditorToolbarEnabled ? buttonGroupStylesNew : buttonGroupStyles}
 								role="radiogroup"
 								aria-label={groupLabel ?? undefined}
 								data-testid="editor-floating-toolbar-grouped-buttons"

@@ -68,15 +68,14 @@ describe('SectionMessage', () => {
 				</SectionMessageAction>
 			);
 
-			it('one action', () => {
-				render(<SectionMessage actions={[action]}>boo</SectionMessage>);
-
+			it('should render actions correctly based on count', () => {
+				// Test one action - should not render as list
+				const { unmount } = render(<SectionMessage actions={[action]}>boo</SectionMessage>);
 				expect(screen.queryByRole('list')).not.toBeInTheDocument();
-			});
+				unmount();
 
-			it('more than one action', () => {
+				// Test more than one action - should render as list
 				render(<SectionMessage actions={[action, action]}>boo</SectionMessage>);
-
 				expect(screen.getByRole('list')).toBeInTheDocument();
 			});
 		});

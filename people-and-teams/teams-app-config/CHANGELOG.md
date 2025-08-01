@@ -1,5 +1,16 @@
 # @atlaskit/teams-app-config
 
+## 1.11.0
+
+### Minor Changes
+
+- [`e25800bcad20a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e25800bcad20a) -
+  Add new route to teams app nav
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.10.2
 
 ### Patch Changes

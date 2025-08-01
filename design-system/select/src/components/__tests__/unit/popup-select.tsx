@@ -49,9 +49,9 @@ describe('Popup Select', () => {
 		global.window.removeEventListener.mockRestore();
 	});
 
-	it('should return focus to trigger element on close', async () => {
+	it('should return focus to trigger element on close and escape', async () => {
 		const onChangeMock = jest.fn();
-		render(
+		const { unmount } = render(
 			<React.Fragment>
 				<PopupSelect
 					options={OPTIONS}
@@ -70,15 +70,17 @@ describe('Popup Select', () => {
 
 		const selectTrigger = screen.getByText('Target');
 
+		// Test focus return on close
 		await user.click(selectTrigger);
 		await user.click(screen.getByText('1'));
 
 		expect(onChangeMock).toHaveBeenCalledWith({ label: '1', value: 'one' });
 		expect(selectTrigger).toHaveFocus();
-	});
 
-	it('should return focus to trigger element on escape', async () => {
-		const onChangeMock = jest.fn();
+		// Clean up and test focus return on escape
+		unmount();
+		onChangeMock.mockClear();
+
 		render(
 			<React.Fragment>
 				<PopupSelect
@@ -96,9 +98,9 @@ describe('Popup Select', () => {
 			</React.Fragment>,
 		);
 
-		const selectTrigger = screen.getByText('Target');
+		const selectTrigger2 = screen.getByText('Target');
 
-		fireEvent.click(selectTrigger);
+		fireEvent.click(selectTrigger2);
 
 		const escapeKeyDownEvent: KeyboardEvent = new KeyboardEvent('keydown', {
 			key: 'Escape',
@@ -107,7 +109,7 @@ describe('Popup Select', () => {
 		document.dispatchEvent(escapeKeyDownEvent);
 
 		expect(onChangeMock).not.toHaveBeenCalled();
-		expect(selectTrigger).toHaveFocus();
+		expect(selectTrigger2).toHaveFocus();
 	});
 
 	it('should stay open when cleared', async () => {

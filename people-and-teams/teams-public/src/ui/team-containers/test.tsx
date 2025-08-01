@@ -4,15 +4,10 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 import { usePeopleAndTeamAnalytics } from '../../common/utils/analytics';
 import { messages } from '../../common/utils/get-container-properties';
 import { useProductPermissions } from '../../controllers/hooks/use-product-permission';
-import {
-	useTeamContainers,
-	useTeamContainersHook,
-} from '../../controllers/hooks/use-team-containers';
+import { useTeamContainers } from '../../controllers/hooks/use-team-containers';
 import { useTeamLinksAndContainers } from '../../controllers/hooks/use-team-links-and-containers';
 
 import { TeamContainers } from './main';
@@ -90,9 +85,7 @@ describe('TeamContainers', () => {
 	};
 
 	beforeEach(() => {
-		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
-			teamLinks: [],
-		});
+		(useTeamContainers as jest.Mock).mockReturnValue({});
 
 		(usePeopleAndTeamAnalytics as jest.Mock).mockReturnValue({
 			fireTrackEvent: mockFireTrackEvent,
@@ -111,8 +104,8 @@ describe('TeamContainers', () => {
 	});
 
 	it('should render add Jira and Confluence container card when the team has no Jira project and Confluence space linked and has product access', () => {
-		(useTeamContainers as jest.Mock).mockReturnValue({
-			teamContainers: [],
+		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+			teamLinks: [],
 		});
 
 		renderTeamContainers(teamId);
@@ -124,8 +117,8 @@ describe('TeamContainers', () => {
 	});
 
 	it('should render add Jira and Confluence container card when the team has no Jira project and Confluence space linked and has no product access', async () => {
-		(useTeamContainers as jest.Mock).mockReturnValue({
-			teamContainers: [],
+		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+			teamLinks: [],
 		});
 
 		(useProductPermissions as jest.Mock).mockReturnValue({
@@ -144,8 +137,8 @@ describe('TeamContainers', () => {
 	});
 
 	it('should not render the no product access state when displayed from profile card', async () => {
-		(useTeamContainers as jest.Mock).mockReturnValue({
-			teamContainers: [],
+		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+			teamLinks: [],
 		});
 
 		(useProductPermissions as jest.Mock).mockReturnValue({
@@ -162,8 +155,8 @@ describe('TeamContainers', () => {
 	});
 
 	it('should NOT render add Jira and Confluence container card when the team has Jira project and Confluence space linked, and should render linked containers', () => {
-		(useTeamContainers as jest.Mock).mockReturnValue({
-			teamContainers: [JiraProject, ConfluenceSpace],
+		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+			teamLinks: [JiraProject, ConfluenceSpace],
 		});
 		renderTeamContainers(teamId);
 
@@ -174,8 +167,8 @@ describe('TeamContainers', () => {
 	});
 
 	it('should NOT render add Jira and Confluence container card when displayed from a profile card', () => {
-		(useTeamContainers as jest.Mock).mockReturnValue({
-			teamContainers: [JiraProject, ConfluenceSpace],
+		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+			teamLinks: [JiraProject, ConfluenceSpace],
 		});
 		const mockFilterContainerId = '3';
 		const isDisplayedOnProfileCard = true;
@@ -188,8 +181,8 @@ describe('TeamContainers', () => {
 	});
 
 	it('should render add Jira container card when the team has no Jira project linked, and render linked Confluence space', () => {
-		(useTeamContainers as jest.Mock).mockReturnValue({
-			teamContainers: [ConfluenceSpace],
+		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+			teamLinks: [ConfluenceSpace],
 		});
 		renderTeamContainers(teamId);
 
@@ -199,8 +192,8 @@ describe('TeamContainers', () => {
 	});
 
 	it('should render add Confluence container card when the team has no Confluence space linked, and render linked Jira project', () => {
-		(useTeamContainers as jest.Mock).mockReturnValue({
-			teamContainers: [JiraProject],
+		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+			teamLinks: [JiraProject],
 		});
 		renderTeamContainers(teamId);
 
@@ -219,8 +212,8 @@ describe('TeamContainers', () => {
 			icon: 'icon',
 			link: 'link',
 		}));
-		(useTeamContainers as jest.Mock).mockReturnValue({
-			teamContainers,
+		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+			teamLinks: teamContainers,
 		});
 		renderTeamContainers(teamId);
 
@@ -246,8 +239,8 @@ describe('TeamContainers', () => {
 			icon: 'icon',
 			link: 'link',
 		}));
-		(useTeamContainers as jest.Mock).mockReturnValue({
-			teamContainers,
+		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+			teamLinks: teamContainers,
 		});
 		renderTeamContainers(teamId, '', true, undefined, 3);
 
@@ -265,8 +258,8 @@ describe('TeamContainers', () => {
 		}));
 		const mockFilterContainerId = '3';
 
-		(useTeamContainers as jest.Mock).mockReturnValue({
-			teamContainers: teamContainers.filter((container) => container.id !== mockFilterContainerId),
+		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+			teamLinks: teamContainers.filter((container) => container.id !== mockFilterContainerId),
 		});
 
 		renderTeamContainers(teamId, mockFilterContainerId, true);
@@ -281,8 +274,8 @@ describe('TeamContainers', () => {
 	});
 
 	it('should call onAddAContainerClick when add container card is clicked', () => {
-		(useTeamContainers as jest.Mock).mockReturnValue({
-			teamContainers: [
+		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+			teamLinks: [
 				{
 					id: 'id',
 					type: 'ConfluenceSpace',
@@ -299,9 +292,9 @@ describe('TeamContainers', () => {
 	});
 
 	it('should show skeleton when loading', () => {
-		(useTeamContainers as jest.Mock).mockReturnValue({
-			loading: true,
-			teamContainers: [],
+		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+			isLoading: true,
+			teamLinks: [],
 		});
 		renderTeamContainers(teamId);
 
@@ -309,9 +302,9 @@ describe('TeamContainers', () => {
 	});
 
 	it('should show a custom skeleton component if passed in', () => {
-		(useTeamContainers as jest.Mock).mockReturnValue({
-			loading: true,
-			teamContainers: [],
+		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+			isLoading: true,
+			teamLinks: [],
 		});
 
 		const customContainer = () => <></>;
@@ -327,8 +320,8 @@ describe('TeamContainers', () => {
 	});
 
 	it('should not render disconnect dialog initially', () => {
-		(useTeamContainers as jest.Mock).mockReturnValue({
-			teamContainers: [JiraProject],
+		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+			teamLinks: [JiraProject],
 		});
 		renderTeamContainers(teamId);
 
@@ -336,8 +329,8 @@ describe('TeamContainers', () => {
 	});
 
 	it('should render disconnect dialog when disconnect button is clicked', async () => {
-		(useTeamContainers as jest.Mock).mockReturnValue({
-			teamContainers: [JiraProject],
+		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+			teamLinks: [JiraProject],
 		});
 		renderTeamContainers(teamId);
 
@@ -350,8 +343,8 @@ describe('TeamContainers', () => {
 	});
 
 	it('should open disconnect dialog when disconnect button is clicked', async () => {
-		(useTeamContainers as jest.Mock).mockReturnValue({
-			teamContainers: [JiraProject],
+		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+			teamLinks: [JiraProject],
 		});
 		renderTeamContainers(teamId);
 
@@ -372,15 +365,14 @@ describe('TeamContainers', () => {
 	});
 
 	it('should close disconnect dialog and fire analytics event when confirmation dialog proceed', async () => {
-		(useTeamContainers as jest.Mock).mockReturnValue({
-			teamContainers: [JiraProject],
+		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+			teamLinks: [JiraProject],
+			removeTeamLink: jest.fn(),
 		});
-		(useTeamContainersHook as jest.Mock).mockReturnValue([
-			{
-				unlinkError: null,
-			},
-			{ unlinkTeamContainers: jest.fn() },
-		]);
+		(useTeamContainers as jest.Mock).mockReturnValue({
+			unlinkError: null,
+		});
+
 		renderTeamContainers(teamId);
 
 		await userEvent.hover(screen.getByText(JiraProject.name));
@@ -407,8 +399,8 @@ describe('TeamContainers', () => {
 	});
 
 	it('should have no accessibility violations', async () => {
-		(useTeamContainers as jest.Mock).mockReturnValue({
-			teamContainers: [JiraProject, ConfluenceSpace],
+		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+			teamLinks: [JiraProject, ConfluenceSpace],
 		});
 		const { container } = renderTeamContainers(teamId);
 
@@ -482,78 +474,75 @@ describe('TeamLinks', () => {
 			error: null,
 		});
 	});
-	ffTest.on('enable_web_links_in_team_containers', 'with web link enabled', () => {
-		it('should render add Jira, Confluence, Web link card when the team has no Jira project, Confluence space and Web links and has product access', () => {
-			(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
-				teamLinks: [],
-				isLoading: false,
-				hasLoaded: true,
-				hasError: false,
-				containersError: false,
-				webLinksError: false,
-				canAddMoreLink: true,
-				addTeamLink: jest.fn(),
-				updateTeamLink: jest.fn(),
-				removeTeamLink: jest.fn(),
-			});
-			renderTeamContainers(teamId);
 
-			expect(screen.getByText(messages.addJiraProjectTitle.defaultMessage)).toBeInTheDocument();
-			expect(
-				screen.getByText(messages.addConfluenceContainerTitle.defaultMessage),
-			).toBeInTheDocument();
-			expect(
-				screen.getByText(messages.emptyWebLinkContainerDescription.defaultMessage),
-			).toBeInTheDocument();
+	it('should render add Jira, Confluence, Web link card when the team has no Jira project, Confluence space and Web links and has product access', () => {
+		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+			teamLinks: [],
+			isLoading: false,
+			hasLoaded: true,
+			hasError: false,
+			containersError: false,
+			webLinksError: false,
+			canAddMoreLink: true,
+			addTeamLink: jest.fn(),
+			updateTeamLink: jest.fn(),
+			removeTeamLink: jest.fn(),
 		});
+		renderTeamContainers(teamId);
 
-		it('should render add Jira container and web link card when the team has no Jira project and web link, and render linked Confluence space', () => {
-			(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
-				teamLinks: [ConfluenceSpace],
-			});
-			renderTeamContainers(teamId);
+		expect(screen.getByText(messages.addJiraProjectTitle.defaultMessage)).toBeInTheDocument();
+		expect(
+			screen.getByText(messages.addConfluenceContainerTitle.defaultMessage),
+		).toBeInTheDocument();
+		expect(
+			screen.getByText(messages.emptyWebLinkContainerDescription.defaultMessage),
+		).toBeInTheDocument();
+	});
 
-			expect(screen.getByText(messages.addJiraProjectTitle.defaultMessage)).toBeInTheDocument();
-			expect(screen.queryByText(messages.addConfluenceContainerTitle.defaultMessage)).toBeNull();
-			expect(screen.getByText(ConfluenceSpace.name)).toBeInTheDocument();
-			expect(
-				screen.getByText(messages.emptyWebLinkContainerDescription.defaultMessage),
-			).toBeInTheDocument();
+	it('should render add Jira container and web link card when the team has no Jira project and web link, and render linked Confluence space', () => {
+		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+			teamLinks: [ConfluenceSpace],
 		});
+		renderTeamContainers(teamId);
 
-		it('should render add Confluence container and web link card when the team has no Confluence space and web link, and render linked Jira project', () => {
-			(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
-				teamLinks: [JiraProject],
-			});
-			renderTeamContainers(teamId);
+		expect(screen.getByText(messages.addJiraProjectTitle.defaultMessage)).toBeInTheDocument();
+		expect(screen.queryByText(messages.addConfluenceContainerTitle.defaultMessage)).toBeNull();
+		expect(screen.getByText(ConfluenceSpace.name)).toBeInTheDocument();
+		expect(
+			screen.getByText(messages.emptyWebLinkContainerDescription.defaultMessage),
+		).toBeInTheDocument();
+	});
 
-			expect(
-				screen.getByText(messages.addConfluenceContainerTitle.defaultMessage),
-			).toBeInTheDocument();
-			expect(screen.queryByText(messages.addJiraProjectTitle.defaultMessage)).toBeNull();
-			expect(screen.getByText(JiraProject.name)).toBeInTheDocument();
-			expect(
-				screen.getByText(messages.emptyWebLinkContainerDescription.defaultMessage),
-			).toBeInTheDocument();
+	it('should render add Confluence container and web link card when the team has no Confluence space and web link, and render linked Jira project', () => {
+		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+			teamLinks: [JiraProject],
 		});
+		renderTeamContainers(teamId);
 
-		it('should render linked containers when jira project, confluence space and web links have linked data', () => {
-			(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
-				teamLinks: [JiraProject, ConfluenceSpace, WebLinks],
-			});
-			renderTeamContainers(teamId);
+		expect(
+			screen.getByText(messages.addConfluenceContainerTitle.defaultMessage),
+		).toBeInTheDocument();
+		expect(screen.queryByText(messages.addJiraProjectTitle.defaultMessage)).toBeNull();
+		expect(screen.getByText(JiraProject.name)).toBeInTheDocument();
+		expect(
+			screen.getByText(messages.emptyWebLinkContainerDescription.defaultMessage),
+		).toBeInTheDocument();
+	});
 
-			expect(screen.queryByText(messages.addJiraProjectTitle.defaultMessage)).toBeNull();
-			expect(screen.queryByText(messages.addConfluenceContainerTitle.defaultMessage)).toBeNull();
-			expect(
-				screen.queryByText(messages.emptyWebLinkContainerDescription.defaultMessage),
-			).toBeNull();
-			expect(screen.getByText(JiraProject.name)).toBeInTheDocument();
-			expect(screen.getByText(ConfluenceSpace.name)).toBeInTheDocument();
-			expect(screen.getByText(WebLinks.name)).toBeInTheDocument();
-			expect(
-				screen.getByText(messages.webLinkContainerDescription.defaultMessage),
-			).toBeInTheDocument();
+	it('should render linked containers when jira project, confluence space and web links have linked data', () => {
+		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+			teamLinks: [JiraProject, ConfluenceSpace, WebLinks],
 		});
+		renderTeamContainers(teamId);
+
+		expect(screen.queryByText(messages.addJiraProjectTitle.defaultMessage)).toBeNull();
+		expect(screen.queryByText(messages.addConfluenceContainerTitle.defaultMessage)).toBeNull();
+		expect(screen.queryByText(messages.emptyWebLinkContainerDescription.defaultMessage)).toBeNull();
+		expect(screen.getByText(JiraProject.name)).toBeInTheDocument();
+		expect(screen.getByText(ConfluenceSpace.name)).toBeInTheDocument();
+		expect(screen.getByText(WebLinks.name)).toBeInTheDocument();
+		expect(
+			screen.getByText(messages.webLinkContainerDescription.defaultMessage),
+		).toBeInTheDocument();
 	});
 });

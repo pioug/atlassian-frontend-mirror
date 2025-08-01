@@ -1,5 +1,29 @@
 # @atlaskit/editor-statsig-tmp
 
+## 9.21.0
+
+### Minor Changes
+
+- [`c08b561ac933b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c08b561ac933b) -
+  [ux] Fixes a regression where isSelectedViaDragHandle state wasn't updated correctly.
+
+## 9.20.0
+
+### Minor Changes
+
+- [#193468](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/193468)
+  [`e626b68cc9c4c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e626b68cc9c4c) -
+  [ux] [CONFCLOUD-82368] Hide layout resize handles until interaction instead of unrendering to
+  prevent rerenders of content inside layouts
+
+## 9.19.0
+
+### Minor Changes
+
+- [#193381](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/193381)
+  [`468cb58f0615b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/468cb58f0615b) -
+  ENGHEALTH-32254 Add aria label to buttons for accessibility
+
 ## 9.18.0
 
 ### Minor Changes

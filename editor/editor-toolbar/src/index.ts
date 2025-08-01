@@ -1,8 +1,10 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 export { Toolbar } from './ui/Toolbar';
 export { ToolbarButton } from './ui/ToolbarButton';
-export { ToolbarDropdownItem } from './ui/ToolbarDropdownItem';
+export { ToolbarButtonGroup } from './ui/ToolbarButtonGroup';
 export { ToolbarDropdownMenu } from './ui/ToolbarDropdownMenu';
+export { ToolbarDropdownItem } from './ui/ToolbarDropdownItem';
+export { ToolbarDropdownItemSection } from './ui/ToolbarDropdownItemSection';
 export { ToolbarKeyboardShortcutHint } from './ui/ToolbarKeyboardShortcutHint';
 export { ToolbarSection } from './ui/ToolbarSection';
 export { ToolbarTooltip } from './ui/ToolbarTooltip';

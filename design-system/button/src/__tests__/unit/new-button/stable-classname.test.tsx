@@ -4,14 +4,17 @@ import { render, screen } from '@testing-library/react';
 
 import variants from '../../../utils/variants';
 
-variants.forEach(({ name, Component }) => {
-	it(`${name} should have a stable class name when re-rendering`, () => {
-		const { rerender } = render(<Component testId="button">Button</Component>);
+it('should have stable class names when re-rendering for all button variants', () => {
+	variants.forEach(({ name, Component }) => {
+		const { rerender, unmount } = render(<Component testId="button">Button</Component>);
 		const button = screen.getByTestId('button');
 		const original: string = button.className;
 
 		rerender(<Component testId="button">Button</Component>);
 
 		expect(original).toBe(button.className);
+
+		// Clean up for next variant
+		unmount();
 	});
 });

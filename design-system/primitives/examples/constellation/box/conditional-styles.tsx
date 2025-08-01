@@ -13,7 +13,7 @@ const styles = cssMap({
 	base: {
 		paddingBlock: token('space.500'),
 		width: '100%',
-		borderRadius: '3px',
+		borderRadius: token('border.radius.100'),
 	},
 
 	enabled: {

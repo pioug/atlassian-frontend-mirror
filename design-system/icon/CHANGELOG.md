@@ -1,5 +1,17 @@
 # @atlaskit/icon
 
+## 27.8.1
+
+### Patch Changes
+
+- [#193863](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/193863)
+  [`ddb17aca8f0c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ddb17aca8f0c7) -
+  Disabling icon facade where old icons displayed new icons in prepartion for removal
+- [#193214](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/193214)
+  [`c661806a65543`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c661806a65543) -
+  Internal changes to how border radius and border width values are applied. No visual change.
+- Updated dependencies
+
 ## 27.8.0
 
 ### Minor Changes

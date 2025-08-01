@@ -26,7 +26,7 @@ const customItemStyles = cssMap({
 		paddingInlineEnd: token('space.300', '24px'),
 		paddingBlockEnd: token('space.100', '8px'),
 		paddingInlineStart: token('space.300', '24px'),
-		borderRadius: '3px',
+		borderRadius: token('border.radius.100'),
 		backgroundColor: N10,
 		color: N500,
 		'&:hover': {

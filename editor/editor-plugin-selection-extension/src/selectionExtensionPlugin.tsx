@@ -16,7 +16,7 @@ import { insertSmartLinks } from './pm-plugins/actions';
 import { insertAdfAtEndOfDoc } from './pm-plugins/actions/insertAdfAtEndOfDoc';
 import { replaceWithAdf } from './pm-plugins/actions/replaceWithAdf';
 import { createPlugin, selectionExtensionPluginKey } from './pm-plugins/main';
-import { getSelectionInfo } from './pm-plugins/utils';
+import { getSelectionAdfInfo, getSelectionTextInfo } from './pm-plugins/utils';
 import type { SelectionExtensionPlugin } from './selectionExtensionPluginType';
 import {
 	SelectionExtensionActionTypes,
@@ -27,7 +27,6 @@ import {
 } from './types';
 import { SelectionExtensionComponentWrapper } from './ui/extension/SelectionExtensionComponentWrapper';
 import { getMenuItemExtensions, getToolbarItemExtensions } from './ui/extensions';
-import { getBoundingBoxFromSelection } from './ui/getBoundingBoxFromSelection';
 import { LegacyPrimaryToolbarComponent } from './ui/LegacyToolbarComponent';
 import { selectionToolbar } from './ui/selectionToolbar';
 
@@ -101,10 +100,26 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 				const { state, dispatch } = editorViewRef.current;
 				return insertAdfAtEndOfDoc(nodeAdf)(state, dispatch);
 			},
-			// NEXT PR: Implement this to return selectedNodeAdf, selectionRanges
-			// getSelectionAdf: () => {},
-			// NEXT PR: Implement this to return text, coords
-			// getSelectionText: () => {},
+
+			getSelectionAdf: () => {
+				if (!editorViewRef.current) {
+					return null;
+				}
+				const { state } = editorViewRef.current;
+
+				const { selectionRanges, selectedNodeAdf } = getSelectionAdfInfo(state);
+				return {
+					selectedNodeAdf,
+					selectionRanges,
+				};
+			},
+			getSelectionText: () => {
+				if (!editorViewRef.current) {
+					return null;
+				}
+				const { text, coords } = getSelectionTextInfo(editorViewRef.current, api);
+				return { text, coords };
+			},
 		},
 		contentComponent: ({ editorView }) => {
 			return (
@@ -156,19 +171,9 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 					return;
 				}
 
-				const getSelection = (view: EditorView) => {
-					// ensure the same document state is applied to editor view to avoid mismatches
-					const { selection: currentSelection } = view.state;
-
-					const { from, to } = currentSelection;
-					const text = view.state.doc.textBetween(from, to, '\n');
-					const coords = getBoundingBoxFromSelection(view, from, to);
-					return { text, from, to, coords };
-				};
-
 				const handleOnExtensionClick =
 					(view: EditorView) => (extension: SelectionExtensionStaticOrDynamic) => {
-						const selection = getSelection(view);
+						const selection = getSelectionTextInfo(view, api);
 
 						if (extension.component) {
 							api?.core.actions.execute(
@@ -182,9 +187,8 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 						let onClickCallbackOptions: SelectionExtensionCallbackOptions = { selection };
 
 						if (fg('platform_editor_selection_extension_api_v2')) {
-							const { selectedNodeAdf, selectionRanges, selectedNode, nodePos } = getSelectionInfo(
-								view.state,
-							);
+							const { selectedNodeAdf, selectionRanges, selectedNode, nodePos } =
+								getSelectionAdfInfo(view.state);
 							onClickCallbackOptions = { selectedNodeAdf, selectionRanges };
 							extension.onClick?.(onClickCallbackOptions);
 
@@ -211,7 +215,7 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 						extension?.isDisabled instanceof Function
 							? extension?.isDisabled?.({
 									selection: editorViewRef.current
-										? getSelection(editorViewRef.current)
+										? getSelectionTextInfo(editorViewRef.current, api)
 										: undefined,
 								})
 							: extension?.isDisabled;
@@ -229,7 +233,7 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 
 				const getConfigFromExtensionCallback = (extension: SelectionExtensionConfig) => {
 					if (typeof extension === 'function') {
-						const { selectedNodeAdf, selectionRanges } = getSelectionInfo(state);
+						const { selectedNodeAdf, selectionRanges } = getSelectionAdfInfo(state);
 						return extension({
 							selectedNodeAdf,
 							selectionRanges,

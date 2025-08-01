@@ -80,6 +80,7 @@ export {
 	getTableCellBackgroundDarkModeColors,
 	ATLASSIAN_NAVIGATION_HEIGHT,
 	FULL_PAGE_EDITOR_TOOLBAR_HEIGHT,
+	akEditorFullPageToolbarHeight,
 	akEditorTableCellBlanketSelected,
 	akEditorTableCellBlanketDeleted,
 	akEditorWrappedNodeZIndex,

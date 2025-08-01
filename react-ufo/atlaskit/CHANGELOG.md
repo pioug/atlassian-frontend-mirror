@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.1.11
+
+### Patch Changes
+
+- [`690db8120453b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/690db8120453b) -
+  Grouped reactUFO spans for chrome devtools
+
 ## 4.1.10
 
 ### Patch Changes

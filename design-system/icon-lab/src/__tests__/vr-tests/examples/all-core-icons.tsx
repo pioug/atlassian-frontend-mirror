@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::49456abc3372454c0ee74a160843f61c>>
+ * @codegen <<SignedSource::b5c21828b1bcb1e116492eb041c93642>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -13,7 +13,7 @@
  */
 import React from 'react';
 
-import { css, jsx } from '@compiled/react';
+import { cssMap, jsx } from '@compiled/react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Inline } from '@atlaskit/primitives';
@@ -506,17 +506,20 @@ const Icons = [
 ];
 
 const groupSize = 50;
-const IconWrapperStyles = css({ width: 304 });
+const sizeStyles = cssMap({
+	medium: { width: 304, height: 144 },
+	small: { width: 304, height: 124 },
+});
 
 function createIconGroupComponent(
 	IconGroup: React.ComponentType<NewCoreIconProps>[],
-	iconProps: Partial<NewCoreIconProps> = {},
+	{ size }: Partial<NewCoreIconProps> = {},
 ) {
 	return () => (
-		<div css={IconWrapperStyles}>
+		<div css={sizeStyles[size || 'medium']}>
 			<Inline space="space.200" alignInline="start" shouldWrap={true}>
 				{IconGroup.map((Icon, index) => (
-					<Icon label="" key={index} {...iconProps} />
+					<Icon label="" key={index} size={size} />
 				))}
 			</Inline>
 		</div>

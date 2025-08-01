@@ -64,6 +64,5 @@
 		{
 			"path": "../../design-system/tooltip/tsconfig.app.json"
 		}
-	],
-	"files": []
+	]
 }

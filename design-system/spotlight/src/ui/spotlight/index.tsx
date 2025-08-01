@@ -12,7 +12,6 @@ const styles = cssMap({
 	root: {
 		position: 'relative',
 		width: '295px',
-		backgroundColor: token('color.background.neutral.bold'),
 		borderRadius: token('border.radius.200'),
 	},
 });
@@ -40,7 +39,12 @@ export interface SpotlightProps {
 export const Spotlight = forwardRef<HTMLDivElement, SpotlightProps>(
 	({ children, testId }: SpotlightProps, ref) => {
 		return (
-			<Box ref={ref} xcss={styles.root} testId={testId}>
+			<Box
+				ref={ref}
+				xcss={styles.root}
+				backgroundColor="color.background.neutral.bold"
+				testId={testId}
+			>
 				{children}
 			</Box>
 		);

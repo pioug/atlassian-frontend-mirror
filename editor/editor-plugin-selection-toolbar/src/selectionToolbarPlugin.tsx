@@ -26,6 +26,7 @@ import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -307,111 +308,119 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 				},
 			];
 		},
-		pluginsOptions: {
-			floatingToolbar(state, intl, providerFactory) {
-				const { selectionStable, hide, toolbarDocking } = selectionToolbarPluginKey.getState(
-					state,
-				) as SelectionToolbarPluginState;
 
-				const isCellSelection = '$anchorCell' in state.selection;
-				const isEditorControlsEnabled = editorExperiment('platform_editor_controls', 'variant1');
-				if (
-					state.selection.empty ||
-					!selectionStable ||
-					hide ||
-					state.selection instanceof NodeSelection ||
-					// $anchorCell is only available in CellSelection, this check is to
-					// avoid importing CellSelection from @atlaskit/editor-tables
-					(isCellSelection && !isEditorControlsEnabled) // for Editor Controls we want to show the toolbar on CellSelection
-				) {
-					// If there is no active selection, or the selection is not stable, or the selection is a node selection,
-					// do not show the toolbar.
-					return;
-				}
+		pluginsOptions: expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true)
+			? {}
+			: {
+					floatingToolbar(state, intl, providerFactory) {
+						const { selectionStable, hide, toolbarDocking } = selectionToolbarPluginKey.getState(
+							state,
+						) as SelectionToolbarPluginState;
 
-				if (isCellSelection && isEditorControlsEnabled) {
-					const isSelectedViaDragHandle =
-						api?.blockControls?.sharedState.currentState()?.isSelectedViaDragHandle;
-					if (isSelectedViaDragHandle) {
-						return;
-					}
-				}
+						const isCellSelection = '$anchorCell' in state.selection;
+						const isEditorControlsEnabled = editorExperiment(
+							'platform_editor_controls',
+							'variant1',
+						);
+						if (
+							state.selection.empty ||
+							!selectionStable ||
+							hide ||
+							state.selection instanceof NodeSelection ||
+							// $anchorCell is only available in CellSelection, this check is to
+							// avoid importing CellSelection from @atlaskit/editor-tables
+							(isCellSelection && !isEditorControlsEnabled) // for Editor Controls we want to show the toolbar on CellSelection
+						) {
+							// If there is no active selection, or the selection is not stable, or the selection is a node selection,
+							// do not show the toolbar.
+							return;
+						}
 
-				// Resolve the selectionToolbarHandlers to a list of SelectionToolbarGroups
-				// and filter out any handlers which returned undefined
-				const resolved = __selectionToolbarHandlers
-					.map((selectionToolbarHandler) => selectionToolbarHandler(state, intl, providerFactory))
-					.filter((resolved) => resolved !== undefined) as SelectionToolbarGroup[];
-				// Sort the groups by rank
-				// This is intended to allow different plugins to control the order of the groups
-				// they add to the selection toolbar.
-				// ie. if you want to have your plugin's group appear first, set rank to -10 if there is currently another
-				// plugin you expect to be run at the same time as with an rank of -9
-				resolved.sort(({ rank: rankA = 0 }, { rank: rankB = 0 }) => {
-					if (rankA < rankB) {
-						return 1;
-					}
-					return -1;
-				});
-
-				const items: FloatingToolbarItem<Command>[] = [];
-
-				// This flattens the groups passed into the floating toolbar into a single list of items
-				for (let i = 0; i < resolved.length; i++) {
-					// add a seperator icon after each group except the last
-					if (Array.isArray(resolved[i]?.items)) {
-						items.push(...resolved[i].items);
-					}
-
-					if (editorExperiment('platform_editor_controls', 'variant1')) {
-						if (resolved[i] && resolved[i + 1]) {
-							if (resolved[i + 1]?.pluginName === 'annotation') {
-								items.push({ type: 'separator', fullHeight: true });
+						if (isCellSelection && isEditorControlsEnabled) {
+							const isSelectedViaDragHandle =
+								api?.blockControls?.sharedState.currentState()?.isSelectedViaDragHandle;
+							if (isSelectedViaDragHandle) {
+								return;
 							}
 						}
-					} else {
-						if (i !== resolved.length - 1) {
-							items.push({ type: 'separator' });
+
+						// Resolve the selectionToolbarHandlers to a list of SelectionToolbarGroups
+						// and filter out any handlers which returned undefined
+						const resolved = __selectionToolbarHandlers
+							.map((selectionToolbarHandler) =>
+								selectionToolbarHandler(state, intl, providerFactory),
+							)
+							.filter((resolved) => resolved !== undefined) as SelectionToolbarGroup[];
+						// Sort the groups by rank
+						// This is intended to allow different plugins to control the order of the groups
+						// they add to the selection toolbar.
+						// ie. if you want to have your plugin's group appear first, set rank to -10 if there is currently another
+						// plugin you expect to be run at the same time as with an rank of -9
+						resolved.sort(({ rank: rankA = 0 }, { rank: rankB = 0 }) => {
+							if (rankA < rankB) {
+								return 1;
+							}
+							return -1;
+						});
+
+						const items: FloatingToolbarItem<Command>[] = [];
+
+						// This flattens the groups passed into the floating toolbar into a single list of items
+						for (let i = 0; i < resolved.length; i++) {
+							// add a seperator icon after each group except the last
+							if (Array.isArray(resolved[i]?.items)) {
+								items.push(...resolved[i].items);
+							}
+
+							if (editorExperiment('platform_editor_controls', 'variant1')) {
+								if (resolved[i] && resolved[i + 1]) {
+									if (resolved[i + 1]?.pluginName === 'annotation') {
+										items.push({ type: 'separator', fullHeight: true });
+									}
+								}
+							} else {
+								if (i !== resolved.length - 1) {
+									items.push({ type: 'separator' });
+								}
+							}
 						}
-					}
-				}
 
-				if (items.length > 0 && contextualFormattingEnabled && isEditorControlsEnabled) {
-					const toolbarDockingPref =
-						api?.userPreferences && fg('platform_editor_use_preferences_plugin')
-							? api?.userPreferences?.sharedState.currentState()?.preferences
-									?.toolbarDockingPosition
-							: toolbarDocking;
+						if (items.length > 0 && contextualFormattingEnabled && isEditorControlsEnabled) {
+							const toolbarDockingPref =
+								api?.userPreferences && fg('platform_editor_use_preferences_plugin')
+									? api?.userPreferences?.sharedState.currentState()?.preferences
+											?.toolbarDockingPosition
+									: toolbarDocking;
 
-					items.push(
-						...getPinOptionToolbarConfig({ api, toolbarDocking: toolbarDockingPref, intl }),
-					);
-				}
+							items.push(
+								...getPinOptionToolbarConfig({ api, toolbarDocking: toolbarDockingPref, intl }),
+							);
+						}
 
-				let onPositionCalculated;
-				const toolbarTitle = 'Selection toolbar';
+						let onPositionCalculated;
+						const toolbarTitle = 'Selection toolbar';
 
-				if (isCellSelection && isEditorControlsEnabled) {
-					onPositionCalculated = calculateToolbarPositionOnCellSelection(toolbarTitle);
-				} else {
-					const calcToolbarPosition = config.preferenceToolbarAboveSelection
-						? calculateToolbarPositionAboveSelection
-						: calculateToolbarPositionTrackHead;
+						if (isCellSelection && isEditorControlsEnabled) {
+							onPositionCalculated = calculateToolbarPositionOnCellSelection(toolbarTitle);
+						} else {
+							const calcToolbarPosition = config.preferenceToolbarAboveSelection
+								? calculateToolbarPositionAboveSelection
+								: calculateToolbarPositionTrackHead;
 
-					onPositionCalculated = calcToolbarPosition(toolbarTitle);
-				}
+							onPositionCalculated = calcToolbarPosition(toolbarTitle);
+						}
 
-				const nodeType = getSelectionNodeTypes(state);
+						const nodeType = getSelectionNodeTypes(state);
 
-				return {
-					title: 'Selection toolbar',
-					nodeType: nodeType,
-					items: items,
-					...(isEditorControlsEnabled && { scrollable: true }),
-					onPositionCalculated,
-				};
-			},
-		},
+						return {
+							title: 'Selection toolbar',
+							nodeType: nodeType,
+							items: items,
+							...(isEditorControlsEnabled && { scrollable: true }),
+							onPositionCalculated,
+						};
+					},
+				},
 
 		contentComponent:
 			editorExperiment('platform_editor_controls', 'variant1') &&

@@ -1,0 +1,204 @@
+import React from 'react';
+
+import type {
+	RegisterToolbar,
+	RegisterToolbarButton,
+	RegisterComponent,
+	RegisterToolbarGroup,
+	RegisterToolbarMenu,
+	RegisterToolbarMenuItem,
+	RegisterToolbarSection,
+	ToolbarGroupComponent,
+	RegisterToolbarMenuSection,
+	ToolbarMenuSectionComponent,
+	ToolbarSectionComponent,
+	ToolbarButtonGroupLocation,
+	ComponentTypes,
+} from '../../types';
+
+type ToolbarProps = {
+	/**
+	 * Toolbar component
+	 */
+	toolbar: RegisterToolbar;
+	/**
+	 * Every registered toolbar component
+	 */
+	components: RegisterComponent[];
+	/**
+	 * Fallback components used in rendering
+	 */
+	fallbacks: {
+		group: ToolbarGroupComponent;
+		section: ToolbarSectionComponent;
+		menuSection: ToolbarMenuSectionComponent;
+	};
+};
+
+const NoOp = <T extends Record<string, unknown> = Record<string, unknown>>(
+	props: T,
+): React.ReactNode => null;
+
+const isSection = (component: RegisterComponent): component is RegisterToolbarSection => {
+	return component.type === 'section';
+};
+
+const isGroup = (component: RegisterComponent): component is RegisterToolbarGroup => {
+	return component.type === 'group';
+};
+
+const isToolbarItem = (
+	component: RegisterComponent,
+): component is RegisterToolbarButton | RegisterToolbarMenu => {
+	return component.type === 'button' || component.type === 'menu';
+};
+
+const isToolbarMenuSection = (
+	component: RegisterComponent,
+): component is RegisterToolbarMenuSection => {
+	return component.type === 'menu-section';
+};
+
+const isToolbarMenuItem = (component: RegisterComponent): component is RegisterToolbarMenuItem => {
+	return component.type === 'menu-item' || component.type === 'menu-section';
+};
+
+const getSortedChildren = <T extends { parents: Array<{ key: string; rank: number }> }>(
+	components: T[],
+	parentKey: string,
+): T[] =>
+	components
+		.filter((component) => component.parents.some((parent) => parent.key === parentKey))
+		.sort(
+			(a, b) =>
+				(a.parents.find((p) => p.key === parentKey)?.rank || 0) -
+				(b.parents.find((p) => p.key === parentKey)?.rank || 0),
+		);
+
+export const ToolbarModelRenderer = ({ toolbar, components, fallbacks }: ToolbarProps) => {
+	const sections = getSortedChildren<RegisterToolbarSection>(
+		components.filter(isSection),
+		toolbar.key,
+	);
+	const groups = components.filter(isGroup);
+	const toolbarItems = components.filter(isToolbarItem);
+	const menuSections = components.filter(isToolbarMenuSection);
+	const menuItems = components.filter(isToolbarMenuItem);
+
+	const renderToolbarItem = ({
+		item,
+		index,
+		groupLocation,
+		parents,
+	}: {
+		item: RegisterToolbarButton | RegisterToolbarMenu;
+		index: number;
+		groupLocation?: ToolbarButtonGroupLocation;
+		parents: ComponentTypes;
+	}) => {
+		if (item.type === 'menu') {
+			const menuComponents = getSortedChildren<RegisterToolbarMenuSection>(menuSections, item.key);
+
+			if (menuComponents.length === 0) {
+				return null;
+			}
+
+			const Menu = item.component || NoOp;
+
+			return (
+				<Menu key={item.key} groupLocation={groupLocation} parents={parents}>
+					{menuComponents.map((menuSection) => {
+						const menuItemsInSection = getSortedChildren<RegisterToolbarMenuItem>(
+							menuItems,
+							menuSection.key,
+						);
+
+						const MenuSection = menuSection.component || fallbacks.menuSection;
+
+						return (
+							<MenuSection
+								key={menuSection.key}
+								parents={[...parents, { key: item.key, type: item.type }]}
+							>
+								{menuItemsInSection.map((menuItem) => {
+									const MenuItem = (menuItem as RegisterToolbarMenuItem).component || NoOp;
+
+									return (
+										<MenuItem
+											key={menuItem.key}
+											parents={[
+												...parents,
+												{ key: item.key, type: item.type },
+												{ key: menuSection.key, type: menuSection.type },
+											]}
+										/>
+									);
+								})}
+							</MenuSection>
+						);
+					})}
+				</Menu>
+			);
+		}
+
+		const Button = item.component || NoOp;
+
+		return <Button key={item.key} groupLocation={groupLocation} parents={parents} />;
+	};
+
+	const renderGroup = (group: RegisterToolbarGroup, parents: ComponentTypes) => {
+		const groupItems = getSortedChildren<RegisterToolbarButton | RegisterToolbarMenu>(
+			toolbarItems,
+			group.key,
+		);
+
+		if (groupItems.length === 0) {
+			return null;
+		}
+
+		const Group = group.component || fallbacks.group;
+
+		return (
+			<Group key={group.key} parents={parents}>
+				{groupItems.map((item, index) => {
+					const isSingleItem = groupItems.length === 1;
+
+					const groupLocation = isSingleItem
+						? undefined
+						: index === 0
+							? 'start'
+							: index === groupItems.length - 1
+								? 'end'
+								: 'middle';
+
+					return renderToolbarItem({
+						item,
+						index,
+						groupLocation,
+						parents: [...parents, { key: group.key, type: group.type }],
+					});
+				})}
+			</Group>
+		);
+	};
+
+	const renderSection = (section: RegisterToolbarSection) => {
+		const sectionGroups = getSortedChildren<RegisterToolbarGroup>(groups, section.key);
+
+		const Section = section.component || fallbacks.section;
+
+		const parents = [{ key: toolbar.key, type: toolbar.type }];
+
+		return (
+			<Section key={section.key} parents={parents}>
+				{sectionGroups.map((group) =>
+					renderGroup(group, [...parents, { key: section.key, type: section.type }]),
+				)}
+			</Section>
+		);
+	};
+
+	const ToolbarComponent = toolbar.component || NoOp;
+
+	return <ToolbarComponent>{sections.map(renderSection)}</ToolbarComponent>;
+};

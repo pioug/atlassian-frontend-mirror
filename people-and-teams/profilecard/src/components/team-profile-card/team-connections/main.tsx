@@ -38,9 +38,7 @@ export const TeamConnections = ({
 	containerIcon,
 	link,
 }: LinkedContainerCardProps) => {
-	const isContainerIconEnabled =
-		fg('enable_web_links_in_team_containers') ||
-		fg('loom_tab_in_container_linker_team_profile_page');
+	const isContainerIconEnabled = fg('loom_tab_in_container_linker_team_profile_page');
 	const { description, icon, containerTypeText } = getContainerProperties({
 		containerType,
 		iconSize: 'medium',
@@ -110,9 +108,7 @@ export const NewTeamConnections = ({
 	containerIcon,
 	link,
 }: LinkedContainerCardProps) => {
-	const isContainerIconEnabled =
-		fg('enable_web_links_in_team_containers') ||
-		fg('loom_tab_in_container_linker_team_profile_page');
+	const isContainerIconEnabled = fg('loom_tab_in_container_linker_team_profile_page');
 	const { description, icon, containerTypeText } = getContainerProperties({
 		containerType,
 		iconSize: 'medium',

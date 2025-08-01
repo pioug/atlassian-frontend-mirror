@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 5.1.4
+
+### Patch Changes
+
+- [`e8620c2d72167`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e8620c2d72167) -
+  [ux] [ED-28572] Explicitly set overflow dropdown to right aligned with main floating toolbar to
+  ensure consistency position across products
+- Updated dependencies
+
 ## 5.1.3
 
 ### Patch Changes

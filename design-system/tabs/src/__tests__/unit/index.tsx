@@ -23,24 +23,22 @@ const renderTabs = (overridingProps: Partial<TabsProps> = {}) => (
 describe('@atlaskit/tabs', () => {
 	describe('Tabs', () => {
 		describe('rendering', () => {
-			it('should not log console error on mount', () => {
+			it('should render correctly without console errors', () => {
 				jest.spyOn(global.console, 'error');
 				render(renderTabs());
+
+				// Should not log console error on mount
 				expect(global.console.error).not.toHaveBeenCalled();
 				// @ts-ignore - Property 'mockRestore' does not exist
 				global.console.error.mockRestore();
-			});
 
-			it('should render each tab', () => {
-				render(renderTabs());
+				// Should render each tab
 				expect(screen.getAllByRole('tab').length).toBe(3);
 				expect(screen.getByText('Tab 1 label')).toBeInTheDocument();
 				expect(screen.getByText('Tab 2 label')).toBeInTheDocument();
 				expect(screen.getByText('Tab 3 label')).toBeInTheDocument();
-			});
 
-			it('should render one tab panel', () => {
-				render(renderTabs());
+				// Should render one tab panel
 				expect(screen.getAllByRole('tabpanel').length).toBe(1);
 				expect(screen.getByText('Tab 1 label')).toBeInTheDocument();
 			});

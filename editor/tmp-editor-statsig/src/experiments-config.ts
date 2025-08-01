@@ -217,6 +217,14 @@ export const editorExperimentsConfig = {
 		values: ['control', 'variant1'],
 		defaultValue: 'control',
 	}),
+	// Added 2025-08-01
+	platform_editor_controls_block_controls_state_fix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_controls_block_controls_state_fix',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-06-02
 	platform_editor_smart_link_cmd_ctrl_click: createBooleanExperiment({
 		productKeys: {
@@ -567,6 +575,14 @@ export const editorExperimentsConfig = {
 	cc_comments_include_path_for_renderer_emojis: createBooleanExperiment({
 		productKeys: {
 			confluence: 'cc_comments_include_path_for_renderer_emojis',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-07-31
+	platform_editor_breakout_interaction_rerender: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_breakout_interaction_rerender',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

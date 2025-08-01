@@ -1,5 +1,14 @@
 # @atlaskit/css
 
+## 0.12.1
+
+### Patch Changes
+
+- [#193214](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/193214)
+  [`c661806a65543`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c661806a65543) -
+  Internal changes to how border radius and border width values are applied. No visual change.
+- Updated dependencies
+
 ## 0.12.0
 
 ### Minor Changes

@@ -17,7 +17,7 @@ const styles = cssMap({
 		color: token('color.text'),
 		borderColor: token('color.border.discovery'),
 		borderStyle: 'solid',
-		borderRadius: '3px',
+		borderRadius: token('border.radius.100'),
 		borderWidth: token('border.width'),
 	},
 });

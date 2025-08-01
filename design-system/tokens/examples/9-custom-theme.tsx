@@ -49,7 +49,10 @@ const styles = cssMap({
 		transition: 'all 0.2s',
 		'&:hover': {
 			height: '80px',
-			borderRadius: '3px 3px 0 0',
+			borderTopLeftRadius: token('border.radius.100'),
+			borderTopRightRadius: token('border.radius.100'),
+			borderBottomLeftRadius: '0',
+			borderBottomRightRadius: '0',
 			marginBlockStart: '-8px',
 			paddingBlockStart: '8px',
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766

@@ -117,6 +117,8 @@ export const FULL_PAGE_EDITOR_TOOLBAR_HEIGHT = () => {
 	return token('space.500', '40px');
 };
 
+export const akEditorFullPageToolbarHeight = 40;
+
 export const akEditorSelectedNodeClassName = 'ak-editor-selected-node';
 
 export const editorFontSize = ({ theme }: { theme: { baseFontSize?: number } | undefined }) =>

@@ -20,7 +20,7 @@ const styles = cssMap({
 		paddingRight: token('space.150'),
 		paddingBottom: token('space.150'),
 		paddingLeft: token('space.150'),
-		borderRadius: '3px',
+		borderRadius: token('border.radius.100'),
 		borderColor: token('color.border'),
 		borderWidth: token('border.width'),
 		borderStyle: 'solid',

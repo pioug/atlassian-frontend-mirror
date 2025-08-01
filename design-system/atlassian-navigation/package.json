@@ -1,7 +1,7 @@
 {
 	"name": "@atlaskit/atlassian-navigation",
 	"version": "5.3.8",
-	"description": "A horizontal navigation component for Atlassian products.",
+	"description": "A horizontal navigation component for Atlassian apps.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
 	},

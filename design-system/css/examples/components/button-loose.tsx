@@ -12,7 +12,7 @@ const buttonStyles = cssMap({
 	container: {
 		color: token('color.text.inverse'),
 		backgroundColor: token('color.background.brand.bold'),
-		borderRadius: '3px',
+		borderRadius: token('border.radius.100'),
 		border: 0,
 		fontWeight: token('font.weight.medium'),
 		paddingBlock: '4px',

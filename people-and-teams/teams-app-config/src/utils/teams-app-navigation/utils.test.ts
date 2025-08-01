@@ -1,13 +1,18 @@
 import { isFedRamp } from '@atlaskit/atlassian-context';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import type { NavigationActionCommon, RequireOrgIdOrCloudId } from '../../common/types';
+import type {
+	NavigationAction,
+	NavigationActionCommon,
+	RequireOrgIdOrCloudId,
+} from '../../common/types';
 import { hostname, openInNewTab, pathname, redirect } from '../../common/utils';
 
 import {
 	generatePath,
 	generateTeamsAppPath,
 	getHostProductFromPath,
+	getPathAndQuery,
 	onNavigateBase,
 } from './utils';
 
@@ -370,6 +375,167 @@ describe('teams app navigation utils', () => {
 			(hostname as jest.Mock).mockReturnValue('hello.atlassian.net');
 			const result = getHostProductFromPath();
 			expect(result).toBe(undefined);
+		});
+	});
+
+	describe('getPathAndQuery', () => {
+		it('should return the correct path and query for a current user profile', () => {
+			const action: NavigationAction = {
+				...baseConfig,
+				type: 'CURRENT_USER_PROFILE',
+			};
+			const result = getPathAndQuery(action);
+			expect(result).toEqual({ path: 'me' });
+		});
+		it('should return the correct path and query for a user', () => {
+			const action: NavigationAction = {
+				...baseConfig,
+				type: 'USER',
+				payload: { userId: 'user123' },
+			};
+			const result = getPathAndQuery(action);
+			expect(result).toEqual({ path: 'user123' });
+		});
+		it('should return the correct path and query for a user with section', () => {
+			const action: NavigationAction = {
+				...baseConfig,
+				type: 'USER',
+				payload: { userId: 'user123', section: 'workswith' },
+			};
+			const result = getPathAndQuery(action);
+			expect(result).toEqual({ path: 'user123', anchor: 'workswith' });
+		});
+		it('should return the correct path and query for landing', () => {
+			const action: NavigationAction = {
+				...baseConfig,
+				type: 'LANDING',
+			};
+			const result = getPathAndQuery(action);
+			expect(result).toEqual({ path: '' });
+		});
+		it('should return the correct path and query for directory', () => {
+			const action: NavigationAction = {
+				...baseConfig,
+				type: 'DIRECTORY',
+			};
+			const result = getPathAndQuery(action);
+			expect(result).toEqual({ path: '' });
+		});
+		it('should return the correct path and query for a team', () => {
+			const action: NavigationAction = {
+				...baseConfig,
+				type: 'TEAM',
+				payload: { teamId: 'team123' },
+			};
+			const result = getPathAndQuery(action);
+			expect(result).toEqual({ path: 'team/team123' });
+		});
+		it('should return the correct path and query for an agent', () => {
+			const action: NavigationAction = {
+				...baseConfig,
+				type: 'AGENT',
+				payload: { agentId: 'agent123' },
+			};
+			const result = getPathAndQuery(action);
+			expect(result).toEqual({ path: 'agent/agent123' });
+		});
+		it('should return the correct path and query for kudos', () => {
+			const action: NavigationAction = {
+				...baseConfig,
+				type: 'KUDOS',
+				payload: { kudosId: 'kudos123' },
+			};
+			const result = getPathAndQuery(action);
+			expect(result).toEqual({ path: 'kudos/kudos123' });
+		});
+		it('should return the correct path and query for teams directory', () => {
+			const action: NavigationAction = {
+				...baseConfig,
+				type: 'TEAMS_DIRECTORY',
+			};
+			const result = getPathAndQuery(action);
+			expect(result).toEqual({
+				path: '',
+				query: new URLSearchParams({ screen: 'SEARCH_TEAMS' }),
+			});
+		});
+		it('should return the correct path and query for people directory', () => {
+			const action: NavigationAction = {
+				...baseConfig,
+				type: 'PEOPLE_DIRECTORY',
+				payload: { query: 'search term' },
+			};
+			const result = getPathAndQuery(action);
+			expect(result).toEqual({
+				path: 'search/people',
+				query: new URLSearchParams('search term'),
+			});
+		});
+		it('should return the correct path and query for people directory without query', () => {
+			const action: NavigationAction = {
+				...baseConfig,
+				type: 'PEOPLE_DIRECTORY',
+				payload: {},
+			};
+			const result = getPathAndQuery(action);
+			expect(result).toEqual({
+				path: 'search/people',
+				query: new URLSearchParams(),
+			});
+		});
+		it('should return the correct path and query for user work', () => {
+			const action: NavigationAction = {
+				...baseConfig,
+				type: 'USER_WORK',
+				payload: { userId: 'user123' },
+			};
+			const result = getPathAndQuery(action);
+			expect(result).toEqual({ path: 'user123/work' });
+		});
+		it('should strip ARI from user ID', () => {
+			const action: NavigationAction = {
+				...baseConfig,
+				type: 'USER',
+				payload: { userId: 'ari:cloud:jira:123:user/456' },
+			};
+			const result = getPathAndQuery(action);
+			expect(result).toEqual({ path: '456' });
+		});
+		it('should strip ARI from team ID', () => {
+			const action: NavigationAction = {
+				...baseConfig,
+				type: 'TEAM',
+				payload: { teamId: 'ari:cloud:jira:123:team/789' },
+			};
+			const result = getPathAndQuery(action);
+			expect(result).toEqual({ path: 'team/789' });
+		});
+		it('should strip ARI from agent ID', () => {
+			const action: NavigationAction = {
+				...baseConfig,
+				type: 'AGENT',
+				payload: { agentId: 'ari:cloud:jira:123:agent/101' },
+			};
+			const result = getPathAndQuery(action);
+			expect(result).toEqual({ path: 'agent/101' });
+		});
+		it('should strip ARI from kudos ID', () => {
+			const action: NavigationAction = {
+				...baseConfig,
+				type: 'KUDOS',
+				payload: { kudosId: 'ari:cloud:jira:123:kudos/202' },
+			};
+			const result = getPathAndQuery(action);
+			expect(result).toEqual({ path: 'kudos/202' });
+		});
+		it('should strip ARI from user work ID', () => {
+			const action: NavigationAction = {
+				...baseConfig,
+				type: 'USER_WORK',
+				payload: { userId: 'ari:cloud:jira:123:user/303' },
+			};
+			const result = getPathAndQuery(action);
+			expect(result).toEqual({ path: '303/work' });
 		});
 	});
 });

@@ -38,8 +38,19 @@ const breakoutSupportedNodes = ['layoutSection', 'expand', 'codeBlock'];
 
 type BreakoutSupportedNodes = 'layoutSection' | 'expand' | 'codeBlock';
 
-const getHandleStyle = (node: BreakoutSupportedNodes) => {
+const getHandleStyle = (node: BreakoutSupportedNodes, hidden: boolean) => {
 	const layoutMarginOffset = 12;
+
+	if (hidden) {
+		return {
+			left: {
+				display: 'none',
+			},
+			right: {
+				display: 'none',
+			},
+		};
+	}
 
 	switch (node) {
 		case 'codeBlock':
@@ -115,6 +126,7 @@ type BreakoutResizerProps = {
 	displayGapCursor: (toggle: boolean) => boolean;
 	onResizeStart?: () => void;
 	dynamicFullWidthGuidelineOffset?: number;
+	hidden?: boolean;
 };
 
 /**
@@ -135,6 +147,7 @@ type BreakoutResizerProps = {
  * @param root0.displayGapCursor
  * @param root0.onResizeStart
  * @param root0.dynamicFullWidthGuidelineOffset
+ * @param root0.hidden Hide the resizer handles without outright unrendering them
  * @returns BreakoutResizer component
  * @example
  */
@@ -151,6 +164,7 @@ const BreakoutResizer = ({
 	displayGapCursor,
 	onResizeStart,
 	dynamicFullWidthGuidelineOffset,
+	hidden = false,
 }: BreakoutResizerProps) => {
 	const [{ minWidth, maxWidth, isResizing }, setResizingState] = useState<ResizingState>({
 		minWidth: undefined,
@@ -419,7 +433,7 @@ const BreakoutResizer = ({
 			}}
 			snap={snaps || undefined}
 			snapGap={SNAP_GAP}
-			handleStyles={getHandleStyle(nodeType)}
+			handleStyles={getHandleStyle(nodeType, hidden)}
 			minWidth={minWidth}
 			maxWidth={maxWidth}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop

@@ -51,7 +51,6 @@ export default function Example() {
 				<Section>
 					<AgentProfileCard
 						agent={agent}
-						isCreatedByViewingUser={true}
 						cloudId="38ef3107-2a4f-4922-9bc6-40beb439aace"
 						resourceClient={mockClient}
 					/>
@@ -65,11 +64,7 @@ export default function Example() {
 						<ProfileCardTrigger
 							trigger={'hover'}
 							renderProfileCard={() => (
-								<AgentProfileCard
-									agent={agent}
-									isCreatedByViewingUser={true}
-									resourceClient={mockClient}
-								/>
+								<AgentProfileCard agent={agent} resourceClient={mockClient} />
 							)}
 							profileCardType={'agent'}
 						>

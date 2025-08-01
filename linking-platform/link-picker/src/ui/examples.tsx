@@ -43,7 +43,7 @@ const plugins = [
 ];
 
 const createExampleStyle = css({
-	borderWidth: '1px',
+	borderWidth: token('border.width'),
 	borderStyle: 'solid',
 	borderColor: 'red',
 	boxSizing: 'border-box',
@@ -59,7 +59,7 @@ const createExample = (props?: Partial<React.ComponentProps<typeof LinkPicker>>)
 };
 
 const createWidthExampleStyle = css({
-	borderWidth: '1px',
+	borderWidth: token('border.width'),
 	borderStyle: 'solid',
 	borderColor: 'red',
 	boxSizing: 'border-box',

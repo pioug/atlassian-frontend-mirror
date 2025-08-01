@@ -28,7 +28,6 @@ import { useTeamLinksAndContainers } from '../../controllers/hooks/use-team-link
 
 import { AddContainerCard } from './add-container-card';
 import { DisconnectDialogLazy } from './disconnect-dialog/async';
-import { LinkedContainerCard } from './linked-container-card';
 import { NoProductAccessState } from './no-product-access-empty-state';
 import { TeamContainersSkeleton } from './team-containers-skeleton';
 import { LinkedContainerCardSkeleton } from './team-containers-skeleton/linked-container-card-skeleton';
@@ -58,11 +57,14 @@ export const TeamContainers = ({
 	maxNumberOfContainersToShow = MAX_NUMBER_OF_CONTAINERS_TO_SHOW,
 }: TeamContainerProps) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
-	const { teamContainers, loading, unlinkError } = useTeamContainers(teamId);
-	const { teamLinks, removeTeamLink, iconsLoading, iconHasLoaded } = useTeamLinksAndContainers(
-		teamId,
-		true,
-	);
+	const { unlinkError } = useTeamContainers(teamId);
+	const {
+		teamLinks,
+		removeTeamLink,
+		iconsLoading,
+		iconHasLoaded,
+		isLoading: linksLoading,
+	} = useTeamLinksAndContainers(teamId, true);
 	const { requestedContainers } = useRequestedContainers({
 		teamId,
 		cloudId,
@@ -74,7 +76,6 @@ export const TeamContainers = ({
 	const [selectedContainerDetails, setSelectedContainerDetails] = useState<
 		SelectedContainerDetails | undefined
 	>();
-	const [filteredTeamContainers, setFilteredTeamContainers] = useState(teamContainers);
 	const [filteredTeamLinks, setFilteredTeamLinks] = useState(teamLinks);
 
 	const [showAddContainer, setShowAddContainer] = useState({
@@ -104,32 +105,21 @@ export const TeamContainers = ({
 		);
 
 	useEffect(() => {
-		if (fg('enable_web_links_in_team_containers')) {
-			if (isDisplayedOnProfileCard && filterContainerId) {
-				setFilteredTeamLinks(
-					teamLinks.filter(
-						(container) =>
-							container.id !== filterContainerId && !requestedContainers.includes(container.type),
-					),
-				);
-			} else {
-				setFilteredTeamLinks(teamLinks);
-			}
+		if (isDisplayedOnProfileCard && filterContainerId) {
+			setFilteredTeamLinks(
+				teamLinks.filter(
+					(container) =>
+						container.id !== filterContainerId && !requestedContainers.includes(container.type),
+				),
+			);
 		} else {
-			if (isDisplayedOnProfileCard && filterContainerId) {
-				setFilteredTeamContainers(
-					teamContainers.filter((container) => container.id !== filterContainerId),
-				);
-			} else {
-				setFilteredTeamContainers(teamContainers);
-			}
+			setFilteredTeamLinks(teamLinks);
 		}
-	}, [teamLinks, teamContainers, isDisplayedOnProfileCard, filterContainerId, requestedContainers]);
+	}, [teamLinks, isDisplayedOnProfileCard, filterContainerId, requestedContainers]);
 
 	useEffect(() => {
-		const containersToCheck = fg('enable_web_links_in_team_containers')
-			? filteredTeamLinks
-			: filteredTeamContainers;
+		const containersToCheck = filteredTeamLinks;
+
 		if (containersToCheck.length > maxNumberOfContainersToShow || isDisplayedOnProfileCard) {
 			setShowAddContainer({ Jira: false, Confluence: false, Loom: false, WebLink: false });
 		} else {
@@ -175,7 +165,6 @@ export const TeamContainers = ({
 		isDisplayedOnProfileCard,
 		productPermissions,
 		productPermissionsOld,
-		filteredTeamContainers,
 		filteredTeamLinks,
 		maxNumberOfContainersToShow,
 		requestedContainers,
@@ -208,17 +197,13 @@ export const TeamContainers = ({
 		[onEditContainerClick],
 	);
 
-	const LinkedContainerCardComponent =
-		components?.ContainerCard ||
-		(fg('enable_web_links_in_team_containers') ? TeamLinkCard : LinkedContainerCard);
+	const LinkedContainerCardComponent = components?.ContainerCard || TeamLinkCard;
 
 	const handleDisconnect = useCallback(
 		async (containerId: string) => {
-			const removedContainer = fg('enable_web_links_in_team_containers')
-				? filteredTeamLinks.find((container) => container.id === containerId)
-				: filteredTeamContainers.find((container) => container.id === containerId);
+			const removedContainer = filteredTeamLinks.find((container) => container.id === containerId);
 
-			if (removedContainer && fg('enable_web_links_in_team_containers')) {
+			if (removedContainer) {
 				await removeTeamLink(removedContainer);
 			} else {
 				await actions.unlinkTeamContainers(teamId, containerId);
@@ -248,7 +233,6 @@ export const TeamContainers = ({
 			actions,
 			createAnalyticsEvent,
 			fireOperationalEvent,
-			filteredTeamContainers,
 			filteredTeamLinks,
 			removeTeamLink,
 			teamId,
@@ -277,21 +261,18 @@ export const TeamContainers = ({
 	}, [productPermissions, productPermissionsOld]);
 
 	const hasNoContainers = useMemo(() => {
-		if (fg('enable_web_links_in_team_containers')) {
-			return filteredTeamLinks.length === 0;
-		}
-		return filteredTeamContainers.length === 0;
-	}, [filteredTeamLinks, filteredTeamContainers]);
+		return filteredTeamLinks.length === 0;
+	}, [filteredTeamLinks]);
 
 	const isLoading = useMemo(() => {
-		if (loading) {
+		if (linksLoading) {
 			return true;
 		}
 		if (fg('migrate-product-permissions')) {
 			return productPermissionIsLoading;
 		}
 		return productPermissionIsLoadingOld;
-	}, [loading, productPermissionIsLoading, productPermissionIsLoadingOld]);
+	}, [linksLoading, productPermissionIsLoading, productPermissionIsLoadingOld]);
 
 	if (isLoading) {
 		return <TeamContainersSkeletonComponent numberOfContainers={maxNumberOfContainersToShow} />;
@@ -311,50 +292,29 @@ export const TeamContainers = ({
 					{requestedContainers.map((containerType) => (
 						<LinkedContainerCardSkeleton key={containerType} containerType={containerType} />
 					))}
-					{fg('enable_web_links_in_team_containers')
-						? filteredTeamLinks.slice(0, maxNumberOfContainersToShow).map((container) => {
-								return (
-									<LinkedContainerCardComponent
-										key={container.id}
-										containerType={container.type}
-										containerTypeProperties={container.containerTypeProperties}
-										title={container.name}
-										containerIcon={container.icon || undefined}
-										link={container.link || undefined}
-										containerId={container.id}
-										iconsLoading={iconsLoading}
-										iconHasLoaded={iconHasLoaded}
-										onDisconnectButtonClick={() =>
-											handleOpenDisconnectDialog({
-												containerId: container.id,
-												containerType: container.type,
-												containerName: container.name,
-											})
-										}
-										onEditLinkClick={() => handleEditContainerClick(container)}
-									/>
-								);
-							})
-						: filteredTeamContainers.slice(0, maxNumberOfContainersToShow).map((container) => {
-								return (
-									<LinkedContainerCardComponent
-										key={container.id}
-										containerType={container.type}
-										containerTypeProperties={container.containerTypeProperties}
-										title={container.name}
-										containerIcon={container.icon || undefined}
-										link={container.link || undefined}
-										containerId={container.id}
-										onDisconnectButtonClick={() =>
-											handleOpenDisconnectDialog({
-												containerId: container.id,
-												containerType: container.type,
-												containerName: container.name,
-											})
-										}
-									/>
-								);
-							})}
+					{filteredTeamLinks.slice(0, maxNumberOfContainersToShow).map((container) => {
+						return (
+							<LinkedContainerCardComponent
+								key={container.id}
+								containerType={container.type}
+								containerTypeProperties={container.containerTypeProperties}
+								title={container.name}
+								containerIcon={container.icon || undefined}
+								link={container.link || undefined}
+								containerId={container.id}
+								iconsLoading={iconsLoading}
+								iconHasLoaded={iconHasLoaded}
+								onDisconnectButtonClick={() =>
+									handleOpenDisconnectDialog({
+										containerId: container.id,
+										containerType: container.type,
+										containerName: container.name,
+									})
+								}
+								onEditLinkClick={() => handleEditContainerClick(container)}
+							/>
+						);
+					})}
 					{showAddContainer.Jira && (
 						<AddContainerCard
 							onAddAContainerClick={(e) => onAddAContainerClick(e, 'Jira')}
@@ -373,61 +333,38 @@ export const TeamContainers = ({
 							containerType="LoomSpace"
 						/>
 					)}
-					{showAddContainer.WebLink && fg('enable_web_links_in_team_containers') && (
+					{showAddContainer.WebLink && (
 						<AddContainerCard
 							onAddAContainerClick={(e) => onAddAContainerClick(e, 'WebLink')}
 							containerType="WebLink"
 						/>
 					)}
-					{showMore && fg('enable_web_links_in_team_containers')
-						? filteredTeamLinks.slice(maxNumberOfContainersToShow).map((container) => {
-								return (
-									<LinkedContainerCardComponent
-										key={container.id}
-										containerType={container.type}
-										containerTypeProperties={container.containerTypeProperties}
-										title={container.name}
-										containerId={container.id}
-										containerIcon={container.icon || undefined}
-										link={container.link || undefined}
-										iconsLoading={iconsLoading}
-										iconHasLoaded={iconHasLoaded}
-										onDisconnectButtonClick={() =>
-											handleOpenDisconnectDialog({
-												containerId: container.id,
-												containerType: container.type,
-												containerName: container.name,
-											})
-										}
-										onEditLinkClick={() => handleEditContainerClick(container)}
-									/>
-								);
-							})
-						: showMore &&
-							filteredTeamContainers.slice(maxNumberOfContainersToShow).map((container) => {
-								return (
-									<LinkedContainerCardComponent
-										key={container.id}
-										containerType={container.type}
-										containerTypeProperties={container.containerTypeProperties}
-										title={container.name}
-										containerId={container.id}
-										containerIcon={container.icon || undefined}
-										link={container.link || undefined}
-										onDisconnectButtonClick={() =>
-											handleOpenDisconnectDialog({
-												containerId: container.id,
-												containerType: container.type,
-												containerName: container.name,
-											})
-										}
-									/>
-								);
-							})}
+					{showMore &&
+						filteredTeamLinks.slice(maxNumberOfContainersToShow).map((container) => {
+							return (
+								<LinkedContainerCardComponent
+									key={container.id}
+									containerType={container.type}
+									containerTypeProperties={container.containerTypeProperties}
+									title={container.name}
+									containerId={container.id}
+									containerIcon={container.icon || undefined}
+									link={container.link || undefined}
+									iconsLoading={iconsLoading}
+									iconHasLoaded={iconHasLoaded}
+									onDisconnectButtonClick={() =>
+										handleOpenDisconnectDialog({
+											containerId: container.id,
+											containerType: container.type,
+											containerName: container.name,
+										})
+									}
+									onEditLinkClick={() => handleEditContainerClick(container)}
+								/>
+							);
+						})}
 				</Grid>
-				{(fg('enable_web_links_in_team_containers')
-					? filteredTeamLinks.length
-					: filteredTeamContainers.length) > maxNumberOfContainersToShow && (
+				{filteredTeamLinks.length > maxNumberOfContainersToShow && (
 					<Inline>
 						<Button appearance="subtle" onClick={handleShowMore}>
 							{showMore ? (

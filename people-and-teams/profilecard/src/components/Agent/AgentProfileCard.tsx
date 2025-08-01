@@ -42,10 +42,8 @@ const cardContainerStyles = xcss({
 const AgentProfileCard = ({
 	agent,
 	isLoading,
-	isCreatedByViewingUser,
 	cloudId,
 	onChatClick,
-	product = 'rovo',
 	hasError,
 	errorType,
 	onConversationStartersClick,
@@ -206,7 +204,6 @@ const AgentProfileCard = ({
 				</Stack>
 				<AgentActions
 					agent={agent}
-					isAgentCreatedByCurrentUser={isCreatedByViewingUser}
 					onEditAgent={() => onEditAgent(agent.id)}
 					onCopyAgent={() => onCopyAgent(agent.id)}
 					onDuplicateAgent={() => onDuplicateAgent(agent.id)}

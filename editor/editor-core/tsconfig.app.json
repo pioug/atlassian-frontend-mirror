@@ -253,6 +253,9 @@
 			"path": "../editor-plugin-undo-redo/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-user-intent/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-user-preferences/tsconfig.app.json"
 		},
 		{
@@ -260,6 +263,9 @@
 		},
 		{
 			"path": "../editor-shared-styles/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-toolbar-model/tsconfig.app.json"
 		},
 		{
 			"path": "../../elements/emoji/tsconfig.app.json"

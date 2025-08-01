@@ -6,13 +6,14 @@ import { type ReactNode } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { Box, Flex, Stack } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 import ExampleBox from '../shared/example-box';
 
 const styles = cssMap({
 	flexContainer: {
 		display: 'flex',
-		borderRadius: '3px',
+		borderRadius: token('border.radius.100'),
 		height: '6rem',
 	},
 });

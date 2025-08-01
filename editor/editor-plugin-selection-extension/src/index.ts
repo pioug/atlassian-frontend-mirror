@@ -19,4 +19,6 @@ export type {
 	SelectionExtensionPluginState,
 	SelectionExtensionSelectionInfo,
 	ToolbarExtensionConfiguration,
+	SelectionAdfResult,
+	SelectionTextResult,
 } from './types';

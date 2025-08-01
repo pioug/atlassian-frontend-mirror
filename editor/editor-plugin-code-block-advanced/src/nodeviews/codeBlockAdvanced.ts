@@ -3,7 +3,6 @@ import { syntaxHighlighting, bracketMatching } from '@codemirror/language';
 import {
 	Compartment,
 	type Extension,
-	EditorSelection,
 	Facet,
 	EditorState as CodeMirrorState,
 	type StateEffect,
@@ -30,7 +29,6 @@ import type {
 	NodeView,
 } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { CodeBlockAdvancedPlugin } from '../codeBlockAdvancedPluginType';
@@ -117,15 +115,13 @@ class CodeBlockAdvancedNodeView implements NodeView {
 				syntaxHighlighting(highlightStyle),
 				bracketMatching(),
 				lineNumbers({
-					domEventHandlers: fg('platform_editor_fix_right_click_paste')
-						? {
-								click: () => {
-									this.selectCodeBlockNode(undefined);
-									this.view.focus();
-									return true;
-								},
-							}
-						: undefined,
+					domEventHandlers: {
+						click: () => {
+							this.selectCodeBlockNode(undefined);
+							this.view.focus();
+							return true;
+						},
+					},
 				}),
 				// Explicitly disable "sticky" positioning on line numbers to match
 				// Renderer behaviour
@@ -281,26 +277,6 @@ class CodeBlockAdvancedNodeView implements NodeView {
 	}
 
 	stopEvent(e: Event) {
-		if (!fg('platform_editor_fix_right_click_paste')) {
-			if (e instanceof MouseEvent && e.type === 'mousedown') {
-				// !Warning: Side effect!
-				// CodeMirror on blur updates the dom observer with a `setTimeout(..., 10);`
-				// We need to select the nodeview after this has taken place to ensure
-				// ProseMirror takes over
-				// https://github.com/codemirror/view/commit/70a9a253df04a57004247b9463198c17832f92f4#diff-cb8cbffa623ff0975389e7e8c315e69d5e10345239ffe2c9b4b7986a56ad95efR720
-				setTimeout(() => {
-					// Ensure the CM selection is reset - if we have a ranged selection when we do node selection can
-					// cause funky behaviour
-					this.updating = true;
-					this.cm.dispatch({
-						selection: EditorSelection.create([EditorSelection.cursor(0)], 0),
-					});
-					this.updating = false;
-					this.selectCodeBlockNode(undefined);
-					this.view.focus();
-				}, 20);
-			}
-		}
 		// If we have selected the node we should not stop these events
 		if (
 			(e instanceof KeyboardEvent || e instanceof ClipboardEvent) &&

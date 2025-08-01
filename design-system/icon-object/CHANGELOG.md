@@ -1,5 +1,14 @@
 # @atlaskit/icon-object
 
+## 7.1.4
+
+### Patch Changes
+
+- [#193863](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/193863)
+  [`ddb17aca8f0c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ddb17aca8f0c7) -
+  Disabling icon facade where old icons displayed new icons in prepartion for removal
+- Updated dependencies
+
 ## 7.1.3
 
 ### Patch Changes

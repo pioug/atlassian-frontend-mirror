@@ -88,7 +88,6 @@ type ViewAgentFullProfileProps =
 	  };
 
 type AgentDropdownMenuProps = {
-	isAgentCreatedByUser: boolean;
 	isAutodevTemplateAgent?: boolean;
 	agentId: string;
 	agentName?: string;
@@ -105,18 +104,16 @@ type AgentDropdownMenuProps = {
 	spacing?: React.ComponentProps<typeof IconButton>['spacing'];
 	appearance?: React.ComponentProps<typeof IconButton>['appearance'];
 	dropdownMenuTestId?: React.ComponentProps<typeof DropdownMenu>['testId'];
-	loadAgentPermissions?: () => Promise<{
+	loadPermissionsOnMount?: boolean;
+	shouldTriggerStopPropagation?: boolean;
+	loadAgentPermissions: () => Promise<{
 		isEditEnabled: boolean;
 		isDeleteEnabled: boolean;
 	}>;
-	loadPermissionsOnMount?: boolean;
-	shouldTriggerStopPropagation?: boolean;
 } & ViewAgentOptionProps &
 	ViewAgentFullProfileProps;
 
 export const AgentDropdownMenu = ({
-	// TODO https://product-fabric.atlassian.net/browse/RAGE-655 `isAgentCreatedByUser` is not needed if `loadAgentPermissions` is provided
-	isAgentCreatedByUser,
 	isAutodevTemplateAgent,
 	onEditAgent,
 	onCopyAgent,
@@ -148,12 +145,6 @@ export const AgentDropdownMenu = ({
 
 	useEffect(() => {
 		const fetchData = async () => {
-			if (!loadAgentPermissions) {
-				const canEditDelete = isAgentCreatedByUser && !isForgeAgent;
-				setPermissions({ isEditEnabled: canEditDelete, isDeleteEnabled: canEditDelete });
-				return;
-			}
-
 			setIsLoading(true);
 			const { isEditEnabled, isDeleteEnabled } = await loadAgentPermissions();
 			setIsLoading(false);
@@ -165,14 +156,7 @@ export const AgentDropdownMenu = ({
 		if (!permissions && (isOpen || loadPermissionsOnMount)) {
 			fetchData();
 		}
-	}, [
-		isAgentCreatedByUser,
-		isForgeAgent,
-		isOpen,
-		loadAgentPermissions,
-		loadPermissionsOnMount,
-		permissions,
-	]);
+	}, [isOpen, loadAgentPermissions, loadPermissionsOnMount, permissions]);
 
 	useEffect(() => {
 		if (!isOpen) {

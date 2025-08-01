@@ -21,7 +21,7 @@ const styles = cssMap({
 		borderColor: token('color.border'),
 		borderStyle: 'solid',
 		borderWidth: token('border.width'),
-		borderRadius: '3px',
+		borderRadius: token('border.radius.100'),
 
 		'&:hover': {
 			backgroundColor: token('elevation.surface.hovered'),

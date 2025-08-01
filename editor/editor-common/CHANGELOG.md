@@ -1,5 +1,29 @@
 # @atlaskit/editor-common
 
+## 107.16.0
+
+### Minor Changes
+
+- [`15e6a5bb98ed5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/15e6a5bb98ed5) -
+  ED-28780 fix pref url in isolated cloud
+
+### Patch Changes
+
+- Updated dependencies
+
+## 107.15.0
+
+### Minor Changes
+
+- [#193468](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/193468)
+  [`e626b68cc9c4c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e626b68cc9c4c) -
+  [ux] [CONFCLOUD-82368] Hide layout resize handles until interaction instead of unrendering to
+  prevent rerenders of content inside layouts
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 107.14.0
 
 ### Minor Changes

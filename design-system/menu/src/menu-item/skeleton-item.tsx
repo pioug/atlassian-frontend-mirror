@@ -77,12 +77,12 @@ const styles = cssMap({
 	},
 	avatar: {
 		'&::before': {
-			borderRadius: '100%',
+			borderRadius: token('border.radius.circle'),
 		},
 	},
 	icon: {
 		'&::before': {
-			borderRadius: '3px',
+			borderRadius: token('border.radius.100', '3px'),
 		},
 	},
 	sideNavSkeleton: {

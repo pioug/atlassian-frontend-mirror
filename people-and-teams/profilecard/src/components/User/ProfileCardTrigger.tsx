@@ -35,9 +35,7 @@ function ProfileCardContent({
 	userId,
 	cloudId,
 	resourceClient,
-	viewingUserId,
 	trigger,
-	product,
 	isAgent,
 	profileCardAction,
 	hasError,
@@ -65,9 +63,7 @@ function ProfileCardContent({
 				accountId={userId}
 				cloudId={cloudId!}
 				resourceClient={resourceClient}
-				viewingUserId={viewingUserId}
 				trigger={trigger}
-				product={product}
 				onChatClick={agentActions?.onChatClick}
 				onConversationStartersClick={agentActions?.onConversationStartersClick}
 				addFlag={addFlag}

@@ -27,6 +27,7 @@ import type { SelectionPlugin } from '@atlaskit/editor-plugins/selection';
 import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugins/selection-toolbar';
 import type { SubmitEditorPlugin } from '@atlaskit/editor-plugins/submit-editor';
 import type { TextFormattingPlugin } from '@atlaskit/editor-plugins/text-formatting';
+import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import type { TypeAheadPlugin } from '@atlaskit/editor-plugins/type-ahead';
 import type { UndoRedoPlugin } from '@atlaskit/editor-plugins/undo-redo';
 import type { UnsupportedContentPlugin } from '@atlaskit/editor-plugins/unsupported-content';
@@ -61,6 +62,7 @@ export type DefaultPresetPlugins = [
 	BlockTypePlugin,
 	UndoRedoPlugin | undefined,
 	PrimaryToolbarPlugin,
+	ToolbarPlugin | undefined,
 	HistoryPlugin | undefined,
 	TypeAheadPlugin,
 	DecorationsPlugin,

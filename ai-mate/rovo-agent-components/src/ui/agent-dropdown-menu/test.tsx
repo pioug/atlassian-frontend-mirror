@@ -27,8 +27,10 @@ describe('AgentDropdownMenu', () => {
 				<IntlProvider locale="en">
 					<AgentDropdownMenu
 						agentId="1"
-						isAgentCreatedByUser={true}
 						isForgeAgent={false}
+						loadAgentPermissions={() =>
+							Promise.resolve({ isEditEnabled: true, isDeleteEnabled: true })
+						}
 						/** Not sure how to satisfy the compiler
 						 *  because there's a union for the `showViewAgentOption` and `doesAgentHaveIdentityAccountId`
 						 * 	which don't really work with Partial
@@ -211,7 +213,6 @@ describe('AgentDropdownMenu', () => {
 				<IntlProvider locale="en">
 					<AgentDropdownMenu
 						agentId="2"
-						isAgentCreatedByUser={true}
 						isForgeAgent={false}
 						loadAgentPermissions={() =>
 							Promise.resolve({
@@ -337,7 +338,13 @@ describe('AgentDropdownMenu', () => {
 		const { container } = render(
 			<DiProvider use={deps}>
 				<IntlProvider locale="en">
-					<AgentDropdownMenu agentId="1" isAgentCreatedByUser={true} isForgeAgent={false} />
+					<AgentDropdownMenu
+						agentId="1"
+						isForgeAgent={false}
+						loadAgentPermissions={() =>
+							Promise.resolve({ isEditEnabled: true, isDeleteEnabled: true })
+						}
+					/>
 				</IntlProvider>
 			</DiProvider>,
 		);

@@ -383,9 +383,7 @@ export type AgentProfileCardProps = {
 	agent?: RovoAgentProfileCardInfo;
 	isLoading?: boolean;
 	hasError?: boolean;
-	isCreatedByViewingUser?: boolean;
 	cloudId?: string;
-	product?: string;
 	errorType?: ProfileCardErrorType;
 	addFlag?: (flag: Flag) => void;
 } & AgentActionsType;

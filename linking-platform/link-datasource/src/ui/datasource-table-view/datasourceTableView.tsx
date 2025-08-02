@@ -8,6 +8,7 @@ import { css, jsx } from '@compiled/react';
 
 import { withAnalyticsContext } from '@atlaskit/analytics-next';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useDatasourceAnalyticsEvents } from '../../analytics';
 import { componentMetadata } from '../../analytics/constants';
@@ -37,7 +38,7 @@ const containerStyles = css({
 	borderRadius: 'inherit',
 });
 
-const ScrollableContainerHeight = 590;
+const DefaultScrollableContainerHeight = 590;
 
 const DatasourceTableViewWithoutAnalytics = ({
 	datasourceId,
@@ -49,6 +50,7 @@ const DatasourceTableViewWithoutAnalytics = ({
 	onColumnResize,
 	wrappedColumnKeys,
 	onWrappedColumnChange,
+	scrollableContainerHeight = DefaultScrollableContainerHeight,
 }: DatasourceTableViewProps) => {
 	const {
 		reset,
@@ -204,7 +206,11 @@ const DatasourceTableViewWithoutAnalytics = ({
 						onColumnResize={onColumnResize}
 						wrappedColumnKeys={wrappedColumnKeys}
 						onWrappedColumnChange={onWrappedColumnChange}
-						scrollableContainerHeight={ScrollableContainerHeight}
+						scrollableContainerHeight={
+							fg('lp_enable_datasource-table-view_height_override')
+								? scrollableContainerHeight
+								: DefaultScrollableContainerHeight
+						}
 						extensionKey={extensionKey}
 					/>
 				) : (

@@ -33,6 +33,7 @@ export default {
   'rovo-chat.view-agent.duplicate-agent': "Dupliquer l'agent",
   'rovo-chat.view-agent.edit-agent': "Modifier l'agent",
   'rovo-chat.view-agent.link-copied-to-profile': 'URL copiée',
+  'rovo-chat.view-agent.more-actions-for-label': "Plus d'actions pour {agentName}",
   'rovo-chat.view-agent.more-actions-label': "Plus d'actions",
   'rovo-chat.view-agents.use-template-button': 'Utiliser le modèle',
   'rovo-chat.view-agents.view-agent': "Voir l'agent",

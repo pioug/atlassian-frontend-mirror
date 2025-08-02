@@ -12,6 +12,7 @@ import {
 	type DatasourceTableStatusType,
 } from '@atlaskit/linking-types';
 import { type ConcurrentExperience } from '@atlaskit/ufo';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { EVENT_CHANNEL } from '../../analytics';
 import { type DatasourceRenderSuccessAttributesType } from '../../analytics/generated/analytics.types';
@@ -344,6 +345,98 @@ describe('DatasourceTableView', () => {
 
 		expect(queryByTestId('datasource-table-view')).toBe(null);
 		expect(queryByTestId('datasource-table-view-skeleton')).toBeInTheDocument();
+	});
+
+	ffTest.on('lp_enable_datasource-table-view_height_override', '', () => {
+		it('should render IssueLikeDataTableView with the overriden height', () => {
+			store.actions.onAddItems(defaultMockResponseItems, 'jira', 'work-item');
+			const IssueLikeDataTableViewConstructorSpy = jest.spyOn(
+				issueLikeModule,
+				'IssueLikeDataTableView',
+			);
+			const { getByTestId } = setup(
+				{
+					visibleColumnKeys: ['myColumn'],
+					responseItems: defaultMockResponseItems,
+				},
+				{
+					scrollableContainerHeight: 500,
+				},
+			);
+
+			expect(getComputedStyle(getByTestId('issue-like-table-container')).maxHeight).toEqual(
+				'500px',
+			);
+
+			expect(IssueLikeDataTableViewConstructorSpy).toHaveBeenCalled();
+			const issueLikeDataTableViewProps = IssueLikeDataTableViewConstructorSpy.mock
+				.calls[0][0] as IssueLikeDataTableViewProps;
+
+			expect(issueLikeDataTableViewProps).toEqual(
+				expect.objectContaining({
+					scrollableContainerHeight: 500,
+				}),
+			);
+		});
+
+		it('should render IssueLikeDataTableView with the default height when scrollableContainerHeight is not specified', () => {
+			store.actions.onAddItems(defaultMockResponseItems, 'jira', 'work-item');
+			const IssueLikeDataTableViewConstructorSpy = jest.spyOn(
+				issueLikeModule,
+				'IssueLikeDataTableView',
+			);
+			const { getByTestId } = setup({
+				visibleColumnKeys: ['myColumn'],
+				responseItems: defaultMockResponseItems,
+			});
+
+			expect(getComputedStyle(getByTestId('issue-like-table-container')).maxHeight).toEqual(
+				'590px',
+			);
+
+			expect(IssueLikeDataTableViewConstructorSpy).toHaveBeenCalled();
+			const issueLikeDataTableViewProps = IssueLikeDataTableViewConstructorSpy.mock
+				.calls[0][0] as IssueLikeDataTableViewProps;
+
+			expect(issueLikeDataTableViewProps).toEqual(
+				expect.objectContaining({
+					scrollableContainerHeight: 590,
+				}),
+			);
+		});
+	});
+
+	ffTest.off('lp_enable_datasource-table-view_height_override', '', () => {
+		it('should render IssueLikeDataTableView with the default height', () => {
+			store.actions.onAddItems(defaultMockResponseItems, 'jira', 'work-item');
+			const IssueLikeDataTableViewConstructorSpy = jest.spyOn(
+				issueLikeModule,
+				'IssueLikeDataTableView',
+			);
+			const { getByTestId } = setup(
+				{
+					visibleColumnKeys: ['myColumn'],
+					responseItems: defaultMockResponseItems,
+				},
+				{
+					scrollableContainerHeight: 500,
+				},
+			);
+
+			expect(getComputedStyle(getByTestId('issue-like-table-container')).maxHeight).toEqual(
+				'590px',
+			);
+
+			expect(IssueLikeDataTableViewConstructorSpy).toHaveBeenCalled();
+			const issueLikeDataTableViewProps = IssueLikeDataTableViewConstructorSpy.mock
+				.calls[0][0] as IssueLikeDataTableViewProps;
+
+			expect(issueLikeDataTableViewProps).toEqual(
+				expect.objectContaining({
+					scrollableContainerHeight: 590,
+				}),
+			);
+		});
 	});
 
 	it('should render table footer', () => {

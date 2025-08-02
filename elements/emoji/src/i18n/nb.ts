@@ -21,7 +21,7 @@ export default {
   'fabric.emoji.category.objects': 'Gjenstander',
   'fabric.emoji.category.people': 'Mennesker',
   'fabric.emoji.category.places': 'Reise og steder',
-  'fabric.emoji.category.productivity': 'Produktivitet',
+  'fabric.emoji.category.productivity': 'Atlassian og produktivitet',
   'fabric.emoji.category.symbols': 'Symboler',
   'fabric.emoji.category.user.uploads': 'Filopplastingene dine',
   'fabric.emoji.choose.file.screenReaderDescription':

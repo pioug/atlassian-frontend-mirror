@@ -31,6 +31,7 @@ export default {
   'rovo-chat.view-agent.duplicate-agent': 'Sao chép Nhân viên',
   'rovo-chat.view-agent.edit-agent': 'Sửa nhân viên',
   'rovo-chat.view-agent.link-copied-to-profile': 'Đã sao chép URL',
+  'rovo-chat.view-agent.more-actions-for-label': 'Hành động khác đối với {agentName}',
   'rovo-chat.view-agent.more-actions-label': 'Hành động khác',
   'rovo-chat.view-agents.use-template-button': 'Sử dụng mẫu',
   'rovo-chat.view-agents.view-agent': 'Xem Nhân viên',

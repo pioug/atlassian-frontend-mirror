@@ -31,6 +31,7 @@ export default {
   'rovo-chat.view-agent.duplicate-agent': 'エージェントを複製',
   'rovo-chat.view-agent.edit-agent': 'エージェントを編集する',
   'rovo-chat.view-agent.link-copied-to-profile': 'URL をコピーしました',
+  'rovo-chat.view-agent.more-actions-for-label': '{agentName} のその他のアクション',
   'rovo-chat.view-agent.more-actions-label': 'その他のアクション',
   'rovo-chat.view-agents.use-template-button': 'テンプレートを使用',
   'rovo-chat.view-agents.view-agent': 'エージェントを表示',

@@ -7,6 +7,7 @@
  */
 //Polish (Poland)
 export default {
+  'fabric.elements.user-picker.custom.type.label': 'Ustawienia niestandardowe',
   'fabric.elements.user-picker.email.add': 'Dodaj użytkownika',
   'fabric.elements.user-picker.email.add.potential': 'Wprowadź adres e-mail',
   'fabric.elements.user-picker.email.select.to.add': 'Wybierz adres e-mail',

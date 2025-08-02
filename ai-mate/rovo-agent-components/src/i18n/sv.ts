@@ -32,6 +32,7 @@ export default {
   'rovo-chat.view-agent.duplicate-agent': 'Duplicera agent',
   'rovo-chat.view-agent.edit-agent': 'Redigera agent',
   'rovo-chat.view-agent.link-copied-to-profile': 'URL kopierad',
+  'rovo-chat.view-agent.more-actions-for-label': 'Fler åtgärder för {agentName}',
   'rovo-chat.view-agent.more-actions-label': 'Fler åtgärder',
   'rovo-chat.view-agents.use-template-button': 'Använd mall',
   'rovo-chat.view-agents.view-agent': 'Visa agent',

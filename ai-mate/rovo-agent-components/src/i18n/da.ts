@@ -32,6 +32,7 @@ export default {
   'rovo-chat.view-agent.duplicate-agent': 'Kopiér agent',
   'rovo-chat.view-agent.edit-agent': 'Rediger agent',
   'rovo-chat.view-agent.link-copied-to-profile': 'URL blev kopieret',
+  'rovo-chat.view-agent.more-actions-for-label': 'Flere handlinger for {agentName}',
   'rovo-chat.view-agent.more-actions-label': 'Flere handlinger',
   'rovo-chat.view-agents.use-template-button': 'Anvend skabelon',
   'rovo-chat.view-agents.view-agent': 'Vis agent',

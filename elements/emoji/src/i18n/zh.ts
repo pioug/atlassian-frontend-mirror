@@ -21,7 +21,7 @@ export default {
   'fabric.emoji.category.objects': '对象',
   'fabric.emoji.category.people': '人员',
   'fabric.emoji.category.places': '旅行和地点',
-  'fabric.emoji.category.productivity': '生产力',
+  'fabric.emoji.category.productivity': 'Atlassian 与生产力',
   'fabric.emoji.category.symbols': '符号',
   'fabric.emoji.category.user.uploads': '您的上传',
   'fabric.emoji.choose.file.screenReaderDescription': '为表情选择一个文件。JPG、PNG 或 GIF。文件大小不得超过 1 MB',

@@ -32,6 +32,7 @@ export default {
   'rovo-chat.view-agent.duplicate-agent': 'Kopioi asiakaspalvelija',
   'rovo-chat.view-agent.edit-agent': 'Muokkaa asiakaspalvelijaa',
   'rovo-chat.view-agent.link-copied-to-profile': 'Kopioitu URL-osoite',
+  'rovo-chat.view-agent.more-actions-for-label': 'Lisää toimintoja asiakaspalvelijalle {agentName}',
   'rovo-chat.view-agent.more-actions-label': 'Lisää toimintoja',
   'rovo-chat.view-agents.use-template-button': 'Käytä sivupohjaa',
   'rovo-chat.view-agents.view-agent': 'Näytä asiakaspalvelija',

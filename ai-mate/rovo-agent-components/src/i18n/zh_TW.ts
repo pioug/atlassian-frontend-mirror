@@ -31,6 +31,7 @@ export default {
   'rovo-chat.view-agent.duplicate-agent': '複製客服人員',
   'rovo-chat.view-agent.edit-agent': '編輯客服人員',
   'rovo-chat.view-agent.link-copied-to-profile': '已複製 URL',
+  'rovo-chat.view-agent.more-actions-for-label': '{agentName} 的更多動作',
   'rovo-chat.view-agent.more-actions-label': '更多動作',
   'rovo-chat.view-agents.use-template-button': '使用範本',
   'rovo-chat.view-agents.view-agent': '檢視客服人員',

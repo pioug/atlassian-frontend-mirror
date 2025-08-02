@@ -21,7 +21,7 @@ export default {
   'fabric.emoji.category.objects': 'Objekty',
   'fabric.emoji.category.people': 'Lidé',
   'fabric.emoji.category.places': 'Cestování a místa',
-  'fabric.emoji.category.productivity': 'Produktivita',
+  'fabric.emoji.category.productivity': 'Atlassian a produktivita',
   'fabric.emoji.category.symbols': 'Symboly',
   'fabric.emoji.category.user.uploads': 'Vaše nahrané položky',
   'fabric.emoji.choose.file.screenReaderDescription':

@@ -31,6 +31,7 @@ export default {
   'rovo-chat.view-agent.duplicate-agent': '에이전트 복제',
   'rovo-chat.view-agent.edit-agent': '에이전트 편집',
   'rovo-chat.view-agent.link-copied-to-profile': 'URL 복사함',
+  'rovo-chat.view-agent.more-actions-for-label': '{agentName}에 대한 더 많은 작업 보기',
   'rovo-chat.view-agent.more-actions-label': '추가 작업',
   'rovo-chat.view-agents.use-template-button': '템플릿 사용',
   'rovo-chat.view-agents.view-agent': '에이전트 보기',

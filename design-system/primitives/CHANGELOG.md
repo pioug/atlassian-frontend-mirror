@@ -1,5 +1,13 @@
 # @atlaskit/primitives
 
+## 14.11.2
+
+### Patch Changes
+
+- [#193601](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/193601)
+  [`d5503d3fc3717`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d5503d3fc3717) -
+  Fix issue with positioning in the anchor primitive.
+
 ## 14.11.1
 
 ### Patch Changes

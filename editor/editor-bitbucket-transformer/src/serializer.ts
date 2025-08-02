@@ -355,12 +355,35 @@ const editorNodes = {
 		}
 	},
 	mediaSingle(state: MarkdownSerializerState, node: PMNode, parent: PMNode) {
+		let mediaNode: PMNode | null = null;
+		let captionNode: PMNode | null = null;
+
+		// Separate media and caption nodes
 		for (let i = 0; i < node.childCount; i++) {
 			const child = node.child(i);
-			state.render(child, node, i);
+			if (child.type.name === 'media') {
+				mediaNode = child;
+			} else if (child.type.name === 'caption') {
+				captionNode = child;
+			}
+		}
+
+		// Render media first
+		if (mediaNode) {
+			state.render(mediaNode, node, 0);
+		}
+
+		// Render caption if present
+		if (captionNode) {
 			if (!parent.type.name.startsWith('table')) {
 				state.write('\n');
 			}
+			state.render(captionNode, node, 1);
+		}
+
+		// Add newline after mediaSingle if not in table
+		if (!parent.type.name.startsWith('table')) {
+			state.write('\n');
 		}
 	},
 	media(state: MarkdownSerializerState, node: PMNode, parent: PMNode) {
@@ -441,6 +464,16 @@ const editorNodes = {
 	},
 	inlineCard(state: MarkdownSerializerState, node: PMNode) {
 		state.write(`[${node.attrs.url}](${node.attrs.url}){: data-inline-card='' }`);
+	},
+	caption(state: MarkdownSerializerState, node: PMNode, parent: PMNode) {
+		// Render caption content as plain text (not italic)
+		// In table context, render inline without extra newlines
+		if (parent.type.name.startsWith('table')) {
+			state.renderInline(node);
+		} else {
+			state.renderInline(node);
+			state.closeBlock(node);
+		}
 	},
 };
 

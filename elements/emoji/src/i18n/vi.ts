@@ -21,7 +21,7 @@ export default {
   'fabric.emoji.category.objects': 'Đồ vật',
   'fabric.emoji.category.people': 'Mọi người',
   'fabric.emoji.category.places': 'Du lịch & Địa điểm',
-  'fabric.emoji.category.productivity': 'Năng suất',
+  'fabric.emoji.category.productivity': 'Atlassian & năng suất',
   'fabric.emoji.category.symbols': 'Biểu tượng',
   'fabric.emoji.category.user.uploads': 'Các nội dung bạn tải lên',
   'fabric.emoji.choose.file.screenReaderDescription':

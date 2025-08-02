@@ -18,5 +18,6 @@ export type DatasourceTableViewProps = {
 		| 'onWrappedColumnChange'
 		| 'onColumnResize'
 		| 'columnCustomSizes'
+		| 'scrollableContainerHeight'
 	>
 >;

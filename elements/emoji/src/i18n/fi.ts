@@ -21,7 +21,7 @@ export default {
   'fabric.emoji.category.objects': 'Esineet',
   'fabric.emoji.category.people': 'Henkilöt',
   'fabric.emoji.category.places': 'Matkustaminen & Paikat',
-  'fabric.emoji.category.productivity': 'Tuotteliaisuus',
+  'fabric.emoji.category.productivity': 'Atlassian ja tuottavuus',
   'fabric.emoji.category.symbols': 'Symbolit',
   'fabric.emoji.category.user.uploads': 'Latauksesi',
   'fabric.emoji.choose.file.screenReaderDescription':

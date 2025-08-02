@@ -1,5 +1,17 @@
 # @atlaskit/link-datasource
 
+## 4.18.0
+
+### Minor Changes
+
+- [#193643](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/193643)
+  [`00d60de0c16f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/00d60de0c16f2) -
+  [ux] Adding support to use the linking platform component to display jira issues in SAIN
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.17.0
 
 ### Minor Changes

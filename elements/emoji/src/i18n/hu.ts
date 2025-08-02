@@ -21,7 +21,7 @@ export default {
   'fabric.emoji.category.objects': 'Tárgyak',
   'fabric.emoji.category.people': 'Személyek',
   'fabric.emoji.category.places': 'Utazás és Érdekes helyek',
-  'fabric.emoji.category.productivity': 'Hatékonyság',
+  'fabric.emoji.category.productivity': 'Atlassian és hatékonyság',
   'fabric.emoji.category.symbols': 'Szimbólumok',
   'fabric.emoji.category.user.uploads': 'Feltöltései',
   'fabric.emoji.choose.file.screenReaderDescription':

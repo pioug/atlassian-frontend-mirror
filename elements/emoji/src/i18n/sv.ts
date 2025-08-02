@@ -21,7 +21,7 @@ export default {
   'fabric.emoji.category.objects': 'Föremål',
   'fabric.emoji.category.people': 'Personer',
   'fabric.emoji.category.places': 'Resor och platser',
-  'fabric.emoji.category.productivity': 'Produktivitet',
+  'fabric.emoji.category.productivity': 'Atlassian och produktivitet',
   'fabric.emoji.category.symbols': 'Symboler',
   'fabric.emoji.category.user.uploads': 'Dina uppladdningar',
   'fabric.emoji.choose.file.screenReaderDescription': 'Välj en fil för emojin. JPG, PNG eller GIF. Maxstorlek 1 MB.',

@@ -541,6 +541,61 @@ describe('SmartUserPicker', () => {
 			expect(await screen.findByText(user3.name)).toBeInTheDocument();
 		});
 
+		it('should use provided promise transformOptions', async () => {
+			getUserRecommendationsMock.mockReturnValue(Promise.resolve([]));
+
+			const user3: OptionData = {
+				id: 'user3',
+				name: 'user3',
+				type: 'user',
+			};
+
+			const transformOptions = jest.fn(() => Promise.resolve([user3]));
+
+			renderSmartUserPicker({
+				transformOptions,
+			});
+
+			// trigger on focus
+			const input = screen.getByRole('combobox');
+			await userEvent.click(input);
+
+			// expect load items from server
+			expect(getUserRecommendationsMock).toHaveBeenCalledTimes(1);
+
+			// expect on transformOptions to be called
+			expect(transformOptions).toHaveBeenCalledTimes(1);
+
+			expect(await screen.findByText(user3.name)).toBeInTheDocument();
+		});
+
+		it('should not use provided promise transformOptions when not provided', async () => {
+			getUserRecommendationsMock.mockReturnValue(Promise.resolve(mockReturnOptions));
+
+			const user3: OptionData = {
+				id: 'user3',
+				name: 'user3',
+				type: 'user',
+			};
+
+			const transformOptions = jest.fn(() => Promise.resolve([user3]));
+
+			renderSmartUserPicker({});
+
+			// trigger on focus
+			const input = screen.getByRole('combobox');
+			await userEvent.click(input);
+
+			// expect load items from server
+			expect(getUserRecommendationsMock).toHaveBeenCalledTimes(1);
+
+			// expect on transformOptions to be not be called
+			expect(transformOptions).toHaveBeenCalledTimes(0);
+			for (const option of mockReturnOptions) {
+				expect(await screen.findByText(option.name)).toBeInTheDocument();
+			}
+		});
+
 		describe('filterOptions', () => {
 			it('should filter options from suggested options', async () => {
 				getUserRecommendationsMock.mockReturnValue(Promise.resolve(mockReturnOptions));

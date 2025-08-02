@@ -206,6 +206,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 			productKey,
 			searchQueryFilter,
 			siteId,
+			transformOptions,
 		} = this.props;
 
 		const maxNumberOfResults = maxOptions || 100;
@@ -246,8 +247,14 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 
 			const elapsedTimeMilli = window.performance.now() - startTime;
 
+			const transformedOptions = transformOptions
+				? await transformOptions(recommendedUsers)
+				: recommendedUsers;
+
 			const displayedUsers =
-				recommendedUsers.length === 0 && onEmpty ? (await onEmpty(query)) ?? [] : recommendedUsers;
+				transformedOptions.length === 0 && onEmpty
+					? (await onEmpty(query)) ?? []
+					: transformedOptions;
 
 			this.setState((state) => {
 				const applicable = state.query === query;

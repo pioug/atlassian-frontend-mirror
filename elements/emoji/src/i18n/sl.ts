@@ -21,7 +21,7 @@ export default {
   'fabric.emoji.category.objects': 'Predmeti',
   'fabric.emoji.category.people': 'Osebe',
   'fabric.emoji.category.places': 'Potovanja in kraji',
-  'fabric.emoji.category.productivity': 'Produktivnost',
+  'fabric.emoji.category.productivity': 'Atlassian in produktivnost',
   'fabric.emoji.category.symbols': 'Simboli',
   'fabric.emoji.category.user.uploads': 'Vaša nalaganja',
   'fabric.emoji.choose.file.screenReaderDescription':

@@ -16,6 +16,7 @@ export interface AdditionalParseOptions {
 	shouldParseCodeSuggestions?: boolean;
 	shouldParseCodeReviewerReasoning?: boolean;
 	shouldParseImageResizingAttributes?: boolean;
+	shouldParseCaptions?: boolean;
 }
 
 export class BitbucketTransformer implements Transformer<string> {

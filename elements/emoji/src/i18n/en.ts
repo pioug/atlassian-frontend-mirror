@@ -21,7 +21,7 @@ export default {
   'fabric.emoji.category.objects': 'Objects',
   'fabric.emoji.category.people': 'People',
   'fabric.emoji.category.places': 'Travel & Places',
-  'fabric.emoji.category.productivity': 'Productivity',
+  'fabric.emoji.category.productivity': 'Atlassian & productivity',
   'fabric.emoji.category.symbols': 'Symbols',
   'fabric.emoji.category.user.uploads': 'Your uploads',
   'fabric.emoji.choose.file.screenReaderDescription': 'Choose a file for the emoji. JPG, PNG or GIF. Max size 1 MB',

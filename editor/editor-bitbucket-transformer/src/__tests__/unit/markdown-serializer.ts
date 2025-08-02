@@ -26,6 +26,7 @@ import {
 	ul,
 	media,
 	mediaSingle,
+	caption,
 	typeAheadQuery,
 	table,
 	td,
@@ -996,6 +997,118 @@ describe('BitbucketTransformer: serializer', () => {
 
 			expect(markdownSerializer.serialize(doc(codeSuggestion())(defaultSchema))).toEqual(
 				'```suggestion\nthis is a suggestion\n```',
+			);
+		});
+	});
+
+	describe('media with captions', () => {
+		it('should serialize mediaSingle with simple caption', () => {
+			expect(
+				markdownSerializer.serialize(
+					doc(
+						mediaSingle({ layout: 'center' })(
+							media({ url: 'http://path/to/image.jpg', type: 'external' })(),
+							caption('This is a simple caption'),
+						),
+					)(defaultSchema),
+				),
+			).toEqual(
+				"![](http://path/to/image.jpg){: data-layout='center' }\nThis is a simple caption\n\n\n",
+			);
+		});
+
+		it('should serialize mediaSingle with complex caption content', () => {
+			expect(
+				markdownSerializer.serialize(
+					doc(
+						mediaSingle({ layout: 'center' })(
+							media({ url: 'http://path/to/image.jpg', type: 'external' })(),
+							caption('Caption with ', strong('bold'), ' and ', em('italic'), ' text'),
+						),
+					)(defaultSchema),
+				),
+			).toEqual(
+				"![](http://path/to/image.jpg){: data-layout='center' }\nCaption with **bold** and _italic_ text\n\n\n",
+			);
+		});
+
+		it('should serialize mediaSingle with caption and resizing attributes', () => {
+			expect(
+				markdownSerializer.serialize(
+					doc(
+						mediaSingle({ layout: 'align-start', width: 50.5, widthType: 'percentage' })(
+							media({ url: 'http://path/to/image.jpg', type: 'external' })(),
+							caption('Image with resizing and caption'),
+						),
+					)(defaultSchema),
+				),
+			).toEqual(
+				"![](http://path/to/image.jpg){: data-width='50.5' data-width-type='percentage' data-layout='align-start' }\nImage with resizing and caption\n\n\n",
+			);
+		});
+
+		it('should serialize mediaSingle without caption (backward compatibility)', () => {
+			expect(
+				markdownSerializer.serialize(
+					doc(
+						mediaSingle({ layout: 'center' })(
+							media({ url: 'http://path/to/image.jpg', type: 'external' })(),
+						),
+					)(defaultSchema),
+				),
+			).toEqual("![](http://path/to/image.jpg){: data-layout='center' }\n");
+		});
+
+		it('should serialize mediaSingle with caption in table context', () => {
+			expect(
+				markdownSerializer.serialize(
+					table()(
+						tr(th({})(p('Header'))),
+						tr(
+							td({})(
+								mediaSingle()(
+									media({ url: 'http://path/to/image.jpg', type: 'external' })(),
+									caption('Table caption'),
+								),
+							),
+						),
+					)(defaultSchema),
+				),
+			).toEqual(
+				"| Header |\n| --- |\n| ![](http://path/to/image.jpg){: data-layout='center' }Table caption\n\n |\n",
+			);
+		});
+
+		it('should serialize mediaSingle with empty caption', () => {
+			expect(
+				markdownSerializer.serialize(
+					doc(
+						mediaSingle({ layout: 'center' })(
+							media({ url: 'http://path/to/image.jpg', type: 'external' })(),
+							caption(''),
+						),
+					)(defaultSchema),
+				),
+			).toEqual("![](http://path/to/image.jpg){: data-layout='center' }\n\n\n");
+		});
+
+		it('should serialize multiple mediaSingle with captions', () => {
+			expect(
+				markdownSerializer.serialize(
+					doc(
+						mediaSingle()(
+							media({ url: 'http://path/to/image1.jpg', type: 'external' })(),
+							caption('First image caption'),
+						),
+						p('Some text between images'),
+						mediaSingle()(
+							media({ url: 'http://path/to/image2.jpg', type: 'external' })(),
+							caption('Second image caption'),
+						),
+					)(defaultSchema),
+				),
+			).toEqual(
+				"![](http://path/to/image1.jpg){: data-layout='center' }\nFirst image caption\n\n\nSome text between images\n\n![](http://path/to/image2.jpg){: data-layout='center' }\nSecond image caption\n\n\n",
 			);
 		});
 	});

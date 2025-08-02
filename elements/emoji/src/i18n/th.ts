@@ -21,7 +21,7 @@ export default {
   'fabric.emoji.category.objects': 'วัตถุ',
   'fabric.emoji.category.people': 'ผู้คน',
   'fabric.emoji.category.places': 'เดินทางและสถานที่ต่าง ๆ',
-  'fabric.emoji.category.productivity': 'ผลิตภาพ',
+  'fabric.emoji.category.productivity': 'Atlassian และผลิตภาพ',
   'fabric.emoji.category.symbols': 'สัญลักษณ์',
   'fabric.emoji.category.user.uploads': 'รายการอัปโหลดของคุณ',
   'fabric.emoji.choose.file.screenReaderDescription': 'เลือกไฟล์สำหรับเอโมจิ JPG, PNG หรือ GIF ขนาดไฟล์ใหญ่สุด 1 MB',

@@ -32,6 +32,7 @@ export default {
   'rovo-chat.view-agent.duplicate-agent': 'Ügynök duplikálása',
   'rovo-chat.view-agent.edit-agent': 'Ügynök szerkesztése',
   'rovo-chat.view-agent.link-copied-to-profile': 'URL másolva',
+  'rovo-chat.view-agent.more-actions-for-label': 'További műveletek a következőhöz: {agentName}',
   'rovo-chat.view-agent.more-actions-label': 'További műveletek',
   'rovo-chat.view-agents.use-template-button': 'Sablon használata',
   'rovo-chat.view-agents.view-agent': 'Ügynök megtekintése',

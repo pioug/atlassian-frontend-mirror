@@ -1,6 +1,6 @@
 import { BitbucketTransformer, type AdditionalParseOptions } from '../..';
 import { uuid } from '@atlaskit/adf-schema';
-import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
+import { defaultSchema as schema } from '@atlaskit/editor-test-helpers/schema';
 import {
 	a,
 	blockquote,
@@ -29,6 +29,7 @@ import {
 	strike,
 	mediaSingle,
 	media,
+	caption,
 	inlineCard,
 	extension,
 	expand,
@@ -1253,6 +1254,86 @@ describe('BitbucketTransformer: parser', () => {
 			expect(
 				parse('<div class="codehilite language-expand">' + '<pre><span></span></pre>' + '</div>'),
 			).toEqualDocument(doc(p('')));
+		});
+	});
+
+	describe('HTML with captions', () => {
+		it('should parse figure with figcaption', () => {
+			const html = `
+				<figure>
+					<img src="http://example.com/image.jpg" />
+					<figcaption>This is a caption</figcaption>
+				</figure>
+			`;
+
+			expect(parse(html, { shouldParseCaptions: true })).toEqualDocument(
+				doc(
+					mediaSingle()(
+						media({ url: 'http://example.com/image.jpg', type: 'external', alt: '' })(),
+						caption('This is a caption'),
+					),
+				),
+			);
+		});
+
+		it('should parse img with title as caption', () => {
+			const html = `<img src="http://example.com/image.jpg" title="Title caption" />`;
+
+			expect(parse(html, { shouldParseCaptions: true })).toEqualDocument(
+				doc(
+					mediaSingle()(
+						media({ url: 'http://example.com/image.jpg', type: 'external', alt: '' })(),
+						caption('Title caption'),
+					),
+				),
+			);
+		});
+
+		it('should parse img with data-caption attribute', () => {
+			const html = `<img src="http://example.com/image.jpg" data-caption="Data caption" />`;
+
+			expect(parse(html, { shouldParseCaptions: true })).toEqualDocument(
+				doc(
+					mediaSingle()(
+						media({ url: 'http://example.com/image.jpg', type: 'external', alt: '' })(),
+						caption('Data caption'),
+					),
+				),
+			);
+		});
+
+		it('should handle empty captions gracefully', () => {
+			const html = `
+				<figure>
+					<img src="http://example.com/image.jpg" />
+					<figcaption></figcaption>
+				</figure>
+			`;
+
+			expect(parse(html, { shouldParseCaptions: true })).toEqualDocument(
+				doc(
+					mediaSingle()(
+						media({ url: 'http://example.com/image.jpg', type: 'external', alt: '' })(),
+					),
+				),
+			);
+		});
+
+		it('should not parse captions when shouldParseCaptions is false', () => {
+			const html = `
+				<figure>
+					<img src="http://example.com/image.jpg" />
+					<figcaption>This caption should be ignored</figcaption>
+				</figure>
+			`;
+
+			expect(parse(html, { shouldParseCaptions: false })).toEqualDocument(
+				doc(
+					mediaSingle()(
+						media({ url: 'http://example.com/image.jpg', type: 'external', alt: '' })(),
+					),
+				),
+			);
 		});
 	});
 });

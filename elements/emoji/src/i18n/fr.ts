@@ -21,7 +21,7 @@ export default {
   'fabric.emoji.category.objects': 'Objets',
   'fabric.emoji.category.people': 'Personnes',
   'fabric.emoji.category.places': 'Voyage et lieux',
-  'fabric.emoji.category.productivity': 'Productivité',
+  'fabric.emoji.category.productivity': 'Atlassian et la productivité',
   'fabric.emoji.category.symbols': 'Symboles',
   'fabric.emoji.category.user.uploads': 'Vos chargements',
   'fabric.emoji.choose.file.screenReaderDescription':

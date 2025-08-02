@@ -31,6 +31,7 @@ export default {
   'rovo-chat.view-agent.duplicate-agent': '复制支持人员',
   'rovo-chat.view-agent.edit-agent': '编辑支持人员',
   'rovo-chat.view-agent.link-copied-to-profile': '已复制 URL',
+  'rovo-chat.view-agent.more-actions-for-label': '针对 "{agentName}" 的更多操作',
   'rovo-chat.view-agent.more-actions-label': '更多操作',
   'rovo-chat.view-agents.use-template-button': '使用模板',
   'rovo-chat.view-agents.view-agent': '查看支持人员',

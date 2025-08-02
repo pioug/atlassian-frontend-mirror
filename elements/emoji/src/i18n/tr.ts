@@ -21,7 +21,7 @@ export default {
   'fabric.emoji.category.objects': 'Nesneler',
   'fabric.emoji.category.people': 'Kişiler',
   'fabric.emoji.category.places': 'Seyahat ve Yerler',
-  'fabric.emoji.category.productivity': 'Üretkenlik',
+  'fabric.emoji.category.productivity': 'Atlassian ve üretkenlik',
   'fabric.emoji.category.symbols': 'Semboller',
   'fabric.emoji.category.user.uploads': 'Yükledikleriniz',
   'fabric.emoji.choose.file.screenReaderDescription':

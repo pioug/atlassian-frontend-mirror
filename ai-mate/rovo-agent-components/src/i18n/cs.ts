@@ -32,6 +32,7 @@ export default {
   'rovo-chat.view-agent.duplicate-agent': 'Duplikovat agenta',
   'rovo-chat.view-agent.edit-agent': 'Upravit agenta',
   'rovo-chat.view-agent.link-copied-to-profile': 'Zkopírovaná adresa URL',
+  'rovo-chat.view-agent.more-actions-for-label': 'Další akce položky {agentName}',
   'rovo-chat.view-agent.more-actions-label': 'Další akce',
   'rovo-chat.view-agents.use-template-button': 'Použít šablonu',
   'rovo-chat.view-agents.view-agent': 'Zobrazit agenta',

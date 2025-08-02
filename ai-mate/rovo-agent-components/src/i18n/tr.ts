@@ -33,6 +33,7 @@ export default {
   'rovo-chat.view-agent.duplicate-agent': 'Temsilciyi Yinele',
   'rovo-chat.view-agent.edit-agent': 'Temsilciyi Düzenle',
   'rovo-chat.view-agent.link-copied-to-profile': 'URL kopyalandı',
+  'rovo-chat.view-agent.more-actions-for-label': '{agentName} için daha fazla işlem',
   'rovo-chat.view-agent.more-actions-label': 'Daha fazla işlem',
   'rovo-chat.view-agents.use-template-button': 'Şablonu kullan',
   'rovo-chat.view-agents.view-agent': 'Temsilciyi Görüntüle',

@@ -20,6 +20,7 @@ import { type RouterLinkComponentProps, useRouterLink } from '@atlaskit/app-prov
 import noop from '@atlaskit/ds-lib/noop';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';
+import { fg } from '@atlaskit/platform-feature-flags';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import {
@@ -151,6 +152,10 @@ const baseStyles = css({
 	textDecoration: 'underline',
 });
 
+const positionStyles = css({
+	position: 'relative',
+});
+
 const IS_EXTERNAL_LINK_REGEX = /^(?:(http|https):\/\/)/;
 const IS_NON_HTTP_BASED = /^(((mailto|tel|sms|blob):)|(#))/;
 // Comma is added here to add a slight pause between announcing the anchor label and "opens in new window"
@@ -267,6 +272,7 @@ const AnchorNoRef = <RouterLinkConfig extends Record<string, any> = never>(
 			}
 			css={[
 				baseStyles,
+				fg('platform_design-system-team_anchor-positioning') ? positionStyles : undefined,
 				focusRingStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				backgroundColor && backgroundColorStylesMap[backgroundColor],

@@ -36,6 +36,7 @@ export interface RecommendationRequest {
 type OnError = (error: any, request: RecommendationRequest) => Promise<OptionData[]> | void;
 type OnValueError = (error: any, defaultValue: DefaultValue) => Promise<OptionData[]> | void;
 type OnEmpty = (query: string) => Promise<OptionData[]>;
+type TransformOptions = (options: OptionData[]) => Promise<OptionData[]>;
 
 export interface State {
 	users: OptionData[];
@@ -210,6 +211,11 @@ export interface SmartProps {
 	 * Identifier for the organization in which to search for teams.
 	 */
 	orgId?: string;
+	/**
+	 * Optional callback to customize the options shown to the user.
+	 * Called after options are loaded.
+	 */
+	transformOptions?: TransformOptions;
 }
 
 // Override UserPickerProps below with replacement documentation

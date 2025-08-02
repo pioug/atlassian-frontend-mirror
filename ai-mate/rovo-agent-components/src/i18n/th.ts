@@ -31,6 +31,7 @@ export default {
   'rovo-chat.view-agent.duplicate-agent': 'คัดลอกพนักงาน',
   'rovo-chat.view-agent.edit-agent': 'แก้ไขพนักงาน',
   'rovo-chat.view-agent.link-copied-to-profile': 'คัดลอก URL แล้ว',
+  'rovo-chat.view-agent.more-actions-for-label': 'การดำเนินการเพิ่มเติมสำหรับ {agentName}',
   'rovo-chat.view-agent.more-actions-label': 'การดำเนินการเพิ่มเติม',
   'rovo-chat.view-agents.use-template-button': 'ใช้แม่แบบ',
   'rovo-chat.view-agents.view-agent': 'ดูพนักงาน',

@@ -7,6 +7,7 @@
  */
 //Chinese (Simplified)
 export default {
+  'fabric.elements.user-picker.custom.type.label': '自定义设置',
   'fabric.elements.user-picker.email.add': '添加用户',
   'fabric.elements.user-picker.email.add.potential': '输入电子邮件地址',
   'fabric.elements.user-picker.email.select.to.add': '选择电子邮件地址',

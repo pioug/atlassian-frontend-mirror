@@ -7,6 +7,7 @@
  */
 //Turkish (Turkey)
 export default {
+  'fabric.elements.user-picker.custom.type.label': 'Özel Ayarlar',
   'fabric.elements.user-picker.email.add': 'Kullanıcı ekleyin',
   'fabric.elements.user-picker.email.add.potential': 'Bir e-posta adresi girin',
   'fabric.elements.user-picker.email.select.to.add': 'Bir e-posta adresi seçin',

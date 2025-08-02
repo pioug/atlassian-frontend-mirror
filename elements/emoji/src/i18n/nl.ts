@@ -21,7 +21,7 @@ export default {
   'fabric.emoji.category.objects': 'Objecten',
   'fabric.emoji.category.people': 'Mensen',
   'fabric.emoji.category.places': 'Reizen en plaatsen',
-  'fabric.emoji.category.productivity': 'Productiviteit',
+  'fabric.emoji.category.productivity': 'Atlassian en productiviteit',
   'fabric.emoji.category.symbols': 'Symbolen',
   'fabric.emoji.category.user.uploads': 'Jouw uploads',
   'fabric.emoji.choose.file.screenReaderDescription': 'Kies een bestand voor de emoticon. Jpg, png of gif. Max. 1 MB.',

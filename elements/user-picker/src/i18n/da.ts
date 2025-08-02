@@ -7,6 +7,7 @@
  */
 //Danish (Denmark)
 export default {
+  'fabric.elements.user-picker.custom.type.label': 'Brugerdefineret',
   'fabric.elements.user-picker.email.add': 'Tilføj bruger',
   'fabric.elements.user-picker.email.add.potential': 'Indtast en e-mailadresse',
   'fabric.elements.user-picker.email.select.to.add': 'Vælg en e-mailadresse',

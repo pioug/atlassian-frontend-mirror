@@ -21,7 +21,7 @@ export default {
   'fabric.emoji.category.objects': 'オブジェクト',
   'fabric.emoji.category.people': '人',
   'fabric.emoji.category.places': '旅行 & 場所',
-  'fabric.emoji.category.productivity': 'モノ作り',
+  'fabric.emoji.category.productivity': 'アトラシアンと生産性',
   'fabric.emoji.category.symbols': '記号',
   'fabric.emoji.category.user.uploads': 'あなたのアップロード',
   'fabric.emoji.choose.file.screenReaderDescription':

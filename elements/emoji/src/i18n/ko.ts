@@ -21,7 +21,7 @@ export default {
   'fabric.emoji.category.objects': '물건',
   'fabric.emoji.category.people': '사용자',
   'fabric.emoji.category.places': '여행 및 장소',
-  'fabric.emoji.category.productivity': '생산성',
+  'fabric.emoji.category.productivity': 'Atlassian 및 생산성',
   'fabric.emoji.category.symbols': '기호',
   'fabric.emoji.category.user.uploads': '내 업로드',
   'fabric.emoji.choose.file.screenReaderDescription':

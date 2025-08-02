@@ -82,6 +82,7 @@ export function transformHtml(
 		shouldParseCodeSuggestions?: boolean;
 		shouldParseCodeReviewerReasoning?: boolean;
 		shouldParseImageResizingAttributes?: boolean;
+		shouldParseCaptions?: boolean;
 	},
 ): HTMLElement {
 	const el = document.createElement('div');
@@ -275,6 +276,30 @@ export function transformHtml(
 				return;
 			}
 
+			// Parse caption BEFORE potentially lifting the image node
+			// This ensures we can still find the figcaption when the image is inside a figure
+			let captionText = '';
+			if (options.shouldParseCaptions) {
+				// Option 1: Check for figcaption sibling (if img is inside figure)
+				const figure = img.closest('figure');
+				if (figure) {
+					const figcaption = figure.querySelector('figcaption');
+					if (figcaption) {
+						captionText = figcaption.textContent || '';
+					}
+				}
+
+				// Option 2: Check for title attribute
+				if (!captionText && img.getAttribute('title')) {
+					captionText = img.getAttribute('title') || '';
+				}
+
+				// Option 3: Check for data-caption attribute
+				if (!captionText && img.getAttribute('data-caption')) {
+					captionText = img.getAttribute('data-caption') || '';
+				}
+			}
+
 			/**
 			 * Lift image node if parent isn't the root-element
 			 */
@@ -319,6 +344,14 @@ export function transformHtml(
 			media.setAttribute('data-url', img.getAttribute('src')!);
 
 			mediaSingle.appendChild(media);
+
+			// Create caption node if we have caption text (parsed earlier)
+			if (options.shouldParseCaptions && captionText.trim()) {
+				const caption = document.createElement('div');
+				caption.setAttribute('data-node-type', 'caption');
+				caption.textContent = captionText;
+				mediaSingle.appendChild(caption);
+			}
 
 			// Ignored via go/ees005
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -402,6 +435,12 @@ export function transformHtml(
 			cloned.parentNode!.removeChild(cloned);
 		}
 	}
+
+	// Remove any remaining figcaption elements to prevent them from being parsed as paragraphs
+	// This handles cases where figcaptions exist but weren't processed by the image logic above
+	Array.from(el.querySelectorAll('figcaption')).forEach((figcaption: HTMLElement) => {
+		figcaption.remove();
+	});
 
 	return el;
 }

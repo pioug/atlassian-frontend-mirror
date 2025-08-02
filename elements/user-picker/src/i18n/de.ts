@@ -7,6 +7,7 @@
  */
 //German (Germany)
 export default {
+  'fabric.elements.user-picker.custom.type.label': 'Benutzerdefinierte Einstellungen',
   'fabric.elements.user-picker.email.add': 'Benutzer hinzufügen',
   'fabric.elements.user-picker.email.add.potential': 'Geben Sie eine E-Mail-Adresse ein',
   'fabric.elements.user-picker.email.select.to.add': 'Wählen Sie eine E-Mail-Adresse aus',

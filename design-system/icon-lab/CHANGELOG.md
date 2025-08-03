@@ -1,5 +1,28 @@
 # @atlaskit/icon-lab
 
+## 5.3.0
+
+### Minor Changes
+
+- [#194121](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/194121)
+  [`7ae4095151c9a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7ae4095151c9a) -
+  This release adds icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `chart-area`
+  - `chart-bar-line`
+  - `chart-box-plot`
+  - `chart-scatter-plot`
+  - `signpost`
+  - `terminal`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.2.0
 
 ### Minor Changes

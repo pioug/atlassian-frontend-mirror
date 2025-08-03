@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::b5c21828b1bcb1e116492eb041c93642>>
+ * @codegen <<SignedSource::0f3c4c19d9eeee21a03ac86535d9453e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -47,6 +47,10 @@ import BookOpenIcon from '../../../../core/book-open';
 import BooleanIcon from '../../../../core/boolean';
 import BrowserExtensionIcon from '../../../../core/browser-extension';
 import CalculateIcon from '../../../../core/calculate';
+import ChartAreaIcon from '../../../../core/chart-area';
+import ChartBarLineIcon from '../../../../core/chart-bar-line';
+import ChartBoxPlotIcon from '../../../../core/chart-box-plot';
+import ChartScatterPlotIcon from '../../../../core/chart-scatter-plot';
 import CloudOfflineIcon from '../../../../core/cloud-offline';
 import CloudSavedIcon from '../../../../core/cloud-saved';
 import CoinsIcon from '../../../../core/coins';
@@ -170,6 +174,7 @@ import ShapeRectangleRoundedIcon from '../../../../core/shape-rectangle-rounded'
 import ShapeTriangleIcon from '../../../../core/shape-triangle';
 import ShapeTriangleInvertedIcon from '../../../../core/shape-triangle-inverted';
 import SignatureIcon from '../../../../core/signature';
+import SignpostIcon from '../../../../core/signpost';
 import SortOptionsIcon from '../../../../core/sort-options';
 import SpacesIcon from '../../../../core/spaces';
 import SpeedometerLeftIcon from '../../../../core/speedometer-left';
@@ -197,6 +202,7 @@ import TalentIcon from '../../../../core/talent';
 import TeamworkGraphIcon from '../../../../core/teamwork-graph';
 import TelescopeIcon from '../../../../core/telescope';
 import TemplateIcon from '../../../../core/template';
+import TerminalIcon from '../../../../core/terminal';
 import TextAdjustLengthIcon from '../../../../core/text-adjust-length';
 import TextAudioTranscriptIcon from '../../../../core/text-audio-transcript';
 import TextBoldItalicIcon from '../../../../core/text-bold-italic';
@@ -503,6 +509,12 @@ const Icons = [
 	WorkItemAddIcon,
 	WorkflowControlsIcon,
 	WrenchIcon,
+	ChartAreaIcon,
+	ChartBarLineIcon,
+	ChartBoxPlotIcon,
+	ChartScatterPlotIcon,
+	SignpostIcon,
+	TerminalIcon,
 ];
 
 const groupSize = 50;

@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::38d1439ed87eb8b7493f935523cf7449>>
+ * @codegen <<SignedSource::9312176f2d631237382d0e2755ee95bb>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -67,9 +67,12 @@ import CardIcon from '../../../../../core/card';
 import CashIcon from '../../../../../core/cash';
 import ChangesIcon from '../../../../../core/changes';
 import ChartBarIcon from '../../../../../core/chart-bar';
+import ChartBubbleIcon from '../../../../../core/chart-bubble';
 import ChartMatrixIcon from '../../../../../core/chart-matrix';
 import ChartPieIcon from '../../../../../core/chart-pie';
 import ChartTrendIcon from '../../../../../core/chart-trend';
+import ChartTrendDownIcon from '../../../../../core/chart-trend-down';
+import ChartTrendUpIcon from '../../../../../core/chart-trend-up';
 import ChatWidgetIcon from '../../../../../core/chat-widget';
 import CheckCircleIcon from '../../../../../core/check-circle';
 import CheckMarkIcon from '../../../../../core/check-mark';
@@ -311,6 +314,7 @@ import StrokeWeightSmallIcon from '../../../../../core/stroke-weight-small';
 import SubtasksIcon from '../../../../../core/subtasks';
 import SuccessIcon from '../../../../../core/success';
 import SupportIcon from '../../../../../core/support';
+import TableIcon from '../../../../../core/table';
 import TableCellClearIcon from '../../../../../core/table-cell-clear';
 import TableCellMergeIcon from '../../../../../core/table-cell-merge';
 import TableCellSplitIcon from '../../../../../core/table-cell-split';
@@ -745,6 +749,10 @@ const Icons = [
 	WorkItemsIcon,
 	ZoomInIcon,
 	ZoomOutIcon,
+	ChartBubbleIcon,
+	ChartTrendDownIcon,
+	ChartTrendUpIcon,
+	TableIcon,
 ];
 
 const groupSize = 50;

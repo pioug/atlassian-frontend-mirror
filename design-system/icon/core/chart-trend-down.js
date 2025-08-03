@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5fdc09fb56192876e616de8bbe7cbefc>>
+ * @codegen <<SignedSource::4e0c3ce23ab3c5ec486c8f132973137d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -13,16 +13,16 @@ var _react = _interopRequireDefault(require("react"));
 var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * Icon: "ChartBar".
+ * Icon: "ChartTrendDown".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: Bar charts; Reports in JSM, Space Analytics in Confluence
+ * Usage guidance: Known uses: Downward trending data; Trend charts
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const ChartBarIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M9.333 1.75a.75.75 0 0 1 .75-.75h4.167a.75.75 0 0 1 .75.75V13a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9.75A.75.75 0 0 1 1.75 9h3.417V5.75a.75.75 0 0 1 .75-.75h3.416zm0 4.75H6.667v7h2.666zm1.5 7H13a.5.5 0 0 0 .5-.5V2.5h-2.667zm-5.666 0v-3H2.5V13a.5.5 0 0 0 .5.5z" clip-rule="evenodd"/>`
+const ChartTrendDownIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M1 13V1h1.5v12a.5.5 0 0 0 .5.5h12V15H3a2 2 0 0 1-2-2"/><path fill="currentcolor" d="M15 6h-1.5v1.94L9.78 4.22a.75.75 0 0 0-1.06 0L7.25 5.69 5.03 3.47 3.97 4.53l2.75 2.75.056.052A.75.75 0 0 0 7.78 7.28l1.47-1.47L12.44 9H10.5v1.5h3.75a.75.75 0 0 0 .75-.75z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-ChartBarIcon.displayName = 'ChartBarIcon';
-var _default = exports.default = ChartBarIcon;
+ChartTrendDownIcon.displayName = 'ChartTrendDownIcon';
+var _default = exports.default = ChartTrendDownIcon;

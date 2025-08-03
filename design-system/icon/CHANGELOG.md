@@ -1,5 +1,22 @@
 # @atlaskit/icon
 
+## 27.9.0
+
+### Minor Changes
+
+- [#194121](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/194121)
+  [`7ae4095151c9a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7ae4095151c9a) -
+  This release adds icons in `@atlaskit/icon`.
+
+  ### Added:
+
+  **`@atlaskit/icon/core`**
+
+  - `chart-bubble`
+  - `chart-trend-down`
+  - `chart-trend-up`
+  - `table`
+
 ## 27.8.1
 
 ### Patch Changes

@@ -389,10 +389,7 @@ export const themeStateDefaults: ThemeStateDefaults = {
 		if (fg('platform-disable-default-typography')) {
 			return undefined;
 		}
-		if (fg('platform-default-typography-refreshed')) {
-			return 'typography';
-		}
-		return undefined;
+		return 'typography';
 	},
 	UNSAFE_themeOptions: undefined,
 };

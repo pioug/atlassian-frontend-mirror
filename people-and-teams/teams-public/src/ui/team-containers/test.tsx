@@ -4,6 +4,8 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { usePeopleAndTeamAnalytics } from '../../common/utils/analytics';
 import { messages } from '../../common/utils/get-container-properties';
 import { useProductPermissions } from '../../controllers/hooks/use-product-permission';
@@ -12,6 +14,8 @@ import { useTeamLinksAndContainers } from '../../controllers/hooks/use-team-link
 
 import { TeamContainers } from './main';
 import type { TeamContainersComponent } from './types';
+
+jest.mock('@atlaskit/platform-feature-flags');
 
 jest.mock('../../controllers/hooks/use-team-containers', () => ({
 	...jest.requireActual('../../controllers/hooks/use-team-containers'),
@@ -35,6 +39,8 @@ jest.mock('../../common/utils/analytics', () => ({
 		fireUIEvent: jest.fn(),
 	})),
 }));
+
+const mockFg = fg as jest.Mock;
 
 const renderWithIntl = (node: React.ReactNode) => {
 	return render(<IntlProvider locale="en">{node}</IntlProvider>);
@@ -85,6 +91,9 @@ describe('TeamContainers', () => {
 	};
 
 	beforeEach(() => {
+		mockFg.mockImplementation(() => {
+			return false;
+		});
 		(useTeamContainers as jest.Mock).mockReturnValue({});
 
 		(usePeopleAndTeamAnalytics as jest.Mock).mockReturnValue({
@@ -377,7 +386,7 @@ describe('TeamContainers', () => {
 
 		await userEvent.hover(screen.getByText(JiraProject.name));
 		const crossIconButton = screen.getByRole('button', {
-			name: `disconnect the container ${JiraProject.name}`,
+			name: 'disconnect the container Jira Project Name',
 		});
 		await userEvent.click(crossIconButton);
 
@@ -472,6 +481,13 @@ describe('TeamLinks', () => {
 				confluence: { manage: true },
 			},
 			error: null,
+		});
+
+		mockFg.mockImplementation((flag) => {
+			if (flag === 'enable_web_links_in_team_containers') {
+				return true;
+			}
+			return false;
 		});
 	});
 

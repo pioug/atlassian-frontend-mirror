@@ -1,10 +1,12 @@
-import { snapshot } from '@af/visual-regression';
+import { Device, snapshot } from '@af/visual-regression';
 
 import ExampleComment from '../../../../examples/01-example-comment';
 import NestedComments from '../../../../examples/03-nested-comments';
 import TextOverflow from '../../../../examples/08-with-restricted-size-and-non-space-separated-content';
 import WithInlineChildren from '../../../../examples/10-with-inline-children';
-import CommentWithHeaderWrap from '../../../../examples/13-comment-with-wrapping-header';
+import LongAuthorCommentWithHeaderWrap from '../../../../examples/13-long-author-name-with-wrapping-header';
+import LongAuthorCommentWithNoHeaderWrap from '../../../../examples/14-long-author-name-without-wrapping-header';
+import LongAuthorCommentWithNoHeaderWrapPropSet from '../../../../examples/15-long-author-name-without-wrapping-header-prop-set';
 
 snapshot(ExampleComment, {
 	variants: [
@@ -37,8 +39,38 @@ snapshot(NestedComments, {
 	],
 });
 
-snapshot(CommentWithHeaderWrap, {
+snapshot(LongAuthorCommentWithHeaderWrap, {
+	variants: [
+		{
+			name: 'mobile chrome',
+			device: Device.MOBILE_CHROME,
+		},
+	],
 	featureFlags: {
-		'platform-comment-header-wrap': [true, false],
+		'design-system-comment-header-wraps-by-default': [true, false],
+	},
+});
+
+snapshot(LongAuthorCommentWithNoHeaderWrap, {
+	variants: [
+		{
+			name: 'mobile chrome',
+			device: Device.MOBILE_CHROME,
+		},
+	],
+	featureFlags: {
+		'design-system-comment-header-wraps-by-default': [true, false],
+	},
+});
+
+snapshot(LongAuthorCommentWithNoHeaderWrapPropSet, {
+	variants: [
+		{
+			name: 'mobile chrome',
+			device: Device.MOBILE_CHROME,
+		},
+	],
+	featureFlags: {
+		'design-system-comment-header-wraps-by-default': [true, false],
 	},
 });

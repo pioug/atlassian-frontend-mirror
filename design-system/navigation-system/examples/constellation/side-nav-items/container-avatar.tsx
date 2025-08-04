@@ -10,15 +10,17 @@ import ScienceIcon from '../../images/science.svg';
 
 import { MockSideNav } from './common/mock-side-nav';
 
+const exampleHref = '#example-href';
+
 export function ContainerAvatarExample() {
 	return (
 		<MockSideNav>
 			<SideNavContent>
 				<MenuList>
-					<LinkMenuItem href="#" elemBefore={<ContainerAvatar src={MoneyIcon} />}>
+					<LinkMenuItem href={exampleHref} elemBefore={<ContainerAvatar src={MoneyIcon} />}>
 						Link menu item (ContainerAvatar)
 					</LinkMenuItem>
-					<LinkMenuItem href="#" elemBefore={<ContainerAvatar src={ScienceIcon} />}>
+					<LinkMenuItem href={exampleHref} elemBefore={<ContainerAvatar src={ScienceIcon} />}>
 						Link menu item (ContainerAvatar)
 					</LinkMenuItem>
 				</MenuList>

@@ -1,5 +1,19 @@
 # @atlaskit/forge-react-types
 
+## 0.42.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.42.12
+
+### Patch Changes
+
+- [#194776](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/194776)
+  [`1c63f9affc2c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c63f9affc2c1) -
+  Improve uikit component codegen and refresh generated types
+
 ## 0.42.11
 
 ### Patch Changes

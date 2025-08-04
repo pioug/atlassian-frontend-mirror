@@ -109,3 +109,43 @@ export const AddContainerCard = ({
 		</AddContainerCardWrapper>
 	);
 };
+
+export const getAddContainerCards = ({
+	showAddContainer,
+	onAddAContainerClick,
+}: {
+	showAddContainer: { Jira: boolean; Confluence: boolean; Loom: boolean; WebLink: boolean };
+	onAddAContainerClick: (
+		e: React.MouseEvent<HTMLButtonElement>,
+		containerType: 'Confluence' | 'Jira' | 'Loom' | 'WebLink',
+	) => void;
+}) => {
+	return (
+		<>
+			{showAddContainer.Jira && (
+				<AddContainerCard
+					onAddAContainerClick={(e) => onAddAContainerClick(e, 'Jira')}
+					containerType="JiraProject"
+				/>
+			)}
+			{showAddContainer.Confluence && (
+				<AddContainerCard
+					onAddAContainerClick={(e) => onAddAContainerClick(e, 'Confluence')}
+					containerType="ConfluenceSpace"
+				/>
+			)}
+			{showAddContainer.Loom && fg('loom_tab_in_container_linker_team_profile_page') && (
+				<AddContainerCard
+					onAddAContainerClick={(e) => onAddAContainerClick(e, 'Loom')}
+					containerType="LoomSpace"
+				/>
+			)}
+			{showAddContainer.WebLink && (
+				<AddContainerCard
+					onAddAContainerClick={(e) => onAddAContainerClick(e, 'WebLink')}
+					containerType="WebLink"
+				/>
+			)}
+		</>
+	);
+};

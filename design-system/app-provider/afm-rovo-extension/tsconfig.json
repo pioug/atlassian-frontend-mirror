@@ -23,9 +23,6 @@
 	],
 	"references": [
 		{
-			"path": "../../../platform/feature-flags/afm-rovo-extension/tsconfig.json"
-		},
-		{
 			"path": "../../tokens/afm-rovo-extension/tsconfig.json"
 		}
 	]

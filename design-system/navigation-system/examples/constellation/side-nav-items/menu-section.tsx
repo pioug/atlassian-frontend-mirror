@@ -29,6 +29,8 @@ import MoneyIcon from '../../images/money.svg';
 
 import { MockSideNav } from './common/mock-side-nav';
 
+const exampleHref = '#example-href';
+
 function AddAction() {
 	return (
 		<IconButton
@@ -72,17 +74,23 @@ export function MenuSectionExample() {
 								<MenuSection isMenuListItem>
 									<MenuSectionHeading>Starred</MenuSectionHeading>
 									<MenuList>
-										<LinkMenuItem href="#" elemBefore={<ContainerAvatar src={CDIcon} />}>
+										<LinkMenuItem href={exampleHref} elemBefore={<ContainerAvatar src={CDIcon} />}>
 											Mobile app
 										</LinkMenuItem>
-										<LinkMenuItem href="#" elemBefore={<ContainerAvatar src={KoalaIcon} />}>
+										<LinkMenuItem
+											href={exampleHref}
+											elemBefore={<ContainerAvatar src={KoalaIcon} />}
+										>
 											Online store updates
 										</LinkMenuItem>
-										<LinkMenuItem href="#" elemBefore={<ContainerAvatar src={MoneyIcon} />}>
+										<LinkMenuItem
+											href={exampleHref}
+											elemBefore={<ContainerAvatar src={MoneyIcon} />}
+										>
 											Finance project
 										</LinkMenuItem>
 										<LinkMenuItem
-											href="#"
+											href={exampleHref}
 											elemBefore={
 												<AlignTextLeftIcon label="" color="currentColor" spacing="spacious" />
 											}
@@ -95,14 +103,14 @@ export function MenuSectionExample() {
 						</ExpandableMenuItem>
 
 						<LinkMenuItem
-							href="#"
+							href={exampleHref}
 							elemBefore={<RoadmapsPlanIcon label="" color="currentColor" spacing="spacious" />}
 						>
 							Plans
 						</LinkMenuItem>
 
 						<LinkMenuItem
-							href="#"
+							href={exampleHref}
 							elemBefore={<AngleBracketsIcon label="" color="currentColor" spacing="spacious" />}
 						>
 							Code
@@ -130,7 +138,9 @@ export function MenuSectionExample() {
 														Exp default menu item (level 2)
 													</ExpandableMenuItemTrigger>
 													<ExpandableMenuItemContent>
-														<LinkMenuItem href="#">Expandable menu item content</LinkMenuItem>
+														<LinkMenuItem href={exampleHref}>
+															Expandable menu item content
+														</LinkMenuItem>
 													</ExpandableMenuItemContent>
 												</ExpandableMenuItem>
 											</ExpandableMenuItemContent>
@@ -146,7 +156,9 @@ export function MenuSectionExample() {
 														Exp default menu item (level 2)
 													</ExpandableMenuItemTrigger>
 													<ExpandableMenuItemContent>
-														<LinkMenuItem href="#">Expandable menu item content</LinkMenuItem>
+														<LinkMenuItem href={exampleHref}>
+															Expandable menu item content
+														</LinkMenuItem>
 													</ExpandableMenuItemContent>
 												</ExpandableMenuItem>
 											</ExpandableMenuItemContent>

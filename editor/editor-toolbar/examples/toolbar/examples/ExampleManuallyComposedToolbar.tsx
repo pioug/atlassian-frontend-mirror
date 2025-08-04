@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import { Box } from '@atlaskit/primitives/compiled';
 import Toggle from '@atlaskit/toggle';
 import { token } from '@atlaskit/tokens';
+import { type IconColor } from '@atlaskit/tokens/css-type-schema';
 
-import { ColorIndicatorWrapper } from '../../../src/ui/ColorIndicatorWrapper';
 import { AddIcon } from '../../../src/ui/icons/AddIcon';
 import { AIAdjustLengthIcon } from '../../../src/ui/icons/AIAdjustLengthIcon';
 import { AICasualIcon } from '../../../src/ui/icons/AICasualIcon';
@@ -12,7 +12,7 @@ import { AIChangeToneIcon } from '../../../src/ui/icons/AIChangeToneIcon';
 import { AIChatIcon } from '../../../src/ui/icons/AIChatIcon';
 import { AICommandIcon } from '../../../src/ui/icons/AICommandIcon';
 import { AIHeartIcon } from '../../../src/ui/icons/AIHeartIcon';
-import { AILenghtenIcon } from '../../../src/ui/icons/AILengthenIcon';
+import { AILengthenIcon } from '../../../src/ui/icons/AILengthenIcon';
 import { AIBriefcaseIcon } from '../../../src/ui/icons/AIProfessionalIcon';
 import { AIShortenIcon } from '../../../src/ui/icons/AIShortenIcon';
 import { AISpellcheckIcon } from '../../../src/ui/icons/AISpellcheckIcon';
@@ -41,8 +41,7 @@ import { TextIcon } from '../../../src/ui/icons/TextIcon';
 import { Toolbar } from '../../../src/ui/Toolbar';
 import { ToolbarButton } from '../../../src/ui/ToolbarButton';
 import { ToolbarButtonGroup } from '../../../src/ui/ToolbarButtonGroup';
-import { ToolbarDivider } from '../../../src/ui/ToolbarDivider';
-import { ToolbarDropdownDivider } from '../../../src/ui/ToolbarDropdownDivider';
+import { ToolbarColorSwatch } from '../../../src/ui/ToolbarColorSwatch';
 import { ToolbarDropdownItem } from '../../../src/ui/ToolbarDropdownItem';
 import { ToolbarDropdownItemSection } from '../../../src/ui/ToolbarDropdownItemSection';
 import { ToolbarDropdownMenu } from '../../../src/ui/ToolbarDropdownMenu';
@@ -139,8 +138,7 @@ export const ExampleManuallyComposedToolbar = () => {
 					<ToolbarButtonGroup>
 						<ToolbarTooltip content="Ask Rovo">
 							<ToolbarButton
-								icon={AIChatIcon}
-								label="Ask Rovo"
+								iconBefore={<AIChatIcon label="Ask Rovo" />}
 								onClick={onClick('Ask Rovo')}
 								groupLocation="start"
 								isDisabled={isRovoDisabled}
@@ -148,7 +146,10 @@ export const ExampleManuallyComposedToolbar = () => {
 								Ask Rovo
 							</ToolbarButton>
 						</ToolbarTooltip>
-						<ToolbarDropdownMenu icon={MoreItemsIcon} label="More formatting" groupLocation="end">
+						<ToolbarDropdownMenu
+							iconBefore={<MoreItemsIcon label="More formatting" />}
+							groupLocation="end"
+						>
 							<ToolbarDropdownItemSection>
 								<ToolbarNestedDropdownMenu
 									elemBefore={<AIAdjustLengthIcon label="Adjust length" />}
@@ -164,7 +165,7 @@ export const ExampleManuallyComposedToolbar = () => {
 											Make shorter
 										</ToolbarDropdownItem>
 										<ToolbarDropdownItem
-											elemBefore={<AILenghtenIcon label="Make longer" />}
+											elemBefore={<AILengthenIcon label="Make longer" />}
 											onClick={onClick('Make longer')}
 										>
 											Make longer
@@ -235,8 +236,7 @@ export const ExampleManuallyComposedToolbar = () => {
 					<ToolbarButtonGroup>
 						<ToolbarTooltip content="Improve writing">
 							<ToolbarButton
-								icon={AICommandIcon}
-								label="Improve writing"
+								iconBefore={<AICommandIcon label="Improve writing" />}
 								onClick={onClick('Improve writing')}
 								isDisabled={isImproveWritingDisabled}
 							>
@@ -246,26 +246,23 @@ export const ExampleManuallyComposedToolbar = () => {
 					</ToolbarButtonGroup>
 				</ToolbarSection>
 
-				<ToolbarDivider />
-
 				<ToolbarSection>
 					<ToolbarButtonGroup>
 						<ToolbarTooltip content="Text styles">
 							<ToolbarDropdownMenu
-								icon={
+								iconBefore={
 									{
-										none: TextIcon,
-										normal: TextIcon,
-										heading1: HeadingOneIcon,
-										heading2: HeadingTwoIcon,
-										heading3: HeadingThreeIcon,
-										heading4: HeadingFourIcon,
-										heading5: HeadingFiveIcon,
-										heading6: HeadingSixIcon,
-										quote: QuoteIcon,
+										none: <TextIcon label="Normal text" />,
+										normal: <TextIcon label="Normal text" />,
+										heading1: <HeadingOneIcon label="Heading One" />,
+										heading2: <HeadingTwoIcon label="Heading Two" />,
+										heading3: <HeadingThreeIcon label="Heading Three" />,
+										heading4: <HeadingFourIcon label="Heading Four" />,
+										heading5: <HeadingFiveIcon label="Heading Five" />,
+										heading6: <HeadingSixIcon label="Heading Six" />,
+										quote: <QuoteIcon label="Quote" />,
 									}[textStyle]
 								}
-								label="Text styles"
 								isDisabled={isTextStylesDisabled}
 							>
 								<ToolbarDropdownItemSection>
@@ -357,8 +354,13 @@ export const ExampleManuallyComposedToolbar = () => {
 					<ToolbarButtonGroup>
 						<ToolbarTooltip content={formatting.italic && !formatting.bold ? 'Italic' : 'Bold'}>
 							<ToolbarButton
-								icon={formatting.italic && !formatting.bold ? ItalicIcon : BoldIcon}
-								label={formatting.italic && !formatting.bold ? 'Italic' : 'Bold'}
+								iconBefore={
+									formatting.italic && !formatting.bold ? (
+										<ItalicIcon label="Italic" />
+									) : (
+										<BoldIcon label="Bold" />
+									)
+								}
 								onClick={onClick(
 									formatting.italic && !formatting.bold ? 'Italic' : 'Bold',
 									onToggleFormatting(formatting.italic && !formatting.bold ? 'italic' : 'bold'),
@@ -369,7 +371,10 @@ export const ExampleManuallyComposedToolbar = () => {
 								ariaKeyshortcuts={formatting.italic && !formatting.bold ? '⌘I' : '⌘B'}
 							/>
 						</ToolbarTooltip>
-						<ToolbarDropdownMenu icon={MoreItemsIcon} label="More formatting" groupLocation="end">
+						<ToolbarDropdownMenu
+							iconBefore={<MoreItemsIcon label="More formatting" />}
+							groupLocation="end"
+						>
 							<ToolbarDropdownItemSection>
 								<ToolbarDropdownItem
 									elemBefore={<BoldIcon label="Bold" />}
@@ -392,7 +397,6 @@ export const ExampleManuallyComposedToolbar = () => {
 									Italic
 								</ToolbarDropdownItem>
 							</ToolbarDropdownItemSection>
-							<ToolbarDropdownDivider />
 							<ToolbarDropdownItemSection>
 								<ToolbarDropdownItem
 									elemBefore={<ClearFormattingIcon label="Clear formatting" />}
@@ -405,23 +409,23 @@ export const ExampleManuallyComposedToolbar = () => {
 							</ToolbarDropdownItemSection>
 						</ToolbarDropdownMenu>
 					</ToolbarButtonGroup>
-
 					<ToolbarButtonGroup>
 						<ToolbarTooltip content="Text color">
 							<ToolbarDropdownMenu
-								icon={({ label, color, shouldRecommendSmallIcon, size, spacing, testId }) => (
-									<ColorIndicatorWrapper color={token('color.border.accent.blue')}>
+								iconBefore={
+									<ToolbarColorSwatch
+										highlightColor={token('color.background.accent.blue.subtlest')}
+									>
 										<TextColorIcon
-											label={label}
-											color={color}
-											shouldRecommendSmallIcon={shouldRecommendSmallIcon}
-											size={size}
-											spacing={spacing}
-											testId={testId}
+											label={'Text color'}
+											iconColor={token('color.text.accent.magenta') as IconColor}
+											shouldRecommendSmallIcon={true}
+											size={'small'}
+											isDisabled={isTextColorDisabled}
+											spacing={'compact'}
 										/>
-									</ColorIndicatorWrapper>
-								)}
-								label="Text color"
+									</ToolbarColorSwatch>
+								}
 								isDisabled={isTextColorDisabled}
 							>
 								<ToolbarDropdownItemSection>
@@ -441,8 +445,13 @@ export const ExampleManuallyComposedToolbar = () => {
 							content={listOrAlignment === 'numbered' ? 'Numbered list' : 'Bulleted list'}
 						>
 							<ToolbarButton
-								icon={listOrAlignment === 'numbered' ? ListNumberedIcon : ListBulletedIcon}
-								label={listOrAlignment === 'numbered' ? 'Numbered list' : 'Bulleted list'}
+								iconBefore={
+									listOrAlignment === 'numbered' ? (
+										<ListNumberedIcon label="Numbered list" />
+									) : (
+										<ListBulletedIcon label="Bulleted list" />
+									)
+								}
 								onClick={onClick(
 									listOrAlignment === 'numbered' ? 'Numbered list' : 'Bulleted list',
 									onToggleListOrAlignment(listOrAlignment === 'numbered' ? 'numbered' : 'bulleted'),
@@ -455,8 +464,7 @@ export const ExampleManuallyComposedToolbar = () => {
 							/>
 						</ToolbarTooltip>
 						<ToolbarDropdownMenu
-							icon={MoreItemsIcon}
-							label="Lists, indentation and alignment"
+							iconBefore={<MoreItemsIcon label="Lists, indentation and alignment" />}
 							groupLocation="end"
 						>
 							<ToolbarDropdownItemSection>
@@ -485,14 +493,11 @@ export const ExampleManuallyComposedToolbar = () => {
 					</ToolbarButtonGroup>
 				</ToolbarSection>
 
-				<ToolbarDivider />
-
 				<ToolbarSection>
 					<ToolbarButtonGroup>
 						<ToolbarTooltip content="Link">
 							<ToolbarButton
-								icon={LinkIcon}
-								label="Link"
+								iconBefore={<LinkIcon label="Link" />}
 								onClick={onClick('Link')}
 								isDisabled={isLinkDisabled}
 							/>
@@ -500,29 +505,25 @@ export const ExampleManuallyComposedToolbar = () => {
 					</ToolbarButtonGroup>
 				</ToolbarSection>
 
-				<ToolbarDivider />
-
 				<ToolbarSection>
 					<ToolbarButtonGroup>
 						<ToolbarTooltip content="Comment">
 							<ToolbarButton
-								icon={CommentIcon}
-								label="Comment"
+								iconBefore={<CommentIcon label="Comment" />}
 								onClick={onClick('Comment')}
 								isDisabled={isCommentDisabled}
-							/>
+							>
+								Comment
+							</ToolbarButton>
 						</ToolbarTooltip>
 					</ToolbarButtonGroup>
 				</ToolbarSection>
-
-				<ToolbarDivider />
 
 				<ToolbarSection>
 					<ToolbarButtonGroup>
 						<ToolbarTooltip content="Apps and extensions">
 							<ToolbarDropdownMenu
-								icon={AppsIcon}
-								label="Apps and extensions"
+								iconBefore={<AppsIcon label="Apps and extensions" />}
 								isDisabled={isAppsAndExtensionsDisabled}
 							>
 								<ToolbarDropdownItemSection>
@@ -539,16 +540,19 @@ export const ExampleManuallyComposedToolbar = () => {
 					</ToolbarButtonGroup>
 				</ToolbarSection>
 
-				<ToolbarDivider />
-
 				<ToolbarSection>
 					<ToolbarButtonGroup>
 						<ToolbarTooltip
 							content={pinning === 'pinned' ? 'Unpin the toolbar' : 'Pin the toolbar at the top'}
 						>
 							<ToolbarButton
-								icon={pinning === 'pinned' ? PinnedIcon : PinIcon}
-								label={pinning === 'pinned' ? 'Unpin toolbar' : 'Pin toolbar'}
+								iconBefore={
+									pinning === 'pinned' ? (
+										<PinnedIcon label="Unpin toolbar" />
+									) : (
+										<PinIcon label="Pin toolbar" />
+									)
+								}
 								onClick={onClick(
 									pinning === 'pinned' ? 'Unpin toolbar' : 'Pin toolbar',
 									onTogglePinning,

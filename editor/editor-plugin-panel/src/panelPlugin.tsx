@@ -1,7 +1,7 @@
 import React from 'react';
 
 import type { PanelAttributes } from '@atlaskit/adf-schema';
-import { extendedPanel, PanelType } from '@atlaskit/adf-schema';
+import { extendedPanel, extendedPanelWithLocalId, PanelType, uuid } from '@atlaskit/adf-schema';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -25,6 +25,7 @@ import {
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { T50 } from '@atlaskit/theme/colors';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -38,8 +39,10 @@ const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => ({
 	name: 'panel',
 
 	nodes() {
-		const panelNode = extendedPanel(!!options.allowCustomPanel);
-		return [{ name: 'panel', node: panelNode }];
+		if (fg('platform_editor_adf_with_localid')) {
+			return [{ name: 'panel', node: extendedPanelWithLocalId(!!options.allowCustomPanel) }];
+		}
+		return [{ name: 'panel', node: extendedPanel(!!options.allowCustomPanel) }];
 	},
 
 	pmPlugins() {
@@ -224,6 +227,10 @@ function createPanelAction({
 	const { panel } = state.schema.nodes;
 	let tr;
 
+	const panelAttrs = fg('platform_editor_adf_with_localid')
+		? { ...attributes, localId: attributes.localId || uuid.generate() }
+		: { ...attributes };
+
 	// Panels should wrap content by default when inserted, the quickInsert `insert` method
 	// will insert the node on a newline
 	if (editorExperiment('platform_editor_controls', 'variant1')) {
@@ -232,10 +239,10 @@ function createPanelAction({
 			createWrapSelectionTransaction({
 				state,
 				type: panel,
-				nodeAttributes: attributes,
+				nodeAttributes: panelAttrs,
 			});
 	} else {
-		const node = panel.createAndFill(attributes);
+		const node = panel.createAndFill(panelAttrs);
 
 		if (!node) {
 			return false;

@@ -1,0 +1,36 @@
+{
+	"extends": "../../../../tsconfig.entry-points.dev-agents.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../dev-agents/tsDist/@atlaskit__icon-object/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
+	],
+	"references": [
+		{
+			"path": "../../icon/afm-dev-agents/tsconfig.json"
+		},
+		{
+			"path": "../../icon-lab/afm-dev-agents/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-dev-agents/tsconfig.json"
+		}
+	]
+}

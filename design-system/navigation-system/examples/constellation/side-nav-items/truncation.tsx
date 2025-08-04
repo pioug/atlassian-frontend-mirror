@@ -15,19 +15,21 @@ import { MenuList } from '@atlaskit/navigation-system/side-nav-items/menu-list';
 
 import { MockSideNav } from './common/mock-side-nav';
 
+const exampleHref = '#example-href';
+
 export function TruncationExample() {
 	return (
 		<MockSideNav>
 			<SideNavContent>
 				<MenuList>
 					<LinkMenuItem
-						href="#"
+						href={exampleHref}
 						elemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}
 					>
 						Link menu item (very long label to trigger truncation)
 					</LinkMenuItem>
 					<LinkMenuItem
-						href="#"
+						href={exampleHref}
 						elemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}
 						description="This is a very long description to trigger truncation"
 					>

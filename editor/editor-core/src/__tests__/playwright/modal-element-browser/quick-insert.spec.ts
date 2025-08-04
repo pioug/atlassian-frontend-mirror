@@ -40,6 +40,6 @@ test.describe('Quick Insert', () => {
 		const isFocused = await EditorTypeAheadModel.from(editor).waitForMentionSearchToStart();
 		expect(isFocused).toBe(true);
 
-		await expect(editor.page).toBeAccessible({ violationCount: 3 });
+		await expect(editor.page).toBeAccessible({ violationCount: 2 });
 	});
 });

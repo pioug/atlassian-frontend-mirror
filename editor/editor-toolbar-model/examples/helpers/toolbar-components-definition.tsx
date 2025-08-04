@@ -30,6 +30,8 @@ import {
 	ToolbarSection,
 } from '@atlaskit/editor-toolbar';
 import { type RegisterComponent } from '@atlaskit/editor-toolbar-model';
+import { token } from '@atlaskit/tokens';
+import type { IconColor } from '@atlaskit/tokens/css-type-schema';
 
 // AI
 export const registerAIToolbarComponents = (): Array<RegisterComponent> => {
@@ -75,8 +77,7 @@ export const registerAIToolbarComponents = (): Array<RegisterComponent> => {
 			component: ({ groupLocation }) => {
 				return (
 					<ToolbarButton
-						icon={AIChatIcon}
-						label="Ask Rovo"
+						iconBefore={<AIChatIcon label="Ask Rovo" />}
 						onClick={() => {}}
 						groupLocation={groupLocation}
 					>
@@ -98,8 +99,7 @@ export const registerAIToolbarComponents = (): Array<RegisterComponent> => {
 			component: ({ children, groupLocation }) => {
 				return (
 					<ToolbarDropdownMenu
-						icon={MoreItemsIcon}
-						label="More formatting"
+						iconBefore={<MoreItemsIcon label="More formatting" />}
 						groupLocation={groupLocation}
 					>
 						{children}
@@ -168,7 +168,7 @@ export const registerAIToolbarComponents = (): Array<RegisterComponent> => {
 			],
 			component: () => {
 				return (
-					<ToolbarButton icon={AICommandIcon} label="Improve writing" onClick={() => {}}>
+					<ToolbarButton iconBefore={<AICommandIcon label="Improve writing" />} onClick={() => {}}>
 						Improve writing
 					</ToolbarButton>
 				);
@@ -244,7 +244,7 @@ export const registerBlockTypeToolbarComponents = (): Array<RegisterComponent> =
 				}
 
 				return (
-					<ToolbarDropdownMenu icon={TextIcon} label="Text styles">
+					<ToolbarDropdownMenu iconBefore={<TextIcon label="Text styles" />}>
 						{children}
 					</ToolbarDropdownMenu>
 				);
@@ -266,7 +266,7 @@ export const registerBlockTypeToolbarComponents = (): Array<RegisterComponent> =
 				}
 
 				return (
-					<ToolbarDropdownMenu icon={TextIcon} label="Text styles">
+					<ToolbarDropdownMenu iconBefore={<TextIcon label="Text styles" />}>
 						{children}
 					</ToolbarDropdownMenu>
 				);
@@ -570,8 +570,7 @@ export const registerTextFormattingToolbarComponents = (): Array<RegisterCompone
 			component: ({ groupLocation }) => {
 				return (
 					<ToolbarButton
-						icon={BoldIcon}
-						label="Bold"
+						iconBefore={<BoldIcon label="Bold" />}
 						onClick={() => {}}
 						groupLocation={groupLocation}
 						isSelected={false}
@@ -592,8 +591,7 @@ export const registerTextFormattingToolbarComponents = (): Array<RegisterCompone
 			component: ({ children, groupLocation }) => {
 				return (
 					<ToolbarDropdownMenu
-						icon={MoreItemsIcon}
-						label="More formatting"
+						iconBefore={<MoreItemsIcon label="More formatting" />}
 						groupLocation={groupLocation}
 					>
 						{children}
@@ -703,17 +701,16 @@ export const registerTextColorToolbarComponents = (): Array<RegisterComponent> =
 			component: ({ children }) => {
 				return (
 					<ToolbarDropdownMenu
-						icon={({ label, color, shouldRecommendSmallIcon, size, spacing, testId }) => (
+						iconBefore={
 							<TextColorIcon
-								label={label}
-								color={color}
-								shouldRecommendSmallIcon={shouldRecommendSmallIcon}
-								size={size}
-								spacing={spacing}
-								testId={testId}
+								label="Text color"
+								color={token('color.text.accent.magenta') as IconColor}
+								shouldRecommendSmallIcon={true}
+								size="small"
+								spacing="compact"
+								testId={'text-color-icon'}
 							/>
-						)}
-						label="Text color"
+						}
 					>
 						{children}
 					</ToolbarDropdownMenu>
@@ -786,7 +783,12 @@ export const registerListsToolbarComponents = (): Array<RegisterComponent> => {
 				},
 			],
 			component: () => {
-				return <ToolbarButton icon={ListBulletedIcon} label="Bulleted list" onClick={() => {}} />;
+				return (
+					<ToolbarButton
+						iconBefore={<ListBulletedIcon label="Bulleted list" />}
+						onClick={() => {}}
+					/>
+				);
 			},
 		},
 		{
@@ -801,7 +803,10 @@ export const registerListsToolbarComponents = (): Array<RegisterComponent> => {
 			],
 			component: ({ children, groupLocation }) => {
 				return (
-					<ToolbarDropdownMenu icon={MoreItemsIcon} label="Lists" groupLocation={groupLocation}>
+					<ToolbarDropdownMenu
+						iconBefore={<MoreItemsIcon label="Lists" />}
+						groupLocation={groupLocation}
+					>
 						{children}
 					</ToolbarDropdownMenu>
 				);
@@ -921,7 +926,7 @@ export const registerLinkToolbarComponents = (): Array<RegisterComponent> => {
 				},
 			],
 			component: () => {
-				return <ToolbarButton icon={LinkIcon} label="Link" onClick={() => {}} />;
+				return <ToolbarButton iconBefore={<LinkIcon label="Link" />} onClick={() => {}} />;
 			},
 		},
 	];
@@ -969,7 +974,7 @@ export const registerCommentToolbarComponents = (): Array<RegisterComponent> => 
 			],
 			component: () => {
 				return (
-					<ToolbarButton icon={CommentIcon} label="Comment" onClick={() => {}}>
+					<ToolbarButton iconBefore={<CommentIcon label="Comment" />} onClick={() => {}}>
 						Comment
 					</ToolbarButton>
 				);
@@ -1019,11 +1024,7 @@ export const registerOverflowToolbarComponents = (): Array<RegisterComponent> =>
 				},
 			],
 			component: ({ children }) => {
-				return (
-					<ToolbarDropdownMenu icon={() => <span>...</span>} label="More formatting">
-						{children}
-					</ToolbarDropdownMenu>
-				);
+				return <ToolbarDropdownMenu iconBefore={<span>...</span>}>{children}</ToolbarDropdownMenu>;
 			},
 		},
 		{

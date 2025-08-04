@@ -3,18 +3,23 @@
  *
  * Extract component prop types from UIKit 2 components - HeadingProps
  *
- * @codegen <<SignedSource::8ab3b3f5dd85c2eff37cf908d6e693ba>>
+ * @codegen <<SignedSource::6e4d86411f309fc163a056ae74e29468>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/heading/__generated__/index.partial.tsx <<SignedSource::b40904da638774634ed529b90c13d99d>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/heading/__generated__/index.partial.tsx <<SignedSource::c2e393842de2c8b997b63888ed720646>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import type React from 'react';
 
+export type PlatformHeadingProps = Omit<_PlatformHeadingProps, 'size'> & {
+	size?: Sizes;
+}
 type Sizes = 'xxlarge' | 'xlarge' | 'large' | 'medium' | 'small' | 'xsmall' | 'xxsmall';
 
 // Serialized type
-type PlatformHeadingProps = {
+type _PlatformHeadingProps = {
+  
+	size?: 'xxlarge' | 'xlarge' | 'large' | 'medium' | 'small' | 'xsmall' | 'xxsmall';
   /**
 	 * Allows the component to be rendered as the specified DOM element, overriding a default element set by `level` prop.
 	 */
@@ -42,11 +47,9 @@ type PlatformHeadingProps = {
 };
 
 export type HeadingProps = Pick<
-	PlatformHeadingProps,
-	'children' | 'id' | 'testId' | 'as' | 'color'
-> & {
-	size?: Sizes;
-};
+  PlatformHeadingProps,
+  'size' | 'color' | 'as' | 'children' | 'id' | 'testId'
+>;
 
 /**
  * A heading is a typography component used to display text in different sizes and formats.

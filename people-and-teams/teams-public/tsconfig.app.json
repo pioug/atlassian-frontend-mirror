@@ -62,6 +62,9 @@
 			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/icon-lab/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/image/tsconfig.app.json"
 		},
 		{

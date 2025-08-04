@@ -10,6 +10,7 @@ type ToolbarNestedDropdownMenuProps = {
 	text?: string;
 	children?: ReactNode;
 	isDisabled?: boolean;
+	testId?: string;
 };
 
 export const ToolbarNestedDropdownMenu = ({
@@ -18,6 +19,7 @@ export const ToolbarNestedDropdownMenu = ({
 	elemAfter,
 	children,
 	isDisabled,
+	testId,
 }: ToolbarNestedDropdownMenuProps) => {
 	return (
 		<DropdownMenu<HTMLButtonElement>
@@ -28,7 +30,7 @@ export const ToolbarNestedDropdownMenu = ({
 					elemAfter={elemAfter}
 					isSelected={triggerProps.isSelected}
 					onClick={triggerProps.onClick}
-					testId={triggerProps.testId}
+					testId={testId}
 					triggerRef={triggerProps.triggerRef}
 					hasNestedDropdownMenu={true}
 					isDisabled={isDisabled}

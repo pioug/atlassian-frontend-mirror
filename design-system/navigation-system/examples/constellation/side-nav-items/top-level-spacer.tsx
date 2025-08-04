@@ -17,20 +17,22 @@ import { TeamsIcon } from '@atlaskit/temp-nav-app-icons/teams';
 
 import { MockSideNav } from './common/mock-side-nav';
 
+const exampleHref = '#example-href';
+
 export function TopLevelSpacerExample() {
 	return (
 		<MockSideNav>
 			<SideNavContent>
 				<MenuList>
 					<LinkMenuItem
-						href="#"
+						href={exampleHref}
 						elemBefore={<AngleBracketsIcon label="" color="currentColor" spacing="spacious" />}
 					>
 						Code
 					</LinkMenuItem>
 
 					<LinkMenuItem
-						href="#"
+						href={exampleHref}
 						elemBefore={<PagesIcon label="" color="currentColor" spacing="spacious" />}
 						elemAfter={<Lozenge>Try</Lozenge>}
 					>
@@ -40,28 +42,28 @@ export function TopLevelSpacerExample() {
 					<TopLevelSpacer />
 
 					<LinkMenuItem
-						href="#"
+						href={exampleHref}
 						elemBefore={<JiraIcon label="" />}
 						elemAfter={<LinkExternalIcon label="" size="small" color="currentColor" />}
 					>
 						Jira
 					</LinkMenuItem>
 					<LinkMenuItem
-						href="#"
+						href={exampleHref}
 						elemBefore={<ConfluenceIcon label="" />}
 						elemAfter={<LinkExternalIcon label="" size="small" color="currentColor" />}
 					>
 						Confluence
 					</LinkMenuItem>
 					<LinkMenuItem
-						href="#"
+						href={exampleHref}
 						elemBefore={<TeamsIcon label="" />}
 						elemAfter={<LinkExternalIcon label="" size="small" color="currentColor" />}
 					>
 						Goals
 					</LinkMenuItem>
 					<LinkMenuItem
-						href="#"
+						href={exampleHref}
 						elemBefore={<GoalsIcon label="" />}
 						elemAfter={<LinkExternalIcon label="" size="small" color="currentColor" />}
 					>

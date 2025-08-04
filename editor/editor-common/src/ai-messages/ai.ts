@@ -36,6 +36,17 @@ export const aiMessages = defineMessages({
 		defaultMessage: 'Ask AI',
 		description: 'Title for an option to use Atlassian Intellgience',
 	},
+	askRovoToolbarIconTitle: {
+		id: 'fabric.editor.ai.toolbar.askRovo.title',
+		defaultMessage: 'Ask Rovo',
+		description: 'Title for an option to use Atlassian Intellgience',
+	},
+	moreRovoOptionsMenuLabel: {
+		id: 'fabric.editor.ai.toolbar.moreRovoOptions.label',
+		defaultMessage: 'More Rovo options',
+		description:
+			'Label for the button which opens a menu with more options for using Atlassian Intellgience',
+	},
 	askRovoAiSplitButtonLabel: {
 		id: 'fabric.editor.ai.toolbar.askRovoAiSplitButton.label',
 		defaultMessage: 'Ask Rovo AI',
@@ -65,6 +76,72 @@ export const aiMessages = defineMessages({
 		id: 'fabric.editor.ai.toolbar.simplifiedAI.title',
 		defaultMessage: 'AI',
 		description: 'Title for Atlassian Intelligence button in editor selection floating toolbar',
+	},
+	summarizeToolbarDropdownIconTitle: {
+		id: 'fabric.editor.ai.toolbar.summarize.title',
+		defaultMessage: 'Summarize',
+		description:
+			'Title for an option to use Atlassian Intellgience to summarize the content currently selected by the user',
+	},
+	translateToolbarDropdownIconTitle: {
+		id: 'fabric.editor.ai.toolbar.translate.title',
+		defaultMessage: 'Translate',
+		description:
+			'Title for an option to use Atlassian Intellgience to translate the content currently selected by the user. Opens another menu which allows the user to select the language.',
+	},
+	translateOptionsIconLabel: {
+		id: 'fabric.editor.ai.toolbar.translateOptions.label',
+		defaultMessage: 'Translate options',
+		description:
+			'Label for an icon which opens another menu to allows the user to select the language to use Atlassian Intellgience to translate the content currently selected by the user.',
+	},
+	spellingAndGrammarToolbarDropdownIconTitle: {
+		id: 'fabric.editor.ai.toolbar.spellingAndGrammar.title',
+		defaultMessage: 'Fix spelling and grammar',
+		description:
+			'Title for an option to use Atlassian Intellgience to fix spelling and grammar of the content currently selected by the user',
+	},
+	makeLongerToolbarDropdownIconTitle: {
+		id: 'fabric.editor.ai.toolbar.makeLonger.title',
+		defaultMessage: 'Make longer',
+		description:
+			'Title for an option to use Atlassian Intellgience to make the content currently selected by the user longer',
+	},
+	makeShorterToolbarDropdownIconTitle: {
+		id: 'fabric.editor.ai.toolbar.makeShorter.title',
+		defaultMessage: 'Make shorter',
+		description:
+			'Title for an option to use Atlassian Intellgience to make the content currently selected by the user shorter',
+	},
+	changeToneToolbarDropdownIconTitle: {
+		id: 'fabric.editor.ai.toolbar.changeTone.title',
+		defaultMessage: 'Change tone',
+		description:
+			'Title for an option to use Atlassian Intellgience to change the tone of the content currently selected by the user. Opens another menu which allows the user to select what about the tone they want to change, e.g. More professional',
+	},
+	changeToneOptionsIconLabel: {
+		id: 'fabric.editor.ai.toolbar.changeToneOptions.title',
+		defaultMessage: 'Change tone options',
+		description:
+			'Label for an icon which signals that you can open a menu to see options about how to change the tone of the content currently selected by the user using Atlassian Intelligence.',
+	},
+	moreProfessionalToneToolbarDropdownIconTitle: {
+		id: 'fabric.editor.ai.toolbar.moreProfessionalTone.title',
+		defaultMessage: 'More professional',
+		description:
+			'Title for an option in the Change Tone menu to use Atlassian Intellgience to change the tone of the content currently selected by the user to be more professional.',
+	},
+	moreCasualToneToolbarDropdownIconTitle: {
+		id: 'fabric.editor.ai.toolbar.moreCasualTone.title',
+		defaultMessage: 'More casual',
+		description:
+			'Title for an option in the Change Tone menu to use Atlassian Intellgience to change the tone of the content currently selected by the user to be more casual.',
+	},
+	moreEmpatheticToneToolbarDropdownIconTitle: {
+		id: 'fabric.editor.ai.toolbar.moreEmpatheticTone.title',
+		defaultMessage: 'More empathetic',
+		description:
+			'Title for an option in the Change Tone menu to use Atlassian Intellgience to change the tone of the content currently selected by the user to be more empathetic.',
 	},
 
 	// Prebuilt messages

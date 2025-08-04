@@ -2,24 +2,24 @@ import React, { type ReactNode } from 'react';
 
 import DropdownMenu from '@atlaskit/dropdown-menu';
 
-import { type IconComponent, type ToolbarButtonGroupLocation } from '../types';
+import { type ToolbarButtonGroupLocation } from '../types';
 
 import { ToolbarButton } from './ToolbarButton';
 
 type ToolbarDropdownMenuProps = {
-	icon: IconComponent;
-	label: string;
+	iconBefore: React.ReactNode;
 	children?: ReactNode;
 	groupLocation?: ToolbarButtonGroupLocation;
 	isDisabled?: boolean;
+	testId?: string;
 };
 
 export const ToolbarDropdownMenu = ({
-	icon,
-	label,
+	iconBefore,
 	groupLocation,
 	children,
 	isDisabled,
+	testId,
 }: ToolbarDropdownMenuProps) => {
 	return (
 		<DropdownMenu<HTMLButtonElement>
@@ -33,9 +33,8 @@ export const ToolbarDropdownMenu = ({
 					onBlur={triggerProps.onBlur}
 					onClick={triggerProps.onClick}
 					onFocus={triggerProps.onFocus}
-					testId={triggerProps.testId}
-					icon={icon}
-					label={label}
+					testId={testId}
+					iconBefore={iconBefore}
 					groupLocation={groupLocation}
 					isDisabled={isDisabled}
 				/>

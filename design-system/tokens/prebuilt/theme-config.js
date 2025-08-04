@@ -244,10 +244,7 @@ var themeStateDefaults = exports.themeStateDefaults = {
     if ((0, _platformFeatureFlags.fg)('platform-disable-default-typography')) {
       return undefined;
     }
-    if ((0, _platformFeatureFlags.fg)('platform-default-typography-refreshed')) {
-      return 'typography';
-    }
-    return undefined;
+    return 'typography';
   },
   UNSAFE_themeOptions: undefined
 };

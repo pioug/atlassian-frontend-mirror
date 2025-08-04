@@ -98,7 +98,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-app-config",
-	"version": "1.11.0",
+	"version": "1.11.1",
 	"description": "Teams App related config",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

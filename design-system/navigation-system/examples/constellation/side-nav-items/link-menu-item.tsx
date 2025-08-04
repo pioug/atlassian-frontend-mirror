@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { IconButton } from '@atlaskit/button/new';
+import Button, { IconButton } from '@atlaskit/button/new';
 import AddIcon from '@atlaskit/icon/core/add';
 import HomeIcon from '@atlaskit/icon/core/home';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
@@ -41,103 +41,112 @@ function MoreAction() {
 	);
 }
 
+const linkMenuItemHref = '#example-href';
+
 export function LinkMenuItemExample() {
 	const [isMenuItemSelected, setIsMenuItemSelected] = useState(false);
 	return (
-		<Inline space="space.600">
-			<MockSideNav>
-				<SideNavContent>
-					<MenuList>
-						<LinkMenuItem
-							href="#"
-							elemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}
-						>
-							Link menu item (icon)
-						</LinkMenuItem>
-						<LinkMenuItem href="#" elemBefore={<ContainerAvatar src={MoneyIcon} />}>
-							Link menu item (ContainerAvatar)
-						</LinkMenuItem>
-						<LinkMenuItem href="#" elemBefore={<JiraIcon label="" />}>
-							Link menu item (app tile)
-						</LinkMenuItem>
-						<LinkMenuItem href="#">Link menu item (spacer)</LinkMenuItem>
-						<LinkMenuItem href="#" elemBefore={COLLAPSE_ELEM_BEFORE}>
-							Link menu item (no elemBefore)
-						</LinkMenuItem>
-						<LinkMenuItem
-							href="#"
-							elemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}
-							isSelected={isMenuItemSelected}
-							onClick={() => setIsMenuItemSelected(!isMenuItemSelected)}
-						>
-							Link menu item (click to select)
-						</LinkMenuItem>
-					</MenuList>
-				</SideNavContent>
-			</MockSideNav>
+		<>
+			<Inline space="space.600">
+				<MockSideNav>
+					<SideNavContent>
+						<MenuList>
+							<LinkMenuItem
+								href={linkMenuItemHref}
+								elemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}
+							>
+								Link menu item (icon)
+							</LinkMenuItem>
+							<LinkMenuItem
+								href={linkMenuItemHref}
+								elemBefore={<ContainerAvatar src={MoneyIcon} />}
+							>
+								Link menu item (ContainerAvatar)
+							</LinkMenuItem>
+							<LinkMenuItem href={linkMenuItemHref} elemBefore={<JiraIcon label="" />}>
+								Link menu item (app tile)
+							</LinkMenuItem>
+							<LinkMenuItem href={linkMenuItemHref}>Link menu item (spacer)</LinkMenuItem>
+							<LinkMenuItem href={linkMenuItemHref} elemBefore={COLLAPSE_ELEM_BEFORE}>
+								Link menu item (no elemBefore)
+							</LinkMenuItem>
+							<LinkMenuItem
+								href={linkMenuItemHref}
+								elemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}
+								isSelected={isMenuItemSelected}
+							>
+								Link menu item (selectable)
+							</LinkMenuItem>
+						</MenuList>
+					</SideNavContent>
+				</MockSideNav>
 
-			<MockSideNav>
-				<SideNavContent>
-					<MenuList>
-						<LinkMenuItem
-							href="#"
-							elemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}
-							description="With description underneath"
-						>
-							Link menu item
-						</LinkMenuItem>
-						<LinkMenuItem
-							href="#"
-							elemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}
-							actions={
-								<>
-									<AddAction />
-									<MoreAction />
-								</>
-							}
-						>
-							Link menu item (actions)
-						</LinkMenuItem>
-						<LinkMenuItem
-							href="#"
-							elemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}
-							actionsOnHover={
-								<>
-									<AddAction />
-									<MoreAction />
-								</>
-							}
-						>
-							Link menu item (actionsOnHover)
-						</LinkMenuItem>
-						<LinkMenuItem
-							href="#"
-							elemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}
-							actions={<MoreAction />}
-							actionsOnHover={<AddAction />}
-						>
-							Link menu item (actions & actionsOnHover)
-						</LinkMenuItem>
-						<LinkMenuItem
-							href="#"
-							elemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}
-							elemAfter={<Lozenge>New</Lozenge>}
-						>
-							Link menu item (elemAfter)
-						</LinkMenuItem>
-						<LinkMenuItem
-							href="#"
-							elemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}
-							elemAfter={<Lozenge>New</Lozenge>}
-							actions={<MoreAction />}
-							actionsOnHover={<AddAction />}
-						>
-							Link menu item (elemAfter, actions & actionsOnHover)
-						</LinkMenuItem>
-					</MenuList>
-				</SideNavContent>
-			</MockSideNav>
-		</Inline>
+				<MockSideNav>
+					<SideNavContent>
+						<MenuList>
+							<LinkMenuItem
+								href={linkMenuItemHref}
+								elemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}
+								description="With description underneath"
+							>
+								Link menu item
+							</LinkMenuItem>
+							<LinkMenuItem
+								href={linkMenuItemHref}
+								elemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}
+								actions={
+									<>
+										<AddAction />
+										<MoreAction />
+									</>
+								}
+							>
+								Link menu item (actions)
+							</LinkMenuItem>
+							<LinkMenuItem
+								href={linkMenuItemHref}
+								elemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}
+								actionsOnHover={
+									<>
+										<AddAction />
+										<MoreAction />
+									</>
+								}
+							>
+								Link menu item (actionsOnHover)
+							</LinkMenuItem>
+							<LinkMenuItem
+								href={linkMenuItemHref}
+								elemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}
+								actions={<MoreAction />}
+								actionsOnHover={<AddAction />}
+							>
+								Link menu item (actions & actionsOnHover)
+							</LinkMenuItem>
+							<LinkMenuItem
+								href={linkMenuItemHref}
+								elemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}
+								elemAfter={<Lozenge>New</Lozenge>}
+							>
+								Link menu item (elemAfter)
+							</LinkMenuItem>
+							<LinkMenuItem
+								href={linkMenuItemHref}
+								elemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}
+								elemAfter={<Lozenge>New</Lozenge>}
+								actions={<MoreAction />}
+								actionsOnHover={<AddAction />}
+							>
+								Link menu item (elemAfter, actions & actionsOnHover)
+							</LinkMenuItem>
+						</MenuList>
+					</SideNavContent>
+				</MockSideNav>
+			</Inline>
+			<Button onClick={() => setIsMenuItemSelected(!isMenuItemSelected)}>
+				Toggle selected state example
+			</Button>
+		</>
 	);
 }
 

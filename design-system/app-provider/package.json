@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/app-provider",
-	"version": "2.3.0",
+	"version": "3.0.0",
 	"description": "A top level provider for the Design System.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -41,7 +41,6 @@
 		".": "./src/index.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
 		"bind-event-listener": "root:*"
@@ -93,10 +92,5 @@
 			]
 		}
 	},
-	"homepage": "https://atlassian.design/components/app-provider",
-	"platform-feature-flags": {
-		"platform-default-typography-refreshed": {
-			"type": "boolean"
-		}
-	}
+	"homepage": "https://atlassian.design/components/app-provider"
 }

@@ -2,7 +2,6 @@ import React, { createContext, useCallback, useContext, useEffect, useRef, useSt
 
 import { bind } from 'bind-event-listener';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	getGlobalTheme,
 	setGlobalTheme,
@@ -18,7 +17,7 @@ const defaultThemeSettings = (): Theme => ({
 	dark: 'dark',
 	light: 'light',
 	spacing: 'spacing',
-	typography: fg('platform-default-typography-refreshed') ? 'typography' : undefined,
+	typography: 'typography',
 });
 
 const ColorModeContext = createContext<ReconciledColorMode | undefined>(undefined);

@@ -1,5 +1,25 @@
 # @atlaskit/profilecard
 
+## 24.1.0
+
+### Minor Changes
+
+- [#195460](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195460)
+  [`994834b767ffc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/994834b767ffc) -
+  Allow blocking of reportinglines default behaviour
+
+## 24.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.0.0
 
 ### Major Changes

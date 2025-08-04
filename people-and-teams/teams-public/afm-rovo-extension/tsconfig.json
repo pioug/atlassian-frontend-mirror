@@ -53,6 +53,9 @@
 			"path": "../../../design-system/icon/afm-rovo-extension/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/icon-lab/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/image/afm-rovo-extension/tsconfig.json"
 		},
 		{

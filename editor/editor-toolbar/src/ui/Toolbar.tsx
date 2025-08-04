@@ -10,7 +10,7 @@ const styles = cssMap({
 		paddingLeft: token('space.050'),
 		boxShadow: token('elevation.shadow.overlay'),
 		borderRadius: '6px',
-		height: '40px',
+		height: '36px',
 		width: 'min-content',
 		display: 'flex',
 		alignItems: 'center',

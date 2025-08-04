@@ -94,11 +94,9 @@ const ReportingLinesDetails = (props: ReportingLinesDetailsProps) => {
 		userType: 'manager' | 'direct-report',
 		href: string | undefined,
 	) => {
-		if (href) {
-			window.location.href = href;
-		}
+		let shouldPreventDefault = false;
 		if (onReportingLinesClick) {
-			onReportingLinesClick(user);
+			shouldPreventDefault = onReportingLinesClick(user) === false;
 		}
 		fireAnalyticsWithDuration((duration) =>
 			reportingLinesClicked({
@@ -106,6 +104,14 @@ const ReportingLinesDetails = (props: ReportingLinesDetailsProps) => {
 				userType,
 			}),
 		);
+
+		if (shouldPreventDefault) {
+			return;
+		}
+
+		if (href) {
+			window.location.href = href;
+		}
 	};
 
 	const showMoreButtonProps: AvatarGroupProps['showMoreButtonProps'] = {

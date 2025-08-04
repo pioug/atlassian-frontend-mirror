@@ -18,4 +18,5 @@ export const PROVIDER_KEYS_WITH_THEMING = [
 	'jira-object-provider',
 	'confluence-object-provider',
 	'watermelon-object-provider',
+	'legion-object-provider',
 ];

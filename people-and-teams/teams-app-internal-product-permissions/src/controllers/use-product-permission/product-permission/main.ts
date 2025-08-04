@@ -15,16 +15,7 @@ import { transformPermissions } from './utils/transform-permissions';
 
 const actions: ProductPermissionsActions = {
 	getPermissions:
-		({
-			userId,
-			cloudId,
-			enabled,
-			permissionsToCheck = {
-				jira: ['manage', 'write'],
-				confluence: ['manage', 'write'],
-				loom: ['manage', 'write'],
-			},
-		}) =>
+		({ userId, cloudId, enabled, permissionsToCheck }) =>
 		async ({ setState, getState, dispatch }) => {
 			const { hasLoaded, isLoading, permissions } = getState();
 			if (isLoading || !userId || !cloudId || !enabled) {
@@ -130,11 +121,17 @@ const actions: ProductPermissionsActions = {
 		},
 	setPermissions:
 		(permissions) =>
-		({ setState }) => {
+		({ getState, setState }) => {
+			const newPermissions = transformPermissions(permissions);
+			const oldPermissions = getState().permissions;
 			setState({
 				hasLoaded: true,
 				isLoading: false,
-				permissions: transformPermissions(permissions),
+				permissions: {
+					jira: { ...oldPermissions.jira, ...newPermissions.jira },
+					confluence: { ...oldPermissions.confluence, ...newPermissions.confluence },
+					loom: { ...oldPermissions.loom, ...newPermissions.loom },
+				},
 				permissionsResponse: permissions,
 			});
 		},

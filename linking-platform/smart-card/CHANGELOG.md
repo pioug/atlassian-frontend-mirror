@@ -1,5 +1,18 @@
 # @atlaskit/smart-card
 
+## 40.7.0
+
+### Minor Changes
+
+- [`80e19089a6a03`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/80e19089a6a03) -
+  Added theme support for legion object provider
+
+## 40.6.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 40.6.1
 
 ### Patch Changes

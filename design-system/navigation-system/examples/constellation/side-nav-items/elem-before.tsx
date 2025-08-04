@@ -24,6 +24,8 @@ import MoneyIcon from '../../images/money.svg';
 
 import { MockSideNav } from './common/mock-side-nav';
 
+const exampleHref = '#example-href';
+
 export function ElemBeforeExample() {
 	return (
 		<Inline space="space.600">
@@ -31,19 +33,19 @@ export function ElemBeforeExample() {
 				<SideNavContent>
 					<MenuList>
 						<LinkMenuItem
-							href="#"
+							href={exampleHref}
 							elemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}
 						>
 							Link menu item (icon)
 						</LinkMenuItem>
-						<LinkMenuItem href="#" elemBefore={<ContainerAvatar src={MoneyIcon} />}>
+						<LinkMenuItem href={exampleHref} elemBefore={<ContainerAvatar src={MoneyIcon} />}>
 							Link menu item (ContainerAvatar)
 						</LinkMenuItem>
-						<LinkMenuItem href="#" elemBefore={<JiraIcon label="" />}>
+						<LinkMenuItem href={exampleHref} elemBefore={<JiraIcon label="" />}>
 							Link menu item (app tile)
 						</LinkMenuItem>
-						<LinkMenuItem href="#">Link menu item (spacer)</LinkMenuItem>
-						<LinkMenuItem href="#" elemBefore={COLLAPSE_ELEM_BEFORE}>
+						<LinkMenuItem href={exampleHref}>Link menu item (spacer)</LinkMenuItem>
+						<LinkMenuItem href={exampleHref} elemBefore={COLLAPSE_ELEM_BEFORE}>
 							Link menu item (no elemBefore)
 						</LinkMenuItem>
 					</MenuList>

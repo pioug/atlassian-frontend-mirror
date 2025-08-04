@@ -447,8 +447,9 @@ export interface ProfilecardProps {
 	reportingLines?: TeamCentralReportingLinesData;
 	/** Base URL to populate href value for manager's and direct reports' user avatar  */
 	reportingLinesProfileUrl?: string;
-	/** Click handler when user clicks on manager's and direct reports' user avatar, un-clickable otherwise */
-	onReportingLinesClick?: (user: ReportingLinesUser) => void;
+	/** Click handler when user clicks on manager's and direct reports' user avatar, un-clickable otherwise.
+	 * Returning false will prevent the default behavior of opening the reporting lines page. */
+	onReportingLinesClick?: (user: ReportingLinesUser) => void | false;
 	isKudosEnabled?: boolean;
 	teamCentralBaseUrl?: string;
 	addFlag?: (flag: any) => void;

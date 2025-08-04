@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - CheckboxProps
  *
- * @codegen <<SignedSource::634533a7eaed746ad58981b553539cdf>>
+ * @codegen <<SignedSource::2632c877a6e3a788205d19c07f42329f>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/checkbox/__generated__/index.partial.tsx <<SignedSource::e34c0ab52d3409a8548b6e51450ba43b>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/checkbox/__generated__/index.partial.tsx <<SignedSource::d3d8c48b03e142fc013040437e3acf2c>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 

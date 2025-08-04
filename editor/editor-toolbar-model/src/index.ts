@@ -12,6 +12,7 @@ export type {
 	RegisterToolbarGroup,
 	RegisterToolbarButton,
 	RegisterToolbarMenu,
+	RegisterToolbarNestedMenu,
 	RegisterToolbarMenuSection,
 	RegisterToolbarMenuItem,
 	RegisterComponent,

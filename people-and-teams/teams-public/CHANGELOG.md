@@ -1,5 +1,22 @@
 # @atlaskit/teams-public
 
+## 0.51.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.51.0
+
+### Minor Changes
+
+- [`3c3c951f9cd92`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c3c951f9cd92) -
+  [ux] Add create container feature to team profile
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.50.3
 
 ### Patch Changes

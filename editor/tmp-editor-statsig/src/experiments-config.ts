@@ -595,4 +595,12 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-07-31
+	platform_editor_fix_a11y_aria_posinset_0: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_fix_a11y_aria_posinset_0',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 } satisfies Record<string, ExperimentConfigValue>;

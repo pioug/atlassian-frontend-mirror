@@ -10,9 +10,9 @@ import { createWrapSelectionTransaction } from './create-wrap-selection-transact
  * 2. If current block can not be wrapped inside wrapping block it will create a new block below selection,
  *  and set selection on it.
  */
-export function wrapSelectionIn(type: NodeType): Command {
+export function wrapSelectionIn(type: NodeType, nodeAttributes?: Record<string, unknown>): Command {
 	return function (state: EditorState, dispatch) {
-		const tr = createWrapSelectionTransaction({ state, type });
+		const tr = createWrapSelectionTransaction({ state, type, nodeAttributes });
 		if (dispatch) {
 			dispatch(tr);
 		}

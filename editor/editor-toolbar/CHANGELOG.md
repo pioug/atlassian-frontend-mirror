@@ -1,5 +1,29 @@
 # @atlaskit/editor-toolbar
 
+## 0.0.8
+
+### Patch Changes
+
+- [#195460](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195460)
+  [`dd320dee34d9f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dd320dee34d9f) -
+  [ux] ED-28684 register ai components to the new toolbar behind platform_editor_toolbar_aifc
+  experiment
+
+## 0.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.0.6
+
+### Patch Changes
+
+- [#195270](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195270)
+  [`749d634017afc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/749d634017afc) -
+  [ux] [ED-28580] change toolbar and toolbar button height, icon size and text color icon, remove
+  dividers and add comment button label
+
 ## 0.0.5
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "209.5.0",
+	"version": "209.5.1",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -118,6 +118,7 @@
 		"@testing-library/react-hooks": "root:*",
 		"@types/diff": "root:*",
 		"@types/is-number": "root:*",
+		"@types/react-transition-group": "root:*",
 		"diff": "root:*",
 		"enzyme": "root:*",
 		"jscodeshift": "root:*",

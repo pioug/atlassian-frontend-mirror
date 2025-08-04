@@ -31,6 +31,8 @@ import MoneyIcon from '../../images/money.svg';
 
 import { MockSideNav } from './common/mock-side-nav';
 
+const exampleHref = '#example-href';
+
 function MyFlyoutMenuItemContent() {
 	return (
 		<FlyoutMenuItemContent>
@@ -61,14 +63,14 @@ function MyFlyoutMenuItemContent() {
 				<MenuSectionHeading>This week</MenuSectionHeading>
 				<MenuList>
 					<LinkMenuItem
-						href="#"
+						href={exampleHref}
 						elemBefore={<BoardIcon label="" spacing="spacious" color="currentColor" />}
 						description="5 days ago"
 					>
 						My Kanban Project
 					</LinkMenuItem>
 					<LinkMenuItem
-						href="#"
+						href={exampleHref}
 						elemBefore={<ContainerAvatar src={CDProjectIcon} />}
 						description="6 days ago"
 					>
@@ -81,7 +83,7 @@ function MyFlyoutMenuItemContent() {
 				<MenuSectionHeading>This month</MenuSectionHeading>
 				<MenuList>
 					<LinkMenuItem
-						href="#"
+						href={exampleHref}
 						elemBefore={<BoardIcon label="" spacing="spacious" color="currentColor" />}
 						description="5 days ago"
 					>
@@ -92,7 +94,10 @@ function MyFlyoutMenuItemContent() {
 
 			<Divider />
 			<MenuList>
-				<LinkMenuItem href="#" elemBefore={<AlignTextLeftIcon label="" color="currentColor" />}>
+				<LinkMenuItem
+					href={exampleHref}
+					elemBefore={<AlignTextLeftIcon label="" color="currentColor" />}
+				>
 					View all recent items
 				</LinkMenuItem>
 			</MenuList>

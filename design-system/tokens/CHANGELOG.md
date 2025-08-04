@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 6.0.0
+
+### Major Changes
+
+- [#195371](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195371)
+  [`44ae158e84619`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/44ae158e84619) -
+  [ux] Refreshed typography theme enabled by default.
+
 ## 5.6.3
 
 ### Patch Changes

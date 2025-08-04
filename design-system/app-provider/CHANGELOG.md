@@ -1,5 +1,16 @@
 # @atlaskit/app-provider
 
+## 3.0.0
+
+### Major Changes
+
+- [`97bac34e4e575`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/97bac34e4e575) -
+  [ux] Refreshed typography theme enabled by default.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.3.0
 
 ### Minor Changes

@@ -49,6 +49,8 @@ function MoreAction() {
 	);
 }
 
+const exampleHref = '#example-href';
+
 export function RightToLeftExample() {
 	return (
 		<div dir="rtl">
@@ -56,14 +58,14 @@ export function RightToLeftExample() {
 				<SideNavContent>
 					<MenuList>
 						<LinkMenuItem
-							href="#"
+							href={exampleHref}
 							elemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}
 							elemAfter={<Lozenge>New</Lozenge>}
 						>
 							Link menu item (elemAfter)
 						</LinkMenuItem>
 						<LinkMenuItem
-							href="#"
+							href={exampleHref}
 							elemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}
 							actions={<MoreAction />}
 							actionsOnHover={<AddAction />}
@@ -72,7 +74,7 @@ export function RightToLeftExample() {
 						</LinkMenuItem>
 
 						<LinkMenuItem
-							href="#"
+							href={exampleHref}
 							elemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}
 							elemAfter={<Lozenge>New</Lozenge>}
 							actions={<MoreAction />}
@@ -97,7 +99,9 @@ export function RightToLeftExample() {
 														Exp default menu item (level 2)
 													</ExpandableMenuItemTrigger>
 													<ExpandableMenuItemContent>
-														<LinkMenuItem href="#">Expandable menu item content</LinkMenuItem>
+														<LinkMenuItem href={exampleHref}>
+															Expandable menu item content
+														</LinkMenuItem>
 													</ExpandableMenuItemContent>
 												</ExpandableMenuItem>
 											</ExpandableMenuItemContent>
@@ -113,7 +117,9 @@ export function RightToLeftExample() {
 														Exp default menu item (level 2)
 													</ExpandableMenuItemTrigger>
 													<ExpandableMenuItemContent>
-														<LinkMenuItem href="#">Expandable menu item content</LinkMenuItem>
+														<LinkMenuItem href={exampleHref}>
+															Expandable menu item content
+														</LinkMenuItem>
 													</ExpandableMenuItemContent>
 												</ExpandableMenuItem>
 											</ExpandableMenuItemContent>

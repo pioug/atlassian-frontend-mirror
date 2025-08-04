@@ -111,14 +111,18 @@ export default class PostInteractionLog {
 			return;
 		}
 
+		const config = getConfig();
 		const postInteractionFinishVCResult = await this.vcObserver?.getVCResult({
 			start: this.lastInteractionFinish.start,
 			stop: performance.now(),
 			tti: -1, // no need for TTI value here
 			isEventAborted: !!this.lastInteractionFinish.abortReason,
 			prefix: 'ufo',
-			...this.vcObserverSSRConfig,
 			experienceKey: this.lastInteractionFinish.ufoName,
+			interactionId: this.lastInteractionFinish.id,
+			includeSSRInV3: config?.vc?.includeSSRInV3,
+			includeSSRRatio: config?.vc?.includeSSRRatio,
+			...this.vcObserverSSRConfig,
 		});
 
 		this.vcObserver?.stop();

@@ -1,5 +1,20 @@
 # @atlaskit/comment
 
+## 13.0.18
+
+### Patch Changes
+
+- [#195460](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195460)
+  [`01081b24346a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/01081b24346a5) -
+  [ux] Adds better header wrapping ability behind a feature flag and cleans up old feature flag used
+  to allow wrapping.
+
+## 13.0.17
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.0.16
 
 ### Patch Changes

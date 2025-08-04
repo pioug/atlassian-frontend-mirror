@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.1.12
+
+### Patch Changes
+
+- [#195371](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195371)
+  [`928a3cc316c8f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/928a3cc316c8f) -
+  Fix post interaction log naming issue
+
 ## 4.1.11
 
 ### Patch Changes

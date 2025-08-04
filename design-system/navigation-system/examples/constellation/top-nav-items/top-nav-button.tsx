@@ -17,8 +17,12 @@ export const TopNavButtonExample = () => (
 		<TopNav>
 			<TopNavEnd>
 				<TopNavIconButton icon={TeamsIcon} label="Top nav icon button" />
-				<TopNavLinkIconButton icon={AiChatIcon} href="#" label="Top nav link icon button" />
-				<TopNavLinkButton iconBefore={TeamsIcon} href="#">
+				<TopNavLinkIconButton
+					icon={AiChatIcon}
+					href="#example-href"
+					label="Top nav link icon button"
+				/>
+				<TopNavLinkButton iconBefore={TeamsIcon} href="#example-href">
 					Top nav link button
 				</TopNavLinkButton>
 				<TopNavButton iconBefore={AiChatIcon}>Top nav button</TopNavButton>

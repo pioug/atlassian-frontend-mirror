@@ -425,9 +425,7 @@ export const GlobalStylesWrapper = ({
 	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined;
 }) => {
 	const isDragging = useSharedPluginStateSelector(api, 'blockControls.isDragging', {
-		disabled:
-			!expValEquals('platform_editor_block_controls_perf_optimization', 'isEnabled', true) ||
-			!fg('platform_editor_block_controls_perf_opt_patch_1'),
+		disabled: !expValEquals('platform_editor_block_controls_perf_optimization', 'isEnabled', true),
 	});
 
 	return (

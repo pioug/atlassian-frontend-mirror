@@ -11,34 +11,36 @@ import { Inline } from '@atlaskit/primitives/compiled';
 
 import { MockSideNav } from './common/mock-side-nav';
 
+const exampleHref = '#example-href';
+
 export function ElemAfterExample() {
 	return (
 		<MockSideNav>
 			<SideNavContent>
 				<MenuList>
 					<LinkMenuItem
-						href="#"
+						href={exampleHref}
 						elemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}
 						elemAfter={<Lozenge>New</Lozenge>}
 					>
 						Link menu item (lozenge)
 					</LinkMenuItem>
 					<LinkMenuItem
-						href="#"
+						href={exampleHref}
 						elemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}
 						elemAfter={<Badge>24</Badge>}
 					>
 						Link menu item (badge)
 					</LinkMenuItem>
 					<LinkMenuItem
-						href="#"
+						href={exampleHref}
 						elemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}
 						elemAfter={<LinkExternalIcon label="" size="small" />}
 					>
 						Link menu item (icon)
 					</LinkMenuItem>
 					<LinkMenuItem
-						href="#"
+						href={exampleHref}
 						elemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}
 						elemAfter={
 							<Inline space="space.050" alignBlock="center">

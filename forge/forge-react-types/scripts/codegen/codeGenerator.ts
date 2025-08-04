@@ -67,48 +67,49 @@ const getBaseComponentSymbol = (componentSymbol: Symbol, sourceFile: SourceFile)
  * This function will extract the PlatformButtonProps type declaration.
  */
 const getDependentTypeDeclarations = (baseComponentPropSymbol: Symbol, sourceFile: SourceFile) => {
-	const declarations = getDependentTypeDeclarationsBase(baseComponentPropSymbol, sourceFile);
+	const allTypeAliases = sourceFile.getTypeAliases();
+	const [usedTypes, otherTypes] = allTypeAliases.reduce(
+		(agg, typeAlias) => {
+			if (typeAlias.getName() === baseComponentPropSymbol.getName()) {
+				agg[0].push(typeAlias);
+			} else {
+				agg[1].push(typeAlias);
+			}
+			return agg;
+		},
+		[[], []] as [TypeAliasDeclaration[], TypeAliasDeclaration[]],
+	);
 
-	for (const declaration of declarations) {
-		// further extract dependent types from the dependent type declarations, if it is not yet the base component prop symbol
-		// e.g. Text component depends on OriginalPlatformProps which depends on PlatformTextProps
-		if (
-			!declaration.getName().startsWith('_Platform') &&
-			!declaration.getName().startsWith('Platform')
-		) {
-			const typeAliasSymbol = declaration.getSymbolOrThrow();
-			const baseComponentPropCode = getDeclaration(baseComponentPropSymbol).getText();
-			for (const dependentTypeAliasDeclaration of getDependentTypeDeclarationsBase(
-				typeAliasSymbol,
-				sourceFile,
-			)) {
-				if (baseComponentPropCode !== dependentTypeAliasDeclaration.getText()) {
-					declarations.push(dependentTypeAliasDeclaration);
-				}
+	const [dependentTypes] = extractDependentTypeDeclarations(usedTypes, otherTypes);
+	return dependentTypes;
+};
+
+/**
+ * recursively extract dependent type declarations from the current types and candidate types.
+ */
+const extractDependentTypeDeclarations = (
+	currentTypes: TypeAliasDeclaration[],
+	candidateTypes: TypeAliasDeclaration[],
+): [TypeAliasDeclaration[], TypeAliasDeclaration[]] => {
+	const dependentTypesSet: Set<TypeAliasDeclaration> = new Set();
+	for (const typeAlias of currentTypes) {
+		const typeAliasDeclarationText = typeAlias.getText();
+		for (const candidateType of candidateTypes) {
+			if (typeAliasDeclarationText.includes(candidateType.getName())) {
+				dependentTypesSet.add(candidateType);
 			}
 		}
 	}
-	return declarations;
-};
-
-const getDependentTypeDeclarationsBase = (
-	baseComponentPropSymbol: Symbol,
-	sourceFile: SourceFile,
-) => {
-	return sourceFile.getTypeAliases().reduce((declarations, typeAlias) => {
-		const typeAliasName = typeAlias.getName();
-		if (typeAliasName !== baseComponentPropSymbol.getName()) {
-			const baseComponentPropSymbolDeclaration = getDeclaration(baseComponentPropSymbol).getText();
-			let targetTypeName = typeAliasName;
-			if (targetTypeName.startsWith('_Platform')) {
-				targetTypeName = targetTypeName.slice(1);
-			}
-			if (baseComponentPropSymbolDeclaration.includes(targetTypeName)) {
-				declarations.push(typeAlias);
-			}
-		}
-		return declarations;
-	}, [] as Array<TypeAliasDeclaration>);
+	if (dependentTypesSet.size === 0) {
+		return [[], candidateTypes];
+	}
+	const dependentTypes = Array.from(dependentTypesSet);
+	const otherTypes = candidateTypes.filter((typeAlias) => !dependentTypesSet.has(typeAlias));
+	const [nextDependentTypes, nextOtherTypes] = extractDependentTypeDeclarations(
+		dependentTypes,
+		otherTypes,
+	);
+	return [[...dependentTypes, ...nextDependentTypes], nextOtherTypes];
 };
 
 /**

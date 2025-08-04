@@ -64,7 +64,7 @@ export const getProductPermissionRequestBody = (
 export const hasProductPermission = (
 	permissions: UserProductPermissions,
 	product: keyof UserProductPermissions,
-	permissionIds?: Array<keyof ProductPermissionsType>,
+	permissionIds?: string[],
 ) => {
 	if (!permissions[product]) {
 		return false;
@@ -74,5 +74,8 @@ export const hasProductPermission = (
 		return Object.values(permissions[product] || {}).some((value) => value === true);
 	}
 
-	return permissionIds?.some((permissionId) => permissions[product]?.[permissionId]);
+	return permissionIds?.some((permissionId: string) => {
+		const productPermissions = permissions[product] as any;
+		return productPermissions?.[permissionId];
+	});
 };

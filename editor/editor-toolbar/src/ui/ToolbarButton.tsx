@@ -5,13 +5,7 @@ import { type TriggerProps } from '@atlaskit/popup';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import { type IconComponent, type ToolbarButtonGroupLocation } from '../types';
-
-const ICON_COLOR = {
-	default: token('color.icon.subtle'),
-	disabled: token('color.icon.disabled'),
-	selected: token('color.icon.selected'),
-};
+import { type ToolbarButtonGroupLocation } from '../types';
 
 const styles = cssMap({
 	button: {
@@ -22,7 +16,7 @@ const styles = cssMap({
 		alignItems: 'center',
 		justifyContent: 'center',
 		borderRadius: token('border.radius.100'),
-		minHeight: '32px',
+		minHeight: '28px',
 		color: token('color.text.subtle'),
 		fontWeight: token('font.weight.medium'),
 		paddingLeft: token('space.100'),
@@ -85,8 +79,7 @@ type ToolbarButtonProps = Partial<TriggerProps> & {
 	onBlur?: (event: React.FocusEvent<HTMLButtonElement>) => void;
 	onFocus?: (event: React.FocusEvent<HTMLButtonElement>) => void;
 	testId?: string;
-	label: string;
-	icon: IconComponent;
+	iconBefore: React.ReactNode;
 	groupLocation?: ToolbarButtonGroupLocation;
 	isDisabled?: boolean;
 	ariaKeyshortcuts?: string;
@@ -95,8 +88,7 @@ type ToolbarButtonProps = Partial<TriggerProps> & {
 export const ToolbarButton = forwardRef(
 	(
 		{
-			icon: IconComponent,
-			label,
+			iconBefore,
 			children,
 			onClick,
 			isSelected,
@@ -113,11 +105,6 @@ export const ToolbarButton = forwardRef(
 		}: ToolbarButtonProps,
 		ref: Ref<HTMLButtonElement>,
 	) => {
-		const iconColor = isDisabled
-			? ICON_COLOR.disabled
-			: isSelected
-				? ICON_COLOR.selected
-				: ICON_COLOR.default;
 		return (
 			<Pressable
 				ref={ref}
@@ -140,7 +127,7 @@ export const ToolbarButton = forwardRef(
 				testId={testId}
 				isDisabled={isDisabled}
 			>
-				<IconComponent label={label} size="medium" color={iconColor} />
+				{iconBefore}
 				{children}
 			</Pressable>
 		);

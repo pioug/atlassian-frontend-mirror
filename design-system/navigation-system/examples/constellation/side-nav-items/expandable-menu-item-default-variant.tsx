@@ -27,10 +27,12 @@ import MoneyIcon from '../../images/money.svg';
 
 import { MockSideNav } from './common/mock-side-nav';
 
+const exampleHref = '#example-href';
+
 function PlaceholderExpandableContent() {
 	return (
 		<ExpandableMenuItemContent>
-			<LinkMenuItem href="#">Expandable menu item content</LinkMenuItem>
+			<LinkMenuItem href={exampleHref}>Expandable menu item content</LinkMenuItem>
 		</ExpandableMenuItemContent>
 	);
 }
@@ -109,7 +111,9 @@ export function ExpandableMenuItemDefaultVariantExample() {
 														Exp default menu item (level 2)
 													</ExpandableMenuItemTrigger>
 													<ExpandableMenuItemContent>
-														<LinkMenuItem href="#">Expandable menu item content</LinkMenuItem>
+														<LinkMenuItem href={exampleHref}>
+															Expandable menu item content
+														</LinkMenuItem>
 													</ExpandableMenuItemContent>
 												</ExpandableMenuItem>
 											</ExpandableMenuItemContent>
@@ -125,7 +129,9 @@ export function ExpandableMenuItemDefaultVariantExample() {
 														Exp default menu item (level 2)
 													</ExpandableMenuItemTrigger>
 													<ExpandableMenuItemContent>
-														<LinkMenuItem href="#">Expandable menu item content</LinkMenuItem>
+														<LinkMenuItem href={exampleHref}>
+															Expandable menu item content
+														</LinkMenuItem>
 													</ExpandableMenuItemContent>
 												</ExpandableMenuItem>
 											</ExpandableMenuItemContent>

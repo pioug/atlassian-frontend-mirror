@@ -36,6 +36,7 @@ import {
 	getExperimentalVCMetrics,
 	onExperimentalInteractionComplete,
 } from '../create-experimental-interaction-metrics-payload';
+import { sanitizeUfoName } from '../create-payload/common/utils';
 import { clearActiveTrace, type TraceIdContext } from '../experience-trace-id-context';
 import {
 	allFeatureFlagsAccessed,
@@ -702,6 +703,18 @@ function finishInteraction(
 		}
 	}
 
+	// By this time, stop the post interaction log observer if coinflip rate is 0
+	if (fg('platform_ufo_post_interaction_check_name')) {
+		const sanitisedUfoName = sanitizeUfoName(data.ufoName);
+		if (!coinflip(getPostInteractionRate(sanitisedUfoName, data.type))) {
+			postInteractionLog.stopVCObserver();
+		}
+	} else {
+		if (!coinflip(getPostInteractionRate(data.routeName || data.ufoName, data.type))) {
+			postInteractionLog.stopVCObserver();
+		}
+	}
+
 	if (!getConfig()?.experimentalInteractionMetrics?.enabled) {
 		remove(id);
 	}
@@ -912,8 +925,12 @@ export function addNewInteraction(
 	routeName?: string | null,
 	trace: TraceIdContext | null = null,
 ) {
-	if (coinflip(getPostInteractionRate(routeName || ufoName, type))) {
+	if (fg('platform_ufo_post_interaction_check_name')) {
 		postInteractionLog.reset();
+	} else {
+		if (coinflip(getPostInteractionRate(routeName || ufoName, type))) {
+			postInteractionLog.reset();
+		}
 	}
 	let vcObserver: VCObserverInterface | undefined;
 	let previousTime = startTime;
@@ -1038,8 +1055,16 @@ export function addNewInteraction(
 		if (observer) {
 			observer.start({ startTime, experienceKey: ufoName });
 		}
-		if (coinflip(getPostInteractionRate(routeName || ufoName, type))) {
-			postInteractionLog.startVCObserver({ startTime });
+		if (fg('platform_ufo_post_interaction_check_name')) {
+			// Start post interaction observer for all if config is enabled
+			// in case ufoName is updated at later time
+			if (getConfig()?.postInteractionLog?.enabled) {
+				postInteractionLog.startVCObserver({ startTime });
+			}
+		} else {
+			if (coinflip(getPostInteractionRate(routeName || ufoName, type))) {
+				postInteractionLog.startVCObserver({ startTime });
+			}
 		}
 		if (coinflip(getExperimentalInteractionRate(ufoName, type))) {
 			experimentalVC.start({ startTime });

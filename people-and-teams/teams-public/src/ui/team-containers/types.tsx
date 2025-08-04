@@ -1,9 +1,28 @@
 import { type ComponentType } from 'react';
 
+import { type TeamContainersSkeletonProps } from '../../common/ui/team-containers-skeleton';
 import { type OnRequestedContainerTimeout } from '../../controllers/hooks/use-requested-container';
 
 import { type LinkedContainerCardProps } from './linked-container-card';
-import { type TeamContainersSkeletonProps } from './team-containers-skeleton';
+
+export type FlagType = FlagAppearance;
+
+type FlagAppearance = 'error' | 'info' | 'normal' | 'success' | 'warning';
+
+export interface Flag {
+	id: number | string;
+	title?: string | React.ReactNode;
+	description?: string | React.ReactNode;
+	type?: FlagType;
+	appearance?: FlagAppearance;
+	actions?: {
+		content: React.ReactNode;
+		onClick?: () => void;
+		href?: string;
+		target?: string;
+	}[];
+	icon?: JSX.Element;
+}
 
 export interface TeamContainerProps {
 	/**
@@ -53,6 +72,8 @@ export interface TeamContainerProps {
 	 * The function to call when the requested container times out
 	 */
 	onRequestedContainerTimeout?: OnRequestedContainerTimeout;
+
+	addFlag?: (flag: Flag) => void;
 }
 
 export interface TeamContainersComponent {

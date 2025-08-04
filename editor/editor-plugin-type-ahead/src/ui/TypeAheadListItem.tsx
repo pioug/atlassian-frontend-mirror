@@ -24,6 +24,7 @@ import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import { ButtonItem } from '@atlaskit/menu';
 import { B400, N200, N30, N800 } from '@atlaskit/theme/colors';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { type TypeAheadPlugin } from '../typeAheadPluginType';
@@ -202,7 +203,11 @@ const CustomItemComponentWrapper = React.memo((props: CustomItemComponentWrapper
 			role="option"
 			aria-label={ariaLabel}
 			aria-setsize={itemsLength}
-			aria-posinset={itemIndex}
+			aria-posinset={
+				expValEquals('platform_editor_fix_a11y_aria_posinset_0', 'isEnabled', true)
+					? itemIndex + 1
+					: itemIndex
+			}
 			tabIndex={0}
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			css={listItemClasses}
@@ -343,7 +348,11 @@ export const TypeAheadListItem = React.memo(
 					// eslint-disable-next-line jsx-a11y/aria-props
 					aria-description={`${descriptionText} ${shortcutText}`}
 					aria-setsize={itemsLength}
-					aria-posinset={itemIndex}
+					aria-posinset={
+						expValEquals('platform_editor_fix_a11y_aria_posinset_0', 'isEnabled', true)
+							? itemIndex + 1
+							: itemIndex
+					}
 					role="option"
 					ref={buttonItemRef}
 					isDisabled={itemIsDisabled}

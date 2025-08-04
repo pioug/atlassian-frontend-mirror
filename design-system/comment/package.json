@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/comment",
-	"version": "13.0.16",
+	"version": "13.0.18",
 	"description": "A comment displays discussions and user feedback.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -110,7 +110,7 @@
 		"platform-visual-refresh-icons": {
 			"type": "boolean"
 		},
-		"platform-comment-header-wrap": {
+		"design-system-comment-header-wraps-by-default": {
 			"type": "boolean"
 		}
 	}

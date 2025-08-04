@@ -8,6 +8,7 @@ type ComponentType =
 	| ToolbarGroup
 	| ToolbarButton
 	| ToolbarMenu
+	| ToolbarNestedMenu
 	| ToolbarMenuSection
 	| ToolbarMenuItem;
 
@@ -38,6 +39,10 @@ export type ToolbarMenuComponent = (
 		groupLocation?: ToolbarButtonGroupLocation;
 		children: React.ReactNode;
 	} & CommonComponentProps,
+) => React.ReactNode;
+
+export type ToolbarNestedMenuComponent = (
+	props: { children: React.ReactNode } & CommonComponentProps,
 ) => React.ReactNode;
 
 export type ToolbarButtonComponent = (
@@ -87,6 +92,11 @@ type ToolbarMenu = {
 	type: 'menu';
 };
 
+type ToolbarNestedMenu = {
+	key: string;
+	type: 'nested-menu';
+};
+
 export type RegisterToolbar = Toolbar & {
 	component?: ToolbarComponent;
 };
@@ -111,8 +121,13 @@ export type RegisterToolbarMenu = ToolbarMenu & {
 	component?: ToolbarMenuComponent;
 };
 
+export type RegisterToolbarNestedMenu = ToolbarNestedMenu & {
+	parents: Parents<ToolbarMenuSection>;
+	component: ToolbarNestedMenuComponent;
+};
+
 export type RegisterToolbarMenuSection = ToolbarMenuSection & {
-	parents: Parents<ToolbarMenu>;
+	parents: Parents<ToolbarMenu | ToolbarNestedMenu>;
 	component?: ToolbarMenuSectionComponent;
 };
 
@@ -127,5 +142,6 @@ export type RegisterComponent =
 	| RegisterToolbarGroup
 	| RegisterToolbarButton
 	| RegisterToolbarMenu
+	| RegisterToolbarNestedMenu
 	| RegisterToolbarMenuSection
 	| RegisterToolbarMenuItem;

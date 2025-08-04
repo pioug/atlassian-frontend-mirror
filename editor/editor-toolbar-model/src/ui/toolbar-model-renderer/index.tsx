@@ -6,6 +6,7 @@ import type {
 	RegisterComponent,
 	RegisterToolbarGroup,
 	RegisterToolbarMenu,
+	RegisterToolbarNestedMenu,
 	RegisterToolbarMenuItem,
 	RegisterToolbarSection,
 	ToolbarGroupComponent,
@@ -63,6 +64,16 @@ const isToolbarMenuItem = (component: RegisterComponent): component is RegisterT
 	return component.type === 'menu-item' || component.type === 'menu-section';
 };
 
+const isToolbarMenuItemOrNestedMenu = (
+	component: RegisterComponent,
+): component is RegisterToolbarMenuItem | RegisterToolbarNestedMenu => {
+	return (
+		component.type === 'menu-item' ||
+		component.type === 'menu-section' ||
+		component.type === 'nested-menu'
+	);
+};
+
 const getSortedChildren = <T extends { parents: Array<{ key: string; rank: number }> }>(
 	components: T[],
 	parentKey: string,
@@ -84,6 +95,7 @@ export const ToolbarModelRenderer = ({ toolbar, components, fallbacks }: Toolbar
 	const toolbarItems = components.filter(isToolbarItem);
 	const menuSections = components.filter(isToolbarMenuSection);
 	const menuItems = components.filter(isToolbarMenuItem);
+	const menuItemsAndNestedMenus = components.filter(isToolbarMenuItemOrNestedMenu);
 
 	const renderToolbarItem = ({
 		item,
@@ -108,10 +120,9 @@ export const ToolbarModelRenderer = ({ toolbar, components, fallbacks }: Toolbar
 			return (
 				<Menu key={item.key} groupLocation={groupLocation} parents={parents}>
 					{menuComponents.map((menuSection) => {
-						const menuItemsInSection = getSortedChildren<RegisterToolbarMenuItem>(
-							menuItems,
-							menuSection.key,
-						);
+						const menuItemsInSection = getSortedChildren<
+							RegisterToolbarMenuItem | RegisterToolbarNestedMenu
+						>(menuItemsAndNestedMenus, menuSection.key);
 
 						const MenuSection = menuSection.component || fallbacks.menuSection;
 
@@ -121,6 +132,66 @@ export const ToolbarModelRenderer = ({ toolbar, components, fallbacks }: Toolbar
 								parents={[...parents, { key: item.key, type: item.type }]}
 							>
 								{menuItemsInSection.map((menuItem) => {
+									if (menuItem.type === 'nested-menu') {
+										const nestedMenuComponents = getSortedChildren<RegisterToolbarMenuSection>(
+											menuSections,
+											menuItem.key,
+										);
+
+										const NestedMenu = menuItem.component;
+
+										return (
+											<NestedMenu
+												key={menuItem.key}
+												parents={[
+													...parents,
+													{ key: item.key, type: item.type },
+													{ key: menuSection.key, type: menuSection.type },
+												]}
+											>
+												{nestedMenuComponents.map((nestedMenuSection) => {
+													const menuItemsInNestedMenuSection =
+														getSortedChildren<RegisterToolbarMenuItem>(
+															menuItems,
+															nestedMenuSection.key,
+														);
+
+													const NestedMenuSection =
+														nestedMenuSection.component || fallbacks.menuSection;
+
+													return (
+														<NestedMenuSection
+															key={nestedMenuSection.key}
+															parents={[
+																...parents,
+																{ key: item.key, type: item.type },
+																{ key: menuSection.key, type: menuSection.type },
+																{ key: menuItem.key, type: menuItem.type },
+															]}
+														>
+															{menuItemsInNestedMenuSection.map((nestedMenuItem) => {
+																const NestedMenuItem =
+																	(nestedMenuItem as RegisterToolbarMenuItem).component || NoOp;
+																return (
+																	<NestedMenuItem
+																		key={nestedMenuItem.key}
+																		parents={[
+																			...parents,
+																			{ key: item.key, type: item.type },
+																			{ key: menuSection.key, type: menuSection.type },
+																			{ key: menuItem.key, type: menuItem.type },
+																			{ key: nestedMenuSection.key, type: nestedMenuSection.type },
+																		]}
+																	/>
+																);
+															})}
+														</NestedMenuSection>
+													);
+												})}
+											</NestedMenu>
+										);
+									}
+
 									const MenuItem = (menuItem as RegisterToolbarMenuItem).component || NoOp;
 
 									return (

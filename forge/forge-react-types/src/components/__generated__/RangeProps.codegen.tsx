@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - RangeProps
  *
- * @codegen <<SignedSource::630c202e2564f5bfeac2d313285aad09>>
+ * @codegen <<SignedSource::b4d9d9782fddfcc97ee7eddba7e28dca>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/range/__generated__/index.partial.tsx <<SignedSource::d9ea91886a193f2c5119bc1ed1b50c71>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/range/__generated__/index.partial.tsx <<SignedSource::f103edf77dd59ef0430af04f1964ab23>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 

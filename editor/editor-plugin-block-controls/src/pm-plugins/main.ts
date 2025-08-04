@@ -892,9 +892,7 @@ export const createPlugin = (
 					}
 
 					if (expValEquals('platform_editor_block_controls_perf_optimization', 'isEnabled', true)) {
-						if (fg('platform_editor_block_controls_perf_opt_patch_1')) {
-							anchorRectCache?.clear();
-						}
+						anchorRectCache?.clear();
 					}
 
 					anchorRectCache?.setEditorView(view);

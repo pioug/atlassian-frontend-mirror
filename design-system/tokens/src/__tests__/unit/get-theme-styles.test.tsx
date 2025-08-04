@@ -31,7 +31,7 @@ describe('getThemeStyles', () => {
 				let results = await getThemeStyles({
 					light: 'legacy-light',
 					spacing: 'spacing',
-					typography: 'typography-adg3',
+					typography: 'typography',
 				});
 
 				// Check that CSS is defined for each result
@@ -47,14 +47,14 @@ describe('getThemeStyles', () => {
 						attrs: { 'data-theme': 'dark-increased-contrast' },
 					},
 					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
-					{ id: 'typography-adg3', attrs: { 'data-theme': 'typography-adg3' } },
+					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
 				]);
 			},
 			async () => {
 				let results = await getThemeStyles({
 					light: 'legacy-light',
 					spacing: 'spacing',
-					typography: 'typography-adg3',
+					typography: 'typography',
 				});
 
 				// Check that CSS is defined for each result
@@ -66,7 +66,7 @@ describe('getThemeStyles', () => {
 					{ id: 'legacy-light', attrs: { 'data-theme': 'legacy-light' } },
 					{ id: 'dark', attrs: { 'data-theme': 'dark' } },
 					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
-					{ id: 'typography-adg3', attrs: { 'data-theme': 'typography-adg3' } },
+					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
 				]);
 			},
 		);
@@ -95,6 +95,7 @@ describe('getThemeStyles', () => {
 						attrs: { 'data-theme': 'dark-increased-contrast' },
 					},
 					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
+					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
 				]);
 			},
 			async () => {
@@ -109,6 +110,7 @@ describe('getThemeStyles', () => {
 					{ id: 'light', attrs: { 'data-theme': 'light' } },
 					{ id: 'dark', attrs: { 'data-theme': 'dark' } },
 					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
+					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
 				]);
 			},
 		);
@@ -124,7 +126,7 @@ describe('getThemeStyles', () => {
 					light: 'light',
 					UNSAFE_themeOptions,
 					spacing: 'spacing',
-					typography: 'typography-adg3',
+					typography: 'typography',
 				});
 				// Check that CSS is defined for each result
 				results.forEach((result) => {
@@ -143,7 +145,7 @@ describe('getThemeStyles', () => {
 						attrs: { 'data-theme': 'dark-increased-contrast' },
 					},
 					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
-					{ id: 'typography-adg3', attrs: { 'data-theme': 'typography-adg3' } },
+					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
 					{
 						id: 'light',
 						attrs: {
@@ -167,7 +169,7 @@ describe('getThemeStyles', () => {
 					light: 'light',
 					UNSAFE_themeOptions,
 					spacing: 'spacing',
-					typography: 'typography-adg3',
+					typography: 'typography',
 				});
 				// Check that CSS is defined for each result
 				results.forEach((result) => {
@@ -178,7 +180,7 @@ describe('getThemeStyles', () => {
 					{ id: 'light', attrs: { 'data-theme': 'light' } },
 					{ id: 'dark', attrs: { 'data-theme': 'dark' } },
 					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
-					{ id: 'typography-adg3', attrs: { 'data-theme': 'typography-adg3' } },
+					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
 					{
 						id: 'light',
 						attrs: {
@@ -221,6 +223,7 @@ describe('getThemeStyles', () => {
 						attrs: { 'data-theme': 'dark-increased-contrast' },
 					},
 					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
+					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
 				]);
 			},
 			async () => {
@@ -235,6 +238,7 @@ describe('getThemeStyles', () => {
 					{ id: 'light', attrs: { 'data-theme': 'light' } },
 					{ id: 'dark', attrs: { 'data-theme': 'dark' } },
 					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
+					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
 				]);
 			},
 		);
@@ -249,7 +253,7 @@ describe('getThemeStyles', () => {
 					dark: 'dark',
 					light: 'light',
 					spacing: 'spacing',
-					typography: 'typography-adg3',
+					typography: 'typography',
 				});
 
 				expect(getThemeData(results)).toEqual([
@@ -259,7 +263,7 @@ describe('getThemeStyles', () => {
 						attrs: { 'data-theme': 'light-increased-contrast' },
 					},
 					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
-					{ id: 'typography-adg3', attrs: { 'data-theme': 'typography-adg3' } },
+					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
 				]);
 			},
 			async () => {
@@ -268,13 +272,13 @@ describe('getThemeStyles', () => {
 					dark: 'dark',
 					light: 'light',
 					spacing: 'spacing',
-					typography: 'typography-adg3',
+					typography: 'typography',
 				});
 
 				expect(getThemeData(results)).toEqual([
 					{ id: 'light', attrs: { 'data-theme': 'light' } },
 					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
-					{ id: 'typography-adg3', attrs: { 'data-theme': 'typography-adg3' } },
+					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
 				]);
 			},
 		);
@@ -289,7 +293,7 @@ describe('getThemeStyles', () => {
 					light: 'dark',
 					dark: 'dark',
 					spacing: 'spacing',
-					typography: 'typography-adg3',
+					typography: 'typography',
 				});
 
 				expect(getThemeData(results)).toEqual([
@@ -299,7 +303,7 @@ describe('getThemeStyles', () => {
 						attrs: { 'data-theme': 'dark-increased-contrast' },
 					},
 					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
-					{ id: 'typography-adg3', attrs: { 'data-theme': 'typography-adg3' } },
+					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
 				]);
 			},
 			async () => {
@@ -308,13 +312,13 @@ describe('getThemeStyles', () => {
 					light: 'dark',
 					dark: 'dark',
 					spacing: 'spacing',
-					typography: 'typography-adg3',
+					typography: 'typography',
 				});
 
 				expect(getThemeData(results)).toEqual([
 					{ id: 'dark', attrs: { 'data-theme': 'dark' } },
 					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
-					{ id: 'typography-adg3', attrs: { 'data-theme': 'typography-adg3' } },
+					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
 				]);
 			},
 		);
@@ -336,6 +340,7 @@ describe('getThemeStyles', () => {
 						attrs: { 'data-theme': 'light-increased-contrast' },
 					},
 					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
+					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
 				]);
 			},
 			async () => {
@@ -347,6 +352,7 @@ describe('getThemeStyles', () => {
 				expect(getThemeData(results)).toEqual([
 					{ id: 'light', attrs: { 'data-theme': 'light' } },
 					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
+					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
 				]);
 			},
 		);

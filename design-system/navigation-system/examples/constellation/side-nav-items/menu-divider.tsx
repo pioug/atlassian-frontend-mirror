@@ -28,6 +28,8 @@ import CDProjectIcon from '../../images/cd.svg';
 
 import { MockSideNav } from './common/mock-side-nav';
 
+const exampleHref = '#example-href';
+
 export const MenuDividerExample = () => (
 	<MockSideNav>
 		<SideNavContent>
@@ -64,14 +66,14 @@ export const MenuDividerExample = () => (
 							<MenuSectionHeading>This week</MenuSectionHeading>
 							<MenuList>
 								<LinkMenuItem
-									href="#"
+									href={exampleHref}
 									elemBefore={<BoardIcon label="" spacing="spacious" color="currentColor" />}
 									description="5 days ago"
 								>
 									My Kanban Project
 								</LinkMenuItem>
 								<LinkMenuItem
-									href="#"
+									href={exampleHref}
 									elemBefore={<ContainerAvatar src={CDProjectIcon} />}
 									description="6 days ago"
 								>
@@ -84,7 +86,7 @@ export const MenuDividerExample = () => (
 							<MenuSectionHeading>This month</MenuSectionHeading>
 							<MenuList>
 								<LinkMenuItem
-									href="#"
+									href={exampleHref}
 									elemBefore={<BoardIcon label="" spacing="spacious" color="currentColor" />}
 									description="5 days ago"
 								>
@@ -96,7 +98,7 @@ export const MenuDividerExample = () => (
 						<Divider />
 						<MenuList>
 							<LinkMenuItem
-								href="#"
+								href={exampleHref}
 								elemBefore={<AlignTextLeftIcon label="" color="currentColor" />}
 							>
 								View all recent items

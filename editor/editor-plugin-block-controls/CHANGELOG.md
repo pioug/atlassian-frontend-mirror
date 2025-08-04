@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 4.1.6
+
+### Patch Changes
+
+- [`5d5020e5bb9f5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5d5020e5bb9f5) -
+  ED-28750 cleanup dnd-perf-fix-patch-1
+- Updated dependencies
+
+## 4.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.1.4
 
 ### Patch Changes

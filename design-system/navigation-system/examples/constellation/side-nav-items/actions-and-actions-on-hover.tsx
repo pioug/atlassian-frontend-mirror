@@ -38,6 +38,8 @@ function MoreAction() {
 	);
 }
 
+const exampleHref = '#example-href';
+
 export function ActionsAndActionsOnHoverExample() {
 	return (
 		<Inline space="space.600">
@@ -45,7 +47,7 @@ export function ActionsAndActionsOnHoverExample() {
 				<SideNavContent>
 					<MenuList>
 						<LinkMenuItem
-							href="#"
+							href={exampleHref}
 							elemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}
 							actions={
 								<>
@@ -57,7 +59,7 @@ export function ActionsAndActionsOnHoverExample() {
 							Link menu item (actions)
 						</LinkMenuItem>
 						<LinkMenuItem
-							href="#"
+							href={exampleHref}
 							elemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}
 							actionsOnHover={
 								<>
@@ -69,7 +71,7 @@ export function ActionsAndActionsOnHoverExample() {
 							Link menu item (actionsOnHover)
 						</LinkMenuItem>
 						<LinkMenuItem
-							href="#"
+							href={exampleHref}
 							elemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}
 							actions={<MoreAction />}
 							actionsOnHover={<AddAction />}
@@ -78,7 +80,7 @@ export function ActionsAndActionsOnHoverExample() {
 						</LinkMenuItem>
 
 						<LinkMenuItem
-							href="#"
+							href={exampleHref}
 							elemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}
 							elemAfter={<Lozenge>New</Lozenge>}
 							actions={<MoreAction />}

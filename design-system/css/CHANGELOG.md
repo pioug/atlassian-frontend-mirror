@@ -1,5 +1,11 @@
 # @atlaskit/css
 
+## 0.12.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.12.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 14.11.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.11.2
 
 ### Patch Changes

@@ -84,7 +84,7 @@ describe('setGlobalTheme style loading', () => {
 					light: 'light',
 					shape: 'shape',
 					spacing: 'spacing',
-					typography: 'typography-adg3',
+					typography: 'typography',
 				});
 
 				// Wait for styles to be added to the page
@@ -105,7 +105,7 @@ describe('setGlobalTheme style loading', () => {
 					'light-increased-contrast',
 					'shape',
 					'spacing',
-					'typography-adg3',
+					'typography',
 				]);
 			},
 			(ff) => {
@@ -117,7 +117,7 @@ describe('setGlobalTheme style loading', () => {
 						light: 'light',
 						shape: 'shape',
 						spacing: 'spacing',
-						typography: 'typography-adg3',
+						typography: 'typography',
 					});
 
 					// Wait for styles to be added to the page
@@ -141,7 +141,7 @@ describe('setGlobalTheme style loading', () => {
 
 					// Validate that the data-theme attributes match the expected values
 					const dataThemes = Array.from(themeMap.keys()).sort();
-					expect(dataThemes).toEqual(['dark', 'light', 'shape', 'spacing', 'typography-adg3']);
+					expect(dataThemes).toEqual(['dark', 'light', 'shape', 'spacing', 'typography']);
 
 					mainThemes.forEach((theme) => {
 						const styleElement = themeMap.get(theme);
@@ -181,7 +181,7 @@ describe('setGlobalTheme style loading', () => {
 				// Wait for styles to be added to the page
 				await waitFor(() => {
 					const styleElements = document.querySelectorAll(`style[${THEME_DATA_ATTRIBUTE}]`);
-					expect(styleElements).toHaveLength(7);
+					expect(styleElements).toHaveLength(8);
 				});
 				const customStyleElements = document.querySelectorAll(`style[${CUSTOM_THEME_ATTRIBUTE}]`);
 				expect(customStyleElements).toHaveLength(2);
@@ -204,6 +204,7 @@ describe('setGlobalTheme style loading', () => {
 					'light-increased-contrast',
 					'dark-increased-contrast',
 					'spacing',
+					'typography',
 				]);
 			},
 			async () => {
@@ -217,7 +218,7 @@ describe('setGlobalTheme style loading', () => {
 				// Wait for styles to be added to the page
 				await waitFor(() => {
 					const styleElements = document.querySelectorAll(`style[${THEME_DATA_ATTRIBUTE}]`);
-					expect(styleElements).toHaveLength(5);
+					expect(styleElements).toHaveLength(6);
 				});
 				const customStyleElements = document.querySelectorAll(`style[${CUSTOM_THEME_ATTRIBUTE}]`);
 				expect(customStyleElements).toHaveLength(2);
@@ -232,7 +233,14 @@ describe('setGlobalTheme style loading', () => {
 				});
 
 				// Validate that the custom style elements come after other style element
-				expect(dataThemes).toEqual(['custom-light', 'custom-dark', 'light', 'dark', 'spacing']);
+				expect(dataThemes).toEqual([
+					'custom-light',
+					'custom-dark',
+					'light',
+					'dark',
+					'spacing',
+					'typography',
+				]);
 			},
 		);
 	});
@@ -248,14 +256,14 @@ describe('setGlobalTheme style loading', () => {
 		// Wait for styles to be added to the page
 		await waitFor(() => {
 			const styleElements = document.querySelectorAll(`style[${THEME_DATA_ATTRIBUTE}]`);
-			expect(styleElements).toHaveLength(1);
+			expect(styleElements).toHaveLength(2);
 		});
 
 		// Validate that the data-theme attributes match the expected values
 		const styleElements = document.querySelectorAll('style');
 		const dataThemes = Array.from(styleElements).map((el) => el.getAttribute('data-theme'));
 
-		expect(dataThemes.sort()).toEqual(['spacing']);
+		expect(dataThemes.sort()).toEqual(['spacing', 'typography']);
 	});
 
 	it('should gracefully omit themes when falsy values are passed in with auto color mode', async () => {
@@ -269,14 +277,14 @@ describe('setGlobalTheme style loading', () => {
 		// Wait for styles to be added to the page
 		await waitFor(() => {
 			const styleElements = document.querySelectorAll(`style[${THEME_DATA_ATTRIBUTE}]`);
-			expect(styleElements).toHaveLength(2);
+			expect(styleElements).toHaveLength(3);
 		});
 
 		// Validate that the data-theme attributes match the expected values
 		const styleElements = document.querySelectorAll('style');
 		const dataThemes = Array.from(styleElements).map((el) => el.getAttribute('data-theme'));
 
-		expect(dataThemes.sort()).toEqual(['dark', 'spacing']);
+		expect(dataThemes.sort()).toEqual(['dark', 'spacing', 'typography']);
 	});
 
 	it('should load a minimal set of themes when auto switching is disabled', async () => {
@@ -287,7 +295,7 @@ describe('setGlobalTheme style loading', () => {
 			light: 'light',
 			shape: 'shape',
 			spacing: 'spacing',
-			typography: 'typography-adg3',
+			typography: 'typography',
 		});
 
 		// Wait for styles to be added to the page
@@ -300,7 +308,7 @@ describe('setGlobalTheme style loading', () => {
 		const styleElements = document.querySelectorAll('style');
 		const dataThemes = Array.from(styleElements).map((el) => el.getAttribute('data-theme'));
 
-		expect(dataThemes.sort()).toEqual(['light', 'shape', 'spacing', 'typography-adg3']);
+		expect(dataThemes.sort()).toEqual(['light', 'shape', 'spacing', 'typography']);
 	});
 
 	describe('should load theme CSS on the page without duplicates', () => {
@@ -312,7 +320,7 @@ describe('setGlobalTheme style loading', () => {
 					light: 'dark',
 					dark: 'dark',
 					spacing: 'spacing',
-					typography: 'typography-adg3',
+					typography: 'typography',
 				});
 
 				// Wait for styles to be added to the page
@@ -329,7 +337,7 @@ describe('setGlobalTheme style loading', () => {
 					'dark',
 					'dark-increased-contrast',
 					'spacing',
-					'typography-adg3',
+					'typography',
 				]);
 			},
 			async () => {
@@ -338,7 +346,7 @@ describe('setGlobalTheme style loading', () => {
 					light: 'dark',
 					dark: 'dark',
 					spacing: 'spacing',
-					typography: 'typography-adg3',
+					typography: 'typography',
 				});
 
 				// Wait for styles to be added to the page
@@ -351,7 +359,7 @@ describe('setGlobalTheme style loading', () => {
 				const styleElements = document.querySelectorAll('style');
 				const dataThemes = Array.from(styleElements).map((el) => el.getAttribute('data-theme'));
 
-				expect(dataThemes.sort()).toEqual(['dark', 'spacing', 'typography-adg3']);
+				expect(dataThemes.sort()).toEqual(['dark', 'spacing', 'typography']);
 			},
 		);
 	});
@@ -365,14 +373,14 @@ describe('setGlobalTheme style loading', () => {
 		// Wait for styles to be added to the page
 		await waitFor(() => {
 			const styleElements = document.querySelectorAll(`style[${THEME_DATA_ATTRIBUTE}]`);
-			expect(styleElements).toHaveLength(3);
+			expect(styleElements).toHaveLength(4);
 		});
 
 		// Validate that the data-theme attributes match the expected values
 		const styleElements = document.querySelectorAll('style');
 		const dataThemes = Array.from(styleElements).map((el) => el.getAttribute('data-theme'));
 
-		expect(dataThemes).toEqual(['light', 'dark', 'spacing']);
+		expect(dataThemes).toEqual(['light', 'dark', 'spacing', 'typography']);
 	});
 
 	it('should load all feature flagged themes in the expected order when switching color modes', async () => {
@@ -387,14 +395,14 @@ describe('setGlobalTheme style loading', () => {
 		// Wait for styles to be added to the page
 		await waitFor(() => {
 			const styleElements = document.querySelectorAll(`style[${THEME_DATA_ATTRIBUTE}]`);
-			expect(styleElements).toHaveLength(3);
+			expect(styleElements).toHaveLength(4);
 		});
 
 		// Validate that the data-theme attributes match the expected values
 		const styleElements = document.querySelectorAll('style');
 		const dataThemes = Array.from(styleElements).map((el) => el.getAttribute('data-theme'));
 
-		expect(dataThemes).toEqual(['light', 'spacing', 'dark']);
+		expect(dataThemes).toEqual(['light', 'spacing', 'typography', 'dark']);
 	});
 
 	it('should load all feature flagged themes in the expected order when switching feature flags', async () => {
@@ -407,14 +415,14 @@ describe('setGlobalTheme style loading', () => {
 		// Wait for styles to be added to the page
 		await waitFor(() => {
 			const styleElements = document.querySelectorAll(`style[${THEME_DATA_ATTRIBUTE}]`);
-			expect(styleElements).toHaveLength(3);
+			expect(styleElements).toHaveLength(4);
 		});
 
 		// Validate that the data-theme attributes match the expected values
 		const styleElements = document.querySelectorAll('style');
 		const dataThemes = Array.from(styleElements).map((el) => el.getAttribute('data-theme'));
 
-		expect(dataThemes).toEqual(['light', 'dark', 'spacing']);
+		expect(dataThemes).toEqual(['light', 'dark', 'spacing', 'typography']);
 	});
 
 	describe('should set the correct themes, contrast mode, and color mode when a theme loader is provided', () => {
@@ -426,7 +434,7 @@ describe('setGlobalTheme style loading', () => {
 						light: 'legacy-light',
 						dark: 'legacy-dark',
 						spacing: 'spacing',
-						typography: 'typography-adg3',
+						typography: 'typography',
 						colorMode: 'light',
 						contrastMode: 'more',
 					},
@@ -437,7 +445,7 @@ describe('setGlobalTheme style loading', () => {
 
 				expect(htmlElement).toHaveAttribute(
 					THEME_DATA_ATTRIBUTE,
-					'dark:legacy-dark light:legacy-light spacing:spacing typography:typography-adg3',
+					'dark:legacy-dark light:legacy-light spacing:spacing typography:typography',
 				);
 
 				expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
@@ -449,7 +457,7 @@ describe('setGlobalTheme style loading', () => {
 						light: 'legacy-light',
 						dark: 'legacy-dark',
 						spacing: 'spacing',
-						typography: 'typography-adg3',
+						typography: 'typography',
 						colorMode: 'light',
 						contrastMode: 'more',
 					},
@@ -460,7 +468,7 @@ describe('setGlobalTheme style loading', () => {
 
 				expect(htmlElement).toHaveAttribute(
 					THEME_DATA_ATTRIBUTE,
-					'dark:legacy-dark light:legacy-light spacing:spacing typography:typography-adg3',
+					'dark:legacy-dark light:legacy-light spacing:spacing typography:typography',
 				);
 
 				expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
@@ -475,7 +483,7 @@ describe('setGlobalTheme style loading', () => {
 				light: 'legacy-light',
 				dark: 'legacy-dark',
 				spacing: 'spacing',
-				typography: 'typography-adg3',
+				typography: 'typography',
 				colorMode: 'light',
 				contrastMode: 'more',
 			},
@@ -499,7 +507,7 @@ describe('setGlobalTheme style loading', () => {
 						light: 'light',
 						dark: 'dark',
 						spacing: 'spacing',
-						typography: 'typography-adg3',
+						typography: 'typography',
 						colorMode: 'light',
 					},
 					themeLoaderMock,
@@ -522,7 +530,7 @@ describe('setGlobalTheme style loading', () => {
 						light: 'light',
 						dark: 'dark',
 						spacing: 'spacing',
-						typography: 'typography-adg3',
+						typography: 'typography',
 						colorMode: 'light',
 					},
 					themeLoaderMock,
@@ -639,14 +647,14 @@ it('should load only necessary color modes on repeat calls', async () => {
 						dark: 'legacy-dark',
 						shape: 'shape',
 						spacing: 'spacing',
-						typography: 'typography-adg3',
+						typography: 'typography',
 						colorMode: 'light',
 						contrastMode: 'more',
 					});
 					const htmlElement = document.getElementsByTagName('html')[0];
 					expect(htmlElement).toHaveAttribute(
 						THEME_DATA_ATTRIBUTE,
-						'dark:legacy-dark light:legacy-light shape:shape spacing:spacing typography:typography-adg3',
+						'dark:legacy-dark light:legacy-light shape:shape spacing:spacing typography:typography',
 					);
 					expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
 					expect(htmlElement).toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'more');
@@ -657,14 +665,14 @@ it('should load only necessary color modes on repeat calls', async () => {
 						dark: 'legacy-dark',
 						shape: 'shape',
 						spacing: 'spacing',
-						typography: 'typography-adg3',
+						typography: 'typography',
 						colorMode: 'light',
 						contrastMode: 'more',
 					});
 					const htmlElement = document.getElementsByTagName('html')[0];
 					expect(htmlElement).toHaveAttribute(
 						THEME_DATA_ATTRIBUTE,
-						'dark:legacy-dark light:legacy-light shape:shape spacing:spacing typography:typography-adg3',
+						'dark:legacy-dark light:legacy-light shape:shape spacing:spacing typography:typography',
 					);
 					expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
 					expect(htmlElement).not.toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'more');
@@ -681,7 +689,7 @@ it('should load only necessary color modes on repeat calls', async () => {
 						dark: 'legacy-dark',
 						shape: 'shape',
 						spacing: 'spacing',
-						typography: 'typography-adg3',
+						typography: 'typography',
 						colorMode: 'light',
 						contrastMode: 'more',
 						UNSAFE_themeOptions,
@@ -689,7 +697,7 @@ it('should load only necessary color modes on repeat calls', async () => {
 					const htmlElement = document.getElementsByTagName('html')[0];
 					expect(htmlElement).toHaveAttribute(
 						THEME_DATA_ATTRIBUTE,
-						'dark:legacy-dark light:legacy-light shape:shape spacing:spacing typography:typography-adg3',
+						'dark:legacy-dark light:legacy-light shape:shape spacing:spacing typography:typography',
 					);
 					expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
 					expect(htmlElement).toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'more');
@@ -701,7 +709,7 @@ it('should load only necessary color modes on repeat calls', async () => {
 						dark: 'legacy-dark',
 						shape: 'shape',
 						spacing: 'spacing',
-						typography: 'typography-adg3',
+						typography: 'typography',
 						colorMode: 'light',
 						contrastMode: 'more',
 						UNSAFE_themeOptions,
@@ -709,7 +717,7 @@ it('should load only necessary color modes on repeat calls', async () => {
 					const htmlElement = document.getElementsByTagName('html')[0];
 					expect(htmlElement).toHaveAttribute(
 						THEME_DATA_ATTRIBUTE,
-						'dark:legacy-dark light:legacy-light shape:shape spacing:spacing typography:typography-adg3',
+						'dark:legacy-dark light:legacy-light shape:shape spacing:spacing typography:typography',
 					);
 					expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
 					expect(htmlElement).not.toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'more');
@@ -726,7 +734,7 @@ it('should load only necessary color modes on repeat calls', async () => {
 					const htmlElement = document.getElementsByTagName('html')[0];
 					expect(htmlElement).toHaveAttribute(
 						THEME_DATA_ATTRIBUTE,
-						'dark:dark light:light spacing:spacing',
+						'dark:dark light:light spacing:spacing typography:typography',
 					);
 					expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
 					expect(htmlElement).toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'no-preference');
@@ -736,7 +744,7 @@ it('should load only necessary color modes on repeat calls', async () => {
 					const htmlElement = document.getElementsByTagName('html')[0];
 					expect(htmlElement).toHaveAttribute(
 						THEME_DATA_ATTRIBUTE,
-						'dark:dark light:light spacing:spacing',
+						'dark:dark light:light spacing:spacing typography:typography',
 					);
 					expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
 					expect(htmlElement).not.toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'no-preference');
@@ -856,7 +864,7 @@ it('should load only necessary color modes on repeat calls', async () => {
 							light: 'legacy-light',
 							dark: 'legacy-dark',
 							spacing: 'spacing',
-							typography: 'typography-adg3',
+							typography: 'typography',
 							colorMode: 'light',
 							contrastMode: 'more',
 						},
@@ -867,7 +875,7 @@ it('should load only necessary color modes on repeat calls', async () => {
 
 					expect(htmlElement).toHaveAttribute(
 						THEME_DATA_ATTRIBUTE,
-						'dark:legacy-dark light:legacy-light spacing:spacing typography:typography-adg3',
+						'dark:legacy-dark light:legacy-light spacing:spacing typography:typography',
 					);
 
 					expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
@@ -879,7 +887,7 @@ it('should load only necessary color modes on repeat calls', async () => {
 							light: 'legacy-light',
 							dark: 'legacy-dark',
 							spacing: 'spacing',
-							typography: 'typography-adg3',
+							typography: 'typography',
 							colorMode: 'light',
 							contrastMode: 'more',
 						},
@@ -890,7 +898,7 @@ it('should load only necessary color modes on repeat calls', async () => {
 
 					expect(htmlElement).toHaveAttribute(
 						THEME_DATA_ATTRIBUTE,
-						'dark:legacy-dark light:legacy-light spacing:spacing typography:typography-adg3',
+						'dark:legacy-dark light:legacy-light spacing:spacing typography:typography',
 					);
 
 					expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
@@ -910,7 +918,7 @@ it('should load only necessary color modes on repeat calls', async () => {
 							light: 'light',
 							dark: 'dark',
 							spacing: 'spacing',
-							typography: 'typography-adg3',
+							typography: 'typography',
 							colorMode: 'light',
 						},
 						themeLoaderMock,
@@ -933,7 +941,7 @@ it('should load only necessary color modes on repeat calls', async () => {
 							light: 'light',
 							dark: 'dark',
 							spacing: 'spacing',
-							typography: 'typography-adg3',
+							typography: 'typography',
 							colorMode: 'light',
 						},
 						themeLoaderMock,

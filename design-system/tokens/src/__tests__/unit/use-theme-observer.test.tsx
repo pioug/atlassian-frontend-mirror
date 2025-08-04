@@ -92,6 +92,7 @@ describe('useThemeObserver', () => {
 			dark: 'dark',
 			light: 'light',
 			spacing: 'spacing',
+			typography: 'typography',
 		};
 
 		await waitFor(() => expect(result.current).toEqual(expected));

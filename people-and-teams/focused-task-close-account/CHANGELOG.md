@@ -1,5 +1,11 @@
 # @atlaskit/focused-task-close-account
 
+## 3.0.18
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.0.17
 
 ### Patch Changes

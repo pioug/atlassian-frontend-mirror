@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 3.1.2
+
+### Patch Changes
+
+- [`f62a413f74677`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f62a413f74677) -
+  ENGHEALTH-32249 A11y violation detected for rule "aria-valid-attr-value" for
+  "@atlaskit/editor-core" from "Editor"
+- Updated dependencies
+
 ## 3.1.1
 
 ### Patch Changes

@@ -86,7 +86,7 @@
 		}
 	},
 	"name": "@atlaskit/anonymous-assets",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"description": "Assets for anonymous users",
 	"author": "Atlassian Pty Ltd",
 	"publishConfig": {

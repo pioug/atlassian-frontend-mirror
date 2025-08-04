@@ -65,6 +65,7 @@ const defaultTheme: Theme = {
 	light: 'light',
 	dark: 'dark',
 	spacing: 'spacing',
+	typography: 'typography',
 };
 
 describe('ThemeProvider', () => {
@@ -96,6 +97,7 @@ describe('ThemeProvider', () => {
 				light: 'legacy-light',
 				dark: 'legacy-dark',
 				spacing: 'spacing',
+				typography: 'typography',
 			});
 		});
 
@@ -105,6 +107,7 @@ describe('ThemeProvider', () => {
 				light: 'light',
 				dark: 'legacy-dark',
 				spacing: 'spacing',
+				typography: 'typography',
 			};
 			render(
 				<ThemeProvider defaultColorMode="light" defaultTheme={defaultTheme}>
@@ -117,6 +120,7 @@ describe('ThemeProvider', () => {
 				light: 'legacy-light',
 				dark: 'legacy-dark',
 				spacing: 'spacing',
+				typography: 'typography',
 			});
 		});
 
@@ -129,6 +133,7 @@ describe('ThemeProvider', () => {
 					light: 'light',
 					dark: 'dark',
 					spacing: 'spacing',
+					typography: 'typography',
 				}),
 			);
 		});
@@ -148,6 +153,7 @@ describe('ThemeProvider', () => {
 					light: 'light',
 					dark: 'dark',
 					spacing: 'spacing',
+					typography: 'typography',
 				}),
 			);
 		});

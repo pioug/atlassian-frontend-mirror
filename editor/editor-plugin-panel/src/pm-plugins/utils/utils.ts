@@ -1,5 +1,5 @@
 import type { PanelAttributes } from '@atlaskit/adf-schema';
-import { PanelType } from '@atlaskit/adf-schema';
+import { PanelType, uuid } from '@atlaskit/adf-schema';
 import { PanelSharedCssClassName } from '@atlaskit/editor-common/panel';
 import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import type { DOMOutputSpec } from '@atlaskit/editor-prosemirror/model';
@@ -92,7 +92,14 @@ export const handleCut = (newState: EditorState, oldState: EditorState) => {
 			oldState.tr.selection,
 		);
 		const clonedPanelNode = oldPanelNode?.node.copy();
-		const newPanelNode = schema.nodes.panel.create({ ...clonedPanelNode?.attrs }, emptyParagraph);
+
+		const newPanelNode = schema.nodes.panel.create(
+			{
+				...clonedPanelNode?.attrs,
+				...(fg('platform_editor_adf_with_localid') && { localId: uuid.generate() }),
+			},
+			emptyParagraph,
+		);
 		const endPos = oldState.tr.selection.$from.pos;
 
 		if (oldPanelNode) {

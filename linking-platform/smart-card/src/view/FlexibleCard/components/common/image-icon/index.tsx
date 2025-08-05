@@ -8,7 +8,6 @@ import { useEffect, useState } from 'react';
 import ImageLoader from 'react-render-image';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { LoadingSkeleton } from '../loading-skeleton';
@@ -43,7 +42,7 @@ const ImageIcon = ({
 		return defaultIcon;
 	}
 
-	if (hideLoadingSkeleton && fg('platform_fix_block_card_img_icon_vc')) {
+	if (hideLoadingSkeleton) {
 		return (
 			<img
 				src={url}

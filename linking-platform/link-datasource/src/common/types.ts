@@ -1,3 +1,5 @@
+import type { RefObject } from 'react';
+
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import { type IssueLikeDataTableViewProps } from '../ui/issue-like-table/types';
@@ -11,6 +13,7 @@ export interface Site {
 }
 
 export type DisplayViewModes = 'table' | 'inline';
+type ShouldReturnFocus = boolean | RefObject<HTMLElement>;
 
 export type OnInsertFunction<ADF> = (adf: ADF, analyticsEvent?: UIAnalyticsEvent) => void;
 export type ConfigModalProps<ADF, Parameters> = {
@@ -32,6 +35,11 @@ export type ConfigModalProps<ADF, Parameters> = {
 	viewMode?: DisplayViewModes;
 	/** Disable the view mode display dropdown */
 	disableDisplayDropdown?: boolean;
+	/**
+	 * Set the focus to return to the element that had focus before focus lock was activated or pass through a specific ref element
+	 * Defaults to false, meaning focus remains where it was when the FocusLock was deactivated
+	 */
+	shouldReturnFocus?: ShouldReturnFocus;
 } & Partial<
 	Pick<IssueLikeDataTableViewProps, 'visibleColumnKeys' | 'wrappedColumnKeys' | 'columnCustomSizes'>
 >;

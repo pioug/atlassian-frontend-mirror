@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-filmstrip",
-	"version": "51.0.5",
+	"version": "51.0.6",
 	"description": "Includes components that show media cards as a filmstrip",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -85,9 +85,6 @@
 			"type": "boolean"
 		},
 		"dst-a11y__replace-anchor-with-link__media-exif": {
-			"type": "boolean"
-		},
-		"platform_editor_media_group_padding_css_fix": {
 			"type": "boolean"
 		}
 	}

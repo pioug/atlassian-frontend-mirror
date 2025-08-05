@@ -9,7 +9,6 @@ import { FormattedMessage } from 'react-intl-next';
 import { cssMap, jsx } from '@atlaskit/css';
 import LockLockedIcon from '@atlaskit/icon/core/lock-locked';
 import LegacyLockIcon from '@atlaskit/icon/glyph/lock-filled';
-import Lozenge from '@atlaskit/lozenge';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import { N500 } from '@atlaskit/theme/colors';
@@ -21,22 +20,10 @@ import { type RequestAccessContextProps } from '../../types';
 import { ActionButton } from '../common/action-button';
 import InlineLozenge from '../common/inline-lozenge';
 import { Frame } from '../Frame';
-import { IconAndTitleLayout, LozengeWrapper } from '../IconAndTitleLayout';
+import { IconAndTitleLayout } from '../IconAndTitleLayout';
 
 const styles = cssMap({
-	iconWrapper: {
-		marginRight: token('space.negative.025'),
-		display: 'inline flex',
-	},
-	actionButtonLozengeStyleOld: {
-		backgroundColor: token('color.background.neutral.subtle'),
-		borderRadius: token('border.radius.050'),
-		paddingTop: token('space.0'),
-		paddingRight: token('space.0'),
-		paddingBottom: token('space.0'),
-		paddingLeft: token('space.0'),
-	},
-	actionButtonLozengeStyleNew: {
+	actionButtonLozengeStyle: {
 		backgroundColor: token('color.background.neutral.subtle'),
 		borderRadius: token('border.radius.050'),
 		paddingTop: token('space.0'),
@@ -143,39 +130,20 @@ export const InlineCardForbiddenView = ({
 			);
 		}
 		if (onAuthorise) {
-			if (fg('platform-linking-visual-refresh-inline-lozenge')) {
-				return (
-					<Pressable
-						xcss={styles.actionButtonLozengeStyleNew}
-						onClick={handleRetry}
-						style={{ font: `inherit` }}
-						testId="button-connect-other-account"
-					>
-						<InlineLozenge
-							appearance="moved"
-							{...(fg('platform-component-visual-refresh') ? { isBold: true } : undefined)}
-						>
-							{renderForbiddenAccessMessage()}
-						</InlineLozenge>
-					</Pressable>
-				);
-			}
-
 			return (
-				<LozengeWrapper>
-					<Pressable
-						xcss={styles.actionButtonLozengeStyleOld}
-						onClick={handleRetry}
-						testId="button-connect-other-account"
+				<Pressable
+					xcss={styles.actionButtonLozengeStyle}
+					onClick={handleRetry}
+					style={{ font: `inherit` }}
+					testId="button-connect-other-account"
+				>
+					<InlineLozenge
+						appearance="moved"
+						{...(fg('platform-component-visual-refresh') ? { isBold: true } : undefined)}
 					>
-						<Lozenge
-							appearance="moved"
-							{...(fg('platform-component-visual-refresh') ? { isBold: true } : undefined)}
-						>
-							{renderForbiddenAccessMessage()}
-						</Lozenge>
-					</Pressable>
-				</LozengeWrapper>
+						{renderForbiddenAccessMessage()}
+					</InlineLozenge>
+				</Pressable>
 			);
 		}
 		return null;

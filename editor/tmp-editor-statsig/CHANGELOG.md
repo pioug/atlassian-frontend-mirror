@@ -1,5 +1,22 @@
 # @atlaskit/editor-statsig-tmp
 
+## 9.24.0
+
+### Minor Changes
+
+- [#196046](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/196046)
+  [`b0dad85aa7c35`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b0dad85aa7c35) -
+  [ux] [ED-27974] Allow hyperlink plugin to change text to link on blur
+
+## 9.23.0
+
+### Minor Changes
+
+- [#195965](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195965)
+  [`7fda5827b37c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7fda5827b37c1) -
+  ENGHEALTH-32254 Add aria-label to dropdownButtonItem so that ariaLabel from ai button will be
+  passed in
+
 ## 9.22.0
 
 ### Minor Changes

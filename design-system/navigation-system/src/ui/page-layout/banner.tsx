@@ -7,7 +7,6 @@ import { useContext } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 import type { StrictXCSSProp } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useSkipLinkInternal } from '../../context/skip-links/skip-links-context';
 
@@ -39,7 +38,7 @@ export function Banner({
 	children,
 	xcss,
 	// 48px has been chosen to align with the height of the Banner component from `@atlaskit/banner`.
-	height = fg('platform_dst_nav4_banner_default_height') ? 48 : 64,
+	height = 48,
 	skipLinkLabel = 'Banner',
 	testId,
 	id: providedId,
@@ -55,9 +54,9 @@ export function Banner({
 	xcss?: StrictXCSSProp<'backgroundColor', never>;
 	/**
 	 * The height of the layout area.
+	 *
+	 * Defaults to 48px.
 	 */
-	// TODO: when cleaning up fg('platform_dst_nav4_banner_default_height'), update prop JSDocs to mention
-	// the default height.
 	height?: number;
 }) {
 	const dangerouslyHoistSlotSizes = useContext(DangerouslyHoistSlotSizes);

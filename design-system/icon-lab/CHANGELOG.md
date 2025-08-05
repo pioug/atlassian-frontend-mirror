@@ -1,5 +1,14 @@
 # @atlaskit/icon-lab
 
+## 5.3.1
+
+### Patch Changes
+
+- [#196046](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/196046)
+  [`ae7d1b0c33757`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae7d1b0c33757) -
+  Removed core and utility keywords from the icon metadata
+- Updated dependencies
+
 ## 5.3.0
 
 ### Minor Changes

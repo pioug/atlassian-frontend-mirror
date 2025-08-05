@@ -8,6 +8,8 @@ import type { InputRulePluginState, OnBeforeRegexMatch, OnInputEvent } from './t
 
 type Options = {
 	allowInsertTextOnDocument?: boolean;
+	checkOnBlur?: boolean;
+	appendTextOnBlur?: string;
 	onInputEvent?: OnInputEvent;
 	onBeforeRegexMatch?: OnBeforeRegexMatch;
 };
@@ -86,6 +88,26 @@ export function createInputRulePlugin(
 				});
 			},
 			handleDOMEvents: {
+				blur: (view) => {
+					if (!options?.checkOnBlur) {
+						return false;
+					}
+
+					const selection = view.state.selection;
+					if (!(selection instanceof TextSelection)) {
+						return;
+					}
+					const { $cursor } = selection;
+					if ($cursor) {
+						inputEvent({
+							view,
+							from: $cursor.pos,
+							to: $cursor.pos,
+							text: options.appendTextOnBlur ?? '',
+						});
+					}
+					return false;
+				},
 				compositionend: (view) => {
 					setTimeout(() => {
 						const selection = view.state.selection;

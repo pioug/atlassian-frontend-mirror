@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ba7ddcf4df74510631392f8b151e96e7>>
+ * @codegen <<SignedSource::999d13388a49cd5d6f77a3a3a1c12e88>>
  * @codegenCommand yarn build:icon-glyphs
  */
 import React from 'react';
@@ -8,7 +8,6 @@ import React from 'react';
 import { IconTile } from '@atlaskit/icon';
 import NewIcon from '@atlaskit/icon/core/epic';
 import type { GlyphProps } from '@atlaskit/icon/types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import IconObjectOld from '../../glyph-legacy/epic/24';
 
@@ -23,20 +22,16 @@ const Epic24Icon = ({
 	label,
 	testId,
 }: Omit<GlyphProps, 'primaryColor' | 'secondaryColor' | 'size'>) => {
-	if (fg('icon-object-migration')) {
-		return (
-			<IconTile
-				icon={NewIcon}
-				appearance="purpleBold"
-				size="24"
-				label={label}
-				testId={testId}
-				LEGACY_fallbackComponent={<IconObjectOld label={label} testId={testId} />}
-			/>
-		);
-	} else {
-		return <IconObjectOld label={label} testId={testId} />;
-	}
+	return (
+		<IconTile
+			icon={NewIcon}
+			appearance="purpleBold"
+			size="24"
+			label={label}
+			testId={testId}
+			LEGACY_fallbackComponent={<IconObjectOld label={label} testId={testId} />}
+		/>
+	);
 };
 
 Epic24Icon.displayName = 'Epic24Icon';

@@ -211,6 +211,7 @@ export type FloatingToolbarButton<T extends Object> = {
 	/** If true, the component will have pulse onboarding effect around it. */
 	pulse?: boolean;
 	spotlightConfig?: FloatingToolbarButtonSpotlightConfig;
+	ariaLabel?: string; // For accessibility, aria-label for the button
 };
 
 export type FloatingToolbarInput<T extends Object> = {

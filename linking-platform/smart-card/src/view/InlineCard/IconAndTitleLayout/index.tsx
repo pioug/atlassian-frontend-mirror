@@ -256,19 +256,3 @@ export const IconAndTitleLayout = ({
 export const IconTitleWrapper = (props: ComponentPropsWithoutRef<typeof Box>) => {
 	return <Box as="span" xcss={styles.iconTitleWrapperStyle} {...props} />;
 };
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled
-const LozengeWrapperOldVisualRefresh = styled.span({
-	display: 'inline-block',
-	verticalAlign: '1px',
-	marginTop: 0,
-	marginRight: token('space.050', '4px'),
-	marginBottom: 0,
-	marginLeft: token('space.025', '2px'),
-});
-
-// Remove on platform-linking-visual-refresh-inline-lozenge cleanup
-export const LozengeWrapper = (props: ComponentPropsWithoutRef<typeof Box>) => {
-	// note: This is just to get the types to work due to compiled css weirdness.
-	return <LozengeWrapperOldVisualRefresh {...(props as any)} />;
-};

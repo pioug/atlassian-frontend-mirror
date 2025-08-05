@@ -1,5 +1,12 @@
 # @atlaskit/spotlight
 
+## 0.0.5
+
+### Patch Changes
+
+- [`d63550f8e338a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d63550f8e338a) -
+  Create Footer, Actions, PrimaryAction, SecondaryAction components.
+
 ## 0.0.4
 
 ### Patch Changes

@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-annotation
 
+## 3.1.4
+
+### Patch Changes
+
+- [#195804](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195804)
+  [`c60fbe1e74541`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c60fbe1e74541) -
+  ED-28804: Cleanup FG platform_editor_r18_fix_selection_resync
+- Updated dependencies
+
+## 3.1.3
+
+### Patch Changes
+
+- [#195649](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195649)
+  [`231bb33e06dfe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/231bb33e06dfe) -
+  EDITOR-1131 Bump adf-schema version to 50.2.0
+- Updated dependencies
+
 ## 3.1.2
 
 ### Patch Changes

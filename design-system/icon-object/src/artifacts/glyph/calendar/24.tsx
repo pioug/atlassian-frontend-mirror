@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::03611d977353356cfe6a822232b999af>>
+ * @codegen <<SignedSource::fb0796288d3b3ee9f535301ef5e8c24a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 import React from 'react';
@@ -8,7 +8,6 @@ import React from 'react';
 import { IconTile } from '@atlaskit/icon';
 import NewIcon from '@atlaskit/icon/core/calendar';
 import type { GlyphProps } from '@atlaskit/icon/types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import IconObjectOld from '../../glyph-legacy/calendar/24';
 
@@ -23,20 +22,16 @@ const Calendar24Icon = ({
 	label,
 	testId,
 }: Omit<GlyphProps, 'primaryColor' | 'secondaryColor' | 'size'>) => {
-	if (fg('icon-object-migration')) {
-		return (
-			<IconTile
-				icon={NewIcon}
-				appearance="redBold"
-				size="24"
-				label={label}
-				testId={testId}
-				LEGACY_fallbackComponent={<IconObjectOld label={label} testId={testId} />}
-			/>
-		);
-	} else {
-		return <IconObjectOld label={label} testId={testId} />;
-	}
+	return (
+		<IconTile
+			icon={NewIcon}
+			appearance="redBold"
+			size="24"
+			label={label}
+			testId={testId}
+			LEGACY_fallbackComponent={<IconObjectOld label={label} testId={testId} />}
+		/>
+	);
 };
 
 Calendar24Icon.displayName = 'Calendar24Icon';

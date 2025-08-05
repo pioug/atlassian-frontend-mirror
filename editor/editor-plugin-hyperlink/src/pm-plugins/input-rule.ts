@@ -16,6 +16,7 @@ import {
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { createPlugin } from '@atlaskit/prosemirror-input-rules';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { toolbarKey } from './toolbar-buttons';
 
@@ -97,6 +98,7 @@ export function createLinkInputRule(
 export function createInputRulePlugin(
 	schema: Schema,
 	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+	autoLinkOnBlur: boolean = false,
 ): SafePlugin | undefined {
 	if (!schema.marks.link) {
 		return;
@@ -138,7 +140,18 @@ export function createInputRulePlugin(
 		return tr;
 	});
 
-	return new SafePlugin(createPlugin('hyperlink', [urlWithASpaceRule, markdownLinkRule]));
+	return new SafePlugin(
+		createPlugin(
+			'hyperlink',
+			[urlWithASpaceRule, markdownLinkRule],
+			autoLinkOnBlur && expValEquals('platform_editor_create_link_on_blur', 'isEnabled', true)
+				? {
+						checkOnBlur: true,
+						appendTextOnBlur: ' ',
+					}
+				: undefined,
+		),
+	);
 }
 
 export default createInputRulePlugin;

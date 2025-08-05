@@ -26,9 +26,7 @@ export function createSocketIOSocket(
 			// WebSocket first, if fails, try polling
 			transports = ['websocket'];
 		}
-		if (fg('widen_presence_socket_reconnection_jitter')) {
-			socketIOOptions = SOCKET_IO_OPTIONS_WITH_HIGH_JITTER;
-		}
+		socketIOOptions = SOCKET_IO_OPTIONS_WITH_HIGH_JITTER;
 	}
 
 	const client = io(url, {

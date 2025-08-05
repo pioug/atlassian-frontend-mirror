@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c7f98a38a289aa9084f1e0135ec93c1a>>
+ * @codegen <<SignedSource::ab2f1a7409302d162a3bf14c73086938>>
  * @codegenCommand yarn build:icon-glyphs
  */
 import React from 'react';
@@ -8,7 +8,6 @@ import React from 'react';
 import { IconTile } from '@atlaskit/icon';
 import NewIcon from '@atlaskit/icon/core/arrow-up';
 import type { GlyphProps } from '@atlaskit/icon/types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import IconObjectOld from '../../glyph-legacy/improvement/16';
 
@@ -23,20 +22,16 @@ const Improvement16Icon = ({
 	label,
 	testId,
 }: Omit<GlyphProps, 'primaryColor' | 'secondaryColor' | 'size'>) => {
-	if (fg('icon-object-migration')) {
-		return (
-			<IconTile
-				icon={NewIcon}
-				appearance="greenBold"
-				size="16"
-				label={label}
-				testId={testId}
-				LEGACY_fallbackComponent={<IconObjectOld label={label} testId={testId} />}
-			/>
-		);
-	} else {
-		return <IconObjectOld label={label} testId={testId} />;
-	}
+	return (
+		<IconTile
+			icon={NewIcon}
+			appearance="greenBold"
+			size="16"
+			label={label}
+			testId={testId}
+			LEGACY_fallbackComponent={<IconObjectOld label={label} testId={testId} />}
+		/>
+	);
 };
 
 Improvement16Icon.displayName = 'Improvement16Icon';

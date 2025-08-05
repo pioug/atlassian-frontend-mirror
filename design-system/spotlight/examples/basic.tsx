@@ -3,7 +3,15 @@
  * @jsx jsx
  */
 import { cssMap, jsx } from '@atlaskit/css';
-import { Spotlight, SpotlightHeader, SpotlightHeadline } from '@atlaskit/spotlight';
+import {
+	Spotlight,
+	SpotlightActions,
+	SpotlightFooter,
+	SpotlightHeader,
+	SpotlightHeadline,
+	SpotlightPrimaryAction,
+	SpotlightSecondaryAction,
+} from '@atlaskit/spotlight';
 
 const styles = cssMap({
 	root: {
@@ -18,6 +26,12 @@ export default function Basic() {
 				<SpotlightHeader>
 					<SpotlightHeadline>Headline</SpotlightHeadline>
 				</SpotlightHeader>
+				<SpotlightFooter>
+					<SpotlightActions>
+						<SpotlightSecondaryAction>Prev</SpotlightSecondaryAction>
+						<SpotlightPrimaryAction>Done</SpotlightPrimaryAction>
+					</SpotlightActions>
+				</SpotlightFooter>
 			</Spotlight>
 		</div>
 	);

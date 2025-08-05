@@ -85,9 +85,16 @@ const WithIssueModal = ({
 		closeModal();
 	};
 
+	const buttonRef = React.createRef<HTMLButtonElement>();
+
 	return (
 		<SmartCardProvider client={new SmartLinkClient()}>
-			<Button appearance="primary" onClick={toggleIsOpen}>
+			<Button
+				appearance="primary"
+				onClick={toggleIsOpen}
+				ref={buttonRef}
+				testId={'toggle-modal-button'}
+			>
 				Toggle Modal
 			</Button>
 			<div>Generated ADF:</div>
@@ -104,6 +111,7 @@ const WithIssueModal = ({
 					parameters={parameters}
 					onCancel={closeModal}
 					onInsert={onInsert}
+					shouldReturnFocus={buttonRef}
 				/>
 			)}
 		</SmartCardProvider>

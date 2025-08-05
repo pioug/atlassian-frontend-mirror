@@ -5,7 +5,6 @@ import { IntlProvider } from 'react-intl-next';
 
 import Form from '@atlaskit/form';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import {
 	useValidateAqlText,
@@ -226,13 +225,12 @@ describe('AqlSearchInput', () => {
 			expect(await findByTestId('assets-datasource-modal--aql-search-button')).toBeDisabled();
 		});
 	});
-	ffTest.on('fix_a11y_issues_inline_edit', '', () => {
-		it('should capture and report a11y violations', async () => {
-			const { container } = await renderDefaultAqlSearchInput({
-				...getUseValidateAqlTextDefaultHookState,
-				lastValidationResult: { type: 'loading' },
-			});
-			await expect(container).toBeAccessible();
+
+	it('should capture and report a11y violations', async () => {
+		const { container } = await renderDefaultAqlSearchInput({
+			...getUseValidateAqlTextDefaultHookState,
+			lastValidationResult: { type: 'loading' },
 		});
+		await expect(container).toBeAccessible();
 	});
 });

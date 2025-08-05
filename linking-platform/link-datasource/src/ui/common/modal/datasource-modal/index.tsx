@@ -5,7 +5,10 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useDatasourceAnalyticsEvents } from '../../../../analytics';
 
-type DatasourceModalProps = Pick<ModalDialogProps, 'testId' | 'onClose' | 'children'>;
+type DatasourceModalProps = Pick<
+	ModalDialogProps,
+	'testId' | 'onClose' | 'children' | 'shouldReturnFocus'
+>;
 
 const ScreenEvent = () => {
 	const { fireEvent } = useDatasourceAnalyticsEvents();
@@ -17,14 +20,19 @@ const ScreenEvent = () => {
 	return null;
 };
 
-export const DatasourceModal = ({ testId, onClose, children }: DatasourceModalProps) => {
+export const DatasourceModal = ({
+	testId,
+	onClose,
+	children,
+	shouldReturnFocus = false,
+}: DatasourceModalProps) => {
 	return (
 		<Modal
 			testId={testId}
 			onClose={onClose}
 			width="calc(100% - 80px)"
 			shouldScrollInViewport={true}
-			shouldReturnFocus={fg('navx-1180-sllv-return-focus-on-escape') ? true : false}
+			shouldReturnFocus={fg('navx-1180-sllv-return-focus-on-escape') ? shouldReturnFocus : false}
 		>
 			<ScreenEvent />
 			{children}

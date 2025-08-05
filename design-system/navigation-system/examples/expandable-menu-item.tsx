@@ -212,6 +212,19 @@ export const ExpandableMenuItemSelectedWithIcon = () => (
 						<ButtonMenuItem>Item 2</ButtonMenuItem>
 					</ExpandableMenuItemContent>
 				</ExpandableMenuItem>
+				<ExpandableMenuItem>
+					<ExpandableMenuItemTrigger
+						href="#test"
+						isSelected
+						elemBefore={<HomeIcon label="" color="currentColor" />}
+					>
+						Parent menu item (with currentColor)
+					</ExpandableMenuItemTrigger>
+					<ExpandableMenuItemContent>
+						<ButtonMenuItem>Item 1</ButtonMenuItem>
+						<ButtonMenuItem>Item 2</ButtonMenuItem>
+					</ExpandableMenuItemContent>
+				</ExpandableMenuItem>
 			</MenuList>
 		</SideNavContent>
 	</div>

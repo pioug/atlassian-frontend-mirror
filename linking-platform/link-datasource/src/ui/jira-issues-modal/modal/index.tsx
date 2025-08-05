@@ -82,7 +82,7 @@ const isValidParameters = (parameters: DatasourceParameters | undefined): boolea
 	parameters.cloudId.length > 0;
 
 const PlainJiraIssuesConfigModal = (props: ConnectedJiraConfigModalProps) => {
-	const { onCancel, url: urlBeingEdited } = props;
+	const { onCancel, url: urlBeingEdited, shouldReturnFocus } = props;
 
 	const { visibleColumnCount, visibleColumnKeys, parameters, setParameters, tableState } =
 		useDatasourceContext<JiraIssueDatasourceParameters>();
@@ -474,7 +474,11 @@ const PlainJiraIssuesConfigModal = (props: ConnectedJiraConfigModalProps) => {
 	return (
 		<IntlMessagesProvider defaultMessages={i18nEN} loaderFn={fetchMessagesForLocale}>
 			<ModalTransition>
-				<DatasourceModal testId="jira-datasource-modal" onClose={onCancel}>
+				<DatasourceModal
+					testId="jira-datasource-modal"
+					onClose={onCancel}
+					shouldReturnFocus={shouldReturnFocus}
+				>
 					<ModalHeader>
 						<ModalTitle>
 							<SiteSelector

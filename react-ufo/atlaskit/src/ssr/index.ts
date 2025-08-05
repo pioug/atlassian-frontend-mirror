@@ -11,7 +11,8 @@ export type SSRFeatureFlags = { [key: string]: FeatureFlagValue };
 
 export type SSRConfig = {
 	/**
-	 * Used to represent whether SSR as a whole was considered successful. You can consider this the success of the "render" phase success
+	 * Used to represent whether SSR as a whole was considered successful. You can consider this the success of the "render" phase success.
+	 * Also may be used as the FMP mark
 	 */
 	getDoneMark: () => number | null;
 	/**
@@ -30,6 +31,10 @@ export type SSRConfig = {
 		 * This is generally expected to be earlier than / independant of the prefetch data and may even be non-visual (eg: <link rel="preload" href="..."> tags).
 		 */
 		earlyFlush?: boolean;
+		/**
+		 * "done" if present can override the presence / absence of the done mark in the overral SSR success status ('ssr:success').
+		 */
+		done?: boolean;
 	};
 	getFeatureFlags: () => SSRFeatureFlags | null;
 	getTimings?: () => ReportedTimings | null;
@@ -88,7 +93,9 @@ export function getSSRSuccess(): boolean {
 	return !!config?.getDoneMark();
 }
 
-export function getSSRPhaseSuccess(): { prefetch?: boolean; earlyFlush?: boolean } | undefined {
+export function getSSRPhaseSuccess():
+	| { prefetch?: boolean; earlyFlush?: boolean; done?: boolean }
+	| undefined {
 	return config?.getSsrPhaseSuccess?.();
 }
 

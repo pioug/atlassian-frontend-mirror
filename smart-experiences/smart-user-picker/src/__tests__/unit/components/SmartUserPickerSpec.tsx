@@ -569,6 +569,82 @@ describe('SmartUserPicker', () => {
 			expect(await screen.findByText(user3.name)).toBeInTheDocument();
 		});
 
+		it('should call both transformOptions and onEmpty when transformOptions returns empty array', async () => {
+			getUserRecommendationsMock.mockReturnValue(Promise.resolve([]));
+
+			const user3: OptionData = {
+				id: 'user3',
+				name: 'user3',
+				type: 'user',
+			};
+
+			const transformOptions = jest.fn(() => Promise.resolve([]));
+			const onEmpty = jest.fn(() => Promise.resolve([user3]));
+
+			renderSmartUserPicker({
+				transformOptions,
+				onEmpty,
+			});
+
+			// trigger on focus
+			const input = screen.getByRole('combobox');
+			await userEvent.click(input);
+
+			// expect load items from server
+			expect(getUserRecommendationsMock).toHaveBeenCalledTimes(1);
+
+			// expect transformOptions to be called first
+			expect(transformOptions).toHaveBeenCalledTimes(1);
+			expect(transformOptions).toHaveBeenCalledWith([]);
+
+			// expect onEmpty to be called since transformOptions returned empty array
+			expect(onEmpty).toHaveBeenCalledTimes(1);
+			expect(onEmpty).toHaveBeenCalledWith('');
+
+			expect(await screen.findByText(user3.name)).toBeInTheDocument();
+		});
+
+		it('should call only transformOptions when transformOptions returns non-empty array', async () => {
+			getUserRecommendationsMock.mockReturnValue(Promise.resolve([]));
+
+			const user3: OptionData = {
+				id: 'user3',
+				name: 'user3',
+				type: 'user',
+			};
+
+			const user4: OptionData = {
+				id: 'user4',
+				name: 'user4',
+				type: 'user',
+			};
+
+			const transformOptions = jest.fn(() => Promise.resolve([user3]));
+			const onEmpty = jest.fn(() => Promise.resolve([user4]));
+
+			renderSmartUserPicker({
+				transformOptions,
+				onEmpty,
+			});
+
+			// trigger on focus
+			const input = screen.getByRole('combobox');
+			await userEvent.click(input);
+
+			// expect load items from server
+			expect(getUserRecommendationsMock).toHaveBeenCalledTimes(1);
+
+			// expect transformOptions to be called
+			expect(transformOptions).toHaveBeenCalledTimes(1);
+			expect(transformOptions).toHaveBeenCalledWith([]);
+
+			// expect onEmpty NOT to be called since transformOptions returned non-empty array
+			expect(onEmpty).toHaveBeenCalledTimes(0);
+
+			expect(await screen.findByText(user3.name)).toBeInTheDocument();
+			expect(screen.queryByText(user4.name)).not.toBeInTheDocument();
+		});
+
 		it('should not use provided promise transformOptions when not provided', async () => {
 			getUserRecommendationsMock.mockReturnValue(Promise.resolve(mockReturnOptions));
 

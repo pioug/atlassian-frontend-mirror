@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 40.7.1
+
+### Patch Changes
+
+- [#195804](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195804)
+  [`203fd19c46105`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/203fd19c46105) -
+  NAVX-1055 cleaning up platform-linking-visual-refresh-inline-lozenge
+- [#195804](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195804)
+  [`567fff99a23f5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/567fff99a23f5) -
+  NAVX-1304 Remove `autofocus=false` from RelatedLinksModal for a11y
+- Updated dependencies
+
 ## 40.7.0
 
 ### Minor Changes

@@ -72,7 +72,7 @@ export const logoDocsSchema: LogoDocsSchema[] = [
 	{ name: 'align', type: 'new', category: 'app' },
 	{ name: 'focus', type: 'migration', category: 'app' },
 	{ name: 'talent', type: 'new', category: 'app' },
-	// Product collection
+	// App collection
 	{ name: 'jira-product-discovery', type: 'migration', category: 'app' },
 	// Dev collection
 	{ name: 'bitbucket', type: 'migration', category: 'app' },

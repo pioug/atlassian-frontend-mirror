@@ -15,6 +15,7 @@ import Modal, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
 import { messages } from '../../../messages';
@@ -48,7 +49,7 @@ const RelatedLinksBaseModal = ({ onClose, showModal, children }: RelatedLinksBas
 					testId="related-links-modal"
 					onClose={closeHandler}
 					width={fixedWidth}
-					autoFocus={false}
+					{...(fg('navx-1304-related-links-remove-false-autofocus') ? {} : { autoFocus: false })}
 					shouldReturnFocus={false}
 					onOpenComplete={openCompleteHandler}
 					height={'504px'}

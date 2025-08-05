@@ -57,7 +57,7 @@ type LocalXCSSProp<
  * - inverting style declarations
  *
  * Interverting style declarations is interesting for platform teams as
- * it means products only pay for styles they use as they're now the ones who declare
+ * it means apps only pay for styles they use as they're now the ones who declare
  * the styles!
  *
  * The {@link StrictXCSSProp} type has generics two of which must be defined — use to explicitly

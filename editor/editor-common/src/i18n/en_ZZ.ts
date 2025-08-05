@@ -14,6 +14,7 @@ export default {
   'editor.extension.legacyContentHeader.contentHasLimitedFunctionality':
     '⁣⁢This content has limited functionality,‌⁠⁡⁠⁡‍‍‍⁡⁮⁭⁬⁠‍⁫⁡⁬؜⁭⁮⁫؜⁠⁮⁣⁤',
   'editor.extension.legacyContentHeader.learnMore': '⁣⁢Learn more⁡؜‌⁬⁯‍⁫⁡؜⁮⁭⁯⁬⁮⁮⁯⁯⁡⁠⁫⁫⁮⁡⁫⁭⁣⁤',
+  'editor.trackChanges.toolbarIconLabel': '⁣⁢Track Changes⁠⁫⁯⁫⁡⁠⁭⁮⁬‍⁬⁮⁭⁫⁪⁡⁫‍⁪⁡⁡⁯⁣⁤',
   'fablric.editor.viewAllInserts': '⁣⁢View all inserts⁯⁫⁬‌؜⁯⁫⁡⁡⁪⁡⁡⁬⁬‌⁭⁮⁮⁡⁯⁡⁭؜⁣⁤',
   'fabric.editor.action': '⁣⁢Action item⁭⁫⁬؜⁭⁯⁯⁫⁫⁫‍⁭⁠⁫⁠؜⁡⁭‌⁫‍⁡‍‌⁣⁤',
   'fabric.editor.action.description': '⁣⁢Create and assign action items⁫⁭‌‌⁬⁡⁯‌⁯⁪⁡‌⁭⁮⁪؜⁯⁪⁮⁬⁯⁠⁡⁣⁤',
@@ -65,6 +66,8 @@ export default {
   'fabric.editor.ai.config.item.brainstorm.promptHint': '⁣⁢Tell me the topic...⁪⁯‌⁬⁪؜؜⁪⁬‍‍⁭‌⁭⁭⁯⁬؜⁪‍⁣⁤',
   'fabric.editor.ai.config.item.brainstorm.promptLabel': '⁣⁢Brainstorm⁫⁡⁭؜‍⁭⁮⁭⁡⁭⁬‍⁬⁮⁭⁭‍⁡⁮⁭⁪⁣⁤',
   'fabric.editor.ai.config.item.brainstorm.title': '⁣⁢Brainstorm⁡⁪⁮⁠⁮⁫⁮‌⁪⁫⁯⁬‍⁭‌⁭‍‍⁮⁯⁭⁪⁣⁤',
+  'fabric.editor.ai.config.item.changeTone.adjustLengthNestingParentShortTitle': '⁣⁢Length⁫⁫⁯‍⁪؜‌⁡⁮⁬⁬⁫⁫‌⁠⁬‌⁬؜⁫⁣⁤',
+  'fabric.editor.ai.config.item.changeTone.adjustLengthNestingParentTitle': '⁣⁢Adjust length؜‌⁯⁬⁡‌‌‌؜⁡⁭⁮⁪⁫⁫⁡⁮⁬⁬⁯⁠⁯⁣⁤',
   'fabric.editor.ai.config.item.changeTone.casualTone.description':
     '⁣⁢Changes the tone of the content to casual‌⁠⁪؜⁠⁭‍⁠⁪؜‌⁬؜⁭⁭⁫‍‍⁣⁤',
   'fabric.editor.ai.config.item.changeTone.casualTone.selectionToolbar.dropdownItem.title':
@@ -441,8 +444,9 @@ export default {
   'fabric.editor.ai.selectionToolbar.define.disabled.tooltip':
     '⁣⁢Highlight a term, acronym, or abbreviation؜⁬‌⁬‌⁯⁠⁡⁮⁪⁮‌‌⁠⁮‍⁫‌⁠⁣⁤',
   'fabric.editor.ai.selectionToolbar.define.title': '⁣⁢Define⁠⁠⁯⁮؜⁭‍⁭⁮⁫⁯⁡⁮⁬⁪⁠؜⁠⁡⁫⁪⁣⁤',
+  'fabric.editor.ai.telepointer.rovo': '⁣⁢Rovo⁫⁮⁫‍⁪⁫⁡⁭‍⁠‌⁯⁮‌⁪⁣⁤',
   'fabric.editor.ai.toolbar.askAI.title': '⁣⁢Ask AI⁫؜‌‍⁪⁫⁠؜؜⁯؜‍‍⁬⁠⁯؜⁮⁪‍⁫⁡‍⁣⁤',
-  'fabric.editor.ai.toolbar.askRovoInputButton.label': '⁣⁢Ask Rovo...⁯‌‌⁯؜⁮⁭⁬⁠؜؜⁫⁯⁠⁡‍⁮‌‌⁡⁬⁣⁤',
+  'fabric.editor.ai.toolbar.askRovoAiSplitButton.label': '⁣⁢Ask Rovo AI⁮⁫⁡⁠⁮⁪⁡⁯‍⁯⁯‍⁮⁡⁬‍⁠⁯‍⁫⁪⁮⁬⁪؜‌⁣⁤',
   'fabric.editor.ai.toolbar.improveWriting.title': '⁣⁢Improve writing‌⁠⁭⁪⁫⁬⁯⁬⁬‍⁭⁮⁪‍⁪⁬⁯؜؜⁫⁬⁯⁣⁤',
   'fabric.editor.ai.toolbar.improveWriting.tooltip':
     '⁣⁢Tell Atlassian Intelligence to improve the writing of your selection‌⁯⁯⁠⁮‍⁬⁫؜⁭⁡⁠؜‍⁫⁡⁪⁪⁮⁮⁯⁠؜⁬⁬⁣⁤',
@@ -602,6 +606,7 @@ export default {
     "⁣⁢This display option isn't available inside {node}⁬⁯⁠‌‌؜⁠‌⁬⁪‌⁡⁡⁭‌⁫⁫‍⁡⁡⁪⁯⁣⁤",
   'fabric.editor.displayText': '⁣⁢Text to display⁪⁪⁭⁭⁯‌⁪⁮⁬⁠⁬‌⁪؜⁮‍؜⁭⁡؜⁣⁤',
   'fabric.editor.distributeColumns': '⁣⁢Distribute columns⁭‍⁯⁮⁯⁬؜‍⁠‍⁪⁪⁪‍‍⁬⁪⁪⁬⁫⁠‍‌⁣⁤',
+  'fabric.editor.dragHandleZone': '⁣⁢Activate drag handle zone⁮⁬⁭⁫‍⁠؜‌⁭⁪⁯⁯‌⁫⁪⁠⁬⁯‍⁪⁮⁬⁠⁪⁣⁤',
   'fabric.editor.dropPlaceholderLabel': '⁣⁢Document⁭⁭⁪⁯⁯⁠⁯⁫⁫⁮⁬⁠‍⁯⁭؜؜‍⁡⁬‍⁣⁤',
   'fabric.editor.ecombedDescription': '⁣⁢Display an interactive preview of a link‍⁪⁡⁡‍؜⁮⁪⁮؜⁪؜⁪⁡⁯⁡⁯⁭⁪⁭⁣⁤',
   'fabric.editor.edit': '⁣⁢Edit⁫⁠⁭‌⁮؜⁯‍؜⁬⁯⁪⁮‌⁫⁫⁮⁠⁭⁭⁪⁠‍؜⁡⁣⁤',
@@ -652,6 +657,7 @@ export default {
   'fabric.editor.elementbrowser.searchbar.placeholder': '⁣⁢Search⁠⁫⁪⁫⁮⁮⁯‍⁡؜⁬⁭⁬⁡⁭؜⁬‌⁡؜‌⁮⁣⁤',
   'fabric.editor.elementbrowser.sidebar.heading': '⁣⁢Browse⁯‍⁪‌‍‍⁭⁭⁭⁪⁮‍‍‌‍⁭⁬‍⁮⁭⁯؜⁡⁣⁤',
   'fabric.editor.embedTitle': '⁣⁢Embed؜‍⁭⁫⁭⁪⁫⁪⁡⁪⁫؜⁬؜⁠⁮⁭⁮⁬⁯⁫‍⁣⁤',
+  'fabric.editor.embedToBlockCardWarning': '⁣⁢Displays as a card on small screens⁡⁭‍‍⁬⁯⁪‌⁫⁭‍⁬⁫⁭⁪⁭⁬⁡⁣⁤',
   'fabric.editor.emoji': '⁣⁢Emoji⁮؜⁫⁠⁠‌؜⁬⁪‍⁪؜⁠⁪⁠⁬⁡‌⁮⁪⁣⁤',
   'fabric.editor.emoji.description': '⁣⁢Use emojis to express ideas 🎉 and emotions 😄⁮⁮⁭⁯⁬⁫‍⁫⁫⁡⁠⁪‍؜⁬⁪⁪؜⁪‍⁣⁤',
   'fabric.editor.emptyLink': '⁣⁢Please enter a link.؜؜⁡⁫‌⁪⁡⁠⁪⁮⁭⁫⁡⁠⁯⁯⁠⁭⁣⁤',
@@ -981,6 +987,7 @@ export default {
     '{newWidth, plural, one {⁣⁢Table width decreased to {newWidth,number} pixel.⁭؜‌⁮⁮⁬‍‍⁠⁯⁫⁮⁫⁠⁠⁪⁮⁡‍⁬⁣⁤} other {⁣⁢Table width decreased to {newWidth,number} pixels.⁭؜‌⁮⁮⁬‍‍⁠⁯⁫⁮⁫⁠⁠⁪⁮⁡‍⁬⁣⁤}}',
   'fabric.editor.tableResizeIncreaseScreenReaderInformation':
     '{newWidth, plural, one {⁣⁢Table width increased to {newWidth,number} pixel.⁬⁪⁡‌⁮‍⁬‌؜⁫⁡⁫⁯⁭⁪؜⁬⁮⁣⁤} other {⁣⁢Table width increased to {newWidth,number} pixels.⁬⁪⁡‌⁮‍⁬‌؜⁫⁡⁫⁯⁭⁪؜⁬⁮⁣⁤}}',
+  'fabric.editor.tableScrollRegion': '⁣⁢Table scroll region⁬؜⁭‌⁯⁭⁬؜⁡⁭‌‍⁭⁪⁫⁫⁮⁫⁯⁮؜⁣⁤',
   'fabric.editor.tableSelector': '⁣⁢Table size⁠⁭⁬⁯⁮؜⁬⁫⁪؜⁯⁫⁪؜⁯‍⁯⁮⁯⁬⁪⁫‍⁣⁤',
   'fabric.editor.tableSelector.description':
     '⁣⁢Add a table using popup to select a custom size⁬‌⁭⁪⁬⁠‌؜⁫‍⁠⁭‍⁬⁭‌؜⁪⁠⁬⁪⁯⁬⁣⁤',
@@ -1036,8 +1043,8 @@ export default {
     '⁣⁢Begin typing to search or filter shortcut options⁡‌⁬⁠⁡⁪⁭⁠⁪‌⁮⁡⁪‌‍؜⁮⁡‌‍⁪⁡⁬⁣⁤',
   'fabric.editor.typeAhead.quickInsertInputPlaceholderLabel': '⁣⁢Search⁪⁡⁮‍⁠⁯⁮؜‌‌؜⁮⁮⁫⁯⁪⁯؜⁬⁮⁠‌‌⁣⁤',
   'fabric.editor.typeAhead.quickInsertPopupLabel': '⁣⁢Shortcuts for inserts and formatting؜‌⁬‍⁯⁠‍⁮؜⁪‍⁭؜‍⁬‍؜؜⁡‌؜⁠⁭؜⁬⁣⁤',
-  'fabric.editor.typeAheadErrorFallbackDescription': '⁣⁢Please try again.؜⁮⁯؜؜⁪⁬‍⁠⁠؜⁯⁠⁭⁮‌‌⁭‌⁪⁪‌⁬‌⁭⁮⁯⁣⁤',
-  'fabric.editor.typeAheadErrorFallbackHeading': '⁣⁢Something went wrong!‍⁪⁪⁬⁬⁬⁡⁭⁬⁪؜⁮؜؜⁪⁭⁮⁯‍‍⁯⁪⁫⁣⁤',
+  'fabric.editor.typeAheadErrorFallbackDescription': '⁣⁢No results available. Try again.⁬⁠؜؜⁫⁯؜⁪⁠⁮⁫⁫⁬⁡⁪⁯‍⁯؜⁡⁯⁣⁤',
+  'fabric.editor.typeAheadErrorFallbackHeading': '⁣⁢Something went wrong⁫⁪⁡‌‍؜⁪⁯⁭؜⁬⁮⁫⁠⁠⁯⁮⁭⁬⁠⁮⁡⁬؜⁫⁭⁣⁤',
   'fabric.editor.typeahead.emojiInputLabel': '⁣⁢Begin typing to search or filter emoji options⁠؜‍⁯⁮⁫⁪⁫⁬‌؜‍‍⁠‍⁠⁯⁠⁭⁪‍‍⁣⁤',
   'fabric.editor.typeahead.emojiListItemLabel': '⁣⁢Emoji {name} Text Shortcut {shortcut}؜⁯‍⁫؜⁭؜⁠⁠⁮⁭؜⁫؜⁪‌⁠‌⁠⁭⁠⁣⁤',
   'fabric.editor.typeahead.emojiPopupLabel': '⁣⁢Emoji shortcuts⁮⁭⁮⁫؜⁯⁮⁡⁬؜⁯⁮⁮⁮‍؜⁯⁠⁪⁪⁣⁤',

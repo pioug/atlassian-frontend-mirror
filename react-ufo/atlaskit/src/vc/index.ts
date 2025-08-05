@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import type { RevisionPayload, VCRawDataType, VCResult } from '../common/vc/types';
 import { isVCRevisionEnabled } from '../config';
 
@@ -128,12 +126,6 @@ export class VCObserverWrapper implements VCObserverInterface {
 				})
 			: [];
 
-		fg('ufo_chrome_devtools_uplift') &&
-			this.addPerformanceMeasures(param.start, [
-				...((v1v2Result?.['ufo:vc:rev'] as RevisionPayload | undefined) || []),
-				...(v3Result ?? []),
-			]);
-
 		if (!v3Result) {
 			return v1v2Result ?? {};
 		}
@@ -160,49 +152,6 @@ export class VCObserverWrapper implements VCObserverInterface {
 	}
 	collectSSRPlaceholders(): void {
 		this.ssrPlaceholderHandler.collectExistingPlaceholders();
-	}
-
-	private addPerformanceMeasures(start: number, measures: RevisionPayload) {
-		try {
-			measures.forEach((entry) => {
-				if (!entry || !entry.vcDetails) {
-					return;
-				}
-
-				const VCParts = Object.keys(entry.vcDetails);
-
-				performance.measure(`VC90 (${entry.revision})`, {
-					start,
-					duration: entry.vcDetails?.['90']?.t,
-					detail: {
-						devtools: {
-							track: `main metrics`,
-							trackGroup: '🛸 reactUFO metrics',
-							color: 'tertiary',
-						},
-					},
-				});
-
-				VCParts.forEach((key) => {
-					const duration = entry.vcDetails?.[key].t;
-					if (typeof duration !== 'number') {
-						return;
-					}
-
-					performance.measure(`VC${key}`, {
-						start,
-						duration,
-						detail: {
-							devtools: {
-								track: `VC ${entry.revision}`,
-								trackGroup: '🛸 reactUFO metrics',
-								color: key === '90' ? 'tertiary' : 'primary-light',
-							},
-						},
-					});
-				});
-			});
-		} catch (error) {}
 	}
 }
 

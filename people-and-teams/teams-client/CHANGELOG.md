@@ -1,5 +1,13 @@
 # @atlaskit/teams-client
 
+## 4.10.0
+
+### Minor Changes
+
+- [#195513](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195513)
+  [`22eeb98d28d35`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22eeb98d28d35) -
+  Added APIs and state stores for mixscoped team and site assignment
+
 ## 4.9.1
 
 ### Patch Changes

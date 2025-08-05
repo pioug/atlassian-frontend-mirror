@@ -78,7 +78,7 @@ const Store = createStore<ProductPermissionsStore, ProductPermissionsActions>({
 		permissions: {},
 	},
 	actions,
-	name: 'product-permissions',
+	name: 'product-permissions-old',
 });
 
 export const useProductPermissionsStore = createHook(Store);

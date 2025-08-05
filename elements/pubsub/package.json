@@ -61,13 +61,5 @@
 		"jest-extended": "root:*",
 		"sinon": "root:*",
 		"typescript": "root:*"
-	},
-	"platform-feature-flags": {
-		"platform-delay-retries-for-clients-on-fps": {
-			"type": "boolean"
-		},
-		"platform-delay-retries-on-first-connect-fps": {
-			"type": "boolean"
-		}
 	}
 }

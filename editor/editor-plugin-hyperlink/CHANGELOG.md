@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 5.3.0
+
+### Minor Changes
+
+- [#196046](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/196046)
+  [`b0dad85aa7c35`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b0dad85aa7c35) -
+  [ux] [ED-27974] Allow hyperlink plugin to change text to link on blur
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.2.2
+
+### Patch Changes
+
+- [#195649](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195649)
+  [`231bb33e06dfe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/231bb33e06dfe) -
+  EDITOR-1131 Bump adf-schema version to 50.2.0
+- Updated dependencies
+
 ## 5.2.1
 
 ### Patch Changes

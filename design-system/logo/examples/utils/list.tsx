@@ -106,7 +106,7 @@ const logoMap: {
 	{ name: 'atlassian', logo: AtlassianLogo, icon: AtlassianIcon },
 	{ name: 'atlassian-access', logo: AtlassianAccessLogo, icon: AtlassianAccessIcon },
 	{ name: 'atlassian-marketplace', logo: AtlassianMarketplaceLogo, icon: AtlassianMarketplaceIcon },
-	// Product logos
+	// App logos
 	{ name: 'home', logo: HomeLogo, icon: HomeIcon },
 	{ name: 'hub', logo: HubLogo, icon: HubIcon },
 	{ name: 'confluence', logo: ConfluenceLogo, icon: ConfluenceIcon },

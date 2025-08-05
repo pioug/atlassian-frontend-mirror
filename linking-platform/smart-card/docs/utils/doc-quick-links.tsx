@@ -130,7 +130,7 @@ const externalLinks = [
 		onClick: () => openUrl('https://hello.atlassian.net/wiki/spaces/TWPLP/pages/4448067142'),
 	},
 	{
-		name: '#help-twg-linking-platform',
+		name: '#help-fe-linking-platform',
 		elemBefore: <MegaphoneIcon label="" />,
 		elemAfter: <LinkExternalIcon label="Open in new tab" />,
 		onClick: () => openUrl('https://atlassian.enterprise.slack.com/archives/CFKGAQZRV'),

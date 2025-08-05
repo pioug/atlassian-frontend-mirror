@@ -81,46 +81,16 @@ snapshot(AllSlots, {
 		 */
 		skip: true,
 	},
-	featureFlags: {
-		platform_dst_nav4_banner_default_height: true,
-	},
 });
 
-snapshot(AllSlotsRTL, {
-	...defaultOptions,
-	featureFlags: {
-		platform_dst_nav4_banner_default_height: true,
-	},
-});
+snapshot(AllSlotsRTL, defaultOptions);
+snapshot(AllSlotsScrollable, defaultOptions);
 
-snapshot(AllSlotsScrollable, {
-	...defaultOptions,
-	featureFlags: {
-		platform_dst_nav4_banner_default_height: true,
-	},
-});
+snapshot(AllSlotsScrollableFixed, defaultOptions);
 
-snapshot(AllSlotsScrollableFixed, {
-	...defaultOptions,
-	featureFlags: {
-		platform_dst_nav4_banner_default_height: true,
-	},
-});
+snapshot(AllSlotsCustomSizes, defaultOptions);
 
-snapshot(AllSlotsCustomSizes, {
-	...defaultOptions,
-	featureFlags: {
-		platform_dst_nav4_banner_default_height: true,
-	},
-});
-
-snapshot(AllSlotsBannerHeightZero, {
-	...defaultOptions,
-	featureFlags: {
-		platform_dst_nav4_banner_default_height: true,
-	},
-});
-
+snapshot(AllSlotsBannerHeightZero, defaultOptions);
 snapshot(EdgeCaseSiblingAbsolutePositioned, {
 	...defaultOptions,
 	a11y: {
@@ -132,9 +102,6 @@ snapshot(EdgeCaseSiblingAbsolutePositioned, {
 		 * but then we run into type errors with the colors not being tokens. We can ignore them but it adds noise for no real gain.
 		 */
 		skip: true,
-	},
-	featureFlags: {
-		platform_dst_nav4_banner_default_height: true,
 	},
 });
 
@@ -150,9 +117,6 @@ snapshot(EdgeCaseSiblingAbsolutePositionedCollapsed, {
 		 */
 		skip: true,
 	},
-	featureFlags: {
-		platform_dst_nav4_banner_default_height: true,
-	},
 });
 
 snapshot(EdgeCaseSiblingAbsolutePositionedPanelVisible, {
@@ -166,9 +130,6 @@ snapshot(EdgeCaseSiblingAbsolutePositionedPanelVisible, {
 		 * but then we run into type errors with the colors not being tokens. We can ignore them but it adds noise for no real gain.
 		 */
 		skip: true,
-	},
-	featureFlags: {
-		platform_dst_nav4_banner_default_height: true,
 	},
 });
 
@@ -184,9 +145,6 @@ snapshot(EdgeCaseSiblingAbsolutePositionedCustomSizes, {
 		 */
 		skip: true,
 	},
-	featureFlags: {
-		platform_dst_nav4_banner_default_height: true,
-	},
 });
 
 snapshot(EdgeCaseUsingLegacyVars, {
@@ -200,9 +158,6 @@ snapshot(EdgeCaseUsingLegacyVars, {
 		 * but then we run into type errors with the colors not being tokens. We can ignore them but it adds noise for no real gain.
 		 */
 		skip: true,
-	},
-	featureFlags: {
-		platform_dst_nav4_banner_default_height: true,
 	},
 });
 
@@ -223,7 +178,6 @@ snapshot(TopBarSideNavMain, defaultOptions);
 snapshot(TopBarSideNavMainAside, defaultOptions);
 
 snapshot(TopBarSideNavMainAsideScrollable, defaultOptions);
-
 snapshot(TopBarSideNavMainAsideScrollableFixed, defaultOptions);
 
 snapshot(TopBarSideNavMainScrollable, defaultOptions);
@@ -278,17 +232,11 @@ snapshot(SideNavContentScrollWithStickyVR, {
 snapshot(PanelAsideDefaultWidthsVR, {
 	...defaultOptions,
 	description: 'Panel and Aside - default widths',
-	featureFlags: {
-		platform_dst_nav4_banner_default_height: true,
-	},
 });
 
 snapshot(PanelAsideZeroWidthsVR, {
 	...defaultOptions,
 	description: 'Panel and Aside - zero widths',
-	featureFlags: {
-		platform_dst_nav4_banner_default_height: true,
-	},
 });
 
 snapshot(AsideBorderExample, {

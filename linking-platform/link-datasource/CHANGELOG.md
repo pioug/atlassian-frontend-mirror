@@ -1,5 +1,28 @@
 # @atlaskit/link-datasource
 
+## 4.19.0
+
+### Minor Changes
+
+- [#195804](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195804)
+  [`3145c64a9e71a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3145c64a9e71a) -
+  NAVX-1180 updating datasource modal return focus to specific element if ref is provided
+
+### Patch Changes
+
+- [#195926](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195926)
+  [`3aa517526ff72`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3aa517526ff72) -
+  NAVX-1285 cleaning up fix_a11y_issues_inline_edit
+- Updated dependencies
+
+## 4.18.2
+
+### Patch Changes
+
+- [#195649](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195649)
+  [`231bb33e06dfe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/231bb33e06dfe) -
+  EDITOR-1131 Bump adf-schema version to 50.2.0
+
 ## 4.18.1
 
 ### Patch Changes

@@ -95,6 +95,7 @@ export function getDefaultPresetOptionsFromEditorProps(
 			linkPicker: props.linking?.linkPicker,
 			onClickCallback: cardOptions?.onClickCallback,
 			platform: 'web',
+			autoLinkOnBlur: props.linking?.autoLinkOnBlur,
 		},
 		codeBlock: {
 			...props.codeBlock,

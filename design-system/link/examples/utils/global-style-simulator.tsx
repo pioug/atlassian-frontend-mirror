@@ -4,7 +4,7 @@ import React from 'react';
  * __Global Style Simulator__
  *
  * Sets global styles to replicate existing styles
- * in products like Jira and Confluence, that Link
+ * in apps like Jira and Confluence, that Link
  * needs to have a higher style specificity to override.
  */
 const GlobalStyleSimulator = () => {

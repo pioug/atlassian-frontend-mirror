@@ -15,7 +15,6 @@ snapshotInformational(WithAssetsModalVR, {
 		await page.getByRole('listbox').getByText('objSchema1').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		fix_a11y_issues_inline_edit: true,
 		'linking-platform-assests-schema-selector-refresh': [true, false],
 	},
 });
@@ -32,7 +31,6 @@ snapshotInformational(WithAssetsModalVR, {
 		await page.getByRole('listbox').getByText('objSchema1').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		fix_a11y_issues_inline_edit: true,
 		'linking-platform-assests-schema-selector-refresh': true,
 	},
 });
@@ -54,7 +52,6 @@ snapshotInformational(WithAssetsModalVR, {
 		await page.getByRole('listbox').getByText('objSchema1').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		fix_a11y_issues_inline_edit: true,
 		'linking-platform-assests-schema-selector-refresh': false,
 	},
 });
@@ -71,7 +68,6 @@ snapshotInformational(WithAssetsModalVR, {
 		await page.getByRole('listbox').getByText('No options').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		fix_a11y_issues_inline_edit: true,
 		'linking-platform-assests-schema-selector-refresh': true,
 	},
 });
@@ -93,7 +89,6 @@ snapshotInformational(WithAssetsModalVR, {
 		await page.getByRole('listbox').getByText('No options').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		fix_a11y_issues_inline_edit: true,
 		'linking-platform-assests-schema-selector-refresh': false,
 	},
 });

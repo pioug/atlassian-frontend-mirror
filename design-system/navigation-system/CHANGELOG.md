@@ -1,5 +1,27 @@
 # @atlassian/navigation-system
 
+## 0.177.1
+
+### Patch Changes
+
+- [#195513](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195513)
+  [`1574f6e829fe4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1574f6e829fe4) -
+  Fix support for `currentColor` in icons used in `elemBefore` of `ExpandableMenuItemTrigger` to
+  ensure correct icon color in selected state.
+
+## 0.177.0
+
+### Minor Changes
+
+- [`e12d813a2d3fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e12d813a2d3fd) -
+  The default height of the Banner layout area has been updated to 48px, down from 64px, to align
+  with the height of the @atlaskit/banner component. This change was previously behind a feature
+  flag, which has now been removed.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.176.2
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-selection",
-	"version": "3.0.4",
+	"version": "3.0.5",
 	"description": "Selection plugin for @atlaskit/editor-core",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -95,6 +95,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_fix_right_arrow_nav_bug_in_layout": {
+			"type": "boolean"
+		},
+		"platform_editor_fix_list_item_nav_bug_in_layout": {
 			"type": "boolean"
 		}
 	}

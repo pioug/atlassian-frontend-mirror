@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-table",
-	"version": "12.1.9",
+	"version": "12.1.12",
 	"description": "Table plugin for the @atlaskit/editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -150,9 +150,6 @@
 		"platform_editor_nested_tables_sticky_header_bug": {
 			"type": "boolean"
 		},
-		"platform_editor_sort_decoration_fix_on_live_page": {
-			"type": "boolean"
-		},
 		"platform_editor_table_column_selected_state_fix": {
 			"type": "boolean"
 		},
@@ -181,9 +178,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_table_drag_menu_flickers_fix": {
-			"type": "boolean"
-		},
-		"platform_editor_r18_fix_selection_resync": {
 			"type": "boolean"
 		},
 		"platform_editor_table_fw_numcol_overflow_fix": {

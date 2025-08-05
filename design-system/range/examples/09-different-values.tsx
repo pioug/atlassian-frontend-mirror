@@ -1,6 +1,11 @@
-import React from 'react';
-
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { jsx } from '@atlaskit/css';
 import { Label } from '@atlaskit/form';
+import Heading from '@atlaskit/heading';
+import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import Range from '@atlaskit/range';
 
 const baseProps = {
@@ -11,7 +16,7 @@ const baseProps = {
 const RangeValues = () => (
 	<div data-testid="container">
 		<section>
-			<h2>With Default Values</h2>
+			<Heading size="medium">With Default Values</Heading>
 			<Label htmlFor="range-0">Default 0%</Label>
 			<Range id="range-0" {...baseProps} value={-50} />
 
@@ -28,7 +33,7 @@ const RangeValues = () => (
 			<Range id="range-100" {...baseProps} value={50} />
 		</section>
 		<section>
-			<h2>Correct display</h2>
+			<Heading size="medium">Correct display</Heading>
 			<Label htmlFor="range-min">
 				If <code>value</code> &lt; <code>min</code>
 			</Label>
@@ -40,7 +45,7 @@ const RangeValues = () => (
 			<Range id="range-max" {...baseProps} value={100} />
 		</section>
 		<section>
-			<h2>Correctly rounding blue track width to align with thumb</h2>
+			<Heading size="medium">Correctly rounding blue track width to align with thumb</Heading>
 			{/* Cases which were previously identified to have issues */}
 			<Label htmlFor="range-20">Step 20</Label>
 			<Range id="range-20" value={30} min={-50} max={50} step={20} />
@@ -48,6 +53,18 @@ const RangeValues = () => (
 			<Range id="range-1" value={42.5} min={30} max={80} step={1} />
 			<Label htmlFor="range-10">Step 10</Label>
 			<Range id="range-10" value={42.5} min={30} max={80} step={10} />
+		</section>
+		<section>
+			<Heading size="medium">Horizontal space regression - wrapper div layout</Heading>
+			{/* Test wrapper div impact in various layout contexts */}
+			<Stack space="space.200">
+				<Text>Range with flexbox siblings:</Text>
+				<Inline space="space.100" alignBlock="center">
+					<Text>Label:</Text>
+					<Range aria-label="range with flexbox siblings" value={50} min={0} max={100} step={1} />
+					<Text>78%</Text>
+				</Inline>
+			</Stack>
 		</section>
 	</div>
 );

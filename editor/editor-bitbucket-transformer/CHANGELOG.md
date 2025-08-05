@@ -1,5 +1,19 @@
 # @atlaskit/editor-bitbucket-transformer
 
+## 9.3.0
+
+### Minor Changes
+
+- [`9fc27f7f896b6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9fc27f7f896b6) -
+  Add support for parsing and serializing editor mediaCaptions, to prepare for usage in BBC
+
+## 9.2.6
+
+### Patch Changes
+
+- [`3c0d8de2cb233`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c0d8de2cb233) -
+  remove conditional for code reviwer reasoning in transformer
+
 ## 9.2.5
 
 ### Patch Changes

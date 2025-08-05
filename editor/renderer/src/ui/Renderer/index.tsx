@@ -772,8 +772,11 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 					 * Telepointer changes will also cause a childList mutation, so we manually ignore it.
 					 * Telepointer changes are always a singular node-adds or node-removes.
 					 */
+					const isAdfStreamingEnabled =
+						expValEqualsNoExposure('platform_editor_ai_iw_adf_streaming', 'isEnabled', true) ||
+						expValEqualsNoExposure('platform_editor_ai_ct_sg_adf_streaming', 'isEnabled', true);
 					if (
-						expValEqualsNoExposure('platform_editor_ai_iw_adf_streaming', 'isEnabled', true) &&
+						isAdfStreamingEnabled &&
 						mutation.type === 'childList' &&
 						!(
 							(mutation.addedNodes.length === 1 &&

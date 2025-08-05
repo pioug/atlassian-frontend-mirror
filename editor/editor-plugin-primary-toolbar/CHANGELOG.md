@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-primary-toolbar
 
+## 4.1.3
+
+### Patch Changes
+
+- [#195513](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195513)
+  [`98c0ba1c91086`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/98c0ba1c91086) -
+  [EDITOR-1073] Adding a FG to gate Jira as well as Confluence for Undo/ Redo/ Show Diff buttons in
+  the primary toolbar
+
 ## 4.1.2
 
 ### Patch Changes

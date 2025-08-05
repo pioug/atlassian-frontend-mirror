@@ -15,7 +15,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { SortOrder } from '@atlaskit/editor-common/types';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type tablePlugin from '../../tablePlugin';
 import { SortingIconWrapper } from '../../ui/icons/SortingIconWrapper';
@@ -52,12 +51,10 @@ export const createPlugin = (
 						(s) => s?.type === 'sorting-decoration',
 					);
 
-					return fg('platform_editor_sort_decoration_fix_on_live_page')
-						? {
-								...pluginState,
-								decorations: pluginState?.decorations?.remove(sortingDecorations),
-							}
-						: pluginState;
+					return {
+						...pluginState,
+						decorations: pluginState?.decorations?.remove(sortingDecorations),
+					};
 				}
 				let { decorations, sort, allTables } = pluginState;
 
@@ -99,9 +96,7 @@ export const createPlugin = (
 				if (
 					(hoverTableMeta && !isTableInState) ||
 					sortMeta ||
-					(isTableInState &&
-						!sortingDecorations.length &&
-						fg('platform_editor_sort_decoration_fix_on_live_page'))
+					(isTableInState && !sortingDecorations.length)
 				) {
 					allTables.forEach((table) => {
 						const [tableId, _node, pos] = table;

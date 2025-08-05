@@ -21,7 +21,7 @@ export function getSourceCode(
 ): SourceCode | TSESLint.SourceCode {
 	// `context.sourceCode` is the preferred way to access SourceCode, as
 	// `context.getSourceCode()` is deprecated in v8 and removed in v9.
-	// this needs to be ts-ignore because if other products use a different eslint/typescript-eslint version, it will fail in
+	// this needs to be ts-ignore because if other apps use a different eslint/typescript-eslint version, it will fail in
 	// those builds, but not for platform
 	// @ts-ignore platform uses typescript-eslint v6 which doesn't have `context.sourceCode` yet
 	return context.sourceCode ?? context.getSourceCode();

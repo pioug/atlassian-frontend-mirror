@@ -18,7 +18,7 @@ const svg = (
 		iconGradientStop: legacyDefaultLogoParams.iconGradientStart,
 		iconColor,
 		textColor,
-		// We treat the word "Atlassian" differently to normal product logos, it has a bold brand look
+		// We treat the word "Atlassian" differently to normal app logos, it has a bold brand look
 		atlassianLogoTextColor: textColor,
 	};
 

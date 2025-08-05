@@ -1,5 +1,35 @@
 # @atlaskit/editor-core
 
+## 209.6.1
+
+### Patch Changes
+
+- [#195989](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195989)
+  [`4132618fc5097`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4132618fc5097) -
+  EDITOR-1146 Remove usage of FG `platform_editor_sort_decoration_fix_on_live_page`
+- Updated dependencies
+
+## 209.6.0
+
+### Minor Changes
+
+- [#196046](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/196046)
+  [`b0dad85aa7c35`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b0dad85aa7c35) -
+  [ux] [ED-27974] Allow hyperlink plugin to change text to link on blur
+
+### Patch Changes
+
+- Updated dependencies
+
+## 209.5.2
+
+### Patch Changes
+
+- [#195649](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195649)
+  [`231bb33e06dfe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/231bb33e06dfe) -
+  EDITOR-1131 Bump adf-schema version to 50.2.0
+- Updated dependencies
+
 ## 209.5.1
 
 ### Patch Changes

@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-table
 
+## 12.1.12
+
+### Patch Changes
+
+- [#195989](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195989)
+  [`4132618fc5097`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4132618fc5097) -
+  EDITOR-1146 Remove usage of FG `platform_editor_sort_decoration_fix_on_live_page`
+- Updated dependencies
+
+## 12.1.11
+
+### Patch Changes
+
+- [#195804](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195804)
+  [`c60fbe1e74541`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c60fbe1e74541) -
+  ED-28804: Cleanup FG platform_editor_r18_fix_selection_resync
+- Updated dependencies
+
+## 12.1.10
+
+### Patch Changes
+
+- [#195649](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195649)
+  [`231bb33e06dfe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/231bb33e06dfe) -
+  EDITOR-1131 Bump adf-schema version to 50.2.0
+- Updated dependencies
+
 ## 12.1.9
 
 ### Patch Changes

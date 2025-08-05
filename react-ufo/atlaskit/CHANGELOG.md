@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.1.13
+
+### Patch Changes
+
+- [#195513](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195513)
+  [`49b7bf5d4e698`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/49b7bf5d4e698) -
+  Added reactUFO as marks to Dev Tools
+
 ## 4.1.12
 
 ### Patch Changes

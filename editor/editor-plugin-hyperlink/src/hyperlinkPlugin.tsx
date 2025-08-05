@@ -149,7 +149,8 @@ export const hyperlinkPlugin: HyperlinkPlugin = ({ config: options = {}, api }) 
 				},
 				{
 					name: 'hyperlinkInputRule',
-					plugin: ({ schema }) => createInputRulePlugin(schema, api?.analytics?.actions),
+					plugin: ({ schema }) =>
+						createInputRulePlugin(schema, api?.analytics?.actions, options.autoLinkOnBlur),
 				},
 				{
 					name: 'hyperlinkKeymap',

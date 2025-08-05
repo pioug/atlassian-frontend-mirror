@@ -1,5 +1,14 @@
 # @atlaskit/media-filmstrip
 
+## 51.0.6
+
+### Patch Changes
+
+- [#195965](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195965)
+  [`cb62fe28ac58c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cb62fe28ac58c) -
+  ED-28806: FG cleanup - platform_editor_media_group_padding_css_fix
+- Updated dependencies
+
 ## 51.0.5
 
 ### Patch Changes

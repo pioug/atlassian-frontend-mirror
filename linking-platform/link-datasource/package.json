@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "4.18.1",
+	"version": "4.19.0",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -181,9 +181,6 @@
 			"type": "boolean"
 		},
 		"dst-a11y__replace-anchor-with-link__linking-platfo": {
-			"type": "boolean"
-		},
-		"fix_a11y_issues_inline_edit": {
 			"type": "boolean"
 		},
 		"should-render-to-parent-should-be-true-linking-pla": {

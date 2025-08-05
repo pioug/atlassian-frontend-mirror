@@ -61,6 +61,8 @@ export default {
   'fabric.editor.ai.config.item.brainstorm.promptHint': 'Themenbereich eingeben …',
   'fabric.editor.ai.config.item.brainstorm.promptLabel': 'Brainstorming durchführen',
   'fabric.editor.ai.config.item.brainstorm.title': 'Brainstorming durchführen',
+  'fabric.editor.ai.config.item.changeTone.adjustLengthNestingParentShortTitle': 'Länge',
+  'fabric.editor.ai.config.item.changeTone.adjustLengthNestingParentTitle': 'Länge anpassen',
   'fabric.editor.ai.config.item.changeTone.casualTone.description': 'Ändert den Ton des Inhalts zu "locker"',
   'fabric.editor.ai.config.item.changeTone.casualTone.selectionToolbar.dropdownItem.title': 'Locker',
   'fabric.editor.ai.config.item.changeTone.casualTone.shortTitle': 'Locker',
@@ -279,8 +281,9 @@ export default {
   'fabric.editor.ai.selectionToolbar.define.disabled.tooltip':
     'Markieren Sie einen Begriff, ein Akronym oder eine Abkürzung.',
   'fabric.editor.ai.selectionToolbar.define.title': 'Definieren',
+  'fabric.editor.ai.telepointer.rovo': 'Rovo',
   'fabric.editor.ai.toolbar.askAI.title': 'Atlassian Intelligence fragen',
-  'fabric.editor.ai.toolbar.askRovoInputButton.label': 'Rovo fragen',
+  'fabric.editor.ai.toolbar.askRovoAiSplitButton.label': 'Rovo-KI fragen',
   'fabric.editor.ai.toolbar.improveWriting.title': 'Texterstellung optimieren',
   'fabric.editor.ai.toolbar.improveWriting.tooltip':
     'Weisen Sie Atlassian Intelligence an, den von Ihnen ausgewählten Text zu verbessern.',
@@ -439,6 +442,7 @@ export default {
   'fabric.editor.displayOptionUnavailableInParentNode': 'Diese Anzeigeoption ist in {node} nicht verfügbar.',
   'fabric.editor.displayText': 'Text zum Anzeigen',
   'fabric.editor.distributeColumns': 'Spalten verteilen',
+  'fabric.editor.dragHandleZone': 'Bereich des Ziehpunkts aktivieren',
   'fabric.editor.dropPlaceholderLabel': 'Dokument',
   'fabric.editor.ecombedDescription': 'Interaktive Vorschau eines Links anzeigen',
   'fabric.editor.edit': 'Bearbeiten',
@@ -488,6 +492,7 @@ export default {
   'fabric.editor.elementbrowser.searchbar.placeholder': 'Suchen',
   'fabric.editor.elementbrowser.sidebar.heading': 'Durchsuchen',
   'fabric.editor.embedTitle': 'Einbetten',
+  'fabric.editor.embedToBlockCardWarning': 'Wird auf kleinen Bildschirmen als Karte angezeigt',
   'fabric.editor.emoji': 'Emoji',
   'fabric.editor.emoji.description': 'Verwenden Sie Emojis, um Ideen 🎉 und Emotionen 😄 auszudrücken.',
   'fabric.editor.emptyLink': 'Bitte geben Sie einen Link ein.',
@@ -713,6 +718,7 @@ export default {
   'fabric.editor.panel.custom': 'Benutzerdefiniert',
   'fabric.editor.panel.emoji': 'Emoji hinzufügen',
   'fabric.editor.panel.panelsGroup': 'Panel-Typen',
+  'fabric.editor.panelButtonTitle': 'Panel',
   'fabric.editor.pasteOptions': 'Optionen zum Einfügen',
   'fabric.editor.pastePlainText': 'Einfachen Text einfügen',
   'fabric.editor.placeholderAltText': 'Dieses Bild mit Alternativtext beschreiben',
@@ -803,6 +809,7 @@ export default {
     '{newWidth, plural, one {Die Tabellenbreite wurde auf {newWidth,number} Pixel verringert.} other {Die Tabellenbreite wurde auf {newWidth,number} Pixel verringert.}}',
   'fabric.editor.tableResizeIncreaseScreenReaderInformation':
     '{newWidth, plural, one {Die Tabellenbreite wurde auf {newWidth,number} Pixel erhöht.} other {Die Tabellenbreite wurde auf {newWidth,number} Pixel erhöht.}}',
+  'fabric.editor.tableScrollRegion': 'Scrollbarer Bereich der Tabelle',
   'fabric.editor.tableSelector': 'Tabellengröße',
   'fabric.editor.tableSelector.description':
     'Fügen Sie eine Tabelle hinzu und wählen Sie im Popup-Fenster eine benutzerdefinierte Größe aus.',
@@ -858,8 +865,8 @@ export default {
     'Beginnen Sie die Eingabe, um nach Optionen für Tastenkombinationen zu suchen oder diese zu filtern',
   'fabric.editor.typeAhead.quickInsertInputPlaceholderLabel': 'Suchen',
   'fabric.editor.typeAhead.quickInsertPopupLabel': 'Tastenkombination für Einfügungen und Formatierung',
-  'fabric.editor.typeAheadErrorFallbackDescription': 'Bitte versuchen Sie es erneut.',
-  'fabric.editor.typeAheadErrorFallbackHeading': 'Etwas ist schiefgelaufen!',
+  'fabric.editor.typeAheadErrorFallbackDescription': 'Es sind keine Ergebnisse verfügbar. Versuchen Sie es erneut.',
+  'fabric.editor.typeAheadErrorFallbackHeading': 'Es ist ein Fehler aufgetreten',
   'fabric.editor.typeahead.emojiInputLabel':
     'Beginnen Sie mit der Eingabe, um nach Optionen für Emojis zu suchen oder diese zu filtern',
   'fabric.editor.typeahead.emojiListItemLabel': 'Emoji {name} Tastenkombination für Text {shortcut}',

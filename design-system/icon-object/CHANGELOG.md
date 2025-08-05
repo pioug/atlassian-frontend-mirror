@@ -1,5 +1,13 @@
 # @atlaskit/icon-object
 
+## 7.2.0
+
+### Minor Changes
+
+- [#195926](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195926)
+  [`14604c78868cc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14604c78868cc) -
+  [ux] Icon Object now displays new design behind same feature flag as @atlaskit/icon
+
 ## 7.1.4
 
 ### Patch Changes

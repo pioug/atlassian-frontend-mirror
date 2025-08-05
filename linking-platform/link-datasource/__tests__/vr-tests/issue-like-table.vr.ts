@@ -16,7 +16,6 @@ snapshot(VRIssueLikeTable, {
 	],
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		fix_a11y_issues_inline_edit: true,
 	},
 });
 
@@ -32,7 +31,6 @@ snapshot(IssueLikeTableReadonly, {
 	],
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		fix_a11y_issues_inline_edit: true,
 	},
 });
 
@@ -48,6 +46,5 @@ snapshot(IssueLikeTableCustomColumns, {
 	],
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		fix_a11y_issues_inline_edit: true,
 	},
 });

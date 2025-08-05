@@ -1,7 +1,10 @@
 import React from 'react';
 
-import { layoutColumn, layoutSection } from '@atlaskit/adf-schema';
-import { layoutSectionWithSingleColumn } from '@atlaskit/adf-schema/schema';
+import { layoutColumn, layoutSection, layoutColumnWithLocalId } from '@atlaskit/adf-schema';
+import {
+	layoutSectionWithSingleColumn,
+	layoutSectionWithSingleColumnLocalId,
+} from '@atlaskit/adf-schema/schema';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -86,10 +89,15 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 				{
 					name: 'layoutSection',
 					node: editorExperiment('advanced_layouts', true)
-						? layoutSectionWithSingleColumn
+						? fg('platform_editor_adf_with_localid')
+							? layoutSectionWithSingleColumnLocalId
+							: layoutSectionWithSingleColumn
 						: layoutSection,
 				},
-				{ name: 'layoutColumn', node: layoutColumn },
+				{
+					name: 'layoutColumn',
+					node: fg('platform_editor_adf_with_localid') ? layoutColumnWithLocalId : layoutColumn,
+				},
 			];
 		},
 

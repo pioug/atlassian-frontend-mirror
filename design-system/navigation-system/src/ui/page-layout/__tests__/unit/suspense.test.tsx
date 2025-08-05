@@ -1,13 +1,20 @@
 import React from 'react';
 
+import { toBeSuspendable } from '@af/react-unit-testing';
+
 import CompositionExample from '../../../../../examples/composition';
+
+import { resetMatchMedia } from './_test-utils';
 
 beforeEach(() => {
 	resetMatchMedia();
 });
 
-import { resetMatchMedia, runSuspenseTest } from './_test-utils';
+// TODO: move to `jestFrameworkSetup.js` in follow up pull request
+expect.extend({
+	toBeSuspendable,
+});
 
 it('should support being suspended', async () => {
-	await runSuspenseTest(<CompositionExample />);
+	await expect(() => <CompositionExample />).toBeSuspendable();
 });

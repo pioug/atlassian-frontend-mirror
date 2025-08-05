@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Lozenge from '@atlaskit/lozenge';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type LozengeProps } from '../../../types';
@@ -9,7 +8,7 @@ import { HoverCard } from '../../HoverCard';
 import { type HoverPreviewOptions } from '../../HoverCard/types';
 import InlineLozenge from '../common/inline-lozenge';
 import { Frame } from '../Frame';
-import { IconAndTitleLayout, LozengeWrapper } from '../IconAndTitleLayout';
+import { IconAndTitleLayout } from '../IconAndTitleLayout';
 
 export interface InlineCardResolvedViewProps {
 	/** A unique ID for a Smart Link. */
@@ -52,35 +51,15 @@ export class InlineCardResolvedView extends React.Component<InlineCardResolvedVi
 			return null;
 		}
 		const appearance = lozenge.appearance || 'default';
-		if (fg('platform-linking-visual-refresh-inline-lozenge')) {
-			return (
-				<InlineLozenge
-					testId="inline-card-resolved-view-lozenge"
-					appearance={appearance}
-					style={{ backgroundColor: lozenge?.style?.backgroundColor, color: lozenge?.style?.color }}
-					isBold={
-						fg('platform-component-visual-refresh') ? lozenge.isBold !== false : lozenge.isBold
-					}
-				>
-					{lozenge.text}
-				</InlineLozenge>
-			);
-		}
-
 		return (
-			<LozengeWrapper>
-				<Lozenge
-					testId="inline-card-resolved-view-lozenge"
-					appearance={appearance}
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					style={lozenge.style}
-					isBold={
-						fg('platform-component-visual-refresh') ? lozenge.isBold !== false : lozenge.isBold
-					}
-				>
-					{lozenge.text}
-				</Lozenge>
-			</LozengeWrapper>
+			<InlineLozenge
+				testId="inline-card-resolved-view-lozenge"
+				appearance={appearance}
+				style={{ backgroundColor: lozenge?.style?.backgroundColor, color: lozenge?.style?.color }}
+				isBold={fg('platform-component-visual-refresh') ? lozenge.isBold !== false : lozenge.isBold}
+			>
+				{lozenge.text}
+			</InlineLozenge>
 		);
 	}
 

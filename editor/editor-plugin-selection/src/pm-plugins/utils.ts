@@ -425,11 +425,16 @@ export const isSelectionAtEndOfLayoutColumn = ($pos: ResolvedPos): boolean => {
 	if (grandParentDepth < 0) {
 		return false;
 	}
+
 	const { layoutColumn } = $pos.doc.type.schema.nodes;
 
 	const grandParent = $pos.node(grandParentDepth);
 	const afterPos = layoutColumnParent.pos + layoutColumnParent.node.nodeSize;
 	const $after = $pos.doc.resolve(afterPos);
+
+	if (fg('platform_editor_fix_list_item_nav_bug_in_layout')) {
+		return Boolean($after.nodeAfter);
+	}
 
 	return Boolean($after.nodeAfter) && grandParent.type === layoutColumn;
 };

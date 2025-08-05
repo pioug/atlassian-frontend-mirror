@@ -600,6 +600,30 @@ export class TeamsClient {
 	}
 
 	/**
+	 * Get enabled sites for a team
+	 */
+	async getTeamEnabledSites(
+		...args: Parameters<typeof defaultLegionClient.getTeamEnabledSites>
+	): Promise<AwaitedReturn<typeof defaultLegionClient.getTeamEnabledSites>> {
+		return this.measurePerformance('getTeamEnabledSites', () =>
+			this._legionClient.getTeamEnabledSites(...args),
+		);
+	}
+
+	/**
+	 * Assign teams to sites
+	 * @param migrations
+	 * @returns {Promise<AssignTeamsToSitesResponse>}
+	 */
+	async assignTeamsToSites(
+		...args: Parameters<typeof defaultLegionClient.assignTeamsToSites>
+	): Promise<AwaitedReturn<typeof defaultLegionClient.assignTeamsToSites>> {
+		return this.measurePerformance('assignTeamsToSites', () =>
+			this._legionClient.assignTeamsToSites(...args),
+		);
+	}
+
+	/**
 	 * Is the current user a site admin
 	 */
 	getIsSiteAdmin(

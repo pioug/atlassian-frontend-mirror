@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-selection
 
+## 3.0.5
+
+### Patch Changes
+
+- [#196046](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/196046)
+  [`6ac9374c00fe3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6ac9374c00fe3) -
+  [ux] [ED-25230] Follow up bug fix layout nav issue on list items
+- Updated dependencies
+
 ## 3.0.4
 
 ### Patch Changes

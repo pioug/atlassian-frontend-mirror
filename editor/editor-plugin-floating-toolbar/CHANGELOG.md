@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 5.1.7
+
+### Patch Changes
+
+- [`558ab977a6b1c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/558ab977a6b1c) -
+  Remove feature gate: platform_editor_overflow_dropdown_click_analytics
+- Updated dependencies
+
+## 5.1.6
+
+### Patch Changes
+
+- [#195965](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195965)
+  [`7fda5827b37c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7fda5827b37c1) -
+  ENGHEALTH-32254 Add aria-label to dropdownButtonItem so that ariaLabel from ai button will be
+  passed in
+- Updated dependencies
+
 ## 5.1.5
 
 ### Patch Changes

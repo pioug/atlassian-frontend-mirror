@@ -43,7 +43,6 @@ import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state'
 import { AllSelection, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type {
@@ -366,11 +365,7 @@ export function ContentComponent({
 		}
 
 		// Apply analytics to dropdown
-		if (
-			overflowDropdownItems.length > 0 &&
-			dispatchAnalyticsEvent &&
-			fg('platform_editor_overflow_dropdown_click_analytics')
-		) {
+		if (overflowDropdownItems.length > 0 && dispatchAnalyticsEvent) {
 			const currentItems = Array.isArray(items) ? items : items?.(node);
 			const updatedItems = currentItems.map((item) => {
 				if (item.type !== 'overflow-dropdown') {

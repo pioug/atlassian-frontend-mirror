@@ -11,12 +11,14 @@ import {
 	type TeamWithMemberships,
 } from '../../types';
 import {
+	type AssignTeamsToSitesResponse,
 	type ExternalReference,
 	type LinkedTeamsBulkResponse,
 	type LinkedTeamsProfileDetails,
 	type OrgScope,
 	type SoftDeletedTeam,
 	type SoftDeletedTeamResponse,
+	type TeamEnabledSitesResponse,
 	type TeamsPermissionFromApi,
 } from '../../types/team';
 import {
@@ -179,6 +181,12 @@ export interface LegionClient {
 	restoreTeamToSyncedGroup(teamId: string, externalReference: ExternalReference): Promise<void>;
 
 	createTeamContainers(payload: ApiTeamContainerCreationPayload): Promise<ApiTeamContainerResponse>;
+
+	getTeamEnabledSites(teamId: string): Promise<TeamEnabledSitesResponse>;
+
+	assignTeamsToSites(
+		migrations: { teamId: string; targetSite: string }[],
+	): Promise<AssignTeamsToSitesResponse>;
 }
 
 const v3UrlPath = `/v3/teams`;
@@ -689,6 +697,26 @@ export class LegionClient extends RestClient implements LegionClient {
 		payload: ApiTeamContainerCreationPayload,
 	): Promise<ApiTeamContainerResponse> {
 		return this.postResource<ApiTeamContainerResponse>(`${v4UrlPath}/containers`, { ...payload });
+	}
+
+	async getTeamEnabledSites(teamId: string): Promise<TeamEnabledSitesResponse> {
+		const teamEnabledSites = await this.getResourceCached<TeamEnabledSitesResponse>(
+			`${v4UrlPath}/migrations/scope/${teamId}`,
+		);
+		return teamEnabledSites;
+	}
+
+	async assignTeamsToSites(
+		migrations: { teamId: string; targetSite: string }[],
+	): Promise<AssignTeamsToSitesResponse> {
+		const assignTeamsToSitesResponse = await this.postResource<AssignTeamsToSitesResponse>(
+			`${v4UrlPath}/migrations/scope`,
+			{
+				originOrgId: this.getContext().orgId,
+				migrations,
+			},
+		);
+		return assignTeamsToSitesResponse;
 	}
 
 	// some Legion APIs return team id with the team ARI

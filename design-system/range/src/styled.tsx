@@ -115,7 +115,7 @@ const firefoxStyles = css({
 });
 
 const baseStyles = css({
-	width: '100%', // Has a fixed width by default
+	width: '100%', // Input should fill the wrapper
 	height: rangeHeight, // Otherwise thumb will collide with previous box element
 	backgroundColor: 'transparent', // Otherwise white
 	'&:focus': {
@@ -148,6 +148,7 @@ const themeStyles = css({
 
 const trackStyles = cssMap({
 	root: {
+		width: '100%',
 		height: rangeHeight,
 		position: 'relative',
 		'&::after': {

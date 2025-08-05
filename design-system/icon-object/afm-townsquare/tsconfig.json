@@ -28,9 +28,6 @@
 		},
 		{
 			"path": "../../icon-lab/afm-townsquare/tsconfig.json"
-		},
-		{
-			"path": "../../../platform/feature-flags/afm-townsquare/tsconfig.json"
 		}
 	]
 }

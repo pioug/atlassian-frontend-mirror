@@ -45,7 +45,7 @@ async function main() {
 			'@atlaskit/icon-lab',
 			'core',
 			{},
-			['icon', 'icon-lab', 'core'],
+			['icon', 'icon-lab'],
 			coreIconMetadata,
 			migrationMap,
 		);

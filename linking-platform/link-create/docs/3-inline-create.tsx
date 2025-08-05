@@ -9,7 +9,7 @@ export default md`
 
 	This is great for use cases where you want to display link create alongside other content on the page or within a custom UI component (such as a drawer or dropdown).
 
-  If you have any questions, you can reach out to [#help-twg-linking-platform](https://atlassian.slack.com/archives/CFKGAQZRV) for help.
+  If you have any questions, you can reach out to [#help-fe-linking-platform](https://atlassian.slack.com/archives/CFKGAQZRV) for help.
 
   ## Installation
 

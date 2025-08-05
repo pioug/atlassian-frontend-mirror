@@ -8,7 +8,6 @@ import { css, jsx } from '@compiled/react';
 import { render, screen } from '@testing-library/react';
 
 import type { GlyphProps } from '@atlaskit/icon/types';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { IconType } from '../../../../../../../constants';
 import IconElement from '../index';
@@ -200,35 +199,15 @@ describe('Element: Icon', () => {
 		});
 
 		describe('when hideLoadingSkeleton is true', () => {
-			ffTest.on(
-				'platform_fix_block_card_img_icon_vc',
-				'when platform_fix_block_card_img_icon_vc FG is on',
-				() => {
-					it('does not render loading placeholder', async () => {
-						render(<IconElement url="src-loading" hideLoadingSkeleton={true} />);
+			it('does not render loading placeholder', async () => {
+				render(<IconElement url="src-loading" hideLoadingSkeleton={true} />);
 
-						const loading = screen.queryByTestId('smart-element-icon-loading');
-						expect(loading).not.toBeInTheDocument();
+				const loading = screen.queryByTestId('smart-element-icon-loading');
+				expect(loading).not.toBeInTheDocument();
 
-						const image = await screen.findByTestId('smart-element-icon-image');
-						expect(image).toBeTruthy();
-					});
-				},
-			);
-
-			ffTest.off(
-				'platform_fix_block_card_img_icon_vc',
-				'when platform_fix_block_card_img_icon_vc FG is off',
-				() => {
-					it('renders shimmer placeholder on loading', async () => {
-						render(<IconElement url="src-loading" hideLoadingSkeleton={true} />);
-
-						const element = await screen.findByTestId('smart-element-icon-loading');
-
-						expect(element).toBeTruthy();
-					});
-				},
-			);
+				const image = await screen.findByTestId('smart-element-icon-image');
+				expect(image).toBeTruthy();
+			});
 		});
 	});
 

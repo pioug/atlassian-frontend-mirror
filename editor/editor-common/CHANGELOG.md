@@ -1,5 +1,47 @@
 # @atlaskit/editor-common
 
+## 107.17.0
+
+### Minor Changes
+
+- [#196046](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/196046)
+  [`b0dad85aa7c35`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b0dad85aa7c35) -
+  [ux] [ED-27974] Allow hyperlink plugin to change text to link on blur
+
+### Patch Changes
+
+- Updated dependencies
+
+## 107.16.4
+
+### Patch Changes
+
+- [#195926](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195926)
+  [`8f2914c784d79`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f2914c784d79) -
+  Update getLinkPreferencesUrlFromEnv to use correct atlassian context function
+  getUrlForDomainInContext as opposed to getDomainInContext
+- [#195804](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195804)
+  [`c60fbe1e74541`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c60fbe1e74541) -
+  ED-28804: Cleanup FG platform_editor_r18_fix_selection_resync
+- [#195965](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195965)
+  [`7fda5827b37c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7fda5827b37c1) -
+  ENGHEALTH-32254 Add aria-label to dropdownButtonItem so that ariaLabel from ai button will be
+  passed in
+- Updated dependencies
+
+## 107.16.3
+
+### Patch Changes
+
+- [#195353](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195353)
+  [`dc5e7898ce269`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dc5e7898ce269) -
+  EDITOR-1104 Replace panel with panelWithLocalId behind platform_editor_adf_with_localid feature
+  gate.
+- [#195649](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195649)
+  [`231bb33e06dfe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/231bb33e06dfe) -
+  EDITOR-1131 Bump adf-schema version to 50.2.0
+- Updated dependencies
+
 ## 107.16.2
 
 ### Patch Changes

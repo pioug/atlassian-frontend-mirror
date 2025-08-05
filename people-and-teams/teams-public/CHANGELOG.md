@@ -1,5 +1,14 @@
 # @atlaskit/teams-public
 
+## 0.51.2
+
+### Patch Changes
+
+- [#195513](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195513)
+  [`131c0040a117c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/131c0040a117c) -
+  Fix issues caused by duplicate store name
+- Updated dependencies
+
 ## 0.51.1
 
 ### Patch Changes

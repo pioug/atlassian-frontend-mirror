@@ -1,4 +1,4 @@
-import { getATLContextUrl, getDomainInContext } from '@atlaskit/atlassian-context';
+import { getATLContextUrl, getUrlForDomainInContext } from '@atlaskit/atlassian-context';
 import { type Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -31,7 +31,7 @@ export function isLinkAtPos(pos: number): Predicate {
 export const getLinkPreferencesURLFromENV = (): string => {
 	if (fg('platform_fix_preferences_url_in_isolated_cloud')) {
 		const envType: EnvironmentType = process.env.CLOUD_ENV === 'staging' ? STAGING : PRODUCTION;
-		return getDomainInContext('id', envType) + linkPreferencesPath;
+		return getUrlForDomainInContext('id', envType) + linkPreferencesPath;
 	}
 
 	return getATLContextUrl('id') + linkPreferencesPath;

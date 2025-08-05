@@ -1232,13 +1232,12 @@ describe('BitbucketTransformer: parser', () => {
 	});
 
 	describe('expand panel', () => {
-		it('should convert expand code block to expand panel if shouldParseCodeReviewerReasoning is true', () => {
+		it('should convert expand code block to expand panel', () => {
 			expect(
 				parse(
 					'<div class="codehilite language-expand">' +
 						'<pre><span></span><code>this is the expand panel title\nthis is the expand panel body line 1\nthis is line 2</code></pre>' +
 						'</div>',
-					{ shouldParseCodeReviewerReasoning: true },
 				),
 			).toEqualDocument(
 				doc(
@@ -1248,12 +1247,6 @@ describe('BitbucketTransformer: parser', () => {
 					})(p('this is the expand panel body line 1'), p('this is line 2')),
 				),
 			);
-		});
-
-		it('should remove expand code block if shouldParseCodeReviewerReasoning is false', () => {
-			expect(
-				parse('<div class="codehilite language-expand">' + '<pre><span></span></pre>' + '</div>'),
-			).toEqualDocument(doc(p('')));
 		});
 	});
 

@@ -27,6 +27,10 @@ export interface LinkingOptions {
 	 * Enables and configure smart link behaviour
 	 */
 	smartLinks?: CardOptions;
+	/**
+	 * Convert compatible link text to hyperlinks on blur of the editor
+	 */
+	autoLinkOnBlur?: boolean;
 }
 
 type OnClickCallback = ({
@@ -51,4 +55,8 @@ export interface HyperlinkPluginOptions {
 	lpLinkPicker?: boolean;
 	disableFloatingToolbar?: boolean;
 	onClickCallback?: OnClickCallback;
+	/**
+	 * Convert compatible link text to hyperlinks on blur of the editor
+	 */
+	autoLinkOnBlur?: boolean;
 }

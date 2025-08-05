@@ -14,7 +14,6 @@ export interface TransformerOptions {
 
 export interface AdditionalParseOptions {
 	shouldParseCodeSuggestions?: boolean;
-	shouldParseCodeReviewerReasoning?: boolean;
 	shouldParseImageResizingAttributes?: boolean;
 	shouldParseCaptions?: boolean;
 }

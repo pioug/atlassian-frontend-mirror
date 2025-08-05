@@ -1,5 +1,12 @@
 # @atlaskit/link-picker
 
+## 3.9.3
+
+### Patch Changes
+
+- [`e178e7edf0f80`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e178e7edf0f80) -
+  Clean up jsc_inline_editing_field_refactor FG.
+
 ## 3.9.2
 
 ### Patch Changes

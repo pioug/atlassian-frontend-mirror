@@ -7,7 +7,13 @@ import { getLighthouseMetrics } from '../additional-payload';
 import { CHRReporter } from '../assets';
 import * as bundleEvalTiming from '../bundle-eval-timing';
 import coinflip from '../coinflip';
-import type { ApdexType, BM3Event, InteractionMetrics, InteractionType } from '../common';
+import type {
+	ApdexType,
+	BM3Event,
+	InteractionMetrics,
+	InteractionType,
+	RevisionPayload,
+} from '../common';
 import { type ResourceTiming } from '../common/react-ufo-payload-schema';
 import { getConfig, getExperimentalInteractionRate, getUfoNameOverrides } from '../config';
 import { getExperimentalVCMetrics } from '../create-experimental-interaction-metrics-payload';
@@ -34,6 +40,7 @@ import {
 } from './common/utils';
 import { createCriticalMetricsPayloads } from './critical-metrics-payload';
 import type { CriticalMetricsPayload } from './critical-metrics-payload/types';
+import { addPerformanceMeasures } from './utils/add-performance-measures';
 import { getBrowserMetadataToLegacyFormat } from './utils/get-browser-metadata';
 import getInteractionStatus from './utils/get-interaction-status';
 import { getNavigationMetricsToLegacyFormat } from './utils/get-navigation-metrics';
@@ -212,7 +219,7 @@ function getSSRProperties(type: InteractionType) {
 	const ssrPhases = getSSRPhaseSuccess(type);
 
 	return {
-		'ssr:success': getSSRSuccessUtil(type),
+		'ssr:success': ssrPhases?.done != null ? ssrPhases.done : getSSRSuccessUtil(type),
 		'ssr:featureFlags': getSSRFeatureFlags(type),
 		...(ssrPhases?.earlyFlush != null
 			? {
@@ -730,11 +737,33 @@ async function createInteractionMetricsPayload(
 		const SSRDoneTimeValue = getSSRDoneTimeValue(config);
 		const SSRDoneTime =
 			SSRDoneTimeValue !== undefined ? { SSRDoneTime: Math.round(SSRDoneTimeValue) } : {};
+
+		const isBM3ConfigSSRDoneAsFmp = interaction.metaData.__legacy__bm3ConfigSSRDoneAsFmp;
+		const isUFOConfigSSRDoneAsFmp =
+			interaction.metaData.__legacy__bm3ConfigSSRDoneAsFmp || !!config?.ssr?.getSSRDoneTime;
+
+		if (
+			!experimental &&
+			(isBM3ConfigSSRDoneAsFmp || isUFOConfigSSRDoneAsFmp) &&
+			SSRDoneTimeValue !== undefined &&
+			fg('ufo_chrome_devtools_uplift')
+		) {
+			try {
+				performance.mark(`FMP`, {
+					startTime: SSRDoneTimeValue,
+					detail: {
+						devtools: {
+							dataType: 'marker',
+						},
+					},
+				});
+			} catch (e) {}
+		}
+
 		return {
 			...SSRDoneTime,
-			isBM3ConfigSSRDoneAsFmp: interaction.metaData.__legacy__bm3ConfigSSRDoneAsFmp,
-			isUFOConfigSSRDoneAsFmp:
-				interaction.metaData.__legacy__bm3ConfigSSRDoneAsFmp || !!config?.ssr?.getSSRDoneTime,
+			isBM3ConfigSSRDoneAsFmp,
+			isUFOConfigSSRDoneAsFmp,
 		};
 	};
 	const pageLoadInteractionMetrics = getInitialPageLoadSSRMetrics();
@@ -800,6 +829,13 @@ async function createInteractionMetricsPayload(
 		experimental ? getExperimentalVCMetrics(interaction) : Promise.resolve(undefined),
 		getPaintMetricsToLegacyFormat(type, end),
 	]);
+
+	if (!experimental) {
+		fg('ufo_chrome_devtools_uplift') &&
+			addPerformanceMeasures(interaction.start, [
+				...((finalVCMetrics?.['ufo:vc:rev'] as RevisionPayload | undefined) || []),
+			]);
+	}
 
 	const payload = {
 		actionSubject: 'experience',

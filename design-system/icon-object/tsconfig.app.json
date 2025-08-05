@@ -43,9 +43,6 @@
 			"path": "../icon-lab/tsconfig.app.json"
 		},
 		{
-			"path": "../../platform/feature-flags/tsconfig.app.json"
-		},
-		{
 			"path": "../codegen/tsconfig.app.json"
 		}
 	],

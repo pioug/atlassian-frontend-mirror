@@ -80,7 +80,6 @@ export function transformHtml(
 	options: {
 		disableBitbucketLinkStripping?: boolean;
 		shouldParseCodeSuggestions?: boolean;
-		shouldParseCodeReviewerReasoning?: boolean;
 		shouldParseImageResizingAttributes?: boolean;
 		shouldParseCaptions?: boolean;
 	},
@@ -119,12 +118,12 @@ export function transformHtml(
 		});
 	}
 
-	// convert expand code block to a expand panel if ff on if it is off remove the expand code block
+	// convert expand code block to a expand panel
 	Array.from(el.querySelectorAll('div.language-expand')).forEach(function (div) {
 		const parsedResult = parseContent(div.textContent || '');
 
 		if (div.parentNode) {
-			if (options.shouldParseCodeReviewerReasoning && parsedResult) {
+			if (parsedResult) {
 				const expandDiv = document.createElement('div');
 				expandDiv.setAttribute('data-node-type', 'expand');
 				expandDiv.setAttribute('data-title', parsedResult.title);

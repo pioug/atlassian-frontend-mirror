@@ -2,7 +2,7 @@
 /**
  * We are listening directly to drag events instead of using a monitor from
  * `@atlaskit/pragmatic-drag-and-drop` to avoid the bundle size cost, as it
- * would affect almost every view in every product.
+ * would affect almost every view in every app.
  *
  * We can reconsider this choice in the future.
  */

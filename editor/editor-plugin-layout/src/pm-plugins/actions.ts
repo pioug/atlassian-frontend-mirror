@@ -1,3 +1,4 @@
+import { uuid } from '@atlaskit/adf-schema';
 import type { EditorAnalyticsAPI, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
@@ -170,22 +171,31 @@ export const createMultiColumnLayoutSection = (state: EditorState, numberOfColum
 		Array.from(
 			{ length: numberOfColumns },
 			() =>
-				layoutColumn.createAndFill({ width: EVEN_DISTRIBUTED_COL_WIDTHS[numberOfColumns] }) as Node,
+				layoutColumn.createAndFill({
+					width: EVEN_DISTRIBUTED_COL_WIDTHS[numberOfColumns],
+					localId: fg('platform_editor_adf_with_localid') ? uuid.generate() : undefined,
+				}) as Node,
 		),
 	);
-	return layoutSection.createAndFill(undefined, columns) as Node;
+	const attrs = fg('platform_editor_adf_with_localid') ? { localId: uuid.generate() } : undefined;
+	return layoutSection.createAndFill(attrs, columns) as Node;
 };
 
 export const createDefaultLayoutSection = (state: EditorState) => {
 	const { layoutSection, layoutColumn } = state.schema.nodes;
-
 	// create a 50-50 layout by default
 	const columns = Fragment.fromArray([
-		layoutColumn.createAndFill({ width: 50 }) as Node,
-		layoutColumn.createAndFill({ width: 50 }) as Node,
+		layoutColumn.createAndFill({
+			width: 50,
+			...(fg('platform_editor_adf_with_localid') ? { localId: uuid.generate() } : undefined),
+		}) as Node,
+		layoutColumn.createAndFill({
+			width: 50,
+			...(fg('platform_editor_adf_with_localid') ? { localId: uuid.generate() } : undefined),
+		}) as Node,
 	]);
-
-	return layoutSection.createAndFill(undefined, columns) as Node;
+	const attrs = fg('platform_editor_adf_with_localid') ? { localId: uuid.generate() } : undefined;
+	return layoutSection.createAndFill(attrs, columns) as Node;
 };
 
 export const insertLayoutColumns: Command = (state, dispatch) => {
@@ -218,12 +228,13 @@ export const insertLayoutColumnsWithAnalytics =
  * Add a column to the right of existing layout
  */
 function addColumn(schema: Schema, pos: number) {
+	const attrs = fg('platform_editor_adf_with_localid') ? { localId: uuid.generate() } : undefined;
 	if (editorExperiment('advanced_layouts', false)) {
 		return (tr: Transaction) => {
 			tr.replaceWith(
 				tr.mapping.map(pos),
 				tr.mapping.map(pos),
-				schema.nodes.layoutColumn.createAndFill() as Node,
+				schema.nodes.layoutColumn.createAndFill(attrs) as Node,
 			);
 		};
 	}
@@ -232,7 +243,7 @@ function addColumn(schema: Schema, pos: number) {
 		tr.replaceWith(
 			tr.mapping.map(pos),
 			tr.mapping.map(pos),
-			schema.nodes.layoutColumn.createAndFill(undefined) as Node,
+			schema.nodes.layoutColumn.createAndFill(attrs) as Node,
 		);
 	};
 }

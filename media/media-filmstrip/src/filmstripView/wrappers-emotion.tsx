@@ -12,7 +12,6 @@ import { MediaFilmStripListItemSelector } from '.';
 import { css } from '@emotion/react';
 import { N20, N40, B400, B50 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 const filmStripViewStyles = css({
 	position: 'relative',
@@ -36,16 +35,12 @@ const filmStripListWrapperStyles = css({
 
 const filmStripListStyles = css({
 	margin: 0,
-	padding: 0,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- !important is used here to override padding coming from renderer RendererStyleContainer.tsx.
+	padding: '0 !important',
 	transitionProperty: 'transform',
 	transitionTimingFunction: 'cubic-bezier(0.77, 0, 0.175, 1)',
 	whiteSpace: 'nowrap',
 	display: 'inline-block',
-});
-
-const filmStripListPaddingOverride = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- !important is used here to override padding coming from renderer RendererStyleContainer.tsx.
-	padding: '0 !important',
 });
 
 const filmStripListItemStyles = css({
@@ -232,11 +227,7 @@ export type FilmStripListProps = {
 export const FilmStripList = React.forwardRef<HTMLUListElement, FilmStripListProps>(
 	({ children, style }, ref) => (
 		<ul
-			css={[
-				filmStripListStyles,
-				// Feature gate checks can't be inside the css() call. When cleaning up platform_editor_media_group_padding_css_fix merge the filmStripListPaddingOverride into filmStripListStyles.
-				fg('platform_editor_media_group_padding_css_fix') && filmStripListPaddingOverride,
-			]}
+			css={[filmStripListStyles]}
 			ref={ref as React.RefObject<HTMLUListElement>}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={style}

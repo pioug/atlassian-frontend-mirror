@@ -122,7 +122,6 @@ export const getIconObjectJSX = (
 import { IconTile } from '@atlaskit/icon';
 import NewIcon from '@atlaskit/${packageName}/core/${icon}';
 import type { GlyphProps } from '@atlaskit/icon/types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import IconObjectOld from '../../glyph-legacy/${name}/${size}';
 
@@ -137,20 +136,16 @@ const ${componentName} = ({
 	label,
 	testId,
 }: Omit<GlyphProps, 'primaryColor' | 'secondaryColor' | 'size'>) => {
-	if (fg('icon-object-migration')) {
-		return (
-			<IconTile
-				icon={NewIcon}
-				appearance="${appearance}"
-				size="${size}"
-				label={label}
-				testId={testId}
-				LEGACY_fallbackComponent={<IconObjectOld label={label} testId={testId} />}
-			/>
-		);
-	} else {
-		return <IconObjectOld label={label} testId={testId} />
-	}
+	return (
+		<IconTile
+			icon={NewIcon}
+			appearance="${appearance}"
+			size="${size}"
+			label={label}
+			testId={testId}
+			LEGACY_fallbackComponent={<IconObjectOld label={label} testId={testId} />}
+		/>
+	);
 };
 
 ${componentName}.displayName = '${componentName}';

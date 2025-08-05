@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/collab-provider",
-	"version": "11.0.7",
+	"version": "11.1.0",
 	"description": "A provider for collaborative editing.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -89,9 +89,6 @@
 			"type": "boolean"
 		},
 		"add_session_id_to_catchup_query": {
-			"type": "boolean"
-		},
-		"widen_presence_socket_reconnection_jitter": {
 			"type": "boolean"
 		}
 	},

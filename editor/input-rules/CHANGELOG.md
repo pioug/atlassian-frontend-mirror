@@ -1,5 +1,13 @@
 # @atlaskit/prosemirror-input-rules
 
+## 3.4.0
+
+### Minor Changes
+
+- [#196046](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/196046)
+  [`b0dad85aa7c35`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b0dad85aa7c35) -
+  [ux] [ED-27974] Allow hyperlink plugin to change text to link on blur
+
 ## 3.3.0
 
 ### Minor Changes

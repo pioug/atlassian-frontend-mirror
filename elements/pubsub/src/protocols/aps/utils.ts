@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 export const APS_STARGATE_PATH = '/gateway/wss/fps';
 
 /**
@@ -25,10 +23,8 @@ export const reconnectBackoffOptions = (isHidden: boolean) => {
  */
 export const firstConnectBackoffOptions = (isFallback: boolean) => {
 	return {
-		delayFirstAttempt: fg('platform-delay-retries-on-first-connect-fps'),
-		startingDelay: fg('platform-delay-retries-on-first-connect-fps')
-			? 500 + Math.random() * 3 * 60 * 1000
-			: 200,
+		delayFirstAttempt: false,
+		startingDelay: 200,
 		timeMultiple: 2,
 		numOfAttempts: isFallback ? 5 : 3,
 		maxDelay: 60 * 10 * 1000,
@@ -43,5 +39,5 @@ export const getTimestampBasedSequenceNumber = () => {
 };
 
 export const shouldDelayRetry = (isHidden: boolean) => {
-	return isHidden && fg('platform-delay-retries-for-clients-on-fps');
+	return isHidden;
 };

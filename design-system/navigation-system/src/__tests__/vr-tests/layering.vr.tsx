@@ -67,78 +67,18 @@ const panelSplitterHovered: SnapshotTestOptions<Hooks> = {
  *
  * Good luck out there!
  */
-snapshot(ScrollableFixedVR, {
-	...panelSplitterHovered,
-	featureFlags: {
-		platform_dst_nav4_banner_default_height: true,
-	},
-});
-snapshot(ScrollableFixedVR, {
-	...defaultOptions,
-	featureFlags: {
-		platform_dst_nav4_banner_default_height: true,
-	},
-});
-snapshot(UnscrollableFixedVR, {
-	...defaultOptions,
-	featureFlags: {
-		platform_dst_nav4_banner_default_height: true,
-	},
-});
-snapshot(ScrollableFixedNoPanelVR, {
-	...defaultOptions,
-	featureFlags: {
-		platform_dst_nav4_banner_default_height: true,
-	},
-});
-snapshot(ScrollableScrolledFixedVR, {
-	...defaultOptions,
-	featureFlags: {
-		platform_dst_nav4_banner_default_height: true,
-	},
-});
-snapshot(UnscrollableNoPanelFixedVR, {
-	...defaultOptions,
-	featureFlags: {
-		platform_dst_nav4_banner_default_height: true,
-	},
-});
-snapshot(ScrollableVR, {
-	...panelSplitterHovered,
-	featureFlags: {
-		platform_dst_nav4_banner_default_height: true,
-	},
-});
-snapshot(ScrollableVR, {
-	...defaultOptions,
-	featureFlags: {
-		platform_dst_nav4_banner_default_height: true,
-	},
-});
-snapshot(UnscrollableVR, {
-	...defaultOptions,
-	featureFlags: {
-		platform_dst_nav4_banner_default_height: true,
-	},
-});
-snapshot(ScrollableNoPanelVR, {
-	...defaultOptions,
-	featureFlags: {
-		platform_dst_nav4_banner_default_height: true,
-	},
-});
-snapshot(ScrollableScrolledVR, {
-	...defaultOptions,
-	featureFlags: {
-		platform_dst_nav4_banner_default_height: true,
-	},
-});
-snapshot(UnscrollableNoPanelVR, {
-	...defaultOptions,
-	featureFlags: {
-		platform_dst_nav4_banner_default_height: true,
-	},
-});
+snapshot(ScrollableFixedVR, panelSplitterHovered);
+snapshot(ScrollableFixedVR, defaultOptions);
+snapshot(UnscrollableFixedVR, defaultOptions);
+snapshot(ScrollableFixedNoPanelVR, defaultOptions);
+snapshot(ScrollableScrolledFixedVR, defaultOptions);
+snapshot(UnscrollableNoPanelFixedVR, defaultOptions);
+snapshot(ScrollableVR, panelSplitterHovered);
+snapshot(ScrollableVR, defaultOptions);
+snapshot(UnscrollableVR, defaultOptions);
+snapshot(ScrollableNoPanelVR, defaultOptions);
+snapshot(ScrollableScrolledVR, defaultOptions);
+snapshot(UnscrollableNoPanelVR, defaultOptions);
 
 /**
  * Intentionally redeclaring these snapshots for `platform_dst_nav4_disable_is_fixed_prop` enabled,
@@ -160,7 +100,6 @@ snapshot(ScrollableVR, {
 		},
 	],
 	featureFlags: {
-		platform_dst_nav4_banner_default_height: true,
 		platform_dst_nav4_disable_is_fixed_prop: true,
 	},
 });
@@ -175,7 +114,6 @@ snapshot(UnscrollableVR, {
 		},
 	],
 	featureFlags: {
-		platform_dst_nav4_banner_default_height: true,
 		platform_dst_nav4_disable_is_fixed_prop: true,
 	},
 });
@@ -190,7 +128,6 @@ snapshot(ScrollableNoPanelVR, {
 		},
 	],
 	featureFlags: {
-		platform_dst_nav4_banner_default_height: true,
 		platform_dst_nav4_disable_is_fixed_prop: true,
 	},
 });
@@ -205,7 +142,6 @@ snapshot(ScrollableScrolledVR, {
 		},
 	],
 	featureFlags: {
-		platform_dst_nav4_banner_default_height: true,
 		platform_dst_nav4_disable_is_fixed_prop: true,
 	},
 });
@@ -220,7 +156,6 @@ snapshot(UnscrollableNoPanelVR, {
 		},
 	],
 	featureFlags: {
-		platform_dst_nav4_banner_default_height: true,
 		platform_dst_nav4_disable_is_fixed_prop: true,
 	},
 });

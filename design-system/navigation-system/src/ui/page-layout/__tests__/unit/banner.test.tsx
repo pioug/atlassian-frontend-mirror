@@ -8,7 +8,7 @@ it('should set the height to the default value if height is not provided', () =>
 	render(<Banner>banner</Banner>);
 
 	expect(screen.getByText('banner')).toHaveTextContent(
-		'#unsafe-design-system-page-layout-root { --n_bnrM: 64px }',
+		'#unsafe-design-system-page-layout-root { --n_bnrM: 48px }',
 	);
 });
 

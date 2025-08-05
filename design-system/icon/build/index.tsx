@@ -74,7 +74,7 @@ async function main() {
 			'@atlaskit/icon',
 			'core',
 			synonyms,
-			['icon', 'core'],
+			['icon'],
 			coreIconMetadata,
 			migrationMap,
 			recommendedSmallIcons,
@@ -117,7 +117,7 @@ async function main() {
 			'@atlaskit/icon',
 			'utility',
 			synonyms,
-			['icon', 'utility'],
+			['icon'],
 			utilityIconMetadata,
 			migrationMap,
 		);

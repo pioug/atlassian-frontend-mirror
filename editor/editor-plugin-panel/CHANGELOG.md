@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-panel
 
+## 5.2.5
+
+### Patch Changes
+
+- [#195353](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195353)
+  [`dc5e7898ce269`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dc5e7898ce269) -
+  EDITOR-1104 Replace panel with panelWithLocalId behind platform_editor_adf_with_localid feature
+  gate.
+- [#195649](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195649)
+  [`231bb33e06dfe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/231bb33e06dfe) -
+  EDITOR-1131 Bump adf-schema version to 50.2.0
+- Updated dependencies
+
 ## 5.2.4
 
 ### Patch Changes

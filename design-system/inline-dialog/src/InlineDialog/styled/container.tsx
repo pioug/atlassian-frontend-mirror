@@ -56,7 +56,7 @@ interface ContainerProps {
 export const Container = forwardRef<HTMLDivElement, ContainerProps>(
 	({ children, onBlur, onClick, onFocus, style, testId }, ref) => {
 		return (
-			// Unfortunately, these are used for products to pass through. Inline Dialog is being deprecated anyway
+			// Unfortunately, these are used for apps to pass through. Inline Dialog is being deprecated anyway
 			// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, @atlassian/a11y/interactive-element-not-keyboard-focusable
 			<div
 				css={containerStyles}

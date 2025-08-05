@@ -8,7 +8,7 @@ import { type TabAttributesType, type TabProps } from '../types';
 /**
  * __Tab__
  *
- * Tab represents an indivudal Tab displayed in a TabList.
+ * Tab represents an individual Tab displayed in a TabList.
  *
  * - [Examples](https://atlassian.design/components/tabs/examples)
  * - [Code](https://atlassian.design/components/tabs/code)

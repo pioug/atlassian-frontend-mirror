@@ -1,5 +1,12 @@
 # @atlaskit/range
 
+## 9.2.2
+
+### Patch Changes
+
+- [`61e72adacd58c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/61e72adacd58c) -
+  Fix layout regression.
+
 ## 9.2.1
 
 ### Patch Changes

@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-layout
 
+## 3.1.5
+
+### Patch Changes
+
+- [#195965](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195965)
+  [`3a58e5cf3f7c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a58e5cf3f7c4) -
+  EDITOR-1104 Add localId attribute to layout nodes behind platform_editor_adf_with_localid
+- Updated dependencies
+
+## 3.1.4
+
+### Patch Changes
+
+- [#195649](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195649)
+  [`231bb33e06dfe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/231bb33e06dfe) -
+  EDITOR-1131 Bump adf-schema version to 50.2.0
+- Updated dependencies
+
 ## 3.1.3
 
 ### Patch Changes

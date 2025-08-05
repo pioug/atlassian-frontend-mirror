@@ -40,13 +40,27 @@ const isCursorInsideUnsupportedMarks = (
 type Options = {
 	isBlockNodeRule?: boolean;
 	allowInsertTextOnDocument?: boolean;
+	/**
+	 * Run checks on blur of the editor as well as during input
+	 */
+	checkOnBlur?: boolean;
+	/**
+	 * Append text to the checked text on blur. Useful for checks that normally require a trailing
+	 * space or similar
+	 */
+	appendTextOnBlur?: string;
 };
 export const createPlugin = (
 	pluginName: string,
 	rules: Array<InputRuleWrapper>,
 	options: Options = {},
 ): SafePluginSpec => {
-	const { isBlockNodeRule = false, allowInsertTextOnDocument = true } = options;
+	const {
+		isBlockNodeRule = false,
+		allowInsertTextOnDocument = true,
+		checkOnBlur,
+		appendTextOnBlur,
+	} = options;
 
 	const onInputEvent: OnInputEvent = ({ state, from, to }) => {
 		const unsupportedMarks = isBlockNodeRule ? ['code', 'link', 'typeAheadQuery'] : ['code'];
@@ -74,5 +88,7 @@ export const createPlugin = (
 		onBeforeRegexMatch: (tr) => {
 			closeHistory(tr);
 		},
+		checkOnBlur,
+		appendTextOnBlur,
 	});
 };

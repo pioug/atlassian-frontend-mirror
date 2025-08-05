@@ -669,6 +669,7 @@ function finishInteraction(
 	data.end = endTime;
 	try {
 		// for Firefox 102 and older
+
 		if (fg('ufo_chrome_devtools_uplift')) {
 			performance.measure(`🛸 [${data.type}] ${data.ufoName} [ttai]`, {
 				start: data.start,
@@ -678,6 +679,15 @@ function finishInteraction(
 						track: 'main metrics',
 						trackGroup: '🛸 reactUFO metrics',
 						color: 'tertiary',
+					},
+				},
+			});
+
+			performance.mark(`TTAI`, {
+				startTime: data.end,
+				detail: {
+					devtools: {
+						dataType: 'marker',
 					},
 				},
 			});
@@ -1112,6 +1122,15 @@ export function addApdexToAll(apdex: ApdexType) {
 						},
 					},
 				});
+
+				performance.mark(`[bm3] TTI`, {
+					startTime: apdex.stopTime,
+					detail: {
+						devtools: {
+							dataType: 'marker',
+						},
+					},
+				});
 			} else {
 				performance.measure(`🛸 ${apdex.key} [bm3_tti]`, {
 					start: apdex.startTime ?? interaction.start,
@@ -1150,6 +1169,15 @@ export function addApdex(
 							track: 'main metrics',
 							trackGroup: '🛸 reactUFO metrics',
 							color: 'primary-dark',
+						},
+					},
+				});
+
+				performance.mark(`[bm3] TTI`, {
+					startTime: apdexInfo.stopTime,
+					detail: {
+						devtools: {
+							dataType: 'marker',
 						},
 					},
 				});

@@ -168,4 +168,44 @@ describe('input-tule/plugin/createInputRulePlugin', () => {
 			});
 		});
 	});
+
+	describe('on blur behaviour', () => {
+		let handlerMock: jest.Mock;
+		let editorView: EditorView;
+
+		beforeEach(() => {
+			handlerMock = jest.fn().mockImplementation((state: EditorState) => {
+				return state.tr;
+			});
+
+			const NAIVE_URL_WITH_SPACE_REGEX = /(\S*)(https?:\/\/[^\s]+\.[^\s]+)\s/u;
+
+			const myCustomInputRule = new SafePlugin(
+				createInputRulePlugin(
+					'lol',
+					[
+						{
+							match: NAIVE_URL_WITH_SPACE_REGEX,
+							handler: handlerMock,
+						},
+					],
+					{
+						checkOnBlur: true,
+						appendTextOnBlur: ' ',
+					},
+				),
+			);
+
+			editorView = createEditorView(doc(p('http://atlassian.net{<>}')), myCustomInputRule);
+		});
+
+		it('should call the handler on blur with appended text', () => {
+			jest.spyOn(editorView, 'dispatch').mockImplementation((tr) => {});
+			editorView.dom.dispatchEvent(new FocusEvent('blur'));
+
+			expect(handlerMock).toHaveBeenCalledTimes(1);
+			const [, match] = handlerMock.mock.calls[0];
+			expect(match[0]).toEqual('http://atlassian.net ');
+		});
+	});
 });

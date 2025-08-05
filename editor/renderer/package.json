@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "120.3.5",
+	"version": "120.3.7",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -245,9 +245,6 @@
 			"type": "boolean"
 		},
 		"confluence_frontend_fix_view_page_slo": {
-			"type": "boolean"
-		},
-		"platform_fix_block_card_img_icon_vc": {
 			"type": "boolean"
 		},
 		"prompt_whiteboard_competitor_link_gate": {

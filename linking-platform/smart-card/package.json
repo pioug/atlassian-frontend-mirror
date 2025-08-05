@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "40.7.0",
+	"version": "40.7.1",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -190,9 +190,6 @@
 		"platform-smart-card-shift-key": {
 			"type": "boolean"
 		},
-		"icon-object-migration": {
-			"type": "boolean"
-		},
 		"confluence-issue-terminology-refresh": {
 			"type": "boolean"
 		},
@@ -200,9 +197,6 @@
 			"type": "boolean"
 		},
 		"platform_smart_links_controlled_dsp_export_view": {
-			"type": "boolean"
-		},
-		"platform-linking-visual-refresh-inline-lozenge": {
 			"type": "boolean"
 		},
 		"smart_links_noun_support": {
@@ -224,9 +218,6 @@
 			"type": "boolean"
 		},
 		"prompt_whiteboard_competitor_link_gate": {
-			"type": "boolean"
-		},
-		"platform_fix_block_card_img_icon_vc": {
 			"type": "boolean"
 		},
 		"platform-linking-team-member-count-component": {
@@ -254,6 +245,9 @@
 			"type": "boolean"
 		},
 		"navx-1184-fix-smart-link-a11y-interactive-states": {
+			"type": "boolean"
+		},
+		"navx-1304-related-links-remove-false-autofocus": {
 			"type": "boolean"
 		}
 	},

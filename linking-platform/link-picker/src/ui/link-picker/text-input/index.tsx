@@ -19,7 +19,6 @@ import { useMergeRefs } from 'use-callback-ref';
 import { cssMap } from '@atlaskit/css';
 import { ErrorMessage, Field } from '@atlaskit/form';
 import Selectclear from '@atlaskit/icon/core/migration/cross-circle--select-clear';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import Textfield, { type TextFieldProps } from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
@@ -113,18 +112,11 @@ export const TextInput = ({
 		[autoFocus],
 	);
 
-	let textfieldRef;
-	if (fg('jsc_inline_editing_field_refactor')) {
-		// eslint-disable-next-line react-hooks/rules-of-hooks
-		const refs = useMemo(
-			() => [handleRef, inputRefProp].filter(Boolean) as Ref<HTMLInputElement>[],
-			[handleRef, inputRefProp],
-		);
-		// eslint-disable-next-line react-hooks/rules-of-hooks
-		textfieldRef = useMergeRefs(refs);
-	} else {
-		textfieldRef = handleRef;
-	}
+	const refs = useMemo(
+		() => [handleRef, inputRefProp].filter(Boolean) as Ref<HTMLInputElement>[],
+		[handleRef, inputRefProp],
+	);
+	const textfieldRef = useMergeRefs(refs);
 
 	const handleKeydown = useCallback(
 		(e: KeyboardEvent<HTMLInputElement>) => {

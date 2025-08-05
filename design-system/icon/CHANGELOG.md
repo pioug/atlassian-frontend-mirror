@@ -1,5 +1,13 @@
 # @atlaskit/icon
 
+## 27.9.2
+
+### Patch Changes
+
+- [#196046](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/196046)
+  [`ae7d1b0c33757`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae7d1b0c33757) -
+  Removed core and utility keywords from the icon metadata
+
 ## 27.9.1
 
 ### Patch Changes

@@ -1,9 +1,3 @@
-import React, { type ReactNode, Suspense } from 'react';
-
-import { render, screen, waitForElementToBeRemoved } from '@testing-library/react';
-
-import { getSuspenseResource } from '@af/react-unit-testing/suspense-resource';
-
 export function resetMatchMedia() {
 	const mediaNoop: MediaQueryList = {
 		media: '',
@@ -189,49 +183,3 @@ export function filterFromConsoleErrorOutput(searchString: RegExp): ResetConsole
 // Expected error due to jsdom not knowing how to parse the `@starting-style` at-rule.
 // See: https://github.com/jsdom/jsdom/issues/3236
 export const parseCssErrorRegex = /Could not parse CSS stylesheet/;
-
-// TODO: pull into a jest matcher:
-// expect(<App/>).toWorkWithSuspense();
-export async function runSuspenseTest(node: ReactNode) {
-	const resource = getSuspenseResource();
-
-	function ResourceContent() {
-		resource.read();
-
-		return <span>Content</span>;
-	}
-
-	function App() {
-		return (
-			<>
-				<Suspense fallback={<div data-testid="suspense" />}>
-					<div data-testid="suspense-child">
-						{node}
-						<ResourceContent />
-					</div>
-				</Suspense>
-				<div>hi</div>
-			</>
-		);
-	}
-
-	// Initial render with no suspense
-	const { rerender } = render(<App />);
-
-	expect(screen.queryByTestId('suspense')).not.toBeInTheDocument();
-	expect(screen.getByTestId('suspense-child')).toBeVisible();
-
-	// Render again while suspended
-	const { complete } = resource.load();
-	rerender(<App />);
-
-	expect(screen.getByTestId('suspense')).toBeInTheDocument();
-	expect(screen.getByTestId('suspense-child')).not.toBeVisible();
-
-	// Resolve promise (which will cause a re-render)
-	complete();
-	await waitForElementToBeRemoved(() => screen.queryByTestId('suspense'));
-
-	expect(screen.queryByTestId('suspense')).not.toBeInTheDocument();
-	expect(screen.getByTestId('suspense-child')).toBeVisible();
-}

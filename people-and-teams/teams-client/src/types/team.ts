@@ -144,3 +144,23 @@ export interface OrgScope {
 	scopeMode: ScopeMode;
 	scopes: Scope[];
 }
+
+export interface TeamEnabledSitesResponse {
+	suggestedSite: {
+		id: string;
+		name: string;
+	};
+	sites: {
+		id: string;
+		name: string;
+	}[];
+}
+
+export interface AssignTeamsToSitesResponse {
+	migratedTeams: string[];
+	failedTeams: {
+		teamId: string;
+		failureCode: string;
+		failureReason: string;
+	}[];
+}

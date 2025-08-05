@@ -1,5 +1,12 @@
 # @atlaskit/tabs
 
+## 18.1.6
+
+### Patch Changes
+
+- [`4f9c3d070e96f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4f9c3d070e96f) -
+  Add support for tab-based Atlaskit documentation
+
 ## 18.1.5
 
 ### Patch Changes

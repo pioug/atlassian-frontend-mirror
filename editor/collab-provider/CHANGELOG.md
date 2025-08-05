@@ -1,5 +1,17 @@
 # @atlaskit/collab-provider
 
+## 11.1.0
+
+### Minor Changes
+
+- [#196046](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/196046)
+  [`48ab22fda93be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/48ab22fda93be) -
+  Cleanup widen_presence_socket_reconnection_jitter feature gate
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.0.7
 
 ### Patch Changes

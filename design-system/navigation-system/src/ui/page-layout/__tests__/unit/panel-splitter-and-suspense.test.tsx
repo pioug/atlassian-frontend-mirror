@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { toBeSuspendable } from '@af/react-unit-testing';
+
 import { PanelSplitter } from '../../panel-splitter/panel-splitter';
 import { Root } from '../../root';
 import { SideNav } from '../../side-nav/side-nav';
@@ -10,7 +12,6 @@ import {
 	parseCssErrorRegex,
 	type ResetConsoleErrorFn,
 	resetMatchMedia,
-	runSuspenseTest,
 } from './_test-utils';
 
 let resetConsoleErrorSpyFn: ResetConsoleErrorFn;
@@ -26,13 +27,17 @@ beforeEach(() => {
 	resetMatchMedia();
 });
 
+expect.extend({
+	toBeSuspendable,
+});
+
 test('panel splitter works with suspense', async () => {
-	await runSuspenseTest(
+	expect(() => (
 		<Root>
 			<SideNav>
 				<SideNavContent>Side navigation content</SideNavContent>
 				<PanelSplitter label="Resize side nav" />
 			</SideNav>
-		</Root>,
-	);
+		</Root>
+	)).toBeSuspendable();
 });

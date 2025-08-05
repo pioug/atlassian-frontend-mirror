@@ -563,10 +563,26 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-08-04
+	platform_editor_floating_toolbar_button_aria_label: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_floating_toolbar_button_aria_label',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-07-24
 	platform_editor_enghealth_table_plugin_lable_rule: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_enghealth_table_plugin_lable_rule',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-07-28
+	platform_editor_create_link_on_blur: createBooleanExperiment({
+		productKeys: {
+			jira: 'platform_editor_create_link_on_blur',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

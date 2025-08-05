@@ -95,6 +95,9 @@ const iconStyles = cssMap({
 	providedElemBefore: {
 		display: `var(${providedElemBeforeDisplayCssVar})`,
 	},
+	providedElemBeforeSelected: {
+		color: token('color.icon.selected'),
+	},
 });
 
 const ExpandableMenuItemIcon = ({
@@ -118,7 +121,13 @@ const ExpandableMenuItemIcon = ({
 		<>
 			<div css={iconStyles.chevron}>{chevronElem}</div>
 			{/* If there is no provided elemBefore, not rendering the wrapper either to simplify the DOM */}
-			{providedElemBefore && <div css={iconStyles.providedElemBefore}>{providedElemBefore}</div>}
+			{providedElemBefore && (
+				<div
+					css={[iconStyles.providedElemBefore, isSelected && iconStyles.providedElemBeforeSelected]}
+				>
+					{providedElemBefore}
+				</div>
+			)}
 		</>
 	);
 };

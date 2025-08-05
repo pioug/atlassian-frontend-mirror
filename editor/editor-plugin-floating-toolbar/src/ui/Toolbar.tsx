@@ -35,6 +35,7 @@ import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
@@ -202,25 +203,17 @@ const ToolbarItems = React.memo(
 										<ButtonIcon
 											color={getIconColor(item.disabled, item.selected)}
 											spacing="spacious"
-											label={
-												fg('editor_a11y_remove_redundant_wrap_icon_label') ? undefined : item.title
-											}
+											label={undefined}
 											LEGACY_fallbackIcon={item.iconFallback}
 											LEGACY_primaryColor="currentColor"
 											Legacy_secondaryColor={token('elevation.surface')}
-											aria-hidden={
-												fg('editor_a11y_remove_redundant_wrap_icon_label') ? true : false
-											} // Icon is described by the button for screen readers
+											aria-hidden={true} // Icon is described by the button for screen readers
 										/>
 									) : (
 										<ButtonIcon
 											spacing="spacious"
-											label={
-												fg('editor_a11y_remove_redundant_wrap_icon_label') ? undefined : item.title
-											}
-											aria-hidden={
-												fg('editor_a11y_remove_redundant_wrap_icon_label') ? true : false
-											} // Icon is described by the button for screen readers
+											label={undefined}
+											aria-hidden={true} // Icon is described by the button for screen readers
 										/>
 									)
 								) : undefined
@@ -243,6 +236,15 @@ const ToolbarItems = React.memo(
 							ariaHasPopup={item.ariaHasPopup}
 							tabIndex={item.tabIndex}
 							isRadioButton={item.isRadioButton}
+							ariaLabel={
+								expValEquals(
+									'platform_editor_floating_toolbar_button_aria_label',
+									'isEnabled',
+									true,
+								)
+									? item?.ariaLabel
+									: undefined
+							}
 							pulse={item.pulse}
 							spotlightConfig={item.spotlightConfig}
 							interactionName={item.interactionName}

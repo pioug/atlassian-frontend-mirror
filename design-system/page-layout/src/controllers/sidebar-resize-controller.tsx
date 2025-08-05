@@ -313,7 +313,7 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
 
 	const context: SidebarResizeContextValue = useMemo(
 		() => ({
-			isLeftSidebarCollapsed: !isOpen, // Technically this isn't quite true, but with mobile it's a bit safer if products are using this to roll their own collapse/expand
+			isLeftSidebarCollapsed: !isOpen, // Technically this isn't quite true, but with mobile it's a bit safer if apps are using this to roll their own collapse/expand
 			expandLeftSidebar,
 			collapseLeftSidebar,
 			leftSidebarState,

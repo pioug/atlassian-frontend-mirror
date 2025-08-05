@@ -226,30 +226,22 @@ snapshot(InlineCardUnauthorisedNoAuth, {
 
 snapshot(InlineCardFontSizeDefault, {
 	description: 'inline card with default font size',
-	featureFlags: {
-		'platform-linking-visual-refresh-inline-lozenge': [true, false],
-	},
+	featureFlags: {},
 });
 
 snapshot(InlineCardFontSize32, {
 	description: 'inline card with 32 font size',
-	featureFlags: {
-		'platform-linking-visual-refresh-inline-lozenge': [true, false],
-	},
+	featureFlags: {},
 });
 
 snapshot(InlineCardFontSize24, {
 	description: 'inline card with 24 font size',
-	featureFlags: {
-		'platform-linking-visual-refresh-inline-lozenge': [true, false],
-	},
+	featureFlags: {},
 });
 
 snapshot(InlineCardFontSize16, {
 	description: 'inline card with 16 font size',
-	featureFlags: {
-		'platform-linking-visual-refresh-inline-lozenge': [true, false],
-	},
+	featureFlags: {},
 });
 
 snapshot(InlineCardWordWrapResolving, {
@@ -260,26 +252,8 @@ snapshot(InlineCardWordWrapResolved, {
 	featureFlags: {},
 	waitForReactLazy: true,
 });
-// Remove on platform-linking-visual-refresh-inline-lozenge cleanup
-snapshot(InlineCardWordWrapResolved, {
-	description: 'inline card word wrap resolved inline lozenge',
-	featureFlags: {
-		'platform-component-visual-refresh': true,
-		'platform-linking-visual-refresh-inline-lozenge': [true, false],
-	},
-	waitForReactLazy: true,
-});
 snapshot(InlineCardWordWrapForbidden, {
 	featureFlags: {},
-	waitForReactLazy: true,
-});
-// Remove on platform-linking-visual-refresh-inline-lozenge cleanup
-snapshot(InlineCardWordWrapForbidden, {
-	description: 'inline card word wrap forbidden inline lozenge',
-	featureFlags: {
-		'platform-component-visual-refresh': true,
-		'platform-linking-visual-refresh-inline-lozenge': [true, false],
-	},
 	waitForReactLazy: true,
 });
 snapshot(InlineCardWordWrapForbiddenWithSiteRequestAccess, {
@@ -323,15 +297,6 @@ snapshot(VRInlineCardAllExamplesInText, {
 	description: `inline card with all card examples in text`,
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-	},
-});
-
-// TODO: Remove on platform-linking-visual-refresh-inline-lozenge cleanup
-snapshot(VRInlineCardAllExamplesInText, {
-	description: `inline card with all card examples lozenge`,
-	featureFlags: {
-		'platform-component-visual-refresh': true,
-		'platform-linking-visual-refresh-inline-lozenge': [true, false],
 	},
 });
 

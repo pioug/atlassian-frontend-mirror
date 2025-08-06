@@ -68,8 +68,7 @@
 		"@testing-library/user-event": "root:*",
 		"@types/final-form-focus": "root:*",
 		"jest-in-case": "root:*",
-		"react-dom": "root:*",
-		"typescript": "root:*"
+		"react-dom": "root:*"
 	},
 	"keywords": [
 		"atlaskit",

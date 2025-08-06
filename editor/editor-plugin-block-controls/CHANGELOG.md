@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 4.1.8
+
+### Patch Changes
+
+- [#196697](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/196697)
+  [`18b5fbc52627b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/18b5fbc52627b) -
+  [ux] Adds block menu plugin for full-page preset and shows the menu when drag handle is clicked.
+- Updated dependencies
+
 ## 4.1.7
 
 ### Patch Changes

@@ -589,6 +589,11 @@ export function ReactEditorView(props: EditorViewProps) {
 
 	const createEditorView = useCallback(
 		(node: HTMLDivElement) => {
+			// Creates the editor-view from this.editorState. If an editor has been mounted
+			// previously, this will contain the previous state of the editor.
+			const view = new EditorView({ mount: node }, getDirectEditorProps());
+			viewRef.current = view;
+
 			measureRender(
 				measurements.PROSEMIRROR_RENDERED,
 				({ duration, startTime, distortedDuration }) => {
@@ -623,11 +628,6 @@ export function ReactEditorView(props: EditorViewProps) {
 					}
 				},
 			);
-
-			// Creates the editor-view from this.editorState. If an editor has been mounted
-			// previously, this will contain the previous state of the editor.
-			const view = new EditorView({ mount: node }, getDirectEditorProps());
-			viewRef.current = view;
 			pluginInjectionAPI.current.onEditorViewUpdated({
 				newEditorState: viewRef.current.state,
 				oldEditorState: undefined,

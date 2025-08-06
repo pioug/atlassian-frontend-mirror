@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 40.7.2
+
+### Patch Changes
+
+- [`bd5987cfa6e70`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd5987cfa6e70) -
+  [ux] Modify BaseLinkComponent so the black theme is consistent with the grey theme
+
 ## 40.7.1
 
 ### Patch Changes

@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { isContainedWithinMediaWrapper } from '../../vc-observer/media-wrapper/vc-utils';
 import { RLLPlaceholderHandlers } from '../../vc-observer/observers/rll-placeholders';
 import type { VCObserverEntryType } from '../types';
@@ -22,6 +24,8 @@ jest.mock('../../vc-observer/observers/rll-placeholders');
 jest.mock('./intersection-observer');
 jest.mock('./mutation-observer');
 jest.mock('./performance-observer');
+jest.mock('@atlaskit/platform-feature-flags');
+const mockFg = fg as jest.Mock;
 
 describe('ViewportObserver', () => {
 	let mockIntersectionObserver: jest.Mocked<VCIntersectionObserver>;
@@ -120,6 +124,7 @@ describe('ViewportObserver', () => {
 	describe('Mutation Observer', () => {
 		beforeEach(() => {
 			(isContainedWithinMediaWrapper as jest.Mock).mockReset();
+			mockFg.mockReturnValue(true);
 		});
 		describe('onChildListMutation', () => {
 			it('should handle added node', () => {

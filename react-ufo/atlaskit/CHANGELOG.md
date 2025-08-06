@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.2.0
+
+### Minor Changes
+
+- [#195899](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195899)
+  [`ab2e2b57fa3fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab2e2b57fa3fc) -
+  Deprecating optional, experimental API about disabling SSR placeholder check of size and position
+
 ## 4.1.13
 
 ### Patch Changes

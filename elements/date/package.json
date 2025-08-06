@@ -54,8 +54,7 @@
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"@types/date-fns": "root:*",
-		"react": "root:*",
-		"typescript": "root:*"
+		"react": "root:*"
 	},
 	"keywords": [
 		"ui",

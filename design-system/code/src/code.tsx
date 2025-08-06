@@ -43,15 +43,25 @@ const Code = memo(
 		const {
 			children,
 			codeBidiWarnings = true,
+			hasBidiWarnings,
 			codeBidiWarningLabel,
 			codeBidiWarningTooltipEnabled = true,
+			isBidiWarningTooltipEnabled,
 			...otherProps
 		} = props;
 
-		const decoratedChildren = codeBidiWarnings ? (
+		// Use new props if provided, otherwise fall back to deprecated props
+		const shouldShowBidiWarnings =
+			hasBidiWarnings !== undefined ? hasBidiWarnings : codeBidiWarnings;
+		const shouldEnableTooltip =
+			isBidiWarningTooltipEnabled !== undefined
+				? isBidiWarningTooltipEnabled
+				: codeBidiWarningTooltipEnabled;
+
+		const decoratedChildren = shouldShowBidiWarnings ? (
 			<RenderCodeChildrenWithBidiWarnings
 				codeBidiWarningLabel={codeBidiWarningLabel}
-				codeBidiWarningTooltipEnabled={codeBidiWarningTooltipEnabled}
+				codeBidiWarningTooltipEnabled={shouldEnableTooltip}
 			>
 				{children}
 			</RenderCodeChildrenWithBidiWarnings>

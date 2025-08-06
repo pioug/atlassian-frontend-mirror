@@ -44,7 +44,6 @@
 		"zod-to-json-schema": "root:*"
 	},
 	"devDependencies": {
-		"ts-node": "root:*",
-		"typescript": "root:*"
+		"ts-node": "root:*"
 	}
 }

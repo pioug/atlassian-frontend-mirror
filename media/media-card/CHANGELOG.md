@@ -1,5 +1,17 @@
 # @atlaskit/media-card
 
+## 79.5.0
+
+### Minor Changes
+
+- [#195899](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195899)
+  [`393adf36ed2bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/393adf36ed2bc) -
+  Expose CardSync to allow for synchronous loading of the MediaCard
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 79.4.7
 
 ### Patch Changes

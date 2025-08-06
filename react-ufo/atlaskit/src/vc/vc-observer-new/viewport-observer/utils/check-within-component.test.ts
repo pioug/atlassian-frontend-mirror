@@ -1,6 +1,6 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import checkWithinComponentAndExtractChildProps from './check-within-component-and-extract-child-props';
+import checkWithinComponent from './check-within-component';
 
 // Mock the feature flag
 jest.mock('@atlaskit/platform-feature-flags');
@@ -18,9 +18,10 @@ type MockFiber = {
 	return: MockFiber | null;
 };
 
-describe('checkWithinComponentAndExtractChildProps', () => {
+describe('checkWithinComponent', () => {
 	// Use a consistent fiber key for testing
 	const fiberKey = '__reactFiber$test';
+	const mapIs3pResult = new WeakMap<HTMLElement, boolean>();
 
 	const createMockNode = (fiber: MockFiber | null): HTMLElement => {
 		const node = document.createElement('div') as unknown as HTMLElement & {
@@ -33,9 +34,8 @@ describe('checkWithinComponentAndExtractChildProps', () => {
 	describe('basic component checking', () => {
 		it('should return false when node has no fiber', () => {
 			const node = createMockNode(null);
-			const result = checkWithinComponentAndExtractChildProps(node, 'TargetComponent');
+			const result = checkWithinComponent(node, 'TargetComponent', mapIs3pResult);
 			expect(result.isWithin).toBe(false);
-			expect(result.childProp).toBeUndefined();
 		});
 
 		it('should return false when target component is not found', () => {
@@ -45,9 +45,8 @@ describe('checkWithinComponentAndExtractChildProps', () => {
 				return: null,
 			};
 			const node = createMockNode(fiber);
-			const result = checkWithinComponentAndExtractChildProps(node, 'TargetComponent');
+			const result = checkWithinComponent(node, 'TargetComponent', mapIs3pResult);
 			expect(result.isWithin).toBe(false);
-			expect(result.childProp).toBeUndefined();
 		});
 
 		it('should return true when target component is found', () => {
@@ -57,9 +56,8 @@ describe('checkWithinComponentAndExtractChildProps', () => {
 				return: null,
 			};
 			const node = createMockNode(fiber);
-			const result = checkWithinComponentAndExtractChildProps(node, 'TargetComponent');
+			const result = checkWithinComponent(node, 'TargetComponent', mapIs3pResult);
 			expect(result.isWithin).toBe(true);
-			expect(result.childProp).toBeUndefined();
 		});
 
 		it('should find target component in parent hierarchy', () => {
@@ -74,9 +72,8 @@ describe('checkWithinComponentAndExtractChildProps', () => {
 				return: parentFiber,
 			};
 			const node = createMockNode(childFiber);
-			const result = checkWithinComponentAndExtractChildProps(node, 'TargetComponent');
+			const result = checkWithinComponent(node, 'TargetComponent', mapIs3pResult);
 			expect(result.isWithin).toBe(true);
-			expect(result.childProp).toBeUndefined();
 		});
 
 		it('should use displayName when available', () => {
@@ -86,151 +83,16 @@ describe('checkWithinComponentAndExtractChildProps', () => {
 				return: null,
 			};
 			const node = createMockNode(fiber);
-			const result = checkWithinComponentAndExtractChildProps(node, 'TargetComponent');
+			const result = checkWithinComponent(node, 'TargetComponent', mapIs3pResult);
 			expect(result.isWithin).toBe(true);
-		});
-	});
-
-	describe('child props extraction', () => {
-		it('should get the nearest child component (closest to target component)', () => {
-			const farChildFiber: MockFiber = {
-				key: null,
-				type: { name: 'ChildComponent' },
-				memoizedProps: { value: 'far-value' },
-				return: null,
-			};
-			const nearChildFiber: MockFiber = {
-				key: null,
-				type: { name: 'ChildComponent' },
-				memoizedProps: { value: 'near-value' },
-				return: null,
-			};
-			const targetFiber: MockFiber = {
-				key: null,
-				type: { name: 'TargetComponent' },
-				return: null,
-			};
-			farChildFiber.return = nearChildFiber;
-			nearChildFiber.return = targetFiber;
-			const node = createMockNode(farChildFiber);
-
-			const result = checkWithinComponentAndExtractChildProps(node, 'TargetComponent', {
-				componentName: 'ChildComponent',
-				propName: 'value',
-			});
-
-			expect(result.isWithin).toBe(true);
-			expect(result.childProp).toBe('near-value');
-		});
-
-		it('should extract child prop when child component is found anywhere in the fiber tree to target component', () => {
-			const childFiber: MockFiber = {
-				key: null,
-				type: { name: 'ChildComponent' },
-				memoizedProps: { value: 'test-value' },
-				return: null,
-			};
-			const otherFiber: MockFiber = {
-				key: null,
-				type: { name: 'OtherComponent' },
-				return: null,
-			};
-			const targetFiber: MockFiber = {
-				key: null,
-				type: { name: 'TargetComponent' },
-				return: null,
-			};
-			childFiber.return = otherFiber;
-			otherFiber.return = targetFiber;
-			const node = createMockNode(childFiber);
-
-			const result = checkWithinComponentAndExtractChildProps(node, 'TargetComponent', {
-				componentName: 'ChildComponent',
-				propName: 'value',
-			});
-
-			expect(result.isWithin).toBe(true);
-			expect(result.childProp).toBe('test-value');
-		});
-
-		it('should use custom extractValue function', () => {
-			const childFiber: MockFiber = {
-				key: null,
-				type: { name: 'ChildComponent' },
-				memoizedProps: { complexData: { id: 123, name: 'test' } },
-				return: null,
-			};
-			const targetFiber: MockFiber = {
-				key: null,
-				type: { name: 'TargetComponent' },
-				return: null,
-			};
-			childFiber.return = targetFiber;
-			const node = createMockNode(childFiber);
-
-			const result = checkWithinComponentAndExtractChildProps(node, 'TargetComponent', {
-				componentName: 'ChildComponent',
-				propName: 'complexData',
-				extractValue: (props) => props.complexData.name,
-			});
-
-			expect(result.isWithin).toBe(true);
-			expect(result.childProp).toBe('test');
-		});
-
-		it('should use pendingProps when memoizedProps is not available', () => {
-			const childFiber: MockFiber = {
-				key: null,
-				type: { name: 'ChildComponent' },
-				pendingProps: { value: 'pending-value' },
-				return: null,
-			};
-			const targetFiber: MockFiber = {
-				key: null,
-				type: { name: 'TargetComponent' },
-				return: null,
-			};
-			childFiber.return = targetFiber;
-			const node = createMockNode(childFiber);
-
-			const result = checkWithinComponentAndExtractChildProps(node, 'TargetComponent', {
-				componentName: 'ChildComponent',
-				propName: 'value',
-			});
-
-			expect(result.isWithin).toBe(true);
-			expect(result.childProp).toBe('pending-value');
-		});
-
-		it('should not return childProp when no props are found', () => {
-			const childFiber: MockFiber = {
-				key: null,
-				type: { name: 'ChildComponent' },
-				memoizedProps: { otherValue: 'test' },
-				return: null,
-			};
-			const targetFiber: MockFiber = {
-				key: null,
-				type: { name: 'TargetComponent' },
-				return: null,
-			};
-			childFiber.return = targetFiber;
-			const node = createMockNode(childFiber);
-
-			const result = checkWithinComponentAndExtractChildProps(node, 'TargetComponent', {
-				componentName: 'ChildComponent',
-				propName: 'value',
-			});
-
-			expect(result.isWithin).toBe(true);
-			expect(result.childProp).toBeUndefined();
 		});
 	});
 });
 
-describe('Using checkWithinComponentAndExtractChildProps to check UFOThirdPartySegment', () => {
+describe('Using checkWithinComponent to check UFOThirdPartySegment', () => {
 	// Use a consistent fiber key for testing
 	const fiberKey = '__reactFiber$test';
+	const mapIs3pResult = new WeakMap<HTMLElement, boolean>();
 
 	const createMockNode = (fiber: MockFiber | null): HTMLElement => {
 		const node = document.createElement('div') as unknown as HTMLElement & {
@@ -247,18 +109,18 @@ describe('Using checkWithinComponentAndExtractChildProps to check UFOThirdPartyS
 			return: null,
 		};
 		const node = createMockNode(fiber);
-		const result = checkWithinComponentAndExtractChildProps(node, 'UFOThirdPartySegment');
+		const result = checkWithinComponent(node, 'UFOThirdPartySegment', mapIs3pResult);
 		expect(result.isWithin).toBe(false);
 	});
 
-	it('should return true when within UFOThirdPartySegment without UFOIgnoreHolds', () => {
+	it('should return true when within UFOThirdPartySegment without UFOIgnoreHolds', async () => {
 		const fiber: MockFiber = {
 			key: null,
 			type: { name: 'UFOThirdPartySegment' },
 			return: null,
 		};
 		const node = createMockNode(fiber);
-		const result = checkWithinComponentAndExtractChildProps(node, 'UFOThirdPartySegment');
+		const result = checkWithinComponent(node, 'UFOThirdPartySegment', mapIs3pResult);
 		expect(result.isWithin).toBe(true);
 	});
 
@@ -277,11 +139,11 @@ describe('Using checkWithinComponentAndExtractChildProps to check UFOThirdPartyS
 		ignoreHoldsFiber.return = thirdPartySegmentFiber;
 		const node = createMockNode(ignoreHoldsFiber);
 
-		const result = checkWithinComponentAndExtractChildProps(node, 'UFOThirdPartySegment');
+		const result = checkWithinComponent(node, 'UFOThirdPartySegment', mapIs3pResult);
 		expect(result.isWithin).toBe(true);
 	});
 
-	it('should get the nearest UFOIgnoreHolds (closest to UFOThirdPartySegment)', () => {
+	it('should get the nearest UFOIgnoreHolds (closest to UFOThirdPartySegment)', async () => {
 		const farIgnoreHoldsFiber: MockFiber = {
 			key: null,
 			type: { name: 'UFOIgnoreHolds' },
@@ -303,11 +165,11 @@ describe('Using checkWithinComponentAndExtractChildProps to check UFOThirdPartyS
 		nearIgnoreHoldsFiber.return = thirdPartySegmentFiber;
 		const node = createMockNode(farIgnoreHoldsFiber);
 
-		const result = checkWithinComponentAndExtractChildProps(node, 'UFOThirdPartySegment');
+		const result = checkWithinComponent(node, 'UFOThirdPartySegment', mapIs3pResult);
 		expect(result.isWithin).toBe(true);
 	});
 
-	it('should use pendingProps when memoizedProps is not available', () => {
+	it('should use pendingProps when memoizedProps is not available', async () => {
 		const ignoreHoldsFiber: MockFiber = {
 			key: null,
 			type: { name: 'UFOIgnoreHolds' },
@@ -322,7 +184,7 @@ describe('Using checkWithinComponentAndExtractChildProps to check UFOThirdPartyS
 		ignoreHoldsFiber.return = thirdPartySegmentFiber;
 		const node = createMockNode(ignoreHoldsFiber);
 
-		const result = checkWithinComponentAndExtractChildProps(node, 'UFOThirdPartySegment');
+		const result = checkWithinComponent(node, 'UFOThirdPartySegment', mapIs3pResult);
 		expect(result.isWithin).toBe(true);
 	});
 
@@ -336,11 +198,11 @@ describe('Using checkWithinComponentAndExtractChildProps to check UFOThirdPartyS
 		};
 		const node = createMockNode(fiber);
 
-		const result = checkWithinComponentAndExtractChildProps(node, 'UFOThirdPartySegment');
+		const result = checkWithinComponent(node, 'UFOThirdPartySegment', mapIs3pResult);
 		expect(result.isWithin).toBe(true);
 	});
 
-	it('should walk up DOM tree when feature flag is enabled and element has no fiber', () => {
+	it('should walk up DOM tree when feature flag is enabled and element has no fiber', async () => {
 		mockFg.mockReturnValue(true);
 
 		// Create great-grandparent element with fiber
@@ -370,11 +232,11 @@ describe('Using checkWithinComponentAndExtractChildProps to check UFOThirdPartyS
 			writable: true,
 		});
 
-		const result = checkWithinComponentAndExtractChildProps(childElement, 'UFOThirdPartySegment');
+		const result = checkWithinComponent(childElement, 'UFOThirdPartySegment', mapIs3pResult);
 		expect(result.isWithin).toBe(true);
 	});
 
-	it('should return false when feature flag is enabled but no fiber found in DOM tree', () => {
+	it('should return false when feature flag is enabled but no fiber found in DOM tree', async () => {
 		mockFg.mockReturnValue(true);
 
 		// Create elements without fiber
@@ -391,7 +253,7 @@ describe('Using checkWithinComponentAndExtractChildProps to check UFOThirdPartyS
 			writable: true,
 		});
 
-		const result = checkWithinComponentAndExtractChildProps(childElement, 'UFOThirdPartySegment');
+		const result = checkWithinComponent(childElement, 'UFOThirdPartySegment', mapIs3pResult);
 		expect(result.isWithin).toBe(false);
 	});
 });

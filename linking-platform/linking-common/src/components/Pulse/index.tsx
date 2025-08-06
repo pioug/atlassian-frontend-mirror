@@ -4,7 +4,6 @@
  */
 import { css, jsx, keyframes } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import React, { type SyntheticEvent, useRef } from 'react';
 
@@ -55,23 +54,9 @@ export const Pulse = ({
 	}, []);
 
 	const WrapperTag = isInline ? 'span' : 'div';
-	if (fg('platform_ssr_smartlinks_editor')) {
-		return (
-			<WrapperTag
-				data-testid={testId}
-				css={[commonStyles, pulseStarted.current && pulseStyles]}
-				onAnimationIteration={onAnimationIteration}
-				onAnimationStart={onAnimationStart}
-			>
-				<span onAnimationIteration={stopPropagation} onAnimationStart={stopPropagation}>
-					{children}
-				</span>
-			</WrapperTag>
-		);
-	}
 
 	return (
-		<div
+		<WrapperTag
 			data-testid={testId}
 			css={[commonStyles, pulseStarted.current && pulseStyles]}
 			onAnimationIteration={onAnimationIteration}
@@ -80,7 +65,7 @@ export const Pulse = ({
 			<span onAnimationIteration={stopPropagation} onAnimationStart={stopPropagation}>
 				{children}
 			</span>
-		</div>
+		</WrapperTag>
 	);
 };
 

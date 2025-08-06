@@ -979,7 +979,6 @@ export function addNewInteraction(
 			devToolsEnabled: config.vc.devToolsEnabled,
 			selectorConfig: config.vc.selectorConfig,
 			ssrEnablePageLayoutPlaceholder: config.vc.ssrEnablePageLayoutPlaceholder,
-			disableSizeAndPositionCheck: config.vc.disableSizeAndPositionCheck,
 		};
 		vcObserver = newVCObserver(vcOptions);
 	}

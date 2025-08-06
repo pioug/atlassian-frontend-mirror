@@ -64,8 +64,7 @@
 		"css-loader": "root:*",
 		"prismjs": "root:*",
 		"react-dom": "root:*",
-		"style-loader": "root:*",
-		"typescript": "root:*"
+		"style-loader": "root:*"
 	},
 	"keywords": [
 		"atlaskit",

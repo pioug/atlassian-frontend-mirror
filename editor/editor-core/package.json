@@ -126,7 +126,6 @@
 		"raf-stub": "root:*",
 		"react": "root:*",
 		"react-intl-next": "root:*",
-		"typescript": "root:*",
 		"url-search-params": "root:*"
 	},
 	"techstack": {

@@ -85,8 +85,7 @@
 		"ast-types": "root:*",
 		"jscodeshift": "root:*",
 		"raf-stub": "root:*",
-		"react-dom": "root:*",
-		"typescript": "root:*"
+		"react-dom": "root:*"
 	},
 	"keywords": [
 		"atlaskit",

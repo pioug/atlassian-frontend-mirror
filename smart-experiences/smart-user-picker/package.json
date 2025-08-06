@@ -65,7 +65,6 @@
 		"enzyme": "root:*",
 		"fetch-mock": "root:*",
 		"graphql-tag": "root:*",
-		"mock-apollo-client": "root:*",
-		"typescript": "root:*"
+		"mock-apollo-client": "root:*"
 	}
 }

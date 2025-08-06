@@ -72,7 +72,6 @@
 		"@atlaskit/visual-regression": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
-		"typescript": "root:*",
 		"wait-for-expect": "root:*"
 	},
 	"techstack": {

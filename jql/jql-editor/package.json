@@ -90,7 +90,6 @@
 		"@testing-library/jest-dom": "root:*",
 		"@testing-library/react": "root:*",
 		"@testing-library/react-hooks": "root:*",
-		"typescript": "root:*",
 		"wait-for-expect": "root:*"
 	},
 	"techstack": {

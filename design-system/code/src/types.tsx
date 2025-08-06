@@ -14,9 +14,14 @@ export interface CodeProps extends HTMLProps<HTMLElement> {
 	children?: ReactNode;
 	/**
 	 * When set to `false`, disables code decorating with bidi warnings. Defaults to `true`.
+	 * @deprecated Use `hasBidiWarnings` instead
 	 */
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	codeBidiWarnings?: boolean;
+	/**
+	 * When set to `false`, disables code decorating with bidi warnings. Defaults to `true`.
+	 */
+	hasBidiWarnings?: boolean;
 	/**
 	 * Label for the bidi warning tooltip.
 	 *
@@ -29,7 +34,15 @@ export interface CodeProps extends HTMLProps<HTMLElement> {
 	 * disabled when used in a mobile view, such as in the editor via mobile
 	 * bridge, where the tooltip could end up being cut off or otherwise not work
 	 * as expected. Defaults to `true`.
+	 * @deprecated Use `isBidiWarningTooltipEnabled` instead
 	 */
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	codeBidiWarningTooltipEnabled?: boolean;
+	/**
+	 * Sets whether to render tooltip with the warning or not. Intended to be
+	 * disabled when used in a mobile view, such as in the editor via mobile
+	 * bridge, where the tooltip could end up being cut off or otherwise not work
+	 * as expected. Defaults to `true`.
+	 */
+	isBidiWarningTooltipEnabled?: boolean;
 }

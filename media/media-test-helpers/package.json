@@ -61,8 +61,7 @@
 	"devDependencies": {
 		"@atlaskit/media-core": "workspace:^",
 		"@types/exenv": "root:*",
-		"react-dom": "root:*",
-		"typescript": "root:*"
+		"react-dom": "root:*"
 	},
 	"af:exports": {
 		"./renderWithIntl": "./src/renderWithIntl.tsx",

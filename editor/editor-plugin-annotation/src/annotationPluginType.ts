@@ -9,6 +9,7 @@ import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { EditorViewModeEffectsPlugin } from '@atlaskit/editor-plugin-editor-viewmode-effects';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import type { Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
@@ -33,6 +34,7 @@ export type AnnotationPluginDependencies = [
 	OptionalPlugin<EditorViewModePlugin>,
 	OptionalPlugin<FeatureFlagsPlugin>,
 	OptionalPlugin<ConnectivityPlugin>,
+	OptionalPlugin<ToolbarPlugin>,
 ];
 
 export type AnnotationPluginOptions = AnnotationProviders;

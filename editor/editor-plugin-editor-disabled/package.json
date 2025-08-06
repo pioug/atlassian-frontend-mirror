@@ -38,7 +38,6 @@
 		"@testing-library/react": "root:*",
 		"raf-stub": "root:*",
 		"react-dom": "root:*",
-		"typescript": "root:*",
 		"wait-for-expect": "root:*"
 	},
 	"techstack": {

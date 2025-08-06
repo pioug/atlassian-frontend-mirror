@@ -62,8 +62,7 @@
 		"lodash": "root:*",
 		"react": "root:*",
 		"ts-morph": "root:*",
-		"ts-node": "root:*",
-		"typescript": "root:*"
+		"ts-node": "root:*"
 	},
 	"scripts": {
 		"codegen": "ts-node ./scripts/codegen-runner.ts",

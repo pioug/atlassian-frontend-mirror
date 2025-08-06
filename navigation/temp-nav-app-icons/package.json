@@ -144,8 +144,7 @@
 		"pkg-dir": "root:*",
 		"react-dom": "root:*",
 		"svgo": "root:*",
-		"ts-node": "root:*",
-		"typescript": "root:*"
+		"ts-node": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

@@ -38,8 +38,7 @@
 	"devDependencies": {
 		"@atlaskit/adf-schema": "root:*",
 		"@atlaskit/editor-json-transformer": "workspace:^",
-		"@atlaskit/editor-test-helpers": "workspace:^",
-		"typescript": "root:*"
+		"@atlaskit/editor-test-helpers": "workspace:^"
 	},
 	"techstack": {
 		"@repo/internal": {

@@ -31,6 +31,7 @@ import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { type CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type {
@@ -672,7 +673,10 @@ export const apply = (
 	}
 
 	let isMenuOpenNew = isMenuOpen;
-	if (BLOCK_MENU_ENABLED && editorExperiment('platform_editor_controls', 'variant1')) {
+	if (
+		(BLOCK_MENU_ENABLED && editorExperiment('platform_editor_controls', 'variant1')) ||
+		expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
+	) {
 		if (meta?.closeMenu) {
 			isMenuOpenNew = false;
 		} else if (meta?.toggleMenu) {
@@ -708,9 +712,11 @@ export const apply = (
 		activeDropTargetNode: currentActiveDropTargetNode,
 		isDragging: meta?.isDragging ?? isDragging,
 		isMenuOpen: isMenuOpenNew,
-		menuTriggerBy: editorExperiment('platform_editor_controls', 'variant1')
-			? meta?.toggleMenu?.anchorName || menuTriggerBy
-			: undefined,
+		menuTriggerBy:
+			editorExperiment('platform_editor_controls', 'variant1') ||
+			expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
+				? meta?.toggleMenu?.anchorName || menuTriggerBy
+				: undefined,
 		editorHeight: meta?.editorHeight ?? editorHeight,
 		editorWidthLeft: meta?.editorWidthLeft ?? editorWidthLeft,
 		editorWidthRight: meta?.editorWidthRight ?? editorWidthRight,

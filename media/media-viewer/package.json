@@ -115,7 +115,6 @@
 		"react-dom": "root:*",
 		"react-intl-next": "root:*",
 		"rxjs": "root:*",
-		"typescript": "root:*",
 		"wait-for-expect": "root:*"
 	},
 	"platform-feature-flags": {

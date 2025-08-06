@@ -17,17 +17,23 @@ export default function BidiWarning({
 	testId,
 	bidiCharacter,
 	skipChildren,
+	shouldSkipChildren,
 	tooltipEnabled,
+	isTooltipEnabled,
 	label = 'Bidirectional characters change the order that text is rendered. This could be used to obscure malicious code.',
 }: CodeBidiWarningProps) {
-	if (tooltipEnabled) {
+	// Use new props if provided, otherwise fall back to deprecated props
+	const shouldEnableTooltip = isTooltipEnabled !== undefined ? isTooltipEnabled : tooltipEnabled;
+	const shouldSkip = shouldSkipChildren !== undefined ? shouldSkipChildren : skipChildren;
+
+	if (shouldEnableTooltip) {
 		return (
 			// Following patches, this should be updated to use the render props signature which will provide aria attributes.
 			// Note: this should be tested, as initial testing did not see attributes work with current tooltip implementation.
 			// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 			<Tooltip content={label} tag={CustomizedTagWithRef}>
 				<Decorator testId={testId} bidiCharacter={bidiCharacter}>
-					{skipChildren ? null : bidiCharacter}
+					{shouldSkip ? null : bidiCharacter}
 				</Decorator>
 			</Tooltip>
 		);
@@ -35,7 +41,7 @@ export default function BidiWarning({
 
 	return (
 		<Decorator testId={testId} bidiCharacter={bidiCharacter}>
-			{skipChildren ? null : bidiCharacter}
+			{shouldSkip ? null : bidiCharacter}
 		</Decorator>
 	);
 }

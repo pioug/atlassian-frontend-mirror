@@ -3,7 +3,7 @@
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
 	},
-	"version": "0.0.8",
+	"version": "0.0.10",
 	"description": "Common UI for Toolbars across the platform",
 	"atlassian": {
 		"team": "Editor: Jenga",
@@ -50,8 +50,7 @@
 		"@atlaskit/ssr": "workspace:^",
 		"@atlaskit/visual-regression": "workspace:^",
 		"@testing-library/react": "root:*",
-		"react-dom": "root:*",
-		"typescript": "root:*"
+		"react-dom": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

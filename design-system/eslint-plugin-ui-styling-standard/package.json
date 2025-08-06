@@ -71,8 +71,7 @@
 		"@types/estraverse": "root:*",
 		"@types/json-schema": "root:*",
 		"eslint": "root:*",
-		"lodash": "root:*",
-		"typescript": "root:*"
+		"lodash": "root:*"
 	},
 	"scripts": {
 		"codegen": "run-ts ./scripts/codegen.tsx"

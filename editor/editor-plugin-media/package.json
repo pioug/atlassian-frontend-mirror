@@ -84,9 +84,6 @@
 		"memoize-one": "root:*",
 		"uuid": "root:*"
 	},
-	"devDependencies": {
-		"typescript": "root:*"
-	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/media-core": "workspace:^",

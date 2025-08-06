@@ -18,6 +18,33 @@
 	],
 	"references": [
 		{
+			"path": "../../../design-system/css/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/dropdown-menu/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-block-controls/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-user-intent/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-shared-styles/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon-lab/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../editor-common/afm-rovo-extension/tsconfig.json"
 		}
 	]

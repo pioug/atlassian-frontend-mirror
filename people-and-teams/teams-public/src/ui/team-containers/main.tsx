@@ -133,10 +133,28 @@ export const TeamContainers = ({
 			{ enabled: !fg('migrate-product-permissions') },
 		);
 
-	const autoCreateExperimentValue: string =
-		(FeatureGates.initializeCompleted() &&
-			FeatureGates.getExperimentValue('teams_app_auto_container_creation', 'cohort', 'control')) ||
-		'';
+	const hasPermissionToCreateContainers = useMemo(() => {
+		if (!productPermissions) {
+			return false;
+		}
+		if (fg('migrate-product-permissions')) {
+			return (
+				hasProductPermission(productPermissions, 'jira', ['CREATE_PROJECT']) ||
+				//@todo: fix in PTC-12660
+				hasProductPermission(productPermissions, 'confluence', ['write']) ||
+				hasProductPermission(productPermissions, 'loom', ['write'])
+			);
+		}
+		return false;
+	}, [productPermissions]);
+
+	const isCreateContainerExperimentEnabled = useMemo(() => {
+		return (
+			hasPermissionToCreateContainers &&
+			FeatureGates.initializeCompleted() &&
+			FeatureGates.getExperimentValue('teams_app_auto_container_creation', 'isEnabled', false)
+		);
+	}, [hasPermissionToCreateContainers]);
 
 	useEffect(() => {
 		if (isDisplayedOnProfileCard && filterContainerId) {
@@ -191,19 +209,19 @@ export const TeamContainers = ({
 					containerExists('JiraProject'),
 					containerRequested('JiraProject'),
 					'jira',
-					autoCreateExperimentValue === 'profile_page' ? ['CREATE_PROJECT'] : [],
+					isCreateContainerExperimentEnabled ? ['CREATE_PROJECT'] : [],
 				),
 				Confluence: showContainer(
 					containerExists('ConfluenceSpace'),
 					containerRequested('ConfluenceSpace'),
 					'confluence',
-					autoCreateExperimentValue === 'profile_page' ? ['write'] : [],
+					isCreateContainerExperimentEnabled ? ['write'] : [],
 				),
 				Loom: showContainer(
 					containerExists('LoomSpace'),
 					containerRequested('LoomSpace'),
 					'loom',
-					autoCreateExperimentValue === 'profile_page' ? ['write'] : [],
+					isCreateContainerExperimentEnabled ? ['write'] : [],
 				),
 				WebLink: !containerExists('WebLink'),
 			});
@@ -215,7 +233,7 @@ export const TeamContainers = ({
 		filteredTeamLinks,
 		maxNumberOfContainersToShow,
 		requestedContainers,
-		autoCreateExperimentValue,
+		isCreateContainerExperimentEnabled,
 	]);
 
 	const handleShowMore = () => {
@@ -445,19 +463,16 @@ export const TeamContainers = ({
 						);
 					})}
 
-					{autoCreateExperimentValue === 'profile_page'
+					{isCreateContainerExperimentEnabled
 						? getAddContainerCardsWithCreate({
 								showAddContainer,
-								onCreateContainerClick: (
+								onAddAContainerClick: (
 									e: React.MouseEvent<HTMLButtonElement>,
 									containerType: 'Confluence' | 'Jira' | 'Loom' | 'WebLink',
 								) => {
-									if (containerType !== 'WebLink') {
-										handleCreateContainer(containerType);
-									}
+									onAddAContainerClick(e, containerType);
 								},
 								containersLoading: containersBeingCreated,
-								onAddAContainerClick: (e) => onAddAContainerClick(e, 'WebLink'),
 							})
 						: getAddContainerCards({
 								showAddContainer,

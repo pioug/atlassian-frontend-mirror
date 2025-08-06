@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-text-formatting",
-	"version": "3.0.7",
+	"version": "3.0.9",
 	"description": "Text-formatting plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -40,9 +40,12 @@
 		"@atlaskit/editor-plugin-base": "workspace:^",
 		"@atlaskit/editor-plugin-primary-toolbar": "workspace:^",
 		"@atlaskit/editor-plugin-selection-toolbar": "workspace:^",
+		"@atlaskit/editor-plugin-toolbar": "workspace:^",
 		"@atlaskit/editor-prosemirror": "root:*",
 		"@atlaskit/editor-shared-styles": "workspace:^",
 		"@atlaskit/editor-tables": "workspace:^",
+		"@atlaskit/editor-toolbar": "workspace:^",
+		"@atlaskit/editor-toolbar-model": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/prosemirror-input-rules": "workspace:^",
@@ -60,8 +63,7 @@
 		"@atlaskit/editor-plugin-composition": "workspace:^",
 		"@atlaskit/editor-plugin-decorations": "workspace:^",
 		"@atlaskit/editor-plugin-feature-flags": "workspace:^",
-		"@testing-library/react": "root:*",
-		"typescript": "root:*"
+		"@testing-library/react": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

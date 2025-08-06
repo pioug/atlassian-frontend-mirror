@@ -68,8 +68,7 @@
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@emotion/react": "root:*",
 		"@testing-library/react": "root:*",
-		"enzyme": "root:*",
-		"typescript": "root:*"
+		"enzyme": "root:*"
 	},
 	"platform-feature-flags": {
 		"platform_media_cross_client_copy": {

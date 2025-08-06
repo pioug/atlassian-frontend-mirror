@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/reactions",
-	"version": "33.2.6",
+	"version": "33.2.7",
 	"description": "Reactions component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -83,7 +83,6 @@
 		"raf-stub": "root:*",
 		"react": "root:*",
 		"react-intl-next": "root:*",
-		"typescript": "root:*",
 		"wait-for-expect": "root:*",
 		"webpack-dev-server": "root:*"
 	},

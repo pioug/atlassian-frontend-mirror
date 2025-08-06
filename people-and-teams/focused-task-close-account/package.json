@@ -60,8 +60,7 @@
 	},
 	"devDependencies": {
 		"@testing-library/react": "root:*",
-		"enzyme": "root:*",
-		"typescript": "root:*"
+		"enzyme": "root:*"
 	},
 	"keywords": [
 		"ui",

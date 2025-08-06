@@ -52,7 +52,6 @@
 	"devDependencies": {
 		"@atlassian/adf-schema-json": "root:*",
 		"react": "root:*",
-		"typescript": "root:*",
 		"wait-for-expect": "root:*"
 	},
 	"techstack": {

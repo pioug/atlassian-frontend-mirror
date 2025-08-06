@@ -42,7 +42,7 @@ describe('CodeBlock', () => {
 		expect(container.querySelector('[data-code-lang="text"]')).not.toBeNull();
 	});
 
-	it('should have "showLineNumbers" enabled by default', () => {
+	it('should have "shouldShowLineNumbers" enabled by default', () => {
 		const { container } = render(<CodeBlock text={code} />);
 		expect(container.querySelector('.linenumber')).not.toBeNull();
 	});
@@ -137,7 +137,12 @@ describe('CodeBlock', () => {
 	describe('Tokenised class names are rendered correctly', () => {
 		it('should handle multiple combinations of up to 4 token classes', () => {
 			render(
-				<CodeBlock text="console.log('hi')" testId={testId} language="ts" showLineNumbers={true} />,
+				<CodeBlock
+					text="console.log('hi')"
+					testId={testId}
+					language="ts"
+					shouldShowLineNumbers={true}
+				/>,
 			);
 
 			expect(screen.getByText('console')).toHaveClass('token console class-name');

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-card
 
+## 7.2.7
+
+### Patch Changes
+
+- [#196532](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/196532)
+  [`7c7986b4858da`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c7986b4858da) -
+  Cleanup FG platform_ssr_smartlinks_editor
+- Updated dependencies
+
 ## 7.2.6
 
 ### Patch Changes

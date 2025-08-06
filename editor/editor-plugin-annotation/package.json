@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-annotation",
-	"version": "3.1.4",
+	"version": "3.2.0",
 	"description": "Annotation plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -39,12 +39,16 @@
 		"@atlaskit/editor-plugin-connectivity": "workspace:^",
 		"@atlaskit/editor-plugin-editor-viewmode-effects": "workspace:^",
 		"@atlaskit/editor-plugin-feature-flags": "workspace:^",
+		"@atlaskit/editor-plugin-toolbar": "workspace:^",
 		"@atlaskit/editor-prosemirror": "root:*",
+		"@atlaskit/editor-toolbar": "workspace:^",
+		"@atlaskit/editor-toolbar-model": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/onboarding": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
-		"@babel/runtime": "root:*"
+		"@babel/runtime": "root:*",
+		"react-intl-next": "root:*"
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
@@ -57,7 +61,6 @@
 		"@atlaskit/ssr": "workspace:^",
 		"@atlaskit/visual-regression": "workspace:^",
 		"@testing-library/react": "root:*",
-		"typescript": "root:*",
 		"wait-for-expect": "root:*"
 	},
 	"techstack": {

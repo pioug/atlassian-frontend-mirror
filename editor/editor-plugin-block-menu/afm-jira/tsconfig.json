@@ -18,6 +18,33 @@
 	],
 	"references": [
 		{
+			"path": "../../../design-system/css/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/dropdown-menu/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-block-controls/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-user-intent/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-shared-styles/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon-lab/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../editor-common/afm-jira/tsconfig.json"
 		}
 	]

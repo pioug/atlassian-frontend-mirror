@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-import { defineMessages, FormattedMessage } from 'react-intl-next';
+import { defineMessages } from 'react-intl-next';
 
-import Button, { IconButton } from '@atlaskit/button/new';
+import { IconButton } from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
 import AddIcon from '@atlaskit/icon/core/add';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -29,16 +29,6 @@ const styles = cssMap({
 			cursor: 'pointer',
 		},
 	},
-
-	createButtonWrapper: {
-		display: 'flex',
-		alignItems: 'center',
-		justifyContent: 'flex-end',
-		marginLeft: 'auto',
-		borderRadius: token('border.radius.100', '4px'),
-		outlineColor: token('color.border'),
-		outlineStyle: 'solid',
-	},
 	iconWrapper: {
 		width: '34px',
 		height: '34px',
@@ -47,13 +37,13 @@ const styles = cssMap({
 		justifyContent: 'center',
 		borderRadius: token('border.radius.200', '8px'),
 		outlineColor: token('color.border'),
-		outlineStyle: 'solid',
+		outlineStyle: 'dashed',
 	},
 });
 
 interface AAddContainerCardWithCreateProps {
 	containerType: ContainerTypes;
-	onCreateContainerClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+	onAddAContainerClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 	isLoading?: boolean;
 }
 
@@ -83,10 +73,10 @@ const AddContainerCardWrapper = ({
 
 export const AddContainerCardWithCreate = ({
 	containerType,
-	onCreateContainerClick,
+	onAddAContainerClick,
 	isLoading,
 }: AAddContainerCardWithCreateProps) => {
-	const { description, icon, title } = getContainerProperties({
+	const { description, title } = getContainerProperties({
 		containerType,
 	});
 	if (isLoading) {
@@ -94,9 +84,20 @@ export const AddContainerCardWithCreate = ({
 	}
 
 	return (
-		<AddContainerCardWrapper onClick={onCreateContainerClick}>
+		<AddContainerCardWrapper onClick={onAddAContainerClick}>
 			<Inline space="space.100" xcss={styles.card}>
-				<Box xcss={styles.iconWrapper}>{icon}</Box>
+				<Box xcss={styles.iconWrapper}>
+					<IconButton
+						label="Add a container"
+						appearance="subtle"
+						icon={(iconProps) => <AddIcon {...iconProps} size="small" />}
+						testId="add-icon"
+						onClick={(e) => {
+							onAddAContainerClick(e);
+							e.stopPropagation();
+						}}
+					/>
+				</Box>
 				<Stack
 					{...(fg('enable_medium_size_icons_for_team_link_cards') ? { space: 'space.025' } : {})}
 				>
@@ -109,18 +110,6 @@ export const AddContainerCardWithCreate = ({
 						</Text>
 					</Flex>
 				</Stack>
-				<Box xcss={styles.createButtonWrapper}>
-					<Button
-						appearance="subtle"
-						testId="add-create-icon"
-						onClick={(e) => {
-							onCreateContainerClick(e);
-							e.stopPropagation();
-						}}
-					>
-						<FormattedMessage {...messages.createLinkButtonText} />
-					</Button>
-				</Box>
 			</Inline>
 		</AddContainerCardWrapper>
 	);
@@ -128,80 +117,50 @@ export const AddContainerCardWithCreate = ({
 
 export const getAddContainerCardsWithCreate = ({
 	showAddContainer,
-	onCreateContainerClick,
 	onAddAContainerClick,
 	containersLoading,
 }: {
 	showAddContainer: { Jira: boolean; Confluence: boolean; Loom: boolean; WebLink: boolean };
-	onCreateContainerClick: (
+	containersLoading: { jira: boolean; confluence: boolean; loom: boolean };
+	onAddAContainerClick: (
 		e: React.MouseEvent<HTMLButtonElement>,
 		containerType: 'Confluence' | 'Jira' | 'Loom' | 'WebLink',
 	) => void;
-	containersLoading: { jira: boolean; confluence: boolean; loom: boolean };
-	onAddAContainerClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }) => {
 	return (
 		<>
 			{showAddContainer.Jira && (
 				<AddContainerCardWithCreate
-					onCreateContainerClick={(e) => {
-						onCreateContainerClick(e, 'Jira');
-					}}
+					onAddAContainerClick={(e) => onAddAContainerClick(e, 'Jira')}
 					containerType="JiraProject"
 					isLoading={containersLoading.jira}
 				/>
 			)}
 			{showAddContainer.Confluence && (
 				<AddContainerCardWithCreate
-					onCreateContainerClick={(e) => {
-						onCreateContainerClick(e, 'Confluence');
-					}}
+					onAddAContainerClick={(e) => onAddAContainerClick(e, 'Confluence')}
 					containerType="ConfluenceSpace"
 					isLoading={containersLoading.confluence}
 				/>
 			)}
 			{showAddContainer.Loom && (
 				<AddContainerCardWithCreate
-					onCreateContainerClick={(e) => {
-						onCreateContainerClick(e, 'Loom');
-					}}
+					onAddAContainerClick={(e) => onAddAContainerClick(e, 'Loom')}
 					containerType="LoomSpace"
 					isLoading={containersLoading.loom}
 				/>
 			)}
-			{(showAddContainer.Loom || showAddContainer.Jira || showAddContainer.Confluence) && (
-				<AddContainerCardWrapper onClick={onAddAContainerClick}>
-					<Inline space="space.100" xcss={styles.card}>
-						<Box xcss={styles.iconWrapper}>
-							<IconButton
-								label="Add a container"
-								appearance="subtle"
-								icon={(iconProps) => <AddIcon {...iconProps} size="small" />}
-								testId="add-icon"
-								onClick={(e) => {
-									onAddAContainerClick(e);
-									e.stopPropagation();
-								}}
-							/>
-						</Box>
-						<Stack space={'space.025'}>
-							<Text maxLines={1} weight="medium" color="color.text">
-								<FormattedMessage {...messages.addExistingLinkTitle} />
-							</Text>
-						</Stack>
-					</Inline>
-				</AddContainerCardWrapper>
+			{showAddContainer.WebLink && (
+				<AddContainerCardWithCreate
+					onAddAContainerClick={(e) => onAddAContainerClick(e, 'WebLink')}
+					containerType="WebLink"
+				/>
 			)}
 		</>
 	);
 };
 
 export const messages = defineMessages({
-	createLinkButtonText: {
-		id: 'ptc-directory.team-profile-page.team-containers.add-confluence-space-title',
-		defaultMessage: 'Create',
-		description: 'Title of the card to add a Confluence space to a team',
-	},
 	addExistingLinkTitle: {
 		id: 'ptc-directory.team-profile-page.team-containers.add-confluence-space-title',
 		defaultMessage: 'Add an existing space',

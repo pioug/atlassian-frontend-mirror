@@ -44,8 +44,7 @@
 		"@atlaskit/ssr": "workspace:^",
 		"@atlaskit/visual-regression": "workspace:^",
 		"@testing-library/react": "root:*",
-		"react-dom": "root:*",
-		"typescript": "root:*"
+		"react-dom": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {
@@ -86,7 +85,7 @@
 		}
 	},
 	"name": "@atlaskit/anonymous-assets",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"description": "Assets for anonymous users",
 	"author": "Atlassian Pty Ltd",
 	"publishConfig": {

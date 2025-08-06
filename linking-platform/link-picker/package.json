@@ -118,8 +118,7 @@
 		"node-fetch": "root:*",
 		"prettier": "root:*",
 		"react-dom": "root:*",
-		"sinon": "root:*",
-		"typescript": "root:*"
+		"sinon": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

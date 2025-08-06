@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 5.1.8
+
+### Patch Changes
+
+- [#197019](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/197019)
+  [`a0cb47e879f31`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a0cb47e879f31) -
+  ENGHEALTH-32239 Only group as radio button if not explicitly set to false behind FG
+- Updated dependencies
+
 ## 5.1.7
 
 ### Patch Changes

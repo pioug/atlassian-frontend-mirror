@@ -68,8 +68,7 @@
 		"@testing-library/react": "root:*",
 		"@types/eslint": "root:*",
 		"@types/eslint-scope": "root:*",
-		"react-dom": "root:*",
-		"typescript": "root:*"
+		"react-dom": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

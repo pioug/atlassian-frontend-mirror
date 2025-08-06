@@ -70,8 +70,7 @@
 		"@types/uuid-validate": "root:*",
 		"fetch-mock": "root:*",
 		"react": "root:*",
-		"react-dom": "root:*",
-		"typescript": "root:*"
+		"react-dom": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

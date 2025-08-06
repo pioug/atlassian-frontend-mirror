@@ -61,8 +61,7 @@
 	},
 	"devDependencies": {
 		"@testing-library/react": "root:*",
-		"@types/react-transition-group": "root:*",
-		"typescript": "root:*"
+		"@types/react-transition-group": "root:*"
 	},
 	"keywords": [
 		"atlaskit",

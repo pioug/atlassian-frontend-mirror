@@ -57,15 +57,35 @@ export const createDeletedContentDecoration = ({
 }: DeletedContentDecorationProps) => {
 	const dom = document.createElement('span');
 	dom.setAttribute('style', deletedContentStyle);
-	dom.appendChild(
-		DOMSerializer.fromSchema(tr.doc.type.schema).serializeFragment(
-			doc.slice(change.fromA, change.toA).content,
-		),
-	);
+
+	/*
+	 * The thinking is we separate out the fragment we got from doc.slice
+	 * and if it's the first or last content, we go in however many the sliced Open
+	 * or sliced End depth is and match only the content and not with the entire node.
+	 */
+	const slice = doc.slice(change.fromA, change.toA);
+	slice.content.forEach((node) => {
+		const serializer = DOMSerializer.fromSchema(tr.doc.type.schema);
+
+		const isFirst = slice.content.firstChild === node;
+		const isLast = slice.content.lastChild === node;
+
+		if (isFirst || (isLast && slice.content.childCount > 2)) {
+			if (node.content.childCount > 0 && node.type.inlineContent === true) {
+				dom.append(serializer.serializeFragment(node.content));
+			} else {
+				dom.append(serializer.serializeNode(node));
+			}
+		} else if (isLast && slice.content.childCount === 2) {
+			const lineBreak = document.createElement('br');
+			dom.append(lineBreak);
+			dom.append(serializer.serializeFragment(node.content));
+		} else {
+			dom.append(serializer.serializeNode(node));
+		}
+	});
 
 	// Widget decoration used for deletions as the content is not in the document
 	// and we want to display the deleted content with a style.
-	return Decoration.widget(change.fromB, dom, {
-		marks: [],
-	});
+	return Decoration.widget(change.fromB, dom, {});
 };

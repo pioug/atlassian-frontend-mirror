@@ -71,7 +71,6 @@
 		"@testing-library/react-hooks": "root:*",
 		"@testing-library/user-event": "root:*",
 		"react-dom": "root:*",
-		"typescript": "root:*",
 		"wait-for-expect": "root:*"
 	},
 	"techstack": {

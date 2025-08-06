@@ -30,9 +30,6 @@
 	"dependencies": {
 		"@babel/runtime": "root:*"
 	},
-	"devDependencies": {
-		"typescript": "root:*"
-	},
 	"keywords": [
 		"fabric",
 		"ui"

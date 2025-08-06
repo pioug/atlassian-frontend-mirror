@@ -38,8 +38,7 @@
 		"@babel/runtime": "root:*"
 	},
 	"devDependencies": {
-		"jest-fetch-mock": "root:*",
-		"typescript": "root:*"
+		"jest-fetch-mock": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

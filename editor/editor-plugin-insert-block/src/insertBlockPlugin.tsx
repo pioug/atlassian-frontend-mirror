@@ -85,7 +85,9 @@ export const toolbarSizeToButtons = (toolbarSize: ToolbarSize, appearance?: Edit
  */
 function handleInsertBlockType(
 	insertCodeBlock?: (input_method: INPUT_METHOD) => Command,
-	insertPanel?: (input_method: INPUT_METHOD) => Command,
+	insertPanel?: (
+		input_method: INPUT_METHOD.TOOLBAR | INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.INSERT_MENU,
+	) => Command,
 	insertBlockQuote?: (input_method: BlockTypeInputMethod) => Command,
 ) {
 	return (name: string) => {

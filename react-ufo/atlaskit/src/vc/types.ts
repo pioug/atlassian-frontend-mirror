@@ -29,7 +29,6 @@ export type VCObserverOptions = {
 	selectorConfig?: SelectorConfig | undefined;
 	isPostInteraction?: boolean;
 	ssrEnablePageLayoutPlaceholder?: boolean;
-	disableSizeAndPositionCheck?: { v: boolean; h: boolean };
 	ssrPlaceholderHandler?: any; // SSRPlaceholderHandlers | null - using any to avoid circular import
 };
 

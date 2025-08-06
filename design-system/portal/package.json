@@ -74,8 +74,7 @@
 		"@testing-library/react": "root:*",
 		"@testing-library/react-hooks": "root:*",
 		"bind-event-listener": "root:*",
-		"raf-stub": "root:*",
-		"typescript": "root:*"
+		"raf-stub": "root:*"
 	},
 	"keywords": [
 		"atlaskit",

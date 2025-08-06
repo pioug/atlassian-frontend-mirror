@@ -58,8 +58,7 @@
 		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@testing-library/react": "root:*",
-		"react-dom": "root:*",
-		"typescript": "root:*"
+		"react-dom": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

@@ -2,7 +2,7 @@ import React, { forwardRef, type ReactNode } from 'react';
 
 import Button, { type ButtonProps } from '@atlaskit/button/new';
 
-export interface PrimaryActionProps {
+export interface SpotlightPrimaryActionProps {
 	/**
 	 * A `testId` prop is provided for specified elements, which is a unique
 	 * string that appears as a data attribute `data-testid` in the rendered code,
@@ -28,8 +28,8 @@ export interface PrimaryActionProps {
  * for single step spotlights, or to show the next step on multi step spotlight tours.
  *
  */
-export const SpotlightPrimaryAction = forwardRef<HTMLButtonElement, PrimaryActionProps>(
-	({ onClick, children, testId }: PrimaryActionProps, ref) => {
+export const SpotlightPrimaryAction = forwardRef<HTMLButtonElement, SpotlightPrimaryActionProps>(
+	({ onClick, children, testId }: SpotlightPrimaryActionProps, ref) => {
 		return (
 			<Button ref={ref} spacing="compact" testId={testId} appearance="primary" onClick={onClick}>
 				{children}

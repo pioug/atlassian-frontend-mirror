@@ -22,7 +22,7 @@ export type {
 	CardDimensions,
 } from './types';
 
-export { Card } from './card';
+export { Card, CardSync } from './card';
 export {
 	MediaInlineCard,
 	fireFailedMediaInlineEvent,

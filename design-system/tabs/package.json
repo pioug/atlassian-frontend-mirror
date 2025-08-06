@@ -63,8 +63,7 @@
 		"@testing-library/user-event": "root:*",
 		"react-dom": "root:*",
 		"react-lorem-component": "root:*",
-		"storybook-addon-performance": "root:*",
-		"typescript": "root:*"
+		"storybook-addon-performance": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

@@ -34,9 +34,6 @@
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^"
 	},
-	"devDependencies": {
-		"typescript": "root:*"
-	},
 	"techstack": {
 		"@atlassian/frontend": {
 			"import-structure": [

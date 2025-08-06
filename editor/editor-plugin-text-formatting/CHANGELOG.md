@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 3.0.9
+
+### Patch Changes
+
+- [#197019](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/197019)
+  [`96717455eea97`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/96717455eea97) -
+  Import keys for toolbar components
+- Updated dependencies
+
+## 3.0.8
+
+### Patch Changes
+
+- [#195899](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195899)
+  [`345c0b6478f73`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/345c0b6478f73) -
+  [ux] [ED-28682] Register text formatting toolbar component following new toolbar AIFC design
+- Updated dependencies
+
 ## 3.0.7
 
 ### Patch Changes

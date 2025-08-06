@@ -60,7 +60,6 @@
 		"@types/async-retry": "root:*",
 		"@types/redux": "root:*",
 		"react-dom": "root:*",
-		"typescript": "root:*",
 		"wait-for-expect": "root:*"
 	},
 	"platform-feature-flags": {

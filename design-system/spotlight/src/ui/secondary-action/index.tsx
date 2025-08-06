@@ -3,7 +3,7 @@ import React, { forwardRef, type ReactNode } from 'react';
 import Button, { type ButtonProps } from '@atlaskit/button/new';
 import { Text } from '@atlaskit/primitives/compiled';
 
-export interface SecondaryActionProps {
+export interface SpotlightSecondaryActionProps {
 	/**
 	 * A `testId` prop is provided for specified elements, which is a unique
 	 * string that appears as a data attribute `data-testid` in the rendered code,
@@ -29,12 +29,13 @@ export interface SecondaryActionProps {
  * It is intended to be used to go back to the previous step in multi step spotlight tours, or other similar actions.
  *
  */
-export const SpotlightSecondaryAction = forwardRef<HTMLButtonElement, SecondaryActionProps>(
-	({ onClick, children, testId }: SecondaryActionProps, ref) => {
-		return (
-			<Button ref={ref} spacing="compact" testId={testId} appearance="subtle" onClick={onClick}>
-				<Text as="span">{children}</Text>
-			</Button>
-		);
-	},
-);
+export const SpotlightSecondaryAction = forwardRef<
+	HTMLButtonElement,
+	SpotlightSecondaryActionProps
+>(({ onClick, children, testId }: SpotlightSecondaryActionProps, ref) => {
+	return (
+		<Button ref={ref} spacing="compact" testId={testId} appearance="subtle" onClick={onClick}>
+			<Text as="span">{children}</Text>
+		</Button>
+	);
+});

@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-annotation
 
+## 3.2.0
+
+### Minor Changes
+
+- [#197019](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/197019)
+  [`96717455eea97`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/96717455eea97) -
+  Create a new toolbar export from editor-common, add useEditorToolbar and EditorToolbarProvider
+  react context components to pass editorView to children toolbar components.
+
+  Add `@atlaskit/editor-plugin-toolbar`, `@atlaskit/editor-toolbar` and
+  `@atlaskit/editor-toolbar-model` as depedencies.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.1.4
 
 ### Patch Changes

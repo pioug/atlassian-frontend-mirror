@@ -38,6 +38,12 @@ export const getContainerProperties = ({
 				icon: <ProjectIcon label={'jira project'} spacing={'spacious'} />,
 				title: <FormattedMessage {...messages.addJiraProjectTitle} />,
 			};
+		case 'WebLink':
+			return {
+				description: null,
+				icon: <ProjectIcon label={'web link'} spacing={'spacious'} />,
+				title: <FormattedMessage {...messages.addWebLinkTitle} />,
+			};
 		default:
 			return {
 				description: null,
@@ -49,44 +55,38 @@ export const getContainerProperties = ({
 
 export const messages = defineMessages({
 	addConfluenceContainerTitle: {
-		id: 'ptc-directory.team-profile-page.team-containers.add-confluence-space-title',
+		id: 'ptc-directory.team-profile-page.team-containers.auto-create.add-confluence-space-title',
 		defaultMessage: 'Confluence space',
 		description: 'Title of the card to add a Confluence space to a team',
 	},
 	confluenceContainerDescription: {
-		id: 'ptc-directory.team-profile-page.team-containers.add-confluence-space-description',
+		id: 'ptc-directory.team-profile-page.team-containers.auto-create.add-confluence-space-description',
 		defaultMessage: 'Create a knowledge bank',
 		description: 'Description of the card to add a Confluence space to a team',
 	},
 	addLoomContainerTitle: {
-		id: 'ptc-directory.team-profile-page.team-containers.add-loom-space-title',
+		id: 'ptc-directory.team-profile-page.team-containers.auto-create.add-loom-space-title',
 		defaultMessage: 'Loom space',
 		description: 'Title of the card to add a Loom space to a team',
 	},
 	loomSpaceDescription: {
-		id: 'ptc-directory.team-profile-page.team-containers.add-loom-space-description',
+		id: 'ptc-directory.team-profile-page.team-containers.auto-create.add-loom-space-description',
 		defaultMessage: 'Share async updates',
 		description: 'Description of the card to add a Loom space to a team',
 	},
 	addJiraProjectTitle: {
-		id: 'ptc-directory.team-profile-page.team-containers.add-jira-project-title',
+		id: 'ptc-directory.team-profile-page.team-containers.auto-create.add-jira-project-title',
 		defaultMessage: 'Jira project',
 		description: 'Title of the card to add a Jira project to a team',
 	},
 	jiraProjectDescription: {
-		id: 'ptc-directory.team-profile-page.team-containers.add-jira-project-description',
+		id: 'ptc-directory.team-profile-page.team-containers.auto-create.add-jira-project-description',
 		defaultMessage: 'Plan out project tasks',
 		description: 'Description of the card to add a Jira project to a team',
 	},
-
-	emptyWebLinkContainerDescription: {
-		id: 'platform.teams.containers.empty-web-link-description',
+	addWebLinkTitle: {
+		id: 'ptc-directory.team-profile-page.team-containers.auto-create.add-web-link-title',
 		defaultMessage: 'Add any web link',
-		description: 'Description displayed on the empty card for adding a web link to a team',
-	},
-	webLinkContainerDescription: {
-		id: 'platform.teams.containers.web-link-title-description',
-		defaultMessage: 'Web link',
-		description: 'Description displayed for web link containers in team profile',
+		description: 'Title of the card to add a any web link to a team',
 	},
 });

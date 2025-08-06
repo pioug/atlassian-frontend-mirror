@@ -30,8 +30,8 @@ const props: SyntaxHighlighterProps = {
 	showLineNumbers: true,
 	shouldCreateParentElementForLines: false,
 	shouldWrapLongLines: false,
-	codeBidiWarnings: false,
-	codeBidiWarningTooltipEnabled: false,
+	hasBidiWarnings: false,
+	isBidiWarningTooltipEnabled: false,
 };
 
 // style example
@@ -178,7 +178,7 @@ describe('Highlight', () => {
 		expect(code?.children).toHaveLength(36);
 	});
 
-	it('should render a bidi code warning if codeBidiWarnings flag is set to true', () => {
+	it('should render a bidi code warning if hasBidiWarnings flag is set to true', () => {
 		const highlight = (
 			<Highlight {...props} codeBidiWarnings={true} text={javaCodeBlockWithBidiChar} />
 		);
@@ -187,7 +187,7 @@ describe('Highlight', () => {
 		expect(screen.getByText('U+202e')).toBeInTheDocument();
 	});
 
-	it('should not render a bidi code warning if codeBidiWarnings flag is set to false', () => {
+	it('should not render a bidi code warning if hasBidiWarnings flag is set to false', () => {
 		const highlight = (
 			<Highlight {...props} codeBidiWarnings={false} text={javaCodeBlockWithBidiChar} />
 		);
@@ -196,7 +196,7 @@ describe('Highlight', () => {
 		expect(screen.queryByLabelText('U+202e')).not.toBeInTheDocument();
 	});
 
-	it('should render a bidi code warning with a tooltip if codeBidiWarningTooltipEnabled flag is set to true', () => {
+	it('should render a bidi code warning with a tooltip if isBidiWarningTooltipEnabled flag is set to true', () => {
 		const highlight = (
 			<Highlight
 				{...props}
@@ -210,7 +210,7 @@ describe('Highlight', () => {
 		expect(screen.getByRole('presentation')).toBeInTheDocument();
 	});
 
-	it('should not render a bidi code warning tooltip if codeBidiWarningTooltipEnabled flag is set to false', () => {
+	it('should not render a bidi code warning tooltip if isBidiWarningTooltipEnabled flag is set to false', () => {
 		const highlight = (
 			<Highlight
 				{...props}

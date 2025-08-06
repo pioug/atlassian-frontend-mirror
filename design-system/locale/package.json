@@ -49,8 +49,7 @@
 	"devDependencies": {
 		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/textfield": "workspace:^",
-		"@atlassian/feature-flags-test-utils": "workspace:^",
-		"typescript": "root:*"
+		"@atlassian/feature-flags-test-utils": "workspace:^"
 	},
 	"platform-feature-flags": {},
 	"homepage": "https://atlaskit.atlassian.com/packages/helpers/locale"

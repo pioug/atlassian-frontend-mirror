@@ -59,8 +59,7 @@
 		"@testing-library/user-event": "root:*",
 		"jest-fetch-mock": "root:*",
 		"msw": "root:*",
-		"react-dom": "root:*",
-		"typescript": "root:*"
+		"react-dom": "root:*"
 	},
 	"platform-feature-flags": {
 		"platform_media_cross_client_copy": {

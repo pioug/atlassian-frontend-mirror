@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/app-provider",
-	"version": "3.0.0",
+	"version": "3.1.0",
 	"description": "A top level provider for the Design System.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -58,8 +58,7 @@
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"react-dom": "root:*",
-		"react-resource-router": "root:*",
-		"typescript": "root:*"
+		"react-resource-router": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

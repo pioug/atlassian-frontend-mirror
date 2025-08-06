@@ -41,6 +41,7 @@ const styles = cssMap({
 	},
 	selected: {
 		backgroundColor: token('color.background.selected'),
+		color: token('color.text.selected'),
 		'&:hover': {
 			backgroundColor: token('color.background.selected.hovered'),
 		},

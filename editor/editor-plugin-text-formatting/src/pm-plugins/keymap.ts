@@ -25,7 +25,8 @@ import {
 	toggleSubscriptWithAnalytics,
 	toggleSuperscriptWithAnalytics,
 	toggleUnderlineWithAnalytics,
-} from './commands';
+} from '../editor-commands/toggle-mark';
+
 import { pluginKey } from './plugin-key';
 
 export default function keymapPlugin(

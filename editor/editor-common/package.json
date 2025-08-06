@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "107.17.0",
+	"version": "107.18.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -109,6 +109,7 @@
 		"./intl-error-boundary": "./src/ui/IntlErrorBoundary/index.tsx",
 		"./code-block": "./src/code-block/index.ts",
 		"./table": "./src/table/index.ts",
+		"./toolbar": "./src/toolbar/index.ts",
 		"./user-preferences": "./src/user-preferences/index.ts",
 		"./use-plugin-state-effect": "./src/hooks/usePluginStateEffect.ts",
 		"./use-shared-plugin-state-selector": "./src/hooks/useSharedPluginStateSelector/index.ts",
@@ -119,8 +120,7 @@
 		"./ugc-tokens": "./src/ugc-tokens/index.ts",
 		"./get-dom-ref-from-selection": "./src/utils/get-dom-ref-from-selection.ts",
 		"./ncs-step-metrics": "./src/ncs-step-metrics/index.ts",
-		"./toolbar-flag-check": "./src/toolbar-flag-check.ts",
-		"./toolbar": "./src/toolbar/index.ts"
+		"./toolbar-flag-check": "./src/toolbar-flag-check.ts"
 	},
 	"exports": {
 		"./prosemirror-dom-metadata": "./src/prosemirror-dom-metadata/index.ts",
@@ -204,6 +204,7 @@
 		"./expand": "./src/expand/index.ts",
 		"./intl-error-boundary": "./src/ui/IntlErrorBoundary/index.tsx",
 		"./table": "./src/table/index.ts",
+		"./toolbar": "./src/toolbar/index.ts",
 		"./use-plugin-state-effect": "./src/hooks/usePluginStateEffect.ts",
 		"./use-shared-plugin-state-selector": "./src/hooks/useSharedPluginStateSelector/index.ts",
 		"./lazy-node-view": "./src/lazy-node-view/index.ts",
@@ -214,8 +215,7 @@
 		"./ugc-tokens": "./src/ugc-tokens/index.ts",
 		"./get-dom-ref-from-selection": "./src/utils/get-dom-ref-from-selection.ts",
 		"./ncs-step-metrics": "./src/ncs-step-metrics/index.ts",
-		"./toolbar-flag-check": "./src/toolbar-flag-check.ts",
-		"./toolbar": "./src/toolbar/index.ts"
+		"./toolbar-flag-check": "./src/toolbar-flag-check.ts"
 	},
 	"dependencies": {
 		"@atlaskit/activity-provider": "workspace:^",
@@ -323,8 +323,7 @@
 		"raf-stub": "root:*",
 		"react": "root:*",
 		"react-test-renderer": "root:*",
-		"sinon": "root:*",
-		"typescript": "root:*"
+		"sinon": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

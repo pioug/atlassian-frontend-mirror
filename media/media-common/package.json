@@ -71,8 +71,7 @@
 		"@types/uuid-validate": "root:*",
 		"enzyme": "root:*",
 		"react": "root:*",
-		"react-dom": "root:*",
-		"typescript": "root:*"
+		"react-dom": "root:*"
 	},
 	"platform-feature-flags": {
 		"dst-a11y__replace-anchor-with-link__media-exif": {

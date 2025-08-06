@@ -90,8 +90,7 @@
 		"@types/react-node-resolver": "root:*",
 		"raf-stub": "root:*",
 		"react-dom": "root:*",
-		"react-lorem-component": "root:*",
-		"typescript": "root:*"
+		"react-lorem-component": "root:*"
 	},
 	"platform-feature-flags": {
 		"platform_design_system_team_onboarding_noderesolve": {

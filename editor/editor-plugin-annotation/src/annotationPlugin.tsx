@@ -29,9 +29,14 @@ import {
 } from './pm-plugins/utils';
 import type { AnnotationProviders } from './types';
 import { InlineCommentView } from './ui/InlineCommentView';
+import { getToolbarComponents } from './ui/toolbar-components';
 
 export const annotationPlugin: AnnotationPlugin = ({ config: annotationProviders, api }) => {
 	const featureFlags = api?.featureFlags?.sharedState.currentState();
+
+	if (expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true)) {
+		api?.toolbar?.actions.registerComponents(getToolbarComponents(api, annotationProviders));
+	}
 
 	return {
 		name: 'annotation',
@@ -109,6 +114,10 @@ export const annotationPlugin: AnnotationPlugin = ({ config: annotationProviders
 			},
 
 			selectionToolbar(state, intl): SelectionToolbarGroup | undefined {
+				if (expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true)) {
+					return;
+				}
+
 				if (!annotationProviders) {
 					return;
 				}

@@ -53,7 +53,6 @@
 	"devDependencies": {
 		"@testing-library/react": "root:*",
 		"enzyme": "root:*",
-		"typescript": "root:*",
 		"wait-for-expect": "root:*"
 	}
 }

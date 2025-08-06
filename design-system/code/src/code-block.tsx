@@ -255,6 +255,7 @@ const getCodeBlockStyles = cssMap({
  */
 const CodeBlock = memo<CodeBlockProps>(function CodeBlock({
 	showLineNumbers = true,
+	shouldShowLineNumbers,
 	firstLineNumber = 1,
 	language: providedLanguage = 'text',
 	highlight = '',
@@ -263,16 +264,29 @@ const CodeBlock = memo<CodeBlockProps>(function CodeBlock({
 	testId,
 	text,
 	codeBidiWarnings = true,
+	hasBidiWarnings,
 	codeBidiWarningLabel,
 	codeBidiWarningTooltipEnabled = true,
+	isBidiWarningTooltipEnabled,
 	shouldWrapLongLines = false,
 	label = 'Scrollable content',
 }) {
 	const scrollableRef = useRef<HTMLSpanElement>(null);
 	const [showContentFocus, setShowContentFocus] = useState(false);
+
+	// Use children if provided, otherwise fall back to deprecated text prop
 	const numLines =
 		(text || '').split('\n').length + (firstLineNumber > 0 ? firstLineNumber : 1) - 1;
 	const lineNumberWidth = numLines ? getLineNumWidth(numLines) : 0;
+
+	// Use new props if provided, otherwise fall back to deprecated props
+	const shouldShowLineNumbersValue =
+		shouldShowLineNumbers !== undefined ? shouldShowLineNumbers : showLineNumbers;
+	const shouldShowBidiWarnings = hasBidiWarnings !== undefined ? hasBidiWarnings : codeBidiWarnings;
+	const shouldEnableTooltip =
+		isBidiWarningTooltipEnabled !== undefined
+			? isBidiWarningTooltipEnabled
+			: codeBidiWarningTooltipEnabled;
 
 	// Schedule a content focus on the target element
 	// WARNING: In theory, `target` may not be available when `rafSchedule` hits in concurrent rendering
@@ -318,7 +332,7 @@ const CodeBlock = memo<CodeBlockProps>(function CodeBlock({
 				shouldWrapLongLines
 					? getCodeBlockStyles.shouldWrapLongLines
 					: getCodeBlockStyles.dontWrapLongLines,
-				showLineNumbers
+				shouldShowLineNumbersValue
 					? getCodeBlockStyles.showLineNumbers
 					: getCodeBlockStyles.dontShowLineNumbers,
 			]}
@@ -327,7 +341,7 @@ const CodeBlock = memo<CodeBlockProps>(function CodeBlock({
 				'--ads-highlighted-start-text': highlightedStartText,
 				'--ads-highlighted-end-text': highlightedEndText,
 			}}
-			showLineNumbers={showLineNumbers}
+			showLineNumbers={shouldShowLineNumbersValue}
 			firstLineNumber={firstLineNumber}
 			lineProps={getLineProps}
 			// shouldCreateParentElementForLines is needed to pass down props to each line.
@@ -335,9 +349,9 @@ const CodeBlock = memo<CodeBlockProps>(function CodeBlock({
 			// these rely on a data attribute being passed down to lines.
 			shouldCreateParentElementForLines={highlight.length > 0 || !!testId}
 			shouldWrapLongLines={shouldWrapLongLines}
-			codeBidiWarnings={codeBidiWarnings}
+			codeBidiWarnings={shouldShowBidiWarnings}
 			codeBidiWarningLabel={codeBidiWarningLabel}
-			codeBidiWarningTooltipEnabled={codeBidiWarningTooltipEnabled}
+			codeBidiWarningTooltipEnabled={shouldEnableTooltip}
 			text={text}
 			tabIndex={showContentFocus ? '0' : undefined}
 			aria-label={showContentFocus ? label : undefined}

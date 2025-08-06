@@ -6,6 +6,7 @@ import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	toolbar: {
+		backgroundColor: token('elevation.surface'),
 		paddingRight: token('space.050'),
 		paddingLeft: token('space.050'),
 		boxShadow: token('elevation.shadow.overlay'),

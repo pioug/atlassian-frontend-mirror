@@ -140,6 +140,7 @@ export const changePanelType =
 		return true;
 	};
 
+// Delete with 'platform_editor_fix_quick_insert_consistency_exp'
 export function insertPanelWithAnalytics(
 	inputMethod: INPUT_METHOD,
 	analyticsAPI?: EditorAnalyticsAPI,

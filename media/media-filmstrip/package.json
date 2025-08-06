@@ -69,7 +69,6 @@
 		"react": "root:*",
 		"react-dom": "root:*",
 		"rxjs": "root:*",
-		"typescript": "root:*",
 		"wait-for-expect": "root:*"
 	},
 	"techstack": {

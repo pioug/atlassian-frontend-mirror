@@ -459,6 +459,9 @@ export const DragHandle = ({
 					if (BLOCK_MENU_ENABLED && editorExperiment('platform_editor_controls', 'variant1')) {
 						api?.blockControls?.commands.toggleBlockMenu({ anchorName })({ tr });
 						e.stopPropagation();
+					} else if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
+						api?.blockControls?.commands.toggleBlockMenu({ anchorName })({ tr });
+						e.stopPropagation();
 					}
 				} else if (
 					isTopLevelNode &&

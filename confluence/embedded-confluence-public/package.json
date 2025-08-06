@@ -45,7 +45,6 @@
 		"@testing-library/user-event": "root:*",
 		"react-markdown": "root:*",
 		"remark-gfm": "root:*",
-		"typescript": "root:*",
 		"wait-for-expect": "root:*"
 	},
 	"optionalDependencies": {

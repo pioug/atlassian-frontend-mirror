@@ -7,11 +7,12 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { Command } from '@atlaskit/editor-common/types';
-import type { Node, NodeType } from '@atlaskit/editor-prosemirror/model';
+import type { Node, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { liftTarget } from '@atlaskit/editor-prosemirror/transform';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 
+import type { ClearFormattingWithAnalyticsEditorCommand } from './types';
 import { cellSelectionNodesBetween } from './utils/cell-selection';
 
 export const FORMATTING_NODE_TYPES = ['heading', 'blockquote'];
@@ -37,12 +38,50 @@ const formatTypes: Record<string, string> = {
 	backgroundColor: ACTION_SUBJECT_ID.FORMAT_BACKGROUND_COLOR,
 };
 
+// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
+/**
+ * Consider removing this function when cleaning up platform_editor–toolbar_aifc
+ * @deprecated use `clearFormattingWithAnalyticsNext` instead, which returns EditorCommand
+ */
 export function clearFormattingWithAnalytics(
 	inputMethod: INPUT_METHOD.TOOLBAR | INPUT_METHOD.SHORTCUT | INPUT_METHOD.FLOATING_TB,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 ): Command {
 	return clearFormatting(inputMethod, editorAnalyticsAPI);
 }
+
+const clearNodeFormattingOnSelectionNext = (
+	schema: Schema,
+	tr: Transaction,
+	formattedNodeType: NodeType,
+	nodeName: string,
+	formattingCleared: string[],
+) => {
+	return function (node: Node, pos: number) {
+		if (node.type === formattedNodeType) {
+			if (formattedNodeType.isTextblock) {
+				tr.setNodeMarkup(pos, schema.nodes.paragraph);
+				formattingCleared.push(nodeName);
+				return false;
+			} else {
+				// In case of panel or blockquote
+				const fromPos = tr.doc.resolve(pos + 1);
+				const toPos = tr.doc.resolve(pos + node.nodeSize - 1);
+				const nodeRange = fromPos.blockRange(toPos);
+				if (nodeRange) {
+					const targetLiftDepth = liftTarget(nodeRange);
+					if (targetLiftDepth || targetLiftDepth === 0) {
+						formattingCleared.push(nodeName);
+						// Ignored via go/ees005
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+						tr.lift(nodeRange, targetLiftDepth!);
+					}
+				}
+			}
+		}
+		return true;
+	};
+};
 
 function clearNodeFormattingOnSelection(
 	state: EditorState,
@@ -159,3 +198,93 @@ export function clearFormatting(
 		return true;
 	};
 }
+
+export const clearFormattingWithAnalyticsNext: ClearFormattingWithAnalyticsEditorCommand =
+	(editorAnalyticsApi) =>
+	(inputMethod) =>
+	({ tr }) => {
+		const formattingCleared: string[] = [];
+		const { schema } = tr.doc.type;
+
+		FORMATTING_MARK_TYPES.forEach((mark) => {
+			const { from, to } = tr.selection;
+			const markType = schema.marks[mark];
+
+			if (!markType) {
+				return;
+			}
+
+			if (tr.selection instanceof CellSelection) {
+				cellSelectionNodesBetween(tr.selection, tr.doc, (node, pos): boolean => {
+					const isTableCell =
+						node.type === tr.doc.type.schema.nodes.tableCell ||
+						node.type === schema.nodes.tableHeader;
+
+					if (!isTableCell) {
+						return true;
+					}
+
+					if (tr.doc.rangeHasMark(pos, pos + node.nodeSize, markType)) {
+						formattingCleared.push(formatTypes[mark]);
+						tr.removeMark(pos, pos + node.nodeSize, markType);
+					}
+
+					return false;
+				});
+			} else if (tr.doc.rangeHasMark(from, to, markType)) {
+				formattingCleared.push(formatTypes[mark]);
+				tr.removeMark(from, to, markType);
+			}
+		});
+
+		FORMATTING_NODE_TYPES.forEach((nodeName) => {
+			const formattedNodeType = schema.nodes[nodeName];
+			const { $from, $to } = tr.selection;
+			if (tr.selection instanceof CellSelection) {
+				cellSelectionNodesBetween(
+					tr.selection,
+					tr.doc,
+					clearNodeFormattingOnSelectionNext(
+						schema,
+						tr,
+						formattedNodeType,
+						nodeName,
+						formattingCleared,
+					),
+				);
+			} else {
+				tr.doc.nodesBetween(
+					$from.pos,
+					$to.pos,
+					clearNodeFormattingOnSelectionNext(
+						schema,
+						tr,
+						formattedNodeType,
+						nodeName,
+						formattingCleared,
+					),
+				);
+			}
+		});
+
+		tr.setStoredMarks([]);
+
+		if (formattingCleared.length && inputMethod) {
+			editorAnalyticsApi?.attachAnalyticsEvent({
+				action: ACTION.FORMATTED,
+				eventType: EVENT_TYPE.TRACK,
+				actionSubject: ACTION_SUBJECT.TEXT,
+				actionSubjectId: ACTION_SUBJECT_ID.FORMAT_CLEAR,
+				attributes: {
+					inputMethod,
+					formattingCleared,
+					dropdownMenu:
+						inputMethod === INPUT_METHOD.TOOLBAR || inputMethod === INPUT_METHOD.FLOATING_TB
+							? 'textFormatting'
+							: undefined,
+				},
+			})(tr);
+		}
+
+		return tr;
+	};

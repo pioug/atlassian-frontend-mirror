@@ -58,8 +58,7 @@
 		"@atlaskit/util-data-test": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@types/react-redux": "root:*",
-		"enzyme": "root:*",
-		"typescript": "root:*"
+		"enzyme": "root:*"
 	},
 	"af:exports": {
 		".": "./src/index.ts"

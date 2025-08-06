@@ -86,8 +86,7 @@
 		"postcss-less": "root:*",
 		"react": "root:*",
 		"react-window": "root:*",
-		"style-dictionary": "root:*",
-		"typescript": "root:*"
+		"style-dictionary": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

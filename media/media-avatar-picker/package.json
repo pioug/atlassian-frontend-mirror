@@ -72,8 +72,7 @@
 		"enzyme": "root:*",
 		"react": "root:*",
 		"react-dom": "root:*",
-		"react-intl-next": "root:*",
-		"typescript": "root:*"
+		"react-intl-next": "root:*"
 	},
 	"techstack": {
 		"@repo/internal": {

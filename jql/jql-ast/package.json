@@ -45,7 +45,6 @@
 	"devDependencies": {
 		"@atlaskit/docs": "workspace:^",
 		"fast-csv": "root:*",
-		"typescript": "root:*",
 		"wait-for-expect": "root:*"
 	},
 	"techstack": {

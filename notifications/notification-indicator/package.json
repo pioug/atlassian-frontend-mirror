@@ -50,7 +50,6 @@
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
-		"@testing-library/react": "root:*",
-		"typescript": "root:*"
+		"@testing-library/react": "root:*"
 	}
 }

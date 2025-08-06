@@ -48,8 +48,7 @@
 		"@compiled/react": "root:*",
 		"@testing-library/react": "root:*",
 		"@types/raf-schd": "root:*",
-		"react-dom": "root:*",
-		"typescript": "root:*"
+		"react-dom": "root:*"
 	},
 	"keywords": [
 		"atlaskit",

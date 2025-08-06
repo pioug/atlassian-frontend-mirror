@@ -39,8 +39,7 @@
 		"schema-dts": "root:*"
 	},
 	"devDependencies": {
-		"react-dom": "root:*",
-		"typescript": "root:*"
+		"react-dom": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

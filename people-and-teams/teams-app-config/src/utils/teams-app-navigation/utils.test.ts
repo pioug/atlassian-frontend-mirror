@@ -537,5 +537,16 @@ describe('teams app navigation utils', () => {
 			const result = getPathAndQuery(action);
 			expect(result).toEqual({ path: '303/work' });
 		});
+
+		it('should redirect to landing page if userId is undefined', () => {
+			const action: NavigationAction = {
+				...baseConfig,
+				type: 'USER',
+				// @ts-expect-error - we want to test the undefined case
+				payload: { userId: undefined },
+			};
+			const result = getPathAndQuery(action);
+			expect(result).toEqual({ path: '' });
+		});
 	});
 });

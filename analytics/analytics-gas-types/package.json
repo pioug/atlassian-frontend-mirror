@@ -37,9 +37,6 @@
 		"@atlaskit/analytics-next": "workspace:^",
 		"@babel/runtime": "root:*"
 	},
-	"devDependencies": {
-		"typescript": "root:*"
-	},
 	"keywords": [
 		"fabric",
 		"ui"

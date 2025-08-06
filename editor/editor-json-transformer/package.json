@@ -48,8 +48,7 @@
 		"lodash": "root:*"
 	},
 	"devDependencies": {
-		"react": "root:*",
-		"typescript": "root:*"
+		"react": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

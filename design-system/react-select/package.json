@@ -59,8 +59,7 @@
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
-		"jest-in-case": "root:*",
-		"typescript": "root:*"
+		"jest-in-case": "root:*"
 	},
 	"platform-feature-flags": {
 		"custom-interactive-elements-not-keyboard-focusable": {

@@ -5,8 +5,16 @@ import getInlineLineNumber from './get-inline-line-number';
 export type CreateLineElementProps = {
 	children: RefractorNode[];
 	lineNumber: number;
+	/**
+	 * Sets whether to display code line numbers or not.
+	 * @deprecated Use `shouldShowLineNumbers` instead
+	 */
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	showLineNumbers?: boolean;
+	/**
+	 * Sets whether to display code line numbers or not.
+	 */
+	shouldShowLineNumbers?: boolean;
 	lineProps?: SyntaxHighlighterLineProps;
 	className?: string[];
 };
@@ -15,16 +23,21 @@ export default function createLineElement({
 	children,
 	lineNumber,
 	showLineNumbers,
+	shouldShowLineNumbers,
 	lineProps = {},
 	className = [],
 }: CreateLineElementProps): AST.Element {
+	// Use new prop if provided, otherwise fall back to deprecated prop
+	const shouldShowLineNumbersValue =
+		shouldShowLineNumbers !== undefined ? shouldShowLineNumbers : showLineNumbers;
+
 	const propsPassedInFromCodeBlock =
 		typeof lineProps === 'function' ? lineProps(lineNumber) : lineProps;
 	const properties = { ...propsPassedInFromCodeBlock, className };
 
 	let currentChildren = children;
 
-	if (lineNumber && showLineNumbers) {
+	if (lineNumber && shouldShowLineNumbersValue) {
 		// When syntax highlighting is NOT turned on, the entire LOC is just a single
 		// child. We can then happily create the line number and the LOC as siblings...
 		if (currentChildren.length === 1) {

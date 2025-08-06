@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-menu",
-	"version": "0.0.0",
+	"version": "0.0.1",
 	"description": "BlockMenu plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -34,15 +34,22 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
+		"@atlaskit/css": "workspace:^",
+		"@atlaskit/dropdown-menu": "workspace:^",
+		"@atlaskit/editor-plugin-block-controls": "workspace:^",
+		"@atlaskit/editor-plugin-user-intent": "workspace:^",
 		"@atlaskit/editor-prosemirror": "root:*",
+		"@atlaskit/editor-shared-styles": "workspace:^",
+		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/icon-lab": "workspace:^",
+		"@atlaskit/primitives": "workspace:^",
+		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
-		"react": "^18.2.0"
-	},
-	"devDependencies": {
-		"typescript": "root:*"
+		"react": "^18.2.0",
+		"react-intl-next": "*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

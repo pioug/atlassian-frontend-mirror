@@ -76,8 +76,7 @@
 		"@testing-library/react": "root:*",
 		"@testing-library/react-hooks": "root:*",
 		"raw-loader": "root:*",
-		"react-dom": "root:*",
-		"typescript": "root:*"
+		"react-dom": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

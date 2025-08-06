@@ -46,7 +46,6 @@
 		"@atlaskit/media-test-helpers": "workspace:^",
 		"mockdate": "root:*",
 		"react": "root:*",
-		"react-dom": "root:*",
-		"typescript": "root:*"
+		"react-dom": "root:*"
 	}
 }

@@ -18,6 +18,33 @@
 	],
 	"references": [
 		{
+			"path": "../../../design-system/css/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/dropdown-menu/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-block-controls/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-user-intent/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-shared-styles/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon-lab/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../editor-common/afm-cc/tsconfig.json"
 		}
 	]

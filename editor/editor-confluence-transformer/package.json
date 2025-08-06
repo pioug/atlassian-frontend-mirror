@@ -68,8 +68,7 @@
 		"@atlaskit/editor-plugins": "workspace:^",
 		"@atlaskit/editor-test-helpers": "workspace:^",
 		"@emotion/react": "root:*",
-		"pretty-data": "root:*",
-		"typescript": "root:*"
+		"pretty-data": "root:*"
 	},
 	"techstack": {
 		"@repo/internal": {

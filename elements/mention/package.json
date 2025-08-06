@@ -68,8 +68,7 @@
 		"react": "root:*",
 		"react-dom": "root:*",
 		"react-intl-next": "root:*",
-		"serialize-javascript": "root:*",
-		"typescript": "root:*"
+		"serialize-javascript": "root:*"
 	},
 	"exports": {
 		".": "./src/index.ts",
@@ -132,5 +131,5 @@
 			]
 		}
 	},
-	"version": "24.2.7"
+	"version": "24.2.8"
 }

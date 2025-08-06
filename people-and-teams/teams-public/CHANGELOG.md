@@ -1,5 +1,19 @@
 # @atlaskit/teams-public
 
+## 0.52.0
+
+### Minor Changes
+
+- [#195899](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195899)
+  [`b33ab61a6f625`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b33ab61a6f625) -
+  [ux] Open container linker on add container click
+
+### Patch Changes
+
+- [#195899](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195899)
+  [`65027bc483cd9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/65027bc483cd9) -
+  Update feature gate exposure event for creating containers
+
 ## 0.51.2
 
 ### Patch Changes

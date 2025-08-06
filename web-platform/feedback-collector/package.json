@@ -69,8 +69,7 @@
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/react-hooks": "root:*",
-		"buffer": "root:*",
-		"typescript": "root:*"
+		"buffer": "root:*"
 	},
 	"keywords": [
 		"atlaskit",

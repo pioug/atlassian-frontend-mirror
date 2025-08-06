@@ -47,9 +47,6 @@
 		"react": "^18.2.0",
 		"react-intl-next": "*"
 	},
-	"devDependencies": {
-		"typescript": "root:*"
-	},
 	"techstack": {
 		"@atlassian/frontend": {
 			"code-structure": [

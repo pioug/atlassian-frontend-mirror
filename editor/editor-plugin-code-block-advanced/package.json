@@ -61,8 +61,7 @@
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@atlaskit/code": "workspace:^",
-		"typescript": "root:*"
+		"@atlaskit/code": "workspace:^"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

@@ -43,7 +43,6 @@
 	"devDependencies": {
 		"@emotion/react": "root:*",
 		"raf-stub": "root:*",
-		"typescript": "root:*",
 		"wait-for-expect": "root:*"
 	},
 	"techstack": {

@@ -48,8 +48,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/analytics-next": "workspace:^",
-		"@testing-library/react": "root:*",
-		"typescript": "root:*"
+		"@testing-library/react": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

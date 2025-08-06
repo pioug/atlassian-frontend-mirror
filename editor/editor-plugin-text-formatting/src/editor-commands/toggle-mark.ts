@@ -1,4 +1,3 @@
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -6,21 +5,12 @@ import {
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import { toggleMark } from '@atlaskit/editor-common/mark';
-import type {
-	EditorCommand,
-	ExtractInjectionAPI,
-	InputMethodBasic,
-} from '@atlaskit/editor-common/types';
+import type { EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
-import { nextToggleMark } from '../editor-commands/utils/marks';
 import type { TextFormattingPlugin } from '../textFormattingPluginType';
 
-type ToggleMarkWithAnalyticsEditorCommand = (
-	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
-	api?: ExtractInjectionAPI<TextFormattingPlugin>,
-) => ToggleMarkEditorCommand;
-
-export type ToggleMarkEditorCommand = (inputMethod: InputMethodBasic) => EditorCommand;
+import type { ToggleMarkWithAnalyticsEditorCommand } from './types';
+import { nextToggleMark } from './utils/marks';
 
 export const toggleEm: EditorCommand = ({ tr }) => {
 	const { em } = tr.doc.type.schema.marks;

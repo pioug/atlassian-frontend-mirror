@@ -15,10 +15,6 @@ export type VCObserverNewConfig = {
 	isPostInteraction?: boolean;
 	SSRConfig?: {
 		enablePageLayoutPlaceholder?: boolean;
-		disableSizeAndPositionCheck?: {
-			v: boolean;
-			h: boolean;
-		};
 	};
 	ssrPlaceholderHandler?: SSRPlaceholderHandlers | null;
 };
@@ -75,10 +71,6 @@ export default class VCObserverNew {
 		} else {
 			this.ssrPlaceholderHandler = new SSRPlaceholderHandlers({
 				enablePageLayoutPlaceholder: config.SSRConfig?.enablePageLayoutPlaceholder ?? false,
-				disableSizeAndPositionCheck: config.SSRConfig?.disableSizeAndPositionCheck ?? {
-					v: false,
-					h: false,
-				},
 			});
 		}
 

@@ -54,8 +54,7 @@
 		"@testing-library/user-event": "root:*",
 		"ast-types": "root:*",
 		"jscodeshift": "root:*",
-		"react": "root:*",
-		"typescript": "root:*"
+		"react": "root:*"
 	},
 	"keywords": [
 		"ui",

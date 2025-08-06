@@ -82,8 +82,7 @@
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@testing-library/react": "root:*",
-		"storybook-addon-performance": "root:*",
-		"typescript": "root:*"
+		"storybook-addon-performance": "root:*"
 	},
 	"overrides": {
 		"@atlaskit/analytics-next-stable-react-context": {

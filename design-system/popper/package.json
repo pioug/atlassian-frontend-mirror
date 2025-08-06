@@ -47,8 +47,7 @@
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"react-dom": "root:*",
-		"react-lorem-component": "root:*",
-		"typescript": "root:*"
+		"react-lorem-component": "root:*"
 	},
 	"keywords": [
 		"atlaskit",

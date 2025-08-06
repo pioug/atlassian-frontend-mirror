@@ -46,7 +46,9 @@ export type PanelPlugin = NextEditorPlugin<
 		pluginConfiguration: PanelPluginOptions | undefined;
 		dependencies: PanelPluginDependencies;
 		actions: {
-			insertPanel: (inputMethod: INPUT_METHOD) => Command;
+			insertPanel: (
+				inputMethod: INPUT_METHOD.INSERT_MENU | INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.TOOLBAR,
+			) => Command;
 		};
 	}
 >;

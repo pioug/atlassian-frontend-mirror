@@ -52,7 +52,6 @@
 		"@babel/runtime": "root:*"
 	},
 	"devDependencies": {
-		"typescript": "root:*",
 		"wait-for-expect": "root:*"
 	},
 	"techstack": {

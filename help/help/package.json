@@ -82,8 +82,7 @@
 		"@types/react-transition-group": "root:*",
 		"algoliasearch": "root:*",
 		"enzyme": "root:*",
-		"react-test-renderer": "root:*",
-		"typescript": "root:*"
+		"react-test-renderer": "root:*"
 	},
 	"keywords": [
 		"atlaskit",

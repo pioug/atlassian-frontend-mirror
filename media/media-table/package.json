@@ -67,8 +67,7 @@
 		"date-fns": "root:*",
 		"enzyme": "root:*",
 		"react": "root:*",
-		"react-dom": "root:*",
-		"typescript": "root:*"
+		"react-dom": "root:*"
 	},
 	"techstack": {
 		"@repo/internal": {

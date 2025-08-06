@@ -72,9 +72,6 @@
 		"react-dom": "^18.2.0",
 		"react-intl-next": "*"
 	},
-	"devDependencies": {
-		"typescript": "root:*"
-	},
 	"af:exports": {
 		"./types": "./src/types/index.ts",
 		".": "./src/index.ts",

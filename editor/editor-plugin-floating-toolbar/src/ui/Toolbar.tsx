@@ -92,7 +92,12 @@ export function groupItems(items: Item[]): GroupedItems {
 				const nextItemIsButton = items[i + 1] && items[i + 1].type === 'button';
 				const wasPreviousButton = items[i - 1] && items[i - 1].type === 'button';
 
-				const isRadioButton = (notLastItem && nextItemIsButton) || wasPreviousButton;
+				const shouldBeRadioButton = (notLastItem && nextItemIsButton) || wasPreviousButton;
+
+				// Only group as radio button if not explicitly set to false
+				const isRadioButton = !expValEquals('platform_editor_august_a11y', 'isEnabled', true)
+					? shouldBeRadioButton
+					: shouldBeRadioButton && item.isRadioButton !== false;
 
 				if (isRadioButton) {
 					item.isRadioButton = true;

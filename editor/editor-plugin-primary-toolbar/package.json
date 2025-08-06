@@ -48,9 +48,6 @@
 		"@atlaskit/editor-common": "workspace:^",
 		"react": "^18.2.0"
 	},
-	"devDependencies": {
-		"typescript": "root:*"
-	},
 	"techstack": {
 		"@atlassian/frontend": {
 			"code-structure": [

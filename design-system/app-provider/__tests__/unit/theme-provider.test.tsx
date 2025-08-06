@@ -237,6 +237,17 @@ describe('ThemeProvider', () => {
 			);
 			expect(screen.getByTestId('color-mode')).toHaveTextContent('dark');
 		});
+
+		it('should fallback to referencing the DOM for color mode when no app-provider is present', async () => {
+			function ThemeTestComponent() {
+				const colorMode = useColorMode();
+				return <div data-testid="color-mode">{colorMode}</div>;
+			}
+
+			document.documentElement.setAttribute('data-color-mode', 'light');
+			render(<ThemeTestComponent />);
+			expect(screen.getByTestId('color-mode')).toHaveTextContent('light');
+		});
 	});
 
 	describe('useTheme', () => {

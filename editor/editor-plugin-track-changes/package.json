@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-track-changes",
-	"version": "2.4.1",
+	"version": "2.4.2",
 	"description": "ShowDiff plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -46,9 +46,6 @@
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
 		"react": "^18.2.0"
-	},
-	"devDependencies": {
-		"typescript": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

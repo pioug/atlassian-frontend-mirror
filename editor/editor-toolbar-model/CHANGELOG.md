@@ -1,5 +1,13 @@
 # @atlaskit/editor-toolbar-model
 
+## 0.0.4
+
+### Patch Changes
+
+- [#195899](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195899)
+  [`345c0b6478f73`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/345c0b6478f73) -
+  [ED-28682] Export type ComponentTypes
+
 ## 0.0.3
 
 ### Patch Changes

@@ -90,8 +90,7 @@
 		"@testing-library/dom": "root:*",
 		"@testing-library/react": "root:*",
 		"@testing-library/react-hooks": "root:*",
-		"jest-in-case": "root:*",
-		"typescript": "root:*"
+		"jest-in-case": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

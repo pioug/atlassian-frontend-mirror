@@ -52,7 +52,6 @@
 		"@testing-library/jest-dom": "root:*",
 		"@testing-library/react": "root:*",
 		"react-dom": "root:*",
-		"typescript": "root:*",
 		"wait-for-expect": "root:*"
 	},
 	"techstack": {

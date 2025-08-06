@@ -1,0 +1,218 @@
+export const TOOLBARS = {
+	INLINE_TEXT_TOOLBAR: 'inline-text-toolbar',
+} as const;
+
+/**
+ * AI section
+ */
+export const AI_SECTION = {
+	key: 'ai-section',
+	type: 'section',
+} as const;
+
+export const ROVO_GROUP = {
+	key: 'rovo-group',
+	type: 'group',
+} as const;
+
+export const IMPROVE_WRITING_GROUP = {
+	key: 'improve-writing-group',
+	type: 'group',
+} as const;
+
+export const IMPROVE_WRITING_BUTTON = {
+	key: 'improve-writing-button',
+	type: 'button',
+} as const;
+
+export const ROVO_HERO_BUTTON = {
+	key: 'rovo-hero-button',
+	type: 'button',
+} as const;
+
+export const ROVO_MENU = {
+	key: 'rovo-menu',
+	type: 'menu',
+} as const;
+
+export const ROVO_PROMPT_MENU_SECTION = {
+	key: 'rovo-prompt-menu-section',
+	type: 'menu-section',
+} as const;
+
+export const MAKE_SHORTER_MENU_ITEM = {
+	key: 'make-shorter-menu-item',
+	type: 'menu-item',
+} as const;
+
+export const MAKE_LONGER_MENU_ITEM = {
+	key: 'make-longer-menu-item',
+	type: 'menu-item',
+} as const;
+
+export const CHANGE_TONE_NESTED_MENU = {
+	key: 'change-tone-nested-menu',
+	type: 'nested-menu',
+} as const;
+
+export const SPELLING_AND_GRAMMAR_MENU_ITEM = {
+	key: 'spelling-and-grammar-menu-item',
+	type: 'menu-item',
+} as const;
+
+export const SUMMARIZE_MENU_ITEM = {
+	key: 'summarize-menu-item',
+	type: 'menu-item',
+} as const;
+
+export const CHANGE_TONE_MENU_SECTION = {
+	key: 'change-tone-default-menu-section',
+	type: 'menu-section',
+} as const;
+
+export const MORE_PROFESSIONAL_MENU_ITEM = {
+	key: 'more-professional-menu-item',
+	type: 'menu-item',
+} as const;
+
+export const MORE_CASUAL_MENU_ITEM = {
+	key: 'more-casual-menu-item',
+	type: 'menu-item',
+} as const;
+
+export const MORE_EMPATHETIC_MENU_ITEM = {
+	key: 'more-empathetic-menu-item',
+	type: 'menu-item',
+} as const;
+
+export const TRANSLATE_NESTED_MENU = {
+	key: 'translate-nested-menu',
+	type: 'nested-menu',
+} as const;
+
+export const TRANSLATE_MENU_SECTION = {
+	key: 'translate-menu-section',
+	type: 'menu-section',
+} as const;
+
+/**
+ * Text section
+ */
+
+export const TEXT_SECTION = {
+	key: 'text-section',
+	type: 'section',
+} as const;
+
+/**
+ * Text formatting group
+ */
+export const TEXT_FORMATTING_GROUP = {
+	key: 'text-formatting-group',
+	type: 'group',
+} as const;
+
+export const TEXT_FORMATTING_HERO_BUTTON = {
+	key: 'text-formatting-hero-button',
+	type: 'button',
+} as const;
+
+export const TEXT_FORMATTING_MENU = {
+	key: 'text-formatting-menu',
+	type: 'menu',
+} as const;
+
+export const BOLD_MENU_ITEM = {
+	key: 'bold-menu-item',
+	type: 'menu-item',
+} as const;
+
+export const ITALIC_MENU_ITEM = {
+	key: 'italic-menu-item',
+	type: 'menu-item',
+} as const;
+
+export const UNDERLINE_MENU_ITEM = {
+	key: 'underline-menu-item',
+	type: 'menu-item',
+} as const;
+
+export const STRIKE_MENU_ITEM = {
+	key: 'strike-menu-item',
+	type: 'menu-item',
+} as const;
+
+export const CODE_MENU_ITEM = {
+	key: 'code-menu-item',
+	type: 'menu-item',
+} as const;
+
+export const SUBSCRIPT_MENU_ITEM = {
+	key: 'subscript-menu-item',
+	type: 'menu-item',
+} as const;
+
+export const SUPERSCRIPT_MENU_ITEM = {
+	key: 'superscript-menu-item',
+	type: 'menu-item',
+} as const;
+
+export const TEXT_FORMATTING_MENU_SECTION = {
+	key: 'text-formatting-menu-section',
+	type: 'menu-section',
+} as const;
+
+export const CLEAR_FORMARTTING_MENU_SECTION = {
+	key: 'clear-formatting-menu-section',
+	type: 'menu-section',
+} as const;
+
+export const CLEAR_FORMATTING_MENU_ITEM = {
+	key: 'clear-formatting-menu-item',
+	type: 'menu-item',
+} as const;
+
+/*
+ * Linking section
+ */
+
+export const LINKING_SECTION = {
+	key: 'linking-section',
+	type: 'section',
+} as const;
+
+/**
+ * Collab section
+ */
+export const COLLAB_SECTION = {
+	key: 'collab-section',
+	type: 'section',
+} as const;
+
+export const COMMENT_GROUP = {
+	key: 'comment-group',
+	type: 'group',
+} as const;
+
+export const COMMENT_HERO_BUTTON = {
+	key: 'comment-hero-button',
+	type: 'button',
+} as const;
+
+/**
+ * Apps section
+ */
+
+export const APPS_SECTION = {
+	key: 'apps-section',
+	type: 'section',
+} as const;
+
+/**
+ * Overflow section
+ */
+
+export const OVERFLOW_SECTION = {
+	key: 'overflow-section',
+	type: 'section',
+} as const;

@@ -69,8 +69,7 @@
 		"@atlaskit/editor-plugin-grid": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
-		"raf-stub": "root:*",
-		"typescript": "root:*"
+		"raf-stub": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

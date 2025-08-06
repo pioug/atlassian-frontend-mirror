@@ -1,5 +1,21 @@
 # @atlaskit/editor-statsig-tmp
 
+## 9.25.0
+
+### Minor Changes
+
+- [#196697](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/196697)
+  [`18b5fbc52627b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/18b5fbc52627b) -
+  [ux] Adds block menu plugin for full-page preset and shows the menu when drag handle is clicked.
+
+### Patch Changes
+
+- [#197019](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/197019)
+  [`a0cb47e879f31`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a0cb47e879f31) -
+  ENGHEALTH-32239 Only group as radio button if not explicitly set to false behind FG
+- [`a0e6cdeb5a90c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a0e6cdeb5a90c) -
+  [ux] New experiment to unify the handling of panel insertion to more consistent behaviour.
+
 ## 9.24.0
 
 ### Minor Changes

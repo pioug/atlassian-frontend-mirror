@@ -88,8 +88,7 @@
 		"@testing-library/user-event": "root:*",
 		"@types/exenv": "root:*",
 		"react-dom": "root:*",
-		"react-lorem-component": "root:*",
-		"typescript": "root:*"
+		"react-lorem-component": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

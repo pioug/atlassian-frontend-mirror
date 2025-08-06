@@ -51,8 +51,7 @@
 		"@atlassian/ssr-tests": "workspace:^",
 		"@testing-library/react": "root:*",
 		"lodash": "root:*",
-		"react-dom": "root:*",
-		"typescript": "root:*"
+		"react-dom": "root:*"
 	},
 	"keywords": [
 		"atlaskit",

@@ -68,8 +68,7 @@
 		"@testing-library/react": "root:*",
 		"jscodeshift": "root:*",
 		"react-dom": "root:*",
-		"storybook-addon-performance": "root:*",
-		"typescript": "root:*"
+		"storybook-addon-performance": "root:*"
 	},
 	"keywords": [
 		"atlaskit",

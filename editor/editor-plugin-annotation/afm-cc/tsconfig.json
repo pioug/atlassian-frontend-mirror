@@ -38,6 +38,15 @@
 			"path": "../../editor-plugin-feature-flags/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-toolbar/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar-model/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/icon/afm-cc/tsconfig.json"
 		},
 		{

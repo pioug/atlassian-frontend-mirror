@@ -520,6 +520,14 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025--8-05
+	platform_editor_block_menu: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_block_menu',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-07-23
 	platform_editor_renderer_breakout_fix: createBooleanExperiment({
 		productKeys: {
@@ -611,10 +619,34 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 20205-07-28
+	platform_editor_fix_quick_insert_consistency_exp: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_fix_quick_insert_consistency_exp',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-07-31
 	platform_editor_fix_a11y_aria_posinset_0: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_fix_a11y_aria_posinset_0',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-08-05
+	platform_editor_tables_scaling_css: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_tables_scaling_css',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-08-05
+	platform_editor_august_a11y: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_august_a11y',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

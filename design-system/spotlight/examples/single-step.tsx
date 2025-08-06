@@ -6,6 +6,8 @@ import { cssMap, jsx } from '@atlaskit/css';
 import {
 	Spotlight,
 	SpotlightActions,
+	SpotlightControls,
+	SpotlightDismissControl,
 	SpotlightFooter,
 	SpotlightHeader,
 	SpotlightHeadline,
@@ -24,6 +26,9 @@ export default function Basic() {
 			<Spotlight testId="spotlight">
 				<SpotlightHeader>
 					<SpotlightHeadline>Headline</SpotlightHeadline>
+					<SpotlightControls>
+						<SpotlightDismissControl />
+					</SpotlightControls>
 				</SpotlightHeader>
 				<SpotlightFooter>
 					<SpotlightActions>

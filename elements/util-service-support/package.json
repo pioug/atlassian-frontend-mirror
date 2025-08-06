@@ -48,8 +48,7 @@
 	"devDependencies": {
 		"es6-promise": "root:*",
 		"fetch-mock": "root:*",
-		"sinon": "root:*",
-		"typescript": "root:*"
+		"sinon": "root:*"
 	},
 	"keywords": [
 		"fabric",

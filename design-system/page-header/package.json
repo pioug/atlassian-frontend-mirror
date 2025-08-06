@@ -51,8 +51,7 @@
 		"@atlaskit/visual-regression": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@testing-library/react": "root:*",
-		"react-dom": "root:*",
-		"typescript": "root:*"
+		"react-dom": "root:*"
 	},
 	"keywords": [
 		"atlaskit",

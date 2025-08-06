@@ -8,6 +8,7 @@ import {
 	type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type {
@@ -94,6 +95,13 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 					tr.setMeta(key, { ...currMeta, closeMenu: true });
 					return tr;
 				}
+
+				// Do not open menu on layoutColumn and close opened menu when layoutColumn drag handle is clicked
+				if (options?.anchorName?.includes('layoutColumn')) {
+					tr.setMeta(key, { ...currMeta, closeMenu: true });
+					return tr;
+				}
+
 				tr.setMeta(key, { ...currMeta, toggleMenu: { anchorName: options?.anchorName } });
 				return tr;
 			},
@@ -214,21 +222,29 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 		popupsBoundariesElement,
 		popupsScrollableElement,
 	}) {
-		return (
-			<>
-				{editorExperiment('platform_editor_controls', 'variant1') ? (
-					<BlockMenu
-						editorView={editorView}
-						mountPoint={popupsMountPoint}
-						boundariesElement={popupsBoundariesElement}
-						scrollableElement={popupsScrollableElement}
-						api={api}
-					/>
-				) : (
-					<DragHandleMenu api={api} />
-				)}
-				<GlobalStylesWrapper api={api} />
-			</>
-		);
+		if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
+			return (
+				<>
+					<GlobalStylesWrapper api={api} />
+				</>
+			);
+		} else {
+			return (
+				<>
+					{editorExperiment('platform_editor_controls', 'variant1') ? (
+						<BlockMenu
+							editorView={editorView}
+							mountPoint={popupsMountPoint}
+							boundariesElement={popupsBoundariesElement}
+							scrollableElement={popupsScrollableElement}
+							api={api}
+						/>
+					) : (
+						<DragHandleMenu api={api} />
+					)}
+					<GlobalStylesWrapper api={api} />
+				</>
+			);
+		}
 	},
 });

@@ -1,5 +1,11 @@
 # @atlaskit/collab-provider
 
+## 11.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.1.0
 
 ### Minor Changes

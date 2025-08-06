@@ -48,8 +48,7 @@
 		"debug": "root:*",
 		"react": "root:*",
 		"react-intl-next": "root:*",
-		"rxjs": "root:*",
-		"typescript": "root:*"
+		"rxjs": "root:*"
 	},
 	"af:exports": {
 		".": "./src/index.ts",

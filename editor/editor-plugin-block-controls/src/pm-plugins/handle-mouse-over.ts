@@ -1,6 +1,7 @@
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { type BlockControlsPlugin } from '../blockControlsPluginType';
@@ -17,7 +18,12 @@ export const handleMouseOver = (
 	event: Event,
 	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined,
 ) => {
-	const { isDragging, activeNode } = api?.blockControls?.sharedState.currentState() || {};
+	const {
+		isDragging,
+		activeNode,
+		isMenuOpen,
+		menuTriggerBy: originalAnchorName,
+	} = api?.blockControls?.sharedState.currentState() || {};
 
 	// Most mouseover events don't fire during drag but some can slip through
 	// when the drag begins. This prevents those.
@@ -169,6 +175,12 @@ export const handleMouseOver = (
 				api?.core?.actions.execute(
 					api?.blockControls?.commands.showDragHandleAt(targetPos, anchorName, nodeType),
 				);
+			}
+
+			if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
+				if (isMenuOpen && originalAnchorName) {
+					api?.core?.actions.execute(api?.blockControls?.commands.toggleBlockMenu());
+				}
 			}
 		}
 	}

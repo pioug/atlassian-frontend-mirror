@@ -46,8 +46,7 @@
 	},
 	"devDependencies": {
 		"@atlassiansox/analytics-web-client": "workspace:^",
-		"jest-fetch-mock": "root:*",
-		"typescript": "root:*"
+		"jest-fetch-mock": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

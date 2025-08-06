@@ -467,7 +467,6 @@ describe('VCObserverNew', () => {
 				const config: VCObserverNewConfig = {
 					SSRConfig: {
 						enablePageLayoutPlaceholder: true,
-						disableSizeAndPositionCheck: { v: true, h: false },
 					},
 				};
 

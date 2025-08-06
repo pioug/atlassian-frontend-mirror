@@ -16,6 +16,7 @@ export type {
 	RegisterToolbarMenuSection,
 	RegisterToolbarMenuItem,
 	RegisterComponent,
+	ComponentTypes,
 } from './types';
 
 export { createComponentRegistry } from './create-registry';

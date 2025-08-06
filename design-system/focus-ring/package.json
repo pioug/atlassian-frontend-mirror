@@ -64,8 +64,7 @@
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/textfield": "workspace:^",
 		"@testing-library/react": "root:*",
-		"react-dom": "root:*",
-		"typescript": "root:*"
+		"react-dom": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

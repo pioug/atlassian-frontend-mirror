@@ -18,6 +18,33 @@
 	],
 	"references": [
 		{
+			"path": "../../../design-system/css/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/dropdown-menu/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-block-controls/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-user-intent/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-shared-styles/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon-lab/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../editor-common/afm-post-office/tsconfig.json"
 		}
 	]

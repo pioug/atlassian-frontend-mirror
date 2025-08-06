@@ -24,8 +24,7 @@
 		"@babel/runtime": "root:*"
 	},
 	"devDependencies": {
-		"tiny-invariant": "root:*",
-		"typescript": "root:*"
+		"tiny-invariant": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

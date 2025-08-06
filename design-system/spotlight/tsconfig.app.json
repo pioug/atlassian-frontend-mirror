@@ -40,6 +40,9 @@
 			"path": "../heading/tsconfig.app.json"
 		},
 		{
+			"path": "../icon/tsconfig.app.json"
+		},
+		{
 			"path": "../primitives/tsconfig.app.json"
 		},
 		{

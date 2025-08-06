@@ -76,7 +76,6 @@
 		"enzyme": "root:*",
 		"fetch-mock": "root:*",
 		"sinon": "root:*",
-		"typescript": "root:*",
 		"url-search-params": "root:*"
 	},
 	"techstack": {

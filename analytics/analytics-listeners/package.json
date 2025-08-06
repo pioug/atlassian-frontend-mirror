@@ -54,8 +54,7 @@
 	"devDependencies": {
 		"@atlaskit/tokens": "workspace:^",
 		"@testing-library/react": "root:*",
-		"jest-in-case": "root:*",
-		"typescript": "root:*"
+		"jest-in-case": "root:*"
 	},
 	"keywords": [
 		"fabric",

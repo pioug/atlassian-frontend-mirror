@@ -18,6 +18,33 @@
 	],
 	"references": [
 		{
+			"path": "../../../design-system/css/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/dropdown-menu/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-block-controls/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-user-intent/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-shared-styles/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon-lab/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../editor-common/afm-townsquare/tsconfig.json"
 		}
 	]

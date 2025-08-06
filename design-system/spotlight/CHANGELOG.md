@@ -1,5 +1,12 @@
 # @atlaskit/spotlight
 
+## 0.0.6
+
+### Patch Changes
+
+- [`11c7c29e7cff4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/11c7c29e7cff4) -
+  Create Controls, and DismissControl components.
+
 ## 0.0.5
 
 ### Patch Changes

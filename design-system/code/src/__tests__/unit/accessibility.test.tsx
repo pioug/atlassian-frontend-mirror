@@ -11,14 +11,14 @@ import { CodeBlock } from '../../index';
 
 describe('CodeBlock Accessibility jest-axe', () => {
 	const props = {
-		showLineNumbers: true,
+		shouldShowLineNumbers: true,
 		highlight: '',
 		highlightedStartText: 'Highlight start',
 		highlightedEndText: 'Highlight end',
 		text: 'text',
-		codeBidiWarnings: true,
+		hasBidiWarnings: true,
 		codeBidiWarningLabel: 'warning label',
-		codeBidiWarningTooltipEnable: true,
+		isBidiWarningTooltipEnabled: true,
 		shouldWrapLongLines: false,
 	};
 

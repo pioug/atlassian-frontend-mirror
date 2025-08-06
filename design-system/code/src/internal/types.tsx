@@ -14,9 +14,15 @@ export interface CodeBlockProps {
 	/**
 	 *  Sets whether to display code line numbers or not.
 	 *  @default true
+	 * @deprecated Use `shouldShowLineNumbers` instead
 	 */
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	showLineNumbers?: boolean;
+	/**
+	 * Sets whether to display code line numbers or not.
+	 * @default true
+	 */
+	shouldShowLineNumbers?: boolean;
 
 	/**
 	 * Sets the number of the first line, if showLineNumbers is set to true.
@@ -57,9 +63,15 @@ export interface CodeBlockProps {
 	/**
 	 * When set to `false`, disables code decorating with bidi warnings.
 	 * @default true
+	 * @deprecated Use `hasBidiWarnings` instead
 	 */
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	codeBidiWarnings?: boolean;
+	/**
+	 * When set to `false`, disables code decorating with bidi warnings.
+	 * @default true
+	 */
+	hasBidiWarnings?: boolean;
 	/**
 	 * Label for the bidi warning tooltip.
 	 * @default 'Bidirectional characters change the order that text is rendered. This could be used to obscure malicious code.'
@@ -70,9 +82,17 @@ export interface CodeBlockProps {
 	 * Intended to be disabled when used in a mobile view, such as in the editor via mobile bridge,
 	 * where the tooltip could end up being cut off or otherwise not work as expected.
 	 * @default true
+	 * @deprecated Use `isBidiWarningTooltipEnabled` instead
 	 */
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	codeBidiWarningTooltipEnabled?: boolean;
+	/**
+	 * Sets whether to render tooltip with the warning or not.
+	 * Intended to be disabled when used in a mobile view, such as in the editor via mobile bridge,
+	 * where the tooltip could end up being cut off or otherwise not work as expected.
+	 * @default true
+	 */
+	isBidiWarningTooltipEnabled?: boolean;
 	/**
 	 * Sets whether long lines will create a horizontally scrolling container.
 	 * When set to `true`, these lines will visually wrap instead.

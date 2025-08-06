@@ -43,8 +43,7 @@
 	},
 	"devDependencies": {
 		"fetch-mock": "root:*",
-		"graphql": "root:*",
-		"typescript": "root:*"
+		"graphql": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

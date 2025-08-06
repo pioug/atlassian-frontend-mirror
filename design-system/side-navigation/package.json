@@ -71,8 +71,7 @@
 		"@atlaskit/visual-regression": "workspace:^",
 		"@testing-library/react": "root:*",
 		"raf-stub": "root:*",
-		"tiny-invariant": "root:*",
-		"typescript": "root:*"
+		"tiny-invariant": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

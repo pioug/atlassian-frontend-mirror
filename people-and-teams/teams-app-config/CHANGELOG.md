@@ -1,5 +1,12 @@
 # @atlaskit/teams-app-config
 
+## 1.11.2
+
+### Patch Changes
+
+- [`6b45644fa841d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b45644fa841d) -
+  Edge case checks on teams app navigate
+
 ## 1.11.1
 
 ### Patch Changes

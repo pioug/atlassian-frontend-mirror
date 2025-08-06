@@ -80,8 +80,7 @@
 		"react-intl-next": "*"
 	},
 	"devDependencies": {
-		"react-select": "root:*",
-		"typescript": "root:*"
+		"react-select": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

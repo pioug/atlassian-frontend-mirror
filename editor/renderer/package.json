@@ -109,7 +109,6 @@
 		"react-test-renderer": "root:*",
 		"rxjs": "root:*",
 		"sinon": "root:*",
-		"typescript": "root:*",
 		"worker-plugin": "root:*"
 	},
 	"techstack": {

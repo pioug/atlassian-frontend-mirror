@@ -49,8 +49,7 @@
 		"@atlaskit/table": "workspace:^",
 		"@atlaskit/textfield": "workspace:^",
 		"@atlaskit/visual-regression": "workspace:^",
-		"@testing-library/react": "root:*",
-		"typescript": "root:*"
+		"@testing-library/react": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

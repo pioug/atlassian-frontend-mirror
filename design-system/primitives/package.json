@@ -187,8 +187,7 @@
 		"jscodeshift": "root:*",
 		"react-dom": "root:*",
 		"react-resource-router": "root:*",
-		"ts-node": "root:*",
-		"typescript": "root:*"
+		"ts-node": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

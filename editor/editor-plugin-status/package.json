@@ -61,8 +61,7 @@
 		"@atlaskit/ssr": "workspace:^",
 		"@atlaskit/visual-regression": "workspace:^",
 		"@testing-library/react": "root:*",
-		"raf-stub": "root:*",
-		"typescript": "root:*"
+		"raf-stub": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

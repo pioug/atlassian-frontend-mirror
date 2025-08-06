@@ -47,11 +47,23 @@ export function UNSAFE_useColorModeForMigration(): ReconciledColorMode | undefin
  */
 export function useColorMode(): ReconciledColorMode {
 	const value = useContext(ColorModeContext);
-	if (!value) {
-		throw new Error('useColorMode must be used within AppProvider.');
-	}
+	const { colorMode } = getGlobalTheme();
+	const [resolvedColorMode, setResolvedColorMode] = useState(colorMode || 'light');
 
-	return value;
+	useEffect(() => {
+		// We are using theme from context so no need to reference the DOM
+		if (value) {
+			return;
+		}
+
+		const observer = new ThemeMutationObserver((theme) => {
+			setResolvedColorMode(theme.colorMode || 'light');
+		});
+		observer.observe();
+		return () => observer.disconnect();
+	}, [value]);
+
+	return value ? value : resolvedColorMode;
 }
 
 /**
@@ -88,7 +100,7 @@ export function useTheme(): Partial<Theme> {
 		return () => observer.disconnect();
 	}, [theme]);
 
-	return resolvedTheme;
+	return theme ? theme : resolvedTheme;
 }
 
 /**

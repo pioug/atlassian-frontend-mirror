@@ -47,7 +47,6 @@
 	},
 	"devDependencies": {
 		"react-dom": "root:*",
-		"typescript": "root:*",
 		"wait-for-expect": "root:*"
 	}
 }

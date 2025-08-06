@@ -26,7 +26,6 @@ export class VCObserverWrapper implements VCObserverInterface {
 		// Initialize SSR placeholder handler once
 		this.ssrPlaceholderHandler = new SSRPlaceholderHandlers({
 			enablePageLayoutPlaceholder: opts.ssrEnablePageLayoutPlaceholder ?? false,
-			disableSizeAndPositionCheck: opts.disableSizeAndPositionCheck ?? { v: false, h: false },
 		});
 
 		if (isVCRevisionEnabled('fy25.03')) {
@@ -35,7 +34,6 @@ export class VCObserverWrapper implements VCObserverInterface {
 				isPostInteraction: opts.isPostInteraction,
 				SSRConfig: {
 					enablePageLayoutPlaceholder: opts.ssrEnablePageLayoutPlaceholder ?? false,
-					disableSizeAndPositionCheck: opts.disableSizeAndPositionCheck ?? { v: false, h: false },
 				},
 				ssrPlaceholderHandler: this.ssrPlaceholderHandler,
 			});

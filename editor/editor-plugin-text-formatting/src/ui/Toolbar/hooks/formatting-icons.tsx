@@ -48,7 +48,7 @@ import {
 	toggleSubscriptWithAnalytics,
 	toggleSuperscriptWithAnalytics,
 	toggleUnderlineWithAnalytics,
-} from '../../../pm-plugins/commands';
+} from '../../../editor-commands/toggle-mark';
 import { Subscript, Superscript } from '../icons';
 import { getInputMethod } from '../input-method-utils';
 import type { IconHookProps, MenuIconItem, MenuIconState } from '../types';

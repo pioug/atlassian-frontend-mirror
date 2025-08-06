@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 4.1.6
+
+### Patch Changes
+
+- [`a0e6cdeb5a90c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a0e6cdeb5a90c) -
+  [ux] New experiment to unify the handling of panel insertion to more consistent behaviour.
+- Updated dependencies
+
 ## 4.1.5
 
 ### Patch Changes

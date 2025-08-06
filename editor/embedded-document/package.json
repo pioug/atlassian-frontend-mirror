@@ -52,7 +52,6 @@
 	"devDependencies": {
 		"enzyme": "root:*",
 		"fetch-mock": "root:*",
-		"react": "root:*",
-		"typescript": "root:*"
+		"react": "root:*"
 	}
 }

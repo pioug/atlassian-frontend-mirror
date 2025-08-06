@@ -8,9 +8,10 @@ import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { BasePlugin } from '@atlaskit/editor-plugin-base';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugin-selection-toolbar';
+import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import type { UserPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences';
 
-import type { ToggleMarkEditorCommand } from './pm-plugins/commands';
+import type { ToggleMarkEditorCommand } from './editor-commands/types';
 
 export type TextFormattingPluginOptions = CommonTextFormattingOptions;
 
@@ -24,6 +25,7 @@ export type TextFormattingPlugin = NextEditorPlugin<
 			OptionalPlugin<BasePlugin>,
 			OptionalPlugin<SelectionToolbarPlugin>,
 			OptionalPlugin<UserPreferencesPlugin>,
+			OptionalPlugin<ToolbarPlugin>,
 		];
 		commands: {
 			toggleSuperscript: ToggleMarkEditorCommand;

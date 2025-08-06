@@ -144,7 +144,6 @@ export const buildToolbar: (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) 
 				? annotationMessages.createCommentDisabled
 				: annotationMessages.createCommentInvalid,
 		);
-
 		const createComment: FloatingToolbarButton<Command> = {
 			type: 'button',
 			showTitle: true,

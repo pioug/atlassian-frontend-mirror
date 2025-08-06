@@ -48,7 +48,6 @@
 		"enzyme": "root:*",
 		"fetch-mock": "root:*",
 		"react-dom": "root:*",
-		"typescript": "root:*",
 		"wait-for-expect": "root:*"
 	},
 	"techstack": {

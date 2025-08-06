@@ -51,8 +51,7 @@
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"react-dom": "root:*",
-		"react-test-renderer": "root:*",
-		"typescript": "root:*"
+		"react-test-renderer": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

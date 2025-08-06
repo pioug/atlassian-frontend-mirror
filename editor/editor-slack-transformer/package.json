@@ -44,8 +44,7 @@
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/util-data-test": "workspace:^",
-		"@emotion/react": "root:*",
-		"typescript": "root:*"
+		"@emotion/react": "root:*"
 	},
 	"af:exports": {
 		".": "./src/index.ts"

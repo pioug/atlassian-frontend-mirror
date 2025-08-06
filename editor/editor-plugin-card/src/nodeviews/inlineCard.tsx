@@ -143,7 +143,7 @@ export const InlineCard = memo(
 				: propsOnClick;
 
 		const card = useMemo(() => {
-			if (isPageSSRed && url && fg('platform_ssr_smartlinks_editor')) {
+			if (isPageSSRed && url) {
 				return (
 					<CardSSR
 						key={url}

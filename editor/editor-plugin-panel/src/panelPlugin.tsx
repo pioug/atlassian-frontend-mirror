@@ -9,6 +9,7 @@ import {
 	EVENT_TYPE,
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
+import { insertSelectedItem } from '@atlaskit/editor-common/insert';
 import { blockTypeMessages } from '@atlaskit/editor-common/messages';
 import type {
 	QuickInsertActionInsert,
@@ -27,6 +28,7 @@ import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { T50 } from '@atlaskit/theme/colors';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { insertPanelWithAnalytics } from './editor-actions/actions';
@@ -60,8 +62,31 @@ const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => ({
 	},
 
 	actions: {
-		insertPanel(inputMethod: INPUT_METHOD) {
-			return insertPanelWithAnalytics(inputMethod, api?.analytics?.actions);
+		insertPanel(
+			inputMethod: INPUT_METHOD.INSERT_MENU | INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.TOOLBAR,
+		) {
+			if (expValEquals('platform_editor_fix_quick_insert_consistency_exp', 'isEnabled', true)) {
+				return function (state, dispatch) {
+					const tr = createPanelAction({
+						state,
+						attributes: { panelType: PanelType.INFO },
+						api,
+						inputMethod,
+					});
+
+					if (!tr) {
+						return false;
+					}
+
+					if (dispatch) {
+						dispatch(tr);
+					}
+
+					return true;
+				};
+			} else {
+				return insertPanelWithAnalytics(inputMethod, api?.analytics?.actions);
+			}
 		},
 	},
 
@@ -76,12 +101,12 @@ const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => ({
 						description: formatMessage(blockTypeMessages.infoPanelDescription),
 						priority: 800,
 						icon: () => <IconPanel />,
-						action(insert, state) {
+						action(typeAheadInsert, state) {
 							return createPanelAction({
 								state,
 								attributes: { panelType: PanelType.INFO },
 								api,
-								insert,
+								typeAheadInsert,
 							});
 						},
 					},
@@ -95,12 +120,12 @@ const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => ({
 						description: formatMessage(blockTypeMessages.infoPanelDescription),
 						priority: 800,
 						icon: () => <IconPanel />,
-						action(insert, state) {
+						action(typeAheadInsert, state) {
 							return createPanelAction({
 								state,
 								attributes: { panelType: PanelType.INFO },
 								api,
-								insert,
+								typeAheadInsert,
 							});
 						},
 					},
@@ -110,12 +135,12 @@ const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => ({
 						description: formatMessage(blockTypeMessages.notePanelDescription),
 						priority: 1000,
 						icon: () => <IconPanelNote />,
-						action(insert, state) {
+						action(typeAheadInsert, state) {
 							return createPanelAction({
 								state,
 								attributes: { panelType: PanelType.NOTE },
 								api,
-								insert,
+								typeAheadInsert,
 							});
 						},
 					},
@@ -126,12 +151,12 @@ const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => ({
 						keywords: ['tip'],
 						priority: 1000,
 						icon: () => <IconPanelSuccess />,
-						action(insert, state) {
+						action(typeAheadInsert, state) {
 							return createPanelAction({
 								state,
 								attributes: { panelType: PanelType.SUCCESS },
 								api,
-								insert,
+								typeAheadInsert,
 							});
 						},
 					},
@@ -141,12 +166,12 @@ const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => ({
 						description: formatMessage(blockTypeMessages.warningPanelDescription),
 						priority: 1000,
 						icon: () => <IconPanelWarning />,
-						action(insert, state) {
+						action(typeAheadInsert, state) {
 							return createPanelAction({
 								state,
 								attributes: { panelType: PanelType.WARNING },
 								api,
-								insert,
+								typeAheadInsert,
 							});
 						},
 					},
@@ -156,12 +181,12 @@ const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => ({
 						description: formatMessage(blockTypeMessages.errorPanelDescription),
 						priority: 1000,
 						icon: () => <IconPanelError />,
-						action(insert, state) {
+						action(typeAheadInsert, state) {
 							return createPanelAction({
 								state,
 								attributes: { panelType: PanelType.ERROR },
 								api,
-								insert,
+								typeAheadInsert,
 							});
 						},
 					},
@@ -173,7 +198,7 @@ const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => ({
 						description: formatMessage(blockTypeMessages.customPanelDescription),
 						priority: 1000,
 						icon: () => <IconCustomPanel />,
-						action(insert, state) {
+						action(typeAheadInsert, state) {
 							return createPanelAction({
 								state,
 								attributes: {
@@ -188,7 +213,7 @@ const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => ({
 									panelColor: T50,
 								},
 								api,
-								insert,
+								typeAheadInsert,
 							});
 						},
 					});
@@ -217,12 +242,14 @@ function createPanelAction({
 	state,
 	attributes,
 	api,
-	insert,
+	typeAheadInsert,
+	inputMethod = INPUT_METHOD.QUICK_INSERT,
 }: {
 	state: EditorState;
 	attributes: PanelAttributes;
 	api: ExtractInjectionAPI<PanelPlugin> | undefined;
-	insert: QuickInsertActionInsert;
+	typeAheadInsert?: QuickInsertActionInsert;
+	inputMethod?: INPUT_METHOD.INSERT_MENU | INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.TOOLBAR;
 }) {
 	const { panel } = state.schema.nodes;
 	let tr;
@@ -231,23 +258,55 @@ function createPanelAction({
 		? { ...attributes, localId: attributes.localId || uuid.generate() }
 		: { ...attributes };
 
-	// Panels should wrap content by default when inserted, the quickInsert `insert` method
-	// will insert the node on a newline
-	if (editorExperiment('platform_editor_controls', 'variant1')) {
-		tr =
-			state.selection.empty &&
-			createWrapSelectionTransaction({
+	/*
+		During investigation of go/j/ED-26928 I found that the behaviour of this experience was very
+		inconsistent. I reached out to Nicole* for a design review, and she confirmed that the desired
+		behaviour is to insert the panel on a new line if the selection is empty.
+		 *Confluence Editor Lead Product Designer
+	 */
+	if (expValEquals('platform_editor_fix_quick_insert_consistency_exp', 'isEnabled', true)) {
+		// If the selection is empty, we want to insert the panel on a new line
+		if (state.selection.empty) {
+			const node = panel.createAndFill(panelAttrs);
+
+			if (!node) {
+				return false;
+			}
+
+			if (typeAheadInsert !== undefined) {
+				// If the type-ahead insert is provided, we should use that to insert the node
+				tr = typeAheadInsert(node);
+			} else {
+				// Otherwise we can use insertSelectedItem to insert the node
+				tr = insertSelectedItem(node)(state, state.tr, state.selection.head)?.scrollIntoView();
+			}
+		} else {
+			tr = createWrapSelectionTransaction({
 				state,
 				type: panel,
 				nodeAttributes: panelAttrs,
 			});
-	} else {
-		const node = panel.createAndFill(panelAttrs);
-
-		if (!node) {
-			return false;
 		}
-		tr = state.selection.empty && insert(node);
+	} else {
+		// Panels should wrap content by default when inserted, the quickInsert `insert` method
+		// will insert the node on a newline
+		if (editorExperiment('platform_editor_controls', 'variant1')) {
+			tr =
+				state.selection.empty &&
+				createWrapSelectionTransaction({
+					state,
+					type: panel,
+					nodeAttributes: panelAttrs,
+				});
+		} else {
+			const node = panel.createAndFill(panelAttrs);
+
+			if (!node) {
+				return false;
+			}
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- This is only optional within the experiment, so safe to assume non-null here
+			tr = state.selection.empty && typeAheadInsert!(node);
+		}
 	}
 
 	if (tr) {
@@ -256,13 +315,13 @@ function createPanelAction({
 			actionSubject: ACTION_SUBJECT.DOCUMENT,
 			actionSubjectId: ACTION_SUBJECT_ID.PANEL,
 			attributes: {
-				inputMethod: INPUT_METHOD.QUICK_INSERT,
+				inputMethod,
 				panelType: attributes.panelType,
 			},
 			eventType: EVENT_TYPE.TRACK,
 		})(tr);
 	}
-	return tr;
+	return tr ?? false;
 }
 
 export default panelPlugin;

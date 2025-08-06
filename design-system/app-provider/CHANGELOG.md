@@ -1,5 +1,13 @@
 # @atlaskit/app-provider
 
+## 3.1.0
+
+### Minor Changes
+
+- [`33a9e5805e0c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/33a9e5805e0c7) -
+  Adds fallback logic for requesting the colorMode from the `useColorMode()` hook. Also fixes
+  `useTheme()` so that `colorMode` isn't returned when its fallback logic is used
+
 ## 3.0.0
 
 ### Major Changes

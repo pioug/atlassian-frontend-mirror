@@ -82,7 +82,6 @@
 		"swagger-typescript-api": "root:*",
 		"ts-morph": "root:*",
 		"ts-node": "root:*",
-		"typescript": "root:*",
 		"wait-for-expect": "root:*"
 	},
 	"techstack": {

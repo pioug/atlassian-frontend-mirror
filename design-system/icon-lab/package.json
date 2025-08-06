@@ -55,8 +55,7 @@
 		"fs-extra": "root:*",
 		"pkg-dir": "root:*",
 		"react-dom": "root:*",
-		"ts-node": "root:*",
-		"typescript": "root:*"
+		"ts-node": "root:*"
 	},
 	"keywords": [
 		"atlaskit",

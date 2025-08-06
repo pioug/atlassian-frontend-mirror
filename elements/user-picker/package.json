@@ -100,8 +100,7 @@
 		"mock-apollo-client": "root:*",
 		"react-beautiful-dnd": "root:*",
 		"react-intl-next": "root:*",
-		"react-select-event": "root:*",
-		"typescript": "root:*"
+		"react-select-event": "root:*"
 	},
 	"techstack": {
 		"@repo/internal": {

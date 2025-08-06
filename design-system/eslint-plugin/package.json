@@ -82,8 +82,7 @@
 		"jscodeshift": "root:*",
 		"outdent": "root:*",
 		"react": "root:*",
-		"ts-jest": "root:*",
-		"typescript": "root:*"
+		"ts-jest": "root:*"
 	},
 	"scripts": {
 		"ak-postbuild": "cp -r configs dist",

@@ -37,7 +37,6 @@
 	},
 	"devDependencies": {
 		"@testing-library/react": "root:*",
-		"typescript": "root:*",
 		"wait-for-expect": "root:*"
 	},
 	"techstack": {

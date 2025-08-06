@@ -39,9 +39,6 @@
 		"@babel/runtime": "root:*",
 		"bind-event-listener": "root:*"
 	},
-	"devDependencies": {
-		"typescript": "root:*"
-	},
 	"techstack": {
 		"@atlassian/frontend": {
 			"import-structure": [

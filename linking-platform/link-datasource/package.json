@@ -119,7 +119,6 @@
 		"@types/debounce-promise": "root:*",
 		"fetch-mock": "root:*",
 		"jest-fetch-mock": "root:*",
-		"typescript": "root:*",
 		"wait-for-expect": "root:*"
 	},
 	"techstack": {

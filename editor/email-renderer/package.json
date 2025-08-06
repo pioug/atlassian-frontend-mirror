@@ -76,7 +76,6 @@
 		"react": "root:*",
 		"rimraf": "root:*",
 		"svgexport": "root:*",
-		"ts-node": "root:*",
-		"typescript": "root:*"
+		"ts-node": "root:*"
 	}
 }

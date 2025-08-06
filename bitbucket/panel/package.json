@@ -53,8 +53,7 @@
 	},
 	"devDependencies": {
 		"@testing-library/react": "root:*",
-		"@testing-library/user-event": "root:*",
-		"typescript": "root:*"
+		"@testing-library/user-event": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

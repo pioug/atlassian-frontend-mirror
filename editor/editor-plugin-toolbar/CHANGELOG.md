@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 0.0.6
+
+### Patch Changes
+
+- [#197019](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/197019)
+  [`96717455eea97`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/96717455eea97) -
+  Add background colour to Toolbar component in editor-toolbar, add EditorToolbarProvider to the
+  selection Toolbar
+- Updated dependencies
+
+## 0.0.5
+
+### Patch Changes
+
+- [#195899](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195899)
+  [`345c0b6478f73`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/345c0b6478f73) -
+  [ED-28682] Register text-section toolbar component
+- Updated dependencies
+
 ## 0.0.4
 
 ### Patch Changes

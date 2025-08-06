@@ -6,7 +6,8 @@ import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	root: {
-		paddingInline: token('space.200'),
+		paddingInlineStart: token('space.200'),
+		paddingInlineEnd: token('space.150'),
 		paddingBlockEnd: token('space.150'),
 		width: '100%',
 	},

@@ -56,8 +56,7 @@
 		"@types/exenv": "root:*",
 		"@types/react-transition-group": "root:*",
 		"enzyme": "root:*",
-		"react-test-renderer": "root:*",
-		"typescript": "root:*"
+		"react-test-renderer": "root:*"
 	},
 	"keywords": [
 		"atlaskit",

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-toolbar",
-	"version": "0.0.4",
+	"version": "0.0.6",
 	"description": "Toolbar plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -44,9 +44,6 @@
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
 		"react": "^18.2.0"
-	},
-	"devDependencies": {
-		"typescript": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

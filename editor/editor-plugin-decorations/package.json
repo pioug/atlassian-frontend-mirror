@@ -37,7 +37,6 @@
 	"devDependencies": {
 		"@atlaskit/editor-plugin-mentions": "workspace:^",
 		"@testing-library/react": "root:*",
-		"typescript": "root:*",
 		"wait-for-expect": "root:*"
 	},
 	"techstack": {

@@ -60,8 +60,7 @@
 	},
 	"devDependencies": {
 		"jest-preset-stylelint": "root:*",
-		"tsup": "root:*",
-		"typescript": "root:*"
+		"tsup": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

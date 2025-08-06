@@ -1,5 +1,12 @@
 # @atlaskit/emoji
 
+## 69.3.13
+
+### Patch Changes
+
+- [`923fbc888ce4d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/923fbc888ce4d) -
+  Added empty local-config.ts file to fix atlaskit builds
+
 ## 69.3.12
 
 ### Patch Changes

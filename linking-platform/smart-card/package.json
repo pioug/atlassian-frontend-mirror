@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "40.7.1",
+	"version": "40.7.2",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -127,7 +127,6 @@
 		"react-intl-next": "root:*",
 		"react-test-renderer": "root:*",
 		"ts-jest": "root:*",
-		"typescript": "root:*",
 		"xhr-mock": "root:*"
 	},
 	"techstack": {
@@ -227,6 +226,9 @@
 			"type": "boolean"
 		},
 		"platform_renderer_blindspots": {
+			"type": "boolean"
+		},
+		"twg-graphyte-smart-card-link-theme-fix": {
 			"type": "boolean"
 		},
 		"platform_editor_preview_panel_linking": {

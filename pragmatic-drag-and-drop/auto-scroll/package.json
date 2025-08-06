@@ -62,8 +62,7 @@
 		"@testing-library/dom": "root:*",
 		"bind-event-listener": "root:*",
 		"raf-stub": "root:*",
-		"tiny-invariant": "root:*",
-		"typescript": "root:*"
+		"tiny-invariant": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

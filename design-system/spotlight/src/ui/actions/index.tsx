@@ -9,7 +9,7 @@ const styles = cssMap({
 	},
 });
 
-export interface SpotlighActionsProps {
+export interface SpotlightActionsProps {
 	/**
 	 * A `testId` prop is provided for specified elements, which is a unique
 	 * string that appears as a data attribute `data-testid` in the rendered code,
@@ -29,8 +29,8 @@ export interface SpotlighActionsProps {
  * `SpotlightActions` groups `SpotlightAction` components.
  *
  */
-export const SpotlightActions = forwardRef<HTMLDivElement, SpotlighActionsProps>(
-	({ children, testId }: SpotlighActionsProps, ref) => {
+export const SpotlightActions = forwardRef<HTMLDivElement, SpotlightActionsProps>(
+	({ children, testId }: SpotlightActionsProps, ref) => {
 		return (
 			<Flex
 				ref={ref}

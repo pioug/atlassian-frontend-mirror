@@ -87,7 +87,7 @@ describe('createLineElement', () => {
 		const props: CreateLineElementProps = {
 			lineNumber: 0,
 			children: [textTestNode],
-			showLineNumbers: true,
+			shouldShowLineNumbers: true,
 		};
 
 		const lineElement = createLineElement(props);
@@ -95,11 +95,11 @@ describe('createLineElement', () => {
 		expect(lineElement.children).toEqual([textTestNode]);
 	});
 
-	it('should return unchanged children if showLineNumbers is false', () => {
+	it('should return unchanged children if shouldShowLineNumbers is false', () => {
 		const props: CreateLineElementProps = {
 			lineNumber: 5,
 			children: [textTestNode],
-			showLineNumbers: false,
+			shouldShowLineNumbers: false,
 		};
 
 		const lineElement = createLineElement(props);
@@ -111,7 +111,7 @@ describe('createLineElement', () => {
 		const props: CreateLineElementProps = {
 			lineNumber: 5,
 			children: [textTestNode],
-			showLineNumbers: true,
+			shouldShowLineNumbers: true,
 		};
 
 		const lineElement = createLineElement(props);
@@ -124,7 +124,7 @@ describe('createLineElement', () => {
 		const props: CreateLineElementProps = {
 			lineNumber: 5,
 			children: [textTestNode, textTestNode2],
-			showLineNumbers: true,
+			shouldShowLineNumbers: true,
 			className: ['testClassName'],
 		};
 

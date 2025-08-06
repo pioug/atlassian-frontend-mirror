@@ -45,7 +45,6 @@
 	},
 	"devDependencies": {
 		"@atlaskit/docs": "workspace:^",
-		"typescript": "root:*",
 		"wait-for-expect": "root:*"
 	},
 	"techstack": {

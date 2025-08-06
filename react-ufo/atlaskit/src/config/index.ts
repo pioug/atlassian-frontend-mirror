@@ -97,7 +97,6 @@ export type Config = {
 		readonly ssr?: boolean;
 		readonly ssrWhitelist?: string[];
 		readonly ssrEnablePageLayoutPlaceholder?: boolean;
-		readonly disableSizeAndPositionCheck?: { v: boolean; h: boolean };
 		readonly includeSSRInV3?: boolean;
 		readonly stopVCAtInteractionFinish?: boolean;
 		readonly includeSSRRatio?: boolean;

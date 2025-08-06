@@ -115,8 +115,7 @@ export class VCObserver implements VCObserverInterface {
 		this.devToolsEnabled = options.devToolsEnabled || false;
 		this.oldDomUpdatesEnabled = options.oldDomUpdates || false;
 
-		const { ssrEnablePageLayoutPlaceholder, disableSizeAndPositionCheck, ssrPlaceholderHandler } =
-			options;
+		const { ssrEnablePageLayoutPlaceholder, ssrPlaceholderHandler } = options;
 
 		this.observers = new Observers({
 			selectorConfig: options.selectorConfig || {
@@ -128,7 +127,6 @@ export class VCObserver implements VCObserverInterface {
 			},
 			SSRConfig: {
 				enablePageLayoutPlaceholder: ssrEnablePageLayoutPlaceholder || false,
-				disableSizeAndPositionCheck: disableSizeAndPositionCheck,
 			},
 			ssrPlaceholderHandler: ssrPlaceholderHandler,
 		});

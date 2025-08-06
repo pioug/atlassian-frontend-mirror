@@ -332,8 +332,7 @@
 		"enquirer": "root:*",
 		"fs-extra": "root:*",
 		"react-dom": "root:*",
-		"ts-node": "root:*",
-		"typescript": "root:*"
+		"ts-node": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

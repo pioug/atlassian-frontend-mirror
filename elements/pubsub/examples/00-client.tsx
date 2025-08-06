@@ -15,6 +15,11 @@ try {
 	// eslint-disable-next-line @repo/internal/import/no-unresolved
 	const localConfig = require('../local-config');
 	clientConfig = localConfig['default'];
+	if (!clientConfig) {
+		throw new Error(
+			'No config found in local-config.ts. Please fill it with the proper configuration. local-config-example.ts file is used instead',
+		);
+	}
 	defaultApsUrl = localConfig.apsParams.url;
 	preferredApsTransport = localConfig.apsParams.preferredTransport;
 } catch (e) {

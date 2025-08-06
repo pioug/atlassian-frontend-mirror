@@ -43,8 +43,7 @@
 		"@types/color": "root:*",
 		"color": "root:*",
 		"jest-in-case": "root:*",
-		"react-dom": "root:*",
-		"typescript": "root:*"
+		"react-dom": "root:*"
 	},
 	"keywords": [
 		"atlaskit",

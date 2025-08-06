@@ -40,8 +40,7 @@
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlassian/ts-loader": "workspace:^",
-		"mkdirp": "root:*",
-		"typescript": "root:*"
+		"mkdirp": "root:*"
 	},
 	"keywords": [
 		"atlaskit",

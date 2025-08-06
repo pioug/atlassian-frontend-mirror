@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-panel
 
+## 5.3.0
+
+### Minor Changes
+
+- [`a0e6cdeb5a90c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a0e6cdeb5a90c) -
+  [ux] New experiment to unify the handling of panel insertion to more consistent behaviour.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.2.5
 
 ### Patch Changes

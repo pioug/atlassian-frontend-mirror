@@ -9,6 +9,7 @@ export { ToolbarKeyboardShortcutHint } from './ui/ToolbarKeyboardShortcutHint';
 export { ToolbarSection } from './ui/ToolbarSection';
 export { ToolbarTooltip } from './ui/ToolbarTooltip';
 export { ToolbarNestedDropdownMenu } from './ui/ToolbarNestedDropdownMenu';
+export { ToolbarDropdownDivider } from './ui/ToolbarDropdownDivider';
 
 export { AIAdjustLengthIcon } from './ui/icons/AIAdjustLengthIcon';
 export { AIChatIcon } from './ui/icons/AIChatIcon';
@@ -43,5 +44,11 @@ export { PinnedIcon } from './ui/icons/PinnedIcon';
 export { QuoteIcon } from './ui/icons/QuoteIcon';
 export { TextColorIcon } from './ui/icons/TextColorIcon';
 export { TextIcon } from './ui/icons/TextIcon';
+export { ClearFormattingIcon } from './ui/icons/ClearFormattingIcon';
+export { UnderlineIcon } from './ui/icons/UnderlineIcon';
+export { StrikeThroughIcon } from './ui/icons/StrikeThroughIcon';
+export { CodeIcon } from './ui/icons/CodeIcon';
+export { SubscriptIcon } from './ui/icons/SubscriptIcon';
+export { SuperscriptIcon } from './ui/icons/SuperscriptIcon';
 
 export type { IconComponent, ToolbarButtonGroupLocation } from './types';

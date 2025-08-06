@@ -33,7 +33,7 @@ export default function createElement({
 					bidiCharacter={bidiCharacter}
 					key={index}
 					label={codeBidiWarningConfig.codeBidiWarningLabel}
-					tooltipEnabled={codeBidiWarningConfig.codeBidiWarningTooltipEnabled}
+					isTooltipEnabled={codeBidiWarningConfig.codeBidiWarningTooltipEnabled}
 				/>
 			));
 			return decorated;

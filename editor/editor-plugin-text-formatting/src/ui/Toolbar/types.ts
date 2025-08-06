@@ -14,6 +14,22 @@ export enum IconTypes {
 	superscript = 'superscript',
 }
 
+export enum FormatOptions {
+	strong = 'strong',
+	em = 'em',
+	underline = 'underline',
+	strike = 'strike',
+	code = 'code',
+	subscript = 'subscript',
+	superscript = 'superscript',
+}
+
+export type FormatOptionState = {
+	isActive: boolean;
+	isDisabled: boolean;
+	isHidden: boolean;
+};
+
 export interface MenuIconItem extends MenuItem {
 	command: Command;
 	iconMark?: IconTypes;

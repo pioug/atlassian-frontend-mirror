@@ -1,7 +1,10 @@
-import React from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
-import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
@@ -13,5 +16,5 @@ const styles = cssMap({
 });
 
 export const ToolbarDropdownDivider = () => {
-	return <Box xcss={styles.divider} />;
+	return <div css={styles.divider} />;
 };

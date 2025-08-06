@@ -71,8 +71,7 @@
 		"@atlaskit/editor-plugin-type-ahead": "workspace:^",
 		"@atlaskit/editor-plugin-width": "workspace:^",
 		"@testing-library/react": "root:*",
-		"react-test-renderer": "root:*",
-		"typescript": "root:*"
+		"react-test-renderer": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

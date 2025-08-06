@@ -49,8 +49,8 @@ import {
 import { Inline, Stack, Text } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
-import { WithResponsiveViewport } from '../utils/example-utils';
-import { LongPlaceholderContent } from '../utils/long-placeholder-content';
+import { WithResponsiveViewport } from './utils/example-utils';
+import { LongPlaceholderContent } from './utils/long-placeholder-content';
 
 const bannerStyles = cssMap({
 	root: {

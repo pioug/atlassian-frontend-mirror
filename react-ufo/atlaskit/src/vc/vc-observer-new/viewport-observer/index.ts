@@ -7,7 +7,7 @@ import { createIntersectionObserver, type VCIntersectionObserver } from './inter
 import createMutationObserver from './mutation-observer';
 import createPerformanceObserver from './performance-observer';
 import { type MutationData } from './types';
-import checkWithinComponentAndExtractChildProps from './utils/check-within-component-and-extract-child-props';
+import checkWithinComponent, { cleanupCaches } from './utils/check-within-component';
 import isInVCIgnoreIfNoLayoutShiftMarker from './utils/is-in-vc-ignore-if-no-layout-shift-marker';
 
 function isElementVisible(element: Element) {
@@ -88,6 +88,7 @@ export default class ViewportObserver {
 	private mutationObserver: MutationObserver | null;
 	private performanceObserver: PerformanceObserver | null;
 	private mapVisibleNodeRects: WeakMap<Element, DOMRect>;
+	private mapIs3pResult: WeakMap<HTMLElement, boolean>;
 	private onChange: ViewPortObserverConstructorArgs['onChange'];
 	private isStarted: boolean;
 
@@ -101,6 +102,7 @@ export default class ViewportObserver {
 		getSSRPlaceholderHandler,
 	}: ViewPortObserverConstructorArgs) {
 		this.mapVisibleNodeRects = new WeakMap();
+		this.mapIs3pResult = new WeakMap();
 		this.onChange = onChange;
 		this.isStarted = false;
 		this.intersectionObserver = null;
@@ -257,9 +259,10 @@ export default class ViewportObserver {
 				continue;
 			}
 
-			const { isWithin: isWithinThirdPartySegment } = checkWithinComponentAndExtractChildProps(
+			const { isWithin: isWithinThirdPartySegment } = checkWithinComponent(
 				addedNode,
 				'UFOThirdPartySegment',
+				this.mapIs3pResult,
 			);
 			if (isWithinThirdPartySegment) {
 				this.intersectionObserver?.watchAndTag(addedNode, 'mutation:third-party-element');
@@ -319,21 +322,6 @@ export default class ViewportObserver {
 				};
 			}
 
-			const { isWithin: isWithinThirdPartySegment } = checkWithinComponentAndExtractChildProps(
-				target,
-				'UFOThirdPartySegment',
-			);
-			if (isWithinThirdPartySegment) {
-				return {
-					type: 'mutation:third-party-element',
-					mutationData: {
-						attributeName,
-						oldValue,
-						newValue,
-					},
-				};
-			}
-
 			const lastElementRect = this.mapVisibleNodeRects.get(target);
 			if (lastElementRect && sameRectSize(rect, lastElementRect)) {
 				return {
@@ -355,6 +343,7 @@ export default class ViewportObserver {
 				},
 			};
 		});
+		// }
 	};
 
 	private handleLayoutShift = ({
@@ -436,5 +425,7 @@ export default class ViewportObserver {
 		this.intersectionObserver?.disconnect();
 		this.performanceObserver?.disconnect();
 		this.isStarted = false;
+		// Clean up caches when stopping
+		cleanupCaches(this.mapIs3pResult);
 	}
 }

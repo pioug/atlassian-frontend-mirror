@@ -136,8 +136,7 @@
 		"ast-types": "root:*",
 		"jscodeshift": "root:*",
 		"lodash": "root:*",
-		"react-dom": "root:*",
-		"typescript": "root:*"
+		"react-dom": "root:*"
 	},
 	"homepage": "https://atlassian.design/components/button/",
 	"platform-feature-flags": {

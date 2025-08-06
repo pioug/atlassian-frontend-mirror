@@ -51,8 +51,7 @@
 		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/link-test-helpers": "workspace:^",
 		"@atlaskit/media-test-helpers": "workspace:^",
-		"@atlassian/feature-flags-test-utils": "workspace:^",
-		"typescript": "root:*"
+		"@atlassian/feature-flags-test-utils": "workspace:^"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

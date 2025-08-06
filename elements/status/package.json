@@ -51,8 +51,7 @@
 		"@testing-library/react": "root:*",
 		"enzyme": "root:*",
 		"react": "root:*",
-		"react-intl-next": "root:*",
-		"typescript": "root:*"
+		"react-intl-next": "root:*"
 	},
 	"keywords": [
 		"ui",

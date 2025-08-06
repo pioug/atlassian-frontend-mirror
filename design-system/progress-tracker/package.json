@@ -52,8 +52,7 @@
 		"@testing-library/user-event": "root:*",
 		"@types/react-transition-group": "root:*",
 		"jest-in-case": "root:*",
-		"react-dom": "root:*",
-		"typescript": "root:*"
+		"react-dom": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

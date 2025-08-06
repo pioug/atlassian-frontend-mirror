@@ -3,4 +3,4 @@
 
 export { textFormattingPlugin } from './textFormattingPlugin';
 export type { TextFormattingPlugin, TextFormattingPluginOptions } from './textFormattingPluginType';
-export type { ToggleMarkEditorCommand } from './pm-plugins/commands';
+export type { ToggleMarkEditorCommand } from './editor-commands/types';

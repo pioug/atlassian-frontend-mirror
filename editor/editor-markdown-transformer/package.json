@@ -47,7 +47,6 @@
 		"@atlaskit/editor-json-transformer": "workspace:^",
 		"@emotion/react": "root:*",
 		"@types/markdown-it": "root:*",
-		"react": "root:*",
-		"typescript": "root:*"
+		"react": "root:*"
 	}
 }

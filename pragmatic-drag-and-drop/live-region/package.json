@@ -32,7 +32,6 @@
 		"@testing-library/react": "root:*",
 		"react": "root:*",
 		"react-dom": "root:*",
-		"typescript": "root:*",
 		"wait-for-expect": "root:*"
 	},
 	"techstack": {

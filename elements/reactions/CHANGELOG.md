@@ -1,5 +1,12 @@
 # @atlaskit/reactions
 
+## 33.2.7
+
+### Patch Changes
+
+- [`ba94f4e841ade`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ba94f4e841ade) -
+  Fix missing example file that produces a warning in Atlaskit build
+
 ## 33.2.6
 
 ### Patch Changes

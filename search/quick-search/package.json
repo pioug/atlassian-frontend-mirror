@@ -47,7 +47,6 @@
 		"prop-types": "root:*",
 		"react": "root:*",
 		"sinon": "root:*",
-		"typescript": "root:*",
 		"uuid": "root:*"
 	},
 	"af:exports": {

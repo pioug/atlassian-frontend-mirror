@@ -22,6 +22,7 @@ import {
 	SUBSCRIPT_MENU_ITEM,
 	SUPERSCRIPT_MENU_ITEM,
 	TEXT_FORMATTING_MENU_SECTION_RANK,
+	TOOLBARS,
 	UNDERLINE_MENU_ITEM,
 } from '@atlaskit/editor-common/toolbar';
 import type { TextFormattingState } from '@atlaskit/editor-common/types';
@@ -63,7 +64,7 @@ export type FormatComponentProps = {
 	icon: IconComponent;
 	shortcut: Keymap;
 	title: MessageDescriptor;
-	optionType: string;
+	optionType: FormatOptions;
 	toggleMarkWithAnalyticsCallback:
 		| ToggleMarkWithAnalyticsEditorCommand
 		| ClearFormattingWithAnalyticsEditorCommand;
@@ -73,9 +74,20 @@ export type FormatComponentProps = {
 
 export const getInputMethodFromParentKeys = (parentKeys: ComponentTypes) =>
 	getInputMethod(
-		// TODO: ED-28682 - replace with const
-		parentKeys.at(-1)?.key === 'inline-text-toolbar' ? ToolbarType.FLOATING : ToolbarType.PRIMARY,
+		parentKeys.at(-1)?.key === TOOLBARS.INLINE_TEXT_TOOLBAR
+			? ToolbarType.FLOATING
+			: ToolbarType.PRIMARY,
 	);
+
+const FormatMarkSchema: Record<FormatOptions, string> = {
+	strong: 'strong',
+	em: 'em',
+	underline: 'underline',
+	strike: 'strike',
+	code: 'code',
+	subscript: 'subsup',
+	superscript: 'subsup',
+};
 
 export const useComponentInfo = ({
 	api,
@@ -97,6 +109,9 @@ export const useComponentInfo = ({
 		}),
 	);
 
+	const hasMarkSchema =
+		api?.core?.sharedState.currentState()?.schema?.marks[FormatMarkSchema[optionType]];
+
 	let formatOptionState: FormatOptionState;
 
 	if (!isPluginInitialised) {
@@ -109,8 +124,7 @@ export const useComponentInfo = ({
 		formatOptionState = {
 			isActive: Boolean(isActive),
 			isDisabled: Boolean(isDisabled),
-			// TODO: ED-28682 - also need to check if mark is present in the schema
-			isHidden: Boolean(isHidden),
+			isHidden: Boolean(!hasMarkSchema || isHidden),
 		};
 	}
 

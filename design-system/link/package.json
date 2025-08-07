@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link",
-	"version": "3.2.4",
+	"version": "3.2.5",
 	"description": "A link takes people to a new location in the app or another website.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

@@ -3,9 +3,7 @@
  * @jsx jsx
  */
 
-import { jsx } from '@compiled/react';
-
-import { css } from '@atlaskit/css';
+import { css, jsx } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 
 const requiredIndicatorStyles = css({

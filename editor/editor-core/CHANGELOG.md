@@ -1,5 +1,36 @@
 # @atlaskit/editor-core
 
+## 209.6.5
+
+### Patch Changes
+
+- [`e75117731bdb3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e75117731bdb3) -
+  Cleanup code for ensuring the viewmode value is as expected.
+- Updated dependencies
+
+## 209.6.4
+
+### Patch Changes
+
+- [#197821](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/197821)
+  [`54760d8b5b3ea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/54760d8b5b3ea) -
+  Allow popupsBoundariesElement & popupsScrollableElement in ChromelessEditorProps
+- Updated dependencies
+
+## 209.6.3
+
+### Patch Changes
+
+- [`b601133ff4b93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b601133ff4b93) -
+  [ux] Adds margin top for embeds on narrow screens.
+
+## 209.6.2
+
+### Patch Changes
+
+- [`b396b0bd2ed68`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b396b0bd2ed68) -
+  Cleanup code for ensuring the viewmode value is as expected.
+
 ## 209.6.1
 
 ### Patch Changes

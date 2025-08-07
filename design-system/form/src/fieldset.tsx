@@ -4,8 +4,7 @@
  */
 import { type ReactNode } from 'react';
 
-import { css, jsx } from '@compiled/react';
-
+import { css, jsx } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 
 import { Legend } from './label';

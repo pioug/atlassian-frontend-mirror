@@ -82,6 +82,7 @@ export const FormatButton = ({
 
 	const Icon = icon;
 	return (
+		// TODO: ED-28743 - add keyboard shortcut here
 		<ToolbarTooltip content={formatTitle}>
 			<ToolbarButton
 				iconBefore={<Icon label={ariaLabel} />}

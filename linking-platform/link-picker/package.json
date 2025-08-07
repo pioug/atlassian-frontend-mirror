@@ -47,9 +47,6 @@
 		"platform-visual-refresh-icons": {
 			"type": "boolean"
 		},
-		"platform_support_live_doc_icons_in_link_picker": {
-			"type": "boolean"
-		},
 		"dst-a11y__replace-anchor-with-link__linking-platfo": {
 			"type": "boolean"
 		},

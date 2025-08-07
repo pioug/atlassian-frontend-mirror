@@ -119,4 +119,13 @@ formats should be informed by the user’s locale and the use case.
 If using fields with labels other than "Date" and "Time" for the date picker and time picker
 respectively, use `datePickerProps` and `timePickerProps` to pass the `label` prop.
 
+### Accessible clear controls
+
+Don’t add a clear button to the tab order, as it has been intentionally removed. Being in the tab
+order can confuse people across multiple disability cohorts and be cumbersome for sighted people who
+use keyboards.
+
+Instead, the clear control is optimized for pointer interactions, like mouse click or tap. And
+people using a keyboard will use the `DELETE` key to clear contents and `CTRL+A` to select all.
+
 <Example Component={DateTimePickerFormAccessible} packageName="@atlaskit/datetime-picker" />

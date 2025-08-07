@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8f579057b3cb3a0df31aba248715041d>>
+ * @codegen <<SignedSource::55730dc2e80928aa9b346b953a4efe1f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const RedoIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="m14.78 4.72-3.5-3.5-1.06 1.06 2.22 2.22H5.75a4.75 4.75 0 1 0 0 9.5H8v-1.5H5.75a3.25 3.25 0 0 1 0-6.5h6.69l-2.22 2.22 1.06 1.06 3.5-3.5a.75.75 0 0 0 0-1.06" clip-rule="evenodd"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="m14.78 4.72-3.5-3.5-1.06 1.06 2.22 2.22H5.75a4.75 4.75 0 0 0 0 9.5H8v-1.5H5.75a3.25 3.25 0 0 1 0-6.5h6.69l-2.22 2.22 1.06 1.06 3.5-3.5a.75.75 0 0 0 0-1.06" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 RedoIcon.displayName = 'RedoIcon';

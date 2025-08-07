@@ -12,6 +12,7 @@ type ToolbarDropdownMenuProps = {
 	groupLocation?: ToolbarButtonGroupLocation;
 	isDisabled?: boolean;
 	testId?: string;
+	label?: string;
 };
 
 export const ToolbarDropdownMenu = ({
@@ -20,6 +21,7 @@ export const ToolbarDropdownMenu = ({
 	children,
 	isDisabled,
 	testId,
+	label,
 }: ToolbarDropdownMenuProps) => {
 	return (
 		<DropdownMenu<HTMLButtonElement>
@@ -37,6 +39,7 @@ export const ToolbarDropdownMenu = ({
 					iconBefore={iconBefore}
 					groupLocation={groupLocation}
 					isDisabled={isDisabled}
+					label={label}
 				/>
 			)}
 		>

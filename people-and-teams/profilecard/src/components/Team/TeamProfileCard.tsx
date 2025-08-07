@@ -138,7 +138,7 @@ const TeamMembers = ({
 			</MemberCount>
 			{members && members.length > 0 && (
 				<AvatarSection>
-					{fg('enable_team_profilecard_toggletip_a11y_fix') ? (
+					{
 						<AvatarGroup
 							appearance="stack"
 							data={members.map((member, index) => {
@@ -174,33 +174,7 @@ const TeamMembers = ({
 								},
 							}}
 						/>
-					) : (
-						<AvatarGroup
-							appearance="stack"
-							data={members.map((member, index) => {
-								const href = generateUserLink?.(member.id);
-
-								const onClick = onMemberClick(
-									onUserClick,
-									member.id,
-									analytics,
-									index,
-									!!generateUserLink,
-								);
-
-								return {
-									key: member.id,
-									name: member.fullName,
-									src: member.avatarUrl,
-									href,
-									onClick,
-								};
-							})}
-							maxCount={avatarGroupMaxCount}
-							showMoreButtonProps={showMoreButtonProps}
-							testId="profilecard-avatar-group"
-						/>
-					)}
+					}
 				</AvatarSection>
 			)}
 		</>

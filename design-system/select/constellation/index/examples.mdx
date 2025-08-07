@@ -102,6 +102,12 @@ cross. The indicator will not render when:
 3. the select has no value
 4. the select is loading
 
+The clear control has been intentionally removed from the tab order. It can confuse people across
+multiple disability cohorts and be cumbersome for sighted people who use keyboards.
+
+Instead, the clear control is optimized for pointer interactions, like mouse click or tap. And
+people using a keyboard will use the `DELETE` key to clear contents and `CTRL+A` to select all.
+
 <Example Component={SelectIndicatorsClear} packageName="@atlaskit/select" />
 
 ### Dropdown indicator

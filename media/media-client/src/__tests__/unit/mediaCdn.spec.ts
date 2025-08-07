@@ -133,4 +133,42 @@ describe('mediaCdn', () => {
 			'https://media-cdn.atlassian.com/path/to/resource',
 		);
 	});
+
+	it('should not map to cdn url when isolated cloud and platform_disable_isolated_cloud_media_cdn_delivery is enabled', () => {
+		(isIsolatedCloud as jest.Mock).mockReturnValue(true);
+		setBooleanFeatureFlagResolver(() => true);
+
+		const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
+		expect(mapToMediaCdnUrl(originalUrl, '')).toBe(originalUrl);
+	});
+
+	it('should map to cdn url when isolated cloud but platform_disable_isolated_cloud_media_cdn_delivery is disabled', () => {
+		(isIsolatedCloud as jest.Mock).mockReturnValue(true);
+		setBooleanFeatureFlagResolver((flagName: string) => {
+			switch (flagName) {
+				case 'platform_disable_isolated_cloud_media_cdn_delivery':
+					return false;
+				case 'platform_media_cdn_delivery':
+				case 'platform_media_cdn_single_host':
+					return true;
+				default:
+					return true;
+			}
+		});
+
+		const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
+		expect(mapToMediaCdnUrl(originalUrl, '')).toBe(
+			'https://media-cdn.atlassian.com/path/to/resource',
+		);
+	});
+
+	it('should map to cdn url when not isolated cloud and platform_disable_isolated_cloud_media_cdn_delivery is enabled', () => {
+		(isIsolatedCloud as jest.Mock).mockReturnValue(false);
+		setBooleanFeatureFlagResolver(() => true);
+
+		const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
+		expect(mapToMediaCdnUrl(originalUrl, '')).toBe(
+			'https://media-cdn.atlassian.com/path/to/resource',
+		);
+	});
 });

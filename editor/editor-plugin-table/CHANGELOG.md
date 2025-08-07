@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 12.1.13
+
+### Patch Changes
+
+- [`88b2a10575ae6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88b2a10575ae6) -
+  fix a bug that incorrectly calculate col width with nested tables
+- Updated dependencies
+
 ## 12.1.12
 
 ### Patch Changes

@@ -38,7 +38,6 @@ import { INTERNAL_ERROR_CODE } from './errors/internal-errors';
 import { NCS_ERROR_CODE } from './errors/ncs-errors';
 import { NotConnectedError, NotInitializedError } from './errors/custom-errors';
 import type { Metadata, UserPermitType } from '@atlaskit/editor-common/collab';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { bind } from 'bind-event-listener';
 
 const logger = createLogger('Channel', 'green');
@@ -669,18 +668,13 @@ export class Channel extends Emitter<ChannelEvent> {
 	private unbindVisibilityListener = () => {};
 
 	/**
-	 * Adds an event listener for visibilitychange events to handle auto-disconnection if tab is in background
+	 * Adds an event listener for visibilitychange events to automatically close the socket
+	 * connection  if tab is in background for longer than disconnectDelay
 	 */
 	private addVisiblityListener() {
-		const disconnectDelay: number =
-			FeatureGates.getExperimentValue(
-				'platform_editor_connection_auto_disconnect_delay',
-				'delay',
-				-1,
-			) ?? -1;
-		const isAutoDisconnectEnabled: boolean = disconnectDelay >= 0;
+		const disconnectDelay: number = 60;
 
-		if (isAutoDisconnectEnabled && this.config.isPresenceOnly) {
+		if (this.config.isPresenceOnly) {
 			this.unbindVisibilityListener = bind(document, {
 				type: 'visibilitychange',
 				listener: () => {

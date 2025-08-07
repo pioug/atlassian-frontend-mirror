@@ -34,3 +34,16 @@ Set the `alignment` prop to `"end"` to align the tags to the end of the group. T
 to the right when removed.
 
 <Example Component={TagGroupAlignmentEnd} packageName="@atlaskit/tag-group" />
+
+## Focus
+
+When a tag is removed, focus should go to the next focusable element on the page, which is likely
+the next tag (sibling).
+
+If the removed tag was the last focusable element, move focus to next focusable element after the
+trigger. If there are no focusable elements after the trigger, then focus should move to the
+previous focusable element before the trigger.
+
+If you remove a tag element from the DOM and don't set the focus, it returns to the body element at
+the top of the page. And for people using assistive technology, this means they'll need to navigate
+through the entire page to return to where they originally were, which we don’t want.

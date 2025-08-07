@@ -388,7 +388,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 			return (
 				<>
 					{this.renderKudosLauncher()}
-					{fg('enable_team_profilecard_toggletip_a11y_fix') ? (
+					{
 						<Box
 							as="span"
 							role="button"
@@ -401,15 +401,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 						>
 							{children}
 						</Box>
-					) : (
-						<span
-							data-testid="team-profilecard-trigger-wrapper"
-							{...triggerProps}
-							{...this.triggerListeners}
-						>
-							{children}
-						</span>
-					)}
+					}
 				</>
 			);
 		}

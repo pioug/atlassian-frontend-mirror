@@ -9,6 +9,13 @@ export const aiFailedStateMessages = defineMessages({
 		description:
 			'Message to indicate to user their prompt or content (this can be a range of content, such as a selection or document -- we used content to keep it vague -- as this will change without user knowing) has been detected as violating Atlassians acceptable use policy.  Note the markdown link -- this is expected to remain as markdown as this string is converted to html.',
 	},
+	cmdPaletteAupViolationMessage: {
+		id: 'fabric.editor.ai.experience.cmdPaletteAupViolationMessage',
+		defaultMessage:
+			"We couldn’t complete that request because it doesn't comply with our <link>Acceptable Use Policy</link>.",
+		description:
+			'Message to indicate to user their prompt or content (this can be a range of content, such as a selection or document -- we used content to keep it vague -- as this will change without user knowing) has been detected as violating Atlassians acceptable use policy.  Note the markdown link -- this is expected to remain as markdown as this string is converted to html.',
+	},
 	documentInsertError: {
 		id: 'fabric.editor.ai.experience-application.documentInsertError',
 		defaultMessage: `We're having trouble inserting the response. Close the dialog and try again.`,
@@ -30,6 +37,11 @@ export const aiFailedStateMessages = defineMessages({
 	apiError: {
 		id: 'fabric.editor.ai.experience.apiError',
 		defaultMessage: `We couldn’t get a response, please try again.`,
+		description: `We couldn't get a response due to an api error (ie. the backend responded with an error, or got a timeout)`,
+	},
+	cmdPaletteApiError: {
+		id: 'fabric.editor.ai.experience.cmdPaletteApiError',
+		defaultMessage: `An error occurred while generating your response.`,
 		description: `We couldn't get a response due to an api error (ie. the backend responded with an error, or got a timeout)`,
 	},
 	elevateDisabledGenerateError: {

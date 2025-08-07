@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::9ed294fef6163b2ae2dc2833cd91be87>>
+ * @codegen <<SignedSource::c1667f19a52f53c9d1c4218e2a58de86>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -2472,6 +2472,35 @@ const metadata: Record<string, metadata> = {
 		type: 'core',
 		categorization: 'single-purpose',
 		usage: 'Reserved for roadmaps service.',
+		team: 'Design System Team',
+		status: 'published',
+	},
+	rovo: {
+		keywords: ['rovo', 'icon', 'icon-lab', 'rovo', 'AI chat'],
+		componentName: 'RovoIcon',
+		package: '@atlaskit/icon-lab/core/rovo',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing Rovo',
+		team: 'Design System Team',
+		status: 'published',
+	},
+	'rss-feed': {
+		keywords: [
+			'rss-feed',
+			'rssfeed',
+			'icon',
+			'icon-lab',
+			'rss',
+			'really simply syndication',
+			'web feed',
+			'xml',
+		],
+		componentName: 'RssFeedIcon',
+		package: '@atlaskit/icon-lab/core/rss-feed',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for RSS feeds',
 		team: 'Design System Team',
 		status: 'published',
 	},

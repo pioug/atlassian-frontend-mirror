@@ -1,5 +1,14 @@
 # @atlaskit/teams-public
 
+## 0.52.1
+
+### Patch Changes
+
+- [#196973](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/196973)
+  [`6080c11c001ff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6080c11c001ff) -
+  Mark old product permission hook as deprecated
+- Updated dependencies
+
 ## 0.52.0
 
 ### Minor Changes

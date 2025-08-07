@@ -392,6 +392,11 @@ export const smartCardStylesWithSearchMatch = css({
 export const smartCardStylesWithSearchMatchAndPreviewPanelResponsiveness = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-container-queries, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 	[`@container editor-area (max-width: ${akEditorFullPageNarrowBreakout}px)`]: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-nested-selectors
+		[`.${SmartCardSharedCssClassName.EMBED_CARD_CONTAINER}`]: {
+			marginTop: token('space.150', '0.75rem'),
+		},
+
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 		[`.${SmartCardSharedCssClassName.EMBED_CARD_CONTAINER}.ak-editor-selected-node .${SmartCardSharedCssClassName.LOADER_WRAPPER} > div`]:
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values

@@ -1,5 +1,12 @@
 # @atlaskit/quick-search
 
+## 10.0.19
+
+### Patch Changes
+
+- [`ed0c6e0bb869f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ed0c6e0bb869f) -
+  Remove references to deprecated @atlaskit/navigation
+
 ## 10.0.18
 
 ### Patch Changes

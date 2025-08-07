@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/help-layout",
-	"version": "6.3.8",
+	"version": "6.3.9",
 	"description": "Layout for the atlaskit/help component.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -50,7 +50,6 @@
 		"react-intl-next": "*"
 	},
 	"devDependencies": {
-		"@atlaskit/navigation": "root:*",
 		"@types/react-transition-group": "root:*",
 		"algoliasearch": "root:*",
 		"enzyme": "root:*",

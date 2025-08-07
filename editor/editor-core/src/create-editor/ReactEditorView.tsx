@@ -211,12 +211,6 @@ export function ReactEditorView(props: EditorViewProps) {
 		}),
 	);
 
-	useLayoutEffect(() => {
-		if (!fg('platform_editor_setup_editorapi_sync')) {
-			setEditorAPI(pluginInjectionAPI.current.api());
-		}
-	}, []);
-
 	const createEditorState = useCallback(
 		(options: CreateEditorStateOptions): EditorState => {
 			let schema;
@@ -245,9 +239,7 @@ export function ReactEditorView(props: EditorViewProps) {
 					createPluginsList(options.props.preset, props.editorProps, pluginInjectionAPI.current),
 				);
 				schema = createSchema(config.current);
-				if (fg('platform_editor_setup_editorapi_sync')) {
-					setEditorAPI(pluginInjectionAPI.current.api());
-				}
+				setEditorAPI(pluginInjectionAPI.current.api());
 			}
 
 			const { contentTransformerProvider } = options.props.editorProps;

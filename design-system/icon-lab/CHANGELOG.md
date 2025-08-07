@@ -1,5 +1,39 @@
 # @atlaskit/icon-lab
 
+## 5.4.0
+
+### Minor Changes
+
+- [#197573](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/197573)
+  [`9abe8b207a748`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9abe8b207a748) -
+  This release updates icons in `@atlaskit/icon-lab`.
+
+  ### Updated:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `atom`
+  - `diagram-symbol-display`
+  - `diagram-symbol-manual-operation`
+  - `diagram-symbol-preparation`
+  - `teamwork-graph`
+  - `telescope`
+
+- [#197573](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/197573)
+  [`9abe8b207a748`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9abe8b207a748) -
+  This release adds icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `rovo`
+  - `rss-feed`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.3.1
 
 ### Patch Changes

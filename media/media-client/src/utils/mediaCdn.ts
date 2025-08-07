@@ -12,16 +12,17 @@ export const MEDIA_CDN_MAP: { [key: string]: string } = {
 // Assuming other parts of the URL make up a max of ~1000 (in reality it's lower), the token can be ~7000
 const MEDIA_TOKEN_LENGTH_LIMIT = 7000;
 
+export function isCDNEnabled(): boolean {
+	const isIsolatedCloudWithDisabledCDN =
+		fg('platform_disable_isolated_cloud_media_cdn_delivery') && isIsolatedCloud();
+
+	return isCommercial() && !isIsolatedCloudWithDisabledCDN && fg('platform_media_cdn_delivery');
+}
+
 export function mapToMediaCdnUrl(url: string, token: string) {
 	const tokenLength = token?.length ?? 0;
-	if (!isCommercial() || tokenLength > MEDIA_TOKEN_LENGTH_LIMIT) {
+	if (!isCDNEnabled() || tokenLength > MEDIA_TOKEN_LENGTH_LIMIT) {
 		return url;
-	}
-
-	if (fg('platform_disable_isolated_cloud_media_cdn_delivery')) {
-		if (isIsolatedCloud()) {
-			return url;
-		}
 	}
 
 	// eslint-disable-next-line @atlaskit/platform/no-preconditioning

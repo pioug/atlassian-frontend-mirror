@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::94c5d2c9bdcdecc62580042a534c4168>>
+ * @codegen <<SignedSource::06ed7f1121c8444d68631a1c4f73475c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ChartPieIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M7.25 1.543a6.501 6.501 0 1 0 7.207 7.207H8A.75.75 0 0 1 7.25 8zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8" clip-rule="evenodd"/>`
+  dangerouslySetGlyph: `<mask id="mask0_53070_14217" width="16" height="16" x="0" y="0" maskUnits="userSpaceOnUse" style="mask-type:alpha"><path fill="currentcolor" d="M5.106 0C5.04.239 5 .49 5 .75v7.5a2.75 2.75 0 0 0 3.462 2.656l7.246-1.941q.15-.04.292-.098V16H0V0zm5.672 4.59-.278.076v-.29q.143.102.278.215M16 2.17A10.3 10.3 0 0 0 13.831 0H16z"/></mask><g mask="url(#mask0_53070_14217)"><path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M1.75 8a6.25 6.25 0 1 0 12.5 0 6.25 6.25 0 0 0-12.5 0Z"/></g><path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M7.75 8.25V.75c3.47 0 6.39 2.357 7.246 5.558z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 ChartPieIcon.displayName = 'ChartPieIcon';

@@ -3,6 +3,9 @@ import { useCallback, useEffect } from 'react';
 import { useProductPermissionsStore } from '../../product-permission/main';
 import { type ProductPermissions } from '../../product-permission/types';
 
+/**
+ * @deprecated Use useProductPermissions from "@atlaskit/teams-app-internal-product-permissions" instead
+ */
 export const useProductPermissions: ProductPermissions = (
 	{ userId, cloudId, permissionIds },
 	{ enabled } = { enabled: true },

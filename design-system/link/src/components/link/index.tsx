@@ -105,7 +105,7 @@ const styles = cssMap({
 	iconWrapper: {
 		display: 'inline',
 		whiteSpace: 'nowrap',
-		verticalAlign: 'top',
+		verticalAlign: 'baseline',
 		position: 'relative',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 		insetBlockStart: '0.11em' as any,

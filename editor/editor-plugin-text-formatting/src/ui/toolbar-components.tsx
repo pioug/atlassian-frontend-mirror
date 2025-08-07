@@ -47,7 +47,7 @@ const getFormatMenuItems = (
 							icon={icon}
 							shortcut={shortcut}
 							title={title}
-							optionType={optionType}
+							optionType={optionType as FormatOptions}
 							toggleMarkWithAnalyticsCallback={command}
 						/>
 					);

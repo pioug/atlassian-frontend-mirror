@@ -81,4 +81,7 @@ const Store = createStore<ProductPermissionsStore, ProductPermissionsActions>({
 	name: 'product-permissions-old',
 });
 
+/**
+ * @deprecated Use useProductPermissionsStore from "@atlaskit/teams-app-internal-product-permissions" instead
+ */
 export const useProductPermissionsStore = createHook(Store);

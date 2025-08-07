@@ -1,5 +1,13 @@
 # @atlaskit/link
 
+## 3.2.5
+
+### Patch Changes
+
+- [#197573](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/197573)
+  [`625d873ae37d7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/625d873ae37d7) -
+  Align external link icon with text baseline in small text sizes using verticalAlign: 'baseline'.
+
 ## 3.2.4
 
 ### Patch Changes

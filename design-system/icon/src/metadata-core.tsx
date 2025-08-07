@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::d540d86d4539a6bb75ca94a78337a5ec>>
+ * @codegen <<SignedSource::85505cffaeb8b9b2197230222f218835>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -811,7 +811,7 @@ const metadata: Record<string, metadata> = {
 		status: 'published',
 	},
 	'check-circle': {
-		keywords: ['check-circle', 'checkcircle', 'tick', 'icon', 'tick', 'yes', 'completed', 'filled'],
+		keywords: ['check-circle', 'checkcircle', 'tick', 'icon', 'tick', 'yes', 'completed'],
 		componentName: 'CheckCircleIcon',
 		package: '@atlaskit/icon/core/check-circle',
 		oldName: ['check-circle', 'check-circle-outline', 'emoji/productivity'],
@@ -819,6 +819,16 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage:
 			'Known uses: completed items, productivity emoji category. Completed task work type in JSM Calendar view.',
+		team: 'Design System Team',
+		status: 'published',
+	},
+	'check-circle-unchecked': {
+		keywords: ['check-circle-unchecked', 'checkcircleunchecked', 'icon', 'incomplete', 'unchecked'],
+		componentName: 'CheckCircleUncheckedIcon',
+		package: '@atlaskit/icon/core/check-circle-unchecked',
+		type: 'core',
+		categorization: 'multi-purpose',
+		usage: 'Known uses: Incomplete items',
 		team: 'Design System Team',
 		status: 'published',
 	},

@@ -1,5 +1,31 @@
 # @atlaskit/editor-common
 
+## 107.19.0
+
+### Minor Changes
+
+- [#196043](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/196043)
+  [`c6cb0ed855827`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c6cb0ed855827) -
+  Add new ShowMoreHorizontal Icon, add new ranks to support overflow menu, add pin as a menu item
+
+## 107.18.2
+
+### Patch Changes
+
+- [#197821](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/197821)
+  [`ceed6696867c2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ceed6696867c2) -
+  [ux] [EDITOR-1062] updated error screen design and texts
+- Updated dependencies
+
+## 107.18.1
+
+### Patch Changes
+
+- [#197573](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/197573)
+  [`066bb4840be19`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/066bb4840be19) -
+  [ENGHEALTH-32415] resolve aria issues with element browser
+- Updated dependencies
+
 ## 107.18.0
 
 ### Minor Changes

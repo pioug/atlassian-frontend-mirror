@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/help",
-	"version": "9.1.8",
+	"version": "9.1.9",
 	"description": "A cross-product help component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -77,7 +77,6 @@
 		"react-intl-next": "*"
 	},
 	"devDependencies": {
-		"@atlaskit/navigation": "root:*",
 		"@testing-library/react": "root:*",
 		"@types/react-transition-group": "root:*",
 		"algoliasearch": "root:*",

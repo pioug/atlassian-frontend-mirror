@@ -26,4 +26,9 @@ export const selectionToolbarMessages = defineMessages({
 		defaultMessage: 'Unpin the toolbar',
 		description: 'Label for fixed at top toolbar position option',
 	},
+	toolbarPositionUnpinnedConcise: {
+		id: 'fabric.editor.toolbarPositionUnpinnedConcise',
+		defaultMessage: 'Pin toolbar to top',
+		description: 'Label for menu item to pin the toolbar to the top of the page',
+	},
 });

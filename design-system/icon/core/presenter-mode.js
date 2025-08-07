@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c8cbf4ab2d75c385e37fe01f50c4f5b5>>
+ * @codegen <<SignedSource::975f3556f302c98e53e9a5c512ff1020>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const PresenterModeIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M4.909 2.5a2.409 2.409 0 0 0-1.054 4.576l-.657 1.348a3.909 3.909 0 1 1 5.226-5.226l-1.348.657A2.41 2.41 0 0 0 4.909 2.5m-.19 2.22a.75.75 0 0 1 .786-.175l9 3.25a.75.75 0 0 1 .02 1.403l-3.822 1.505-1.505 3.822a.75.75 0 0 1-1.403-.02l-3.25-9a.75.75 0 0 1 .175-.785M6.5 6.498l2.032 5.629.896-2.277a.75.75 0 0 1 .423-.423l2.276-.896z" clip-rule="evenodd"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M4.909 2.5a2.409 2.409 0 0 0-1.054 4.576l-.657 1.348a3.909 3.909 0 1 1 5.226-5.226l-1.348.657A2.41 2.41 0 0 0 4.909 2.5m-.19 2.22a.75.75 0 0 1 .786-.175l9 3.25a.75.75 0 0 1 .02 1.403l-3.822 1.505-1.505 3.822a.75.75 0 0 1-1.403-.02l-3.25-9a.75.75 0 0 1 .175-.785M6.5 6.498l2.032 5.628.896-2.276a.75.75 0 0 1 .423-.423l2.276-.896z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 PresenterModeIcon.displayName = 'PresenterModeIcon';

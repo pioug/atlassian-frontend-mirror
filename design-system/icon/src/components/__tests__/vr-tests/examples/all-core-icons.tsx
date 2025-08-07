@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::9312176f2d631237382d0e2755ee95bb>>
+ * @codegen <<SignedSource::49828c0c25e4f568fa58a76f3047e124>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -75,6 +75,7 @@ import ChartTrendDownIcon from '../../../../../core/chart-trend-down';
 import ChartTrendUpIcon from '../../../../../core/chart-trend-up';
 import ChatWidgetIcon from '../../../../../core/chat-widget';
 import CheckCircleIcon from '../../../../../core/check-circle';
+import CheckCircleUncheckedIcon from '../../../../../core/check-circle-unchecked';
 import CheckMarkIcon from '../../../../../core/check-mark';
 import CheckboxCheckedIcon from '../../../../../core/checkbox-checked';
 import CheckboxIndeterminateIcon from '../../../../../core/checkbox-indeterminate';
@@ -753,6 +754,7 @@ const Icons = [
 	ChartTrendDownIcon,
 	ChartTrendUpIcon,
 	TableIcon,
+	CheckCircleUncheckedIcon,
 ];
 
 const groupSize = 50;

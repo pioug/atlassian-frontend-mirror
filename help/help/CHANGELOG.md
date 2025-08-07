@@ -1,5 +1,13 @@
 # @atlaskit/help
 
+## 9.1.9
+
+### Patch Changes
+
+- [`ed0c6e0bb869f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ed0c6e0bb869f) -
+  Remove references to deprecated @atlaskit/navigation
+- Updated dependencies
+
 ## 9.1.8
 
 ### Patch Changes

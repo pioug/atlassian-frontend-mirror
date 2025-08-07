@@ -114,4 +114,9 @@ export const toolbarMessages = defineMessages({
 		defaultMessage: 'Ask AI',
 		description: 'Open the AI panel to ask a question or generate content.',
 	},
+	selectionToolbarOverflowMenuTooltip: {
+		id: 'fabric.editor.selectionToolbarOverflowMenuTooltip',
+		defaultMessage: 'More options',
+		description: 'Tooltip for the overflow menu in the selection toolbar',
+	},
 });

@@ -13,6 +13,7 @@ import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
 import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE, fireAnalyticsEvent } from '../../analytics';
@@ -23,6 +24,7 @@ import { ViewMore as ViewMoreNext } from '../components/ViewMore';
 import {
 	DEVICE_BREAKPOINT_NUMBERS,
 	ELEMENT_BROWSER_ID,
+	ELEMENT_BROWSER_LIST_ID,
 	GRID_SIZE,
 	INLINE_SIDEBAR_HEIGHT,
 	SIDEBAR_HEADING_WRAPPER_HEIGHT,
@@ -403,6 +405,11 @@ function MobileBrowser({
 						searchTerm={searchTerm}
 						items={items}
 						selectedItemIndex={selectedItemIndex}
+						ariaControlsId={
+							expValEquals('platform_editor_august_a11y', 'isEnabled', true)
+								? ELEMENT_BROWSER_LIST_ID
+								: undefined
+						}
 					/>
 				)}
 				{showCategories && (
@@ -419,7 +426,14 @@ function MobileBrowser({
 					</nav>
 				)}
 			</div>
-			<div css={mobileMainContent}>
+			<div
+				css={mobileMainContent}
+				id={
+					expValEquals('platform_editor_august_a11y', 'isEnabled', true)
+						? ELEMENT_BROWSER_LIST_ID
+						: undefined
+				}
+			>
 				<ElementList
 					items={items}
 					mode={mode}

@@ -1,5 +1,12 @@
 # @atlaskit/form
 
+## 12.0.16
+
+### Patch Changes
+
+- [`67eaf0a522c17`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/67eaf0a522c17) -
+  Update internal css usage from compiled/react to atlaskit/css
+
 ## 12.0.15
 
 ### Patch Changes

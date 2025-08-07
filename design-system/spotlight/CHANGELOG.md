@@ -1,5 +1,13 @@
 # @atlaskit/spotlight
 
+## 0.0.7
+
+### Patch Changes
+
+- [#197821](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/197821)
+  [`f9dbe2c16f7e0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f9dbe2c16f7e0) -
+  Create PopoverProvider, PopoverTarget, PopoverContent components.
+
 ## 0.0.6
 
 ### Patch Changes

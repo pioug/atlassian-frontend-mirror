@@ -1,5 +1,17 @@
 # @atlaskit/collab-provider
 
+## 11.2.0
+
+### Minor Changes
+
+- [#197573](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/197573)
+  [`2853bc7075415`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2853bc7075415) -
+  Clean up platform_editor_connection_auto_disconnect_delay experiment feature gate
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.1.1
 
 ### Patch Changes

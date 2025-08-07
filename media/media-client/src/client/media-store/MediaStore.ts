@@ -37,7 +37,7 @@ import {
 	defaultShouldRetryError,
 	extendTraceContext,
 } from '../../utils/request/helpers';
-import { mapToMediaCdnUrl } from '../../utils/mediaCdn';
+import { isCDNEnabled, mapToMediaCdnUrl } from '../../utils/mediaCdn';
 import {
 	type RequestHeaders,
 	type RequestMetadata,
@@ -46,8 +46,6 @@ import {
 } from '../../utils/request/types';
 import { resolveAuth, resolveInitialAuth } from './resolveAuth';
 import { ChunkHashAlgorithm } from '@atlaskit/media-core';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { isCommercial } from '../../utils/isCommercial';
 import {
 	type GetDocumentPageImage,
 	type DocumentPageRangeContent,
@@ -77,7 +75,7 @@ const jsonHeaders = {
 
 const cdnFeatureFlag = (endpoint: string) => {
 	let result = endpoint;
-	if (isCommercial() && fg('platform_media_cdn_delivery')) {
+	if (isCDNEnabled()) {
 		result += '/cdn';
 	}
 	return result;

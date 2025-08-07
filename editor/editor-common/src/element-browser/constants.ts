@@ -30,3 +30,5 @@ export const ELEMENT_ITEM_HEIGHT = 60;
 export const ELEMENT_ITEM_PADDING = 10;
 
 export const ELEMENT_BROWSER_ID = 'editor-element-browser';
+
+export const ELEMENT_BROWSER_LIST_ID = 'editor-element-browser-list';

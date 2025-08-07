@@ -41,6 +41,7 @@ import type { ToolbarDocking } from './types';
 import { PageVisibilityWatcher } from './ui/PageVisibilityWatcher';
 import { getPinOptionToolbarConfig } from './ui/pin-toolbar-config';
 import { PrimaryToolbarComponent } from './ui/PrimaryToolbarComponent';
+import { getToolbarComponents } from './ui/toolbar-components';
 
 type SelectionToolbarPluginState = {
 	selectionStable: boolean;
@@ -74,15 +75,19 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 
 	const { userPreferencesProvider, contextualFormattingEnabled } = config;
 
-	if (editorExperiment('platform_editor_controls', 'variant1', { exposure: true })) {
-		primaryToolbarComponent = ({ disabled }) => {
-			return <PrimaryToolbarComponent api={api} disabled={disabled} />;
-		};
+	if (expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true)) {
+		api?.toolbar?.actions.registerComponents(getToolbarComponents(api));
+	} else {
+		if (editorExperiment('platform_editor_controls', 'variant1', { exposure: true })) {
+			primaryToolbarComponent = ({ disabled }) => {
+				return <PrimaryToolbarComponent api={api} disabled={disabled} />;
+			};
 
-		api?.primaryToolbar?.actions.registerComponent({
-			name: 'pinToolbar',
-			component: primaryToolbarComponent,
-		});
+			api?.primaryToolbar?.actions.registerComponent({
+				name: 'pinToolbar',
+				component: primaryToolbarComponent,
+			});
+		}
 	}
 
 	let previousToolbarDocking: ToolbarDocking | null =

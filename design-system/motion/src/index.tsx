@@ -9,6 +9,8 @@ export {
 } from './utils/accessibility';
 export { default as FadeIn } from './entering/fade-in';
 export type { FadeKeyframesMotionProps } from './entering/fade-in';
+export { default as AnimateIn } from './entering/animate-in';
+export type { AnimateKeyframesMotionProps } from './entering/animate-in';
 export { default as StaggeredEntrance } from './entering/staggered-entrance';
 export type { StaggeredEntranceProps } from './entering/staggered-entrance';
 export { useResizingHeight, ResizingHeight } from './resizing/height';

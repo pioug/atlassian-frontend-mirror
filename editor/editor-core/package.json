@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "209.6.1",
+	"version": "209.6.5",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -163,6 +163,9 @@
 		"platform_editor_sync_editor_view_mode_state": {
 			"type": "boolean"
 		},
+		"platform_editor_sync_editor_view_mode_state_revert": {
+			"type": "boolean"
+		},
 		"annotations_defensive_node_name_calculations": {
 			"type": "boolean",
 			"referenceOnly": "true"
@@ -263,9 +266,6 @@
 		"editor_a11y_refactor_find_replace_style": {
 			"type": "boolean",
 			"referenceOnly": true
-		},
-		"platform_editor_setup_editorapi_sync": {
-			"type": "boolean"
 		},
 		"platform_editor_disable_context_panel_animation": {
 			"type": "boolean",

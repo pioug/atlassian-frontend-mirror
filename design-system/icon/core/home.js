@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::381b22bd685279283aab9e50361768ca>>
+ * @codegen <<SignedSource::4699fef63d03ff056d5d52baf1edb9d0>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const HomeIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M6.646.727a2 2 0 0 1 2.708 0l5 4.6A2 2 0 0 1 15 6.798V13a2 2 0 0 1-2 2H9.75a.75.75 0 0 1-.75-.75V9.5H7v4.75a.75.75 0 0 1-.75.75H3a2 2 0 0 1-2-2V6.798a2 2 0 0 1 .646-1.471zM8.339 1.83a.5.5 0 0 0-.678 0l-5 4.6a.5.5 0 0 0-.161.367V13a.5.5 0 0 0 .5.5h2.5V8.75A.75.75 0 0 1 6.25 8h3.5a.75.75 0 0 1 .75.75v4.75H13a.5.5 0 0 0 .5-.5V6.798a.5.5 0 0 0-.162-.367z" clip-rule="evenodd"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M6.646.727a2 2 0 0 1 2.708 0l5 4.6A2 2 0 0 1 15 6.799V13a2 2 0 0 1-2 2H9.75a.75.75 0 0 1-.75-.75V9.5H7v4.75a.75.75 0 0 1-.75.75H3a2 2 0 0 1-2-2V6.799a2 2 0 0 1 .646-1.472zM8.339 1.83a.5.5 0 0 0-.678 0l-5 4.6a.5.5 0 0 0-.161.368V13a.5.5 0 0 0 .5.5h2.5V8.75A.75.75 0 0 1 6.25 8h3.5a.75.75 0 0 1 .75.75v4.75H13a.5.5 0 0 0 .5-.5V6.799a.5.5 0 0 0-.162-.368z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 HomeIcon.displayName = 'HomeIcon';

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 3.0.10
+
+### Patch Changes
+
+- [`5f5ead7ec9a6c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f5ead7ec9a6c) -
+  [ED-28682] Add text format mark schema check for isHidden state of format button options
+- Updated dependencies
+
 ## 3.0.9
 
 ### Patch Changes

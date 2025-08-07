@@ -37,6 +37,10 @@ import {
 	SUPERSCRIPT_MENU_ITEM,
 	CLEAR_FORMARTTING_MENU_SECTION,
 	CLEAR_FORMATTING_MENU_ITEM,
+	PIN_MENU_ITEM,
+	PIN_MENU_SECTION,
+	OVERFLOW_MENU,
+	OVERFLOW_GROUP,
 } from './keys';
 
 export const TOOLBAR_RANK = {
@@ -135,4 +139,23 @@ export const COLLAB_SECTION_RANK = {
 
 export const COMMENT_GROUP_RANK = {
 	[COMMENT_HERO_BUTTON.key]: 100,
+};
+
+/**
+ * Overflow section
+ */
+export const OVERFLOW_SECTION_RANK = {
+	[OVERFLOW_GROUP.key]: 100,
+};
+
+export const OVERFLOW_GROUP_RANK = {
+	[OVERFLOW_MENU.key]: 100,
+};
+
+export const OVERFLOW_MENU_RANK = {
+	[PIN_MENU_SECTION.key]: 100,
+};
+
+export const PIN_MENU_SECTION_RANK = {
+	[PIN_MENU_ITEM.key]: 100,
 };

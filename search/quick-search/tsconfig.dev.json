@@ -53,9 +53,6 @@
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/drawer/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{

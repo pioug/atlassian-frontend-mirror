@@ -143,3 +143,14 @@ has selected or focused on the row.
 Rows can be interactive if you provide an `onClick` or `onKeydown` handler to the row.
 
 <Example Component={InteractiveRow} packageName="@atlaskit/dynamic-table" />
+
+## Focus after row deletion
+
+When a table row is deleted, focus should move to the next focusable item in the table.
+
+If the deletion of the row is confirmed from a modal, focus should move from the modal to the next
+focusable item after the original trigger.
+
+If you remove an element from the DOM and don't set the focus, it returns to the body element at the
+top of the page. And for people using assistive technology, this means they'll need to navigate
+through the entire page to return to where they originally were, which we don’t want.

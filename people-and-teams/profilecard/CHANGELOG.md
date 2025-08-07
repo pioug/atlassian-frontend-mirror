@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 24.2.0
+
+### Minor Changes
+
+- [#197659](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/197659)
+  [`9206b548d68de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9206b548d68de) -
+  Clean up enable_team_profilecard_toggletip_a11y_fix
+
 ## 24.1.1
 
 ### Patch Changes

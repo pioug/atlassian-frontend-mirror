@@ -8,6 +8,7 @@ import type { BlockControlsPlugin } from '@atlaskit/editor-plugin-block-controls
 import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
+import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import type { UserPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences';
 
 import type { ToolbarDocking } from './types';
@@ -33,6 +34,7 @@ export type SelectionToolbarPlugin = NextEditorPlugin<
 			OptionalPlugin<BlockControlsPlugin>,
 			OptionalPlugin<ConnectivityPlugin>,
 			OptionalPlugin<UserPreferencesPlugin>,
+			OptionalPlugin<ToolbarPlugin>,
 		];
 		actions?: {
 			suppressToolbar?: () => boolean;

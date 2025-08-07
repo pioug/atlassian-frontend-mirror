@@ -18,6 +18,7 @@ import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import { ButtonItem } from '@atlaskit/menu';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Stack, Text } from '@atlaskit/primitives/compiled';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -304,6 +305,11 @@ const ElementListSingleColumn = (props: ElementListSingleColumnProps) => {
 								focus={focusedItemIndex === index}
 								setFocusedItemIndex={setFocusedItemIndex}
 								onInsertItem={onInsertItem}
+								role={
+									expValEquals('platform_editor_august_a11y', 'isEnabled', true)
+										? 'option'
+										: undefined
+								}
 							/>
 						</div>
 					</CellMeasurer>
@@ -499,6 +505,7 @@ type ElementItemType = {
 	focus: boolean;
 	setFocusedItemIndex: (index: number) => void;
 	index: number;
+	role?: string;
 };
 
 const MemoizedElementItem = memo(ElementItem);
@@ -512,6 +519,7 @@ export function ElementItem({
 	onInsertItem,
 	focus,
 	setFocusedItemIndex,
+	role,
 }: ElementItemType) {
 	const ref = useFocus(focus);
 
@@ -554,11 +562,17 @@ export function ElementItem({
 				onClick={onClick}
 				iconBefore={<ElementBefore icon={icon} title={title} />}
 				isSelected={selected}
-				aria-describedby={title}
+				aria-describedby={
+					expValEquals('platform_editor_august_a11y', 'isEnabled', true) ? undefined : title
+				}
+				aria-label={
+					expValEquals('platform_editor_august_a11y', 'isEnabled', true) ? title : undefined
+				}
 				ref={ref}
 				testId={`element-item-${index}`}
 				id={`searched-item-${index}`}
 				isDisabled={isDisabled}
+				role={role}
 			>
 				<ItemContent
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

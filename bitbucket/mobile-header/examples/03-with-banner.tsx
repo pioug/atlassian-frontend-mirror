@@ -8,7 +8,6 @@ import { IconButton } from '@atlaskit/button/new';
 import MenuIcon from '@atlaskit/icon/core/menu';
 import WarningIcon from '@atlaskit/icon/core/migration/status-warning--warning';
 import LegacyRoomMenuIcon from '@atlaskit/icon/glyph/room-menu';
-import Navigation from '@atlaskit/navigation';
 
 import MobileHeader from '../src';
 
@@ -62,7 +61,7 @@ export default class BannerMobileHeaderDemo extends Component<{}, State> {
 				<MobileHeader
 					drawerState={this.state.drawerState}
 					menuIconLabel="Menu"
-					navigation={(isOpen) => isOpen && <Navigation onResize={() => {}} />}
+					navigation={(isOpen) => isOpen && 'Nav'}
 					secondaryContent={
 						<IconButton
 							icon={() => (

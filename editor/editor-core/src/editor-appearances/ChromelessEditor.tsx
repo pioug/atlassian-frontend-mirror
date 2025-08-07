@@ -25,6 +25,8 @@ export type ChromelessEditorProps = Pick<
 	| 'searchProvider'
 	| 'extensionProviders'
 	| 'popupsMountPoint'
+	| 'popupsBoundariesElement'
+	| 'popupsScrollableElement'
 >;
 
 /**

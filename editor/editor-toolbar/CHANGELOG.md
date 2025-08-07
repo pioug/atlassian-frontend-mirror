@@ -1,5 +1,13 @@
 # @atlaskit/editor-toolbar
 
+## 0.1.0
+
+### Minor Changes
+
+- [#196043](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/196043)
+  [`c6cb0ed855827`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c6cb0ed855827) -
+  Add new ShowMoreHorizontal Icon, add new ranks to support overflow menu, add pin as a menu item
+
 ## 0.0.10
 
 ### Patch Changes

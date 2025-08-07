@@ -61,6 +61,9 @@ export const getProductPermissionRequestBody = (
 	return JSON.stringify(body);
 };
 
+/**
+ * @deprecated Use hasProductPermission from "@atlaskit/teams-app-internal-product-permissions" instead
+ */
 export const hasProductPermission = (
 	permissions: UserProductPermissions,
 	product: keyof UserProductPermissions,

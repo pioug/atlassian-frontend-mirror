@@ -25,7 +25,14 @@ export type Fade = 'none' | 'in' | 'out' | 'inout';
 /**
  * Animation curve to use for the motion.
  */
-export type AnimationCurve = 'linear' | 'ease-in' | 'ease-out' | 'ease-in-out';
+export type AnimationCurve =
+	| 'linear'
+	| 'ease-in'
+	| 'ease-out'
+	| 'ease-in-out'
+	| 'ease-in-40-out'
+	| 'ease-in-60-out'
+	| 'ease-in-80-out';
 
 /**
  * Common props all entering motions should make available for consumers.

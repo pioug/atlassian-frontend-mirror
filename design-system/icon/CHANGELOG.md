@@ -1,5 +1,32 @@
 # @atlaskit/icon
 
+## 27.10.0
+
+### Minor Changes
+
+- [#197573](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/197573)
+  [`9abe8b207a748`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9abe8b207a748) -
+  This release updates icons in `@atlaskit/icon`.
+
+  ### Updated:
+
+  **`@atlaskit/icon/core`**
+
+  - `chart-bar`
+  - `chart-pie`
+  - `check-mark`
+  - `headphones`
+
+- [#197573](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/197573)
+  [`9abe8b207a748`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9abe8b207a748) -
+  This release adds icons in `@atlaskit/icon`.
+
+  ### Added:
+
+  **`@atlaskit/icon/core`**
+
+  - `check-circle-unchecked`
+
 ## 27.9.2
 
 ### Patch Changes

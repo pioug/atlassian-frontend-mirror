@@ -13,10 +13,10 @@ import {
 	useState,
 } from 'react';
 
-import { css, jsx } from '@compiled/react';
 import { type FieldState } from 'final-form';
 import invariant from 'tiny-invariant';
 
+import { css, jsx } from '@atlaskit/css';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import { token } from '@atlaskit/tokens';
 

@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::0f3c4c19d9eeee21a03ac86535d9453e>>
+ * @codegen <<SignedSource::55d331e031db5a6d2ac8a1f634e4c2cf>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -15,6 +15,7 @@ import React from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
+import type { NewCoreIconProps } from '@atlaskit/icon';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Inline } from '@atlaskit/primitives';
 
@@ -162,6 +163,8 @@ import ReplyRightIcon from '../../../../core/reply-right';
 import ReturnIcon from '../../../../core/return';
 import RoadmapsPlanIcon from '../../../../core/roadmaps-plan';
 import RoadmapsServiceIcon from '../../../../core/roadmaps-service';
+import RovoIcon from '../../../../core/rovo';
+import RssFeedIcon from '../../../../core/rss-feed';
 import SaveIcon from '../../../../core/save';
 import ScreenRecordIcon from '../../../../core/screen-record';
 import SectionIcon from '../../../../core/section';
@@ -265,7 +268,6 @@ import WelcomeFeedIcon from '../../../../core/welcome-feed';
 import WorkItemAddIcon from '../../../../core/work-item-add';
 import WorkflowControlsIcon from '../../../../core/workflow-controls';
 import WrenchIcon from '../../../../core/wrench';
-import type { NewCoreIconProps } from '@atlaskit/icon';
 
 const Icons = [
 	AiGenerativeAudioBriefingIcon,
@@ -515,6 +517,8 @@ const Icons = [
 	ChartScatterPlotIcon,
 	SignpostIcon,
 	TerminalIcon,
+	RovoIcon,
+	RssFeedIcon,
 ];
 
 const groupSize = 50;

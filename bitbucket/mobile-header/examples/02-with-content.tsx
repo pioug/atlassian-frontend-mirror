@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Navigation from '@atlaskit/navigation';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box } from '@atlaskit/primitives';
 
@@ -11,7 +10,7 @@ const Example = (): React.ReactElement => {
 		<div>
 			<MobileHeader
 				menuIconLabel="Menu"
-				navigation={(isOpen) => isOpen && <Navigation onResize={() => {}} />}
+				navigation={(isOpen) => isOpen && 'Nav'}
 				pageHeading="Header for a page with content"
 			/>
 			<Box padding="space.200">

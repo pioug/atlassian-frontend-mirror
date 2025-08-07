@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugins
 
+## 10.1.33
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.1.32
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.1.31
+
+### Patch Changes
+
+- [#197573](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/197573)
+  [`65dfe86479bb2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/65dfe86479bb2) -
+  EDITOR-1101 Added new package
+- Updated dependencies
+
 ## 10.1.30
 
 ### Patch Changes

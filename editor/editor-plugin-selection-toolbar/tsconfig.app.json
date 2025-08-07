@@ -53,7 +53,16 @@
 			"path": "../editor-plugin-primary-toolbar/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-toolbar/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-user-preferences/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-toolbar/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-toolbar-model/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/icon/tsconfig.app.json"

@@ -1,5 +1,14 @@
 # @atlaskit/motion
 
+## 5.2.0
+
+### Minor Changes
+
+- [#195850](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/195850)
+  [`9b1d8d585ee26`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b1d8d585ee26) -
+  Add New Motion Curves and a Component that can be used to apply the Motion Curves to all animation
+  types
+
 ## 5.1.7
 
 ### Patch Changes

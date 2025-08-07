@@ -1,5 +1,12 @@
 # @atlaskit/mobile-header
 
+## 7.0.17
+
+### Patch Changes
+
+- [`ed0c6e0bb869f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ed0c6e0bb869f) -
+  Remove references to deprecated @atlaskit/navigation
+
 ## 7.0.16
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @atlaskit/right-side-panel
 
+## 3.0.6
+
+### Patch Changes
+
+- [`ed0c6e0bb869f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ed0c6e0bb869f) -
+  Remove references to deprecated @atlaskit/navigation
+
 ## 3.0.5
 
 ### Patch Changes

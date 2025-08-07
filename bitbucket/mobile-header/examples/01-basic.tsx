@@ -7,7 +7,6 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button, { IconButton } from '@atlaskit/button/new';
 import MenuIcon from '@atlaskit/icon/core/menu';
 import LegacyDetailViewIcon from '@atlaskit/icon/glyph/detail-view';
-import Navigation from '@atlaskit/navigation';
 
 import MobileHeader from '../src';
 
@@ -51,7 +50,7 @@ class MobileHeaderDemo extends Component<{}, State> {
 					<MobileHeader
 						drawerState={this.state.drawerState}
 						menuIconLabel="Menu"
-						navigation={(isOpen) => isOpen && <Navigation onResize={() => {}} />}
+						navigation={(isOpen) => isOpen && 'Navigation'}
 						secondaryContent={
 							<ButtonGroup>
 								<Button>One</Button>

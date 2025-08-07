@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::fef0f06859e49caedcc4f47894a77da7>>
+ * @codegen <<SignedSource::f7f41401ecfb3069835afe67e33c1e88>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const PriorityHighestIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentcolor" d="m13.913 6.75-5.5-3.626a.75.75 0 0 0-.826 0l-5.5 3.625.826 1.252L8 4.65 13.087 8zm0 4.5-5.5-3.626a.75.75 0 0 0-.826 0l-5.5 3.625.826 1.252L8 9.15l5.087 3.352z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" d="m13.913 6.75-5.5-3.625a.75.75 0 0 0-.826 0l-5.5 3.625L2.913 8 8 4.65 13.087 8zm0 4.5-5.5-3.625a.75.75 0 0 0-.826 0l-5.5 3.624.826 1.252L8 9.15l5.087 3.353z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 PriorityHighestIcon.displayName = 'PriorityHighestIcon';

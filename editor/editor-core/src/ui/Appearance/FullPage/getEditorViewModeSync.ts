@@ -5,7 +5,10 @@ import type { ComponentProps } from './FullPage';
 
 // Retrieve the initial config value from the editor view plugin preset
 const getViewModeSync = (preset: ComponentProps['preset']) => {
-	if (!fg('platform_editor_sync_editor_view_mode_state')) {
+	if (
+		!fg('platform_editor_sync_editor_view_mode_state') ||
+		fg('platform_editor_sync_editor_view_mode_state_revert')
+	) {
 		return undefined;
 	}
 	// @ts-expect-error - data is a private property

@@ -191,6 +191,9 @@
 			"path": "../../editor-plugin-list/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-local-id/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-loom/afm-townsquare/tsconfig.json"
 		},
 		{

@@ -93,3 +93,21 @@ have an element where you only want to show the tooltip of the content of the el
 concatenated.
 
 <Example Component={TooltipConditional} packageName="@atlaskit/tooltip" />
+
+## Tooltips and disabled buttons
+
+Never put a tooltip on a disabled button.
+
+Tooltips should never appear on elements that can’t be interacted with as they can't be reached by
+all devices or assistive technologies.
+
+This pattern can also confuse people: it can disrupt navigation and it’s hard to use on touch
+devices and for people who use zoom magnification. People may also not think to hover over disabled/
+non-interactive elements to get more information.
+
+See button guidance for
+[why it’s best to avoid disabling buttons](/components/button/usage#avoid-disabling-buttons).
+
+To discuss alternative patterns with the accessibility team,
+[book an Accessibility Office Hour](https://hello.atlassian.net/wiki/spaces/A11Y/pages/940530583/Accessibility+Office+Hours)
+(Atlassians only).

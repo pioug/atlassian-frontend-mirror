@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/form",
-	"version": "12.0.15",
+	"version": "12.0.16",
 	"description": "A form allows users to input information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -33,7 +33,6 @@
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
-		"@compiled/react": "root:*",
 		"final-form": "root:*",
 		"final-form-focus": "root:*",
 		"lodash": "root:*",

@@ -63,3 +63,11 @@ Once the text reaches 180px, it is truncated with an ellipsis.
 Avoid truncation wherever possible by using short text in tags.
 
 <Example Component={TagMaxLength} packageName="@atlaskit/tag" />
+
+## Focus
+
+When a tag is deleted, focus should go to the next focusable element on the page.
+
+If you remove a tag element from the DOM and don't set the focus, it returns to the body element at
+the top of the page. And for people using assistive technology, this means they'll need to navigate
+through the entire page to return to where they originally were, which we don’t want.

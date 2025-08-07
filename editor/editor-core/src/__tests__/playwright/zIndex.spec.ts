@@ -22,7 +22,7 @@ test.describe('z indexes', () => {
 		},
 	});
 
-	test('table trash icon is behiind plus menu dropdown', async ({ editor }) => {
+	test('table trash icon is behind plus menu dropdown', async ({ editor }) => {
 		const { mainToolbarModel, floatingToolbarModel } = await addTable(editor);
 
 		const insertMenuModel = await mainToolbarModel.openInsertMenu();
@@ -31,7 +31,7 @@ test.describe('z indexes', () => {
 		await expect(floatingToolbarModel.itemAt('Remove')).not.toBeInSight();
 	});
 
-	test('table trash icon is behiind emoji picker', async ({ editor }) => {
+	test('table trash icon is behind emoji picker', async ({ editor }) => {
 		const { mainToolbarModel, floatingToolbarModel } = await addTable(editor);
 
 		await mainToolbarModel.clickAt('Emoji');
@@ -43,7 +43,7 @@ test.describe('z indexes', () => {
 		await expect(floatingToolbarModel.itemAt('Remove')).not.toBeInSight();
 	});
 
-	test('table trash icon is behiind mention picker', async ({ editor }) => {
+	test('table trash icon is behind mention picker', async ({ editor }) => {
 		const { mainToolbarModel, floatingToolbarModel, tableModel } = await addTable(editor);
 
 		const maiddleCell = await tableModel.cell(4);
@@ -74,6 +74,6 @@ test.describe('z indexes', () => {
 		const insertMenuModel = await mainToolbarModel.openInsertMenu();
 		await expect(insertMenuModel.insertMenu).toBeVisible();
 
-		await expect(editor.page).toBeAccessible({ violationCount: 3 });
+		await expect(editor.page).toBeAccessible({ violationCount: 1 });
 	});
 });

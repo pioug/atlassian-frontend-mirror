@@ -41,7 +41,16 @@
 			"path": "../../editor-plugin-primary-toolbar/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-toolbar/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-user-preferences/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar-model/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/icon/afm-jira/tsconfig.json"

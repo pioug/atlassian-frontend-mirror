@@ -246,6 +246,9 @@
 		},
 		"platform_ufo_post_interaction_check_name": {
 			"type": "boolean"
+		},
+		"platform_ufo_report_non_htmlelement_selectors": {
+			"type": "boolean"
 		}
 	}
 }

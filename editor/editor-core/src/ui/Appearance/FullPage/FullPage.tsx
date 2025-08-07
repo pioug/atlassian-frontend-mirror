@@ -193,9 +193,12 @@ export const FullPageEditor = (props: ComponentProps) => {
 		primaryToolbarComponents = primaryToolbarState.components.concat(primaryToolbarComponents);
 	}
 
-	let isEditorToolbarHidden = fg('platform_editor_sync_editor_view_mode_state')
-		? viewMode === 'view'
-		: editorViewModeState?.mode === 'view';
+	let isEditorToolbarHidden =
+		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+		fg('platform_editor_sync_editor_view_mode_state') &&
+		!fg('platform_editor_sync_editor_view_mode_state_revert')
+			? viewMode === 'view'
+			: editorViewModeState?.mode === 'view';
 
 	const { customPrimaryToolbarComponents } = props;
 

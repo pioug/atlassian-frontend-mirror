@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b8750d7c51d06f800adf6daab5a29423>>
+ * @codegen <<SignedSource::38e8b3f86901321905aab51e867c12b1>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const HeadphonesIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M8 1.5A5.5 5.5 0 0 0 2.5 7v.208A2.5 2.5 0 0 1 6 9.5v3.72A1.78 1.78 0 0 1 4.22 15 3.22 3.22 0 0 1 1 11.78V7a7 7 0 0 1 14 0v4.78A3.22 3.22 0 0 1 11.78 15 1.78 1.78 0 0 1 10 13.22V9.5a2.5 2.5 0 0 1 3.5-2.292V7A5.5 5.5 0 0 0 8 1.5m5.5 8a1 1 0 1 0-2 0v3.72c0 .155.125.28.28.28.95 0 1.72-.77 1.72-1.72zm-11 0v2.28c0 .95.77 1.72 1.72 1.72a.28.28 0 0 0 .28-.28V9.5a1 1 0 1 0-2 0" clip-rule="evenodd"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M13.5 7a5.5 5.5 0 1 0-11 0v5H1V7a7 7 0 0 1 14 0v5h-1.5z"/><path fill="currentcolor" d="M4.5 10a1 1 0 0 0-2 0v1.92c0 .87.71 1.58 1.58 1.58.23 0 .42-.19.42-.42zM6 13.08A1.92 1.92 0 0 1 4.08 15 3.08 3.08 0 0 1 1 11.92V10a2.5 2.5 0 0 1 5 0zm7.5-1.16V10a1 1 0 1 0-2 0v3.08c0 .23.19.42.42.42.87 0 1.58-.71 1.58-1.58m1.5 0A3.08 3.08 0 0 1 11.92 15 1.92 1.92 0 0 1 10 13.08V10a2.5 2.5 0 0 1 5 0z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 HeadphonesIcon.displayName = 'HeadphonesIcon';

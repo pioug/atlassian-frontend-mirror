@@ -387,8 +387,8 @@ describe('@atlaskit/editor-core', () => {
 						querySelectorSpy.mockImplementation(() => mockElement);
 						renderWithIntl(<ExtensionWrappedEditorView />);
 
-						// once is expected because editorRef hasn't been set yet
-						expect(scrollTopSpy).toHaveBeenCalledTimes(1);
+						// twice is expected because editorRef hasn't been setup (twice in the same cycle)
+						expect(scrollTopSpy).toHaveBeenCalledTimes(2);
 					});
 				},
 			);

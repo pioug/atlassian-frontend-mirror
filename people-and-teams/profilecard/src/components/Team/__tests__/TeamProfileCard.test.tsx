@@ -3,8 +3,6 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 import TeamProfileCard from '../TeamProfileCard';
 
 const mockAnalytics = jest.fn();
@@ -84,35 +82,14 @@ describe('TeamProfileCard', () => {
 		expect(moreIndicator).toHaveAttribute('aria-label', '+2 more members');
 	});
 
-	ffTest.on(
-		'enable_team_profilecard_toggletip_a11y_fix',
-		'with enable_team_profilecard_toggletip_a11y_fix enabled',
-		() => {
-			test('renders the avatar group with the overrides', () => {
-				renderComponent({ team: createTeam(10) });
+	test('renders the avatar group with the overrides', () => {
+		renderComponent({ team: createTeam(10) });
 
-				const avatarGroup = screen.getByTestId('profilecard-avatar-group--avatar-group');
-				const firstAvatar = screen.getByTestId('first-member');
-				expect(avatarGroup).toBeInTheDocument();
-				expect(firstAvatar).toBeInTheDocument();
-			});
-		},
-	);
-
-	ffTest.off(
-		'enable_team_profilecard_toggletip_a11y_fix',
-		'with enable_team_profilecard_toggletip_a11y_fix disabled',
-		() => {
-			test('renders the avatar group with the overrides', () => {
-				renderComponent({ team: createTeam(10) });
-
-				const avatarGroup = screen.getByTestId('profilecard-avatar-group--avatar-group');
-				const firstAvatar = screen.queryByTestId('first-member');
-				expect(avatarGroup).toBeInTheDocument();
-				expect(firstAvatar).not.toBeInTheDocument();
-			});
-		},
-	);
+		const avatarGroup = screen.getByTestId('profilecard-avatar-group--avatar-group');
+		const firstAvatar = screen.getByTestId('first-member');
+		expect(avatarGroup).toBeInTheDocument();
+		expect(firstAvatar).toBeInTheDocument();
+	});
 	it('should capture and report a11y violations', async () => {
 		const { container } = renderComponent();
 		await expect(container).toBeAccessible();

@@ -52,6 +52,12 @@
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
+			"path": "../dropdown-menu/tsconfig.app.json"
+		},
+		{
+			"path": "../primitives/tsconfig.app.json"
+		},
+		{
 			"path": "../../../build/test-tooling/ssr/tsconfig.app.json"
 		}
 	]

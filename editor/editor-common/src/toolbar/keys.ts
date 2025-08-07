@@ -216,3 +216,23 @@ export const OVERFLOW_SECTION = {
 	key: 'overflow-section',
 	type: 'section',
 } as const;
+
+export const OVERFLOW_GROUP = {
+	key: 'overflow-group',
+	type: 'group',
+} as const;
+
+export const OVERFLOW_MENU = {
+	key: 'overflow-menu',
+	type: 'menu',
+} as const;
+
+export const PIN_MENU_SECTION = {
+	key: 'pin-menu-section',
+	type: 'menu-section',
+} as const;
+
+export const PIN_MENU_ITEM = {
+	key: 'pin-menu-item',
+	type: 'menu-item',
+} as const;

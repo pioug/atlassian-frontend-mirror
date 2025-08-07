@@ -216,6 +216,11 @@ export const aiMessages = defineMessages({
 		defaultMessage: "We're having trouble. Close the dialog and try again.",
 		description: 'Message to users that displays when an unexpected error happens',
 	},
+	cmdPaletteUnhandledErrorMessage: {
+		id: 'fabric.editor.ai.experience-application.cmdPaletteUnhandledErrorMessage',
+		defaultMessage: "We're having issues and can't generate a response right now. Try again later.",
+		description: 'Message to users that displays when an unexpected error happens',
+	},
 	markdownErrorMessage: {
 		id: 'fabric.editor.ai.experience-application.error-boundary.markdownErrorMessage',
 		defaultMessage: "We're having trouble generating the preview. Close the dialog and try again.",

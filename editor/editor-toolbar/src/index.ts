@@ -50,5 +50,6 @@ export { StrikeThroughIcon } from './ui/icons/StrikeThroughIcon';
 export { CodeIcon } from './ui/icons/CodeIcon';
 export { SubscriptIcon } from './ui/icons/SubscriptIcon';
 export { SuperscriptIcon } from './ui/icons/SuperscriptIcon';
+export { ShowMoreHorizontalIcon } from './ui/icons/ShowMoreHorizontal';
 
 export type { IconComponent, ToolbarButtonGroupLocation } from './types';

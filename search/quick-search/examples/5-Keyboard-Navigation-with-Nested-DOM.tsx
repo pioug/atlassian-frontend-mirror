@@ -1,5 +1,4 @@
 import React from 'react';
-import Navigation, { AkSearchDrawer } from '@atlaskit/navigation';
 import { randomJiraIconUrl, randomConfluenceIconUrl } from './utils/mockData';
 import { QuickSearch, ResultItemGroup, ObjectResult } from '../src';
 
@@ -34,36 +33,24 @@ class ResultWrapperClass extends React.Component {
 export default class extends React.Component {
 	render() {
 		return (
-			<Navigation
-				drawers={[
-					<AkSearchDrawer
-						backIcon={null}
-						isOpen
-						onBackButton={() => {}}
-						key="search"
-						primaryIcon={null}
-					>
-						<QuickSearch isLoading={false}>
-							<div>
-								<ResultItemGroup title="Object examples">
-									<span>
-										<ObjectResult
-											resultId="1"
-											name="quick-search is too hilarious!"
-											avatarUrl={randomJiraIconUrl()}
-											objectKey="AK-007"
-											containerName="Search'n'Smarts"
-										/>
-									</span>
+			<QuickSearch isLoading={false}>
+				<div>
+					<ResultItemGroup title="Object examples">
+						<span>
+							<ObjectResult
+								resultId="1"
+								name="quick-search is too hilarious!"
+								avatarUrl={randomJiraIconUrl()}
+								objectKey="AK-007"
+								containerName="Search'n'Smarts"
+							/>
+						</span>
 
-									<ResultWrapperStateless />
-									<ResultWrapperClass />
-								</ResultItemGroup>
-							</div>
-						</QuickSearch>
-					</AkSearchDrawer>,
-				]}
-			/>
+						<ResultWrapperStateless />
+						<ResultWrapperClass />
+					</ResultItemGroup>
+				</div>
+			</QuickSearch>
 		);
 	}
 }

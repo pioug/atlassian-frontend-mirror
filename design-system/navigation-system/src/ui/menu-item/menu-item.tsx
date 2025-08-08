@@ -246,12 +246,6 @@ const containerStyles = cssMap({
 	showHoverActions: {
 		[actionsOnHoverDisplayVar]: 'flex',
 	},
-	removeElemAfterOnHover: {
-		// On hover of the menu item, remove the elemAfter
-		'&:hover, &:focus-within': {
-			[elemAfterDisplayVar]: 'none',
-		},
-	},
 	removeElemAfterOnHoverOrOpenNestedPopup: {
 		// On hover of the menu item, remove the elemAfter
 		'&:hover, &:focus-within': {

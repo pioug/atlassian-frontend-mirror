@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::85505cffaeb8b9b2197230222f218835>>
+ * @codegen <<SignedSource::84544bf49025c39c411ebb99cb0b870a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -97,7 +97,8 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for creating and adding an object.',
 		team: 'Design System Team',
-		status: 'published',
+		replacement: { name: 'focus-area', type: 'core', location: '@atlaskit/icon' },
+		status: 'deprecated',
 	},
 	'ai-agent': {
 		keywords: ['ai-agent', 'aiagent', 'icon', 'Rovo', 'AI', 'chat agent', 'ai'],
@@ -728,10 +729,11 @@ const metadata: Record<string, metadata> = {
 		componentName: 'ChartMatrixIcon',
 		package: '@atlaskit/icon/core/chart-matrix',
 		type: 'core',
+		replacement: { name: 'chart-bubble', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: Matrix view in in JPD, and other matrix charts.',
 		team: 'Design System Team',
-		status: 'published',
+		status: 'deprecated',
 	},
 	'chart-pie': {
 		keywords: ['chart-pie', 'chartpie', 'icon', 'segment', 'chart', 'graph', 'pie'],
@@ -749,10 +751,11 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon/core/chart-trend',
 		oldName: ['graph-line'],
 		type: 'core',
+		replacement: { name: 'chart-trend-up', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: charts, reports in Jira, and sprint insights.',
 		team: 'Design System Team',
-		status: 'published',
+		status: 'deprecated',
 	},
 	'chart-trend-down': {
 		keywords: [
@@ -3841,15 +3844,24 @@ const metadata: Record<string, metadata> = {
 		status: 'published',
 	},
 	spreadsheet: {
-		keywords: ['spreadsheet', 'icon', 'table', 'cells', 'data'],
+		keywords: [
+			'spreadsheet',
+			'icon',
+			'table',
+			'cells',
+			'tabular data',
+			'data table',
+			'spreadsheet',
+		],
 		componentName: 'SpreadsheetIcon',
 		package: '@atlaskit/icon/core/spreadsheet',
 		oldName: ['media-services/spreadsheet'],
 		type: 'core',
+		replacement: { name: 'table', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'single-purpose',
-		usage: 'Single purpose - Reserved for spreadsheets.',
+		usage: 'Reserved for tables, tabular data, and spreadsheets.',
 		team: 'Design System Team',
-		status: 'published',
+		status: 'deprecated',
 	},
 	sprint: {
 		keywords: ['sprint', 'icon', 'loop', 'iterate'],

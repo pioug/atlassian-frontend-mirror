@@ -1,5 +1,27 @@
 # @atlaskit/icon
 
+## 27.11.0
+
+### Minor Changes
+
+- [#197413](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/197413)
+  [`c30bdee7ca9ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c30bdee7ca9ce) -
+  This release deprecates icons in `@atlaskit/icon`.
+
+  ### Deprecated:
+
+  **`@atlaskit/icon/core`**
+
+  - `chart-matrix`
+  - `chart-trend`
+  - `spreadsheet`
+
+### Patch Changes
+
+- [#197413](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/197413)
+  [`c30bdee7ca9ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c30bdee7ca9ce) -
+  Migrated usage of renamed/deprecated icons
+
 ## 27.10.0
 
 ### Minor Changes

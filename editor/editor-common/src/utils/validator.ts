@@ -768,6 +768,16 @@ export const getValidNode = (
 					},
 				};
 			}
+			case 'blockTaskItem': {
+				return {
+					type,
+					content,
+					attrs: {
+						localId: (attrs && attrs.localId) || uuid(),
+						state: (attrs && attrs.state) || 'TODO',
+					},
+				};
+			}
 			case 'table': {
 				if (
 					Array.isArray(content) &&

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import { cssMap } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled';
 import Toggle from '@atlaskit/toggle';
 import { token } from '@atlaskit/tokens';
@@ -51,6 +52,27 @@ import { ToolbarSection } from '../../../src/ui/ToolbarSection';
 import { ToolbarTooltip } from '../../../src/ui/ToolbarTooltip';
 
 import { useExampleToolbarState } from './useExampleToolbarState';
+
+const headingSizeStylesMap = cssMap({
+	xlarge: {
+		font: token('font.heading.xlarge'),
+	},
+	large: {
+		font: token('font.heading.large'),
+	},
+	medium: {
+		font: token('font.heading.medium'),
+	},
+	small: {
+		font: token('font.heading.small'),
+	},
+	xsmall: {
+		font: token('font.heading.xsmall'),
+	},
+	xxsmall: {
+		font: token('font.heading.xxsmall'),
+	},
+});
 
 export const ExampleManuallyComposedToolbar = () => {
 	const {
@@ -271,7 +293,6 @@ export const ExampleManuallyComposedToolbar = () => {
 										elemAfter={<ToolbarKeyboardShortcutHint shortcut="⌘⌥0" />}
 										onClick={onClick('Normal text', onSetTextStyle('normal'))}
 										isSelected={textStyle === 'normal'}
-										textStyle="normal"
 										ariaKeyshortcuts="⌘⌥0"
 									>
 										Normal text
@@ -281,20 +302,18 @@ export const ExampleManuallyComposedToolbar = () => {
 										elemAfter={<ToolbarKeyboardShortcutHint shortcut="⌘⌥1" />}
 										onClick={onClick('Heading one', onSetTextStyle('heading1'))}
 										isSelected={textStyle === 'heading1'}
-										textStyle="heading1"
 										ariaKeyshortcuts="⌘⌥1"
 									>
-										Heading 1
+										<Box xcss={headingSizeStylesMap.xlarge}>Heading 1</Box>
 									</ToolbarDropdownItem>
 									<ToolbarDropdownItem
 										elemBefore={<HeadingTwoIcon label="Heading Two" />}
 										elemAfter={<ToolbarKeyboardShortcutHint shortcut="⌘⌥2" />}
 										onClick={onClick('Heading two', onSetTextStyle('heading2'))}
 										isSelected={textStyle === 'heading2'}
-										textStyle="heading2"
 										ariaKeyshortcuts="⌘⌥2"
 									>
-										Heading 2
+										<Box xcss={headingSizeStylesMap.large}>Heading 2</Box>
 									</ToolbarDropdownItem>
 									<ToolbarDropdownItem
 										elemBefore={<HeadingThreeIcon label="Heading Three" />}
@@ -304,44 +323,40 @@ export const ExampleManuallyComposedToolbar = () => {
 										textStyle="heading3"
 										ariaKeyshortcuts="⌘⌥3"
 									>
-										Heading 3
+										<Box xcss={headingSizeStylesMap.medium}>Heading 3</Box>
 									</ToolbarDropdownItem>
 									<ToolbarDropdownItem
 										elemBefore={<HeadingFourIcon label="Heading Four" />}
 										elemAfter={<ToolbarKeyboardShortcutHint shortcut="⌘⌥4" />}
 										onClick={onClick('Heading four', onSetTextStyle('heading4'))}
 										isSelected={textStyle === 'heading4'}
-										textStyle="heading4"
 										ariaKeyshortcuts="⌘⌥4"
 									>
-										Heading 4
+										<Box xcss={headingSizeStylesMap.small}>Heading 4</Box>
 									</ToolbarDropdownItem>
 									<ToolbarDropdownItem
 										elemBefore={<HeadingFiveIcon label="Heading Five" />}
 										elemAfter={<ToolbarKeyboardShortcutHint shortcut="⌘⌥5" />}
 										onClick={onClick('Heading five', onSetTextStyle('heading5'))}
 										isSelected={textStyle === 'heading5'}
-										textStyle="heading5"
 										ariaKeyshortcuts="⌘⌥5"
 									>
-										Heading 5
+										<Box xcss={headingSizeStylesMap.xsmall}>Heading 5</Box>
 									</ToolbarDropdownItem>
 									<ToolbarDropdownItem
 										elemBefore={<HeadingSixIcon label="Heading Six" />}
 										elemAfter={<ToolbarKeyboardShortcutHint shortcut="⌘⌥6" />}
 										onClick={onClick('Heading six', onSetTextStyle('heading6'))}
 										isSelected={textStyle === 'heading6'}
-										textStyle="heading6"
 										ariaKeyshortcuts="⌘⌥6"
 									>
-										Heading 6
+										<Box xcss={headingSizeStylesMap.xxsmall}>Heading 6</Box>
 									</ToolbarDropdownItem>
 									<ToolbarDropdownItem
 										elemBefore={<QuoteIcon label="Quote" />}
 										elemAfter={<ToolbarKeyboardShortcutHint shortcut="⌘⌥9" />}
 										onClick={onClick('Quote', onSetTextStyle('quote'))}
 										isSelected={textStyle === 'quote'}
-										textStyle="normal"
 										ariaKeyshortcuts="⌘⌥9"
 									>
 										Quote

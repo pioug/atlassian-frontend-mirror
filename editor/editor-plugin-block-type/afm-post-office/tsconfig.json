@@ -23,6 +23,9 @@
 	],
 	"references": [
 		{
+			"path": "../../../design-system/css/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-analytics/afm-post-office/tsconfig.json"
 		},
 		{
@@ -32,10 +35,19 @@
 			"path": "../../editor-plugin-selection-toolbar/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-toolbar/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../editor-shared-styles/afm-post-office/tsconfig.json"
 		},
 		{
 			"path": "../../editor-tables/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar-model/afm-post-office/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/icon/afm-post-office/tsconfig.json"

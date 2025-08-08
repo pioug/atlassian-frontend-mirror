@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::33998f81417b6d5a07303c82d9891a1c>>
+ * @codegen <<SignedSource::2b2c2f81dcecc713953841df3ebcde68>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -24,14 +24,13 @@ const svg = `<svg height="100%" viewBox="0 0 126 32">
  * A temporary component to represent the logo for Assets.
  *
  */
-export function AssetsLogoCS({ size, appearance = 'brand', label, testId }: AppLogoProps) {
+export function AssetsLogoCS({
+	size,
+	appearance = 'brand',
+	label = 'Assets',
+	testId,
+}: AppLogoProps) {
 	return (
-		<LogoWrapper
-			svg={svg}
-			label={label || 'Assets'}
-			appearance={appearance}
-			size={size}
-			testId={testId}
-		/>
+		<LogoWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);
 }

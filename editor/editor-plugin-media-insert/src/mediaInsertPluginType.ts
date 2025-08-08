@@ -55,6 +55,7 @@ export type MediaInsertPluginConfig = {
 	 * ```
 	 */
 	isOnlyExternalLinks?: boolean;
+	isUrlValidationOff?: boolean;
 };
 
 export type MediaInsertPlugin = NextEditorPlugin<

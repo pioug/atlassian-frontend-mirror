@@ -23,6 +23,9 @@
 	],
 	"references": [
 		{
+			"path": "../../../design-system/css/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../editor-palette/afm-jira/tsconfig.json"
 		},
 		{
@@ -35,16 +38,28 @@
 			"path": "../../editor-plugin-selection-toolbar/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-toolbar/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../editor-shared-styles/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../editor-tables/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../editor-toolbar/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar-model/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/icon/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/theme/afm-jira/tsconfig.json"

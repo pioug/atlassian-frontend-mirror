@@ -7,6 +7,7 @@ import {
 	type ToolbarUIComponentFactory,
 } from '@atlaskit/editor-common/types';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { changeColor } from './pm-plugins/commands/change-color';
@@ -16,6 +17,7 @@ import type { TextColorPlugin } from './textColorPluginType';
 import type { TextColorInputMethod } from './types';
 import { FloatingToolbarComponent } from './ui/FloatingToolbarComponent';
 import { PrimaryToolbarComponent } from './ui/PrimaryToolbarComponent';
+import { getToolbarComponents } from './ui/toolbar-components';
 
 const pluginConfig = (
 	textColorConfig?: TextColorPluginConfig | boolean,
@@ -28,6 +30,8 @@ const pluginConfig = (
 };
 
 export const textColorPlugin: TextColorPlugin = ({ config: textColorConfig, api }) => {
+	const isToolbarAifcEnabled = expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true);
+
 	const primaryToolbarComponent: ToolbarUIComponentFactory = ({
 		editorView,
 		popupsMountPoint,
@@ -51,10 +55,16 @@ export const textColorPlugin: TextColorPlugin = ({ config: textColorConfig, api 
 		);
 	};
 
-	api?.primaryToolbar?.actions.registerComponent({
-		name: 'textColor',
-		component: primaryToolbarComponent,
-	});
+	if (isToolbarAifcEnabled) {
+		if (api?.toolbar?.actions.registerComponents) {
+			api.toolbar.actions.registerComponents(getToolbarComponents(api));
+		}
+	} else {
+		api?.primaryToolbar?.actions.registerComponent({
+			name: 'textColor',
+			component: primaryToolbarComponent,
+		});
+	}
 
 	return {
 		name: 'textColor',
@@ -85,44 +95,47 @@ export const textColorPlugin: TextColorPlugin = ({ config: textColorConfig, api 
 			},
 		},
 
-		pluginsOptions: {
-			selectionToolbar: () => {
-				const toolbarDocking = fg('platform_editor_use_preferences_plugin')
-					? api?.userPreferences?.sharedState?.currentState()?.preferences.toolbarDockingPosition
-					: api?.selectionToolbar?.sharedState?.currentState()?.toolbarDocking;
+		pluginsOptions: !isToolbarAifcEnabled
+			? {
+					selectionToolbar: () => {
+						const toolbarDocking = fg('platform_editor_use_preferences_plugin')
+							? api?.userPreferences?.sharedState?.currentState()?.preferences
+									.toolbarDockingPosition
+							: api?.selectionToolbar?.sharedState?.currentState()?.toolbarDocking;
 
-				if (
-					toolbarDocking === 'none' &&
-					editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
-				) {
-					const toolbarCustom: FloatingToolbarCustom<Command> = {
-						type: 'custom',
-						render: (view, _idx, dispatchAnalyticsEvent) => {
-							if (!view) {
-								return;
-							}
-							return (
-								<FloatingToolbarComponent
-									editorView={view}
-									dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-									api={api}
-								/>
-							);
-						},
-						fallback: [],
-					};
+						if (
+							toolbarDocking === 'none' &&
+							editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
+						) {
+							const toolbarCustom: FloatingToolbarCustom<Command> = {
+								type: 'custom',
+								render: (view, _idx, dispatchAnalyticsEvent) => {
+									if (!view) {
+										return;
+									}
+									return (
+										<FloatingToolbarComponent
+											editorView={view}
+											dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+											api={api}
+										/>
+									);
+								},
+								fallback: [],
+							};
 
-					return {
-						isToolbarAbove: true,
-						items: [toolbarCustom],
-						rank: 6,
-						pluginName: 'textColor',
-					};
-				} else {
-					return undefined;
+							return {
+								isToolbarAbove: true,
+								items: [toolbarCustom],
+								rank: 6,
+								pluginName: 'textColor',
+							};
+						} else {
+							return undefined;
+						}
+					},
 				}
-			},
-		},
+			: {},
 
 		primaryToolbarComponent: !api?.primaryToolbar ? primaryToolbarComponent : undefined,
 	};

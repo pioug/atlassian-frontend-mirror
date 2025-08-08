@@ -1,6 +1,18 @@
 import React from 'react';
 
 import { blockTypeMessages as messages } from '@atlaskit/editor-common/messages';
+import {
+	BLOCK_QUOTE_MENU_ITEM,
+	HEADING_1_MENU_ITEM,
+	HEADING_2_MENU_ITEM,
+	HEADING_3_MENU_ITEM,
+	HEADING_4_MENU_ITEM,
+	HEADING_5_MENU_ITEM,
+	HEADING_6_MENU_ITEM,
+	NORMAL_TEXT_MENU_ITEM,
+	TEXT_STYLES_MENU_SECTION_RANK,
+} from '@atlaskit/editor-common/toolbar';
+import { QuoteIcon } from '@atlaskit/editor-toolbar';
 import TextHeadingFiveIcon from '@atlaskit/icon-lab/core/text-heading-five';
 import TextHeadingFourIcon from '@atlaskit/icon-lab/core/text-heading-four';
 import TextHeadingOneIcon from '@atlaskit/icon-lab/core/text-heading-one';
@@ -10,7 +22,7 @@ import TextHeadingTwoIcon from '@atlaskit/icon-lab/core/text-heading-two';
 import TextIcon from '@atlaskit/icon/core/text';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import type { BlockType } from './types';
+import type { BlockType, BlockTypeWithRank } from './types';
 import { Text, H1, H2, H3, H4, H5, H6 } from './ui/ToolbarBlockType/icons';
 
 export const NORMAL_TEXT: BlockType = {
@@ -106,6 +118,61 @@ export const TEXT_BLOCK_TYPES = [
 	HEADING_5,
 	HEADING_6,
 ];
+
+enum ToolbarBlockTypes {
+	normal = 'normal',
+	heading1 = 'heading1',
+	heading2 = 'heading2',
+	heading3 = 'heading3',
+	heading4 = 'heading4',
+	heading5 = 'heading5',
+	heading6 = 'heading6',
+	blockquote = 'blockquote',
+}
+
+export const toolbarBlockTypesWithRank = (): Record<ToolbarBlockTypes, BlockTypeWithRank> => ({
+	normal: {
+		...NORMAL_TEXT,
+		toolbarRank: TEXT_STYLES_MENU_SECTION_RANK[NORMAL_TEXT_MENU_ITEM.key],
+		toolbarKey: NORMAL_TEXT_MENU_ITEM.key,
+	},
+	heading1: {
+		...HEADING_1,
+		toolbarRank: TEXT_STYLES_MENU_SECTION_RANK[HEADING_1_MENU_ITEM.key],
+		toolbarKey: HEADING_1_MENU_ITEM.key,
+	},
+	heading2: {
+		...HEADING_2,
+		toolbarRank: TEXT_STYLES_MENU_SECTION_RANK[HEADING_2_MENU_ITEM.key],
+		toolbarKey: HEADING_2_MENU_ITEM.key,
+	},
+	heading3: {
+		...HEADING_3,
+		toolbarRank: TEXT_STYLES_MENU_SECTION_RANK[HEADING_3_MENU_ITEM.key],
+		toolbarKey: HEADING_3_MENU_ITEM.key,
+	},
+	heading4: {
+		...HEADING_4,
+		toolbarRank: TEXT_STYLES_MENU_SECTION_RANK[HEADING_4_MENU_ITEM.key],
+		toolbarKey: HEADING_4_MENU_ITEM.key,
+	},
+	heading5: {
+		...HEADING_5,
+		toolbarRank: TEXT_STYLES_MENU_SECTION_RANK[HEADING_5_MENU_ITEM.key],
+		toolbarKey: HEADING_5_MENU_ITEM.key,
+	},
+	heading6: {
+		...HEADING_6,
+		toolbarRank: TEXT_STYLES_MENU_SECTION_RANK[HEADING_6_MENU_ITEM.key],
+		toolbarKey: HEADING_6_MENU_ITEM.key,
+	},
+	blockquote: {
+		...BLOCK_QUOTE,
+		icon: <QuoteIcon label="" />,
+		toolbarRank: TEXT_STYLES_MENU_SECTION_RANK[BLOCK_QUOTE_MENU_ITEM.key],
+		toolbarKey: BLOCK_QUOTE_MENU_ITEM.key,
+	},
+});
 
 export type TextBlockTypes =
 	| 'normal'

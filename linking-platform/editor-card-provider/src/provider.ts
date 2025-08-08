@@ -136,7 +136,7 @@ export class EditorCardProvider
 	extends NodeDataProvider<CardNode, JsonLd.Response>
 	implements CardProvider
 {
-	override readonly name: string;
+	override readonly name: 'editorCardProvider';
 	private baseUrl: string;
 	private resolverUrl: string;
 	private providersData?: ProvidersData;

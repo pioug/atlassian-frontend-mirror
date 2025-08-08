@@ -2,6 +2,8 @@ import React, { type ReactNode } from 'react';
 
 import { Manager } from '@atlaskit/popper';
 
+import { SpotlightContextProvider } from '../../controllers/context';
+
 /**
  * __Popover provider__
  *
@@ -9,5 +11,9 @@ import { Manager } from '@atlaskit/popper';
  *
  */
 export const PopoverProvider = ({ children }: { children: ReactNode }) => {
-	return <Manager>{children}</Manager>;
+	return (
+		<SpotlightContextProvider>
+			<Manager>{children}</Manager>
+		</SpotlightContextProvider>
+	);
 };

@@ -10,6 +10,7 @@ export { ToolbarSection } from './ui/ToolbarSection';
 export { ToolbarTooltip } from './ui/ToolbarTooltip';
 export { ToolbarNestedDropdownMenu } from './ui/ToolbarNestedDropdownMenu';
 export { ToolbarDropdownDivider } from './ui/ToolbarDropdownDivider';
+export { ToolbarColorSwatch } from './ui/ToolbarColorSwatch';
 
 export { AIAdjustLengthIcon } from './ui/icons/AIAdjustLengthIcon';
 export { AIChatIcon } from './ui/icons/AIChatIcon';

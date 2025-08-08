@@ -97,6 +97,7 @@ export const renderExtension = (
 	 */
 	const viewportSize = getViewportSize(extensionId, extensionViewportSizes);
 	const extensionHeight = nodeHeight || viewportSize;
+
 	return (
 		<WidthConsumer>
 			{({ width }) => (

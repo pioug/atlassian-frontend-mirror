@@ -107,6 +107,7 @@ type AgentDropdownMenuProps = {
 	loadPermissionsOnMount?: boolean;
 	shouldTriggerStopPropagation?: boolean;
 	loadAgentPermissions: () => Promise<{
+		isCreateEnabled?: boolean;
 		isEditEnabled: boolean;
 		isDeleteEnabled: boolean;
 	}>;
@@ -139,6 +140,7 @@ export const AgentDropdownMenu = ({
 	const [hasBeenCopied, setHasBeenCopied] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
 	const [permissions, setPermissions] = useState<{
+		isCreateEnabled?: boolean;
 		isEditEnabled: boolean;
 		isDeleteEnabled: boolean;
 	}>();
@@ -146,10 +148,10 @@ export const AgentDropdownMenu = ({
 	useEffect(() => {
 		const fetchData = async () => {
 			setIsLoading(true);
-			const { isEditEnabled, isDeleteEnabled } = await loadAgentPermissions();
+			const { isCreateEnabled, isEditEnabled, isDeleteEnabled } = await loadAgentPermissions();
 			setIsLoading(false);
 
-			setPermissions({ isEditEnabled, isDeleteEnabled });
+			setPermissions({ isCreateEnabled, isEditEnabled, isDeleteEnabled });
 		};
 
 		// Only load once
@@ -180,6 +182,10 @@ export const AgentDropdownMenu = ({
 			</DropdownItemGroup>
 		);
 	};
+
+	const isCreateAgentsEnabled = fg('agent_studio_fe_permissions_settings_m1')
+		? permissions?.isCreateEnabled
+		: true;
 
 	return (
 		<DropdownMenu<HTMLButtonElement>
@@ -232,7 +238,7 @@ export const AgentDropdownMenu = ({
 						{formatMessage(messages.viewAgentFullProfile)}
 					</DropdownItem>
 				)}
-				{!isForgeAgent && (
+				{!isForgeAgent && isCreateAgentsEnabled && (
 					<DropdownItem onClick={onDuplicateAgent}>
 						{isAutodevTemplateAgent
 							? formatMessage(messages.useTemplateButton)

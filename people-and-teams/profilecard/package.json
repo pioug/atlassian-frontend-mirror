@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "24.2.0",
+	"version": "24.3.0",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -184,6 +184,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_profilecard_style_fix": {
+			"type": "boolean"
+		},
+		"agent_studio_fe_permissions_settings_m1": {
 			"type": "boolean"
 		}
 	},

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::63c57c17371647be13770a99bbfd5e26>>
+ * @codegen <<SignedSource::d4e16218d06467ba8fecc2d5a4b9a245>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -24,14 +24,13 @@ const svg = `<svg height="100%" viewBox="0 0 95 24">
  * A temporary component to represent the logo for Compass.
  *
  */
-export function CompassLogo({ size, appearance = 'brand', label, testId }: AppLogoProps) {
+export function CompassLogo({
+	size,
+	appearance = 'brand',
+	label = 'Compass',
+	testId,
+}: AppLogoProps) {
 	return (
-		<LogoWrapper
-			svg={svg}
-			label={label || 'Compass'}
-			appearance={appearance}
-			size={size}
-			testId={testId}
-		/>
+		<LogoWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);
 }

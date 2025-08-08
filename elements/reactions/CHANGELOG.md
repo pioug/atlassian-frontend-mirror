@@ -1,5 +1,12 @@
 # @atlaskit/reactions
 
+## 33.2.8
+
+### Patch Changes
+
+- [`43bff733f3a10`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/43bff733f3a10) -
+  Removed analytics container from example wrapper
+
 ## 33.2.7
 
 ### Patch Changes

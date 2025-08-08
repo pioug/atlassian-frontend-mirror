@@ -2,7 +2,9 @@ import React from 'react';
 
 import { act, fireEvent, render, screen } from '@testing-library/react';
 
+import __noop from '@atlaskit/ds-lib/noop';
 import { AtlassianIcon } from '@atlaskit/logo';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import BreadcrumbsItem from '../../breadcrumbs-item';
 
@@ -66,5 +68,70 @@ describe('BreadcrumbsItem', () => {
 			jest.runAllTimers();
 		});
 		expect(onTooltipShown).toHaveBeenCalled;
+	});
+
+	it('passes `target` to the anchor', () => {
+		render(
+			<BreadcrumbsItem
+				truncationWidth={200}
+				href="/item"
+				target="_blank"
+				iconBefore={TestIcon}
+				iconAfter={TestIcon}
+				testId="item"
+				text="Long content, icons before and after"
+			/>,
+		);
+
+		const item = screen.getByTestId('item');
+		expect(item).toHaveAttribute('target', '_blank');
+	});
+
+	describe('should render an anchor when passed a `href`', () => {
+		ffTest(
+			'platform_dst_breadcrumbs_step_conversion',
+			() => {
+				render(<BreadcrumbsItem href="/item" testId="item" text="Some text" />);
+
+				expect(screen.getByTestId('item')).toBeInstanceOf(HTMLAnchorElement);
+			},
+			() => {
+				render(<BreadcrumbsItem href="/item" testId="item" text="Some text" />);
+
+				expect(screen.getByTestId('item')).toBeInstanceOf(HTMLAnchorElement);
+			},
+		);
+	});
+
+	describe('should render an anchor when passed both a `href` and `onClick`', () => {
+		ffTest(
+			'platform_dst_breadcrumbs_step_conversion',
+			() => {
+				render(<BreadcrumbsItem onClick={__noop} href="/item" testId="item" text="Some text" />);
+
+				expect(screen.getByTestId('item')).toBeInstanceOf(HTMLAnchorElement);
+			},
+			() => {
+				render(<BreadcrumbsItem onClick={__noop} href="/item" testId="item" text="Some text" />);
+
+				expect(screen.getByTestId('item')).toBeInstanceOf(HTMLAnchorElement);
+			},
+		);
+	});
+
+	describe('should render a button when passed a `onClick` with no `href`', () => {
+		ffTest(
+			'platform_dst_breadcrumbs_step_conversion',
+			() => {
+				render(<BreadcrumbsItem onClick={__noop} testId="item" text="Some text" />);
+
+				expect(screen.getByTestId('item')).toBeInstanceOf(HTMLButtonElement);
+			},
+			() => {
+				render(<BreadcrumbsItem onClick={__noop} testId="item" text="Some text" />);
+
+				expect(screen.getByTestId('item')).toBeInstanceOf(HTMLAnchorElement);
+			},
+		);
 	});
 });

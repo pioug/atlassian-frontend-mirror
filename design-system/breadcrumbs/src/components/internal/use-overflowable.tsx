@@ -1,20 +1,16 @@
 import { useEffect, useState } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default function useOverflowable(
 	truncationWidth: number | undefined,
-	buttonRefCurrent: HTMLButtonElement | null,
+	buttonRefCurrent: HTMLButtonElement | HTMLAnchorElement | null,
 	iconWidthAllowance: number,
 ) {
 	const shouldCheckWidth = truncationWidth && buttonRefCurrent;
 
 	// Default to true to match hasOverflow = true default in Step component.
 	// This should ensure the icon never appears and then quickly disappears
-	const [hasOverflow, setOverflow] = useState(
-		fg('platform_fix_unnessesary_re-renders_in_breadcrumbs') ? Boolean(shouldCheckWidth) : true,
-	);
+	const [hasOverflow, setOverflow] = useState(Boolean(shouldCheckWidth));
 	const [showTooltip, setShowTooltip] = useState(false);
 
 	// Need to recalculate on every render cycle as text/icons/width changing will change the outcome

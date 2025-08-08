@@ -7,6 +7,7 @@ import type {
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugin-selection-toolbar';
+import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import type { UserPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences';
 
 import type { TextBlockTypes } from './pm-plugins/block-types';
@@ -23,6 +24,7 @@ export type BlockTypePlugin = NextEditorPlugin<
 			OptionalPlugin<PrimaryToolbarPlugin>,
 			OptionalPlugin<SelectionToolbarPlugin>,
 			OptionalPlugin<UserPreferencesPlugin>,
+			OptionalPlugin<ToolbarPlugin>,
 		];
 		sharedState: BlockTypeState | undefined;
 		actions: {

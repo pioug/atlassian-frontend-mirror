@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::021dd64d47d0b418e1211e9f47f31ae8>>
+ * @codegen <<SignedSource::33c69e04d65e8deade51f37cd455ee4b>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -23,14 +23,13 @@ const svg = `<svg height="100%" viewBox="0 0 95 24">
  * A temporary component to represent the logo for Analytics.
  *
  */
-export function AnalyticsLogo({ size, appearance = 'brand', label, testId }: AppLogoProps) {
+export function AnalyticsLogo({
+	size,
+	appearance = 'brand',
+	label = 'Analytics',
+	testId,
+}: AppLogoProps) {
 	return (
-		<LogoWrapper
-			svg={svg}
-			label={label || 'Analytics'}
-			appearance={appearance}
-			size={size}
-			testId={testId}
-		/>
+		<LogoWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);
 }

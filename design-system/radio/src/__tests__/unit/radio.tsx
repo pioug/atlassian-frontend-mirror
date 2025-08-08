@@ -1,10 +1,13 @@
 import React from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import Radio from '../../radio';
 
 describe('Radio', () => {
+	const user = userEvent.setup();
+
 	it('should render an input and the content', () => {
 		const content = 'content';
 		render(<Radio name="name" value="value" label={content} />);
@@ -69,11 +72,11 @@ describe('Radio', () => {
 			expect(radio).toHaveAttribute('data-foo', 'radio-bar');
 		});
 
-		it('should accept input props', () => {
+		it('should accept input props', async () => {
 			const spy = jest.fn();
 			render(<Radio label="test" onMouseDown={spy} />);
 			const radio = screen.getByRole('radio') as HTMLInputElement;
-			fireEvent.mouseDown(radio);
+			await user.click(radio);
 
 			expect(spy).toHaveBeenCalledTimes(1);
 		});
@@ -85,18 +88,43 @@ describe('Radio', () => {
 			const input = screen.getByRole('radio');
 			expect(input).toBe(ref.current);
 		});
+
+		it('should pass `aria-label` to radio', () => {
+			const label = 'test';
+			render(<Radio ariaLabel={label} />);
+
+			const input = screen.getByRole('radio');
+			expect(input).toHaveAttribute('aria-label', label);
+			expect(input).toHaveAccessibleName(label);
+		});
+
+		it('should pass `aria-labelledby` to radio from `labelId', () => {
+			const id = 'test';
+			const label = 'label';
+
+			render(
+				<>
+					<p id={id}>{label}</p>
+					<Radio labelId={id} />
+				</>,
+			);
+
+			const input = screen.getByRole('radio');
+			expect(input).toHaveAttribute('aria-labelledby', id);
+			expect(input).toHaveAccessibleName(label);
+		});
 	});
 
 	describe('onChange prop', () => {
-		it('should be called once on change', () => {
+		it('should be called once on change', async () => {
 			const spy = jest.fn();
 			render(<Radio label="test" value="kachow" onChange={spy} />);
 			const radio = screen.getByDisplayValue('kachow') as HTMLInputElement;
-			fireEvent.click(radio);
+			await user.click(radio);
 			expect(spy).toHaveBeenCalledTimes(1);
 		});
 
-		it('should be reflected to the input', () => {
+		it('should be reflected to the input', async () => {
 			let value = '';
 			render(
 				<Radio
@@ -108,7 +136,7 @@ describe('Radio', () => {
 				/>,
 			);
 			const radio = screen.getByDisplayValue('kachow') as HTMLInputElement;
-			fireEvent.click(radio);
+			await user.click(radio);
 			expect(value).toBe('kachow');
 		});
 	});

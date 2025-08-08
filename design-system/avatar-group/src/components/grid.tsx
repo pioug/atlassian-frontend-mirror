@@ -6,6 +6,7 @@ import { Children, type FC, type ReactNode } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 const gutter = token('space.negative.050', '-4px');
@@ -29,6 +30,12 @@ const listStyles = css({
 	paddingInlineStart: token('space.0', '0px'),
 });
 
+const listStylesFlagged = css({
+	marginBlockEnd: token('space.050', '4px'),
+	paddingInlineEnd: token('space.025', '2px'),
+	paddingInlineStart: token('space.025', '2px'),
+});
+
 const listItemStyles = css({
 	marginBlockEnd: token('space.100', '8px'),
 	marginBlockStart: token('space.0', '0px'),
@@ -43,7 +50,11 @@ const Grid: FC<{
 	testId?: string;
 	'aria-label': string;
 }> = ({ children, testId, 'aria-label': label }) => (
-	<ul data-testid={testId} aria-label={label} css={listStyles}>
+	<ul
+		data-testid={testId}
+		aria-label={label}
+		css={[listStyles, fg('platform-avatar-group-spacing-fix') && listStylesFlagged]}
+	>
 		{Children.map(children, (child) => child && <li css={listItemStyles}>{child}</li>)}
 	</ul>
 );

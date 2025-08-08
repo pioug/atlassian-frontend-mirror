@@ -14,6 +14,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import EditorDoneIcon from '@atlaskit/icon/core/migration/check-mark--editor-done';
 import type { ButtonItemProps } from '@atlaskit/menu';
 import { ButtonItem } from '@atlaskit/menu';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -216,7 +217,10 @@ export const DropdownMenuItem = (props: DropdownMenuItemProps) => {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const hasRole = (item: DropdownOptionT<any>) => {
-		if (editorExperiment('platform_editor_controls', 'variant1')) {
+		if (
+			editorExperiment('platform_editor_controls', 'variant1') ||
+			expValEquals('platform_editor_august_a11y', 'isEnabled', true)
+		) {
 			return item.domItemOptions?.type === 'item-checkbox' ? 'menuitemcheckbox' : 'menuitem';
 		}
 		return item.domItemOptions?.type === 'item-checkbox' ? 'menuitemcheckbox' : undefined;

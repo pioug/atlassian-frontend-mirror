@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::61358862951418a6c20d332ec9e5bc3e>>
+ * @codegen <<SignedSource::517d90ad09bfbbd541d369d01d058e01>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -23,14 +23,13 @@ const svg = `<svg height="100%" viewBox="0 0 130 32">
  * A temporary component to represent the logo for Search.
  *
  */
-export function SearchLogoCS({ size, appearance = 'brand', label, testId }: AppLogoProps) {
+export function SearchLogoCS({
+	size,
+	appearance = 'brand',
+	label = 'Search',
+	testId,
+}: AppLogoProps) {
 	return (
-		<LogoWrapper
-			svg={svg}
-			label={label || 'Search'}
-			appearance={appearance}
-			size={size}
-			testId={testId}
-		/>
+		<LogoWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);
 }

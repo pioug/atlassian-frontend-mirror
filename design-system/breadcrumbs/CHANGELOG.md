@@ -1,5 +1,34 @@
 # @atlaskit/breadcrumbs
 
+## 15.3.0
+
+### Minor Changes
+
+- [`ea46e2a3744ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ea46e2a3744ac) -
+  Enables functionality previously rolled out and tested behind a feature flag. This prevents an
+  additional render for icons within breadcrumbs.
+
+### Patch Changes
+
+- [`ea46e2a3744ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ea46e2a3744ac) -
+  We are testing internal changes for Breadcrumb items behind a feature flag. If this change is
+  successful it will be available in a later release:
+
+  - No longer renders custom-styled legacy buttons from `@atlaskit/button`, but Anchor or Pressable
+    primitives from `@atlaskit/primitives` – depending on whether a `href` is defined.
+  - As legacy Button will no longer be used, breadcrumbs will intentionally no longer inherit
+    `font-size` so relative font-sizing is no longer supported.
+  - As primitives are rendered depending on whether `href` is defined, they will no longer
+    unnecessarily render `<a href="#">` tags when `href` is undefined, and will render semantically
+    correct `<button>` tags instead.
+  - Horizontal spacing has been added to accomodate direct usage of icons within `iconBefore` and
+    `iconAfter` props. This means any custom additional spacing that may have previously been added
+    to balance spacing will need to be removed.
+  - The text color has been corrected.
+  - As the Anchor primitive is now used, it supports automatic router link configuration from
+    `@atlaskit/app-provider`, and so the `component` prop is no longer required due as component
+    overrides can be avoided. This has been deprecated.
+
 ## 15.2.2
 
 ### Patch Changes

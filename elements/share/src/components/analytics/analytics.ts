@@ -98,6 +98,24 @@ export const shortUrlGenerated = (start: number, tooSlow: boolean) =>
 		tooSlow,
 	});
 
+export const shareConfigurationLoaded = (attributes: {
+	disableSharingToEmails: boolean | undefined;
+	durationMs: number;
+}) =>
+	createEvent('track', ANALYTICS_SOURCE, 'loaded', 'shareConfiguration', undefined, {
+		source: ANALYTICS_SOURCE,
+		...attributes,
+	});
+
+export const shareConfigurationLoadFailed = (attributes: {
+	statusCode: string | number | undefined;
+	durationMs: number;
+}) =>
+	createEvent('track', ANALYTICS_SOURCE, 'error', 'shareConfiguration', undefined, {
+		source: ANALYTICS_SOURCE,
+		...attributes,
+	});
+
 export const copyLinkButtonClicked = ({
 	start,
 	shareContentType,

@@ -27,6 +27,7 @@ export const createInlineChangedDecoration = (change: Change) =>
 		change.toB,
 		{
 			style,
+			'data-testid': 'show-diff-changed-decoration',
 		},
 		{},
 	);
@@ -84,6 +85,7 @@ export const createDeletedContentDecoration = ({
 			dom.append(serializer.serializeNode(node));
 		}
 	});
+	dom.setAttribute('data-testid', 'show-diff-deleted-decoration');
 
 	// Widget decoration used for deletions as the content is not in the document
 	// and we want to display the deleted content with a style.

@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::84c7074821df29c52dd13557dab19219>>
+ * @codegen <<SignedSource::18e5687cdc42ba3ac58b306a03a60d9d>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen smart-card
  */
 export type PackageMetaDataContextType = {
@@ -270,6 +270,10 @@ export type SmartLinkRenderFailedAttributesType = {
 	errorInfo: Record<string, unknown>;
 	id: string | null;
 };
+export type SmartLinkClickedSmartlinkClickAnalyticsWorkflowsAttributesType = {
+	sourceURL: string;
+	thirdPartyARI: string;
+};
 
 export type AnalyticsEventAttributes = {
 	/**
@@ -426,6 +430,9 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fires an event that represents when a Smart Link renders unsuccessfully. */
 	'ui.smartLink.renderFailed': SmartLinkRenderFailedAttributesType;
+	/**
+	 * fires an event that represents when a user clicks on a Smart Link to track analytics for the 3P Workflows team */
+	'ui.smartLink.clicked.smartlinkClickAnalyticsWorkflows': SmartLinkClickedSmartlinkClickAnalyticsWorkflowsAttributesType;
 };
 
 export type EventKey = keyof AnalyticsEventAttributes;

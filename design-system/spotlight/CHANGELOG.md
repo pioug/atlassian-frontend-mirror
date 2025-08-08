@@ -1,5 +1,15 @@
 # @atlaskit/spotlight
 
+## 0.0.8
+
+### Patch Changes
+
+- [`9d9570259070a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9d9570259070a) -
+  Create PopoverProvider, PopoverTarget, PopoverContent components.
+- [`9d9570259070a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9d9570259070a) -
+  Create Caret component. Positions the Spotlight UI card in relation to the Caret component, and
+  positions the Caret component in relation to the PopoverTarget element.
+
 ## 0.0.7
 
 ### Patch Changes

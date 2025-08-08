@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 6.2.0
+
+### Minor Changes
+
+- [`13a1ad07bb39e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/13a1ad07bb39e) -
+  [ux] EDITOR-1146 | EDITOR-1176 Introduce `blockTaskItem` node to Renderer and Editor
+  `editor-plugin-tasks-and-decisions` which adopts the same code and functionality as the regular
+  `taskItem` except that it allows block content such as extensions to be inserted. This is to
+  facilitate TinyMCE migration which requires usage of the Legacy Content Extension.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.1.3
 
 ### Patch Changes

@@ -61,6 +61,9 @@
 			"path": "../ds-lib/tsconfig.app.json"
 		},
 		{
+			"path": "../icon/tsconfig.app.json"
+		},
+		{
 			"path": "../link/tsconfig.app.json"
 		},
 		{
@@ -77,6 +80,9 @@
 		},
 		{
 			"path": "../tokens/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
 		},
 		{
 			"path": "../../uip/ssr-tests/tsconfig.app.json"

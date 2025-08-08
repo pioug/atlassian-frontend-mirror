@@ -165,11 +165,13 @@ const newRadioStyles = css({
 const InnerRadio = forwardRef(function Radio(props: RadioProps, ref: Ref<HTMLInputElement>) {
 	const {
 		ariaLabel,
+		'aria-labelledby': ariaLabelledBy,
 		isDisabled = false,
 		isRequired,
 		isInvalid = false,
 		isChecked = false,
 		label,
+		labelId,
 		name,
 		onChange = noop,
 		value,
@@ -199,6 +201,8 @@ const InnerRadio = forwardRef(function Radio(props: RadioProps, ref: Ref<HTMLInp
 				// It is necessary only for Safari. It allows to render focus styles.
 				tabIndex={0}
 				aria-label={ariaLabel}
+				// TODO: Make `aria-labelledby` a `never` in TS. See https://product-fabric.atlassian.net/browse/DSP-23009
+				aria-labelledby={labelId || ariaLabelledBy}
 				checked={isChecked}
 				disabled={isDisabled}
 				name={name}

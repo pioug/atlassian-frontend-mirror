@@ -133,6 +133,7 @@ export const mediaInsertPlugin: MediaInsertPlugin = ({ api, config }) => {
 					insertExternalMediaSingle={insertExternalMediaSingle}
 					insertFile={insertFile}
 					isOnlyExternalLinks={config?.isOnlyExternalLinks}
+					isUrlValidationOff={config?.isUrlValidationOff}
 				/>
 			);
 		},

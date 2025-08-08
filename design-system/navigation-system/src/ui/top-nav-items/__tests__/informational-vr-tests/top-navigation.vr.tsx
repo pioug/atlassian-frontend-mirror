@@ -1,7 +1,7 @@
 import { Device, snapshotInformational } from '@atlassian/gemini';
 
 import TopNavWithLongProductName from '../../../../../examples/top-nav-with-long-name';
-import TopNavWithTempNavAppIcon from '../../../../../examples/top-nav-with-temp-nav-app-icon';
+import { TopNavWithTempNavAppIconAppLogo } from '../../../../../examples/top-nav-with-temp-nav-app-icon-app-logo';
 import { TopNavigationExample } from '../../../../../examples/top-navigation';
 import { TopNavigationThemingSingleExample } from '../../../../../examples/top-navigation-theming';
 
@@ -58,7 +58,7 @@ const interactionStateSharedOptions: Parameters<typeof snapshotInformational>[1]
  *
  * Can make all these normal VR tests once pressed state variants are added to Gemini.
  */
-snapshotInformational(TopNavWithTempNavAppIcon, {
+snapshotInformational(TopNavWithTempNavAppIconAppLogo, {
 	...interactionStateSharedOptions,
 	description: 'nav logo hover',
 	featureFlags: {
@@ -69,7 +69,7 @@ snapshotInformational(TopNavWithTempNavAppIcon, {
 	},
 });
 
-snapshotInformational(TopNavWithTempNavAppIcon, {
+snapshotInformational(TopNavWithTempNavAppIconAppLogo, {
 	...interactionStateSharedOptions,
 	description: 'nav logo pressed',
 	featureFlags: {

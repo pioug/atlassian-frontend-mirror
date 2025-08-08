@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f7781c4f9606576b28ea71022cce48dc>>
+ * @codegen <<SignedSource::3cacb1ced411015b28e7b7433847f489>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -33,7 +33,7 @@ export function JiraLogo({
 	textColor,
 	size,
 	appearance = 'brand',
-	label,
+	label = 'Jira',
 	testId,
 }: ThemedLogoProps) {
 	return (
@@ -42,7 +42,7 @@ export function JiraLogo({
 			customThemeSvg={customThemeSvg}
 			iconColor={iconColor}
 			textColor={textColor}
-			label={label || 'Jira'}
+			label={label}
 			appearance={appearance}
 			size={size}
 			testId={testId}

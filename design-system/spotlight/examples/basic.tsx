@@ -17,7 +17,8 @@ import {
 
 const styles = cssMap({
 	root: {
-		padding: 'var(--ds-space-100)',
+		padding: 'var(--ds-space-400)',
+		minHeight: '400px',
 	},
 });
 

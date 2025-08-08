@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e40800a336dd55ad5e68935e4727daf1>>
+ * @codegen <<SignedSource::247f612d885273d5ec9340d29cd5314f>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -27,13 +27,13 @@ const svg = `<svg height="100%" viewBox="0 0 188 32">
 export function ConfluenceDataCenterLogoCS({
 	size,
 	appearance = 'brand',
-	label,
+	label = 'Confluence Data Center',
 	testId,
 }: AppLogoProps) {
 	return (
 		<LogoWrapper
 			svg={svg}
-			label={label || 'Confluence Data Center'}
+			label={label}
 			isDataCenter={true}
 			appearance={appearance}
 			size={size}

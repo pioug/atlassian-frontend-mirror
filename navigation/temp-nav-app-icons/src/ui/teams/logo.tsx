@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::75828c6d129edafa688a3364f8f89272>>
+ * @codegen <<SignedSource::5a94fe3f78fc7a1fa9c1464590c157ae>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -23,14 +23,8 @@ const svg = `<svg height="100%" viewBox="0 0 76 24">
  * A temporary component to represent the logo for Teams.
  *
  */
-export function TeamsLogo({ size, appearance = 'brand', label, testId }: AppLogoProps) {
+export function TeamsLogo({ size, appearance = 'brand', label = 'Teams', testId }: AppLogoProps) {
 	return (
-		<LogoWrapper
-			svg={svg}
-			label={label || 'Teams'}
-			appearance={appearance}
-			size={size}
-			testId={testId}
-		/>
+		<LogoWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);
 }

@@ -1,6 +1,6 @@
 import { type IntlShape } from 'react-intl-next';
 
-import { taskItem } from '@atlaskit/adf-schema';
+import { taskItem, blockTaskItemStage0 as blockTaskItem } from '@atlaskit/adf-schema';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages';
 import { TaskDecisionSharedCssClassName } from '@atlaskit/editor-common/styles';
@@ -30,6 +30,24 @@ export const taskItemNodeSpec = () => {
 
 	return {
 		...taskItem,
+		toDOM: (node: PMNode): DOMOutputSpec => lazyTaskItemToDom(node),
+	};
+};
+
+/**
+ * Wrapper for ADF blockTaskItem node spec to augment toDOM implementation
+ * with fallback UI for lazy node view rendering / window virtualization
+ * @nodeSpecException:toDOM patch
+ * @returns
+ * @example
+ */
+export const blockTaskItemNodeSpec = () => {
+	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
+		return blockTaskItem;
+	}
+
+	return {
+		...blockTaskItem,
 		toDOM: (node: PMNode): DOMOutputSpec => lazyTaskItemToDom(node),
 	};
 };
@@ -66,6 +84,7 @@ export function taskItemToDom(node: PMNode, placeholder: string, intl: IntlShape
 		'data-task-local-id': node.attrs.localId,
 		'data-task-state': node.attrs.state,
 		'data-prosemirror-node-name': 'taskItem',
+		...(node.type.name === 'blockTaskItem' ? { 'data-task-is-block': 'true' } : {}),
 	};
 
 	const contentDomDataAttrs = node.content.childCount > 0 ? {} : { 'data-empty': 'true' };
@@ -193,6 +212,7 @@ export const lazyTaskItemToDom = (node: PMNode): DOMOutputSpec => {
 	const dataAttrs = {
 		'data-task-local-id': node.attrs.localId,
 		'data-task-state': node.attrs.state,
+		...(node.type.name === 'blockTaskItem' ? { 'data-task-is-block': 'true' } : {}),
 	};
 
 	return [

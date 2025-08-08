@@ -6,7 +6,10 @@ import { Children, type FC, type ReactNode } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
+
+import { type AvatarGroupSize } from './types';
 
 const listStyles = css({
 	display: 'flex',
@@ -25,6 +28,10 @@ const listStyles = css({
 	paddingInlineStart: token('space.0', '0px'),
 });
 
+const listSmallStyles = css({
+	marginInlineEnd: token('space.050', '4px'),
+});
+
 const listItemStyles = css({
 	marginBlockEnd: token('space.0', '0px'),
 	marginBlockStart: token('space.0', '0px'),
@@ -32,13 +39,38 @@ const listItemStyles = css({
 	marginInlineStart: token('space.0', '0px'),
 });
 
+const listItemSmallStyles = css({
+	marginInlineEnd: token('space.negative.050', '-4px'),
+});
+
 const Stack: FC<{
 	children: ReactNode;
 	testId?: string;
 	'aria-label': string;
-}> = ({ children, testId, 'aria-label': label }) => (
-	<ul data-testid={testId} aria-label={label} css={listStyles}>
-		{Children.map(children, (child) => child && <li css={listItemStyles}>{child}</li>)}
+	size: AvatarGroupSize;
+}> = ({ children, testId, 'aria-label': label, size }) => (
+	<ul
+		data-testid={testId}
+		aria-label={label}
+		css={[
+			listStyles,
+			size === 'small' && fg('platform-avatar-group-spacing-fix') && listSmallStyles,
+		]}
+	>
+		{Children.map(
+			children,
+			(child) =>
+				child && (
+					<li
+						css={[
+							listItemStyles,
+							size === 'small' && fg('platform-avatar-group-spacing-fix') && listItemSmallStyles,
+						]}
+					>
+						{child}
+					</li>
+				),
+		)}
 	</ul>
 );
 

@@ -11,6 +11,7 @@ import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugin-selection-toolbar';
+import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import type { UserPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences';
 
 import type {
@@ -69,6 +70,7 @@ export type HyperlinkPluginDependencies = [
 	OptionalPlugin<PrimaryToolbarPlugin>,
 	OptionalPlugin<SelectionToolbarPlugin>,
 	OptionalPlugin<UserPreferencesPlugin>,
+	OptionalPlugin<ToolbarPlugin>,
 ];
 
 export type HyperlinkPluginActions = {

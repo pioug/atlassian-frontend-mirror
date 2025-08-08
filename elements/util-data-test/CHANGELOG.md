@@ -1,5 +1,16 @@
 # @atlaskit/util-data-test
 
+## 18.1.0
+
+### Minor Changes
+
+- [`44102fe3bc0dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/44102fe3bc0dd) -
+  [ux] Hiding agent duplicate entrypoints when user does not have rovo agent create permissions
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.0.25
 
 ### Patch Changes

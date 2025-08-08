@@ -541,6 +541,7 @@ export type EmbedCardNodeViewProps = Pick<
 	| 'pluginInjectionApi'
 	| 'actionOptions'
 	| 'onClickCallback'
+	| 'isPageSSRed'
 	| 'CompetitorPrompt'
 >;
 
@@ -620,6 +621,7 @@ export interface EmbedCardNodeViewProperties {
 	pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined;
 	actionOptions: EmbedCardNodeViewProps['actionOptions'];
 	onClickCallback: EmbedCardNodeViewProps['onClickCallback'];
+	isPageSSRed: EmbedCardNodeViewProps['isPageSSRed'];
 	CompetitorPrompt?: EmbedCardNodeViewProps['CompetitorPrompt'];
 }
 

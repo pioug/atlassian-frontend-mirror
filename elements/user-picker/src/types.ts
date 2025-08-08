@@ -31,6 +31,8 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
 	options?: OptionData[];
 	/** Width of the user picker field. It can be the amount of pixels as numbers or a string with the percentage. */
 	width?: number | string;
+	/** Sets the height of the user picker. If not set, the height settings will be based on the "compact" or "normal" appearance. */
+	height?: number | string;
 	/** Sets the minimum width for the menu. If not set, menu will always have the same width of the field. */
 	menuMinWidth?: number;
 	/** Sets max height of the user picker. If not set, the height will grow based on number of picked users. */

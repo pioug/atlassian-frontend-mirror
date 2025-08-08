@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-text-color
 
+## 3.1.4
+
+### Patch Changes
+
+- [#197017](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/197017)
+  [`5ef01d09bada1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5ef01d09bada1) -
+  [ux] ED-28687 [Register] Text colour + highlight
+- Updated dependencies
+
 ## 3.1.3
 
 ### Patch Changes

@@ -274,6 +274,7 @@ export const nodeToReact: {
 	expand: Expand,
 	nestedExpand: Expand,
 	embedCard: EmbedCard,
+	blockTaskItem: TaskItem,
 };
 
 interface ToReactFlags {

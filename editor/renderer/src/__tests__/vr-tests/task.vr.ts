@@ -1,7 +1,11 @@
 import { snapshot } from '@af/visual-regression';
 import { TaskRenderer, TaskRendererWithReactLooselyLazy } from './task.fixture';
 
-snapshot(TaskRenderer);
+snapshot(TaskRenderer, {
+	featureFlags: {
+		platform_editor_blocktaskitem_node: true,
+	},
+});
 snapshot(TaskRendererWithReactLooselyLazy, {
 	ignoredErrors: [
 		{
@@ -10,4 +14,7 @@ snapshot(TaskRendererWithReactLooselyLazy, {
 			jiraIssueId: 'TODO-123',
 		},
 	],
+	featureFlags: {
+		platform_editor_blocktaskitem_node: true,
+	},
 });

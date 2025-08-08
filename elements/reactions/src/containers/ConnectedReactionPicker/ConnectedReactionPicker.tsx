@@ -3,15 +3,7 @@ import { type ReactionPickerProps, UfoErrorBoundary } from '../../components';
 import { type StorePropInput } from '../../types';
 import { PickerRender } from '../../ufo';
 
-import { ReactionPicker as ReactionPickerOld } from '../../components/ReactionPicker';
-import { ReactionPicker as ReactionPickerNew } from '../../components/ReactionPickerNew';
-import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
-
-const ReactionPicker = componentWithFG(
-	'platform_editor_reactions_picker_fix',
-	ReactionPickerNew,
-	ReactionPickerOld,
-);
+import { ReactionPicker } from '../../components/ReactionPicker';
 
 export interface ConnectedReactionPickerProps extends Omit<ReactionPickerProps, 'onSelection'> {
 	/**

@@ -1,14 +1,12 @@
 import React from 'react';
 
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
-import { AtlassianIcon } from '@atlaskit/logo';
-
-const TestIcon = <AtlassianIcon label="Test icon" size="small" />;
+import ImageIcon from '@atlaskit/icon/core/migration/image';
 
 const BreadcrumbsItemIconBeforeExample = () => {
 	return (
 		<Breadcrumbs>
-			<BreadcrumbsItem iconBefore={TestIcon} text="Atlassian" />
+			<BreadcrumbsItem iconBefore={<ImageIcon label="" />} text="Icon before" />
 		</Breadcrumbs>
 	);
 };

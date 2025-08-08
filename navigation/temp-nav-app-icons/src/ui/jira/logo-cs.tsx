@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4e59ffc8f6204d656061ee5a0061b73d>>
+ * @codegen <<SignedSource::7e76e8b0984e9a10157b3a2965f276eb>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -23,14 +23,8 @@ const svg = `<svg height="100%" viewBox="0 0 83 32">
  * A temporary component to represent the logo for Jira.
  *
  */
-export function JiraLogoCS({ size, appearance = 'brand', label, testId }: AppLogoProps) {
+export function JiraLogoCS({ size, appearance = 'brand', label = 'Jira', testId }: AppLogoProps) {
 	return (
-		<LogoWrapper
-			svg={svg}
-			label={label || 'Jira'}
-			appearance={appearance}
-			size={size}
-			testId={testId}
-		/>
+		<LogoWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);
 }

@@ -1,5 +1,14 @@
 # @atlaskit/temp-nav-app-icons
 
+## 0.10.0
+
+### Minor Changes
+
+- [#198583](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/198583)
+  [`eaabec48bbfdc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eaabec48bbfdc) -
+  Logo components now support an empty label, to remove the element from the accessibility tree. The
+  icon components already supported this behavior.
+
 ## 0.9.3
 
 ### Patch Changes

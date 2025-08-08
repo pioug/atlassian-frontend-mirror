@@ -146,6 +146,9 @@
 		},
 		"page_shared_event_from_share_dialogue": {
 			"type": "boolean"
+		},
+		"jira-warepil-track-sharing-to-email-disabled": {
+			"type": "boolean"
 		}
 	},
 	"sideEffects": [

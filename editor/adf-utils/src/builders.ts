@@ -70,3 +70,4 @@ export { taskItem } from './builders/nodes/task-item';
 export { taskList } from './builders/nodes/task-list';
 export { text } from './builders/nodes/text';
 export { embedCard } from './builders/nodes/embed-card';
+export { blockTaskItem } from './builders/nodes/block-task-item';

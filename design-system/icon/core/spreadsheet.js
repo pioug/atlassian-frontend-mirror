@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1fd96c5b3b13ee02dc5743b09d638d98>>
+ * @codegen <<SignedSource::6fe72b1e24a095f62dabcba8d7bf290e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -16,7 +16,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * Icon: "Spreadsheet".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for spreadsheets.
+ * Usage guidance: Reserved for tables, tabular data, and spreadsheets.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

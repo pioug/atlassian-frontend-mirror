@@ -1346,6 +1346,76 @@ export const taskNodeAdf: DocNode = {
 				},
 			],
 		},
+		{
+			type: 'taskList',
+			attrs: {
+				localId: 'task-list-with-block-items',
+			},
+			content: [
+				{
+					type: 'taskItem',
+					attrs: {
+						localId: 'task-1',
+						state: 'DONE',
+					},
+					content: [
+						{
+							type: 'text',
+							text: 'Inline completed task item',
+						},
+					],
+				},
+				{
+					type: 'blockTaskItem',
+					attrs: {
+						localId: 'task-2',
+						state: 'DONE',
+					},
+					content: [
+						{
+							type: 'paragraph',
+							content: [
+								{
+									type: 'text',
+									text: 'Block completed task item',
+								},
+							],
+						},
+					],
+				},
+				{
+					type: 'blockTaskItem',
+					attrs: {
+						localId: 'task-3',
+						state: 'TODO',
+					},
+					content: [
+						{
+							type: 'paragraph',
+							content: [
+								{
+									type: 'text',
+									text: 'Block incomplete task item',
+								},
+							],
+						},
+					],
+				},
+				{
+					type: 'taskItem',
+					attrs: {
+						localId: 'task-4',
+						state: 'TODO',
+					},
+					content: [
+						{
+							type: 'text',
+							text: 'Inline incomplete task item',
+						},
+					],
+				},
+			],
+		},
 	],
 };
 

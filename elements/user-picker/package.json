@@ -116,6 +116,9 @@
 	"platform-feature-flags": {
 		"platform-component-visual-refresh": {
 			"type": "boolean"
+		},
+		"jifjam_bulk_operations": {
+			"type": "boolean"
 		}
 	}
 }

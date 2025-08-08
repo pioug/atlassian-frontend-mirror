@@ -163,12 +163,7 @@ export const AppLogo = ({
 			)}
 			onClick={onClick}
 		>
-			<Inline
-				space="space.075"
-				alignBlock="center"
-				xcss={logoWrapperStyles.root}
-				aria-label={label}
-			>
+			<Inline space="space.075" alignBlock="center" xcss={logoWrapperStyles.root}>
 				<div css={[iconContainerStyles.root]}>
 					<LogoRenderer
 						// Top nav always uses the new logo design

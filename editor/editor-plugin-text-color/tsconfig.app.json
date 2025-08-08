@@ -32,6 +32,9 @@
 	},
 	"references": [
 		{
+			"path": "../../design-system/css/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-common/tsconfig.app.json"
 		},
 		{
@@ -47,16 +50,28 @@
 			"path": "../editor-plugin-selection-toolbar/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-toolbar/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-user-preferences/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-shared-styles/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-toolbar/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-toolbar-model/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/primitives/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/theme/tsconfig.app.json"

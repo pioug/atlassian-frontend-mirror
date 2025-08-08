@@ -137,12 +137,9 @@ const contentStyles = cssMap({
 		paddingBlock: token('space.400'),
 		maxWidth: '760px',
 	},
-	title: {
-		marginBottom: token('space.400'),
-	},
 });
 
-export default function ConfluenceMockExample({}: {}) {
+export default function ConfluenceMockExample() {
 	return (
 		<WithResponsiveViewport>
 			<Root testId="root">

@@ -82,7 +82,7 @@ snapshot(HoverCardUnauthorised, {
 		},
 	],
 	featureFlags: {
-		'platform-smart-card-remove-legacy-button': [true, false],
+		'platform-smart-card-remove-legacy-button': true,
 	},
 });
 

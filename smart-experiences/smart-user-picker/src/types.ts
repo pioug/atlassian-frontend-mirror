@@ -36,7 +36,7 @@ export interface RecommendationRequest {
 type OnError = (error: any, request: RecommendationRequest) => Promise<OptionData[]> | void;
 type OnValueError = (error: any, defaultValue: DefaultValue) => Promise<OptionData[]> | void;
 type OnEmpty = (query: string) => Promise<OptionData[]>;
-type TransformOptions = (options: OptionData[]) => Promise<OptionData[]>;
+type TransformOptions = (options: OptionData[], query?: string) => Promise<OptionData[]>;
 
 export interface State {
 	users: OptionData[];

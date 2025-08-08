@@ -133,7 +133,7 @@ const WrappedBlockCard = Card(BlockCardComponent, UnsupportedBlock);
 
 export type BlockCardNodeViewProps = Pick<
 	SmartCardProps,
-	'actionOptions' | 'pluginInjectionApi' | 'onClickCallback' | 'CompetitorPrompt'
+	'actionOptions' | 'pluginInjectionApi' | 'onClickCallback' | 'isPageSSRed' | 'CompetitorPrompt'
 >;
 
 export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
@@ -210,6 +210,7 @@ export interface BlockCardNodeViewProperties {
 	onClickCallback: BlockCardNodeViewProps['onClickCallback'];
 	allowDatasource: boolean | undefined;
 	inlineCardViewProducer: ReturnType<typeof getInlineNodeViewProducer>;
+	isPageSSRed: BlockCardNodeViewProps['isPageSSRed'];
 	CompetitorPrompt?: React.ComponentType<{ sourceUrl: string; linkType?: string }>;
 }
 

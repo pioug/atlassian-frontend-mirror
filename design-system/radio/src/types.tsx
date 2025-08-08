@@ -21,6 +21,8 @@ type OwnProps = {
 	/**
 	 * The `aria-label` attribute associated with the radio element.
 	 */
+	// TODO: Convert this to `label` to match the standard elsewhere in DS. See
+	// https://product-fabric.atlassian.net/browse/DSP-23008
 	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
 	ariaLabel?: string;
 	/**
@@ -42,7 +44,16 @@ type OwnProps = {
 	/**
 	 * The label value for the input rendered to the DOM.
 	 */
+	// TODO: Use a different prop name to allow room for `aria-label` to be
+	// converted to `label`. See https://product-fabric.atlassian.net/browse/DSP-23008
 	label?: ReactNode;
+	/**
+	 * This sets the `aria-labelledby` attribute. It sets an accessible name for
+	 * the radio, for people who use assistive technology. Use of a visible label
+	 * is highly recommended for greater accessibility support.
+	 */
+	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
+	labelId?: string;
 	/**
 	 * `onChange` event handler, passed into the props of each `Radio` Component instantiated within `RadioGroup`.
 	 */
@@ -69,6 +80,7 @@ type Combine<First, Second> = Omit<First, keyof Second> & Second;
 export type RadioProps = Combine<
 	Omit<
 		React.InputHTMLAttributes<HTMLInputElement>,
+		// TODO: Make `aria-labelledby` a `never` in TS. See https://product-fabric.atlassian.net/browse/DSP-23009
 		'aria-label' | 'disabled' | 'required' | 'checked' | 'value' | 'crossOrigin'
 	>,
 	OwnProps

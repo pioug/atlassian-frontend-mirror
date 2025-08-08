@@ -516,7 +516,7 @@ export type RelativeDateKeyType =
 
 export type AgentIdType = { type: 'agent' | 'identity'; value: string };
 
-type AgentPermissionName = 'AGENT_UPDATE' | 'AGENT_DEACTIVATE';
+type AgentPermissionName = 'AGENT_CREATE' | 'AGENT_UPDATE' | 'AGENT_DEACTIVATE';
 export type AgentPermissions = {
 	permissions: Record<
 		AgentPermissionName,

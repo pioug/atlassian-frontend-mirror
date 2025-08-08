@@ -342,7 +342,11 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		const pos = this.startPos;
 		const currentPath = (parentInfo && parentInfo.path) || [];
 
-		const parentIsIncompleteTask = node.type.name === 'taskItem' && node.attrs.state !== 'DONE';
+		const parentIsIncompleteTask =
+			node.type.name === 'taskItem' ||
+			(node.type.name === 'blockTaskItem' &&
+				expValEquals('platform_editor_blocktaskitem_node', 'isEnabled', true) &&
+				node.attrs.state !== 'DONE');
 
 		const nodeKey = `${node.type.name}__${this.startPos}`;
 		const serializedContent = this.serializeFragment(

@@ -43,12 +43,12 @@ const EmbedCardNotFoundDefault = EmbedCardNotFoundView;
 
 snapshot(EmbedCardErrorView, {
 	featureFlags: {
-		'platform-smart-card-remove-legacy-button': [true, false],
+		'platform-smart-card-remove-legacy-button': true,
 	},
 });
 snapshot(EmbedCardForbiddenView, {
 	featureFlags: {
-		'platform-smart-card-remove-legacy-button': [true, false],
+		'platform-smart-card-remove-legacy-button': true,
 	},
 });
 snapshot(EmbedCardForbiddenFixBlurring, {
@@ -56,12 +56,12 @@ snapshot(EmbedCardForbiddenFixBlurring, {
 });
 snapshot(EmbedCardForbiddenDefault, {
 	featureFlags: {
-		'platform-smart-card-remove-legacy-button': [true, false],
+		'platform-smart-card-remove-legacy-button': true,
 	},
 });
 snapshot(EmbedCardForbiddenObjectRequestAccess, {
 	featureFlags: {
-		'platform-smart-card-remove-legacy-button': [true, false],
+		'platform-smart-card-remove-legacy-button': true,
 	},
 });
 snapshot(EmbedCardForbiddenSiteDeniedAccess, {
@@ -69,7 +69,7 @@ snapshot(EmbedCardForbiddenSiteDeniedAccess, {
 });
 snapshot(EmbedCardForbiddenSiteDirectAccess, {
 	featureFlags: {
-		'platform-smart-card-remove-legacy-button': [true, false],
+		'platform-smart-card-remove-legacy-button': true,
 	},
 });
 snapshot(EmbedCardForbiddenSiteForbiddenAccess, {
@@ -80,7 +80,7 @@ snapshot(EmbedCardForbiddenSitePendingAccess, {
 });
 snapshot(EmbedCardForbiddenSiteRequestAccess, {
 	featureFlags: {
-		'platform-smart-card-remove-legacy-button': [true, false],
+		'platform-smart-card-remove-legacy-button': true,
 	},
 });
 snapshot(EmbedCardNotFoundView, {
@@ -119,12 +119,12 @@ snapshot(EmbedCardSelected, {
 });
 snapshot(EmbedCardUnauthorisedView, {
 	featureFlags: {
-		'platform-smart-card-remove-legacy-button': [true, false],
+		'platform-smart-card-remove-legacy-button': true,
 	},
 });
 snapshot(EmbedCardUnauthorisedViewWithProviderImage, {
 	featureFlags: {
-		'platform-smart-card-remove-legacy-button': [true, false],
+		'platform-smart-card-remove-legacy-button': true,
 	},
 });
 snapshot(EmbedCardUnauthorisedViewWithNoAuth, {
@@ -168,7 +168,7 @@ snapshot(EmbedCardFrameWithNoPlaceholderWithOnClick, {
 
 snapshot(EmbedCardFrameStyleHide, {
 	featureFlags: {
-		'platform-smart-card-remove-legacy-button': [true, false],
+		'platform-smart-card-remove-legacy-button': true,
 	},
 });
 snapshot(EmbedCardFrameStyleHideAndSelected, {
@@ -193,7 +193,7 @@ snapshot(EmbedCardFrameStyleShowOnHoverAndSelected, {
 });
 snapshot(EmbedCardForbiddenViewFrameHide, {
 	featureFlags: {
-		'platform-smart-card-remove-legacy-button': [true, false],
+		'platform-smart-card-remove-legacy-button': true,
 	},
 });
 snapshot(EmbedCardNotFoundViewFrameHide, {
@@ -201,7 +201,7 @@ snapshot(EmbedCardNotFoundViewFrameHide, {
 });
 snapshot(EmbedCardUnauthorisedViewFrameHide, {
 	featureFlags: {
-		'platform-smart-card-remove-legacy-button': [true, false],
+		'platform-smart-card-remove-legacy-button': true,
 	},
 });
 snapshot(EmbedCardResolvedViewEntities, {

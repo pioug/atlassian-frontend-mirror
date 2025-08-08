@@ -30,10 +30,16 @@
 			"path": "../../button/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../css/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../ds-lib/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../primitives/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../theme/afm-cc/tsconfig.json"

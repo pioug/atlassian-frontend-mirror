@@ -4,7 +4,8 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { inlineCardNodeView, type InlineCardNodeViewProperties } from './inlineCard';
 
 export const lazyInlineCardView = (props: InlineCardNodeViewProperties) => {
-	const isPageSSRed = props.isPageSSRed || false;
+	const { isPageSSRed = false } = props;
+
 	if (editorExperiment('platform_editor_exp_lazy_node_views', false) || isPageSSRed) {
 		return inlineCardNodeView(props);
 	}

@@ -1,5 +1,14 @@
 # @atlaskit/avatar-group
 
+## 12.2.0
+
+### Minor Changes
+
+- [#198565](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/198565)
+  [`d3eacf36afe32`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d3eacf36afe32) -
+  Adjusted stack spacing at 'small' size to ensure visibility of "more" menu. Fix bug where grid
+  spacing was 4px too wide across all sizes
+
 ## 12.1.4
 
 ### Patch Changes

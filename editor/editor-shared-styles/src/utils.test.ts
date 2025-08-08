@@ -20,6 +20,7 @@ describe('utils', () => {
 				index: 2,
 				color: {
 					backgroundColor: token('color.background.accent.green.bolder'),
+					svgBackgroundColor: token('color.background.accent.green.subtler'),
 					textColor: token('color.text.inverse'),
 				},
 			});
@@ -27,6 +28,7 @@ describe('utils', () => {
 				index: 15,
 				color: {
 					backgroundColor: token('color.background.accent.teal.subtle'),
+					svgBackgroundColor: token('color.background.accent.teal.subtlest'),
 					textColor: token('color.text.accent.gray.bolder'),
 				},
 			});
@@ -34,6 +36,7 @@ describe('utils', () => {
 				index: 12,
 				color: {
 					backgroundColor: token('color.background.accent.orange.subtle'),
+					svgBackgroundColor: token('color.background.accent.orange.subtlest'),
 					textColor: token('color.text.accent.gray.bolder'),
 				},
 			});
@@ -41,6 +44,7 @@ describe('utils', () => {
 				index: 12,
 				color: {
 					backgroundColor: token('color.background.accent.orange.subtle'),
+					svgBackgroundColor: token('color.background.accent.orange.subtlest'),
 					textColor: token('color.text.accent.gray.bolder'),
 				},
 			});
@@ -48,6 +52,7 @@ describe('utils', () => {
 				index: 16,
 				color: {
 					backgroundColor: token('color.background.accent.purple.subtle'),
+					svgBackgroundColor: token('color.background.accent.purple.subtlest'),
 					textColor: token('color.text.accent.gray.bolder'),
 				},
 			});
@@ -55,6 +60,7 @@ describe('utils', () => {
 				index: 3,
 				color: {
 					backgroundColor: token('color.background.accent.yellow.bolder'),
+					svgBackgroundColor: token('color.background.accent.yellow.subtler'),
 					textColor: token('color.text.inverse'),
 				},
 			});

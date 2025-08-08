@@ -44,6 +44,15 @@
 			"path": "../../editor-plugin-selection-toolbar/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-toolbar/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar-model/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/icon/afm-townsquare/tsconfig.json"
 		},
 		{

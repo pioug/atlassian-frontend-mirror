@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/adf-utils",
-	"version": "19.20.3",
+	"version": "19.21.0",
 	"description": "Set of utilities to traverse, modify and create ADF documents.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

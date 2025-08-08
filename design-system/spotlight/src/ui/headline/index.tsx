@@ -25,7 +25,7 @@ export interface SpotlightHeadlineProps {
 export const SpotlightHeadline = forwardRef<HTMLHeadingElement, SpotlightHeadlineProps>(
 	({ children, testId }: SpotlightHeadlineProps, ref) => {
 		return (
-			<Heading ref={ref} testId={testId} size="xsmall">
+			<Heading ref={ref} testId={testId} color="color.text.inverse" size="xsmall">
 				{children}
 			</Heading>
 		);

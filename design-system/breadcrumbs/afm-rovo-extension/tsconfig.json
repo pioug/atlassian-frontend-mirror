@@ -30,10 +30,16 @@
 			"path": "../../button/afm-rovo-extension/tsconfig.json"
 		},
 		{
+			"path": "../../css/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../ds-lib/afm-rovo-extension/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../primitives/afm-rovo-extension/tsconfig.json"
 		},
 		{
 			"path": "../../theme/afm-rovo-extension/tsconfig.json"

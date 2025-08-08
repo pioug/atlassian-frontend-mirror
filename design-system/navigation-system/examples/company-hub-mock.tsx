@@ -79,10 +79,6 @@ const contentStyles = cssMap({
 		backgroundClip: 'content-box',
 		paddingBlockEnd: token('space.800'),
 	},
-	heroImage: {
-		width: '100%',
-		objectFit: 'cover',
-	},
 	logo: {
 		position: 'absolute',
 		bottom: 0,

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e2edaa3a74a3d619f79ebcb0fd7a6e62>>
+ * @codegen <<SignedSource::aeb4d39a821ccd80e79edf67441d9640>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -23,14 +23,13 @@ const svg = `<svg height="100%" viewBox="0 0 96 24">
  * A temporary component to represent the logo for Opsgenie.
  *
  */
-export function OpsgenieLogo({ size, appearance = 'brand', label, testId }: AppLogoProps) {
+export function OpsgenieLogo({
+	size,
+	appearance = 'brand',
+	label = 'Opsgenie',
+	testId,
+}: AppLogoProps) {
 	return (
-		<LogoWrapper
-			svg={svg}
-			label={label || 'Opsgenie'}
-			appearance={appearance}
-			size={size}
-			testId={testId}
-		/>
+		<LogoWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);
 }

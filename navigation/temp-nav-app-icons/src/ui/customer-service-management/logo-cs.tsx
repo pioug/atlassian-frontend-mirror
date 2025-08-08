@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c882e3701f2199be9654e2d7442d1ae9>>
+ * @codegen <<SignedSource::8071dd02178137151c85fefeeccfbf6a>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -26,16 +26,10 @@ const svg = `<svg height="100%" viewBox="0 0 456 32">
 export function CustomerServiceManagementLogoCS({
 	size,
 	appearance = 'brand',
-	label,
+	label = 'Customer Service Management',
 	testId,
 }: AppLogoProps) {
 	return (
-		<LogoWrapper
-			svg={svg}
-			label={label || 'Customer Service Management'}
-			appearance={appearance}
-			size={size}
-			testId={testId}
-		/>
+		<LogoWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);
 }

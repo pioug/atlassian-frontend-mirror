@@ -635,6 +635,14 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-07-30
+	platform_editor_blocktaskitem_node: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_blocktaskitem_node',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-08-05
 	platform_editor_tables_scaling_css: createBooleanExperiment({
 		productKeys: {

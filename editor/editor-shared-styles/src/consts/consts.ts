@@ -220,73 +220,91 @@ export const participantColors: Array<ParticipantColor> = [
 	{
 		textColor: token('color.text.inverse'),
 		backgroundColor: token('color.background.accent.red.bolder'),
+		svgBackgroundColor: token('color.background.accent.red.subtler'),
 	},
 	{
 		textColor: token('color.text.inverse'),
 		backgroundColor: token('color.background.accent.blue.bolder'),
+		svgBackgroundColor: token('color.background.accent.blue.subtler'),
 	},
 	{
 		textColor: token('color.text.inverse'),
 		backgroundColor: token('color.background.accent.green.bolder'),
+		svgBackgroundColor: token('color.background.accent.green.subtler'),
 	},
 	{
 		textColor: token('color.text.inverse'),
 		backgroundColor: token('color.background.accent.yellow.bolder'),
+		svgBackgroundColor: token('color.background.accent.yellow.subtler'),
 	},
 	{
 		textColor: token('color.text.inverse'),
 		backgroundColor: token('color.background.accent.purple.bolder'),
+		svgBackgroundColor: token('color.background.accent.purple.subtler'),
 	},
 	{
 		textColor: token('color.text.inverse'),
 		backgroundColor: token('color.background.accent.magenta.bolder'),
+		svgBackgroundColor: token('color.background.accent.magenta.subtler'),
 	},
 	{
 		textColor: token('color.text.inverse'),
 		backgroundColor: token('color.background.accent.teal.bolder'),
+		svgBackgroundColor: token('color.background.accent.teal.subtler'),
 	},
 	{
 		textColor: token('color.text.inverse'),
 		backgroundColor: token('color.background.accent.orange.bolder'),
+		svgBackgroundColor: token('color.background.accent.orange.subtler'),
 	},
 	{
 		textColor: token('color.text.inverse'),
 		backgroundColor: token('color.background.accent.lime.bolder'),
+		svgBackgroundColor: token('color.background.accent.lime.subtler'),
 	},
 	{
 		textColor: token('color.text.inverse'),
 		backgroundColor: token('color.background.accent.gray.bolder'),
+		svgBackgroundColor: token('color.background.accent.gray.subtler'),
 	},
 	{
 		textColor: token('color.text.accent.gray.bolder'),
 		backgroundColor: token('color.background.accent.blue.subtle'),
+		svgBackgroundColor: token('color.background.accent.blue.subtlest'),
 	},
 	{
 		textColor: token('color.text.accent.gray.bolder'),
 		backgroundColor: token('color.background.accent.red.subtle'),
+		svgBackgroundColor: token('color.background.accent.red.subtlest'),
 	},
 	{
 		textColor: token('color.text.accent.gray.bolder'),
 		backgroundColor: token('color.background.accent.orange.subtle'),
+		svgBackgroundColor: token('color.background.accent.orange.subtlest'),
 	},
 	{
 		textColor: token('color.text.accent.gray.bolder'),
 		backgroundColor: token('color.background.accent.yellow.subtle'),
+		svgBackgroundColor: token('color.background.accent.yellow.subtlest'),
 	},
 	{
 		textColor: token('color.text.accent.gray.bolder'),
 		backgroundColor: token('color.background.accent.green.subtle'),
+		svgBackgroundColor: token('color.background.accent.green.subtlest'),
 	},
 	{
 		textColor: token('color.text.accent.gray.bolder'),
 		backgroundColor: token('color.background.accent.teal.subtle'),
+		svgBackgroundColor: token('color.background.accent.teal.subtlest'),
 	},
 	{
 		textColor: token('color.text.accent.gray.bolder'),
 		backgroundColor: token('color.background.accent.purple.subtle'),
+		svgBackgroundColor: token('color.background.accent.purple.subtlest'),
 	},
 	{
 		textColor: token('color.text.accent.gray.bolder'),
 		backgroundColor: token('color.background.accent.magenta.subtle'),
+		svgBackgroundColor: token('color.background.accent.magenta.subtlest'),
 	},
 ];

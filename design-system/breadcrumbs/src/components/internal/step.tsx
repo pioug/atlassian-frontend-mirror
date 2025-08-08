@@ -1,19 +1,28 @@
-import React from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { forwardRef, Fragment } from 'react';
 
-import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
-import Button from '@atlaskit/button/standard-button';
-import { type CustomThemeButtonProps } from '@atlaskit/button/types';
+import { cssMap, cx, jsx } from '@atlaskit/css';
 import __noop from '@atlaskit/ds-lib/noop';
+import { Anchor, Pressable } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
-interface BreadcrumbsButtonProps extends CustomThemeButtonProps, WithAnalyticsEventsProps {
-	hasOverflow?: boolean;
+import type { BreadcrumbsItemProps } from '../../types';
 
-	/**
-	 * Additional information to be included in the `context` of analytics events
-	 */
-	analyticsContext?: Record<string, any>;
-}
+type StepProps = {
+	children?: BreadcrumbsItemProps['text'];
+	analyticsContext?: BreadcrumbsItemProps['analyticsContext'];
+	href?: BreadcrumbsItemProps['href'];
+	target?: BreadcrumbsItemProps['target'];
+	iconBefore?: BreadcrumbsItemProps['iconBefore'];
+	iconAfter?: BreadcrumbsItemProps['iconBefore'];
+	onClick?: BreadcrumbsItemProps['onClick'];
+	testId?: BreadcrumbsItemProps['testId'];
+	truncationWidth?: BreadcrumbsItemProps['truncationWidth'];
+};
 
 const analyticsAttributes = {
 	componentName: 'breadcrumbsItem',
@@ -23,49 +32,109 @@ const analyticsAttributes = {
 
 const noop = __noop;
 
+const styles = cssMap({
+	root: {
+		font: token('font.body'),
+		paddingBlock: token('space.025'),
+		paddingInline: token('space.0'),
+		backgroundColor: token('color.background.neutral.subtle'),
+		color: token('color.text.subtlest'),
+		border: 'none',
+		display: 'inline-flex',
+		alignItems: 'center',
+		gap: token('space.050'),
+		borderRadius: token('border.radius'),
+		textDecoration: 'none',
+
+		'&:hover': {
+			textDecoration: 'underline',
+			color: token('color.text.subtlest'),
+		},
+		'&:focus': {
+			textDecoration: 'none',
+			color: token('color.text.subtlest'),
+		},
+		'&:active': {
+			// @ts-expect-error
+			color: token('color.text'),
+		},
+	},
+	withoutTruncation: {
+		minWidth: '0px',
+		flexShrink: '1',
+	},
+	text: {
+		overflow: 'hidden',
+		textOverflow: 'ellipsis',
+		whiteSpace: 'nowrap',
+	},
+});
+
 /**
  * __Step__
  *
  * A button that represents a single step in a breadcrumbs component.
  */
-const Step = React.forwardRef<HTMLButtonElement, BreadcrumbsButtonProps>(
+const Step = forwardRef<HTMLSpanElement, StepProps>(
 	(
 		{
 			analyticsContext,
-			component,
-			hasOverflow = true,
-			href = '#',
+			href,
 			iconAfter,
 			iconBefore,
 			onClick: onClickProvided = noop,
 			target,
 			testId,
-			// Button does not take `createAnalyticsEvent`, but it is spread on anyway
-			...props
+			children,
+			truncationWidth,
 		},
 		ref,
 	) => {
-		const handleClicked = usePlatformLeafEventHandler({
+		const handleClick = usePlatformLeafEventHandler({
 			fn: onClickProvided,
 			action: 'clicked',
 			analyticsData: analyticsContext,
 			...analyticsAttributes,
 		});
 
+		const content = (
+			<Fragment>
+				{iconBefore}
+				<span css={styles.text} ref={ref}>
+					{children}
+				</span>
+				{iconAfter}
+			</Fragment>
+		);
+
+		if (href) {
+			return (
+				<Anchor
+					href={href}
+					onClick={handleClick}
+					target={target}
+					testId={testId}
+					xcss={cx(styles.root, !truncationWidth && styles.withoutTruncation)}
+					style={{
+						maxWidth: truncationWidth,
+					}}
+				>
+					{content}
+				</Anchor>
+			);
+		}
+
 		return (
-			<Button
-				{...props}
-				appearance="subtle-link"
-				component={component}
-				href={href}
-				iconAfter={hasOverflow ? undefined : iconAfter}
-				iconBefore={hasOverflow ? undefined : iconBefore}
-				onClick={handleClicked}
-				ref={ref}
-				spacing="none"
-				target={target}
+			<Pressable
+				onClick={handleClick}
 				testId={testId}
-			/>
+				xcss={cx(styles.root, !truncationWidth && styles.withoutTruncation)}
+				style={{
+					maxWidth: truncationWidth,
+				}}
+			>
+				{content}
+			</Pressable>
 		);
 	},
 );

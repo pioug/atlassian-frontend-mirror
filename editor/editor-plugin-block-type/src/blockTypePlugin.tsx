@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { IntlShape } from 'react-intl-next';
+import { type IntlShape } from 'react-intl-next';
 
 import { extendedBlockquote, hardBreak, heading } from '@atlaskit/adf-schema';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
@@ -28,6 +28,7 @@ import type {
 import { ToolbarSize } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { type BlockTypePlugin } from './blockTypePluginType';
@@ -45,6 +46,7 @@ import { createPlugin, pluginKey } from './pm-plugins/main';
 import type { BlockTypeNode } from './pm-plugins/types';
 import { FloatingToolbarComponent } from './pm-plugins/ui/FloatingToolbarComponent';
 import { PrimaryToolbarComponent } from './pm-plugins/ui/PrimaryToolbarComponent';
+import { getToolbarComponents } from './pm-plugins/ui/ToolbarComponents';
 
 const headingPluginOptions = (
 	{ formatMessage }: IntlShape,
@@ -164,10 +166,14 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 		);
 	};
 
-	api?.primaryToolbar?.actions.registerComponent({
-		name: 'blockType',
-		component: primaryToolbarComponent,
-	});
+	if (expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true)) {
+		api?.toolbar?.actions.registerComponents(getToolbarComponents(api));
+	} else {
+		api?.primaryToolbar?.actions.registerComponent({
+			name: 'blockType',
+			component: primaryToolbarComponent,
+		});
+	}
 
 	return {
 		name: 'blockType',
@@ -254,36 +260,38 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 		primaryToolbarComponent: !api?.primaryToolbar ? primaryToolbarComponent : undefined,
 
 		pluginsOptions: {
-			selectionToolbar: () => {
-				const toolbarDocking = fg('platform_editor_use_preferences_plugin')
-					? api?.userPreferences?.sharedState.currentState()?.preferences?.toolbarDockingPosition
-					: api?.selectionToolbar?.sharedState?.currentState()?.toolbarDocking;
+			...(!expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true) && {
+				selectionToolbar: () => {
+					const toolbarDocking = fg('platform_editor_use_preferences_plugin')
+						? api?.userPreferences?.sharedState.currentState()?.preferences?.toolbarDockingPosition
+						: api?.selectionToolbar?.sharedState?.currentState()?.toolbarDocking;
 
-				if (
-					toolbarDocking === 'none' &&
-					editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
-				) {
-					const toolbarCustom: FloatingToolbarCustom<Command> = {
-						type: 'custom',
-						render: (view, _idx, _dispatchAnalyticsEvent) => {
-							if (!view) {
-								return;
-							}
+					if (
+						toolbarDocking === 'none' &&
+						editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
+					) {
+						const toolbarCustom: FloatingToolbarCustom<Command> = {
+							type: 'custom',
+							render: (view, _idx, _dispatchAnalyticsEvent) => {
+								if (!view) {
+									return;
+								}
 
-							return <FloatingToolbarComponent api={api} />;
-						},
-						fallback: [],
-					};
+								return <FloatingToolbarComponent api={api} />;
+							},
+							fallback: [],
+						};
 
-					return {
-						isToolbarAbove: true,
-						items: [toolbarCustom],
-						rank: 8,
-					};
-				} else {
-					return undefined;
-				}
-			},
+						return {
+							isToolbarAbove: true,
+							items: [toolbarCustom],
+							rank: 8,
+						};
+					} else {
+						return undefined;
+					}
+				},
+			}),
 
 			...(editorExperiment('platform_editor_insertion', 'control') && {
 				quickInsert: (intl) => {

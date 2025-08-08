@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::62f4cdf442958d3fb4ff4267e130c5a5>>
+ * @codegen <<SignedSource::8f364ea0f6c471d2cbba8f708f2339a3>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -24,14 +24,8 @@ const svg = `<svg height="100%" viewBox="0 0 106 32">
  * A temporary component to represent the logo for Rovo.
  *
  */
-export function RovoLogoCS({ size, appearance = 'brand', label, testId }: AppLogoProps) {
+export function RovoLogoCS({ size, appearance = 'brand', label = 'Rovo', testId }: AppLogoProps) {
 	return (
-		<LogoWrapper
-			svg={svg}
-			label={label || 'Rovo'}
-			appearance={appearance}
-			size={size}
-			testId={testId}
-		/>
+		<LogoWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);
 }

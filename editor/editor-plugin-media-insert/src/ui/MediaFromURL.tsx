@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import { useIntl } from 'react-intl-next';
 
@@ -16,7 +16,13 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { mediaInsertMessages } from '@atlaskit/editor-common/messages';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
-import Form, { ErrorMessage, Field, FormFooter, MessageWrapper } from '@atlaskit/form';
+import Form, {
+	ErrorMessage,
+	Field,
+	FormFooter,
+	HelperMessage,
+	MessageWrapper,
+} from '@atlaskit/form';
 import ExpandIcon from '@atlaskit/icon/core/grow-diagonal';
 import { default as EditorFilePreviewIconLegacy } from '@atlaskit/icon/glyph/editor/file-preview';
 import { getMediaClient } from '@atlaskit/media-client-react';
@@ -68,6 +74,19 @@ const INITIAL_PREVIEW_STATE: Readonly<PreviewState> = Object.freeze({
 	previewInfo: null,
 });
 
+const isValidInput = (value: string, isUrlValidationOff: boolean): boolean => {
+	if (isUrlValidationOff) {
+		return isValidUrl(value) || isValidSmartValue(value);
+	}
+	return isValidUrl(value);
+};
+
+export const isValidSmartValue = (value: string): boolean => {
+	if (/^\{\{.+\}\}$/u.test(value) && value.length < MAX_URL_LENGTH) {
+		return true;
+	}
+	return false;
+};
 const MAX_URL_LENGTH = 2048;
 export const isValidUrl = (value: string): boolean => {
 	try {
@@ -108,6 +127,7 @@ type Props = {
 	insertMediaSingle: InsertMediaSingle;
 	insertExternalMediaSingle: InsertExternalMediaSingle;
 	isOnlyExternalLinks: boolean;
+	isUrlValidationOff: boolean;
 };
 
 export function MediaFromURL({
@@ -117,6 +137,7 @@ export function MediaFromURL({
 	insertMediaSingle,
 	insertExternalMediaSingle,
 	isOnlyExternalLinks,
+	isUrlValidationOff,
 }: Props) {
 	const intl = useIntl();
 	const strings = {
@@ -127,10 +148,13 @@ export function MediaFromURL({
 		errorMessage: intl.formatMessage(mediaInsertMessages.fromUrlErrorMessage),
 		warning: intl.formatMessage(mediaInsertMessages.fromUrlWarning),
 		invalidUrl: intl.formatMessage(mediaInsertMessages.invalidUrlErrorMessage),
+		insertSmartValueHelperMessage: intl.formatMessage(
+			mediaInsertMessages.insertSmartValueHelperMessage,
+		),
 	};
 
 	const [previewState, dispatch] = React.useReducer(previewStateReducer, INITIAL_PREVIEW_STATE);
-	const [url, setUrl] = React.useState('');
+	const [input, setInput] = React.useState('');
 	const pasteFlag = React.useRef(false);
 
 	const {
@@ -197,8 +221,8 @@ export function MediaFromURL({
 		(e: React.FormEvent<HTMLInputElement>) => {
 			const url = e.currentTarget.value;
 			dispatch({ type: 'reset' });
-			setUrl(url);
-			if (!isValidUrl(url)) {
+			setInput(url);
+			if (!isValidInput(url, isUrlValidationOff)) {
 				return;
 			}
 			if (pasteFlag.current) {
@@ -208,7 +232,7 @@ export function MediaFromURL({
 				}
 			}
 		},
-		[uploadExternalMedia, isOnlyExternalLinks],
+		[uploadExternalMedia, isOnlyExternalLinks, isUrlValidationOff],
 	);
 
 	const onPaste = React.useCallback(
@@ -312,7 +336,9 @@ export function MediaFromURL({
 							aria-required={true}
 							isRequired={true}
 							name="inputUrl"
-							validate={(value) => (value && isValidUrl(value) ? undefined : strings.invalidUrl)}
+							validate={(value) =>
+								value && isValidInput(value, isUrlValidationOff) ? undefined : strings.invalidUrl
+							}
 						>
 							{({ fieldProps: { value, onChange, ...rest }, error, meta }) => (
 								<Stack space="space.150" grow="fill">
@@ -337,6 +363,11 @@ export function MediaFromURL({
 												}
 											}}
 										/>
+										{isUrlValidationOff && (
+											<Fragment>
+												<HelperMessage>{strings.insertSmartValueHelperMessage}</HelperMessage>
+											</Fragment>
+										)}
 										<MessageWrapper>
 											{error && (
 												<ErrorMessage>
@@ -393,11 +424,11 @@ export function MediaFromURL({
 									{strings.cancel}
 								</Button>
 								<Button
-									type="button"
+									type="submit"
 									appearance="primary"
 									isDisabled={
 										isOnlyExternalLinks
-											? !url || !isValidUrl(url)
+											? !input || !isValidInput(input, isUrlValidationOff)
 											: !previewState.previewInfo && !previewState.warning
 									}
 									onClick={() => formProps.onSubmit()}

@@ -1,5 +1,14 @@
 # @atlaskit/editor-element-browser
 
+## 1.0.2
+
+### Patch Changes
+
+- [#197413](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/197413)
+  [`c30bdee7ca9ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c30bdee7ca9ce) -
+  Migrated usage of renamed/deprecated icons
+- Updated dependencies
+
 ## 1.0.1
 
 ### Patch Changes

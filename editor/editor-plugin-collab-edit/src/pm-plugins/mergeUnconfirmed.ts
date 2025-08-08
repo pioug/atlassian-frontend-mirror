@@ -30,16 +30,14 @@ export function mergeUnconfirmedSteps(
 		const lastStep = acc[acc.length - 1];
 
 		const isOffline = api?.connectivity?.sharedState.currentState()?.mode === 'offline';
-		const activeParticipants = api?.collabEdit.sharedState
-			.currentState()
-			?.activeParticipants?.toArray();
-		const isSinglePlayer =
-			expValEquals('platform_editor_enable_single_player_step_merging', 'isEnabled', true) &&
-			activeParticipants &&
-			activeParticipants.length === 1;
-		const isOfflineOrSinglePlayer = isOffline || isSinglePlayer;
+		const isOnlineMergeEnabled = expValEquals(
+			'platform_editor_enable_single_player_step_merging',
+			'isEnabled',
+			true,
+		);
+		const isMergingEnabled = isOffline || isOnlineMergeEnabled;
 
-		if (isOfflineOrSinglePlayer && lastStep && !isLocked(lastStep) && !isLocked(rebaseable)) {
+		if (isMergingEnabled && lastStep && !isLocked(lastStep) && !isLocked(rebaseable)) {
 			const mergedStep = lastStep.step.merge(rebaseable.step);
 			const inverted = rebaseable.inverted.merge(lastStep.inverted);
 			// Always take the origin of the new step.

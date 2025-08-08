@@ -24,6 +24,7 @@ import { canLinkBeCreatedInRange } from '@atlaskit/editor-common/utils';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import LinkIcon from '@atlaskit/icon/core/migration/link--editor-link';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -41,6 +42,7 @@ import { createKeymapPlugin } from './pm-plugins/keymap';
 import { plugin, stateKey } from './pm-plugins/main';
 import { toolbarButtonsPlugin } from './pm-plugins/toolbar-buttons';
 import { getToolbarConfig } from './ui/toolbar/Toolbar';
+import { getToolbarComponents } from './ui/ToolbarComponents';
 
 const getPosFromActiveLinkMark = (state: LinkToolbarState) => {
 	if (state === undefined) {
@@ -63,6 +65,10 @@ const selectionToolbarLinkButtonTestId = 'ak-editor-selection-toolbar-link-butto
  */
 export const hyperlinkPlugin: HyperlinkPlugin = ({ config: options = {}, api }) => {
 	let primaryToolbarComponent: ToolbarUIComponentFactory | undefined;
+
+	if (expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true)) {
+		api?.toolbar?.actions.registerComponents(getToolbarComponents(api));
+	}
 
 	return {
 		name: 'hyperlink',
@@ -199,51 +205,55 @@ export const hyperlinkPlugin: HyperlinkPlugin = ({ config: options = {}, api }) 
 
 			floatingToolbar: getToolbarConfig(options, api),
 
-			selectionToolbar: (state, { formatMessage }) => {
-				const toolbarDocking = fg('platform_editor_use_preferences_plugin')
-					? api?.userPreferences?.sharedState.currentState()?.preferences.toolbarDockingPosition
-					: api?.selectionToolbar?.sharedState?.currentState()?.toolbarDocking;
+			...(!expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true) && {
+				selectionToolbar: (state, { formatMessage }) => {
+					const toolbarDocking = fg('platform_editor_use_preferences_plugin')
+						? api?.userPreferences?.sharedState.currentState()?.preferences.toolbarDockingPosition
+						: api?.selectionToolbar?.sharedState?.currentState()?.toolbarDocking;
 
-				if (
-					toolbarDocking === 'none' &&
-					editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
-				) {
-					const toolbarButton = () => {
-						const { from, to } = state.selection;
-						const isEnabled = canLinkBeCreatedInRange(from, to)(state);
-						const title = formatMessage(messages.link);
+					if (
+						toolbarDocking === 'none' &&
+						editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
+					) {
+						const toolbarButton = () => {
+							const { from, to } = state.selection;
+							const isEnabled = canLinkBeCreatedInRange(from, to)(state);
+							const title = formatMessage(messages.link);
+
+							return {
+								type: 'button',
+								disabled: !isEnabled,
+								testId: `${selectionToolbarLinkButtonTestId}`,
+								icon: LinkIcon,
+								title: title,
+								tooltipContent: tooltip(addLink, title),
+								showTitle: false,
+								onClick: (state: EditorState, dispatch?: CommandDispatch) => {
+									return editorCommandToPMCommand(
+										showLinkToolbar(INPUT_METHOD.FLOATING_TB, api?.analytics?.actions),
+									)(state, dispatch);
+								},
+							} as FloatingToolbarButton<Command>;
+						};
 
 						return {
-							type: 'button',
-							disabled: !isEnabled,
-							testId: `${selectionToolbarLinkButtonTestId}`,
-							icon: LinkIcon,
-							title: title,
-							tooltipContent: tooltip(addLink, title),
-							showTitle: false,
-							onClick: (state: EditorState, dispatch?: CommandDispatch) => {
-								return editorCommandToPMCommand(
-									showLinkToolbar(INPUT_METHOD.FLOATING_TB, api?.analytics?.actions),
-								)(state, dispatch);
-							},
-						} as FloatingToolbarButton<Command>;
-					};
+							isToolbarAbove: true,
+							items: [toolbarButton()],
+							rank: 2,
+						};
+					} else {
+						return undefined;
+					}
+				},
+			}),
 
-					return {
-						isToolbarAbove: true,
-						items: [toolbarButton()],
-						rank: 2,
-					};
-				} else {
-					return undefined;
-				}
-			},
-
-			primaryToolbarComponent:
-				!api?.primaryToolbar &&
-				editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
-					? primaryToolbarComponent
-					: undefined,
+			...(!expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true) && {
+				primaryToolbarComponent:
+					!api?.primaryToolbar &&
+					editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
+						? primaryToolbarComponent
+						: undefined,
+			}),
 		},
 	};
 };

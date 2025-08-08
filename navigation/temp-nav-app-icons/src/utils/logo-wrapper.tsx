@@ -235,8 +235,8 @@ export function LogoWrapper({
 				} as React.CSSProperties
 			}
 			data-testid={testId}
-			// For logos, the label will always be present and will never be an empty string, so we can always set these aria attributes.
-			aria-label={label}
+			// If the label is provided an empty string, we want to remove the element from the accessibility tree.
+			aria-label={label ? label : undefined}
 			role={label ? 'img' : undefined}
 			aria-hidden={label === '' ? true : undefined}
 			// We are using dangerouslySetInnerHTML here to tell React not to track changes to the SVG elements.

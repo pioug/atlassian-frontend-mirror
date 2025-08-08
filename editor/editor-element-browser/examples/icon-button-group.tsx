@@ -3,7 +3,7 @@ import React from 'react';
 import { makeKeyMapWithCommon } from '@atlaskit/editor-common/keymaps';
 import Heading from '@atlaskit/heading';
 import AngleBracketsIcon from '@atlaskit/icon/core/angle-brackets';
-import SpreadsheetIcon from '@atlaskit/icon/core/spreadsheet';
+import TableIcon from '@atlaskit/icon/core/table';
 import TaskIcon from '@atlaskit/icon/core/task';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Stack, xcss } from '@atlaskit/primitives';
@@ -32,7 +32,7 @@ const dataItems: ItemData[] = [
 		title: 'Table',
 		description: 'Insert a table',
 		keyshortcut: makeKeyMapWithCommon('', 'SHIFT-ALT-T'),
-		renderIcon: () => <SpreadsheetIcon label="Table" />,
+		renderIcon: () => <TableIcon label="Table" />,
 	},
 	{
 		index: 1,
@@ -40,7 +40,7 @@ const dataItems: ItemData[] = [
 		description: 'Insert a table and be amazed what you can do with it!',
 		keyshortcut: makeKeyMapWithCommon('', 'MOD-SHIFT-T'),
 		attributes: { new: true },
-		renderIcon: () => <SpreadsheetIcon label="Table" />,
+		renderIcon: () => <TableIcon label="Table" />,
 	},
 	{
 		index: 2,
@@ -61,7 +61,7 @@ const dataItems: ItemData[] = [
 		title: 'Table',
 		description: 'Insert a table',
 		keyshortcut: makeKeyMapWithCommon('', 'SHIFT-ALT-T'),
-		renderIcon: () => <SpreadsheetIcon label="Table" />,
+		renderIcon: () => <TableIcon label="Table" />,
 	},
 	{
 		index: 5,
@@ -69,7 +69,7 @@ const dataItems: ItemData[] = [
 		description: 'Insert a table and be amazed what you can do with it!',
 		keyshortcut: makeKeyMapWithCommon('', 'MOD-SHIFT-T'),
 		attributes: { new: true },
-		renderIcon: () => <SpreadsheetIcon label="Table" />,
+		renderIcon: () => <TableIcon label="Table" />,
 	},
 	{
 		index: 6,

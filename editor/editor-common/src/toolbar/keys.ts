@@ -105,6 +105,64 @@ export const TEXT_SECTION = {
 } as const;
 
 /**
+ * Text styles group
+ */
+export const TEXT_STYLES_GROUP = {
+	key: 'text-styles-group',
+	type: 'group',
+} as const;
+
+export const TEXT_STYLES_MENU = {
+	key: 'text-styles-menu',
+	type: 'menu',
+} as const;
+
+export const TEXT_STYLES_MENU_SECTION = {
+	key: 'text-styles-menu-section',
+	type: 'menu-section',
+} as const;
+
+export const NORMAL_TEXT_MENU_ITEM = {
+	key: 'normal-text-menu-item',
+	type: 'menu-item',
+} as const;
+
+export const HEADING_1_MENU_ITEM = {
+	key: 'heading-1-menu-item',
+	type: 'menu-item',
+} as const;
+
+export const HEADING_2_MENU_ITEM = {
+	key: 'heading-2-menu-item',
+	type: 'menu-item',
+} as const;
+
+export const HEADING_3_MENU_ITEM = {
+	key: 'heading-3-menu-item',
+	type: 'menu-item',
+} as const;
+
+export const HEADING_4_MENU_ITEM = {
+	key: 'heading-4-menu-item',
+	type: 'menu-item',
+} as const;
+
+export const HEADING_5_MENU_ITEM = {
+	key: 'heading-5-menu-item',
+	type: 'menu-item',
+} as const;
+
+export const HEADING_6_MENU_ITEM = {
+	key: 'heading-6-menu-item',
+	type: 'menu-item',
+} as const;
+
+export const BLOCK_QUOTE_MENU_ITEM = {
+	key: 'block-quote-menu-item',
+	type: 'menu-item',
+} as const;
+
+/**
  * Text formatting group
  */
 export const TEXT_FORMATTING_GROUP = {
@@ -172,6 +230,35 @@ export const CLEAR_FORMATTING_MENU_ITEM = {
 	type: 'menu-item',
 } as const;
 
+/**
+ * Text color and Highlight color section
+ */
+
+export const TEXT_COLOR_HIGHLIGHT_GROUP = {
+	key: 'text-color-highlight-group',
+	type: 'group',
+} as const;
+
+export const TEXT_COLOR_HIGHLIGHT_MENU = {
+	key: 'text-color-highlight-menu',
+	type: 'menu',
+} as const;
+
+export const TEXT_COLOR_HIGHLIGHT_MENU_SECTION = {
+	key: 'text-color-highlight-menu-section',
+	type: 'menu-section',
+} as const;
+
+export const TEXT_COLOR_MENU_ITEM = {
+	key: 'text-color-menu-item',
+	type: 'menu-item',
+} as const;
+
+export const HIGHLIGHT_MENU_ITEM = {
+	key: 'highlight-menu-item',
+	type: 'menu-item',
+} as const;
+
 /*
  * Linking section
  */
@@ -179,6 +266,16 @@ export const CLEAR_FORMATTING_MENU_ITEM = {
 export const LINKING_SECTION = {
 	key: 'linking-section',
 	type: 'section',
+} as const;
+
+export const LINKING_GROUP = {
+	key: 'linking-group',
+	type: 'group',
+} as const;
+
+export const LINKING_BUTTON = {
+	key: 'linking-button',
+	type: 'button',
 } as const;
 
 /**

@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 9.1.0
+
+### Minor Changes
+
+- [`4903edc4a60f8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4903edc4a60f8) -
+  [ux] Adds a configuration for media insert to allow for smart value input
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.0.1
 
 ### Patch Changes

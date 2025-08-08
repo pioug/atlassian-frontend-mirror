@@ -94,10 +94,13 @@ export interface BreadcrumbsItemProps extends WithAnalyticsEventsProps {
 	 */
 	truncationWidth?: number;
 	target?: '_blank' | '_parent' | '_self' | '_top' | '';
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
 	/**
 	 * Provide a custom component to use instead of the default button.
 	 *  The custom component should accept a className prop so it can be styled
 	 *  and possibly all action handlers.
+	 *
+	 * @deprecated - No longer necessary as breadcrumb will inherit and utilize router link configuration from App Provider. [See the documentation](https://atlassian.design/components/app-provider/examples#router-links) to ensure App Provider is configured in your app.
 	 */
 	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
 	component?: React.ClassType<any, any, any>;

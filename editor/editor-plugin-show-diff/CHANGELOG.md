@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 0.0.3
+
+### Patch Changes
+
+- [`3c2fe6ae106d8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c2fe6ae106d8) -
+  Focus the editor after track changes is turned off.
+- Updated dependencies
+
 ## 0.0.2
 
 ### Patch Changes

@@ -27,7 +27,7 @@ import { layers } from '@atlaskit/theme/constants';
 import { Box } from '@atlaskit/primitives/compiled';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { useCloseManager } from '../hooks/useCloseManager';
+import { useCloseManagerV2 } from '../hooks/useCloseManager';
 import { useDelayedState } from '../hooks/useDelayedState';
 import { useFocusTrap } from '../hooks/useFocusTrap';
 import { messages } from '../shared/i18n';
@@ -39,6 +39,7 @@ import { RepositionOnUpdate } from './RepositionOnUpdate';
 
 import { N0, N50A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
+import Portal from '@atlaskit/portal';
 
 const pickerStyle = css({
 	verticalAlign: 'middle',
@@ -171,6 +172,10 @@ export interface ReactionPickerProps
 	 * Optional prop to set a delay for the reaction picker when it opens/closes on hover
 	 */
 	hoverableReactionPickerDelay?: number;
+	/**
+	 * Optional prop to set the strategy of the reaction picker popup
+	 */
+	reactionPickerStrategy?: PopperProps<{}>['strategy'];
 }
 
 /**
@@ -262,22 +267,6 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 		 */
 		popperPlacement,
 	});
-
-	/**
-	 * Custom hook triggers when user clicks outside the reactions picker
-	 */
-	useCloseManager(
-		wrapperRef,
-		(callbackType) => {
-			close();
-			onCancel();
-			if (triggerRef && callbackType === 'ESCAPE') {
-				requestAnimationFrame(() => triggerRef.focus());
-			}
-		},
-		true,
-		isPopupTrayOpen,
-	);
 
 	/**
 	 * Event callback when the picker is closed
@@ -467,6 +456,11 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 		updatePopper.current?.();
 	}, [settings]);
 
+	const onClose = () => {
+		close();
+		onCancel();
+	};
+
 	return (
 		<div
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -511,31 +505,39 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 					)}
 				</Reference>
 				{isPopupTrayOpen && (
-					<PopperWrapper settings={settings} popperModifiers={popperModifiers}>
-						{settings.showFullPicker ||
-						(hoverableReactionPicker && isHoverableReactionPickerEmojiPickerOpen) ? (
-							<EmojiPicker
-								emojiProvider={emojiProvider}
-								onSelection={onEmojiSelected}
-								size={emojiPickerSize}
-							/>
-						) : (
-							<Box
-								xcss={additionalStyles.selectorContainer}
-								onMouseEnter={handlePopupMouseEnter}
-								onMouseLeave={handlePopupMouseLeave}
-							>
-								<Selector
+					<Portal zIndex={layers.layer()}>
+						<PopperWrapper
+							settings={settings}
+							popperModifiers={popperModifiers}
+							isOpen={isPopupTrayOpen}
+							onClose={onClose}
+							triggerRef={triggerRef}
+						>
+							{settings.showFullPicker ||
+							(hoverableReactionPicker && isHoverableReactionPickerEmojiPickerOpen) ? (
+								<EmojiPicker
 									emojiProvider={emojiProvider}
 									onSelection={onEmojiSelected}
-									showMore={allowAllEmojis}
-									onMoreClick={onSelectMoreClick}
-									pickerQuickReactionEmojiIds={pickerQuickReactionEmojiIds}
-									hoverableReactionPickerSelector={hoverableReactionPicker}
+									size={emojiPickerSize}
 								/>
-							</Box>
-						)}
-					</PopperWrapper>
+							) : (
+								<Box
+									xcss={additionalStyles.selectorContainer}
+									onMouseEnter={handlePopupMouseEnter}
+									onMouseLeave={handlePopupMouseLeave}
+								>
+									<Selector
+										emojiProvider={emojiProvider}
+										onSelection={onEmojiSelected}
+										showMore={allowAllEmojis}
+										onMoreClick={onSelectMoreClick}
+										pickerQuickReactionEmojiIds={pickerQuickReactionEmojiIds}
+										hoverableReactionPickerSelector={hoverableReactionPicker}
+									/>
+								</Box>
+							)}
+						</PopperWrapper>
+					</Portal>
 				)}
 			</Manager>
 		</div>
@@ -543,23 +545,42 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 });
 
 export interface PopperWrapperProps {
+	triggerRef: HTMLDivElement | HTMLButtonElement | null;
 	settings: {
 		showFullPicker: boolean;
 		popperPlacement: Placement;
 	};
+	isOpen: boolean;
+	onClose: () => void;
 	popperModifiers?: PopperProps<{}>['modifiers'];
 }
 
 export const PopperWrapper = (props: PropsWithChildren<PopperWrapperProps>) => {
-	const { settings, children, popperModifiers } = props;
+	const { triggerRef, settings, isOpen, onClose, children, popperModifiers } = props;
 	const [popupRef, setPopupRef] = useState<HTMLDivElement | null>(null);
 	const { formatMessage } = useIntl();
 	/**
 	 * add focus lock to popup
 	 */
 	useFocusTrap({ initialFocusRef: null, targetRef: popupRef });
+
+	/**
+	 * Custom hook triggers when user clicks outside the reactions picker
+	 */
+	useCloseManagerV2(
+		popupRef,
+		triggerRef,
+		(callbackType) => {
+			onClose();
+			if (popupRef && callbackType === 'ESCAPE') {
+				requestAnimationFrame(() => triggerRef?.focus());
+			}
+		},
+		true,
+		isOpen,
+	);
 	return (
-		<Popper placement={settings.popperPlacement} modifiers={popperModifiers} strategy="absolute">
+		<Popper placement={settings.popperPlacement} modifiers={popperModifiers}>
 			{({ ref, style, update }) => {
 				return (
 					<div

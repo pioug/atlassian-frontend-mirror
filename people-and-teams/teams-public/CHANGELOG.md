@@ -1,5 +1,15 @@
 # @atlaskit/teams-public
 
+## 0.52.2
+
+### Patch Changes
+
+- [#198716](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/198716)
+  [`e08b5c9322b2e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e08b5c9322b2e) -
+  NO ISSUE Added isLoading check in getTeamWebLinks action to prevent parallel API calls when a
+  request is already in progress.
+- Updated dependencies
+
 ## 0.52.1
 
 ### Patch Changes

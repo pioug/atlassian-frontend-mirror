@@ -565,6 +565,7 @@ describe('SmartUserPicker', () => {
 
 			// expect on transformOptions to be called
 			expect(transformOptions).toHaveBeenCalledTimes(1);
+			expect(transformOptions).toHaveBeenCalledWith([], '');
 
 			expect(await screen.findByText(user3.name)).toBeInTheDocument();
 		});
@@ -595,7 +596,7 @@ describe('SmartUserPicker', () => {
 
 			// expect transformOptions to be called first
 			expect(transformOptions).toHaveBeenCalledTimes(1);
-			expect(transformOptions).toHaveBeenCalledWith([]);
+			expect(transformOptions).toHaveBeenCalledWith([], '');
 
 			// expect onEmpty to be called since transformOptions returned empty array
 			expect(onEmpty).toHaveBeenCalledTimes(1);
@@ -636,7 +637,7 @@ describe('SmartUserPicker', () => {
 
 			// expect transformOptions to be called
 			expect(transformOptions).toHaveBeenCalledTimes(1);
-			expect(transformOptions).toHaveBeenCalledWith([]);
+			expect(transformOptions).toHaveBeenCalledWith([], '');
 
 			// expect onEmpty NOT to be called since transformOptions returned non-empty array
 			expect(onEmpty).toHaveBeenCalledTimes(0);
@@ -670,6 +671,35 @@ describe('SmartUserPicker', () => {
 			for (const option of mockReturnOptions) {
 				expect(await screen.findByText(option.name)).toBeInTheDocument();
 			}
+		});
+
+		it('should pass query parameter to transformOptions', async () => {
+			getUserRecommendationsMock.mockReturnValue(Promise.resolve([]));
+
+			const user3: OptionData = {
+				id: 'user3',
+				name: 'user3',
+				type: 'user',
+			};
+
+			const transformOptions = jest.fn(() => Promise.resolve([user3]));
+
+			renderSmartUserPicker({
+				transformOptions,
+			});
+
+			// trigger on focus and type
+			const input = screen.getByRole('combobox');
+			await userEvent.click(input);
+			await userEvent.type(input, 'test query');
+
+			// expect load items from server, called for each character typed
+			expect(getUserRecommendationsMock).toHaveBeenCalledTimes(11);
+
+			// expect transformOptions to be called with the query matching the input
+			expect(transformOptions).toHaveBeenCalledWith([], 'test query');
+
+			expect(await screen.findByText(user3.name)).toBeInTheDocument();
 		});
 
 		describe('filterOptions', () => {

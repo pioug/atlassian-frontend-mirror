@@ -297,6 +297,7 @@ export const createPlugin =
 						onClickCallback,
 						allowDatasource: options.allowDatasource,
 						inlineCardViewProducer,
+						isPageSSRed,
 						CompetitorPrompt: options.CompetitorPrompt,
 					}),
 					embedCard: lazyEmbedCardView({
@@ -306,6 +307,7 @@ export const createPlugin =
 						pluginInjectionApi,
 						actionOptions,
 						onClickCallback: options.onClickCallback,
+						isPageSSRed,
 						CompetitorPrompt: options.CompetitorPrompt,
 					}),
 				},

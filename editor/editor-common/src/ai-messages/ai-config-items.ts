@@ -455,4 +455,15 @@ export const aiConfigItemMessages = defineMessages({
 		description:
 			'Title for Atlassian Intelligence "Summarize writing" in editor selection floating toolbar',
 	},
+	addPolishTitle: {
+		id: 'fabric.editor.ai.config.item.addPolish.title',
+		defaultMessage: 'Add polish',
+		description:
+			'Describes an option to use Atlassian Intelligence to polish the content currently selected by the user',
+	},
+	addPolishDescription: {
+		id: 'fabric.editor.ai.config.item.addPolish.description',
+		defaultMessage: 'Polishes the content to make it more polished',
+		description: 'Description for the the Atlassian Intelligence "Add polish".',
+	},
 });

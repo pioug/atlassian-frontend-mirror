@@ -27,8 +27,13 @@ export const TrackChangesToolbarButton = ({ api }: TrackChangesToolbarButtonProp
 	const { formatMessage } = useIntl();
 
 	const handleClick = React.useCallback(() => {
-		api?.core.actions.execute(api?.trackChanges.commands.toggleChanges);
-	}, [api?.trackChanges?.commands, api?.core.actions]);
+		const wasShowingDiffSelected = isDisplayingChanges;
+		const result = api?.core.actions.execute(api?.trackChanges?.commands.toggleChanges);
+		// On de-selection - focus back on the editor
+		if (result && wasShowingDiffSelected) {
+			api?.core.actions.focus();
+		}
+	}, [api, isDisplayingChanges]);
 
 	return (
 		<IconButton

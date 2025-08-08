@@ -7,14 +7,28 @@ import BreadcrumbsExpandable, {
 import BreadcrumbsTruncation from '../../../../examples/11-truncation';
 import BreadcrumbsWithElementToSide from '../../../../examples/14-with-element-next-to-breadcrumbs';
 import BreadcrumbsWithIcons from '../../../../examples/4-icons';
-import BreadcrumbsWithMarkup from '../../../../examples/5-with-markup';
 import BreadcrumbsWithManyItems from '../../../../examples/7-many-in-container';
 
-snapshot(BreadcrumbsBasic, { description: 'basic' });
+snapshot(BreadcrumbsBasic, {
+	description: 'basic',
+	featureFlags: {
+		platform_dst_breadcrumbs_step_conversion: [true, false],
+	},
+});
 
-snapshot(BreadcrumbsExpandable, { description: 'collapsed' });
+snapshot(BreadcrumbsExpandable, {
+	description: 'collapsed',
+	featureFlags: {
+		platform_dst_breadcrumbs_step_conversion: [true, false],
+	},
+});
 
-snapshot(BreadcrumbsExpandableDefaultIsExpanded, { description: 'expanded' });
+snapshot(BreadcrumbsExpandableDefaultIsExpanded, {
+	description: 'expanded',
+	featureFlags: {
+		platform_dst_breadcrumbs_step_conversion: [true, false],
+	},
+});
 
 snapshot(BreadcrumbsTruncation, {
 	description: 'truncation tooltip',
@@ -31,14 +45,28 @@ snapshot(BreadcrumbsTruncation, {
 			},
 		},
 	],
+	featureFlags: {
+		platform_dst_breadcrumbs_step_conversion: [true, false],
+	},
 });
 
-snapshot(BreadcrumbsWithIcons, { description: 'with icons' });
+snapshot(BreadcrumbsWithIcons, {
+	description: 'with icons',
+	featureFlags: {
+		platform_dst_breadcrumbs_step_conversion: [true, false],
+	},
+});
 
-// The value of this test seems a bit questionable, consider deleting
-// or replacing with a unit test
-snapshot(BreadcrumbsWithMarkup, { description: 'with markup' });
+snapshot(BreadcrumbsWithManyItems, {
+	description: 'with many items',
+	featureFlags: {
+		platform_dst_breadcrumbs_step_conversion: [true, false],
+	},
+});
 
-snapshot(BreadcrumbsWithManyItems, { description: 'with many items' });
-
-snapshot(BreadcrumbsWithElementToSide, { description: 'with elements to side' });
+snapshot(BreadcrumbsWithElementToSide, {
+	description: 'with elements to side',
+	featureFlags: {
+		platform_dst_breadcrumbs_step_conversion: [true, false],
+	},
+});

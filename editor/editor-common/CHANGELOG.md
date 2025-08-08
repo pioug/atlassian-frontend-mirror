@@ -1,5 +1,49 @@
 # @atlaskit/editor-common
 
+## 107.20.1
+
+### Patch Changes
+
+- [`b13c372cb68dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b13c372cb68dd) -
+  ENGHEALTH-32424 Remove unnecessary aria-disabled and tabIndex attributes and add menuitem to
+  dropdown items"
+- Updated dependencies
+
+## 107.20.0
+
+### Minor Changes
+
+- [`13a1ad07bb39e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/13a1ad07bb39e) -
+  [ux] EDITOR-1146 | EDITOR-1176 Introduce `blockTaskItem` node to Renderer and Editor
+  `editor-plugin-tasks-and-decisions` which adopts the same code and functionality as the regular
+  `taskItem` except that it allows block content such as extensions to be inserted. This is to
+  facilitate TinyMCE migration which requires usage of the Legacy Content Extension.
+- [`b1b6e81334583`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b1b6e81334583) -
+  EDITOR-1305 Added polish prompt.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 107.19.2
+
+### Patch Changes
+
+- [`428e4e6ff8ac9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/428e4e6ff8ac9) -
+  [ux] ED-28683 register text styles dropdown to new toolbar. add `@atlaskit/editor-plugin-toolbar`,
+  `@atlaskit-editor-toolbar`, `@atlaskit/editor-toolbar-model`, `@atlaskit/css` as dependencies
+- [#197017](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/197017)
+  [`5ef01d09bada1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5ef01d09bada1) -
+  [ux] ED-28687 [Register] Text colour + highlight
+- Updated dependencies
+
+## 107.19.1
+
+### Patch Changes
+
+- [`f681ff4b37a3d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f681ff4b37a3d) -
+  [ux] ED-28752 register link button to new toolbar behind platform_editor_toolbar_aifc
+
 ## 107.19.0
 
 ### Minor Changes

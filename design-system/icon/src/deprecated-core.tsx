@@ -3,13 +3,21 @@
  *
  * To change the format of this file, modify `createDeprecatedIconDocs` in icon-build-process/src/create-deprecated-icon-docs.tsx.
  *
- * @codegen <<SignedSource::6fe834feca147a0994d74342ff3874db>>
+ * @codegen <<SignedSource::804908d3809623929b0f025db7735c8f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 const deprecatedIcons: Record<string, { message: string; unfixable?: boolean }> = {
 	'@atlaskit/icon/core/capture': {
 		message:
 			'The icon "capture" is deprecated in favour of "focus-area" from “@atlaskit/icon/core”',
+	},
+	'@atlaskit/icon/core/chart-matrix': {
+		message:
+			'The icon "chart-matrix" is deprecated in favour of "chart-bubble" from “@atlaskit/icon/core”',
+	},
+	'@atlaskit/icon/core/chart-trend': {
+		message:
+			'The icon "chart-trend" is deprecated in favour of "chart-trend-up" from “@atlaskit/icon/core”',
 	},
 	'@atlaskit/icon/core/close': {
 		message: 'The icon "close" is deprecated in favour of "cross" from “@atlaskit/icon/core”',
@@ -25,6 +33,9 @@ const deprecatedIcons: Record<string, { message: string; unfixable?: boolean }> 
 	'@atlaskit/icon/core/information': {
 		message:
 			'The icon "information" is deprecated in favour of "status-information" from “@atlaskit/icon/core”',
+	},
+	'@atlaskit/icon/core/spreadsheet': {
+		message: 'The icon "spreadsheet" is deprecated in favour of "table" from “@atlaskit/icon/core”',
 	},
 	'@atlaskit/icon/core/success': {
 		message:

@@ -234,6 +234,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 			searchQueryFilter,
 		};
 		try {
+			const { query } = this.state;
 			this.fireEvent(requestUsersEvent);
 			const recommendedUsers = await getUserRecommendations(recommendationsRequest, intl);
 
@@ -248,7 +249,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 			const elapsedTimeMilli = window.performance.now() - startTime;
 
 			const transformedOptions = transformOptions
-				? await transformOptions(recommendedUsers)
+				? await transformOptions(recommendedUsers, query)
 				: recommendedUsers;
 
 			const displayedUsers =

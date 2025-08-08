@@ -4,6 +4,7 @@ import { defineMessages, useIntl } from 'react-intl-next';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/new';
+import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline, xcss } from '@atlaskit/primitives';
 import { AgentDropdownMenu, ChatPillIcon } from '@atlaskit/rovo-agent-components';
@@ -75,10 +76,13 @@ export const AgentActions = ({
 
 	const loadAgentPermissions = useCallback(async () => {
 		const {
-			permissions: { AGENT_UPDATE, AGENT_DEACTIVATE },
+			permissions: { AGENT_CREATE, AGENT_UPDATE, AGENT_DEACTIVATE },
 		} = await resourceClient.getRovoAgentPermissions(agent.id);
 
 		return {
+			...(fg('agent_studio_fe_permissions_settings_m1') && {
+				isCreateEnabled: AGENT_CREATE.permitted,
+			}),
 			isEditEnabled: AGENT_UPDATE.permitted,
 			isDeleteEnabled: AGENT_DEACTIVATE.permitted,
 		};

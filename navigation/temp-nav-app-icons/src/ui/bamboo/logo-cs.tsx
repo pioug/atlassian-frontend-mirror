@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1e640ac868123a0ac4239786c4668dbf>>
+ * @codegen <<SignedSource::4be588a359814839f3a38a10b8622b63>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -24,11 +24,16 @@ const svg = `<svg height="100%" viewBox="0 0 154 32">
  * A temporary component to represent the logo for Bamboo.
  *
  */
-export function BambooLogoCS({ size, appearance = 'brand', label, testId }: AppLogoProps) {
+export function BambooLogoCS({
+	size,
+	appearance = 'brand',
+	label = 'Bamboo',
+	testId,
+}: AppLogoProps) {
 	return (
 		<LogoWrapper
 			svg={svg}
-			label={label || 'Bamboo'}
+			label={label}
 			isDataCenter={true}
 			appearance={appearance}
 			size={size}

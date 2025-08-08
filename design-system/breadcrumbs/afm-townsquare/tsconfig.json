@@ -30,10 +30,16 @@
 			"path": "../../button/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../css/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../ds-lib/afm-townsquare/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../primitives/afm-townsquare/tsconfig.json"
 		},
 		{
 			"path": "../../theme/afm-townsquare/tsconfig.json"

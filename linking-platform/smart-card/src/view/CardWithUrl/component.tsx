@@ -33,6 +33,8 @@ import { InlineCard } from '../InlineCard';
 
 import { type CardWithUrlContentProps } from './types';
 
+const thirdPartyARIPrefix = 'ari:third-party';
+
 function Component({
 	id,
 	url,
@@ -91,6 +93,29 @@ function Component({
 				definitionId: definitionId ?? null,
 				isModifierKeyPressed,
 			});
+
+			if (fg('platform_smartlink_3pclick_analytics')) {
+				if (ari && ari.startsWith(thirdPartyARIPrefix)) {
+					const sourceURL = window.location.href;
+					const clickURL = getClickUrl(url, state.details);
+					if (clickURL === url) {
+						// For questions or concerns about this event,
+						// please reach out to the 3P Workflows Team via Slack in #help-3p-connector-workflow
+						const smartlinkClickAnalyticsEvent = createAnalyticsEvent({
+							action: 'clicked',
+							actionSubject: 'smartLink',
+							actionSubjectId: 'smartlinkClickAnalyticsWorkflows',
+							eventType: 'ui',
+							attributes: {},
+							nonPrivacySafeAttributes: {
+								sourceURL: sourceURL,
+								thirdPartyARI: ari,
+							},
+						});
+						smartlinkClickAnalyticsEvent.fire();
+					}
+				}
+			}
 
 			// If preview panel is available and the user clicked on the link,
 			// delegate the click to the preview panel handler

@@ -102,6 +102,7 @@ import {
 	taskDecisionIconWithoutVisualRefresh as decisionIconWithoutVisualRefresh,
 	taskDecisionIconWithVisualRefresh as decisionIconWithVisualRefresh,
 	taskItemStyles,
+	taskItemStylesWithBlockTaskItem,
 } from './tasks-and-decisions';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
@@ -586,7 +587,9 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
 		: findReplaceStyles}
   ${textHighlightStyle}
   ${taskDecisionStyles}
-	${taskItemStyles}
+	${expValEqualsNoExposure('platform_editor_blocktaskitem_node', 'isEnabled', true)
+		? taskItemStylesWithBlockTaskItem
+		: taskItemStyles}
   /* Switch between the two icons based on the visual refresh feature gate */
 	${fg('platform-visual-refresh-icons') && decisionIconWithVisualRefresh}
 	${!fg('platform-visual-refresh-icons') && decisionIconWithoutVisualRefresh}

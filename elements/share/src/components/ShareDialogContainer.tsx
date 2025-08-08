@@ -36,6 +36,8 @@ import {
 	CHANNEL_ID,
 	copyLinkButtonClicked,
 	errorEncountered,
+	shareConfigurationLoaded,
+	shareConfigurationLoadFailed,
 	shortUrlGenerated,
 	shortUrlRequested,
 } from './analytics/analytics';
@@ -132,6 +134,7 @@ export class ShareDialogContainerInternal extends React.Component<
 	};
 
 	fetchConfig = () => {
+		const startTime = Date.now();
 		this.setState(
 			{
 				isFetchingConfig: true,
@@ -147,6 +150,15 @@ export class ShareDialogContainerInternal extends React.Component<
 						});
 					}
 					renderShareDialogExp.success();
+
+					if (fg('jira-warepil-track-sharing-to-email-disabled')) {
+						this.createAndFireEvent(
+							shareConfigurationLoaded({
+								disableSharingToEmails: config.disableSharingToEmails,
+								durationMs: Date.now() - startTime,
+							}),
+						);
+					}
 				} catch (error: any) {
 					if (this._isMounted) {
 						this.setState({
@@ -162,6 +174,15 @@ export class ShareDialogContainerInternal extends React.Component<
 					}
 
 					isValidFailedExperience(renderShareDialogExp, errObj);
+
+					if (fg('jira-warepil-track-sharing-to-email-disabled')) {
+						this.createAndFireEvent(
+							shareConfigurationLoadFailed({
+								statusCode: error.code || error.status || error.statusCode,
+								durationMs: Date.now() - startTime,
+							}),
+						);
+					}
 				}
 			},
 		);

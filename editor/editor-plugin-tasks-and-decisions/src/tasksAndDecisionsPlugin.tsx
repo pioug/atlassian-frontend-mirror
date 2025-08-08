@@ -14,8 +14,9 @@ import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model'
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import { taskItemNodeSpec } from './nodeviews/taskItemNodeSpec';
+import { taskItemNodeSpec, blockTaskItemNodeSpec } from './nodeviews/taskItemNodeSpec';
 import { decisionItemSpecWithFixedToDOM } from './nodeviews/toDOM-fixes/decisionItem';
 import {
 	closeRequestEditPopupAt,
@@ -148,6 +149,9 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 					node: taskList,
 				},
 				{ name: 'taskItem', node: taskItemNodeSpec() },
+				...(expValEquals('platform_editor_blocktaskitem_node', 'isEnabled', true)
+					? [{ name: 'blockTaskItem', node: blockTaskItemNodeSpec() }]
+					: []),
 			];
 		},
 

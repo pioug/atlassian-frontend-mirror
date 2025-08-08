@@ -7,6 +7,7 @@ export {
 	block_content,
 	blockRootOnly,
 	blockquote,
+	blockTaskItem,
 	bodiedExtension,
 	bodiedExtension_with_marks,
 	border,

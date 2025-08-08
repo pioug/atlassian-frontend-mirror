@@ -1,5 +1,12 @@
 # @atlaskit/radio
 
+## 8.2.0
+
+### Minor Changes
+
+- [`8f13376aa76a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f13376aa76a6) -
+  Add `labelId` prop to allow referencing of external elements for the accessible name.
+
 ## 8.1.8
 
 ### Patch Changes

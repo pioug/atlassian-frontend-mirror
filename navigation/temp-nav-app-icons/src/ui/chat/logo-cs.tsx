@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9ae61655109a1084352bdf7dfc1be0f3>>
+ * @codegen <<SignedSource::f10c9ed117b987aa620e842ad4c67da2>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -23,14 +23,8 @@ const svg = `<svg height="100%" viewBox="0 0 102 32">
  * A temporary component to represent the logo for Chat.
  *
  */
-export function ChatLogoCS({ size, appearance = 'brand', label, testId }: AppLogoProps) {
+export function ChatLogoCS({ size, appearance = 'brand', label = 'Chat', testId }: AppLogoProps) {
 	return (
-		<LogoWrapper
-			svg={svg}
-			label={label || 'Chat'}
-			appearance={appearance}
-			size={size}
-			testId={testId}
-		/>
+		<LogoWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);
 }

@@ -4,6 +4,7 @@ import BasicAvatarGroup from '../../../../examples/02-basic-avatar-group';
 import BorderColorExample from '../../../../examples/03-avatar-group-border-color';
 import AvatarGroupPlayground from '../../../../examples/10-avatar-group-playground';
 import OverridesMoreIndicatorExample from '../../../../examples/30-overrides-more-indicator';
+import AvatarGroupSizeExample from '../../../../examples/vr-avatar-group-sizes';
 import VRStackingContextExample from '../../../../examples/vr-stacking-context';
 
 snapshot(BasicAvatarGroup, {
@@ -21,6 +22,20 @@ snapshot(BasicAvatarGroup, {
 			},
 		},
 	],
+});
+
+snapshot(AvatarGroupSizeExample, {
+	variants: [
+		{
+			name: 'light mode',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+	featureFlags: {
+		'platform-avatar-group-spacing-fix': [true, false],
+	},
 });
 
 snapshot(AvatarGroupPlayground, {

@@ -39,7 +39,7 @@ import {
 	getStepUGCFreeDetails,
 	sleep,
 } from '../helpers/utils';
-import { SINGLE_COLLAB_MODE, type ParticipantsService } from '../participants/participants-service';
+import { type ParticipantsService } from '../participants/participants-service';
 import { MAX_STEP_REJECTED_ERROR, MAX_STEP_REJECTED_ERROR_AGGRESSIVE } from '../provider';
 import { CommitStepService } from '../provider/commit-step';
 import { CantSyncUpError, UpdateDocumentError } from '../errors/custom-errors';
@@ -1067,20 +1067,18 @@ export class DocumentService implements DocumentServiceInterface {
 		reason?: GetResolvedEditorStateReason, // only used for publish and draft-sync events - when called through getFinalAcknowledgedState
 	) {
 		const offlineEditingEnabled = editorExperiment('platform_editor_offline_editing_web', true);
-		const singlePlayerStepMergingEnabled = expValEquals(
+		const onlineStepMergingEnabled = expValEquals(
 			'platform_editor_enable_single_player_step_merging',
 			'isEnabled',
 			true,
 		);
 
 		// Don't send any steps before we're ready.
-		if (offlineEditingEnabled || singlePlayerStepMergingEnabled) {
-			const enableStepsMergingForSinglePlayer =
-				singlePlayerStepMergingEnabled &&
-				!this.commitStepService.getReadyToCommitStatus() &&
-				this.participantsService.getCollabMode() === SINGLE_COLLAB_MODE;
+		if (offlineEditingEnabled || onlineStepMergingEnabled) {
+			const enableOnlineStepMerging =
+				onlineStepMergingEnabled && !this.commitStepService.getReadyToCommitStatus();
 
-			if (!this.getConnected() || enableStepsMergingForSinglePlayer) {
+			if (!this.getConnected() || enableOnlineStepMerging) {
 				return;
 			}
 		}
@@ -1089,7 +1087,7 @@ export class DocumentService implements DocumentServiceInterface {
 		if (!unconfirmedStepsData) {
 			return;
 		}
-		if (offlineEditingEnabled || singlePlayerStepMergingEnabled) {
+		if (offlineEditingEnabled || onlineStepMergingEnabled) {
 			this.lockStepOrigins(unconfirmedStepsData.origins);
 		}
 

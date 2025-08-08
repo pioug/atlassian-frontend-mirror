@@ -17,6 +17,7 @@ import type {
 } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, DecorationSet, type EditorView } from '@atlaskit/editor-prosemirror/view';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { DecisionItemNodeView } from '../nodeviews/DecisionItemNodeView';
 import { taskView } from '../nodeviews/task-node-view';
@@ -74,6 +75,9 @@ export function createPlugin(
 				decisionItem: ((node) => {
 					return new DecisionItemNodeView(node, getIntl());
 				}) satisfies NodeViewConstructor,
+				...(expValEquals('platform_editor_blocktaskitem_node', 'isEnabled', true)
+					? { blockTaskItem: taskView(api, getIntl(), taskPlaceholder) }
+					: {}),
 			},
 			decorations(state) {
 				const pluginState = stateKey.getState(state);

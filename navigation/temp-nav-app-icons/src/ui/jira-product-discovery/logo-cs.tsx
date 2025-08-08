@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c717e345844b038535f958bda3516e1e>>
+ * @codegen <<SignedSource::21e7556cd73294fd9a2b8ada6433a2bb>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -26,16 +26,10 @@ const svg = `<svg height="100%" viewBox="0 0 327 32">
 export function JiraProductDiscoveryLogoCS({
 	size,
 	appearance = 'brand',
-	label,
+	label = 'Jira Product Discovery',
 	testId,
 }: AppLogoProps) {
 	return (
-		<LogoWrapper
-			svg={svg}
-			label={label || 'Jira Product Discovery'}
-			appearance={appearance}
-			size={size}
-			testId={testId}
-		/>
+		<LogoWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);
 }

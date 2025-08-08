@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-block-type
 
+## 6.2.0
+
+### Minor Changes
+
+- [`428e4e6ff8ac9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/428e4e6ff8ac9) -
+  [ux] ED-28683 register text styles dropdown to new toolbar. add `@atlaskit/editor-plugin-toolbar`,
+  `@atlaskit-editor-toolbar`, `@atlaskit/editor-toolbar-model`, `@atlaskit/css` as dependencies
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.1.3
 
 ### Patch Changes

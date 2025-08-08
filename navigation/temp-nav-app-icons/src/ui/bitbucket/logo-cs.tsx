@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ff6ee7d6bd1e5c6b03988cd33913e686>>
+ * @codegen <<SignedSource::d54637b0b2f479c52492d2d0abf8bb82>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -23,14 +23,13 @@ const svg = `<svg height="100%" viewBox="0 0 166 32">
  * A temporary component to represent the logo for Bitbucket.
  *
  */
-export function BitbucketLogoCS({ size, appearance = 'brand', label, testId }: AppLogoProps) {
+export function BitbucketLogoCS({
+	size,
+	appearance = 'brand',
+	label = 'Bitbucket',
+	testId,
+}: AppLogoProps) {
 	return (
-		<LogoWrapper
-			svg={svg}
-			label={label || 'Bitbucket'}
-			appearance={appearance}
-			size={size}
-			testId={testId}
-		/>
+		<LogoWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);
 }

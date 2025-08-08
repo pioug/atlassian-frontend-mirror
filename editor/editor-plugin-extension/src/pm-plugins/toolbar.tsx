@@ -30,6 +30,7 @@ import DeleteIcon from '@atlaskit/icon/core/delete';
 import ExpandHorizontalIcon from '@atlaskit/icon/core/expand-horizontal';
 import EditIcon from '@atlaskit/icon/core/migration/edit--editor-edit';
 import type { NewCoreIconProps } from '@atlaskit/icon/types';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { editExtension } from '../editor-actions/actions';
@@ -305,6 +306,9 @@ const editButton = (
 			tabIndex: null,
 			focusEditoronEnter: true,
 			disabled: isDisabled,
+			isRadioButton: expValEquals('platform_editor_august_a11y', 'isEnabled', true)
+				? false
+				: undefined,
 		},
 	];
 

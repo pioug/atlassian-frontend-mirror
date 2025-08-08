@@ -379,7 +379,7 @@ const AvatarGroup = ({
 	const Group = appearance === 'stack' ? Stack : Grid;
 
 	return (
-		<Group testId={testId && `${testId}--avatar-group`} aria-label={label}>
+		<Group testId={testId && `${testId}--avatar-group`} aria-label={label} size={size}>
 			{data.slice(0, maxAvatar).map((avatarData, idx) => {
 				const callback = avatarData.onClick || onAvatarClick;
 				const finalAvatar = getOverrides(overrides).Avatar.render(

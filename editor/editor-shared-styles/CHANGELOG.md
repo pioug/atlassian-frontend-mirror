@@ -1,5 +1,13 @@
 # @atlaskit/editor-shared-styles
 
+## 3.6.0
+
+### Minor Changes
+
+- [#197477](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/197477)
+  [`48c9b1edbf876`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/48c9b1edbf876) -
+  Include additional color mappings for SVG backgrounds
+
 ## 3.5.3
 
 ### Patch Changes

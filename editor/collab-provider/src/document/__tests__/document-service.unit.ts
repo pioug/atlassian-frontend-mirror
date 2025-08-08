@@ -1333,7 +1333,7 @@ describe('document-service', () => {
 		});
 	});
 
-	describe('does not commit for merging if single player and not ready to commit', () => {
+	describe('does not commit for merging if not ready to commit', () => {
 		eeTest('platform_editor_enable_single_player_step_merging', {
 			true: () => {
 				const { service, participantsServiceMock, commitStepServiceMock } = createMockService();
@@ -1350,28 +1350,6 @@ describe('document-service', () => {
 
 				(participantsServiceMock.getCollabMode as jest.Mock).mockReturnValue('single');
 				(commitStepServiceMock.getReadyToCommitStatus as jest.Mock).mockReturnValue(false);
-				(sendableSteps as jest.Mock).mockReturnValue({ steps: ['step1'], origins: ['step'] });
-				service.send(null, null, 'state' as any);
-
-				expect(commitStepServiceMock.commitStepQueue).toBeCalled();
-			},
-		});
-	});
-	describe('commits step if multi player mode', () => {
-		eeTest('platform_editor_enable_single_player_step_merging', {
-			true: () => {
-				const { service, participantsServiceMock, commitStepServiceMock } = createMockService();
-
-				(participantsServiceMock.getCollabMode as jest.Mock).mockReturnValue('collab');
-				(sendableSteps as jest.Mock).mockReturnValue({ steps: ['step1'], origins: ['step'] });
-				service.send(null, null, 'state' as any);
-
-				expect(commitStepServiceMock.commitStepQueue).toBeCalled();
-			},
-			false: () => {
-				const { service, participantsServiceMock, commitStepServiceMock } = createMockService();
-
-				(participantsServiceMock.getCollabMode as jest.Mock).mockReturnValue('collab');
 				(sendableSteps as jest.Mock).mockReturnValue({ steps: ['step1'], origins: ['step'] });
 				service.send(null, null, 'state' as any);
 

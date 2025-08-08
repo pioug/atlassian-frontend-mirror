@@ -1,5 +1,6 @@
 import { createHook, createStore } from 'react-sweet-state';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { teamsClient } from '@atlaskit/teams-client';
 
 import { type NewTeamWebLink } from '../../../common/types';
@@ -24,7 +25,15 @@ export const actions = {
 	getTeamWebLinks:
 		(teamId: string) =>
 		async ({ getState, setState, dispatch }: StoreApi) => {
-			const { links, teamId: currentTeamId } = getState();
+			const { links, teamId: currentTeamId, hasLoaded, isLoading } = getState();
+
+			if (
+				(isLoading || (teamId === currentTeamId && hasLoaded && links.length > 0)) &&
+				fg('prevent_parallel_team_web_links_fetch')
+			) {
+				return;
+			}
+
 			const initialLinks = teamId === currentTeamId ? links : [];
 
 			setState({

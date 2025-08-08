@@ -70,9 +70,6 @@ const styles = cssMap({
 		position: 'sticky',
 		insetBlockStart: token('space.150', '12px'),
 	},
-	hidden: {
-		display: 'none',
-	},
 	legacyPositionedSibling: {
 		position: 'absolute',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766

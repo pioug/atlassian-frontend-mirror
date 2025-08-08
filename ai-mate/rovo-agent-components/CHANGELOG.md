@@ -1,5 +1,12 @@
 # @atlaskit/rovo-agent-components
 
+## 3.1.0
+
+### Minor Changes
+
+- [`44102fe3bc0dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/44102fe3bc0dd) -
+  [ux] Hiding agent duplicate entrypoints when user does not have rovo agent create permissions
+
 ## 3.0.1
 
 ### Patch Changes

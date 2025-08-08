@@ -12,6 +12,7 @@ import { css, jsx } from '@emotion/react';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import type { CustomItemComponentProps } from '@atlaskit/menu';
 import { CustomItem, MenuGroup, Section } from '@atlaskit/menu';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 import type { PositionType } from '@atlaskit/tooltip';
@@ -378,20 +379,37 @@ export function DropdownMenuItem({
 	// From time to time we don't want to have any tabIndex on item wrapper
 	// especially when we pass any interactive element as a item.content
 	const tabIndex = item.wrapperTabIndex === null ? undefined : item.wrapperTabIndex || -1;
-
 	const dropListItem = (
 		// eslint-disable-next-line jsx-a11y/no-static-element-interactions
 		<div
 			css={() => buttonStyles(item.isActive, submenuActive)}
+			role={
+				expValEquals('platform_editor_august_a11y', 'isEnabled', true)
+					? shouldUseDefaultRole
+						? undefined
+						: 'menuitem'
+					: undefined
+			}
 			tabIndex={tabIndex}
 			aria-disabled={item.isDisabled ? 'true' : 'false'}
+			aria-expanded={
+				expValEquals('platform_editor_august_a11y', 'isEnabled', true)
+					? item['aria-expanded']
+					: undefined
+			}
 			onMouseDown={_handleSubmenuActive}
 		>
 			<CustomItem
 				item={item}
 				key={item.key ?? String(item.content)}
 				testId={testId}
-				role={shouldUseDefaultRole ? 'button' : 'menuitem'}
+				role={
+					shouldUseDefaultRole
+						? 'button'
+						: expValEquals('platform_editor_august_a11y', 'isEnabled', true)
+							? undefined
+							: 'menuitem'
+				}
 				iconBefore={item.elemBefore}
 				iconAfter={item.elemAfter}
 				isDisabled={item.isDisabled}
@@ -405,7 +423,11 @@ export function DropdownMenuItem({
 				component={DropdownMenuItemCustomComponent}
 				onMouseEnter={() => onMouseEnter && onMouseEnter({ item })}
 				onMouseLeave={() => onMouseLeave && onMouseLeave({ item })}
-				aria-expanded={item['aria-expanded']}
+				aria-expanded={
+					expValEquals('platform_editor_august_a11y', 'isEnabled', true)
+						? undefined
+						: item['aria-expanded']
+				}
 			>
 				{item.content}
 			</CustomItem>

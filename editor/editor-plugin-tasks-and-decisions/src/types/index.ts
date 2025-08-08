@@ -1,4 +1,8 @@
-import type { DecisionItemDefinition, TaskItemDefinition } from '@atlaskit/adf-schema';
+import type {
+	BlockTaskItemDefinition,
+	DecisionItemDefinition,
+	TaskItemDefinition,
+} from '@atlaskit/adf-schema';
 import type { INPUT_METHOD, USER_CONTEXT } from '@atlaskit/editor-common/analytics';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import type { LongPressSelectionPluginOptions } from '@atlaskit/editor-common/types';
@@ -24,7 +28,8 @@ export type ContextData = {
 
 export type AddItemAttrs =
 	| Partial<DecisionItemDefinition['attrs']>
-	| Partial<TaskItemDefinition['attrs']>;
+	| Partial<TaskItemDefinition['attrs']>
+	| Partial<BlockTaskItemDefinition['attrs']>;
 
 export type AddItemTransactionCreator = (opts: {
 	state: EditorState;

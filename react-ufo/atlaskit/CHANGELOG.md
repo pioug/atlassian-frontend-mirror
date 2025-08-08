@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.2.1
+
+### Patch Changes
+
+- [`e4fd6ff836b97`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e4fd6ff836b97) -
+  Update `error` selector return by TTVC offenders reporting
+
 ## 4.2.0
 
 ### Minor Changes

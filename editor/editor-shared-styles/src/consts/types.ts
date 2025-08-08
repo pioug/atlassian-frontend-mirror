@@ -5,4 +5,5 @@ export type EditorTheme = {
 export type ParticipantColor = {
 	textColor: string;
 	backgroundColor: string;
+	svgBackgroundColor: string;
 };

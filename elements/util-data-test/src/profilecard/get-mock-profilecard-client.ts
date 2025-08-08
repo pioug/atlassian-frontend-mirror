@@ -138,6 +138,9 @@ export function simpleMockProfilecardClient(props?: ProfileCardClientProps): Pro
 		getRovoAgentPermissions: () => {
 			return Promise.resolve({
 				permissions: {
+					AGENT_CREATE: {
+						permitted: true,
+					},
 					AGENT_UPDATE: {
 						permitted: true,
 					},

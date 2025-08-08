@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3f68d5dd0522c15e377172566af4a161>>
+ * @codegen <<SignedSource::0681058b5d17f20f830a057d776b5aa3>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -24,14 +24,8 @@ const svg = `<svg height="100%" viewBox="0 0 116 32">
  * A temporary component to represent the logo for Goals.
  *
  */
-export function GoalsLogoCS({ size, appearance = 'brand', label, testId }: AppLogoProps) {
+export function GoalsLogoCS({ size, appearance = 'brand', label = 'Goals', testId }: AppLogoProps) {
 	return (
-		<LogoWrapper
-			svg={svg}
-			label={label || 'Goals'}
-			appearance={appearance}
-			size={size}
-			testId={testId}
-		/>
+		<LogoWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);
 }

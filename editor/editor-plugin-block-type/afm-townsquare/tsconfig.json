@@ -23,6 +23,9 @@
 	],
 	"references": [
 		{
+			"path": "../../../design-system/css/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-analytics/afm-townsquare/tsconfig.json"
 		},
 		{
@@ -32,10 +35,19 @@
 			"path": "../../editor-plugin-selection-toolbar/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-toolbar/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../editor-shared-styles/afm-townsquare/tsconfig.json"
 		},
 		{
 			"path": "../../editor-tables/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar-model/afm-townsquare/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/icon/afm-townsquare/tsconfig.json"

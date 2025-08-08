@@ -40,4 +40,5 @@ export type MediaInsertPickerProps = Pick<
 	insertExternalMediaSingle: InsertExternalMediaSingle;
 	insertFile: InsertFile;
 	isOnlyExternalLinks: MediaInsertPluginConfig['isOnlyExternalLinks'];
+	isUrlValidationOff: MediaInsertPluginConfig['isUrlValidationOff'];
 };

@@ -1,5 +1,23 @@
 # @atlassian/navigation-system
 
+## 0.177.3
+
+### Patch Changes
+
+- [#197413](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/197413)
+  [`6909340c54a0b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6909340c54a0b) -
+  Minor internal refactor to cleanup unused styles. No external impact.
+- Updated dependencies
+
+## 0.177.2
+
+### Patch Changes
+
+- [#198583](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/198583)
+  [`eaabec48bbfdc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eaabec48bbfdc) -
+  Minor internal refactor to AppLogo to remove a component prop that was unused.
+- Updated dependencies
+
 ## 0.177.1
 
 ### Patch Changes

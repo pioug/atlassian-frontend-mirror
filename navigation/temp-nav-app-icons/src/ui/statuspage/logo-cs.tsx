@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ab0aec0fed561f9241cb75a80a219959>>
+ * @codegen <<SignedSource::336995adb994a3066957c7690d8c9207>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -23,14 +23,13 @@ const svg = `<svg height="100%" viewBox="0 0 192 32">
  * A temporary component to represent the logo for Statuspage.
  *
  */
-export function StatuspageLogoCS({ size, appearance = 'brand', label, testId }: AppLogoProps) {
+export function StatuspageLogoCS({
+	size,
+	appearance = 'brand',
+	label = 'Statuspage',
+	testId,
+}: AppLogoProps) {
 	return (
-		<LogoWrapper
-			svg={svg}
-			label={label || 'Statuspage'}
-			appearance={appearance}
-			size={size}
-			testId={testId}
-		/>
+		<LogoWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);
 }

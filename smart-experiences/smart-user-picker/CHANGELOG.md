@@ -1,5 +1,13 @@
 # @atlassian/smart-user-picker
 
+## 8.1.0
+
+### Minor Changes
+
+- [`101f35dfba2ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/101f35dfba2ae) -
+  add an optional second param to transformOptions to make the query string available to
+  transformOptions callbacks, similar to filterOptions
+
 ## 8.0.1
 
 ### Patch Changes

@@ -1,5 +1,26 @@
 # @atlaskit/smart-card
 
+## 40.8.0
+
+### Minor Changes
+
+- [#198611](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/198611)
+  [`a608f23cb3d4e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a608f23cb3d4e) -
+  [https://product-fabric.atlassian.net/browse/ED-28628](ED-28628) - add SSR support for smart cards
+
+### Patch Changes
+
+- Updated dependencies
+
+## 40.7.3
+
+### Patch Changes
+
+- [`e6f659fcbc13b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e6f659fcbc13b) -
+  Add smartlinks click analytics managed by 3P Workflows Team
+- [`ec543e641c64f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec543e641c64f) -
+  [ux] NAVX-1064 cleaning up platform-linking-fix-smart-card-avatar-overrides
+
 ## 40.7.2
 
 ### Patch Changes

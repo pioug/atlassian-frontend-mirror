@@ -8,6 +8,7 @@ import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugin-selection-toolbar';
 import type { TextFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
+import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import type { UserPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences';
 
 import type { HighlightPluginState } from './pm-plugins/main';
@@ -22,6 +23,7 @@ export type HighlightPlugin = NextEditorPlugin<
 			OptionalPlugin<TextFormattingPlugin>,
 			// Optional, you can not have a primary toolbar
 			OptionalPlugin<PrimaryToolbarPlugin>,
+			OptionalPlugin<ToolbarPlugin>,
 			OptionalPlugin<SelectionToolbarPlugin>,
 			OptionalPlugin<UserPreferencesPlugin>,
 		];

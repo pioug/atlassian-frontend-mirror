@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-extension
 
+## 6.1.6
+
+### Patch Changes
+
+- [`1099388054638`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1099388054638) -
+  [ENGLHEALTH-32398] Extension edit button should not be a radio button
+- Updated dependencies
+
 ## 6.1.5
 
 ### Patch Changes

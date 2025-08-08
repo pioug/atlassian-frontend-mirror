@@ -7,12 +7,14 @@ import { type CSSProperties, memo, useRef } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import { type BreadcrumbsItemProps } from '../types';
 
 import Step from './internal/step';
+import StepOld from './internal/step-old';
 import useOverflowable from './internal/use-overflowable';
 
 const itemWrapperStyles = css({
@@ -82,7 +84,7 @@ const BreadcrumbsItem = memo(
 		// it here to allow this to be a patch and not a major
 		...rest
 	}: BreadcrumbsItemProps) => {
-		const buttonRef = useRef<HTMLButtonElement | null>(null);
+		const stepTextRef = useRef<HTMLButtonElement | null>(null);
 
 		// If icons are provided we include their width in the truncation calculation to ensure we're as accurate as possible.
 		// Note: this assumes icons are 24px wide which should be almost always.
@@ -97,7 +99,7 @@ const BreadcrumbsItem = memo(
 
 		const [hasOverflow, showTooltip] = useOverflowable(
 			truncationWidth,
-			buttonRef.current,
+			stepTextRef.current,
 			iconWidthAllowance,
 		);
 
@@ -115,31 +117,48 @@ const BreadcrumbsItem = memo(
 				typeof truncationWidth !== 'undefined' && `${truncationWidth}px`,
 		};
 
-		const step = (
-			<Step
-				{...rest}
-				analyticsContext={analyticsContext}
-				component={component}
-				hasOverflow={hasOverflow}
-				href={href}
-				iconAfter={iconAfter}
-				iconBefore={iconBefore}
-				onClick={onClick}
-				ref={buttonRef}
-				target={target}
-				testId={testId}
-				css={[
-					staticItemStyles,
-					truncationWidth ? staticItemWithTruncationStyles : staticItemWithoutTruncationStyles,
-				]}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				style={
-					truncationWidth ? { ...dynamicItemStyles, ...buttonOverrideStyles } : buttonOverrideStyles
-				}
-			>
-				{text}
-			</Step>
-		);
+		const step =
+			!component && fg('platform_dst_breadcrumbs_step_conversion') ? (
+				<Step
+					ref={stepTextRef}
+					analyticsContext={analyticsContext}
+					href={href}
+					iconAfter={iconAfter}
+					iconBefore={iconBefore}
+					onClick={onClick}
+					target={target}
+					testId={testId}
+					truncationWidth={truncationWidth}
+				>
+					{text}
+				</Step>
+			) : (
+				<StepOld
+					{...rest}
+					analyticsContext={analyticsContext}
+					component={component}
+					hasOverflow={hasOverflow}
+					href={href}
+					iconAfter={iconAfter}
+					iconBefore={iconBefore}
+					onClick={onClick}
+					ref={stepTextRef}
+					target={target}
+					testId={testId}
+					css={[
+						staticItemStyles,
+						truncationWidth ? staticItemWithTruncationStyles : staticItemWithoutTruncationStyles,
+					]}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					style={
+						truncationWidth
+							? { ...dynamicItemStyles, ...buttonOverrideStyles }
+							: buttonOverrideStyles
+					}
+				>
+					{text}
+				</StepOld>
+			);
 
 		return (
 			<li css={itemWrapperStyles}>

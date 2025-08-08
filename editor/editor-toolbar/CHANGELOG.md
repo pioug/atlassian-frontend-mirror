@@ -1,5 +1,16 @@
 # @atlaskit/editor-toolbar
 
+## 0.1.1
+
+### Patch Changes
+
+- [`428e4e6ff8ac9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/428e4e6ff8ac9) -
+  ED-28683 remove textStyle option from ToolbarDropdownItem, apply this style from the children
+  instead
+- [#197017](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/197017)
+  [`5ef01d09bada1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5ef01d09bada1) -
+  [ux] ED-28687 [Register] Text colour + highlight
+
 ## 0.1.0
 
 ### Minor Changes

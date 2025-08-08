@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-card
 
+## 7.3.0
+
+### Minor Changes
+
+- [#198611](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/198611)
+  [`a608f23cb3d4e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a608f23cb3d4e) -
+  [https://product-fabric.atlassian.net/browse/ED-28628](ED-28628) - add SSR support for smart cards
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.2.7
 
 ### Patch Changes

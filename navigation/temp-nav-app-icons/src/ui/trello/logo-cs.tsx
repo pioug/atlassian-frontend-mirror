@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::46ba30990b74b0bd29f9f410ece6d0d1>>
+ * @codegen <<SignedSource::e1b148b0e17835d1d6cc0b45cfa57fe0>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -23,14 +23,13 @@ const svg = `<svg height="100%" viewBox="0 0 113 32">
  * A temporary component to represent the logo for Trello.
  *
  */
-export function TrelloLogoCS({ size, appearance = 'brand', label, testId }: AppLogoProps) {
+export function TrelloLogoCS({
+	size,
+	appearance = 'brand',
+	label = 'Trello',
+	testId,
+}: AppLogoProps) {
 	return (
-		<LogoWrapper
-			svg={svg}
-			label={label || 'Trello'}
-			appearance={appearance}
-			size={size}
-			testId={testId}
-		/>
+		<LogoWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);
 }

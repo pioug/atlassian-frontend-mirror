@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import { Box, Text } from '@atlaskit/primitives/compiled';
+import { Box, Flex, Text } from '@atlaskit/primitives/compiled';
 import {
 	PopoverContent,
 	PopoverProvider,
@@ -24,74 +24,83 @@ import {
 const styles = cssMap({
 	root: {
 		height: '100vh',
+		maxHeight: '100vh',
 		width: '100vw',
 		display: 'flex',
 		alignItems: 'center',
-		justifyContent: 'center',
 		flexDirection: 'column',
 		gap: 'var(--ds-space-1000)',
 	},
-	featureContainer: {
-		padding: 'var(--ds-space-1000)',
+	content: {
+		height: '100%',
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+	target: {
+		padding: 'var(--ds-space-100)',
 		borderStyle: 'solid',
 		borderWidth: 'var(--ds-border-width)',
-		borderColor: 'var(--ds-border)',
+		borderColor: 'var(--ds-border-bold)',
+	},
+	controls: {
+		paddingBlockEnd: 'var(--ds-space-200)',
 	},
 });
 
-const placements = [
-	'top-start',
-	'top-end',
+const cardPlacements = [
 	'bottom-start',
 	'bottom-end',
-	'right-start',
-	'right-end',
 	'left-start',
 	'left-end',
+	'top-start',
+	'top-end',
+	'right-start',
+	'right-end',
 ] as const;
 
 export default () => {
-	const [placement, setPlacement] = useState<any>('right-start');
+	const [placement, setPlacement] = useState<(typeof cardPlacements)[number]>('bottom-start');
 
 	return (
 		<div css={styles.root}>
-			<PopoverProvider>
-				<PopoverTarget>
-					<Box xcss={styles.featureContainer}>
-						<Text>{placement}</Text>
-					</Box>
-				</PopoverTarget>
-				<PopoverContent placement={placement}>
-					<Spotlight testId="spotlight">
-						<SpotlightHeader>
-							<SpotlightHeadline>Headline</SpotlightHeadline>
-							<SpotlightControls>
-								<SpotlightDismissControl />
-							</SpotlightControls>
-						</SpotlightHeader>
-						<SpotlightFooter>
-							<SpotlightActions>
-								<SpotlightPrimaryAction>Done</SpotlightPrimaryAction>
-							</SpotlightActions>
-						</SpotlightFooter>
-					</Spotlight>
-				</PopoverContent>
-			</PopoverProvider>
+			<div css={styles.content}>
+				<PopoverProvider>
+					<PopoverTarget>
+						<Box xcss={styles.target}>
+							<Text>Target element</Text>
+						</Box>
+					</PopoverTarget>
+					<PopoverContent placement={placement}>
+						<Spotlight testId="spotlight">
+							<SpotlightHeader>
+								<SpotlightHeadline>Headline</SpotlightHeadline>
+								<SpotlightControls>
+									<SpotlightDismissControl />
+								</SpotlightControls>
+							</SpotlightHeader>
+							<SpotlightFooter>
+								<SpotlightActions>
+									<SpotlightPrimaryAction>Done</SpotlightPrimaryAction>
+								</SpotlightActions>
+							</SpotlightFooter>
+						</Spotlight>
+					</PopoverContent>
+				</PopoverProvider>
+			</div>
 
-			<DropdownMenu trigger="Placements" shouldRenderToParent>
-				<DropdownItemGroup>
-					{placements.map((placement) => (
-						<DropdownItem
-							key={placement}
-							onClick={() => {
-								setPlacement(placement);
-							}}
-						>
-							{placement}
-						</DropdownItem>
-					))}
-				</DropdownItemGroup>
-			</DropdownMenu>
+			<Flex xcss={styles.controls} gap="space.100">
+				<DropdownMenu trigger={`Placement: ${placement}`} shouldRenderToParent>
+					<DropdownItemGroup>
+						{cardPlacements.map((placement) => (
+							<DropdownItem key={placement} onClick={() => setPlacement(placement)}>
+								{placement}
+							</DropdownItem>
+						))}
+					</DropdownItemGroup>
+				</DropdownMenu>
+			</Flex>
 		</div>
 	);
 };

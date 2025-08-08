@@ -14,6 +14,7 @@ const buildFilesList = (dirPath: string, ignored: Array<string> = []) =>
 		.filter((node: string) => ignored.indexOf(node) === -1 && node !== 'index');
 
 const ignoredPaths = [
+	'block-task-item', // Ignored due to block-task-item nodes being co-located with taskItem nodes in 'task-item.js'
 	'confluence-jira-issue',
 	'confluence-unsupported-block',
 	'confluence-unsupported-inline',

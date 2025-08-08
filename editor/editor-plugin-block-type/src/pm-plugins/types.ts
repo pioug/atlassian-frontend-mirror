@@ -39,7 +39,10 @@ export interface BlockType {
 	icon?: ReactElement;
 	LEGACY_icon?: ReactElement;
 }
-
+export interface BlockTypeWithRank extends BlockType {
+	toolbarRank: number;
+	toolbarKey: string;
+}
 export interface BlockTypeNode {
 	name: AllowedBlockTypes;
 	node: NodeSpec;

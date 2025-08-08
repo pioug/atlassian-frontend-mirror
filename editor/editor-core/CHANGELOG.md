@@ -1,5 +1,21 @@
 # @atlaskit/editor-core
 
+## 209.7.0
+
+### Minor Changes
+
+- [`4903edc4a60f8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4903edc4a60f8) -
+  [ux] Adds a configuration for media insert to allow for smart value input
+- [`13a1ad07bb39e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/13a1ad07bb39e) -
+  [ux] EDITOR-1146 | EDITOR-1176 Introduce `blockTaskItem` node to Renderer and Editor
+  `editor-plugin-tasks-and-decisions` which adopts the same code and functionality as the regular
+  `taskItem` except that it allows block content such as extensions to be inserted. This is to
+  facilitate TinyMCE migration which requires usage of the Legacy Content Extension.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 209.6.5
 
 ### Patch Changes

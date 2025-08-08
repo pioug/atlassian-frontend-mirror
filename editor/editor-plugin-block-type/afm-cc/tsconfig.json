@@ -23,6 +23,9 @@
 	],
 	"references": [
 		{
+			"path": "../../../design-system/css/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-analytics/afm-cc/tsconfig.json"
 		},
 		{
@@ -32,10 +35,19 @@
 			"path": "../../editor-plugin-selection-toolbar/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-toolbar/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../editor-shared-styles/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../editor-tables/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar-model/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/icon/afm-cc/tsconfig.json"

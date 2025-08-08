@@ -195,7 +195,6 @@ export function IconWrapper({
 					'--themed-icon-color': customIconColor || 'initial',
 				} as React.CSSProperties
 			}
-			// In some icons (such as the app switcher specific icons), the label is a consumer prop.
 			// If the label is provided an empty string, we want to remove the element from the accessibility tree.
 			aria-label={label ? label : undefined}
 			role={label ? 'img' : undefined}

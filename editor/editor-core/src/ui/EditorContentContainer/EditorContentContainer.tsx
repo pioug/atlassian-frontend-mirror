@@ -155,6 +155,7 @@ import {
 	decisionIconWithVisualRefresh,
 	decisionIconWithoutVisualRefresh,
 	taskItemStyles,
+	taskItemStylesWithBlockTaskItem,
 } from './styles/tasksAndDecisionsStyles';
 import {
 	telepointerColorAndCommonStyle,
@@ -343,7 +344,11 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					decisionStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					taskItemStyles,
+					expValEqualsNoExposure('platform_editor_blocktaskitem_node', 'isEnabled', true)
+						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							taskItemStylesWithBlockTaskItem
+						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							taskItemStyles,
 					fg('platform-visual-refresh-icons') &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						decisionIconWithVisualRefresh,

@@ -90,6 +90,7 @@ export const MediaInsertPicker = ({
 	insertExternalMediaSingle,
 	insertFile,
 	isOnlyExternalLinks = false,
+	isUrlValidationOff = false,
 }: MediaInsertPickerProps) => {
 	const { mediaProvider, isOpen, mountInfo } = useSharedState(api);
 
@@ -187,6 +188,7 @@ export const MediaInsertPicker = ({
 										insertMediaSingle={insertMediaSingle}
 										insertExternalMediaSingle={insertExternalMediaSingle}
 										isOnlyExternalLinks={isOnlyExternalLinks}
+										isUrlValidationOff={isUrlValidationOff}
 									/>
 								) : (
 									<MediaFromURLWithForm
@@ -199,6 +201,7 @@ export const MediaInsertPicker = ({
 										insertMediaSingle={insertMediaSingle}
 										insertExternalMediaSingle={insertExternalMediaSingle}
 										isOnlyExternalLinks={isOnlyExternalLinks}
+										isUrlValidationOff={isUrlValidationOff}
 									/>
 								)}
 							</CustomTabPanel>

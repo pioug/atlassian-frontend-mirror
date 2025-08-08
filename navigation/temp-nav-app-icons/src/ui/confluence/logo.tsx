@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b269eddc20c255b34bc9b97dc9110e39>>
+ * @codegen <<SignedSource::ac65791ea6f34eb82e56470a58fdd928>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -33,7 +33,7 @@ export function ConfluenceLogo({
 	textColor,
 	size,
 	appearance = 'brand',
-	label,
+	label = 'Confluence',
 	testId,
 }: ThemedLogoProps) {
 	return (
@@ -42,7 +42,7 @@ export function ConfluenceLogo({
 			customThemeSvg={customThemeSvg}
 			iconColor={iconColor}
 			textColor={textColor}
-			label={label || 'Confluence'}
+			label={label}
 			appearance={appearance}
 			size={size}
 			testId={testId}

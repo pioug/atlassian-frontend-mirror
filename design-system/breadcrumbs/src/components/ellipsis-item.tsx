@@ -5,10 +5,13 @@
 
 import { memo } from 'react';
 
-import { css, jsx } from '@compiled/react';
+import { css } from '@compiled/react';
 
 import Button from '@atlaskit/button/standard-button';
+import { cssMap, jsx } from '@atlaskit/css';
 import __noop from '@atlaskit/ds-lib/noop';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { type EllipsisItemProps } from '../types';
@@ -50,18 +53,52 @@ const staticItemStyles = css({
 	paddingBlock: `${token('space.025')} !important`,
 });
 
+const styles = cssMap({
+	root: {
+		font: token('font.body'),
+		backgroundColor: token('color.background.neutral.subtle'),
+		padding: '0',
+		color: token('color.text.subtlest'),
+		border: 'none',
+		display: 'inline-flex',
+		alignItems: 'center',
+		gap: token('space.050'),
+		borderRadius: token('border.radius'),
+		textDecoration: 'none',
+
+		'&:hover': {
+			textDecoration: 'underline',
+			color: token('color.text.subtlest'),
+		},
+		'&:focus': {
+			textDecoration: 'none',
+			color: token('color.text.subtlest'),
+		},
+		'&:active': {
+			// @ts-expect-error
+			color: token('color.text'),
+		},
+	},
+});
+
 const EllipsisItem = memo(({ label, onClick = noop, testId }: EllipsisItemProps) => (
 	<li css={itemWrapperStyles}>
-		<Button
-			appearance="subtle-link"
-			aria-label={label}
-			css={staticItemStyles}
-			onClick={onClick}
-			spacing="none"
-			testId={testId}
-		>
-			&hellip;
-		</Button>
+		{fg('platform_dst_breadcrumbs_step_conversion') ? (
+			<Pressable aria-label={label} onClick={onClick} xcss={styles.root} testId={testId}>
+				&hellip;
+			</Pressable>
+		) : (
+			<Button
+				appearance="subtle-link"
+				aria-label={label}
+				css={staticItemStyles}
+				onClick={onClick}
+				spacing="none"
+				testId={testId}
+			>
+				&hellip;
+			</Button>
+		)}
 	</li>
 ));
 

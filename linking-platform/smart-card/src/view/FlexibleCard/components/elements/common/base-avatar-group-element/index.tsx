@@ -4,21 +4,17 @@
  */
 import { useMemo } from 'react';
 
-import { css, cssMap, jsx } from '@compiled/react';
+import { css, jsx } from '@compiled/react';
 import { type IntlShape, useIntl } from 'react-intl-next';
 
 import AtlaskitAvatarGroup from '@atlaskit/avatar-group';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-import { ElementName, SmartLinkSize } from '../../../../../../constants';
+import { ElementName } from '../../../../../../constants';
 import { messages } from '../../../../../../messages';
 import { getFormattedMessageAsString } from '../../../utils';
 import { type ElementProps } from '../../index';
-
-const stylesOld = css({
-	minWidth: 'fit-content',
-});
 
 const styles = css({
 	minWidth: 'fit-content',
@@ -27,57 +23,6 @@ const styles = css({
 	ul: {
 		marginRight: token('space.100'),
 		marginTop: 0,
-	},
-});
-
-const stylesMap = cssMap({
-	xlarge: {
-		display: 'inline-flex',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		ul: {
-			marginRight: token('space.100'),
-			marginTop: 0,
-		},
-	},
-	large: {
-		display: 'inline-flex',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		ul: {
-			marginRight: token('space.100'),
-			marginTop: 0,
-		},
-	},
-	medium: {
-		display: 'inline-flex',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		ul: {
-			marginRight: token('space.100'),
-			marginTop: 0,
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		li: {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-			'span, svg': {
-				maxHeight: '1.25rem',
-				maxWidth: '1.25rem',
-			},
-		},
-	},
-	small: {
-		display: 'inline-flex',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		ul: {
-			marginRight: token('space.100'),
-			marginTop: 0,
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		li: {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-			'span, svg': {
-				maxHeight: '1.25rem',
-				maxWidth: '1.25rem',
-			},
-		},
 	},
 });
 
@@ -140,7 +85,6 @@ const BaseAvatarGroup = ({
 	maxCount = 4,
 	name,
 	className,
-	size = SmartLinkSize.Medium,
 	testId = 'smart-element-avatar-group',
 	showNamePrefix = false,
 	showFallbackAvatar = true,
@@ -181,10 +125,7 @@ const BaseAvatarGroup = ({
 	return (
 		<span
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-			css={[
-				!fg('platform-linking-fix-smart-card-avatar-overrides') && stylesMap[size],
-				fg('platform-linking-fix-smart-card-avatar-overrides') ? styles : stylesOld,
-			]}
+			css={[styles]}
 			{...(fg('platform-linking-enable-avatar-data-separator') ? { ['data-separator']: true } : {})}
 			data-smart-element={name}
 			data-smart-element-avatar-group

@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 5.4.0
+
+### Minor Changes
+
+- [`f681ff4b37a3d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f681ff4b37a3d) -
+  [ux] ED-28752 register link button to new toolbar behind platform_editor_toolbar_aifc
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.3.0
 
 ### Minor Changes

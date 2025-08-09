@@ -32,4 +32,10 @@ export default {
   'ptc.team-profile-page.team-containers.empty-state.description':
     'Váš tým zde může připojit své projekty Jira a prostory Confluence, aby ukázal, kde pracuje.',
   'ptc.team-profile-page.team-containers.empty-state.title': 'Přidejte místa, kde váš tým pracuje',
+  'teams-public.team-containers.timeout-action': 'Zkusit znovu',
+  'teams-public.team-containers.timeout-description': 'Něco se pokazilo. Ověřte připojení a zkuste to znovu.',
+  'teams-public.team-containers.timeout-no-connection-action': 'Kontaktovat podporu',
+  'teams-public.team-containers.timeout-no-connection-description': 'Zkuste prostor vytvořit sami ručně.',
+  'teams-public.team-containers.timeout-no-connection-title': 'Připojení se nezdařilo',
+  'teams-public.team-containers.timeout-title': 'Vaše prostory se nepodařilo připojit',
 };

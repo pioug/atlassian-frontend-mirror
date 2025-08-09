@@ -1,5 +1,12 @@
 import type { Rule } from 'eslint';
-import { isNodeOfType, type JSXElement } from 'eslint-codemod-utils';
+import {
+	type EslintNode,
+	type Expression,
+	isNodeOfType,
+	type JSXElement,
+	type JSXEmptyExpression,
+	type Statement,
+} from 'eslint-codemod-utils';
 
 import { JSXAttribute } from '../../ast-nodes/jsx-attribute';
 import { JSXElementHelper } from '../../ast-nodes/jsx-element';
@@ -90,22 +97,35 @@ const rule = createLintRule({
 						return;
 					}
 
-					// Add expression conatiner's body if an expression container
+					// Add expression container's body if an expression container
 					if (isNodeOfType(node, 'JSXExpressionContainer')) {
+						const expression = node.expression;
+
 						if (
-							(isNodeOfType(node.expression, 'ArrowFunctionExpression') ||
-								isNodeOfType(node.expression, 'FunctionExpression')) &&
-							isNodeOfType(node.expression.body, 'JSXElement')
+							isNodeOfType(expression, 'ArrowFunctionExpression') ||
+							isNodeOfType(expression, 'FunctionExpression')
 						) {
-							searchNode(node.expression.body, true);
-						} else if (isNodeOfType(node.expression, 'LogicalExpression')) {
-							const { left, right } = node.expression;
+							if (
+								isNodeOfType(expression.body, 'JSXElement') ||
+								isNodeOfType(expression.body, 'JSXFragment')
+							) {
+								searchExpression(expression.body);
+							} else if (isNodeOfType(expression.body, 'BlockStatement')) {
+								expression.body.body.forEach((statement: Statement) => {
+									if (isNodeOfType(statement, 'ReturnStatement') && statement.argument) {
+										searchExpression(statement.argument);
+									}
+								});
+							}
+						} else if (isNodeOfType(expression, 'LogicalExpression')) {
+							const { left, right } = expression;
 							[left, right].forEach((e) => {
-								if (isNodeOfType(e, 'JSXElement')) {
-									searchNode(e, true);
-								}
+								searchExpression(e);
 							});
+						} else {
+							searchExpression(expression);
 						}
+						return;
 					}
 
 					// Skip if not a JSX Element
@@ -130,6 +150,14 @@ const rule = createLintRule({
 					}
 				};
 
+				const searchExpression = (expression: Expression | JSXEmptyExpression) => {
+					if (isNodeOfType(expression, 'JSXElement')) {
+						searchNode(expression, true);
+					} else if (isNodeOfType(expression, 'JSXFragment')) {
+						searchJSXFragment(expression);
+					}
+				};
+
 				const searchNode = (node: JSXElement, searchSelf: boolean = false) => {
 					if (searchSelf) {
 						checkNode(node);
@@ -137,6 +165,14 @@ const rule = createLintRule({
 
 					for (let child of node.children) {
 						checkNode(child);
+					}
+				};
+
+				const searchJSXFragment = (node: EslintNode) => {
+					if (isNodeOfType(node, 'JSXFragment')) {
+						for (let child of node.children) {
+							checkNode(child);
+						}
 					}
 				};
 

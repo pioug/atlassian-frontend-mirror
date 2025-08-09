@@ -32,4 +32,11 @@ export default {
   'ptc.team-profile-page.team-containers.empty-state.description':
     'Ihr Team kann hier seine Jira-Projekte und Confluence-Bereiche verknüpfen, um zu zeigen, wo es arbeitet',
   'ptc.team-profile-page.team-containers.empty-state.title': 'Orte hinzufügen, an denen Ihr Team arbeitet',
+  'teams-public.team-containers.timeout-action': 'Erneut versuchen',
+  'teams-public.team-containers.timeout-description':
+    'Etwas ist schiefgelaufen. Überprüfen Sie Ihre Verbindung und versuchen Sie es erneut.',
+  'teams-public.team-containers.timeout-no-connection-action': 'Support kontaktieren',
+  'teams-public.team-containers.timeout-no-connection-description': 'Versuchen Sie, den Bereich manuell zu erstellen.',
+  'teams-public.team-containers.timeout-no-connection-title': 'Verbindung konnte nicht hergestellt werden.',
+  'teams-public.team-containers.timeout-title': 'Ihre Bereiche konnten nicht verbunden werden',
 };

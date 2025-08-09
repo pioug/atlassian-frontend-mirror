@@ -32,4 +32,11 @@ export default {
   'ptc.team-profile-page.team-containers.empty-state.description':
     'Je team kan hun Jira-projecten, Confluence-spaces hier koppelen om te laten zien waar ze werken',
   'ptc.team-profile-page.team-containers.empty-state.title': 'Voeg de plekken toe waar je team werkt',
+  'teams-public.team-containers.timeout-action': 'Opnieuw proberen',
+  'teams-public.team-containers.timeout-description':
+    'Er is iets misgegaan. Controleer je verbinding en probeer het opnieuw.',
+  'teams-public.team-containers.timeout-no-connection-action': 'Contact opnemen met support',
+  'teams-public.team-containers.timeout-no-connection-description': 'Probeer de space zelf handmatig aan te maken.',
+  'teams-public.team-containers.timeout-no-connection-title': 'Verbinding mislukt',
+  'teams-public.team-containers.timeout-title': 'We konden je spaces niet koppelen',
 };

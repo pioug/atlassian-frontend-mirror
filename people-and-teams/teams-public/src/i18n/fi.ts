@@ -32,4 +32,10 @@ export default {
   'ptc.team-profile-page.team-containers.empty-state.description':
     'Tiimisi voi yhdistää Jira-projektinsa ja Confluence-työtilansa tänne ja näyttää työskentelypaikkansa',
   'ptc.team-profile-page.team-containers.empty-state.title': 'Lisää tiimisi työskentelypaikat',
+  'teams-public.team-containers.timeout-action': 'Yritä uudelleen',
+  'teams-public.team-containers.timeout-description': 'Jokin meni vikaan. Vahvista yhteys ja yritä uudelleen.',
+  'teams-public.team-containers.timeout-no-connection-action': 'Ota yhteyttä tukeen',
+  'teams-public.team-containers.timeout-no-connection-description': 'Kokeile luoda työtila itse manuaalisesti.',
+  'teams-public.team-containers.timeout-no-connection-title': 'Yhteys epäonnistui',
+  'teams-public.team-containers.timeout-title': 'Työtilojasi ei voitu yhdistää',
 };

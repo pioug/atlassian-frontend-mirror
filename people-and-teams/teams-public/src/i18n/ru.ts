@@ -32,8 +32,10 @@ export default {
   'ptc.team-profile-page.team-containers.empty-state.description':
     'Команда может разместить здесь ссылки на свои проекты Jira и разделы Confluence, чтобы показать, где она работает',
   'ptc.team-profile-page.team-containers.empty-state.title': 'Добавьте места, где работает команда',
-  'teams-public..team-containers.timeout-description':
-    'Что-то пошло не так. Проверьте подключение и повторите попытку.',
   'teams-public.team-containers.timeout-action': 'Повторить попытку',
+  'teams-public.team-containers.timeout-description': 'Что-то пошло не так. Проверьте подключение и повторите попытку.',
+  'teams-public.team-containers.timeout-no-connection-action': 'Обратиться в службу поддержки',
+  'teams-public.team-containers.timeout-no-connection-description': 'Попробуйте создать раздел вручную.',
+  'teams-public.team-containers.timeout-no-connection-title': 'Ошибка подключения',
   'teams-public.team-containers.timeout-title': 'Не удалось подключить разделы',
 };

@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.19.4
+
+### Patch Changes
+
+- [#198800](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/198800)
+  [`b57fbbece226f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b57fbbece226f) -
+  Fixed some false positives in @atlaskit/design-system/use-modal-dialog-close-button ESLint rule
+
 ## 13.19.3
 
 ### Patch Changes

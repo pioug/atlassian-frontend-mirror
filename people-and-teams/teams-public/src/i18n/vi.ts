@@ -32,4 +32,10 @@ export default {
   'ptc.team-profile-page.team-containers.empty-state.description':
     'Đội ngũ của bạn có thể liên kết các dự án Jira, không gian Confluence ở đây để hiển thị nơi họ làm việc',
   'ptc.team-profile-page.team-containers.empty-state.title': 'Thêm các địa điểm mà đội ngũ của bạn làm việc',
+  'teams-public.team-containers.timeout-action': 'Thử lại',
+  'teams-public.team-containers.timeout-description': 'Đã xảy ra lỗi. Hãy xác minh kết nối và thử lại.',
+  'teams-public.team-containers.timeout-no-connection-action': 'Liên hệ với bộ phận hỗ trợ',
+  'teams-public.team-containers.timeout-no-connection-description': 'Hãy thử tự tạo không gian theo cách thủ công.',
+  'teams-public.team-containers.timeout-no-connection-title': 'Không kết nối được',
+  'teams-public.team-containers.timeout-title': 'Chúng tôi không thể kết nối không gian của bạn',
 };

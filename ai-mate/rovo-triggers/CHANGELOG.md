@@ -1,5 +1,13 @@
 # @atlaskit/rovo-triggers
 
+## 3.2.0
+
+### Minor Changes
+
+- [`0e29af758fdf4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0e29af758fdf4) -
+  Add in support for getting ADF from staging area editor and passing it to the conversation
+  assistant
+
 ## 3.1.6
 
 ### Patch Changes

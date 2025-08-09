@@ -1,5 +1,12 @@
 # @atlaskit/reactions
 
+## 33.2.9
+
+### Patch Changes
+
+- [`c171a86fa9ec4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c171a86fa9ec4) -
+  tidy up feature flag to ensable reactions picker with portal
+
 ## 33.2.8
 
 ### Patch Changes

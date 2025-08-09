@@ -32,4 +32,10 @@ export default {
   'ptc.team-profile-page.team-containers.empty-state.description':
     'ทีมของคุณสามารถเชื่อมโยงโปรเจกต์ Jira, พื้นที่ Confluence ที่นี่ เพื่อแสดงให้เห็นว่าพวกเขาทำงานที่ใด',
   'ptc.team-profile-page.team-containers.empty-state.title': 'เพิ่มที่ที่ทีมของคุณทำงาน',
+  'teams-public.team-containers.timeout-action': 'ลองอีกครั้ง',
+  'teams-public.team-containers.timeout-description': 'มีข้อผิดพลาดบางประการ ตรวจสอบการเชื่อมต่อของคุณและลองอีกครั้ง',
+  'teams-public.team-containers.timeout-no-connection-action': 'ติดต่อฝ่ายสนับสนุน',
+  'teams-public.team-containers.timeout-no-connection-description': 'ลองสร้างพื้นที่ด้วยตัวเอง',
+  'teams-public.team-containers.timeout-no-connection-title': 'การเชื่อมต่อล้มเหลว',
+  'teams-public.team-containers.timeout-title': 'เราไม่สามารถเชื่อมต่อพื้นที่ของคุณได้',
 };

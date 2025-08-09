@@ -18,6 +18,14 @@ export default {
   'ptc-directory.team-profile-page.team-containers.add-jira-project-title': 'Add project',
   'ptc-directory.team-profile-page.team-containers.add-loom-space-description': 'Loom',
   'ptc-directory.team-profile-page.team-containers.add-loom-space-title': 'Add space',
+  'ptc-directory.team-profile-page.team-containers.auto-create.add-confluence-space-description':
+    'Create a knowledge bank',
+  'ptc-directory.team-profile-page.team-containers.auto-create.add-confluence-space-title': 'Confluence space',
+  'ptc-directory.team-profile-page.team-containers.auto-create.add-jira-project-description': 'Plan out project tasks',
+  'ptc-directory.team-profile-page.team-containers.auto-create.add-jira-project-title': 'Jira project',
+  'ptc-directory.team-profile-page.team-containers.auto-create.add-loom-space-description': 'Share async updates',
+  'ptc-directory.team-profile-page.team-containers.auto-create.add-loom-space-title': 'Loom space',
+  'ptc-directory.team-profile-page.team-containers.auto-create.add-web-link-title': 'Add any web link',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.cancel-button': 'Cancel',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.description':
     'This team will no longer be connected to the {containerName} {containerType, select, JiraProject {Jira project} ConfluenceSpace {Confluence space} LoomSpace {Loom space} other {link} }.',
@@ -34,7 +42,10 @@ export default {
   'ptc.team-profile-page.team-containers.empty-state.description':
     'Your team can link their Jira projects, Confluence spaces here to show where they work',
   'ptc.team-profile-page.team-containers.empty-state.title': 'Add the places your team works',
-  'teams-public..team-containers.timeout-description': 'Something went wrong. Verify your connection and retry.',
   'teams-public.team-containers.timeout-action': 'Try again',
+  'teams-public.team-containers.timeout-description': 'Something went wrong. Verify your connection and retry.',
+  'teams-public.team-containers.timeout-no-connection-action': 'Contact support',
+  'teams-public.team-containers.timeout-no-connection-description': 'Try manually creating the space yourself.',
+  'teams-public.team-containers.timeout-no-connection-title': 'Connection failed',
   'teams-public.team-containers.timeout-title': 'We’re couldn’t connect your spaces',
 };

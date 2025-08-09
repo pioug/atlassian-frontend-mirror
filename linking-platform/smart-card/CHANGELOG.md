@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 40.8.1
+
+### Patch Changes
+
+- [#198800](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/198800)
+  [`047d4af3e57cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/047d4af3e57cf) -
+  Update channel and eventName in attributes for firing events for 3P Workflows team
+
 ## 40.8.0
 
 ### Minor Changes

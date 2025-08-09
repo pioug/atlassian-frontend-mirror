@@ -32,4 +32,10 @@ export default {
   'ptc.team-profile-page.team-containers.empty-state.description':
     '您的團隊可以在此處連結其 Jira 專案、Confluence 空間，以顯示工作位置',
   'ptc.team-profile-page.team-containers.empty-state.title': '新增您團隊工作的位置',
+  'teams-public.team-containers.timeout-action': '再試一次',
+  'teams-public.team-containers.timeout-description': '發生錯誤。請檢查您的連線，然後再試一次。',
+  'teams-public.team-containers.timeout-no-connection-action': '連絡支援人員',
+  'teams-public.team-containers.timeout-no-connection-description': '嘗試自己手動建立空間。',
+  'teams-public.team-containers.timeout-no-connection-title': '連線失敗',
+  'teams-public.team-containers.timeout-title': '我們無法連結您的空間',
 };

@@ -32,4 +32,10 @@ export default {
   'ptc.team-profile-page.team-containers.empty-state.description':
     'Teamet kan koble til Jira-prosjekter og Confluence-områder her for å vise hvor de jobber',
   'ptc.team-profile-page.team-containers.empty-state.title': 'Legg til steder der teamet ditt jobber',
+  'teams-public.team-containers.timeout-action': 'Prøv igjen',
+  'teams-public.team-containers.timeout-description': 'Noe gikk galt. Kontroller tilkoblingen og prøv på nytt.',
+  'teams-public.team-containers.timeout-no-connection-action': 'Kontakt brukerstøtte',
+  'teams-public.team-containers.timeout-no-connection-description': 'Prøv å opprette området selv.',
+  'teams-public.team-containers.timeout-no-connection-title': 'Tilkoblingen mislyktes',
+  'teams-public.team-containers.timeout-title': 'Vi kan ikke koble til områdene dine',
 };

@@ -32,4 +32,10 @@ export default {
   'ptc.team-profile-page.team-containers.empty-state.description':
     '팀은 Jira 프로젝트, Confluence 스페이스를 여기에 연결하여 작업 영역을 보여줄 수 있습니다',
   'ptc.team-profile-page.team-containers.empty-state.title': '팀의 작업 영역 추가',
+  'teams-public.team-containers.timeout-action': '다시 시도',
+  'teams-public.team-containers.timeout-description': '문제가 발생했습니다. 연결을 확인하고 다시 시도하세요.',
+  'teams-public.team-containers.timeout-no-connection-action': '지원 팀에 문의',
+  'teams-public.team-containers.timeout-no-connection-description': '스페이스를 수동으로 직접 만들어 보세요.',
+  'teams-public.team-containers.timeout-no-connection-title': '연결 실패',
+  'teams-public.team-containers.timeout-title': '스페이스를 연결할 수 없습니다',
 };

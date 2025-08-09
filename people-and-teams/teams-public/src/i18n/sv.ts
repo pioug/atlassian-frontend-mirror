@@ -32,4 +32,10 @@ export default {
   'ptc.team-profile-page.team-containers.empty-state.description':
     'Ditt team kan länka sina Jira-projekt och Confluence-utrymmen här för att visa var de arbetar',
   'ptc.team-profile-page.team-containers.empty-state.title': 'Lägg till platser där ditt team arbetar',
+  'teams-public.team-containers.timeout-action': 'Försök igen',
+  'teams-public.team-containers.timeout-description': 'Något gick fel. Verifiera anslutningen och försök igen.',
+  'teams-public.team-containers.timeout-no-connection-action': 'Kontakta support',
+  'teams-public.team-containers.timeout-no-connection-description': 'Försök att skapa utrymmet manuellt.',
+  'teams-public.team-containers.timeout-no-connection-title': 'Anslutningen misslyckades',
+  'teams-public.team-containers.timeout-title': 'Vi kunde inte ansluta dina utrymmen',
 };

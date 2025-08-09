@@ -32,4 +32,10 @@ export default {
   'ptc.team-profile-page.team-containers.empty-state.description':
     'A csapatod itt összekapcsolhatja a Jira-projektjeit és a Confluence-munkatereit, hogy bemutassák, hol dolgoznak',
   'ptc.team-profile-page.team-containers.empty-state.title': 'Add hozzá azokat a helyeket, ahol a csapatod dolgozik',
+  'teams-public.team-containers.timeout-action': 'Újra',
+  'teams-public.team-containers.timeout-description': 'Hiba történt. Ellenőrizd a kapcsolatot, majd próbáld újra.',
+  'teams-public.team-containers.timeout-no-connection-action': 'Kapcsolatfelvétel az ügyfélszolgálattal',
+  'teams-public.team-containers.timeout-no-connection-description': 'Próbáld meg manuálisan létrehozni a munkateret.',
+  'teams-public.team-containers.timeout-no-connection-title': 'A kapcsolódás nem sikerült',
+  'teams-public.team-containers.timeout-title': 'Nem sikerült csatlakoztatnunk a munkatereidet',
 };

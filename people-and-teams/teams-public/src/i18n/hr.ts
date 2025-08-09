@@ -32,4 +32,10 @@ export default {
   'ptc.team-profile-page.team-containers.empty-state.description':
     'Vaš tim ovdje može povezati svoje projekte Jira, prostore Confluence kako bi pokazali gdje rade',
   'ptc.team-profile-page.team-containers.empty-state.title': 'Dodaj mjesta na kojima rade vaši timovi',
+  'teams-public.team-containers.timeout-action': 'Pokušaj ponovno',
+  'teams-public.team-containers.timeout-description': 'Nešto nije u redu. Provjerite vezu i pokušajte ponovo.',
+  'teams-public.team-containers.timeout-no-connection-action': 'Kontaktiraj podršku',
+  'teams-public.team-containers.timeout-no-connection-description': 'Pokušajte sami ručno izraditi prostor.',
+  'teams-public.team-containers.timeout-no-connection-title': 'Veza nije uspjela',
+  'teams-public.team-containers.timeout-title': 'Nismo mogli povezati vaše prostore',
 };

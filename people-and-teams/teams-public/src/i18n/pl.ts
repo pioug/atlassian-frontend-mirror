@@ -32,4 +32,11 @@ export default {
   'ptc.team-profile-page.team-containers.empty-state.description':
     'Twój zespół może tutaj powiązać swoje projekty Jiry i przestrzenie Confluence, aby pokazać, gdzie pracuje.',
   'ptc.team-profile-page.team-containers.empty-state.title': 'Dodaj miejsca pracy Twojego zespołu',
+  'teams-public.team-containers.timeout-action': 'Spróbuj ponownie',
+  'teams-public.team-containers.timeout-description': 'Coś poszło nie tak. Sprawdź połączenie i spróbuj ponownie.',
+  'teams-public.team-containers.timeout-no-connection-action': 'Skontaktuj się z działem wsparcia',
+  'teams-public.team-containers.timeout-no-connection-description':
+    'Spróbuj samodzielnie utworzyć tę przestrzeń ręcznie.',
+  'teams-public.team-containers.timeout-no-connection-title': 'Połączenie nie powiodło się',
+  'teams-public.team-containers.timeout-title': 'Nie można połączyć przestrzeni',
 };

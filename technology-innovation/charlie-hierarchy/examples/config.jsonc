@@ -7,6 +7,7 @@
   "testExamples": [
     "01-basic.tsx",
 		"02-basic-with-zoom.tsx",
-    "03-basic-with-styles.tsx"
+    "03-basic-with-styles.tsx",
+    "04-basic-with-hook.tsx"
   ]
 }

@@ -1,5 +1,13 @@
 # @atlaskit/charlie-hierarchy
 
+## 0.0.7
+
+### Patch Changes
+
+- [#198800](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/198800)
+  [`060485e2f0561`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/060485e2f0561) -
+  Added use-hierarchy hook for interacting with the hierarchy data
+
 ## 0.0.6
 
 ### Patch Changes

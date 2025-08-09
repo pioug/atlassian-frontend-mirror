@@ -32,4 +32,10 @@ export default {
   'ptc.team-profile-page.team-containers.empty-state.description':
     'チームの Jira プロジェクトと Confluence スペースをここにリンクさせると、チームの作業場所が一目瞭然になります',
   'ptc.team-profile-page.team-containers.empty-state.title': 'チームの作業場所を追加しましょう',
+  'teams-public.team-containers.timeout-action': '再試行',
+  'teams-public.team-containers.timeout-description': '問題が発生しました。接続を確認してもう一度お試しください。',
+  'teams-public.team-containers.timeout-no-connection-action': 'サポートに問い合わせる',
+  'teams-public.team-containers.timeout-no-connection-description': 'スペースを手動で作成してみてください。',
+  'teams-public.team-containers.timeout-no-connection-title': '接続に失敗しました',
+  'teams-public.team-containers.timeout-title': 'スペースを接続できませんでした',
 };

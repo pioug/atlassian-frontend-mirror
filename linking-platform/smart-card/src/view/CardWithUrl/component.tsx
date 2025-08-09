@@ -106,13 +106,15 @@ function Component({
 							actionSubject: 'smartLink',
 							actionSubjectId: 'smartlinkClickAnalyticsWorkflows',
 							eventType: 'ui',
-							attributes: {},
+							attributes: {
+								eventName: 'smartLinkClickAnalyticsThirdPartyWorkflows',
+							},
 							nonPrivacySafeAttributes: {
 								sourceURL: sourceURL,
 								thirdPartyARI: ari,
 							},
 						});
-						smartlinkClickAnalyticsEvent.fire();
+						smartlinkClickAnalyticsEvent.fire('media');
 					}
 				}
 			}

@@ -32,8 +32,11 @@ export default {
   'ptc.team-profile-page.team-containers.empty-state.description':
     'Votre équipe peut associer ses projets Jira et ses espaces Confluence ici pour indiquer où elle travaille',
   'ptc.team-profile-page.team-containers.empty-state.title': 'Ajouter les lieux de travail de votre équipe',
-  'teams-public..team-containers.timeout-description':
-    "Une erreur s'est produite. Vérifiez votre connection et réessayez.",
   'teams-public.team-containers.timeout-action': 'Réessayer',
+  'teams-public.team-containers.timeout-description':
+    "Une erreur s'est produite. Vérifiez votre connection et réessayez.",
+  'teams-public.team-containers.timeout-no-connection-action': 'Contacter le support',
+  'teams-public.team-containers.timeout-no-connection-description': "Essayez de créer vous-même l'espace manuellement.",
+  'teams-public.team-containers.timeout-no-connection-title': 'Échec de la connexion',
   'teams-public.team-containers.timeout-title': 'Impossible de connecter vos espaces',
 };

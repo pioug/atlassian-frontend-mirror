@@ -32,4 +32,10 @@ export default {
   'ptc.team-profile-page.team-containers.empty-state.description':
     'Takımınız nerede çalıştıklarını göstermek için Jira projelerini, Confluence alanlarını buraya bağlayabilir',
   'ptc.team-profile-page.team-containers.empty-state.title': 'Takımınızın çalıştığı yerleri ekleyin',
+  'teams-public.team-containers.timeout-action': 'Yeniden dene',
+  'teams-public.team-containers.timeout-description': 'Bir hata oluştu. Bağlantınızı doğrulayıp yeniden deneyin.',
+  'teams-public.team-containers.timeout-no-connection-action': 'Destek ekibiyle iletişime geç',
+  'teams-public.team-containers.timeout-no-connection-description': 'Alanı kendiniz manuel olarak oluşturmayı deneyin.',
+  'teams-public.team-containers.timeout-no-connection-title': 'Bağlantı başarısız oldu',
+  'teams-public.team-containers.timeout-title': 'Alanlarınıza bağlanılamadı',
 };

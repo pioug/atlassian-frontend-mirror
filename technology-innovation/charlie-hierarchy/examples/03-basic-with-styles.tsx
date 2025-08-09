@@ -8,7 +8,7 @@ import { token } from '@atlaskit/tokens';
 
 import { CharlieHierarchy } from '../src';
 
-import { rootNode } from './common/basic-hierachy';
+import { rootNode } from './common/basic-hierarchy';
 
 export default function Basic() {
 	const root = hierarchy(rootNode);

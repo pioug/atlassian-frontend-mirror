@@ -229,6 +229,54 @@ export default function ExampleScroll() {
 }
 
 `,
+		`
+import React from 'react';
+import Modal, { ModalHeader, ModalTitle, ModalBody, ModalFooter } from '@atlaskit/modal-dialog';
+import { Form } from '@atlaskit/form';
+
+<Modal width="large" onClose={closeAlertFilterModal}>
+	<Form onSubmit={onSubmit}>
+		{({ handleSubmit, submitting, submitError }) => (
+			<>
+				<ModalHeader hasCloseButton>
+					<ModalTitle>Modal Title</ModalTitle>
+				</ModalHeader>
+				<ModalBody>
+					Content
+				</ModalBody>
+				<ModalFooter>
+					Footer
+				</ModalFooter>
+			</>
+		)}
+	</Form>
+</Modal>
+`,
+		`
+import React from 'react';
+import Modal, { ModalHeader, ModalTitle, ModalBody, ModalFooter } from '@atlaskit/modal-dialog';
+import { Form } from '@atlaskit/form';
+
+<Modal width="large" onClose={closeAlertFilterModal}>
+	<Form onSubmit={onSubmit}>
+		{({ handleSubmit, submitting, submitError }) => {
+			return (
+				<>
+					<ModalHeader hasCloseButton>
+						<ModalTitle>Modal Title</ModalTitle>
+					</ModalHeader>
+					<ModalBody>
+						Content
+					</ModalBody>
+					<ModalFooter>
+						Footer
+					</ModalFooter>
+				</>
+			);
+		}}
+	</Form>
+</Modal>
+`,
 	],
 	invalid: [
 		{
@@ -568,6 +616,126 @@ const DeleteReleaseDialog = () => {
 }
 
 export default injectIntl(DeleteReleaseDialog);
+`,
+						},
+					],
+				},
+			],
+		},
+		{
+			code: `
+import React from 'react';
+import Modal, { ModalHeader, ModalTitle, ModalBody, ModalFooter } from '@atlaskit/modal-dialog';
+import { Form } from '@atlaskit/form';
+
+<Modal width="large" onClose={closeAlertFilterModal}>
+	<Form onSubmit={onSubmit}>
+		{({ handleSubmit, submitting, submitError }) => (
+			<>
+				<ModalHeader>
+					<ModalTitle>Modal Title</ModalTitle>
+				</ModalHeader>
+				<ModalBody>
+					Content
+				</ModalBody>
+				<ModalFooter>
+					Footer
+				</ModalFooter>
+			</>
+		)}
+	</Form>
+</Modal>
+`,
+			errors: [
+				{
+					messageId: 'modalHeaderMissingHasCloseButtonProp',
+					suggestions: [
+						{
+							desc: addHasCloseButtonProp,
+							output: `
+import React from 'react';
+import Modal, { ModalHeader, ModalTitle, ModalBody, ModalFooter } from '@atlaskit/modal-dialog';
+import { Form } from '@atlaskit/form';
+
+<Modal width="large" onClose={closeAlertFilterModal}>
+	<Form onSubmit={onSubmit}>
+		{({ handleSubmit, submitting, submitError }) => (
+			<>
+				<ModalHeader hasCloseButton>
+					<ModalTitle>Modal Title</ModalTitle>
+				</ModalHeader>
+				<ModalBody>
+					Content
+				</ModalBody>
+				<ModalFooter>
+					Footer
+				</ModalFooter>
+			</>
+		)}
+	</Form>
+</Modal>
+`,
+						},
+					],
+				},
+			],
+		},
+		{
+			code: `
+import React from 'react';
+import Modal, { ModalHeader, ModalTitle, ModalBody, ModalFooter } from '@atlaskit/modal-dialog';
+import { Form } from '@atlaskit/form';
+
+<Modal width="large" onClose={closeAlertFilterModal}>
+	<Form onSubmit={onSubmit}>
+		{({ handleSubmit, submitting, submitError }) => {
+			return (
+				<>
+					<ModalHeader>
+						<ModalTitle>Modal Title</ModalTitle>
+					</ModalHeader>
+					<ModalBody>
+						Content
+					</ModalBody>
+					<ModalFooter>
+						Footer
+					</ModalFooter>
+				</>
+			);
+		}}
+	</Form>
+</Modal>
+`,
+			errors: [
+				{
+					messageId: 'modalHeaderMissingHasCloseButtonProp',
+					suggestions: [
+						{
+							desc: addHasCloseButtonProp,
+							output: `
+import React from 'react';
+import Modal, { ModalHeader, ModalTitle, ModalBody, ModalFooter } from '@atlaskit/modal-dialog';
+import { Form } from '@atlaskit/form';
+
+<Modal width="large" onClose={closeAlertFilterModal}>
+	<Form onSubmit={onSubmit}>
+		{({ handleSubmit, submitting, submitError }) => {
+			return (
+				<>
+					<ModalHeader hasCloseButton>
+						<ModalTitle>Modal Title</ModalTitle>
+					</ModalHeader>
+					<ModalBody>
+						Content
+					</ModalBody>
+					<ModalFooter>
+						Footer
+					</ModalFooter>
+				</>
+			);
+		}}
+	</Form>
+</Modal>
 `,
 						},
 					],

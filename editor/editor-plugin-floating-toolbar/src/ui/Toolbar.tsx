@@ -34,7 +34,6 @@ import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -576,12 +575,10 @@ const toolbarOverflow = ({
 	scrollable,
 	scrollDisabled,
 	firstElementIsSelect,
-	paddingFeatureFlag,
 }: {
 	scrollable?: boolean;
 	scrollDisabled?: boolean;
 	firstElementIsSelect?: boolean;
-	paddingFeatureFlag?: boolean;
 }) =>
 	css(
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
@@ -604,9 +601,7 @@ const toolbarOverflow = ({
 					{
 						WebkitOverflowScrolling: 'touch',
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-						padding: paddingFeatureFlag
-							? `${token('space.050', '4px')} 0 ${token('space.050', '4px')}`
-							: `${token('space.050', '4px')} 0 ${token('space.600', '48px')}`,
+						padding: `${token('space.050', '4px')} 0 ${token('space.050', '4px')}`,
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 						'> div': {
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
@@ -826,8 +821,6 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 								scrollable,
 								scrollDisabled: this.state.scrollDisabled,
 								firstElementIsSelect,
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-								paddingFeatureFlag: fg('platform_editor_floating_toolbar_padding_fix'),
 							})}
 						>
 							<ToolbarItems

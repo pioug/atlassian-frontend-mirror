@@ -591,6 +591,7 @@ export const ExpandableMenuItemWithAllOptions = () => (
 						actionsOnHover={<MoreAction shouldRenderToParent />}
 						elemAfter={<Lozenge>Elem after</Lozenge>}
 						href="#"
+						testId="parent-menu-item"
 					>
 						Parent menu item
 					</ExpandableMenuItemTrigger>

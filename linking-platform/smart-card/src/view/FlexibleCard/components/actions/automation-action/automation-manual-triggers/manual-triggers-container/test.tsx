@@ -308,6 +308,7 @@ describe('ManualRulesContainer', () => {
 					<InvokeButton onClick={() => invokeRuleOrShowDialog(0, ['TEST-1'])} />
 				)}
 			</ManualRulesContainer>,
+			// @ts-ignore - TS2869 TypeScript 5.9.2 upgrade
 			[injectable(useManualRules, mockHook)] ?? [],
 		);
 		await expect(container).toBeAccessible();

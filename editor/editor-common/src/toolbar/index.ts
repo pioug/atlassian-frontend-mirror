@@ -97,3 +97,4 @@ export {
 } from './keys';
 
 export { useEditorToolbar, EditorToolbarProvider } from './context';
+export { EditorToolbarUIProvider } from './EditorToolbarUIProvider';

@@ -38,6 +38,9 @@
 			"path": "../../editor-plugin-interaction/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-limited-mode/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-metrics/afm-cc/tsconfig.json"
 		},
 		{

@@ -1,7 +1,7 @@
 import type { CodeBidiWarningPlugin } from './codeBidiWarningPluginType';
 import { createPlugin } from './pm-plugins/main';
 
-export const codeBidiWarningPlugin: CodeBidiWarningPlugin = ({ config }) => ({
+export const codeBidiWarningPlugin: CodeBidiWarningPlugin = ({ config, api }) => ({
 	name: 'codeBidiWarning',
 
 	pmPlugins() {
@@ -9,7 +9,7 @@ export const codeBidiWarningPlugin: CodeBidiWarningPlugin = ({ config }) => ({
 			{
 				name: 'codeBidiWarning',
 				plugin: (options) => {
-					return createPlugin(options, config ?? {});
+					return createPlugin(api, options, config ?? {});
 				},
 			},
 		];

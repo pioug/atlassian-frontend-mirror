@@ -31,6 +31,7 @@ export async function request<T = JsonLd.Response>(
 		if (response.ok || statuses?.includes(response.status)) {
 			if (statuses.includes(204)) {
 				const text = await response.text();
+				// @ts-ignore - TS2322 TypeScript 5.9.2 upgrade
 				return text ? JSON.parse(text) : undefined;
 			} else {
 				return await response.json();

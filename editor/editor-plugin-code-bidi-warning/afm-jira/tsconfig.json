@@ -26,6 +26,9 @@
 			"path": "../../../design-system/code/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-limited-mode/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
 		},
 		{

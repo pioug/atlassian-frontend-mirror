@@ -30,6 +30,7 @@ export function hexToEditorBackgroundPaletteColor<HexColor extends string>(
 	// (preferencing better type on consumption over safety in implementation)
 	// @ts-ignore
 	const tokenData = editorBackgroundPalette[hexColor.toUpperCase()];
+	// @ts-ignore - TS2322 TypeScript 5.9.2 upgrade
 	return tokenData ? tokenData.token : undefined;
 }
 
@@ -56,6 +57,7 @@ export function hexToEditorBackgroundPaletteRawValue<HexColor extends string>(
 	// (preferencing better type on consumption over safety in implementation)
 	// @ts-ignore
 	const tokenData = editorBackgroundPalette[hexColor.toUpperCase()];
+	// @ts-ignore - TS2322 TypeScript 5.9.2 upgrade
 	return tokenData ? tokenData.getValue(hexColor) : undefined;
 }
 type EditorBackgroundPalette = typeof editorBackgroundPalette;

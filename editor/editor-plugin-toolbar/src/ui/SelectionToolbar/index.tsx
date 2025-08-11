@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { isSSR } from '@atlaskit/editor-common/core-utils';
-import { EditorToolbarProvider } from '@atlaskit/editor-common/toolbar';
+import { EditorToolbarProvider, EditorToolbarUIProvider } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
@@ -57,15 +57,17 @@ export const SelectionToolbar = ({ api, editorView }: SelectionToolbarProps) => 
 			}
 		>
 			<EditorToolbarProvider editorView={editorView}>
-				<ToolbarModelRenderer
-					toolbar={toolbar as RegisterToolbar}
-					components={components}
-					fallbacks={{
-						section: ToolbarSection,
-						menuSection: ToolbarDropdownItemSection,
-						group: ToolbarButtonGroup,
-					}}
-				/>
+				<EditorToolbarUIProvider api={api}>
+					<ToolbarModelRenderer
+						toolbar={toolbar as RegisterToolbar}
+						components={components}
+						fallbacks={{
+							section: ToolbarSection,
+							menuSection: ToolbarDropdownItemSection,
+							group: ToolbarButtonGroup,
+						}}
+					/>
+				</EditorToolbarUIProvider>
 			</EditorToolbarProvider>
 		</Popup>
 	);

@@ -1,5 +1,14 @@
 # @atlaskit/emoji
 
+## 69.3.14
+
+### Patch Changes
+
+- [#199353](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/199353)
+  [`f2d4ca35574b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2d4ca35574b8) -
+  Internal changes to how border radius values are applied. No visual change.
+- Updated dependencies
+
 ## 69.3.13
 
 ### Patch Changes

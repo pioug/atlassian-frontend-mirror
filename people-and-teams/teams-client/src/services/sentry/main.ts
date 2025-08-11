@@ -59,6 +59,7 @@ async function logMessage(severity: SeverityLevel, message: string, context: Con
 	sentryClient.withScope((scope) => {
 		decorateScope(scope, context);
 		// The Severity enum is being replaced by SeverityLevel type in v7 anyway
+		// @ts-ignore - TypeScript 5.9.2 upgrade
 		scope.setLevel(severity as Severity);
 		scope.setTag('packageName', context.packageName ?? 'unknown');
 		scope.setTag('packageVersion', context.packageVersion ?? 'unknown');
@@ -131,6 +132,7 @@ export async function addBreadcrumb(crumb: string | Breadcrumb) {
 	const sentryClient = await getSentryClient();
 
 	sentryClient!.withScope((scope) => {
+		// @ts-ignore - TypeScript 5.9.2 upgrade
 		scope.addBreadcrumb(typeof crumb === 'string' ? { message: crumb } : crumb);
 	});
 }

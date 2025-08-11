@@ -4,7 +4,8 @@
  */
 import { forwardRef, type ReactNode, useContext } from 'react';
 
-import { cssMap, jsx } from '@atlaskit/css';
+import { cssMap, cx, jsx } from '@atlaskit/css';
+import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { SpotlightContext } from '../../controllers/context';
@@ -18,8 +19,11 @@ const styles = cssMap({
 	card: {
 		position: 'absolute',
 		width: '295px',
-		backgroundColor: token('color.background.neutral.bold'),
 		borderRadius: token('border.radius.200'),
+		paddingBlock: token('space.150'),
+		display: 'flex',
+		flexDirection: 'column',
+		gap: token('space.200'),
 	},
 });
 
@@ -83,11 +87,14 @@ export const Spotlight = forwardRef<HTMLDivElement, SpotlightProps>(
 		const { placement } = useContext(SpotlightContext);
 
 		return (
-			<div css={styles.root}>
+			<div css={styles.root} data-testid={testId} ref={ref}>
 				<Caret />
-				<div ref={ref} css={[styles.card, placementStyles[placement]]} data-testid={testId}>
+				<Box
+					backgroundColor="color.background.neutral.bold"
+					xcss={cx(styles.card, placementStyles[placement])}
+				>
 					{children}
-				</div>
+				</Box>
 			</div>
 		);
 	},

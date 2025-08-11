@@ -20,6 +20,8 @@ export type PMDiffParams = {
 	originalDoc: Node;
 };
 
+export type ACTION = 'SHOW_DIFF' | 'HIDE_DIFF';
+
 export type ShowDiffPlugin = NextEditorPlugin<
 	'showDiff',
 	{
@@ -27,6 +29,13 @@ export type ShowDiffPlugin = NextEditorPlugin<
 		commands: {
 			showDiff: (config: PMDiffParams) => EditorCommand;
 			hideDiff: EditorCommand;
+		};
+		sharedState: {
+			/**
+			 * Whether the show diff feature is currently displaying changes.
+			 * Defaults to false.
+			 */
+			isDisplayingChanges: boolean;
 		};
 	}
 >;

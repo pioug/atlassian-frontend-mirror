@@ -41,6 +41,7 @@ interface Params {
 export function isSingleEmoji(fallbackText: string): boolean {
 	// Regular expression to match a single emoji character
 	const emojiRegex =
+		// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
 		/^(\p{Emoji_Presentation}|\p{Extended_Pictographic}\u{FE0F}?(?:\u{200D}\p{Extended_Pictographic}\u{FE0F}?)+|\p{Regional_Indicator}\p{Regional_Indicator})$/u;
 	return emojiRegex.test(fallbackText);
 }

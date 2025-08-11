@@ -30,6 +30,7 @@ const isEmptyDoc = (adf: any) => (adf ? adf.content.length === 0 : true);
 let queuedIdleTask: number;
 
 const idle = () => {
+	// @ts-ignore - TS2454 TypeScript 5.9.2 upgrade
 	if (queuedIdleTask) {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any

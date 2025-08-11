@@ -18,10 +18,16 @@
 	],
 	"references": [
 		{
+			"path": "../../editor-plugin-editor-viewmode/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-selection/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../editor-plugin-user-intent/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-user-preferences/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../editor-toolbar/afm-jira/tsconfig.json"

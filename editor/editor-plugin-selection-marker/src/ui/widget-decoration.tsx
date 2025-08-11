@@ -134,6 +134,7 @@ export const createWidgetDecoration = (
 		const lastCharacterOfBeforeNode = nodeBefore?.textContent?.slice(-1);
 		const firstCharacterOfAfterNode = nodeAfter?.textContent?.slice(0, 1);
 		const areAdjacentCharactersNonWhitespace =
+			// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
 			/\S/u.test(lastCharacterOfBeforeNode || '') && /\S/u.test(firstCharacterOfAfterNode || '');
 		isInWord = Boolean(areTextNodes && areAdjacentCharactersNonWhitespace);
 	}

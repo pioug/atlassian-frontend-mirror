@@ -58,6 +58,12 @@
 			"path": "../../editor-shared-styles/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../editor-toolbar/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar-model/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../../elements/emoji/afm-townsquare/tsconfig.json"
 		},
 		{

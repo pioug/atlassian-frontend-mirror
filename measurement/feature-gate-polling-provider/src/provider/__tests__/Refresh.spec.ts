@@ -112,6 +112,7 @@ describe('Refresh', () => {
 	test('initialised with partial polling config', () => {
 		refresh = new Refresh(
 			{
+				// @ts-ignore - TS2454 TypeScript 5.9.2 upgrade
 				apiKey,
 				pollingInterval: 20,
 			},
@@ -123,6 +124,7 @@ describe('Refresh', () => {
 	test('initialised with bad polling config', () => {
 		refresh = new Refresh(
 			{
+				// @ts-ignore - TS2454 TypeScript 5.9.2 upgrade
 				apiKey,
 				pollingInterval: undefined,
 			},
@@ -420,7 +422,9 @@ describe('Refresh', () => {
 				.mockRejectedValueOnce(responseErrorWithStatusCode(429));
 			(refresh as any).failureCount = 1;
 			(refresh as any).pollingConfig.backOffJitter = 0;
+			// @ts-ignore - TS2454 TypeScript 5.9.2 upgrade
 			(refresh as any).lastUpdateTimestamp = oldTimestamp;
+			// @ts-ignore - TS2454 TypeScript 5.9.2 upgrade
 			(refresh as any).version = version;
 			const startSpy = jest.spyOn(Refresh.prototype as any, 'start');
 			setupRefreshForFetch();
@@ -447,6 +451,7 @@ describe('Refresh', () => {
 
 			(refresh as any).failureCount = 1;
 			(refresh as any).pollingConfig.backOffJitter = 0;
+			// @ts-ignore - TS2454 TypeScript 5.9.2 upgrade
 			(refresh as any).lastUpdateTimestamp = oldTimestamp;
 
 			const scheduleSpy = jest.spyOn(Refresh.prototype as any, 'schedule');

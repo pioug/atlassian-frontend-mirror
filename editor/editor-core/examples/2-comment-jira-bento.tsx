@@ -4,6 +4,8 @@ import { IntlProvider } from 'react-intl-next';
 
 import Button from '@atlaskit/button/new';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { showDiffPlugin } from '@atlaskit/editor-plugin-show-diff';
+import { trackChangesPlugin } from '@atlaskit/editor-plugin-track-changes';
 import { type HelpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
 import { MockActivityResource } from '@atlaskit/editor-test-helpers/example-helpers';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
@@ -161,6 +163,7 @@ export class CommentEditorJiraBento extends React.Component<Props, State> {
 										placeholder="We support markdown! Try **bold**, `inline code`, or ``` for code blocks."
 										useStickyToolbar={true}
 										assistiveLabel={this.state.assistiveLabel}
+										allowUndoRedoButtons={true}
 									/>
 								</CollapsedEditor>
 							)}
@@ -249,7 +252,9 @@ const ComposableEditorWrapper = ({
 			assistiveLabel,
 			allowUndoRedoButtons,
 		},
-	});
+	})
+		.add(showDiffPlugin)
+		.add([trackChangesPlugin, { showOnToolbar: true }]);
 	const { preset, editorApi } = usePreset(() => universalPreset, [universalPreset]);
 
 	return (

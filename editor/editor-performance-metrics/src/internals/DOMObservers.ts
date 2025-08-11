@@ -14,7 +14,7 @@ function isElementVisible(element: Element) {
 
 	try {
 		const visible = element.checkVisibility({
-			// @ts-expect-error
+			// @ts-ignore - TS2353 TypeScript 5.9.2 upgrade
 			visibilityProperty: true,
 		});
 
@@ -213,7 +213,7 @@ export class DOMObservers {
 		this.performance?.observe({
 			type: 'layout-shift',
 			buffered: true,
-			// @ts-ignore-error
+			// @ts-ignore -error
 			durationThreshold: 30,
 		});
 

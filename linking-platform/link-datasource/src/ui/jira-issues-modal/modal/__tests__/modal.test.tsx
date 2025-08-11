@@ -191,7 +191,7 @@ describe('JiraIssuesConfigModal', () => {
 					{
 						attributes: {
 							actions: ['query updated'],
-							searchCount: 1,
+							searchCount: 2,
 							searchMethod: 'datasource_basic_filter',
 							projectBasicFilterSelectionCount: 0,
 							statusBasicFilterSelectionCount: 0,
@@ -459,7 +459,9 @@ describe('JiraIssuesConfigModal', () => {
 			});
 
 			expect(screen.getByTestId('mode-toggle-basic').querySelector('input')).toBeChecked();
-			expect(screen.getByText('Search for issues by keyword')).toBeInTheDocument();
+			screen.getAllByText('Search for issues by keyword').forEach((element) => {
+				expect(element).toBeInTheDocument();
+			});
 
 			expect(screen.queryByText('Beta')).not.toBeInTheDocument();
 			expect(

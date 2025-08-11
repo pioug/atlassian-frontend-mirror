@@ -1,0 +1,42 @@
+{
+	"extends": "../../../../tsconfig.entry-points.passionfruit.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../passionfruit/tsDist/@atlaskit__editor-plugin-toolbar/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../editor-plugin-editor-viewmode/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-selection/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-user-intent/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-user-preferences/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar-model/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-passionfruit/tsconfig.json"
+		}
+	]
+}

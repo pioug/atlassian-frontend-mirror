@@ -1,5 +1,20 @@
 # @atlaskit/editor-common
 
+## 107.20.2
+
+### Patch Changes
+
+- [#199353](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/199353)
+  [`22cab8325fc62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22cab8325fc62) -
+  [ED-28760] Create a common EditorToolbarUIProvider for toolbars in editor
+- [#199487](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/199487)
+  [`54098ba4cc83c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/54098ba4cc83c) -
+  Add extra key export
+- [#199353](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/199353)
+  [`f2d4ca35574b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2d4ca35574b8) -
+  Internal changes to how border radius values are applied. No visual change.
+- Updated dependencies
+
 ## 107.20.1
 
 ### Patch Changes

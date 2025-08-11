@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-code-block
 
+## 5.0.8
+
+### Patch Changes
+
+- [#199487](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/199487)
+  [`9146513a60d45`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9146513a60d45) -
+  Add a new experiment for code folding in the editor.
+- Updated dependencies
+
 ## 5.0.7
 
 ### Patch Changes

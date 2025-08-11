@@ -38,9 +38,17 @@ import {
 import { ReactionDialogOpened, ReactionDialogSelectedReactionChanged } from '../ufo';
 import { Reaction } from './Reaction';
 import { ReactionsDialog } from './ReactionsDialog';
-import { ReactionPicker, type ReactionPickerProps } from './ReactionPicker';
+import { ReactionPicker as ReactionPickerOld, type ReactionPickerProps } from './ReactionPicker';
+import { ReactionPicker as ReactionPickerNew } from './ReactionPickerNew';
 import { type SelectorProps } from './Selector';
 import { ReactionSummaryView } from './ReactionSummaryView';
+import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
+
+const ReactionPicker = componentWithFG(
+	'platform_editor_reactions_picker_fix',
+	ReactionPickerNew,
+	ReactionPickerOld,
+);
 
 const wrapperStyle = css({
 	display: 'flex',

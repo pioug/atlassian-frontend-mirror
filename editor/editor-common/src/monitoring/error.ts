@@ -71,6 +71,7 @@ export const logException = async (error: Error, tags?: { [key: string]: Primiti
 		// Use a client to avoid picking up the errors from parent applications
 		const client = new BrowserClient(sentryOptions);
 		const hub = getCurrentHub();
+		// @ts-ignore - TypeScript 5.9.2 upgrade
 		hub.bindClient(client);
 
 		hub.withScope((scope: Scope) => {
@@ -97,6 +98,7 @@ export const logException = async (error: Error, tags?: { [key: string]: Primiti
 			hub.captureException(error);
 		});
 
+		// @ts-ignore - TypeScript 5.9.2 upgrade
 		return client.close();
 	} catch (_error) {
 		// Error reporting failed, we don't want this to generate more errors

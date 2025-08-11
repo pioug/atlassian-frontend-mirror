@@ -188,6 +188,7 @@ export const setupFactory = <Parameters extends DatasourceParameters, InsertArgs
 			_isAnalyticsEvent: true,
 			_isUIAnalyticsEvent: true,
 			clone: expect.anything(),
+			fire: expect.anything(),
 			context: expect.anything(),
 			handlers: expect.anything(),
 			hasFired: false,

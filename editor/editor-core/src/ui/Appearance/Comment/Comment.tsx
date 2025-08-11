@@ -39,6 +39,7 @@ import type {
 	PrimaryToolbarPluginState,
 } from '@atlaskit/editor-plugins/primary-toolbar';
 import { tableCommentEditorStyles } from '@atlaskit/editor-plugins/table/ui/common-styles';
+import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import { akEditorMobileBreakoutPoint } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
@@ -58,6 +59,7 @@ import { getPrimaryToolbarComponents } from '../../Toolbar/getPrimaryToolbarComp
 import { ToolbarWithSizeDetector as Toolbar } from '../../Toolbar/ToolbarWithSizeDetector';
 import WithFlash from '../../WithFlash';
 
+import { CommentToolbar } from './CommentToolbar';
 import { MainToolbar } from './Toolbar';
 
 const CommentEditorMargin = 14;
@@ -167,6 +169,7 @@ type ComponentProps = EditorAppearanceComponentProps<
 		OptionalPlugin<MediaPlugin>,
 		OptionalPlugin<MaxContentSizePlugin>,
 		OptionalPlugin<PrimaryToolbarPlugin>,
+		OptionalPlugin<ToolbarPlugin>,
 	]
 >;
 
@@ -343,27 +346,31 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 							useStickyToolbar={useStickyToolbar}
 							intl={intl}
 						>
-							<Toolbar
-								// Ignored via go/ees005
-								// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-								editorView={editorView!}
-								editorActions={editorActions}
-								// Ignored via go/ees005
-								// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-								eventDispatcher={eventDispatcher!}
-								// Ignored via go/ees005
-								// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-								providerFactory={providerFactory!}
-								appearance={appearance}
-								items={primaryToolbarComponents}
-								popupsMountPoint={popupsMountPoint}
-								popupsBoundariesElement={popupsBoundariesElement}
-								popupsScrollableElement={popupsScrollableElement}
-								disabled={!!disabled}
-								dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-								containerElement={containerElement.current}
-								twoLineEditorToolbar={isTwoLineToolbarEnabled}
-							/>
+							{expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true) ? (
+								<CommentToolbar editorAPI={editorAPI} editorView={editorView} />
+							) : (
+								<Toolbar
+									// Ignored via go/ees005
+									// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+									editorView={editorView!}
+									editorActions={editorActions}
+									// Ignored via go/ees005
+									// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+									eventDispatcher={eventDispatcher!}
+									// Ignored via go/ees005
+									// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+									providerFactory={providerFactory!}
+									appearance={appearance}
+									items={primaryToolbarComponents}
+									popupsMountPoint={popupsMountPoint}
+									popupsBoundariesElement={popupsBoundariesElement}
+									popupsScrollableElement={popupsScrollableElement}
+									disabled={!!disabled}
+									dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+									containerElement={containerElement.current}
+									twoLineEditorToolbar={isTwoLineToolbarEnabled}
+								/>
+							)}
 							<div
 								css={
 									expValEquals('platform_editor_core_static_emotion_non_central', 'isEnabled', true)

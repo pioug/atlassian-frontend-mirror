@@ -1,0 +1,41 @@
+{
+	"extends": "../../../../tsconfig.entry-points.passionfruit.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../passionfruit/tsDist/@atlaskit__link-client-extension/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
+	],
+	"references": [
+		{
+			"path": "../../json-ld-types/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../linking-common/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../linking-types/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../link-provider/afm-passionfruit/tsconfig.json"
+		}
+	]
+}

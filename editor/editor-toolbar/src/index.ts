@@ -1,14 +1,14 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
-export { Toolbar } from './ui/Toolbar';
+export { Toolbar, PrimaryToolbar } from './ui/Toolbar';
 export { ToolbarButton } from './ui/ToolbarButton';
 export { ToolbarButtonGroup } from './ui/ToolbarButtonGroup';
 export { ToolbarDropdownMenu } from './ui/ToolbarDropdownMenu';
 export { ToolbarDropdownItem } from './ui/ToolbarDropdownItem';
 export { ToolbarDropdownItemSection } from './ui/ToolbarDropdownItemSection';
+export { ToolbarNestedDropdownMenu } from './ui/ToolbarNestedDropdownMenu';
 export { ToolbarKeyboardShortcutHint } from './ui/ToolbarKeyboardShortcutHint';
 export { ToolbarSection } from './ui/ToolbarSection';
 export { ToolbarTooltip } from './ui/ToolbarTooltip';
-export { ToolbarNestedDropdownMenu } from './ui/ToolbarNestedDropdownMenu';
 export { ToolbarDropdownDivider } from './ui/ToolbarDropdownDivider';
 export { ToolbarColorSwatch } from './ui/ToolbarColorSwatch';
 
@@ -54,3 +54,5 @@ export { SuperscriptIcon } from './ui/icons/SuperscriptIcon';
 export { ShowMoreHorizontalIcon } from './ui/icons/ShowMoreHorizontal';
 
 export type { IconComponent, ToolbarButtonGroupLocation } from './types';
+
+export { useToolbarUI, ToolbarUIProvider } from './hooks/ui-context';

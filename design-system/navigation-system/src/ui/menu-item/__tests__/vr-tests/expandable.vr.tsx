@@ -190,13 +190,13 @@ snapshot(ExpandableMenuItemWithAllOptions, {
 		{
 			state: 'hovered',
 			selector: {
-				byRole: 'button',
-				options: {
-					name: 'Expand',
-				},
+				byTestId: 'parent-menu-item--elem-before-button',
 			},
 		},
 	],
+	featureFlags: {
+		platform_dst_expandable_menu_item_elembefore_label: true,
+	},
 });
 
 snapshot(ExpandableMenuItemWithAllOptions, {
@@ -206,13 +206,13 @@ snapshot(ExpandableMenuItemWithAllOptions, {
 		{
 			state: 'focused',
 			selector: {
-				byRole: 'button',
-				options: {
-					name: 'Expand',
-				},
+				byTestId: 'parent-menu-item--elem-before-button',
 			},
 		},
 	],
+	featureFlags: {
+		platform_dst_expandable_menu_item_elembefore_label: true,
+	},
 });
 
 snapshot(ExpandableMenuItemWithAllOptions, {

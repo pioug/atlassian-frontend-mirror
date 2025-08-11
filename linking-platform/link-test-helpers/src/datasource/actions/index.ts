@@ -1,4 +1,4 @@
-import { type MockRequest } from 'fetch-mock';
+import type FetchMock from 'fetch-mock';
 import fetchMock from 'fetch-mock/cjs/client';
 
 import {
@@ -152,7 +152,7 @@ export const mockActionsDiscovery = (overrides?: Partial<ActionsServiceDiscovery
 export const mockActionsExecution = (mockExecutionDelay: number) => {
 	fetchMock.post(
 		ORS_ACTIONS_EXECUTION_ENDPOINT,
-		async (url: string, request: MockRequest): Promise<AtomicActionExecuteResponse> => {
+		async (url: string, request: FetchMock.MockRequest): Promise<AtomicActionExecuteResponse> => {
 			if (mockExecutionDelay === Infinity) {
 				return new Promise(() => {});
 			}

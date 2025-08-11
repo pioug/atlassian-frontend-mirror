@@ -188,6 +188,9 @@
 			"path": "../../editor-plugin-layout/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-limited-mode/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-list/afm-townsquare/tsconfig.json"
 		},
 		{

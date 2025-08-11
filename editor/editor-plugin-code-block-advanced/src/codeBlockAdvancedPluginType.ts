@@ -17,10 +17,11 @@ export type CodeBlockAdvancedPlugin = NextEditorPlugin<
 			OptionalPlugin<SelectionMarkerPlugin>,
 			OptionalPlugin<FindReplacePlugin>,
 		];
-		pluginConfiguration:
-			| {
-					extensions?: Extension[];
-			  }
-			| undefined;
+		pluginConfiguration: CodeBlockAdvancedPluginOptions | undefined;
 	}
 >;
+
+export type CodeBlockAdvancedPluginOptions = {
+	extensions?: Extension[];
+	allowCodeFolding?: boolean;
+};

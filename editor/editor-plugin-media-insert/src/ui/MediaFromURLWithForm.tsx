@@ -84,6 +84,7 @@ const isValidInput = (value: string, isUrlValidationOff: boolean): boolean => {
 };
 
 export const isValidSmartValue = (value: string): boolean => {
+	// @ts-ignore - TS2538 TypeScript 5.9.2 upgrade
 	if (/^\{\{.+\}\}$/u.test(value) && value.length < MAX_URL_LENGTH) {
 		return true;
 	}

@@ -12,6 +12,7 @@ interface Props {
 	api: ExtractInjectionAPI<CodeBlockAdvancedPlugin> | undefined;
 	extensions: Extension[];
 	getIntl: () => IntlShape;
+	allowCodeFolding: boolean;
 }
 
 export const lazyCodeBlockView = (props: Props) => {

@@ -34,6 +34,7 @@ export function getOffsetByPath(
 
 	for (let i = 1; i < len; i++) {
 		const key = parts[i];
+		// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
 		if (ref instanceof Fragment && /^[0-9]+$/u.test(key)) {
 			let index = parseInt(key, 10);
 			if (index >= ref.childCount) {

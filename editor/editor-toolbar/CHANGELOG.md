@@ -1,5 +1,26 @@
 # @atlaskit/editor-toolbar
 
+## 0.2.0
+
+### Minor Changes
+
+- [#199353](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/199353)
+  [`22cab8325fc62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22cab8325fc62) -
+  [ux] [ED-28760] Fix editor lose focus and hence editing flow is interrupted. This is done for 2
+  components
+
+  - Dropdown
+    - Create context ToolbarUIContext for toolbar consumers to access consumer specific state and
+      callbacks
+    - Define onDropdownOpenChanged callback for selection toolbars so that editor regains focus
+      after dropdown is closed
+  - Button
+    - Call preventDefault on mouseDown to prevent button takes away focus
+
+- [#199487](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/199487)
+  [`54098ba4cc83c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/54098ba4cc83c) -
+  Add new PrimaryToolbar export which removes box shadows, export toolbar types
+
 ## 0.1.1
 
 ### Patch Changes

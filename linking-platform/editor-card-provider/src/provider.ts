@@ -60,8 +60,10 @@ const isProformaView = (url: string) =>
 	);
 
 const isConfluenceWhiteboard = (url: string) =>
+	// @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
 	url.match(/\/wiki\/spaces\/?.*\/whiteboard\/(?<resourceId>\d+)(\?\/)?/) ||
 	url.match(
+		// @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
 		/\/wiki\/spaces\/?.*\/whiteboard\/(?<resourceId>[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12})(\?\/)?/,
 	);
 
@@ -73,6 +75,7 @@ const isYoutubeVideo = (url: string) =>
 
 const isLoomUrl = (url: string) => {
 	return url.match(
+		// @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
 		/^https:\/\/(.*?\.)?(loom\..*?\/(share|embed))\/([a-zA-Z0-9-]*-)?(?<videoId>[a-f0-9]{32})/,
 	);
 };
@@ -93,9 +96,11 @@ const isJiraBoard = (url: string) => {
 
 const isJiraPlan = (url: string) => {
 	return (
+		// @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
 		(url.match(/https:\/\/.*?\/jira\/plans\/(?<resourceId>\d+)/) &&
 			fg('plan_smart_link_base_url')) ||
 		url.match(
+			// @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
 			/https:\/\/.*?\/jira\/plans\/(?<resourceId>\d+)\/scenarios\/(?<resourceContext>\d+)\/(timeline|summary|calendar|program\/\d+|dependencies)\/?/,
 		)
 	);
@@ -123,6 +128,7 @@ const isCustomer360LandingPage = (url: string) =>
 	url.match(/^https:\/\/customer\.atlassian\.com\/.*$/);
 
 const isConfluenceTeamCalendars = (url: string) =>
+	// @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
 	url.match(/\/wiki\/spaces\/(?<resourceContext>[^\/]+)\/calendars\/(?<resourceId>[a-zA-Z0-9-]+)/);
 
 const isJiraIssueNavigator = (url: string) =>

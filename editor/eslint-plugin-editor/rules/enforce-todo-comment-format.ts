@@ -46,4 +46,5 @@ export const rule = ESLintUtils.RuleCreator.withoutDocs<Options, 'invalidTodoFor
 	},
 });
 
+// @ts-ignore - TS2742 TypeScript 5.9.2 upgrade
 export default { rule };

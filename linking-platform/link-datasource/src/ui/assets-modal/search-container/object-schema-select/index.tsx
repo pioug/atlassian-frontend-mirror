@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 
-import { useCallback, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 import { jsx, styled } from '@compiled/react';
 import debounce from 'debounce-promise';
@@ -90,11 +90,20 @@ export const AssetsObjectSchemaSelect = ({
 		return undefined;
 	};
 
+	const debounceTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+
 	const handleInputChange = useCallback(
 		async (newSearchTerm: string, actionMeta: InputActionMeta) => {
 			if (actionMeta.action === 'input-change' && newSearchTerm !== searchTerm) {
 				setSearchTerm(newSearchTerm);
-				setOptions(await debouncedLoadOptions(newSearchTerm));
+
+				if (debounceTimeout.current) {
+					clearTimeout(debounceTimeout.current);
+				}
+
+				debounceTimeout.current = setTimeout(async () => {
+					setOptions(await debouncedLoadOptions(newSearchTerm));
+				}, SEARCH_DEBOUNCE_MS);
 			}
 		},
 		[debouncedLoadOptions, searchTerm],

@@ -25,6 +25,7 @@ function isIconRenderProp(
  */
 const IconRenderer = ({ icon: Icon }: { icon: IconProp }) => {
 	return (
+		// @ts-ignore - TS2322 TypeScript 5.9.2 upgrade
 		<>
 			{isIconRenderProp(Icon) ? (
 				Icon({ label: '', color: 'currentColor' })

@@ -4,7 +4,6 @@ import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import { cssMap, cx } from '@atlaskit/css';
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
@@ -14,18 +13,17 @@ import {
 } from '@atlaskit/editor-common/ui-react';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingOverlapPanelZIndex } from '@atlaskit/editor-shared-styles';
-import JiraIcon from '@atlaskit/icon-lab/core/jira';
-import ArrowDownIcon from '@atlaskit/icon/core/arrow-down';
-import ArrowUpIcon from '@atlaskit/icon/core/arrow-up';
-import ChangesIcon from '@atlaskit/icon/core/changes';
-import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
-import DeleteIcon from '@atlaskit/icon/core/delete';
-import ListBulletedIcon from '@atlaskit/icon/core/list-bulleted';
-import TaskIcon from '@atlaskit/icon/core/task';
+import {
+	ToolbarDropdownItem,
+	ToolbarDropdownItemSection,
+	ToolbarNestedDropdownMenu,
+} from '@atlaskit/editor-toolbar';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
+
+import { BlockMenuRenderer } from './block-menu-renderer';
 
 const styles = cssMap({
 	base: {
@@ -34,6 +32,10 @@ const styles = cssMap({
 		borderRadius: token('border.radius'),
 	},
 });
+
+const DRAG_HANDLE_SELECTOR = '[data-editor-block-ctrl-drag-handle=true]';
+const DRAG_HANDLE_WIDTH = 12;
+const DRAG_HANDLE_PADDING = 5;
 
 const PopupWithListeners = withReactEditorViewOuterListeners(Popup);
 
@@ -45,53 +47,30 @@ type BlockMenuProps = {
 	scrollableElement?: HTMLElement;
 };
 
-const FormatDropdown = () => {
-	return (
-		<DropdownMenu
-			placement="right-start"
-			shouldFitContainer
-			trigger={({
-				triggerRef,
-				'aria-controls': ariaControls,
-				'aria-haspopup': ariaHasPopup,
-				'aria-expanded': ariaExpanded,
-			}) => (
-				<DropdownItem
-					aria-controls={ariaControls}
-					aria-haspopup={ariaHasPopup}
-					aria-expanded={ariaExpanded}
-					ref={triggerRef}
-					elemBefore={<ChangesIcon label="" />}
-					elemAfter={<ChevronRightIcon label="" />}
-				>
-					Format
-				</DropdownItem>
-			)}
-		>
-			<DropdownItemGroup>
-				<DropdownItem elemBefore={<TaskIcon label="" />}>Action item</DropdownItem>
-				<DropdownItem elemBefore={<ListBulletedIcon label="" />}>Bullet list</DropdownItem>
-			</DropdownItemGroup>
-		</DropdownMenu>
-	);
-};
-
-const BlockMenuContent = () => {
+const BlockMenuContent = ({ api }: { api: ExtractInjectionAPI<BlockMenuPlugin> | undefined }) => {
 	const setOutsideClickTargetRef = useContext(OutsideClickTargetRefContext);
+	const blockMenuComponents = api?.blockMenu?.actions.getBlockMenuComponents();
 
 	return (
 		<Box testId="editor-block-menu" ref={setOutsideClickTargetRef} xcss={cx(styles.base)}>
-			<DropdownItemGroup>
-				<FormatDropdown />
-				<DropdownItem elemBefore={<JiraIcon label="" />}>Create Jira work item</DropdownItem>
-			</DropdownItemGroup>
-			<DropdownItemGroup hasSeparator>
-				<DropdownItem elemBefore={<ArrowUpIcon label="" />}>Move up</DropdownItem>
-				<DropdownItem elemBefore={<ArrowDownIcon label="" />}>Move down</DropdownItem>
-			</DropdownItemGroup>
-			<DropdownItemGroup hasSeparator>
-				<DropdownItem elemBefore={<DeleteIcon label="" />}>Delete</DropdownItem>
-			</DropdownItemGroup>
+			<BlockMenuRenderer
+				components={blockMenuComponents || []}
+				fallbacks={{
+					nestedMenu: () => (
+						<ToolbarNestedDropdownMenu elemBefore={undefined} elemAfter={undefined}>
+							<ToolbarDropdownItemSection>
+								<ToolbarDropdownItem>Block Menu Item</ToolbarDropdownItem>
+							</ToolbarDropdownItemSection>
+						</ToolbarNestedDropdownMenu>
+					),
+					section: () => (
+						<ToolbarDropdownItemSection>
+							<ToolbarDropdownItem>Block Menu Item</ToolbarDropdownItem>
+						</ToolbarDropdownItemSection>
+					),
+					item: () => <ToolbarDropdownItem>Block Menu Item</ToolbarDropdownItem>,
+				}}
+			/>
 		</Box>
 	);
 };
@@ -133,10 +112,7 @@ const BlockMenu = ({
 		return null;
 	}
 
-	const activeNodeSelector = menuTriggerBy && `[data-drag-handler-anchor-name=${menuTriggerBy}]`;
-	const targetHandleRef = activeNodeSelector
-		? document.querySelector<HTMLElement>(activeNodeSelector)
-		: null;
+	const targetHandleRef = editorView.dom?.querySelector<HTMLElement>(DRAG_HANDLE_SELECTOR);
 
 	if (targetHandleRef instanceof HTMLElement) {
 		return (
@@ -152,9 +128,9 @@ const BlockMenu = ({
 				zIndex={akEditorFloatingOverlapPanelZIndex}
 				forcePlacement={true}
 				stick={true}
-				offset={[-6, 8]}
+				offset={[DRAG_HANDLE_WIDTH + DRAG_HANDLE_PADDING, 0]}
 			>
-				<BlockMenuContent />
+				<BlockMenuContent api={api} />
 			</PopupWithListeners>
 		);
 	} else {

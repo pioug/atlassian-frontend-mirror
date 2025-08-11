@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-controls",
-	"version": "4.1.8",
+	"version": "4.1.9",
 	"description": "Block controls plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -40,6 +40,7 @@
 		"@atlaskit/editor-plugin-editor-disabled": "workspace:^",
 		"@atlaskit/editor-plugin-feature-flags": "workspace:^",
 		"@atlaskit/editor-plugin-interaction": "workspace:^",
+		"@atlaskit/editor-plugin-limited-mode": "workspace:^",
 		"@atlaskit/editor-plugin-metrics": "workspace:^",
 		"@atlaskit/editor-plugin-quick-insert": "workspace:^",
 		"@atlaskit/editor-plugin-selection": "workspace:^",
@@ -150,9 +151,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_elements_dnd_multi_select_patch_3": {
-			"type": "boolean"
-		},
-		"platform_editor_fix_safari_cursor_hidden_empty": {
 			"type": "boolean"
 		},
 		"platform_editor_drag_and_drop_perf_analytics": {

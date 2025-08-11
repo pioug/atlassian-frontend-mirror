@@ -980,6 +980,7 @@ describe('useFilePreview', () => {
 				expect(getImageSpy).not.toHaveBeenCalled();
 
 				// unskip remote
+				// @ts-ignore - TS2322 TypeScript 5.9.2 upgrade
 				rerender({ ...initialProps, skipRemote: false });
 
 				await waitFor(() =>
@@ -1041,6 +1042,7 @@ describe('useFilePreview', () => {
 				expect(getImageSpy).not.toHaveBeenCalled();
 
 				// unskip remote
+				// @ts-ignore - TS2322 TypeScript 5.9.2 upgrade
 				rerender({ ...initialProps, skipRemote: false });
 
 				await waitFor(() =>
@@ -1107,6 +1109,7 @@ describe('useFilePreview', () => {
 					result?.current.onImageError(globalScopePreview);
 
 					// unskip remote
+					// @ts-ignore - TS2322 TypeScript 5.9.2 upgrade
 					rerender({ ...initialProps, skipRemote: false });
 
 					await waitFor(() =>
@@ -1246,6 +1249,7 @@ describe('useFilePreview', () => {
 					result?.current.onImageError(result?.current.preview);
 
 					// unskip remote
+					// @ts-ignore - TS2322 TypeScript 5.9.2 upgrade
 					rerender({ ...initialProps, skipRemote: false });
 
 					await waitFor(() =>
@@ -1383,6 +1387,7 @@ describe('useFilePreview', () => {
 					processItem(fileItem, 1);
 
 					// unskip remote
+					// @ts-ignore - TS2322 TypeScript 5.9.2 upgrade
 					rerender({ ...initialProps, skipRemote: false });
 
 					await waitFor(() =>

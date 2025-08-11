@@ -33,6 +33,7 @@ import * as ssr from '../ssr';
 import type { OptimizedLabelStack } from './common/types';
 import {
 	buildSegmentTree,
+	getOldSegmentsLabelStack,
 	labelStackStartWith,
 	optimizeLabelStack,
 	sanitizeUfoName,
@@ -912,13 +913,7 @@ async function createInteractionMetricsPayload(
 					segments:
 						getReactUFOPayloadVersion(interaction.type) === '2.0.0'
 							? segmentTree
-							: segments.map(({ labelStack, ...others }) => ({
-									...others,
-									labelStack: optimizeLabelStack(
-										labelStack,
-										getReactUFOPayloadVersion(interaction.type),
-									),
-								})),
+							: getOldSegmentsLabelStack(segments, interaction.type),
 					marks: optimizeMarks(interaction.marks, getReactUFOPayloadVersion(interaction.type)),
 					customData: optimizeCustomData(interaction),
 					reactProfilerTimings: optimizeReactProfilerTimings(

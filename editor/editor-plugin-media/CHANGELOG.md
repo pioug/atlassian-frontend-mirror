@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-media
 
+## 5.2.7
+
+### Patch Changes
+
+- [#199487](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/199487)
+  [`859430405e506`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/859430405e506) -
+  ED-28970 remove platform_editor_inline_resize_media_to_edge
+- [#199353](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/199353)
+  [`f2d4ca35574b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2d4ca35574b8) -
+  Internal changes to how border radius values are applied. No visual change.
+- Updated dependencies
+
 ## 5.2.6
 
 ### Patch Changes

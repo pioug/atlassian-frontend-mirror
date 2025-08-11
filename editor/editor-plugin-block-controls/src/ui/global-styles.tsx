@@ -17,7 +17,6 @@ import {
 	akEditorGutterPaddingReduced,
 	akEditorFullPageNarrowBreakout,
 } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { layers } from '@atlaskit/theme/constants';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -363,16 +362,6 @@ const headingWithIndentationInLayoutStyleFix = css({
 		},
 });
 
-const withRelativePosStyleLegacy = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'.ProseMirror': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
-		[`&& ${dragHandlerAnchorSelector}`]: {
-			position: 'relative',
-		},
-	},
-});
-
 const withRelativePosStyle = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
@@ -449,9 +438,7 @@ export const GlobalStylesWrapper = ({
 				editorExperiment('advanced_layouts', true) ? blockCardWithoutLayout : undefined,
 				withDividerInPanelStyleFix,
 				withFormatInLayoutStyleFix,
-				fg('platform_editor_fix_safari_cursor_hidden_empty')
-					? withRelativePosStyle
-					: withRelativePosStyleLegacy,
+				withRelativePosStyle,
 				topLevelNodeMarginStyles,
 				withAnchorNameZindexStyle,
 			]}

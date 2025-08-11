@@ -1109,13 +1109,7 @@ describe('TimelineController - hold', () => {
 		expect(timeoutEvent).toBeDefined();
 		expect(timeoutEvent?.data).toHaveProperty('uuid');
 
-		expect(
-			// @ts-expect-error
-			timeoutEvent?.data.uuid,
-		).toEqual(
-			// @ts-expect-error
-			holdEvent?.data.uuid,
-		);
+		expect(timeoutEvent?.data.uuid).toEqual(holdEvent?.data.uuid);
 	});
 });
 

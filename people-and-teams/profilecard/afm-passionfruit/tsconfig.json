@@ -1,0 +1,117 @@
+{
+	"extends": "../../../../tsconfig.entry-points.passionfruit.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../passionfruit/tsDist/@atlaskit__profilecard/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../uip/atlassian-context/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/avatar/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/avatar-group/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/button/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/css/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/dropdown-menu/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/empty-state/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../measurement/feature-gate-js-client/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../team-central/give-kudos/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/heading/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/link/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/logo/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/lozenge/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/menu/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/modal-dialog/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../people-teams-ui-public/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/popup/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../ai-mate/rovo-agent-components/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../ai-mate/rovo-triggers/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/spinner/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../teams-app-config/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../teams-avatar/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../teams-public/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-passionfruit/tsconfig.json"
+		}
+	]
+}

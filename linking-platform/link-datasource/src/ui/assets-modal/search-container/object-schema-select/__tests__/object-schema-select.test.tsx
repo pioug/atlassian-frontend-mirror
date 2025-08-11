@@ -12,6 +12,7 @@ import { IntlProvider } from 'react-intl-next';
 
 import Form from '@atlaskit/form';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import {
 	type FetchObjectSchemasDetails,
@@ -40,6 +41,7 @@ const formWrapper: RenderOptions<{}>['wrapper'] = ({ children }) => (
 describe('AssetsObjectSchemaSelect', () => {
 	// React Select does not work with testId
 	const objectSchemaSelectInput = 'assets-datasource-modal--object-schema-select__input';
+	const objectSchemaSelectButton = 'assets-datasource-modal--object-schema-select';
 	const workspaceId = 'workspaceId';
 	const mockFetchObjectSchemas = jest.fn();
 	const mockUseObjectSchemas = asMock(useObjectSchemas);
@@ -101,16 +103,35 @@ describe('AssetsObjectSchemaSelect', () => {
 		});
 	});
 
-	it('should debounce fetching object schemas when searching', async () => {
-		await renderDefaultObjectSchemaSelect();
-		const selectInput = document.getElementsByClassName(objectSchemaSelectInput)[0];
-		fireEvent.change(selectInput, { target: { value: 'test' } });
-		fireEvent.change(selectInput, { target: { value: 'test updated' } });
-		expect(mockFetchObjectSchemas).toHaveBeenCalledTimes(0);
-		jest.advanceTimersByTime(SEARCH_DEBOUNCE_MS);
-		await waitFor(() => {
-			expect(mockFetchObjectSchemas).toHaveBeenCalledTimes(1);
-			expect(mockFetchObjectSchemas).toHaveBeenCalledWith('test updated');
+	ffTest.on('linking-platform-assests-schema-selector-refresh', '', () => {
+		it('should debounce fetching object schemas when searching', async () => {
+			await renderDefaultObjectSchemaSelect();
+			const schemaSelector = (await screen.findByTestId(objectSchemaSelectButton)).children[0];
+			fireEvent.click(schemaSelector);
+			const selectInput = await screen.findByRole('combobox');
+			fireEvent.change(selectInput, { target: { value: 'test' } });
+			fireEvent.change(selectInput, { target: { value: 'test updated' } });
+			expect(mockFetchObjectSchemas).toHaveBeenCalledTimes(0);
+			jest.advanceTimersByTime(SEARCH_DEBOUNCE_MS);
+			await waitFor(() => {
+				expect(mockFetchObjectSchemas).toHaveBeenCalledTimes(1);
+				expect(mockFetchObjectSchemas).toHaveBeenCalledWith('test updated');
+			});
+		});
+	});
+
+	ffTest.off('linking-platform-assests-schema-selector-refresh', '', () => {
+		it('should debounce fetching object schemas when searching', async () => {
+			await renderDefaultObjectSchemaSelect();
+			const selectInput = document.getElementsByClassName(objectSchemaSelectInput)[0];
+			fireEvent.change(selectInput, { target: { value: 'test' } });
+			fireEvent.change(selectInput, { target: { value: 'test updated' } });
+			expect(mockFetchObjectSchemas).toHaveBeenCalledTimes(0);
+			jest.advanceTimersByTime(SEARCH_DEBOUNCE_MS);
+			await waitFor(() => {
+				expect(mockFetchObjectSchemas).toHaveBeenCalledTimes(1);
+				expect(mockFetchObjectSchemas).toHaveBeenCalledWith('test updated');
+			});
 		});
 	});
 

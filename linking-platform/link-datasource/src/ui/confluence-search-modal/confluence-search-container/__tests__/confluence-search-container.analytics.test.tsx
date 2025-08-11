@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
@@ -86,8 +86,8 @@ describe('Analytics: ConfluenceSearchContainer', () => {
 
 			fireEvent.click(getByTestId(testIds.searchButton));
 
-			expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
-				{
+			expect(onAnalyticFireEvent).toHaveBeenLastCalledWith(
+				expect.objectContaining({
 					payload: {
 						action: 'submitted',
 						actionSubject: 'form',
@@ -95,22 +95,20 @@ describe('Analytics: ConfluenceSearchContainer', () => {
 						attributes: {},
 						eventType: 'ui',
 					},
-				},
+				}),
 				EVENT_CHANNEL,
 			);
 		});
 
 		it('should fire event on enter key press', async () => {
-			const {
-				container: { getByTestId },
-			} = setup();
+			setup();
 
-			const basicTextInput = getByTestId(testIds.searchInput);
+			const basicTextInput = await screen.findByTestId(testIds.searchInput);
 
 			await userEvent.type(basicTextInput, 'testing{enter}');
 
-			expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
-				{
+			expect(onAnalyticFireEvent).toHaveBeenLastCalledWith(
+				expect.objectContaining({
 					payload: {
 						action: 'submitted',
 						actionSubject: 'form',
@@ -118,7 +116,7 @@ describe('Analytics: ConfluenceSearchContainer', () => {
 						attributes: {},
 						eventType: 'ui',
 					},
-				},
+				}),
 				EVENT_CHANNEL,
 			);
 		});

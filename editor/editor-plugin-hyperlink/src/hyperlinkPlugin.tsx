@@ -41,8 +41,8 @@ import { createInputRulePlugin } from './pm-plugins/input-rule';
 import { createKeymapPlugin } from './pm-plugins/keymap';
 import { plugin, stateKey } from './pm-plugins/main';
 import { toolbarButtonsPlugin } from './pm-plugins/toolbar-buttons';
+import { getToolbarComponents } from './ui/toolbar-components';
 import { getToolbarConfig } from './ui/toolbar/Toolbar';
-import { getToolbarComponents } from './ui/ToolbarComponents';
 
 const getPosFromActiveLinkMark = (state: LinkToolbarState) => {
 	if (state === undefined) {

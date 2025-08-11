@@ -310,6 +310,7 @@ export class TimelineController
 		const currentTime = performance.now();
 		const iterator = this.holdStartTimes.entries();
 
+		// @ts-ignore - TS2488 TypeScript 5.9.2 upgrade
 		let [holdId, holdStartTime] = iterator.next().value;
 		while (typeof holdStartTime === 'number') {
 			const lastHoldDelta = currentTime - holdStartTime;

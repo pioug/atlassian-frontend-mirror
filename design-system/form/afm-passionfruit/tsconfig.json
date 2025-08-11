@@ -1,0 +1,48 @@
+{
+	"extends": "../../../../tsconfig.entry-points.passionfruit.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../passionfruit/tsDist/@atlaskit__form/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
+	],
+	"references": [
+		{
+			"path": "../../css/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../ds-lib/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../heading/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../icon/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../primitives/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../theme/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../tokens/afm-passionfruit/tsconfig.json"
+		}
+	]
+}

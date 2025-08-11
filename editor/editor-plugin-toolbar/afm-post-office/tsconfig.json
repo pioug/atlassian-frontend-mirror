@@ -18,10 +18,16 @@
 	],
 	"references": [
 		{
+			"path": "../../editor-plugin-editor-viewmode/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-selection/afm-post-office/tsconfig.json"
 		},
 		{
 			"path": "../../editor-plugin-user-intent/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-user-preferences/afm-post-office/tsconfig.json"
 		},
 		{
 			"path": "../../editor-toolbar/afm-post-office/tsconfig.json"

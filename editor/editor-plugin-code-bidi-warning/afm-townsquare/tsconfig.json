@@ -26,6 +26,9 @@
 			"path": "../../../design-system/code/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-limited-mode/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../../platform/feature-flags/afm-townsquare/tsconfig.json"
 		},
 		{

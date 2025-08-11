@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 0.2.0
+
+### Minor Changes
+
+- [#199487](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/199487)
+  [`54098ba4cc83c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/54098ba4cc83c) -
+  Add LinkSection and TextSection and add logic to hide them when toolbar is pinned. Add
+  UserPreferencesPlugin and EditorViewModePlugin as a dependency to editor-plugin-toolbar.
+
+### Patch Changes
+
+- [#199353](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/199353)
+  [`22cab8325fc62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22cab8325fc62) -
+  [ux] [ED-28760] Fix editor lose focus and hence editing flow is interrupted. This is done for 2
+  components
+
+  - Dropdown
+    - Create context ToolbarUIContext for toolbar consumers to access consumer specific state and
+      callbacks
+    - Define onDropdownOpenChanged callback for selection toolbars so that editor regains focus
+      after dropdown is closed
+  - Button
+    - Call preventDefault on mouseDown to prevent button takes away focus
+
+- Updated dependencies
+
 ## 0.1.0
 
 ### Minor Changes

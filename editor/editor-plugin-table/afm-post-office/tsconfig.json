@@ -57,6 +57,9 @@
 			"path": "../../editor-plugin-interaction/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-limited-mode/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-selection/afm-post-office/tsconfig.json"
 		},
 		{

@@ -14,7 +14,7 @@ import type {
 	ToolbarMenuSectionComponent,
 	ToolbarSectionComponent,
 	ToolbarButtonGroupLocation,
-	ComponentTypes,
+	ToolbarComponentTypes,
 } from '../../types';
 
 type ToolbarProps = {
@@ -106,7 +106,7 @@ export const ToolbarModelRenderer = ({ toolbar, components, fallbacks }: Toolbar
 		item: RegisterToolbarButton | RegisterToolbarMenu;
 		index: number;
 		groupLocation?: ToolbarButtonGroupLocation;
-		parents: ComponentTypes;
+		parents: ToolbarComponentTypes;
 	}) => {
 		if (item.type === 'menu') {
 			const menuComponents = getSortedChildren<RegisterToolbarMenuSection>(menuSections, item.key);
@@ -217,7 +217,7 @@ export const ToolbarModelRenderer = ({ toolbar, components, fallbacks }: Toolbar
 		return <Button key={item.key} groupLocation={groupLocation} parents={parents} />;
 	};
 
-	const renderGroup = (group: RegisterToolbarGroup, parents: ComponentTypes) => {
+	const renderGroup = (group: RegisterToolbarGroup, parents: ToolbarComponentTypes) => {
 		const groupItems = getSortedChildren<RegisterToolbarButton | RegisterToolbarMenu>(
 			toolbarItems,
 			group.key,

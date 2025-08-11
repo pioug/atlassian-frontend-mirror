@@ -25,7 +25,8 @@ const Popup = styled.div({
 	borderColor: 'red',
 	borderStyle: 'solid',
 	borderWidth: '2px',
-	borderRadius: '3px',
+	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+	borderRadius: token('border.radius.100', '3px'),
 	maxWidth: '110px',
 	minHeight: `${POPUP_HEIGHT - 20}px`,
 	paddingTop: token('space.100', '8px'),
@@ -44,7 +45,8 @@ const ReferenceBox = styled.div({
 	paddingRight: token('space.100', '8px'),
 	paddingBottom: token('space.100', '8px'),
 	paddingLeft: token('space.100', '8px'),
-	borderRadius: '3px',
+	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+	borderRadius: token('border.radius.100', '3px'),
 	color: 'white',
 	textAlign: 'center',
 	width: `${REF_WIDTH - 20}px`,
@@ -55,7 +57,8 @@ const ReferenceBox = styled.div({
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ReferenceBoundaries = styled.div({
 	background: 'lightblue',
-	borderRadius: '3px',
+	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+	borderRadius: token('border.radius.100', '3px'),
 	paddingTop: token('space.100', '8px'),
 	paddingRight: token('space.100', '8px'),
 	paddingBottom: token('space.100', '8px'),

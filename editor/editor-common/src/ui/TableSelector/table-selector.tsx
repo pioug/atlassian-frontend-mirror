@@ -46,7 +46,8 @@ const buttonStyles = css({
 	width: `${TABLE_SELECTOR_BUTTON_SIZE}px`,
 	border: `1px solid ${token('color.border', '#091e4224')}`,
 	backgroundColor: token('color.background.input', '#ffffff'),
-	borderRadius: '3px',
+	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+	borderRadius: token('border.radius.100', '3px'),
 	cursor: 'pointer',
 	display: 'block',
 	'&:focus': {

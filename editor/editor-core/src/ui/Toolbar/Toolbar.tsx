@@ -1,10 +1,24 @@
 import React from 'react';
 
+import { EditorToolbarProvider } from '@atlaskit/editor-common/toolbar';
 import { ToolbarSize } from '@atlaskit/editor-common/types';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import {
+	ToolbarButtonGroup,
+	ToolbarDropdownItemSection,
+	ToolbarSection,
+} from '@atlaskit/editor-toolbar';
+import { ToolbarModelRenderer } from '@atlaskit/editor-toolbar-model';
+import type { RegisterComponent, RegisterToolbar } from '@atlaskit/editor-toolbar-model';
 
 import type { ToolbarProps } from './toolbar-types';
 import { ToolbarInner } from './ToolbarInner';
 
+/**
+ * *Warning:* With `platform_editor_toolbar_aifc` enabled this component is no longer used and is replaced with `<ToolbarNext />`.
+ *
+ * If making changes to this component please ensure to also update `<ToolbarNext />`.
+ */
 export const Toolbar = (props: ToolbarProps): JSX.Element => {
 	return (
 		<ToolbarInner
@@ -23,5 +37,33 @@ export const Toolbar = (props: ToolbarProps): JSX.Element => {
 			isToolbarReducedSpacing={props.toolbarSize < ToolbarSize.XXL}
 			containerElement={props.containerElement}
 		/>
+	);
+};
+
+type NewToolbarProps = {
+	toolbar: RegisterToolbar;
+	components: RegisterComponent[];
+	editorView?: EditorView;
+};
+
+/**
+ * Renders a primary toolbar, driven by components registed by `editor-plugin-toolbar`. `ToolbarModelRenderer` will just
+ * render the toolbar structure, the design is driven per component registered including the toolbar itself.
+ *
+ * The majority of components UI should use `@atlaskit/editor-toolbar` components.
+ */
+export const ToolbarNext = ({ toolbar, components, editorView }: NewToolbarProps) => {
+	return (
+		<EditorToolbarProvider editorView={editorView ?? null}>
+			<ToolbarModelRenderer
+				toolbar={toolbar}
+				components={components}
+				fallbacks={{
+					group: ToolbarButtonGroup,
+					section: ToolbarSection,
+					menuSection: ToolbarDropdownItemSection,
+				}}
+			/>
+		</EditorToolbarProvider>
 	);
 };

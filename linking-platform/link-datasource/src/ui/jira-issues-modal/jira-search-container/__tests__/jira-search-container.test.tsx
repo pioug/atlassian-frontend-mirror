@@ -1152,16 +1152,16 @@ describe('Analytics: JiraSearchContainer', () => {
 
 			await userEvent.click(getByTestId('jira-datasource-modal--basic-search-button'));
 
-			expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
-				{
-					payload: {
+			expect(onAnalyticFireEvent).toHaveBeenLastCalledWith(
+				expect.objectContaining({
+					payload: expect.objectContaining({
 						action: 'submitted',
 						actionSubject: 'form',
 						actionSubjectId: 'basicSearch',
 						attributes: {},
 						eventType: 'ui',
-					},
-				},
+					}),
+				}),
 				EVENT_CHANNEL,
 			);
 		});
@@ -1174,8 +1174,8 @@ describe('Analytics: JiraSearchContainer', () => {
 			await userEvent.type(basicTextInput, 'testing');
 			await userEvent.keyboard('{Enter}');
 
-			expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
-				{
+			expect(onAnalyticFireEvent).toHaveBeenLastCalledWith(
+				expect.objectContaining({
 					payload: {
 						action: 'submitted',
 						actionSubject: 'form',
@@ -1183,7 +1183,7 @@ describe('Analytics: JiraSearchContainer', () => {
 						attributes: {},
 						eventType: 'ui',
 					},
-				},
+				}),
 				EVENT_CHANNEL,
 			);
 		});

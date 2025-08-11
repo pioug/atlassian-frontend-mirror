@@ -1,0 +1,72 @@
+{
+	"extends": "../../../../tsconfig.entry-points.passionfruit.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../passionfruit/tsDist/@atlaskit__mention/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-gas-types/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../analytics/analytics-next/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/avatar/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/focus-ring/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/heading/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/lozenge/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../people-and-teams/teams-avatar/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../data/ufo-external/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../util-service-support/afm-passionfruit/tsconfig.json"
+		}
+	]
+}

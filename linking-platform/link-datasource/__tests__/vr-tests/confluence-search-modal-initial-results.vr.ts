@@ -5,7 +5,4 @@ import ConfluenceSearchConfigModalInitialResults from '../../examples/vr/conflue
 snapshot(ConfluenceSearchConfigModalInitialResults, {
 	description: 'Confluence search config modal initial results view',
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'replace-legacy-button-in-sllv': true,
-	},
 });

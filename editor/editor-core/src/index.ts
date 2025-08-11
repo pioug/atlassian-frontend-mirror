@@ -41,3 +41,5 @@ export type { Command, EditorProps, EditorInstance, CommandDispatch } from './ty
 export { default as EditorActions } from './actions';
 
 export { createEditorContentStyle } from './ui/ContentStyles';
+export { getDefaultPresetOptionsFromEditorProps } from './create-editor/create-plugins-list';
+export { ReactEditorView } from './create-editor/ReactEditorView';

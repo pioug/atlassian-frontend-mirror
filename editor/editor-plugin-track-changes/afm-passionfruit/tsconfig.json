@@ -1,0 +1,44 @@
+{
+	"extends": "../../../../tsconfig.entry-points.passionfruit.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../passionfruit/tsDist/@atlaskit__editor-plugin-track-changes/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
+	],
+	"references": [
+		{
+			"path": "../../../design-system/button/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-history/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-primary-toolbar/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-show-diff/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon-lab/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-passionfruit/tsconfig.json"
+		}
+	]
+}

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 4.1.9
+
+### Patch Changes
+
+- [#198359](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/198359)
+  [`077794c6e9512`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/077794c6e9512) -
+  Remove fg to ensure safari cursor is not hidden due to block controls
+
 ## 4.1.8
 
 ### Patch Changes

@@ -256,7 +256,8 @@ const Replace = ({
 				<div ref={successReplacementMessageRef}>
 					<ValidMessage testId="message-success-replacement">
 						{fakeSuccessReplacementMessageUpdate
-							? resultsReplace.replace(/ /u, '\u00a0')
+							? // @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
+								resultsReplace.replace(/ /u, '\u00a0')
 							: resultsReplace}
 					</ValidMessage>
 				</div>

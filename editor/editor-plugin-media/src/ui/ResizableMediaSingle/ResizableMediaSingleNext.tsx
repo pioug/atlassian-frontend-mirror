@@ -301,10 +301,8 @@ export const ResizableMediaSingleNextFunctional = (props: ResizableMediaSingleNe
 	}, [nodePosition, view]);
 
 	const isAdjacentMode = useMemo(() => {
-		if (fg('platform_editor_inline_resize_media_to_edge')) {
-			if (forceHandlePositioning === 'adjacent') {
-				return true;
-			}
+		if (forceHandlePositioning === 'adjacent') {
+			return true;
 		}
 		return isNestedNode;
 	}, [isNestedNode, forceHandlePositioning]);
@@ -323,11 +321,7 @@ export const ResizableMediaSingleNextFunctional = (props: ResizableMediaSingleNe
 	}, [layout, maybeContainerWidth, fullWidthMode, dimensions.width, isAdjacentMode]);
 
 	const maxWidth = useMemo(() => {
-		if (
-			editorAppearance === 'chromeless' &&
-			forceHandlePositioning === 'adjacent' &&
-			fg('platform_editor_inline_resize_media_to_edge')
-		) {
+		if (editorAppearance === 'chromeless' && forceHandlePositioning === 'adjacent') {
 			return containerWidth - MEDIA_SINGLE_ADJACENT_HANDLE_MARGIN * 2;
 		}
 

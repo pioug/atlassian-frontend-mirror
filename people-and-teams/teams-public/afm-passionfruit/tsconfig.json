@@ -1,0 +1,95 @@
+{
+	"extends": "../../../../tsconfig.entry-points.passionfruit.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../passionfruit/tsDist/@atlaskit__teams-public/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/avatar/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/button/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/css/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/dropdown-menu/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../measurement/feature-gate-js-client/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/flag/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../helpers/frontend-utilities/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/heading/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon-lab/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/image/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/link/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/logo/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/modal-dialog/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../people-teams-ui-public/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../teams-app-internal-product-permissions/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../teams-client/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-passionfruit/tsconfig.json"
+		}
+	]
+}

@@ -1,5 +1,21 @@
 # @atlaskit/editor-core
 
+## 209.8.0
+
+### Minor Changes
+
+- [#199487](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/199487)
+  [`54098ba4cc83c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/54098ba4cc83c) -
+  Add support to render primary toolbar for both full page editor and comment editor using new
+  toolbar components. Includes rewrites of full page toolbar which removes JS width calculation
+
+### Patch Changes
+
+- [#199353](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/199353)
+  [`f2d4ca35574b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2d4ca35574b8) -
+  Internal changes to how border radius values are applied. No visual change.
+- Updated dependencies
+
 ## 209.7.0
 
 ### Minor Changes

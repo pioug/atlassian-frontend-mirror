@@ -6,6 +6,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 // eg. Version/4.0 Chrome/95.0.4638.50
 const isAndroidChromium =
+	// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
 	typeof window !== 'undefined' && /Version\/.* Chrome\/.*/u.test(window.navigator.userAgent);
 
 export const statusToDOM = (node: PMNode): DOMOutputSpec => {

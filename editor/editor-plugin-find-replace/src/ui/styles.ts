@@ -29,7 +29,8 @@ const dateSelector = '.date-lozenger-container>span';
 
 export const findReplaceStyles = css({
 	[`.${searchMatchClass}`]: {
-		borderRadius: '3px',
+		// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+		borderRadius: token('border.radius.100', '3px'),
 		backgroundColor: token('color.background.accent.teal.subtlest', '#E7F9FF'),
 		boxShadow:
 			token('elevation.shadow.raised', `0 1px 1px 0 ${N50A}, 0 0 1px 0 ${N60A}`) +

@@ -414,6 +414,14 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-07-02
+	platform_editor_code_block_fold_gutter: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_code_block_fold_gutter',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-06-18
 	platform_editor_ai_iw_adf_streaming: createBooleanExperiment({
 		productKeys: {
@@ -639,6 +647,14 @@ export const editorExperimentsConfig = {
 	platform_editor_blocktaskitem_node: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_blocktaskitem_node',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-08-06
+	cc_editor_limited_mode: createBooleanExperiment({
+		productKeys: {
+			confluence: 'cc_editor_limited_mode',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

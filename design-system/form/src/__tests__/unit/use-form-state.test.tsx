@@ -108,11 +108,13 @@ describe('use-form-state hook', () => {
 			expect(unsubscribe).toHaveBeenCalledTimes(1);
 
 			// Rendered again with a different shallow value, will re-subscribe
+			// @ts-ignore - TS2353 TypeScript 5.9.2 upgrade
 			rerender({ dirty: true });
 			expect(subscribe).toHaveBeenCalledTimes(3);
 			expect(unsubscribe).toHaveBeenCalledTimes(2);
 
 			// Rendered again, won't be re-subscribed as it's the same shallow equality
+			// @ts-ignore - TS2353 TypeScript 5.9.2 upgrade
 			rerender({ dirty: true });
 			expect(subscribe).toHaveBeenCalledTimes(3);
 			expect(unsubscribe).toHaveBeenCalledTimes(2);

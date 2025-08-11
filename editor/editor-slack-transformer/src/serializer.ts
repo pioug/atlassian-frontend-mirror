@@ -56,7 +56,7 @@ export class MarkdownSerializerState extends PMMarkdownSerializerState {
 	}
 
 	constructor(nodes: NodeSerializerSpec, marks: { [mark: string]: MarkSerializerSpec }) {
-		// @ts-ignore-next-line
+		// @ts-ignore -next-line
 		super(nodes, marks, {});
 
 		this.nodes = nodes;

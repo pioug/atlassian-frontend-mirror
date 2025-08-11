@@ -2,24 +2,24 @@ type WithRank<T> = T & { rank: number };
 
 type Parents<T> = Array<WithRank<T>>;
 
-type ComponentType =
-	| Toolbar
-	| ToolbarSection
-	| ToolbarGroup
-	| ToolbarButton
-	| ToolbarMenu
-	| ToolbarNestedMenu
-	| ToolbarMenuSection
-	| ToolbarMenuItem;
+export type ToolbarComponentType =
+	| ToolbarType
+	| ToolbarSectionType
+	| ToolbarGroupType
+	| ToolbarButtonType
+	| ToolbarMenuType
+	| ToolbarNestedMenuType
+	| ToolbarMenuSectionType
+	| ToolbarMenuItemType;
 
-export type ComponentTypes = Array<ComponentType>;
+export type ToolbarComponentTypes = Array<ToolbarComponentType>;
 
 type CommonComponentProps = {
 	/**
 	 * Array of parent information including both keys and types
 	 * Ordered from immediate parent to root parent
 	 */
-	parents: ComponentTypes;
+	parents: ToolbarComponentTypes;
 };
 
 export type ToolbarButtonGroupLocation = 'start' | 'middle' | 'end';
@@ -57,82 +57,82 @@ export type ToolbarMenuSectionComponent = (
 
 export type ToolbarMenuItemComponent = (props: {} & CommonComponentProps) => React.ReactNode;
 
-type Toolbar = {
-	type: 'toolbar';
+export type ToolbarType = {
 	key: string;
+	type: 'toolbar';
 };
 
-type ToolbarSection = {
+type ToolbarSectionType = {
 	key: string;
 	type: 'section';
 };
 
-type ToolbarGroup = {
+type ToolbarGroupType = {
 	key: string;
 	type: 'group';
 };
 
-type ToolbarButton = {
+type ToolbarButtonType = {
 	key: string;
 	type: 'button';
 };
 
-type ToolbarMenuItem = {
+type ToolbarMenuItemType = {
 	key: string;
 	type: 'menu-item';
 };
 
-type ToolbarMenuSection = {
+type ToolbarMenuSectionType = {
 	key: string;
 	type: 'menu-section';
 };
 
-type ToolbarMenu = {
+type ToolbarMenuType = {
 	key: string;
 	type: 'menu';
 };
 
-type ToolbarNestedMenu = {
+type ToolbarNestedMenuType = {
 	key: string;
 	type: 'nested-menu';
 };
 
-export type RegisterToolbar = Toolbar & {
+export type RegisterToolbar = ToolbarType & {
 	component?: ToolbarComponent;
 };
 
-export type RegisterToolbarSection = ToolbarSection & {
-	parents: Parents<Toolbar>;
+export type RegisterToolbarSection = ToolbarSectionType & {
+	parents: Parents<ToolbarType>;
 	component?: ToolbarSectionComponent;
 };
 
-export type RegisterToolbarGroup = ToolbarGroup & {
-	parents: Parents<ToolbarSection>;
+export type RegisterToolbarGroup = ToolbarGroupType & {
+	parents: Parents<ToolbarSectionType>;
 	component?: ToolbarGroupComponent;
 };
 
-export type RegisterToolbarButton = ToolbarButton & {
-	parents: Parents<ToolbarGroup>;
+export type RegisterToolbarButton = ToolbarButtonType & {
+	parents: Parents<ToolbarGroupType>;
 	component?: ToolbarButtonComponent;
 };
 
-export type RegisterToolbarMenu = ToolbarMenu & {
-	parents: Parents<ToolbarGroup>;
+export type RegisterToolbarMenu = ToolbarMenuType & {
+	parents: Parents<ToolbarGroupType>;
 	component?: ToolbarMenuComponent;
 };
 
-export type RegisterToolbarNestedMenu = ToolbarNestedMenu & {
-	parents: Parents<ToolbarMenuSection>;
+export type RegisterToolbarNestedMenu = ToolbarNestedMenuType & {
+	parents: Parents<ToolbarMenuSectionType>;
 	component: ToolbarNestedMenuComponent;
 };
 
-export type RegisterToolbarMenuSection = ToolbarMenuSection & {
-	parents: Parents<ToolbarMenu | ToolbarNestedMenu>;
+export type RegisterToolbarMenuSection = ToolbarMenuSectionType & {
+	parents: Parents<ToolbarMenuType | ToolbarNestedMenuType>;
 	component?: ToolbarMenuSectionComponent;
 };
 
-export type RegisterToolbarMenuItem = ToolbarMenuItem & {
-	parents: Parents<ToolbarMenuSection>;
+export type RegisterToolbarMenuItem = ToolbarMenuItemType & {
+	parents: Parents<ToolbarMenuSectionType>;
 	component?: ToolbarMenuItemComponent;
 };
 

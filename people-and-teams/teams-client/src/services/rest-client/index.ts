@@ -234,6 +234,7 @@ export class RestClient extends BaseClient {
 			}
 		}
 
+		// @ts-ignore - TS2322 TypeScript 5.9.2 upgrade
 		return additionalFetchOptions.ignoreResponse ? null : parseResponse(response);
 	}
 }

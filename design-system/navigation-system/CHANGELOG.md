@@ -1,5 +1,32 @@
 # @atlassian/navigation-system
 
+## 0.178.0
+
+### Minor Changes
+
+- [#199487](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/199487)
+  [`87e1e76c9c3aa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/87e1e76c9c3aa) -
+  The `elemBefore` chevron icon button in the link (selectable) variants of
+  `ExpandableMenuItemTrigger` is now labelled by the menu item (specifically, its anchor element)
+  through the `aria-labelledby` attribute. This is to provide context on what will be expanded or
+  collapsed to screen readers.
+
+  This change is behind a feature flag.
+
+- [#199487](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/199487)
+  [`87e1e76c9c3aa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/87e1e76c9c3aa) -
+  The `ExpandableMenuItemTrigger` `testId` is now passed down to the `elemBefore` chevron icon
+  button in the link (selectable) variants of `ExpandableMenuItemTrigger`.
+
+### Patch Changes
+
+- [#199297](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/199297)
+  [`3805d3e955d32`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3805d3e955d32) -
+  Improve menu item scaling with browser font size by using rem for height.
+- [`5bed2aeb9093f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5bed2aeb9093f) -
+  Internal refactoring of tests
+- Updated dependencies
+
 ## 0.177.3
 
 ### Patch Changes

@@ -77,7 +77,6 @@ snapshotInformational(WithModal, {
 	},
 	description: 'basic mode with basic filters',
 	featureFlags: {
-		'replace-legacy-button-in-sllv': true,
 		'navx-1184-fix-smart-link-a11y-interactive-states': true,
 	},
 });
@@ -233,10 +232,9 @@ filters.forEach((filter) => {
 			await page.keyboard.press('Tab');
 			await page.keyboard.press('Tab');
 		},
-		description: `${filter} open and focus show more button - replace-legacy-button-in-sllv enabled`,
+		description: `${filter} open and focus show more button`,
 		featureFlags: {
 			'platform-component-visual-refresh': [true, false],
-			'replace-legacy-button-in-sllv': true,
 			'navx-1184-fix-smart-link-a11y-interactive-states': true,
 		},
 		waitForHold: true,

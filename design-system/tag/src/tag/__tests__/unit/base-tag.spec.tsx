@@ -20,7 +20,10 @@ describe('<BaseTag />', () => {
 			render(<BaseTag contentElement={<span>Hello world</span>} testId="tag" />);
 
 			const tag = screen.getByTestId('tag');
-			expect(tag).toHaveCompiledCss({ borderRadius: '3px' });
+			expect(tag).toHaveCompiledCss({
+				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+				borderRadius: '3px',
+			});
 		});
 
 		it('should be configurable using appearance', () => {

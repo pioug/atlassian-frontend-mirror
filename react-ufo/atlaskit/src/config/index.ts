@@ -40,6 +40,10 @@ type SelectorConfig = {
 	dataVC?: boolean;
 };
 
+type SegmentThreshold = {
+	readonly [key: string]: number;
+};
+
 type Rates = {
 	readonly [key: string]: number;
 };
@@ -88,6 +92,7 @@ export type Config = {
 	};
 	readonly assetsConfig?: AssetsConfig;
 	readonly enableBetterPageVisibilityApi?: boolean;
+	readonly segmentsThreshold?: SegmentThreshold;
 	readonly vc?: {
 		readonly enabled?: boolean;
 		readonly heatmapSize?: number;

@@ -38,7 +38,7 @@ import {
 	SuperscriptIcon,
 	type ToolbarButtonGroupLocation,
 } from '@atlaskit/editor-toolbar';
-import type { ComponentTypes } from '@atlaskit/editor-toolbar-model';
+import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
 
 import {
 	toggleStrongWithAnalytics,
@@ -60,7 +60,7 @@ import { ToolbarType } from '../types';
 
 export type FormatComponentProps = {
 	api?: ExtractInjectionAPI<TextFormattingPlugin>;
-	parents: ComponentTypes;
+	parents: ToolbarComponentTypes;
 	icon: IconComponent;
 	shortcut: Keymap;
 	title: MessageDescriptor;
@@ -72,7 +72,7 @@ export type FormatComponentProps = {
 	groupLocation?: ToolbarButtonGroupLocation;
 };
 
-export const getInputMethodFromParentKeys = (parentKeys: ComponentTypes) =>
+export const getInputMethodFromParentKeys = (parentKeys: ToolbarComponentTypes) =>
 	getInputMethod(
 		parentKeys.at(-1)?.key === TOOLBARS.INLINE_TEXT_TOOLBAR
 			? ToolbarType.FLOATING

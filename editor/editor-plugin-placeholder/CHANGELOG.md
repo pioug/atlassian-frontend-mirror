@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-placeholder
 
+## 3.1.0
+
+### Minor Changes
+
+- [`81ec1e909620a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/81ec1e909620a) -
+  [EDITOR-1206] Show diff plugin added as an optional dependancy, if the diff is showing do not show
+  the placeholder
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.0.1
 
 ### Patch Changes

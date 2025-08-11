@@ -1,5 +1,17 @@
 # @atlaskit/teams-public
 
+## 0.53.0
+
+### Minor Changes
+
+- [#199487](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/199487)
+  [`3ba9d6d9213a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3ba9d6d9213a6) -
+  Fix create space permission for confluence
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.52.2
 
 ### Patch Changes

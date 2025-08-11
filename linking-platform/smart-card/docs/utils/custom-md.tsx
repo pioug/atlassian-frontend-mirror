@@ -15,7 +15,8 @@ import { isRelativePath, toAbsolutePath } from './index';
 const styles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'code:not([class])': {
-		borderRadius: '3px',
+		// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+		borderRadius: token('border.radius.100', '3px'),
 		display: 'inline-block',
 		font: token('font.body.UNSAFE_small'),
 		marginTop: token('space.025', '2px'),

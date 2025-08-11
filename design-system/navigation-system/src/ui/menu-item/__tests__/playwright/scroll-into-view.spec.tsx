@@ -34,27 +34,26 @@ test.describe('scroll into view', () => {
 		}) => {
 			await page.setViewportSize(viewportSize);
 
-			await page.visitExample('design-system', 'navigation-system', 'menu-item-scroll-into-view');
+			await page.visitExample('design-system', 'navigation-system', 'menu-item-scroll-into-view', {
+				featureFlag: 'platform_dst_expandable_menu_item_elembefore_label',
+			});
 
 			// Collapse the "Teams" expandable menu item
 			// We need to click on the collapse chevron icon button (instead of the menu item), so we only toggle the menu item and
 			// don't *select* it too.
 			const teamsMenuItemContainer = page.getByTestId('teams-menu-item-trigger-container');
 			await teamsMenuItemContainer.scrollIntoViewIfNeeded();
-			const teamsMenuItemCollapseButton = teamsMenuItemContainer.getByRole('button', {
-				name: /Collapse/,
-			});
-			await teamsMenuItemCollapseButton.click();
+			const teamsMenuItemChevronButton = teamsMenuItemContainer.getByTestId(
+				'teams-menu-item-trigger--elem-before-button',
+			);
+			await teamsMenuItemChevronButton.click();
 
 			// Select the "Team 10" menu item (by clicking the button in the Main slot)
 			const navigateToTeam10MenuItemButton = page.getByTestId('navigate-to-team-10-menu-item');
 			await navigateToTeam10MenuItemButton.click();
 
-			// Expand the "Teams" expandable menu item - using the same button as before, but now the label has changed to Expand
-			const teamsMenuItemExpandButton = teamsMenuItemContainer.getByRole('button', {
-				name: /Expand/,
-			});
-			await teamsMenuItemExpandButton.click();
+			// Expand the "Teams" expandable menu item - using the same button as before
+			await teamsMenuItemChevronButton.click();
 
 			// The "Team 10" menu item should be scrolled into view
 			const team10MenuItem = page.getByRole('link', { name: /Team 10/ });

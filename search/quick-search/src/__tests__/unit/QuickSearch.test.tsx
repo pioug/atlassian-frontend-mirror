@@ -312,6 +312,7 @@ describe.skip('<QuickSearch />', () => {
 		beforeAll(() => {
 			// @ts-ignore non-urgent @fixme TypeScript 4.2.4 upgrade
 			delete window.location;
+			// @ts-ignore - TS2322 TypeScript 5.9.2 upgrade
 			window.location = Object.assign({}, window.location, {
 				assign: jest.fn(),
 			});
@@ -328,6 +329,7 @@ describe.skip('<QuickSearch />', () => {
 		});
 
 		afterAll(() => {
+			// @ts-ignore - TS2322 TypeScript 5.9.2 upgrade
 			window.location = originalWindowLocation;
 		});
 		it('should select the first result on first DOWN keystroke', () => {

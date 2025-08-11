@@ -33,6 +33,7 @@ export const indentationPlugin: IndentationPlugin = ({ api }) => ({
 		const indentationMark = node.marks.find((mark) => mark.type === indentation);
 		return {
 			isIndentationAllowed: isIndentationAllowed(editorState.schema, node),
+			// @ts-ignore - TS2869 TypeScript 5.9.2 upgrade
 			indentDisabled: indentationMark?.attrs.level >= MAX_INDENTATION_LEVEL ?? false,
 			outdentDisabled: !indentationMark,
 		};

@@ -15,5 +15,6 @@ export async function extractCompressedBase64(
 	if (output === 'uint') {
 		return decompressed;
 	}
+	// @ts-ignore - TS2345 TypeScript 5.9.2 upgrade
 	return new Response(decompressed).blob();
 }

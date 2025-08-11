@@ -51,7 +51,8 @@ const archiveDownloadButtonWrapperStyles = css({
 	paddingBottom: '5px',
 	paddingLeft: `${token('space.100', '8px')}`,
 	border: 'none',
-	borderRadius: '3px',
+	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+	borderRadius: token('border.radius.100', '3px'),
 	backgroundColor: 'transparent',
 	color: token('color.icon', '#9FADBC'),
 	'&:hover': {
@@ -73,7 +74,8 @@ const disabledArchiveDownloadButtonWrapperStyles = css({
 	paddingLeft: `${token('space.100', '8px')}`,
 
 	border: 'none',
-	borderRadius: '3px',
+	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+	borderRadius: token('border.radius.100', '3px'),
 	backgroundColor: 'transparent',
 	color: token('color.icon', '#9FADBC'),
 	cursor: 'not-allowed',

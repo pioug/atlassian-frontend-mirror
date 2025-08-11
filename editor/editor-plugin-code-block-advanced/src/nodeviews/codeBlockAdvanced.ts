@@ -33,21 +33,23 @@ import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equ
 
 import type { CodeBlockAdvancedPlugin } from '../codeBlockAdvancedPluginType';
 import { highlightStyle } from '../ui/syntaxHighlightingTheme';
-import { cmTheme } from '../ui/theme';
+import { cmTheme, codeFoldingTheme } from '../ui/theme';
 
 import { syncCMWithPM } from './codemirrorSync/syncCMWithPM';
 import { getCMSelectionChanges } from './codemirrorSync/updateCMSelection';
 import { firstCodeBlockInDocument } from './extensions/firstCodeBlockInDocument';
+import { foldGutterExtension } from './extensions/foldGutter';
 import { keymapExtension } from './extensions/keymap';
 import { manageSelectionMarker } from './extensions/manageSelectionMarker';
 import { prosemirrorDecorationPlugin } from './extensions/prosemirrorDecorations';
 import { tripleClickSelectAllExtension } from './extensions/tripleClickExtension';
 import { LanguageLoader } from './languages/loader';
 
-interface ConfigProps {
+export interface ConfigProps {
 	api: ExtractInjectionAPI<CodeBlockAdvancedPlugin> | undefined;
 	extensions: Extension[];
 	getIntl: () => IntlShape;
+	allowCodeFolding: boolean;
 }
 
 // Based on: https://prosemirror.net/examples/codemirror/
@@ -94,6 +96,11 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		const { formatMessage } = config.getIntl();
 		const formattedAriaLabel = formatMessage(blockTypeMessages.codeblock);
 
+		const selectNode = () => {
+			this.selectCodeBlockNode(undefined);
+			this.view.focus();
+		};
+
 		this.cm = new CodeMirror({
 			doc: this.node.textContent,
 			extensions: [
@@ -111,14 +118,15 @@ class CodeBlockAdvancedNodeView implements NodeView {
 					onMaybeNodeSelection,
 					customFindReplace: Boolean(config.api?.findReplace),
 				}),
+				// Goes before cmTheme to override styles
+				config.allowCodeFolding ? [codeFoldingTheme] : [],
 				cmTheme,
 				syntaxHighlighting(highlightStyle),
 				bracketMatching(),
 				lineNumbers({
 					domEventHandlers: {
 						click: () => {
-							this.selectCodeBlockNode(undefined);
-							this.view.focus();
+							selectNode();
 							return true;
 						},
 					},
@@ -138,6 +146,7 @@ class CodeBlockAdvancedNodeView implements NodeView {
 				tripleClickSelectAllExtension(),
 				firstCodeBlockInDocument(getPos),
 				CodeMirror.contentAttributes.of({ 'aria-label': formattedAriaLabel }),
+				config.allowCodeFolding ? [foldGutterExtension({ selectNode })] : [],
 			],
 		});
 

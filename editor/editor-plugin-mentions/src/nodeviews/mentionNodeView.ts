@@ -26,6 +26,7 @@ type HTMLAttributes = Partial<
 	[key: `data-${string}`]: string;
 } & { class: string };
 
+// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
 const getAccessibilityLabelFromName = (name: string) => name.replace(/^@/u, '');
 
 const toDOM = (node: PMNode): DOMOutputSpec => {

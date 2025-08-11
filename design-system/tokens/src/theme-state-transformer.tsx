@@ -29,29 +29,32 @@ const isColorMode = (modeId: string): modeId is ThemeColorModes => {
  * ```
  */
 export const themeStringToObject = (themeState: string): Partial<ThemeState> => {
-	return themeState
-		.split(' ')
-		.map((theme) => theme.split(/:(.*)/s))
-		.reduce<Partial<ThemeState>>((themeObject, [kind, id]) => {
-			if (kind === 'colorMode' && isColorMode(id)) {
-				themeObject[kind] = id;
-			}
-
-			if (isThemeKind(kind) && isThemeIds(id)) {
-				// @ts-expect-error FIXME - this is a valid ts error
-				themeObject[kind] = id;
-			}
-
-			if (kind === customThemeOptions) {
-				try {
-					themeObject[customThemeOptions] = JSON.parse(id);
-				} catch (e) {
-					new Error('Invalid custom theme string');
+	return (
+		themeState
+			.split(' ')
+			// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
+			.map((theme) => theme.split(/:(.*)/s))
+			.reduce<Partial<ThemeState>>((themeObject, [kind, id]) => {
+				if (kind === 'colorMode' && isColorMode(id)) {
+					themeObject[kind] = id;
 				}
-			}
 
-			return themeObject;
-		}, {});
+				if (isThemeKind(kind) && isThemeIds(id)) {
+					// @ts-expect-error FIXME - this is a valid ts error
+					themeObject[kind] = id;
+				}
+
+				if (kind === customThemeOptions) {
+					try {
+						themeObject[customThemeOptions] = JSON.parse(id);
+					} catch (e) {
+						new Error('Invalid custom theme string');
+					}
+				}
+
+				return themeObject;
+			}, {})
+	);
 };
 
 /**

@@ -102,6 +102,7 @@ export function transformHtml(
 			suggestionDiv.setAttribute('data-extension-key', 'codesuggestions:suggestion-node');
 			suggestionDiv.setAttribute('data-local-id', index.toString());
 			// remove trailing newline from suggestion text
+			// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
 			const suggestionText = div.textContent ? div.textContent.replace(/\n$/u, '') : '';
 			suggestionDiv.setAttribute(
 				'data-parameters',

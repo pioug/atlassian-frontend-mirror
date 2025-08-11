@@ -55,7 +55,8 @@ export const cardDimensionsWrapperStyles = css({
 		border: `1px solid ${token('color.border.bold', 'black')}`,
 		margin: token('space.075', '6px'),
 		padding: token('space.075', '6px'),
-		borderRadius: '3px',
+		// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+		borderRadius: token('border.radius.100', '3px'),
 	},
 });
 

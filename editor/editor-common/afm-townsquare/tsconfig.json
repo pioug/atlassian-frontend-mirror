@@ -72,6 +72,9 @@
 			"path": "../../editor-tables/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../editor-toolbar/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../../elements/emoji/afm-townsquare/tsconfig.json"
 		},
 		{

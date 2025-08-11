@@ -3,7 +3,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { forwardRef, type ReactNode, useCallback, useRef } from 'react';
+import React, { forwardRef, type ReactNode, useCallback, useId, useRef } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
@@ -12,6 +12,7 @@ import { IconButton } from '@atlaskit/button/new';
 import type { IconProps } from '@atlaskit/icon';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { MenuItemBase, nestedOpenPopupCSSSelector } from '../menu-item';
@@ -229,6 +230,7 @@ export const ExpandableMenuItemTrigger = forwardRef<
 		},
 		forwardedRef,
 	) => {
+		const id = useId();
 		const onExpansionToggle = useOnExpansionToggle();
 		const isExpanded = useIsExpanded();
 		const setIsExpanded = useSetIsExpanded();
@@ -271,11 +273,25 @@ export const ExpandableMenuItemTrigger = forwardRef<
 					/>
 				)}
 				aria-expanded={isExpanded}
-				label={isExpanded ? 'Collapse' : 'Expand'}
+				// We are labelling the icon button using the containing menu item's content, to provide context to
+				// screen readers on what will actually be expanded or collapsed. Screen readers will also use the
+				// `aria-expanded` attribute to indicate the expanded state of the menu item.
+				// We are not using the `aria-label` attribute here as it is not supported by the `IconButton` component.
+				aria-labelledby={fg('platform_dst_expandable_menu_item_elembefore_label') ? id : undefined}
+				// IconButton requires a label prop, however it will not be used by screen readers as we are setting
+				// `aria-labelledby`, which will be used instead.
+				label={
+					fg('platform_dst_expandable_menu_item_elembefore_label')
+						? ''
+						: isExpanded
+							? 'Collapse'
+							: 'Expand'
+				}
 				appearance="subtle"
 				spacing="compact"
 				onClick={handleIconClick}
 				interactionName={interactionName}
+				testId={testId ? `${testId}--elem-before-button` : undefined}
 			/>
 		) : (
 			<ExpandableMenuItemIcon
@@ -292,6 +308,7 @@ export const ExpandableMenuItemTrigger = forwardRef<
 				ref={itemRef}
 			>
 				<MenuItemBase
+					id={id}
 					actions={actions}
 					actionsOnHover={actionsOnHover}
 					elemBefore={elemBefore}

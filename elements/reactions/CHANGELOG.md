@@ -1,5 +1,14 @@
 # @atlaskit/reactions
 
+## 33.2.10
+
+### Patch Changes
+
+- [#197800](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/197800)
+  [`af8a1e4a36047`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/af8a1e4a36047) -
+  Revert platform_editor_reactions_picker_fix FG clean up
+- Updated dependencies
+
 ## 33.2.9
 
 ### Patch Changes

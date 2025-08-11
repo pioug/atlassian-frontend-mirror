@@ -24,7 +24,8 @@ const Toolbar = styled.div({
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Action = styled.button({
 	alignItems: 'center',
-	borderRadius: '3px',
+	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+	borderRadius: token('border.radius.100', '3px'),
 	display: 'flex',
 	height: '24px',
 	justifyContent: 'center',

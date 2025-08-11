@@ -60,7 +60,8 @@ class WithOutsideClick extends PureComponent<
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			(this.props.popupsMountPoint
 				? this.props.popupsMountPoint
-				: undefined || this.props.editorRef?.current || this.props.targetRef || document
+				: // @ts-ignore - TS2873 TypeScript 5.9.2 upgrade
+					undefined || this.props.editorRef?.current || this.props.targetRef || document
 			)
 				// Ignored via go/ees005
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -84,7 +85,8 @@ class WithOutsideClick extends PureComponent<
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			(this.props.popupsMountPoint
 				? this.props.popupsMountPoint
-				: undefined || this.props.editorRef?.current || this.props.targetRef || document
+				: // @ts-ignore - TS2873 TypeScript 5.9.2 upgrade
+					undefined || this.props.editorRef?.current || this.props.targetRef || document
 			)
 				// Ignored via go/ees005
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any

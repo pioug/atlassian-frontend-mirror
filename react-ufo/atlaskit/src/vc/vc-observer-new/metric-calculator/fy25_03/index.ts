@@ -83,8 +83,7 @@ export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 			}
 
 			if (
-				(attributeName.startsWith('data-test') &&
-					fg('platform_ufo_ttvc_exclude_data_test_attribute')) ||
+				attributeName.startsWith('data-test') ||
 				attributeName === 'data-aui-version' ||
 				attributeName === 'data-testid' ||
 				attributeName === 'data-vc' ||

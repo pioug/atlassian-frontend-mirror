@@ -57,6 +57,7 @@ describe('@atlaskit/renderer/event-handlers', () => {
 	});
 
 	afterEach(() => {
+		// @ts-ignore - TS2454 TypeScript 5.9.2 upgrade
 		if (renderer && renderer.length) {
 			renderer.unmount();
 		}

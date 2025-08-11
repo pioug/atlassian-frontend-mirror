@@ -29,7 +29,8 @@ const wrapperStyles = css({
 	fontFamily: token('font.family.body'),
 	maxWidth: '100%',
 	maxHeight: '100%',
-	borderRadius: '3px',
+	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+	borderRadius: token('border.radius.100', '3px'),
 	width: `var(${LOCAL_WIDTH_VARIABLE})`,
 	height: `var(${LOCAL_HEIGHT_VARIABLE})`,
 

@@ -6,16 +6,23 @@ import {
 	OVERFLOW_MENU,
 	OVERFLOW_SECTION,
 	OVERFLOW_SECTION_RANK,
+	TEXT_SECTION,
 	TOOLBAR_RANK,
 	TOOLBARS,
 } from '@atlaskit/editor-common/toolbar';
-import { Toolbar } from '@atlaskit/editor-toolbar';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { PrimaryToolbar, Toolbar } from '@atlaskit/editor-toolbar';
 import { type RegisterComponent } from '@atlaskit/editor-toolbar-model';
+
+import type { ToolbarPlugin } from '../toolbarPluginType';
 
 import { TOOLBAR_LABEL } from './consts';
 import { OverflowMenu } from './OverflowMenu';
+import { TextSection } from './TextSection';
 
-export const getToolbarComponents = (): RegisterComponent[] => {
+export const getToolbarComponents = (
+	api?: ExtractInjectionAPI<ToolbarPlugin>,
+): RegisterComponent[] => {
 	return [
 		{
 			type: 'toolbar',
@@ -25,9 +32,34 @@ export const getToolbarComponents = (): RegisterComponent[] => {
 			},
 		},
 		{
-			type: 'section',
-			key: 'text-section',
-			parents: [{ type: 'toolbar', key: 'inline-text-toolbar', rank: 200 }],
+			type: 'toolbar',
+			key: TOOLBARS.PRIMARY_TOOLBAR,
+			component: ({ children }) => (
+				<PrimaryToolbar label="Primary Toolbar">{children}</PrimaryToolbar>
+			),
+		},
+		{
+			type: TEXT_SECTION.type,
+			key: TEXT_SECTION.key,
+			parents: [
+				{
+					type: 'toolbar',
+					key: TOOLBARS.INLINE_TEXT_TOOLBAR,
+					rank: TOOLBAR_RANK[TEXT_SECTION.key],
+				},
+				{
+					type: 'toolbar',
+					key: TOOLBARS.PRIMARY_TOOLBAR,
+					rank: TOOLBAR_RANK[TEXT_SECTION.key],
+				},
+			],
+			component: ({ children, parents }) => {
+				return (
+					<TextSection parents={parents} api={api}>
+						{children}
+					</TextSection>
+				);
+			},
 		},
 		{
 			type: OVERFLOW_SECTION.type,

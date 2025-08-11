@@ -35,10 +35,16 @@
 			"path": "../editor-common/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-editor-viewmode/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-selection/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-plugin-user-intent/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-user-preferences/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-toolbar/tsconfig.app.json"

@@ -59,7 +59,8 @@ const expandedFrameFluidHeightFalseStyles = css({
 });
 
 const expandedFrameSelectedStyles = css({
-	borderRadius: '3px',
+	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+	borderRadius: token('border.radius.100', '3px'),
 	borderColor: token('color.border.selected', B200),
 	borderStyle: 'solid',
 	borderWidth: '2px',

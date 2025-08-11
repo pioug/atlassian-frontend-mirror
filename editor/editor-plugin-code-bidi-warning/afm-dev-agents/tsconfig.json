@@ -26,6 +26,9 @@
 			"path": "../../../design-system/code/afm-dev-agents/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-limited-mode/afm-dev-agents/tsconfig.json"
+		},
+		{
 			"path": "../../../platform/feature-flags/afm-dev-agents/tsconfig.json"
 		},
 		{

@@ -18,6 +18,7 @@ import {
 	type EditorProps as PMEditorProps,
 } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { ignoreFollowingMutations, resetShouldIgnoreFollowingMutations } from '../editor-commands';
 import type { CodeBlockPlugin } from '../index';
@@ -119,8 +120,15 @@ export const createPlugin = ({
 		state: {
 			init(_, state): CodeBlockState {
 				const node = findCodeBlock(state, state.selection);
-
-				const initialDecorations: Decoration[] = generateInitialDecorations(state);
+				const initialDecorations: Decoration[] =
+					// Disabled when using advanced code block advanced since it interfers with styling
+					// Long term we will deprecate the code block plugin and move all the related logic to
+					// the advanced plugin
+					// @ts-expect-error Code block advanced cannot depend on code block
+					api?.codeBlockAdvanced !== undefined &&
+					expValEquals('platform_editor_code_block_fold_gutter', 'isEnabled', true)
+						? []
+						: generateInitialDecorations(state);
 
 				return {
 					pos: node ? node.pos : null,

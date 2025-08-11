@@ -1,5 +1,24 @@
 # @atlaskit/link-datasource
 
+## 4.19.3
+
+### Patch Changes
+
+- [#199487](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/199487)
+  [`13c28edd2823a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/13c28edd2823a) -
+  [ux] NAVX-1053 fixing the debounce for asset modal schema selector input
+- [#199353](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/199353)
+  [`f2d4ca35574b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2d4ca35574b8) -
+  Internal changes to how border radius values are applied. No visual change.
+- Updated dependencies
+
+## 4.19.2
+
+### Patch Changes
+
+- [`493a31bb8da8e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/493a31bb8da8e) -
+  [ux] Clean up FG replace-legacy-button-in-sllv
+
 ## 4.19.1
 
 ### Patch Changes

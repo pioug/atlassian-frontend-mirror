@@ -13,6 +13,7 @@ import type {
 	getPosHandlerNode,
 } from '@atlaskit/editor-common/types';
 import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
+import type { LimitedModePluginState } from '@atlaskit/editor-plugin-limited-mode';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import {
@@ -306,6 +307,9 @@ export default class TableView extends ReactNodeView<Props> {
 					widthPlugin: fakePluginKey,
 					mediaState: fakeMediaPluginKey,
 					tableDragAndDropState: tableDragAndDropPluginKey,
+
+					limitedModePlugin: props.pluginInjectionApi?.limitedMode?.sharedState.currentState()
+						?.limitedModePluginKey as PluginKey<LimitedModePluginState>,
 				}}
 				editorView={props.view}
 				render={(pluginStates) => {
@@ -370,6 +374,7 @@ export default class TableView extends ReactNodeView<Props> {
 							getEditorFeatureFlags={props.getEditorFeatureFlags}
 							dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
 							pluginInjectionApi={props.pluginInjectionApi}
+							limitedMode={pluginStates.limitedModePlugin?.documentSizeBreachesThreshold ?? false}
 						/>
 					);
 				}}

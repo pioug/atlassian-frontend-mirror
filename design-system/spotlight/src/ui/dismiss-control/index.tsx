@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 
-import { IconButton } from '@atlaskit/button/new';
+import { IconButton, type IconButtonProps } from '@atlaskit/button/new';
 import CrossIcon from '@atlaskit/icon/core/cross';
 
 export interface SpotlightDismissControlProps {
@@ -10,6 +10,11 @@ export interface SpotlightDismissControlProps {
 	 * serving as a hook for automated tests
 	 */
 	testId?: string;
+
+	/**
+	 * The action to take when the button is clicked.
+	 */
+	onClick?: IconButtonProps['onClick'];
 }
 
 /**
@@ -19,15 +24,16 @@ export interface SpotlightDismissControlProps {
  *
  */
 export const SpotlightDismissControl = forwardRef<HTMLButtonElement, SpotlightDismissControlProps>(
-	({ testId }: SpotlightDismissControlProps, ref) => {
+	({ onClick, testId }: SpotlightDismissControlProps, ref) => {
 		return (
 			<IconButton
-				testId={testId}
-				ref={ref}
 				appearance="default"
-				spacing="compact"
 				icon={CrossIcon}
 				label="Close"
+				onClick={onClick}
+				ref={ref}
+				spacing="compact"
+				testId={testId}
 			/>
 		);
 	},

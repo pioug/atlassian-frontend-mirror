@@ -23,6 +23,7 @@ beforeEach(() => {
 });
 
 afterEach(() => {
+	// @ts-ignore - TS2322 TypeScript 5.9.2 upgrade
 	window.location = originalLocation;
 });
 

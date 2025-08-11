@@ -188,6 +188,9 @@
 			"path": "../../editor-plugin-layout/afm-rovo-extension/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-limited-mode/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-list/afm-rovo-extension/tsconfig.json"
 		},
 		{

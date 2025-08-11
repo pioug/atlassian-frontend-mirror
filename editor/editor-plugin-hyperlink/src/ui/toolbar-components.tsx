@@ -15,6 +15,7 @@ import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
 import type { HyperlinkPlugin } from '../hyperlinkPluginType';
 
 import { LinkButton } from './toolbar/LinkButton';
+import { LinkSection } from './toolbar/LinkSection';
 
 export const getToolbarComponents = (
 	api?: ExtractInjectionAPI<HyperlinkPlugin>,
@@ -29,7 +30,19 @@ export const getToolbarComponents = (
 					key: TOOLBARS.INLINE_TEXT_TOOLBAR,
 					rank: TOOLBAR_RANK[LINKING_SECTION.key],
 				},
+				{
+					type: 'toolbar',
+					key: TOOLBARS.PRIMARY_TOOLBAR,
+					rank: TOOLBAR_RANK[LINKING_SECTION.key],
+				},
 			],
+			component: ({ children, parents }) => {
+				return (
+					<LinkSection parents={parents} api={api}>
+						{children}
+					</LinkSection>
+				);
+			},
 		},
 		{
 			type: LINKING_GROUP.type,

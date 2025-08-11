@@ -117,7 +117,7 @@ export const TeamContainers = ({
 		permissionsToCheck: {
 			jira: ['CREATE_PROJECT', 'manage', 'write'],
 			loom: ['write', 'manage'],
-			confluence: ['write', 'manage'],
+			confluence: ['write', 'manage', 'CREATE_SPACE'],
 		},
 		options: {
 			enabled: fg('migrate-product-permissions'),

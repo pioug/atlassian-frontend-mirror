@@ -1,0 +1,63 @@
+{
+	"extends": "../../../../tsconfig.entry-points.passionfruit.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../passionfruit/tsDist/@atlaskit__media-picker/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/flag/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../media-client/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../media-client-react/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../media-common/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../media-ui/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../data/ufo-external/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../media-core/afm-passionfruit/tsconfig.json"
+		}
+	]
+}

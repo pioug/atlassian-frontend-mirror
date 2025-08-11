@@ -40,6 +40,7 @@
 		"@atlaskit/editor-plugin-extension": "workspace:*",
 		"@atlaskit/editor-plugin-guideline": "workspace:^",
 		"@atlaskit/editor-plugin-interaction": "workspace:^",
+		"@atlaskit/editor-plugin-limited-mode": "workspace:^",
 		"@atlaskit/editor-plugin-selection": "workspace:^",
 		"@atlaskit/editor-plugin-width": "workspace:^",
 		"@atlaskit/editor-prosemirror": "root:*",

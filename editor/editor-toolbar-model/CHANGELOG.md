@@ -1,5 +1,13 @@
 # @atlaskit/editor-toolbar-model
 
+## 0.1.0
+
+### Minor Changes
+
+- [#199487](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/199487)
+  [`54098ba4cc83c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/54098ba4cc83c) -
+  Add new PrimaryToolbar export which removes box shadows, export toolbar types
+
 ## 0.0.4
 
 ### Patch Changes

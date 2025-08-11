@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 0.1.0
+
+### Minor Changes
+
+- [`81ec1e909620a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/81ec1e909620a) -
+  [EDITOR-1206] Have `editor-plugin-show-diff` expose if the plugin is displaying the diff.
+  Deprecate the state in `editor-plugin-track-changes` as it depends on `editor-plugin-show-diff`
+  and it's better to have the state in the plugin that actually shows the diff
+
 ## 0.0.3
 
 ### Patch Changes

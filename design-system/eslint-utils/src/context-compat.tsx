@@ -96,7 +96,7 @@ export function getDeclaredVariables(
 	// `context.getDeclaredVariables()` is only available in ESLint v8.40.0+.
 	// @ts-expect-error difference in types between typescript eslint and eslint
 	const sourceCode = getSourceCode(context);
-	// @ts-expect-error mismatch between the overloads and ts eslint/eslint
+	// @ts-ignore - TS2322 TypeScript 5.9.2 upgrade
 	return sourceCode.getDeclaredVariables
 		? // @ts-expect-error mismatch between the overloads and ts eslint/eslint
 			sourceCode.getDeclaredVariables(node)

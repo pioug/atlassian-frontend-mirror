@@ -3,6 +3,9 @@
  * @jsx jsx
  */
 import { jsx, css } from '@compiled/react';
+
+import { token } from '@atlaskit/tokens';
+
 import { type StyledBarProps } from './types';
 import { Breakpoint, getTitleBoxHeight, responsiveSettings } from '../common';
 
@@ -39,13 +42,15 @@ const styledBarStyles = css({
 	height: `${height + padding * 2}px`,
 	padding: `${padding}px`,
 	boxSizing: 'border-box',
-	borderRadius: '3px',
+	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+	borderRadius: token('border.radius.100', '3px'),
 });
 
 const styleChild = css({
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 	backgroundColor: '#44546F',
-	borderRadius: '3px',
+	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+	borderRadius: token('border.radius.100', '3px'),
 	display: 'block',
 	height: '100%',
 });

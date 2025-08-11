@@ -73,6 +73,37 @@ export const cmTheme = CodeMirror.theme({
 	},
 });
 
+export const codeFoldingTheme = CodeMirror.theme({
+	'.cm-gutter': {
+		paddingLeft: token('space.075'),
+		paddingTop: token('space.100'),
+		paddingBottom: token('space.100'),
+		paddingRight: token('space.0'),
+	},
+	'.cm-foldGutter': {
+		paddingLeft: token('space.050'),
+	},
+	'.cm-gutterElement:has([data-marker-dom-element="true"])': {
+		color: token('color.icon.subtle'),
+	},
+	'.cm-gutterElement:has([data-marker-dom-element="true"]):hover': {
+		color: token('color.text.accent.gray.bolder'),
+	},
+	'.cm-foldPlaceholder': {
+		// To give spacing between lines
+		height: '20px',
+		backgroundColor: token('color.background.accent.gray.subtlest'),
+		border: 'none',
+		color: token('color.text'),
+		outline: `1px solid ${token('color.border.accent.gray')}`,
+		paddingLeft: token('space.025'),
+		paddingRight: token('space.025'),
+	},
+	'.cm-foldPlaceholder:hover': {
+		backgroundColor: token('color.background.accent.gray.subtlest.hovered'),
+	},
+});
+
 /**
  * Copied directly from `packages/editor/editor-shared-styles/src/overflow-shadow/overflow-shadow.ts`
  * `CodeMirror` does not support emotion styling so this has been re-created.

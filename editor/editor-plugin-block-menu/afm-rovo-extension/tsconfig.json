@@ -33,6 +33,9 @@
 			"path": "../../editor-shared-styles/afm-rovo-extension/tsconfig.json"
 		},
 		{
+			"path": "../../editor-toolbar/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/icon/afm-rovo-extension/tsconfig.json"
 		},
 		{

@@ -5,7 +5,4 @@ import { JiraIssuesConfigModalNoResultsState } from '../../examples/jira-issues-
 snapshot(JiraIssuesConfigModalNoResultsState, {
 	description: 'Jira issues config modal no results view',
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'replace-legacy-button-in-sllv': true,
-	},
 });

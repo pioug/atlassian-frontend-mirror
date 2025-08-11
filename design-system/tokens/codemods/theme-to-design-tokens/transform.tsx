@@ -85,6 +85,7 @@ function getColorFromIdentifier(expression: any) {
 function getTokenFromNode(j: JSCodeshift, path: any, value: string, propertyName: string): string {
 	const valueMeta = cleanMeta(legacyColorMetaMap[value!] || []);
 	const ancestorMeta = cleanMeta(
+		// @ts-ignore - TS2872 TypeScript 5.9.2 upgrade
 		[...getMetaFromAncestors(j, path), ...kebabize(propertyName).split('-')] || [],
 	);
 

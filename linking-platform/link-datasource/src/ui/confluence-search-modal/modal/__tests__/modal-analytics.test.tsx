@@ -225,13 +225,13 @@ describe('Analytics: ConfluenceSearchConfigModal', () => {
 				it(`should fire "ui.button.clicked.${actionSubjectId}" with action = "query updated" when user searched with a new query and then clicked the ${buttonName} button`, async () => {
 					const { searchWithNewBasic, assertAnalyticsAfterButtonClick } = await setup();
 
-					await searchWithNewBasic();
+					searchWithNewBasic();
 
 					await assertAnalyticsAfterButtonClick(
 						buttonName,
 						getExpectedPayload({
 							actions: ['query updated'],
-							searchCount: 1,
+							searchCount: 2,
 						}),
 					);
 				});
@@ -413,12 +413,12 @@ describe('Analytics: ConfluenceSearchConfigModal', () => {
 					const expectedPayload = getEventPayload('insert', defaultAttributes, {
 						actions: ['query updated'],
 						searchMethod: 'datasource_search_query',
-						searchCount: 1,
+						searchCount: 2,
 					});
 
 					const { assertAnalyticsAfterButtonClick, searchWithNewBasic } = await setup();
 
-					await searchWithNewBasic('new_search');
+					searchWithNewBasic('new_search');
 					await assertAnalyticsAfterButtonClick(INSERT_BUTTON_NAME, expectedPayload);
 				});
 
@@ -426,14 +426,14 @@ describe('Analytics: ConfluenceSearchConfigModal', () => {
 					const expectedPayload = getEventPayload('insert', defaultAttributes, {
 						actions: ['query updated'],
 						searchMethod: 'datasource_search_query',
-						searchCount: 3,
+						searchCount: 6,
 					});
 
 					const { assertAnalyticsAfterButtonClick, searchWithNewBasic } = await setup();
 
-					await searchWithNewBasic('basic_search');
-					await searchWithNewBasic('basic_search_2');
-					await searchWithNewBasic('basic_search_3');
+					searchWithNewBasic('basic_search');
+					searchWithNewBasic('basic_search_2');
+					searchWithNewBasic('basic_search_3');
 
 					await assertAnalyticsAfterButtonClick(INSERT_BUTTON_NAME, expectedPayload);
 				});
@@ -486,7 +486,7 @@ describe('Analytics: ConfluenceSearchConfigModal', () => {
 				it('should fire "ui.button.clicked.cancel" with correct searchCount if a user searched using %p search multiple times', async () => {
 					const expectedPayload = getEventPayload('cancel', {
 						actions: ['query updated'],
-						searchCount: 3,
+						searchCount: 6,
 						extensionKey: 'confluence-object-provider',
 						destinationObjectTypes: [
 							'page',

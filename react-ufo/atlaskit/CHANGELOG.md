@@ -1,5 +1,20 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.2.3
+
+### Patch Changes
+
+- [#199487](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/199487)
+  [`65e285a7a4cbc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/65e285a7a4cbc) -
+  Added segments threshold when creating React UFO payload
+
+## 4.2.2
+
+### Patch Changes
+
+- [`9675be5a4df37`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9675be5a4df37) -
+  FG cleanup - platform_ufo_ttvc_exclude_data_test_attribute
+
 ## 4.2.1
 
 ### Patch Changes

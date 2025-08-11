@@ -1,0 +1,176 @@
+{
+	"extends": "../../../../tsconfig.entry-points.passionfruit.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../passionfruit/tsDist/@atlaskit__link-datasource/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../uip/atlassian-context/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/avatar/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/avatar-group/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/badge/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/button/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/css/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/datetime-picker/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/dropdown-menu/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/empty-state/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/flag/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/form/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/heading/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon-object/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/image/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/inline-edit/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../helpers/intl-messages-provider/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../jql/jql-ast/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../jql/jql-editor/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../jql/jql-editor-autocomplete-rest/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/layering/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/link/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../link-client-extension/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../linking-common/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../linking-types/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/logo/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/lozenge/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/modal-dialog/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../teamwork-ecosystem/outbound-auth-flow-client/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/popup/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../pragmatic-drag-and-drop/core/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../pragmatic-drag-and-drop/hitbox/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../pragmatic-drag-and-drop/react-beautiful-dnd-autoscroll/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../pragmatic-drag-and-drop/react-drop-indicator/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/react-select/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/select/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../smart-card/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../smart-experiences/smart-user-picker/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/spinner/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tag/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../navigation/temp-nav-app-icons/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/textfield/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../data/ufo-external/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/width-detector/afm-passionfruit/tsconfig.json"
+		}
+	]
+}

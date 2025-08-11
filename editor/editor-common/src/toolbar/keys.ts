@@ -1,5 +1,6 @@
 export const TOOLBARS = {
 	INLINE_TEXT_TOOLBAR: 'inline-text-toolbar',
+	PRIMARY_TOOLBAR: 'primary-toolbar',
 } as const;
 
 /**

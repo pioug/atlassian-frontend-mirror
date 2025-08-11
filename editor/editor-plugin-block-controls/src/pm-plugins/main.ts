@@ -778,6 +778,10 @@ export const createPlugin = (
 
 		props: {
 			decorations: (state: EditorState) => {
+				if (api?.limitedMode?.sharedState.currentState()?.enabled) {
+					return;
+				}
+
 				const isDisabled = api?.editorDisabled?.sharedState.currentState()?.editorDisabled;
 
 				if (isDisabled) {
@@ -843,6 +847,10 @@ export const createPlugin = (
 					return false;
 				},
 				dragenter(view: EditorView, event: DragEvent) {
+					if (api?.limitedMode?.sharedState.currentState()?.enabled) {
+						return;
+					}
+
 					if (
 						isHTMLElement(event.target) &&
 						expValEquals('platform_editor_block_controls_perf_optimization', 'isEnabled', true)
@@ -891,6 +899,10 @@ export const createPlugin = (
 					}
 				},
 				dragstart(view: EditorView) {
+					if (api?.limitedMode?.sharedState.currentState()?.enabled) {
+						return;
+					}
+
 					startMeasure(EDITOR_BLOCKS_DRAG_INIT);
 
 					if (isAdvancedLayoutEnabled) {
@@ -907,6 +919,10 @@ export const createPlugin = (
 					);
 				},
 				dragend(view: EditorView) {
+					if (api?.limitedMode?.sharedState.currentState()?.enabled) {
+						return;
+					}
+
 					const { state, dispatch } = view;
 
 					if (key.getState(state)?.isPMDragging) {
@@ -919,14 +935,28 @@ export const createPlugin = (
 					}
 				},
 				mouseover: (view: EditorView, event: Event) => {
+					if (api?.limitedMode?.sharedState.currentState()?.enabled) {
+						return;
+					}
+
 					handleMouseOver(view, event, api);
 
 					return false;
 				},
-				mousedown: editorExperiment('platform_editor_controls', 'variant1')
-					? handleMouseDown(api)
-					: undefined,
+				mousedown: (view: EditorView, event: MouseEvent) => {
+					if (api?.limitedMode?.sharedState.currentState()?.enabled) {
+						return;
+					}
+
+					return editorExperiment('platform_editor_controls', 'variant1')
+						? handleMouseDown(api)(view, event)
+						: undefined;
+				},
 				keydown(view: EditorView, event: KeyboardEvent) {
+					if (api?.limitedMode?.sharedState.currentState()?.enabled) {
+						return;
+					}
+
 					if (isMultiSelectEnabled) {
 						if (event.shiftKey && event.ctrlKey) {
 							//prevent holding down key combo from firing repeatedly
@@ -1034,6 +1064,9 @@ export const createPlugin = (
 					}
 				},
 				keyup(view: EditorView, event: KeyboardEvent) {
+					if (api?.limitedMode?.sharedState.currentState()?.enabled) {
+						return;
+					}
 					if (!event.repeat && event.key === 'Shift') {
 						view.dispatch(
 							view.state.tr.setMeta(key, { ...view.state.tr.getMeta(key), isShiftDown: false }),
@@ -1041,6 +1074,9 @@ export const createPlugin = (
 					}
 				},
 				blur(view: EditorView, event: FocusEvent) {
+					if (api?.limitedMode?.sharedState.currentState()?.enabled) {
+						return;
+					}
 					if (editorExperiment('platform_editor_controls', 'variant1')) {
 						const isChildOfEditor =
 							event.relatedTarget instanceof HTMLElement &&

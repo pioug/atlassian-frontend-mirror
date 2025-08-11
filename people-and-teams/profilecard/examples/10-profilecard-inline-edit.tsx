@@ -25,7 +25,8 @@ const EditViewContainer = styled.div({
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Container = styled.div({
 	border: `1px solid ${token('color.border', '#ccc')}`,
-	borderRadius: '3px',
+	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+	borderRadius: token('border.radius.100', '3px'),
 	margin: token('space.100', '8px'),
 	padding: token('space.100', '8px'),
 });

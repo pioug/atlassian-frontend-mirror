@@ -36,7 +36,8 @@ const placeholderStyles = css({
 		padding: token('space.025'),
 		left: token('space.negative.050'),
 		backgroundColor: token('color.background.neutral'),
-		borderRadius: '3px',
+		// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+		borderRadius: token('border.radius.100', '3px'),
 	},
 });
 

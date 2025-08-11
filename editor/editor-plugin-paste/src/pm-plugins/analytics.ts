@@ -163,6 +163,7 @@ export function getContent({ schema, slice }: GetContentProps): PasteContent {
 		return PasteContents.uncategorized;
 	}
 	const type = nodeOrMarkName.values().next().value;
+	// @ts-ignore - TS2538 TypeScript 5.9.2 upgrade
 	const pasteContent = contentToPasteContent[type];
 
 	return pasteContent ? pasteContent : PasteContents.uncategorized;

@@ -30,5 +30,6 @@ export function PortalBucket({ id, portalManager }: PortalBucketProps) {
 	// Memoize the portal elements to avoid unnecessary re-renders
 	const portalElements = useMemo(() => Object.values(portals), [portals]);
 	// Render the current portal elements
+	// @ts-ignore - TS2322 TypeScript 5.9.2 upgrade
 	return <>{portalElements}</>;
 }

@@ -42,7 +42,8 @@ export const badge = (backgroundColor: string, textColor: string) =>
 		height: token('space.150', '12px'),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		zIndex: akEditorSmallZIndex,
-		borderRadius: '3px',
+		// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+		borderRadius: token('border.radius.100', '3px'),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		background: backgroundColor,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766

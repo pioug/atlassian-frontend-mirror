@@ -1,0 +1,68 @@
+{
+	"extends": "../../../../tsconfig.entry-points.passionfruit.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../passionfruit/tsDist/@atlaskit__editor-plugin-layout/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
+	],
+	"references": [
+		{
+			"path": "../../editor-plugin-analytics/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-decorations/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-editor-disabled/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-guideline/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-interaction/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-selection/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-width/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../editor-shared-styles/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon-lab/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-passionfruit/tsconfig.json"
+		}
+	]
+}

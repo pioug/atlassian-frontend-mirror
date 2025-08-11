@@ -42,12 +42,27 @@ export const getEndpoint = (
 				};
 			},
 		};
-	} else if (product === 'confluence' && permissionId === 'create/space') {
+	} else if (product === 'confluence' && permissionId === 'CREATE_SPACE') {
 		return {
-			type: 'default',
-			payload: {
-				product: 'confluence',
-				permissionId: 'create/space',
+			type: 'graphql',
+			url: '/gateway/api/graphql',
+			query: `query CanCreateConfluenceSpace($cloudId: ID) {
+						siteOperations (cloudId: $cloudId) {
+    						application
+  						}
+					}`,
+			variables: {
+				cloudId,
+			},
+			transformResponse: (response: any) => {
+				return {
+					permissionId: 'CREATE_SPACE',
+					resourceId: 'confluence',
+					permitted:
+						(response?.data?.siteOperations?.application as Array<string>)?.includes(
+							'create_space',
+						) || false,
+				};
 			},
 		};
 	}

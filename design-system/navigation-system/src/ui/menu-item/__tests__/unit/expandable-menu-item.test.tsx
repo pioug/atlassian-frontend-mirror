@@ -7,6 +7,7 @@ import { IconButton } from '@atlaskit/button/new';
 import AddIcon from '@atlaskit/icon/core/add';
 import HomeIcon from '@atlaskit/icon/core/home';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { ButtonMenuItem } from '../../button-menu-item';
 import { ExpandableMenuItem } from '../../expandable-menu-item/expandable-menu-item';
@@ -272,14 +273,16 @@ describe('ExpandableMenuItem', () => {
 		it('should show the expandable content when the chevron icon button is clicked while collapsed', async () => {
 			render(
 				<ExpandableMenuItem>
-					<ExpandableMenuItemTrigger href="/test">Parent menu item</ExpandableMenuItemTrigger>
+					<ExpandableMenuItemTrigger href="/test" testId="trigger-test-id">
+						Parent menu item
+					</ExpandableMenuItemTrigger>
 					<ExpandableMenuItemContent>
 						<ButtonMenuItem>Test expandable content</ButtonMenuItem>
 					</ExpandableMenuItemContent>
 				</ExpandableMenuItem>,
 			);
 
-			await userEvent.click(screen.getByRole('button', { name: /Expand/ }), {
+			await userEvent.click(screen.getByTestId('trigger-test-id--elem-before-button'), {
 				// Skipping pointer events check as the `:not(:has(button,a))` selector
 				// to disable pointer-events when there is no interactive child element
 				// is not working correctly in our unit test environment
@@ -292,14 +295,16 @@ describe('ExpandableMenuItem', () => {
 		it('should hide the expandable content when the chevron icon button is clicked while expanded', async () => {
 			render(
 				<ExpandableMenuItem isDefaultExpanded>
-					<ExpandableMenuItemTrigger href="/test">Parent menu item</ExpandableMenuItemTrigger>
+					<ExpandableMenuItemTrigger href="/test" testId="trigger-test-id">
+						Parent menu item
+					</ExpandableMenuItemTrigger>
 					<ExpandableMenuItemContent>
 						<ButtonMenuItem>Test expandable content</ButtonMenuItem>
 					</ExpandableMenuItemContent>
 				</ExpandableMenuItem>,
 			);
 
-			await userEvent.click(screen.getByRole('button', { name: /Collapse/ }), {
+			await userEvent.click(screen.getByTestId('trigger-test-id--elem-before-button'), {
 				// Skipping pointer events check as the `:not(:has(button,a))` selector
 				// to disable pointer-events when there is no interactive child element
 				// is not working correctly in our unit test environment
@@ -343,44 +348,6 @@ describe('ExpandableMenuItem', () => {
 			await userEvent.click(screen.getByRole('link', { name: /Parent menu item/ }));
 
 			expect(onClick).toHaveBeenCalled();
-		});
-
-		describe('aria-expanded', () => {
-			const itemText = 'Parent menu item';
-			const chevronExpandedText = 'Collapse';
-			const chevronCollapsedText = 'Expand';
-
-			it('should be `false` when collapsed', () => {
-				render(
-					<ExpandableMenuItem>
-						<ExpandableMenuItemTrigger href="/test">{itemText}</ExpandableMenuItemTrigger>
-						<ExpandableMenuItemContent>
-							<ButtonMenuItem>Test expandable content</ButtonMenuItem>
-						</ExpandableMenuItemContent>
-					</ExpandableMenuItem>,
-				);
-
-				expect(screen.getByRole('button', { name: chevronCollapsedText })).toHaveAttribute(
-					'aria-expanded',
-					'false',
-				);
-			});
-
-			it('should be `true` when expanded', () => {
-				render(
-					<ExpandableMenuItem isDefaultExpanded>
-						<ExpandableMenuItemTrigger href="/test">{itemText}</ExpandableMenuItemTrigger>
-						<ExpandableMenuItemContent>
-							<ButtonMenuItem>Test expandable content</ButtonMenuItem>
-						</ExpandableMenuItemContent>
-					</ExpandableMenuItem>,
-				);
-
-				expect(screen.getByRole('button', { name: chevronExpandedText })).toHaveAttribute(
-					'aria-expanded',
-					'true',
-				);
-			});
 		});
 	});
 
@@ -597,36 +564,94 @@ describe('ExpandableMenuItemTrigger', () => {
 	});
 
 	describe('when a href is provided', () => {
-		it('should display an icon button with correct label when expanded', () => {
-			render(
-				<ExpandableMenuItem isDefaultExpanded>
-					<ExpandableMenuItemTrigger
-						href="/test"
-						elemBefore={<HomeIcon label="" />}
-						actions={actions}
-					>
-						Menu trigger
-					</ExpandableMenuItemTrigger>
-				</ExpandableMenuItem>,
-			);
-
-			expect(screen.getByRole('button', { name: /Collapse/ })).toBeVisible();
-		});
-
-		it('should display an icon button with correct label when collapsed', () => {
+		it('should display an icon button with correct test id', () => {
 			render(
 				<ExpandableMenuItem>
-					<ExpandableMenuItemTrigger
-						href="/test"
-						elemBefore={<HomeIcon label="" />}
-						actions={actions}
-					>
+					<ExpandableMenuItemTrigger href="/test" testId="trigger-test-id">
 						Menu trigger
 					</ExpandableMenuItemTrigger>
 				</ExpandableMenuItem>,
 			);
 
-			expect(screen.getByRole('button', { name: /Expand/ })).toBeVisible();
+			expect(screen.getByTestId('trigger-test-id--elem-before-button')).toBeVisible();
+		});
+
+		ffTest.on('platform_dst_expandable_menu_item_elembefore_label', 'aria-expanded', () => {
+			it('should display an icon button with correct label and aria-expanded when expanded', () => {
+				render(
+					<ExpandableMenuItem isDefaultExpanded>
+						<ExpandableMenuItemTrigger
+							href="/test"
+							elemBefore={<HomeIcon label="" />}
+							actions={actions}
+						>
+							Menu trigger
+						</ExpandableMenuItemTrigger>
+					</ExpandableMenuItem>,
+				);
+
+				const chevronIconButton = screen.getByRole('button', { name: /Menu trigger/ });
+
+				expect(chevronIconButton).toBeVisible();
+				expect(chevronIconButton).toHaveAttribute('aria-expanded', 'true');
+			});
+
+			it('should display an icon button with correct label and aria-expanded when collapsed', () => {
+				render(
+					<ExpandableMenuItem>
+						<ExpandableMenuItemTrigger
+							href="/test"
+							elemBefore={<HomeIcon label="" />}
+							actions={actions}
+						>
+							Menu trigger
+						</ExpandableMenuItemTrigger>
+					</ExpandableMenuItem>,
+				);
+
+				const chevronIconButton = screen.getByRole('button', { name: /Menu trigger/ });
+
+				expect(chevronIconButton).toBeVisible();
+				expect(chevronIconButton).toHaveAttribute('aria-expanded', 'false');
+			});
+		});
+
+		ffTest.off('platform_dst_expandable_menu_item_elembefore_label', 'aria-expanded', () => {
+			const itemText = 'Parent menu item';
+			const chevronExpandedText = 'Collapse';
+			const chevronCollapsedText = 'Expand';
+
+			it('should be `false` when collapsed', () => {
+				render(
+					<ExpandableMenuItem>
+						<ExpandableMenuItemTrigger href="/test">{itemText}</ExpandableMenuItemTrigger>
+						<ExpandableMenuItemContent>
+							<ButtonMenuItem>Test expandable content</ButtonMenuItem>
+						</ExpandableMenuItemContent>
+					</ExpandableMenuItem>,
+				);
+
+				expect(screen.getByRole('button', { name: chevronCollapsedText })).toHaveAttribute(
+					'aria-expanded',
+					'false',
+				);
+			});
+
+			it('should be `true` when expanded', () => {
+				render(
+					<ExpandableMenuItem isDefaultExpanded>
+						<ExpandableMenuItemTrigger href="/test">{itemText}</ExpandableMenuItemTrigger>
+						<ExpandableMenuItemContent>
+							<ButtonMenuItem>Test expandable content</ButtonMenuItem>
+						</ExpandableMenuItemContent>
+					</ExpandableMenuItem>,
+				);
+
+				expect(screen.getByRole('button', { name: chevronExpandedText })).toHaveAttribute(
+					'aria-expanded',
+					'true',
+				);
+			});
 		});
 
 		it('should display custom icon when not hovered over', () => {

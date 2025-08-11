@@ -1,5 +1,5 @@
+import type FetchMock from 'fetch-mock';
 import fetchMock from 'fetch-mock/cjs/client';
-import type { MockRequest, MockResponseObject } from 'fetch-mock/types';
 
 import { SmartLinkActionType } from '@atlaskit/linking-types';
 
@@ -15,7 +15,7 @@ const mockActionTypes = [
 
 fetchMock.mock({
 	delay, // delay for snapshot
-	matcher: (url: string, options: MockRequest) => {
+	matcher: (url: string, options: FetchMock.MockRequest) => {
 		try {
 			if (url.endsWith('/gateway/api/object-resolver/invoke')) {
 				const body = JSON.parse((options?.body as string) ?? '{}');
@@ -34,7 +34,7 @@ fetchMock.mock({
 	method: 'POST',
 	name: 'invoke',
 	overwriteRoutes: true,
-	response: (url: string, options: MockResponseObject) => {
+	response: (url: string, options: FetchMock.MockResponseObject) => {
 		const body = JSON.parse((options?.body as string) ?? '{}');
 		switch (body.action.actionType) {
 			case SmartLinkActionType.GetStatusTransitionsAction:

@@ -209,6 +209,7 @@ export function createPlugin(
 			apply: (tr, placeholderState, _oldEditorState, newEditorState) => {
 				const meta = tr.getMeta(pluginKey);
 				const isEditorFocused = Boolean(api?.focus?.sharedState.currentState()?.hasFocus);
+
 				if (meta?.placeholderText !== undefined) {
 					return createPlaceHolderStateFrom({
 						isEditorFocused,
@@ -237,11 +238,15 @@ export function createPlugin(
 				const { hasPlaceholder, placeholderText, pos } = getPlaceholderState(editorState);
 
 				const compositionPluginState = api?.composition?.sharedState.currentState();
+				const isShowingDiff = Boolean(
+					api?.showDiff?.sharedState.currentState()?.isDisplayingChanges,
+				);
 				if (
 					hasPlaceholder &&
 					placeholderText &&
 					pos !== undefined &&
-					!compositionPluginState?.isComposing
+					!compositionPluginState?.isComposing &&
+					!isShowingDiff
 				) {
 					return createPlaceholderDecoration(editorState, placeholderText, pos);
 				}

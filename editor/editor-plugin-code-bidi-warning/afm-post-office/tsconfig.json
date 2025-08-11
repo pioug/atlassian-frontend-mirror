@@ -26,6 +26,9 @@
 			"path": "../../../design-system/code/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-limited-mode/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"
 		},
 		{

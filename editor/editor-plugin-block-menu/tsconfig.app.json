@@ -35,9 +35,6 @@
 			"path": "../../design-system/css/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/dropdown-menu/tsconfig.app.json"
-		},
-		{
 			"path": "../editor-common/tsconfig.app.json"
 		},
 		{
@@ -48,6 +45,9 @@
 		},
 		{
 			"path": "../editor-shared-styles/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-toolbar/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/icon/tsconfig.app.json"

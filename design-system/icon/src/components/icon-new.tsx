@@ -194,7 +194,7 @@ export const Icon = memo(function Icon(props: UNSAFE_NewGlyphProps) {
 				size={LEGACY_size}
 				label={label}
 				testId={testId}
-				// @ts-ignore-next-line
+				// @ts-ignore -next-line
 				UNSAFE_margin={LEGACY_margin}
 			/>
 		);

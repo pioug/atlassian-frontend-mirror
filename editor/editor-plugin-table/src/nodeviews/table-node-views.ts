@@ -71,6 +71,6 @@ export const tableHeaderView = (options: TableCellViewOptions) => {
 
 export const tableRowView = (options: TableCellViewOptions) => {
 	return (node: PMNode, view: EditorView, getPos: () => number | undefined) => {
-		return new TableRow(node, view, getPos, options.eventDispatcher);
+		return new TableRow(node, view, getPos, options.eventDispatcher, options.pluginInjectionApi);
 	};
 };

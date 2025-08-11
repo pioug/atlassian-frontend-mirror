@@ -18,10 +18,16 @@
 	],
 	"references": [
 		{
+			"path": "../../editor-plugin-editor-viewmode/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-selection/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../editor-plugin-user-intent/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-user-preferences/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../editor-toolbar/afm-cc/tsconfig.json"

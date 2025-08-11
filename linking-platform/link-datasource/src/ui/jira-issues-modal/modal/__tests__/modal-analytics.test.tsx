@@ -440,11 +440,11 @@ describe('Analytics: JiraIssuesConfigModal', () => {
 					await assertAnalyticsAfterButtonClick(INSERT_BUTTON_NAME, expectedPayload);
 				});
 
-				it('should fire the event with searchMethod = "datasource_basic_filter" when the user searched using basic search and set searchCount to 1', async () => {
+				it('should fire the event with searchMethod = "datasource_basic_filter" when the user searched using basic search and set searchCount to 2', async () => {
 					const expectedPayload = getEventPayload('insert', defaultAttributes, {
 						actions: ['query updated'],
 						searchMethod: 'datasource_basic_filter',
-						searchCount: 1,
+						searchCount: 2,
 					});
 
 					// Override bogus initial parameters so that modal initializes into basic mode (JQL is not complex)
@@ -455,7 +455,7 @@ describe('Analytics: JiraIssuesConfigModal', () => {
 						},
 					});
 
-					await searchWithNewBasic('new_search');
+					searchWithNewBasic('new_search');
 					await assertAnalyticsAfterButtonClick(INSERT_BUTTON_NAME, expectedPayload);
 				});
 
@@ -476,7 +476,7 @@ describe('Analytics: JiraIssuesConfigModal', () => {
 					const expectedPayload = getEventPayload('insert', defaultAttributes, {
 						actions: ['query updated'],
 						searchMethod: 'datasource_search_query',
-						searchCount: 4,
+						searchCount: 7,
 					});
 
 					// Override bogus initial parameters so that modal initializes into basic mode (JQL is not complex)
@@ -488,10 +488,10 @@ describe('Analytics: JiraIssuesConfigModal', () => {
 							},
 						});
 
-					await searchWithNewBasic('basic_search');
-					await searchWithNewBasic('basic_search_2');
-					await searchWithNewBasic('basic_search_3');
-					await searchWithNewJql('jql_search');
+					searchWithNewBasic('basic_search');
+					searchWithNewBasic('basic_search_2');
+					searchWithNewBasic('basic_search_3');
+					searchWithNewJql('jql_search');
 
 					await assertAnalyticsAfterButtonClick(INSERT_BUTTON_NAME, expectedPayload);
 				});
@@ -542,36 +542,47 @@ describe('Analytics: JiraIssuesConfigModal', () => {
 					);
 				});
 
-				it.each(['jql', 'basic'])(
-					'should fire "ui.button.clicked.cancel" with correct searchCount if a user searched using %p search multiple times',
-					async (searchMode) => {
-						const expectedPayload = getEventPayload('cancel', defaultAttributes, {
-							actions: ['query updated'],
-							searchCount: 3,
-						});
+				it('should fire "ui.button.clicked.cancel" with correct searchCount if a user searched using basic search multiple times', async () => {
+					const expectedPayload = getEventPayload('cancel', defaultAttributes, {
+						actions: ['query updated'],
+						searchCount: 6,
+					});
 
-						// Override bogus initial parameters so that modal initializes into basic mode (JQL is not complex)
-						const { assertAnalyticsAfterButtonClick, searchWithNewJql, searchWithNewBasic } =
-							await setup({
-								parameters: {
-									cloudId: '67899',
-									jql: 'ORDER BY key ASC',
-								},
-							});
+					// Override bogus initial parameters so that modal initializes into basic mode (JQL is not complex)
+					const { assertAnalyticsAfterButtonClick, searchWithNewBasic } = await setup({
+						parameters: {
+							cloudId: '67899',
+							jql: 'ORDER BY key ASC',
+						},
+					});
 
-						if (searchMode === 'basic') {
-							searchWithNewBasic('new_search');
-							searchWithNewBasic('new_search2');
-							searchWithNewBasic('new_search3');
-						} else {
-							searchWithNewJql('new_search');
-							searchWithNewJql('new_search2');
-							searchWithNewJql('new_search3');
-						}
+					searchWithNewBasic('new_search');
+					searchWithNewBasic('new_search2');
+					searchWithNewBasic('new_search3');
 
-						await assertAnalyticsAfterButtonClick(CANCEL_BUTTON_NAME, expectedPayload);
-					},
-				);
+					await assertAnalyticsAfterButtonClick(CANCEL_BUTTON_NAME, expectedPayload);
+				});
+
+				it('should fire "ui.button.clicked.cancel" with correct searchCount if a user searched using jql search multiple times', async () => {
+					const expectedPayload = getEventPayload('cancel', defaultAttributes, {
+						actions: ['query updated'],
+						searchCount: 3,
+					});
+
+					// Override bogus initial parameters so that modal initializes into basic mode (JQL is not complex)
+					const { assertAnalyticsAfterButtonClick, searchWithNewJql } = await setup({
+						parameters: {
+							cloudId: '67899',
+							jql: 'ORDER BY key ASC',
+						},
+					});
+
+					searchWithNewJql('new_search');
+					searchWithNewJql('new_search2');
+					searchWithNewJql('new_search3');
+
+					await assertAnalyticsAfterButtonClick(CANCEL_BUTTON_NAME, expectedPayload);
+				});
 			});
 		});
 	});

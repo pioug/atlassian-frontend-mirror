@@ -12,8 +12,13 @@ const styles = cssMap({
 
 type ToolbarSectionProps = {
 	children?: ReactNode;
+	testId?: string;
 };
 
-export const ToolbarSection = ({ children }: ToolbarSectionProps) => {
-	return <Box xcss={styles.container}>{children}</Box>;
+export const ToolbarSection = ({ children, testId }: ToolbarSectionProps) => {
+	return (
+		<Box xcss={styles.container} testId={testId}>
+			{children}
+		</Box>
+	);
 };

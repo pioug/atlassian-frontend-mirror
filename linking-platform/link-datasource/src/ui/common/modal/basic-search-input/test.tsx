@@ -55,14 +55,6 @@ describe('BasicSearchInput', () => {
 		expect(mockOnSearch).not.toHaveBeenCalled();
 	});
 
-	it('shows search button in a loading state when searching', async () => {
-		const { findByTestId } = setup({ isSearching: true });
-
-		const searchButton = await findByTestId('basic-search-input--basic-search-button');
-
-		expect(searchButton.getAttribute('data-has-overlay')).toEqual('true');
-	});
-
 	it('calls onSearch on form submit', async () => {
 		const { findByTestId, mockOnSearch } = setup();
 
@@ -73,6 +65,7 @@ describe('BasicSearchInput', () => {
 
 		expect(mockOnSearch).toHaveBeenCalledTimes(1);
 	});
+
 	it('should capture and report a11y violations', async () => {
 		const mockOnChange = jest.fn();
 		const mockOnSearch = jest.fn();

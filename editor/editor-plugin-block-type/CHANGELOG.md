@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-block-type
 
+## 6.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.2.0
 
 ### Minor Changes

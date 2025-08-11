@@ -5,6 +5,7 @@ import { type TriggerProps } from '@atlaskit/popup';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
+import { useToolbarUI } from '../hooks/ui-context';
 import { type ToolbarButtonGroupLocation } from '../types';
 
 const styles = cssMap({
@@ -108,6 +109,8 @@ export const ToolbarButton = forwardRef(
 		}: ToolbarButtonProps,
 		ref: Ref<HTMLButtonElement>,
 	) => {
+		const { preventDefaultOnMouseDown } = useToolbarUI();
+
 		return (
 			<Pressable
 				ref={ref}
@@ -130,6 +133,11 @@ export const ToolbarButton = forwardRef(
 				onFocus={onFocus}
 				testId={testId}
 				isDisabled={isDisabled}
+				onMouseDown={(event) => {
+					if (preventDefaultOnMouseDown) {
+						event.preventDefault();
+					}
+				}}
 			>
 				{iconBefore}
 				{children}

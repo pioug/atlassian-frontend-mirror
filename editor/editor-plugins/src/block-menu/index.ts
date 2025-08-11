@@ -2,4 +2,7 @@
 // Disable no-re-export rule for entry point files
 /* eslint-disable @atlaskit/editor/no-re-export */
 export { blockMenuPlugin } from '@atlaskit/editor-plugin-block-menu';
-export type { BlockMenuPlugin } from '@atlaskit/editor-plugin-block-menu';
+export type {
+	BlockMenuPlugin,
+	RegisterBlockMenuComponent,
+} from '@atlaskit/editor-plugin-block-menu';

@@ -243,7 +243,7 @@ describe('ConfluenceSearchConfigModal', () => {
 				{
 					attributes: {
 						actions: ['query updated'],
-						searchCount: 1,
+						searchCount: 2,
 						searchMethod: 'datasource_search_query',
 					},
 				},
@@ -270,7 +270,7 @@ describe('ConfluenceSearchConfigModal', () => {
 				{
 					attributes: {
 						actions: ['query updated'],
-						searchCount: 1,
+						searchCount: 2,
 						searchMethod: 'datasource_search_query',
 					},
 				},
@@ -295,7 +295,7 @@ describe('ConfluenceSearchConfigModal', () => {
 				{
 					attributes: {
 						actions: ['query updated'],
-						searchCount: 1,
+						searchCount: 2,
 						searchMethod: 'datasource_search_query',
 					},
 				},
@@ -590,7 +590,7 @@ describe('ConfluenceSearchConfigModal', () => {
 				{
 					attributes: {
 						actions: ['query updated'],
-						searchCount: 1,
+						searchCount: 2,
 						searchMethod: 'datasource_search_query',
 					},
 				},
@@ -995,7 +995,7 @@ describe('ConfluenceSearchConfigModal', () => {
 				{
 					attributes: {
 						actions: ['query updated'],
-						searchCount: 1,
+						searchCount: 2,
 						searchMethod: 'datasource_search_query',
 					},
 				},
@@ -1024,7 +1024,7 @@ describe('ConfluenceSearchConfigModal', () => {
 				{
 					attributes: {
 						actions: ['query updated'],
-						searchCount: 1,
+						searchCount: 2,
 						searchMethod: 'datasource_search_query',
 					},
 				},
@@ -1073,7 +1073,7 @@ describe('ConfluenceSearchConfigModal', () => {
 				{
 					attributes: {
 						actions: ['query updated'],
-						searchCount: 1,
+						searchCount: 2,
 						searchMethod: 'datasource_search_query',
 					},
 				},
@@ -1127,7 +1127,7 @@ describe('ConfluenceSearchConfigModal', () => {
 					{
 						attributes: {
 							actions: ['query updated'],
-							searchCount: 1,
+							searchCount: 2,
 							displayedColumnCount: 2,
 							searchMethod: 'datasource_search_query',
 						},
@@ -1179,7 +1179,7 @@ describe('ConfluenceSearchConfigModal', () => {
 					{
 						attributes: {
 							actions: ['query updated'],
-							searchCount: 1,
+							searchCount: 2,
 							searchMethod: 'datasource_search_query',
 						},
 					},
@@ -1252,7 +1252,7 @@ describe('ConfluenceSearchConfigModal', () => {
 				{
 					attributes: {
 						actions: ['query updated', 'column reordered'],
-						searchCount: 1,
+						searchCount: 2,
 						searchMethod: 'datasource_search_query',
 					},
 				},
@@ -1289,7 +1289,7 @@ describe('ConfluenceSearchConfigModal', () => {
 				{
 					attributes: {
 						actions: ['query updated'],
-						searchCount: 1,
+						searchCount: 2,
 						displayedColumnCount: 2,
 						searchMethod: 'datasource_search_query',
 					},
@@ -1324,7 +1324,7 @@ describe('ConfluenceSearchConfigModal', () => {
 					{
 						attributes: {
 							actions: ['query updated'],
-							searchCount: 1,
+							searchCount: 2,
 							displayedColumnCount: 2,
 							searchMethod: 'datasource_search_query',
 						},

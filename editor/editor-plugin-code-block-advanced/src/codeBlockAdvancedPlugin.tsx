@@ -9,7 +9,7 @@ export const codeBlockAdvancedPlugin: CodeBlockAdvancedPlugin = ({ api, config }
 		return [
 			{
 				name: 'codeBlock',
-				node: codeBlockNodeWithFixedToDOM(),
+				node: codeBlockNodeWithFixedToDOM({ allowCodeFolding: config?.allowCodeFolding ?? false }),
 			},
 		];
 	},
@@ -19,7 +19,12 @@ export const codeBlockAdvancedPlugin: CodeBlockAdvancedPlugin = ({ api, config }
 			{
 				name: 'codeBlockAdvancedPlugin',
 				plugin: ({ getIntl }) =>
-					createPlugin({ api, extensions: config?.extensions ?? [], getIntl }),
+					createPlugin({
+						api,
+						extensions: config?.extensions ?? [],
+						allowCodeFolding: config?.allowCodeFolding ?? false,
+						getIntl,
+					}),
 			},
 		];
 	},

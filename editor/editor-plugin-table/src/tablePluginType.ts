@@ -15,6 +15,7 @@ import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { GuidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import type { InteractionPlugin } from '@atlaskit/editor-plugin-interaction';
+import type { LimitedModePlugin } from '@atlaskit/editor-plugin-limited-mode';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 
@@ -76,6 +77,7 @@ export type TablePluginDependencies = [
 	ContentInsertionPlugin,
 	WidthPlugin,
 	SelectionPlugin,
+	OptionalPlugin<LimitedModePlugin>,
 	OptionalPlugin<GuidelinePlugin>,
 	OptionalPlugin<BatchAttributeUpdatesPlugin>,
 	OptionalPlugin<AccessibilityUtilsPlugin>,

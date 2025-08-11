@@ -14,5 +14,6 @@ export const convertBase64ToBlob = (base64: string) => {
 		byteArrays.push(byteArray);
 	}
 
+	// @ts-ignore - TS2345 TypeScript 5.9.2 upgrade
 	return new Blob(byteArrays, { type: 'image/jpeg' });
 };

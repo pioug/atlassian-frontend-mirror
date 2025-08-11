@@ -16,7 +16,8 @@ const Popup = styled.div({
 	borderColor: 'red',
 	borderStyle: 'solid',
 	borderWidth: '2px',
-	borderRadius: '3px',
+	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+	borderRadius: token('border.radius.100', '3px'),
 	maxWidth: '160px',
 	paddingTop: token('space.100', '8px'),
 	paddingRight: token('space.100', '8px'),

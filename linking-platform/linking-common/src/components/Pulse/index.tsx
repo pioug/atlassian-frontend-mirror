@@ -14,7 +14,8 @@ const pulseKeyframes = keyframes({
 });
 
 const pulseStyles = css({
-	borderRadius: '3px',
+	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+	borderRadius: token('border.radius.100', '3px'),
 	boxShadow: `0 0 0 0 ${token('color.background.discovery.bold', '#5243AA')}`,
 	animationName: pulseKeyframes,
 	animationDuration: '1.45s',

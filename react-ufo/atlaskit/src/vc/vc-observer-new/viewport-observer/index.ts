@@ -409,7 +409,7 @@ export default class ViewportObserver {
 		this.performanceObserver?.observe({
 			type: 'layout-shift',
 			buffered: true,
-			// @ts-ignore-error
+			// @ts-ignore -error
 			durationThreshold: 30,
 		});
 

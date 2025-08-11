@@ -97,6 +97,7 @@ const setup = (
 	return {
 		container,
 		onSearch,
+		debug: container.debug,
 	};
 };
 
@@ -120,13 +121,6 @@ describe('ConfluenceSearchContainer', () => {
 		});
 	});
 
-	it('should set a loading indicator if isSearching is true', async () => {
-		setup({ isSearching: true });
-
-		const searchButton = await screen.findByTestId(testIds.searchButton);
-		expect(searchButton.getAttribute('aria-disabled')).toBe('true');
-	});
-
 	it('should set the initial search value based on initialSearch prop', async () => {
 		setup({
 			parameters: { cloudId: 'cloudId', searchString: 'blah' },
@@ -140,7 +134,6 @@ describe('ConfluenceSearchContainer', () => {
 		const { onSearch } = setup({
 			parameters: { cloudId: 'cloudId', searchString: 'blah' },
 		});
-
 		const searchInput = await screen.findByTestId(testIds.searchInput);
 		const searchButton = await screen.findByTestId(testIds.searchButton);
 

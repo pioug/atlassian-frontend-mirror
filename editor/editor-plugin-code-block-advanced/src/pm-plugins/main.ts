@@ -14,6 +14,7 @@ interface Props {
 	api: ExtractInjectionAPI<CodeBlockAdvancedPlugin> | undefined;
 	extensions: Extension[];
 	getIntl: () => IntlShape;
+	allowCodeFolding: boolean;
 }
 
 export const createPlugin = (props: Props) => {

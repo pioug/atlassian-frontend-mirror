@@ -136,6 +136,7 @@ interface ComponentProps {
 	isTableHovered?: boolean;
 	isWholeTableInDanger?: boolean;
 	selection?: Selection;
+	limitedMode?: boolean;
 }
 
 interface TableState {
@@ -917,7 +918,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				// pass `selection` and `tableHeight` to control re-render
 				selection={view.state.selection}
 				headerRowHeight={headerRow ? headerRow.offsetHeight : undefined}
-				stickyHeader={this.state.stickyHeader}
+				stickyHeader={!this.props.limitedMode ? this.state.stickyHeader : undefined}
 				tableWrapperWidth={this.state.tableWrapperWidth}
 				api={pluginInjectionApi}
 				isChromelessEditor={options?.isChromelessEditor}
@@ -940,7 +941,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				// pass `selection` to control re-render
 				selection={view.state.selection}
 				headerRowHeight={headerRow ? headerRow.offsetHeight : undefined}
-				stickyHeader={this.state.stickyHeader}
+				stickyHeader={!this.props.limitedMode ? this.state.stickyHeader : undefined}
 				getEditorFeatureFlags={getEditorFeatureFlags}
 				tableContainerWidth={tableContainerWidth}
 				isNumberColumnEnabled={node.attrs.isNumberColumnEnabled}
@@ -975,7 +976,9 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		const topOffset = 0;
 
 		const topStickyShadowPosition =
-			this.state.stickyHeader && topOffset + this.state.stickyHeader.padding + topShadowPadding + 2;
+			!this.props.limitedMode &&
+			this.state.stickyHeader &&
+			topOffset + this.state.stickyHeader.padding + topShadowPadding + 2;
 
 		const { tableWithFixedColumnWidthsOption = false } = getEditorFeatureFlags();
 
@@ -988,7 +991,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={classnames(ClassName.TABLE_CONTAINER, {
 					[ClassName.WITH_CONTROLS]: allowControls && tableActive,
-					[ClassName.TABLE_STICKY]: this.state.stickyHeader && hasHeaderRow,
+					[ClassName.TABLE_STICKY]:
+						!this.props.limitedMode && this.state.stickyHeader && hasHeaderRow,
 					[ClassName.HOVERED_DELETE_BUTTON]: isInDanger,
 					[ClassName.TABLE_SELECTED]: isTableSelected(selection ?? view.state.selection),
 					[ClassName.NESTED_TABLE_WITH_CONTROLS]:

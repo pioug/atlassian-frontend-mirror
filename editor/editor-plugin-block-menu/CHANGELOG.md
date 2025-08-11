@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 0.0.2
+
+### Patch Changes
+
+- [#199487](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/199487)
+  [`53b66ca466092`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/53b66ca466092) -
+  ED-28963 Update block menu to be aligned with drag handle
+- Updated dependencies
+
 ## 0.0.1
 
 ### Patch Changes

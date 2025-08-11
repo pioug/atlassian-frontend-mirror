@@ -148,7 +148,8 @@ const baseStatusStyles = css({
 		maxWidth: '100%',
 		paddingInline: token('space.050'),
 		display: 'inline-flex',
-		borderRadius: '3px',
+		// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+		borderRadius: token('border.radius.100', '3px'),
 		blockSize: 'min-content',
 		position: 'static',
 		overflow: 'hidden',

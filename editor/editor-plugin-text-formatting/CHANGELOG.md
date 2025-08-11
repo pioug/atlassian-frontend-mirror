@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 3.0.11
+
+### Patch Changes
+
+- [#199487](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/199487)
+  [`54098ba4cc83c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/54098ba4cc83c) -
+  Add LinkSection and TextSection and add logic to hide them when toolbar is pinned. Add
+  UserPreferencesPlugin and EditorViewModePlugin as a dependency to editor-plugin-toolbar.
+- Updated dependencies
+
 ## 3.0.10
 
 ### Patch Changes

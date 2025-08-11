@@ -38,6 +38,9 @@
 			"path": "../../editor-plugin-interaction/afm-rovo-extension/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-limited-mode/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-metrics/afm-rovo-extension/tsconfig.json"
 		},
 		{

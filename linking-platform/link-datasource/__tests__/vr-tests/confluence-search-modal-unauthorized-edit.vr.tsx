@@ -5,7 +5,4 @@ import ConfluenceSearchConfigModalUnauthEdit from '../../examples/vr/confluence-
 snapshot(ConfluenceSearchConfigModalUnauthEdit, {
 	description: 'Confluence search config modal unauthorized edit view',
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'replace-legacy-button-in-sllv': true,
-	},
 });

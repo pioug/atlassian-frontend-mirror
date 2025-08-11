@@ -16,7 +16,7 @@ describe('SpotlightHeadline', () => {
 	});
 
 	it('finds Spotlight by its testid', async () => {
-		render(<SpotlightHeadline testId={testId} />);
+		render(<SpotlightHeadline testId={testId}>Hello, world!</SpotlightHeadline>);
 
 		expect(screen.getByTestId(testId)).toBeTruthy();
 	});

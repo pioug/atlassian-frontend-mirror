@@ -2,6 +2,7 @@ import React, { type ReactNode } from 'react';
 
 import DropdownMenu from '@atlaskit/dropdown-menu';
 
+import { useToolbarUI } from '../hooks/ui-context';
 import { type ToolbarButtonGroupLocation } from '../types';
 
 import { ToolbarButton } from './ToolbarButton';
@@ -23,6 +24,8 @@ export const ToolbarDropdownMenu = ({
 	testId,
 	label,
 }: ToolbarDropdownMenuProps) => {
+	const { onDropdownOpenChanged } = useToolbarUI();
+
 	return (
 		<DropdownMenu<HTMLButtonElement>
 			trigger={(triggerProps) => (
@@ -42,6 +45,7 @@ export const ToolbarDropdownMenu = ({
 					label={label}
 				/>
 			)}
+			onOpenChange={onDropdownOpenChanged}
 		>
 			{children}
 		</DropdownMenu>

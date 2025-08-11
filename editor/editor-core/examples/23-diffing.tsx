@@ -38,7 +38,8 @@ const diffContainer = css({
 	color: token('color.text.accent.gray'),
 	backgroundColor: token('color.background.neutral.subtle'),
 	border: `2px solid ${token('color.border')}`,
-	borderRadius: '3px',
+	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+	borderRadius: token('border.radius.100', '3px'),
 	boxSizing: 'border-box',
 	fontSize: '14px',
 	lineHeight: '16px',

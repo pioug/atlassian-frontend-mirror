@@ -25,7 +25,8 @@ const editViewStyles = css({
 	boxSizing: 'border-box',
 	width: '100%',
 	border: `2px solid ${token('color.border')}`,
-	borderRadius: '3px',
+	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+	borderRadius: token('border.radius.100', '3px'),
 	cursor: 'inherit',
 	font: token('font.heading.large'),
 	outline: 'none',

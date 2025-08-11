@@ -13,6 +13,7 @@ import {
 	PopoverTarget,
 	Spotlight,
 	SpotlightActions,
+	SpotlightBody,
 	SpotlightControls,
 	SpotlightDismissControl,
 	SpotlightFooter,
@@ -20,6 +21,7 @@ import {
 	SpotlightHeadline,
 	SpotlightPrimaryAction,
 } from '@atlaskit/spotlight';
+import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	root: {
@@ -29,7 +31,6 @@ const styles = cssMap({
 		display: 'flex',
 		alignItems: 'center',
 		flexDirection: 'column',
-		gap: 'var(--ds-space-1000)',
 	},
 	content: {
 		height: '100%',
@@ -39,13 +40,16 @@ const styles = cssMap({
 		justifyContent: 'center',
 	},
 	target: {
-		padding: 'var(--ds-space-100)',
+		paddingTop: token('space.100'),
+		paddingRight: token('space.100'),
+		paddingBottom: token('space.100'),
+		paddingLeft: token('space.100'),
 		borderStyle: 'solid',
-		borderWidth: 'var(--ds-border-width)',
-		borderColor: 'var(--ds-border-bold)',
+		borderWidth: token('border.width'),
+		borderColor: token('color.border.bold'),
 	},
 	controls: {
-		paddingBlockEnd: 'var(--ds-space-200)',
+		paddingBlockEnd: token('space.200'),
 	},
 });
 
@@ -80,6 +84,9 @@ export default () => {
 									<SpotlightDismissControl />
 								</SpotlightControls>
 							</SpotlightHeader>
+							<SpotlightBody>
+								<Text>Brief and direct textual content to elaborate on the intent.</Text>
+							</SpotlightBody>
 							<SpotlightFooter>
 								<SpotlightActions>
 									<SpotlightPrimaryAction>Done</SpotlightPrimaryAction>

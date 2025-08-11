@@ -1,5 +1,20 @@
 # @atlaskit/spotlight
 
+## 0.0.10
+
+### Patch Changes
+
+- [#198989](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/198989)
+  [`c4a86f623352d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c4a86f623352d) -
+  Allow Spotlight to be dismissed. Implement basic Spotlight Tour functionality.
+
+## 0.0.9
+
+### Patch Changes
+
+- [`d972e69e6461e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d972e69e6461e) -
+  Create Body component. Rework spacing of Spotlight card. Minor refactoring.
+
 ## 0.0.8
 
 ### Patch Changes

@@ -809,6 +809,7 @@ export class EditorPresetBuilder<
 	private apiEmitter: Emitter = () => {};
 
 	constructor(...more: [...StackPlugins]) {
+		// @ts-ignore - TS2872 TypeScript 5.9.2 upgrade
 		this.data = [...more] || [];
 		this.apiPromise = new Promise<unknown>((r) => (this.resolver = r));
 		this.apiResolver = new APIDispatcher((emitter) => (this.apiEmitter = emitter));

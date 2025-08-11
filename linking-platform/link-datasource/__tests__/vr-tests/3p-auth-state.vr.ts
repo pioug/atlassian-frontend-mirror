@@ -5,7 +5,4 @@ import AuthState from '../../examples/issue-like-table-3p-unauth';
 snapshot(AuthState, {
 	description: '3P auth empty state',
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'replace-legacy-button-in-sllv': true,
-	},
 });

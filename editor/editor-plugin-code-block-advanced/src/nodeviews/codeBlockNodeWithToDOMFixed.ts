@@ -4,6 +4,10 @@ import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles';
 import type { NodeSpec, DOMOutputSpec, Node } from '@atlaskit/editor-prosemirror/model';
 import { token } from '@atlaskit/tokens';
 
+interface Config {
+	allowCodeFolding: boolean;
+}
+
 const codeBlockClassNames = {
 	container: CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER,
 	start: CodeBlockSharedCssClassName.CODEBLOCK_START,
@@ -15,7 +19,7 @@ const codeBlockClassNames = {
 const MATCH_NEWLINES = new RegExp('\n', 'gu');
 
 // Based on: `packages/editor/editor-plugin-code-block/src/nodeviews/code-block.ts`
-const toDOM = (node: Node, formattedAriaLabel: string): DOMOutputSpec => {
+const toDOM = (node: Node, formattedAriaLabel: string, config: Config): DOMOutputSpec => {
 	let totalLineCount = 1;
 
 	node.forEach((node) => {
@@ -54,7 +58,10 @@ const toDOM = (node: Node, formattedAriaLabel: string): DOMOutputSpec => {
 						backgroundColor: token('color.background.neutral'),
 						position: 'relative',
 						width: 'var(--lineNumberGutterWidth, 2rem)',
-						padding: token('space.100'),
+						/* top and bottom | left and right */
+						padding: config.allowCodeFolding
+							? `${token('space.100')} ${token('space.250')} ${token('space.100')} ${token('space.075')}`
+							: token('space.100'),
 						flexShrink: 0,
 						fontSize: '0.875rem',
 						boxSizing: 'content-box',
@@ -96,9 +103,9 @@ const toDOM = (node: Node, formattedAriaLabel: string): DOMOutputSpec => {
 	];
 };
 
-export const codeBlockNodeWithFixedToDOM = (): NodeSpec => {
+export const codeBlockNodeWithFixedToDOM = (config: Config): NodeSpec => {
 	return {
 		...codeBlock,
-		toDOM: (node) => toDOM(node, ''),
+		toDOM: (node) => toDOM(node, '', config),
 	};
 };

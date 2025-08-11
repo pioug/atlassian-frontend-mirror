@@ -67,9 +67,11 @@ export function createNormalizeTextParser(): NormalizeTextParser {
 	const locale = window.navigator.language;
 	const thousandSeparator = Intl.NumberFormat(locale)
 		.format(11111)
+		// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
 		.replace(/\p{Number}/gu, '');
 	const decimalSeparator = Intl.NumberFormat(locale)
 		.format(1.1)
+		// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
 		.replace(/\p{Number}/gu, '');
 
 	// Ignored via go/ees005

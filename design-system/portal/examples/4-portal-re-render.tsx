@@ -43,8 +43,8 @@ export default function BasicPortalExample() {
 						background: 'lightpink',
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						padding: token('space.300', '24px'),
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						borderRadius: '3px',
+						// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+						borderRadius: token('border.radius.100', '3px'),
 						zIndex: zIndexes.zIndex2,
 					}}
 				>
@@ -65,8 +65,8 @@ export default function BasicPortalExample() {
 						background: 'aquamarine',
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						padding: token('space.300', '24px'),
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						borderRadius: '3px',
+						// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+						borderRadius: token('border.radius.100', '3px'),
 						zIndex: zIndexes.zIndex1,
 					}}
 				>

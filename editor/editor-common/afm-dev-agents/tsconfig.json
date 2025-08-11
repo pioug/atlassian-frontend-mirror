@@ -72,6 +72,9 @@
 			"path": "../../editor-tables/afm-dev-agents/tsconfig.json"
 		},
 		{
+			"path": "../../editor-toolbar/afm-dev-agents/tsconfig.json"
+		},
+		{
 			"path": "../../../elements/emoji/afm-dev-agents/tsconfig.json"
 		},
 		{

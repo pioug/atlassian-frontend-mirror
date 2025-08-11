@@ -56,18 +56,23 @@ export const scrubStr = (val: string, offset = 0) => {
 	// something like "".split('')
 	return [...val]
 		.map((char, index, chars) => {
+			// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
 			if (/^\p{Nd}$/u.test(char)) {
 				// Decimal digits
 				return scrubNum(parseInt(char, 10), index).toString();
+				// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
 			} else if (/^\p{So}$/u.test(char)) {
 				// Emoji
 				return chars[index - 1]?.codePointAt(0) === 8205 ? '' : '⭐️';
+				// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
 			} else if (/^\p{Sc}$/u.test(char)) {
 				// Currency
 				return '$';
+				// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
 			} else if (/^[\p{P}\p{Z}\p{C}]$/u.test(char)) {
 				// Punctuation, Seperators, Control
 				return char;
+				// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
 			} else if (char.codePointAt(0) === 65039 && /^\p{So}$/u.test(chars[index - 1])) {
 				// Ingore compound emoji control char
 				return '';

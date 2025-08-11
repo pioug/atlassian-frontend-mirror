@@ -26,8 +26,10 @@ import type {
 	PrimaryToolbarPluginState,
 } from '@atlaskit/editor-plugins/primary-toolbar';
 import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugins/selection-toolbar';
+import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import { FULL_PAGE_EDITOR_TOOLBAR_HEIGHT } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { EditorAppearanceComponentProps, PrimaryToolbarComponents } from '../../../types';
@@ -36,6 +38,7 @@ import { getPrimaryToolbarComponents } from '../../Toolbar/getPrimaryToolbarComp
 import { FullPageContentArea } from './FullPageContentArea';
 import type { ToolbarEditorPlugins } from './FullPageToolbar';
 import { FullPageToolbar } from './FullPageToolbar';
+import { FullPageToolbarNext } from './FullPageToolbarNext';
 import { getEditorViewMode } from './getEditorViewModeSync';
 import { fullPageEditorWrapper } from './StyledComponents';
 import { type ScrollContainerRefs } from './types';
@@ -80,6 +83,7 @@ export type ComponentProps = EditorAppearanceComponentProps<
 		OptionalPlugin<PrimaryToolbarPlugin>,
 		OptionalPlugin<SelectionToolbarPlugin>,
 		OptionalPlugin<InteractionPlugin>,
+		OptionalPlugin<ToolbarPlugin>,
 		...ToolbarEditorPlugins,
 	]
 >;
@@ -241,34 +245,42 @@ export const FullPageEditor = (props: ComponentProps) => {
 					} as React.CSSProperties
 				}
 			>
-				{!isEditorToolbarHidden && (
-					<FullPageToolbar
-						appearance={props.appearance}
-						editorAPI={editorAPI}
-						beforeIcon={props.primaryToolbarIconBefore}
-						collabEdit={props.collabEdit}
-						containerElement={scrollContentContainerRef.current?.scrollContainer ?? null}
-						customPrimaryToolbarComponents={props.customPrimaryToolbarComponents}
-						disabled={!!props.disabled}
-						dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
-						editorActions={props.editorActions}
-						editorDOMElement={props.editorDOMElement}
-						// Ignored via go/ees005
-						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-						editorView={props.editorView!}
-						// Ignored via go/ees005
-						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-						eventDispatcher={props.eventDispatcher!}
-						hasMinWidth={props.enableToolbarMinWidth}
-						popupsBoundariesElement={props.popupsBoundariesElement}
-						popupsMountPoint={props.popupsMountPoint}
-						popupsScrollableElement={props.popupsScrollableElement}
-						primaryToolbarComponents={primaryToolbarComponents}
-						providerFactory={props.providerFactory}
-						showKeyline={showKeyline}
-						featureFlags={props.featureFlags}
-					/>
-				)}
+				{!isEditorToolbarHidden &&
+					(expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true) ? (
+						<FullPageToolbarNext
+							toolbarDockingPosition={toolbarDockingPosition ?? toolbarDocking}
+							beforeIcon={props.primaryToolbarIconBefore}
+							editorAPI={editorAPI}
+							editorView={props.editorView}
+						/>
+					) : (
+						<FullPageToolbar
+							appearance={props.appearance}
+							editorAPI={editorAPI}
+							beforeIcon={props.primaryToolbarIconBefore}
+							collabEdit={props.collabEdit}
+							containerElement={scrollContentContainerRef.current?.scrollContainer ?? null}
+							customPrimaryToolbarComponents={props.customPrimaryToolbarComponents}
+							disabled={!!props.disabled}
+							dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
+							editorActions={props.editorActions}
+							editorDOMElement={props.editorDOMElement}
+							// Ignored via go/ees005
+							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+							editorView={props.editorView!}
+							// Ignored via go/ees005
+							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+							eventDispatcher={props.eventDispatcher!}
+							hasMinWidth={props.enableToolbarMinWidth}
+							popupsBoundariesElement={props.popupsBoundariesElement}
+							popupsMountPoint={props.popupsMountPoint}
+							popupsScrollableElement={props.popupsScrollableElement}
+							primaryToolbarComponents={primaryToolbarComponents}
+							providerFactory={props.providerFactory}
+							showKeyline={showKeyline}
+							featureFlags={props.featureFlags}
+						/>
+					))}
 				<FullPageContentArea
 					editorAPI={editorAPI}
 					ref={scrollContentContainerRef}

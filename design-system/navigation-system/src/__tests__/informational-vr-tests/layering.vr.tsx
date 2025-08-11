@@ -35,6 +35,9 @@ snapshotInformational(ScrollableVR, {
 	description: 'Side nav expanded on mobile',
 	prepare: async (page) => {
 		await page.getByTestId('side-nav-toggle-button').click();
+
+		// Wait for the tooltip to be displayed, to reduce flakiness
+		await page.getByRole('tooltip').waitFor();
 	},
 });
 
@@ -43,6 +46,9 @@ snapshotInformational(ScrollableNoPanelVR, {
 	description: 'Side nav expanded on mobile without panel',
 	prepare: async (page) => {
 		await page.getByTestId('side-nav-toggle-button').click();
+
+		// Wait for the tooltip to be displayed, to reduce flakiness
+		await page.getByRole('tooltip').waitFor();
 	},
 });
 

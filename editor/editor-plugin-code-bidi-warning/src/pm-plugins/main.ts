@@ -1,7 +1,14 @@
 import { codeBidiWarningMessages } from '@atlaskit/editor-common/messages';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { EditorAppearance, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
+import type {
+	EditorAppearance,
+	ExtractInjectionAPI,
+	PMPluginFactoryParams,
+} from '@atlaskit/editor-common/types';
+import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+
+import type { CodeBidiWarningPlugin } from '../codeBidiWarningPluginType';
 
 import { codeBidiWarningPluginKey } from './plugin-key';
 import {
@@ -14,6 +21,7 @@ import {
 } from './vanilla-plugin-factory';
 
 export const createPlugin = (
+	api: ExtractInjectionAPI<CodeBidiWarningPlugin> | undefined,
 	{ dispatch, getIntl, nodeViewPortalProviderAPI }: PMPluginFactoryParams,
 	{ appearance }: { appearance?: EditorAppearance },
 ) => {
@@ -28,6 +36,14 @@ export const createPlugin = (
 	return new SafePlugin({
 		key: codeBidiWarningPluginKey,
 		state: createPluginState(dispatch, (state) => {
+			if (api?.limitedMode?.sharedState.currentState()?.enabled) {
+				return {
+					decorationSet: DecorationSet.empty,
+					codeBidiWarningLabel: '',
+					tooltipEnabled: false,
+				};
+			}
+
 			return {
 				decorationSet: fg('platform_editor_vanilla_codebidi_warning')
 					? vanillaCreateBidiWarningsDecorationSetFromDoc({

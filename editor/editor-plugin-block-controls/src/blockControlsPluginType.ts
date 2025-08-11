@@ -11,6 +11,7 @@ import { type AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { InteractionPlugin } from '@atlaskit/editor-plugin-interaction';
+import type { LimitedModePlugin } from '@atlaskit/editor-plugin-limited-mode';
 import type { MetricsPlugin } from '@atlaskit/editor-plugin-metrics';
 import type { QuickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
@@ -98,6 +99,7 @@ export type MoveNode = (
 ) => EditorCommand;
 
 export type BlockControlsPluginDependencies = [
+	OptionalPlugin<LimitedModePlugin>,
 	OptionalPlugin<EditorDisabledPlugin>,
 	OptionalPlugin<WidthPlugin>,
 	OptionalPlugin<FeatureFlagsPlugin>,

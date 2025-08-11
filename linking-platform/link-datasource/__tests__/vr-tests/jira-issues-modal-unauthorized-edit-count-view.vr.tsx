@@ -5,7 +5,4 @@ import { JiraIssuesConfigModalUnauthorizedEditCountViewState } from '../../examp
 snapshot(JiraIssuesConfigModalUnauthorizedEditCountViewState, {
 	description: 'Jira issues config modal unauthorized edit count view',
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'replace-legacy-button-in-sllv': true,
-	},
 });

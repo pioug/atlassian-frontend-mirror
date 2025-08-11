@@ -108,7 +108,7 @@ describe('ViewportObserver', () => {
 		expect(mockPerformanceObserver.observe).toHaveBeenCalledWith({
 			type: 'layout-shift',
 			buffered: true,
-			// @ts-ignore-error
+			// @ts-ignore -error
 			durationThreshold: 30,
 		});
 	});

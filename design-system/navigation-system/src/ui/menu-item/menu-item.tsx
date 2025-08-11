@@ -216,7 +216,8 @@ const containerStyles = cssMap({
 		 * are unusable.
 		 */
 		minWidth: '72px',
-		height: '32px',
+		// Using rem so it scales with browser font size and rem-based spacing/typography
+		height: '2rem',
 		alignItems: 'center',
 		userSelect: 'none',
 		borderRadius: token('border.radius'),
@@ -280,7 +281,7 @@ const containerStyles = cssMap({
 	},
 	hasDescription: {
 		/* Standard 32px + another 16px for the description */
-		height: '48px',
+		height: '3rem',
 	},
 	dragging: {
 		opacity: 0.4,
@@ -518,6 +519,11 @@ function getTextColor({
  */
 type MenuItemBaseProps<T extends HTMLAnchorElement | HTMLButtonElement> =
 	MenuItemLinkOrButtonCommonProps & {
+		/**
+		 * ID attribute, passed to the interactive element (anchor/button). This is not publicly exposed, and is currently only
+		 * used internally by `ExpandableMenuItemTrigger` for the `aria-labelledby` attribute.
+		 */
+		id?: string;
 		href?: string | Record<string, any>;
 		target?: HTMLAnchorElement['target'];
 		isDisabled?: boolean;
@@ -539,6 +545,7 @@ type MenuItemBaseProps<T extends HTMLAnchorElement | HTMLButtonElement> =
  */
 const MenuItemBaseNoRef = <T extends HTMLAnchorElement | HTMLButtonElement>(
 	{
+		id,
 		testId,
 		actions,
 		actionsOnHover,
@@ -730,6 +737,7 @@ const MenuItemBaseNoRef = <T extends HTMLAnchorElement | HTMLButtonElement>(
 							'aria-controls': ariaControls,
 							'aria-haspopup': ariaHasPopup,
 							ref: mergeRefs([forwardedRef, tooltipProps.ref]),
+							id,
 							testId,
 							interactionName,
 						};

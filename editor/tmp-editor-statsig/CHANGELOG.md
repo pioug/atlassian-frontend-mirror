@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 9.27.0
+
+### Minor Changes
+
+- [#199487](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/199487)
+  [`9146513a60d45`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9146513a60d45) -
+  Add a new experiment for code folding in the editor.
+
 ## 9.26.0
 
 ### Minor Changes

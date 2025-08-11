@@ -51,6 +51,7 @@ describe('Annotation view component', () => {
 		updateSubscriberFake = new AnnotationUpdateEmitter();
 		providers = {
 			inlineComment: {
+				// @ts-ignore - TS2454 TypeScript 5.9.2 upgrade
 				getState: getStateFake,
 				updateSubscriber: updateSubscriberFake,
 				viewComponent: DummyComponent,

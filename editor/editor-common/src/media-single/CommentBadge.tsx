@@ -23,7 +23,8 @@ const commentBadgeWrapper = css({
 	// closest parent element with position relative is .resizer-hover-zone, which includes 10px padding
 	right: '2px',
 	top: '2px',
-	borderRadius: '3px',
+	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+	borderRadius: token('border.radius.100', '3px'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	zIndex: akEditorUnitZIndex * 10,
 });

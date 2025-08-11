@@ -88,10 +88,12 @@ export class PortalManager {
 		const currentBucket = this.getCurrentBucket();
 
 		//If the current bucket has capacity, skip this logic
+		// @ts-ignore - TS2538 TypeScript 5.9.2 upgrade
 		if (this.buckets[currentBucket].capacity > 0) {
 			return;
 		} else {
 			// The current bucket is full, delete the bucket from the list of available buckets
+			// @ts-ignore - TS2345 TypeScript 5.9.2 upgrade
 			this.availableBuckets.delete(currentBucket);
 		}
 
@@ -134,23 +136,33 @@ export class PortalManager {
 
 	registerPortal(key: string | number, portal: React.ReactPortal) {
 		this.createBucket();
+		// @ts-ignore - TS2538 TypeScript 5.9.2 upgrade
 		this.buckets[this.getCurrentBucket()].capacity -= 1;
 
 		const id = this.portalToBucketMap.get(key) ?? this.getCurrentBucket();
+		// @ts-ignore - TS2345 TypeScript 5.9.2 upgrade
 		this.portalToBucketMap.set(key, id);
+		// @ts-ignore - TS2538 TypeScript 5.9.2 upgrade
 		if (this.buckets[id].portals[key] !== portal) {
+			// @ts-ignore - TS2538 TypeScript 5.9.2 upgrade
 			this.buckets[id].portals[key] = portal;
+			// @ts-ignore - TS2345 TypeScript 5.9.2 upgrade
 			this.updateBuckets(id);
 		}
 
 		//returns a function to unregister the portal
 		return () => {
+			// @ts-ignore - TS2538 TypeScript 5.9.2 upgrade
 			delete this.buckets[id].portals[key];
 			this.portalToBucketMap.delete(key);
+			// @ts-ignore - TS2538 TypeScript 5.9.2 upgrade
 			this.buckets[id].capacity += 1;
+			// @ts-ignore - TS2538 TypeScript 5.9.2 upgrade
 			if (this.buckets[id].capacity > this.scaleCapacityThreshold) {
+				// @ts-ignore - TS2345 TypeScript 5.9.2 upgrade
 				this.availableBuckets.add(id);
 			}
+			// @ts-ignore - TS2345 TypeScript 5.9.2 upgrade
 			this.updateBuckets(id);
 		};
 	}

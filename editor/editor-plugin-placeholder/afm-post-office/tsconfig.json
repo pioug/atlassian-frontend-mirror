@@ -29,6 +29,9 @@
 			"path": "../../editor-plugin-focus/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-show-diff/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-type-ahead/afm-post-office/tsconfig.json"
 		},
 		{

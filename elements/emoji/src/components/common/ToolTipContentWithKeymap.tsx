@@ -9,7 +9,8 @@ import { N400 } from '@atlaskit/theme/colors';
 import { formatShortcut, type Keymap } from '../../util/keymaps';
 
 const tooltipShortcutStyle = css({
-	borderRadius: '3px',
+	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+	borderRadius: token('border.radius.100', '3px'),
 	backgroundColor: token('color.background.inverse.subtle', N400),
 	paddingTop: 0,
 	paddingBottom: 0,

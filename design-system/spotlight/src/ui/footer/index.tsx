@@ -8,7 +8,6 @@ const styles = cssMap({
 	root: {
 		paddingInlineStart: token('space.200'),
 		paddingInlineEnd: token('space.150'),
-		paddingBlockEnd: token('space.150'),
 		width: '100%',
 	},
 });

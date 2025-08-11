@@ -2,4 +2,4 @@
 // Entry file in package.json
 
 export { blockMenuPlugin } from './blockMenuPlugin';
-export type { BlockMenuPlugin } from './blockMenuPluginType';
+export type { BlockMenuPlugin, RegisterBlockMenuComponent, Parent } from './blockMenuPluginType';

@@ -2,6 +2,7 @@
 // see https://github.com/tmpvar/jsdom/issues/1568
 // TODO: remove this `Omit` usage once TS fixes File class regression.
 // https://github.com/microsoft/TypeScript/issues/52166
+// @ts-ignore - TS2420 TypeScript 5.9.2 upgrade
 export class ClipboardMockFile implements Omit<File, 'constructor'> {
 	readonly size: number;
 	readonly type: string;

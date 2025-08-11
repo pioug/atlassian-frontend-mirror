@@ -14,6 +14,8 @@ import React, {
 import { css, jsx } from '@compiled/react';
 import { di } from 'react-magnetic-di';
 
+import { token } from '@atlaskit/tokens';
+
 import { getIframeSandboxAttribute } from '../../../utils';
 
 import { IFrame } from './IFrame';
@@ -53,7 +55,8 @@ const iframeStyles = css({
 	height: '100%',
 	position: 'relative',
 	overflow: 'hidden',
-	borderRadius: '3px',
+	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+	borderRadius: token('border.radius.100', '3px'),
 });
 
 export const Frame = React.forwardRef<HTMLIFrameElement, FrameProps>(

@@ -3,6 +3,9 @@
 export { ToolbarModelRenderer } from './ui/toolbar-model-renderer';
 
 export type {
+	ToolbarComponentType,
+	ToolbarComponentTypes,
+	ToolbarType,
 	ToolbarMenuComponent,
 	ToolbarButtonComponent,
 	ToolbarMenuItemComponent,
@@ -16,7 +19,6 @@ export type {
 	RegisterToolbarMenuSection,
 	RegisterToolbarMenuItem,
 	RegisterComponent,
-	ComponentTypes,
 } from './types';
 
 export { createComponentRegistry } from './create-registry';

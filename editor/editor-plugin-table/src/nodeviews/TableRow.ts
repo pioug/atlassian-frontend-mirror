@@ -20,7 +20,11 @@ import type { TableDOMElements } from '../pm-plugins/utils/dom';
 import { getTop, getTree } from '../pm-plugins/utils/dom';
 import { supportedHeaderRow } from '../pm-plugins/utils/nodes';
 import type { TablePluginState } from '../types';
-import { TableCssClassName as ClassName, TableCssClassName } from '../types';
+import {
+	TableCssClassName as ClassName,
+	TableCssClassName,
+	type PluginInjectionAPI,
+} from '../types';
 import {
 	stickyHeaderBorderBottomWidth,
 	stickyRowOffsetTop,
@@ -46,11 +50,31 @@ const HEADER_ROW_SCROLL_RESET_DEBOUNCE_TIMEOUT = 400;
 export default class TableRow extends TableNodeView<HTMLTableRowElement> implements NodeView {
 	private nodeVisibilityObserverCleanupFn?: () => void;
 
+	cleanup = () => {
+		if (this.isStickyHeaderEnabled) {
+			this.unsubscribe();
+
+			this.nodeVisibilityObserverCleanupFn && this.nodeVisibilityObserverCleanupFn();
+
+			const tree = getTree(this.dom);
+			if (tree) {
+				this.makeRowHeaderNotSticky(tree.table, true);
+			}
+
+			this.emitOff(false);
+		}
+
+		if (this.tableContainerObserver) {
+			this.tableContainerObserver.disconnect();
+		}
+	};
+
 	constructor(
 		node: PMNode,
 		view: EditorView,
 		getPos: () => number | undefined,
 		eventDispatcher: EventDispatcher,
+		api?: PluginInjectionAPI,
 	) {
 		super(node, view, getPos, eventDispatcher);
 
@@ -60,6 +84,16 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 		const { pluginConfig } = getPluginState(view.state);
 
 		this.isStickyHeaderEnabled = !!pluginConfig.stickyHeaders;
+
+		if (
+			api?.limitedMode?.sharedState.currentState()?.limitedModePluginKey.getState(view.state)
+				?.documentSizeBreachesThreshold
+		) {
+			this.isStickyHeaderEnabled = false;
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+			document.addEventListener('limited-mode-activated', this.cleanup);
+		}
+
 		const pos = this.getPos();
 		this.isInNestedTable = false;
 		if (pos) {
@@ -176,6 +210,9 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 
 			this.emitOff(true);
 		}
+
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+		document.removeEventListener('limited-mode-activated', this.cleanup);
 
 		if (this.tableContainerObserver) {
 			this.tableContainerObserver.disconnect();

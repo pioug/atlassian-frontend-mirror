@@ -10,7 +10,7 @@ import { getToolbarComponents } from './ui/toolbar-components';
 export const toolbarPlugin: ToolbarPlugin = ({ api }) => {
 	const registry = createComponentRegistry();
 
-	registry.register(getToolbarComponents());
+	registry.register(getToolbarComponents(api));
 
 	return {
 		name: 'toolbar',

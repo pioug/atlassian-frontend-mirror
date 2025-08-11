@@ -7,14 +7,12 @@ import { Fragment } from 'react';
 import { css, cssMap, jsx, styled } from '@compiled/react';
 import { useIntl } from 'react-intl-next';
 
-import { LoadingButton } from '@atlaskit/button';
 import { IconButton } from '@atlaskit/button/new';
 import { ErrorMessage, Field } from '@atlaskit/form';
 import CrossCircleIcon from '@atlaskit/icon/core/migration/cross-circle';
 import QuestionCircleIcon from '@atlaskit/icon/core/migration/question-circle';
 import SearchIcon from '@atlaskit/icon/core/migration/search--editor-search';
 import CheckCircleIcon from '@atlaskit/icon/core/migration/status-success--check-circle';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';
 import Textfield from '@atlaskit/textfield';
@@ -51,10 +49,6 @@ export interface AqlSearchInputProps {
 	testId?: string;
 	isSearching: boolean;
 }
-
-const searchButtonStyles = css({
-	marginRight: token('space.075', '6px'),
-});
 
 const styles = cssMap({
 	searchButtonContainer: { marginRight: token('space.075', '6px') },
@@ -140,45 +134,25 @@ export const AqlSearchInput = ({
 										</a>
 									</Tooltip>
 
-									{fg('replace-legacy-button-in-sllv') ? (
-										<Box xcss={styles.searchButtonContainer}>
-											<IconButton
-												appearance="primary"
-												isLoading={isSearching}
-												icon={(iconProps) => (
-													<SearchIcon
-														{...iconProps}
-														LEGACY_size="medium"
-														spacing="spacious"
-														color="currentColor"
-													/>
-												)}
-												spacing="compact"
-												type="submit"
-												label={formatMessage(searchInputMessages.placeholder)}
-												isDisabled={lastValidationResult.type !== 'valid'}
-												testId="assets-datasource-modal--aql-search-button"
-											/>
-										</Box>
-									) : (
-										<LoadingButton
+									<Box xcss={styles.searchButtonContainer}>
+										<IconButton
 											appearance="primary"
-											css={searchButtonStyles}
-											iconBefore={
-												<SearchIcon
-													label={formatMessage(searchInputMessages.placeholder)}
-													LEGACY_size="medium"
-													color="currentColor"
-													spacing="spacious"
-												/>
-											}
 											isLoading={isSearching}
-											spacing="none"
-											testId="assets-datasource-modal--aql-search-button"
+											icon={(iconProps) => (
+												<SearchIcon
+													{...iconProps}
+													LEGACY_size="medium"
+													spacing="spacious"
+													color="currentColor"
+												/>
+											)}
+											spacing="compact"
 											type="submit"
+											label={formatMessage(searchInputMessages.placeholder)}
 											isDisabled={lastValidationResult.type !== 'valid'}
+											testId="assets-datasource-modal--aql-search-button"
 										/>
-									)}
+									</Box>
 								</Fragment>
 							}
 							placeholder={formatMessage(searchInputMessages.placeholder)}

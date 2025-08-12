@@ -12,6 +12,50 @@ import Form from '../../form';
 describe('Form', () => {
 	const user = userEvent.setup();
 
+	it('should call `onSubmit` when submitted using mouse', async () => {
+		const handleSubmit = jest.fn();
+		render(
+			<Form onSubmit={(values) => handleSubmit(values)}>
+				{({ formProps }) => (
+					<form {...formProps}>
+						<Field name="username" label="Username" defaultValue="Charlie">
+							{({ fieldProps }) => <TextField {...fieldProps} testId="Username" />}
+						</Field>
+						<Button type="submit" testId="SubmitButton">
+							Submit
+						</Button>
+					</form>
+				)}
+			</Form>,
+		);
+
+		expect(handleSubmit).not.toHaveBeenCalled();
+		await user.click(screen.getByTestId('SubmitButton'));
+		expect(handleSubmit).toHaveBeenCalled();
+	});
+
+	it('should call `onSubmit` when sub mitted using `enter`', async () => {
+		const handleSubmit = jest.fn();
+		render(
+			<Form onSubmit={(values) => handleSubmit(values)}>
+				{({ formProps }) => (
+					<form {...formProps}>
+						<Field name="username" label="Username" defaultValue="Charlie">
+							{({ fieldProps }) => <TextField {...fieldProps} testId="Username" />}
+						</Field>
+						<Button type="submit" testId="SubmitButton">
+							Submit
+						</Button>
+					</form>
+				)}
+			</Form>,
+		);
+
+		expect(handleSubmit).not.toHaveBeenCalled();
+		await user.type(screen.getByTestId('Username'), '{Enter}');
+		expect(handleSubmit).toHaveBeenCalled();
+	});
+
 	it('should update the onSubmit prop when it was updated', async () => {
 		const handleSubmit = jest.fn();
 		render(

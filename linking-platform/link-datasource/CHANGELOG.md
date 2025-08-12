@@ -1,5 +1,14 @@
 # @atlaskit/link-datasource
 
+## 4.19.4
+
+### Patch Changes
+
+- [#200297](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/200297)
+  [`20899a090b218`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/20899a090b218) -
+  Internal changes to Logo package usage
+- Updated dependencies
+
 ## 4.19.3
 
 ### Patch Changes

@@ -8,7 +8,6 @@ import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemir
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SelectionMarkerPlugin } from '../selectionMarkerPluginType';
 import { selectionDecoration } from '../ui/selection-decoration';
@@ -106,7 +105,7 @@ export const createPlugin = (api: ExtractInjectionAPI<SelectionMarkerPlugin> | u
 		},
 		props: {
 			decorations: (state: EditorState) => {
-				if (browser.ie && fg('platform_editor_plugin_selection_marker_bugfix')) {
+				if (browser.ie) {
 					return debouncedDecorations(state);
 				} else {
 					return key.getState(state)?.decorations;

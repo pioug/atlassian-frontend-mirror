@@ -10,6 +10,7 @@ import Form, {
 	FormFooter,
 	FormHeader,
 	FormSection,
+	MessageWrapper,
 	RequiredAsterisk,
 } from '@atlaskit/form';
 import { Box, Flex } from '@atlaskit/primitives/compiled';
@@ -97,7 +98,9 @@ export default () => {
 												placeholder="Choose a project&hellip;"
 												{...rest}
 											/>
-											{error && <ErrorMessage>{error}</ErrorMessage>}
+											<MessageWrapper>
+												{error && <ErrorMessage>{error}</ErrorMessage>}
+											</MessageWrapper>
 										</>
 									)}
 								</Field>

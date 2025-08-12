@@ -14,12 +14,14 @@
 		"../src/**/__tests__/*",
 		"../src/**/*.test.*",
 		"../src/**/test.*",
-		"../src/**/examples.*"
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
 	],
 	"references": [
-		{
-			"path": "../../editor-common/afm-volt/tsconfig.json"
-		},
 		{
 			"path": "../../editor-plugin-history/afm-volt/tsconfig.json"
 		},
@@ -37,6 +39,9 @@
 		},
 		{
 			"path": "../../tmp-editor-statsig/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-volt/tsconfig.json"
 		}
 	]
 }

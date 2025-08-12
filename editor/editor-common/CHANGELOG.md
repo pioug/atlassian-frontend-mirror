@@ -1,5 +1,46 @@
 # @atlaskit/editor-common
 
+## 107.22.1
+
+### Patch Changes
+
+- [#198479](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/198479)
+  [`a427f04593fbd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a427f04593fbd) -
+  [ux] ED-28685 register list and indentation menu to the new toolbar behind
+  platform_editor_toolbar_aifc
+- Updated dependencies
+
+## 107.22.0
+
+### Minor Changes
+
+- [#199957](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/199957)
+  [`b9e595cc4dcb6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b9e595cc4dcb6) -
+  Bump atlaspack for selected products in AFM
+
+### Patch Changes
+
+- Updated dependencies
+
+## 107.21.1
+
+### Patch Changes
+
+- [`a32e07a545f72`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a32e07a545f72) -
+  [ux] Adds 'Open preview panel' button to the smartlink toolbar when the panel is supported.
+- Updated dependencies
+
+## 107.21.0
+
+### Minor Changes
+
+- [`f22ce89845e1e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f22ce89845e1e) -
+  [ED-28686] Register alignment toolbar component
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 107.20.2
 
 ### Patch Changes

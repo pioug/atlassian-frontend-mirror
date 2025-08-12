@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-type
 
+## 6.2.2
+
+### Patch Changes
+
+- [#200079](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/200079)
+  [`ce48926ed3661`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ce48926ed3661) -
+  Clean up bugfix feature flag
+
 ## 6.2.1
 
 ### Patch Changes

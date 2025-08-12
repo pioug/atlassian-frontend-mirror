@@ -1,5 +1,43 @@
 # @atlaskit/editor-plugins
 
+## 10.1.46
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.1.45
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.1.44
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.1.43
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.1.42
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.1.41
+
+### Patch Changes
+
+- [`c930aab37d2a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c930aab37d2a6) -
+  ED-28563: Block menu API to register menu items
+- Updated dependencies
+
 ## 10.1.40
 
 ### Patch Changes

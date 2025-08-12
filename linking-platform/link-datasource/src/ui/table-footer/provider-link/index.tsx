@@ -3,10 +3,9 @@ import React, { useMemo } from 'react';
 import { cssMap } from '@compiled/react';
 import { useIntl } from 'react-intl-next';
 
-import { JiraServiceManagementIcon } from '@atlaskit/logo';
+import { AssetsIcon, JiraServiceManagementIcon } from '@atlaskit/logo';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Anchor, Inline } from '@atlaskit/primitives/compiled';
-import { AssetsIcon } from '@atlaskit/temp-nav-app-icons/assets';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
@@ -34,7 +33,7 @@ export const ProviderLink = ({ datasourceId }: { datasourceId: string }) => {
 				? {
 						content: intl.formatMessage(footerMessages.poweredByAssets),
 						extensionKey: 'jsm-cmdb-gateway',
-						icon: <AssetsIcon size="20" />,
+						icon: <AssetsIcon size="xsmall" />,
 						interactionName: 'atlas-link',
 						url: '/jira/assets',
 					}

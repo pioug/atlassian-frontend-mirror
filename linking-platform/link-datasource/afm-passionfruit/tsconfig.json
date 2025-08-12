@@ -152,9 +152,6 @@
 			"path": "../../../design-system/tag/afm-passionfruit/tsconfig.json"
 		},
 		{
-			"path": "../../../navigation/temp-nav-app-icons/afm-passionfruit/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/textfield/afm-passionfruit/tsconfig.json"
 		},
 		{

@@ -1,19 +1,42 @@
 import React, { Fragment } from 'react';
 
 import Button from '@atlaskit/button/new';
-import Form, { Field, FormFooter, HelperMessage } from '@atlaskit/form';
+import Form, {
+	ErrorMessage,
+	Field,
+	FormFooter,
+	HelperMessage,
+	MessageWrapper,
+} from '@atlaskit/form';
 import Textfield from '@atlaskit/textfield';
 
 export default function FormExample() {
+	const validate = (value: string = '') => {
+		if (value.toLowerCase().includes('error')) {
+			return 'CONTAINS_ERROR';
+		}
+		return undefined;
+	};
+
 	return (
 		<Form onSubmit={(formState: unknown) => console.log('form submitted', formState)}>
 			{({ formProps }: any) => (
 				<form {...formProps}>
-					<Field name="example-text" defaultValue="a default value" label="With default value">
-						{({ fieldProps }: any) => (
+					<Field
+						name="example-text"
+						defaultValue="a default value"
+						label="With default value"
+						validate={validate}
+					>
+						{({ fieldProps, error }: any) => (
 							<Fragment>
 								<Textfield {...fieldProps} />
-								<HelperMessage>Check the console to see the submitted data</HelperMessage>
+								<MessageWrapper>
+									<HelperMessage>Check the console to see the submitted data</HelperMessage>
+									{error && (
+										<ErrorMessage>Please remove the word "error" from the input</ErrorMessage>
+									)}
+								</MessageWrapper>
 							</Fragment>
 						)}
 					</Field>

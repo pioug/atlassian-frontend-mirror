@@ -35,7 +35,13 @@
 			"path": "../../editor-plugin-selection-toolbar/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-toolbar/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../editor-tables/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar/afm-post-office/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/icon/afm-post-office/tsconfig.json"

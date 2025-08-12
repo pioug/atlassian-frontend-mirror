@@ -6,6 +6,7 @@ import { useIntl } from 'react-intl-next';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { clearFormatting, getAriaKeyshortcuts, tooltip } from '@atlaskit/editor-common/keymaps';
 import { toolbarMessages } from '@atlaskit/editor-common/messages';
+import { getInputMethodFromParentKeys } from '@atlaskit/editor-common/toolbar';
 import {
 	ToolbarButton,
 	ToolbarDropdownItem,
@@ -20,7 +21,7 @@ import {
 import { clearFormattingWithAnalyticsNext } from '../../../editor-commands/clear-formatting';
 
 import type { FormatComponentProps } from './utils';
-import { getInputMethodFromParentKeys, useComponentInfo } from './utils';
+import { useComponentInfo } from './utils';
 
 export const FormatMenuItem = ({
 	parents,
@@ -116,7 +117,6 @@ export const ClearFormatMenuItem = ({
 
 	const formatTitle = formatMessage(toolbarMessages.clearFormatting);
 	const shortcutContent = tooltip(clearFormatting);
-	const ariaLabel = tooltip(clearFormatting, formatTitle);
 	const onClick = () => {
 		api?.core.actions.execute(
 			clearFormattingWithAnalyticsNext(api?.analytics?.actions)(
@@ -131,8 +131,7 @@ export const ClearFormatMenuItem = ({
 			elemAfter={shortcutContent && <ToolbarKeyboardShortcutHint shortcut={shortcutContent} />}
 			isDisabled={!isFormattingPresent}
 			onClick={onClick}
-			aria-keyshortcuts={getAriaKeyshortcuts(clearFormatting)}
-			aria-label={ariaLabel}
+			ariaKeyshortcuts={getAriaKeyshortcuts(clearFormatting)}
 		>
 			{formatTitle}
 		</ToolbarDropdownItem>
@@ -150,8 +149,9 @@ export const MoreFormattingMenu = ({
 	const content = formatMessage(toolbarMessages.moreFormatting);
 	return (
 		<ToolbarDropdownMenu
-			iconBefore={<MoreItemsIcon label={content} testId="more-formatting" />}
+			iconBefore={<MoreItemsIcon label="" testId="more-formatting" />}
 			groupLocation={groupLocation}
+			label={content}
 		>
 			{children}
 		</ToolbarDropdownMenu>

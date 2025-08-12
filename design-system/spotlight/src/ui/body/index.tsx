@@ -31,7 +31,7 @@ export interface SpotlightBodyProps {
  * `SpotlightBody` is required in a `Spotlight`. The content should be brief and direct to elaborate on the intent.
  *
  */
-export const SpotlightBody = forwardRef<HTMLHeadingElement, SpotlightBodyProps>(
+export const SpotlightBody = forwardRef<HTMLDivElement, SpotlightBodyProps>(
 	({ children, testId }: SpotlightBodyProps, ref) => {
 		return (
 			<Box ref={ref} xcss={styles.root} testId={testId}>

@@ -6,7 +6,7 @@ import React from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { TOOLBARS } from '@atlaskit/editor-common/toolbar';
-import type { OptionalPlugin, PublicPluginAPI } from '@atlaskit/editor-common/types';
+import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { token } from '@atlaskit/tokens';
@@ -15,11 +15,9 @@ import { isToolbar } from '../../../utils/toolbar';
 import { ToolbarNext } from '../../Toolbar/Toolbar';
 import { useToolbarPortal } from '../../Toolbar/ToolbarPortal';
 
-type ToolbarEditorPlugins = [OptionalPlugin<ToolbarPlugin>];
-
 type FullPageToolbarNextProps = {
 	beforeIcon?: React.ReactNode;
-	editorAPI?: PublicPluginAPI<ToolbarEditorPlugins>;
+	editorAPI?: PublicPluginAPI<[ToolbarPlugin]>;
 	toolbarDockingPosition?: 'top' | 'none';
 	editorView?: EditorView;
 };
@@ -82,7 +80,12 @@ export const FullPageToolbarNext = ({
 				{/* non-custom toolbar */}
 				{beforeIcon && <div css={styles.mainToolbarIconBefore}>{beforeIcon}</div>}
 				{toolbarDockingPosition !== 'none' && components && isToolbar(toolbar) && (
-					<ToolbarNext toolbar={toolbar} components={components} editorView={editorView} />
+					<ToolbarNext
+						toolbar={toolbar}
+						components={components}
+						editorView={editorView}
+						editorAPI={editorAPI}
+					/>
 				)}
 				{/* --end-- */}
 				{/* custom toolbar */}

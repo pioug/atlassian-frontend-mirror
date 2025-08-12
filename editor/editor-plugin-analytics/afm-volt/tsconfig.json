@@ -14,7 +14,12 @@
 		"../src/**/__tests__/*",
 		"../src/**/*.test.*",
 		"../src/**/test.*",
-		"../src/**/examples.*"
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
 	],
 	"references": [
 		{
@@ -24,13 +29,13 @@
 			"path": "../../../analytics/analytics-next/afm-volt/tsconfig.json"
 		},
 		{
-			"path": "../../editor-common/afm-volt/tsconfig.json"
-		},
-		{
 			"path": "../../editor-plugin-feature-flags/afm-volt/tsconfig.json"
 		},
 		{
 			"path": "../../editor-tables/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-volt/tsconfig.json"
 		}
 	]
 }

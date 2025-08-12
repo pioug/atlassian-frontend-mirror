@@ -2,10 +2,9 @@ import React from 'react';
 
 import { cssMap } from '@compiled/react';
 
-import { JiraServiceManagementIcon } from '@atlaskit/logo';
+import { AssetsIcon, JiraServiceManagementIcon } from '@atlaskit/logo';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
-import { AssetsIcon } from '@atlaskit/temp-nav-app-icons/assets';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
@@ -51,7 +50,7 @@ export const PoweredByJSMAssets = (props: { text: string }) => {
 				}}
 			>
 				{fg('assets_as_an_app_v2') ? (
-					<AssetsIcon size="24" />
+					<AssetsIcon size="small" />
 				) : (
 					<JiraServiceManagementIcon size="xxsmall" appearance="brand" label={props.text} />
 				)}

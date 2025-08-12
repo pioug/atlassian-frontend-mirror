@@ -58,6 +58,9 @@
 			"path": "../dropdown-menu/tsconfig.app.json"
 		},
 		{
+			"path": "../image/tsconfig.app.json"
+		},
+		{
 			"path": "../primitives/tsconfig.app.json"
 		},
 		{

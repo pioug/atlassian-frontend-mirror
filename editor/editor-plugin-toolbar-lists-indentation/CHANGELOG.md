@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-toolbar-lists-indentation
 
+## 4.2.0
+
+### Minor Changes
+
+- [#198479](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/198479)
+  [`a427f04593fbd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a427f04593fbd) -
+  [ux] ED-28685 register list and indentation menu to the new toolbar behind
+  platform_editor_toolbar_aifc
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.1.2
 
 ### Patch Changes

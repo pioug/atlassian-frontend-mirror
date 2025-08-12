@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.2.4
+
+### Patch Changes
+
+- [#199942](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/199942)
+  [`260cb0fb9e934`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/260cb0fb9e934) -
+  Fix ssr placeholder size/dimension check resolution in TTVC v3
+
 ## 4.2.3
 
 ### Patch Changes

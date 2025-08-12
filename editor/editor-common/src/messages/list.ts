@@ -12,6 +12,11 @@ export const messages = defineMessages({
 		defaultMessage: 'Create an unordered list',
 		description: '',
 	},
+	bulletedList: {
+		id: 'fabric.editor.bulletedList',
+		defaultMessage: 'Bulleted list',
+		description: 'A list with bullets. Also known as an “unordered” list',
+	},
 	orderedList: {
 		id: 'fabric.editor.orderedList',
 		defaultMessage: 'Numbered list',

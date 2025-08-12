@@ -1,5 +1,21 @@
 # @atlaskit/editor-toolbar
 
+## 0.2.2
+
+### Patch Changes
+
+- [#198479](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/198479)
+  [`a427f04593fbd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a427f04593fbd) -
+  [ux] ED-28685 register list and indentation menu to the new toolbar behind
+  platform_editor_toolbar_aifc
+
+## 0.2.1
+
+### Patch Changes
+
+- [`f22ce89845e1e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f22ce89845e1e) -
+  [ED-28686] Register alignment toolbar component
+
 ## 0.2.0
 
 ### Minor Changes

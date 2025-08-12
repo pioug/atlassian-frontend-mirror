@@ -162,6 +162,7 @@ export class SSRPlaceholderHandlers {
 		return element;
 	}
 
+	// NOTE - for use when the FG `platform_ufo_ssr_placeholder_resolution_ttvc_v3` is disabled
 	checkIfExistedAndSizeMatching(el: HTMLElement) {
 		el = this.findNearestPlaceholderContainerIfIgnored(el);
 		const id = this.getPlaceholderId(el);
@@ -174,6 +175,13 @@ export class SSRPlaceholderHandlers {
 				this.intersectionObserver?.observe(el);
 			}
 		});
+	}
+
+	// NOTE - for use when the FG `platform_ufo_ssr_placeholder_resolution_ttvc_v3` is enabled
+	checkIfExistedAndSizeMatchingV3(el: HTMLElement) {
+		el = this.findNearestPlaceholderContainerIfIgnored(el);
+		const id = this.getPlaceholderId(el);
+		return this.staticPlaceholders.has(id);
 	}
 
 	getSize(el: HTMLElement): Promise<Rect> {

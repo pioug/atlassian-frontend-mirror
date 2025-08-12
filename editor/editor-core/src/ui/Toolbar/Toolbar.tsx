@@ -1,7 +1,9 @@
 import React from 'react';
 
-import { EditorToolbarProvider } from '@atlaskit/editor-common/toolbar';
+import { EditorToolbarProvider, EditorToolbarUIProvider } from '@atlaskit/editor-common/toolbar';
+import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { ToolbarSize } from '@atlaskit/editor-common/types';
+import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
 	ToolbarButtonGroup,
@@ -44,6 +46,7 @@ type NewToolbarProps = {
 	toolbar: RegisterToolbar;
 	components: RegisterComponent[];
 	editorView?: EditorView;
+	editorAPI?: PublicPluginAPI<[ToolbarPlugin]>;
 };
 
 /**
@@ -52,18 +55,20 @@ type NewToolbarProps = {
  *
  * The majority of components UI should use `@atlaskit/editor-toolbar` components.
  */
-export const ToolbarNext = ({ toolbar, components, editorView }: NewToolbarProps) => {
+export const ToolbarNext = ({ toolbar, components, editorView, editorAPI }: NewToolbarProps) => {
 	return (
 		<EditorToolbarProvider editorView={editorView ?? null}>
-			<ToolbarModelRenderer
-				toolbar={toolbar}
-				components={components}
-				fallbacks={{
-					group: ToolbarButtonGroup,
-					section: ToolbarSection,
-					menuSection: ToolbarDropdownItemSection,
-				}}
-			/>
+			<EditorToolbarUIProvider api={editorAPI}>
+				<ToolbarModelRenderer
+					toolbar={toolbar}
+					components={components}
+					fallbacks={{
+						group: ToolbarButtonGroup,
+						section: ToolbarSection,
+						menuSection: ToolbarDropdownItemSection,
+					}}
+				/>
+			</EditorToolbarUIProvider>
 		</EditorToolbarProvider>
 	);
 };

@@ -2,20 +2,27 @@ import React from 'react';
 
 import { act, fireEvent, render, within } from '@testing-library/react';
 import { mount } from 'enzyme';
+import { IntlProvider } from 'react-intl-next';
+
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { ProfilecardInternal as ProfileCard } from '../../components/User/ProfileCard';
 import { ActionButtonGroup } from '../../styled/Card';
 import { moreActionsClicked, profileCardRendered } from '../../util/analytics';
 
 jest.mock('react-intl-next', () => {
+	const reactIntl = jest.requireActual('react-intl-next');
+	const intl = reactIntl.createIntl({ locale: 'en' });
 	return {
 		...(jest.requireActual('react-intl-next') as any),
-		useIntl: jest.fn().mockReturnValue({
-			locale: 'en',
-			formatMessage: (descriptor: any) => descriptor.defaultMessage,
-		}),
+		useIntl: () => intl,
 	};
 });
+
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+	...jest.requireActual<any>('@atlaskit/platform-feature-flags'),
+	fg: jest.fn(),
+}));
 
 // Mock for runItLater
 (window as any).requestIdleCallback = (callback: () => void) => callback();
@@ -201,6 +208,19 @@ describe('ProfileCard', () => {
 			const { queryByTestId } = renderComponent({ actions: [] });
 
 			expect(queryByTestId('profilecard-actions')).toBeNull();
+		});
+
+		it('should have the proper label for actions button with fullName', () => {
+			(fg as jest.Mock).mockReturnValue(true);
+			const { getByRole } = render(
+				<IntlProvider locale="en" defaultLocale="en-US">
+					<ProfileCard {...defaultProps} actions={actions} />
+				</IntlProvider>,
+			);
+
+			const btn = getByRole('button', { name: 'More actions for full name test' });
+
+			expect(btn).toBeVisible();
 		});
 
 		describe('Click behaviour (cmd+click, ctrl+click, etc)', () => {

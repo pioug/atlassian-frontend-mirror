@@ -14,7 +14,12 @@
 		"../src/**/__tests__/*",
 		"../src/**/*.test.*",
 		"../src/**/test.*",
-		"../src/**/examples.*"
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
 	],
 	"references": [
 		{
@@ -25,9 +30,6 @@
 		},
 		{
 			"path": "../../../elements/date/afm-volt/tsconfig.json"
-		},
-		{
-			"path": "../../editor-common/afm-volt/tsconfig.json"
 		},
 		{
 			"path": "../../editor-plugin-analytics/afm-volt/tsconfig.json"
@@ -70,6 +72,9 @@
 		},
 		{
 			"path": "../../../design-system/visually-hidden/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-volt/tsconfig.json"
 		}
 	]
 }

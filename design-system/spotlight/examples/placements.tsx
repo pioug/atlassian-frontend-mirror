@@ -6,6 +6,7 @@ import { useState } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import Image from '@atlaskit/image';
 import { Box, Flex, Text } from '@atlaskit/primitives/compiled';
 import {
 	PopoverContent,
@@ -19,9 +20,12 @@ import {
 	SpotlightFooter,
 	SpotlightHeader,
 	SpotlightHeadline,
+	SpotlightMedia,
 	SpotlightPrimaryAction,
 } from '@atlaskit/spotlight';
 import { token } from '@atlaskit/tokens';
+
+import ExampleImage from './assets/295x135.png';
 
 const styles = cssMap({
 	root: {
@@ -84,6 +88,9 @@ export default () => {
 									<SpotlightDismissControl />
 								</SpotlightControls>
 							</SpotlightHeader>
+							<SpotlightMedia>
+								<Image src={ExampleImage} alt="placeholder" />
+							</SpotlightMedia>
 							<SpotlightBody>
 								<Text>Brief and direct textual content to elaborate on the intent.</Text>
 							</SpotlightBody>

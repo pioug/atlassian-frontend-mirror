@@ -14,7 +14,12 @@
 		"../src/**/__tests__/*",
 		"../src/**/*.test.*",
 		"../src/**/test.*",
-		"../src/**/examples.*"
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
 	],
 	"references": [
 		{
@@ -46,6 +51,9 @@
 		},
 		{
 			"path": "../../editor-plugin-block-controls/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-block-menu/afm-volt/tsconfig.json"
 		},
 		{
 			"path": "../../editor-plugin-block-type/afm-volt/tsconfig.json"
@@ -183,6 +191,9 @@
 			"path": "../../editor-plugin-list/afm-volt/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-local-id/afm-volt/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-loom/afm-volt/tsconfig.json"
 		},
 		{
@@ -246,6 +257,9 @@
 			"path": "../../editor-plugin-selection-toolbar/afm-volt/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-show-diff/afm-volt/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-status/afm-volt/tsconfig.json"
 		},
 		{
@@ -264,7 +278,13 @@
 			"path": "../../editor-plugin-text-formatting/afm-volt/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-toolbar/afm-volt/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-toolbar-lists-indentation/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-track-changes/afm-volt/tsconfig.json"
 		},
 		{
 			"path": "../../editor-plugin-type-ahead/afm-volt/tsconfig.json"

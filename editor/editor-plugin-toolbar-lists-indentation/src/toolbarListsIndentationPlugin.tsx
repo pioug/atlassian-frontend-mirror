@@ -16,6 +16,7 @@ import type {
 import { ToolbarSize } from '@atlaskit/editor-common/types';
 import { usePluginStateEffect } from '@atlaskit/editor-common/use-plugin-state-effect';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -26,6 +27,7 @@ import type { ToolbarListsIndentationPlugin } from './toolbarListsIndentationPlu
 import { ToolbarType } from './types';
 import ToolbarListsIndentation from './ui';
 import { FloatingToolbarComponent } from './ui/FloatingToolbarComponent';
+import { getToolbarComponents } from './ui/toolbar-components';
 
 export const toolbarListsIndentationPlugin: ToolbarListsIndentationPlugin = ({ config, api }) => {
 	const { showIndentationButtons = false, allowHeadingAndParagraphIndentation = false } =
@@ -58,56 +60,66 @@ export const toolbarListsIndentationPlugin: ToolbarListsIndentationPlugin = ({ c
 		);
 	};
 
-	api?.primaryToolbar?.actions.registerComponent({
-		name: 'toolbarListsIndentation',
-		component: primaryToolbarComponent,
-	});
+	if (expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true)) {
+		api?.toolbar?.actions.registerComponents(
+			getToolbarComponents({ api, showIndentationButtons, allowHeadingAndParagraphIndentation }),
+		);
+	} else {
+		api?.primaryToolbar?.actions.registerComponent({
+			name: 'toolbarListsIndentation',
+			component: primaryToolbarComponent,
+		});
+	}
 
 	return {
 		name: 'toolbarListsIndentation',
 
 		pluginsOptions: {
-			selectionToolbar() {
-				const toolbarDocking = fg('platform_editor_use_preferences_plugin')
-					? api?.userPreferences?.sharedState.currentState()?.preferences.toolbarDockingPosition
-					: api?.selectionToolbar?.sharedState?.currentState()?.toolbarDocking;
-				if (
-					toolbarDocking === 'none' &&
-					editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
-				) {
-					const toolbarCustom: FloatingToolbarCustom<Command> = {
-						type: 'custom',
-						render: (view) => {
-							if (!view) {
-								return;
-							}
+			...(!expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true) && {
+				selectionToolbar() {
+					const toolbarDocking = fg('platform_editor_use_preferences_plugin')
+						? api?.userPreferences?.sharedState.currentState()?.preferences.toolbarDockingPosition
+						: api?.selectionToolbar?.sharedState?.currentState()?.toolbarDocking;
+					if (
+						toolbarDocking === 'none' &&
+						editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
+					) {
+						const toolbarCustom: FloatingToolbarCustom<Command> = {
+							type: 'custom',
+							render: (view) => {
+								if (!view) {
+									return;
+								}
 
-							return (
-								<FloatingToolbarComponent
-									editorView={view}
-									featureFlags={featureFlags}
-									pluginInjectionApi={api}
-									showIndentationButtons={showIndentationButtons}
-									allowHeadingAndParagraphIndentation={allowHeadingAndParagraphIndentation}
-								/>
-							);
-						},
-						fallback: [],
-					};
+								return (
+									<FloatingToolbarComponent
+										editorView={view}
+										featureFlags={featureFlags}
+										pluginInjectionApi={api}
+										showIndentationButtons={showIndentationButtons}
+										allowHeadingAndParagraphIndentation={allowHeadingAndParagraphIndentation}
+									/>
+								);
+							},
+							fallback: [],
+						};
 
-					return {
-						rank: 3,
-						isToolbarAbove: true,
-						items: [toolbarCustom],
-						pluginName: 'toolbarListsIndentation',
-					};
-				} else {
-					return undefined;
-				}
-			},
+						return {
+							rank: 3,
+							isToolbarAbove: true,
+							items: [toolbarCustom],
+							pluginName: 'toolbarListsIndentation',
+						};
+					} else {
+						return undefined;
+					}
+				},
+			}),
 		},
-
-		primaryToolbarComponent: !api?.primaryToolbar ? primaryToolbarComponent : undefined,
+		primaryToolbarComponent:
+			!expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true) && !api?.primaryToolbar
+				? primaryToolbarComponent
+				: undefined,
 	};
 };
 

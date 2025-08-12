@@ -97,9 +97,6 @@
 			"path": "../../notifications/notification-log-client/tsconfig.app.json"
 		},
 		{
-			"path": "../../platform/feature-flags/tsconfig.app.json"
-		},
-		{
 			"path": "../popup/tsconfig.app.json"
 		},
 		{
@@ -110,9 +107,6 @@
 		},
 		{
 			"path": "../spinner/tsconfig.app.json"
-		},
-		{
-			"path": "../../navigation/temp-nav-app-icons/tsconfig.app.json"
 		},
 		{
 			"path": "../textfield/tsconfig.app.json"

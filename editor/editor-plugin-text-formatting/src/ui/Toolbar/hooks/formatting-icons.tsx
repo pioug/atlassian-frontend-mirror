@@ -204,11 +204,7 @@ const IconsMarkSchema: Record<IconTypes, string> = {
 };
 
 const buildMenuIconState =
-	(
-		iconMark: IconTypes,
-		hasMultiplePartsWithFormattingSelected?: boolean,
-		commonActiveMarks?: string[],
-	) =>
+	(iconMark: IconTypes) =>
 	({
 		schema,
 		textFormattingState,
@@ -226,12 +222,7 @@ const buildMenuIconState =
 			};
 		}
 
-		const isActive =
-			hasMultiplePartsWithFormattingSelected &&
-			!commonActiveMarks?.includes(iconMark) &&
-			editorExperiment('platform_editor_controls', 'variant1')
-				? false
-				: textFormattingState?.[`${iconMark}Active` as keyof TextFormattingState];
+		const isActive = textFormattingState?.[`${iconMark}Active` as keyof TextFormattingState];
 
 		const isDisabled = textFormattingState?.[`${iconMark}Disabled` as keyof TextFormattingState];
 		const isHidden = textFormattingState?.[`${iconMark}Hidden` as keyof TextFormattingState];
@@ -248,14 +239,8 @@ const buildIcon = (
 	iconMark: IconTypes,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 	toolbarType: ToolbarType,
-	hasMultiplePartsWithFormattingSelected?: boolean,
-	commonActiveMarks?: string[],
 ) => {
-	const getState = buildMenuIconState(
-		iconMark,
-		hasMultiplePartsWithFormattingSelected,
-		commonActiveMarks,
-	);
+	const getState = buildMenuIconState(iconMark);
 
 	return ({
 		schema,
@@ -295,8 +280,6 @@ interface FormattingIconHookProps extends IconHookProps {
 	textFormattingState: TextFormattingState | undefined;
 	schema: Schema;
 	toolbarType: ToolbarType;
-	hasMultiplePartsWithFormattingSelected?: boolean;
-	commonActiveMarks?: string[];
 }
 
 export const useFormattingIcons = ({
@@ -306,8 +289,6 @@ export const useFormattingIcons = ({
 	intl,
 	editorAnalyticsAPI,
 	toolbarType,
-	hasMultiplePartsWithFormattingSelected,
-	commonActiveMarks,
 }: FormattingIconHookProps): Array<MenuIconItem | null> => {
 	const props = {
 		schema,
@@ -315,59 +296,15 @@ export const useFormattingIcons = ({
 		intl,
 		isToolbarDisabled: Boolean(isToolbarDisabled),
 		toolbarType,
-		hasMultiplePartsWithFormattingSelected,
-		commonActiveMarks,
 	};
 
-	const buildStrongIcon = buildIcon(
-		IconTypes.strong,
-		editorAnalyticsAPI,
-		toolbarType,
-		hasMultiplePartsWithFormattingSelected,
-		commonActiveMarks,
-	);
-	const buildEmIcon = buildIcon(
-		IconTypes.em,
-		editorAnalyticsAPI,
-		toolbarType,
-		hasMultiplePartsWithFormattingSelected,
-		commonActiveMarks,
-	);
-	const buildUnderlineIcon = buildIcon(
-		IconTypes.underline,
-		editorAnalyticsAPI,
-		toolbarType,
-		hasMultiplePartsWithFormattingSelected,
-		commonActiveMarks,
-	);
-	const buildStrikeIcon = buildIcon(
-		IconTypes.strike,
-		editorAnalyticsAPI,
-		toolbarType,
-		hasMultiplePartsWithFormattingSelected,
-		commonActiveMarks,
-	);
-	const buildCodeIcon = buildIcon(
-		IconTypes.code,
-		editorAnalyticsAPI,
-		toolbarType,
-		hasMultiplePartsWithFormattingSelected,
-		commonActiveMarks,
-	);
-	const buildSubscriptIcon = buildIcon(
-		IconTypes.subscript,
-		editorAnalyticsAPI,
-		toolbarType,
-		hasMultiplePartsWithFormattingSelected,
-		commonActiveMarks,
-	);
-	const buildSuperscriptIcon = buildIcon(
-		IconTypes.superscript,
-		editorAnalyticsAPI,
-		toolbarType,
-		hasMultiplePartsWithFormattingSelected,
-		commonActiveMarks,
-	);
+	const buildStrongIcon = buildIcon(IconTypes.strong, editorAnalyticsAPI, toolbarType);
+	const buildEmIcon = buildIcon(IconTypes.em, editorAnalyticsAPI, toolbarType);
+	const buildUnderlineIcon = buildIcon(IconTypes.underline, editorAnalyticsAPI, toolbarType);
+	const buildStrikeIcon = buildIcon(IconTypes.strike, editorAnalyticsAPI, toolbarType);
+	const buildCodeIcon = buildIcon(IconTypes.code, editorAnalyticsAPI, toolbarType);
+	const buildSubscriptIcon = buildIcon(IconTypes.subscript, editorAnalyticsAPI, toolbarType);
+	const buildSuperscriptIcon = buildIcon(IconTypes.superscript, editorAnalyticsAPI, toolbarType);
 
 	const strongIcon = buildStrongIcon(props);
 	const emIcon = buildEmIcon(props);

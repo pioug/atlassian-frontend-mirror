@@ -2,6 +2,7 @@ import React from 'react';
 
 import { screen } from '@testing-library/react';
 
+import { SmartCardProvider } from '@atlaskit/link-provider';
 import { renderWithIntl } from '@atlaskit/link-test-helpers';
 
 import { EmbedCardResolvedView, type EmbedCardResolvedViewProps } from './ResolvedView';
@@ -22,11 +23,13 @@ jest.mock('../components/ImageIcon', () => ({
 
 const setup = (extraProps?: Partial<EmbedCardResolvedViewProps>) => {
 	return renderWithIntl(
-		<EmbedCardResolvedView
-			link="http://atlassian.com"
-			context={{ icon: 'icon-url', text: 'abc' }}
-			{...extraProps}
-		/>,
+		<SmartCardProvider>
+			<EmbedCardResolvedView
+				link="http://atlassian.com"
+				context={{ icon: 'icon-url', text: 'abc' }}
+				{...extraProps}
+			/>
+		</SmartCardProvider>,
 	);
 };
 

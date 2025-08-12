@@ -14,7 +14,12 @@
 		"../src/**/__tests__/*",
 		"../src/**/*.test.*",
 		"../src/**/test.*",
-		"../src/**/examples.*"
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
 	],
 	"references": [
 		{
@@ -34,9 +39,6 @@
 		},
 		{
 			"path": "../../../design-system/datetime-picker/afm-volt/tsconfig.json"
-		},
-		{
-			"path": "../../editor-common/afm-volt/tsconfig.json"
 		},
 		{
 			"path": "../../editor-json-transformer/afm-volt/tsconfig.json"
@@ -127,6 +129,9 @@
 		},
 		{
 			"path": "../../../design-system/tooltip/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-volt/tsconfig.json"
 		}
 	]
 }

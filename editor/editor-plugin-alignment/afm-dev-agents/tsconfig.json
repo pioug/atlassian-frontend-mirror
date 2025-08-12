@@ -35,7 +35,13 @@
 			"path": "../../editor-plugin-selection-toolbar/afm-dev-agents/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-toolbar/afm-dev-agents/tsconfig.json"
+		},
+		{
 			"path": "../../editor-tables/afm-dev-agents/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar/afm-dev-agents/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/icon/afm-dev-agents/tsconfig.json"

@@ -1,5 +1,14 @@
 # @atlaskit/atlassian-navigation
 
+## 5.3.10
+
+### Patch Changes
+
+- [`0c3ef91864885`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0c3ef91864885) -
+  Fixes a bug where when no custom theming preferences are set, `iconColor` and `textColor` still
+  had colors set, overriding default logo colors and causing bugs with some logos. This change was
+  previously tested behind a feature flag.
+
 ## 5.3.9
 
 ### Patch Changes
@@ -12,7 +21,7 @@
 
 - [#185231](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/185231)
   [`8cd7b52d423d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8cd7b52d423d1) -
-  Internal changes resulting from update to @atlaskit/navigation-system
+  Internal changes resulting from update to `@atlaskit/navigation-system`
 - Updated dependencies
 
 ## 5.3.7
@@ -44,7 +53,7 @@
 
 - [#174616](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/174616)
   [`ee906c44a058e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee906c44a058e) -
-  Internal refactors to accomodate for platform package rename.
+  Internal refactors to accommodate for platform package rename.
 - Updated dependencies
 
 ## 5.3.3

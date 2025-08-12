@@ -92,6 +92,7 @@ import { HyperlinkToolbarAppearance } from './HyperlinkToolbarAppearance';
 import { getCustomHyperlinkAppearanceDropdown } from './HyperlinkToolbarAppearanceDropdown';
 import { LinkToolbarAppearance } from './LinkToolbarAppearance';
 import { getLinkAppearanceDropdown } from './LinkToolbarAppearanceDropdown';
+import { OpenPreviewPanelToolbarButton } from './OpenPreviewButton';
 import { ToolbarViewedEvent } from './ToolbarViewedEvent';
 
 export const removeCard = (editorAnalyticsApi: EditorAnalyticsAPI | undefined): Command =>
@@ -531,10 +532,29 @@ const generateToolbarItems =
 						},
 					];
 
+			const openPreviewPanelItems: FloatingToolbarItem<Command>[] = fg(
+				'platform_editor_preview_panel_linking',
+			)
+				? [
+						{
+							type: 'custom',
+							fallback: [],
+							render: () => (
+								<OpenPreviewPanelToolbarButton
+									node={node}
+									intl={intl}
+									editorAnalyticsApi={editorAnalyticsApi}
+								/>
+							),
+						},
+					]
+				: [];
+
 			const toolbarItems: Array<FloatingToolbarItem<Command>> = isNewEditorToolbarDisabled
 				? [
 						...editItems,
 						...commentItems,
+						...openPreviewPanelItems,
 						{
 							id: 'editor.link.openLink',
 							type: 'button',
@@ -578,6 +598,7 @@ const generateToolbarItems =
 						},
 					]
 				: [
+						...openPreviewPanelItems,
 						...editButtonItems,
 						...(fg('platform_editor_controls_patch_15')
 							? ([

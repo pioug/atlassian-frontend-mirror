@@ -261,6 +261,88 @@ export const HIGHLIGHT_MENU_ITEM = {
 } as const;
 
 /*
+ * Alignment
+ */
+
+export const ALIGNMENT_GROUP = {
+	key: 'alignment-group',
+	type: 'group',
+} as const;
+
+export const ALIGNMENT_MENU = {
+	key: 'alignment-menu',
+	type: 'menu',
+} as const;
+
+export const ALIGNMENT_MENU_SECTION = {
+	key: 'alignment-menu-section',
+	type: 'menu-section',
+} as const;
+
+export const ALIGN_LEFT_MENU_ITEM = {
+	key: 'align-left-menu-item',
+	type: 'menu-item',
+} as const;
+
+export const ALIGN_CENTER_MENU_ITEM = {
+	key: 'align-center-menu-item',
+	type: 'menu-item',
+} as const;
+
+export const ALIGN_RIGHT_MENU_ITEM = {
+	key: 'align-right-menu-item',
+	type: 'menu-item',
+} as const;
+
+/*
+ * Lists and indentation group
+ */
+export const LISTS_INDENTATION_GROUP = {
+	key: 'lists-indentation-group',
+	type: 'group',
+} as const;
+
+export const LISTS_INDENTATION_HERO_BUTTON = {
+	key: 'lists-indentation-hero-button',
+	type: 'button',
+} as const;
+
+export const LISTS_INDENTATION_MENU = {
+	key: 'lists-indentation-menu',
+	type: 'menu',
+} as const;
+
+export const LISTS_INDENTATION_MENU_SECTION = {
+	key: 'lists-indendation-menu-section',
+	type: 'menu-section',
+} as const;
+
+export const BULLETED_LIST_MENU_ITEM = {
+	key: 'bullet-list-menu-item',
+	type: 'menu-item',
+} as const;
+
+export const NUMBERED_LIST_MENU_ITEM = {
+	key: 'numbered-list-menu-item',
+	type: 'menu-item',
+} as const;
+
+export const TASK_LIST_MENU_ITEM = {
+	key: 'task-list-menu-item',
+	type: 'menu-item',
+} as const;
+
+export const INDENT_MENU_ITEM = {
+	key: 'indent-menu-item',
+	type: 'menu-item',
+} as const;
+
+export const OUTDENT_MENU_ITEM = {
+	key: 'outdent-menu-item',
+	type: 'menu-item',
+} as const;
+
+/*
  * Linking section
  */
 

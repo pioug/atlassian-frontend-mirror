@@ -2,6 +2,8 @@ import React from 'react';
 
 import { FormattedMessage } from 'react-intl-next';
 
+import FeatureGates from '@atlaskit/feature-gate-js-client';
+
 import { ActionName } from '../../../../../constants';
 import { messages } from '../../../../../messages';
 import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
@@ -47,15 +49,25 @@ const FollowAction = (props: FollowActionProps) => {
 
 	const message = value ? messages.follow : messages.unfollow;
 
-	const projectMessage = value ? messages.follow_project : messages.unfollow_project;
+	const projectMessage = value
+		? FeatureGates.getExperimentValue('project-terminology-refresh', 'isEnabled', false)
+			? messages.follow_projectGalaxia
+			: messages.follow_project
+		: FeatureGates.getExperimentValue('project-terminology-refresh', 'isEnabled', false)
+			? messages.unfollow_projectGalaxia
+			: messages.unfollow_project;
 	const goalMessage = value ? messages.follow_goal : messages.unfollow_goal;
 
 	const stackMessage = isProject ? projectMessage : goalMessage;
 	const label = isStackItem ? stackMessage : message;
 
 	const projectTooltipMessage = value
-		? messages.follow_project_description
-		: messages.unfollow_project_description;
+		? FeatureGates.getExperimentValue('project-terminology-refresh', 'isEnabled', false)
+			? messages.follow_project_descriptionGalaxia
+			: messages.follow_project_description
+		: FeatureGates.getExperimentValue('project-terminology-refresh', 'isEnabled', false)
+			? messages.unfollow_project_descriptionGalaxia
+			: messages.unfollow_project_description;
 	const goalTooltipMessage = value
 		? messages.follow_goal_description
 		: messages.unfollow_goal_description;

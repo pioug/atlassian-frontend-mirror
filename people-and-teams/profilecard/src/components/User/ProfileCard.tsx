@@ -186,6 +186,10 @@ export const ProfilecardInternal = (props: ProfilecardProps & AnalyticsProps) =>
 						<>
 							<ActionsFlexSpacer />
 							<Actions
+								{...(fg('jfp_a11y_team_profile_card_actions_label') && {
+									fullName,
+								})}
+								fullName={fullName}
 								actions={realActions}
 								fireAnalyticsWithDuration={fireAnalyticsWithDuration}
 								isTriggeredUsingKeyboard={props.isTriggeredUsingKeyboard}
@@ -201,12 +205,14 @@ export const ProfilecardInternal = (props: ProfilecardProps & AnalyticsProps) =>
 interface ActionsProps extends AnalyticsWithDurationProps {
 	actions: ProfileCardAction[];
 	isTriggeredUsingKeyboard: boolean | undefined;
+	fullName?: string;
 }
 
 const Actions = ({
 	actions,
 	fireAnalyticsWithDuration,
 	isTriggeredUsingKeyboard,
+	fullName,
 }: ActionsProps) => {
 	const onActionClick = useCallback(
 		(
@@ -290,6 +296,9 @@ const Actions = ({
 					onItemClick={(action, args, event, index) =>
 						onActionClick(action, args, event, index + ACTION_OVERFLOW_THRESHOLD)
 					}
+					{...(fg('jfp_a11y_team_profile_card_actions_label') && {
+						fullName,
+					})}
 				/>
 			)}
 		</ActionButtonGroup>

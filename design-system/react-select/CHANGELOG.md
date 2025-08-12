@@ -1,5 +1,13 @@
 # @atlaskit/react-select
 
+## 3.4.2
+
+### Patch Changes
+
+- [#199732](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/199732)
+  [`6a3dc4b33b338`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6a3dc4b33b338) -
+  Clean up label property in css
+
 ## 3.4.1
 
 ### Patch Changes

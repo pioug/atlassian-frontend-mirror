@@ -1,5 +1,12 @@
 # @atlaskit/profilecard
 
+## 24.3.2
+
+### Patch Changes
+
+- [`ddbbad68f52cd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ddbbad68f52cd) -
+  Actions button aria-label change to support screen reader to be more descriptive
+
 ## 24.3.1
 
 ### Patch Changes

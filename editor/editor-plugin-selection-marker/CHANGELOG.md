@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection-marker
 
+## 3.0.4
+
+### Patch Changes
+
+- [`5f7f868ae7ce5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f7f868ae7ce5) -
+  ED-28969 remove platform_editor_plugin_selection_marker_bugfix
+- Updated dependencies
+
 ## 3.0.3
 
 ### Patch Changes

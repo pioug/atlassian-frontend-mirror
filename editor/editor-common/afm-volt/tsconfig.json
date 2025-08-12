@@ -14,7 +14,13 @@
 	"exclude": [
 		"../src/**/__tests__/*",
 		"../src/**/*.test.*",
-		"../src/**/test.*"
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
 	],
 	"references": [
 		{
@@ -145,6 +151,9 @@
 		},
 		{
 			"path": "../../../design-system/spinner/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../elements/status/afm-volt/tsconfig.json"
 		},
 		{
 			"path": "../../../elements/task-decision/afm-volt/tsconfig.json"

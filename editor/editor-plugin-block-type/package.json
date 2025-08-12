@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-type",
-	"version": "6.2.1",
+	"version": "6.2.2",
 	"description": "BlockType plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -122,9 +122,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_use_preferences_plugin": {
-			"type": "boolean"
-		},
-		"platform_editor_bugfix_remove_block_quote": {
 			"type": "boolean"
 		}
 	}

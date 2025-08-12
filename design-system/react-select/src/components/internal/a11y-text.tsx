@@ -13,7 +13,6 @@ const styles = css({
 	zIndex: 9999,
 	border: 0,
 	clip: 'rect(1px, 1px, 1px, 1px)',
-	label: 'a11yText',
 	overflow: 'hidden',
 	userSelect: 'none', // while hidden text is sitting in the DOM, it should not be selectable
 	whiteSpace: 'nowrap',

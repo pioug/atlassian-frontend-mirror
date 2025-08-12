@@ -152,9 +152,6 @@
 			"path": "../../../design-system/tag/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../../navigation/temp-nav-app-icons/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/textfield/afm-jira/tsconfig.json"
 		},
 		{

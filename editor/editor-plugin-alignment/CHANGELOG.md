@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-alignment
 
+## 4.2.0
+
+### Minor Changes
+
+- [#199957](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/199957)
+  [`b9e595cc4dcb6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b9e595cc4dcb6) -
+  Bump atlaspack for selected products in AFM
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.1.4
+
+### Patch Changes
+
+- [`f22ce89845e1e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f22ce89845e1e) -
+  [ED-28686] Register alignment toolbar component
+- Updated dependencies
+
 ## 4.1.3
 
 ### Patch Changes

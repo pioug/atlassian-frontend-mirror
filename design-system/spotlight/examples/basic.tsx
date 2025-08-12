@@ -3,6 +3,7 @@
  * @jsx jsx
  */
 import { cssMap, jsx } from '@atlaskit/css';
+import Image from '@atlaskit/image';
 import { Text } from '@atlaskit/primitives/compiled';
 import {
 	Spotlight,
@@ -13,10 +14,13 @@ import {
 	SpotlightFooter,
 	SpotlightHeader,
 	SpotlightHeadline,
+	SpotlightMedia,
 	SpotlightPrimaryAction,
 	SpotlightSecondaryAction,
 } from '@atlaskit/spotlight';
 import { token } from '@atlaskit/tokens';
+
+import ExampleImage from './assets/295x135.png';
 
 const styles = cssMap({
 	root: {
@@ -38,6 +42,9 @@ export default function Basic() {
 						<SpotlightDismissControl />
 					</SpotlightControls>
 				</SpotlightHeader>
+				<SpotlightMedia>
+					<Image src={ExampleImage} alt="placeholder" />
+				</SpotlightMedia>
 				<SpotlightBody>
 					<Text>Brief and direct textual content to elaborate on the intent.</Text>
 				</SpotlightBody>

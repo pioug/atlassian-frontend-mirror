@@ -17,7 +17,6 @@ export type RequestAccessMessageKey =
 	| 'access_exists_description'
 	| 'not_found_description'
 	| 'not_found_title';
-
 export type MessageKey =
 	| 'assigned_to'
 	| 'ai_summarize'
@@ -58,10 +57,13 @@ export type MessageKey =
 	| 'download_file'
 	| 'follow'
 	| 'follow_project_description'
+	| 'follow_project_descriptionGalaxia'
 	| 'follow_project'
+	| 'follow_projectGalaxia'
 	| 'follow_goal'
 	| 'follow_goal_description'
 	| 'follow_project_error'
+	| 'follow_project_errorGalaxia'
 	| 'follow_goal_error'
 	| 'go_back'
 	| 'invalid_permissions'
@@ -124,8 +126,12 @@ export type MessageKey =
 	| 'unassigned'
 	| 'unfollow'
 	| 'unfollow_project_description'
+	| 'unfollow_project_descriptionGalaxia'
+	| 'unfollow_projectGalaxia'
 	| 'unfollow_project'
+	| 'unfollow_projectGalaxia'
 	| 'unfollow_project_error'
+	| 'unfollow_project_errorGalaxia'
 	| 'unfollow_goal'
 	| 'unfollow_goal_description'
 	| 'unfollow_goal_error'
@@ -164,11 +170,9 @@ export type MessageKey =
 	| 'request_access_to_viewIssueTermRefresh'
 	| 'team_members_count'
 	| 'status_change_permission_errorIssueTermRefresh';
-
 type Messages = {
 	[K in MessageKey]: MessageDescriptor;
 };
-
 export const messages: Messages = defineMessages({
 	actions: {
 		id: 'fabric.linking.actions',
@@ -824,7 +828,6 @@ export const messages: Messages = defineMessages({
 		defaultMessage: 'Join {product} to view this content',
 		description: 'Informs the user that they dont have access to certain content',
 	},
-
 	direct_access_title: {
 		id: 'fabric.linking.direct_access_title',
 		defaultMessage: 'Join {product} to view this content',
@@ -843,7 +846,6 @@ export const messages: Messages = defineMessages({
 		defaultMessage: 'Join now',
 		description: 'Allows the user join the product or service immediately',
 	},
-
 	request_access_description: {
 		id: 'fabric.linking.request_access_description',
 		defaultMessage:
@@ -856,7 +858,6 @@ export const messages: Messages = defineMessages({
 		defaultMessage: 'Request access',
 		description: 'Allows the user to request access to a product or service',
 	},
-
 	request_access_pending_title: {
 		id: 'fabric.linking.request_access_pending_title',
 		defaultMessage: 'Access to {product} is pending',
@@ -873,21 +874,18 @@ export const messages: Messages = defineMessages({
 		defaultMessage: 'Pending approval',
 		description: 'Informs the user that their request to view this content is pending',
 	},
-
 	request_denied_description: {
 		id: 'fabric.linking.request_denied_description',
 		defaultMessage:
 			"Your admin didn't approve your request to view {product} pages from {hostname}.",
 		description: 'Informs the user that their request to view this content was denied',
 	},
-
 	access_exists_description: {
 		id: 'fabric.linking.access_exists_description',
 		defaultMessage: 'Request access to view this content from {hostname}.',
 		description:
 			'Informs the user to contact the website administrator to request access to a product',
 	},
-
 	not_found_description: {
 		id: 'fabric.linking.not_found_description',
 		defaultMessage: "The page doesn't exist or it may have changed after this link was added.",
@@ -898,7 +896,6 @@ export const messages: Messages = defineMessages({
 		defaultMessage: "We can't show you this {product} page",
 		description: 'Error case for when a provided link is not found',
 	},
-
 	forbidden_title: {
 		id: 'fabric.linking.forbidden_title',
 		defaultMessage: "You don't have access to this content",
@@ -999,5 +996,37 @@ export const messages: Messages = defineMessages({
 		id: 'fabric.linking.user_attributes',
 		defaultMessage: '{context}',
 		description: 'Displays user attributes like role, department, location, and pronouns',
+	},
+	follow_project_descriptionGalaxia: {
+		id: 'fabric.linking.follow_project_description-galaxia',
+		defaultMessage: 'Follow to get notifications on this space',
+		description: 'Description on what Follow does',
+	},
+	follow_projectGalaxia: {
+		id: 'fabric.linking.follow_project-galaxia',
+		defaultMessage: 'Follow space',
+		description: 'Click to follow a project.',
+	},
+	follow_project_errorGalaxia: {
+		id: 'fabric.linking.follow_project_error-galaxia',
+		defaultMessage:
+			'We encountered an error while trying to follow the space. Check your connection or refresh the page and try again.',
+		description: 'Shown when an unknown error occurs when following an Atlas project',
+	},
+	unfollow_project_descriptionGalaxia: {
+		id: 'fabric.linking.unfollow_project_description-galaxia',
+		defaultMessage: 'Unfollow to stop receiving space notifications',
+		description: 'Description on what Unfollow does',
+	},
+	unfollow_projectGalaxia: {
+		id: 'fabric.linking.unfollow_project-galaxia',
+		defaultMessage: 'Unfollow space',
+		description: 'Click to unfollow a project.',
+	},
+	unfollow_project_errorGalaxia: {
+		id: 'fabric.linking.unfollow_project_error-galaxia',
+		defaultMessage:
+			'We encountered an error while trying to unfollow the space. Check your connection or refresh the page and try again.',
+		description: 'Shown when an unknown error occurs when unfollowing an Atlas project',
 	},
 });

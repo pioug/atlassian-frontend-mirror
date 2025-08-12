@@ -13,6 +13,7 @@ import Form, {
 	FormSection,
 	HelperMessage,
 	Label,
+	MessageWrapper,
 	RangeField,
 	RequiredAsterisk,
 } from '@atlaskit/form';
@@ -65,7 +66,9 @@ const FormAllOptionsExample = () => (
 							{({ fieldProps }) => (
 								<Fragment>
 									<TextField autoComplete="off" {...fieldProps} />
-									<HelperMessage>This is a helper message</HelperMessage>
+									<MessageWrapper>
+										<HelperMessage>This is a helper message</HelperMessage>
+									</MessageWrapper>
 								</Fragment>
 							)}
 						</Field>

@@ -51,6 +51,9 @@
 			"path": "../../../design-system/dropdown-menu/afm-dev-agents/tsconfig.json"
 		},
 		{
+			"path": "../../../measurement/feature-gate-js-client/afm-dev-agents/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/form/afm-dev-agents/tsconfig.json"
 		},
 		{

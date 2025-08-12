@@ -51,6 +51,8 @@ export default {
     'Title cannot exceed {maxLength} characters',
   'fabric.editor.ai.config.item.action.rovoAgents.contineChatLabel': 'Continue in chat',
   'fabric.editor.ai.config.item.action.rovoAgents.continueInChatLabel': 'Open in Chat',
+  'fabric.editor.ai.config.item.addPolish.description': 'Polishes the content to make it more polished',
+  'fabric.editor.ai.config.item.addPolish.title': 'Add polish',
   'fabric.editor.ai.config.item.agent.title': 'Atlassian Intelligence Rovo Agent',
   'fabric.editor.ai.config.item.atlas-shorten-update.description': 'Shortens the content to make it more concise',
   'fabric.editor.ai.config.item.atlas-shorten-update.title': 'Shorten update',
@@ -206,6 +208,8 @@ export default {
   'fabric.editor.ai.confluence-prebuilt.confluenceTranslateSelectionToolbarDropdownMenuTitle': 'Translate',
   'fabric.editor.ai.eventHub.fallbackSuggestedTitle': 'Page title',
   'fabric.editor.ai.eventHub.fallbackSuggestedTitlePrefix': 'Page',
+  'fabric.editor.ai.experience-application.cmdPaletteUnhandledErrorMessage':
+    "We're having issues and can't generate a response right now. Try again later.",
   'fabric.editor.ai.experience-application.documentInsertError':
     "We're having trouble inserting the response. Close the dialog and try again.",
   'fabric.editor.ai.experience-application.error-boundary.markdownErrorMessage':
@@ -220,6 +224,9 @@ export default {
   'fabric.editor.ai.experience.aupViolationMessage':
     'Your prompt or content might not comply with our Acceptable Use Policy. Please review both and refer to our <link>Acceptable Use Policy</link> if needed. If the problem persists, consider trying a different prompt or content.',
   'fabric.editor.ai.experience.browseMore.agents': 'Browse Agents',
+  'fabric.editor.ai.experience.cmdPaletteApiError': 'An error occurred while generating your response.',
+  'fabric.editor.ai.experience.cmdPaletteAupViolationMessage':
+    "We couldn’t complete that request because it doesn't comply with our <link>Acceptable Use Policy</link>.",
   'fabric.editor.ai.experience.discardMessagePrompt': 'Do you want to discard your prompt?',
   'fabric.editor.ai.experience.discardMessageResponse': 'Do you want to discard your response?',
   'fabric.editor.ai.experience.elevateDisabledGenetateError': 'Free generate is disabled in Elevate at this time.',
@@ -732,6 +739,8 @@ export default {
   'fabric.editor.media.insert.fromUrlWarning':
     'This image might not be visible to others due to source restrictions. Consider uploading the file instead.',
   'fabric.editor.media.insert.insert': 'Insert',
+  'fabric.editor.media.insert.insertSmartValueHelperMessage':
+    'Tip: Enter a smart value or replace a URL path with a smart value to make content dynamic.',
   'fabric.editor.media.insert.invalidUrlErrorMessage': 'Invalid link',
   'fabric.editor.media.insert.linkTabTitle': 'Link',
   'fabric.editor.media.insert.loadPreview': 'Load preview',
@@ -842,6 +851,7 @@ export default {
   'fabric.editor.selectTableColumn': 'Select table column',
   'fabric.editor.selectTableRow': 'Select table row',
   'fabric.editor.selectionExtensionDropdownButtonLabel': 'Select app',
+  'fabric.editor.selectionToolbarOverflowMenuTooltip': 'More options',
   'fabric.editor.settingsLinks': 'Go to Link Preferences',
   'fabric.editor.shortEmptyNodePlaceholderText': '/ to insert',
   'fabric.editor.shortcut': 'Text shortcut',
@@ -924,6 +934,7 @@ export default {
   'fabric.editor.toolbarPositionInline': 'In-line with text',
   'fabric.editor.toolbarPositionPinedAtTop': 'Unpin the toolbar',
   'fabric.editor.toolbarPositionUnpined': 'Pin the toolbar at the top',
+  'fabric.editor.toolbarPositionUnpinnedConcise': 'Pin toolbar to top',
   'fabric.editor.tooltip.blockPanel': 'a panel',
   'fabric.editor.tooltip.bulletList': 'a list',
   'fabric.editor.tooltip.decisionList': 'a decision list',

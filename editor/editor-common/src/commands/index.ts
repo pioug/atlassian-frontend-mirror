@@ -44,6 +44,12 @@ export function createParagraphAtEnd(): Command {
 	};
 }
 
+// Remove this when cleaning up platform_editor_toolbar_aifc
+// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
+/**
+ *
+ * @deprecated use changeImageAlignmentTr instead
+ */
 export const changeImageAlignment =
 	(align?: AlignmentState): Command =>
 	(state, dispatch) => {
@@ -68,6 +74,35 @@ export const changeImageAlignment =
 		return false;
 	};
 
+export const changeImageAlignmentNext = (align?: AlignmentState) => (tr: Transaction) => {
+	const { from, to } = tr.selection;
+	const initialDoc = tr.doc;
+	tr.doc.nodesBetween(from, to, (node, pos) => {
+		if (node.type === tr.doc.type.schema.nodes.mediaSingle) {
+			tr.setNodeMarkup(pos, undefined, {
+				...node.attrs,
+				layout: align === 'center' ? 'center' : `align-${align}`,
+			});
+		}
+	});
+
+	// compare tr.doc with initialDoc instead of tr.docChanged
+	// because tr passed in might have been modified prior this function
+	// e.g. see changeAlignmentTr platform/packages/editor/editor-plugin-alignment/src/editor-commands/index.ts:L197
+	if (!tr.doc.eq(initialDoc)) {
+		tr.scrollIntoView();
+		return true;
+	}
+
+	return false;
+};
+
+// Remove this when cleaning up platform_editor_toolbar_aifc
+// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
+/**
+ *
+ * @deprecated use createToggleBlockMarkOnRangeNext instead, which does not require passing editorState
+ */
 export const createToggleBlockMarkOnRange =
 	<T extends Object = object>(
 		markType: MarkType,
@@ -88,6 +123,50 @@ export const createToggleBlockMarkOnRange =
 					(Array.isArray(allowedBlocks)
 						? allowedBlocks.indexOf(node.type) > -1
 						: allowedBlocks(state.schema, node, parent))) &&
+				parent?.type.allowsMarkType(markType)
+			) {
+				const oldMarks = node.marks.filter((mark) => mark.type === markType);
+
+				const prevAttrs = oldMarks.length ? (oldMarks[0].attrs as T) : undefined;
+				const newAttrs = getAttrs(prevAttrs, node);
+
+				if (newAttrs !== undefined) {
+					tr.setNodeMarkup(
+						pos,
+						node.type,
+						node.attrs,
+						node.marks
+							.filter((mark) => !markType.excludes(mark.type))
+							.concat(newAttrs === false ? [] : markType.create(newAttrs)),
+					);
+					markApplied = true;
+				}
+			}
+			return;
+		});
+		return markApplied;
+	};
+
+export const createToggleBlockMarkOnRangeNext =
+	<T extends Object = object>(
+		markType: MarkType,
+		getAttrs: (prevAttrs?: T, node?: PMNode) => T | undefined | false,
+		allowedBlocks?:
+			| Array<NodeType>
+			| ((schema: Schema, node: PMNode, parent: PMNode | null) => boolean),
+	) =>
+	(from: number, to: number, tr: Transaction): boolean => {
+		let markApplied = false;
+		tr.doc.nodesBetween(from, to, (node, pos, parent) => {
+			if (!node.type.isBlock) {
+				return false;
+			}
+
+			if (
+				(!allowedBlocks ||
+					(Array.isArray(allowedBlocks)
+						? allowedBlocks.indexOf(node.type) > -1
+						: allowedBlocks(tr.doc.type.schema, node, parent))) &&
 				parent?.type.allowsMarkType(markType)
 			) {
 				const oldMarks = node.marks.filter((mark) => mark.type === markType);
@@ -145,7 +224,10 @@ export const createToggleInlineMarkOnRange =
 		return markApplied;
 	};
 
+// Remove this when cleaning up platform_editor_toolbar_aifc
+// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
 /**
+ * @deprecated use toggleBlockMarkTr instead
  * Toggles block mark based on the return type of `getAttrs`.
  * This is similar to ProseMirror's `getAttrs` from `AttributeSpec`
  * return `false` to remove the mark.
@@ -179,6 +261,49 @@ export const toggleBlockMark =
 			if (dispatch) {
 				dispatch(tr.scrollIntoView());
 			}
+			return true;
+		}
+
+		return false;
+	};
+
+/**
+ * Toggles block mark based on the return type of `getAttrs`.
+ * @returns true if the mark is applied, false otherwise.
+ */
+export const toggleBlockMarkNext =
+	<T extends Object = object>(
+		markType: MarkType,
+		getAttrs: (prevAttrs?: T, node?: PMNode) => T | undefined | false,
+		allowedBlocks?:
+			| Array<NodeType>
+			| ((schema: Schema, node: PMNode, parent: PMNode | null) => boolean),
+	) =>
+	(tr: Transaction): boolean => {
+		let markApplied = false;
+
+		const toggleBlockMarkOnRange = createToggleBlockMarkOnRangeNext(
+			markType,
+			getAttrs,
+			allowedBlocks,
+		);
+		const initialDoc = tr.doc;
+
+		const { selection } = tr;
+		if (selection instanceof CellSelection) {
+			selection.forEachCell((cell, pos) => {
+				markApplied = toggleBlockMarkOnRange(pos, pos + cell.nodeSize, tr);
+			});
+		} else {
+			const { from, to } = selection;
+			markApplied = toggleBlockMarkOnRange(from, to, tr);
+		}
+
+		// compare tr.doc with initialDoc instead of tr.docChanged
+		// because tr passed in might have been modified prior this function
+		// e.g. see changeAlignmentTr platform/packages/editor/editor-plugin-alignment/src/editor-commands/index.ts:L197
+		if (markApplied && !initialDoc.eq(tr.doc)) {
+			tr.scrollIntoView();
 			return true;
 		}
 

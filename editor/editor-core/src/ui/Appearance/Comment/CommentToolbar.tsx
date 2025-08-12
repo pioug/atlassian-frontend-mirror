@@ -26,5 +26,12 @@ export const CommentToolbar = ({ editorAPI, editorView }: CommentToolbarProps) =
 		return null;
 	}
 
-	return <ToolbarNext toolbar={toolbar} components={components} editorView={editorView} />;
+	return (
+		<ToolbarNext
+			toolbar={toolbar}
+			components={components}
+			editorView={editorView}
+			editorAPI={editorAPI}
+		/>
+	);
 };

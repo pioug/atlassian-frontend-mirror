@@ -152,9 +152,6 @@
 			"path": "../../../design-system/tag/afm-post-office/tsconfig.json"
 		},
 		{
-			"path": "../../../navigation/temp-nav-app-icons/afm-post-office/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/textfield/afm-post-office/tsconfig.json"
 		},
 		{

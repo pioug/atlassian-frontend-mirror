@@ -110,6 +110,44 @@ export function escapeLinks(text: string) {
 	});
 }
 
+/**
+ * Escapes backslashes and links outside code blocks.
+ *
+ * @param textInput - The input string to process, possibly containing code blocks and links.
+ * @returns The processed string with backslashes and links escaped outside code blocks.
+ * @example
+ * const input = 'This is a link: https://example.com and a backslash: \\\n```\ncode block https://example.com not escaped\ncode block \\ not escaped\n```';
+ * const output = escapeBackslashAndLinksExceptCodeBlock(input); // 'This is a link: <https://example.com> and a backslash: \\\\\n```\ncode block https://example.com not escaped\ncode block \\ not escaped\n```'
+ */
+export function escapeBackslashAndLinksExceptCodeBlock(textInput: string): string {
+	const codeToken = '```';
+	let isInsideCodeBlock = false;
+	const lines = textInput.split('\n');
+	// In the splitted array, we traverse through every line and check if it will be parsed as a codeblock.
+	return lines
+		.map((line) => {
+			if (line === codeToken) {
+				// Toggle code block state
+				isInsideCodeBlock = !isInsideCodeBlock;
+				return line;
+			} else if (line.startsWith(codeToken) && !isInsideCodeBlock) {
+				// if there is some text after the ``` mark , it gets counted as language attribute only at the start of codeblock
+				isInsideCodeBlock = true;
+				return line;
+			}
+			if (!isInsideCodeBlock) {
+				// Only escape outside code blocks
+				// Ignored via go/ees005
+				// eslint-disable-next-line require-unicode-regexp
+				let escaped = line.replace(/\\/g, '\\\\');
+				escaped = escapeLinks(escaped);
+				return escaped;
+			}
+			return line;
+		})
+		.join('\n');
+}
+
 export function hasOnlyNodesOfType(...nodeTypes: NodeType[]): (slice: Slice) => boolean {
 	return (slice: Slice) => {
 		let hasOnlyNodesOfType = true;

@@ -52,6 +52,11 @@ export { CodeIcon } from './ui/icons/CodeIcon';
 export { SubscriptIcon } from './ui/icons/SubscriptIcon';
 export { SuperscriptIcon } from './ui/icons/SuperscriptIcon';
 export { ShowMoreHorizontalIcon } from './ui/icons/ShowMoreHorizontal';
+export { AlignTextLeftIcon } from './ui/icons/AlignTextLeftIcon';
+export { AlignTextCenterIcon } from './ui/icons/AlignTextCenterIcon';
+export { AlignTextRightIcon } from './ui/icons/AlignTextRightIcon';
+export { IndentIcon } from './ui/icons/IndentIcon';
+export { OutdentIcon } from './ui/icons/OutdentIcon';
 
 export type { IconComponent, ToolbarButtonGroupLocation } from './types';
 

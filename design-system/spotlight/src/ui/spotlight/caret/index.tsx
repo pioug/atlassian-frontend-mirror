@@ -3,17 +3,43 @@
  * @jsx jsx
  */
 
-import { forwardRef } from 'react';
+import { forwardRef, useContext } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 
+import { SpotlightContext } from '../../../controllers/context';
+
 const styles = cssMap({
 	root: {
-		width: '16px',
-		height: '16px',
+		width: '15px',
+		height: '15px',
 		transform: 'rotate(45deg)',
 		backgroundColor: token('color.background.neutral.bold'),
+	},
+	'top-start': {
+		borderBottomRightRadius: '1px',
+	},
+	'top-end': {
+		borderBottomRightRadius: '1px',
+	},
+	'bottom-start': {
+		borderTopLeftRadius: '1px',
+	},
+	'bottom-end': {
+		borderTopLeftRadius: '1px',
+	},
+	'right-start': {
+		borderBottomLeftRadius: '1px',
+	},
+	'right-end': {
+		borderBottomLeftRadius: '1px',
+	},
+	'left-start': {
+		borderTopRightRadius: '1px',
+	},
+	'left-end': {
+		borderTopRightRadius: '1px',
 	},
 });
 
@@ -32,5 +58,7 @@ export interface CaretProps {
  *
  */
 export const Caret = forwardRef<HTMLDivElement, CaretProps>(({ testId }: CaretProps, ref) => {
-	return <div data-testid={testId} ref={ref} css={styles.root}></div>;
+	const { placement } = useContext(SpotlightContext);
+
+	return <div data-testid={testId} ref={ref} css={[styles.root, styles[placement]]}></div>;
 });

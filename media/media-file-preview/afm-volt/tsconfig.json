@@ -14,7 +14,12 @@
 		"../src/**/__tests__/*",
 		"../src/**/*.test.*",
 		"../src/**/test.*",
-		"../src/**/examples.*"
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
 	],
 	"references": [
 		{
@@ -31,6 +36,9 @@
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../react-ufo/atlaskit/afm-volt/tsconfig.json"
 		}
 	]
 }

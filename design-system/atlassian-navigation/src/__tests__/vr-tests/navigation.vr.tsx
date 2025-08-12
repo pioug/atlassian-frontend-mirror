@@ -86,7 +86,6 @@ snapshot(ThemingExample, {
 			},
 		},
 	],
-	featureFlags: { 'platform-team25-app-icon-tiles': [true, false] },
 });
 
 snapshot(ThemingAppHomeExample, {
@@ -106,7 +105,6 @@ snapshot(ThemingAppHomeExample, {
 			},
 		},
 	],
-	featureFlags: { 'platform-team25-app-icon-tiles': [true] },
 });
 
 snapshot(ThemingNavigationSkeletonExample);

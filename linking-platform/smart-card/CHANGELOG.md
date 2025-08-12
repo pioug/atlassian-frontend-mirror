@@ -1,5 +1,27 @@
 # @atlaskit/smart-card
 
+## 40.9.0
+
+### Minor Changes
+
+- [#200326](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/200326)
+  [`49771d466a293`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/49771d466a293) -
+  This change introduces the `useEmbedResolvePostMessageListener` hook, allowing embedded content to
+  request a Smart Link resolve by posting a `force-resolve-smart-link` message from an iframe. This
+  is useful when an action within the embed requires the parent to refetch the link's data.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 40.8.3
+
+### Patch Changes
+
+- [`e8b2481cab6c0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e8b2481cab6c0) -
+  Add third party ARI to analytics emission
+- Updated dependencies
+
 ## 40.8.2
 
 ### Patch Changes

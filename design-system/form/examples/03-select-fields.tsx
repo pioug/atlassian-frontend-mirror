@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 
 import Button from '@atlaskit/button/new';
-import Form, { ErrorMessage, Field, FormFooter } from '@atlaskit/form';
+import Form, { ErrorMessage, Field, FormFooter, MessageWrapper } from '@atlaskit/form';
 import Select, { type ValueType as Value } from '@atlaskit/select';
 
 interface Option {
@@ -105,7 +105,7 @@ export default () => (
 									isClearable
 									clearControlLabel="Clear color"
 								/>
-								{error && <ErrorMessage>{error}</ErrorMessage>}
+								<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>
 							</Fragment>
 						)}
 					</Field>
@@ -119,7 +119,7 @@ export default () => (
 									isMulti
 									clearControlLabel="Clear flavor"
 								/>
-								{error && <ErrorMessage>{error}</ErrorMessage>}
+								<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>
 							</Fragment>
 						)}
 					</Field>
@@ -137,7 +137,7 @@ export default () => (
 									isMulti
 									clearControlLabel="Clear suits"
 								/>
-								{error && <ErrorMessage>{error}</ErrorMessage>}
+								<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>
 							</Fragment>
 						)}
 					</Field>

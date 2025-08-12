@@ -1,5 +1,14 @@
 # @atlaskit/editor-core
 
+## 209.8.1
+
+### Patch Changes
+
+- [#199957](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/199957)
+  [`5c4cd82cd1ea3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5c4cd82cd1ea3) -
+  Add unpinned version of menu item and hook up, add UiToolbarContext to primary toolbar components
+- Updated dependencies
+
 ## 209.8.0
 
 ### Minor Changes

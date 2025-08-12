@@ -50,7 +50,16 @@
 			"path": "../../editor-plugin-tasks-and-decisions/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-toolbar/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../editor-shared-styles/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar-model/afm-post-office/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/icon/afm-post-office/tsconfig.json"

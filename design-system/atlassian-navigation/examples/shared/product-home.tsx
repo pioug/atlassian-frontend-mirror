@@ -13,54 +13,53 @@ import {
 	JiraServiceManagementIcon,
 	JiraServiceManagementLogo,
 } from '@atlaskit/logo';
-import { fg } from '@atlaskit/platform-feature-flags';
-import {
-	JiraIcon as JiraIconTemp,
-	JiraLogo as JiraLogoTemp,
-} from '@atlaskit/temp-nav-app-icons/jira';
-import {
-	JiraServiceManagementIcon as JiraServiceManagementIconTemp,
-	JiraServiceManagementLogo as JiraServiceManagementLogoTemp,
-} from '@atlaskit/temp-nav-app-icons/jira-service-management';
 
 import atlassianIconUrl from './assets/atlassian-icon.png';
 import atlassianLogoUrl from './assets/atlassian-logo.png';
 
-export const BitbucketProductHome = () =>
-	fg('platform-team25-app-icon-tiles') ? (
-		<ProductHome
-			onClick={console.log}
-			siteTitle="Extranet"
-			icon={BitbucketIcon}
-			logo={BitbucketLogo}
-			testId="bitbucket-product-home"
-		/>
-	) : (
-		<AppHome
-			name="Bitbucket"
-			icon={BitbucketIcon}
-			siteTitle="Extranet"
-			testId="bitbucket-app-home"
-		/>
-	);
+export const BitbucketAppHome = () => (
+	<AppHome
+		onClick={console.log}
+		siteTitle="Extranet"
+		icon={BitbucketIcon}
+		name="Bitbucket"
+		testId="bitbucket-app-home"
+	/>
+);
 
-export const ConfluenceProductHome = () =>
-	fg('platform-team25-app-icon-tiles') ? (
-		<ProductHome
-			siteTitle="Extranet"
-			icon={ConfluenceIcon}
-			logo={ConfluenceLogo}
-			href="#"
-			testId="confluence-product-home"
-		/>
-	) : (
-		<AppHome
-			name="Confluence"
-			icon={ConfluenceIcon}
-			siteTitle="Extranet"
-			testId="confluence-app-home"
-		/>
-	);
+export const BitbucketProductHome = () => (
+	<ProductHome
+		onClick={console.log}
+		siteTitle="Extranet"
+		icon={BitbucketIcon}
+		logo={BitbucketLogo}
+		testId="bitbucket-product-home"
+	/>
+);
+
+export const ConfluenceAppHome = () => (
+	<AppHome
+		siteTitle="Extranet"
+		icon={ConfluenceIcon}
+		name="Confluence"
+		href="#"
+		testId="confluence-app-home"
+	/>
+);
+
+export const ConfluenceProductHome = () => (
+	<ProductHome
+		siteTitle="Extranet"
+		icon={ConfluenceIcon}
+		logo={ConfluenceLogo}
+		href="#"
+		testId="confluence-product-home"
+	/>
+);
+
+export const JiraAppHome = () => (
+	<AppHome name="Jira" icon={JiraIcon} siteTitle="Extranet" testId="jira-app-home" />
+);
 
 // Using new logos inside ProductHome, as this is also supported
 export const JiraProductHome = () => (
@@ -68,8 +67,8 @@ export const JiraProductHome = () => (
 		onClick={console.log}
 		siteTitle="Extranet"
 		aria-label={'Jira'}
-		icon={fg('platform-team25-app-icon-tiles') ? JiraIconTemp : JiraIcon}
-		logo={fg('platform-team25-app-icon-tiles') ? JiraLogoTemp : JiraLogo}
+		icon={JiraIcon}
+		logo={JiraLogo}
 		testId="jira-product-home"
 	/>
 );
@@ -77,16 +76,8 @@ export const JiraProductHome = () => (
 export const JiraServiceManagementProductHome = () => (
 	<ProductHome
 		siteTitle="Extranet"
-		icon={
-			fg('platform-team25-app-icon-tiles')
-				? JiraServiceManagementIconTemp
-				: JiraServiceManagementIcon
-		}
-		logo={
-			fg('platform-team25-app-icon-tiles')
-				? JiraServiceManagementLogoTemp
-				: JiraServiceManagementLogo
-		}
+		icon={JiraServiceManagementIcon}
+		logo={JiraServiceManagementLogo}
 		href="#"
 		testId="jsm-product-home"
 	/>
@@ -97,29 +88,25 @@ export const JiraServiceManagementAppHome = () => (
 		name="Jira Service Management"
 		icon={JiraServiceManagementIcon}
 		siteTitle="Extranet"
+		href="#"
 		testId="jsm-app-home"
 	/>
 );
 
-export const CompassProductHome = () =>
-	fg('platform-team25-app-icon-tiles') ? (
-		<ProductHome
-			siteTitle="Extranet"
-			icon={CompassIcon}
-			logo={CompassLogo}
-			href="#"
-			testId="confluence-product-home"
-		/>
-	) : (
-		<AppHome name="Compass" icon={CompassIcon} siteTitle="Extranet" testId="compass-app-home" />
-	);
-
-export const DefaultProductHome = JiraProductHome;
-
-export const JiraAppHome = () => (
-	<AppHome name="Jira" icon={JiraIcon} siteTitle="Extranet" testId="jira-app-home" />
+export const CompassAppHome = () => (
+	<AppHome name="Compass" icon={CompassIcon} siteTitle="Extranet" testId="compass-app-home" />
 );
 
+export const CompassProductHome = () => (
+	<ProductHome
+		siteTitle="Extranet"
+		icon={CompassIcon}
+		logo={CompassLogo}
+		testId="compass-product-home"
+	/>
+);
+
+export const DefaultProductHome = JiraProductHome;
 export const DefaultAppHome = JiraAppHome;
 
 export const DefaultCustomProductHome = () => (

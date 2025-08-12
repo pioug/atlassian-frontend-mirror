@@ -317,6 +317,22 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 		primaryToolbarComponents = primaryToolbarState.components.concat(primaryToolbarComponents);
 	}
 
+	const customToolbarSlot = (
+		<div
+			css={
+				expValEquals('platform_editor_core_static_emotion_non_central', 'isEnabled', true)
+					? [
+							mainToolbarCustomComponentsSlotStyleNew,
+							isTwoLineToolbarEnabled && mainToolbarCustomComponentsSlotStyleTwoLineToolbarNew,
+						]
+					: /* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */
+						mainToolbarCustomComponentsSlotStyle(isTwoLineToolbarEnabled)
+			}
+		>
+			{customPrimaryToolbarComponents as React.ReactNode}
+		</div>
+	);
+
 	return (
 		<WithFlash animate={maxContentSizeReached}>
 			<WidthProvider>
@@ -337,18 +353,21 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 						useStickyToolbar={useStickyToolbar}
 						twoLineEditorToolbar={isTwoLineToolbarEnabled}
 					>
-						<ToolbarArrowKeyNavigationProvider
-							editorView={editorView}
-							childComponentSelector={"[data-testid='ak-editor-main-toolbar']"}
-							isShortcutToFocusToolbar={isShortcutToFocusToolbar}
-							handleEscape={handleEscape}
-							editorAppearance={appearance}
-							useStickyToolbar={useStickyToolbar}
-							intl={intl}
-						>
-							{expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true) ? (
+						{expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true) ? (
+							<React.Fragment>
 								<CommentToolbar editorAPI={editorAPI} editorView={editorView} />
-							) : (
+								{customToolbarSlot}
+							</React.Fragment>
+						) : (
+							<ToolbarArrowKeyNavigationProvider
+								editorView={editorView}
+								childComponentSelector={"[data-testid='ak-editor-main-toolbar']"}
+								isShortcutToFocusToolbar={isShortcutToFocusToolbar}
+								handleEscape={handleEscape}
+								editorAppearance={appearance}
+								useStickyToolbar={useStickyToolbar}
+								intl={intl}
+							>
 								<Toolbar
 									// Ignored via go/ees005
 									// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -370,22 +389,9 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 									containerElement={containerElement.current}
 									twoLineEditorToolbar={isTwoLineToolbarEnabled}
 								/>
-							)}
-							<div
-								css={
-									expValEquals('platform_editor_core_static_emotion_non_central', 'isEnabled', true)
-										? [
-												mainToolbarCustomComponentsSlotStyleNew,
-												isTwoLineToolbarEnabled &&
-													mainToolbarCustomComponentsSlotStyleTwoLineToolbarNew,
-											]
-										: /* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */
-											mainToolbarCustomComponentsSlotStyle(isTwoLineToolbarEnabled)
-								}
-							>
-								{customPrimaryToolbarComponents as React.ReactNode}
-							</div>
-						</ToolbarArrowKeyNavigationProvider>
+								{customToolbarSlot}
+							</ToolbarArrowKeyNavigationProvider>
+						)}
 					</MainToolbar>
 					<ClickAreaBlock editorView={editorView} editorDisabled={disabled}>
 						<WidthConsumer>

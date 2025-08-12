@@ -15,7 +15,13 @@
 		"../src/**/__tests__/*",
 		"../src/**/*.test.*",
 		"../src/**/test.*",
-		"../src/stories/*"
+		"../src/stories/*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
 	],
 	"references": [
 		{
@@ -32,9 +38,6 @@
 		},
 		{
 			"path": "../../../design-system/css/afm-volt/tsconfig.json"
-		},
-		{
-			"path": "../../editor-common/afm-volt/tsconfig.json"
 		},
 		{
 			"path": "../../editor-json-transformer/afm-volt/tsconfig.json"
@@ -92,6 +95,9 @@
 		},
 		{
 			"path": "../../../design-system/width-detector/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-volt/tsconfig.json"
 		},
 		{
 			"path": "../../../linking-platform/link-provider/afm-volt/tsconfig.json"

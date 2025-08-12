@@ -11,6 +11,7 @@ export {
 } from './ui/secondary-action';
 export { SpotlightControls, type SpotlightControlsProps } from './ui/controls';
 export { SpotlightDismissControl, type SpotlightDismissControlProps } from './ui/dismiss-control';
+export { SpotlightMedia, type SpotlightMediaProps } from './ui/media';
 export { PopoverProvider } from './ui/popover-provider';
 export { PopoverContent } from './ui/popover-content';
 export { PopoverTarget } from './ui/popover-target';

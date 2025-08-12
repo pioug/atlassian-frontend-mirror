@@ -17,6 +17,7 @@ import {
 	getObjectName,
 	getResourceType,
 	getServices,
+	getThirdPartyARI,
 	isFinalState,
 } from '../../state/helpers';
 import { SmartLinkModalProvider } from '../../state/modal';
@@ -69,6 +70,7 @@ function Component({
 	const { state, actions, config, renderers, error, isPreviewPanelAvailable, openPreviewPanel } =
 		useSmartLink(id, url);
 	const ari = getObjectAri(state.details);
+	const thirdPartyARI = getThirdPartyARI(state.details);
 	const name = getObjectName(state.details);
 	const definitionId = getDefinitionId(state.details);
 	const extensionKey = getExtensionKey(state.details);
@@ -95,7 +97,7 @@ function Component({
 			});
 
 			if (fg('platform_smartlink_3pclick_analytics')) {
-				if (ari && ari.startsWith(thirdPartyARIPrefix)) {
+				if (thirdPartyARI && thirdPartyARI.startsWith(thirdPartyARIPrefix)) {
 					const sourceURL = window.location.href;
 					const clickURL = getClickUrl(url, state.details);
 					if (clickURL === url) {
@@ -111,7 +113,7 @@ function Component({
 							},
 							nonPrivacySafeAttributes: {
 								sourceURL: sourceURL,
-								thirdPartyARI: ari,
+								thirdPartyARI: thirdPartyARI,
 							},
 						});
 						smartlinkClickAnalyticsEvent.fire('media');
@@ -181,6 +183,7 @@ function Component({
 			isPreviewPanelAvailable,
 			openPreviewPanel,
 			createAnalyticsEvent,
+			thirdPartyARI,
 		],
 	);
 	const handleAuthorize = useCallback(() => actions.authorize(appearance), [actions, appearance]);

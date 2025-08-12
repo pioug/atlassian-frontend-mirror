@@ -6,4 +6,9 @@ export const linkMessages = defineMessages({
 		defaultMessage: 'Open link in a new tab',
 		description: 'Opens the link in a new tab',
 	},
+	openPreviewPanel: {
+		id: 'fabric.editor.openPreviewPanel',
+		defaultMessage: 'Open preview panel',
+		description: 'Opens preview panel and loads the page inside it',
+	},
 });

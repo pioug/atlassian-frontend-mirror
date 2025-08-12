@@ -50,7 +50,16 @@
 			"path": "../../editor-plugin-tasks-and-decisions/afm-passionfruit/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-toolbar/afm-passionfruit/tsconfig.json"
+		},
+		{
 			"path": "../../editor-shared-styles/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar-model/afm-passionfruit/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/icon/afm-passionfruit/tsconfig.json"

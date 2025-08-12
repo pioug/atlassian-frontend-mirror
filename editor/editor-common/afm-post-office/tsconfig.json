@@ -75,6 +75,9 @@
 			"path": "../../editor-toolbar/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../editor-toolbar-model/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../elements/emoji/afm-post-office/tsconfig.json"
 		},
 		{

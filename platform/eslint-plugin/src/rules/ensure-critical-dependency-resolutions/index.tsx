@@ -8,8 +8,8 @@ import { getObjectPropertyAsObject } from '../util/handle-ast-object';
 // In matchMinorVersion, we will check if the versions in resolutions fall in the right ranges.
 //
 const DESIRED_PKG_VERSIONS: Record<string, string[]> = {
-	typescript: ['5.4'],
-	tslib: ['2.6'],
+	typescript: ['5.4', '5.9'],
+	tslib: ['2.6', '2.8'],
 	'@types/react': ['16.14', '18.2'],
 	'react-relay': ['npm:atl-react-relay@0.0.0-main-5980a913'],
 	'relay-compiler': ['npm:atl-relay-compiler@0.0.0-main-5980a913'],

@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-track-changes
 
+## 2.6.0
+
+### Minor Changes
+
+- [`834a792f74e9c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/834a792f74e9c) -
+  [EDITOR-1254] Check if the document has changed from the baseline before allowing users to toggle
+  "Showing the diff"
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.5.0
 
 ### Minor Changes

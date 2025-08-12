@@ -75,6 +75,9 @@
 			"path": "../../editor-toolbar/afm-rovo-extension/tsconfig.json"
 		},
 		{
+			"path": "../../editor-toolbar-model/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../../elements/emoji/afm-rovo-extension/tsconfig.json"
 		},
 		{

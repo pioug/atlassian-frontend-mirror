@@ -15,7 +15,6 @@ import { type Mark, MarkType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -53,9 +52,7 @@ const getTextFormattingState = (
 	const { em, code, strike, strong, subsup, underline } = editorState.schema.marks;
 	const state: TextFormattingState = { isInitialised: true };
 
-	const showOnlyCommonMarks =
-		expValEquals('platform_editor_controls', 'cohort', 'variant1') &&
-		fg('platform_editor_common_marks');
+	const showOnlyCommonMarks = expValEquals('platform_editor_controls', 'cohort', 'variant1');
 
 	if (showOnlyCommonMarks) {
 		// Code marks will disable all other formatting options when they are included in a

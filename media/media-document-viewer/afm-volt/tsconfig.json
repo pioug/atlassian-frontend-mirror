@@ -14,9 +14,17 @@
 		"../src/**/__tests__/*",
 		"../src/**/*.test.*",
 		"../src/**/test.*",
-		"../src/**/examples.*"
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
 	],
 	"references": [
+		{
+			"path": "../../../helpers/browser-apis/afm-volt/tsconfig.json"
+		},
 		{
 			"path": "../../../design-system/css/afm-volt/tsconfig.json"
 		},
@@ -28,6 +36,9 @@
 		},
 		{
 			"path": "../../../design-system/primitives/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/spinner/afm-volt/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/tokens/afm-volt/tsconfig.json"

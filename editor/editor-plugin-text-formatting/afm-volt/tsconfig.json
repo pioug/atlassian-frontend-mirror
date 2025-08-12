@@ -14,12 +14,14 @@
 		"../src/**/__tests__/*",
 		"../src/**/*.test.*",
 		"../src/**/test.*",
-		"../src/**/examples.*"
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
 	],
 	"references": [
-		{
-			"path": "../../editor-common/afm-volt/tsconfig.json"
-		},
 		{
 			"path": "../../editor-plugin-analytics/afm-volt/tsconfig.json"
 		},
@@ -33,10 +35,19 @@
 			"path": "../../editor-plugin-selection-toolbar/afm-volt/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-toolbar/afm-volt/tsconfig.json"
+		},
+		{
 			"path": "../../editor-shared-styles/afm-volt/tsconfig.json"
 		},
 		{
 			"path": "../../editor-tables/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar-model/afm-volt/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/icon/afm-volt/tsconfig.json"
@@ -52,6 +63,9 @@
 		},
 		{
 			"path": "../../../design-system/tokens/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-volt/tsconfig.json"
 		}
 	]
 }

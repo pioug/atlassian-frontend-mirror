@@ -7,6 +7,7 @@ import Form, {
 	FormFooter,
 	FormHeader,
 	HelperMessage,
+	MessageWrapper,
 	RequiredAsterisk,
 } from '@atlaskit/form';
 import TextField from '@atlaskit/textfield';
@@ -69,8 +70,10 @@ export default class extends Component<{}> {
 								{({ fieldProps, error }) => (
 									<Fragment>
 										<TextField {...fieldProps} />
-										{!error && <HelperMessage>Try 'jsmith' or 'mchan'</HelperMessage>}
-										{error && <ErrorMessage testId="userSubmissionError">{error}</ErrorMessage>}
+										<MessageWrapper>
+											{!error && <HelperMessage>Try 'jsmith' or 'mchan'</HelperMessage>}
+											{error && <ErrorMessage testId="userSubmissionError">{error}</ErrorMessage>}
+										</MessageWrapper>
 									</Fragment>
 								)}
 							</Field>
@@ -78,8 +81,10 @@ export default class extends Component<{}> {
 								{({ fieldProps, error }) => (
 									<Fragment>
 										<TextField {...fieldProps} />
-										{!error && <HelperMessage>Must contain @ symbol</HelperMessage>}
-										{error && <ErrorMessage>{error}</ErrorMessage>}
+										<MessageWrapper>
+											{!error && <HelperMessage>Must contain @ symbol</HelperMessage>}
+											{error && <ErrorMessage>{error}</ErrorMessage>}
+										</MessageWrapper>
 									</Fragment>
 								)}
 							</Field>

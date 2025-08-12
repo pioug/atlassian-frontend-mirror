@@ -20,10 +20,7 @@
 		"team": "Design System Team",
 		"website": {
 			"name": "Heading",
-			"category": "Text and data display",
-			"status": {
-				"type": "beta"
-			}
+			"category": "Text and data display"
 		}
 	},
 	"scripts": {

@@ -46,4 +46,11 @@ export const issueLikeTableMessages = defineMessages({
 		description: 'Table header Dropdown item for making whole column to not wrap text',
 		defaultMessage: 'Unwrap text',
 	},
+	fetchActionErrorGenericDescriptionGalaxia: {
+		id: 'linkDataSource.issue-line-table.fetch-action-error-generic-description-galaxia',
+		description:
+			'Generic error message description shown when fetching inline edit dropdown field fails',
+		defaultMessage:
+			'Wait a few minutes, then try again. Check your space settings or contact support if this keeps happening.',
+	},
 });

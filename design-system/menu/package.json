@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/menu",
-	"version": "8.1.2",
+	"version": "8.3.0",
 	"description": "A list of options to help users navigate, or perform actions.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -131,6 +131,9 @@
 	},
 	"platform-feature-flags": {
 		"platform_fix_a11y_selected_and_hovered_state_color": {
+			"type": "boolean"
+		},
+		"platform_dst_menu_item_button_aria_current": {
 			"type": "boolean"
 		}
 	},

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import LinkGlyph from '@atlaskit/icon/core/migration/link';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { useThemeObserver } from '@atlaskit/tokens';
 
 import { getPreviewUrlWithTheme, isProfileType } from '../../../utils';
@@ -8,6 +9,7 @@ import { ExpandedFrame } from '../components/ExpandedFrame';
 import { Frame } from '../components/Frame';
 import { ImageIcon } from '../components/ImageIcon';
 import { type ContextViewModel, type FrameStyle } from '../types';
+import { useEmbedResolvePostMessageListener } from '../useEmbedResolvePostMessageListener';
 
 export interface EmbedCardResolvedViewProps {
 	/** The title of the link */
@@ -92,6 +94,14 @@ export const EmbedCardResolvedView = React.forwardRef<
 				/>
 			);
 		}, [iconFromContext, src, linkGlyph, type]);
+
+		if (fg('ptc-enable-embed-team-smart-links')) {
+			// eslint-disable-next-line react-hooks/rules-of-hooks
+			useEmbedResolvePostMessageListener({
+				url: link,
+				embedIframeRef,
+			});
+		}
 
 		const themeState = useThemeObserver();
 		let previewUrl = preview?.src;

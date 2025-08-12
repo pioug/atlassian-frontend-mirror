@@ -14,7 +14,13 @@
 	"exclude": [
 		"../src/**/__tests__/*",
 		"../src/**/*.test.*",
-		"../src/**/test.*"
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
 	],
 	"references": [
 		{
@@ -43,9 +49,6 @@
 		},
 		{
 			"path": "../../../measurement/feature-gate-js-client/afm-volt/tsconfig.json"
-		},
-		{
-			"path": "../../../design-system/focus-ring/afm-volt/tsconfig.json"
 		},
 		{
 			"path": "../../../team-central/give-kudos/afm-volt/tsconfig.json"

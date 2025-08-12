@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-card
 
+## 7.3.1
+
+### Patch Changes
+
+- [`a32e07a545f72`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a32e07a545f72) -
+  [ux] Adds 'Open preview panel' button to the smartlink toolbar when the panel is supported.
+- Updated dependencies
+
 ## 7.3.0
 
 ### Minor Changes

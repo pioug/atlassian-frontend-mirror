@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { DatePicker, DateTimePicker } from '@atlaskit/datetime-picker';
-import Form, { ErrorMessage, Field, FormFooter } from '@atlaskit/form';
+import Form, { ErrorMessage, Field, FormFooter, MessageWrapper } from '@atlaskit/form';
 
 interface FormData {
 	[key: string]: string;
@@ -54,7 +54,9 @@ const FormDateTimePickerExample = () => {
 							{({ fieldProps: { id, ...rest }, error }) => (
 								<Fragment>
 									<DatePicker shouldShowCalendarButton {...rest} id={id} />
-									{error && <ErrorMessage>Please select a date of birth.</ErrorMessage>}
+									<MessageWrapper>
+										{error && <ErrorMessage>Please select a date of birth.</ErrorMessage>}
+									</MessageWrapper>
 								</Fragment>
 							)}
 						</Field>
@@ -87,11 +89,13 @@ const FormDateTimePickerExample = () => {
 												label: 'Time, Preferred appointment date & time',
 											}}
 										/>
-										{error && (
-											<ErrorMessage>
-												{`Please select preferred appointment date & time.`}
-											</ErrorMessage>
-										)}
+										<MessageWrapper>
+											{error && (
+												<ErrorMessage>
+													{`Please select preferred appointment date & time.`}
+												</ErrorMessage>
+											)}
+										</MessageWrapper>
 									</Fragment>
 								);
 							}}

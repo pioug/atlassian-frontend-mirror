@@ -5,9 +5,19 @@ import {
 	EVENT_TYPE,
 	type EditorAnalyticsAPI,
 } from '@atlaskit/editor-common/analytics';
-import { changeImageAlignment, toggleBlockMark } from '@atlaskit/editor-common/commands';
+import {
+	changeImageAlignment,
+	changeImageAlignmentNext,
+	toggleBlockMark,
+	toggleBlockMarkNext,
+} from '@atlaskit/editor-common/commands';
 import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
-import type { Command, CommandDispatch, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type {
+	Command,
+	CommandDispatch,
+	EditorCommand,
+	ExtractInjectionAPI,
+} from '@atlaskit/editor-common/types';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 
@@ -87,6 +97,40 @@ const changeBlockAlignmentWithAnalytics =
 		)(state, dispatch);
 	};
 
+const changeBlockAlignmentWithAnalyticsTr =
+	(
+		api: ExtractInjectionAPI<AlignmentPlugin> | undefined,
+		align?: AlignmentState,
+		inputMethod?: InputMethod,
+	): EditorCommand =>
+	({ tr }) => {
+		const {
+			nodes: { paragraph, heading },
+			marks: { alignment },
+		} = tr.doc.type.schema;
+
+		const alignmentApplied = toggleBlockMarkNext(
+			alignment,
+			() => (!align ? undefined : align === 'start' ? false : { align }),
+			[paragraph, heading],
+		)(tr);
+
+		if (alignmentApplied) {
+			api?.analytics?.actions.attachAnalyticsEvent({
+				eventType: EVENT_TYPE.TRACK,
+				actionSubject: ACTION_SUBJECT.ALIGNMENT,
+				action: ACTION.UPDATED,
+				actionSubjectId: ACTION_SUBJECT_ID.TEXT,
+				attributes: {
+					alignmentType: align,
+					inputMethod,
+				},
+			})(tr);
+		}
+
+		return tr;
+	};
+
 const changeImageAlignmentWithAnalytics =
 	(
 		editorAnalyticsApi?: EditorAnalyticsAPI,
@@ -106,6 +150,37 @@ const changeImageAlignmentWithAnalytics =
 		})(changeImageAlignment(align))(state, dispatch);
 	};
 
+const changeImageAlignmentWithAnalyticsTr =
+	(
+		api?: ExtractInjectionAPI<AlignmentPlugin>,
+		align?: AlignmentState,
+		inputMethod?: InputMethod,
+	): EditorCommand =>
+	({ tr }) => {
+		const alignmentApplied = changeImageAlignmentNext(align)(tr);
+
+		if (alignmentApplied) {
+			api?.analytics?.actions.attachAnalyticsEvent({
+				eventType: EVENT_TYPE.TRACK,
+				actionSubject: ACTION_SUBJECT.ALIGNMENT,
+				action: ACTION.UPDATED,
+				actionSubjectId: ACTION_SUBJECT_ID.MEDIA_SINGLE,
+				attributes: {
+					alignmentType: align,
+					inputMethod,
+				},
+			})(tr);
+		}
+
+		return tr;
+	};
+
+// Remove this when cleaning up platform_editor_toolbar_aifc
+// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
+/**
+ *
+ * @deprecated use changeAlignmentTr instead
+ */
 export const changeAlignment =
 	(
 		align?: AlignmentState,
@@ -117,4 +192,16 @@ export const changeAlignment =
 			changeImageAlignmentWithAnalytics(api?.analytics?.actions, align, inputMethod),
 			changeBlockAlignmentWithAnalytics(api?.analytics?.actions, align, inputMethod),
 		])(state, dispatch);
+	};
+
+export const changeAlignmentTr =
+	(
+		api: ExtractInjectionAPI<AlignmentPlugin> | undefined,
+		align?: AlignmentState,
+		inputMethod?: InputMethod,
+	): EditorCommand =>
+	({ tr }) => {
+		changeBlockAlignmentWithAnalyticsTr(api, align, inputMethod)({ tr });
+		changeImageAlignmentWithAnalyticsTr(api, align, inputMethod)({ tr });
+		return tr;
 	};

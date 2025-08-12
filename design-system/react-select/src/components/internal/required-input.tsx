@@ -14,7 +14,6 @@ const styles = css({
 	insetBlockEnd: 0,
 	insetInlineEnd: 0,
 	insetInlineStart: 0,
-	label: 'requiredInput',
 	opacity: 0,
 	pointerEvents: 'none',
 });

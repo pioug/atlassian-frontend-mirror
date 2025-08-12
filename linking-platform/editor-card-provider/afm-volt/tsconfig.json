@@ -14,9 +14,17 @@
 		"../src/**/__tests__/*",
 		"../src/**/*.test.*",
 		"../src/**/test.*",
-		"../src/**/examples.*"
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
 	],
 	"references": [
+		{
+			"path": "../../../editor/editor-json-transformer/afm-volt/tsconfig.json"
+		},
 		{
 			"path": "../../../measurement/feature-gate-js-client/afm-volt/tsconfig.json"
 		},
@@ -36,7 +44,13 @@
 			"path": "../../linking-types/afm-volt/tsconfig.json"
 		},
 		{
+			"path": "../../../editor/node-data-provider/afm-volt/tsconfig.json"
+		},
+		{
 			"path": "../../../platform/feature-flags/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../editor/tmp-editor-statsig/afm-volt/tsconfig.json"
 		},
 		{
 			"path": "../../link-provider/afm-volt/tsconfig.json"

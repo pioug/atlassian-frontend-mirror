@@ -16,19 +16,13 @@ import {
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import { ToolbarSize, type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { TextFormattingPlugin } from '../textFormattingPluginType';
 
 import { ToolbarButtonsStrong } from './Toolbar/constants';
 import { FormattingTextDropdownMenu } from './Toolbar/dropdown-menu';
-import {
-	getCommonActiveMarks,
-	hasMultiplePartsWithFormattingInSelection,
-} from './Toolbar/formatting-in-selection-utils';
 import { useClearIcon } from './Toolbar/hooks/clear-formatting-icon';
 import { useFormattingIcons } from './Toolbar/hooks/formatting-icons';
 import { useIconList } from './Toolbar/hooks/use-icon-list';
@@ -168,27 +162,6 @@ const FloatingToolbarTextFormat = ({
 	const textFormattingState = useSharedState(api);
 	const { formattingIsPresent, ...formattingIconState } = textFormattingState;
 
-	let hasMultiplePartsWithFormattingSelected;
-	let commonActiveMarks: string[] | undefined;
-
-	if (editorExperiment('platform_editor_controls', 'variant1')) {
-		const { selection } = editorView.state;
-		const { from, to } = selection;
-		const selectedContent =
-			selection instanceof TextSelection
-				? editorView.state.doc.slice(from, to).content.content.slice()
-				: undefined;
-		hasMultiplePartsWithFormattingSelected = fg('platform_editor_common_marks')
-			? false
-			: hasMultiplePartsWithFormattingInSelection({
-					selectedContent,
-				});
-
-		if (!fg('platform_editor_common_marks')) {
-			commonActiveMarks = getCommonActiveMarks({ selectedContent });
-		}
-	}
-
 	const defaultIcons = useFormattingIcons({
 		schema: editorView.state.schema,
 		intl,
@@ -196,12 +169,6 @@ const FloatingToolbarTextFormat = ({
 		editorAnalyticsAPI,
 		textFormattingState: formattingIconState,
 		toolbarType: FloatingToolbarSettings.toolbarType,
-		hasMultiplePartsWithFormattingSelected: editorExperiment('platform_editor_controls', 'variant1')
-			? hasMultiplePartsWithFormattingSelected
-			: undefined,
-		commonActiveMarks: editorExperiment('platform_editor_controls', 'variant1')
-			? commonActiveMarks
-			: undefined,
 	});
 
 	const { dropdownItems, singleItems } = useIconList({
@@ -227,12 +194,7 @@ const FloatingToolbarTextFormat = ({
 
 	return (
 		<React.Fragment>
-			<SingleToolbarButtons
-				items={singleItems}
-				editorView={editorView}
-				isReducedSpacing={false}
-				hasMultiplePartsWithFormattingSelected={hasMultiplePartsWithFormattingSelected}
-			/>
+			<SingleToolbarButtons items={singleItems} editorView={editorView} isReducedSpacing={false} />
 			<FormattingTextDropdownMenu
 				editorView={editorView}
 				items={
@@ -250,7 +212,6 @@ const FloatingToolbarTextFormat = ({
 				hasMoreButton={FloatingToolbarSettings.hasMoreButton}
 				intl={intl}
 				toolbarType={FloatingToolbarSettings.toolbarType}
-				hasMultiplePartsWithFormattingSelected={hasMultiplePartsWithFormattingSelected}
 			/>
 		</React.Fragment>
 	);

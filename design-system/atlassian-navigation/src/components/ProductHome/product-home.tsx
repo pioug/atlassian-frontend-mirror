@@ -7,7 +7,6 @@ import { Fragment, type MouseEvent } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Inline, Text } from '@atlaskit/primitives';
 import { N700 } from '@atlaskit/theme/colors';
@@ -276,21 +275,11 @@ const ProductHome = ({
 }: ProductHomeProps) => {
 	const theme = useTheme();
 	const primaryButton = theme.mode.primaryButton;
-	// After the brand refresh, iconColor and textColor should be set to 'undefined' to allow the original
-	// multi-color logo tile colors to be visible, rather than a hardcoded blue.
-	let {
-		iconColor = fg('platform-team25-app-icon-tiles') ? undefined : 'inherit',
-		textColor = fg('platform-team25-app-icon-tiles') ? undefined : theme.mode.productHome.color,
-	} = theme.mode.productHome;
 
-	// The default theme is set at module scope and immediately used in context.
-	// To allow the feature flag to switch the logo color at runtime, we also detect the original hardcoded
-	// values and override them to undefined.
-	if (
-		iconColor === '#357DE8' &&
-		textColor === token('color.text', N700) &&
-		fg('platform-team25-app-icon-tiles')
-	) {
+	let { iconColor = undefined, textColor = undefined } = theme.mode.productHome;
+
+	// If the theme returns the default Atlassian theme, rely on the Logo default behaviour instead
+	if (iconColor === '#357DE8' && textColor === token('color.text', N700)) {
 		iconColor = undefined;
 		textColor = undefined;
 	}
@@ -338,7 +327,7 @@ const ProductHome = ({
 						iconColor={iconColor}
 						textColor={textColor}
 						// @ts-ignore - The new icons don't have an appearance prop at the moment
-						appearance={fg('platform-team25-app-icon-tiles') ? 'brand' : undefined}
+						appearance={iconColor || textColor ? undefined : 'brand'}
 					/>
 				</div>
 				<div
@@ -347,9 +336,9 @@ const ProductHome = ({
 				>
 					<Icon
 						iconColor={iconColor}
-						size={fg('platform-team25-app-icon-tiles') ? 'small' : undefined}
+						size={'small'}
 						// @ts-ignore - The new icons don't have an appearance prop at the moment
-						appearance={fg('platform-team25-app-icon-tiles') ? 'brand' : undefined}
+						appearance={iconColor || textColor ? undefined : 'brand'}
 					/>
 				</div>
 			</Tag>

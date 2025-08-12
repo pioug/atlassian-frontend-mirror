@@ -152,9 +152,6 @@
 			"path": "../../../design-system/tag/afm-rovo-extension/tsconfig.json"
 		},
 		{
-			"path": "../../../navigation/temp-nav-app-icons/afm-rovo-extension/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/textfield/afm-rovo-extension/tsconfig.json"
 		},
 		{

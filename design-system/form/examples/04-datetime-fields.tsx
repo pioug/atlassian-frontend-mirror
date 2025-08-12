@@ -7,6 +7,7 @@ import Form, {
 	Field,
 	FormFooter,
 	FormHeader,
+	MessageWrapper,
 	RequiredAsterisk,
 } from '@atlaskit/form';
 
@@ -88,7 +89,7 @@ export default () => {
 											id={id}
 											shouldShowCalendarButton
 										/>
-										{error && <ErrorMessage>{error}</ErrorMessage>}
+										<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>
 									</Fragment>
 								);
 							}}
@@ -129,7 +130,7 @@ export default () => {
 												},
 											}}
 										/>
-										{error && <ErrorMessage>{error}</ErrorMessage>}
+										<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>
 									</Fragment>
 								);
 							}}

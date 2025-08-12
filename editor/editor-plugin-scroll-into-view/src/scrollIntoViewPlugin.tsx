@@ -2,6 +2,7 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceStep, ReplaceAroundStep } from '@atlaskit/editor-prosemirror/transform';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { TEXT_INPUT_RULE_TRANSACTION_KEY } from '@atlaskit/prosemirror-input-rules';
 
 import type { ScrollIntoViewPlugin } from './scrollIntoViewPluginType';
@@ -59,7 +60,10 @@ const createPlugin = () =>
 				// ignore collab changes from another user
 				!tr.getMeta('isRemote') &&
 				// ignore any transaction coming from the input text rule plugin
-				!tr.getMeta(TEXT_INPUT_RULE_TRANSACTION_KEY)
+				!tr.getMeta(TEXT_INPUT_RULE_TRANSACTION_KEY) &&
+				// ignore appended transactions as they should be treated as side effects
+				(!fg('platform_editor_skip_scroll_into_view_appended_tr') ||
+					tr.getMeta('appendedTransaction') === undefined)
 			) {
 				return newState.tr.scrollIntoView();
 			}

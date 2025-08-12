@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 3.0.13
+
+### Patch Changes
+
+- [`9a547b35d41b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9a547b35d41b0) -
+  Cleanup platform_editor_common_marks
+- Updated dependencies
+
+## 3.0.12
+
+### Patch Changes
+
+- [`f22ce89845e1e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f22ce89845e1e) -
+  [ED-28686] Switch to use utility getInputMethodFromParentKeys
+- Updated dependencies
+
 ## 3.0.11
 
 ### Patch Changes

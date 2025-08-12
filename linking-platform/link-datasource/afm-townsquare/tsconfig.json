@@ -152,9 +152,6 @@
 			"path": "../../../design-system/tag/afm-townsquare/tsconfig.json"
 		},
 		{
-			"path": "../../../navigation/temp-nav-app-icons/afm-townsquare/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/textfield/afm-townsquare/tsconfig.json"
 		},
 		{

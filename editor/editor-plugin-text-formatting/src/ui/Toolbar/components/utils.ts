@@ -22,8 +22,8 @@ import {
 	SUBSCRIPT_MENU_ITEM,
 	SUPERSCRIPT_MENU_ITEM,
 	TEXT_FORMATTING_MENU_SECTION_RANK,
-	TOOLBARS,
 	UNDERLINE_MENU_ITEM,
+	getInputMethodFromParentKeys,
 } from '@atlaskit/editor-common/toolbar';
 import type { TextFormattingState } from '@atlaskit/editor-common/types';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -54,9 +54,7 @@ import type {
 	ClearFormattingWithAnalyticsEditorCommand,
 } from '../../../editor-commands/types';
 import { type TextFormattingPlugin } from '../../../textFormattingPluginType';
-import { getInputMethod } from '../input-method-utils';
 import type { FormatOptionState, FormatOptions } from '../types';
-import { ToolbarType } from '../types';
 
 export type FormatComponentProps = {
 	api?: ExtractInjectionAPI<TextFormattingPlugin>;
@@ -71,13 +69,6 @@ export type FormatComponentProps = {
 	ariaLabel?: string;
 	groupLocation?: ToolbarButtonGroupLocation;
 };
-
-export const getInputMethodFromParentKeys = (parentKeys: ToolbarComponentTypes) =>
-	getInputMethod(
-		parentKeys.at(-1)?.key === TOOLBARS.INLINE_TEXT_TOOLBAR
-			? ToolbarType.FLOATING
-			: ToolbarType.PRIMARY,
-	);
 
 const FormatMarkSchema: Record<FormatOptions, string> = {
 	strong: 'strong',

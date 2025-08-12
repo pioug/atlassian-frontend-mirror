@@ -14,7 +14,12 @@
 		"../src/**/__tests__/*",
 		"../src/**/*.test.*",
 		"../src/**/test.*",
-		"../src/**/examples.*"
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
 	],
 	"references": [
 		{
@@ -36,10 +41,19 @@
 			"path": "../../../measurement/feature-gate-js-client/afm-volt/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/flag/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../helpers/frontend-utilities/afm-volt/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/heading/afm-volt/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/icon/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon-lab/afm-volt/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/image/afm-volt/tsconfig.json"
@@ -61,6 +75,9 @@
 		},
 		{
 			"path": "../../../design-system/primitives/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../teams-app-internal-product-permissions/afm-volt/tsconfig.json"
 		},
 		{
 			"path": "../../teams-client/afm-volt/tsconfig.json"

@@ -1,5 +1,13 @@
 # @atlaskit/spotlight
 
+## 0.0.11
+
+### Patch Changes
+
+- [#200012](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/200012)
+  [`fa829c42fc74f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fa829c42fc74f) -
+  Create SpotlightMedia component.
+
 ## 0.0.10
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "40.8.2",
+	"version": "40.9.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -35,6 +35,7 @@
 		"@atlaskit/checkbox": "workspace:^",
 		"@atlaskit/css": "workspace:^",
 		"@atlaskit/dropdown-menu": "workspace:^",
+		"@atlaskit/feature-gate-js-client": "workspace:^",
 		"@atlaskit/form": "workspace:^",
 		"@atlaskit/frontend-utilities": "workspace:^",
 		"@atlaskit/heading": "workspace:^",
@@ -250,6 +251,9 @@
 			"type": "boolean"
 		},
 		"platform_smartlink_3pclick_analytics": {
+			"type": "boolean"
+		},
+		"ptc-enable-embed-team-smart-links": {
 			"type": "boolean"
 		}
 	},

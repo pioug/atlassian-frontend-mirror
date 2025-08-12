@@ -4,6 +4,8 @@ import {
 	type JsonLdDatasourceResponse,
 } from '@atlaskit/link-client-extension';
 import { type CardStore, type CardType } from '@atlaskit/linking-common';
+import { type SmartLinkResponse } from '@atlaskit/linking-types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { extractVisitUrl } from '../extractors/common/primitives/extractVisitUrl';
 import { type DestinationProduct, type DestinationSubproduct } from '../utils/analytics/types';
@@ -34,6 +36,19 @@ export const getExtensionKey = (details?: JsonLd.Response): string | undefined =
 
 export const getObjectAri = (details?: JsonLd.Response): string | undefined =>
 	(details?.data && 'atlassian:ari' in details.data && details.data['atlassian:ari']) || undefined;
+
+export const getThirdPartyARI = (details?: SmartLinkResponse): string | undefined => {
+	if (fg('platform_smartlink_3pclick_analytics')) {
+		if (
+			details?.entityData &&
+			'thirdPartyAri' in details.entityData &&
+			details.entityData.thirdPartyAri
+		) {
+			return details.entityData.thirdPartyAri;
+		}
+	}
+	return undefined;
+};
 
 export const getObjectName = (details?: JsonLd.Response): string | undefined =>
 	(details?.data && 'name' in details.data && details.data.name) || undefined;

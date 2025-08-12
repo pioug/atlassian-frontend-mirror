@@ -7,6 +7,7 @@ import { forwardRef, memo, type Ref, useCallback, useContext } from 'react';
 import { jsx } from '@compiled/react';
 
 import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import MenuItemPrimitive from '../internal/components/menu-item-primitive';
 import type { ButtonItemProps } from '../types';
@@ -72,6 +73,11 @@ const ButtonItem = memo(
 				{({ children, className }) => (
 					<button
 						data-testid={testId}
+						// This is intentionally placed before the `...rest` spread to prevent overriding existing usages of `aria-current`,
+						// which are already being passed to the button element.
+						aria-current={
+							isSelected && fg('platform_dst_menu_item_button_aria_current') ? 'true' : undefined
+						}
 						{...rest}
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 						className={className}

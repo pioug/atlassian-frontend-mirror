@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-scroll-into-view
 
+## 3.0.1
+
+### Patch Changes
+
+- [#199980](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/199980)
+  [`51e1e07683109`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/51e1e07683109) -
+  EDITOR-1270: Skip scrollIntoView for appended transactions as they should be treated as side
+  effects.
+
 ## 3.0.0
 
 ### Major Changes

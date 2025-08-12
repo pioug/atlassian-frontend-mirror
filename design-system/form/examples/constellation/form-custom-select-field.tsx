@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 
 import Button from '@atlaskit/button/new';
-import Form, { ErrorMessage, Field, FormFooter } from '@atlaskit/form';
+import Form, { ErrorMessage, Field, FormFooter, MessageWrapper } from '@atlaskit/form';
 import Select, {
 	components,
 	type OptionProps,
@@ -150,7 +150,7 @@ const FormCustomSelectFieldExample = () => {
 										isClearable
 										clearControlLabel="Clear color"
 									/>
-									{error && <ErrorMessage>{error}</ErrorMessage>}
+									<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>
 								</Fragment>
 							)}
 						</Field>
@@ -162,7 +162,7 @@ const FormCustomSelectFieldExample = () => {
 							{({ fieldProps: { id, ...rest }, error }) => (
 								<Fragment>
 									<Select inputId={id} {...rest} options={flavors} isMulti />
-									{error && <ErrorMessage>{error}</ErrorMessage>}
+									<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>
 								</Fragment>
 							)}
 						</Field>

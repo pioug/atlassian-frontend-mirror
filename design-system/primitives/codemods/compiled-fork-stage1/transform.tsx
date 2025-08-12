@@ -1,4 +1,10 @@
-import type { API, FileInfo, JSXAttribute } from 'jscodeshift';
+import type {
+	API,
+	FileInfo,
+	ImportSpecifier,
+	JSXAttribute,
+	VariableDeclaration,
+} from 'jscodeshift';
 
 const ANCHOR_PRESSABLE_XCSS_PROPS = [
 	'backgroundColor',
@@ -13,27 +19,11 @@ const ANCHOR_PRESSABLE_XCSS_PROPS = [
 
 const GRID_XCSS_PROPS = ['templateRows', 'templateColumns', 'templateAreas'];
 
+const PRIMITIVES_IMPORT_SOURCES = ['@atlaskit/primitives', '@atlaskit/primitives/compiled'];
+
 function transform(file: FileInfo, { jscodeshift: j }: API) {
 	const root = j(file.source);
 	let needsCssMapImport = false;
-
-	// Check if any import from '@atlaskit/primitives' contains 'xcss'
-	const hasDescopedImport = root
-		.find(j.ImportDeclaration, { source: { value: '@atlaskit/primitives' } })
-		.some((path) => {
-			return path.node.specifiers!.some((specifier) => {
-				if (!j.ImportSpecifier.check(specifier)) {
-					return false;
-				}
-
-				return ['xcss', 'media', 'XCSS'].includes(specifier.imported.name);
-			});
-		});
-
-	// If 'xcss' is imported, return the original source without transformations
-	if (hasDescopedImport) {
-		return file.source;
-	}
 
 	// If Box primitive is used with spread props, return the original source without transformations
 	const hasBoxPrimitiveWithSpreadProps = root
@@ -48,6 +38,144 @@ function transform(file: FileInfo, { jscodeshift: j }: API) {
 		return file.source;
 	}
 
+	// Check if xcss is imported
+	const hasXcssImport = root
+		.find(j.ImportDeclaration, { source: { value: '@atlaskit/primitives' } })
+		.some(
+			(path) =>
+				path.node.specifiers?.some(
+					(specifier) => j.ImportSpecifier.check(specifier) && specifier.imported.name === 'xcss',
+				) ?? false,
+		);
+
+	// Check if media is imported
+	const hasMediaImport = root
+		.find(j.ImportDeclaration, { source: { value: '@atlaskit/primitives' } })
+		.some(
+			(path) =>
+				path.node.specifiers?.some(
+					(specifier) => j.ImportSpecifier.check(specifier) && specifier.imported.name === 'media',
+				) ?? false,
+		);
+
+	// If media is imported, return the original source without transformations
+	if (hasMediaImport) {
+		return file.source;
+	}
+
+	// If xcss is imported, check if there's only one other primitive component
+	if (hasXcssImport) {
+		const primitiveImports =
+			root
+				.find(j.ImportDeclaration, { source: { value: '@atlaskit/primitives' } })
+				.get()
+				.node.specifiers?.filter(
+					(specifier: ImportSpecifier) =>
+						j.ImportSpecifier.check(specifier) && specifier.imported.name !== 'xcss',
+				) ?? [];
+
+		// If there's only one other primitive component, skip the file
+		if (primitiveImports.length === 1) {
+			return file.source;
+		}
+
+		// Otherwise, split the imports but keep components that use xcss
+		root
+			.find(j.ImportDeclaration, { source: { value: '@atlaskit/primitives' } })
+			.forEach((path) => {
+				// Skip type imports
+				if (path.node.importKind === 'type') {
+					return;
+				}
+
+				const xcssSpecifiers =
+					path.node.specifiers?.filter(
+						(specifier) => j.ImportSpecifier.check(specifier) && specifier.imported.name === 'xcss',
+					) ?? [];
+				const otherSpecifiers =
+					path.node.specifiers?.filter(
+						(specifier) => j.ImportSpecifier.check(specifier) && specifier.imported.name !== 'xcss',
+					) ?? [];
+
+				// Find components that use xcss
+				const componentsUsingXcss = new Set<string>();
+				root.find(j.JSXElement).forEach((jsxPath) => {
+					if (!j.JSXIdentifier.check(jsxPath.node.openingElement.name)) {
+						return;
+					}
+
+					const elementName = jsxPath.node.openingElement.name.name;
+					const attributes = jsxPath.node.openingElement.attributes || [];
+					const hasXcssProp = attributes.some(
+						(attr) =>
+							j.JSXAttribute.check(attr) &&
+							j.JSXIdentifier.check(attr.name) &&
+							attr.name.name === 'xcss',
+					);
+
+					if (hasXcssProp) {
+						componentsUsingXcss.add(elementName);
+					}
+				});
+
+				// Split specifiers based on xcss usage
+				const specifiersToKeep = otherSpecifiers.filter(
+					(specifier) =>
+						j.ImportSpecifier.check(specifier) && componentsUsingXcss.has(specifier.imported.name),
+				);
+				const specifiersToMove = otherSpecifiers.filter(
+					(specifier) =>
+						j.ImportSpecifier.check(specifier) && !componentsUsingXcss.has(specifier.imported.name),
+				);
+
+				if (specifiersToMove.length > 0) {
+					// Add new import for components that don't use xcss
+					path.insertAfter(
+						j.importDeclaration(specifiersToMove, j.literal('@atlaskit/primitives/compiled')),
+					);
+				}
+
+				// Update original import to include xcss and components that use it
+				path.node.specifiers = [...xcssSpecifiers, ...specifiersToKeep];
+			});
+
+		return root.toSource({ quote: 'single' });
+	}
+
+	// Check if any component uses xcss
+	const hasXcssUsage = root.find(j.JSXElement).some((path) => {
+		if (!j.JSXIdentifier.check(path.node.openingElement.name)) {
+			return false;
+		}
+
+		const elementName = path.node.openingElement.name.name;
+		const isPrimitiveComponent = PRIMITIVES_IMPORT_SOURCES.some((importSource) =>
+			root.find(j.ImportDeclaration, { source: { value: importSource } }).some((importPath) => {
+				return importPath.node.specifiers!.some((specifier) => {
+					if (!j.ImportSpecifier.check(specifier)) {
+						return false;
+					}
+					return specifier.local?.name === elementName;
+				});
+			}),
+		);
+
+		if (!isPrimitiveComponent) {
+			return false;
+		}
+
+		const attributes = path.node.openingElement.attributes || [];
+		return attributes.some(
+			(attr) =>
+				j.JSXAttribute.check(attr) && j.JSXIdentifier.check(attr.name) && attr.name.name === 'xcss',
+		);
+	});
+
+	// If any component uses xcss, return the original source without transformations
+	if (hasXcssUsage) {
+		return file.source;
+	}
+
 	// Has @atlaskit/primitives import?
 	const hasPrimitivesImport =
 		root.find(j.ImportDeclaration, { source: { value: '@atlaskit/primitives' } }).length > 0;
@@ -56,9 +184,57 @@ function transform(file: FileInfo, { jscodeshift: j }: API) {
 		return file.source;
 	}
 
+	// Check if any component has mixed xcss usage by looking at JSX elements directly
+	const componentXcssUsage = new Map<string, boolean>();
+	const hasMixedXcssUsage = root.find(j.JSXElement).some((path) => {
+		if (!j.JSXIdentifier.check(path.node.openingElement.name)) {
+			return false;
+		}
+
+		const elementName = path.node.openingElement.name.name;
+		const isPrimitiveComponent = PRIMITIVES_IMPORT_SOURCES.some((importSource) =>
+			root.find(j.ImportDeclaration, { source: { value: importSource } }).some((importPath) => {
+				return importPath.node.specifiers!.some((specifier) => {
+					if (!j.ImportSpecifier.check(specifier)) {
+						return false;
+					}
+					return specifier.local?.name === elementName;
+				});
+			}),
+		);
+
+		if (!isPrimitiveComponent) {
+			return false;
+		}
+
+		const attributes = path.node.openingElement.attributes || [];
+		const props = attributes.filter((attr) => j.JSXAttribute.check(attr)) as Array<JSXAttribute>;
+		const hasXcssProp = props.some(
+			(prop) => j.JSXIdentifier.check(prop.name) && prop.name.name === 'xcss',
+		);
+
+		// Track xcss usage for this component type
+		if (!componentXcssUsage.has(elementName)) {
+			componentXcssUsage.set(elementName, hasXcssProp);
+		} else if (componentXcssUsage.get(elementName) !== hasXcssProp) {
+			// If we've seen this component before and the xcss usage is different, we have mixed usage
+			return true;
+		}
+
+		return false;
+	});
+
+	// If there's mixed xcss usage, don't transform anything
+	if (hasMixedXcssUsage) {
+		return file.source;
+	}
+
 	// Find all import declarations from '@atlaskit/primitives'
 	root.find(j.ImportDeclaration, { source: { value: '@atlaskit/primitives' } }).forEach((path) => {
-		// Change the import to '@atlaskit/primitives/compiled'
+		// Skip type imports
+		if (path.node.importKind === 'type') {
+			return;
+		}
 		path.node.source = j.literal('@atlaskit/primitives/compiled');
 	});
 
@@ -77,21 +253,70 @@ function transform(file: FileInfo, { jscodeshift: j }: API) {
 		}
 	}
 
-	// Find JSX elements for Grid, Anchor and Pressable
-	root.find(j.JSXElement).forEach((path) => {
+	// Find all existing cssMap declarations
+	const existingCssMapDeclarations = new Map<string, string>();
+	root.find(j.VariableDeclaration).forEach((path) => {
+		const declaration = path.node.declarations[0];
+		if (
+			j.VariableDeclarator.check(declaration) &&
+			j.Identifier.check(declaration.id) &&
+			j.CallExpression.check(declaration.init) &&
+			j.Identifier.check(declaration.init.callee) &&
+			declaration.init.callee.name === cssMapName
+		) {
+			existingCssMapDeclarations.set(declaration.id.name, declaration.id.name);
+		}
+	});
+
+	// Find all JSX elements
+	const jsxElements = root.find(j.JSXElement).paths();
+	const processedComponentTypes = new Map<
+		string,
+		{ name: string; declaration: VariableDeclaration }
+	>();
+
+	// Add token import if needed
+	let needsTokenImport = false;
+
+	jsxElements.forEach((path) => {
 		if (!j.JSXIdentifier.check(path.node.openingElement.name)) {
 			return;
 		}
 
 		const elementName = path.node.openingElement.name.name;
-		if (elementName !== 'Grid' && elementName !== 'Anchor' && elementName !== 'Pressable') {
+
+		// Find if this component is imported from @atlaskit/primitives or @atlaskit/primitives/compiled
+		const isPrimitiveComponent = PRIMITIVES_IMPORT_SOURCES.some((importSource) =>
+			root.find(j.ImportDeclaration, { source: { value: importSource } }).some((importPath) => {
+				return importPath.node.specifiers!.some((specifier) => {
+					if (!j.ImportSpecifier.check(specifier)) {
+						return false;
+					}
+					return specifier.local?.name === elementName;
+				});
+			}),
+		);
+
+		if (!isPrimitiveComponent) {
 			return;
 		}
 
 		const attributes = path.node.openingElement.attributes || [];
 		const props = attributes.filter((attr) => j.JSXAttribute.check(attr)) as Array<JSXAttribute>;
 
-		const xcssProps = elementName === 'Grid' ? GRID_XCSS_PROPS : ANCHOR_PRESSABLE_XCSS_PROPS;
+		// Skip if component already has xcss prop
+		const hasXcss = props.some(
+			(prop) => j.JSXIdentifier.check(prop.name) && prop.name.name === 'xcss',
+		);
+
+		if (hasXcss) {
+			return;
+		}
+
+		const xcssProps =
+			elementName === 'Grid'
+				? [...GRID_XCSS_PROPS, ...ANCHOR_PRESSABLE_XCSS_PROPS]
+				: ANCHOR_PRESSABLE_XCSS_PROPS;
 		const propsToTransform = props.filter(
 			(prop) => j.JSXIdentifier.check(prop.name) && xcssProps.includes(prop.name.name),
 		);
@@ -104,6 +329,45 @@ function transform(file: FileInfo, { jscodeshift: j }: API) {
 
 		// Create styles variable name
 		const stylesName = `${elementName.toLowerCase()}Styles`;
+
+		// Skip if we've already processed this component type
+		if (processedComponentTypes.has(elementName)) {
+			// Use existing styles
+			const existingStyles = processedComponentTypes.get(elementName)!;
+			// Remove transformed props and add xcss prop
+			propsToTransform.forEach((prop) => {
+				const index = attributes.indexOf(prop);
+				attributes.splice(index, 1);
+			});
+			attributes.push(
+				j.jsxAttribute(
+					j.jsxIdentifier('xcss'),
+					j.jsxExpressionContainer(
+						j.memberExpression(j.identifier(existingStyles.name), j.identifier('root')),
+					),
+				),
+			);
+			return;
+		}
+
+		// Skip if we already have a cssMap declaration for this component type
+		if (existingCssMapDeclarations.has(stylesName)) {
+			// Remove transformed props and add xcss prop
+			propsToTransform.forEach((prop) => {
+				const index = attributes.indexOf(prop);
+				attributes.splice(index, 1);
+			});
+
+			attributes.push(
+				j.jsxAttribute(
+					j.jsxIdentifier('xcss'),
+					j.jsxExpressionContainer(
+						j.memberExpression(j.identifier(stylesName), j.identifier('root')),
+					),
+				),
+			);
+			return;
+		}
 
 		// Create cssMap declaration
 		const styleObj = j.objectExpression(
@@ -127,6 +391,15 @@ function transform(file: FileInfo, { jscodeshift: j }: API) {
 					return j.objectProperty(j.identifier(cssPropName), prop.value.expression);
 				}
 
+				// Only wrap string values in token() if they're not grid props
+				if (j.StringLiteral.check(prop.value) && !propName.startsWith('template')) {
+					needsTokenImport = true;
+					return j.objectProperty(
+						j.identifier(cssPropName),
+						j.callExpression(j.identifier('token'), [prop.value]),
+					);
+				}
+
 				return j.objectProperty(j.identifier(cssPropName), prop.value);
 			}),
 		);
@@ -140,49 +413,34 @@ function transform(file: FileInfo, { jscodeshift: j }: API) {
 			),
 		]);
 
-		const importDeclaration = root.find(j.ImportDeclaration, {
-			source: { value: '@atlaskit/primitives/compiled' },
-		});
+		processedComponentTypes.set(elementName, { name: stylesName, declaration: cssMapDecl });
 
-		if (importDeclaration.length > 0) {
-			// insert after the last import declaration
-			const imports = root.find(j.ImportDeclaration);
-			const lastImport = imports.at(imports.length - 1);
-
-			const cssMapDeclaration = root
-				.find(j.VariableDeclaration)
-				// @ts-expect-error
-				.filter((path) => path.node.declarations[0].id.name === stylesName);
-
-			if (lastImport && !cssMapDeclaration.length) {
-				lastImport.insertAfter(cssMapDecl);
-			}
-		}
-
-		// Remove transformed props and add xcss prop
+		// Remove all props and add xcss prop
 		propsToTransform.forEach((prop) => {
 			const index = attributes.indexOf(prop);
 			attributes.splice(index, 1);
 		});
 
-		const existingXcss = props.find(
-			(prop) => j.JSXIdentifier.check(prop.name) && prop.name.name === 'xcss',
-		);
-
-		const xcssValue = existingXcss
-			? j.arrayExpression([
+		attributes.push(
+			j.jsxAttribute(
+				j.jsxIdentifier('xcss'),
+				j.jsxExpressionContainer(
 					j.memberExpression(j.identifier(stylesName), j.identifier('root')),
-					// @ts-expect-error
-					existingXcss.value.expression,
-				])
-			: j.memberExpression(j.identifier(stylesName), j.identifier('root'));
-
-		if (existingXcss) {
-			existingXcss.value = j.jsxExpressionContainer(xcssValue);
-		} else {
-			attributes.push(j.jsxAttribute(j.jsxIdentifier('xcss'), j.jsxExpressionContainer(xcssValue)));
-		}
+				),
+			),
+		);
 	});
+
+	// Insert cssMap declarations after the last import declaration
+	const imports = root.find(j.ImportDeclaration);
+	const lastImport = imports.at(imports.length - 1);
+
+	if (lastImport) {
+		// Insert declarations in the order they were first encountered
+		Array.from(processedComponentTypes.values()).forEach(({ declaration }) => {
+			lastImport.insertAfter(declaration);
+		});
+	}
 
 	// Add cssMap import if needed
 	if (needsCssMapImport && cssMapImport.length === 0) {
@@ -192,6 +450,18 @@ function transform(file: FileInfo, { jscodeshift: j }: API) {
 				j.importDeclaration(
 					[j.importSpecifier(j.identifier('cssMap'))],
 					j.literal('@atlaskit/css'),
+				),
+			);
+	}
+
+	// Add token import if needed
+	if (needsTokenImport) {
+		root
+			.get()
+			.node.program.body.unshift(
+				j.importDeclaration(
+					[j.importSpecifier(j.identifier('token'))],
+					j.literal('@atlaskit/tokens'),
 				),
 			);
 	}

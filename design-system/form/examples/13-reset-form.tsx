@@ -10,6 +10,7 @@ import Form, {
 	FormFooter,
 	FormHeader,
 	HelperMessage,
+	MessageWrapper,
 	RequiredAsterisk,
 	ValidMessage,
 } from '@atlaskit/form';
@@ -49,10 +50,12 @@ export default () => (
 						{({ fieldProps, error }) => (
 							<Fragment>
 								<TextField autoComplete="username" {...fieldProps} />
-								{!error && <HelperMessage>You can use letters, numbers & periods.</HelperMessage>}
-								{error && (
-									<ErrorMessage>This username is already in use, try another one.</ErrorMessage>
-								)}
+								<MessageWrapper>
+									{!error && <HelperMessage>You can use letters, numbers & periods.</HelperMessage>}
+									{error && (
+										<ErrorMessage>This username is already in use, try another one.</ErrorMessage>
+									)}
+								</MessageWrapper>
 							</Fragment>
 						)}
 					</Field>
@@ -66,17 +69,19 @@ export default () => (
 						{({ fieldProps, error, valid, meta }) => (
 							<Fragment>
 								<TextField type="password" {...fieldProps} />
-								{!error && !valid && (
-									<HelperMessage>
-										Use 8 or more characters with a mix of letters, numbers & symbols.
-									</HelperMessage>
-								)}
-								{error && (
-									<ErrorMessage>
-										Please enter a password that's longer than 8 characters.
-									</ErrorMessage>
-								)}
-								{valid && meta.dirty && <ValidMessage>Awesome password!</ValidMessage>}
+								<MessageWrapper>
+									{!error && !valid && (
+										<HelperMessage>
+											Use 8 or more characters with a mix of letters, numbers & symbols.
+										</HelperMessage>
+									)}
+									{error && (
+										<ErrorMessage>
+											Please enter a password that's longer than 8 characters.
+										</ErrorMessage>
+									)}
+									{valid && meta.dirty && <ValidMessage>Awesome password!</ValidMessage>}
+								</MessageWrapper>
 							</Fragment>
 						)}
 					</Field>

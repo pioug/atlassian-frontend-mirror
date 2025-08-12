@@ -195,9 +195,16 @@ const messages = defineMessages({
 		defaultMessage: 'Give kudos',
 		description: 'Title for the button on the profile card for a user to give a kudos',
 	},
+	// Remove this as part of the FG Cleanup for jfp_a11y_team_profile_card_actions_label
 	profileCardMoreIconLabel: {
 		id: 'pt.profile-card.more-icon-label',
 		defaultMessage: 'More',
+		description:
+			'Label for the meatballs icon on the profile card, which when clicked will provide more options',
+	},
+	profileCardMoreIconLabelWithName: {
+		id: 'pt.profile-card.more-icon-label-with-name',
+		defaultMessage: 'More actions for {fullName}',
 		description:
 			'Label for the meatballs icon on the profile card, which when clicked will provide more options',
 	},

@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { isContainedWithinMediaWrapper } from '../../vc-observer/media-wrapper/vc-utils';
 import isNonVisualStyleMutation from '../../vc-observer/observers/non-visual-styles/is-non-visual-style-mutation';
 import { RLLPlaceholderHandlers } from '../../vc-observer/observers/rll-placeholders';
@@ -216,10 +218,17 @@ export default class ViewportObserver {
 						ssrPlaceholderHandler.isPlaceholder(addedNode) ||
 						ssrPlaceholderHandler.isPlaceholderIgnored(addedNode)
 					) {
-						const result = await ssrPlaceholderHandler.checkIfExistedAndSizeMatching(addedNode);
-						if (result !== false) {
-							this.intersectionObserver?.watchAndTag(addedNode, 'mutation:ssr-placeholder');
-							continue;
+						if (fg('platform_ufo_ssr_placeholder_resolution_ttvc_v3')) {
+							if (ssrPlaceholderHandler.checkIfExistedAndSizeMatchingV3(addedNode)) {
+								this.intersectionObserver?.watchAndTag(addedNode, 'mutation:ssr-placeholder');
+								continue;
+							}
+						} else {
+							const result = await ssrPlaceholderHandler.checkIfExistedAndSizeMatching(addedNode);
+							if (result !== false) {
+								this.intersectionObserver?.watchAndTag(addedNode, 'mutation:ssr-placeholder');
+								continue;
+							}
 						}
 						// If result is false, continue to normal mutation logic below
 					}

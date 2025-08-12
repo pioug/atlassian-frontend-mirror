@@ -46,4 +46,9 @@ export const asyncPopupSelectMessages = defineMessages({
 		description: 'Placeholder to be displayed for assignee filter dropdown search input.',
 		defaultMessage: 'Search for assignee',
 	},
+	projectLabelGalaxia: {
+		id: 'linkDataSource.basic-filter.project.label-galaxia',
+		description: 'Label to be displayed for project filter dropdown button.',
+		defaultMessage: 'Space',
+	},
 });

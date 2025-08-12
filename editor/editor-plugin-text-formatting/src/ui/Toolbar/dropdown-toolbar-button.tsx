@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { type ReactElement } from 'react';
+import React from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
@@ -29,7 +29,7 @@ type DropdownButtonProps = {
 	onClick?: (event: React.MouseEvent<HTMLElement>) => void;
 	onKeyDown?: (event: React.KeyboardEvent) => void;
 	toolbarType: ToolbarType;
-	iconBefore?: ReactElement;
+	iconBefore?: React.ReactElement;
 	activeIconName?: string;
 };
 

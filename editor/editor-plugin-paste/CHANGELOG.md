@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-paste
 
+## 4.1.4
+
+### Patch Changes
+
+- [#200144](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/200144)
+  [`05db69e3fb6a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/05db69e3fb6a2) -
+  [ux] Fixes an issue where content inside code blocks was being unnecessarily escaped during
+  copy/paste operations. With this change, code block content will be copied as-is, preserving the
+  original formatting and characters.
+
 ## 4.1.3
 
 ### Patch Changes

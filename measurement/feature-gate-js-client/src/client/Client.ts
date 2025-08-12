@@ -1097,7 +1097,9 @@ export class Client {
 		try {
 			this.dataAdapter.setBootstrapData(initializeValues.experimentValues);
 			this.user = user;
-			await this.statsigClient.updateUserAsync(this.user);
+			if (this.user) {
+				await this.statsigClient.updateUserAsync(this.user);
+			}
 		} catch (err) {
 			success = false;
 			errorMessage = String(err);

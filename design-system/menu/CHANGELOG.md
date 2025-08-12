@@ -1,5 +1,29 @@
 # @atlaskit/menu
 
+## 8.3.0
+
+### Minor Changes
+
+- [#200326](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/200326)
+  [`f520c88226d22`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f520c88226d22) -
+  Reimplementing these changes due to a revert.
+
+  ButtonItem will convey its selected state to screen readers when `isSelected`. This is done
+  through the `aria-current` attribute.
+
+  This change is behind a feature flag, which will be removed in a future release.
+
+## 8.2.0
+
+### Minor Changes
+
+- [#200012](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/200012)
+  [`3b577f51b24b1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b577f51b24b1) -
+  ButtonItem will convey its selected state to screen readers when `isSelected`. This is done
+  through the `aria-current` attribute.
+
+  This change is behind a feature flag, which will be removed in a future release.
+
 ## 8.1.2
 
 ### Patch Changes

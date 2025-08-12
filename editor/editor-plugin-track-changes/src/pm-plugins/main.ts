@@ -70,9 +70,22 @@ export const createTrackChangesPlugin = (
 						(step: Step) => step instanceof ReplaceStep || step instanceof ReplaceAroundStep,
 					);
 
-				if (!isDocChanged || tr.getMeta('isRemote') || tr.getMeta('addToHistory') === false) {
+				if (!isDocChanged || tr.getMeta('isRemote')) {
 					// If no document changes, return the old changeSet
 					return state;
+				}
+
+				// For undo/redo operations (addToHistory === false), we still need to check if we're back at baseline
+				if (tr.getMeta('addToHistory') === false) {
+					// This is likely an undo/redo operation, check if current doc matches baseline
+					const baselineDoc = getBaselineFromSteps(tr.doc, state.steps);
+
+					const hasChangesFromBaseline = !tr.doc.eq(baselineDoc);
+
+					return {
+						...state,
+						isShowDiffAvailable: hasChangesFromBaseline,
+					};
 				}
 
 				// If we don't have the history plugin don't limit the change tracking
@@ -93,13 +106,17 @@ export const createTrackChangesPlugin = (
 					state.allocations.add(currentAllocation),
 				);
 
+				// Calculate if there are actual changes by comparing current doc with baseline
+				const baselineDoc = getBaselineFromSteps(tr.doc, steps);
+				const hasChangesFromBaseline = !tr.doc.eq(baselineDoc);
+
 				// Create a new ChangeSet based on document changes
 				return {
 					...state,
 					allocations,
 					steps,
 					shouldChangesBeDisplayed: false,
-					isShowDiffAvailable: true,
+					isShowDiffAvailable: hasChangesFromBaseline,
 				};
 			},
 		},

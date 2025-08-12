@@ -14,7 +14,12 @@
 		"../src/**/__tests__/*",
 		"../src/**/*.test.*",
 		"../src/**/test.*",
-		"../src/**/examples.*"
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
 	],
 	"references": [
 		{
@@ -25,9 +30,6 @@
 		},
 		{
 			"path": "../../../design-system/button/afm-volt/tsconfig.json"
-		},
-		{
-			"path": "../../editor-common/afm-volt/tsconfig.json"
 		},
 		{
 			"path": "../../editor-palette/afm-volt/tsconfig.json"
@@ -84,6 +86,9 @@
 			"path": "../../../design-system/icon/afm-volt/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/icon-lab/afm-volt/tsconfig.json"
+		},
+		{
 			"path": "../../../media/media-card/afm-volt/tsconfig.json"
 		},
 		{
@@ -127,6 +132,9 @@
 		},
 		{
 			"path": "../../../design-system/tooltip/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-volt/tsconfig.json"
 		},
 		{
 			"path": "../../../media/media-core/afm-volt/tsconfig.json"

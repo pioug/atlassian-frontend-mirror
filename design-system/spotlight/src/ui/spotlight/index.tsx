@@ -29,35 +29,35 @@ const styles = cssMap({
 
 const placementStyles = cssMap({
 	'top-start': {
-		bottom: token('space.100'),
+		bottom: token('space.075'),
 		right: token('space.negative.200'),
 	},
 	'top-end': {
-		bottom: token('space.100'),
+		bottom: token('space.075'),
 		left: token('space.negative.200'),
 	},
 	'right-start': {
-		left: token('space.100'),
+		left: token('space.075'),
 		bottom: token('space.negative.200'),
 	},
 	'right-end': {
-		left: token('space.100'),
+		left: token('space.075'),
 		top: token('space.negative.200'),
 	},
 	'bottom-start': {
-		top: token('space.100'),
+		top: token('space.075'),
 		right: token('space.negative.200'),
 	},
 	'bottom-end': {
-		top: token('space.100'),
+		top: token('space.075'),
 		left: token('space.negative.200'),
 	},
 	'left-start': {
-		right: token('space.100'),
+		right: token('space.075'),
 		bottom: token('space.negative.200'),
 	},
 	'left-end': {
-		right: token('space.100'),
+		right: token('space.075'),
 		top: token('space.negative.200'),
 	},
 });

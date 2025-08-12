@@ -14,7 +14,13 @@
 	"exclude": [
 		"../src/**/__tests__/*",
 		"../src/**/*.test.*",
-		"../src/**/test.*"
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
 	],
 	"references": [
 		{
@@ -36,10 +42,16 @@
 			"path": "../../primitives/afm-volt/tsconfig.json"
 		},
 		{
+			"path": "../../spinner/afm-volt/tsconfig.json"
+		},
+		{
 			"path": "../../theme/afm-volt/tsconfig.json"
 		},
 		{
 			"path": "../../tokens/afm-volt/tsconfig.json"
+		},
+		{
+			"path": "../../visually-hidden/afm-volt/tsconfig.json"
 		}
 	]
 }

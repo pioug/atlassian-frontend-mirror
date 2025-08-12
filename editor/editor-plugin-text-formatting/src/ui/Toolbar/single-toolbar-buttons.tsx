@@ -23,12 +23,10 @@ export const SingleToolbarButtons = React.memo(
 		items,
 		isReducedSpacing,
 		editorView,
-		hasMultiplePartsWithFormattingSelected,
 	}: {
 		items: MenuIconItem[];
 		isReducedSpacing: boolean;
 		editorView: EditorView;
-		hasMultiplePartsWithFormattingSelected?: boolean;
 	}) => {
 		const onClick = useCallback(
 			(command: Command) => {

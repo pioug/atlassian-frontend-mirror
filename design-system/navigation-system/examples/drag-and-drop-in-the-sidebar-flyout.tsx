@@ -144,7 +144,7 @@ export default function SidebarExample() {
 					</SideNavFooter>
 					<PanelSplitter label="Resize side nav" />
 				</SideNav>
-				<Main id="main-container" isFixed>
+				<Main id="main-container">
 					<Stack space="space.100" xcss={headingStyles.root}>
 						<Heading size="small">Main</Heading>
 					</Stack>

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-table",
-	"version": "12.1.14",
+	"version": "12.1.15",
 	"description": "Table plugin for the @atlaskit/editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -137,9 +137,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_nested_tables_view_mode_sort": {
-			"type": "boolean"
-		},
-		"platform_editor_nested_tables_number_column_fixes": {
 			"type": "boolean"
 		},
 		"disable-sticky-scrollbar-for-nested-tables": {

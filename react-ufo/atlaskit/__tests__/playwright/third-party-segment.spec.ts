@@ -30,7 +30,6 @@ test.describe('ReactUFO: Third Party Segment', () => {
 	const requiredFeatureFlags = [
 		'platform_ufo_exclude_3p_elements_from_ttai',
 		'platform_ufo_exclude_3p_elements_from_ttvc',
-		'platform_ufo_add_type_for_3p_segments',
 		'platform_ufo_handle_non_react_element_for_3p',
 	];
 	const featureFlagsCombos = [[...requiredFeatureFlags]];

@@ -116,7 +116,7 @@ export default class VCObserverNew {
 		});
 	}
 
-	start({ startTime }: { startTime: DOMHighResTimeStamp }) {
+	start(_: any) {
 		// Reset SSR state on start (matches old VCObserver behavior)
 		this.ssr = {
 			state: SSRState.normal,

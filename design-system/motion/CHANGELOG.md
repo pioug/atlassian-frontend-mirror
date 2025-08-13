@@ -1,5 +1,13 @@
 # @atlaskit/motion
 
+## 5.3.0
+
+### Minor Changes
+
+- [#200597](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/200597)
+  [`31cebf6340cea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/31cebf6340cea) -
+  [ux] Update Motion Curves and create entrypoints for newly created component
+
 ## 5.2.0
 
 ### Minor Changes

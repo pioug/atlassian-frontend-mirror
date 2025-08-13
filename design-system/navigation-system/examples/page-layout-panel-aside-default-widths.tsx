@@ -199,7 +199,7 @@ export default function PanelAsideDefaultWidths({
 					</Stack>
 				</Main>
 				{isAsideRendered && (
-					<Aside xcss={asideStyles.root} defaultWidth={asideWidth} isFixed>
+					<Aside xcss={asideStyles.root} defaultWidth={asideWidth}>
 						<Stack space="space.400" xcss={asideStyles.content}>
 							<Heading size="small">Aside</Heading>
 							<Inline space="space.100">

@@ -6,11 +6,9 @@ import { css, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
-import ButtonOld from '@atlaskit/button';
 import Button from '@atlaskit/button/new';
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { extractSmartLinkProvider } from '@atlaskit/link-extractors';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { extractRequestAccessContextImproved } from '../../../../../extractors/common/context/extractAccessContext';
@@ -68,7 +66,6 @@ const HoverCardForbiddenView = ({
 		return null;
 	}
 
-	const ButtonComponent = fg('platform-smart-card-remove-legacy-button') ? Button : ButtonOld;
 	return (
 		<FlexibleCard {...flexibleCardProps} testId={testId}>
 			<PreviewBlock ignoreContainerPadding={true} css={[basePreviewStyles]} testId={testId} />
@@ -81,14 +78,14 @@ const HoverCardForbiddenView = ({
 
 			{action && (
 				<CustomBlock css={[connectButtonStyles]}>
-					<ButtonComponent
+					<Button
 						testId={`${testId}-button`}
 						onClick={action?.promise}
 						appearance="primary"
 						isDisabled={buttonDisabled}
 					>
 						{action?.text}
-					</ButtonComponent>
+					</Button>
 				</CustomBlock>
 			)}
 		</FlexibleCard>

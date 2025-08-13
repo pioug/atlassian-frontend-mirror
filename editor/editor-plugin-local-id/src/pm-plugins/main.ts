@@ -1,5 +1,6 @@
 import { uuid } from '@atlaskit/adf-schema';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { stepHasSlice } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { PluginKey, type Transaction } from '@atlaskit/editor-prosemirror/state';
 
@@ -51,9 +52,49 @@ export const createPlugin = () => {
 				update: () => {},
 			};
 		},
+		/**
+		 * Handles adding local IDs to new nodes that are created and have the localId attribute
+		 * This ensures uniqueness of localIds on nodes being created or edited
+		 */
+		appendTransaction: (transactions, _oldState, newState) => {
+			let modified = false;
+			const tr = newState.tr;
+			const { text, hardBreak } = newState.schema.nodes;
+			const ignoredNodeTypes = [text?.name, hardBreak?.name];
+
+			// Process only the nodes added in the transactions
+			transactions.forEach((transaction) => {
+				if (!transaction.docChanged) {
+					return;
+				}
+
+				if (transaction.getMeta('uiEvent') === 'cut') {
+					return;
+				}
+
+				transaction.steps.forEach((step) => {
+					if (!stepHasSlice(step)) {
+						return;
+					}
+					step.getMap().forEach((oldStart, oldEnd, newStart, newEnd) => {
+						// Scan the changed range to find all nodes
+						tr.doc.nodesBetween(newStart, Math.min(newEnd, tr.doc.content.size), (node, pos) => {
+							if (node?.attrs.localId || ignoredNodeTypes.includes(node.type.name)) {
+								return;
+							}
+
+							modified = true;
+							addLocalIdToNode(node, pos, tr);
+							return true; // Continue traversing to find all nodes in this range
+						});
+					});
+				});
+			});
+
+			return modified ? tr : undefined;
+		},
 	});
 };
-
 /**
  * Adds a local ID to a ProseMirror node
  *
@@ -66,7 +107,7 @@ export const createPlugin = () => {
  * @returns The updated transaction with the node markup change
  */
 export const addLocalIdToNode = (node: PMNode, pos: number, tr: Transaction) => {
-	tr = tr.setNodeMarkup(
+	tr.setNodeMarkup(
 		pos,
 		node.type,
 		{

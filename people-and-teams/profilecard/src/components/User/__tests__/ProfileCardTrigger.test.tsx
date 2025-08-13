@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render, screen, waitFor } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
@@ -101,27 +101,59 @@ describe('Profile card trigger', () => {
 		it('renders the popup after a delay on trigger hover', async () => {
 			renderProfileCardTrigger({});
 
+			// Initial state - popup should not be visible
 			expect(screen.queryByText(mockProfileCardLazyText)).toBeNull();
 
 			// hover the trigger
 			// timer started, so popup should not appear yet
 			await userForFakeTimers.hover(screen.getByText(mockTriggerText));
-			await waitFor(() => {
-				expect(screen.queryByText(mockProfileCardLazyText)).toBeNull();
+
+			// Immediately after hover, popup should not appear yet
+			expect(screen.queryByText(mockProfileCardLazyText)).toBeNull();
+
+			// Advance time but not enough to trigger the popup
+			act(() => {
+				jest.advanceTimersByTime(DELAY_MS_SHOW - 1);
 			});
+
+			// Still should not appear
+			expect(screen.queryByText(mockProfileCardLazyText)).toBeNull();
+
+			// Advance the final 1ms to trigger the popup
+			act(() => {
+				jest.advanceTimersByTime(1);
+			});
+
+			// Now the popup should appear
+			expect(screen.queryByText(mockProfileCardLazyText)).toBeVisible();
+		});
+
+		it('renders the popup after a custom delay on trigger hover', async () => {
+			renderProfileCardTrigger({ showDelay: 300 });
+
+			expect(screen.queryByText(mockProfileCardLazyText)).toBeNull();
+
+			// hover the trigger
+			// timer started, so popup should not appear yet
+			await userForFakeTimers.hover(screen.getByText(mockTriggerText));
+
+			// Immediately after hover, popup should not appear yet
+			expect(screen.queryByText(mockProfileCardLazyText)).toBeNull();
 
 			// timer not quite there, so popup should not appear yet
-			jest.advanceTimersByTime(DELAY_MS_SHOW - 1);
-
-			await waitFor(() => {
-				expect(screen.queryByText(mockProfileCardLazyText)).toBeNull();
+			act(() => {
+				jest.advanceTimersByTime(300 - 1);
 			});
+
+			// Still should not appear
+			expect(screen.queryByText(mockProfileCardLazyText)).toBeNull();
 
 			// now the popup should appear
-			jest.advanceTimersByTime(1);
-			await waitFor(() => {
-				expect(screen.queryByText(mockProfileCardLazyText)).toBeVisible();
+			act(() => {
+				jest.advanceTimersByTime(1);
 			});
+
+			expect(screen.queryByText(mockProfileCardLazyText)).toBeVisible();
 		});
 
 		it('renders the popup immediately on trigger click', async () => {

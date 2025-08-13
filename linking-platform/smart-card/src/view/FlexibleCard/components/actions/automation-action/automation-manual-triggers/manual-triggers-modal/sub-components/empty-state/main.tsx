@@ -5,10 +5,8 @@
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl-next';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
-import ButtonOld from '@atlaskit/button';
 import { cssMap, jsx } from '@atlaskit/css';
 import Link from '@atlaskit/link';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -88,45 +86,23 @@ export const AutomationModalEmptyState = () => {
 				{displayedEmptyStateDesc}
 				{canManageAutomation && (
 					<div>
-						{fg('platform-smart-card-remove-legacy-button') ? (
-							<Link
-								href="https://www.atlassian.com/platform/automation"
-								target="_blank"
-								onClick={() => {
-									createAnalyticsEvent({
-										type: 'sendUIEvent',
-										data: {
-											action: 'clicked',
-											actionSubject: 'link',
-											actionSubjectId: 'learnMore',
-											source: analyticsSource,
-										},
-									}).fire();
-								}}
-							>
-								<FormattedMessage {...i18n.learnMoreLink} />
-							</Link>
-						) : (
-							<ButtonOld
-								appearance="link"
-								spacing="none"
-								href="https://www.atlassian.com/platform/automation"
-								target="_blank"
-								onClick={() => {
-									createAnalyticsEvent({
-										type: 'sendUIEvent',
-										data: {
-											action: 'clicked',
-											actionSubject: 'link',
-											actionSubjectId: 'learnMore',
-											source: analyticsSource,
-										},
-									}).fire();
-								}}
-							>
-								<FormattedMessage {...i18n.learnMoreLink} />
-							</ButtonOld>
-						)}
+						<Link
+							href="https://www.atlassian.com/platform/automation"
+							target="_blank"
+							onClick={() => {
+								createAnalyticsEvent({
+									type: 'sendUIEvent',
+									data: {
+										action: 'clicked',
+										actionSubject: 'link',
+										actionSubjectId: 'learnMore',
+										source: analyticsSource,
+									},
+								}).fire();
+							}}
+						>
+							<FormattedMessage {...i18n.learnMoreLink} />
+						</Link>
 					</div>
 				)}
 			</Box>

@@ -15,17 +15,10 @@ import { contentHeightWhenFixed, contentInsetBlockStart } from '../constants';
 import { useLayoutId } from '../id-utils';
 import type { CommonSlotProps } from '../types';
 
-import { MainStickyContext } from './main-sticky-context';
-
 const mainElementStyles = cssMap({
 	root: {
 		gridArea: 'main',
 		isolation: 'isolate',
-		'@media (min-width: 64rem)': {
-			isolation: 'auto',
-		},
-	},
-	fixedContentArea: {
 		// This sets the sticky point to be just below top bar + banner. It's needed to ensure the stick
 		// point is exactly where this element is rendered to with no wiggle room. Unfortunately the CSS
 		// spec for sticky doesn't support "stick to where I'm initially rendered" so we need to tell it.
@@ -33,6 +26,7 @@ const mainElementStyles = cssMap({
 		insetBlockStart: contentInsetBlockStart,
 		overflow: 'auto',
 		'@media (min-width: 64rem)': {
+			isolation: 'auto',
 			// Height is set so it takes up all of the available viewport space minus top bar + banner.
 			// This is only set on larger viewports meaning stickiness only occurs on them.
 			// On small viewports it is not sticky.
@@ -53,7 +47,6 @@ const mainElementStyles = cssMap({
  */
 export function Main({
 	children,
-	isFixed: isFixedProp,
 	xcss,
 	skipLinkLabel = 'Main Content',
 	testId,
@@ -68,32 +61,8 @@ export function Main({
 	 * Bounded style overrides.
 	 */
 	xcss?: StrictXCSSProp<'backgroundColor', never>;
-	// We can handle the deprecated usages
-	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
-	/**
-	 * @deprecated
-	 *
-	 * Support for `isFixed={false}` is being removed and `isFixed={true}` will be the only supported behavior.
-	 *
-	 * This change is being rolled out behind the `platform_dst_nav4_disable_is_fixed_prop` feature gate. After rollout this prop will be removed.
-	 *
-	 * Reach out to #help-design-system if you are relying on the `isFixed={false}` behavior.
-	 *
-	 * ---
-	 *
-	 * Whether the layout area should be fixed _on large viewports_.
-	 *
-	 * When fixed, the element will have its own scroll container - it will not use the body scroll.
-	 *
-	 * **Important:** On small viewports, the element will always use body scroll, to make it easier to scroll the page when
-	 * the content is tall.
-	 *
-	 * When not fixed, the element will use the body scroll.
-	 */
-	isFixed?: boolean;
 }) {
 	const id = useLayoutId({ providedId });
-	const isFixed = fg('platform_dst_nav4_disable_is_fixed_prop') ? true : isFixedProp;
 
 	useSkipLink(id, skipLinkLabel);
 
@@ -106,7 +75,6 @@ export function Main({
 				role="main"
 				css={[
 					mainElementStyles.root,
-					isFixed && mainElementStyles.fixedContentArea,
 					/**
 					 * When enabled the Main slot will:
 					 *
@@ -118,7 +86,7 @@ export function Main({
 				]}
 				data-testid={testId}
 			>
-				<MainStickyContext.Provider value={Boolean(isFixed)}>{children}</MainStickyContext.Provider>
+				{children}
 			</div>
 		</Fragment>
 	);

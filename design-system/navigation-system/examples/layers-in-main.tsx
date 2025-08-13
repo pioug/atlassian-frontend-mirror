@@ -56,8 +56,7 @@ import {
 	Search,
 	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Inline, Stack, Text } from '@atlaskit/primitives';
+import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { PopupSelect } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 
@@ -228,7 +227,7 @@ export default function LayersInMain({
 					</SideNavContent>
 					<PanelSplitter label="Resize side nav" testId="side-nav-panel-splitter" />
 				</SideNav>
-				<Main id="main-container" isFixed>
+				<Main id="main-container">
 					<Stack space="space.100" xcss={headingStyles.root}>
 						<Heading size="small">Settings</Heading>
 					</Stack>

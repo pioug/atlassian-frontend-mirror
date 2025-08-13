@@ -262,6 +262,7 @@ const Actions = ({
 							onActionClick(action, args, event, index)
 						}
 						href={action.link || ''}
+						target={action.target}
 						autoFocus={index === 0 && isTriggeredUsingKeyboard}
 						id={`action-button-${action.id}`}
 						aria-labelledby={

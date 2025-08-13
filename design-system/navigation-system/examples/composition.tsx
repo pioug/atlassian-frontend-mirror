@@ -112,20 +112,6 @@ export function UnscrollableVR() {
 		<Composition
 			defaultMenuIsOpen
 			isPanelVisible
-			isSlotsFixed={false}
-			isSlotsScrollable={false}
-			shouldTestScroll={false}
-			isMockProductSearch={false}
-		/>
-	);
-}
-
-export function UnscrollableFixedVR() {
-	return (
-		<Composition
-			defaultMenuIsOpen
-			isPanelVisible
-			isSlotsFixed
 			isSlotsScrollable={false}
 			shouldTestScroll={false}
 			isMockProductSearch={false}
@@ -138,20 +124,6 @@ export function ScrollableVR() {
 		<Composition
 			defaultMenuIsOpen
 			isPanelVisible
-			isSlotsFixed={false}
-			isSlotsScrollable
-			shouldTestScroll={false}
-			isMockProductSearch={false}
-		/>
-	);
-}
-
-export function ScrollableFixedVR() {
-	return (
-		<Composition
-			defaultMenuIsOpen
-			isPanelVisible
-			isSlotsFixed
 			isSlotsScrollable
 			shouldTestScroll={false}
 			isMockProductSearch={false}
@@ -164,21 +136,7 @@ export function ScrollableScrolledVR() {
 		<Composition
 			defaultMenuIsOpen
 			isPanelVisible
-			isSlotsFixed={false}
 			isSlotsScrollable
-			shouldTestScroll
-			isMockProductSearch={false}
-		/>
-	);
-}
-
-export function ScrollableScrolledFixedVR() {
-	return (
-		<Composition
-			defaultMenuIsOpen
-			isSlotsScrollable
-			isSlotsFixed
-			isPanelVisible
 			shouldTestScroll
 			isMockProductSearch={false}
 		/>
@@ -190,20 +148,6 @@ export function UnscrollableNoPanelVR() {
 		<Composition
 			defaultMenuIsOpen
 			isPanelVisible={false}
-			isSlotsFixed={false}
-			isSlotsScrollable={false}
-			shouldTestScroll={false}
-			isMockProductSearch={false}
-		/>
-	);
-}
-
-export function UnscrollableNoPanelFixedVR() {
-	return (
-		<Composition
-			defaultMenuIsOpen
-			isPanelVisible={false}
-			isSlotsFixed
 			isSlotsScrollable={false}
 			shouldTestScroll={false}
 			isMockProductSearch={false}
@@ -216,20 +160,6 @@ export function ScrollableNoPanelVR() {
 		<Composition
 			defaultMenuIsOpen
 			isPanelVisible={false}
-			isSlotsFixed={false}
-			isSlotsScrollable
-			shouldTestScroll={false}
-			isMockProductSearch={false}
-		/>
-	);
-}
-
-export function ScrollableFixedNoPanelVR() {
-	return (
-		<Composition
-			defaultMenuIsOpen
-			isPanelVisible={false}
-			isSlotsFixed
 			isSlotsScrollable
 			shouldTestScroll={false}
 			isMockProductSearch={false}
@@ -250,14 +180,12 @@ export function CompositionVR() {
 }
 
 export default function Composition({
-	isSlotsFixed = false,
 	isSlotsScrollable = true,
 	isPanelVisible = true,
 	defaultMenuIsOpen = false,
 	shouldTestScroll = false,
 	isMockProductSearch = true,
 }: {
-	isSlotsFixed?: boolean;
 	isSlotsScrollable?: boolean;
 	defaultMenuIsOpen?: boolean;
 	isPanelVisible?: boolean;
@@ -277,12 +205,8 @@ export default function Composition({
 			return;
 		}
 
-		if (isSlotsFixed) {
-			document.querySelector('#main-container')?.scrollTo({ top: 10000 });
-		} else {
-			document.documentElement.scrollTo({ top: 100 });
-		}
-	}, [isSlotsFixed, shouldTestScroll]);
+		document.querySelector('#main-container')?.scrollTo({ top: 10000 });
+	}, [shouldTestScroll]);
 
 	return (
 		<WithResponsiveViewport>
@@ -422,7 +346,7 @@ export default function Composition({
 					</SideNavContent>
 					<PanelSplitter label="Resize side nav" testId="side-nav-panel-splitter" />
 				</SideNav>
-				<Main id="main-container" isFixed={isSlotsFixed}>
+				<Main id="main-container">
 					<Stack space="space.100" xcss={headingStyles.root}>
 						<Heading size="small">Settings</Heading>
 					</Stack>
@@ -458,7 +382,7 @@ export default function Composition({
 					</Inline>
 					<div style={{ height: isSlotsScrollable ? '200vh' : undefined }} />
 				</Main>
-				<Aside isFixed={isSlotsFixed} xcss={asideStyles.root}>
+				<Aside xcss={asideStyles.root}>
 					<Stack space="space.400" xcss={asideStyles.content}>
 						<Inline space="space.100">
 							<Button>Following</Button>

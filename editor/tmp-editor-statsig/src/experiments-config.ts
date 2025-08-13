@@ -358,6 +358,14 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-07-14
+	platform_editor_debounce_portal_provider: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_debounce_portal_provider',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-07-08 - Jira work sync description comment summary
 	'jira-work-sync-desc-comment-summary': createBooleanExperiment({
 		productKeys: {

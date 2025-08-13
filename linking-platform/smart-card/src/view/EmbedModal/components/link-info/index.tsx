@@ -16,7 +16,6 @@ import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut'
 import DownloadIconLegacy from '@atlaskit/icon/glyph/download';
 import VidFullScreenOffIcon from '@atlaskit/icon/glyph/vid-full-screen-off';
 import { useModal } from '@atlaskit/modal-dialog';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../../messages';
@@ -24,7 +23,6 @@ import { Icon } from '../../../common/Icon';
 import { MAX_MODAL_SIZE } from '../../constants';
 
 import LinkInfoButton from './link-info-button';
-import LinkInfoButtonOld from './link-info-button/old';
 import { type LinkInfoProps } from './types';
 
 const containerStyles = css({
@@ -92,7 +90,7 @@ const LinkInfo = ({
 
 	const downloadButton = useMemo(() => {
 		if (onDownloadButtonClick) {
-			return fg('platform-smart-card-remove-legacy-button') ? (
+			return (
 				<LinkInfoButton
 					content={<FormattedMessage {...messages.download} />}
 					icon={() => (
@@ -104,20 +102,6 @@ const LinkInfo = ({
 						/>
 					)}
 					label={messages.download}
-					onClick={onDownloadButtonClick}
-					testId={`${testId}-download`}
-				/>
-			) : (
-				<LinkInfoButtonOld
-					content={<FormattedMessage {...messages.download} />}
-					icon={
-						<DownloadIcon
-							label={messages.download.defaultMessage as string}
-							LEGACY_fallbackIcon={DownloadIconLegacy}
-							spacing="spacious"
-							color="currentColor"
-						/>
-					}
 					onClick={onDownloadButtonClick}
 					testId={`${testId}-download`}
 				/>
@@ -134,8 +118,7 @@ const LinkInfo = ({
 			) : (
 				<FormattedMessage {...messages.viewOriginal} />
 			);
-
-			return fg('platform-smart-card-remove-legacy-button') ? (
+			return (
 				<LinkInfoButton
 					content={content}
 					icon={() => (
@@ -146,19 +129,6 @@ const LinkInfo = ({
 						/>
 					)}
 					label={messages.viewOriginal}
-					onClick={onViewButtonClick}
-					testId={`${testId}-url`}
-				/>
-			) : (
-				<LinkInfoButtonOld
-					content={content}
-					icon={
-						<ShortcutIcon
-							label={messages.viewOriginal.defaultMessage as string}
-							spacing="spacious"
-							color="currentColor"
-						/>
-					}
 					onClick={onViewButtonClick}
 					testId={`${testId}-url`}
 				/>
@@ -187,22 +157,13 @@ const LinkInfo = ({
 		return (
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			<span className="smart-link-resize-button">
-				{fg('platform-smart-card-remove-legacy-button') ? (
-					<LinkInfoButton
-						content={<FormattedMessage {...message} />}
-						icon={() => icon}
-						label={message}
-						onClick={onResizeButtonClick}
-						testId={`${testId}-resize`}
-					/>
-				) : (
-					<LinkInfoButtonOld
-						content={<FormattedMessage {...message} />}
-						icon={icon}
-						onClick={onResizeButtonClick}
-						testId={`${testId}-resize`}
-					/>
-				)}
+				<LinkInfoButton
+					content={<FormattedMessage {...message} />}
+					icon={() => icon}
+					label={message}
+					onClick={onResizeButtonClick}
+					testId={`${testId}-resize`}
+				/>
 			</span>
 		);
 	}, [onResizeButtonClick, size, testId]);
@@ -224,35 +185,19 @@ const LinkInfo = ({
 				{downloadButton}
 				{urlButton}
 				{sizeButton}
-
-				{fg('platform-smart-card-remove-legacy-button') ? (
-					<LinkInfoButton
-						content={<FormattedMessage {...messages.preview_close} />}
-						icon={() => (
-							<CrossIcon
-								label={messages.preview_close.defaultMessage as string}
-								color="currentColor"
-								spacing="spacious"
-							/>
-						)}
-						label={messages.preview_close}
-						onClick={onClose as () => void}
-						testId={`${testId}-close`}
-					/>
-				) : (
-					<LinkInfoButtonOld
-						content={<FormattedMessage {...messages.preview_close} />}
-						icon={
-							<CrossIcon
-								label={messages.preview_close.defaultMessage as string}
-								color="currentColor"
-								spacing="spacious"
-							/>
-						}
-						onClick={onClose as () => void}
-						testId={`${testId}-close`}
-					/>
-				)}
+				<LinkInfoButton
+					content={<FormattedMessage {...messages.preview_close} />}
+					icon={() => (
+						<CrossIcon
+							label={messages.preview_close.defaultMessage as string}
+							color="currentColor"
+							spacing="spacious"
+						/>
+					)}
+					label={messages.preview_close}
+					onClick={onClose as () => void}
+					testId={`${testId}-close`}
+				/>
 			</div>
 		</div>
 	);

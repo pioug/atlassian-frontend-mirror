@@ -73,7 +73,7 @@ function getReportedInitiatorTypes(xhrEnabled: boolean) {
 	return ufoConfig.allowedResources;
 }
 
-function evaluateAccessToResourceTimings(url: string, entry: ResourceEntry) {
+function evaluateAccessToResourceTimings(_: string, entry: ResourceEntry) {
 	return !(entry.responseStart === 0 && entry.startTime > entry.responseStart);
 }
 

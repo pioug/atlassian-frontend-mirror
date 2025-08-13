@@ -2,9 +2,7 @@ import React, { useMemo } from 'react';
 
 import { FormattedMessage } from 'react-intl-next';
 
-import ButtonOld from '@atlaskit/button';
 import Button from '@atlaskit/button/new';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { messages } from '../../../../messages';
 import { toMessage } from '../../../../utils/intl-utils';
@@ -49,11 +47,8 @@ const ForbiddenView = ({
 		if (!onEmbedCardClick) {
 			return null;
 		}
-
-		const ButtonComponent = fg('platform-smart-card-remove-legacy-button') ? Button : ButtonOld;
-
 		return (
-			<ButtonComponent
+			<Button
 				testId={`button-${action?.id || 'connect-other-account'}`}
 				appearance="primary"
 				onClick={onEmbedCardClick}
@@ -63,7 +58,7 @@ const ForbiddenView = ({
 					{...toMessage(messages.try_another_account, callToActionMessageKey)}
 					values={values}
 				/>
-			</ButtonComponent>
+			</Button>
 		);
 	}, [accessType, action?.id, action?.promise, callToActionMessageKey, onAuthorize, values]);
 

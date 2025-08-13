@@ -41,63 +41,21 @@ import { VREmbedProfileObject } from '../../../examples/vr-embed-card/vr-embed-p
 const EmbedCardForbiddenDefault = EmbedCardForbiddenView;
 const EmbedCardNotFoundDefault = EmbedCardNotFoundView;
 
-snapshot(EmbedCardErrorView, {
-	featureFlags: {
-		'platform-smart-card-remove-legacy-button': true,
-	},
-});
-snapshot(EmbedCardForbiddenView, {
-	featureFlags: {
-		'platform-smart-card-remove-legacy-button': true,
-	},
-});
-snapshot(EmbedCardForbiddenFixBlurring, {
-	featureFlags: {},
-});
-snapshot(EmbedCardForbiddenDefault, {
-	featureFlags: {
-		'platform-smart-card-remove-legacy-button': true,
-	},
-});
-snapshot(EmbedCardForbiddenObjectRequestAccess, {
-	featureFlags: {
-		'platform-smart-card-remove-legacy-button': true,
-	},
-});
-snapshot(EmbedCardForbiddenSiteDeniedAccess, {
-	featureFlags: {},
-});
-snapshot(EmbedCardForbiddenSiteDirectAccess, {
-	featureFlags: {
-		'platform-smart-card-remove-legacy-button': true,
-	},
-});
-snapshot(EmbedCardForbiddenSiteForbiddenAccess, {
-	featureFlags: {},
-});
-snapshot(EmbedCardForbiddenSitePendingAccess, {
-	featureFlags: {},
-});
-snapshot(EmbedCardForbiddenSiteRequestAccess, {
-	featureFlags: {
-		'platform-smart-card-remove-legacy-button': true,
-	},
-});
-snapshot(EmbedCardNotFoundView, {
-	featureFlags: {},
-});
-snapshot(EmbedCardNotFoundDefault, {
-	featureFlags: {},
-});
-snapshot(EmbedCardNotFoundSiteAccessExists, {
-	featureFlags: {},
-});
-snapshot(EmbedCardResolvedSmall, {
-	featureFlags: {},
-});
-snapshot(EmbedCardResolvedView, {
-	featureFlags: {},
-});
+snapshot(EmbedCardErrorView);
+snapshot(EmbedCardForbiddenView);
+snapshot(EmbedCardForbiddenFixBlurring);
+snapshot(EmbedCardForbiddenDefault);
+snapshot(EmbedCardForbiddenObjectRequestAccess);
+snapshot(EmbedCardForbiddenSiteDeniedAccess);
+snapshot(EmbedCardForbiddenSiteDirectAccess);
+snapshot(EmbedCardForbiddenSiteForbiddenAccess);
+snapshot(EmbedCardForbiddenSitePendingAccess);
+snapshot(EmbedCardForbiddenSiteRequestAccess);
+snapshot(EmbedCardNotFoundView);
+snapshot(EmbedCardNotFoundDefault);
+snapshot(EmbedCardNotFoundSiteAccessExists);
+snapshot(EmbedCardResolvedSmall);
+snapshot(EmbedCardResolvedView);
 snapshot(EmbedCardResolvedView, {
 	featureFlags: {
 		prompt_whiteboard_competitor_link_gate: [true, false],
@@ -108,107 +66,58 @@ snapshot(EmbedCardResolvedViewCompetitorPrompt, {
 		prompt_whiteboard_competitor_link_gate: [true, false],
 	},
 });
-snapshot(EmbedCardResolvedViewNoPreview, {
-	featureFlags: {},
-});
-snapshot(EmbedCardResolvingView, {
-	featureFlags: {},
-});
-snapshot(EmbedCardSelected, {
-	featureFlags: {},
-});
-snapshot(EmbedCardUnauthorisedView, {
-	featureFlags: {
-		'platform-smart-card-remove-legacy-button': true,
-	},
-});
-snapshot(EmbedCardUnauthorisedViewWithProviderImage, {
-	featureFlags: {
-		'platform-smart-card-remove-legacy-button': true,
-	},
-});
-snapshot(EmbedCardUnauthorisedViewWithNoAuth, {
-	featureFlags: {},
-});
+snapshot(EmbedCardResolvedViewNoPreview);
+snapshot(EmbedCardResolvingView);
+snapshot(EmbedCardSelected);
+snapshot(EmbedCardUnauthorisedView);
+snapshot(EmbedCardUnauthorisedViewWithProviderImage);
+snapshot(EmbedCardUnauthorisedViewWithNoAuth);
 
 snapshot(EmbedCardFrameWithHref, {
 	description: 'embed card frame should render as a link when there is an href',
 	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
-	featureFlags: {},
 });
 snapshot(EmbedCardFrameWithNoHref, {
 	description: 'embed card frame should not render as a link when there is no href',
 	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
-	featureFlags: {},
 });
 snapshot(EmbedCardFrameWithPlaceholderAndHref, {
 	description:
 		'embed card frame should not be interactive when isPlaceholder=true and href is defined',
 	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
-	featureFlags: {},
 });
 snapshot(EmbedCardFrameWithPlaceholderAndOnClick, {
 	description:
 		'embed card frame should not be interactive when isPlaceholder=true and onClick is defined',
 	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
-	featureFlags: {},
 });
 snapshot(EmbedCardFrameWithNoPlaceholderWithHref, {
 	description:
 		'embed card frame should be interactive when isPlaceholder=false and href is defined',
 	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
-	featureFlags: {},
 });
 snapshot(EmbedCardFrameWithNoPlaceholderWithOnClick, {
 	description:
 		'embed card frame should be interactive when isPlaceholder=false and onClick is defined',
 	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
-	featureFlags: {},
 });
 
-snapshot(EmbedCardFrameStyleHide, {
-	featureFlags: {
-		'platform-smart-card-remove-legacy-button': true,
-	},
-});
-snapshot(EmbedCardFrameStyleHideAndSelected, {
-	featureFlags: {},
-});
-snapshot(EmbedCardFrameStyleShow, {
-	featureFlags: {},
-});
-snapshot(EmbedCardFrameStyleShowAndSelected, {
-	featureFlags: {},
-});
-snapshot(EmbedCardFrameStyleShowOnHover, {
-	featureFlags: {},
-});
+snapshot(EmbedCardFrameStyleHide);
+snapshot(EmbedCardFrameStyleHideAndSelected);
+snapshot(EmbedCardFrameStyleShow);
+snapshot(EmbedCardFrameStyleShowAndSelected);
+snapshot(EmbedCardFrameStyleShowOnHover);
 snapshot(EmbedCardFrameStyleShowOnHover, {
 	description: 'embed card frame style show on hover when hover',
 	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
-	featureFlags: {},
 });
-snapshot(EmbedCardFrameStyleShowOnHoverAndSelected, {
-	featureFlags: {},
-});
-snapshot(EmbedCardForbiddenViewFrameHide, {
-	featureFlags: {
-		'platform-smart-card-remove-legacy-button': true,
-	},
-});
-snapshot(EmbedCardNotFoundViewFrameHide, {
-	featureFlags: {},
-});
-snapshot(EmbedCardUnauthorisedViewFrameHide, {
-	featureFlags: {
-		'platform-smart-card-remove-legacy-button': true,
-	},
-});
+snapshot(EmbedCardFrameStyleShowOnHoverAndSelected);
+snapshot(EmbedCardForbiddenViewFrameHide);
+snapshot(EmbedCardNotFoundViewFrameHide);
+snapshot(EmbedCardUnauthorisedViewFrameHide);
 snapshot(EmbedCardResolvedViewEntities, {
 	featureFlags: {
 		smart_links_noun_support: true,
 	},
 });
-snapshot(VREmbedProfileObject, {
-	featureFlags: {},
-});
+snapshot(VREmbedProfileObject);

@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::55d331e031db5a6d2ac8a1f634e4c2cf>>
+ * @codegen <<SignedSource::0bbc7c5f9634bdccce39f8a00123dd03>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -15,7 +15,6 @@ import React from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import type { NewCoreIconProps } from '@atlaskit/icon';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Inline } from '@atlaskit/primitives';
 
@@ -35,6 +34,14 @@ import AlignContentTopIcon from '../../../../core/align-content-top';
 import AlignPositionBottomIcon from '../../../../core/align-position-bottom';
 import AlignPositionCenterVerticalIcon from '../../../../core/align-position-center-vertical';
 import AlignPositionTopIcon from '../../../../core/align-position-top';
+import ArrowCurvedDownLeftIcon from '../../../../core/arrow-curved-down-left';
+import ArrowCurvedDownRightIcon from '../../../../core/arrow-curved-down-right';
+import ArrowCurvedLeftDownIcon from '../../../../core/arrow-curved-left-down';
+import ArrowCurvedLeftUpIcon from '../../../../core/arrow-curved-left-up';
+import ArrowCurvedRightDownIcon from '../../../../core/arrow-curved-right-down';
+import ArrowCurvedRightUpIcon from '../../../../core/arrow-curved-right-up';
+import ArrowCurvedUpLeftIcon from '../../../../core/arrow-curved-up-left';
+import ArrowCurvedUpRightIcon from '../../../../core/arrow-curved-up-right';
 import ArrowsDiagonalUpRightDownLeftIcon from '../../../../core/arrows-diagonal-up-right-down-left';
 import AssetsDataManagerIcon from '../../../../core/assets-data-manager';
 import AssetsGraphIcon from '../../../../core/assets-graph';
@@ -108,6 +115,7 @@ import GenerativeDateIcon from '../../../../core/generative-date';
 import GenerativeIndicatorIcon from '../../../../core/generative-indicator';
 import GiftIcon from '../../../../core/gift';
 import GlobeStrikethroughIcon from '../../../../core/globe-strikethrough';
+import GroupIcon from '../../../../core/group';
 import GroupSelectionIcon from '../../../../core/group-selection';
 import GroupUngroupSelectionIcon from '../../../../core/group-ungroup-selection';
 import HandClosedIcon from '../../../../core/hand-closed';
@@ -268,6 +276,7 @@ import WelcomeFeedIcon from '../../../../core/welcome-feed';
 import WorkItemAddIcon from '../../../../core/work-item-add';
 import WorkflowControlsIcon from '../../../../core/workflow-controls';
 import WrenchIcon from '../../../../core/wrench';
+import type { NewCoreIconProps } from '@atlaskit/icon';
 
 const Icons = [
 	AiGenerativeAudioBriefingIcon,
@@ -519,6 +528,15 @@ const Icons = [
 	TerminalIcon,
 	RovoIcon,
 	RssFeedIcon,
+	ArrowCurvedDownLeftIcon,
+	ArrowCurvedDownRightIcon,
+	ArrowCurvedLeftDownIcon,
+	ArrowCurvedLeftUpIcon,
+	ArrowCurvedRightDownIcon,
+	ArrowCurvedRightUpIcon,
+	ArrowCurvedUpLeftIcon,
+	ArrowCurvedUpRightIcon,
+	GroupIcon,
 ];
 
 const groupSize = 50;
@@ -561,6 +579,8 @@ export const MediumIconGroup2 = allMediumExamples[2];
 export const MediumIconGroup3 = allMediumExamples[3];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const MediumIconGroup4 = allMediumExamples[4];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const MediumIconGroup5 = allMediumExamples[5];
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const SmallIconGroup0 = allSmallExamples[0];
@@ -572,3 +592,5 @@ export const SmallIconGroup2 = allSmallExamples[2];
 export const SmallIconGroup3 = allSmallExamples[3];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const SmallIconGroup4 = allSmallExamples[4];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const SmallIconGroup5 = allSmallExamples[5];

@@ -148,7 +148,7 @@ export function CompanyHubMockExample({ defaultPanelWidth = 440 }: { defaultPane
 						</MenuListItem>
 					</TopNavEnd>
 				</TopNav>
-				<Main id="main-container" isFixed>
+				<Main id="main-container">
 					<Stack xcss={contentStyles.root}>
 						<div css={contentStyles.header}>
 							<div css={contentStyles.logo}>

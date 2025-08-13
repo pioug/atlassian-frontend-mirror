@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 9.28.0
+
+### Minor Changes
+
+- [#200948](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/200948)
+  [`8dd9a944113d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8dd9a944113d5) -
+  Introduced throttling for portals
+
 ## 9.27.0
 
 ### Minor Changes

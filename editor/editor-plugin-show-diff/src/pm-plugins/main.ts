@@ -15,6 +15,7 @@ import { type Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/vie
 import { type DiffParams } from '../showDiffPluginType';
 
 import { createInlineChangedDecoration, createDeletedContentDecoration } from './decorations';
+import { getMarkChangeRanges } from './markDecorations';
 
 const calculateDecorations = ({
 	state,
@@ -24,7 +25,7 @@ const calculateDecorations = ({
 	pluginState: Omit<ShowDiffPluginState, 'decorations'>;
 }): DecorationSet => {
 	const { originalDoc, steps } = pluginState;
-	if (!originalDoc) {
+	if (!originalDoc || !pluginState.isDisplayingChanges) {
 		return DecorationSet.empty;
 	}
 
@@ -52,6 +53,10 @@ const calculateDecorations = ({
 			decorations.push(createDeletedContentDecoration({ change, doc: originalDoc, tr }));
 		}
 	});
+	getMarkChangeRanges(steps).forEach((change) => {
+		decorations.push(createInlineChangedDecoration(change));
+	});
+
 	return DecorationSet.empty.add(tr.doc, decorations);
 };
 
@@ -61,6 +66,7 @@ type ShowDiffPluginState = {
 	steps: ProseMirrorStep[];
 	originalDoc: PMNode | undefined;
 	decorations: DecorationSet;
+	isDisplayingChanges: boolean;
 };
 
 type EditorStateConfig = Parameters<typeof EditorState.create>[0];
@@ -71,6 +77,7 @@ export const createPlugin = (config: DiffParams | undefined) => {
 		state: {
 			init(_: EditorStateConfig, state: EditorState) {
 				const schema = state.schema;
+				const isDisplayingChanges = (config?.steps ?? []).length > 0;
 				return {
 					steps: (config?.steps ?? []).map((step) => ProseMirrorStep.fromJSON(schema, step)),
 					originalDoc: config?.originalDoc
@@ -83,8 +90,10 @@ export const createPlugin = (config: DiffParams | undefined) => {
 							originalDoc: config?.originalDoc
 								? processRawValue(state.schema, config.originalDoc)
 								: undefined,
+							isDisplayingChanges,
 						},
 					}),
+					isDisplayingChanges,
 				};
 			},
 			apply: (
@@ -117,7 +126,11 @@ export const createPlugin = (config: DiffParams | undefined) => {
 				// Calculate and store decorations in state
 				const decorations = calculateDecorations({
 					state: newState,
-					pluginState: { steps: newPluginState.steps, originalDoc: newPluginState.originalDoc },
+					pluginState: {
+						steps: newPluginState.steps,
+						originalDoc: newPluginState.originalDoc,
+						isDisplayingChanges: newPluginState.isDisplayingChanges,
+					},
 				});
 				return {
 					...newPluginState,

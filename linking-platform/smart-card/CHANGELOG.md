@@ -1,5 +1,29 @@
 # @atlaskit/smart-card
 
+## 40.10.1
+
+### Patch Changes
+
+- [#200948](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/200948)
+  [`6b26f179dc734`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b26f179dc734) -
+  Clean up FG platform-smart-card-remove-legacy-button
+- Updated dependencies
+
+## 40.10.0
+
+### Minor Changes
+
+- [`bd14b2c6330ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd14b2c6330ba) -
+  [https://product-fabric.atlassian.net/browse/ED-28981](ED-28981) - use `CardSSR` component for
+  smart card SSR
+
+### Patch Changes
+
+- [#194444](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/194444)
+  [`04107fe3817c3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/04107fe3817c3) -
+  Cleans up FG twg-graphyte-smart-card-link-theme-fix
+- Updated dependencies
+
 ## 40.9.0
 
 ### Minor Changes

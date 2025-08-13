@@ -6,10 +6,8 @@
 import { cssMap, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl-next';
 
-import ButtonOld from '@atlaskit/button';
 import Button from '@atlaskit/button/new';
 import ErrorIcon from '@atlaskit/icon/core/migration/status-error--error';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { R300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -49,15 +47,8 @@ export const EmbedCardErroredView = ({
 				<FormattedMessage {...messages.could_not_load_link} />
 			</Inline>
 		</Box>
-
-		{fg('platform-smart-card-remove-legacy-button') ? (
-			<Button testId="err-view-retry" spacing="compact" onClick={onRetry}>
-				<FormattedMessage {...messages.try_again} />
-			</Button>
-		) : (
-			<ButtonOld testId="err-view-retry" appearance="link" spacing="none" onClick={onRetry}>
-				<FormattedMessage {...messages.try_again} />
-			</ButtonOld>
-		)}
+		<Button testId="err-view-retry" spacing="compact" onClick={onRetry}>
+			<FormattedMessage {...messages.try_again} />
+		</Button>
 	</Frame>
 );

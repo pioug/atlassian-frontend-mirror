@@ -2,7 +2,13 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
-import { ReplaceAroundStep, ReplaceStep, type Step } from '@atlaskit/editor-prosemirror/transform';
+import {
+	ReplaceAroundStep,
+	ReplaceStep,
+	AddMarkStep,
+	RemoveMarkStep,
+	type Step,
+} from '@atlaskit/editor-prosemirror/transform';
 
 import type { TrackChangesPlugin } from '../trackChangesPluginType';
 
@@ -67,7 +73,11 @@ export const createTrackChangesPlugin = (
 				const isDocChanged =
 					tr.docChanged &&
 					tr.steps.some(
-						(step: Step) => step instanceof ReplaceStep || step instanceof ReplaceAroundStep,
+						(step: Step) =>
+							step instanceof ReplaceStep ||
+							step instanceof ReplaceAroundStep ||
+							step instanceof AddMarkStep ||
+							step instanceof RemoveMarkStep,
 					);
 
 				if (!isDocChanged || tr.getMeta('isRemote')) {

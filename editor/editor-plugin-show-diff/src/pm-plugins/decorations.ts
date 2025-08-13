@@ -21,7 +21,7 @@ const style = convertToInlineCss({
  * @param change Changeset "change" containing information about the change content + range
  * @returns Prosemirror inline decoration
  */
-export const createInlineChangedDecoration = (change: Change) =>
+export const createInlineChangedDecoration = (change: { fromB: number; toB: number }) =>
 	Decoration.inline(
 		change.fromB,
 		change.toB,

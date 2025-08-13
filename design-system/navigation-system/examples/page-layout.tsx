@@ -275,63 +275,6 @@ export const AllSlotsScrollable = () => {
 	);
 };
 
-export const AllSlotsScrollableFixed = () => {
-	const [bannerShown, toggleBanner] = useReducer((state) => !state, true);
-	const [panelShown, togglePanel] = useReducer((state) => !state, false);
-
-	return (
-		<Root>
-			{bannerShown && (
-				<Banner xcss={styles.banner}>
-					<AKBanner appearance="announcement">Great news! A new layout system.</AKBanner>
-				</Banner>
-			)}
-			<TopNav xcss={styles.topBar}>
-				<TopNavStart>
-					<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
-					<span css={styles.noShrink}>top nav</span>
-				</TopNavStart>
-				<TopNavEnd>
-					<Help isSelected={panelShown} onClick={togglePanel} label="Help" />
-					<BannerToggleAction
-						onClick={toggleBanner}
-						isSelected={bannerShown}
-						label="Toggle banner"
-					/>
-				</TopNavEnd>
-			</TopNav>
-			<SideNav>
-				<SideNavContent>
-					<ScrollableContent>
-						<div css={styles.sticky}>sticky in sticky</div>
-						<BoardMenuItem />
-						<BoardMenuItem />
-						<BoardMenuItem />
-						<BoardMenuItem />
-					</ScrollableContent>
-				</SideNavContent>
-				<PanelSplitter label="Resize side nav" />
-			</SideNav>
-			<Main xcss={styles.main} isFixed>
-				<ScrollableContent>main content</ScrollableContent>
-			</Main>
-			<Aside isFixed xcss={styles.aside}>
-				<ScrollableContent>
-					aside
-					<div css={styles.sticky}>sticky in sticky</div>
-				</ScrollableContent>
-				<PanelSplitter label="Resize aside" />
-			</Aside>
-			{panelShown && (
-				<Panel xcss={styles.panel}>
-					<ScrollableContent>panel</ScrollableContent>
-					<PanelSplitter label="Resize panel" />
-				</Panel>
-			)}
-		</Root>
-	);
-};
-
 export const AllSlotsRTL = () => {
 	const [panelShown, togglePanel] = useReducer((state) => !state, false);
 
@@ -399,28 +342,6 @@ export const TopBarSideNavMainAsideScrollable = () => (
 	</Root>
 );
 
-export const TopBarSideNavMainAsideScrollableFixed = () => (
-	<Root>
-		<TopNav xcss={styles.topBar}>
-			<TopNavStart>
-				<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
-				<span css={styles.noShrink}>top nav</span>
-			</TopNavStart>
-		</TopNav>
-		<SideNav>
-			<SideNavContent>
-				<ScrollableContent>side nav</ScrollableContent>
-			</SideNavContent>
-		</SideNav>
-		<Main xcss={styles.main} isFixed>
-			<ScrollableContent>main content</ScrollableContent>
-		</Main>
-		<Aside xcss={styles.aside} isFixed>
-			<ScrollableContent>aside</ScrollableContent>
-		</Aside>
-	</Root>
-);
-
 export const TopBarSideNavMain = () => (
 	<Root>
 		<TopNav xcss={styles.topBar}>
@@ -455,25 +376,6 @@ export const TopBarSideNavMainScrollable = () => (
 	</Root>
 );
 
-export const TopBarSideNavMainScrollableFixed = () => (
-	<Root>
-		<TopNav xcss={styles.topBar}>
-			<TopNavStart>
-				<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
-				<span css={styles.noShrink}>top nav</span>
-			</TopNavStart>
-		</TopNav>
-		<SideNav>
-			<SideNavContent>
-				<ScrollableContent>side nav</ScrollableContent>
-			</SideNavContent>
-		</SideNav>
-		<Main xcss={styles.main} isFixed>
-			<ScrollableContent>main content</ScrollableContent>
-		</Main>
-	</Root>
-);
-
 export const SideNavMainAside = () => (
 	<Root>
 		<SideNav>
@@ -500,22 +402,6 @@ export const SideNavMainAsideScrollable = () => (
 	</Root>
 );
 
-export const SideNavMainAsideScrollableFixed = () => (
-	<Root>
-		<SideNav>
-			<SideNavContent>
-				<ScrollableContent>side nav</ScrollableContent>
-			</SideNavContent>
-		</SideNav>
-		<Main xcss={styles.main} isFixed>
-			<ScrollableContent>main content</ScrollableContent>
-		</Main>
-		<Aside isFixed xcss={styles.aside}>
-			<ScrollableContent>aside</ScrollableContent>
-		</Aside>
-	</Root>
-);
-
 export const MainAside = () => (
 	<Root>
 		<Main xcss={styles.main}>main content</Main>
@@ -529,17 +415,6 @@ export const MainAsideScrollable = () => (
 			<ScrollableContent>main content</ScrollableContent>
 		</Main>
 		<Aside xcss={styles.aside}>
-			<ScrollableContent>aside</ScrollableContent>
-		</Aside>
-	</Root>
-);
-
-export const MainAsideScrollableFixed = () => (
-	<Root>
-		<Main xcss={styles.main} isFixed>
-			<ScrollableContent>main content</ScrollableContent>
-		</Main>
-		<Aside isFixed xcss={styles.aside}>
 			<ScrollableContent>aside</ScrollableContent>
 		</Aside>
 	</Root>
@@ -845,10 +720,10 @@ export const ResizableWithIframeContent = () => {
 					<Box xcss={iframeStyles.root} as="iframe" title="iframe" src={iframeSrc} />
 					<PanelSplitter label="Resize side nav" />
 				</SideNav>
-				<Main xcss={styles.main} isFixed>
+				<Main xcss={styles.main}>
 					<Box xcss={iframeStyles.root} as="iframe" title="iframe" src={iframeSrc} />
 				</Main>
-				<Aside xcss={styles.aside} isFixed>
+				<Aside xcss={styles.aside}>
 					<Box xcss={iframeStyles.root} as="iframe" title="iframe" src={iframeSrc} />
 					<PanelSplitter label="Resize aside" />
 				</Aside>

@@ -174,15 +174,13 @@ export function init(
 
 	initialized = true;
 
-	if (fg('platform_ufo_enable_events_observer') || fg('platform_ufo_enable_interactivity_jsm')) {
-		if (typeof PerformanceObserver !== 'undefined') {
-			const observer = getPerformanceObserver();
-			observer.observe({
-				type: 'event',
-				buffered: true,
-				durationThreshold: 16,
-			} as PerformanceObserverInit);
-		}
+	if (typeof PerformanceObserver !== 'undefined') {
+		const observer = getPerformanceObserver();
+		observer.observe({
+			type: 'event',
+			buffered: true,
+			durationThreshold: 16,
+		} as PerformanceObserverInit);
 	}
 
 	Promise.all([

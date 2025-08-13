@@ -29,7 +29,6 @@ snapshot(FlexUiBaseTextView, {
 snapshot(FlexUiTitleElementView, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'twg-graphyte-smart-card-link-theme-fix': [true, false],
 	},
 });
 

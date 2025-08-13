@@ -8,7 +8,6 @@ import React, { useMemo } from 'react';
 
 import { css, cssMap, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -146,47 +145,6 @@ const anchorLinkLineHeight2Map = cssMap({
 	},
 });
 
-/**
- * Remove on FG clean up of twg-graphyte-smart-card-link-theme-fix
- */
-const themeStyleMapOld = cssMap({
-	grey: {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-		'a&': {
-			color: token('color.text.subtlest', '#626F86'),
-			'&:active, &:visited, &:focus, &:hover': {
-				color: token('color.text.subtlest', '#626F86'),
-				textDecoration: 'underline',
-			},
-			font: token('font.body.UNSAFE_small'),
-		},
-	},
-	black: {
-		color: token('color.text.subtle', '#44546F'),
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-		'&:active': {
-			color: token('color.text', '#172B4D'),
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-		'&:hover': {
-			color: token('color.text.subtle', '#44546F'),
-			textDecoration: 'underline',
-		},
-	},
-	link: {
-		color: token('color.link', '#0C66E4'),
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-		'&:active': {
-			color: token('color.link.pressed', '#0055CC'),
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-		'&:hover': {
-			color: token('color.link', '#0C66E4'),
-			textDecoration: 'underline',
-		},
-	},
-});
-
 const themeStyleMap = cssMap({
 	grey: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
@@ -293,9 +251,7 @@ const BaseLinkElement = ({
 				workBreakStyleMap[hasSpace ? 'true' : 'false'],
 				getMaxLines(maxLines) === 1 && anchorLinkLineHeight1Map[size],
 				getMaxLines(maxLines) === 2 && anchorLinkLineHeight2Map[size],
-				fg('twg-graphyte-smart-card-link-theme-fix')
-					? themeStyleMap[theme]
-					: themeStyleMapOld[theme],
+				themeStyleMap[theme],
 			]}
 			data-smart-element={name}
 			data-smart-element-link

@@ -97,8 +97,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for creating and adding an object.',
 		team: 'Design System Team',
-		replacement: { name: 'focus-area', type: 'core', location: '@atlaskit/icon' },
-		status: 'deprecated',
+		status: 'published',
 	},
 	'ai-agent': {
 		keywords: ['ai-agent', 'aiagent', 'icon', 'Rovo', 'AI', 'chat agent', 'ai'],

@@ -56,7 +56,7 @@ export function buildSegmentTree(labelStacks: LabelStack[]): SegmentTree {
 				if (!currentNode.c[key]) {
 					currentNode.c[key] = {
 						n: name,
-						...(type && fg('platform_ufo_add_type_for_3p_segments') ? { t: type } : {}),
+						...(type ? { t: type } : {}),
 					};
 				}
 				currentNode = currentNode.c[key];
@@ -76,7 +76,7 @@ export function buildSegmentTree(labelStacks: LabelStack[]): SegmentTree {
 				if (!currentNode.c[key]) {
 					currentNode.c[key] = {
 						n: name,
-						...(type && fg('platform_ufo_add_type_for_3p_segments') ? { t: type } : {}),
+						...(type ? { t: type } : {}),
 					};
 				}
 				currentNode = currentNode.c[key];
@@ -126,9 +126,7 @@ export function optimizeLabelStack(
 		: labelStack.map((ls) => ({
 				n: ls.name,
 				...((ls as SegmentLabel).segmentId ? { s: (ls as SegmentLabel).segmentId } : {}),
-				...((ls as SegmentLabel).type && fg('platform_ufo_add_type_for_3p_segments')
-					? { t: (ls as SegmentLabel).type }
-					: {}),
+				...((ls as SegmentLabel).type ? { t: (ls as SegmentLabel).type } : {}),
 			}));
 }
 
@@ -157,9 +155,7 @@ export function getOldSegmentsLabelStack(
 				segmentsInfo.push({
 					n: ls.name,
 					...((ls as SegmentLabel).segmentId ? { s: (ls as SegmentLabel).segmentId } : {}),
-					...((ls as SegmentLabel).type && fg('platform_ufo_add_type_for_3p_segments')
-						? { t: (ls as SegmentLabel).type }
-						: {}),
+					...((ls as SegmentLabel).type ? { t: (ls as SegmentLabel).type } : {}),
 				});
 			}
 			return { ...others, labelStack: segmentsInfo };

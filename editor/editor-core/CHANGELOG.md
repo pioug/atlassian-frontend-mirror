@@ -1,5 +1,18 @@
 # @atlaskit/editor-core
 
+## 209.8.2
+
+### Patch Changes
+
+- [#199851](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/199851)
+  [`a37fa5c2adf4a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a37fa5c2adf4a) -
+  [ux] EDITOR-346 Clean up nested tables feature gate
+  `platform_editor_nested_tables_number_column_fixes`
+- [#201076](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/201076)
+  [`f77782099391b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f77782099391b) -
+  Add css overrides for comment toolbar to remove left padding overrides
+- Updated dependencies
+
 ## 209.8.1
 
 ### Patch Changes

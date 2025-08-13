@@ -2,29 +2,38 @@
 
 ## 🧠 Overview
 
-This plugin ensures that all non-ignored nodes in the document have unique `localId` attributes. It performs a **one-time scan** of the document when the editor is initialized to add missing local IDs to existing nodes.
+This plugin ensures that all non-ignored nodes in the document have unique `localId` attributes. It combines **two approaches** for optimal performance:
 
-The plugin is designed to run only once per editor instance to avoid performance issues and prevent duplicate ID generation. It's optimized by using idle time scheduling and avoiding unnecessary transactions.
+1. **One-time initialization scan** - Adds missing local IDs to existing nodes when the editor starts
+2. **Incremental transaction processing** - Adds local IDs to new nodes as they're created
 
 ---
 
 ## ⚙️ How It Works
 
-### Core Mechanism
+### Initialization Phase
 - **Trigger**: Uses the editor view's initialization lifecycle to schedule the scan
 - **Execution**: Performs a single document traversal during browser idle time
 - **Scheduling**: Uses `requestIdleCallback` with `requestAnimationFrame` fallback for Safari
+- **Purpose**: Ensures all existing nodes have local IDs
+
+### Transaction Processing Phase
+- **Trigger**: Activates on every document-changing transaction
+- **Execution**: Processes only the new/changed nodes from transaction steps
+- **Performance**: Only scans changed ranges, not the entire document
+- **Purpose**: Adds local IDs to newly created nodes
 
 ### Node Processing
-For each node in the document:
-- **Ignored nodes**: Always skipped (no local IDs needed)
+For each node (both during initialization and transaction processing):
+- **Ignored nodes**: Always skipped (text, hardBreak)
 - **Nodes with existing localId**: Left unchanged
 - **Nodes without localId**: New UUID generated and assigned
 
 ### Transaction Handling
-- All node updates are batched into a single transaction (only when needed)
-- Transaction is marked with `addToHistory: false` to prevent undo/redo issues
-- No transactions are dispatched if no local IDs need to be added
+- **Incremental updates**: Only processes nodes that actually changed
+- **Efficient scanning**: Uses `step.getMap()` to identify changed ranges
+- **Position accuracy**: Gets precise document positions for all changed nodes
+- **Batch processing**: All updates applied in a single transaction
 
 ---
 
@@ -32,8 +41,12 @@ For each node in the document:
 
 | Case | Action Taken | Transaction Impact |
 |------|-------------|-------------------|
-| Node has no `localId` and is not ignored | `localId` is added | Single transaction with all changes |
+| Existing node without `localId` (initialization) | `localId` is added | Single transaction with all changes |
+| New node added without `localId` (transaction) | `localId` is added | Single transaction with all changes |
 | Node already has a `localId` | Left unchanged | No transaction |
-| Plugin has already run | No action taken | No transaction |
-| Document has no applicable nodes | No action taken | No transaction |
+| Only selection changes | No action taken | No transaction |
+| Cut operations | Skipped to avoid conflicts | No transaction |
+| Document unchanged | Early exit | No transaction |
+
+---
 

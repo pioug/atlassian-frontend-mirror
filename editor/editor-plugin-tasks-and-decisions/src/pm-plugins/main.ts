@@ -9,7 +9,7 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { createSelectionClickHandler, GapCursorSelection } from '@atlaskit/editor-common/selection';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { getStepRange } from '@atlaskit/editor-common/utils';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode, Slice } from '@atlaskit/editor-prosemirror/model';
 import type {
 	EditorState,
 	ReadonlyTransaction,
@@ -35,6 +35,7 @@ import {
 import { stateKey } from './plugin-key';
 import { taskItemOnChange } from './taskItemOnChange';
 import { ACTIONS, type TaskDecisionPluginAction, type TaskDecisionPluginCommand } from './types';
+import { tempTransformSliceToRemoveBlockTaskItem } from './utils/paste';
 
 type ChangedFn = (
 	node: PMNode,
@@ -221,6 +222,13 @@ export function createPlugin(
 					}
 				}
 			},
+			transformPasted: (slice: Slice, view: EditorView) => {
+				if (expValEquals('platform_editor_blocktaskitem_node', 'isEnabled', true)) {
+					slice = tempTransformSliceToRemoveBlockTaskItem(slice, view);
+				}
+
+				return slice;
+			},
 		},
 		state: {
 			init() {
@@ -313,7 +321,7 @@ export function createPlugin(
 		/*
 		 * After each transaction, we search through the document for any decisionList/Item & taskList/Item nodes
 		 * that do not have the localId attribute set and generate a random UUID to use. This is to replace a previous
-		 * Prosemirror capabibility where node attributes could be generated dynamically.
+		 * Prosemirror capability where node attributes could be generated dynamically.
 		 * See https://discuss.prosemirror.net/t/release-0-23-0-possibly-to-be-1-0-0/959/17 for a discussion of this approach.
 		 *
 		 * Note: we currently do not handle the edge case where two nodes may have the same localId
@@ -328,13 +336,15 @@ export function createPlugin(
 
 				// Adds a unique id to a node
 				nodesBetweenChanged(transaction, (node, pos) => {
-					const { decisionList, decisionItem, taskList, taskItem } = newState.schema.nodes;
+					const { decisionList, decisionItem, taskList, taskItem, blockTaskItem } =
+						newState.schema.nodes;
 					if (
 						!!node.type &&
 						(node.type === decisionList ||
 							node.type === decisionItem ||
 							node.type === taskList ||
-							node.type === taskItem)
+							node.type === taskItem ||
+							(blockTaskItem && node.type === blockTaskItem))
 					) {
 						const { localId, ...rest } = node.attrs;
 						if (localId === undefined || localId === null || localId === '') {

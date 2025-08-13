@@ -107,6 +107,8 @@ export default function ProfilecardTriggerNext({
 	ariaHideProfileTrigger = false,
 	isVisible: propsIsVisible,
 	ssrPlaceholderId,
+	showDelay: customShowDelay,
+	hideDelay: customHideDelay,
 }: ProfileCardTriggerProps) {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { formatMessage } = useIntl();
@@ -116,11 +118,11 @@ export default function ProfilecardTriggerNext({
 	const showDelay =
 		trigger === 'click' || (propsIsVisible && fg('fix_profilecard_trigger_isvisible'))
 			? 0
-			: DELAY_MS_SHOW;
+			: customShowDelay ?? DELAY_MS_SHOW;
 	const hideDelay =
 		trigger === 'click' || (propsIsVisible && fg('fix_profilecard_trigger_isvisible'))
 			? 0
-			: DELAY_MS_HIDE;
+			: customHideDelay ?? DELAY_MS_HIDE;
 
 	const showTimer = useRef<number>(0);
 	const hideTimer = useRef<number>(0);

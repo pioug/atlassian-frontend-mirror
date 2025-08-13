@@ -23,29 +23,15 @@ describe('main sticky header', () => {
 		expect(element).toHaveCompiledCss('position', 'sticky');
 	});
 
-	it('should stick to the top of the container when main is fixed', () => {
+	it('should stick to the top of the container', () => {
 		render(
-			<Main isFixed>
+			<Main>
 				<MainStickyHeader>sticky content</MainStickyHeader>
 			</Main>,
 		);
 		const element = screen.getByText('sticky content');
 
 		expect(element).toHaveCompiledCss('insetBlockStart', '0');
-	});
-
-	it('should stick below the header and banner when main is not fixed', () => {
-		render(
-			<Main isFixed={false}>
-				<MainStickyHeader>sticky content</MainStickyHeader>
-			</Main>,
-		);
-		const element = screen.getByText('sticky content');
-
-		expect(element).toHaveCompiledCss(
-			'insetBlockStart',
-			'calc(var(--n_bnrM, 0px) + var(--n_tNvM, 0px))',
-		);
 	});
 
 	it('should expose xcss prop', () => {

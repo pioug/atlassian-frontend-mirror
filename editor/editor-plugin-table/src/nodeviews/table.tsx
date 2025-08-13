@@ -105,6 +105,10 @@ export default class TableView extends ReactNodeView<Props> {
 			props.portalProviderAPI,
 			props.eventDispatcher,
 			props,
+			undefined,
+			undefined,
+			// @portal-render-immediately
+			true,
 		);
 		this.getPos = props.getPos;
 		this.eventDispatcher = props.eventDispatcher;

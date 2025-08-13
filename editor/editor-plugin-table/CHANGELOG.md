@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-table
 
+## 12.1.15
+
+### Patch Changes
+
+- [#199851](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/199851)
+  [`a37fa5c2adf4a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a37fa5c2adf4a) -
+  [ux] EDITOR-346 Clean up nested tables feature gate
+  `platform_editor_nested_tables_number_column_fixes`
+- [#200948](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/200948)
+  [`8dd9a944113d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8dd9a944113d5) -
+  Opt out of throttling rendering
+- Updated dependencies
+
 ## 12.1.14
 
 ### Patch Changes

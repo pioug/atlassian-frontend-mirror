@@ -99,7 +99,7 @@ export const AdvancedLayoutExample = () => (
 				<AppLogo href="" icon={HomeIcon} name="Home" label="Home page" />
 			</TopNavStart>
 		</TopNav>
-		<Main isFixed>
+		<Main>
 			<div css={advancedLayoutStyles.root}>
 				<div css={advancedLayoutStyles.header}>
 					<PageHeader

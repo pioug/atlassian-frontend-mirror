@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-card
 
+## 7.4.0
+
+### Minor Changes
+
+- [`bd14b2c6330ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd14b2c6330ba) -
+  [https://product-fabric.atlassian.net/browse/ED-28981](ED-28981) - use `CardSSR` component for
+  smart card SSR
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.3.1
 
 ### Patch Changes

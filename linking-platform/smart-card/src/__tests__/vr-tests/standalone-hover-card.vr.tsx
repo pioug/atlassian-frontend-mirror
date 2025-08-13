@@ -67,9 +67,6 @@ snapshot(HoverCardForbiddenJira, {
 		},
 	],
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'platform-smart-card-remove-legacy-button': true,
-	},
 });
 
 snapshot(HoverCardForbiddenJira, {
@@ -81,9 +78,6 @@ snapshot(HoverCardForbiddenJira, {
 		},
 	],
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'platform-smart-card-remove-legacy-button': true,
-	},
 });
 
 snapshot(HoverCardForbiddenJira, {
@@ -133,9 +127,6 @@ snapshot(HoverCardForbiddenJira, {
 		},
 	],
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'platform-smart-card-remove-legacy-button': true,
-	},
 });
 
 snapshot(HoverCardForbiddenJira, {

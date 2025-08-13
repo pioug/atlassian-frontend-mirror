@@ -273,7 +273,7 @@ export function ResizableSlots() {
 				</Stack>
 			</Main>
 
-			<Aside xcss={asideStyles.root} defaultWidth={400} isFixed id="aside">
+			<Aside xcss={asideStyles.root} defaultWidth={400} id="aside">
 				<Stack space="space.400" xcss={asideStyles.content}>
 					<Heading size="small">Aside</Heading>
 					<Inline space="space.100">

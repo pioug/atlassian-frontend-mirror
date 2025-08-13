@@ -3,9 +3,7 @@ import React from 'react';
 import { defineMessages, FormattedMessage } from 'react-intl-next';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
-import ButtonOld from '@atlaskit/button';
 import Button, { LinkButton } from '@atlaskit/button/new';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ManualRule } from '../../../manual-triggers-container/common/types';
 import { useAutomationMenu } from '../../menu-context';
@@ -71,10 +69,8 @@ export const AutomationModalFooter = ({ selectedRule, onClose }: AutomationModal
 		event.fire();
 	};
 
-	const ButtonComponent = fg('platform-smart-card-remove-legacy-button') ? Button : ButtonOld;
-
 	const okButton = (
-		<ButtonComponent
+		<Button
 			key="automation-modal-footer-ok"
 			appearance="primary"
 			onClick={() => {
@@ -83,11 +79,11 @@ export const AutomationModalFooter = ({ selectedRule, onClose }: AutomationModal
 			}}
 		>
 			<FormattedMessage {...i18n.modalFooterOkButton} />
-		</ButtonComponent>
+		</Button>
 	);
 
 	const cancelButton = (
-		<ButtonComponent
+		<Button
 			key="automation-modal-footer-cancel"
 			appearance="subtle"
 			onClick={() => {
@@ -96,10 +92,10 @@ export const AutomationModalFooter = ({ selectedRule, onClose }: AutomationModal
 			}}
 		>
 			<FormattedMessage {...i18n.modalFooterCancelButton} />
-		</ButtonComponent>
+		</Button>
 	);
 
-	const createAutomationButton = fg('platform-smart-card-remove-legacy-button') ? (
+	const createAutomationButton = (
 		<LinkButton
 			key="automation-modal-footer-create-automation"
 			appearance="primary"
@@ -111,22 +107,10 @@ export const AutomationModalFooter = ({ selectedRule, onClose }: AutomationModal
 		>
 			<FormattedMessage {...i18n.modalFooterCreateAutomationButton} />
 		</LinkButton>
-	) : (
-		<ButtonOld
-			key="automation-modal-footer-create-automation"
-			appearance="primary"
-			href={`${baseAutomationUrl}#rule/new`}
-			onClick={() => {
-				sendFooterAnalyticsEvent('createAutomation');
-			}}
-			target="_blank"
-		>
-			<FormattedMessage {...i18n.modalFooterCreateAutomationButton} />
-		</ButtonOld>
 	);
 
 	const automateButton = (
-		<ButtonComponent
+		<Button
 			key="automation-modal-footer-automate"
 			appearance="primary"
 			onClick={() => {
@@ -138,7 +122,7 @@ export const AutomationModalFooter = ({ selectedRule, onClose }: AutomationModal
 			isDisabled={!selectedRule || !!invokingRuleId}
 		>
 			<FormattedMessage {...i18n.modalFooterAutomateButton} />
-		</ButtonComponent>
+		</Button>
 	);
 
 	const modalButtons: JSX.Element[] = [];

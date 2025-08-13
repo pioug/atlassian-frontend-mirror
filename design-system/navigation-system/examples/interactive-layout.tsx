@@ -45,8 +45,7 @@ import {
 	Search,
 	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Inline, Stack, Text } from '@atlaskit/primitives';
+import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { WithResponsiveViewport } from './utils/example-utils';
@@ -189,7 +188,7 @@ export function InteractiveLayoutExample() {
 					/>
 				</SideNav>
 
-				<Main id="main-container" isFixed>
+				<Main id="main-container">
 					<Stack space="space.100" xcss={headingStyles.root}>
 						<Heading size="large">Interactive layout example</Heading>
 						<Text>Resize your browser to see how it responds to different screen sizes.</Text>
@@ -229,7 +228,7 @@ export function InteractiveLayoutExample() {
 				</Main>
 
 				{isAsideVisible && (
-					<Aside xcss={asideStyles.root} defaultWidth={persistedAsideWidth} isFixed>
+					<Aside xcss={asideStyles.root} defaultWidth={persistedAsideWidth}>
 						<Stack space="space.100" xcss={asideStyles.content}>
 							<Heading size="medium">Aside layout area</Heading>
 							<Text>This element is rendered in the aside layout area.</Text>

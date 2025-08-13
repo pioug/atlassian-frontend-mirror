@@ -40,6 +40,7 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
 import { EmbedResizeMessageListener, Card as SmartCard } from '@atlaskit/smart-card';
+import { CardSSR } from '@atlaskit/smart-card/ssr';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { cardPlugin } from '../index';
@@ -411,6 +412,7 @@ export class EmbedCardComponent extends React.PureComponent<
 			actionOptions,
 			onClick,
 			CompetitorPrompt,
+			isPageSSRed,
 		} = this.props;
 
 		const { url, width: pctWidth, layout, originalHeight, originalWidth } = node.attrs;
@@ -433,23 +435,40 @@ export class EmbedCardComponent extends React.PureComponent<
 			fullWidthMode,
 		};
 
-		const smartCard = (
-			<SmartCard
-				key={url}
-				url={url}
-				appearance="embed"
-				onClick={onClick}
-				onResolve={this.onResolve}
-				onError={this.onError}
-				frameStyle="show"
-				inheritDimensions={true}
-				platform={'web'}
-				container={this.scrollContainer}
-				embedIframeRef={this.embedIframeRef}
-				actionOptions={actionOptions}
-				CompetitorPrompt={CompetitorPrompt}
-			/>
-		);
+		const smartCard =
+			isPageSSRed && expValEquals('platform_editor_smart_card_otp', 'isEnabled', true) ? (
+				<CardSSR
+					key={url}
+					url={url}
+					appearance="embed"
+					onClick={onClick}
+					onResolve={this.onResolve}
+					onError={this.onError}
+					frameStyle="show"
+					inheritDimensions={true}
+					platform={'web'}
+					container={this.scrollContainer}
+					embedIframeRef={this.embedIframeRef}
+					actionOptions={actionOptions}
+					CompetitorPrompt={CompetitorPrompt}
+				/>
+			) : (
+				<SmartCard
+					key={url}
+					url={url}
+					appearance="embed"
+					onClick={onClick}
+					onResolve={this.onResolve}
+					onError={this.onError}
+					frameStyle="show"
+					inheritDimensions={true}
+					platform={'web'}
+					container={this.scrollContainer}
+					embedIframeRef={this.embedIframeRef}
+					actionOptions={actionOptions}
+					CompetitorPrompt={CompetitorPrompt}
+				/>
+			);
 
 		return (
 			<EmbedResizeMessageListener
@@ -500,6 +519,7 @@ export const EmbedOrBlockCardComponent = (props: ComponentProps<typeof EmbedCard
 			hasPreview={props.hasPreview}
 			liveHeight={props.liveHeight}
 			initialAspectRatio={props.initialAspectRatio}
+			isPageSSRed={props.isPageSSRed}
 		/>
 	) : (
 		<EmbedCardComponent
@@ -520,6 +540,7 @@ export const EmbedOrBlockCardComponent = (props: ComponentProps<typeof EmbedCard
 			hasPreview={props.hasPreview}
 			liveHeight={props.liveHeight}
 			initialAspectRatio={props.initialAspectRatio}
+			isPageSSRed={props.isPageSSRed}
 		/>
 	);
 };
@@ -589,6 +610,7 @@ export class EmbedCard extends ReactNodeView<EmbedCardNodeViewProps> {
 			pluginInjectionApi,
 			onClickCallback,
 			CompetitorPrompt,
+			isPageSSRed,
 		} = this.reactComponentProps;
 
 		return (
@@ -604,6 +626,7 @@ export class EmbedCard extends ReactNodeView<EmbedCardNodeViewProps> {
 				onClickCallback={onClickCallback}
 				id={this.id}
 				CompetitorPrompt={CompetitorPrompt}
+				isPageSSRed={isPageSSRed}
 			/>
 		);
 	}
@@ -634,6 +657,7 @@ export const embedCardNodeView =
 		actionOptions,
 		onClickCallback,
 		CompetitorPrompt,
+		isPageSSRed,
 	}: EmbedCardNodeViewProperties) =>
 	(node: PMNode, view: EditorView, getPos: () => number | undefined) => {
 		const { portalProviderAPI, eventDispatcher, dispatchAnalyticsEvent } = pmPluginFactoryParams;
@@ -646,6 +670,7 @@ export const embedCardNodeView =
 			actionOptions,
 			onClickCallback: onClickCallback,
 			CompetitorPrompt,
+			isPageSSRed,
 		};
 
 		return new EmbedCard(

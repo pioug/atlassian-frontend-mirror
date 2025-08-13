@@ -1,5 +1,13 @@
 # @atlaskit/editor-toolbar
 
+## 0.2.3
+
+### Patch Changes
+
+- [#201259](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/201259)
+  [`1de5dd69e269d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1de5dd69e269d) -
+  [ux] [EDITOR-1064] Added ai commands on the new selection toolbar platform
+
 ## 0.2.2
 
 ### Patch Changes

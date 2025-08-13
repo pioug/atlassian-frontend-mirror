@@ -2,9 +2,7 @@ import React, { useCallback, useMemo } from 'react';
 
 import { FormattedMessage } from 'react-intl-next';
 
-import ButtonOld from '@atlaskit/button';
 import Button from '@atlaskit/button/new';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useAnalyticsEvents } from '../../../../common/analytics/generated/use-analytics-events';
 import { messages } from '../../../../messages';
@@ -32,8 +30,6 @@ const UnauthorizedView = ({
 	}, [onAuthorize, fireEvent]);
 
 	const content = useMemo(() => {
-		const ButtonComponent = fg('platform-smart-card-remove-legacy-button') ? Button : ButtonOld;
-
 		if (onAuthorize) {
 			// Our title and button messages always expect the product name to be present
 			// while the description support when product name is not present.
@@ -52,13 +48,9 @@ const UnauthorizedView = ({
 						/>
 					),
 					button: (
-						<ButtonComponent
-							testId="connect-account"
-							appearance="primary"
-							onClick={handleOnAuthorizeClick}
-						>
+						<Button testId="connect-account" appearance="primary" onClick={handleOnAuthorizeClick}>
 							<FormattedMessage {...messages.connect_unauthorised_account_action} values={values} />
-						</ButtonComponent>
+						</Button>
 					),
 				};
 			}

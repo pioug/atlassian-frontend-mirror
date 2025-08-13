@@ -1,5 +1,15 @@
 # @atlaskit/react-select
 
+## 3.4.3
+
+### Patch Changes
+
+- [#200709](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/200709)
+  [`4e4c55892eecf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4e4c55892eecf) -
+  [ux] Prevent input from being cleared from selecting an option with multi-select enabled and fix
+  cursor in search field
+- Updated dependencies
+
 ## 3.4.2
 
 ### Patch Changes

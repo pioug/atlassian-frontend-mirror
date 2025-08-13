@@ -228,7 +228,7 @@ export function getRGBComponents(n: number): RGBColor {
  */
 export async function calculateDrawnPixelsRaw(
 	imageData: ImageData,
-	scaleFactor: number,
+	_: number,
 	arraySize: number,
 ): Promise<Uint32Array> {
 	const data = imageData.data;

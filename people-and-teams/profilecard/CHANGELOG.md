@@ -1,5 +1,25 @@
 # @atlaskit/profilecard
 
+## 24.5.0
+
+### Minor Changes
+
+- [#200836](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/200836)
+  [`4403807b49aca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4403807b49aca) -
+  add option to customise showDelay and hideDelay
+
+## 24.4.0
+
+### Minor Changes
+
+- [#200712](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/200712)
+  [`79f68c9a9ad77`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/79f68c9a9ad77) -
+  Allow target to be passed to action
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.3.2
 
 ### Patch Changes

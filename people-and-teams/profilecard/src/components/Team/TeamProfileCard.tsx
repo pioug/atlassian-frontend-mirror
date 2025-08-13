@@ -216,6 +216,7 @@ const ActionButton = ({
 			key={action.id || index}
 			onClick={onActionClick(action, analytics, index)}
 			href={action.link || ''}
+			target={action.target}
 			shouldFitContainer
 		>
 			{action.label}

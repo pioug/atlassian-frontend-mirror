@@ -6,21 +6,12 @@ import EmbedModalWithFlexibleUiIcon from '../../../examples/vr-embed-modal/vr-em
 
 snapshot(EmbedModal, {
 	description: 'renders embed modal',
-	featureFlags: {
-		'platform-smart-card-remove-legacy-button': true,
-	},
 });
 
 snapshot(EmbedModalWithFlexibleUiIcon, {
 	description: 'renders embed modal with flexible ui icon',
-	featureFlags: {
-		'platform-smart-card-remove-legacy-button': true,
-	},
 });
 
 snapshot(EmbedModalConfluence, {
 	description: 'renders embed modal with Confluence icon',
-	featureFlags: {
-		'platform-smart-card-remove-legacy-button': true,
-	},
 });

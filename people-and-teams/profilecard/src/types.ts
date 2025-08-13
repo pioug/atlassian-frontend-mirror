@@ -204,6 +204,8 @@ export interface ProfileCardTriggerProps {
 	agentActions?: AgentActionsType;
 	ariaHideProfileTrigger?: boolean;
 	ssrPlaceholderId?: string;
+	showDelay?: number;
+	hideDelay?: number;
 }
 
 export interface ProfileCardTriggerState {
@@ -410,6 +412,7 @@ export interface ProfileCardAction {
 	label: React.ReactNode;
 	// Link to provide general link behaviour to the button. If both link and callback are provided link behaviour will be suppressed on click.
 	link?: string;
+	target?: string;
 }
 
 export type LozengeColor = 'default' | 'success' | 'removed' | 'inprogress' | 'new' | 'moved';

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-track-changes
 
+## 2.6.1
+
+### Patch Changes
+
+- [`941fdc429d140`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/941fdc429d140) -
+  Show formatting changes in the diff
+- Updated dependencies
+
 ## 2.6.0
 
 ### Minor Changes

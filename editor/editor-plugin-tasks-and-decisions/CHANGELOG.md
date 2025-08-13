@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 6.2.2
+
+### Patch Changes
+
+- [#200845](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/200845)
+  [`4e3985a5a347d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4e3985a5a347d) -
+  EDITOR-1320 Ensure localID creation for blockTaskItem
+
+## 6.2.1
+
+### Patch Changes
+
+- [#200663](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/200663)
+  [`0899e8f2578b2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0899e8f2578b2) -
+  [ux] EDITOR-1271 Modifies paste behaviour of editor-plugin-tasks-and-decisions to prevent
+  blockTaskItems being created when pasting block content into taskItems
+- Updated dependencies
+
 ## 6.2.0
 
 ### Minor Changes

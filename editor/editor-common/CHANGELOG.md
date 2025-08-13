@@ -1,5 +1,35 @@
 # @atlaskit/editor-common
 
+## 107.23.2
+
+### Patch Changes
+
+- [#201259](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/201259)
+  [`1de5dd69e269d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1de5dd69e269d) -
+  [ux] [EDITOR-1064] Added ai commands on the new selection toolbar platform
+- Updated dependencies
+
+## 107.23.1
+
+### Patch Changes
+
+- [#200948](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/200948)
+  [`8dd9a944113d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8dd9a944113d5) -
+  Introduced throttling for portals
+- Updated dependencies
+
+## 107.23.0
+
+### Minor Changes
+
+- [#200753](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/200753)
+  [`6188d265cbfbf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6188d265cbfbf) -
+  [EDITOR-1301] Update discard modal text
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 107.22.1
 
 ### Patch Changes

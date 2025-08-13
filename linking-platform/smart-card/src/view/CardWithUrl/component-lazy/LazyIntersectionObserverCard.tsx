@@ -1,8 +1,7 @@
-import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { usePrefetch } from '../../../state';
 import { startUfoExperience } from '../../../state/analytics/ufoExperiences';
-import { useSmartCardState } from '../../../state/store';
 import { shouldSample } from '../../../utils/shouldSample';
 import { CardWithUrlContent } from '../component';
 import { type CardWithUrlContentProps } from '../types';
@@ -15,27 +14,12 @@ import { LoadingCardLink } from './LoadingCardLink';
 // up to check once a Smart Link is within `X` px from the bottom of the viewport.
 const ROOT_MARGIN_VERTICAL = '360px';
 
-declare global {
-	interface Window {
-		__SSR_RENDERED__?: boolean;
-	}
-}
-
-// Returns true on SSR and SPA if page was SSR'd
-const isPageSSRd = () => {
-	return Boolean(process.env.REACT_SSR || window.__SSR_RENDERED__);
-};
-
 export function LazyIntersectionObserverCard(props: CardWithUrlContentProps) {
-	const { appearance, url, id } = props;
-
 	const ref = useRef<HTMLDivElement | null>(null);
 
-	const state = useSmartCardState(url);
-	// If page was SSR we don't need to enable intersection for already resolved cards,
-	// to avoid flickering.
-	const [isIntersecting, setIsIntersecting] = useState(isPageSSRd() && state.status === 'resolved');
+	const [isIntersecting, setIsIntersecting] = useState(false);
 	const [shouldSendRenderedUFOEvent] = useState(shouldSample());
+	const { appearance, url, id } = props;
 	const prefetch = usePrefetch(url);
 
 	const Component = appearance === 'inline' ? 'span' : 'div';
@@ -45,27 +29,17 @@ export function LazyIntersectionObserverCard(props: CardWithUrlContentProps) {
 		(entries, observer) => {
 			const isVisible = entries.some((entry) => entry.isIntersecting);
 			if (isVisible) {
+				if (shouldSendRenderedUFOEvent) {
+					startUfoExperience('smart-link-rendered', id);
+				}
 				setIsIntersecting(true);
 				observer.disconnect();
 			} else {
 				prefetch();
 			}
 		},
-		[prefetch],
+		[id, prefetch, shouldSendRenderedUFOEvent],
 	);
-
-	const isSartUfoExperienceSend = useRef(false);
-	// We need to use `useLayoutEffect` here to ensure that the UFO start event is sent
-	// before another component is rendered.
-	useLayoutEffect(() => {
-		if (isIntersecting && !isSartUfoExperienceSend.current) {
-			isSartUfoExperienceSend.current = true;
-
-			if (shouldSendRenderedUFOEvent) {
-				startUfoExperience('smart-link-rendered', id);
-			}
-		}
-	}, [id, isIntersecting, shouldSendRenderedUFOEvent]);
 
 	useEffect(() => {
 		if (!ref.current) {

@@ -61,11 +61,6 @@ export const SPELLING_AND_GRAMMAR_MENU_ITEM = {
 	type: 'menu-item',
 } as const;
 
-export const SUMMARIZE_MENU_ITEM = {
-	key: 'summarize-menu-item',
-	type: 'menu-item',
-} as const;
-
 export const CHANGE_TONE_MENU_SECTION = {
 	key: 'change-tone-default-menu-section',
 	type: 'menu-section',

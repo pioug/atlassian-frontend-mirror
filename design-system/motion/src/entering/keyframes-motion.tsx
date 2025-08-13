@@ -350,13 +350,13 @@ const EnteringMotion = ({
 										css({ animationTimingFunction: 'cubic-bezier(0.8,0,0,0.8)' }),
 									isExiting &&
 										animationTimingFunctionExiting === 'ease-in-40-out' &&
-										css({ animationTimingFunction: 'cubic-bezier(0,0,0,1)' }),
+										css({ animationTimingFunction: 'cubic-bezier(0.4,0,0,1)' }),
 									isExiting &&
 										animationTimingFunctionExiting === 'ease-in-60-out' &&
-										css({ animationTimingFunction: 'cubic-bezier(0,0,0,1)' }),
+										css({ animationTimingFunction: 'cubic-bezier(0.6,0,0,1)' }),
 									isExiting &&
 										animationTimingFunctionExiting === 'ease-in-80-out' &&
-										css({ animationTimingFunction: 'cubic-bezier(0,0,0,1)' }),
+										css({ animationTimingFunction: 'cubic-bezier(0.8,0,0,1)' }),
 									isExiting &&
 										animationTimingFunctionExiting === 'ease-in-out' &&
 										css({ animationTimingFunction: 'cubic-bezier(0.15,1,0.3,1)' }),

@@ -1,5 +1,17 @@
 # @atlaskit/rovo-triggers
 
+## 3.3.0
+
+### Minor Changes
+
+- [#201076](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/201076)
+  [`9c5b61c98daf3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9c5b61c98daf3) -
+  [ux] Add a new package `loom-script-in-confluence-chat-call-to-action-panel` which has a new
+  call-to-action panel for future use in chat history, this component is still not consumed
+  anywhere. Also added a new event in `rovo-triggers` forthe cta being clicked. This change relates
+  to the experiment
+  https://hello.atlassian.net/wiki/spaces/Growth/pages/5129359003/Loom+AI+readtime+prompt+and+script+for+confluence+pages+Project+Poster.
+
 ## 3.2.0
 
 ### Minor Changes

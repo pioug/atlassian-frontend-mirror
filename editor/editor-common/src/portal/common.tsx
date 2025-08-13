@@ -10,6 +10,7 @@ type RenderFn = (
 	container: HTMLElement,
 	key: string,
 	onBeforeReactDomRender?: () => void,
+	immediate?: boolean,
 ) => void;
 type RemoveFn = (key: string) => void;
 type DestoryFn = () => void;
@@ -86,17 +87,17 @@ PortalRenderWrapper.displayName = 'PortalRenderWrapper';
 export const getPortalProviderAPI = (portalManager: PortalManager): PortalProviderAPI => {
 	const portalsMap = new Map();
 	return {
-		render: (children, container, key, onBeforeReactDomRender) => {
+		render: (children, container, key, onBeforeReactDomRender, immediate = false) => {
 			if (typeof onBeforeReactDomRender === 'function') {
 				const portal = createPortal(
 					<PortalRenderWrapper getChildren={children} onBeforeRender={onBeforeReactDomRender} />,
 					container,
 					key,
 				);
-				portalsMap.set(key, portalManager.registerPortal(key, portal));
+				portalsMap.set(key, portalManager.registerPortal(key, portal, immediate));
 			} else {
 				const portal = createPortal(children(), container, key);
-				portalsMap.set(key, portalManager.registerPortal(key, portal));
+				portalsMap.set(key, portalManager.registerPortal(key, portal, immediate));
 			}
 		},
 		remove: (key) => {

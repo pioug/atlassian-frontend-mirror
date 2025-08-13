@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "40.9.0",
+	"version": "40.10.1",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -202,9 +202,6 @@
 		"smart_links_noun_support": {
 			"type": "boolean"
 		},
-		"platform-smart-card-remove-legacy-button": {
-			"type": "boolean"
-		},
 		"platform-linking-ai-summary-migration-to-convo-ai": {
 			"type": "boolean"
 		},
@@ -227,9 +224,6 @@
 			"type": "boolean"
 		},
 		"platform_renderer_blindspots": {
-			"type": "boolean"
-		},
-		"twg-graphyte-smart-card-link-theme-fix": {
 			"type": "boolean"
 		},
 		"platform_editor_preview_panel_linking": {

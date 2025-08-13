@@ -4,10 +4,8 @@
 import { expect, test } from './fixtures';
 
 test.describe('ReactUFO: Interactions Unknown Element name', () => {
-	const requiredFeatureFlags = ['platform_ufo_enable_events_observer'];
 	test.use({
 		examplePage: 'interactions-simple-button',
-		featureFlags: requiredFeatureFlags,
 	});
 	test('get interactions unknownElementName', async ({
 		page,

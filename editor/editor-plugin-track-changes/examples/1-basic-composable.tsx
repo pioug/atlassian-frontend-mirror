@@ -44,6 +44,7 @@ import { tasksAndDecisionsPlugin } from '@atlaskit/editor-plugin-tasks-and-decis
 import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { basePlugin } from '@atlaskit/editor-plugins/base';
+import { textFormattingPlugin } from '@atlaskit/editor-plugins/text-formatting';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -97,6 +98,7 @@ const createPreset = () =>
 		.add([placeholderTextPlugin, {}])
 		.add(extensionPlugin)
 		.add(tasksAndDecisionsPlugin)
+		.add(textFormattingPlugin)
 		.add([
 			insertBlockPlugin,
 			{

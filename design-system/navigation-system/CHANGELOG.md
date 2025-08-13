@@ -1,5 +1,15 @@
 # @atlassian/navigation-system
 
+## 0.179.0
+
+### Minor Changes
+
+- [#199851](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/199851)
+  [`625ab3de43de0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/625ab3de43de0) -
+  Cleans up the `platform_dst_nav4_disable_is_fixed_prop` feature gate. The `isFixed` prop has now
+  been removed from `Main` and `Aside` and these slots will now always be fixed, acting as separate
+  scroll containers.
+
 ## 0.178.0
 
 ### Minor Changes

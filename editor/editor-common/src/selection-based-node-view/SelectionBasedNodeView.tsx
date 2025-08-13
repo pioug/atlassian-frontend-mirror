@@ -52,6 +52,7 @@ export class SelectionBasedNodeView<P = ReactComponentProps> extends ReactNodeVi
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		reactComponent?: React.ComponentType<React.PropsWithChildren<any>>,
 		viewShouldUpdate?: shouldUpdate,
+		shouldRenderImmediatelyInPortal?: boolean,
 	) {
 		super(
 			node,
@@ -62,6 +63,7 @@ export class SelectionBasedNodeView<P = ReactComponentProps> extends ReactNodeVi
 			reactComponentProps,
 			reactComponent,
 			viewShouldUpdate,
+			shouldRenderImmediatelyInPortal,
 		);
 
 		this.updatePos();

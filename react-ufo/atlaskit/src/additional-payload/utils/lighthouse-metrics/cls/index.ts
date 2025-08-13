@@ -7,8 +7,8 @@ export function getCLS(start: number, stop: number, buffer: PerformanceEntryBuff
 		.getAll()
 		.filter((entry) => entry.startTime >= start && entry.startTime <= stop);
 
-	const sessionWindows = [];
-	let currentWindow = null;
+	const sessionWindows: Array<{ startTime: number; endTime: number; score: number }> = [];
+	let currentWindow: any = null;
 
 	// Group layout shifts into session windows
 	for (const shift of layoutShifts) {

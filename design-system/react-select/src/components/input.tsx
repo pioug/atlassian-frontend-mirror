@@ -6,6 +6,7 @@ import { type CSSProperties, type InputHTMLAttributes } from 'react';
 
 import { css, cssMap, cx, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { type CommonPropsAndClassName, type GroupBase } from '../types';
@@ -51,7 +52,7 @@ export type InputProps<
 
 export const inputCSS = () => ({});
 
-const inputStyles = cssMap({
+const inputStylesOld = cssMap({
 	root: {
 		display: 'inline-grid',
 		flex: '1 1 auto',
@@ -79,11 +80,56 @@ const inputStyles = cssMap({
 	},
 });
 
-const nativeInnputStyles = css({
+const inputStyles = cssMap({
+	root: {
+		position: 'relative',
+		display: 'flex',
+		flex: '1 1 auto',
+		gridTemplateColumns: '0 min-content',
+		gridArea: '1 / 1 / 2 / 3',
+		'&::after': {
+			minWidth: '2px',
+			margin: 0,
+			padding: 0,
+			border: 0,
+			content: 'attr(data-value) " "',
+			font: 'inherit',
+			gridArea: '1 / 2',
+			outline: 0,
+			visibility: 'hidden',
+			whiteSpace: 'pre',
+		},
+		marginBlock: token('space.025'),
+		marginInline: token('space.025'),
+		paddingBlock: token('space.025'),
+		color: token('color.text'),
+	},
+	disabled: {
+		visibility: 'hidden',
+	},
+});
+
+const nativeInputStylesOld = css({
 	width: '100%',
 	minWidth: '2px',
 	margin: 0,
 	padding: 0,
+	background: 0,
+	border: 0,
+	color: 'inherit',
+	font: 'inherit',
+	gridArea: '1 / 2',
+	opacity: 1,
+	outline: 0,
+});
+
+const nativeInputStyles = css({
+	width: '100%',
+	minWidth: '2px',
+	margin: 0,
+	padding: 0,
+	position: 'absolute',
+	inset: 0,
 	background: 0,
 	border: 0,
 	color: 'inherit',
@@ -106,9 +152,33 @@ const Input = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>
 	const dataId = testId ? `${testId}-select--input` : null;
 	const { css, className } = getStyleProps(props, 'input', { 'input-container': true });
 
+	if (fg('platform_do_not_clear_input_for_multiselect')) {
+		return (
+			<div
+				css={[inputStyles.root, isDisabled && inputStyles.disabled]}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+				style={css as CSSProperties}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
+				className={cx(className as any, xcss, '-Input')}
+				data-value={value || ''}
+				data-testid={dataId && `${dataId}-container`}
+			>
+				<input
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+					className={builtinCX({ input: true }, inputClassName, '-input')}
+					ref={innerRef}
+					css={[nativeInputStyles, isHidden && hidden]}
+					disabled={isDisabled}
+					data-testid={dataId}
+					{...innerProps}
+				/>
+			</div>
+		);
+	}
+
 	return (
 		<div
-			css={[inputStyles.root, isDisabled && inputStyles.disabled]}
+			css={[inputStylesOld.root, isDisabled && inputStylesOld.disabled]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={css as CSSProperties}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
@@ -120,7 +190,7 @@ const Input = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 				className={builtinCX({ input: true }, inputClassName, '-input')}
 				ref={innerRef}
-				css={[nativeInnputStyles, isHidden && hidden]}
+				css={[nativeInputStylesOld, isHidden && hidden]}
 				disabled={isDisabled}
 				data-testid={dataId}
 				{...innerProps}

@@ -2,14 +2,9 @@ import { Device, type Hooks, snapshot } from '@af/visual-regression';
 import type { SnapshotTestOptions } from '@atlassian/gemini';
 
 import {
-	ScrollableFixedNoPanelVR,
-	ScrollableFixedVR,
 	ScrollableNoPanelVR,
-	ScrollableScrolledFixedVR,
 	ScrollableScrolledVR,
 	ScrollableVR,
-	UnscrollableFixedVR,
-	UnscrollableNoPanelFixedVR,
 	UnscrollableNoPanelVR,
 	UnscrollableVR,
 } from '../../../examples/composition';
@@ -67,95 +62,21 @@ const panelSplitterHovered: SnapshotTestOptions<Hooks> = {
  *
  * Good luck out there!
  */
-snapshot(ScrollableFixedVR, panelSplitterHovered);
-snapshot(ScrollableFixedVR, defaultOptions);
-snapshot(UnscrollableFixedVR, defaultOptions);
-snapshot(ScrollableFixedNoPanelVR, defaultOptions);
-snapshot(ScrollableScrolledFixedVR, defaultOptions);
-snapshot(UnscrollableNoPanelFixedVR, defaultOptions);
-snapshot(ScrollableVR, panelSplitterHovered);
-snapshot(ScrollableVR, defaultOptions);
-snapshot(UnscrollableVR, defaultOptions);
-snapshot(ScrollableNoPanelVR, defaultOptions);
-snapshot(ScrollableScrolledVR, defaultOptions);
-snapshot(UnscrollableNoPanelVR, defaultOptions);
-
-/**
- * Intentionally redeclaring these snapshots for `platform_dst_nav4_disable_is_fixed_prop` enabled,
- * because otherwise we end up with 40+ snapshots due to permutations.
- *
- * These 5 cover the VR changes introduced by the flag.
- *
- * TODO: remove these when `platform_dst_nav4_disable_is_fixed_prop` is cleaned up.
- */
-
 snapshot(ScrollableVR, {
-	description: 'scrollable with forced isFixed (temp)',
-	drawsOutsideBounds: true,
-	variants: [
-		{
-			device: Device.DESKTOP_CHROME,
-			environment: { colorScheme: 'light' },
-			name: 'desktop',
-		},
-	],
-	featureFlags: {
-		platform_dst_nav4_disable_is_fixed_prop: true,
-	},
+	...panelSplitterHovered,
+});
+snapshot(ScrollableVR, {
+	...defaultOptions,
 });
 snapshot(UnscrollableVR, {
-	description: 'unscrollable with forced isFixed (temp)',
-	drawsOutsideBounds: true,
-	variants: [
-		{
-			device: Device.DESKTOP_CHROME,
-			environment: { colorScheme: 'light' },
-			name: 'desktop',
-		},
-	],
-	featureFlags: {
-		platform_dst_nav4_disable_is_fixed_prop: true,
-	},
+	...defaultOptions,
 });
 snapshot(ScrollableNoPanelVR, {
-	description: 'scrollable no panel with forced isFixed (temp)',
-	drawsOutsideBounds: true,
-	variants: [
-		{
-			device: Device.DESKTOP_CHROME,
-			environment: { colorScheme: 'light' },
-			name: 'desktop',
-		},
-	],
-	featureFlags: {
-		platform_dst_nav4_disable_is_fixed_prop: true,
-	},
+	...defaultOptions,
 });
 snapshot(ScrollableScrolledVR, {
-	description: 'scrollable scrolled with forced isFixed (temp)',
-	drawsOutsideBounds: true,
-	variants: [
-		{
-			device: Device.DESKTOP_CHROME,
-			environment: { colorScheme: 'light' },
-			name: 'desktop',
-		},
-	],
-	featureFlags: {
-		platform_dst_nav4_disable_is_fixed_prop: true,
-	},
+	...defaultOptions,
 });
 snapshot(UnscrollableNoPanelVR, {
-	description: 'unscrollable no panel with forced isFixed (temp)',
-	drawsOutsideBounds: true,
-	variants: [
-		{
-			device: Device.DESKTOP_CHROME,
-			environment: { colorScheme: 'light' },
-			name: 'desktop',
-		},
-	],
-	featureFlags: {
-		platform_dst_nav4_disable_is_fixed_prop: true,
-	},
+	...defaultOptions,
 });

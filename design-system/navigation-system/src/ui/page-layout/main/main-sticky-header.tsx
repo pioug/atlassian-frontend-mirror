@@ -2,26 +2,17 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { useContext } from 'react';
+import React from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
 import type { StrictXCSSProp } from '@atlaskit/css';
 
-import { MainStickyContext } from './main-sticky-context';
-
-const contentInsetBlockStart = `calc(var(--n_bnrM, 0px) + var(--n_tNvM, 0px))`;
-
 const stickyHeaderStyles = cssMap({
 	root: {
 		position: 'sticky',
 		zIndex: 1,
-	},
-	stickyInMain: {
 		insetBlockStart: 0,
-	},
-	stickyInBody: {
-		insetBlockStart: contentInsetBlockStart,
 	},
 });
 
@@ -46,18 +37,8 @@ export function MainStickyHeader({
 	 */
 	xcss?: StrictXCSSProp<'backgroundColor', never>;
 }) {
-	const isMainFixed = useContext(MainStickyContext);
-
 	return (
-		<div
-			data-testid={testId}
-			className={xcss}
-			css={[
-				stickyHeaderStyles.root,
-				isMainFixed && stickyHeaderStyles.stickyInMain,
-				!isMainFixed && stickyHeaderStyles.stickyInBody,
-			]}
-		>
+		<div data-testid={testId} className={xcss} css={stickyHeaderStyles.root}>
 			{children}
 		</div>
 	);

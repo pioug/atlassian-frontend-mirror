@@ -1,13 +1,19 @@
 import React from 'react';
 
-import { useIntl } from 'react-intl-next';
+import { type MessageDescriptor, useIntl } from 'react-intl-next';
 
-import { IconButton } from '@atlaskit/button/new';
+import { IconButton, type IconProp } from '@atlaskit/button/new';
 import Tooltip from '@atlaskit/tooltip';
 
 import { useMouseDownEvent } from '../../../../../state/analytics/useLinkClicked';
 
-import { type LinkInfoButtonProps } from './types';
+export type LinkInfoButtonProps = {
+	content: React.ReactNode;
+	icon: IconProp;
+	label: MessageDescriptor;
+	onClick?: () => void;
+	testId?: string;
+};
 
 const LinkInfoButton = ({ content, icon, label, onClick, testId }: LinkInfoButtonProps) => {
 	const onMouseDown = useMouseDownEvent();

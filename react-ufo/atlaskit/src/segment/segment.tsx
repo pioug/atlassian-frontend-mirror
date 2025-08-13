@@ -17,8 +17,6 @@ import {
 } from 'scheduler';
 import { v4 as createUUID } from 'uuid';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import coinflip from '../coinflip';
 import type { EnhancedUFOInteractionContextType } from '../common';
 import { getConfig, getInteractionRate } from '../config';
@@ -106,18 +104,14 @@ export default function UFOSegment({
 						{
 							name: segmentName,
 							segmentId,
-							...(type !== 'first-party' && fg('platform_ufo_add_type_for_3p_segments')
-								? { type }
-								: {}),
+							...(type !== 'first-party' ? { type } : {}),
 						}, // Only pass non-default types (not 'first-party') in payload to reduce size
 					]
 				: [
 						{
 							name: segmentName,
 							segmentId,
-							...(type !== 'first-party' && fg('platform_ufo_add_type_for_3p_segments')
-								? { type }
-								: {}),
+							...(type !== 'first-party' ? { type } : {}),
 						},
 					],
 		[parentContext, segmentName, segmentId, type],

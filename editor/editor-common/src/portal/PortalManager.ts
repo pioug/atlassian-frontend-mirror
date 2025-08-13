@@ -1,3 +1,7 @@
+import throttle from 'lodash/throttle';
+
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+
 type PortalsBucketUpdater = React.Dispatch<
 	React.SetStateAction<Record<string | number, React.ReactPortal>>
 >;
@@ -12,6 +16,7 @@ type PortalBucketType = {
 const DEFAULT_INITIAL_BUCKETS = 50;
 const DEFAULT_MAX_BUCKET_CAPACITY = 50;
 const DEFAULT_SCALE_RATIO = 0.5;
+const DEFAULT_THROTTLE_DELAY = 16; // ~60fps for smooth updates
 
 /**
  * Creates an empty bucket object with a specified capacity. Each bucket is designed
@@ -36,7 +41,7 @@ function createEmptyBucket(capacity: number): PortalBucketType {
  * across "buckets" and updating these buckets as necessary to balance load and performance.
  *
  * @class PortalManager
- * @typedef {Object} PortalManager
+ * @typedef {object} PortalManager
  *
  * @property {number} maxBucketCapacity - The maximum capacity of each bucket before a new bucket is created.
  * @property {number} scaleRatio - The ratio to determine the number of new buckets to add when scaling up.
@@ -45,10 +50,13 @@ function createEmptyBucket(capacity: number): PortalBucketType {
  * @property {Map<React.Key, number>} portalToBucketMap - A map of React portal keys to their corresponding bucket indices.
  * @property {PortalRendererUpdater|null} portalRendererUpdater - A function to trigger updates to the rendering of portals.
  * @property {number} scaleCapacityThreshold - The threshold at which the buckets are scaled up to accommodate more portals.
+ * @property {Map<number, ReturnType<typeof throttle>>} throttledBucketUpdaters - A map of bucket IDs to their throttled update functions.
+ * @property {number} throttleDelay - The delay in milliseconds for throttling bucket updates.
  *
  * @param {number} [initialBuckets=DEFAULT_INITIAL_BUCKETS] - The initial number of buckets to create.
  * @param {number} [maxBucketCapacity=DEFAULT_MAX_BUCKET_CAPACITY] - The maximum number of portals a single bucket can hold.
  * @param {number} [scaleRatio=DEFAULT_SCALE_RATIO] - The ratio used to calculate the number of new buckets to add when scaling.
+ * @param {number} [throttleDelay=DEFAULT_THROTTLE_DELAY] - The delay in milliseconds for throttling updates.
  */
 export class PortalManager {
 	private maxBucketCapacity: number;
@@ -58,14 +66,18 @@ export class PortalManager {
 	private portalToBucketMap: Map<React.Key, number>;
 	private portalRendererUpdater: PortalRendererUpdater | null;
 	private scaleCapacityThreshold: number;
+	private throttledBucketUpdaters: Map<number, ReturnType<typeof throttle>>;
+	private throttleDelay: number;
 
 	constructor(
 		initialBuckets = DEFAULT_INITIAL_BUCKETS,
 		maxBucketCapacity = DEFAULT_MAX_BUCKET_CAPACITY,
 		scaleRatio = DEFAULT_SCALE_RATIO,
+		throttleDelay = DEFAULT_THROTTLE_DELAY,
 	) {
 		this.maxBucketCapacity = maxBucketCapacity;
 		this.scaleRatio = scaleRatio;
+		this.throttleDelay = throttleDelay;
 
 		// Initialise buckets array by creating an array of length `initialBuckets` containing empty buckets
 		this.buckets = Array.from({ length: initialBuckets }, () =>
@@ -78,6 +90,7 @@ export class PortalManager {
 
 		this.portalRendererUpdater = null;
 		this.scaleCapacityThreshold = maxBucketCapacity / 2;
+		this.throttledBucketUpdaters = new Map();
 	}
 
 	private getCurrentBucket() {
@@ -114,6 +127,18 @@ export class PortalManager {
 		this.portalRendererUpdater?.(this.buckets);
 	}
 
+	private getOrCreateThrottledUpdater(id: number): ReturnType<typeof throttle> | undefined {
+		if (!this.throttledBucketUpdaters.has(id)) {
+			const throttledUpdater = throttle(() => {
+				this.buckets[id]?.updater?.(() => ({ ...this.buckets[id].portals }));
+			}, this.throttleDelay);
+
+			this.throttledBucketUpdaters.set(id, throttledUpdater);
+		}
+
+		return this.throttledBucketUpdaters.get(id);
+	}
+
 	getBuckets() {
 		return this.buckets;
 	}
@@ -125,16 +150,27 @@ export class PortalManager {
 
 	unregisterBucket(id: number) {
 		this.buckets[id].updater = null;
+		// Clean up throttled updater when bucket is unregistered
+		if (this.throttledBucketUpdaters.has(id)) {
+			this.throttledBucketUpdaters.get(id)?.cancel();
+			this.throttledBucketUpdaters.delete(id);
+		}
 	}
 
-	updateBuckets(id: number) {
-		this.buckets[id].updater?.(() => {
-			// new object is required to trigger react updates
-			return { ...this.buckets[id].portals };
-		});
+	updateBuckets(id: number, immediate = false) {
+		if (immediate || !expValEquals('platform_editor_debounce_portal_provider', 'isEnabled', true)) {
+			// Cancel any pending throttled update and update immediately
+			if (this.throttledBucketUpdaters.has(id)) {
+				this.throttledBucketUpdaters.get(id)?.cancel();
+			}
+			this.buckets[id].updater?.(() => ({ ...this.buckets[id].portals }));
+		} else {
+			// Use throttled update for smooth, regular updates
+			this.getOrCreateThrottledUpdater(id)?.();
+		}
 	}
 
-	registerPortal(key: string | number, portal: React.ReactPortal) {
+	registerPortal(key: string | number, portal: React.ReactPortal, immediate = false) {
 		this.createBucket();
 		// @ts-ignore - TS2538 TypeScript 5.9.2 upgrade
 		this.buckets[this.getCurrentBucket()].capacity -= 1;
@@ -147,7 +183,7 @@ export class PortalManager {
 			// @ts-ignore - TS2538 TypeScript 5.9.2 upgrade
 			this.buckets[id].portals[key] = portal;
 			// @ts-ignore - TS2345 TypeScript 5.9.2 upgrade
-			this.updateBuckets(id);
+			this.updateBuckets(id, immediate);
 		}
 
 		//returns a function to unregister the portal
@@ -163,7 +199,7 @@ export class PortalManager {
 				this.availableBuckets.add(id);
 			}
 			// @ts-ignore - TS2345 TypeScript 5.9.2 upgrade
-			this.updateBuckets(id);
+			this.updateBuckets(id, immediate);
 		};
 	}
 
@@ -183,6 +219,12 @@ export class PortalManager {
 	 * unregistering all buckets, and resetting internal state.
 	 */
 	destroy() {
+		// Cancel all pending throttled updates
+		this.throttledBucketUpdaters.forEach((updater) => {
+			updater.cancel();
+		});
+		this.throttledBucketUpdaters.clear();
+
 		// Iterate through each bucket and clear its portals and unset the updater function
 		this.buckets.forEach((bucket, id) => {
 			bucket.portals = {}; // Clearing all portals from the bucket

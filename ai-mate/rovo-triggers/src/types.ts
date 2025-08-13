@@ -130,6 +130,27 @@ export type ChatOpenPayload = PayloadCore<
 	}
 >;
 
+/**
+ * Possible `useCaseIds` for when the cta is clicked and sends a {@link ChatCallToActionClickedPayload} event
+ */
+export type ValidChatCallToActionUseCases =
+	| 'loom-confluence-page-script-co-use'
+	| 'loom-confluence-page-script-cross-join';
+
+/**
+ * Source Ids that will initiate a chat containing a call-to-action from the first assistant message
+ */
+export type ValidSourceIdsForChatCallToAction =
+	| 'confluence-page-loom-script-co-use-touchpoint'
+	| 'confluence-page-loom-script-cross-join-touchpoint';
+
+export type ChatCallToActionClickedPayload = PayloadCore<
+	'chat-cta-clicked',
+	{
+		useCaseId: ValidChatCallToActionUseCases;
+	}
+>;
+
 export type ForgeAppAuthSuccess = PayloadCore<
 	'forge-auth-success',
 	{
@@ -296,7 +317,8 @@ export type Payload =
 	| InsertPromptPayload
 	| JiraIssueWorkBreakdownActionPayload
 	| DashboardInsightsActionsPayload
-	| SetChatContextPayload;
+	| SetChatContextPayload
+	| ChatCallToActionClickedPayload;
 
 export type Callback = (payload: Payload) => void;
 

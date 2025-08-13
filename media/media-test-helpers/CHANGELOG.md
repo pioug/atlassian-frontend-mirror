@@ -1,5 +1,13 @@
 # @atlaskit/media-test-helpers
 
+## 38.0.0
+
+### Major Changes
+
+- [#201150](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/201150)
+  [`f47383d54270a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f47383d54270a) -
+  Prevent staging environment auth provider from being consumed inside of unit tests
+
 ## 37.0.4
 
 ### Patch Changes

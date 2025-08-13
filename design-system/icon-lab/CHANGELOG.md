@@ -1,5 +1,45 @@
 # @atlaskit/icon-lab
 
+## 5.6.0
+
+### Minor Changes
+
+- [#200547](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/200547)
+  [`360e37c87dfdd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/360e37c87dfdd) -
+  This release adds icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `arrow-curved-down-left`
+  - `arrow-curved-down-right`
+  - `arrow-curved-left-down`
+  - `arrow-curved-left-up`
+  - `arrow-curved-right-down`
+  - `arrow-curved-right-up`
+  - `arrow-curved-up-left`
+  - `arrow-curved-up-right`
+  - `group`
+
+## 5.5.0
+
+### Minor Changes
+
+- [`1fa0bae860bbc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1fa0bae860bbc) -
+  This release updates icons in `@atlaskit/icon-lab`.
+
+  ### Updated:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `reply-left`
+  - `reply-right`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.4.0
 
 ### Minor Changes

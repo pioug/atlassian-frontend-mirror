@@ -667,7 +667,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'core',
 		status: 'published',
-		id: '49020:2971',
+		id: '7594:13782',
 		usage: 'Multi purpose - Known uses: table cells, checkboxes.',
 		createdAt: '2025-07-31T03:28:03.217Z',
 	},

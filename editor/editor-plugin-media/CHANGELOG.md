@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-media
 
+## 5.2.8
+
+### Patch Changes
+
+- [#200948](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/200948)
+  [`8dd9a944113d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8dd9a944113d5) -
+  Opt out of throttling rendering
+- Updated dependencies
+
 ## 5.2.7
 
 ### Patch Changes

@@ -7,7 +7,6 @@ import {
 	AllSlotsCustomSizes,
 	AllSlotsRTL,
 	AllSlotsScrollable,
-	AllSlotsScrollableFixed,
 	EdgeCaseSiblingAbsolutePositioned,
 	EdgeCaseSiblingAbsolutePositionedCollapsed,
 	EdgeCaseSiblingAbsolutePositionedCustomSizes,
@@ -16,21 +15,17 @@ import {
 	EdgeCaseUsingLegacyVars,
 	MainAside,
 	MainAsideScrollable,
-	MainAsideScrollableFixed,
 	Resizable,
 	SideNavCustomWidthGreaterThanMaxWidth,
 	SideNavCustomWidthSmallerThanMinWidth,
 	SideNavMainAside,
 	SideNavMainAsideScrollable,
-	SideNavMainAsideScrollableFixed,
 	SideNavOverflowingChildren,
 	SideNavWithMenuItems,
 	TopBarSideNavMain,
 	TopBarSideNavMainAside,
 	TopBarSideNavMainAsideScrollable,
-	TopBarSideNavMainAsideScrollableFixed,
 	TopBarSideNavMainScrollable,
-	TopBarSideNavMainScrollableFixed,
 } from '../../../../../examples/page-layout';
 import AsideBorderExample from '../../../../../examples/page-layout-aside-border';
 import PageLayoutImplicitRows from '../../../../../examples/page-layout-implicit-rows';
@@ -84,13 +79,13 @@ snapshot(AllSlots, {
 });
 
 snapshot(AllSlotsRTL, defaultOptions);
-snapshot(AllSlotsScrollable, defaultOptions);
 
-snapshot(AllSlotsScrollableFixed, defaultOptions);
+snapshot(AllSlotsScrollable, defaultOptions);
 
 snapshot(AllSlotsCustomSizes, defaultOptions);
 
 snapshot(AllSlotsBannerHeightZero, defaultOptions);
+
 snapshot(EdgeCaseSiblingAbsolutePositioned, {
 	...defaultOptions,
 	a11y: {
@@ -165,24 +160,17 @@ snapshot(MainAside, defaultOptions);
 
 snapshot(MainAsideScrollable, defaultOptions);
 
-snapshot(MainAsideScrollableFixed, defaultOptions);
-
 snapshot(SideNavMainAside, defaultOptions);
 
 snapshot(SideNavMainAsideScrollable, defaultOptions);
-
-snapshot(SideNavMainAsideScrollableFixed, defaultOptions);
 
 snapshot(TopBarSideNavMain, defaultOptions);
 
 snapshot(TopBarSideNavMainAside, defaultOptions);
 
 snapshot(TopBarSideNavMainAsideScrollable, defaultOptions);
-snapshot(TopBarSideNavMainAsideScrollableFixed, defaultOptions);
 
 snapshot(TopBarSideNavMainScrollable, defaultOptions);
-
-snapshot(TopBarSideNavMainScrollableFixed, defaultOptions);
 
 snapshot(Resizable, desktopOnly);
 

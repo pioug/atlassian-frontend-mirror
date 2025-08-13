@@ -24,7 +24,6 @@ snapshot(HoverCard, {
 			},
 		},
 	],
-	featureFlags: {},
 });
 
 snapshot(HoverCardWithEntities, {
@@ -58,7 +57,6 @@ snapshot(HoverCardActions, {
 		},
 	],
 	variants: [{ name: 'light mode', environment: { colorScheme: 'light' } }],
-	featureFlags: {},
 });
 
 snapshot(HoverCardActions, {
@@ -70,7 +68,6 @@ snapshot(HoverCardActions, {
 			selector: { byTestId: 'hover-card-trigger-wrapper' },
 		},
 	],
-	featureFlags: {},
 });
 
 snapshot(HoverCardUnauthorised, {
@@ -81,9 +78,6 @@ snapshot(HoverCardUnauthorised, {
 			selector: { byTestId: 'hover-card-trigger-wrapper' },
 		},
 	],
-	featureFlags: {
-		'platform-smart-card-remove-legacy-button': true,
-	},
 });
 
 snapshot(HoverCardSSRLoading, {
@@ -94,7 +88,6 @@ snapshot(HoverCardSSRLoading, {
 			selector: { byTestId: 'hover-card-trigger-wrapper' },
 		},
 	],
-	featureFlags: {},
 });
 
 snapshot(HoverCardSSRError, {
@@ -105,7 +98,6 @@ snapshot(HoverCardSSRError, {
 			selector: { byTestId: 'hover-card-trigger-wrapper' },
 		},
 	],
-	featureFlags: {},
 });
 
 snapshot(HoverCardPositioning, {
@@ -117,7 +109,6 @@ snapshot(HoverCardPositioning, {
 			selector: { byTestId: 'hover-test-can-open-left' },
 		},
 	],
-	featureFlags: {},
 });
 
 snapshot(HoverCardPositioning, {
@@ -129,7 +120,6 @@ snapshot(HoverCardPositioning, {
 			selector: { byTestId: 'hover-test-cannot-open' },
 		},
 	],
-	featureFlags: {},
 });
 
 snapshot(HoverCardPositioning, {
@@ -141,5 +131,4 @@ snapshot(HoverCardPositioning, {
 			selector: { byTestId: 'hover-test-can-open-right' },
 		},
 	],
-	featureFlags: {},
 });

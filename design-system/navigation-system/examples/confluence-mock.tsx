@@ -213,7 +213,7 @@ export default function ConfluenceMockExample() {
 					</SideNavContent>
 					<PanelSplitter label="Resize side nav" testId="side-nav-panel-splitter" />
 				</SideNav>
-				<Main id="main-container" isFixed>
+				<Main id="main-container">
 					<Stack xcss={contentStyles.root}>
 						<Inline xcss={contentStyles.header} space="space.200">
 							<Inline xcss={contentStyles.breadcrumbs}>

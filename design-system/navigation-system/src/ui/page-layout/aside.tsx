@@ -62,13 +62,16 @@ const styles = cssMap({
 			justifySelf: 'end',
 		},
 	},
-	fixedContentArea: {
+	inner: {
 		// This sets the sticky point to be just below top bar + banner. It's needed to ensure the stick
 		// point is exactly where this element is rendered to with no wiggle room. Unfortunately the CSS
 		// spec for sticky doesn't support "stick to where I'm initially rendered" so we need to tell it.
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
 		insetBlockStart: contentInsetBlockStart,
 		overflow: 'auto',
+		// We want the direct child of the "aside" grid item to also take up the full height of the grid item.
+		// An example use case is for consumers to add a border that takes up the full height of the aside slot.
+		height: '100%',
 		'@media (min-width: 64rem)': {
 			// Height is set so it takes up all of the available viewport space minus top bar + banner.
 			// This is only set on larger viewports meaning stickiness only occurs on them.
@@ -77,11 +80,6 @@ const styles = cssMap({
 			height: contentHeightWhenFixed,
 			position: 'sticky',
 		},
-	},
-	fullHeight: {
-		// We want the direct child of the "aside" grid item to also take up the full height of the grid item.
-		// An example use case is for consumers to add a border that takes up the full height of the aside slot.
-		height: '100%',
 	},
 });
 
@@ -93,7 +91,6 @@ const styles = cssMap({
 export function Aside({
 	children,
 	xcss,
-	isFixed: isFixedProp,
 	defaultWidth = 330,
 	label = 'Aside',
 	skipLinkLabel = label,
@@ -108,29 +105,6 @@ export function Aside({
 	 * The accessible name of the slot, announced by screen readers.
 	 */
 	label?: string;
-	// We can handle the deprecated usages
-	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
-	/**
-	 * @deprecated
-	 *
-	 * Support for `isFixed={false}` is being removed and `isFixed={true}` will be the only supported behavior.
-	 *
-	 * This change is being rolled out behind the `platform_dst_nav4_disable_is_fixed_prop` feature gate. After rollout this prop will be removed.
-	 *
-	 * Reach out to #help-design-system if you are relying on the `isFixed={false}` behavior.
-	 *
-	 * ---
-	 *
-	 * Whether the layout area should be fixed _on large viewports_.
-	 *
-	 * When fixed, the element will have its own scroll container - it will not use the body scroll.
-	 *
-	 * **Important:** On small viewports, the element will always use body scroll, to make it easier to scroll the page when
-	 * the content is tall.
-	 *
-	 * When not fixed, the element will use the body scroll.
-	 */
-	isFixed?: boolean;
 	/**
 	 * Bounded style overrides.
 	 */
@@ -144,7 +118,6 @@ export function Aside({
 }) {
 	const dangerouslyHoistSlotSizes = useContext(DangerouslyHoistSlotSizes);
 	const id = useLayoutId({ providedId });
-	const isFixed = fg('platform_dst_nav4_disable_is_fixed_prop') ? true : isFixedProp;
 
 	/**
 	 * Don't show the skip link if the slot has 0 width.
@@ -234,10 +207,7 @@ export function Aside({
 				 * Fixed styles are added here rather than on the `aside` container element, so that the panel splitter
 				 * component can overflow out of the `Aside` container, to increase the interactive grab area
 				 */}
-				<div
-					css={[styles.fullHeight, isFixed && styles.fixedContentArea]}
-					data-testid={testId ? `${testId}--inner` : undefined}
-				>
+				<div css={styles.inner} data-testid={testId ? `${testId}--inner` : undefined}>
 					{children}
 				</div>
 			</PanelSplitterProvider>

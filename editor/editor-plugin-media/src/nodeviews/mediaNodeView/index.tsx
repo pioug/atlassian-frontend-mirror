@@ -263,10 +263,21 @@ export const ReactMediaNode =
 		pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
 	) =>
 	(node: PMNode, view: EditorView, getPos: getPosHandler) => {
-		return new MediaNodeView(node, view, getPos, portalProviderAPI, eventDispatcher, {
+		return new MediaNodeView(
+			node,
+			view,
+			getPos,
+			portalProviderAPI,
 			eventDispatcher,
-			providerFactory,
-			mediaOptions,
-			pluginInjectionApi,
-		}).init();
+			{
+				eventDispatcher,
+				providerFactory,
+				mediaOptions,
+				pluginInjectionApi,
+			},
+			undefined,
+			undefined,
+			// @portal-render-immediately
+			true,
+		).init();
 	};

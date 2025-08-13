@@ -13,6 +13,8 @@ import { type EditorViewModePluginState } from '@atlaskit/editor-plugin-editor-v
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, DecorationSource, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Card as SmartCard } from '@atlaskit/smart-card';
+import { CardSSR } from '@atlaskit/smart-card/ssr';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { Datasource } from '../nodeviews/datasource';
 import { registerCard, removeCard } from '../pm-plugins/actions';
@@ -95,26 +97,43 @@ export class BlockCardComponent extends React.PureComponent<SmartCardProps & { i
 	};
 
 	render() {
-		const { node, cardContext, actionOptions, onClick, CompetitorPrompt } = this.props;
+		const { node, cardContext, actionOptions, onClick, CompetitorPrompt, isPageSSRed } = this.props;
 		const { url, data } = node.attrs;
 
-		const cardInner = (
-			<>
-				<SmartCard
-					key={url}
-					url={url ?? data.url}
-					container={this.scrollContainer}
-					appearance="block"
-					onClick={onClick}
-					onResolve={this.onResolve}
-					onError={this.onError}
-					platform={'web'}
-					actionOptions={actionOptions}
-					CompetitorPrompt={CompetitorPrompt}
-				/>
-				{this.gapCursorSpan()}
-			</>
-		);
+		const cardInner =
+			isPageSSRed && expValEquals('platform_editor_smart_card_otp', 'isEnabled', true) ? (
+				<>
+					<CardSSR
+						key={url}
+						url={url ?? data.url}
+						container={this.scrollContainer}
+						appearance="block"
+						onClick={onClick}
+						onResolve={this.onResolve}
+						onError={this.onError}
+						platform={'web'}
+						actionOptions={actionOptions}
+						CompetitorPrompt={CompetitorPrompt}
+					/>
+					{this.gapCursorSpan()}
+				</>
+			) : (
+				<>
+					<SmartCard
+						key={url}
+						url={url ?? data.url}
+						container={this.scrollContainer}
+						appearance="block"
+						onClick={onClick}
+						onResolve={this.onResolve}
+						onError={this.onError}
+						platform={'web'}
+						actionOptions={actionOptions}
+						CompetitorPrompt={CompetitorPrompt}
+					/>
+					{this.gapCursorSpan()}
+				</>
+			);
 		// [WS-2307]: we only render card wrapped into a Provider when the value is ready,
 		// otherwise if we got data, we can render the card directly since it doesn't need the Provider
 		return (
@@ -180,7 +199,7 @@ export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
 	}
 
 	render() {
-		const { actionOptions, pluginInjectionApi, onClickCallback, CompetitorPrompt } =
+		const { actionOptions, pluginInjectionApi, onClickCallback, CompetitorPrompt, isPageSSRed } =
 			this.reactComponentProps;
 
 		return (
@@ -193,6 +212,7 @@ export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
 				onClickCallback={onClickCallback}
 				id={this.id}
 				CompetitorPrompt={CompetitorPrompt}
+				isPageSSRed={isPageSSRed}
 			/>
 		);
 	}
@@ -223,6 +243,7 @@ export const blockCardNodeView =
 		allowDatasource,
 		inlineCardViewProducer,
 		CompetitorPrompt,
+		isPageSSRed,
 	}: BlockCardNodeViewProperties) =>
 	(
 		node: Node,
@@ -236,6 +257,7 @@ export const blockCardNodeView =
 			pluginInjectionApi,
 			onClickCallback: onClickCallback,
 			CompetitorPrompt,
+			isPageSSRed,
 		};
 		const isDatasource = isDatasourceNode(node);
 

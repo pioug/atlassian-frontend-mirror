@@ -83,6 +83,7 @@ export const OverflowProfileCardButtons = (props: OverflowButtonsProps) => {
 								onItemClick(action, args, event, index);
 							}}
 							href={action.link}
+							target={action.target}
 						>
 							{action.label}
 						</DropdownItem>

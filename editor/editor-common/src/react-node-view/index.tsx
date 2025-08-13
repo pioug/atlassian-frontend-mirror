@@ -62,6 +62,7 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 	contentDOM: HTMLElement | null | undefined;
 	node: PMNode;
 	key: string;
+	shouldRenderImmediatelyInPortal: boolean;
 
 	constructor(
 		node: PMNode,
@@ -74,6 +75,7 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		reactComponent?: React.ComponentType<React.PropsWithChildren<any>>,
 		viewShouldUpdate?: shouldUpdate,
+		shouldRenderImmediatelyInPortal?: boolean,
 	) {
 		this.node = node;
 		this.view = view;
@@ -84,6 +86,7 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 		this._viewShouldUpdate = viewShouldUpdate;
 		this.eventDispatcher = eventDispatcher;
 		this.key = generateUniqueNodeKey();
+		this.shouldRenderImmediatelyInPortal = shouldRenderImmediatelyInPortal || false;
 	}
 
 	/**
@@ -152,9 +155,15 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 			</ErrorBoundary>
 		);
 
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-		this.portalProviderAPI.render(componentWithErrorBoundary, this.domRef!, this.key);
+		this.portalProviderAPI.render(
+			componentWithErrorBoundary,
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			this.domRef!,
+			this.key,
+			undefined,
+			this.shouldRenderImmediatelyInPortal,
+		);
 	}
 
 	createDomRef(): HTMLElement {

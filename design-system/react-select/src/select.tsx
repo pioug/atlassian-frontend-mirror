@@ -1263,7 +1263,12 @@ export default class Select<
 		option?: Option,
 	) => {
 		const { closeMenuOnSelect, isMulti, inputValue } = this.props;
-		this.onInputChange('', { action: 'set-value', prevInputValue: inputValue });
+		// for multiple selection options, do not clear the search input value
+		if (isMulti && fg('platform_do_not_clear_input_for_multiselect')) {
+			this.onInputChange(inputValue, { action: 'set-value', prevInputValue: inputValue });
+		} else {
+			this.onInputChange('', { action: 'set-value', prevInputValue: inputValue });
+		}
 		if (closeMenuOnSelect) {
 			this.setState({
 				inputIsHiddenAfterUpdate: !isMulti,

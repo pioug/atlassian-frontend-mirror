@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1f8edb6727fde4af1134d5ff170a3316>>
+ * @codegen <<SignedSource::da5087d6af1a8263597b6e48cc538156>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ReplyLeftIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="m.22 5.72 4.5-4.5 1.06 1.06L2.56 5.5H7a8 8 0 0 1 8 8v.5h-1.5v-.5A6.5 6.5 0 0 0 7 7H2.56l3.22 3.22-1.06 1.06-4.5-4.5a.75.75 0 0 1 0-1.06" clip-rule="evenodd"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M5.78 2.28 2.56 5.498H7.5a8.5 8.5 0 0 1 8.5 8.5h-1.5a7 7 0 0 0-7-7H2.56l3.22 3.22-1.06 1.06-4.5-4.5a.75.75 0 0 1 0-1.06l4.5-4.5z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 ReplyLeftIcon.displayName = 'ReplyLeftIcon';

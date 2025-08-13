@@ -144,7 +144,7 @@ export function ResizableSlots() {
 			</Main>
 
 			{legacyVar === 'rightSidebarWidth' && (
-				<Aside xcss={asideStyles.root} defaultWidth={400} isFixed id="aside">
+				<Aside xcss={asideStyles.root} defaultWidth={400} id="aside">
 					<div css={asideStyles.content}>
 						<Heading size="small">Aside</Heading>
 					</div>

@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.3.0
+
+### Minor Changes
+
+- [`45299e3f3ebab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/45299e3f3ebab) -
+  Add React hydration property to UFO metrics for initial page load
+
 ## 4.2.6
 
 ### Patch Changes

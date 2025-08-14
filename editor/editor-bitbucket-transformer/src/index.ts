@@ -4,7 +4,9 @@ import { MarkdownSerializer, marks, nodes } from './serializer';
 import { transformHtml } from './util';
 
 interface Transformer<T> {
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	encode(node: PMNode): T;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	parse(content: T, additionalOptions?: AdditionalParseOptions): PMNode;
 }
 

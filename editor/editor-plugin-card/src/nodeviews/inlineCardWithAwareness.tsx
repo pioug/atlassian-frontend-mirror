@@ -17,6 +17,7 @@ import { type cardPlugin } from '../cardPlugin';
 import { registerRemoveOverlay } from '../pm-plugins/actions';
 import { pluginKey } from '../pm-plugins/plugin-key';
 import { AwarenessWrapper } from '../ui/AwarenessWrapper';
+import { PreviewInvoker } from '../ui/preview/PreviewInvoker';
 
 import type { SmartCardProps } from './genericCard';
 import { InlineCard } from './inlineCard';
@@ -113,6 +114,7 @@ export const InlineCardWithAwareness = memo(
 
 		const { mode, selection } = useSharedState(pluginInjectionApi);
 		const floatingToolbarNode = selection instanceof NodeSelection && selection.node;
+		// This is a prop to show Hover card, Hover card should be shown only in Live View and Classic Renderer (note when only Editor controls enabled we don't show in Live view)
 		const showHoverPreview =
 			floatingToolbarNode !== node && fg('platform_editor_preview_panel_linking');
 
@@ -137,7 +139,6 @@ export const InlineCardWithAwareness = memo(
 						isHovered={isHovered}
 						isPageSSRed={isPageSSRed}
 						pluginInjectionApi={pluginInjectionApi}
-						showHoverPreview={showHoverPreview}
 					/>
 				</HoverLinkOverlay>
 			),
@@ -155,7 +156,6 @@ export const InlineCardWithAwareness = memo(
 				isHovered,
 				isPageSSRed,
 				pluginInjectionApi,
-				showHoverPreview,
 			],
 		);
 
@@ -173,7 +173,7 @@ export const InlineCardWithAwareness = memo(
 					isHovered={isHovered}
 					isPageSSRed={isPageSSRed}
 					pluginInjectionApi={pluginInjectionApi}
-					showHoverPreview={showHoverPreview}
+					showHoverPreview={false}
 				/>
 			),
 			[
@@ -188,7 +188,6 @@ export const InlineCardWithAwareness = memo(
 				view,
 				isPageSSRed,
 				pluginInjectionApi,
-				showHoverPreview,
 			],
 		);
 
@@ -208,57 +207,92 @@ export const InlineCardWithAwareness = memo(
 			? innerCardWithOpenButtonOverlay
 			: innerCardOriginal;
 
-		if (fg('platform_editor_preview_panel_linking')) {
-			const cardState = cardContext?.value?.store?.getState()[node.attrs.url];
+		if (mode === 'view' && fg('platform_editor_preview_panel_linking')) {
+			const url = node.attrs.url;
+			const cardState = cardContext?.value?.store?.getState()[url];
 			if (cardState) {
 				const ari = getObjectAri(cardState.details);
 				const name = getObjectName(cardState.details);
 				const iconUrl = getObjectIconUrl(cardState.details);
 				const isPanelAvailable = ari && cardContext?.value?.isPreviewPanelAvailable?.({ ari });
 				const openPreviewPanel = cardContext?.value?.openPreviewPanel;
-
-				const handleOpenGlancePanelClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
-					if (openPreviewPanel && isPanelAvailable) {
-						// Prevent anchor default behaviour(click to open the anchor link)
-						// When glance panel is available, let openPreviewPanel handle it
-						event.preventDefault();
-						openPreviewPanel({
-							url: node.attrs.url,
-							ari,
-							name: name || '',
-							iconUrl,
-						});
-					}
-				};
+				const isPreviewPanelAvailable = Boolean(openPreviewPanel && isPanelAvailable);
 
 				const innerCardWithPanelButtonOverlay = (
-					<HoverLinkOverlay
-						isVisible={isResolvedViewRendered}
-						url={node.attrs.url}
-						compactPadding={editorAppearance === 'comment' || editorAppearance === 'chromeless'}
-						editorAnalyticsApi={pluginInjectionApi?.analytics?.actions}
-						view={view}
-						showPanelButton={!!isPanelAvailable}
-						onClick={handleOpenGlancePanelClick}
-					>
-						<InlineCard
-							node={node}
-							view={view}
-							getPos={getPos}
-							useAlternativePreloader={useAlternativePreloader}
-							actionOptions={actionOptions}
-							onResolve={onResolve}
-							onClick={onClick}
-							cardContext={cardContext}
-							isHovered={isHovered}
-							isPageSSRed={isPageSSRed}
-							pluginInjectionApi={pluginInjectionApi}
-							showHoverPreview={showHoverPreview}
-						/>
-					</HoverLinkOverlay>
+					<PreviewInvoker url={url} appearance="inline">
+						{({ canPreview, invokePreview }) => {
+							const isPreviewModalAvailable = Boolean(canPreview && invokePreview);
+							// In view mode we show HoverLinkOverlay only with if preview mode or panel is available
+							// otherwise a use can click on smartlink itself to open the link in a new tab.
+							const isPreviewAvailable = isPreviewPanelAvailable || isPreviewModalAvailable;
+
+							if (isPreviewAvailable) {
+								return (
+									<HoverLinkOverlay
+										isVisible={isResolvedViewRendered}
+										url={url}
+										compactPadding={
+											editorAppearance === 'comment' || editorAppearance === 'chromeless'
+										}
+										editorAnalyticsApi={pluginInjectionApi?.analytics?.actions}
+										view={view}
+										showPanelButton={isPreviewAvailable}
+										showPanelButtonIcon={
+											isPreviewAvailable && isPreviewPanelAvailable ? 'panel' : 'modal'
+										}
+										onClick={(event) => {
+											if (isPreviewPanelAvailable) {
+												event.preventDefault();
+												openPreviewPanel?.({
+													url,
+													ari: ari || '',
+													name: name || '',
+													iconUrl,
+												});
+											} else if (isPreviewModalAvailable) {
+												event.preventDefault();
+												invokePreview?.();
+											}
+										}}
+									>
+										<InlineCard
+											node={node}
+											view={view}
+											getPos={getPos}
+											useAlternativePreloader={useAlternativePreloader}
+											actionOptions={actionOptions}
+											onResolve={onResolve}
+											onClick={onClick}
+											cardContext={cardContext}
+											isHovered={isHovered}
+											isPageSSRed={isPageSSRed}
+											pluginInjectionApi={pluginInjectionApi}
+											showHoverPreview={mode === 'view' && showHoverPreview}
+										/>
+									</HoverLinkOverlay>
+								);
+							} else {
+								return (
+									<InlineCard
+										node={node}
+										view={view}
+										getPos={getPos}
+										useAlternativePreloader={useAlternativePreloader}
+										actionOptions={actionOptions}
+										onResolve={onResolve}
+										onClick={onClick}
+										cardContext={cardContext}
+										isHovered={isHovered}
+										isPageSSRed={isPageSSRed}
+										pluginInjectionApi={pluginInjectionApi}
+										showHoverPreview={mode === 'view' && showHoverPreview}
+									/>
+								);
+							}
+						}}
+					</PreviewInvoker>
 				);
-				innerCard =
-					isPanelAvailable && openPreviewPanel ? innerCardWithPanelButtonOverlay : innerCard;
+				innerCard = innerCardWithPanelButtonOverlay;
 			}
 		}
 

@@ -3,6 +3,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import type { AssetsConfig, InteractionMetrics, InteractionType } from '../common';
 
 let config: Config | undefined;
+
 export interface AdditionalData {
 	[key: string]:
 		| null
@@ -50,6 +51,25 @@ type Rates = {
 
 export type TTVCRevision = 'fy25.01' | 'fy25.02' | 'fy25.03';
 export const DEFAULT_TTVC_REVISION = 'fy25.03';
+
+export type ReactHydrationStats = {
+	/**
+	 * Indicates if hydration of SSR content failed, so React switching to client-side rendering and re-rendered from scratch.
+	 */
+	successful: boolean;
+	/**
+	 * The total number of hydration errors reported from {@code hydrateRoot#onRecoverableError}.
+	 */
+	warningCount?: number;
+	/**
+	 * The depth in the React component tree of the shallowest warning.
+	 */
+	minWarningComponentDepth?: number;
+	/**
+	 * The depth in the React component tree of the deepest warning.
+	 */
+	maxWarningComponentDepth?: number;
+};
 
 // Defensively typed, since this is directly user-editable
 // and they could delete empty members
@@ -136,6 +156,11 @@ export type Config = {
 	readonly shouldCalculateLighthouseMetricsFromTTAI?: boolean;
 	readonly timeWindowForLateMutationsInMilliseconds?: number;
 	readonly manuallyTrackReactProfilerMounts?: boolean;
+	/**
+	 * Callback for consumers to provide React hydration stats after React has finished.
+	 * Return {@code null} if hydration was not attempted or if we do not want to report any stats.
+	 */
+	readonly getReactHydrationStats?: (() => ReactHydrationStats | undefined) | undefined;
 };
 
 export function setUFOConfig(newConfig: Config) {
@@ -206,6 +231,20 @@ export function getMostRecentVCRevision(experienceKey: string = '') {
 	const enabledVCRevisions = getEnabledVCRevisions(experienceKey);
 
 	return enabledVCRevisions[enabledVCRevisions.length - 1];
+}
+
+export function getReactHydrationStats(): ReactHydrationStats | undefined {
+	if (!config) {
+		return undefined;
+	}
+	try {
+		const stats = config?.getReactHydrationStats?.();
+		return stats ?? undefined;
+	} catch (e) {
+		// eslint-disable-next-line no-console
+		console.error('getReactHydrationStats threw an error: ', e);
+		return undefined;
+	}
 }
 
 export function getInteractionRate(name: string, interactionKind: InteractionKind): number {
@@ -435,6 +474,7 @@ export function getDoNotAbortActivePressInteractionOnTransition(): string[] | un
 }
 
 export const CLEANUP_TIMEOUT = 60 * 1000;
+
 export function getInteractionTimeout(ufoName: string): number {
 	try {
 		if (!config) {

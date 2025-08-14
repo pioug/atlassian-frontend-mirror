@@ -1,7 +1,9 @@
 import { findCutBefore } from '@atlaskit/editor-common/commands';
 import type { Command } from '@atlaskit/editor-common/types';
-import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import { findFarthestParentNode } from '@atlaskit/editor-common/utils';
+import { NodeRange, type ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { findWrapping, ReplaceAroundStep } from '@atlaskit/editor-prosemirror/transform';
+import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 
 import {
 	getBlockRange,
@@ -25,17 +27,65 @@ export const liftSelection: Command = (state, dispatch) => {
 	return !!tr;
 };
 
+/**
+ * Wraps the current selection in a task list, respecting a maximum indentation depth of 6 levels.
+ *
+ * - Normalizes the selection to ensure it covers complete task items.
+ * - Determines the maximum depth of task list nesting within the selection.
+ * - If the selection is already nested at or beyond the maximum depth, the command does nothing.
+ * - Calculates the block range to wrap, handling both regular and block task items.
+ * - Wraps the block in a task list to increase indentation or create a new task list if necessary.
+ *
+ * @param state - The current editor state.
+ * @param dispatch - The dispatch function to apply the transaction.
+ * @returns `true` if the command was handled (even if no changes were made), otherwise `false`.
+ * @example
+ * ```typescript
+ * autoJoin(wrapSelectionInTaskList, ['taskList']))(state, dispatch);
+ * ```
+ */
 export const wrapSelectionInTaskList: Command = (state, dispatch) => {
 	const { $from, $to } = normalizeTaskItemsSelection(state.selection);
 
 	// limit ui indentation to 6 levels
-	const { taskList, taskItem } = state.schema.nodes;
-	const maxDepth = subtreeHeight($from, $to, [taskList, taskItem]);
+	const { taskList, taskItem, blockTaskItem } = state.schema.nodes;
+	let maxDepth = subtreeHeight($from, $to, [taskList, taskItem]);
+
+	const isBlockTaskItem = hasParentNodeOfType([blockTaskItem])(state.selection);
+	const blockTaskItemNode = findFarthestParentNode((node) => node.type === blockTaskItem)($from);
+
+	if (blockTaskItem && isBlockTaskItem && blockTaskItemNode) {
+		// If the selection is inside a nested node inside the blockTaskItem
+		// Remove the difference in depth between the selection and the blockTaskItemNode
+		if ($from.depth > blockTaskItemNode.depth) {
+			maxDepth =
+				subtreeHeight($from, $to, [taskList, blockTaskItem]) -
+				($from.depth - blockTaskItemNode.depth);
+		} else {
+			maxDepth = subtreeHeight($from, $to, [taskList, blockTaskItem]);
+		}
+	}
+
 	if (maxDepth >= 6) {
 		return true;
 	}
 
-	const blockRange = getBlockRange($from, $to);
+	let blockRange = getBlockRange($from, $to);
+
+	if (blockTaskItem) {
+		if (isBlockTaskItem && blockTaskItemNode) {
+			// Get the Resolved $from and $to of the node nested inside the blockTaskItem
+			const startOfNodeInBlockTaskItem = state.doc.resolve(blockTaskItemNode.start);
+			const endOfNodeInBlockTaskItem = state.doc.resolve(
+				blockTaskItemNode.start + blockTaskItemNode.node.nodeSize - 1,
+			);
+			blockRange = new NodeRange(
+				startOfNodeInBlockTaskItem,
+				endOfNodeInBlockTaskItem,
+				blockTaskItemNode.depth - 1,
+			);
+		}
+	}
 	if (!blockRange) {
 		return true;
 	}

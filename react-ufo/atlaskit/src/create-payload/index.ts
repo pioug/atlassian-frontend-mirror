@@ -696,6 +696,7 @@ async function createInteractionMetricsPayload(
 		responsiveness,
 		unknownElementName,
 		unknownElementHierarchy,
+		hydration,
 	} = interaction;
 	const pageVisibilityAtTTI = getPageVisibilityUpToTTI(interaction);
 	const pageVisibilityAtTTAI = getPageVisibilityUpToTTAI(interaction);
@@ -838,6 +839,13 @@ async function createInteractionMetricsPayload(
 			]);
 	}
 
+	const getReactHydrationStats = () => {
+		if (!isPageLoad || !hydration) {
+			return {};
+		}
+		return { hydration };
+	};
+
 	const payload = {
 		actionSubject: 'experience',
 		action: 'measured',
@@ -886,6 +894,7 @@ async function createInteractionMetricsPayload(
 				...getTracingContextData(interaction),
 				...getStylesheetMetrics(),
 				...getErrorCounts(interaction),
+				...getReactHydrationStats(),
 
 				interactionMetrics: {
 					namePrefix: config.namePrefix || '',

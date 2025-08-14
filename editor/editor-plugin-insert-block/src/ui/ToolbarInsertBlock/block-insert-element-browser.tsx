@@ -25,6 +25,7 @@ export interface BlockInsertElementBrowserProps {
 	popupsScrollableElement?: HTMLElement;
 	plusButtonRef?: HTMLElement;
 	showElementBrowserLink: boolean;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	onRef(el: HTMLElement): void;
 	onClick: React.MouseEventHandler;
 	onKeyDown?: React.KeyboardEventHandler;

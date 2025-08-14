@@ -67,6 +67,10 @@ export const mapLanguageToCodeMirror = (language: LanguageAliasValue) => {
 			return languages.find((l) => {
 				return l.name === 'Gherkin';
 			});
+		case 'toml':
+			return languages.find((l) => {
+				return l.name === 'TOML';
+			});
 		case 'handlebars':
 			return LanguageDescription.of({
 				name: 'Handlebars',

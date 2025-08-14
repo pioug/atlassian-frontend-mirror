@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 40.10.2
+
+### Patch Changes
+
+- [`2115cfcea4013`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2115cfcea4013) -
+  Add Jira Issue ID, Confluence Content ID/Page ID, and helper methods to retrieve, as well as
+  include in component onclick result
+
 ## 40.10.1
 
 ### Patch Changes

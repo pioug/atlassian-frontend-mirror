@@ -68,6 +68,11 @@ export const messages = defineMessages({
 		defaultMessage: 'Panel',
 		description: 'Title for a button that opens side panel when clicked.',
 	},
+	previewButtonTitle: {
+		id: 'fabric.editor.previewButtonTitle',
+		defaultMessage: 'Preview',
+		description: 'Title for a button that when clicked opens a preview modal or a preview panel.',
+	},
 	embedTitle: {
 		id: 'fabric.editor.embedTitle',
 		defaultMessage: 'Embed',

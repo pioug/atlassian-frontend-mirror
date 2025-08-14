@@ -24,7 +24,9 @@ export type HelpDialogPlugin = NextEditorPlugin<
 		pluginConfiguration: HelpDialogPluginOptions;
 		sharedState: HelpDialogSharedState | null;
 		actions: {
+			// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 			openHelp(): void;
+			// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 			closeHelp(): void;
 		};
 	}

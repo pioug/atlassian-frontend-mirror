@@ -4,17 +4,20 @@ import { Consumer } from '../consumers/consumer';
 import { type Document as DocumentModel } from '../model';
 
 export interface Props {
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	render(actions: DocumentActions): React.ReactNode;
 }
 
 export interface DocumentActions {
 	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/method-signature-style -- method-signature-style ignored via go/ees013 (to be fixed)
 	createDocument(value: any): Promise<DocumentModel>;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	editDocument(): void;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	cancelEdit(): void;
 	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/method-signature-style -- method-signature-style ignored via go/ees013 (to be fixed)
 	updateDocument(value: any): Promise<DocumentModel>;
 }
 

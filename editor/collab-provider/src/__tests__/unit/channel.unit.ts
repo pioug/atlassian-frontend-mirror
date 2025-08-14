@@ -512,25 +512,6 @@ describe('Channel unit tests', () => {
 					message: 'Version already exists',
 				});
 			});
-
-			it('when a corrupt step fails to be saved in NCS', (done) => {
-				const channel = getChannel();
-
-				channel.on('error', (error: InternalError) => {
-					expect(error).toEqual({
-						code: 'CORRUPT_STEP_FAILED_TO_SAVE',
-						meta: 'The step cannot be applied to the ProseMirror document',
-						message: 'Step cannot be applied to document',
-					});
-					done();
-				});
-
-				channel.getSocket()?.emit('error', {
-					code: 'CORRUPT_STEP_FAILED_TO_SAVE',
-					meta: 'The step cannot be applied to the ProseMirror document',
-					message: 'Step cannot be applied to document',
-				});
-			});
 		});
 	});
 

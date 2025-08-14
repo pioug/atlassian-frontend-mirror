@@ -1,5 +1,13 @@
 # @atlaskit/editor-toolbar
 
+## 0.3.0
+
+### Minor Changes
+
+- [`4d47716053c75`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4d47716053c75) -
+  [ux] ED-28799 Migrate ColorPalette component to editor-toolbar
+  - Add DropdownMenu Context to be able to manage opening/closing state of the dropdown in menu item
+
 ## 0.2.3
 
 ### Patch Changes

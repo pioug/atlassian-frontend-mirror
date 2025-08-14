@@ -17,5 +17,6 @@ export type LinkContentType =
 	| 'default';
 
 export interface SearchProvider {
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	quickSearch(query: string, limit: number): Promise<QuickSearchResult[]>;
 }

@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { getConfig as getConfigUFO } from '../config';
 import { roundEpsilon } from '../round-number';
 
@@ -128,7 +126,7 @@ function getNetworkData(
 		ttfb,
 		serverTime,
 		networkTime,
-		requestStart: fg('ufo_return_relative_request_start') ? requestStartRelative : requestStart,
+		requestStart: requestStartRelative,
 		...getSizeObject(transferSize),
 	};
 }

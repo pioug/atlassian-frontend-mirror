@@ -87,7 +87,9 @@ export type MultiBodiedExtensionActions = {
 	getChildrenCount: () => number;
 	removeChild: (index: number) => boolean;
 	updateParameters: (parameters: Parameters) => boolean;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	getChildren(): Array<ADFEntity>;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	getChildrenContainer(): React.ReactNode;
 };
 

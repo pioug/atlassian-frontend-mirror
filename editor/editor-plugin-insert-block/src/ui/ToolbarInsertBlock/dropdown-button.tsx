@@ -25,6 +25,7 @@ export interface DropDownButtonProps {
 	onClick: React.MouseEventHandler;
 	onKeyDown?: React.KeyboardEventHandler;
 	spacing: 'none' | 'default';
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	handleRef(el: ToolbarButtonRef): void;
 }
 

@@ -42,7 +42,9 @@ export interface BlockTypeButtonProps {
 	selected: boolean;
 	disabled: boolean;
 	title: MessageDescriptor;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	onClick(e: React.MouseEvent): void;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	onKeyDown(e: React.KeyboardEvent): void;
 	formatMessage: WrappedComponentProps['intl']['formatMessage'];
 	blockTypeName?: string;

@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 6.2.4
+
+### Patch Changes
+
+- [`af3ebe7fda754`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/af3ebe7fda754) -
+  [EDITOR-1153] Handle when user presses "Tab" in a blockTaskItem
+
+## 6.2.3
+
+### Patch Changes
+
+- [#201339](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/201339)
+  [`b734e816f63ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b734e816f63ba) -
+  [EDITOR-1150] Handle pressing Enter in blockTaskItems
+
 ## 6.2.2
 
 ### Patch Changes

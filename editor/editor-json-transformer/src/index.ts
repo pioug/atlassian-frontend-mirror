@@ -26,7 +26,9 @@ import type { JSONDocNode, JSONNode } from './types';
 export type { JSONDocNode, JSONNode } from './types';
 
 interface Transformer<T> {
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	encode(node: PMNode): T;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	parse(content: T): PMNode;
 }
 

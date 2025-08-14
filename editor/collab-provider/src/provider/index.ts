@@ -218,7 +218,6 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 					initial: !initialized,
 				});
 				const unconfirmedStepsLength = this.documentService.getUnconfirmedSteps()?.length;
-				this.documentService.setNumberOfCommitsSent(0);
 
 				// if buffering is enabled and the provider is initialized before connection,
 				// send any unconfirmed steps
@@ -486,12 +485,6 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 			error.data?.code === NCS_ERROR_CODE.VERSION_NUMBER_ALREADY_EXISTS
 		) {
 			this.documentService.onStepRejectedError();
-		} else if (error.data?.code === NCS_ERROR_CODE.CORRUPT_STEP_FAILED_TO_SAVE) {
-			this.documentService.throttledCatchupv2(
-				CatchupEventReason.CORRUPT_STEP,
-				undefined,
-				fg('add_session_id_to_catchup_query') ? this.sessionId : undefined,
-			);
 		} else {
 			this.analyticsHelper?.sendErrorEvent(error, error.message);
 			const mappedError = errorCodeMapper(error);

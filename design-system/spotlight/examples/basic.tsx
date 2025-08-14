@@ -17,6 +17,7 @@ import {
 	SpotlightMedia,
 	SpotlightPrimaryAction,
 	SpotlightSecondaryAction,
+	SpotlightShowMoreControl,
 } from '@atlaskit/spotlight';
 import { token } from '@atlaskit/tokens';
 
@@ -39,6 +40,7 @@ export default function Basic() {
 				<SpotlightHeader>
 					<SpotlightHeadline>Headline</SpotlightHeadline>
 					<SpotlightControls>
+						<SpotlightShowMoreControl />
 						<SpotlightDismissControl />
 					</SpotlightControls>
 				</SpotlightHeader>

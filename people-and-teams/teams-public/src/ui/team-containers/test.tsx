@@ -393,8 +393,8 @@ describe('TeamContainers', () => {
 		const disconnectButton = screen.getByRole('button', { name: 'Remove' });
 		await userEvent.click(disconnectButton);
 
-		expect(mockFireOperationalEvent).toHaveBeenCalledTimes(1);
-		expect(mockFireOperationalEvent).toHaveBeenCalledWith(expect.any(Function), {
+		expect(mockFireTrackEvent).toHaveBeenCalledTimes(2);
+		expect(mockFireTrackEvent).toHaveBeenCalledWith(expect.any(Function), {
 			action: 'succeeded',
 			actionSubject: 'teamContainerUnlinked',
 			attributes: {

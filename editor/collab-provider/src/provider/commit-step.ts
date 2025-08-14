@@ -1,5 +1,4 @@
 import countBy from 'lodash/countBy';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { ADD_STEPS_TYPE, EVENT_ACTION, EVENT_STATUS } from '../helpers/const';
 import type {
 	AcknowledgementErrorPayload,
@@ -56,8 +55,6 @@ export class CommitStepService {
 		hasRecovered,
 		collabMode,
 		reason,
-		numberOfStepCommitsSent,
-		setNumberOfCommitsSent,
 		lockSteps,
 	}: {
 		steps: readonly ProseMirrorStep[];
@@ -69,8 +66,6 @@ export class CommitStepService {
 		hasRecovered: boolean;
 		collabMode: string;
 		reason?: GetResolvedEditorStateReason;
-		numberOfStepCommitsSent: number;
-		setNumberOfCommitsSent: (steps: number) => void;
 		lockSteps: (stepOrigins?: readonly Transaction[]) => void;
 	}) {
 		// this timer is for waiting to send the next batch in between acks from the BE
@@ -137,12 +132,6 @@ export class CommitStepService {
 		const ADD_STEPS_BROADCAST_ERROR_MSG = 'Error while adding steps - Broadcast threw exception';
 		this.emit('commit-status', { status: 'attempt', version });
 		try {
-			const n =
-				FeatureGates.getExperimentValue('platform_editor_step_validation_on_connect', 'steps', 0) ??
-				0;
-			const isExperimentEnabled = n > 0;
-			// skip validation if FG is on and we have already sent n steps, or if FG is off
-			const skipValidation = isExperimentEnabled ? numberOfStepCommitsSent >= n : true;
 			this.broadcast(
 				'steps:commit',
 				{
@@ -150,7 +139,6 @@ export class CommitStepService {
 					steps: stepsWithClientAndUserId,
 					version,
 					userId,
-					skipValidation,
 				},
 				(response: AddStepAcknowledgementPayload) => {
 					this.lastBroadcastRequestAcked = true;
@@ -199,10 +187,6 @@ export class CommitStepService {
 					}
 				},
 			);
-
-			if (isExperimentEnabled && numberOfStepCommitsSent < n) {
-				setNumberOfCommitsSent(numberOfStepCommitsSent + 1);
-			}
 		} catch (error) {
 			// if the broadcast failed for any reason, we shouldn't keep the queue locked as the BE has not recieved any message
 			lockSteps();

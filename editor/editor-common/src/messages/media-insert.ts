@@ -19,13 +19,7 @@ export const mediaInsertMessages = defineMessages({
 		description:
 			'Placeholder text for the input field where a user can paste (as in copy-paste) a URL to upload a media file',
 	},
-	insertSmartValueHelperMessage: {
-		id: 'fabric.editor.media.insert.insertSmartValueHelperMessage',
-		defaultMessage:
-			'Tip: Enter a smart value or replace a URL path with a smart value to make content dynamic.',
-		description:
-			'Helper text for the input field where a user can paste (as in copy-paste) a URL or insert smart value in the url to upload a media file',
-	},
+
 	cancel: {
 		id: 'fabric.editor.media.insert.cancel',
 		defaultMessage: 'Cancel',

@@ -1,5 +1,12 @@
 # @atlaskit/spotlight
 
+## 0.0.12
+
+### Patch Changes
+
+- [`7121a32fb1613`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7121a32fb1613) -
+  Create ShowMoreControl component.
+
 ## 0.0.11
 
 ### Patch Changes

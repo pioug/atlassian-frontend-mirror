@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-track-changes
 
+## 2.6.2
+
+### Patch Changes
+
+- [`22f298149afc8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22f298149afc8) -
+  EDITOR-1342: Fix missing mapping causing some steps to break the typeahead.
+- Updated dependencies
+
 ## 2.6.1
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @atlaskit/react-select
 
+## 3.4.4
+
+### Patch Changes
+
+- [`4129d4df5bb4d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4129d4df5bb4d) -
+  Revert the changes done to add prop hasOtherFocusableElements flag
+
 ## 3.4.3
 
 ### Patch Changes

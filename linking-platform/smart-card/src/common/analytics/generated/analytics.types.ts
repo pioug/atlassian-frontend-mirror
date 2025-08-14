@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::18e5687cdc42ba3ac58b306a03a60d9d>>
+ * @codegen <<SignedSource::9e03e5e3a6be04ef3aa7e2d7a018d8a7>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen smart-card
  */
 export type PackageMetaDataContextType = {
@@ -271,8 +271,11 @@ export type SmartLinkRenderFailedAttributesType = {
 	id: string | null;
 };
 export type SmartLinkClickedSmartlinkClickAnalyticsWorkflowsAttributesType = {
-	sourceURL: string;
+	firstPartyARI: string;
 	thirdPartyARI: string;
+	jiraIssueId: string | null;
+	confluenceContentId: string | null;
+	confluencePageId: string | null;
 };
 
 export type AnalyticsEventAttributes = {

@@ -29,15 +29,17 @@ interface TextColorHighlightMenuProps {
 
 export const TextColorHighlightMenu = ({ children, api }: TextColorHighlightMenuProps) => {
 	const isTextColorDisabled = useSharedPluginStateSelector(api, 'textColor.disabled');
+	const highlightColor = useSharedPluginStateSelector(api, 'highlight.activeColor');
+	const textColor = useSharedPluginStateSelector(api, 'textColor.color');
 	const { formatMessage } = useIntl();
 
 	return (
 		<ToolbarDropdownMenu
 			iconBefore={
-				<ToolbarColorSwatch highlightColor={token('color.background.accent.blue.subtlest')}>
+				<ToolbarColorSwatch highlightColor={highlightColor || ''}>
 					<TextColorIcon
 						label={formatMessage(messages.textColorTooltip)}
-						iconColor={token('color.text.accent.magenta') as IconColor}
+						iconColor={(textColor || token('color.text.accent.magenta')) as IconColor}
 						shouldRecommendSmallIcon={true}
 						size={'small'}
 						isDisabled={isTextColorDisabled}

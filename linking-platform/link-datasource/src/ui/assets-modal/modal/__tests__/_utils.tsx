@@ -274,17 +274,11 @@ export const setup = async (
 
 	const selectNewSchema = async (option: string) => {
 		const { findByText } = component;
-		// React Select does not work with testId
-		const objectSchemaSelectInput = document.getElementsByClassName(
-			'assets-datasource-modal--object-schema-select__input',
-		)[0];
-		// Open Menu
-		fireEvent.focus(objectSchemaSelectInput);
-		fireEvent.keyDown(objectSchemaSelectInput, {
-			key: 'ArrowDown',
-			keyCode: 40,
-			code: 40,
-		});
+		const objectSchemaSelect = await findByTestId('assets-datasource-modal--object-schema-select');
+
+		// Open Menu, needs to find the button element to perform click correctly
+		fireEvent.click(objectSchemaSelect.children[0]);
+
 		(await findByText(option)).click();
 	};
 

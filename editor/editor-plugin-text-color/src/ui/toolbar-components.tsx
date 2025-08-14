@@ -12,7 +12,7 @@ import {
 	TEXT_COLOR_HIGHLIGHT_MENU_RANK,
 } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { type RegisterComponent } from '@atlaskit/editor-toolbar-model';
+import type { RegisterComponent, ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
 
 import type { TextColorPlugin } from '../textColorPluginType';
 
@@ -61,7 +61,9 @@ export const getToolbarComponents = (
 					rank: TEXT_COLOR_HIGHLIGHT_MENU_SECTION_RANK[TEXT_COLOR_MENU_ITEM.key],
 				},
 			],
-			component: () => <TextColorMenuItem api={api} />,
+			component: ({ parents }: { parents: ToolbarComponentTypes }) => (
+				<TextColorMenuItem api={api} parents={parents} />
+			),
 		},
 	];
 };

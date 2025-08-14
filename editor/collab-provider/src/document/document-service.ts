@@ -69,7 +69,6 @@ export class DocumentService implements DocumentServiceInterface {
 	private aggressiveCatchup: boolean = false;
 	private catchUpOutofSync: boolean = false;
 	private hasRecovered: boolean = false;
-	private numberOfStepCommitsSent: number = 0;
 	private commitStepService: CommitStepService;
 	private timeout: ReturnType<typeof setTimeout> | undefined;
 	private timeoutExceeded: boolean = false;
@@ -155,17 +154,6 @@ export class DocumentService implements DocumentServiceInterface {
 	);
 
 	/**
-	 * Updates the number of commits sent since connect/reconnect
-	 * This is used to track the number of commits sent to the server.
-	 * currently we are validating the first steps from a user after connect/reconnect - CEPS-710
-	 * @param steps
-	 * @example
-	 */
-	setNumberOfCommitsSent = (steps: number) => {
-		this.numberOfStepCommitsSent = steps;
-	};
-
-	/**
 	 * Called when:
 	 *   * session established(offline -> online)
 	 *   * try to accept steps but version is behind.
@@ -221,7 +209,7 @@ export class DocumentService implements DocumentServiceInterface {
 				analyticsHelper: this.analyticsHelper,
 				clientId: this.clientId,
 				onStepsAdded: this.onStepsAdded,
-				catchUpOutofSync: reason === CatchupEventReason.CORRUPT_STEP ? true : this.catchUpOutofSync,
+				catchUpOutofSync: this.catchUpOutofSync,
 				reason,
 				sessionId,
 				onCatchupComplete: (steps) => {
@@ -1177,8 +1165,6 @@ export class DocumentService implements DocumentServiceInterface {
 			hasRecovered: this.hasRecovered,
 			collabMode: this.participantsService.getCollabMode(),
 			reason,
-			numberOfStepCommitsSent: this.numberOfStepCommitsSent,
-			setNumberOfCommitsSent: this.setNumberOfCommitsSent,
 			lockSteps: this.lockSteps,
 		});
 	}

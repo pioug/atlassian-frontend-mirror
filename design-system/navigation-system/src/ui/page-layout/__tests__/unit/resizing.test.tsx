@@ -634,8 +634,9 @@ describe('Resizing layout slots', () => {
 				</Root>,
 			);
 
+			expect(screen.getByTestId('aside')).toHaveTextContent(':root { --rightSidebarWidth: 0px }');
 			expect(screen.getByTestId('aside')).toHaveTextContent(
-				':root { --rightSidebarWidth: clamp(0px, 360px, 50vw) }',
+				'@media (min-width: 64rem) { :root { --rightSidebarWidth: var(--n_asdRsz, clamp(0px, 360px, 50vw)) } }',
 			);
 
 			const splitter = screen.getByTestId('panel-splitter');
@@ -646,8 +647,9 @@ describe('Resizing layout slots', () => {
 			getPixelWidthMock.mockReturnValue(420);
 			fireEvent.drop(splitter);
 
+			expect(screen.getByTestId('aside')).toHaveTextContent(':root { --rightSidebarWidth: 0px }');
 			expect(screen.getByTestId('aside')).toHaveTextContent(
-				':root { --rightSidebarWidth: clamp(0px, 420px, 50vw) }',
+				'@media (min-width: 64rem) { :root { --rightSidebarWidth: var(--n_asdRsz, clamp(0px, 420px, 50vw)) } }',
 			);
 		});
 	});
@@ -693,7 +695,7 @@ describe('Resizing layout slots', () => {
 
 			expect(screen.getByTestId('panel')).toHaveTextContent(':root { --rightPanelWidth: 0px }');
 			expect(screen.getByTestId('panel')).toHaveTextContent(
-				'@media (min-width: 90rem) { :root { --rightPanelWidth: clamp(360px, 360px, round(nearest, calc((100vw - var(--n_sNvlw, 0px)) / 2), 1px)) } }',
+				'@media (min-width: 90rem) { :root { --rightPanelWidth: var(--n_pnlRsz, clamp(360px, 360px, round(nearest, calc((100vw - var(--n_sNvlw, 0px)) / 2), 1px))) } }',
 			);
 
 			const splitter = screen.getByTestId('panel-splitter');
@@ -705,7 +707,7 @@ describe('Resizing layout slots', () => {
 			fireEvent.drop(splitter);
 
 			expect(screen.getByTestId('panel')).toHaveTextContent(
-				'@media (min-width: 90rem) { :root { --rightPanelWidth: clamp(360px, 420px, round(nearest, calc((100vw - var(--n_sNvlw, 0px)) / 2), 1px)) } }',
+				'@media (min-width: 90rem) { :root { --rightPanelWidth: var(--n_pnlRsz, clamp(360px, 420px, round(nearest, calc((100vw - var(--n_sNvlw, 0px)) / 2), 1px))) }',
 			);
 		});
 	});

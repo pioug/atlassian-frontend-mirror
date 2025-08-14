@@ -80,14 +80,20 @@ export interface MediaPluginState {
 	isIdentifierInEditorScope: (identifier: Identifier) => boolean;
 	trackOutOfScopeIdentifier: (identifier: Identifier) => void;
 
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	updateElement(): void;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	setIsResizing(isResizing: boolean): void;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	setResizingWidth(width: number): void;
 
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	setView(view: EditorView): void;
 
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	destroy(): void;
 
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	updateAndDispatch(
 		props: Partial<
 			Pick<
@@ -97,9 +103,12 @@ export interface MediaPluginState {
 		>,
 	): void;
 
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	clone(): MediaPluginState;
 
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	subscribeToUploadInProgressState(fn: (isUploading: boolean) => void): void;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	unsubscribeFromUploadInProgressState(fn: (isUploading: boolean) => void): void;
 	// Media Viewer State
 	isMediaViewerVisible?: boolean;

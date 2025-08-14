@@ -82,157 +82,9 @@ test.beforeEach(async ({ page }) => {
 	await page.setViewportSize(viewportSize.large);
 });
 
-test.describe('legacy CSS variables - platform_design_system_nav4_live_resizing_css_vars disabled', () => {
+test.describe('legacy CSS variables', () => {
 	test.beforeEach(async ({ page }) => {
 		await page.visitExample('design-system', 'navigation-system', 'legacy-var-testing');
-	});
-
-	test('panel CSS variable does not update until drag finishes', async ({ page }) => {
-		// Only Main + Panel will be mounted
-		await page.getByRole('radio', { name: 'Panel' }).click();
-
-		const panel = page.getByRole('region', { name: 'Panel' });
-		const legacyVarSpy = page.getByTestId('legacy-var-spy');
-
-		// Width should be 350px by default (defined in the example)
-		await expect(panel).toHaveWidth(350);
-
-		// The legacy var should have the same width as the panel
-		await expect(legacyVarSpy).toHaveWidth(350);
-
-		// Resize the panel `100px` left
-		await dragByOffset({
-			page,
-			locator: page.getByTestId('panel-slot-panel-splitter'),
-			offset: { x: -100, y: 0 },
-			shouldDrop: false,
-		});
-
-		// The legacy var has not been updated yet
-		await expect(legacyVarSpy).toHaveWidth(350);
-
-		// End the drag
-		await page.mouse.up();
-
-		// The legacy var has now been updated after the drop
-		await expect(legacyVarSpy).toHaveWidth(450);
-	});
-
-	test('aside CSS variable does not update until drag finishes', async ({ page }) => {
-		// Only Main + Aside will be mounted
-		await page.getByRole('radio', { name: 'Aside' }).click();
-
-		const aside = page.getByRole('complementary', { name: 'Aside' });
-		const legacyVarSpy = page.getByTestId('legacy-var-spy');
-
-		// Width should be 400px by default (defined in the example)
-		await expect(aside).toHaveWidth(400);
-
-		// The legacy var should have the same width as the aside
-		await expect(legacyVarSpy).toHaveWidth(400);
-
-		// Resize the aside `100px` left
-		await dragByOffset({
-			page,
-			locator: page.getByTestId('aside-slot-panel-splitter'),
-			offset: { x: -100, y: 0 },
-			shouldDrop: false,
-		});
-
-		// The legacy var has not been updated yet
-		await expect(legacyVarSpy).toHaveWidth(400);
-
-		// End the drag
-		await page.mouse.up();
-
-		// The legacy var has now been updated after the drop
-		await expect(legacyVarSpy).toHaveWidth(500);
-	});
-
-	test('panel CSS variable resolves to 0px when it is an overlay', async ({ page }) => {
-		// Small viewport so that the Panel is an overlay
-		await page.setViewportSize(viewportSize.small);
-
-		// Only Main + Panel will be mounted
-		await page.getByRole('radio', { name: 'Panel' }).click();
-
-		const panel = page.getByRole('region', { name: 'Panel' });
-		const legacyVarSpy = page.getByTestId('legacy-var-spy');
-
-		// Width should be 350px by default (defined in the example)
-		await expect(panel).toHaveWidth(350);
-
-		// The legacy var resolves to 0px because the Panel is an overlay
-		await expect(legacyVarSpy).toHaveWidth(0);
-
-		// Resize the panel `100px` left
-		await dragByOffset({
-			page,
-			locator: page.getByTestId('panel-slot-panel-splitter'),
-			offset: { x: -100, y: 0 },
-			shouldDrop: false,
-		});
-
-		// The legacy var resolves to 0px because the Panel is an overlay
-		await expect(legacyVarSpy).toHaveWidth(0);
-
-		// End the drag
-		await page.mouse.up();
-
-		// The legacy var resolves to 0px because the Panel is an overlay
-		await expect(legacyVarSpy).toHaveWidth(0);
-	});
-
-	test('aside CSS variable resolves to 0px when it is below main', async ({ page }) => {
-		// Small viewport so that the Aside is below Main
-		await page.setViewportSize(viewportSize.small);
-
-		// Only Main + Aside will be mounted
-		await page.getByRole('radio', { name: 'Aside' }).click();
-
-		const aside = page.getByRole('complementary', { name: 'Aside' });
-		const legacyVarSpy = page.getByTestId('legacy-var-spy');
-
-		// Aside is full width because it is under main
-		await expect(aside).toHaveWidth(viewportSize.small.width);
-
-		// The legacy var resolves to 0px because Aside is under main
-		await expect(legacyVarSpy).toHaveWidth(0);
-
-		await page.getByTestId('aside-slot-panel-splitter').scrollIntoViewIfNeeded();
-
-		// Make the panel splitter grab-able by Playwright
-		// A real user can still drag it without this
-		await aside.evaluate((aside) => {
-			aside.style.marginLeft = '24px';
-		});
-
-		// Resize the panel `100px` left
-		// Note: resizing while aside is under main does nothing, but the splitter is still rendered
-		// We can update this test if/when we remove the splitter on smaller viewports
-		await dragByOffset({
-			page,
-			locator: page.getByTestId('aside-slot-panel-splitter'),
-			offset: { x: 100, y: 0 },
-			shouldDrop: false,
-		});
-
-		// The legacy var resolves to 0px because Aside is under main
-		await expect(legacyVarSpy).toHaveWidth(0);
-
-		// End the drag
-		await page.mouse.up();
-
-		// The legacy var resolves to 0px because Aside is under main
-		await expect(legacyVarSpy).toHaveWidth(0);
-	});
-});
-
-test.describe('legacy CSS variables - platform_design_system_nav4_live_resizing_css_vars enabled', () => {
-	test.beforeEach(async ({ page }) => {
-		await page.visitExample('design-system', 'navigation-system', 'legacy-var-testing', {
-			featureFlag: 'platform_design_system_nav4_live_resizing_css_vars',
-		});
 	});
 
 	test('panel CSS variable updates during a drag', async ({ page }) => {
@@ -372,16 +224,7 @@ test.describe('legacy CSS variables - platform_design_system_nav4_live_resizing_
 		// The legacy var resolves to 0px because Aside is under main
 		await expect(legacyVarSpy).toHaveWidth(0);
 	});
-});
 
-/**
- * For the side nav variable, this behavior was implemented under a different flag than the other slots.
- * It had existing test coverage, but it didn't test the variable directly like this test suite does.
- * Adding these tests here for consistency.
- *
- * TODO: when cleaning up platform_design_system_nav4_live_resizing_css_vars merge this describe into the above.
- */
-test.describe('legacy CSS variables', () => {
 	test('sidenav CSS variable does not update until drag finishes', async ({ page }) => {
 		await page.visitExample('design-system', 'navigation-system', 'legacy-var-testing');
 

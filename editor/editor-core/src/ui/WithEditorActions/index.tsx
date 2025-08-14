@@ -5,6 +5,7 @@ import { EditorContext } from '@atlaskit/editor-common/UNSAFE_do_not_use_editor_
 import type EditorActions from '../../actions';
 
 export interface WithEditorActionsProps {
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	render(actions: EditorActions): React.ReactElement | null;
 }
 

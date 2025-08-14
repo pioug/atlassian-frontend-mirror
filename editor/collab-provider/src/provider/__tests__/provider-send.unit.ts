@@ -361,67 +361,6 @@ describe('#sendData', () => {
 		jest.spyOn(global.Math, 'random').mockRestore();
 	});
 
-	it.skip('handles corrupt steps error by calling catchup when there are sendable steps', () => {
-		// @ts-ignore spying on private method for testing
-		const throttledCatchupSpy = jest.spyOn(provider.documentService, 'throttledCatchupv2');
-
-		(sendableSteps as jest.Mock).mockReturnValue({
-			steps: [fakeStep],
-		});
-		(getCollabState as jest.Mock).mockReturnValue({ version: 1 });
-
-		provider.send(null, null, anyEditorState);
-
-		const ackCallback = commitServiceBroadcastSpy.mock.calls[0][2];
-		// @ts-ignore emit is a protected function
-		jest.spyOn(provider, 'emit').mockImplementation(() => {});
-		jest.spyOn(global.Math, 'random').mockReturnValue(0.069);
-
-		ackCallback({
-			type: AcknowledgementResponseTypes.ERROR,
-			error: { data: { code: 'CORRUPT_STEP_FAILED_TO_SAVE' } },
-		});
-		expect(throttledCatchupSpy).toHaveBeenCalledTimes(1);
-		expect(throttledCatchupSpy).toHaveBeenCalledWith(
-			CatchupEventReason.CORRUPT_STEP,
-			undefined,
-			undefined,
-		);
-		// @ts-ignore just spying on a private method, nothing to see here
-		expect(provider.emit).toHaveBeenCalledTimes(1);
-		expect(fakeAnalyticsWebClient.sendTrackEvent).toHaveBeenCalledTimes(1);
-		expect(fakeAnalyticsWebClient.sendTrackEvent).toHaveBeenCalledWith({
-			action: 'error',
-			actionSubject: 'collab',
-			attributes: {
-				packageName: '@product/platform',
-				packageVersion: '0.0.0',
-				collabService: 'ncs',
-				network: {
-					status: 'ONLINE',
-				},
-				documentAri: 'ari:cloud:confluence:ABC:page/testpage',
-				subProduct: 'live',
-				errorCode: 'CORRUPT_STEP_FAILED_TO_SAVE',
-				errorMessage: 'Error while adding steps - Acknowledgement Error',
-				originalErrorMessage: undefined,
-			},
-			nonPrivacySafeAttributes: {
-				error: {
-					data: {
-						code: 'CORRUPT_STEP_FAILED_TO_SAVE',
-					},
-				},
-			},
-			tags: ['editor'],
-			source: 'unknown',
-		});
-
-		// @ts-ignore
-		window.requestAnimationFrame.mockRestore();
-		jest.spyOn(global.Math, 'random').mockRestore();
-	});
-
 	it('auto-triggers a step commit on step conflict when there are sendable steps', () => {
 		(sendableSteps as jest.Mock).mockReturnValue({
 			steps: [fakeStep],

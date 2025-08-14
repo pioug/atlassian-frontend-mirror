@@ -79,7 +79,9 @@ type DoTag = (props: {
 }) => HeatmapEntrySource | undefined | null;
 
 export interface TaintedIntersectionObserver {
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	disconnect(): void;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	unobserve(target: Element): void;
 	watchAndTag: (target: Element, cbOrTag: DoTag | HeatmapEntrySource) => void;
 }

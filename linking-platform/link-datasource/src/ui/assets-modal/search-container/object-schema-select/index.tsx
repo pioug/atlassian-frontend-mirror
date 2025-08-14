@@ -12,8 +12,7 @@ import { useIntl } from 'react-intl-next';
 import Button from '@atlaskit/button/new';
 import { Field } from '@atlaskit/form';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { AsyncSelect, type InputActionMeta, PopupSelect } from '@atlaskit/select';
+import { type InputActionMeta, PopupSelect } from '@atlaskit/select';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
@@ -122,50 +121,34 @@ export const AssetsObjectSchemaSelect = ({
 				validate={(value) => validateSchema(value)}
 				testId={testId}
 			>
-				{({ fieldProps: { onChange, onFocus, ...restFieldProps } }) =>
-					fg('linking-platform-assests-schema-selector-refresh') ? (
-						<PopupSelect
-							autoFocus
-							maxMenuWidth={300}
-							minMenuWidth={300}
-							isSearchable={true}
-							searchThreshold={-1}
-							isLoading={objectSchemasLoading}
-							options={options}
-							placeholder={formatMessage(objectSchemaSelectMessages.placeholder)}
-							onChange={(newOption) => newOption && onChange(newOption)}
-							inputValue={searchTerm}
-							onInputChange={handleInputChange}
-							onMenuClose={onClose}
-							{...restFieldProps}
-							label={formatMessage(objectSchemaSelectMessages.placeholder)}
-							target={({ isOpen, ...triggerProps }) => (
-								<Button
-									{...triggerProps}
-									isSelected={isOpen}
-									iconAfter={() => <ChevronDownIcon label="" color="currentColor" size="small" />}
-								>
-									{restFieldProps.value?.label ||
-										formatMessage(objectSchemaSelectMessages.placeholder)}
-								</Button>
-							)}
-						/>
-					) : (
-						<AsyncSelect
-							autoFocus
-							classNamePrefix={classNamePrefix}
-							isLoading={objectSchemasLoading}
-							defaultOptions={mapObjectSchemasToOptions(initialObjectSchemas)}
-							isSearchable
-							loadOptions={debouncedLoadOptions}
-							placeholder={formatMessage(objectSchemaSelectMessages.placeholder)}
-							onChange={(newOption) => newOption && onChange(newOption)}
-							{...selectInAModalStyleFixProps}
-							{...restFieldProps}
-							label={formatMessage(objectSchemaSelectMessages.placeholder)}
-						/>
-					)
-				}
+				{({ fieldProps: { onChange, onFocus, ...restFieldProps } }) => (
+					<PopupSelect
+						autoFocus
+						maxMenuWidth={300}
+						minMenuWidth={300}
+						isSearchable={true}
+						searchThreshold={-1}
+						isLoading={objectSchemasLoading}
+						options={options}
+						placeholder={formatMessage(objectSchemaSelectMessages.placeholder)}
+						onChange={(newOption) => newOption && onChange(newOption)}
+						inputValue={searchTerm}
+						onInputChange={handleInputChange}
+						onMenuClose={onClose}
+						{...restFieldProps}
+						label={formatMessage(objectSchemaSelectMessages.placeholder)}
+						target={({ isOpen, ...triggerProps }) => (
+							<Button
+								{...triggerProps}
+								isSelected={isOpen}
+								iconAfter={() => <ChevronDownIcon label="" color="currentColor" size="small" />}
+							>
+								{restFieldProps.value?.label ||
+									formatMessage(objectSchemaSelectMessages.placeholder)}
+							</Button>
+						)}
+					/>
+				)}
 			</Field>
 		</FieldContainer>
 	);

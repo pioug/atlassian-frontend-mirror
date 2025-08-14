@@ -90,10 +90,10 @@ export const MediaInsertPicker = ({
 	insertExternalMediaSingle,
 	insertFile,
 	isOnlyExternalLinks = false,
-	isUrlValidationOff = false,
+	customizedUrlValidation,
+	customizedHelperMessage,
 }: MediaInsertPickerProps) => {
 	const { mediaProvider, isOpen, mountInfo } = useSharedState(api);
-
 	let targetRef: HTMLElement | undefined;
 	let mountPoint: HTMLElement | undefined;
 	if (mountInfo) {
@@ -188,7 +188,8 @@ export const MediaInsertPicker = ({
 										insertMediaSingle={insertMediaSingle}
 										insertExternalMediaSingle={insertExternalMediaSingle}
 										isOnlyExternalLinks={isOnlyExternalLinks}
-										isUrlValidationOff={isUrlValidationOff}
+										customizedUrlValidation={customizedUrlValidation}
+										customizedHelperMessage={customizedHelperMessage}
 									/>
 								) : (
 									<MediaFromURLWithForm
@@ -201,7 +202,8 @@ export const MediaInsertPicker = ({
 										insertMediaSingle={insertMediaSingle}
 										insertExternalMediaSingle={insertExternalMediaSingle}
 										isOnlyExternalLinks={isOnlyExternalLinks}
-										isUrlValidationOff={isUrlValidationOff}
+										customizedUrlValidation={customizedUrlValidation}
+										customizedHelperMessage={customizedHelperMessage}
 									/>
 								)}
 							</CustomTabPanel>

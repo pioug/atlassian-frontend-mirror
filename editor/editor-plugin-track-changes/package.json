@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-track-changes",
-	"version": "2.6.1",
+	"version": "2.6.2",
 	"description": "ShowDiff plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

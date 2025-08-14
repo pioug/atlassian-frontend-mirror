@@ -81,7 +81,7 @@ describe('page layout', () => {
 
 			expect(screen.getByTestId('panel')).toHaveTextContent(':root { --rightPanelWidth: 0px }');
 			expect(screen.getByTestId('panel')).toHaveTextContent(
-				'@media (min-width: 90rem) { :root { --rightPanelWidth: clamp(399px, 399px, round(nearest, calc((100vw - var(--n_sNvlw, 0px)) / 2), 1px)) } }',
+				'@media (min-width: 90rem) { :root { --rightPanelWidth: var(--n_pnlRsz, clamp(399px, 399px, round(nearest, calc((100vw - var(--n_sNvlw, 0px)) / 2), 1px))) } }',
 			);
 		});
 
@@ -96,7 +96,7 @@ describe('page layout', () => {
 
 			expect(screen.getByTestId('aside')).toHaveTextContent(':root { --rightSidebarWidth: 0px }');
 			expect(screen.getByTestId('aside')).toHaveTextContent(
-				'@media (min-width: 64rem) { :root { --rightSidebarWidth: clamp(0px, 199px, 50vw) } }',
+				'@media (min-width: 64rem) { :root { --rightSidebarWidth: var(--n_asdRsz, clamp(0px, 199px, 50vw)) } }',
 			);
 		});
 

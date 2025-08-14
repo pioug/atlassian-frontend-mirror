@@ -8,7 +8,6 @@ import { cssMap, jsx } from '@compiled/react';
 
 import type { StrictXCSSProp } from '@atlaskit/css';
 import usePreviousValue from '@atlaskit/ds-lib/use-previous-value';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { media } from '@atlaskit/primitives/responsive';
 
 import { useSkipLinkInternal } from '../../context/skip-links/skip-links-context';
@@ -160,8 +159,7 @@ export function Aside({
 	const asideVariableWidth = `clamp(${asideWidthSlotBounds.min}, ${width}px, ${asideWidthSlotBounds.max})`;
 
 	useResizingWidthCssVarOnRootElement({
-		isEnabled:
-			dangerouslyHoistSlotSizes && fg('platform_design_system_nav4_live_resizing_css_vars'),
+		isEnabled: dangerouslyHoistSlotSizes,
 		panelId: asidePanelSplitterId,
 		cssVar: panelSplitterResizingVar,
 	});
@@ -186,11 +184,7 @@ export function Aside({
 					variableName={UNSAFE_asideLayoutVar}
 					value="0px"
 					mediaQuery={media.above.md}
-					responsiveValue={
-						fg('platform_design_system_nav4_live_resizing_css_vars')
-							? `var(${panelSplitterResizingVar}, ${asideVariableWidth})`
-							: asideVariableWidth
-					}
+					responsiveValue={`var(${panelSplitterResizingVar}, ${asideVariableWidth})`}
 				/>
 				// ------ END UNSAFE STYLES ------
 			)}

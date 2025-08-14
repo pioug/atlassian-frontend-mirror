@@ -245,8 +245,7 @@ export function Panel({
 	const panelVariableWidth = `clamp(${panelWidthSlotBounds.min}, ${width}px, ${panelWidthSlotBounds.max})`;
 
 	useResizingWidthCssVarOnRootElement({
-		isEnabled:
-			dangerouslyHoistSlotSizes && fg('platform_design_system_nav4_live_resizing_css_vars'),
+		isEnabled: dangerouslyHoistSlotSizes,
 		cssVar: panelSplitterResizingVar,
 		panelId: panelPanelSplitterId,
 	});
@@ -285,11 +284,7 @@ export function Panel({
 					variableName={UNSAFE_panelLayoutVar}
 					value="0px"
 					mediaQuery={media.above.lg}
-					responsiveValue={
-						fg('platform_design_system_nav4_live_resizing_css_vars')
-							? `var(${panelSplitterResizingVar}, ${panelVariableWidth})`
-							: panelVariableWidth
-					}
+					responsiveValue={`var(${panelSplitterResizingVar}, ${panelVariableWidth})`}
 				/>
 				// ------ END UNSAFE STYLES ------
 			)}

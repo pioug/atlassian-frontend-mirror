@@ -22,6 +22,7 @@ test('should ssr then hydrate example component correctly', async () => {
 
 	// Assert there's no hydration errors
 	const mockCalls = (console.error as jest.Mock).mock.calls;
+
 	expect(mockCalls.length).toBe(0);
 
 	cleanup();

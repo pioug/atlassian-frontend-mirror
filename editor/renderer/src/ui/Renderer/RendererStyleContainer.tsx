@@ -1053,6 +1053,16 @@ const smartCardStylesAvatarMarginFix2 = css({
 	},
 });
 
+// In Renderer in Jira there is no SmartCardSharedCssClassName.INLINE_CARD_CONTAINER, so using data-inline-cart="true"
+const headerSmartCardStyles = css({
+	'[data-inline-card="true"]': {
+		'[data-inlinecard-button-overlay="icon-wrapper-line-height"] span': {
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			lineHeight: 0,
+		},
+	},
+});
+
 const baseOtherStyles = css({
 	'& .UnknownBlock': {
 		fontFamily: token('font.family.body'),
@@ -2163,6 +2173,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				tasksAndDecisionsStyles,
 				smartCardStyles,
 				smartCardStylesAvatarFix,
+				fg('platform_editor_preview_panel_linking') && headerSmartCardStyles,
 				fg('smartcard_avatar_margin_fix') && smartCardStylesAvatarMarginFix,
 				fg('platform_editor_avatar_group_margin_fix') && smartCardStylesAvatarMarginFix2,
 				// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix

@@ -1,3 +1,4 @@
+import type { ReactHydrationStats } from '../../config';
 import type { TraceIdContext } from '../../experience-trace-id-context';
 import type { LabelStack, UFOInteractionContextType } from '../../interaction-context';
 import type { VCObserverInterface } from '../../vc/types';
@@ -196,6 +197,7 @@ export interface InteractionMetrics {
 	vcObserver?: VCObserverInterface;
 	experimentalVCObserver?: VCObserverInterface;
 	vc?: VCRawDataType | null;
+	hydration?: ReactHydrationStats;
 	experimentalTTAI?: number;
 	experimentalVC90?: number;
 	unknownElementName?: string;
@@ -212,6 +214,7 @@ export interface RelayMetricsRecorder {
 
 export interface LazyLoadProfilerContext {
 	addPreload(moduleId: string, timestamp: number): void;
+
 	addLoad(identifier: string, start: number, end: number): void;
 }
 
@@ -221,6 +224,7 @@ export interface EnhancedUFOInteractionContextType
 		LazyLoadProfilerContext {
 	// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 	_internalHold(labelStack: LabelStack, name: string, experimental?: boolean): void | (() => void);
+
 	_internalHoldByID(
 		labelStack: LabelStack,
 		id: string,
@@ -228,8 +232,11 @@ export interface EnhancedUFOInteractionContextType
 		remove: boolean,
 		// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 	): void | (() => void);
+
 	addHoldByID(labelStack: LabelStack, id: string, name?: string): void;
+
 	removeHoldByID(labelStack: LabelStack, id: string, name?: string): void;
+
 	onRender: (
 		phase: 'mount' | 'update' | 'nested-update',
 		actualDuration: number,
@@ -237,6 +244,7 @@ export interface EnhancedUFOInteractionContextType
 		startTime: number,
 		commitTime: number,
 	) => void;
+
 	complete(endTime?: number): void;
 }
 

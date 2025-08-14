@@ -11,8 +11,10 @@ import { useIntl } from 'react-intl-next';
 
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import GrowDiagonalIcon from '@atlaskit/icon/core/grow-diagonal';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import PanelRightIcon from '@atlaskit/icon/core/panel-right';
+import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Anchor, Box, Text, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
@@ -117,19 +119,16 @@ const visitCardLinkAnalytics =
 
 const HoverLinkOverlay = ({
 	children,
-	isVisible = false,
+	isVisible = false, // used only to measure available space to difine if we should show icon only or icon + title
 	url,
 	compactPadding = false,
 	editorAnalyticsApi,
 	view,
 	onClick,
 	showPanelButton = false,
+	showPanelButtonIcon,
 }: React.PropsWithChildren<HoverLinkOverlayProps>) => {
 	const { formatMessage } = useIntl();
-	const label = showPanelButton
-		? formatMessage(cardMessages.panelButtonTitle)
-		: formatMessage(cardMessages.openButtonTitle);
-
 	const containerRef = useRef<HTMLSpanElement>(null);
 	const hoverLinkButtonRef = useRef<HTMLAnchorElement>(null);
 	const hiddenTextRef = useRef<HTMLDivElement>(null);
@@ -201,6 +200,20 @@ const HoverLinkOverlay = ({
 		}
 	};
 
+	const isPreivewButton = showPanelButton && fg('platform_editor_preview_panel_linking');
+	const label = isPreivewButton
+		? formatMessage(cardMessages.previewButtonTitle)
+		: formatMessage(cardMessages.openButtonTitle);
+
+	let icon = null;
+	if (isPreivewButton && showPanelButtonIcon === 'panel') {
+		icon = <PanelRightIcon label="" />;
+	} else if (isPreivewButton && showPanelButtonIcon === 'modal') {
+		icon = <GrowDiagonalIcon label="" />;
+	} else {
+		icon = <LinkExternalIcon label="" />;
+	}
+
 	return (
 		// eslint-disable-next-line jsx-a11y/no-static-element-interactions
 		<span
@@ -228,7 +241,7 @@ const HoverLinkOverlay = ({
 					onClick={handleClick}
 				>
 					<Box xcss={iconWrapperStyles} data-inlinecard-button-overlay="icon-wrapper-line-height">
-						{showPanelButton ? <PanelRightIcon label="" /> : <LinkExternalIcon label="" />}
+						{icon}
 					</Box>
 					{showLabel && (
 						<Text size="small" color="color.text.subtle" maxLines={1}>

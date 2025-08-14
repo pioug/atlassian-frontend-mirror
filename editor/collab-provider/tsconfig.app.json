@@ -51,9 +51,6 @@
 			"path": "../editor-json-transformer/tsconfig.app.json"
 		},
 		{
-			"path": "../../measurement/feature-gate-js-client/tsconfig.app.json"
-		},
-		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{

@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 0.1.2
+
+### Patch Changes
+
+- [`7fe4c9e51271d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7fe4c9e51271d) -
+  Fix initial show diff after performance fix.
+- [`b2d53a70dbaa5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2d53a70dbaa5) -
+  Improve show diff performance by storing decorations in state.
+- Updated dependencies
+
 ## 0.1.1
 
 ### Patch Changes

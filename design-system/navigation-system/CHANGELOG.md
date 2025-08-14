@@ -1,5 +1,13 @@
 # @atlassian/navigation-system
 
+## 0.180.0
+
+### Minor Changes
+
+- [`0e77a737f5379`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0e77a737f5379) -
+  Cleans up `platform_design_system_nav4_live_resizing_css_vars` feature gate. Resizing width is now
+  reflected in legacy CSS variables.
+
 ## 0.179.0
 
 ### Minor Changes

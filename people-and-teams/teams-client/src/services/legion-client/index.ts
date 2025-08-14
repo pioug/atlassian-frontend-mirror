@@ -11,6 +11,7 @@ import {
 	type TeamWithMemberships,
 } from '../../types';
 import {
+	type AssignedTeamsResponse,
 	type AssignTeamsToSitesResponse,
 	type ExternalReference,
 	type LinkedTeamsBulkResponse,
@@ -57,6 +58,8 @@ export interface SortField {
 	field: string;
 	order: 'asc' | 'desc';
 }
+
+export type AlignmentPermission = 'ALL_USERS' | 'ORG_ADMIN';
 
 /**
  * @type AllTeamsQuery
@@ -187,6 +190,18 @@ export interface LegionClient {
 	assignTeamsToSites(
 		migrations: { teamId: string; targetSite: string }[],
 	): Promise<AssignTeamsToSitesResponse>;
+
+	getAssignedTeams(
+		orgId: string,
+		count: number,
+		cursor?: string,
+		displayNameContains?: string,
+	): Promise<AssignedTeamsResponse>;
+
+	setTeamSiteAssignmentPermission(
+		orgId: string,
+		alignmentPermission: AlignmentPermission,
+	): Promise<void>;
 }
 
 const v3UrlPath = `/v3/teams`;
@@ -717,6 +732,34 @@ export class LegionClient extends RestClient implements LegionClient {
 			},
 		);
 		return assignTeamsToSitesResponse;
+	}
+
+	async setTeamSiteAssignmentPermission(
+		orgId: string,
+		alignmentPermission: AlignmentPermission,
+	): Promise<void> {
+		return this.postResource(`${v4UrlPath}/migrations/scope/permissions`, {
+			orgId,
+			alignmentPermission,
+		});
+	}
+
+	async getAssignedTeams(
+		orgId: string,
+		count: number,
+		cursor?: string,
+		displayNameContains?: string,
+	): Promise<AssignedTeamsResponse> {
+		const assignedTeamsResponse = await this.postResource<AssignedTeamsResponse>(
+			`${v4UrlPath}/migrations/scope/aligned/search`,
+			{
+				orgId,
+				count,
+				cursor,
+				displayNameContains,
+			},
+		);
+		return assignedTeamsResponse;
 	}
 
 	// some Legion APIs return team id with the team ARI

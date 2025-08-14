@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-indentation
 
+## 3.1.3
+
+### Patch Changes
+
+- [`af3ebe7fda754`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/af3ebe7fda754) -
+  [EDITOR-1153] Handle when user presses "Tab" in a blockTaskItem
+
 ## 3.1.2
 
 ### Patch Changes

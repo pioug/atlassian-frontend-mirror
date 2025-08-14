@@ -624,6 +624,34 @@ export class TeamsClient {
 	}
 
 	/**
+	 * Get assigned teams
+	 * @param orgId
+	 * @param cursor
+	 * @param displayNameContains
+	 * @param count - number of teams to return
+	 */
+	async getAssignedTeams(
+		...args: Parameters<typeof defaultLegionClient.getAssignedTeams>
+	): Promise<AwaitedReturn<typeof defaultLegionClient.getAssignedTeams>> {
+		return this.measurePerformance('getAssignedTeams', () =>
+			this._legionClient.getAssignedTeams(...args),
+		);
+	}
+
+	/**
+	 * Set team site assignment permission
+	 * @param orgId
+	 * @param alignmentPermission - 'ALL_USERS' | 'ORG_ADMIN'
+	 */
+	async setTeamSiteAssignmentPermission(
+		...args: Parameters<typeof defaultLegionClient.setTeamSiteAssignmentPermission>
+	): Promise<AwaitedReturn<typeof defaultLegionClient.setTeamSiteAssignmentPermission>> {
+		return this.measurePerformance('setTeamSiteAssignmentPermission', () =>
+			this._legionClient.setTeamSiteAssignmentPermission(...args),
+		);
+	}
+
+	/**
 	 * Is the current user a site admin
 	 */
 	getIsSiteAdmin(

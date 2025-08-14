@@ -110,15 +110,11 @@ export const AwarenessWrapper = ({
 		[setOverlayHoveredStyles],
 	);
 
-	const isPreviewPanelAvailable = cardContext?.value?.isPreviewPanelAvailable;
-	const shouldShowGlancePanel =
-		(isPreviewPanelAvailable || false) && fg('platform_editor_preview_panel_linking');
-
 	const cardWithOverlay = useMemo(() => {
 		if (
 			shouldShowLinkOverlay &&
-			!shouldShowGlancePanel &&
-			!editorExperiment('platform_editor_controls', 'variant1')
+			!editorExperiment('platform_editor_controls', 'variant1') &&
+			!fg('platform_editor_preview_panel_linking')
 		) {
 			return (
 				<InlineCardOverlay
@@ -142,7 +138,6 @@ export const AwarenessWrapper = ({
 		isHovered,
 		url,
 		handleOverlayChange,
-		shouldShowGlancePanel,
 	]);
 
 	const isInline = appearance === 'inline';

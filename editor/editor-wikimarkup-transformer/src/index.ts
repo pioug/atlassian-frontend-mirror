@@ -6,7 +6,9 @@ import { type Context, type ConversionMap } from './interfaces';
 import { buildIssueKeyRegex } from './parser/tokenize/issue-key';
 
 interface Transformer<T> {
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	encode(node: PMNode): T;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	parse(content: T): PMNode;
 }
 

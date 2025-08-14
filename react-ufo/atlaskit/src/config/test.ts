@@ -10,6 +10,7 @@ import {
 	getInteractionRate,
 	getMostRecentVCRevision,
 	getPostInteractionRate,
+	getReactHydrationStats,
 	getTypingPerformanceTracingMethod,
 	getUfoNameOverrides,
 	isVCRevisionEnabled,
@@ -93,6 +94,55 @@ describe('UFO Configuration Module', () => {
 			};
 			setUFOConfig(config);
 			expect(getMostRecentVCRevision()).toBe('fy25.03');
+		});
+	});
+
+	describe('getReactHydrationStats', () => {
+		it('returns stats if provided by callback', () => {
+			setUFOConfig({
+				product: 'testProduct',
+				region: 'testRegion',
+				getReactHydrationStats: () => ({
+					successful: true,
+					warningCount: 10,
+					minWarningComponentDepth: 50,
+					maxWarningComponentDepth: 60,
+				}),
+			});
+			expect(getReactHydrationStats()).toEqual({
+				successful: true,
+				warningCount: 10,
+				minWarningComponentDepth: 50,
+				maxWarningComponentDepth: 60,
+			});
+		});
+
+		it('returns undefined function not provided', () => {
+			setUFOConfig({
+				product: 'testProduct',
+				region: 'testRegion',
+			});
+			expect(getReactHydrationStats()).toEqual(undefined);
+		});
+
+		it('returns undefined if function returns undefined', () => {
+			setUFOConfig({
+				product: 'testProduct',
+				region: 'testRegion',
+				getReactHydrationStats: () => undefined,
+			});
+			expect(getReactHydrationStats()).toEqual(undefined);
+		});
+
+		it('returns undefined if stats function throws', () => {
+			setUFOConfig({
+				product: 'testProduct',
+				region: 'testRegion',
+				getReactHydrationStats: () => {
+					throw new Error('Oops');
+				},
+			});
+			expect(getReactHydrationStats()).toEqual(undefined);
 		});
 	});
 

@@ -32,6 +32,9 @@
 			"path": "../../editor-plugin-analytics/afm-passionfruit/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-highlight/afm-passionfruit/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-primary-toolbar/afm-passionfruit/tsconfig.json"
 		},
 		{

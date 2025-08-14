@@ -34,8 +34,7 @@ const getUseValidateAqlTextDefaultHookState: UseValidateAqlTextState = {
 
 describe('AssetsSearchContainer', () => {
 	const searchButtonTestId = 'assets-datasource-modal--aql-search-button';
-	// React Select does not work with testId
-	const objectSchemaSelectClass = '.assets-datasource-modal--object-schema-select';
+	const objectSchemaSelectTestId = 'assets-datasource-modal--object-schema-select';
 	const validAqlQuery = 'aql search valid';
 	const objectSchema: ObjectSchema = {
 		id: '1',
@@ -66,28 +65,24 @@ describe('AssetsSearchContainer', () => {
 	});
 
 	it('should render placeholders when initialSearchData is not provided', async () => {
-		const { container, getByPlaceholderText } = await renderAssetsSearchContainer({
+		const { getByPlaceholderText, getByText } = await renderAssetsSearchContainer({
 			aql: undefined,
 			objectSchema: undefined,
 			objectSchemas: undefined,
 		});
 		await waitFor(() => {
-			expect(
-				container.querySelector(`${objectSchemaSelectClass}__placeholder`),
-			).toBeInTheDocument();
+			expect(getByText('Select schema')).toBeInTheDocument();
 			expect(getByPlaceholderText('Search via AQL')).toBeInTheDocument();
 		});
 	});
 
 	it('should render inputs with values when initialSearchData is provided', async () => {
-		const { container, getByDisplayValue } = await renderAssetsSearchContainer({
+		const { getByDisplayValue, getByTestId } = await renderAssetsSearchContainer({
 			aql: validAqlQuery,
 			objectSchema: objectSchema,
 			objectSchemas: [objectSchema],
 		});
-		const objectSchemaSelectValue = container.querySelector(
-			`${objectSchemaSelectClass}__single-value`,
-		);
+		const objectSchemaSelectValue = getByTestId(objectSchemaSelectTestId);
 		await waitFor(() => {
 			expect(objectSchemaSelectValue).toHaveTextContent(objectSchema.name);
 			expect(getByDisplayValue(validAqlQuery)).toBeInTheDocument();

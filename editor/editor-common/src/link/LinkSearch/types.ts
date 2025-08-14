@@ -9,15 +9,19 @@ export type RecentSearchInputTypes = INPUT_METHOD.TYPEAHEAD | INPUT_METHOD.MANUA
 export interface ChildProps {
 	activityProvider: ActivityProvider | null;
 	inputProps: {
+		// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 		onChange(input: string): void;
 		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/method-signature-style -- method-signature-style ignored via go/ees013 (to be fixed)
 		onKeyDown(event: KeyboardEvent<any>): void;
+		// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 		onSubmit(): void;
 		value: string;
 	};
 	currentInputMethod?: RecentSearchInputTypes;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	clearValue(): void;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	renderRecentList(): React.ReactNode;
 }
 
@@ -29,8 +33,11 @@ export interface RecentSearchSubmitOptions {
 
 export interface RecentSearchProps {
 	defaultUrl?: string;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	onSubmit(options: RecentSearchSubmitOptions): void;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	onBlur(options: RecentSearchSubmitOptions): void;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	render(state: ChildProps): React.ReactNode;
 	limit?: number;
 }

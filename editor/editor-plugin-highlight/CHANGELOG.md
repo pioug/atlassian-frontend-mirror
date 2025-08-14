@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-highlight
 
+## 3.0.12
+
+### Patch Changes
+
+- [`4d47716053c75`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4d47716053c75) -
+  [ux] ED-28799 Complete text colour / highlight menu items
+- Updated dependencies
+
 ## 3.0.11
 
 ### Patch Changes

@@ -12,6 +12,7 @@ import {
 	getClickUrl,
 	getDefinitionId,
 	getExtensionKey,
+	getLinkClickAnalyticsThirdPartyAttributes,
 	getObjectAri,
 	getObjectIconUrl,
 	getObjectName,
@@ -70,12 +71,12 @@ function Component({
 	const { state, actions, config, renderers, error, isPreviewPanelAvailable, openPreviewPanel } =
 		useSmartLink(id, url);
 	const ari = getObjectAri(state.details);
-	const thirdPartyARI = getThirdPartyARI(state.details);
 	const name = getObjectName(state.details);
 	const definitionId = getDefinitionId(state.details);
 	const extensionKey = getExtensionKey(state.details);
 	const resourceType = getResourceType(state.details);
 	const services = getServices(state.details);
+	const thirdPartyARI = getThirdPartyARI(state.details);
 
 	let isFlexibleUi = useMemo(() => isFlexibleUiCard(children, ui), [children, ui]);
 
@@ -98,7 +99,6 @@ function Component({
 
 			if (fg('platform_smartlink_3pclick_analytics')) {
 				if (thirdPartyARI && thirdPartyARI.startsWith(thirdPartyARIPrefix)) {
-					const sourceURL = window.location.href;
 					const clickURL = getClickUrl(url, state.details);
 					if (clickURL === url) {
 						// For questions or concerns about this event,
@@ -111,10 +111,10 @@ function Component({
 							attributes: {
 								eventName: 'smartLinkClickAnalyticsThirdPartyWorkflows',
 							},
-							nonPrivacySafeAttributes: {
-								sourceURL: sourceURL,
-								thirdPartyARI: thirdPartyARI,
-							},
+							nonPrivacySafeAttributes: getLinkClickAnalyticsThirdPartyAttributes(
+								thirdPartyARI,
+								state.details,
+							),
 						});
 						smartlinkClickAnalyticsEvent.fire('media');
 					}

@@ -415,6 +415,11 @@ export const SUPPORTED_LANGUAGES = [
 		value: 'protobuf',
 	},
 	{
+		name: 'TOML',
+		alias: ['toml'],
+		value: 'toml',
+	},
+	{
 		name: 'Handlebars',
 		alias: ['handlebars', 'mustache'],
 		value: 'handlebars',

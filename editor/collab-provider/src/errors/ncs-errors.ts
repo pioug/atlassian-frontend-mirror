@@ -18,7 +18,6 @@ export enum NCS_ERROR_CODE {
 	INVALID_CLOUD_ID = 'INVALID_CLOUD_ID',
 	RATE_LIMIT_ERROR = 'RATE_LIMIT_ERROR',
 	PROSEMIRROR_SCHEMA_VALIDATION_ERROR = 'PROSEMIRROR_SCHEMA_VALIDATION_ERROR',
-	CORRUPT_STEP_FAILED_TO_SAVE = 'CORRUPT_STEP_FAILED_TO_SAVE',
 }
 
 // TODO: ED-26957 - Import emitted error codes from NCS
@@ -176,14 +175,6 @@ type InvalidCloudIdError = {
 		status: number; // 401
 	};
 };
-type CorruptStepFailedToApplyError = {
-	message: string;
-	data: {
-		code: NCS_ERROR_CODE.CORRUPT_STEP_FAILED_TO_SAVE;
-		meta: string;
-		status: number; // 400
-	};
-};
 /**
  * The client is trying to send too many messages or messages that are too large. This not expected to be a standard
  * operating condition and should only ever indicate a frontend bug.
@@ -220,5 +211,4 @@ export type NCSErrors =
 	| InvalidDocumentAriError
 	| InvalidCloudIdError
 	| RateLimitError
-	| ProsemirrorSchemaValidationError
-	| CorruptStepFailedToApplyError;
+	| ProsemirrorSchemaValidationError;

@@ -1,5 +1,12 @@
 # @atlaskit/teams-client
 
+## 4.11.0
+
+### Minor Changes
+
+- [`6bbb35d7aa724`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6bbb35d7aa724) -
+  Added API to get assigned teams and set team site assignment permission
+
 ## 4.10.0
 
 ### Minor Changes

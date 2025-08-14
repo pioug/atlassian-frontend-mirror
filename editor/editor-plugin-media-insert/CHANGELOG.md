@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 9.2.0
+
+### Minor Changes
+
+- [`12a4ac6a0a8cd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/12a4ac6a0a8cd) -
+  [ux] this change moves smart value logic out of atlaskit
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.1.0
 
 ### Minor Changes

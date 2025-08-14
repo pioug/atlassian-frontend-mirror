@@ -8,6 +8,7 @@ import { Box, Flex, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { type ContainerTypes } from '../../../common/types';
+import { LinkedContainerCardSkeleton } from '../../../common/ui/team-containers-skeleton/linked-container-card-skeleton';
 import { getContainerProperties } from '../../../common/utils/get-container-properties';
 
 const styles = cssMap({
@@ -41,6 +42,7 @@ const styles = cssMap({
 interface AddContainerCardProps {
 	containerType: ContainerTypes;
 	onAddAContainerClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+	isLoading?: boolean;
 }
 
 const AddContainerCardWrapper = ({
@@ -70,12 +72,17 @@ const AddContainerCardWrapper = ({
 export const AddContainerCard = ({
 	containerType,
 	onAddAContainerClick,
+	isLoading = false,
 }: AddContainerCardProps) => {
 	const { description, icon, title } = getContainerProperties({
 		containerType,
 		iconSize: fg('enable_medium_size_icons_for_team_link_cards') ? 'medium' : undefined,
 		isEmptyContainer: true,
 	});
+
+	if (isLoading) {
+		return <LinkedContainerCardSkeleton containerType={containerType} />;
+	}
 
 	return (
 		<AddContainerCardWrapper onClick={onAddAContainerClick}>
@@ -110,37 +117,44 @@ export const AddContainerCard = ({
 	);
 };
 
-export const getAddContainerCards = ({
-	showAddContainer,
-	onAddAContainerClick,
-}: {
-	showAddContainer: { Jira: boolean; Confluence: boolean; Loom: boolean; WebLink: boolean };
+type Container = { canAdd: boolean; isLoading: boolean };
+
+type GetAddContainerCardsProps = {
+	containers: { Jira: Container; Confluence: Container; Loom: Container; WebLink: Container };
 	onAddAContainerClick: (
 		e: React.MouseEvent<HTMLButtonElement>,
 		containerType: 'Confluence' | 'Jira' | 'Loom' | 'WebLink',
 	) => void;
-}) => {
+};
+
+export const getAddContainerCards = ({
+	containers,
+	onAddAContainerClick,
+}: GetAddContainerCardsProps) => {
 	return (
 		<>
-			{showAddContainer.Jira && (
+			{containers.Jira.canAdd && (
 				<AddContainerCard
 					onAddAContainerClick={(e) => onAddAContainerClick(e, 'Jira')}
 					containerType="JiraProject"
+					isLoading={containers.Jira.isLoading}
 				/>
 			)}
-			{showAddContainer.Confluence && (
+			{containers.Confluence.canAdd && (
 				<AddContainerCard
 					onAddAContainerClick={(e) => onAddAContainerClick(e, 'Confluence')}
 					containerType="ConfluenceSpace"
+					isLoading={containers.Confluence.isLoading}
 				/>
 			)}
-			{showAddContainer.Loom && fg('loom_tab_in_container_linker_team_profile_page') && (
+			{containers.Loom.canAdd && fg('loom_tab_in_container_linker_team_profile_page') && (
 				<AddContainerCard
 					onAddAContainerClick={(e) => onAddAContainerClick(e, 'Loom')}
 					containerType="LoomSpace"
+					isLoading={containers.Loom.isLoading}
 				/>
 			)}
-			{showAddContainer.WebLink && (
+			{containers.WebLink.canAdd && (
 				<AddContainerCard
 					onAddAContainerClick={(e) => onAddAContainerClick(e, 'WebLink')}
 					containerType="WebLink"

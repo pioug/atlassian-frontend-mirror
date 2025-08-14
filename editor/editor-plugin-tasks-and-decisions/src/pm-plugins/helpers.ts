@@ -14,8 +14,8 @@ import type { TaskItemData } from './types';
 import { ACTIONS } from './types';
 
 export const isInsideTaskOrDecisionItem = (state: EditorState) => {
-	const { decisionItem, taskItem } = state.schema.nodes;
-	return hasParentNodeOfType([decisionItem, taskItem])(state.selection);
+	const { decisionItem, taskItem, blockTaskItem } = state.schema.nodes;
+	return hasParentNodeOfType([decisionItem, taskItem, blockTaskItem])(state.selection);
 };
 
 export const isActionOrDecisionList = (node: Node) => {
@@ -29,8 +29,8 @@ export const isActionOrDecisionItem = (node: Node) => {
 };
 
 export const isInsideTask = (state: EditorState) => {
-	const { taskItem } = state.schema.nodes;
-	return hasParentNodeOfType([taskItem])(state.selection);
+	const { taskItem, blockTaskItem } = state.schema.nodes;
+	return hasParentNodeOfType([taskItem, blockTaskItem])(state.selection);
 };
 
 export const isInsideDecision = (state: EditorState) => {
@@ -68,15 +68,38 @@ export const getBlockRange = ($from: ResolvedPos, $to: ResolvedPos) => {
 };
 
 /**
- * Finds the distance between the current $from and the root of the taskList.
+ * Calculates the current indent level of the selection within a task list in the ProseMirror document.
+ *
+ * The indent level is determined by finding the depth difference between the selection and the furthest parent
+ * node of type `taskList`. If the selection is inside a `blockTaskItem`, the calculation is adjusted to avoid
+ * counting nested block items as additional indent levels.
+ *
+ * @param selection - The current ProseMirror selection.
+ * @returns The indent level as a number, or `null` if the selection is not inside a task list.
+ * @example
+ * ```typescript
+ * const indentLevel = getCurrentIndentLevel(editorState.selection);
+ * ```
  */
 export const getCurrentIndentLevel = (selection: Selection) => {
 	const { $from } = selection;
-	const { taskList } = $from.doc.type.schema.nodes;
+	const { taskList, blockTaskItem } = $from.doc.type.schema.nodes;
 
 	const furthestParent = findFarthestParentNode((node) => node.type === taskList)($from);
 	if (!furthestParent) {
 		return null;
+	}
+
+	if (hasParentNodeOfType([blockTaskItem])(selection)) {
+		const blockTaskItemNode = findFarthestParentNode((node) => node.type === blockTaskItem)($from);
+		if (blockTaskItemNode) {
+			/**
+			 * If we are inside a blockTaskItem, calculate the indent level from the
+			 * blockTaskItemNode instead of the selection, in case the selection is
+			 * nested inside a blockTaskItem.
+			 */
+			return blockTaskItemNode.depth - furthestParent.depth;
+		}
 	}
 
 	return $from.depth - furthestParent.depth;

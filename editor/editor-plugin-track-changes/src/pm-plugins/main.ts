@@ -80,9 +80,26 @@ export const createTrackChangesPlugin = (
 							step instanceof RemoveMarkStep,
 					);
 
-				if (!isDocChanged || tr.getMeta('isRemote')) {
+				if (!isDocChanged) {
 					// If no document changes, return the old changeSet
 					return state;
+				}
+
+				if (tr.getMeta('isRemote')) {
+					// If the transaction is remote, we need to map the steps to the current document
+					return {
+						...state,
+						steps: state.steps
+							.map((s) => {
+								const newStep = s.step.map(tr.mapping);
+								const newInvertedStep = s.inverted.map(tr.mapping);
+								if (newStep && newInvertedStep) {
+									return new InvertableStep(newStep, newInvertedStep, s.allocation);
+								}
+								return undefined;
+							})
+							.filter((s) => !!s),
+					};
 				}
 
 				// For undo/redo operations (addToHistory === false), we still need to check if we're back at baseline

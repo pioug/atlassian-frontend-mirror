@@ -31,7 +31,11 @@ import { Box, Flex, Inline, Stack, xcss } from '@atlaskit/primitives';
 import SectionMessage from '@atlaskit/section-message';
 import TextField from '@atlaskit/textfield';
 
-import { type InsertExternalMediaSingle, type InsertMediaSingle } from '../types';
+import {
+	type CustomizedHelperMessage,
+	type InsertExternalMediaSingle,
+	type InsertMediaSingle,
+} from '../types';
 
 import { MediaCard } from './MediaCard';
 import { type OnInsertAttrs } from './types';
@@ -76,20 +80,16 @@ const INITIAL_PREVIEW_STATE: Readonly<PreviewState> = Object.freeze({
 
 const MAX_URL_LENGTH = 2048;
 
-const isValidInput = (value: string, isUrlValidationOff: boolean): boolean => {
-	if (isUrlValidationOff) {
-		return isValidUrl(value) || isValidSmartValue(value);
+const isValidInput = (
+	value: string,
+	customizedUrlValidation?: (input: string) => boolean,
+): boolean => {
+	if (customizedUrlValidation) {
+		return customizedUrlValidation(value);
 	}
 	return isValidUrl(value);
 };
 
-export const isValidSmartValue = (value: string): boolean => {
-	// @ts-ignore - TS2538 TypeScript 5.9.2 upgrade
-	if (/^\{\{.+\}\}$/u.test(value) && value.length < MAX_URL_LENGTH) {
-		return true;
-	}
-	return false;
-};
 export const isValidUrl = (value: string): boolean => {
 	try {
 		// Check for spaces and length first to avoid the expensive URL parsing
@@ -129,7 +129,8 @@ type Props = {
 	insertMediaSingle: InsertMediaSingle;
 	insertExternalMediaSingle: InsertExternalMediaSingle;
 	isOnlyExternalLinks: boolean;
-	isUrlValidationOff: boolean;
+	customizedUrlValidation?: (input: string) => boolean;
+	customizedHelperMessage?: CustomizedHelperMessage;
 };
 
 export function MediaFromURLWithForm({
@@ -139,7 +140,8 @@ export function MediaFromURLWithForm({
 	insertMediaSingle,
 	insertExternalMediaSingle,
 	isOnlyExternalLinks,
-	isUrlValidationOff,
+	customizedUrlValidation,
+	customizedHelperMessage,
 }: Props) {
 	const intl = useIntl();
 	const strings = {
@@ -150,9 +152,6 @@ export function MediaFromURLWithForm({
 		errorMessage: intl.formatMessage(mediaInsertMessages.fromUrlErrorMessage),
 		warning: intl.formatMessage(mediaInsertMessages.fromUrlWarning),
 		invalidUrl: intl.formatMessage(mediaInsertMessages.invalidUrlErrorMessage),
-		insertSmartValueHelperMessage: intl.formatMessage(
-			mediaInsertMessages.insertSmartValueHelperMessage,
-		),
 	};
 
 	const [previewState, dispatch] = React.useReducer(previewStateReducer, INITIAL_PREVIEW_STATE);
@@ -224,7 +223,7 @@ export function MediaFromURLWithForm({
 			const url = e.currentTarget.value;
 			dispatch({ type: 'reset' });
 			setInput(url);
-			if (!isValidInput(url, isUrlValidationOff)) {
+			if (!isValidInput(url, customizedUrlValidation)) {
 				return;
 			}
 			if (pasteFlag.current) {
@@ -234,7 +233,7 @@ export function MediaFromURLWithForm({
 				}
 			}
 		},
-		[uploadExternalMedia, isOnlyExternalLinks, isUrlValidationOff],
+		[uploadExternalMedia, isOnlyExternalLinks, customizedUrlValidation],
 	);
 
 	const onPaste = React.useCallback(
@@ -339,7 +338,9 @@ export function MediaFromURLWithForm({
 							isRequired={true}
 							name="inputUrl"
 							validate={(value) =>
-								value && isValidInput(value, isUrlValidationOff) ? undefined : strings.invalidUrl
+								value && isValidInput(value, customizedUrlValidation)
+									? undefined
+									: strings.invalidUrl
 							}
 						>
 							{({ fieldProps: { value, onChange, ...rest }, error, meta }) => (
@@ -359,9 +360,9 @@ export function MediaFromURLWithForm({
 												onChange(value);
 											}}
 										/>
-										{isUrlValidationOff && (
+										{customizedHelperMessage && (
 											<Fragment>
-												<HelperMessage>{strings.insertSmartValueHelperMessage}</HelperMessage>
+												<HelperMessage>{customizedHelperMessage}</HelperMessage>
 											</Fragment>
 										)}
 										<MessageWrapper>
@@ -423,7 +424,7 @@ export function MediaFromURLWithForm({
 									appearance="primary"
 									isDisabled={
 										isOnlyExternalLinks
-											? !input || !isValidInput(input, isUrlValidationOff)
+											? !input || !isValidInput(input, customizedUrlValidation)
 											: !previewState.previewInfo && !previewState.warning
 									}
 								>

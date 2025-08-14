@@ -13,6 +13,8 @@ export type InsertMediaSingle = (props: {
 	inputMethod: InputMethodInsertMedia;
 }) => boolean;
 
+export type CustomizedHelperMessage = string;
+
 export type InsertExternalMediaSingle = (props: {
 	url: string;
 	alt: string;
@@ -40,5 +42,6 @@ export type MediaInsertPickerProps = Pick<
 	insertExternalMediaSingle: InsertExternalMediaSingle;
 	insertFile: InsertFile;
 	isOnlyExternalLinks: MediaInsertPluginConfig['isOnlyExternalLinks'];
-	isUrlValidationOff: MediaInsertPluginConfig['isUrlValidationOff'];
+	customizedUrlValidation?: MediaInsertPluginConfig['customizedUrlValidation'];
+	customizedHelperMessage?: MediaInsertPluginConfig['customizedHelperMessage'];
 };

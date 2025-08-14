@@ -15,7 +15,9 @@ import type { EditorCommand, EditorCommandWithMetadata } from './editor-command'
 import type { EditorPlugin } from './editor-plugin';
 
 export interface Transformer<T> {
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	encode(node: Node): T;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	parse(content: T): Node;
 }
 
@@ -96,7 +98,7 @@ export type CorePlugin = NextEditorPlugin<
 			 * @param options Pass a transformer for the document to be transformed into a different format.
 			 */
 			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/method-signature-style -- method-signature-style ignored via go/ees013 (to be fixed)
 			requestDocument<GenericTransformer extends Transformer<any> = Transformer<JSONDocNode>>(
 				onReceive: (document: TransformerResult<GenericTransformer> | undefined) => void,
 				options?: {
@@ -110,6 +112,7 @@ export type CorePlugin = NextEditorPlugin<
 			 * @param schema Schema of the document
 			 * @returns Transformer which can be used to request a document
 			 */
+			// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 			createTransformer<Format>(
 				cb: (schema: Schema) => Transformer<Format>,
 			): Transformer<Format> | undefined;

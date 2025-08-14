@@ -34,6 +34,8 @@ export interface GetAttrsChange<T, V> {
 }
 
 export type GetAttrsWithChangesRecorder<T, V> = {
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	getAttrs(prevAttrs?: T | undefined, node?: Node): T | false | undefined;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	getAndResetAttrsChanges(): GetAttrsChange<T, V>[];
 };

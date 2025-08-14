@@ -30,6 +30,7 @@ import {
 	getExperimentalInteractionRate,
 	getInteractionTimeout,
 	getPostInteractionRate,
+	getReactHydrationStats,
 } from '../config';
 import {
 	experimentalVC,
@@ -712,6 +713,7 @@ function finishInteraction(
 			data.vc = observer.getVCRawData();
 		}
 	}
+	data.hydration = getReactHydrationStats();
 
 	// By this time, stop the post interaction log observer if coinflip rate is 0
 	if (fg('platform_ufo_post_interaction_check_name')) {

@@ -505,7 +505,7 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 					)}
 				</Reference>
 				{isPopupTrayOpen && (
-					<Portal zIndex={layers.layer()}>
+					<Portal zIndex={layers.flag()}>
 						<PopperWrapper
 							settings={settings}
 							popperModifiers={popperModifiers}

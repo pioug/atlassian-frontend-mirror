@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-card
 
+## 7.4.1
+
+### Patch Changes
+
+- [`598cea2432fa9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/598cea2432fa9) -
+  [ux] UI and behaviour updates of the HoverLinkOverlay for the Preview Panels.
+- Updated dependencies
+
 ## 7.4.0
 
 ### Minor Changes

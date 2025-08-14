@@ -78,15 +78,16 @@ export const createPlugin = (config: DiffParams | undefined) => {
 			init(_: EditorStateConfig, state: EditorState) {
 				const schema = state.schema;
 				const isDisplayingChanges = (config?.steps ?? []).length > 0;
+				const steps = (config?.steps ?? []).map((step) => ProseMirrorStep.fromJSON(schema, step));
 				return {
-					steps: (config?.steps ?? []).map((step) => ProseMirrorStep.fromJSON(schema, step)),
+					steps,
 					originalDoc: config?.originalDoc
 						? processRawValue(state.schema, config.originalDoc)
 						: undefined,
 					decorations: calculateDecorations({
 						state,
 						pluginState: {
-							steps: [],
+							steps,
 							originalDoc: config?.originalDoc
 								? processRawValue(state.schema, config.originalDoc)
 								: undefined,
@@ -107,15 +108,26 @@ export const createPlugin = (config: DiffParams | undefined) => {
 
 				if (meta) {
 					if (meta?.action === 'SHOW_DIFF') {
+						// Calculate and store decorations in state
+						const decorations = calculateDecorations({
+							state: newState,
+							pluginState: {
+								steps: meta.steps,
+								originalDoc: meta.originalDoc,
+								isDisplayingChanges: true,
+							},
+						});
 						newPluginState = {
 							...currentPluginState,
 							...meta,
+							decorations,
 							isDisplayingChanges: true,
 						};
 					} else if (meta?.action === 'HIDE_DIFF') {
 						newPluginState = {
 							...currentPluginState,
 							...meta,
+							decorations: DecorationSet.empty,
 							isDisplayingChanges: false,
 						};
 					} else {
@@ -123,18 +135,9 @@ export const createPlugin = (config: DiffParams | undefined) => {
 					}
 				}
 
-				// Calculate and store decorations in state
-				const decorations = calculateDecorations({
-					state: newState,
-					pluginState: {
-						steps: newPluginState.steps,
-						originalDoc: newPluginState.originalDoc,
-						isDisplayingChanges: newPluginState.isDisplayingChanges,
-					},
-				});
 				return {
 					...newPluginState,
-					decorations,
+					decorations: newPluginState.decorations.map(tr.mapping, tr.doc),
 				};
 			},
 		},

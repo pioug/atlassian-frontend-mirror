@@ -1,5 +1,13 @@
 # @atlaskit/collab-provider
 
+## 11.2.1
+
+### Patch Changes
+
+- [`bc0db0b86820f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bc0db0b86820f) -
+  cleanup unused skipValidation experiment code
+- Updated dependencies
+
 ## 11.2.0
 
 ### Minor Changes

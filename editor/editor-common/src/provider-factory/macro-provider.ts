@@ -29,7 +29,9 @@ export interface MacroProvider {
 	/**
 	 * If "macro" param is passed in, it will open macro browser for editing the macro
 	 */
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	openMacroBrowser(macroNode?: PmNode): Promise<MacroAttributes>;
 
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	autoConvert(link: string): MacroAttributes | null;
 }

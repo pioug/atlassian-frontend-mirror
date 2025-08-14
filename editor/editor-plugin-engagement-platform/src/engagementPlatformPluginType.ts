@@ -45,7 +45,9 @@ export type EngagementPlatformPlugin = NextEditorPlugin<
  * from the `@atlassiansox/engagekit-ts` package.
  */
 export interface CoordinationClient {
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	start(messageId: string, variationId?: string): Promise<boolean>;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	stop(messageId: string): Promise<boolean>;
 }
 

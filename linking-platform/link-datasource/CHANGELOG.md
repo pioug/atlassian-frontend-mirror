@@ -1,5 +1,12 @@
 # @atlaskit/link-datasource
 
+## 4.19.5
+
+### Patch Changes
+
+- [`1e4c85cd1dbd7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1e4c85cd1dbd7) -
+  NAVX-1053 cleaning up linking-platform-assests-schema-selector-refresh
+
 ## 4.19.4
 
 ### Patch Changes

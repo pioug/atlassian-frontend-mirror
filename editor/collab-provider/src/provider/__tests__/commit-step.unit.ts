@@ -1,4 +1,3 @@
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction, EditorState } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
@@ -38,7 +37,6 @@ const provider = createSocketIOCollabProvider(config);
 const fakeStep = new ReplaceStep(1, 1, Slice.empty);
 
 const emitMock = jest.fn();
-const setNumberOfCommitsSentMock = jest.fn();
 
 const createTestHelpers = (
 	options: {
@@ -82,14 +80,12 @@ const createTestHelpers = (
 			hasRecovered?: boolean;
 			collabMode?: string;
 			isPublish?: boolean;
-			numberOfStepCommitsSent?: number;
 			lockSteps?: (stepOrigins?: readonly Transaction[]) => void;
 		} = {
 			__livePage: false,
 			hasRecovered: false,
 			collabMode: 'collab',
 			isPublish: false,
-			numberOfStepCommitsSent: 0,
 			lockSteps: jest.fn(),
 		},
 	) => {
@@ -103,8 +99,6 @@ const createTestHelpers = (
 			hasRecovered: options.hasRecovered ?? false,
 			collabMode: options.collabMode ?? 'collab',
 			reason: options.isPublish ? 'publish' : undefined,
-			numberOfStepCommitsSent: options.numberOfStepCommitsSent ?? 0,
-			setNumberOfCommitsSent: setNumberOfCommitsSentMock,
 			lockSteps: options.lockSteps || jest.fn(),
 		});
 	};
@@ -173,7 +167,6 @@ describe('commitStepQueue', () => {
 				version: 1,
 				userId: 'user1',
 				collabMode: 'collab',
-				skipValidation: true,
 			},
 			expect.any(Function),
 		);
@@ -202,7 +195,6 @@ describe('commitStepQueue', () => {
 				version: 1,
 				userId: 'user1',
 				collabMode: 'collab',
-				skipValidation: true,
 			},
 			expect.any(Function),
 		);
@@ -604,48 +596,5 @@ describe('commitStepQueue', () => {
 				);
 			});
 		});
-	});
-	it('sets skipValidation flag to true after sending N steps:commit messages', () => {
-		(FeatureGates.getExperimentValue as jest.Mock).mockReturnValue(2); // N = 2
-
-		presetCommitStepQueue([fakeStep], 1, 'user1', 'client1', {
-			numberOfStepCommitsSent: 0,
-		});
-
-		expect(broadcastSpy).toHaveBeenCalledWith(
-			'steps:commit',
-			expect.objectContaining({
-				skipValidation: false,
-			}),
-			expect.any(Function),
-		);
-		expect(setNumberOfCommitsSentMock).toHaveBeenCalledWith(1);
-
-		jest.advanceTimersByTime(RESET_READYTOCOMMIT_INTERVAL_MS);
-		presetCommitStepQueue([fakeStep], 1, 'user1', 'client1', {
-			numberOfStepCommitsSent: 1,
-		});
-
-		expect(broadcastSpy).toHaveBeenCalledWith(
-			'steps:commit',
-			expect.objectContaining({
-				skipValidation: false,
-			}),
-			expect.any(Function),
-		);
-		expect(setNumberOfCommitsSentMock).toHaveBeenCalledWith(2);
-
-		jest.advanceTimersByTime(RESET_READYTOCOMMIT_INTERVAL_MS);
-		presetCommitStepQueue([fakeStep], 1, 'user1', 'client1', {
-			numberOfStepCommitsSent: 2,
-		});
-
-		expect(broadcastSpy).toHaveBeenCalledWith(
-			'steps:commit',
-			expect.objectContaining({
-				skipValidation: true,
-			}),
-			expect.any(Function),
-		);
 	});
 });

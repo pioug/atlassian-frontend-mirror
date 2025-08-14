@@ -14,9 +14,7 @@ snapshotInformational(WithAssetsModalVR, {
 			.click({ position: { x: 10, y: 10 } });
 		await page.getByRole('listbox').getByText('objSchema1').waitFor({ state: 'visible' });
 	},
-	featureFlags: {
-		'linking-platform-assests-schema-selector-refresh': [true, false],
-	},
+	featureFlags: {},
 });
 
 snapshotInformational(WithAssetsModalVR, {
@@ -30,30 +28,7 @@ snapshotInformational(WithAssetsModalVR, {
 		await page.getByRole('textbox').fill('objSchema');
 		await page.getByRole('listbox').getByText('objSchema1').waitFor({ state: 'visible' });
 	},
-	featureFlags: {
-		'linking-platform-assests-schema-selector-refresh': true,
-	},
-});
-
-// Todo: EDM-13139 remove when cleaning up linking-platform-assests-schema-selector-refresh
-snapshotInformational(WithAssetsModalVR, {
-	description:
-		'display assets modal schema selector dropdown - filtered - linking-platform-assests-schema-selector-refresh off',
-	drawsOutsideBounds: true,
-	prepare: async (page: Page) => {
-		await page
-			.locator('[data-testid="assets-datasource-modal--object-schema-select"]')
-			.first()
-			.click();
-		await page
-			.locator('.assets-datasource-modal--object-schema-select__input')
-			.first()
-			.fill('objSchema');
-		await page.getByRole('listbox').getByText('objSchema1').waitFor({ state: 'visible' });
-	},
-	featureFlags: {
-		'linking-platform-assests-schema-selector-refresh': false,
-	},
+	featureFlags: {},
 });
 
 snapshotInformational(WithAssetsModalVR, {
@@ -67,28 +42,5 @@ snapshotInformational(WithAssetsModalVR, {
 		await page.getByRole('textbox').fill('nonExistentSchema');
 		await page.getByRole('listbox').getByText('No options').waitFor({ state: 'visible' });
 	},
-	featureFlags: {
-		'linking-platform-assests-schema-selector-refresh': true,
-	},
-});
-
-// Todo: EDM-13139 remove when cleaning up linking-platform-assests-schema-selector-refresh
-snapshotInformational(WithAssetsModalVR, {
-	description:
-		'display assets modal schema selector dropdown - no options - linking-platform-assests-schema-selector-refresh off',
-	drawsOutsideBounds: true,
-	prepare: async (page: Page) => {
-		await page
-			.locator('[data-testid="assets-datasource-modal--object-schema-select"]')
-			.first()
-			.click();
-		await page
-			.locator('.assets-datasource-modal--object-schema-select__input')
-			.first()
-			.fill('nonExistentSchema');
-		await page.getByRole('listbox').getByText('No options').waitFor({ state: 'visible' });
-	},
-	featureFlags: {
-		'linking-platform-assests-schema-selector-refresh': false,
-	},
+	featureFlags: {},
 });

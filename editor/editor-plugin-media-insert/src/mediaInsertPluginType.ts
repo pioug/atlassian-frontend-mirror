@@ -7,6 +7,8 @@ import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { MediaPlugin } from '@atlaskit/editor-plugin-media';
 
+import type { CustomizedHelperMessage } from './types';
+
 export type MediaInsertPluginState = {
 	isOpen?: boolean;
 	mountInfo?: { ref: HTMLElement; mountPoint: HTMLElement };
@@ -55,7 +57,8 @@ export type MediaInsertPluginConfig = {
 	 * ```
 	 */
 	isOnlyExternalLinks?: boolean;
-	isUrlValidationOff?: boolean;
+	customizedUrlValidation?: (input: string) => boolean;
+	customizedHelperMessage?: CustomizedHelperMessage;
 };
 
 export type MediaInsertPlugin = NextEditorPlugin<

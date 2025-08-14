@@ -911,8 +911,6 @@ describe('document-service', () => {
 					__livePage: false,
 					hasRecovered: false,
 					collabMode: participantsServiceMock.getCollabMode(),
-					numberOfStepCommitsSent: 0,
-					setNumberOfCommitsSent: service.setNumberOfCommitsSent,
 					lockSteps: service.lockSteps,
 				});
 				if (shouldLogError) {

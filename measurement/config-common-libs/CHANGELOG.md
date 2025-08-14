@@ -1,5 +1,12 @@
 # @atlaskit/config-common-libs
 
+## 0.2.1
+
+### Patch Changes
+
+- [`1e359a3918a9f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1e359a3918a9f) -
+  React Compiler linting
+
 ## 0.2.0
 
 ### Minor Changes

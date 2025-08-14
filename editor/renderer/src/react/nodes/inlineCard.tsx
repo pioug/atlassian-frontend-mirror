@@ -2,12 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment, useState } from 'react';
+import { Fragment, useState, useMemo } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { type Mark } from '@atlaskit/editor-prosemirror/model';
 import { useSmartCardContext } from '@atlaskit/link-provider';
 import { Card, getObjectAri, getObjectIconUrl, getObjectName } from '@atlaskit/smart-card';
+import { useSmartLinkActions } from '@atlaskit/smart-card/hooks';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 import { HoverLinkOverlay, UnsupportedInline } from '@atlaskit/editor-common/ui';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
@@ -38,7 +39,7 @@ export interface InlineCardProps extends MarkDataAttributes {
 	marks?: Mark[];
 	rendererAppearance?: RendererAppearance;
 }
-const HoverLinkOverlayNoop = (props: HoverLinkOverlayProps) => (
+const HoverLinkOverlayNoop = (props: OverlayWithCardContextProps) => (
 	<Fragment>{props.children}</Fragment>
 );
 
@@ -47,6 +48,76 @@ const HoverLinkOverlayWithCondition = componentWithCondition(
 	HoverLinkOverlay,
 	HoverLinkOverlayNoop,
 );
+
+type OverlayWithCardContextProps = HoverLinkOverlayProps & {
+	url: string;
+	rendererAppearance?: RendererAppearance;
+	isResolvedViewRendered?: boolean;
+};
+
+const OverlayWithCardContext = ({
+	rendererAppearance,
+	isResolvedViewRendered,
+	url,
+	children,
+}: OverlayWithCardContextProps) => {
+	const cardContext = useSmartCardContext();
+	// Note: useSmartLinkActions throws without smart card context. Using it here is safe
+	// because we checked cardContext availability in the parent component
+	const actions = useSmartLinkActions({ url, appearance: 'inline' });
+	const preview = useMemo(
+		() => actions.find((action) => action.id === 'preview-content'),
+		[actions],
+	);
+
+	const cardState = cardContext?.value?.store?.getState()[url || ''];
+	const ari = getObjectAri(cardState?.details);
+	const name = getObjectName(cardState?.details);
+	const iconUrl = getObjectIconUrl(cardState?.details);
+	const isPanelAvailable = ari && cardContext?.value?.isPreviewPanelAvailable?.({ ari });
+	const openPreviewPanel = cardContext?.value?.openPreviewPanel;
+
+	const isPreviewPanelAvailable = Boolean(openPreviewPanel && isPanelAvailable);
+	const isPreviewModalAvailable = Boolean(preview);
+	const isPreviewAvailable = isPreviewModalAvailable || isPreviewPanelAvailable;
+	const showPanelButtonIcon = isPreviewPanelAvailable
+		? 'panel'
+		: isPreviewModalAvailable
+			? 'modal'
+			: undefined;
+
+	const Overlay = isPreviewAvailable ? HoverLinkOverlayWithCondition : HoverLinkOverlayNoop;
+
+	return (
+		<Overlay
+			isVisible={isResolvedViewRendered}
+			url={url}
+			compactPadding={rendererAppearance === 'comment'}
+			showPanelButton={isPreviewAvailable}
+			showPanelButtonIcon={showPanelButtonIcon}
+			onClick={(event) => {
+				if (isPreviewPanelAvailable) {
+					// Prevent anchor default behaviour(click to open the anchor link)
+					// When glance panel is available, let openPreviewPanel handle it
+					event.preventDefault();
+					openPreviewPanel?.({
+						url: url || '',
+						ari: ari || '',
+						name: name || '',
+						iconUrl,
+					});
+				} else if (isPreviewModalAvailable) {
+					event.preventDefault();
+					if (preview) {
+						preview.invoke();
+					}
+				}
+			}}
+		>
+			{children}
+		</Overlay>
+	);
+};
 
 const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 	const { url, data, eventHandlers, smartLinks, rendererAppearance } = props;
@@ -124,27 +195,7 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 		}
 	};
 
-	const cardState = cardContext?.value?.store?.getState()[url || ''];
-
-	const ari = getObjectAri(cardState?.details);
-	const name = getObjectName(cardState?.details);
-	const iconUrl = getObjectIconUrl(cardState?.details);
-	const isPanelAvailable = ari && cardContext?.value?.isPreviewPanelAvailable?.({ ari });
-	const openPreviewPanel = cardContext?.value?.openPreviewPanel;
-
-	const handleOpenGlancePanelClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
-		if (openPreviewPanel && isPanelAvailable) {
-			// Prevent anchor default behaviour(click to open the anchor link)
-			// When glance panel is available, let openPreviewPanel handle it
-			event.preventDefault();
-			openPreviewPanel({
-				url: url || '',
-				ari,
-				name: name || '',
-				iconUrl,
-			});
-		}
-	};
+	const MaybeOverlay = cardContext?.value ? OverlayWithCardContext : HoverLinkOverlayNoop;
 
 	return (
 		<AnalyticsContext data={analyticsData}>
@@ -162,12 +213,10 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 					// eslint-disable-next-line react/jsx-props-no-spreading
 					{...cardProps}
 				>
-					<HoverLinkOverlayWithCondition
-						isVisible={isResolvedViewRendered}
+					<MaybeOverlay
 						url={url || ''}
-						compactPadding={rendererAppearance === 'comment'}
-						showPanelButton={!!isPanelAvailable}
-						onClick={handleOpenGlancePanelClick}
+						rendererAppearance={rendererAppearance}
+						isResolvedViewRendered={isResolvedViewRendered}
 					>
 						<Card
 							appearance="inline"
@@ -189,7 +238,7 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 							}}
 							onError={onError}
 						/>
-					</HoverLinkOverlayWithCondition>
+					</MaybeOverlay>
 					{CompetitorPromptComponent}
 				</CardErrorBoundary>
 			</span>

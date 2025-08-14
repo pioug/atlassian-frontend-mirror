@@ -1,5 +1,13 @@
 # @atlaskit/editor-core
 
+## 209.8.3
+
+### Patch Changes
+
+- [`598cea2432fa9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/598cea2432fa9) -
+  [ux] UI and behaviour updates of the HoverLinkOverlay for the Preview Panels.
+- Updated dependencies
+
 ## 209.8.2
 
 ### Patch Changes

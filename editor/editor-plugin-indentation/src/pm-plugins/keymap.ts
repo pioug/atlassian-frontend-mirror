@@ -10,6 +10,7 @@ import {
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { isTextSelection } from '@atlaskit/editor-common/utils';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
+import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 
 import { getIndentCommand, getOutdentCommand } from '../editor-commands';
 
@@ -22,7 +23,15 @@ export function keymapPlugin(
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		findShortcutByKeymap(indent)!,
-		getIndentCommand(editorAnalyticsAPI)(INPUT_METHOD.KEYBOARD),
+		(state, dispatch) => {
+			const { blockTaskItem } = state.schema.nodes;
+
+			// Let `editor-plugin-tasks-and-decisions` handle indentation inside blockTaskItems
+			if (hasParentNodeOfType([blockTaskItem])(state.selection)) {
+				return false;
+			}
+			return getIndentCommand(editorAnalyticsAPI)(INPUT_METHOD.KEYBOARD)(state, dispatch);
+		},
 		list,
 	);
 
@@ -40,7 +49,15 @@ export function keymapPlugin(
 		findShortcutByKeymap(backspace)!,
 		(state, dispatch) => {
 			const { selection } = state;
-			if (isTextSelection(selection) && selection.$cursor && selection.$cursor.parentOffset === 0) {
+			const { blockTaskItem } = state.schema.nodes;
+
+			// Let `editor-plugin-tasks-and-decisions` handle indentation inside blockTaskItems
+			if (
+				isTextSelection(selection) &&
+				selection.$cursor &&
+				selection.$cursor.parentOffset === 0 &&
+				!hasParentNodeOfType([blockTaskItem])(selection)
+			) {
 				return dispatch
 					? getOutdentCommand(editorAnalyticsAPI)(INPUT_METHOD.KEYBOARD)(state, dispatch)
 					: false;

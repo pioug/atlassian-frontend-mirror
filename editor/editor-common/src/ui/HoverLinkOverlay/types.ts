@@ -9,5 +9,6 @@ export type HoverLinkOverlayProps = React.HTMLAttributes<HTMLSpanElement> & {
 	view?: EditorView;
 	onClick?: (event: React.MouseEvent<HTMLAnchorElement>) => void;
 	showPanelButton?: boolean;
+	showPanelButtonIcon?: 'panel' | 'modal';
 	compactPadding?: boolean;
 };

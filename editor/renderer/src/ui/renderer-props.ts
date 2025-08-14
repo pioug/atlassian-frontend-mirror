@@ -148,5 +148,6 @@ export interface RendererProps {
 	 * Creates a new `Serializer` to transform the ADF `document` into `JSX.Element`.
 	 * Allows Confluence to implement {@link https://hello.atlassian.net/wiki/spaces/~lmarinov/pages/5177285037/COMPLEXIT+Progressive+rendering+of+ADF progressive rendering}.
 	 */
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	createSerializer?(init: ReactSerializerInit): Serializer<JSX.Element> | null;
 }

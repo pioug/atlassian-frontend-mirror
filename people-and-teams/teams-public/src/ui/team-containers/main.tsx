@@ -4,7 +4,6 @@ import { defineMessages, FormattedMessage } from 'react-intl-next';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/new';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
@@ -13,16 +12,14 @@ import {
 	hasProductPermission,
 	useProductPermissions,
 } from '@atlaskit/teams-app-internal-product-permissions';
-import { HttpError, teamsClient } from '@atlaskit/teams-client';
-import { ContainerType } from '@atlaskit/teams-client/types';
 import { N0, N90 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { type ContainerTypes, type TeamContainer } from '../../common/types';
 import { TeamContainersSkeleton } from '../../common/ui/team-containers-skeleton';
-import { LinkedContainerCardSkeleton } from '../../common/ui/team-containers-skeleton/linked-container-card-skeleton';
 import { AnalyticsAction, usePeopleAndTeamAnalytics } from '../../common/utils/analytics';
 import { hasProductPermission as hasProductPermissionOld } from '../../controllers';
+import { useCreateContainers } from '../../controllers/hooks/use-create-containers';
 import { useProductPermissions as useProductPermissionsOld } from '../../controllers/hooks/use-product-permission';
 import { useRequestedContainers } from '../../controllers/hooks/use-requested-container';
 import {
@@ -32,12 +29,10 @@ import {
 import { useTeamLinksAndContainers } from '../../controllers/hooks/use-team-links-and-containers';
 
 import { getAddContainerCards } from './add-container-card';
-import { getAddContainerCardsWithCreate } from './add-container-card/add-container-card-with-create';
 import { DisconnectDialogLazy } from './disconnect-dialog/async';
 import { NoProductAccessState } from './no-product-access-empty-state';
 import { TeamLinkCard } from './team-link-card';
 import { type TeamContainerProps } from './types';
-import { getCreateContainerContactSupportFlag, getCreateContainerTryAgainFlag } from './utils';
 
 export const ICON_BACKGROUND = token('color.icon.inverse', N0);
 export const ICON_COLOR = token('color.icon.subtle', N90);
@@ -49,17 +44,22 @@ interface SelectedContainerDetails {
 	containerName: string;
 }
 
-const containerTypeMap: { [key: string]: ContainerType } = {
-	Confluence: ContainerType.CONFLUENCE_SPACE,
-	Jira: ContainerType.JIRA_PROJECT,
-	Loom: ContainerType.LOOM_SPACE,
-};
+function useRefreshOnContainerCreated(teamId: string) {
+	const [containers] = useCreateContainers();
+	const { refetchTeamContainers } = useTeamContainers(teamId);
+	const [refreshedProducts, setRefreshedProducts] = useState<{ [key: string]: boolean }>({});
 
-const containerTypeToTextMap: { [key: string]: string } = {
-	Confluence: 'Confluence space',
-	Jira: 'Jira project',
-	Loom: 'Loom space',
-};
+	useEffect(() => {
+		const products = Object.keys(containers) as Array<keyof typeof containers>;
+		products.forEach((product) => {
+			const isCreated = containers[product].isCreated;
+			if (isCreated && !refreshedProducts[product]) {
+				setRefreshedProducts((prev) => ({ ...prev, [product]: true }));
+				refetchTeamContainers();
+			}
+		});
+	}, [containers, refetchTeamContainers, refreshedProducts]);
+}
 
 export const TeamContainers = ({
 	teamId,
@@ -72,10 +72,9 @@ export const TeamContainers = ({
 	filterContainerId,
 	isDisplayedOnProfileCard,
 	maxNumberOfContainersToShow = MAX_NUMBER_OF_CONTAINERS_TO_SHOW,
-	addFlag,
 }: TeamContainerProps) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
-	const { unlinkError, refetchTeamContainers } = useTeamContainers(teamId);
+	const { unlinkError } = useTeamContainers(teamId);
 	const {
 		teamLinks,
 		removeTeamLink,
@@ -95,21 +94,16 @@ export const TeamContainers = ({
 		SelectedContainerDetails | undefined
 	>();
 	const [filteredTeamLinks, setFilteredTeamLinks] = useState(teamLinks);
-
-	const [showAddContainer, setShowAddContainer] = useState({
+	const [canAddContainer, setCanAddContainer] = useState({
 		Jira: false,
 		Confluence: false,
 		Loom: false,
 		WebLink: false,
 	});
 
-	const [containersBeingCreated, setContainersBeingCreated] = useState({
-		jira: false,
-		confluence: false,
-		loom: false,
-	});
+	const [containers] = useCreateContainers();
 
-	const { fireOperationalEvent, fireTrackEvent } = usePeopleAndTeamAnalytics();
+	const { fireTrackEvent } = usePeopleAndTeamAnalytics();
 
 	const { data: productPermissions, loading: productPermissionIsLoading } = useProductPermissions({
 		userId,
@@ -133,28 +127,7 @@ export const TeamContainers = ({
 			{ enabled: !fg('migrate-product-permissions') },
 		);
 
-	const hasPermissionToCreateContainers = useMemo(() => {
-		if (!productPermissions) {
-			return false;
-		}
-		if (fg('migrate-product-permissions')) {
-			return (
-				hasProductPermission(productPermissions, 'jira', ['CREATE_PROJECT']) ||
-				//@todo: fix in PTC-12660
-				hasProductPermission(productPermissions, 'confluence', ['write']) ||
-				hasProductPermission(productPermissions, 'loom', ['write'])
-			);
-		}
-		return false;
-	}, [productPermissions]);
-
-	const isCreateContainerExperimentEnabled = useMemo(() => {
-		return (
-			hasPermissionToCreateContainers &&
-			FeatureGates.initializeCompleted() &&
-			FeatureGates.getExperimentValue('teams_app_auto_container_creation', 'isEnabled', false)
-		);
-	}, [hasPermissionToCreateContainers]);
+	useRefreshOnContainerCreated(teamId);
 
 	useEffect(() => {
 		if (isDisplayedOnProfileCard && filterContainerId) {
@@ -173,7 +146,7 @@ export const TeamContainers = ({
 		const containersToCheck = filteredTeamLinks;
 
 		if (containersToCheck.length > maxNumberOfContainersToShow || isDisplayedOnProfileCard) {
-			setShowAddContainer({ Jira: false, Confluence: false, Loom: false, WebLink: false });
+			setCanAddContainer({ Jira: false, Confluence: false, Loom: false, WebLink: false });
 		} else {
 			const containerExists = (type: ContainerTypes) =>
 				containersToCheck.some((container) => container.type === type);
@@ -184,7 +157,6 @@ export const TeamContainers = ({
 				containerExists: boolean,
 				isRequesting: boolean,
 				product: 'confluence' | 'jira' | 'loom',
-				permissionIds?: string[],
 			) => {
 				if (containerExists || isRequesting) {
 					return false;
@@ -192,37 +164,27 @@ export const TeamContainers = ({
 
 				if (fg('migrate-product-permissions')) {
 					return (
-						(productPermissions &&
-							hasProductPermission(productPermissions, product, permissionIds)) ||
-						false
+						(productPermissions && hasProductPermission(productPermissions, product, [])) || false
 					);
 				}
 				return (
-					(productPermissionsOld &&
-						hasProductPermissionOld(productPermissionsOld, product, permissionIds)) ||
+					(productPermissionsOld && hasProductPermissionOld(productPermissionsOld, product, [])) ||
 					false
 				);
 			};
 
-			setShowAddContainer({
+			setCanAddContainer({
 				Jira: showContainer(
 					containerExists('JiraProject'),
 					containerRequested('JiraProject'),
 					'jira',
-					isCreateContainerExperimentEnabled ? ['CREATE_PROJECT'] : [],
 				),
 				Confluence: showContainer(
 					containerExists('ConfluenceSpace'),
 					containerRequested('ConfluenceSpace'),
 					'confluence',
-					isCreateContainerExperimentEnabled ? ['write'] : [],
 				),
-				Loom: showContainer(
-					containerExists('LoomSpace'),
-					containerRequested('LoomSpace'),
-					'loom',
-					isCreateContainerExperimentEnabled ? ['write'] : [],
-				),
+				Loom: showContainer(containerExists('LoomSpace'), containerRequested('LoomSpace'), 'loom'),
 				WebLink: !containerExists('WebLink'),
 			});
 		}
@@ -233,7 +195,6 @@ export const TeamContainers = ({
 		filteredTeamLinks,
 		maxNumberOfContainersToShow,
 		requestedContainers,
-		isCreateContainerExperimentEnabled,
 	]);
 
 	const handleShowMore = () => {
@@ -277,12 +238,12 @@ export const TeamContainers = ({
 
 			setIsDisconnectDialogOpen(false);
 			if (unlinkError) {
-				fireOperationalEvent(createAnalyticsEvent, {
+				fireTrackEvent(createAnalyticsEvent, {
 					action: AnalyticsAction.FAILED,
 					actionSubject: 'teamContainerUnlinked',
 				});
 			} else {
-				fireOperationalEvent(createAnalyticsEvent, {
+				fireTrackEvent(createAnalyticsEvent, {
 					action: AnalyticsAction.SUCCEEDED,
 					actionSubject: 'teamContainerUnlinked',
 					attributes: {
@@ -298,92 +259,11 @@ export const TeamContainers = ({
 		[
 			actions,
 			createAnalyticsEvent,
-			fireOperationalEvent,
+			fireTrackEvent,
 			filteredTeamLinks,
 			removeTeamLink,
 			teamId,
 			unlinkError,
-		],
-	);
-
-	const handleCreateContainer = useCallback(
-		async (containerType: 'Confluence' | 'Jira' | 'Loom') => {
-			setContainersBeingCreated({
-				...containersBeingCreated,
-				[containerType.toLowerCase()]: true,
-			});
-			try {
-				const result = await teamsClient.createTeamContainers({
-					teamId,
-					containers: [{ type: containerTypeMap[containerType], containerSiteId: cloudId }],
-				});
-
-				if (result.containersNotCreated.length === 0) {
-					fireOperationalEvent(createAnalyticsEvent, {
-						action: AnalyticsAction.SUCCEEDED,
-						actionSubject: 'teamContainerCreate',
-						attributes: {
-							containerType,
-							teamId,
-						},
-					});
-					refetchTeamContainers();
-				} else {
-					fireOperationalEvent(createAnalyticsEvent, {
-						action: AnalyticsAction.FAILED,
-						actionSubject: 'teamContainerCreate',
-						attributes: {
-							containerType,
-							teamId,
-						},
-					});
-					addFlag?.(
-						getCreateContainerTryAgainFlag({
-							tryAgainAction: () => {
-								handleCreateContainer(containerType);
-							},
-							containerType: containerTypeToTextMap[containerType],
-						}),
-					);
-				}
-
-				setContainersBeingCreated({
-					...containersBeingCreated,
-					[containerType.toLowerCase()]: false,
-				});
-			} catch (error) {
-				fireOperationalEvent(createAnalyticsEvent, {
-					action: AnalyticsAction.FAILED,
-					actionSubject: 'teamContainerCreate',
-					attributes: {
-						containerType,
-						teamId,
-					},
-				});
-				if (error instanceof HttpError) {
-					if (error.status === 500) {
-						addFlag?.(
-							getCreateContainerTryAgainFlag({
-								tryAgainAction: () => {
-									handleCreateContainer(containerType);
-								},
-								containerType: containerTypeToTextMap[containerType],
-							}),
-						);
-					} else {
-						addFlag?.(getCreateContainerContactSupportFlag());
-					}
-				}
-			}
-		},
-		[
-			containersBeingCreated,
-			teamId,
-			cloudId,
-			fireOperationalEvent,
-			createAnalyticsEvent,
-			refetchTeamContainers,
-			addFlag,
 		],
 	);
 
@@ -421,6 +301,25 @@ export const TeamContainers = ({
 		return productPermissionIsLoadingOld;
 	}, [linksLoading, productPermissionIsLoading, productPermissionIsLoadingOld]);
 
+	const availableContainers = useMemo(() => {
+		const getAvailableContainer = (
+			productKey: keyof typeof canAddContainer,
+			requestedType: ContainerTypes,
+		) => ({
+			canAdd: canAddContainer?.[productKey],
+			isLoading:
+				containers?.[productKey as keyof typeof containers]?.isLoading ||
+				requestedContainers?.includes(requestedType),
+		});
+
+		return {
+			Jira: getAvailableContainer('Jira', 'JiraProject'),
+			Confluence: getAvailableContainer('Confluence', 'ConfluenceSpace'),
+			Loom: getAvailableContainer('Loom', 'LoomSpace'),
+			WebLink: getAvailableContainer('WebLink', 'WebLink'),
+		};
+	}, [canAddContainer, containers, requestedContainers]);
+
 	if (isLoading) {
 		return <TeamContainersSkeletonComponent numberOfContainers={maxNumberOfContainersToShow} />;
 	}
@@ -436,9 +335,6 @@ export const TeamContainers = ({
 					templateColumns="repeat(auto-fill, minmax(300px, 1fr))"
 					gap={isDisplayedOnProfileCard ? 'space.0' : 'space.100'}
 				>
-					{requestedContainers.map((containerType) => (
-						<LinkedContainerCardSkeleton key={containerType} containerType={containerType} />
-					))}
 					{filteredTeamLinks.slice(0, maxNumberOfContainersToShow).map((container) => {
 						return (
 							<LinkedContainerCardComponent
@@ -463,21 +359,10 @@ export const TeamContainers = ({
 						);
 					})}
 
-					{isCreateContainerExperimentEnabled
-						? getAddContainerCardsWithCreate({
-								showAddContainer,
-								onAddAContainerClick: (
-									e: React.MouseEvent<HTMLButtonElement>,
-									containerType: 'Confluence' | 'Jira' | 'Loom' | 'WebLink',
-								) => {
-									onAddAContainerClick(e, containerType);
-								},
-								containersLoading: containersBeingCreated,
-							})
-						: getAddContainerCards({
-								showAddContainer,
-								onAddAContainerClick: onAddAContainerClick,
-							})}
+					{getAddContainerCards({
+						containers: availableContainers,
+						onAddAContainerClick: onAddAContainerClick,
+					})}
 
 					{showMore &&
 						filteredTeamLinks.slice(maxNumberOfContainersToShow).map((container) => {

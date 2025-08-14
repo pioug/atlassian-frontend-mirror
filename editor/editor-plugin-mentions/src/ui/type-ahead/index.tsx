@@ -103,6 +103,7 @@ export const mentionToTypeaheadItem = (mention: MentionDescription): TypeAheadIt
 
 export function memoize<ResultFn extends (mention: MentionDescription) => TypeAheadItem>(
 	fn: ResultFn,
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 ): { call: ResultFn; clear(): void } {
 	// Cache results here
 	const seen = new Map<string, TypeAheadItem>();

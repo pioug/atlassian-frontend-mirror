@@ -6,7 +6,7 @@ import {
 	TEXT_COLOR_HIGHLIGHT_MENU_SECTION_RANK,
 } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
+import type { RegisterComponent, ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
 
 import type { HighlightPlugin } from '../highlightPluginType';
 
@@ -24,7 +24,9 @@ export const getToolbarComponent = (
 					rank: TEXT_COLOR_HIGHLIGHT_MENU_SECTION_RANK[HIGHLIGHT_MENU_ITEM.key],
 				},
 			],
-			component: () => <HighlightColorMenuItem api={api} />,
+			component: ({ parents }: { parents: ToolbarComponentTypes }) => (
+				<HighlightColorMenuItem api={api} parents={parents} />
+			),
 		},
 	];
 };

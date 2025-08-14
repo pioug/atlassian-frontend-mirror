@@ -753,13 +753,25 @@ events:
         3P Workflows team
       attributes:
         <<: [*PackageMetaDataContext, *CommonContext, *ResolvedContext]
-        sourceURL:
+        firstPartyARI:
           required: true
           type: string
           description:
-            The first party URL for this Smart Link - this is NOT the URL the user clicked on, but
-            the URL of the page where the Smart Link is rendered
+            The first party ARI for this Smart Link - this is NOT the ARI of the link the user
+            clicked on, but the ARI of the page where the Smart Link is rendered
         thirdPartyARI:
           required: true
           type: string
           description: The third-party ARI for this Smart Link
+        jiraIssueId:
+          required: false
+          type: string
+          description: The Issue ID for the Jira specific ticket this Smart Link is pasted on
+        confluenceContentId:
+          required: false
+          type: string
+          description: The Content ID for the Confluence specific page this Smart Link is pasted on
+        confluencePageId:
+          required: false
+          type: string
+          description: The Page ID for the Confluence specific page this Smart Link is pasted on

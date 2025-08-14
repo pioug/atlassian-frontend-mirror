@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "209.8.2",
+	"version": "209.8.3",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -531,6 +531,9 @@
 			"referenceOnly": true
 		},
 		"platform_editor_find_and_replace_improvements_1": {
+			"type": "boolean"
+		},
+		"platform_editor_preview_panel_linking": {
 			"type": "boolean"
 		},
 		"platform_editor_task_check_status_fix": {

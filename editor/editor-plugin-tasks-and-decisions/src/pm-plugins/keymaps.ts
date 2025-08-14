@@ -479,22 +479,84 @@ const enter = (
 			),
 			(state, dispatch) => {
 				const { selection, schema } = state;
-				const { taskItem } = schema.nodes;
+				const { decisionItem, taskItem, blockTaskItem } = schema.nodes;
 				const { $from, $to } = selection;
 				const node = $from.node($from.depth);
-				const nodeType = node && node.type;
-				const listType: TaskDecisionListType = nodeType === taskItem ? 'taskList' : 'decisionList';
+				let nodeType = node && node.type;
+
+				// Get the parent node type if the current node type is not one of the task or decision items
+				// This is required to handle blockTaskItem
+				if (![decisionItem, taskItem, blockTaskItem].includes(nodeType)) {
+					const possibleNodeType = findParentNodeOfType([decisionItem, taskItem, blockTaskItem])(
+						selection,
+					)?.node?.type;
+					if (possibleNodeType) {
+						nodeType = possibleNodeType;
+					}
+				}
+
+				const listType: TaskDecisionListType = [taskItem, blockTaskItem].includes(nodeType)
+					? 'taskList'
+					: 'decisionList';
 
 				const addItem = ({ tr, itemLocalId }: { tr: Transaction; itemLocalId?: string }) => {
 					// ED-8932: When cursor is at the beginning of a task item, instead of split, we insert above.
 					if ($from.pos === $to.pos && $from.parentOffset === 0) {
 						const newTask = nodeType.createAndFill({ localId: itemLocalId });
 						if (newTask) {
+							if (nodeType === blockTaskItem) {
+								const blockTaskItemNode = findParentNodeOfType([blockTaskItem])(selection);
+
+								// New task items for blockTaskItem should be taskItem
+								// We want to prevent creating new blockTaskItems as much as possible
+								const newTaskItem = taskItem.createAndFill({
+									localId: itemLocalId,
+								});
+
+								if (!blockTaskItemNode || !newTaskItem) {
+									return tr;
+								}
+
+								return tr.insert(blockTaskItemNode.pos, newTaskItem);
+							}
 							// Current position will point to text node, but we want to insert above the taskItem node
 							return tr.insert($from.pos - 1, newTask);
 						}
 					}
+					/**
+					 * For blockTaskItem, must handle it differently because it can have a different depth
+					 */
+					if (nodeType === blockTaskItem) {
+						const blockTaskItemNode = findParentNodeOfType([blockTaskItem])(selection);
+						if (!blockTaskItemNode) {
+							return tr;
+						}
 
+						// If the selection is a gap cursor at the end of the blockTaskItem,
+						// we should insert a new taskItem.
+						if ($from.parentOffset === $from.parent.nodeSize - 2) {
+							const newTaskItem = taskItem.createAndFill({
+								localId: itemLocalId,
+							});
+							if (newTaskItem) {
+								tr.insert(blockTaskItemNode.pos + blockTaskItemNode.node.nodeSize, newTaskItem);
+
+								// Move the cursor to the end of the newly inserted blockTaskItem
+								tr.setSelection(
+									TextSelection.create(
+										tr.doc,
+										blockTaskItemNode.pos + blockTaskItemNode.node.nodeSize + 1,
+									),
+								);
+								return tr;
+							}
+						}
+
+						// Split near the depth of the current selection
+						return tr.split($from.pos, $from.depth - 1, [
+							{ type: blockTaskItem, attrs: { localId: itemLocalId } },
+						]);
+					}
 					return tr.split($from.pos, 1, [{ type: nodeType, attrs: { localId: itemLocalId } }]);
 				};
 
@@ -509,7 +571,6 @@ const enter = (
 					insertTr.scrollIntoView();
 					dispatch(insertTr);
 				}
-
 				return true;
 			},
 		),

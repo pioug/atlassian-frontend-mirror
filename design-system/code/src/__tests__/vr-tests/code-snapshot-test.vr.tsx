@@ -21,6 +21,7 @@ import ObjectPascal from '../../../examples/object-pascal';
 import Qml from '../../../examples/qml';
 import ExampleSQL from '../../../examples/sql';
 import StandardMl from '../../../examples/standard-ml';
+import Toml from '../../../examples/toml';
 import VisualBasic from '../../../examples/visual-basic';
 import VrPythonTestIdAndWrapping from '../../../examples/vr-python-test-id-and-wrapping';
 
@@ -58,3 +59,4 @@ snapshot(CodeOverrideBackground, defaultColourThemeVariant);
 snapshot(ExampleSQL, defaultColourThemeVariant);
 snapshot(ExampleABAP, defaultColourThemeVariant);
 snapshot(Gherkin, defaultColourThemeVariant);
+snapshot(Toml, defaultColourThemeVariant);

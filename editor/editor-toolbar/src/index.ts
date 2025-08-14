@@ -11,6 +11,7 @@ export { ToolbarSection } from './ui/ToolbarSection';
 export { ToolbarTooltip } from './ui/ToolbarTooltip';
 export { ToolbarDropdownDivider } from './ui/ToolbarDropdownDivider';
 export { ToolbarColorSwatch } from './ui/ToolbarColorSwatch';
+export { useToolbarDropdownMenu } from './ui/ToolbarDropdownMenuContext';
 
 export { AIAdjustLengthIcon } from './ui/icons/AIAdjustLengthIcon';
 export { AIChatIcon } from './ui/icons/AIChatIcon';
@@ -57,6 +58,8 @@ export { AlignTextCenterIcon } from './ui/icons/AlignTextCenterIcon';
 export { AlignTextRightIcon } from './ui/icons/AlignTextRightIcon';
 export { IndentIcon } from './ui/icons/IndentIcon';
 export { OutdentIcon } from './ui/icons/OutdentIcon';
+
+export { default as ColorPalette } from './ui/ColorPalette';
 
 export type { IconComponent, ToolbarButtonGroupLocation } from './types';
 

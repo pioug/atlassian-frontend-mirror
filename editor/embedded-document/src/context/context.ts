@@ -19,10 +19,15 @@ export interface State {
 export type Mode = 'view' | 'edit' | 'create';
 
 export interface Actions {
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	getDocument(documentId: string, language?: string): void;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	getDocumentByObjectId(objectId: string, language?: string): void;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	setDocumentMode(mode: Mode): void;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	updateDocument(body: string, title?: string, language?: string): Promise<Document>;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	createDocument(body: string, title?: string, language?: string): Promise<Document>;
 }
 

@@ -3,7 +3,7 @@
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
 	},
-	"version": "0.2.3",
+	"version": "0.3.0",
 	"description": "Common UI for Toolbars across the platform",
 	"atlassian": {
 		"team": "Editor: Jenga",
@@ -39,10 +39,12 @@
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
 		"@babel/runtime": "root:*",
-		"@compiled/react": "root:*"
+		"@compiled/react": "root:*",
+		"chromatism": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0",
+		"react-intl-next": "*"
 	},
 	"devDependencies": {
 		"@af/integration-testing": "workspace:^",

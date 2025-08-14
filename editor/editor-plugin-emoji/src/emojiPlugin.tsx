@@ -75,6 +75,7 @@ export const emojiToTypeaheadItem = (
 
 export function memoize<
 	ResultFn extends (emoji: EmojiDescription, emojiProvider?: EmojiProvider) => TypeAheadItem,
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 >(fn: ResultFn): { call: ResultFn; clear(): void } {
 	// Cache results here
 	const seen = new Map<string, TypeAheadItem>();

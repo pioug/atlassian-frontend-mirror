@@ -572,9 +572,10 @@ export type SyncUpErrorFunction = (attributes: NewCollabSyncUpErrorAttributes) =
 
 export interface CollabEditProvider<Events extends CollabEvents = CollabEvents> {
 	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/method-signature-style -- method-signature-style ignored via go/ees013 (to be fixed)
 	initialize(getState: () => any, createStep: (json: object) => Step): this; // TO-DO: deprecate this
 
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	setup(props: {
 		getState?: () => EditorState;
 		// Ignored via go/ees005
@@ -583,22 +584,27 @@ export interface CollabEditProvider<Events extends CollabEvents = CollabEvents> 
 		onSyncUpError?: SyncUpErrorFunction;
 	}): this;
 
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	send(tr: Transaction, oldState: EditorState, newState: EditorState): void;
 
 	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/method-signature-style -- method-signature-style ignored via go/ees013 (to be fixed)
 	on(evt: keyof Events, handler: (...args: any) => void): this;
 
 	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/method-signature-style -- method-signature-style ignored via go/ees013 (to be fixed)
 	off(evt: keyof Events, handler: (...args: any) => void): this;
 
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	unsubscribeAll(evt: keyof Events): this;
 
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	sendMessage<K extends keyof Events>(data: { type: K } & Events[K]): void;
 
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	getFinalAcknowledgedState(reason: GetResolvedEditorStateReason): Promise<ResolvedEditorState>;
 
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	getIsNamespaceLocked(): boolean;
 }
 

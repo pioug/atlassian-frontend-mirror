@@ -7,6 +7,7 @@ export { ContainerIcon } from './common/ui/container-icon';
 export type { ContainerIconProps } from './common/ui/container-icon';
 export { useTeamContainers, useConnectedTeams } from './controllers/hooks/use-team-containers';
 export { useTeamWebLinks, useTeamWebLinksActions } from './controllers/hooks/use-team-web-links';
+export { useCreateContainers } from './controllers/hooks/use-create-containers';
 export { useTeamLinksAndContainers } from './controllers/hooks/use-team-links-and-containers';
 export type { TeamContainer, ContainerSubTypes, ContainerTypes } from './common/types';
 export { useProductPermissions } from './controllers/hooks/use-product-permission';

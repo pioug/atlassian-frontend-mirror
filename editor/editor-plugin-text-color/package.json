@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-text-color",
-	"version": "3.1.5",
+	"version": "3.1.6",
 	"description": "Text color plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -39,6 +39,7 @@
 		"@atlaskit/css": "workspace:^",
 		"@atlaskit/editor-palette": "workspace:^",
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
+		"@atlaskit/editor-plugin-highlight": "workspace:^",
 		"@atlaskit/editor-plugin-primary-toolbar": "workspace:^",
 		"@atlaskit/editor-plugin-selection-toolbar": "workspace:^",
 		"@atlaskit/editor-plugin-toolbar": "workspace:^",

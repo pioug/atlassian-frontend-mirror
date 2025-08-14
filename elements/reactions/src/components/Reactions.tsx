@@ -42,10 +42,15 @@ import { ReactionPicker as ReactionPickerOld, type ReactionPickerProps } from '.
 import { ReactionPicker as ReactionPickerNew } from './ReactionPickerNew';
 import { type SelectorProps } from './Selector';
 import { ReactionSummaryView } from './ReactionSummaryView';
-import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
+import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
+import { fg } from '@atlaskit/platform-feature-flags';
 
-const ReactionPicker = componentWithFG(
-	'platform_editor_reactions_picker_fix',
+const ReactionPicker = componentWithCondition(
+	() => {
+		return (
+			fg('platform_editor_reactions_picker_fix') || fg('platform_editor_reactions_picker_fix_jira')
+		);
+	},
 	ReactionPickerNew,
 	ReactionPickerOld,
 );

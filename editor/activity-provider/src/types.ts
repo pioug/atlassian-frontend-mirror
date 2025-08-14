@@ -53,6 +53,8 @@ export interface ActivityResponse {
 }
 
 export interface ActivityProvider {
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	getRecentItems(): Promise<Array<ActivityItem>>;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	searchRecent(query: string): Promise<Array<ActivityItem>>;
 }

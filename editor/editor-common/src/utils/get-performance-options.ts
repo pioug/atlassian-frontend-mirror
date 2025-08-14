@@ -55,6 +55,7 @@ export function stopMeasureReactNodeViewRendered({
 	slowThreshold,
 }: {
 	nodeTypeName: string;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	dispatchAnalyticsEvent(payload: AnalyticsEventPayload): void;
 	// NOTE: the use of sampling rate with a global nodeView counter
 	// means that will be unequal weighting given to nodes which are

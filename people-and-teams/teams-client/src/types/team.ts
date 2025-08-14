@@ -164,3 +164,26 @@ export interface AssignTeamsToSitesResponse {
 		failureReason: string;
 	}[];
 }
+
+export interface AssignedTeam {
+	id: string;
+	displayName: string;
+	avatarImageUrl: string;
+	members: {
+		firstPageCount: number;
+		memberCursor: string;
+	};
+	scope: {
+		id: string;
+		name: string;
+	};
+	scopeAlignmentMetadata: {
+		accountId: string;
+		timestamp: string;
+	};
+}
+
+export interface AssignedTeamsResponse {
+	teams: AssignedTeam[];
+	cursor: string;
+}

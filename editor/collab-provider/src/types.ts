@@ -30,8 +30,11 @@ export interface CollabEventDisconnectedData {
 // types from editor common end
 
 export interface Storage {
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	get(key: string): Promise<string>;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	set(key: string, value: string): Promise<void>;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	delete(key: string): Promise<void>;
 }
 
@@ -143,15 +146,15 @@ export interface InitAndAuthData {
 export type AuthCallback = (cb: (data: InitAndAuthData) => void) => void;
 
 interface SimpleEventEmitter {
-	on(event: string, fn: Function): SimpleEventEmitter;
+	on: (event: string, fn: Function) => SimpleEventEmitter;
 }
 export interface Socket extends SimpleEventEmitter {
 	id: string;
-	connect(): Socket;
+	connect: () => Socket;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	emit(event: string, ...args: any[]): Socket;
-	close(): Socket;
+	emit: (event: string, ...args: any[]) => Socket;
+	close: () => Socket;
 	io?: Manager;
 }
 
@@ -159,7 +162,7 @@ export type LifecycleEvents = 'save' | 'restore';
 export type EventHandler = () => void;
 
 export interface Lifecycle {
-	on(event: LifecycleEvents, handler: EventHandler): void;
+	on: (event: LifecycleEvents, handler: EventHandler) => void;
 }
 
 // Channel
@@ -264,7 +267,6 @@ export type ChannelEvent = {
 		userId: string;
 		collabMode: string;
 		forcePublish?: boolean;
-		skipValidation: boolean;
 	};
 	'steps:added': StepsPayload;
 	'metadata:changed': Metadata;

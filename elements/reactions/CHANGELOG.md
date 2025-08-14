@@ -1,5 +1,13 @@
 # @atlaskit/reactions
 
+## 33.2.11
+
+### Patch Changes
+
+- [`f36f3f788a497`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f36f3f788a497) -
+  increase portal z-index value for reactions picker
+- Updated dependencies
+
 ## 33.2.10
 
 ### Patch Changes

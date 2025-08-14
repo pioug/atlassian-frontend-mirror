@@ -180,6 +180,7 @@ export type AnnotationManager = AnnotationManagerMethods & {
 	 * This method is used to set a preemptive gate. A preemptive gate is a function that will be called
 	 * before the manager performs an action. If the function returns false, the action will not be performed.
 	 */
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	setPreemptiveGate(handler: () => Promise<boolean>): AnnotationManager;
 
 	/**
@@ -187,14 +188,19 @@ export type AnnotationManager = AnnotationManagerMethods & {
 	 * @private
 	 * @internal
 	 */
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	checkPreemptiveGate(): Promise<boolean>;
 
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	onDraftAnnotationStarted(handler: (data: AnnotationDraftStartedData) => void): AnnotationManager;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	offDraftAnnotationStarted(handler: (data: AnnotationDraftStartedData) => void): AnnotationManager;
 
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	onAnnotationSelectionChange(
 		handler: (data: AnnotationSelectedChangeData) => void,
 	): AnnotationManager;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	offAnnotationSelectionChange(
 		handler: (data: AnnotationSelectedChangeData) => void,
 	): AnnotationManager;
@@ -204,6 +210,7 @@ export type AnnotationManager = AnnotationManagerMethods & {
 	 * @internal
 	 * This method is intended for internal Platform use only. It is not intended for use by Product code.
 	 */
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	emit(
 		event:
 			| {
@@ -224,6 +231,7 @@ export type AnnotationManager = AnnotationManagerMethods & {
 	 * @internal
 	 * This method is intended for internal Platform use only. It is not intended for use by Product code.
 	 */
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	hook<H extends keyof AnnotationManagerMethods>(
 		method: H,
 		handler: AnnotationManagerMethods[H],
@@ -234,6 +242,7 @@ export type AnnotationManager = AnnotationManagerMethods & {
 	 * @internal
 	 * This method is intended for internal Platform use only. It is not intended for use by Product code.
 	 */
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	unhook<H extends keyof AnnotationManagerMethods>(
 		method: H,
 		handler: AnnotationManagerMethods[H],

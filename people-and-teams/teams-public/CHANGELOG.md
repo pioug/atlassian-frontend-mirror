@@ -1,5 +1,25 @@
 # @atlaskit/teams-public
 
+## 0.54.1
+
+### Patch Changes
+
+- [`a16cf46ffdef0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a16cf46ffdef0) -
+  Optimise setting state in create containers store
+
+## 0.54.0
+
+### Minor Changes
+
+- [`a57ad7783aa82`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a57ad7783aa82) -
+  Add create container store and update create container UX
+
+### Patch Changes
+
+- [`aa3cc45df6311`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa3cc45df6311) -
+  Update failed events to be track (so they can be used in stastig)
+- Updated dependencies
+
 ## 0.53.0
 
 ### Minor Changes

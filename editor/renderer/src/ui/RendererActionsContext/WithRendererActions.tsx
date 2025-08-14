@@ -3,6 +3,7 @@ import { RendererActionsContextConsumer } from './index';
 import type RendererActions from '../../actions/index';
 
 interface WithRendererActionsProps {
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	render(actions: RendererActions): ReactNode | null;
 }
 

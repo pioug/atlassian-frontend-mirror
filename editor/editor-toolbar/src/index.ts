@@ -9,7 +9,6 @@ export { ToolbarNestedDropdownMenu } from './ui/ToolbarNestedDropdownMenu';
 export { ToolbarKeyboardShortcutHint } from './ui/ToolbarKeyboardShortcutHint';
 export { ToolbarSection } from './ui/ToolbarSection';
 export { ToolbarTooltip } from './ui/ToolbarTooltip';
-export { ToolbarDropdownDivider } from './ui/ToolbarDropdownDivider';
 export { ToolbarColorSwatch } from './ui/ToolbarColorSwatch';
 export { useToolbarDropdownMenu } from './ui/ToolbarDropdownMenuContext';
 
@@ -61,6 +60,6 @@ export { OutdentIcon } from './ui/icons/OutdentIcon';
 
 export { default as ColorPalette } from './ui/ColorPalette';
 
-export type { IconComponent, ToolbarButtonGroupLocation } from './types';
+export type { IconComponent } from './types';
 
 export { useToolbarUI, ToolbarUIProvider } from './hooks/ui-context';

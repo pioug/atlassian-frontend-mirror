@@ -4,7 +4,7 @@ type Size = 'xxsmall' | 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
 
 type BaseLogoProps = {
 	/**
-	 * The size of the icon, uses the same sizing scheme as in `@atlaskit/icon`.
+	 * The size of the icon.
 	 */
 	size?: Size;
 	/**

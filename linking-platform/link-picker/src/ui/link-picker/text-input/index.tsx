@@ -19,7 +19,8 @@ import { useMergeRefs } from 'use-callback-ref';
 import { cssMap } from '@atlaskit/css';
 import { ErrorMessage, Field } from '@atlaskit/form';
 import Selectclear from '@atlaskit/icon/core/migration/cross-circle--select-clear';
-import { Pressable } from '@atlaskit/primitives/compiled';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box, Pressable } from '@atlaskit/primitives/compiled';
 import Textfield, { type TextFieldProps } from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -41,6 +42,11 @@ const styles = cssMap({
 		border: 'none',
 		verticalAlign: 'middle',
 	},
+	requiredIndicatorStyles: {
+		color: token('color.text.danger'),
+		fontFamily: token('font.family.body'),
+		paddingInlineStart: token('space.025'),
+	},
 });
 
 /**
@@ -61,6 +67,14 @@ const baseFieldStyles = css({
 const newFieldStyles = css({
 	font: token('font.heading.xxsmall'),
 });
+
+const RequiredAsterisk = () => {
+	return (
+		<Box as="span" aria-hidden="true" xcss={styles.requiredIndicatorStyles}>
+			*
+		</Box>
+	);
+};
 
 export type TextInputProps = Omit<TextFieldProps, 'name' | 'value'> &
 	Pick<ConditionalSpotlightTargetWrapperProps, 'spotlightTargetName'> & {
@@ -95,6 +109,7 @@ export const TextInput = ({
 	error,
 	spotlightTargetName,
 	inputRef: inputRefProp,
+	isRequired = false,
 	...restProps
 }: TextInputProps) => {
 	const inputRef: MutableRefObject<HTMLInputElement | null> = useRef<HTMLInputElement>(null);
@@ -164,7 +179,15 @@ export const TextInput = ({
 
 	return (
 		<div css={[baseFieldStyles, newFieldStyles]}>
-			<Field label={label} name={name}>
+			<Field
+				label={label}
+				name={name}
+				elementAfterLabel={
+					isRequired && fg('navx-1368-link-picker-a11y-mandatory-states') ? (
+						<RequiredAsterisk />
+					) : undefined
+				}
+			>
 				{({ fieldProps }) => {
 					return (
 						<ConditionalSpotlightTargetWrapper spotlightTargetName={spotlightTargetName}>
@@ -176,6 +199,11 @@ export const TextInput = ({
 									ref={textfieldRef}
 									elemAfterInput={clearText}
 									isInvalid={!!error}
+									{...(fg('navx-1368-link-picker-a11y-mandatory-states')
+										? {
+												'aria-describedby': `${restProps['aria-describedby']} ${fieldProps.id}-error`,
+											}
+										: {})}
 								/>
 								{error && <ErrorMessage testId={testIds.urlError}>{error}</ErrorMessage>}
 							</Fragment>

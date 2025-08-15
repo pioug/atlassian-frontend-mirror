@@ -33,6 +33,34 @@ export const createFeatureFlaggedComponent = (
 };
 
 /**
+ * Creates a feature flagged component that renders the legacy logo or the new logo
+ * based on the platform-logo-rebrand-servco or platform-logo-rebrand feature flag.
+ *
+ * @param LegacyComponent - The legacy logo component.
+ * @param NewComponent - The new logo component.
+ * @returns A feature flagged component that renders the legacy logo or the new logo.
+ */
+export const createFeatureFlaggedServiceCollectionComponent = (
+	LegacyComponent: React.ComponentType<LogoProps>,
+	NewComponent: React.ComponentType<TempLogoProps> | React.ComponentType<TempIconProps>,
+) => {
+	// Note: textColor and iconColor aren't supported on all new logos
+	// These props will be deprecated in the future
+	return ({ size, shouldUseNewLogoDesign, ...props }: LogoProps) => {
+		if (
+			fg('platform-logo-rebrand-servco') ||
+			fg('platform-logo-rebrand') ||
+			shouldUseNewLogoDesign
+		) {
+			// Size defaults need to be set, as the temp library had different defaults
+			return <NewComponent size={size || 'medium'} {...props} />;
+		}
+
+		return <LegacyComponent size={size} {...props} />;
+	};
+};
+
+/**
  * Creates a wrapper around the new logo or icon component to ensure it receives the correct default (medium) size prop.
  *
  * @param NewComponent - The new logo or icon component.

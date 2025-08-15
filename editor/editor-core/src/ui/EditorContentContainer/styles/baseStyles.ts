@@ -19,6 +19,7 @@ const akEditorFullPageNarrowBreakout = 600;
 export const baseStyles = css({
 	'--ak-editor--default-gutter-padding': `${akEditorGutterPadding}px`,
 	'--ak-editor--default-layout-width': `${akEditorDefaultLayoutWidth}px`,
+	'--ak-editor--resizer-handle-spacing': `12px`,
 	'--ak-editor--full-width-layout-width': `${akEditorFullWidthLayoutWidth}px`,
 	/* calculate editor line length, 100cqw is the editor container width */
 	'--ak-editor--line-length':

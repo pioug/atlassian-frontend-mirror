@@ -25,8 +25,8 @@ export const toolbarPlugin: ToolbarPlugin = ({ api }) => {
 			},
 		},
 
-		contentComponent: ({ editorView }) => {
-			return <SelectionToolbar api={api} editorView={editorView} />;
+		contentComponent: ({ editorView, popupsMountPoint }) => {
+			return <SelectionToolbar api={api} editorView={editorView} mountPoint={popupsMountPoint} />;
 		},
 	};
 };

@@ -8,7 +8,6 @@ import { type JsonLd } from '@atlaskit/json-ld-types';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import type { CardState, ProductType } from '@atlaskit/linking-common';
 import type { SmartLinkResponse } from '@atlaskit/linking-types';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { getCardState } from '../../../../../../../examples/utils/flexible-ui';
 import { SmartLinkPosition, SmartLinkSize } from '../../../../../../constants';
@@ -137,92 +136,91 @@ describe('HoverCardResolvedView', () => {
 		return { ...renderResult, rerenderTestComponent };
 	};
 
-	ffTest.on('smart_links_noun_support', 'entity support', () => {
-		it('renders hover card blocks', async () => {
-			const { findAllByTestId, findByTestId } = setup();
+	it('renders hover card blocks', async () => {
+		const { findAllByTestId, findByTestId } = setup();
+		act(() => {
+			jest.runAllTimers();
+		});
+		const titleBlock = await findByTestId('smart-block-title-resolved-view');
+		await findAllByTestId('smart-block-metadata-resolved-view');
+		const snippetBlock = await findByTestId('smart-block-snippet-resolved-view');
+		const actionBlock = await findByTestId('smart-block-action');
+
+		const footerBlock = await findByTestId('smart-ai-footer-block-resolved-view');
+
+		expect(titleBlock).toHaveTextContent('I love cheese');
+		expect(snippetBlock).toHaveTextContent('Here is your serving of cheese');
+		expect(actionBlock).toBeInTheDocument();
+		expect(footerBlock).toHaveTextContent('I love cheese');
+	});
+
+	describe('preview or snippet', () => {
+		it('should render preview instead of snippet when preview data is available', async () => {
+			const { findByTestId, queryByTestId } = setup({
+				mockResponse: mockBaseResponseWithPreview as JsonLd.Response,
+			});
 			act(() => {
 				jest.runAllTimers();
 			});
-			const titleBlock = await findByTestId('smart-block-title-resolved-view');
-			await findAllByTestId('smart-block-metadata-resolved-view');
-			const snippetBlock = await findByTestId('smart-block-snippet-resolved-view');
-			const actionBlock = await findByTestId('smart-block-action');
+			await findByTestId('smart-block-title-resolved-view');
+			await findByTestId('smart-block-preview-resolved-view');
 
-			const footerBlock = await findByTestId('smart-ai-footer-block-resolved-view');
-
-			expect(titleBlock).toHaveTextContent('I love cheese');
-			expect(snippetBlock).toHaveTextContent('Here is your serving of cheese');
-			expect(actionBlock).toBeInTheDocument();
-			expect(footerBlock).toHaveTextContent('I love cheese');
+			expect(queryByTestId('smart-block-snippet-resolved-view')).toBeNull();
 		});
 
-		describe('preview or snippet', () => {
-			it('should render preview instead of snippet when preview data is available', async () => {
-				const { findByTestId, queryByTestId } = setup({
-					mockResponse: mockBaseResponseWithPreview as JsonLd.Response,
-				});
-				act(() => {
-					jest.runAllTimers();
-				});
-				await findByTestId('smart-block-title-resolved-view');
-				await findByTestId('smart-block-preview-resolved-view');
-
-				expect(queryByTestId('smart-block-snippet-resolved-view')).toBeNull();
+		it('should fallback to rendering snippet if preview data is available but fails to load', async () => {
+			const { findByTestId, queryByTestId } = setup({
+				mockResponse: mockBaseResponseWithErrorPreview as JsonLd.Response,
 			});
-
-			it('should fallback to rendering snippet if preview data is available but fails to load', async () => {
-				const { findByTestId, queryByTestId } = setup({
-					mockResponse: mockBaseResponseWithErrorPreview as JsonLd.Response,
-				});
-				act(() => {
-					jest.runAllTimers();
-				});
-				await findByTestId('smart-block-title-resolved-view');
-				fireEvent.transitionEnd(await findByTestId('smart-block-preview-resolved-view'));
-				await findByTestId('smart-block-snippet-resolved-view');
-
-				expect(queryByTestId('smart-block-preview-resolved-view')).toBeNull();
+			act(() => {
+				jest.runAllTimers();
 			});
-		});
+			await findByTestId('smart-block-title-resolved-view');
+			fireEvent.transitionEnd(await findByTestId('smart-block-preview-resolved-view'));
+			await findByTestId('smart-block-snippet-resolved-view');
 
-		describe('metadata', () => {
-			it('renders correctly for confluence links', async () => {
-				const { findByTestId } = setup({
-					mockResponse: mockConfluenceResponse as SmartLinkResponse,
-				});
-				await findByTestId('authorgroup-metadata-element');
-				const commentCount = await findByTestId('commentcount-metadata-element');
-				const reactCount = await findByTestId('reactcount-metadata-element');
-
-				expect(commentCount).toHaveTextContent('4');
-				expect(reactCount).toHaveTextContent('8');
-			});
-
-			it('renders correctly for jira links', async () => {
-				const { findByTestId } = setup({
-					mockResponse: mockJiraResponse as SmartLinkResponse,
-				});
-				await findByTestId('assignedtogroup-metadata-element');
-				const priority = await findByTestId('priority-metadata-element');
-				const state = await findByTestId('state-metadata-element');
-
-				expect(priority).toHaveTextContent('Major');
-				expect(state).toHaveTextContent('Done');
-			});
-
-			it('renders correctly for other providers', async () => {
-				const { findByTestId } = setup({
-					mockResponse: mockIframelyResponse as JsonLd.Response,
-				});
-				const titleBlock = await findByTestId('smart-block-title-resolved-view');
-				const modifiedOn = await findByTestId('modifiedon-metadata-element');
-				await findByTestId('authorgroup-metadata-element');
-
-				expect(titleBlock).toHaveTextContent('I love cheese');
-				expect(modifiedOn).toHaveTextContent('Updated on Jan 1, 2022');
-			});
+			expect(queryByTestId('smart-block-preview-resolved-view')).toBeNull();
 		});
 	});
+
+	describe('metadata', () => {
+		it('renders correctly for confluence links', async () => {
+			const { findByTestId } = setup({
+				mockResponse: mockConfluenceResponse as SmartLinkResponse,
+			});
+			await findByTestId('authorgroup-metadata-element');
+			const commentCount = await findByTestId('commentcount-metadata-element');
+			const reactCount = await findByTestId('reactcount-metadata-element');
+
+			expect(commentCount).toHaveTextContent('4');
+			expect(reactCount).toHaveTextContent('8');
+		});
+
+		it('renders correctly for jira links', async () => {
+			const { findByTestId } = setup({
+				mockResponse: mockJiraResponse as SmartLinkResponse,
+			});
+			await findByTestId('assignedtogroup-metadata-element');
+			const priority = await findByTestId('priority-metadata-element');
+			const state = await findByTestId('state-metadata-element');
+
+			expect(priority).toHaveTextContent('Major');
+			expect(state).toHaveTextContent('Done');
+		});
+
+		it('renders correctly for other providers', async () => {
+			const { findByTestId } = setup({
+				mockResponse: mockIframelyResponse as JsonLd.Response,
+			});
+			const titleBlock = await findByTestId('smart-block-title-resolved-view');
+			const modifiedOn = await findByTestId('modifiedon-metadata-element');
+			await findByTestId('authorgroup-metadata-element');
+
+			expect(titleBlock).toHaveTextContent('I love cheese');
+			expect(modifiedOn).toHaveTextContent('Updated on Jan 1, 2022');
+		});
+	});
+
 	it('should capture and report a11y violations', async () => {
 		const { container } = setup({
 			mockResponse: mockIframelyResponse as JsonLd.Response,

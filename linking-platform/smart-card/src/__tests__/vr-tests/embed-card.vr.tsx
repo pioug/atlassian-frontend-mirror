@@ -115,9 +115,5 @@ snapshot(EmbedCardFrameStyleShowOnHoverAndSelected);
 snapshot(EmbedCardForbiddenViewFrameHide);
 snapshot(EmbedCardNotFoundViewFrameHide);
 snapshot(EmbedCardUnauthorisedViewFrameHide);
-snapshot(EmbedCardResolvedViewEntities, {
-	featureFlags: {
-		smart_links_noun_support: true,
-	},
-});
+snapshot(EmbedCardResolvedViewEntities);
 snapshot(VREmbedProfileObject);

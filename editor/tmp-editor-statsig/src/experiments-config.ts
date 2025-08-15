@@ -366,6 +366,14 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-08-14
+	platform_editor_jira_advanced_code_blocks: createBooleanExperiment({
+		productKeys: {
+			jira: 'platform_editor_jira_advanced_code_blocks',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-07-08 - Jira work sync description comment summary
 	'jira-work-sync-desc-comment-summary': createBooleanExperiment({
 		productKeys: {
@@ -663,6 +671,14 @@ export const editorExperimentsConfig = {
 	cc_editor_limited_mode: createBooleanExperiment({
 		productKeys: {
 			confluence: 'cc_editor_limited_mode',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-08-05
+	platform_editor_native_anchor_support: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_native_anchor_support',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

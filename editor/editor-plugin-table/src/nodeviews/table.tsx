@@ -119,10 +119,17 @@ export default class TableView extends ReactNodeView<Props> {
 	}
 
 	getContentDOM() {
+		const isNested = isTableNested(this.view.state, this.getPos());
 		const tableDOMStructure = tableNodeSpecWithFixedToDOM({
 			allowColumnResizing: !!this.reactComponentProps.allowColumnResizing,
 			tableResizingEnabled: !!this.reactComponentProps.allowTableResizing,
 			getEditorContainerWidth: this.reactComponentProps.getEditorContainerWidth,
+			isTableScalingEnabled: this.reactComponentProps.options?.isTableScalingEnabled,
+			shouldUseIncreasedScalingPercent:
+				this.reactComponentProps.options?.shouldUseIncreasedScalingPercent,
+			isCommentEditor: this.reactComponentProps.options?.isCommentEditor,
+			isChromelessEditor: this.reactComponentProps.options?.isChromelessEditor,
+			isNested,
 		}).toDOM(this.node);
 
 		const rendered = DOMSerializer.renderSpec(document, tableDOMStructure) as {
@@ -486,6 +493,12 @@ export const createTableView = (
 	const { allowColumnResizing, allowControls, allowTableResizing, allowTableAlignment } =
 		getPluginConfig(pluginConfig);
 
+	const isTableFixedColumnWidthsOptionEnabled =
+		getEditorFeatureFlags?.().tableWithFixedColumnWidthsOption || false;
+
+	const shouldUseIncreasedScalingPercent =
+		isTableScalingEnabled && (isTableFixedColumnWidthsOptionEnabled || isCommentEditor);
+
 	return new TableView({
 		node,
 		view,
@@ -507,6 +520,7 @@ export const createTableView = (
 			isTableScalingEnabled, // same as options.isTableScalingEnabled
 			isCommentEditor,
 			isChromelessEditor,
+			shouldUseIncreasedScalingPercent,
 		},
 		getEditorContainerWidth,
 		getEditorFeatureFlags,

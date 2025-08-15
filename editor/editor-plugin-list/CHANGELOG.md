@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-list
 
+## 5.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.1.3
+
+### Patch Changes
+
+- [`3fff102f55da9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3fff102f55da9) -
+  Cleanup FG platform_editor_ol_padding_fix
+- Updated dependencies
+
 ## 5.1.2
 
 ### Patch Changes

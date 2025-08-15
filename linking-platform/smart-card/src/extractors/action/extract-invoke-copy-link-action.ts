@@ -1,6 +1,4 @@
-import type { JsonLd } from '@atlaskit/json-ld-types';
-import { extractLink, extractSmartLinkUrl } from '@atlaskit/link-extractors';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { extractSmartLinkUrl } from '@atlaskit/link-extractors';
 
 import { ActionName, CardAction } from '../../index';
 import { getDefinitionId, getExtensionKey, getResourceType } from '../../state/helpers';
@@ -19,8 +17,7 @@ export const extractInvokeCopyLinkAction = ({
 		return;
 	}
 
-	const data = response.data as JsonLd.Data.BaseData;
-	const url = fg('smart_links_noun_support') ? extractSmartLinkUrl(response) : extractLink(data);
+	const url = extractSmartLinkUrl(response);
 
 	if (!url) {
 		return;

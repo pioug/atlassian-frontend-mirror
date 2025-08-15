@@ -309,6 +309,19 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 			// TODO: ED-25901 - We need to move this into a plugin config option so we don't accidentally enable nested nodes in Jira
 			const isNestingSupported = Boolean(options?.tableOptions?.allowNestedTables);
 
+			const isTableFixedColumnWidthsOptionEnabled =
+				options?.getEditorFeatureFlags?.().tableWithFixedColumnWidthsOption || false;
+
+			const shouldUseIncreasedScalingPercent =
+				options?.isTableScalingEnabled &&
+				(isTableFixedColumnWidthsOptionEnabled ||
+					// When in comment editor, we need the scaling percent to be 40% while tableWithFixedColumnWidthsOption is not visible
+					options?.isCommentEditor);
+
+			const isTableScalingEnabled = options?.isTableScalingEnabled;
+			const isCommentEditor = options?.isCommentEditor;
+			const isChromelessEditor = options?.isChromelessEditor;
+
 			return isNestingSupported
 				? [
 						{
@@ -318,6 +331,10 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 								tableResizingEnabled: Boolean(options?.tableOptions.allowTableResizing),
 								getEditorContainerWidth: defaultGetEditorContainerWidth,
 								isNestingSupported,
+								isTableScalingEnabled,
+								shouldUseIncreasedScalingPercent,
+								isCommentEditor,
+								isChromelessEditor,
 							}),
 						},
 						{ name: 'tableHeader', node: tableHeaderWithNestedTable },
@@ -332,6 +349,10 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 								tableResizingEnabled: Boolean(options?.tableOptions.allowTableResizing),
 								getEditorContainerWidth: defaultGetEditorContainerWidth,
 								isNestingSupported,
+								isTableScalingEnabled,
+								shouldUseIncreasedScalingPercent,
+								isCommentEditor,
+								isChromelessEditor,
 							}),
 						},
 						{ name: 'tableHeader', node: tableHeader },

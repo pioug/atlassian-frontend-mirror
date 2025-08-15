@@ -8,7 +8,10 @@ import type {
 	EditorView,
 	NodeView,
 } from '@atlaskit/editor-prosemirror/view';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
+import type { NodeAnchorProvider } from '../node-anchor/node-anchor-provider';
+import { getNodeIdProvider } from '../node-anchor/node-anchor-provider';
 import { createProseMirrorMetadata } from '../prosemirror-dom-metadata';
 
 type NodeViewConstructor = (
@@ -33,11 +36,15 @@ type NodeViewConstructor = (
 export const attachGenericProseMirrorMetadata = ({
 	nodeOrMark,
 	dom,
+	options,
 }: {
 	nodeOrMark: PMNode | PMMark;
 	dom: HTMLElement;
+	options?: {
+		anchrorId?: string;
+	};
 }) => {
-	const metadata = createProseMirrorMetadata(nodeOrMark);
+	const metadata = createProseMirrorMetadata(nodeOrMark, options);
 
 	Object.entries(metadata).forEach(([name, value]) => {
 		dom.setAttribute(name, value);
@@ -53,11 +60,21 @@ const wrapGetPosExceptions = <T extends SafePluginSpec>(spec: T): T => {
 	}
 
 	const unsafeNodeViews = spec.props.nodeViews;
+
+	let nodeIdProvider: NodeAnchorProvider | undefined;
+
 	const safeNodeViews = new Proxy(unsafeNodeViews, {
 		get(target, prop, receiver) {
 			const safeNodeView = new Proxy<NodeViewConstructor>(Reflect.get(target, prop, receiver), {
 				apply(target, thisArg, argumentsList) {
 					const [node, view, unsafeGetPos, ...more] = argumentsList;
+
+					if (
+						!nodeIdProvider &&
+						expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
+					) {
+						nodeIdProvider = getNodeIdProvider(view);
+					}
 
 					const safeGetPos = (() => {
 						try {
@@ -66,16 +83,26 @@ const wrapGetPosExceptions = <T extends SafePluginSpec>(spec: T): T => {
 							return;
 						}
 
-						return;
 						// eslint-disable-next-line no-extra-bind
 					}).bind(thisArg);
 
 					const result = Reflect.apply(target, thisArg, [node, view, safeGetPos, ...more]);
 
 					if (result?.dom instanceof HTMLElement) {
+						// we only attach metadata to the dom if its position is known
+						const pos = safeGetPos();
+						const options =
+							pos !== undefined &&
+							expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
+								? {
+										anchrorId: nodeIdProvider?.getOrGenerateId(node, pos) as string,
+									}
+								: undefined;
+
 						attachGenericProseMirrorMetadata({
 							nodeOrMark: node,
 							dom: result.dom,
+							options,
 						});
 					}
 

@@ -1,5 +1,12 @@
 # @atlaskit/onboarding
 
+## 14.3.4
+
+### Patch Changes
+
+- [`8552692692a60`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8552692692a60) -
+  Mark @atlaskit/onboarding as intent-to-deprecate.
+
 ## 14.3.3
 
 ### Patch Changes

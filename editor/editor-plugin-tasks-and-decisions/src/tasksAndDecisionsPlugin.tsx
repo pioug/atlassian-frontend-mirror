@@ -125,6 +125,7 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 		requestToEditContent,
 		taskDecisionProvider,
 		taskPlaceholder,
+		allowBlockTaskItem,
 	} = {},
 	api,
 }) => {
@@ -149,7 +150,8 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 					node: taskList,
 				},
 				{ name: 'taskItem', node: taskItemNodeSpec() },
-				...(expValEquals('platform_editor_blocktaskitem_node', 'isEnabled', true)
+				...(expValEquals('platform_editor_blocktaskitem_node', 'isEnabled', true) &&
+				allowBlockTaskItem
 					? [{ name: 'blockTaskItem', node: blockTaskItemNodeSpec() }]
 					: []),
 			];

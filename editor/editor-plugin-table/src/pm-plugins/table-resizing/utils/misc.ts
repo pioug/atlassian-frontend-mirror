@@ -25,6 +25,7 @@ import { hasTableBeenResized, hasTableColumnBeenResized } from './colgroup';
 import {
 	MAX_SCALING_PERCENT,
 	MAX_SCALING_PERCENT_TABLES_WITH_FIXED_COLUMN_WIDTHS_OPTION,
+	TABLE_MAX_WIDTH,
 } from './consts';
 
 // Translates named layouts in number values.
@@ -136,6 +137,92 @@ export const getTableElementWidth = (table: PMNode) => {
 
 export const getTableContainerElementWidth = (table: PMNode) => {
 	return getTableContainerWidth(table);
+};
+
+// eslint-disable-next-line jsdoc/require-example
+/**
+ * This function is used to set the max width for table resizer container.
+ * @param isCommentEditor Whether the editor is in comment mode.
+ * @param isChromelessEditor Whether the editor is chromeless.
+ * @param isTableScalingEnabled Whether table scaling is enabled.
+ * @returns The CSS max-width value
+ */
+export const getTableResizerContainerMaxWidthInCSS = (
+	isCommentEditor?: boolean,
+	isChromelessEditor?: boolean,
+	isTableScalingEnabled?: boolean,
+): string => {
+	const maxResizerWidthForNonCommentEditor = isTableScalingEnabled
+		? `min(calc(100cqw - calc(var(--ak-editor--large-gutter-padding) * 2)), ${TABLE_MAX_WIDTH}px)`
+		: `min(calc(100cqw - calc(var(--ak-editor--large-gutter-padding) * 2) - var(--ak-editor--resizer-handle-spacing)), ${TABLE_MAX_WIDTH}px)`;
+	return isCommentEditor || isChromelessEditor ? '100%' : maxResizerWidthForNonCommentEditor;
+};
+
+// eslint-disable-next-line jsdoc/require-example
+/**
+ * This function is used in NodeView for TableResizer to set the max width for table resizer container
+ * @param node The ProseMirror node representing the table.
+ * @param isCommentEditor Whether the editor is in comment mode.
+ * @param isChromelessEditor Whether the editor is chromeless.
+ * @returns The CSS max-width value for the table resizer container.
+ */
+export const getTableResizerItemWidth = (
+	node: PMNode,
+	isCommentEditor?: boolean,
+	isChromelessEditor?: boolean,
+): number | undefined => {
+	const tableWidthAttribute = getTableContainerWidth(node);
+	if (!node.attrs.width && (isCommentEditor || isChromelessEditor)) {
+		// width undefined would make .resizer-item width to be `auto`
+		return undefined;
+	}
+	return tableWidthAttribute;
+};
+
+// eslint-disable-next-line jsdoc/require-example
+/**
+ * This function is used to set the CSS width value for the table resizer-item.
+ * Because comment and chromeless editors don't have container-type: inline-size set,
+ * we need to calculate the width based on the table node width.
+ * If the table node width is not set, it will return 'auto'.
+ * This is used in table toDOM
+ * @param node The ProseMirror node representing the table.
+ * @param isCommentEditor Whether the editor is in comment mode.
+ * @param isChromelessEditor Whether the editor is chromeless.
+ * @returns The CSS width value for the table container.
+ */
+export const getTableResizerItemWidthInCSS = (
+	node: PMNode,
+	isCommentEditor?: boolean,
+	isChromelessEditor?: boolean,
+): string => {
+	const tableWidthAttribute = getTableResizerItemWidth(node, isCommentEditor, isChromelessEditor);
+	return tableWidthAttribute ? `${tableWidthAttribute}px` : 'auto';
+};
+
+// eslint-disable-next-line jsdoc/require-example
+/**
+ * This function is used to set the table width --ak-editor-table-width CSS property for full page editor.
+ * Which is applied to the table resizer container.
+ * For Full page appearance, we don't need to use containerWidth from JS, as we can use cqw value.
+ * So we set dynamic containerWidth from JS to CSS property.
+ * @param node The ProseMirror node representing the table.
+ * @param isCommentEditor Whether the editor is in comment mode.
+ * @param isChromelessEditor Whether the editor is chromeless.
+ * @param isTableScalingEnabled Whether table scaling is enabled.
+ * @param tableWidthFromJS The width of the container element. In toDOM it'd be undefined, but will have a value from nodeView.
+ * @returns The CSS width value for the table.
+ */
+export const getTableResizerContainerForFullPageWidthInCSS = (
+	node: PMNode,
+	isTableScalingEnabled?: boolean,
+): string => {
+	const tableWidth = getTableContainerElementWidth(node);
+	// for full page appearance
+	if (isTableScalingEnabled) {
+		return `min(calc(100cqw - calc(var(--ak-editor--large-gutter-padding) * 2)), ${tableWidth}px)`;
+	}
+	return `min(calc(100cqw - calc(var(--ak-editor--large-gutter-padding) * 2) - var(--ak-editor--resizer-handle-spacing)), ${tableWidth}px)`;
 };
 
 export const getTableScalingPercent = (

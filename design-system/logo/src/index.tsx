@@ -202,7 +202,11 @@ export {
 } from './legacy-logos/jira-work-management';
 export { AtlassianIcon, AtlassianLogo } from './legacy-logos/atlassian';
 export { JiraSoftwareIcon, JiraSoftwareLogo } from './legacy-logos/jira-software';
-import { createFeatureFlaggedComponent, tempSizeWrapper } from './logo-config';
+import {
+	createFeatureFlaggedComponent,
+	createFeatureFlaggedServiceCollectionComponent,
+	tempSizeWrapper,
+} from './logo-config';
 
 /**
  * __Admin icon__
@@ -837,7 +841,10 @@ export const JiraProductDiscoveryLogo = createFeatureFlaggedComponent(LegacyJPDL
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const JiraServiceManagementIcon = createFeatureFlaggedComponent(LegacyJSMIcon, NewJSMIcon);
+export const JiraServiceManagementIcon = createFeatureFlaggedServiceCollectionComponent(
+	LegacyJSMIcon,
+	NewJSMIcon,
+);
 
 /**
  * __Jira service management logo__
@@ -848,7 +855,10 @@ export const JiraServiceManagementIcon = createFeatureFlaggedComponent(LegacyJSM
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const JiraServiceManagementLogo = createFeatureFlaggedComponent(LegacyJSMLogo, NewJSMLogo);
+export const JiraServiceManagementLogo = createFeatureFlaggedServiceCollectionComponent(
+	LegacyJSMLogo,
+	NewJSMLogo,
+);
 
 /**
  * __Loom icon__
@@ -925,7 +935,10 @@ export const LoomBlurpleIcon = tempSizeWrapper(NewLoomInternalIcon);
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const OpsgenieIcon = createFeatureFlaggedComponent(LegacyOpsgenieIcon, NewOpsgenieIcon);
+export const OpsgenieIcon = createFeatureFlaggedServiceCollectionComponent(
+	LegacyOpsgenieIcon,
+	NewOpsgenieIcon,
+);
 /**
  * __Opsgenie logo__
  *
@@ -935,7 +948,10 @@ export const OpsgenieIcon = createFeatureFlaggedComponent(LegacyOpsgenieIcon, Ne
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const OpsgenieLogo = createFeatureFlaggedComponent(LegacyOpsgenieLogo, NewOpsgenieLogo);
+export const OpsgenieLogo = createFeatureFlaggedServiceCollectionComponent(
+	LegacyOpsgenieLogo,
+	NewOpsgenieLogo,
+);
 
 /**
  * __Statuspage icon__
@@ -946,7 +962,7 @@ export const OpsgenieLogo = createFeatureFlaggedComponent(LegacyOpsgenieLogo, Ne
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const StatuspageIcon = createFeatureFlaggedComponent(
+export const StatuspageIcon = createFeatureFlaggedServiceCollectionComponent(
 	LegacyStatuspageIcon,
 	NewStatuspageIcon,
 );
@@ -959,7 +975,7 @@ export const StatuspageIcon = createFeatureFlaggedComponent(
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const StatuspageLogo = createFeatureFlaggedComponent(
+export const StatuspageLogo = createFeatureFlaggedServiceCollectionComponent(
 	LegacyStatuspageLogo,
 	NewStatuspageLogo,
 );
@@ -992,7 +1008,7 @@ export const TrelloLogo = createFeatureFlaggedComponent(LegacyTrelloLogo, NewTre
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const RovoIcon = createFeatureFlaggedComponent(LegacyRovoIcon, NewRovoIcon);
+export const RovoIcon = createFeatureFlaggedServiceCollectionComponent(LegacyRovoIcon, NewRovoIcon);
 /**
  * __Rovo logo__
  *
@@ -1002,7 +1018,7 @@ export const RovoIcon = createFeatureFlaggedComponent(LegacyRovoIcon, NewRovoIco
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const RovoLogo = createFeatureFlaggedComponent(LegacyRovoLogo, NewRovoLogo);
+export const RovoLogo = createFeatureFlaggedServiceCollectionComponent(LegacyRovoLogo, NewRovoLogo);
 
 /**
  * __Guard icon__

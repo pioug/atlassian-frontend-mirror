@@ -31,7 +31,7 @@ export const getBlockMenuComponents = (): RegisterBlockMenuComponent[] => {
 			key: 'block-menu-section-move-up-down',
 			rank: 200,
 			component: ({ children }: { children: React.ReactNode }) => {
-				return <ToolbarDropdownItemSection>{children}</ToolbarDropdownItemSection>;
+				return <ToolbarDropdownItemSection hasSeparator>{children}</ToolbarDropdownItemSection>;
 			},
 		},
 		{
@@ -39,7 +39,7 @@ export const getBlockMenuComponents = (): RegisterBlockMenuComponent[] => {
 			key: 'block-menu-section-delete',
 			rank: 300,
 			component: ({ children }: { children: React.ReactNode }) => {
-				return <ToolbarDropdownItemSection>{children}</ToolbarDropdownItemSection>;
+				return <ToolbarDropdownItemSection hasSeparator>{children}</ToolbarDropdownItemSection>;
 			},
 		},
 		{

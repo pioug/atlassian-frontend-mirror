@@ -1,5 +1,35 @@
 # @atlaskit/editor-common
 
+## 107.25.0
+
+### Minor Changes
+
+- [`e2bb51245dcec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e2bb51245dcec) -
+  ED-28774 add native editor anchor support
+- [`5651a63330731`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5651a63330731) -
+  [ux] Adds Animation when Drop List is rendered. The animation function is cubic-bezier(0.8, 0,
+  0, 1) and the animation duraion is 360ms. The change is behind a FF only for confluence"
+
+### Patch Changes
+
+- Updated dependencies
+
+## 107.24.1
+
+### Patch Changes
+
+- [`3fff102f55da9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3fff102f55da9) -
+  Cleanup FG platform_editor_ol_padding_fix
+- Updated dependencies
+
+## 107.24.0
+
+### Minor Changes
+
+- [`5b6e41650fd59`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5b6e41650fd59) -
+  [ux] Introduce messages to be used in conjuction with the changes made in
+  @atlaskit/editor-plugin-annotation 3.3.2
+
 ## 107.23.3
 
 ### Patch Changes

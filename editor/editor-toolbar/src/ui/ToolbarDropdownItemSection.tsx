@@ -1,19 +1,21 @@
 import React, { type ReactNode } from 'react';
 
-import { cssMap } from '@atlaskit/css';
-import { Box } from '@atlaskit/primitives/compiled';
-
-const styles = cssMap({
-	container: {
-		display: 'flex',
-		flexDirection: 'column',
-	},
-});
+import { DropdownItemGroup } from '@atlaskit/dropdown-menu';
 
 type ToolbarDropdownItemSectionProps = {
 	children?: ReactNode;
+	hasSeparator?: boolean;
+	title?: string;
 };
 
-export const ToolbarDropdownItemSection = ({ children }: ToolbarDropdownItemSectionProps) => {
-	return <Box xcss={styles.container}>{children}</Box>;
+export const ToolbarDropdownItemSection = ({
+	children,
+	hasSeparator,
+	title,
+}: ToolbarDropdownItemSectionProps) => {
+	return (
+		<DropdownItemGroup hasSeparator={hasSeparator} title={title}>
+			{children}
+		</DropdownItemGroup>
+	);
 };

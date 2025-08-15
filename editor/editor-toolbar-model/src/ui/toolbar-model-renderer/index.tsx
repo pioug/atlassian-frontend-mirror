@@ -13,7 +13,6 @@ import type {
 	RegisterToolbarMenuSection,
 	ToolbarMenuSectionComponent,
 	ToolbarSectionComponent,
-	ToolbarButtonGroupLocation,
 	ToolbarComponentTypes,
 } from '../../types';
 
@@ -100,12 +99,10 @@ export const ToolbarModelRenderer = ({ toolbar, components, fallbacks }: Toolbar
 	const renderToolbarItem = ({
 		item,
 		index,
-		groupLocation,
 		parents,
 	}: {
 		item: RegisterToolbarButton | RegisterToolbarMenu;
 		index: number;
-		groupLocation?: ToolbarButtonGroupLocation;
 		parents: ToolbarComponentTypes;
 	}) => {
 		if (item.type === 'menu') {
@@ -118,7 +115,7 @@ export const ToolbarModelRenderer = ({ toolbar, components, fallbacks }: Toolbar
 			const Menu = item.component || NoOp;
 
 			return (
-				<Menu key={item.key} groupLocation={groupLocation} parents={parents}>
+				<Menu key={item.key} parents={parents}>
 					{menuComponents.map((menuSection) => {
 						const menuItemsInSection = getSortedChildren<
 							RegisterToolbarMenuItem | RegisterToolbarNestedMenu
@@ -214,7 +211,7 @@ export const ToolbarModelRenderer = ({ toolbar, components, fallbacks }: Toolbar
 
 		const Button = item.component || NoOp;
 
-		return <Button key={item.key} groupLocation={groupLocation} parents={parents} />;
+		return <Button key={item.key} parents={parents} />;
 	};
 
 	const renderGroup = (group: RegisterToolbarGroup, parents: ToolbarComponentTypes) => {
@@ -232,20 +229,9 @@ export const ToolbarModelRenderer = ({ toolbar, components, fallbacks }: Toolbar
 		return (
 			<Group key={group.key} parents={parents}>
 				{groupItems.map((item, index) => {
-					const isSingleItem = groupItems.length === 1;
-
-					const groupLocation = isSingleItem
-						? undefined
-						: index === 0
-							? 'start'
-							: index === groupItems.length - 1
-								? 'end'
-								: 'middle';
-
 					return renderToolbarItem({
 						item,
 						index,
-						groupLocation,
 						parents: [...parents, { key: group.key, type: group.type }],
 					});
 				})}

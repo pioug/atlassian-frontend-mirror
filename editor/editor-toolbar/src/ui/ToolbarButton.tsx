@@ -6,7 +6,6 @@ import { Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { useToolbarUI } from '../hooks/ui-context';
-import { type ToolbarButtonGroupLocation } from '../types';
 
 const styles = cssMap({
 	button: {
@@ -50,28 +49,6 @@ const styles = cssMap({
 			backgroundColor: token('color.background.selected.pressed'),
 		},
 	},
-	groupStart: {
-		borderTopRightRadius: '0px',
-		borderBottomRightRadius: '0px',
-		justifyContent: 'flex-end',
-		paddingLeft: token('space.075'),
-		paddingRight: token('space.025'),
-	},
-	groupMiddle: {
-		borderTopLeftRadius: '0px',
-		borderBottomLeftRadius: '0px',
-		borderTopRightRadius: '0px',
-		borderBottomRightRadius: '0px',
-		paddingLeft: token('space.050'),
-		paddingRight: token('space.050'),
-	},
-	groupEnd: {
-		borderTopLeftRadius: '0px',
-		borderBottomLeftRadius: '0px',
-		justifyContent: 'flex-start',
-		paddingLeft: token('space.025'),
-		paddingRight: token('space.075'),
-	},
 });
 
 type ToolbarButtonProps = Partial<TriggerProps> & {
@@ -82,7 +59,6 @@ type ToolbarButtonProps = Partial<TriggerProps> & {
 	onFocus?: (event: React.FocusEvent<HTMLButtonElement>) => void;
 	testId?: string;
 	iconBefore: React.ReactNode;
-	groupLocation?: ToolbarButtonGroupLocation;
 	isDisabled?: boolean;
 	ariaKeyshortcuts?: string;
 	label?: string;
@@ -102,7 +78,6 @@ export const ToolbarButton = forwardRef(
 			onBlur,
 			onFocus,
 			testId,
-			groupLocation,
 			isDisabled,
 			ariaKeyshortcuts,
 			label,
@@ -117,9 +92,6 @@ export const ToolbarButton = forwardRef(
 				xcss={cx(
 					styles.button,
 					isDisabled ? styles.disabled : isSelected ? styles.selected : styles.enabled,
-					groupLocation === 'start' && styles.groupStart,
-					groupLocation === 'middle' && styles.groupMiddle,
-					groupLocation === 'end' && styles.groupEnd,
 				)}
 				aria-pressed={isSelected}
 				aria-expanded={ariaExpanded}

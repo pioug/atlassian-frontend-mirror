@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-table
 
+## 12.2.0
+
+### Minor Changes
+
+- [`021fd485e1f83`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/021fd485e1f83) -
+  fix table flicking issue on page load by improving table scailing and table resizer with css
+  instead of js
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.1.15
 
 ### Patch Changes

@@ -17,12 +17,14 @@ type TextStyle =
 
 const styles = cssMap({
 	toolbarDropdownItem: {
+		display: 'flex',
 		position: 'relative',
 		backgroundColor: token('color.background.neutral.subtle'),
 		width: '100%',
 		minHeight: '36px',
-		paddingLeft: token('space.150'),
-		paddingRight: token('space.150'),
+		minWidth: '230px',
+		paddingInline: token('space.200'),
+		paddingBlock: token('space.100'),
 		'&:focus-visible': {
 			outlineOffset: token('space.negative.025'),
 			borderRadius: token('border.radius'),

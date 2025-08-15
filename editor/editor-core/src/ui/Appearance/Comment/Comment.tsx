@@ -399,7 +399,7 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 								return (
 									<EditorContainer
 										ref={containerElement}
-										css={
+										css={[
 											maxHeight
 												? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 													css({
@@ -411,8 +411,8 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 														// so need to set overflow-y as auto to make sure the content area is scrollable
 														overflowY: 'auto',
 													})
-												: null
-										}
+												: null,
+										]}
 										isScrollable={
 											maxHeight && fg('platform_editor_editor_container_a11y_focus')
 												? true

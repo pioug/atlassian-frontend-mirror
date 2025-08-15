@@ -2,6 +2,7 @@ import React from 'react';
 
 import { useIntl } from 'react-intl-next';
 
+import { ToolTipContent, addInlineComment } from '@atlaskit/editor-common/keymaps';
 import { annotationMessages } from '@atlaskit/editor-common/messages';
 import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -65,8 +66,15 @@ export const CommentButton = ({ api, annotationProviders }: CommentButtonProps) 
 	const isDisabled = isButtonDisabled({ state, api });
 
 	return (
-		// TODO: ED-28743 - add keyboard shortcut here
-		<ToolbarTooltip content={isDisabled ? commentDisabledMessage : commentMessage}>
+		<ToolbarTooltip
+			content={
+				isDisabled ? (
+					commentDisabledMessage
+				) : (
+					<ToolTipContent description={commentMessage} keymap={addInlineComment} />
+				)
+			}
+		>
 			<ToolbarButton
 				iconBefore={<NewCommentIcon label="" />}
 				onClick={onClick}

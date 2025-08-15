@@ -15,10 +15,8 @@ import type { TextColorPlugin } from '../textColorPluginType';
 
 const styles = cssMap({
 	menu: {
-		paddingTop: token('space.100'),
-		paddingRight: token('space.100'),
-		paddingBottom: token('space.100'),
-		paddingLeft: token('space.100'),
+		paddingBlock: token('space.025'),
+		paddingInline: token('space.100'),
 	},
 });
 
@@ -49,6 +47,7 @@ export const TextColorHighlightMenu = ({ children, api }: TextColorHighlightMenu
 			}
 			isDisabled={isTextColorDisabled}
 			testId="text-color-highlight-menu"
+			hasSectionMargin={false}
 		>
 			<Box xcss={styles.menu}>{children}</Box>
 		</ToolbarDropdownMenu>

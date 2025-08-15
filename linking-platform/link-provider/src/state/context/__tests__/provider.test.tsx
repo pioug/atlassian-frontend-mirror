@@ -1,4 +1,3 @@
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { type CardProviderProps } from '../types';
 
 jest.mock('@atlaskit/link-extractors', () => ({
@@ -81,7 +80,7 @@ describe('Provider', () => {
 	it('should expose extractors to consumers', () => {
 		const fn = (context?: CardContext) => {
 			const linkPreview = context && context.extractors.getPreview('some-url');
-			expect(linkPreview).toEqual('some-link-preview');
+			expect(linkPreview).toEqual('some-live-embed-url');
 			return <div></div>;
 		};
 
@@ -100,28 +99,26 @@ describe('Provider', () => {
 		);
 	});
 
-	ffTest.on('smart_links_noun_support', 'ff on', () => {
-		it('should expose extractors to consumers', () => {
-			const fn = (context?: CardContext) => {
-				const linkPreview = context && context.extractors.getPreview('some-url');
-				expect(linkPreview).toEqual('some-live-embed-url');
-				return <div></div>;
-			};
+	it('should expose extractors to consumers', () => {
+		const fn = (context?: CardContext) => {
+			const linkPreview = context && context.extractors.getPreview('some-url');
+			expect(linkPreview).toEqual('some-live-embed-url');
+			return <div></div>;
+		};
 
-			const client = new CardClient();
-			const initialState: CardStore = {
-				'some-url': {
-					status: 'resolved',
-					details: {} as any,
-				},
-			};
+		const client = new CardClient();
+		const initialState: CardStore = {
+			'some-url': {
+				status: 'resolved',
+				details: {} as any,
+			},
+		};
 
-			render(
-				<SmartCardProvider client={client} storeOptions={{ initialState }}>
-					<Context.Consumer>{fn}</Context.Consumer>
-				</SmartCardProvider>,
-			);
-		});
+		render(
+			<SmartCardProvider client={client} storeOptions={{ initialState }}>
+				<Context.Consumer>{fn}</Context.Consumer>
+			</SmartCardProvider>,
+		);
 	});
 
 	it('should expose isAdminHubAIEnabled to consumers', () => {

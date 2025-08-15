@@ -14,6 +14,7 @@ export type TableOptions = {
 	isTableScalingEnabled?: boolean;
 	isCommentEditor?: boolean;
 	isChromelessEditor?: boolean;
+	shouldUseIncreasedScalingPercent?: boolean;
 };
 
 export interface Props {

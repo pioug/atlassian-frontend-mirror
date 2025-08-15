@@ -1,5 +1,23 @@
 # @atlaskit/editor-statsig-tmp
 
+## 10.0.0
+
+### Major Changes
+
+- [`e2bb51245dcec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e2bb51245dcec) -
+  ED-28774 add native editor anchor support
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.29.0
+
+### Minor Changes
+
+- [`01301aa6646c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/01301aa6646c4) -
+  Add advanced codeblocks experiment for jira.
+
 ## 9.28.0
 
 ### Minor Changes

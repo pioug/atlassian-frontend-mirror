@@ -1,6 +1,11 @@
 import { renderHook } from '@testing-library/react-hooks';
 
-import { conditionalHooksFactory } from './index';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
+import {
+	conditionalHooksFactory,
+	DO_NOT_USE_THIS_IN_PRODUCTION_EVER_resetConditionalHooksFactoryCache,
+} from './index';
 
 describe('conditionalHooksFactory', () => {
 	const originalNodeEnv = process.env.NODE_ENV;
@@ -78,4 +83,39 @@ describe('conditionalHooksFactory', () => {
 		expect(oldHook).not.toHaveBeenCalled();
 		expect(newHook).toHaveBeenCalledTimes(2);
 	});
+
+	ffTest.on(
+		'platform_editor_global_conditional_factory_cache',
+		'should handle resetting the condition cache between test runs to simulate different condition values',
+		() => {
+			it('resets cached condition and respects updated value', () => {
+				const condition = jest.fn(() => true);
+				const oldHook = jest.fn();
+				const newHook = jest.fn();
+
+				// Create the hook instance
+				const conditionalHook = conditionalHooksFactory(condition, newHook, oldHook);
+
+				// First call with condition = true
+				conditionalHook();
+				expect(newHook).toHaveBeenCalledTimes(1);
+				expect(oldHook).not.toHaveBeenCalled();
+
+				// Here, we're simulating a situation similar to starting up a new test case where the feature gate might need to be mocked differently.
+				// For practicality though, we're keeping this as a single test case, but the behaviour is similar enough to reflect that scenario.
+
+				// Clear the cache to allow re-evaluation of the condition
+				DO_NOT_USE_THIS_IN_PRODUCTION_EVER_resetConditionalHooksFactoryCache();
+
+				// Now change the condition and call again - this should work without throwing
+				// since we cleared the cache
+				condition.mockReturnValue(false);
+				conditionalHook();
+
+				expect(condition).toHaveBeenCalledTimes(2);
+				expect(oldHook).toHaveBeenCalledTimes(1);
+				expect(newHook).toHaveBeenCalledTimes(1); // Still only called once
+			});
+		},
+	);
 });

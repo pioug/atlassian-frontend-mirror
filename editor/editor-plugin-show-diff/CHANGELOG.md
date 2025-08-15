@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 0.1.3
+
+### Patch Changes
+
+- [`8700ce859da07`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8700ce859da07) -
+  [EDITOR-1249] Added inline node support for show diff
+
 ## 0.1.2
 
 ### Patch Changes

@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 3.4.5
+
+### Patch Changes
+
+- [`fa1ff19077d8b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fa1ff19077d8b) -
+  Update getSelectionAdf api to return adf fragment under flag
+
+## 3.4.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.4.3
 
 ### Patch Changes

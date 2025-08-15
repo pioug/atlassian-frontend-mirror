@@ -223,7 +223,7 @@ export function createPlugin(
 				}
 			},
 			transformPasted: (slice: Slice, view: EditorView) => {
-				if (expValEquals('platform_editor_blocktaskitem_node', 'isEnabled', true)) {
+				if (Boolean(view?.state?.schema?.nodes?.blockTaskItem)) {
 					slice = tempTransformSliceToRemoveBlockTaskItem(slice, view);
 				}
 

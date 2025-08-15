@@ -1,6 +1,5 @@
 import type { JsonLd } from '@atlaskit/json-ld-types';
 import { extractSmartLinkDownloadUrl } from '@atlaskit/link-extractors';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { ActionName, CardAction } from '../../index';
 import { getDefinitionId, getExtensionKey, getResourceType } from '../../state/helpers';
@@ -8,7 +7,6 @@ import { type InvokeClientActionProps } from '../../state/hooks/use-invoke-clien
 import { downloadUrl as download } from '../../utils';
 import { canShowAction } from '../../utils/actions/can-show-action';
 import { getActionsFromJsonLd } from '../common/actions/extractActions';
-import { extractDownloadUrl } from '../common/download/extractDownloadUrl';
 
 import { type ExtractClientActionsParam } from './types';
 
@@ -28,9 +26,7 @@ export const extractInvokeDownloadAction = ({
 	);
 
 	if (downloadActionExists) {
-		const downloadUrl = fg('smart_links_noun_support')
-			? extractSmartLinkDownloadUrl(response)
-			: extractDownloadUrl(data as JsonLd.Data.Document);
+		const downloadUrl = extractSmartLinkDownloadUrl(response);
 		return {
 			actionFn: async () => download(downloadUrl),
 			actionSubjectId: 'downloadDocument',

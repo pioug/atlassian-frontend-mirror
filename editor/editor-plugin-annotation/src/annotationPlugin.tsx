@@ -129,7 +129,8 @@ export const annotationPlugin: AnnotationPlugin = ({ config: annotationProviders
 					!pluginState.bookmark &&
 					!pluginState.mouseData.isSelecting
 				) {
-					const { isToolbarAbove, onCommentButtonMount } = annotationProviders.inlineComment;
+					const { isToolbarAbove, onCommentButtonMount, getCanAddComments, contentType } =
+						annotationProviders.inlineComment;
 
 					const toolbarConfig = buildToolbar(api?.analytics?.actions)({
 						state,
@@ -139,6 +140,8 @@ export const annotationPlugin: AnnotationPlugin = ({ config: annotationProviders
 						createCommentExperience: annotationProviders.createCommentExperience,
 						annotationManager: annotationProviders.annotationManager,
 						onCommentButtonMount,
+						getCanAddComments,
+						contentType,
 					});
 
 					if (!toolbarConfig) {

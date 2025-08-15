@@ -184,10 +184,10 @@ const LayoutBreakoutResizer = ({
 
 type ForwardRef = (ref: HTMLElement | null) => void;
 
-const toDOM = (node: PMNode) =>
+const toDOM = () =>
 	[
 		'div',
-		{ class: 'layout-section-container', 'data-local-id': node.attrs.localId },
+		{ class: 'layout-section-container' },
 		['div', { 'data-layout-section': true }, 0],
 	] as DOMOutputSpec;
 
@@ -238,7 +238,7 @@ export class LayoutSectionView extends ReactNodeView<LayoutSectionViewProps> {
 	 * @returns
 	 */
 	getContentDOM() {
-		const { dom: container, contentDOM } = DOMSerializer.renderSpec(document, toDOM(this.node)) as {
+		const { dom: container, contentDOM } = DOMSerializer.renderSpec(document, toDOM()) as {
 			dom: HTMLElement;
 			contentDOM?: HTMLElement;
 		};

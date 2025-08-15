@@ -3,6 +3,7 @@ import React from 'react';
 import { useIntl } from 'react-intl-next';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { ToolTipContent, addLink } from '@atlaskit/editor-common/keymaps';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -29,8 +30,9 @@ export const LinkButton = ({ api }: LinkButtonProps) => {
 		: false;
 
 	return (
-		// TODO: ED-28743 - add keyboard shortcut here
-		<ToolbarTooltip content={formatMessage(messages.link)}>
+		<ToolbarTooltip
+			content={<ToolTipContent description={formatMessage(messages.link)} keymap={addLink} />}
+		>
 			<ToolbarButton
 				iconBefore={<LinkIcon label={formatMessage(messages.link)} />}
 				onClick={onClick}

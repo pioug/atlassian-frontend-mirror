@@ -21,6 +21,16 @@ const styles = cssMap({
 	},
 });
 
+/**
+ * The `transform: rotate(45deg);` styles used to rotate the `Caret` component result in the corners of
+ * the caret extending beyond the bounding box (by roughly 2px). So, apply an offset to ensure
+ * the caret points to the very edge of the target element.
+ *
+ * Note: `@atlaskit/popper` maps the offset to to the placement, so we only need to define `[0, 2]` and
+ * the offset will get correctly rotated depending on the placement.
+ */
+const offset: [number, number] = [0, 2];
+
 interface PopoverContentProps {
 	placement: Placement;
 	isVisible?: boolean;
@@ -61,7 +71,7 @@ export const PopoverContent = ({ children, placement, isVisible = true }: Popove
 	}, [placement, setPlacement]);
 
 	return (
-		<Popper offset={[0, 0]} placement={popperPlacementMap[placement]}>
+		<Popper offset={offset} placement={popperPlacementMap[placement]}>
 			{({ ref, style }) => (
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 				<div ref={ref} style={style} css={styles[visibility]}>

@@ -81,7 +81,7 @@ import {
 
 interface TableResizerProps {
 	width: number;
-	maxWidth: number;
+	maxWidth: number | string;
 	containerWidth: number;
 	lineLength: number;
 	updateWidth: (width: number) => void;
@@ -717,9 +717,15 @@ export const TableResizer = ({
 	const handleTableSizeChangeOnKeypress = useCallback(
 		(step: number) => {
 			const newWidth = width + step;
-
-			if (newWidth > maxWidth || newWidth < resizerMinWidth) {
-				return;
+			if (expValEquals('platform_editor_tables_scaling_css', 'isEnabled', true)) {
+				if (newWidth < resizerMinWidth) {
+					return;
+				}
+			} else {
+				// maxWidth when platform_editor_tables_scaling_css off is always a number
+				if (newWidth > (maxWidth as number) || newWidth < resizerMinWidth) {
+					return;
+				}
 			}
 			handleResizeStop({ width: width, x: 0, y: 0, height: 0 }, { width: step, height: 0 });
 		},
@@ -739,7 +745,6 @@ export const TableResizer = ({
 			if (event.altKey || metaKey || event.shiftKey) {
 				areResizeMetaKeysPressed.current = true;
 			}
-
 			if (event.altKey && metaKey) {
 				if (isBracketKey) {
 					event.preventDefault();

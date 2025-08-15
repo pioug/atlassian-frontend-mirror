@@ -4,6 +4,7 @@ import { defineMessages, FormattedMessage } from 'react-intl-next';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/new';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
@@ -128,6 +129,25 @@ export const TeamContainers = ({
 		);
 
 	useRefreshOnContainerCreated(teamId);
+
+	const hasPermissionToCreateContainer = useMemo(() => {
+		if (!productPermissions) {
+			return {};
+		}
+		const getPermission = (product: keyof typeof productPermissions, permission: string[]) => {
+			return productPermissions && hasProductPermission(productPermissions, product, permission);
+		};
+		return (
+			getPermission('confluence', ['CREATE_SPACE']) ||
+			getPermission('jira', ['CREATE_PROJECT']) ||
+			getPermission('loom', ['write'])
+		);
+	}, [productPermissions]);
+
+	const createContainerExperimentEnabled =
+		hasPermissionToCreateContainer &&
+		FeatureGates.initializeCompleted() &&
+		FeatureGates.getExperimentValue('teams_app_auto_container_creation', 'isEnabled', false);
 
 	useEffect(() => {
 		if (isDisplayedOnProfileCard && filterContainerId) {
@@ -362,6 +382,7 @@ export const TeamContainers = ({
 					{getAddContainerCards({
 						containers: availableContainers,
 						onAddAContainerClick: onAddAContainerClick,
+						showNewDesign: createContainerExperimentEnabled,
 					})}
 
 					{showMore &&

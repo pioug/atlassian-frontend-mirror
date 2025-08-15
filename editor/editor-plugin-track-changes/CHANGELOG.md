@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-track-changes
 
+## 2.6.3
+
+### Patch Changes
+
+- [`8700ce859da07`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8700ce859da07) -
+  [EDITOR-1249] Added inline node support for show diff
+- Updated dependencies
+
 ## 2.6.2
 
 ### Patch Changes

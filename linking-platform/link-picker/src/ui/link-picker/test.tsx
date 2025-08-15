@@ -312,7 +312,7 @@ describe('<LinkPicker />', () => {
 			expect(screen.getByTestId(testIds.urlInputField)).toHaveAttribute('role', 'combobox');
 			expect(screen.getByTestId(testIds.urlInputField)).toHaveAttribute(
 				'aria-describedby',
-				'search-recent-links-field-description',
+				expect.stringContaining('search-recent-links-field-description'),
 			);
 			expect(screen.getByTestId(testIds.urlInputField)).toHaveAttribute('aria-expanded', 'false');
 			expect(screen.getByTestId(testIds.urlInputField)).toHaveAttribute(

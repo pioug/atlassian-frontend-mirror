@@ -1,5 +1,25 @@
 # @atlaskit/editor-core
 
+## 210.0.0
+
+### Major Changes
+
+- [`e2bb51245dcec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e2bb51245dcec) -
+  ED-28774 add native editor anchor support
+
+### Minor Changes
+
+- [`021fd485e1f83`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/021fd485e1f83) -
+  fix table flicking issue on page load by improving table scailing and table resizer with css
+  instead of js
+- [`f29ffcfb885c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f29ffcfb885c7) -
+  EDITOR-1338 Adds `allowBlockTaskItem` property to tasks and decisions plugin to enable
+  blockTaskItem for Confluence TinyMCE migration flows
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 209.8.3
 
 ### Patch Changes

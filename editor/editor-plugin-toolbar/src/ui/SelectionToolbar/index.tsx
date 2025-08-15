@@ -27,9 +27,10 @@ const isToolbarComponent = (component: RegisterComponent): component is Register
 type SelectionToolbarProps = {
 	editorView: EditorView;
 	api?: ExtractInjectionAPI<ToolbarPlugin>;
+	mountPoint: HTMLElement | undefined;
 };
 
-export const SelectionToolbar = ({ api, editorView }: SelectionToolbarProps) => {
+export const SelectionToolbar = ({ api, editorView, mountPoint }: SelectionToolbarProps) => {
 	const components = api?.toolbar.actions.getComponents();
 	const toolbar = components?.find((component) => isToolbarComponent(component));
 
@@ -55,6 +56,7 @@ export const SelectionToolbar = ({ api, editorView }: SelectionToolbarProps) => 
 			onPositionCalculated={(position) =>
 				calculateToolbarPositionTrackHead(TOOLBAR_LABEL)(editorView, position)
 			}
+			mountTo={mountPoint}
 		>
 			<EditorToolbarProvider editorView={editorView}>
 				<EditorToolbarUIProvider api={api}>

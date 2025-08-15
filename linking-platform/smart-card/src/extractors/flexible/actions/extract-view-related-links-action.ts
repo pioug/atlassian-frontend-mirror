@@ -1,6 +1,5 @@
 import { type JsonLd } from '@atlaskit/json-ld-types';
-import { extractAri, extractSmartLinkAri } from '@atlaskit/link-extractors';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { extractSmartLinkAri } from '@atlaskit/link-extractors';
 
 import { type ViewRelatedLinksActionData } from '../../../state/flexible-ui-context/types';
 
@@ -11,9 +10,7 @@ export const extractViewRelatedLinksAction = (
 		return;
 	}
 
-	const ari = fg('smart_links_noun_support')
-		? extractSmartLinkAri(response)
-		: extractAri(response.data as JsonLd.Data.BaseData);
+	const ari = extractSmartLinkAri(response);
 
 	if (!ari) {
 		return;

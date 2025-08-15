@@ -1,5 +1,4 @@
 import type { SmartLinkResponse } from '@atlaskit/linking-types';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { TEST_INTERACTIVE_HREF_LINK } from '../../common/__mocks__/linkingPlatformJsonldMocks';
 import { extractEntityIcon } from '../../entity';
@@ -117,349 +116,347 @@ describe('genericExtractPropsFromJSONLD()', () => {
 });
 
 describe('entity data', () => {
-	ffTest.on('smart_links_noun_support', 'with fg', () => {
-		describe('extractSmartLinkEmbed()', () => {
-			it('should return undefined when response is not an entity and has no preview', () => {
-				const response = { data: {} } as SmartLinkResponse;
-				expect(extractSmartLinkEmbed(response)).toBeUndefined();
-			});
-
-			it('should return embed URL when response is a design entity with embed URL', () => {
-				const response = {
-					meta: { visibility: 'public', access: 'granted' },
-					data: { '@type': 'Object', embedUrl: 'https://example.com/embed' },
-					entityData: { liveEmbedUrl: 'https://example.com/embed' },
-				} as unknown as SmartLinkResponse;
-
-				expect(extractSmartLinkEmbed(response)).toEqual({ src: 'https://example.com/embed' });
-			});
-
-			it('should return undefined when response is an entity without embed URL', () => {
-				const response = {
-					meta: { visibility: 'public' },
-					data: { '@type': 'Object' },
-					entityData: {},
-				} as SmartLinkResponse;
-
-				expect(extractSmartLinkEmbed(response)).toBeUndefined();
-			});
-
-			it('should return preview when response is not an entity but has a valid preview', () => {
-				const response = {
-					data: {
-						'@type': 'Document',
-						preview: TEST_INTERACTIVE_HREF_LINK,
-					},
-				} as unknown as SmartLinkResponse;
-
-				expect(extractSmartLinkEmbed(response)).toEqual({ src: 'https://my.url.com' });
-			});
+	describe('extractSmartLinkEmbed()', () => {
+		it('should return undefined when response is not an entity and has no preview', () => {
+			const response = { data: {} } as SmartLinkResponse;
+			expect(extractSmartLinkEmbed(response)).toBeUndefined();
 		});
 
-		describe('extractSmartLinkTitle()', () => {
-			it('should return entity title when response is an entity', () => {
-				const response = {
-					meta: { visibility: 'public', access: 'granted' },
-					data: { '@type': 'Object', name: 'Entity Title' },
-					entityData: { displayName: 'Entity Title' },
-				} as unknown as SmartLinkResponse;
+		it('should return embed URL when response is a design entity with embed URL', () => {
+			const response = {
+				meta: { visibility: 'public', access: 'granted' },
+				data: { '@type': 'Object', embedUrl: 'https://example.com/embed' },
+				entityData: { liveEmbedUrl: 'https://example.com/embed' },
+			} as unknown as SmartLinkResponse;
 
-				expect(extractSmartLinkTitle(response)).toEqual('Entity Title');
-			});
-
-			it('should return undefined when response is not an entity and has no title', () => {
-				const response = { data: {} } as SmartLinkResponse;
-				expect(extractSmartLinkTitle(response)).toBeUndefined();
-			});
-
-			it('should return title when response is not an entity but has a title', () => {
-				const response = {
-					data: {
-						'@type': 'Document',
-						name: 'Non-Entity Title',
-					},
-				} as unknown as SmartLinkResponse;
-
-				expect(extractSmartLinkTitle(response)).toEqual('Non-Entity Title');
-			});
+			expect(extractSmartLinkEmbed(response)).toEqual({ src: 'https://example.com/embed' });
 		});
 
-		describe('extractSmartLinkUrl()', () => {
-			it('should return entity URL when response is an entity', () => {
-				const url = 'https://example.com/entity';
-				const response = {
-					meta: { visibility: 'public', access: 'granted' },
-					data: { '@type': 'Object' },
-					entityData: {
-						url,
-					},
-				} as SmartLinkResponse;
+		it('should return undefined when response is an entity without embed URL', () => {
+			const response = {
+				meta: { visibility: 'public' },
+				data: { '@type': 'Object' },
+				entityData: {},
+			} as SmartLinkResponse;
 
-				expect(extractSmartLinkUrl(response)).toEqual(url);
-			});
-
-			it('should return undefined when response is not an entity and has no URL', () => {
-				const response = { data: {} } as SmartLinkResponse;
-				expect(extractSmartLinkUrl(response)).toBeUndefined();
-			});
-
-			it('should return URL when response is not an entity but has a URL', () => {
-				const url = 'https://example.com/document';
-				const response = {
-					data: {
-						'@type': 'Document',
-						url,
-					},
-				} as SmartLinkResponse;
-
-				expect(extractSmartLinkUrl(response)).toEqual(url);
-			});
+			expect(extractSmartLinkEmbed(response)).toBeUndefined();
 		});
 
-		describe('extractEntityIcon()', () => {
-			it('should return entity icon when response is an entity', () => {
-				const url = 'https://example.com/icon.png';
-				const response = {
-					meta: { visibility: 'public', access: 'granted' },
-					data: { '@type': 'Object' },
-					entityData: {
-						displayName: 'Entity Title',
+		it('should return preview when response is not an entity but has a valid preview', () => {
+			const response = {
+				data: {
+					'@type': 'Document',
+					preview: TEST_INTERACTIVE_HREF_LINK,
+				},
+			} as unknown as SmartLinkResponse;
+
+			expect(extractSmartLinkEmbed(response)).toEqual({ src: 'https://my.url.com' });
+		});
+	});
+
+	describe('extractSmartLinkTitle()', () => {
+		it('should return entity title when response is an entity', () => {
+			const response = {
+				meta: { visibility: 'public', access: 'granted' },
+				data: { '@type': 'Object', name: 'Entity Title' },
+				entityData: { displayName: 'Entity Title' },
+			} as unknown as SmartLinkResponse;
+
+			expect(extractSmartLinkTitle(response)).toEqual('Entity Title');
+		});
+
+		it('should return undefined when response is not an entity and has no title', () => {
+			const response = { data: {} } as SmartLinkResponse;
+			expect(extractSmartLinkTitle(response)).toBeUndefined();
+		});
+
+		it('should return title when response is not an entity but has a title', () => {
+			const response = {
+				data: {
+					'@type': 'Document',
+					name: 'Non-Entity Title',
+				},
+			} as unknown as SmartLinkResponse;
+
+			expect(extractSmartLinkTitle(response)).toEqual('Non-Entity Title');
+		});
+	});
+
+	describe('extractSmartLinkUrl()', () => {
+		it('should return entity URL when response is an entity', () => {
+			const url = 'https://example.com/entity';
+			const response = {
+				meta: { visibility: 'public', access: 'granted' },
+				data: { '@type': 'Object' },
+				entityData: {
+					url,
+				},
+			} as SmartLinkResponse;
+
+			expect(extractSmartLinkUrl(response)).toEqual(url);
+		});
+
+		it('should return undefined when response is not an entity and has no URL', () => {
+			const response = { data: {} } as SmartLinkResponse;
+			expect(extractSmartLinkUrl(response)).toBeUndefined();
+		});
+
+		it('should return URL when response is not an entity but has a URL', () => {
+			const url = 'https://example.com/document';
+			const response = {
+				data: {
+					'@type': 'Document',
+					url,
+				},
+			} as SmartLinkResponse;
+
+			expect(extractSmartLinkUrl(response)).toEqual(url);
+		});
+	});
+
+	describe('extractEntityIcon()', () => {
+		it('should return entity icon when response is an entity', () => {
+			const url = 'https://example.com/icon.png';
+			const response = {
+				meta: { visibility: 'public', access: 'granted' },
+				data: { '@type': 'Object' },
+				entityData: {
+					displayName: 'Entity Title',
+					iconUrl: url,
+				},
+			} as SmartLinkResponse;
+
+			expect(extractEntityIcon(response)).toEqual({ url, label: 'Entity Title' });
+		});
+
+		it('should return provider icon when response is a document entity and provider icon exists', () => {
+			const url = 'https://example.com/icon.png';
+			const response = {
+				meta: {
+					visibility: 'public',
+					access: 'granted',
+					generator: {
+						name: 'Google',
+						icon: {
+							url: 'https://google-icon.com/icon.png',
+						},
+					},
+				},
+				data: { '@type': 'Object' },
+				entityData: {
+					displayName: 'Entity Title',
+					type: {
+						category: 'document',
 						iconUrl: url,
 					},
-				} as SmartLinkResponse;
+				},
+			};
 
-				expect(extractEntityIcon(response)).toEqual({ url, label: 'Entity Title' });
+			expect(extractEntityIcon(response as any)).toEqual({
+				url: 'https://google-icon.com/icon.png',
+				label: 'Entity Title',
 			});
+		});
+	});
 
-			it('should return provider icon when response is a document entity and provider icon exists', () => {
-				const url = 'https://example.com/icon.png';
-				const response = {
-					meta: {
-						visibility: 'public',
-						access: 'granted',
-						generator: {
-							name: 'Google',
-							icon: {
-								url: 'https://google-icon.com/icon.png',
-							},
+	describe('extractSmartLinkProvider()', () => {
+		it('should return entityProvider when response is an entity and meta.generator is present', () => {
+			const response = {
+				meta: {
+					generator: {
+						name: 'Figma',
+						image: 'https://static.figma.com/app/icon/1/favicon.ico',
+						icon: {
+							url: 'https://static.figma.com/app/icon/1/favicon.ico',
 						},
 					},
-					data: { '@type': 'Object' },
-					entityData: {
-						displayName: 'Entity Title',
-						type: {
-							category: 'document',
-							iconUrl: url,
+				},
+				data: { '@type': 'Object' },
+				entityData: {},
+			} as unknown as SmartLinkResponse;
+
+			expect(extractSmartLinkProvider(response)).toEqual({
+				text: 'Figma',
+				icon: 'https://static.figma.com/app/icon/1/favicon.ico',
+				image: 'https://static.figma.com/app/icon/1/favicon.ico',
+			});
+		});
+
+		it('should return `undefined` when response is an entity but meta is missing generator', () => {
+			const response = {
+				meta: { visibility: 'public', access: 'granted' },
+				data: { '@type': 'Object' },
+				entityData: {
+					displayName: 'Entity Title',
+					iconUrl: 'https://example.com/icon.png',
+				},
+			} as SmartLinkResponse;
+			expect(extractSmartLinkProvider(response)).toBeUndefined();
+		});
+
+		it('should return `undefined` when response is not an entity and data has no provider', () => {
+			const response = { data: {} } as SmartLinkResponse;
+			expect(extractSmartLinkProvider(response)).toBeUndefined();
+		});
+
+		it('should return provider information when response is not an entity but has a provider', () => {
+			const response = {
+				data: {
+					'@type': 'Document',
+					generator: {
+						'@type': 'Application',
+						name: 'Figma',
+						icon: {
+							'@type': 'Image',
+							url: 'https://static.figma.com/app/icon/1/favicon.ico',
 						},
 					},
-				};
+				},
+			} as unknown as SmartLinkResponse;
 
-				expect(extractEntityIcon(response as any)).toEqual({
-					url: 'https://google-icon.com/icon.png',
-					label: 'Entity Title',
-				});
+			expect(extractSmartLinkProvider(response)).toEqual({
+				text: 'Figma',
+				icon: 'https://static.figma.com/app/icon/1/favicon.ico',
 			});
 		});
+	});
 
-		describe('extractSmartLinkProvider()', () => {
-			it('should return entityProvider when response is an entity and meta.generator is present', () => {
-				const response = {
-					meta: {
-						generator: {
-							name: 'Figma',
-							image: 'https://static.figma.com/app/icon/1/favicon.ico',
-							icon: {
-								url: 'https://static.figma.com/app/icon/1/favicon.ico',
-							},
-						},
-					},
-					data: { '@type': 'Object' },
-					entityData: {},
-				} as unknown as SmartLinkResponse;
+	describe('extractSmartLinkAri()', () => {
+		it('should return entity ARI when response is an entity', () => {
+			const response = {
+				meta: { visibility: 'public', access: 'granted' },
+				data: { '@type': 'Object' },
+				entityData: { ari: 'ari:cloud:jira:1234567890' },
+			} as SmartLinkResponse;
 
-				expect(extractSmartLinkProvider(response)).toEqual({
-					text: 'Figma',
-					icon: 'https://static.figma.com/app/icon/1/favicon.ico',
-					image: 'https://static.figma.com/app/icon/1/favicon.ico',
-				});
-			});
-
-			it('should return `undefined` when response is an entity but meta is missing generator', () => {
-				const response = {
-					meta: { visibility: 'public', access: 'granted' },
-					data: { '@type': 'Object' },
-					entityData: {
-						displayName: 'Entity Title',
-						iconUrl: 'https://example.com/icon.png',
-					},
-				} as SmartLinkResponse;
-				expect(extractSmartLinkProvider(response)).toBeUndefined();
-			});
-
-			it('should return `undefined` when response is not an entity and data has no provider', () => {
-				const response = { data: {} } as SmartLinkResponse;
-				expect(extractSmartLinkProvider(response)).toBeUndefined();
-			});
-
-			it('should return provider information when response is not an entity but has a provider', () => {
-				const response = {
-					data: {
-						'@type': 'Document',
-						generator: {
-							'@type': 'Application',
-							name: 'Figma',
-							icon: {
-								'@type': 'Image',
-								url: 'https://static.figma.com/app/icon/1/favicon.ico',
-							},
-						},
-					},
-				} as unknown as SmartLinkResponse;
-
-				expect(extractSmartLinkProvider(response)).toEqual({
-					text: 'Figma',
-					icon: 'https://static.figma.com/app/icon/1/favicon.ico',
-				});
-			});
+			expect(extractSmartLinkAri(response)).toEqual('ari:cloud:jira:1234567890');
 		});
 
-		describe('extractSmartLinkAri()', () => {
-			it('should return entity ARI when response is an entity', () => {
-				const response = {
-					meta: { visibility: 'public', access: 'granted' },
-					data: { '@type': 'Object' },
-					entityData: { ari: 'ari:cloud:jira:1234567890' },
-				} as SmartLinkResponse;
-
-				expect(extractSmartLinkAri(response)).toEqual('ari:cloud:jira:1234567890');
-			});
-
-			it('should return undefined when response is not an entity and has no ARI', () => {
-				const response = { data: {} } as SmartLinkResponse;
-				expect(extractSmartLinkAri(response)).toBeUndefined();
-			});
-
-			it('should return ARI when response is not an entity but has an ARI', () => {
-				const response = {
-					data: {
-						'@type': 'Document',
-						['atlassian:ari']: 'ari:cloud:jira:1234567890',
-					},
-				} as SmartLinkResponse;
-
-				expect(extractSmartLinkAri(response)).toEqual('ari:cloud:jira:1234567890');
-			});
+		it('should return undefined when response is not an entity and has no ARI', () => {
+			const response = { data: {} } as SmartLinkResponse;
+			expect(extractSmartLinkAri(response)).toBeUndefined();
 		});
 
-		describe('extractSmartLinkCreatedOn()', () => {
-			it('should return createdOn date when response is an entity', () => {
-				const response = {
-					meta: { visibility: 'public', access: 'granted' },
-					entityData: { createdAt: '2023-01-01T00:00:00Z' },
-				} as unknown as SmartLinkResponse;
+		it('should return ARI when response is not an entity but has an ARI', () => {
+			const response = {
+				data: {
+					'@type': 'Document',
+					['atlassian:ari']: 'ari:cloud:jira:1234567890',
+				},
+			} as SmartLinkResponse;
 
-				expect(extractSmartLinkCreatedOn(response)).toEqual('2023-01-01T00:00:00Z');
-			});
+			expect(extractSmartLinkAri(response)).toEqual('ari:cloud:jira:1234567890');
+		});
+	});
 
-			it('should return undefined when response is not an entity and has no createdOn date', () => {
-				const response = { data: {} } as SmartLinkResponse;
-				expect(extractSmartLinkCreatedOn(response)).toBeUndefined();
-			});
+	describe('extractSmartLinkCreatedOn()', () => {
+		it('should return createdOn date when response is an entity', () => {
+			const response = {
+				meta: { visibility: 'public', access: 'granted' },
+				entityData: { createdAt: '2023-01-01T00:00:00Z' },
+			} as unknown as SmartLinkResponse;
 
-			it('should return createdOn date when response is not an entity but has a createdOn date', () => {
-				const response = {
-					data: {
-						'@type': 'Document',
-						['schema:dateCreated']: '2023-01-01T00:00:00Z',
-					},
-				} as unknown as SmartLinkResponse;
-
-				expect(extractSmartLinkCreatedOn(response)).toEqual('2023-01-01T00:00:00Z');
-			});
+			expect(extractSmartLinkCreatedOn(response)).toEqual('2023-01-01T00:00:00Z');
 		});
 
-		describe('extractSmartLinkModifiedOn()', () => {
-			it('should return modifiedOn date when response is an entity', () => {
-				const response = {
-					meta: { visibility: 'public', access: 'granted' },
-					data: { '@type': 'Object' },
-					entityData: { lastUpdatedAt: '2023-01-01T00:00:00Z' },
-				} as unknown as SmartLinkResponse;
-
-				expect(extractSmartLinkModifiedOn(response)).toEqual('2023-01-01T00:00:00Z');
-			});
-
-			it('should return undefined when response is not an entity and has no modifiedOn date', () => {
-				const response = { data: {} } as SmartLinkResponse;
-				expect(extractSmartLinkModifiedOn(response)).toBeUndefined();
-			});
-
-			it('should return modifiedOn date when response is not an entity but has a modifiedOn date', () => {
-				const response = {
-					data: {
-						'@type': 'Document',
-						updated: '2023-01-01T00:00:00Z',
-					},
-				} as unknown as SmartLinkResponse;
-
-				expect(extractSmartLinkModifiedOn(response)).toEqual('2023-01-01T00:00:00Z');
-			});
+		it('should return undefined when response is not an entity and has no createdOn date', () => {
+			const response = { data: {} } as SmartLinkResponse;
+			expect(extractSmartLinkCreatedOn(response)).toBeUndefined();
 		});
 
-		describe('extractSmartLinkCreatedBy()', () => {
-			it('should return createdBy when response is an entity', () => {
-				const response = {
-					meta: { visibility: 'public', access: 'granted' },
-					data: { '@type': 'Object' },
-					entityData: { createdBy: { displayName: 'user123' } },
-				} as unknown as SmartLinkResponse;
+		it('should return createdOn date when response is not an entity but has a createdOn date', () => {
+			const response = {
+				data: {
+					'@type': 'Document',
+					['schema:dateCreated']: '2023-01-01T00:00:00Z',
+				},
+			} as unknown as SmartLinkResponse;
 
-				expect(extractSmartLinkCreatedBy(response)).toEqual('user123');
-			});
+			expect(extractSmartLinkCreatedOn(response)).toEqual('2023-01-01T00:00:00Z');
+		});
+	});
 
-			it('should return undefined when response is not an entity and has no createdBy', () => {
-				const response = { data: {} } as SmartLinkResponse;
-				expect(extractSmartLinkCreatedBy(response)).toBeUndefined();
-			});
+	describe('extractSmartLinkModifiedOn()', () => {
+		it('should return modifiedOn date when response is an entity', () => {
+			const response = {
+				meta: { visibility: 'public', access: 'granted' },
+				data: { '@type': 'Object' },
+				entityData: { lastUpdatedAt: '2023-01-01T00:00:00Z' },
+			} as unknown as SmartLinkResponse;
 
-			it('should return createdBy when response is not an entity but has a createdBy', () => {
-				const response = {
-					data: {
-						'@type': 'Document',
-						attributedTo: [{ name: 'user123' }],
-					},
-				} as unknown as SmartLinkResponse;
-
-				expect(extractSmartLinkCreatedBy(response)).toEqual('user123');
-			});
+			expect(extractSmartLinkModifiedOn(response)).toEqual('2023-01-01T00:00:00Z');
 		});
 
-		describe('extractSmartLinkModifiedBy()', () => {
-			it('should return modifiedBy when response is an entity', () => {
-				const response = {
-					meta: { visibility: 'public', access: 'granted' },
-					data: { '@type': 'Object' },
-					entityData: { lastUpdatedBy: { displayName: 'user123' } },
-				} as unknown as SmartLinkResponse;
+		it('should return undefined when response is not an entity and has no modifiedOn date', () => {
+			const response = { data: {} } as SmartLinkResponse;
+			expect(extractSmartLinkModifiedOn(response)).toBeUndefined();
+		});
 
-				expect(extractSmartLinkModifiedBy(response)).toEqual('user123');
-			});
+		it('should return modifiedOn date when response is not an entity but has a modifiedOn date', () => {
+			const response = {
+				data: {
+					'@type': 'Document',
+					updated: '2023-01-01T00:00:00Z',
+				},
+			} as unknown as SmartLinkResponse;
 
-			it('should return undefined when response is not an entity and has no modifiedBy', () => {
-				const response = { data: {} } as SmartLinkResponse;
-				expect(extractSmartLinkModifiedBy(response)).toBeUndefined();
-			});
+			expect(extractSmartLinkModifiedOn(response)).toEqual('2023-01-01T00:00:00Z');
+		});
+	});
 
-			it('should return modifiedBy when response is not an entity but has a modifiedBy', () => {
-				const response = {
-					data: {
-						'@type': 'Document',
-						['atlassian:updatedBy']: { name: 'user123' },
-					},
-				} as unknown as SmartLinkResponse;
+	describe('extractSmartLinkCreatedBy()', () => {
+		it('should return createdBy when response is an entity', () => {
+			const response = {
+				meta: { visibility: 'public', access: 'granted' },
+				data: { '@type': 'Object' },
+				entityData: { createdBy: { displayName: 'user123' } },
+			} as unknown as SmartLinkResponse;
 
-				expect(extractSmartLinkModifiedBy(response)).toEqual('user123');
-			});
+			expect(extractSmartLinkCreatedBy(response)).toEqual('user123');
+		});
+
+		it('should return undefined when response is not an entity and has no createdBy', () => {
+			const response = { data: {} } as SmartLinkResponse;
+			expect(extractSmartLinkCreatedBy(response)).toBeUndefined();
+		});
+
+		it('should return createdBy when response is not an entity but has a createdBy', () => {
+			const response = {
+				data: {
+					'@type': 'Document',
+					attributedTo: [{ name: 'user123' }],
+				},
+			} as unknown as SmartLinkResponse;
+
+			expect(extractSmartLinkCreatedBy(response)).toEqual('user123');
+		});
+	});
+
+	describe('extractSmartLinkModifiedBy()', () => {
+		it('should return modifiedBy when response is an entity', () => {
+			const response = {
+				meta: { visibility: 'public', access: 'granted' },
+				data: { '@type': 'Object' },
+				entityData: { lastUpdatedBy: { displayName: 'user123' } },
+			} as unknown as SmartLinkResponse;
+
+			expect(extractSmartLinkModifiedBy(response)).toEqual('user123');
+		});
+
+		it('should return undefined when response is not an entity and has no modifiedBy', () => {
+			const response = { data: {} } as SmartLinkResponse;
+			expect(extractSmartLinkModifiedBy(response)).toBeUndefined();
+		});
+
+		it('should return modifiedBy when response is not an entity but has a modifiedBy', () => {
+			const response = {
+				data: {
+					'@type': 'Document',
+					['atlassian:updatedBy']: { name: 'user123' },
+				},
+			} as unknown as SmartLinkResponse;
+
+			expect(extractSmartLinkModifiedBy(response)).toEqual('user123');
 		});
 	});
 });

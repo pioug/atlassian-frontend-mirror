@@ -8,7 +8,8 @@ import type {
 	CardOnClickCallback,
 	NumericalCardDimensions,
 } from '@atlaskit/media-card';
-import { Card, CardLoading, CardError } from '@atlaskit/media-card';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Card as CardAsync, CardSync, CardLoading, CardError } from '@atlaskit/media-card';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import type {
 	ImageResizeMode,
@@ -61,6 +62,7 @@ export interface MediaCardProps {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	dataAttributes?: Record<string, any>;
+	enableSyncMediaCard?: boolean;
 }
 
 interface State {
@@ -198,6 +200,7 @@ export class MediaCardView extends Component<
 			ssr,
 			mediaClient,
 			dataAttributes,
+			enableSyncMediaCard,
 		} = this.props;
 
 		if (imageStatus === 'loading' || !url) {
@@ -212,6 +215,8 @@ export class MediaCardView extends Component<
 
 		// we need this statement for the mandatory mediaClientConfig below
 		const mediaClientConfig = mediaClient?.mediaClientConfig;
+
+		const Card = enableSyncMediaCard && fg('jfp-magma-ssr-iv-editor-media') ? CardSync : CardAsync;
 
 		return (
 			// Ignored via go/ees005
@@ -284,7 +289,9 @@ export class MediaCardView extends Component<
 			ssr,
 			mediaClient,
 			dataAttributes,
+			enableSyncMediaCard,
 		} = this.props;
+
 		const isMobile = false;
 		const shouldPlayInline = useInlinePlayer !== undefined ? useInlinePlayer : true;
 
@@ -320,6 +327,8 @@ export class MediaCardView extends Component<
 			collectionName: collection,
 			occurrenceKey,
 		};
+
+		const Card = enableSyncMediaCard && fg('jfp-magma-ssr-iv-editor-media') ? CardSync : CardAsync;
 
 		return (
 			<div

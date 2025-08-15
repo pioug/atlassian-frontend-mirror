@@ -14,7 +14,7 @@ import {
 	CLEAR_FORMARTTING_MENU_SECTION_RANK,
 } from '@atlaskit/editor-common/toolbar';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { ToolbarDropdownDivider } from '@atlaskit/editor-toolbar';
+import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
 import { type RegisterComponent } from '@atlaskit/editor-toolbar-model';
 
 import { type TextFormattingPlugin } from '../textFormattingPluginType';
@@ -106,8 +106,8 @@ export const getToolbarComponents = (
 				rank: TEXT_FORMAT_GROUP_RANK[TEXT_FORMATTING_MENU.key],
 			},
 		],
-		component: ({ children, groupLocation }) => {
-			return <MoreFormattingMenu groupLocation={groupLocation}>{children}</MoreFormattingMenu>;
+		component: ({ children }) => {
+			return <MoreFormattingMenu>{children}</MoreFormattingMenu>;
 		},
 	},
 	{
@@ -132,6 +132,9 @@ export const getToolbarComponents = (
 				rank: TEXT_FORMAT_MENU_RANK[CLEAR_FORMARTTING_MENU_SECTION.key],
 			},
 		],
+		component: ({ children }) => {
+			return <ToolbarDropdownItemSection hasSeparator>{children}</ToolbarDropdownItemSection>;
+		},
 	},
 	{
 		type: CLEAR_FORMATTING_MENU_ITEM.type,
@@ -146,7 +149,6 @@ export const getToolbarComponents = (
 		component: ({ parents }) => {
 			return (
 				<>
-					<ToolbarDropdownDivider />
 					<ClearFormatMenuItem parents={parents} api={api} />
 				</>
 			);

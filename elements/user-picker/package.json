@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/user-picker",
-	"version": "11.4.3",
+	"version": "11.5.0",
 	"description": "Fabric component for display a dropdown to select a user from",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -118,6 +118,9 @@
 			"type": "boolean"
 		},
 		"jifjam_bulk_operations": {
+			"type": "boolean"
+		},
+		"twcg-444-invite-usd-improvements-m2-gate": {
 			"type": "boolean"
 		}
 	}

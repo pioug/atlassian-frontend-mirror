@@ -50,49 +50,31 @@ export const getThirdPartyARI = (details?: SmartLinkResponse): string | undefine
 	return undefined;
 };
 
-export const getPageId = (details?: JsonLd.Response): string | undefined => {
-	if (fg('platform_smartlink_3pclick_analytics')) {
-		const currentProduct = getProductFromWindowUrl();
-		if (currentProduct === 'confluence') {
-			if (details?.data && 'url' in details.data) {
-				if (typeof details.data.url === 'string') {
-					return extractPageIdFromURL(details.data.url);
-				}
-			}
-		}
+export const getFirstPartyIdentifier = (): string | undefined => {
+	if (!fg('platform_smartlink_3pclick_analytics')) {
+		return undefined;
 	}
 
-	return undefined;
-};
+	const product = getProductFromWindowURL();
+	const currentURL = window.location.href;
 
-export const getContentId = (details?: JsonLd.Response): string | undefined => {
-	if (fg('platform_smartlink_3pclick_analytics')) {
-		const currentProduct = getProductFromWindowUrl();
-		if (currentProduct === 'confluence') {
-			if (details?.data && 'url' in details.data) {
-				if (typeof details.data.url === 'string') {
-					return extractContentIdFromURL(details.data.url);
-				}
-			}
+	if (product === 'confluence') {
+		const contentId = extractContentIdFromURL(currentURL);
+		if (contentId) {
+			return `ConfluenceContentId:${contentId}`;
 		}
-	}
-
-	return undefined;
-};
-
-export const getJiraIssueId = (details?: JsonLd.Response): string | undefined => {
-	if (fg('platform_smartlink_3pclick_analytics')) {
-		const currentProduct = getProductFromWindowUrl();
-		if (currentProduct === 'jira') {
-			if (details?.data && 'url' in details.data) {
-				if (typeof details.data.url === 'string') {
-					return extractJiraIssueIdFromURL(details.data.url);
-				}
-			}
+		const pageId = extractPageIdFromURL(currentURL);
+		if (pageId) {
+			return `ConfluencePageId:${pageId}`;
 		}
+	} else if (product === 'jira') {
+		const issueKey = extractJiraIssueIdFromURL(currentURL);
+		if (issueKey) {
+			return `JiraIssueKey:${issueKey}`;
+		}
+	} else {
+		return undefined;
 	}
-
-	return undefined;
 };
 
 export const getObjectName = (details?: JsonLd.Response): string | undefined =>
@@ -233,18 +215,7 @@ const extractJiraIssueIdFromURL = (url: string): string | undefined => {
 	return undefined;
 };
 
-export const getLinkClickAnalyticsThirdPartyAttributes = (
-	thirdPartyARI: string | undefined,
-	details?: JsonLd.Response,
-) => ({
-	firstPartyARI: getObjectAri(details),
-	thirdPartyARI: thirdPartyARI,
-	jiraIssueId: getJiraIssueId(details),
-	confluenceContentId: getContentId(details),
-	confluencePageId: getPageId(details),
-});
-
-const getProductFromWindowUrl = (): string | undefined => {
+const getProductFromWindowURL = (): string | undefined => {
 	try {
 		const currentUrl = window.location.href;
 		const urlObj = new URL(currentUrl);

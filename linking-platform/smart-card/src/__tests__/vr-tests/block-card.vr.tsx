@@ -185,7 +185,6 @@ snapshot(BlockCardLazyIconsFileType4, {
 snapshot(BlockCardEntities, {
 	description: `block card with entity support`,
 	featureFlags: {
-		smart_links_noun_support: true,
 		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
 });

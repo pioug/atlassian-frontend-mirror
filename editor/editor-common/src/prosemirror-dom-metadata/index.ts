@@ -3,6 +3,7 @@
 
 import type { Mark as PMMark } from '@atlaskit/editor-prosemirror/model';
 import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 const isPMNode = (nodeOrMark: PMNode | PMMark): nodeOrMark is PMNode => {
 	return nodeOrMark instanceof PMNode || Array.isArray((nodeOrMark as unknown as PMNode).marks);
@@ -23,7 +24,12 @@ const isPMNode = (nodeOrMark: PMNode | PMMark): nodeOrMark is PMNode => {
  *  - `data-prosemirror-node-inline` (if applicable): Indicates if the node is inline.
  *  - `data-prosemirror-mark-name` (if applicable): The name of the mark.
  */
-export const createProseMirrorMetadata = (nodeOrMark: PMNode | PMMark) => {
+export const createProseMirrorMetadata = (
+	nodeOrMark: PMNode | PMMark,
+	options?: {
+		anchrorId?: string;
+	},
+) => {
 	const name = nodeOrMark.type.name;
 	const isNode = isPMNode(nodeOrMark);
 	const commonAttributes: Record<string, string> = {
@@ -45,6 +51,13 @@ export const createProseMirrorMetadata = (nodeOrMark: PMNode | PMMark) => {
 
 	if (nodeOrMark.type.isInline) {
 		commonAttributes['data-prosemirror-node-inline'] = 'true';
+	}
+
+	if (
+		options?.anchrorId !== undefined &&
+		expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
+	) {
+		commonAttributes['data-node-anchor'] = options.anchrorId;
 	}
 
 	return commonAttributes;

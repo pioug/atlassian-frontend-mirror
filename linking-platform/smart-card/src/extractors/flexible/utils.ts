@@ -10,7 +10,6 @@ import {
 	type LinkTypeUpdatedBy,
 } from '@atlaskit/link-extractors';
 import type { SmartLinkResponse } from '@atlaskit/linking-types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type LinkLocation } from '../../state/flexible-ui-context/types';
 
@@ -44,13 +43,11 @@ export const extractSmartLinkCommentCount = (response?: SmartLinkResponse): numb
 		return undefined;
 	}
 
-	if (fg('platform-linking-slack-entity-support')) {
-		if (isEntityPresent(response)) {
-			const entity = extractEntity(response);
-			return entity && 'commentCount' in entity && typeof entity.commentCount === 'number'
-				? entity?.commentCount
-				: undefined;
-		}
+	if (isEntityPresent(response)) {
+		const entity = extractEntity(response);
+		return entity && 'commentCount' in entity && typeof entity.commentCount === 'number'
+			? entity?.commentCount
+			: undefined;
 	}
 
 	return response?.data && extractCommentCount(response?.data as JsonLd.Data.BaseData);
@@ -82,15 +79,13 @@ export const extractSmartLinkReactCount = (response?: SmartLinkResponse): number
 		return undefined;
 	}
 
-	if (fg('platform-linking-slack-entity-support')) {
-		if (isEntityPresent(response)) {
-			const entity = extractEntity(response);
-			const reactions =
-				entity && 'reactions' in entity && Array.isArray(entity.reactions)
-					? entity.reactions
-					: undefined;
-			return reactions?.reduce((total, reaction) => total + reaction?.total, 0);
-		}
+	if (isEntityPresent(response)) {
+		const entity = extractEntity(response);
+		const reactions =
+			entity && 'reactions' in entity && Array.isArray(entity.reactions)
+				? entity.reactions
+				: undefined;
+		return reactions?.reduce((total, reaction) => total + reaction?.total, 0);
 	}
 
 	return response?.data && extractReactCount(response?.data as JsonLd.Data.BaseData);
@@ -238,10 +233,8 @@ export const extractSmartLinkSentOn = (response?: SmartLinkResponse): string | u
 		return undefined;
 	}
 
-	if (fg('platform-linking-slack-entity-support')) {
-		if (isEntityPresent(response)) {
-			return extractEntity(response)?.createdAt;
-		}
+	if (isEntityPresent(response)) {
+		return extractEntity(response)?.createdAt;
 	}
 
 	return response?.data && extractSentOn(response?.data as JsonLd.Data.BaseData);

@@ -106,6 +106,29 @@ export const mockCompassResponseWithOwnedBy = {
 	},
 };
 
+export const mockPassionfruitResponse = {
+	...mockBaseResponse,
+	meta: {
+		...mockBaseResponse.meta,
+		key: 'passionfruit-object-provider',
+	},
+};
+
+export const mockPassionfruitResponseWithOwnedBy = {
+	meta: {
+		...mockBaseResponse.meta,
+		key: 'passionfruit-object-provider',
+	},
+	data: {
+		...mockBaseResponse.data,
+		'atlassian:ownedBy': {
+			'@type': 'Person',
+			icon: 'avatar_url',
+			name: 'Aashna Shah',
+		},
+	},
+};
+
 export const mockCompassResponseWithAppliedToComponentsCount = {
 	meta: {
 		...mockBaseResponse.meta,

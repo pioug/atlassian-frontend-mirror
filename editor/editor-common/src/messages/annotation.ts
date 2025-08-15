@@ -22,6 +22,14 @@ export const annotationMessages = defineMessages({
 		description:
 			'Error message to communicate to the user they can only do the current action in certain contexts',
 	},
+	// Duplicated by Confluence's
+	// highlight-actions.inline-comments.comment.no.permission
+	noPermissionToAddComment: {
+		id: 'fabric.editor.noPermissionToAddComment',
+		defaultMessage:
+			'{contentType, select, blogpost {You do not have permission to add comments to this blogpost} page {You do not have permission to add comments to this page} other {You do not have permission to add comments to this page}}',
+		description: 'Tooltip for when the user does not have permission to add inline comments',
+	},
 	toolbar: {
 		id: 'fabric.editor.annotationToolbar',
 		defaultMessage: 'Annotation toolbar',

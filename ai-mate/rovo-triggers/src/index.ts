@@ -5,6 +5,7 @@ export type {
 	Topic,
 	WorkflowContextPayloadData,
 	EditorContextPayloadData,
+	WhiteboardContextPayloadData,
 	BrowserContextPayloadData,
 	AddStatusRovoPayload,
 	UpdateStatusRovoPayload,

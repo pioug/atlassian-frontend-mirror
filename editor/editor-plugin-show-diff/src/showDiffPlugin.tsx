@@ -7,7 +7,7 @@ export const showDiffPlugin: ShowDiffPlugin = ({ api, config }) => ({
 	name: 'showDiff',
 	commands: {
 		showDiff:
-			(params: PMDiffParams) =>
+			(params?: PMDiffParams) =>
 			({ tr }) => {
 				return tr.setMeta(showDiffPluginKey, { ...params, action: 'SHOW_DIFF' });
 			},

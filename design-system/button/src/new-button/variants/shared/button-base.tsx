@@ -197,6 +197,7 @@ const styles = cssMap({
 		position: 'absolute',
 		alignItems: 'center',
 		justifyContent: 'center',
+		overflow: 'hidden',
 		insetBlockEnd: token('space.0'),
 		insetBlockStart: token('space.0'),
 		insetInlineEnd: token('space.0'),

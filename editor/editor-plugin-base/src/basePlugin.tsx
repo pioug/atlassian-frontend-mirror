@@ -5,6 +5,7 @@ import type { PMPluginFactory } from '@atlaskit/editor-common/types';
 import { baseKeymap } from '@atlaskit/editor-prosemirror/commands';
 import { history } from '@atlaskit/editor-prosemirror/history';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BasePlugin, Callback } from './basePluginType';
@@ -93,7 +94,10 @@ const basePlugin: BasePlugin = ({ config: options, api }) => {
 				},
 			];
 
-			if (editorExperiment('platform_editor_exp_lazy_node_views', true, { exposure: true })) {
+			if (
+				editorExperiment('platform_editor_exp_lazy_node_views', true, { exposure: true }) ||
+				expValEquals('platform_editor_jira_advanced_code_blocks', 'isEnabled', true)
+			) {
 				plugins.push({
 					name: 'lazyNodeViewDecorationsPlugin',
 					plugin: () => createLazyNodeViewDecorationPlugin(),

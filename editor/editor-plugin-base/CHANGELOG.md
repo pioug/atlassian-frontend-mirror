@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-base
 
+## 4.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.1.3
+
+### Patch Changes
+
+- [`01301aa6646c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/01301aa6646c4) -
+  Add advanced codeblocks experiment for jira.
+- Updated dependencies
+
 ## 4.1.2
 
 ### Patch Changes

@@ -16,7 +16,11 @@ import { insertSmartLinks } from './pm-plugins/actions';
 import { insertAdfAtEndOfDoc } from './pm-plugins/actions/insertAdfAtEndOfDoc';
 import { replaceWithAdf } from './pm-plugins/actions/replaceWithAdf';
 import { createPlugin, selectionExtensionPluginKey } from './pm-plugins/main';
-import { getSelectionAdfInfo, getSelectionTextInfo } from './pm-plugins/utils';
+import {
+	getFragmentInfoFromSelection,
+	getSelectionAdfInfo,
+	getSelectionTextInfo,
+} from './pm-plugins/utils';
 import type { SelectionExtensionPlugin } from './selectionExtensionPluginType';
 import {
 	SelectionExtensionActionTypes,
@@ -100,7 +104,6 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 				const { state, dispatch } = editorViewRef.current;
 				return insertAdfAtEndOfDoc(nodeAdf)(state, dispatch);
 			},
-
 			getSelectionAdf: () => {
 				if (!editorViewRef.current) {
 					return null;
@@ -108,10 +111,20 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 				const { state } = editorViewRef.current;
 
 				const { selectionRanges, selectedNodeAdf } = getSelectionAdfInfo(state);
+
 				return {
 					selectedNodeAdf,
 					selectionRanges,
 				};
+			},
+			getDocumentFromSelection: () => {
+				if (!editorViewRef.current) {
+					return null;
+				}
+				const { state } = editorViewRef.current;
+				const { selectedNodeAdf } = getFragmentInfoFromSelection(state);
+
+				return { selectedNodeAdf };
 			},
 			getSelectionText: () => {
 				if (!editorViewRef.current) {

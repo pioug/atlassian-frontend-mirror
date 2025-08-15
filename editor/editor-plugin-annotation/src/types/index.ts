@@ -132,6 +132,8 @@ export type InlineCommentAnnotationProvider = AnnotationTypeProvider<
 	 */
 	supportedBlockNodes?: string[];
 	onCommentButtonMount?: () => void;
+	getCanAddComments?: () => boolean;
+	contentType?: string;
 };
 
 export interface AnnotationProviders {

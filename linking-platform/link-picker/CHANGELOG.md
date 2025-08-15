@@ -1,5 +1,14 @@
 # @atlaskit/link-picker
 
+## 3.9.4
+
+### Patch Changes
+
+- [`65822cbb7d2df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/65822cbb7d2df) -
+  [ux] NAVX-1368 Adding required field and corresponding aria-describedby label for link-picker
+  label
+- Updated dependencies
+
 ## 3.9.3
 
 ### Patch Changes

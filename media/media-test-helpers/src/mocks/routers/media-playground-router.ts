@@ -1,10 +1,11 @@
 import { Router } from 'kakapo';
 import { type MediaDatabaseSchema, userAuthProvider, tenantAuthProvider } from '../database';
+import { MEDIA_PLAYGROUND_BASE_URL } from '../../mediaBaseURLS';
 
 export function createMediaPlaygroundRouter() {
 	const router = new Router<MediaDatabaseSchema>(
 		{
-			host: 'https://media-playground.dev.atl-paas.net',
+			host: MEDIA_PLAYGROUND_BASE_URL,
 			requestDelay: 10,
 		},
 		{ strategies: ['fetch'] },

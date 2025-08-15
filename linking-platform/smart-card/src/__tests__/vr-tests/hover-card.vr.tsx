@@ -43,9 +43,7 @@ snapshot(HoverCardWithEntities, {
 			},
 		},
 	],
-	featureFlags: {
-		smart_links_noun_support: true,
-	},
+	featureFlags: {},
 });
 
 snapshot(HoverCardActions, {

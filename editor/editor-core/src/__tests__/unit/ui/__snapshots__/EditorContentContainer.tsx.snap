@@ -84,6 +84,7 @@ exports[`Editor Content styles chromeless editor renders correct styles for lega
 .emotion-0 {
   --ak-editor--default-gutter-padding: 32px;
   --ak-editor--large-gutter-padding: 52px;
+  --ak-editor--resizer-handle-spacing: 12px;
   --ak-editor--default-layout-width: 760px;
   --ak-editor--full-width-layout-width: 1800px;
   --ak-editor--line-length: min(
@@ -4574,6 +4575,7 @@ exports[`Editor Content styles chromeless editor renders correct styles for lega
 .emotion-0 {
   --ak-editor--default-gutter-padding: 32px;
   --ak-editor--large-gutter-padding: 72px;
+  --ak-editor--resizer-handle-spacing: 12px;
   --ak-editor--default-layout-width: 760px;
   --ak-editor--full-width-layout-width: 1800px;
   --ak-editor--line-length: min(
@@ -9413,6 +9415,7 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
 .emotion-0 {
   --ak-editor--default-gutter-padding: 32px;
   --ak-editor--default-layout-width: 760px;
+  --ak-editor--resizer-handle-spacing: 12px;
   --ak-editor--full-width-layout-width: 1800px;
   --ak-editor--line-length: min(calc(100cqw - var(--ak-editor--large-gutter-padding) * 2), var(--ak-editor--default-layout-width));
   --ak-editor--breakout-wide-layout-width: 905px;
@@ -14295,6 +14298,7 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
 .emotion-0 {
   --ak-editor--default-gutter-padding: 32px;
   --ak-editor--default-layout-width: 760px;
+  --ak-editor--resizer-handle-spacing: 12px;
   --ak-editor--full-width-layout-width: 1800px;
   --ak-editor--line-length: min(calc(100cqw - var(--ak-editor--large-gutter-padding) * 2), var(--ak-editor--default-layout-width));
   --ak-editor--breakout-wide-layout-width: 905px;

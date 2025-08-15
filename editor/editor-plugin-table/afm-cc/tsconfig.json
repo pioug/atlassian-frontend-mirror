@@ -81,6 +81,9 @@
 			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags-react/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../../pragmatic-drag-and-drop/core/afm-cc/tsconfig.json"
 		},
 		{

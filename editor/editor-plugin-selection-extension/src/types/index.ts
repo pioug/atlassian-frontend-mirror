@@ -58,7 +58,7 @@ export type SelectionRange = {
 
 export type SelectionExtensionFnOptions = {
 	selectedNodeAdf: ADFEntity;
-	selectionRanges: SelectionRange[];
+	selectionRanges?: SelectionRange[];
 };
 
 export type SelectionExtensionFn = ({

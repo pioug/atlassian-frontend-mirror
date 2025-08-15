@@ -7,7 +7,6 @@ import { IntlProvider } from 'react-intl-next';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { type CardState } from '@atlaskit/linking-common';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { ANALYTICS_CHANNEL } from '../../../../utils/analytics';
 import { mocks } from '../../../../utils/mocks';
@@ -53,52 +52,50 @@ describe('ForbiddenView', () => {
 		};
 	};
 
-	ffTest.both('smart_links_noun_support', 'with entity support', () => {
-		it('fires analytics event when button is clicked and access type is REQUEST_ACCESS', async () => {
-			const { findByTestId, onEventMock } = setup();
+	it('fires analytics event when button is clicked and access type is REQUEST_ACCESS', async () => {
+		const { findByTestId, onEventMock } = setup();
 
-			userEvent.setup();
-			const button = await findByTestId('smart-action-connect-other-account');
-			await userEvent.click(button);
+		userEvent.setup();
+		const button = await findByTestId('smart-action-connect-other-account');
+		await userEvent.click(button);
 
-			expect(onEventMock).toBeFiredWithAnalyticEventOnce({
-				payload: {
-					action: 'clicked',
-					actionSubject: 'button',
-					actionSubjectId: 'requestAccess',
-					eventType: 'ui',
-				},
-			});
+		expect(onEventMock).toBeFiredWithAnalyticEventOnce({
+			payload: {
+				action: 'clicked',
+				actionSubject: 'button',
+				actionSubjectId: 'requestAccess',
+				eventType: 'ui',
+			},
 		});
+	});
 
-		it('fires analytics event when button is clicked and access type is DIRECT_ACCESS', async () => {
-			const { findByTestId, onEventMock } = setup({
-				cardState: {
-					...baseCardState,
-					details: {
-						...mocks.forbidden,
-						meta: {
-							...mocks.forbidden.meta,
-							requestAccess: {
-								accessType: 'DIRECT_ACCESS',
-							},
+	it('fires analytics event when button is clicked and access type is DIRECT_ACCESS', async () => {
+		const { findByTestId, onEventMock } = setup({
+			cardState: {
+				...baseCardState,
+				details: {
+					...mocks.forbidden,
+					meta: {
+						...mocks.forbidden.meta,
+						requestAccess: {
+							accessType: 'DIRECT_ACCESS',
 						},
 					},
 				},
-			});
+			},
+		});
 
-			userEvent.setup();
-			const button = await findByTestId('smart-action-connect-other-account');
-			await userEvent.click(button);
+		userEvent.setup();
+		const button = await findByTestId('smart-action-connect-other-account');
+		await userEvent.click(button);
 
-			expect(onEventMock).toBeFiredWithAnalyticEventOnce({
-				payload: {
-					action: 'clicked',
-					actionSubject: 'button',
-					actionSubjectId: 'crossJoin',
-					eventType: 'ui',
-				},
-			});
+		expect(onEventMock).toBeFiredWithAnalyticEventOnce({
+			payload: {
+				action: 'clicked',
+				actionSubject: 'button',
+				actionSubjectId: 'crossJoin',
+				eventType: 'ui',
+			},
 		});
 	});
 

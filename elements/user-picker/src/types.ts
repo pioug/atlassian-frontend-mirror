@@ -369,6 +369,7 @@ export const CustomType = 'custom';
 export interface Email extends OptionData {
 	type: 'email';
 	suggestion?: boolean;
+	isPendingAction?: boolean;
 }
 
 export type ActionTypes =

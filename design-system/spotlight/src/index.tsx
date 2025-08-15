@@ -4,6 +4,7 @@ export { SpotlightHeader, type SpotlightHeaderProps } from './ui/header';
 export { SpotlightHeadline, type SpotlightHeadlineProps } from './ui/headline';
 export { SpotlightFooter, type SpotlightFooterProps } from './ui/footer';
 export { SpotlightActions, type SpotlightActionsProps } from './ui/actions';
+export { SpotlightStepCount, type SpotlightStepCountProps } from './ui/step-count';
 export { SpotlightPrimaryAction, type SpotlightPrimaryActionProps } from './ui/primary-action';
 export {
 	SpotlightSecondaryAction,

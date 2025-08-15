@@ -1,6 +1,7 @@
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { ChangeSet, simplifyChanges } from 'prosemirror-changeset';
 
+import type { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
 import { processRawValue } from '@atlaskit/editor-common/process-raw-value';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -10,6 +11,7 @@ import {
 	type ReadonlyTransaction,
 } from '@atlaskit/editor-prosemirror/state';
 import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { type Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 import { type DiffParams } from '../showDiffPluginType';
@@ -20,9 +22,13 @@ import { getMarkChangeRanges } from './markDecorations';
 const calculateDecorations = ({
 	state,
 	pluginState,
+	editorView,
+	nodeViews,
 }: {
 	state: EditorState;
 	pluginState: Omit<ShowDiffPluginState, 'decorations'>;
+	editorView: EditorView | undefined;
+	nodeViews: Record<string, NodeViewConstructor>;
 }): DecorationSet => {
 	const { originalDoc, steps } = pluginState;
 	if (!originalDoc || !pluginState.isDisplayingChanges) {
@@ -50,7 +56,9 @@ const calculateDecorations = ({
 			decorations.push(createInlineChangedDecoration(change));
 		}
 		if (change.deleted.length > 0) {
-			decorations.push(createDeletedContentDecoration({ change, doc: originalDoc, tr }));
+			decorations.push(
+				createDeletedContentDecoration({ change, doc: originalDoc, tr, editorView, nodeViews }),
+			);
 		}
 	});
 	getMarkChangeRanges(steps).forEach((change) => {
@@ -72,6 +80,10 @@ type ShowDiffPluginState = {
 type EditorStateConfig = Parameters<typeof EditorState.create>[0];
 
 export const createPlugin = (config: DiffParams | undefined) => {
+	let editorView: EditorView | undefined;
+	const setEditorView = (newEditorView: EditorView) => {
+		editorView = newEditorView;
+	};
 	return new SafePlugin<ShowDiffPluginState>({
 		key: showDiffPluginKey,
 		state: {
@@ -79,6 +91,9 @@ export const createPlugin = (config: DiffParams | undefined) => {
 				const schema = state.schema;
 				const isDisplayingChanges = (config?.steps ?? []).length > 0;
 				const steps = (config?.steps ?? []).map((step) => ProseMirrorStep.fromJSON(schema, step));
+
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				const nodeViews: Record<string, NodeViewConstructor> = (editorView as any)?.nodeViews || {};
 				return {
 					steps,
 					originalDoc: config?.originalDoc
@@ -93,6 +108,8 @@ export const createPlugin = (config: DiffParams | undefined) => {
 								: undefined,
 							isDisplayingChanges,
 						},
+						editorView,
+						nodeViews,
 					}),
 					isDisplayingChanges,
 				};
@@ -106,16 +123,21 @@ export const createPlugin = (config: DiffParams | undefined) => {
 				const meta = tr.getMeta(showDiffPluginKey);
 				let newPluginState = currentPluginState;
 
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				const nodeViews: Record<string, NodeViewConstructor> = (editorView as any)?.nodeViews || {};
+
 				if (meta) {
 					if (meta?.action === 'SHOW_DIFF') {
 						// Calculate and store decorations in state
 						const decorations = calculateDecorations({
 							state: newState,
 							pluginState: {
-								steps: meta.steps,
-								originalDoc: meta.originalDoc,
+								steps: meta.steps ?? currentPluginState.steps,
+								originalDoc: meta.originalDoc ?? currentPluginState.originalDoc,
 								isDisplayingChanges: true,
 							},
+							editorView,
+							nodeViews: nodeViews,
 						});
 						newPluginState = {
 							...currentPluginState,
@@ -140,6 +162,10 @@ export const createPlugin = (config: DiffParams | undefined) => {
 					decorations: newPluginState.decorations.map(tr.mapping, tr.doc),
 				};
 			},
+		},
+		view(editorView: EditorView) {
+			setEditorView(editorView);
+			return {};
 		},
 		props: {
 			decorations: (state: EditorState) => {

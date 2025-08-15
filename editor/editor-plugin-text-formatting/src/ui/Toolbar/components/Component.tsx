@@ -4,7 +4,12 @@ import React from 'react';
 import { useIntl } from 'react-intl-next';
 
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { clearFormatting, getAriaKeyshortcuts, tooltip } from '@atlaskit/editor-common/keymaps';
+import {
+	ToolTipContent,
+	clearFormatting,
+	getAriaKeyshortcuts,
+	tooltip,
+} from '@atlaskit/editor-common/keymaps';
 import { toolbarMessages } from '@atlaskit/editor-common/messages';
 import { getInputMethodFromParentKeys } from '@atlaskit/editor-common/toolbar';
 import {
@@ -12,7 +17,6 @@ import {
 	ToolbarDropdownItem,
 	ClearFormattingIcon,
 	ToolbarKeyboardShortcutHint,
-	type ToolbarButtonGroupLocation,
 	ToolbarDropdownMenu,
 	MoreItemsIcon,
 	ToolbarTooltip,
@@ -70,7 +74,6 @@ export const FormatButton = ({
 	icon,
 	shortcut,
 	title,
-	groupLocation = 'start',
 }: FormatComponentProps) => {
 	const { isActive, isDisabled, onClick, ariaLabel, formatTitle } = useComponentInfo({
 		api,
@@ -83,14 +86,12 @@ export const FormatButton = ({
 
 	const Icon = icon;
 	return (
-		// TODO: ED-28743 - add keyboard shortcut here
-		<ToolbarTooltip content={formatTitle}>
+		<ToolbarTooltip content={<ToolTipContent description={formatTitle} keymap={shortcut} />}>
 			<ToolbarButton
 				iconBefore={<Icon label={ariaLabel} />}
 				onClick={onClick}
 				isSelected={isActive}
 				isDisabled={isDisabled}
-				groupLocation={groupLocation}
 				ariaKeyshortcuts={getAriaKeyshortcuts(shortcut)}
 			/>
 		</ToolbarTooltip>
@@ -138,19 +139,12 @@ export const ClearFormatMenuItem = ({
 	);
 };
 
-export const MoreFormattingMenu = ({
-	children,
-	groupLocation,
-}: {
-	children?: ReactNode;
-	groupLocation?: ToolbarButtonGroupLocation;
-}) => {
+export const MoreFormattingMenu = ({ children }: { children?: ReactNode }) => {
 	const { formatMessage } = useIntl();
 	const content = formatMessage(toolbarMessages.moreFormatting);
 	return (
 		<ToolbarDropdownMenu
 			iconBefore={<MoreItemsIcon label="" testId="more-formatting" />}
-			groupLocation={groupLocation}
 			label={content}
 		>
 			{children}

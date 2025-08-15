@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import type {
 	RevisionPayloadEntry,
 	RevisionPayloadVCDetails,
@@ -91,6 +93,9 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 		allEntries?: ReadonlyArray<VCObserverEntry>,
 	): Promise<RevisionPayloadVCDetails> {
 		const percentiles = [25, 50, 75, 80, 85, 90, 95, 98, 99];
+		if (fg('platform_ufo_send_vc_100')) {
+			percentiles.push(100);
+		}
 		const viewportEntries = this.filterViewportEntries(filteredEntries);
 		const vcLogs = await calculateTTVCPercentilesWithDebugInfo({
 			viewport: {

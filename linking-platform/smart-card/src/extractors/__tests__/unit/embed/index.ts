@@ -1,5 +1,4 @@
 import { type JsonLd } from '@atlaskit/json-ld-types';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { mocks } from '../../../../utils/mocks';
 import { extractEmbedProps } from '../../../embed';
@@ -97,7 +96,7 @@ describe('embed icon behaviour with standardise flag on', () => {
 	});
 });
 
-ffTest.on('smart_links_noun_support', 'entity support', () => {
+describe('entity support', () => {
 	it('extracts embed props with provider details', () => {
 		const meta = {
 			...mocks.unauthorized.meta,
@@ -126,16 +125,16 @@ ffTest.on('smart_links_noun_support', 'entity support', () => {
 			type: ['Object'],
 		});
 	});
+});
 
-	describe('embed icon behaviour with standardise flag on', () => {
-		it('returns object icon url when it exists', () => {
-			const props = extractEmbedProps(mocks.entityDataSuccess, 'web');
-			expect(props.context?.icon).toEqual('https://www.ilovecheese.com');
-		});
+describe('embed icon behaviour with standardise flag on', () => {
+	it('returns object icon url when it exists', () => {
+		const props = extractEmbedProps(mocks.entityDataSuccess, 'web');
+		expect(props.context?.icon).toEqual('https://www.ilovecheese.com');
+	});
 
-		it(`returns provider icon if object icon url doesn't exist`, () => {
-			const props = extractEmbedProps(mocks.entityDataSuccess, 'web');
-			expect(props.context?.icon).toEqual('https://www.ilovecheese.com');
-		});
+	it(`returns provider icon if object icon url doesn't exist`, () => {
+		const props = extractEmbedProps(mocks.entityDataSuccess, 'web');
+		expect(props.context?.icon).toEqual('https://www.ilovecheese.com');
 	});
 });

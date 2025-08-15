@@ -81,6 +81,9 @@
 			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags-react/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../pragmatic-drag-and-drop/core/afm-jira/tsconfig.json"
 		},
 		{

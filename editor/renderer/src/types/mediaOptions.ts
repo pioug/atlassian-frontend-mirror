@@ -9,4 +9,5 @@ export interface MediaOptions {
 	featureFlags?: MediaFeatureFlags;
 	ssr?: MediaSSR;
 	allowCaptions?: boolean;
+	enableSyncMediaCard?: boolean;
 }

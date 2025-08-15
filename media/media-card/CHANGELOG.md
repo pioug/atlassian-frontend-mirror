@@ -1,5 +1,13 @@
 # @atlaskit/media-card
 
+## 79.5.2
+
+### Patch Changes
+
+- [`0198dcd9d80fe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0198dcd9d80fe) -
+  Removed unused code from CardSync.
+- Updated dependencies
+
 ## 79.5.1
 
 ### Patch Changes

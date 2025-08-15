@@ -47,6 +47,8 @@ interface BuildToolbarOptions {
 	createCommentExperience?: AnnotationProviders['createCommentExperience'];
 	annotationManager?: AnnotationProviders['annotationManager'];
 	onCommentButtonMount?: () => void;
+	getCanAddComments?: () => boolean;
+	contentType?: string;
 }
 
 export const getValidNodes = (state: EditorState): NodeType[] => {
@@ -111,6 +113,8 @@ export const buildToolbar: (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) 
 	createCommentExperience,
 	annotationManager,
 	onCommentButtonMount,
+	getCanAddComments,
+	contentType,
 }: BuildToolbarOptions) =>
 	| {
 			title: string;
@@ -129,6 +133,8 @@ export const buildToolbar: (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) 
 		createCommentExperience,
 		annotationManager,
 		onCommentButtonMount,
+		getCanAddComments = () => true,
+		contentType,
 	}: BuildToolbarOptions) => {
 		const selectionValid = isSelectionValid(state);
 		const isMediaSelected = currentMediaNodeWithPos(state);
@@ -144,22 +150,30 @@ export const buildToolbar: (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) 
 				? annotationMessages.createCommentDisabled
 				: annotationMessages.createCommentInvalid,
 		);
+
+		const canAddComments = getCanAddComments();
+
+		const isCommentButtonDisabled =
+			!canAddComments || selectionValid === AnnotationSelectionType.DISABLED;
+		const disabledTooltipContent = !canAddComments
+			? intl.formatMessage(annotationMessages.noPermissionToAddComment, { contentType })
+			: commentDisabledMessage;
+
 		const createComment: FloatingToolbarButton<Command> = {
 			type: 'button',
 			showTitle: true,
 			disabled:
-				selectionValid === AnnotationSelectionType.DISABLED ||
+				isCommentButtonDisabled ||
 				api?.connectivity?.sharedState?.currentState()?.mode === 'offline',
 			testId: AnnotationTestIds.floatingToolbarCreateButton,
 			interactionName: 'start-inline-comment-action',
 			icon: CommentIcon,
 			iconFallback: CommentIcon,
-			tooltipContent:
-				selectionValid === AnnotationSelectionType.DISABLED ? (
-					commentDisabledMessage
-				) : (
-					<ToolTipContent description={createCommentMessage} keymap={addInlineComment} />
-				),
+			tooltipContent: isCommentButtonDisabled ? (
+				disabledTooltipContent
+			) : (
+				<ToolTipContent description={createCommentMessage} keymap={addInlineComment} />
+			),
 			title: createCommentMessage,
 			onMount: () => {
 				if (fg('confluence_frontend_preload_inline_comment_editor')) {

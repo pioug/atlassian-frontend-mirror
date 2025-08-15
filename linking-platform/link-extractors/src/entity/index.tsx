@@ -7,13 +7,12 @@ import {
 } from '@atlaskit/linking-types';
 import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
 import { JiraIcon } from '@atlaskit/logo/jira-icon';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type LinkProvider } from '../common';
 import { CONFLUENCE_GENERATOR_ID, JIRA_GENERATOR_ID } from '../common/constants';
 
 export const extractEntity = (response?: SmartLinkResponse): EntityType | undefined =>
-	fg('smart_links_noun_support') ? response?.entityData : undefined;
+	response?.entityData;
 
 export const isEntityPresent = (response?: SmartLinkResponse): boolean =>
 	Boolean(extractEntity(response));
@@ -63,9 +62,7 @@ export const extractEntityIcon = (response?: SmartLinkResponse) => {
 		url =
 			'iconUrl' in entity && typeof entity?.iconUrl === 'string'
 				? entity.iconUrl
-				: fg('smart_links_noun_support')
-					? response?.meta.generator?.icon?.url
-					: undefined;
+				: response?.meta.generator?.icon?.url;
 	}
 
 	return {

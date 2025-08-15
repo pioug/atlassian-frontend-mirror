@@ -753,25 +753,21 @@ events:
         3P Workflows team
       attributes:
         <<: [*PackageMetaDataContext, *CommonContext, *ResolvedContext]
-        firstPartyARI:
-          required: true
-          type: string
-          description:
-            The first party ARI for this Smart Link - this is NOT the ARI of the link the user
-            clicked on, but the ARI of the page where the Smart Link is rendered
         thirdPartyARI:
           required: true
           type: string
           description: The third-party ARI for this Smart Link
-        jiraIssueId:
+        eventName:
+          required: true
+          type: string
+          description:
+            The name of the event being tracked - for this event will always be
+            smartLinkClickAnalyticsThirdPartyWorkflows since there are multiple event types in the
+            same SQS pipeline
+        firstPartyIdentifier:
           required: false
           type: string
-          description: The Issue ID for the Jira specific ticket this Smart Link is pasted on
-        confluenceContentId:
-          required: false
-          type: string
-          description: The Content ID for the Confluence specific page this Smart Link is pasted on
-        confluencePageId:
-          required: false
-          type: string
-          description: The Page ID for the Confluence specific page this Smart Link is pasted on
+          description:
+            A null-capable field representing the Confluence content ID, Confluence page ID, or Jira
+            issue key. This can be null if it is a value for an unsupported 1P provider (eg,
+            Bitbucket, Loom), and will be prefixed by an identifier based on the source product.

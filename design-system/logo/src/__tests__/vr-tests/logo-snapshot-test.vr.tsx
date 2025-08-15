@@ -21,3 +21,25 @@ snapshot(Appearance, {
 });
 snapshot(Sizes, { featureFlags: { 'platform-logo-rebrand': [false, true] } });
 snapshot(DefensiveStyling, { featureFlags: { 'platform-logo-rebrand': [false, true] } });
+
+// Test basic and appearance examples with the plaform-logo-rebrand-servco feature flag
+snapshot(Basic, {
+	featureFlags: {
+		'platform-logo-rebrand': [false, true],
+		'platform-logo-rebrand-servco': [false, true],
+	},
+});
+snapshot(Appearance, {
+	featureFlags: {
+		'platform-logo-rebrand': [false, true],
+		'platform-logo-rebrand-servco': [false, true],
+	},
+	variants: [
+		{
+			name: 'Light',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+});

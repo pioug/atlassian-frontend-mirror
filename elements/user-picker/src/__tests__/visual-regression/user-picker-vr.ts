@@ -19,6 +19,7 @@ import {
 } from './_constants';
 
 import { hoverOverUserPicker, inputTypingFactory, selectItemFactory } from './_testUtils';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 type InteractionTest = {
 	name: string;
@@ -316,6 +317,16 @@ describe('UserPicker VR Snapshot Test', () => {
 
 						await page.focus(DISABLE_INPUT_ID_MULTI);
 						await page.type(DISABLE_INPUT_ID_MULTI, 'a');
+					});
+				});
+
+				ffTest.on('twcg-444-invite-usd-improvements-m2-gate', 'fg on', () => {
+					it('user has pending action', async () => {
+						await vrForExample('is-pending-action', async (page: PuppeteerPage) => {
+							const selectTopItem = selectItemFactory('');
+							await selectTopItem(page);
+							await selectTopItem(page);
+						});
 					});
 				});
 			});

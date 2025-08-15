@@ -550,6 +550,7 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 						onKeyDown={handleKeyDown}
 						onChange={handleChangeUrl}
 						inputRef={inputRef}
+						isRequired
 					/>
 					{!hideDisplayText && (
 						<Fragment>

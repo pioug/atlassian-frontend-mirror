@@ -1,5 +1,33 @@
 # @atlaskit/link-provider
 
+## 3.5.0
+
+### Minor Changes
+
+- [`19da7355cd815`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/19da7355cd815) - -
+  Added a new `custom` environment to `EnvironmentsKeys`. Now, you can pass the `baseUrlOverride`
+  parameter to both `EditorCardProvider` and `CardClient` to access a service directly.
+
+  - Introduced a new `setHeaders` method in CardClient, allowing you to specify custom HTTP headers
+    for requests to the object-resolver service.
+  - `EditorCardProvider` now supports passing a custom `CardClient` instance, so you can use your
+    own client instead of the built-in one.
+
+  These changes provide more flexibility for configuring access to the object-resolver service,
+  including support for SSR and integration with custom infrastructures.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.3
+
+### Patch Changes
+
+- [`2a46c52a9d189`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a46c52a9d189) -
+  NAVX-1307 cleaning up smart-links-noun-support
+- Updated dependencies
+
 ## 3.4.2
 
 ### Patch Changes

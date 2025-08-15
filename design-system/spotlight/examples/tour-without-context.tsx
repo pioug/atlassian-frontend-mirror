@@ -21,6 +21,7 @@ import {
 	SpotlightHeadline,
 	SpotlightPrimaryAction,
 	SpotlightSecondaryAction,
+	SpotlightStepCount,
 } from '@atlaskit/spotlight';
 import { token } from '@atlaskit/tokens';
 
@@ -81,6 +82,7 @@ export default () => {
 								<Text>Brief and direct textual content to elaborate on the intent.</Text>
 							</SpotlightBody>
 							<SpotlightFooter>
+								<SpotlightStepCount>1 of 3</SpotlightStepCount>
 								<SpotlightActions>
 									<SpotlightPrimaryAction onClick={() => setCurrentStep('step-2')}>
 										Next
@@ -109,6 +111,7 @@ export default () => {
 								<Text>Brief and direct textual content to elaborate on the intent.</Text>
 							</SpotlightBody>
 							<SpotlightFooter>
+								<SpotlightStepCount>2 of 3</SpotlightStepCount>
 								<SpotlightActions>
 									<SpotlightSecondaryAction onClick={() => setCurrentStep('step-1')}>
 										Prev
@@ -140,6 +143,7 @@ export default () => {
 								<Text>Brief and direct textual content to elaborate on the intent.</Text>
 							</SpotlightBody>
 							<SpotlightFooter>
+								<SpotlightStepCount>3 of 3</SpotlightStepCount>
 								<SpotlightActions>
 									<SpotlightSecondaryAction onClick={() => setCurrentStep('step-2')}>
 										Prev

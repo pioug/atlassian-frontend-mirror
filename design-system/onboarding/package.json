@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/onboarding",
-	"version": "14.3.3",
+	"version": "14.3.4",
 	"description": "An onboarding spotlight introduces new features to users through focused messages or multi-step tours.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -38,6 +38,10 @@
 		"website": {
 			"name": "Onboarding (spotlight)",
 			"category": "Messaging",
+			"status": {
+				"type": "intent-to-deprecate",
+				"description": "We intend to deprecate `@atlaskit/onboarding` in favor of a future `@atlaskit/spotlight` package."
+			},
 			"subPages": [
 				{
 					"title": "Benefits modal",

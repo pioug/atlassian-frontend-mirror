@@ -1,5 +1,22 @@
 # @atlaskit/renderer
 
+## 120.4.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 120.4.3
+
+### Patch Changes
+
+- [`0198dcd9d80fe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0198dcd9d80fe) -
+  Added the enableSyncMediaCard media toggle, that loads the MediaCard in sync without
+  react-loadable.
+- [`3fff102f55da9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3fff102f55da9) -
+  Cleanup FG platform_editor_ol_padding_fix
+- Updated dependencies
+
 ## 120.4.2
 
 ### Patch Changes

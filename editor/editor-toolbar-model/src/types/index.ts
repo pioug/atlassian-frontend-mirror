@@ -22,8 +22,6 @@ type CommonComponentProps = {
 	parents: ToolbarComponentTypes;
 };
 
-export type ToolbarButtonGroupLocation = 'start' | 'middle' | 'end';
-
 export type ToolbarComponent = (props: { children: React.ReactNode }) => React.ReactNode;
 
 export type ToolbarSectionComponent = (
@@ -36,7 +34,6 @@ export type ToolbarGroupComponent = (
 
 export type ToolbarMenuComponent = (
 	props: {
-		groupLocation?: ToolbarButtonGroupLocation;
 		children: React.ReactNode;
 	} & CommonComponentProps,
 ) => React.ReactNode;
@@ -45,11 +42,7 @@ export type ToolbarNestedMenuComponent = (
 	props: { children: React.ReactNode } & CommonComponentProps,
 ) => React.ReactNode;
 
-export type ToolbarButtonComponent = (
-	props: {
-		groupLocation?: ToolbarButtonGroupLocation;
-	} & CommonComponentProps,
-) => React.ReactNode;
+export type ToolbarButtonComponent = (props: {} & CommonComponentProps) => React.ReactNode;
 
 export type ToolbarMenuSectionComponent = (
 	props: { children: React.ReactNode } & CommonComponentProps,

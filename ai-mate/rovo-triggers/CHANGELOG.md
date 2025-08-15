@@ -1,5 +1,12 @@
 # @atlaskit/rovo-triggers
 
+## 3.4.0
+
+### Minor Changes
+
+- [`cd33693cf4431`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd33693cf4431) -
+  Add new whiteboards context to pass along to llm as needed
+
 ## 3.3.0
 
 ### Minor Changes

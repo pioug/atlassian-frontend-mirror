@@ -1,5 +1,12 @@
 # @atlaskit/teams-public
 
+## 0.54.2
+
+### Patch Changes
+
+- [`64db8286c7b8e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64db8286c7b8e) -
+  Slightly tweak the design of create container button (hidden behind experiment)
+
 ## 0.54.1
 
 ### Patch Changes

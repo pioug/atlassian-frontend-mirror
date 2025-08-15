@@ -1,4 +1,4 @@
-import { PanelType, uuid } from '@atlaskit/adf-schema';
+import { PanelType } from '@atlaskit/adf-schema';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -19,7 +19,6 @@ import {
 	removeParentNodeOfType,
 	removeSelectedNode,
 } from '@atlaskit/editor-prosemirror/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { PanelOptions } from '../pm-plugins/main';
 import { findPanel } from '../pm-plugins/utils/utils';
@@ -82,10 +81,6 @@ export const changePanelType =
 		const previousType = panelNode.node.attrs.panelType;
 		let newTr;
 
-		const localId = fg('platform_editor_adf_with_localid')
-			? panelNode.node.attrs?.localId || uuid.generate()
-			: undefined;
-
 		if (allowCustomPanel) {
 			const previousColor =
 				panelNode.node.attrs.panelType === 'custom'
@@ -108,13 +103,9 @@ export const changePanelType =
 				panelIconText: newPanelOptions.emojiText,
 				panelColor: newPanelOptions.color,
 				panelType,
-				localId,
 			});
 		} else {
-			newTr = tr.setNodeMarkup(panelNode.pos, nodes.panel, {
-				panelType,
-				localId,
-			});
+			newTr = tr.setNodeMarkup(panelNode.pos, nodes.panel, { panelType });
 		}
 
 		const payload: AnalyticsEventPayload = {
@@ -157,8 +148,7 @@ export function insertPanelWithAnalytics(
 	})(function (state: EditorState, dispatch) {
 		const { nodes } = state.schema;
 		if (nodes.panel && nodes.paragraph) {
-			const panelAttrs = fg('platform_editor_adf_with_localid') ? { localId: uuid.generate() } : {};
-			return wrapSelectionIn(nodes.panel, panelAttrs)(state, dispatch);
+			return wrapSelectionIn(nodes.panel)(state, dispatch);
 		}
 		return false;
 	});

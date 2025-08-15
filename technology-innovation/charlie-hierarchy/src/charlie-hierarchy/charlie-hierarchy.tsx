@@ -22,6 +22,8 @@ import { type ProvidedZoom, type TransformMatrix } from '@visx/zoom/lib/types';
 
 import { token } from '@atlaskit/tokens';
 
+import { calculateLinkTargetPosition, updateNodeLayout } from './utils';
+
 const staticStyles = cssMap({
 	hierarchyWrapper: {
 		position: 'relative',
@@ -109,6 +111,18 @@ export interface CharlieHierarchyProps<Datum> extends Omit<TreeProps<Datum>, 'ch
 	 * Pass any dependencies that on change should trigger a re-render of the tree.
 	 */
 	renderDependencies?: React.DependencyList;
+
+	/**
+	 * When specified, enables vertical stacking of overflow children.
+	 * Children beyond this threshold will be stacked vertically under the first child.
+	 */
+	stackingThreshold?: number;
+
+	/**
+	 * Vertical spacing between stacked nodes in pixels.
+	 * @default 70
+	 */
+	stackingSpacing?: number;
 }
 
 export const CharlieHierarchy = <Datum,>(props: CharlieHierarchyProps<Datum>) => {
@@ -133,6 +147,8 @@ export const CharlieHierarchy = <Datum,>(props: CharlieHierarchyProps<Datum>) =>
 	const cursor = zoom?.isDragging ? 'grabbing' : 'grab';
 	const children = props.children;
 	const renderDependencies = props.renderDependencies ?? [];
+	const stackingThreshold = props.stackingThreshold;
+	const stackingSpacing = props.stackingSpacing ?? 70;
 
 	/**
 	 * If zoom is enabled, we need to apply the transform matrix to the SVG.
@@ -160,18 +176,35 @@ export const CharlieHierarchy = <Datum,>(props: CharlieHierarchyProps<Datum>) =>
 				{(tree) => {
 					return (
 						<>
-							{tree.links().map((link, linkIndex) => (
-								<LinkVerticalStep
-									key={`link-${linkIndex}`}
-									data={link}
-									stroke={token('color.border.accent.gray')}
-									strokeWidth="1"
-									fill="none"
-									opacity={1}
-									percent={0.5}
-									{...(props.styles?.lineAttributes ?? {})}
-								/>
-							))}
+							{tree.links().map((link, linkIndex) => {
+								if (stackingThreshold) {
+									link.target.x = calculateLinkTargetPosition(
+										link.target.x,
+										link.source.children,
+										stackingThreshold,
+										nodeWidthWithPadding,
+									);
+
+									// For now, don't render links that are beyond the stacking threshold.
+									// In the future, we can render the links that are beyond the stacking threshold.
+									if (linkIndex > stackingThreshold - 1) {
+										return null;
+									}
+								}
+
+								return (
+									<LinkVerticalStep
+										key={`link-${linkIndex}`}
+										data={link}
+										stroke={token('color.border.accent.gray')}
+										strokeWidth="1"
+										fill="none"
+										opacity={1}
+										percent={0.5}
+										{...(props.styles?.lineAttributes ?? {})}
+									/>
+								);
+							})}
 						</>
 					);
 				}}
@@ -189,11 +222,28 @@ export const CharlieHierarchy = <Datum,>(props: CharlieHierarchyProps<Datum>) =>
 				{(tree) => {
 					const descendants = tree.descendants();
 
+					const stackLocations: { top: number; left: number }[] = [];
 					return (
 						<>
 							{descendants.map((node, index) => {
-								const top: number = node.y - nodeHeight / 2;
-								const left: number = node.x - nodeWidth / 2;
+								let top: number = node.y - nodeHeight / 2;
+								let left: number = node.x - nodeWidth / 2;
+
+								if (stackingThreshold) {
+									const layout = updateNodeLayout(
+										index,
+										stackingThreshold,
+										nodeWidthWithPadding,
+										stackLocations,
+										stackingSpacing,
+										top,
+										left,
+										node,
+									);
+
+									top = layout.top;
+									left = layout.left;
+								}
 
 								return (
 									<div

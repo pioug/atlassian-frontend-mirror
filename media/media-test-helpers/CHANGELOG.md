@@ -1,5 +1,16 @@
 # @atlaskit/media-test-helpers
 
+## 39.0.0
+
+### Major Changes
+
+- [`ce6226c8b8907`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ce6226c8b8907) -
+  Update media playground mock to intercept staging instead of dev.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 38.0.0
 
 ### Major Changes

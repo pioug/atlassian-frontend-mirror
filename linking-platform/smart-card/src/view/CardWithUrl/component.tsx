@@ -12,7 +12,7 @@ import {
 	getClickUrl,
 	getDefinitionId,
 	getExtensionKey,
-	getLinkClickAnalyticsThirdPartyAttributes,
+	getFirstPartyIdentifier,
 	getObjectAri,
 	getObjectIconUrl,
 	getObjectName,
@@ -77,6 +77,7 @@ function Component({
 	const resourceType = getResourceType(state.details);
 	const services = getServices(state.details);
 	const thirdPartyARI = getThirdPartyARI(state.details);
+	const firstPartyIdentifier = getFirstPartyIdentifier();
 
 	let isFlexibleUi = useMemo(() => isFlexibleUiCard(children, ui), [children, ui]);
 
@@ -110,11 +111,11 @@ function Component({
 							eventType: 'ui',
 							attributes: {
 								eventName: 'smartLinkClickAnalyticsThirdPartyWorkflows',
+								firstPartyIdentifier: firstPartyIdentifier,
 							},
-							nonPrivacySafeAttributes: getLinkClickAnalyticsThirdPartyAttributes(
-								thirdPartyARI,
-								state.details,
-							),
+							nonPrivacySafeAttributes: {
+								thirdPartyARI: thirdPartyARI,
+							},
 						});
 						smartlinkClickAnalyticsEvent.fire('media');
 					}
@@ -184,6 +185,7 @@ function Component({
 			openPreviewPanel,
 			createAnalyticsEvent,
 			thirdPartyARI,
+			firstPartyIdentifier,
 		],
 	);
 	const handleAuthorize = useCallback(() => actions.authorize(appearance), [actions, appearance]);

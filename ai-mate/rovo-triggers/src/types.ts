@@ -69,6 +69,14 @@ export type EditorContextPayloadData =
 	  }
 	| undefined;
 
+export type WhiteboardContextPayloadData =
+	| {
+			type: 'image/svg+xml' | 'text/plain';
+			content: string;
+			contentId?: string;
+	  }
+	| undefined;
+
 export type BrowserContextPayloadData = {
 	context:
 		| {
@@ -93,6 +101,12 @@ export type EditorContextPayload = PayloadCore<'editor-context-payload'> & {
 // but `| undefined` will cause `data` to be removed by PayloadCore
 export type BrowserContextPayload = PayloadCore<'browser-context-payload'> & {
 	data: BrowserContextPayloadData;
+};
+
+// Not using the PayloadCore because the `data: type | undefined` is necessary
+// but `| undefined` will cause `data` to be removed by PayloadCore
+export type WhiteboardContextPayload = PayloadCore<'whiteboard-context-payload'> & {
+	data: WhiteboardContextPayloadData;
 };
 
 export type ChatDraftPayload = PayloadCore<'chat-draft'>;
@@ -311,6 +325,7 @@ export type Payload =
 	| EditorSuggestionPayload
 	| EditorAgentChangedPayload
 	| BrowserContextPayload
+	| WhiteboardContextPayload
 	| ForgeAppAuthSuccess
 	| ForgeAppAuthFailure
 	| JiraWorkflowWizardActionsPayload

@@ -147,6 +147,7 @@ interface TableState {
 	[ShadowEvent.SHOW_AFTER_SHADOW]: boolean;
 	tableWrapperWidth?: number;
 	tableWrapperHeight?: number;
+	windowResized?: boolean;
 }
 
 // Generate a unique ID to prevent collisions when multiple plugin versions exist on the same page
@@ -172,6 +173,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		[ShadowEvent.SHOW_AFTER_SHADOW]: false,
 		tableWrapperWidth: undefined,
 		tableWrapperHeight: undefined,
+		windowResized: false,
 	};
 
 	private wrapper?: HTMLDivElement | null;
@@ -308,16 +310,18 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
 		const { tableWithFixedColumnWidthsOption = false } = getEditorFeatureFlags();
 
-		if (isTableScalingEnabled && !tableWithFixedColumnWidthsOption) {
-			this.handleColgroupUpdates(true);
-		}
+		if (!expValEquals('platform_editor_tables_scaling_css', 'isEnabled', true)) {
+			if (isTableScalingEnabled && !tableWithFixedColumnWidthsOption) {
+				this.handleColgroupUpdates(true);
+			}
 
-		if (
-			isTableScalingEnabled &&
-			tableWithFixedColumnWidthsOption &&
-			getNode().attrs.displayMode !== 'fixed'
-		) {
-			this.handleColgroupUpdates(true);
+			if (
+				isTableScalingEnabled &&
+				tableWithFixedColumnWidthsOption &&
+				getNode().attrs.displayMode !== 'fixed'
+			) {
+				this.handleColgroupUpdates(true);
+			}
 		}
 
 		if (this.wrapper) {
@@ -367,6 +371,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 				window.addEventListener('resize', this.handleWindowResizeDebounced);
 			}
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+			window.addEventListener('resize', this.handleWindowResizeNewDebounced);
 			this.handleTableResizingDebounced();
 		}
 
@@ -419,11 +425,17 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		if (!allowTableResizing) {
 			this.handleWindowResizeDebounced.cancel();
 		}
+		this.handleWindowResizeNewDebounced.cancel();
 
 		if (!allowTableResizing && allowColumnResizing) {
 			// Ignored via go/ees005
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			window.removeEventListener('resize', this.handleWindowResizeDebounced);
+		}
+
+		if (allowColumnResizing) {
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+			window.removeEventListener('resize', this.handleWindowResizeNewDebounced);
 		}
 
 		// Ignored via go/ees005
@@ -531,7 +543,9 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			isTableWidthChanged ||
 			(isTableResizedFullWidth && !options?.isCommentEditor) ||
 			isNumberColumnChanged ||
-			isNumberOfColumnsChanged;
+			isNumberOfColumnsChanged ||
+			(expValEquals('platform_editor_tables_scaling_css', 'isEnabled', true) &&
+				this.state.windowResized);
 
 		if (force || maybeScale || isFullWidthModeAndLineLengthChanged) {
 			const isWidthChanged = this.containerWidth?.width !== containerWidthValue;
@@ -539,15 +553,18 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			const isTableResized = hasTableBeenResized(tableNode);
 			const isColumnsDistributed = wasTableResized && !isTableResized;
 			const isTableDisplayModeChanged = this.node.attrs.displayMode !== tableNode.attrs.displayMode;
-			const shouldUpdateColgroup =
-				isWidthChanged ||
-				isColumnsDistributed ||
-				isTableResizedFullWidth ||
-				isTableWidthChanged ||
-				isTableDisplayModeChanged ||
-				isNumberColumnChanged ||
-				isNumberOfColumnsChanged ||
-				isFullWidthModeAndLineLengthChanged;
+
+			const shouldUpdateColgroup = this.shouldUpdateColgroup({
+				isWindowResized: this.state.windowResized,
+				isWidthChanged,
+				isTableWidthChanged,
+				isColumnsDistributed,
+				isTableResizedFullWidth,
+				isTableDisplayModeChanged,
+				isNumberColumnChanged,
+				isNumberOfColumnsChanged,
+				isFullWidthModeAndLineLengthChanged,
+			});
 
 			const { tableWithFixedColumnWidthsOption = false } = getEditorFeatureFlags();
 
@@ -689,6 +706,13 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			getNode().attrs.displayMode !== 'fixed'
 		) {
 			shouldScale = true;
+			shouldHandleColgroupUpdates = true;
+		}
+
+		if (
+			expValEquals('platform_editor_tables_scaling_css', 'isEnabled', true) &&
+			this.state.windowResized
+		) {
 			shouldHandleColgroupUpdates = true;
 		}
 
@@ -1010,6 +1034,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				tableWrapperHeight={this.state.tableWrapperHeight}
 				isTableResizingEnabled={allowTableResizing}
 				isResizing={isResizing}
+				isWindowResized={this.state.windowResized}
 				isTableScalingEnabled={isTableScalingEnabled}
 				isTableWithFixedColumnWidthsOptionEnabled={tableWithFixedColumnWidthsOption}
 				isWholeTableInDanger={isWholeTableInDanger}
@@ -1422,6 +1447,17 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		});
 	};
 
+	// This is a new handler for window resize events that sets the windowResized state immediately
+	// This is needed to update colgroup on window resize, to enforce the table scaling
+	private handleWindowResizeNew = () => {
+		// Set resizing to true immediately
+		if (!this.state.windowResized) {
+			this.setState({
+				windowResized: true,
+			});
+		}
+	};
+
 	private getParentNodeWidth = () => {
 		const {
 			getPos,
@@ -1454,11 +1490,61 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			options || this.props.options || {},
 		);
 
+	private shouldUpdateColgroup = (params: {
+		isWindowResized: boolean | undefined;
+		isWidthChanged: boolean;
+		isTableWidthChanged: boolean;
+		isColumnsDistributed: boolean;
+		isTableResizedFullWidth: boolean | undefined;
+		isTableDisplayModeChanged: boolean;
+		isNumberColumnChanged: boolean;
+		isNumberOfColumnsChanged: boolean;
+		isFullWidthModeAndLineLengthChanged: boolean | undefined;
+	}): boolean => {
+		const {
+			isWindowResized,
+			isWidthChanged,
+			isTableWidthChanged,
+			isColumnsDistributed,
+			isTableResizedFullWidth,
+			isTableDisplayModeChanged,
+			isNumberColumnChanged,
+			isNumberOfColumnsChanged,
+			isFullWidthModeAndLineLengthChanged,
+		} = params;
+
+		const isFullPageEditor =
+			!this.props.options?.isCommentEditor && !this.props.options?.isChromelessEditor;
+
+		if (expValEquals('platform_editor_tables_scaling_css', 'isEnabled', true) && isFullPageEditor) {
+			return (
+				!!isWindowResized ||
+				isColumnsDistributed ||
+				!!isTableResizedFullWidth ||
+				isTableDisplayModeChanged ||
+				isNumberColumnChanged ||
+				isNumberOfColumnsChanged ||
+				!!isFullWidthModeAndLineLengthChanged
+			);
+		}
+		return (
+			isWidthChanged ||
+			isTableWidthChanged ||
+			isColumnsDistributed ||
+			!!isTableResizedFullWidth ||
+			isTableDisplayModeChanged ||
+			isNumberColumnChanged ||
+			isNumberOfColumnsChanged ||
+			!!isFullWidthModeAndLineLengthChanged
+		);
+	};
+
 	private scaleTableDebounced = rafSchedule(this.scaleTable);
 	private handleTableResizingDebounced = rafSchedule(this.handleTableResizing);
 	private handleScrollDebounced = rafSchedule(this.handleScroll);
 	private handleAutoSizeDebounced = rafSchedule(this.handleAutoSize);
 	private handleWindowResizeDebounced = rafSchedule(this.handleWindowResize);
+	private handleWindowResizeNewDebounced = rafSchedule(this.handleWindowResizeNew);
 	private updateShadowStateDebounced = rafSchedule(this.updateShadowState);
 }
 

@@ -100,7 +100,7 @@ export class MultiValue extends React.Component<Props> {
 		} = this.props;
 		if (isEmail(data)) {
 			// This element is a decorative icon and does not require a label
-			return <AddOptionAvatar isLozenge />;
+			return <AddOptionAvatar isLozenge isPendingAction={data.isPendingAction} />;
 		}
 
 		if (isGroup(data)) {

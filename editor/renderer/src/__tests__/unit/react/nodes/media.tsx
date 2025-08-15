@@ -11,8 +11,9 @@ import type { CardEvent } from '@atlaskit/media-card';
 import type { FileIdentifier, ExternalImageIdentifier } from '@atlaskit/media-client';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { Card } from '@atlaskit/media-card';
+import { Card, CardSync } from '@atlaskit/media-card';
 import { sleep, nextTick, getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
+import { fg } from '@atlaskit/platform-feature-flags';
 import * as mocks from './media.mock';
 import Media from '../../../../react/nodes/media';
 import type { MediaCardProps } from '../../../../ui/MediaCard';
@@ -31,6 +32,7 @@ const doc = require('../../../../../examples/helper/media-layout.adf.json');
 import { MediaClientContext, MediaClientProvider } from '@atlaskit/media-client-react';
 import type { ImageLoaderProps } from '@atlaskit/editor-common/utils';
 import { renderWithIntl } from '../../../__helpers/render';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 jest.mock('../../../../ui/annotations/hooks/use-inline-comments-filter', () => ({
 	...jest.requireActual('../../../../ui/annotations/hooks/use-inline-comments-filter'),
@@ -1187,6 +1189,92 @@ describe('Media', () => {
 
 			expect(mediaExternalCard.childAt(0).html()).toContain('data-node-type="media"');
 			expect(mediaExternalCard.childAt(0).html()).toContain('data-renderer-start-pos="4"');
+		});
+	});
+
+	describe('jfp-magma-ssr-iv-editor-media feature flag', () => {
+		ffTest.on('jfp-magma-ssr-iv-editor-media', '', () => {
+			it('should use CardSync when feature flag is on and enableSyncMediaCard is true', () => {
+				const mediaCard = mount(
+					<MediaClientProvider clientConfig={mediaClientConfig}>
+						<MediaCard type="file" id="1" enableSyncMediaCard={true} />
+					</MediaClientProvider>,
+				);
+
+				expect(mediaCard.find(CardSync)).toHaveLength(1);
+				expect(mediaCard.find(Card)).toHaveLength(0);
+				mediaCard.unmount();
+			});
+
+			it('should use CardAsync when feature flag is on and enableSyncMediaCard is false', () => {
+				fg('jfp-magma-ssr-iv-editor-media'); // the fg is not called with enableSyncMediaCard falsy, this ƒails the test if it does not call the fg
+
+				const mediaCard = mount(
+					<MediaClientProvider clientConfig={mediaClientConfig}>
+						<MediaCard type="file" id="1" enableSyncMediaCard={false} />
+					</MediaClientProvider>,
+				);
+
+				expect(mediaCard.find(Card)).toHaveLength(1);
+				expect(mediaCard.find(CardSync)).toHaveLength(0);
+				mediaCard.unmount();
+			});
+
+			it('should use CardAsync when feature flag is on and enableSyncMediaCard is undefined', () => {
+				fg('jfp-magma-ssr-iv-editor-media'); // the fg is not called with enableSyncMediaCard falsy, this ƒails the test if it does not call the fg
+
+				const mediaCard = mount(
+					<MediaClientProvider clientConfig={mediaClientConfig}>
+						<MediaCard type="file" id="1" />
+					</MediaClientProvider>,
+				);
+
+				expect(mediaCard.find(Card)).toHaveLength(1);
+				expect(mediaCard.find(CardSync)).toHaveLength(0);
+				mediaCard.unmount();
+			});
+		});
+
+		ffTest.off('jfp-magma-ssr-iv-editor-media', '', () => {
+			it('should always use CardAsync when feature flag is off regardless of enableSyncMediaCard', () => {
+				const mediaCard = mount(
+					<MediaClientProvider clientConfig={mediaClientConfig}>
+						<MediaCard type="file" id="1" enableSyncMediaCard={true} />
+					</MediaClientProvider>,
+				);
+
+				expect(mediaCard.find(Card)).toHaveLength(1);
+				expect(mediaCard.find(CardSync)).toHaveLength(0);
+				mediaCard.unmount();
+			});
+
+			it('should use CardAsync when feature flag is off and enableSyncMediaCard is false', () => {
+				fg('jfp-magma-ssr-iv-editor-media');
+
+				const mediaCard = mount(
+					<MediaClientProvider clientConfig={mediaClientConfig}>
+						<MediaCard type="file" id="1" enableSyncMediaCard={false} />
+					</MediaClientProvider>,
+				);
+
+				expect(mediaCard.find(Card)).toHaveLength(1);
+				expect(mediaCard.find(CardSync)).toHaveLength(0);
+				mediaCard.unmount();
+			});
+
+			it('should use CardAsync when feature flag is off and enableSyncMediaCard is undefined', () => {
+				fg('jfp-magma-ssr-iv-editor-media'); // the fg is not called with enableSyncMediaCard falsy, this ƒails the test if it does not call the fg
+
+				const mediaCard = mount(
+					<MediaClientProvider clientConfig={mediaClientConfig}>
+						<MediaCard type="file" id="1" />
+					</MediaClientProvider>,
+				);
+
+				expect(mediaCard.find(Card)).toHaveLength(1);
+				expect(mediaCard.find(CardSync)).toHaveLength(0);
+				mediaCard.unmount();
+			});
 		});
 	});
 });

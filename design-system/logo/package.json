@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/logo",
-	"version": "19.6.2",
+	"version": "19.7.0",
 	"description": "A logo is a visual representation of a brand or app. It can be a word, an image, or a combination of both.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -125,6 +125,9 @@
 	},
 	"platform-feature-flags": {
 		"platform-logo-rebrand": {
+			"type": "boolean"
+		},
+		"platform-logo-rebrand-servco": {
 			"type": "boolean"
 		}
 	},

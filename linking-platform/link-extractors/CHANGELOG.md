@@ -1,5 +1,13 @@
 # @atlaskit/link-extractors
 
+## 2.4.3
+
+### Patch Changes
+
+- [`2a46c52a9d189`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a46c52a9d189) -
+  NAVX-1307 cleaning up smart-links-noun-support
+- Updated dependencies
+
 ## 2.4.2
 
 ### Patch Changes

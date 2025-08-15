@@ -3,8 +3,9 @@ import { type MediaClientConfig } from '@atlaskit/media-core';
 import { StoryBookAuthProvider } from './authProvider';
 import { collectionNames } from './collectionNames';
 import { type MediaEnv, mediaPickerAuthProvider } from './mediaPickerAuthProvider';
+import { MEDIA_BASE_URL } from './mediaBaseURLS';
 
-export const defaultBaseUrl = 'https://media.staging.atl-paas.net';
+export const defaultBaseUrl = MEDIA_BASE_URL;
 
 export const defaultParams = {
 	clientId: '5a9812fc-d029-4a39-8a46-d3cc36eed7ab',

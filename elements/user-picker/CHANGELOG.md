@@ -1,5 +1,17 @@
 # @atlaskit/user-picker
 
+## 11.5.0
+
+### Minor Changes
+
+- [`67cac32256ce7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/67cac32256ce7) -
+  [ux] Adding support to customise the email icon colours to indicate an action can be taken for the
+  user.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.4.3
 
 ### Patch Changes

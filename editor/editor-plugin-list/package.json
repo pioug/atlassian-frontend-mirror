@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-list",
-	"version": "5.1.2",
+	"version": "5.1.4",
 	"description": "List plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -84,9 +84,6 @@
 	},
 	"platform-feature-flags": {
 		"platform_editor_split_list_item_for_gap_cursor": {
-			"type": "boolean"
-		},
-		"platform_editor_ol_padding_fix": {
 			"type": "boolean"
 		}
 	},

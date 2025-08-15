@@ -26,6 +26,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables';
 import { findTable } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {
 	tableCellView,
@@ -131,24 +132,46 @@ export const createPlugin = (
 		return editorView.state;
 	};
 
-	const nodeViews =
-		isSSR() && fg('platform_editor_table_fallback_to_dom_on_ssr')
-			? undefined
-			: {
-					table: tableView({
-						portalProviderAPI,
-						eventDispatcher,
-						getEditorContainerWidth,
-						getEditorFeatureFlags,
-						dispatchAnalyticsEvent,
-						pluginInjectionApi,
-						isCommentEditor,
-						isChromelessEditor,
-					}),
-					tableRow: tableRowView({ eventDispatcher, pluginInjectionApi }),
-					tableCell: tableCellView({ eventDispatcher, pluginInjectionApi }),
-					tableHeader: tableHeaderView({ eventDispatcher, pluginInjectionApi }),
-				};
+	const getNodeView = () => {
+		// Because the layout shift issues has been fixed under experiment platform_editor_tables_scaling_css, so still want to load nodeview on SSR if experiment is enabled
+		if (expValEquals('platform_editor_tables_scaling_css', 'isEnabled', true)) {
+			return {
+				table: tableView({
+					portalProviderAPI,
+					eventDispatcher,
+					getEditorContainerWidth,
+					getEditorFeatureFlags,
+					dispatchAnalyticsEvent,
+					pluginInjectionApi,
+					isCommentEditor,
+					isChromelessEditor,
+				}),
+				tableRow: tableRowView({ eventDispatcher, pluginInjectionApi }),
+				tableCell: tableCellView({ eventDispatcher, pluginInjectionApi }),
+				tableHeader: tableHeaderView({ eventDispatcher, pluginInjectionApi }),
+			};
+		}
+		if (isSSR() && fg('platform_editor_table_fallback_to_dom_on_ssr')) {
+			return undefined;
+		}
+		return {
+			table: tableView({
+				portalProviderAPI,
+				eventDispatcher,
+				getEditorContainerWidth,
+				getEditorFeatureFlags,
+				dispatchAnalyticsEvent,
+				pluginInjectionApi,
+				isCommentEditor,
+				isChromelessEditor,
+			}),
+			tableRow: tableRowView({ eventDispatcher, pluginInjectionApi }),
+			tableCell: tableCellView({ eventDispatcher, pluginInjectionApi }),
+			tableHeader: tableHeaderView({ eventDispatcher, pluginInjectionApi }),
+		};
+	};
+
+	const nodeViews = getNodeView();
 	return new SafePlugin({
 		state: state,
 		key: pluginKey,

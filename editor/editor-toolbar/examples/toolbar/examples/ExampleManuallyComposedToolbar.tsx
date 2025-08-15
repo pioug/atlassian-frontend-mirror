@@ -162,16 +162,12 @@ export const ExampleManuallyComposedToolbar = () => {
 							<ToolbarButton
 								iconBefore={<AIChatIcon label="Ask Rovo" />}
 								onClick={onClick('Ask Rovo')}
-								groupLocation="start"
 								isDisabled={isRovoDisabled}
 							>
 								Ask Rovo
 							</ToolbarButton>
 						</ToolbarTooltip>
-						<ToolbarDropdownMenu
-							iconBefore={<MoreItemsIcon label="More formatting" />}
-							groupLocation="end"
-						>
+						<ToolbarDropdownMenu iconBefore={<MoreItemsIcon label="More formatting" />}>
 							<ToolbarDropdownItemSection>
 								<ToolbarNestedDropdownMenu
 									elemBefore={<AIAdjustLengthIcon label="Adjust length" />}
@@ -380,16 +376,12 @@ export const ExampleManuallyComposedToolbar = () => {
 									formatting.italic && !formatting.bold ? 'Italic' : 'Bold',
 									onToggleFormatting(formatting.italic && !formatting.bold ? 'italic' : 'bold'),
 								)}
-								groupLocation="start"
 								isSelected={formatting.bold || formatting.italic}
 								isDisabled={formatting.italic ? isItalicDisabled : isBoldDisabled}
 								ariaKeyshortcuts={formatting.italic && !formatting.bold ? '⌘I' : '⌘B'}
 							/>
 						</ToolbarTooltip>
-						<ToolbarDropdownMenu
-							iconBefore={<MoreItemsIcon label="More formatting" />}
-							groupLocation="end"
-						>
+						<ToolbarDropdownMenu iconBefore={<MoreItemsIcon label="More formatting" />}>
 							<ToolbarDropdownItemSection>
 								<ToolbarDropdownItem
 									elemBefore={<BoldIcon label="Bold" />}
@@ -471,7 +463,6 @@ export const ExampleManuallyComposedToolbar = () => {
 									listOrAlignment === 'numbered' ? 'Numbered list' : 'Bulleted list',
 									onToggleListOrAlignment(listOrAlignment === 'numbered' ? 'numbered' : 'bulleted'),
 								)}
-								groupLocation="start"
 								isSelected={listOrAlignment !== 'none'}
 								isDisabled={
 									listOrAlignment === 'numbered' ? isNumberedListDisabled : isBulletedListDisabled
@@ -480,7 +471,6 @@ export const ExampleManuallyComposedToolbar = () => {
 						</ToolbarTooltip>
 						<ToolbarDropdownMenu
 							iconBefore={<MoreItemsIcon label="Lists, indentation and alignment" />}
-							groupLocation="end"
 						>
 							<ToolbarDropdownItemSection>
 								<ToolbarDropdownItem

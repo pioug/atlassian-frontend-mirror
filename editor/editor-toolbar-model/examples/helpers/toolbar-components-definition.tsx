@@ -74,13 +74,9 @@ export const registerAIToolbarComponents = (): Array<RegisterComponent> => {
 					rank: 10,
 				},
 			],
-			component: ({ groupLocation }) => {
+			component: () => {
 				return (
-					<ToolbarButton
-						iconBefore={<AIChatIcon label="Ask Rovo" />}
-						onClick={() => {}}
-						groupLocation={groupLocation}
-					>
+					<ToolbarButton iconBefore={<AIChatIcon label="Ask Rovo" />} onClick={() => {}}>
 						Ask Rovo
 					</ToolbarButton>
 				);
@@ -96,12 +92,9 @@ export const registerAIToolbarComponents = (): Array<RegisterComponent> => {
 					rank: 10,
 				},
 			],
-			component: ({ children, groupLocation }) => {
+			component: ({ children }) => {
 				return (
-					<ToolbarDropdownMenu
-						iconBefore={<MoreItemsIcon label="More formatting" />}
-						groupLocation={groupLocation}
-					>
+					<ToolbarDropdownMenu iconBefore={<MoreItemsIcon label="More formatting" />}>
 						{children}
 					</ToolbarDropdownMenu>
 				);
@@ -567,12 +560,11 @@ export const registerTextFormattingToolbarComponents = (): Array<RegisterCompone
 					rank: 10,
 				},
 			],
-			component: ({ groupLocation }) => {
+			component: () => {
 				return (
 					<ToolbarButton
 						iconBefore={<BoldIcon label="Bold" />}
 						onClick={() => {}}
-						groupLocation={groupLocation}
 						isSelected={false}
 					/>
 				);
@@ -588,12 +580,9 @@ export const registerTextFormattingToolbarComponents = (): Array<RegisterCompone
 					rank: 10,
 				},
 			],
-			component: ({ children, groupLocation }) => {
+			component: ({ children }) => {
 				return (
-					<ToolbarDropdownMenu
-						iconBefore={<MoreItemsIcon label="More formatting" />}
-						groupLocation={groupLocation}
-					>
+					<ToolbarDropdownMenu iconBefore={<MoreItemsIcon label="More formatting" />}>
 						{children}
 					</ToolbarDropdownMenu>
 				);
@@ -801,12 +790,9 @@ export const registerListsToolbarComponents = (): Array<RegisterComponent> => {
 					rank: 10,
 				},
 			],
-			component: ({ children, groupLocation }) => {
+			component: ({ children }) => {
 				return (
-					<ToolbarDropdownMenu
-						iconBefore={<MoreItemsIcon label="Lists" />}
-						groupLocation={groupLocation}
-					>
+					<ToolbarDropdownMenu iconBefore={<MoreItemsIcon label="Lists" />}>
 						{children}
 					</ToolbarDropdownMenu>
 				);

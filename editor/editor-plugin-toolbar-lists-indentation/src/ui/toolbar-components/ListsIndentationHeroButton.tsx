@@ -17,22 +17,16 @@ import {
 	ToolbarButton,
 	ToolbarTooltip,
 } from '@atlaskit/editor-toolbar';
-import type { ToolbarButtonGroupLocation } from '@atlaskit/editor-toolbar';
 import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
 
 import type { ToolbarListsIndentationPlugin } from '../../toolbarListsIndentationPluginType';
 
 type ListsIndentationHeroButtonProps = {
 	api?: ExtractInjectionAPI<ToolbarListsIndentationPlugin>;
-	groupLocation?: ToolbarButtonGroupLocation;
 	parents: ToolbarComponentTypes;
 };
 
-export const ListsIndentationHeroButton = ({
-	api,
-	groupLocation,
-	parents,
-}: ListsIndentationHeroButtonProps) => {
+export const ListsIndentationHeroButton = ({ api, parents }: ListsIndentationHeroButtonProps) => {
 	const { formatMessage } = useIntl();
 
 	const { bulletListActive, bulletListDisabled, orderedListActive } =
@@ -71,7 +65,6 @@ export const ListsIndentationHeroButton = ({
 						<ListBulletedIcon label={formatMessage(listMessages.bulletedList)} />
 					)
 				}
-				groupLocation={groupLocation}
 				isSelected={bulletListActive || orderedListActive}
 				isDisabled={!orderedListActive && bulletListDisabled}
 				ariaKeyshortcuts={shortcut}

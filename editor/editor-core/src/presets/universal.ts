@@ -93,6 +93,7 @@ export type InitialPluginConfiguration = {
 		quickInsertActionDescription?: string;
 		requestEditPermission?: () => void;
 		taskPlaceholder?: string;
+		allowBlockTaskItem?: boolean;
 	};
 	extensionPlugin?: {
 		__rendererExtensionOptions?: ExtensionPluginOptions['__rendererExtensionOptions'];

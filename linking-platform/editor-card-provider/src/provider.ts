@@ -357,12 +357,7 @@ export class EditorCardProvider
 			isJiraFormEvaluated = isJiraForm(url);
 		}
 
-		let isJiraSummaryEvaluated;
-		if (
-			this.getExperimentValue('jsw-summary-page-embed-smart-link-experiment', 'isEnabled', false)
-		) {
-			isJiraSummaryEvaluated = isJiraSummary(url);
-		}
+		const isJiraSummaryEvaluated = isJiraSummary(url);
 
 		let isConfluenceTeamCalendarsEvaluated;
 		if (fg('tc_smart_link_embed_view')) {

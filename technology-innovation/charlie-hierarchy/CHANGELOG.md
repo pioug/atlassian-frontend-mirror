@@ -1,5 +1,19 @@
 # @atlaskit/charlie-hierarchy
 
+## 0.1.1
+
+### Patch Changes
+
+- [`d20026853a75b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d20026853a75b) -
+  [ux] Support basic stacking functionality
+
+## 0.1.0
+
+### Minor Changes
+
+- [`6e47d2a4d95a7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e47d2a4d95a7) -
+  Added export
+
 ## 0.0.7
 
 ### Patch Changes

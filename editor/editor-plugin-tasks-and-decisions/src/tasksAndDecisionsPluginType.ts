@@ -11,7 +11,7 @@ import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';
 
 import type { insertTaskDecisionCommand } from './pm-plugins/insert-commands';
 import type { getIndentCommand, getUnindentCommand } from './pm-plugins/keymaps';
-import type { TaskAndDecisionsSharedState, TaskDecisionPluginOptions } from './types';
+import type { TaskAndDecisionsSharedState, TasksAndDecisionsPluginOptions } from './types';
 
 export type TasksAndDecisionsPluginDependencies = [
 	OptionalPlugin<TypeAheadPlugin>,
@@ -23,7 +23,7 @@ export type TasksAndDecisionsPluginDependencies = [
 export type TasksAndDecisionsPlugin = NextEditorPlugin<
 	'taskDecision',
 	{
-		pluginConfiguration: TaskDecisionPluginOptions | undefined;
+		pluginConfiguration: TasksAndDecisionsPluginOptions | undefined;
 		sharedState: TaskAndDecisionsSharedState | undefined;
 		dependencies: TasksAndDecisionsPluginDependencies;
 		actions: {

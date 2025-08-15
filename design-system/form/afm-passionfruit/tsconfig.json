@@ -36,6 +36,9 @@
 			"path": "../../icon/afm-passionfruit/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags/afm-passionfruit/tsconfig.json"
+		},
+		{
 			"path": "../../primitives/afm-passionfruit/tsconfig.json"
 		},
 		{

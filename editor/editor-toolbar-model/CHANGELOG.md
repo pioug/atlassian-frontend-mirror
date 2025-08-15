@@ -1,5 +1,20 @@
 # @atlaskit/editor-toolbar-model
 
+## 0.1.1
+
+### Patch Changes
+
+- [`3145f278b1f7a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3145f278b1f7a) -
+  [ux] [ED-28473] minor UI updates for editor-toolbar
+
+  - Use ADS ButtonGroup for ToolbarButtonGroup
+  - Remove groupLocation prop and use CSS instead
+  - Use DropdownItemGroup for ToolbarDropdownItemSection and expand props for section separator and
+    title
+  - Support ReactNode as content for ToolbarTooltip and add missing shortcuts in tooltips
+  - Center Icons for split buttons and make chevron icon 24px wide
+  - Align dropdown menu UI with current editor design
+
 ## 0.1.0
 
 ### Minor Changes

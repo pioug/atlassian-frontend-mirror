@@ -1,0 +1,42 @@
+import React, { forwardRef, type ReactNode } from 'react';
+
+import { cssMap } from '@atlaskit/css';
+import { Flex, Text } from '@atlaskit/primitives/compiled';
+
+const styles = cssMap({
+	root: {
+		minWidth: 'max-content',
+	},
+});
+
+export interface SpotlightStepCountProps {
+	/**
+	 * A `testId` prop is provided for specified elements, which is a unique
+	 * string that appears as a data attribute `data-testid` in the rendered code,
+	 * serving as a hook for automated tests
+	 */
+	testId?: string;
+
+	/**
+	 * Elements to be rendered inside the `SpotlightStepCount`.
+	 */
+	children?: ReactNode;
+}
+
+/**
+ * __Spotlight StepCount__
+ *
+ * `SpotlightStepCount` groups `SpotlightAction` components.
+ *
+ */
+export const SpotlightStepCount = forwardRef<HTMLSpanElement, SpotlightStepCountProps>(
+	({ children, testId }: SpotlightStepCountProps, ref) => {
+		return (
+			<Flex xcss={styles.root}>
+				<Text ref={ref} testId={testId}>
+					{children}
+				</Text>
+			</Flex>
+		);
+	},
+);

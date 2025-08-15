@@ -1,11 +1,8 @@
 import React, { useContext, useMemo } from 'react';
 import { createStore, type Reducer } from 'redux';
-import { type JsonLd } from '@atlaskit/json-ld-types';
 import merge from 'lodash/merge';
 import { type CardStore, getUrl } from '@atlaskit/linking-common';
-import { fg } from '@atlaskit/platform-feature-flags';
 import {
-	extractPreview,
 	type LinkPreview,
 	type CardPlatform,
 	extractSmartLinkEmbed,
@@ -57,11 +54,7 @@ export function SmartCardProvider({
 		): LinkPreview | undefined => {
 			const cardState = getUrl(store, url);
 
-			return cardState.details
-				? fg('smart_links_noun_support')
-					? extractSmartLinkEmbed(cardState.details)
-					: extractPreview(cardState.details.data as JsonLd.Data.BaseData, platform)
-				: undefined;
+			return cardState.details ? extractSmartLinkEmbed(cardState.details) : undefined;
 		};
 
 		return {

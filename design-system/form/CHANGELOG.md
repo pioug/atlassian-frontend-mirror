@@ -1,5 +1,14 @@
 # @atlaskit/form
 
+## 12.1.0
+
+### Minor Changes
+
+- [`a32c90b3928be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a32c90b3928be) -
+  We are testing a fix to message components behind a feature flag. There was an issue with messages
+  that made them not announce when using screenreaders, this has been fixed by adding a slight delay
+  to render message content. If this fix is successful it will be available in a later release.
+
 ## 12.0.16
 
 ### Patch Changes

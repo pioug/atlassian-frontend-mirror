@@ -1,7 +1,7 @@
 import React from 'react';
 
 import type { PanelAttributes } from '@atlaskit/adf-schema';
-import { extendedPanel, extendedPanelWithLocalId, PanelType, uuid } from '@atlaskit/adf-schema';
+import { extendedPanel, extendedPanelWithLocalId, PanelType } from '@atlaskit/adf-schema';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -253,11 +253,6 @@ function createPanelAction({
 }) {
 	const { panel } = state.schema.nodes;
 	let tr;
-
-	const panelAttrs = fg('platform_editor_adf_with_localid')
-		? { ...attributes, localId: attributes.localId || uuid.generate() }
-		: { ...attributes };
-
 	/*
 		During investigation of go/j/ED-26928 I found that the behaviour of this experience was very
 		inconsistent. I reached out to Nicole* for a design review, and she confirmed that the desired
@@ -267,7 +262,7 @@ function createPanelAction({
 	if (expValEquals('platform_editor_fix_quick_insert_consistency_exp', 'isEnabled', true)) {
 		// If the selection is empty, we want to insert the panel on a new line
 		if (state.selection.empty) {
-			const node = panel.createAndFill(panelAttrs);
+			const node = panel.createAndFill({ ...attributes });
 
 			if (!node) {
 				return false;
@@ -284,7 +279,7 @@ function createPanelAction({
 			tr = createWrapSelectionTransaction({
 				state,
 				type: panel,
-				nodeAttributes: panelAttrs,
+				nodeAttributes: { ...attributes },
 			});
 		}
 	} else {
@@ -296,10 +291,10 @@ function createPanelAction({
 				createWrapSelectionTransaction({
 					state,
 					type: panel,
-					nodeAttributes: panelAttrs,
+					nodeAttributes: { ...attributes },
 				});
 		} else {
-			const node = panel.createAndFill(panelAttrs);
+			const node = panel.createAndFill({ ...attributes });
 
 			if (!node) {
 				return false;

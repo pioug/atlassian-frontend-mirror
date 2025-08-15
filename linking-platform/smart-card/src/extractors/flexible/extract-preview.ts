@@ -1,12 +1,6 @@
 import { type JsonLd } from '@atlaskit/json-ld-types';
-import {
-	extractEntity,
-	extractEntityProvider,
-	extractImage,
-	isEntityPresent,
-} from '@atlaskit/link-extractors';
+import { extractEntity, extractImage, isEntityPresent } from '@atlaskit/link-extractors';
 import { type SmartLinkResponse } from '@atlaskit/linking-types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { MediaType } from '../../constants';
 import { type Media } from '../../state/flexible-ui-context/types';
@@ -34,11 +28,6 @@ export const extractSmartLinkPreviewImage = (response?: SmartLinkResponse): Medi
 	if (isEntityPresent(response)) {
 		const entity = extractEntity(response);
 		let url = entity?.thumbnail?.externalUrl;
-
-		if (!url && !fg('smart_links_noun_support')) {
-			const provider = extractEntityProvider(response);
-			url = provider?.image;
-		}
 
 		return url ? { type: MediaType.Image, url } : undefined;
 	}

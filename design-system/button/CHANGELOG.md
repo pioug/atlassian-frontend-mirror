@@ -1,5 +1,12 @@
 # @atlaskit/button
 
+## 23.4.0
+
+### Minor Changes
+
+- [`6c62bb96f6bdf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6c62bb96f6bdf) -
+  Updates to loading animation overlay not to overflow in scrollable containers.
+
 ## 23.3.2
 
 ### Patch Changes

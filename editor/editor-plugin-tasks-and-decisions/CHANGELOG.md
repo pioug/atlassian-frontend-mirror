@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 6.3.0
+
+### Minor Changes
+
+- [`f29ffcfb885c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f29ffcfb885c7) -
+  EDITOR-1338 Adds `allowBlockTaskItem` property to tasks and decisions plugin to enable
+  blockTaskItem for Confluence TinyMCE migration flows
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.2.4
 
 ### Patch Changes

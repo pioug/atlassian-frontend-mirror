@@ -36,7 +36,6 @@ import {
 	StrikeThroughIcon,
 	SubscriptIcon,
 	SuperscriptIcon,
-	type ToolbarButtonGroupLocation,
 } from '@atlaskit/editor-toolbar';
 import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
 
@@ -67,7 +66,6 @@ export type FormatComponentProps = {
 		| ToggleMarkWithAnalyticsEditorCommand
 		| ClearFormattingWithAnalyticsEditorCommand;
 	ariaLabel?: string;
-	groupLocation?: ToolbarButtonGroupLocation;
 };
 
 const FormatMarkSchema: Record<FormatOptions, string> = {

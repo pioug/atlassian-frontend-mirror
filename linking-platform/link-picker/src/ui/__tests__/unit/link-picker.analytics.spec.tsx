@@ -1208,7 +1208,7 @@ describe('LinkPicker analytics', () => {
 				additionalError: 'Form is invalid',
 			});
 			expect(screen.queryByTestId('link-error')).toBeInTheDocument();
-			expect(screen.getByText('Form is invalid')).toBeInTheDocument();
+			expect(await screen.findByText('Form is invalid')).toBeInTheDocument();
 			const insertButton = screen.getByTestId('link-picker-insert-button');
 			await user.click(insertButton);
 			expect(onSubmit).not.toHaveBeenCalled();

@@ -346,7 +346,5 @@ snapshot(FlexibleUiBlockCardErroredStates, {
 // Nouns
 snapshot(FlexibleUiBlockEntities, {
 	ignoredErrors: [],
-	featureFlags: {
-		smart_links_noun_support: true,
-	},
+	featureFlags: {},
 });

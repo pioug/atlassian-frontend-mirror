@@ -38,12 +38,16 @@ const allVariantsOptions: OptionsType = {
 
 snapshot(DefaultExample, {
 	...allVariantsOptions,
-	featureFlags: {},
+	featureFlags: {
+		'navx-1368-link-picker-a11y-mandatory-states': true,
+	},
 });
 
 snapshot(WithCancelExample, {
 	...allVariantsOptions,
-	featureFlags: {},
+	featureFlags: {
+		'navx-1368-link-picker-a11y-mandatory-states': true,
+	},
 });
 
 snapshot(ErrorBoundaryExample, {
@@ -60,42 +64,62 @@ snapshot(ErrorBoundaryExample, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
-	featureFlags: {},
+	featureFlags: {
+		'navx-1368-link-picker-a11y-mandatory-states': true,
+	},
 });
 
 snapshot(PluginErrorExample, {
 	...allVariantsOptions,
-	featureFlags: {},
+	featureFlags: {
+		'navx-1368-link-picker-a11y-mandatory-states': true,
+	},
 });
 
 snapshot(UnauthenticatedErrorExample, {
 	...allVariantsOptions,
-	featureFlags: {},
+	featureFlags: {
+		'navx-1368-link-picker-a11y-mandatory-states': true,
+	},
 });
 
 /** Width examples */
 snapshot(DisableWidthExample, {
-	featureFlags: {},
+	featureFlags: {
+		'navx-1368-link-picker-a11y-mandatory-states': true,
+	},
 });
 snapshot(DisableWidthWithPluginsExample, {
-	featureFlags: {},
+	featureFlags: {
+		'navx-1368-link-picker-a11y-mandatory-states': true,
+	},
 });
 snapshot(DisableWidth500Example, {
-	featureFlags: {},
+	featureFlags: {
+		'navx-1368-link-picker-a11y-mandatory-states': true,
+	},
 });
 snapshot(DisableWidth500ExampleWithPlugins, {
-	featureFlags: {},
+	featureFlags: {
+		'navx-1368-link-picker-a11y-mandatory-states': true,
+	},
 });
 snapshot(DisableWidth300Example, {
-	featureFlags: {},
+	featureFlags: {
+		'navx-1368-link-picker-a11y-mandatory-states': true,
+	},
 });
 snapshot(DisableWidth300ExampleWithPlugins, {
-	featureFlags: {},
+	featureFlags: {
+		'navx-1368-link-picker-a11y-mandatory-states': true,
+	},
 });
 
 /** Padding examples */
 snapshot(ZeroPaddingExample, {
-	featureFlags: {},
+	featureFlags: {
+		'navx-1368-link-picker-a11y-mandatory-states': true,
+	},
 });
 snapshot(LargePaddingUsingTokensExample, {
 	variants: [
@@ -106,17 +130,25 @@ snapshot(LargePaddingUsingTokensExample, {
 			},
 		},
 	],
-	featureFlags: {},
+	featureFlags: {
+		'navx-1368-link-picker-a11y-mandatory-states': true,
+	},
 });
 
 snapshot(VaryingPaddingsExample, {
-	featureFlags: {},
+	featureFlags: {
+		'navx-1368-link-picker-a11y-mandatory-states': true,
+	},
 });
 
 /** Custom empty state */
 snapshot(CustomEmptyStateExample, {
-	featureFlags: {},
+	featureFlags: {
+		'navx-1368-link-picker-a11y-mandatory-states': true,
+	},
 });
 snapshot(CustomEmptyStateWithAdaptiveHeightExample, {
-	featureFlags: {},
+	featureFlags: {
+		'navx-1368-link-picker-a11y-mandatory-states': true,
+	},
 });

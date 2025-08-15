@@ -56,6 +56,9 @@ export type SelectionExtensionPlugin = NextEditorPlugin<
 			replaceWithAdf: (nodeAdf: ADFEntity) => ReplaceWithAdfResult;
 			insertAdfAtEndOfDoc: (nodeAdf: ADFEntity) => InsertAdfAtEndOfDocResult;
 			getSelectionAdf: () => SelectionAdfResult;
+			getDocumentFromSelection: () => {
+				selectedNodeAdf?: ADFEntity;
+			} | null;
 			getSelectionText: () => SelectionTextResult;
 		};
 	}

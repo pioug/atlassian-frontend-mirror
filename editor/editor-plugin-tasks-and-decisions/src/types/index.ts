@@ -89,6 +89,11 @@ export interface TasksAndDecisionsPluginOptions extends LongPressSelectionPlugin
 	 * Placeholder text to display when creating a task.
 	 */
 	taskPlaceholder?: string;
+
+	/**
+	 * Allows the blockTaskItem node to be a child of taskList (taskItem variant that supports block children - currently only supports extension and is intended to support Confluence TinyMCE migration flows in conjunction with the Legacy Content Extension)
+	 */
+	allowBlockTaskItem?: boolean;
 }
 
 /**

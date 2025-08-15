@@ -60,9 +60,7 @@ export const getToolbarComponents = ({
 					rank: LISTS_INDENTATION_GROUP_RANK[LISTS_INDENTATION_HERO_BUTTON.key],
 				},
 			],
-			component: ({ groupLocation, parents }) => (
-				<ListsIndentationHeroButton api={api} groupLocation={groupLocation} parents={parents} />
-			),
+			component: ({ parents }) => <ListsIndentationHeroButton api={api} parents={parents} />,
 		},
 		{
 			type: LISTS_INDENTATION_MENU.type,
@@ -74,10 +72,9 @@ export const getToolbarComponents = ({
 					rank: LISTS_INDENTATION_GROUP_RANK[LISTS_INDENTATION_MENU.key],
 				},
 			],
-			component: ({ children, groupLocation }) => (
+			component: ({ children }) => (
 				<ListsIndentationMenu
 					api={api}
-					groupLocation={groupLocation}
 					allowHeadingAndParagraphIndentation={allowHeadingAndParagraphIndentation}
 				>
 					{children}

@@ -6,12 +6,13 @@ import type { ReactNode } from 'react';
 import { Component } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx, keyframes } from '@emotion/react';
 
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import createAndFireEvent from '@atlaskit/analytics-next/createAndFireEvents';
 import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
 import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import Layer from '../Layer';
@@ -21,6 +22,15 @@ const packageVersion = process.env._PACKAGE_VERSION_;
 
 const halfFocusRing = 1;
 const dropOffset = '0, 8';
+
+const fadeIn = keyframes({
+	'0%': {
+		opacity: 0,
+	},
+	'100%': {
+		opacity: 1,
+	},
+});
 
 export interface Props extends WithAnalyticsEventsProps {
 	isOpen?: boolean;
@@ -62,6 +72,12 @@ class DropList extends Component<Props> {
 		display: this.props.shouldFitContainer ? 'block' : 'inline-flex',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		boxSizing: this.props.shouldFitContainer ? 'border-box' : undefined,
+	});
+
+	private motionStyles = css({
+		animationName: `${fadeIn}`,
+		animationDuration: '360ms',
+		animationTimingFunction: 'cubic-bezier(0.8, 0, 0, 1)',
 	});
 
 	/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
@@ -181,14 +197,20 @@ class DropList extends Component<Props> {
 		) : null;
 
 		return (
-			<div css={this.wrapperStyles} ref={this.handleDroplistRef}>
+			<div
+				css={[this.wrapperStyles, fg('p2m-drop-down-motion') && this.motionStyles]}
+				ref={this.handleDroplistRef}
+			>
 				<Layer
 					content={layerContent}
 					offset={dropOffset}
 					position={position}
 					onPositioned={onPositioned}
 				>
-					<div css={this.triggerStyles} ref={this.handleTriggerRef}>
+					<div
+						css={[this.triggerStyles, fg('p2m-drop-down-motion') && this.motionStyles]}
+						ref={this.handleTriggerRef}
+					>
 						{trigger}
 					</div>
 				</Layer>

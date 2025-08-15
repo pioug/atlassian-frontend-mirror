@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/form",
-	"version": "12.0.16",
+	"version": "12.1.0",
 	"description": "A form allows users to input information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -29,6 +29,7 @@
 		"@atlaskit/ds-lib": "workspace:^",
 		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
@@ -61,6 +62,7 @@
 		"@atlaskit/textfield": "workspace:^",
 		"@atlaskit/toggle": "workspace:^",
 		"@atlaskit/visual-regression": "workspace:^",
+		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/react-hooks": "root:*",
@@ -130,5 +132,10 @@
 		"./Label": "./src/entry-points/label.tsx",
 		".": "./src/index.tsx"
 	},
-	"homepage": "https://atlassian.design/components/form/"
+	"homepage": "https://atlassian.design/components/form/",
+	"platform-feature-flags": {
+		"platform_dst_form_screenreader_message_fix": {
+			"type": "boolean"
+		}
+	}
 }

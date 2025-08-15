@@ -1,5 +1,20 @@
 # @atlaskit/spotlight
 
+## 0.0.14
+
+### Patch Changes
+
+- [`85a83a17c7d56`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/85a83a17c7d56) -
+  Tweak offset of caret positioning so as not to overlap the target component.
+- Updated dependencies
+
+## 0.0.13
+
+### Patch Changes
+
+- [`15963c2a4fb01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/15963c2a4fb01) -
+  Create StepCount component.
+
 ## 0.0.12
 
 ### Patch Changes

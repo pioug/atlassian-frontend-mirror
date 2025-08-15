@@ -1,5 +1,31 @@
 # @atlaskit/smart-card
 
+## 40.10.5
+
+### Patch Changes
+
+- [`2a46c52a9d189`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a46c52a9d189) -
+  NAVX-1307 cleaning up smart-links-noun-support
+- [`f72b5d8c897b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f72b5d8c897b8) -
+  [ux] Add ownedBy support for passionfruit-object-provider smart-link resolver under
+  `passionfruit_ask_smart_links_enabled` feature-gate
+- Updated dependencies
+
+## 40.10.4
+
+### Patch Changes
+
+- [`72230d76e232a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/72230d76e232a) -
+  NAVX-1308 cleaning up platform-linking-slack-entity-support
+- Updated dependencies
+
+## 40.10.3
+
+### Patch Changes
+
+- [`eeed50fbee70e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eeed50fbee70e) -
+  Updated SmartCard module for legal spec changes for 3P Click Analytics
+
 ## 40.10.2
 
 ### Patch Changes

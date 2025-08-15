@@ -168,6 +168,9 @@
 		},
 		{
 			"path": "../../design-system/tokens/tsconfig.app.json"
+		},
+		{
+			"path": "../../elements/util-data-test/tsconfig.app.json"
 		}
 	]
 }

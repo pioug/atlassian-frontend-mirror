@@ -7,8 +7,17 @@ import type { DOMOutputSpec, NodeSpec, Node as PMNode } from '@atlaskit/editor-p
 import { akEditorGutterPaddingDynamic } from '@atlaskit/editor-shared-styles';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import { generateColgroup, getResizerMinWidth } from '../pm-plugins/table-resizing/utils/colgroup';
+import {
+	generateColgroup,
+	generateColgroupFromNode,
+	getResizerMinWidth,
+} from '../pm-plugins/table-resizing/utils/colgroup';
 import { TABLE_MAX_WIDTH } from '../pm-plugins/table-resizing/utils/consts';
+import {
+	getTableResizerContainerMaxWidthInCSS,
+	getTableResizerContainerForFullPageWidthInCSS,
+	getTableResizerItemWidthInCSS,
+} from '../pm-plugins/table-resizing/utils/misc';
 
 import { getAlignmentStyle } from './table-container-styles';
 
@@ -17,6 +26,11 @@ type Config = {
 	tableResizingEnabled: boolean;
 	getEditorContainerWidth: GetEditorContainerWidth;
 	isNestingSupported?: boolean;
+	isTableScalingEnabled?: boolean;
+	shouldUseIncreasedScalingPercent?: boolean;
+	isCommentEditor?: boolean;
+	isChromelessEditor?: boolean;
+	isNested?: boolean;
 };
 export const tableNodeSpecWithFixedToDOM = (
 	config: Config,
@@ -40,6 +54,10 @@ export const tableNodeSpecWithFixedToDOM = (
 
 			const tableMinWidth = getResizerMinWidth(node);
 
+			const tableWidthAttribute = node.attrs.width ? `${node.attrs.width}px` : `100%`;
+
+			const isFullPageEditor = !config.isChromelessEditor && !config.isCommentEditor;
+
 			const attrs = {
 				'data-number-column': node.attrs.isNumberColumnEnabled,
 				'data-layout': node.attrs.layout,
@@ -48,12 +66,40 @@ export const tableNodeSpecWithFixedToDOM = (
 				'data-table-width': node.attrs.width,
 			};
 
+			// This would be used for table scaling in colgroup CSS
+			// cqw, or px is well supported
+			const resizableTableWidth = expValEquals(
+				'platform_editor_tables_scaling_css',
+				'isEnabled',
+				true,
+			)
+				? isFullPageEditor
+					? getTableResizerContainerForFullPageWidthInCSS(node, config.isTableScalingEnabled)
+					: `calc(100cqw - calc(var(--ak-editor--large-gutter-padding) * 2))`
+				: `min(calc(100cqw - calc(var(--ak-editor--large-gutter-padding) * 2)), ${node.attrs.width ?? '100%'})`;
+
 			let colgroup: DOMOutputSpec = '';
 
 			if (config.allowColumnResizing) {
-				colgroup = ['colgroup', {}, ...generateColgroup(node)];
+				if (expValEquals('platform_editor_tables_scaling_css', 'isEnabled', true)) {
+					colgroup = [
+						'colgroup',
+						{},
+						...generateColgroupFromNode(
+							node,
+							config.isCommentEditor,
+							config.isChromelessEditor,
+							config.isNested,
+							config.isTableScalingEnabled,
+							config.shouldUseIncreasedScalingPercent,
+						),
+					];
+				} else {
+					colgroup = ['colgroup', {}, ...generateColgroup(node)];
+				}
 			}
 
+			// For Chromeless editor, and nested tables in full page editor
 			const tableContainerDiv = [
 				'div',
 				{
@@ -113,7 +159,10 @@ export const tableNodeSpecWithFixedToDOM = (
 				],
 			];
 
-			if (!config.tableResizingEnabled) {
+			if (
+				!config.tableResizingEnabled ||
+				(expValEquals('platform_editor_tables_scaling_css', 'isEnabled', true) && config.isNested)
+			) {
 				return [
 					'div',
 					{
@@ -123,8 +172,6 @@ export const tableNodeSpecWithFixedToDOM = (
 					tableContainerDiv,
 				];
 			}
-
-			const tableWidthAttribute = node.attrs.width ? `${node.attrs.width}px` : `100%`;
 
 			const tableResizingDiv = [
 				'div',
@@ -136,7 +183,15 @@ export const tableNodeSpecWithFixedToDOM = (
 					'div',
 					{
 						class: 'pm-table-resizer-container',
-						style: `width: min(calc(100cqw - ${gutterPadding()}), ${tableWidthAttribute});`,
+						style: convertToInlineCss({
+							'--ak-editor-table-gutter-padding': config.isTableScalingEnabled
+								? 'calc(var(--ak-editor--large-gutter-padding) * 2)'
+								: 'calc(var(--ak-editor--large-gutter-padding) * 2 - var(--ak-editor-resizer-handle-spacing))',
+							'--ak-editor-table-width': resizableTableWidth,
+							width: expValEquals('platform_editor_tables_scaling_css', 'isEnabled', true)
+								? `var(--ak-editor-table-width)`
+								: `min(calc(100cqw - ${gutterPadding()}), ${tableWidthAttribute})`,
+						}),
 					},
 					[
 						'div',
@@ -146,12 +201,23 @@ export const tableNodeSpecWithFixedToDOM = (
 								position: 'relative',
 								userSelect: 'auto',
 								boxSizing: 'border-box',
-								'--ak-editor-table-gutter-padding': `${gutterPadding()}`,
 								'--ak-editor-table-max-width': `${TABLE_MAX_WIDTH}px`,
 								'--ak-editor-table-min-width': `${tableMinWidth}px`,
 								minWidth: 'var(--ak-editor-table-min-width)',
-								maxWidth: `min(calc(100cqw - var(--ak-editor-table-gutter-padding)), var(--ak-editor-table-max-width))`,
-								width: `min(calc(100cqw - var(--ak-editor-table-gutter-padding)), ${tableWidthAttribute})`,
+								maxWidth: expValEquals('platform_editor_tables_scaling_css', 'isEnabled', true)
+									? getTableResizerContainerMaxWidthInCSS(
+											config.isCommentEditor,
+											config.isChromelessEditor,
+											config.isTableScalingEnabled,
+										)
+									: `min(calc(100cqw - var(--ak-editor-table-gutter-padding)), var(--ak-editor-table-max-width))`,
+								width: expValEquals('platform_editor_tables_scaling_css', 'isEnabled', true)
+									? getTableResizerItemWidthInCSS(
+											node,
+											config.isCommentEditor,
+											config.isChromelessEditor,
+										)
+									: `min(calc(100cqw - var(--ak-editor-table-gutter-padding)), ${tableWidthAttribute})`,
 							}),
 						},
 						[

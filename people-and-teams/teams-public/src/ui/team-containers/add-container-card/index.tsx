@@ -11,6 +11,8 @@ import { type ContainerTypes } from '../../../common/types';
 import { LinkedContainerCardSkeleton } from '../../../common/ui/team-containers-skeleton/linked-container-card-skeleton';
 import { getContainerProperties } from '../../../common/utils/get-container-properties';
 
+import { AddContainerCardButton } from './add-container-card-button';
+
 const styles = cssMap({
 	card: {
 		alignItems: 'center',
@@ -43,6 +45,7 @@ interface AddContainerCardProps {
 	containerType: ContainerTypes;
 	onAddAContainerClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 	isLoading?: boolean;
+	showNewDesign?: boolean;
 }
 
 const AddContainerCardWrapper = ({
@@ -73,6 +76,7 @@ export const AddContainerCard = ({
 	containerType,
 	onAddAContainerClick,
 	isLoading = false,
+	showNewDesign = false,
 }: AddContainerCardProps) => {
 	const { description, icon, title } = getContainerProperties({
 		containerType,
@@ -99,19 +103,23 @@ export const AddContainerCard = ({
 						}}
 					/>
 				</Box>
-				<Stack
-					{...(fg('enable_medium_size_icons_for_team_link_cards') ? { space: 'space.025' } : {})}
-				>
-					<Text maxLines={1} weight="medium" color="color.text">
-						{title}
-					</Text>
-					<Flex gap="space.050" alignItems="center">
-						{icon}
-						<Text size="small" color="color.text.subtle">
-							{description}
+				{showNewDesign ? (
+					<AddContainerCardButton type={containerType} />
+				) : (
+					<Stack
+						{...(fg('enable_medium_size_icons_for_team_link_cards') ? { space: 'space.025' } : {})}
+					>
+						<Text maxLines={1} weight="medium" color="color.text">
+							{title}
 						</Text>
-					</Flex>
-				</Stack>
+						<Flex gap="space.050" alignItems="center">
+							{icon}
+							<Text size="small" color="color.text.subtle">
+								{description}
+							</Text>
+						</Flex>
+					</Stack>
+				)}
 			</Inline>
 		</AddContainerCardWrapper>
 	);
@@ -125,11 +133,13 @@ type GetAddContainerCardsProps = {
 		e: React.MouseEvent<HTMLButtonElement>,
 		containerType: 'Confluence' | 'Jira' | 'Loom' | 'WebLink',
 	) => void;
+	showNewDesign?: boolean;
 };
 
 export const getAddContainerCards = ({
 	containers,
 	onAddAContainerClick,
+	showNewDesign,
 }: GetAddContainerCardsProps) => {
 	return (
 		<>
@@ -138,6 +148,7 @@ export const getAddContainerCards = ({
 					onAddAContainerClick={(e) => onAddAContainerClick(e, 'Jira')}
 					containerType="JiraProject"
 					isLoading={containers.Jira.isLoading}
+					showNewDesign={showNewDesign}
 				/>
 			)}
 			{containers.Confluence.canAdd && (
@@ -145,6 +156,7 @@ export const getAddContainerCards = ({
 					onAddAContainerClick={(e) => onAddAContainerClick(e, 'Confluence')}
 					containerType="ConfluenceSpace"
 					isLoading={containers.Confluence.isLoading}
+					showNewDesign={showNewDesign}
 				/>
 			)}
 			{containers.Loom.canAdd && fg('loom_tab_in_container_linker_team_profile_page') && (
@@ -152,12 +164,14 @@ export const getAddContainerCards = ({
 					onAddAContainerClick={(e) => onAddAContainerClick(e, 'Loom')}
 					containerType="LoomSpace"
 					isLoading={containers.Loom.isLoading}
+					showNewDesign={showNewDesign}
 				/>
 			)}
 			{containers.WebLink.canAdd && (
 				<AddContainerCard
 					onAddAContainerClick={(e) => onAddAContainerClick(e, 'WebLink')}
 					containerType="WebLink"
+					showNewDesign={showNewDesign}
 				/>
 			)}
 		</>

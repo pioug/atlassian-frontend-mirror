@@ -616,6 +616,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 			ssr: this.media?.ssr,
 			// surroundTextNodesWithTextWrapper checks inlineComment.allowDraftMode
 			allowAnnotationsDraftMode: this.surroundTextNodesWithTextWrapper,
+			enableSyncMediaCard: this.media?.enableSyncMediaCard,
 		};
 	}
 

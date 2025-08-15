@@ -47,6 +47,7 @@ import { basePlugin } from '@atlaskit/editor-plugins/base';
 import { textFormattingPlugin } from '@atlaskit/editor-plugins/text-formatting';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
+import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 
 import { trackChangesPlugin } from '../src/trackChangesPlugin';
 
@@ -81,7 +82,7 @@ const createPreset = () =>
 		.add(listPlugin)
 		.add(blockTypePlugin)
 		.add(imageUploadPlugin)
-		.add(emojiPlugin)
+		.add([emojiPlugin, { emojiProvider: getEmojiResource() }])
 		.add(quickInsertPlugin)
 		.add(rulePlugin)
 		.add(codeBlockPlugin)

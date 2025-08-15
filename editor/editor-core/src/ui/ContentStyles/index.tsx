@@ -429,6 +429,7 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
 	--ak-editor--default-gutter-padding: ${akEditorGutterPadding}px;
 	/* 52 is from akEditorGutterPaddingDynamic via editor-shared-styles */
 	--ak-editor--large-gutter-padding: ${akEditorGutterPaddingDynamic()}px;
+	--ak-editor--resizer-handle-spacing: 12px;
 	--ak-editor--default-layout-width: ${akEditorDefaultLayoutWidth}px;
 	--ak-editor--full-width-layout-width: ${akEditorFullWidthLayoutWidth}px;
 	/* calculate editor line length, 100cqw is the editor container width */

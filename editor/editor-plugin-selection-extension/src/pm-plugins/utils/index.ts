@@ -1,10 +1,12 @@
 import isEqual from 'lodash/isEqual';
 
 import { type ADFEntity } from '@atlaskit/adf-utils/types';
+import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { Fragment, type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection, type EditorState } from '@atlaskit/editor-prosemirror/state';
+import { Transform } from '@atlaskit/editor-prosemirror/transform';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFullPageToolbarHeight } from '@atlaskit/editor-shared-styles';
 import { CellSelection, type Rect, TableMap } from '@atlaskit/editor-tables';
@@ -26,7 +28,7 @@ const getSelectedRect = (selection: CellSelection): Rect => {
 
 type SelectionInfo = {
 	selectedNodeAdf: ADFEntity;
-	selectionRanges: SelectionRange[];
+	selectionRanges?: SelectionRange[];
 	selectedNode: PMNode;
 	nodePos: number;
 };
@@ -43,7 +45,7 @@ const getSelectionInfoFromSameNode = (selection: TextSelection) => {
 				},
 				end: {
 					pointer: `/content/${$from.index()}/text`,
-					position: $to.parentOffset - 1,
+					position: $to.parentOffset,
 				},
 			},
 		],
@@ -93,12 +95,37 @@ export const getSelectionTextInfo = (
 	return { text, from, to, coords };
 };
 
-export const getSelectionAdfInfo = (state: EditorState): SelectionInfo => {
-	const selection = state.selection;
+export const getFragmentInfoFromSelection = (
+	state: EditorState,
+): { selectedNodeAdf: ADFEntity } => {
+	const { schema, selection } = state;
 
+	const slice = selection.content();
+	let newDoc;
+	try {
+		const { schema } = state;
+
+		const doc = schema.node('doc', null, [schema.node('paragraph', null, [])]);
+		const transform = new Transform(doc);
+
+		newDoc = transform.replaceRange(0, 2, slice).doc;
+	} catch (error) {
+		newDoc = schema.nodes.doc.createChecked({}, Fragment.empty);
+		logException(error as Error, { location: 'editor-plugin-selection-extension' });
+	}
+
+	const serializer = new JSONTransformer();
+	const selectedNodeAdf = serializer.encodeNode(newDoc);
+
+	return {
+		selectedNodeAdf,
+	};
+};
+
+export function getSelectionAdfInfo(state: EditorState): SelectionInfo {
+	const selection = state.selection;
 	let selectionInfo = {
 		selectedNode: selection.$from.node(),
-		selectionRanges: [] as SelectionRange[],
 		nodePos: selection.$from.before(), // default to the position before the selection
 	};
 
@@ -114,11 +141,13 @@ export const getSelectionAdfInfo = (state: EditorState): SelectionInfo => {
 	}
 
 	const serializer = new JSONTransformer();
-	const { selectionRanges, selectedNode, nodePos } = selectionInfo;
-	const selectedNodeAdf = serializer.encodeNode(selectedNode);
+	const selectedNodeAdf = serializer.encodeNode(selectionInfo.selectedNode);
 
-	return { selectedNodeAdf, selectionRanges, selectedNode, nodePos };
-};
+	return {
+		...selectionInfo,
+		selectedNodeAdf,
+	};
+}
 
 export const validateSelectedNode = (selectedNodeAdf: ADFEntity, selectedNode: PMNode): boolean => {
 	const serializer = new JSONTransformer();

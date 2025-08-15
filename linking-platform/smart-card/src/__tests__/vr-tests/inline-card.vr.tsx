@@ -53,9 +53,7 @@ snapshot(InlineCardDefault, {
 
 snapshot(InlineCardDefaultWithEntities, {
 	description: 'inline card with entity support',
-	featureFlags: {
-		smart_links_noun_support: true,
-	},
+	featureFlags: {},
 	ignoredErrors: [],
 });
 

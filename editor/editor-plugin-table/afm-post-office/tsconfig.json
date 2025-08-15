@@ -81,6 +81,9 @@
 			"path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags-react/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../pragmatic-drag-and-drop/core/afm-post-office/tsconfig.json"
 		},
 		{

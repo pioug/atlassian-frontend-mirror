@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "40.10.2",
+	"version": "40.10.5",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -199,9 +199,6 @@
 		"platform_smart_links_controlled_dsp_export_view": {
 			"type": "boolean"
 		},
-		"smart_links_noun_support": {
-			"type": "boolean"
-		},
 		"platform-linking-ai-summary-migration-to-convo-ai": {
 			"type": "boolean"
 		},
@@ -235,9 +232,6 @@
 		"platform_editor_inline_card_selected_state_fix": {
 			"type": "boolean"
 		},
-		"platform-linking-slack-entity-support": {
-			"type": "boolean"
-		},
 		"navx-1184-fix-smart-link-a11y-interactive-states": {
 			"type": "boolean"
 		},
@@ -245,6 +239,9 @@
 			"type": "boolean"
 		},
 		"platform_smartlink_3pclick_analytics": {
+			"type": "boolean"
+		},
+		"passionfruit_ask_smart_links_enabled": {
 			"type": "boolean"
 		},
 		"ptc-enable-embed-team-smart-links": {

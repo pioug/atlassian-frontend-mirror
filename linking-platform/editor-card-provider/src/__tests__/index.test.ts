@@ -1368,30 +1368,28 @@ describe('providers > editor', () => {
 		});
 
 		describe('With entities', () => {
-			ffTest.on('smart_links_noun_support', 'ff on', () => {
-				it('should return EmbedCard when defaultView specifies it', async () => {
-					const provider = new EditorCardProvider();
-					mockFetch.mockResolvedValueOnce({
-						json: async () =>
-							getMockProvidersResponse({
-								userPreferences: {
-									defaultAppearance: 'embed',
-									appearances: [],
-								},
-							}),
-						ok: true,
-					});
-
-					// Mocking call to /resolve/batch
-					mockFetch.mockResolvedValueOnce({
-						json: async () => [{ body: mocks.entityDataSuccess, status: 200 }],
-						ok: true,
-					});
-
-					const url = 'https://drive.google.com/file/d/123/view?usp=sharing';
-					const adf = await provider.resolve(url, 'inline', false);
-					expect(adf).toEqual(expectedEmbedAdf(url));
+			it('should return EmbedCard when defaultView specifies it', async () => {
+				const provider = new EditorCardProvider();
+				mockFetch.mockResolvedValueOnce({
+					json: async () =>
+						getMockProvidersResponse({
+							userPreferences: {
+								defaultAppearance: 'embed',
+								appearances: [],
+							},
+						}),
+					ok: true,
 				});
+
+				// Mocking call to /resolve/batch
+				mockFetch.mockResolvedValueOnce({
+					json: async () => [{ body: mocks.entityDataSuccess, status: 200 }],
+					ok: true,
+				});
+
+				const url = 'https://drive.google.com/file/d/123/view?usp=sharing';
+				const adf = await provider.resolve(url, 'inline', false);
+				expect(adf).toEqual(expectedEmbedAdf(url));
 			});
 		});
 	});

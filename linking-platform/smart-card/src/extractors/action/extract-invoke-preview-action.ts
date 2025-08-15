@@ -1,15 +1,11 @@
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import {
-	extractLink,
 	extractPreview as extractPreviewData,
-	extractProvider,
 	extractSmartLinkEmbed,
 	extractSmartLinkProvider,
 	extractSmartLinkTitle,
 	extractSmartLinkUrl,
-	extractTitle,
 } from '@atlaskit/link-extractors';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type FireEventFunction } from '../../common/analytics/types';
 import { ActionName, CardAction } from '../../index';
@@ -46,7 +42,6 @@ export const extractInvokePreviewAction = (
 
 	const src = extractPreviewData(data, 'web')?.src;
 	if (src) {
-		const url = extractLink(data);
 		const extensionKey = getExtensionKey(response);
 		return {
 			actionFn: async () =>
@@ -59,16 +54,12 @@ export const extractInvokePreviewAction = (
 					isSupportTheming: extractIsSupportTheming(meta),
 					isTrusted: extractIsTrusted(meta),
 					linkIcon: extractLinkIcon(response),
-					providerName: fg('smart_links_noun_support')
-						? extractSmartLinkProvider(response)?.text
-						: extractProvider(data)?.text,
+					providerName: extractSmartLinkProvider(response)?.text,
 					onClose,
 					origin,
-					src: fg('smart_links_noun_support') ? extractSmartLinkEmbed(response)?.src : src,
-					title: fg('smart_links_noun_support')
-						? extractSmartLinkTitle(response)
-						: extractTitle(data),
-					url: fg('smart_links_noun_support') ? extractSmartLinkUrl(response) : url,
+					src: extractSmartLinkEmbed(response)?.src,
+					title: extractSmartLinkTitle(response),
+					url: extractSmartLinkUrl(response),
 				}),
 			actionSubjectId: 'invokePreviewScreen',
 			actionType: ActionName.PreviewAction,

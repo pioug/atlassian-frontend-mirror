@@ -1,27 +1,39 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React, { type ReactNode, useCallback } from 'react';
 
+import { jsx, cssMap } from '@compiled/react';
+
 import DropdownMenu, { type OnOpenChangeArgs } from '@atlaskit/dropdown-menu';
+import { token } from '@atlaskit/tokens';
 
 import { useToolbarUI } from '../hooks/ui-context';
-import { type ToolbarButtonGroupLocation } from '../types';
 
 import { ToolbarButton } from './ToolbarButton';
 import { ToolbarDropdownMenuProvider, useToolbarDropdownMenu } from './ToolbarDropdownMenuContext';
 
+const styles = cssMap({
+	sectionMargin: {
+		marginBlock: token('space.050'),
+	},
+});
+
 type ToolbarDropdownMenuProps = {
 	iconBefore: React.ReactNode;
 	children?: ReactNode;
-	groupLocation?: ToolbarButtonGroupLocation;
 	isDisabled?: boolean;
 	testId?: string;
 	label?: string;
-	isOpen?: boolean;
-	onOpenChange?: (args: OnOpenChangeArgs) => void;
+	/**
+	 * Whether to add margin around sections to align with 4px block padding existing in current editor dropdown
+	 */
+	hasSectionMargin?: boolean;
 };
 
 const ToolbarDropdownMenuContent = ({
 	iconBefore,
-	groupLocation,
 	children,
 	isDisabled,
 	testId,
@@ -65,7 +77,6 @@ const ToolbarDropdownMenuContent = ({
 					onFocus={triggerProps.onFocus}
 					testId={testId}
 					iconBefore={iconBefore}
-					groupLocation={groupLocation}
 					isDisabled={isDisabled}
 					label={label}
 				/>
@@ -80,22 +91,21 @@ const ToolbarDropdownMenuContent = ({
 
 export const ToolbarDropdownMenu = ({
 	iconBefore,
-	groupLocation,
 	children,
 	isDisabled,
 	testId,
 	label,
+	hasSectionMargin = true,
 }: ToolbarDropdownMenuProps) => {
 	return (
 		<ToolbarDropdownMenuProvider>
 			<ToolbarDropdownMenuContent
 				iconBefore={iconBefore}
-				groupLocation={groupLocation}
 				isDisabled={isDisabled}
 				testId={testId}
 				label={label}
 			>
-				{children}
+				<div css={hasSectionMargin && styles.sectionMargin}>{children}</div>
 			</ToolbarDropdownMenuContent>
 		</ToolbarDropdownMenuProvider>
 	);

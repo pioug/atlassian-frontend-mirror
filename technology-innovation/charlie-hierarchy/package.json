@@ -33,6 +33,7 @@
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/css": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
+		"@atlaskit/range": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
@@ -97,7 +98,7 @@
 		]
 	},
 	"name": "@atlaskit/charlie-hierarchy",
-	"version": "0.0.7",
+	"version": "0.1.1",
 	"description": "A component for building SVG-rendered trees, with support for custom node rendering, zooming, and panning.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

@@ -7,7 +7,6 @@ import { type JsonLd } from '@atlaskit/json-ld-types';
 import { type CardContext, useSmartLinkContext } from '@atlaskit/link-provider';
 import { APIError, type CardState } from '@atlaskit/linking-common';
 import { asMockFunction } from '@atlaskit/media-test-helpers';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { mocks } from '../../../../utils/mocks';
 import useResolve from '../index';
@@ -43,54 +42,52 @@ describe('useResolve', () => {
 		jest.clearAllMocks();
 	});
 
-	ffTest.on('smart_links_noun_support', 'should work same', () => {
-		it('should call fetch when there is no data in the store', async () => {
-			mockFetchData(Promise.resolve(mocks.success));
-			mockState({
-				status: 'pending',
-				details: undefined,
-			});
-
-			const resolve = renderHook(() => useResolve()).result.current;
-			await resolve(url, false, false, id);
-
-			expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false);
-
-			expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
-			expect(mockContext.store.dispatch).toHaveBeenCalledWith(
-				expect.objectContaining({
-					type: 'metadata',
-					url: 'https://some/url',
-					payload: undefined,
-					error: undefined,
-					metadataStatus: 'resolved',
-				}),
-			);
-			expect(mockContext.store.dispatch).toHaveBeenCalledWith(
-				expect.objectContaining({
-					type: 'resolved',
-					url: 'https://some/url',
-					payload: mocks.success,
-					error: undefined,
-					metadataStatus: undefined,
-				}),
-			);
+	it('should call fetch when there is no data in the store', async () => {
+		mockFetchData(Promise.resolve(mocks.success));
+		mockState({
+			status: 'pending',
+			details: undefined,
 		});
 
-		it('should NOT call fetch when there is entity data in the store', async () => {
-			mockState({
-				status: 'pending',
-				details: {
-					...mocks.entityDataSuccess,
-					data: undefined,
-				},
-			});
+		const resolve = renderHook(() => useResolve()).result.current;
+		await resolve(url, false, false, id);
 
-			const resolve = renderHook(() => useResolve()).result.current;
-			await resolve(url, false, false, id);
+		expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false);
 
-			expect(mockContext.connections.client.fetchData).not.toHaveBeenCalledWith(url, false);
+		expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
+		expect(mockContext.store.dispatch).toHaveBeenCalledWith(
+			expect.objectContaining({
+				type: 'metadata',
+				url: 'https://some/url',
+				payload: undefined,
+				error: undefined,
+				metadataStatus: 'resolved',
+			}),
+		);
+		expect(mockContext.store.dispatch).toHaveBeenCalledWith(
+			expect.objectContaining({
+				type: 'resolved',
+				url: 'https://some/url',
+				payload: mocks.success,
+				error: undefined,
+				metadataStatus: undefined,
+			}),
+		);
+	});
+
+	it('should NOT call fetch when there is entity data in the store', async () => {
+		mockState({
+			status: 'pending',
+			details: {
+				...mocks.entityDataSuccess,
+				data: undefined,
+			},
 		});
+
+		const resolve = renderHook(() => useResolve()).result.current;
+		await resolve(url, false, false, id);
+
+		expect(mockContext.connections.client.fetchData).not.toHaveBeenCalledWith(url, false);
 	});
 
 	it('should call fetch when there is no data in the store', async () => {

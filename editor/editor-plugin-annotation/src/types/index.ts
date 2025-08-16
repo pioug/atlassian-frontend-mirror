@@ -145,12 +145,14 @@ export interface AnnotationProviders {
 						pageClass: 'editor';
 						commentType: 'inline';
 						annotationId?: undefined;
+						entryPoint?: 'highlightActions';
 				  }
 				| {
 						pageClass: 'editor';
 						commentType: 'block';
 						blockType: 'media';
 						annotationId?: undefined;
+						entryPoint?: 'highlightActions';
 				  };
 		}) => void;
 		initExperience: {

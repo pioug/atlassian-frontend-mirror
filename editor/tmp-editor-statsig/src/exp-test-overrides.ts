@@ -31,6 +31,7 @@ export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = 
 	platform_editor_insertion: 'control',
 	editor_ai_inline_suggestion_date_v2: 'control',
 	platform_editor_add_orange_highlight_color: 'control',
+	platform_editor_ai_iw_adf_streaming: 'control',
 };
 
 export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
@@ -75,7 +76,6 @@ export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	platform_editor_toolbar_rerender_optimization_exp: false,
 	platform_editor_block_controls_perf_optimization: false,
 	platform_editor_enable_single_player_step_merging: false,
-	platform_editor_ai_iw_adf_streaming: false,
 	platform_editor_ai_remove_trivial_prompts_cc: false,
 	platform_editor_find_and_replace_improvements: false,
 	cc_editor_ufo_hold_table_till_resize_complete: false,

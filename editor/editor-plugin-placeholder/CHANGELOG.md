@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-placeholder
 
+## 3.2.0
+
+### Minor Changes
+
+- [`bc9e17e2197a9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bc9e17e2197a9) -
+  [ux] add new setAnimatingPlaceholderPrompts API to placeholder plugin
+
 ## 3.1.1
 
 ### Patch Changes

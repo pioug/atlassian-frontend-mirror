@@ -75,6 +75,7 @@ function ProgressBar({ value }: ProgressBarProps) {
 			xcss={cx(styles.container, styles.progressBarContainer)}
 		>
 			<label htmlFor="progress-bar">Progress:</label>
+			{/* eslint-disable-next-line @atlassian/a11y/aria-progressbar-name -- name provided */}
 			<progress
 				id="progress-bar"
 				data-testid={PROGRESS_BAR_TEST_ID}

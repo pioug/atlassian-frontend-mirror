@@ -59,9 +59,11 @@ export const getFirstPartyIdentifier = (): string | undefined => {
 	const currentURL = window.location.href;
 
 	if (product === 'confluence') {
-		const contentId = extractContentIdFromURL(currentURL);
-		if (contentId) {
-			return `ConfluenceContentId:${contentId}`;
+		if (currentURL.includes('content.id')) {
+			const contentId = extractContentIdFromURL(currentURL);
+			if (contentId) {
+				return `ConfluenceContentId:${contentId}`;
+			}
 		}
 		const pageId = extractPageIdFromURL(currentURL);
 		if (pageId) {
@@ -72,9 +74,8 @@ export const getFirstPartyIdentifier = (): string | undefined => {
 		if (issueKey) {
 			return `JiraIssueKey:${issueKey}`;
 		}
-	} else {
-		return undefined;
 	}
+	return undefined;
 };
 
 export const getObjectName = (details?: JsonLd.Response): string | undefined =>
@@ -137,24 +138,22 @@ export const hasAuthScopeOverrides = (details?: JsonLd.Response) =>
 // Helper function to extract page ID from standard Confluence page URLs
 const extractPageIdFromURL = (url: string): string | undefined => {
 	try {
-		const urlObj = new URL(url);
-
 		// Following this pattern for confluence URL -> /wiki/spaces/{space}/pages/{pageId}/{title}
-		const pagesMatch = urlObj.pathname.match(/\/wiki\/spaces\/[^\/]+\/pages\/(\d+)/);
-		if (pagesMatch && pagesMatch[1]) {
-			return pagesMatch[1];
+		const pagesMatch = url.match(/(?!pages)(\d+)/);
+		if (pagesMatch && pagesMatch[0]) {
+			return pagesMatch[0];
 		}
 
 		// Following this pattern for confluence URL -> /wiki/pages/viewpage.action?pageId={pageId}
-		const pageIdParam = urlObj.searchParams.get('pageId');
-		if (pageIdParam) {
-			return pageIdParam;
+		const pageIdParam = url.match(/(?!pageId=)(\d+)/);
+		if (pageIdParam && pageIdParam[0]) {
+			return pageIdParam[0];
 		}
 
 		// Following this pattern for confluence URL -> /wiki/display/{space}/{pageId}
-		const displayMatch = urlObj.pathname.match(/\/wiki\/display\/[^\/]+\/(\d+)/);
-		if (displayMatch && displayMatch[1]) {
-			return displayMatch[1];
+		const displayMatch = url.match(/(?!display\/)(\d+)/);
+		if (displayMatch && displayMatch[0]) {
+			return displayMatch[0];
 		}
 	} catch {
 		return undefined;
@@ -163,50 +162,24 @@ const extractPageIdFromURL = (url: string): string | undefined => {
 	return undefined;
 };
 
-// Helper function to extract content ID from app connector URLs
 const extractContentIdFromURL = (url: string): string | undefined => {
 	try {
-		const urlObj = new URL(url);
-
-		// Pattern: ?content.id={contentId} (for app connector URLs)
-		const contentId = urlObj.searchParams.get('content.id');
-		if (contentId) {
-			return contentId;
+		const contentId = url.match(/content\.id=(\d+)/);
+		if (contentId && contentId[1]) {
+			// contentId[1] contains just the number
+			return contentId[1];
 		}
 	} catch {
 		return undefined;
 	}
-
 	return undefined;
 };
 
 const extractJiraIssueIdFromURL = (url: string): string | undefined => {
 	try {
-		const urlObj = new URL(url);
-
-		// Following this pattern for jira URL -> /browse/{issueKey} (most common)
-		// Example: https://product-fabric.atlassian.net/browse/AI3W-1064
-		const browseMatch = urlObj.pathname.match(/\/browse\/([A-Z]+-\d+)/);
-		if (browseMatch && browseMatch[1]) {
-			return browseMatch[1];
-		}
-
-		// Following this pattern for jira URL -> /jira/browse/{issueKey} (for some installations)
-		const jiraBrowseMatch = urlObj.pathname.match(/\/jira\/browse\/([A-Z]+-\d+)/);
-		if (jiraBrowseMatch && jiraBrowseMatch[1]) {
-			return jiraBrowseMatch[1];
-		}
-
-		// Following this pattern for jira URL -> Query parameter ?selectedIssue={issueKey}
-		const selectedIssue = urlObj.searchParams.get('selectedIssue');
-		if (selectedIssue && /^[A-Z]+-\d+$/.test(selectedIssue)) {
-			return selectedIssue;
-		}
-
-		// Following this pattern for jira URL -> Query parameter ?issueKey={issueKey}
-		const issueKeyParam = urlObj.searchParams.get('issueKey');
-		if (issueKeyParam && /^[A-Z]+-\d+$/.test(issueKeyParam)) {
-			return issueKeyParam;
+		const browseMatch = url.match(/[A-Z0-9]+-\d+/);
+		if (browseMatch && browseMatch[0]) {
+			return browseMatch[0];
 		}
 	} catch {
 		return undefined;

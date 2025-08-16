@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-annotation
 
+## 3.3.3
+
+### Patch Changes
+
+- [`b669aaff72559`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b669aaff72559) -
+  Add additional logging to create-inline-comment experience for Confluence
+
 ## 3.3.2
 
 ### Patch Changes

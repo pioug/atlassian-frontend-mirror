@@ -12,6 +12,7 @@ export interface PlaceholderPluginOptions {
 	placeholder?: string;
 	placeholderBracketHint?: string;
 	emptyLinePlaceholder?: string;
+	placeholderPrompts?: string[];
 }
 
 export type PlaceholderPlugin = NextEditorPlugin<
@@ -20,6 +21,7 @@ export type PlaceholderPlugin = NextEditorPlugin<
 		pluginConfiguration: PlaceholderPluginOptions | undefined;
 		commands: {
 			setPlaceholder: (placeholder: string) => EditorCommand;
+			setAnimatingPlaceholderPrompts: (placeholderPrompts: string[]) => EditorCommand;
 		};
 		dependencies: [FocusPlugin, CompositionPlugin, TypeAheadPlugin, OptionalPlugin<ShowDiffPlugin>];
 	}

@@ -19,20 +19,20 @@ export default {
   'ptc-directory.team-profile-page.team-containers.add-jira-project-title': '⁣⁢Add project⁫؜‍‌⁠‌‍⁭⁡⁡⁪⁫⁬‍‌‍؜⁡⁭؜⁡⁭؜⁬⁪⁣⁤',
   'ptc-directory.team-profile-page.team-containers.add-loom-space-description': '⁣⁢Loom⁬⁫‍⁮⁭⁪⁡⁡⁡⁪‍⁭‍⁫‌⁪⁭⁭‌⁠؜⁪⁣⁤',
   'ptc-directory.team-profile-page.team-containers.add-loom-space-title': '⁣⁢Add space⁯⁬⁪؜⁠⁯⁯‌‍‍⁯⁯⁬⁬⁪⁯⁡‍‍؜⁡⁪؜⁣⁤',
-  'ptc-directory.team-profile-page.team-containers.auto-create.add-confluence-space-description':
-    '⁣⁢Create a knowledge bank⁯⁡⁭⁭⁠⁭⁬⁠؜⁬⁭⁠‍⁮‍‍⁮⁮⁬⁫⁣⁤',
-  'ptc-directory.team-profile-page.team-containers.auto-create.add-confluence-space-title':
-    '⁣⁢Confluence space⁯⁠⁫⁮‌؜⁮⁫⁯⁡⁮⁡‌⁡⁬⁬⁫⁭⁮⁭⁮⁣⁤',
-  'ptc-directory.team-profile-page.team-containers.auto-create.add-jira-project-description':
-    '⁣⁢Plan out project tasks⁮⁪؜‌‍⁬⁫⁯‌⁫‌⁫‍⁯؜⁯⁭⁯⁮⁯⁠‌؜⁣⁤',
-  'ptc-directory.team-profile-page.team-containers.auto-create.add-jira-project-title':
-    '⁣⁢Jira project؜⁡⁯‍‌⁭⁠⁡⁫⁪‌⁫⁬⁮⁯⁬⁭⁮‌؜‍⁬؜⁣⁤',
-  'ptc-directory.team-profile-page.team-containers.auto-create.add-loom-space-description':
-    '⁣⁢Share async updates؜⁯⁮⁠‍‍⁪؜‌⁮⁠⁬⁡؜⁠⁪⁭⁫⁭⁭‍‌⁬⁣⁤',
-  'ptc-directory.team-profile-page.team-containers.auto-create.add-loom-space-title':
-    '⁣⁢Loom space؜‍⁠⁬⁭⁫‍‌‌⁭‌⁪⁮⁬⁬⁫⁪⁪⁮⁪⁡؜⁠⁣⁤',
-  'ptc-directory.team-profile-page.team-containers.auto-create.add-web-link-title':
-    '⁣⁢Add any web link⁯⁪؜⁪‍⁬‍‌⁪⁡⁠⁮⁪⁯؜⁬؜⁡؜؜⁯⁣⁤',
+  'ptc-directory.team-profile-page.team-containers.create.add-confluence-space-description':
+    '⁣⁢Create a knowledge bank⁬⁡⁭⁯⁭؜‌⁡⁬‍⁪‌⁯⁡؜⁯⁪؜⁬‍⁫⁫⁭⁯⁣⁤',
+  'ptc-directory.team-profile-page.team-containers.create.add-confluence-space-title':
+    '⁣⁢Confluence space‌⁫⁫⁯؜؜⁯؜‍؜⁮⁮⁬‍‍⁭‍⁪‍⁯⁯⁣⁤',
+  'ptc-directory.team-profile-page.team-containers.create.add-jira-project-description':
+    '⁣⁢Plan out project tasks⁬⁭⁠⁠⁭‍‍؜‍⁬⁫‌‍‌⁮⁭⁭‌⁮⁭⁯⁣⁤',
+  'ptc-directory.team-profile-page.team-containers.create.add-jira-project-title':
+    '⁣⁢Jira project‌‍‌⁬⁫⁪⁬⁡⁬‍⁠⁠‌؜⁭⁠⁯⁮⁮⁡‌؜⁣⁤',
+  'ptc-directory.team-profile-page.team-containers.create.add-loom-space-description':
+    '⁣⁢Share async updates⁫⁮⁫⁠؜⁠⁯⁠⁭‍⁭⁡⁠⁫⁮⁡‍⁮⁮؜‍⁠⁬⁪⁣⁤',
+  'ptc-directory.team-profile-page.team-containers.create.add-loom-space-title':
+    '⁣⁢Loom space‍⁠⁪⁬؜⁡⁬⁫‍‍‌⁬⁬⁭‌‌⁫⁡⁡⁮⁮؜⁬⁡⁭؜⁣⁤',
+  'ptc-directory.team-profile-page.team-containers.create.add-web-link-title':
+    '⁣⁢Add any web link‌⁫⁫⁠⁮⁫⁮؜‌‍⁡⁫؜؜؜‌⁮؜⁪‌؜⁭⁣⁤',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.cancel-button':
     '⁣⁢Cancel؜⁭⁭⁫⁪‍⁮⁡⁡⁡⁫‍‌؜‌⁬⁪⁪⁯⁯⁯⁫⁫⁯⁮‍⁣⁤',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.description':

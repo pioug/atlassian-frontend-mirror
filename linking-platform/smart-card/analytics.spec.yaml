@@ -771,3 +771,7 @@ events:
             A null-capable field representing the Confluence content ID, Confluence page ID, or Jira
             issue key. This can be null if it is a value for an unsupported 1P provider (eg,
             Bitbucket, Loom), and will be prefixed by an identifier based on the source product.
+        clickedAt:
+          required: true
+          type: string
+          description: The timestamp when the event was clicked

@@ -1,5 +1,12 @@
 # @atlaskit/editor-statsig-tmp
 
+## 10.1.0
+
+### Minor Changes
+
+- [`aa1fb76d0b8a3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa1fb76d0b8a3) -
+  EDITOR-1315 Converted IW experiment to multivariant experiment.
+
 ## 10.0.0
 
 ### Major Changes

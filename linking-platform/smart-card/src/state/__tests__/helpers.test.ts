@@ -50,6 +50,12 @@ describe('getFirstPartyIdentifier', () => {
 			mockLocationHref('https://confluence.atlassian.net/wiki/spaces/TEAM');
 			expect(getFirstPartyIdentifier()).toBeUndefined();
 		});
+		it('returns ConfluenceContentId when both content.id and pageId are present', () => {
+			mockLocationHref(
+				'https://confluence.atlassian.net/wiki/spaces/TEAM/pages/123456?content.id=999888',
+			);
+			expect(getFirstPartyIdentifier()).toBe('ConfluenceContentId:999888');
+		});
 	});
 
 	ffTest.off('platform_smartlink_3pclick_analytics', '', () => {

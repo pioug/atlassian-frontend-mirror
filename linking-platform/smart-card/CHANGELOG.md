@@ -1,5 +1,14 @@
 # @atlaskit/smart-card
 
+## 40.10.6
+
+### Patch Changes
+
+- [`1d8918dd67a21`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1d8918dd67a21) -
+  Update smartLinkClickedSmartLinkClickAnalyticsWorkflowsAttributesType to include clickedAt field
+  in yaml file and codegen'd file as well as update component to pass it along as
+  Date.now().toString()
+
 ## 40.10.5
 
 ### Patch Changes

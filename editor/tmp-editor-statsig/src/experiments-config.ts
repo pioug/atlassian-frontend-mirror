@@ -439,12 +439,13 @@ export const editorExperimentsConfig = {
 		defaultValue: false,
 	}),
 	// Added 2025-06-18
-	platform_editor_ai_iw_adf_streaming: createBooleanExperiment({
+	platform_editor_ai_iw_adf_streaming: createMultivariateExperiment({
 		productKeys: {
 			confluence: 'platform_editor_ai_iw_adf_streaming',
 		},
-		param: 'isEnabled',
-		defaultValue: false,
+		param: 'cohort',
+		values: ['control', 'adf', 'adf_personalisation'],
+		defaultValue: 'control',
 	}),
 	// Added 2025-06-18
 	platform_editor_ai_ct_sg_adf_streaming: createBooleanExperiment({

@@ -9,6 +9,7 @@ import type {
 } from '../../../common/vc/types';
 import type { VCRevisionDebugDetails } from '../../vc-observer/getVCRevisionDebugDetails';
 import type { VCObserverEntry, ViewportEntryData } from '../types';
+import { getInvalidChildrenCount } from '../viewport-observer/utils/check-display-content';
 
 import { calculateTTVCPercentilesWithDebugInfo } from './percentile-calc';
 import type { VCCalculator, VCCalculatorParam } from './types';
@@ -323,6 +324,10 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 		};
 
 		result.ratios = this.calculateRatios(filteredEntries);
+
+		if (fg('platform_ufo_display_content_resolution_ttvc_v3')) {
+			result.childrenIgnoredCount = getInvalidChildrenCount();
+		}
 
 		return result;
 	}

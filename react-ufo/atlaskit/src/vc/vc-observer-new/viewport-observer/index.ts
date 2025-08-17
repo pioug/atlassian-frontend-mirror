@@ -9,6 +9,7 @@ import { createIntersectionObserver, type VCIntersectionObserver } from './inter
 import createMutationObserver from './mutation-observer';
 import createPerformanceObserver from './performance-observer';
 import { type MutationData } from './types';
+import checkCssProperty from './utils/check-display-content';
 import checkWithinComponent, { cleanupCaches } from './utils/check-within-component';
 import isInVCIgnoreIfNoLayoutShiftMarker from './utils/is-in-vc-ignore-if-no-layout-shift-marker';
 
@@ -278,10 +279,21 @@ export default class ViewportObserver {
 				continue;
 			}
 
-			this.intersectionObserver?.watchAndTag(
-				addedNode,
-				createElementMutationsWatcher(removedNodeRects),
-			);
+			if (fg('platform_ufo_display_content_resolution_ttvc_v3')) {
+				// Check if the target has display:content css property, return array of valid targets
+				const validTargets = checkCssProperty(addedNode);
+				for (const validTarget of validTargets) {
+					this.intersectionObserver?.watchAndTag(
+						validTarget,
+						createElementMutationsWatcher(removedNodeRects),
+					);
+				}
+			} else {
+				this.intersectionObserver?.watchAndTag(
+					addedNode,
+					createElementMutationsWatcher(removedNodeRects),
+				);
+			}
 		}
 	};
 

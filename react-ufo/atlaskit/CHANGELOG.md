@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.3.2
+
+### Patch Changes
+
+- [`7cf45d7a0ce8d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7cf45d7a0ce8d) -
+  Include elements with display:contents css property in TTVC
+
 ## 4.3.1
 
 ### Patch Changes

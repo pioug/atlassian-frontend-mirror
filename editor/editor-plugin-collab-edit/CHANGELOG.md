@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 4.1.5
+
+### Patch Changes
+
+- [`6ca68bbf39757`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6ca68bbf39757) -
+  Change all AIFC feature gates over to an experiment platform_editor_ai_aifc
+- Updated dependencies
+
 ## 4.1.4
 
 ### Patch Changes

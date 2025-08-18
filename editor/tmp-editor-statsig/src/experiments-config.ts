@@ -184,14 +184,6 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-01-09
-	platform_editor_advanced_code_blocks: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_advanced_code_blocks',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-01-13
 	platform_editor_element_drag_and_drop_multiselect: createBooleanExperiment({
 		productKeys: {
@@ -545,6 +537,15 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-08-18
+	platform_editor_preview_panel_linking_exp: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_preview_panel_linking_exp',
+			jira: 'platform_editor_preview_panel_linking_exp',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025--8-05
 	platform_editor_block_menu: createBooleanExperiment({
 		productKeys: {
@@ -592,6 +593,15 @@ export const editorExperimentsConfig = {
 		productKeys: {
 			jira: 'platform_editor_toolbar_aifc',
 			confluence: 'platform_editor_toolbar_aifc',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	//Added 2025-08-13
+	platform_editor_ai_aifc: createBooleanExperiment({
+		productKeys: {
+			jira: 'platform_editor_ai_aifc_jira',
+			confluence: 'platform_editor_ai_aifc_confluence',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

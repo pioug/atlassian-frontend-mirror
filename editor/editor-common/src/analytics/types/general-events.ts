@@ -445,7 +445,7 @@ type BlocksDragInitAEP = OperationalAEP<
 	{
 		duration: number;
 		startTime: number;
-		nodesCount: number;
+		nodesCount: number | undefined;
 	}
 >;
 

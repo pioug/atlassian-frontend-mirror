@@ -338,6 +338,80 @@ export const OUTDENT_MENU_ITEM = {
 } as const;
 
 /*
+ * Insert block section
+ */
+
+export const INSERT_BLOCK_SECTION = {
+	key: 'insert-block-section',
+	type: 'section',
+} as const;
+
+export const TASK_LIST_GROUP = {
+	key: 'task-list-group',
+	type: 'group',
+} as const;
+
+export const TASK_LIST_BUTTON = {
+	key: 'task-list-button',
+	type: 'button',
+} as const;
+
+export const MEDIA_GROUP = {
+	key: 'media-group',
+	type: 'group',
+} as const;
+
+export const MEDIA_BUTTON = {
+	key: 'media-button',
+	type: 'button',
+} as const;
+
+export const MENTION_GROUP = {
+	key: 'mention-group',
+	type: 'group',
+} as const;
+
+export const MENTION_BUTTON = {
+	key: 'mention-button',
+	type: 'button',
+} as const;
+
+export const EMOJI_GROUP = {
+	key: 'emoji-group',
+	type: 'group',
+} as const;
+
+export const EMOJI_BUTTON = {
+	key: 'emoji-button',
+	type: 'button',
+} as const;
+
+export const LAYOUT_GROUP = {
+	key: 'layout-group',
+	type: 'group',
+} as const;
+
+export const LAYOUT_BUTTON = {
+	key: 'layout-button',
+	type: 'button',
+} as const;
+
+export const TABLE_GROUP = {
+	key: 'table-group',
+	type: 'group',
+} as const;
+
+export const TABLE_BUTTON = {
+	key: 'table-button',
+	type: 'button',
+} as const;
+
+export const TABLE_SIZE_PICKER = {
+	key: 'table-size-picker',
+	type: 'button',
+} as const;
+
+/*
  * Linking section
  */
 

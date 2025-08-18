@@ -147,6 +147,9 @@
 			"path": "../../../design-system/theme/afm-dev-agents/tsconfig.json"
 		},
 		{
+			"path": "../../../editor/tmp-editor-statsig/afm-dev-agents/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/tokens/afm-dev-agents/tsconfig.json"
 		},
 		{

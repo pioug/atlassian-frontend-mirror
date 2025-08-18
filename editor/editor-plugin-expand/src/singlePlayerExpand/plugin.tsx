@@ -1,6 +1,11 @@
 import React from 'react';
 
-import { expandWithNestedExpand, nestedExpand } from '@atlaskit/adf-schema';
+import {
+	expandWithNestedExpand,
+	expandWithNestedExpandLocalId,
+	nestedExpand,
+	nestedExpandWithLocalId,
+} from '@atlaskit/adf-schema';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -11,6 +16,7 @@ import {
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { IconExpand } from '@atlaskit/editor-common/quick-insert';
 import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ExpandPlugin } from '../types';
 
@@ -33,9 +39,14 @@ export let expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
 			return [
 				{
 					name: 'expand',
-					node: expandWithNestedExpand,
+					node: fg('platform_editor_adf_with_localid')
+						? expandWithNestedExpandLocalId
+						: expandWithNestedExpand,
 				},
-				{ name: 'nestedExpand', node: nestedExpand },
+				{
+					name: 'nestedExpand',
+					node: fg('platform_editor_adf_with_localid') ? nestedExpandWithLocalId : nestedExpand,
+				},
 			];
 		},
 		actions: {

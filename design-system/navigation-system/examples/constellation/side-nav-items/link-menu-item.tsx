@@ -44,7 +44,7 @@ function MoreAction() {
 const linkMenuItemHref = '#example-href';
 
 export function LinkMenuItemExample() {
-	const [isMenuItemSelected, setIsMenuItemSelected] = useState(false);
+	const [showSelectedStateExample, setShowSelectedStateExample] = useState(false);
 	return (
 		<>
 			<Inline space="space.600">
@@ -69,13 +69,6 @@ export function LinkMenuItemExample() {
 							<LinkMenuItem href={linkMenuItemHref}>Link menu item (spacer)</LinkMenuItem>
 							<LinkMenuItem href={linkMenuItemHref} elemBefore={COLLAPSE_ELEM_BEFORE}>
 								Link menu item (no elemBefore)
-							</LinkMenuItem>
-							<LinkMenuItem
-								href={linkMenuItemHref}
-								elemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}
-								isSelected={isMenuItemSelected}
-							>
-								Link menu item (selectable)
 							</LinkMenuItem>
 						</MenuList>
 					</SideNavContent>
@@ -143,9 +136,24 @@ export function LinkMenuItemExample() {
 					</SideNavContent>
 				</MockSideNav>
 			</Inline>
-			<Button onClick={() => setIsMenuItemSelected(!isMenuItemSelected)}>
-				Toggle selected state example
+			<Button onClick={() => setShowSelectedStateExample(!showSelectedStateExample)}>
+				{showSelectedStateExample ? 'Hide' : 'Show'} selected state example
 			</Button>
+			{showSelectedStateExample && (
+				<MockSideNav>
+					<SideNavContent>
+						<MenuList>
+							<LinkMenuItem
+								href={linkMenuItemHref}
+								elemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}
+								isSelected
+							>
+								Link menu item (selected state)
+							</LinkMenuItem>
+						</MenuList>
+					</SideNavContent>
+				</MockSideNav>
+			)}
 		</>
 	);
 }

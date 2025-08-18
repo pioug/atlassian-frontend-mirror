@@ -31,7 +31,7 @@ import {
 	TooltipContentWithMultipleShortcuts,
 } from '@atlaskit/editor-common/keymaps';
 import { blockControlsMessages } from '@atlaskit/editor-common/messages';
-import { tableControlsSpacing } from '@atlaskit/editor-common/styles';
+import { tableControlsSpacing, DRAG_HANDLE_WIDTH } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -79,7 +79,6 @@ import {
 	DRAG_HANDLE_BORDER_RADIUS,
 	DRAG_HANDLE_HEIGHT,
 	DRAG_HANDLE_MAX_SHIFT_CLICK_DEPTH,
-	DRAG_HANDLE_WIDTH,
 	DRAG_HANDLE_ZINDEX,
 	dragHandleGap,
 	nodeMargins,

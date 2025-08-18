@@ -1,5 +1,7 @@
+import { DRAG_HANDLE_SELECTOR } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 
@@ -31,7 +33,12 @@ export const handleMouseDown =
 				),
 			);
 		} else {
-			const isDragHandle = event.target.closest('[data-editor-block-ctrl-drag-handle]') !== null;
+			const isDragHandle =
+				event.target.closest(
+					expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
+						? DRAG_HANDLE_SELECTOR
+						: '[data-editor-block-ctrl-drag-handle]',
+				) !== null;
 			api?.core.actions.execute(api?.blockControls.commands.setSelectedViaDragHandle(isDragHandle));
 		}
 

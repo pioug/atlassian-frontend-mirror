@@ -10,6 +10,7 @@ import EditorMoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--
 import Button from '@atlaskit/button/standard-button';
 import { useIntl } from 'react-intl-next';
 import { messages } from '@atlaskit/media-ui';
+import { forwardRef } from 'react';
 
 const predefinedAvatarsWrapperStyles = css({
 	display: 'flex',
@@ -35,33 +36,39 @@ export interface PredefinedAvatarListProps {
 	showMoreAvatarsButtonLabel?: string;
 }
 
-export const PredefinedAvatarList = ({
-	avatars = [],
-	selectedAvatar,
-	onShowMore,
-	onAvatarSelected,
-	selectAvatarLabel,
-	showMoreAvatarsButtonLabel,
-}: PredefinedAvatarListProps) => {
-	const intl = useIntl();
+export const PredefinedAvatarList = forwardRef<HTMLButtonElement, PredefinedAvatarListProps>(
+	(
+		{
+			avatars = [],
+			selectedAvatar,
+			onShowMore,
+			onAvatarSelected,
+			selectAvatarLabel,
+			showMoreAvatarsButtonLabel,
+		},
+		moreRef,
+	) => {
+		const intl = useIntl();
 
-	return (
-		<div css={predefinedAvatarsWrapperStyles} id="predefined-avatar-wrapper">
-			<AvatarList
-				avatars={avatars}
-				selectedAvatar={selectedAvatar}
-				onItemClick={onAvatarSelected}
-				selectAvatarLabel={selectAvatarLabel}
-			/>
-			<Button
-				aria-label={
-					showMoreAvatarsButtonLabel || intl.formatMessage(messages.show_more_avatars_btn_label)
-				}
-				appearance="subtle"
-				iconAfter={<EditorMoreIcon label="" LEGACY_size="large" color="currentColor" />}
-				onClick={onShowMore}
-				css={showMoreButtonStyles}
-			/>
-		</div>
-	);
-};
+		return (
+			<div css={predefinedAvatarsWrapperStyles} id="predefined-avatar-wrapper">
+				<AvatarList
+					avatars={avatars}
+					selectedAvatar={selectedAvatar}
+					onItemClick={onAvatarSelected}
+					selectAvatarLabel={selectAvatarLabel}
+				/>
+				<Button
+					aria-label={
+						showMoreAvatarsButtonLabel || intl.formatMessage(messages.show_more_avatars_btn_label)
+					}
+					appearance="subtle"
+					iconAfter={<EditorMoreIcon label="" LEGACY_size="large" color="currentColor" />}
+					onClick={onShowMore}
+					css={showMoreButtonStyles}
+					ref={moreRef}
+				/>
+			</div>
+		);
+	},
+);

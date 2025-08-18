@@ -10,8 +10,6 @@ import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
 import { AtlassianIcon, AtlassianLogo } from '@atlaskit/logo';
 import { ButtonItem, PopupMenuGroup, Section } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
-// AFP-2532 TODO: Fix automatic suppressions below
-import { borderRadius } from '@atlaskit/theme';
 import { token } from '@atlaskit/tokens';
 
 import appsSplash from './shared/assets/Apps4x.png';
@@ -63,12 +61,11 @@ const ExploreDropdown = () => {
 export default () => (
 	<div
 		style={{
-			// TODO Delete this comment after verifying space token -> previous value `8`
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			paddingBottom: token('space.100', '8px'),
 			border: `1px solid ${token('color.border')}`,
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			borderRadius: borderRadius(),
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+			borderRadius: token('border.radius.100', '3px'),
 		}}
 	>
 		<AtlassianNavigation

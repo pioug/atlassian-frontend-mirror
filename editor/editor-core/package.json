@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "210.0.0",
+	"version": "210.0.2",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -284,16 +284,9 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_ai_in_document_streaming": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_dnd_update_drag_start_target": {
 			"type": "boolean",
 			"referenceOnly": true
-		},
-		"platform_editor_hide_cursor_when_pm_hideselection": {
-			"type": "boolean"
 		},
 		"platform_editor_live_page_prevent_table_recreation": {
 			"type": "boolean",
@@ -531,9 +524,6 @@
 			"referenceOnly": true
 		},
 		"platform_editor_find_and_replace_improvements_1": {
-			"type": "boolean"
-		},
-		"platform_editor_preview_panel_linking": {
 			"type": "boolean"
 		},
 		"platform_editor_task_check_status_fix": {

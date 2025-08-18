@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef } from 'react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { ActionName, CardDisplay } from '../../../constants';
 import { useSmartCardActions } from '../../../state/actions';
@@ -231,7 +232,11 @@ export const HoverCardComponent = ({
 					onClick={onChildClick}
 					onContextMenu={onContextMenuClick}
 					data-testid={HOVER_CARD_TRIGGRER_WRAPPER}
-					{...(fg('platform_editor_preview_panel_linking')
+					{...(expValEqualsNoExposure(
+						'platform_editor_preview_panel_linking_exp',
+						'isEnabled',
+						true,
+					)
 						? { className: HOVER_CARD_TRIGGRER_WRAPPER }
 						: {})}
 					{...(fg('fix_a11y_violation_in_hover_card_trigger') ? { role: 'button' } : {})}

@@ -1,9 +1,10 @@
+import { DRAG_HANDLE_WIDTH } from '@atlaskit/editor-common/styles';
 import { akEditorUnitZIndex, akRichMediaResizeZIndex } from '@atlaskit/editor-shared-styles';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 export const DRAG_HANDLE_HEIGHT = 24;
-export const DRAG_HANDLE_WIDTH = 12;
+
 export const DRAG_HANDLE_BORDER_RADIUS = 4;
 export const DRAG_HANDLE_ZINDEX = akRichMediaResizeZIndex + akEditorUnitZIndex; //place above legacy resizer
 export const DRAG_HANDLE_DEFAULT_GAP = 8;

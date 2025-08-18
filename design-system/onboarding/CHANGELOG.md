@@ -1,5 +1,12 @@
 # @atlaskit/onboarding
 
+## 14.3.5
+
+### Patch Changes
+
+- [`2af42ad93c3e0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2af42ad93c3e0) -
+  Internal changes to use tokens for border radius.
+
 ## 14.3.4
 
 ### Patch Changes

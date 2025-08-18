@@ -1,4 +1,4 @@
-import { borderRadius as akBorderRadius } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 export const ellipsis = (maxWidth: string | number = '100%') => {
 	const unit = typeof maxWidth === 'number' ? 'px' : '';
@@ -33,12 +33,12 @@ export const absolute = (top = 0, left = 0) => `
 `;
 
 export const borderRadius = `
-  border-radius: ${akBorderRadius()}px;
+  border-radius: ${token('border.radius.100', '3px')};
 `;
 
 export const borderRadiusBottom = `
-  border-bottom-left-radius: ${akBorderRadius()}px;
-  border-bottom-right-radius: ${akBorderRadius()}px;
+  border-bottom-left-radius: ${token('border.radius.100', '3px')};
+  border-bottom-right-radius: ${token('border.radius.100', '3px')};
 `;
 
 export const easeInOutCubic = 'cubic-bezier(0.645, 0.045, 0.355, 1)';

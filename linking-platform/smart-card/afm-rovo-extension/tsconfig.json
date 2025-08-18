@@ -147,6 +147,9 @@
 			"path": "../../../design-system/theme/afm-rovo-extension/tsconfig.json"
 		},
 		{
+			"path": "../../../editor/tmp-editor-statsig/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/tokens/afm-rovo-extension/tsconfig.json"
 		},
 		{

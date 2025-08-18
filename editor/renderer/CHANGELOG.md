@@ -1,5 +1,21 @@
 # @atlaskit/renderer
 
+## 120.4.6
+
+### Patch Changes
+
+- [`0412437292a6d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0412437292a6d) -
+  Switches linking changes for Preview Panel from FG to an experiment.
+- Updated dependencies
+
+## 120.4.5
+
+### Patch Changes
+
+- [`3bfbc008ce4ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3bfbc008ce4ab) -
+  Cleanup FG platform_editor_avatar_group_margin_fix
+- Updated dependencies
+
 ## 120.4.4
 
 ### Patch Changes

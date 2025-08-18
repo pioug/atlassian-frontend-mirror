@@ -375,14 +375,25 @@ export const ReactMediaSingleNode =
 		mediaOptions: MediaOptions = {},
 	) =>
 	(node: PMNode, view: EditorView, getPos: getPosHandler) => {
-		return new MediaSingleNodeView(node, view, getPos, portalProviderAPI, eventDispatcher, {
+		return new MediaSingleNodeView(
+			node,
+			view,
+			getPos,
+			portalProviderAPI,
 			eventDispatcher,
-			fullWidthMode: mediaOptions.fullWidthEnabled,
-			providerFactory,
-			mediaOptions,
-			dispatchAnalyticsEvent,
-			isCopyPasteEnabled: mediaOptions.isCopyPasteEnabled,
-			pluginInjectionApi,
-			editorAppearance: mediaOptions.editorAppearance,
-		}).init();
+			{
+				eventDispatcher,
+				fullWidthMode: mediaOptions.fullWidthEnabled,
+				providerFactory,
+				mediaOptions,
+				dispatchAnalyticsEvent,
+				isCopyPasteEnabled: mediaOptions.isCopyPasteEnabled,
+				pluginInjectionApi,
+				editorAppearance: mediaOptions.editorAppearance,
+			},
+			undefined,
+			undefined,
+			// @portal-render-immediately
+			true,
+		).init();
 	};

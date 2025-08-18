@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { rule } from '@atlaskit/adf-schema';
+import { rule, ruleWithLocalId } from '@atlaskit/adf-schema';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -11,6 +11,7 @@ import {
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { IconDivider } from '@atlaskit/editor-common/quick-insert';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { insertHorizontalRule } from './pm-plugins/commands';
 // Ignored via go/ees005
@@ -26,7 +27,12 @@ export const rulePlugin: RulePlugin = ({ api }) => {
 		name: 'rule',
 
 		nodes() {
-			return [{ name: 'rule', node: rule }];
+			return [
+				{
+					name: 'rule',
+					node: fg('platform_editor_adf_with_localid') ? ruleWithLocalId : rule,
+				},
+			];
 		},
 
 		actions: {

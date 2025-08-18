@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 9.2.2
+
+### Patch Changes
+
+- [`0a4f34cc9b35c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a4f34cc9b35c) -
+  Cleanup platform_editor_media_from_url_remove_form
+- Updated dependencies
+
 ## 9.2.1
 
 ### Patch Changes

@@ -55,7 +55,6 @@ export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	'nested-tables-in-tables': false,
 	platform_editor_ai_unsplash_page_header: false,
 	platform_editor_blockquote_in_text_formatting_menu: false,
-	platform_editor_advanced_code_blocks: false,
 	platform_editor_element_drag_and_drop_multiselect: false,
 	platform_editor_ai_edit_response_in_preview: false,
 	platform_editor_smart_link_cmd_ctrl_click: false,
@@ -81,4 +80,5 @@ export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	cc_editor_ufo_hold_table_till_resize_complete: false,
 	platform_editor_toggle_expand_on_match_found: false,
 	platform_editor_reduce_noisy_steps_ncs: false,
+	platform_editor_ai_aifc: false,
 };

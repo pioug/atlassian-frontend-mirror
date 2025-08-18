@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 4.1.12
+
+### Patch Changes
+
+- [`20d3223b57972`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/20d3223b57972) -
+  Opted out of debounced portal provider
+- [`e33be5daddd2b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e33be5daddd2b) -
+  ED-28892 Limited mode: adjust how we're triggering cleanup logic for block control plugin. Hook up
+  banner. Other misc setup.
+- Updated dependencies
+
+## 4.1.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.1.10
 
 ### Patch Changes

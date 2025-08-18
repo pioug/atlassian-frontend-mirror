@@ -1,5 +1,24 @@
 # @atlaskit/editor-common
 
+## 107.25.2
+
+### Patch Changes
+
+- [`e33be5daddd2b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e33be5daddd2b) -
+  ED-28892 Limited mode: adjust how we're triggering cleanup logic for block control plugin. Hook up
+  banner. Other misc setup.
+- [`0412437292a6d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0412437292a6d) -
+  Switches linking changes for Preview Panel from FG to an experiment.
+- Updated dependencies
+
+## 107.25.1
+
+### Patch Changes
+
+- [`c3b98666f3840`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c3b98666f3840) -
+  [ux] ED-28740 register insert block items to new toolbar behind platform_editor_toolbar_aifc
+- Updated dependencies
+
 ## 107.25.0
 
 ### Minor Changes

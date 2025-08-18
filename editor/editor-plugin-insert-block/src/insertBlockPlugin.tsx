@@ -23,11 +23,13 @@ import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared
 import type { InputMethod as BlockTypeInputMethod } from '@atlaskit/editor-plugin-block-type';
 import { BLOCK_QUOTE, CODE_BLOCK, PANEL } from '@atlaskit/editor-plugin-block-type/consts';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { InsertBlockPlugin } from './insertBlockPluginType';
 import { toggleInsertBlockPmKey, toggleInsertBlockPmPlugin } from './pm-plugins/toggleInsertBlock';
 import type { InsertBlockOptions } from './types';
+import { getToolbarComponents } from './ui/toolbar-components';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-named-as-default
 import ToolbarInsertBlock from './ui/ToolbarInsertBlock';
@@ -180,10 +182,16 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 		);
 	};
 
-	api?.primaryToolbar?.actions.registerComponent({
-		name: 'insertBlock',
-		component: primaryToolbarComponent,
-	});
+	if (expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true)) {
+		api?.toolbar?.actions.registerComponents(
+			getToolbarComponents({ api, tableSelectorSupported: options.tableSelectorSupported }),
+		);
+	} else {
+		api?.primaryToolbar?.actions.registerComponent({
+			name: 'insertBlock',
+			component: primaryToolbarComponent,
+		});
+	}
 
 	const plugin: ReturnType<InsertBlockPlugin> = {
 		name: 'insertBlock',

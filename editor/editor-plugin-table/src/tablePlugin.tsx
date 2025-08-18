@@ -4,9 +4,12 @@ import {
 	tableCell,
 	tableCellWithNestedTable,
 	tableHeader,
+	tableHeaderWithLocalId,
 	tableHeaderWithNestedTable,
 	tableRow,
 	tableRowWithNestedTable,
+	tableRowWithLocalId,
+	tableCellWithLocalId,
 } from '@atlaskit/adf-schema';
 import {
 	ACTION,
@@ -337,9 +340,24 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 								isChromelessEditor,
 							}),
 						},
-						{ name: 'tableHeader', node: tableHeaderWithNestedTable },
-						{ name: 'tableRow', node: tableRowWithNestedTable },
-						{ name: 'tableCell', node: tableCellWithNestedTable },
+						{
+							name: 'tableHeader',
+							node: fg('platform_editor_adf_with_localid')
+								? tableHeaderWithLocalId
+								: tableHeaderWithNestedTable,
+						},
+						{
+							name: 'tableRow',
+							node: fg('platform_editor_adf_with_localid')
+								? tableRowWithLocalId
+								: tableRowWithNestedTable,
+						},
+						{
+							name: 'tableCell',
+							node: fg('platform_editor_adf_with_localid')
+								? tableCellWithLocalId
+								: tableCellWithNestedTable,
+						},
 					]
 				: [
 						{

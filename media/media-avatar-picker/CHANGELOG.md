@@ -1,5 +1,13 @@
 # @atlaskit/media-avatar-picker
 
+## 26.2.2
+
+### Patch Changes
+
+- [`74d396b482233`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/74d396b482233) -
+  Bring back the focus to the Show More icon when coming back from Avatars List
+- Updated dependencies
+
 ## 26.2.1
 
 ### Patch Changes

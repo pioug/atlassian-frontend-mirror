@@ -14,9 +14,9 @@ import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import GrowDiagonalIcon from '@atlaskit/icon/core/grow-diagonal';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import PanelRightIcon from '@atlaskit/icon/core/panel-right';
-import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Anchor, Box, Text, xcss } from '@atlaskit/primitives';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -119,7 +119,7 @@ const visitCardLinkAnalytics =
 
 const HoverLinkOverlay = ({
 	children,
-	isVisible = false, // used only to measure available space to difine if we should show icon only or icon + title
+	isVisible = false,
 	url,
 	compactPadding = false,
 	editorAnalyticsApi,
@@ -200,7 +200,9 @@ const HoverLinkOverlay = ({
 		}
 	};
 
-	const isPreivewButton = showPanelButton && fg('platform_editor_preview_panel_linking');
+	const isPreivewButton =
+		showPanelButton &&
+		expValEqualsNoExposure('platform_editor_preview_panel_linking_exp', 'isEnabled', true);
 	const label = isPreivewButton
 		? formatMessage(cardMessages.previewButtonTitle)
 		: formatMessage(cardMessages.openButtonTitle);
@@ -239,12 +241,22 @@ const HoverLinkOverlay = ({
 						paddingBlock: compactPadding ? '1px' : token('space.025'),
 					}}
 					onClick={handleClick}
+					testId="inline-card-hoverlink-overlay"
 				>
-					<Box xcss={iconWrapperStyles} data-inlinecard-button-overlay="icon-wrapper-line-height">
+					<Box
+						xcss={iconWrapperStyles}
+						data-inlinecard-button-overlay="icon-wrapper-line-height"
+						testId="inline-card-hoverlink-overlay-icon"
+					>
 						{icon}
 					</Box>
 					{showLabel && (
-						<Text size="small" color="color.text.subtle" maxLines={1}>
+						<Text
+							size="small"
+							color="color.text.subtle"
+							maxLines={1}
+							testId="inline-card-hoverlink-overlay-label"
+						>
 							{label}
 						</Text>
 					)}

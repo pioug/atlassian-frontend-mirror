@@ -1,6 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
-import { borderRadius } from '@atlaskit/theme/constants';
 import { B50, B400, N50A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -34,7 +33,7 @@ export const SectionCard = styled.div`
 	padding: ${token('space.250')};
 	width: 100%;
 	background-color: ${(props: SectionCardProps) => getSelectedCardColor(props)};
-	border-radius: ${borderRadius()}px;
+	border-radius: ${token('border.radius.100', '3px')};
 	box-shadow: ${token('elevation.shadow.overlay', `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`)};
 	margin-top: ${token('space.200')};
 `;

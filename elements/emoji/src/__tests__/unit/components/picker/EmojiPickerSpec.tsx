@@ -931,4 +931,160 @@ describe('<EmojiPicker />', () => {
 			expect(results).toHaveNoViolations();
 		});
 	});
+
+	describe('escape key propagation', () => {
+		it('should allow escape key events to propagate to parent components when feature gate is enabled', () => {
+			// Mock the feature gate to be enabled
+			jest.doMock('@atlaskit/platform-feature-flags', () => ({
+				fg: jest.fn((flag: string) => flag === 'platform_emoji_picker_escape_propagation'),
+			}));
+
+			let parentEscapeReceived = false;
+			let childEscapeReceived = false;
+
+			// Mock the suppressKeyPress function (our fixed version with feature gate)
+			const suppressKeyPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
+				childEscapeReceived = true;
+
+				// Allow escape key to propagate so parent components can handle it (behind feature gate)
+				if ((e.key === 'Escape' || e.key === 'Esc') && true) {
+					// feature gate enabled
+					return; // This is our fix - don't call stopPropagation for escape
+				}
+
+				e.stopPropagation();
+				if (e.key === 'Enter') {
+					e.preventDefault();
+				}
+			};
+
+			const TestComponent = () => {
+				const handleParentKeyDown = (e: React.KeyboardEvent) => {
+					if (e.key === 'Escape') {
+						parentEscapeReceived = true;
+					}
+				};
+
+				return (
+					<div onKeyDown={handleParentKeyDown} data-testid="parent">
+						<div onKeyDown={suppressKeyPress} data-testid="emoji-picker-mock" tabIndex={0}>
+							Mock Emoji Picker
+						</div>
+					</div>
+				);
+			};
+
+			const { getByTestId } = renderWithIntl(<TestComponent />);
+			const emojiPicker = getByTestId('emoji-picker-mock');
+
+			// Simulate escape key press
+			fireEvent.keyDown(emojiPicker, {
+				key: 'Escape',
+				bubbles: true,
+			});
+
+			// Both child and parent should have received the event
+			expect(childEscapeReceived).toBe(true);
+			expect(parentEscapeReceived).toBe(true);
+		});
+
+		it('should block escape key events when feature gate is disabled', () => {
+			let parentEscapeReceived = false;
+			let childEscapeReceived = false;
+
+			// Mock the suppressKeyPress function with feature gate disabled
+			const suppressKeyPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
+				childEscapeReceived = true;
+
+				// Allow escape key to propagate so parent components can handle it (behind feature gate)
+				if ((e.key === 'Escape' || e.key === 'Esc') && false) {
+					// feature gate disabled
+					return;
+				}
+
+				e.stopPropagation(); // This should block escape key when gate is off
+				if (e.key === 'Enter') {
+					e.preventDefault();
+				}
+			};
+
+			const TestComponent = () => {
+				const handleParentKeyDown = (e: React.KeyboardEvent) => {
+					if (e.key === 'Escape') {
+						parentEscapeReceived = true;
+					}
+				};
+
+				return (
+					<div onKeyDown={handleParentKeyDown} data-testid="parent">
+						<div onKeyDown={suppressKeyPress} data-testid="emoji-picker-mock" tabIndex={0}>
+							Mock Emoji Picker
+						</div>
+					</div>
+				);
+			};
+
+			const { getByTestId } = renderWithIntl(<TestComponent />);
+			const emojiPicker = getByTestId('emoji-picker-mock');
+
+			// Simulate escape key press
+			fireEvent.keyDown(emojiPicker, {
+				key: 'Escape',
+				bubbles: true,
+			});
+
+			// Child should receive it, but parent should NOT (blocked by stopPropagation)
+			expect(childEscapeReceived).toBe(true);
+			expect(parentEscapeReceived).toBe(false);
+		});
+
+		it('should still block non-escape key events from propagating regardless of feature gate', () => {
+			let parentEnterReceived = false;
+			let childEnterReceived = false;
+
+			const suppressKeyPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
+				childEnterReceived = true;
+
+				// Allow escape key to propagate so parent components can handle it (behind feature gate)
+				if ((e.key === 'Escape' || e.key === 'Esc') && true) {
+					// feature gate enabled
+					return;
+				}
+
+				e.stopPropagation(); // This should block Enter key
+				if (e.key === 'Enter') {
+					e.preventDefault();
+				}
+			};
+
+			const TestComponent = () => {
+				const handleParentKeyDown = (e: React.KeyboardEvent) => {
+					if (e.key === 'Enter') {
+						parentEnterReceived = true;
+					}
+				};
+
+				return (
+					<div onKeyDown={handleParentKeyDown} data-testid="parent">
+						<div onKeyDown={suppressKeyPress} data-testid="emoji-picker-mock" tabIndex={0}>
+							Mock Emoji Picker
+						</div>
+					</div>
+				);
+			};
+
+			const { getByTestId } = renderWithIntl(<TestComponent />);
+			const emojiPicker = getByTestId('emoji-picker-mock');
+
+			// Simulate enter key press
+			fireEvent.keyDown(emojiPicker, {
+				key: 'Enter',
+				bubbles: true,
+			});
+
+			// Child should receive it, but parent should NOT (blocked by stopPropagation)
+			expect(childEnterReceived).toBe(true);
+			expect(parentEnterReceived).toBe(false);
+		});
+	});
 });

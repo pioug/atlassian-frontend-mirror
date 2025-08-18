@@ -1,5 +1,15 @@
 # @atlaskit/smart-card
 
+## 40.10.7
+
+### Patch Changes
+
+- [`932f1fbaaf201`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/932f1fbaaf201) -
+  [ux] NAVX-1327 Adding error icon back for FlexibleCard inline view
+- [`0412437292a6d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0412437292a6d) -
+  Switches linking changes for Preview Panel from FG to an experiment.
+- Updated dependencies
+
 ## 40.10.6
 
 ### Patch Changes

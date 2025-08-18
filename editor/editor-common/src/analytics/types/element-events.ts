@@ -42,7 +42,7 @@ type ElementDragEndAEP = TrackAEP<
 		dragInitializationDuration: number;
 		dropProcessingDuration: number;
 		isCancelled: boolean;
-		nodesCount: number;
+		nodesCount: number | undefined;
 	},
 	null
 >;

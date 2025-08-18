@@ -4871,10 +4871,6 @@ exports[`Editor Content styles in FullPageContentArea fullpage editor renders co
   caret-color: transparent;
 }
 
-.emotion-0 .ProseMirror-hideselection {
-  caret-color: transparent;
-}
-
 .emotion-0 .ProseMirror-selectednode {
   outline: none;
 }

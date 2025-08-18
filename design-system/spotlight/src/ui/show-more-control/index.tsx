@@ -1,7 +1,24 @@
 import React, { forwardRef } from 'react';
 
-import { IconButton, type IconButtonProps } from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
+import { Pressable, type PressableProps } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
+
+const styles = cssMap({
+	root: {
+		paddingBlock: token('space.075'),
+		color: token('color.text.inverse'),
+		borderRadius: token('border.radius.100'),
+		backgroundColor: token('color.background.neutral.bold'),
+		'&:hover': {
+			backgroundColor: token('color.background.neutral.bold.hovered'),
+		},
+		'&:active': {
+			backgroundColor: token('color.background.neutral.bold.pressed'),
+		},
+	},
+});
 
 export interface SpotlightShowMoreControlProps {
 	/**
@@ -14,7 +31,7 @@ export interface SpotlightShowMoreControlProps {
 	/**
 	 * The action to take when the button is clicked.
 	 */
-	onClick?: IconButtonProps['onClick'];
+	onClick?: PressableProps['onClick'];
 }
 
 /**
@@ -28,14 +45,8 @@ export const SpotlightShowMoreControl = forwardRef<
 	SpotlightShowMoreControlProps
 >(({ onClick, testId }: SpotlightShowMoreControlProps, ref) => {
 	return (
-		<IconButton
-			appearance="default"
-			icon={ShowMoreHorizontalIcon}
-			label="Close"
-			onClick={onClick}
-			ref={ref}
-			spacing="compact"
-			testId={testId}
-		/>
+		<Pressable xcss={styles.root} onClick={onClick} ref={ref} testId={testId}>
+			<ShowMoreHorizontalIcon label="Show more" />
+		</Pressable>
 	);
 });

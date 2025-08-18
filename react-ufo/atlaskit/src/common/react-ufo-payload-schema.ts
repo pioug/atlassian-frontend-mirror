@@ -45,6 +45,7 @@ export type ReactProfilerTiming = {
 	mountCount: number;
 	rerenderCount: number;
 	renderDuration: number;
+	unmountCount?: number;
 };
 
 export type HoldInfo = {

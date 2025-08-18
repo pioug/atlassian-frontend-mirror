@@ -37,7 +37,7 @@ There are four types of side nav menu items:
 4. [Flyout menu item](#flyout-menu-item)
 
 Within menu items, you can customize [`elemBefore`](#elembefore), [`elemAfter`](#elemafter),
-[`actions`](#actions) and [`actionsOnHover`](#actionsonhover).
+[`actions`](#actions-and-actionsonhover) and [`actionsOnHover`](#actions-and-actionsonhover).
 
 ### Link menu item
 
@@ -55,9 +55,9 @@ Use the [app provider](/components/app-provider/examples) to specify a custom ro
 A menu item wrapped in a button tag `<button>`. Use this component when you have an action that does
 something other than navigating to another location.
 
-- [Avoid disabling button menu items](https://atlassian.design/components/button/usage#avoid-disabling-buttons)
-  as this can cause accessibility problems. When disabled, [`actions`](#actions) and
-  [`actionsOnHover`](#actionsonhover) will not display.
+- [Avoid disabling button menu items](/components/button/usage#avoid-disabling-buttons) as this can
+  cause accessibility problems. When disabled, [`actions`](#actions-and-actionsonhover) and
+  [`actionsOnHover`](#actions-and-actionsonhover) will not display.
 - Be cautious of using [`elemAfter`](#elemafter) in menu item disabled states, as it may result in
   an unintended appearance if this component has no disabled states.
 
@@ -74,8 +74,8 @@ hierarchies.
   is provided, it will display a chevron icon by default. If an element is provided, a chevron icon
   will replace the element for hover, press and focus states.
 - Unlike other menu items, it does not support a `description`.
-- When expandable menu item is open, any [`actionsOnHover`](#actionsonhover) will display
-  permanently.
+- When expandable menu item is open, any [`actionsOnHover`](#actions-and-actionsonhover) will
+  display permanently.
 - Every menu item type can be nested inside an expandable menu item.
 
 <Example Component={ExpandableMenuItemDefaultVariantExample} />
@@ -97,7 +97,7 @@ contain other items, such as search bars and filters.
 
 - The flyout menu always displays a chevron icon at the end position.
 - Unlike other menu items, it does not support a `description`, [`elemAfter`](#elemafter),
-  [`actions`](#actions) or [`actionsOnHover`](#actionsonhover).
+  [`actions`](#actions-and-actionsonhover) or [`actionsOnHover`](#actions-and-actionsonhover).
 - The flyout menu content has a fixed 400px width. Height is not defined and can be set by makers.
 
 <Example Component={FlyoutMenuItemExample} />
@@ -118,17 +118,15 @@ codesandbox and resize your browser.
 
 A slot for custom elements to be added to the start position of the menu item.
 
-- Only one element is allowed. Recommended usages are icons, [ContainerAvatar](#container-avatar),
+- Only one element is allowed. Recommended usages are icons, [ContainerAvatar](#containeravatar),
   and app tiles. For [expandable link menu item](#expandable-menu-item), it will render an icon
   button without a tooltip.
 - When no `elemBefore` is provided, the menu item will maintain the empty space. You can remove this
   space by passing in the `COLLAPSE_ELEM_BEFORE` symbol. Consider how this will impact the overall
   visual hierarchy before using.
 
-<!--
-TODO: add this line when the usage tab has been added
-When using icons and icon buttons, follow the [usage guidance](/components/navigation-system/side-nav-items/usage) on the correct sizes.
--->
+When using icons and icon buttons, follow the
+[usage guidance](/components/navigation-system/side-nav-items/usage) on the correct sizes.
 
 <Example Component={ElemBeforeExample} />
 
@@ -151,8 +149,9 @@ A slot for custom elements to be added to the end position of the menu item.
 - Can be more than one element, although we recommended avoiding where possible due to space
   constraints. Recommended usages are for non-interactive elements such as small icons (12px),
   badge, and lozenge.
-- Disappears when [`actionsOnHover`](#actionsonhover) display. If [`actions`](#actions) are present,
-  these take the end position and shift `elemAfter` to the left.
+- Disappears when [`actionsOnHover`](#actions-and-actionsonhover) display. If
+  [`actions`](#actions-and-actionsonhover) are present, these take the end position and shift
+  `elemAfter` to the left.
 
 <Example Component={ElemAfterExample} />
 
@@ -191,7 +190,7 @@ label to name a menu section.
 
 ### Menu divider
 
-A graphic devider to separate menu items or sections.
+A graphic divider to separate menu items or sections.
 
 Reserve for use in [flyout menu content](#flyout-menu-item). Avoid using directly in the side nav,
 use [top level spacer](#top-level-spacer) instead to create separation.

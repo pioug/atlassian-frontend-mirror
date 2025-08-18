@@ -23,7 +23,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import type { ColorType as Color } from '@atlaskit/status/picker';
 import { StatusPicker as AkStatusPicker } from '@atlaskit/status/picker';
 import { N0 } from '@atlaskit/theme/colors';
-import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
@@ -74,8 +73,7 @@ export interface State {
 const pickerContainerStyles = css({
 	background: token('elevation.surface.overlay', N0),
 	padding: `${token('space.100', '8px')} 0`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	borderRadius: `${borderRadius()}px`,
+	borderRadius: token('border.radius.100', '3px'),
 	boxShadow: token(
 		'elevation.shadow.overlay',
 		'0 0 1px rgba(9, 30, 66, 0.31), 0 4px 8px -2px rgba(9, 30, 66, 0.25)',

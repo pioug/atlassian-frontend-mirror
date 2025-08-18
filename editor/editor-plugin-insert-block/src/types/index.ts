@@ -24,6 +24,7 @@ import type { RulePlugin } from '@atlaskit/editor-plugin-rule';
 import type { StatusPlugin } from '@atlaskit/editor-plugin-status';
 import type { TablePlugin } from '@atlaskit/editor-plugin-table';
 import type { TasksAndDecisionsPlugin } from '@atlaskit/editor-plugin-tasks-and-decisions';
+import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 
 export type InsertBlockPluginDependencies = [
@@ -53,6 +54,7 @@ export type InsertBlockPluginDependencies = [
 	OptionalPlugin<FeatureFlagsPlugin>,
 	OptionalPlugin<ContextPanelPlugin>,
 	OptionalPlugin<ConnectivityPlugin>,
+	OptionalPlugin<ToolbarPlugin>,
 ];
 
 export interface InsertBlockPluginOptions {

@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-panel
 
+## 5.3.3
+
+### Patch Changes
+
+- [`20d3223b57972`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/20d3223b57972) -
+  Opted out of debounced portal provider
+- Updated dependencies
+
+## 5.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.3.1
 
 ### Patch Changes

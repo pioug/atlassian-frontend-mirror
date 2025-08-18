@@ -25,13 +25,7 @@ export const getToolbarComponents = ({
 		configuration = toolbarConfigurationV2(true, shouldShowUndoRedoGroup);
 	} else {
 		const shouldShowFindGroup = !!contextualFormattingEnabled;
-		// platform_editor_ai_in_document_streaming is the feature flag for Confluence
-		// editor-jira-undo-redo-show-diff-buttons is the feature flag for Jira
-		if (
-			(fg('platform_editor_ai_in_document_streaming') ||
-				fg('editor-jira-undo-redo-show-diff-buttons')) &&
-			componentRegistry.has('trackChanges')
-		) {
+		if (componentRegistry.has('trackChanges')) {
 			configuration = toolbarConfigurationV3(shouldShowFindGroup);
 		} else {
 			configuration = toolbarConfiguration(shouldShowFindGroup);

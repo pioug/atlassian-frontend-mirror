@@ -15,6 +15,7 @@ import {
 } from '@atlaskit/editor-common/performance-measures';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { DRAG_HANDLE_SELECTOR } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { EDIT_AREA_ID } from '@atlaskit/editor-common/ui';
 import { isEmptyDocument } from '@atlaskit/editor-common/utils';
@@ -87,7 +88,7 @@ const isHTMLElement = (element: Element | EventTarget | null): element is HTMLEl
 
 const destroyFn = (
 	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined,
-	editorView: EditorView,
+	editorView?: EditorView,
 ) => {
 	const scrollable = document.querySelector('.fabric-editor-popup-scroll-parent');
 
@@ -116,7 +117,6 @@ const destroyFn = (
 				} else {
 					if (isMeasuring(EDITOR_BLOCKS_DRAG_INIT)) {
 						stopMeasure(EDITOR_BLOCKS_DRAG_INIT, (duration: number, startTime: number) => {
-							const { state } = editorView;
 							api?.analytics?.actions.fireAnalyticsEvent({
 								action: ACTION.BLOCKS_DRAG_INIT,
 								actionSubject: ACTION_SUBJECT.EDITOR,
@@ -124,7 +124,7 @@ const destroyFn = (
 								attributes: {
 									duration,
 									startTime,
-									nodesCount: state.doc.nodeSize,
+									nodesCount: editorView?.state.doc.nodeSize,
 								},
 							});
 						});
@@ -240,7 +240,7 @@ const destroyFn = (
 										dragInitializationDuration,
 										dropProcessingDuration: duration,
 										isCancelled,
-										nodesCount: editorView.state.doc.nodeSize,
+										nodesCount: editorView?.state.doc.nodeSize,
 									},
 								});
 							});
@@ -309,6 +309,8 @@ export const apply = (
 	flags: FlagType,
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 	anchorRectCache?: AnchorRectCache,
+	resizeObserverWidth?: ResizeObserver,
+	pragmaticCleanup?: (() => void) | null,
 ) => {
 	let { activeNode, decorations, isResizerResizing, multiSelectDnD } = currentState;
 	const {
@@ -327,6 +329,25 @@ export const apply = (
 	let isActiveNodeDeleted = false;
 	const { from, to, numReplaceSteps, isAllText, isReplacedWithSameSize } = getTrMetadata(tr);
 	const meta = tr.getMeta(key);
+
+	const hasDocumentSizeBreachedThreshold = api?.limitedMode?.sharedState
+		.currentState()
+		?.limitedModePluginKey.getState(newState)?.documentSizeBreachesThreshold;
+
+	if (hasDocumentSizeBreachedThreshold) {
+		/**
+		 * INFO: This if statement is a duplicate of the logic in destroy(). When the threshold is breached and we enter limited mode, we want to trigger the cleanup logic in destroy().
+		 */
+		const editorContentArea = document.querySelector('.fabric-editor-popup-scroll-parent');
+
+		if (editorContentArea && resizeObserverWidth) {
+			resizeObserverWidth.unobserve(editorContentArea);
+		}
+
+		pragmaticCleanup?.();
+
+		return currentState;
+	}
 
 	// When steps exist, remap existing decorations, activeNode and multi select positions
 	if (tr.docChanged) {
@@ -752,6 +773,9 @@ export const createPlugin = (
 		anchorRectCache = new AnchorRectCache();
 	}
 
+	let resizeObserverWidth: ResizeObserver;
+	let pragmaticCleanup: (() => void) | null = null;
+
 	return new SafePlugin({
 		key,
 		state: {
@@ -773,6 +797,8 @@ export const createPlugin = (
 					flags,
 					nodeViewPortalProviderAPI,
 					anchorRectCache,
+					resizeObserverWidth,
+					pragmaticCleanup,
 				),
 		},
 
@@ -984,7 +1010,11 @@ export const createPlugin = (
 							editorExperiment('platform_editor_controls', 'variant1')
 						) {
 							const isDragHandle =
-								event.target.closest('[data-editor-block-ctrl-drag-handle="true"]') !== null;
+								event.target.closest(
+									expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
+										? DRAG_HANDLE_SELECTOR
+										: '[data-editor-block-ctrl-drag-handle="true"]',
+								) !== null;
 							api?.core.actions.execute(
 								api?.blockControls.commands.setSelectedViaDragHandle(isDragHandle),
 							);
@@ -1042,7 +1072,11 @@ export const createPlugin = (
 							editorExperiment('platform_editor_controls', 'variant1')
 						) {
 							const isDragHandle =
-								event.target.closest('[data-editor-block-ctrl-drag-handle="true"]') !== null;
+								event.target.closest(
+									expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
+										? DRAG_HANDLE_SELECTOR
+										: '[data-editor-block-ctrl-drag-handle="true"]',
+								) !== null;
 							api?.core.actions.execute(
 								api?.blockControls.commands.setSelectedViaDragHandle(isDragHandle),
 							);
@@ -1109,7 +1143,7 @@ export const createPlugin = (
 			);
 
 			// Use ResizeObserver to observe resizer (scroll-parent typically grows when resizing) and editor width changes
-			const resizeObserverWidth = new ResizeObserver(
+			resizeObserverWidth = new ResizeObserver(
 				rafSchedule((entries) => {
 					const pluginState = key.getState(editorView.state);
 					if (!pluginState?.isDragging) {
@@ -1144,14 +1178,14 @@ export const createPlugin = (
 			}
 
 			// Start pragmatic monitors
-			const pragmaticCleanup = destroyFn(api, editorView);
+			pragmaticCleanup = destroyFn(api, editorView);
 
 			return {
 				destroy() {
 					if (editorContentArea) {
 						resizeObserverWidth.unobserve(editorContentArea);
 					}
-					pragmaticCleanup();
+					pragmaticCleanup?.();
 				},
 			};
 		},

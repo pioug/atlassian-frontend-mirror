@@ -57,6 +57,12 @@ export { AlignTextCenterIcon } from './ui/icons/AlignTextCenterIcon';
 export { AlignTextRightIcon } from './ui/icons/AlignTextRightIcon';
 export { IndentIcon } from './ui/icons/IndentIcon';
 export { OutdentIcon } from './ui/icons/OutdentIcon';
+export { EmojiIcon } from './ui/icons/EmojiIcon';
+export { LayoutIcon } from './ui/icons/LayoutIcon';
+export { ImageIcon } from './ui/icons/ImageIcon';
+export { MentionIcon } from './ui/icons/MentionIcon';
+export { TableIcon } from './ui/icons/TableIcon';
+export { TaskIcon } from './ui/icons/TaskIcon';
 
 export { default as ColorPalette } from './ui/ColorPalette';
 

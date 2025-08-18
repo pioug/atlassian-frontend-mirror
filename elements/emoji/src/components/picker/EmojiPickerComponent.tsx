@@ -17,6 +17,7 @@ import { token } from '@atlaskit/tokens';
 import { N40 } from '@atlaskit/theme/colors';
 import { unstable_batchedUpdates as batchedUpdates } from 'react-dom';
 import { FormattedMessage, type MessageDescriptor, useIntl } from 'react-intl-next';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { getEmojiVariation } from '../../api/EmojiRepository';
 import { type OnEmojiProviderChange, supportsUploadFeature } from '../../api/EmojiResource';
 import {
@@ -576,6 +577,11 @@ const EmojiPickerComponent = ({
 
 	// stop all key propagation to other event listeners
 	const suppressKeyPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
+		// Allow escape key to propagate so parent components can handle it (behind feature gate)
+		if ((e.key === 'Escape' || e.key === 'Esc') && fg('platform_emoji_picker_escape_propagation')) {
+			return;
+		}
+
 		e.stopPropagation();
 		// We prevent default for enter keypresses
 		// since products like Bitbucket might have parent forms

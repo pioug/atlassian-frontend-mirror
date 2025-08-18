@@ -1,5 +1,13 @@
 # @atlaskit/media-ui
 
+## 28.6.7
+
+### Patch Changes
+
+- [`2af42ad93c3e0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2af42ad93c3e0) -
+  Internal changes to use tokens for border radius.
+- Updated dependencies
+
 ## 28.6.6
 
 ### Patch Changes

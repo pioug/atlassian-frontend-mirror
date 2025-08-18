@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-table",
-	"version": "12.2.0",
+	"version": "12.2.2",
 	"description": "Table plugin for the @atlaskit/editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -42,6 +42,7 @@
 		"@atlaskit/editor-plugin-interaction": "workspace:^",
 		"@atlaskit/editor-plugin-limited-mode": "workspace:^",
 		"@atlaskit/editor-plugin-selection": "workspace:^",
+		"@atlaskit/editor-plugin-user-intent": "workspace:^",
 		"@atlaskit/editor-plugin-width": "workspace:^",
 		"@atlaskit/editor-prosemirror": "root:*",
 		"@atlaskit/editor-shared-styles": "workspace:^",
@@ -180,6 +181,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_nodevisibility_resize_sync": {
+			"type": "boolean"
+		},
+		"platform_editor_adf_with_localid": {
 			"type": "boolean"
 		}
 	}

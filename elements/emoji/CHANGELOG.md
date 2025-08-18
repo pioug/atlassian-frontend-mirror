@@ -1,5 +1,12 @@
 # @atlaskit/emoji
 
+## 69.4.0
+
+### Minor Changes
+
+- [`36d69a7efe212`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/36d69a7efe212) -
+  [ux] add escape key support to close emoji picker component for reactions (A11y)
+
 ## 69.3.14
 
 ### Patch Changes

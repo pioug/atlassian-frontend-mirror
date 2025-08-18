@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-caption
 
+## 3.1.3
+
+### Patch Changes
+
+- [`20d3223b57972`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/20d3223b57972) -
+  Opted out of debounced portal provider
+- Updated dependencies
+
 ## 3.1.2
 
 ### Patch Changes

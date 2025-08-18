@@ -6,7 +6,6 @@ import type {
 	Transaction,
 	SelectionBookmark,
 } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { getSendableSelection } from '../actions';
@@ -73,7 +72,7 @@ export const sendTransaction =
 		const participantsChanged =
 			prevActiveParticipants && !prevActiveParticipants.eq(activeParticipants);
 
-		if (fg('platform_editor_ai_in_document_streaming')) {
+		if (editorExperiment('platform_editor_ai_aifc', true)) {
 			if (!sessionId || viewMode !== 'edit') {
 				return;
 			}
@@ -106,11 +105,7 @@ export const sendTransaction =
 				(participantsChanged && !hideTelecursorOnLoad)
 			) {
 				const selection = getSendableSelection(newEditorState.selection);
-				const message: CollabTelepointerPayload = {
-					type: 'telepointer',
-					selection,
-					sessionId,
-				};
+				const message: CollabTelepointerPayload = { type: 'telepointer', selection, sessionId };
 				provider.sendMessage(message);
 			}
 		} else {
@@ -121,11 +116,7 @@ export const sendTransaction =
 					(participantsChanged && !hideTelecursorOnLoad))
 			) {
 				const selection = getSendableSelection(newEditorState.selection);
-				const message: CollabTelepointerPayload = {
-					type: 'telepointer',
-					selection,
-					sessionId,
-				};
+				const message: CollabTelepointerPayload = { type: 'telepointer', selection, sessionId };
 				provider.sendMessage(message);
 			}
 		}

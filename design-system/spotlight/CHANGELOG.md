@@ -1,5 +1,14 @@
 # @atlaskit/spotlight
 
+## 0.0.15
+
+### Patch Changes
+
+- [`5d9897e6c4558`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5d9897e6c4558) -
+  Temporary styling update to SpotlightPrimaryAction, SpotlightSecondaryAction,
+  SpotlightDismissControl, SpotlightShowMoreControl to more closely match design ahead of visually
+  refreshed tokens.
+
 ## 0.0.14
 
 ### Patch Changes

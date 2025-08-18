@@ -1,6 +1,25 @@
 import React, { forwardRef, type ReactNode } from 'react';
 
-import Button, { type ButtonProps } from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
+import { Pressable, type PressableProps, Text } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
+
+const styles = cssMap({
+	root: {
+		color: token('color.text.inverse'),
+		borderRadius: token('border.radius.100'),
+		backgroundColor: token('color.background.neutral.bold'),
+		borderStyle: 'solid',
+		borderWidth: token('border.width'),
+		borderColor: token('color.border.accent.gray'),
+		'&:hover': {
+			backgroundColor: token('color.background.neutral.bold.hovered'),
+		},
+		'&:active': {
+			backgroundColor: token('color.background.neutral.bold.pressed'),
+		},
+	},
+});
 
 export interface SpotlightPrimaryActionProps {
 	/**
@@ -18,7 +37,7 @@ export interface SpotlightPrimaryActionProps {
 	/**
 	 * The action to take when the button is clicked.
 	 */
-	onClick?: ButtonProps['onClick'];
+	onClick?: PressableProps['onClick'];
 }
 
 /**
@@ -31,9 +50,9 @@ export interface SpotlightPrimaryActionProps {
 export const SpotlightPrimaryAction = forwardRef<HTMLButtonElement, SpotlightPrimaryActionProps>(
 	({ onClick, children, testId }: SpotlightPrimaryActionProps, ref) => {
 		return (
-			<Button ref={ref} spacing="compact" testId={testId} appearance="primary" onClick={onClick}>
-				{children}
-			</Button>
+			<Pressable ref={ref} testId={testId} xcss={styles.root} onClick={onClick}>
+				<Text as="span">{children}</Text>
+			</Pressable>
 		);
 	},
 );

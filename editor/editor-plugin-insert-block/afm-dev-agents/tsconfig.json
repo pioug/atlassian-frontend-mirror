@@ -98,10 +98,19 @@
 			"path": "../../editor-plugin-tasks-and-decisions/afm-dev-agents/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-toolbar/afm-dev-agents/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-type-ahead/afm-dev-agents/tsconfig.json"
 		},
 		{
 			"path": "../../editor-shared-styles/afm-dev-agents/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar/afm-dev-agents/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar-model/afm-dev-agents/tsconfig.json"
 		},
 		{
 			"path": "../../../elements/emoji/afm-dev-agents/tsconfig.json"

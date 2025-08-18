@@ -1,5 +1,12 @@
 # @atlaskit/editor-toolbar
 
+## 0.3.2
+
+### Patch Changes
+
+- [`c3b98666f3840`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c3b98666f3840) -
+  [ux] ED-28740 register insert block items to new toolbar behind platform_editor_toolbar_aifc
+
 ## 0.3.1
 
 ### Patch Changes

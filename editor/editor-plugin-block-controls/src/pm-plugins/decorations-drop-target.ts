@@ -142,6 +142,9 @@ export const createDropTargetDecoration = (
 				() => createElement(DropTarget, { ...props, getPos, anchorRectCache, isSameLayout }),
 				element,
 				key,
+				undefined,
+				// @portal-render-immediately
+				true,
 			);
 
 			return element;
@@ -184,6 +187,9 @@ export const createLayoutDropTargetDecoration = (
 				() => createElement(DropTargetLayout, { ...props, getPos, anchorRectCache }),
 				element,
 				key,
+				undefined,
+				// @portal-render-immediately
+				true,
 			);
 			return element;
 		},

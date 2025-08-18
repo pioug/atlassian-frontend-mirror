@@ -22,6 +22,7 @@ type AvatarImageProps = {
 	alt?: string;
 	src?: string;
 	testId?: string;
+	teamId?: string;
 };
 
 const ICON_BACKGROUND = token('color.icon.inverse', N0);

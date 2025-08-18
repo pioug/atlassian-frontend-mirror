@@ -2,7 +2,6 @@
 import styled from '@emotion/styled';
 
 import { N50A, N60A } from '@atlaskit/theme/colors';
-import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 const themedBoxShadow = token(
@@ -13,7 +12,6 @@ const themedBoxShadow = token(
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const CardWrapper = styled.div({
 	display: 'inline-block',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	borderRadius: `${borderRadius()}px`,
+	borderRadius: token('border.radius.100', '3px'),
 	boxShadow: themedBoxShadow,
 });

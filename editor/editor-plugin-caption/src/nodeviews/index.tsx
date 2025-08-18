@@ -44,6 +44,8 @@ export class CaptionNodeView extends SelectionBasedNodeView {
 			reactComponentProps,
 			reactComponent,
 			viewShouldUpdate,
+			// @portal-render-immediately
+			true,
 		);
 		this.pluginInjectionApi = pluginInjectionApi;
 		this.handleEditorDisabledChanged();

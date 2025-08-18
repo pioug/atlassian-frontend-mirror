@@ -37,7 +37,7 @@ import {
 	getExperimentalVCMetrics,
 	onExperimentalInteractionComplete,
 } from '../create-experimental-interaction-metrics-payload';
-import { sanitizeUfoName } from '../create-payload/common/utils';
+import { sanitizeUfoName, stringifyLabelStackFully } from '../create-payload/common/utils';
 import { clearActiveTrace, type TraceIdContext } from '../experience-trace-id-context';
 import {
 	allFeatureFlagsAccessed,
@@ -77,6 +77,7 @@ export const postInteractionLog = new PostInteractionLog();
 
 const interactionQueue: { id: string; data: InteractionMetrics }[] = [];
 const segmentCache = new Map<string, SegmentInfo>();
+export const segmentUnmountCache = new Map<string, number>(); // Temporarily store segment unmount counts
 const CLEANUP_TIMEOUT = 60 * 1000;
 
 interface SegmentObserver {
@@ -1244,6 +1245,11 @@ export function removeSegment(labelStack: LabelStack) {
 
 	if (segmentInfo) {
 		segmentCache.delete(JSON.stringify(labelStack));
+
+		if (fg('platform_ufo_segment_unmount_count')) {
+			const cacheKey = stringifyLabelStackFully(labelStack);
+			segmentUnmountCache.set(cacheKey, (segmentUnmountCache.get(cacheKey) || 0) + 1);
+		}
 
 		segmentObservers.forEach((observer) => {
 			observer.onRemove(segmentInfo);

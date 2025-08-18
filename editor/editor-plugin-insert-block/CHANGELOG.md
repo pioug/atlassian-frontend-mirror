@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 4.2.1
+
+### Patch Changes
+
+- [`2af42ad93c3e0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2af42ad93c3e0) -
+  Internal changes to use tokens for border radius.
+- Updated dependencies
+
+## 4.2.0
+
+### Minor Changes
+
+- [`c3b98666f3840`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c3b98666f3840) -
+  [ux] ED-28740 register insert block items to new toolbar behind platform_editor_toolbar_aifc
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.1.7
 
 ### Patch Changes

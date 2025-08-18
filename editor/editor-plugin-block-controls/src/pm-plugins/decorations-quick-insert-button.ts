@@ -134,6 +134,9 @@ export const quickInsertButtonDecoration = ({
 					}),
 				element,
 				key,
+				undefined,
+				// @portal-render-immediately
+				true,
 			);
 
 			return element;

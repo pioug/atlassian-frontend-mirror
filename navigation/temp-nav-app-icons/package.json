@@ -24,13 +24,9 @@
 		"*.compiled.css"
 	],
 	"atlassian": {
-		"team": "Design System Team",
-		"website": {
-			"name": "Legacy logos",
-			"category": "Navigation",
-			"deprecated": "Please use @atlaskit/logo instead."
-		}
+		"team": "Design System Team"
 	},
+	"homepage": "https://atlassian.design/components/logo/",
 	"atlaskit:src": "src/index.tsx",
 	"af:exports": {
 		"./types": "./src/entry-points/types.tsx",

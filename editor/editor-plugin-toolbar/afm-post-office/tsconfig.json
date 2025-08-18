@@ -36,6 +36,9 @@
 			"path": "../../editor-toolbar-model/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../tmp-editor-statsig/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../editor-common/afm-post-office/tsconfig.json"
 		}
 	]

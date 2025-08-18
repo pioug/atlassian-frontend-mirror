@@ -11,12 +11,14 @@ import { type SizeType } from '@atlaskit/avatar';
 import { token } from '@atlaskit/tokens';
 
 import { FallbackAvatar } from './fallback';
+import { getTeamAvatarSrc } from './utils';
 
 type AvatarImageProps = {
 	size: SizeType;
 	alt?: string;
 	src?: string;
 	testId?: string;
+	teamId?: string;
 };
 
 const boxShadowCssVar = '--avatar-box-shadow';
@@ -171,15 +173,17 @@ const widthHeightMap = cssMap({
  *
  * An avatar image is an internal component used to control the rendering phases of an image.
  */
-export const TeamAvatarImage = ({ alt = '', src, size, testId }: AvatarImageProps) => {
+export const TeamAvatarImage = ({ alt = '', src, size, testId, teamId }: AvatarImageProps) => {
 	const [hasImageErrored, setHasImageErrored] = useState(false);
+
+	const avatarSrc = getTeamAvatarSrc(src, teamId);
 
 	// If src changes, reset state
 	useEffect(() => {
 		setHasImageErrored(false);
-	}, [src]);
+	}, [avatarSrc]);
 
-	if (!src || hasImageErrored) {
+	if (!avatarSrc || hasImageErrored) {
 		return (
 			<FallbackAvatar
 				aria-label={alt}
@@ -197,7 +201,7 @@ export const TeamAvatarImage = ({ alt = '', src, size, testId }: AvatarImageProp
 			aria-label={alt}
 		>
 			<img
-				src={src}
+				src={avatarSrc}
 				alt={alt}
 				data-testId={testId && `${testId}--image`}
 				css={[avatarImageStyles.image]}

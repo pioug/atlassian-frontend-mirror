@@ -9,15 +9,13 @@ import ItalicIcon from '@atlaskit/icon/glyph/editor/italic';
 import LinkIcon from '@atlaskit/icon/glyph/editor/link';
 import NumberListIcon from '@atlaskit/icon/glyph/editor/number-list';
 import UnderlineIcon from '@atlaskit/icon/glyph/editor/underline';
-import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Toolbar = styled.div({
 	backgroundColor: token('color.background.neutral'),
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	borderRadius: `${borderRadius()}px`,
+	borderRadius: token('border.radius.100', '3px'),
 	display: 'flex',
 	padding: '5px',
 });

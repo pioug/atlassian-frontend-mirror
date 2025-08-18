@@ -48,6 +48,34 @@ describe('Avatar Picker Dialog', () => {
 		await expect(container).toBeAccessible();
 	});
 
+	it('should have the focus for show more icons going back from avatar list', async () => {
+		jest.spyOn(window, 'requestAnimationFrame').mockImplementation((cb) => setTimeout(cb, 0));
+		render(
+			<AvatarPickerDialog
+				avatars={[someAvatar]}
+				onAvatarPicked={jest.fn()}
+				onImagePicked={jest.fn()}
+				onImagePickedDataURI={jest.fn()}
+				onCancel={jest.fn()}
+			/>,
+		);
+
+		const moreButtonBefore = screen.getByRole('button', { name: 'Show more' });
+
+		moreButtonBefore.focus();
+		await userEvent.keyboard('{Enter}');
+
+		const backBtn = screen.getByRole('button', { name: 'Go Back' });
+
+		backBtn.focus();
+
+		await userEvent.keyboard('{Enter}');
+
+		const moreButtonAfter = screen.getByRole('button', { name: 'Show more' });
+
+		expect(moreButtonAfter).toHaveFocus();
+	});
+
 	it('when save button is clicked onImagePicked and onImagePickedDataURI should be called', async () => {
 		const onImagePicked = jest.fn();
 

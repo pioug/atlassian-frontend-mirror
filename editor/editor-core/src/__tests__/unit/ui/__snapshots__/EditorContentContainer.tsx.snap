@@ -4818,10 +4818,6 @@ exports[`Editor Content styles chromeless editor renders correct styles for lega
   caret-color: transparent;
 }
 
-.emotion-0 .ProseMirror-hideselection {
-  caret-color: transparent;
-}
-
 .emotion-0 .ProseMirror-selectednode {
   outline: none;
 }

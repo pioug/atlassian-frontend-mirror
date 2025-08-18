@@ -5,7 +5,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, Global, jsx } from '@emotion/react';
 
-import { tableControlsSpacing } from '@atlaskit/editor-common/styles';
+import { tableControlsSpacing, DRAG_HANDLE_WIDTH } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
@@ -24,7 +24,7 @@ import { token } from '@atlaskit/tokens';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 
-import { DRAG_HANDLE_MAX_WIDTH_PLUS_GAP, DRAG_HANDLE_WIDTH } from './consts';
+import { DRAG_HANDLE_MAX_WIDTH_PLUS_GAP } from './consts';
 
 /**
  * This anchor element selector disregards anchors that are solely utilized for size measurements,

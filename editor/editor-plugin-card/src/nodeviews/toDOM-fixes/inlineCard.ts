@@ -1,13 +1,17 @@
-import { inlineCard } from '@atlaskit/adf-schema';
+import { inlineCard, inlineCardWithLocalId } from '@atlaskit/adf-schema';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { B400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 // @nodeSpecException:toDOM patch
 export const inlineCardSpecWithFixedToDOM = () => {
+	const inlineCardNode = fg('platform_editor_adf_with_localid')
+		? inlineCardWithLocalId
+		: inlineCard;
 	return {
-		...inlineCard,
+		...inlineCardNode,
 		toDOM: (node: PMNode): DOMOutputSpec => {
 			const wrapperAttrs = {
 				class: 'inlineCardView-content-wrap inlineNodeView',
@@ -39,6 +43,7 @@ export const inlineCardSpecWithFixedToDOM = () => {
 					msUserSelect: 'text',
 					MozUserSelect: 'none', // -moz-user-select
 				}),
+				...(fg('platform_editor_adf_with_localid') ? { 'data-local-id': node.attrs.localId } : {}),
 			};
 			if (node.attrs.url) {
 				return ['span', wrapperAttrs, ['span', cardAttrs, ['a', attrs, node.attrs.url]]];

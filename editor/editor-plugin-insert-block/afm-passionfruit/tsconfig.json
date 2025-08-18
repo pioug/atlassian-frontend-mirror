@@ -98,10 +98,19 @@
 			"path": "../../editor-plugin-tasks-and-decisions/afm-passionfruit/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-toolbar/afm-passionfruit/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-type-ahead/afm-passionfruit/tsconfig.json"
 		},
 		{
 			"path": "../../editor-shared-styles/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar-model/afm-passionfruit/tsconfig.json"
 		},
 		{
 			"path": "../../../elements/emoji/afm-passionfruit/tsconfig.json"

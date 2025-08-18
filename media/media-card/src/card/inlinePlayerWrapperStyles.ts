@@ -1,6 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
-import { borderRadius } from '@atlaskit/theme/constants';
 import { getDimensionsWithDefault } from '../utils/lightCards/getDimensionsWithDefault';
 import { type InlinePlayerWrapperProps } from './types';
 import {
@@ -8,6 +7,7 @@ import {
 	SelectionStyle,
 	hideNativeBrowserTextSelectionStyles,
 } from '@atlaskit/editor-shared-styles/selection';
+import { token } from '@atlaskit/tokens';
 
 /*
  * Used to display the blue border around a selected card without
@@ -24,7 +24,7 @@ const getSelectedBorderStyle = ({ selected }: { selected?: boolean }) => `
       top: 0;
       box-sizing: border-box;
       pointer-events: none;
-      ${borderRadius}
+      border-radius: ${token('border.radius.100', '3px')};
       ${selected ? getSelectionStyles([SelectionStyle.Border]) : ''}
     }
   `;
@@ -39,7 +39,7 @@ InlinePlayerWrapperProps) => css`
 	width: ${getDimensionsWithDefault(dimensions).width || '100%'};
 	height: ${getDimensionsWithDefault(dimensions).height || 'auto'};
 	overflow: hidden;
-	border-radius: ${borderRadius()}px;
+	border-radius: ${token('border.radius.100', '3px')};
 	position: relative;
 	max-width: 100%;
 	max-height: 100%;

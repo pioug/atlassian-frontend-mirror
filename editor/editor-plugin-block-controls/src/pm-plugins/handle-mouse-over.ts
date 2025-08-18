@@ -178,7 +178,11 @@ export const handleMouseOver = (
 			}
 
 			if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
-				if (isMenuOpen && originalAnchorName) {
+				if (
+					isMenuOpen &&
+					originalAnchorName &&
+					api?.userIntent?.sharedState.currentState()?.currentUserIntent === 'blockMenuOpen'
+				) {
 					api?.core?.actions.execute(api?.blockControls?.commands.toggleBlockMenu());
 				}
 			}

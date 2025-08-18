@@ -235,10 +235,8 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					InlineNodeViewSharedStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					hideSelectionStyles,
-					(fg('platform_editor_hide_cursor_when_pm_hideselection') ||
-						editorExperiment('platform_editor_advanced_code_blocks', true)) &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						hideCursorWhenHideSelectionStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					hideCursorWhenHideSelectionStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					selectedNodeStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -396,7 +394,11 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 						smartCardStylesWithSearchMatchAndPreviewPanelResponsiveness,
 					((expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1') &&
 						fg('platform_editor_controls_patch_15')) ||
-						fg('platform_editor_preview_panel_linking')) &&
+						expValEqualsNoExposure(
+							'platform_editor_preview_panel_linking_exp',
+							'isEnabled',
+							true,
+						)) &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						editorControlsSmartCardStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

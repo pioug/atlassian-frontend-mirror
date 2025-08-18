@@ -110,3 +110,4 @@ export { ClassNames as MediaSharedClassNames } from './shared/media';
 
 export { BreakoutCssClassName } from './shared/breakout';
 export { BODIED_EXT_MBE_MARGIN_TOP } from './shared/extension';
+export { DRAG_HANDLE_SELECTOR, DRAG_HANDLE_WIDTH } from './shared/drag-handle';

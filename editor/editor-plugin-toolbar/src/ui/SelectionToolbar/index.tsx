@@ -16,6 +16,7 @@ import {
 } from '@atlaskit/editor-toolbar';
 import { ToolbarModelRenderer } from '@atlaskit/editor-toolbar-model';
 import type { RegisterToolbar, RegisterComponent } from '@atlaskit/editor-toolbar-model';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { ToolbarPlugin } from '../../toolbarPluginType';
 import { TOOLBAR_LABEL } from '../consts';
@@ -40,12 +41,20 @@ export const SelectionToolbar = ({ api, editorView, mountPoint }: SelectionToolb
 	const selection = useSharedPluginStateSelector(api, 'selection.selection');
 	const isTextSelection =
 		!editorView.state.selection.empty && editorView.state.selection instanceof TextSelection;
+	const isCellSelection =
+		!editorView.state.selection.empty && '$anchorCell' in editorView.state.selection;
 
 	if (!components || !toolbar) {
 		return null;
 	}
 
-	if (!isTextSelection || currentUserIntent === 'dragging' || isSSR()) {
+	if (
+		!(isTextSelection || isCellSelection) ||
+		currentUserIntent === 'dragging' ||
+		(currentUserIntent === 'blockMenuOpen' &&
+			expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) ||
+		isSSR()
+	) {
 		return null;
 	}
 

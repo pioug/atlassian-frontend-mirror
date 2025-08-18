@@ -1,6 +1,13 @@
 import React from 'react';
 
-import { bulletList, listItem, orderedListWithOrder } from '@atlaskit/adf-schema';
+import {
+	bulletList,
+	bulletListWithLocalId,
+	listItem,
+	listItemWithLocalId,
+	orderedListWithOrder,
+	orderedListWithOrderAndLocalId,
+} from '@atlaskit/adf-schema';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -11,6 +18,7 @@ import {
 import { toggleBulletList, toggleOrderedList, tooltip } from '@atlaskit/editor-common/keymaps';
 import { listMessages as messages } from '@atlaskit/editor-common/messages';
 import { IconList, IconListNumber } from '@atlaskit/editor-common/quick-insert';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ListPlugin } from './listPluginType';
@@ -63,12 +71,20 @@ export const listPlugin: ListPlugin = ({ config: options, api }) => {
 
 		nodes() {
 			return [
-				{ name: 'bulletList', node: bulletList },
+				{
+					name: 'bulletList',
+					node: fg('platform_editor_adf_with_localid') ? bulletListWithLocalId : bulletList,
+				},
 				{
 					name: 'orderedList',
-					node: orderedListWithOrder,
+					node: fg('platform_editor_adf_with_localid')
+						? orderedListWithOrderAndLocalId
+						: orderedListWithOrder,
 				},
-				{ name: 'listItem', node: listItem },
+				{
+					name: 'listItem',
+					node: fg('platform_editor_adf_with_localid') ? listItemWithLocalId : listItem,
+				},
 			];
 		},
 

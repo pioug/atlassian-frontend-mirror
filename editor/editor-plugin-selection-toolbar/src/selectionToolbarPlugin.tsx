@@ -27,6 +27,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -47,6 +48,7 @@ type SelectionToolbarPluginState = {
 	selectionStable: boolean;
 	hide: boolean;
 	toolbarDocking: ToolbarDocking;
+	isBlockMenuOpen?: boolean;
 };
 
 const getToolbarDocking = (
@@ -188,12 +190,19 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 								},
 								apply(tr, pluginState: SelectionToolbarPluginState) {
 									const meta = tr.getMeta(selectionToolbarPluginKey);
-
+									let newPluginState = pluginState;
 									if (meta) {
 										return {
-											...pluginState,
+											...newPluginState,
 											...meta,
 										};
+									}
+
+									if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
+										const isBlockMenuOpen =
+											api?.userIntent?.sharedState.currentState()?.currentUserIntent ===
+											'blockMenuOpen';
+										newPluginState = { ...newPluginState, isBlockMenuOpen };
 									}
 
 									// if the toolbarDockingInitialPosition preference has changed
@@ -214,14 +223,14 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 											);
 											if (pluginState.toolbarDocking !== userToolbarDockingPref) {
 												return {
-													...pluginState,
+													...newPluginState,
 													toolbarDocking: userToolbarDockingPref,
 												};
 											}
 										}
 									}
 
-									return pluginState;
+									return newPluginState;
 								},
 							},
 							view(view) {
@@ -318,9 +327,8 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 			? {}
 			: {
 					floatingToolbar(state, intl, providerFactory) {
-						const { selectionStable, hide, toolbarDocking } = selectionToolbarPluginKey.getState(
-							state,
-						) as SelectionToolbarPluginState;
+						const { selectionStable, hide, toolbarDocking, isBlockMenuOpen } =
+							selectionToolbarPluginKey.getState(state) as SelectionToolbarPluginState;
 
 						const isCellSelection = '$anchorCell' in state.selection;
 						const isEditorControlsEnabled = editorExperiment(
@@ -347,6 +355,15 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 							if (isSelectedViaDragHandle) {
 								return;
 							}
+						}
+
+						if (
+							isBlockMenuOpen &&
+							isEditorControlsEnabled &&
+							expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
+						) {
+							// If the block menu is open, do not show the selection toolbar.
+							return;
 						}
 
 						// Resolve the selectionToolbarHandlers to a list of SelectionToolbarGroups

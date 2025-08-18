@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { type FormEvent, Fragment } from 'react';
+import React, { type FormEvent, Fragment, createRef } from 'react';
 import { jsx, css } from '@compiled/react';
 import { cssMap } from '@atlaskit/css';
 
@@ -99,6 +99,8 @@ export class AvatarPickerDialog extends PureComponent<
 		avatars: [],
 	};
 
+	moreRef: React.RefObject<HTMLButtonElement> = createRef<HTMLButtonElement>();
+
 	state: AvatarPickerDialogState = {
 		mode: Mode.Cropping,
 		selectedAvatar: this.props.defaultSelectedAvatar,
@@ -189,6 +191,9 @@ export class AvatarPickerDialog extends PureComponent<
 
 	onGoBack = () => {
 		this.clearErrorState();
+		requestAnimationFrame(() => {
+			this.moreRef.current?.focus();
+		});
 	};
 
 	onRemoveImage = () => {
@@ -308,6 +313,7 @@ export class AvatarPickerDialog extends PureComponent<
 				onShowMore={this.onShowMore}
 				selectAvatarLabel={selectAvatarLabel}
 				showMoreAvatarsButtonLabel={showMoreAvatarsButtonLabel}
+				ref={this.moreRef}
 			/>
 		);
 	}

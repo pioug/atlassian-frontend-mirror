@@ -1,5 +1,17 @@
 # @atlassian/navigation-system
 
+## 0.181.0
+
+### Minor Changes
+
+- [`1e64de395c7b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1e64de395c7b5) -
+  Cleans up the `platform_dst_nav4_flyout_update_on_resize` feature gate. Flyout menus now correctly
+  reposition when their content changes size.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.180.0
 
 ### Minor Changes

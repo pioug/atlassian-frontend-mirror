@@ -9,8 +9,8 @@ import {
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { HoverLinkOverlay } from '@atlaskit/editor-common/ui';
 import { NodeSelection, type Transaction } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { getObjectAri, getObjectName, getObjectIconUrl } from '@atlaskit/smart-card';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { type cardPlugin } from '../cardPlugin';
@@ -116,7 +116,8 @@ export const InlineCardWithAwareness = memo(
 		const floatingToolbarNode = selection instanceof NodeSelection && selection.node;
 		// This is a prop to show Hover card, Hover card should be shown only in Live View and Classic Renderer (note when only Editor controls enabled we don't show in Live view)
 		const showHoverPreview =
-			floatingToolbarNode !== node && fg('platform_editor_preview_panel_linking');
+			floatingToolbarNode !== node &&
+			expValEquals('platform_editor_preview_panel_linking_exp', 'isEnabled', true);
 
 		const innerCardWithOpenButtonOverlay = useMemo(
 			() => (
@@ -199,7 +200,7 @@ export const InlineCardWithAwareness = memo(
 					editorAppearance === 'comment' ||
 					shouldShowOpenButtonOverlayInChomeless) &&
 				(editorExperiment('platform_editor_controls', 'variant1') ||
-					fg('platform_editor_preview_panel_linking'))
+					expValEquals('platform_editor_preview_panel_linking_exp', 'isEnabled', true))
 			);
 		}, [mode, editorAppearance]);
 
@@ -207,7 +208,10 @@ export const InlineCardWithAwareness = memo(
 			? innerCardWithOpenButtonOverlay
 			: innerCardOriginal;
 
-		if (mode === 'view' && fg('platform_editor_preview_panel_linking')) {
+		if (
+			mode === 'view' &&
+			expValEquals('platform_editor_preview_panel_linking_exp', 'isEnabled', true)
+		) {
 			const url = node.attrs.url;
 			const cardState = cardContext?.value?.store?.getState()[url];
 			if (cardState) {

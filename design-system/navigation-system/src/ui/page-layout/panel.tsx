@@ -164,7 +164,7 @@ export function Panel({
 	 * Whether or not the slot has its own border. On small screens this becomes a shadow.
 	 *
 	 * Defaults to the `platform_design_system_nav4_panel_default_border` gate.
-	 * This will be `false` while we update product usage, eventually becoming `true`.
+	 * This will be `false` while we update app usage, eventually becoming `true`.
 	 * Then this prop will be removed.
 	 */
 	hasBorder?: boolean;

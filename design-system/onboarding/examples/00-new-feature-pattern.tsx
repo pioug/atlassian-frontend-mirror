@@ -16,7 +16,6 @@ import {
 	SpotlightTarget,
 	SpotlightTransition,
 } from '@atlaskit/onboarding';
-import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 const wrapperStyles = css({
@@ -39,7 +38,7 @@ const NewFeature = () => {
 			<SpotlightManager blanketIsTinted={false}>
 				<ButtonGroup label="Choose the option">
 					<SpotlightTarget name="button">
-						<SpotlightPulse radius={borderRadius()}>
+						<SpotlightPulse radius={3}>
 							<Button onClick={toggleIsSpotlightVisible}>I am a new feature</Button>
 						</SpotlightPulse>
 					</SpotlightTarget>

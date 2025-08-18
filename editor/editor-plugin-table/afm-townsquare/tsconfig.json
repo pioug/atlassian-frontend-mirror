@@ -63,6 +63,9 @@
 			"path": "../../editor-plugin-selection/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-user-intent/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-width/afm-townsquare/tsconfig.json"
 		},
 		{

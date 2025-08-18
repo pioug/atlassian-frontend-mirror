@@ -1,1 +1,1 @@
-export type UserIntent = 'default' | 'dragging';
+export type UserIntent = 'default' | 'dragging' | 'blockMenuOpen' | 'resizing';

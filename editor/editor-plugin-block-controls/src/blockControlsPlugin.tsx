@@ -83,7 +83,11 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 						rootAnchorName,
 						rootNodeType,
 					},
-					closeMenu: editorExperiment('platform_editor_controls', 'variant1') ? true : undefined,
+					closeMenu:
+						editorExperiment('platform_editor_controls', 'variant1') &&
+						!expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
+							? true
+							: undefined,
 				});
 				return tr;
 			},
@@ -93,6 +97,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 				const currMeta = tr.getMeta(key);
 				if (options?.closeMenu) {
 					tr.setMeta(key, { ...currMeta, closeMenu: true });
+
 					return tr;
 				}
 
@@ -103,6 +108,19 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 				}
 
 				tr.setMeta(key, { ...currMeta, toggleMenu: { anchorName: options?.anchorName } });
+
+				const menuTriggerBy = api?.blockControls?.sharedState.currentState()?.menuTriggerBy;
+
+				if (
+					menuTriggerBy === undefined ||
+					(!!menuTriggerBy && menuTriggerBy === options?.anchorName)
+				) {
+					// Toggled from drag handle
+					const currentUserIntent = api?.userIntent?.sharedState.currentState()?.currentUserIntent;
+					if (currentUserIntent === 'blockMenuOpen') {
+						api?.userIntent?.commands.setCurrentUserIntent('default')({ tr });
+					}
+				}
 				return tr;
 			},
 
@@ -127,7 +145,6 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 						shouldPersistActiveSession: true,
 					})({ tr });
 				}
-
 				api?.userIntent?.commands.setCurrentUserIntent('dragging')({ tr });
 
 				return tr;

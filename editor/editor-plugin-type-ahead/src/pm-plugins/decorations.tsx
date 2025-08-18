@@ -149,6 +149,9 @@ export const factoryDecorations = ({
 					),
 					typeaheadComponent,
 					decorationId,
+					undefined,
+					// @portal-render-immediately
+					true,
 				);
 
 				shouldFocusCursorInsideQuery = false;

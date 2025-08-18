@@ -8,7 +8,7 @@
  * In the long term likely `toDOM` will move back out of `adf-schema` in which
  * case we can consolidate them.
  */
-import { embedCard } from '@atlaskit/adf-schema';
+import { embedCard, embedCardWithLocalId } from '@atlaskit/adf-schema';
 import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -16,6 +16,7 @@ import {
 	DEFAULT_EMBED_CARD_HEIGHT,
 	DEFAULT_EMBED_CARD_WIDTH,
 } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { B400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -59,8 +60,9 @@ const LINE_LENGTH = 760;
 
 // @nodeSpecException:toDOM patch
 export const embedCardSpecWithFixedToDOM = () => {
+	const embedCardNode = fg('platform_editor_adf_with_localid') ? embedCardWithLocalId : embedCard;
 	return {
-		...embedCard,
+		...embedCardNode,
 		toDOM: (node: PMNode): DOMOutputSpec => {
 			const { url, layout, width, originalWidth, originalHeight } = node.attrs;
 
@@ -85,6 +87,7 @@ export const embedCardSpecWithFixedToDOM = () => {
 					marginLeft: layout === 'align-start' ? '0' : '',
 					float: float(layout),
 				}),
+				...(fg('platform_editor_adf_with_localid') ? { 'data-local-id': node.attrs.localId } : {}),
 			};
 			return [
 				'div',

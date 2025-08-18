@@ -61,7 +61,6 @@ function Editor() {
 Example.decorators = [
 	withPlatformFeatureFlags({
 		platform_editor_add_media_from_url_rollout: true,
-		platform_editor_media_from_url_remove_form: true,
 	}),
 ];
 

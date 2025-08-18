@@ -502,27 +502,10 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
 
 	/**
 	 * This prosemirror css style: https://github.com/ProseMirror/prosemirror-view/blob/f37ebb29befdbde3cd194fe13fe17b78e743d2f2/style/prosemirror.css#L24
-	 *
-	 * 1. Merge and Release platform_editor_hide_cursor_when_pm_hideselection
-	 * 2. Cleanup duplicated style from platform_editor_advanced_code_blocks
-	 *    https://product-fabric.atlassian.net/browse/ED-26331
 	 */
-	${fg('platform_editor_hide_cursor_when_pm_hideselection')
-		? css`
-				.ProseMirror-hideselection {
-					caret-color: transparent;
-				}
-			`
-		: null}
-
-	/* This prosemirror css style: https://github.com/ProseMirror/prosemirror-view/blob/f37ebb29befdbde3cd194fe13fe17b78e743d2f2/style/prosemirror.css#L24 */
-	${editorExperiment('platform_editor_advanced_code_blocks', true)
-		? css`
-				.ProseMirror-hideselection {
-					caret-color: transparent;
-				}
-			`
-		: null}
+	.ProseMirror-hideselection {
+		caret-color: transparent;
+	}
 
 	.ProseMirror-selectednode {
 		outline: none;

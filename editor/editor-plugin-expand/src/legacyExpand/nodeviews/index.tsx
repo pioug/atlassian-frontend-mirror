@@ -277,6 +277,9 @@ export class ExpandNodeView implements NodeView {
 			),
 			this.icon,
 			this.renderKey,
+			undefined,
+			// @portal-render-immediately
+			true,
 		);
 	}
 

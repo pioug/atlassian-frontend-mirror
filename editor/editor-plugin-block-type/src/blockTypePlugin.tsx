@@ -2,7 +2,12 @@ import React from 'react';
 
 import { type IntlShape } from 'react-intl-next';
 
-import { extendedBlockquote, hardBreak, heading } from '@atlaskit/adf-schema';
+import {
+	extendedBlockquote,
+	extendedBlockquoteWithLocalId,
+	hardBreak,
+	heading,
+} from '@atlaskit/adf-schema';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
@@ -183,7 +188,9 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 				{ name: 'heading', node: heading },
 				{
 					name: 'blockquote',
-					node: extendedBlockquote,
+					node: fg('platform_editor_adf_with_localid')
+						? extendedBlockquoteWithLocalId
+						: extendedBlockquote,
 				},
 				{ name: 'hardBreak', node: hardBreak },
 			];

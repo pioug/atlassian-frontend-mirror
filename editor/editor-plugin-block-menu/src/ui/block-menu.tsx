@@ -1,10 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import { cssMap, cx } from '@atlaskit/css';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
+import { DRAG_HANDLE_SELECTOR, DRAG_HANDLE_WIDTH } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import {
@@ -33,9 +34,7 @@ const styles = cssMap({
 	},
 });
 
-const DRAG_HANDLE_SELECTOR = '[data-editor-block-ctrl-drag-handle=true]';
-const DRAG_HANDLE_WIDTH = 12;
-const DRAG_HANDLE_PADDING = 5;
+const DRAG_HANDLE_OFFSET_PADDING = 5;
 
 const PopupWithListeners = withReactEditorViewOuterListeners(Popup);
 
@@ -93,12 +92,43 @@ const BlockMenu = ({
 	const hasFocus = editorView?.hasFocus() ?? false;
 	const hasSelection = !!editorView && !editorView.state.selection.empty;
 
+	useEffect(() => {
+		if (
+			!isMenuOpen ||
+			!menuTriggerBy ||
+			!isSelectedViaDragHandle ||
+			!hasFocus ||
+			!hasSelection ||
+			['resizing', 'dragging'].includes(currentUserIntent || '')
+		) {
+			return;
+		}
+
+		api?.core.actions.execute(api?.userIntent?.commands.setCurrentUserIntent('blockMenuOpen'));
+	}, [
+		api,
+		isMenuOpen,
+		menuTriggerBy,
+		isSelectedViaDragHandle,
+		hasFocus,
+		hasSelection,
+		currentUserIntent,
+	]);
+
 	if (!isMenuOpen) {
 		return null;
 	}
 
 	const closeMenu = () => {
-		api?.core.actions.execute(api?.blockControls?.commands.toggleBlockMenu({ closeMenu: true }));
+		api?.core.actions.execute(({ tr }) => {
+			api?.blockControls?.commands.toggleBlockMenu({ closeMenu: true })({ tr });
+
+			api?.userIntent?.commands.setCurrentUserIntent(
+				currentUserIntent === 'blockMenuOpen' ? 'default' : currentUserIntent || 'default',
+			)({ tr });
+
+			return tr;
+		});
 	};
 
 	if (
@@ -106,13 +136,12 @@ const BlockMenu = ({
 		!isSelectedViaDragHandle ||
 		!hasFocus ||
 		!hasSelection ||
-		currentUserIntent === 'dragging'
+		['resizing', 'dragging'].includes(currentUserIntent || '')
 	) {
 		closeMenu();
 		return null;
 	}
-
-	const targetHandleRef = editorView.dom?.querySelector<HTMLElement>(DRAG_HANDLE_SELECTOR);
+	const targetHandleRef = editorView?.dom?.querySelector<HTMLElement>(DRAG_HANDLE_SELECTOR);
 
 	if (targetHandleRef instanceof HTMLElement) {
 		return (
@@ -128,7 +157,7 @@ const BlockMenu = ({
 				zIndex={akEditorFloatingOverlapPanelZIndex}
 				forcePlacement={true}
 				stick={true}
-				offset={[DRAG_HANDLE_WIDTH + DRAG_HANDLE_PADDING, 0]}
+				offset={[DRAG_HANDLE_WIDTH + DRAG_HANDLE_OFFSET_PADDING, 0]}
 			>
 				<BlockMenuContent api={api} />
 			</PopupWithListeners>

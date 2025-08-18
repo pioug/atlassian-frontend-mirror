@@ -681,5 +681,8 @@ export const embedCardNodeView =
 			eventDispatcher,
 			reactComponentProps,
 			undefined,
+			undefined,
+			// @portal-render-immediately
+			true,
 		).init();
 	};

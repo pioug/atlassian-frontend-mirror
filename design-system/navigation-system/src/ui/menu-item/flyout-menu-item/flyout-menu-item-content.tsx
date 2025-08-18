@@ -71,10 +71,6 @@ export const FlyoutMenuItemContent = forwardRef<HTMLDivElement, FlyoutMenuItemCo
 			setIsOpen(false);
 		}, [setIsOpen, onClose]);
 
-		const InnerWrapper = fg('platform_dst_nav4_flyout_update_on_resize')
-			? UpdatePopperOnContentResize
-			: NoOpWrapper;
-
 		return (
 			<PopupContent
 				appearance="UNSAFE_modal-below-sm"
@@ -104,21 +100,12 @@ export const FlyoutMenuItemContent = forwardRef<HTMLDivElement, FlyoutMenuItemCo
 				shouldDisableGpuAcceleration
 			>
 				{({ update }) => (
-					<InnerWrapper ref={forwardedRef} update={update}>
+					<UpdatePopperOnContentResize ref={forwardedRef} update={update}>
 						{children}
-					</InnerWrapper>
+					</UpdatePopperOnContentResize>
 				)}
 			</PopupContent>
 		);
-	},
-);
-
-const NoOpWrapper = forwardRef(
-	(
-		{ children }: { children: React.ReactNode },
-		forwardedRef: React.ForwardedRef<HTMLDivElement>,
-	) => {
-		return <div ref={forwardedRef}>{children}</div>;
 	},
 );
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 import Loadable from 'react-loadable';
 
-import { date } from '@atlaskit/adf-schema';
+import { date, dateWithLocalId } from '@atlaskit/adf-schema';
 import type { WeekDay } from '@atlaskit/calendar/types';
 import {
 	ACTION,
@@ -29,6 +29,7 @@ import { calculateToolbarPositionAboveSelection } from '@atlaskit/editor-common/
 import type { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import CommentIcon from '@atlaskit/icon/core/comment';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { DatePlugin } from './datePluginType';
 import { closeDatePicker, closeDatePickerWithAnalytics, createDate } from './pm-plugins/actions';
@@ -166,7 +167,12 @@ const datePlugin: DatePlugin = ({ config = {}, api }) => ({
 	},
 
 	nodes() {
-		return [{ name: 'date', node: date }];
+		return [
+			{
+				name: 'date',
+				node: fg('platform_editor_adf_with_localid') ? dateWithLocalId : date,
+			},
+		];
 	},
 
 	pmPlugins() {

@@ -24,7 +24,6 @@ import {
 	withOuterListeners,
 } from '@atlaskit/editor-common/ui';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import Tabs, { Tab, TabList, useTabPanel } from '@atlaskit/tabs';
 
@@ -35,7 +34,6 @@ import { useFocusEditor } from './hooks/use-focus-editor';
 import { useUnholyAutofocus } from './hooks/use-unholy-autofocus';
 import { LocalMedia } from './LocalMedia';
 import { MediaFromURL } from './MediaFromURL';
-import { MediaFromURLWithForm } from './MediaFromURLWithForm';
 import { MediaInsertWrapper } from './MediaInsertWrapper';
 
 const PopupWithListeners = withOuterListeners(Popup);
@@ -177,35 +175,19 @@ export const MediaInsertPicker = ({
 								</CustomTabPanel>
 							)}
 							<CustomTabPanel>
-								{fg('platform_editor_media_from_url_remove_form') ? (
-									<MediaFromURL
-										mediaProvider={mediaProvider}
-										dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-										closeMediaInsertPicker={() => {
-											closeMediaInsertPicker();
-											focusEditor();
-										}}
-										insertMediaSingle={insertMediaSingle}
-										insertExternalMediaSingle={insertExternalMediaSingle}
-										isOnlyExternalLinks={isOnlyExternalLinks}
-										customizedUrlValidation={customizedUrlValidation}
-										customizedHelperMessage={customizedHelperMessage}
-									/>
-								) : (
-									<MediaFromURLWithForm
-										mediaProvider={mediaProvider}
-										dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-										closeMediaInsertPicker={() => {
-											closeMediaInsertPicker();
-											focusEditor();
-										}}
-										insertMediaSingle={insertMediaSingle}
-										insertExternalMediaSingle={insertExternalMediaSingle}
-										isOnlyExternalLinks={isOnlyExternalLinks}
-										customizedUrlValidation={customizedUrlValidation}
-										customizedHelperMessage={customizedHelperMessage}
-									/>
-								)}
+								<MediaFromURL
+									mediaProvider={mediaProvider}
+									dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+									closeMediaInsertPicker={() => {
+										closeMediaInsertPicker();
+										focusEditor();
+									}}
+									insertMediaSingle={insertMediaSingle}
+									insertExternalMediaSingle={insertExternalMediaSingle}
+									isOnlyExternalLinks={isOnlyExternalLinks}
+									customizedUrlValidation={customizedUrlValidation}
+									customizedHelperMessage={customizedHelperMessage}
+								/>
 							</CustomTabPanel>
 						</Tabs>
 					</MediaInsertWrapper>

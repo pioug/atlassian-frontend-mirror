@@ -5,7 +5,6 @@ import { type EditorState, type ReadonlyTransaction } from '@atlaskit/editor-pro
 import { type NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { CodeBlockLineAttributes } from '../types';
 import { codeBlockClassNames } from '../ui/class-names';
@@ -221,7 +220,7 @@ export const updateDecorationSetWithWordWrappedDecorator = (
 		// out on the next toggle.
 		if (
 			currentWrappedBlockDecorationSet.length === 0 &&
-			editorExperiment('platform_editor_advanced_code_blocks', true)
+			pos + innerNode.nodeSize <= tr.doc.content.size
 		) {
 			const wrappedBlock = Decoration.node(
 				pos,

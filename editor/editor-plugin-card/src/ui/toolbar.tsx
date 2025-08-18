@@ -532,8 +532,10 @@ const generateToolbarItems =
 						},
 					];
 
-			const openPreviewPanelItems: FloatingToolbarItem<Command>[] = fg(
-				'platform_editor_preview_panel_linking',
+			const openPreviewPanelItems: FloatingToolbarItem<Command>[] = expValEquals(
+				'platform_editor_preview_panel_linking_exp',
+				'isEnabled',
+				true,
 			)
 				? [
 						{

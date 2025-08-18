@@ -1,5 +1,12 @@
 # @atlaskit/tooltip
 
+## 20.4.2
+
+### Patch Changes
+
+- [`2af42ad93c3e0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2af42ad93c3e0) -
+  Internal changes to use tokens for border radius.
+
 ## 20.4.1
 
 ### Patch Changes

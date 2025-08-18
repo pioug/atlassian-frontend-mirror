@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-code-block
 
+## 5.0.10
+
+### Patch Changes
+
+- [`25ec3e3638f52`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/25ec3e3638f52) -
+  Cleanup advanced code block experiment
+- Updated dependencies
+
 ## 5.0.9
 
 ### Patch Changes

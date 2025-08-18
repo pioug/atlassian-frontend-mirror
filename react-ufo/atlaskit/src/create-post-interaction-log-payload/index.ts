@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import coinflip from '../coinflip';
 import { type PostInteractionLogOutput, type ReactProfilerTiming } from '../common';
 import type { LateMutation } from '../common/react-ufo-payload-schema';
@@ -8,10 +10,15 @@ import {
 	getMostRecentVCRevision,
 	getPostInteractionRate,
 } from '../config';
-import { isSegmentLabel, sanitizeUfoName } from '../create-payload/common/utils';
+import {
+	isSegmentLabel,
+	sanitizeUfoName,
+	stringifyLabelStackFully,
+} from '../create-payload/common/utils';
 import { getReactUFOPayloadVersion } from '../create-payload/utils/get-react-ufo-payload-version';
 import { getPageVisibilityState } from '../hidden-timing';
 import { type LabelStack } from '../interaction-context';
+import { segmentUnmountCache } from '../interaction-metrics';
 
 import getLateMutations from './get-late-mutations';
 
@@ -90,6 +97,7 @@ function transformReactProfilerTimings(
 				const label = labelStack.map((ls) => ls.name).join('/');
 				const start = Math.round(startTime);
 				const end = Math.round(commitTime);
+				const cacheKey = stringifyLabelStackFully(labelStack);
 
 				const timing = result.get(label) || {
 					labelStack: label,
@@ -111,6 +119,10 @@ function transformReactProfilerTimings(
 				}
 				if (type === 'update') {
 					timing.rerenderCount += 1;
+				}
+				if (segmentUnmountCache.has(cacheKey) && fg('platform_ufo_segment_unmount_count')) {
+					timing.unmountCount = segmentUnmountCache.get(cacheKey) || 0;
+					segmentUnmountCache.delete(cacheKey);
 				}
 				timing.renderDuration += Math.round(actualDuration);
 

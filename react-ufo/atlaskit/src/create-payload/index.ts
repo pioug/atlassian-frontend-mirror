@@ -22,7 +22,10 @@ import { getGlobalErrorCount } from '../global-error-handler';
 import { getPageVisibilityState } from '../hidden-timing';
 import * as initialPageLoadExtraTiming from '../initial-page-load-extra-timing';
 import type { LabelStack } from '../interaction-context';
-import { interactionSpans as atlaskitInteractionSpans } from '../interaction-metrics';
+import {
+	interactionSpans as atlaskitInteractionSpans,
+	segmentUnmountCache,
+} from '../interaction-metrics';
 import { createMemoryStateReport, createPressureStateReport } from '../machine-utilisation';
 import type { ResourceTimings } from '../resource-timing';
 import * as resourceTiming from '../resource-timing';
@@ -357,6 +360,10 @@ function optimizeReactProfilerTimings(
 				}
 				if (type === 'update') {
 					timing.rerenderCount += 1;
+				}
+				if (segmentUnmountCache.has(label) && fg('platform_ufo_segment_unmount_count')) {
+					timing.unmountCount = segmentUnmountCache.get(label) || 0;
+					segmentUnmountCache.delete(label);
 				}
 				timing.renderDuration += Math.round(actualDuration);
 

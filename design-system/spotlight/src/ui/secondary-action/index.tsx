@@ -1,7 +1,22 @@
 import React, { forwardRef, type ReactNode } from 'react';
 
-import Button, { type ButtonProps } from '@atlaskit/button/new';
-import { Text } from '@atlaskit/primitives/compiled';
+import { cssMap } from '@atlaskit/css';
+import { Pressable, type PressableProps, Text } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
+
+const styles = cssMap({
+	root: {
+		color: token('color.text.inverse'),
+		borderRadius: token('border.radius.100'),
+		backgroundColor: token('color.background.neutral.bold'),
+		'&:hover': {
+			backgroundColor: token('color.background.neutral.bold.hovered'),
+		},
+		'&:active': {
+			backgroundColor: token('color.background.neutral.bold.pressed'),
+		},
+	},
+});
 
 export interface SpotlightSecondaryActionProps {
 	/**
@@ -19,7 +34,7 @@ export interface SpotlightSecondaryActionProps {
 	/**
 	 * The action to take when the button is clicked.
 	 */
-	onClick?: ButtonProps['onClick'];
+	onClick?: PressableProps['onClick'];
 }
 
 /**
@@ -34,8 +49,8 @@ export const SpotlightSecondaryAction = forwardRef<
 	SpotlightSecondaryActionProps
 >(({ onClick, children, testId }: SpotlightSecondaryActionProps, ref) => {
 	return (
-		<Button ref={ref} spacing="compact" testId={testId} appearance="subtle" onClick={onClick}>
+		<Pressable ref={ref} testId={testId} xcss={styles.root} onClick={onClick}>
 			<Text as="span">{children}</Text>
-		</Button>
+		</Pressable>
 	);
 });

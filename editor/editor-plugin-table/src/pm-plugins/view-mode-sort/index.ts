@@ -143,6 +143,9 @@ export const createPlugin = (
 												),
 											element,
 											decorationRenderKey,
+											undefined,
+											// @portal-render-immediately
+											true,
 										);
 
 										return element;

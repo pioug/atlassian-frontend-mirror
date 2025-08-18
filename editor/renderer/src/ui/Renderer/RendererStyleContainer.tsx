@@ -66,6 +66,7 @@ import { bulletListSelector, orderedListSelector } from '@atlaskit/adf-schema';
 import { shadowClassNames, shadowObserverClassNames } from '@atlaskit/editor-common/ui';
 import { browser } from '@atlaskit/editor-common/browser';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { isStickyScrollbarEnabled, isTableResizingEnabled } from '../../react/nodes/table';
 import { SORTABLE_COLUMN_ICON_CLASSNAME } from '@atlaskit/editor-common/table';
 import { LightWeightCodeBlockCssClassName } from '../../react/nodes/codeBlock/components/lightWeightCodeBlock';
@@ -1044,8 +1045,7 @@ const smartCardStylesAvatarMarginFix = css({
 	},
 });
 
-// fg platform_editor_avatar_group_margin_fix
-const smartCardStylesAvatarMarginFix2 = css({
+const smartCardStylesAvatarListZeroMarginTop = css({
 	[`.${SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER}`]: {
 		'ul, ol': {
 			marginTop: 0,
@@ -2173,9 +2173,10 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				tasksAndDecisionsStyles,
 				smartCardStyles,
 				smartCardStylesAvatarFix,
-				fg('platform_editor_preview_panel_linking') && headerSmartCardStyles,
+				expValEqualsNoExposure('platform_editor_preview_panel_linking_exp', 'isEnabled', true) &&
+					headerSmartCardStyles,
 				fg('smartcard_avatar_margin_fix') && smartCardStylesAvatarMarginFix,
-				fg('platform_editor_avatar_group_margin_fix') && smartCardStylesAvatarMarginFix2,
+				smartCardStylesAvatarListZeroMarginTop,
 				// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 				fg('editor_inline_comments_on_inline_nodes') && rendererAnnotationStyles,
 				// eslint-disable-next-line @atlaskit/platform/no-preconditioning, @atlaskit/platform/ensure-feature-flag-prefix

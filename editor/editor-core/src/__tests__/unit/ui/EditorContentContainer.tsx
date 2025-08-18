@@ -54,7 +54,6 @@ describe('Editor Content styles', () => {
 			setupEditorExperiments('test', {
 				advanced_layouts: true,
 				platform_editor_breakout_resizing: true,
-				platform_editor_advanced_code_blocks: true,
 				platform_editor_controls: 'variant1',
 			});
 			render(
@@ -104,7 +103,6 @@ describe('Editor Content styles', () => {
 			setupEditorExperiments('test', {
 				advanced_layouts: true,
 				platform_editor_breakout_resizing: true,
-				platform_editor_advanced_code_blocks: true,
 				platform_editor_controls: 'variant1',
 			});
 			render(

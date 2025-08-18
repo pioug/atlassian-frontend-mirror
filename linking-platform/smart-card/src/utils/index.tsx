@@ -126,6 +126,9 @@ export const getLazyIcons = (): Partial<
 		[IconType.Default]: {
 			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphDefault" */ '@atlaskit/icon/core/migration/link'),
 		},
+		[IconType.Error]: {
+			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphDefault" */ '@atlaskit/icon/core/migration/status-error--error'),
+		},
 		[IconType.Archive]: {
 			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphArchive" */ '@atlaskit/icon-file-type/glyph/archive/16'),
 			large: 	() => import(/* webpackChunkName: "@atlaskit-internal_glyphArchive" */ '@atlaskit/icon-file-type/glyph/archive/24'),

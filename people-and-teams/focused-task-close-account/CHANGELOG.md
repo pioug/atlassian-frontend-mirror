@@ -1,5 +1,12 @@
 # @atlaskit/focused-task-close-account
 
+## 3.0.19
+
+### Patch Changes
+
+- [`2af42ad93c3e0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2af42ad93c3e0) -
+  Internal changes to use tokens for border radius.
+
 ## 3.0.18
 
 ### Patch Changes

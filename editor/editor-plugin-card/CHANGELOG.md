@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-card
 
+## 7.4.4
+
+### Patch Changes
+
+- [`20d3223b57972`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/20d3223b57972) -
+  Opted out of debounced portal provider
+- [`0412437292a6d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0412437292a6d) -
+  Switches linking changes for Preview Panel from FG to an experiment.
+- Updated dependencies
+
+## 7.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.4.2
 
 ### Patch Changes

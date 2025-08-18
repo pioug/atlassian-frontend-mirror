@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-status
 
+## 4.1.6
+
+### Patch Changes
+
+- [`2af42ad93c3e0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2af42ad93c3e0) -
+  Internal changes to use tokens for border radius.
+- Updated dependencies
+
+## 4.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.1.4
 
 ### Patch Changes

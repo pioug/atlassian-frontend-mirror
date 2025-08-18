@@ -165,6 +165,8 @@ export type ChatCallToActionClickedPayload = PayloadCore<
 	}
 >;
 
+type ChatCallToActionLoomScriptDisplayed = PayloadCore<'chat-cta-loom-script-displayed'>;
+
 export type ForgeAppAuthSuccess = PayloadCore<
 	'forge-auth-success',
 	{
@@ -333,7 +335,8 @@ export type Payload =
 	| JiraIssueWorkBreakdownActionPayload
 	| DashboardInsightsActionsPayload
 	| SetChatContextPayload
-	| ChatCallToActionClickedPayload;
+	| ChatCallToActionClickedPayload
+	| ChatCallToActionLoomScriptDisplayed;
 
 export type Callback = (payload: Payload) => void;
 

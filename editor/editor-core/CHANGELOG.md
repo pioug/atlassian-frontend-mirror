@@ -1,5 +1,23 @@
 # @atlaskit/editor-core
 
+## 210.0.2
+
+### Patch Changes
+
+- [`0412437292a6d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0412437292a6d) -
+  Switches linking changes for Preview Panel from FG to an experiment.
+- Updated dependencies
+
+## 210.0.1
+
+### Patch Changes
+
+- [`25ec3e3638f52`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/25ec3e3638f52) -
+  Cleanup advanced code block experiment
+- [`6ca68bbf39757`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6ca68bbf39757) -
+  Change all AIFC feature gates over to an experiment platform_editor_ai_aifc
+- Updated dependencies
+
 ## 210.0.0
 
 ### Major Changes

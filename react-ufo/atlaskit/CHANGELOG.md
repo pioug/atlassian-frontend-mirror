@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.3.3
+
+### Patch Changes
+
+- [`c25a6c65bfd6d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c25a6c65bfd6d) -
+  Add unmount count to segment
+
 ## 4.3.2
 
 ### Patch Changes

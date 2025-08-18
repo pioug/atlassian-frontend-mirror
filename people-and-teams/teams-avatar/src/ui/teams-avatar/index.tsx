@@ -7,12 +7,26 @@ import { token } from '@atlaskit/tokens';
 import { TeamAvatarImage } from './teams-avatar-image';
 import { isSquareIcon } from './utils';
 
-export type TeamAvatarProps = Omit<AvatarPropTypes, 'appearance'>;
+/*
+ * The component accepts src and teamId as input params. Order of preference:
+ * If src is provided, use that directly.
+ * Else if teamId is provided, use that to generate the static image URL.
+ * Else fallback.
+ */
+export type TeamAvatarProps = Omit<AvatarPropTypes, 'appearance'> & { teamId?: string };
 
 export const ICON_BACKGROUND = token('color.icon.inverse', N0);
 export const ICON_COLOR = token('color.icon.subtle', N90);
 
-export default function TeamAvatar({ testId, src, size = 'medium', ...props }: TeamAvatarProps) {
+export default function TeamAvatar({
+	testId,
+	src,
+	size = 'medium',
+	teamId = '',
+	...props
+}: TeamAvatarProps) {
+	// Strip ARI in case the teamId was given in that format
+	teamId = teamId.replace('ari:cloud:identity::team/', '');
 	return (
 		<Avatar
 			appearance={isSquareIcon(src) ? 'square' : 'circle'}
@@ -21,7 +35,7 @@ export default function TeamAvatar({ testId, src, size = 'medium', ...props }: T
 			src={src}
 			testId={`${testId}-team-avatar`}
 		>
-			<TeamAvatarImage src={src} size={size} testId={testId} />
+			<TeamAvatarImage src={src} size={size} testId={testId} teamId={teamId} />
 		</Avatar>
 	);
 }

@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-media
 
+## 5.2.11
+
+### Patch Changes
+
+- [`20d3223b57972`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/20d3223b57972) -
+  Opted out of debounced portal provider
+- [`2af42ad93c3e0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2af42ad93c3e0) -
+  Internal changes to use tokens for border radius.
+- Updated dependencies
+
+## 5.2.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.2.9
 
 ### Patch Changes

@@ -8,6 +8,15 @@ import {
 	type ReturnStatement,
 	type Statement,
 } from 'eslint-codemod-utils';
+import type { Node } from 'estree';
+
+const getScope = (context: Rule.RuleContext, node: Node) => {
+	if ('getScope' in context.sourceCode) {
+		return context.sourceCode.getScope(node);
+	}
+	// this is needed for jira's eslint update, as otherwise there is type errors only in jira typechecking
+	return (context as Rule.RuleContext & { getScope: (node: Node) => Scope.Scope }).getScope(node);
+};
 
 const unsupportedSelectors = [
 	':', // pseudo-classes/elements
@@ -100,7 +109,7 @@ function checkSpreadElement(node: Rule.Node, spreadElement: any, context: Rule.R
 
 	// Handle direct identifier (e.g., ...styles)
 	if (isNodeOfType(argument, 'Identifier')) {
-		const scope = context.getScope();
+		const scope = getScope(context, argument);
 		let variable = null;
 		let currentScope: Scope.Scope | null = scope;
 
@@ -236,7 +245,7 @@ export function checkStylesObject(node: Rule.Node, stylesValue: any, context: Ru
 		});
 	} else if (isNodeOfType(stylesValue, 'Identifier')) {
 		// track the variable
-		const scope = context.getScope();
+		const scope = getScope(context, stylesValue);
 		let variable = null;
 		let currentScope: Scope.Scope | null = scope;
 

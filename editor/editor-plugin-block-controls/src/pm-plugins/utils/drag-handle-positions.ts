@@ -1,3 +1,4 @@
+import { DRAG_HANDLE_WIDTH } from '@atlaskit/editor-common/styles';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -9,7 +10,6 @@ import {
 	DRAG_HANDLE_H6_TOP_ADJUSTMENT,
 	DRAG_HANDLE_HEIGHT,
 	DRAG_HANDLE_PARAGRAPH_TOP_ADJUSTMENT,
-	DRAG_HANDLE_WIDTH,
 	dragHandleGap,
 } from '../../ui/consts';
 

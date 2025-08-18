@@ -25,7 +25,10 @@ export const getSourceCode = (context: Rule.RuleContext): SourceCode => {
  * @param node - The node to get the scope for
  */
 export const getScope = (context: Rule.RuleContext, node: Node): Scope.Scope => {
-	return getSourceCode(context)?.getScope?.(node) ?? context.getScope();
+	return (
+		getSourceCode(context)?.getScope?.(node) ??
+		(context as Rule.RuleContext & { getScope: (node: Node) => Scope.Scope }).getScope(node)
+	);
 };
 
 /**
@@ -37,5 +40,9 @@ export const getScope = (context: Rule.RuleContext, node: Node): Scope.Scope => 
  * @param node - The node to get the scope for
  */
 export const getAncestors = (context: Rule.RuleContext, node: Node): Node[] => {
-	return getSourceCode(context)?.getAncestors?.(node) ?? context.getAncestors();
+	return (
+		getSourceCode(context)?.getAncestors?.(node) ??
+		// this is needed for jira's eslint update, as otherwise there is type errors only in jira typechecking
+		(context as Rule.RuleContext & { getAncestors: (node: Node) => Node[] }).getAncestors(node)
+	);
 };

@@ -1,6 +1,7 @@
-import { emoji } from '@atlaskit/adf-schema';
+import { emoji, emojiWithLocalId } from '@atlaskit/adf-schema';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 const isSSR = Boolean(process.env.REACT_SSR);
@@ -12,12 +13,13 @@ const isSSR = Boolean(process.env.REACT_SSR);
  * @returns
  */
 export const emojiNodeSpec = () => {
+	const emojiNode = fg('platform_editor_adf_with_localid') ? emojiWithLocalId : emoji;
 	if (isSSR) {
-		return emoji;
+		return emojiNode;
 	}
 
 	return {
-		...emoji,
+		...emojiNode,
 		toDOM: (node: PMNode): DOMOutputSpec => emojiToDom(node),
 	};
 };
@@ -50,6 +52,10 @@ export function emojiToDom(node: PMNode): DOMOutputSpec {
 		'aria-label': shortName,
 		class: 'emoji-common-placeholder',
 	};
+
+	if (fg('platform_editor_adf_with_localid')) {
+		attrs['data-local-id'] = node.attrs.localId;
+	}
 
 	return ['span', attrs];
 }

@@ -36,6 +36,7 @@ import {
 import { findTable } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 
 import { setTableAlignmentWithTableContentWithPosWithAnalytics } from '../pm-plugins/commands/commands-with-analytics';
@@ -435,6 +436,10 @@ export const TableResizer = ({
 			name: TABLE_OVERFLOW_CHANGE_TRIGGER.RESIZED,
 		});
 
+		if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
+			pluginInjectionApi?.userIntent?.commands.setCurrentUserIntent('resizing')({ tr });
+		}
+
 		dispatch(tr);
 
 		const visibleGuidelines = getVisibleGuidelines(
@@ -468,6 +473,7 @@ export const TableResizer = ({
 		displayGuideline,
 		onResizeStart,
 		isFullWidthModeEnabled,
+		pluginInjectionApi,
 	]);
 
 	const handleResize = useCallback(
@@ -610,6 +616,9 @@ export const TableResizer = ({
 				tableRef: null,
 			});
 			tr.setMeta('is-resizer-resizing', false);
+			if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
+				pluginInjectionApi?.userIntent?.commands.setCurrentUserIntent('default')({ tr });
+			}
 			const frameRateSamples = endMeasure();
 
 			if (frameRateSamples.length > 0) {

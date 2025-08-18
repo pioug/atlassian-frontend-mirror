@@ -36,6 +36,7 @@
 		"@atlaskit/adf-schema": "root:*",
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
 		"@atlaskit/editor-prosemirror": "root:*",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/prosemirror-input-rules": "workspace:^",
 		"@babel/runtime": "root:*"
 	},
@@ -80,6 +81,11 @@
 			"imports": [
 				"import-no-extraneous-disable-for-examples-and-docs"
 			]
+		}
+	},
+	"platform-feature-flags": {
+		"platform_editor_adf_with_localid": {
+			"type": "boolean"
 		}
 	}
 }

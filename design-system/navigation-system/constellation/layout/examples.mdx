@@ -13,7 +13,7 @@ import { ToggleSideNavKeyboardShortcutExample } from '../../examples/constellati
 import { PageLayoutDiagram } from './diagram';
 
 The full page layout with all areas rendered has the structure depicted below, or see the
-[interactive example](/components/navigation-system/examples#examples).
+[interactive example (Atlassians only)](https://go.atlassian.com/nav4-interactive-example).
 
 <PageLayoutDiagram />
 
@@ -40,10 +40,10 @@ the top of the screen.
 Use the `TopNav` to render [top nav items](/components/navigation-system/top-nav-items).
 
 - It will display at the top of the screen, below the banner if one is present. It has a fixed
-  height of `48px`.
+  height of 48px.
 - Use the [top nav slots](#top-nav-slots) to position actions within top nav.
-- The top nav is responsive, with the [top nav items](/components/navigation-system/top-nav-items)
-  changing according to the viewport size.
+- The top nav is [responsive](/components/navigation-system/top-nav-items/examples#responsive), with
+  the top nav items changing according to the viewport size.
 
 #### Top nav slots
 
@@ -61,7 +61,7 @@ See the [custom theming](/components/navigation-system/layout/custom-theming) ta
 ### Side nav
 
 - Use the `SideNav` to render [side nav items](/components/navigation-system/side-nav-items). It
-  will show on the left of the screen. The default width of the side nav is `320px`.
+  will show on the left of the screen. The default width of the side nav is 320px.
 - Use the [side nav slots](#side-nav-slots) to position content within the side nav.
 - The side nav is collapsable and expandable, resizable, responsive, and offers flyout behaviour.
 
@@ -81,7 +81,7 @@ the side nav, simulating a sticky footer.
 #### Side nav collapse/expand
 
 The side nav can be collapsed and expanded using the the `SideNavToggleButton` from
-[top nav items](/components/navigation-system/top-nav-items).
+[top nav items](/components/navigation-system/top-nav-items/examples#start-items).
 
 There are two hooks available for programmatically toggling the side nav.
 
@@ -113,15 +113,15 @@ This is useful for toggling the side nav based on a keyboard shortcut.
 #### Side nav flyout
 
 - In the collapsed state, hovering over the `SideNavToggleButton` from
-  [top nav items](/components/navigation-system/top-nav-items) will trigger the side nav to open as
-  an overlay. Moving the curser away will close it. If there are any open supported ADS layering
-  components (e.g. Popups, Dropdown menus) within the side nav, the flyout will stay locked open,
-  until the layering components are closed.
+  [top nav items](/components/navigation-system/top-nav-items/examples#start-items) will trigger the
+  side nav to open as an overlay. Moving the curser away will close it. If there are any open
+  supported ADS layering components (e.g. Popups, Dropdown menus) within the side nav, the flyout
+  will stay locked open, until the layering components are closed.
 
 - The expansion and collapse of the side nav flyout is animated on **supported browsers**.
   Currently, Firefox does not support the animation. Instead, it will instantly expand and collapse.
 
-See the [interactive example](/components/navigation-system/examples#examples).
+See the [interactive example (Atlassians only)](https://go.atlassian.com/nav4-interactive-example).
 
 #### Side nav resizing
 
@@ -131,19 +131,20 @@ See the [interactive example](/components/navigation-system/examples#examples).
 - The side nav can be resized to a minimum width of 240px, and a maximum width equal to 50% of the
   total viewport width. It retains this resized width even after collapsing, reopening, or
   refreshing the page. When resizing, any open layer components (e.g. popups, dropdowns, selects,
-  tooltips) will be closed. See the interactive example.
+  tooltips) will be closed.
 
-See the [interactive example](/components/navigation-system/examples#examples).
+See the [interactive example (Atlassians only)](https://go.atlassian.com/nav4-interactive-example).
 
 #### Side nav responsive
 
 - At `s`, `xs`, and `xxs` breakpoints (i.e. viewports smaller than 1024px), the side nav
-  automatically collapses to make room for the content. Users have the option to manually open or
-  close the side nav according to their preferences. Doing so will open it as an overlay.
+  automatically collapses to make room for the content. Users have the option to manually
+  [open or close the side nav](/components/navigation-system/layout/examples#side-nav-collapseexpand)
+  according to their preferences. Doing so will open it as an overlay.
 - At `xs` and `xxs` breakpoints (i.e. viewports smaller than 768px), the max width of the overlay
   side nav is either 320px or 90% of the screen width - whichever value is smaller.
 
-See the [interactive example](/components/navigation-system/examples#examples).
+See the [interactive example (Atlassians only)](https://go.atlassian.com/nav4-interactive-example).
 
 ### Main
 
@@ -159,15 +160,15 @@ fill available space.
 
 `Aside` is rendered to the right of the `Main` area.
 
-- The default width of the Aside is 330px, and it is resizable and responsive.
+- The default width of the Aside is 330px, and it is
+  [resizable](/components/navigation-system/layout/examples#aside-resizing) and
+  [responsive](/components/navigation-system/layout/examples#aside-responsive).
 - On large viewports the Aside can be fixed, meaning it will have its own scroll container and not
   use the body scroll.
 - On small viewports, the element will always use body scroll, to make it easier to scroll the page
   when the content is tall.
 
-The `Aside` is rendered to the right of the `Main` area.
-
-See the [interactive example](/components/navigation-system/examples#examples).
+See the [interactive example (Atlassians only)](https://go.atlassian.com/nav4-interactive-example).
 
 #### Aside resizing
 
@@ -179,21 +180,24 @@ resizable.
 - The `Aside` can be resized to a minimum width of 120px, and a maximum width equal to 50% of the
   total viewport width. It retains this resized width even after refreshing the page.
 
-See the [interactive example](/components/navigation-system/examples#examples).
+See the [interactive example (Atlassians only)](https://go.atlassian.com/nav4-interactive-example).
 
 #### Aside responsive
 
 At `s`, `xs`, and `xxs` breakpoints (i.e. viewports smaller than 1024px), the `Aside` moves below
 the `Main` area, and conforms to `Main` width and behaviour.
 
-See the [interactive example](/components/navigation-system/examples#examples).
+See the [interactive example (Atlassians only)](https://go.atlassian.com/nav4-interactive-example).
 
 ### Panel
 
 The `Panel` is rendered to the right of the `Main` and `Aside` areas.
 
-- The default width of the panel is `365px`, which can be modified using the `defaultWidth` prop.
-- The panel is collapsable and expandable, resizable, and responsive.
+- The default width of the panel is 365px, which can be modified using the `defaultWidth` prop.
+- The panel is
+  [collapsable and expandable](/components/navigation-system/layout/examples#panel-collapseexpand),
+  [resizable](/components/navigation-system/layout/examples#panel-resizing), and
+  [responsive](/components/navigation-system/layout/examples#panel-responsive).
 
 Common usage is to house
 [Preview panel (Atlassians only)](https://atlaskit-website-staging.stg-east.frontend.public.atl-paas.net/#/packages/navigation/preview-panel)
@@ -202,7 +206,7 @@ Common usage is to house
 
 The panel can be collapsed and expanded using a trigger of your choosing.
 
-See the [interactive example](/components/navigation-system/examples#examples).
+See the [interactive example (Atlassians only)](https://go.atlassian.com/nav4-interactive-example).
 
 #### Panel resizing
 
@@ -211,18 +215,18 @@ resizable. It can be resized using the drag handle. When hovering on the drag ha
 pointer changes to a resize pointer.
 
 - The panel can be resized larger than the `defaultWidth` to a maximum of 50% of content area
-  (viewport minus `side nav area`).
+  (viewport minus `SideNav`).
 - It retains this resized width even after collapsing, reopening, or refreshing the page.
 - It has no ability to resize smaller than `defaultWidth`.
 
-See the [interactive example](/components/navigation-system/examples#examples).
+See the [interactive example (Atlassians only)](https://go.atlassian.com/nav4-interactive-example).
 
 #### Panel responsive
 
 At `m` breakpoints (between 1024-1440px), the `Panel` will overlay `Aside`. At `s` breakpoints and
 below (less than 1024px) it will start to overlay the `Main` area.
 
-See the [interactive example](/components/navigation-system/examples#examples).
+See the [interactive example (Atlassians only)](https://go.atlassian.com/nav4-interactive-example).
 
 ## Resizable areas
 
@@ -230,11 +234,11 @@ Render `PanelSplitter` in a layout area to make it resizable.
 
 Resizing is supported for the following areas:
 
-- `SideNav`
-- `Aside`
-- `Panel`
+- [SideNav](/components/navigation-system/layout/examples#side-nav)
+- [Aside](/components/navigation-system/layout/examples#aside)
+- [Panel](/components/navigation-system/layout/examples#panel)
 
-See the [interactive example](/components/navigation-system/examples#examples).
+See the [interactive example (Atlassians only)](https://go.atlassian.com/nav4-interactive-example).
 
 | Area      | Default width      | Min width             | Max width                                    |
 | --------- | ------------------ | --------------------- | -------------------------------------------- |
@@ -245,7 +249,7 @@ See the [interactive example](/components/navigation-system/examples#examples).
 ## Responsive
 
 Layout areas respond to the viewport size. See default behaviour below, or the
-[interactive example](/components/navigation-system/examples#examples).
+[interactive example (Atlassians only)](https://go.atlassian.com/nav4-interactive-example).
 
 | Breakpoint | Viewport      | Side nav                    | Aside        | Panel                                                       |
 | ---------- | ------------- | --------------------------- | ------------ | ----------------------------------------------------------- |

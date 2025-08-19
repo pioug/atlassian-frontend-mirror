@@ -17,6 +17,7 @@ const emojiUploadLoader: () => Promise<
 
 export interface Props extends LoadingProps {
 	createAnalyticsEvent?: CreateUIAnalyticsEvent;
+	disableFocusLock?: boolean;
 }
 
 export class EmojiUploaderInternal extends LoadingEmojiComponent<Props, LoadingState> {

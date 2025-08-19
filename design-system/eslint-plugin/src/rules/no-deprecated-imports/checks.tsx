@@ -165,7 +165,7 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 				} else if (specifier.type === 'ImportNamespaceSpecifier') {
 					name = '*';
 				} else if (specifier.type === 'ImportSpecifier') {
-					name = specifier.imported.name;
+					name = specifier.imported.type === 'Identifier' ? specifier.imported.name : '';
 				}
 
 				if (name) {
@@ -196,7 +196,7 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 				let name;
 
 				if (specifier.local) {
-					name = specifier.local.name;
+					name = specifier.local.type === 'Identifier' ? specifier.local.name : '';
 				}
 
 				if (name) {

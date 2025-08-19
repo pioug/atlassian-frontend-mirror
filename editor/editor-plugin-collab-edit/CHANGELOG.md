@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 4.1.6
+
+### Patch Changes
+
+- [`128002718ba34`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/128002718ba34) -
+  confluence_team_presence_scroll_to_pointer feature flag cleaned up
+- Updated dependencies
+
 ## 4.1.5
 
 ### Patch Changes

@@ -18,6 +18,9 @@
 	],
 	"references": [
 		{
+			"path": "../../editor-plugin-connectivity/afm-dev-agents/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-editor-viewmode/afm-dev-agents/tsconfig.json"
 		},
 		{

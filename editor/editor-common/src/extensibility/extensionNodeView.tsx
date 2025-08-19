@@ -157,15 +157,26 @@ export default function ExtensionNodeView(
 	rendererExtensionHandlers?: ExtensionHandlers,
 ) {
 	return (node: PmNode, view: EditorView, getPos: getPosHandler): NodeView => {
-		return new ExtensionNode(node, view, getPos, portalProviderAPI, eventDispatcher, {
-			providerFactory,
-			extensionHandlers,
-			extensionNodeViewOptions,
-			pluginInjectionApi,
-			macroInteractionDesignFeatureFlags,
-			showLivePagesBodiedMacrosRendererView,
-			showUpdatedLivePages1PBodiedExtensionUI,
-			rendererExtensionHandlers,
-		}).init();
+		return new ExtensionNode(
+			node,
+			view,
+			getPos,
+			portalProviderAPI,
+			eventDispatcher,
+			{
+				providerFactory,
+				extensionHandlers,
+				extensionNodeViewOptions,
+				pluginInjectionApi,
+				macroInteractionDesignFeatureFlags,
+				showLivePagesBodiedMacrosRendererView,
+				showUpdatedLivePages1PBodiedExtensionUI,
+				rendererExtensionHandlers,
+			},
+			undefined,
+			undefined,
+			// @portal-render-immediately
+			true,
+		).init();
 	};
 }

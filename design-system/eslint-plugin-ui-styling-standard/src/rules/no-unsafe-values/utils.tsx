@@ -284,6 +284,7 @@ export class Linter {
 		}
 
 		if (value.type === 'BinaryExpression') {
+			// @ts-ignore -- this needs to be `ts-ignore` because this only errors in jira's typechecking due to update, not platform's
 			this.lintValue(value.left);
 			this.lintValue(value.right);
 			return;

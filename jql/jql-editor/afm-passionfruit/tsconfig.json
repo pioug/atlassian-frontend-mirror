@@ -62,6 +62,9 @@
 			"path": "../../../platform/feature-flags/afm-passionfruit/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/popper/afm-passionfruit/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/primitives/afm-passionfruit/tsconfig.json"
 		},
 		{

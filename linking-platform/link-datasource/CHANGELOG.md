@@ -1,5 +1,19 @@
 # @atlaskit/link-datasource
 
+## 4.19.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.19.6
+
+### Patch Changes
+
+- [`13c698778e3c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/13c698778e3c6) -
+  [ux] Atlaspack version bump
+- Updated dependencies
+
 ## 4.19.5
 
 ### Patch Changes

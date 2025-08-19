@@ -1,6 +1,4 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
 
 import { N200, N40, N50A, N60A } from '@atlaskit/theme/colors';
@@ -8,7 +6,10 @@ import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const AutocompleteContainer = styled.div<{ isOpen: boolean }>(
+export const AutocompleteContainer = styled.div<{ 
+	isOpen: boolean;
+	usePopper?: boolean;
+ 	}>(
 	{
 		position: 'absolute',
 		backgroundColor: token('elevation.surface.overlay', 'white'),
@@ -26,7 +27,11 @@ export const AutocompleteContainer = styled.div<{ isOpen: boolean }>(
 		marginTop: token('space.200', '16px'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-	({ isOpen }) => (isOpen ? css({ visibility: 'visible' }) : css({ visibility: 'hidden' })),
+	({ isOpen }) => (isOpen ? { visibility: 'visible' } : { visibility: 'hidden' }),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+	({ usePopper }) => usePopper && {
+		marginTop: token('space.100', '8px'),
+	},
 );
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766

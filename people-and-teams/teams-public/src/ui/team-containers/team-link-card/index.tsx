@@ -94,6 +94,7 @@ export interface TeamLinkCardProps {
 	iconsLoading?: boolean;
 	iconHasLoaded?: boolean;
 	openInNewTab?: boolean;
+	isReadOnly?: boolean;
 }
 
 export const TeamLinkCard = ({
@@ -108,6 +109,7 @@ export const TeamLinkCard = ({
 	iconsLoading,
 	iconHasLoaded,
 	openInNewTab,
+	isReadOnly,
 }: TeamLinkCardProps) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { description, icon, containerTypeText } = getContainerProperties({
@@ -231,24 +233,26 @@ export const TeamLinkCard = ({
 								</Flex>
 							</Stack>
 						</Anchor>
-						<TeamLinkCardActions
-							containerType={containerType}
-							title={title}
-							containerId={containerId}
-							hovered={hovered}
-							focused={focused}
-							isDropdownOpen={isDropdownOpen}
-							showKeyboardFocus={showKeyboardFocus}
-							onDisconnectButtonClick={() => {
-								handleIconClick();
-								onDisconnectButtonClick();
-							}}
-							onEditLinkClick={() => {
-								handleIconClick();
-								onEditLinkClick?.();
-							}}
-							onDropdownOpenChange={setIsDropdownOpen}
-						/>
+						{!isReadOnly && (
+							<TeamLinkCardActions
+								containerType={containerType}
+								title={title}
+								containerId={containerId}
+								hovered={hovered}
+								focused={focused}
+								isDropdownOpen={isDropdownOpen}
+								showKeyboardFocus={showKeyboardFocus}
+								onDisconnectButtonClick={() => {
+									handleIconClick();
+									onDisconnectButtonClick();
+								}}
+								onEditLinkClick={() => {
+									handleIconClick();
+									onEditLinkClick?.();
+								}}
+								onDropdownOpenChange={setIsDropdownOpen}
+							/>
+						)}
 					</>
 				) : (
 					<>

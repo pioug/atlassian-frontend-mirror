@@ -227,6 +227,7 @@ export enum INPUT_METHOD {
 	DOUBLE_CLICK = 'doubleClick',
 	META_CLICK = 'metaClick',
 	INLINE_SUGGESTION_FLOATING_TB = 'inlineSuggestionFloatingToolbar',
+	BLOCK_MENU = 'blockMenu',
 }
 
 export enum INSERT_MEDIA_VIA {

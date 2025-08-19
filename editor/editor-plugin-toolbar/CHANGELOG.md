@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 0.2.4
+
+### Patch Changes
+
+- [`03b0204b5eb82`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/03b0204b5eb82) -
+  ED=28738 Disable toolbar when editor is offline
+- Updated dependencies
+
 ## 0.2.3
 
 ### Patch Changes

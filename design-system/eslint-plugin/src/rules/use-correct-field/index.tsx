@@ -62,7 +62,7 @@ const rule = createLintRule({
 					}
 				}
 
-				if ('@atlaskit/form' !== source) {
+				if (source !== '@atlaskit/form') {
 					return;
 				}
 
@@ -70,6 +70,7 @@ const rule = createLintRule({
 				if (
 					namedImport.length &&
 					namedImport[0].type === 'ImportSpecifier' &&
+					'name' in namedImport[0].imported &&
 					namedImport[0].imported.name === 'Field'
 				) {
 					fieldImport = namedImport[0].local;

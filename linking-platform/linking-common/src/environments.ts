@@ -16,10 +16,18 @@ export const BaseUrls = {
 	production: prodBaseUrl,
 };
 
-export const getBaseUrl = (envKey?: keyof typeof BaseUrls) => {
+export const getBaseUrl = (envKey?: EnvironmentsKeys, baseUrlOverride?: string) => {
+	// The `custom` environment is used if the full resolver URL is provided by the user.
+	// It could be useful for SSR, where `CardClient` should use direct service URL instead of the Edge Proxy.
+	if (envKey === 'custom') {
+		return baseUrlOverride ?? prodBaseUrl;
+	}
+
 	// If an environment is provided, then use Stargate.
 	if (envKey) {
-		return envKey in BaseUrls ? BaseUrls[envKey] : prodBaseUrl;
+		return envKey in BaseUrls
+			? BaseUrls[envKey as Exclude<EnvironmentsKeys, 'custom'>]
+			: prodBaseUrl;
 	}
 
 	// Otherwise, use the current origin of the page.
@@ -27,6 +35,12 @@ export const getBaseUrl = (envKey?: keyof typeof BaseUrls) => {
 };
 
 export const getResolverUrl = (envKey?: EnvironmentsKeys, baseUrlOverride?: string) => {
+	// The `custom` environment is used if the full resolver URL is provided by the user.
+	// It could be useful for SSR, where `CardClient` should use direct service URL instead of the Edge Proxy.
+	if (envKey === 'custom') {
+		return baseUrlOverride ?? '/gateway/api/object-resolver';
+	}
+
 	// If an environment is provided, then use Stargate directly for requests.
 	if (envKey || baseUrlOverride) {
 		const baseUrl = baseUrlOverride || getBaseUrl(envKey);

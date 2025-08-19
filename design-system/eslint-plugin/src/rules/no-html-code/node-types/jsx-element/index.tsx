@@ -41,7 +41,7 @@ export const JSXElement = {
 							isNodeOfType(specifier.parent!, 'ImportDeclaration'),
 					)
 					.forEach((specifier) => {
-						if (isNodeOfType(specifier, 'ImportSpecifier') && specifier.imported.name === 'Code') {
+						if (isNodeOfType(specifier, 'ImportSpecifier') && specifier.imported.type === 'Identifier' && specifier.imported.name === 'Code') {
 							existingCodeName = specifier.local.name;
 						}
 					});

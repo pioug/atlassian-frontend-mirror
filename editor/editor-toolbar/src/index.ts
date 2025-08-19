@@ -63,6 +63,9 @@ export { ImageIcon } from './ui/icons/ImageIcon';
 export { MentionIcon } from './ui/icons/MentionIcon';
 export { TableIcon } from './ui/icons/TableIcon';
 export { TaskIcon } from './ui/icons/TaskIcon';
+export { UndoIcon } from './ui/icons/UndoIcon';
+export { RedoIcon } from './ui/icons/RedoIcon';
+export { HistoryIcon } from './ui/icons/HistoryIcon';
 
 export { default as ColorPalette } from './ui/ColorPalette';
 

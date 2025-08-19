@@ -1,5 +1,30 @@
 # @atlaskit/editor-core
 
+## 210.0.5
+
+### Patch Changes
+
+- [`205cf133d4d59`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/205cf133d4d59) -
+  [ux] Update max width for breakout to be the same as for non-breakout nodes to fix vc90 regression
+  behind platform_editor_breakout_resizing_vc90_fix and platform_editor_breakout_resizing
+- Updated dependencies
+
+## 210.0.4
+
+### Patch Changes
+
+- [`13c698778e3c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/13c698778e3c6) -
+  [ux] Atlaspack version bump
+- Updated dependencies
+
+## 210.0.3
+
+### Patch Changes
+
+- [`128002718ba34`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/128002718ba34) -
+  confluence_team_presence_scroll_to_pointer feature flag cleaned up
+- Updated dependencies
+
 ## 210.0.2
 
 ### Patch Changes

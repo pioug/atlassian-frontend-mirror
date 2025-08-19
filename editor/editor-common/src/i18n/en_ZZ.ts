@@ -282,6 +282,7 @@ export default {
     "⁣⁢We couldn’t complete that request because it doesn't comply with our <link>Acceptable Use Policy</link>.⁪⁫‍‍⁭⁭‍⁭⁫⁬⁯⁬⁡‌⁭⁬‍⁠⁫⁠؜⁫⁣⁤",
   'fabric.editor.ai.experience.discardMessagePrompt': '⁣⁢Do you want to discard your prompt?؜‌⁯⁯⁪⁯⁮⁫⁫؜⁪⁬⁬⁬‌⁪⁬؜⁠⁬‌⁪⁣⁤',
   'fabric.editor.ai.experience.discardMessageResponse': '⁣⁢Do you want to discard your response?⁠⁡⁠‌⁡⁬‌⁮⁠؜‌⁭⁬⁡‌⁪⁠⁡⁭⁭⁣⁤',
+  'fabric.editor.ai.experience.discardStreamingInDocumenntMessageResponse': '⁣⁢Delete response?⁭⁡⁬⁪‍؜‍⁠‍⁮⁠؜⁪‌⁠⁮⁠⁡⁬⁯⁪⁣⁤',
   'fabric.editor.ai.experience.elevateDisabledGenetateError':
     '⁣⁢Free generate is disabled in Elevate at this time.⁠⁯⁬⁮⁫⁬؜⁯⁫⁯‍‍⁮⁯⁫‍⁫⁭‍⁭⁡⁮⁣⁤',
   'fabric.editor.ai.experience.engagementBannerLinksText':
@@ -517,6 +518,7 @@ export default {
   'fabric.editor.breakoutFullWidthLabel': '⁣⁢Full-width⁮⁬⁫‍⁫⁡⁪؜⁡‌؜⁠⁮؜⁫⁡⁭⁬⁭⁪‍⁭⁣⁤',
   'fabric.editor.breakoutWideWidthLabel': '⁣⁢Wide؜⁡⁭⁫⁭؜⁬⁫؜⁮⁭⁪؜‌⁡‍⁠‌⁬⁪⁪⁣⁤',
   'fabric.editor.bug': '⁣⁢Bug؜⁡‌⁯⁫⁡‍⁠⁭⁡‍⁮⁮⁬⁭⁮⁭⁮⁫⁡؜⁪⁬⁡⁣⁤',
+  'fabric.editor.bulletedList': '⁣⁢Bulleted list⁭؜⁯؜⁪⁬⁪⁪⁡‌⁯؜⁡⁫⁠⁭⁯⁡⁡⁯‌⁣⁤',
   'fabric.editor.canNotSortTable': "⁣⁢⚠️ You can't sort a table with merged cells⁫⁯⁪⁪⁪⁬؜؜⁭؜⁬⁭⁯⁬⁠⁠⁬⁭⁪⁠⁪⁪⁡⁪⁣⁤",
   'fabric.editor.cancelButton': '⁣⁢Cancel⁭⁫‍⁫⁡⁡⁮⁮⁯⁭‌⁯⁫⁪؜⁯‌⁠⁮‍‌؜⁬⁣⁤',
   'fabric.editor.captionPlaceholder': '⁣⁢Add a caption؜‌⁫‍⁪⁯⁭‌⁪⁫‌⁭‌⁫‌‍⁯⁠⁯⁪‍⁣⁤',
@@ -845,8 +847,6 @@ export default {
   'fabric.editor.media.insert.fromUrlWarning':
     '⁣⁢This image might not be visible to others due to source restrictions. Consider uploading the file instead.⁠⁬⁡⁮‌‍⁯⁭⁮⁭⁯⁪؜⁬‌⁮⁬⁫⁭⁯⁫⁠⁣⁤',
   'fabric.editor.media.insert.insert': '⁣⁢Insert⁠⁡⁯؜⁬‌⁫؜⁪⁡⁯⁯⁫⁪⁬⁬⁡⁮⁭؜؜⁣⁤',
-  'fabric.editor.media.insert.insertSmartValueHelperMessage':
-    '⁣⁢Tip: Enter a smart value or replace a URL path with a smart value to make content dynamic.⁫⁫⁭؜⁯⁠⁫⁯⁯⁫⁫⁭⁭⁭؜؜⁠‍؜⁫⁮⁠⁠⁣⁤',
   'fabric.editor.media.insert.invalidUrlErrorMessage': '⁣⁢Invalid link⁡‍⁫⁭؜⁪⁠⁯⁮‍⁯⁫⁭⁮⁪‌‌⁬⁡⁫⁬⁯⁣⁤',
   'fabric.editor.media.insert.linkTabTitle': '⁣⁢Link‍⁡‌‌⁠⁯⁠⁡‍⁫‍‍‍⁭‍⁮⁬⁫⁪؜⁬⁬⁡⁣⁤',
   'fabric.editor.media.insert.loadPreview': '⁣⁢Load preview⁪؜⁠⁫⁪⁯⁯‌⁯⁫⁪؜⁪⁯⁭⁭⁭‍⁭⁫‍⁣⁤',
@@ -895,6 +895,8 @@ export default {
   'fabric.editor.navigate.toolbar.askAI': '⁣⁢Ask AI‌⁮⁬⁬⁭‌‍؜⁡؜⁭⁪⁬⁫⁡⁬⁬⁡⁬⁡‌؜⁭؜⁯⁣⁤',
   'fabric.editor.navigate.toolbar.editor': '⁣⁢Navigate to editor toolbar⁭⁠‌⁫‍⁠⁭⁯⁭⁠⁪⁬⁬⁠⁯⁫⁫‍⁮؜⁯⁣⁤',
   'fabric.editor.navigate.toolbar.floating': '⁣⁢Navigate to floating toolbar⁠⁪⁫؜⁠⁪⁪‍‍⁮؜⁭⁭؜⁮⁫⁭‌⁭⁠⁬؜⁯⁣⁤',
+  'fabric.editor.noPermissionToAddComment':
+    '{contentType, select, blogpost {⁣⁢You do not have permission to add comments to this blogpost‍‌⁬⁯‍⁪⁡⁠⁡⁯⁮‌⁭‍⁠⁬‍⁮⁯⁪⁠‌⁯⁭⁠⁣⁤} page {⁣⁢You do not have permission to add comments to this page‍⁫؜⁮⁯⁯⁮⁪⁯⁪⁠‌⁫‌⁡⁯‌⁪⁣⁤} other {⁣⁢You do not have permission to add comments to this page‍⁫؜⁮⁯⁯⁮⁪⁯⁪⁠‌⁫‌⁡⁯‌⁪⁣⁤}}',
   'fabric.editor.noResultsFound': '⁣⁢No results⁡⁡⁫⁬‌‌‌⁬⁡⁠⁬⁯؜⁯‌⁠⁮⁭⁯⁯⁣⁤',
   'fabric.editor.noSearchResults': '⁣⁢No search results⁬⁡⁪⁡⁠⁭⁯⁬⁭‌⁡⁠⁡⁮⁭⁡‌⁯⁫؜⁭⁯؜⁣⁤',
   'fabric.editor.normal': '⁣⁢Normal text‌⁮⁬⁪⁭؜؜⁮‍⁪⁡؜⁬⁫⁡‍⁫‍⁭⁮⁫⁣⁤',
@@ -907,6 +909,7 @@ export default {
   'fabric.editor.openButtonTitle': '⁣⁢Open⁭⁡⁭⁬⁯‌⁠⁬⁯⁬⁭⁭⁬‌‌‍⁮‌⁮⁭؜⁮‌⁣⁤',
   'fabric.editor.openCellOptions': '⁣⁢Open cell options⁫؜⁮‌⁮⁫‍⁫‌⁫⁯⁡⁠‍⁠⁪⁮⁭⁣⁤',
   'fabric.editor.openLink': '⁣⁢Open link in a new tab⁮⁫⁭⁠⁡⁡‌⁫⁮⁫‍⁯‌⁠⁫⁪⁭‌‌⁡⁯⁡⁣⁤',
+  'fabric.editor.openPreviewPanel': '⁣⁢Open preview panel⁪⁫؜⁫⁯؜‍⁡⁯؜‌⁬⁠‍⁭‍‍⁬‍⁬⁫‍⁪‌⁪‌⁣⁤',
   'fabric.editor.orderedList': '⁣⁢Numbered list⁮⁭⁯‍⁡؜؜⁯⁬⁡⁪⁪⁪⁯؜⁡⁬⁬⁮⁮‍؜⁣⁤',
   'fabric.editor.orderedList.description': '⁣⁢Create an ordered list‍؜⁭⁪⁠⁡⁯⁫⁫‍‍⁭⁫⁯⁪⁯‌⁭‍⁪‍⁣⁤',
   'fabric.editor.other': '⁣⁢Others...⁫⁡⁯⁬⁪⁮‌⁫⁠؜⁠⁫‌⁭‍‌⁬‍⁪؜⁪⁠⁣⁤',
@@ -927,6 +930,7 @@ export default {
   'fabric.editor.placeholderTextPlaceholder': '⁣⁢Add placeholder text⁬⁭⁫⁯‍⁭⁫⁠⁫؜⁮⁬⁠⁮⁪⁭‍⁭⁯⁣⁤',
   'fabric.editor.plainText': '⁣⁢Use plain text⁠⁮⁡⁯⁠‌⁫⁡⁡؜⁡⁭⁡⁡⁪‌⁫⁪؜‌⁮⁣⁤',
   'fabric.editor.preferencesLink': '⁣⁢Link preferences⁫⁫⁯⁠⁮⁫‌⁠⁬‌⁡⁬⁠⁫‌⁬⁫⁮‍⁯⁣⁤',
+  'fabric.editor.previewButtonTitle': '⁣⁢Preview⁪⁠‍⁠⁫⁠‌⁯⁭⁯⁬⁠⁫‌⁯⁮⁠⁪⁠⁭⁠⁣⁤',
   'fabric.editor.quickInsert': '⁣⁢Quick insert⁠⁭⁬‍⁬⁯؜⁠⁫⁡⁭؜⁪‍⁡⁪⁫⁯⁡⁮⁮⁮⁪⁣⁤',
   'fabric.editor.recordLoomShortTitle': '⁣⁢Record⁪؜⁠⁮⁠؜‍⁭⁮⁬⁮‌‍؜⁡⁭⁠⁫‌⁯⁠⁫⁠؜⁭⁯⁣⁤',
   'fabric.editor.recordVideo': '⁣⁢Record a Loom video‍‍⁯‌⁠⁬⁮⁭⁭⁫⁡؜⁬⁠⁭⁪⁪‍⁮⁣⁤',

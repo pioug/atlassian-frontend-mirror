@@ -1,5 +1,26 @@
 # @atlaskit/teams-public
 
+## 0.55.0
+
+### Minor Changes
+
+- [`aac362891a691`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aac362891a691) -
+  Team containers made reusable
+- [`2aa702d47e9d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2aa702d47e9d3) -
+  Update useRefreshOnContainerCreated to poll for container until its ready
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.54.3
+
+### Patch Changes
+
+- [`13c698778e3c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/13c698778e3c6) -
+  [ux] Atlaspack version bump
+- Updated dependencies
+
 ## 0.54.2
 
 ### Patch Changes

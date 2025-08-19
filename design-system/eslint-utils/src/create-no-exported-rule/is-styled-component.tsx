@@ -59,7 +59,9 @@ const getStyledImportSpecifierName = (
 	const supportedImport = getFirstSupportedImport(context, importSources);
 	return supportedImport?.specifiers.find(
 		(spec) =>
-			(spec.type === 'ImportSpecifier' && spec.imported.name === 'styled') ||
+			(spec.type === 'ImportSpecifier' &&
+				spec.imported.type === 'Identifier' &&
+				spec.imported.name === 'styled') ||
 			(spec.type === 'ImportDefaultSpecifier' && spec.local.name === 'styled'),
 	)?.local.name;
 };

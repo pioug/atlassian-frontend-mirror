@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugins
 
+## 10.1.65
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.1.64
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.1.63
+
+### Patch Changes
+
+- [`13c698778e3c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/13c698778e3c6) -
+  [ux] Atlaspack version bump
+- Updated dependencies
+
+## 10.1.62
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.1.61
 
 ### Patch Changes

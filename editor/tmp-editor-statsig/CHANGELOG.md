@@ -1,5 +1,26 @@
 # @atlaskit/editor-statsig-tmp
 
+## 11.3.0
+
+### Minor Changes
+
+- [`45b7e7965939b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/45b7e7965939b) -
+  [ux] [I18N-2877] add locale to datepicker i18n and day of week
+- [`205cf133d4d59`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/205cf133d4d59) -
+  [ux] Update max width for breakout to be the same as for non-breakout nodes to fix vc90 regression
+  behind platform_editor_breakout_resizing_vc90_fix and platform_editor_breakout_resizing
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.2.0
+
+### Minor Changes
+
+- [`3d41d42ada6d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d41d42ada6d5) -
+  [ED-28600] add new experiment for A11Y violation fixes
+
 ## 11.1.0
 
 ### Minor Changes

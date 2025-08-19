@@ -18,6 +18,9 @@
 	],
 	"references": [
 		{
+			"path": "../../../platform/feature-flags/afm-passionfruit/tsconfig.json"
+		},
+		{
 			"path": "../../editor-common/afm-passionfruit/tsconfig.json"
 		}
 	]

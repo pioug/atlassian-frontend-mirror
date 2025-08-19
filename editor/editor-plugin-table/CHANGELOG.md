@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 12.2.3
+
+### Patch Changes
+
+- [`32ac245da116d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/32ac245da116d) -
+  exclude sticky header from TTVC calculation
+- Updated dependencies
+
 ## 12.2.2
 
 ### Patch Changes

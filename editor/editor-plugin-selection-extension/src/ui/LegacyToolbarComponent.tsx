@@ -93,20 +93,24 @@ export const LegacyExtensionToolbarItem = ({
 
 	const items = isOpen
 		? getMenuItems().map<MenuItem | undefined>((menuItem, i) => {
-				return {
-					key: `menu-item-${i}`,
-					content: menuItem.label,
-					elemBefore: <menuItem.icon label={menuItem.label} />,
-					onClick: () => {
-						menuItem.onClick?.();
-						// NEXT PR: here we need to set the active extension so the contentComponent can render
-						// menuItem.contentComponent
-					},
-					isDisabled: menuItem.isDisabled,
-					'aria-label': menuItem.label,
-					value: { name: menuItem.label },
-				};
-			})
+				// Only process ExtensionMenuItemConfiguration, skip ExtensionMenuSectionConfiguration
+				if ('label' in menuItem && 'icon' in menuItem) {
+					return {
+						key: `menu-item-${i}`,
+						content: menuItem.label,
+						elemBefore: <menuItem.icon label={menuItem.label} />,
+						onClick: () => {
+							menuItem.onClick?.();
+							// NEXT PR: here we need to set the active extension so the contentComponent can render
+							// menuItem.contentComponent
+						},
+						isDisabled: menuItem.isDisabled,
+						'aria-label': menuItem.label,
+						value: { name: menuItem.label },
+					};
+				}
+				return undefined;
+			}).filter((item): item is MenuItem => item !== undefined)
 		: [];
 
 	return (

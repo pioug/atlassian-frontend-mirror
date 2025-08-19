@@ -1,22 +1,57 @@
 import React from 'react';
 
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import {
 	ToolbarDropdownItem,
 	ToolbarDropdownItemSection,
 	ToolbarNestedDropdownMenu,
 } from '@atlaskit/editor-toolbar';
 import JiraIcon from '@atlaskit/icon-lab/core/jira';
-import ArrowDownIcon from '@atlaskit/icon/core/arrow-down';
-import ArrowUpIcon from '@atlaskit/icon/core/arrow-up';
 import ChangesIcon from '@atlaskit/icon/core/changes';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import ListBulletedIcon from '@atlaskit/icon/core/list-bulleted';
 import TaskIcon from '@atlaskit/icon/core/task';
 
+import type { BlockMenuPlugin } from '../blockMenuPluginType';
 import { type RegisterBlockMenuComponent } from '../blockMenuPluginType';
 
-export const getBlockMenuComponents = (): RegisterBlockMenuComponent[] => {
+import { MoveDownDropdownItem } from './move-down';
+import { MoveUpDropdownItem } from './move-up';
+
+const getMoveUpMoveDownMenuComponents = (
+	api: ExtractInjectionAPI<BlockMenuPlugin> | undefined,
+): RegisterBlockMenuComponent[] => {
+	if (!api?.blockControls?.commands.moveNode) {
+		return [];
+	}
+	return [
+		{
+			type: 'block-menu-item' as const,
+			key: 'block-menu-item-move-up',
+			parent: {
+				type: 'block-menu-section' as const,
+				key: 'block-menu-section-move-up-down',
+				rank: 100,
+			},
+			component: () => <MoveUpDropdownItem api={api} />,
+		},
+		{
+			type: 'block-menu-item' as const,
+			key: 'block-menu-item-move-down',
+			parent: {
+				type: 'block-menu-section' as const,
+				key: 'block-menu-section-move-up-down',
+				rank: 200,
+			},
+			component: () => <MoveDownDropdownItem api={api} />,
+		},
+	];
+};
+
+export const getBlockMenuComponents = (
+	api: ExtractInjectionAPI<BlockMenuPlugin> | undefined,
+): RegisterBlockMenuComponent[] => {
 	return [
 		{
 			type: 'block-menu-section' as const,
@@ -85,36 +120,7 @@ export const getBlockMenuComponents = (): RegisterBlockMenuComponent[] => {
 				);
 			},
 		},
-		{
-			type: 'block-menu-item' as const,
-			key: 'block-menu-item-move-up',
-			parent: {
-				type: 'block-menu-section' as const,
-				key: 'block-menu-section-move-up-down',
-				rank: 100,
-			},
-			component: () => {
-				return (
-					<ToolbarDropdownItem elemBefore={<ArrowUpIcon label="" />}>Move up</ToolbarDropdownItem>
-				);
-			},
-		},
-		{
-			type: 'block-menu-item' as const,
-			key: 'block-menu-item-move-down',
-			parent: {
-				type: 'block-menu-section' as const,
-				key: 'block-menu-section-move-up-down',
-				rank: 200,
-			},
-			component: () => {
-				return (
-					<ToolbarDropdownItem elemBefore={<ArrowDownIcon label="" />}>
-						Move down
-					</ToolbarDropdownItem>
-				);
-			},
-		},
+		...getMoveUpMoveDownMenuComponents(api),
 		{
 			type: 'block-menu-item' as const,
 			key: 'block-menu-item-delete',

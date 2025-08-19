@@ -3,6 +3,7 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { stepHasSlice } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { PluginKey, type Transaction } from '@atlaskit/editor-prosemirror/state';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export const localIdPluginKey = new PluginKey('localIdPlugin');
 
@@ -61,7 +62,9 @@ export const createPlugin = () => {
 			const tr = newState.tr;
 			const { text, hardBreak } = newState.schema.nodes;
 			const ignoredNodeTypes = [text?.name, hardBreak?.name];
-
+			const addedNodes = new Set<PMNode>();
+			const addedNodePos = new Map<PMNode, number>();
+			const localIds = new Set<string>();
 			// Process only the nodes added in the transactions
 			transactions.forEach((transaction) => {
 				if (!transaction.docChanged) {
@@ -79,17 +82,48 @@ export const createPlugin = () => {
 					step.getMap().forEach((oldStart, oldEnd, newStart, newEnd) => {
 						// Scan the changed range to find all nodes
 						tr.doc.nodesBetween(newStart, Math.min(newEnd, tr.doc.content.size), (node, pos) => {
-							if (node?.attrs.localId || ignoredNodeTypes.includes(node.type.name)) {
-								return;
+							if (ignoredNodeTypes.includes(node.type.name)) {
+								return true;
 							}
 
 							modified = true;
-							addLocalIdToNode(node, pos, tr);
-							return true; // Continue traversing to find all nodes in this range
+
+							if (fg('platform_editor_use_localid_dedupe')) {
+								// Always add to addedNodes for duplicate prevention
+								addedNodes.add(node);
+								addedNodePos.set(node, pos);
+							} else {
+								if (!node?.attrs.localId) {
+									addLocalIdToNode(node, pos, tr);
+								}
+							}
+
+							return true;
 						});
 					});
 				});
 			});
+
+			if (addedNodes.size > 0 && fg('platform_editor_use_localid_dedupe')) {
+				newState.doc.descendants((node, pos) => {
+					if (addedNodes.has(node)) {
+						return true;
+					}
+
+					localIds.add(node.attrs.localId);
+					return true;
+				});
+
+				for (const node of addedNodes) {
+					if (!node.attrs.localId || localIds.has(node.attrs.localId)) {
+						const pos = addedNodePos.get(node);
+						if (pos !== undefined) {
+							addLocalIdToNode(node, pos, tr);
+							modified = true;
+						}
+					}
+				}
+			}
 
 			return modified ? tr : undefined;
 		},

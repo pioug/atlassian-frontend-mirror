@@ -639,6 +639,21 @@ export class TeamsClient {
 	}
 
 	/**
+	 * Get unassigned teams
+	 * @param orgId
+	 * @param count - number of teams to return
+	 * @param cursor - cursor to the next page of results
+	 * @param query - query to filter teams by
+	 */
+	async getUnassignedTeams(
+		...args: Parameters<typeof defaultLegionClient.getUnassignedTeams>
+	): Promise<AwaitedReturn<typeof defaultLegionClient.getUnassignedTeams>> {
+		return this.measurePerformance('getUnassignedTeams', () =>
+			this._legionClient.getUnassignedTeams(...args),
+		);
+	}
+
+	/**
 	 * Set team site assignment permission
 	 * @param orgId
 	 * @param alignmentPermission - 'ALL_USERS' | 'ORG_ADMIN'

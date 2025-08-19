@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 0.0.6
+
+### Patch Changes
+
+- [`353075175e7ff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/353075175e7ff) -
+  [ux] ED-28584 Register move up and down options in block menu
+- Updated dependencies
+
 ## 0.0.5
 
 ### Patch Changes

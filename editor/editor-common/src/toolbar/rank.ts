@@ -87,6 +87,11 @@ import {
 	LAYOUT_BUTTON,
 	TABLE_BUTTON,
 	TABLE_SIZE_PICKER,
+	TRACK_CHANGES_SECTION,
+	UNDO_BUTTON,
+	REDO_BUTTON,
+	TRACK_CHANGES_BUTTON,
+	TRACK_CHANGES_GROUP,
 } from './keys';
 
 export const TOOLBAR_RANK = {
@@ -96,7 +101,8 @@ export const TOOLBAR_RANK = {
 	[LINKING_SECTION.key]: 400,
 	[COLLAB_SECTION.key]: 500,
 	[APPS_SECTION.key]: 600,
-	[OVERFLOW_SECTION.key]: 700,
+	[TRACK_CHANGES_SECTION.key]: 700,
+	[OVERFLOW_SECTION.key]: 800,
 } as const;
 
 /**
@@ -315,6 +321,20 @@ export const COLLAB_SECTION_RANK = {
 export const COMMENT_GROUP_RANK = {
 	[COMMENT_HERO_BUTTON.key]: 100,
 };
+
+/**
+ * Track changes section
+ */
+
+export const TRACK_CHANGES_SECTION_RANK = {
+	[TRACK_CHANGES_GROUP.key]: 100,
+};
+
+export const TRACK_CHANGES_GROUP_RANK = {
+	[UNDO_BUTTON.key]: 100,
+	[REDO_BUTTON.key]: 200,
+	[TRACK_CHANGES_BUTTON.key]: 300,
+}
 
 /**
  * Overflow section

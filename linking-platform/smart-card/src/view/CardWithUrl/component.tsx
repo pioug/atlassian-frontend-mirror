@@ -109,11 +109,10 @@ function Component({
 							action: 'clicked',
 							actionSubject: 'smartLink',
 							actionSubjectId: 'smartlinkClickAnalyticsWorkflows',
-							eventType: 'screen',
+							eventType: 'ui',
 							attributes: {
 								eventName: 'smartLinkClickAnalyticsThirdPartyWorkflows',
 								firstPartyIdentifier: firstPartyIdentifier,
-								clickedAt: Date.now().toString(),
 							},
 							nonPrivacySafeAttributes: {
 								thirdPartyARI: thirdPartyARI,

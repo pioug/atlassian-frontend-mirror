@@ -34,7 +34,7 @@ function getRawCookieValue(cookieName: string, cookieString: AtlCtxCookieName): 
 }
 
 /**
- * Internal helper function used to return the atl-ctx cookies (which contains perimeter and ic_domain information).
+ * Internal helper function used to return the atl-ctx cookies for browser (which contains perimeter and ic_domain information).
  * Cookies are NOT set for regular commercial traffic.
  * @returns {AtlCtxCookieValues | undefined} - The parsed cookie contents or undefined if parsing fails (ex. if the cookies do not exist)
  */

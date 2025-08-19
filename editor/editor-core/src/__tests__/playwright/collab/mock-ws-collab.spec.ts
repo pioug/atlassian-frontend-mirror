@@ -105,7 +105,7 @@ test.describe('collab', () => {
 				reason: 'Firefox is skipped as it is a very slow browser on this test',
 				browsers: [BROWSERS.firefox],
 			});
-			const model = EditorTelepointerModel.from(secondEditor);
+			const secondEditorTelepointer = EditorTelepointerModel.from(secondEditor);
 
 			await firstEditor.focus();
 			await firstEditor.keyboard.type('Hello');
@@ -120,7 +120,7 @@ test.describe('collab', () => {
 			await firstEditor.keyboard.press('ArrowLeft');
 
 			// Telepointer must be set to Hell<{}>o after left arrow
-			await model.telepointer.click();
+			await secondEditorTelepointer.centerClick();
 			await secondEditor.keyboard.type('World');
 
 			await expect(firstEditor).toHaveDocument(doc(p('HellWorldo')));

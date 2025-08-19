@@ -347,7 +347,7 @@ export const StyleObject = {
 				if (!isNodeOfType(specifier, 'ImportSpecifier')) {
 					return false;
 				}
-				if (specifier.imported.name === 'fontFallback') {
+				if ('name' in specifier.imported && specifier.imported.name === 'fontFallback') {
 					return true;
 				}
 				return false;

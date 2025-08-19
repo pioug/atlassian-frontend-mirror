@@ -1,5 +1,12 @@
 # @atlaskit/atlassian-context
 
+## 0.5.0
+
+### Minor Changes
+
+- [`e7d738f5d0004`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e7d738f5d0004) -
+  Update isFedrampModerate and isIsolatedCloud functions to work with SSR
+
 ## 0.4.0
 
 ### Minor Changes

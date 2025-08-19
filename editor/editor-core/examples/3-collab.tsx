@@ -40,6 +40,7 @@ const BaseEditor = ({ name }: { name: string }) => {
 			},
 			enabledOptionalPlugins: {
 				connectivity: true,
+				localId: false,
 			},
 		},
 	});

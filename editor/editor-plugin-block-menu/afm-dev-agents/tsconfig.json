@@ -33,6 +33,9 @@
 			"path": "../../editor-shared-styles/afm-dev-agents/tsconfig.json"
 		},
 		{
+			"path": "../../editor-tables/afm-dev-agents/tsconfig.json"
+		},
+		{
 			"path": "../../editor-toolbar/afm-dev-agents/tsconfig.json"
 		},
 		{

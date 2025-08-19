@@ -35,8 +35,7 @@ const actions = {
 			if (current.isCreated === isCreated) {
 				return;
 			}
-			const isLoading = isCreated ? false : current.isLoading;
-			setState({ ...containers, [product]: { ...current, isCreated, isLoading } });
+			setState({ ...containers, [product]: { ...current, isCreated } });
 		},
 };
 

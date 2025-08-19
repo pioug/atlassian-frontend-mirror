@@ -50,10 +50,11 @@ export interface Props {
 	emojiProvider: EmojiProvider;
 	onUploaderRef?: UploadRefHandler;
 	createAnalyticsEvent?: CreateUIAnalyticsEvent;
+	disableFocusLock?: boolean;
 }
 
 const EmojiUploadComponent = (props: Props) => {
-	const { emojiProvider, createAnalyticsEvent, onUploaderRef } = props;
+	const { emojiProvider, createAnalyticsEvent, onUploaderRef, disableFocusLock } = props;
 	const [uploadErrorMessage, setUploadErrorMessage] = useState<MessageDescriptor>();
 
 	useEffect(() => {
@@ -144,6 +145,7 @@ const EmojiUploadComponent = (props: Props) => {
 					onUploadCancelled={onUploadCancelled}
 					onUploadEmoji={onUploadEmoji}
 					errorMessage={uploadErrorMessage ? <FormattedMessage {...uploadErrorMessage} /> : null}
+					disableFocusLock={disableFocusLock}
 				/>
 			</div>
 		</div>

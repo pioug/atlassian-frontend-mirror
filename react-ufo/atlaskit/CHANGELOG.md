@@ -1,5 +1,19 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.4.1
+
+### Patch Changes
+
+- [`32ac245da116d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/32ac245da116d) -
+  exclude data-is-observed attribute mutation from TTVC
+
+## 4.4.0
+
+### Minor Changes
+
+- [`0bd8e0b53dd60`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0bd8e0b53dd60) -
+  Adds Grammarly data attribute to exclusions list
+
 ## 4.3.3
 
 ### Patch Changes

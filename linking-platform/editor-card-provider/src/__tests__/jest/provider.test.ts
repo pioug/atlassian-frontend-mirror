@@ -119,4 +119,46 @@ describe('EditorCardProvider', () => {
 			await expect(provider.fetchNodesData(nodes)).rejects.toThrow(error);
 		});
 	});
+
+	it('should allow to pass custom CardClient', async () => {
+		const customCardClient = new CardClient();
+		jest.spyOn(customCardClient, 'fetchData').mockResolvedValue({
+			data: {
+				'@type': 'Page',
+				'@context': {
+					'@vocab': 'https://www.w3.org/ns/activitystreams#',
+					atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+					schema: 'http://schema.org/',
+				},
+				url: 'https://example.com',
+			},
+			meta: {
+				access: 'granted',
+				visibility: 'public',
+			},
+		});
+
+		const cardProvider = new EditorCardProvider(
+			undefined,
+			undefined,
+			undefined,
+			undefined,
+			customCardClient,
+		);
+
+		await cardProvider.fetchNodesData([
+			{ type: 'inlineCard', attrs: { url: 'https://example.com' } },
+		]);
+
+		expect(customCardClient.fetchData).toHaveBeenCalledWith('https://example.com');
+	});
+
+	it('should not set product to custom CardClient', async () => {
+		const customCardClient = new CardClient();
+		jest.spyOn(customCardClient, 'setProduct');
+
+		new EditorCardProvider(undefined, undefined, undefined, undefined, customCardClient);
+
+		expect(customCardClient.setProduct).not.toHaveBeenCalled();
+	});
 });

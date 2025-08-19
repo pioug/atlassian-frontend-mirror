@@ -22,14 +22,6 @@ import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import type { DecorationSet, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { getParticipantColor } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
-
-export const _findPointers = (id: string, decorations: DecorationSet): Decoration[] =>
-	decorations
-		.find()
-		.reduce<
-			Decoration[]
-		>((arr, deco) => (deco.spec.pointer.sessionId === id ? arr.concat(deco) : arr), []);
 
 export const findPointers = (id: string, decorations: DecorationSet): Decoration[] =>
 	decorations
@@ -90,32 +82,30 @@ export const createTelepointers = (
 	cursor.setAttribute('data-initial', initial);
 	cursor.setAttribute('aria-label', `${fullName} cursor position`);
 	cursor.setAttribute('role', 'button');
+	cursor.setAttribute(TELEPOINTER_DATA_SESSION_ID_ATTR, sessionId);
 
-	if (fg('confluence_team_presence_scroll_to_pointer')) {
-		cursor.setAttribute(TELEPOINTER_DATA_SESSION_ID_ATTR, sessionId);
-		// If there is an ongoing expand animation, we'll keep the telepointer expanded
-		// until the keyframe animation is complete. Please note that this will restart the anim timer
-		// from 0 everytime it's re-added.
-		if (isNudged) {
-			cursor.classList.add(TELEPOINTER_PULSE_DURING_TR_CLASS);
-		}
-
-		const fullNameEl = document.createElement('span');
-		fullNameEl.textContent = fullName;
-		fullNameEl.className = 'telepointer-fullname';
-		fullNameEl.style.backgroundColor = avatarColor.backgroundColor;
-		fullNameEl.style.color = avatarColor.textColor;
-		fullNameEl.setAttribute('aria-hidden', 'true');
-		cursor.appendChild(fullNameEl);
-
-		const initialEl = document.createElement('span');
-		initialEl.textContent = initial;
-		initialEl.className = 'telepointer-initial';
-		initialEl.style.backgroundColor = avatarColor.backgroundColor;
-		initialEl.style.color = avatarColor.textColor;
-		initialEl.setAttribute('aria-hidden', 'true');
-		cursor.appendChild(initialEl);
+	// If there is an ongoing expand animation, we'll keep the telepointer expanded
+	// until the keyframe animation is complete. Please note that this will restart the anim timer
+	// from 0 everytime it's re-added.
+	if (isNudged) {
+		cursor.classList.add(TELEPOINTER_PULSE_DURING_TR_CLASS);
 	}
+
+	const fullNameEl = document.createElement('span');
+	fullNameEl.textContent = fullName;
+	fullNameEl.className = 'telepointer-fullname';
+	fullNameEl.style.backgroundColor = avatarColor.backgroundColor;
+	fullNameEl.style.color = avatarColor.textColor;
+	fullNameEl.setAttribute('aria-hidden', 'true');
+	cursor.appendChild(fullNameEl);
+
+	const initialEl = document.createElement('span');
+	initialEl.textContent = initial;
+	initialEl.className = 'telepointer-initial';
+	initialEl.style.backgroundColor = avatarColor.backgroundColor;
+	initialEl.style.color = avatarColor.textColor;
+	initialEl.setAttribute('aria-hidden', 'true');
+	cursor.appendChild(initialEl);
 
 	return decorations
 		.concat(

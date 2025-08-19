@@ -272,6 +272,47 @@ describe('JSONTransformer:', () => {
 			});
 		});
 
+		it('should only have necessary attrs from external media node', () => {
+			const { editorView } = editor(
+				doc(
+					mediaSingle()(
+						media({
+							id: 'foo',
+							type: 'external',
+							url: 'image.jpg',
+							collection: '',
+							__fileName: 'foo.png',
+							__displayType: 'thumbnail',
+							__fileMimeType: 'image/png',
+							__fileSize: 1234,
+							__external: true,
+						})(),
+					),
+				),
+			);
+			expect(toJSON(editorView.state.doc)).toEqual({
+				version: 1,
+				type: 'doc',
+				content: [
+					{
+						type: 'mediaSingle',
+						attrs: {
+							layout: 'center',
+						},
+						content: [
+							{
+								type: 'media',
+								attrs: {
+									type: 'external',
+									url: 'image.jpg',
+								},
+							},
+						],
+					},
+				],
+			});
+		});
+
 		it('should strip optional attrs from media inline node', () => {
 			const { editorView } = editor(
 				doc(

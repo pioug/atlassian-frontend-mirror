@@ -8,7 +8,7 @@ import type { SelectionExtensionCoords, BoundingBoxOffset } from '../types';
  * @param view - The editor view instance.
  * @param from - The starting position of the selection.
  * @param to - The ending position of the selection.
- * @param offset - Optional offset to adjust the top and bottom coordinates of the bounding box.`
+ * @param offset - Optional offset to adjust the top and bottom coordinates of the bounding box.
  * @returns An object containing the top, left, bottom, and right coordinates of the bounding box.
  */
 export const getBoundingBoxFromSelection = (

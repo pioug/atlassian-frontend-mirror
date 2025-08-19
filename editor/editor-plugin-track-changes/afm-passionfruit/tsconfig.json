@@ -35,7 +35,19 @@
 			"path": "../../editor-plugin-show-diff/afm-passionfruit/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-toolbar/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar-model/afm-passionfruit/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/icon-lab/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-passionfruit/tsconfig.json"
 		},
 		{
 			"path": "../../editor-common/afm-passionfruit/tsconfig.json"

@@ -216,22 +216,3 @@ export const telepointerStyle = css({
 		},
 	},
 });
-
-export const telepointerStyleWithInitialOnly = css({
-	'.ProseMirror .telepointer': {
-		'&.telepointer-selection-badge::after': {
-			content: 'attr(data-initial)',
-			position: 'absolute',
-			display: 'block',
-			top: -14,
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-			fontSize: '0.5625rem',
-			padding: token('space.025', '2px'),
-			color: token('color.text.inverse'),
-			left: 0,
-			borderRadius: '2px 2px 2px 0',
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-			lineHeight: 'initial',
-		},
-	},
-});

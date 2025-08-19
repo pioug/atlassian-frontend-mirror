@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 3.2.0
+
+### Minor Changes
+
+- [`ed1db63e29a76`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ed1db63e29a76) -
+  [ux] Editor: add basic syntax highlighting for actionscript inside code block
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.1.2
 
 ### Patch Changes

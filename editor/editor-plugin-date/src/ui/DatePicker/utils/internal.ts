@@ -1,6 +1,8 @@
 import addDays from 'date-fns/addDays';
 import addMonths from 'date-fns/addMonths';
 import addYears from 'date-fns/addYears';
+// eslint-disable-next-line import/no-namespace
+import * as locales from 'date-fns/locale';
 
 import type { DateSegment, DateType } from '../../../types';
 
@@ -194,4 +196,28 @@ export function isToday(date: DateType | undefined) {
 		date.month === today.getMonth() + 1 &&
 		date.year === today.getFullYear()
 	);
+}
+
+/**
+ * Get the corresponding date-fns locale for a given locale string. Ideally we could rely on Intl
+ * but firefox does not support getting the first day of the week from it. We have to handle silly
+ * use cases like 'nl-NL' where the language code is the same as the region code because someone
+ * decided to format them in this non-standard way
+ * @param localeString Locale string, eg. 'en-AU'
+ * @returns Locale or undefined if not found
+ * @example
+ * getDFLocale('en-AU') // returns enAU locale
+ */
+export function getDFLocale(localeString: string): Locale | undefined {
+	let dfLocaleString = localeString;
+	const [lang, region] = localeString.split('-');
+	if (region) {
+		if (lang.toLocaleLowerCase() === region.toLocaleLowerCase()) {
+			dfLocaleString = lang;
+		} else {
+			dfLocaleString = `${lang}${region}`;
+		}
+	}
+
+	return (locales as Record<string, Locale | undefined>)[dfLocaleString];
 }

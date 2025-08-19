@@ -17,6 +17,7 @@ import {
 } from '@atlaskit/editor-common/keymaps';
 import { blockControlsMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { DIRECTION } from '@atlaskit/editor-common/types';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import ArrowDownIcon from '@atlaskit/icon/core/arrow-down';
@@ -26,7 +27,6 @@ import ArrowUpIcon from '@atlaskit/icon/core/arrow-up';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import { moveNodeViaShortcut } from '../editor-commands/move-node';
-import { DIRECTION } from '../pm-plugins/utils/consts';
 
 export const getBlockMenuItems = (
 	formatMessage: IntlShape['formatMessage'],

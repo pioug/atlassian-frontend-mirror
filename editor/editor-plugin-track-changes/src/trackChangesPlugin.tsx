@@ -1,10 +1,12 @@
 import React from 'react';
 
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { createTrackChangesPlugin, trackChangesPluginKey } from './pm-plugins/main';
 import { TOGGLE_TRACK_CHANGES_ACTION as ACTION } from './pm-plugins/types';
 import type { TrackChangesPlugin } from './trackChangesPluginType';
+import { getToolbarComponents } from './ui/toolbar-components';
 import { TrackChangesToolbarButton } from './ui/TrackChangesToolbarButton';
 
 export const trackChangesPlugin: TrackChangesPlugin = ({ api, config: options }) => {
@@ -13,10 +15,14 @@ export const trackChangesPlugin: TrackChangesPlugin = ({ api, config: options })
 	};
 
 	if (options?.showOnToolbar === true) {
-		api?.primaryToolbar?.actions?.registerComponent({
-			name: 'trackChanges',
-			component: primaryToolbarComponent,
-		});
+		if (expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true)) {
+			api?.toolbar?.actions.registerComponents(getToolbarComponents(api))
+		} else {
+			api?.primaryToolbar?.actions?.registerComponent({
+				name: 'trackChanges',
+				component: primaryToolbarComponent,
+			});
+		}
 	}
 
 	return {

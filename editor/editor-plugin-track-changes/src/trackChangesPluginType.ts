@@ -6,6 +6,7 @@ import type {
 import type { HistoryPlugin } from '@atlaskit/editor-plugin-history';
 import { type PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 import type { ShowDiffPlugin } from '@atlaskit/editor-plugin-show-diff';
+import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 
 export type TrackChangesPlugin = NextEditorPlugin<
 	'trackChanges',
@@ -33,6 +34,10 @@ export type TrackChangesPlugin = NextEditorPlugin<
 			 * Show diff plugin for showing the changes in a diff view.
 			 */
 			ShowDiffPlugin,
+			/*
+			* Toolbar plugin for registering the track changes button. Will be replacing the Primary Toolbar Plugin
+			*/
+			OptionalPlugin<ToolbarPlugin>,
 		];
 		pluginConfiguration?: {
 			/**

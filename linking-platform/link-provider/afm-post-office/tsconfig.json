@@ -33,6 +33,9 @@
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../editor/tmp-editor-statsig/afm-post-office/tsconfig.json"
 		}
 	]
 }

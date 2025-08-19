@@ -1,5 +1,14 @@
 # @atlaskit/collab-provider
 
+## 11.2.4
+
+### Patch Changes
+
+- [`4c8b9cd44cb83`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4c8b9cd44cb83) -
+  HOT-119930: added a caller param to updateDocumentAnalytics, to allow further investigation into
+  thecause of failed updates for HOT-119930
+- Updated dependencies
+
 ## 11.2.3
 
 ### Patch Changes

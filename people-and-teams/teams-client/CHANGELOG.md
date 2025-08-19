@@ -1,5 +1,23 @@
 # @atlaskit/teams-client
 
+## 4.12.0
+
+### Minor Changes
+
+- [`c9a85d9cf0d53`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c9a85d9cf0d53) -
+  Added new API to get unaligned teams
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.11.1
+
+### Patch Changes
+
+- [`13c698778e3c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/13c698778e3c6) -
+  [ux] Atlaspack version bump
+
 ## 4.11.0
 
 ### Minor Changes

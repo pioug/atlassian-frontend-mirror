@@ -98,6 +98,7 @@ exports[`Editor Content styles chromeless editor renders correct styles for lega
   --ak-editor--breakout-fallback-width: calc(
 		100cqw - var(--ak-editor--breakout-full-page-guttering-padding)
 	);
+  --ak-editor--breakout-min-width: 100%;
 }
 
 .emotion-0 .fabric-editor--full-width-mode {
@@ -106,6 +107,7 @@ exports[`Editor Content styles chromeless editor renders correct styles for lega
 			var(--ak-editor--full-width-layout-width)
 		);
   --ak-editor--breakout-fallback-width: 100%;
+  --ak-editor--breakout-min-width: 0px;
 }
 
 .emotion-0 .ProseMirror {
@@ -4589,6 +4591,7 @@ exports[`Editor Content styles chromeless editor renders correct styles for lega
   --ak-editor--breakout-fallback-width: calc(
 		100cqw - var(--ak-editor--breakout-full-page-guttering-padding)
 	);
+  --ak-editor--breakout-min-width: 100%;
 }
 
 .emotion-0 .fabric-editor--full-width-mode {
@@ -4597,6 +4600,7 @@ exports[`Editor Content styles chromeless editor renders correct styles for lega
 			var(--ak-editor--full-width-layout-width)
 		);
   --ak-editor--breakout-fallback-width: 100%;
+  --ak-editor--breakout-min-width: 0px;
 }
 
 .emotion-0 .ProseMirror {
@@ -9417,6 +9421,7 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
   --ak-editor--breakout-wide-layout-width: 905px;
   --ak-editor--breakout-full-page-guttering-padding: calc(var(--ak-editor--large-gutter-padding) * 2 + var(--ak-editor--default-gutter-padding));
   --ak-editor--breakout-fallback-width: calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding));
+  --ak-editor--breakout-min-width: 100%;
   --ak-editor--large-gutter-padding: 72px;
   --editor-font-ugc-token-heading-h1: normal 600 1.71429em/1.16667 "Atlassian Sans",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif;
   --editor-font-ugc-token-heading-h2: normal 600 1.42857em/1.2 "Atlassian Sans",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif;
@@ -9431,6 +9436,7 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
 .emotion-0 .fabric-editor--full-width-mode {
   --ak-editor--line-length: min(calc(100cqw - var(--ak-editor--large-gutter-padding) * 2), var(--ak-editor--full-width-layout-width));
   --ak-editor--breakout-fallback-width: 100%;
+  --ak-editor--breakout-min-width: 0px;
 }
 
 .emotion-0 .ProseMirror {
@@ -14300,6 +14306,7 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
   --ak-editor--breakout-wide-layout-width: 905px;
   --ak-editor--breakout-full-page-guttering-padding: calc(var(--ak-editor--large-gutter-padding) * 2 + var(--ak-editor--default-gutter-padding));
   --ak-editor--breakout-fallback-width: calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding));
+  --ak-editor--breakout-min-width: 100%;
   --ak-editor--large-gutter-padding: 52px;
   --editor-font-ugc-token-heading-h1: normal 600 1.71429em/1.16667 "Atlassian Sans",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif;
   --editor-font-ugc-token-heading-h2: normal 600 1.42857em/1.2 "Atlassian Sans",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif;
@@ -14314,6 +14321,7 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
 .emotion-0 .fabric-editor--full-width-mode {
   --ak-editor--line-length: min(calc(100cqw - var(--ak-editor--large-gutter-padding) * 2), var(--ak-editor--full-width-layout-width));
   --ak-editor--breakout-fallback-width: 100%;
+  --ak-editor--breakout-min-width: 0px;
 }
 
 .emotion-0 .ProseMirror {

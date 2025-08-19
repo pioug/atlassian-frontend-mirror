@@ -84,14 +84,15 @@ export const ToolbarButton = forwardRef(
 		}: ToolbarButtonProps,
 		ref: Ref<HTMLButtonElement>,
 	) => {
-		const { preventDefaultOnMouseDown } = useToolbarUI();
+		const { preventDefaultOnMouseDown, isDisabled: ctxDisabled } = useToolbarUI();
+		const disabled = Boolean(ctxDisabled || isDisabled);
 
 		return (
 			<Pressable
 				ref={ref}
 				xcss={cx(
 					styles.button,
-					isDisabled ? styles.disabled : isSelected ? styles.selected : styles.enabled,
+					disabled ? styles.disabled : isSelected ? styles.selected : styles.enabled,
 				)}
 				aria-pressed={isSelected}
 				aria-expanded={ariaExpanded}
@@ -104,7 +105,7 @@ export const ToolbarButton = forwardRef(
 				onBlur={onBlur}
 				onFocus={onFocus}
 				testId={testId}
-				isDisabled={isDisabled}
+				isDisabled={disabled}
 				onMouseDown={(event) => {
 					if (preventDefaultOnMouseDown) {
 						event.preventDefault();

@@ -62,6 +62,9 @@
 			"path": "../../../platform/feature-flags/afm-dev-agents/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/popper/afm-dev-agents/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/primitives/afm-dev-agents/tsconfig.json"
 		},
 		{

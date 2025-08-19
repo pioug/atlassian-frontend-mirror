@@ -216,6 +216,7 @@ describe('DocumentService onRestore', () => {
 			expect(updateDoc).toBeCalledWith({
 				...dummyPayload,
 				reserveCursor: true,
+				caller: 'onRestore',
 			});
 		});
 

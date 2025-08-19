@@ -73,7 +73,7 @@ const isSupportedImportWrapper = (
 		// Matches the imported name from a named import
 		// import { functionName, functioName as otherName } from 'import-source';
 		const isNamedImport =
-			def.node.type === 'ImportSpecifier' && def.node.imported.name === functionName;
+			def.node.type === 'ImportSpecifier' && def.node.imported.type === 'Identifier' && def.node.imported.name === functionName;
 
 		// Must explicitly match the local name from a default import
 		// import functionName from 'import-source';

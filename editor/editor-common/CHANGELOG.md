@@ -1,5 +1,46 @@
 # @atlaskit/editor-common
 
+## 107.26.0
+
+### Minor Changes
+
+- [`353075175e7ff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/353075175e7ff) -
+  [ux] ED-28584 Register move up and down options in block menu
+
+### Patch Changes
+
+- [`f78a34afab8d4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f78a34afab8d4) -
+  [ux] ED-28961 register undo redo and track changes buttons to new toolbar behind
+  platform_editor_toolbar_aifc. adds ai buttons into comment toolbar.
+- Updated dependencies
+
+## 107.25.5
+
+### Patch Changes
+
+- [`4c8b9cd44cb83`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4c8b9cd44cb83) -
+  HOT-119930: added a caller param to updateDocumentAnalytics, to allow further investigation into
+  thecause of failed updates for HOT-119930
+- [`3b2eba6ea5ffa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b2eba6ea5ffa) -
+  Opted bodied extension out of portal provider
+- Updated dependencies
+
+## 107.25.4
+
+### Patch Changes
+
+- [`13c698778e3c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/13c698778e3c6) -
+  [ux] Atlaspack version bump
+- Updated dependencies
+
+## 107.25.3
+
+### Patch Changes
+
+- [`f811cf0df3429`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f811cf0df3429) -
+  [ux] Remove unused createCommentOnInlineNodeSpotlightBody code
+- Updated dependencies
+
 ## 107.25.2
 
 ### Patch Changes

@@ -31,7 +31,11 @@ export const getModuleOfIdentifier = (
 					};
 				}
 
-				if (spec.type === 'ImportSpecifier' && spec.local.name === identifierName) {
+				if (
+					spec.type === 'ImportSpecifier' &&
+					'name' in spec.imported &&
+					spec.local.name === identifierName
+				) {
 					return {
 						moduleName: node.source.value + '',
 						importName: spec.imported.name,

@@ -4,6 +4,7 @@
 import { RelativeSelectionPos } from '@atlaskit/editor-common/selection';
 export type { SelectionPluginState } from '@atlaskit/editor-common/selection';
 import type { LongPressSelectionPluginOptions } from '@atlaskit/editor-common/types';
+import type { JSONNode } from '@atlaskit/editor-json-transformer';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
 
@@ -23,6 +24,16 @@ export type SetSelectionRelativeToNode = (props: {
 
 export type EditorSelectionAPI = {
 	selectNearNode: SetSelectionRelativeToNode;
+	/**
+	 * Gets the current selection fragment.
+	 * @returns The current selection fragment as an array of JSON nodes.
+	 */
+	getSelectionFragment: () => JSONNode[] | null;
+	/**
+	 * Gets the current selection local IDs. This includes all local IDs
+	 * @returns The current selection local IDs as an array of strings.
+	 */
+	getSelectionLocalIds: () => string[] | null;
 };
 
 export interface SelectionPluginOptions extends LongPressSelectionPluginOptions {

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { expandSelectionBounds } from '@atlaskit/editor-common/selection';
-import type { PMPlugin } from '@atlaskit/editor-common/types';
+import type { PMPlugin, DIRECTION } from '@atlaskit/editor-common/types';
 import {
 	TextSelection,
 	type EditorState,
@@ -18,7 +18,9 @@ import type {
 	MultiSelectDnD,
 } from './blockControlsPluginType';
 import { moveNode } from './editor-commands/move-node';
+import { moveNodeWithBlockMenu } from './editor-commands/move-node-with-block-menu';
 import { moveToLayout } from './editor-commands/move-to-layout';
+import { canMoveNodeUpOrDown } from './editor-commands/utils/move-node-utils';
 import { firstNodeDecPlugin } from './pm-plugins/first-node-dec-plugin';
 import {
 	createInteractionTrackingPlugin,
@@ -107,9 +109,18 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 					return tr;
 				}
 
-				tr.setMeta(key, { ...currMeta, toggleMenu: { anchorName: options?.anchorName } });
-
+				let toggleMenuMeta: { anchorName?: string; moveUp?: boolean; moveDown?: boolean } = {
+					anchorName: options?.anchorName,
+				};
 				const menuTriggerBy = api?.blockControls?.sharedState.currentState()?.menuTriggerBy;
+				if (options?.anchorName) {
+					const { moveUp, moveDown } = canMoveNodeUpOrDown(tr);
+					toggleMenuMeta = { ...toggleMenuMeta, moveUp, moveDown };
+				}
+				tr.setMeta(key, {
+					...currMeta,
+					toggleMenu: toggleMenuMeta,
+				});
 
 				if (
 					menuTriggerBy === undefined ||
@@ -121,6 +132,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 						api?.userIntent?.commands.setCurrentUserIntent('default')({ tr });
 					}
 				}
+
 				return tr;
 			},
 
@@ -204,6 +216,9 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 				const currMeta = tr.getMeta(key);
 				return tr.setMeta(key, { ...currMeta, isSelectedViaDragHandle });
 			},
+		moveNodeWithBlockMenu: (direction: DIRECTION.UP | DIRECTION.DOWN) => {
+			return moveNodeWithBlockMenu(api, direction);
+		},
 	},
 
 	getSharedState(editorState: EditorState | undefined) {
@@ -214,6 +229,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 		const sharedState: BlockControlsSharedState = {
 			isMenuOpen: key.getState(editorState)?.isMenuOpen ?? false,
 			menuTriggerBy: key.getState(editorState)?.menuTriggerBy ?? undefined,
+			blockMenuOptions: key.getState(editorState)?.blockMenuOptions ?? undefined,
 			activeNode: key.getState(editorState)?.activeNode ?? undefined,
 			activeDropTargetNode: key.getState(editorState)?.activeDropTargetNode ?? undefined,
 			isDragging: key.getState(editorState)?.isDragging ?? false,

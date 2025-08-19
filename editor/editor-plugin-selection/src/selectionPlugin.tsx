@@ -1,6 +1,7 @@
 import type { EditorCommand } from '@atlaskit/editor-common/types';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 
+import { getSelectionFragment, getSelectionLocalIds } from './editor-actions';
 import { createAutoExpandSelectionRangeOnInlineNodePlugin } from './pm-plugins/auto-expand-selection-range-on-inline-node-main';
 import { selectNearNode } from './pm-plugins/commands';
 import gapCursorKeymapPlugin from './pm-plugins/gap-cursor-keymap';
@@ -55,6 +56,8 @@ export const selectionPlugin: SelectionPlugin = ({ api, config: options }) => ({
 			(state: EditorState): Transaction => {
 				return selectNearNode(selectionRelativeToNode, selection)({ tr: state.tr }) || state.tr;
 			},
+		getSelectionFragment: getSelectionFragment(api),
+		getSelectionLocalIds: getSelectionLocalIds(api),
 	},
 
 	getSharedState(editorState) {

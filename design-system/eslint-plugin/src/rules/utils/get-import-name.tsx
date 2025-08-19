@@ -23,7 +23,11 @@ export const getImportName = (
 				return;
 			}
 
-			return def.parent.source.value === packageName && def.node.imported.name === componentName;
+			return (
+				def.parent.source.value === packageName &&
+				'name' in def.node.imported &&
+				def.node.imported.name === componentName
+			);
 		});
 
 		if (matchedVariable) {
@@ -35,7 +39,6 @@ export const getImportName = (
 
 	if (!matchedVariable) {
 		return null;
-	} else {
-		return matchedVariable.defs[0].node.local.name;
 	}
+	return matchedVariable.defs[0].node.local.name;
 };

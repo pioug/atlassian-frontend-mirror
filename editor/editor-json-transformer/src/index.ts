@@ -109,6 +109,14 @@ const emptyDoc = createDocFromContent([
 	},
 ]);
 
+/**
+ * Transforms a Prosemirror node into a JSON representation. Compared with
+ * native Prosemirror JSON, this representation ensures we have valid ADF attrs.
+ *
+ * @param node The Prosemirror node to transform.
+ * @param mentionMap A map of mention IDs to their display names.
+ * @returns The JSON representation of the node.
+ */
 const toJSON = (node: PMNode, mentionMap?: Record<string, string | undefined>): JSONNode => {
 	const obj: JSONNode = { type: node.type.name };
 	if (isUnsupportedNode(node)) {
@@ -214,6 +222,8 @@ const toJSON = (node: PMNode, mentionMap?: Record<string, string | undefined>): 
 	}
 	return obj;
 };
+
+export { toJSON as nodeToJSON };
 
 const canOverrideMark = (mark: PMMark, existingMarks: readonly PMMark[]): boolean => {
 	if (existingMarks.some((e) => mark.attrs.originalValue.type === e.type.name)) {

@@ -38,7 +38,11 @@ const findParentPosForHandle = (state: EditorState) => {
 	}
 
 	// else find closest parent node
-	return getNestedNodePosition(state);
+	return getNestedNodePosition({
+		selection: state.selection,
+		schema: state.schema,
+		resolve: state.doc.resolve.bind(state.doc),
+	});
 };
 
 const findNextAnchorDecoration = (state: EditorState): Decoration | undefined => {

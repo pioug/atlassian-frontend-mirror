@@ -57,13 +57,16 @@ export const getMenuItemExtensions = (
 			const menuItems = inlineToolbar.getMenuItems();
 
 			menuItems.forEach((menuItem) => {
-				acc.push({
-					name: menuItem.label,
-					icon: menuItem.icon,
-					onClick: menuItem.onClick,
-					isDisabled: () => !!menuItem.isDisabled,
-					component: menuItem.contentComponent,
-				});
+				// Only process ExtensionMenuItemConfiguration, skip ExtensionMenuSectionConfiguration
+				if ('label' in menuItem && 'icon' in menuItem) {
+					acc.push({
+						name: menuItem.label,
+						icon: menuItem.icon,
+						onClick: menuItem.onClick,
+						isDisabled: () => !!menuItem.isDisabled,
+						component: menuItem.contentComponent,
+					});
+				}
 			});
 		}
 		return acc;

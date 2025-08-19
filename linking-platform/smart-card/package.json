@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "40.10.7",
+	"version": "40.10.9",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -197,7 +197,7 @@
 		"fix_a11y_violation_in_hover_card_trigger": {
 			"type": "boolean"
 		},
-		"platform_smart_links_controlled_dsp_export_view": {
+		"smart_links_noun_support": {
 			"type": "boolean"
 		},
 		"platform-linking-ai-summary-migration-to-convo-ai": {

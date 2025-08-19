@@ -31,7 +31,11 @@ const rule = createLintRule({
 					(node.source.value === '../src' || node.source.value === '@atlaskit/primitives')
 				) {
 					node.specifiers.forEach((specifier) => {
-						if (specifier.type === 'ImportSpecifier' && specifier.imported.name === 'Inline') {
+						if (
+							specifier.type === 'ImportSpecifier' &&
+							'name' in specifier.imported &&
+							specifier.imported.name === 'Inline'
+						) {
 							inlineComponentNames.push(specifier.local.name);
 						}
 					});

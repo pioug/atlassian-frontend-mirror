@@ -28,6 +28,37 @@ test.describe('JQL Editor Autocomplete', () => {
 		await expect(jqlEditor.input).toHaveText('assignee IN (currentUser())');
 	});
 
+	test('Autocomplete allows users to form queries with Popper FF', async ({ page }) => {
+		fixTest({
+			jiraIssueId: 'UTEST-1839',
+			reason:
+				'Skipped due to a timeout issue with locating elements in Chromium after upgrading to Playwright 1.44.1',
+			browsers: [BROWSERS.chromium],
+		});
+		
+		// Enable Popper FF
+		await page.addInitScript(() => {
+			window.localStorage.setItem('platform.jql_editor_autocomplete_use_popper', 'true');
+		});
+		
+		const jqlEditor = new JQLEditorPage(page);
+		await jqlEditor.visitExample('basic-editor');
+		// Field
+		await jqlEditor.input.clear();
+		await jqlEditor.appendInputValue('as');
+		await jqlEditor.selectAutocompleteOption('assignee');
+		await expect(jqlEditor.input).toHaveText('assignee');
+		// Operator
+		await jqlEditor.appendInputValue(' I');
+		await jqlEditor.selectAutocompleteOptionWithKeyboard('IN');
+		await expect(jqlEditor.input).toHaveText('assignee IN');
+		// Operand
+		await jqlEditor.appendInputValue(' cu');
+		await jqlEditor.selectAutocompleteOption('currentUser()');
+		await jqlEditor.appendInputValue(')');
+		await expect(jqlEditor.input).toHaveText('assignee IN (currentUser())');
+	});
+
 	test('Autocomplete replaces quoted string when inner text is selected', async ({ page }) => {
 		fixTest({
 			jiraIssueId: 'UTEST-1839',
@@ -35,6 +66,28 @@ test.describe('JQL Editor Autocomplete', () => {
 				'Skipped due to a timeout issue with locating elements in Chromium after upgrading to Playwright 1.44.1',
 			browsers: [BROWSERS.chromium],
 		});
+		const jqlEditor = new JQLEditorPage(page);
+		await jqlEditor.visitExample('basic-editor');
+		await jqlEditor.input.clear();
+		await jqlEditor.appendInputValue('project = "JSW"');
+		await jqlEditor.selectText('JSW');
+		await jqlEditor.selectAutocompleteOption('Classic');
+		await expect(jqlEditor.input).toHaveText('project = CLS');
+	});
+
+	test('Autocomplete replaces quoted string when inner text is selected with Popper FF', async ({ page }) => {
+		fixTest({
+			jiraIssueId: 'UTEST-1839',
+			reason:
+				'Skipped due to a timeout issue with locating elements in Chromium after upgrading to Playwright 1.44.1',
+			browsers: [BROWSERS.chromium],
+		});
+		
+		// Enable Popper FF
+		await page.addInitScript(() => {
+			window.localStorage.setItem('platform.jql_editor_autocomplete_use_popper', 'true');
+		});
+		
 		const jqlEditor = new JQLEditorPage(page);
 		await jqlEditor.visitExample('basic-editor');
 		await jqlEditor.input.clear();

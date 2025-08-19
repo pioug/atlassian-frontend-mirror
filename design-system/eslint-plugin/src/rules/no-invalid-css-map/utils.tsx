@@ -73,6 +73,7 @@ export class CssMapObjectChecker {
 				messageId: 'noInlineFunctions',
 			});
 		} else if (value.type === 'BinaryExpression' || value.type === 'LogicalExpression') {
+			// @ts-ignore -- this needs to be `ts-ignore` because this only errors in jira's typechecking due to update, not platform's
 			this.checkCssMapObjectValue(value.left);
 			this.checkCssMapObjectValue(value.right);
 		} else if (value.type === 'Identifier') {

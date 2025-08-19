@@ -12,6 +12,7 @@ import { blockControlsMessages } from '@atlaskit/editor-common/messages';
 import { expandSelectionBounds, GapCursorSelection } from '@atlaskit/editor-common/selection';
 import { transformSliceNestedExpandToExpand } from '@atlaskit/editor-common/transforms';
 import type { Command, EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { DIRECTION } from '@atlaskit/editor-common/types';
 import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
 import {
 	Fragment,
@@ -36,7 +37,6 @@ import {
 	attachMoveNodeAnalytics,
 	getMultiSelectAnalyticsAttributes,
 } from '../pm-plugins/utils/analytics';
-import { DIRECTION } from '../pm-plugins/utils/consts';
 import { getNestedNodePosition } from '../pm-plugins/utils/getNestedNodePosition';
 import { selectNode, setCursorPositionAtMovedNode } from '../pm-plugins/utils/getSelection';
 import { removeFromSource } from '../pm-plugins/utils/remove-from-source';
@@ -48,6 +48,8 @@ import {
 	transformSliceExpandToNestedExpand,
 	transformFragmentExpandToNestedExpand,
 } from '../pm-plugins/utils/validation';
+
+import { getPosWhenMoveNodeDown, getPosWhenMoveNodeUp } from './utils/move-node-utils';
 
 /**
  * This function transforms the slice to move
@@ -150,7 +152,11 @@ const getCurrentNodePos = (state: EditorState): number => {
 		// 3. the start of the selection is inside the node
 		currentNodePos = selection.$from.before(1);
 		if (selection.$from.depth > 0) {
-			currentNodePos = getNestedNodePosition(state);
+			currentNodePos = getNestedNodePosition({
+				selection,
+				schema: state.schema,
+				resolve: state.doc.resolve.bind(state.doc),
+			});
 		}
 	}
 	return currentNodePos;
@@ -191,7 +197,7 @@ export const moveNodeViaShortcut = (
 
 		const currentNodePos =
 			isMultiSelectEnabled && !getFocusedHandle(state) && !selection.empty
-				? hoistedPos ?? from
+				? (hoistedPos ?? from)
 				: getCurrentNodePos(state);
 		if (currentNodePos > -1) {
 			const $currentNodePos = state.doc.resolve(currentNodePos);
@@ -203,8 +209,6 @@ export const moveNodeViaShortcut = (
 			const isTopLevelNode = $currentNodePos.depth === 0;
 
 			let moveToPos = -1;
-
-			const nodeIndex = $currentNodePos.index();
 
 			const isLayoutColumnSelected =
 				selection instanceof NodeSelection && selection.node.type.name === 'layoutColumn';
@@ -310,14 +314,7 @@ export const moveNodeViaShortcut = (
 				if (isLayoutColumnSelected) {
 					moveToPos = $currentNodePos.start() - 1;
 				} else {
-					const nodeBefore =
-						$currentNodePos.depth > 1 && nodeIndex === 0
-							? $currentNodePos.node($currentNodePos.depth)
-							: $currentNodePos.nodeBefore;
-
-					if (nodeBefore) {
-						moveToPos = currentNodePos - nodeBefore.nodeSize;
-					}
+					moveToPos = getPosWhenMoveNodeUp($currentNodePos, currentNodePos);
 				}
 			} else {
 				const endOfDoc = $currentNodePos.end();
@@ -329,11 +326,7 @@ export const moveNodeViaShortcut = (
 				if (isLayoutColumnSelected) {
 					moveToPos = state.selection.$from.end() + 1;
 				} else {
-					const nodeAfter = state.doc.nodeAt(nodeAfterPos);
-					if (nodeAfter) {
-						// if not the last node, move to the end of the next node
-						moveToPos = nodeAfterPos + nodeAfter.nodeSize;
-					}
+					moveToPos = getPosWhenMoveNodeDown({ $currentNodePos, nodeAfterPos, tr: state.tr });
 				}
 			}
 
@@ -527,10 +520,10 @@ export const moveNode =
 			inputMethod === INPUT_METHOD.DRAG_AND_DROP
 				? setCursorPositionAtMovedNode(tr, mappedTo)
 				: isMultiSelect
-					? api?.blockControls.commands.setMultiSelectPositions(
+					? (api?.blockControls.commands.setMultiSelectPositions(
 							mappedTo,
 							mappedTo + sliceSize,
-						)({ tr }) ?? tr
+						)({ tr }) ?? tr)
 					: selectNode(tr, mappedTo, handleNode.type.name);
 		const currMeta = tr.getMeta(key);
 		tr.setMeta(key, { ...currMeta, nodeMoved: true });

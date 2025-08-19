@@ -31,7 +31,11 @@ const rule = createLintRule({
 					node,
 				};
 				for (const specifier of node.specifiers) {
-					if (specifier.type === 'ImportSpecifier' && specifier.imported.name === 'cx') {
+					if (
+						specifier.type === 'ImportSpecifier' &&
+						'name' in specifier.imported &&
+						specifier.imported.name === 'cx'
+					) {
 						importStatement.cxFuncLocalName = specifier.local.name;
 					}
 				}

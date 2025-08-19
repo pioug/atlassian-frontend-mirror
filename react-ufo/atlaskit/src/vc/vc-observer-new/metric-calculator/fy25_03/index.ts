@@ -42,6 +42,7 @@ export const KNOWN_ATTRIBUTES_THAT_DOES_NOT_CAUSE_LAYOUT_SHIFTS: string[] = [
 	'data-drop-target-for-element',
 	'data-drop-target-for-external',
 	'draggable',
+	'data-is-observed',
 ];
 
 // Common aria attributes that don't cause visual layout shifts
@@ -98,6 +99,7 @@ export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 				attributeName === 'id' ||
 				attributeName === 'tabindex' ||
 				attributeName === 'data-is-ttvc-ready' ||
+				attributeName === 'data-new-gr-c-c-s-loaded' ||
 				NON_VISUAL_ARIA_ATTRIBUTES.includes(attributeName)
 			) {
 				return false;

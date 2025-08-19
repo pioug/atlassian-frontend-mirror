@@ -886,6 +886,7 @@ describe('Provider', () => {
 
 			expect(updateDocumentSpy).toHaveBeenCalledTimes(1);
 			expect(updateDocumentSpy).toHaveBeenCalledWith({
+				caller: 'Provider.setup',
 				doc: 'test-document',
 				metadata: { title: 'random-title' },
 				version: 1,

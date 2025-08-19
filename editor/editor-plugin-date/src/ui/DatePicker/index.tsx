@@ -22,6 +22,7 @@ import { timestampToIsoFormat, timestampToUTCDate } from '@atlaskit/editor-commo
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { N0, N60A } from '@atlaskit/theme/colors';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
@@ -30,6 +31,7 @@ import type { DateType } from '../../types';
 const PopupWithListeners = withOuterListeners(Popup);
 
 import DatePickerInput from './date-picker-input';
+import { getDFLocale } from './utils/internal';
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const popupContentWrapper = css({
@@ -127,6 +129,11 @@ class DatePicker extends React.Component<Props & WrappedComponentProps, State> {
 		if (!timestamp) {
 			return null;
 		}
+
+		const defaultWeekStartDay = expValEquals('platform_editor_locale_datepicker', 'isEnabled', true)
+			? getDFLocale(intl.locale)?.options?.weekStartsOn
+			: undefined;
+
 		return (
 			<PopupWithListeners
 				// Ignored via go/ees005
@@ -169,8 +176,9 @@ class DatePicker extends React.Component<Props & WrappedComponentProps, State> {
 								year={year}
 								selected={selected}
 								ref={this.handleRef}
-								weekStartDay={weekStartDay}
+								weekStartDay={weekStartDay ?? defaultWeekStartDay}
 								testId={'datepicker'}
+								locale={intl.locale}
 							/>
 						</div>
 					)}

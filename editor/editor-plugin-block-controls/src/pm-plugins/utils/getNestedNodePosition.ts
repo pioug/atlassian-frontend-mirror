@@ -1,22 +1,30 @@
-import { type EditorState, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import type { ResolvedPos, Schema } from '@atlaskit/editor-prosemirror/model';
+import { TextSelection, type Selection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 
-export const getNestedNodePosition = (state: EditorState) => {
-	const { selection } = state;
+export const getNestedNodePosition = ({
+	selection,
+	schema,
+	resolve,
+}: {
+	selection: Selection;
+	schema: Schema;
+	resolve: (pos: number) => ResolvedPos;
+}) => {
 	let nestedNodePos = selection.$from.before(1);
 	if (selection instanceof TextSelection) {
 		nestedNodePos = selection.$from.before();
-		const $pos = state.doc.resolve(nestedNodePos);
+		const $pos = resolve(nestedNodePos);
 		if ($pos.depth < 1) {
 			return nestedNodePos;
 		}
 		const parentNodeOfSpecificTypes = findParentNodeOfType([
-			state.schema.nodes.bulletList,
-			state.schema.nodes.orderedList,
-			state.schema.nodes.blockquote,
-			state.schema.nodes.taskList,
-			state.schema.nodes.decisionList,
-		])(state.selection);
+			schema.nodes.bulletList,
+			schema.nodes.orderedList,
+			schema.nodes.blockquote,
+			schema.nodes.taskList,
+			schema.nodes.decisionList,
+		])(selection);
 
 		if (parentNodeOfSpecificTypes) {
 			const parentNodeType = parentNodeOfSpecificTypes.node.type.name;

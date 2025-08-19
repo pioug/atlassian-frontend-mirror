@@ -36,7 +36,10 @@ export function walkCssMap({
 	);
 
 	const specifier = importDeclaration?.specifiers.find(
-		(specifier) => specifier.type === 'ImportSpecifier' && specifier.imported.name === 'cssMap',
+		(specifier) =>
+			specifier.type === 'ImportSpecifier' &&
+			'name' in specifier.imported &&
+			specifier.imported.name === 'cssMap',
 	);
 
 	if (!specifier) {

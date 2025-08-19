@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-text-color
 
+## 3.1.10
+
+### Patch Changes
+
+- [`13c698778e3c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/13c698778e3c6) -
+  [ux] Atlaspack version bump
+- Updated dependencies
+
 ## 3.1.9
 
 ### Patch Changes

@@ -124,12 +124,14 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 		doc,
 		version,
 		metadata,
-	}: CollabInitPayload) => void = ({ doc, version, metadata }: CollabInitPayload) => {
+		caller,
+	}: CollabInitPayload) => void = ({ doc, version, metadata, caller }: CollabInitPayload) => {
 		try {
 			this.documentService.updateDocument({
 				doc,
 				version,
 				metadata,
+				caller,
 			});
 			this.metadataService.updateMetadata(metadata);
 			this.isProviderInitialized = true;
@@ -233,6 +235,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 						doc: document,
 						version,
 						metadata,
+						caller: 'connectedHandler',
 					});
 				}
 				// If already initialized, `connected` means reconnected
@@ -262,7 +265,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 			})
 			.on('init', ({ doc, version, metadata }) => {
 				// Initial document and version
-				this.updateDocumentAndMetadata({ doc, version, metadata });
+				this.updateDocumentAndMetadata({ doc, version, metadata, caller: 'initHandler' });
 			})
 			.on('restore', this.documentService.onRestore)
 			.on('permission', (permit: UserPermitType) => {
@@ -377,6 +380,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 					doc: document,
 					version,
 					metadata,
+					caller: 'Provider.setup',
 				});
 				this.analyticsHelper?.sendActionEvent(
 					EVENT_ACTION.PROVIDER_INITIALIZED,

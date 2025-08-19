@@ -13,7 +13,7 @@ import type { SerializedStyles } from '@emotion/react';
 import { css, jsx, useTheme, type Theme } from '@emotion/react';
 
 import { browser } from '@atlaskit/editor-common/browser';
-import { telepointerStyle, telepointerStyleWithInitialOnly } from '@atlaskit/editor-common/collab';
+import { telepointerStyle } from '@atlaskit/editor-common/collab';
 import { EmojiSharedCssClassName, defaultEmojiHeight } from '@atlaskit/editor-common/emoji';
 import { MentionSharedCssClassName } from '@atlaskit/editor-common/mention';
 import { PanelSharedCssClassName } from '@atlaskit/editor-common/panel';
@@ -445,6 +445,7 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
 	--ak-editor--breakout-fallback-width: calc(
 		100cqw - var(--ak-editor--breakout-full-page-guttering-padding)
 	);
+	--ak-editor--breakout-min-width: 100%;
 
 	.fabric-editor--full-width-mode {
 		--ak-editor--line-length: min(
@@ -454,6 +455,7 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
 
 		/* in full width appearances it's not possible to rely on cqw because it doesn't account for the page scrollbar, which depends on users system settings */
 		--ak-editor--breakout-fallback-width: 100%;
+		--ak-editor--breakout-min-width: 0px;
 	}
 
 	.ProseMirror {
@@ -543,9 +545,7 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
   ${ruleStyles()}
   ${mediaStyles()}
   ${layoutStyles(props.viewMode)}
-  ${fg('confluence_team_presence_scroll_to_pointer')
-		? telepointerStyle
-		: telepointerStyleWithInitialOnly}
+  ${telepointerStyle}
   ${gapCursorStyles};
 	${panelStyles()}
 	${mentionsStyles}

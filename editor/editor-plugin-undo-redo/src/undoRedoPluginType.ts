@@ -2,6 +2,7 @@ import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/t
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { HistoryPlugin } from '@atlaskit/editor-plugin-history';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
+import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 
 import { type InputSource } from './pm-plugins/enums';
@@ -16,6 +17,7 @@ export type UndoRedoPlugin = NextEditorPlugin<
 			HistoryPlugin,
 			OptionalPlugin<PrimaryToolbarPlugin>,
 			OptionalPlugin<AnalyticsPlugin>,
+			OptionalPlugin<ToolbarPlugin>
 		];
 		actions: {
 			undo: UndoRedoAction;

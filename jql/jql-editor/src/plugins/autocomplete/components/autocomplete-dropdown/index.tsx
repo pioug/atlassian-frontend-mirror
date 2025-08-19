@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Popper } from '@atlaskit/popper';
 import Spinner from '@atlaskit/spinner';
 
 import { ScreenReaderText } from '../../../../accessibility';
@@ -8,6 +10,7 @@ import {
 	useAutocomplete,
 	useAutocompleteIsOpen,
 	useAutocompletePosition,
+	useEditorView,
 	useIntl,
 	useRichInlineNodesEnabled,
 	useScopedId,
@@ -87,6 +90,7 @@ const AutocompleteDropdown = ({ options, loading, keymap, onClick }: Props) => {
 	const [navigatingWithKeyboard, setNavigatingWithKeyboard] = useState(false);
 
 	const [intl] = useIntl();
+	const [editorView] = useEditorView();
 
 	const [, { onEditorViewFocus, onEditorViewBlur }] = useStoreActions();
 
@@ -103,12 +107,43 @@ const AutocompleteDropdown = ({ options, loading, keymap, onClick }: Props) => {
 
 	const [autocompleteId] = useScopedId(JQL_EDITOR_AUTOCOMPLETE_ID);
 
+	const isPopperPositioningEnabled = fg('jql_editor_autocomplete_use_popper');
+
+	// Create virtual reference element positioned at cursor location (for popper implementation)
+	const virtualReferenceElement = useMemo(() => {
+		if (!isPopperPositioningEnabled || !editorView || !isAutocompleteOpen) {
+			return null;
+		}
+
+		// Create a virtual element that uses the same positioning logic as the old implementation
+		return {
+			getBoundingClientRect: () => {
+				// Use the same top/left values that the old manual positioning uses
+				// This ensures consistency between old and new positioning
+				const rect = {
+					width: 0,
+					height: 0,
+					top: top,
+					left: left,
+					right: left,
+					bottom: top,
+					x: left,
+					y: top,
+					toJSON: () => rect,
+				};
+				return rect as DOMRect;
+			},
+		};
+	}, [isPopperPositioningEnabled, editorView, isAutocompleteOpen, top, left]);
+
 	const onContainerRef = useCallback(
 		(container: HTMLElement | null) => {
 			containerRef.current = container;
-			setAutocompleteContainer(container);
+			if (!isPopperPositioningEnabled) {
+				setAutocompleteContainer(container);
+			}
 		},
-		[containerRef, setAutocompleteContainer],
+		[setAutocompleteContainer, isPopperPositioningEnabled],
 	);
 
 	const onScrollContainerRef = useCallback(
@@ -238,13 +273,15 @@ const AutocompleteDropdown = ({ options, loading, keymap, onClick }: Props) => {
 	}, [isAutocompleteOpen, options, selectedOptionId, setSelectedAutocompleteOptionId]);
 
 	useLayoutEffect(() => {
-		requestAnimationFrame(() => {
-			if (containerRef.current) {
-				containerRef.current.style.top = `${top}px`;
-				containerRef.current.style.left = `${left}px`;
-			}
-		});
-	}, [top, left]);
+		if (!isPopperPositioningEnabled) {
+			requestAnimationFrame(() => {
+				if (containerRef.current) {
+					containerRef.current.style.top = `${top}px`;
+					containerRef.current.style.left = `${left}px`;
+				}
+			});
+		}
+	}, [top, left, isPopperPositioningEnabled]);
 
 	useLayoutEffect(() => {
 		if (navigatingWithKeyboard) {
@@ -269,46 +306,87 @@ const AutocompleteDropdown = ({ options, loading, keymap, onClick }: Props) => {
 		return intl.formatMessage(messages.optionsFound);
 	}, [isAutocompleteOpen, intl, options]);
 
+	const renderAutocompleteContent = () => (
+		<AutocompleteOptionsContainer ref={onScrollContainerRef} onMouseMove={onMouseMove}>
+			<OptionList role="listbox" id={autocompleteId}>
+				{options.map((option, index) => {
+					const isSelected = option.id === selectedOptionId;
+					return (
+						<AutocompleteOption
+							key={option.value}
+							isSelected={isSelected}
+							{...(isSelected && { ref: selectedItemRef })}
+							option={option}
+							onClick={() => handleClick(option, index, false)}
+							onMouseMove={() => {
+								if (options[index]?.id !== selectedOptionId) {
+									setSelectedAutocompleteOptionId(options[index]?.id);
+								}
+							}}
+						/>
+					);
+				})}
+			</OptionList>
+		</AutocompleteOptionsContainer>
+	);
+
+	const renderLoadingFooter = () => (
+		loading && (
+			<AutocompleteLoadingFooter
+				data-testid="jql-editor-autocomplete-loading"
+				hasOptions={!!options.length}
+			>
+				<Spinner size="small" />
+			</AutocompleteLoadingFooter>
+		)
+	);
+
+	// Early return if popper positioning is enabled but virtual reference element is not available
+	if (isPopperPositioningEnabled && !virtualReferenceElement) {
+		return null;
+	}
+
 	return (
 		<>
-			<AutocompleteContainer
-				data-testid="jql-editor-autocomplete"
-				tabIndex={-1}
-				ref={onContainerRef}
-				isOpen={isAutocompleteOpen}
-				onBlur={onEditorViewBlur}
-				onFocus={onEditorViewFocus}
-			>
-				<AutocompleteOptionsContainer ref={onScrollContainerRef} onMouseMove={onMouseMove}>
-					<OptionList role="listbox" id={autocompleteId}>
-						{options.map((option, index) => {
-							const isSelected = option.id === selectedOptionId;
-							return (
-								<AutocompleteOption
-									key={option.value}
-									isSelected={isSelected}
-									{...(isSelected && { ref: selectedItemRef })}
-									option={option}
-									onClick={() => handleClick(option, index, false)}
-									onMouseMove={() => {
-										if (options[index]?.id !== selectedOptionId) {
-											setSelectedAutocompleteOptionId(options[index]?.id);
-										}
-									}}
-								/>
-							);
-						})}
-					</OptionList>
-				</AutocompleteOptionsContainer>
-				{loading && (
-					<AutocompleteLoadingFooter
-						data-testid="jql-editor-autocomplete-loading"
-						hasOptions={!!options.length}
-					>
-						<Spinner size="small" />
-					</AutocompleteLoadingFooter>
-				)}
-			</AutocompleteContainer>
+			{isPopperPositioningEnabled ? (
+				// New popper-based positioning
+				<Popper
+					referenceElement={virtualReferenceElement!}
+					placement="bottom-start"
+					shouldFitViewport
+				>
+					{({ ref, style }) => (
+						<AutocompleteContainer
+							data-testid="jql-editor-autocomplete"
+							tabIndex={-1}
+							ref={ref}
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Popper requires dynamic positioning via style prop
+							style={style}
+							isOpen={isAutocompleteOpen}
+							usePopper={true}
+							onBlur={onEditorViewBlur}
+							onFocus={onEditorViewFocus}
+						>
+							{renderAutocompleteContent()}
+							{renderLoadingFooter()}
+						</AutocompleteContainer>
+					)}
+				</Popper>
+			) : (
+				// Old manual positioning
+				<AutocompleteContainer
+					data-testid="jql-editor-autocomplete"
+					tabIndex={-1}
+					ref={onContainerRef}
+					isOpen={isAutocompleteOpen}
+					usePopper={false}
+					onBlur={onEditorViewBlur}
+					onFocus={onEditorViewFocus}
+				>
+					{renderAutocompleteContent()}
+					{renderLoadingFooter()}
+				</AutocompleteContainer>
+			)}
 			<ScreenReaderText role="status" aria-live="polite">
 				{announcedMessage}
 			</ScreenReaderText>

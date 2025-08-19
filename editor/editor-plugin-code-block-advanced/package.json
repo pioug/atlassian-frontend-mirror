@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-code-block-advanced",
-	"version": "3.1.2",
+	"version": "3.2.0",
 	"description": "CodeBlockAdvanced plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -52,6 +52,7 @@
 		"@codemirror/state": "root:*",
 		"@codemirror/view": "root:*",
 		"@lezer/highlight": "root:*",
+		"@lezer/lr": "root:*",
 		"@xiechao/codemirror-lang-handlebars": "root:*",
 		"cm6-graphql": "root:*",
 		"codemirror-lang-elixir": "root:*"
@@ -101,6 +102,9 @@
 	},
 	"platform-feature-flags": {
 		"platform_editor_breakout_resizing_hello_release": {
+			"type": "boolean"
+		},
+		"platform_editor_code_syntax_highlight_actionscript": {
 			"type": "boolean"
 		}
 	}

@@ -19,6 +19,7 @@
 		"singleton": true
 	},
 	"dependencies": {
+		"@atlaskit/editor-json-transformer": "workspace:^",
 		"@atlaskit/editor-plugin-interaction": "workspace:^",
 		"@atlaskit/editor-prosemirror": "root:*",
 		"@atlaskit/editor-shared-styles": "workspace:^",

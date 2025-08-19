@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 3.2.5
+
+### Patch Changes
+
+- [`3d41d42ada6d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d41d42ada6d5) -
+  [ED-28600] fix A11Y violations for screen reader announcements
+- Updated dependencies
+
 ## 3.2.4
 
 ### Patch Changes

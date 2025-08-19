@@ -110,6 +110,7 @@ export interface Props {
 	onFileChooserClicked?: () => void;
 	errorMessage?: Message;
 	initialUploadName?: string;
+	disableFocusLock?: boolean;
 }
 
 const disallowedReplacementsMap = new Map([
@@ -257,6 +258,7 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 		onUploadEmoji,
 		onFileChooserClicked,
 		onUploadCancelled,
+		disableFocusLock = false,
 		intl,
 	} = props;
 	const [uploadStatus, setUploadStatus] = useState(
@@ -415,30 +417,28 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 		onFileChooserClicked && onFileChooserClicked();
 	};
 
-	return (
-		<FocusLock noFocusGuards>
-			{name && previewImage ? (
-				<EmojiUploadPreview
-					errorMessage={errorMessage}
-					name={name}
-					onAddEmoji={onAddEmoji}
-					onUploadCancelled={cancelUpload}
-					previewImage={previewImage}
-					uploadStatus={uploadStatus}
-				/>
-			) : (
-				<ChooseEmojiFile
-					name={name}
-					onChooseFile={onChooseFile}
-					onClick={onChooseFileClicked}
-					onNameChange={onNameChange}
-					onUploadCancelled={cancelUpload}
-					errorMessage={chooseEmojiErrorMessage}
-					intl={intl}
-				/>
-			)}
-		</FocusLock>
+	const content = name && previewImage ? (
+		<EmojiUploadPreview
+			errorMessage={errorMessage}
+			name={name}
+			onAddEmoji={onAddEmoji}
+			onUploadCancelled={cancelUpload}
+			previewImage={previewImage}
+			uploadStatus={uploadStatus}
+		/>
+	) : (
+		<ChooseEmojiFile
+			name={name}
+			onChooseFile={onChooseFile}
+			onClick={onChooseFileClicked}
+			onNameChange={onNameChange}
+			onUploadCancelled={cancelUpload}
+			errorMessage={chooseEmojiErrorMessage}
+			intl={intl}
+		/>
 	);
+
+	return disableFocusLock ? content : <FocusLock noFocusGuards>{content}</FocusLock>;
 };
 
 const EmojiUploadPickerComponent = injectIntl(memo(EmojiUploadPicker));

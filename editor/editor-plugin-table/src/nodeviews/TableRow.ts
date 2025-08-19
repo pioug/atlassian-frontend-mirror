@@ -102,6 +102,7 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 		}
 
 		if (this.isHeaderRow) {
+			this.dom.setAttribute('data-vc-nvs', 'true');
 			const { observe } = nodeVisibilityManager(view.dom);
 			this.nodeVisibilityObserverCleanupFn = observe({
 				element: this.contentDOM,

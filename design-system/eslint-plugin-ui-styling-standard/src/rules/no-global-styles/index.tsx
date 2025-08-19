@@ -49,7 +49,9 @@ export const rule = createLintRule({
 			for (const importName of restrictedImports[importSource]) {
 				const specifier = node.specifiers
 					.filter(isImportSpecifier)
-					.find((specifier) => specifier.imported.name === importName);
+					.find(
+						(specifier) => 'name' in specifier.imported && specifier.imported.name === importName,
+					);
 
 				if (specifier) {
 					context.report({

@@ -151,11 +151,6 @@ export type SelectionAdfResult = {
 	selectionRanges?: SelectionRange[];
 } | null;
 
-export type SelectionTextResult = {
-	text: string;
-	coords: SelectionExtensionCoords;
-} | null;
-
 export type ExtensionSource = 'first-party' | 'external';
 
 export type ExtensionConfiguration = {
@@ -168,7 +163,11 @@ export type ExtensionConfiguration = {
 
 export type GetToolbarItemFn = () => ExtensionToolbarItemConfiguration;
 
-export type GetMenuItemsFn = () => ExtensionMenuItemConfiguration[];
+export type GetMenuItemsFn = () => Array<
+	ExtensionMenuItemConfiguration | ExtensionMenuSectionConfiguration
+>;
+
+export type GetMenuItemFn = () => Omit<ExtensionMenuItemConfiguration, 'section'>;
 
 export type ToolbarExtensionConfiguration = {
 	getToolbarItem?: GetToolbarItemFn;
@@ -176,7 +175,8 @@ export type ToolbarExtensionConfiguration = {
 };
 
 export type BlockMenuExtensionConfiguration = {
-	getMenuItems?: GetMenuItemsFn;
+	getMenuItem: GetMenuItemFn;
+	getNestedMenuItems?: GetMenuItemsFn;
 };
 
 export type ExtensionToolbarItemConfiguration = {
@@ -193,4 +193,14 @@ export type ExtensionMenuItemConfiguration = {
 	onClick?: () => void;
 	isDisabled?: boolean;
 	contentComponent?: React.ComponentType<SelectionExtensionComponentProps>;
+	/**
+	 * Optional menu-section to declare grouping - only used for menu items
+	 */
+	section?: { key: string; rank: number };
+};
+
+export type ExtensionMenuSectionConfiguration = {
+	key: string;
+	rank: number;
+	title?: string;
 };

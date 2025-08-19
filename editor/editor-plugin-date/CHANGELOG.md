@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-date
 
+## 5.1.6
+
+### Patch Changes
+
+- [`45b7e7965939b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/45b7e7965939b) -
+  [ux] [I18N-2877] add locale to datepicker i18n and day of week
+- Updated dependencies
+
 ## 5.1.5
 
 ### Patch Changes

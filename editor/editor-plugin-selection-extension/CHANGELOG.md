@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 3.5.0
+
+### Minor Changes
+
+- [`abd3e6fd40ac6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/abd3e6fd40ac6) -
+  Remove unused getSelectionText and inserSmartLinks api
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.4.6
 
 ### Patch Changes

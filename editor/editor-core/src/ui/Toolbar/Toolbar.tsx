@@ -3,6 +3,7 @@ import React from 'react';
 import { EditorToolbarProvider, EditorToolbarUIProvider } from '@atlaskit/editor-common/toolbar';
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { ToolbarSize } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
@@ -56,9 +57,12 @@ type NewToolbarProps = {
  * The majority of components UI should use `@atlaskit/editor-toolbar` components.
  */
 export const ToolbarNext = ({ toolbar, components, editorView, editorAPI }: NewToolbarProps) => {
+	const connectivityStateMode = useSharedPluginStateSelector(editorAPI, 'connectivity.mode');
+	const isOffline = connectivityStateMode === 'offline';
+
 	return (
 		<EditorToolbarProvider editorView={editorView ?? null}>
-			<EditorToolbarUIProvider api={editorAPI}>
+			<EditorToolbarUIProvider api={editorAPI} isDisabled={isOffline}>
 				<ToolbarModelRenderer
 					toolbar={toolbar}
 					components={components}

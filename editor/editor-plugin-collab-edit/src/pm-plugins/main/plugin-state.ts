@@ -15,14 +15,12 @@ import { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import type { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ReadOnlyParticipants } from '../../types';
 import { Participants } from '../participants';
 import {
 	createTelepointers,
-	_findPointers,
 	findPointers,
 	getPositionOfTelepointer,
 	isReplaceStep,
@@ -131,12 +129,7 @@ export class PluginState {
 
 			// Remove telepointers for users that left
 			left.forEach((i) => {
-				let pointers;
-				if (fg('confluence_team_presence_scroll_to_pointer')) {
-					pointers = findPointers(this.getPresenceId(i.sessionId), this.decorationSet);
-				} else {
-					pointers = _findPointers(i.sessionId, this.decorationSet);
-				}
+				const pointers = findPointers(this.getPresenceId(i.sessionId), this.decorationSet);
 				if (pointers) {
 					remove = remove.concat(pointers);
 				}
@@ -146,12 +139,7 @@ export class PluginState {
 		if (telepointerData) {
 			const { sessionId } = telepointerData;
 			if (participants.get(sessionId) && sessionId !== sid) {
-				let oldPointers;
-				if (fg('confluence_team_presence_scroll_to_pointer')) {
-					oldPointers = findPointers(this.getPresenceId(sessionId), this.decorationSet);
-				} else {
-					oldPointers = _findPointers(sessionId, this.decorationSet);
-				}
+				const oldPointers = findPointers(this.getPresenceId(sessionId), this.decorationSet);
 
 				if (oldPointers) {
 					remove = remove.concat(oldPointers);
@@ -190,9 +178,7 @@ export class PluginState {
 						this.getInitial(sessionId),
 						this.getPresenceId(sessionId),
 						this.getFullName(sessionId),
-						fg('confluence_team_presence_scroll_to_pointer')
-							? hasExistingNudge(sessionId, this.nudgeAnimations)
-							: false,
+						hasExistingNudge(sessionId, this.nudgeAnimations),
 					),
 				);
 			}
@@ -234,9 +220,7 @@ export class PluginState {
 										this.getInitial(sessionId),
 										presenceId,
 										this.getFullName(sessionId),
-										fg('confluence_team_presence_scroll_to_pointer')
-											? hasExistingNudge(sessionId, this.nudgeAnimations)
-											: false,
+										hasExistingNudge(sessionId, this.nudgeAnimations),
 									),
 								);
 							}
@@ -294,7 +278,7 @@ export class PluginState {
 			}
 		});
 
-		if (nudgeTelepointerData && fg('confluence_team_presence_scroll_to_pointer')) {
+		if (nudgeTelepointerData) {
 			const nudgeSessionId = nudgeTelepointerData?.sessionId;
 
 			// Ignored via go/ees005
@@ -336,19 +320,14 @@ export class PluginState {
 			}
 		}
 
-		if (fg('confluence_team_presence_scroll_to_pointer')) {
-			const nextState = new PluginState(
-				this.decorationSet,
-				participants,
-				sid,
-				collabInitialised,
-				this.onError,
-				this.nudgeAnimations,
-			);
-			return PluginState.eq(nextState, this) ? this : nextState;
-		}
-
-		const nextState = new PluginState(this.decorationSet, participants, sid, collabInitialised);
+		const nextState = new PluginState(
+			this.decorationSet,
+			participants,
+			sid,
+			collabInitialised,
+			this.onError,
+			this.nudgeAnimations,
+		);
 
 		return PluginState.eq(nextState, this) ? this : nextState;
 	}

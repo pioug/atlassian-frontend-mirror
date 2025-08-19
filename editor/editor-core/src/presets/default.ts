@@ -42,6 +42,7 @@ import { selectionToolbarPlugin } from '@atlaskit/editor-plugins/selection-toolb
 import { submitEditorPlugin } from '@atlaskit/editor-plugins/submit-editor';
 import { textFormattingPlugin } from '@atlaskit/editor-plugins/text-formatting';
 import type { TextFormattingPluginOptions } from '@atlaskit/editor-plugins/text-formatting';
+import type { ToolbarPluginOptions } from '@atlaskit/editor-plugins/toolbar';
 import { toolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import type { TypeAheadPluginOptions } from '@atlaskit/editor-plugins/type-ahead';
 import { typeAheadPlugin } from '@atlaskit/editor-plugins/type-ahead';
@@ -78,6 +79,7 @@ export type DefaultPresetPluginOptions = {
 	featureFlags?: FeatureFlags;
 	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
 	disabled?: boolean;
+	toolbar?: ToolbarPluginOptions;
 	/**
 	 * There is expected to be temporary divergence between Live Page editor expand behaviour and the standard expand behaviour.
 	 *
@@ -139,7 +141,10 @@ export function createDefaultPreset(options: DefaultPresetPluginOptions): Defaul
 		.add(decorationsPlugin)
 		.add([typeAheadPlugin, options.typeAhead])
 		.maybeAdd(historyPlugin, Boolean(options.allowUndoRedoButtons))
-		.maybeAdd(toolbarPlugin, expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true))
+		.maybeAdd(
+			[toolbarPlugin, options.toolbar],
+			expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true),
+		)
 		.add([primaryToolbarPlugin, { contextualFormattingEnabled: isFullPage }])
 		.maybeAdd(
 			undoRedoPlugin,

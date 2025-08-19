@@ -579,6 +579,7 @@ export class DocumentService implements DocumentServiceInterface {
 				version,
 				metadata,
 				reserveCursor: true,
+				caller: 'onRestore',
 			});
 			this.metadataService.updateMetadata(metadata);
 
@@ -751,19 +752,19 @@ export class DocumentService implements DocumentServiceInterface {
 		return this.isNameSpaceLocked();
 	}
 
-	updateDocument = ({ doc, version, metadata, reserveCursor }: CollabInitPayload) => {
+	updateDocument = ({ doc, version, metadata, reserveCursor, caller }: CollabInitPayload) => {
 		this.providerEmitCallback('init', {
 			doc,
 			version,
 			metadata,
 			...(reserveCursor ? { reserveCursor } : {}),
 		});
-		this.updateDocumentAnalytics(doc, version);
+		this.updateDocumentAnalytics(doc, version, caller);
 	};
 
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	private updateDocumentAnalytics = (doc: any, version: number) => {
+	private updateDocumentAnalytics = (doc: any, version: number, caller?: string) => {
 		const updatedVersion = this.getCurrentPmVersion();
 		const isDocContentValid = this.validatePMJSONDocument(doc);
 		// ESS-5023: only emit error event if updated client version is still behind server version
@@ -775,6 +776,7 @@ export class DocumentService implements DocumentServiceInterface {
 				isDocTruthy: !!doc,
 				docHasContent: doc?.content?.length >= 1,
 				isDocContentValid,
+				caller,
 			});
 
 			this.analyticsHelper?.sendErrorEvent(
@@ -1115,7 +1117,7 @@ export class DocumentService implements DocumentServiceInterface {
 
 		if (editorExperiment('platform_editor_offline_editing_web', true)) {
 			const containsOfflineSteps = unconfirmedStepsData?.origins.some((tr) => {
-				return tr instanceof Transaction ? tr.getMeta('isOffline') ?? false : false;
+				return tr instanceof Transaction ? (tr.getMeta('isOffline') ?? false) : false;
 			});
 
 			if (containsOfflineSteps && !this.timeoutExceeded) {

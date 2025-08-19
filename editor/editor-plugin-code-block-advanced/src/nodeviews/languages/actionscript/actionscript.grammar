@@ -1,0 +1,32 @@
+// top level contains statements
+@top Program { statement* }
+// statement can be variable declaration, function declaration or expression
+statement { variableDeclaration | functionDeclaration | expressionStatement }
+// basic variable declaration grammar
+variableDeclaration { kw<"var"> Identifier ("=" expression)? ";" }
+// basic function declaration structure
+functionDeclaration { kw<"function"> Identifier "(" paramList ")" block }
+// separated by ,
+paramList { Identifier ("," Identifier)* }
+// a block is statements surrounded by braces
+block { "{" statement* "}" }
+// expression statement can be simple as express followed by ;
+expressionStatement { expression ";" }
+// expression can be Identifier or primitives
+expression { Identifier | Number | String }
+
+// declare keyword to avoid conflicts
+kw<term> { @specialize[@name={term}]<Identifier, term> }
+
+@skip { space | Comment }
+
+// tokens can use build-in character sets with @xyz
+@tokens {
+  identifierChar { @asciiLetter }
+  word { identifierChar (identifierChar | @digit)* }
+  Identifier { word }
+  Number { (@digit)+ }
+  space { @whitespace+ }
+  Comment { "//" ![\n]* }
+  String { '"' ![\\\n"]+ '"' }
+}

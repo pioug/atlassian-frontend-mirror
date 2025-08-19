@@ -1,5 +1,13 @@
 # @atlaskit/jql-editor
 
+## 5.5.0
+
+### Minor Changes
+
+- [`32bfbde8f1bc0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/32bfbde8f1bc0) -
+  [ux] Fix visual bug where auto select dropdown would go off screen, creating scrollbar, when
+  window was too small
+
 ## 5.4.6
 
 ### Patch Changes

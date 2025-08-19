@@ -14,11 +14,17 @@ type ToolbarUIContextType = {
 	 * Whether to prevent default behavior on mouse down events on ToolbarButton.
 	 */
 	preventDefaultOnMouseDown?: boolean;
+
+	/**
+	 * Indicates whether the toolbar is disabled when the editor is offline.
+	 */
+	isDisabled?: boolean;
 };
 
 const ToolbarUIContext = createContext<ToolbarUIContextType>({
 	onDropdownOpenChanged: () => {},
 	preventDefaultOnMouseDown: false,
+	isDisabled: false,
 });
 
 /**
@@ -42,9 +48,12 @@ export const ToolbarUIProvider = ({
 	children,
 	onDropdownOpenChanged,
 	preventDefaultOnMouseDown,
+	isDisabled,
 }: ToolbarUIProviderProps) => {
 	return (
-		<ToolbarUIContext.Provider value={{ onDropdownOpenChanged, preventDefaultOnMouseDown }}>
+		<ToolbarUIContext.Provider
+			value={{ onDropdownOpenChanged, preventDefaultOnMouseDown, isDisabled }}
+		>
 			{children}
 		</ToolbarUIContext.Provider>
 	);

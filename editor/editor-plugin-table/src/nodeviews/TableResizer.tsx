@@ -875,6 +875,7 @@ export const TableResizer = ({
 						/>
 					);
 				}}
+				data-vc-nvs="true"
 			>
 				{children}
 			</ResizerNext>

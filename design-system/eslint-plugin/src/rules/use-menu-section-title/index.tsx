@@ -34,8 +34,13 @@ const rule = createLintRule({
 			ImportDeclaration(node) {
 				const menuSectionIdentifier = node.specifiers?.filter((spec) => {
 					if (node.source.value === '@atlaskit/menu') {
-						return spec.type === 'ImportSpecifier' && spec.imported?.name === 'Section';
-					} else if (node.source.value === '@atlaskit/menu/section') {
+						return (
+							spec.type === 'ImportSpecifier' &&
+							'name' in spec.imported &&
+							spec.imported?.name === 'Section'
+						);
+					}
+					if (node.source.value === '@atlaskit/menu/section') {
 						return spec.type === 'ImportDefaultSpecifier';
 					}
 				});

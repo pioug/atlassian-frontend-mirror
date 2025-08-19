@@ -47,7 +47,19 @@
 			"path": "../editor-plugin-show-diff/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-toolbar/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-toolbar/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-toolbar-model/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/icon-lab/tsconfig.app.json"
+		},
+		{
+			"path": "../tmp-editor-statsig/tsconfig.app.json"
 		}
 	]
 }

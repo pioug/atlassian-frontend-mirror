@@ -53,18 +53,20 @@ const rule: Rule.RuleModule = createLintRule({
 					// Handle different import sources
 					switch (source) {
 						case '@atlaskit/primitives/compiled':
-							tracker.compiledComponents.add(specifier.imported.name);
+							if (specifier.imported.type === 'Identifier') {
+								tracker.compiledComponents.add(specifier.imported.name);
+							}
 							break;
 
 						case '@atlaskit/primitives':
-							if (specifier.imported.name === 'xcss') {
+							if (specifier.imported.type === 'Identifier' && specifier.imported.name === 'xcss') {
 								tracker.xcssFunction.add(specifier.local.name);
 							}
 							break;
 
 						case '@atlaskit/css':
 						case '@compiled/react':
-							if (specifier.imported.name === 'cssMap') {
+							if (specifier.imported.type === 'Identifier' && specifier.imported.name === 'cssMap') {
 								tracker.cssMapFunction.add(specifier.local.name);
 							}
 							break;

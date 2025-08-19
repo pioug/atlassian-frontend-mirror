@@ -7,7 +7,11 @@ import type { ToolbarPlugin } from './toolbarPluginType';
 import { SelectionToolbar } from './ui/SelectionToolbar';
 import { getToolbarComponents } from './ui/toolbar-components';
 
-export const toolbarPlugin: ToolbarPlugin = ({ api }) => {
+export const toolbarPlugin: ToolbarPlugin = ({
+	api,
+	config = { disableSelectionToolbar: false },
+}) => {
+	const { disableSelectionToolbar } = config;
 	const registry = createComponentRegistry();
 
 	registry.register(getToolbarComponents(api));
@@ -25,8 +29,12 @@ export const toolbarPlugin: ToolbarPlugin = ({ api }) => {
 			},
 		},
 
-		contentComponent: ({ editorView, popupsMountPoint }) => {
-			return <SelectionToolbar api={api} editorView={editorView} mountPoint={popupsMountPoint} />;
-		},
+		contentComponent: !disableSelectionToolbar
+			? ({ editorView, popupsMountPoint }) => {
+					return (
+						<SelectionToolbar api={api} editorView={editorView} mountPoint={popupsMountPoint} />
+					);
+				}
+			: undefined,
 	};
 };

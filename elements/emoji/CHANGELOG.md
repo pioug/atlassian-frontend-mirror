@@ -1,5 +1,12 @@
 # @atlaskit/emoji
 
+## 69.5.0
+
+### Minor Changes
+
+- [`c79d08af8e6ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c79d08af8e6ab) -
+  Added optional parameter to disable FocusLock for emoji uploader.
+
 ## 69.4.0
 
 ### Minor Changes

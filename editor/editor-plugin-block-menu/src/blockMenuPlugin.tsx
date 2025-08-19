@@ -8,7 +8,8 @@ import { getBlockMenuComponents } from './ui/block-menu-components';
 
 export const blockMenuPlugin: BlockMenuPlugin = ({ api }) => {
 	const registry = createBlockMenuRegistry();
-	registry.register(getBlockMenuComponents());
+	registry.register(getBlockMenuComponents(api));
+
 	return {
 		name: 'blockMenu',
 		pmPlugins() {

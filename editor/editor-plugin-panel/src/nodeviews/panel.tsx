@@ -101,7 +101,7 @@ export const PanelIcon = (props: PanelIconAttributes) => {
 	}
 
 	const Icon = panelIcons[panelType];
-	return <Icon label={`${panelType} panel`} />;
+	return Icon ? <Icon label={`${panelType} panel`} /> : null;
 };
 
 class PanelNodeView {

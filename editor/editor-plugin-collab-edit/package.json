@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-collab-edit",
-	"version": "4.1.5",
+	"version": "4.1.6",
 	"description": "Collab Edit plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -106,9 +106,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"confluence_team_presence_scroll_to_pointer": {
-			"type": "boolean"
-		},
 		"platform_enable_ncs_step_metrics": {
 			"type": "boolean"
 		}

@@ -15,7 +15,7 @@ import type {
 	Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
-import { participantColors, relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
+import { participantColors } from '@atlaskit/editor-shared-styles';
 import { getGlobalTheme, token } from '@atlaskit/tokens';
 
 import type { Providers } from '../provider-factory';
@@ -296,6 +296,7 @@ export interface CollabInitPayload extends CollabEventInitData {
 	metadata?: Metadata;
 	reserveCursor?: boolean;
 	targetClientId?: string;
+	caller?: string;
 }
 
 export interface CollabEventConnectionData {
@@ -667,43 +668,6 @@ export const TELEPOINTER_PULSE_CLASS = 'telepointer-pulse-animate';
 export const TELEPOINTER_PULSE_DURING_TR_CLASS = 'telepointer-pulse-during-tr';
 export const TELEPOINTER_PULSE_DURING_TR_DURATION_MS = 7500; // Keeping it longer so it'll be easier to spot during transactions
 export const TELEPOINTER_DATA_SESSION_ID_ATTR = 'data-telepointer-sessionid';
-
-// ED-22557: Safely convert to object styling
-// Disable top: -14px since it is necessary to align to cursor
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const telepointerStyleWithInitialOnly = css`
-	.ProseMirror .telepointer {
-		position: relative;
-		transition: opacity 200ms;
-
-		&.telepointer-selection:not(.inlineNodeView) {
-			line-height: 1.2;
-			pointer-events: none;
-			user-select: none;
-		}
-
-		&.telepointer-selection-badge::after {
-			content: attr(data-initial);
-			position: absolute;
-			display: block;
-			top: -14px;
-			font-size: ${relativeFontSizeToBase16(9)};
-			padding: ${token('space.025', '2px')};
-			color: ${token('color.text.inverse', '#FFFFFF')};
-			left: 0px;
-			border-radius: 2px 2px 2px 0;
-			line-height: initial;
-		}
-
-		&.${TELEPOINTER_DIM_CLASS} {
-			opacity: 0.2;
-		}
-
-		${participantColors.map((participantColor, index) =>
-			telepointerColorStyle(participantColor.backgroundColor, participantColor.textColor, index),
-		)};
-	}
-`;
 
 // ED-22557: Safely convert to object styling
 // Disable top: -14px since it is necessary to align to cursor

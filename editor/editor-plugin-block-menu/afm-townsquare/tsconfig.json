@@ -33,6 +33,9 @@
 			"path": "../../editor-shared-styles/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../editor-tables/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../editor-toolbar/afm-townsquare/tsconfig.json"
 		},
 		{

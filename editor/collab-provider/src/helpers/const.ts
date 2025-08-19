@@ -45,6 +45,7 @@ export type DocumentUpdateErrorAttributes = {
 	newVersion?: number;
 	docHasContent?: boolean;
 	isDocContentValid?: boolean;
+	caller?: string;
 };
 
 export type CantSyncUpErrorAttributes = {

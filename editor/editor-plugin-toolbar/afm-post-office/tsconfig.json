@@ -18,6 +18,9 @@
 	],
 	"references": [
 		{
+			"path": "../../editor-plugin-connectivity/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-editor-viewmode/afm-post-office/tsconfig.json"
 		},
 		{

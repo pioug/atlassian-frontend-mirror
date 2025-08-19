@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-breakout
 
+## 3.1.7
+
+### Patch Changes
+
+- [`205cf133d4d59`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/205cf133d4d59) -
+  [ux] Update max width for breakout to be the same as for non-breakout nodes to fix vc90 regression
+  behind platform_editor_breakout_resizing_vc90_fix and platform_editor_breakout_resizing
+- Updated dependencies
+
 ## 3.1.6
 
 ### Patch Changes

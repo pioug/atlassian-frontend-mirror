@@ -35,7 +35,19 @@
 			"path": "../../editor-plugin-show-diff/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-toolbar/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar-model/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/icon-lab/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-post-office/tsconfig.json"
 		},
 		{
 			"path": "../../editor-common/afm-post-office/tsconfig.json"

@@ -144,7 +144,11 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 			for (const spec of node.specifiers) {
 				if (spec.type === 'ImportDefaultSpecifier') {
 					newButtonImports.add(spec.local.name);
-				} else if (spec.type === 'ImportSpecifier' && spec.imported.name === 'IconButton') {
+				} else if (
+					spec.type === 'ImportSpecifier' &&
+					'name' in spec.imported &&
+					spec.imported.name === 'IconButton'
+				) {
 					newButtonImports.add(spec.local.name);
 				}
 			}
@@ -260,12 +264,14 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 				node.specifiers.length
 			) {
 				for (const spec of node.specifiers) {
-					createCantMigrateReExportError(spec, moduleSource, spec.exported.name, errorsManual);
-					addToListOfRanges(spec, errorRanges);
-					guidance[locToString(spec)] = createGuidance({
-						iconPackage: moduleSource,
-						shouldUseMigrationPath,
-					});
+					if ('name' in spec.exported) {
+						createCantMigrateReExportError(spec, moduleSource, spec.exported.name, errorsManual);
+						addToListOfRanges(spec, errorRanges);
+						guidance[locToString(spec)] = createGuidance({
+							iconPackage: moduleSource,
+							shouldUseMigrationPath,
+						});
+					}
 				}
 			}
 		} else if (node.declaration && isNodeOfType(node.declaration, 'VariableDeclaration')) {
@@ -299,7 +305,11 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 			 * export { AddIcon, CrossIcon as default }
 			 */
 			for (const spec of node.specifiers) {
-				if (Object.keys(legacyIconImports).includes(spec.local.name)) {
+				if (
+					'name' in spec.local &&
+					'name' in spec.exported &&
+					Object.keys(legacyIconImports).includes(spec.local.name)
+				) {
 					//update legacy imports to be exported
 					legacyIconImports[spec.local.name] = {
 						packageName: legacyIconImports[spec.local.name].packageName,

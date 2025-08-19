@@ -5,6 +5,7 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { PMPlugin, ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
 import { redo, undo } from '@atlaskit/editor-prosemirror/history';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { attachInputMetaWithAnalytics } from './pm-plugins/attach-input-meta';
@@ -15,6 +16,7 @@ import { forceFocus } from './pm-plugins/utils';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-named-as-default
 import ToolbarUndoRedo from './ui/ToolbarUndoRedo';
+import { getToolbarComponents } from './ui/ToolbarUndoRedo/toolbar-components';
 import type { UndoRedoPlugin } from './undoRedoPluginType';
 
 export const undoRedoPlugin: UndoRedoPlugin = ({ api }) => {
@@ -35,10 +37,14 @@ export const undoRedoPlugin: UndoRedoPlugin = ({ api }) => {
 		);
 	};
 
-	api?.primaryToolbar?.actions.registerComponent({
-		name: 'undoRedoPlugin',
-		component: primaryToolbarComponent,
-	});
+	if (expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true)) {
+		api?.toolbar?.actions.registerComponents(getToolbarComponents(api));
+	} else {
+		api?.primaryToolbar?.actions.registerComponent({
+			name: 'undoRedoPlugin',
+			component: primaryToolbarComponent,
+		});
+	}
 
 	const handleUndo = (inputSource?: InputSource): boolean => {
 		if (!editorViewRef.current) {
@@ -111,6 +117,6 @@ export const undoRedoPlugin: UndoRedoPlugin = ({ api }) => {
 			return plugins;
 		},
 
-		primaryToolbarComponent: !api?.primaryToolbar ? primaryToolbarComponent : undefined,
+		primaryToolbarComponent: !api?.primaryToolbar && !expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true) ? primaryToolbarComponent : undefined,
 	};
 };

@@ -61,6 +61,7 @@ const rule = createLintRule({
 				} else if (
 					namedImport.length &&
 					namedImport[0].type === 'ImportSpecifier' &&
+					'name' in namedImport[0].imported &&
 					namedImport[0].imported.name === 'Popup'
 				) {
 					componentLocalName = namedImport[0].local.name;

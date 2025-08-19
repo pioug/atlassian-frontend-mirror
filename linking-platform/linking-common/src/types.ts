@@ -116,7 +116,7 @@ export interface DatasourceAdf<P extends Record<string, unknown> = Record<string
 }
 export type CardAdf = InlineCardAdf | BlockCardAdf | EmbedCardAdf;
 
-export type EnvironmentsKeys = keyof typeof Environments;
+export type EnvironmentsKeys = keyof typeof Environments | 'custom';
 
 export { type AvailableSite, AvailableSitesProductType } from './hooks/useAvailableSites/types';
 

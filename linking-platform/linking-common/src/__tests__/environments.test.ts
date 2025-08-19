@@ -1,4 +1,4 @@
-import { getResolverUrl } from '../environments';
+import { getResolverUrl, getBaseUrl } from '../environments';
 
 describe('getResolverUrl', () => {
 	it('should return a dev environment when passed a dev key', () => {
@@ -27,5 +27,27 @@ describe('getResolverUrl', () => {
 		expect(getResolverUrl('prod', 'https://trellis.coffee/gateway/api')).toBe(
 			'https://trellis.coffee/gateway/api/object-resolver',
 		);
+	});
+
+	it('should return the same baseUrlOverride for custom environment', () => {
+		expect(getResolverUrl('custom', 'https://trellis.coffee/custom/api')).toBe(
+			'https://trellis.coffee/custom/api',
+		);
+	});
+
+	it('should return the fallback URL for custom environment if baseUrlOverride is not set', () => {
+		expect(getResolverUrl('custom', undefined)).toBe('/gateway/api/object-resolver');
+	});
+});
+
+describe('getBaseUrl', () => {
+	it('should return the same baseUrlOverride for custom environment', () => {
+		expect(getBaseUrl('custom', 'https://trellis.coffee/custom/api')).toBe(
+			'https://trellis.coffee/custom/api',
+		);
+	});
+
+	it('should return the fallback prod URL for custom environment if baseUrlOverride is not set', () => {
+		expect(getBaseUrl('custom', undefined)).toBe('https://api-private.atlassian.com');
 	});
 });

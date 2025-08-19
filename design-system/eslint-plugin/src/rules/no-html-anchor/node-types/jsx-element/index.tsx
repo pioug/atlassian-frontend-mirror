@@ -44,7 +44,7 @@ export const JSXElement = {
 			} else if (declaration.source.value === '@atlaskit/button/new') {
 				const namedSpecifier = declaration.specifiers.find(
 					(specifier) =>
-						specifier.type === 'ImportSpecifier' && specifier.imported.name === 'LinkButton',
+						specifier.type === 'ImportSpecifier' && specifier.imported.type === 'Identifier' && specifier.imported.name === 'LinkButton',
 				);
 				if (namedSpecifier) {
 					existingLinkButtonName = namedSpecifier.local.name;

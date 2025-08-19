@@ -10,6 +10,10 @@ export type {
 	OrgScope,
 	LinkedTeam,
 	Scope,
+	AssignedTeam,
+	AssignedTeamsResponse,
+	UnassignedTeam,
+	UnassignedTeamsResponse,
 } from './team';
 
 export type { TeamsClientUser as User, EditableUserFields } from './user';

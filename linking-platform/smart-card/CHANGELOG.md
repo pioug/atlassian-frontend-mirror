@@ -1,5 +1,20 @@
 # @atlaskit/smart-card
 
+## 40.10.9
+
+### Patch Changes
+
+- [`cd3b62d1e54e9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd3b62d1e54e9) -
+  Removing Feature-Gate checks for contacting DSP on smart card evaluation
+- Updated dependencies
+
+## 40.10.8
+
+### Patch Changes
+
+- [`1550f241c339b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1550f241c339b) -
+  Updated CardWithURL to remove clickedAt field for component non breaking issue
+
 ## 40.10.7
 
 ### Patch Changes

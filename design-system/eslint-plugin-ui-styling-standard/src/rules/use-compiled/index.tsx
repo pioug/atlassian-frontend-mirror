@@ -251,5 +251,6 @@ function buildImportDeclaration(
 	specifiers: ESTree.ImportDeclaration['specifiers'],
 	source: string,
 ) {
+	// @ts-ignore - this needs to be `ts-ignore` because this only errors in jira's typechecking due to update, not platform's
 	return `${importDeclaration({ specifiers, source: literal(source) })};`;
 }

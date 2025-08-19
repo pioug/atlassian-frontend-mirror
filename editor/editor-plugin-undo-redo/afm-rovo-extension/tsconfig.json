@@ -29,7 +29,16 @@
 			"path": "../../editor-plugin-primary-toolbar/afm-rovo-extension/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-toolbar/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-type-ahead/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar-model/afm-rovo-extension/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/icon/afm-rovo-extension/tsconfig.json"

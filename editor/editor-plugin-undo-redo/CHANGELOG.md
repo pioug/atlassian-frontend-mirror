@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-undo-redo
 
+## 3.2.0
+
+### Minor Changes
+
+- [`f78a34afab8d4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f78a34afab8d4) -
+  [ux] ED-28961 register undo redo and track changes buttons to new toolbar behind
+  platform_editor_toolbar_aifc. adds ai buttons into comment toolbar.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.1.2
 
 ### Patch Changes

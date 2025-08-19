@@ -36,7 +36,7 @@ const rule: Rule.RuleModule = {
 				}
 
 				node.specifiers?.forEach((specifier) => {
-					if (specifier.type === 'ImportSpecifier') {
+					if (specifier.type === 'ImportSpecifier' && 'name' in specifier.imported) {
 						const { imported, local } = specifier;
 
 						if (imported.name !== local.name) {

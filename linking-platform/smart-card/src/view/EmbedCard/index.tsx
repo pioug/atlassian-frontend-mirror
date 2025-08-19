@@ -91,24 +91,22 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
 					});
 				}
 
-				if (fg('platform_smart_links_controlled_dsp_export_view')) {
-					if (getIsDataExportEnabled(shouldControlDataExport, cardState.details)) {
-						const unauthViewProps = extractEmbedProps(details, platform);
-						return (
-							<UnauthorizedView
-								context={unauthViewProps.context}
-								extensionKey={extensionKey}
-								frameStyle={frameStyle}
-								isProductIntegrationSupported={isProductIntegrationSupported}
-								inheritDimensions={inheritDimensions}
-								isSelected={isSelected}
-								onAuthorize={handleAuthorize}
-								onClick={handleFrameClick}
-								testId={testId}
-								url={unauthViewProps.link}
-							/>
-						);
-					}
+				if (getIsDataExportEnabled(shouldControlDataExport, cardState.details)) {
+					const unauthViewProps = extractEmbedProps(details, platform);
+					return (
+						<UnauthorizedView
+							context={unauthViewProps.context}
+							extensionKey={extensionKey}
+							frameStyle={frameStyle}
+							isProductIntegrationSupported={isProductIntegrationSupported}
+							inheritDimensions={inheritDimensions}
+							isSelected={isSelected}
+							onAuthorize={handleAuthorize}
+							onClick={handleFrameClick}
+							testId={testId}
+							url={unauthViewProps.link}
+						/>
+					);
 				}
 
 				if (resolvedViewProps.preview) {

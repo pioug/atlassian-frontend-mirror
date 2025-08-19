@@ -62,6 +62,9 @@
 			"path": "../../../platform/feature-flags/afm-rovo-extension/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/popper/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/primitives/afm-rovo-extension/tsconfig.json"
 		},
 		{

@@ -3,3 +3,4 @@
 
 export { toolbarPlugin } from './toolbarPlugin';
 export type { ToolbarPlugin } from './toolbarPluginType';
+export type { ToolbarPluginOptions } from './types';

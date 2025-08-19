@@ -1,5 +1,12 @@
 # @atlaskit/spotlight
 
+## 0.0.16
+
+### Patch Changes
+
+- [`13c698778e3c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/13c698778e3c6) -
+  [ux] Atlaspack version bump
+
 ## 0.0.15
 
 ### Patch Changes

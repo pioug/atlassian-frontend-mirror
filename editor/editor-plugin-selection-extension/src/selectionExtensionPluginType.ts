@@ -14,13 +14,11 @@ import type {
 	DynamicSelectionExtension,
 	SelectionAdfResult,
 	InsertAdfAtEndOfDocResult,
-	LinkInsertionOption,
 	ReplaceWithAdfResult,
 	SelectionExtension,
 	SelectionExtensionPluginOptions,
 	SelectionExtensionPluginState,
 	SelectionExtensionSelectionInfo,
-	SelectionTextResult,
 } from './types';
 
 export type SelectionExtensionPlugin = NextEditorPlugin<
@@ -46,20 +44,12 @@ export type SelectionExtensionPlugin = NextEditorPlugin<
 			clearActiveExtension: () => EditorCommand;
 		};
 		actions: {
-			insertSmartLinks: (
-				linkInsertionOption: LinkInsertionOption[],
-				selectedNodeAdf: ADFEntity,
-			) => {
-				status: 'success' | 'error';
-				message?: string;
-			};
 			replaceWithAdf: (nodeAdf: ADFEntity) => ReplaceWithAdfResult;
 			insertAdfAtEndOfDoc: (nodeAdf: ADFEntity) => InsertAdfAtEndOfDocResult;
 			getSelectionAdf: () => SelectionAdfResult;
 			getDocumentFromSelection: () => {
 				selectedNodeAdf?: ADFEntity;
 			} | null;
-			getSelectionText: () => SelectionTextResult;
 		};
 	}
 >;

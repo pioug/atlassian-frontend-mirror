@@ -2,6 +2,7 @@ import { LanguageDescription, LanguageSupport } from '@codemirror/language';
 import { languages } from '@codemirror/language-data';
 
 import type { LanguageAlias } from '@atlaskit/code';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 type LanguageAliasValue = LanguageAlias[0];
 
@@ -101,6 +102,22 @@ export const mapLanguageToCodeMirror = (language: LanguageAliasValue) => {
 					).then((m) => m.graphqlLanguageSupport());
 				},
 			});
+		case 'actionscript':
+			if (fg('platform_editor_code_syntax_highlight_actionscript')) {
+				return LanguageDescription.of({
+					name: 'ActionScript',
+					load() {
+						return import(
+							/* webpackChunkName: "@atlaskit-internal_@atlaskit/editor-plugin-code-block-advanced-lang-actionscript" */
+							'./actionscript/languageSupport'
+						).then((m) => {
+							return m.actionscriptLanguageSupport();
+						});
+					},
+				});
+			} else {
+				return undefined;
+			}
 		default:
 			return languages.find((l) => {
 				return l.alias.includes(language) || l.name.toLowerCase() === language?.toLowerCase();

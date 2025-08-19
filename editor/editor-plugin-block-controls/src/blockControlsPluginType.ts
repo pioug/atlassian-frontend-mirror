@@ -5,6 +5,7 @@ import type {
 	EditorCommand,
 	NextEditorPlugin,
 	OptionalPlugin,
+	DIRECTION,
 } from '@atlaskit/editor-common/types';
 import type { AccessibilityUtilsPlugin } from '@atlaskit/editor-plugin-accessibility-utils';
 import { type AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
@@ -49,6 +50,7 @@ export interface PluginState {
 	isDragging: boolean;
 	isMenuOpen?: boolean;
 	menuTriggerBy?: string;
+	blockMenuOptions?: { canMoveUp?: boolean; canMoveDown?: boolean };
 	editorHeight: number;
 	editorWidthLeft: number;
 	editorWidthRight: number;
@@ -76,6 +78,7 @@ export type BlockControlsSharedState =
 	| {
 			isMenuOpen: boolean;
 			menuTriggerBy?: string;
+			blockMenuOptions?: { canMoveUp?: boolean; canMoveDown?: boolean };
 			activeNode?: ActiveNode;
 			activeDropTargetNode?: ActiveDropTargetNode;
 			isDragging: boolean;
@@ -150,6 +153,7 @@ export type BlockControlsPlugin = NextEditorPlugin<
 			) => EditorCommand;
 			setMultiSelectPositions: (anchor?: number, head?: number) => EditorCommand;
 			setSelectedViaDragHandle: (isSelectedViaDragHandle?: boolean) => EditorCommand;
+			moveNodeWithBlockMenu: (direction: DIRECTION.UP | DIRECTION.DOWN) => EditorCommand;
 		};
 	}
 >;
@@ -163,4 +167,7 @@ export type BlockControlsMeta = {
 	editorBlurred: boolean;
 };
 
-export type MoveNodeMethod = INPUT_METHOD.DRAG_AND_DROP | INPUT_METHOD.SHORTCUT;
+export type MoveNodeMethod =
+	| INPUT_METHOD.DRAG_AND_DROP
+	| INPUT_METHOD.SHORTCUT
+	| INPUT_METHOD.BLOCK_MENU;

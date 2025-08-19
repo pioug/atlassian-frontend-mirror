@@ -36,6 +36,8 @@ export const SelectionToolbar = ({ api, editorView, mountPoint }: SelectionToolb
 	const toolbar = components?.find((component) => isToolbarComponent(component));
 
 	const currentUserIntent = useSharedPluginStateSelector(api, 'userIntent.currentUserIntent');
+	const connectivityStateMode = useSharedPluginStateSelector(api, 'connectivity.mode');
+	const isOffline = connectivityStateMode === 'offline';
 	// TODO: ED-28735 - figure out a better way to control this - needed to re-render on selection change
 	// @ts-expect-error
 	const selection = useSharedPluginStateSelector(api, 'selection.selection');
@@ -68,7 +70,7 @@ export const SelectionToolbar = ({ api, editorView, mountPoint }: SelectionToolb
 			mountTo={mountPoint}
 		>
 			<EditorToolbarProvider editorView={editorView}>
-				<EditorToolbarUIProvider api={api}>
+				<EditorToolbarUIProvider api={api} isDisabled={isOffline}>
 					<ToolbarModelRenderer
 						toolbar={toolbar as RegisterToolbar}
 						components={components}

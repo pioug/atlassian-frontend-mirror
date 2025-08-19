@@ -157,9 +157,9 @@ export class EditorCardProvider
 		baseUrlOverride?: string,
 		product?: ProductType,
 		onResolve?: (url: string) => void,
+		customCardClient?: CardClient,
 	) {
 		super();
-
 		this.name = 'editorCardProvider';
 		this.baseUrl = baseUrlOverride || getBaseUrl(envKey);
 		this.resolverUrl = getResolverUrl(envKey, baseUrlOverride);
@@ -172,8 +172,8 @@ export class EditorCardProvider
 			batchScheduleFn: (callback) => setTimeout(callback, BATCH_WAIT_TIME),
 		});
 
-		this.cardClient = new CardClient(envKey, baseUrlOverride);
-		if (product) {
+		this.cardClient = customCardClient ?? new CardClient(envKey, baseUrlOverride);
+		if (!customCardClient && product) {
 			this.cardClient.setProduct(product);
 		}
 	}

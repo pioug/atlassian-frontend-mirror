@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-track-changes
 
+## 2.7.0
+
+### Minor Changes
+
+- [`f78a34afab8d4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f78a34afab8d4) -
+  [ux] ED-28961 register undo redo and track changes buttons to new toolbar behind
+  platform_editor_toolbar_aifc. adds ai buttons into comment toolbar.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.4
+
+### Patch Changes
+
+- [`13c698778e3c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/13c698778e3c6) -
+  [ux] Atlaspack version bump
+- Updated dependencies
+
 ## 2.6.3
 
 ### Patch Changes

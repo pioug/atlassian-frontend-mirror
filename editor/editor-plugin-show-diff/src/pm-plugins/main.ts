@@ -1,7 +1,6 @@
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { ChangeSet, simplifyChanges } from 'prosemirror-changeset';
 
-import type { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
 import { processRawValue } from '@atlaskit/editor-common/process-raw-value';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -18,17 +17,16 @@ import { type DiffParams } from '../showDiffPluginType';
 
 import { createInlineChangedDecoration, createDeletedContentDecoration } from './decorations';
 import { getMarkChangeRanges } from './markDecorations';
+import { NodeViewSerializer } from './NodeViewSerializer';
 
 const calculateDecorations = ({
 	state,
 	pluginState,
-	editorView,
-	nodeViews,
+	nodeViewSerializer,
 }: {
 	state: EditorState;
 	pluginState: Omit<ShowDiffPluginState, 'decorations'>;
-	editorView: EditorView | undefined;
-	nodeViews: Record<string, NodeViewConstructor>;
+	nodeViewSerializer: NodeViewSerializer;
 }): DecorationSet => {
 	const { originalDoc, steps } = pluginState;
 	if (!originalDoc || !pluginState.isDisplayingChanges) {
@@ -57,7 +55,7 @@ const calculateDecorations = ({
 		}
 		if (change.deleted.length > 0) {
 			decorations.push(
-				createDeletedContentDecoration({ change, doc: originalDoc, tr, editorView, nodeViews }),
+				createDeletedContentDecoration({ change, doc: originalDoc, nodeViewSerializer }),
 			);
 		}
 	});
@@ -80,9 +78,9 @@ type ShowDiffPluginState = {
 type EditorStateConfig = Parameters<typeof EditorState.create>[0];
 
 export const createPlugin = (config: DiffParams | undefined) => {
-	let editorView: EditorView | undefined;
-	const setEditorView = (newEditorView: EditorView) => {
-		editorView = newEditorView;
+	const nodeViewSerializer = new NodeViewSerializer();
+	const setNodeViewSerializer = (editorView: EditorView) => {
+		nodeViewSerializer.init({ editorView });
 	};
 	return new SafePlugin<ShowDiffPluginState>({
 		key: showDiffPluginKey,
@@ -92,8 +90,6 @@ export const createPlugin = (config: DiffParams | undefined) => {
 				const isDisplayingChanges = (config?.steps ?? []).length > 0;
 				const steps = (config?.steps ?? []).map((step) => ProseMirrorStep.fromJSON(schema, step));
 
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				const nodeViews: Record<string, NodeViewConstructor> = (editorView as any)?.nodeViews || {};
 				return {
 					steps,
 					originalDoc: config?.originalDoc
@@ -108,8 +104,7 @@ export const createPlugin = (config: DiffParams | undefined) => {
 								: undefined,
 							isDisplayingChanges,
 						},
-						editorView,
-						nodeViews,
+						nodeViewSerializer,
 					}),
 					isDisplayingChanges,
 				};
@@ -123,9 +118,6 @@ export const createPlugin = (config: DiffParams | undefined) => {
 				const meta = tr.getMeta(showDiffPluginKey);
 				let newPluginState = currentPluginState;
 
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				const nodeViews: Record<string, NodeViewConstructor> = (editorView as any)?.nodeViews || {};
-
 				if (meta) {
 					if (meta?.action === 'SHOW_DIFF') {
 						// Calculate and store decorations in state
@@ -136,8 +128,7 @@ export const createPlugin = (config: DiffParams | undefined) => {
 								originalDoc: meta.originalDoc ?? currentPluginState.originalDoc,
 								isDisplayingChanges: true,
 							},
-							editorView,
-							nodeViews: nodeViews,
+							nodeViewSerializer,
 						});
 						newPluginState = {
 							...currentPluginState,
@@ -164,7 +155,7 @@ export const createPlugin = (config: DiffParams | undefined) => {
 			},
 		},
 		view(editorView: EditorView) {
-			setEditorView(editorView);
+			setNodeViewSerializer(editorView);
 			return {};
 		},
 		props: {

@@ -69,10 +69,8 @@ export const BlockCard = ({
 				</UFOLoadHoldWrapper>
 			);
 		case 'resolved':
-			if (fg('platform_smart_links_controlled_dsp_export_view')) {
-				if (getIsDataExportEnabled(shouldControlDataExport, cardState.details)) {
-					return <UnauthorisedView {...blockCardProps} onAuthorize={handleAuthorize} />;
-				}
+			if (getIsDataExportEnabled(shouldControlDataExport, cardState.details)) {
+				return <UnauthorisedView {...blockCardProps} onAuthorize={handleAuthorize} />;
 			}
 
 			return <ResolvedView {...blockCardProps} />;

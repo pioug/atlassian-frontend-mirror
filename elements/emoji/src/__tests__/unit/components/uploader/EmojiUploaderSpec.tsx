@@ -378,4 +378,81 @@ describe('<EmojiUploader />', () => {
 			expect(results).toHaveNoViolations();
 		});
 	});
+
+	describe('Focus Lock', () => {
+		let emojiProvider: Promise<any>;
+
+		beforeEach(async () => {
+			jest.spyOn(ImageUtil, 'parseImage').mockImplementation(() => Promise.resolve(new Image()));
+			jest.spyOn(ImageUtil, 'hasFileExceededSize').mockImplementation(() => false);
+			jest.spyOn(ImageUtil, 'getNaturalImageSize').mockImplementation(() =>
+				Promise.resolve({
+					width: 30,
+					height: 30,
+				}),
+			);
+
+			emojiProvider = getEmojiResourcePromise({
+				uploadSupported: true,
+			});
+		});
+
+		it('should render with FocusLock by default', async () => {
+			const { container } = renderWithIntl(<EmojiUploader emojiProvider={emojiProvider} />);
+
+			const uploadEmojiComponent = await screen.findByTestId(uploadEmojiComponentTestId);
+			expect(uploadEmojiComponent).toBeInTheDocument();
+
+			// Check that FocusLock is present in the DOM by looking for its characteristic attributes
+			const focusLockElement = container.querySelector('[data-focus-lock-disabled]');
+			expect(focusLockElement).toBeInTheDocument();
+		});
+
+		it('should render with FocusLock when disableFocusLock is false', async () => {
+			const { container } = renderWithIntl(
+				<EmojiUploader emojiProvider={emojiProvider} disableFocusLock={false} />,
+			);
+
+			const uploadEmojiComponent = await screen.findByTestId(uploadEmojiComponentTestId);
+			expect(uploadEmojiComponent).toBeInTheDocument();
+
+			// Check that FocusLock is present in the DOM by looking for its characteristic attributes
+			const focusLockElement = container.querySelector('[data-focus-lock-disabled]');
+			expect(focusLockElement).toBeInTheDocument();
+		});
+
+		it('should render without FocusLock when disableFocusLock is true', async () => {
+			const { container } = renderWithIntl(
+				<EmojiUploader emojiProvider={emojiProvider} disableFocusLock={true} />,
+			);
+
+			const uploadEmojiComponent = await screen.findByTestId(uploadEmojiComponentTestId);
+			expect(uploadEmojiComponent).toBeInTheDocument();
+
+			// Check that FocusLock is not present in the DOM
+			const focusLockElement = container.querySelector('[data-focus-lock-disabled]');
+			expect(focusLockElement).not.toBeInTheDocument();
+		});
+
+		it('should maintain functionality when FocusLock is disabled', async () => {
+			setupUploader({ emojiProvider, disableFocusLock: true });
+
+			const emojiNameInput = await screen.findByTestId(uploadEmojiNameInputTestId);
+			expect(emojiNameInput).toBeInTheDocument();
+
+			// Type emoji name
+			helperTestingLibrary.typeEmojiName(':test_emoji:');
+
+			// Choose file
+			await helperTestingLibrary.chooseFile(createPngFile());
+
+			// Check that upload preview is shown
+			const uploadPreview = await screen.findByTestId('upload-preview');
+			expect(uploadPreview).toBeInTheDocument();
+
+			// Verify the upload button is present and functional
+			const uploadButton = await screen.findByTestId('upload-emoji-button');
+			expect(uploadButton).toBeInTheDocument();
+		});
+	});
 });

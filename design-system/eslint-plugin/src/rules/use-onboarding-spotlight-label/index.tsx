@@ -35,8 +35,13 @@ const rule = createLintRule({
 			ImportDeclaration(node) {
 				const buttonGroupIdentifier = node.specifiers?.filter((spec) => {
 					if (node.source.value === '@atlaskit/onboarding') {
-						return spec.type === 'ImportSpecifier' && spec.imported?.name === 'Spotlight';
-					} else if (node.source.value === '@atlaskit/onboarding/spotlight') {
+						return (
+							spec.type === 'ImportSpecifier' &&
+							'name' in spec.imported &&
+							spec.imported?.name === 'Spotlight'
+						);
+					}
+					if (node.source.value === '@atlaskit/onboarding/spotlight') {
 						return spec.type === 'ImportDefaultSpecifier';
 					}
 				});

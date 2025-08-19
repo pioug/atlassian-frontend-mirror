@@ -20,5 +20,4 @@ export type {
 	SelectionExtensionSelectionInfo,
 	ToolbarExtensionConfiguration,
 	SelectionAdfResult,
-	SelectionTextResult,
 } from '@atlaskit/editor-plugin-selection-extension';

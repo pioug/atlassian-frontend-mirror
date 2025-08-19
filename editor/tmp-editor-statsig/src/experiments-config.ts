@@ -710,4 +710,28 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-08-18
+	platform_editor_locale_datepicker: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_locale_datepicker',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-08-18
+	platform_editor_find_replace_a11y_fixes: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_find_replace_a11y_fixes',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-08-19
+	platform_editor_breakout_resizing_vc90_fix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_breakout_resizing_vc90_fix',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	})
 } satisfies Record<string, ExperimentConfigValue>;

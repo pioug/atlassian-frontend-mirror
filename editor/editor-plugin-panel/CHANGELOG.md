@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-panel
 
+## 5.3.4
+
+### Patch Changes
+
+- [`9f69369cd05b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f69369cd05b8) -
+  Make wrap command more resilient
+- Updated dependencies
+
 ## 5.3.3
 
 ### Patch Changes

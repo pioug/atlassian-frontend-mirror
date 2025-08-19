@@ -1,5 +1,6 @@
 import DataLoader from 'dataloader';
 import { type JsonLd } from '@atlaskit/json-ld-types';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import retry, { type Options } from 'async-retry';
 import pThrottle from 'p-throttle';
 import {
@@ -49,6 +50,7 @@ export default class CardClient implements CardClientInterface {
 	private retryConfig: Options;
 	private resolvedCache: Record<string, boolean>;
 	private product?: ProductType;
+	private headers?: Record<string, string>;
 
 	constructor(envKey?: EnvironmentsKeys, baseUrlOverride?: string) {
 		this.resolverUrl = getResolverUrl(envKey, baseUrlOverride);
@@ -64,6 +66,15 @@ export default class CardClient implements CardClientInterface {
 
 	public setProduct(product: ProductType) {
 		this.product = product;
+	}
+
+	/**
+	 * Set custom headers to be sent with each request to the resolver.
+	 *
+	 * @param headers - Object containing headers to be sent with each request.
+	 */
+	public setHeaders(headers: Record<string, string>) {
+		this.headers = headers;
 	}
 
 	private postBatchResolveNew = async <TType extends ResourceType>(
@@ -86,6 +97,10 @@ export default class CardClient implements CardClientInterface {
 
 			// send product source as header X-Product if defined
 			...(this.product ? { 'X-Product': this.product } : {}),
+			// add custom headers if defined
+			...(expValEquals('platform_editor_smart_card_otp', 'isEnabled', true) && this.headers
+				? this.headers
+				: {}),
 		};
 
 		try {
@@ -153,6 +168,10 @@ export default class CardClient implements CardClientInterface {
 
 			// send product source as header X-Product if defined
 			...(this.product ? { 'X-Product': this.product } : {}),
+			// add custom headers if defined
+			...(expValEquals('platform_editor_smart_card_otp', 'isEnabled', true) && this.headers
+				? this.headers
+				: {}),
 		};
 
 		try {

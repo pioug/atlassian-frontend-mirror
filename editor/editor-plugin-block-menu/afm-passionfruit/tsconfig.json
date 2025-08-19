@@ -33,6 +33,9 @@
 			"path": "../../editor-shared-styles/afm-passionfruit/tsconfig.json"
 		},
 		{
+			"path": "../../editor-tables/afm-passionfruit/tsconfig.json"
+		},
+		{
 			"path": "../../editor-toolbar/afm-passionfruit/tsconfig.json"
 		},
 		{

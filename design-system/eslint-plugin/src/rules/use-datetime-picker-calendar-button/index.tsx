@@ -168,15 +168,18 @@ const rule = createLintRule({
 					if (node.source.value === '@atlaskit/datetime-picker') {
 						return (
 							isNodeOfType(spec, 'ImportSpecifier') &&
+							'name' in spec.imported &&
 							[DATE_PICKER, DATETIME_PICKER].includes(spec.imported?.name)
 						);
 					}
 				}) as ImportSpecifier[];
 
 				datetimePickerIdentifier.forEach((identifier) => {
-					const { imported, local } = identifier;
-					contextLocalIdentifier.push(local.name);
-					contextImportedIdentifier.push(imported.name);
+					if ('name' in identifier.imported) {
+						const { imported, local } = identifier;
+						contextLocalIdentifier.push(local.name);
+						contextImportedIdentifier.push(imported.name);
+					}
 				});
 			},
 

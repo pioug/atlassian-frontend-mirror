@@ -26,6 +26,7 @@ const START_STG_URL = 'https://start.stg.atlassian.com/gateway/api';
 export const SmartLinksShowcase = () => {
 	const EnvOverrides: Record<EnvironmentsKeys, string> = useMemo(() => {
 		return {
+			custom: '',
 			stg: START_STG_URL,
 			staging: START_STG_URL,
 			prd: START_PROD_URL,

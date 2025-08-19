@@ -36,7 +36,7 @@ const isMediaObject = (node: Rule.Node, context: Rule.RuleContext) => {
 				allowedResponsiveImports.includes(definition.node.parent.source.value as string)
 			) {
 				// This should match the name of the media object exported from packages/design-system/primitives/src/responsive/media-helper.tsx
-				return definition.node.imported.name === 'media';
+				return definition.node.imported.type === 'Identifier' && definition.node.imported.name === 'media';
 			}
 		}
 	}

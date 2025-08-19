@@ -7,7 +7,7 @@ export const localIdPlugin: LocalIdPlugin = () => ({
 		return [
 			{
 				name: 'localIdPlugin',
-				plugin: createPlugin,
+				plugin: () => createPlugin(),
 			},
 		];
 	},

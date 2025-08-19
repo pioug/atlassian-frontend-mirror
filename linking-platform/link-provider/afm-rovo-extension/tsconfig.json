@@ -33,6 +33,9 @@
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../../editor/tmp-editor-statsig/afm-rovo-extension/tsconfig.json"
 		}
 	]
 }

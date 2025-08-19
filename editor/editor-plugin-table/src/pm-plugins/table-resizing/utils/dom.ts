@@ -108,7 +108,6 @@ export const syncStickyRowToTable = (tableRef?: HTMLElement | null) => {
 	if (!headerRow) {
 		return;
 	}
-
 	applyColWidthsToStickyRow(tableRef.querySelector('colgroup'), headerRow);
 	applyTableWidthToStickyRow(tableRef, headerRow);
 };

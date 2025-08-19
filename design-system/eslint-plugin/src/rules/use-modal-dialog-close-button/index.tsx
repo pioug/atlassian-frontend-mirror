@@ -62,7 +62,7 @@ const rule = createLintRule({
 				node.specifiers.forEach((identifier) => {
 					if (isNodeOfType(identifier, 'ImportDefaultSpecifier')) {
 						defaultImportLocalName = identifier.local.name;
-					} else if (isNodeOfType(identifier, 'ImportSpecifier')) {
+					} else if (isNodeOfType(identifier, 'ImportSpecifier') && 'name' in identifier.imported) {
 						const importName = identifier.imported.name;
 						const localName = identifier.local.name;
 						if (importName === 'ModalHeader') {
@@ -83,7 +83,7 @@ const rule = createLintRule({
 					return;
 				}
 
-				const name = node.openingElement.name.name;
+				const { name } = node.openingElement.name;
 
 				if (![defaultImportLocalName, modalHeaderLocalName].includes(name)) {
 					return;

@@ -22,6 +22,7 @@ import { AnalyticsAction, usePeopleAndTeamAnalytics } from '../../common/utils/a
 import { hasProductPermission as hasProductPermissionOld } from '../../controllers';
 import { useCreateContainers } from '../../controllers/hooks/use-create-containers';
 import { useProductPermissions as useProductPermissionsOld } from '../../controllers/hooks/use-product-permission';
+import { useRefreshOnContainerCreated } from '../../controllers/hooks/use-refresh-containers-on-container-created';
 import { useRequestedContainers } from '../../controllers/hooks/use-requested-container';
 import {
 	useTeamContainers,
@@ -45,23 +46,6 @@ interface SelectedContainerDetails {
 	containerName: string;
 }
 
-function useRefreshOnContainerCreated(teamId: string) {
-	const [containers] = useCreateContainers();
-	const { refetchTeamContainers } = useTeamContainers(teamId);
-	const [refreshedProducts, setRefreshedProducts] = useState<{ [key: string]: boolean }>({});
-
-	useEffect(() => {
-		const products = Object.keys(containers) as Array<keyof typeof containers>;
-		products.forEach((product) => {
-			const isCreated = containers[product].isCreated;
-			if (isCreated && !refreshedProducts[product]) {
-				setRefreshedProducts((prev) => ({ ...prev, [product]: true }));
-				refetchTeamContainers();
-			}
-		});
-	}, [containers, refetchTeamContainers, refreshedProducts]);
-}
-
 export const TeamContainers = ({
 	teamId,
 	onAddAContainerClick,
@@ -72,7 +56,10 @@ export const TeamContainers = ({
 	cloudId,
 	filterContainerId,
 	isDisplayedOnProfileCard,
+	isReadOnly,
+	onError,
 	maxNumberOfContainersToShow = MAX_NUMBER_OF_CONTAINERS_TO_SHOW,
+	elemBeforeCards
 }: TeamContainerProps) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { unlinkError } = useTeamContainers(teamId);
@@ -81,6 +68,7 @@ export const TeamContainers = ({
 		removeTeamLink,
 		iconsLoading,
 		iconHasLoaded,
+		hasError,
 		isLoading: linksLoading,
 	} = useTeamLinksAndContainers(teamId, true);
 	const { requestedContainers } = useRequestedContainers({
@@ -165,7 +153,9 @@ export const TeamContainers = ({
 	useEffect(() => {
 		const containersToCheck = filteredTeamLinks;
 
-		if (containersToCheck.length > maxNumberOfContainersToShow || isDisplayedOnProfileCard) {
+		if (containersToCheck.length > maxNumberOfContainersToShow ||
+			isDisplayedOnProfileCard ||
+			isReadOnly) {
 			setCanAddContainer({ Jira: false, Confluence: false, Loom: false, WebLink: false });
 		} else {
 			const containerExists = (type: ContainerTypes) =>
@@ -215,7 +205,17 @@ export const TeamContainers = ({
 		filteredTeamLinks,
 		maxNumberOfContainersToShow,
 		requestedContainers,
+		isReadOnly
 	]);
+	useEffect(() => {
+		if (onError) {
+			if (hasError) {
+				onError(hasError);
+			} else if (unlinkError) {
+				onError(unlinkError);
+			}
+		}
+	}, [hasError, unlinkError, onError]);
 
 	const handleShowMore = () => {
 		setShowMore(!showMore);
@@ -344,17 +344,29 @@ export const TeamContainers = ({
 		return <TeamContainersSkeletonComponent numberOfContainers={maxNumberOfContainersToShow} />;
 	}
 
-	if (hasNoContainers && !isDisplayedOnProfileCard && hasNoPermissions) {
-		return <NoProductAccessState />;
+	if (hasNoContainers) {
+		if (components?.TeamContainersEmptyState) {
+			const EmptyStateComponent = components.TeamContainersEmptyState;
+			return <EmptyStateComponent hasNoPermissions={!!hasNoPermissions} />;
+		} else if (!isDisplayedOnProfileCard && hasNoPermissions) {
+			return <NoProductAccessState />;
+		}
 	}
 
 	return (
 		<>
 			<Stack space="space.200">
-				<Grid
+			{(() => {
+					const GridComponent = components?.Grid || Grid;
+					return (
+				<GridComponent
 					templateColumns="repeat(auto-fill, minmax(300px, 1fr))"
 					gap={isDisplayedOnProfileCard ? 'space.0' : 'space.100'}
 				>
+					{elemBeforeCards && (() => {
+								const ElemBeforeCards = elemBeforeCards;
+								return <ElemBeforeCards />;
+							})()}
 					{filteredTeamLinks.slice(0, maxNumberOfContainersToShow).map((container) => {
 						return (
 							<LinkedContainerCardComponent
@@ -367,6 +379,7 @@ export const TeamContainers = ({
 								containerId={container.id}
 								iconsLoading={iconsLoading}
 								iconHasLoaded={iconHasLoaded}
+								isReadOnly={isReadOnly}
 								onDisconnectButtonClick={() =>
 									handleOpenDisconnectDialog({
 										containerId: container.id,
@@ -385,31 +398,34 @@ export const TeamContainers = ({
 						showNewDesign: createContainerExperimentEnabled,
 					})}
 
-					{showMore &&
-						filteredTeamLinks.slice(maxNumberOfContainersToShow).map((container) => {
-							return (
-								<LinkedContainerCardComponent
-									key={container.id}
-									containerType={container.type}
-									containerTypeProperties={container.containerTypeProperties}
-									title={container.name}
-									containerId={container.id}
-									containerIcon={container.icon || undefined}
-									link={container.link || undefined}
-									iconsLoading={iconsLoading}
-									iconHasLoaded={iconHasLoaded}
-									onDisconnectButtonClick={() =>
-										handleOpenDisconnectDialog({
-											containerId: container.id,
-											containerType: container.type,
-											containerName: container.name,
-										})
-									}
-									onEditLinkClick={() => handleEditContainerClick(container)}
-								/>
-							);
-						})}
-				</Grid>
+							{showMore &&
+								filteredTeamLinks.slice(maxNumberOfContainersToShow).map((container) => {
+									return (
+										<LinkedContainerCardComponent
+											key={container.id}
+											containerType={container.type}
+											containerTypeProperties={container.containerTypeProperties}
+											title={container.name}
+											containerId={container.id}
+											containerIcon={container.icon || undefined}
+											link={container.link || undefined}
+											iconsLoading={iconsLoading}
+											iconHasLoaded={iconHasLoaded}
+											isReadOnly={isReadOnly}
+											onDisconnectButtonClick={() =>
+												handleOpenDisconnectDialog({
+													containerId: container.id,
+													containerType: container.type,
+													containerName: container.name,
+												})
+											}
+											onEditLinkClick={() => handleEditContainerClick(container)}
+										/>
+									);
+								})}
+						</GridComponent>
+					);
+				})()}
 				{filteredTeamLinks.length > maxNumberOfContainersToShow && (
 					<Inline>
 						<Button appearance="subtle" onClick={handleShowMore}>

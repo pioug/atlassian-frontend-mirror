@@ -52,7 +52,10 @@ const rule = createLintRule({
 
 				const visuallyHiddenOrAssistive = node.specifiers
 					.filter((specifier): specifier is ImportSpecifier => specifier.type === 'ImportSpecifier')
-					.find((specifier) => THEME_IMPORT_NAMES.includes(specifier.imported.name));
+					.find(
+						(specifier) =>
+							'name' in specifier.imported && THEME_IMPORT_NAMES.includes(specifier.imported.name),
+					);
 
 				if (!visuallyHiddenOrAssistive) {
 					return;

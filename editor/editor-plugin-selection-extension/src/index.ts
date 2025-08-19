@@ -20,5 +20,4 @@ export type {
 	SelectionExtensionSelectionInfo,
 	ToolbarExtensionConfiguration,
 	SelectionAdfResult,
-	SelectionTextResult,
 } from './types';

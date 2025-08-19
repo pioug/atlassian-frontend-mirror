@@ -56,7 +56,7 @@ export const Import = {
 					return false;
 				}
 
-				return specifier.imported.name === name;
+				return specifier.imported.type === 'Identifier' && specifier.imported.name === name;
 			},
 		);
 	},

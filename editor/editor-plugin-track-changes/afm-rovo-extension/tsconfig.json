@@ -35,7 +35,19 @@
 			"path": "../../editor-plugin-show-diff/afm-rovo-extension/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-toolbar/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar-model/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/icon-lab/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-rovo-extension/tsconfig.json"
 		},
 		{
 			"path": "../../editor-common/afm-rovo-extension/tsconfig.json"

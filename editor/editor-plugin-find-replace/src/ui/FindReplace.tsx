@@ -159,8 +159,14 @@ class FindReplace extends React.PureComponent<FindReplaceProps> {
 		const focusToolbarButton = this.props.focusToolbarButton || (() => {});
 
 		return (
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			<div ref={this.modalRef} css={[wrapperStyles, wrapperPaddingStyles]}>
+			<div
+				role={expValEquals('platform_editor_find_replace_a11y_fixes', 'isEnabled', true) ? 'dialog' : undefined}
+				aria-label={expValEquals('platform_editor_find_replace_a11y_fixes', 'isEnabled', true) ? 'Find and Replace' : undefined}
+				aria-modal={expValEquals('platform_editor_find_replace_a11y_fixes', 'isEnabled', true) ? false : undefined}
+				ref={this.modalRef}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+				css={[wrapperStyles, wrapperPaddingStyles]}
+			>
 				<Find
 					allowMatchCase={allowMatchCase}
 					shouldMatchCase={shouldMatchCase}

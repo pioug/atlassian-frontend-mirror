@@ -43,7 +43,7 @@ export function isAllowListedVariable({
 		}
 
 		// Forbid default imports (e.g. `import React from 'react'`)
-		if (definition.node.type !== 'ImportSpecifier') {
+		if (definition.node.type !== 'ImportSpecifier' || !('name' in definition.node.imported)) {
 			return false;
 		}
 

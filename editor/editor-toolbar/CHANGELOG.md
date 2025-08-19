@@ -1,5 +1,13 @@
 # @atlaskit/editor-toolbar
 
+## 0.3.3
+
+### Patch Changes
+
+- [`f78a34afab8d4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f78a34afab8d4) -
+  [ux] ED-28961 register undo redo and track changes buttons to new toolbar behind
+  platform_editor_toolbar_aifc. adds ai buttons into comment toolbar.
+
 ## 0.3.2
 
 ### Patch Changes

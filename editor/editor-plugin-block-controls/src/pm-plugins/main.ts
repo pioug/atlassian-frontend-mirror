@@ -320,6 +320,7 @@ export const apply = (
 		isDragging,
 		isMenuOpen,
 		menuTriggerBy,
+		blockMenuOptions,
 		isPMDragging,
 		isShiftDown,
 		lastDragCancelled,
@@ -738,6 +739,19 @@ export const apply = (
 			expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
 				? meta?.toggleMenu?.anchorName || menuTriggerBy
 				: undefined,
+
+		blockMenuOptions: expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
+			? {
+					canMoveUp:
+						meta?.toggleMenu?.moveUp !== undefined
+							? meta?.toggleMenu?.moveUp
+							: blockMenuOptions?.canMoveUp,
+					canMoveDown:
+						meta?.toggleMenu?.moveDown !== undefined
+							? meta?.toggleMenu?.moveDown
+							: blockMenuOptions?.canMoveDown,
+				}
+			: undefined,
 		editorHeight: meta?.editorHeight ?? editorHeight,
 		editorWidthLeft: meta?.editorWidthLeft ?? editorWidthLeft,
 		editorWidthRight: meta?.editorWidthRight ?? editorWidthRight,

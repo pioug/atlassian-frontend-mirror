@@ -5,8 +5,9 @@ import {
 	isolationContextId,
 } from './index';
 
-describe('Perimeter Detection', () => {
+describe('Perimeter Methods for Browser', () => {
 	afterEach(() => {
+		// Clear cookies
 		globalThis.document.cookie = 'Atl-Ctx-Perimeter=; expires=Thu, 01 Jan 1970 00:00:00 GMT';
 		globalThis.document.cookie =
 			'Atl-Ctx-Isolation-Context-Domain=; expires=Thu, 01 Jan 1970 00:00:00 GMT';
@@ -14,10 +15,9 @@ describe('Perimeter Detection', () => {
 			'Atl-Ctx-Isolation-Context-Id=; expires=Thu, 01 Jan 1970 00:00:00 GMT';
 	});
 
-	describe('Cookie-based perimeter detection', () => {
+	describe('Returns correct isFedrampModerate() value', () => {
 		it('returns FedRAMP Moderate from Atl-Ctx-Perimeter cookie', () => {
 			globalThis.document.cookie = 'Atl-Ctx-Perimeter=fedramp-moderate';
-
 			expect(isFedrampModerate()).toBe(true);
 			expect(isIsolatedCloud()).toBe(false);
 		});
@@ -26,7 +26,9 @@ describe('Perimeter Detection', () => {
 			expect(isFedrampModerate()).toBe(false);
 			expect(isIsolatedCloud()).toBe(false);
 		});
+	});
 
+	describe('Returns correct isIsolatedCloud() value', () => {
 		it('returns Isolated Cloud from cookies', () => {
 			globalThis.document.cookie = 'Atl-Ctx-Perimeter=commercial';
 			globalThis.document.cookie =
@@ -41,11 +43,11 @@ describe('Perimeter Detection', () => {
 
 			expect(isFedrampModerate()).toBe(false);
 			expect(isIsolatedCloud()).toBe(false);
-			globalThis.document.cookie = 'other-cookie=; expires=Thu, 01 Jan 1970 00:00:00 GMT'; // clear cookie
+			globalThis.document.cookie = 'other-cookie=; expires=Thu, 01 Jan 1970 00:00:00 GMT'; // clear other cookie
 		});
 	});
 
-	describe('Get isolatedCloudDomain', () => {
+	describe('Returns correct isolatedCloudDomain() value', () => {
 		it('returns domain for isolated cloud environments', () => {
 			globalThis.document.cookie = 'Atl-Ctx-Perimeter=commercial';
 			globalThis.document.cookie =
@@ -63,7 +65,7 @@ describe('Perimeter Detection', () => {
 		});
 	});
 
-	describe('Get isolationContextId', () => {
+	describe('Returns correct isolationContextId() value', () => {
 		it('returns id for isolated cloud environments', () => {
 			globalThis.document.cookie = 'Atl-Ctx-Perimeter=commercial';
 			globalThis.document.cookie = 'Atl-Ctx-Isolation-Context-Id=ic-123';

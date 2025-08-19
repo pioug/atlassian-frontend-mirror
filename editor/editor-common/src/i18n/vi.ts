@@ -49,6 +49,8 @@ export default {
   'fabric.editor.ai.config.item.action.replaceTitleTooLongDisabledTooltip': 'Tên không được vượt quá {maxLength} ký tự',
   'fabric.editor.ai.config.item.action.rovoAgents.contineChatLabel': 'Tiếp tục trong trò chuyện',
   'fabric.editor.ai.config.item.action.rovoAgents.continueInChatLabel': 'Mở trong phần Trò chuyện',
+  'fabric.editor.ai.config.item.addPolish.description': 'Trau chuốt nội dung cho hoàn thiện hơn',
+  'fabric.editor.ai.config.item.addPolish.title': 'Trau chuốt thêm',
   'fabric.editor.ai.config.item.agent.title': 'Nhân viên hỗ trợ Atlassian Intelligence Rovo',
   'fabric.editor.ai.config.item.atlas-shorten-update.description': 'Rút ngắn nội dung cho súc tích hơn',
   'fabric.editor.ai.config.item.atlas-shorten-update.title': 'Rút ngắn bản cập nhật',
@@ -181,6 +183,8 @@ export default {
   'fabric.editor.ai.confluence-prebuilt.confluenceTranslateSelectionToolbarDropdownMenuTitle': 'Dịch',
   'fabric.editor.ai.eventHub.fallbackSuggestedTitle': 'Tiêu đề trang',
   'fabric.editor.ai.eventHub.fallbackSuggestedTitlePrefix': 'Trang',
+  'fabric.editor.ai.experience-application.cmdPaletteUnhandledErrorMessage':
+    'Chúng tôi đang gặp vấn đề và không thể tạo câu trả lời lúc này. Hãy thử lại sau.',
   'fabric.editor.ai.experience-application.documentInsertError':
     'Đã xảy ra lỗi khi chèn phản hồi. Hãy đóng hộp thoại và thử lại.',
   'fabric.editor.ai.experience-application.error-boundary.markdownErrorMessage':
@@ -194,8 +198,12 @@ export default {
   'fabric.editor.ai.experience.aupViolationMessage':
     'Lời nhắc và nội dung của bạn có thể không tuân thủ Chính sách sử dụng được chấp nhận của chúng tôi. Vui lòng xem lại cả hai và tham khảo <link>Chính sách sử dụng được chấp nhận</link> của chúng tôi nếu cần. Nếu sự cố vẫn tiếp diễn, hãy cân nhắc thử một lời nhắc hoặc nội dung khác.',
   'fabric.editor.ai.experience.browseMore.agents': 'Duyệt tìm nhân viên',
+  'fabric.editor.ai.experience.cmdPaletteApiError': 'Đã xảy ra lỗi khi tạo câu trả lời cho bạn.',
+  'fabric.editor.ai.experience.cmdPaletteAupViolationMessage':
+    'Chúng tôi không thể hoàn thành yêu cầu đó do yêu cầu không tuân thủ <link>Chính sách sử dụng được chấp nhận</link> của chúng tôi.',
   'fabric.editor.ai.experience.discardMessagePrompt': 'Bạn có muốn hủy bỏ lời nhắc?',
   'fabric.editor.ai.experience.discardMessageResponse': 'Bạn có muốn hủy bỏ phản hồi?',
+  'fabric.editor.ai.experience.discardStreamingInDocumenntMessageResponse': 'Xóa câu trả lời?',
   'fabric.editor.ai.experience.elevateDisabledGenetateError': 'Tính năng tạo miễn phí hiện đang tắt trong Elevate',
   'fabric.editor.ai.experience.engagementBannerLinksText':
     '🚀 Bạn hiện có thể dán liên kết 🔗 tới nội dung Jira và Confluence vào lời nhắc của mình.',
@@ -300,6 +308,7 @@ export default {
   'fabric.editor.breakoutFullWidthLabel': 'Toàn chiều rộng',
   'fabric.editor.breakoutWideWidthLabel': 'Rộng',
   'fabric.editor.bug': 'Lỗi',
+  'fabric.editor.bulletedList': 'Danh sách có dấu đầu dòng',
   'fabric.editor.canNotSortTable': '⚠️ Bạn không thể sắp xếp bảng có các ô đã hợp nhất',
   'fabric.editor.cancelButton': 'Hủy',
   'fabric.editor.captionPlaceholder': 'Thêm chú thích',
@@ -669,6 +678,7 @@ export default {
   'fabric.editor.openButtonTitle': 'Mở',
   'fabric.editor.openCellOptions': 'Mở tùy chọn ô',
   'fabric.editor.openLink': 'Mở liên kết trong tab mới',
+  'fabric.editor.openPreviewPanel': 'Mở bảng xem trước',
   'fabric.editor.orderedList': 'Danh sách được đánh số',
   'fabric.editor.orderedList.description': 'Tạo một danh sách kiểu sắp xếp',
   'fabric.editor.other': 'Khác...',
@@ -726,6 +736,7 @@ export default {
   'fabric.editor.selectTableColumn': 'Chọn cột trong bảng',
   'fabric.editor.selectTableRow': 'Chọn hàng trong bảng',
   'fabric.editor.selectionExtensionDropdownButtonLabel': 'Chọn ứng dụng',
+  'fabric.editor.selectionToolbarOverflowMenuTooltip': 'Tùy chọn khác',
   'fabric.editor.settingsLinks': 'Vào phần Tùy chọn liên kết',
   'fabric.editor.shortEmptyNodePlaceholderText': '/ để chèn',
   'fabric.editor.shortcut': 'Phím tắt văn bản',
@@ -807,6 +818,7 @@ export default {
   'fabric.editor.toolbarPositionInline': 'Cùng dòng với văn bản',
   'fabric.editor.toolbarPositionPinedAtTop': 'Bỏ ghim thanh công cụ',
   'fabric.editor.toolbarPositionUnpined': 'Ghim thanh công cụ lên đầu',
+  'fabric.editor.toolbarPositionUnpinnedConcise': 'Ghim thanh công cụ lên đầu',
   'fabric.editor.tooltip.blockPanel': 'một bảng điều khiển',
   'fabric.editor.tooltip.bulletList': 'một danh sách',
   'fabric.editor.tooltip.decisionList': 'một danh sách quyết định',

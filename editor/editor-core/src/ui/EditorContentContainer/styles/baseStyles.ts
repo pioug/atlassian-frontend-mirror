@@ -30,6 +30,7 @@ export const baseStyles = css({
 
 	'--ak-editor--breakout-fallback-width':
 		'calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding))',
+	'--ak-editor--breakout-min-width': '100%',
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.fabric-editor--full-width-mode': {
@@ -37,6 +38,7 @@ export const baseStyles = css({
 			'min(calc(100cqw - var(--ak-editor--large-gutter-padding) * 2), var(--ak-editor--full-width-layout-width))',
 		/* in full width appearances it's not possible to rely on cqw because it doesn't account for the page scrollbar, which depends on users system settings */
 		'--ak-editor--breakout-fallback-width': '100%',
+		'--ak-editor--breakout-min-width': '0px',
 	},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors

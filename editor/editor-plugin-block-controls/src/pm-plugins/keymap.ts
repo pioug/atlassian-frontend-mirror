@@ -9,6 +9,7 @@ import {
 	showElementDragHandle,
 } from '@atlaskit/editor-common/keymaps';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { DIRECTION } from '@atlaskit/editor-common/types';
 import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -16,8 +17,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import { moveNodeViaShortcut } from '../editor-commands/move-node';
 import { showDragHandleAtSelection } from '../editor-commands/show-drag-handle';
-
-import { DIRECTION } from './utils/consts';
 
 function keymapList(
 	api?: ExtractInjectionAPI<BlockControlsPlugin>,

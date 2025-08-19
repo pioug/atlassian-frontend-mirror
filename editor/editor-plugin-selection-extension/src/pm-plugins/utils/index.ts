@@ -1,5 +1,3 @@
-import isEqual from 'lodash/isEqual';
-
 import { type ADFEntity } from '@atlaskit/adf-utils/types';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -148,10 +146,3 @@ export function getSelectionAdfInfo(state: EditorState): SelectionInfo {
 		selectedNodeAdf,
 	};
 }
-
-export const validateSelectedNode = (selectedNodeAdf: ADFEntity, selectedNode: PMNode): boolean => {
-	const serializer = new JSONTransformer();
-	const selectedNodeAdfFromState = serializer.encodeNode(selectedNode);
-
-	return isEqual(selectedNodeAdf, selectedNodeAdfFromState);
-};

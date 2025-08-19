@@ -8,8 +8,10 @@ import type { ExtractInjectionAPI, NextEditorPlugin } from '../types';
 export const EditorToolbarUIProvider = ({
 	children,
 	api,
+	isDisabled,
 }: {
 	children: React.ReactNode;
+	isDisabled?: boolean;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	api: ExtractInjectionAPI<NextEditorPlugin<any, any>> | undefined;
 }) => {
@@ -27,7 +29,11 @@ export const EditorToolbarUIProvider = ({
 	);
 
 	return (
-		<ToolbarUIProvider onDropdownOpenChanged={onDropdownOpenChanged} preventDefaultOnMouseDown>
+		<ToolbarUIProvider
+			onDropdownOpenChanged={onDropdownOpenChanged}
+			preventDefaultOnMouseDown
+			isDisabled={isDisabled}
+		>
 			{children}
 		</ToolbarUIProvider>
 	);

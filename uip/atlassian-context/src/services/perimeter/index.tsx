@@ -8,11 +8,14 @@ import { type AtlCtxCookieValues, parseAtlCtxCookies } from '../atl-cookies-look
 /**
  * Determines if the current perimeter is an Isolated Cloud L2 perimeter
  *
- * Warning: Currently unsupported in SSR for the time-being.
- *
  * @returns {boolean} - True if the current perimeter is an Isolated Cloud perimeter, false otherwise
  */
 export function isIsolatedCloud(): boolean {
+	if (typeof document === 'undefined') {
+		// @ts-ignore
+		return globalThis.ssrContext.isInIC;
+	}
+
 	const atlCtxCookieValues: AtlCtxCookieValues | undefined = parseAtlCtxCookies();
 	if (!atlCtxCookieValues) {
 		// If the cookies are not set, the current perimeter is non-isolated commercial
@@ -31,11 +34,14 @@ export function isIsolatedCloud(): boolean {
  * Determines if the current perimeter is FedRAMP Moderate.
  * Please note that FedRAMP Moderate is not currently in Isolated Cloud, but when it is, this function will still return true.
  *
- * Warning: Currently unsupported in SSR for the time-being.
- *
  * @returns {boolean} - True if the current perimeter is FedRAMP Moderate, false otherwise
  */
 export function isFedrampModerate(): boolean {
+	if (typeof document === 'undefined') {
+		// @ts-ignore
+		return globalThis.ssrContext.isInFedramp;
+	}
+
 	const atlCtxCookieValues: AtlCtxCookieValues | undefined = parseAtlCtxCookies();
 	if (!atlCtxCookieValues) {
 		// If the cookies are not set, the current perimeter is non-isolated commercial
@@ -59,11 +65,14 @@ export function isolatedCloudDomain(): string | undefined {
 /**
  * Returns the Isolation Context identifier
  *
- * Warning: Currently unsupported in SSR for the time-being.
- *
  * @returns {string | undefined} - The Isolation Context ID if applicable, undefined otherwise (ex. if not in Isolated Cloud)
  */
 export function isolationContextId(): string | undefined {
+	if (typeof document === 'undefined') {
+		// @ts-ignore
+		return isIsolatedCloud() ? globalThis.ssrContext.icName : undefined;
+	}
+
 	const atlCtxCookieValues: AtlCtxCookieValues | undefined = parseAtlCtxCookies();
 	return atlCtxCookieValues?.icId;
 }

@@ -187,3 +187,22 @@ export interface AssignedTeamsResponse {
 	teams: AssignedTeam[];
 	cursor: string;
 }
+
+export interface UnassignedTeam {
+	id: string;
+	displayName: string;
+	avatarImageUrl: string;
+	members: {
+		firstPageCount: number;
+		memberCursor: string;
+	};
+	suggestedSite: {
+		id: string;
+		name: string;
+	};
+}
+
+export interface UnassignedTeamsResponse {
+	teams: UnassignedTeam[];
+	cursor: string;
+}

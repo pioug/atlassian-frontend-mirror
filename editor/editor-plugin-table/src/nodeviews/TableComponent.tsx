@@ -1126,6 +1126,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 						<div
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 							className={ClassName.TABLE_STICKY_SCROLLBAR_CONTAINER}
+							data-vc-nvs="true"
 							style={{
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 								height: token('space.250', '20px'), // MAX_BROWSER_SCROLLBAR_HEIGHT
@@ -1141,6 +1142,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 									height: '100%',
 								}}
+								data-vc-nvs="true"
 							></div>
 						</div>
 					) : (
@@ -1150,6 +1152,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 								height: '100%',
 							}}
+							data-vc-nvs="true"
 						></div>
 					)
 				) : (
@@ -1164,6 +1167,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 							// prevent unwanted scroll during table resize without removing scrollbar container from the dom
 							width: isResizing ? token('space.0', '0px') : '100%',
 						}}
+						data-vc-nvs="true"
 					>
 						<div
 							style={{
@@ -1171,6 +1175,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 								height: '100%',
 							}}
+							data-vc-nvs="true"
 						></div>
 					</div>
 				)}

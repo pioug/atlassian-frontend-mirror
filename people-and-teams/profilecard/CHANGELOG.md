@@ -1,5 +1,19 @@
 # @atlaskit/profilecard
 
+## 24.5.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.5.3
+
+### Patch Changes
+
+- [`13c698778e3c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/13c698778e3c6) -
+  [ux] Atlaspack version bump
+- Updated dependencies
+
 ## 24.5.2
 
 ### Patch Changes

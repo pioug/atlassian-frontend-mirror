@@ -458,6 +458,34 @@ export const APPS_SECTION = {
 } as const;
 
 /**
+ * Track Changes Section
+ */
+export const TRACK_CHANGES_SECTION = {
+	key: 'track-changes-section',
+	type: 'section',
+} as const;
+
+export const TRACK_CHANGES_GROUP = {
+	key: 'track-changes-group',
+	type: 'group',
+} as const;
+
+export const UNDO_BUTTON = {
+	key: 'undo-button',
+	type: 'button',
+} as const;
+
+export const REDO_BUTTON = {
+	key: 'redo-button',
+	type: 'button',
+} as const;
+
+export const TRACK_CHANGES_BUTTON = {
+	key: 'track-changes-button',
+	type: 'button'
+} as const;
+
+/**
  * Overflow section
  */
 

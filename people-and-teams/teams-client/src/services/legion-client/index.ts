@@ -21,6 +21,7 @@ import {
 	type SoftDeletedTeamResponse,
 	type TeamEnabledSitesResponse,
 	type TeamsPermissionFromApi,
+	type UnassignedTeamsResponse,
 } from '../../types/team';
 import {
 	type ApiTeamContainerCreationPayload,
@@ -194,14 +195,21 @@ export interface LegionClient {
 	getAssignedTeams(
 		orgId: string,
 		count: number,
-		cursor?: string,
-		displayNameContains?: string,
+		cursor?: string | null,
+		displayNameContains?: string | null,
 	): Promise<AssignedTeamsResponse>;
 
 	setTeamSiteAssignmentPermission(
 		orgId: string,
 		alignmentPermission: AlignmentPermission,
 	): Promise<void>;
+
+	getUnassignedTeams(
+		orgId: string,
+		count: number,
+		cursor?: string | null,
+		query?: string | null,
+	): Promise<UnassignedTeamsResponse>;
 }
 
 const v3UrlPath = `/v3/teams`;
@@ -747,8 +755,8 @@ export class LegionClient extends RestClient implements LegionClient {
 	async getAssignedTeams(
 		orgId: string,
 		count: number,
-		cursor?: string,
-		displayNameContains?: string,
+		cursor?: string | null,
+		displayNameContains?: string | null,
 	): Promise<AssignedTeamsResponse> {
 		const assignedTeamsResponse = await this.postResource<AssignedTeamsResponse>(
 			`${v4UrlPath}/migrations/scope/aligned/search`,
@@ -760,6 +768,24 @@ export class LegionClient extends RestClient implements LegionClient {
 			},
 		);
 		return assignedTeamsResponse;
+	}
+
+	async getUnassignedTeams(
+		orgId: string,
+		count: number,
+		cursor?: string | null,
+		query?: string | null,
+	): Promise<UnassignedTeamsResponse> {
+		const unassignedTeamsResponse = await this.postResource<UnassignedTeamsResponse>(
+			`${v4UrlPath}/migrations/scope/unaligned/search`,
+			{
+				orgId,
+				count,
+				cursor,
+				query,
+			},
+		);
+		return unassignedTeamsResponse;
 	}
 
 	// some Legion APIs return team id with the team ARI

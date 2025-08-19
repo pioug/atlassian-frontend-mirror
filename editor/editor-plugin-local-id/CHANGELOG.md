@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-local-id
 
+## 1.0.1
+
+### Patch Changes
+
+- [`a53f6c9834696`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a53f6c9834696) -
+  EDITOR-1340 Adds plugin option to use duplicate id detection and fix.
+- Updated dependencies
+
 ## 1.0.0
 
 ### Major Changes

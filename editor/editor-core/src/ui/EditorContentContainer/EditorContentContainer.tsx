@@ -157,11 +157,7 @@ import {
 	taskItemStyles,
 	taskItemStylesWithBlockTaskItem,
 } from './styles/tasksAndDecisionsStyles';
-import {
-	telepointerColorAndCommonStyle,
-	telepointerStyle,
-	telepointerStyleWithInitialOnly,
-} from './styles/telepointerStyles';
+import { telepointerColorAndCommonStyle, telepointerStyle } from './styles/telepointerStyles';
 import { textColorStyles } from './styles/textColorStyles';
 import { textHighlightStyle } from './styles/textHighlightStyles';
 import { unsupportedStyles } from './styles/unsupportedStyles';
@@ -288,11 +284,8 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					ruleStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					mediaStyles,
-					fg('confluence_team_presence_scroll_to_pointer')
-						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							telepointerStyle
-						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							telepointerStyleWithInitialOnly,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					telepointerStyle,
 					/* This needs to be after telepointer styles as some overlapping rules have equal specificity, and so the order is significant */
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					telepointerColorAndCommonStyle,

@@ -16,7 +16,6 @@ import {
 } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { SmartLinkActionType } from '@atlaskit/linking-types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useControlDataExportConfig } from '../../../state/hooks/use-control-data-export-config';
 import { fakeFactory, mockGenerator, mocks } from '../../../utils/mocks';
@@ -27,10 +26,6 @@ import type { CardActionOptions } from '../../Card/types';
 const mockUrl = 'https://some.url';
 
 mockSimpleIntersectionObserver();
-jest.mock('@atlaskit/platform-feature-flags', () => ({
-	fg: jest.fn(),
-}));
-const fgMock = fg as jest.Mock;
 jest.mock('../../../state/hooks/use-control-data-export-config', () => ({
 	useControlDataExportConfig: jest.fn(),
 }));
@@ -56,7 +51,6 @@ describe('smart-card: card states, block', () => {
 	beforeEach(() => {
 		mockFetch = jest.fn(() => Promise.resolve(mocks.success));
 		mockClient = new (fakeFactory(mockFetch))();
-		fgMock.mockReturnValue(false);
 		useControlDataExportConfigMock.mockReturnValue({
 			shouldControlDataExport: false,
 		});
@@ -760,8 +754,7 @@ describe('smart-card: card states, block', () => {
 		});
 
 		describe('should data export DSP feature testing', () => {
-			it('block: resolved state should render unauth view (w/ no service) when resolved with ShouldControlDataExport + FG on', async () => {
-				fgMock.mockReturnValue(true);
+			it('block: resolved state should render unauth view (w/ no service) when resolved with ShouldControlDataExport', async () => {
 				useControlDataExportConfigMock.mockReturnValue({
 					shouldControlDataExport: true,
 				});
@@ -775,7 +768,6 @@ describe('smart-card: card states, block', () => {
 				);
 				const unauthView = await screen.findByTestId('smart-block-unauthorized-view-content');
 				expect(unauthView).toBeInTheDocument();
-				// With this FG on, we just block the description/preview, the title is OK
 				const resolvedViewName = await screen.findByText('I love cheese');
 				const unauthorizedLinkButton = screen.queryByRole('button');
 				expect(resolvedViewName).toBeInTheDocument();
@@ -783,30 +775,7 @@ describe('smart-card: card states, block', () => {
 				expect(mockFetch).toHaveBeenCalledTimes(1);
 			});
 
-			it('block: should render with metadata when resolved (with ShouldControlDataExport + FF off) and return a resolved view', async () => {
-				fgMock.mockReturnValue(false);
-				useControlDataExportConfigMock.mockReturnValue({
-					shouldControlDataExport: false,
-				});
-				getIsDataExportEnabledMock.mockReturnValue(false);
-				render(
-					<IntlProvider locale="en">
-						<Provider client={mockClient}>
-							<Card appearance="block" url={mockUrl} />
-						</Provider>
-					</IntlProvider>,
-				);
-				const resolvedViewName = await screen.findByText('I love cheese');
-				const resolvedViewDescription = await screen.findByText(
-					'Here is your serving of cheese: 🧀',
-				);
-				expect(resolvedViewName).toBeInTheDocument();
-				expect(resolvedViewDescription).toBeInTheDocument();
-				expect(mockFetch).toHaveBeenCalledTimes(1);
-			});
-
-			it('block: should render with metadata when resolved (with ShouldControlDataExport off + FF on) and return a resolved view', async () => {
-				fgMock.mockReturnValue(true);
+			it('block: should render with metadata when resolved (with ShouldControlDataExport) and return a resolved view', async () => {
 				useControlDataExportConfigMock.mockReturnValue({
 					shouldControlDataExport: false,
 				});

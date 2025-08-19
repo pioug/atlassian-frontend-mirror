@@ -101,6 +101,9 @@ export type InitialPluginConfiguration = {
 	trackChangesPlugin?: {
 		showOnToolbar?: boolean;
 	};
+	toolbarPlugin?: {
+		disableSelectionToolbar?: boolean;
+	};
 };
 
 /**
@@ -148,6 +151,7 @@ export default function createUniversalPresetInternal({
 			...props.hyperlinkOptions,
 		},
 		__livePage: props.__livePage,
+		toolbar: initialPluginConfiguration?.toolbarPlugin,
 	});
 
 	const statusMenuDisabled = !props.allowStatus

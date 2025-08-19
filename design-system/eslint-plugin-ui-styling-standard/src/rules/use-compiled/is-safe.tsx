@@ -14,6 +14,9 @@ export function isSafeUsage({
 	specifier: ESTree.ImportSpecifier;
 	supportedImports: Set<string>;
 }): boolean {
+	if (!('name' in specifier.imported)) {
+		return false;
+	}
 	const importName = specifier.imported.name;
 
 	if (!supportedImports.has(importName)) {

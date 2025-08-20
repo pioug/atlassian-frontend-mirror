@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/embedded-document",
-	"version": "1.0.2",
+	"version": "1.1.0",
 	"description": "DEPRECATED Embedded Document component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

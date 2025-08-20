@@ -29,17 +29,17 @@ type SharedProps = {
 	appearance?: 'brand' | 'legacy' | 'neutral' | 'inverse';
 
 	/**
-	 * Test ID applied to the parent 'span' element.
-	 */
-	testId?: string;
-
-	/**
 	 * Text used to describe what the icon is in context.
 	 *
 	 * A label is needed when there is no pairing visible text next to the icon.
 	 * An empty string marks the icon as presentation only.
 	 */
 	label?: string;
+
+	/**
+	 * Test ID applied to the parent 'span' element.
+	 */
+	testId?: string;
 };
 
 /**
@@ -78,13 +78,13 @@ export type ThemedIconProps = AppIconProps & {
 
 export type ThemedLogoProps = AppLogoProps & {
 	/**
-	 * @deprecated text color of the logo. Only supported for logos that support custom theming.
-	 */
-	textColor?: string;
-	/**
 	 * @deprecated icon color of the logo. Only supported for logos that support custom theming.
 	 */
 	iconColor?: string;
+	/**
+	 * @deprecated text color of the logo. Only supported for logos that support custom theming.
+	 */
+	textColor?: string;
 };
 
 export type AllLogoProps = AppLogoProps | ThemedLogoProps;

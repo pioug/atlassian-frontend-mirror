@@ -1,5 +1,23 @@
 # @atlaskit/link-datasource
 
+## 4.20.0
+
+### Minor Changes
+
+- [`cdc1b340de640`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cdc1b340de640) -
+  Product/App term refresh
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.19.8
+
+### Patch Changes
+
+- [`57b19274b9fdd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/57b19274b9fdd) -
+  EDITOR-1373 Bump adf-schema version
+
 ## 4.19.7
 
 ### Patch Changes

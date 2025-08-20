@@ -184,7 +184,11 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 
 	if (expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true)) {
 		api?.toolbar?.actions.registerComponents(
-			getToolbarComponents({ api, tableSelectorSupported: options.tableSelectorSupported }),
+			getToolbarComponents({
+				api,
+				tableSelectorSupported: options.tableSelectorSupported,
+				toolbarShowPlusInsertOnly: options.toolbarShowPlusInsertOnly,
+			}),
 		);
 	} else {
 		api?.primaryToolbar?.actions.registerComponent({

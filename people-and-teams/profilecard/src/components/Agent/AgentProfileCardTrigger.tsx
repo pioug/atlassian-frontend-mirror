@@ -109,6 +109,7 @@ export const AgentProfileCardTrigger = ({
 					onChatClick={props.onChatClick}
 					onConversationStartersClick={props.onConversationStartersClick}
 					resourceClient={props.resourceClient}
+					onDeleteAgent={props.onDeleteAgent}
 					addFlag={props.addFlag}
 				/>
 			</Suspense>

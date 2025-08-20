@@ -66,10 +66,13 @@ export class ResizingMarkView implements NodeView {
 		}
 		contentDOM.style.zIndex = '1';
 
-		if (expValEquals('platform_editor_breakout_resizing_vc90_fix', 'isEnabled', true) && fg('platform_editor_breakout_resizing_width_changes')) {
+		if (
+			expValEquals('platform_editor_breakout_resizing_vc90_fix', 'isEnabled', true) &&
+			fg('platform_editor_breakout_resizing_width_changes')
+		) {
 			if (mark.attrs.width) {
 				dom.style.gridTemplateColumns = `auto max(var(--ak-editor--breakout-min-width), min(var(${LOCAL_RESIZE_PROPERTY}, ${mark.attrs.width}px), var(--ak-editor--breakout-fallback-width))) auto`;
-			}  else {
+			} else {
 				if (mark.attrs.mode === 'wide') {
 					contentDOM.style.width = `max(var(--ak-editor--line-length), min(var(${LOCAL_RESIZE_PROPERTY}, var(--ak-editor--breakout-wide-layout-width)), calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding))))`;
 				}

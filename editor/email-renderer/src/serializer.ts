@@ -2,8 +2,8 @@ import { type Fragment } from '@atlaskit/editor-prosemirror/model';
 
 export interface Serializer<T> {
 	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/method-signature-style -- method-signature-style ignored via go/ees013 (to be fixed)
-	serializeFragment(fragment: Fragment, props?: any, target?: any, key?: string): T | null;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	serializeFragment: (fragment: Fragment, props?: any, target?: any, key?: string) => T | null;
 }
 
 export type MediaImageBase64 = {
@@ -18,8 +18,7 @@ export interface SerializeFragmentWithAttachmentsResult {
 }
 
 export interface SerializerWithImages<T> extends Serializer<T> {
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	serializeFragmentWithImages(
+	serializeFragmentWithImages: (
 		fragment: Fragment,
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -28,5 +27,5 @@ export interface SerializerWithImages<T> extends Serializer<T> {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		target?: any,
 		key?: string,
-	): SerializeFragmentWithAttachmentsResult | null;
+	) => SerializeFragmentWithAttachmentsResult | null;
 }

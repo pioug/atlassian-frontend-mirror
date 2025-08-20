@@ -37,11 +37,11 @@ export const TrackChangesButtonNew = ({ api }: TrackChangesButtonNewProps) => {
 	return (
 		<ToolbarTooltip content={formatMessage(trackChangesMessages.toolbarIconLabel)}>
 			<ToolbarButton
-			iconBefore={<HistoryIcon label={formatMessage(trackChangesMessages.toolbarIconLabel)} />}
-			onClick={handleClick}
-			isDisabled={!isShowDiffAvailable}
-			isSelected={isDisplayingChanges}
-		/>
+				iconBefore={<HistoryIcon label={formatMessage(trackChangesMessages.toolbarIconLabel)} />}
+				onClick={handleClick}
+				isDisabled={!isShowDiffAvailable}
+				isSelected={isDisplayingChanges}
+			/>
 		</ToolbarTooltip>
 	);
 };

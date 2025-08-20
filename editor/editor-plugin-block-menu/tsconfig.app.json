@@ -41,10 +41,16 @@
 			"path": "../editor-plugin-block-controls/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-selection/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-user-intent/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-shared-styles/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-tables/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-toolbar/tsconfig.app.json"

@@ -72,6 +72,14 @@ export interface InsertBlockPluginOptions {
 	showElementBrowserLink?: boolean;
 	tableSelectorSupported?: boolean;
 	appearance?: EditorAppearance;
+	/**
+	 * To hide the individual insert block buttons in the toolbar
+	 * and only show the plus button
+	 * @default undefined Shows the insert block buttons and the plus button
+	 *
+	 * Only applies when platform_editor_toolbar_aifc is enabled
+	 */
+	toolbarShowPlusInsertOnly?: boolean;
 }
 
 /**

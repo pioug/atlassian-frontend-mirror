@@ -1,4 +1,4 @@
-export type Assets = Record<string, { logo: boolean; icon: boolean; 'logo-cs': boolean }>;
+export type Assets = Record<string, { icon: boolean; logo: boolean; 'logo-cs': boolean }>;
 
 const collectionColors = {
 	strategy: '#FB9700',

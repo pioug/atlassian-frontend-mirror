@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-code-block
 
+## 5.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.0.11
+
+### Patch Changes
+
+- [`57b19274b9fdd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/57b19274b9fdd) -
+  EDITOR-1373 Bump adf-schema version
+- Updated dependencies
+
 ## 5.0.10
 
 ### Patch Changes

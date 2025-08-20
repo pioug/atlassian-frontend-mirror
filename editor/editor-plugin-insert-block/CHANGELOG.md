@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 4.3.0
+
+### Minor Changes
+
+- [`d4b3d46926b3b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4b3d46926b3b) -
+  [ux] ED-29014 add new option to insert block plugin to only show the plus button in the toolbar.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.2.1
 
 ### Patch Changes

@@ -25,6 +25,7 @@ export type AgentProfileCardResourcedProps = {
 	trigger?: TriggerType;
 	children?: React.ReactNode;
 	addFlag?: (flag: Flag) => void;
+	onDeleteAgent?: (agentId: string) => { restore: () => void };
 } & AgentActionsType;
 
 export const AgentProfileCardResourced = (props: AgentProfileCardResourcedProps) => {
@@ -151,6 +152,7 @@ export const AgentProfileCardResourced = (props: AgentProfileCardResourcedProps)
 				addFlag={props.addFlag}
 				resourceClient={props.resourceClient}
 				cloudId={props.cloudId}
+				onDeleteAgent={props.onDeleteAgent}
 			/>
 		</Suspense>
 	);

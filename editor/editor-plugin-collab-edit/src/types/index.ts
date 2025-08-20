@@ -24,12 +24,9 @@ export type ProviderBuilder = (
 ) => ProviderCallback;
 
 export interface ReadOnlyParticipants {
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	get(sessionId: string): CollabParticipant | undefined;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	toArray(): ReadonlyArray<CollabParticipant>;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	eq(other: ReadOnlyParticipants): boolean;
+	get: (sessionId: string) => CollabParticipant | undefined;
+	toArray: () => ReadonlyArray<CollabParticipant>;
+	eq: (other: ReadOnlyParticipants) => boolean;
 }
 
 export type CollabInitializedMetadata = {

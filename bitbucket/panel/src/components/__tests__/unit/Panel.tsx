@@ -37,7 +37,7 @@ describe('Panel component', () => {
 		let panelContent = container.getElementsByClassName('panel-content');
 		expect(panelContent[0]).toHaveStyle({ height: '0px' });
 
-		userEvent.click(getByText('Header'));
+		await userEvent.click(getByText('Header'));
 		await waitFor(() => expect(panelContent[0]).toHaveStyle({ height: 'auto' }));
 	});
 	it('is expanded by default when isDefaultExpanded is passed', () => {

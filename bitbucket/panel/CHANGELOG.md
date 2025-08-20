@@ -1,5 +1,13 @@
 # @atlaskit/panel
 
+## 0.11.15
+
+### Patch Changes
+
+- [`b0f03432a8e3c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b0f03432a8e3c) -
+  Sorted type and interface props to improve Atlaskit docs
+- Updated dependencies
+
 ## 0.11.14
 
 ### Patch Changes

@@ -7,14 +7,12 @@ import type { GetResolvedEditorStateReason } from '@atlaskit/editor-common/types
 
 // This interface is to make sure both DocumentService and NullDocumentService have same signatures
 export interface DocumentServiceInterface {
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	setup(params: {
+	setup: (params: {
 		getState: () => EditorState;
 		onSyncUpError?: SyncUpErrorFunction;
 		clientId: number | string | undefined;
-	}): this;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	updateDocument(params: {
+	}) => this;
+	updateDocument: (params: {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		doc: any;
@@ -23,38 +21,29 @@ export interface DocumentServiceInterface {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		metadata: any;
 		reserveCursor?: boolean;
-	}): void;
+	}) => void;
 	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/method-signature-style -- method-signature-style ignored via go/ees013 (to be fixed)
-	onRestore(params: { doc: any; version: number; metadata: any }): void;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	onRestore: (params: { doc: any; version: number; metadata: any }) => void;
 	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/method-signature-style -- method-signature-style ignored via go/ees013 (to be fixed)
-	onStepsAdded(data: { version: number; steps: any[] }): void;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	onStepRejectedError(): void;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	send(
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	onStepsAdded: (data: { version: number; steps: any[] }) => void;
+	onStepRejectedError: () => void;
+	send: (
 		tr: Transaction | null,
 		oldState: EditorState | null,
 		newState: EditorState,
 		sendAnalyticsEvent?: boolean,
-	): void;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	sendStepsFromCurrentState(
+	) => void;
+	sendStepsFromCurrentState: (
 		sendAnalyticsEvent?: boolean,
 		reason?: GetResolvedEditorStateReason,
-	): void;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	throttledCatchupv2(): void;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	getCurrentState(): Promise<ResolvedEditorState>;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	getFinalAcknowledgedState(reason: GetResolvedEditorStateReason): Promise<ResolvedEditorState>;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	getIsNamespaceLocked(): boolean;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	getUnconfirmedSteps(): readonly ProseMirrorStep[] | undefined;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	getCurrentPmVersion(): number;
+	) => void;
+	throttledCatchupv2: () => void;
+	getCurrentState: () => Promise<ResolvedEditorState>;
+	getFinalAcknowledgedState: (reason: GetResolvedEditorStateReason) => Promise<ResolvedEditorState>;
+	getIsNamespaceLocked: () => boolean;
+	getUnconfirmedSteps: () => readonly ProseMirrorStep[] | undefined;
+	getCurrentPmVersion: () => number;
 	onErrorHandled: (error: InternalError) => void;
 }

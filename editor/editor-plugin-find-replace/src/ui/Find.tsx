@@ -236,7 +236,11 @@ class Find extends React.Component<FindProps & WrappedComponentProps, State> {
 			<TextLetterCaseIcon
 				LEGACY_size={'small'}
 				LEGACY_fallbackIcon={EditorTextStyleIcon}
-				label={expValEquals('platform_editor_find_replace_a11y_fixes', 'isEnabled', true) ? iconProps.label : this.matchCase}
+				label={
+					expValEquals('platform_editor_find_replace_a11y_fixes', 'isEnabled', true)
+						? iconProps.label
+						: this.matchCase
+				}
 				size="small"
 			/>
 		) : (

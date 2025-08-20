@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 3.5.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.5.1
+
+### Patch Changes
+
+- [`364b31a9e1f44`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/364b31a9e1f44) -
+  Extend the extension configuration type to support grouping
+- Updated dependencies
+
 ## 3.5.0
 
 ### Minor Changes

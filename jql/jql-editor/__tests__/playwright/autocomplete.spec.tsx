@@ -35,12 +35,12 @@ test.describe('JQL Editor Autocomplete', () => {
 				'Skipped due to a timeout issue with locating elements in Chromium after upgrading to Playwright 1.44.1',
 			browsers: [BROWSERS.chromium],
 		});
-		
+
 		// Enable Popper FF
 		await page.addInitScript(() => {
 			window.localStorage.setItem('platform.jql_editor_autocomplete_use_popper', 'true');
 		});
-		
+
 		const jqlEditor = new JQLEditorPage(page);
 		await jqlEditor.visitExample('basic-editor');
 		// Field
@@ -75,19 +75,21 @@ test.describe('JQL Editor Autocomplete', () => {
 		await expect(jqlEditor.input).toHaveText('project = CLS');
 	});
 
-	test('Autocomplete replaces quoted string when inner text is selected with Popper FF', async ({ page }) => {
+	test('Autocomplete replaces quoted string when inner text is selected with Popper FF', async ({
+		page,
+	}) => {
 		fixTest({
 			jiraIssueId: 'UTEST-1839',
 			reason:
 				'Skipped due to a timeout issue with locating elements in Chromium after upgrading to Playwright 1.44.1',
 			browsers: [BROWSERS.chromium],
 		});
-		
+
 		// Enable Popper FF
 		await page.addInitScript(() => {
 			window.localStorage.setItem('platform.jql_editor_autocomplete_use_popper', 'true');
 		});
-		
+
 		const jqlEditor = new JQLEditorPage(page);
 		await jqlEditor.visitExample('basic-editor');
 		await jqlEditor.input.clear();

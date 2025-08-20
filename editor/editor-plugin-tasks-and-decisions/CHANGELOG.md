@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 6.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.4.0
+
+### Minor Changes
+
+- [`8ce4178519d92`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8ce4178519d92) -
+  Added ignore mutation for decision node view
+
+## 6.3.3
+
+### Patch Changes
+
+- [`57b19274b9fdd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/57b19274b9fdd) -
+  EDITOR-1373 Bump adf-schema version
+- Updated dependencies
+
 ## 6.3.2
 
 ### Patch Changes

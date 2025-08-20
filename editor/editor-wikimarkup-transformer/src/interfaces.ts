@@ -12,15 +12,13 @@ export interface Builder {
 	 * Add a item to the builder
 	 * @param {AddCellArgs[]} items
 	 */
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	add(items: AddArgs[]): void;
+	add: (items: AddCellArgs[]) => void;
 
 	/**
 	 * Compile a prosemirror node from the root list
 	 * @returns {PMNode}
 	 */
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	buildPMNode(): PMNode;
+	buildPMNode: () => PMNode;
 }
 
 export interface ListItem {

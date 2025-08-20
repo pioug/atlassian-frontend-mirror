@@ -1,5 +1,28 @@
 # @atlaskit/editor-json-transformer
 
+## 8.27.0
+
+### Minor Changes
+
+- [`72f94befc61f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/72f94befc61f2) -
+  replace method-style signatures with function-style signatures
+
+## 8.26.1
+
+### Patch Changes
+
+- [`57b19274b9fdd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/57b19274b9fdd) -
+  EDITOR-1373 Bump adf-schema version
+- Updated dependencies
+
+## 8.26.0
+
+### Minor Changes
+
+- [`7b86b50272e47`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b86b50272e47) -
+  Expose new utility function, `nodeToJSON` which can be used to safely return a JSON object from a
+  node.
+
 ## 8.25.1
 
 ### Patch Changes

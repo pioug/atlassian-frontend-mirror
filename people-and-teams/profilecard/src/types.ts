@@ -378,6 +378,7 @@ export interface AgentProfileCardTriggerProps extends AgentActionsType {
 	offset?: [number, number];
 	product?: string;
 	viewingUserId?: string;
+	onDeleteAgent?: (agentId: string) => { restore: () => void };
 }
 
 export type AgentProfileCardProps = {
@@ -388,6 +389,7 @@ export type AgentProfileCardProps = {
 	cloudId?: string;
 	errorType?: ProfileCardErrorType;
 	addFlag?: (flag: Flag) => void;
+	onDeleteAgent?: (agentId: string) => { restore: () => void };
 } & AgentActionsType;
 
 export type StatusType = 'active' | 'inactive' | 'closed';

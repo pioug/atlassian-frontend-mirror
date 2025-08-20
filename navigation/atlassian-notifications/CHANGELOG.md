@@ -1,5 +1,12 @@
 # @atlaskit/atlassian-notifications
 
+## 0.7.2
+
+### Patch Changes
+
+- [`cbcef77ba1e89`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cbcef77ba1e89) -
+  Sorted type and interface props to improve Atlaskit docs
+
 ## 0.7.1
 
 ### Patch Changes

@@ -5,9 +5,9 @@ type IframeProps = DetailedHTMLProps<IframeHTMLAttributes<HTMLIFrameElement>, HT
 export type NotificationsProps = Omit<IframeProps, 'src'> & {
 	// Reserved for testing, avoid using this
 	_url?: string;
+	isNewExperience?: boolean;
 	locale?: string;
 	product?: 'confluence' | 'jira' | string;
 	subproduct?: 'software' | 'serviceManagement' | 'workManagement' | string;
 	testId?: string;
-	isNewExperience?: boolean;
 };

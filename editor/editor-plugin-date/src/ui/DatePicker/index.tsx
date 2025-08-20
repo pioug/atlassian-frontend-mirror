@@ -178,7 +178,11 @@ class DatePicker extends React.Component<Props & WrappedComponentProps, State> {
 								ref={this.handleRef}
 								weekStartDay={weekStartDay ?? defaultWeekStartDay}
 								testId={'datepicker'}
-								locale={intl.locale}
+								locale={
+									expValEquals('platform_editor_locale_datepicker', 'isEnabled', true)
+										? intl.locale
+										: undefined
+								}
 							/>
 						</div>
 					)}

@@ -1,5 +1,18 @@
 # @atlaskit/user-picker
 
+## 11.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.6.0
+
+### Minor Changes
+
+- [`4660708beb24d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4660708beb24d) -
+  Product/App term refresh
+
 ## 11.5.0
 
 ### Minor Changes

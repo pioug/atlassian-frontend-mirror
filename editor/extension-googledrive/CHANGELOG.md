@@ -1,5 +1,19 @@
 # @atlaskit/editor-extension-googledrive
 
+## 1.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.4
+
+### Patch Changes
+
+- [`57b19274b9fdd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/57b19274b9fdd) -
+  EDITOR-1373 Bump adf-schema version
+- Updated dependencies
+
 ## 1.0.3
 
 ### Patch Changes

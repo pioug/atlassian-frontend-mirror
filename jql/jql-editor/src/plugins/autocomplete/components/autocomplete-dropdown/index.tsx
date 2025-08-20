@@ -330,7 +330,7 @@ const AutocompleteDropdown = ({ options, loading, keymap, onClick }: Props) => {
 		</AutocompleteOptionsContainer>
 	);
 
-	const renderLoadingFooter = () => (
+	const renderLoadingFooter = () =>
 		loading && (
 			<AutocompleteLoadingFooter
 				data-testid="jql-editor-autocomplete-loading"
@@ -338,8 +338,7 @@ const AutocompleteDropdown = ({ options, loading, keymap, onClick }: Props) => {
 			>
 				<Spinner size="small" />
 			</AutocompleteLoadingFooter>
-		)
-	);
+		);
 
 	// Early return if popper positioning is enabled but virtual reference element is not available
 	if (isPopperPositioningEnabled && !virtualReferenceElement) {

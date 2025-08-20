@@ -334,7 +334,7 @@ export const TRACK_CHANGES_GROUP_RANK = {
 	[UNDO_BUTTON.key]: 100,
 	[REDO_BUTTON.key]: 200,
 	[TRACK_CHANGES_BUTTON.key]: 300,
-}
+};
 
 /**
  * Overflow section

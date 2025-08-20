@@ -1,11 +1,16 @@
 import type { Change } from 'prosemirror-changeset';
 
-import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
+import {
+	type NodeViewConstructor,
+	convertToInlineCss,
+} from '@atlaskit/editor-common/lazy-node-view';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { token } from '@atlaskit/tokens';
 
-import type { NodeViewSerializer } from './NodeViewSerializer';
+import { NodeViewSerializer } from './NodeViewSerializer';
 
 const style = convertToInlineCss({
 	background: token('color.background.accent.purple.subtlest'),
@@ -34,7 +39,9 @@ export const createInlineChangedDecoration = (change: { fromB: number; toB: numb
 interface DeletedContentDecorationProps {
 	change: Change;
 	doc: PMNode;
-	nodeViewSerializer: NodeViewSerializer;
+	tr: Transaction;
+	nodeViews: Record<string, NodeViewConstructor>;
+	editorView?: EditorView;
 }
 
 const deletedContentStyle = convertToInlineCss({
@@ -65,7 +72,9 @@ const deletedContentStyleUnbounded = convertToInlineCss({
 export const createDeletedContentDecoration = ({
 	change,
 	doc,
-	nodeViewSerializer,
+	tr,
+	editorView,
+	nodeViews,
 }: DeletedContentDecorationProps) => {
 	const dom = document.createElement('span');
 	dom.setAttribute('style', deletedContentStyle);
@@ -77,8 +86,11 @@ export const createDeletedContentDecoration = ({
 	 */
 	const slice = doc.slice(change.fromA, change.toA);
 
-	// Use the provided nodeViewSerializer or create a fallback (though this shouldn't happen in normal usage)
-	const serializer = nodeViewSerializer;
+	const nodeViewSerializer = new NodeViewSerializer({
+		schema: tr.doc.type.schema,
+		editorView,
+		nodeViews,
+	});
 
 	slice.content.forEach((node) => {
 		// Create a wrapper for each node with strikethrough
@@ -96,27 +108,25 @@ export const createDeletedContentDecoration = ({
 
 		// Helper function to handle multiple child nodes
 		const handleMultipleChildNodes = (node: PMNode): boolean => {
-			const processedChildren = serializer.processMultipleChildNodes(node);
-
-			if (!processedChildren) {
-				return false; // Not applicable, continue with normal logic
+			if (node.content.childCount > 1 && node.type.inlineContent) {
+				node.content.forEach((childNode) => {
+					const childNodeView = nodeViewSerializer.tryCreateNodeView(childNode);
+					if (childNodeView) {
+						const lineBreak = document.createElement('br');
+						targetNode = node;
+						dom.append(lineBreak);
+						const wrapper = createWrapperWithStrikethrough();
+						wrapper.append(childNodeView.dom);
+						dom.append(wrapper);
+					} else {
+						// Fallback to serializing the individual child node
+						const serializedChild = nodeViewSerializer.serializeNode(childNode);
+						dom.append(serializedChild);
+					}
+				});
+				return true; // Indicates we handled multiple children
 			}
-
-			// Handle the styling and DOM manipulation for each processed child
-			processedChildren.forEach(({ dom: nodeViewDom, serializedNode }) => {
-				if (nodeViewDom) {
-					const lineBreak = document.createElement('br');
-					targetNode = node;
-					dom.append(lineBreak);
-					const wrapper = createWrapperWithStrikethrough();
-					wrapper.append(nodeViewDom);
-					dom.append(wrapper);
-				} else if (serializedNode) {
-					dom.append(serializedNode);
-				}
-			});
-
-			return true; // Indicates we handled multiple children
+			return false; // Indicates single child, continue with normal logic
 		};
 
 		// Determine which node to use and how to serialize
@@ -132,7 +142,7 @@ export const createDeletedContentDecoration = ({
 				return;
 			}
 			targetNode = node.content.content[0];
-			fallbackSerialization = () => serializer.serializeFragment(node.content);
+			fallbackSerialization = () => nodeViewSerializer.serializeFragment(node.content);
 		} else if (isLast && slice.content.childCount === 2) {
 			if (handleMultipleChildNodes(node)) {
 				return;
@@ -147,25 +157,25 @@ export const createDeletedContentDecoration = ({
 				if (node.type.name === 'paragraph') {
 					const lineBreak = document.createElement('br');
 					dom.append(lineBreak);
-					return serializer.serializeFragment(node.content);
+					return nodeViewSerializer.serializeFragment(node.content);
 				}
 
-				return serializer.serializeFragment(node.content);
+				return nodeViewSerializer.serializeFragment(node.content);
 			};
 		} else {
 			if (handleMultipleChildNodes(node)) {
 				return;
 			}
 			targetNode = node.content.content[0] || node;
-			fallbackSerialization = () => serializer.serializeNode(node);
+			fallbackSerialization = () => nodeViewSerializer.serializeNode(node);
 		}
 
 		// Try to create node view, fallback to serialization
-		const nodeViewDom = serializer.tryCreateNodeViewDom(targetNode);
+		const nodeView = nodeViewSerializer.tryCreateNodeView(targetNode);
 
-		if (nodeViewDom) {
+		if (nodeView) {
 			const wrapper = createWrapperWithStrikethrough();
-			wrapper.append(nodeViewDom);
+			wrapper.append(nodeView.dom);
 			dom.append(wrapper);
 		} else {
 			dom.append(fallbackSerialization());

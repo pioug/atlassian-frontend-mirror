@@ -2,6 +2,7 @@ import { type IntlShape } from 'react-intl-next';
 
 import { DOMSerializer, type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { type NodeView } from '@atlaskit/editor-prosemirror/view';
+import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import { decisionItemToDOM } from './decisionItemNodeSpec';
 
@@ -55,5 +56,29 @@ export class DecisionItemNodeView implements NodeView {
 	public update(node: PMNode): boolean {
 		this.updateHasChildren(node);
 		return true;
+	}
+
+	/**
+	 * Determines whether a mutation should be ignored by ProseMirror.
+	 * This prevents unnecessary node view destruction during DOM changes that don't affect our content.
+	 * @param mutation - The DOM mutation record or selection change
+	 * @returns true if the mutation should be ignored, false if it should be processed
+	 * @example
+	 * // Mutation outside contentDOM will be ignored
+	 * const shouldIgnore = decisionItemNodeView.ignoreMutation(mutationRecord);
+	 */
+	public ignoreMutation(mutation: MutationRecord | { type: 'selection'; target: Node }): boolean {
+		// This was discovered while implementing the platform_editor_debounce_portal_provider experiment
+		// And there will only be an issue if the experiment is enabled.
+		// As such, this fix is behind this experiment.
+		if (!expVal('platform_editor_debounce_portal_provider', 'isEnabled', false)) {
+			return false; // Let ProseMirror handle all mutations when experiment is disabled
+		}
+
+		if (!this.contentDOM) {
+			return true;
+		}
+		// Ignore mutations that don't target our contentDOM and aren't selection changes
+		return !this.contentDOM.contains(mutation.target) && mutation.type !== 'selection';
 	}
 }

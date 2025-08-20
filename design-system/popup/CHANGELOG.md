@@ -1,5 +1,13 @@
 # @atlaskit/popup
 
+## 4.3.8
+
+### Patch Changes
+
+- [`87980402df1c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/87980402df1c7) -
+  Adds props descriptions for `TriggerProps` type.
+- Updated dependencies
+
 ## 4.3.7
 
 ### Patch Changes

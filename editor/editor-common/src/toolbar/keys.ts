@@ -482,7 +482,7 @@ export const REDO_BUTTON = {
 
 export const TRACK_CHANGES_BUTTON = {
 	key: 'track-changes-button',
-	type: 'button'
+	type: 'button',
 } as const;
 
 /**

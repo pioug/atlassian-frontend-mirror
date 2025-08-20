@@ -417,26 +417,27 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 		onFileChooserClicked && onFileChooserClicked();
 	};
 
-	const content = name && previewImage ? (
-		<EmojiUploadPreview
-			errorMessage={errorMessage}
-			name={name}
-			onAddEmoji={onAddEmoji}
-			onUploadCancelled={cancelUpload}
-			previewImage={previewImage}
-			uploadStatus={uploadStatus}
-		/>
-	) : (
-		<ChooseEmojiFile
-			name={name}
-			onChooseFile={onChooseFile}
-			onClick={onChooseFileClicked}
-			onNameChange={onNameChange}
-			onUploadCancelled={cancelUpload}
-			errorMessage={chooseEmojiErrorMessage}
-			intl={intl}
-		/>
-	);
+	const content =
+		name && previewImage ? (
+			<EmojiUploadPreview
+				errorMessage={errorMessage}
+				name={name}
+				onAddEmoji={onAddEmoji}
+				onUploadCancelled={cancelUpload}
+				previewImage={previewImage}
+				uploadStatus={uploadStatus}
+			/>
+		) : (
+			<ChooseEmojiFile
+				name={name}
+				onChooseFile={onChooseFile}
+				onClick={onChooseFileClicked}
+				onNameChange={onNameChange}
+				onUploadCancelled={cancelUpload}
+				errorMessage={chooseEmojiErrorMessage}
+				intl={intl}
+			/>
+		);
 
 	return disableFocusLock ? content : <FocusLock noFocusGuards>{content}</FocusLock>;
 };

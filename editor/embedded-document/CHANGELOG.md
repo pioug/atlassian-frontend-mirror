@@ -1,5 +1,16 @@
 # @atlaskit/embedded-document
 
+## 1.1.0
+
+### Minor Changes
+
+- [`72f94befc61f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/72f94befc61f2) -
+  replace method-style signatures with function-style signatures
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.0.2
 
 ### Patch Changes

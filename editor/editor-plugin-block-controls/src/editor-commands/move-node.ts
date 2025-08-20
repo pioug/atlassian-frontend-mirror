@@ -197,7 +197,7 @@ export const moveNodeViaShortcut = (
 
 		const currentNodePos =
 			isMultiSelectEnabled && !getFocusedHandle(state) && !selection.empty
-				? (hoistedPos ?? from)
+				? hoistedPos ?? from
 				: getCurrentNodePos(state);
 		if (currentNodePos > -1) {
 			const $currentNodePos = state.doc.resolve(currentNodePos);
@@ -520,10 +520,10 @@ export const moveNode =
 			inputMethod === INPUT_METHOD.DRAG_AND_DROP
 				? setCursorPositionAtMovedNode(tr, mappedTo)
 				: isMultiSelect
-					? (api?.blockControls.commands.setMultiSelectPositions(
+					? api?.blockControls.commands.setMultiSelectPositions(
 							mappedTo,
 							mappedTo + sliceSize,
-						)({ tr }) ?? tr)
+						)({ tr }) ?? tr
 					: selectNode(tr, mappedTo, handleNode.type.name);
 		const currMeta = tr.getMeta(key);
 		tr.setMeta(key, { ...currMeta, nodeMoved: true });

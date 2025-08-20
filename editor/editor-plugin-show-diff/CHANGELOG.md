@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 0.1.4
+
+### Patch Changes
+
+- [`1fc9ea612c6ef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1fc9ea612c6ef) -
+  [EDITOR-1358] Fix nit + minor local bug
+
 ## 0.1.3
 
 ### Patch Changes

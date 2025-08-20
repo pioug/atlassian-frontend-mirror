@@ -1,5 +1,20 @@
 # @atlaskit/profilecard
 
+## 24.5.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.5.5
+
+### Patch Changes
+
+- [`b595ecb3ce7fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b595ecb3ce7fd) -
+  [ux] This is a bug fix for the Rove agent profile card trigger to optimistically udpate the UI
+  when a agent is deleted instead of refreshing to clear agent from list
+- Updated dependencies
+
 ## 24.5.4
 
 ### Patch Changes

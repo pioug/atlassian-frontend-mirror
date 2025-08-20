@@ -41,6 +41,7 @@ export default {
     "⁣⁢We couldn't find anything matching your search⁯⁡⁮⁮⁮⁡⁡‍⁯⁪⁡⁫‌⁯⁯‌⁯⁪⁠؜⁬⁫⁪⁭⁯⁣⁤",
   'linkDataSource.basic-filter.no-options-message-old': '⁣⁢No matches found⁫‌⁫‍⁡⁬⁭‌؜⁠⁫⁬⁭⁬⁪⁠⁬⁭⁠⁭⁭‌‍⁯⁣⁤',
   'linkDataSource.basic-filter.project.label': '⁣⁢Project‌⁪⁭⁭⁪‍⁠⁫‌⁠⁭⁡⁪⁡⁯‍⁪⁮⁫⁮⁡⁪⁣⁤',
+  'linkDataSource.basic-filter.project.label-galaxia': '⁣⁢Space‌⁡⁡⁮⁭⁡⁡⁮‌⁭⁡‍⁡⁪⁮⁮⁪⁪⁬⁯‍⁯⁣⁤',
   'linkDataSource.basic-filter.project.searchPlaceholder': '⁣⁢Search for projects؜⁭‌⁭⁡⁯‌⁫؜⁠؜‌⁭⁬‌⁡⁫؜⁯‍⁣⁤',
   'linkDataSource.basic-filter.showMoreButton': '⁣⁢Show more⁭⁮⁠؜⁪⁮⁫⁯⁪⁭‍؜⁪⁬⁪⁮⁮⁡⁮⁡⁫؜‌⁣⁤',
   'linkDataSource.basic-filter.status.label': '⁣⁢Status⁬‌⁬⁬‍؜⁭⁪⁠⁯؜⁯؜؜⁯⁫⁭⁯⁬⁭⁯⁫⁡⁯‍⁣⁤',
@@ -114,6 +115,8 @@ export default {
   'linkDataSource.issue-line-table.error-generic-title': '⁣⁢Something went wrong⁡⁫⁬⁪⁮⁬⁭⁬‌⁡⁫⁡⁠⁪‌⁭⁪⁬⁡⁫⁪⁣⁤',
   'linkDataSource.issue-line-table.fetch-action-error-generic-description':
     '⁣⁢Wait a few minutes, then try again. Check your project settings or contact support if this keeps happening.⁮⁭⁡‍⁠⁮؜⁠؜؜⁮⁬⁡⁭؜⁬⁭⁯⁡⁫⁫⁣⁤',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-description-galaxia':
+    '⁣⁢Wait a few minutes, then try again. Check your space settings or contact support if this keeps happening.⁫⁯⁫⁯⁬‌⁪؜⁡⁮⁫‍⁬⁭‌‍⁬؜⁮⁭⁪⁮⁬⁮⁯⁣⁤',
   'linkDataSource.issue-line-table.fetch-action-error-generic-title':
     '⁣⁢We’re having trouble fetching options‌‌⁫‌؜⁬⁭‍‍⁡⁪‍‌‌⁬⁯⁫⁠⁯‌⁡؜‍⁣⁤',
   'linkDataSource.issue-line-table.unwrap-text': '⁣⁢Unwrap text⁪⁡⁬⁡⁪‍⁭⁭⁯⁡⁫⁪‍⁬⁮؜‍؜⁠‌‍⁫⁫⁣⁤',

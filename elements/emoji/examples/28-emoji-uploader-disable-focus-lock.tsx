@@ -13,7 +13,7 @@ import { IntlProvider } from 'react-intl-next';
 
 export default function EmojiUploaderDisableFocusLock() {
 	const [disableFocusLock, setDisableFocusLock] = useState(false);
-	
+
 	const emojiProvider: Promise<EmojiProvider> = getEmojiResource({
 		uploadSupported: true,
 		currentUser: { id: loggedUser },
@@ -24,13 +24,10 @@ export default function EmojiUploaderDisableFocusLock() {
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 			<div style={{ padding: '10px' }}>
 				<h3>Emoji Uploader with Focus Lock Control</h3>
-				
+
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 				<div style={{ marginBottom: '20px' }}>
-					<Button
-						onClick={() => setDisableFocusLock(!disableFocusLock)}
-						appearance="primary"
-					>
+					<Button onClick={() => setDisableFocusLock(!disableFocusLock)} appearance="primary">
 						{disableFocusLock ? 'Enable Focus Lock' : 'Disable Focus Lock'}
 					</Button>
 					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
@@ -39,16 +36,13 @@ export default function EmojiUploaderDisableFocusLock() {
 					</p>
 					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 					<p style={{ fontSize: '14px', color: '#666' }}>
-						When Focus Lock is disabled, focus will not be trapped within the emoji uploader.
-						This is useful for accessibility scenarios where focus trapping might interfere 
-						with screen readers or other assistive technologies.
+						When Focus Lock is disabled, focus will not be trapped within the emoji uploader. This
+						is useful for accessibility scenarios where focus trapping might interfere with screen
+						readers or other assistive technologies.
 					</p>
 				</div>
 
-				<EmojiUploader 
-					emojiProvider={emojiProvider} 
-					disableFocusLock={disableFocusLock}
-				/>
+				<EmojiUploader emojiProvider={emojiProvider} disableFocusLock={disableFocusLock} />
 			</div>
 		</IntlProvider>
 	);

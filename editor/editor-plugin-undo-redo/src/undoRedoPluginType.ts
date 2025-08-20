@@ -17,7 +17,7 @@ export type UndoRedoPlugin = NextEditorPlugin<
 			HistoryPlugin,
 			OptionalPlugin<PrimaryToolbarPlugin>,
 			OptionalPlugin<AnalyticsPlugin>,
-			OptionalPlugin<ToolbarPlugin>
+			OptionalPlugin<ToolbarPlugin>,
 		];
 		actions: {
 			undo: UndoRedoAction;

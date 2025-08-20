@@ -66,7 +66,10 @@ const rule: Rule.RuleModule = createLintRule({
 
 						case '@atlaskit/css':
 						case '@compiled/react':
-							if (specifier.imported.type === 'Identifier' && specifier.imported.name === 'cssMap') {
+							if (
+								specifier.imported.type === 'Identifier' &&
+								specifier.imported.name === 'cssMap'
+							) {
 								tracker.cssMapFunction.add(specifier.local.name);
 							}
 							break;

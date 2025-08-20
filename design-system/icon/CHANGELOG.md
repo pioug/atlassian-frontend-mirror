@@ -1,5 +1,18 @@
 # @atlaskit/icon
 
+## 28.0.0
+
+### Major Changes
+
+- [`2705f4174191e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2705f4174191e) -
+  Legacy icons will no longer switch to the new icons via the
+  `platform-visual-refresh-icons-legacy-facade` feature flag. This change includes removing the icon
+  facade and cleaning up the feature flags.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.12.0
 
 ### Minor Changes

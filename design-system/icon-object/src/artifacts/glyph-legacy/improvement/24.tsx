@@ -1,15 +1,15 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c18e10d2ec16178035a776c33e081ee3>>
+ * @codegen <<SignedSource::d105306415d0bd07548b1bf26e70ff2a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 import React from 'react';
 
-import { IconFacade } from '@atlaskit/icon/base';
+import { Icon } from '@atlaskit/icon/base';
 import type { GlyphProps } from '@atlaskit/icon/types';
 
 const Improvement24Icon = (props: Omit<GlyphProps, 'primaryColor' | 'secondaryColor' | 'size'>) => (
-	<IconFacade
+	<Icon
 		dangerouslySetGlyph={`<svg width="24" height="24" viewBox="0 0 24 24" role="presentation"><path fill="#36b37e" fill-rule="evenodd" d="m13 7.422 3.284 3.285a1 1 0 1 0 1.414-1.414l-4.998-5a1 1 0 0 0-1.414 0l-4.998 5a1 1 0 1 0 1.414 1.414L11 7.407V19a1 1 0 0 0 2 0zM3 0h18a3 3 0 0 1 3 3v18a3 3 0 0 1-3 3H3a3 3 0 0 1-3-3V3a3 3 0 0 1 3-3"/></svg>`}
 		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 		{...props}

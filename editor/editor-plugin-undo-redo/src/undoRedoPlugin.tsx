@@ -117,6 +117,9 @@ export const undoRedoPlugin: UndoRedoPlugin = ({ api }) => {
 			return plugins;
 		},
 
-		primaryToolbarComponent: !api?.primaryToolbar && !expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true) ? primaryToolbarComponent : undefined,
+		primaryToolbarComponent:
+			!api?.primaryToolbar && !expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true)
+				? primaryToolbarComponent
+				: undefined,
 	};
 };

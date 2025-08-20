@@ -1,5 +1,16 @@
 # @atlaskit/collab-provider
 
+## 11.3.0
+
+### Minor Changes
+
+- [`72f94befc61f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/72f94befc61f2) -
+  replace method-style signatures with function-style signatures
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.2.4
 
 ### Patch Changes

@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 3.0.20
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.19
+
+### Patch Changes
+
+- [`57b19274b9fdd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/57b19274b9fdd) -
+  EDITOR-1373 Bump adf-schema version
+- Updated dependencies
+
+## 3.0.18
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.0.17
 
 ### Patch Changes

@@ -1,13 +1,11 @@
 import { type ComponentType } from 'react';
 
-
 import type { GridProps } from '@atlaskit/primitives/compiled';
 
 import { type TeamContainersSkeletonProps } from '../../common/ui/team-containers-skeleton';
 import { type OnRequestedContainerTimeout } from '../../controllers/hooks/use-requested-container';
 
 import { type LinkedContainerCardProps } from './linked-container-card';
-
 
 export type FlagType = FlagAppearance;
 
@@ -82,8 +80,8 @@ export interface TeamContainerProps {
 
 	onError?: (error: Error | boolean) => void;
 	/**
-	* Component to render in the grid before any results
-	**/
+	 * Component to render in the grid before any results
+	 **/
 	elemBeforeCards?: ComponentType<{}>;
 }
 

@@ -32,7 +32,6 @@ import { TrelloIcon, TrelloLogo, TrelloLogoCS } from '@atlaskit/temp-nav-app-ico
 import type { AppIconProps, AppLogoProps } from '../../src/utils/types';
 
 export const customThemeApps: Array<{
-	name: string;
 	Icon12: React.ComponentType<AppIconProps>;
 	Icon16: React.ComponentType<AppIconProps>;
 	Icon20: React.ComponentType<AppIconProps>;
@@ -40,6 +39,7 @@ export const customThemeApps: Array<{
 	Icon32: React.ComponentType<AppIconProps>;
 	Logo: React.ComponentType<AppLogoProps> | null;
 	LogoCS: React.ComponentType<AppLogoProps> | null;
+	name: string;
 }> = [
 	{
 		name: 'Confluence',

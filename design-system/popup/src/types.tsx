@@ -13,9 +13,22 @@ import { type StrictXCSSProp } from '@atlaskit/css';
 import { type Modifier, type Placement, type PopperChildrenProps } from '@atlaskit/popper';
 
 export interface TriggerProps {
+	/**
+	 * React ref that will be attached to the trigger element.
+	 */
 	ref: Ref<any>;
+	/**
+	 * Identifies the popup element that the trigger controls.
+	 * Should match the `id` of the popup content for screen readers to understand the relationship.
+	 */
 	'aria-controls'?: string;
+	/**
+	 * Announces to assistive technology whether the popup is currently open or closed.
+	 */
 	'aria-expanded': boolean;
+	/**
+	 * Informs assistive technology that this element triggers a popup.
+	 */
 	'aria-haspopup': boolean | 'dialog';
 	'data-ds--level'?: string;
 }

@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-date
 
+## 5.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.1.8
+
+### Patch Changes
+
+- [`d40e5ebace12b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d40e5ebace12b) -
+  [I18N-2877] gate i18n locale for datepicker
+
+## 5.1.7
+
+### Patch Changes
+
+- [`57b19274b9fdd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/57b19274b9fdd) -
+  EDITOR-1373 Bump adf-schema version
+- Updated dependencies
+
 ## 5.1.6
 
 ### Patch Changes

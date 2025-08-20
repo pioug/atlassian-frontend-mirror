@@ -1,5 +1,13 @@
 # @atlaskit/mobile-header
 
+## 7.0.18
+
+### Patch Changes
+
+- [`b0f03432a8e3c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b0f03432a8e3c) -
+  Sorted type and interface props to improve Atlaskit docs
+- Updated dependencies
+
 ## 7.0.17
 
 ### Patch Changes

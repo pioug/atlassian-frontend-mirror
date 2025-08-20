@@ -5,6 +5,7 @@ import SectionMessage from '@atlaskit/section-message';
 import InfoIcon from '@atlaskit/icon/core/migration/status-information--info';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Text } from '@atlaskit/primitives';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { commonMessages, overviewMessages } from '../../messages';
 import StatefulInlineDialog from '../StatefulInlineDialog';
@@ -112,8 +113,12 @@ export class DeleteUserOverviewScreen extends React.Component<DeleteUserOverview
 								/>
 								<FormattedMessage
 									{...this.selectAdminOrSelfCopy(
-										overviewMessages.inlineDialogDataWillBeDeletedP2Admin,
-										overviewMessages.inlineDialogDataWillBeDeletedP2Self,
+										fg('product-terminology-refresh')
+											? overviewMessages.inlineDialogDataWillBeDeletedP2AdminAppify
+											: overviewMessages.inlineDialogDataWillBeDeletedP2Admin,
+										fg('product-terminology-refresh')
+											? overviewMessages.inlineDialogDataWillBeDeletedP2SelfAppify
+											: overviewMessages.inlineDialogDataWillBeDeletedP2Self,
 									)}
 									tagName="p"
 								/>
@@ -149,8 +154,12 @@ export class DeleteUserOverviewScreen extends React.Component<DeleteUserOverview
 						content={
 							<FormattedMessage
 								{...this.selectAdminOrSelfCopy(
-									overviewMessages.inlineDialogDataAppsAdmin,
-									overviewMessages.inlineDialogDataAppsSelf,
+									fg('product-terminology-refresh')
+										? overviewMessages.inlineDialogDataAppsAdminAppify
+										: overviewMessages.inlineDialogDataAppsAdmin,
+									fg('product-terminology-refresh')
+										? overviewMessages.inlineDialogDataAppsSelfAppify
+										: overviewMessages.inlineDialogDataAppsSelf,
 								)}
 							/>
 						}
@@ -176,8 +185,12 @@ export class DeleteUserOverviewScreen extends React.Component<DeleteUserOverview
 						content={
 							<FormattedMessage
 								{...this.selectAdminOrSelfCopy(
-									overviewMessages.inlineDialogContentCreatedAdminissuetermrefresh,
-									overviewMessages.inlineDialogContentCreatedSelf,
+									fg('product-terminology-refresh')
+										? overviewMessages.inlineDialogContentCreatedAdminissuetermrefreshAppify
+										: overviewMessages.inlineDialogContentCreatedAdminissuetermrefresh,
+									fg('product-terminology-refresh')
+										? overviewMessages.inlineDialogContentCreatedSelfAppify
+										: overviewMessages.inlineDialogContentCreatedSelf,
 								)}
 							/>
 						}

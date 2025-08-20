@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "107.26.0",
+	"version": "107.26.2",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -90,6 +90,7 @@
 		"./lists": "./src/lists/index.ts",
 		"./element-browser": "./src/element-browser/index.ts",
 		"./floating-toolbar": "./src/floating-toolbar/index.ts",
+		"./block-menu": "./src/block-menu/index.ts",
 		"./copy-button": "./src/copy-button/index.ts",
 		"./legacy-rank-plugins": "./src/rank.ts",
 		"./browser": "./src/utils/browser.ts",
@@ -142,6 +143,7 @@
 		"./utils/analytics": "./src/utils/analytics.ts",
 		"./utils/document": "./src/utils/document.ts",
 		"./utils": "./src/utils/index.ts",
+		"./block-menu": "./src/block-menu/index.ts",
 		"./card": "./src/card/index.ts",
 		"./code-block": "./src/code-block/index.ts",
 		"./collab": "./src/collab/index.ts",

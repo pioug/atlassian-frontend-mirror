@@ -181,14 +181,14 @@ const dataCenterDarkAppearanceMap = cssMap({
 
 type LogoWrapperProps = {
 	appearance: 'brand' | 'neutral' | 'inverse' | 'legacy';
+	customThemeSvg?: string;
+	iconColor?: string;
+	isDataCenter?: boolean;
+	label: string;
 	size?: LogoSize;
 	svg: string;
-	customThemeSvg?: string;
-	label: string;
 	testId?: string;
-	iconColor?: string;
 	textColor?: string;
-	isDataCenter?: boolean;
 };
 
 export function LogoWrapper({

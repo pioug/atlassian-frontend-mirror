@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-text-color
 
+## 3.1.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.12
+
+### Patch Changes
+
+- [`57b19274b9fdd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/57b19274b9fdd) -
+  EDITOR-1373 Bump adf-schema version
+- Updated dependencies
+
+## 3.1.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.1.10
 
 ### Patch Changes

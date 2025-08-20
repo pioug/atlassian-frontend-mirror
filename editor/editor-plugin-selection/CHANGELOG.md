@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-selection
 
+## 3.1.0
+
+### Minor Changes
+
+- [`7b86b50272e47`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b86b50272e47) -
+  Introduce new APIs for selection: getSelectionLocalIds and getSelectionFragment
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.0.7
 
 ### Patch Changes

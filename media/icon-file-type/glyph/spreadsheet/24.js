@@ -11,7 +11,7 @@ function _interopRequireDefault(e) {
 }
 const Spreadsheet24Icon = (props) =>
 	/*#__PURE__*/ _react.default.createElement(
-		_base.IconFacade,
+		_base.Icon,
 		Object.assign(
 			{
 				dangerouslySetGlyph: `<svg width="24" height="24" viewBox="0 0 24 24" role="presentation"><path fill="#36b37e" fill-rule="evenodd" d="M3 0h18a3 3 0 0 1 3 3v18a3 3 0 0 1-3 3H3a3 3 0 0 1-3-3V3a3 3 0 0 1 3-3m2 5a1 1 0 1 0 0 2h3a1 1 0 1 0 0-2zm0 4a1 1 0 1 0 0 2h3a1 1 0 0 0 0-2zm0 4a1 1 0 0 0 0 2h3a1 1 0 0 0 0-2zm0 4a1 1 0 0 0 0 2h3a1 1 0 0 0 0-2zm7-12a1 1 0 0 0 0 2h7a1 1 0 0 0 0-2zm0 4a1 1 0 0 0 0 2h7a1 1 0 0 0 0-2zm0 4a1 1 0 0 0 0 2h7a1 1 0 0 0 0-2zm0 4a1 1 0 0 0 0 2h7a1 1 0 0 0 0-2z"/></svg>`,

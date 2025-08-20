@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 9.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.2.3
+
+### Patch Changes
+
+- [`57b19274b9fdd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/57b19274b9fdd) -
+  EDITOR-1373 Bump adf-schema version
+- Updated dependencies
+
 ## 9.2.2
 
 ### Patch Changes

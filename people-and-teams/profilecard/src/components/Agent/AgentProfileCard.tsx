@@ -49,6 +49,7 @@ const AgentProfileCard = ({
 	onConversationStartersClick,
 	resourceClient,
 	addFlag,
+	onDeleteAgent,
 }: AgentProfileCardProps) => {
 	const {
 		onEditAgent,
@@ -104,7 +105,10 @@ const AgentProfileCard = ({
 	}, [agent?.id, fireAnalytics, isStarred, resourceClient, starCount]);
 
 	const handleOnDelete = useCallback(async () => {
-		if (agent) {
+		if (agent && onDeleteAgent) {
+			// Optimistically remove from cache
+			const { restore } = onDeleteAgent(agent.id);
+
 			try {
 				await resourceClient.deleteAgent(agent.id, fireAnalytics);
 
@@ -117,6 +121,9 @@ const AgentProfileCard = ({
 					id: 'ptc-directory.agent-profile.delete-agent-success',
 				});
 			} catch (error) {
+				// Restore agent to cache on error
+				restore();
+
 				addFlag?.({
 					title: formatMessage(messages.agentDeletedErrorFlagTitle),
 					description: formatMessage(messages.agentDeletedErrorFlagDescription),
@@ -125,7 +132,7 @@ const AgentProfileCard = ({
 				});
 			}
 		}
-	}, [addFlag, agent, fireAnalytics, formatMessage, resourceClient]);
+	}, [addFlag, agent, formatMessage, onDeleteAgent, resourceClient, fireAnalytics]);
 
 	useEffect(() => {
 		if (!isLoading && agent) {

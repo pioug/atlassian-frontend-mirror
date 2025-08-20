@@ -1,15 +1,15 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4cad22e1176a9874a0c269f62ca4a13d>>
+ * @codegen <<SignedSource::d77b8a2607635762876eadf6c30777eb>>
  * @codegenCommand yarn build:icon-glyphs
  */
 import React from 'react';
 
-import { IconFacade } from '@atlaskit/icon/base';
+import { Icon } from '@atlaskit/icon/base';
 import type { GlyphProps } from '@atlaskit/icon/types';
 
 const Subtask16Icon = (props: Omit<GlyphProps, 'primaryColor' | 'secondaryColor' | 'size'>) => (
-	<IconFacade
+	<Icon
 		dangerouslySetGlyph={`<svg width="16" height="16" viewBox="0 0 16 16" role="presentation"><path fill="#2684ff" fill-rule="evenodd" d="M9 7V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h3v3a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1zM0 1.994C0 .893.895 0 1.994 0h12.012C15.107 0 16 .895 16 1.994v12.012A1.995 1.995 0 0 1 14.006 16H1.994A1.995 1.995 0 0 1 0 14.006zM9 9h2v2H9zM5 5h2v2H5z"/></svg>`}
 		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 		{...props}

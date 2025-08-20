@@ -10,6 +10,9 @@ import {
 	tableRowWithNestedTable,
 	tableRowWithLocalId,
 	tableCellWithLocalId,
+	tableCellWithNestedTableWithLocalId,
+	tableRowWithNestedTableWithLocalId,
+	tableHeaderWithNestedTableWithLocalId,
 } from '@atlaskit/adf-schema';
 import {
 	ACTION,
@@ -343,19 +346,19 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 						{
 							name: 'tableHeader',
 							node: fg('platform_editor_adf_with_localid')
-								? tableHeaderWithLocalId
+								? tableHeaderWithNestedTableWithLocalId
 								: tableHeaderWithNestedTable,
 						},
 						{
 							name: 'tableRow',
 							node: fg('platform_editor_adf_with_localid')
-								? tableRowWithLocalId
+								? tableRowWithNestedTableWithLocalId
 								: tableRowWithNestedTable,
 						},
 						{
 							name: 'tableCell',
 							node: fg('platform_editor_adf_with_localid')
-								? tableCellWithLocalId
+								? tableCellWithNestedTableWithLocalId
 								: tableCellWithNestedTable,
 						},
 					]
@@ -373,9 +376,18 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 								isChromelessEditor,
 							}),
 						},
-						{ name: 'tableHeader', node: tableHeader },
-						{ name: 'tableRow', node: tableRow },
-						{ name: 'tableCell', node: tableCell },
+						{
+							name: 'tableHeader',
+							node: fg('platform_editor_adf_with_localid') ? tableHeaderWithLocalId : tableHeader,
+						},
+						{
+							name: 'tableRow',
+							node: fg('platform_editor_adf_with_localid') ? tableRowWithLocalId : tableRow,
+						},
+						{
+							name: 'tableCell',
+							node: fg('platform_editor_adf_with_localid') ? tableCellWithLocalId : tableCell,
+						},
 					];
 		},
 

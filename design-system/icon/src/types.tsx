@@ -360,11 +360,6 @@ export type IconMigrationSizeGuidance =
 	| 'no-larger-size';
 export type IconMigrationMap = Record<string, IconMigrationResult>;
 
-export type IconFacadeProps = IconProps & {
-	newIcon?: React.ComponentType<NewUtilityIconProps> | React.ComponentType<NewCoreIconProps>;
-	iconType?: UNSAFE_NewGlyphProps['type'];
-};
-
 interface LEGACY_Data {
 	keywords: string[];
 	componentName: string;

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/dynamic-table",
-	"version": "18.2.8",
+	"version": "18.2.9",
 	"description": "A dynamic table displays rows of data with built-in pagination, sorting, and re-ordering functionality.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

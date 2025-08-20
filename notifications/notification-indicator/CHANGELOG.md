@@ -1,5 +1,12 @@
 # @atlaskit/notification-indicator
 
+## 10.0.1
+
+### Patch Changes
+
+- [`cbcef77ba1e89`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cbcef77ba1e89) -
+  Sorted type and interface props to improve Atlaskit docs
+
 ## 10.0.0
 
 ### Major Changes

@@ -6,12 +6,9 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _base = require("@atlaskit/icon/base");
-var _chevronRight = _interopRequireDefault(require("@atlaskit/icon/core/chevron-right"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
-const ChevronRightLargeIcon = props => /*#__PURE__*/_react.default.createElement(_base.IconFacade, Object.assign({
+const ChevronRightLargeIcon = props => /*#__PURE__*/_react.default.createElement(_base.Icon, Object.assign({
   dangerouslySetGlyph: `<svg width="24" height="24" viewBox="0 0 24 24" role="presentation"><path fill="currentcolor" fill-rule="evenodd" d="M14.995 10.995a1 1 0 0 1 0 1.414l-4.593 4.593a.99.99 0 0 1-1.4-1.4l3.9-3.9-3.9-3.9a.99.99 0 0 1 1.4-1.4z"/></svg>`
-}, props, {
-  newIcon: _chevronRight.default
-}));
+}, props));
 ChevronRightLargeIcon.displayName = 'ChevronRightLargeIcon';
 var _default = exports.default = ChevronRightLargeIcon;

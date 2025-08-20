@@ -16,6 +16,7 @@ import TaskIcon from '@atlaskit/icon/core/task';
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
 import { type RegisterBlockMenuComponent } from '../blockMenuPluginType';
 
+import CopyBlockMenuItem from './copy-block';
 import { MoveDownDropdownItem } from './move-down';
 import { MoveUpDropdownItem } from './move-up';
 
@@ -62,9 +63,25 @@ export const getBlockMenuComponents = (
 			},
 		},
 		{
+			type: 'block-menu-section',
+			key: 'block-menu-section-copy',
+			rank: 200,
+			component: ({ children }: { children: React.ReactNode }) => {
+				return <ToolbarDropdownItemSection hasSeparator>{children}</ToolbarDropdownItemSection>;
+			},
+		},
+		{
+			type: 'block-menu-item',
+			key: 'block-menu-copy-block',
+			parent: { type: 'block-menu-section', key: 'block-menu-section-copy', rank: 200 },
+			component: () => {
+				return <CopyBlockMenuItem api={api} />;
+			},
+		},
+		{
 			type: 'block-menu-section' as const,
 			key: 'block-menu-section-move-up-down',
-			rank: 200,
+			rank: 300,
 			component: ({ children }: { children: React.ReactNode }) => {
 				return <ToolbarDropdownItemSection hasSeparator>{children}</ToolbarDropdownItemSection>;
 			},
@@ -72,7 +89,7 @@ export const getBlockMenuComponents = (
 		{
 			type: 'block-menu-section' as const,
 			key: 'block-menu-section-delete',
-			rank: 300,
+			rank: 400,
 			component: ({ children }: { children: React.ReactNode }) => {
 				return <ToolbarDropdownItemSection hasSeparator>{children}</ToolbarDropdownItemSection>;
 			},

@@ -1,5 +1,12 @@
 # @atlaskit/editor-slack-transformer
 
+## 4.1.0
+
+### Minor Changes
+
+- [`72f94befc61f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/72f94befc61f2) -
+  replace method-style signatures with function-style signatures
+
 ## 4.0.0
 
 ### Major Changes

@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
@@ -15,7 +14,7 @@ import { CARD_GAP_PX, HOVER_CARD_Z_INDEX } from '../styled';
 import { type HoverCardComponentProps, type HoverCardContentProps } from '../types';
 
 export const HOVER_CARD_SOURCE = 'smartLinkPreviewHoverCard';
-const HOVER_CARD_TRIGGRER_WRAPPER = 'hover-card-trigger-wrapper';
+const HOVER_CARD_TRIGGER_WRAPPER = 'hover-card-trigger-wrapper';
 
 const FADE_IN_DELAY = 500;
 const FADE_OUT_DELAY = 300;
@@ -231,15 +230,14 @@ export const HoverCardComponent = ({
 					onMouseMove={setMousePosition}
 					onClick={onChildClick}
 					onContextMenu={onContextMenuClick}
-					data-testid={HOVER_CARD_TRIGGRER_WRAPPER}
+					data-testid={HOVER_CARD_TRIGGER_WRAPPER}
 					{...(expValEqualsNoExposure(
 						'platform_editor_preview_panel_linking_exp',
 						'isEnabled',
 						true,
 					)
-						? { className: HOVER_CARD_TRIGGRER_WRAPPER }
+						? { className: HOVER_CARD_TRIGGER_WRAPPER }
 						: {})}
-					{...(fg('fix_a11y_violation_in_hover_card_trigger') ? { role: 'button' } : {})}
 				>
 					{children}
 				</span>

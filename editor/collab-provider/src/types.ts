@@ -30,12 +30,9 @@ export interface CollabEventDisconnectedData {
 // types from editor common end
 
 export interface Storage {
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	get(key: string): Promise<string>;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	set(key: string, value: string): Promise<void>;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	delete(key: string): Promise<void>;
+	get: (key: string) => Promise<string>;
+	set: (key: string, value: string) => Promise<void>;
+	delete: (key: string) => Promise<void>;
 }
 
 // Initial draft

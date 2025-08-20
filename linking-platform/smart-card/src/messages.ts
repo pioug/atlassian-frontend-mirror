@@ -169,7 +169,10 @@ export type MessageKey =
 	| 'open_issue_in_jiraIssueTermRefresh'
 	| 'request_access_to_viewIssueTermRefresh'
 	| 'team_members_count'
-	| 'status_change_permission_errorIssueTermRefresh';
+	| 'status_change_permission_errorIssueTermRefresh'
+	| 'connect_unauthorised_account_description_appify'
+	| 'connect_unauthorised_account_description_no_provider_appify'
+	| 'learn_more_about_connecting_account_appify';
 type Messages = {
 	[K in MessageKey]: MessageDescriptor;
 };
@@ -1028,5 +1031,23 @@ export const messages: Messages = defineMessages({
 		defaultMessage:
 			'We encountered an error while trying to unfollow the space. Check your connection or refresh the page and try again.',
 		description: 'Shown when an unknown error occurs when unfollowing an Atlas project',
+	},
+	connect_unauthorised_account_description_appify: {
+		id: 'fabric.linking.connect_unauthorised_account_description-appify',
+		defaultMessage: 'Connect your {context} account to collaborate on work across Atlassian apps.',
+		description:
+			'Shown when a user does not have access to a link, but can connect their external account to view the link on card view.',
+	},
+	connect_unauthorised_account_description_no_provider_appify: {
+		id: 'fabric.linking.connect_unauthorised_account_description_no_provider-appify',
+		defaultMessage: 'Connect your account to collaborate on work across Atlassian apps.',
+		description:
+			'Shown when a user does not have access to a link, but can connect their external account to view the link on card view and we do not have the providers name.',
+	},
+	learn_more_about_connecting_account_appify: {
+		id: 'fabric.linking.learn_more_about_connecting_account-appify',
+		defaultMessage: 'Learn more about connecting your account to Atlassian apps.',
+		description:
+			'An anchor link to redirect user to a page about authorization with 3rd party accounts.',
 	},
 });

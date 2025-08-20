@@ -5,8 +5,8 @@
 ### Minor Changes
 
 - [`46af0313b8e7a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/46af0313b8e7a) -
-  Add the platform-logo-rebrand-servco along side the platform-logo-rebrand gate in @atlaskit/logo
-  to so that we can rollout JSM Service Collection in isolation and UAT for Team '25 EU.
+  We are testing rebranded logos behind a feature flag. If this change is successful it will be
+  available in a later release.
 
 ## 19.6.2
 

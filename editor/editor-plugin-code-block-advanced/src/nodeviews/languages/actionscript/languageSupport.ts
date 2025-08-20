@@ -18,7 +18,7 @@ export function actionscriptLanguageSupport() {
 		Comment: tags.comment,
 		Number: tags.number,
 		Identifier: tags.variableName,
-		String: tags.string
+		String: tags.string,
 	});
 	const actionscriptLanguage = LRLanguage.define({
 		parser: parser.configure({ props: [actionScriptHighlight] }),

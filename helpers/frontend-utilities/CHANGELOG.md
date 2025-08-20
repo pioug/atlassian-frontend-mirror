@@ -1,5 +1,12 @@
 # @af/frontend-utilities
 
+## 3.1.2
+
+### Patch Changes
+
+- [`a4774d3e00159`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4774d3e00159) -
+  Add react re-render hook
+
 ## 3.1.1
 
 ### Patch Changes

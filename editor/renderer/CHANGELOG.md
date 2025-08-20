@@ -1,5 +1,19 @@
 # @atlaskit/renderer
 
+## 120.4.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 120.4.8
+
+### Patch Changes
+
+- [`57b19274b9fdd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/57b19274b9fdd) -
+  EDITOR-1373 Bump adf-schema version
+- Updated dependencies
+
 ## 120.4.7
 
 ### Patch Changes

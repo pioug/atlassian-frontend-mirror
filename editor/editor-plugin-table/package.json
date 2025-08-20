@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-table",
-	"version": "12.2.3",
+	"version": "12.2.5",
 	"description": "Table plugin for the @atlaskit/editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

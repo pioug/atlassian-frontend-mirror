@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 4.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.2.2
+
+### Patch Changes
+
+- [`7889f7446e6e4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7889f7446e6e4) -
+  ED-28769 clean up mem fix fg
+
+## 4.2.1
+
+### Patch Changes
+
+- [`57b19274b9fdd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/57b19274b9fdd) -
+  EDITOR-1373 Bump adf-schema version
+- Updated dependencies
+
 ## 4.2.0
 
 ### Minor Changes

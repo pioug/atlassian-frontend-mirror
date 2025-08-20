@@ -11,6 +11,7 @@ import Button from '@atlaskit/button/new';
 import EmptyState from '@atlaskit/empty-state';
 import { type DatasourceMeta } from '@atlaskit/linking-types';
 import { AuthError, auth as outboundAuth } from '@atlaskit/outbound-auth-flow-client';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Anchor, Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -78,9 +79,14 @@ export const ProviderAuthRequired = ({
 
 	const renderAuthDescription = () => (
 		<React.Fragment>
-			{formatMessage(loadingErrorMessages.authScreenDescriptionText, {
-				providerName,
-			})}{' '}
+			{formatMessage(
+				fg('product-terminology-refresh')
+					? loadingErrorMessages.authScreenDescriptionTextAppify
+					: loadingErrorMessages.authScreenDescriptionText,
+				{
+					providerName,
+				},
+			)}{' '}
 			<Anchor href={learnMoreAboutSmartLinksUrl} target="_blank" rel="noreferrer noopener">
 				{formatMessage(loadingErrorMessages.learnMoreAboutSmartLinks)}
 			</Anchor>

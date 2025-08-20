@@ -113,7 +113,7 @@ const IconExplorerCell: FC<IconExplorerCellProps> = ({
 		<Box padding="space.250">
 			<Tooltip content={componentName}>
 				<IconButton
-					icon={(iconProps) => <Icon {...iconProps} size="large" />}
+					icon={(iconProps) => <Icon {...iconProps} />}
 					label={componentName}
 					onClick={openModal}
 					appearance="subtle"

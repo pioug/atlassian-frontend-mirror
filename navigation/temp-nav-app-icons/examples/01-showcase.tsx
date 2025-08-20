@@ -26,8 +26,8 @@ export default function ShowcaseExample({
 	iconColor,
 	textColor,
 }: {
-	apps?: typeof rows;
 	appearance?: 'brand' | 'legacy' | 'inverse' | 'neutral';
+	apps?: typeof rows;
 	iconColor?: string;
 	textColor?: string;
 }) {

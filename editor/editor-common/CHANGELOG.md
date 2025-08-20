@@ -1,5 +1,21 @@
 # @atlaskit/editor-common
 
+## 107.26.2
+
+### Patch Changes
+
+- [`31fc6b9e10762`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/31fc6b9e10762) -
+  [ux] ED-28592 ED-28592:Add copy block menu item to block menu
+- Updated dependencies
+
+## 107.26.1
+
+### Patch Changes
+
+- [`57b19274b9fdd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/57b19274b9fdd) -
+  EDITOR-1373 Bump adf-schema version
+- Updated dependencies
+
 ## 107.26.0
 
 ### Minor Changes

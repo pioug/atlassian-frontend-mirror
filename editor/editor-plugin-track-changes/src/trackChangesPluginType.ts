@@ -35,8 +35,8 @@ export type TrackChangesPlugin = NextEditorPlugin<
 			 */
 			ShowDiffPlugin,
 			/*
-			* Toolbar plugin for registering the track changes button. Will be replacing the Primary Toolbar Plugin
-			*/
+			 * Toolbar plugin for registering the track changes button. Will be replacing the Primary Toolbar Plugin
+			 */
 			OptionalPlugin<ToolbarPlugin>,
 		];
 		pluginConfiguration?: {

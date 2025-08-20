@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-emoji
 
+## 4.3.0
+
+### Minor Changes
+
+- [`72f94befc61f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/72f94befc61f2) -
+  replace method-style signatures with function-style signatures
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.2.7
+
+### Patch Changes
+
+- [`57b19274b9fdd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/57b19274b9fdd) -
+  EDITOR-1373 Bump adf-schema version
+- Updated dependencies
+
 ## 4.2.6
 
 ### Patch Changes

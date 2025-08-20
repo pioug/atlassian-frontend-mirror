@@ -302,6 +302,44 @@ export const overviewMessages = defineMessages({
 			'You or other users may have installed apps that add features to Atlassian products. These apps may have stored your profile information.',
 		description: 'Text elaborating on the note about apps storing personal data',
 	},
+	inlineDialogContentCreatedAdminissuetermrefreshAppify: {
+		id: 'focused-task-close-account.delete-account.overview.inline-dialog.content-created-issue-refresh.admin-appify',
+		defaultMessage: "For example, pages, work items, and comments they've created in apps.",
+		description:
+			'Examples of what constitutes as created content. Appears when the user hovers over the info icon',
+	},
+	inlineDialogContentCreatedSelfAppify: {
+		id: 'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self-appify',
+		defaultMessage: "For example, pages, work items, and comments you've created in apps.",
+		description:
+			'Examples of what constitutes as created content. Appears when the user hovers over the info icon',
+	},
+	inlineDialogDataWillBeDeletedP2AdminAppify: {
+		id: 'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.admin-appify',
+		defaultMessage:
+			'We don’t delete any personal data from content created by users, such as names or email addresses they typed in a page or work item. The app admins need to delete that data manually.',
+		description:
+			'Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes.',
+	},
+	inlineDialogDataWillBeDeletedP2SelfAppify: {
+		id: 'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.self-appify',
+		defaultMessage:
+			"We don't delete any personal data from content created by you or other people, such as names or email addresses typed into a page or work item. Your app admins need to delete that data manually.",
+		description:
+			'Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes.',
+	},
+	inlineDialogDataAppsAdminAppify: {
+		id: 'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.admin-appify',
+		defaultMessage:
+			'You or other users may have installed apps that add features to Atlassian apps. These apps may have stored the user’s profile information.',
+		description: 'Text elaborating on the note about apps storing personal data',
+	},
+	inlineDialogDataAppsSelfAppify: {
+		id: 'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.self-appify',
+		defaultMessage:
+			'You or other users may have installed apps that add features to Atlassian apps. These apps may have stored your profile information.',
+		description: 'Text elaborating on the note about apps storing personal data',
+	},
 });
 
 export const deactivateUserOverviewMessages = defineMessages({

@@ -6,21 +6,21 @@ import MenuIcon from '@atlaskit/icon/core/migration/menu';
 import * as styles from '../styled';
 
 interface MobileHeaderProps {
-	navigation?: (isOpen: boolean) => ReactNode;
-	sidebar?: (isOpen: boolean) => ReactNode;
-	onNavigationOpen?: () => void;
-	onDrawerClose?: () => void;
-	drawerState: 'navigation' | 'sidebar' | 'none' | string;
-	secondaryContent?: ReactNode;
-	pageHeading: ReactNode;
-	menuIconLabel: string;
 	customMenu?: ReactNode;
+	drawerState: 'navigation' | 'sidebar' | 'none' | string;
+	menuIconLabel: string;
+	navigation?: (isOpen: boolean) => ReactNode;
+	onDrawerClose?: () => void;
+	onNavigationOpen?: () => void;
+	pageHeading: ReactNode;
+	secondaryContent?: ReactNode;
+	sidebar?: (isOpen: boolean) => ReactNode;
 	topOffset?: number;
 }
 
 interface MobileHeaderState {
-	isAnimatingSidebar: boolean;
 	isAnimatingNavigation: boolean;
+	isAnimatingSidebar: boolean;
 }
 
 class MobileHeader extends PureComponent<MobileHeaderProps, MobileHeaderState> {

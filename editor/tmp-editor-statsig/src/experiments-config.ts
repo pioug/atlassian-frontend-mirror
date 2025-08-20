@@ -710,6 +710,14 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-08-06
+	cc_improve_writing_on_paste: createBooleanExperiment({
+		productKeys: {
+			confluence: 'cc_improve_writing_on_paste',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-08-18
 	platform_editor_locale_datepicker: createBooleanExperiment({
 		productKeys: {
@@ -733,5 +741,5 @@ export const editorExperimentsConfig = {
 		},
 		param: 'isEnabled',
 		defaultValue: false,
-	})
+	}),
 } satisfies Record<string, ExperimentConfigValue>;

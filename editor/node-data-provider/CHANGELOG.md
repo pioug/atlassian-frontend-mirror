@@ -1,5 +1,13 @@
 # @atlaskit/node-data-provider
 
+## 4.5.2
+
+### Patch Changes
+
+- [`57b19274b9fdd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/57b19274b9fdd) -
+  EDITOR-1373 Bump adf-schema version
+- Updated dependencies
+
 ## 4.5.1
 
 ### Patch Changes

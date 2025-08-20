@@ -34,6 +34,7 @@ const styles = cssMap({
 	},
 });
 
+const DEFAULT_MENU_WIDTH = 230;
 const DRAG_HANDLE_OFFSET_PADDING = 5;
 
 const PopupWithListeners = withReactEditorViewOuterListeners(Popup);
@@ -146,8 +147,8 @@ const BlockMenu = ({
 	if (targetHandleRef instanceof HTMLElement) {
 		return (
 			<PopupWithListeners
-				alignX={'left'}
-				alignY={'start'}
+				alignX={'right'}
+				alignY={'start'} // respected when forcePlacement is true
 				handleClickOutside={closeMenu}
 				handleEscapeKeydown={closeMenu}
 				mountTo={mountTo}
@@ -155,7 +156,9 @@ const BlockMenu = ({
 				scrollableElement={scrollableElement}
 				target={targetHandleRef}
 				zIndex={akEditorFloatingOverlapPanelZIndex}
+				fitWidth={DEFAULT_MENU_WIDTH}
 				forcePlacement={true}
+				preventOverflow={true} // disables forced horizontal placement when forcePlacement is on, so fitWidth controls flipping
 				stick={true}
 				offset={[DRAG_HANDLE_WIDTH + DRAG_HANDLE_OFFSET_PADDING, 0]}
 			>

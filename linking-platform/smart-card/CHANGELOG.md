@@ -1,5 +1,23 @@
 # @atlaskit/smart-card
 
+## 40.11.0
+
+### Minor Changes
+
+- [`cdc1b340de640`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cdc1b340de640) -
+  Product/App term refresh
+
+### Patch Changes
+
+- Updated dependencies
+
+## 40.10.10
+
+### Patch Changes
+
+- [`5ff571d87059f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5ff571d87059f) -
+  Remove the FG and FG code of fix_a11y_violation_in_hover_card_trigger
+
 ## 40.10.9
 
 ### Patch Changes

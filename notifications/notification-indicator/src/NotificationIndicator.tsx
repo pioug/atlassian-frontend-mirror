@@ -13,26 +13,26 @@ export interface ValueUpdatingParams {
 }
 
 export interface ValueUpdatingResult {
-	skip?: boolean;
 	countOverride?: number;
+	skip?: boolean;
 }
 
 export interface ValueUpdatedParams {
-	oldCount: number;
 	newCount: number;
+	oldCount: number;
 	source: string;
 }
 
 export interface Props {
-	notificationLogProvider: Promise<NotificationLogProvider>;
 	appearance?: 'added' | 'default' | 'important' | 'primary' | 'primaryInverted' | 'removed';
+	createAnalyticsEvent?: any;
 	max?: number;
-	refreshRate?: number;
+	notificationLogProvider: Promise<NotificationLogProvider>;
+	onCountUpdated?: (param: ValueUpdatedParams) => void;
+	onCountUpdating?: (param: ValueUpdatingParams) => ValueUpdatingResult;
 	refreshOnHidden?: boolean;
 	refreshOnVisibilityChange?: boolean;
-	onCountUpdating?: (param: ValueUpdatingParams) => ValueUpdatingResult;
-	onCountUpdated?: (param: ValueUpdatedParams) => void;
-	createAnalyticsEvent?: any;
+	refreshRate?: number;
 	ssrInitialValue?: number;
 }
 

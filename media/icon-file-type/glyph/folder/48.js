@@ -11,7 +11,7 @@ function _interopRequireDefault(e) {
 }
 const Folder48Icon = (props) =>
 	/*#__PURE__*/ _react.default.createElement(
-		_base.IconFacade,
+		_base.Icon,
 		Object.assign(
 			{
 				dangerouslySetGlyph: `<svg width="48" height="64" viewBox="0 0 48 64" role="presentation"><g fill="#b3d4ff" fill-rule="evenodd"><path d="M20 16h24a4 4 0 0 1 4 4v28a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4V16a4 4 0 0 1 4-4h12a4 4 0 0 1 4 4"/><path d="M0 20h48v28a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4z" style="mix-blend-mode:multiply"/></g></svg>`,

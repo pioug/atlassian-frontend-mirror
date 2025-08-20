@@ -115,6 +115,12 @@ export const messages = defineMessages({
 		description:
 			'This external user is sourced from Atlassian products other than Jira and Confluence',
 	},
+	otherAtlassianSourceAppify: {
+		id: 'fabric.elements.user-picker.source.other-atlassian-appify',
+		defaultMessage: 'Other Atlassian apps',
+		description:
+			'This external user is sourced from Atlassian products other than Jira and Confluence',
+	},
 	memberLozengeText: {
 		id: 'fabric.elements.user-picker.member.lozenge.text',
 		defaultMessage: 'MEMBER',

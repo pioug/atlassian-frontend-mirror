@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/frontend-utilities",
-	"version": "3.1.1",
+	"version": "3.1.2",
 	"description": "Collecton of small useful frontend utilities",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -34,6 +34,7 @@
 		"./hooks": "./src/hooks/index.ts",
 		"./use-interval": "./src/hooks/use-interval/index.ts",
 		"./use-previous": "./src/hooks/use-previous/index.ts",
+		"./use-why-did-update": "./src/hooks/use-why-did-update/index.tsx",
 		"./retry-operation": "./src/network/retry-operation/index.ts",
 		"./local-storage": "./src/storage/local-storage/index.ts",
 		"./storage-client": "./src/storage/storage-client/index.ts",
@@ -45,6 +46,7 @@
 		"./hooks": "./src/hooks/index.ts",
 		"./use-interval": "./src/hooks/use-interval/index.ts",
 		"./use-previous": "./src/hooks/use-previous/index.ts",
+		"./use-why-did-update": "./src/hooks/use-why-did-update/index.tsx",
 		"./retry-operation": "./src/network/retry-operation/index.ts",
 		"./local-storage": "./src/storage/local-storage/index.ts",
 		"./storage-client": "./src/storage/storage-client/index.ts",
@@ -54,7 +56,8 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@babel/runtime": "root:*"
+		"@babel/runtime": "root:*",
+		"lodash": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"

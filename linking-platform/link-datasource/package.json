@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "4.19.7",
+	"version": "4.20.0",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -173,6 +173,9 @@
 			"type": "boolean"
 		},
 		"assets_as_an_app_v2": {
+			"type": "boolean"
+		},
+		"product-terminology-refresh": {
 			"type": "boolean"
 		},
 		"dst-a11y__replace-anchor-with-link__linking-platfo": {

@@ -19,8 +19,7 @@ export type BatchProps = {
 	/** how often the debounce should run. Defaults to {@link ./participants-service#DEFAULT_FETCH_USERS_INTERVAL} if none provided **/
 	debounceTime?: number;
 	getUsers?: GetUsersType;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	onError?(error: unknown): void;
+	onError?: (error: unknown) => void;
 	/** when to stop fetching users. eg. if this = 5, we won't attempt to hydrate more than 5 **/
 	participantsLimit?: number;
 };

@@ -124,4 +124,10 @@ export const loadingErrorMessages = defineMessages({
 		defaultMessage: 'Connect',
 		description: 'Label for the authentication button.',
 	},
+	authScreenDescriptionTextAppify: {
+		id: 'linkDataSource.datasource.table.authScreenDescriptionText-appify',
+		defaultMessage:
+			'Connect your {providerName} account to collaborate on work across Atlassian apps.',
+		description: 'Description text to be displayed in the auth screen UI.',
+	},
 });

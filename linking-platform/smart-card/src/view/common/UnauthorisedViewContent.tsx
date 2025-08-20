@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 
 import { FormattedMessage } from 'react-intl-next';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Anchor } from '@atlaskit/primitives/compiled';
 
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
@@ -45,18 +46,26 @@ const UnauthorisedViewContent = ({
 	}, [fireEvent]);
 
 	const learnMoreMessage = isProductIntegrationSupported
-		? messages.learn_more_about_connecting_account
+		? fg('product-terminology-refresh')
+			? messages.learn_more_about_connecting_account_appify
+			: messages.learn_more_about_connecting_account
 		: messages.learn_more_about_smart_links;
 
 	return (
 		<>
 			{providerName ? (
 				<FormattedMessage
-					{...messages.connect_unauthorised_account_description}
+					{...(fg('product-terminology-refresh')
+						? messages.connect_unauthorised_account_description_appify
+						: messages.connect_unauthorised_account_description)}
 					values={{ context: providerName }}
 				/>
 			) : (
-				<FormattedMessage {...messages.connect_unauthorised_account_description_no_provider} />
+				<FormattedMessage
+					{...(fg('product-terminology-refresh')
+						? messages.connect_unauthorised_account_description_no_provider_appify
+						: messages.connect_unauthorised_account_description_no_provider)}
+				/>
 			)}{' '}
 			<Anchor
 				href={

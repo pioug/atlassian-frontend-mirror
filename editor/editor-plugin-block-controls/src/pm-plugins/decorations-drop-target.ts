@@ -10,7 +10,6 @@ import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ActiveNode, BlockControlsPlugin } from '../blockControlsPluginType';
@@ -23,7 +22,7 @@ import {
 } from '../ui/drop-target';
 import { DropTargetLayout, type DropTargetLayoutProps } from '../ui/drop-target-layout';
 
-import { NESTED_DEPTH, TYPE_DROP_TARGET_DEC, unmountDecorations } from './decorations-common';
+import { NESTED_DEPTH, TYPE_DROP_TARGET_DEC } from './decorations-common';
 import { type AnchorRectCache } from './utils/anchor-utils';
 import { maxLayoutColumnSupported } from './utils/consts';
 import { canMoveNodeToIndex, canMoveSliceToIndex, isInSameLayout } from './utils/validation';
@@ -153,9 +152,7 @@ export const createDropTargetDecoration = (
 			type: TYPE_DROP_TARGET_DEC,
 			side,
 			destroy: () => {
-				if (fg('platform_editor_block_controls_drop_target_mem_fix')) {
-					nodeViewPortalProviderAPI.remove(key);
-				}
+				nodeViewPortalProviderAPI.remove(key);
 			},
 		},
 	);
@@ -196,9 +193,7 @@ export const createLayoutDropTargetDecoration = (
 		{
 			type: TYPE_DROP_TARGET_DEC,
 			destroy: () => {
-				if (fg('platform_editor_block_controls_drop_target_mem_fix')) {
-					nodeViewPortalProviderAPI.remove(key);
-				}
+				nodeViewPortalProviderAPI.remove(key);
 			},
 		},
 	);
@@ -214,14 +209,6 @@ export const dropTargetDecorations = (
 	from?: number,
 	to?: number,
 ) => {
-	if (!fg('platform_editor_block_controls_drop_target_mem_fix')) {
-		unmountDecorations(
-			nodeViewPortalProviderAPI,
-			'data-blocks-drop-target-container',
-			'data-blocks-drop-target-key',
-		);
-	}
-
 	const decs: Decoration[] = [];
 	const POS_END_OF_DOC = newState.doc.nodeSize - 2;
 	const docFrom = from === undefined || from < 0 ? 0 : from;

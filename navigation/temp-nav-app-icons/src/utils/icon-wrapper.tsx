@@ -148,14 +148,14 @@ const sizeMap = cssMap({
 });
 
 type IconWrapperProps = {
-	size?: IconSize;
-	label: string;
-	testId?: string;
-	svg: string;
-	customThemeSvg?: string;
 	appearance?: 'brand' | 'legacy' | 'neutral' | 'inverse';
+	customThemeSvg?: string;
 	iconColor?: string;
 	isDataCenter?: boolean;
+	label: string;
+	size?: IconSize;
+	svg: string;
+	testId?: string;
 };
 
 export function IconWrapper({

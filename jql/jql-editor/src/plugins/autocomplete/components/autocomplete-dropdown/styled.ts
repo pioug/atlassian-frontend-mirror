@@ -6,10 +6,10 @@ import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const AutocompleteContainer = styled.div<{ 
+export const AutocompleteContainer = styled.div<{
 	isOpen: boolean;
 	usePopper?: boolean;
- 	}>(
+}>(
 	{
 		position: 'absolute',
 		backgroundColor: token('elevation.surface.overlay', 'white'),
@@ -29,9 +29,10 @@ export const AutocompleteContainer = styled.div<{
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	({ isOpen }) => (isOpen ? { visibility: 'visible' } : { visibility: 'hidden' }),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-	({ usePopper }) => usePopper && {
-		marginTop: token('space.100', '8px'),
-	},
+	({ usePopper }) =>
+		usePopper && {
+			marginTop: token('space.100', '8px'),
+		},
 );
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766

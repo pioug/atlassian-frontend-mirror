@@ -1117,7 +1117,7 @@ export class DocumentService implements DocumentServiceInterface {
 
 		if (editorExperiment('platform_editor_offline_editing_web', true)) {
 			const containsOfflineSteps = unconfirmedStepsData?.origins.some((tr) => {
-				return tr instanceof Transaction ? (tr.getMeta('isOffline') ?? false) : false;
+				return tr instanceof Transaction ? tr.getMeta('isOffline') ?? false : false;
 			});
 
 			if (containsOfflineSteps && !this.timeoutExceeded) {

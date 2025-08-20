@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 0.3.0
+
+### Minor Changes
+
+- [`44b183a57537a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/44b183a57537a) -
+  Introduce a new plugin config option for editor-plugin-toolbar to disable the selection toolbar
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.2.4
 
 ### Patch Changes

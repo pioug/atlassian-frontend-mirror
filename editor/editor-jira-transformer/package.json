@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-jira-transformer",
-	"version": "11.0.3",
+	"version": "11.0.4",
 	"description": "Editor JIRA transformer's",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

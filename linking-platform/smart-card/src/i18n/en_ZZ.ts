@@ -99,10 +99,15 @@ export default {
   'fabric.linking.follow_goal_error':
     '⁣⁢We encountered an error while trying to follow the goal. Check your connection or refresh the page and try again.‌؜⁮⁭⁡‍⁬؜⁪⁬⁡⁫⁪‌‍⁪⁠‌⁠⁯⁮⁮⁣⁤',
   'fabric.linking.follow_project': '⁣⁢Follow project⁭‍⁯⁭‌‌⁠‍⁫؜⁭⁪⁫‍⁡⁭⁪‌⁮⁯؜‌⁬⁬⁬⁭؜⁫⁬⁣⁤',
+  'fabric.linking.follow_project-galaxia': '⁣⁢Follow space⁯⁬⁡⁬⁫⁭⁯⁪‍⁬⁠⁮⁪⁭⁪⁡‌؜⁫‍⁬⁡⁣⁤',
   'fabric.linking.follow_project_description':
     '⁣⁢Follow to get notifications on this project⁯‌⁫⁪⁬⁠⁡‌⁪‌⁡⁪⁯⁬؜‌⁠⁫‍⁪⁠⁬‍‍⁣⁤',
+  'fabric.linking.follow_project_description-galaxia':
+    '⁣⁢Follow to get notifications on this space⁭⁬؜⁭؜⁪‍؜‌‍⁬‌⁪‍⁠‌⁯⁮⁭؜‍؜⁪⁣⁤',
   'fabric.linking.follow_project_error':
     '⁣⁢We encountered an error while trying to follow the project. Check your connection or refresh the page and try again.⁠؜⁠‍⁭⁭⁯؜‌‌‌⁭⁪⁠⁫‌؜‍⁡‌⁠؜⁣⁤',
+  'fabric.linking.follow_project_error-galaxia':
+    '⁣⁢We encountered an error while trying to follow the space. Check your connection or refresh the page and try again.⁪⁭‌⁮⁪⁬؜⁮⁭؜؜⁪⁡⁮⁪؜⁡‍⁡‍⁡⁯⁣⁤',
   'fabric.linking.forbidden_access': '⁣⁢Your access is forbidden⁫⁬؜‌⁠؜⁬⁡‌⁪؜⁠‌‍⁪⁮⁯⁯‌⁬⁮⁪⁣⁤',
   'fabric.linking.forbidden_description':
     '⁣⁢Contact your admin to request access to {hostname}.⁠⁠⁮⁫⁮⁮⁭⁭⁠‌⁪⁫⁠⁡‌⁭⁬‍⁪⁠⁫⁣⁤',
@@ -209,10 +214,15 @@ export default {
   'fabric.linking.unfollow_goal_error':
     '⁣⁢We encountered an error while trying to unfollow the goal. Check your connection or refresh the page and try again.⁫⁭⁭⁬‍‍⁯‌⁠⁪⁪⁮⁮⁮⁭⁭⁡⁡⁠⁠⁭⁯⁭‍؜؜⁣⁤',
   'fabric.linking.unfollow_project': '⁣⁢Unfollow project⁯⁫⁪⁯⁬؜؜⁫⁭؜⁠⁪⁬⁭⁭⁯⁫⁪⁣⁤',
+  'fabric.linking.unfollow_project-galaxia': '⁣⁢Unfollow space⁬⁡⁪⁭⁭؜⁯⁬⁡‌‍؜⁬⁬⁠⁯⁡‌⁯‍⁪⁭⁯⁮⁣⁤',
   'fabric.linking.unfollow_project_description':
     '⁣⁢Unfollow to stop receiving project notifications⁭⁪⁫⁡⁡‌؜⁯⁬⁯⁮⁠⁮؜⁪؜⁫⁯⁡⁯‌؜⁭⁮⁯⁣⁤',
+  'fabric.linking.unfollow_project_description-galaxia':
+    '⁣⁢Unfollow to stop receiving space notifications⁮⁭؜‌⁪‍⁮⁮؜⁫⁬⁪⁫⁫⁮‌⁬⁮‍‌⁫⁭؜⁭⁣⁤',
   'fabric.linking.unfollow_project_error':
     '⁣⁢We encountered an error while trying to unfollow the project. Check your connection or refresh the page and try again.⁮‌⁯‍⁡⁮؜⁠‍⁪⁬⁬⁫؜⁮⁫⁮⁡⁮⁣⁤',
+  'fabric.linking.unfollow_project_error-galaxia':
+    '⁣⁢We encountered an error while trying to unfollow the space. Check your connection or refresh the page and try again.⁬⁡⁡⁪⁫⁯‌؜⁫⁯⁬⁯⁡⁭⁭⁭‍⁣⁤',
   'fabric.linking.unlink_account': '⁣⁢Unlink Account⁫⁯⁫⁫⁬⁠⁭⁭⁮⁡⁭⁭⁯⁬⁫⁡‌⁯⁡⁣⁤',
   'fabric.linking.updated_by': '⁣⁢Modified by {context}؜⁫⁪⁬⁪⁬⁠⁬‍‍⁯⁡⁭⁡‌⁪⁮⁡⁪‌⁮⁫⁣⁤',
   'fabric.linking.user_attributes': '⁣⁢{context}⁯⁭⁪⁬⁬⁪؜⁭⁪⁮⁯⁠⁯⁠⁯⁡⁯⁯⁬⁣⁤',

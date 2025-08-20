@@ -20,6 +20,7 @@ const config16: IconBuildConfig = {
 	glob: '**/16.svg',
 	baseIconEntryPoint: '@atlaskit/icon/base',
 	isColorsDisabled: true,
+	isDeprecated: false,
 };
 
 const config24: IconBuildConfig = {
@@ -32,6 +33,7 @@ const config24: IconBuildConfig = {
 	glob: '**/24.svg',
 	baseIconEntryPoint: '@atlaskit/icon/base',
 	isColorsDisabled: true,
+	isDeprecated: false,
 };
 
 const config48: IconBuildConfig = {
@@ -47,6 +49,7 @@ const config48: IconBuildConfig = {
 	glob: '**/48.svg',
 	baseIconEntryPoint: '@atlaskit/icon/base',
 	isColorsDisabled: true,
+	isDeprecated: false,
 };
 
 tidy(config16)

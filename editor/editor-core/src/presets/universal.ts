@@ -104,6 +104,9 @@ export type InitialPluginConfiguration = {
 	toolbarPlugin?: {
 		disableSelectionToolbar?: boolean;
 	};
+	insertBlockPlugin?: {
+		toolbarShowPlusInsertOnly?: boolean;
+	};
 };
 
 /**
@@ -476,6 +479,7 @@ export default function createUniversalPresetInternal({
 				nativeStatusSupported: !statusMenuDisabled,
 				showElementBrowserLink: (props.elementBrowser && props.elementBrowser.showModal) || false,
 				appearance,
+				...initialPluginConfiguration?.insertBlockPlugin,
 			},
 		])
 		.maybeAdd(

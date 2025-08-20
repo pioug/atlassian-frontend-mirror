@@ -1,5 +1,12 @@
 # @atlaskit/editor-bitbucket-transformer
 
+## 9.4.0
+
+### Minor Changes
+
+- [`72f94befc61f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/72f94befc61f2) -
+  replace method-style signatures with function-style signatures
+
 ## 9.3.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-batch-attribute-updates",
-	"version": "3.0.3",
+	"version": "3.0.4",
 	"description": "Provider a runtime tool to merge an array of SetAttrsStep and/or AttrsSteps into an unique BatchAttrsStep",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

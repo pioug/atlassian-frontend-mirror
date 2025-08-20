@@ -17,7 +17,7 @@ const layers = {
 
 const mobileHeaderHeight = 54;
 
-const xPositioning = ({ side, isOpen }: { side: string; isOpen: boolean }) =>
+const xPositioning = ({ side, isOpen }: { isOpen: boolean; side: string }) =>
 	side === 'right'
 		? // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
 			css`
@@ -32,9 +32,9 @@ const xPositioning = ({ side, isOpen }: { side: string; isOpen: boolean }) =>
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const MobileNavSlider = styled.div<{
-	topOffset: number | undefined;
 	isOpen: boolean;
 	side: string;
+	topOffset: number | undefined;
 }>(
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 	(props) => ({

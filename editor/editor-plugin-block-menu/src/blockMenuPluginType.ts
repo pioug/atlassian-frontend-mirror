@@ -1,11 +1,16 @@
 import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { BlockControlsPlugin } from '@atlaskit/editor-plugin-block-controls';
+import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 
 export type BlockMenuPlugin = NextEditorPlugin<
 	'blockMenu',
 	{
-		dependencies: [OptionalPlugin<BlockControlsPlugin>, OptionalPlugin<UserIntentPlugin>];
+		dependencies: [
+			OptionalPlugin<BlockControlsPlugin>,
+			OptionalPlugin<UserIntentPlugin>,
+			OptionalPlugin<SelectionPlugin>,
+		];
 		actions: {
 			registerBlockMenuComponents: (blockMenuComponents: Array<RegisterBlockMenuComponent>) => void;
 			getBlockMenuComponents: () => Array<RegisterBlockMenuComponent>;

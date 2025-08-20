@@ -1,5 +1,12 @@
 # @atlaskit/editor-statsig-tmp
 
+## 11.3.1
+
+### Patch Changes
+
+- [`3cb013fc55d88`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3cb013fc55d88) -
+  Add initial trigger for Improve Writing on Paste experiment
+
 ## 11.3.0
 
 ### Minor Changes

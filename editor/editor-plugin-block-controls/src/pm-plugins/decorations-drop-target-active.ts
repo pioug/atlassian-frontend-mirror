@@ -8,7 +8,6 @@ import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/m
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { type NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { type Decoration } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type {
@@ -17,7 +16,7 @@ import type {
 	BlockControlsPlugin,
 } from '../blockControlsPluginType';
 
-import { getNodeAnchor, unmountDecorations } from './decorations-common';
+import { getNodeAnchor } from './decorations-common';
 import {
 	createDropTargetDecoration,
 	createLayoutDropTargetDecoration,
@@ -116,14 +115,6 @@ export const getActiveDropTargetDecorations = (
 	activeNode?: ActiveNode,
 	anchorRectCache?: AnchorRectCache,
 ) => {
-	if (!fg('platform_editor_block_controls_drop_target_mem_fix')) {
-		unmountDecorations(
-			nodeViewPortalProviderAPI,
-			'data-blocks-drop-target-container',
-			'data-blocks-drop-target-key',
-		);
-	}
-
 	const decsToAdd: Decoration[] = [];
 	let decsToRemove: Decoration[] = existingDecs.filter((dec) => !!dec);
 

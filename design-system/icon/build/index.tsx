@@ -44,6 +44,7 @@ async function main() {
 		baseIconEntryPoint: '@atlaskit/icon/base',
 		newIconsDir: path.resolve(root, 'icons_raw'),
 		migrationMap,
+		isDeprecated: true,
 	};
 	await buildIcons(config).then((icons) => {
 		const iconDocs = createIconDocs(icons, '@atlaskit/icon', synonyms, ['icon', 'core']);

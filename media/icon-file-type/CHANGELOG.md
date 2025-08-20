@@ -1,5 +1,14 @@
 # @atlaskit/icon-file-type
 
+## 7.0.5
+
+### Patch Changes
+
+- [`2705f4174191e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2705f4174191e) -
+  Icons will no longer switch to the new icons via the`platform-visual-refresh-icons-legacy-facade`
+  feature flag
+- Updated dependencies
+
 ## 7.0.4
 
 ### Patch Changes

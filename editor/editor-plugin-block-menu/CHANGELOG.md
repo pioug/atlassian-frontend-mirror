@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 0.0.7
+
+### Patch Changes
+
+- [`31fc6b9e10762`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/31fc6b9e10762) -
+  [ux] ED-28592 ED-28592:Add copy block menu item to block menu
+- Updated dependencies
+
 ## 0.0.6
 
 ### Patch Changes

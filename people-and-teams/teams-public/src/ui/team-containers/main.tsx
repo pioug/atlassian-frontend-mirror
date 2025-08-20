@@ -59,7 +59,7 @@ export const TeamContainers = ({
 	isReadOnly,
 	onError,
 	maxNumberOfContainersToShow = MAX_NUMBER_OF_CONTAINERS_TO_SHOW,
-	elemBeforeCards
+	elemBeforeCards,
 }: TeamContainerProps) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { unlinkError } = useTeamContainers(teamId);
@@ -153,9 +153,11 @@ export const TeamContainers = ({
 	useEffect(() => {
 		const containersToCheck = filteredTeamLinks;
 
-		if (containersToCheck.length > maxNumberOfContainersToShow ||
+		if (
+			containersToCheck.length > maxNumberOfContainersToShow ||
 			isDisplayedOnProfileCard ||
-			isReadOnly) {
+			isReadOnly
+		) {
 			setCanAddContainer({ Jira: false, Confluence: false, Loom: false, WebLink: false });
 		} else {
 			const containerExists = (type: ContainerTypes) =>
@@ -205,7 +207,7 @@ export const TeamContainers = ({
 		filteredTeamLinks,
 		maxNumberOfContainersToShow,
 		requestedContainers,
-		isReadOnly
+		isReadOnly,
 	]);
 	useEffect(() => {
 		if (onError) {
@@ -356,47 +358,48 @@ export const TeamContainers = ({
 	return (
 		<>
 			<Stack space="space.200">
-			{(() => {
+				{(() => {
 					const GridComponent = components?.Grid || Grid;
 					return (
-				<GridComponent
-					templateColumns="repeat(auto-fill, minmax(300px, 1fr))"
-					gap={isDisplayedOnProfileCard ? 'space.0' : 'space.100'}
-				>
-					{elemBeforeCards && (() => {
-								const ElemBeforeCards = elemBeforeCards;
-								return <ElemBeforeCards />;
-							})()}
-					{filteredTeamLinks.slice(0, maxNumberOfContainersToShow).map((container) => {
-						return (
-							<LinkedContainerCardComponent
-								key={container.id}
-								containerType={container.type}
-								containerTypeProperties={container.containerTypeProperties}
-								title={container.name}
-								containerIcon={container.icon || undefined}
-								link={container.link || undefined}
-								containerId={container.id}
-								iconsLoading={iconsLoading}
-								iconHasLoaded={iconHasLoaded}
-								isReadOnly={isReadOnly}
-								onDisconnectButtonClick={() =>
-									handleOpenDisconnectDialog({
-										containerId: container.id,
-										containerType: container.type,
-										containerName: container.name,
-									})
-								}
-								onEditLinkClick={() => handleEditContainerClick(container)}
-							/>
-						);
-					})}
+						<GridComponent
+							templateColumns="repeat(auto-fill, minmax(300px, 1fr))"
+							gap={isDisplayedOnProfileCard ? 'space.0' : 'space.100'}
+						>
+							{elemBeforeCards &&
+								(() => {
+									const ElemBeforeCards = elemBeforeCards;
+									return <ElemBeforeCards />;
+								})()}
+							{filteredTeamLinks.slice(0, maxNumberOfContainersToShow).map((container) => {
+								return (
+									<LinkedContainerCardComponent
+										key={container.id}
+										containerType={container.type}
+										containerTypeProperties={container.containerTypeProperties}
+										title={container.name}
+										containerIcon={container.icon || undefined}
+										link={container.link || undefined}
+										containerId={container.id}
+										iconsLoading={iconsLoading}
+										iconHasLoaded={iconHasLoaded}
+										isReadOnly={isReadOnly}
+										onDisconnectButtonClick={() =>
+											handleOpenDisconnectDialog({
+												containerId: container.id,
+												containerType: container.type,
+												containerName: container.name,
+											})
+										}
+										onEditLinkClick={() => handleEditContainerClick(container)}
+									/>
+								);
+							})}
 
-					{getAddContainerCards({
-						containers: availableContainers,
-						onAddAContainerClick: onAddAContainerClick,
-						showNewDesign: createContainerExperimentEnabled,
-					})}
+							{getAddContainerCards({
+								containers: availableContainers,
+								onAddAContainerClick: onAddAContainerClick,
+								showNewDesign: createContainerExperimentEnabled,
+							})}
 
 							{showMore &&
 								filteredTeamLinks.slice(maxNumberOfContainersToShow).map((container) => {

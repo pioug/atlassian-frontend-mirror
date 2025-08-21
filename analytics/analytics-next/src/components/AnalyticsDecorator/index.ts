@@ -9,16 +9,16 @@ type AnalyticsData = {
 };
 
 type AnalyticsDecoratorProps = {
-	match: Matcher;
-	matchPrivate: boolean;
+	children: React.ReactNode;
 	data?: AnalyticsData;
 	getData?: (name: string, data: AnalyticsData) => AnalyticsData;
-	children: React.ReactNode;
+	match: Matcher;
+	matchPrivate: boolean;
 };
 
 type AnalyticsDecoratorContext = {
-	onAnalyticsEvent?: (name: string, data: AnalyticsData, isPrivate: boolean) => void;
 	getParentAnalyticsData?: (name: string, isPrivate: boolean) => AnalyticsData;
+	onAnalyticsEvent?: (name: string, data: AnalyticsData, isPrivate: boolean) => void;
 };
 
 export const ContextTypes = {

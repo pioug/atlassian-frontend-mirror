@@ -142,7 +142,7 @@ export const EmojiButton = ({ api }: EmojiButtonProps) => {
 			)}
 			<ToolbarTooltip content={formatMessage(messages.emoji)}>
 				<ToolbarButton
-					iconBefore={<EmojiIcon label={formatMessage(messages.emoji)} />}
+					iconBefore={<EmojiIcon label={formatMessage(messages.emoji)} size="small" />}
 					ariaKeyshortcuts="Shift+;"
 					ref={emojiButtonRef}
 					onClick={onClick}

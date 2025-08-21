@@ -68,7 +68,7 @@ export const getSimulatedBetterMetadata = (cardDetails?: JsonLd.Response): Simul
 					: defaultTopMetadata,
 				bottomMetadata: [{ name: ElementName.AppliedToComponentsCount }, ...baseBottomMetaData],
 			};
-		case 'passionfruit-object-provider':
+		case 'integration-passionfruit-object-provider':
 			if (fg('passionfruit_ask_smart_links_enabled')) {
 				return {
 					titleMetadata: defaultTitleMetadata,

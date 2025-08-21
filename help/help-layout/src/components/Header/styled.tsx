@@ -34,8 +34,8 @@ export const CloseButtonContainer = ({
 	inDynamicHeader,
 	children,
 }: {
-	inDynamicHeader: boolean;
 	children: React.ReactNode;
+	inDynamicHeader: boolean;
 }) => <Box xcss={!inDynamicHeader && styles.closeButtonContainer}>{children}</Box>;
 
 export const TRANSITION_DURATION_MS = 220;
@@ -57,8 +57,8 @@ export const BackButtonContainer = ({
 	transitionState,
 	children,
 }: {
-	transitionState: TransitionStatus;
 	children: React.ReactNode;
+	transitionState: TransitionStatus;
 }) => (
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 	<div css={backButtonContainerStyles} style={backButtonContainerTransitionStyles[transitionState]}>

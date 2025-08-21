@@ -76,9 +76,6 @@
 			"path": "../tokens/tsconfig.app.json"
 		},
 		{
-			"path": "../../../build/test-tooling/visual-regression/tsconfig.app.json"
-		},
-		{
 			"path": "../../uip/ssr-tests/tsconfig.app.json"
 		}
 	]

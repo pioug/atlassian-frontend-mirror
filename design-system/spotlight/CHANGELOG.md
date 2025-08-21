@@ -1,5 +1,14 @@
 # @atlaskit/spotlight
 
+## 0.0.18
+
+### Patch Changes
+
+- [`24f083242a2df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/24f083242a2df) -
+  Styling update to `PopoverTarget` to set `width: fit-content` to ensure `PopoverContent` displays
+  correctly in relation to target element.
+- Updated dependencies
+
 ## 0.0.17
 
 ### Patch Changes

@@ -5,8 +5,8 @@ import styled from 'styled-components';
 import { AnalyticsViewer, type EventsArray } from './AnalyticsViewer';
 
 type Props = {
-	children: React.ReactNode;
 	channel?: string;
+	children: React.ReactNode;
 };
 
 type State = {

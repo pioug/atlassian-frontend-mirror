@@ -48,7 +48,7 @@ describe('Avatar Picker Dialog', () => {
 		await expect(container).toBeAccessible();
 	});
 
-	it('should have the focus for show more icons going back from avatar list', async () => {
+	it('should handle the proper focus management for show more & go back buttons from in avatar picker dialog', async () => {
 		jest.spyOn(window, 'requestAnimationFrame').mockImplementation((cb) => setTimeout(cb, 0));
 		render(
 			<AvatarPickerDialog
@@ -67,7 +67,7 @@ describe('Avatar Picker Dialog', () => {
 
 		const backBtn = screen.getByRole('button', { name: 'Go Back' });
 
-		backBtn.focus();
+		expect(backBtn).toHaveFocus();
 
 		await userEvent.keyboard('{Enter}');
 

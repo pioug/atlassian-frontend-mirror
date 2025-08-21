@@ -14,12 +14,12 @@ import { messages } from '../../messages';
 import { CloseButtonContainer } from './styled';
 
 interface Props {
+	inDynamicHeader?: boolean;
 	// Function executed when the user clicks the close button
 	onClick(
 		event: React.MouseEvent<HTMLElement, MouseEvent>,
 		analyticsEvent?: UIAnalyticsEvent,
 	): void;
-	inDynamicHeader?: boolean;
 }
 
 /**

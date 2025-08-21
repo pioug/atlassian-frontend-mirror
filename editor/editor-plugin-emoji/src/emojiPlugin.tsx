@@ -100,7 +100,7 @@ export function memoize<
 }
 const memoizedToItem = memoize(emojiToTypeaheadItem);
 
-export const defaultListLimit = 50;
+const defaultListLimit = 50;
 const isFullShortName = (query?: string) =>
 	query && query.length > 1 && query.charAt(0) === ':' && query.charAt(query.length - 1) === ':';
 
@@ -521,7 +521,7 @@ const logRateWarning = () => {
 	}
 };
 
-export const setProviderTr: (provider?: EmojiProvider) => (tr: Transaction) => Transaction =
+const setProviderTr: (provider?: EmojiProvider) => (tr: Transaction) => Transaction =
 	createRateLimitReachedFunction(
 		(provider?: EmojiProvider) => (tr: Transaction) => setProviderAction(provider)(tr),
 		// If we change the emoji provider more than three times every 5 seconds we should warn.
@@ -532,7 +532,7 @@ export const setProviderTr: (provider?: EmojiProvider) => (tr: Transaction) => T
 		logRateWarning,
 	);
 
-export const setProvider: ((provider?: EmojiProvider) => Command) | undefined =
+const setProvider: ((provider?: EmojiProvider) => Command) | undefined =
 	(provider?: EmojiProvider): Command =>
 	(state, dispatch) => {
 		if (dispatch) {
@@ -544,11 +544,11 @@ export const setProvider: ((provider?: EmojiProvider) => Command) | undefined =
 
 export const emojiPluginKey = new PluginKey<EmojiPluginState>('emojiPlugin');
 
-export function getEmojiPluginState(state: EditorState) {
+function getEmojiPluginState(state: EditorState) {
 	return (emojiPluginKey.getState(state) || {}) as EmojiPluginState;
 }
 
-export function createEmojiPlugin(
+function createEmojiPlugin(
 	pmPluginFactoryParams: PMPluginFactoryParams,
 	options?: EmojiPluginOptions,
 	api?: ExtractInjectionAPI<EmojiPlugin>,

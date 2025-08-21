@@ -17,7 +17,7 @@ import type {
 	AccessibilityUtilsPluginState,
 } from './accessibilityUtilsPluginType';
 
-export const accessibilityUtilsPluginKey = new PluginKey('accessibilityUtilsPlugin');
+const accessibilityUtilsPluginKey = new PluginKey('accessibilityUtilsPlugin');
 
 export const accessibilityUtilsPlugin: AccessibilityUtilsPlugin = ({ api }) => {
 	let editorView: EditorView | undefined;

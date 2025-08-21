@@ -43,6 +43,11 @@ const ANALYTICS_CONTEXT_DATA = {
 };
 
 interface Props {
+	// Event handler for the "No" button of the "Was this helpful" section. This prop is optional
+	onWasHelpfulNoButtonClick?(
+		event: React.MouseEvent<HTMLElement, MouseEvent>,
+		analyticsEvent: UIAnalyticsEvent,
+	): void;
 	// Event handler for the "Was this helpful" submit button. This prop is optional, if is not defined the "Was this helpful" section will be hidden
 	onWasHelpfulSubmit?(
 		analyticsEvent: UIAnalyticsEvent,
@@ -50,11 +55,6 @@ interface Props {
 	): Promise<boolean>;
 	// Event handler for the "Yes" button of the "Was this helpful" section. This prop is optional
 	onWasHelpfulYesButtonClick?(
-		event: React.MouseEvent<HTMLElement, MouseEvent>,
-		analyticsEvent: UIAnalyticsEvent,
-	): void;
-	// Event handler for the "No" button of the "Was this helpful" section. This prop is optional
-	onWasHelpfulNoButtonClick?(
 		event: React.MouseEvent<HTMLElement, MouseEvent>,
 		analyticsEvent: UIAnalyticsEvent,
 	): void;

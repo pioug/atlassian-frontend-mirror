@@ -56,9 +56,9 @@ export const HelpBodyAi = ({ children }: { children: React.ReactNode }) => (
 );
 
 type HomeProps = {
+	children: React.ReactNode;
 	isOverlayFullyVisible?: boolean;
 	isOverlayVisible?: boolean;
-	children: React.ReactNode;
 };
 
 const homeStyles = css({
@@ -123,8 +123,8 @@ export const HelpFooter = ({
 	children,
 	...rest
 }: {
-	children: React.ReactNode;
 	[rest: string]: any;
+	children: React.ReactNode;
 }) => (
 	<div css={helpFooterStyles} {...rest}>
 		{children}
@@ -153,8 +153,8 @@ export const BackButtonContainer = ({
 	transitionState,
 	children,
 }: {
-	transitionState: TransitionStatus;
 	children: React.ReactNode;
+	transitionState: TransitionStatus;
 }) => (
 	<div
 		css={backButtonContainerStyles}

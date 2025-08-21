@@ -54,6 +54,8 @@ const extractAction = (
 	origin?: AnalyticsOrigin,
 	fireEvent?: FireEventFunction,
 	resolve?: ResolveFunction,
+	isPreviewPanelAvailable?: (params: { ari: string }) => boolean,
+	openPreviewPanel?: (params: { ari: string; url: string; name: string; iconUrl: string | undefined }) => void,
 ): LinkLozengeInvokeActions | undefined => {
 	const extensionKey = getExtensionKey(response);
 	const data = response?.data as JsonLd.Data.BaseData;
@@ -88,7 +90,9 @@ const extractAction = (
 				onClose: resolve ? () => url && resolve(url, true) : undefined,
 				origin,
 				response,
-			})
+				isPreviewPanelAvailable,
+				openPreviewPanel,
+			})?.invokeAction
 		: undefined;
 
 	const details = { id, url, invokePreviewAction };
@@ -115,6 +119,8 @@ const extractState = (
 	origin?: AnalyticsOrigin,
 	fireEvent?: FireEventFunction,
 	resolve?: ResolveFunction,
+	isPreviewPanelAvailable?: (params: { ari: string }) => boolean,
+	openPreviewPanel?: (params: { ari: string; url: string; name: string; iconUrl: string | undefined }) => void,
 ): LinkLozenge | undefined => {
 	if (!response || !response.data) {
 		return;
@@ -130,7 +136,7 @@ const extractState = (
 		return lozenge;
 	}
 
-	const action = extractAction(response, id, actionOptions, appearance, origin, fireEvent, resolve);
+	const action = extractAction(response, id, actionOptions, appearance, origin, fireEvent, resolve, isPreviewPanelAvailable, openPreviewPanel);
 	return { ...lozenge, action };
 };
 

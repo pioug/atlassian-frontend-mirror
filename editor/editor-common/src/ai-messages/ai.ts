@@ -62,6 +62,11 @@ export const aiMessages = defineMessages({
 		defaultMessage: "Ask AI {key}+'",
 		description: 'Tooltip text for an option to use Atlassian Intellgience with quick command',
 	},
+	askRovoToolbarIconTooltipQuickCommand: {
+		id: 'fabric.editor.ai.toolbar.askRovo.tooltip.quickCommand',
+		defaultMessage: "Ask Rovo {key}+'",
+		description: 'Tooltip text for an option to use Rovo AI with quick command',
+	},
 	tryAIToolbarIconTitle: {
 		id: 'fabric.editor.ai.toolbar.tryAI.title',
 		defaultMessage: 'Try AI',

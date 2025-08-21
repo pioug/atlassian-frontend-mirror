@@ -33,10 +33,10 @@ export const DividerLine = ({ style }: { style?: React.CSSProperties }) => (
  */
 
 type LoadingRectangleProps = {
-	style?: React.CSSProperties;
-	contentWidth?: string;
 	contentHeight?: string;
+	contentWidth?: string;
 	marginTop?: string;
+	style?: React.CSSProperties;
 };
 
 const shimmer = keyframes({
@@ -93,8 +93,8 @@ export const LoadingRectangle = ({
 );
 
 type WhatsNewTypeIconProps = {
-	type?: WHATS_NEW_ITEM_TYPES;
 	children?: React.ReactNode;
+	type?: WHATS_NEW_ITEM_TYPES;
 };
 
 const whatsNewTypeIconStyles = css({

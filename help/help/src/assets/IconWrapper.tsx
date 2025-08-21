@@ -6,9 +6,9 @@ import { IconTile, type IconProps, type NewCoreIconProps } from '@atlaskit/icon'
 import { fg } from '@atlaskit/platform-feature-flags';
 
 type IconWrapperProps = {
+	appearance: string;
 	Icon: React.FC<NewCoreIconProps>;
 	LegacyIcon: ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => JSX.Element;
-	appearance: string;
 };
 
 export const IconWrapper = ({ Icon, LegacyIcon, appearance }: IconWrapperProps) => {

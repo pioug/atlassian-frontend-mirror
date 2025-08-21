@@ -12,11 +12,11 @@ import { messages } from '../../messages';
 import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 interface Props {
+	isDisabled?: boolean;
 	onClick?(
 		event: React.MouseEvent<HTMLElement, MouseEvent>,
 		analyticsEvent: UIAnalyticsEvent,
 	): void;
-	isDisabled?: boolean;
 }
 
 export const NewChatButton = ({ onClick, isDisabled }: Props) => {

@@ -7,6 +7,7 @@ import {
 export const extractPreviewClientAction = (
 	param: ExtractInvokePreviewActionParam,
 ): PreviewActionData | undefined => {
-	const invokeAction = extractInvokePreviewAction(param);
-	return invokeAction ? { invokeAction } : undefined;
+	const result = extractInvokePreviewAction(param);
+	
+	return result ? result : undefined
 };

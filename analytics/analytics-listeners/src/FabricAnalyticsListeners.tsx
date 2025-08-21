@@ -23,9 +23,9 @@ export type Props = {
 	/** Children! */
 	children?: React.ReactNode;
 	client?: AnalyticsWebClient | Promise<AnalyticsWebClient>;
-	logLevel?: number;
 	/** A list of individual listeners to exclude, identified by channel */
 	excludedChannels?: FabricChannel[];
+	logLevel?: number;
 };
 
 const listenerMap = {

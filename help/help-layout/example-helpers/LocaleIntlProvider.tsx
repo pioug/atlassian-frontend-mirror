@@ -6,8 +6,8 @@ const LocaleIntlProvider = ({
 	locale = 'en',
 	children,
 }: {
-	locale?: string;
 	children: React.ReactNode;
+	locale?: string;
 }) => (
 	<IntlProvider key={locale} locale={locale}>
 		{children}
@@ -18,8 +18,8 @@ const LocaleAndMessagesIntlProvider = ({
 	locale = 'en',
 	children,
 }: {
-	locale?: string;
 	children: any;
+	locale?: string;
 }) => (
 	<LocaleIntlProvider key={locale} locale={locale}>
 		<MessagesIntlProvider locale={locale}>{children}</MessagesIntlProvider>

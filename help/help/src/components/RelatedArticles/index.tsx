@@ -25,12 +25,6 @@ const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 export interface Props {
-	// Style. This component has two different styles (primary and secondary)
-	style?: 'primary' | 'secondary';
-	// routeGroup used to get the related articles. This prop is optional.
-	routeGroup?: string;
-	// routeName used to get the related articles. This prop is optional.
-	routeName?: string;
 	// Function used to get related articles. This prop is optional, if is not defined the related articles will not be displayed
 	onGetRelatedArticles?(routeGroup?: string, routeName?: string): Promise<ArticleItem[]>;
 	/* Function executed when the user clicks on of the related articles */
@@ -45,6 +39,12 @@ export interface Props {
 		analyticsEvent: UIAnalyticsEvent,
 		isCollapsed: boolean,
 	) => void;
+	// routeGroup used to get the related articles. This prop is optional.
+	routeGroup?: string;
+	// routeName used to get the related articles. This prop is optional.
+	routeName?: string;
+	// Style. This component has two different styles (primary and secondary)
+	style?: 'primary' | 'secondary';
 }
 
 const buttonStyles = css({

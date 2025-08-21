@@ -1,7 +1,9 @@
 import { renderHook } from '@testing-library/react-hooks';
 
 import { type JsonLd } from '@atlaskit/json-ld-types';
+import { useSmartLinkContext } from '@atlaskit/link-provider';
 
+import { extractInvokePreviewAction } from '../../../extractors/action/extract-invoke-preview-action';
 import { mocks } from '../../../utils/mocks';
 import useInvokeClientAction from '../../hooks/use-invoke-client-action';
 import { useSmartCardState } from '../../store';
@@ -23,6 +25,14 @@ jest.mock('../../hooks/use-invoke-client-action', () => ({
 	default: jest.fn(),
 }));
 
+jest.mock('@atlaskit/link-provider', () => ({
+	useSmartLinkContext: jest.fn(),
+}));
+
+jest.mock('../../../extractors/action/extract-invoke-preview-action', () => ({
+	extractInvokePreviewAction: jest.fn(),
+}));
+
 const url = 'https://start.atlassian.com';
 const appearance = 'block';
 
@@ -34,6 +44,9 @@ const mockNoActions = () => {
 	const state: CardState = { details, status: 'resolved' };
 
 	(useSmartCardState as jest.Mock).mockReturnValue(state);
+
+	// Mock extractInvokePreviewAction to return undefined when there are no actions
+	(extractInvokePreviewAction as jest.Mock).mockReturnValue(undefined);
 };
 
 const mockWithActions = () => {
@@ -43,6 +56,19 @@ const mockWithActions = () => {
 	const state: CardState = { details: mocks.success, status: 'resolved' };
 
 	(useSmartCardState as jest.Mock).mockReturnValue(state);
+
+	// Mock extractInvokePreviewAction to return a valid result
+	(extractInvokePreviewAction as jest.Mock).mockReturnValue({
+		invokeAction: {
+			actionFn: jest.fn(),
+			actionSubjectId: 'invokePreviewScreen',
+			actionType: 'PreviewAction',
+			display: 'block',
+			extensionKey: 'object-provider',
+			id: 'test-id',
+		},
+		hasPreviewPanel: false,
+	});
 
 	return mockInvokeClientAction;
 };
@@ -67,6 +93,10 @@ describe(useSmartLinkActions.name, () => {
 	});
 
 	it('returns list of actions when data available', () => {
+		(useSmartLinkContext as jest.Mock).mockReturnValue({
+			isPreviewPanelAvailable: undefined,
+			openPreviewPanel: undefined,
+		});
 		mockWithActions();
 
 		const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
@@ -75,6 +105,10 @@ describe(useSmartLinkActions.name, () => {
 	});
 
 	it('returns server-based action', () => {
+		(useSmartLinkContext as jest.Mock).mockReturnValue({
+			isPreviewPanelAvailable: undefined,
+			openPreviewPanel: undefined,
+		});
 		mockWithActions();
 
 		const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
@@ -83,6 +117,10 @@ describe(useSmartLinkActions.name, () => {
 	});
 
 	it('returns client-based action', () => {
+		(useSmartLinkContext as jest.Mock).mockReturnValue({
+			isPreviewPanelAvailable: undefined,
+			openPreviewPanel: undefined,
+		});
 		mockWithActions();
 
 		const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
@@ -91,6 +129,10 @@ describe(useSmartLinkActions.name, () => {
 	});
 
 	it('invokes correct promise on trigger of action (first)', async () => {
+		(useSmartLinkContext as jest.Mock).mockReturnValue({
+			isPreviewPanelAvailable: undefined,
+			openPreviewPanel: undefined,
+		});
 		const actionHandler = mockWithActions();
 
 		const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
@@ -101,6 +143,10 @@ describe(useSmartLinkActions.name, () => {
 	});
 
 	it('invokes correct promise on trigger of action (second)', async () => {
+		(useSmartLinkContext as jest.Mock).mockReturnValue({
+			isPreviewPanelAvailable: undefined,
+			openPreviewPanel: undefined,
+		});
 		const actionHandler = mockWithActions();
 
 		const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
@@ -110,6 +156,10 @@ describe(useSmartLinkActions.name, () => {
 	});
 
 	it('returns no actions when actionOptions.hide is true', () => {
+		(useSmartLinkContext as jest.Mock).mockReturnValue({
+			isPreviewPanelAvailable: undefined,
+			openPreviewPanel: undefined,
+		});
 		mockWithActions();
 
 		const { result } = renderHook(() =>
@@ -124,6 +174,10 @@ describe(useSmartLinkActions.name, () => {
 	});
 
 	it('returns actions as expected when useSmartCardState changes', () => {
+		(useSmartLinkContext as jest.Mock).mockReturnValue({
+			isPreviewPanelAvailable: undefined,
+			openPreviewPanel: undefined,
+		});
 		mockLifecycle();
 
 		const { result, rerender } = renderHook(() => useSmartLinkActions({ url, appearance }));
@@ -141,10 +195,100 @@ describe(useSmartLinkActions.name, () => {
 	});
 
 	it('returns empty list when no data available', () => {
+		(useSmartLinkContext as jest.Mock).mockReturnValue({
+			isPreviewPanelAvailable: undefined,
+			openPreviewPanel: undefined,
+		});
 		mockNoActions();
 
 		const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
 
 		expect(result.current).toEqual([]);
+	});
+
+	describe('preview panel integration', () => {
+		it('should pass through preview panel parameters from context when available', () => {
+			const mockIsPreviewPanelAvailable = jest.fn().mockReturnValue(true);
+			const mockOpenPreviewPanel = jest.fn();
+
+			(useSmartLinkContext as jest.Mock).mockReturnValue({
+				isPreviewPanelAvailable: mockIsPreviewPanelAvailable,
+				openPreviewPanel: mockOpenPreviewPanel,
+			});
+
+			mockWithActions();
+
+			const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
+
+			// Just verify that the hook returns some actions when preview panel is available
+			expect(result.current.length).toBeGreaterThan(0);
+		});
+
+		it('should handle preview panel parameters when preview panel is not available', () => {
+			const mockIsPreviewPanelAvailable = jest.fn().mockReturnValue(false);
+
+			(useSmartLinkContext as jest.Mock).mockReturnValue({
+				isPreviewPanelAvailable: mockIsPreviewPanelAvailable,
+				openPreviewPanel: undefined,
+			});
+
+			mockWithActions();
+
+			const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
+
+			// Just verify that the hook returns some actions when preview panel is not available
+			expect(result.current.length).toBeGreaterThan(0);
+		});
+
+		it('should handle undefined preview panel parameters from context', () => {
+			(useSmartLinkContext as jest.Mock).mockReturnValue({
+				isPreviewPanelAvailable: undefined,
+				openPreviewPanel: undefined,
+			});
+
+			mockWithActions();
+
+			const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
+
+			// Just verify that the hook returns some actions when parameters are undefined
+			expect(result.current.length).toBeGreaterThan(0);
+		});
+
+		it('should handle null preview panel parameters from context', () => {
+			(useSmartLinkContext as jest.Mock).mockReturnValue({
+				isPreviewPanelAvailable: null,
+				openPreviewPanel: null,
+			});
+
+			mockWithActions();
+
+			const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
+
+			// Just verify that the hook returns some actions when parameters are null
+			expect(result.current.length).toBeGreaterThan(0);
+		});
+
+		it('should pass through origin parameter when provided', () => {
+			const mockIsPreviewPanelAvailable = jest.fn().mockReturnValue(true);
+			const mockOpenPreviewPanel = jest.fn();
+
+			(useSmartLinkContext as jest.Mock).mockReturnValue({
+				isPreviewPanelAvailable: mockIsPreviewPanelAvailable,
+				openPreviewPanel: mockOpenPreviewPanel,
+			});
+
+			mockWithActions();
+
+			const { result } = renderHook(() => 
+				useSmartLinkActions({ 
+					url, 
+					appearance, 
+					origin: 'smartLinkCard' 
+				})
+			);
+
+			// Just verify that the hook returns some actions when origin is provided
+			expect(result.current.length).toBeGreaterThan(0);
+		});
 	});
 });

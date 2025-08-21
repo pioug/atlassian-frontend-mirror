@@ -11,8 +11,8 @@ import {
 } from '../src';
 
 interface Props extends WithAnalyticsEventsProps {
-	onClick: (e: MouseEvent<HTMLButtonElement>) => void;
 	children: React.ReactNode;
+	onClick: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 
 const ButtonBase = ({ createAnalyticsEvent, onClick, ...rest }: Props) => {
@@ -70,11 +70,11 @@ const ButtonUsingEventHandlerHook = ({
 	onClick,
 	children,
 }: {
+	children: React.ReactNode;
 	onClick: (
 		mouseEvent: React.MouseEvent<HTMLButtonElement>,
 		analyticsEvent: UIAnalyticsEvent,
 	) => void;
-	children: React.ReactNode;
 }) => {
 	const handleClick = usePlatformLeafEventHandler({
 		fn: onClick,

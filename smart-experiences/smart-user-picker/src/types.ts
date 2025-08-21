@@ -216,6 +216,10 @@ export interface SmartProps {
 	 * Called after options are loaded.
 	 */
 	transformOptions?: TransformOptions;
+	/**
+	 * Optional callback to provide additional user resolvers, such as for fetching and adding users from third party sources
+	 */
+	userResolvers?: Array<(query: string) => Promise<OptionData[]>>;
 }
 
 // Override UserPickerProps below with replacement documentation

@@ -47,9 +47,9 @@ export const ArticlesListItemWrapper = ({
 	children,
 	...rest
 }: {
+	[rest: string]: any;
 	children: React.ReactNode;
 	styles?: React.CSSProperties;
-	[rest: string]: any;
 }) => (
 	// eslint-disable-next-line @atlaskit/design-system/no-html-anchor, @atlaskit/ui-styling-standard/enforce-style-prop
 	<a css={articlesListItemWrapperStyles} style={styles} {...rest}>
@@ -194,8 +194,8 @@ export const ArticlesListItemDescriptionHighlight = ({
 	key,
 	children,
 }: {
-	key: number | string;
 	children: React.ReactNode;
+	key: number | string;
 }) => (
 	<mark key={key} css={articlesListItemDescriptionHighlightStyles}>
 		{children}

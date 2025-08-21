@@ -41,7 +41,7 @@ export const RedoButton = ({ api }: RedoButtonProps) => {
 			}
 		>
 			<ToolbarButton
-				iconBefore={<RedoIcon label={formatMessage(undoRedoMessages.redo)} />}
+				iconBefore={<RedoIcon label={formatMessage(undoRedoMessages.redo)} size="small" />}
 				onClick={handleRedo}
 				isDisabled={!canRedo}
 				ariaKeyshortcuts={getAriaKeyshortcuts(redoKeymap)}

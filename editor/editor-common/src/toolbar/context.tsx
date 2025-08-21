@@ -2,12 +2,16 @@ import React, { createContext, useContext } from 'react';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-type EditorToolbarContextType = {
+import type { EditorAppearance } from '../types';
+
+export type EditorToolbarContextType = {
 	editorView: EditorView | null;
+	editorAppearance?: EditorAppearance;
 };
 
 const EditorToolbarContext = createContext<EditorToolbarContextType>({
 	editorView: null,
+	editorAppearance: undefined,
 });
 
 /**
@@ -27,8 +31,14 @@ type EditorToolbarProviderProps = {
 	children: React.ReactNode;
 } & EditorToolbarContextType;
 
-export const EditorToolbarProvider = ({ children, editorView }: EditorToolbarProviderProps) => {
+export const EditorToolbarProvider = ({
+	children,
+	editorView,
+	editorAppearance,
+}: EditorToolbarProviderProps) => {
 	return (
-		<EditorToolbarContext.Provider value={{ editorView }}>{children}</EditorToolbarContext.Provider>
+		<EditorToolbarContext.Provider value={{ editorView, editorAppearance }}>
+			{children}
+		</EditorToolbarContext.Provider>
 	);
 };

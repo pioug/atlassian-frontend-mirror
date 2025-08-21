@@ -42,7 +42,7 @@ export const UndoButton = ({ api }: UndoButtonProps) => {
 			}
 		>
 			<ToolbarButton
-				iconBefore={<UndoIcon label={formatMessage(undoRedoMessages.undo)} />}
+				iconBefore={<UndoIcon label={formatMessage(undoRedoMessages.undo)} size="small" />}
 				onClick={handleUndo}
 				isDisabled={!canUndo}
 				ariaKeyshortcuts={getAriaKeyshortcuts(undoKeymap)}

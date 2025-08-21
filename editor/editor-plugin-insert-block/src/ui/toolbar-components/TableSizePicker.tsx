@@ -7,7 +7,12 @@ import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/
 import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { TableSelectorPopup } from '@atlaskit/editor-common/ui';
-import { MoreItemsIcon, ToolbarButton, ToolbarTooltip } from '@atlaskit/editor-toolbar';
+import {
+	MoreItemsIcon,
+	ToolbarButton,
+	ToolbarTooltip,
+	useToolbarUI,
+} from '@atlaskit/editor-toolbar';
 
 import type { InsertBlockPlugin } from '../../insertBlockPluginType';
 
@@ -20,6 +25,7 @@ type TableSizePickerProps = {
 export const TableSizePicker = ({ api, tableSelectorSupported }: TableSizePickerProps) => {
 	const { formatMessage } = useIntl();
 	const { editorView } = useEditorToolbar();
+	const { popupsMountPoint } = useToolbarUI();
 	const [tableSizePickerOpen, setTableSizePickerOpen] = useState(false);
 	const [isOpenedByKeyboard, setIsOpenedByKeyboard] = useState(false);
 
@@ -67,7 +73,7 @@ export const TableSizePicker = ({ api, tableSelectorSupported }: TableSizePicker
 					target={tableSizePickerRef.current}
 					onUnmount={onUnmount}
 					onSelection={handleSelectedTableSize}
-					popupsMountPoint={tableSizePickerRef.current}
+					popupsMountPoint={popupsMountPoint}
 					handleClickOutside={handleTableSelectorClickOutside}
 					handleEscapeKeydown={handleTableSelectorPressEscape}
 					isOpenedByKeyboard={isOpenedByKeyboard}

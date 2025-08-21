@@ -10,7 +10,7 @@ import { useRenderCounter } from '../../../../test-utils/useRenderCounter';
 import ModernAnalyticsListener from '../../ModernAnalyticsListener';
 
 const FakeModernConsumerButton = memo(
-	({ event, channel }: { event: UIAnalyticsEvent; channel: string }) => {
+	({ event, channel }: { channel: string; event: UIAnalyticsEvent; }) => {
 		const analyticsContext = useAnalyticsContext();
 		const renderCounter = useRenderCounter();
 
@@ -33,9 +33,9 @@ const UnderTestSingleListener = ({
 	event,
 	sendChannel,
 }: {
-	onEvent: (event: UIAnalyticsEvent, channel?: string) => void;
 	event: UIAnalyticsEvent;
 	listenChannel: string;
+	onEvent: (event: UIAnalyticsEvent, channel?: string) => void;
 	sendChannel: string;
 }) => {
 	return (
@@ -53,11 +53,11 @@ const UnderTestTwoListeners = ({
 	event,
 	sendChannel,
 }: {
-	outerOnEvent: (event: UIAnalyticsEvent, channel?: string) => void;
-	innerOnEvent: (event: UIAnalyticsEvent, channel?: string) => void;
 	event: UIAnalyticsEvent;
-	outerListenChannel: string;
 	innerListenChannel: string;
+	innerOnEvent: (event: UIAnalyticsEvent, channel?: string) => void;
+	outerListenChannel: string;
+	outerOnEvent: (event: UIAnalyticsEvent, channel?: string) => void;
 	sendChannel: string;
 }) => {
 	return (

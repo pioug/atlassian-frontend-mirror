@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 type AnalyticsDelegateProps = {
-	delegateAnalyticsEvent?: (name: string, data: any, isPrivate: boolean) => void;
 	children: React.ReactNode;
+	delegateAnalyticsEvent?: (name: string, data: any, isPrivate: boolean) => void;
 };
 
 type AnalyticsDelegateContext = {

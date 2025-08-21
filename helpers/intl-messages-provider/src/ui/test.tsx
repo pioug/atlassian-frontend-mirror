@@ -24,10 +24,10 @@ describe('IntlMessagesProvider', () => {
 	const translated = { foo: 'Translated string' };
 
 	type SetupProps = {
-		locale: string;
-		loaderFn: (locale: string) => Promise<I18NMessages | undefined>;
 		children?: React.ReactNode;
 		defaultMessages?: I18NMessages;
+		loaderFn: (locale: string) => Promise<I18NMessages | undefined>;
+		locale: string;
 		parentMessages?: I18NMessages;
 	};
 

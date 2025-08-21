@@ -16,11 +16,11 @@ import { type AnalyticsWebClient, FabricChannel } from '../../../types';
 import { createAnalyticsContexts, createLoggerMock } from '../../_testUtils';
 
 type CaseArgs = {
-	name: string;
-	eventPayload: GasPurePayload;
 	clientPayload: GasPurePayload;
-	eventType?: string;
 	context: any[];
+	eventPayload: GasPurePayload;
+	eventType?: string;
+	name: string;
 };
 
 describe('NavigationListener', () => {

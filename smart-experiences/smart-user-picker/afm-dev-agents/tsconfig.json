@@ -26,6 +26,9 @@
 			"path": "../../../analytics/analytics-next/afm-dev-agents/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags/afm-dev-agents/tsconfig.json"
+		},
+		{
 			"path": "../../../data/ufo-external/afm-dev-agents/tsconfig.json"
 		},
 		{

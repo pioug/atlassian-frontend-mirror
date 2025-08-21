@@ -148,6 +148,7 @@ function Component({
 						clickOutcome: 'previewPanel',
 					},
 				});
+				return;
 			} else if (!onClick && !isFlexibleUi) {
 				const clickUrl = getClickUrl(url, state.details);
 

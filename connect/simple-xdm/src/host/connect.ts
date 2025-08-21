@@ -7,8 +7,8 @@ import XDMRPC from './xdmrpc';
 export interface Extension {
 	addon_key: string;
 	key: string;
-	url: string;
 	options?: any;
+	url: string;
 }
 
 export interface IframedModule {
@@ -18,9 +18,9 @@ export interface IframedModule {
 }
 
 export interface TargetSpec {
+	[x: string]: any;
 	addon_key?: string;
 	key?: string;
-	[x: string]: any;
 }
 
 export interface Module {

@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-alignment
 
+## 4.2.7
+
+### Patch Changes
+
+- [`286abb4d35eba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/286abb4d35eba) -
+  [ux] [ED-28960] Finish full page primary toolbar migration
+
+  - Align with design update (separator, gap, height, icon size)
+  - Add keyboard shortcut to focus toolbar and arrow key navigation
+  - Address accessibility
+
+- Updated dependencies
+
 ## 4.2.6
 
 ### Patch Changes

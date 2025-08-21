@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-indentation
 
+## 3.2.0
+
+### Minor Changes
+
+- [`d2a535bed291e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2a535bed291e) -
+  [EDITOR-1153] Let the `editor-plugin-indentation` handle `paragraphs` when they are selected in a
+  range with `blockTaskItem`, but don't indent the `paragraphs` inside `blockTaskItem`s
+
+### Patch Changes
+
+- [`d2a535bed291e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2a535bed291e) -
+  [EDITOR-1153] Make sure that Tab works for range selections for `blockTaskItem`
+- Updated dependencies
+
+## 3.1.6
+
+### Patch Changes
+
+- [`417545848d2bf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/417545848d2bf) -
+  [EDITOR-1153] Make sure that Tab works for range selections for `blockTaskItem`
+
 ## 3.1.5
 
 ### Patch Changes

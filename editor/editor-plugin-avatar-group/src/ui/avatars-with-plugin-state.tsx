@@ -25,7 +25,7 @@ import type { AvatarGroupPlugin } from '../avatarGroupPluginType';
 import { Avatars } from './avatars';
 import { InviteToEditButton } from './invite-to-edit';
 
-export type AvatarsWithPluginStateProps = {
+type AvatarsWithPluginStateProps = {
 	editorView?: EditorView;
 	eventDispatcher?: EventDispatcher;
 	featureFlags: FeatureFlags;

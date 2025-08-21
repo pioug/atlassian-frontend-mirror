@@ -69,9 +69,6 @@
 		},
 		{
 			"path": "../../design-system/tooltip/tsconfig.app.json"
-		},
-		{
-			"path": "../../../build/test-tooling/visual-regression/tsconfig.app.json"
 		}
 	]
 }

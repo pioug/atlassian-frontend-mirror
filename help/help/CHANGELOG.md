@@ -1,5 +1,13 @@
 # @atlaskit/help
 
+## 9.1.12
+
+### Patch Changes
+
+- [`bc7821de4d118`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bc7821de4d118) -
+  Sorted type and interface props to improve Atlaskit docs
+- Updated dependencies
+
 ## 9.1.11
 
 ### Patch Changes

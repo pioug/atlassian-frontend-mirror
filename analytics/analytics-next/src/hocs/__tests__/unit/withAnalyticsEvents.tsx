@@ -14,9 +14,9 @@ const FakeContextProvider = ({
 	data,
 	children,
 }: {
-	onEvent: (analyticsEvt: UIAnalyticsEvent, channel: string) => void;
-	data: Record<string, any>;
 	children: React.ReactNode;
+	data: Record<string, any>;
+	onEvent: (analyticsEvt: UIAnalyticsEvent, channel: string) => void;
 }) => {
 	const dataRef = useTrackedRef(data);
 	const onEventRef = useTrackedRef(onEvent);
@@ -95,9 +95,9 @@ describe('withAnalyticsEvents', () => {
 			onClick,
 			contextData,
 		}: {
+			contextData: Record<string, any>;
 			onClick: (e: React.MouseEvent<HTMLButtonElement>, analyticsEvent?: UIAnalyticsEvent) => void;
 			onEvent: (analyticsEvt: UIAnalyticsEvent, channel: string) => void;
-			contextData: Record<string, any>;
 		}) => {
 			return (
 				<FakeContextProvider onEvent={onEvent} data={contextData}>
@@ -166,8 +166,8 @@ describe('withAnalyticsEvents', () => {
 			contextData,
 			payload,
 		}: {
-			onEvent: (analyticsEvt: UIAnalyticsEvent, channel: string) => void;
 			contextData: Record<string, any>;
+			onEvent: (analyticsEvt: UIAnalyticsEvent, channel: string) => void;
 			payload: Record<string, any>;
 		}) => {
 			return (

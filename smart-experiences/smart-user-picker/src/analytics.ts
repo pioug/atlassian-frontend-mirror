@@ -141,3 +141,13 @@ export const failedRequestUsersEvent: SmartEventCreator = (
 		...createDefaultSmartPickerAttributes(props, state),
 		...attributes,
 	});
+
+export const failedUserResolversEvent: SmartEventCreator = (
+	props: Props,
+	state: State,
+	attributes = {},
+) =>
+	createSmartUserPickerEvent('failed', 'userResolversRequest', {
+		...createDefaultSmartPickerAttributes(props, state),
+		...attributes,
+	});

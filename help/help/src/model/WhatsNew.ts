@@ -9,24 +9,24 @@ export enum WHATS_NEW_ITEM_TYPES {
 	EXPERIMENT = 'Experiment',
 }
 export interface WhatsNewArticle extends WhatsNewArticleItem {
-	description: string | AdfDoc;
 	bodyFormat?: BODY_FORMAT_TYPES;
+	description: string | AdfDoc;
 }
 
 export interface WhatsNewArticleItem {
-	title?: string;
 	changeTargetSchedule?: string;
-	type?: WHATS_NEW_ITEM_TYPES;
-	status?: string;
-	featureRolloutDate?: string;
-	relatedExternalLinks?: string;
 	communityUrl?: string;
+	featureRolloutDate?: string;
 	href?: string;
 	id: string;
+	relatedExternalLinks?: string;
+	status?: string;
+	title?: string;
+	type?: WHATS_NEW_ITEM_TYPES;
 }
 
 export interface whatsNewSearchResult {
 	articles: WhatsNewArticleItem[];
-	nextPage: string;
 	hasNextPage: boolean;
+	nextPage: string;
 }

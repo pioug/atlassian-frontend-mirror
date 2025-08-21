@@ -1,5 +1,19 @@
 # @atlaskit/smart-card
 
+## 40.12.1
+
+### Patch Changes
+
+- [`ea0c752bfa736`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ea0c752bfa736) -
+  [ux] Changing passionfruit extension key for Smart Links
+
+## 40.12.0
+
+### Minor Changes
+
+- [`4b9dfa0c0bf0d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b9dfa0c0bf0d) -
+  [ux] Adds support for preview panel triggers to the hover card
+
 ## 40.11.0
 
 ### Minor Changes

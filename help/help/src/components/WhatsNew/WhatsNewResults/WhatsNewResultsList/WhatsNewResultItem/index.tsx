@@ -24,10 +24,10 @@ const ANALYTICS_CONTEXT_DATA = {
 };
 
 interface Props {
-	// Aditional Styles
-	styles?: {};
 	/* Function executed when the user clicks the related article */
 	onClick?: (event: React.MouseEvent<HTMLElement>, analyticsEvent: UIAnalyticsEvent) => void;
+	// Aditional Styles
+	styles?: {};
 }
 
 export const WhatsNewResultListItem: React.FC<

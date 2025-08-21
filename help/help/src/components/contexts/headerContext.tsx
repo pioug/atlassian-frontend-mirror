@@ -4,11 +4,11 @@ import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { createCtx } from '../../util/hooks/ctx';
 
 interface HeaderSharedInterface {
-	onCloseButtonClick?(
+	onBackButtonClick?(
 		event: React.MouseEvent<HTMLElement, MouseEvent>,
 		analyticsEvent: UIAnalyticsEvent,
 	): void;
-	onBackButtonClick?(
+	onCloseButtonClick?(
 		event: React.MouseEvent<HTMLElement, MouseEvent>,
 		analyticsEvent: UIAnalyticsEvent,
 	): void;

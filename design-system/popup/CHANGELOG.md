@@ -1,5 +1,13 @@
 # @atlaskit/popup
 
+## 4.3.9
+
+### Patch Changes
+
+- [`31c57f650ba07`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/31c57f650ba07) -
+  Improving tests for server side rendering and hydration
+- Updated dependencies
+
 ## 4.3.8
 
 ### Patch Changes

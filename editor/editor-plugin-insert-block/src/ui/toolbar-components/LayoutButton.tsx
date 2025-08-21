@@ -32,7 +32,7 @@ export const LayoutButton = ({ api }: LayoutButtonProps) => {
 	return (
 		<ToolbarTooltip content={formatMessage(messages.columns)}>
 			<ToolbarButton
-				iconBefore={<LayoutIcon label={formatMessage(messages.columns)} />}
+				iconBefore={<LayoutIcon label={formatMessage(messages.columns)} size="small" />}
 				onClick={onClick}
 			/>
 		</ToolbarTooltip>

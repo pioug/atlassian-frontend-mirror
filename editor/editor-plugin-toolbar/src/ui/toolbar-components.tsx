@@ -1,6 +1,8 @@
 import React from 'react';
 
 import {
+	INSERT_BLOCK_SECTION,
+	LINKING_SECTION,
 	OVERFLOW_GROUP,
 	OVERFLOW_GROUP_RANK,
 	OVERFLOW_MENU,
@@ -16,9 +18,9 @@ import { type RegisterComponent } from '@atlaskit/editor-toolbar-model';
 
 import type { ToolbarPlugin } from '../toolbarPluginType';
 
-import { TOOLBAR_LABEL } from './consts';
+import { SELECTION_TOOLBAR_LABEL } from './consts';
 import { OverflowMenu } from './OverflowMenu';
-import { TextSection } from './TextSection';
+import { Section } from './Section';
 
 export const getToolbarComponents = (
 	api?: ExtractInjectionAPI<ToolbarPlugin>,
@@ -28,14 +30,14 @@ export const getToolbarComponents = (
 			type: 'toolbar',
 			key: TOOLBARS.INLINE_TEXT_TOOLBAR,
 			component: ({ children }) => {
-				return <Toolbar label={TOOLBAR_LABEL}>{children}</Toolbar>;
+				return <Toolbar label={SELECTION_TOOLBAR_LABEL}>{children}</Toolbar>;
 			},
 		},
 		{
 			type: 'toolbar',
 			key: TOOLBARS.PRIMARY_TOOLBAR,
 			component: ({ children }) => (
-				<PrimaryToolbar label="Primary Toolbar">{children}</PrimaryToolbar>
+				<PrimaryToolbar label={'Primary Toolbar'}>{children}</PrimaryToolbar>
 			),
 		},
 		{
@@ -55,11 +57,59 @@ export const getToolbarComponents = (
 			],
 			component: ({ children, parents }) => {
 				return (
-					<TextSection parents={parents} api={api}>
+					<Section parents={parents} api={api} testId="text-section">
 						{children}
-					</TextSection>
+					</Section>
 				);
 			},
+		},
+		{
+			type: INSERT_BLOCK_SECTION.type,
+			key: INSERT_BLOCK_SECTION.key,
+			parents: [
+				{
+					type: 'toolbar',
+					key: TOOLBARS.PRIMARY_TOOLBAR,
+					rank: TOOLBAR_RANK[INSERT_BLOCK_SECTION.key],
+				},
+			],
+			component: ({ children, parents }) => (
+				<Section
+					testId="insert-block-section"
+					parents={parents}
+					api={api}
+					showSeparatorInFullPagePrimaryToolbar
+					isSharedSection={false}
+				>
+					{children}
+				</Section>
+			),
+		},
+		{
+			type: LINKING_SECTION.type,
+			key: LINKING_SECTION.key,
+			parents: [
+				{
+					type: 'toolbar',
+					key: TOOLBARS.INLINE_TEXT_TOOLBAR,
+					rank: TOOLBAR_RANK[LINKING_SECTION.key],
+				},
+				{
+					type: 'toolbar',
+					key: TOOLBARS.PRIMARY_TOOLBAR,
+					rank: TOOLBAR_RANK[LINKING_SECTION.key],
+				},
+			],
+			component: ({ children, parents }) => (
+				<Section
+					testId="link-section"
+					parents={parents}
+					api={api}
+					showSeparatorInFullPagePrimaryToolbar
+				>
+					{children}
+				</Section>
+			),
 		},
 		{
 			type: OVERFLOW_SECTION.type,

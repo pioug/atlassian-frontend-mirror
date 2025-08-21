@@ -16,11 +16,11 @@ import { SearchResultSearchExternalSiteContainer } from './styled';
 import { token } from '@atlaskit/tokens';
 
 export interface Props {
-	searchExternalUrl?: string;
 	onSearchExternalUrlClick?(
 		event?: React.MouseEvent<HTMLElement, MouseEvent>,
 		analyticsEvent?: UIAnalyticsEvent,
 	): void;
+	searchExternalUrl?: string;
 }
 
 export const SearchExternalSite: React.FC<Props & WrappedComponentProps> = ({

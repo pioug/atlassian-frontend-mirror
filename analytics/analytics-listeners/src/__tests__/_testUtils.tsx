@@ -29,8 +29,8 @@ export const createAnalyticsContexts =
 			.reduce((prev, curr) => <AnalyticsContext data={curr}>{prev}</AnalyticsContext>, children);
 
 export type Props = WithAnalyticsEventsProps & {
-	text?: string;
 	onClick: (e: React.SyntheticEvent) => void;
+	text?: string;
 };
 
 class DummyComponent extends React.Component<Props> {

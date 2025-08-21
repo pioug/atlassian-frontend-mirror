@@ -1,5 +1,12 @@
 # @atlaskit/popper
 
+## 7.1.1
+
+### Patch Changes
+
+- [`31c57f650ba07`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/31c57f650ba07) -
+  Improving tests for server side rendering and hydration
+
 ## 7.1.0
 
 ### Minor Changes

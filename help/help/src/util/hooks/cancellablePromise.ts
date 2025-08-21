@@ -1,8 +1,8 @@
 import { useRef, useEffect } from 'react';
 
 interface CancellablePromise {
-	promise: Promise<unknown>;
 	cancel(): void;
+	promise: Promise<unknown>;
 }
 
 export function makeCancelable(promise: Promise<any>) {

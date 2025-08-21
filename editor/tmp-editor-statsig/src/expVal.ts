@@ -28,6 +28,24 @@ function expValInternal<
 		);
 	}
 
+	// @ts-ignore need to loosen the type here to allow for any experiment name
+	if (_overrides[experimentName] !== undefined) {
+		// This will be hit in the case of a test setting an override
+		// @ts-ignore need to loosen the type here to allow for any experiment name
+		return _overrides[experimentName] as DefaultValue;
+	}
+
+	// Check for parameter overrides
+	const paramOverride = _paramOverrides[experimentName as string]?.[experimentParam];
+	if (paramOverride !== undefined) {
+		return paramOverride as DefaultValue;
+	}
+
+	// If client is not initialized, we return the default value
+	if (!FeatureGates.initializeCompleted()) {
+		return defaultValue;
+	}
+
 	if (!_product) {
 		// This will be hit in the case of a product not having setup the editor experiment tooling
 		return defaultValue;

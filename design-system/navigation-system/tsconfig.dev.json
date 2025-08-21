@@ -170,6 +170,9 @@
 		},
 		{
 			"path": "../../search/search-dialog/tsconfig.app.json"
+		},
+		{
+			"path": "../../uip/ssr-tests/tsconfig.app.json"
 		}
 	]
 }

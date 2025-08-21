@@ -6,8 +6,8 @@ import { type Event, EventViewer } from './EventViewer';
 export type EventsArray = Event[];
 
 type Props = {
-	events: EventsArray;
 	className?: string;
+	events: EventsArray;
 };
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard

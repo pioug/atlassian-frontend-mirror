@@ -22,8 +22,8 @@ export const LoadingWhatsNewResultsList = ({
 	children,
 	...rest
 }: {
-	children: React.ReactNode;
 	[rest: string]: any;
+	children: React.ReactNode;
 }) => (
 	<ul css={loadingWhatsNewResultsListStyles} {...rest}>
 		{children}

@@ -14,13 +14,13 @@ import { type TransitionStatus } from '../constants';
 import { BackButtonContainer, TRANSITION_DURATION_MS } from './styled';
 
 interface Props {
+	// Defines if the back button is visible
+	isVisible?: boolean;
 	// Function executed when the user press the "Back" button.
 	onClick(
 		event: React.MouseEvent<HTMLElement, MouseEvent>,
 		analyticsEvent?: UIAnalyticsEvent,
 	): void;
-	// Defines if the back button is visible
-	isVisible?: boolean;
 }
 
 export const BackButton: React.FC<Props & WrappedComponentProps> = ({

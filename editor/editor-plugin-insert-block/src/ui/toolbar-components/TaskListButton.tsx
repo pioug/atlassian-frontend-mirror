@@ -36,7 +36,7 @@ export const TaskListButton = ({ api }: TaskListButtonProps) => {
 	return (
 		<ToolbarTooltip content={formatMessage(messages.action)}>
 			<ToolbarButton
-				iconBefore={<TaskIcon label={formatMessage(messages.action)} />}
+				iconBefore={<TaskIcon label={formatMessage(messages.action)} size="small" />}
 				onClick={onClick}
 				ariaKeyshortcuts="[ ] Space"
 			/>

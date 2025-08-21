@@ -1,5 +1,7 @@
 import { renderHook } from '@testing-library/react-hooks';
 
+import { SmartCardProvider } from '@atlaskit/link-provider';
+
 import {
 	TEST_RESPONSE_WITH_DOWNLOAD,
 	TEST_RESPONSE_WITH_PREVIEW,
@@ -18,6 +20,14 @@ const origin = 'smartLinkCard';
 
 jest.mock('../../store', () => ({
 	useSmartCardState: jest.fn(),
+}));
+
+jest.mock('@atlaskit/link-provider', () => ({
+	SmartCardProvider: ({ children }: { children: React.ReactNode }) => children,
+	useSmartLinkContext: jest.fn().mockReturnValue({
+		isPreviewPanelAvailable: undefined,
+		openPreviewPanel: undefined,
+	}),
 }));
 
 // used directly by refactored hook
@@ -52,7 +62,9 @@ describe('actions', () => {
 
 		jest.mocked(useSmartCardState).mockReturnValueOnce(state);
 
-		const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
+		const { result } = renderHook(() => useSmartLinkActions({ url, appearance }), {
+			wrapper: SmartCardProvider,
+		});
 
 		const downloadAction = result.current?.[0];
 		await downloadAction?.invoke();
@@ -69,7 +81,9 @@ describe('actions', () => {
 		};
 
 		jest.mocked(useSmartCardState).mockReturnValueOnce(state);
-		const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
+		const { result } = renderHook(() => useSmartLinkActions({ url, appearance }), {
+			wrapper: SmartCardProvider,
+		});
 
 		const viewAction = result.current?.[0];
 		await viewAction?.invoke();
@@ -87,7 +101,9 @@ describe('actions', () => {
 		};
 
 		jest.mocked(useSmartCardState).mockReturnValueOnce(state);
-		const { result } = renderHook(() => useSmartLinkActions({ url, appearance, origin }));
+		const { result } = renderHook(() => useSmartLinkActions({ url, appearance, origin }), {
+			wrapper: SmartCardProvider,
+		});
 		const previewAction = result.current?.[0];
 		await previewAction?.invoke();
 

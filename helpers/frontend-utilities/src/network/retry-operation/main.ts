@@ -4,10 +4,10 @@ import { NO_RETRIES } from './constants';
 import FailedFetchError from './errors/FailedFetchError';
 
 export interface RetryConfig {
-	intervalsMS?: Readonly<number[]>;
-	retryOn?: (typeof Error | typeof FailedFetchError)[] | ((e: Error) => boolean);
 	captureException?: (error: Error, tags?: Record<string, string>) => void;
+	intervalsMS?: Readonly<number[]>;
 	onRetry?: (previousErr: Error) => void;
+	retryOn?: (typeof Error | typeof FailedFetchError)[] | ((e: Error) => boolean);
 }
 
 export const wait = (ms: number) =>

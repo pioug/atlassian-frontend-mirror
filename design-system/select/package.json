@@ -111,9 +111,6 @@
 		"platform-component-visual-refresh": {
 			"type": "boolean"
 		},
-		"platform-visual-refresh-icons-legacy-facade": {
-			"type": "boolean"
-		},
 		"platform-visual-refresh-icons": {
 			"type": "boolean"
 		},

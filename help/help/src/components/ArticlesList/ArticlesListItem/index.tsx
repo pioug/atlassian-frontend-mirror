@@ -33,9 +33,9 @@ const ANALYTICS_CONTEXT_DATA = {
 };
 
 interface Props {
-	styles?: {};
 	/* Function executed when the user clicks the related article */
 	onClick?: (event: React.MouseEvent<HTMLElement>, analyticsEvent: UIAnalyticsEvent) => void;
+	styles?: {};
 }
 
 const highlightText = (text?: string) => {

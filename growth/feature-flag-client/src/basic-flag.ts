@@ -48,10 +48,10 @@ export default class BasicFlag implements FlagWrapper {
 			oneOf,
 			ignoreTypes,
 		}: {
-			shouldTrackExposureEvent?: boolean;
 			exposureData?: CustomAttributes;
-			oneOf?: T[];
 			ignoreTypes: boolean;
+			oneOf?: T[];
+			shouldTrackExposureEvent?: boolean;
 		},
 	): FlagShape<T> {
 		let exposureTriggerReason = ExposureTriggerReason.OptIn;
@@ -98,8 +98,8 @@ export default class BasicFlag implements FlagWrapper {
 			oneOf,
 			ignoreTypes,
 		}: {
-			oneOf?: T[];
 			ignoreTypes?: boolean;
+			oneOf?: T[];
 		},
 	): EvaluationResult<T> {
 		let result: EvaluationResult<T> = {
@@ -131,8 +131,8 @@ export default class BasicFlag implements FlagWrapper {
 
 	getBooleanValue(options: {
 		default: boolean;
-		shouldTrackExposureEvent?: boolean;
 		exposureData?: CustomAttributes;
+		shouldTrackExposureEvent?: boolean;
 	}): boolean {
 		const flag = this.getCachedResultOrCompute<boolean>(options.default, {
 			exposureData: options.exposureData,
@@ -146,9 +146,9 @@ export default class BasicFlag implements FlagWrapper {
 
 	getVariantValue(options: {
 		default: string;
+		exposureData?: CustomAttributes;
 		oneOf: string[];
 		shouldTrackExposureEvent?: boolean;
-		exposureData?: CustomAttributes;
 	}): string {
 		const flag = this.getCachedResultOrCompute<string>(options.default, {
 			exposureData: options.exposureData,
@@ -172,8 +172,8 @@ export default class BasicFlag implements FlagWrapper {
 
 	getRawValue<T extends FlagValue = FlagValue>(options: {
 		default: T;
-		shouldTrackExposureEvent?: boolean;
 		exposureData?: CustomAttributes;
+		shouldTrackExposureEvent?: boolean;
 	}): T {
 		return this.getCachedResultOrCompute<T>(options.default, {
 			shouldTrackExposureEvent: options.shouldTrackExposureEvent,
@@ -185,8 +185,8 @@ export default class BasicFlag implements FlagWrapper {
 
 	getFlagEvaluation<T = FlagValue>(options: {
 		default: T;
-		shouldTrackExposureEvent?: boolean;
 		exposureData?: CustomAttributes;
+		shouldTrackExposureEvent?: boolean;
 	}): FlagShape<T> {
 		return this.getCachedResultOrCompute<T>(options.default, {
 			shouldTrackExposureEvent: options.shouldTrackExposureEvent,

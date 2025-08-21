@@ -92,6 +92,15 @@ jest.mock('lodash/debounce', () => (fn: DebounceFunction) => {
 	return fn;
 });
 
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+	fg: jest.fn().mockImplementation((flag: string) => {
+		if (flag === 'twcg-444-invite-usd-improvements-m2-gate') {
+			return true;
+		}
+		return false;
+	}),
+}));
+
 const defaultProps: Props = {
 	fieldId: 'test',
 	principalId: 'Context',
@@ -836,6 +845,243 @@ describe('SmartUserPicker', () => {
 				}),
 				expect.objectContaining({ defaultLocale: 'en' }),
 			);
+		});
+
+		describe('userResolvers', () => {
+			const mockUserResolverResults: OptionData[] = [
+				{
+					id: 'resolver-user1',
+					name: 'Resolver User 1',
+					type: 'user',
+				},
+				{
+					id: 'resolver-user2',
+					name: 'Resolver User 2',
+					type: 'user',
+				},
+			];
+
+			const mockAdditionalResolverResults: OptionData[] = [
+				{
+					id: 'resolver-user3',
+					name: 'Resolver User 3',
+					type: 'user',
+				},
+			];
+
+			it('should call userResolvers with the query and merge results', async () => {
+				getUserRecommendationsMock.mockReturnValue(Promise.resolve(mockReturnOptions));
+
+				const mockResolver = jest.fn().mockResolvedValue(mockUserResolverResults);
+				Object.defineProperty(mockResolver, 'name', { value: 'TestResolver' });
+
+				renderSmartUserPicker({
+					userResolvers: [mockResolver],
+				});
+
+				// trigger on focus
+				const input = screen.getByRole('combobox');
+				await userEvent.click(input);
+
+				expect(mockResolver).toHaveBeenCalledWith('');
+				expect(getUserRecommendationsMock).toHaveBeenCalledTimes(1);
+
+				for (const option of mockReturnOptions) {
+					expect(await screen.findByText(option.name)).toBeInTheDocument();
+				}
+				for (const option of mockUserResolverResults) {
+					expect(await screen.findByText(option.name)).toBeInTheDocument();
+				}
+			});
+
+			it('should call userResolvers with typed query', async () => {
+				getUserRecommendationsMock.mockReturnValue(Promise.resolve([]));
+
+				const mockResolver = jest.fn().mockResolvedValue(mockUserResolverResults);
+				Object.defineProperty(mockResolver, 'name', { value: 'TestResolver' });
+
+				renderSmartUserPicker({
+					userResolvers: [mockResolver],
+				});
+
+				const input = screen.getByRole('combobox');
+				await userEvent.type(input, 'test query');
+
+				expect(mockResolver).toHaveBeenCalledWith('test query');
+			});
+
+			it('should work with multiple userResolvers', async () => {
+				getUserRecommendationsMock.mockReturnValue(Promise.resolve([]));
+
+				const mockResolver1 = jest.fn().mockResolvedValue(mockUserResolverResults);
+				Object.defineProperty(mockResolver1, 'name', { value: 'TestResolver1' });
+
+				const mockResolver2 = jest.fn().mockResolvedValue(mockAdditionalResolverResults);
+				Object.defineProperty(mockResolver2, 'name', { value: 'TestResolver2' });
+
+				renderSmartUserPicker({
+					userResolvers: [mockResolver1, mockResolver2],
+				});
+
+				const input = screen.getByRole('combobox');
+				await userEvent.click(input);
+
+				expect(mockResolver1).toHaveBeenCalledWith('');
+				expect(mockResolver2).toHaveBeenCalledWith('');
+
+				for (const option of mockUserResolverResults) {
+					expect(await screen.findByText(option.name)).toBeInTheDocument();
+				}
+				for (const option of mockAdditionalResolverResults) {
+					expect(await screen.findByText(option.name)).toBeInTheDocument();
+				}
+			});
+
+			it('should handle userResolver errors gracefully', async () => {
+				getUserRecommendationsMock.mockReturnValue(Promise.resolve(mockReturnOptions));
+
+				const mockResolver = jest.fn().mockRejectedValue(new Error('Resolver failed'));
+				Object.defineProperty(mockResolver, 'name', { value: 'FailingResolver' });
+
+				renderSmartUserPicker({
+					userResolvers: [mockResolver],
+				});
+
+				const input = screen.getByRole('combobox');
+				await userEvent.click(input);
+
+				expect(mockResolver).toHaveBeenCalledWith('');
+
+				for (const option of mockReturnOptions) {
+					expect(await screen.findByText(option.name)).toBeInTheDocument();
+				}
+			});
+
+			it('should work when userResolvers is undefined', async () => {
+				getUserRecommendationsMock.mockReturnValue(Promise.resolve(mockReturnOptions));
+
+				renderSmartUserPicker({
+					userResolvers: undefined,
+				});
+
+				const input = screen.getByRole('combobox');
+				await userEvent.click(input);
+
+				for (const option of mockReturnOptions) {
+					expect(await screen.findByText(option.name)).toBeInTheDocument();
+				}
+			});
+
+			it('should work when userResolvers is empty array', async () => {
+				getUserRecommendationsMock.mockReturnValue(Promise.resolve(mockReturnOptions));
+
+				renderSmartUserPicker({
+					userResolvers: [],
+				});
+
+				const input = screen.getByRole('combobox');
+				await userEvent.click(input);
+
+				for (const option of mockReturnOptions) {
+					expect(await screen.findByText(option.name)).toBeInTheDocument();
+				}
+			});
+
+			it('should track userResolver names in analytics for successful requests', async () => {
+				const onEvent = jest.fn();
+				getUserRecommendationsMock.mockReturnValue(Promise.resolve(mockReturnOptions));
+
+				const mockResolver1 = jest.fn().mockResolvedValue(mockUserResolverResults);
+				Object.defineProperty(mockResolver1, 'name', { value: 'CustomResolver1' });
+
+				const mockResolver2 = jest.fn().mockResolvedValue([]);
+				Object.defineProperty(mockResolver2, 'name', { value: 'CustomResolver2' });
+
+				render(
+					<IntlProvider locale="en">
+						<AnalyticsListener channel="fabric-elements" onEvent={onEvent}>
+							<SmartUserPicker {...defaultProps} userResolvers={[mockResolver1, mockResolver2]} />
+						</AnalyticsListener>
+					</IntlProvider>,
+				);
+
+				const input = screen.getByRole('combobox');
+				await userEvent.click(input);
+
+				await waitFor(() => {
+					expect(onEvent).toHaveBeenCalledWith(
+						expect.objectContaining({
+							payload: expect.objectContaining({
+								action: 'successful',
+								actionSubject: 'usersRequest',
+								attributes: expect.objectContaining({
+									userResolvers: ['CustomResolver1', 'CustomResolver2'],
+								}),
+							}),
+						}),
+						'fabric-elements',
+					);
+				});
+			});
+
+			it('should track empty userResolvers array in analytics when none provided', async () => {
+				const onEvent = jest.fn();
+				getUserRecommendationsMock.mockReturnValue(Promise.resolve(mockReturnOptions));
+
+				render(
+					<IntlProvider locale="en">
+						<AnalyticsListener channel="fabric-elements" onEvent={onEvent}>
+							<SmartUserPicker {...defaultProps} />
+						</AnalyticsListener>
+					</IntlProvider>,
+				);
+
+				const input = screen.getByRole('combobox');
+				await userEvent.click(input);
+
+				await waitFor(() => {
+					expect(onEvent).toHaveBeenCalledWith(
+						expect.objectContaining({
+							payload: expect.objectContaining({
+								action: 'successful',
+								actionSubject: 'usersRequest',
+								attributes: expect.objectContaining({
+									userResolvers: [],
+								}),
+							}),
+						}),
+						'fabric-elements',
+					);
+				});
+			});
+
+			it('should handle userResolvers that return different types of options', async () => {
+				getUserRecommendationsMock.mockReturnValue(Promise.resolve([]));
+
+				const mockTeamResolverResults: OptionData[] = [
+					{
+						id: 'resolver-team1',
+						name: 'Resolver Team 1',
+						type: 'team',
+					},
+				];
+
+				const mockResolver = jest.fn().mockResolvedValue(mockTeamResolverResults);
+				Object.defineProperty(mockResolver, 'name', { value: 'TeamResolver' });
+
+				renderSmartUserPicker({
+					userResolvers: [mockResolver],
+				});
+
+				const input = screen.getByRole('combobox');
+				await userEvent.click(input);
+
+				expect(mockResolver).toHaveBeenCalledWith('');
+
+				for (const option of mockTeamResolverResults) {
+					expect(await screen.findByText(option.name)).toBeInTheDocument();
+				}
+			});
 		});
 
 		describe('analytics', () => {

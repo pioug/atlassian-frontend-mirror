@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 6.4.3
+
+### Patch Changes
+
+- [`d2a535bed291e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2a535bed291e) -
+  [EDITOR-1153] Make sure that Tab works for range selections for `blockTaskItem`
+- Updated dependencies
+
+## 6.4.2
+
+### Patch Changes
+
+- [`417545848d2bf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/417545848d2bf) -
+  [EDITOR-1153] Make sure that Tab works for range selections for `blockTaskItem`
+
 ## 6.4.1
 
 ### Patch Changes

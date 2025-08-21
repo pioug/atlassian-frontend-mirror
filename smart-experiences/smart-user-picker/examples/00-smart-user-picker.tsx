@@ -20,6 +20,7 @@ import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-ne
 import { options } from '../example-helpers/options';
 import { useEndpointMocks } from '../example-helpers/mock-endpoints';
 import '../example-helpers/mock-ufo';
+import { search as thirdPartyIntegrationSearch } from '@atlassian/integrations/third-party';
 
 const exampleLocales = ['en-EN', 'cs-CZ', 'da-DK', 'de-DE'];
 
@@ -61,6 +62,7 @@ type State = {
 	confluenceAttributes: ConfluenceAttributes;
 	locale: string;
 	selectedOptionIds: Set<string>;
+	includeThirdPartyResolvers: boolean;
 };
 
 const TENANT_ID = 'fake-tenant-id';
@@ -100,6 +102,7 @@ const SmartUserPickerCustomizableExample = () => {
 		bootstrapOptions: false,
 		locale: 'en',
 		selectedOptionIds: new Set(),
+		includeThirdPartyResolvers: false,
 	});
 
 	const getProductAttributes = (product: string) => {
@@ -128,6 +131,22 @@ const SmartUserPickerCustomizableExample = () => {
 		return userData.filter((option) => !state.selectedOptionIds.has(option.id));
 	};
 
+	const thirdPartyContactsResolver = async (query: string) => {
+		const cloudId = 'mock-cloud-id';
+
+		const thirdPartyContacts: OptionData[] = await thirdPartyIntegrationSearch(
+			query,
+			cloudId,
+		).catch((e) => {
+			console.log('Error fetching third-party contacts', e);
+			return [];
+		});
+
+		return thirdPartyContacts;
+	};
+
+	const userResolvers = [thirdPartyContactsResolver];
+
 	let onChange: OnChange = (value: Value, action: ActionTypes) => {
 		var selectedOptionIds = state.selectedOptionIds;
 		if (Array.isArray(value)) {
@@ -154,7 +173,8 @@ const SmartUserPickerCustomizableExample = () => {
 			| 'isPrefetchOn'
 			| 'bootstrapOptions'
 			| 'isMulti'
-			| 'isFilterOn',
+			| 'isFilterOn'
+			| 'includeThirdPartyResolvers',
 		label: string,
 	) => {
 		return (
@@ -328,6 +348,7 @@ const SmartUserPickerCustomizableExample = () => {
 			{createBoolean('bootstrapOptions', 'bootstrapOptions')}
 			{createBoolean('isMulti', 'isMulti')}
 			{createBoolean('isFilterOn', 'filter last selected')}
+			{createBoolean('includeThirdPartyResolvers', 'include Third Party Resolvers (userResolvers)')}
 
 			{state.product === 'confluence' && (
 				<Fragment>
@@ -441,6 +462,7 @@ const SmartUserPickerCustomizableExample = () => {
 						}}
 						overrideByline={overrideByline}
 						inputId="smart-user-picker-example"
+						userResolvers={state.includeThirdPartyResolvers ? userResolvers : undefined}
 					/>
 				</IntlProvider>
 			</AnalyticsListener>

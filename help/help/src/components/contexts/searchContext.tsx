@@ -9,6 +9,10 @@ import { createCtx } from '../../util/hooks/ctx';
 import { MIN_CHARACTERS_FOR_SEARCH } from '../constants';
 
 interface SearchSharedInterface {
+	onSearchExternalUrlClick?(
+		event: React.MouseEvent<HTMLElement, MouseEvent>,
+		analyticsEvent: UIAnalyticsEvent,
+	): void;
 	onSearchInputChanged?(
 		event: React.KeyboardEvent<HTMLInputElement>,
 		analyticsEvent: UIAnalyticsEvent,
@@ -18,23 +22,19 @@ interface SearchSharedInterface {
 		event: React.MouseEvent<HTMLElement, MouseEvent>,
 		analyticsEvent: UIAnalyticsEvent,
 	): void;
-	onSearchExternalUrlClick?(
-		event: React.MouseEvent<HTMLElement, MouseEvent>,
-		analyticsEvent: UIAnalyticsEvent,
-	): void;
-	searchExternalUrl?: string;
 	openExternalSearchUrlInNewTab?: boolean;
+	searchExternalUrl?: string;
 	searchOnEnterKeyPress?: boolean;
 }
 
 export interface SearchContextInterface extends SearchSharedInterface {
+	isSearchResultVisible: boolean;
 	onSearch?(value?: string): void;
 	onSearchResultItemClick(
 		event: React.MouseEvent<HTMLElement, MouseEvent>,
 		analyticsEvent: UIAnalyticsEvent,
 		articleData: ArticleItem,
 	): void;
-	isSearchResultVisible: boolean;
 	searchResult: ArticleItem[] | null;
 	searchState: REQUEST_STATE;
 	searchValue: string;

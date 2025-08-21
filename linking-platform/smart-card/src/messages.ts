@@ -92,6 +92,8 @@ export type MessageKey =
 	| 'owned_by_override'
 	| 'preview_description'
 	| 'preview_improved'
+	| 'preview_modal'
+	| 'preview_panel'
 	| 'preview_close'
 	| 'preview_max_size'
 	| 'preview_min_size'
@@ -588,6 +590,16 @@ export const messages: Messages = defineMessages({
 		id: 'fabric.linking.preview_improved',
 		defaultMessage: 'Open preview',
 		description: 'Click to view a richer view of your content, without needing to navigate to it.',
+	},
+	preview_modal: {
+		id: 'fabric.linking.preview_modal',
+		defaultMessage: 'Open preview modal',
+		description: 'Button used to view a modal view of your content without needing to navigate to it.',
+	},
+	preview_panel: {
+		id: 'fabric.linking.preview_panel',
+		defaultMessage: 'Open preview panel',
+		description: 'Button used to view a side panel view of your content without needing to navigate to it.',
 	},
 	preview_close: {
 		id: 'fabric.linking.preview_close',

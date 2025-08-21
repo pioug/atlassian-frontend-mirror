@@ -1,5 +1,13 @@
 # @atlaskit/dynamic-table
 
+## 18.2.10
+
+### Patch Changes
+
+- [`31c57f650ba07`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/31c57f650ba07) -
+  Improving tests for server side rendering and hydration
+- Updated dependencies
+
 ## 18.2.9
 
 ### Patch Changes

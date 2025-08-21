@@ -10,28 +10,28 @@ export const DEFAULT_SOURCE = 'unknown';
 export type EventType = 'ui' | 'track' | 'screen' | 'operational';
 
 export type GasPureScreenEventPayload = {
-	name: string;
 	attributes?: {
 		[key: string]: any;
 	};
+	name: string;
 	tags?: Array<string>;
 };
 
 export type GasPurePayload = {
+	action?: string;
 	actionSubject: string;
 	actionSubjectId?: string;
 	attributes?: {
+		[key: string]: any;
+		componentName?: string;
 		packageName?: string;
 		packageVersion?: string;
-		componentName?: string;
-		[key: string]: any;
 	};
 	nonPrivacySafeAttributes?: {
 		[key: string]: any;
 	};
-	tags?: Array<string>;
 	source?: string;
-	action?: string;
+	tags?: Array<string>;
 };
 
 export type WithEventType = {

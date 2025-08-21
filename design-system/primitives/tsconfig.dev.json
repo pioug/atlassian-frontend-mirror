@@ -134,9 +134,6 @@
 			"path": "../tooltip/tsconfig.app.json"
 		},
 		{
-			"path": "../../../build/test-tooling/visual-regression/tsconfig.app.json"
-		},
-		{
 			"path": "../visually-hidden/tsconfig.app.json"
 		},
 		{

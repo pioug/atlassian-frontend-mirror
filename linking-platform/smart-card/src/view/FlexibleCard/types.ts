@@ -205,6 +205,8 @@ export type ExtractFlexibleUiDataContextParams = Pick<
 	response?: SmartLinkResponse;
 	resolve?: ResolveFunction;
 	aiSummaryConfig?: AISummaryConfig;
+	isPreviewPanelAvailable?: (params: { ari: string }) => boolean;
+	openPreviewPanel?: (params: { ari: string; url: string; name: string; iconUrl: string | undefined }) => void;
 };
 
 /**

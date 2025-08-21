@@ -8,8 +8,8 @@ import AnalyticsListener from '../../../components/AnalyticsListener';
 import { useAnalyticsEvents } from '../../../hooks/useAnalyticsEvents';
 
 const Component = (props: {
-	passback?: (value: ReturnType<typeof useAnalyticsEvents>) => void;
 	fire?: boolean;
+	passback?: (value: ReturnType<typeof useAnalyticsEvents>) => void;
 }) => {
 	const analytics = useAnalyticsEvents();
 	props.passback && props.passback(analytics);

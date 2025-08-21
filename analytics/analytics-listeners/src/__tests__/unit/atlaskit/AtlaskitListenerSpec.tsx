@@ -10,10 +10,10 @@ import { type AnalyticsWebClient, FabricChannel } from '../../../types';
 import { createAnalyticsContexts, createLoggerMock } from '../../_testUtils';
 
 type CaseArgs = {
-	name: string;
-	eventPayload: GasPurePayload;
 	clientPayload: GasPurePayload;
 	context: any[];
+	eventPayload: GasPurePayload;
+	name: string;
 };
 
 describe('AtlaskitListener', () => {

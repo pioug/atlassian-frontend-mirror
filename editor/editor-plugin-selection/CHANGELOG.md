@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-selection
 
+## 3.1.1
+
+### Patch Changes
+
+- [`12618b43355c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/12618b43355c6) -
+  Improve selection APIs by getting their fragment without the parent structure.
+
 ## 3.1.0
 
 ### Minor Changes

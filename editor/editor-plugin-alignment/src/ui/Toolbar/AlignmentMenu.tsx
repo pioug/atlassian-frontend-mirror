@@ -35,7 +35,7 @@ export const AlignmentMenu = ({
 	return (
 		<ToolbarTooltip content={title}>
 			<ToolbarDropdownMenu
-				iconBefore={<Icon label="" />}
+				iconBefore={<Icon label="" size="small" />}
 				isDisabled={!isEnabled}
 				testId="text-alignment-menu"
 				label={title}

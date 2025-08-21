@@ -36,9 +36,9 @@ export const ArticleContentTitleLink = ({
 	target,
 	children,
 }: {
+	children: React.ReactNode;
 	href: string;
 	target: string;
-	children: React.ReactNode;
 }) => (
 	// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
 	<a href={href} target={target} css={articleContentTitleLinkStyles}>

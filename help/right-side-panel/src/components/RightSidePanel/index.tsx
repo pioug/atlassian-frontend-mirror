@@ -9,33 +9,33 @@ import { RightSidePanelDrawer, RightSidePanelDrawerContent, transitionDurationMs
 export type TransitionStatus = 'unmounted' | 'exiting' | 'entering' | 'entered' | 'exited';
 
 export interface Props {
-	// Open/Closed state
-	isOpen: boolean;
 	// ID for the HTML tag where we want to attach the RightSidePanel
 	attachPanelTo: string;
 	// Right Hand Side panel content
 	children?: ReactNode;
-	// Don't animate the component when the component is mounted (false by default)
-	skipAnimationOnMount?: boolean;
-	// Mount component on enter (true by default)
-	mountOnEnter?: boolean;
-	// Unmount component on exit (true by default)
-	unmountOnExit?: boolean;
 	// Disable enter animation (false by default)
 	disableEnterAnimation?: boolean;
 	// Disable exit animation (false by default)
 	disableExitAnimation?: boolean;
-	// Function to be executed when the open animation finishes
-	onOpenAnimationFinished?: () => void;
+	// Open/Closed state
+	isOpen: boolean;
+	// Mount component on enter (true by default)
+	mountOnEnter?: boolean;
 	// Function to be executed when the close animation finishes
 	onCloseAnimationFinished?: () => void;
+	// Function to be executed when the open animation finishes
+	onOpenAnimationFinished?: () => void;
+	// Don't animate the component when the component is mounted (false by default)
+	skipAnimationOnMount?: boolean;
+	// Unmount component on exit (true by default)
+	unmountOnExit?: boolean;
 	// Width for the panel, default is 368px
 	width?: number;
 }
 
 export interface State {
-	entered: boolean;
 	container?: Element | null; // Element in where the RightSidePanel will be attached
+	entered: boolean;
 }
 
 export class RightSidePanel extends Component<Props, State> {

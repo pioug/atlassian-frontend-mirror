@@ -7,14 +7,14 @@ type AnalyticsData = {
 };
 
 type WithAnalyticsProps = {
-	analyticsId?: string;
+	[key: string]: any;
 	analyticsData?: AnalyticsData;
+	analyticsId?: string;
+	delegateAnalyticsEvent?: (analyticsId: string, data: any, isPrivate: boolean) => void;
 	fireAnalyticsEvent?: (name: string, data?: AnalyticsData) => void;
 	firePrivateAnalyticsEvent?: (name: string, data?: AnalyticsData) => void;
 	getParentAnalyticsData?: (name: string) => AnalyticsData;
-	delegateAnalyticsEvent?: (analyticsId: string, data: any, isPrivate: boolean) => void;
 	innerRef?: React.Ref<any>;
-	[key: string]: any;
 };
 
 type WithAnalyticsState = {
@@ -24,8 +24,8 @@ type WithAnalyticsState = {
 };
 
 type WithAnalyticsContext = {
-	onAnalyticsEvent?: (name: string, data: AnalyticsData | undefined, isPrivate: boolean) => void;
 	getParentAnalyticsData?: (name: string, isPrivate: boolean) => AnalyticsData;
+	onAnalyticsEvent?: (name: string, data: AnalyticsData | undefined, isPrivate: boolean) => void;
 };
 
 /**

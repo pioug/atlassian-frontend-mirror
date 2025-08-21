@@ -1,5 +1,6 @@
 import { ActionName, CardAction } from '../../../../index';
 import {
+	PREVIEW,
 	TEST_DOCUMENT,
 	TEST_DOCUMENT_WITH_ARI,
 	TEST_RESOLVED_META_DATA,
@@ -13,6 +14,20 @@ import { extractDownloadClientAction } from '../extract-download-action';
 import { extractPreviewClientAction } from '../extract-preview-action';
 import { extractViewRelatedLinksAction } from '../extract-view-related-links-action';
 import { extractFlexibleCardActions } from '../index';
+
+// Mock the expValEquals function
+jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
+	expValEquals: jest.fn(),
+}));
+
+// Create a test response with preview and ARI which is needed for testing preview panel params
+const TEST_RESPONSE_WITH_PREVIEW_AND_ARI = {
+	...TEST_RESPONSE_WITH_PREVIEW,
+	data: {
+		...TEST_DOCUMENT_WITH_ARI,
+		preview: PREVIEW,
+	},
+};
 
 describe('extractors.downloadAction', () => {
 	describe('extractDownloadClientAction', () => {
@@ -84,6 +99,97 @@ describe('extractors.previewAction', () => {
 				response: TEST_RESPONSE,
 			});
 			expect(action).toBeUndefined();
+		});
+
+		it('should return preview action with hasPreviewPanel false when no preview panel params', () => {
+			const action = extractPreviewClientAction({
+				appearance: 'block',
+				id: 'test-id',
+				response: TEST_RESPONSE_WITH_PREVIEW,
+			});
+
+			expect(action?.invokeAction?.actionFn).toBeDefined();
+			expect(action?.invokeAction?.actionType).toBe(ActionName.PreviewAction);
+			expect(action?.hasPreviewPanel).toBe(false);
+		});
+
+		it('should return preview action with hasPreviewPanel true when preview panel is available', () => {
+			// Enable the experiment for this test
+			const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
+			expValEquals.mockReturnValue(true);
+
+			const action = extractPreviewClientAction({
+				appearance: 'block',
+				id: 'test-id',
+				response: TEST_RESPONSE_WITH_PREVIEW_AND_ARI,
+				isPreviewPanelAvailable: jest.fn().mockReturnValue(true),
+				openPreviewPanel: jest.fn(),
+			});
+
+			expect(action?.invokeAction?.actionFn).toBeDefined();
+			expect(action?.invokeAction?.actionType).toBe(ActionName.PreviewAction);
+			expect(action?.hasPreviewPanel).toBe(true);
+		});
+
+		it('should return preview action with hasPreviewPanel false when preview panel is not available', () => {
+			const action = extractPreviewClientAction({
+				appearance: 'block',
+				id: 'test-id',
+				response: TEST_RESPONSE_WITH_PREVIEW,
+				isPreviewPanelAvailable: jest.fn().mockReturnValue(false),
+				openPreviewPanel: undefined,
+			});
+
+			expect(action?.invokeAction?.actionFn).toBeDefined();
+			expect(action?.invokeAction?.actionType).toBe(ActionName.PreviewAction);
+			expect(action?.hasPreviewPanel).toBe(false);
+		});
+
+		it('should return preview action with hasPreviewPanel false when preview panel params are incomplete', () => {
+			const modifiedResponse = {
+				...TEST_RESPONSE_WITH_PREVIEW,
+				data: {
+					...TEST_DOCUMENT,
+					url: undefined,
+					preview: PREVIEW,
+				},
+			};
+
+			const action = extractPreviewClientAction({
+				appearance: 'block',
+				id: 'test-id',
+				response: modifiedResponse,
+				isPreviewPanelAvailable: jest.fn().mockReturnValue(true),
+				openPreviewPanel: jest.fn(),
+			});
+
+			expect(action?.invokeAction?.actionFn).toBeDefined();
+			expect(action?.invokeAction?.actionType).toBe(ActionName.PreviewAction);
+			expect(action?.hasPreviewPanel).toBe(false);
+		});
+
+		it('should pass through all parameters correctly', () => {
+			const mockIsPreviewPanelAvailable = jest.fn().mockReturnValue(true);
+			const mockOpenPreviewPanel = jest.fn();
+
+			const action = extractPreviewClientAction({
+				appearance: 'inline',
+				id: 'another-test-id',
+				response: TEST_RESPONSE_WITH_PREVIEW_AND_DOWNLOAD,
+				fireEvent: jest.fn(),
+				origin: 'smartLinkCard',
+				isPreviewPanelAvailable: mockIsPreviewPanelAvailable,
+				openPreviewPanel: mockOpenPreviewPanel,
+				actionOptions: {
+					hide: false,
+					exclude: [CardAction.DownloadAction],
+				},
+			});
+
+			expect(action?.invokeAction?.actionFn).toBeDefined();
+			expect(action?.invokeAction?.actionType).toBe(ActionName.PreviewAction);
+			expect(action?.invokeAction?.display).toBe('inline');
+			expect(action?.invokeAction?.id).toBe('another-test-id');
 		});
 	});
 });
@@ -157,7 +263,7 @@ describe('extractFlexibleCardActions', () => {
 			response: TEST_RESPONSE_WITH_PREVIEW_AND_DOWNLOAD,
 		});
 
-		expect(actions).toEqual({
+		expect(actions).toMatchObject({
 			CopyLinkAction: {
 				invokeAction: expect.objectContaining({
 					actionFn: expect.any(Function),
@@ -175,6 +281,7 @@ describe('extractFlexibleCardActions', () => {
 					actionFn: expect.any(Function),
 					actionType: ActionName.PreviewAction,
 				}),
+				hasPreviewPanel: expect.any(Boolean),
 			},
 		});
 	});

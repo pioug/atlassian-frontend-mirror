@@ -3,9 +3,9 @@ import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { MockMediaClientProvider } from '@atlaskit/editor-test-helpers/media-client-mock';
 import Renderer from '../../ui/Renderer';
-import { mediaInlineAdf } from '../visual-regression/media/__fixtures__/media-inline.adf';
-import { mediaInlineInParagraphAdf } from '../visual-regression/media/__fixtures__/media-inline-in-paragraph.adf';
-import { mediaInlineMultipleInParagraphAdf } from '../visual-regression/media/__fixtures__/media-inline-multiple-in-paragraph.adf';
+import { mediaInlineAdf } from './__fixtures__/media-inline.adf';
+import { mediaInlineInParagraphAdf } from './__fixtures__/media-inline-in-paragraph.adf';
+import { mediaInlineMultipleInParagraphAdf } from './__fixtures__/media-inline-multiple-in-paragraph.adf';
 import type { DocNode } from '@atlaskit/adf-schema';
 import type { RendererProps } from '../../ui/renderer-props';
 import { nodeToReact as looselyLazyNodes } from '../../react/nodes/loosely-lazy';

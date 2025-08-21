@@ -36,7 +36,7 @@ import PluginSlot from '../PluginSlot';
 import WithFlash from '../WithFlash';
 
 const scrollbarStylesNew = css({
-	'-ms-overflow-style': '-ms-autohiding-scrollbar',
+	msOverflowStyle: '-ms-autohiding-scrollbar',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'&::-webkit-scrollbar-corner': {
 		display: 'none',

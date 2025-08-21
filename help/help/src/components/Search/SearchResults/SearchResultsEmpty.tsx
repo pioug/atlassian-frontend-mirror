@@ -21,11 +21,11 @@ import {
 } from './styled';
 
 export interface Props {
-	searchExternalUrl?: string;
 	onSearchExternalUrlClick?(
 		event?: React.MouseEvent<HTMLElement, MouseEvent>,
 		analyticsEvent?: UIAnalyticsEvent,
 	): void;
+	searchExternalUrl?: string;
 }
 
 export const SearchResultsEmpty: React.FC<Props & WrappedComponentProps> = ({

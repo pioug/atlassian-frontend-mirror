@@ -4,11 +4,9 @@ export type I18NMessages = Record<string, string> | Record<string, MessageFormat
 
 export type IntlMessagesProviderProps = {
 	/**
-	 * Use this function to asynchronously load translated messages
-	 * from your package and feed them to our internal IntlProvider
-	 * This will enable translations in Product
+	 * Your wrapped Component
 	 */
-	loaderFn: (locale: string) => Promise<I18NMessages | undefined>;
+	children?: React.ReactNode;
 	/**
 	 * On first render the messages in IntlProvider will be undefined,
 	 * to prevent the missing translations error use defaultMessages to
@@ -19,7 +17,9 @@ export type IntlMessagesProviderProps = {
 	 */
 	defaultMessages?: I18NMessages;
 	/**
-	 * Your wrapped Component
+	 * Use this function to asynchronously load translated messages
+	 * from your package and feed them to our internal IntlProvider
+	 * This will enable translations in Product
 	 */
-	children?: React.ReactNode;
+	loaderFn: (locale: string) => Promise<I18NMessages | undefined>;
 };

@@ -12,7 +12,6 @@ import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/
 import { createRule } from '@atlaskit/editor-common/utils';
 import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
-import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EmojiProvider } from '@atlaskit/emoji/resource';
 import type { EmojiDescription } from '@atlaskit/emoji/types';
 import { createPlugin, leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules';
@@ -264,8 +263,6 @@ class AsciiEmojiTransactionCreator {
 		return this.state.schema.text(this.match.trailingString);
 	}
 }
-
-export const stateKey = new PluginKey('asciiEmojiPlugin');
 
 const plugins = (
 	schema: Schema,

@@ -95,9 +95,6 @@
 		},
 		{
 			"path": "../util-service-support/tsconfig.app.json"
-		},
-		{
-			"path": "../../../build/test-tooling/visual-regression/tsconfig.app.json"
 		}
 	]
 }

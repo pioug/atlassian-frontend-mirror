@@ -18,14 +18,14 @@ import {
 } from './styled';
 
 export type Props = {
-	id?: string;
 	href?: string;
-	notificationMax?: number;
-	notificationLogProvider?: Promise<NotificationLogProvider>;
-	text: string;
 	icon?: React.ReactChild;
-	tooltipText?: string;
+	id?: string;
+	notificationLogProvider?: Promise<NotificationLogProvider>;
+	notificationMax?: number;
 	onClick?: (id: string, analytics: UIAnalyticsEvent, event: React.MouseEvent<HTMLElement>) => void;
+	text: string;
+	tooltipText?: string;
 };
 
 const analitycsContextData = {

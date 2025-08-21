@@ -11,29 +11,29 @@ export enum ARTICLE_ITEM_TYPES {
 	topicInProduct = 'topicInProduct',
 }
 export interface ArticleItem {
+	contentAri?: string;
 	description?: string;
+	href?: string;
 	id: string;
 	lastPublished: string;
-	title: string;
-	type: ARTICLE_ITEM_TYPES;
-	routes?: {
-		routeName: string;
-		routeGroup: string;
-	}[];
-	topicId?: string;
 	productName?: string;
-	href?: string;
-	trustFactors?: {
-		numViews?: number;
-		helpfulCount?: number;
-	};
+	routes?: {
+		routeGroup: string;
+		routeName: string;
+	}[];
 	source?: string;
-	contentAri?: string;
+	title: string;
+	topicId?: string;
+	trustFactors?: {
+		helpfulCount?: number;
+		numViews?: number;
+	};
+	type: ARTICLE_ITEM_TYPES;
 }
 
 export interface ArticleFeedback {
-	wasHelpful: boolean;
+	contactMe: boolean;
 	feedbackReason: string;
 	feedbackReasonText: string;
-	contactMe: boolean;
+	wasHelpful: boolean;
 }

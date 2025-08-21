@@ -399,10 +399,10 @@ const DatePicker = forwardRef((props: DatePickerProps, forwardedRef) => {
 	const onCalendarButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
 		setIsOpen((isOpen) => {
 			if (isOpen) {
-				fg('platform_dst_menuonclose_fix') && props.selectProps?.onMenuClose?.();
+				props.selectProps?.onMenuClose?.();
 				return false;
 			} else {
-				fg('platform_dst_menuonclose_fix') && props.selectProps?.onMenuOpen?.();
+				props.selectProps?.onMenuOpen?.();
 				return true;
 			}
 		});

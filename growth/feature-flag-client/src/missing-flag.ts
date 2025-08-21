@@ -25,17 +25,17 @@ export default class MissingFlag implements FlagWrapper {
 
 	getBooleanValue(options: {
 		default: boolean;
-		shouldTrackExposureEvent?: boolean;
 		exposureData?: CustomAttributes;
+		shouldTrackExposureEvent?: boolean;
 	}): boolean {
 		return this.evaluate(options.default);
 	}
 
 	getVariantValue(options: {
 		default: string;
+		exposureData?: CustomAttributes;
 		oneOf: string[];
 		shouldTrackExposureEvent?: boolean;
-		exposureData?: CustomAttributes;
 	}): string {
 		return this.evaluate(options.default);
 	}
@@ -46,16 +46,16 @@ export default class MissingFlag implements FlagWrapper {
 
 	getRawValue(options: {
 		default: FlagValue;
-		shouldTrackExposureEvent?: boolean;
 		exposureData?: CustomAttributes;
+		shouldTrackExposureEvent?: boolean;
 	}): FlagValue {
 		return this.evaluate(options.default);
 	}
 
 	getFlagEvaluation<T = FlagValue>(options: {
 		default: T;
-		shouldTrackExposureEvent?: boolean | undefined;
 		exposureData?: CustomAttributes | undefined;
+		shouldTrackExposureEvent?: boolean | undefined;
 	}): FlagShape<T> {
 		const value: T = this.evaluate<T>(options.default);
 		return {

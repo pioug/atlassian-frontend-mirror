@@ -41,8 +41,8 @@ export const LoadingRelatedArticleList = ({
 	children,
 	...rest
 }: {
-	children: React.ReactNode;
 	[rest: string]: any;
+	children: React.ReactNode;
 }) => (
 	<ul css={loadingRelatedArticleListStyles} {...rest}>
 		{children}

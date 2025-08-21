@@ -47,7 +47,7 @@ export function getSelectionType(selection: Selection): {
 	};
 }
 
-export function findInsertedLocation(oldSelection: Selection, newSelection: Selection): string {
+function findInsertedLocation(oldSelection: Selection, newSelection: Selection): string {
 	const { schema } = newSelection.$from.doc.type;
 	const {
 		nodes: { paragraph, table },

@@ -67,10 +67,10 @@ const UnderTest = ({
 	createEventMap,
 	componentProps,
 }: {
-	contextData: Record<string, any>;
-	onEvent: (analyticsEvt: UIAnalyticsEvent, channel: string) => void;
-	createEventMap: CreateEventMap;
 	componentProps: Record<string, any>;
+	contextData: Record<string, any>;
+	createEventMap: CreateEventMap;
+	onEvent: (analyticsEvt: UIAnalyticsEvent, channel: string) => void;
 }) => {
 	return (
 		<FakeContextProvider data={contextData} onEvent={onEvent}>

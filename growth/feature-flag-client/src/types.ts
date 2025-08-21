@@ -22,15 +22,15 @@ export type RuleId = string;
 export type FlagValue = boolean | string | object;
 
 export type FlagExplanation = {
+	errorKind?: ErrorKind;
 	kind: Reason;
 	ruleId?: RuleId;
 	ruleIndex?: number;
-	errorKind?: ErrorKind;
 };
 
 export type FlagShape<T = FlagValue> = {
-	value: T;
 	explanation?: FlagExplanation;
+	value: T;
 };
 
 export type TriggeredExposureHandler = (
@@ -57,11 +57,11 @@ export type Flags = {
 };
 
 export type ReservedAttributes = {
+	errorKind?: ErrorKind;
 	flagKey: string;
 	reason: Reason;
 	ruleId?: string;
 	value: unknown;
-	errorKind?: ErrorKind;
 };
 
 export type CustomAttributes = {
@@ -74,39 +74,39 @@ export type ExposureEvent = {
 	action: string;
 	actionSubject: string;
 	attributes: ExposureEventAttributes;
+	highPriority?: boolean;
 	source: string;
 	tags?: string[];
-	highPriority?: boolean;
 };
 
 export interface FlagWrapper {
 	evaluationCount: number;
 	getBooleanValue(options: {
 		default: boolean;
-		shouldTrackExposureEvent?: boolean;
 		exposureData?: CustomAttributes;
+		shouldTrackExposureEvent?: boolean;
 	}): boolean;
 
-	getVariantValue(options: {
-		default: string;
-		oneOf: string[];
-		shouldTrackExposureEvent?: boolean;
+	getFlagEvaluation<T = FlagValue>(options: {
+		default: T;
 		exposureData?: CustomAttributes;
-	}): string;
+		shouldTrackExposureEvent?: boolean;
+	}): FlagShape<T>;
 
 	getJSONValue(): object;
 
 	getRawValue(options: {
 		default: FlagValue;
-		shouldTrackExposureEvent?: boolean;
 		exposureData?: CustomAttributes;
+		shouldTrackExposureEvent?: boolean;
 	}): FlagValue;
 
-	getFlagEvaluation<T = FlagValue>(options: {
-		default: T;
-		shouldTrackExposureEvent?: boolean;
+	getVariantValue(options: {
+		default: string;
 		exposureData?: CustomAttributes;
-	}): FlagShape<T>;
+		oneOf: string[];
+		shouldTrackExposureEvent?: boolean;
+	}): string;
 }
 
 export interface AnalyticsHandler {
@@ -120,22 +120,22 @@ export type FlagStats = {
 };
 
 export type EvaluationResult<T = FlagValue> = {
-	value: T;
-	explanation?: FlagExplanation;
 	didFallbackToDefaultValue: boolean;
+	explanation?: FlagExplanation;
+	value: T;
 };
 
 export type TrackFeatureFlagOptions = {
+	explanation?: FlagExplanation | undefined;
 	triggerReason?: ExposureTriggerReason;
 	value?: string | boolean | object;
-	explanation?: FlagExplanation | undefined;
 };
 
 export type ClientOptions = {
-	flags?: Flags;
 	analyticsHandler?: AnalyticsHandler;
-	isAutomaticExposuresEnabled?: boolean;
+	flags?: Flags;
 	ignoreTypes?: boolean;
+	isAutomaticExposuresEnabled?: boolean;
 
 	// Deprecated. Will always be true
 	isMissingFlagEventsDisabled?: boolean;

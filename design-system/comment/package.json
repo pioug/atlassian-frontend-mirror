@@ -103,9 +103,6 @@
 		".": "./src/index.tsx"
 	},
 	"platform-feature-flags": {
-		"platform-visual-refresh-icons-legacy-facade": {
-			"type": "boolean"
-		},
 		"platform-visual-refresh-icons": {
 			"type": "boolean"
 		},

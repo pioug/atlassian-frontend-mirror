@@ -5,13 +5,13 @@ import { createCtx } from '../../util/hooks/ctx';
 export interface AiContextInterface {
 	// Boolean flag to enable the AI feature. This prop is optional
 	isAiEnabled?: boolean;
-	// Event handler fired when the user clicks the "Search" tab. This prop is optional
-	onSearchTabClicked?(
+	// Event handler fired when the user clicks the "Ask AI" tab. This prop is optional
+	onAiTabClicked?(
 		event: React.MouseEvent<HTMLElement, MouseEvent>,
 		analyticsEvent: UIAnalyticsEvent,
 	): void;
-	// Event handler fired when the user clicks the "Ask AI" tab. This prop is optional
-	onAiTabClicked?(
+	// Event handler fired when the user clicks the "Search" tab. This prop is optional
+	onSearchTabClicked?(
 		event: React.MouseEvent<HTMLElement, MouseEvent>,
 		analyticsEvent: UIAnalyticsEvent,
 	): void;

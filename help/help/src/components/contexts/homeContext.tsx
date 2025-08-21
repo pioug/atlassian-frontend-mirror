@@ -3,8 +3,8 @@ import { createCtx } from '../../util/hooks/ctx';
 import type { Props as HelpContentButtonProps } from '../HelpContentButton';
 
 export interface HomeContextInterface {
-	homeOptions?: HelpContentButtonProps[];
 	homeContent?: React.ReactNode;
+	homeOptions?: HelpContentButtonProps[];
 }
 
 export const [useHomeContext, CtxProvider] = createCtx<HomeContextInterface>();

@@ -16,13 +16,13 @@ const ANALYTICS_CONTEXT_DATA = {
 };
 
 interface Props {
+	// Select state of the button
+	isSelected?: boolean;
 	// Function executed when user clicks this button
 	onClick?(
 		event?: React.MouseEvent<HTMLElement, MouseEvent>,
 		analyticsEvent?: UIAnalyticsEvent,
 	): void;
-	// Select state of the button
-	isSelected?: boolean;
 }
 
 export const ArticleWasHelpfulNoButton: React.FC<Props & WrappedComponentProps> = ({

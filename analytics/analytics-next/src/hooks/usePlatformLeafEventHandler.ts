@@ -6,13 +6,13 @@ import { useAnalyticsEvents } from './useAnalyticsEvents';
 import { useTrackedRef } from './useTrackedRef';
 
 export type UsePlatformLeafEventHandlerHookArgs<T> = {
-	fn: (value: T, analyticsEvent: UIAnalyticsEvent) => void;
 	action: string;
-	componentName: string;
 	actionSubject?: string;
+	analyticsData?: Record<string, any>;
+	componentName: string;
+	fn: (value: T, analyticsEvent: UIAnalyticsEvent) => void;
 	packageName: string;
 	packageVersion: string;
-	analyticsData?: Record<string, any>;
 };
 
 export type UsePlatformLeafEventHandlerHook<T> = (value: T) => void;

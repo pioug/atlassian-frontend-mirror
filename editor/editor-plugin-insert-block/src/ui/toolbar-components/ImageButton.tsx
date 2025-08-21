@@ -39,7 +39,7 @@ export const ImageButton = ({ api }: ImageButtonProps) => {
 	return (
 		<ToolbarTooltip content={formatMessage(messages.image)}>
 			<ToolbarButton
-				iconBefore={<ImageIcon label={formatMessage(messages.image)} />}
+				iconBefore={<ImageIcon label={formatMessage(messages.image)} size="small" />}
 				onClick={onClick}
 				isDisabled={!imageUploadEnabled || isOffline}
 			/>

@@ -10,11 +10,11 @@ import { ToggleShowMoreArticlesContainer } from '../ArticlesList/styled';
 
 export interface Props {
 	itemsType?: string;
-	minItemsToDisplay: number;
-	maxItemsToDisplay: number;
-	showMoreToggeled: boolean;
 	loading?: boolean;
+	maxItemsToDisplay: number;
+	minItemsToDisplay: number;
 	onToggle: (event: React.MouseEvent<HTMLElement>, analyticsEvent: UIAnalyticsEvent) => void;
+	showMoreToggeled: boolean;
 }
 
 export const ShowMoreButton: React.FC<Props & WrappedComponentProps> = ({

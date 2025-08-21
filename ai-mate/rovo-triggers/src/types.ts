@@ -66,6 +66,8 @@ export type EditorContextPayloadData =
 				type: 'text/markdown' | 'text/plain';
 				content: string;
 			};
+			selectionFragment?: string;
+			selectionLocalIds?: string;
 	  }
 	| undefined;
 

@@ -5,8 +5,8 @@ type ExceptionHandlers = {
 };
 
 type StoredItem = {
-	value: any;
 	expires?: number;
+	value: any;
 };
 
 export type GetStoredItemOptions = {

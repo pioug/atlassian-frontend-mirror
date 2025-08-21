@@ -3039,6 +3039,52 @@ test('to clear value when hitting escape if escapeClearsValue and isClearable ar
 	});
 });
 
+describe('escape keydown event propagation', () => {
+	const handleKeyDownMock = jest.fn();
+	const clickAndHitEscape = async () => {
+		const user = userEvent.setup();
+
+		await user.click(screen.getByTestId(`${testId}-select--input`));
+		await user.keyboard('[Escape]');
+	};
+	const mockedProps = {
+		...BASIC_PROPS,
+		menuIsOpen: true,
+	};
+
+	it('should not be prevented if "shouldPreventEscapePropagation" is false', async () => {
+		render(
+			// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+			<dialog onKeyDown={handleKeyDownMock}>
+				<Select {...mockedProps} />
+			</dialog>,
+		);
+
+		expect(handleKeyDownMock).not.toHaveBeenCalled();
+
+		await clickAndHitEscape();
+
+		expect(handleKeyDownMock).toHaveBeenCalled();
+	});
+
+	it('should be prevented if "shouldPreventEscapePropagation" is true', async () => {
+		render(
+			// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+			<dialog onKeyDown={handleKeyDownMock}>
+				<Select {...mockedProps} shouldPreventEscapePropagation />
+			</dialog>,
+		);
+
+		await clickAndHitEscape();
+
+		expect(handleKeyDownMock).not.toHaveBeenCalled();
+	});
+
+	afterEach(() => {
+		handleKeyDownMock.mockReset();
+	});
+});
+
 test('hitting spacebar should not select option if isSearchable is true (default)', async () => {
 	let onChangeSpy = jest.fn();
 	let props = { ...BASIC_PROPS, onChange: onChangeSpy };

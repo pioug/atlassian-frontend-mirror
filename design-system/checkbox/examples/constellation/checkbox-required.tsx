@@ -1,4 +1,4 @@
-import React, { type ChangeEvent, Fragment, useCallback, useState } from 'react';
+import React, { type ChangeEvent, Fragment, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
@@ -7,32 +7,35 @@ import Form, { CheckboxField, FormFooter } from '@atlaskit/form';
 const CheckboxRequiredExample = () => {
 	const [isChecked, setIsChecked] = useState(false);
 
-	const onChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-		setIsChecked((current) => !current);
-	}, []);
-
 	return (
 		<Form onSubmit={(formData) => console.log('form data', formData)}>
 			{({ formProps }) => (
 				<form {...formProps}>
 					<CheckboxField name="checkbox-required" isRequired>
-						{({ fieldProps }) => (
-							<Fragment>
-								<Checkbox
-									{...fieldProps}
-									isChecked={isChecked}
-									onChange={onChange}
-									label="By checking this box you agree to the terms and conditions"
-									value="By checking this box you agree to the terms and conditions"
-									name="checkbox-required"
-								/>
-							</Fragment>
-						)}
+						{({ fieldProps }) => {
+							// Define event handler that handles both controlled component state and form state updates
+							const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+								// With a controlled component, we need to update the local state
+								// to ensure the checkbox is updated in the UI
+								setIsChecked((current) => !current);
+								// Also update form state for validation and submission
+								fieldProps.onChange(event);
+							};
+
+							return (
+								<Fragment>
+									<Checkbox
+										{...fieldProps}
+										label="By checking this box you agree to the terms and conditions"
+										isChecked={isChecked}
+										onChange={handleChange}
+									/>
+								</Fragment>
+							);
+						}}
 					</CheckboxField>
 					<FormFooter>
-						<Button type="submit" isDisabled={!isChecked}>
-							Submit
-						</Button>
+						<Button type="submit">Submit</Button>
 					</FormFooter>
 				</form>
 			)}

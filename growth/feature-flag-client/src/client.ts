@@ -122,8 +122,8 @@ export default class FeatureFlagClient {
 		flagKey: string,
 		options: {
 			default: boolean;
-			shouldTrackExposureEvent?: boolean;
 			exposureData?: CustomAttributes;
+			shouldTrackExposureEvent?: boolean;
 		},
 	): boolean {
 		enforceAttributes(options, ['default'], 'getBooleanValue');
@@ -135,9 +135,9 @@ export default class FeatureFlagClient {
 		flagKey: string,
 		options: {
 			default: string;
+			exposureData?: CustomAttributes;
 			oneOf: string[];
 			shouldTrackExposureEvent?: boolean;
-			exposureData?: CustomAttributes;
 		},
 	): string {
 		enforceAttributes(options, ['default', 'oneOf'], 'getVariantValue');
@@ -154,8 +154,8 @@ export default class FeatureFlagClient {
 		flagKey: string,
 		options: {
 			default: FlagValue;
-			shouldTrackExposureEvent?: boolean;
 			exposureData?: CustomAttributes;
+			shouldTrackExposureEvent?: boolean;
 		},
 	): FlagValue {
 		enforceAttributes(options, ['default'], 'getRawValue');
@@ -167,8 +167,8 @@ export default class FeatureFlagClient {
 		flagKey: string,
 		options: {
 			default: T;
-			shouldTrackExposureEvent?: boolean;
 			exposureData?: CustomAttributes;
+			shouldTrackExposureEvent?: boolean;
 		},
 	): FlagShape<T> {
 		enforceAttributes(options, ['default'], 'getRawValue');

@@ -4,8 +4,6 @@ import {
 	INSERT_BLOCK_SECTION,
 	TASK_LIST_GROUP,
 	MEDIA_GROUP,
-	TOOLBAR_RANK,
-	TOOLBARS,
 	INSERT_BLOCK_SECTION_RANK,
 	TASK_LIST_BUTTON,
 	TASK_LIST_GROUP_RANK,
@@ -51,17 +49,6 @@ export const getToolbarComponents = ({
 	toolbarShowPlusInsertOnly,
 }: GetToolbarComponentsProps): RegisterComponent[] => {
 	return [
-		{
-			type: INSERT_BLOCK_SECTION.type,
-			key: INSERT_BLOCK_SECTION.key,
-			parents: [
-				{
-					type: 'toolbar',
-					key: TOOLBARS.PRIMARY_TOOLBAR,
-					rank: TOOLBAR_RANK[INSERT_BLOCK_SECTION.key],
-				},
-			],
-		},
 		...(toolbarShowPlusInsertOnly
 			? []
 			: [

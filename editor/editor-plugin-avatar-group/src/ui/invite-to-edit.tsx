@@ -15,7 +15,7 @@ import { inviteTeamWrapperStyles } from './styles';
 
 const ID = (props: PropsWithChildren<Object>) => <Fragment>{props.children}</Fragment>;
 
-export type InviteToEditButtonProps = PropsWithChildren<{
+type InviteToEditButtonProps = PropsWithChildren<{
 	onClick?: React.MouseEventHandler;
 	selected?: boolean;
 	Component?: React.ComponentType<React.PropsWithChildren<InviteToEditComponentProps>>;

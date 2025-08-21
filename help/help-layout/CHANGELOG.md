@@ -1,5 +1,12 @@
 # @atlaskit/help-layout
 
+## 6.3.11
+
+### Patch Changes
+
+- [`bc7821de4d118`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bc7821de4d118) -
+  Sorted type and interface props to improve Atlaskit docs
+
 ## 6.3.10
 
 ### Patch Changes

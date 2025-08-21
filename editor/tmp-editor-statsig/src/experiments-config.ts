@@ -447,6 +447,14 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-08-20
+	platform_editor_ai_non_iw_adf_streaming: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_ai_non_iw_adf_streaming',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-07-07
 	platform_editor_ai_remove_trivial_prompts_cc: createBooleanExperiment({
 		productKeys: {
@@ -545,6 +553,16 @@ export const editorExperimentsConfig = {
 		},
 		param: 'isEnabled',
 		defaultValue: false,
+	}),
+	// Added 2025-08-17
+	platform_hover_card_preview_panel: createMultivariateExperiment({
+		productKeys: {
+			confluence: 'platform_hover_card_preview_panel',
+			jira: 'platform_hover_card_preview_panel',
+		},
+		param: 'cohort',
+		values: ['control', 'test'],
+		defaultValue: 'control',
 	}),
 	// Added 2025--8-05
 	platform_editor_block_menu: createBooleanExperiment({

@@ -1,5 +1,12 @@
 # @atlaskit/rovo-triggers
 
+## 3.5.0
+
+### Minor Changes
+
+- [`6f26b732b4fc0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6f26b732b4fc0) -
+  Include selectionFragment and selectionLocalIds on editor context payload
+
 ## 3.4.1
 
 ### Patch Changes

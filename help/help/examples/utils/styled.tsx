@@ -69,8 +69,8 @@ export const ControlsWrapper = ({
 	width,
 	children,
 }: {
-	width?: string;
 	children: React.ReactNode;
+	width?: string;
 }) => (
 	<div
 		css={controlsWrapperStyles}

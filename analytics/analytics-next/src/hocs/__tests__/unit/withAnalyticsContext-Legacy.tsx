@@ -28,8 +28,8 @@ jest.mock('../../../components/AnalyticsContext', () => {
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 class FakeLegacyListener extends Component<{
-	onEvent: (analyticsEvt: UIAnalyticsEvent, channel: string) => void;
 	children: React.ReactElement;
+	onEvent: (analyticsEvt: UIAnalyticsEvent, channel: string) => void;
 }> {
 	static childContextTypes = {
 		getAtlaskitAnalyticsEventHandlers: PropTypes.func,
@@ -121,9 +121,9 @@ const UnderTestSingleContext = ({
 	FakeConsumer,
 	analyticsContext,
 }: {
-	onEvent: (analyticsEvt: UIAnalyticsEvent, channel: string) => void;
-	FakeConsumer: React.JSXElementConstructor<{}>;
 	analyticsContext?: Record<string, any>;
+	FakeConsumer: React.JSXElementConstructor<{}>;
+	onEvent: (analyticsEvt: UIAnalyticsEvent, channel: string) => void;
 }) => {
 	return (
 		<FakeLegacyListener onEvent={onEvent}>
@@ -140,9 +140,9 @@ const UnderTestManyContext = ({
 	outerAnalyticsContext,
 	innerAnalyticsContext,
 }: {
-	onEvent: (analyticsEvt: UIAnalyticsEvent, channel: string) => void;
 	FakeConsumer: React.JSXElementConstructor<{}>;
 	innerAnalyticsContext?: Record<string, any>;
+	onEvent: (analyticsEvt: UIAnalyticsEvent, channel: string) => void;
 	outerAnalyticsContext?: Record<string, any>;
 }) => {
 	return (
@@ -158,8 +158,8 @@ const UnderTestManyContext = ({
 
 describe('withAnalyticsContext LegacyContext', () => {
 	type TestBranch = {
-		FakeConsumer: React.JSXElementConstructor<{}>;
 		description: string;
+		FakeConsumer: React.JSXElementConstructor<{}>;
 	};
 
 	const branches: TestBranch[] = [

@@ -25,8 +25,8 @@ const LocaleIntlProvider = ({
 	locale = 'en',
 	children,
 }: {
-	locale?: string;
 	children: React.ReactNode;
+	locale?: string;
 }) => (
 	<IntlProvider key={locale} locale={locale}>
 		{children}

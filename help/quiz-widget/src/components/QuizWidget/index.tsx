@@ -33,21 +33,21 @@ const boxWrapperStyles = xcss({
 });
 
 export interface Props {
+	// Correct answers for the particular quiz
+	correctAnswers?: QuizElement | null;
+	// Function to be executed when the next button is clicked
+	onNextButtonClick?: () => void;
+	// Function to be executed when the submit button is pressed
+	onSubmitButtonClick?: (choosenAnswers: string[]) => void;
 	// Content for the quiz
 	quizContent: QuizInterface;
 	// Score that is showed after submitting answers
 	score: number | null;
-	// Correct answers for the particular quiz
-	correctAnswers?: QuizElement | null;
-	// Function to be executed when the submit button is pressed
-	onSubmitButtonClick?: (choosenAnswers: string[]) => void;
-	// Function to be executed when the next button is clicked
-	onNextButtonClick?: () => void;
 }
 
 export interface State {
-	currentQuestionNumber: number;
 	checkedAnswers: Map<number, string>;
+	currentQuestionNumber: number;
 }
 
 const QuizWidget = (props: Props) => {

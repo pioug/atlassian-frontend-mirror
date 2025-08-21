@@ -1,5 +1,17 @@
 # @atlassian/smart-user-picker
 
+## 8.2.0
+
+### Minor Changes
+
+- [`272ab9229ad98`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/272ab9229ad98) -
+  add additional userResolvers prop to support adding additional contacts to existing user
+  recommendations
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.1.0
 
 ### Minor Changes

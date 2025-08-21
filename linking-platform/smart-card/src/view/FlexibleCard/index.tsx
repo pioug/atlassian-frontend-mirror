@@ -1,5 +1,7 @@
 import React, { useEffect, useMemo } from 'react';
 
+import { useSmartLinkContext } from '@atlaskit/link-provider';
+
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import { InternalActionName, SmartLinkStatus } from '../../constants';
 import { FlexibleCardContext } from '../../state/flexible-ui-context';
@@ -36,6 +38,7 @@ const FlexibleCard = ({
 }: FlexibleCardProps) => {
 	const aiSummaryConfig = useAISummaryConfig();
 	const resolve = useResolve();
+	const { isPreviewPanelAvailable, openPreviewPanel } = useSmartLinkContext();
 
 	const { fireEvent } = useAnalyticsEvents();
 
@@ -58,6 +61,8 @@ const FlexibleCard = ({
 				actionOptions,
 				status,
 				url,
+				isPreviewPanelAvailable,
+				openPreviewPanel,
 			}),
 		[
 			aiSummaryConfig,
@@ -73,6 +78,8 @@ const FlexibleCard = ({
 			actionOptions,
 			status,
 			url,
+			isPreviewPanelAvailable,
+			openPreviewPanel,
 		],
 	);
 	const flexibleCardContext = useMemo(() => ({ data: context, status, ui }), [context, status, ui]);

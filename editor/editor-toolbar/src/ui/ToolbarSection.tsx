@@ -1,23 +1,43 @@
-import React, { type ReactNode } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { type ReactNode } from 'react';
 
-import { cssMap } from '@atlaskit/css';
+import { css, jsx } from '@compiled/react';
+
+import { cssMap, cx } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	container: {
 		display: 'flex',
 		alignItems: 'center',
+		gap: token('space.050'),
 	},
+});
+
+const separator = css({
+	marginInline: token('space.100'),
+	height: '20px',
+	width: '1px',
+	backgroundColor: token('color.border'),
 });
 
 type ToolbarSectionProps = {
 	children?: ReactNode;
 	testId?: string;
+	/**
+	 * Whether to add a separator at the start of the section
+	 */
+	hasSeparator?: boolean;
 };
 
-export const ToolbarSection = ({ children, testId }: ToolbarSectionProps) => {
+export const ToolbarSection = ({ children, testId, hasSeparator }: ToolbarSectionProps) => {
 	return (
-		<Box xcss={styles.container} testId={testId}>
+		<Box xcss={cx(styles.container)} testId={testId}>
+			{hasSeparator && <div css={separator} />}
 			{children}
 		</Box>
 	);

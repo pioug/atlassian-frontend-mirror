@@ -48,7 +48,7 @@ export const TableButton = ({ api }: TableButtonProps) => {
 	return (
 		<ToolbarTooltip content={formatMessage(messages.table)}>
 			<ToolbarButton
-				iconBefore={<TableIcon label={formatMessage(messages.table)} />}
+				iconBefore={<TableIcon label={formatMessage(messages.table)} size="small" />}
 				onClick={onClick}
 				ariaKeyshortcuts={formatShortcut(toggleTable)}
 			/>

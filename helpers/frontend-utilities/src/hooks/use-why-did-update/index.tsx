@@ -46,7 +46,7 @@ export function useWhyDidUpdate(name: string, deps: any[], depsNames?: string[])
 			return;
 		}
 
-		const changes: Array<{ name: string; prev: any; next: any }> = [];
+		const changes: Array<{ name: string; next: any; prev: any; }> = [];
 
 		deps.forEach((dep, index) => {
 			if (!isEqual(prevDeps.current[index], dep)) {
@@ -94,7 +94,7 @@ export function useWhyDidUpdateShallow(name: string, deps: any[], depsNames?: st
 			return;
 		}
 
-		const changes: Array<{ name: string; prev: any; next: any }> = [];
+		const changes: Array<{ name: string; next: any; prev: any; }> = [];
 
 		deps.forEach((dep, index) => {
 			if (!Object.is(prevDeps.current[index], dep)) {

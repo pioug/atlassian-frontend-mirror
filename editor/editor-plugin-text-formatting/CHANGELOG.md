@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 3.0.21
+
+### Patch Changes
+
+- [`286abb4d35eba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/286abb4d35eba) -
+  [ux] [ED-28960] Finish full page primary toolbar migration
+
+  - Align with design update (separator, gap, height, icon size)
+  - Add keyboard shortcut to focus toolbar and arrow key navigation
+  - Address accessibility
+
+- Updated dependencies
+
 ## 3.0.20
 
 ### Patch Changes

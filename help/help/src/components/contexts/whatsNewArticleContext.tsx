@@ -15,10 +15,13 @@ import { createCtx } from '../../util/hooks/ctx';
 import { NUMBER_OF_WHATS_NEW_ITEMS_PER_PAGE } from '../constants';
 
 interface WhatsNewArticleSharedInterface {
-	// "What's New" notification provider. This prop is optional, if is not defined the "What's new" notification icon will be hidden
-	whatsNewGetNotificationProvider?: Promise<NotificationLogProvider>;
-	// Product name used in the label of the "What's new" button. This prop is optional, if is not defined the "What's new" button label will not include the product name
-	productName?: string;
+	// Function used to get a What article content. This prop is optional, if is not defined the "What's new" feature will be hidden
+	onGetWhatsNewArticle?(id: articleId): Promise<WhatsNewArticle>;
+	// Function executed when the user clicks the "show more" button of the "What's new" list. This prop is optional
+	onSearchWhatsNewArticlesShowMoreClick?(
+		event: React.MouseEvent<HTMLElement>,
+		analyticsEvent: UIAnalyticsEvent,
+	): void;
 	// Event handler fired when the user clicks the "What's new" button. This prop is optional
 	onWhatsNewButtonClick?(
 		event: React.MouseEvent<HTMLElement, MouseEvent>,
@@ -30,13 +33,10 @@ interface WhatsNewArticleSharedInterface {
 		analyticsEvent: UIAnalyticsEvent,
 		whatsNewArticleData: WhatsNewArticleItem,
 	): void;
-	// Function executed when the user clicks the "show more" button of the "What's new" list. This prop is optional
-	onSearchWhatsNewArticlesShowMoreClick?(
-		event: React.MouseEvent<HTMLElement>,
-		analyticsEvent: UIAnalyticsEvent,
-	): void;
-	// Function used to get a What article content. This prop is optional, if is not defined the "What's new" feature will be hidden
-	onGetWhatsNewArticle?(id: articleId): Promise<WhatsNewArticle>;
+	// Product name used in the label of the "What's new" button. This prop is optional, if is not defined the "What's new" button label will not include the product name
+	productName?: string;
+	// "What's New" notification provider. This prop is optional, if is not defined the "What's new" notification icon will be hidden
+	whatsNewGetNotificationProvider?: Promise<NotificationLogProvider>;
 }
 
 interface WhatsNewArticleContextInterface extends WhatsNewArticleSharedInterface {
@@ -46,8 +46,8 @@ interface WhatsNewArticleContextInterface extends WhatsNewArticleSharedInterface
 		numberOfItems?: number,
 		page?: string,
 	): Promise<void>;
-	searchWhatsNewArticlesState: REQUEST_STATE;
 	searchWhatsNewArticlesResult: whatsNewSearchResult | null;
+	searchWhatsNewArticlesState: REQUEST_STATE;
 }
 
 interface WhatsNewArticleProviderInterface extends WhatsNewArticleSharedInterface {

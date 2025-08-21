@@ -3,14 +3,14 @@ import type { WhatsNewArticleItem, WhatsNewArticle, articleId } from '../../../s
 import { BODY_FORMAT_TYPES } from '@atlaskit/help-article';
 
 export interface FilterConfiguration {
+	changeStatus?: string[];
+	changeTypes?: string[];
 	fdIssueKeys?: string[];
 	fdIssueLinks?: string[];
-	changeTypes?: string[];
-	productNames?: string[];
-	changeStatus?: string[];
 	featureRolloutDates?: string[];
-	releaseNoteFlags?: string[];
+	productNames?: string[];
 	releaseNoteFlagOffValues?: string[];
+	releaseNoteFlags?: string[];
 }
 
 const CPAPI_URL = 'https://jdog.jira-dev.com/gateway/api/graphql';
@@ -85,8 +85,8 @@ export const useContentPlatformApi = () => {
 		data: any,
 	): {
 		articles: WhatsNewArticleItem[];
-		nextPage: string;
 		hasNextPage: boolean;
+		nextPage: string;
 	} => {
 		if (data.data?.releaseNotes) {
 			const releaseNotesItemsData = data.data?.releaseNotes.edges;

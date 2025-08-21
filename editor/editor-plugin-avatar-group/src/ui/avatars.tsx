@@ -23,7 +23,7 @@ import type { AvatarGroupPlugin } from '../avatarGroupPluginType';
 import { avatarContainerStyles } from './styles';
 import toAvatar from './to-avatar';
 
-export interface AvatarsProps {
+interface AvatarsProps {
 	sessionId?: string;
 	participants: ReadOnlyParticipants | undefined;
 	editorView?: EditorView;
@@ -33,7 +33,7 @@ export interface AvatarsProps {
 	children: ReactNode;
 }
 
-export const scrollToCollabCursor = (
+const scrollToCollabCursor = (
 	editorAPI: ExtractInjectionAPI<AvatarGroupPlugin> | undefined,
 	participants: CollabParticipant[],
 	sessionId: string | undefined,

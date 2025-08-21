@@ -51,6 +51,9 @@
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/select/tsconfig.app.json"
 		},
 		{
@@ -67,6 +70,9 @@
 		},
 		{
 			"path": "../../elements/util-data-test/tsconfig.app.json"
+		},
+		{
+			"path": "../../growth/integrations/tsconfig.app.json"
 		}
 	]
 }

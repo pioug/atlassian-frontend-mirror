@@ -24,7 +24,6 @@ const TYPEWRITER_ERASE_DELAY = 40; // Delay between erasing each character
 const TYPEWRITER_CYCLE_DELAY = 500; // Delay before starting next cycle
 
 export const pluginKey = new PluginKey('placeholderPlugin');
-
 interface PlaceHolderState {
 	hasPlaceholder: boolean;
 	placeholderText?: string;

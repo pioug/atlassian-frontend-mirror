@@ -5,7 +5,7 @@
  * are put together - but for now `Builder` & `Preset` aim to beinterchangeable.
  */
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
-import type { Fragment, Node, Schema } from '@atlaskit/editor-prosemirror/model';
+import type { Fragment, Node, Schema, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
@@ -116,6 +116,14 @@ export type CorePlugin = NextEditorPlugin<
 			createTransformer<Format>(
 				cb: (schema: Schema) => Transformer<Format>,
 			): Transformer<Format> | undefined;
+
+			/**
+			 * Get the anchor ID for a ProseMirror node.
+			 *
+			 * @param node - The ProseMirror node to get the anchor ID for.
+			 * @returns The anchor ID if found, otherwise undefined.
+			 */
+			getAnchorIdForNode: (node: PMNode) => string | undefined;
 		};
 	}
 >;

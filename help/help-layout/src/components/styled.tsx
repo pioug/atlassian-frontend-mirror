@@ -50,8 +50,8 @@ export const HelpFooter = ({
 	dataTestId,
 	children,
 }: {
-	dataTestId: string;
 	children: React.ReactNode;
+	dataTestId: string;
 }) => (
 	<div css={helpFooterStyles} data-testid={dataTestId}>
 		{children}
@@ -80,8 +80,8 @@ export const LoadingContainer = ({
 );
 
 type LoadingRectangleProps = {
-	contentWidth?: string;
 	contentHeight?: string;
+	contentWidth?: string;
 	marginTop?: string;
 };
 

@@ -237,7 +237,7 @@ const analyticsPlugin: AnalyticsPlugin = ({ config: options = {}, api }) => {
 	};
 };
 
-export function extendPayload({
+function extendPayload({
 	payload,
 	duration,
 	distortedDuration,

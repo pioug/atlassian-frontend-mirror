@@ -124,8 +124,7 @@ const Header: FC<HeaderProps> = ({
 					{restrictedTo && (
 						<Box as="span" xcss={headerItemStyles.root}>
 							<Text color="color.text.subtlest">
-								{fg('platform-visual-refresh-icons-legacy-facade') ||
-								fg('platform-visual-refresh-icons') ? (
+								{fg('platform-visual-refresh-icons') ? (
 									<Box as="span" xcss={iconWrapperStyles.root}>
 										<LockFilledIcon color="currentColor" label="" size="small" />
 									</Box>
@@ -148,8 +147,7 @@ const Header: FC<HeaderProps> = ({
 						<Text color="color.text.subtlest">
 							<Inline alignBlock="center" space="space.050" as="span">
 								&bull;
-								{fg('platform-visual-refresh-icons-legacy-facade') ||
-								fg('platform-visual-refresh-icons') ? (
+								{fg('platform-visual-refresh-icons') ? (
 									<Box as="span" xcss={iconWrapperStyles.root}>
 										<LockFilledIcon color="currentColor" label="" size="small" />
 									</Box>

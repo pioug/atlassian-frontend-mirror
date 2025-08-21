@@ -76,7 +76,7 @@ export const CommentButton = ({ api, annotationProviders }: CommentButtonProps) 
 			}
 		>
 			<ToolbarButton
-				iconBefore={<NewCommentIcon label="" />}
+				iconBefore={<NewCommentIcon label="" size="small" />}
 				onClick={onClick}
 				testId={AnnotationTestIds.floatingToolbarCreateButton}
 				isDisabled={isDisabled}

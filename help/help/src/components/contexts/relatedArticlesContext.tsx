@@ -5,19 +5,19 @@ import { type ArticleItem } from '../../model/Article';
 import { createCtx } from '../../util/hooks/ctx';
 
 export interface RelatedArticlesContextInterface {
-	routeGroup?: string;
-	routeName?: string;
 	onGetRelatedArticles?(routeGroup?: string, routeName?: string): Promise<ArticleItem[]>;
-	onRelatedArticlesShowMoreClick?(
-		event: React.MouseEvent<HTMLElement>,
-		analyticsEvent: UIAnalyticsEvent,
-		isCollapsed: boolean,
-	): void;
 	onRelatedArticlesListItemClick?: (
 		event: React.MouseEvent<HTMLElement, MouseEvent>,
 		analyticsEvent: UIAnalyticsEvent,
 		articleData: ArticleItem,
 	) => void;
+	onRelatedArticlesShowMoreClick?(
+		event: React.MouseEvent<HTMLElement>,
+		analyticsEvent: UIAnalyticsEvent,
+		isCollapsed: boolean,
+	): void;
+	routeGroup?: string;
+	routeName?: string;
 }
 
 export const [useRelatedArticlesContext, CtxProvider] =

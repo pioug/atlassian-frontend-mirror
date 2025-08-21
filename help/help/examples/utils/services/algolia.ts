@@ -90,9 +90,9 @@ const fixImagesAndLinkTags = (articleContent: string): string => {
 const ALGOLIA_CLIENT = algoliasearch('8K6J5OJIQW', '55176fdca77978d05c6da060d8724fe7');
 
 interface useAlgoliaProps {
-	productName?: string;
-	productExperience?: string;
 	algoliaIndexName?: string;
+	productExperience?: string;
+	productName?: string;
 }
 
 export const useAlgolia = ({

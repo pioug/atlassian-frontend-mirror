@@ -44,9 +44,9 @@ export const WhatsNewResultListItemWrapper = ({
 	children,
 	...rest
 }: {
+	[rest: string]: any;
 	children: React.ReactNode;
 	styles?: React.CSSProperties;
-	[rest: string]: any;
 }) => (
 	// eslint-disable-next-line @atlaskit/design-system/no-html-button, @atlaskit/ui-styling-standard/enforce-style-prop
 	<button css={whatsNewResultListItemWrapperStyles} style={styles} {...rest}>

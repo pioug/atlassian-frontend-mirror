@@ -30,7 +30,7 @@ export const createAttachPayloadIntoTransaction =
 //  to create new util attachPayloadIntoTransaction in above file.
 // If you make a change here, please review attachPayloadIntoTransaction in above
 //  file and update it as well if needed.
-export const attachPayloadIntoTransaction: AttachPayloadIntoTransaction = ({
+const attachPayloadIntoTransaction: AttachPayloadIntoTransaction = ({
 	payload,
 	selection,
 	tr,

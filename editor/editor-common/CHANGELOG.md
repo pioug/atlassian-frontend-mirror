@@ -1,5 +1,33 @@
 # @atlaskit/editor-common
 
+## 107.28.0
+
+### Minor Changes
+
+- [`d2a535bed291e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2a535bed291e) -
+  [EDITOR-1153] Let the `editor-plugin-indentation` handle `paragraphs` when they are selected in a
+  range with `blockTaskItem`, but don't indent the `paragraphs` inside `blockTaskItem`s
+
+### Patch Changes
+
+- [`286abb4d35eba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/286abb4d35eba) -
+  [ux] [ED-28960] Finish full page primary toolbar migration
+
+  - Align with design update (separator, gap, height, icon size)
+  - Add keyboard shortcut to focus toolbar and arrow key navigation
+  - Address accessibility
+
+- Updated dependencies
+
+## 107.27.0
+
+### Minor Changes
+
+- [`1dc35286ebb8a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1dc35286ebb8a) -
+  [ux] [EDITOR-1064] Added rovo menu on current selection toolbar
+- [`e05e3e8cd0659`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e05e3e8cd0659) -
+  ED-28776 implement native anchor api
+
 ## 107.26.2
 
 ### Patch Changes

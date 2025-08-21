@@ -3,9 +3,9 @@ import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { MockMediaClientProvider } from '@atlaskit/editor-test-helpers/media-client-mock';
 import Renderer from '../../ui/Renderer';
-import { borderADF } from '../visual-regression/media/__fixtures__/media-border.adf';
-import { borderADFWithinTable } from '../visual-regression/media/__fixtures__/media-border-within-table.adf';
-import { borderADFWithLink } from '../visual-regression/media/__fixtures__/media-border-with-link.adf';
+import { borderADF } from './__fixtures__/media-border.adf';
+import { borderADFWithinTable } from './__fixtures__/media-border-within-table.adf';
+import { borderADFWithLink } from './__fixtures__/media-border-with-link.adf';
 import type { DocNode } from '@atlaskit/adf-schema';
 
 const Media = ({ adf, appearance }: { adf: DocNode; appearance: string }) => {

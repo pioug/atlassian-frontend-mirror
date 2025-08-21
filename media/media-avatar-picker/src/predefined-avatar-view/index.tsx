@@ -12,7 +12,7 @@ import ArrowLeftIcon from '@atlaskit/icon/core/migration/arrow-left';
 import Button from '@atlaskit/button/standard-button';
 
 import { B200, B100 } from '@atlaskit/theme/colors';
-import { useState } from 'react';
+import { forwardRef, useState } from 'react';
 
 export interface PredefinedAvatarViewProps {
 	avatars: Array<Avatar>;
@@ -98,82 +98,88 @@ const backButtonStyles = css({
 	padding: 0,
 });
 
-export const PredefinedAvatarView = ({
-	avatars = [],
-	onAvatarSelected,
-	selectedAvatar,
-	onGoBack,
-	predefinedAvatarsText,
-	selectAvatarLabel,
-}: PredefinedAvatarViewProps) => {
-	const intl = useIntl();
+export const PredefinedAvatarView = forwardRef<HTMLButtonElement, PredefinedAvatarViewProps>(
+	(
+		{
+			avatars = [],
+			onAvatarSelected,
+			selectedAvatar,
+			onGoBack,
+			predefinedAvatarsText,
+			selectAvatarLabel,
+		},
+		goBackRef,
+	) => {
+		const intl = useIntl();
 
-	const [isFocused, setIsFocused] = useState(
-		Object.fromEntries(avatars.map((avatar) => [avatar.dataURI, false])),
-	);
-
-	const createOnItemClickHandler = (avatar: Avatar) => {
-		return () => {
-			if (onAvatarSelected) {
-				onAvatarSelected(avatar);
-			}
-		};
-	};
-
-	const cards = avatars.map((avatar, idx) => {
-		const elementKey = `predefined-avatar-${idx}`;
-		return (
-			<label key={elementKey} css={labelStyles}>
-				{/* eslint-disable-next-line @atlaskit/design-system/no-html-radio */}
-				<input
-					type="radio"
-					name="avatar"
-					value={avatar.dataURI}
-					aria-label={avatar.name || undefined}
-					checked={avatar === selectedAvatar}
-					onChange={createOnItemClickHandler(avatar)}
-					css={inputStyles}
-					onFocus={() => setIsFocused({ ...isFocused, [avatar.dataURI]: true })}
-					onBlur={() => setIsFocused({ ...isFocused, [avatar.dataURI]: false })}
-				/>
-				{/**
-				 * The alt is intentionally empty to avoid double announement of screen reader
-				 * see: https://www.loom.com/share/1c19ca856478460b9ab1b75cc599b122
-				 */}
-				<img
-					css={[
-						largeAvatarImageStyles,
-						avatar === selectedAvatar && largeAvatarImageCheckedStyles,
-						isFocused[avatar.dataURI] && largeAvatarImageFocusedStyles,
-					]}
-					src={avatar.dataURI}
-					alt=""
-				/>
-			</label>
+		const [isFocused, setIsFocused] = useState(
+			Object.fromEntries(avatars.map((avatar) => [avatar.dataURI, false])),
 		);
-	});
 
-	return (
-		<div id="predefined-avatar-view-wrapper">
-			<div css={headerStyles}>
-				<Button
-					aria-label={intl.formatMessage(messages.avatar_picker_back_btn_label)}
-					iconAfter={<ArrowLeftIcon color="currentColor" label="" />}
-					onClick={onGoBack}
-					css={backButtonStyles}
-				/>
-				{/* eslint-disable-next-line @atlaskit/design-system/use-heading */}
-				<h2 css={descriptionStyles}>
-					{predefinedAvatarsText || <FormattedMessage {...messages.default_avatars} />}
-				</h2>
+		const createOnItemClickHandler = (avatar: Avatar) => {
+			return () => {
+				if (onAvatarSelected) {
+					onAvatarSelected(avatar);
+				}
+			};
+		};
+
+		const cards = avatars.map((avatar, idx) => {
+			const elementKey = `predefined-avatar-${idx}`;
+			return (
+				<label key={elementKey} css={labelStyles}>
+					{/* eslint-disable-next-line @atlaskit/design-system/no-html-radio */}
+					<input
+						type="radio"
+						name="avatar"
+						value={avatar.dataURI}
+						aria-label={avatar.name || undefined}
+						checked={avatar === selectedAvatar}
+						onChange={createOnItemClickHandler(avatar)}
+						css={inputStyles}
+						onFocus={() => setIsFocused({ ...isFocused, [avatar.dataURI]: true })}
+						onBlur={() => setIsFocused({ ...isFocused, [avatar.dataURI]: false })}
+					/>
+					{/**
+					 * The alt is intentionally empty to avoid double announement of screen reader
+					 * see: https://www.loom.com/share/1c19ca856478460b9ab1b75cc599b122
+					 */}
+					<img
+						css={[
+							largeAvatarImageStyles,
+							avatar === selectedAvatar && largeAvatarImageCheckedStyles,
+							isFocused[avatar.dataURI] && largeAvatarImageFocusedStyles,
+						]}
+						src={avatar.dataURI}
+						alt=""
+					/>
+				</label>
+			);
+		});
+
+		return (
+			<div id="predefined-avatar-view-wrapper">
+				<div css={headerStyles}>
+					<Button
+						aria-label={intl.formatMessage(messages.avatar_picker_back_btn_label)}
+						iconAfter={<ArrowLeftIcon color="currentColor" label="" />}
+						onClick={onGoBack}
+						css={backButtonStyles}
+						ref={goBackRef}
+					/>
+					{/* eslint-disable-next-line @atlaskit/design-system/use-heading */}
+					<h2 css={descriptionStyles}>
+						{predefinedAvatarsText || <FormattedMessage {...messages.default_avatars} />}
+					</h2>
+				</div>
+				<div
+					role="radiogroup"
+					aria-label={selectAvatarLabel || intl.formatMessage(messages.select_an_avatar)}
+					css={bodyStyles}
+				>
+					{cards}
+				</div>
 			</div>
-			<div
-				role="radiogroup"
-				aria-label={selectAvatarLabel || intl.formatMessage(messages.select_an_avatar)}
-				css={bodyStyles}
-			>
-				{cards}
-			</div>
-		</div>
-	);
-};
+		);
+	},
+);

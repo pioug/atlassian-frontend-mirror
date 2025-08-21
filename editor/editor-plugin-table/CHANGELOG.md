@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-table
 
+## 12.2.6
+
+### Patch Changes
+
+- [`83a86aaf799cc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/83a86aaf799cc) -
+  hide numbered column on SSR
+
 ## 12.2.5
 
 ### Patch Changes

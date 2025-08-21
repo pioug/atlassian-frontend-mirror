@@ -2,7 +2,7 @@ import React, { createContext, useContext } from 'react';
 
 import type { OnOpenChangeArgs } from '@atlaskit/dropdown-menu';
 
-type ToolbarUIContextType = {
+export type ToolbarUIContextType = {
 	/**
 	 * Callback for when the dropdown is open/closed. Receives an object with `isOpen` state.
 	 *
@@ -19,12 +19,14 @@ type ToolbarUIContextType = {
 	 * Indicates whether the toolbar is disabled when the editor is offline.
 	 */
 	isDisabled?: boolean;
+	popupsMountPoint?: HTMLElement;
 };
 
 const ToolbarUIContext = createContext<ToolbarUIContextType>({
 	onDropdownOpenChanged: () => {},
 	preventDefaultOnMouseDown: false,
 	isDisabled: false,
+	popupsMountPoint: undefined,
 });
 
 /**
@@ -49,10 +51,11 @@ export const ToolbarUIProvider = ({
 	onDropdownOpenChanged,
 	preventDefaultOnMouseDown,
 	isDisabled,
+	popupsMountPoint,
 }: ToolbarUIProviderProps) => {
 	return (
 		<ToolbarUIContext.Provider
-			value={{ onDropdownOpenChanged, preventDefaultOnMouseDown, isDisabled }}
+			value={{ onDropdownOpenChanged, preventDefaultOnMouseDown, isDisabled, popupsMountPoint }}
 		>
 			{children}
 		</ToolbarUIContext.Provider>

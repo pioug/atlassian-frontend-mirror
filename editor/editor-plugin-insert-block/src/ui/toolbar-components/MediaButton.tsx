@@ -74,7 +74,7 @@ export const MediaButton = ({ api }: MediaButtonProps) => {
 	return (
 		<ToolbarTooltip content={formatMessage(messages.addMediaFiles)}>
 			<ToolbarButton
-				iconBefore={<ImageIcon label={formatMessage(messages.addMediaFiles)} />}
+				iconBefore={<ImageIcon label={formatMessage(messages.addMediaFiles)} size="small" />}
 				onClick={onClick}
 				ref={mediaButtonRef}
 				isDisabled={isOffline || !allowsUploads}

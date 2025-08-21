@@ -10,6 +10,7 @@ const styles = cssMap({
 		borderRadius: '6px',
 		display: 'flex',
 		alignItems: 'center',
+		gap: token('space.050'),
 	},
 	toolbar: {
 		height: '36px',
@@ -20,15 +21,16 @@ const styles = cssMap({
 	primaryToolbar: {
 		backgroundColor: token('elevation.surface'),
 		minHeight: '32px',
-		paddingTop: token('space.075'),
-		paddingBottom: token('space.075'),
-		paddingLeft: token('space.150'),
-		paddingRight: token('space.150'),
 	},
 });
 
 type ToolbarProps = {
 	children?: ReactNode;
+	/**
+	 * aria-label for the toolbar (No localisation needed as it won't be read by screen readers).
+	 *
+	 * use case: query select the toolbar to position floating toolbar
+	 */
 	label: string;
 };
 

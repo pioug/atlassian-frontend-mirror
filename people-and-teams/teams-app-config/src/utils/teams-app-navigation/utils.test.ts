@@ -24,6 +24,7 @@ jest.mock('@atlaskit/atlassian-context', () => ({
 		return `https://${product}.atlassian.net`;
 	}),
 	isFedRamp: jest.fn(() => false),
+	isIsolatedCloud: jest.fn(() => false),
 }));
 
 jest.mock('../../common/utils', () => ({

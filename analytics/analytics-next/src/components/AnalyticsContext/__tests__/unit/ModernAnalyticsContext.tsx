@@ -12,8 +12,8 @@ const FakeModernListener = ({
 	children,
 	callback,
 }: {
-	children: React.ReactNode;
 	callback: (context: Record<string, any>) => void;
+	children: React.ReactNode;
 }) => {
 	const value = useMemo(
 		() => ({
@@ -48,8 +48,8 @@ const UnderTestSingleContext = ({
 	data,
 	callback,
 }: {
-	data: Record<string, any>;
 	callback: (context: Record<string, any>) => void;
+	data: Record<string, any>;
 }) => {
 	return (
 		<FakeModernListener callback={callback}>
@@ -65,9 +65,9 @@ const UnderTestTwoContexts = ({
 	outerData,
 	callback,
 }: {
-	outerData: Record<string, any>;
-	innerData: Record<string, any>;
 	callback: (context: Record<string, any>) => void;
+	innerData: Record<string, any>;
+	outerData: Record<string, any>;
 }) => {
 	return (
 		<FakeModernListener callback={callback}>

@@ -39,8 +39,8 @@ export const RightSidePanelDrawer = ({
 	children,
 	width = PANEL_WIDTH,
 }: {
-	transitionState: TransitionStatus;
 	children: React.ReactNode;
+	transitionState: TransitionStatus;
 	width?: number;
 }) => (
 	<div

@@ -65,6 +65,8 @@ const extractFlexibleUiContext = ({
 	response,
 	status,
 	aiSummaryConfig,
+	isPreviewPanelAvailable,
+	openPreviewPanel,
 	...props
 }: Partial<ExtractFlexibleUiDataContextParams> = {}): FlexibleUiDataContext | undefined => {
 	if (!response) {
@@ -85,6 +87,8 @@ const extractFlexibleUiContext = ({
 			origin,
 			response,
 			url: props.url, // Use the original URL in edge cases, such as short links for AI summary and copy link actions.
+			isPreviewPanelAvailable,
+			openPreviewPanel,
 		}),
 		appliedToComponentsCount: extractAppliedToComponentsCount(data),
 		assignedToGroup: extractPersonAssignedToAsArray(
@@ -118,7 +122,7 @@ const extractFlexibleUiContext = ({
 		sentOn: extractSmartLinkSentOn(response),
 		snippet: extractSmartLinkSummary(response) || undefined, // Explicitly set here to remove an empty string
 		sourceBranch: extractSourceBranch(data as JsonLd.Data.SourceCodePullRequest),
-		state: extractState(response, actionOptions, id, appearance, origin, fireEvent, resolve),
+		state: extractState(response, actionOptions, id, appearance, origin, fireEvent, resolve, isPreviewPanelAvailable, openPreviewPanel),
 		subscriberCount: extractSubscriberCount(data),
 		subTasksProgress: extractSubTasksProgress(data),
 		storyPoints: extractStoryPoints(data),

@@ -11,12 +11,6 @@ export interface HelpArticleContextInterface {
 		analyticsEvent: UIAnalyticsEvent,
 		articleId?: articleId,
 	): void;
-	// Feedback form
-	onWasHelpfulYesButtonClick?(
-		event: React.MouseEvent<HTMLElement, MouseEvent>,
-		analyticsEvent: UIAnalyticsEvent,
-		ArticleItem: ArticleItem,
-	): void;
 	onWasHelpfulNoButtonClick?(
 		event: React.MouseEvent<HTMLElement, MouseEvent>,
 		analyticsEvent: UIAnalyticsEvent,
@@ -27,6 +21,12 @@ export interface HelpArticleContextInterface {
 		articleFeedback: ArticleFeedback,
 		articleData: ArticleItem,
 	): Promise<boolean>;
+	// Feedback form
+	onWasHelpfulYesButtonClick?(
+		event: React.MouseEvent<HTMLElement, MouseEvent>,
+		analyticsEvent: UIAnalyticsEvent,
+		ArticleItem: ArticleItem,
+	): void;
 }
 
 export const [useHelpArticleContext, CtxProvider] = createCtx<HelpArticleContextInterface>();

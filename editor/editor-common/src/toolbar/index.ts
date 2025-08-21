@@ -144,7 +144,7 @@ export {
 	TRACK_CHANGES_BUTTON,
 } from './keys';
 
-export { useEditorToolbar, EditorToolbarProvider } from './context';
+export { useEditorToolbar, EditorToolbarProvider, type EditorToolbarContextType } from './context';
 export { EditorToolbarUIProvider } from './EditorToolbarUIProvider';
 
 export { getInputMethodFromParentKeys } from './utils';

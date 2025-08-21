@@ -88,7 +88,7 @@ export const FormatButton = ({
 	return (
 		<ToolbarTooltip content={<ToolTipContent description={formatTitle} keymap={shortcut} />}>
 			<ToolbarButton
-				iconBefore={<Icon label={ariaLabel} />}
+				iconBefore={<Icon label={ariaLabel} size="small" />}
 				onClick={onClick}
 				isSelected={isActive}
 				isDisabled={isDisabled}

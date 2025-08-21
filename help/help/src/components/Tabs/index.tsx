@@ -3,17 +3,17 @@ import { TabContainer, TabLabels, TabLabel } from './styled';
 import { Inline, Text } from '@atlaskit/primitives/compiled';
 
 interface TabProps {
-	label: string;
-	index: number;
-	onClick: (index: number) => void;
-	isActive: boolean;
 	icon: ReactNode;
+	index: number;
+	isActive: boolean;
+	label: string;
+	onClick: (index: number) => void;
 }
 
 interface TabsProps {
 	activeTab: number;
 	onTabClick: (index: number) => void;
-	tabs: { label: string; icon: ReactNode }[];
+	tabs: { icon: ReactNode; label: string; }[];
 }
 
 const Tab: React.FC<TabProps> = ({ label, index, onClick, isActive, icon }) => {

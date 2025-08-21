@@ -10,7 +10,7 @@ const flexContainerStyles = css({
 	display: 'flex',
 });
 
-export const FlexContainer = ({ id, children }: { id: string; children: React.ReactNode }) => (
+export const FlexContainer = ({ id, children }: { children: React.ReactNode; id: string; }) => (
 	<div id={id} css={flexContainerStyles}>
 		{children}
 	</div>

@@ -1,5 +1,18 @@
 # @atlaskit/renderer
 
+## 120.5.0
+
+### Minor Changes
+
+- [`14e7b85d72f07`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14e7b85d72f07) -
+  EDITOR-1385 Setup platform_editor_ai_non_iw_adf_streaming experiment.
+
+### Patch Changes
+
+- [`e223c8a081854`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e223c8a081854) -
+  EDITOR-1363 Add telepointer styles for Rovo behind platform_editor_ai_aifc experiment.
+- Updated dependencies
+
 ## 120.4.9
 
 ### Patch Changes

@@ -33,11 +33,11 @@ export const ArticleFeedbackText = ({
 	children,
 	...rest
 }: {
-	id?: string;
-	top?: string;
-	paddingRight?: string;
-	children: React.ReactNode;
 	[rest: string]: any;
+	children: React.ReactNode;
+	id?: string;
+	paddingRight?: string;
+	top?: string;
 }) => (
 	<div
 		id={id}

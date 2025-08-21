@@ -70,6 +70,59 @@ const mockEndpoints = (failRecommendations: boolean) => {
 			overwriteRoutes: false,
 		},
 	);
+
+	fetchMock.mock(
+		/gateway\/api\/external-users\/third-party\/search(\?.*)?/,
+		(url: string) => {
+			const urlObj = new URL('http://localhost:9000' + url);
+			const query = urlObj.searchParams.get('query') || '';
+			const mockThirdPartyUsers = [
+				{
+					id: 'third-party-user-1',
+					name: `${query} (External User 1)`,
+					avatarUrl:
+						'https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/default-avatar.png',
+					type: 'external_user' as const,
+					isExternal: true,
+					byline: 'External collaborator',
+					email: `${query.toLowerCase()}@external.com`,
+					sources: ['slack', 'microsoft'],
+				},
+				{
+					id: 'third-party-user-2',
+					name: `${query} (External User 2)`,
+					avatarUrl:
+						'https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/default-avatar.png',
+					type: 'external_user' as const,
+					isExternal: true,
+					byline: 'External collaborator',
+					email: `${query.toLowerCase()}2@external.com`,
+					sources: ['microsoft', 'google'],
+				},
+				{
+					id: 'third-party-user-3',
+					name: `${query} (Google Drive User)`,
+					avatarUrl:
+						'https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/default-avatar.png',
+					type: 'external_user' as const,
+					isExternal: true,
+					byline: 'Google Drive collaborator',
+					email: `${query.toLowerCase()}@gmail.com`,
+					sources: ['google', 'slack', 'microsoft'],
+				},
+			];
+
+			return new Promise((resolve) => {
+				setTimeout(() => {
+					resolve(mockThirdPartyUsers);
+				}, 300);
+			});
+		},
+		{
+			method: 'GET',
+			overwriteRoutes: false,
+		},
+	);
 };
 
 // Simple hook for using inside example pages, which sets up the mock API responses, and then

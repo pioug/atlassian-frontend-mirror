@@ -1,5 +1,15 @@
 # @atlaskit/form
 
+## 12.2.0
+
+### Minor Changes
+
+- [`07de46497864a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/07de46497864a) -
+  We are testing a new way to render the Form component behind a feature flag. Rendering a `Form`
+  component with direct JSX elements instead of a function as `children` will render an HTML `form`
+  element internally, reducing the boilerplate required for most use cases. If this fix is
+  successful it will be available in a later release.
+
 ## 12.1.1
 
 ### Patch Changes

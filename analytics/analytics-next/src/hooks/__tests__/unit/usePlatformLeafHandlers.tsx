@@ -33,6 +33,10 @@ const ButtonUsingHook = ({
 	packageVersion,
 	analyticsData,
 }: {
+	action: string;
+	actionSubject?: string;
+	analyticsData?: Record<string, any>;
+	componentName: string;
 	// Synthetic event for usePlatformLeafSyntheticEventHandler
 	onActivate: (analyticsEvent: UIAnalyticsEvent) => void;
 	// Event for usePlatformLeafEventHandler
@@ -40,12 +44,8 @@ const ButtonUsingHook = ({
 		clickEvent: React.MouseEvent<HTMLButtonElement>,
 		analyticsEvent: UIAnalyticsEvent,
 	) => void;
-	action: string;
-	componentName: string;
-	actionSubject?: string;
 	packageName: string;
 	packageVersion: string;
-	analyticsData?: Record<string, any>;
 }) => {
 	const handleClick = usePlatformLeafEventHandler({
 		fn: onClick,
@@ -88,18 +88,18 @@ const UnderTest = ({
 	packageVersion,
 	analyticsData,
 }: {
+	action: string;
+	actionSubject?: string;
+	analyticsData?: Record<string, any>;
+	componentName: string;
 	context: AnalyticsReactContextInterface;
 	onActivate?: (analyticsEvent: UIAnalyticsEvent) => void;
 	onClick?: (
 		clickEvent: React.MouseEvent<HTMLButtonElement>,
 		analyticsEvent: UIAnalyticsEvent,
 	) => void;
-	action: string;
-	componentName: string;
-	actionSubject?: string;
 	packageName: string;
 	packageVersion: string;
-	analyticsData?: Record<string, any>;
 }) => {
 	return (
 		<FakeContextProvider context={context}>

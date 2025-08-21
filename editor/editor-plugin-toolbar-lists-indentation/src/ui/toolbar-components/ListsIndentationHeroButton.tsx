@@ -60,9 +60,9 @@ export const ListsIndentationHeroButton = ({ api, parents }: ListsIndentationHer
 			<ToolbarButton
 				iconBefore={
 					orderedListActive ? (
-						<ListNumberedIcon label={formatMessage(listMessages.orderedList)} />
+						<ListNumberedIcon label={formatMessage(listMessages.orderedList)} size="small" />
 					) : (
-						<ListBulletedIcon label={formatMessage(listMessages.bulletedList)} />
+						<ListBulletedIcon label={formatMessage(listMessages.bulletedList)} size="small" />
 					)
 				}
 				isSelected={bulletListActive || orderedListActive}

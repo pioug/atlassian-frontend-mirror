@@ -107,6 +107,7 @@ describe('extractFlexibleUiContext', () => {
 					DownloadAction: undefined,
 					FollowAction: undefined,
 					PreviewAction: {
+						hasPreviewPanel: false,
 						invokeAction: {
 							actionFn: expect.any(Function),
 							actionSubjectId: 'invokePreviewScreen',
@@ -201,6 +202,7 @@ describe('extractFlexibleUiContext', () => {
 					DownloadAction: undefined,
 					FollowAction: undefined,
 					PreviewAction: {
+						hasPreviewPanel: false,
 						invokeAction: {
 							actionFn: expect.any(Function),
 							actionSubjectId: 'invokePreviewScreen',
@@ -264,6 +266,7 @@ describe('extractFlexibleUiContext', () => {
 					DownloadAction: undefined,
 					FollowAction: undefined,
 					PreviewAction: {
+						hasPreviewPanel: false,
 						invokeAction: {
 							actionFn: expect.any(Function),
 							actionSubjectId: 'invokePreviewScreen',
@@ -451,6 +454,7 @@ describe('extractFlexibleUiContext', () => {
 					DownloadAction: undefined,
 					FollowAction: undefined,
 					PreviewAction: {
+						hasPreviewPanel: false,
 						invokeAction: {
 							actionFn: expect.any(Function),
 							actionSubjectId: 'invokePreviewScreen',
@@ -506,6 +510,7 @@ describe('extractFlexibleUiContext', () => {
 					DownloadAction: undefined,
 					FollowAction: undefined,
 					PreviewAction: {
+						hasPreviewPanel: false,
 						invokeAction: {
 							actionFn: expect.any(Function),
 							actionSubjectId: 'invokePreviewScreen',
@@ -572,6 +577,7 @@ describe('extractFlexibleUiContext', () => {
 						isProject: true,
 					},
 					PreviewAction: {
+						hasPreviewPanel: false,
 						invokeAction: {
 							actionFn: expect.any(Function),
 							actionSubjectId: 'invokePreviewScreen',
@@ -640,6 +646,7 @@ describe('extractFlexibleUiContext', () => {
 					DownloadAction: undefined,
 					FollowAction: undefined,
 					PreviewAction: {
+						hasPreviewPanel: false,
 						invokeAction: {
 							actionFn: expect.any(Function),
 							actionSubjectId: 'invokePreviewScreen',
@@ -693,6 +700,7 @@ describe('extractFlexibleUiContext', () => {
 					DownloadAction: undefined,
 					FollowAction: undefined,
 					PreviewAction: {
+						hasPreviewPanel: false,
 						invokeAction: {
 							actionFn: expect.any(Function),
 							actionSubjectId: 'invokePreviewScreen',
@@ -763,6 +771,7 @@ describe('extractFlexibleUiContext', () => {
 					},
 					FollowAction: undefined,
 					PreviewAction: {
+						hasPreviewPanel: false,
 						invokeAction: {
 							actionFn: expect.any(Function),
 							actionSubjectId: 'invokePreviewScreen',
@@ -863,6 +872,7 @@ describe('extractFlexibleUiContext', () => {
 						DownloadAction: undefined,
 						FollowAction: undefined,
 						PreviewAction: {
+							hasPreviewPanel: false,
 							invokeAction: expect.objectContaining({
 								actionSubjectId: 'invokePreviewScreen',
 								actionType: 'PreviewAction',

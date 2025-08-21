@@ -31,8 +31,8 @@ import WhatsNewResultsList from './WhatsNewResultsList';
 import { SelectContainer, WhatsNewResultsListContainer } from './styled';
 
 interface SelectOption {
-	value: WHATS_NEW_ITEM_TYPES | undefined | '';
 	label: string;
+	value: WHATS_NEW_ITEM_TYPES | undefined | '';
 }
 
 const FADEIN_OVERLAY_TRANSITION_DURATION_MS = 440;

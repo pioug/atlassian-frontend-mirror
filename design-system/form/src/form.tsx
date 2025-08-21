@@ -20,6 +20,8 @@ import {
 import createDecorator from 'final-form-focus';
 import set from 'lodash/set';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { type OnSubmitHandler } from './types';
 
 type DefaultValue<FieldValue> = (value?: FieldValue) => FieldValue;
@@ -77,12 +79,26 @@ type FormChildrenArgs<FormValues> = {
 	reset: (initialValues?: FormValues) => void;
 };
 
+type ExcludeReservedFormProps = {
+	onKeyDown?: never;
+	onSubmit?: never;
+	ref?: never;
+};
+
 export interface FormProps<FormValues> {
 	/**
 	 *  The contents rendered inside of the form. This is a function where the props will be passed from the form. The function props you can access are `dirty`, `submitting` and `disabled`.
 	 *  You can read more about these props in [react-final form documentation](https://final-form.org/docs/final-form/types/FormState).
 	 */
 	children: ((args: FormChildrenArgs<FormValues>) => ReactNode) | (() => void) | ReactNode;
+	/**
+	 * When `Form` renders JSX children directly and not using a function to
+	 * spread `formProps` manually, the properties in this `formProps` prop will
+	 * be spread on an internally rendered  HTML `form` element.
+	 */
+	formProps?: {
+		[x: string]: any;
+	} & ExcludeReservedFormProps;
 	/**
 	 *   Event handler called when the form is submitted. Fields must be free of validation errors.
 	 */
@@ -96,9 +112,11 @@ export interface FormProps<FormValues> {
 export default function Form<FormValues extends Record<string, any> = {}>(
 	props: FormProps<FormValues>,
 ) {
+	const { formProps: userProvidedFormProps, onSubmit } = props;
+
 	const formRef = useRef<HTMLFormElement | null>(null);
-	const onSubmitRef = useRef(props.onSubmit);
-	onSubmitRef.current = props.onSubmit;
+	const onSubmitRef = useRef(onSubmit);
+	onSubmitRef.current = onSubmit;
 
 	const [form] = useState(() => {
 		// Types here would break the existing API
@@ -207,16 +225,19 @@ export default function Form<FormValues extends Record<string, any> = {}>(
 		return { registerField, getCurrentValue, subscribe: form.subscribe };
 	}, [registerField, getCurrentValue, form.subscribe]);
 
+	// Abstracting so we can use the same for both rendering patterns
+	const formProps = {
+		onKeyDown: handleKeyDown,
+		onSubmit: handleSubmit,
+		ref: formRef,
+	};
+
 	const childrenContent = (() => {
 		if (typeof children === 'function') {
 			const result =
 				children.length > 0
 					? (children as (args: FormChildrenArgs<FormValues>) => ReactNode)({
-							formProps: {
-								onSubmit: handleSubmit,
-								ref: formRef,
-								onKeyDown: handleKeyDown,
-							},
+							formProps,
 							dirty,
 							reset: handleReset,
 							submitting,
@@ -227,8 +248,15 @@ export default function Form<FormValues extends Record<string, any> = {}>(
 						})
 					: (children as () => ReactNode | void)();
 			return result === undefined ? null : result;
+		} else {
+			return fg('platform_design-system-team_form-upgrade') ? (
+				<form {...formProps} {...userProvidedFormProps}>
+					{children}
+				</form>
+			) : (
+				children
+			);
 		}
-		return children;
 	})();
 
 	return (

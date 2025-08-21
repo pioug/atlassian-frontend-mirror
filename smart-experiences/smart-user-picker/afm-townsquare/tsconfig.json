@@ -26,6 +26,9 @@
 			"path": "../../../analytics/analytics-next/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../../data/ufo-external/afm-townsquare/tsconfig.json"
 		},
 		{

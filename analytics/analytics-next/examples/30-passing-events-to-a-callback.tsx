@@ -9,8 +9,8 @@ import {
 } from '../src';
 
 interface ButtonBaseProps extends WithAnalyticsEventsProps {
-	onClick: (e: MouseEvent<HTMLButtonElement>, analyticsEvent?: UIAnalyticsEvent) => void;
 	children: React.ReactNode;
+	onClick: (e: MouseEvent<HTMLButtonElement>, analyticsEvent?: UIAnalyticsEvent) => void;
 }
 
 const ManualButtonBase = ({ createAnalyticsEvent, onClick, ...rest }: ButtonBaseProps) => {

@@ -21,9 +21,9 @@ const ANALYTICS_CONTEXT_DATA = {
 };
 
 interface Props {
+	intl: WrappedComponentProps['intl'];
 	// Function executed when the user click "try again"
 	onTryAgainButtonClick?(event: React.MouseEvent, analyticsEvent: UIAnalyticsEvent): void;
-	intl: WrappedComponentProps['intl'];
 }
 
 export const ArticleLoadingFail = ({ onTryAgainButtonClick, intl: { formatMessage } }: Props) => {

@@ -12,9 +12,9 @@ type AnalyticsErrorBoundaryErrorInfo = {
 };
 
 export interface AnalyticsErrorBoundaryProps {
+	channel: string;
 	/** React component to be wrapped */
 	children: ReactNode;
-	channel: string;
 	// eslint-disable-next-line @typescript-eslint/ban-types
 	data: {};
 	ErrorComponent?: React.ComponentType;

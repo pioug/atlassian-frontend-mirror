@@ -13,7 +13,7 @@ import type { AvatarGroupPlugin } from '../avatarGroupPluginType';
 
 import { badge } from './styles';
 
-export interface ColoredAvatarItemProps {
+interface ColoredAvatarItemProps {
 	sessionId: string;
 	presenceId?: string;
 	name: string;

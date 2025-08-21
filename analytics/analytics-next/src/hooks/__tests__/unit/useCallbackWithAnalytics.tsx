@@ -27,9 +27,9 @@ const ButtonUsingHook = ({
 	payload,
 	channel,
 }: {
+	channel: string;
 	onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 	payload: Record<string, any> | (() => Record<string, any>);
-	channel: string;
 }) => {
 	const handleClick = useCallbackWithAnalytics(onClick, payload, channel);
 	return (
@@ -45,10 +45,10 @@ const UnderTest = ({
 	payload,
 	channel,
 }: {
+	channel: string;
 	context: AnalyticsReactContextInterface;
 	onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 	payload: Record<string, any> | (() => Record<string, any>);
-	channel: string;
 }) => {
 	return (
 		<FakeContextProvider context={context}>

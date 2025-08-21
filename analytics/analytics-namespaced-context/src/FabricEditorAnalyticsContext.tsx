@@ -14,10 +14,10 @@ export enum EDITOR_APPEARANCE_CONTEXT {
 type FabricEditorAnalyticsContextProps = Props & {
 	data: {
 		appearance: EDITOR_APPEARANCE_CONTEXT | undefined;
-		packageName: string;
-		packageVersion: string;
 		componentName: 'renderer' | 'editorCore';
 		editorSessionId: string;
+		packageName: string;
+		packageVersion: string;
 	};
 };
 

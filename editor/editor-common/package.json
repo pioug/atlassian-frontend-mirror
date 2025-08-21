@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "107.26.2",
+	"version": "107.28.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -121,7 +121,8 @@
 		"./ugc-tokens": "./src/ugc-tokens/index.ts",
 		"./get-dom-ref-from-selection": "./src/utils/get-dom-ref-from-selection.ts",
 		"./ncs-step-metrics": "./src/ncs-step-metrics/index.ts",
-		"./toolbar-flag-check": "./src/toolbar-flag-check.ts"
+		"./toolbar-flag-check": "./src/toolbar-flag-check.ts",
+		"./context-panel": "./src/ui/ContextPanel/context.tsx"
 	},
 	"exports": {
 		"./prosemirror-dom-metadata": "./src/prosemirror-dom-metadata/index.ts",
@@ -217,7 +218,8 @@
 		"./ugc-tokens": "./src/ugc-tokens/index.ts",
 		"./get-dom-ref-from-selection": "./src/utils/get-dom-ref-from-selection.ts",
 		"./ncs-step-metrics": "./src/ncs-step-metrics/index.ts",
-		"./toolbar-flag-check": "./src/toolbar-flag-check.ts"
+		"./toolbar-flag-check": "./src/toolbar-flag-check.ts",
+		"./context-panel": "./src/ui/ContextPanel/context.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/activity-provider": "workspace:^",

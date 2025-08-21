@@ -271,6 +271,7 @@ export type FlexibleUiDataContext = {
 		location?: string;
 		pronouns?: string;
 	};
+	
 };
 
 export type LinkTitle = {
@@ -310,6 +311,8 @@ export type FlexibleUiActions = {
 export type PreviewActionData = {
 	/* An action to invoke with useInvokeClientAction */
 	invokeAction: InvokeClientActionProps;
+	/* Flag to indicate if the preview panel is available */
+	hasPreviewPanel?: boolean;
 };
 
 export type DownloadActionData = {

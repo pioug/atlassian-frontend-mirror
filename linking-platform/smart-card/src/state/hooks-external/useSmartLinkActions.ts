@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 import uuid from 'uuid';
 
 import { type JsonLd } from '@atlaskit/json-ld-types';
+import { useSmartLinkContext } from '@atlaskit/link-provider';
 
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import { extractInvokeDownloadAction } from '../../extractors/action/extract-invoke-download-action';
@@ -70,6 +71,7 @@ export function useSmartLinkActions({
 
 	const linkState = useLinkState(url);
 	const { fireEvent } = useAnalyticsEvents();
+	const { isPreviewPanelAvailable, openPreviewPanel } = useSmartLinkContext();
 	const invokeClientAction = useInvokeClientAction({ fireEvent });
 
 	if (linkState.details && !actionOptions?.hide) {
@@ -88,11 +90,17 @@ export function useSmartLinkActions({
 			actions.push(toAction(viewActionProps, invokeClientAction, messages.view, 'view-content'));
 		}
 
-		const previewActionProps = extractInvokePreviewAction({ ...invokeParam, fireEvent, origin });
+		const previewActionProps = extractInvokePreviewAction({ 
+			...invokeParam, 
+			fireEvent, 
+			origin,
+			isPreviewPanelAvailable,
+			openPreviewPanel,
+		});
 		if (previewActionProps) {
 			actions.push(
 				toAction(
-					previewActionProps,
+					previewActionProps.invokeAction,
 					invokeClientAction,
 					messages.preview_improved,
 					'preview-content',

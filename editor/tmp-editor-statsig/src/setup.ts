@@ -84,7 +84,5 @@ export function setupEditorExperiments(
 	}
 	_product = product;
 
-	if (paramOverrides) {
-		_paramOverrides = paramOverrides;
-	}
+	_paramOverrides = paramOverrides || {};
 }

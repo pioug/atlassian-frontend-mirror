@@ -2,7 +2,7 @@ import { type IntlShape } from 'react-intl-next';
 
 import { DOMSerializer, type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { type NodeView } from '@atlaskit/editor-prosemirror/view';
-import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { decisionItemToDOM } from './decisionItemNodeSpec';
 
@@ -71,7 +71,7 @@ export class DecisionItemNodeView implements NodeView {
 		// This was discovered while implementing the platform_editor_debounce_portal_provider experiment
 		// And there will only be an issue if the experiment is enabled.
 		// As such, this fix is behind this experiment.
-		if (!expVal('platform_editor_debounce_portal_provider', 'isEnabled', false)) {
+		if (!expValEquals('platform_editor_debounce_portal_provider', 'isEnabled', true, false)) {
 			return false; // Let ProseMirror handle all mutations when experiment is disabled
 		}
 

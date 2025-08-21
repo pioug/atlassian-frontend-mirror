@@ -10,7 +10,7 @@ import { useAnalyticsContext } from '../../../../hooks/useAnalyticsContext';
 import { useRenderCounter } from '../../../../test-utils/useRenderCounter';
 import LegacyAnalyticsListener from '../../LegacyAnalyticsListener';
 
-type FakeConsumerButtonProps = { event: UIAnalyticsEvent; channel: string };
+type FakeConsumerButtonProps = { channel: string; event: UIAnalyticsEvent; };
 
 const FakeModernConsumerButton = memo<FakeConsumerButtonProps>(({ event, channel }) => {
 	const analyticsContext = useAnalyticsContext();
@@ -68,11 +68,11 @@ const UnderTestSingleListener = ({
 	sendChannel,
 	FakeConsumerButton,
 }: {
-	onEvent: (event: UIAnalyticsEvent, channel?: string) => void;
-	listenChannel: string;
-	sendChannel: string;
 	event: UIAnalyticsEvent;
 	FakeConsumerButton: React.JSXElementConstructor<FakeConsumerButtonProps>;
+	listenChannel: string;
+	onEvent: (event: UIAnalyticsEvent, channel?: string) => void;
+	sendChannel: string;
 }) => {
 	return (
 		<LegacyAnalyticsListener onEvent={onEvent} channel={listenChanel}>
@@ -90,13 +90,13 @@ const UnderTestTwoListeners = ({
 	sendChannel,
 	FakeConsumerButton,
 }: {
-	outerOnEvent: (event: UIAnalyticsEvent, channel?: string) => void;
-	innerOnEvent: (event: UIAnalyticsEvent, channel?: string) => void;
 	event: UIAnalyticsEvent;
-	outerListenChannel: string;
-	innerListenChannel: string;
-	sendChannel: string;
 	FakeConsumerButton: React.JSXElementConstructor<FakeConsumerButtonProps>;
+	innerListenChannel: string;
+	innerOnEvent: (event: UIAnalyticsEvent, channel?: string) => void;
+	outerListenChannel: string;
+	outerOnEvent: (event: UIAnalyticsEvent, channel?: string) => void;
+	sendChannel: string;
 }) => {
 	return (
 		<LegacyAnalyticsListener onEvent={outerOnEvent} channel={outerListenChannel}>
@@ -109,8 +109,8 @@ const UnderTestTwoListeners = ({
 
 describe('LegacyAnalyticsListener', () => {
 	type TestBranch = {
-		FakeConsumerButton: React.JSXElementConstructor<FakeConsumerButtonProps>;
 		description: string;
+		FakeConsumerButton: React.JSXElementConstructor<FakeConsumerButtonProps>;
 	};
 
 	const branches: TestBranch[] = [

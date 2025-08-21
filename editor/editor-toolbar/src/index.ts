@@ -71,4 +71,4 @@ export { default as ColorPalette } from './ui/ColorPalette';
 
 export type { IconComponent } from './types';
 
-export { useToolbarUI, ToolbarUIProvider } from './hooks/ui-context';
+export { useToolbarUI, ToolbarUIProvider, type ToolbarUIContextType } from './hooks/ui-context';

@@ -424,6 +424,10 @@ export interface SelectProps<Option, IsMulti extends boolean, Group extends Grou
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	openMenuOnClick: boolean;
 	/**
+	 * Prevents "Escape" keydown event propagation
+	 */
+	shouldPreventEscapePropagation?: boolean;
+	/**
 	 * Array of options that populate the select menu
 	 */
 	options: OptionsOrGroups<Option, Group>;
@@ -537,6 +541,7 @@ export const defaultProps = {
 	noOptionsMessage: () => 'No options',
 	openMenuOnFocus: false,
 	openMenuOnClick: true,
+	shouldPreventEscapePropagation: false,
 	options: [],
 	pageSize: 5,
 	placeholder: 'Select...',
@@ -1811,6 +1816,7 @@ export default class Select<
 			onKeyDown,
 			tabSelectsValue,
 			openMenuOnFocus,
+			shouldPreventEscapePropagation,
 		} = this.props;
 		const { focusedOption, focusedValue, selectValue } = this.state;
 
@@ -1907,6 +1913,10 @@ export default class Select<
 						prevInputValue: inputValue,
 					});
 					this.onMenuClose();
+
+					if (shouldPreventEscapePropagation && event.target instanceof HTMLElement) {
+						event.stopPropagation();
+					}
 				} else if (isClearable && escapeClearsValue) {
 					this.clearValue();
 				}

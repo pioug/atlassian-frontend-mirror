@@ -22,8 +22,8 @@ const FakeModernListener = ({
 	onEvent,
 	children,
 }: {
-	onEvent: (analyticsEvt: UIAnalyticsEvent, channel: string) => void;
 	children: React.ReactElement;
+	onEvent: (analyticsEvt: UIAnalyticsEvent, channel: string) => void;
 }) => {
 	const onEventRef = useTrackedRef(onEvent);
 
@@ -72,8 +72,8 @@ const UnderTestSingleContext = ({
 	onEvent,
 	analyticsContext,
 }: {
-	onEvent: (analyticsEvt: UIAnalyticsEvent, channel: string) => void;
 	analyticsContext?: Record<string, any>;
+	onEvent: (analyticsEvt: UIAnalyticsEvent, channel: string) => void;
 }) => {
 	return (
 		<FakeModernListener onEvent={onEvent}>
@@ -89,8 +89,8 @@ const UnderTestManyContext = ({
 	outerAnalyticsContext,
 	innerAnalyticsContext,
 }: {
-	onEvent: (analyticsEvt: UIAnalyticsEvent, channel: string) => void;
 	innerAnalyticsContext?: Record<string, any>;
+	onEvent: (analyticsEvt: UIAnalyticsEvent, channel: string) => void;
 	outerAnalyticsContext?: Record<string, any>;
 }) => {
 	return (

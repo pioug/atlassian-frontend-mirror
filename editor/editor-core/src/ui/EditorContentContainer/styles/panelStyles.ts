@@ -53,9 +53,9 @@ export const panelStyles = css({
 				paddingRight: token('space.100', '8px'),
 				textAlign: 'center',
 				userSelect: 'none',
-				'-moz-user-select': 'none',
-				'-webkit-user-select': 'none',
-				'-ms-user-select': 'none',
+				MozUserSelect: 'none',
+				WebkitUserSelect: 'none',
+				msUserSelect: 'none',
 				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 				marginTop: '0.1em',
 
@@ -160,7 +160,7 @@ export const panelStyles = css({
 		position: 'relative',
 		// Fixes ED-9263, where emoji or inline card in panel makes selection go outside the panel
 		// in Safari. Looks like it's caused by user-select: all in the emoji element
-		'-webkit-user-select': 'text',
+		WebkitUserSelect: 'text',
 		'&::before': {
 			position: 'absolute',
 			content: '""',

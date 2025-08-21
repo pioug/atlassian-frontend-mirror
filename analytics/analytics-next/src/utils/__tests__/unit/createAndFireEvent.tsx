@@ -11,8 +11,8 @@ import {
 } from '../../../index';
 
 interface Props extends WithAnalyticsEventsProps {
-	onClick?: (e: MouseEvent<HTMLButtonElement>, analyticsEvent?: UIAnalyticsEvent) => void;
 	children: React.ReactNode;
+	onClick?: (e: MouseEvent<HTMLButtonElement>, analyticsEvent?: UIAnalyticsEvent) => void;
 }
 
 const Button = ({ onClick, children }: Props) => (

@@ -9,9 +9,9 @@ const ComponentUsingHook = ({
 	callback,
 	callBackRefUpdate,
 }: {
-	data: string;
 	callback: (data: MutableRefObject<string>) => void;
 	callBackRefUpdate?: (ref: MutableRefObject<string>, snapshotData: string) => void;
+	data: string;
 }) => {
 	const dataRef = useTrackedRef(data);
 

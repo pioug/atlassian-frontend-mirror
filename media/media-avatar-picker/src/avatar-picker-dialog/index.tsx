@@ -100,6 +100,7 @@ export class AvatarPickerDialog extends PureComponent<
 	};
 
 	moreRef: React.RefObject<HTMLButtonElement> = createRef<HTMLButtonElement>();
+	goBackRef: React.RefObject<HTMLButtonElement> = createRef<HTMLButtonElement>();
 
 	state: AvatarPickerDialogState = {
 		mode: Mode.Cropping,
@@ -186,6 +187,9 @@ export class AvatarPickerDialog extends PureComponent<
 		this.setState({
 			mode: Mode.PredefinedAvatars,
 			isSubmitted: false,
+		});
+		requestAnimationFrame(() => {
+			this.goBackRef.current?.focus();
 		});
 	};
 
@@ -413,6 +417,7 @@ export class AvatarPickerDialog extends PureComponent<
 							onGoBack={this.onGoBack}
 							selectedAvatar={selectedAvatar}
 							predefinedAvatarsText={predefinedAvatarsText}
+							ref={this.goBackRef}
 						/>
 						{requireAltText && this.renderAltTextField()}
 					</Box>

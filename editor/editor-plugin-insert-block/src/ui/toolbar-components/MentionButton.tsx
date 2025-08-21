@@ -34,7 +34,7 @@ export const MentionButton = ({ api }: MentionButtonProps) => {
 	return (
 		<ToolbarTooltip content={formatMessage(messages.mention)}>
 			<ToolbarButton
-				iconBefore={<MentionIcon label={formatMessage(messages.mention)} />}
+				iconBefore={<MentionIcon label={formatMessage(messages.mention)} size="small" />}
 				onClick={onClick}
 				ariaKeyshortcuts="Shift+2 Space"
 				isDisabled={!canInsertMention || !mentionProvider || !isTypeAheadAllowed}

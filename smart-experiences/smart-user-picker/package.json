@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-user-picker",
-	"version": "8.1.0",
+	"version": "8.2.0",
 	"license": "Apache-2.0",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -44,6 +44,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/ufo": "workspace:^",
 		"@atlaskit/user-picker": "workspace:^",
 		"@babel/runtime": "root:*",
@@ -66,5 +67,10 @@
 		"fetch-mock": "root:*",
 		"graphql-tag": "root:*",
 		"mock-apollo-client": "root:*"
+	},
+	"platform-feature-flags": {
+		"twcg-444-invite-usd-improvements-m2-gate": {
+			"type": "boolean"
+		}
 	}
 }

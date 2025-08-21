@@ -118,12 +118,19 @@ export const createToggleBlockMarkOnRange =
 				return false;
 			}
 
+			const parentAllowsMark =
+				state?.schema?.nodes?.blockTaskItem &&
+				parent?.type === state?.schema?.nodes?.blockTaskItem &&
+				markType === state?.schema?.marks?.indentation
+					? false
+					: parent?.type.allowsMarkType(markType);
+
 			if (
 				(!allowedBlocks ||
 					(Array.isArray(allowedBlocks)
 						? allowedBlocks.indexOf(node.type) > -1
 						: allowedBlocks(state.schema, node, parent))) &&
-				parent?.type.allowsMarkType(markType)
+				parentAllowsMark
 			) {
 				const oldMarks = node.marks.filter((mark) => mark.type === markType);
 
@@ -162,12 +169,21 @@ export const createToggleBlockMarkOnRangeNext =
 				return false;
 			}
 
+			const schema = tr.doc.type.schema;
+
+			const parentAllowsMark =
+				schema?.nodes?.blockTaskItem &&
+				parent?.type === schema?.nodes?.blockTaskItem &&
+				markType === schema?.marks?.indentation
+					? false
+					: parent?.type.allowsMarkType(markType);
+
 			if (
 				(!allowedBlocks ||
 					(Array.isArray(allowedBlocks)
 						? allowedBlocks.indexOf(node.type) > -1
 						: allowedBlocks(tr.doc.type.schema, node, parent))) &&
-				parent?.type.allowsMarkType(markType)
+				parentAllowsMark
 			) {
 				const oldMarks = node.marks.filter((mark) => mark.type === markType);
 

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 4.2.1
+
+### Patch Changes
+
+- [`ed995ae598c97`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ed995ae598c97) -
+  Fix metadata on offline syncing transaction
+- Updated dependencies
+
 ## 4.2.0
 
 ### Minor Changes

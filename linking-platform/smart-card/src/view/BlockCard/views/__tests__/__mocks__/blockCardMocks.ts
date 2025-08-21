@@ -110,14 +110,14 @@ export const mockPassionfruitResponse = {
 	...mockBaseResponse,
 	meta: {
 		...mockBaseResponse.meta,
-		key: 'passionfruit-object-provider',
+		key: 'integration-passionfruit-object-provider',
 	},
 };
 
 export const mockPassionfruitResponseWithOwnedBy = {
 	meta: {
 		...mockBaseResponse.meta,
-		key: 'passionfruit-object-provider',
+		key: 'integration-passionfruit-object-provider',
 	},
 	data: {
 		...mockBaseResponse.data,

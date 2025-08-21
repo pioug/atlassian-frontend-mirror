@@ -1,5 +1,13 @@
 # @atlaskit/react-select
 
+## 3.5.0
+
+### Minor Changes
+
+- [`782e1924230d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/782e1924230d5) -
+  Introduced new optional "shouldPreventEscapePropagation" prop to prevent Escape keydown event
+  propagation
+
 ## 3.4.5
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # @atlaskit/editor-toolbar
 
+## 0.3.5
+
+### Patch Changes
+
+- [`286abb4d35eba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/286abb4d35eba) -
+  [ux] [ED-28960] Finish full page primary toolbar migration
+
+  - Align with design update (separator, gap, height, icon size)
+  - Add keyboard shortcut to focus toolbar and arrow key navigation
+  - Address accessibility
+
 ## 0.3.4
 
 ### Patch Changes

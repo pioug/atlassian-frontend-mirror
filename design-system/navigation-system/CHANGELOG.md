@@ -1,5 +1,18 @@
 # @atlassian/navigation-system
 
+## 0.182.0
+
+### Minor Changes
+
+- [`31c57f650ba07`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/31c57f650ba07) -
+  Adding Server Side Rendering test
+
+### Patch Changes
+
+- [`31c57f650ba07`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/31c57f650ba07) -
+  Improving tests for server side rendering and hydration
+- Updated dependencies
+
 ## 0.181.1
 
 ### Patch Changes

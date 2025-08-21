@@ -27,8 +27,8 @@ export const WhatsNewResultsListGroupWrapper = ({
 	key,
 	children,
 }: {
-	key: string | number;
 	children: React.ReactNode;
+	key: string | number;
 }) => (
 	<div css={whatsNewResultsListGroupWrapperStyles} key={key}>
 		{children}

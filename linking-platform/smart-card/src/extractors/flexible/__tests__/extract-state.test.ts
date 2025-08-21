@@ -240,6 +240,145 @@ describe('extractState', () => {
 			});
 		});
 
+		it('should pass preview panel parameters when provided', () => {
+			const mockIsPreviewPanelAvailable = jest.fn().mockReturnValue(true);
+			const mockOpenPreviewPanel = jest.fn();
+
+			const state = extractState(
+				response(
+					[
+						{
+							'@type': 'UpdateAction',
+							name: 'UpdateAction',
+							dataUpdateAction: {
+								'@type': 'UpdateAction',
+								name: SmartLinkActionType.StatusUpdateAction,
+							},
+							refField: 'tag',
+							resourceIdentifiers,
+						},
+					],
+					previewData,
+				),
+				{ hide: false },
+				id,
+				'block',
+				'smartLinkCard',
+				jest.fn(),
+				jest.fn(),
+				mockIsPreviewPanelAvailable,
+				mockOpenPreviewPanel,
+			);
+
+			expect(state?.action).toBeDefined();
+			expect(state?.action?.update?.details).toEqual({
+				id,
+				url,
+				invokePreviewAction: expect.objectContaining({
+					actionFn: expect.any(Function),
+					actionType: ActionName.PreviewAction,
+				}),
+			});
+		});
+
+		it('should handle preview panel parameters when preview panel is available', () => {
+			const mockIsPreviewPanelAvailable = jest.fn().mockReturnValue(true);
+			const mockOpenPreviewPanel = jest.fn();
+
+			const state = extractState(
+				response(
+					[
+						{
+							'@type': 'UpdateAction',
+							name: 'UpdateAction',
+							dataUpdateAction: {
+								'@type': 'UpdateAction',
+								name: SmartLinkActionType.StatusUpdateAction,
+							},
+							refField: 'tag',
+							resourceIdentifiers,
+						},
+					],
+					previewData,
+				),
+				{ hide: false },
+				id,
+				'block',
+				'smartLinkCard',
+				jest.fn(),
+				jest.fn(),
+				mockIsPreviewPanelAvailable,
+				mockOpenPreviewPanel,
+			);
+
+			expect(state?.action).toBeDefined();
+			expect(state?.action?.update?.details?.invokePreviewAction).toBeDefined();
+		});
+
+		it('should handle preview panel parameters when preview panel is not available', () => {
+			const mockIsPreviewPanelAvailable = jest.fn().mockReturnValue(false);
+
+			const state = extractState(
+				response(
+					[
+						{
+							'@type': 'UpdateAction',
+							name: 'UpdateAction',
+							dataUpdateAction: {
+								'@type': 'UpdateAction',
+								name: SmartLinkActionType.StatusUpdateAction,
+							},
+							refField: 'tag',
+							resourceIdentifiers,
+						},
+					],
+					previewData,
+				),
+				{ hide: false },
+				id,
+				'block',
+				'smartLinkCard',
+				jest.fn(),
+				jest.fn(),
+				mockIsPreviewPanelAvailable,
+				undefined,
+			);
+
+			expect(state?.action).toBeDefined();
+			expect(state?.action?.update?.details?.invokePreviewAction).toBeDefined();
+		});
+
+		it('should handle undefined preview panel parameters', () => {
+			const state = extractState(
+				response(
+					[
+						{
+							'@type': 'UpdateAction',
+							name: 'UpdateAction',
+							dataUpdateAction: {
+								'@type': 'UpdateAction',
+								name: SmartLinkActionType.StatusUpdateAction,
+							},
+							refField: 'tag',
+							resourceIdentifiers,
+						},
+					],
+					previewData,
+				),
+				{ hide: false },
+				id,
+				'block',
+				'smartLinkCard',
+				jest.fn(),
+				jest.fn(),
+				undefined,
+				undefined,
+			);
+
+			expect(state?.action).toBeDefined();
+			expect(state?.action?.update?.details?.invokePreviewAction).toBeDefined();
+		});
+
 		describe('server action options', () => {
 			it('returns action by default when actionOptions are undefined', () => {
 				const state = extractState(jiraTask as JsonLd.Response, undefined, id);

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/form",
-	"version": "12.1.1",
+	"version": "12.2.0",
 	"description": "A form allows users to input information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -49,6 +49,7 @@
 		"@atlaskit/banner": "workspace:^",
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/checkbox": "workspace:^",
+		"@atlaskit/codemod-utils": "workspace:^",
 		"@atlaskit/datetime-picker": "workspace:^",
 		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/link": "workspace:^",
@@ -69,6 +70,7 @@
 		"@testing-library/user-event": "root:*",
 		"@types/final-form-focus": "root:*",
 		"jest-in-case": "root:*",
+		"jscodeshift": "root:*",
 		"react-dom": "root:*"
 	},
 	"keywords": [
@@ -135,6 +137,9 @@
 	"homepage": "https://atlassian.design/components/form/",
 	"platform-feature-flags": {
 		"platform_dst_form_screenreader_message_fix": {
+			"type": "boolean"
+		},
+		"platform_design-system-team_form-upgrade": {
 			"type": "boolean"
 		}
 	}

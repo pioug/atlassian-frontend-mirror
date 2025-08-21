@@ -7,7 +7,7 @@ import HelpLayout from '../src/index';
 
 import { ExampleWrapper, HelpWrapper, FooterContent, ExampleDefaultContent } from './utils/styled';
 
-const handleEvent = (analyticsEvent: { payload: any; context: any }) => {
+const handleEvent = (analyticsEvent: { context: any; payload: any; }) => {
 	const { payload, context } = analyticsEvent;
 	console.log('Received event:', { payload, context });
 };

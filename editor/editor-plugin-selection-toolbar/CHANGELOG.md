@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 4.3.8
+
+### Patch Changes
+
+- [`1dc35286ebb8a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1dc35286ebb8a) -
+  [ux] [EDITOR-1064] Added rovo menu on current selection toolbar
+- Updated dependencies
+
 ## 4.3.7
 
 ### Patch Changes

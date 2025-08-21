@@ -29,7 +29,7 @@ const toolbar: Array<RegisterToolbar> = [
 		type: 'toolbar',
 		key: 'selection-toolbar',
 		component: (props) => {
-			return <Toolbar label="Selection toolbar">{props.children}</Toolbar>;
+			return <Toolbar label={'Selection toolbar'}>{props.children}</Toolbar>;
 		},
 	},
 ];

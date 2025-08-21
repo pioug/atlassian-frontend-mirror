@@ -9,8 +9,8 @@ export type EventMapOrFunction =
 	| ((fireAnalyticsEvent: (eventName: string, eventData?: Object) => void) => EventMap);
 
 export type AnalyticsProps = {
-	analyticsId?: string;
 	analyticsData?: Object;
+	analyticsId?: string;
 	innerRef?: Function;
 };
 
@@ -31,9 +31,9 @@ export type DelegateAnalyticsEvent = (
 ) => void;
 
 export interface AnalyticsListenerProps {
-	onEvent: (eventName: string, eventData: Object) => any;
 	match?: string | ((name: string) => boolean);
 	matchPrivate?: boolean;
+	onEvent: (eventName: string, eventData: Object) => any;
 }
 
 /**

@@ -395,6 +395,50 @@ const telepointerStyles = css({
 	},
 });
 
+const rovoTelepointerStyles = css({
+	[`#${TELEPOINTER_ID}`]: {
+		display: 'inline-block',
+		position: 'relative',
+		width: '1.5px',
+		height: '24px',
+		backgroundColor: token('color.background.brand.bold'),
+		marginLeft: token('space.025', '2px'),
+
+		'&::after': {
+			content: '""',
+			position: 'absolute',
+			display: 'block',
+			top: 0,
+			left: 0,
+			width: '31.5px',
+			height: '15.5px',
+			borderRadius: `0px ${token('space.050')} ${token('space.050')} 0px`,
+			background:
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography, @atlaskit/design-system/ensure-design-token-usage
+				'linear-gradient(to right, #1868db 0px, #1868db 1.5px, transparent 1.5px) 0 0 / 100% 100% no-repeat, conic-gradient(from 270deg at 50% 50%, #1868db 0deg, #1868db 115deg, #fca700 115deg, #fca700 180deg, #bf63f3 180deg, #bf63f3 310deg, #82b536 310deg, #82b536 359.96deg, #1868db 360deg)',
+		},
+
+		'&::before': {
+			content: '"Rovo"',
+			position: 'absolute',
+			fontFamily: token('font.family.body'),
+			fontWeight: token('font.weight.semibold'),
+			color: token('color.text.inverse', 'white'),
+			background: token('color.text'),
+			top: 1,
+			left: 1,
+			borderRadius: `0px ${token('space.050')} ${token('space.050')} 0px`,
+			zIndex: 1,
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			fontSize: '10px',
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+			padding: '0.5px 2.5px',
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			lineHeight: 'initial',
+		},
+	},
+});
+
 const whitespaceSharedStyles = css({
 	wordWrap: 'break-word',
 	whiteSpace: 'pre-wrap',
@@ -2148,7 +2192,8 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				appearance === 'full-width' &&
 					!isTableResizingEnabled(appearance) &&
 					rendererFullWidthStylesForTableResizing,
-				telepointerStyles,
+				editorExperiment('platform_editor_ai_aifc', false) && telepointerStyles,
+				editorExperiment('platform_editor_ai_aifc', true) && rovoTelepointerStyles,
 				whitespaceSharedStyles,
 				blockquoteSharedStyles,
 				fg('platform_editor_typography_ugc')

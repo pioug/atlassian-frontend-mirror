@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { caption } from '../visual-regression/media/__fixtures__/caption-adf';
-import { captionLong } from '../visual-regression/media/__fixtures__/caption-long-adf';
-import { captionComplicated } from '../visual-regression/media/__fixtures__/caption-complicated-adf';
+import { caption } from './__fixtures__/caption-adf';
+import { captionLong } from './__fixtures__/caption-long-adf';
+import { captionComplicated } from './__fixtures__/caption-complicated-adf';
 
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { MockMediaClientProvider } from '@atlaskit/editor-test-helpers/media-client-mock';

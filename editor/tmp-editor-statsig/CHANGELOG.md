@@ -1,5 +1,19 @@
 # @atlaskit/editor-statsig-tmp
 
+## 11.5.0
+
+### Minor Changes
+
+- [`14e7b85d72f07`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14e7b85d72f07) -
+  EDITOR-1385 Setup platform_editor_ai_non_iw_adf_streaming experiment.
+
+## 11.4.0
+
+### Minor Changes
+
+- [`4339fad1c3ec0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4339fad1c3ec0) -
+  Updated expVal to default true for tests
+
 ## 11.3.1
 
 ### Patch Changes

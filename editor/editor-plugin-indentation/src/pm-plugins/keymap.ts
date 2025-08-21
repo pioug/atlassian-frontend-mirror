@@ -24,11 +24,24 @@ export function keymapPlugin(
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		findShortcutByKeymap(indent)!,
 		(state, dispatch) => {
-			const { blockTaskItem } = state.schema.nodes;
+			const { blockTaskItem, paragraph, doc } = state.schema.nodes;
 
-			// Let `editor-plugin-tasks-and-decisions` handle indentation inside blockTaskItems
-			if (hasParentNodeOfType([blockTaskItem])(state.selection)) {
-				return false;
+			if (blockTaskItem) {
+				let hasBlockTaskItem = false;
+				let hasParagraphAtDocLevel = false;
+				// Check if the selection contains a blockTaskItem
+				state.doc.nodesBetween(state.selection.from, state.selection.to, (node, _pos, parent) => {
+					if (node.type === blockTaskItem) {
+						hasBlockTaskItem = true;
+						return false; // stop iterating
+					}
+					if (node.type === paragraph && parent?.type === doc) {
+						hasParagraphAtDocLevel = true;
+					}
+				});
+				if (hasBlockTaskItem && !hasParagraphAtDocLevel) {
+					return false; // let `editor-plugin-tasks-and-decisions` handle indentation
+				}
 			}
 			return getIndentCommand(editorAnalyticsAPI)(INPUT_METHOD.KEYBOARD)(state, dispatch);
 		},

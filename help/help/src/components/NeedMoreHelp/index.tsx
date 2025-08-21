@@ -9,8 +9,8 @@ import { messages } from '../../messages';
 import { useNavigationContext } from '../contexts/navigationContext';
 
 interface NeedMoreHelpProps {
-	onNeedMoreHelpClick?: () => void;
 	label: string;
+	onNeedMoreHelpClick?: () => void;
 }
 
 export const NeedMoreHelp: React.FC<NeedMoreHelpProps> = ({ onNeedMoreHelpClick, label }) => {

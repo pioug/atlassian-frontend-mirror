@@ -1,5 +1,6 @@
 import React from 'react';
 
+import type { EditorToolbarContextType } from '@atlaskit/editor-common/toolbar';
 import { EditorToolbarProvider, EditorToolbarUIProvider } from '@atlaskit/editor-common/toolbar';
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { ToolbarSize } from '@atlaskit/editor-common/types';
@@ -10,6 +11,7 @@ import {
 	ToolbarButtonGroup,
 	ToolbarDropdownItemSection,
 	ToolbarSection,
+	type ToolbarUIContextType,
 } from '@atlaskit/editor-toolbar';
 import { ToolbarModelRenderer } from '@atlaskit/editor-toolbar-model';
 import type { RegisterComponent, RegisterToolbar } from '@atlaskit/editor-toolbar-model';
@@ -43,12 +45,13 @@ export const Toolbar = (props: ToolbarProps): JSX.Element => {
 	);
 };
 
-type NewToolbarProps = {
-	toolbar: RegisterToolbar;
-	components: RegisterComponent[];
-	editorView?: EditorView;
-	editorAPI?: PublicPluginAPI<[ToolbarPlugin]>;
-};
+type NewToolbarProps = Pick<ToolbarUIContextType, 'popupsMountPoint'> &
+	Pick<EditorToolbarContextType, 'editorAppearance'> & {
+		toolbar: RegisterToolbar;
+		components: RegisterComponent[];
+		editorView?: EditorView;
+		editorAPI?: PublicPluginAPI<[ToolbarPlugin]>;
+	};
 
 /**
  * Renders a primary toolbar, driven by components registed by `editor-plugin-toolbar`. `ToolbarModelRenderer` will just
@@ -56,13 +59,24 @@ type NewToolbarProps = {
  *
  * The majority of components UI should use `@atlaskit/editor-toolbar` components.
  */
-export const ToolbarNext = ({ toolbar, components, editorView, editorAPI }: NewToolbarProps) => {
+export const ToolbarNext = ({
+	toolbar,
+	components,
+	editorView,
+	editorAPI,
+	popupsMountPoint,
+	editorAppearance,
+}: NewToolbarProps) => {
 	const connectivityStateMode = useSharedPluginStateSelector(editorAPI, 'connectivity.mode');
 	const isOffline = connectivityStateMode === 'offline';
 
 	return (
-		<EditorToolbarProvider editorView={editorView ?? null}>
-			<EditorToolbarUIProvider api={editorAPI} isDisabled={isOffline}>
+		<EditorToolbarProvider editorView={editorView ?? null} editorAppearance={editorAppearance}>
+			<EditorToolbarUIProvider
+				api={editorAPI}
+				isDisabled={isOffline}
+				popupsMountPoint={popupsMountPoint}
+			>
 				<ToolbarModelRenderer
 					toolbar={toolbar}
 					components={components}

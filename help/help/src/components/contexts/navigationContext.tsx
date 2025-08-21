@@ -30,22 +30,22 @@ type NavigationProviderInterface = PropsWithChildren<{
 
 interface NavigationContextInterface {
 	articleId?: articleId;
-	history?: HistoryItem[];
-	historySetter?(history: HistoryItem[]): void;
-	view: ViewType;
-	openArticle(id: articleId): void;
 	canNavigateBack: boolean;
-	navigateBack?(): void;
-	onGetArticle?(id: articleId): Promise<Article | WhatsNewArticle>;
 	getCurrentArticle(): HistoryItem | undefined;
 	getCurrentArticleItemData(): ArticleItem | WhatsNewArticleItem | undefined;
-	reloadHelpArticle?(historyItem: HistoryItem): void;
-	reloadWhatsNewArticle?(historyItem: HistoryItem): void;
+	history?: HistoryItem[];
+	historySetter?(history: HistoryItem[]): void;
 	isOverlayVisible: boolean;
+	navigateBack?(): void;
 	onClose?(
 		event: React.MouseEvent<HTMLElement, MouseEvent>,
 		analyticsEvent: UIAnalyticsEvent,
 	): void;
+	onGetArticle?(id: articleId): Promise<Article | WhatsNewArticle>;
+	openArticle(id: articleId): void;
+	reloadHelpArticle?(historyItem: HistoryItem): void;
+	reloadWhatsNewArticle?(historyItem: HistoryItem): void;
+	view: ViewType;
 }
 
 const DEFAULT_ARTICLE_ID = { id: '', type: ARTICLE_TYPE.HELP_ARTICLE };
@@ -138,8 +138,8 @@ interface navigationReducerState {
 }
 
 interface navigationReducerAction<Type> {
-	type: string;
 	payload?: Type;
+	type: string;
 }
 
 const navigationReducer = (

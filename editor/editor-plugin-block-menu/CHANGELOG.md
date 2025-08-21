@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 0.0.8
+
+### Patch Changes
+
+- [`1bed58ba517b7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1bed58ba517b7) -
+  [ux] BlockMenu will be opened to the left or the drag handle by default and to the right when
+  there is no enough space.
+
 ## 0.0.7
 
 ### Patch Changes

@@ -48,13 +48,13 @@ const helpContentButtonContainerStyles = css({
 });
 
 interface HelpContentButtonContainerProps {
-	onClick: (event: React.MouseEvent<HTMLElement>) => void;
-	onKeyDown: (event: React.KeyboardEvent<HTMLElement>) => void;
+	children: React.ReactNode;
 	href?: string;
 	id: string;
+	onClick: (event: React.MouseEvent<HTMLElement>) => void;
+	onKeyDown: (event: React.KeyboardEvent<HTMLElement>) => void;
 	tabIndex: number;
 	target?: string;
-	children: React.ReactNode;
 }
 
 export const HelpContentButtonContainer = ({
@@ -145,8 +145,8 @@ export const HelpContentButtonExternalLinkIcon = ({
 	dataTestId,
 	children,
 }: {
-	dataTestId: string;
 	children: React.ReactNode;
+	dataTestId: string;
 }) => (
 	<div css={helpContentButtonExternalLinkIconStyles} data-testid={dataTestId}>
 		{children}

@@ -4,17 +4,17 @@ import Logger, { LOG_LEVEL } from '../../../helpers/logger';
 declare const global: any;
 
 type MethodsInLogger = {
-	error: boolean;
-	warn: boolean;
-	info: boolean;
 	debug: boolean;
+	error: boolean;
+	info: boolean;
+	warn: boolean;
 };
 
 type GlobalConsoleType = {
 	error: Function;
-	warn: Function;
 	info: Function;
 	log: Function;
+	warn: Function;
 };
 
 const logTypeMap: { [P in keyof MethodsInLogger]: keyof GlobalConsoleType } = {

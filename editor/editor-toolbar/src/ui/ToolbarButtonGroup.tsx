@@ -18,7 +18,7 @@ const styles = cssMap({
 		button: {
 			borderTopRightRadius: 0,
 			borderBottomRightRadius: 0,
-			paddingInline: token('space.050'),
+			paddingInline: token('space.075'),
 		},
 	},
 	lastChild: {

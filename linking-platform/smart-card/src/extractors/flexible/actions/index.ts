@@ -24,6 +24,8 @@ export type ExtractActionsParam = {
 	appearance?: CardInnerAppearance;
 	origin?: AnalyticsOrigin;
 	fireEvent?: FireEventFunction;
+	isPreviewPanelAvailable?: (params: { ari: string }) => boolean;
+	openPreviewPanel?: (params: { ari: string; url: string; name: string; iconUrl: string | undefined }) => void;
 };
 
 export const extractFlexibleCardActions = ({
@@ -35,6 +37,8 @@ export const extractFlexibleCardActions = ({
 	origin,
 	response,
 	url,
+	isPreviewPanelAvailable,
+	openPreviewPanel,
 }: ExtractActionsParam): FlexibleUiActions | undefined => {
 	const action = {
 		[ActionName.CopyLinkAction]: extractCopyLinkClientAction({
@@ -57,6 +61,8 @@ export const extractFlexibleCardActions = ({
 			id,
 			origin,
 			response,
+			isPreviewPanelAvailable,
+			openPreviewPanel,
 		}),
 		[ActionName.AutomationAction]: extractAutomationAction(response),
 		[InternalActionName.AISummaryAction]: extractAISummaryAction(

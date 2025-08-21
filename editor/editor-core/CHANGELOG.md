@@ -1,5 +1,26 @@
 # @atlaskit/editor-core
 
+## 210.1.4
+
+### Patch Changes
+
+- [`286abb4d35eba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/286abb4d35eba) -
+  [ux] [ED-28960] Finish full page primary toolbar migration
+
+  - Align with design update (separator, gap, height, icon size)
+  - Add keyboard shortcut to focus toolbar and arrow key navigation
+  - Address accessibility
+
+- Updated dependencies
+
+## 210.1.3
+
+### Patch Changes
+
+- [`760d547b4535a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/760d547b4535a) -
+  [ux] Update kebab case to camelCase for CSS values
+- Updated dependencies
+
 ## 210.1.2
 
 ### Patch Changes

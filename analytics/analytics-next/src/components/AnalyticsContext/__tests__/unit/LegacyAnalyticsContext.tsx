@@ -91,8 +91,8 @@ const UnderTestSingleContext = ({
 	callback,
 	FakeConsumer,
 }: {
-	data: Record<string, any>;
 	callback: (context: Record<string, any>) => void;
+	data: Record<string, any>;
 	FakeConsumer: React.JSXElementConstructor<{}>;
 }) => {
 	return (
@@ -110,10 +110,10 @@ const UnderTestTwoContexts = ({
 	callback,
 	FakeConsumer,
 }: {
-	outerData: Record<string, any>;
-	innerData: Record<string, any>;
 	callback: (context: Record<string, any>) => void;
 	FakeConsumer: React.JSXElementConstructor<{}>;
+	innerData: Record<string, any>;
+	outerData: Record<string, any>;
 }) => {
 	return (
 		<FakeLegacyListener callback={callback}>
@@ -128,8 +128,8 @@ const UnderTestTwoContexts = ({
 
 describe('LegacyAnalyticsContext', () => {
 	type TestBranch = {
-		FakeConsumer: React.JSXElementConstructor<{}>;
 		description: string;
+		FakeConsumer: React.JSXElementConstructor<{}>;
 	};
 
 	const branches: TestBranch[] = [

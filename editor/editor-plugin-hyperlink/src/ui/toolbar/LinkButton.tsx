@@ -34,7 +34,7 @@ export const LinkButton = ({ api }: LinkButtonProps) => {
 			content={<ToolTipContent description={formatMessage(messages.link)} keymap={addLink} />}
 		>
 			<ToolbarButton
-				iconBefore={<LinkIcon label={formatMessage(messages.link)} />}
+				iconBefore={<LinkIcon label={formatMessage(messages.link)} size="small" />}
 				onClick={onClick}
 				testId={'editor-toolbar__link-button'}
 				isDisabled={!isEnabled}

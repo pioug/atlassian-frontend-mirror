@@ -2,7 +2,7 @@ import { uuid } from '@atlaskit/adf-schema';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { stepHasSlice } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { PluginKey, type Transaction } from '@atlaskit/editor-prosemirror/state';
+import { PluginKey, type Transaction, Selection } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 export const localIdPluginKey = new PluginKey('localIdPlugin');
@@ -65,6 +65,7 @@ export const createPlugin = () => {
 			const addedNodes = new Set<PMNode>();
 			const addedNodePos = new Map<PMNode, number>();
 			const localIds = new Set<string>();
+			const caret = newState.selection.getBookmark();
 			// Process only the nodes added in the transactions
 			transactions.forEach((transaction) => {
 				if (!transaction.docChanged) {
@@ -124,6 +125,12 @@ export const createPlugin = () => {
 					}
 				}
 			}
+
+			// Restore caret to where the user left it.
+			const restored =
+				caret.resolve(tr.doc) ??
+				Selection.near(tr.doc.resolve(Math.min(newState.selection.from, tr.doc.content.size)), 1);
+			tr.setSelection(restored);
 
 			return modified ? tr : undefined;
 		},

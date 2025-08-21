@@ -236,13 +236,32 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 							view(view) {
 								const unbind = bind(view.root, {
 									type: 'mouseup',
-									listener: () => {
+									listener: (event) => {
 										// We only want to set selectionStable to true if the editor has focus
 										// to prevent the toolbar from showing when the editor is blurred
 										// due to a click outside the editor.
 
 										const editorViewModePlugin = api?.editorViewMode?.sharedState.currentState();
 										const isViewModeEnabled = editorViewModePlugin?.mode === 'view';
+
+										if (editorExperiment('platform_editor_ai_aifc', true)) {
+											const target = event.target as Element;
+											const isRovoChangeToneButton =
+												(target?.tagName === 'BUTTON' &&
+													hasNestedSpanWithText(target, 'Change tone')) ||
+												target.getAttribute('aria-label') === 'Change tone' ||
+												target.innerHTML === 'Change tone';
+
+											const isRovoTranslateButton =
+												(target?.tagName === 'BUTTON' &&
+													hasNestedSpanWithText(target, 'Translate options')) ||
+												target.getAttribute('aria-label') === 'Translate options' ||
+												target.innerHTML === 'Translate options';
+
+											if (isRovoChangeToneButton || isRovoTranslateButton) {
+												return null;
+											}
+										}
 
 										view.dispatch(
 											view.state.tr.setMeta(selectionToolbarPluginKey, {
@@ -470,3 +489,15 @@ function getSelectionNodeTypes(state: EditorState) {
 	});
 	return selectionNodeTypes;
 }
+
+const hasNestedSpanWithText = (element: Element, text: string): boolean => {
+	if (element.tagName === 'SPAN' && element.innerHTML === text) {
+		return true;
+	}
+	for (const child of Array.from(element.children)) {
+		if (hasNestedSpanWithText(child, text)) {
+			return true;
+		}
+	}
+	return false;
+};

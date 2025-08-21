@@ -7,8 +7,8 @@ import React from 'react';
 import { token } from '@atlaskit/tokens';
 
 export type Props = WithAnalyticsEventsProps & {
-	text?: string;
 	onClick: (e: React.SyntheticEvent) => void;
+	text?: string;
 };
 
 class DummyComponent extends React.Component<Props> {

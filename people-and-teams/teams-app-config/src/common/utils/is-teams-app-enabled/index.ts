@@ -1,4 +1,4 @@
-import { isFedRamp } from '@atlaskit/atlassian-context';
+import { isFedRamp, isIsolatedCloud } from '@atlaskit/atlassian-context';
 import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { fg } from '@atlaskit/platform-feature-flags';
 
@@ -7,6 +7,11 @@ import { type NavigationActionCommon } from '../../types';
 export function isTeamsAppEnabled(
 	config: Pick<NavigationActionCommon, 'userHasNav4Enabled' | 'hostProduct'>,
 ) {
+	//  Hard kill switch for isolated cloud until Standalone directory is deployed
+	if (isIsolatedCloud()) {
+		return false;
+	}
+
 	// Due to experiment exposures, we need to first check if Nav4 is enabled to see if the user is in the cohort
 	// In FedRamp, we are ignoring the Nav4 dependency
 	if (!isFedRamp() && config.userHasNav4Enabled !== undefined && !config.userHasNav4Enabled) {

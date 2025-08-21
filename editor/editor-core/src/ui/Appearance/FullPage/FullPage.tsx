@@ -6,6 +6,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
+import { IntlProvider } from 'react-intl-next';
 
 import { browser } from '@atlaskit/editor-common/browser';
 import {
@@ -247,12 +248,16 @@ export const FullPageEditor = (props: ComponentProps) => {
 			>
 				{!isEditorToolbarHidden &&
 					(expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true) ? (
-						<FullPageToolbarNext
-							toolbarDockingPosition={toolbarDockingPosition ?? toolbarDocking}
-							beforeIcon={props.primaryToolbarIconBefore}
-							editorAPI={editorAPI}
-							editorView={props.editorView}
-						/>
+						<IntlProvider locale="en">
+							<FullPageToolbarNext
+								toolbarDockingPosition={toolbarDockingPosition ?? toolbarDocking}
+								beforeIcon={props.primaryToolbarIconBefore}
+								editorAPI={editorAPI}
+								editorView={props.editorView}
+								popupsMountPoint={props.popupsMountPoint}
+								showKeyline={showKeyline}
+							/>
+						</IntlProvider>
 					) : (
 						<FullPageToolbar
 							appearance={props.appearance}

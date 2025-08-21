@@ -27,6 +27,10 @@ export class NodeAnchorProvider {
 
 		return anchorName;
 	}
+
+	public getIdForNode(node: PMNode): string | undefined {
+		return this.cache.get(node) || undefined;
+	}
 }
 
 const nodeIdProviderMap = new WeakMap<EditorView, NodeAnchorProvider>();

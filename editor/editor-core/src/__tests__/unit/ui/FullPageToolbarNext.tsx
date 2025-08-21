@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { render } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
 
 import { TOOLBARS } from '@atlaskit/editor-common/toolbar';
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
@@ -39,10 +40,13 @@ describe('FullPageToolbarNext', () => {
 		describe('and toolbarDockingPosition is "top"', () => {
 			it('should render the primary toolbar', () => {
 				const screen = render(
-					<FullPageToolbarNext
-						editorAPI={getMockEditorAPIWithToolbar()}
-						toolbarDockingPosition="top"
-					/>,
+					<IntlProvider locale="en">
+						<FullPageToolbarNext
+							editorAPI={getMockEditorAPIWithToolbar()}
+							toolbarDockingPosition="top"
+							showKeyline={false}
+						/>
+					</IntlProvider>,
 				);
 				expect(screen.getByTestId('primary-toolbar')).toBeInTheDocument();
 			});
@@ -51,10 +55,13 @@ describe('FullPageToolbarNext', () => {
 		describe('and toolbarDockingPosition is "none"', () => {
 			it('should not render the primary toolbar', () => {
 				const screen = render(
-					<FullPageToolbarNext
-						editorAPI={getMockEditorAPIWithToolbar()}
-						toolbarDockingPosition="none"
-					/>,
+					<IntlProvider locale="en">
+						<FullPageToolbarNext
+							editorAPI={getMockEditorAPIWithToolbar()}
+							toolbarDockingPosition="none"
+							showKeyline={false}
+						/>
+					</IntlProvider>,
 				);
 				expect(screen.queryByTestId('primary-toolbar')).not.toBeInTheDocument();
 			});
@@ -63,10 +70,13 @@ describe('FullPageToolbarNext', () => {
 		describe('and toolbarDockingPosition is undefined', () => {
 			it('should render the primary toolbar', () => {
 				const screen = render(
-					<FullPageToolbarNext
-						editorAPI={getMockEditorAPIWithToolbar()}
-						toolbarDockingPosition={undefined}
-					/>,
+					<IntlProvider locale="en">
+						<FullPageToolbarNext
+							editorAPI={getMockEditorAPIWithToolbar()}
+							toolbarDockingPosition={undefined}
+							showKeyline={false}
+						/>
+					</IntlProvider>,
 				);
 				expect(screen.getByTestId('primary-toolbar')).toBeInTheDocument();
 			});
@@ -77,10 +87,13 @@ describe('FullPageToolbarNext', () => {
 		describe('and toolbarDockingPosition is "top"', () => {
 			it('should render the primary toolbar', () => {
 				const screen = render(
-					<FullPageToolbarNext
-						editorAPI={getMockEditorAPIEmptyToolbar()}
-						toolbarDockingPosition="top"
-					/>,
+					<IntlProvider locale="en">
+						<FullPageToolbarNext
+							editorAPI={getMockEditorAPIEmptyToolbar()}
+							toolbarDockingPosition="top"
+							showKeyline={false}
+						/>
+					</IntlProvider>,
 				);
 				expect(screen.queryByTestId('primary-toolbar')).not.toBeInTheDocument();
 			});
@@ -89,10 +102,13 @@ describe('FullPageToolbarNext', () => {
 		describe('and toolbarDockingPosition is "none"', () => {
 			it('should not render the primary toolbar', () => {
 				const screen = render(
-					<FullPageToolbarNext
-						editorAPI={getMockEditorAPIEmptyToolbar()}
-						toolbarDockingPosition="none"
-					/>,
+					<IntlProvider locale="en">
+						<FullPageToolbarNext
+							editorAPI={getMockEditorAPIEmptyToolbar()}
+							toolbarDockingPosition="none"
+							showKeyline={false}
+						/>
+					</IntlProvider>,
 				);
 				expect(screen.queryByTestId('primary-toolbar')).not.toBeInTheDocument();
 			});
@@ -101,10 +117,13 @@ describe('FullPageToolbarNext', () => {
 		describe('and toolbarDockingPosition is undefined', () => {
 			it('should render the primary toolbar', () => {
 				const screen = render(
-					<FullPageToolbarNext
-						editorAPI={getMockEditorAPIEmptyToolbar()}
-						toolbarDockingPosition={undefined}
-					/>,
+					<IntlProvider locale="en">
+						<FullPageToolbarNext
+							editorAPI={getMockEditorAPIEmptyToolbar()}
+							toolbarDockingPosition={undefined}
+							showKeyline={false}
+						/>
+					</IntlProvider>,
 				);
 				expect(screen.queryByTestId('primary-toolbar')).not.toBeInTheDocument();
 			});

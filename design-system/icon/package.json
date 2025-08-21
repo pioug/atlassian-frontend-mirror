@@ -150,13 +150,7 @@
 		"platform-visual-refresh-icons": {
 			"type": "boolean"
 		},
-		"platform-visual-refresh-icons-legacy-facade": {
-			"type": "boolean"
-		},
 		"platform-visual-refresh-icons-facade-button-fix": {
-			"type": "boolean"
-		},
-		"platform-visual-refresh-icons-facade-removal": {
 			"type": "boolean"
 		}
 	}

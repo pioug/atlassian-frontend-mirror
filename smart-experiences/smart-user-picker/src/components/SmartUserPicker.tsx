@@ -6,6 +6,7 @@ import memoizeOne from 'memoize-one';
 import { type WrappedComponentProps, injectIntl } from 'react-intl-next';
 import { type CustomData, type UFOExperience, UFOExperienceState } from '@atlaskit/ufo';
 import UserPicker, { type OptionData, isExternalUser, isTeam, isUser } from '@atlaskit/user-picker';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	requestUsersEvent,
@@ -15,6 +16,7 @@ import {
 	failedRequestUsersEvent,
 	mountedWithPrefetchEvent,
 	createAndFireEventInElementsChannel,
+	failedUserResolversEvent,
 	type SmartEventCreator,
 } from '../analytics';
 import MessagesIntlProvider from './MessagesIntlProvider';
@@ -91,6 +93,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 		prefetch: false,
 		principalId: 'Context',
 		debounceTime: DEFAULT_DEBOUNCE_TIME_MS,
+		userResolvers: [],
 	};
 
 	constructor(props: Props & WrappedComponentProps) {
@@ -207,6 +210,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 			searchQueryFilter,
 			siteId,
 			transformOptions,
+			userResolvers,
 		} = this.props;
 
 		const maxNumberOfResults = maxOptions || 100;
@@ -236,7 +240,31 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 		try {
 			const { query } = this.state;
 			this.fireEvent(requestUsersEvent);
-			const recommendedUsers = await getUserRecommendations(recommendationsRequest, intl);
+
+			let recommendedUsers;
+			if (fg('twcg-444-invite-usd-improvements-m2-gate')) {
+				const userRecommendationsPromise = getUserRecommendations(recommendationsRequest, intl);
+
+				const userResolversPromises = (userResolvers ?? []).map((resolver) =>
+					resolver(query).catch((error) => {
+						this.fireEvent(failedUserResolversEvent, {
+							resolverName: resolver.name,
+							error,
+						});
+
+						return [] as OptionData[];
+					}),
+				);
+
+				const [mainRecommendations, ...userResolverResults] = await Promise.all([
+					userRecommendationsPromise,
+					...userResolversPromises,
+				]);
+
+				recommendedUsers = [mainRecommendations, ...userResolverResults].flat();
+			} else {
+				recommendedUsers = await getUserRecommendations(recommendationsRequest, intl);
+			}
 
 			if (overrideByline) {
 				for (let option of recommendedUsers) {
@@ -254,7 +282,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 
 			const displayedUsers =
 				transformedOptions.length === 0 && onEmpty
-					? (await onEmpty(query)) ?? []
+					? ((await onEmpty(query)) ?? [])
 					: transformedOptions;
 
 			this.setState((state) => {
@@ -268,6 +296,11 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 					displayedUsers: getUsersForAnalytics(displayedUsers),
 					productAttributes,
 					applicable,
+					...(fg('twcg-444-invite-usd-improvements-m2-gate') && {
+						userResolvers: Array.isArray(userResolvers)
+							? userResolvers.map((resolver) => resolver.name)
+							: [],
+					}),
 				});
 
 				return { users, loading };

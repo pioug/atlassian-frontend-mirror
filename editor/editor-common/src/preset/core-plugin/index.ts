@@ -3,6 +3,7 @@ import type { Fragment, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Node } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
 
+import { getNodeIdProvider } from '../../node-anchor/node-anchor-provider';
 import type {
 	CorePlugin,
 	DefaultTransformerResultCallback,
@@ -160,6 +161,14 @@ export const corePlugin: CorePlugin = ({ config }) => {
 					return undefined;
 				}
 				return cb(view?.state.schema);
+			},
+
+			getAnchorIdForNode(node): string | undefined {
+				const view = config?.getEditorView() ?? null;
+				if (!view) {
+					return undefined;
+				}
+				return getNodeIdProvider(view).getIdForNode(node);
 			},
 		},
 	};

@@ -19,7 +19,7 @@ import type { RegisterToolbar, RegisterComponent } from '@atlaskit/editor-toolba
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { ToolbarPlugin } from '../../toolbarPluginType';
-import { TOOLBAR_LABEL } from '../consts';
+import { SELECTION_TOOLBAR_LABEL } from '../consts';
 
 const isToolbarComponent = (component: RegisterComponent): component is RegisterToolbar => {
 	return component.type === 'toolbar' && component.key === 'inline-text-toolbar';
@@ -65,7 +65,7 @@ export const SelectionToolbar = ({ api, editorView, mountPoint }: SelectionToolb
 			offset={[0, 10]}
 			target={getDomRefFromSelection(editorView)}
 			onPositionCalculated={(position) =>
-				calculateToolbarPositionTrackHead(TOOLBAR_LABEL)(editorView, position)
+				calculateToolbarPositionTrackHead(SELECTION_TOOLBAR_LABEL)(editorView, position)
 			}
 			mountTo={mountPoint}
 		>

@@ -45,7 +45,6 @@
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
-		"@atlaskit/visual-regression": "workspace:^",
 		"@testing-library/react": "root:*"
 	},
 	"techstack": {

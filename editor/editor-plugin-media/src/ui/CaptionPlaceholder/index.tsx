@@ -31,7 +31,7 @@ const placeholderButton = xcss({
 
 type CaptionPlaceholderProps = {
 	onClick: () => void;
-	placeholderMessage?: { id: string; defaultMessage: string; description: string };
+	placeholderMessage?: { defaultMessage: string; description: string; id: string; };
 };
 
 // platform_editor_typography_ugc clean up

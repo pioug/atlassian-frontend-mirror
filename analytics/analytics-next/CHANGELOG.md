@@ -1,5 +1,12 @@
 # @atlaskit/analytics-next
 
+## 11.1.1
+
+### Patch Changes
+
+- [`3298a6307027c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3298a6307027c) -
+  Sorted type and interface props to improve Atlaskit docs
+
 ## 11.1.0
 
 ### Minor Changes

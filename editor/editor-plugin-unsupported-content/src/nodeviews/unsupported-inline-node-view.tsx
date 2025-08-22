@@ -13,9 +13,9 @@ import type { UnsupportedContentTooltipPayload } from '@atlaskit/editor-common/u
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 export type Props = InlineNodeViewComponentProps & {
-	node?: PMNode;
 	children?: React.ReactNode;
 	dispatchAnalyticsEvent?: (payload: UnsupportedContentTooltipPayload) => void;
+	node?: PMNode;
 };
 
 export const UnsupportedInlineNodeView = (props: Props) => {

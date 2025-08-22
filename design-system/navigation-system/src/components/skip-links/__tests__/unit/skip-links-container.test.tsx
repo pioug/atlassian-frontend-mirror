@@ -4,6 +4,7 @@ import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import noop from '@atlaskit/ds-lib/noop';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import {
 	SkipLinksContext,
@@ -32,32 +33,45 @@ beforeAll(() => {
 	window.scrollTo = noop;
 });
 
-describe('skip links', () => {
-	describe('SkipLinksContainer', () => {
-		const label = '跳转到';
-		const context: SkipLinksContextData = {
-			registerSkipLink: noop,
-			unregisterSkipLink: noop,
-		};
-		const dataContext = [
-			{ id: 'left', label: 'Left panel' },
-			{ id: 'right', label: 'Right panel' },
-		];
-		const skipLinksContainer = (
-			<SkipLinksDataContext.Provider value={dataContext}>
-				<SkipLinksContext.Provider value={context}>
-					<SkipLinksContainer label={label} />
-				</SkipLinksContext.Provider>
-			</SkipLinksDataContext.Provider>
-		);
+ffTest.off('platform_dst_nav4_skip_links_hydration_fix', 'skip links', () => {
+	const label = '跳转到';
+	const context: SkipLinksContextData = {
+		registerSkipLink: noop,
+		unregisterSkipLink: noop,
+	};
+	const dataContext = [
+		{ id: 'left', label: 'Left panel' },
+		{ id: 'right', label: 'Right panel' },
+	];
+	const skipLinksContainer = (
+		<SkipLinksDataContext.Provider value={dataContext}>
+			<SkipLinksContext.Provider value={context}>
+				<SkipLinksContainer label={label} links={[]} />
+			</SkipLinksContext.Provider>
+		</SkipLinksDataContext.Provider>
+	);
 
-		it('generate 3 links', () => {
-			render(skipLinksContainer);
-			expect(screen.getByText(label)).toBeInTheDocument();
-			expect(screen.getAllByRole('link')).toHaveLength(2);
-		});
+	it('generate 3 links', () => {
+		render(skipLinksContainer);
+		expect(screen.getByText(label)).toBeInTheDocument();
+		expect(screen.getAllByRole('link')).toHaveLength(2);
 	});
+});
 
+// These are placed outside of the individual ffTest blocks to prevent mock restoration between parallel test executions
+const consoleWarn = jest.spyOn(console, 'warn');
+const NODE_ENV = process.env.NODE_ENV;
+
+beforeEach(() => {
+	process.env.NODE_ENV = NODE_ENV;
+	consoleWarn.mockReset();
+});
+
+afterAll(() => {
+	consoleWarn.mockRestore();
+});
+
+ffTest.both('platform_dst_nav4_skip_links_hydration_fix', 'skip links', () => {
 	describe('Custom skip links', () => {
 		it('generates 3 links - 1 through standard slot method, 2 custom, in the correct order', () => {
 			const IntroSection = () => {
@@ -98,18 +112,6 @@ describe('skip links', () => {
 		});
 
 		describe('when a duplicate skip link is registered', () => {
-			const consoleWarn = jest.spyOn(console, 'warn');
-			const NODE_ENV = process.env.NODE_ENV;
-
-			afterEach(() => {
-				process.env.NODE_ENV = NODE_ENV;
-				consoleWarn.mockReset();
-			});
-
-			afterAll(() => {
-				consoleWarn.mockRestore();
-			});
-
 			it.each(['development', 'staging'])('should error in %', (environment) => {
 				process.env.NODE_ENV = environment;
 

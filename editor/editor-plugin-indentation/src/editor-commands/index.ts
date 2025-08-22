@@ -53,13 +53,13 @@ function createIndentationCommandWithAnalytics({
 	inputMethod,
 	editorAnalyticsAPI,
 }: {
+	direction: INDENT_DIRECTION;
+	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
 	getNewIndentationAttrs: (
 		prevAttrs?: IndentationMarkAttributes,
 		node?: PmNode,
 	) => IndentationMarkAttributes | undefined | false;
-	direction: INDENT_DIRECTION;
 	inputMethod: IndentationInputMethod;
-	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
 }): Command {
 	// Create a new getAttrs function to record the changes
 	const { getAttrs, getAndResetAttrsChanges } = getAttrsWithChangesRecorder(

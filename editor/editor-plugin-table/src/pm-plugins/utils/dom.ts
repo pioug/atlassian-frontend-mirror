@@ -190,8 +190,8 @@ export const hasResizeHandler = ({
 };
 
 export type TableDOMElements = {
-	wrapper: HTMLDivElement;
 	table: HTMLTableElement;
+	wrapper: HTMLDivElement;
 };
 
 export const getTree = (tr: HTMLTableRowElement): TableDOMElements | null => {
@@ -230,7 +230,7 @@ export const getTop = (element: HTMLElement | Window | undefined): number => {
 export const findNearestCellIndexToPoint = (
 	x: number,
 	y: number,
-): { row: number; col: number } | undefined => {
+): { col: number; row: number; } | undefined => {
 	const elements = document.elementsFromPoint(x, y);
 	const cell = elements.find(
 		(el) => el.nodeName.toUpperCase() === 'TD' || el.nodeName.toUpperCase() === 'TH',

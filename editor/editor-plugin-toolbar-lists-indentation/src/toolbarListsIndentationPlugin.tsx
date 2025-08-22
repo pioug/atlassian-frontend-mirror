@@ -132,11 +132,11 @@ type PrimaryToolbarComponentProps = Pick<
 	| 'disabled'
 	| 'isToolbarReducedSpacing'
 > & {
+	allowHeadingAndParagraphIndentation: boolean;
 	featureFlags: FeatureFlags;
 	isSmall: boolean;
-	showIndentationButtons?: boolean;
 	pluginInjectionApi: ExtractInjectionAPI<typeof toolbarListsIndentationPlugin> | undefined;
-	allowHeadingAndParagraphIndentation: boolean;
+	showIndentationButtons?: boolean;
 };
 
 const useSharedState = sharedPluginStateHookMigratorFactory(

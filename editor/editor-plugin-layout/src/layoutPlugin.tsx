@@ -127,8 +127,8 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 						portalProviderAPI,
 						eventDispatcher,
 					}: {
-						portalProviderAPI: PortalProviderAPI;
 						eventDispatcher: EventDispatcher;
+						portalProviderAPI: PortalProviderAPI;
 					}) => createLayoutResizingPlugin(options, api, portalProviderAPI, eventDispatcher),
 				});
 			}

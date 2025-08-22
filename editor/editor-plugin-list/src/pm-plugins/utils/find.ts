@@ -4,8 +4,8 @@ import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 
 export function findFirstParentListNode($pos: ResolvedPos): {
-	pos: number;
 	node: PMNode;
+	pos: number;
 } | null {
 	const currentNode = $pos.doc.nodeAt($pos.pos);
 	let listNodePosition: number | undefined | null = null;
@@ -29,8 +29,8 @@ export function findFirstParentListNode($pos: ResolvedPos): {
 }
 
 export function findFirstParentListItemNode($pos: ResolvedPos): {
-	pos: number;
 	node: PMNode;
+	pos: number;
 } | null {
 	const currentNode = $pos.doc.nodeAt($pos.pos);
 

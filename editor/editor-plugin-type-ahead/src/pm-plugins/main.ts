@@ -33,12 +33,12 @@ const hasValidTypeAheadStep = (tr: ReadonlyTransaction): InsertTypeAheadStep | n
 };
 
 type Props = {
-	reactDispatch: Dispatch;
-	popupMountRef: PopupMountPointReference;
-	typeAheadHandlers: Array<TypeAheadHandler>;
+	api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;
 	getIntl: () => IntlShape;
 	nodeViewPortalProviderAPI: PortalProviderAPI;
-	api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;
+	popupMountRef: PopupMountPointReference;
+	reactDispatch: Dispatch;
+	typeAheadHandlers: Array<TypeAheadHandler>;
 };
 export function createPlugin({
 	reactDispatch,

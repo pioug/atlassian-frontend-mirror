@@ -17,8 +17,8 @@ import { pluginKey } from './key';
 import { isTypeAheadHandler } from './utils';
 
 export type ReducerOptions = {
-	popupMountRef: PopupMountPointReference;
 	createDecorations: CreateTypeAheadDecorations;
+	popupMountRef: PopupMountPointReference;
 	removeDecorations: RemoveTypeAheadDecorations;
 	typeAheadHandlers: Array<TypeAheadHandler>;
 };
@@ -68,12 +68,12 @@ export const createReducer = ({
 	const findHandler = createFindHandler(typeAheadHandlers);
 
 	type OpenMenuProps = {
-		tr: ReadonlyTransaction;
-		triggerHandler: TypeAheadHandler;
 		inputMethod: TypeAheadInputMethod;
+		removePrefixTriggerOnCancel?: boolean;
 		reopenQuery?: string;
 		selectedIndex?: number;
-		removePrefixTriggerOnCancel?: boolean;
+		tr: ReadonlyTransaction;
+		triggerHandler: TypeAheadHandler;
 	};
 	const openMenu = (
 		currentPluginState: TypeAheadPluginState,

@@ -45,17 +45,17 @@ const list = css({
 });
 
 type TypeAheadListProps = {
-	items: Array<TypeAheadItem>;
-	selectedIndex: number;
-	editorView: EditorView;
-	onItemClick: (mode: SelectItemMode, index: number, inputMethod?: InputMethodType) => void;
-	fitHeight: number;
-	decorationElement: HTMLElement;
-	triggerHandler?: TypeAheadHandler;
-	moreElementsInQuickInsertViewEnabled?: boolean;
 	api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;
-	showMoreOptionsButton?: boolean;
+	decorationElement: HTMLElement;
+	editorView: EditorView;
+	fitHeight: number;
+	items: Array<TypeAheadItem>;
+	moreElementsInQuickInsertViewEnabled?: boolean;
+	onItemClick: (mode: SelectItemMode, index: number, inputMethod?: InputMethodType) => void;
 	onMoreOptionsClicked?: () => void;
+	selectedIndex: number;
+	showMoreOptionsButton?: boolean;
+	triggerHandler?: TypeAheadHandler;
 } & WrappedComponentProps;
 
 const TypeaheadAssistiveTextPureComponent = React.memo(

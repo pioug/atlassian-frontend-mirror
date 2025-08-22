@@ -38,9 +38,9 @@ export const GlobalStylesWrapper = ({
 	isDragAndDropEnabledOption,
 	api,
 }: {
+	api?: PluginInjectionAPI;
 	featureFlags: FeatureFlags | undefined;
 	isDragAndDropEnabledOption?: boolean;
-	api?: PluginInjectionAPI;
 }) => {
 	const { mode } = useSharedState(api);
 	const isLivePageViewMode = mode === 'view';

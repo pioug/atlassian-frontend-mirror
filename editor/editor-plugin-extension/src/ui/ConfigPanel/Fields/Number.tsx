@@ -18,9 +18,9 @@ export default function Number({
 	onFieldChange,
 	placeholder,
 }: {
-	name: string;
-	field: NumberField;
 	autoFocus?: boolean;
+	field: NumberField;
+	name: string;
 	onFieldChange: OnFieldChange;
 	placeholder?: string;
 }) {

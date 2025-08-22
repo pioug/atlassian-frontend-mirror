@@ -14,10 +14,10 @@ const initialState: UserIntentPluginState = {
 };
 
 type SetCurrentUserIntentMeta = {
-	type: 'setCurrentUserIntent';
 	data: {
 		currentUserIntent: UserIntent;
 	};
+	type: 'setCurrentUserIntent';
 };
 
 export const createPlugin = () => {

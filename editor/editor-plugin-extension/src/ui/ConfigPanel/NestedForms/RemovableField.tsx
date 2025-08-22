@@ -38,11 +38,11 @@ const removeButtonWrapperStyles = css({
 });
 
 type Props = {
-	name: string;
-	onClickRemove?: (fieldName: string) => void;
 	canRemoveField?: boolean;
 	children: React.ReactElement;
 	className?: string;
+	name: string;
+	onClickRemove?: (fieldName: string) => void;
 } & WrappedComponentProps;
 
 const RemovableField = ({

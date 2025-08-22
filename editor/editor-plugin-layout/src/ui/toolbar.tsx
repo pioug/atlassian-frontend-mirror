@@ -44,11 +44,11 @@ import { LayoutThreeWithLeftSidebarsIcon } from './icons/LayoutThreeWithLeftSide
 import { LayoutThreeWithRightSidebarsIcon } from './icons/LayoutThreeWithRightSidebars';
 
 type PresetLayoutButtonItem = {
-	id?: string;
-	type: PresetLayout;
-	title: MessageDescriptor;
 	icon: Icon;
 	iconFallback?: Icon;
+	id?: string;
+	title: MessageDescriptor;
+	type: PresetLayout;
 };
 
 const LAYOUT_TYPES: PresetLayoutButtonItem[] = [
@@ -206,15 +206,15 @@ const getAdvancedLayoutItems = ({
 	allowAdvancedSingleColumnLayout,
 }: {
 	addSidebarLayouts: boolean;
-	intl: IntlShape;
+	allowAdvancedSingleColumnLayout: boolean;
+	currentLayout: string | undefined;
+	deleteButton: FloatingToolbarButton<Command>;
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
-	state: EditorState;
+	intl: IntlShape;
 	node: PMNode;
 	nodeType: NodeType;
 	separator: FloatingToolbarSeparator;
-	deleteButton: FloatingToolbarButton<Command>;
-	currentLayout: string | undefined;
-	allowAdvancedSingleColumnLayout: boolean;
+	state: EditorState;
 }) => {
 	const numberOfColumns = node.content.childCount || 2;
 

@@ -20,16 +20,16 @@ import {
 } from './types';
 
 type InsertTypeAheadItemProps = {
-	triggerHandler: TypeAheadHandler;
 	contentItem: TypeAheadItem;
+	mode?: SelectItemMode;
 	query: string;
 	sourceListItem: TypeAheadItem[];
-	mode?: SelectItemMode;
+	triggerHandler: TypeAheadHandler;
 };
 
 type CloseTypeAheadProps = {
-	insertCurrentQueryAsRawText: boolean;
 	attachCommand?: Command;
+	insertCurrentQueryAsRawText: boolean;
 };
 
 /**
@@ -39,7 +39,15 @@ type CloseTypeAheadProps = {
 export type TypeAheadPlugin = NextEditorPlugin<
 	'typeAhead',
 	{
-		pluginConfiguration: TypeAheadPluginOptions | undefined;
+		actions: {
+			close: (props: CloseTypeAheadProps) => boolean;
+			findHandlerByTrigger: (trigger: string) => TypeAheadHandler | null;
+			insert: (props: InsertTypeAheadItemProps) => boolean;
+			isAllowed: (editorState: EditorState) => boolean;
+			isOpen: (editorState: EditorState) => boolean;
+			open: (props: OpenTypeAheadProps) => boolean;
+			openAtTransaction: (props: OpenTypeAheadProps) => (tr: Transaction) => boolean;
+		};
 		dependencies: [
 			OptionalPlugin<AnalyticsPlugin>,
 			OptionalPlugin<FeatureFlagsPlugin>,
@@ -47,15 +55,7 @@ export type TypeAheadPlugin = NextEditorPlugin<
 			OptionalPlugin<ContextPanelPlugin>,
 			OptionalPlugin<MetricsPlugin>,
 		];
+		pluginConfiguration: TypeAheadPluginOptions | undefined;
 		sharedState: TypeAheadPluginSharedState;
-		actions: {
-			isOpen: (editorState: EditorState) => boolean;
-			isAllowed: (editorState: EditorState) => boolean;
-			insert: (props: InsertTypeAheadItemProps) => boolean;
-			findHandlerByTrigger: (trigger: string) => TypeAheadHandler | null;
-			open: (props: OpenTypeAheadProps) => boolean;
-			close: (props: CloseTypeAheadProps) => boolean;
-			openAtTransaction: (props: OpenTypeAheadProps) => (tr: Transaction) => boolean;
-		};
 	}
 >;

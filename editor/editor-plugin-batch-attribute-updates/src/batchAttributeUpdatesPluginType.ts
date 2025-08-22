@@ -4,8 +4,8 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { AttrStep, Step } from '@atlaskit/editor-prosemirror/transform';
 
 export type BatchStepsAction = (props: {
-	steps: Array<AttrStep | SetAttrsStep> | Array<Step>;
 	doc: PMNode;
+	steps: Array<AttrStep | SetAttrsStep> | Array<Step>;
 }) => BatchAttrsStep;
 
 export type BatchAttributeUpdatesPlugin = NextEditorPlugin<

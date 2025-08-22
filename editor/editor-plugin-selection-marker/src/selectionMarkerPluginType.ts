@@ -20,6 +20,10 @@ export type SelectionMarkerPluginConfiguration = SelectionMarkerPluginOptions;
 export type SelectionMarkerPlugin = NextEditorPlugin<
 	'selectionMarker',
 	{
+		actions: {
+			hideDecoration: () => ReleaseHiddenDecoration | undefined;
+			queueHideDecoration: (setCleanup: SetCleanup) => CancelQueue;
+		};
 		dependencies: [
 			FocusPlugin,
 			OptionalPlugin<TypeAheadPlugin>,
@@ -27,9 +31,5 @@ export type SelectionMarkerPlugin = NextEditorPlugin<
 		];
 		pluginConfiguration?: SelectionMarkerPluginOptions;
 		sharedState: { isForcedHidden: boolean; isMarkerActive: boolean } | undefined;
-		actions: {
-			hideDecoration: () => ReleaseHiddenDecoration | undefined;
-			queueHideDecoration: (setCleanup: SetCleanup) => CancelQueue;
-		};
 	}
 >;

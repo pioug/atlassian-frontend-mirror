@@ -26,9 +26,9 @@ import type { SelectionExtension, MenuItemsType } from '../../types';
 import { SelectionExtensionDropdownMenu } from './SelectionExtensionDropdownMenu';
 
 type SelectionExtensionItemsProps = {
-	editorView: EditorView;
 	api: ExtractInjectionAPI<SelectionExtensionPlugin> | undefined;
 	editorAnalyticsAPI?: EditorAnalyticsAPI;
+	editorView: EditorView;
 	extensions: SelectionExtension[];
 	onExtensionClick: (extension: SelectionExtension) => void;
 } & WrappedComponentProps;

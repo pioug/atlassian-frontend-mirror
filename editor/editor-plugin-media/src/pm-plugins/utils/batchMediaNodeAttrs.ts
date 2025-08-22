@@ -23,7 +23,7 @@ import { batchStepsUpdate } from './batchSteps';
  * @template T
  * @param {T} func - The function to debounce.
  * @param {number} [wait=0] - The number of milliseconds to delay.
- * @param {Object} [options] - The options object to pass to `debounce`.
+ * @param {object} [options] - The options object to pass to `debounce`.
  * @param {Function} [resolver] - The function to resolve the cache key for memoization.
  * @returns {Function} A new debounced and memoized function.
  *
@@ -127,7 +127,7 @@ export const runUpdate = (editorView: EditorView, cache: MediaAttributesCache) =
  * @type {Function}
  * @param {Function} runUpdate - The function to be debounced.
  * @param {number} debouncedTime - The debounce delay in milliseconds.
- * @param {Object} [options] - The debounce options. Defaults to {leading: false, trailing: true}.
+ * @param {object} [options] - The debounce options. Defaults to {leading: false, trailing: true}.
  * @param {Function} keyResolver - A function that returns the key to be used for memoization. In this case, it returns the editor view instance.
  *
  * This function performs the following steps:

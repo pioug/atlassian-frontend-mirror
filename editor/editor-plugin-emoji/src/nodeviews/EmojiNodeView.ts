@@ -26,8 +26,8 @@ import type { EmojiPlugin } from '../emojiPluginType';
 import { emojiToDom } from './emojiNodeSpec';
 
 interface Params {
-	intl: IntlShape;
 	api: ExtractInjectionAPI<EmojiPlugin> | undefined;
+	intl: IntlShape;
 }
 
 /**

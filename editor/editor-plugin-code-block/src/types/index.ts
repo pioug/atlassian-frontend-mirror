@@ -1,8 +1,8 @@
 import type { LongPressSelectionPluginOptions } from '@atlaskit/editor-common/types';
 
 export interface CodeBlockPluginOptions extends LongPressSelectionPluginOptions {
-	allowCopyToClipboard?: boolean;
 	allowCompositionInputOverride?: boolean;
+	allowCopyToClipboard?: boolean;
 	overrideLanguageName?: (name: string) => string;
 }
 
@@ -13,4 +13,4 @@ export interface CodeBlockPluginOptions extends LongPressSelectionPluginOptions 
  */
 export type CodeBlockOptions = CodeBlockPluginOptions;
 
-export type CodeBlockLineAttributes = { lineStart: number; lineNumber: number };
+export type CodeBlockLineAttributes = { lineNumber: number; lineStart: number; };

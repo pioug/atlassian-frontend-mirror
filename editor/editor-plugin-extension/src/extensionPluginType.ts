@@ -34,42 +34,42 @@ import type { forceAutoSave } from './editor-commands/commands';
 export type RejectSave = (reason?: any) => void;
 
 export type ExtensionState<T extends Parameters = Parameters> = {
-	localId?: string;
-	autoSaveResolve?: () => void;
 	autoSaveReject?: RejectSave;
-	showEditButton: boolean;
-	showContextPanel: boolean;
-	updateExtension?: Promise<UpdateExtension<T> | void>;
+	autoSaveResolve?: () => void;
 	element?: HTMLElement;
 	extensionProvider?: ExtensionProvider<T>;
-	processParametersBefore?: TransformBefore<T>;
-	processParametersAfter?: TransformAfter<T>;
+	localId?: string;
 	positions?: Record<number, number>;
+	processParametersAfter?: TransformAfter<T>;
+	processParametersBefore?: TransformBefore<T>;
+	showContextPanel: boolean;
+	showEditButton: boolean;
+	updateExtension?: Promise<UpdateExtension<T> | void>;
 };
 
 export type ExtensionAction<T extends Parameters = Parameters> = {
-	type: 'UPDATE_STATE';
 	data: Partial<ExtensionState<T>>;
+	type: 'UPDATE_STATE';
 };
 
 interface CreateExtensionAPIOptions {
-	editorView: EditorView;
 	applyChange: ApplyChangeHandler | undefined;
-	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
 	editInLegacyMacroBrowser?: () => void;
+	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
+	editorView: EditorView;
 }
 
 export type CreateExtensionAPI = (options: CreateExtensionAPIOptions) => ExtensionAPI;
 
 export interface ExtensionPluginOptions extends LongPressSelectionPluginOptions {
-	breakoutEnabled?: boolean;
-	extensionHandlers?: ExtensionHandlers;
-	appearance?: EditorAppearance;
 	__rendererExtensionOptions?: {
-		rendererExtensionHandlers?: ExtensionHandlers;
 		isAllowedToUseRendererView: (node: ADFEntity) => boolean;
+		rendererExtensionHandlers?: ExtensionHandlers;
 		showUpdated1PBodiedExtensionUI: (node: ADFEntity) => boolean;
 	};
+	appearance?: EditorAppearance;
+	breakoutEnabled?: boolean;
+	extensionHandlers?: ExtensionHandlers;
 	/**
 	 * Helps optimize layout shift while rendering by setting minimum heights before the extension content loads.
 	 */
@@ -85,10 +85,10 @@ type InsertMacroFromMacroBrowser = (
 export type RunMacroAutoConvert = (state: EditorState, text: string) => PmNode | null;
 
 export type InsertOrReplaceExtensionType = {
-	editorView: EditorView;
 	action: 'insert' | 'replace';
 	attrs: object;
 	content: Fragment;
+	editorView: EditorView;
 	position: number;
 	size: number;
 	tr: Transaction;
@@ -115,27 +115,27 @@ export type ExtensionPluginDependencies = [
 ];
 
 export type ExtensionPluginActions = {
-	editSelectedExtension: () => boolean;
 	api: () => ExtensionAPI;
-	insertMacroFromMacroBrowser: InsertMacroFromMacroBrowser;
-	insertOrReplaceExtension: InsertOrReplaceExtensionAction;
-	insertOrReplaceBodiedExtension: InsertOrReplaceExtensionAction;
-	runMacroAutoConvert: RunMacroAutoConvert;
+	editSelectedExtension: () => boolean;
 	forceAutoSave: typeof forceAutoSave;
+	insertMacroFromMacroBrowser: InsertMacroFromMacroBrowser;
+	insertOrReplaceBodiedExtension: InsertOrReplaceExtensionAction;
+	insertOrReplaceExtension: InsertOrReplaceExtensionAction;
+	runMacroAutoConvert: RunMacroAutoConvert;
 };
 
 export type ExtensionPlugin = NextEditorPlugin<
 	'extension',
 	{
-		pluginConfiguration: ExtensionPluginOptions | undefined;
+		actions: ExtensionPluginActions;
 		dependencies: ExtensionPluginDependencies;
+		pluginConfiguration: ExtensionPluginOptions | undefined;
 		sharedState:
 			| {
-					showContextPanel: boolean | undefined;
 					extensionProvider?: ExtensionState['extensionProvider'];
 					processParametersAfter?: ExtensionState['processParametersAfter'];
+					showContextPanel: boolean | undefined;
 			  }
 			| undefined;
-		actions: ExtensionPluginActions;
 	}
 >;

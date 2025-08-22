@@ -13,9 +13,9 @@ export type GridPluginActions = {
 export type GridPlugin = NextEditorPlugin<
 	'grid',
 	{
-		pluginConfiguration: GridPluginConfiguration;
-		dependencies: GridPluginDependencies;
-		sharedState: GridPluginSharedState;
 		actions: GridPluginActions;
+		dependencies: GridPluginDependencies;
+		pluginConfiguration: GridPluginConfiguration;
+		sharedState: GridPluginSharedState;
 	}
 >;

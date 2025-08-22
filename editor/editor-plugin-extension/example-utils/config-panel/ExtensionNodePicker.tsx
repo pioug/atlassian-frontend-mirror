@@ -19,9 +19,9 @@ import { useStateFromPromise } from '../../src/ui/ConfigPanel/use-state-from-pro
 
 export type CallbackParams = {
 	extension?: ExtensionManifest;
-	nodeKey?: string;
 	item: ExtensionModule;
 	node?: ExtensionModuleNode;
+	nodeKey?: string;
 	parameters?: Parameters;
 };
 
@@ -31,10 +31,10 @@ export default function ExtensionNodePicker({
 	extensionProvider,
 	onSelect,
 }: {
-	selectedExtension?: string;
-	selectedNode?: string;
 	extensionProvider: ExtensionProvider;
 	onSelect: (nodeParams: CallbackParams) => void;
+	selectedExtension?: string;
+	selectedNode?: string;
 }) {
 	const [hasSelection, setHasSelection] = useState<boolean>(false);
 

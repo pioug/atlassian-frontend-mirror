@@ -43,7 +43,7 @@ const contextPanelStyles = css({
 });
 
 const createFakeContextPanel =
-	(extensionProvider: ExtensionProvider) => (props: { title: string; nodeKey: string }) => {
+	(extensionProvider: ExtensionProvider) => (props: { nodeKey: string; title: string; }) => {
 		return (
 			<Box xcss={contextPanelWrapperStyles}>
 				<h3>{props.title}</h3>

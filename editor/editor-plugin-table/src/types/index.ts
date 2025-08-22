@@ -25,7 +25,7 @@ export type RowInsertPosition = 'TOP' | 'BOTTOM';
  * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-6877 Internal documentation for deprecation (no external access)}
  **/
 export type PermittedLayoutsDescriptor = TableLayout[] | 'all';
-export type Cell = { pos: number; start: number; node: PmNode };
+export type Cell = { node: PmNode; pos: number; start: number; };
 export type CellTransform = (cell: Cell) => (tr: Transaction) => Transaction;
 
 export interface InsertRowOptions {
@@ -70,17 +70,17 @@ export type TableSharedStateInternal = Pick<
 	| 'tableWrapperTarget'
 	| 'isCellMenuOpenByKeyboard'
 > & {
-	isResizing: boolean;
-	isTableResizing?: boolean;
-	isWholeTableInDanger?: boolean;
-	resizingTableRef?: HTMLTableElement;
-	resizingTableLocalId?: string;
-	stickyHeader?: RowStickyState;
 	dragMenuDirection?: TableDirection;
 	dragMenuIndex?: number;
 	isDragMenuOpen?: boolean;
+	isResizing: boolean;
 	isSizeSelectorOpen?: boolean;
+	isTableResizing?: boolean;
+	isWholeTableInDanger?: boolean;
+	resizingTableLocalId?: string;
+	resizingTableRef?: HTMLTableElement;
 	sizeSelectorTargetRef?: HTMLElement;
+	stickyHeader?: RowStickyState;
 };
 
 export type TableSharedState = Pick<
@@ -100,27 +100,27 @@ export type InsertRowMethods =
 
 export interface PluginConfig {
 	advanced?: boolean;
+	allowAddColumnWithCustomStep?: boolean;
 	allowBackgroundColor?: boolean;
+	allowCellOptionsInFloatingToolbar?: boolean;
+	allowCollapse?: boolean;
 	allowColumnResizing?: boolean;
-	allowTableResizing?: boolean;
-	allowTableAlignment?: boolean;
+	allowColumnSorting?: boolean;
+	allowControls?: boolean;
+	allowDistributeColumns?: boolean;
 	allowHeaderColumn?: boolean;
 	allowHeaderRow?: boolean;
 	allowMergeCells?: boolean;
-	allowNumberColumn?: boolean;
-	allowColumnSorting?: boolean;
-	allowAddColumnWithCustomStep?: boolean;
-	allowCollapse?: boolean;
 	allowNestedTables?: boolean;
+	allowNumberColumn?: boolean;
+	allowTableAlignment?: boolean;
+	allowTableResizing?: boolean;
 	isHeaderRowRequired?: boolean;
 	/**
 	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-6877 Internal documentation for deprecation (no external access)}
 	 **/
 	permittedLayouts?: PermittedLayoutsDescriptor;
-	allowControls?: boolean;
 	stickyHeaders?: boolean;
-	allowCellOptionsInFloatingToolbar?: boolean;
-	allowDistributeColumns?: boolean;
 }
 
 export type { ColumnResizingPluginState } from '@atlaskit/editor-common/types';
@@ -159,191 +159,191 @@ export interface WidthToWidest {
 }
 
 export interface TablePluginState {
+	canCollapseTable?: boolean; // enabled/disabled state of collapse option
 	editorHasFocus?: boolean;
+	getIntl: () => IntlShape;
+	hoveredCell: CellHoverMeta;
 	hoveredColumns: number[];
 	hoveredRows: number[];
-	hoveredCell: CellHoverMeta;
-	pluginConfig: PluginConfig;
-	isHeaderColumnEnabled: boolean;
-	isHeaderRowEnabled: boolean;
-	isNumberColumnEnabled?: boolean;
-	// position of a cell PM node that has cursor
-	targetCellPosition?: number;
-	// controls need to be re-rendered when table content changes
-	// e.g. when pressing enter inside of a cell, it creates a new p and we need to update row controls
-	tableNode?: PmNode;
-	tableRef?: HTMLTableElement;
-	tablePos?: number;
-	tableWrapperTarget?: HTMLElement;
-	isContextualMenuOpen?: boolean;
-	isInDanger?: boolean;
-	isWholeTableInDanger?: boolean;
 	insertColumnButtonIndex?: number;
 	insertRowButtonIndex?: number;
+	isCellMenuOpenByKeyboard?: boolean;
+	isContextualMenuOpen?: boolean;
+	isDragAndDropEnabled?: boolean;
 	isFullWidthModeEnabled?: boolean;
-	ordering?: TableColumnOrdering;
-	isResizeHandleWidgetAdded?: boolean;
-	resizeHandleRowIndex?: number;
-	resizeHandleColumnIndex?: number;
-	resizeHandleIncludeTooltip?: boolean;
+	isHeaderColumnEnabled: boolean;
+	isHeaderRowEnabled: boolean;
+	isInDanger?: boolean;
 	isKeyboardResize?: boolean;
+	isNumberColumnEnabled?: boolean;
+	isResizeHandleWidgetAdded?: boolean;
 	// for table wrap/collapse
 	isTableCollapsed?: boolean; // is the current table already in an expand?
-	canCollapseTable?: boolean; // enabled/disabled state of collapse option
-	widthToWidest?: WidthToWidest; // is the current table set to the widest width regarding view port
-
-	getIntl: () => IntlShape;
-
-	wasFullWidthModeEnabled?: boolean;
-	isDragAndDropEnabled?: boolean;
 	isTableHovered?: boolean;
-
 	// Currently isTableScalingEnabled is the same as options.isTableScalingEnabled from TablePluginOptions.
 	// However, if you want to learn if tablePlugin is configured to enable Preserve Table Widths feature,
 	// use options.isTableScalingEnabled and avoid using pluginState.isTableScalingEnabled or
 	// const { isTableScalingEnabled } = getPluginState(state) for that purpose.
 	isTableScalingEnabled?: boolean;
-	isCellMenuOpenByKeyboard?: boolean;
+	isWholeTableInDanger?: boolean;
+	ordering?: TableColumnOrdering;
+	pluginConfig: PluginConfig;
+	resizeHandleColumnIndex?: number;
+	resizeHandleIncludeTooltip?: boolean;
+	resizeHandleRowIndex?: number;
+	// controls need to be re-rendered when table content changes
+	// e.g. when pressing enter inside of a cell, it creates a new p and we need to update row controls
+	tableNode?: PmNode;
+
+	tablePos?: number;
+
+	tableRef?: HTMLTableElement;
+	tableWrapperTarget?: HTMLElement;
+	// position of a cell PM node that has cursor
+	targetCellPosition?: number;
+
+	wasFullWidthModeEnabled?: boolean;
+	widthToWidest?: WidthToWidest; // is the current table set to the widest width regarding view port
 }
 
 export type TablePluginAction =
-	| { type: 'SET_EDITOR_FOCUS'; data: { editorHasFocus: boolean } }
+	| { data: { editorHasFocus: boolean }; type: 'SET_EDITOR_FOCUS'; }
 	| { type: 'TOGGLE_HEADER_ROW' }
 	| { type: 'TOGGLE_HEADER_COLUMN' }
-	| { type: 'SORT_TABLE'; data: { ordering: TableColumnOrdering } }
+	| { data: { ordering: TableColumnOrdering }; type: 'SORT_TABLE'; }
 	| {
-			type: 'SET_TABLE_REF';
 			data: {
-				tableRef?: HTMLTableElement;
-				tableNode?: PmNode;
-				tableWrapperTarget?: HTMLElement;
-				isHeaderRowEnabled: boolean;
 				isHeaderColumnEnabled: boolean;
+				isHeaderRowEnabled: boolean;
+				tableNode?: PmNode;
+				tableRef?: HTMLTableElement;
+				tableWrapperTarget?: HTMLElement;
 			};
+			type: 'SET_TABLE_REF';
 	  }
 	| {
+			data: {
+				decorationSet: DecorationSet;
+				hoveredRows: number[];
+				isInDanger?: boolean;
+			};
 			type: 'HOVER_ROWS';
-			data: {
-				decorationSet: DecorationSet;
-				hoveredRows: number[];
-				isInDanger?: boolean;
-			};
 	  }
 	| {
+			data: {
+				decorationSet: DecorationSet;
+			};
 			type: 'HOVER_MERGED_CELLS';
-			data: {
-				decorationSet: DecorationSet;
-			};
 	  }
 	| {
+			data: {
+				decorationSet: DecorationSet;
+				hoveredColumns: number[];
+				isInDanger?: boolean;
+			};
 			type: 'HOVER_COLUMNS';
+	  }
+	| {
 			data: {
 				decorationSet: DecorationSet;
 				hoveredColumns: number[];
-				isInDanger?: boolean;
-			};
-	  }
-	| {
-			type: 'HOVER_TABLE';
-			data: {
-				decorationSet: DecorationSet;
 				hoveredRows: number[];
-				hoveredColumns: number[];
 				isInDanger?: boolean;
 			};
+			type: 'HOVER_TABLE';
 	  }
 	| {
+			data: {
+				decorationSet: DecorationSet;
+				isKeyboardResize?: boolean;
+				resizeHandleColumnIndex: number;
+				resizeHandleIncludeTooltip: boolean;
+				resizeHandleRowIndex: number;
+			};
 			type: 'START_KEYBOARD_COLUMN_RESIZE';
-			data: {
-				decorationSet: DecorationSet;
-				resizeHandleRowIndex: number;
-				resizeHandleColumnIndex: number;
-				resizeHandleIncludeTooltip: boolean;
-				isKeyboardResize?: boolean;
-			};
 	  }
 	| {
+			data: {
+				decorationSet: DecorationSet;
+				isKeyboardResize?: boolean;
+				resizeHandleColumnIndex: number;
+				resizeHandleIncludeTooltip: boolean;
+				resizeHandleRowIndex: number;
+			};
 			type: 'ADD_RESIZE_HANDLE_DECORATIONS';
-			data: {
-				decorationSet: DecorationSet;
-				resizeHandleRowIndex: number;
-				resizeHandleColumnIndex: number;
-				resizeHandleIncludeTooltip: boolean;
-				isKeyboardResize?: boolean;
-			};
 	  }
 	| {
-			type: 'UPDATE_RESIZE_HANDLE_DECORATIONS';
 			data: {
 				decorationSet: DecorationSet;
-				resizeHandleRowIndex: number | undefined;
 				resizeHandleColumnIndex: number | undefined;
 				resizeHandleIncludeTooltip: boolean | undefined;
+				resizeHandleRowIndex: number | undefined;
 			};
+			type: 'UPDATE_RESIZE_HANDLE_DECORATIONS';
 	  }
 	| {
-			type: 'UPDATE_TABLE_WIDTH_TO_WIDEST';
 			data: {
 				widthToWidest: WidthToWidest | undefined;
 			};
+			type: 'UPDATE_TABLE_WIDTH_TO_WIDEST';
 	  }
 	| {
+			data: { decorationSet: DecorationSet };
 			type: 'REMOVE_RESIZE_HANDLE_DECORATIONS';
-			data: { decorationSet: DecorationSet };
 	  }
 	| {
+			data: { decorationSet: DecorationSet };
 			type: 'STOP_KEYBOARD_COLUMN_RESIZE';
-			data: { decorationSet: DecorationSet };
 	  }
-	| { type: 'CLEAR_HOVER_SELECTION'; data: { decorationSet: DecorationSet } }
-	| { type: 'SHOW_RESIZE_HANDLE_LINE'; data: { decorationSet: DecorationSet } }
-	| { type: 'HIDE_RESIZE_HANDLE_LINE'; data: { decorationSet: DecorationSet } }
+	| { data: { decorationSet: DecorationSet }; type: 'CLEAR_HOVER_SELECTION'; }
+	| { data: { decorationSet: DecorationSet }; type: 'SHOW_RESIZE_HANDLE_LINE'; }
+	| { data: { decorationSet: DecorationSet }; type: 'HIDE_RESIZE_HANDLE_LINE'; }
 	| {
-			type: 'HOVER_CELL';
 			data: {
 				hoveredCell: CellHoverMeta;
 			};
+			type: 'HOVER_CELL';
 	  }
 	| {
-			type: 'TABLE_HOVERED';
 			data: {
 				isTableHovered: boolean;
 			};
+			type: 'TABLE_HOVERED';
 	  }
-	| { type: 'SET_TARGET_CELL_POSITION'; data: { targetCellPosition?: number } }
+	| { data: { targetCellPosition?: number }; type: 'SET_TARGET_CELL_POSITION'; }
 	| {
+			data: { decorationSet: DecorationSet; targetCellPosition: number; };
 			type: 'SELECT_COLUMN';
-			data: { targetCellPosition: number; decorationSet: DecorationSet };
 	  }
-	| { type: 'SHOW_INSERT_ROW_BUTTON'; data: { insertRowButtonIndex: number } }
+	| { data: { insertRowButtonIndex: number }; type: 'SHOW_INSERT_ROW_BUTTON'; }
 	| {
-			type: 'SHOW_INSERT_COLUMN_BUTTON';
 			data: { insertColumnButtonIndex: number };
+			type: 'SHOW_INSERT_COLUMN_BUTTON';
 	  }
 	| {
 			type: 'HIDE_INSERT_COLUMN_OR_ROW_BUTTON';
 	  }
 	| { type: 'TOGGLE_CONTEXTUAL_MENU' }
 	| {
-			type: 'SET_CELL_MENU_OPEN';
 			data: {
 				isCellMenuOpenByKeyboard: boolean;
 			};
+			type: 'SET_CELL_MENU_OPEN';
 	  };
 
 export type ColumnResizingPluginAction =
 	| {
-			type: 'SET_RESIZE_HANDLE_POSITION';
 			data: { resizeHandlePos: number | null };
+			type: 'SET_RESIZE_HANDLE_POSITION';
 	  }
 	| { type: 'STOP_RESIZING' }
 	| {
+			data: { dragging: { startWidth: number; startX: number; } | null };
 			type: 'SET_DRAGGING';
-			data: { dragging: { startX: number; startWidth: number } | null };
 	  }
 	| {
+			data: { lastClick: { time: number; x: number; y: number; } | null };
 			type: 'SET_LAST_CLICK';
-			data: { lastClick: { x: number; y: number; time: number } | null };
 	  };
 
 export enum TableDecorations {
@@ -507,19 +507,19 @@ export const TableCssClassName = {
 };
 
 export interface ToolbarMenuConfig {
-	allowHeaderRow?: boolean;
-	allowHeaderColumn?: boolean;
-	allowNumberColumn?: boolean;
 	allowCollapse?: boolean;
+	allowHeaderColumn?: boolean;
+	allowHeaderRow?: boolean;
+	allowNumberColumn?: boolean;
 }
 
 export interface ToolbarMenuState {
-	isHeaderRowEnabled?: boolean;
-	isHeaderColumnEnabled?: boolean;
-	isNumberColumnEnabled?: boolean;
-	isTableCollapsed?: boolean;
 	canCollapseTable?: boolean;
 	isDragAndDropEnabled?: boolean;
+	isHeaderColumnEnabled?: boolean;
+	isHeaderRowEnabled?: boolean;
+	isNumberColumnEnabled?: boolean;
+	isTableCollapsed?: boolean;
 }
 
 export interface ToolbarMenuContext {
@@ -534,8 +534,8 @@ export enum ShadowEvent {
 export type ReportInvalidNodeAttrs = (invalidNodeAttrs: InvalidNodeAttr) => void;
 
 export type InvalidNodeAttr = {
-	nodeType: string;
 	attribute: string;
+	nodeType: string;
 	reason: string;
 	spanValue: number;
 	tableLocalId: string;
@@ -550,24 +550,27 @@ export type DraggableType = 'table-row' | 'table-column';
 export type DraggableBehaviour = 'move' | 'clone';
 
 export interface DraggableSourceData extends Record<string, unknown> {
-	type: DraggableType;
-	localId: string;
 	indexes: number[];
+	localId: string;
+	type: DraggableType;
 }
 
 export interface DraggableTargetData extends Record<string | symbol, unknown> {
-	type: DraggableType;
 	localId: string;
 	targetIndex: number;
+	type: DraggableType;
 }
 
 export interface DraggableData {
-	sourceType: DraggableType;
-	sourceLocalId: string;
+	behaviour: DraggableBehaviour;
+	/**
+	 * This represents a hollistic movement direction; a value of 1 means the source->target index would shift in a positive direction.
+	 * A value of 0 indicates that the target index is inside the the source indexes.
+	 */
+	direction: 1 | -1 | 0;
 	sourceIndexes: number[];
-	targetType: DraggableType;
-	targetLocalId: string;
-	targetIndex: number;
+	sourceLocalId: string;
+	sourceType: DraggableType;
 	targetAdjustedIndex: number;
 	targetClosestEdge: Edge;
 	/**
@@ -575,18 +578,15 @@ export interface DraggableData {
 	 * mean that the item is being inserted before the index, and 'end would be after.
 	 */
 	targetDirection: 'start' | 'end';
-	/**
-	 * This represents a hollistic movement direction; a value of 1 means the source->target index would shift in a positive direction.
-	 * A value of 0 indicates that the target index is inside the the source indexes.
-	 */
-	direction: 1 | -1 | 0;
-	behaviour: DraggableBehaviour;
+	targetIndex: number;
+	targetLocalId: string;
+	targetType: DraggableType;
 }
 
 export type HandleTypes = 'hover' | 'selected';
 
 export interface MessageDescriptor {
-	id: string;
-	description: string;
 	defaultMessage: string;
+	description: string;
+	id: string;
 }

@@ -49,7 +49,6 @@
 		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
-		"@atlaskit/visual-regression": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"ast-types": "root:*",

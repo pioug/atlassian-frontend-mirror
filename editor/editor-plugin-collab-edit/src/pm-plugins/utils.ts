@@ -61,12 +61,7 @@ export const createTelepointers = (
 	if (isSelection) {
 		const className = `telepointer color-${color} telepointer-selection`;
 		decorations.push(
-			Decoration.inline(
-				from,
-				to,
-				{ class: className, 'data-initial': initial },
-				{ pointer: { sessionId, presenceId } },
-			),
+			Decoration.inline(from, to, { class: className }, { pointer: { sessionId, presenceId } }),
 		);
 	}
 
@@ -79,7 +74,6 @@ export const createTelepointers = (
 	cursor.textContent = ZERO_WIDTH_JOINER;
 	cursor.className = `telepointer color-${color} telepointer-selection-badge`;
 	cursor.style.cssText = `${style({ color: avatarColor.backgroundColor })};`;
-	cursor.setAttribute('data-initial', initial);
 	cursor.setAttribute('aria-label', `${fullName} cursor position`);
 	cursor.setAttribute('role', 'button');
 	cursor.setAttribute(TELEPOINTER_DATA_SESSION_ID_ATTR, sessionId);

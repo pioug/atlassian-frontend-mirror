@@ -8,9 +8,9 @@ import { changeColor } from '../../editor-commands/change-color';
 import type { HighlightPlugin } from '../../highlightPluginType';
 
 type UseDropdownEventArgs = {
-	setIsDropdownOpen: (isOpen: boolean) => void;
 	isDropdownOpen: boolean;
 	pluginInjectionApi: ExtractInjectionAPI<HighlightPlugin> | undefined;
+	setIsDropdownOpen: (isOpen: boolean) => void;
 	toolbarItemRef: React.RefObject<ToolbarButtonRef>;
 };
 

@@ -16,8 +16,8 @@ import type { SelectionToolbarPlugin } from '../selectionToolbarPluginType';
 
 type PinToobarConfig = {
 	api?: ExtractInjectionAPI<SelectionToolbarPlugin>;
-	toolbarDocking?: 'top' | 'none';
 	intl: IntlShape;
+	toolbarDocking?: 'top' | 'none';
 };
 
 export const getPinOptionToolbarConfig = ({

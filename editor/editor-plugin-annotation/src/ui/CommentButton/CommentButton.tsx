@@ -27,8 +27,8 @@ import {
 } from './utils';
 
 type CommentButtonProps = {
-	api?: ExtractInjectionAPI<AnnotationPlugin>;
 	annotationProviders?: AnnotationProviders;
+	api?: ExtractInjectionAPI<AnnotationPlugin>;
 };
 
 export const CommentButton = ({ api, annotationProviders }: CommentButtonProps) => {

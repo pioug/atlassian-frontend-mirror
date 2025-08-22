@@ -13,6 +13,17 @@ export interface PulseProps {
 	 */
 	children: JSX.Element;
 	/**
+	 * Indicates when the feature is considered discovered. If "start" is passed, local storage key will be invalidated
+	 * as soon as the animation starts. If "iteration" is passed (the default one), it will be invalidated after the first iteration
+	 */
+	discoveryMode?: PulseDiscoveryMode;
+
+	/*
+	 * Determine if rendering inline
+	 */
+	isInline?: boolean;
+
+	/**
 	 * The key that is used in local storage to identify the descoverability of a feature where the Pulse is used
 	 */
 	localStorageKey: string;
@@ -21,12 +32,6 @@ export interface PulseProps {
 	 * The time in ms after which the key in local storage will be considered expired and the Pulse will be shown again
 	 */
 	localStorageKeyExpirationInMs?: number;
-
-	/**
-	 * Indicates when the feature is considered discovered. If "start" is passed, local storage key will be invalidated
-	 * as soon as the animation starts. If "iteration" is passed (the default one), it will be invalidated after the first iteration
-	 */
-	discoveryMode?: PulseDiscoveryMode;
 
 	/*
 	 * When defined this property overrides default pulse behaviour, true shows the pulse and false hides the pulse
@@ -37,11 +42,6 @@ export interface PulseProps {
 	 * A custom test id
 	 */
 	testId?: string;
-
-	/*
-	 * Determine if rendering inline
-	 */
-	isInline?: boolean;
 }
 
 export const DiscoveryPulse = ({

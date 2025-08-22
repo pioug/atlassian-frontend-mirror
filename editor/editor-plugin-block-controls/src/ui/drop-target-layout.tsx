@@ -28,9 +28,9 @@ const DROP_TARGET_LAYOUT_DROP_ZONE_WIDTH = 40;
 
 export type DropTargetLayoutProps = {
 	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined;
+	formatMessage?: IntlShape['formatMessage'];
 	getPos: () => number | undefined;
 	parent: PMNode;
-	formatMessage?: IntlShape['formatMessage'];
 };
 
 const dropTargetLayoutStyle = css({

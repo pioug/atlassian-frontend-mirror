@@ -19,27 +19,27 @@ import { ColumnControls } from './ColumnControls';
 import { ColumnDropTargets } from './ColumnDropTargets';
 
 interface Props {
+	api?: PluginInjectionAPI;
 	editorView: EditorView;
 	getEditorFeatureFlags: GetEditorFeatureFlags;
-	selection?: Selection;
-	tableRef?: HTMLTableElement;
 	getNode: () => PmNode;
-	tableActive?: boolean;
-	isInDanger?: boolean;
+	getScrollOffset?: () => number;
 	hasHeaderRow?: boolean;
 	headerRowHeight?: number;
-	hoveredRows?: number[];
 	hoveredCell?: CellHoverMeta;
-	isResizing?: boolean;
-	ordering?: TableColumnOrdering;
-	stickyHeader?: RowStickyState;
-	isTableHovered?: boolean;
-	tableContainerWidth?: number;
-	isNumberColumnEnabled?: boolean;
-	getScrollOffset?: () => number;
-	tableWrapperHeight?: number;
-	api?: PluginInjectionAPI;
+	hoveredRows?: number[];
 	isChromelessEditor?: boolean;
+	isInDanger?: boolean;
+	isNumberColumnEnabled?: boolean;
+	isResizing?: boolean;
+	isTableHovered?: boolean;
+	ordering?: TableColumnOrdering;
+	selection?: Selection;
+	stickyHeader?: RowStickyState;
+	tableActive?: boolean;
+	tableContainerWidth?: number;
+	tableRef?: HTMLTableElement;
+	tableWrapperHeight?: number;
 }
 
 const TableFloatingColumnControls = ({

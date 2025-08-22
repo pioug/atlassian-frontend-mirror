@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-loom
 
+## 5.1.3
+
+### Patch Changes
+
+- [`265c1bf0cefa4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/265c1bf0cefa4) -
+  Sorted type and interface props to improve Atlaskit docs
+- Updated dependencies
+
 ## 5.1.2
 
 ### Patch Changes

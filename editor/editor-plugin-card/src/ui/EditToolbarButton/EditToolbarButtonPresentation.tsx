@@ -34,9 +34,9 @@ const dropdownExpandContainer = css({
 });
 
 interface EditToolbarPresentationProps extends EditDatasourceToolbarButtonWithCommonProps {
-	extensionKey?: string;
 	datasourceId?: string;
 	editVariant: EditVariant;
+	extensionKey?: string;
 }
 
 const EditToolbarButtonPresentation = ({

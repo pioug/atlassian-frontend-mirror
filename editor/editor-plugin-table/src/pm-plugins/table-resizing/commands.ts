@@ -23,10 +23,10 @@ export const evenColumns =
 		api,
 	}: {
 		api: PluginInjectionAPI | undefined | null;
-		resizeState: ResizeState;
-		table: PMNode;
-		start: number;
 		event: MouseEvent;
+		resizeState: ResizeState;
+		start: number;
+		table: PMNode;
 	}): Command =>
 	(state, dispatch) => {
 		if (!isTableSelected(state.selection)) {
@@ -88,7 +88,7 @@ export const stopResizing = (tr?: Transaction) =>
 	);
 
 export const setDragging = (
-	dragging: { startX: number; startWidth: number } | null,
+	dragging: { startWidth: number; startX: number; } | null,
 	tr?: Transaction,
 ) =>
 	createCommand(
@@ -102,7 +102,7 @@ export const setDragging = (
 	);
 
 const setLastClick = (
-	lastClick: { x: number; y: number; time: number } | null,
+	lastClick: { time: number; x: number; y: number; } | null,
 	transform?: (tr: Transaction) => Transaction,
 ) =>
 	createCommand(

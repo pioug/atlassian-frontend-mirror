@@ -24,13 +24,13 @@ import { getCategories } from './categories';
 export const MODAL_WRAPPER_PADDING = 16;
 
 export interface Props {
+	emptyStateHandler?: EmptyStateHandler;
 	getItems: (query?: string, category?: string) => QuickInsertItem[];
-	onInsertItem: (item: QuickInsertItem) => void;
+	helpUrl?: string | undefined;
 	isOpen?: boolean;
 	onClose: () => void;
 	onCloseComplete: () => void;
-	helpUrl?: string | undefined;
-	emptyStateHandler?: EmptyStateHandler;
+	onInsertItem: (item: QuickInsertItem) => void;
 	shouldReturnFocus?: boolean;
 }
 
@@ -158,8 +158,8 @@ const Footer = ({
 	onInsert,
 	beforeElement,
 }: {
-	onInsert: () => void;
 	beforeElement?: JSX.Element;
+	onInsert: () => void;
 }) => {
 	const { onClose } = useModal();
 	return (

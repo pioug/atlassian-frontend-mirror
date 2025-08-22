@@ -1,6 +1,10 @@
 import type { CoordinationClient, EpComponents, EpHooks } from '../../engagementPlatformPluginType';
 
 export interface EngagementPlatformPmPluginState {
+	/** Engagement Platform coordination client */
+	coordinationClient: CoordinationClient;
+	epComponents: EpComponents;
+	epHooks: EpHooks;
 	/**
 	 * State of Engagement Platform messages in the Editor.
 	 *
@@ -19,31 +23,27 @@ export interface EngagementPlatformPmPluginState {
 	 * This is used to prevent multiple stop requests for the same message.
 	 */
 	stopMessagePromises: { [messageId: string]: Promise<boolean> };
-	/** Engagement Platform coordination client */
-	coordinationClient: CoordinationClient;
-	epComponents: EpComponents;
-	epHooks: EpHooks;
 }
 
 /** Command to EP plugin, that set state of a message with given ID. */
 export interface SetMessageStateCommand {
-	type: 'setMessageState';
 	messageId: string;
 	state: boolean;
+	type: 'setMessageState';
 }
 
 /** Command to EP plugin, that set promise for starting a message with given ID. */
 export interface SetStartMessagePromiseCommand {
-	type: 'setStartMessagePromise';
 	messageId: string;
 	promise: Promise<boolean> | undefined;
+	type: 'setStartMessagePromise';
 }
 
 /** Command to EP plugin, that set promise for stopping a message with given ID. */
 export interface SetStopMessagePromiseCommand {
-	type: 'setStopMessagePromise';
 	messageId: string;
 	promise: Promise<boolean> | undefined;
+	type: 'setStopMessagePromise';
 }
 
 /** Commands that can be applied to the Engagement Platform plugin state. */

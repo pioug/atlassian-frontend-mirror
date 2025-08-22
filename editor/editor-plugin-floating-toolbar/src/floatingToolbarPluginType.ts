@@ -19,8 +19,8 @@ import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/stat
 
 export type ConfigWithNodeInfo = {
 	config: FloatingToolbarConfig | undefined;
-	pos: number;
 	node: Node;
+	pos: number;
 };
 
 export type FloatingToolbarPluginState = {
@@ -54,8 +54,8 @@ export type FloatingToolbarPluginDependencies = [
 export type FloatingToolbarPlugin = NextEditorPlugin<
 	'floatingToolbar',
 	{
-		dependencies: FloatingToolbarPluginDependencies;
 		actions: { forceFocusSelector: ForceFocusSelector };
+		dependencies: FloatingToolbarPluginDependencies;
 		sharedState:
 			| {
 					configWithNodeInfo: ConfigWithNodeInfo | undefined;

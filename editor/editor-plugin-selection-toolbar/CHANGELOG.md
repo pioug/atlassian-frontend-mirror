@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 4.3.10
+
+### Patch Changes
+
+- [`265c1bf0cefa4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/265c1bf0cefa4) -
+  Sorted type and interface props to improve Atlaskit docs
+- Updated dependencies
+
+## 4.3.9
+
+### Patch Changes
+
+- [`b27824f2875be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b27824f2875be) -
+  [ux] [ED-28821] Add pin button to full page primary toolbar
+- Updated dependencies
+
 ## 4.3.8
 
 ### Patch Changes

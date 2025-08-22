@@ -14,12 +14,12 @@ import type { TextBlockTypes } from '../block-types';
 import ToolbarBlockType from './ToolbarBlockType';
 
 interface PrimaryToolbarComponentProps {
+	api: ExtractInjectionAPI<BlockTypePlugin> | undefined;
+	disabled: boolean;
 	isSmall: boolean;
 	isToolbarReducedSpacing: boolean;
-	disabled: boolean;
-	api: ExtractInjectionAPI<BlockTypePlugin> | undefined;
-	popupsMountPoint?: HTMLElement;
 	popupsBoundariesElement?: HTMLElement;
+	popupsMountPoint?: HTMLElement;
 	popupsScrollableElement?: HTMLElement;
 	shouldUseDefaultRole: boolean;
 }

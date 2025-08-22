@@ -9,8 +9,8 @@ import type { EditorAnalyticsContextProps } from './EditorAnalyticsContext';
 import { EditorAnalyticsContext } from './EditorAnalyticsContext';
 
 type ToolbarViewedEventProps = {
-	url?: string;
 	display: string | null;
+	url?: string;
 };
 
 /**

@@ -12,12 +12,12 @@ import { getSendableSelection } from '../actions';
 import { pluginKey } from '../main/plugin-key';
 
 type Props = {
+	hideTelecursorOnLoad: boolean;
+	newEditorState: EditorState;
+	oldEditorState: EditorState;
 	originalTransaction: Readonly<Transaction>;
 	transactions: readonly Transaction[];
-	oldEditorState: EditorState;
-	newEditorState: EditorState;
 	useNativePlugin: boolean;
-	hideTelecursorOnLoad: boolean;
 	viewMode?: ViewMode;
 };
 

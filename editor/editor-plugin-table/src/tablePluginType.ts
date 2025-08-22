@@ -23,18 +23,18 @@ import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 import type { PluginConfig, TableSharedState } from './types';
 
 export interface TablePluginOptions {
-	tableOptions: PluginConfig;
+	allowContextualMenu?: boolean;
 	// this option will eventually be removed, and enabled by default
 	dragAndDropEnabled?: boolean;
-	// this option will eventually be removed, and enabled by default
-	isTableScalingEnabled?: boolean;
-	allowContextualMenu?: boolean;
 	// TODO: ED-26961 - these two need to be rethought
 	fullWidthEnabled?: boolean;
-	wasFullWidthEnabled?: boolean;
 	getEditorFeatureFlags?: GetEditorFeatureFlags;
-	isCommentEditor?: boolean;
 	isChromelessEditor?: boolean;
+	isCommentEditor?: boolean;
+	// this option will eventually be removed, and enabled by default
+	isTableScalingEnabled?: boolean;
+	tableOptions: PluginConfig;
+	wasFullWidthEnabled?: boolean;
 }
 
 type InsertTableAction = (analyticsPayload: AnalyticsEventPayload) => Command;
@@ -45,19 +45,19 @@ type MediaPlugin = NextEditorPlugin<
 	{
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		pluginConfiguration: any;
+		actions: any;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		commands: any;
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		dependencies: any;
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		pluginConfiguration: any;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		sharedState: any;
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		actions: any;
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		commands: any;
 	}
 >;
 
@@ -93,10 +93,10 @@ export type TablePluginDependencies = [
 export type TablePlugin = NextEditorPlugin<
 	'table',
 	{
-		pluginConfiguration: TablePluginOptions | undefined;
 		actions: TablePluginActions;
-		sharedState?: TableSharedState;
 		commands: TablePluginCommands;
 		dependencies: TablePluginDependencies;
+		pluginConfiguration: TablePluginOptions | undefined;
+		sharedState?: TableSharedState;
 	}
 >;

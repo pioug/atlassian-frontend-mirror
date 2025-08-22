@@ -3,8 +3,8 @@ import { type ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 
 export interface DetailedReplaceStep extends ReplaceStep {
 	from: number;
-	to: number;
 	slice: Slice;
+	to: number;
 }
 
 export enum ActionType {
@@ -25,8 +25,8 @@ export enum ActionType {
 }
 
 export type AttrChangeAction = {
-	type: ActionType.CHANGING_ATTRS;
 	extraData: { attr: string; from: number; to: number };
+	type: ActionType.CHANGING_ATTRS;
 };
 
 export type MarkChangeAction = {
@@ -34,8 +34,8 @@ export type MarkChangeAction = {
 };
 
 export type StatusChangeAction = {
-	type: ActionType.UPDATING_STATUS;
 	extraData: { statusId: string };
+	type: ActionType.UPDATING_STATUS;
 };
 
 export type TrAction<

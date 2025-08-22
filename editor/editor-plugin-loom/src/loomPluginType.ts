@@ -18,34 +18,7 @@ import type { LoomPluginOptions, LoomProviderOptions, PositionType, VideoMeta } 
 export type LoomPlugin = NextEditorPlugin<
 	'loom',
 	{
-		pluginConfiguration: LoomPluginOptions;
-		dependencies: [
-			// Optional, because works fine without analytics
-			OptionalPlugin<AnalyticsPlugin>,
-			WidthPlugin,
-			HyperlinkPlugin,
-			OptionalPlugin<PrimaryToolbarPlugin>,
-			OptionalPlugin<QuickInsertPlugin>,
-			OptionalPlugin<ConnectivityPlugin>,
-		];
-		sharedState: LoomPluginState | undefined;
 		actions: {
-			recordVideo: ({
-				inputMethod,
-				editorAnalyticsAPI,
-			}: {
-				inputMethod: INPUT_METHOD;
-				editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
-			}) => EditorCommand;
-			/**
-			 * Insert loom into the document.
-			 *
-			 * @param video Video metadata (`sharedUrl` and `title`)
-			 * @param positionType {'start' | 'end' | 'current'} Where you want to insert the loom
-			 * @returns {boolean} If the loom was successfully inserted
-			 */
-			insertLoom: (video: VideoMeta, positionType: PositionType) => boolean;
-
 			/**
 			 * Given loom provider, initialise loom SDK
 			 * @returns error message if initialisation failed
@@ -55,6 +28,33 @@ export type LoomPlugin = NextEditorPlugin<
 			}: {
 				loomProvider: LoomProviderOptions;
 			}) => Promise<{ error?: string }>;
+			/**
+			 * Insert loom into the document.
+			 *
+			 * @param video Video metadata (`sharedUrl` and `title`)
+			 * @param positionType {'start' | 'end' | 'current'} Where you want to insert the loom
+			 * @returns {boolean} If the loom was successfully inserted
+			 */
+			insertLoom: (video: VideoMeta, positionType: PositionType) => boolean;
+
+			recordVideo: ({
+				inputMethod,
+				editorAnalyticsAPI,
+			}: {
+				editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
+				inputMethod: INPUT_METHOD;
+			}) => EditorCommand;
 		};
+		dependencies: [
+			// Optional, because works fine without analytics
+			OptionalPlugin<AnalyticsPlugin>,
+			WidthPlugin,
+			HyperlinkPlugin,
+			OptionalPlugin<PrimaryToolbarPlugin>,
+			OptionalPlugin<QuickInsertPlugin>,
+			OptionalPlugin<ConnectivityPlugin>,
+		];
+		pluginConfiguration: LoomPluginOptions;
+		sharedState: LoomPluginState | undefined;
 	}
 >;

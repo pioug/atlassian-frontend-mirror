@@ -1,8 +1,8 @@
 export type RowStickyState = {
-	pos: number;
-	top: number;
 	padding: number;
+	pos: number;
 	sticky: boolean;
+	top: number;
 };
 
 export type StickyPluginState = RowStickyState[];

@@ -32,8 +32,8 @@ export type EngagementPlatformPlugin = NextEditorPlugin<
 			 */
 			stopMessage: (messageId: string) => Promise<boolean>;
 		};
-		pluginConfiguration: EngagementPlatformPluginOptions;
 		dependencies: [OptionalPlugin<AnalyticsPlugin>];
+		pluginConfiguration: EngagementPlatformPluginOptions;
 		sharedState: EngagementPlatformPluginState;
 	}
 >;
@@ -52,8 +52,6 @@ export interface CoordinationClient {
 }
 
 export type EngagementPlatformPluginOptions = {
-	epComponents: EpComponents;
-	epHooks: EpHooks;
 	/**
 	 * Engagement Platform API client.
 	 *
@@ -69,6 +67,8 @@ export type EngagementPlatformPluginOptions = {
 	 * The client lives in the `@atlassiansox/engagekit-ts` package.
 	 */
 	coordinationClient: CoordinationClient;
+	epComponents: EpComponents;
+	epHooks: EpHooks;
 };
 
 /**
@@ -79,14 +79,14 @@ export type EngagementPlatformPluginOptions = {
 export type EngagementPlatformPluginConfig = EngagementPlatformPluginOptions;
 
 export type EpComponents = {
-	EngagementSpotlight: ComponentType<{ engagementId: string }>;
-	EngagementInlineDialog: ComponentType<PropsWithChildren<{ engagementId: string }>>;
 	Coordination: ComponentType<{
-		client: CoordinationClient;
-		messageId: string;
-		fallback: ReactNode;
 		children: JSX.Element;
+		client: CoordinationClient;
+		fallback: ReactNode;
+		messageId: string;
 	}>;
+	EngagementInlineDialog: ComponentType<PropsWithChildren<{ engagementId: string }>>;
+	EngagementSpotlight: ComponentType<{ engagementId: string }>;
 };
 
 export type EpHooks = {

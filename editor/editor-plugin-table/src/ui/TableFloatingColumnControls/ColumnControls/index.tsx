@@ -34,21 +34,21 @@ import type { DragHandleAppearance } from '../../DragHandle';
 import { DragHandle, DragHandleWithSharedState } from '../../DragHandle';
 
 interface ColumnControlsProps {
+	colWidths?: (number | undefined)[];
 	editorView: EditorView;
-	tableActive?: boolean;
-	isInDanger?: boolean;
-	tableRef: HTMLTableElement;
+	getScrollOffset?: () => number;
+	hasHeaderColumn?: boolean;
 	hoveredCell?: CellHoverMeta;
-	stickyTop?: number;
+	isDragging?: boolean;
+	isInDanger?: boolean;
+	isNumberColumnEnabled?: boolean;
+	isTableHovered?: boolean;
 	localId?: string;
 	rowHeights?: number[];
-	colWidths?: (number | undefined)[];
-	hasHeaderColumn?: boolean;
-	isTableHovered?: boolean;
+	stickyTop?: number;
+	tableActive?: boolean;
 	tableContainerWidth?: number;
-	isNumberColumnEnabled?: boolean;
-	isDragging?: boolean;
-	getScrollOffset?: () => number;
+	tableRef: HTMLTableElement;
 }
 
 const getSelectedColumns = (selection: Selection) => {

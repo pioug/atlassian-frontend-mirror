@@ -1,5 +1,12 @@
 # @atlaskit/profilecard
 
+## 24.6.0
+
+### Minor Changes
+
+- [`1e2d911a9c67a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1e2d911a9c67a) -
+  fix conflict between hide delay and isVisible
+
 ## 24.5.6
 
 ### Patch Changes

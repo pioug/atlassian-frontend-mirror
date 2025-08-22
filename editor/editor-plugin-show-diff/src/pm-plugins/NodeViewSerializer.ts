@@ -48,10 +48,10 @@ export class NodeViewSerializer {
 	private nodeViewBlocklist: Set<string>;
 
 	constructor(params: {
-		schema: Schema;
+		blocklist?: string[];
 		editorView?: EditorView;
 		nodeViews?: Record<string, NodeViewConstructor>;
-		blocklist?: string[];
+		schema: Schema;
 	}) {
 		this.serializer = DOMSerializer.fromSchema(params.schema);
 		if (params.editorView && isEditorViewWithNodeViews(params.editorView)) {

@@ -1,5 +1,12 @@
 # @atlaskit/media-avatar-picker
 
+## 26.2.4
+
+### Patch Changes
+
+- [`68012a7424ed5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/68012a7424ed5) -
+  Bring the focus to the Go Back icon when coming to Predefined Avatars List view
+
 ## 26.2.3
 
 ### Patch Changes

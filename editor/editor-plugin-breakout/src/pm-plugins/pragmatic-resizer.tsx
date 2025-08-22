@@ -31,9 +31,9 @@ export const resizeHandleMessage: Record<string, MessageDescriptor> = {
 };
 
 type Props = {
+	intl: IntlShape;
 	rail: HTMLElement;
 	target: HTMLElement;
-	intl: IntlShape;
 };
 const RailWithTooltip = ({ rail, target, intl }: Props) => {
 	const [nodeName, setNodeName] = useState('node');
@@ -67,12 +67,12 @@ export const createPragmaticResizer = ({
 	intl,
 	nodeViewPortalProviderAPI,
 }: {
-	target: HTMLElement;
-	onDragStart: (args: BaseEventPayload<ElementDragType>) => void;
-	onDrag: (args: BaseEventPayload<ElementDragType>) => void;
-	onDrop: (args: BaseEventPayload<ElementDragType>) => void;
 	intl: IntlShape;
 	nodeViewPortalProviderAPI: PortalProviderAPI;
+	onDrag: (args: BaseEventPayload<ElementDragType>) => void;
+	onDragStart: (args: BaseEventPayload<ElementDragType>) => void;
+	onDrop: (args: BaseEventPayload<ElementDragType>) => void;
+	target: HTMLElement;
 }) => {
 	let state: 'default' | 'resizing' = 'default';
 

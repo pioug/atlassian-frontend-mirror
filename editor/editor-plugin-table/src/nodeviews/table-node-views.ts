@@ -13,14 +13,14 @@ import TableCell from './TableCell';
 import TableRow from './TableRow';
 
 type TableViewOptions = {
-	portalProviderAPI: PortalProviderAPI;
+	dispatchAnalyticsEvent: DispatchAnalyticsEvent;
 	eventDispatcher: EventDispatcher;
 	getEditorContainerWidth: GetEditorContainerWidth;
 	getEditorFeatureFlags: GetEditorFeatureFlags;
-	dispatchAnalyticsEvent: DispatchAnalyticsEvent;
-	pluginInjectionApi?: PluginInjectionAPI;
-	isCommentEditor?: boolean;
 	isChromelessEditor?: boolean;
+	isCommentEditor?: boolean;
+	pluginInjectionApi?: PluginInjectionAPI;
+	portalProviderAPI: PortalProviderAPI;
 };
 
 export const tableView = (options: TableViewOptions) => {

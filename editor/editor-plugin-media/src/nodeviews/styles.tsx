@@ -28,11 +28,11 @@ const pointerCursorStyle = css({
 });
 
 type MediaCardWrapperProps = {
-	dimensions: NumericalCardDimensions;
-	children: React.ReactNode;
-	selected?: boolean;
 	borderWidth?: number;
+	children: React.ReactNode;
+	dimensions: NumericalCardDimensions;
 	onContextMenu?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+	selected?: boolean;
 };
 
 export const MediaCardWrapper = ({

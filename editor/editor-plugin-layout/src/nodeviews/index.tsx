@@ -28,13 +28,13 @@ import { selectIntoLayout } from '../pm-plugins/utils';
 import { type LayoutPluginOptions } from '../types';
 
 type LayoutSectionViewProps = {
-	node: PMNode;
-	view: EditorView;
-	getPos: getPosHandlerNode;
-	portalProviderAPI: PortalProviderAPI;
 	eventDispatcher: EventDispatcher;
-	pluginInjectionApi?: ExtractInjectionAPI<LayoutPlugin>;
+	getPos: getPosHandlerNode;
+	node: PMNode;
 	options: LayoutPluginOptions;
+	pluginInjectionApi?: ExtractInjectionAPI<LayoutPlugin>;
+	portalProviderAPI: PortalProviderAPI;
+	view: EditorView;
 };
 
 const layoutDynamicFullWidthGuidelineOffset = 16;
@@ -98,11 +98,11 @@ const LayoutBreakoutResizer = ({
 	view,
 	parentRef,
 }: {
-	view: EditorView;
-	getPos: getPosHandlerNode;
-	pluginInjectionApi?: ExtractInjectionAPI<LayoutPlugin>;
 	forwardRef: ForwardRef;
+	getPos: getPosHandlerNode;
 	parentRef?: HTMLElement;
+	pluginInjectionApi?: ExtractInjectionAPI<LayoutPlugin>;
+	view: EditorView;
 }) => {
 	const { editorDisabled } = useSharedState(pluginInjectionApi);
 	const interactionState = useSharedPluginStateSelector(
@@ -212,13 +212,13 @@ export class LayoutSectionView extends ReactNodeView<LayoutSectionViewProps> {
 	 * @example
 	 */
 	constructor(props: {
-		node: PMNode;
-		view: EditorView;
-		getPos: getPosHandlerNode;
-		portalProviderAPI: PortalProviderAPI;
 		eventDispatcher: EventDispatcher;
-		pluginInjectionApi: ExtractInjectionAPI<LayoutPlugin>;
+		getPos: getPosHandlerNode;
+		node: PMNode;
 		options: LayoutPluginOptions;
+		pluginInjectionApi: ExtractInjectionAPI<LayoutPlugin>;
+		portalProviderAPI: PortalProviderAPI;
+		view: EditorView;
 	}) {
 		super(
 			props.node,
@@ -241,8 +241,8 @@ export class LayoutSectionView extends ReactNodeView<LayoutSectionViewProps> {
 	 */
 	getContentDOM() {
 		const { dom: container, contentDOM } = DOMSerializer.renderSpec(document, toDOM()) as {
-			dom: HTMLElement;
 			contentDOM?: HTMLElement;
+			dom: HTMLElement;
 		};
 
 		// Ignored via go/ees005
@@ -296,7 +296,7 @@ export class LayoutSectionView extends ReactNodeView<LayoutSectionViewProps> {
 	 * @example
 	 * @returns
 	 */
-	ignoreMutation(mutation: MutationRecord | { type: 'selection'; target: Node }) {
+	ignoreMutation(mutation: MutationRecord | { target: Node; type: 'selection'; }) {
 		return ignoreResizerMutations(mutation);
 	}
 }

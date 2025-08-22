@@ -4,7 +4,7 @@ export type MaxContentSizePluginState = { maxContentSizeReached: boolean };
 export type MaxContentSizePlugin = NextEditorPlugin<
 	'maxContentSize',
 	{
-		sharedState: MaxContentSizePluginState | undefined;
 		pluginConfiguration: number | undefined;
+		sharedState: MaxContentSizePluginState | undefined;
 	}
 >;

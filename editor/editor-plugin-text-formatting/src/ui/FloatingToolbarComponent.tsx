@@ -31,9 +31,9 @@ import type { MenuIconItem } from './Toolbar/types';
 import { ToolbarType } from './Toolbar/types';
 
 type FloatingToolbarComponentProps = {
-	editorView: EditorView;
 	api: ExtractInjectionAPI<TextFormattingPlugin> | undefined;
 	editorAnalyticsAPI?: EditorAnalyticsAPI;
+	editorView: EditorView;
 } & WrappedComponentProps;
 
 const FloatingToolbarSettings = {

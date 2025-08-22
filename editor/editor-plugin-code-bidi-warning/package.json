@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-code-bidi-warning",
-	"version": "3.0.3",
+	"version": "3.0.4",
 	"description": "Code bidi warning plugin for @atlaskit/editor-core.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -49,7 +49,6 @@
 		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
-		"@atlaskit/visual-regression": "workspace:^",
 		"@testing-library/react": "root:*",
 		"wait-for-expect": "root:*"
 	},

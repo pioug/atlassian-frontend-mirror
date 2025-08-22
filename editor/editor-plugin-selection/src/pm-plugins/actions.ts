@@ -8,14 +8,14 @@ export enum SelectionActionTypes {
 }
 
 export interface SetDecorations {
-	type: SelectionActionTypes.SET_DECORATIONS;
 	decorationSet: DecorationSet;
 	selection: Selection;
+	type: SelectionActionTypes.SET_DECORATIONS;
 }
 
 export interface SetRelativeSelection {
-	type: SelectionActionTypes.SET_RELATIVE_SELECTION;
 	selectionRelativeToNode?: RelativeSelectionPos;
+	type: SelectionActionTypes.SET_RELATIVE_SELECTION;
 }
 
 export type SelectionAction = SetDecorations | SetRelativeSelection;

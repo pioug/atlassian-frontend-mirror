@@ -10,13 +10,13 @@ import type { DatasourceProps } from '../nodeviews/datasource';
 import { setSelectedCardAppearance } from '../pm-plugins/doc';
 
 export type DatasourceErrorBoundaryProps = React.PropsWithChildren<{
-	url?: string;
-	unsupportedComponent?: React.ComponentType<React.PropsWithChildren<unknown>>;
-	handleError?: () => void;
-	view: DatasourceProps['view'];
+	datasourceId?: string;
 	// Only used in Sentry tagging
 	datasourceModalType?: DatasourceModalType;
-	datasourceId?: string;
+	handleError?: () => void;
+	unsupportedComponent?: React.ComponentType<React.PropsWithChildren<unknown>>;
+	url?: string;
+	view: DatasourceProps['view'];
 }>;
 
 export class DatasourceErrorBoundary extends React.Component<DatasourceErrorBoundaryProps> {

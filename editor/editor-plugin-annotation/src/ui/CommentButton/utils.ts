@@ -20,8 +20,8 @@ export const isButtonDisabled = ({
 	state,
 	api,
 }: {
-	state: EditorState | null;
 	api?: ExtractInjectionAPI<AnnotationPlugin>;
+	state: EditorState | null;
 }) => {
 	const annotationSelectionType = state ? isSelectionValid(state) : AnnotationSelectionType.INVALID;
 	return (
@@ -35,9 +35,9 @@ export const shouldShowCommentButton = ({
 	isVisible,
 	annotationSelectionType,
 }: {
-	state: EditorState | null;
-	isVisible?: boolean;
 	annotationSelectionType: AnnotationSelectionType;
+	isVisible?: boolean;
+	state: EditorState | null;
 }) => {
 	const isMediaSelected = state ? currentMediaNodeWithPos(state) : false;
 
@@ -70,7 +70,7 @@ export const fireOnClickAnalyticsEvent = ({
 	});
 };
 
-export const fireAnnotationErrorAnalyticsEvent = ({
+const fireAnnotationErrorAnalyticsEvent = ({
 	api,
 	errorReason,
 }: {
@@ -91,9 +91,9 @@ export const fireCommentButtonViewedAnalyticsEvent = ({
 	isNonTextInlineNodeInludedInComment,
 	annotationSelectionType,
 }: {
+	annotationSelectionType: AnnotationSelectionType;
 	api?: ExtractInjectionAPI<AnnotationPlugin>;
 	isNonTextInlineNodeInludedInComment: boolean;
-	annotationSelectionType: AnnotationSelectionType;
 }) => {
 	api?.analytics?.actions.fireAnalyticsEvent({
 		action: ACTION.VIEWED,
@@ -117,8 +117,8 @@ export const startCommentExperience = ({
 }: {
 	annotationProviders: AnnotationProviders;
 	api: ExtractInjectionAPI<AnnotationPlugin>;
-	state: EditorState;
 	dispatch: EditorView['dispatch'];
+	state: EditorState;
 }) => {
 	const annotationManager = annotationProviders?.annotationManager;
 	if (annotationManager) {

@@ -19,9 +19,9 @@ type BlockMenuProps = {
 	 * Fallback components used in rendering
 	 */
 	fallbacks: {
+		item: BlockMenuItemComponent;
 		nestedMenu: BlockMenuNestedComponent;
 		section: BlockMenuSectionComponent;
-		item: BlockMenuItemComponent;
 	};
 };
 

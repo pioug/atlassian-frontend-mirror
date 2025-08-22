@@ -20,8 +20,8 @@ import type { SelectionExtensionComponentProps } from '../../types';
 
 type SelectionExtensionComponentWrapperProps = {
 	api: ExtractInjectionAPI<SelectionExtensionPlugin> | undefined | null;
-	editorView: EditorView;
 	editorAnalyticsAPI?: EditorAnalyticsAPI;
+	editorView: EditorView;
 };
 
 const useSharedState = sharedPluginStateHookMigratorFactory(

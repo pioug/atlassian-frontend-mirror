@@ -41,13 +41,13 @@ export const createPlugin = ({
 	allowCompositionInputOverride = false,
 	api,
 }: {
-	useLongPressSelection?: boolean;
-	getIntl: () => IntlShape;
 	// We only want this DOM event on mobile as composition only happens on mobile
 	// Don't want to add an uneccessary listener to web
 	allowCompositionInputOverride?: boolean;
 	api?: ExtractInjectionAPI<CodeBlockPlugin>;
 	decorations?: DecorationSet;
+	getIntl: () => IntlShape;
+	useLongPressSelection?: boolean;
 }) => {
 	const handleDOMEvents: PMEditorProps['handleDOMEvents'] = {
 		click: () => {

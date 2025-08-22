@@ -1,8 +1,8 @@
 import type { EditorCommand, NextEditorPlugin } from '@atlaskit/editor-common/types';
 
 export interface HistoryPluginState {
-	canUndo: boolean;
 	canRedo: boolean;
+	canUndo: boolean;
 }
 
 export interface HistoryPluginSharedState extends HistoryPluginState {
@@ -17,7 +17,6 @@ export interface HistoryPluginSharedState extends HistoryPluginState {
 export type HistoryPlugin = NextEditorPlugin<
 	'history',
 	{
-		sharedState: HistoryPluginSharedState | undefined;
 		commands: {
 			/**
 			 * Force the history plugin to recompute its state based on the prosemirror-history plugin state.
@@ -26,5 +25,6 @@ export type HistoryPlugin = NextEditorPlugin<
 			 */
 			updatePluginState: EditorCommand;
 		};
+		sharedState: HistoryPluginSharedState | undefined;
 	}
 >;

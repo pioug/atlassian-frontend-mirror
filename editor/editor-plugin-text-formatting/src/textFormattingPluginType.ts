@@ -18,7 +18,15 @@ export type TextFormattingPluginOptions = CommonTextFormattingOptions;
 export type TextFormattingPlugin = NextEditorPlugin<
 	'textFormatting',
 	{
-		pluginConfiguration: TextFormattingPluginOptions | undefined;
+		commands: {
+			toggleCode: ToggleMarkEditorCommand;
+			toggleEm: ToggleMarkEditorCommand;
+			toggleStrike: ToggleMarkEditorCommand;
+			toggleStrong: ToggleMarkEditorCommand;
+			toggleSubscript: ToggleMarkEditorCommand;
+			toggleSuperscript: ToggleMarkEditorCommand;
+			toggleUnderline: ToggleMarkEditorCommand;
+		};
 		dependencies: [
 			OptionalPlugin<AnalyticsPlugin>,
 			OptionalPlugin<PrimaryToolbarPlugin>,
@@ -27,15 +35,7 @@ export type TextFormattingPlugin = NextEditorPlugin<
 			OptionalPlugin<UserPreferencesPlugin>,
 			OptionalPlugin<ToolbarPlugin>,
 		];
-		commands: {
-			toggleSuperscript: ToggleMarkEditorCommand;
-			toggleSubscript: ToggleMarkEditorCommand;
-			toggleStrike: ToggleMarkEditorCommand;
-			toggleCode: ToggleMarkEditorCommand;
-			toggleUnderline: ToggleMarkEditorCommand;
-			toggleEm: ToggleMarkEditorCommand;
-			toggleStrong: ToggleMarkEditorCommand;
-		};
+		pluginConfiguration: TextFormattingPluginOptions | undefined;
 		sharedState: TextFormattingState | undefined;
 	}
 >;

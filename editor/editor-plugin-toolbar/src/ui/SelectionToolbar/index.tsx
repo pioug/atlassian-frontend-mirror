@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import { isSSR } from '@atlaskit/editor-common/core-utils';
+import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/hooks';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { EditorToolbarProvider, EditorToolbarUIProvider } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
-import { calculateToolbarPositionTrackHead } from '@atlaskit/editor-common/utils';
+import {
+	calculateToolbarPositionTrackHead,
+	calculateToolbarPositionOnCellSelection,
+} from '@atlaskit/editor-common/utils';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -16,6 +21,7 @@ import {
 } from '@atlaskit/editor-toolbar';
 import { ToolbarModelRenderer } from '@atlaskit/editor-toolbar-model';
 import type { RegisterToolbar, RegisterComponent } from '@atlaskit/editor-toolbar-model';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { ToolbarPlugin } from '../../toolbarPluginType';
@@ -26,13 +32,23 @@ const isToolbarComponent = (component: RegisterComponent): component is Register
 };
 
 type SelectionToolbarProps = {
-	editorView: EditorView;
 	api?: ExtractInjectionAPI<ToolbarPlugin>;
+	editorView: EditorView;
 	mountPoint: HTMLElement | undefined;
 };
 
 export const SelectionToolbar = ({ api, editorView, mountPoint }: SelectionToolbarProps) => {
-	const components = api?.toolbar.actions.getComponents();
+	const { shouldShowToolbar } = useSharedPluginStateWithSelector(
+		api,
+		['toolbar'],
+		(state: NamedPluginStatesFromInjectionAPI<ExtractInjectionAPI<ToolbarPlugin>, 'toolbar'>) => {
+			return {
+				shouldShowToolbar: state.toolbarState?.shouldShowToolbar,
+			};
+		},
+	);
+
+	const components = api?.toolbar?.actions?.getComponents?.();
 	const toolbar = components?.find((component) => isToolbarComponent(component));
 
 	const currentUserIntent = useSharedPluginStateSelector(api, 'userIntent.currentUserIntent');
@@ -46,6 +62,27 @@ export const SelectionToolbar = ({ api, editorView, mountPoint }: SelectionToolb
 	const isCellSelection =
 		!editorView.state.selection.empty && '$anchorCell' in editorView.state.selection;
 
+	const onPositionCalculated = useCallback(
+		(position: { left?: number; top?: number }) => {
+			const toolbarTitle = SELECTION_TOOLBAR_LABEL;
+
+			// Show special position on cell selection only when editor controls experiment is enabled
+			const isEditorControlsEnabled = expValEquals(
+				'platform_editor_controls',
+				'cohort',
+				'variant1',
+			);
+			const isCellSelection = '$anchorCell' in editorView.state.selection;
+			if (isCellSelection && isEditorControlsEnabled) {
+				return calculateToolbarPositionOnCellSelection(toolbarTitle)(editorView, position);
+			}
+
+			const calc = calculateToolbarPositionTrackHead;
+			return calc(toolbarTitle)(editorView, position);
+		},
+		[editorView],
+	);
+
 	if (!components || !toolbar) {
 		return null;
 	}
@@ -53,6 +90,7 @@ export const SelectionToolbar = ({ api, editorView, mountPoint }: SelectionToolb
 	if (
 		!(isTextSelection || isCellSelection) ||
 		currentUserIntent === 'dragging' ||
+		!shouldShowToolbar ||
 		(currentUserIntent === 'blockMenuOpen' &&
 			expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) ||
 		isSSR()
@@ -64,9 +102,7 @@ export const SelectionToolbar = ({ api, editorView, mountPoint }: SelectionToolb
 		<Popup
 			offset={[0, 10]}
 			target={getDomRefFromSelection(editorView)}
-			onPositionCalculated={(position) =>
-				calculateToolbarPositionTrackHead(SELECTION_TOOLBAR_LABEL)(editorView, position)
-			}
+			onPositionCalculated={onPositionCalculated}
 			mountTo={mountPoint}
 		>
 			<EditorToolbarProvider editorView={editorView}>

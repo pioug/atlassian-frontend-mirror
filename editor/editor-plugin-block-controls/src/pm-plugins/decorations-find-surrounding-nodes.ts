@@ -2,13 +2,13 @@ import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/m
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 type SurroundingNodes = {
-	pos: number; // position of the node
-	node: PMNode; // to be dislayed with before/after drop target
+	after: PMNode | null; // node after the current node
+	before: PMNode | null; // node before the current node
 	depth: number; // depth of the node in the document
 	index: number; // index of the node in its parent
+	node: PMNode; // to be dislayed with before/after drop target
 	parent: PMNode; // parent node of the current node
-	before: PMNode | null; // node before the current node
-	after: PMNode | null; // node after the current node
+	pos: number; // position of the node
 };
 
 const IGNORE_NODES = ['tableRow', 'listItem', 'caption', 'media'];

@@ -6,17 +6,31 @@ import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 export type BlockMenuPlugin = NextEditorPlugin<
 	'blockMenu',
 	{
+		actions: {
+			getBlockMenuComponents: () => Array<RegisterBlockMenuComponent>;
+			registerBlockMenuComponents: (blockMenuComponents: Array<RegisterBlockMenuComponent>) => void;
+		};
 		dependencies: [
 			OptionalPlugin<BlockControlsPlugin>,
 			OptionalPlugin<UserIntentPlugin>,
 			OptionalPlugin<SelectionPlugin>,
 		];
-		actions: {
-			registerBlockMenuComponents: (blockMenuComponents: Array<RegisterBlockMenuComponent>) => void;
-			getBlockMenuComponents: () => Array<RegisterBlockMenuComponent>;
-		};
+		pluginConfiguration?: BlockMenuPluginOptions;
 	}
 >;
+
+export type BlockMenuPluginOptions = {
+	/**
+	 * Optional query parameter name used for block-specific URL to create a deep link to specific block
+	 */
+	blockQueryParam?: string;
+
+	/**
+	 * Optional function to retrieve the current link path for the editor context.
+	 * @returns The current link path as a string, or null if no path is available
+	 */
+	getLinkPath?: () => string | null;
+};
 
 type WithRank<T> = T & { rank: number };
 
@@ -48,18 +62,18 @@ export type BlockMenuSectionComponent = (props: { children: React.ReactNode }) =
 export type BlockMenuItemComponent = () => React.ReactNode;
 
 export type RegisterBlockMenuNested = BlockMenuNested & {
-	parent: Parent<BlockMenuSection>;
 	component?: BlockMenuNestedComponent;
+	parent: Parent<BlockMenuSection>;
 };
 
 export type RegisterBlockMenuSection = BlockMenuSection & {
-	rank: number; // Only sections have a rank in itself as a section does not have a parent, the parent is the <BlockMenuContent/>
 	component?: BlockMenuSectionComponent;
+	rank: number; // Only sections have a rank in itself as a section does not have a parent, the parent is the <BlockMenuContent/>
 };
 
 export type RegisterBlockMenuItem = BlockMenuItem & {
-	parent: Parent<BlockMenuSection>;
 	component?: BlockMenuItemComponent;
+	parent: Parent<BlockMenuSection>;
 };
 
 export type RegisterBlockMenuComponent =

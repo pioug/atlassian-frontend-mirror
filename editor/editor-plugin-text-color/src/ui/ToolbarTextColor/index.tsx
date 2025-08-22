@@ -69,15 +69,15 @@ export interface State {
 }
 
 export interface Props {
-	pluginState: TextColorPluginState;
-	editorView: EditorView;
-	popupsMountPoint?: HTMLElement;
-	popupsBoundariesElement?: HTMLElement;
-	popupsScrollableElement?: HTMLElement;
-	isReducedSpacing?: boolean;
-	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 	disabled?: boolean;
+	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
+	editorView: EditorView;
+	isReducedSpacing?: boolean;
 	pluginInjectionApi: ExtractInjectionAPI<TextColorPlugin> | undefined;
+	pluginState: TextColorPluginState;
+	popupsBoundariesElement?: HTMLElement;
+	popupsMountPoint?: HTMLElement;
+	popupsScrollableElement?: HTMLElement;
 	toolbarType: ToolbarType;
 }
 

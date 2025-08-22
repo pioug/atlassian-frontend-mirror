@@ -13,31 +13,31 @@ export type SelectionExtensionComponentProps = {
 };
 
 export type SelectionExtensionCallbackOptions = {
-	selection?: SelectionExtensionSelectionInfo;
 	selectedNodeAdf?: ADFEntity;
+	selection?: SelectionExtensionSelectionInfo;
 	selectionRanges?: SelectionRange[];
 };
 
 export type SelectionExtensionSelectionInfo = {
-	text: string;
-	from: number;
-	to: number;
 	coords: SelectionExtensionCoords;
+	from: number;
+	text: string;
+	to: number;
 };
 
 export type SelectionCoords = {
+	bottom: number;
 	left: number;
 	right: number;
 	top: number;
-	bottom: number;
 };
 
 export type SelectionExtension = {
-	name: string;
+	component?: React.ComponentType<SelectionExtensionComponentProps>;
 	icon?: React.ComponentType<React.PropsWithChildren<{ label: string }>>;
 	isDisabled?: (params: SelectionExtensionCallbackOptions) => boolean;
+	name: string;
 	onClick?: (params: SelectionExtensionCallbackOptions) => void;
-	component?: React.ComponentType<SelectionExtensionComponentProps>;
 };
 
 export type DynamicSelectionExtension = Omit<SelectionExtension, 'isDisabled'> & {
@@ -52,8 +52,8 @@ export type SelectionPointer = {
 };
 
 export type SelectionRange = {
-	start: SelectionPointer;
 	end: SelectionPointer;
+	start: SelectionPointer;
 };
 
 export type SelectionExtensionFnOptions = {
@@ -69,16 +69,16 @@ export type SelectionExtensionFn = ({
 export type SelectionExtensionConfig = SelectionExtension | SelectionExtensionFn;
 
 export type SelectionExtensions = {
-	firstParty?: SelectionExtensionConfig[];
 	external?: SelectionExtensionConfig[];
+	firstParty?: SelectionExtensionConfig[];
 };
 
 type SelectionExtensionModes = ViewMode;
 
 export type SelectionExtensionPluginOptions = {
-	pageModes?: SelectionExtensionModes | SelectionExtensionModes[];
-	extensions?: SelectionExtensions;
 	extensionList?: ExtensionConfiguration[];
+	extensions?: SelectionExtensions;
+	pageModes?: SelectionExtensionModes | SelectionExtensionModes[];
 };
 
 /**
@@ -88,22 +88,22 @@ export type SelectionExtensionPluginOptions = {
  */
 export type SelectionExtensionPluginConfiguration = SelectionExtensionPluginOptions;
 
-export type SelectionExtensionCoords = { left: number; right: number; top: number; bottom: number };
+export type SelectionExtensionCoords = { bottom: number; left: number; right: number; top: number; };
 
 export type BoundingBoxOffset = {
-	top: number;
 	bottom: number;
+	top: number;
 };
 
 export type InsertPosition = {
-	pointer: string;
 	// can set from/to if selection is a text node
 	from?: number;
+	pointer: string;
 	to?: number;
 };
 export type LinkInsertionOption = {
-	link: string;
 	insertPosition: InsertPosition;
+	link: string;
 };
 
 export enum SelectionExtensionActionTypes {
@@ -116,29 +116,29 @@ export enum SelectionExtensionActionTypes {
 
 export type UpdateActiveExtensionAction =
 	| {
-			type: SelectionExtensionActionTypes.SET_ACTIVE_EXTENSION;
 			extension: SelectionExtension;
+			type: SelectionExtensionActionTypes.SET_ACTIVE_EXTENSION;
 	  }
 	| {
-			type: SelectionExtensionActionTypes.UPDATE_ACTIVE_EXTENSION_COORDS;
 			coords: SelectionExtensionCoords;
+			type: SelectionExtensionActionTypes.UPDATE_ACTIVE_EXTENSION_COORDS;
 	  }
 	| { type: SelectionExtensionActionTypes.CLEAR_ACTIVE_EXTENSION };
 
 export type SelectionExtensionPluginState = {
 	activeExtension?: {
+		coords: SelectionExtensionCoords;
 		// NEXT PR: extension should become optional
 		// extension?: SelectionExtension;
 		extension: SelectionExtension;
 		// NEXT PR: content component will be needed to render the new selected extension
 		// contentComponent?: React.ComponentType<SelectionExtensionComponentProps>;
 		selection: SelectionExtensionSelectionInfo;
-		coords: SelectionExtensionCoords;
 	};
-	selectedNode?: PMNode;
-	nodePos?: number;
-	startTrackChanges?: boolean;
 	docChangedAfterClick?: boolean;
+	nodePos?: number;
+	selectedNode?: PMNode;
+	startTrackChanges?: boolean;
 };
 
 export type ReplaceWithAdfStatus = 'success' | 'document-changed' | 'failed-to-replace';
@@ -154,11 +154,11 @@ export type SelectionAdfResult = {
 export type ExtensionSource = 'first-party' | 'external';
 
 export type ExtensionConfiguration = {
-	key: string;
-	source: ExtensionSource;
-	inlineToolbar?: ToolbarExtensionConfiguration;
-	primaryToolbar?: ToolbarExtensionConfiguration;
 	blockMenu?: BlockMenuExtensionConfiguration;
+	inlineToolbar?: ToolbarExtensionConfiguration;
+	key: string;
+	primaryToolbar?: ToolbarExtensionConfiguration;
+	source: ExtensionSource;
 };
 
 export type GetToolbarItemFn = () => ExtensionToolbarItemConfiguration;
@@ -170,8 +170,8 @@ export type GetMenuItemsFn = () => Array<
 export type GetMenuItemFn = () => Omit<ExtensionMenuItemConfiguration, 'section'>;
 
 export type ToolbarExtensionConfiguration = {
-	getToolbarItem?: GetToolbarItemFn;
 	getMenuItems?: GetMenuItemsFn;
+	getToolbarItem?: GetToolbarItemFn;
 };
 
 export type BlockMenuExtensionConfiguration = {
@@ -181,18 +181,18 @@ export type BlockMenuExtensionConfiguration = {
 
 export type ExtensionToolbarItemConfiguration = {
 	icon: React.ComponentType<React.PropsWithChildren<{ label: string }>>;
-	tooltip: string;
 	isDisabled?: boolean;
-	onClick?: () => void;
 	label?: string;
+	onClick?: () => void;
+	tooltip: string;
 };
 
 export type ExtensionMenuItemConfiguration = {
-	label: string;
-	icon: React.ComponentType<React.PropsWithChildren<{ label: string }>>;
-	onClick?: () => void;
-	isDisabled?: boolean;
 	contentComponent?: React.ComponentType<SelectionExtensionComponentProps>;
+	icon: React.ComponentType<React.PropsWithChildren<{ label: string }>>;
+	isDisabled?: boolean;
+	label: string;
+	onClick?: () => void;
 	/**
 	 * Optional menu-section to declare grouping - only used for menu items
 	 */

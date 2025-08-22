@@ -19,9 +19,9 @@ function Date({
 	placeholder,
 	intl,
 }: {
-	name: string;
-	field: DateField;
 	autoFocus?: boolean;
+	field: DateField;
+	name: string;
 	onFieldChange: OnFieldChange;
 	placeholder?: string;
 } & WrappedComponentProps) {

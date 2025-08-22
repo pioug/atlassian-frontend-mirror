@@ -24,15 +24,15 @@ type CodeBlockDependencies = [
 export type CodeBlockPlugin = NextEditorPlugin<
 	'codeBlock',
 	{
-		pluginConfiguration: CodeBlockPluginOptions | undefined;
+		actions: {
+			insertCodeBlock: (inputMethod: INPUT_METHOD) => Command;
+		};
 		dependencies: CodeBlockDependencies;
+		pluginConfiguration: CodeBlockPluginOptions | undefined;
 		sharedState:
 			| {
 					copyButtonHoverNode: PMNode;
 			  }
 			| undefined;
-		actions: {
-			insertCodeBlock: (inputMethod: INPUT_METHOD) => Command;
-		};
 	}
 >;

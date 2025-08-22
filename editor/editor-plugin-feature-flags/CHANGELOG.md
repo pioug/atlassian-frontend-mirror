@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-feature-flags
 
+## 2.0.1
+
+### Patch Changes
+
+- [`098cfbb01dc36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/098cfbb01dc36) -
+  Add missing npmignore files to remove unnecessary files from published package
+- Updated dependencies
+
 ## 2.0.0
 
 ### Major Changes

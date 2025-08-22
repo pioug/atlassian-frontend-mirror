@@ -9,10 +9,10 @@ import type { EditorView, DecorationSource, Decoration } from '@atlaskit/editor-
 import type { CodeBlockAdvancedPlugin } from '../codeBlockAdvancedPluginType';
 
 interface Props {
+	allowCodeFolding: boolean;
 	api: ExtractInjectionAPI<CodeBlockAdvancedPlugin> | undefined;
 	extensions: Extension[];
 	getIntl: () => IntlShape;
-	allowCodeFolding: boolean;
 }
 
 export const lazyCodeBlockView = (props: Props) => {

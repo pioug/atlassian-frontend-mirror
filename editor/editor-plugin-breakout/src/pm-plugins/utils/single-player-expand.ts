@@ -6,10 +6,10 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 interface UpdateExpandedStateNew {
-	tr: Transaction;
+	isLivePage?: boolean;
 	node: PMNode;
 	pos: number;
-	isLivePage?: boolean;
+	tr: Transaction;
 }
 
 export const updateExpandedStateNew = ({ tr, node, pos, isLivePage }: UpdateExpandedStateNew) => {

@@ -10,10 +10,10 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { isExternalMedia } from '../../ui/toolbar/utils';
 
 interface RenderMediaViewerProps {
+	items?: Identifier[];
 	mediaClientConfig: MediaClientConfig;
 	onClose: () => void;
 	selectedNodeAttrs: MediaADFAttrs;
-	items?: Identifier[];
 }
 
 const getIdentifier = (attrs: MediaADFAttrs): Identifier => {

@@ -96,20 +96,20 @@ const clearTextStyles = css({
 });
 
 type Props = {
-	view: EditorView;
-	nodeType: 'mediaSingle' | 'mediaInline';
-	mediaType: 'file' | 'image' | 'external';
-	value?: string;
 	altTextValidator?: (value: string) => string[];
-	onEscape?: () => void;
+	mediaType: 'file' | 'image' | 'external';
+	nodeType: 'mediaSingle' | 'mediaInline';
 	onEnter?: () => void;
+	onEscape?: () => void;
+	value?: string;
+	view: EditorView;
 } & WrappedComponentProps &
 	WithAnalyticsEventsProps;
 
 export type AltTextEditComponentState = {
+	lastValue: string | undefined;
 	showClearTextButton: boolean;
 	validationErrors: string[] | undefined;
-	lastValue: string | undefined;
 };
 
 // eslint-disable-next-line @repo/internal/react/no-class-components

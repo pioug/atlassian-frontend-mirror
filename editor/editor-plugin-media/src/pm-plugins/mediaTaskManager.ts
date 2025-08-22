@@ -1,10 +1,10 @@
 import type { MediaState } from '../types';
 
 type MediaTask = {
+	cancelController: AbortController;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	task: Promise<any>;
-	cancelController: AbortController;
 };
 
 export class MediaTaskManager {

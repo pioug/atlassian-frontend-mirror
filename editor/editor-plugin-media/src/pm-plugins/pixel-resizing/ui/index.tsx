@@ -38,12 +38,12 @@ import type { PixelEntryValidation } from './types';
 
 export type Props = {
 	editorView: EditorView;
-	selectedMediaSingleNode: ContentNodeWithPos;
-	pluginInjectionApi?: ExtractInjectionAPI<MediaNextEditorPluginType>;
-	intl: IntlShape;
-	pluginState: MediaPluginState;
 	hoverDecoration: HoverDecorationHandler | undefined;
+	intl: IntlShape;
 	isEditorFullWidthEnabled?: boolean;
+	pluginInjectionApi?: ExtractInjectionAPI<MediaNextEditorPluginType>;
+	pluginState: MediaPluginState;
+	selectedMediaSingleNode: ContentNodeWithPos;
 	triggerButtonSelector?: string;
 };
 

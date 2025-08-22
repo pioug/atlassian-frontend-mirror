@@ -30,10 +30,10 @@ import { StatsModifier } from './stats-modifier';
 import { getTypeAheadQuery } from './utils';
 
 type FactoryProps = {
-	intl: IntlShape;
-	popupMountRef: PopupMountPointReference;
-	nodeViewPortalProviderAPI: PortalProviderAPI;
 	api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;
+	intl: IntlShape;
+	nodeViewPortalProviderAPI: PortalProviderAPI;
+	popupMountRef: PopupMountPointReference;
 };
 
 type FactoryReturn = {

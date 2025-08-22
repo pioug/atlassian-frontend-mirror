@@ -84,8 +84,8 @@ export const findNodePosWithLocalId = (
 };
 
 export interface Position {
-	top?: number;
-	right?: number;
 	bottom?: number;
 	left?: number;
+	right?: number;
+	top?: number;
 }

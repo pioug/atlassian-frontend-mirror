@@ -35,25 +35,25 @@ import getPopupOptions from './getPopUpOptions';
 import type { CellSelectionType } from './types';
 
 export interface Props {
-	editorView: EditorView;
-	selection: Selection;
 	api: PluginInjectionAPI | undefined | null;
-	tableRef?: HTMLTableElement;
-	mountPoint?: HTMLElement;
 	boundariesElement?: HTMLElement;
-	scrollableElement?: HTMLElement;
-	stickyHeaders?: RowStickyState;
-	isNumberColumnEnabled?: boolean;
 	editorAnalyticsAPI?: EditorAnalyticsAPI;
+	editorView: EditorView;
+	isNumberColumnEnabled?: boolean;
+	mountPoint?: HTMLElement;
+	scrollableElement?: HTMLElement;
+	selection: Selection;
+	stickyHeaders?: RowStickyState;
+	tableRef?: HTMLTableElement;
 }
 
 interface State {
-	selectionType?: CellSelectionType;
-	left: number;
-	top: number;
 	indexes: number[];
+	left: number;
 	position?: string;
 	scrollLeft: number;
+	selectionType?: CellSelectionType;
+	top: number;
 }
 
 function getSelectionType(selection: Selection): TableDirection | undefined {

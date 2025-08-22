@@ -12,9 +12,9 @@ import type { ActiveGuidelineKey } from '../pm-plugins/resizing-plugin';
 
 type GuidelineLabelProps = {
 	api: ExtractInjectionAPI<BreakoutPlugin> | undefined;
+	boundariesElement?: HTMLElement;
 	editorView: EditorView;
 	mountPoint?: HTMLElement;
-	boundariesElement?: HTMLElement;
 	scrollableElement?: HTMLElement;
 };
 

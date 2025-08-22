@@ -11,8 +11,8 @@ export default function ExtensionNodePicker({
 	onSelect,
 }: {
 	fields: FieldDefinition[];
-	selectedField?: string;
 	onSelect: (field: FieldDefinition) => void;
+	selectedField?: string;
 }) {
 	const [hasSelection, setHasSelection] = useState<boolean>(false);
 

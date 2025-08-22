@@ -21,13 +21,13 @@ const findReplaceWrapperStyles = xcss({
 const dropdownWidthNewDesign = 382;
 
 export interface FindReplaceDropdownProps extends Omit<FindReplaceProps, 'count'> {
+	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 	index: number;
-	numMatches: number;
 	isActive: boolean;
 	isReplaceable?: boolean;
+	numMatches: number;
 	numReplaceable?: number;
 	popupsMountPoint?: HTMLElement;
-	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 }
 
 const FindReplaceDropdown = (props: FindReplaceDropdownProps & WrappedComponentProps) => {

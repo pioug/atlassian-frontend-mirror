@@ -35,8 +35,8 @@ import {
 import TableNodeView from './TableNodeViewBase';
 
 interface SentinelData {
-	isIntersecting: boolean;
 	boundingClientRect: DOMRectReadOnly | null;
+	isIntersecting: boolean;
 	rootBounds: DOMRectReadOnly | null;
 }
 
@@ -139,12 +139,12 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 	private resizeObserver?: ResizeObserver;
 	private tableContainerObserver?: MutationObserver;
 	private sentinels: {
-		top?: HTMLElement | null;
 		bottom?: HTMLElement | null;
+		top?: HTMLElement | null;
 	} = {};
 	private sentinelData: {
-		top: SentinelData;
 		bottom: SentinelData;
+		top: SentinelData;
 	} = {
 		top: {
 			isIntersecting: false,
@@ -220,7 +220,7 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 		}
 	}
 
-	ignoreMutation(mutationRecord: MutationRecord | { type: 'selection'; target: Node }) {
+	ignoreMutation(mutationRecord: MutationRecord | { target: Node; type: 'selection'; }) {
 		/* tableRows are not directly editable by the user
 		 * so it should be safe to ignore mutations that we cause
 		 * by updating styles and classnames on this DOM element

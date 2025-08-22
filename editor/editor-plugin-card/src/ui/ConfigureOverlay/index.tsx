@@ -24,12 +24,12 @@ const OverlayWrapper = ({
 	isHoveredCallback: hoverCallback,
 	onOpenLinkClick,
 }: {
-	view: EditorView;
-	targetElementPos: number | undefined;
 	children: JSX.Element;
 	/** Fired when the mouse enters or leaves the overlay button */
 	isHoveredCallback: (isHovered: boolean) => void;
 	onOpenLinkClick: (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
+	targetElementPos: number | undefined;
+	view: EditorView;
 }) => {
 	const [showConfigureButton, setShowConfigureButton] = useState(false);
 	const [dropdownOpen, setDropdownOpen] = useState(false);

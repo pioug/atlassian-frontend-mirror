@@ -103,23 +103,23 @@ const getAriaLabel = (triggerPrefix: string, intl: IntlShape) => {
 };
 
 type InputQueryProps = {
-	triggerQueryPrefix: string;
-	onQueryChange: (query: string) => void;
-	onItemSelect: (mode: SelectItemMode) => void;
-	selectNextItem: () => void;
-	selectPreviousItem: () => void;
 	cancel: (props: {
+		addPrefixTrigger: boolean;
 		forceFocusOnEditor: boolean;
 		setSelectionAt: CloseSelectionOptions;
-		addPrefixTrigger: boolean;
 		text: string;
 	}) => void;
-	onQueryFocus: () => void;
+	editorView: EditorView;
 	forceFocus: boolean;
+	items: TypeAheadItem[];
+	onItemSelect: (mode: SelectItemMode) => void;
+	onQueryChange: (query: string) => void;
+	onQueryFocus: () => void;
 	onUndoRedo?: (inputType: 'historyUndo' | 'historyRedo') => boolean;
 	reopenQuery?: string;
-	editorView: EditorView;
-	items: TypeAheadItem[];
+	selectNextItem: () => void;
+	selectPreviousItem: () => void;
+	triggerQueryPrefix: string;
 };
 
 export const InputQuery = React.memo(

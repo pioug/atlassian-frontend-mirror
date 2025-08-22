@@ -29,9 +29,9 @@ export const generateResizedEventPayload = ({
 	prevWidth,
 	newWidth,
 }: {
+	newWidth: number;
 	node: PMNode;
 	prevWidth: number;
-	newWidth: number;
 }): BreakoutEventPayload => {
 	return {
 		action: ACTION.RESIZED,

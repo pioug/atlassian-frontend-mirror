@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/feedback-collector",
-	"version": "14.3.3",
+	"version": "14.3.4",
 	"description": "A component that collects feedback across Atlassian products.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -95,6 +95,9 @@
 			"type": "boolean"
 		},
 		"dst-a11y__replace-anchor-with-link__belugas-feedba": {
+			"type": "boolean"
+		},
+		"feedback-collector-custom-validation": {
 			"type": "boolean"
 		}
 	}

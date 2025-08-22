@@ -39,9 +39,9 @@ export const createInlineChangedDecoration = (change: { fromB: number; toB: numb
 interface DeletedContentDecorationProps {
 	change: Change;
 	doc: PMNode;
-	tr: Transaction;
-	nodeViews: Record<string, NodeViewConstructor>;
 	editorView?: EditorView;
+	nodeViews: Record<string, NodeViewConstructor>;
+	tr: Transaction;
 }
 
 const deletedContentStyle = convertToInlineCss({

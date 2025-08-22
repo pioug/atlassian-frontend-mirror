@@ -326,7 +326,6 @@
 		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
-		"@atlaskit/visual-regression": "workspace:^",
 		"@atlassian/codegen": "workspace:^",
 		"@testing-library/react": "root:*",
 		"enquirer": "root:*",

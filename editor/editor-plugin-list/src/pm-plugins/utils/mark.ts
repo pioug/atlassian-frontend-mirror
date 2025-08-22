@@ -2,8 +2,8 @@ import type { Mark, Node, NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 type NodesSanitized = Array<{
-	node: Node;
 	marksRemoved: Mark[];
+	node: Node;
 }>;
 
 export const sanitiseMarksInSelection = (

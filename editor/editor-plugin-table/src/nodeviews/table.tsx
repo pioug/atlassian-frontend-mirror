@@ -133,8 +133,8 @@ export default class TableView extends ReactNodeView<Props> {
 		}).toDOM(this.node);
 
 		const rendered = DOMSerializer.renderSpec(document, tableDOMStructure) as {
-			dom: HTMLElement;
 			contentDOM?: HTMLElement;
+			dom: HTMLElement;
 		};
 
 		if (rendered.dom) {
@@ -185,7 +185,7 @@ export default class TableView extends ReactNodeView<Props> {
 			// Set up a temporary mutation handler that:
 			// - Ignores all DOM mutations except selection changes
 			// - Tracks when mutations have been ignored via mutationsIgnored flag
-			this.ignoreMutation = (m: MutationRecord | { type: string; target: Node }) => {
+			this.ignoreMutation = (m: MutationRecord | { target: Node; type: string; }) => {
 				const isSelectionMutation = m.type === 'selection';
 				if (!isSelectionMutation) {
 					mutationsIgnored = true;
@@ -424,7 +424,7 @@ export default class TableView extends ReactNodeView<Props> {
 		});
 	}
 
-	ignoreMutation(mutation: MutationRecord | { type: 'selection'; target: Node }) {
+	ignoreMutation(mutation: MutationRecord | { target: Node; type: 'selection'; }) {
 		const {
 			type,
 			target: { nodeName, firstChild },

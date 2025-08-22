@@ -18,10 +18,10 @@ import { hasTableBeenResized } from '../table-resizing/utils/colgroup';
 import { getTableWidth } from './nodes';
 
 export function getSelectedTableInfo(selection: Selection): {
-	table: ReturnType<typeof findTable> | undefined;
 	map: TableMap | undefined;
-	totalRowCount: number;
+	table: ReturnType<typeof findTable> | undefined;
 	totalColumnCount: number;
+	totalRowCount: number;
 } {
 	let map;
 	let totalRowCount = 0;

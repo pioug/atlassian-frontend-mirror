@@ -4,19 +4,19 @@ import type { closingMethods } from '../ui/statusPicker';
 
 export type StatusType = {
 	color: ColorType;
-	text: string;
 	localId?: string;
+	text: string;
 };
 
 export type StatusState = {
+	focusStatusInput?: boolean;
 	isNew: boolean;
 	showStatusPickerAt: number | null;
-	focusStatusInput?: boolean;
 };
 
 export interface StatusPluginOptions {
-	menuDisabled: boolean;
 	allowZeroWidthSpaceAfter?: boolean;
+	menuDisabled: boolean;
 }
 
 export type ClosingPayload = {

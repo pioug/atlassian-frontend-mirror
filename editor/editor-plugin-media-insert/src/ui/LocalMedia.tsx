@@ -26,15 +26,15 @@ import { type InsertFile } from '../types';
 import { useAnalyticsEvents } from './useAnalyticsEvents';
 
 type Props = {
-	mediaProvider: MediaProvider;
-	insertFile: InsertFile;
 	closeMediaInsertPicker: () => void;
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
+	insertFile: InsertFile;
+	mediaProvider: MediaProvider;
 };
 
 type UploadState = {
-	isOpen: boolean;
 	error: null | MediaErrorName;
+	isOpen: boolean;
 };
 
 const INITIAL_UPLOAD_STATE: Readonly<UploadState> = Object.freeze({
@@ -45,7 +45,7 @@ const INITIAL_UPLOAD_STATE: Readonly<UploadState> = Object.freeze({
 type ACTIONS =
 	| { type: 'open' }
 	| { type: 'close' }
-	| { type: 'error'; error: MediaErrorName }
+	| { error: MediaErrorName; type: 'error'; }
 	| { type: 'reset' };
 
 const uploadReducer = (state: UploadState, action: ACTIONS): UploadState => {

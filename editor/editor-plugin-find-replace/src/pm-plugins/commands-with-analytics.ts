@@ -48,8 +48,8 @@ export const findWithAnalytics =
 		containerElement,
 		keyword,
 	}: {
-		editorView: EditorView;
 		containerElement: HTMLElement | null;
+		editorView: EditorView;
 		keyword?: string;
 	}) =>
 		withAnalytics(editorAnalyticsAPI, {
@@ -97,8 +97,8 @@ export const replaceWithAnalytics =
 		triggerMethod,
 		replaceText,
 	}: {
-		triggerMethod: TRIGGER_METHOD.KEYBOARD | TRIGGER_METHOD.BUTTON;
 		replaceText: string;
+		triggerMethod: TRIGGER_METHOD.KEYBOARD | TRIGGER_METHOD.BUTTON;
 	}): Command =>
 		withAnalytics(editorAnalyticsAPI, {
 			eventType: EVENT_TYPE.TRACK,

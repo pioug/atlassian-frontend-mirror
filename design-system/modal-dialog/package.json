@@ -76,7 +76,6 @@
 		"@atlaskit/ssr": "workspace:^",
 		"@atlaskit/textfield": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
-		"@atlaskit/visual-regression": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@testing-library/dom": "root:*",

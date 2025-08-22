@@ -16,9 +16,9 @@ export default function String({
 	onFieldChange,
 	placeholder,
 }: {
-	name: string;
-	field: StringField;
 	autoFocus?: boolean;
+	field: StringField;
+	name: string;
 	onFieldChange: OnFieldChange;
 	placeholder?: string;
 }) {

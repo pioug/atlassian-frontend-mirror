@@ -122,13 +122,13 @@ const useSharedState = sharedPluginStateHookMigratorFactory(
 
 interface PrimaryToolbarComponentProps {
 	api: ExtractInjectionAPI<TextFormattingPlugin> | undefined;
+	disabled: boolean;
 	editorView: EditorView;
+	isReducedSpacing: boolean;
 	popupsMountPoint?: HTMLElement;
 	popupsScrollableElement?: HTMLElement;
-	toolbarSize: ToolbarSize;
-	disabled: boolean;
-	isReducedSpacing: boolean;
 	shouldUseResponsiveToolbar: boolean;
+	toolbarSize: ToolbarSize;
 }
 export function PrimaryToolbarComponent({
 	api,

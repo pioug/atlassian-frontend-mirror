@@ -37,8 +37,8 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { type ButtonName, type ToolbarProps, ToolbarType } from '../types';
 
 export type DropdownProps = ToolbarProps & {
-	popupsMountPoint?: HTMLElement;
 	popupsBoundariesElement?: HTMLElement;
+	popupsMountPoint?: HTMLElement;
 	popupsScrollableElement?: HTMLElement;
 	toolbarType: ToolbarType;
 };

@@ -11,10 +11,10 @@ import { DEFAULT_COLOR } from './utils/constants';
 import { getDisabledState } from './utils/disabled';
 
 export type TextColorPluginState = {
-	palette: Array<PaletteColor>;
+	color: string | null;
 	defaultColor: string;
 	disabled?: boolean;
-	color: string | null;
+	palette: Array<PaletteColor>;
 };
 
 type TextColorDefaultColor = {

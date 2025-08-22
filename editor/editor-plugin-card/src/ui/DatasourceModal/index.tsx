@@ -15,9 +15,9 @@ import { useFetchDatasourceInfo } from '../useFetchDatasourceInfo';
 import type { ModalTypeToComponentMap } from './ModalWithState';
 
 type DatasourceModalProps = {
-	view: EditorView;
-	editorAnalyticsApi?: EditorAnalyticsAPI;
 	cardContext?: CardContext;
+	editorAnalyticsApi?: EditorAnalyticsAPI;
+	view: EditorView;
 } & ModalTypeToComponentMap;
 
 export const DatasourceModal = ({

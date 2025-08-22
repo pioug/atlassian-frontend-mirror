@@ -4,18 +4,18 @@ import { getAnalyticsEventSeverity } from '@atlaskit/editor-common/utils/analyti
 import { getTimeSince } from './getTimeSince';
 
 interface Opts {
+	degradedThreshold: number;
 	dispatchAverage?: (
 		data: { mean: number; median: number; sampleSize: number },
 		severity: SEVERITY,
 	) => void;
 	dispatchSample?: (sample: number, severity: SEVERITY) => void;
-	onSampleStart?: () => void;
+	normalThreshold: number;
 	onSampleEnd?: (time: number, info: { isSlow: boolean; severity: SEVERITY }) => void;
+	onSampleStart?: () => void;
 	onSlowInput?: (time: number) => void;
 	samplingRate: number;
 	slowThreshold: number;
-	normalThreshold: number;
-	degradedThreshold: number;
 }
 
 export default class InputLatencyTracker {

@@ -8,13 +8,13 @@ export type ActionType = 'contentCut' | 'contentPasted';
 export type NodeName = string;
 
 export type ContentMoved = {
+	currentActions: Array<ActionType>;
+	hasSelectedMultipleNodes?: boolean;
+	nodeDepth?: number;
 	// TODO: ED-26959 - when clean up `platform_editor_element_drag_and_drop_multiselect`, consider removing nodeName since `nodeTypes` will cover both single/multiple nodes
 	nodeName?: NodeName;
-	size?: number;
-	currentActions: Array<ActionType>;
-	nodeDepth?: number;
 	nodeTypes?: string;
-	hasSelectedMultipleNodes?: boolean;
+	size?: number;
 };
 
 export type MoveAnalyticsPluginState = {

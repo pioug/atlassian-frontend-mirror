@@ -7,9 +7,9 @@ export const getNestedNodePosition = ({
 	schema,
 	resolve,
 }: {
-	selection: Selection;
-	schema: Schema;
 	resolve: (pos: number) => ResolvedPos;
+	schema: Schema;
+	selection: Selection;
 }) => {
 	let nestedNodePos = selection.$from.before(1);
 	if (selection instanceof TextSelection) {

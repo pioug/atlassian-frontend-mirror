@@ -115,18 +115,19 @@ export default function ProfilecardTriggerNext({
 
 	const isMounted = useRef(false);
 
+	const [visible, setVisible] = useState<boolean>(false);
+	const showTimer = useRef<number>(0);
+	const hideTimer = useRef<number>(0);
+
+	const isExternalControl = propsIsVisible !== undefined && propsIsVisible !== visible;
 	const showDelay =
-		trigger === 'click' || (propsIsVisible && fg('fix_profilecard_trigger_isvisible'))
+		trigger === 'click' || (isExternalControl && fg('fix_profilecard_trigger_isvisible'))
 			? 0
 			: customShowDelay ?? DELAY_MS_SHOW;
 	const hideDelay =
-		trigger === 'click' || (propsIsVisible && fg('fix_profilecard_trigger_isvisible'))
+		trigger === 'click' || (isExternalControl && fg('fix_profilecard_trigger_isvisible'))
 			? 0
 			: customHideDelay ?? DELAY_MS_HIDE;
-
-	const showTimer = useRef<number>(0);
-	const hideTimer = useRef<number>(0);
-	const [visible, setVisible] = useState<boolean>(false);
 
 	const [isLoading, setIsLoading] = useState<boolean | undefined>(undefined);
 	const [hasError, setHasError] = useState<boolean>(false);

@@ -30,12 +30,12 @@ type WidgetConstructor = ((view: EditorView, getPos: () => number | undefined) =
 // See: https://github.com/ProseMirror/prosemirror-view/blob/master/src/decoration.ts
 interface ExtendedProseMirrorDecoration extends Decoration {
 	inline: boolean;
-	widget: boolean;
 	type: {
 		attrs?: Record<string, string>;
-		toDOM?: WidgetConstructor;
 		side?: number;
+		toDOM?: WidgetConstructor;
 	};
+	widget: boolean;
 }
 
 // This type is not exposed publically by ProseMirror but we need it to map to CodeMirror

@@ -4,8 +4,8 @@ export class StatsModifier implements TypeAheadStatsModifier {
 	startedAt: number = 0;
 	endedAt: number = 0;
 	keyCount: {
-		arrowUp: number;
 		arrowDown: number;
+		arrowUp: number;
 	} = {
 		arrowUp: 0,
 		arrowDown: 0,

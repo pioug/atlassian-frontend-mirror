@@ -8,10 +8,10 @@ export type FeedbackDialogPluginDependencies = [OptionalPlugin<AnalyticsPlugin>]
 export type FeedbackDialogPlugin = NextEditorPlugin<
 	'feedbackDialog',
 	{
-		pluginConfiguration: FeedbackInfo;
-		dependencies: FeedbackDialogPluginDependencies;
 		actions: {
 			openFeedbackDialog: typeof openFeedbackDialog;
 		};
+		dependencies: FeedbackDialogPluginDependencies;
+		pluginConfiguration: FeedbackInfo;
 	}
 >;

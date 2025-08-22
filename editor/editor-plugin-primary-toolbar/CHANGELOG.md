@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-primary-toolbar
 
+## 4.1.6
+
+### Patch Changes
+
+- [`265c1bf0cefa4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/265c1bf0cefa4) -
+  Sorted type and interface props to improve Atlaskit docs
+
 ## 4.1.5
 
 ### Patch Changes

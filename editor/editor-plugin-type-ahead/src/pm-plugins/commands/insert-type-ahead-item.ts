@@ -23,8 +23,8 @@ const validateNode = ({
 	schema,
 	maybeNode,
 }: {
-	schema: Schema;
 	maybeNode: PMNode | Object | string | Fragment | undefined;
+	schema: Schema;
 }): PMNode | Fragment | null => {
 	if (!maybeNode) {
 		return null;
@@ -46,13 +46,13 @@ const validateNode = ({
 
 type CreateInsertCallbackProps = {
 	editorState: EditorState;
-	query: string;
 	handler: TypeAheadHandler;
 	mode: SelectItemMode;
-	wasInsertedBySpace: boolean;
-	textStartPosition: number;
-	textInserted: string;
+	query: string;
 	selectedIndex: number;
+	textInserted: string;
+	textStartPosition: number;
+	wasInsertedBySpace: boolean;
 };
 
 const createInsertCallback =
@@ -110,16 +110,16 @@ const createInsertCallback =
 	};
 
 type Position = {
-	start: number;
 	end: number;
+	start: number;
 };
 type CreateDeleteRawTextCallbackProps = {
-	wasInsertedBySpace: boolean;
 	insertItem: (state: EditorState) => Transaction | false;
-	selectedIndex: number;
-	query: string;
 	position: Position;
+	query: string;
+	selectedIndex: number;
 	trigger: string;
+	wasInsertedBySpace: boolean;
 };
 const createDeleteRawTextCallback = ({
 	trigger,
@@ -154,11 +154,11 @@ const createDeleteRawTextCallback = ({
 };
 
 type Props = {
-	item: TypeAheadItem;
 	handler: TypeAheadHandler;
+	item: TypeAheadItem;
 	mode: SelectItemMode;
-	sourceListItem: Array<TypeAheadItem>;
 	query: string;
+	sourceListItem: Array<TypeAheadItem>;
 };
 export const insertTypeAheadItem =
 	(view: EditorView) =>

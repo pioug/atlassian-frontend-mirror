@@ -10,12 +10,12 @@ import { jsx } from '@emotion/react';
 import { panelTextInput } from '@atlaskit/editor-common/ui';
 
 export interface Props {
-	mountPoint?: HTMLElement;
 	boundariesElement?: HTMLElement;
 	defaultValue?: string;
-	placeholder?: string;
+	mountPoint?: HTMLElement;
 	onBlur?: (text: string) => void;
 	onSubmit?: (text: string) => void;
+	placeholder?: string;
 }
 
 export interface State {

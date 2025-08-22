@@ -17,21 +17,21 @@ import { type TaskAndDecisionsSharedState } from '../../types';
 import TaskItemWithProviders from './task-item-with-providers';
 
 export interface TaskProps {
-	taskId: string;
-	isDone: boolean;
-	isFocused?: boolean;
-	contentRef?: ContentRef;
-	onChange?: (taskId: string, isChecked: boolean) => void;
-	onClick?: () => void;
-	placeholder?: string;
-	showPlaceholder?: boolean;
+	api: ExtractInjectionAPI<TasksAndDecisionsPlugin> | undefined;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	children?: ReactElement<any>;
-	providers?: ProviderFactory;
+	contentRef?: ContentRef;
 	disabled?: boolean;
 	disableOnChange?: boolean;
 	inputRef?: Ref<HTMLInputElement>;
-	api: ExtractInjectionAPI<TasksAndDecisionsPlugin> | undefined;
+	isDone: boolean;
+	isFocused?: boolean;
+	onChange?: (taskId: string, isChecked: boolean) => void;
+	onClick?: () => void;
+	placeholder?: string;
+	providers?: ProviderFactory;
+	showPlaceholder?: boolean;
+	taskId: string;
 }
 
 type TaskItemProps = TaskProps &

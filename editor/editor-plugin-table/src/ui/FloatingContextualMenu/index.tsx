@@ -35,19 +35,19 @@ import ContextualMenu from './ContextualMenu';
 import { tablePopupStyles } from './styles';
 
 interface Props {
-	editorView: EditorView;
-	isOpen: boolean;
-	getEditorContainerWidth: GetEditorContainerWidth;
 	api: PluginInjectionAPI | undefined | null;
-	getEditorFeatureFlags?: GetEditorFeatureFlags;
-	targetCellPosition?: number;
-	mountPoint?: HTMLElement;
 	boundariesElement?: HTMLElement;
-	scrollableElement?: HTMLElement;
-	pluginConfig?: PluginConfig;
 	editorAnalyticsAPI?: EditorAnalyticsAPI;
+	editorView: EditorView;
+	getEditorContainerWidth: GetEditorContainerWidth;
+	getEditorFeatureFlags?: GetEditorFeatureFlags;
 	isCellMenuOpenByKeyboard?: boolean;
 	isCommentEditor?: boolean;
+	isOpen: boolean;
+	mountPoint?: HTMLElement;
+	pluginConfig?: PluginConfig;
+	scrollableElement?: HTMLElement;
+	targetCellPosition?: number;
 }
 
 const FloatingContextualMenu = ({

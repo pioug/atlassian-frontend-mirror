@@ -11,10 +11,10 @@ import { lazyCodeBlockView } from '../nodeviews/lazyCodeBlockAdvanced';
 import { shiftArrowDownWorkaround, shiftArrowUpWorkaround } from './shiftArrowKeyWorkaround';
 
 interface Props {
+	allowCodeFolding: boolean;
 	api: ExtractInjectionAPI<CodeBlockAdvancedPlugin> | undefined;
 	extensions: Extension[];
 	getIntl: () => IntlShape;
-	allowCodeFolding: boolean;
 }
 
 export const createPlugin = (props: Props) => {

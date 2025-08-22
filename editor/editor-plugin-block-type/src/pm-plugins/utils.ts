@@ -25,12 +25,12 @@ export const createJoinNodesRule = (match: RegExp, nodeType: NodeType): InputRul
 };
 
 type WrappingTextRuleProps = {
-	match: RegExp;
-	nodeType: NodeType;
 	getAttrs?: // eslint-disable-next-line @typescript-eslint/no-explicit-any
 	| Record<string, any>
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		| ((matchResult: RegExpExecArray) => Record<string, any>);
+	match: RegExp;
+	nodeType: NodeType;
 };
 export const createWrappingTextBlockRule = ({
 	match,

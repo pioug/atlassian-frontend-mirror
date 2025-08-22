@@ -14,8 +14,8 @@ import { getToolbarItemExtensions } from './extensions';
 import { LegacyExtensionToolbarItem } from './LegacyToolbarComponent';
 
 type SelectionToolbarOptions = {
-	overflowOptions: FloatingToolbarOverflowDropdownOptions<Command>;
 	extensionList?: ExtensionConfiguration[];
+	overflowOptions: FloatingToolbarOverflowDropdownOptions<Command>;
 };
 
 export const selectionToolbar = ({

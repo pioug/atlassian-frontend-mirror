@@ -19,8 +19,8 @@ export type AlignmentPluginDependencies = [
 export type AlignmentPlugin = NextEditorPlugin<
 	'alignment',
 	{
-		sharedState: AlignmentPluginState | undefined;
 		dependencies: AlignmentPluginDependencies;
+		sharedState: AlignmentPluginState | undefined;
 	}
 >;
 

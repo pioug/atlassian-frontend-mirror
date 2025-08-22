@@ -89,7 +89,7 @@ const generateAnalyticsPayload = (
 export const getListTypes = (
 	listType: TaskDecisionListType,
 	schema: Schema,
-): { list: NodeType; item: NodeType } => {
+): { item: NodeType; list: NodeType; } => {
 	const { decisionList, decisionItem, taskList, taskItem } = schema.nodes;
 	if (listType === 'taskList') {
 		return {
@@ -129,11 +129,11 @@ export const insertTaskDecisionAction =
 			listLocalId,
 			itemLocalId,
 		}: {
-			tr: Transaction;
-			list: NodeType;
 			item: NodeType;
-			listLocalId?: string;
 			itemLocalId?: string;
+			list: NodeType;
+			listLocalId?: string;
+			tr: Transaction;
 		}) => createListAtSelection(tr, list, item, schema, state, listLocalId, itemLocalId, itemAttrs);
 		const addToList = ({
 			state,
@@ -141,10 +141,10 @@ export const insertTaskDecisionAction =
 			item,
 			itemLocalId,
 		}: {
-			state: EditorState;
-			tr: Transaction;
 			item: NodeType;
 			itemLocalId: string;
+			state: EditorState;
+			tr: Transaction;
 		}) => {
 			const { $to } = state.selection;
 			const endPos = $to.end($to.depth);

@@ -73,30 +73,30 @@ import { DropdownMenu } from './DropdownMenu';
 import { cellColourPreviewStyles, dragMenuBackgroundColorStyles, toggleStyles } from './styles';
 
 type DragMenuProps = {
-	direction?: TableDirection;
-	index?: number;
-	target?: Element;
-	tableNode?: PmNode;
-	editorView: EditorView;
-	isOpen?: boolean;
-	targetCellPosition?: number;
-	pluginConfig?: PluginConfig;
-	getEditorContainerWidth: GetEditorContainerWidth;
 	api: PluginInjectionAPI | undefined | null;
-	editorAnalyticsAPI?: EditorAnalyticsAPI;
-	fitWidth?: number;
-	fitHeight?: number;
-	mountPoint?: HTMLElement;
-	boundariesElement?: HTMLElement;
-	scrollableElement?: HTMLElement;
-	isTableScalingEnabled?: boolean;
-	shouldUseIncreasedScalingPercent?: boolean;
-	isTableFixedColumnWidthsOptionEnabled?: boolean;
 	ariaNotifyPlugin?: (
 		message: string,
 		ariaLiveElementAttributes?: AriaLiveElementAttributes,
 	) => void;
+	boundariesElement?: HTMLElement;
+	direction?: TableDirection;
+	editorAnalyticsAPI?: EditorAnalyticsAPI;
+	editorView: EditorView;
+	fitHeight?: number;
+	fitWidth?: number;
+	getEditorContainerWidth: GetEditorContainerWidth;
+	index?: number;
 	isCommentEditor?: boolean;
+	isOpen?: boolean;
+	isTableFixedColumnWidthsOptionEnabled?: boolean;
+	isTableScalingEnabled?: boolean;
+	mountPoint?: HTMLElement;
+	pluginConfig?: PluginConfig;
+	scrollableElement?: HTMLElement;
+	shouldUseIncreasedScalingPercent?: boolean;
+	tableNode?: PmNode;
+	target?: Element;
+	targetCellPosition?: number;
 };
 
 type PluralOptionType = 'noOfCols' | 'noOfRows' | 'noOfCells' | null;

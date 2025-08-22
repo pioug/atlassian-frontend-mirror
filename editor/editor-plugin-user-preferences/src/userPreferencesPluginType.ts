@@ -12,15 +12,15 @@ import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 export type UserPreferencesPluginOptions = {
 	/**
-	 * The user preferences provider to be used to get and set user preferences.
-	 * When not provided, user preferences will not be persisted.
-	 */
-	userPreferencesProvider?: UserPreferencesProvider;
-	/**
 	 * The initial user preferences to be used when the userPreferencesProvider is not available.
 	 * Otherwise, will default to the userPreferencesProvider's initial preferences.
 	 */
 	initialUserPreferences?: ResolvedUserPreferences;
+	/**
+	 * The user preferences provider to be used to get and set user preferences.
+	 * When not provided, user preferences will not be persisted.
+	 */
+	userPreferencesProvider?: UserPreferencesProvider;
 };
 
 export type PrefKey = keyof UserPreferences;
@@ -32,14 +32,15 @@ export type UserPreferencesSharedState = {
 export type UserPreferencesPlugin = NextEditorPlugin<
 	'userPreferences',
 	{
-		pluginConfiguration: UserPreferencesPluginOptions;
 		actions: {
+			getUserPreferences: () => ResolvedUserPreferences | undefined;
 			updateUserPreference: (
 				key: PrefKey,
 				value: ResolvedUserPreferences[PrefKey],
 			) => EditorCommand;
 		};
-		sharedState: UserPreferencesSharedState;
 		dependencies: [OptionalPlugin<AnalyticsPlugin>];
+		pluginConfiguration: UserPreferencesPluginOptions;
+		sharedState: UserPreferencesSharedState;
 	}
 >;

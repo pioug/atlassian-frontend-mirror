@@ -55,8 +55,8 @@ import {
 import { isInSupportedInlineImageParent } from './media-inline';
 
 interface Range {
-	start: number;
 	end: number;
+	start: number;
 }
 
 export const canInsertMediaInline = (state: EditorState): boolean => {

@@ -1,4 +1,8 @@
-import React, { type FC, type ReactNode, useCallback, useMemo, useState } from 'react';
+import React, { type ReactNode, useCallback, useMemo, useState } from 'react';
+
+import { fg } from '@atlaskit/platform-feature-flags';
+
+import { SkipLinksContainer } from '../../components/skip-links/skip-links-container';
 
 import { SkipLinksContext, type SkipLinksContextData } from './skip-links-context';
 import { SkipLinksDataContext } from './skip-links-data-context';
@@ -29,10 +33,21 @@ const getByDomOrderSortFunction = () => {
 };
 
 /**
- * Provides a way to store and use skip links by combining SkipLinksContext and SkipLinksDataContext
+ * Provider for skip links. Should be rendered at the top level of the application.
+ *
+ * - Provides the context to register/unregister skip links
+ * - Renders the skip links container (when the feature flag 'platform_dst_nav4_skip_links_hydration_fix' is enabled)
  */
-export const SkipLinksProvider: FC<{ children: ReactNode }> = ({ children }) => {
-	const [links, setLinks] = useState<SkipLinkData[]>([]);
+export function SkipLinksProvider({
+	children,
+	label,
+	testId,
+}: {
+	children: ReactNode;
+	label: string;
+	testId?: string;
+}) {
+	const [links, setLinks] = useState<Array<SkipLinkData>>([]);
 	const registerSkipLink = useCallback((skipLinkData: SkipLinkData) => {
 		// Don't add duplicate skip links
 		setLinks((oldLinks) => {
@@ -68,7 +83,14 @@ This error will not be shown in production, and the duplicate skip link will be 
 
 	return (
 		<SkipLinksContext.Provider value={contextValue}>
-			<SkipLinksDataContext.Provider value={links}>{children}</SkipLinksDataContext.Provider>
+			{fg('platform_dst_nav4_skip_links_hydration_fix') ? (
+				<>
+					<SkipLinksContainer label={label} testId={testId} links={links} />
+					{children}
+				</>
+			) : (
+				<SkipLinksDataContext.Provider value={links}>{children}</SkipLinksDataContext.Provider>
+			)}
 		</SkipLinksContext.Provider>
 	);
-};
+}

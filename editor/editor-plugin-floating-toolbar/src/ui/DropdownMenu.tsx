@@ -55,11 +55,11 @@ const menuContainerStyles = css({
 // Recommendation: Replace with 4 as itemSpacing is used in calculations expecting a number
 export const itemSpacing = gridSize() / 2;
 export interface Props {
-	hide: Function;
 	dispatchCommand: Function;
+	editorView?: EditorView;
+	hide: Function;
 	items: Array<DropdownOptionT<Function>> | FloatingToolbarOverflowDropdownOptions<Function>;
 	showSelected?: boolean;
-	editorView?: EditorView;
 }
 export type ExtensionProps = {
 	extensionApi?: ExtensionAPI;
@@ -67,12 +67,12 @@ export type ExtensionProps = {
 };
 // Extend the ButtonItem component type to allow mouse events to be accepted from the Typescript check
 export interface DropdownButtonItemProps extends ButtonItemProps {
+	onBlur?: (event: React.MouseEvent | React.KeyboardEvent) => void;
+	onFocus?: (event: React.MouseEvent | React.KeyboardEvent) => void;
 	onMouseEnter?: (event: React.MouseEvent | React.KeyboardEvent) => void;
-	onMouseOver?: (event: React.MouseEvent | React.KeyboardEvent) => void;
 	onMouseLeave?: (event: React.MouseEvent | React.KeyboardEvent) => void;
 	onMouseOut?: (event: React.MouseEvent | React.KeyboardEvent) => void;
-	onFocus?: (event: React.MouseEvent | React.KeyboardEvent) => void;
-	onBlur?: (event: React.MouseEvent | React.KeyboardEvent) => void;
+	onMouseOver?: (event: React.MouseEvent | React.KeyboardEvent) => void;
 }
 
 const Dropdown = memo((props: Props & WrappedComponentProps) => {

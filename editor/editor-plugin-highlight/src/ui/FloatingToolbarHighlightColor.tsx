@@ -63,8 +63,8 @@ const highlightIconContainerStyle = css({
 
 type FloatingToolbarHighlightColorProps = {
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
-	pluginInjectionApi: ExtractInjectionAPI<HighlightPlugin> | undefined;
 	editorView: EditorView | undefined;
+	pluginInjectionApi: ExtractInjectionAPI<HighlightPlugin> | undefined;
 } & WrappedComponentProps;
 
 const selector = (

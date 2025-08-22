@@ -1,10 +1,10 @@
 export type ActionType = 'none' | 'addRowOrColumn' | 'copyOrCut' | 'pasted';
 
 export type RowOrColumnMovedState = {
-	type?: 'row' | 'column';
+	currentActions: Array<ActionType>;
 	/** used to confirm if same number of cells was copied and pasted */
 	numberOfCells?: number;
-	currentActions: Array<ActionType>;
+	type?: 'row' | 'column';
 };
 
 export type AnalyticPluginState = {

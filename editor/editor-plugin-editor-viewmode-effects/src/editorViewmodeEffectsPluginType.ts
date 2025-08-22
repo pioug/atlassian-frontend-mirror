@@ -6,9 +6,9 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 export type EditorViewModeEffectsPlugin = NextEditorPlugin<
 	'editorViewModeEffects',
 	{
-		dependencies: [CollabEditPlugin, EditorViewModePlugin];
 		actions: {
 			applyViewModeStepAt: (tr: Transaction) => boolean;
 		};
+		dependencies: [CollabEditPlugin, EditorViewModePlugin];
 	}
 >;

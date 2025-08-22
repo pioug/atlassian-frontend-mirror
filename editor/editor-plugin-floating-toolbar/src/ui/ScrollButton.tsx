@@ -34,10 +34,10 @@ const buttonCommonStyles = xcss({
 });
 
 type ScrollButtonProps = {
-	intl: IntlShape;
-	scrollContainerRef: React.RefObject<HTMLDivElement>;
-	node: Node;
 	disabled: boolean;
+	intl: IntlShape;
+	node: Node;
+	scrollContainerRef: React.RefObject<HTMLDivElement>;
 	side: 'left' | 'right';
 };
 

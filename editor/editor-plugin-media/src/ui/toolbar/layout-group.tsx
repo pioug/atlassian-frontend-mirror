@@ -19,9 +19,9 @@ const containerStyles = xcss({
 });
 
 type Props = {
-	layoutButtons: FloatingToolbarItem<Command>[];
 	dispatchCommand: (command: Command) => void;
 	hide: () => void;
+	layoutButtons: FloatingToolbarItem<Command>[];
 };
 
 export const LayoutGroup = ({ layoutButtons, dispatchCommand, hide }: Props) => {

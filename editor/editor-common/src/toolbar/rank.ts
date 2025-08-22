@@ -92,6 +92,9 @@ import {
 	REDO_BUTTON,
 	TRACK_CHANGES_BUTTON,
 	TRACK_CHANGES_GROUP,
+	PIN_SECTION,
+	PIN_BUTTON,
+	PIN_GROUP,
 } from './keys';
 
 export const TOOLBAR_RANK = {
@@ -103,6 +106,7 @@ export const TOOLBAR_RANK = {
 	[APPS_SECTION.key]: 600,
 	[TRACK_CHANGES_SECTION.key]: 700,
 	[OVERFLOW_SECTION.key]: 800,
+	[PIN_SECTION.key]: 900,
 } as const;
 
 /**
@@ -353,4 +357,15 @@ export const OVERFLOW_MENU_RANK = {
 
 export const PIN_MENU_SECTION_RANK = {
 	[PIN_MENU_ITEM.key]: 100,
+};
+
+/**
+ * Pin section
+ */
+export const PIN_SECTION_RANK = {
+	[PIN_GROUP.key]: 100,
+};
+
+export const PIN_GROUP_RANK = {
+	[PIN_BUTTON.key]: 100,
 };

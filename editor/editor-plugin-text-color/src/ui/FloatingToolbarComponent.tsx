@@ -17,9 +17,9 @@ import { ToolbarType } from '../types';
 import ToolbarTextColor from './ToolbarTextColor';
 
 interface FloatingToolbarComponentProps {
-	editorView: EditorView;
-	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 	api: ExtractInjectionAPI<TextColorPlugin> | undefined;
+	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
+	editorView: EditorView;
 }
 
 const FloatingToolbarSettings = {

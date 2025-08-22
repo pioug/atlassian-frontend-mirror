@@ -117,14 +117,14 @@ type EmojiPickerButtonReturnType = (props: {
 	className?: string;
 	editorView?: EditorView;
 	idx?: number;
-	providerFactory?: ProviderFactory;
-	title?: string;
-	onChange?: (emoji: EmojiId) => void;
 	isSelected?: boolean;
 	mountPoint?: HTMLElement;
-	popupsBoundariesElement?: HTMLElement;
-	setDisableParentScroll?: (disable: boolean) => void;
+	onChange?: (emoji: EmojiId) => void;
 	pluginInjectionApi?: ExtractInjectionAPI<FloatingToolbarPlugin>;
+	popupsBoundariesElement?: HTMLElement;
+	providerFactory?: ProviderFactory;
+	setDisableParentScroll?: (disable: boolean) => void;
+	title?: string;
 }) => JSX.Element;
 
 export const EmojiPickerButton: EmojiPickerButtonReturnType = (props) => {

@@ -38,11 +38,11 @@ import type { BlockType } from './types';
 import { areBlockTypesDisabled, checkFormattingIsPresent, hasBlockQuoteInOptions } from './utils';
 
 export type BlockTypeState = {
-	currentBlockType: BlockType;
-	blockTypesDisabled: boolean;
 	availableBlockTypes: BlockType[];
-	availableWrapperBlockTypes: BlockType[];
 	availableBlockTypesInDropdown: BlockType[];
+	availableWrapperBlockTypes: BlockType[];
+	blockTypesDisabled: boolean;
+	currentBlockType: BlockType;
 	formattingIsPresent?: boolean;
 };
 

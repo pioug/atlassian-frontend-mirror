@@ -8,8 +8,8 @@ import { unitToNumber } from './unit-to-number';
 
 export interface ColumnState {
 	index: number;
-	width: number;
 	minWidth: number;
+	width: number;
 }
 
 // Reads `width` and `minWidth` of each column from DOM and returns `ColumnState` containing those values

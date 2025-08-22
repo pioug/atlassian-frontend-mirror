@@ -171,8 +171,8 @@ export const activateNextResizeArea =
 		getIntl,
 		nodeViewPortalProviderAPI,
 	}: {
-		direction: Direction;
 		ariaNotify?: (message: string, ariaLiveElementAttributes?: AriaLiveElementAttributes) => void;
+		direction: Direction;
 		getIntl?: () => IntlShape;
 		nodeViewPortalProviderAPI: PortalProviderAPI;
 	}): Command =>
@@ -281,15 +281,15 @@ export const changeColumnWidthByStep =
 		api,
 		getIntl,
 	}: {
-		stepSize: number;
-		getEditorContainerWidth: GetEditorContainerWidth;
-		isTableScalingEnabled: boolean;
-		isTableFixedColumnWidthsOptionEnabled: boolean;
-		isCommentEditor: boolean;
 		api: PluginInjectionAPI | undefined | null;
 		ariaNotify?: (message: string, ariaLiveElementAttributes?: AriaLiveElementAttributes) => void;
+		getEditorContainerWidth: GetEditorContainerWidth;
 		getIntl?: () => IntlShape;
+		isCommentEditor: boolean;
+		isTableFixedColumnWidthsOptionEnabled: boolean;
+		isTableScalingEnabled: boolean;
 		originalTr?: Transaction;
+		stepSize: number;
 	}): Command =>
 	(state, dispatch, view) => {
 		let customTr = state.tr;

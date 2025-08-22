@@ -29,13 +29,13 @@ export function createBidiWarningsDecorationSetFromDoc({
 	codeBidiWarningLabel,
 	tooltipEnabled,
 }: {
-	doc: PmNode;
 	codeBidiWarningLabel: string;
+	doc: PmNode;
 	tooltipEnabled: boolean;
 }) {
 	const bidiCharactersAndTheirPositions: {
-		position: number;
 		bidiCharacter: string;
+		position: number;
 	}[] = [];
 
 	doc.descendants((node, pos) => {

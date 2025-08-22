@@ -22,10 +22,10 @@ import type { CardPluginOptions, CardPluginState } from './types';
 type DummyAnnotationPlugin = NextEditorPlugin<
 	'annotation',
 	{
-		sharedState: InlineCommentPluginState;
 		actions: {
 			setInlineCommentDraftState: (isDraft: boolean, inputMethod: INPUT_METHOD) => Command;
 		};
+		sharedState: InlineCommentPluginState;
 	}
 >;
 
@@ -47,9 +47,9 @@ export type CardPluginDependencies = [
 export type CardPlugin = NextEditorPlugin<
 	'card',
 	{
-		pluginConfiguration: CardPluginOptions | undefined;
-		dependencies: CardPluginDependencies;
-		sharedState: CardPluginState | null;
 		actions: CardPluginActions;
+		dependencies: CardPluginDependencies;
+		pluginConfiguration: CardPluginOptions | undefined;
+		sharedState: CardPluginState | null;
 	}
 >;

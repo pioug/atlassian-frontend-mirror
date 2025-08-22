@@ -56,7 +56,6 @@
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/toggle": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
-		"@atlaskit/visual-regression": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@babel/core": "root:*",
 		"@codeshift/utils": "root:*",

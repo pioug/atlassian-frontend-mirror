@@ -106,10 +106,10 @@ const calculateRange: CalculateRange = ({ selection }) => {
 };
 
 type CalculateNewSelectionProps = {
-	originalSelection: Selection;
-	normalizedSelection: Selection;
-	tr: Transaction;
 	hasPreviousNestedList: boolean;
+	normalizedSelection: Selection;
+	originalSelection: Selection;
+	tr: Transaction;
 };
 
 const calculateNewSelection = ({
@@ -135,12 +135,12 @@ const calculateNewSelection = ({
 };
 
 type CreateIndentedListItemsSliceProps = {
-	tr: Transaction;
 	from: number;
-	to: number;
+	hasLastItemExtension: boolean;
 	listNodeType: NodeType;
 	range: NodeRange;
-	hasLastItemExtension: boolean;
+	to: number;
+	tr: Transaction;
 };
 const createIndentedListItemsSlice = ({
 	tr,

@@ -83,12 +83,12 @@ export const outdentListItemsSelected = (tr: Transaction) => {
 };
 
 type CalculateNewSelectionProps = {
-	originalSelection: Selection;
-	normalizedSelection: Selection;
-	tr: Transaction;
 	hasCommonListMoved: boolean;
 	hasNormalizedFromPositionLiftedOut: boolean;
 	hasNormalizedToPositionLiftedOut: boolean;
+	normalizedSelection: Selection;
+	originalSelection: Selection;
+	tr: Transaction;
 };
 
 const calculateNewSelection = ({
@@ -138,9 +138,9 @@ const calculateNewSelection = ({
 };
 
 type ResolvedPosRange = Array<{
+	depth: number;
 	from: number;
 	to: number;
-	depth: number;
 }>;
 
 const splitRangeSelection = (selection: Selection): ResolvedPosRange => {
@@ -204,8 +204,8 @@ const splitRangeSelection = (selection: Selection): ResolvedPosRange => {
 };
 
 type OutdentListRangeProps = {
-	tr: Transaction;
 	range: NodeRange;
+	tr: Transaction;
 };
 const outdentRangeToParentList = ({ tr, range }: OutdentListRangeProps) => {
 	const end = range.end;

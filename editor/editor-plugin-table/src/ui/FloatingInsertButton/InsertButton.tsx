@@ -19,11 +19,11 @@ import { TableCssClassName as ClassName } from '../../types';
 import { tableToolbarSize } from '../consts';
 
 interface ButtonProps {
-	type: TableDirection;
-	tableRef: HTMLElement;
-	onMouseDown: (event: SyntheticEvent<HTMLButtonElement>) => void;
 	hasStickyHeaders: boolean;
 	isChromelessEditor?: boolean;
+	onMouseDown: (event: SyntheticEvent<HTMLButtonElement>) => void;
+	tableRef: HTMLElement;
+	type: TableDirection;
 }
 
 const getInsertLineHeight = (

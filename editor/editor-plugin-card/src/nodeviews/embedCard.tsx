@@ -52,26 +52,26 @@ import type { SmartCardProps } from './genericCard';
 import { Card } from './genericCard';
 
 interface CardProps {
+	fullWidthMode?: boolean;
 	layout: RichMediaLayout;
 	pctWidth?: number;
-	fullWidthMode?: boolean;
 }
 
 interface CardInnerProps {
-	pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined;
-	getPosSafely: () => number | undefined;
-	view: EditorView;
-	getLineLength: (view: EditorView, pos: number | boolean, originalLineLength: number) => number;
-	smartCard: React.ReactElement;
-	eventDispatcher: EventDispatcher;
-	updateSize: (pctWidth: number | null, layout: RichMediaLayout) => boolean | undefined;
-	getPos: getPosHandler;
-	aspectRatio: number;
 	allowResizing: boolean | undefined;
-	hasPreview: boolean;
-	heightAlone: number;
+	aspectRatio: number;
 	cardProps: CardProps;
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent | undefined;
+	eventDispatcher: EventDispatcher;
+	getLineLength: (view: EditorView, pos: number | boolean, originalLineLength: number) => number;
+	getPos: getPosHandler;
+	getPosSafely: () => number | undefined;
+	hasPreview: boolean;
+	heightAlone: number;
+	pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined;
+	smartCard: React.ReactElement;
+	updateSize: (pctWidth: number | null, layout: RichMediaLayout) => boolean | undefined;
+	view: EditorView;
 }
 
 const selector = (
@@ -197,8 +197,8 @@ const CardInner = ({
 
 export type EmbedCardState = {
 	hasPreview: boolean;
-	liveHeight?: number;
 	initialAspectRatio?: number;
+	liveHeight?: number;
 };
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
@@ -232,7 +232,7 @@ export class EmbedCardComponent extends React.PureComponent<
 		}
 	};
 
-	onResolve = (data: { url?: string; title?: string; aspectRatio?: number }) => {
+	onResolve = (data: { aspectRatio?: number; title?: string; url?: string; }) => {
 		const { view } = this.props;
 
 		const { title, url, aspectRatio } = data;
@@ -638,14 +638,14 @@ export class EmbedCard extends ReactNodeView<EmbedCardNodeViewProps> {
 }
 
 export interface EmbedCardNodeViewProperties {
-	allowResizing: EmbedCardNodeViewProps['allowResizing'];
-	fullWidthMode: EmbedCardNodeViewProps['fullWidthMode'];
-	pmPluginFactoryParams: PMPluginFactoryParams;
-	pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined;
 	actionOptions: EmbedCardNodeViewProps['actionOptions'];
-	onClickCallback: EmbedCardNodeViewProps['onClickCallback'];
-	isPageSSRed: EmbedCardNodeViewProps['isPageSSRed'];
+	allowResizing: EmbedCardNodeViewProps['allowResizing'];
 	CompetitorPrompt?: EmbedCardNodeViewProps['CompetitorPrompt'];
+	fullWidthMode: EmbedCardNodeViewProps['fullWidthMode'];
+	isPageSSRed: EmbedCardNodeViewProps['isPageSSRed'];
+	onClickCallback: EmbedCardNodeViewProps['onClickCallback'];
+	pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined;
+	pmPluginFactoryParams: PMPluginFactoryParams;
 }
 
 export const embedCardNodeView =

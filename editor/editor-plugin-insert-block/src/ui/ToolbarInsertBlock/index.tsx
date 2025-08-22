@@ -81,8 +81,8 @@ export const tableButtonWrapper = ({
 	isTableSelectorOpen,
 	isButtonDisabled,
 }: {
-	isTableSelectorOpen: boolean;
 	isButtonDisabled: boolean | undefined;
+	isTableSelectorOpen: boolean;
 }) =>
 	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation due to mixins
 	css`
@@ -789,8 +789,8 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 		item,
 		inputMethod,
 	}: {
-		item: MenuItem;
 		inputMethod: TOOLBAR_MENU_TYPE;
+		item: MenuItem;
 	}): void => {
 		const { editorView, handleImageUpload, expandEnabled } = this.props;
 

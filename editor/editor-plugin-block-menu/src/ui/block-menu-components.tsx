@@ -6,17 +6,17 @@ import {
 	ToolbarDropdownItemSection,
 	ToolbarNestedDropdownMenu,
 } from '@atlaskit/editor-toolbar';
-import JiraIcon from '@atlaskit/icon-lab/core/jira';
 import ChangesIcon from '@atlaskit/icon/core/changes';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import ListBulletedIcon from '@atlaskit/icon/core/list-bulleted';
 import TaskIcon from '@atlaskit/icon/core/task';
 
-import type { BlockMenuPlugin } from '../blockMenuPluginType';
+import type { BlockMenuPlugin, BlockMenuPluginOptions } from '../blockMenuPluginType';
 import { type RegisterBlockMenuComponent } from '../blockMenuPluginType';
 
 import CopyBlockMenuItem from './copy-block';
+import { CopyLinkDropdownItem } from './copy-link';
 import { MoveDownDropdownItem } from './move-down';
 import { MoveUpDropdownItem } from './move-up';
 
@@ -50,9 +50,13 @@ const getMoveUpMoveDownMenuComponents = (
 	];
 };
 
-export const getBlockMenuComponents = (
-	api: ExtractInjectionAPI<BlockMenuPlugin> | undefined,
-): RegisterBlockMenuComponent[] => {
+export const getBlockMenuComponents = ({
+	api,
+	config,
+}: {
+	api: ExtractInjectionAPI<BlockMenuPlugin> | undefined;
+	config: BlockMenuPluginOptions | undefined;
+}): RegisterBlockMenuComponent[] => {
 	return [
 		{
 			type: 'block-menu-section' as const,
@@ -77,6 +81,16 @@ export const getBlockMenuComponents = (
 			component: () => {
 				return <CopyBlockMenuItem api={api} />;
 			},
+		},
+		{
+			type: 'block-menu-item' as const,
+			key: 'block-menu-item-copy-link',
+			parent: {
+				type: 'block-menu-section' as const,
+				key: 'block-menu-section-copy',
+				rank: 100,
+			},
+			component: () => <CopyLinkDropdownItem api={api} config={config} />,
 		},
 		{
 			type: 'block-menu-section' as const,
@@ -118,22 +132,6 @@ export const getBlockMenuComponents = (
 							</ToolbarDropdownItem>
 						</ToolbarDropdownItemSection>
 					</ToolbarNestedDropdownMenu>
-				);
-			},
-		},
-		{
-			type: 'block-menu-item' as const,
-			key: 'block-menu-item-create-jira',
-			parent: {
-				type: 'block-menu-section' as const,
-				key: 'block-menu-section-format',
-				rank: 200,
-			},
-			component: () => {
-				return (
-					<ToolbarDropdownItem elemBefore={<JiraIcon label="" />}>
-						Create Jira work item
-					</ToolbarDropdownItem>
 				);
 			},
 		},

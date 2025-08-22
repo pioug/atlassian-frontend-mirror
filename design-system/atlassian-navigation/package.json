@@ -90,7 +90,6 @@
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/spinner": "workspace:^",
 		"@atlaskit/textfield": "workspace:^",
-		"@atlaskit/visual-regression": "workspace:^",
 		"@atlassian/switcher": "workspace:^",
 		"@atlassian/switcher-test-utils": "workspace:^",
 		"@testing-library/react": "root:*",

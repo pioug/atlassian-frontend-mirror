@@ -26,6 +26,9 @@
 			"path": "../../../helpers/browser-apis/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../../measurement/feature-gate-js-client/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../../observability/interaction-context/afm-cc/tsconfig.json"
 		},
 		{

@@ -42,10 +42,10 @@ type State = {
 };
 
 export type Props = Omit<ResizerProps, 'height' | 'width'> & {
-	width?: number;
-	height?: number;
 	aspectRatio: number;
+	height?: number;
 	isResizeDisabled?: boolean;
+	width?: number;
 };
 
 // eslint-disable-next-line @repo/internal/react/no-class-components

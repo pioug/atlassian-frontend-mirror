@@ -14,9 +14,9 @@ type ListComponentProps = {
 };
 
 type ConfirmDialogChildrenListItemProps = {
+	amount: number;
 	id: string;
 	name: string | null;
-	amount: number;
 };
 
 export const CheckboxModal = (props: ConfirmationDialogProps & WrappedComponentProps) => {

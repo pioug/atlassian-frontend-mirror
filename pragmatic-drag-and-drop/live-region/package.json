@@ -26,7 +26,6 @@
 	},
 	"devDependencies": {
 		"@af/visual-regression": "workspace:^",
-		"@atlaskit/visual-regression": "workspace:^",
 		"@emotion/react": "root:*",
 		"@testing-library/dom": "root:*",
 		"@testing-library/react": "root:*",

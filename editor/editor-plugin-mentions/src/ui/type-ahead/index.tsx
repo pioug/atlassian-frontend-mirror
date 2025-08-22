@@ -64,8 +64,8 @@ const withInviteItem =
 		currentQuery,
 		onInviteItemMount,
 	}: {
-		firstQueryWithoutResults: string;
 		currentQuery: string;
+		firstQueryWithoutResults: string;
 		mentionProvider: MentionProvider;
 		onInviteItemMount: () => void;
 	}) =>
@@ -137,8 +137,8 @@ const buildAndSendElementsTypeAheadAnalytics =
 		mentions,
 		stats,
 	}: {
-		query: string;
 		mentions: MentionDescription[];
+		query: string;
 		stats?: MentionStats;
 	}) => {
 		let duration: number = 0;
@@ -239,20 +239,20 @@ const buildNodesForTeamMention = (
 };
 
 type Props = {
-	sanitizePrivateContent?: boolean;
-	mentionInsertDisplayName?: boolean;
-	HighlightComponent?: React.ComponentType<React.PropsWithChildren<unknown>>;
-	fireEvent: FireElementsChannelEvent;
 	api: ExtractInjectionAPI<MentionsPlugin> | undefined;
+	fireEvent: FireElementsChannelEvent;
 	handleMentionsChanged?: (
 		mentionChanges: {
-			type: 'added' | 'deleted';
-			localId: string;
 			id: string;
-			taskLocalId?: string;
+			localId: string;
 			method?: 'pasted' | 'typed';
+			taskLocalId?: string;
+			type: 'added' | 'deleted';
 		}[],
 	) => void;
+	HighlightComponent?: React.ComponentType<React.PropsWithChildren<unknown>>;
+	mentionInsertDisplayName?: boolean;
+	sanitizePrivateContent?: boolean;
 };
 export const createTypeAheadConfig = ({
 	sanitizePrivateContent,

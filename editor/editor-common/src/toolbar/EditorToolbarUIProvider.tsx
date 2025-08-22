@@ -18,9 +18,13 @@ export const EditorToolbarUIProvider = ({ children, api, isDisabled, popupsMount
 			if (!isOpen) {
 				// On Dropdown closed, focus is returned to trigger button by default in requestAnimationFrame
 				// Hence, `.focus()` should also be called in requestAnimationFrame
-				requestAnimationFrame(() => {
-					api?.core.actions.focus();
-				});
+				setTimeout(
+					() =>
+						requestAnimationFrame(() => {
+							api?.core.actions.focus();
+						}),
+					1,
+				);
 			}
 		},
 		[api],

@@ -12,8 +12,8 @@ import type { MetricsState } from './pm-plugins/main';
 
 type handleIntentToStartEditProps = {
 	newSelection?: Selection;
-	shouldStartTimer?: boolean;
 	shouldPersistActiveSession?: boolean;
+	shouldStartTimer?: boolean;
 };
 
 export type MetricsPluginOptions = {
@@ -24,18 +24,18 @@ export type MetricsPluginOptions = {
 export type MetricsPlugin = NextEditorPlugin<
 	'metrics',
 	{
-		pluginConfiguration?: MetricsPluginOptions;
-		dependencies: [OptionalPlugin<AnalyticsPlugin>, OptionalPlugin<UserPreferencesPlugin>];
-		sharedState: MetricsState;
 		commands: {
-			setContentMoved: () => EditorCommand;
-			startActiveSessionTimer: () => EditorCommand;
-			stopActiveSession: () => EditorCommand;
 			handleIntentToStartEdit: ({
 				newSelection,
 				shouldStartTimer,
 				shouldPersistActiveSession,
 			}: handleIntentToStartEditProps) => EditorCommand;
+			setContentMoved: () => EditorCommand;
+			startActiveSessionTimer: () => EditorCommand;
+			stopActiveSession: () => EditorCommand;
 		};
+		dependencies: [OptionalPlugin<AnalyticsPlugin>, OptionalPlugin<UserPreferencesPlugin>];
+		pluginConfiguration?: MetricsPluginOptions;
+		sharedState: MetricsState;
 	}
 >;

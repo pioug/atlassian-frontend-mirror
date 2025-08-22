@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-table
 
+## 12.3.1
+
+### Patch Changes
+
+- [`265c1bf0cefa4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/265c1bf0cefa4) -
+  Sorted type and interface props to improve Atlaskit docs
+- Updated dependencies
+
+## 12.3.0
+
+### Minor Changes
+
+- [`2a4fd9178e46c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a4fd9178e46c) -
+  Debounced sort button on table
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.2.7
+
+### Patch Changes
+
+- [`098cfbb01dc36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/098cfbb01dc36) -
+  Add missing npmignore files to remove unnecessary files from published package
+- Updated dependencies
+
 ## 12.2.6
 
 ### Patch Changes

@@ -16,12 +16,12 @@ import { backspaceKeymap } from './backspace';
 import { maybeEscapeKeymap } from './maybeEscape';
 
 interface KeymapProps {
-	view: EditorView;
+	customFindReplace: boolean;
 	getNode: () => PMNode;
 	getPos: getPosHandlerNode;
-	selectCodeBlockNode: (relativeSelectionPos: RelativeSelectionPos | undefined) => void;
 	onMaybeNodeSelection: () => void;
-	customFindReplace: boolean;
+	selectCodeBlockNode: (relativeSelectionPos: RelativeSelectionPos | undefined) => void;
+	view: EditorView;
 }
 
 export const keymapExtension = ({

@@ -40,9 +40,10 @@ import type { PopupPosition as Position } from '@atlaskit/editor-common/ui';
 import { Popup } from '@atlaskit/editor-common/ui';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
-import { AllSelection, PluginKey } from '@atlaskit/editor-prosemirror/state';
+import { AllSelection, PluginKey, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type {
@@ -300,6 +301,17 @@ export function ContentComponent({
 	// }
 
 	const { config, node } = configWithNodeInfo;
+
+	// When the new inline editor-toolbar is enabled, suppress floating toolbar for text selections.
+	if (expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true)) {
+		const selection = editorView.state.selection as Selection;
+		const isCellSelection = '$anchorCell' in selection && !selection.empty;
+		const isTextSelected = selection instanceof TextSelection && !selection.empty;
+		if (isTextSelected || isCellSelection) {
+			return null;
+		}
+	}
+
 	let { items } = config;
 	const { groupLabel } = config;
 	const {

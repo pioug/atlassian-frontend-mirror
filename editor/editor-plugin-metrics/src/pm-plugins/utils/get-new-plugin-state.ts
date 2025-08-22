@@ -33,13 +33,13 @@ export const getNewPluginState = ({
 	oldState,
 	newState,
 }: {
-	now: number;
 	intentToStartEditTime: number;
+	newState: EditorState;
+	now: number;
+	oldState: EditorState;
+	pluginState: MetricsState;
 	shouldPersistActiveSession: boolean;
 	tr: ReadonlyTransaction;
-	pluginState: MetricsState;
-	newState: EditorState;
-	oldState: EditorState;
 }) => {
 	const {
 		actionTypeCount,

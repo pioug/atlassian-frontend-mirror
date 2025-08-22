@@ -24,25 +24,25 @@ export interface ValidationErrors {
 }
 
 export interface FieldComponentProps {
-	field: FieldDefinition;
-	parameters: Parameters;
-	parentName?: string;
 	extensionManifest: ExtensionManifest;
+	featureFlags?: FeatureFlags;
+	field: FieldDefinition;
 	firstVisibleFieldName?: string;
 	onFieldChange: OnFieldChange;
-	featureFlags?: FeatureFlags;
+	parameters: Parameters;
+	parentName?: string;
 }
 
 export interface FormContentProps {
-	fields: FieldDefinition[];
-	parentName?: string;
-	parameters?: Parameters;
-	extensionManifest: ExtensionManifest;
 	canRemoveFields?: boolean;
+	contextIdentifierProvider?: ContextIdentifierProvider;
+	extensionManifest: ExtensionManifest;
+	featureFlags?: FeatureFlags;
+	fields: FieldDefinition[];
+	firstVisibleFieldName?: string;
+	isDisabled?: boolean;
 	onClickRemove?: (fieldName: string) => void;
 	onFieldChange: OnFieldChange;
-	firstVisibleFieldName?: string;
-	contextIdentifierProvider?: ContextIdentifierProvider;
-	featureFlags?: FeatureFlags;
-	isDisabled?: boolean;
+	parameters?: Parameters;
+	parentName?: string;
 }

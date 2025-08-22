@@ -6,12 +6,12 @@ import type { DropTargetType } from './consts';
 
 export interface DragAndDropPluginState {
 	decorationSet: DecorationSet;
-	dropTargetType: DropTargetType;
-	dropTargetIndex: number;
-	isDragMenuOpen: boolean;
 	dragMenuDirection?: TableDirection;
 	dragMenuIndex: number;
+	dropTargetIndex: number;
+	dropTargetType: DropTargetType;
 	isDragging: boolean;
+	isDragMenuOpen: boolean;
 	isKeyboardModeActive: boolean;
 }
 

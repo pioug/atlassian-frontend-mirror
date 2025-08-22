@@ -1,5 +1,12 @@
 # @atlaskit/editor-tables
 
+## 2.9.12
+
+### Patch Changes
+
+- [`d99dd614bde90`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d99dd614bde90) -
+  Add reverse selection support to rowSelection
+
 ## 2.9.11
 
 ### Patch Changes

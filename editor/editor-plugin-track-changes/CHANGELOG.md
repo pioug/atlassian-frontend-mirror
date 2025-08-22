@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-track-changes
 
+## 2.7.5
+
+### Patch Changes
+
+- [`b39429d6d1945`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b39429d6d1945) -
+  EDITOR-1365: Remove addToHistory false condition in the track changes plugin.
+- [`265c1bf0cefa4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/265c1bf0cefa4) -
+  Sorted type and interface props to improve Atlaskit docs
+- Updated dependencies
+
+## 2.7.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.7.3
 
 ### Patch Changes

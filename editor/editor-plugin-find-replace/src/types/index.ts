@@ -6,43 +6,43 @@ import type { DecorationSet, EditorView } from '@atlaskit/editor-prosemirror/vie
 
 import type { FindReplacePlugin } from '../findReplacePluginType';
 export interface FindReplacePluginState {
+	/** api */
+	api?: ExtractInjectionAPI<FindReplacePlugin>;
+	/** Decorations for the search results */
+	decorationSet: DecorationSet;
+	/** Search keyword */
+	findText: string;
+	/** Intl object */
+	getIntl?: () => IntlShape;
+	/** Index of selected word in array of matches, this gets updated as user finds next/prev */
+	index: number;
 	/** Whether find/replace is active, i.e. displayed */
 	isActive: boolean;
+	/** Positions of find results */
+	matches: Match[];
+	/** Text to replace with */
+	replaceText: string;
 	/**
 	 * Whether we should set focus into and select all text of find textfield
 	 * This will be true if user highlights a word and hits cmd+f
 	 */
 	shouldFocus: boolean;
-	/** Search keyword */
-	findText: string;
-	/** Text to replace with */
-	replaceText: string;
-	/** Index of selected word in array of matches, this gets updated as user finds next/prev */
-	index: number;
-	/** Positions of find results */
-	matches: Match[];
-	/** Decorations for the search results */
-	decorationSet: DecorationSet;
 	/** Whether find/replace should match case when searching for results */
 	shouldMatchCase: boolean;
-	/** Intl object */
-	getIntl?: () => IntlShape;
-	/** api */
-	api?: ExtractInjectionAPI<FindReplacePlugin>;
 }
 
 export type FindReplaceToolbarButtonWithStateProps = {
+	api: ExtractInjectionAPI<FindReplacePlugin> | undefined;
+	containerElement: HTMLElement | null;
+	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
+	doesNotHaveButton?: boolean;
+	editorView: EditorView;
+	isButtonHidden?: boolean;
+	isToolbarReducedSpacing?: boolean;
 	popupsBoundariesElement?: HTMLElement;
 	popupsMountPoint?: HTMLElement;
 	popupsScrollableElement?: HTMLElement;
-	isToolbarReducedSpacing?: boolean;
-	editorView: EditorView;
-	containerElement: HTMLElement | null;
-	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 	takeFullWidth?: boolean;
-	api: ExtractInjectionAPI<FindReplacePlugin> | undefined;
-	isButtonHidden?: boolean;
-	doesNotHaveButton?: boolean;
 };
 
 export type FindReplaceToolbarButtonActionProps = Omit<
@@ -51,21 +51,21 @@ export type FindReplaceToolbarButtonActionProps = Omit<
 >;
 
 export type Match = {
-	/** Start position */
-	start: number;
-	/** End position */
-	end: number;
 	/** Boolean for whether the match can be replaced */
 	canReplace?: boolean;
+	/** End position */
+	end: number;
 	/** Type of the node of the match */
 	nodeType?: string;
+	/** Start position */
+	start: number;
 };
 
 export type TextGrouping = {
-	/** The concatenated text across nodes */
-	text: string;
 	/** Start position */
 	pos: number;
+	/** The concatenated text across nodes */
+	text: string;
 } | null;
 
 export type FindReplaceOptions = {
@@ -74,6 +74,6 @@ export type FindReplaceOptions = {
 
 export type MatchCaseProps = {
 	allowMatchCase?: boolean;
-	shouldMatchCase?: boolean;
 	onToggleMatchCase?: () => void;
+	shouldMatchCase?: boolean;
 };

@@ -31,17 +31,17 @@ export type BlockTypeName =
 	| 'other';
 
 export interface BlockType {
-	name: string;
-	title: MessageDescriptor;
-	nodeName: string;
-	tagName?: string;
-	level?: HeadingLevelsAndNormalText;
 	icon?: ReactElement;
 	LEGACY_icon?: ReactElement;
+	level?: HeadingLevelsAndNormalText;
+	name: string;
+	nodeName: string;
+	tagName?: string;
+	title: MessageDescriptor;
 }
 export interface BlockTypeWithRank extends BlockType {
-	toolbarRank: number;
 	toolbarKey: string;
+	toolbarRank: number;
 }
 export interface BlockTypeNode {
 	name: AllowedBlockTypes;
@@ -49,8 +49,8 @@ export interface BlockTypeNode {
 }
 
 export interface BlockTypePluginOptions {
-	lastNodeMustBeParagraph?: boolean;
 	allowBlockType?: { exclude?: Array<AllowedBlockTypes> };
-	isUndoRedoButtonsEnabled?: boolean;
 	includeBlockQuoteAsTextstyleOption?: boolean;
+	isUndoRedoButtonsEnabled?: boolean;
+	lastNodeMustBeParagraph?: boolean;
 }

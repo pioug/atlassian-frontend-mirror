@@ -9,11 +9,11 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 type HTMLInputElementAttrs = {
-	type: 'checkbox';
+	'aria-label'?: string;
 	checked?: 'true';
 	id: string;
 	name: string;
-	'aria-label'?: string;
+	type: 'checkbox';
 };
 
 /**

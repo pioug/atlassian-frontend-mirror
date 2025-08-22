@@ -13,8 +13,8 @@ import type { ObjectSidebarBehavior, ObjectSidebarPanel } from './types/object-s
 export const pluginKey = new PluginKey<ContextPanelPluginState>('contextPanelPluginKey');
 
 type ContextPanelPluginState = {
-	handlers: ContextPanelHandler[];
 	contents: React.ReactNode[];
+	handlers: ContextPanelHandler[];
 };
 
 function contextPanelPluginFactory(

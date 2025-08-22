@@ -74,9 +74,9 @@ export const skipForwardToSafeItem = ({
 	itemIsDisabled,
 }: {
 	currentIndex: number;
-	nextIndex: number;
-	listSize: number;
 	itemIsDisabled: (idx: number) => boolean;
+	listSize: number;
+	nextIndex: number;
 }): number => {
 	// Use a loop to find the next selectable item
 	for (let idx = nextIndex; idx < listSize; idx++) {
@@ -105,9 +105,9 @@ export const skipBackwardToSafeItem = ({
 	itemIsDisabled,
 }: {
 	currentIndex: number;
-	nextIndex: number;
-	listSize: number;
 	itemIsDisabled: (idx: number) => boolean;
+	listSize: number;
+	nextIndex: number;
 }): number => {
 	// Use a loop to find the next non-selectable item when going backwards
 	for (let idx = nextIndex; idx >= 0; idx--) {
@@ -132,8 +132,8 @@ export const findHandlerByTrigger = ({
 	trigger,
 	editorState,
 }: {
-	trigger: string;
 	editorState: EditorState;
+	trigger: string;
 }): TypeAheadHandler | null => {
 	const pluginState = typeAheadPluginKey.getState(editorState);
 
@@ -151,9 +151,9 @@ export const findHandlerByTrigger = ({
 };
 
 type MoveSelectedIndexProps = {
-	editorView: EditorView;
-	direction: 'next' | 'previous';
 	api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;
+	direction: 'next' | 'previous';
+	editorView: EditorView;
 };
 export const moveSelectedIndex =
 	({ editorView, direction, api }: MoveSelectedIndexProps) =>
@@ -211,8 +211,8 @@ export const moveSelectedIndex =
 	};
 
 type TypeAheadAssistiveLabels = {
-	popupAriaLabel: string;
 	listItemAriaLabel?: string;
+	popupAriaLabel: string;
 };
 
 export const getTypeAheadListAriaLabels = (

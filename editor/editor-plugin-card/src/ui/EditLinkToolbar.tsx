@@ -37,10 +37,9 @@ import { changeSelectedCardToLink, updateCard } from '../pm-plugins/doc';
 import { displayInfoForCard, findCardInfo } from '../pm-plugins/utils';
 
 export type EditLinkToolbarProps = {
-	view: EditorView;
-	providerFactory: ProviderFactory;
-	url: string | undefined;
-	text: string;
+	forceFocusSelector: ForceFocusSelector | undefined;
+	linkPickerOptions?: LinkPickerOptions;
+	lpLinkPicker: boolean;
 	node: Node;
 	onSubmit?: (
 		href: string,
@@ -48,9 +47,10 @@ export type EditLinkToolbarProps = {
 		inputMethod?: LinkInputType,
 		analytic?: UIAnalyticsEvent | null | undefined,
 	) => void;
-	linkPickerOptions?: LinkPickerOptions;
-	forceFocusSelector: ForceFocusSelector | undefined;
-	lpLinkPicker: boolean;
+	providerFactory: ProviderFactory;
+	text: string;
+	url: string | undefined;
+	view: EditorView;
 };
 
 export function HyperlinkAddToolbarWithState({
@@ -191,11 +191,11 @@ export const buildEditLinkToolbar = ({
 	linkPicker,
 	lpLinkPicker,
 }: {
-	providerFactory: ProviderFactory;
-	node: Node;
-	pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined;
 	linkPicker?: LinkPickerOptions;
 	lpLinkPicker: boolean;
+	node: Node;
+	pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined;
+	providerFactory: ProviderFactory;
 }): FloatingToolbarItem<Command> => {
 	return {
 		type: 'custom',

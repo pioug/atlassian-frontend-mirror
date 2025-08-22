@@ -69,8 +69,8 @@ const toDOM = (node: PMNode): DOMOutputSpec => {
 };
 
 interface MentionNodeViewProps {
-	options?: MentionPluginOptions;
 	api: ExtractInjectionAPI<MentionsPlugin> | undefined;
+	options?: MentionPluginOptions;
 	portalProviderAPI: PortalProviderAPI;
 }
 const processName = (name: MentionNameDetails): string => {

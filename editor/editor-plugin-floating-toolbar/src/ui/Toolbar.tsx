@@ -52,24 +52,24 @@ import { ScrollButtons } from './ScrollButtons';
 import Select from './Select';
 
 export interface Props {
-	items: Array<Item>;
+	api: ExtractInjectionAPI<FloatingToolbarPlugin> | undefined;
+	className?: string;
+	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 	dispatchCommand: (command?: Function) => void;
-	popupsMountPoint?: HTMLElement;
+	editorView?: EditorView;
+	extensionsProvider?: Promise<ExtensionProvider>;
+	focusEditor?: () => void;
+	groupLabel?: string;
+	items: Array<Item>;
+	mediaAssistiveMessage?: string;
+	node: Node;
 	popupsBoundariesElement?: HTMLElement;
+	popupsMountPoint?: HTMLElement;
 	popupsScrollableElement?: HTMLElement;
 	providerFactory?: ProviderFactory;
-	className?: string;
-	groupLabel?: string;
-	focusEditor?: () => void;
-	editorView?: EditorView;
-	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
-	target?: HTMLElement;
-	node: Node;
-	extensionsProvider?: Promise<ExtensionProvider>;
 	scrollable?: boolean;
-	api: ExtractInjectionAPI<FloatingToolbarPlugin> | undefined;
-	mediaAssistiveMessage?: string;
 	shouldFitContainer?: boolean;
+	target?: HTMLElement;
 }
 
 type GroupedItems = (Item | Item[])[];
@@ -152,10 +152,10 @@ const ToolbarItems = React.memo(
 		api,
 		intl,
 	}: Props & {
-		setDisableScroll?: (disable: boolean) => void;
-		mountRef: React.RefObject<HTMLDivElement>;
-		mounted: boolean;
 		intl: IntlShape;
+		mounted: boolean;
+		mountRef: React.RefObject<HTMLDivElement>;
+		setDisableScroll?: (disable: boolean) => void;
 	}) => {
 		const emojiAndColourPickerMountPoint = scrollable
 			? popupsMountPoint ||
@@ -576,9 +576,9 @@ const toolbarOverflow = ({
 	scrollDisabled,
 	firstElementIsSelect,
 }: {
+	firstElementIsSelect?: boolean;
 	scrollable?: boolean;
 	scrollDisabled?: boolean;
-	firstElementIsSelect?: boolean;
 }) =>
 	css(
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
@@ -647,8 +647,8 @@ const toolbarOverflow = ({
 	);
 
 export interface State {
-	scrollDisabled: boolean;
 	mounted: boolean;
+	scrollDisabled: boolean;
 }
 
 // eslint-disable-next-line @repo/internal/react/no-class-components

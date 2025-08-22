@@ -28,26 +28,26 @@ import { DragControls, DragControlsWithSelection } from './RowControls/DragContr
 
 interface TableFloatingControlsProps {
 	editorView: EditorView;
-	selection?: Selection;
-	tableRef?: HTMLTableElement;
-	tableNode?: PmNode;
-	tableActive?: boolean;
-	isInDanger?: boolean;
-	isTableHovered?: boolean;
-	isResizing?: boolean;
-	isHeaderRowEnabled?: boolean;
-	isHeaderColumnEnabled?: boolean;
-	isNumberColumnEnabled?: boolean;
-	isDragAndDropEnabled?: boolean;
 	hasHeaderRow?: boolean;
 	headerRowHeight?: number;
-	hoveredRows?: number[];
 	hoveredCell?: CellHoverMeta;
-	ordering?: TableColumnOrdering;
-	stickyHeader?: RowStickyState;
+	hoveredRows?: number[];
 	insertRowButtonIndex?: number;
-	tableWrapperWidth?: number;
 	isChromelessEditor?: boolean;
+	isDragAndDropEnabled?: boolean;
+	isHeaderColumnEnabled?: boolean;
+	isHeaderRowEnabled?: boolean;
+	isInDanger?: boolean;
+	isNumberColumnEnabled?: boolean;
+	isResizing?: boolean;
+	isTableHovered?: boolean;
+	ordering?: TableColumnOrdering;
+	selection?: Selection;
+	stickyHeader?: RowStickyState;
+	tableActive?: boolean;
+	tableNode?: PmNode;
+	tableRef?: HTMLTableElement;
+	tableWrapperWidth?: number;
 }
 
 // Row controls

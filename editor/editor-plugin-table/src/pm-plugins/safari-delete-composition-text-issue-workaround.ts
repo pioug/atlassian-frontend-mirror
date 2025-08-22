@@ -9,8 +9,8 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 interface SafariDeleteCompositionTextIssueWorkaroundPluginState {
-	renderSpan: boolean;
 	decorations: DecorationSet;
+	renderSpan: boolean;
 }
 
 const tableSafariDeleteCompositionTextIssueWorkaroundKey =

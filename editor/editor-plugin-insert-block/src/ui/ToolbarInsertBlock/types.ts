@@ -18,60 +18,60 @@ import type { InsertBlockPlugin } from '../../index';
 import type { BlockMenuItem } from './create-items';
 
 export interface Props {
-	buttons: number;
-	showElementBrowser: boolean;
-	isReducedSpacing: boolean;
-	isDisabled?: boolean;
-	isTypeAheadAllowed?: boolean;
-	editorView: EditorView;
-	editorActions?: EditorActions;
-	tableSupported?: boolean;
-	tableSelectorSupported?: boolean;
 	actionSupported?: boolean;
-	decisionSupported?: boolean;
-	mentionsSupported?: boolean;
-	mediaUploadsEnabled?: boolean;
-	mediaSupported?: boolean;
-	isEditorOffline?: boolean;
-	imageUploadSupported?: boolean;
-	imageUploadEnabled?: boolean;
-	handleImageUpload?: (event?: ImageUploadPluginReferenceEvent) => Command;
-	dateEnabled?: boolean;
-	horizontalRuleEnabled?: boolean;
-	placeholderTextEnabled?: boolean;
-	layoutSectionEnabled?: boolean;
-	expandEnabled?: boolean;
-	emojiProvider?: Promise<EmojiProvider>;
 	availableWrapperBlockTypes?: BlockType[];
-	linkSupported?: boolean;
-	linkDisabled?: boolean;
+	buttons: number;
+	dateEnabled?: boolean;
+	decisionSupported?: boolean;
+	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
+	editorActions?: EditorActions;
+	editorAppearance?: EditorAppearance;
+	editorView: EditorView;
 	emojiDisabled?: boolean;
-	nativeStatusSupported?: boolean;
-	popupsMountPoint?: HTMLElement;
-	popupsBoundariesElement?: HTMLElement;
-	popupsScrollableElement?: HTMLElement;
+	emojiProvider?: Promise<EmojiProvider>;
+	expandEnabled?: boolean;
+	handleImageUpload?: (event?: ImageUploadPluginReferenceEvent) => Command;
+	horizontalRuleEnabled?: boolean;
+	imageUploadEnabled?: boolean;
+	imageUploadSupported?: boolean;
 	insertMenuItems?: MenuItem[];
-	showElementBrowserLink?: boolean;
-	showSeparator?: boolean;
-	onShowMediaPicker?: (mountInfo?: { ref: HTMLElement; mountPoint: HTMLElement }) => void;
+	isDisabled?: boolean;
+	isEditorOffline?: boolean;
+	isReducedSpacing: boolean;
+	isTypeAheadAllowed?: boolean;
+	layoutSectionEnabled?: boolean;
+	linkDisabled?: boolean;
+	linkSupported?: boolean;
+	mediaSupported?: boolean;
+	mediaUploadsEnabled?: boolean;
+	mentionsDisabled?: boolean;
+	mentionsSupported?: boolean;
+	nativeStatusSupported?: boolean;
 	onInsertBlockType?: (name: string) => Command;
 	onInsertMacroFromMacroBrowser?: (
 		macroProvider: MacroProvider,
 		node?: PMNode,
 		isEditing?: boolean,
 	) => (view: EditorView) => void;
-	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
+	onShowMediaPicker?: (mountInfo?: { mountPoint: HTMLElement; ref: HTMLElement; }) => void;
+	placeholderTextEnabled?: boolean;
 	pluginInjectionApi: ExtractInjectionAPI<InsertBlockPlugin> | undefined;
-	mentionsDisabled?: boolean;
-	editorAppearance?: EditorAppearance;
+	popupsBoundariesElement?: HTMLElement;
+	popupsMountPoint?: HTMLElement;
+	popupsScrollableElement?: HTMLElement;
+	showElementBrowser: boolean;
+	showElementBrowserLink?: boolean;
+	showSeparator?: boolean;
+	tableSelectorSupported?: boolean;
+	tableSupported?: boolean;
 }
 
 export interface State {
-	isPlusMenuOpen: boolean;
-	emojiPickerOpen: boolean;
 	buttons: BlockMenuItem[];
 	dropdownItems: BlockMenuItem[];
+	emojiPickerOpen: boolean;
 	isOpenedByKeyboard: boolean;
+	isPlusMenuOpen: boolean;
 	isTableSelectorOpen: boolean;
 	isTableSelectorOpenedByKeyboard: boolean;
 }

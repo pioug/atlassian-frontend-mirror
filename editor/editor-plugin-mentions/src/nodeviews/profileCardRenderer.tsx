@@ -19,11 +19,11 @@ export const profileCardRenderer = ({
 	node,
 	api,
 }: {
+	api: ExtractInjectionAPI<MentionsPlugin> | undefined;
 	dom: Node;
+	node: PMNode;
 	options?: MentionPluginOptions;
 	portalProviderAPI: PortalProviderAPI;
-	node: PMNode;
-	api: ExtractInjectionAPI<MentionsPlugin> | undefined;
 }) => {
 	let renderingProfileCard = false;
 	const key = uuid();

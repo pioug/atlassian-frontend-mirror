@@ -17,9 +17,9 @@ export const ExternalDropTargets = ({
 	getTableWrapperWidth,
 }: {
 	editorView: EditorView;
-	node?: PMNode;
 	getScrollOffset: () => number;
 	getTableWrapperWidth: () => number;
+	node?: PMNode;
 }) => {
 	const [isDragging, setIsDragging] = useState(false);
 	const currentNodeLocalId = node?.attrs.localId;

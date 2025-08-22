@@ -56,9 +56,9 @@ import { floatingToolbar } from './ui/toolbar';
 import ToolbarMedia from './ui/ToolbarMedia';
 
 type MediaPickerFunctionalComponentProps = {
-	editorDomElement: Element;
-	appearance: EditorAppearance;
 	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
+	appearance: EditorAppearance;
+	editorDomElement: Element;
 };
 
 type MediaViewerFunctionalComponentProps = {

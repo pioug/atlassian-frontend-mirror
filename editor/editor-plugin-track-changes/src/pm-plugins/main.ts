@@ -19,10 +19,10 @@ import { TOGGLE_TRACK_CHANGES_ACTION as ACTION } from './types';
 export const trackChangesPluginKey = new PluginKey<TrackChangesPluginState>('trackChangesPlugin');
 
 type TrackChangesPluginState = {
-	shouldChangesBeDisplayed: boolean;
-	isShowDiffAvailable: boolean;
-	steps: InvertableStep[];
 	allocations: Set<number>;
+	isShowDiffAvailable: boolean;
+	shouldChangesBeDisplayed: boolean;
+	steps: InvertableStep[];
 };
 
 // Exported for test purposes
@@ -85,7 +85,7 @@ export const createTrackChangesPlugin = (
 					return state;
 				}
 
-				if (tr.getMeta('isRemote')) {
+				if (tr.getMeta('isRemote') || tr.getMeta('replaceDocument')) {
 					// If the transaction is remote, we need to map the steps to the current document
 					return {
 						...state,
@@ -99,19 +99,6 @@ export const createTrackChangesPlugin = (
 								return undefined;
 							})
 							.filter((s) => !!s),
-					};
-				}
-
-				// For undo/redo operations (addToHistory === false), we still need to check if we're back at baseline
-				if (tr.getMeta('addToHistory') === false) {
-					// This is likely an undo/redo operation, check if current doc matches baseline
-					const baselineDoc = getBaselineFromSteps(tr.doc, state.steps);
-
-					const hasChangesFromBaseline = !tr.doc.eq(baselineDoc);
-
-					return {
-						...state,
-						isShowDiffAvailable: hasChangesFromBaseline,
 					};
 				}
 

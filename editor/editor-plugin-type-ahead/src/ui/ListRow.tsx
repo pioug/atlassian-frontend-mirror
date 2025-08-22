@@ -3,10 +3,10 @@ import React, { type ReactNode, useEffect, useRef, type MouseEventHandler } from
 import { type ListRowProps } from 'react-virtualized';
 
 type Props = {
-	measure: () => void;
-	registerChild?: (element?: Element) => void;
-	onMouseMove: MouseEventHandler<HTMLDivElement>;
 	children: ReactNode;
+	measure: () => void;
+	onMouseMove: MouseEventHandler<HTMLDivElement>;
+	registerChild?: (element?: Element) => void;
 } & Pick<ListRowProps, 'index' | 'style' | 'isScrolling' | 'isVisible'>;
 
 /**

@@ -18,13 +18,13 @@ import { DatasourceAppearanceButton } from './DatasourceAppearanceButton';
 import { LinkToolbarAppearance } from './LinkToolbarAppearance';
 
 export interface HyperlinkToolbarAppearanceProps {
-	intl: IntlShape;
-	editorState: EditorState;
-	url: string;
-	editorView?: EditorView;
 	cardOptions?: CardOptions;
 	editorAnalyticsApi: EditorAnalyticsAPI | undefined;
 	editorPluginApi: ExtractInjectionAPI<CardPlugin> | undefined;
+	editorState: EditorState;
+	editorView?: EditorView;
+	intl: IntlShape;
+	url: string;
 }
 
 export function HyperlinkToolbarAppearance(props: HyperlinkToolbarAppearanceProps) {

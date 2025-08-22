@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-indentation
 
+## 3.2.1
+
+### Patch Changes
+
+- [`265c1bf0cefa4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/265c1bf0cefa4) -
+  Sorted type and interface props to improve Atlaskit docs
+- Updated dependencies
+
 ## 3.2.0
 
 ### Minor Changes

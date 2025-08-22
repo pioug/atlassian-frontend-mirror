@@ -7,8 +7,8 @@ import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getPluginState } from '../pm-plugins/util/state';
 
 export type EditorAnalyticsContextProps = {
-	editorView?: EditorView;
 	children: React.ReactNode;
+	editorView?: EditorView;
 };
 
 /**

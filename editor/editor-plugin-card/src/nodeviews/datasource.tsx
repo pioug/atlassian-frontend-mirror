@@ -44,13 +44,13 @@ const getPosSafely = (pos: getPosHandler) => {
 };
 
 export interface DatasourceProps extends ReactComponentProps {
-	node: PMNode;
-	view: EditorView;
-	getPos: getPosHandler;
-	portalProviderAPI: PortalProviderAPI;
 	eventDispatcher: EventDispatcher;
-	pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined;
+	getPos: getPosHandler;
 	isNodeNested?: boolean;
+	node: PMNode;
+	pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined;
+	portalProviderAPI: PortalProviderAPI;
+	view: EditorView;
 }
 
 interface DatasourceComponentProps

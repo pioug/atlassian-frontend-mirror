@@ -58,10 +58,10 @@ const setProvider =
 	};
 
 interface CreateMentionPlugin {
-	pmPluginFactoryParams: PMPluginFactoryParams;
+	api?: ExtractInjectionAPI<MentionsPlugin>;
 	fireEvent: FireElementsChannelEvent;
 	options?: MentionPluginOptions;
-	api?: ExtractInjectionAPI<MentionsPlugin>;
+	pmPluginFactoryParams: PMPluginFactoryParams;
 }
 
 export function createMentionPlugin({
@@ -241,7 +241,7 @@ export function createMentionPlugin({
 						);
 
 						if (mentionNodesBefore.length > mentionLocalIdsAfter.size) {
-							const deletedMentions: { type: 'deleted'; localId: string; id: string }[] =
+							const deletedMentions: { id: string; localId: string; type: 'deleted'; }[] =
 								mentionNodesBefore
 									.filter(({ node }) => !mentionLocalIdsAfter.has(node.attrs.localId))
 									.map(({ node }) => ({

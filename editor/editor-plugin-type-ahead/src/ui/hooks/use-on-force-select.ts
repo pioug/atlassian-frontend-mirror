@@ -7,11 +7,11 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { insertTypeAheadItem } from '../../pm-plugins/commands/insert-type-ahead-item';
 
 type Props = {
-	triggerHandler: TypeAheadHandler;
+	closePopup: () => void;
+	editorView: EditorView;
 	items: Array<TypeAheadItem>;
 	query: string;
-	editorView: EditorView;
-	closePopup: () => void;
+	triggerHandler: TypeAheadHandler;
 };
 export const useOnForceSelect = ({
 	triggerHandler,

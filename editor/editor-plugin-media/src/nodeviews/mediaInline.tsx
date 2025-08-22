@@ -44,22 +44,22 @@ import { MediaViewerContainer } from '../ui/MediaViewer/MediaViewerContainer';
 
 import { MediaNodeUpdater } from './mediaNodeUpdater';
 export interface MediaInlineProps {
-	mediaProvider: Promise<MediaProvider>;
-	identifier: FileIdentifier;
-	node: PMNode;
-	isSelected: boolean;
-	view: EditorView;
-	getPos: ProsemirrorGetPosHandler;
-	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
-	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
-	handleMediaNodeMount: (node: PMNode, getPos: ProsemirrorGetPosHandler) => void;
-	handleMediaNodeUnmount: (node: PMNode) => void;
-	allowInlineImages?: boolean;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	addPendingTask: (promise: Promise<any>) => void;
-	selectedMediaContainerNode: () => PMNode | undefined;
-	mediaClientConfig: MediaClientConfig;
+	allowInlineImages?: boolean;
+	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
+	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 	editorViewMode?: boolean;
+	getPos: ProsemirrorGetPosHandler;
+	handleMediaNodeMount: (node: PMNode, getPos: ProsemirrorGetPosHandler) => void;
+	handleMediaNodeUnmount: (node: PMNode) => void;
+	identifier: FileIdentifier;
+	isSelected: boolean;
+	mediaClientConfig: MediaClientConfig;
+	mediaProvider: Promise<MediaProvider>;
+	node: PMNode;
+	selectedMediaContainerNode: () => PMNode | undefined;
+	view: EditorView;
 }
 
 const createMediaNodeUpdater = (props: MediaInlineProps): MediaNodeUpdater => {
@@ -313,9 +313,9 @@ const MediaInlineSharedState = ({
 };
 
 interface MediaInlineNodeViewProps {
-	providerFactory: ProviderFactory;
 	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
+	providerFactory: ProviderFactory;
 }
 export class MediaInlineNodeView extends SelectionBasedNodeView<MediaInlineNodeViewProps> {
 	createDomRef() {

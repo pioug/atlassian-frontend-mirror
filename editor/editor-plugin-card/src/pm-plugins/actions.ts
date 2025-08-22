@@ -73,8 +73,8 @@ export const setCardLayoutAndDatasourceTableRef =
 		layout,
 		datasourceTableRef,
 	}: {
-		layout: DatasourceTableLayout;
 		datasourceTableRef?: HTMLElement;
+		layout: DatasourceTableLayout;
 	}) =>
 	(tr: Transaction) =>
 		cardAction(tr, {

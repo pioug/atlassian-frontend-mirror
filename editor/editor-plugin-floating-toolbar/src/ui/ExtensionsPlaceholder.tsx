@@ -25,28 +25,28 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import Dropdown from './Dropdown';
 
 interface Props {
-	node: PMNode;
-	extensionProvider: Promise<ExtensionProvider>;
-	editorView: EditorView;
-	separator?: 'start' | 'end' | 'both';
-	applyChangeToContextPanel: ApplyChangeHandler | undefined;
-	extensionApi: ExtensionAPI | undefined;
-	scrollable?: boolean;
-	setDisableScroll?: (disable: boolean) => void;
-	dispatchCommand?: (command: Function) => void;
-	popupsMountPoint?: HTMLElement;
-	popupsBoundariesElement?: HTMLElement;
-	popupsScrollableElement?: HTMLElement;
-	setDisableParentScroll?: (disable: boolean) => void;
 	alignDropdownWithToolbar?: boolean;
+	applyChangeToContextPanel: ApplyChangeHandler | undefined;
+	dispatchCommand?: (command: Function) => void;
+	editorView: EditorView;
+	extensionApi: ExtensionAPI | undefined;
+	extensionProvider: Promise<ExtensionProvider>;
+	node: PMNode;
+	popupsBoundariesElement?: HTMLElement;
+	popupsMountPoint?: HTMLElement;
+	popupsScrollableElement?: HTMLElement;
+	scrollable?: boolean;
+	separator?: 'start' | 'end' | 'both';
+	setDisableParentScroll?: (disable: boolean) => void;
+	setDisableScroll?: (disable: boolean) => void;
 }
 
 type ExtensionButtonProps = {
-	item: ExtensionToolbarButton;
-	editorView: EditorView;
-	node: PMNode;
 	applyChangeToContextPanel: ApplyChangeHandler | undefined;
+	editorView: EditorView;
 	extensionApi: ExtensionAPI | undefined;
+	item: ExtensionToolbarButton;
+	node: PMNode;
 };
 
 type ExtensionIconModule = ExtensionToolbarButton['icon'];

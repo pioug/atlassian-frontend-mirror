@@ -25,7 +25,12 @@ export type ExtractActionsParam = {
 	origin?: AnalyticsOrigin;
 	fireEvent?: FireEventFunction;
 	isPreviewPanelAvailable?: (params: { ari: string }) => boolean;
-	openPreviewPanel?: (params: { ari: string; url: string; name: string; iconUrl: string | undefined }) => void;
+	openPreviewPanel?: (params: {
+		ari: string;
+		url: string;
+		name: string;
+		iconUrl: string | undefined;
+	}) => void;
 };
 
 export const extractFlexibleCardActions = ({

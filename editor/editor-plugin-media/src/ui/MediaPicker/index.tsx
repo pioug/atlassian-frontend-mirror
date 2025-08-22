@@ -15,9 +15,9 @@ import { ClipboardWrapper } from './ClipboardWrapper';
 import { DropzoneWrapper } from './DropzoneWrapper';
 
 type Props = {
-	editorDomElement: Element;
-	appearance: EditorAppearance;
 	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
+	appearance: EditorAppearance;
+	editorDomElement: Element;
 	onPopupToggle: (onPopupToggle: (isPopupOpened: boolean) => void) => void;
 	setBrowseFn: (nativeBrowseFn: () => void) => void;
 };
@@ -29,8 +29,8 @@ type State = {
 type MediaPickerProps = {
 	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
 	appearance: EditorAppearance;
-	isPopupOpened: boolean;
 	editorDomElement: Element;
+	isPopupOpened: boolean;
 	onBrowseFn: (nativeBrowseFn: () => void) => void;
 };
 

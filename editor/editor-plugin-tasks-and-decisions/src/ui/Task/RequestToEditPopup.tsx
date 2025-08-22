@@ -40,14 +40,14 @@ import { token } from '@atlaskit/tokens';
 import type { TasksAndDecisionsPlugin } from '../../tasksAndDecisionsPluginType';
 
 interface Props {
-	element: HTMLElement;
-	mountTo?: HTMLElement;
+	api: ExtractInjectionAPI<TasksAndDecisionsPlugin> | undefined;
 	boundariesElement?: HTMLElement;
-	scrollableElement?: HTMLElement;
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 	editorView: EditorView;
-	api: ExtractInjectionAPI<TasksAndDecisionsPlugin> | undefined;
+	element: HTMLElement;
+	mountTo?: HTMLElement;
 	onClose: () => void;
+	scrollableElement?: HTMLElement;
 }
 
 const PopupWithListeners = withOuterListeners(Popup);
@@ -145,8 +145,8 @@ const RequestedMessage = () => {
 const RequestToEditButton = ({
 	onClick,
 }: {
-	onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 	isDisabled?: boolean;
+	onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }) => {
 	const { formatMessage } = useIntl();
 	return (

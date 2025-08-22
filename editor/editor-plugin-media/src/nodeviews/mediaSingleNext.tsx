@@ -61,10 +61,10 @@ const figureWrapperStyles = css({
 });
 
 type UseMediaNodeUpdaterProps = {
-	mediaProvider: MediaProvider | null;
-	mediaNode: PMNode;
-	mediaSingleNodeProps: Omit<MediaSingleNodeProps, 'mediaPluginState' | 'annotationPluginState'>;
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent;
+	mediaNode: PMNode;
+	mediaProvider: MediaProvider | null;
+	mediaSingleNodeProps: Omit<MediaSingleNodeProps, 'mediaPluginState' | 'annotationPluginState'>;
 };
 const useMediaNodeUpdater = ({
 	mediaProvider,
@@ -132,13 +132,13 @@ const useMediaNodeUpdater = ({
 };
 
 const mediaAsyncOperations = async (props: {
-	mediaNode: PMNode;
-	mediaChildNode: PMNode;
-	updater: MediaNodeUpdater;
-	getPos: () => number | undefined;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	addPendingTask: (promise: Promise<any>) => void;
+	getPos: () => number | undefined;
+	mediaChildNode: PMNode;
+	mediaNode: PMNode;
+	updater: MediaNodeUpdater;
 }) => {
 	const updatedDimensions = await props.updater.getRemoteDimensions();
 	const currentAttrs = props.mediaChildNode.attrs;
@@ -177,12 +177,12 @@ const mediaAsyncOperations = async (props: {
 };
 
 type UseMediaAsyncOperationsProps = {
-	mediaNode: PMNode;
-	mediaNodeUpdater: MediaNodeUpdater | null;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	addPendingTask: (promise: Promise<any>) => void;
 	getPos: () => number | undefined;
+	mediaNode: PMNode;
+	mediaNodeUpdater: MediaNodeUpdater | null;
 };
 const useMediaAsyncOperations = ({
 	mediaNode,
@@ -302,9 +302,9 @@ const useUpdateSizeCallback = ({
 	view,
 	getPos,
 }: {
+	getPos: () => number | undefined;
 	mediaNode: PMNode;
 	view: EditorView;
-	getPos: () => number | undefined;
 }) => {
 	const updateSize = React.useCallback(
 		(width: number | null, layout: MediaSingleLayout) => {
@@ -351,28 +351,28 @@ const useUpdateSizeCallback = ({
 const FALLBACK_MOST_COMMON_WIDTH = 760;
 
 export type MediaSingleNodeNextProps = {
-	view: EditorView;
-	node: PMNode;
-	getPos: () => number | undefined;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	addPendingTask?: (promise: Promise<any>) => void;
+	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
+	dispatchAnalyticsEvent: DispatchAnalyticsEvent;
+	editorAppearance?: EditorAppearance;
+	editorDisabled?: boolean;
+	editorViewMode?: boolean;
 	eventDispatcher: EventDispatcher;
-	width: number;
-	selected: Function;
+	forwardRef: ForwardRef;
+	fullWidthMode?: boolean;
+	getPos: () => number | undefined;
+	isCopyPasteEnabled?: boolean;
+	isDrafting?: boolean;
 	lineLength: number;
 	mediaOptions: MediaOptions;
 	mediaProvider?: Promise<MediaProvider>;
-	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
-	fullWidthMode?: boolean;
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	addPendingTask?: (promise: Promise<any>) => void;
-	isDrafting?: boolean;
-	targetNodeId?: string;
-	dispatchAnalyticsEvent: DispatchAnalyticsEvent;
-	isCopyPasteEnabled?: boolean;
-	forwardRef: ForwardRef;
+	node: PMNode;
 	pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
-	editorViewMode?: boolean;
-	editorDisabled?: boolean;
-	editorAppearance?: EditorAppearance;
+	selected: Function;
+	targetNodeId?: string;
+	view: EditorView;
+	width: number;
 };
 export const MediaSingleNodeNext = (mediaSingleNodeNextProps: MediaSingleNodeNextProps) => {
 	const {

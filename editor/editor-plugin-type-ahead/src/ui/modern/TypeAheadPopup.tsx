@@ -59,25 +59,25 @@ const typeAheadContent = css({
 // });
 
 type TypeAheadPopupProps = {
-	triggerHandler: TypeAheadHandler;
-	editorView: EditorView;
 	anchorElement: HTMLElement;
-	popupsMountPoint?: HTMLElement;
-	popupsBoundariesElement?: HTMLElement;
-	popupsScrollableElement?: HTMLElement;
-	items: Array<TypeAheadItem>;
-	errorInfo: TypeAheadErrorInfo; // TODO: ED-26959 - shared type
-	decorationSet: DecorationSet;
-	isEmptyQuery: boolean;
-	query: string;
-	onItemInsert: (mode: SelectItemMode, index: number) => void;
+	api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;
 	cancel: (params: {
-		setSelectionAt: CloseSelectionOptions;
 		addPrefixTrigger: boolean;
 		forceFocusOnEditor: boolean;
+		setSelectionAt: CloseSelectionOptions;
 	}) => void;
-	api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;
+	decorationSet: DecorationSet;
+	editorView: EditorView;
+	errorInfo: TypeAheadErrorInfo; // TODO: ED-26959 - shared type
+	isEmptyQuery: boolean;
+	items: Array<TypeAheadItem>;
+	onItemInsert: (mode: SelectItemMode, index: number) => void;
+	popupsBoundariesElement?: HTMLElement;
+	popupsMountPoint?: HTMLElement;
+	popupsScrollableElement?: HTMLElement;
+	query: string;
 	setSelectedItem?: (props: { index: number }) => void;
+	triggerHandler: TypeAheadHandler;
 };
 
 const OFFSET = [0, 8];

@@ -10,11 +10,11 @@ import { getDragBehaviour } from '../../../pm-plugins/drag-and-drop/utils/getDra
 import type { DraggableSourceData } from '../../../types';
 
 interface Props {
+	height?: number;
 	index: number;
 	localId?: string;
-	width?: number;
-	height?: number;
 	marginTop?: number;
+	width?: number;
 }
 
 export const ColumnDropTarget = ({ index, localId, width, height, marginTop }: Props) => {

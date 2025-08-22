@@ -13,9 +13,9 @@ export function withExtensionManifest(
 	WrappedComponent: React.ComponentType<{ extensionManifest: ExtensionManifest }>,
 ) {
 	return function WithExtensionManifest(props: {
+		extensionKey: ExtensionKey;
 		extensionProvider: ExtensionProvider;
 		extensionType: ExtensionType;
-		extensionKey: ExtensionKey;
 	}) {
 		const { extensionKey, extensionProvider, extensionType, ...restProps } = props;
 		const [extensionManifest] = useStateFromPromise<ExtensionManifest | undefined>(

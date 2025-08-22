@@ -27,23 +27,23 @@ import { trackLastRemoteConflictPluginKey } from '../track-reconnection-conflict
 export type SynchronyEntity = {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	on: (evt: 'disconnected' | 'error', handler: (...args: any) => void) => void;
+	off: (evt: 'disconnected' | 'error', handler: (...args: any) => void) => void;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	off: (evt: 'disconnected' | 'error', handler: (...args: any) => void) => void;
+	on: (evt: 'disconnected' | 'error', handler: (...args: any) => void) => void;
 };
 export interface CollabHandlers {
-	initHandler: (data: CollabEventInitData) => void;
 	connectedHandler: (data: CollabEventConnectionData) => void;
+	dataConflictHandler: (data: CollabEventConflictPayload) => void;
 	dataHandler: (data: CollabEventRemoteData) => void;
-	presenceHandler: (data: CollabEventPresenceData) => void;
-	telepointerHandler: (data: CollabTelepointerPayload) => void;
-	localStepsHandler: (data: CollabEventLocalStepData) => void;
+	entityHandler: ({ entity }: { entity: SynchronyEntity }) => void;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	errorHandler: (error: any) => void;
-	entityHandler: ({ entity }: { entity: SynchronyEntity }) => void;
-	dataConflictHandler: (data: CollabEventConflictPayload) => void;
+	initHandler: (data: CollabEventInitData) => void;
+	localStepsHandler: (data: CollabEventLocalStepData) => void;
+	presenceHandler: (data: CollabEventPresenceData) => void;
+	telepointerHandler: (data: CollabTelepointerPayload) => void;
 }
 
 export type Cleanup = () => void;

@@ -15,11 +15,11 @@ export const ButtonWrapper = ({
 	onOpenLinkClick,
 }: {
 	editorView: EditorView;
-	pos?: number;
-	stateKey: PluginKey<HyperlinkState>;
 	intl: IntlShape;
 	/** Callback fired when the Open Link dropdown item is clicked */
 	onOpenLinkClick: (event: MouseEvent<HTMLAnchorElement>) => void;
+	pos?: number;
+	stateKey: PluginKey<HyperlinkState>;
 }) => {
 	const wrapper = document.createElement('span');
 	wrapper.style.position = 'relative';

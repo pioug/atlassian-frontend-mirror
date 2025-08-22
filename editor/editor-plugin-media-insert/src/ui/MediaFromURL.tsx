@@ -58,17 +58,17 @@ const FormStyles = xcss({
 });
 
 type PreviewState = {
-	isLoading: boolean;
 	error: string | null;
-	warning: string | null;
+	isLoading: boolean;
 	previewInfo: Required<OnInsertAttrs> | null;
+	warning: string | null;
 };
 
 type PreviewStateAction =
 	| { type: 'loading' }
-	| { type: 'error'; error: string }
-	| { type: 'warning'; warning: string; url: string }
-	| { type: 'success'; payload: Required<OnInsertAttrs> }
+	| { error: string; type: 'error'; }
+	| { type: 'warning'; url: string; warning: string; }
+	| { payload: Required<OnInsertAttrs>; type: 'success'; }
 	| { type: 'reset' };
 
 const INITIAL_PREVIEW_STATE: Readonly<PreviewState> = Object.freeze({
@@ -122,14 +122,14 @@ const previewStateReducer = (state: PreviewState, action: PreviewStateAction) =>
 };
 
 type Props = {
-	mediaProvider: MediaProvider;
-	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 	closeMediaInsertPicker: () => void;
-	insertMediaSingle: InsertMediaSingle;
-	insertExternalMediaSingle: InsertExternalMediaSingle;
-	isOnlyExternalLinks: boolean;
-	customizedUrlValidation?: (input: string) => boolean;
 	customizedHelperMessage?: CustomizedHelperMessage;
+	customizedUrlValidation?: (input: string) => boolean;
+	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
+	insertExternalMediaSingle: InsertExternalMediaSingle;
+	insertMediaSingle: InsertMediaSingle;
+	isOnlyExternalLinks: boolean;
+	mediaProvider: MediaProvider;
 };
 
 export function MediaFromURL({

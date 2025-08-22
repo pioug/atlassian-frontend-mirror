@@ -3,7 +3,7 @@ import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/m
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
-type DeleteAction = (props: { tr: Transaction; $next: ResolvedPos; $head: ResolvedPos }) => boolean;
+type DeleteAction = (props: { $head: ResolvedPos; $next: ResolvedPos; tr: Transaction; }) => boolean;
 
 // Case for when a users selection is at the end of a paragraph, the paragraph
 // is followed by a list, and they delete forward

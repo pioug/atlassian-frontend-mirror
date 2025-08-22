@@ -33,9 +33,9 @@ export const setToolbarDocking =
 		userPreferencesProvider,
 		editorAnalyticsApi,
 	}: {
+		editorAnalyticsApi?: EditorAnalyticsAPI | undefined;
 		toolbarDocking: ToolbarDocking;
 		userPreferencesProvider?: UserPreferencesProvider;
-		editorAnalyticsApi?: EditorAnalyticsAPI | undefined;
 	}): EditorCommand =>
 	({ tr }) => {
 		// We currently ignore any update failures, need to confirm this is the desired behaviour

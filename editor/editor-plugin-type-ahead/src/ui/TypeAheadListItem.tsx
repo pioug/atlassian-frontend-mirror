@@ -152,28 +152,28 @@ const FallbackIcon = React.memo(({ label }: Record<'label', string>) => {
 const noop = () => {};
 
 type TypeAheadListItemProps = {
-	item: TypeAheadItem;
-	itemsLength: number;
-	itemIndex: number;
-	selectedIndex: number;
-	ariaLabel?: string;
-	onItemClick: (mode: SelectItemMode, index: number) => void;
-	moreElementsInQuickInsertViewEnabled?: boolean;
 	api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;
+	ariaLabel?: string;
 	firstOnlineSupportedIndex: number;
+	item: TypeAheadItem;
+	itemIndex: number;
+	itemsLength: number;
+	moreElementsInQuickInsertViewEnabled?: boolean;
+	onItemClick: (mode: SelectItemMode, index: number) => void;
+	selectedIndex: number;
 };
 
 type CustomItemComponentWrapperProps = {
+	ariaLabel: string | undefined;
+	customItemRef: React.RefObject<HTMLDivElement>;
 	customRenderItem: (
 		props: TypeAheadItemRenderProps,
 	) => React.ReactElement<TypeAheadItemRenderProps> | null;
-	isSelected: boolean;
-	itemIsDisabled: boolean;
-	ariaLabel: string | undefined;
-	itemsLength: number;
-	customItemRef: React.RefObject<HTMLDivElement>;
 	insertSelectedItem: () => void;
+	isSelected: boolean;
 	itemIndex: number;
+	itemIsDisabled: boolean;
+	itemsLength: number;
 };
 
 const CustomItemComponentWrapper = React.memo((props: CustomItemComponentWrapperProps) => {

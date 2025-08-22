@@ -176,7 +176,6 @@
 		"@atlaskit/textfield": "workspace:^",
 		"@atlaskit/toggle": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
-		"@atlaskit/visual-regression": "workspace:^",
 		"@atlassian/analytics-bridge": "workspace:^",
 		"@atlassian/codegen": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",

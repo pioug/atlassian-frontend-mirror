@@ -10,14 +10,14 @@ export const DATASOURCE_TABLE_LAYOUTS = ['full-width', 'center', 'wide'] as cons
 export type DatasourceTableLayout = (typeof DATASOURCE_TABLE_LAYOUTS)[number];
 
 export type LayoutButtonProps = {
-	mountPoint?: HTMLElement;
 	boundariesElement?: HTMLElement;
+	intl: IntlShape;
+	layout?: DatasourceTableLayout;
+	mountPoint?: HTMLElement;
+	onLayoutChange?: (layout: DatasourceTableLayout) => void;
 	scrollableElement?: HTMLElement;
 	targetElement?: HTMLElement;
-	layout?: DatasourceTableLayout;
-	onLayoutChange?: (layout: DatasourceTableLayout) => void;
 	testId?: string;
-	intl: IntlShape;
 };
 
 export interface LayoutButtonWrapperProps

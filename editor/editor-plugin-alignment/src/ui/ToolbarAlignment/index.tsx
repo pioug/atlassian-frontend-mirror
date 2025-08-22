@@ -43,13 +43,13 @@ export interface State {
 
 export interface Props {
 	align: AlignmentState | undefined;
-	changeAlignment: (align: AlignmentState) => void;
-	popupsMountPoint?: HTMLElement;
-	popupsBoundariesElement?: HTMLElement;
-	popupsScrollableElement?: HTMLElement;
-	isReducedSpacing?: boolean;
-	disabled?: boolean;
 	api: ExtractInjectionAPI<AlignmentPlugin> | undefined;
+	changeAlignment: (align: AlignmentState) => void;
+	disabled?: boolean;
+	isReducedSpacing?: boolean;
+	popupsBoundariesElement?: HTMLElement;
+	popupsMountPoint?: HTMLElement;
+	popupsScrollableElement?: HTMLElement;
 	toolbarType: ToolbarType;
 }
 

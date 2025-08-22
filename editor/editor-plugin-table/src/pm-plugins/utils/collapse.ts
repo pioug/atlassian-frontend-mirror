@@ -6,11 +6,11 @@ import { findWrapping } from '@atlaskit/editor-prosemirror/transform';
 import { findTable } from '@atlaskit/editor-tables/utils';
 
 interface IsTableCollapsibleResult {
-	tableIsCollapsible: boolean;
-	range?: NodeRange;
 	findWrappingRes?: // Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	Array<{ type: NodeType; attrs?: { [key: string]: any } | null }> | null | undefined;
+	Array<{ attrs?: { [key: string]: any } | null; type: NodeType; }> | null | undefined;
+	range?: NodeRange;
+	tableIsCollapsible: boolean;
 }
 
 const bail = () => ({

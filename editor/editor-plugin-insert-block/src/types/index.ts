@@ -58,11 +58,12 @@ export type InsertBlockPluginDependencies = [
 ];
 
 export interface InsertBlockPluginOptions {
-	allowTables?: boolean;
 	allowExpand?: boolean;
+	allowTables?: boolean;
+	appearance?: EditorAppearance;
+	horizontalRuleEnabled?: boolean;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	insertMenuItems?: any;
-	horizontalRuleEnabled?: boolean;
 	nativeStatusSupported?: boolean;
 	/**
 	 * To hide the element browser "view more" button in the
@@ -71,7 +72,6 @@ export interface InsertBlockPluginOptions {
 	 */
 	showElementBrowserLink?: boolean;
 	tableSelectorSupported?: boolean;
-	appearance?: EditorAppearance;
 	/**
 	 * To hide the individual insert block buttons in the toolbar
 	 * and only show the plus button

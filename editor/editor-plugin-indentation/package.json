@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-indentation",
-	"version": "3.2.0",
+	"version": "3.2.1",
 	"description": "Indentation plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -47,7 +47,6 @@
 		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
-		"@atlaskit/visual-regression": "workspace:^",
 		"@testing-library/react": "root:*",
 		"wait-for-expect": "root:*"
 	},

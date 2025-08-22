@@ -56,27 +56,20 @@ const closeButtonInlineStyles = xcss({
 
 export type ReplaceProps = {
 	canReplace: boolean;
-	replaceText?: string;
-	onReplace: ({
-		triggerMethod,
-		replaceText,
-	}: {
-		triggerMethod: TRIGGER_METHOD.KEYBOARD | TRIGGER_METHOD.BUTTON;
-		replaceText: string;
-	}) => void;
-	onReplaceAll: ({ replaceText }: { replaceText: string }) => void;
-	onReplaceTextfieldRefSet: (ref: React.RefObject<HTMLInputElement>) => void;
+	count: {
+		index: number;
+		total: number;
+		totalReplaceable?: number;
+	};
+	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
+	findTyped: boolean;
+	focusToolbarButton: () => void;
 	onArrowUp: () => void;
 	onCancel: ({
 		triggerMethod,
 	}: {
 		triggerMethod: TRIGGER_METHOD.KEYBOARD | TRIGGER_METHOD.TOOLBAR | TRIGGER_METHOD.BUTTON;
 	}) => void;
-	count: {
-		index: number;
-		total: number;
-		totalReplaceable?: number;
-	};
 	onFindNext: ({
 		triggerMethod,
 	}: {
@@ -87,10 +80,17 @@ export type ReplaceProps = {
 	}: {
 		triggerMethod: TRIGGER_METHOD.KEYBOARD | TRIGGER_METHOD.BUTTON;
 	}) => void;
-	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
+	onReplace: ({
+		triggerMethod,
+		replaceText,
+	}: {
+		replaceText: string;
+		triggerMethod: TRIGGER_METHOD.KEYBOARD | TRIGGER_METHOD.BUTTON;
+	}) => void;
+	onReplaceAll: ({ replaceText }: { replaceText: string }) => void;
+	onReplaceTextfieldRefSet: (ref: React.RefObject<HTMLInputElement>) => void;
+	replaceText?: string;
 	setFindTyped: (value: boolean) => void;
-	findTyped: boolean;
-	focusToolbarButton: () => void;
 };
 
 const Replace = ({

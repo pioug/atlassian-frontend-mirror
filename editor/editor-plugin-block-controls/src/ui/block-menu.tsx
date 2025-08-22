@@ -22,11 +22,11 @@ import { getBlockMenuItems, menuItemsCallback } from './block-menu-items';
 import { BLOCK_MENU_WIDTH } from './consts';
 
 type BlockMenuProps = {
+	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined;
+	boundariesElement?: HTMLElement;
 	editorView: EditorView | undefined;
 	mountPoint?: HTMLElement;
-	boundariesElement?: HTMLElement;
 	scrollableElement?: HTMLElement;
-	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined;
 };
 
 const useBlockMenuPluginState = sharedPluginStateHookMigratorFactory(
@@ -54,8 +54,8 @@ const useBlockMenuPluginState = sharedPluginStateHookMigratorFactory(
 );
 
 type BlockMenuContentProps = BlockMenuProps & {
-	menuTriggerBy: string;
 	formatMessage: WrappedComponentProps['intl']['formatMessage'];
+	menuTriggerBy: string;
 };
 
 const BlockMenuContent = ({

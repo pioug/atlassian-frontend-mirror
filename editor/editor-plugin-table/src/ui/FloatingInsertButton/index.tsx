@@ -38,26 +38,26 @@ import getPopupOptions from './getPopupOptions';
 import InsertButton, { DragAndDropInsertButton } from './InsertButton';
 
 export interface Props {
-	editorView: EditorView;
-	getEditorContainerWidth: GetEditorContainerWidth;
-	tableRef?: HTMLElement;
-	tableNode?: PmNode;
-	insertColumnButtonIndex?: number;
-	insertRowButtonIndex?: number;
-	isHeaderColumnEnabled?: boolean;
-	isHeaderRowEnabled?: boolean;
-	isDragAndDropEnabled?: boolean;
-	isTableScalingEnabled?: boolean;
-	mountPoint?: HTMLElement;
-	boundariesElement?: HTMLElement;
-	scrollableElement?: HTMLElement;
-	hasStickyHeaders?: boolean;
 	api: PluginInjectionAPI | undefined | null;
+	boundariesElement?: HTMLElement;
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 	editorAnalyticsAPI?: EditorAnalyticsAPI;
+	editorView: EditorView;
+	getEditorContainerWidth: GetEditorContainerWidth;
 	getEditorFeatureFlags?: GetEditorFeatureFlags;
+	hasStickyHeaders?: boolean;
+	insertColumnButtonIndex?: number;
+	insertRowButtonIndex?: number;
 	isChromelessEditor?: boolean;
 	isCommentEditor?: boolean;
+	isDragAndDropEnabled?: boolean;
+	isHeaderColumnEnabled?: boolean;
+	isHeaderRowEnabled?: boolean;
+	isTableScalingEnabled?: boolean;
+	mountPoint?: HTMLElement;
+	scrollableElement?: HTMLElement;
+	tableNode?: PmNode;
+	tableRef?: HTMLElement;
 }
 
 // Ignored via go/ees005

@@ -41,24 +41,24 @@ export const MEDIA_HEIGHT = 125;
 export const FILE_WIDTH = 156;
 
 export interface MediaNodeProps extends ReactNodeProps, ImageLoaderProps {
-	view: EditorView;
-	node: PMNode;
-	getPos: ProsemirrorGetPosHandler;
 	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
-	originalDimensions: NumericalCardDimensions;
-	maxDimensions: CardDimensions;
-	isMediaSingle?: boolean;
-	onClick?: CardOnClickCallback;
-	mediaProvider?: Promise<MediaProvider>;
+	getPos: ProsemirrorGetPosHandler;
 	isLoading?: boolean;
-	mediaOptions?: MediaOptions;
+	isMediaSingle?: boolean;
 	isViewOnly?: boolean;
+	maxDimensions: CardDimensions;
+	mediaOptions?: MediaOptions;
+	mediaProvider?: Promise<MediaProvider>;
+	node: PMNode;
+	onClick?: CardOnClickCallback;
+	originalDimensions: NumericalCardDimensions;
+	view: EditorView;
 }
 
 interface MediaNodeState {
-	viewMediaClientConfig?: MediaClientConfig;
-	viewAndUploadMediaClientConfig?: MediaClientConfig;
 	contextIdentifierProvider?: ContextIdentifierProvider;
+	viewAndUploadMediaClientConfig?: MediaClientConfig;
+	viewMediaClientConfig?: MediaClientConfig;
 }
 
 // eslint-disable-next-line @repo/internal/react/no-class-components

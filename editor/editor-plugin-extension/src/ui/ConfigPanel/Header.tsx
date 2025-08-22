@@ -99,14 +99,14 @@ const closeButtonWrapperStyles = css({
 });
 
 type Props = {
-	title: string;
-	description?: string;
-	summary?: string;
 	deprecation?: ExtensionDeprecationStatus;
+	description?: string;
 	documentationUrl?: string;
 	enableHelpCTA?: boolean;
 	icon: Icon;
 	onClose: () => void;
+	summary?: string;
+	title: string;
 } & WrappedComponentProps;
 
 const Header = ({

@@ -15,19 +15,26 @@ import type { UserPreferencesPlugin } from '@atlaskit/editor-plugin-user-prefere
 import type { ToolbarDocking } from './types';
 
 export type SelectionToolbarPluginOptions = {
+	contextualFormattingEnabled?: boolean;
 	/** @defaults false */
 	preferenceToolbarAboveSelection?: boolean;
 	userPreferencesProvider?: UserPreferencesProvider;
-	contextualFormattingEnabled?: boolean;
 };
 
 export type SelectionToolbarPlugin = NextEditorPlugin<
 	'selectionToolbar',
 	{
-		sharedState: {
-			toolbarDocking: ToolbarDocking;
+		actions?: {
+			forceToolbarDockingWithoutAnalytics?: (toolbarDocking: ToolbarDocking) => boolean;
+			refreshToolbarDocking?: () => boolean;
+			/**
+			 * @private
+			 * @deprecated use userPreference API to set toolbar docking instead
+			 */
+			setToolbarDocking?: (toolbarDocking: ToolbarDocking) => boolean;
+			suppressToolbar?: () => boolean;
+			unsuppressToolbar?: () => boolean;
 		};
-		pluginConfiguration: SelectionToolbarPluginOptions;
 		dependencies: [
 			OptionalPlugin<EditorViewModePlugin>,
 			OptionalPlugin<PrimaryToolbarPlugin>,
@@ -38,16 +45,9 @@ export type SelectionToolbarPlugin = NextEditorPlugin<
 			OptionalPlugin<ToolbarPlugin>,
 			OptionalPlugin<UserIntentPlugin>,
 		];
-		actions?: {
-			suppressToolbar?: () => boolean;
-			unsuppressToolbar?: () => boolean;
-			/**
-			 * @private
-			 * @deprecated use userPreference API to set toolbar docking instead
-			 */
-			setToolbarDocking?: (toolbarDocking: ToolbarDocking) => boolean;
-			forceToolbarDockingWithoutAnalytics?: (toolbarDocking: ToolbarDocking) => boolean;
-			refreshToolbarDocking?: () => boolean;
+		pluginConfiguration: SelectionToolbarPluginOptions;
+		sharedState: {
+			toolbarDocking: ToolbarDocking;
 		};
 	}
 >;

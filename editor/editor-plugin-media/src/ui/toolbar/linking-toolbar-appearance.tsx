@@ -30,12 +30,12 @@ import { checkMediaType } from '../../pm-plugins/utils/check-media-type';
 export interface LinkingToolbarProps {
 	editorState: EditorState;
 	intl: IntlShape;
+	isInlineNode?: boolean;
+	isViewOnly?: boolean;
 	mediaLinkingState: MediaLinkingState;
 	onAddLink: React.MouseEventHandler;
 	onEditLink: React.MouseEventHandler;
 	onOpenLink: React.MouseEventHandler;
-	isInlineNode?: boolean;
-	isViewOnly?: boolean;
 }
 
 const wrapperStyles = css({

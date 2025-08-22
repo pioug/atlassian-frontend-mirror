@@ -12,9 +12,9 @@ import {
 
 type ViewModeStepProps = {
 	from: number;
-	to: number;
-	mark?: Mark;
 	inverted?: boolean;
+	mark?: Mark;
+	to: number;
 };
 
 export class ViewModeStep extends Step {
@@ -93,8 +93,8 @@ export class ViewModeStep extends Step {
 }
 
 type ViewModeNodeStepProps = {
-	mark?: Mark;
 	inverted?: boolean;
+	mark?: Mark;
 	pos: number;
 };
 

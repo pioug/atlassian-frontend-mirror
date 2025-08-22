@@ -29,8 +29,8 @@ type Props = {
 const panelTitleAndIcon: Record<
 	string,
 	{
-		title: MessageDescriptor;
 		icon: React.ReactNode;
+		title: MessageDescriptor;
 	}
 > = {
 	[PanelType.INFO]: {
@@ -120,7 +120,8 @@ export const panelTypeDropdown = ({
 	];
 
 	const selectedPanelType = activePanelType || PanelType.INFO;
-	const selectedTitleAndIcon = panelTitleAndIcon[selectedPanelType];
+	const selectedTitleAndIcon =
+		panelTitleAndIcon[selectedPanelType] || panelTitleAndIcon[PanelType.CUSTOM];
 	return {
 		id: 'panel-type-dropdown',
 		testId: 'panel-type-dropdown-trigger',

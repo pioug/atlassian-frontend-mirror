@@ -1,5 +1,13 @@
 # @atlaskit/analytics-listeners
 
+## 9.0.3
+
+### Patch Changes
+
+- [`3298a6307027c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3298a6307027c) -
+  Sorted type and interface props to improve Atlaskit docs
+- Updated dependencies
+
 ## 9.0.2
 
 ### Patch Changes

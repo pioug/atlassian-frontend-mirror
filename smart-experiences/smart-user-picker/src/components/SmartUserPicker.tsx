@@ -282,7 +282,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 
 			const displayedUsers =
 				transformedOptions.length === 0 && onEmpty
-					? ((await onEmpty(query)) ?? [])
+					? (await onEmpty(query)) ?? []
 					: transformedOptions;
 
 			this.setState((state) => {

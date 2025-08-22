@@ -7,7 +7,7 @@ import { MAX_STEPS_FROM_BASELINE } from './maxSteps';
 export function filterSteps(
 	steps: InvertableStep[],
 	allocations: Set<number>,
-): { steps: InvertableStep[]; allocations: Set<number> } {
+): { allocations: Set<number>; steps: InvertableStep[]; } {
 	if (allocations.size <= MAX_STEPS_FROM_BASELINE) {
 		return { steps, allocations };
 	}

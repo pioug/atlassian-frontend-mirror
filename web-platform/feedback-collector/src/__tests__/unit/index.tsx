@@ -2,6 +2,8 @@ import React from 'react';
 
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
 import FeedbackCollector from '../../components/FeedbackCollector';
 import FeedbackFlag from '../../components/FeedbackFlag';
 import FeedbackForm, { type OptionType } from '../../components/FeedbackForm';
@@ -887,5 +889,134 @@ We have some formatting here
 			const options = screen.getAllByRole('option');
 			expect(options).toHaveLength(customFeedbackOptions.length);
 		});
+	});
+
+	describe('Submit button behavior (feedback-collector-custom-validation)', () => {
+		ffTest(
+			'feedback-collector-custom-validation',
+			async () => {
+				// Feature flag ON: Submit button should be enabled
+				render(
+					<FeedbackForm
+						locale={'en'}
+						onClose={() => {}}
+						onSubmit={async () => {}}
+						showTypeField={true}
+						showDefaultTextFields={true}
+					/>,
+				);
+
+				const submitBtn = screen.getByTestId('feedbackCollectorSubmitBtn');
+				expect(submitBtn).not.toBeDisabled();
+			},
+			async () => {
+				// Feature flag OFF: Submit button should be disabled
+				render(
+					<FeedbackForm
+						locale={'en'}
+						onClose={() => {}}
+						onSubmit={async () => {}}
+						showTypeField={true}
+						showDefaultTextFields={true}
+					/>,
+				);
+
+				const submitBtn = screen.getByTestId('feedbackCollectorSubmitBtn');
+				expect(submitBtn).toBeDisabled();
+			},
+		);
+	});
+
+	describe('Validation error display (feedback-collector-custom-validation)', () => {
+		ffTest(
+			'feedback-collector-custom-validation',
+			async () => {
+				// Feature flag ON: Should show validation errors after submit
+				render(
+					<FeedbackForm
+						locale={'en'}
+						onClose={() => {}}
+						onSubmit={async () => {}}
+						showTypeField={true}
+						showDefaultTextFields={true}
+					/>,
+				);
+
+				const submitBtn = screen.getByTestId('feedbackCollectorSubmitBtn');
+				fireEvent.click(submitBtn);
+
+				await waitFor(() => {
+					expect(screen.getByText('Please select a feedback type')).toBeInTheDocument();
+				});
+			},
+			() => {
+				// Feature flag OFF: Should NOT show validation errors
+				render(
+					<FeedbackForm
+						locale={'en'}
+						onClose={() => {}}
+						onSubmit={async () => {}}
+						showTypeField={true}
+						showDefaultTextFields={true}
+					/>,
+				);
+
+				expect(screen.queryByText('Please select a feedback type')).not.toBeInTheDocument();
+				expect(screen.queryByText('Please provide a description')).not.toBeInTheDocument();
+			},
+		);
+	});
+
+	describe('Form submission behavior (feedback-collector-custom-validation)', () => {
+		ffTest(
+			'feedback-collector-custom-validation',
+			async () => {
+				// Feature flag ON: Should prevent form submission when invalid
+				const mockOnSubmit = jest.fn();
+
+				render(
+					<FeedbackForm
+						locale={'en'}
+						onClose={() => {}}
+						onSubmit={mockOnSubmit}
+						showTypeField={true}
+						showDefaultTextFields={true}
+					/>,
+				);
+
+				const submitBtn = screen.getByTestId('feedbackCollectorSubmitBtn');
+				fireEvent.click(submitBtn);
+
+				await waitFor(() => {
+					expect(screen.getByText('Please select a feedback type')).toBeInTheDocument();
+				});
+
+				expect(mockOnSubmit).not.toHaveBeenCalled();
+			},
+			async () => {
+				// Feature flag OFF: Should use legacy submission behavior
+				const mockOnSubmit = jest.fn();
+
+				render(
+					<FeedbackForm
+						locale={'en'}
+						onClose={() => {}}
+						onSubmit={mockOnSubmit}
+						showTypeField={false}
+						showDefaultTextFields={true}
+					/>,
+				);
+
+				const textarea = screen.getByRole('textbox');
+				fireEvent.change(textarea, { target: { value: 'Some feedback' } });
+
+				const submitBtn = screen.getByTestId('feedbackCollectorSubmitBtn');
+				fireEvent.click(submitBtn);
+
+				await waitFor(() => {
+					expect(mockOnSubmit).toHaveBeenCalled();
+				});
+			},
+		);
 	});
 });

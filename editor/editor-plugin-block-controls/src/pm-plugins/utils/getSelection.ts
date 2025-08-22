@@ -16,7 +16,7 @@ export const getInlineNodePos = (
 	tr: Transaction,
 	start: number,
 	nodeSize: number,
-): { inlineNodePos: number; inlineNodeEndPos: number } => {
+): { inlineNodeEndPos: number; inlineNodePos: number; } => {
 	const $startPos = tr.doc.resolve(start);
 	// To trigger the annotation floating toolbar for non-selectable node, we need to select inline nodes
 	// Find the first inline node in the node

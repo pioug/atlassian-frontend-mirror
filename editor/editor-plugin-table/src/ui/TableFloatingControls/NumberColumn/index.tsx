@@ -15,17 +15,17 @@ import { tableBorderColor } from '../../consts';
 
 interface Props {
 	editorView: EditorView;
-	tableRef: HTMLTableElement;
-	tableActive?: boolean;
-	hoverRows: (rows: number[], danger?: boolean) => void;
-	hoveredRows?: number[];
-	selectRow: (row: number, expand: boolean) => void;
-	updateCellHoverLocation: (rowIndex: number) => void;
 	hasHeaderRow?: boolean;
+	hoveredRows?: number[];
+	hoverRows: (rows: number[], danger?: boolean) => void;
+	isDragAndDropEnabled?: boolean;
 	isInDanger?: boolean;
 	isResizing?: boolean;
+	selectRow: (row: number, expand: boolean) => void;
 	stickyTop?: number;
-	isDragAndDropEnabled?: boolean;
+	tableActive?: boolean;
+	tableRef: HTMLTableElement;
+	updateCellHoverLocation: (rowIndex: number) => void;
 }
 
 // Ignored via go/ees005
@@ -43,7 +43,8 @@ export default class NumberColumn extends Component<Props, any> {
 					className={ClassName.NUMBERED_COLUMN}
 					style={{
 						// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-						marginTop: hasHeaderRow && this.props.stickyTop !== undefined ? rowHeights[0] : undefined,
+						marginTop:
+							hasHeaderRow && this.props.stickyTop !== undefined ? rowHeights[0] : undefined,
 						borderLeft:
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 							isDragAndDropEnabled && tableActive ? `1px solid ${tableBorderColor}` : undefined,
@@ -51,8 +52,8 @@ export default class NumberColumn extends Component<Props, any> {
 						visibility: 'hidden', // Ensure the column is not visible during SSR
 					}}
 					contentEditable={false}
-			 	/>
-			)
+				/>
+			);
 		}
 
 		return (

@@ -4,10 +4,10 @@ import { type Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 interface VSCodeBlockParams {
-	state: EditorState;
-	slice: Slice;
-	text: string;
 	event: ClipboardEvent;
+	slice: Slice;
+	state: EditorState;
+	text: string;
 }
 
 function safelyGetVSCodeLanguage(editorData: string | undefined) {

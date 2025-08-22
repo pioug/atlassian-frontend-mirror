@@ -20,20 +20,20 @@ import ConfigPanel from './ConfigPanel';
 import { useStateFromPromise } from './use-state-from-promise';
 
 export type PublicProps = {
+	api: ExtractInjectionAPI<ExtensionPlugin> | undefined;
+	autoSaveReject?: RejectSave;
+	autoSaveTrigger?: () => void;
+	closeOnEsc?: boolean;
+	extensionKey: ExtensionKey;
+	extensionParameters?: Parameters;
 	extensionProvider: ExtensionProvider;
 	extensionType: ExtensionType;
-	extensionKey: ExtensionKey;
-	nodeKey: string;
-	extensionParameters?: Parameters;
-	parameters?: Parameters;
-	autoSaveTrigger?: () => void;
-	autoSaveReject?: RejectSave;
-	closeOnEsc?: boolean;
-	showHeader?: boolean;
 	featureFlags?: FeatureFlags;
-	onChange: (data: Parameters) => void | Promise<void>;
+	nodeKey: string;
 	onCancel: () => void | Promise<void>;
-	api: ExtractInjectionAPI<ExtensionPlugin> | undefined;
+	onChange: (data: Parameters) => void | Promise<void>;
+	parameters?: Parameters;
+	showHeader?: boolean;
 	// Remove below prop when cleaning platform_editor_ai_object_sidebar_injection FG
 	usingObjectSidebarPanel?: boolean;
 };

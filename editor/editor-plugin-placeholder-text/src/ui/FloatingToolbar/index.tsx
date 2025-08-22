@@ -13,28 +13,28 @@ import { Popup } from '@atlaskit/editor-common/ui';
 import { container } from './styles';
 
 export type Coordinates = {
+	bottom?: number;
 	left?: number;
 	right?: number;
 	top?: number;
-	bottom?: number;
 };
 
 export type PositionOffset = Coordinates;
 
 export interface Props {
-	children?: React.ReactNode;
-	zIndex?: number;
-	className?: string;
-	target?: HTMLElement;
-	popupsMountPoint?: HTMLElement;
-	popupsBoundariesElement?: HTMLElement;
-	offset?: number[];
-	fitWidth?: number;
-	fitHeight?: number;
 	absoluteOffset?: PositionOffset;
 	alignX?: 'left' | 'center' | 'right';
 	alignY?: 'bottom' | 'top';
+	children?: React.ReactNode;
+	className?: string;
+	fitHeight?: number;
+	fitWidth?: number;
+	offset?: number[];
 	onPositionCalculated?: (position: Coordinates) => Coordinates;
+	popupsBoundariesElement?: HTMLElement;
+	popupsMountPoint?: HTMLElement;
+	target?: HTMLElement;
+	zIndex?: number;
 }
 
 export default function FloatingToolbar({

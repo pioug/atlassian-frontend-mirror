@@ -4,9 +4,9 @@ import getDeviceInfo from './getDeviceInfo';
 declare global {
 	interface Window {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		jQuery: any;
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		ATL_JQ_PAGE_PROPS: any;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		jQuery: any;
 	}
 }
 

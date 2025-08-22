@@ -7,12 +7,12 @@ import type { cardPlugin } from '../../cardPlugin';
 import { isLocalStorageKeyDiscovered, LOCAL_STORAGE_DISCOVERY_KEY_TOOLBAR } from '../local-storage';
 
 export type LinkUpgradeDiscoverabilityProps = {
-	url: string;
-	linkPosition: number;
 	cardContext?: CardContext;
-	pluginInjectionApi?: ExtractInjectionAPI<typeof cardPlugin>;
-	isPulseEnabled?: boolean;
 	isOverlayEnabled?: boolean;
+	isPulseEnabled?: boolean;
+	linkPosition: number;
+	pluginInjectionApi?: ExtractInjectionAPI<typeof cardPlugin>;
+	url: string;
 };
 
 const useLinkUpgradeDiscoverability = ({

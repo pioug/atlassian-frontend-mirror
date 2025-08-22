@@ -47,9 +47,6 @@ export type MediaPluginDependencies = [
 export type MediaNextEditorPluginType = NextEditorPlugin<
 	'media',
 	{
-		pluginConfiguration: MediaOptions | undefined;
-		dependencies: MediaPluginDependencies;
-		sharedState: MediaPluginState | null;
 		actions: {
 			insertMediaAsMediaSingle: InsertMediaAsMediaSingle;
 			/**
@@ -64,9 +61,12 @@ export type MediaNextEditorPluginType = NextEditorPlugin<
 			setProvider: (provider: Promise<MediaProvider>) => boolean;
 		};
 		commands: {
-			showMediaViewer: (media: MediaADFAttrs) => EditorCommand;
 			hideMediaViewer: EditorCommand;
+			showMediaViewer: (media: MediaADFAttrs) => EditorCommand;
 			trackMediaPaste: (attrs: MediaADFAttrs) => EditorCommand;
 		};
+		dependencies: MediaPluginDependencies;
+		pluginConfiguration: MediaOptions | undefined;
+		sharedState: MediaPluginState | null;
 	}
 >;

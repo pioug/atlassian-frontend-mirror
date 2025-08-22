@@ -11,11 +11,11 @@ type SimpleEventHandler<T> = (event?: T) => void;
 export interface InsertMenuProps {
 	dropdownItems: BlockMenuItem[];
 	editorView: EditorView;
-	showElementBrowserLink: boolean;
-	toggleVisiblity: SimpleEventHandler<MouseEvent | KeyboardEvent>;
+	isFullPageAppearance?: boolean;
 	onInsert: OnInsert;
 	pluginInjectionApi: ExtractInjectionAPI<InsertBlockPlugin> | undefined;
-	isFullPageAppearance?: boolean;
+	showElementBrowserLink: boolean;
+	toggleVisiblity: SimpleEventHandler<MouseEvent | KeyboardEvent>;
 }
 
 export type SvgGetterParams = {

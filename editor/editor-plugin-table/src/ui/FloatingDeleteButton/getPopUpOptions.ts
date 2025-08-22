@@ -6,9 +6,9 @@ import type { CellSelectionType } from './types';
 
 interface GetPopupOptions {
 	left: number;
-	top: number;
 	selectionType?: CellSelectionType;
 	tableWrapper: HTMLElement | null;
+	top: number;
 }
 
 const DELETE_BUTTON_CONTROLS_OFFSET =

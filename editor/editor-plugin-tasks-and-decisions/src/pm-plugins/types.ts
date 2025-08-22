@@ -7,8 +7,8 @@ export enum ACTIONS {
 }
 
 export type TaskItemData = {
-	pos: number;
 	localId: string | null;
+	pos: number;
 };
 
 // actions

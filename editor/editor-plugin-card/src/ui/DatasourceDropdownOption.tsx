@@ -20,11 +20,11 @@ import { useFetchDatasourceInfo } from './useFetchDatasourceInfo';
 
 interface Props {
 	allowDatasource?: boolean;
-	intl: IntlShape;
-	url: string;
-	selected: boolean;
-	inputMethod: string;
 	dispatchCommand: (command: Command) => void;
+	inputMethod: string;
+	intl: IntlShape;
+	selected: boolean;
+	url: string;
 }
 
 export const datasourceDisplayInformation = {

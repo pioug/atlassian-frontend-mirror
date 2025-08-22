@@ -257,10 +257,10 @@ interface ToolbarInsertBlockWithInjectionApiProps
 		ToolbarUiComponentFactoryParams,
 		'eventDispatcher' | 'appearance' | 'containerElement' | 'wrapperElement'
 	> {
-	providers?: Providers;
-	pluginInjectionApi: ExtractInjectionAPI<typeof insertBlockPlugin> | undefined;
-	options: InsertBlockOptions;
 	appearance: EditorAppearance | undefined;
+	options: InsertBlockOptions;
+	pluginInjectionApi: ExtractInjectionAPI<typeof insertBlockPlugin> | undefined;
+	providers?: Providers;
 }
 
 const selector = (
@@ -416,7 +416,7 @@ function ToolbarInsertBlockWithInjectionApi({
 		? emojiProviderPromise
 		: getEmojiProvider();
 
-	const onShowMediaPicker = (mountInfo?: { ref: HTMLElement; mountPoint: HTMLElement }) => {
+	const onShowMediaPicker = (mountInfo?: { mountPoint: HTMLElement; ref: HTMLElement; }) => {
 		if (!showMediaPicker) {
 			return;
 		}

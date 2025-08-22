@@ -16,10 +16,10 @@ import type { MentionsPlugin } from '../mentionsPluginType';
 import ToolbarMention from './ToolbarMention';
 
 interface SecondaryToolbarComponentProps {
-	editorView: EditorView;
 	api: ExtractInjectionAPI<MentionsPlugin> | undefined;
-	typeAhead: TypeAheadHandler;
 	disabled: boolean;
+	editorView: EditorView;
+	typeAhead: TypeAheadHandler;
 }
 
 const selector = (

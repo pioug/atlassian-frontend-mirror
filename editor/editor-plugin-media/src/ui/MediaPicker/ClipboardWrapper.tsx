@@ -11,8 +11,8 @@ import PickerFacadeProvider from './PickerFacadeProvider';
 
 type Props = {
 	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
-	featureFlags?: MediaFeatureFlags;
 	container?: HTMLElement;
+	featureFlags?: MediaFeatureFlags;
 };
 
 export const ClipboardWrapper = ({ api, container, featureFlags }: Props) => (

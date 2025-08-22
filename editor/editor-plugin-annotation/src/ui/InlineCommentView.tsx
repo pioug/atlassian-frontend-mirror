@@ -72,11 +72,11 @@ const findPosForDOM = (sel: Selection) => {
 };
 
 interface InlineCommentViewProps {
-	providers: AnnotationProviders;
-	editorView: EditorView;
+	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
 	editorAPI: ExtractInjectionAPI<AnnotationPlugin> | undefined;
-	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
+	editorView: EditorView;
+	providers: AnnotationProviders;
 }
 
 const selector = (

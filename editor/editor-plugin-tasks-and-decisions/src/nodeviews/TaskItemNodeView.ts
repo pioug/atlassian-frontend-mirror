@@ -18,8 +18,8 @@ import { taskItemToDom } from './taskItemNodeSpec';
 
 interface TaskItemNodeViewOptions {
 	api: ExtractInjectionAPI<TasksAndDecisionsPlugin> | undefined;
-	placeholder?: string;
 	intl: IntlShape;
+	placeholder?: string;
 }
 export class TaskItemNodeView implements NodeView {
 	dom: Node;
@@ -181,7 +181,7 @@ export class TaskItemNodeView implements NodeView {
 		return true;
 	}
 
-	ignoreMutation(mutation: MutationRecord | { type: 'selection'; target: Node }) {
+	ignoreMutation(mutation: MutationRecord | { target: Node; type: 'selection'; }) {
 		if (!this.contentDOM) {
 			return true;
 		}

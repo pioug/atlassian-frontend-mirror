@@ -31,18 +31,18 @@ export type FormatOptionState = {
 };
 
 export interface MenuIconItem extends MenuItem {
+	buttonId?: TOOLBAR_ACTION_SUBJECT_ID;
 	command: Command;
+	iconElement?: React.ReactElement;
 	iconMark?: IconTypes;
 	tooltipElement?: React.ReactElement;
-	iconElement?: React.ReactElement;
-	buttonId?: TOOLBAR_ACTION_SUBJECT_ID;
 }
 
 export type MenuIconState = {
+	hasSchemaMark: boolean;
 	isActive: boolean;
 	isDisabled: boolean;
 	isHidden: boolean;
-	hasSchemaMark: boolean;
 };
 
 export type IconHookProps = {

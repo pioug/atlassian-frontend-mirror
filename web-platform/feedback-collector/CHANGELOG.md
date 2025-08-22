@@ -1,5 +1,13 @@
 # @atlaskit/feedback-collector
 
+## 14.3.4
+
+### Patch Changes
+
+- [`94ba8d27dba35`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/94ba8d27dba35) -
+  [ux] enable the submit button by default for a11y, validate and prevent submission if required
+  fields are not complete
+
 ## 14.3.3
 
 ### Patch Changes

@@ -17,21 +17,21 @@ export interface AnalyticsPluginOptions {
 export type AnalyticsPlugin = NextEditorPlugin<
 	'analytics',
 	{
+		actions: EditorAnalyticsAPI;
+		dependencies: [OptionalPlugin<FeatureFlagsPlugin>];
 		pluginConfiguration: AnalyticsPluginOptions;
 		sharedState: {
 			/**
 			 * **Warning:** Do not use this directly. Use the `analyticsPlugin.actions`
 			 * instead, as it will properly queue all events.
 			 */
-			createAnalyticsEvent: CreateUIAnalyticsEvent | null;
+			attachAnalyticsEvent: CreateAttachPayloadIntoTransaction | null;
 			/**
 			 * **Warning:** Do not use this directly. Use the `analyticsPlugin.actions`
 			 * instead, as it will properly queue all events.
 			 */
-			attachAnalyticsEvent: CreateAttachPayloadIntoTransaction | null;
+			createAnalyticsEvent: CreateUIAnalyticsEvent | null;
 			performanceTracking: PerformanceTracking | undefined;
 		};
-		dependencies: [OptionalPlugin<FeatureFlagsPlugin>];
-		actions: EditorAnalyticsAPI;
 	}
 >;

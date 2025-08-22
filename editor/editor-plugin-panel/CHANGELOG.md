@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-panel
 
+## 5.3.8
+
+### Patch Changes
+
+- [`265c1bf0cefa4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/265c1bf0cefa4) -
+  Sorted type and interface props to improve Atlaskit docs
+- Updated dependencies
+
+## 5.3.7
+
+### Patch Changes
+
+- [`2dfa839c46c82`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2dfa839c46c82) -
+  Handle missing panel type mapping gracefully
+- Updated dependencies
+
 ## 5.3.6
 
 ### Patch Changes

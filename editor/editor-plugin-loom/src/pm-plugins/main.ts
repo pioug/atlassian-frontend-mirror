@@ -21,10 +21,10 @@ enum SDKUnsupportedReasons {
 import { setupLoom } from './commands';
 
 export interface LoomPluginState {
-	isEnabled: boolean;
-	loomButton: HTMLButtonElement | null;
-	isRecordingVideo: boolean;
 	error: SDKUnsupportedReasons | undefined;
+	isEnabled: boolean;
+	isRecordingVideo: boolean;
+	loomButton: HTMLButtonElement | null;
 }
 
 export enum LoomPluginAction {
@@ -40,8 +40,8 @@ export const createPlugin = ({
 	config,
 	api,
 }: {
-	config: LoomPluginOptions;
 	api: ExtractInjectionAPI<LoomPlugin> | undefined;
+	config: LoomPluginOptions;
 }) => {
 	return new SafePlugin({
 		key: loomPluginKey,

@@ -5,8 +5,8 @@ import type { TableDirection } from '../../types';
 import type { DropTargetType } from './consts';
 
 interface DragAndDropAction<T, D> {
-	type: T;
 	data: D;
+	type: T;
 }
 
 export const DragAndDropActionType = {
@@ -18,9 +18,9 @@ export const DragAndDropActionType = {
 type DragAndDropSetDropTargetAction = DragAndDropAction<
 	typeof DragAndDropActionType.SET_DROP_TARGET,
 	{
-		type: DropTargetType;
-		index: number;
 		decorationSet: DecorationSet;
+		index: number;
+		type: DropTargetType;
 	}
 >;
 
@@ -34,9 +34,9 @@ type DragAndDropClearDropTargetAction = DragAndDropAction<
 type DragAndDropToggleDragMenuAction = DragAndDropAction<
 	typeof DragAndDropActionType.TOGGLE_DRAG_MENU,
 	{
-		isDragMenuOpen: boolean;
 		direction: TableDirection;
 		index: number;
+		isDragMenuOpen: boolean;
 		isKeyboardModeActive: boolean;
 	}
 >;

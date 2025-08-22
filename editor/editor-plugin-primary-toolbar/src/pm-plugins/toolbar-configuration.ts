@@ -7,8 +7,8 @@ import type { ComponentRegistry, ToolbarElementConfig } from '../primaryToolbarP
 
 type GetToolbarComponentsOptions = {
 	componentRegistry: ComponentRegistry;
-	editorState: EditorState;
 	contextualFormattingEnabled?: boolean;
+	editorState: EditorState;
 };
 
 export const getToolbarComponents = ({

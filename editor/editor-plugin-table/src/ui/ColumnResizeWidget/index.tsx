@@ -13,9 +13,9 @@ import Tooltip from '@atlaskit/tooltip';
 import { TableCssClassName } from '../../types';
 
 type Props = {
-	startIndex: number;
 	endIndex: number;
 	includeTooltip?: boolean;
+	startIndex: number;
 };
 
 export const ColumnResizeWidget = ({ startIndex, endIndex, includeTooltip }: Props) => {

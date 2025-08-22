@@ -122,7 +122,17 @@ const extractFlexibleUiContext = ({
 		sentOn: extractSmartLinkSentOn(response),
 		snippet: extractSmartLinkSummary(response) || undefined, // Explicitly set here to remove an empty string
 		sourceBranch: extractSourceBranch(data as JsonLd.Data.SourceCodePullRequest),
-		state: extractState(response, actionOptions, id, appearance, origin, fireEvent, resolve, isPreviewPanelAvailable, openPreviewPanel),
+		state: extractState(
+			response,
+			actionOptions,
+			id,
+			appearance,
+			origin,
+			fireEvent,
+			resolve,
+			isPreviewPanelAvailable,
+			openPreviewPanel,
+		),
 		subscriberCount: extractSubscriberCount(data),
 		subTasksProgress: extractSubTasksProgress(data),
 		storyPoints: extractStoryPoints(data),

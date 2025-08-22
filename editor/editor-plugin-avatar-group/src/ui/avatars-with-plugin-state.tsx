@@ -26,21 +26,21 @@ import { Avatars } from './avatars';
 import { InviteToEditButton } from './invite-to-edit';
 
 type AvatarsWithPluginStateProps = {
+	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
+	editorAPI: ExtractInjectionAPI<AvatarGroupPlugin> | undefined;
 	editorView?: EditorView;
 	eventDispatcher?: EventDispatcher;
 	featureFlags: FeatureFlags;
-	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
-	editorAPI: ExtractInjectionAPI<AvatarGroupPlugin> | undefined;
 } & CollabInviteToEditProps;
 
 const useAvatarsWithPluginState = sharedPluginStateHookMigratorFactory(
 	(
 		api: ExtractInjectionAPI<AvatarGroupPlugin> | undefined,
 	): {
-		sessionId: string | undefined;
 		activeParticipants: ReadOnlyParticipants | undefined;
-		isInitialised: boolean | undefined;
 		collabEditState: CollabEditPluginSharedState | undefined;
+		isInitialised: boolean | undefined;
+		sessionId: string | undefined;
 	} => {
 		const { sessionId, activeParticipants, initialised } = useSharedPluginStateWithSelector(
 			api,

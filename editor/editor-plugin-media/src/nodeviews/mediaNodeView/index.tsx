@@ -39,14 +39,14 @@ import type { MediaNodeViewProps } from '../types';
 import MediaNode from './media';
 
 interface MediaNodeWithPluginStateComponentProps {
-	width?: WidthPluginState;
-	mediaProvider?: Promise<MediaProvider>;
 	interactionState?: SharedInteractionState['interactionState'];
+	mediaProvider?: Promise<MediaProvider>;
+	width?: WidthPluginState;
 }
 
 interface MediaNodeWithProvidersProps {
-	pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
 	innerComponent: (props: MediaNodeWithPluginStateComponentProps) => React.ReactElement;
+	pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
 }
 
 const selector = (
@@ -151,7 +151,7 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 		return isMediaBlobUrlFromAttrs(attrs);
 	}
 
-	onExternalImageLoaded = (dimensions: { width: number; height: number }) => {
+	onExternalImageLoaded = (dimensions: { height: number; width: number; }) => {
 		const getPos = this.getPos as getPosHandlerNode;
 		const { width, height, ...rest } = this.getAttrs();
 		if (!width || !height) {

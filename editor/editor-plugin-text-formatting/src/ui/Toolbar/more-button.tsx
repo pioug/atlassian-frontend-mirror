@@ -14,11 +14,11 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 type MoreButtonProps = {
-	label: string;
+	'aria-expanded': React.AriaAttributes['aria-expanded'];
+	isDisabled: boolean;
 	isReducedSpacing: boolean;
 	isSelected: boolean;
-	isDisabled: boolean;
-	'aria-expanded': React.AriaAttributes['aria-expanded'];
+	label: string;
 	onClick?: (event: React.MouseEvent<HTMLElement>) => void;
 	onKeyDown?: (event: React.KeyboardEvent) => void;
 };

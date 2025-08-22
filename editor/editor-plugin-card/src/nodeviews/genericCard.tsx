@@ -35,39 +35,40 @@ import { WithCardContext } from '../ui/WithCardContext';
 export type EditorContext<T> = React.Context<T> & { value: T };
 
 export interface CardNodeViewProps extends ReactComponentProps {
-	providerFactory?: ProviderFactory;
 	eventDispatcher?: EventDispatcher;
+	providerFactory?: ProviderFactory;
 }
 
 export interface CardProps extends CardNodeViewProps {
+	__livePage?: boolean;
+	actionOptions?: BaseCardProps['actionOptions'];
+	allowResizing?: boolean;
 	children?: React.ReactNode;
-	node: PMNode;
-	view: EditorView;
-	getPos: getPosHandler;
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 	eventDispatcher?: EventDispatcher;
-	allowResizing?: boolean;
 	fullWidthMode?: boolean;
-	useAlternativePreloader?: boolean;
-	actionOptions?: BaseCardProps['actionOptions'];
-	pluginInjectionApi?: ExtractInjectionAPI<typeof cardPlugin>;
-	onClickCallback?: OnClickCallback;
-	showHoverPreview?: BaseCardProps['showHoverPreview'];
+	getPos: getPosHandler;
 	hoverPreviewOptions?: BaseCardProps['hoverPreviewOptions'];
-	__livePage?: boolean;
+	node: PMNode;
+	onClickCallback?: OnClickCallback;
+	pluginInjectionApi?: ExtractInjectionAPI<typeof cardPlugin>;
+	showHoverPreview?: BaseCardProps['showHoverPreview'];
+	useAlternativePreloader?: boolean;
+	view: EditorView;
 }
 
 export interface SmartCardProps extends CardProps {
-	pluginInjectionApi?: ExtractInjectionAPI<typeof cardPlugin>;
+	allowBlockCards?: boolean;
+	allowEmbeds?: boolean;
 	cardContext?: EditorContext<CardContext | undefined>;
+	CompetitorPrompt?: React.ComponentType<{ linkType?: string; sourceUrl: string }>;
+	disablePreviewPanel?: BaseCardProps['disablePreviewPanel'];
+	enableInlineUpgradeFeatures?: boolean;
+	isHovered?: boolean;
+	isPageSSRed?: boolean;
 	onClick?: EventHandler<MouseEvent | KeyboardEvent> | undefined;
 	onResolve?: (tr: Transaction, title?: string) => void;
-	isHovered?: boolean;
-	allowEmbeds?: boolean;
-	allowBlockCards?: boolean;
-	enableInlineUpgradeFeatures?: boolean;
-	isPageSSRed?: boolean;
-	CompetitorPrompt?: React.ComponentType<{ sourceUrl: string; linkType?: string }>;
+	pluginInjectionApi?: ExtractInjectionAPI<typeof cardPlugin>;
 }
 
 const selector = (
@@ -99,12 +100,12 @@ const WithClickHandler = ({
 	onClickCallback,
 	children,
 }: {
-	pluginInjectionApi: ExtractInjectionAPI<CardPlugin> | undefined;
-	onClickCallback?: OnClickCallback;
-	url?: string;
 	children: (props: {
 		onClick: ((e: React.MouseEvent<HTMLAnchorElement>) => void) | undefined;
 	}) => React.ReactNode;
+	onClickCallback?: OnClickCallback;
+	pluginInjectionApi: ExtractInjectionAPI<CardPlugin> | undefined;
+	url?: string;
 }) => {
 	const { mode } = useSharedState(pluginInjectionApi);
 	const onClick = useCallback(

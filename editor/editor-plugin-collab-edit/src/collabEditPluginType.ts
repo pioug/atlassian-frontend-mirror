@@ -29,23 +29,20 @@ export type CollabEditPluginOptions = PrivateCollabEditOptions;
 export type CollabEditPlugin = NextEditorPlugin<
 	'collabEdit',
 	{
-		pluginConfiguration: CollabEditPluginOptions;
-		dependencies: CollabEditPluginDependencies;
-		sharedState: CollabEditPluginSharedState;
 		actions: {
+			addInlineCommentMark: (props: { from: number; mark: Mark; to: number; }) => boolean;
+			addInlineCommentNodeMark: (props: { mark: Mark; pos: number; }) => boolean;
 			getAvatarColor: (str: string) => {
-				index: number;
 				backgroundColor: string;
+				index: number;
 				textColor: string;
 			};
-			addInlineCommentMark: (props: { from: number; to: number; mark: Mark }) => boolean;
-			addInlineCommentNodeMark: (props: { pos: number; mark: Mark }) => boolean;
-			isRemoteReplaceDocumentTransaction: (tr: Transaction) => boolean;
 			getCurrentCollabState: () => {
-				version: number | undefined;
-				sendableSteps: CollabSendableSteps | undefined | null;
 				content: JSONNode | undefined;
+				sendableSteps: CollabSendableSteps | undefined | null;
+				version: number | undefined;
 			};
+			isRemoteReplaceDocumentTransaction: (tr: Transaction) => boolean;
 			// Ignored via go/ees005
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			validatePMJSONDocument: (doc: any) => boolean;
@@ -53,5 +50,8 @@ export type CollabEditPlugin = NextEditorPlugin<
 		commands: {
 			nudgeTelepointer: (sessionId: string) => EditorCommand;
 		};
+		dependencies: CollabEditPluginDependencies;
+		pluginConfiguration: CollabEditPluginOptions;
+		sharedState: CollabEditPluginSharedState;
 	}
 >;

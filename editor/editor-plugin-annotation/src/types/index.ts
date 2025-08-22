@@ -28,35 +28,35 @@ export type AnnotationInfo = {
 
 type AnnotationComponentProps = {
 	/**
-	 * Selected text (can be used when creating a comment)
-	 */
-	textSelection?: string;
-
-	/**
 	 * DOM element around selected text (for positioning)
 	 */
 	dom?: HTMLElement;
+
+	/**
+	 * Indicates whether the comment UI is offline and should be disabled
+	 */
+	isOffline?: boolean;
 	/**
 	 * Indicates that a draft comment was discarded/cancelled
 	 */
 	onClose?: () => void;
 	/**
-	 * Indicates whether the comment UI is offline and should be disabled
+	 * Selected text (can be used when creating a comment)
 	 */
-	isOffline?: boolean;
+	textSelection?: string;
 };
 
 export type InlineCommentCreateComponentProps = AnnotationComponentProps & {
-	/**
-	 * Creates an annotation mark in the document with the given id.
-	 */
-	onCreate: (id: string) => void;
 	/** List of inline node types, which are wrapped by the annotation. */
 	inlineNodeTypes: string[] | undefined;
 	/**
 	 * Indicates whether we're opening the media comment box from the media toolbar so we can scroll the media into view
 	 */
 	isOpeningMediaCommentFromToolbar?: boolean;
+	/**
+	 * Creates an annotation mark in the document with the given id.
+	 */
+	onCreate: (id: string) => void;
 	wasNewAnnotationSelected?: boolean;
 };
 
@@ -68,18 +68,10 @@ export type InlineCommentViewComponentProps = AnnotationComponentProps & {
 	annotations: Array<AnnotationInfo>;
 
 	/**
-	 * Resolves an annotation with the given ID around the selection.
-	 */
-	onResolve: (id: string) => void;
-
-	/**
-	 * Removes the annotation from the document
-	 */
-	onDelete?: (id: string) => void;
-	/**
 	 * Ordered list of annotation ids as shown in the document
 	 */
 	annotationsList?: string[];
+
 	// Ignored via go/ees007
 	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 	/**
@@ -96,6 +88,14 @@ export type InlineCommentViewComponentProps = AnnotationComponentProps & {
 	 * Indicates whether we're opening the media comment box from the media toolbar so we can scroll the media into view
 	 */
 	isOpeningMediaCommentFromToolbar?: boolean;
+	/**
+	 * Removes the annotation from the document
+	 */
+	onDelete?: (id: string) => void;
+	/**
+	 * Resolves an annotation with the given ID around the selection.
+	 */
+	onResolve: (id: string) => void;
 };
 
 export interface AnnotationState<Type, State> {
@@ -105,9 +105,9 @@ export interface AnnotationState<Type, State> {
 }
 
 export interface AnnotationTypeProvider<Type, State> {
+	disallowOnWhitespace?: boolean;
 	getState: (annotationIds: string[]) => Promise<AnnotationState<Type, State>[]>;
 	updateSubscriber?: AnnotationUpdateEmitter;
-	disallowOnWhitespace?: boolean;
 }
 
 export type InlineCommentState = { resolved: boolean };
@@ -116,11 +116,13 @@ export type InlineCommentAnnotationProvider = AnnotationTypeProvider<
 	AnnotationTypes.INLINE_COMMENT,
 	InlineCommentState
 > & {
+	contentType?: string;
 	createComponent?: React.ComponentType<React.PropsWithChildren<InlineCommentCreateComponentProps>>;
-	viewComponent?: React.ComponentType<React.PropsWithChildren<InlineCommentViewComponentProps>>;
+	getCanAddComments?: () => boolean;
+
 	// always position toolbar above the selection
 	isToolbarAbove?: boolean;
-
+	onCommentButtonMount?: () => void;
 	/**
 	 * @experimental Still under development. Do not use.
 	 *
@@ -131,41 +133,39 @@ export type InlineCommentAnnotationProvider = AnnotationTypeProvider<
 	 * Note 2: text is supported by default.
 	 */
 	supportedBlockNodes?: string[];
-	onCommentButtonMount?: () => void;
-	getCanAddComments?: () => boolean;
-	contentType?: string;
+	viewComponent?: React.ComponentType<React.PropsWithChildren<InlineCommentViewComponentProps>>;
 };
 
 export interface AnnotationProviders {
-	inlineComment: InlineCommentAnnotationProvider;
+	annotationManager?: AnnotationManager;
 	createCommentExperience?: {
-		start: (_: {
-			attributes:
-				| {
-						pageClass: 'editor';
-						commentType: 'inline';
-						annotationId?: undefined;
-						entryPoint?: 'highlightActions';
-				  }
-				| {
-						pageClass: 'editor';
-						commentType: 'block';
-						blockType: 'media';
-						annotationId?: undefined;
-						entryPoint?: 'highlightActions';
-				  };
-		}) => void;
 		initExperience: {
 			start: () => void;
 		};
+		start: (_: {
+			attributes:
+				| {
+						annotationId?: undefined;
+						commentType: 'inline';
+						entryPoint?: 'highlightActions';
+						pageClass: 'editor';
+				  }
+				| {
+						annotationId?: undefined;
+						blockType: 'media';
+						commentType: 'block';
+						entryPoint?: 'highlightActions';
+						pageClass: 'editor';
+				  };
+		}) => void;
 	};
+	inlineComment: InlineCommentAnnotationProvider;
 	selectCommentExperience?: {
 		selectAnnotation: {
 			complete: (annotationId: string) => void;
 		};
 	};
 	viewInlineCommentTraceUFOPress?: () => void;
-	annotationManager?: AnnotationManager;
 }
 
 export enum AnnotationSelectionType {
@@ -184,15 +184,15 @@ export const AnnotationTestIds = {
 };
 
 export type CoordsAtPos = {
-	top: number;
 	bottom: number;
 	left: number;
 	right: number;
+	top: number;
 };
 
 export type DraftBookmark = {
 	from: number;
-	to: number;
 	head: number;
 	isBlockNode?: boolean;
+	to: number;
 };

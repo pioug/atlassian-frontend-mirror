@@ -256,9 +256,9 @@ export const editExtension =
 	};
 
 type Props = {
-	editorViewRef: Record<'current', EditorView | null>;
-	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
 	applyChangeToContextPanel: ApplyChangeHandler | undefined;
+	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
+	editorViewRef: Record<'current', EditorView | null>;
 };
 export const createEditSelectedExtensionAction =
 	({ editorViewRef, editorAnalyticsAPI, applyChangeToContextPanel }: Props) =>

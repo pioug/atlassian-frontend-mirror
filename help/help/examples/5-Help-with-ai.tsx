@@ -33,7 +33,7 @@ import type { ArticleItem, ArticleFeedback, articleId, WhatsNewArticle, HistoryI
 
 const SEARCH_EXTERNAL_URL = 'https://support.atlassian.com/';
 
-const handleEvent = (analyticsEvent: { context: any; payload: any; }) => {
+const handleEvent = (analyticsEvent: { context: any; payload: any }) => {
 	const { payload, context } = analyticsEvent;
 	console.log('Received event:', { payload, context });
 };

@@ -20,15 +20,15 @@ import { tableControlsSpacing, tableToolbarSize } from '../../consts';
 
 export interface Props {
 	editorView: EditorView;
-	tableRef: HTMLTableElement;
-	selectRow: (row: number, expand: boolean) => void;
-	hoverRows: (rows: number[], danger?: boolean) => void;
 	hoveredRows?: number[];
+	hoverRows: (rows: number[], danger?: boolean) => void;
+	insertRowButtonIndex?: number;
 	isInDanger?: boolean;
 	isResizing?: boolean;
-	insertRowButtonIndex?: number;
-	stickyTop?: number;
 	selection?: Selection;
+	selectRow: (row: number, expand: boolean) => void;
+	stickyTop?: number;
+	tableRef: HTMLTableElement;
 }
 
 // Ignored via go/ees005

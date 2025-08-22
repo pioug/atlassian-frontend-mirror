@@ -4,9 +4,10 @@ import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import Button from '@atlaskit/button/standard-button';
 import { Checkbox } from '@atlaskit/checkbox';
-import Form, { Field, Fieldset, RequiredAsterisk } from '@atlaskit/form';
+import Form, { ErrorMessage, Field, Fieldset, RequiredAsterisk } from '@atlaskit/form';
 import Link from '@atlaskit/link';
 import Modal, { ModalBody, ModalFooter, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
+import { fg } from '@atlaskit/platform-feature-flags';
 import SectionMessage from '@atlaskit/section-message';
 import Select from '@atlaskit/select';
 import TextArea from '@atlaskit/textarea';
@@ -96,14 +97,40 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 		useState<FormFields['enrollInResearchGroup']>(false);
 	const [type, setType] = useState<FormFields['type']>('empty');
 	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [validationErrors, setValidationErrors] = useState<{
+		type?: string;
+		description?: string;
+	}>({});
 	const { formatMessage } = useIntl();
 	const isTypeSelected = () => type !== 'empty';
 
 	const canShowTextField = isTypeSelected() || !showTypeField;
 
 	const hasDescription = description || hasDescriptionDefaultValue;
-	const isDisabled =
-		disableSubmitButton || (showTypeField ? !isTypeSelected() || !hasDescription : !hasDescription);
+
+	// Feature flag determines validation behavior
+	const useNewValidation = fg('feedback-collector-custom-validation');
+
+	const isDisabled = useNewValidation
+		? isSubmitting || disableSubmitButton // New: only disable when submitting or explicitly disabled
+		: disableSubmitButton ||
+			(showTypeField ? !isTypeSelected() || !hasDescription : !hasDescription); // Old: disable based on form validation
+
+	const getValidationErrors = () => {
+		const errors: { type?: string; description?: string } = {};
+
+		// Validate type selection if showTypeField is true
+		if (showTypeField && !isTypeSelected()) {
+			errors.type = formatMessage(messages.validationErrorTypeRequired);
+		}
+
+		// Validate description if showDefaultTextFields is true
+		if (showDefaultTextFields && !hasDescription) {
+			errors.description = formatMessage(messages.validationErrorDescriptionRequired);
+		}
+
+		return errors;
+	};
 
 	const getFieldLabels = (
 		record?: Partial<Record<SelectValue, SelectOptionDetails>>,
@@ -166,14 +193,29 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 		>
 			<Form
 				onSubmit={async () => {
+					if (useNewValidation) {
+						// New validation: validate on submit and show errors
+						const errors = getValidationErrors();
+
+						// If there are validation errors, show them and don't submit
+						if (Object.keys(errors).length > 0) {
+							setValidationErrors(errors);
+							return;
+						}
+					}
+
+					// Submit the form (both old and new validation paths reach here)
 					setIsSubmitting(true);
-					await onSubmit({
-						canBeContacted,
-						description,
-						enrollInResearchGroup,
-						type,
-					});
-					setIsSubmitting(false);
+					try {
+						await onSubmit({
+							canBeContacted,
+							description,
+							enrollInResearchGroup,
+							type,
+						});
+					} finally {
+						setIsSubmitting(false);
+					}
 				}}
 			>
 				{({ formProps }) => (
@@ -206,27 +248,36 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 									aria-required={true} // JCA11Y-1619
 								>
 									{({ fieldProps: { id, ...restProps } }) => (
-										<Select<OptionType>
-											{...restProps}
-											onChange={(option) => {
-												if (!option || option instanceof Array) {
-													return;
-												}
-												setType(option.value);
-											}}
-											menuPortalTarget={document.body}
-											styles={{
-												menuPortal: (base) => ({
-													...base,
-													zIndex: 9999,
-												}),
-											}}
-											options={selectOptions}
-											// @ts-ignore
-											ref={focusRef}
-											placeholder={getDefaultPlaceholder(feedbackGroupLabels)}
-											inputId={id}
-										/>
+										<>
+											<Select<OptionType>
+												{...restProps}
+												onChange={(option) => {
+													if (!option || option instanceof Array) {
+														return;
+													}
+													setType(option.value);
+													// Clear validation error when user selects a type (only for new validation)
+													if (useNewValidation && validationErrors.type) {
+														setValidationErrors((prev) => ({ ...prev, type: undefined }));
+													}
+												}}
+												menuPortalTarget={document.body}
+												styles={{
+													menuPortal: (base) => ({
+														...base,
+														zIndex: 9999,
+													}),
+												}}
+												options={selectOptions}
+												// @ts-ignore
+												ref={focusRef}
+												placeholder={getDefaultPlaceholder(feedbackGroupLabels)}
+												inputId={id}
+											/>
+											{useNewValidation && validationErrors.type && (
+												<ErrorMessage>{validationErrors.type}</ErrorMessage>
+											)}
+										</>
 									)}
 								</Field>
 							) : null}
@@ -242,14 +293,25 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 										name="description"
 									>
 										{({ fieldProps }) => (
-											<TextArea
-												{...fieldProps}
-												name="foo"
-												minimumRows={6}
-												placeholder={summaryPlaceholder || undefined}
-												onChange={(e) => setDescription(e.target.value)}
-												value={description}
-											/>
+											<>
+												<TextArea
+													{...fieldProps}
+													name="foo"
+													minimumRows={6}
+													placeholder={summaryPlaceholder || undefined}
+													onChange={(e) => {
+														setDescription(e.target.value);
+														// Clear validation error when user types
+														if (useNewValidation && validationErrors.description) {
+															setValidationErrors((prev) => ({ ...prev, description: undefined }));
+														}
+													}}
+													value={description}
+												/>
+												{useNewValidation && validationErrors.description && (
+													<ErrorMessage>{validationErrors.description}</ErrorMessage>
+												)}
+											</>
 										)}
 									</Field>
 									{(!anonymousFeedback && (

@@ -51,10 +51,10 @@ export const panelIcons: {
 /* eslint-enable @atlaskit/editor/no-re-export */
 
 interface PanelIconAttributes {
-	panelAttributes: PanelAttributes;
-	providerFactory?: ProviderFactory;
 	allowCustomPanel?: boolean;
+	panelAttributes: PanelAttributes;
 	pluginInjectionApi: ExtractInjectionAPI<PanelPlugin> | undefined;
+	providerFactory?: ProviderFactory;
 }
 
 const selector = (
@@ -170,7 +170,7 @@ class PanelNodeView {
 		);
 	}
 
-	ignoreMutation(mutation: MutationRecord | { type: 'selection'; target: Node }) {
+	ignoreMutation(mutation: MutationRecord | { target: Node; type: 'selection'; }) {
 		// ignore mutation if it caused by the icon.
 		if (!this.icon) {
 			return false;

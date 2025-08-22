@@ -13,9 +13,9 @@ import { Inline, Box, Flex } from '@atlaskit/primitives/compiled';
 import { getObjectAri, getObjectIconUrl, getObjectName } from '@atlaskit/smart-card';
 
 type OpenPreviewPanelToolbarButtonProps = {
-	node: PMNode;
-	intl: IntlShape;
 	editorAnalyticsApi?: EditorAnalyticsAPI;
+	intl: IntlShape;
+	node: PMNode;
 };
 
 export const OpenPreviewPanelToolbarButton = ({

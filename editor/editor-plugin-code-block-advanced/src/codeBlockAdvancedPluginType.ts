@@ -22,6 +22,6 @@ export type CodeBlockAdvancedPlugin = NextEditorPlugin<
 >;
 
 export type CodeBlockAdvancedPluginOptions = {
-	extensions?: Extension[];
 	allowCodeFolding?: boolean;
+	extensions?: Extension[];
 };

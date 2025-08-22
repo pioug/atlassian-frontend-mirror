@@ -24,10 +24,10 @@ import type {
 } from '../../types';
 
 type InsertRawQueryProps = {
-	view: EditorView;
+	forceFocusOnEditor: boolean;
 	setSelectionAt: CloseSelectionOptions;
 	text: string;
-	forceFocusOnEditor: boolean;
+	view: EditorView;
 };
 
 const onlyHasViewMoreItem = (items: Array<TypeAheadItem>) => items.at(0)?.title === 'View more';

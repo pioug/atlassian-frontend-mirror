@@ -1,5 +1,12 @@
 # @atlaskit/prosemirror-input-rules
 
+## 3.4.1
+
+### Patch Changes
+
+- [`098cfbb01dc36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/098cfbb01dc36) -
+  Add missing npmignore files to remove unnecessary files from published package
+
 ## 3.4.0
 
 ### Minor Changes

@@ -6,10 +6,10 @@ import { StorageClient } from '@atlaskit/frontend-utilities';
 import type { CollabEditPlugin } from '../collabEditPluginType';
 
 type StepSessionMetrics = {
-	totalStepSize: number;
-	numberOfSteps: number;
 	maxStepSize: number;
+	numberOfSteps: number;
 	stepSizeSumForP90: number[];
+	totalStepSize: number;
 };
 
 const storageClient = new StorageClient(NCS_STORAGE.NCS_STORAGE_CLIENT_KEY);

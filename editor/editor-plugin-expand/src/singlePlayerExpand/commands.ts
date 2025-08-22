@@ -176,8 +176,8 @@ export const toggleExpandExpanded =
 		node,
 	}: {
 		editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
-		pos: number;
 		node: PMNode;
+		pos: number;
 	}): Command =>
 	(state, dispatch) => {
 		if (node && dispatch) {
@@ -217,7 +217,7 @@ export const toggleExpandExpanded =
 	};
 
 export const updateExpandTitle =
-	({ title, nodeType, pos }: { title: string; pos: number; nodeType: NodeType }): Command =>
+	({ title, nodeType, pos }: { nodeType: NodeType; pos: number; title: string; }): Command =>
 	(state, dispatch) => {
 		const node = state.doc.nodeAt(pos);
 		if (node && node.type === nodeType && dispatch) {

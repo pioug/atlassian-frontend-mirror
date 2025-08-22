@@ -13,7 +13,7 @@ interface TabProps {
 interface TabsProps {
 	activeTab: number;
 	onTabClick: (index: number) => void;
-	tabs: { icon: ReactNode; label: string; }[];
+	tabs: { icon: ReactNode; label: string }[];
 }
 
 const Tab: React.FC<TabProps> = ({ label, index, onClick, isActive, icon }) => {

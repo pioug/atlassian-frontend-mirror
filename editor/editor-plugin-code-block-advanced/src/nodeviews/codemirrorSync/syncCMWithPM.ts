@@ -4,9 +4,9 @@ import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 
 interface Props {
-	view: EditorView;
-	update: ViewUpdate;
 	offset: number;
+	update: ViewUpdate;
+	view: EditorView;
 }
 
 /**

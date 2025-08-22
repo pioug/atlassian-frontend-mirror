@@ -93,10 +93,10 @@ export const updateExpandTitle =
 		pos,
 		__livePage,
 	}: {
-		title: string;
-		pos: number;
-		nodeType: NodeType;
 		__livePage: boolean;
+		nodeType: NodeType;
+		pos: number;
+		title: string;
 	}): Command =>
 	(state, dispatch) => {
 		const node = state.doc.nodeAt(pos);
@@ -133,10 +133,10 @@ export const toggleExpandExpanded =
 		nodeType,
 		__livePage,
 	}: {
-		editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
-		pos: number;
-		nodeType: NodeType;
 		__livePage: boolean;
+		editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
+		nodeType: NodeType;
+		pos: number;
 	}): Command =>
 	(state, dispatch) => {
 		const node = state.doc.nodeAt(pos);

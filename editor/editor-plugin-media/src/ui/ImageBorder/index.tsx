@@ -53,10 +53,10 @@ import {
 } from './styles';
 
 export interface ImageBorderProps {
-	intl: IntlShape;
-	toggleBorder: () => void;
 	borderMark?: BorderMarkAttributes;
+	intl: IntlShape;
 	setBorder: (attrs: Partial<BorderMarkAttributes>) => void;
+	toggleBorder: () => void;
 }
 
 const ImageBorder = ({
@@ -135,7 +135,7 @@ const ImageBorder = ({
 		focusFirstOption(sizeSubmenuRef, isSizeSubmenuOpen);
 	}, [isColorSubmenuOpen, isSizeSubmenuOpen, isOpenByKeyboard]);
 
-	const borderSizeOptions: { name: string; value: number; icon: Icon }[] = [
+	const borderSizeOptions: { icon: Icon; name: string; value: number; }[] = [
 		{
 			name: formatMessage(messages.borderSizeSubtle),
 			value: 1,

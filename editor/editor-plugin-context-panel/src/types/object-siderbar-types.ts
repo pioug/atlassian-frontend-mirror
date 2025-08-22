@@ -15,20 +15,20 @@ type PanelElement = FC | (() => React.ReactElement<any, any> | null);
 
 // Below type is copied from confluence/next/packages/object-sidebar-api/src/useObjectSidebar.tsx
 export type ObjectSidebarPanel = {
-	id: string;
+	BodyComponent: PanelElement;
+	closeOptions?: ObjectSidebarPanelCloseOptions;
+	FooterComponent?: PanelElement;
 	headerComponentElements: {
+		HeaderAfterIconElement?: PanelElement;
+		HeaderBeforeIconElement?: PanelElement;
 		HeaderIcon?: PanelElement;
 		headerLabel?: MessageDescriptor;
-		HeaderAfterIconElement?: PanelElement;
 		HeaderRightAlignedElement?: PanelElement;
-		HeaderBeforeIconElement?: PanelElement;
 		headerStyles?: {
 			setGrayBackground?: boolean;
 		};
 	};
-	BodyComponent: PanelElement;
-	FooterComponent?: PanelElement;
-	closeOptions?: ObjectSidebarPanelCloseOptions;
+	id: string;
 };
 
 export type ShowObjectSidebar = (

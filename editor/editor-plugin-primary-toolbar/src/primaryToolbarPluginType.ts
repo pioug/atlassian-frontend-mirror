@@ -8,17 +8,17 @@ export interface PrimaryToolbarPluginOptions {
 export type PrimaryToolbarPlugin = NextEditorPlugin<
 	'primaryToolbar',
 	{
-		sharedState: PrimaryToolbarPluginState | undefined;
 		actions: {
 			registerComponent: ({
 				name,
 				component,
 			}: {
-				name: ToolbarElementNames;
 				component: ToolbarUIComponentFactory;
+				name: ToolbarElementNames;
 			}) => void;
 		};
 		pluginConfiguration?: PrimaryToolbarPluginOptions;
+		sharedState: PrimaryToolbarPluginState | undefined;
 	}
 >;
 
@@ -48,8 +48,8 @@ export type ToolbarElementNames =
 	| 'undoRedoPlugin';
 
 export type ToolbarElementConfig = {
-	name: ToolbarElementNames;
 	enabled?: (componentRegistry: ComponentRegistry, editorState: EditorState) => boolean;
+	name: ToolbarElementNames;
 };
 
 export type PrimaryToolbarPluginState = {

@@ -34,12 +34,12 @@ import { ResizingMarkView } from './resizing-mark-view';
 import { updateExpandedStateNew } from './utils/single-player-expand';
 
 type AddBreakoutToResizableNodeProps = {
-	node: Node;
-	pos: number;
-	newState: EditorState;
-	newTr: Transaction;
 	breakoutResizableNodes: Set<NodeType>;
 	isFullWidthEnabled: boolean;
+	newState: EditorState;
+	newTr: Transaction;
+	node: Node;
+	pos: number;
 };
 
 const addBreakoutToResizableNode = ({
@@ -109,8 +109,8 @@ export type ActiveGuidelineKey = Exclude<
 >;
 
 type UpdateBreakoutNode = {
-	type: 'UPDATE_BREAKOUT_NODE';
 	data: ContentNodeWithPos;
+	type: 'UPDATE_BREAKOUT_NODE';
 };
 
 type ResetState = {
@@ -118,10 +118,10 @@ type ResetState = {
 };
 
 type UpdateActiveGuidelineKey = {
-	type: 'UPDATE_ACTIVE_GUIDELINE_KEY';
 	data: {
 		activeGuidelineKey: ActiveGuidelineKey;
 	};
+	type: 'UPDATE_ACTIVE_GUIDELINE_KEY';
 };
 
 type ClearActiveGuidelineKey = {

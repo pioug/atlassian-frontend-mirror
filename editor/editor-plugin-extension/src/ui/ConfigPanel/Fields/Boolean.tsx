@@ -64,8 +64,8 @@ function Checkbox({
 	field,
 	onFieldChange,
 }: {
-	name: string;
 	field: BooleanField;
+	name: string;
 	onFieldChange: OnFieldChange;
 }) {
 	const { label, description, isRequired = false, defaultValue = false, isDisabled } = field;
@@ -103,8 +103,8 @@ function Toggle({
 	field,
 	onFieldChange,
 }: {
-	name: string;
 	field: BooleanField;
+	name: string;
 	onFieldChange: OnFieldChange;
 }) {
 	const { label, description, isRequired = false, defaultValue = false, isDisabled } = field;
@@ -153,8 +153,8 @@ export default function Boolean({
 	field,
 	onFieldChange,
 }: {
-	name: string;
 	field: BooleanField;
+	name: string;
 	onFieldChange: OnFieldChange;
 }) {
 	if (field.style === 'toggle') {

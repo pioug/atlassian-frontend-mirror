@@ -279,12 +279,12 @@ describe(useSmartLinkActions.name, () => {
 
 			mockWithActions();
 
-			const { result } = renderHook(() => 
-				useSmartLinkActions({ 
-					url, 
-					appearance, 
-					origin: 'smartLinkCard' 
-				})
+			const { result } = renderHook(() =>
+				useSmartLinkActions({
+					url,
+					appearance,
+					origin: 'smartLinkCard',
+				}),
 			);
 
 			// Just verify that the hook returns some actions when origin is provided

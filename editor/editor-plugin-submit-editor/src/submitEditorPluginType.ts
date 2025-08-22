@@ -9,7 +9,7 @@ export type SubmitEditorPluginDependencies = [OptionalPlugin<MediaPlugin>];
 export type SubmitEditorPlugin = NextEditorPlugin<
 	'submitEditor',
 	{
-		pluginConfiguration: SubmitEditorPluginOptions | undefined;
 		dependencies: SubmitEditorPluginDependencies;
+		pluginConfiguration: SubmitEditorPluginOptions | undefined;
 	}
 >;

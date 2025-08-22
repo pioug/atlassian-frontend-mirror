@@ -9,16 +9,16 @@ import { mapActionSubjectIdToAttributes } from './map-attributes';
 const actionsToIgnore: (ACTION | TABLE_ACTION)[] = [ACTION.INVOKED, ACTION.OPENED];
 
 type AttachPayloadIntoTransaction = (props: {
+	channel: string;
 	payload: AnalyticsEventPayload;
 	selection: Selection;
 	tr: Transaction;
-	channel: string;
 }) => void;
 
 export type CreateAttachPayloadIntoTransaction = (props: {
+	channel: string;
 	payload: AnalyticsEventPayload;
 	tr: Transaction;
-	channel: string;
 }) => void;
 
 export const createAttachPayloadIntoTransaction =

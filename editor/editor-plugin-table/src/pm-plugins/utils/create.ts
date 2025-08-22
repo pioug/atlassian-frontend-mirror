@@ -7,10 +7,10 @@ const NESTED_TABLE_DEFAULT_ROWS = 2;
 const NESTED_TABLE_DEFAULT_COLS = 2;
 
 type CreateTableOverrides = {
-	tableWidth?: TableAttributes['width'] | 'inherit';
+	colsCount?: number;
 	layout?: TableAttributes['layout'];
 	rowsCount?: number;
-	colsCount?: number;
+	tableWidth?: TableAttributes['width'] | 'inherit';
 };
 
 export const createTableWithWidth =
@@ -24,17 +24,17 @@ export const createTableWithWidth =
 		isNestedTable,
 		createTableProps,
 	}: {
-		isTableScalingEnabled?: boolean;
-		isTableAlignmentEnabled?: boolean;
-		isFullWidthModeEnabled?: boolean;
-		isCommentEditor?: boolean;
-		isChromelessEditor?: boolean;
-		isTableResizingEnabled?: boolean;
-		isNestedTable?: boolean;
 		createTableProps?: {
-			rowsCount?: number;
 			colsCount?: number;
+			rowsCount?: number;
 		};
+		isChromelessEditor?: boolean;
+		isCommentEditor?: boolean;
+		isFullWidthModeEnabled?: boolean;
+		isNestedTable?: boolean;
+		isTableAlignmentEnabled?: boolean;
+		isTableResizingEnabled?: boolean;
+		isTableScalingEnabled?: boolean;
 	}) =>
 	(schema: Schema) => {
 		const attrsOverrides: CreateTableOverrides = {};

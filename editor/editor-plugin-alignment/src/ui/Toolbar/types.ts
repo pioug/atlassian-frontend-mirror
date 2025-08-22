@@ -4,10 +4,10 @@ import type { Keymap } from '@atlaskit/editor-common/keymaps';
 import type { IconComponent } from '@atlaskit/editor-toolbar';
 
 export type OptionInfo = {
-	key: string;
-	type: 'menu-item';
-	label: MessageDescriptor;
 	icon: IconComponent;
+	key: string;
 	keymap: Keymap;
+	label: MessageDescriptor;
 	rank: number;
+	type: 'menu-item';
 };

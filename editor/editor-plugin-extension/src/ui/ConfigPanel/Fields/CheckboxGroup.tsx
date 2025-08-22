@@ -36,12 +36,12 @@ function CheckboxGroupInner({
 	error,
 	fieldProps,
 }: {
-	label: JSX.Element;
 	description?: string;
-	onFieldChange: () => void;
-	options: Option[];
 	error?: string;
 	fieldProps: FieldProps<string[], HTMLInputElement>;
+	label: JSX.Element;
+	onFieldChange: () => void;
+	options: Option[];
 }) {
 	const { onChange, value, ...restFieldProps } = fieldProps;
 	function _onChange(optionValue: string, isChecked: boolean) {
@@ -92,8 +92,8 @@ export default function CheckboxGroup({
 	field,
 	onFieldChange,
 }: {
-	name: string;
 	field: EnumCheckboxField;
+	name: string;
 	onFieldChange: OnFieldChange;
 }) {
 	const {

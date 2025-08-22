@@ -123,10 +123,10 @@ export const formatPlainText = (
 };
 
 type PasteSliceIntoTransactionProps = {
-	tr: Transaction;
-	pasteStartPos: number;
 	pasteEndPos: number;
+	pasteStartPos: number;
 	slice: Slice;
+	tr: Transaction;
 };
 function pasteSliceIntoTransactionWithSelectionAdjust({
 	tr,

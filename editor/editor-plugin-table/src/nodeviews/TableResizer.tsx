@@ -81,29 +81,29 @@ import {
 } from '../ui/consts';
 
 interface TableResizerProps {
-	width: number;
-	maxWidth: number | string;
+	attachAnalyticsEvent: (payload: TableEventPayload) => ((tr: Transaction) => boolean) | undefined;
 	containerWidth: number;
-	lineLength: number;
-	updateWidth: (width: number) => void;
+	disabled?: boolean;
+	displayGapCursor: (toggle: boolean) => boolean;
+	displayGuideline: (guideline: GuidelineConfig[]) => boolean;
 	editorView: EditorView;
 	getPos: () => number | undefined;
-	node: PMNode;
-	tableRef: HTMLTableElement;
-	displayGuideline: (guideline: GuidelineConfig[]) => boolean;
-	attachAnalyticsEvent: (payload: TableEventPayload) => ((tr: Transaction) => boolean) | undefined;
-	displayGapCursor: (toggle: boolean) => boolean;
-	pluginInjectionApi?: PluginInjectionAPI;
+	isCommentEditor?: boolean;
+	isFullWidthModeEnabled?: boolean;
+	isTableAlignmentEnabled?: boolean;
 	isTableScalingEnabled?: boolean;
 	isTableWithFixedColumnWidthsOptionEnabled?: boolean;
-	isTableAlignmentEnabled?: boolean;
 	isWholeTableInDanger?: boolean;
-	isFullWidthModeEnabled?: boolean;
-	shouldUseIncreasedScalingPercent?: boolean;
-	isCommentEditor?: boolean;
-	onResizeStop?: () => void;
+	lineLength: number;
+	maxWidth: number | string;
+	node: PMNode;
 	onResizeStart?: () => void;
-	disabled?: boolean;
+	onResizeStop?: () => void;
+	pluginInjectionApi?: PluginInjectionAPI;
+	shouldUseIncreasedScalingPercent?: boolean;
+	tableRef: HTMLTableElement;
+	updateWidth: (width: number) => void;
+	width: number;
 }
 
 type ResizerNextHandler = React.ElementRef<typeof ResizerNext>;

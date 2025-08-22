@@ -92,7 +92,6 @@
 		"@atlaskit/range": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@atlaskit/toggle": "workspace:^",
-		"@atlaskit/visual-regression": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ufo": "workspace:^",
 		"@testing-library/dom": "root:*",

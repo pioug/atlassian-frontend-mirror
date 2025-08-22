@@ -20,8 +20,8 @@ type DummyAnnotationPlugin = NextEditorPlugin<
 		};
 		sharedState: {
 			annotations: Record<string, boolean>;
-			isVisible: boolean;
 			bookmark: boolean;
+			isVisible: boolean;
 			mouseData: {
 				isSelecting: boolean;
 			};
@@ -52,17 +52,17 @@ export type StatusPluginActions = {
 };
 
 export type StatusPluginCommands = {
-	removeStatus: typeof removeStatus;
 	insertStatus: ReturnType<typeof insertStatus>;
+	removeStatus: typeof removeStatus;
 };
 
 export type StatusPlugin = NextEditorPlugin<
 	'status',
 	{
-		dependencies: StatusPluginDependencies;
-		pluginConfiguration: StatusPluginOptions | undefined;
 		actions: StatusPluginActions;
 		commands: StatusPluginCommands;
+		dependencies: StatusPluginDependencies;
+		pluginConfiguration: StatusPluginOptions | undefined;
 		sharedState: StatusState | undefined;
 	}
 >;

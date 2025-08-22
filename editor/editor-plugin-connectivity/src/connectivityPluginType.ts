@@ -3,7 +3,6 @@ import type { EditorCommand, NextEditorPlugin } from '@atlaskit/editor-common/ty
 export type ConnectivityPlugin = NextEditorPlugin<
 	'connectivity',
 	{
-		sharedState: PublicPluginState;
 		commands: {
 			/**
 			 *
@@ -25,6 +24,7 @@ export type ConnectivityPlugin = NextEditorPlugin<
 			 */
 			setMode: (mode: Mode | null) => EditorCommand;
 		};
+		sharedState: PublicPluginState;
 	}
 >;
 

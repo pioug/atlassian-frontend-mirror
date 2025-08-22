@@ -21,8 +21,8 @@ export type TaskDecisionInputMethod =
 	| INPUT_METHOD.KEYBOARD;
 
 export type ContextData = {
-	objectId: string;
 	containerId: string;
+	objectId: string;
 	userContext: USER_CONTEXT;
 };
 
@@ -32,13 +32,13 @@ export type AddItemAttrs =
 	| Partial<BlockTaskItemDefinition['attrs']>;
 
 export type AddItemTransactionCreator = (opts: {
+	item: NodeType;
+	itemAttrs?: AddItemAttrs;
+	itemLocalId: string;
+	list: NodeType;
+	listLocalId: string;
 	state: EditorState;
 	tr: Transaction;
-	list: NodeType;
-	item: NodeType;
-	listLocalId: string;
-	itemLocalId: string;
-	itemAttrs?: AddItemAttrs;
 }) => Transaction | null;
 
 /**
@@ -46,6 +46,11 @@ export type AddItemTransactionCreator = (opts: {
  * Extends the LongPressSelectionPluginOptions interface.
  */
 export interface TasksAndDecisionsPluginOptions extends LongPressSelectionPluginOptions {
+	/**
+	 * Allows the blockTaskItem node to be a child of taskList (taskItem variant that supports block children - currently only supports extension and is intended to support Confluence TinyMCE migration flows in conjunction with the Legacy Content Extension)
+	 */
+	allowBlockTaskItem?: boolean;
+
 	/**
 	 * Indicates whether nested tasks are allowed.
 	 * @default false
@@ -89,11 +94,6 @@ export interface TasksAndDecisionsPluginOptions extends LongPressSelectionPlugin
 	 * Placeholder text to display when creating a task.
 	 */
 	taskPlaceholder?: string;
-
-	/**
-	 * Allows the blockTaskItem node to be a child of taskList (taskItem variant that supports block children - currently only supports extension and is intended to support Confluence TinyMCE migration flows in conjunction with the Legacy Content Extension)
-	 */
-	allowBlockTaskItem?: boolean;
 }
 
 /**
@@ -104,14 +104,14 @@ export interface TasksAndDecisionsPluginOptions extends LongPressSelectionPlugin
 export type TaskDecisionPluginOptions = TasksAndDecisionsPluginOptions;
 
 export type TaskDecisionPluginState = {
-	insideTaskDecisionItem: boolean;
+	decorations: DecorationSet;
 	focusedTaskItemLocalId: string | null;
 	hasEditPermission?: boolean;
 	hasRequestedEditPermission?: boolean;
+	insideTaskDecisionItem: boolean;
+	openRequestToEditPopupAt?: number | null;
 	requestToEditContent?: () => void;
 	taskDecisionProvider: TaskDecisionProvider | undefined;
-	openRequestToEditPopupAt?: number | null;
-	decorations: DecorationSet;
 };
 
 export type TaskAndDecisionsSharedState = Pick<
@@ -123,9 +123,9 @@ export type TaskAndDecisionsSharedState = Pick<
 	| 'hasRequestedEditPermission'
 	| 'openRequestToEditPopupAt'
 > & {
+	indentDisabled: boolean;
 	// derived state
 	isInsideTask: boolean;
-	indentDisabled: boolean;
 	outdentDisabled: boolean;
 };
 
@@ -134,7 +134,7 @@ export type GetContextIdentifier = () => ContextIdentifierProvider | undefined;
 export type TaskItemState = 'DONE' | 'TODO';
 
 export type TaskItemInfoMeta = {
+	checkState: TaskItemState;
 	from: number;
 	to: number;
-	checkState: TaskItemState;
 };

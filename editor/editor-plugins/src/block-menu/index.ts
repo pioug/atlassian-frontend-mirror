@@ -6,4 +6,5 @@ export type {
 	BlockMenuPlugin,
 	RegisterBlockMenuComponent,
 	Parent,
+	BlockMenuPluginOptions,
 } from '@atlaskit/editor-plugin-block-menu';

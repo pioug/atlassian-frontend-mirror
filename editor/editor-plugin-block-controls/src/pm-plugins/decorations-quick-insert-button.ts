@@ -28,16 +28,16 @@ export const findQuickInsertInsertButtonDecoration = (
 };
 
 type QuickInsertButtonDecorationParams = {
-	api: ExtractInjectionAPI<BlockControlsPlugin>;
-	formatMessage: IntlShape['formatMessage'];
-	rootPos: number;
 	anchorName: string;
+	anchorRectCache?: AnchorRectCache;
+	api: ExtractInjectionAPI<BlockControlsPlugin>;
+	editorState: EditorState;
+	formatMessage: IntlShape['formatMessage'];
 	nodeType: string;
 	nodeViewPortalProviderAPI: PortalProviderAPI;
 	rootAnchorName?: string;
 	rootNodeType?: string;
-	anchorRectCache?: AnchorRectCache;
-	editorState: EditorState;
+	rootPos: number;
 };
 
 export const quickInsertButtonDecoration = ({

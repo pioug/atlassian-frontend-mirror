@@ -9,7 +9,7 @@ export interface EditorDisabledPluginOptions {
 export type EditorDisabledPlugin = NextEditorPlugin<
 	'editorDisabled',
 	{
-		sharedState: EditorDisabledPluginState;
 		pluginConfiguration: EditorDisabledPluginOptions | undefined;
+		sharedState: EditorDisabledPluginState;
 	}
 >;

@@ -57,7 +57,6 @@
 		"@atlaskit/codemod-utils": "workspace:^",
 		"@atlaskit/motion": "workspace:^",
 		"@atlaskit/radio": "workspace:^",
-		"@atlaskit/visual-regression": "workspace:^",
 		"@testing-library/dom": "root:*",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",

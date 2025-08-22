@@ -70,8 +70,8 @@ function findInsertPoint(
 }
 
 type Position = {
-	start: number;
 	end: number;
+	start: number;
 };
 export const insertBlockNode = ({
 	node,
@@ -79,8 +79,8 @@ export const insertBlockNode = ({
 	position,
 }: {
 	node: PMNode;
-	tr: Transaction;
 	position: Position;
+	tr: Transaction;
 }): Transaction => {
 	const { start, end } = position;
 	if (node.isText) {
@@ -145,9 +145,9 @@ export const insertInlineNodeOrFragment = ({
 	selectInlineNode,
 }: {
 	maybeFragment: Fragment | PMNode;
-	tr: Transaction;
 	position: Position;
 	selectInlineNode: boolean;
+	tr: Transaction;
 }): Transaction => {
 	const { start, end } = position;
 

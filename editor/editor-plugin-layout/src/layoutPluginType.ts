@@ -23,10 +23,10 @@ export type LayoutPluginDependencies = [
 export type LayoutPlugin = NextEditorPlugin<
 	'layout',
 	{
-		pluginConfiguration: LayoutPluginOptions | undefined;
-		dependencies: LayoutPluginDependencies;
 		actions: {
 			insertLayoutColumns: ReturnType<typeof insertLayoutColumnsWithAnalytics>;
 		};
+		dependencies: LayoutPluginDependencies;
+		pluginConfiguration: LayoutPluginOptions | undefined;
 	}
 >;

@@ -11,7 +11,7 @@ import type { CustomizedHelperMessage } from './types';
 
 export type MediaInsertPluginState = {
 	isOpen?: boolean;
-	mountInfo?: { ref: HTMLElement; mountPoint: HTMLElement };
+	mountInfo?: { mountPoint: HTMLElement; ref: HTMLElement; };
 };
 
 export type MediaInsertPluginDependencies = [
@@ -22,12 +22,14 @@ export type MediaInsertPluginDependencies = [
 
 export type MediaInsertPluginCommands = {
 	showMediaInsertPopup: (mountInfo?: {
-		ref: HTMLElement;
 		mountPoint: HTMLElement;
+		ref: HTMLElement;
 	}) => EditorCommand;
 };
 
 export type MediaInsertPluginConfig = {
+	customizedHelperMessage?: CustomizedHelperMessage;
+	customizedUrlValidation?: (input: string) => boolean;
 	/**
 	 * This will only allow users to insert media using URLs, they cannot insert media using files from their computer.
 	 * Files that are inserted with a URL will attempt to be uploaded using `editor-plugin-media`
@@ -57,16 +59,14 @@ export type MediaInsertPluginConfig = {
 	 * ```
 	 */
 	isOnlyExternalLinks?: boolean;
-	customizedUrlValidation?: (input: string) => boolean;
-	customizedHelperMessage?: CustomizedHelperMessage;
 };
 
 export type MediaInsertPlugin = NextEditorPlugin<
 	'mediaInsert',
 	{
-		dependencies: MediaInsertPluginDependencies;
-		sharedState: MediaInsertPluginState;
 		commands: MediaInsertPluginCommands;
+		dependencies: MediaInsertPluginDependencies;
 		pluginConfiguration: MediaInsertPluginConfig | undefined;
+		sharedState: MediaInsertPluginState;
 	}
 >;

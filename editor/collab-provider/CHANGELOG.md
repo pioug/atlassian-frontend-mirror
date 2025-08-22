@@ -1,5 +1,13 @@
 # @atlaskit/collab-provider
 
+## 11.3.1
+
+### Patch Changes
+
+- [`e860af1658f2d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e860af1658f2d) -
+  Ensure we are always sending the latest state while step merging
+- Updated dependencies
+
 ## 11.3.0
 
 ### Minor Changes

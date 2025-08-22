@@ -32,21 +32,21 @@ import { DragHandle, DragHandleWithSharedState } from '../../DragHandle';
 import RowDropTarget from '../RowDropTarget';
 
 type DragControlsProps = {
+	api?: ExtractInjectionAPI<TablePlugin>;
 	editorView: EditorView;
-	tableRef: HTMLTableElement;
-	tableNode?: PmNode;
-	tableWidth: number;
-	tableActive?: boolean;
 	hoveredCell?: CellHoverMeta;
-	isInDanger?: boolean;
-	isTableHovered?: boolean;
-	isResizing?: boolean;
 	hoverRows: (rows: number[], danger?: boolean) => void;
+	isInDanger?: boolean;
+	isResizing?: boolean;
+	isTableHovered?: boolean;
+	selection?: Selection;
 	selectRow: (row: number, expand: boolean) => void;
 	selectRows: (rowIndexes: number[]) => void;
+	tableActive?: boolean;
+	tableNode?: PmNode;
+	tableRef: HTMLTableElement;
+	tableWidth: number;
 	updateCellHoverLocation: (rowIndex: number) => void;
-	api?: ExtractInjectionAPI<TablePlugin>;
-	selection?: Selection;
 };
 
 const getSelectedRows = (selection: Selection) => {

@@ -7,11 +7,11 @@ import { injectIntl } from 'react-intl-next';
 import { TableCssClassName as ClassName } from '../../types';
 
 interface ButtonProps {
-	removeLabel: MessageDescriptor;
-	style?: object;
 	onClick?: (event: SyntheticEvent) => void;
 	onMouseEnter?: (event: SyntheticEvent) => void;
 	onMouseLeave?: (event: SyntheticEvent) => void;
+	removeLabel: MessageDescriptor;
+	style?: object;
 }
 
 const DeleteButton = ({

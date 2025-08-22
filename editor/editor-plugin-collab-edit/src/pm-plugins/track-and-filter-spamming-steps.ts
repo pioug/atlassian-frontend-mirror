@@ -23,18 +23,18 @@ import type { TrackSpammingStepsMetadata } from '../types';
 const THRESHOLD = 50; // 50 milliseconds
 
 export type RecentTransactionTimestamp = {
-	timestamp: number;
 	steps: Step[];
+	timestamp: number;
 };
 
 export type RecentTransactionTimestamps = Map<string, RecentTransactionTimestamp>;
 
 export type TrackFilteredTransaction = (tr: Transaction) => void;
 export type SanitizedFilteredStep = {
-	stepType: string;
-	stepInstance?: string;
 	attr?: string;
 	markType?: string;
+	stepInstance?: string;
+	stepType: string;
 };
 
 /**

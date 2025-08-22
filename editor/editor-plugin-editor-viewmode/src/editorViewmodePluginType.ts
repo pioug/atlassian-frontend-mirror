@@ -13,11 +13,11 @@ export type EditorViewModePluginOptions = {
 export type EditorViewModePlugin = NextEditorPlugin<
 	'editorViewMode',
 	{
-		sharedState: EditorViewModePluginState | null;
-		dependencies: [];
-		pluginConfiguration?: EditorViewModePluginOptions;
 		commands: {
 			updateViewMode: (mode: ViewMode) => EditorCommand;
 		};
+		dependencies: [];
+		pluginConfiguration?: EditorViewModePluginOptions;
+		sharedState: EditorViewModePluginState | null;
 	}
 >;

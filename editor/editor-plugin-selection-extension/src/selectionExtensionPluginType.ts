@@ -24,16 +24,16 @@ import type {
 export type SelectionExtensionPlugin = NextEditorPlugin<
 	'selectionExtension',
 	{
-		pluginConfiguration: SelectionExtensionPluginOptions | undefined;
-		dependencies: [
-			OptionalPlugin<AnalyticsPlugin>,
-			OptionalPlugin<EditorViewModePlugin>,
-			OptionalPlugin<PrimaryToolbarPlugin>,
-			OptionalPlugin<UserPreferencesPlugin>,
-			SelectionToolbarPlugin,
-		];
-		sharedState: SelectionExtensionPluginState | null;
+		actions: {
+			getDocumentFromSelection: () => {
+				selectedNodeAdf?: ADFEntity;
+			} | null;
+			getSelectionAdf: () => SelectionAdfResult;
+			insertAdfAtEndOfDoc: (nodeAdf: ADFEntity) => InsertAdfAtEndOfDocResult;
+			replaceWithAdf: (nodeAdf: ADFEntity) => ReplaceWithAdfResult;
+		};
 		commands: {
+			clearActiveExtension: () => EditorCommand;
 			setActiveExtension: ({
 				extension,
 				selection,
@@ -41,15 +41,15 @@ export type SelectionExtensionPlugin = NextEditorPlugin<
 				extension: SelectionExtension | DynamicSelectionExtension;
 				selection: SelectionExtensionSelectionInfo;
 			}) => EditorCommand;
-			clearActiveExtension: () => EditorCommand;
 		};
-		actions: {
-			replaceWithAdf: (nodeAdf: ADFEntity) => ReplaceWithAdfResult;
-			insertAdfAtEndOfDoc: (nodeAdf: ADFEntity) => InsertAdfAtEndOfDocResult;
-			getSelectionAdf: () => SelectionAdfResult;
-			getDocumentFromSelection: () => {
-				selectedNodeAdf?: ADFEntity;
-			} | null;
-		};
+		dependencies: [
+			OptionalPlugin<AnalyticsPlugin>,
+			OptionalPlugin<EditorViewModePlugin>,
+			OptionalPlugin<PrimaryToolbarPlugin>,
+			OptionalPlugin<UserPreferencesPlugin>,
+			SelectionToolbarPlugin,
+		];
+		pluginConfiguration: SelectionExtensionPluginOptions | undefined;
+		sharedState: SelectionExtensionPluginState | null;
 	}
 >;

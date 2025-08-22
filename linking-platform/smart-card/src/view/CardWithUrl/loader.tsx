@@ -64,6 +64,7 @@ export function CardWithURLRenderer(props: CardProps) {
 		resolvingPlaceholder,
 		truncateInline,
 		CompetitorPrompt,
+		disablePreviewPanel,
 	} = props;
 
 	const isFlexibleUi = isFlexibleUiCard(children, ui);
@@ -144,6 +145,7 @@ export function CardWithURLRenderer(props: CardProps) {
 		resolvingPlaceholder,
 		truncateInline,
 		CompetitorPrompt,
+		disablePreviewPanel,
 	};
 
 	return (

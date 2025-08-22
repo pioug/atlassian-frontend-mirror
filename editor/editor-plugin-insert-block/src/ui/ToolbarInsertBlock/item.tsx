@@ -43,20 +43,20 @@ import StatusIconLegacy from '@atlaskit/icon/glyph/status';
 import { shallowEquals } from './shallow-equals';
 
 interface ItemInit {
+	'aria-haspopup'?: React.AriaAttributes['aria-haspopup'];
+	'aria-keyshortcuts'?: React.AriaAttributes['aria-keyshortcuts'];
+	'aria-label'?: React.AriaAttributes['aria-label'];
 	content: string;
-	tooltipDescription?: string;
 	disabled: boolean;
-	name: string;
-	shortcut?: string;
 	Icon: React.ComponentType<
 		Omit<NewCoreIconProps, 'LEGACY_fallbackIcon' | 'spacing'> & {
 			label: string;
 			spacing: 'spacious';
 		}
 	>;
-	'aria-label'?: React.AriaAttributes['aria-label'];
-	'aria-haspopup'?: React.AriaAttributes['aria-haspopup'];
-	'aria-keyshortcuts'?: React.AriaAttributes['aria-keyshortcuts'];
+	name: string;
+	shortcut?: string;
+	tooltipDescription?: string;
 }
 
 const from = (init: ItemInit): MenuItem => ({
@@ -76,11 +76,11 @@ const from = (init: ItemInit): MenuItem => ({
 });
 
 export interface CreateInit {
+	'aria-haspopup'?: React.AriaAttributes['aria-haspopup'];
+	'aria-label'?: React.AriaAttributes['aria-label'];
 	content: string;
 	disabled: boolean;
 	tooltipDescription?: string;
-	'aria-label'?: React.AriaAttributes['aria-label'];
-	'aria-haspopup'?: React.AriaAttributes['aria-haspopup'];
 }
 
 const mem = <TFunc extends (...args: CreateInit[]) => MenuItem>(fn: TFunc): MemoizedFn<TFunc> =>

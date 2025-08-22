@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 0.0.10
+
+### Patch Changes
+
+- [`265c1bf0cefa4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/265c1bf0cefa4) -
+  Sorted type and interface props to improve Atlaskit docs
+- Updated dependencies
+
+## 0.0.9
+
+### Patch Changes
+
+- [`9155252ad4c00`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9155252ad4c00) -
+  [ux] copy link to the selected node in block menu
+- Updated dependencies
+
 ## 0.0.8
 
 ### Patch Changes

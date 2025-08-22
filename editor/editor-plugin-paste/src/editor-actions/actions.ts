@@ -7,20 +7,20 @@ export enum PastePluginActionTypes {
 }
 
 export interface StartTrackingPastedMacroPositions {
-	type: PastePluginActionTypes.START_TRACKING_PASTED_MACRO_POSITIONS;
 	pastedMacroPositions: {
 		[key: string]: number;
 	};
+	type: PastePluginActionTypes.START_TRACKING_PASTED_MACRO_POSITIONS;
 }
 
 export interface OnPaste {
-	type: PastePluginActionTypes.ON_PASTE;
 	contentPasted: LastContentPasted;
+	type: PastePluginActionTypes.ON_PASTE;
 }
 
 export interface StopTrackingPastedMacroPositions {
-	type: PastePluginActionTypes.STOP_TRACKING_PASTED_MACRO_POSITIONS;
 	pastedMacroPositionKeys: string[];
+	type: PastePluginActionTypes.STOP_TRACKING_PASTED_MACRO_POSITIONS;
 }
 
 export type PastePluginAction =

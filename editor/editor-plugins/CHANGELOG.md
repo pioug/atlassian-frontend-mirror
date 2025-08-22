@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugins
 
+## 10.1.78
+
+### Patch Changes
+
+- [`265c1bf0cefa4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/265c1bf0cefa4) -
+  Sorted type and interface props to improve Atlaskit docs
+- Updated dependencies
+
+## 10.1.77
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.1.76
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.1.75
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.1.74
 
 ### Patch Changes

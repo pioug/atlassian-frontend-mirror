@@ -28,10 +28,10 @@ type AnalyticsErrorBoundaryAttributes = {
 };
 
 interface Props {
-	fields: FieldDefinition[];
-	extensionKey: string;
-	contextIdentifierProvider?: ContextIdentifierProvider;
 	children: React.ReactNode;
+	contextIdentifierProvider?: ContextIdentifierProvider;
+	extensionKey: string;
+	fields: FieldDefinition[];
 }
 interface State {
 	error?: Error;

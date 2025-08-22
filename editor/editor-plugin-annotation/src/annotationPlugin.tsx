@@ -173,10 +173,10 @@ export const annotationPlugin: AnnotationPlugin = ({ config: annotationProviders
 };
 
 interface AnnotationContentComponentProps {
-	api: ExtractInjectionAPI<typeof annotationPlugin> | undefined;
-	editorView: EditorView;
 	annotationProviders: AnnotationProviders;
+	api: ExtractInjectionAPI<typeof annotationPlugin> | undefined;
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent | undefined;
+	editorView: EditorView;
 }
 
 const selector = (

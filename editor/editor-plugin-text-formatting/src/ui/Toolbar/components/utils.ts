@@ -57,15 +57,15 @@ import type { FormatOptionState, FormatOptions } from '../types';
 
 export type FormatComponentProps = {
 	api?: ExtractInjectionAPI<TextFormattingPlugin>;
-	parents: ToolbarComponentTypes;
+	ariaLabel?: string;
 	icon: IconComponent;
+	optionType: FormatOptions;
+	parents: ToolbarComponentTypes;
 	shortcut: Keymap;
 	title: MessageDescriptor;
-	optionType: FormatOptions;
 	toggleMarkWithAnalyticsCallback:
 		| ToggleMarkWithAnalyticsEditorCommand
 		| ClearFormattingWithAnalyticsEditorCommand;
-	ariaLabel?: string;
 };
 
 const FormatMarkSchema: Record<FormatOptions, string> = {
@@ -140,12 +140,12 @@ export const useComponentInfo = ({
 };
 
 type FormatOptionInfo = {
-	rank: number;
-	key: string;
-	icon: IconComponent;
-	title: MessageDescriptor;
 	command: ToggleMarkWithAnalyticsEditorCommand;
+	icon: IconComponent;
+	key: string;
+	rank: number;
 	shortcut: Keymap;
+	title: MessageDescriptor;
 };
 
 export const formatOptions = (): Record<FormatOptions, FormatOptionInfo> => ({

@@ -91,9 +91,9 @@ const LoomToolbarButtonWrapper = ({
 	api,
 	appearance,
 }: {
-	disabled: boolean;
 	api: ExtractInjectionAPI<LoomPlugin> | undefined;
 	appearance: EditorAppearance;
+	disabled: boolean;
 }) => {
 	const handleOnClick = useCallback(() => executeRecordVideo(api), [api]);
 	const { loomEnabled, connectivityMode } = useSharedState(api);

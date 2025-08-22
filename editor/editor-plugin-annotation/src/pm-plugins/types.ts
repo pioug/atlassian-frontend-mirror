@@ -28,14 +28,14 @@ export enum ACTIONS {
 }
 
 export interface InlineCommentPluginOptions {
-	dispatch: Dispatch;
-	provider: InlineCommentAnnotationProvider;
-	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
-	featureFlagsPluginState?: FeatureFlags;
-	selectCommentExperience?: AnnotationProviders['selectCommentExperience'];
-	viewInlineCommentTraceUFOPress?: AnnotationProviders['viewInlineCommentTraceUFOPress'];
 	annotationManager?: AnnotationManager;
 	api?: AnnotationPluginInjectionAPI;
+	dispatch: Dispatch;
+	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
+	featureFlagsPluginState?: FeatureFlags;
+	provider: InlineCommentAnnotationProvider;
+	selectCommentExperience?: AnnotationProviders['selectCommentExperience'];
+	viewInlineCommentTraceUFOPress?: AnnotationProviders['viewInlineCommentTraceUFOPress'];
 }
 export interface InlineCommentMouseData {
 	isSelecting: boolean;
@@ -44,64 +44,64 @@ export interface InlineCommentMouseData {
 export type InlineCommentMap = { [key: string]: boolean };
 export type InlineCommentAction =
 	| {
-			type: ACTIONS.UPDATE_INLINE_COMMENT_STATE;
 			data: InlineCommentMap;
+			type: ACTIONS.UPDATE_INLINE_COMMENT_STATE;
 	  }
 	| {
-			type: ACTIONS.SET_INLINE_COMMENT_DRAFT_STATE;
 			data: {
 				drafting: boolean;
 				editorState: EditorState;
-				targetType?: TargetType;
+				isOpeningMediaCommentFromToolbar?: boolean;
 				supportedBlockNodes?: string[];
 				targetNodeId?: string;
-				isOpeningMediaCommentFromToolbar?: boolean;
+				targetType?: TargetType;
 			};
+			type: ACTIONS.SET_INLINE_COMMENT_DRAFT_STATE;
 	  }
 	| {
-			type: ACTIONS.INLINE_COMMENT_UPDATE_MOUSE_STATE;
 			data: {
 				mouseData: InlineCommentMouseData;
 			};
+			type: ACTIONS.INLINE_COMMENT_UPDATE_MOUSE_STATE;
 	  }
 	| { type: ACTIONS.INLINE_COMMENT_CLEAR_DIRTY_MARK }
 	| { type: ACTIONS.CLOSE_COMPONENT }
 	| {
-			type: ACTIONS.ADD_INLINE_COMMENT;
 			data: {
 				drafting: boolean;
-				inlineComments: InlineCommentMap;
 				editorState: EditorState;
+				inlineComments: InlineCommentMap;
 				selectedAnnotations: AnnotationInfo[];
 			};
+			type: ACTIONS.ADD_INLINE_COMMENT;
 	  }
-	| { type: ACTIONS.INLINE_COMMENT_SET_VISIBLE; data: { isVisible: boolean } }
+	| { data: { isVisible: boolean }; type: ACTIONS.INLINE_COMMENT_SET_VISIBLE; }
 	| {
-			type: ACTIONS.SET_SELECTED_ANNOTATION;
 			data: {
-				selectedAnnotations: AnnotationInfo[];
-				selectAnnotationMethod?: VIEW_METHOD;
 				isOpeningMediaCommentFromToolbar?: boolean;
+				selectAnnotationMethod?: VIEW_METHOD;
+				selectedAnnotations: AnnotationInfo[];
 			};
+			type: ACTIONS.SET_SELECTED_ANNOTATION;
 	  }
 	| {
-			type: ACTIONS.SET_HOVERED_ANNOTATION;
 			data: {
 				hoveredAnnotations: AnnotationInfo[];
 				selectAnnotationMethod?: VIEW_METHOD;
 			};
+			type: ACTIONS.SET_HOVERED_ANNOTATION;
 	  }
 	| {
-			type: ACTIONS.FLUSH_PENDING_SELECTIONS;
 			data: {
 				canSetAsSelectedAnnotations: boolean;
 			};
+			type: ACTIONS.FLUSH_PENDING_SELECTIONS;
 	  }
 	| {
-			type: ACTIONS.SET_PENDING_SELECTIONS;
 			data: {
 				selectedAnnotations: AnnotationInfo[];
 			};
+			type: ACTIONS.SET_PENDING_SELECTIONS;
 	  };
 
 export type InlineCommentPluginState = {
@@ -126,22 +126,17 @@ export type InlineCommentPluginState = {
 	 * ```
 	 */
 	annotations: InlineCommentMap;
-	/**
-	 * A list of the annotations at the current selection.
-	 *
-	 * While this is a list, consumers only make use of the first element, and from the
-	 * user perspective, there is only one annotation selected at a time.
-	 */
-	selectedAnnotations: AnnotationInfo[];
+	bookmark?: SelectionBookmark;
 	/**
 	 * Indicates the document has annotations which it does not currently know the resolved state of.
 	 * This can happen when the annotations are loaded via ncs, and the editor has not received the
 	 * resolved state of the annotations yet (as the resolved state comes from a separate service).
 	 */
 	dirtyAnnotations?: boolean;
-	mouseData: InlineCommentMouseData;
+	// Denotes if annotations are allowed to be create on empty nodes or nodes of whitespace (Confluence spec)
+	disallowOnWhitespace: boolean;
 	draftDecorationSet?: DecorationSet;
-	bookmark?: SelectionBookmark;
+	featureFlagsPluginState?: FeatureFlags;
 	/**
 	 * Warning: This is not the state of annotations which are currently being hovered over,
 	 * but rather the annotations which have been given a selected like visual state from an
@@ -151,27 +146,20 @@ export type InlineCommentPluginState = {
 	 */
 	hoveredAnnotations?: AnnotationInfo[];
 
-	// Denotes if annotations are allowed to be create on empty nodes or nodes of whitespace (Confluence spec)
-	disallowOnWhitespace: boolean;
+	/**
+	 * A simple toggle to indicate if the annotation manager is enabled.
+	 */
+	isAnnotationManagerEnabled: boolean;
 
+	isDrafting: boolean;
 	// Denotes if the inline comment view is closed
 	isInlineCommentViewClosed: boolean;
-	// Allow users to hide inline comments during editing
-	isVisible: boolean;
-	skipSelectionHandling: boolean;
-
-	featureFlagsPluginState?: FeatureFlags;
-	isDrafting: boolean;
-	targetNodeId?: string;
-
-	// Method used to select active annotation, defined when SET_SELECTED_ANNOTATION action is evoked
-	selectAnnotationMethod?: VIEW_METHOD;
-
 	// If the user is viewing a media comment from the toolbar
 	isOpeningMediaCommentFromToolbar?: boolean;
 
-	selectCommentExperience?: AnnotationProviders['selectCommentExperience'];
-
+	// Allow users to hide inline comments during editing
+	isVisible: boolean;
+	mouseData: InlineCommentMouseData;
 	/**
 	 * This is a list of annotations which are to be selected. This is updated all the time when the selection changes, and
 	 * are periodically flushed to selectedAnnotations. This flush event results in the annotations being selected in the editor.
@@ -187,8 +175,20 @@ export type InlineCommentPluginState = {
 	 */
 	pendingSelectedAnnotationsUpdateCount: number;
 
+	// Method used to select active annotation, defined when SET_SELECTED_ANNOTATION action is evoked
+	selectAnnotationMethod?: VIEW_METHOD;
+
+	selectCommentExperience?: AnnotationProviders['selectCommentExperience'];
+
 	/**
-	 * A simple toggle to indicate if the annotation manager is enabled.
+	 * A list of the annotations at the current selection.
+	 *
+	 * While this is a list, consumers only make use of the first element, and from the
+	 * user perspective, there is only one annotation selected at a time.
 	 */
-	isAnnotationManagerEnabled: boolean;
+	selectedAnnotations: AnnotationInfo[];
+
+	skipSelectionHandling: boolean;
+
+	targetNodeId?: string;
 };

@@ -54,8 +54,8 @@ const TriggerButtonWrapper = ({
 	isButtonHidden,
 	children,
 }: {
-	isButtonHidden: boolean;
 	children: React.ReactNode;
+	isButtonHidden: boolean;
 }) => {
 	return <div css={{ display: isButtonHidden ? 'none' : 'block' }}>{children}</div>;
 };
@@ -77,18 +77,18 @@ const wrapper = css({
 const dropdownWidthNewDesign = 382;
 
 export interface FindReplaceToolbarButtonProps extends Omit<FindReplaceProps, 'count'> {
+	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 	index: number;
-	numMatches: number;
 	isActive: boolean;
+	isButtonHidden?: boolean;
+	isReducedSpacing?: boolean;
+	numMatches: number;
 	numReplaceable?: number;
 	onActivate: () => void;
-	isReducedSpacing?: boolean;
-	popupsMountPoint?: HTMLElement;
 	popupsBoundariesElement?: HTMLElement;
+	popupsMountPoint?: HTMLElement;
 	popupsScrollableElement?: HTMLElement;
-	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 	takeFullWidth: boolean;
-	isButtonHidden?: boolean;
 }
 
 // eslint-disable-next-line @repo/internal/react/no-class-components

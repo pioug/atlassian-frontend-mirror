@@ -10,10 +10,10 @@ import type { CardContext } from '@atlaskit/link-provider';
 import type { DatasourceParameters } from '@atlaskit/linking-types';
 
 export interface useFetchDatasourceInfoProps {
-	isRegularCardNode: boolean;
-	url?: string;
 	cardContext?: CardContext;
+	isRegularCardNode: boolean;
 	nodeParameters?: DatasourceParameters | JiraIssueDatasourceParameters;
+	url?: string;
 }
 
 export const useFetchDatasourceInfo = ({

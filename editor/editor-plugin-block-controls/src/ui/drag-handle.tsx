@@ -347,7 +347,7 @@ const getNodeSpacingForPreview = (node?: PMNode) => {
 	return spacingBetweenNodesForPreview[nodeTypeName] || spacingBetweenNodesForPreview['default'];
 };
 
-const getNodeMargins = (node?: PMNode): { top: number; bottom: number } => {
+const getNodeMargins = (node?: PMNode): { bottom: number; top: number; } => {
 	if (!node) {
 		return nodeMargins['default'];
 	}
@@ -360,15 +360,15 @@ const getNodeMargins = (node?: PMNode): { top: number; bottom: number } => {
 };
 
 type DragHandleProps = {
-	view: EditorView;
+	anchorName: string;
+	anchorRectCache?: AnchorRectCache;
 	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined;
 	formatMessage: IntlShape['formatMessage'];
 	getPos: () => number | undefined;
-	anchorName: string;
-	nodeType: string;
 	handleOptions?: HandleOptions;
 	isTopLevelNode?: boolean;
-	anchorRectCache?: AnchorRectCache;
+	nodeType: string;
+	view: EditorView;
 };
 
 const useDragHandlePluginState = sharedPluginStateHookMigratorFactory(

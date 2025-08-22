@@ -7,9 +7,9 @@ export const MENTION_PROVIDER_REJECTED = 'REJECTED';
 export const MENTION_PROVIDER_UNDEFINED = 'UNDEFINED';
 
 export interface TeamInfoAttrAnalytics {
-	teamId: string;
 	includesYou: boolean;
 	memberCount: number;
+	teamId: string;
 }
 
 export interface MentionPluginConfig {
@@ -22,18 +22,18 @@ export interface MentionPluginConfig {
 
 export type MentionsChangedHandler = (
 	changes: {
-		type: 'added' | 'deleted';
-		localId: string;
 		id: string;
+		localId: string;
 		taskLocalId?: string;
+		type: 'added' | 'deleted';
 	}[],
 ) => void;
 
 export interface MentionsPluginOptions extends MentionPluginConfig {
-	mentionProvider?: Providers['mentionProvider'];
-	sanitizePrivateContent?: boolean;
 	allowZeroWidthSpaceAfter?: boolean;
 	handleMentionsChanged?: MentionsChangedHandler;
+	mentionProvider?: Providers['mentionProvider'];
+	sanitizePrivateContent?: boolean;
 }
 
 /**
@@ -44,9 +44,9 @@ export interface MentionsPluginOptions extends MentionPluginConfig {
 export type MentionPluginOptions = MentionsPluginOptions;
 
 export type MentionPluginState = {
+	canInsertMention?: boolean;
 	mentionProvider?: MentionProvider;
 	mentions?: Array<MentionDescription>;
-	canInsertMention?: boolean;
 };
 
 export type FireElementsChannelEvent = (payload: AnalyticsEventPayload, channel?: string) => void;

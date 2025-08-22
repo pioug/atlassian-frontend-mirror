@@ -14,8 +14,8 @@ export default function RadioField({
 	field,
 	onFieldChange,
 }: {
-	name: string;
 	field: EnumRadioField;
+	name: string;
 	onFieldChange: OnFieldChange;
 }) {
 	if (field.isMultiple) {

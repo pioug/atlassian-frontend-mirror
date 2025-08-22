@@ -1,5 +1,34 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 0.4.2
+
+### Patch Changes
+
+- [`265c1bf0cefa4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/265c1bf0cefa4) -
+  Sorted type and interface props to improve Atlaskit docs
+- Updated dependencies
+
+## 0.4.1
+
+### Patch Changes
+
+- [`187540cdffa74`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/187540cdffa74) -
+  [ux] ED-29035 show text formatting option in comment toolbar regardless of pinning settings
+- Updated dependencies
+
+## 0.4.0
+
+### Minor Changes
+
+- [`e73faa5a52300`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e73faa5a52300) -
+  [ux] ED-28735 Fix selection toolbar opening and closing state
+
+### Patch Changes
+
+- [`b27824f2875be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b27824f2875be) -
+  [ux] [ED-28821] Add pin button to full page primary toolbar
+- Updated dependencies
+
 ## 0.3.1
 
 ### Patch Changes

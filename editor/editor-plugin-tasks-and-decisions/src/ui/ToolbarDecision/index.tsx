@@ -13,10 +13,10 @@ import { insertTaskDecisionCommand } from '../../pm-plugins/insert-commands';
 import type { TasksAndDecisionsPlugin } from '../../tasksAndDecisionsPluginType';
 
 export interface Props {
+	editorAPI: ExtractInjectionAPI<TasksAndDecisionsPlugin> | undefined;
 	editorView?: EditorView;
 	isDisabled?: boolean;
 	isReducedSpacing?: boolean;
-	editorAPI: ExtractInjectionAPI<TasksAndDecisionsPlugin> | undefined;
 }
 
 export interface State {

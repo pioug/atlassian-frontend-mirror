@@ -20,9 +20,9 @@ export function insertSliceForLists({
 	slice,
 	schema,
 }: {
-	tr: Transaction;
-	slice: PMSlice;
 	schema: Schema;
+	slice: PMSlice;
+	tr: Transaction;
 }) {
 	const {
 		selection,
@@ -76,7 +76,7 @@ export function insertSliceForLists({
 	tr.replaceSelection(slice);
 }
 
-export function insertSliceInsideBlockquote({ tr, slice }: { tr: Transaction; slice: PMSlice }) {
+export function insertSliceInsideBlockquote({ tr, slice }: { slice: PMSlice; tr: Transaction; }) {
 	//insert blockquote explicitly and set the selection in blockquote since replaceSelection will only insert the list
 	const { schema } = tr.doc.type;
 	tr.replaceSelection(new Slice(Fragment.from(schema.nodes.blockquote.createAndFill()), 0, 0));
@@ -110,7 +110,7 @@ export function updateSelectionAfterReplace({ tr }: { tr: Transaction }) {
 	}
 }
 
-export function insertSliceForTaskInsideList({ tr, slice }: { tr: Transaction; slice: PMSlice }) {
+export function insertSliceForTaskInsideList({ tr, slice }: { slice: PMSlice; tr: Transaction; }) {
 	const { schema } = tr.doc.type;
 	//To avoid the list being replaced with the tasklist, enclose the slice within a taskItem.
 	const selectionBeforeReplace = tr.selection.from;

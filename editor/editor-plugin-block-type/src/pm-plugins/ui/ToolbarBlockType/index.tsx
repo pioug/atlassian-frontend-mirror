@@ -45,35 +45,35 @@ const buttonWrapperStyles = xcss({
 });
 
 export interface Props {
-	isDisabled?: boolean;
-	isSmall?: boolean;
-	isReducedSpacing?: boolean;
-	currentBlockType?: BlockType;
-	blockTypesDisabled?: boolean;
+	api: ExtractInjectionAPI<BlockTypePlugin> | undefined;
 	availableBlockTypes?: BlockType[];
 	availableBlockTypesInDropdown?: BlockType[];
-	formattingIsPresent?: boolean;
-	popupsMountPoint?: HTMLElement;
-	popupsBoundariesElement?: HTMLElement;
-	popupsScrollableElement?: HTMLElement;
-	editorView?: EditorView;
-	setTextLevel: (type: TextBlockTypes, fromBlockQuote?: boolean) => void;
-	wrapBlockQuote: (type: TextBlockTypes) => void;
+	blockTypesDisabled?: boolean;
 	clearFormatting: () => void;
+	currentBlockType?: BlockType;
+	editorView?: EditorView;
+	formattingIsPresent?: boolean;
+	isDisabled?: boolean;
+	isReducedSpacing?: boolean;
+	isSmall?: boolean;
+	popupsBoundariesElement?: HTMLElement;
+	popupsMountPoint?: HTMLElement;
+	popupsScrollableElement?: HTMLElement;
+	setTextLevel: (type: TextBlockTypes, fromBlockQuote?: boolean) => void;
 	shouldUseDefaultRole?: boolean;
-	api: ExtractInjectionAPI<BlockTypePlugin> | undefined;
+	wrapBlockQuote: (type: TextBlockTypes) => void;
 }
 
 export interface State {
 	active: boolean;
 	isOpenedByKeyboard: boolean;
+	observer: ThemeMutationObserver | null;
 	typographyTheme:
 		| 'typography'
 		| 'typography-adg3'
 		| 'typography-modernized'
 		| 'typography-refreshed'
 		| undefined;
-	observer: ThemeMutationObserver | null;
 }
 
 // eslint-disable-next-line @repo/internal/react/no-class-components

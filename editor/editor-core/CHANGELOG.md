@@ -1,5 +1,21 @@
 # @atlaskit/editor-core
 
+## 210.1.6
+
+### Patch Changes
+
+- [`4bc05c9f87780`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4bc05c9f87780) -
+  [ux] Fix toolbar blink CLS regression
+- Updated dependencies
+
+## 210.1.5
+
+### Patch Changes
+
+- [`e73faa5a52300`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e73faa5a52300) -
+  [ux] ED-28735 Fix selection toolbar opening and closing state
+- Updated dependencies
+
 ## 210.1.4
 
 ### Patch Changes

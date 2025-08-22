@@ -18,23 +18,23 @@ import { ToolbarDropdown } from './ToolbarDropdown';
 import { getInputMethod } from './utils/input-method';
 
 export interface Props {
-	editorView: EditorView;
-	featureFlags: FeatureFlags;
 	bulletListActive?: boolean;
 	bulletListDisabled?: boolean;
+	disabled?: boolean;
+	editorView: EditorView;
+	featureFlags: FeatureFlags;
+	indentationStateNode?: IndentationButtonNode;
+	indentDisabled?: boolean;
+	isReducedSpacing?: boolean;
+	isSmall?: boolean;
 	orderedListActive?: boolean;
 	orderedListDisabled?: boolean;
-	disabled?: boolean;
-	isSmall?: boolean;
-	isReducedSpacing?: boolean;
-	popupsMountPoint?: HTMLElement;
+	outdentDisabled?: boolean;
+	pluginInjectionApi?: ExtractInjectionAPI<ToolbarListsIndentationPlugin> | undefined;
 	popupsBoundariesElement?: HTMLElement;
+	popupsMountPoint?: HTMLElement;
 	popupsScrollableElement?: HTMLElement;
 	showIndentationButtons?: boolean;
-	indentDisabled?: boolean;
-	outdentDisabled?: boolean;
-	indentationStateNode?: IndentationButtonNode;
-	pluginInjectionApi?: ExtractInjectionAPI<ToolbarListsIndentationPlugin> | undefined;
 	toolbarType: ToolbarType;
 }
 

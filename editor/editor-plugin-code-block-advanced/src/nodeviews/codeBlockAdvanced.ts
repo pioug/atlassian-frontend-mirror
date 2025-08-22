@@ -46,10 +46,10 @@ import { tripleClickSelectAllExtension } from './extensions/tripleClickExtension
 import { LanguageLoader } from './languages/loader';
 
 export interface ConfigProps {
+	allowCodeFolding: boolean;
 	api: ExtractInjectionAPI<CodeBlockAdvancedPlugin> | undefined;
 	extensions: Extension[];
 	getIntl: () => IntlShape;
-	allowCodeFolding: boolean;
 }
 
 // Based on: https://prosemirror.net/examples/codemirror/

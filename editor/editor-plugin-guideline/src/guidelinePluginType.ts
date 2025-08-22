@@ -13,8 +13,8 @@ type GuidelinePluginActions = {
 export type GuidelinePlugin = NextEditorPlugin<
 	'guideline',
 	{
+		actions: GuidelinePluginActions;
 		dependencies: GuidelinePluginDependencies;
 		sharedState: GuidelinePluginSharedState;
-		actions: GuidelinePluginActions;
 	}
 >;

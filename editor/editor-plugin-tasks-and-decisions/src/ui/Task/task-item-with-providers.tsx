@@ -7,18 +7,18 @@ import type { ContentRef, TaskDecisionProvider } from '@atlaskit/task-decision';
 import { ResourcedTaskItem } from '@atlaskit/task-decision';
 
 export interface Props {
-	taskId: string;
-	isDone: boolean;
-	isFocused?: boolean;
-	contentRef?: ContentRef;
-	onChange?: (taskId: string, isChecked: boolean) => void;
-	showPlaceholder?: boolean;
-	placeholder?: string;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	children?: ReactElement<any>;
-	taskDecisionProvider?: Promise<TaskDecisionProvider>;
+	contentRef?: ContentRef;
 	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
 	inputRef?: React.Ref<HTMLInputElement>;
+	isDone: boolean;
+	isFocused?: boolean;
+	onChange?: (taskId: string, isChecked: boolean) => void;
+	placeholder?: string;
+	showPlaceholder?: boolean;
+	taskDecisionProvider?: Promise<TaskDecisionProvider>;
+	taskId: string;
 }
 
 export interface State {

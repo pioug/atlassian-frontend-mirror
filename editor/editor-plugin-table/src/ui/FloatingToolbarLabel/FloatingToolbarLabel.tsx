@@ -3,14 +3,14 @@ import React from 'react';
 import { Popup } from '@atlaskit/editor-common/ui';
 
 interface Props {
-	target: HTMLElement;
-	content: React.ReactNode;
 	alignX?: 'left' | 'center' | 'right';
 	alignY?: 'top' | 'bottom' | 'start';
-	zIndex?: number;
+	content: React.ReactNode;
 	forcePlacement?: boolean;
-	stick?: boolean;
 	offset?: [number, number];
+	stick?: boolean;
+	target: HTMLElement;
+	zIndex?: number;
 }
 
 export const FloatingToolbarLabel = React.memo((props: Props) => {

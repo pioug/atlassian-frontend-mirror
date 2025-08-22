@@ -11,12 +11,12 @@ export const isAnchorSupported = memoizeOne(() => {
 });
 
 type RectInfo = {
+	bottom: number;
 	height: number;
-	top: number;
 	left: number;
 	right: number;
+	top: number;
 	width: number;
-	bottom: number;
 };
 
 export class AnchorRectCache {

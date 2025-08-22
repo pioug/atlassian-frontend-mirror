@@ -27,8 +27,8 @@ import { getSupportedFormatting } from './formatting';
 import Modal from './Modal';
 
 export interface HelpDialogProps {
-	pluginInjectionApi: ExtractInjectionAPI<HelpDialogPlugin> | undefined;
 	editorView: EditorView;
+	pluginInjectionApi: ExtractInjectionAPI<HelpDialogPlugin> | undefined;
 	quickInsertEnabled?: boolean;
 }
 

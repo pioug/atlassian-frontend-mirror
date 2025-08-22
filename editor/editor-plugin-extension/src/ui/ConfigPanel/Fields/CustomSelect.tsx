@@ -25,7 +25,7 @@ import { validate } from '../utils';
 import { formatOptionLabel } from './SelectItem';
 import UnhandledType from './UnhandledType';
 
-function FieldError({ name, field }: { name: string; field: CustomField }) {
+function FieldError({ name, field }: { field: CustomField; name: string; }) {
 	const { type } = field.options.resolver;
 	return (
 		<UnhandledType
@@ -46,13 +46,13 @@ function CustomSelect({
 	parameters,
 	intl,
 }: {
-	name: string;
-	field: CustomField;
-	extensionManifest: ExtensionManifest;
-	onFieldChange: OnFieldChange;
 	autoFocus?: boolean;
-	placeholder?: string;
+	extensionManifest: ExtensionManifest;
+	field: CustomField;
+	name: string;
+	onFieldChange: OnFieldChange;
 	parameters?: Parameters;
+	placeholder?: string;
 } & WrappedComponentProps) {
 	const {
 		defaultValue: fieldDefaultValue,

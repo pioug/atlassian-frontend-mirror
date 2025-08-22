@@ -30,7 +30,12 @@ export type ExtractInvokePreviewActionParam = ExtractClientActionsParam & {
 	onClose?: EmbedModalProps['onClose'];
 	origin?: AnalyticsOrigin;
 	isPreviewPanelAvailable?: (params: { ari: string }) => boolean;
-	openPreviewPanel?: (params: { ari: string; url: string; name: string; iconUrl: string | undefined }) => void;
+	openPreviewPanel?: (params: {
+		ari: string;
+		url: string;
+		name: string;
+		iconUrl: string | undefined;
+	}) => void;
 };
 
 type ExtractInvokePreviewActionReturn = {
@@ -41,7 +46,17 @@ type ExtractInvokePreviewActionReturn = {
 export const extractInvokePreviewAction = (
 	param: ExtractInvokePreviewActionParam,
 ): ExtractInvokePreviewActionReturn | undefined => {
-	const { actionOptions, appearance: display, fireEvent, onClose, id, origin, response, isPreviewPanelAvailable, openPreviewPanel } = param;
+	const {
+		actionOptions,
+		appearance: display,
+		fireEvent,
+		onClose,
+		id,
+		origin,
+		response,
+		isPreviewPanelAvailable,
+		openPreviewPanel,
+	} = param;
 
 	const ari = extractSmartLinkAri(response);
 	const url = extractSmartLinkUrl(response);
@@ -49,11 +64,11 @@ export const extractInvokePreviewAction = (
 
 	const hasPreviewPanelParams = Boolean(
 		expValEquals('platform_hover_card_preview_panel', 'cohort', 'test') &&
-		isPreviewPanelAvailable &&
-		openPreviewPanel &&
-		ari &&
-		url &&
-		name
+			isPreviewPanelAvailable &&
+			openPreviewPanel &&
+			ari &&
+			url &&
+			name,
 	);
 
 	const hasPreviewPanel = hasPreviewPanelParams && isPreviewPanelAvailable!({ ari: ari! });

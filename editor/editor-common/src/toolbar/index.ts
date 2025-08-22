@@ -45,6 +45,8 @@ export {
 	LISTS_INDENTATION_MENU_SECTION_RANK,
 	TRACK_CHANGES_SECTION_RANK,
 	TRACK_CHANGES_GROUP_RANK,
+	PIN_GROUP_RANK,
+	PIN_SECTION_RANK,
 } from './rank';
 
 export {
@@ -142,6 +144,9 @@ export {
 	UNDO_BUTTON,
 	REDO_BUTTON,
 	TRACK_CHANGES_BUTTON,
+	PIN_SECTION,
+	PIN_GROUP,
+	PIN_BUTTON,
 } from './keys';
 
 export { useEditorToolbar, EditorToolbarProvider, type EditorToolbarContextType } from './context';

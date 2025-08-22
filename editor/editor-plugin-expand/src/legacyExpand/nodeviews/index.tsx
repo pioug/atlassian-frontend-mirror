@@ -621,7 +621,7 @@ export class ExpandNodeView implements NodeView {
 		);
 	}
 
-	ignoreMutation(mutationRecord: MutationRecord | { type: 'selection'; target: Node }) {
+	ignoreMutation(mutationRecord: MutationRecord | { target: Node; type: 'selection'; }) {
 		// ME-1931: Mobile relies on composition which creates dom mutations. If we ignore them, prosemirror
 		// does not recognise the changes and reverts them.
 		if (
@@ -723,12 +723,12 @@ export default function ({
 	allowInteractiveExpand = true,
 	__livePage,
 }: {
+	__livePage: boolean;
+	allowInteractiveExpand: boolean;
+	api: ExtractInjectionAPI<ExpandPlugin> | undefined;
 	getIntl: () => IntlShape;
 	isMobile: boolean;
-	api: ExtractInjectionAPI<ExpandPlugin> | undefined;
 	nodeViewPortalProviderAPI: PortalProviderAPI;
-	allowInteractiveExpand: boolean;
-	__livePage: boolean;
 }) {
 	return (node: PmNode, view: EditorView, getPos: getPosHandler): NodeView =>
 		new ExpandNodeView(

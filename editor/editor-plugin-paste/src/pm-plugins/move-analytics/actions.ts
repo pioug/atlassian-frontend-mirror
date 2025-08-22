@@ -6,13 +6,13 @@ export enum MoveAnalyticPluginTypes {
 }
 
 export type UpdateMovedAction = {
-	type: MoveAnalyticPluginTypes.UpdateMovedAction;
 	data: ContentMoved;
+	type: MoveAnalyticPluginTypes.UpdateMovedAction;
 };
 
 export type RemoveMovedAction = {
-	type: MoveAnalyticPluginTypes.RemoveMovedAction;
 	data: undefined;
+	type: MoveAnalyticPluginTypes.RemoveMovedAction;
 };
 
 export type MoveAnalyticsPluginAction = UpdateMovedAction | RemoveMovedAction;

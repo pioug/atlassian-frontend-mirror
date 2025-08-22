@@ -64,6 +64,7 @@ function Component({
 	truncateInline,
 	CompetitorPrompt,
 	hideIconLoadingSkeleton,
+	disablePreviewPanel,
 }: CardWithUrlContentProps) {
 	const { createAnalyticsEvent } = useAnalyticsEventsNext();
 	const { fireEvent } = useAnalyticsEvents();
@@ -123,6 +124,10 @@ function Component({
 				}
 			}
 
+			const isDisablePreviewPanel =
+				disablePreviewPanel &&
+				expValEquals('platform_editor_preview_panel_linking_exp', 'isEnabled', true);
+
 			// If preview panel is available and the user clicked on the link,
 			// delegate the click to the preview panel handler
 			if (
@@ -131,7 +136,7 @@ function Component({
 				name &&
 				openPreviewPanel &&
 				isPreviewPanelAvailable?.({ ari }) &&
-				!expValEquals('platform_editor_preview_panel_linking_exp', 'isEnabled', true)
+				!isDisablePreviewPanel
 			) {
 				event.preventDefault();
 				event.stopPropagation();
@@ -188,6 +193,7 @@ function Component({
 			createAnalyticsEvent,
 			thirdPartyARI,
 			firstPartyIdentifier,
+			disablePreviewPanel,
 		],
 	);
 	const handleAuthorize = useCallback(() => actions.authorize(appearance), [actions, appearance]);

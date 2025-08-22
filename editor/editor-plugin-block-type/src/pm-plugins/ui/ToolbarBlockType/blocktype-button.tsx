@@ -36,19 +36,19 @@ const buttonContentReducedSpacingStyle = xcss({
 });
 
 export interface BlockTypeButtonProps {
-	isSmall?: boolean;
-	isReducedSpacing?: boolean;
 	'aria-expanded': React.AriaAttributes['aria-expanded'];
-	selected: boolean;
+	blockTypeIcon?: ReactElement;
+	blockTypeName?: string;
 	disabled: boolean;
-	title: MessageDescriptor;
+	formatMessage: WrappedComponentProps['intl']['formatMessage'];
+	isReducedSpacing?: boolean;
+	isSmall?: boolean;
 	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	onClick(e: React.MouseEvent): void;
 	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	onKeyDown(e: React.KeyboardEvent): void;
-	formatMessage: WrappedComponentProps['intl']['formatMessage'];
-	blockTypeName?: string;
-	blockTypeIcon?: ReactElement;
+	selected: boolean;
+	title: MessageDescriptor;
 }
 
 export const BlockTypeButton = (props: BlockTypeButtonProps) => {

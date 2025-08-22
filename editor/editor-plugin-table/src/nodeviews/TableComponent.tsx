@@ -102,51 +102,51 @@ const NESTED_TABLE_IN_NESTED_PARENT_WIDTH_DIFF_MIN_THRESHOLD = 2;
 const NESTED_TABLE_IN_NESTED_PARENT_WIDTH_DIFF_MAX_THRESHOLD = 20;
 
 interface ComponentProps {
-	view: EditorView;
-	getNode: () => PmNode;
 	allowColumnResizing?: boolean;
-	eventDispatcher: EventDispatcher;
-	getPos: () => number | undefined;
-	options?: TableOptions;
-
-	contentDOM: (node: HTMLElement | null) => void;
-	containerWidth: EditorContainerWidth;
 	allowControls?: boolean;
-
-	allowTableResizing?: boolean;
 	allowTableAlignment?: boolean;
+	allowTableResizing?: boolean;
+	containerWidth: EditorContainerWidth;
+	contentDOM: (node: HTMLElement | null) => void;
 
-	isHeaderRowEnabled: boolean;
-	isHeaderColumnEnabled: boolean;
-	isMediaFullscreen?: boolean;
-	isDragAndDropEnabled?: boolean;
-	isTableScalingEnabled?: boolean;
-	tableActive: boolean;
-	ordering?: TableColumnOrdering;
-	isResizing?: boolean;
-	getEditorFeatureFlags: GetEditorFeatureFlags;
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent;
-	pluginInjectionApi?: PluginInjectionAPI;
-	intl: IntlShape;
+	eventDispatcher: EventDispatcher;
+	getEditorFeatureFlags: GetEditorFeatureFlags;
 
+	getNode: () => PmNode;
+	getPos: () => number | undefined;
+
+	hoveredCell?: CellHoverMeta;
+	hoveredRows?: number[];
+	intl: IntlShape;
+	isDragAndDropEnabled?: boolean;
+	isHeaderColumnEnabled: boolean;
+	isHeaderRowEnabled: boolean;
 	// marking props as optional to ensure backward compatibility when platform_editor_table_use_shared_state_hook_fg disabled
 	isInDanger?: boolean;
-	hoveredRows?: number[];
-	hoveredCell?: CellHoverMeta;
+	isMediaFullscreen?: boolean;
+	isResizing?: boolean;
 	isTableHovered?: boolean;
+	isTableScalingEnabled?: boolean;
 	isWholeTableInDanger?: boolean;
-	selection?: Selection;
+
 	limitedMode?: boolean;
+	options?: TableOptions;
+	ordering?: TableColumnOrdering;
+	pluginInjectionApi?: PluginInjectionAPI;
+	selection?: Selection;
+	tableActive: boolean;
+	view: EditorView;
 }
 
 interface TableState {
-	scroll: number;
-	parentWidth?: number;
-	stickyHeader?: RowStickyState;
-	[ShadowEvent.SHOW_BEFORE_SHADOW]: boolean;
 	[ShadowEvent.SHOW_AFTER_SHADOW]: boolean;
-	tableWrapperWidth?: number;
+	[ShadowEvent.SHOW_BEFORE_SHADOW]: boolean;
+	parentWidth?: number;
+	scroll: number;
+	stickyHeader?: RowStickyState;
 	tableWrapperHeight?: number;
+	tableWrapperWidth?: number;
 	windowResized?: boolean;
 }
 
@@ -1496,15 +1496,15 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		);
 
 	private shouldUpdateColgroup = (params: {
-		isWindowResized: boolean | undefined;
-		isWidthChanged: boolean;
-		isTableWidthChanged: boolean;
 		isColumnsDistributed: boolean;
-		isTableResizedFullWidth: boolean | undefined;
-		isTableDisplayModeChanged: boolean;
+		isFullWidthModeAndLineLengthChanged: boolean | undefined;
 		isNumberColumnChanged: boolean;
 		isNumberOfColumnsChanged: boolean;
-		isFullWidthModeAndLineLengthChanged: boolean | undefined;
+		isTableDisplayModeChanged: boolean;
+		isTableResizedFullWidth: boolean | undefined;
+		isTableWidthChanged: boolean;
+		isWidthChanged: boolean;
+		isWindowResized: boolean | undefined;
 	}): boolean => {
 		const {
 			isWindowResized,

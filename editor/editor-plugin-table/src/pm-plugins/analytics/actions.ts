@@ -9,13 +9,13 @@ export enum AnalyticPluginTypes {
 }
 
 type UpdateRowOrColumnMovedAction = {
-	type: AnalyticPluginTypes.UpdateRowOrColumnMovedAction;
 	data: RowOrColumnMovedState;
+	type: AnalyticPluginTypes.UpdateRowOrColumnMovedAction;
 };
 
 type RemoveRowOrColumnMovedAction = {
-	type: AnalyticPluginTypes.RemoveRowOrColumnMovedAction;
 	data: undefined;
+	type: AnalyticPluginTypes.RemoveRowOrColumnMovedAction;
 };
 
 export type AnalyticPluginAction = UpdateRowOrColumnMovedAction | RemoveRowOrColumnMovedAction;

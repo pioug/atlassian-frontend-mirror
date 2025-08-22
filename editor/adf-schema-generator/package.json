@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/adf-schema-generator",
-	"version": "1.1.1",
+	"version": "1.1.2",
 	"description": "Generates ADF and PM schemas",
 	"repository": "https://bitbucket.org/atlassian/adf-schema",
 	"author": "Atlassian Pty Ltd",

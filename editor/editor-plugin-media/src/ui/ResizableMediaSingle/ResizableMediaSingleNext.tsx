@@ -78,8 +78,8 @@ type ResizableMediaSingleNextProps = Props & {
 
 const calcPxHeight = (props: {
 	newWidth: number;
-	previousWidth: number;
 	previousHeight: number;
+	previousWidth: number;
 }): number => {
 	const { newWidth, previousWidth, previousHeight } = props;
 
@@ -90,8 +90,8 @@ const calcMinWidth = ({
 	isVideoFile,
 	contentWidth,
 }: {
-	isVideoFile: boolean;
 	contentWidth?: number;
+	isVideoFile: boolean;
 }) => {
 	return Math.min(
 		contentWidth || akEditorDefaultLayoutWidth,
@@ -115,9 +115,9 @@ const setIsResizingPluginState =
 		nodePosition,
 		initialWidth,
 	}: {
+		initialWidth?: number | undefined;
 		isResizing: boolean;
 		nodePosition?: number | null;
-		initialWidth?: number | undefined;
 	}): Command =>
 	(state, dispatch) => {
 		const tr = state.tr;
@@ -179,11 +179,11 @@ const calcUnwrappedLayout = (
 };
 
 type CalcProps = {
-	layout: ResizableMediaSingleNextProps['layout'];
 	containerWidth: ResizableMediaSingleNextProps['containerWidth'];
-	lineLength: ResizableMediaSingleNextProps['lineLength'];
 	fullWidthMode: ResizableMediaSingleNextProps['fullWidthMode'];
 	isNestedNode: boolean;
+	layout: ResizableMediaSingleNextProps['layout'];
+	lineLength: ResizableMediaSingleNextProps['lineLength'];
 };
 const calcNewLayout =
 	({ layout, containerWidth, lineLength, fullWidthMode, isNestedNode }: CalcProps) =>
@@ -217,7 +217,7 @@ const calculateSizeState =
 		};
 	};
 
-const getAspectRatio = ({ width, height }: { width: number | undefined; height: number }) => {
+const getAspectRatio = ({ width, height }: { height: number; width: number | undefined; }) => {
 	if (width && height > 0) {
 		return width / height;
 	}
@@ -227,7 +227,7 @@ const getAspectRatio = ({ width, height }: { width: number | undefined; height: 
 };
 
 const updateSizeInPluginState = throttle(
-	({ width, view }: { width?: number; view: EditorView }) => {
+	({ width, view }: { view: EditorView; width?: number; }) => {
 		const { state, dispatch } = view;
 		const tr = state.tr;
 		tr.setMeta(MEDIA_PLUGIN_RESIZING_WIDTH_KEY, width);

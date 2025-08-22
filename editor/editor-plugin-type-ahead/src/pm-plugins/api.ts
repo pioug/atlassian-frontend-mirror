@@ -37,8 +37,8 @@ const open =
 	};
 
 type CloseOptions = {
-	insertCurrentQueryAsRawText: boolean;
 	attachCommand?: Command;
+	insertCurrentQueryAsRawText: boolean;
 };
 const defaultCloseOptions: CloseOptions = {
 	insertCurrentQueryAsRawText: false,

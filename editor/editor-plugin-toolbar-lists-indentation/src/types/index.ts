@@ -14,19 +14,19 @@ export enum ToolbarType {
 
 export type ListsIndentationInputMethod = INPUT_METHOD.TOOLBAR | INPUT_METHOD.FLOATING_TB;
 export interface ToolbarProps {
-	editorView: EditorView;
-	featureFlags: FeatureFlags;
 	bulletListActive?: boolean;
 	bulletListDisabled?: boolean;
+	disabled?: boolean;
+	editorView: EditorView;
+	featureFlags: FeatureFlags;
+	indentDisabled?: boolean;
+	isReducedSpacing?: boolean;
+	isSeparator?: boolean;
+	isSmall?: boolean;
+	onItemActivated: ReturnType<typeof onItemActivated>;
 	orderedListActive?: boolean;
 	orderedListDisabled?: boolean;
-	disabled?: boolean;
-	isSmall?: boolean;
-	isSeparator?: boolean;
-	isReducedSpacing?: boolean;
-	showIndentationButtons?: boolean;
-	indentDisabled?: boolean;
 	outdentDisabled?: boolean;
-	onItemActivated: ReturnType<typeof onItemActivated>;
 	pluginInjectionApi?: ExtractInjectionAPI<ToolbarListsIndentationPlugin> | undefined;
+	showIndentationButtons?: boolean;
 }

@@ -10,7 +10,7 @@ import { useRenderCounter } from '../../../../test-utils/useRenderCounter';
 import ModernAnalyticsListener from '../../ModernAnalyticsListener';
 
 const FakeModernConsumerButton = memo(
-	({ event, channel }: { channel: string; event: UIAnalyticsEvent; }) => {
+	({ event, channel }: { channel: string; event: UIAnalyticsEvent }) => {
 		const analyticsContext = useAnalyticsContext();
 		const renderCounter = useRenderCounter();
 

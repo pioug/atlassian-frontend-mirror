@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/analytics",
-	"version": "9.0.0",
+	"version": "9.0.1",
 	"description": "The Atlaskit Component Analytics Framework",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

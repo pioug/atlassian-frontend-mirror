@@ -24,15 +24,15 @@ import { type AnchorRectCache } from './utils/anchor-utils';
 import { VanillaTooltip } from './vanilla-tooltip';
 
 type VanillaQuickInsertProps = {
-	formatMessage: IntlShape['formatMessage'];
-	api: ExtractInjectionAPI<BlockControlsPlugin>;
-	view: EditorView;
-	getPos: () => number | undefined;
-	cleanupCallbacks: ((() => void) | undefined)[];
-	rootNodeType: string;
-	anchorRectCache?: AnchorRectCache;
 	anchorName: string;
+	anchorRectCache?: AnchorRectCache;
+	api: ExtractInjectionAPI<BlockControlsPlugin>;
+	cleanupCallbacks: ((() => void) | undefined)[];
+	formatMessage: IntlShape['formatMessage'];
+	getPos: () => number | undefined;
 	rootAnchorName: string;
+	rootNodeType: string;
+	view: EditorView;
 };
 
 // Based on platform/packages/design-system/icon/svgs/utility/add.svg

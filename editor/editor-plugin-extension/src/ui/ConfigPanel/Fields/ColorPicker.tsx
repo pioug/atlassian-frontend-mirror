@@ -206,12 +206,12 @@ const colorPickerLabelStyles = css({
 });
 
 interface Props {
-	name: string;
-	title: string;
 	currentColor: string;
+	featureFlags?: FeatureFlags;
+	name: string;
 	onChange: (color: string) => void;
 	onFieldChange: OnFieldChange;
-	featureFlags?: FeatureFlags;
+	title: string;
 }
 
 export const EXPANDED_COLOR_PICKER_COLUMNS = 9;
@@ -256,10 +256,10 @@ const ColorPickerField = ({
 	onFieldChange,
 	featureFlags,
 }: {
-	name: string;
-	field: ColorField;
-	onFieldChange: OnFieldChange;
 	featureFlags?: FeatureFlags;
+	field: ColorField;
+	name: string;
+	onFieldChange: OnFieldChange;
 }) => {
 	const { label, defaultValue, isRequired, isDisabled } = field;
 

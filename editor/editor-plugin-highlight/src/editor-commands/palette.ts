@@ -26,8 +26,8 @@ export const setPalette =
 		isPaletteOpen,
 		inputMethod,
 	}: {
-		isPaletteOpen: boolean;
 		inputMethod: INPUT_METHOD;
+		isPaletteOpen: boolean;
 	}): Command =>
 	(state, dispatch) => {
 		const isDisabled = highlightPluginKey.getState(state)?.disabled;

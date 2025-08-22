@@ -616,13 +616,13 @@ export const getLinkNodeType = (appearance: CardAppearance, linkNodes: LinkNodes
 };
 
 type UpdateCardArgs = {
-	state: EditorState;
-	node: Node;
-	newAdf: DatasourceAdf | InlineCardAdf;
-	view: EditorView;
-	sourceEvent?: UIAnalyticsEvent;
-	isDeletingConfig?: boolean;
 	inputMethod?: string;
+	isDeletingConfig?: boolean;
+	newAdf: DatasourceAdf | InlineCardAdf;
+	node: Node;
+	sourceEvent?: UIAnalyticsEvent;
+	state: EditorState;
+	view: EditorView;
 };
 
 // Apply an update made from a datasource ui interaction
@@ -653,7 +653,7 @@ export const updateCardViaDatasource = (args: UpdateCardArgs) => {
 			}
 		} else if (node.type.isText) {
 			// url to datasource
-			let link: { url: string; text: string | undefined; pos: number } | undefined;
+			let link: { pos: number; text: string | undefined; url: string; } | undefined;
 			state.doc.nodesBetween(from, to, (node, pos) => {
 				// get the actual start position of a link within the node
 				const linkMark = node.marks.find((mark) => mark.type === state.schema.marks.link);

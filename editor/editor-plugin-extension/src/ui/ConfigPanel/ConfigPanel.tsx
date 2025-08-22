@@ -69,8 +69,11 @@ function ConfigForm({
 	disableFields,
 }: {
 	canSave: boolean;
+	contextIdentifierProvider?: ContextIdentifierProvider | undefined;
+	disableFields?: boolean;
 	errorMessage: string | null;
 	extensionManifest: ExtensionManifest;
+	featureFlags?: FeatureFlags;
 	fields?: FieldDefinition[];
 	firstVisibleFieldName?: string;
 	hasParsedParameters: boolean;
@@ -79,9 +82,6 @@ function ConfigForm({
 	onFieldChange: OnFieldChange;
 	parameters: Parameters;
 	submitting: boolean;
-	contextIdentifierProvider?: ContextIdentifierProvider | undefined;
-	featureFlags?: FeatureFlags;
-	disableFields?: boolean;
 } & WrappedComponentProps) {
 	useEffect(() => {
 		if (fields) {
@@ -137,12 +137,12 @@ const WithOnFieldChange = ({
 	handleSubmit,
 	children,
 }: {
-	getState: () => { values: Parameters; errors: ValidationErrors };
 	autoSave: boolean;
-	handleSubmit: (parameters: Parameters) => void;
 	children: (onFieldChange: OnFieldChange) => React.ReactElement;
+	getState: () => { errors: ValidationErrors; values: Parameters; };
+	handleSubmit: (parameters: Parameters) => void;
 }) => {
-	const getStateRef = useRef<() => { values: Parameters; errors: ValidationErrors }>(getState);
+	const getStateRef = useRef<() => { errors: ValidationErrors; values: Parameters; }>(getState);
 
 	useEffect(() => {
 		getStateRef.current = getState;
@@ -179,28 +179,28 @@ const WithOnFieldChange = ({
 };
 
 type Props = {
-	extensionManifest?: ExtensionManifest;
-	fields?: FieldDefinition[];
-	parameters?: Parameters;
-	autoSaveTrigger?: () => void;
-	autoSaveReject?: RejectSave;
-	showHeader?: boolean;
-	closeOnEsc?: boolean;
-	onChange: OnSaveCallback | OnSaveCallbackAsync;
-	onCancel: () => void | Promise<void>;
-	errorMessage: string | null;
-	isLoading?: boolean;
-	featureFlags?: FeatureFlags;
 	api: ExtractInjectionAPI<ExtensionPlugin> | undefined;
+	autoSaveReject?: RejectSave;
+	autoSaveTrigger?: () => void;
+	closeOnEsc?: boolean;
+	disableFields?: boolean;
+	errorMessage: string | null;
+	extensionManifest?: ExtensionManifest;
+	featureFlags?: FeatureFlags;
+	fields?: FieldDefinition[];
+	isLoading?: boolean;
+	onCancel: () => void | Promise<void>;
+	onChange: OnSaveCallback | OnSaveCallbackAsync;
+	parameters?: Parameters;
+	showHeader?: boolean;
 	// Remove below prop when cleaning platform_editor_ai_object_sidebar_injection FG
 	usingObjectSidebarPanel?: boolean;
-	disableFields?: boolean;
 } & WithAnalyticsEventsProps;
 
 type State = {
-	hasParsedParameters: boolean;
 	currentParameters: Parameters;
 	firstVisibleFieldName?: string;
+	hasParsedParameters: boolean;
 };
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
@@ -494,8 +494,8 @@ class ConfigPanel extends React.Component<Props, State> {
 							autoSave={true}
 							getState={
 								getState as () => {
-									values: Parameters;
 									errors: ValidationErrors;
+									values: Parameters;
 								}
 							}
 							handleSubmit={handleSubmit}
@@ -583,19 +583,19 @@ function ConfigFormIntlWithBoundary({
 	disableFields,
 }: {
 	api: ExtractInjectionAPI<ExtensionPlugin> | undefined;
-	fields: FieldDefinition[];
-	submitting: boolean;
-	parameters: Parameters;
-	featureFlags?: FeatureFlags;
 	canSave: boolean;
-	extensionManifest: ExtensionManifest;
-	onFieldChange: OnFieldChange;
-	onCancel: () => void;
-	isLoading: boolean;
-	hasParsedParameters: boolean;
-	firstVisibleFieldName?: string;
-	errorMessage: string | null;
 	disableFields?: boolean;
+	errorMessage: string | null;
+	extensionManifest: ExtensionManifest;
+	featureFlags?: FeatureFlags;
+	fields: FieldDefinition[];
+	firstVisibleFieldName?: string;
+	hasParsedParameters: boolean;
+	isLoading: boolean;
+	onCancel: () => void;
+	onFieldChange: OnFieldChange;
+	parameters: Parameters;
+	submitting: boolean;
 }) {
 	const { contextIdentifierProvider } = useSharedState(api);
 	return (

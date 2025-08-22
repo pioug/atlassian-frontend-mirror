@@ -238,6 +238,11 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 								}
 							}}
 							onError={onError}
+							disablePreviewPanel={expValEquals(
+								'platform_editor_preview_panel_linking_exp',
+								'isEnabled',
+								true,
+							)}
 						/>
 					</MaybeOverlay>
 					{CompetitorPromptComponent}

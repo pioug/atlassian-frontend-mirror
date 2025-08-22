@@ -121,8 +121,8 @@ export function shouldRecalcDecorations({
 	oldEditorState,
 	newEditorState,
 }: {
-	oldEditorState: EditorState;
 	newEditorState: EditorState;
+	oldEditorState: EditorState;
 }): boolean {
 	const oldSelection = oldEditorState.selection;
 	const newSelection = newEditorState.selection;

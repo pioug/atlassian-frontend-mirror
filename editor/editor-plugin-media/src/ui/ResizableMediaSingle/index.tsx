@@ -37,8 +37,8 @@ import { wrapperStyle } from './styled';
 import type { EnabledHandles, Props } from './types';
 
 type State = {
-	offsetLeft: number;
 	isVideoFile: boolean;
+	offsetLeft: number;
 	resizedPctWidth?: number;
 };
 // eslint-disable-next-line @repo/internal/react/no-class-components

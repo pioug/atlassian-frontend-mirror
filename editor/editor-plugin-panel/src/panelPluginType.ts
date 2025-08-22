@@ -21,17 +21,17 @@ export interface PanelPluginConfig {
 
 export type DomPanelAtrrs = {
 	class: string;
-	'data-panel-type': string;
-	'data-testid'?: string;
 	'data-panel-color'?: string;
 	'data-panel-icon-id'?: string;
 	'data-panel-icon-text'?: string;
+	'data-panel-type': string;
+	'data-testid'?: string;
 	style: string;
 };
 
 export type EmojiInfo = {
-	shortName: string;
 	id: string;
+	shortName: string;
 };
 
 export type PanelPluginDependencies = [
@@ -43,12 +43,12 @@ export type PanelPluginDependencies = [
 export type PanelPlugin = NextEditorPlugin<
 	'panel',
 	{
-		pluginConfiguration: PanelPluginOptions | undefined;
-		dependencies: PanelPluginDependencies;
 		actions: {
 			insertPanel: (
 				inputMethod: INPUT_METHOD.INSERT_MENU | INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.TOOLBAR,
 			) => Command;
 		};
+		dependencies: PanelPluginDependencies;
+		pluginConfiguration: PanelPluginOptions | undefined;
 	}
 >;

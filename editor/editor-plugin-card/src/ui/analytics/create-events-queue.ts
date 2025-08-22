@@ -1,10 +1,10 @@
 export type Subscriber<T> = (event: T) => void;
 
 export type EditorCardPluginEvents<T> = {
-	push: (...events: T[]) => void;
-	subscribe: (listener: Subscriber<T>) => () => void;
 	flush: () => void;
 	getSize: () => number;
+	push: (...events: T[]) => void;
+	subscribe: (listener: Subscriber<T>) => () => void;
 };
 
 /**

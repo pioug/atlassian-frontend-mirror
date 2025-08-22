@@ -1003,9 +1003,9 @@ const highlightColumnsHandler = (state: EditorState, dispatch?: CommandDispatch)
 };
 
 type AlignmentIcon = {
+	icon: Icon;
 	id?: string;
 	value: AlignmentOptions;
-	icon: Icon;
 };
 
 const getAlignmentOptionsConfig = (

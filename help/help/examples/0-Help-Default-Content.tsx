@@ -14,7 +14,7 @@ import {
 	ExampleDefaultContent,
 } from './utils/styled';
 
-const handleEvent = (analyticsEvent: { context: any; payload: any; }) => {
+const handleEvent = (analyticsEvent: { context: any; payload: any }) => {
 	const { payload, context } = analyticsEvent;
 	console.log('Received event:', { payload, context });
 };

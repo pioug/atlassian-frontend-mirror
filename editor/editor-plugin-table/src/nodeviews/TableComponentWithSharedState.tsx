@@ -30,19 +30,19 @@ import type { TableOptions } from './types';
 type ForwardRef = (node: HTMLElement | null) => any;
 
 type TableComponentWithSharedStateProps = {
-	view: EditorView;
-	options?: TableOptions;
-	getNode: () => PmNode;
-	dispatchAnalyticsEvent: DispatchAnalyticsEvent;
-	getEditorFeatureFlags: GetEditorFeatureFlags;
-	api?: PluginInjectionAPI;
-	eventDispatcher: EventDispatcher;
-	forwardRef: ForwardRef;
-	getPos: getPosHandlerNode;
 	allowColumnResizing?: boolean;
 	allowControls?: boolean;
 	allowTableAlignment?: boolean;
 	allowTableResizing?: boolean;
+	api?: PluginInjectionAPI;
+	dispatchAnalyticsEvent: DispatchAnalyticsEvent;
+	eventDispatcher: EventDispatcher;
+	forwardRef: ForwardRef;
+	getEditorFeatureFlags: GetEditorFeatureFlags;
+	getNode: () => PmNode;
+	getPos: getPosHandlerNode;
+	options?: TableOptions;
+	view: EditorView;
 };
 
 const useSharedState = sharedPluginStateHookMigratorFactory(

@@ -301,6 +301,7 @@ export class CellSelection extends Selection {
 	public static rowSelection(
 		$anchorCell: ResolvedPos,
 		$headCell: ResolvedPos = $anchorCell,
+		reverse = false,
 	): CellSelection {
 		let $calculatedAnchorCell = $anchorCell;
 		let $calculatedHeadCell = $headCell;
@@ -324,7 +325,9 @@ export class CellSelection extends Selection {
 				$calculatedAnchorCell = doc.resolve(start + map.map[map.width * (anchorRect.top + 1) - 1]);
 			}
 		}
-		return new CellSelection($calculatedAnchorCell, $calculatedHeadCell);
+		return reverse
+			? new CellSelection($calculatedHeadCell, $calculatedAnchorCell)
+			: new CellSelection($calculatedAnchorCell, $calculatedHeadCell);
 	}
 
 	public toJSON(): SerializedCellSelection {

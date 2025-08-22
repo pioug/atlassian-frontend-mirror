@@ -39,16 +39,16 @@ import { copyPreviousRow } from '../utils/row-controls';
 
 type InsertTableWithNestingSupportCommand = (
 	options: {
-		isTableScalingEnabled?: boolean;
-		isTableAlignmentEnabled?: boolean;
-		isFullWidthModeEnabled?: boolean;
-		isCommentEditor?: boolean;
-		isChromelessEditor?: boolean;
-		isTableResizingEnabled?: boolean;
 		createTableProps?: {
-			rowsCount?: number;
 			colsCount?: number;
+			rowsCount?: number;
 		};
+		isChromelessEditor?: boolean;
+		isCommentEditor?: boolean;
+		isFullWidthModeEnabled?: boolean;
+		isTableAlignmentEnabled?: boolean;
+		isTableResizingEnabled?: boolean;
+		isTableScalingEnabled?: boolean;
 	},
 	api: PluginInjectionAPI | undefined | null,
 	analyticsPayload?: AnalyticsEventPayload,

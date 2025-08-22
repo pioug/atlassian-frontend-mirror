@@ -14,13 +14,13 @@ const BUTTON_WIDTH = 20;
 
 interface Props {
 	children: React.ReactNode;
+	isContextualMenuOpen: boolean | undefined;
 	mountTo: HTMLElement;
 	offset: number;
 	stickyHeader: RowStickyState;
+	tableWrapper: HTMLElement;
 	targetCellPosition: number;
 	targetCellRef: HTMLElement;
-	tableWrapper: HTMLElement;
-	isContextualMenuOpen: boolean | undefined;
 }
 
 interface CalcLeftPosData {

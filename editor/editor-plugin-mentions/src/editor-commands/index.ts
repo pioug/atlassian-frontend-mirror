@@ -18,6 +18,7 @@ export type InsertMentionParameters = Pick<
 	MentionDescription,
 	'name' | 'id' | 'userType' | 'isXProductUser' | 'nickname' | 'accessLevel'
 > & {
+	localId?: string;
 	/**
 	 * The name is the name that will be displayed in the editor and stored in the ADF.
 	 * If using "sanitizePrivateContent" with the mentions plugin, you can pass an empty
@@ -28,19 +29,18 @@ export type InsertMentionParameters = Pick<
 	 * must be done on the client side if using this.
 	 */
 	name: string;
-	localId?: string;
 };
 
 type InternalParams = {
-	sanitizePrivateContent: boolean;
 	api: ExtractInjectionAPI<MentionsPlugin> | undefined;
 	mentionInsertDisplayName: boolean;
+	sanitizePrivateContent: boolean;
 };
 
 type SingleMentionFragmentParams = {
+	mentionInsertDisplayName: boolean | undefined;
 	mentionProvider: MentionProvider | undefined;
 	sanitizePrivateContent: boolean | undefined;
-	mentionInsertDisplayName: boolean | undefined;
 	tr: Transaction;
 };
 

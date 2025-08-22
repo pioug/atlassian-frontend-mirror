@@ -70,17 +70,17 @@ const toolbarButtonNarrowScreenStyles = css({
 });
 
 export interface Props {
+	api: ExtractInjectionAPI<BreakoutPlugin> | undefined;
+	boundariesElement?: HTMLElement;
+	breakoutMode: BreakoutMode | undefined;
 	editorView: EditorView;
+	handleClick?: Function;
+	isBreakoutNodePresent: boolean;
+	isLivePage?: boolean;
 	mountPoint?: HTMLElement;
 	// delete `node` when cleaning up `platform_editor_usesharedpluginstatewithselector`
 	node: PMNode | null;
-	boundariesElement?: HTMLElement;
 	scrollableElement?: HTMLElement;
-	handleClick?: Function;
-	isLivePage?: boolean;
-	isBreakoutNodePresent: boolean;
-	breakoutMode: BreakoutMode | undefined;
-	api: ExtractInjectionAPI<BreakoutPlugin> | undefined;
 }
 
 function getBreakoutNodeElement(

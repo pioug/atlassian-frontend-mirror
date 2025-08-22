@@ -24,27 +24,27 @@ export type QuickInsertPluginOptions = CommonQuickInsertPluginOptions;
 export type QuickInsertPlugin = NextEditorPlugin<
 	'quickInsert',
 	{
-		pluginConfiguration: QuickInsertPluginOptions | undefined;
+		actions: {
+			getSuggestions: (searchOptions: QuickInsertSearchOptions) => QuickInsertItem[];
+			insertItem: (
+				item: QuickInsertItem,
+				source?: INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.TOOLBAR,
+			) => Command;
+			openTypeAhead: (
+				inputMethod: TypeAheadInputMethod,
+				removePrefixTriggerOnCancel?: boolean,
+			) => boolean;
+		};
+		commands: {
+			addQuickInsertItem: (item: QuickInsertHandler) => EditorCommand;
+			openElementBrowserModal: EditorCommand;
+		};
 		dependencies: [
 			TypeAheadPlugin,
 			OptionalPlugin<ConnectivityPlugin>,
 			OptionalPlugin<MetricsPlugin>,
 		];
+		pluginConfiguration: QuickInsertPluginOptions | undefined;
 		sharedState: QuickInsertSharedState | null;
-		actions: {
-			openTypeAhead: (
-				inputMethod: TypeAheadInputMethod,
-				removePrefixTriggerOnCancel?: boolean,
-			) => boolean;
-			insertItem: (
-				item: QuickInsertItem,
-				source?: INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.TOOLBAR,
-			) => Command;
-			getSuggestions: (searchOptions: QuickInsertSearchOptions) => QuickInsertItem[];
-		};
-		commands: {
-			openElementBrowserModal: EditorCommand;
-			addQuickInsertItem: (item: QuickInsertHandler) => EditorCommand;
-		};
 	}
 >;

@@ -80,26 +80,26 @@ const typeAheadWrapperWithViewMoreOverride = css({
 });
 
 type TypeAheadPopupProps = {
-	triggerHandler: TypeAheadHandler;
-	editorView: EditorView;
 	anchorElement: HTMLElement;
-	popupsMountPoint?: HTMLElement;
-	popupsBoundariesElement?: HTMLElement;
-	popupsScrollableElement?: HTMLElement;
-	items: Array<TypeAheadItem>;
-	errorInfo: TypeAheadErrorInfo;
-	selectedIndex: number;
-	setSelectedItem: OnSelectItem;
-	decorationSet: DecorationSet;
-	isEmptyQuery: boolean;
-	onItemInsert: (mode: SelectItemMode, index: number) => void;
+	api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;
 	cancel: (params: {
-		setSelectionAt: CloseSelectionOptions;
 		addPrefixTrigger: boolean;
 		forceFocusOnEditor: boolean;
+		setSelectionAt: CloseSelectionOptions;
 	}) => void;
-	api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;
+	decorationSet: DecorationSet;
+	editorView: EditorView;
+	errorInfo: TypeAheadErrorInfo;
+	isEmptyQuery: boolean;
+	items: Array<TypeAheadItem>;
+	onItemInsert: (mode: SelectItemMode, index: number) => void;
+	popupsBoundariesElement?: HTMLElement;
+	popupsMountPoint?: HTMLElement;
+	popupsScrollableElement?: HTMLElement;
+	selectedIndex: number;
+	setSelectedItem: OnSelectItem;
 	showMoreOptionsButton?: boolean;
+	triggerHandler: TypeAheadHandler;
 };
 
 type HighlightProps = {
@@ -166,8 +166,8 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 	);
 
 	const activityStateRef = useRef<{
-		inputMethod: InputMethodType | null;
 		closeAction: CloseActionType | null;
+		inputMethod: InputMethodType | null;
 		invocationMethod?: TypeAheadInputMethod | null;
 	}>({
 		inputMethod: null,

@@ -52,8 +52,8 @@ export const recordVideo =
 		inputMethod,
 		editorAnalyticsAPI,
 	}: {
-		inputMethod: INPUT_METHOD;
 		editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
+		inputMethod: INPUT_METHOD;
 	}): EditorCommand =>
 	({ tr }) => {
 		tr.setMeta(loomPluginKey, {
@@ -77,9 +77,9 @@ export const recordVideoFailed =
 		error,
 		editorAnalyticsAPI,
 	}: {
-		inputMethod: INPUT_METHOD;
-		error: SDKUnsupportedReasons | undefined;
 		editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
+		error: SDKUnsupportedReasons | undefined;
+		inputMethod: INPUT_METHOD;
 	}): EditorCommand =>
 	({ tr }) => {
 		editorAnalyticsAPI?.attachAnalyticsEvent({

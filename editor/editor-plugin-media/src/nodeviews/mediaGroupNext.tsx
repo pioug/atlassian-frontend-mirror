@@ -74,14 +74,14 @@ const prepareFilmstripItem =
 		setMediaGroupNodeSelection,
 		featureFlags,
 	}: {
-		getPos: () => number | undefined;
 		allowLazyLoading: boolean | undefined;
 		allowMediaInlineImages: boolean | undefined;
 		enableDownloadButton: boolean | undefined;
+		featureFlags: MediaOptions['featureFlags'] | undefined;
+		getPos: () => number | undefined;
 		handleMediaNodeRemoval: (node: PMNode | undefined, getPos: () => number | undefined) => void;
 		isMediaItemSelected: (mediaItemPos: number, mediaGroupPos: number) => boolean;
 		setMediaGroupNodeSelection: (mediaItemPos: number) => void;
-		featureFlags: MediaOptions['featureFlags'] | undefined;
 	} & WrappedComponentProps) =>
 	(item: PMNode, idx: number) => {
 		// We declared this to get a fresh position every time
@@ -167,9 +167,9 @@ const runMediaNodeUpdate = async ({
 	node,
 	updateAttrs,
 }: {
+	getPos: () => number | undefined;
 	mediaNodeUpdater: MediaNodeUpdater;
 	node: PMNode;
-	getPos: () => number | undefined;
 	updateAttrs: boolean;
 }) => {
 	if (updateAttrs) {
@@ -193,21 +193,21 @@ const runMediaNodeUpdate = async ({
 const noop = () => {};
 
 type MediaGroupProps = {
-	forwardRef?: (ref: HTMLElement) => void;
-	node: PMNode;
-	view: EditorView;
-	getPos: () => number | undefined;
-	disabled?: boolean;
-	editorViewMode?: boolean;
 	allowLazyLoading?: boolean;
-	mediaProvider: Promise<MediaProvider>;
-	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
-	isCopyPasteEnabled?: boolean;
 	// These two numbers have to be passed separately. They can technically be derived from the view, but
 	// because the view is *reference* then `shouldComponentUpdate` can't identify changes from incoming props
 	anchorPos: number; // This value is required so that shouldComponentUpdate can calculate correctly
+	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
+	disabled?: boolean;
+	editorViewMode?: boolean;
+	forwardRef?: (ref: HTMLElement) => void;
+	getPos: () => number | undefined;
 	headPos: number; // This value is required so that shouldComponentUpdate can calculate correctly
+	isCopyPasteEnabled?: boolean;
 	mediaOptions: MediaOptions;
+	mediaProvider: Promise<MediaProvider>;
+	node: PMNode;
+	view: EditorView;
 } & WrappedComponentProps;
 
 export const MediaGroupNext = injectIntl(

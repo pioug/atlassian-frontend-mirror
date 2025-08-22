@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/activity-provider",
-	"version": "2.5.0",
+	"version": "2.5.1",
 	"description": "A provider to support recent activities in editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

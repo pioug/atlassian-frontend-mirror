@@ -3,9 +3,9 @@ import type React from 'react';
 import { type ButtonProps as AKButtonProps } from '@atlaskit/button';
 
 export type VideoMeta = {
+	duration?: number;
 	sharedUrl: string;
 	title: string;
-	duration?: number;
 };
 
 type LoomClient = {
@@ -28,12 +28,12 @@ export type LoomSDKErrorMessages =
 
 export type GetClientResult =
 	| {
-			status: 'loaded';
 			client: LoomClient;
+			status: 'loaded';
 	  }
 	| {
-			status: 'error';
 			message: LoomPluginErrorMessages | LoomSDKErrorMessages;
+			status: 'error';
 	  };
 
 export type GetClient = Promise<GetClientResult>;

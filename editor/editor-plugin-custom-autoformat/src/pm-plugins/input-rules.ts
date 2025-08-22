@@ -9,9 +9,9 @@ export type InputRuleHander = (
 ) => Promise<AutoformatReplacement>;
 
 export type InputRule = {
-	matchTyping: RegExp;
-	matchEnter: RegExp;
 	handler: InputRuleHander;
+	matchEnter: RegExp;
+	matchTyping: RegExp;
 };
 
 const MAX_MATCH = 500;

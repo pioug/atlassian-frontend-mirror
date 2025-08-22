@@ -9,21 +9,21 @@ import {
 import type { MediaInsertPlugin, MediaInsertPluginConfig } from '../mediaInsertPluginType';
 
 export type InsertMediaSingle = (props: {
-	mediaState: MediaState;
 	inputMethod: InputMethodInsertMedia;
+	mediaState: MediaState;
 }) => boolean;
 
 export type CustomizedHelperMessage = string;
 
 export type InsertExternalMediaSingle = (props: {
-	url: string;
 	alt: string;
 	inputMethod: InputMethodInsertMedia;
+	url: string;
 }) => boolean;
 
 export type InsertFile = (props: {
-	mediaState: MediaState;
 	inputMethod: InputMethodInsertMedia;
+	mediaState: MediaState;
 	onMediaStateChanged: MediaStateEventSubscriber;
 }) => boolean;
 
@@ -37,11 +37,11 @@ export type MediaInsertPickerProps = Pick<
 > & {
 	api?: ExtractInjectionAPI<MediaInsertPlugin>;
 	closeMediaInsertPicker: () => void;
-	mediaProvider?: Providers['mediaProvider'];
-	insertMediaSingle: InsertMediaSingle;
+	customizedHelperMessage?: MediaInsertPluginConfig['customizedHelperMessage'];
+	customizedUrlValidation?: MediaInsertPluginConfig['customizedUrlValidation'];
 	insertExternalMediaSingle: InsertExternalMediaSingle;
 	insertFile: InsertFile;
+	insertMediaSingle: InsertMediaSingle;
 	isOnlyExternalLinks: MediaInsertPluginConfig['isOnlyExternalLinks'];
-	customizedUrlValidation?: MediaInsertPluginConfig['customizedUrlValidation'];
-	customizedHelperMessage?: MediaInsertPluginConfig['customizedHelperMessage'];
+	mediaProvider?: Providers['mediaProvider'];
 };

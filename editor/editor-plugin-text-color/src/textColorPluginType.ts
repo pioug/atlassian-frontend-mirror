@@ -23,11 +23,11 @@ export type Dependencies = [
 export type TextColorPlugin = NextEditorPlugin<
 	'textColor',
 	{
-		pluginConfiguration: TextColorPluginOptions | undefined;
-		dependencies: Dependencies;
 		actions: {
 			changeColor: (color: string, inputMethod?: TextColorInputMethod) => Command;
 		};
+		dependencies: Dependencies;
+		pluginConfiguration: TextColorPluginOptions | undefined;
 		sharedState: TextColorPluginState | undefined;
 	}
 >;

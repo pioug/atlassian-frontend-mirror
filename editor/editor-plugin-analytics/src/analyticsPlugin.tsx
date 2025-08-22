@@ -102,7 +102,7 @@ function createPlugin(options: AnalyticsPluginOptions, featureFlags: FeatureFlag
  */
 const analyticsPlugin: AnalyticsPlugin = ({ config: options = {}, api }) => {
 	const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
-	const analyticsEventPropQueue: Set<{ payload: AnalyticsEventPayload; channel?: string }> =
+	const analyticsEventPropQueue: Set<{ channel?: string; payload: AnalyticsEventPayload; }> =
 		new Set();
 
 	return {
@@ -242,9 +242,9 @@ function extendPayload({
 	duration,
 	distortedDuration,
 }: {
-	payload: AnalyticsEventPayload;
-	duration: number;
 	distortedDuration: boolean;
+	duration: number;
+	payload: AnalyticsEventPayload;
 }) {
 	return {
 		...payload,

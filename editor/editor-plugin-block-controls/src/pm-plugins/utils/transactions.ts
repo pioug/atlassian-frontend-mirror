@@ -4,11 +4,11 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 interface TransactionMetadata {
 	from: number;
-	to: number;
-	numReplaceSteps: number;
 	isAllText: boolean;
 	// represents if the transaction contains replaced content with another of the same size (e.g. empty paragraph node with a paragraph node)
 	isReplacedWithSameSize: boolean;
+	numReplaceSteps: number;
+	to: number;
 }
 
 /**

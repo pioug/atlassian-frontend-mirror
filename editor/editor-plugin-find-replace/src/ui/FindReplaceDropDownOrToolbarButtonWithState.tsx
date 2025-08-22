@@ -125,8 +125,8 @@ const FindReplaceToolbarButtonWithState = ({
 		triggerMethod,
 		replaceText,
 	}: {
-		triggerMethod: TRIGGER_METHOD.KEYBOARD | TRIGGER_METHOD.BUTTON;
 		replaceText: string;
+		triggerMethod: TRIGGER_METHOD.KEYBOARD | TRIGGER_METHOD.BUTTON;
 	}) => {
 		runWithEditorFocused(() =>
 			dispatchCommand(

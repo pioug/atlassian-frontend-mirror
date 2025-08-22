@@ -16,17 +16,17 @@ import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
 import { triggerWrapper } from './styles';
 
 export interface DropDownButtonProps {
-	label: string;
-	selected: boolean;
-	disabled?: boolean;
 	'aria-expanded': React.AriaAttributes['aria-expanded'];
 	'aria-haspopup': React.AriaAttributes['aria-haspopup'];
 	'aria-keyshortcuts'?: React.AriaAttributes['aria-keyshortcuts'];
-	onClick: React.MouseEventHandler;
-	onKeyDown?: React.KeyboardEventHandler;
-	spacing: 'none' | 'default';
+	disabled?: boolean;
 	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	handleRef(el: ToolbarButtonRef): void;
+	label: string;
+	onClick: React.MouseEventHandler;
+	onKeyDown?: React.KeyboardEventHandler;
+	selected: boolean;
+	spacing: 'none' | 'default';
 }
 
 const DropDownButtonIcon = React.memo((props: { label: string }) => (

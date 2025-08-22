@@ -25,9 +25,9 @@ import { LinkAppearanceMenu } from './LinkToolbarAppearanceDropdown';
 
 const CustomHyperlinkDropdown = (
 	props: Omit<HyperlinkToolbarAppearanceProps, 'editorState'> & {
-		settingsConfig: FloatingToolbarItem<Command>;
 		allowDatasource?: boolean;
 		isDatasourceView?: boolean;
+		settingsConfig: FloatingToolbarItem<Command>;
 	},
 ) => {
 	const [supportedUrlsMap, setSupportedUrlsMap] = useState<Map<string, boolean>>(new Map());
@@ -169,9 +169,9 @@ export const getCustomHyperlinkAppearanceDropdown = ({
 	allowDatasource,
 	isDatasourceView,
 }: Omit<HyperlinkToolbarAppearanceProps, 'editorState'> & {
-	settingsConfig: FloatingToolbarItem<Command>;
 	allowDatasource?: boolean;
 	isDatasourceView?: boolean;
+	settingsConfig: FloatingToolbarItem<Command>;
 }): FloatingToolbarCustom<Command> => {
 	return {
 		type: 'custom',

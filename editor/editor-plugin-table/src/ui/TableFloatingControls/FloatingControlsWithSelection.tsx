@@ -14,18 +14,18 @@ import { CornerControls } from './CornerControls/ClassicCornerControls';
 import { RowControls } from './RowControls/ClassicControls';
 
 type FloatingControlsWithSelectionProps = {
+	api?: ExtractInjectionAPI<TablePlugin>;
 	editorView: EditorView;
-	tableRef: HTMLTableElement;
+	hoveredRows?: number[];
+	hoverRows: (rows: number[]) => void;
+	isHeaderColumnEnabled?: boolean;
+	isHeaderRowEnabled?: boolean;
 	isInDanger?: boolean;
 	isResizing?: boolean;
-	isHeaderRowEnabled?: boolean;
-	isHeaderColumnEnabled?: boolean;
-	hoveredRows?: number[];
-	stickyTop?: number;
-	hoverRows: (rows: number[]) => void;
 	selectRow: (row: number, expand: boolean) => void;
+	stickyTop?: number;
 	tableActive: boolean;
-	api?: ExtractInjectionAPI<TablePlugin>;
+	tableRef: HTMLTableElement;
 };
 
 const useSharedState = sharedPluginStateHookMigratorFactory(

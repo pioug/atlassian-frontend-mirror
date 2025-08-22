@@ -40,10 +40,10 @@ const DRAG_HANDLE_OFFSET_PADDING = 5;
 const PopupWithListeners = withReactEditorViewOuterListeners(Popup);
 
 type BlockMenuProps = {
-	editorView: EditorView | undefined;
 	api: ExtractInjectionAPI<BlockMenuPlugin> | undefined;
-	mountTo?: HTMLElement;
 	boundariesElement?: HTMLElement;
+	editorView: EditorView | undefined;
+	mountTo?: HTMLElement;
 	scrollableElement?: HTMLElement;
 };
 

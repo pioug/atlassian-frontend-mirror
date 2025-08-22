@@ -10,14 +10,14 @@ import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/u
 type Attrs = Record<string, any>;
 
 type WrappingRuleProps = {
-	match: RegExp;
-	nodeType: NodeType;
 	getAttrs?: Attrs | ((matchResult: RegExpExecArray) => Attrs);
 	joinPredicate?: (
 		matchResult: RegExpExecArray,
 		node: PMNode,
 		joinScenario: JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST,
 	) => boolean;
+	match: RegExp;
+	nodeType: NodeType;
 };
 
 export const createWrappingJoinRule = ({

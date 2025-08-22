@@ -6,6 +6,7 @@ import type { Slice } from '@atlaskit/editor-prosemirror/model';
 
 export interface LayoutPluginOptions extends LongPressSelectionPluginOptions {
 	allowBreakout?: boolean;
+	editorAppearance?: EditorAppearance;
 	UNSAFE_addSidebarLayouts?: boolean;
 	/**
 	 * @private
@@ -13,7 +14,6 @@ export interface LayoutPluginOptions extends LongPressSelectionPluginOptions {
 	 * @see https://product-fabric.atlassian.net/browse/ED-26662
 	 */
 	UNSAFE_allowSingleColumnLayout?: boolean;
-	editorAppearance?: EditorAppearance;
 }
 
 export type PresetLayout =
@@ -30,6 +30,6 @@ export type PresetLayout =
 
 export interface Change {
 	from: number;
-	to: number;
 	slice: Slice;
+	to: number;
 }

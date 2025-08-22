@@ -9,11 +9,11 @@ import type {
 export type InsertBlockPlugin = NextEditorPlugin<
 	'insertBlock',
 	{
-		pluginConfiguration: InsertBlockPluginOptions | undefined;
-		dependencies: InsertBlockPluginDependencies;
 		actions: {
 			toggleAdditionalMenu: () => void;
 		};
+		dependencies: InsertBlockPluginDependencies;
+		pluginConfiguration: InsertBlockPluginOptions | undefined;
 		sharedState: InsertBlockPluginState | undefined;
 	}
 >;

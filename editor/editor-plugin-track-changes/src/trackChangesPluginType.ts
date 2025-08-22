@@ -13,13 +13,13 @@ export type TrackChangesPlugin = NextEditorPlugin<
 	{
 		commands: {
 			/**
-			 * Toggles the displaying of changes in the editor.
-			 */
-			toggleChanges: EditorCommand;
-			/**
 			 * Resets the baseline used for tracking changes in the editor.
 			 */
 			resetBaseline: EditorCommand;
+			/**
+			 * Toggles the displaying of changes in the editor.
+			 */
+			toggleChanges: EditorCommand;
 		};
 		dependencies: [
 			/**

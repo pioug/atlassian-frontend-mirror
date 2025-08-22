@@ -10,7 +10,7 @@ import { useAnalyticsContext } from '../../../../hooks/useAnalyticsContext';
 import { useRenderCounter } from '../../../../test-utils/useRenderCounter';
 import LegacyAnalyticsListener from '../../LegacyAnalyticsListener';
 
-type FakeConsumerButtonProps = { channel: string; event: UIAnalyticsEvent; };
+type FakeConsumerButtonProps = { channel: string; event: UIAnalyticsEvent };
 
 const FakeModernConsumerButton = memo<FakeConsumerButtonProps>(({ event, channel }) => {
 	const analyticsContext = useAnalyticsContext();

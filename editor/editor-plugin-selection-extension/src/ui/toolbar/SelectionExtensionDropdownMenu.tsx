@@ -20,9 +20,9 @@ import { type MenuItemsType } from '../../types';
 import { SelectionExtensionDropdownMenuButton } from './SelectionExtensionDropdownMenuButton';
 
 export type SelectionExtensionDropdownMenuProps = {
+	editorAnalyticsAPI?: EditorAnalyticsAPI;
 	items: MenuItemsType;
 	onItemActivated?: (attrs: { item: MenuItem; shouldCloseMenu?: boolean }) => void;
-	editorAnalyticsAPI?: EditorAnalyticsAPI;
 } & WrappedComponentProps;
 const SelectionExtensionDropdownMenuComponent = React.memo(
 	({ items, onItemActivated, editorAnalyticsAPI }: SelectionExtensionDropdownMenuProps) => {

@@ -36,53 +36,45 @@ export type MediaSingleWithType = 'pixel' | 'percentage';
 export type MediaCopyScope = 'editor' | 'context';
 
 export interface MediaPluginOptions {
-	provider?: Providers['mediaProvider'];
-	syncProvider?: MediaProvider;
+	alignLeftOnInsert?: boolean;
+	allowAdvancedToolBarOptions?: boolean;
+	// This enables the option to add an alt-text attribute to images contained in the Editor.
+	allowAltTextOnImages?: boolean;
+	allowBreakoutSnapPoints?: boolean;
+	allowCaptions?: boolean;
+	allowCommentsOnMedia?: boolean;
+	allowDropzoneDropLine?: boolean;
+	allowImagePreview?: boolean;
+	allowLazyLoading?: boolean;
+	allowLinking?: boolean;
+	allowMarkingUploadsAsIncomplete?: boolean;
+	allowMediaGroup?: boolean;
 	/**
 	 * @experimental
 	 * Still under development. Use with caution.
 	 */
 	allowMediaInlineImages?: boolean;
 	allowMediaSingle?: boolean | MediaSingleOptions;
-	allowMediaGroup?: boolean;
-	customDropzoneContainer?: HTMLElement;
-	customMediaPicker?: CustomMediaPicker;
+	allowMediaSingleEditable?: boolean;
+	allowPixelResizing?: boolean;
+	allowRemoteDimensionsFetch?: boolean;
 	allowResizing?: boolean;
 	allowResizingInTables?: boolean;
-	allowLinking?: boolean;
-	allowLazyLoading?: boolean;
-	allowBreakoutSnapPoints?: boolean;
-	allowAdvancedToolBarOptions?: boolean;
-	allowMediaSingleEditable?: boolean;
-	allowRemoteDimensionsFetch?: boolean;
-	allowDropzoneDropLine?: boolean;
-	allowMarkingUploadsAsIncomplete?: boolean;
-	allowImagePreview?: boolean;
-	fullWidthEnabled?: boolean;
-	uploadErrorHandler?: (state: MediaState) => void;
-	waitForMediaUpload?: boolean;
-	isCopyPasteEnabled?: boolean;
-	// This enables the option to add an alt-text attribute to images contained in the Editor.
-	allowAltTextOnImages?: boolean;
-	enableDownloadButton?: boolean;
+	allowTemplatePlaceholders?: boolean | PlaceholderTextOptions;
 	// returns array of validation errors based on value, if no errors returned - value is considered to be valid
 	altTextValidator?: (value: string) => string[];
-	useForgePlugins?: boolean;
-	allowTemplatePlaceholders?: boolean | PlaceholderTextOptions;
-	alignLeftOnInsert?: boolean;
-	editorSelectionAPI?: EditorSelectionAPI;
-	featureFlags?: MediaFeatureFlags;
-	getEditorFeatureFlags?: GetEditorFeatureFlags;
-	allowCaptions?: boolean;
-	allowCommentsOnMedia?: boolean;
+	customDropzoneContainer?: HTMLElement;
+	customMediaPicker?: CustomMediaPicker;
 	editorAppearance?: EditorAppearance;
+	editorSelectionAPI?: EditorSelectionAPI;
+	enableDownloadButton?: boolean;
+	featureFlags?: MediaFeatureFlags;
 	// Allows consumer products to always force the positioning of resize handles when resizing media.
 	// eg: inline comment editor (chromeless) can force a smaller gap between content and resize handles
 	forceHandlePositioning?: HandlePositioning;
-	// Allows consumer products to choose if they want referential copies to occur at a context or editor level.
-	// default is context
-	mediaShallowCopyScope?: MediaCopyScope;
-	allowPixelResizing?: boolean;
+	fullWidthEnabled?: boolean;
+	getEditorFeatureFlags?: GetEditorFeatureFlags;
+	isCopyPasteEnabled?: boolean;
 	/**
 	 * Enabling this will prevent this plugin from automatically trying to upload external images to the Media service.
 	 * This can be used in conjunction with the `isOnlyExternalLinks` config for `media-insert-plugin` to limit images
@@ -100,7 +92,15 @@ export interface MediaPluginOptions {
 	 * ```
 	 */
 	isExternalMediaUploadDisabled?: boolean;
+	// Allows consumer products to choose if they want referential copies to occur at a context or editor level.
+	// default is context
+	mediaShallowCopyScope?: MediaCopyScope;
 	onCommentButtonMount?: () => void;
+	provider?: Providers['mediaProvider'];
+	syncProvider?: MediaProvider;
+	uploadErrorHandler?: (state: MediaState) => void;
+	useForgePlugins?: boolean;
+	waitForMediaUpload?: boolean;
 }
 
 /**
@@ -115,24 +115,24 @@ export interface MediaSingleOptions {
 }
 
 export interface MediaState {
-	id: string;
-	status?: MediaStateStatus;
+	collection?: string;
+	contextId?: string;
+	dimensions?: {
+		height: number | undefined;
+		width: number | undefined;
+	};
+	error?: {
+		description: string;
+		name: string;
+	};
+	fileMimeType?: string;
 	fileName?: string;
 	fileSize?: number;
-	fileMimeType?: string;
-	collection?: string;
-	dimensions?: {
-		width: number | undefined;
-		height: number | undefined;
-	};
-	scaleFactor?: number;
-	error?: {
-		name: string;
-		description: string;
-	};
+	id: string;
 	/** still require to support Mobile */
 	publicId?: string;
-	contextId?: string;
+	scaleFactor?: number;
+	status?: MediaStateStatus;
 }
 
 // Ignored via go/ees005
@@ -141,15 +141,15 @@ export type Listener = (data: any) => void;
 
 export interface CustomMediaPicker {
 	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	on(event: string, cb: Listener): void;
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/method-signature-style -- method-signature-style ignored via go/ees013 (to be fixed)
-	removeAllListeners(event: any): void;
+	destroy(): void;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/method-signature-style -- method-signature-style ignored via go/ees013 (to be fixed)
 	emit(event: string, data: any): void;
 	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	destroy(): void;
+	on(event: string, cb: Listener): void;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/method-signature-style -- method-signature-style ignored via go/ees013 (to be fixed)
+	removeAllListeners(event: any): void;
 	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	setUploadParams(uploadParams: UploadParams): void;
 }
@@ -162,40 +162,40 @@ export type MobileUploadEndEventPayload = {
 };
 
 export type MediaEditorState = {
-	mediaClientConfig?: MediaClientConfig;
 	editor?: {
-		pos: number;
 		identifier: FileIdentifier;
+		pos: number;
 	};
+	mediaClientConfig?: MediaClientConfig;
 };
 
 export type MediaToolbarBaseConfig = {
-	title: string;
 	getDomRef?: (view: EditorView) => HTMLElement | undefined;
 	nodeType: NodeType | NodeType[];
+	title: string;
 };
 
 export type MediaFloatingToolbarOptions = {
-	providerFactory?: ProviderFactory;
-	allowResizing?: boolean;
+	allowAdvancedToolBarOptions?: boolean;
+	allowAltTextOnImages?: boolean;
+	allowCommentsOnMedia?: boolean;
+	allowImagePreview?: boolean;
+	allowLinking?: boolean;
 	allowMediaInline?: boolean;
 	allowMediaInlineImages?: boolean;
-	allowLinking?: boolean;
-	allowAdvancedToolBarOptions?: boolean;
+	allowPixelResizing?: boolean;
+	allowResizing?: boolean;
 	allowResizingInTables?: boolean;
-	allowAltTextOnImages?: boolean;
-	allowImagePreview?: boolean;
 	altTextValidator?: (value: string) => string[];
 	fullWidthEnabled?: boolean;
-	allowCommentsOnMedia?: boolean;
 	isViewOnly?: boolean;
-	allowPixelResizing?: boolean;
 	onCommentButtonMount?: () => void;
+	providerFactory?: ProviderFactory;
 };
 
 export type MediaDecorationSpec = {
-	type: 'media';
 	selected: boolean;
+	type: 'media';
 };
 
 export type SupportedMediaAttributes = MediaADFAttrs | MediaInlineAttributes;

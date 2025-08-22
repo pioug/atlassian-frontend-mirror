@@ -24,11 +24,11 @@ const buttonStyles = css({
 });
 
 type Props = {
-	onClick: () => void;
-	isFocused: boolean;
-	title: string;
 	ariaLabel?: string;
 	iconBefore?: React.ReactNode;
+	isFocused: boolean;
+	onClick: () => void;
+	title: string;
 };
 
 export const MoreOptions = ({ onClick, isFocused, title, ariaLabel, iconBefore }: Props) => {

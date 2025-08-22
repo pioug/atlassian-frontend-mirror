@@ -35,13 +35,13 @@ export const calculatePosition = ({
 	macroInteractionUpdates,
 	anchorRectCache,
 }: {
-	rootAnchorName: string | undefined;
-	getPos: () => number | undefined;
-	view: EditorView;
-	rootNodeType: string;
 	anchorName: string;
-	macroInteractionUpdates: boolean | undefined;
 	anchorRectCache: AnchorRectCache | undefined;
+	getPos: () => number | undefined;
+	macroInteractionUpdates: boolean | undefined;
+	rootAnchorName: string | undefined;
+	rootNodeType: string;
+	view: EditorView;
 }): CSSProperties => {
 	const supportsAnchor =
 		CSS.supports('top', `anchor(${rootAnchorName} start)`) &&

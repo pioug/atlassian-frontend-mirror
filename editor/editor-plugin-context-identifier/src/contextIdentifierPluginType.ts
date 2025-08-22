@@ -19,8 +19,8 @@ export type PluginConfiguration = ContextIdentifierPluginOptions;
 export type ContextIdentifierPlugin = NextEditorPlugin<
 	'contextIdentifier',
 	{
+		commands: { setProvider: (config: Configuration) => EditorCommand };
 		pluginConfiguration: ContextIdentifierPluginOptions | undefined;
 		sharedState: Configuration | undefined;
-		commands: { setProvider: (config: Configuration) => EditorCommand };
 	}
 >;

@@ -39,15 +39,15 @@ import { FullWidthDisplay } from './TableFullWidthLabel';
 
 export type ContentComponentProps = {
 	api: ExtractInjectionAPI<TablePlugin> | undefined;
-	editorView: EditorView;
-	dispatchAnalyticsEvent: DispatchAnalyticsEvent | undefined;
-	options?: TablePluginOptions;
-	popupsMountPoint?: HTMLElement;
-	popupsBoundariesElement?: HTMLElement;
-	popupsScrollableElement?: HTMLElement;
-	isTableSelectorEnabled: boolean | undefined;
 	defaultGetEditorContainerWidth: GetEditorContainerWidth;
 	defaultGetEditorFeatureFlags: GetEditorFeatureFlags;
+	dispatchAnalyticsEvent: DispatchAnalyticsEvent | undefined;
+	editorView: EditorView;
+	isTableSelectorEnabled: boolean | undefined;
+	options?: TablePluginOptions;
+	popupsBoundariesElement?: HTMLElement;
+	popupsMountPoint?: HTMLElement;
+	popupsScrollableElement?: HTMLElement;
 };
 
 const selector = (

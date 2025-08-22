@@ -94,7 +94,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 				return tr;
 			},
 		toggleBlockMenu:
-			(options?: { closeMenu?: boolean; anchorName?: string }) =>
+			(options?: { anchorName?: string; closeMenu?: boolean; }) =>
 			({ tr }: { tr: Transaction }) => {
 				const currMeta = tr.getMeta(key);
 				if (options?.closeMenu) {
@@ -109,7 +109,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 					return tr;
 				}
 
-				let toggleMenuMeta: { anchorName?: string; moveUp?: boolean; moveDown?: boolean } = {
+				let toggleMenuMeta: { anchorName?: string; moveDown?: boolean; moveUp?: boolean; } = {
 					anchorName: options?.anchorName,
 				};
 				const menuTriggerBy = api?.blockControls?.sharedState.currentState()?.menuTriggerBy;

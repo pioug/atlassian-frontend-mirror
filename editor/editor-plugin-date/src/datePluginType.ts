@@ -16,12 +16,12 @@ export type DatePluginDependencies = [
 export type DatePlugin = NextEditorPlugin<
 	'date',
 	{
-		pluginConfiguration: DatePluginOptions | undefined;
-		dependencies: DatePluginDependencies;
-		sharedState: DatePluginSharedState;
 		commands: {
-			insertDate: InsertDate;
 			deleteDate: DeleteDate;
+			insertDate: InsertDate;
 		};
+		dependencies: DatePluginDependencies;
+		pluginConfiguration: DatePluginOptions | undefined;
+		sharedState: DatePluginSharedState;
 	}
 >;

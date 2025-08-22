@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 3.0.23
+
+### Patch Changes
+
+- [`265c1bf0cefa4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/265c1bf0cefa4) -
+  Sorted type and interface props to improve Atlaskit docs
+- Updated dependencies
+
+## 3.0.22
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.0.21
 
 ### Patch Changes

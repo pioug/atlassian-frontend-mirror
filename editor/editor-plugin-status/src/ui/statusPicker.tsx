@@ -45,29 +45,29 @@ export enum closingMethods {
 }
 
 export interface Props {
-	target: HTMLElement | null;
+	boundariesElement?: HTMLElement;
 	closeStatusPicker: (closingPayload?: ClosingPayload) => void;
-	onSelect: (status: StatusType) => void;
-	onTextChanged: (status: StatusType, isNew: boolean) => void;
-	onEnter: (status: StatusType) => void;
-	isNew?: boolean;
-	focusStatusInput?: boolean;
-	defaultText?: string;
+	createAnalyticsEvent?: CreateUIAnalyticsEvent;
 	defaultColor?: Color;
 	defaultLocalId?: string;
-	createAnalyticsEvent?: CreateUIAnalyticsEvent;
-	mountTo?: HTMLElement;
-	boundariesElement?: HTMLElement;
-	scrollableElement?: HTMLElement;
+	defaultText?: string;
 	editorView: EditorView;
+	focusStatusInput?: boolean;
 	intl: WrappedComponentProps['intl'];
+	isNew?: boolean;
+	mountTo?: HTMLElement;
+	onEnter: (status: StatusType) => void;
+	onSelect: (status: StatusType) => void;
+	onTextChanged: (status: StatusType, isNew: boolean) => void;
+	scrollableElement?: HTMLElement;
+	target: HTMLElement | null;
 }
 
 export interface State {
 	color: Color;
-	text: string;
-	localId?: string;
 	isNew?: boolean;
+	localId?: string;
+	text: string;
 }
 
 const pickerContainerStyles = css({

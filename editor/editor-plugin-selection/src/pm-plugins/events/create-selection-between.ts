@@ -60,8 +60,8 @@ function findNextSelectionPosition({
 	$anchor,
 	doc,
 }: {
-	$targetHead: ResolvedPos;
 	$anchor: ResolvedPos;
+	$targetHead: ResolvedPos;
 	doc: PMNode;
 }): ResolvedPos | null {
 	const direction = $anchor.pos < $targetHead.pos ? 'down' : 'up';

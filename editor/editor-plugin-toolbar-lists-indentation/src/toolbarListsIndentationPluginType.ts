@@ -10,8 +10,8 @@ import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import type { UserPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences';
 
 export type ToolbarListsIndentationPluginOptions = {
-	showIndentationButtons: boolean;
 	allowHeadingAndParagraphIndentation: boolean;
+	showIndentationButtons: boolean;
 };
 
 export type ToolbarListsIndentationPluginDependencies = [
@@ -29,7 +29,7 @@ export type ToolbarListsIndentationPluginDependencies = [
 export type ToolbarListsIndentationPlugin = NextEditorPlugin<
 	'toolbarListsIndentation',
 	{
-		pluginConfiguration: ToolbarListsIndentationPluginOptions;
 		dependencies: ToolbarListsIndentationPluginDependencies;
+		pluginConfiguration: ToolbarListsIndentationPluginOptions;
 	}
 >;

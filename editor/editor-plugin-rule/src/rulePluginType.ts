@@ -8,10 +8,10 @@ type RulePluginDependencies = [OptionalPlugin<AnalyticsPlugin>];
 export type RulePlugin = NextEditorPlugin<
 	'rule',
 	{
-		pluginConfiguration: undefined;
-		dependencies: RulePluginDependencies;
 		actions: {
 			insertHorizontalRule: ReturnType<typeof insertHorizontalRule>;
 		};
+		dependencies: RulePluginDependencies;
+		pluginConfiguration: undefined;
 	}
 >;

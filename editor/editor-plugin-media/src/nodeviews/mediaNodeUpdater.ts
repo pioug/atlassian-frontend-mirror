@@ -40,16 +40,16 @@ import type {
 	SupportedMediaAttributes,
 } from '../types';
 
-type RemoteDimensions = { id: string; height: number; width: number };
+type RemoteDimensions = { height: number; id: string; width: number };
 
 export interface MediaNodeUpdaterProps {
-	view: EditorView;
-	node: PMNode; // assumed to be media type node (ie. child of MediaSingle, MediaGroup)
-	mediaProvider?: Promise<MediaProvider>;
 	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
+	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 	isMediaSingle: boolean;
 	mediaOptions?: MediaOptions;
-	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
+	mediaProvider?: Promise<MediaProvider>;
+	node: PMNode; // assumed to be media type node (ie. child of MediaSingle, MediaGroup)
+	view: EditorView;
 }
 
 const isMediaTypeSupported = (type: SupportedMediaAttributes['type']) => {
@@ -389,9 +389,9 @@ export class MediaNodeUpdater {
 	}
 
 	private handleCopyFileSwitcher = async (attrs: {
+		destination: CopyDestination;
 		mediaClient: MediaClient;
 		source: CopySourceFile;
-		destination: CopyDestination;
 		traceContext?: MediaTraceContext;
 	}): Promise<string> => {
 		const { mediaClient, source, destination, traceContext } = attrs;

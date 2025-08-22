@@ -40,38 +40,38 @@ import {
 import { shallowEquals } from './shallow-equals';
 
 export interface CreateItemsConfig {
-	isTypeAheadAllowed?: boolean;
-	tableSupported?: boolean;
-	tableSelectorSupported?: boolean;
-	mediaUploadsEnabled?: boolean;
-	mediaSupported?: boolean;
-	imageUploadSupported?: boolean;
-	imageUploadEnabled?: boolean;
-	mentionsSupported?: boolean;
-	mentionsDisabled?: boolean;
-	availableWrapperBlockTypes?: BlockType[];
 	actionSupported?: boolean;
-	decisionSupported?: boolean;
-	linkSupported?: boolean;
-	linkDisabled?: boolean;
-	emojiDisabled?: boolean;
-	hasEmojiPlugin?: boolean;
-	hasMentionsPlugin?: boolean;
-	hasMediaPlugin?: boolean;
-	nativeStatusSupported?: boolean;
+	availableWrapperBlockTypes?: BlockType[];
 	dateEnabled?: boolean;
-	placeholderTextEnabled?: boolean;
-	horizontalRuleEnabled?: boolean;
-	layoutSectionEnabled?: boolean;
-	showElementBrowserLink?: boolean;
-	expandEnabled?: boolean;
-	insertMenuItems?: MenuItem[];
+	decisionSupported?: boolean;
+	emojiDisabled?: boolean;
 	emojiProvider?: Promise<EmojiProvider> | EmojiProvider;
-	schema: Schema;
-	numberOfButtons: number;
+	expandEnabled?: boolean;
 	formatMessage: WrappedComponentProps['intl']['formatMessage'];
-	isNewMenuEnabled?: boolean;
+	hasEmojiPlugin?: boolean;
+	hasMediaPlugin?: boolean;
+	hasMentionsPlugin?: boolean;
+	horizontalRuleEnabled?: boolean;
+	imageUploadEnabled?: boolean;
+	imageUploadSupported?: boolean;
+	insertMenuItems?: MenuItem[];
 	isEditorOffline?: boolean;
+	isNewMenuEnabled?: boolean;
+	isTypeAheadAllowed?: boolean;
+	layoutSectionEnabled?: boolean;
+	linkDisabled?: boolean;
+	linkSupported?: boolean;
+	mediaSupported?: boolean;
+	mediaUploadsEnabled?: boolean;
+	mentionsDisabled?: boolean;
+	mentionsSupported?: boolean;
+	nativeStatusSupported?: boolean;
+	numberOfButtons: number;
+	placeholderTextEnabled?: boolean;
+	schema: Schema;
+	showElementBrowserLink?: boolean;
+	tableSelectorSupported?: boolean;
+	tableSupported?: boolean;
 }
 
 export interface BlockMenuItem extends MenuItem {

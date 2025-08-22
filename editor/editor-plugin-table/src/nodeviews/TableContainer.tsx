@@ -51,11 +51,11 @@ import { TableResizer } from './TableResizer';
 
 type InnerContainerProps = {
 	className: string;
-	style?: {
-		width: number | 'inherit';
-		marginLeft?: number;
-	};
 	node: PMNode;
+	style?: {
+		marginLeft?: number;
+		width: number | 'inherit';
+	};
 };
 
 const InnerContainer = forwardRef<HTMLDivElement, PropsWithChildren<InnerContainerProps>>(
@@ -78,10 +78,10 @@ const InnerContainer = forwardRef<HTMLDivElement, PropsWithChildren<InnerContain
 );
 
 type AlignmentTableContainerProps = {
+	editorView?: EditorView;
+	getPos?: () => number | undefined;
 	node: PMNode;
 	pluginInjectionApi?: PluginInjectionAPI;
-	getPos?: () => number | undefined;
-	editorView?: EditorView;
 };
 
 const useAlignmentTableContainerSharedState = sharedPluginStateHookMigratorFactory(
@@ -208,25 +208,25 @@ const AlignmentTableContainerWrapper = ({
 };
 
 type ResizableTableContainerProps = {
-	containerWidth: number;
-	lineLength: number;
-	node: PMNode;
 	className: string;
+	containerWidth: number;
 	editorView: EditorView;
 	getPos: () => number | undefined;
-	tableRef: HTMLTableElement;
+	isChromelessEditor?: boolean;
+	isCommentEditor?: boolean;
 	isResizing?: boolean;
-	isWindowResized?: boolean;
-	pluginInjectionApi?: PluginInjectionAPI;
-	tableWrapperHeight?: number;
-	isWholeTableInDanger?: boolean;
-
+	isTableAlignmentEnabled?: boolean;
 	isTableScalingEnabled?: boolean;
 	isTableWithFixedColumnWidthsOptionEnabled?: boolean;
-	isTableAlignmentEnabled?: boolean;
+	isWholeTableInDanger?: boolean;
+	isWindowResized?: boolean;
+
+	lineLength: number;
+	node: PMNode;
+	pluginInjectionApi?: PluginInjectionAPI;
 	shouldUseIncreasedScalingPercent?: boolean;
-	isCommentEditor?: boolean;
-	isChromelessEditor?: boolean;
+	tableRef: HTMLTableElement;
+	tableWrapperHeight?: number;
 };
 
 const selector = (
@@ -827,26 +827,26 @@ export const ResizableTableContainer = componentWithCondition(
 );
 
 type TableContainerProps = {
-	node: PMNode;
 	className: string;
 	containerWidth: EditorContainerWidth;
 	editorView: EditorView;
 	getPos: () => number | undefined;
-	tableRef: HTMLTableElement;
+	isChromelessEditor?: boolean;
+	isCommentEditor?: boolean;
 	isNested: boolean;
 	isResizing?: boolean;
-	isWindowResized?: boolean;
-	pluginInjectionApi?: PluginInjectionAPI;
-	tableWrapperHeight?: number;
-	isWholeTableInDanger?: boolean;
-
+	isTableAlignmentEnabled?: boolean;
 	isTableResizingEnabled: boolean | undefined;
 	isTableScalingEnabled?: boolean;
 	isTableWithFixedColumnWidthsOptionEnabled?: boolean;
-	isTableAlignmentEnabled?: boolean;
+
+	isWholeTableInDanger?: boolean;
+	isWindowResized?: boolean;
+	node: PMNode;
+	pluginInjectionApi?: PluginInjectionAPI;
 	shouldUseIncreasedScalingPercent?: boolean;
-	isCommentEditor?: boolean;
-	isChromelessEditor?: boolean;
+	tableRef: HTMLTableElement;
+	tableWrapperHeight?: number;
 };
 
 export const TableContainer = ({

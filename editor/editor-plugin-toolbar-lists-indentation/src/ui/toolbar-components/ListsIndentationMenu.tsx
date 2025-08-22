@@ -12,9 +12,9 @@ import type { ToolbarListsIndentationPlugin } from '../../toolbarListsIndentatio
 import { useIndentationState } from '../utils/hooks';
 
 type ListsIndentationMenuProps = {
-	children: React.ReactNode;
-	api?: ExtractInjectionAPI<ToolbarListsIndentationPlugin>;
 	allowHeadingAndParagraphIndentation: boolean;
+	api?: ExtractInjectionAPI<ToolbarListsIndentationPlugin>;
+	children: React.ReactNode;
 };
 
 export const ListsIndentationMenu = ({

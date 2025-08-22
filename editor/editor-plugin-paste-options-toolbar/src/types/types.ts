@@ -12,18 +12,18 @@ export enum ToolbarDropdownOption {
 }
 
 export interface PasteOtionsPluginState {
-	showToolbar: boolean;
-	pasteStartPos: number;
-	pasteEndPos: number;
-	plaintext: string;
-	richTextSlice: Slice;
-	isPlainText: boolean;
 	highlightContent: boolean;
 	highlightDecorationSet: DecorationSet;
+	isPlainText: boolean;
+	pasteEndPos: number;
+	pasteStartPos: number;
+	plaintext: string;
+	richTextSlice: Slice;
 	selectedOption: ToolbarDropdownOption;
+	showToolbar: boolean;
 }
 
 export interface Position {
-	top?: number;
 	left?: number;
+	top?: number;
 }

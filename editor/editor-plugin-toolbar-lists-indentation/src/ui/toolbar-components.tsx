@@ -28,9 +28,9 @@ import { NumberedListMenuItem } from './toolbar-components/NumberedListMenuItem'
 import { OutdentMenuItem } from './toolbar-components/OutdentMenuItem';
 
 type GetToolbarComponentsProps = {
+	allowHeadingAndParagraphIndentation: boolean;
 	api?: ExtractInjectionAPI<ToolbarListsIndentationPlugin>;
 	showIndentationButtons: boolean;
-	allowHeadingAndParagraphIndentation: boolean;
 };
 
 export const getToolbarComponents = ({

@@ -15,9 +15,9 @@ import { createWidgetDecoration } from '../ui/widget-decoration';
 
 export interface PluginState {
 	decorations: DecorationSet;
-	shouldHideDecorations: boolean;
-	forceHide: boolean;
 	decorationType: DecorationType;
+	forceHide: boolean;
+	shouldHideDecorations: boolean;
 }
 
 export const key = new PluginKey<PluginState>('selectionMarker');

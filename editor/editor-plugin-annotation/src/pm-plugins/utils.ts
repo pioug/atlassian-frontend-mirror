@@ -170,20 +170,6 @@ export const getAnnotationViewKey = (annotations: AnnotationInfo[]): string => {
 	return `view-annotation-wrapper_${keys}`;
 };
 
-export const isCurrentBlockNodeSelected = (state: EditorState, node: Node): boolean => {
-	const { selection } = state;
-	if (selection instanceof NodeSelection) {
-		if (selection.node === node) {
-			return true;
-		}
-		if (node.type.name === 'media' && selection.node.firstChild === node) {
-			return true;
-		}
-	}
-
-	return false;
-};
-
 export const findAnnotationsInSelection = (selection: Selection, doc: Node): AnnotationInfo[] => {
 	const { empty, $anchor, anchor } = selection;
 	// Only detect annotations on caret selection

@@ -1,19 +1,19 @@
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 
 export type Entity = {
-	pos: number;
 	node: Node;
 	nodeContext: string;
+	pos: number;
 };
 
 type Metadata<T = Object> = {
-	node: Node;
-	isUndo?: boolean;
-	isRedo?: boolean;
 	action?: string;
 	inputMethod?: string;
-	sourceEvent?: unknown;
+	isRedo?: boolean;
+	isUndo?: boolean;
+	node: Node;
 	nodeContext?: string;
+	sourceEvent?: unknown;
 } & T;
 
 type UpdateMetadata = {
@@ -37,34 +37,34 @@ export enum EVENT_SUBJECT {
  * events can be derived from them / think of them in the same way
  */
 export type LinkCreatedEvent = {
+	data: Metadata;
 	event: EVENT.CREATED;
 	subject: EVENT_SUBJECT.LINK;
-	data: Metadata;
 };
 export type LinkUpdatedEvent = {
+	data: Metadata<UpdateMetadata>;
 	event: EVENT.UPDATED;
 	subject: EVENT_SUBJECT.LINK;
-	data: Metadata<UpdateMetadata>;
 };
 export type LinkDeletedEvent = {
+	data: Metadata;
 	event: EVENT.DELETED;
 	subject: EVENT_SUBJECT.LINK;
-	data: Metadata;
 };
 export type DatasourceCreatedEvent = {
+	data: Metadata;
 	event: EVENT.CREATED;
 	subject: EVENT_SUBJECT.DATASOURCE;
-	data: Metadata;
 };
 export type DatasourceUpdatedEvent = {
+	data: Metadata<UpdateMetadata>;
 	event: EVENT.UPDATED;
 	subject: EVENT_SUBJECT.DATASOURCE;
-	data: Metadata<UpdateMetadata>;
 };
 export type DatasourceDeletedEvent = {
+	data: Metadata;
 	event: EVENT.DELETED;
 	subject: EVENT_SUBJECT.DATASOURCE;
-	data: Metadata;
 };
 
 export type LinkEvent = LinkCreatedEvent | LinkUpdatedEvent | LinkDeletedEvent;

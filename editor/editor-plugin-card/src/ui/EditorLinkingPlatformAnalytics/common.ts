@@ -6,16 +6,16 @@ import type { EditorCardPluginEvents } from '../analytics/create-events-queue';
 import type { CardPluginEvent } from '../analytics/types';
 
 export type AnalyticsBindingsProps = {
-	editorView: EditorView;
 	cardPluginEvents: EditorCardPluginEvents<CardPluginEvent>;
+	editorView: EditorView;
 };
 
 type EventMetadata = {
 	action?: string;
 	inputMethod?: string;
-	sourceEvent?: unknown;
 	isRedo?: boolean;
 	isUndo?: boolean;
+	sourceEvent?: unknown;
 };
 
 /**

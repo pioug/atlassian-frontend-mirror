@@ -21,18 +21,18 @@ import { useOnForceSelect } from './hooks/use-on-force-select';
 import { InputQuery } from './InputQuery';
 
 type WrapperProps = {
-	triggerHandler: TypeAheadHandler;
-	editorView: EditorView;
 	anchorElement: HTMLElement;
-	getDecorationPosition: () => number | undefined;
-	shouldFocusCursorInsideQuery: boolean;
-	onUndoRedo?: (inputType: 'historyUndo' | 'historyRedo') => boolean;
-	reopenQuery?: string;
-	popupsMountPoint?: HTMLElement;
-	popupsBoundariesElement?: HTMLElement;
-	popupsScrollableElement?: HTMLElement;
-	inputMethod?: TypeAheadInputMethod;
 	api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;
+	editorView: EditorView;
+	getDecorationPosition: () => number | undefined;
+	inputMethod?: TypeAheadInputMethod;
+	onUndoRedo?: (inputType: 'historyUndo' | 'historyRedo') => boolean;
+	popupsBoundariesElement?: HTMLElement;
+	popupsMountPoint?: HTMLElement;
+	popupsScrollableElement?: HTMLElement;
+	reopenQuery?: string;
+	shouldFocusCursorInsideQuery: boolean;
+	triggerHandler: TypeAheadHandler;
 };
 
 export const WrapperTypeAhead = React.memo(
@@ -106,10 +106,10 @@ export const WrapperTypeAhead = React.memo(
 				text,
 				forceFocusOnEditor,
 			}: {
-				setSelectionAt: CloseSelectionOptions;
 				addPrefixTrigger: boolean;
-				text: string;
 				forceFocusOnEditor: boolean;
+				setSelectionAt: CloseSelectionOptions;
+				text: string;
 			}) => {
 				if (editorExperiment('platform_editor_controls', 'variant1')) {
 					fireTypeAheadClosedAnalyticsEvent(

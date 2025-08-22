@@ -3,15 +3,15 @@ import { Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 // TODO: ED-28434 - move this to a shared package
 // mirror code from https://bitbucket.org/atlassian/pf-adf-service/src/master/src/lib/update/get-offset.ts
 export interface NodeOffset {
-	type: 'node';
 	from: number;
-	to: number;
 	matches: string[];
+	to: number;
+	type: 'node';
 }
 export interface AttrsOffset {
-	type: 'attrs';
 	from: number;
 	path: string[];
+	type: 'attrs';
 	// To be implemented
 	// matches: string[];
 }

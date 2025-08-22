@@ -95,9 +95,9 @@ describe('PreviewAction', () => {
 		(flexibleUiContextModule.useFlexibleUiContext as jest.Mock).mockReturnValue({
 			...mockContext,
 			actions: {
-				...((mockContext as any).actions),
+				...(mockContext as any).actions,
 				PreviewAction: {
-					...((mockContext as any).actions.PreviewAction),
+					...(mockContext as any).actions.PreviewAction,
 					hasPreviewPanel: false,
 				},
 			},
@@ -119,9 +119,9 @@ describe('PreviewAction', () => {
 		(flexibleUiContextModule.useFlexibleUiContext as jest.Mock).mockReturnValue({
 			...mockContext,
 			actions: {
-				...((mockContext as any).actions),
+				...(mockContext as any).actions,
 				PreviewAction: {
-					...((mockContext as any).actions.PreviewAction),
+					...(mockContext as any).actions.PreviewAction,
 					hasPreviewPanel: true,
 				},
 			},

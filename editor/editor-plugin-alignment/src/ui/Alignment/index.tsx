@@ -39,17 +39,17 @@ const alignmentWrapperStylesUnbounded = cssUnbounded({
 });
 
 export interface Props {
-	selectedAlignment?: string;
-	onClick: (value: AlignmentState) => void;
 	className?: string;
+	onClick: (value: AlignmentState) => void;
+	selectedAlignment?: string;
 }
 
 const alignCenterKeyboardShortcut = alignCenter;
 const alignRightKeyboardShortcut = alignRight;
 
 const alignmentOptions: Array<{
-	title: MessageDescriptor;
 	shortcut?: Keymap;
+	title: MessageDescriptor;
 	value: AlignmentState;
 }> = [
 	{ title: alignmentMessages.alignLeft, shortcut: alignLeft, value: 'start' },

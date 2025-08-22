@@ -24,13 +24,13 @@ import { avatarContainerStyles } from './styles';
 import toAvatar from './to-avatar';
 
 interface AvatarsProps {
-	sessionId?: string;
-	participants: ReadOnlyParticipants | undefined;
-	editorView?: EditorView;
-	featureFlags: FeatureFlags;
+	children: ReactNode;
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
 	editorAPI: ExtractInjectionAPI<AvatarGroupPlugin> | undefined;
-	children: ReactNode;
+	editorView?: EditorView;
+	featureFlags: FeatureFlags;
+	participants: ReadOnlyParticipants | undefined;
+	sessionId?: string;
 }
 
 const scrollToCollabCursor = (

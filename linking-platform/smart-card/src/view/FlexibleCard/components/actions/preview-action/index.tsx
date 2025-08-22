@@ -36,7 +36,9 @@ const PreviewAction = ({ onClick: onClickCallback, ...props }: PreviewActionProp
 		if (expValEquals('platform_hover_card_preview_panel', 'cohort', 'test') && hasPreviewPanel) {
 			return <PanelRightIcon color="currentColor" spacing="spacious" label="Open preview panel" />;
 		}
-		return <MediaServicesActualSizeIcon color="currentColor" spacing="spacious" label="Open preview" />;
+		return (
+			<MediaServicesActualSizeIcon color="currentColor" spacing="spacious" label="Open preview" />
+		);
 	}, [hasPreviewPanel]);
 
 	const actionLabel = useCallback(() => {

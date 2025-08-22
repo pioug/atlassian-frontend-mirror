@@ -11,9 +11,9 @@ import PickerFacadeProvider from './PickerFacadeProvider';
 
 type Props = {
 	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
+	featureFlags?: MediaFeatureFlags;
 	isOpen?: boolean;
 	onBrowseFn: (browse: () => void) => void;
-	featureFlags?: MediaFeatureFlags;
 };
 
 export const BrowserWrapper = ({ api, isOpen, onBrowseFn, featureFlags }: Props) => (

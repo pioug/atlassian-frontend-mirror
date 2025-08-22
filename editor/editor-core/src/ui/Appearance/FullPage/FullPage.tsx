@@ -176,11 +176,6 @@ export const FullPageEditor = (props: ComponentProps) => {
 	let toolbarDocking = useSharedPluginStateSelector(editorAPI, 'selectionToolbar.toolbarDocking', {
 		disabled: fg('platform_editor_use_preferences_plugin'),
 	});
-	const { toolbarDockingPosition } =
-		useSharedPluginStateSelector(editorAPI, 'userPreferences.preferences', {
-			disabled: !fg('platform_editor_use_preferences_plugin'),
-		}) || {};
-
 	if (!fg('platform_editor_use_preferences_plugin')) {
 		if (!toolbarDocking) {
 			// This is a workaround for the rendering issue with the selection toolbar
@@ -189,6 +184,23 @@ export const FullPageEditor = (props: ComponentProps) => {
 			const defaultDocking = props.__livePage ? 'none' : 'top';
 			toolbarDocking =
 				editorAPI?.selectionToolbar?.sharedState.currentState()?.toolbarDocking ?? defaultDocking;
+		}
+	}
+
+	let { toolbarDockingPosition } =
+		useSharedPluginStateSelector(editorAPI, 'userPreferences.preferences', {
+			disabled: !fg('platform_editor_use_preferences_plugin'),
+		}) || {};
+	if (fg('platform_editor_use_preferences_plugin')) {
+		if (!toolbarDockingPosition) {
+			// This is a workaround for the rendering issue with the selection toolbar
+			// when using useSharedPluginStateWithSelector the state is not yet
+			// available when the editor is first loaded.
+			// This causes the toolbar to blink creating a layout shift.
+			const defaultDockingPosition = props.__livePage ? 'none' : 'top';
+			toolbarDockingPosition =
+				editorAPI?.userPreferences?.actions.getUserPreferences()?.toolbarDockingPosition ??
+				defaultDockingPosition;
 		}
 	}
 

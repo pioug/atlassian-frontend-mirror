@@ -23,12 +23,9 @@ export type TasksAndDecisionsPluginDependencies = [
 export type TasksAndDecisionsPlugin = NextEditorPlugin<
 	'taskDecision',
 	{
-		pluginConfiguration: TasksAndDecisionsPluginOptions | undefined;
-		sharedState: TaskAndDecisionsSharedState | undefined;
-		dependencies: TasksAndDecisionsPluginDependencies;
 		actions: {
-			insertTaskDecision: ReturnType<typeof insertTaskDecisionCommand>;
 			indentTaskList: ReturnType<typeof getIndentCommand>;
+			insertTaskDecision: ReturnType<typeof insertTaskDecisionCommand>;
 			outdentTaskList: ReturnType<typeof getUnindentCommand>;
 			setProvider: (provider: Promise<TaskDecisionProvider>) => Promise<boolean>;
 		};
@@ -36,5 +33,8 @@ export type TasksAndDecisionsPlugin = NextEditorPlugin<
 			updateEditPermission: (hasEditPermission: boolean | undefined) => EditorCommand;
 			updateHasRequestedEditPermission: (hasRequestedEditPermission: boolean) => EditorCommand;
 		};
+		dependencies: TasksAndDecisionsPluginDependencies;
+		pluginConfiguration: TasksAndDecisionsPluginOptions | undefined;
+		sharedState: TaskAndDecisionsSharedState | undefined;
 	}
 >;

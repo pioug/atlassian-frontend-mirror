@@ -17,14 +17,14 @@ import { ToolbarType } from '../types';
 import ToolbarTextColor from './ToolbarTextColor';
 
 interface PrimaryToolbarComponentProps {
-	isReducedSpacing: boolean;
-	editorView: EditorView;
-	popupsMountPoint?: HTMLElement;
-	popupsBoundariesElement?: HTMLElement;
-	popupsScrollableElement?: HTMLElement;
-	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
-	disabled: boolean;
 	api: ExtractInjectionAPI<TextColorPlugin> | undefined;
+	disabled: boolean;
+	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
+	editorView: EditorView;
+	isReducedSpacing: boolean;
+	popupsBoundariesElement?: HTMLElement;
+	popupsMountPoint?: HTMLElement;
+	popupsScrollableElement?: HTMLElement;
 }
 
 const useSharedState = sharedPluginStateHookMigratorFactory(

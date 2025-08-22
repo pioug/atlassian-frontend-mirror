@@ -17,9 +17,9 @@ import AttachmentIcon from '@atlaskit/icon/core/migration/attachment--editor-att
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 
 interface Props {
+	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
 	isDisabled?: boolean;
 	isReducedSpacing?: boolean;
-	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
 }
 
 const onClickMediaButton = (showMediaPicker: () => void) => () => {

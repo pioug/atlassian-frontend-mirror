@@ -142,7 +142,7 @@ export function createDefaultPreset(options: DefaultPresetPluginOptions): Defaul
 		.add([typeAheadPlugin, options.typeAhead])
 		.maybeAdd(historyPlugin, Boolean(options.allowUndoRedoButtons))
 		.maybeAdd(
-			[toolbarPlugin, options.toolbar],
+			[toolbarPlugin, options.toolbar || {}],
 			expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true),
 		)
 		.add([primaryToolbarPlugin, { contextualFormattingEnabled: isFullPage }])

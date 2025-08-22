@@ -71,7 +71,7 @@ const FieldMessages = function ({
 	error,
 	description,
 	intl,
-}: { error?: string; description?: string } & WrappedComponentProps) {
+}: { description?: string; error?: string; } & WrappedComponentProps) {
 	if (!error && description) {
 		return <Description description={description} />;
 	}

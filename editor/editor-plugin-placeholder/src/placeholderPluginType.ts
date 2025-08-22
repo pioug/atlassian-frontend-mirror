@@ -9,20 +9,20 @@ import type { ShowDiffPlugin } from '@atlaskit/editor-plugin-show-diff';
 import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 
 export interface PlaceholderPluginOptions {
+	emptyLinePlaceholder?: string;
 	placeholder?: string;
 	placeholderBracketHint?: string;
-	emptyLinePlaceholder?: string;
 	placeholderPrompts?: string[];
 }
 
 export type PlaceholderPlugin = NextEditorPlugin<
 	'placeholder',
 	{
-		pluginConfiguration: PlaceholderPluginOptions | undefined;
 		commands: {
-			setPlaceholder: (placeholder: string) => EditorCommand;
 			setAnimatingPlaceholderPrompts: (placeholderPrompts: string[]) => EditorCommand;
+			setPlaceholder: (placeholder: string) => EditorCommand;
 		};
 		dependencies: [FocusPlugin, CompositionPlugin, TypeAheadPlugin, OptionalPlugin<ShowDiffPlugin>];
+		pluginConfiguration: PlaceholderPluginOptions | undefined;
 	}
 >;

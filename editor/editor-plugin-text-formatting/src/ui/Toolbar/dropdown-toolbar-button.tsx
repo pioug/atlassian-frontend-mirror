@@ -21,16 +21,16 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { ToolbarType } from './types';
 
 type DropdownButtonProps = {
-	label: string;
+	activeIconName?: string;
+	'aria-expanded': React.AriaAttributes['aria-expanded'];
+	iconBefore?: React.ReactElement;
+	isDisabled: boolean;
 	isReducedSpacing: boolean;
 	isSelected: boolean;
-	isDisabled: boolean;
-	'aria-expanded': React.AriaAttributes['aria-expanded'];
+	label: string;
 	onClick?: (event: React.MouseEvent<HTMLElement>) => void;
 	onKeyDown?: (event: React.KeyboardEvent) => void;
 	toolbarType: ToolbarType;
-	iconBefore?: React.ReactElement;
-	activeIconName?: string;
 };
 
 export const DropdownToolbarButton = ({

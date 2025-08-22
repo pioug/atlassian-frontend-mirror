@@ -20,10 +20,10 @@ import PickerFacadeProvider from './PickerFacadeProvider';
 
 type Props = {
 	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
-	isActive: boolean;
-	featureFlags?: MediaFeatureFlags;
-	editorDomElement: Element;
 	appearance: EditorAppearance;
+	editorDomElement: Element;
+	featureFlags?: MediaFeatureFlags;
+	isActive: boolean;
 };
 
 const selector = (
@@ -52,8 +52,8 @@ const useSharedState = sharedPluginStateHookMigratorFactory(
 );
 
 type DropzoneWrapperInternalProps = Props & {
-	mediaClientConfig: MediaClientConfig;
 	config: DropzoneConfig;
+	mediaClientConfig: MediaClientConfig;
 	pickerFacadeInstance: PickerFacade;
 };
 

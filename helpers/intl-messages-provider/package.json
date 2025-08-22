@@ -45,7 +45,6 @@
 	},
 	"devDependencies": {
 		"@atlaskit/ssr": "workspace:^",
-		"@atlaskit/visual-regression": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/react-hooks": "root:*",
 		"wait-for-expect": "root:*"

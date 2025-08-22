@@ -7,14 +7,14 @@ import { Selection } from '@atlaskit/editor-prosemirror/state';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 
 interface MaybeEscapeProps {
-	unit: 'line' | 'char';
-	dir: -1 | 1;
-	view: EditorView;
 	cm: CodeMirror;
-	getPos: getPosHandlerNode;
+	dir: -1 | 1;
 	getNode: () => PMNode;
+	getPos: getPosHandlerNode;
 	onMaybeNodeSelection: () => void;
 	selectCodeBlockNode: (relativeSelectionPos: RelativeSelectionPos | undefined) => void;
+	unit: 'line' | 'char';
+	view: EditorView;
 }
 
 export const maybeEscapeKeymap = ({
@@ -32,7 +32,7 @@ export const maybeEscapeKeymap = ({
 	}
 	const node = getNode();
 	const { state } = cm;
-	let main: { from: number; to: number; empty: boolean; head: number } = state.selection.main;
+	let main: { empty: boolean; from: number; head: number; to: number; } = state.selection.main;
 	if (!main.empty) {
 		return false;
 	}

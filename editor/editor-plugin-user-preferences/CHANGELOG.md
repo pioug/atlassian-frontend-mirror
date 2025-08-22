@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-user-preferences
 
+## 1.2.4
+
+### Patch Changes
+
+- [`265c1bf0cefa4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/265c1bf0cefa4) -
+  Sorted type and interface props to improve Atlaskit docs
+- Updated dependencies
+
+## 1.2.3
+
+### Patch Changes
+
+- [`4bc05c9f87780`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4bc05c9f87780) -
+  [ux] Fix toolbar blink CLS regression
+
 ## 1.2.2
 
 ### Patch Changes

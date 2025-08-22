@@ -37,19 +37,19 @@ import { R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 type Props = {
-	intl: IntlShape;
-	providerFactory: ProviderFactory;
+	displayUrl?: string;
 	editing: boolean;
+	intl: IntlShape;
 	onBack: (url: string, meta: { inputMethod?: RecentSearchInputTypes }, setFocus?: boolean) => void;
-	onUnlink: (setFocus?: boolean) => void;
-	onCancel: () => void;
 	onBlur: (href: string) => void;
+	onCancel: () => void;
 	onSubmit: (
 		href: string,
 		meta: { inputMethod: RecentSearchInputTypes },
 		setFocus?: boolean,
 	) => void;
-	displayUrl?: string;
+	onUnlink: (setFocus?: boolean) => void;
+	providerFactory: ProviderFactory;
 };
 
 const validationWrapper = css({
@@ -88,8 +88,8 @@ class LinkAddToolbar extends React.PureComponent<Props & WrappedComponentProps> 
 			url,
 			inputMethod,
 		}: {
-			url: string;
 			inputMethod?: RecentSearchInputTypes;
+			url: string;
 		},
 		setFocus?: boolean,
 	) => {

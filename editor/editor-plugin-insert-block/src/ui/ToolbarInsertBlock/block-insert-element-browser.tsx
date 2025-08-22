@@ -16,23 +16,23 @@ type SimpleEventHandler<T> = (event?: T) => void;
 export interface BlockInsertElementBrowserProps {
 	disabled: boolean;
 	editorView: EditorView;
+	isFullPageAppearance?: boolean;
 	items: BlockMenuItem[];
-	spacing: 'none' | 'default';
 	label: string;
+	onClick: React.MouseEventHandler;
+	onInsert: OnInsert;
+	onKeyDown?: React.KeyboardEventHandler;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
+	onRef(el: HTMLElement): void;
 	open: boolean;
+	pluginInjectionApi: ExtractInjectionAPI<InsertBlockPlugin> | undefined;
+	plusButtonRef?: HTMLElement;
 	popupsBoundariesElement?: HTMLElement;
 	popupsMountPoint?: HTMLElement;
 	popupsScrollableElement?: HTMLElement;
-	plusButtonRef?: HTMLElement;
 	showElementBrowserLink: boolean;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	onRef(el: HTMLElement): void;
-	onClick: React.MouseEventHandler;
-	onKeyDown?: React.KeyboardEventHandler;
-	onInsert: OnInsert;
+	spacing: 'none' | 'default';
 	togglePlusMenuVisibility: SimpleEventHandler<MouseEvent | KeyboardEvent>;
-	pluginInjectionApi: ExtractInjectionAPI<InsertBlockPlugin> | undefined;
-	isFullPageAppearance?: boolean;
 }
 
 // This determines how the popup should fit. We prefer the insert menu

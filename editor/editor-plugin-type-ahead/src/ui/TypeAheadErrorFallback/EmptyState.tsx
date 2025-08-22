@@ -5,10 +5,10 @@ import Heading from '@atlaskit/heading';
 import { Flex, Text, xcss } from '@atlaskit/primitives';
 
 type EmptyStateProps = {
-	header: string;
-	testId?: string;
 	description?: React.ReactNode;
+	header: string;
 	renderImage?: () => React.ReactNode;
+	testId?: string;
 };
 
 const containerStyles = xcss({

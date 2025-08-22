@@ -73,11 +73,11 @@ export function createAnalyticsDispatch({
 	state,
 	dispatch,
 }: {
+	dispatch?: (tr: Transaction) => void;
+	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
 	getAttrsChanges: () => GetAttrsChange<IndentationMarkAttributes, IndentationChangesOptions>[];
 	inputMethod: IndentationInputMethod;
-	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
 	state: EditorState;
-	dispatch?: (tr: Transaction) => void;
 }): (tr: Transaction) => void {
 	return (tr: Transaction) => {
 		const currentTr = tr;

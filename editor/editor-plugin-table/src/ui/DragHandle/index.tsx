@@ -41,25 +41,25 @@ import { HandleIconComponent } from './HandleIconComponent';
 export type DragHandleAppearance = 'default' | 'selected' | 'disabled' | 'danger' | 'placeholder';
 
 type DragHandleProps = {
-	tableLocalId: string;
-	indexes: number[];
-	forceDefaultHandle?: boolean;
-	previewWidth?: number;
-	previewHeight?: number;
-	hoveredCell?: CellHoverMeta;
-	direction?: TableDirection;
 	appearance?: DragHandleAppearance;
+	direction?: TableDirection;
+	editorView: EditorView;
+	forceDefaultHandle?: boolean;
+	hoveredCell?: CellHoverMeta;
+	hoveredColumns?: number[];
+	hoveredRows?: number[];
+	indexes: number[];
+	isDragMenuTarget: boolean; // this is identify which current handle component is
 	onClick?: MouseEventHandler;
-	onMouseOver?: MouseEventHandler;
 	onMouseOut?: MouseEventHandler;
+	onMouseOver?: MouseEventHandler;
+	previewHeight?: number;
+	previewWidth?: number;
+	tableLocalId: string;
 	toggleDragMenu?: (
 		trigger: TriggerType,
 		event?: React.MouseEvent<HTMLButtonElement, MouseEvent>,
 	) => void;
-	editorView: EditorView;
-	isDragMenuTarget: boolean; // this is identify which current handle component is
-	hoveredColumns?: number[];
-	hoveredRows?: number[];
 };
 
 type DragHandleWithSharedStateProps = Exclude<DragHandleProps, 'hoveredColumns' | 'hoveredRows'> & {

@@ -23,7 +23,7 @@ export type FindRootParentListNode = ($pos: ResolvedPos) => ResolvedPos | null;
 export interface ListState {
 	bulletListActive: boolean;
 	bulletListDisabled: boolean;
+	decorationSet: DecorationSet; // used to add attributes representing indentation level
 	orderedListActive: boolean;
 	orderedListDisabled: boolean;
-	decorationSet: DecorationSet; // used to add attributes representing indentation level
 }

@@ -7,8 +7,8 @@ import { getIndentationButtonsState } from '../../pm-plugins/indentation-buttons
 import type { ToolbarListsIndentationPlugin } from '../../toolbarListsIndentationPluginType';
 
 type UseIndentationStateProps = {
-	api?: ExtractInjectionAPI<ToolbarListsIndentationPlugin>;
 	allowHeadingAndParagraphIndentation: boolean;
+	api?: ExtractInjectionAPI<ToolbarListsIndentationPlugin>;
 	state?: EditorState;
 };
 

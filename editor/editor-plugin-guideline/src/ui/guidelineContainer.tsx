@@ -25,11 +25,11 @@ const guidelineContainerStyles = css({
 });
 
 type ContainerProps = {
+	editorWidth: number;
 	guidelines: GuidelineConfig[];
 	height: number;
-	width: number;
-	editorWidth: number;
 	updateRect: (rect: GuidelineContainerRect) => void;
+	width: number;
 };
 
 export const GuidelineContainer = (props: ContainerProps) => {

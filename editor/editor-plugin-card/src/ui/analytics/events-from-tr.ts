@@ -41,8 +41,8 @@ export const findChanged = (tr: Transaction | ReadonlyTransaction, state: Editor
 	 */
 	const updated: (
 		| {
-				removed: Entity;
 				inserted: Entity;
+				removed: Entity;
 		  }
 		| {
 				inserted: Entity;

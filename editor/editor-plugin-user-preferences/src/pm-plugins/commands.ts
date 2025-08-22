@@ -22,10 +22,10 @@ export const updateUserPreference =
 		userPreferencesProvider,
 		editorAnalyticsApi,
 	}: {
-		key: keyof UserPreferences;
-		value: ResolvedUserPreferences[typeof key];
-		userPreferencesProvider?: UserPreferencesProvider;
 		editorAnalyticsApi?: EditorAnalyticsAPI | undefined;
+		key: keyof UserPreferences;
+		userPreferencesProvider?: UserPreferencesProvider;
+		value: ResolvedUserPreferences[typeof key];
 	}): EditorCommand =>
 	({ tr }) => {
 		try {

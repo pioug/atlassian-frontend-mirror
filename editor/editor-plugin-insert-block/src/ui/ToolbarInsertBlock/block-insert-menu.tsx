@@ -15,29 +15,29 @@ import { DropDownButton } from './dropdown-button';
 export interface BlockInsertMenuProps {
 	disabled: boolean;
 	editorView: EditorView;
+	isFullPageAppearance?: boolean;
 	items: BlockMenuItem[];
 	label: string;
+	onClick: React.MouseEventHandler;
+	onInsert: OnInsert;
+	onItemActivated?: (attrs: { item: MenuItem }) => void; // Remove when platform_editor_remove_unused_block_insert_props is cleaned up
+	onKeyDown?: React.KeyboardEventHandler;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	onOpenChange?: (attrs: any) => void; // Remove when platform_editor_remove_unused_block_insert_props is cleaned up
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
+	onPlusButtonRef(el: HTMLElement): void;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
+	onRef(el: HTMLElement): void;
 	open: boolean;
+	pluginInjectionApi: ExtractInjectionAPI<InsertBlockPlugin> | undefined;
 	plusButtonRef?: HTMLElement;
 	popupsBoundariesElement?: HTMLElement;
 	popupsMountPoint?: HTMLElement;
 	popupsScrollableElement?: HTMLElement;
-	spacing: 'none' | 'default';
 	showElementBrowserLink: boolean;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	onRef(el: HTMLElement): void;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	onPlusButtonRef(el: HTMLElement): void;
-	onClick: React.MouseEventHandler;
-	onItemActivated?: (attrs: { item: MenuItem }) => void; // Remove when platform_editor_remove_unused_block_insert_props is cleaned up
-	onInsert: OnInsert;
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	onOpenChange?: (attrs: any) => void; // Remove when platform_editor_remove_unused_block_insert_props is cleaned up
+	spacing: 'none' | 'default';
 	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	togglePlusMenuVisibility(): void;
-	onKeyDown?: React.KeyboardEventHandler;
-	pluginInjectionApi: ExtractInjectionAPI<InsertBlockPlugin> | undefined;
-	isFullPageAppearance?: boolean;
 }
 
 export const BlockInsertMenu = (props: BlockInsertMenuProps) => {

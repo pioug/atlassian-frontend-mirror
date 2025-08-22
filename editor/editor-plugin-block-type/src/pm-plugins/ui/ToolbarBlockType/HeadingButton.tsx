@@ -26,8 +26,8 @@ import type { TextBlockTypes } from '../../block-types';
 import type { BlockTypeWithRank } from '../../types';
 
 type HeadingButtonProps = {
-	blockType: BlockTypeWithRank;
 	api?: ExtractInjectionAPI<BlockTypePlugin>;
+	blockType: BlockTypeWithRank;
 };
 
 type HeadingName =

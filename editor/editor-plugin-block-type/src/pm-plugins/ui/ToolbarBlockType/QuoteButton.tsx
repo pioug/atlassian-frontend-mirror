@@ -12,8 +12,8 @@ import type { BlockTypePlugin } from '../../../blockTypePluginType';
 import type { BlockTypeWithRank } from '../../types';
 
 type QuoteButtonProps = {
-	blockType: BlockTypeWithRank;
 	api?: ExtractInjectionAPI<BlockTypePlugin>;
+	blockType: BlockTypeWithRank;
 };
 
 export const QuoteButton = ({ blockType, api }: QuoteButtonProps) => {

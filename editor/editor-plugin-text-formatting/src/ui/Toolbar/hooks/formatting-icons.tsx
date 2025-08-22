@@ -61,16 +61,16 @@ const withInputMethod = (
 
 type BuildIconProps = {
 	isToolbarDisabled: boolean;
-	textFormattingState: TextFormattingState | undefined;
 	schema: Schema;
+	textFormattingState: TextFormattingState | undefined;
 } & WrappedComponentProps;
 
 type IconButtonType = {
 	buttonId?: TOOLBAR_ACTION_SUBJECT_ID;
-	message: MessageDescriptor;
 	command: Command;
-	tooltipKeymap?: Keymap;
 	component?: () => ReactElement;
+	message: MessageDescriptor;
+	tooltipKeymap?: Keymap;
 };
 
 const IconButtons = (
@@ -149,10 +149,10 @@ const IconBefore: Record<IconTypes, IconBefore> = {
 };
 
 type GetIconProps = {
-	iconType: IconTypes;
-	isDisabled: boolean;
-	isActive: boolean;
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
+	iconType: IconTypes;
+	isActive: boolean;
+	isDisabled: boolean;
 	toolbarType: ToolbarType;
 } & WrappedComponentProps;
 const getIcon = ({
@@ -277,8 +277,8 @@ const buildIcon = (
 
 interface FormattingIconHookProps extends IconHookProps {
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
-	textFormattingState: TextFormattingState | undefined;
 	schema: Schema;
+	textFormattingState: TextFormattingState | undefined;
 	toolbarType: ToolbarType;
 }
 
@@ -323,8 +323,8 @@ export const useFormattingIcons = ({
 };
 
 type Props = {
-	textFormattingState: TextFormattingState | undefined;
 	iconTypeList: IconTypes[];
+	textFormattingState: TextFormattingState | undefined;
 };
 export const useHasFormattingActived = ({ iconTypeList, textFormattingState }: Props) => {
 	const hasActiveFormatting = useMemo(() => {

@@ -291,8 +291,8 @@ export const splitIntoParagraphs = ({
 	blockMarks = [],
 	schema,
 }: {
-	fragment: Fragment;
 	blockMarks?: readonly Mark[];
+	fragment: Fragment;
 	schema: Schema;
 }): Fragment => {
 	const paragraphs = [];

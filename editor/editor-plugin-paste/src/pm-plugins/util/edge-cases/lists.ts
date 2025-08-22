@@ -6,11 +6,11 @@ import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state
 import { Transform } from '@atlaskit/editor-prosemirror/transform';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 
-export function insertSliceIntoEmptyNode({ tr, slice }: { tr: Transaction; slice: Slice }) {
+export function insertSliceIntoEmptyNode({ tr, slice }: { slice: Slice; tr: Transaction; }) {
 	tr.replaceSelection(slice);
 }
 
-export function insertSliceAtNodeEdge({ tr, slice }: { tr: Transaction; slice: Slice }) {
+export function insertSliceAtNodeEdge({ tr, slice }: { slice: Slice; tr: Transaction; }) {
 	const { selection } = tr;
 	const { $cursor } = selection as TextSelection;
 
@@ -34,8 +34,8 @@ export function insertSliceIntoRangeSelectionInsideList({
 	tr,
 	slice,
 }: {
-	tr: Transaction;
 	slice: Slice;
+	tr: Transaction;
 }) {
 	const {
 		selection: { $to, $from, to, from },
@@ -71,7 +71,7 @@ export function insertSliceIntoRangeSelectionInsideList({
 }
 
 export function insertSliceInsideOfPanelNodeSelected(panelNode: PMNode) {
-	return ({ tr, slice, schema }: { tr: Transaction; slice: Slice; schema?: Schema }) => {
+	return ({ tr, slice, schema }: { schema?: Schema; slice: Slice; tr: Transaction; }) => {
 		const {
 			selection,
 			selection: { $to, $from },

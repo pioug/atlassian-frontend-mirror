@@ -98,27 +98,27 @@ import { SplitCellIcon } from '../icons/SplitCellIcon';
 import { cellColourPreviewStyles } from './styles';
 
 interface Props {
-	editorView: EditorView;
-	isOpen: boolean;
-	selectionRect: Rect;
-	targetCellPosition?: number; // We keep this because we need to know when to rerender
-	mountPoint?: HTMLElement;
-	allowMergeCells?: boolean;
-	allowColumnSorting?: boolean;
 	allowBackgroundColor?: boolean;
-	boundariesElement?: HTMLElement;
-	offset?: Array<number>;
+	allowColumnSorting?: boolean;
+	allowMergeCells?: boolean;
 	api: PluginInjectionAPI | undefined | null;
+	boundariesElement?: HTMLElement;
 	editorAnalyticsAPI?: EditorAnalyticsAPI;
+	editorView: EditorView;
 	getEditorContainerWidth: GetEditorContainerWidth;
 	getEditorFeatureFlags?: GetEditorFeatureFlags;
 	isCellMenuOpenByKeyboard?: boolean;
 	isCommentEditor?: boolean;
+	isOpen: boolean;
+	mountPoint?: HTMLElement;
+	offset?: Array<number>;
+	selectionRect: Rect;
+	targetCellPosition?: number; // We keep this because we need to know when to rerender
 }
 
 interface State {
-	isSubmenuOpen: boolean;
 	isOpenAllowed: boolean;
+	isSubmenuOpen: boolean;
 }
 const arrowsList = new Set(['ArrowRight', 'ArrowLeft']);
 

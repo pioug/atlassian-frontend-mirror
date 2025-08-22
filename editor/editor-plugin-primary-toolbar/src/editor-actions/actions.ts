@@ -8,8 +8,8 @@ export const registerComponent =
 		name,
 		component,
 	}: {
-		name: ToolbarElementNames;
 		component: ToolbarUIComponentFactory;
+		name: ToolbarElementNames;
 	}): void => {
 		componentRegistry.set(name, component);
 	};

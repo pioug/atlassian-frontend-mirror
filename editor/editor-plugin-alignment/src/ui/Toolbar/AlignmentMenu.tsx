@@ -15,8 +15,8 @@ export const AlignmentMenu = ({
 	children,
 	api,
 }: {
-	children?: React.ReactNode;
 	api: ExtractInjectionAPI<AlignmentPlugin> | undefined;
+	children?: React.ReactNode;
 }) => {
 	const { align = 'start', isEnabled } = useSharedPluginStateWithSelector(
 		api,

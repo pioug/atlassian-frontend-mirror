@@ -13,10 +13,10 @@ import { useItemInsert } from '../hooks/use-item-insert';
 import { TypeAheadPopup as TypeAheadPopupModern } from './TypeAheadPopup';
 
 type TypeAheadMenuType = {
-	typeAheadState: Omit<TypeAheadPluginSharedState, 'isOpen' | 'isAllowed' | 'selectedIndex'>;
+	api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;
 	editorView: EditorView;
 	popupMountRef: PopupMountPointReference;
-	api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;
+	typeAheadState: Omit<TypeAheadPluginSharedState, 'isOpen' | 'isAllowed' | 'selectedIndex'>;
 };
 
 export const TypeAheadMenu = React.memo(
@@ -58,9 +58,9 @@ export const TypeAheadMenu = React.memo(
 				addPrefixTrigger,
 				forceFocusOnEditor,
 			}: {
-				setSelectionAt: CloseSelectionOptions;
 				addPrefixTrigger: boolean;
 				forceFocusOnEditor: boolean;
+				setSelectionAt: CloseSelectionOptions;
 			}) => {
 				const fullQuery = addPrefixTrigger ? `${triggerHandler?.trigger}${query}` : query;
 				onTextInsert({ forceFocusOnEditor, setSelectionAt, text: fullQuery });

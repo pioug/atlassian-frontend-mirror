@@ -85,10 +85,10 @@ const leftClick = (event: MouseEvent<any>): boolean => {
 };
 
 interface Props {
-	productName?: string;
 	onMount?: () => void;
 	onMouseEnter?: OnMentionEvent;
 	onSelection?: OnMentionEvent;
+	productName?: string;
 	selected?: boolean;
 	userRole?: UserRole;
 }

@@ -245,11 +245,11 @@ function createPanelAction({
 	typeAheadInsert,
 	inputMethod = INPUT_METHOD.QUICK_INSERT,
 }: {
-	state: EditorState;
-	attributes: PanelAttributes;
 	api: ExtractInjectionAPI<PanelPlugin> | undefined;
-	typeAheadInsert?: QuickInsertActionInsert;
+	attributes: PanelAttributes;
 	inputMethod?: INPUT_METHOD.INSERT_MENU | INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.TOOLBAR;
+	state: EditorState;
+	typeAheadInsert?: QuickInsertActionInsert;
 }) {
 	const { panel } = state.schema.nodes;
 	let tr;

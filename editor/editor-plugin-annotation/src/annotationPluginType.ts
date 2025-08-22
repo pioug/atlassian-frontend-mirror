@@ -42,11 +42,8 @@ export type AnnotationPluginOptions = AnnotationProviders;
 export type AnnotationPlugin = NextEditorPlugin<
 	'annotation',
 	{
-		pluginConfiguration: AnnotationPluginOptions | undefined;
-		sharedState: InlineCommentPluginState | undefined;
-		dependencies: AnnotationPluginDependencies;
 		actions: {
-			stripNonExistingAnnotations: StripNonExistingAnnotations;
+			hasAnyUnResolvedAnnotationInPage: (state: EditorState) => boolean;
 			setInlineCommentDraftState: SetInlineCommentDraftState;
 			/**
 			 * This function attempts to display the inline comment popup for a given node.
@@ -54,8 +51,11 @@ export type AnnotationPlugin = NextEditorPlugin<
 			 * otherwise, it will return false.
 			 */
 			showCommentForBlockNode: ReturnType<typeof showInlineCommentForBlockNode>;
-			hasAnyUnResolvedAnnotationInPage: (state: EditorState) => boolean;
+			stripNonExistingAnnotations: StripNonExistingAnnotations;
 		};
+		dependencies: AnnotationPluginDependencies;
+		pluginConfiguration: AnnotationPluginOptions | undefined;
+		sharedState: InlineCommentPluginState | undefined;
 	}
 >;
 

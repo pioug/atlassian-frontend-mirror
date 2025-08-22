@@ -38,20 +38,20 @@ import { type AnnotationProviders, AnnotationSelectionType, AnnotationTestIds } 
 import { getPluginState, isSelectionValid, resolveDraftBookmark } from './utils';
 
 interface BuildToolbarOptions {
-	state: EditorState;
-	intl: IntlShape;
-	isToolbarAbove?: boolean;
-	isCommentOnMediaOn?: boolean;
 	_supportedNodes?: string[];
-	api?: ExtractInjectionAPI<AnnotationPlugin>;
-	createCommentExperience?: AnnotationProviders['createCommentExperience'];
 	annotationManager?: AnnotationProviders['annotationManager'];
-	onCommentButtonMount?: () => void;
-	getCanAddComments?: () => boolean;
+	api?: ExtractInjectionAPI<AnnotationPlugin>;
 	contentType?: string;
+	createCommentExperience?: AnnotationProviders['createCommentExperience'];
+	getCanAddComments?: () => boolean;
+	intl: IntlShape;
+	isCommentOnMediaOn?: boolean;
+	isToolbarAbove?: boolean;
+	onCommentButtonMount?: () => void;
+	state: EditorState;
 }
 
-export const getValidNodes = (state: EditorState): NodeType[] => {
+const getValidNodes = (state: EditorState): NodeType[] => {
 	const { schema } = state;
 	const { annotation } = schema.marks;
 	return Object.keys(schema.nodes).reduce<NodeType[]>((acc, current) => {
@@ -64,8 +64,8 @@ export const getValidNodes = (state: EditorState): NodeType[] => {
 };
 
 type ShouldSuppressFloatingToolbarOptions = {
-	state: EditorState;
 	bookmark?: SelectionBookmark;
+	state: EditorState;
 };
 
 /**
@@ -117,10 +117,10 @@ export const buildToolbar: (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) 
 	contentType,
 }: BuildToolbarOptions) =>
 	| {
-			title: string;
-			nodeType: NodeType[];
 			items: FloatingToolbarButton<Command>[];
+			nodeType: NodeType[];
 			onPositionCalculated: (editorView: EditorView, nextPos: PopupPosition) => PopupPosition;
+			title: string;
 	  }
 	| undefined =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>

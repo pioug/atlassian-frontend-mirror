@@ -12,8 +12,8 @@ import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 
 export function getSelectionType(selection: Selection): {
-	type: SELECTION_TYPE;
 	position?: SELECTION_POSITION;
+	type: SELECTION_TYPE;
 } {
 	let type: SELECTION_TYPE;
 	let position: SELECTION_POSITION | undefined;

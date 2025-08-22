@@ -92,10 +92,10 @@ export function ProfileCardComponent({
 	dom,
 	closeComponent,
 }: {
-	profilecardProvider?: Promise<ProfilecardProvider> | undefined;
 	activeMention: PMNode;
-	dom: HTMLElement;
 	closeComponent: () => void;
+	dom: HTMLElement;
+	profilecardProvider?: Promise<ProfilecardProvider> | undefined;
 }) {
 	const [provider, setProvider] = useState<ProfilecardProvider | undefined>(undefined);
 	useEffect(() => {

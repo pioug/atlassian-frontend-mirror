@@ -16,8 +16,8 @@ import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { ActiveGuidelineKey } from './pm-plugins/resizing-plugin';
 
 export interface BreakoutPluginState {
-	breakoutNode: ContentNodeWithPos | undefined;
 	activeGuidelineKey: ActiveGuidelineKey | undefined;
+	breakoutNode: ContentNodeWithPos | undefined;
 }
 
 export interface BreakoutPluginOptions {
@@ -39,8 +39,8 @@ export type BreakoutPluginDependencies = [
 export type BreakoutPlugin = NextEditorPlugin<
 	'breakout',
 	{
-		pluginConfiguration: BreakoutPluginOptions | undefined;
 		dependencies: BreakoutPluginDependencies;
+		pluginConfiguration: BreakoutPluginOptions | undefined;
 		sharedState: Partial<BreakoutPluginState>;
 	}
 >;

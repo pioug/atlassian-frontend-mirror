@@ -44,15 +44,15 @@ const toolbarButtonWrapperFullWidth = css(toolbarButtonWrapper, {
 
 const AvatarGroupPluginWrapper = (props: {
 	collabEdit?: CollabEditOptions;
+	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
+	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
+	editorAPI: ExtractInjectionAPI<AvatarGroupPlugin> | undefined;
 	editorView: EditorView;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	eventDispatcher: EventDispatcher<any>;
-	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
-	takeFullWidth: boolean;
 	featureFlags: FeatureFlags;
-	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
-	editorAPI: ExtractInjectionAPI<AvatarGroupPlugin> | undefined;
+	takeFullWidth: boolean;
 }) => {
 	const { dispatchAnalyticsEvent, featureFlags } = props;
 	const intl = useIntl();

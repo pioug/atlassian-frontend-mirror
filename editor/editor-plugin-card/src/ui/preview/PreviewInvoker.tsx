@@ -4,9 +4,9 @@ import React, { useCallback, useMemo } from 'react';
 import { useSmartLinkActions } from '@atlaskit/smart-card/hooks';
 
 type PreviewInvokerProps = {
-	url: string;
 	appearance: 'inline' | 'block' | 'embed';
 	children: (api: { canPreview: boolean; invokePreview?: () => void }) => ReactNode;
+	url: string;
 };
 
 export const PreviewInvoker = ({ url, appearance, children }: PreviewInvokerProps) => {

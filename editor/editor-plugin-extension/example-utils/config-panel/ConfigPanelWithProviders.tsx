@@ -19,12 +19,12 @@ export default function ConfigPanelWithProviders({
 	parameters,
 	onChange,
 }: {
-	extensionType: ExtensionType;
 	extensionKey: ExtensionKey;
-	nodeKey: string;
 	extensionProvider: ExtensionProvider;
-	parameters: Parameters;
+	extensionType: ExtensionType;
+	nodeKey: string;
 	onChange?: (parameters: Parameters) => void;
+	parameters: Parameters;
 }) {
 	function _onChange(data: Parameters) {
 		if (onChange) {

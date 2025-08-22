@@ -25,10 +25,10 @@ const calculateDecorations = ({
 	editorView,
 	nodeViews,
 }: {
-	state: EditorState;
-	pluginState: Omit<ShowDiffPluginState, 'decorations'>;
 	editorView: EditorView | undefined;
 	nodeViews: Record<string, NodeViewConstructor>;
+	pluginState: Omit<ShowDiffPluginState, 'decorations'>;
+	state: EditorState;
 }): DecorationSet => {
 	const { originalDoc, steps } = pluginState;
 	if (!originalDoc || !pluginState.isDisplayingChanges) {
@@ -71,10 +71,10 @@ const calculateDecorations = ({
 export const showDiffPluginKey = new PluginKey<ShowDiffPluginState>('showDiffPlugin');
 
 type ShowDiffPluginState = {
-	steps: ProseMirrorStep[];
-	originalDoc: PMNode | undefined;
 	decorations: DecorationSet;
 	isDisplayingChanges: boolean;
+	originalDoc: PMNode | undefined;
+	steps: ProseMirrorStep[];
 };
 
 type EditorStateConfig = Parameters<typeof EditorState.create>[0];

@@ -57,8 +57,8 @@ const expandContentContainerVisibleStyles = css({
 });
 
 type Props = {
-	field: FieldDefinition;
 	children: React.ReactNode;
+	field: FieldDefinition;
 	isExpanded?: boolean;
 } & WrappedComponentProps;
 

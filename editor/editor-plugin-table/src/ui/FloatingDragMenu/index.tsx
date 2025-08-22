@@ -19,28 +19,28 @@ import { dragMenuDropdownWidth, tablePopupMenuFitHeight } from '../consts';
 import DragMenu from './DragMenu';
 
 interface Props {
-	editorView: EditorView;
-	isOpen: boolean;
-	tableRef?: HTMLTableElement;
-	tableNode?: PmNode;
-	mountPoint?: HTMLElement;
-	boundariesElement?: HTMLElement;
-	scrollableElement?: HTMLElement;
-	direction?: TableDirection;
-	index?: number;
-	targetCellPosition?: number;
-	getEditorContainerWidth: GetEditorContainerWidth;
 	api: PluginInjectionAPI | undefined | null;
-	editorAnalyticsAPI?: EditorAnalyticsAPI;
-	stickyHeaders?: RowStickyState;
-	pluginConfig?: PluginConfig;
-	isTableScalingEnabled?: boolean;
-	getEditorFeatureFlags?: GetEditorFeatureFlags;
 	ariaNotifyPlugin?: (
 		message: string,
 		ariaLiveElementAttributes?: AriaLiveElementAttributes,
 	) => void;
+	boundariesElement?: HTMLElement;
+	direction?: TableDirection;
+	editorAnalyticsAPI?: EditorAnalyticsAPI;
+	editorView: EditorView;
+	getEditorContainerWidth: GetEditorContainerWidth;
+	getEditorFeatureFlags?: GetEditorFeatureFlags;
+	index?: number;
 	isCommentEditor?: boolean;
+	isOpen: boolean;
+	isTableScalingEnabled?: boolean;
+	mountPoint?: HTMLElement;
+	pluginConfig?: PluginConfig;
+	scrollableElement?: HTMLElement;
+	stickyHeaders?: RowStickyState;
+	tableNode?: PmNode;
+	tableRef?: HTMLTableElement;
+	targetCellPosition?: number;
 }
 
 const FloatingDragMenu = ({

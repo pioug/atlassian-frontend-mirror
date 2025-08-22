@@ -65,10 +65,10 @@ function SafeSmartUserPicker({
 	onBlur,
 	onChange,
 }: {
+	autoFocus: boolean;
 	context: UserFieldContext;
 	field: UserField;
 	formFieldProps: FieldProps<FieldValue>;
-	autoFocus: boolean;
 	onBlur: () => void;
 	onChange: (_: FieldValue) => void;
 }) {
@@ -153,11 +153,11 @@ export default function UserSelect({
 	field,
 	onFieldChange,
 }: {
-	name: string;
-	field: UserField;
-	extensionManifest: ExtensionManifest;
-	onFieldChange: OnFieldChange;
 	autoFocus?: boolean;
+	extensionManifest: ExtensionManifest;
+	field: UserField;
+	name: string;
+	onFieldChange: OnFieldChange;
 }) {
 	const [context, setContext] = useState({} as Partial<UserFieldContext>);
 	const { siteId, principalId, fieldId, productKey } = context;

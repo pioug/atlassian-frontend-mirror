@@ -24,9 +24,9 @@ export const SingleToolbarButtons = React.memo(
 		isReducedSpacing,
 		editorView,
 	}: {
-		items: MenuIconItem[];
-		isReducedSpacing: boolean;
 		editorView: EditorView;
+		isReducedSpacing: boolean;
+		items: MenuIconItem[];
 	}) => {
 		const onClick = useCallback(
 			(command: Command) => {

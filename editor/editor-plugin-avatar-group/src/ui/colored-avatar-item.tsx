@@ -14,10 +14,10 @@ import type { AvatarGroupPlugin } from '../avatarGroupPluginType';
 import { badge } from './styles';
 
 interface ColoredAvatarItemProps {
-	sessionId: string;
-	presenceId?: string;
-	name: string;
 	api: ExtractInjectionAPI<AvatarGroupPlugin> | undefined;
+	name: string;
+	presenceId?: string;
+	sessionId: string;
 }
 
 export const ColoredAvatarItem = (props: ColoredAvatarItemProps) => {

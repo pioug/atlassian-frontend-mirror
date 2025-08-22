@@ -2,7 +2,7 @@ import { insertContentDeleteRange } from '@atlaskit/editor-common/utils';
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
-type DeleteAction = (props: { tr: Transaction; $next: ResolvedPos; $head: ResolvedPos }) => boolean;
+type DeleteAction = (props: { $head: ResolvedPos; $next: ResolvedPos; tr: Transaction; }) => boolean;
 
 //Case for two adjacent list items of the same indentation
 export const joinSiblingListItems: DeleteAction = ({ tr, $next, $head }) => {

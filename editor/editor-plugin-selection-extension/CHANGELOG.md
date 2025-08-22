@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 3.5.3
+
+### Patch Changes
+
+- [`265c1bf0cefa4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/265c1bf0cefa4) -
+  Sorted type and interface props to improve Atlaskit docs
+- Updated dependencies
+
 ## 3.5.2
 
 ### Patch Changes

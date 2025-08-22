@@ -28,8 +28,8 @@ export function useResizeWidthObserver({
 	editorView,
 	containerElement,
 }: {
-	editorView: EditorView;
 	containerElement: HTMLElement | null;
+	editorView: EditorView;
 }) {
 	useRefreshWidthOnTransition(containerElement);
 
@@ -69,8 +69,8 @@ export const useResizeWidthObserverLegacy = ({
 	editorView,
 	containerElement,
 }: {
-	editorView: EditorView;
 	containerElement: HTMLElement | null;
+	editorView: EditorView;
 }) => {
 	useRefreshWidthOnTransition(containerElement);
 

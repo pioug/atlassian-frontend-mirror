@@ -5,12 +5,12 @@ import { TableCssClassName as ClassName } from '../../../types';
 import { ColumnDropTarget } from './ColumnDropTarget';
 
 interface Props {
-	tableRef: HTMLTableElement;
-	tableHeight?: number;
-	localId?: string;
 	colWidths?: (number | undefined)[];
-	isHeaderSticky?: boolean;
 	getScrollOffset?: () => number;
+	isHeaderSticky?: boolean;
+	localId?: string;
+	tableHeight?: number;
+	tableRef: HTMLTableElement;
 }
 
 export const ColumnDropTargets = ({

@@ -36,21 +36,21 @@ const Modal = ({
 	getSuggestions,
 	api,
 }: {
-	editorView: EditorView;
-	quickInsertState: {
-		lazyDefaultItems?: QuickInsertSharedState['lazyDefaultItems'];
-		providedItems?: QuickInsertSharedState['providedItems'];
-		isElementBrowserModalOpen?: QuickInsertSharedState['isElementBrowserModalOpen'];
-		emptyStateHandler?: QuickInsertSharedState['emptyStateHandler'];
-	};
-	isOffline: boolean;
 	api: ExtractInjectionAPI<QuickInsertPlugin> | undefined;
+	editorView: EditorView;
+	getSuggestions?: (searchOptions: QuickInsertSearchOptions) => QuickInsertItem[];
 	helpUrl?: string;
 	insertItem?: (
 		item: QuickInsertItem,
 		source?: INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.TOOLBAR,
 	) => Command;
-	getSuggestions?: (searchOptions: QuickInsertSearchOptions) => QuickInsertItem[];
+	isOffline: boolean;
+	quickInsertState: {
+		emptyStateHandler?: QuickInsertSharedState['emptyStateHandler'];
+		isElementBrowserModalOpen?: QuickInsertSharedState['isElementBrowserModalOpen'];
+		lazyDefaultItems?: QuickInsertSharedState['lazyDefaultItems'];
+		providedItems?: QuickInsertSharedState['providedItems'];
+	};
 }) => {
 	const getItems = useCallback(
 		(query?: string, category?: string) =>

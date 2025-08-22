@@ -23,14 +23,14 @@ import { getAlignmentStyle } from './table-container-styles';
 
 type Config = {
 	allowColumnResizing: boolean;
-	tableResizingEnabled: boolean;
 	getEditorContainerWidth: GetEditorContainerWidth;
+	isChromelessEditor?: boolean;
+	isCommentEditor?: boolean;
+	isNested?: boolean;
 	isNestingSupported?: boolean;
 	isTableScalingEnabled?: boolean;
 	shouldUseIncreasedScalingPercent?: boolean;
-	isCommentEditor?: boolean;
-	isChromelessEditor?: boolean;
-	isNested?: boolean;
+	tableResizingEnabled: boolean;
 };
 export const tableNodeSpecWithFixedToDOM = (
 	config: Config,

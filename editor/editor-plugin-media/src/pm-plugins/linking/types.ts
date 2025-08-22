@@ -1,13 +1,13 @@
 export type InitialState = {
-	visible: false;
 	editable: false;
 	link: '';
 	mediaPos: null;
+	visible: false;
 };
 
 export type MediaLinkingState = {
-	mediaPos: number | null;
-	link: string;
 	editable: boolean;
+	link: string;
+	mediaPos: number | null;
 	visible: boolean;
 };

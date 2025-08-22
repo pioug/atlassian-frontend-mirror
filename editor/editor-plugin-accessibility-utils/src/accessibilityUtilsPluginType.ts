@@ -5,15 +5,14 @@ export interface AriaLiveElementAttributes {
 }
 
 export interface AccessibilityUtilsPluginState {
-	message: string;
 	ariaLiveElementAttributes?: AriaLiveElementAttributes;
 	key?: string;
+	message: string;
 }
 
 export type AccessibilityUtilsPlugin = NextEditorPlugin<
 	'accessibilityUtils',
 	{
-		dependencies: [];
 		actions: {
 			/**
 			 *
@@ -28,6 +27,7 @@ export type AccessibilityUtilsPlugin = NextEditorPlugin<
 			// https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/Accessibility/AriaNotify/explainer.md
 			ariaNotify: (message: string, ariaLiveElementAttributes?: AriaLiveElementAttributes) => void;
 		};
+		dependencies: [];
 		sharedState: AccessibilityUtilsPluginState;
 	}
 >;

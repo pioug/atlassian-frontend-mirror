@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.4.2
+
+### Patch Changes
+
+- [`896ce28eae730`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/896ce28eae730) -
+  experiment on removing abort by new interactions in confluence
+
 ## 4.4.1
 
 ### Patch Changes

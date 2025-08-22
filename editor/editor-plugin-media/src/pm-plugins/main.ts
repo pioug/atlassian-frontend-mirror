@@ -158,7 +158,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 	private openMediaPickerBrowser?: () => void;
 	private onPopupToggleCallback: (isOpen: boolean) => void = () => {};
 
-	private identifierCount = new Map<string, { identifier: Identifier; count: number }>();
+	private identifierCount = new Map<string, { count: number; identifier: Identifier; }>();
 
 	// This is to enable mediaShallowCopySope to enable only shallow copying media referenced within the edtior
 	// see: trackOutOfScopeIdentifier

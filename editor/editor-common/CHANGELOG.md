@@ -1,5 +1,24 @@
 # @atlaskit/editor-common
 
+## 107.28.2
+
+### Patch Changes
+
+- [`b27824f2875be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b27824f2875be) -
+  [ux] [ED-28821] Add pin button to full page primary toolbar
+- [`f388620c0ef23`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f388620c0ef23) -
+  [ux] ED-29039 ensure focus is returned to editor after clicking on dropdown menu item
+- [`9155252ad4c00`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9155252ad4c00) -
+  [ux] copy link to the selected node in block menu
+- Updated dependencies
+
+## 107.28.1
+
+### Patch Changes
+
+- [`562520e7d0e73`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/562520e7d0e73) -
+  [ux] [EDITOR-1329] fix shifting selection toolbar on rovo menu button click
+
 ## 107.28.0
 
 ### Minor Changes

@@ -59,43 +59,43 @@ const CompositeIcon = ({ icon }: { icon: React.ReactChild }) => (
 );
 
 export interface Props {
-	title: string;
+	// A prop to align the dropdown with the floating toolbar instead of the toolbar item
+	alignDropdownWithToolbar?: boolean;
+	alignX?: 'left' | 'right' | 'center';
+	boundariesElement?: HTMLElement;
+	buttonTestId?: string;
+	disabled?: boolean;
+	dispatchCommand: (command: Function) => void;
+	dropdownListId?: string;
+	// Increased dropdown item width to prevent labels from being truncated
+	dropdownWidth?: number;
+	editorView?: EditorView;
+	footer?: React.ReactNode;
+	hideExpandIcon?: boolean;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	icon?: ReactElement<any>;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	iconBefore?: ReactElement<any>;
-	hideExpandIcon?: boolean;
+	mountPoint?: HTMLElement;
+	onClick?: () => void;
+	onMount?: () => void;
+	onToggle?: (state: EditorState, dispatch: CommandDispatch | undefined) => boolean;
 	options:
 		| DropdownOptions<Function>
 		| FloatingToolbarOverflowDropdownOptions<Function>
 		| ExtensionDropdownOptions;
-	dispatchCommand: (command: Function) => void;
-	mountPoint?: HTMLElement;
-	boundariesElement?: HTMLElement;
-	scrollableElement?: HTMLElement;
-	disabled?: boolean;
-	tooltip?: string;
-	buttonTestId?: string;
-	// Increased dropdown item width to prevent labels from being truncated
-	dropdownWidth?: number;
-	// Show a check next to selected dropdown menu items (true by default)
-	showSelected?: boolean;
-	setDisableParentScroll?: (disable: boolean) => void;
-	editorView?: EditorView;
-	dropdownListId?: string;
-	// A prop to align the dropdown with the floating toolbar instead of the toolbar item
-	alignDropdownWithToolbar?: boolean;
-	onToggle?: (state: EditorState, dispatch: CommandDispatch | undefined) => boolean;
-	onMount?: () => void;
-	onClick?: () => void;
-	footer?: React.ReactNode;
 	/** If true, the component will have pulse onboarding effect around it. */
 	pulse?: boolean;
-	spotlightConfig?: FloatingToolbarButtonSpotlightConfig;
+	scrollableElement?: HTMLElement;
+	setDisableParentScroll?: (disable: boolean) => void;
 	shouldFitContainer?: boolean;
-	alignX?: 'left' | 'right' | 'center';
+	// Show a check next to selected dropdown menu items (true by default)
+	showSelected?: boolean;
+	spotlightConfig?: FloatingToolbarButtonSpotlightConfig;
+	title: string;
+	tooltip?: string;
 }
 
 export interface State {

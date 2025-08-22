@@ -11,9 +11,9 @@ export type CustomAutoformatPluginOptions = {
 };
 
 export type AutoformatCandidate = {
-	start: number;
 	end: number;
 	match: string[];
+	start: number;
 };
 
 export type AutoformatMatch = {
@@ -26,17 +26,17 @@ export type CustomAutoformatPluginSharedState = {
 };
 
 export type CustomAutoformatState = CustomAutoformatPluginSharedState & {
-	resolving: Array<AutoformatCandidate>;
 	matches: Array<AutoformatMatch>;
+	resolving: Array<AutoformatCandidate>;
 };
 
 // actions
 
 export type CustomAutoformatMatched = {
 	action: 'matched';
-	start: number;
 	end: number;
 	match: string[];
+	start: number;
 };
 
 export type CustomAutoformatResolved = {

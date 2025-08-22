@@ -116,6 +116,11 @@ export interface BaseCardProps {
 	 * Competitor Prompt Component for Competitor link experiment
 	 */
 	CompetitorPrompt?: React.ComponentType<{ sourceUrl: string; linkType?: string }>;
+	/**
+	 * When Preview panel is supported, onClick is ignored and the panel opens by default.
+	 * This prop allows smartlinks inside of editor to bypass that as they have other ways to open Preview panel.
+	 */
+	disablePreviewPanel?: boolean;
 }
 
 export interface InlineProps extends HoverPreviewProps {

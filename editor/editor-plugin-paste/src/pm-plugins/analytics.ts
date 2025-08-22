@@ -45,19 +45,16 @@ import {
 } from './util/handlers';
 
 type PasteContext = {
-	type: PasteType;
 	asPlain?: boolean;
 	/** Has the hyperlink been pasted while text is selected, making the text into a link? */
 	hyperlinkPasteOnText?: boolean;
 	/** Did this paste action split a list in half? */
 	pasteSplitList?: boolean;
+	type: PasteType;
 };
 
 type PastePayloadAttributes = {
-	pasteSize: number;
-	type: PasteType;
 	content: PasteContent;
-	source: PasteSource;
 	/** Has the hyperlink been pasted while text is selected, making the text into a link? */
 	hyperlinkPasteOnText: boolean;
 	/** How many links are in our pasted content? */
@@ -75,8 +72,11 @@ type PastePayloadAttributes = {
 	 */
 	mentionIds: string[];
 	mentionLocalIds: string[];
+	pasteSize: number;
 	/** Did this paste action split a list in half? */
 	pasteSplitList?: boolean;
+	source: PasteSource;
+	type: PasteType;
 };
 
 const contentToPasteContent: { [name: string]: PasteContent } = {
@@ -181,8 +181,8 @@ export function getMediaTraceId(slice: Slice) {
 }
 
 type GetActionSubjectIdProps = {
-	selection: Selection;
 	schema: Schema;
+	selection: Selection;
 };
 function getActionSubjectId({
 	selection,
@@ -301,11 +301,11 @@ function createPasteAnalyticsPayloadBySelection(
 
 		if (pluginInjectionApi?.mention?.actions?.announceMentionsInsertion) {
 			const mentionsInserted: {
-				type: 'added';
 				id: string;
 				localId: string;
-				taskLocalId?: string;
 				method?: 'pasted' | 'typed';
+				taskLocalId?: string;
+				type: 'added';
 			}[] = [];
 			slice.content.descendants((node) => {
 				if (node.type.name === 'mention') {
@@ -591,10 +591,10 @@ export const createPasteMeasurePayload = ({
 	content,
 	distortedDuration,
 }: {
-	view: EditorView;
-	duration: number;
 	content: Array<string>;
 	distortedDuration: boolean;
+	duration: number;
+	view: EditorView;
 }): AnalyticsEventPayload => {
 	const pasteIntoNode = getActionSubjectId({
 		selection: view.state.selection,

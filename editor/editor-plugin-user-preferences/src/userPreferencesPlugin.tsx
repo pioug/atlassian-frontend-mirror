@@ -34,6 +34,12 @@ export const userPreferencesPlugin: UserPreferencesPlugin = ({ config, api }) =>
 					editorAnalyticsApi: api?.analytics?.actions,
 				});
 			},
+			getUserPreferences: () => {
+				if (!userPreferencesProvider) {
+					return undefined;
+				}
+				return userPreferencesProvider.getPreferences();
+			},
 		},
 		getSharedState(editorState) {
 			if (!editorState) {

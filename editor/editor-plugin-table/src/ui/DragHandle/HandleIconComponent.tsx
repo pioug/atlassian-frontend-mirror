@@ -6,8 +6,8 @@ import { MinimisedHandleIcon } from '../icons/MinimisedHandle';
 
 type HandleIconProps = {
 	forceDefaultHandle: boolean;
-	isHandleHovered: boolean;
 	hasMergedCells: boolean;
+	isHandleHovered: boolean;
 };
 
 export const HandleIconComponent = (props: HandleIconProps) => {

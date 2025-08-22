@@ -11,10 +11,10 @@ const batchIncrement = 100;
 const posIncrement = 2000;
 
 type DecorationPositions = {
-	viewportStartPos: number;
-	viewportEndPos: number;
-	startPos: number;
 	endPos: number;
+	startPos: number;
+	viewportEndPos: number;
+	viewportStartPos: number;
 };
 
 /**

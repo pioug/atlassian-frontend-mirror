@@ -35,12 +35,12 @@ const initNewCollab = (
 const initCollabMemo = memoizeOne(initCollab);
 
 type Props = {
-	view: EditorView;
-	options: PrivateCollabEditOptions;
-	providerFactory: ProviderFactory;
-	featureFlags: FeatureFlags;
 	editorAnalyticsApi: EditorAnalyticsAPI | undefined;
+	featureFlags: FeatureFlags;
+	options: PrivateCollabEditOptions;
 	pluginInjectionApi?: ExtractInjectionAPI<CollabEditPlugin> | undefined;
+	providerFactory: ProviderFactory;
+	view: EditorView;
 };
 
 export const initialize =

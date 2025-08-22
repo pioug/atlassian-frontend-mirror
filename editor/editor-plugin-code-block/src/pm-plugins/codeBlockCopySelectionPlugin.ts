@@ -12,8 +12,8 @@ import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 export const copySelectionPluginKey = new PluginKey('codeBlockCopySelectionPlugin');
 
 type CodeBlockCopySelectionPluginState = {
-	decorationStartAndEnd?: [start: number, end: number];
 	codeBlockNode?: PMNode;
+	decorationStartAndEnd?: [start: number, end: number];
 };
 
 function getSelectionDecorationStartAndEnd({

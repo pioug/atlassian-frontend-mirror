@@ -26,8 +26,8 @@ const TYPEWRITER_CYCLE_DELAY = 500; // Delay before starting next cycle
 export const pluginKey = new PluginKey('placeholderPlugin');
 interface PlaceHolderState {
 	hasPlaceholder: boolean;
-	placeholderText?: string;
 	placeholderPrompts?: string[];
+	placeholderText?: string;
 	pos?: number;
 }
 
@@ -175,13 +175,13 @@ const emptyPlaceholder = (
 });
 
 type CreatePlaceholderStateProps = {
-	isEditorFocused: boolean;
-	editorState: EditorState;
-	isTypeAheadOpen: ((editorState: EditorState) => boolean) | undefined;
-	defaultPlaceholderText: string | undefined;
-	intl: IntlShape;
 	bracketPlaceholderText?: string;
+	defaultPlaceholderText: string | undefined;
+	editorState: EditorState;
 	emptyLinePlaceholder?: string;
+	intl: IntlShape;
+	isEditorFocused: boolean;
+	isTypeAheadOpen: ((editorState: EditorState) => boolean) | undefined;
 	placeholderPrompts?: string[];
 };
 

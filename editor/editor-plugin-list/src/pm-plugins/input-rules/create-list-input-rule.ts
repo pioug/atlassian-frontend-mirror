@@ -14,9 +14,9 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { createWrappingJoinRule } from './wrapping-join-rule';
 
 type Props = {
-	listType: NodeType;
-	expression: RegExp;
 	editorAnalyticsApi: EditorAnalyticsAPI | undefined;
+	expression: RegExp;
+	listType: NodeType;
 };
 
 const getOrder = (matchResult: RegExpExecArray) => Number(matchResult[1]);

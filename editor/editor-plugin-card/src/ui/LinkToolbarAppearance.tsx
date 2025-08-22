@@ -29,16 +29,16 @@ import { shouldRenderToolbarPulse } from './toolbar';
 import { WithCardContext } from './WithCardContext';
 
 export interface LinkToolbarAppearanceProps {
-	intl: IntlShape;
-	editorAnalyticsApi: EditorAnalyticsAPI | undefined;
+	allowBlockCards?: boolean;
+	allowEmbeds?: boolean;
 	currentAppearance?: CardAppearance;
+	editorAnalyticsApi: EditorAnalyticsAPI | undefined;
 	editorState: EditorState;
 	editorView?: EditorView;
-	url?: string;
-	allowEmbeds?: boolean;
-	allowBlockCards?: boolean;
-	showUpgradeDiscoverability?: boolean;
+	intl: IntlShape;
 	isDatasourceView?: boolean;
+	showUpgradeDiscoverability?: boolean;
+	url?: string;
 }
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class LinkToolbarAppearance extends React.Component<LinkToolbarAppearanceProps, Object> {

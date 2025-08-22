@@ -95,11 +95,11 @@ export const handleUpdate = ({
 	extensionHandlers,
 	applyChange,
 }: {
-	view: EditorView;
-	prevState: EditorState;
+	applyChange: ApplyChangeHandler | undefined;
 	domAtPos: EditorView['domAtPos'];
 	extensionHandlers: ExtensionHandlers;
-	applyChange: ApplyChangeHandler | undefined;
+	prevState: EditorState;
+	view: EditorView;
 }) => {
 	const { state, dispatch } = view;
 	const { element, localId, extensionProvider, showContextPanel, showEditButton } =

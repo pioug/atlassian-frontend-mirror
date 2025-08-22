@@ -17,10 +17,10 @@ import type { ToolbarListsIndentationPlugin } from '../../toolbarListsIndentatio
 import { useIndentationState } from '../utils/hooks';
 
 type IndentMenuItemType = {
-	api?: ExtractInjectionAPI<ToolbarListsIndentationPlugin>;
 	allowHeadingAndParagraphIndentation: boolean;
-	showIndentationButtons: boolean;
+	api?: ExtractInjectionAPI<ToolbarListsIndentationPlugin>;
 	parents: ToolbarComponentTypes;
+	showIndentationButtons: boolean;
 };
 
 export const IndentMenuItem = ({

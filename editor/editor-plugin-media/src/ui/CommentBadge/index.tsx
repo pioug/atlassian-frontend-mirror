@@ -23,13 +23,13 @@ import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import type { getPosHandler } from '../../types';
 
 type CommentBadgeProps = {
-	intl: IntlShape;
 	api: ExtractInjectionAPI<MediaNextEditorPluginType>;
+	badgeOffsetRight?: string;
+	getPos: getPosHandler;
+	intl: IntlShape;
+	isDrafting: boolean;
 	mediaNode: PMNode | null;
 	view: EditorView;
-	getPos: getPosHandler;
-	isDrafting: boolean;
-	badgeOffsetRight?: string;
 };
 
 const selector = (
@@ -152,13 +152,13 @@ export const CommentBadge = injectIntl(CommentBadgeWrapper);
  */
 
 type CommentBadgeNextWrapperProps = {
-	mediaSingleElement?: HTMLElement | null;
-	marks?: AnnotationMarkDefinition[];
-	isDrafting?: boolean;
 	api: ExtractInjectionAPI<MediaNextEditorPluginType>;
-	mediaNode: PMNode | null;
-	view: EditorView;
 	getPos: getPosHandler;
+	isDrafting?: boolean;
+	marks?: AnnotationMarkDefinition[];
+	mediaNode: PMNode | null;
+	mediaSingleElement?: HTMLElement | null;
+	view: EditorView;
 };
 
 export const CommentBadgeNextWrapper = ({

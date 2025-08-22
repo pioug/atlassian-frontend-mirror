@@ -20,11 +20,11 @@ const GUTTER_SIZE = '24px';
 const HALF_GUTTER_SIZE = '12px';
 
 type MediaWidthCSSCalcProps = {
+	baseWidth: number | undefined;
+	isExtendedResizeExperience: boolean;
+	isPixelWidth: boolean;
 	layout: MediaSingleLayout;
 	mediaSingleDimensionWidth: number | undefined;
-	baseWidth: number | undefined;
-	isPixelWidth: boolean;
-	isExtendedResizeExperience: boolean;
 };
 
 export const mediaWidthCSSCalc = ({
@@ -86,10 +86,10 @@ export const mediaWidthCSSCalc = ({
 };
 
 type MediaContentWrapperWidthCSSCalcProps = {
-	isMediaWrapped: boolean;
-	isExternalMedia: boolean;
-	isPixelWidth: boolean;
 	childMediaWidth: number | undefined;
+	isExternalMedia: boolean;
+	isMediaWrapped: boolean;
+	isPixelWidth: boolean;
 	mediaSingleDimensionWidth: number | undefined;
 };
 export const mediaContentWrapperWidthCSSCalc = ({
@@ -121,9 +121,9 @@ export const mediaContentWrapperWidthCSSCalc = ({
 };
 
 type MediaProportionalWidthCSSCalcProps = {
-	isPixelWidth: boolean;
 	isExtendedResizeExperience: boolean;
 	isMediaWrapped: boolean;
+	isPixelWidth: boolean;
 	mediaSingleDimensionWidth: number | undefined;
 };
 export const mediaProportionalWidthCSSCalc = ({
@@ -162,13 +162,13 @@ export const mediaJustifyContentCSS = ({ layout }: MediaJustifyContentCSSProps):
 };
 
 type PrepareWrapperContentDOMProps = {
-	layout: MediaSingleLayout;
-	dataAttrs: Record<string, unknown>;
-	childMediaWidth: number;
 	childMediaHeight: number;
-	mediaSingleDimensionWidth: number;
-	isPixelWidth: boolean;
+	childMediaWidth: number;
+	dataAttrs: Record<string, unknown>;
 	isExtendedResizeExperience: boolean;
+	isPixelWidth: boolean;
+	layout: MediaSingleLayout;
+	mediaSingleDimensionWidth: number;
 };
 export const prepareWrapperContentDOM = ({
 	layout,

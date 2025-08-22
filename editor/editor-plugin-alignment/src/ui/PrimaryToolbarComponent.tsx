@@ -17,12 +17,12 @@ import ToolbarAlignment from './ToolbarAlignment';
 
 interface PrimaryToolbarComponentProps {
 	api: ExtractInjectionAPI<AlignmentPlugin> | undefined;
-	editorView: EditorView;
 	disabled: boolean;
-	popupsMountPoint?: HTMLElement;
-	popupsBoundariesElement?: HTMLElement;
-	popupsScrollableElement?: HTMLElement;
+	editorView: EditorView;
 	isToolbarReducedSpacing: boolean;
+	popupsBoundariesElement?: HTMLElement;
+	popupsMountPoint?: HTMLElement;
+	popupsScrollableElement?: HTMLElement;
 }
 
 const usePrimaryToolbarComponentPluginState = sharedPluginStateHookMigratorFactory(

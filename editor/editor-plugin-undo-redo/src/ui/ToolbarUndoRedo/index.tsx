@@ -41,12 +41,12 @@ import { forceFocus } from '../../pm-plugins/utils';
 import type { UndoRedoPlugin } from '../../undoRedoPluginType';
 
 export interface Props {
-	undoDisabled?: boolean;
-	redoDisabled?: boolean;
-	disabled?: boolean;
-	isReducedSpacing?: boolean;
-	editorView: EditorView;
 	api: ExtractInjectionAPI<UndoRedoPlugin> | undefined;
+	disabled?: boolean;
+	editorView: EditorView;
+	isReducedSpacing?: boolean;
+	redoDisabled?: boolean;
+	undoDisabled?: boolean;
 }
 
 const useSharedState = sharedPluginStateHookMigratorFactory(

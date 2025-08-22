@@ -47,13 +47,13 @@ import { PaletteDropdown } from './shared/PaletteDropdown';
 import { useDropdownEvents } from './shared/useDropdownEvents';
 
 type PrimaryToolbarHighlightColorProps = {
-	popupsMountPoint?: HTMLElement;
-	popupsBoundariesElement?: HTMLElement;
-	popupsScrollableElement?: HTMLElement;
 	disabled: boolean;
+	editorView: EditorView;
 	isToolbarReducedSpacing: boolean;
 	pluginInjectionApi: ExtractInjectionAPI<HighlightPlugin> | undefined;
-	editorView: EditorView;
+	popupsBoundariesElement?: HTMLElement;
+	popupsMountPoint?: HTMLElement;
+	popupsScrollableElement?: HTMLElement;
 } & WrappedComponentProps;
 
 const selector = (

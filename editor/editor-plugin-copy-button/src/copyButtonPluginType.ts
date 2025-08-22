@@ -12,14 +12,14 @@ const processCopyButtonItemsWithAnalytics = processCopyButtonItems(editorAnalyti
 export type CopyButtonPlugin = NextEditorPlugin<
 	'copyButton',
 	{
-		dependencies: [OptionalPlugin<AnalyticsPlugin>, OptionalPlugin<AccessibilityUtilsPlugin>];
 		actions: {
 			processCopyButtonItems: typeof processCopyButtonItemsWithAnalytics;
 		};
+		dependencies: [OptionalPlugin<AnalyticsPlugin>, OptionalPlugin<AccessibilityUtilsPlugin>];
 	}
 >;
 
 export type CopyButtonPluginState = {
 	copied: boolean;
-	markSelection?: { start: number; end: number; markType: MarkType };
+	markSelection?: { end: number; markType: MarkType; start: number; };
 };

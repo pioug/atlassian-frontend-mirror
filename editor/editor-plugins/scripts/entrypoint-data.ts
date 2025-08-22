@@ -8,16 +8,16 @@ import path from 'path';
 import * as ts from 'typescript';
 
 interface ExtractedAfExportData {
-	newRelativeFilePath: string;
+	absoluteFilePath: string;
+	atlaskitImportName: string;
 	newAfExportKey: string;
 	newAfExportValue: string;
-	atlaskitImportName: string;
-	absoluteFilePath: string;
+	newRelativeFilePath: string;
 }
 
 interface FileData {
-	newRelativeFilePath: string;
 	fileContent: string;
+	newRelativeFilePath: string;
 }
 
 interface NewAfExportData {
@@ -26,9 +26,9 @@ interface NewAfExportData {
 }
 
 export interface EntryPointData {
-	fileData: FileData;
 	afExportData: NewAfExportData;
 	atlaskitImportName: string;
+	fileData: FileData;
 }
 
 function getAfExports(folderPath: string) {

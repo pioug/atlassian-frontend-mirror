@@ -22,23 +22,15 @@ export interface ExpandPluginState {
 }
 
 export type ExpandPluginAction = {
-	type: 'SET_EXPAND_REF';
 	data: {
 		ref?: HTMLDivElement | null;
 	};
+	type: 'SET_EXPAND_REF';
 };
 
 export type InsertMethod = INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.INSERT_MENU;
 
 export interface ExpandPluginOptions extends LongPressSelectionPluginOptions {
-	allowInsertion?: boolean;
-	/**
-	 * Allows the expand button to toggle. Previously this was set via the editor prop featureFlag (`interactiveExpand`)
-	 *
-	 * Defaults to true
-	 */
-	allowInteractiveExpand?: boolean;
-	appearance?: EditorAppearance;
 	/**
 	 * There is expected to be temporary divergence between Live Page editor expand behaviour and the standard expand behaviour.
 	 *
@@ -49,6 +41,14 @@ export interface ExpandPluginOptions extends LongPressSelectionPluginOptions {
 	 * @default false
 	 */
 	__livePage?: boolean;
+	allowInsertion?: boolean;
+	/**
+	 * Allows the expand button to toggle. Previously this was set via the editor prop featureFlag (`interactiveExpand`)
+	 *
+	 * Defaults to true
+	 */
+	allowInteractiveExpand?: boolean;
+	appearance?: EditorAppearance;
 }
 
 export type ExpandPluginDependencies = [
@@ -64,8 +64,6 @@ export type ExpandPluginDependencies = [
 export type ExpandPlugin = NextEditorPlugin<
 	'expand',
 	{
-		pluginConfiguration: ExpandPluginOptions | undefined;
-		dependencies: ExpandPluginDependencies;
 		actions: {
 			/**
 			 * Insert an expand node and dispatch event with `insertMenu` inputMethod
@@ -82,5 +80,7 @@ export type ExpandPlugin = NextEditorPlugin<
 			 */
 			toggleExpandWithMatch: (selection: Selection) => EditorCommand;
 		};
+		dependencies: ExpandPluginDependencies;
+		pluginConfiguration: ExpandPluginOptions | undefined;
 	}
 >;

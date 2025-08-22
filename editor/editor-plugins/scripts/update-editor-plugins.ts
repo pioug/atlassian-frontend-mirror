@@ -21,9 +21,9 @@ interface Dependencies {
 
 interface DependencyDiff {
 	dependency: string;
-	version?: string;
-	oldVersion?: string;
 	newVersion?: string;
+	oldVersion?: string;
+	version?: string;
 }
 
 interface DependenciesDiffResult {

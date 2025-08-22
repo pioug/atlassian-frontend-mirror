@@ -50,6 +50,7 @@ export const InlineCard = memo(
 		hoverPreviewOptions,
 		isPageSSRed,
 		pluginInjectionApi,
+		disablePreviewPanel,
 	}: SmartCardProps) => {
 		const { url, data } = node.attrs;
 		const refId = useRef(uuid());
@@ -71,7 +72,7 @@ export const InlineCard = memo(
 		);
 
 		const onResolve = useCallback(
-			(data: { url?: string; title?: string }) => {
+			(data: { title?: string; url?: string; }) => {
 				if (!getPos || typeof getPos === 'boolean') {
 					return;
 				}
@@ -105,7 +106,7 @@ export const InlineCard = memo(
 		);
 
 		const onError = useCallback(
-			(data: { url?: string; err?: Error }) => {
+			(data: { err?: Error; url?: string; }) => {
 				const { url, err } = data;
 				if (err) {
 					throw err;
@@ -158,6 +159,7 @@ export const InlineCard = memo(
 						isHovered={isHovered}
 						showHoverPreview={showHoverPreview}
 						hoverPreviewOptions={hoverPreviewOptions}
+						disablePreviewPanel={disablePreviewPanel}
 					/>
 				);
 			}
@@ -176,6 +178,7 @@ export const InlineCard = memo(
 					isHovered={isHovered}
 					showHoverPreview={showHoverPreview}
 					hoverPreviewOptions={hoverPreviewOptions}
+					disablePreviewPanel={disablePreviewPanel}
 				/>
 			);
 		}, [
@@ -191,6 +194,7 @@ export const InlineCard = memo(
 			showHoverPreview,
 			hoverPreviewOptions,
 			isPageSSRed,
+			disablePreviewPanel,
 		]);
 
 		// [WS-2307]: we only render card wrapped into a Provider when the value is ready,

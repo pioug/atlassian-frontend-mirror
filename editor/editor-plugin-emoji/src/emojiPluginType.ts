@@ -32,14 +32,14 @@ type SetInlineCommentDraftState = (
 type AnnotationPluginType = NextEditorPlugin<
 	'annotation',
 	{
-		sharedState: {
-			annotations: InlineCommentMap;
-			isVisible: boolean;
-			bookmark?: SelectionBookmark;
-			mouseData: { isSelecting: boolean };
-		};
 		actions: {
 			setInlineCommentDraftState: SetInlineCommentDraftState;
+		};
+		sharedState: {
+			annotations: InlineCommentMap;
+			bookmark?: SelectionBookmark;
+			isVisible: boolean;
+			mouseData: { isSelecting: boolean };
 		};
 	}
 >;
@@ -49,21 +49,21 @@ type EditorViewModePluginType = NextEditorPlugin<
 	{ sharedState: EditorViewModePluginState }
 >;
 export interface EmojiPluginOptions {
-	headless?: boolean;
 	emojiProvider?: Promise<EmojiProvider>;
+	headless?: boolean;
 }
 
 export type EmojiPluginState = {
-	emojiProvider?: EmojiProvider;
-	emojiResourceConfig?: EmojiResourceConfig;
 	asciiMap?: Map<string, EmojiDescription>;
-	inlineEmojiPopupOpen?: boolean;
+	emojiProvider?: EmojiProvider;
 	/**
 	 * Occassionally it may be more convenient to deal with the
 	 * promise version of the emoji provider. This is available
 	 * immediately if used for the initial configuration
 	 */
 	emojiProviderPromise?: Promise<EmojiProvider>;
+	emojiResourceConfig?: EmojiResourceConfig;
+	inlineEmojiPopupOpen?: boolean;
 };
 
 export type EmojiPluginSharedState = EmojiPluginState & {
@@ -95,10 +95,10 @@ export type EmojiPluginDependencies = [
 export type EmojiPlugin = NextEditorPlugin<
 	'emoji',
 	{
-		pluginConfiguration: EmojiPluginOptions | undefined;
-		dependencies: EmojiPluginDependencies;
-		sharedState: EmojiPluginSharedState | undefined;
-		commands: EmojiPluginCommands;
 		actions: EmojiPluginActions;
+		commands: EmojiPluginCommands;
+		dependencies: EmojiPluginDependencies;
+		pluginConfiguration: EmojiPluginOptions | undefined;
+		sharedState: EmojiPluginSharedState | undefined;
 	}
 >;

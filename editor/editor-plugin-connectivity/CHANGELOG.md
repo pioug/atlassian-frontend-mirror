@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-connectivity
 
+## 3.1.1
+
+### Patch Changes
+
+- [`265c1bf0cefa4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/265c1bf0cefa4) -
+  Sorted type and interface props to improve Atlaskit docs
+
 ## 3.1.0
 
 ### Minor Changes

@@ -45,9 +45,9 @@ export function getProposedWidth({
 	api,
 	source,
 }: {
+	api: ExtractInjectionAPI<BreakoutPlugin> | undefined;
 	initialWidth: number;
 	location: DragLocationHistory;
-	api: ExtractInjectionAPI<BreakoutPlugin> | undefined;
 	source: ElementDragPayload;
 }): number {
 	const directionMultiplier = source.data.handleSide === 'left' ? -1 : 1;
@@ -88,14 +88,14 @@ export function createResizerCallbacks({
 	mark,
 	api,
 }: {
-	dom: HTMLElement;
-	contentDOM: HTMLElement;
-	view: EditorView;
-	mark: Mark;
 	api: ExtractInjectionAPI<BreakoutPlugin> | undefined;
+	contentDOM: HTMLElement;
+	dom: HTMLElement;
+	mark: Mark;
+	view: EditorView;
 }): {
-	onDragStart: () => void;
 	onDrag: (args: BaseEventPayload<ElementDragType>) => void;
+	onDragStart: () => void;
 	onDrop: (args: BaseEventPayload<ElementDragType>) => void;
 } {
 	let node: PMNode | null = null;

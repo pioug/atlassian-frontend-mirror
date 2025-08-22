@@ -4,9 +4,9 @@ import { findNodeDecs } from '../../pm-plugins/decorations-anchor';
 import { key } from '../../pm-plugins/main';
 
 type RefreshAnchorNameParams = {
+	anchorName?: string;
 	getPos: () => number | undefined;
 	view: EditorView;
-	anchorName?: string;
 };
 
 /**

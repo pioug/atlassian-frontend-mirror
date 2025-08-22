@@ -5,22 +5,19 @@ import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state'
 
 // TODO: ED-26959 - Remove type with `platform_editor_use_nested_table_pm_nodes` feature flag
 export type InsertNodeActionConfig = {
-	node: PMNode | Fragment;
-	// To avoid race conditions issues during the insertion phase,
-	// we need a fresh EditorView pointer to get the current EditorState
-	state: EditorState | undefined | null;
 	dispatch: CommandDispatch | undefined;
+	node: PMNode | Fragment;
 	options: {
-		// What: The node inserted will be selected
-		// Why: By design, the node inserted isn't select. This helps with the typing experience, for instance a follow key stroke should not replace the just-added-node but amend the current document. However, there are so cases where you may want to set the selection to the new node (e.g.: the date node, you may want to show the calendar popup.
-		selectNodeInserted: boolean;
-
 		// TODO: ED-14676 - This approach to send analytics should be temporary only for the table work
 		analyticsPayload?: AnalyticsEventPayload;
 
 		// What: Override where the node should be inserted.
 		// Why: You may want to insert a node in a different place than the current user selection.
 		insertAt?: Selection;
+
+		// What: The node inserted will be selected
+		// Why: By design, the node inserted isn't select. This helps with the typing experience, for instance a follow key stroke should not replace the just-added-node but amend the current document. However, there are so cases where you may want to set the selection to the new node (e.g.: the date node, you may want to show the calendar popup.
+		selectNodeInserted: boolean;
 
 		// TODO: ED-14676 - We will need more options to cover the known insertion edge cases like: date & panel
 		/*
@@ -35,21 +32,24 @@ export type InsertNodeActionConfig = {
 
     */
 	};
+	// To avoid race conditions issues during the insertion phase,
+	// we need a fresh EditorView pointer to get the current EditorState
+	state: EditorState | undefined | null;
 };
 
 export type InsertNodeConfig = {
 	node: PMNode | Fragment;
 	options: {
-		// What: The node inserted will be selected
-		// Why: By design, the node inserted isn't select. This helps with the typing experience, for instance a follow key stroke should not replace the just-added-node but amend the current document. However, there are so cases where you may want to set the selection to the new node (e.g.: the date node, you may want to show the calendar popup.
-		selectNodeInserted: boolean;
-
 		// TODO: ED-14676 - This approach to send analytics should be temporary only for the table work
 		analyticsPayload?: AnalyticsEventPayload;
 
 		// What: Override where the node should be inserted.
 		// Why: You may want to insert a node in a different place than the current user selection.
 		insertAt?: Selection;
+
+		// What: The node inserted will be selected
+		// Why: By design, the node inserted isn't select. This helps with the typing experience, for instance a follow key stroke should not replace the just-added-node but amend the current document. However, there are so cases where you may want to set the selection to the new node (e.g.: the date node, you may want to show the calendar popup.
+		selectNodeInserted: boolean;
 
 		// TODO: ED-14676 - We will need more options to cover the known insertion edge cases like: date & panel
 		/*

@@ -6,8 +6,8 @@ import type { DraggableSourceData } from '../../../types';
 import { dropTargetExtendedWidth } from '../../../ui/consts';
 
 type AutoScrollerFactory = {
-	tableWrapper: HTMLElement;
 	getNode: () => PmNode;
+	tableWrapper: HTMLElement;
 };
 
 export const autoScrollerFactory = ({ tableWrapper, getNode }: AutoScrollerFactory) => {

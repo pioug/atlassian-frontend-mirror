@@ -41,9 +41,9 @@ import {
 } from './utils';
 
 interface EditInLegacyMacroBrowserArgs {
-	view: EditorView;
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
 	macroProvider?: MacroProvider;
+	view: EditorView;
 }
 export const getEditInLegacyMacroBrowser = ({
 	view,
@@ -69,10 +69,10 @@ export const getEditInLegacyMacroBrowser = ({
 };
 
 interface CreateExtensionAPIOptions {
-	editorView: EditorView;
 	applyChange: ApplyChangeHandler | undefined;
-	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
 	editInLegacyMacroBrowser?: () => void;
+	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
+	editorView: EditorView;
 }
 
 const extensionAPICallPayload = (functionName: string): AnalyticsEventPayload => ({
@@ -125,8 +125,8 @@ export const createExtensionAPI: CreateExtensionAPI = (options: CreateExtensionA
 			localId: string,
 			adf: ADFEntity,
 			opt?: {
-				allowSelectionToNewNode?: boolean;
 				allowSelectionNearNewNode?: boolean;
+				allowSelectionToNewNode?: boolean;
 			},
 		) => {
 			try {

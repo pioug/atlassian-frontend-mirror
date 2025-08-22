@@ -45,31 +45,31 @@ const popupContentWrapper = css({
 });
 
 export interface Props {
-	element: HTMLElement | null;
-	closeDatePicker: () => void;
-	/** Whether the date is newly created, selcting and focusing the input */
-	isNew: boolean;
 	/** Whether to automatically focus the input */
 	autoFocus?: boolean;
+	boundariesElement?: HTMLElement;
+	closeDatePicker: () => void;
+	closeDatePickerWithAnalytics: ({ date }: { date?: DateType }) => void;
+	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
+	element: HTMLElement | null;
+	/** Whether the date is newly created, selcting and focusing the input */
+	isNew: boolean;
+	mountTo?: HTMLElement;
+	onDelete: () => void;
 	onSelect: (
 		date: DateType | null,
 		commitMethod: INPUT_METHOD.PICKER | INPUT_METHOD.KEYBOARD,
 	) => void;
-	onDelete: () => void;
-	mountTo?: HTMLElement;
-	boundariesElement?: HTMLElement;
-	scrollableElement?: HTMLElement;
-	closeDatePickerWithAnalytics: ({ date }: { date?: DateType }) => void;
 	onTextChanged: (date: DateType) => void;
-	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
+	scrollableElement?: HTMLElement;
 	weekStartDay?: WeekDay;
 }
 
 export interface State {
 	date: DateType;
+	latestValidDate: DateType;
 	selected: Array<string>;
 	setInputSelectionPos?: number;
-	latestValidDate: DateType;
 }
 
 type CalendarOnChange = {

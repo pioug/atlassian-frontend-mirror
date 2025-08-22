@@ -19,12 +19,12 @@ export default function SelectField({
 	placeholder,
 	fieldDefaultValue,
 }: {
-	name: string;
-	field: EnumSelectField;
-	onFieldChange: OnFieldChange;
 	autoFocus?: boolean;
-	placeholder?: string;
+	field: EnumSelectField;
 	fieldDefaultValue?: string | string[];
+	name: string;
+	onFieldChange: OnFieldChange;
+	placeholder?: string;
 }) {
 	//ignore arrays as mutli-value select fields are always clearable
 	const hasValidSingleDefaultValue =

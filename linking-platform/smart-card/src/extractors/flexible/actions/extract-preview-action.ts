@@ -8,6 +8,6 @@ export const extractPreviewClientAction = (
 	param: ExtractInvokePreviewActionParam,
 ): PreviewActionData | undefined => {
 	const result = extractInvokePreviewAction(param);
-	
-	return result ? result : undefined
+
+	return result ? result : undefined;
 };

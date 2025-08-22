@@ -11,9 +11,9 @@ export const getCurrentNodePosFromDragHandleSelection = ({
 	schema,
 	resolve,
 }: {
-	selection: Selection;
-	schema: Schema;
 	resolve: (pos: number) => ResolvedPos;
+	schema: Schema;
+	selection: Selection;
 }): number => {
 	let currentNodePos = -1;
 
@@ -79,7 +79,7 @@ export const getShouldMoveNode = ({
 	return moveToPos > -1 && tr.doc.resolve(currentNodePos).depth === tr.doc.resolve(moveToPos).depth;
 };
 
-export const canMoveNodeUpOrDown = (tr: Transaction): { moveUp: boolean; moveDown: boolean } => {
+export const canMoveNodeUpOrDown = (tr: Transaction): { moveDown: boolean; moveUp: boolean; } => {
 	const currentNodePos = getCurrentNodePosFromDragHandleSelection({
 		selection: tr.selection,
 		schema: tr.doc.type.schema,

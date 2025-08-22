@@ -14,8 +14,8 @@ interface HideAction {
 }
 
 interface SetLinkToMedia {
-	type: MediaLinkingActionsTypes.setUrl;
 	payload: string;
+	type: MediaLinkingActionsTypes.setUrl;
 }
 
 interface Unlink {

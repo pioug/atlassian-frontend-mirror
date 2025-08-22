@@ -29,26 +29,26 @@ const DropListWithOutsideListeners = withReactEditorViewOuterListeners(
 );
 
 type DropdownMenuProps = {
-	items: Array<{
-		items: MenuItem[];
-	}>;
+	boundariesElement?: HTMLElement;
+	direction?: string;
 	/**
 	 * use to toggle top level menu keyboard navigation and action keys
 	 * e.g. should be false if submenu is rendered as a child to avoid multiple keydown handlers
 	 */
 	disableKeyboardHandling: boolean;
-	section: { hasSeparator?: boolean; title?: string };
-	onItemActivated?: (attrs: { item: MenuItem; shouldCloseMenu?: boolean }) => void;
+	fitHeight?: number;
+	fitWidth?: number;
 	handleClose: (focusTarget: 'editor' | 'handle') => void;
+	items: Array<{
+		items: MenuItem[];
+	}>;
+	mountPoint?: HTMLElement;
+	offset?: Array<number>;
+	onItemActivated?: (attrs: { item: MenuItem; shouldCloseMenu?: boolean }) => void;
 	onMouseEnter: (attrs: { item: MenuItem }) => void;
 	onMouseLeave: (attrs: { item: MenuItem }) => void;
-	fitWidth?: number;
-	fitHeight?: number;
-	direction?: string;
-	offset?: Array<number>;
-	mountPoint?: HTMLElement;
-	boundariesElement?: HTMLElement;
 	scrollableElement?: HTMLElement;
+	section: { hasSeparator?: boolean; title?: string };
 };
 
 export const DropdownMenu = ({

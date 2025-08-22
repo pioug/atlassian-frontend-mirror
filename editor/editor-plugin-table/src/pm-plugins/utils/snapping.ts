@@ -28,8 +28,8 @@ export const calculateDefaultSnappings = (lengthOffset: number = 0) => [
 ];
 
 export type GuidelineExcludeConfig = {
-	innerGuidelines: boolean;
 	breakoutPoints: boolean;
+	innerGuidelines: boolean;
 };
 
 const getPadding = (editorContainerWith: number) => {

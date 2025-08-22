@@ -7,8 +7,8 @@ import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolb
 
 export type AvatarGroupPluginOptions = {
 	collabEdit?: CollabEditOptions;
-	takeFullWidth: boolean;
 	showAvatarGroup?: boolean;
+	takeFullWidth: boolean;
 };
 
 export type AvatarGroupPluginDependencies = [
@@ -21,8 +21,6 @@ export type AvatarGroupPluginDependencies = [
 export type AvatarGroupPlugin = NextEditorPlugin<
 	'avatarGroup',
 	{
-		pluginConfiguration: AvatarGroupPluginOptions;
-		dependencies: AvatarGroupPluginDependencies;
 		actions: {
 			getToolbarItem: ({
 				inviteToEditHandler,
@@ -30,5 +28,7 @@ export type AvatarGroupPlugin = NextEditorPlugin<
 				inviteToEditComponent,
 			}: CollabInviteToEditProps) => JSX.Element | null;
 		};
+		dependencies: AvatarGroupPluginDependencies;
+		pluginConfiguration: AvatarGroupPluginOptions;
 	}
 >;

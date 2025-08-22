@@ -6,13 +6,13 @@ export interface PmHistoryItem {
 }
 
 export interface PmHistoryLeaf {
-	values: PmHistoryItem[];
 	length: number;
+	values: PmHistoryItem[];
 }
 
 export interface PmHistoryBranch {
-	items: PmHistoryLeaf;
 	eventCount: number;
+	items: PmHistoryLeaf;
 }
 
 export interface PmHistoryPluginState {

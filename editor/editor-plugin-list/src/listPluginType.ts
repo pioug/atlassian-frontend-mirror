@@ -18,15 +18,15 @@ export type ListPluginDependencies = [
 ];
 
 export type ListPluginActions = {
-	isInsideListItem: IsInsideListItem;
 	findRootParentListNode: FindRootParentListNode;
+	isInsideListItem: IsInsideListItem;
 };
 
 export type ListPluginCommands = {
 	indentList: IndentList;
 	outdentList: OutdentList;
-	toggleOrderedList: ToggleOrderedList;
 	toggleBulletList: ToggleBulletList;
+	toggleOrderedList: ToggleOrderedList;
 };
 
 export type ListPluginSharedState = ListState | undefined;
@@ -34,9 +34,9 @@ export type ListPluginSharedState = ListState | undefined;
 export type ListPlugin = NextEditorPlugin<
 	'list',
 	{
-		dependencies: ListPluginDependencies;
 		actions: ListPluginActions;
 		commands: ListPluginCommands;
+		dependencies: ListPluginDependencies;
 		sharedState: ListPluginSharedState;
 	}
 >;

@@ -15,8 +15,8 @@ export function convertListType({
 	tr,
 	nextListNodeType,
 }: {
-	tr: Transaction;
 	nextListNodeType: NodeType;
+	tr: Transaction;
 }) {
 	const {
 		doc,
@@ -106,8 +106,8 @@ const convertSelectedList = ({
 	tr,
 	nextListNodeType,
 }: {
-	tr: Transaction;
 	nextListNodeType: NodeType;
+	tr: Transaction;
 }) => {
 	const {
 		selection,
@@ -165,9 +165,9 @@ const convertAroundList = ({
 	nextListNodeType,
 	nodeRange,
 }: {
-	tr: Transaction;
 	nextListNodeType: NodeType;
 	nodeRange: NodeRange;
+	tr: Transaction;
 }) => {
 	for (let i = nodeRange.endIndex - 1; i >= nodeRange.startIndex; i--) {
 		// @ts-ignore posAtIndex is a public API but has no type yet

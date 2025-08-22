@@ -59,10 +59,16 @@
 			"path": "../../design-system/form/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/icon/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/link/tsconfig.app.json"
 		},
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/primitives/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/section-message/tsconfig.app.json"
@@ -78,6 +84,9 @@
 		},
 		{
 			"path": "../../design-system/textfield/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
 		}
 	]
 }

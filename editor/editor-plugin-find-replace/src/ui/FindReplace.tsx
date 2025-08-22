@@ -21,13 +21,18 @@ import ReplaceNext from './ReplaceNext';
 import { ruleStyles, wrapperPaddingStyles, wrapperStyles } from './ui-styles';
 
 export type FindReplaceProps = {
-	findText?: string;
-	replaceText?: string;
 	count: { index: number; total: number; totalReplaceable?: number };
+	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
+	findText?: string;
+	focusToolbarButton?: () => void;
 	isReplaceable?: boolean;
-	shouldFocus: boolean;
-	onFindBlur: () => void;
+	onCancel: ({
+		triggerMethod,
+	}: {
+		triggerMethod: TRIGGER_METHOD.KEYBOARD | TRIGGER_METHOD.TOOLBAR | TRIGGER_METHOD.BUTTON;
+	}) => void;
 	onFind: (findText?: string) => void;
+	onFindBlur: () => void;
 	onFindNext: ({
 		triggerMethod,
 	}: {
@@ -42,17 +47,12 @@ export type FindReplaceProps = {
 		triggerMethod,
 		replaceText,
 	}: {
-		triggerMethod: TRIGGER_METHOD.KEYBOARD | TRIGGER_METHOD.BUTTON;
 		replaceText: string;
+		triggerMethod: TRIGGER_METHOD.KEYBOARD | TRIGGER_METHOD.BUTTON;
 	}) => void;
 	onReplaceAll: ({ replaceText }: { replaceText: string }) => void;
-	onCancel: ({
-		triggerMethod,
-	}: {
-		triggerMethod: TRIGGER_METHOD.KEYBOARD | TRIGGER_METHOD.TOOLBAR | TRIGGER_METHOD.BUTTON;
-	}) => void;
-	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
-	focusToolbarButton?: () => void;
+	replaceText?: string;
+	shouldFocus: boolean;
 } & MatchCaseProps;
 // eslint-disable-next-line @repo/internal/react/no-class-components
 class FindReplace extends React.PureComponent<FindReplaceProps> {

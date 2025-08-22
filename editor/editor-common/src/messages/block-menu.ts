@@ -16,4 +16,9 @@ export const messages = defineMessages({
 		defaultMessage: 'Move Down',
 		description: 'Move the selected block down',
 	},
+	copyLink: {
+		id: 'fabric.editor.block.menu.copy.link',
+		defaultMessage: 'Copy link',
+		description: 'Copy link to the selected block',
+	},
 });

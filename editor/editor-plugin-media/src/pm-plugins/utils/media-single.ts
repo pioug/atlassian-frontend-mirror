@@ -45,9 +45,9 @@ import { findChangeFromLocation, getChangeMediaAnalytics } from './analytics';
 import { isImage } from './is-type';
 
 interface MediaSingleState extends MediaState {
-	dimensions: { width: number; height: number };
-	scaleFactor?: number;
 	contextId?: string;
+	dimensions: { height: number; width: number; };
+	scaleFactor?: number;
 }
 
 const getInsertMediaAnalytics = (
@@ -79,15 +79,15 @@ function insertNodesWithOptionalParagraph({
 	editorAnalyticsAPI,
 	insertMediaVia,
 }: {
-	nodes: PMNode[];
 	analyticsAttributes: {
-		inputMethod?: InputMethodInsertMedia;
 		fileExtension?: string;
+		inputMethod?: InputMethodInsertMedia;
 		newType?: MediaSwitchType;
 		previousType?: MediaSwitchType;
 	};
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
 	insertMediaVia?: InsertMediaVia;
+	nodes: PMNode[];
 }): Command {
 	return function (state, dispatch) {
 		const { tr, schema } = state;

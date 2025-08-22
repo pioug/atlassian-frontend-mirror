@@ -52,12 +52,12 @@ const DateField = ({
 	isRequired,
 	isDisabled,
 }: {
+	fieldName: 'from' | 'to';
+	isDisabled?: boolean;
+	isRequired?: boolean;
+	onFieldChange: OnFieldChange;
 	parentField: DateRangeField;
 	scope: string;
-	fieldName: 'from' | 'to';
-	onFieldChange: OnFieldChange;
-	isRequired?: boolean;
-	isDisabled?: boolean;
 } & WrappedComponentProps) => (
 	<div css={horizontalFieldWrapperStyles} key={fieldName}>
 		<Field
@@ -97,10 +97,10 @@ const DateRange = function ({
 	onFieldChange,
 	intl,
 }: {
-	name: string;
-	field: DateRangeField;
-	onFieldChange: OnFieldChange;
 	autoFocus?: boolean;
+	field: DateRangeField;
+	name: string;
+	onFieldChange: OnFieldChange;
 	placeholder?: string;
 } & WrappedComponentProps) {
 	const items = useMemo(() => {

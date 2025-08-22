@@ -19,8 +19,8 @@ import type { SelectionToolbarPlugin } from '../selectionToolbarPluginType';
 
 type OverflowToobarConfigOptions = {
 	api?: ExtractInjectionAPI<SelectionToolbarPlugin>;
-	toolbarDocking?: 'top' | 'none';
 	intl: IntlShape;
+	toolbarDocking?: 'top' | 'none';
 };
 
 export const getOverflowPrimaryToolbarConfig = ({

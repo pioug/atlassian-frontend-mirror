@@ -43,8 +43,8 @@ const nextResizeHandleColumnIndex = (
 };
 
 type BuilderTablePluginState = (props: {
-	tr: Transaction | ReadonlyTransaction;
 	table?: ContentNodeWithPos;
+	tr: Transaction | ReadonlyTransaction;
 }) => (pluginState: TablePluginState) => TablePluginState;
 
 const updateTargetCellPosition: BuilderTablePluginState =

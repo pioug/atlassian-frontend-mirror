@@ -271,7 +271,7 @@ const captureCursorCoords = (
 	posAtCoords: (coords: {
 		left: number;
 		top: number;
-	}) => { pos: number; inside: number } | null | void,
+	}) => { inside: number; pos: number; } | null | void,
 	tr: Transaction,
 ): { position?: number; side: Side } | null => {
 	const rect = editorRef.getBoundingClientRect();
@@ -318,7 +318,7 @@ export const setSelectionTopLevelBlocks = (
 	posAtCoords: (coords: {
 		left: number;
 		top: number;
-	}) => { pos: number; inside: number } | null | void,
+	}) => { inside: number; pos: number; } | null | void,
 	editorFocused: boolean,
 ) => {
 	const cursorCoords = captureCursorCoords(event, editorRef, posAtCoords, tr);
@@ -366,7 +366,7 @@ export const setCursorForTopLevelBlocks =
 		posAtCoords: (coords: {
 			left: number;
 			top: number;
-		}) => { pos: number; inside: number } | null | void,
+		}) => { inside: number; pos: number; } | null | void,
 		editorFocused: boolean,
 	): Command =>
 	(state, dispatch) => {

@@ -91,7 +91,6 @@
 		"@atlaskit/navigation-next": "root:*",
 		"@atlaskit/profilecard": "workspace:^",
 		"@atlaskit/util-data-test": "workspace:^",
-		"@atlaskit/visual-regression": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/react-hooks": "root:*",

@@ -15,11 +15,11 @@ export default function Enum({
 	onFieldChange,
 	fieldDefaultValue,
 }: {
-	name: string;
-	field: EnumField;
 	autoFocus: boolean;
-	onFieldChange: OnFieldChange;
+	field: EnumField;
 	fieldDefaultValue?: string | string[];
+	name: string;
+	onFieldChange: OnFieldChange;
 }) {
 	switch (field.style) {
 		case 'checkbox':

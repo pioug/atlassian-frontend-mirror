@@ -16,9 +16,9 @@ export interface PlaceholderTextPluginOptions {
 export type PlaceholderTextOptions = PlaceholderTextPluginOptions;
 
 export interface PlaceholderTextPluginState {
-	showInsertPanelAt: number | null;
 	// Enables the "Insert Placeholder Text" dropdown item
 	allowInserting: boolean;
+	showInsertPanelAt: number | null;
 }
 
 export type PlaceholderTextPluginDependencies = [
@@ -29,11 +29,11 @@ export type PlaceholderTextPluginDependencies = [
 export type PlaceholderTextPlugin = NextEditorPlugin<
 	'placeholderText',
 	{
-		dependencies: PlaceholderTextPluginDependencies;
-		pluginConfiguration: PlaceholderTextPluginOptions;
-		sharedState: PlaceholderTextPluginState | undefined;
 		actions: {
 			showPlaceholderFloatingToolbar: typeof showPlaceholderFloatingToolbar;
 		};
+		dependencies: PlaceholderTextPluginDependencies;
+		pluginConfiguration: PlaceholderTextPluginOptions;
+		sharedState: PlaceholderTextPluginState | undefined;
 	}
 >;

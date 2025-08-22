@@ -1,5 +1,12 @@
 # @atlaskit/feature-flag-client
 
+## 5.6.1
+
+### Patch Changes
+
+- [`82d4491385e04`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/82d4491385e04) -
+  Sorted type and interface props to improve Atlaskit docs
+
 ## 5.6.0
 
 ### Minor Changes

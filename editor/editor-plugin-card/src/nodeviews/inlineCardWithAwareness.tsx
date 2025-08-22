@@ -23,8 +23,8 @@ import type { SmartCardProps } from './genericCard';
 import { InlineCard } from './inlineCard';
 
 export type InlineCardWithAwarenessProps = {
-	isPulseEnabled?: boolean;
 	isOverlayEnabled?: boolean;
+	isPulseEnabled?: boolean;
 	isSelected?: boolean;
 };
 
@@ -140,6 +140,7 @@ export const InlineCardWithAwareness = memo(
 						isHovered={isHovered}
 						isPageSSRed={isPageSSRed}
 						pluginInjectionApi={pluginInjectionApi}
+						disablePreviewPanel={true}
 					/>
 				</HoverLinkOverlay>
 			),
@@ -272,6 +273,7 @@ export const InlineCardWithAwareness = memo(
 											isPageSSRed={isPageSSRed}
 											pluginInjectionApi={pluginInjectionApi}
 											showHoverPreview={mode === 'view' && showHoverPreview}
+											disablePreviewPanel={true}
 										/>
 									</HoverLinkOverlay>
 								);

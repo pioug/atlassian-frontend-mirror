@@ -7,7 +7,7 @@ import { rootElementGap } from '../../ui/consts';
 export const getLeftPositionForRootElement = (
 	dom: HTMLElement | null,
 	nodeType: string,
-	widgetDimensions: { width: number; height: number },
+	widgetDimensions: { height: number; width: number; },
 	innerContainer?: HTMLElement | null,
 	macroInteractionUpdates?: boolean,
 ) => {

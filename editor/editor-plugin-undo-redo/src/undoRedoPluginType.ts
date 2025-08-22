@@ -12,6 +12,10 @@ export type UndoRedoAction = (inputSource?: InputSource) => boolean;
 export type UndoRedoPlugin = NextEditorPlugin<
 	'undoRedoPlugin',
 	{
+		actions: {
+			redo: UndoRedoAction;
+			undo: UndoRedoAction;
+		};
 		dependencies: [
 			TypeAheadPlugin,
 			HistoryPlugin,
@@ -19,9 +23,5 @@ export type UndoRedoPlugin = NextEditorPlugin<
 			OptionalPlugin<AnalyticsPlugin>,
 			OptionalPlugin<ToolbarPlugin>,
 		];
-		actions: {
-			undo: UndoRedoAction;
-			redo: UndoRedoAction;
-		};
 	}
 >;

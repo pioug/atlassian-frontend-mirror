@@ -5,10 +5,10 @@ import type { DecorationState, HoverDecorationHandler, removeDecoration } from '
 export type DecorationsPlugin = NextEditorPlugin<
 	'decorations',
 	{
-		sharedState: DecorationState;
 		actions: {
 			hoverDecoration: HoverDecorationHandler;
 			removeDecoration: typeof removeDecoration;
 		};
+		sharedState: DecorationState;
 	}
 >;

@@ -19,11 +19,11 @@ export const useCommentButtonMount = ({
 	annotationSelectionType,
 	bookmark,
 }: {
-	state: EditorState | null;
 	annotationProviders?: AnnotationProviders;
-	api?: ExtractInjectionAPI<AnnotationPlugin>;
 	annotationSelectionType: AnnotationSelectionType;
+	api?: ExtractInjectionAPI<AnnotationPlugin>;
 	bookmark?: SelectionBookmark;
+	state: EditorState | null;
 }) => {
 	useEffect(() => {
 		if (!state) {

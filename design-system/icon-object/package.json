@@ -49,7 +49,6 @@
 		"@atlaskit/css": "workspace:^",
 		"@atlaskit/textfield": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
-		"@atlaskit/visual-regression": "workspace:^",
 		"@atlassian/codegen": "workspace:^",
 		"fs-extra": "root:*",
 		"pkg-dir": "root:*",

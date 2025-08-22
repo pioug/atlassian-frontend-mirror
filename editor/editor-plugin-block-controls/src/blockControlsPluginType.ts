@@ -22,18 +22,18 @@ import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 import { type DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 export type ActiveNode = {
-	pos: number;
 	anchorName: string;
-	nodeType: string;
 	handleOptions?: HandleOptions;
-	rootPos?: number;
+	nodeType: string;
+	pos: number;
 	rootAnchorName?: string;
 	rootNodeType?: string;
+	rootPos?: number;
 };
 
 export type ActiveDropTargetNode = {
-	pos: number;
 	nodeTypeName: string | null;
+	pos: number;
 };
 
 export type MultiSelectDnD = {
@@ -46,49 +46,49 @@ export type MultiSelectDnD = {
 };
 
 export interface PluginState {
+	activeDropTargetNode?: ActiveDropTargetNode;
+	activeNode?: ActiveNode;
+	blockMenuOptions?: { canMoveDown?: boolean; canMoveUp?: boolean; };
 	decorations: DecorationSet;
-	isDragging: boolean;
-	isMenuOpen?: boolean;
-	menuTriggerBy?: string;
-	blockMenuOptions?: { canMoveUp?: boolean; canMoveDown?: boolean };
 	editorHeight: number;
 	editorWidthLeft: number;
 	editorWidthRight: number;
-	activeNode?: ActiveNode;
-	activeDropTargetNode?: ActiveDropTargetNode;
-	isResizerResizing: boolean;
 	/**
 	 * @private
 	 * @deprecated Doc size limits no longer supported
 	 */
 	isDocSizeLimitEnabled: boolean | null;
+	isDragging: boolean;
+	isMenuOpen?: boolean;
 	/**
 	 * is dragging the node without using drag handle, i,e, native prosemirror DnD
 	 */
 	isPMDragging: boolean;
-	multiSelectDnD?: MultiSelectDnD;
+	isResizerResizing: boolean;
+	isSelectedViaDragHandle?: boolean;
 	isShiftDown?: boolean;
 	lastDragCancelled: boolean;
-	isSelectedViaDragHandle?: boolean;
+	menuTriggerBy?: string;
+	multiSelectDnD?: MultiSelectDnD;
 }
 
 export type ReleaseHiddenDecoration = () => boolean | undefined;
 
 export type BlockControlsSharedState =
 	| {
-			isMenuOpen: boolean;
-			menuTriggerBy?: string;
-			blockMenuOptions?: { canMoveUp?: boolean; canMoveDown?: boolean };
-			activeNode?: ActiveNode;
 			activeDropTargetNode?: ActiveDropTargetNode;
+			activeNode?: ActiveNode;
+			blockMenuOptions?: { canMoveDown?: boolean; canMoveUp?: boolean; };
 			isDragging: boolean;
+			isEditing?: boolean;
+			isMenuOpen: boolean;
+			isMouseOut?: boolean;
 			isPMDragging: boolean;
-			multiSelectDnD?: MultiSelectDnD;
+			isSelectedViaDragHandle?: boolean;
 			isShiftDown?: boolean;
 			lastDragCancelled: boolean;
-			isEditing?: boolean;
-			isMouseOut?: boolean;
-			isSelectedViaDragHandle?: boolean;
+			menuTriggerBy?: string;
+			multiSelectDnD?: MultiSelectDnD;
 	  }
 	| undefined;
 
@@ -120,9 +120,9 @@ export type BlockControlsPluginDependencies = [
 export type BlockControlsPlugin = NextEditorPlugin<
 	'blockControls',
 	{
-		dependencies: BlockControlsPluginDependencies;
-		sharedState: BlockControlsSharedState;
 		commands: {
+			moveNode: MoveNode;
+			moveNodeWithBlockMenu: (direction: DIRECTION.UP | DIRECTION.DOWN) => EditorCommand;
 			/**
 			 * Move a node before (unless `moveToEnd` is set) another node to expand a layout or create a new layout
 			 * @param from position of the node to be moved
@@ -133,9 +133,15 @@ export type BlockControlsPlugin = NextEditorPlugin<
 			moveToLayout: (
 				start: number,
 				to: number,
-				options?: { moveToEnd?: boolean; selectMovedNode?: boolean; moveNodeAtCursorPos?: boolean },
+				options?: { moveNodeAtCursorPos?: boolean; moveToEnd?: boolean; selectMovedNode?: boolean; },
 			) => EditorCommand;
-			moveNode: MoveNode;
+			setMultiSelectPositions: (anchor?: number, head?: number) => EditorCommand;
+			setNodeDragged: (
+				getPos: () => number | undefined,
+				anchorName: string,
+				nodeType: string,
+			) => EditorCommand;
+			setSelectedViaDragHandle: (isSelectedViaDragHandle?: boolean) => EditorCommand;
 			showDragHandleAt: (
 				pos: number,
 				anchorName: string,
@@ -145,26 +151,20 @@ export type BlockControlsPlugin = NextEditorPlugin<
 				rootAnchorName?: string,
 				rootNodeType?: string,
 			) => EditorCommand;
-			toggleBlockMenu: (options?: { closeMenu?: boolean; anchorName?: string }) => EditorCommand;
-			setNodeDragged: (
-				getPos: () => number | undefined,
-				anchorName: string,
-				nodeType: string,
-			) => EditorCommand;
-			setMultiSelectPositions: (anchor?: number, head?: number) => EditorCommand;
-			setSelectedViaDragHandle: (isSelectedViaDragHandle?: boolean) => EditorCommand;
-			moveNodeWithBlockMenu: (direction: DIRECTION.UP | DIRECTION.DOWN) => EditorCommand;
+			toggleBlockMenu: (options?: { anchorName?: string; closeMenu?: boolean; }) => EditorCommand;
 		};
+		dependencies: BlockControlsPluginDependencies;
+		sharedState: BlockControlsSharedState;
 	}
 >;
 
 export type BlockControlsMeta = {
 	activeNode: ActiveNode;
-	type: string;
 	dom: HTMLElement;
+	editorBlurred: boolean;
 	editorHeight: number;
 	nodeMoved: boolean;
-	editorBlurred: boolean;
+	type: string;
 };
 
 export type MoveNodeMethod =

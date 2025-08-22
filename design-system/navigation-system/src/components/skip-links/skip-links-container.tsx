@@ -3,8 +3,7 @@
  * @jsx jsx
  */
 import { cssMap, jsx } from '@atlaskit/css';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Text } from '@atlaskit/primitives';
+import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { useSortedSkipLinks } from '../../context/skip-links/skip-links-data-context';
@@ -56,7 +55,12 @@ const styles = cssMap({
  *
  * TODO: consider removing this, it doesn't make a lot of sense.
  * The skip links look like a popup but in reality they aren't.
- * Even though we hide them if you press TAB it will reopen the list and move to the next one...
+ * Even though we hide them when the user presses Escape, when
+ * they press TAB it will reopen the list and move to the next one...
+ *
+ * One potential option is to use a tree walker to focus on the
+ * next focusable element in the DOM (outside the skip links
+ * container).
  */
 const closeOnEscape = (event: React.KeyboardEvent) => {
 	if (event.key !== 'Escape') {
@@ -72,16 +76,28 @@ const closeOnEscape = (event: React.KeyboardEvent) => {
 const isOnlyWhitespaceRegex = /^\s*$/;
 
 /**
- * A container element for the skip links
- * The default label will be used when the `skipLinksLabel` attribute is not
- * provided or the attribute is an empty string. If a string comprised only of
- * spaces is provided, the skip link heading element will be removed, but the
- * default label will still be used in `title` attribute of the skip links
- * themselves.
+ * A container element for the skip links.
+ *
+ * The container element is always rendered in the DOM, but is only visible when
+ * focus is within the container.
+ *
+ * The label is used as the heading of the skip links container. If the provided label is a string
+ * comprised only of only whitespace (e.g. '' or ' '), the skip link heading element will be removed.
+ *
+ * The links prop is only used when the feature flag is enabled.
  */
-export const SkipLinksContainer = ({ label, testId }: { label: string; testId?: string }) => {
-	const sortedSkipLinks = useSortedSkipLinks();
-	if (sortedSkipLinks.length === 0) {
+export function SkipLinksContainer({
+	label,
+	testId,
+	links,
+}: {
+	label: string;
+	testId?: string;
+	links: Array<SkipLinkData>;
+}) {
+	const sortedLinks = useSortedSkipLinks(links);
+
+	if (sortedLinks.length === 0) {
 		return null;
 	}
 
@@ -101,7 +117,7 @@ export const SkipLinksContainer = ({ label, testId }: { label: string; testId?: 
 				</Text>
 			)}
 			<ol css={[styles.skipLinkList]}>
-				{sortedSkipLinks.map(({ id, label, onBeforeNavigate }: SkipLinkData) => (
+				{sortedLinks.map(({ id, label, onBeforeNavigate }: SkipLinkData) => (
 					<SkipLink key={id} id={id} onBeforeNavigate={onBeforeNavigate}>
 						{label}
 					</SkipLink>
@@ -109,4 +125,4 @@ export const SkipLinksContainer = ({ label, testId }: { label: string; testId?: 
 			</ol>
 		</div>
 	);
-};
+}

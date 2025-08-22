@@ -7,8 +7,8 @@ import type {
 } from '../types';
 
 export type ToolbarItemExtension = {
-	getToolbarItem: GetToolbarItemFn;
 	getMenuItems?: GetMenuItemsFn;
+	getToolbarItem: GetToolbarItemFn;
 };
 
 /**

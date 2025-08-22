@@ -6,10 +6,10 @@ import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 
 interface BackspaceProps {
-	view: EditorView;
 	cm: CodeMirror;
-	getPos: getPosHandlerNode;
 	getNode: () => PMNode;
+	getPos: getPosHandlerNode;
+	view: EditorView;
 }
 
 export const backspaceKeymap = ({ cm, view, getPos, getNode }: BackspaceProps) => {

@@ -18,22 +18,33 @@ export enum SelectionDirection {
 }
 
 export type SetSelectionRelativeToNode = (props: {
-	selectionRelativeToNode?: RelativeSelectionPos;
 	selection?: Selection | null;
+	selectionRelativeToNode?: RelativeSelectionPos;
 }) => (state: EditorState) => Transaction;
 
+type SelectionUtilityOptions = {
+	/**
+	 * Use a specific selection rather than the current which is the default
+	 */
+	selection?: Selection;
+};
+
 export type EditorSelectionAPI = {
-	selectNearNode: SetSelectionRelativeToNode;
 	/**
 	 * Gets the current selection fragment.
+	 * @param props Options to customise the selection fragment
+	 * @param props.selection Use a specific selection rather than the current
 	 * @returns The current selection fragment as an array of JSON nodes.
 	 */
-	getSelectionFragment: () => JSONNode[] | null;
+	getSelectionFragment: (props?: SelectionUtilityOptions) => JSONNode[] | null;
 	/**
 	 * Gets the current selection local IDs. This includes all local IDs
+	 * @param props Options to customise the selection fragment
+	 * @param props.selection Use a specific selection rather than the current
 	 * @returns The current selection local IDs as an array of strings.
 	 */
-	getSelectionLocalIds: () => string[] | null;
+	getSelectionLocalIds: (props?: SelectionUtilityOptions) => string[] | null;
+	selectNearNode: SetSelectionRelativeToNode;
 };
 
 export interface SelectionPluginOptions extends LongPressSelectionPluginOptions {

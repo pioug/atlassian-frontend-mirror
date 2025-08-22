@@ -25,29 +25,29 @@ export const metricsKey = new PluginKey('metricsPlugin');
 type EditorStateConfig = Parameters<typeof EditorState.create>[0];
 
 export type MetricsState = {
-	intentToStartEditTime?: number;
-	activeSessionTime: number;
-	totalActionCount: number;
-	contentSizeChanged: number;
-	lastSelection?: Selection;
 	actionTypeCount: ActionByType;
-	timeOfLastTextInput?: number;
-	shouldPersistActiveSession?: boolean;
+	activeSessionTime: number;
+	contentSizeChanged: number;
 	initialContent?: Fragment;
+	intentToStartEditTime?: number;
+	lastSelection?: Selection;
 	previousTrType?: TrActionType;
 	repeatedActionCount: number;
 	safeInsertCount: number;
+	shouldPersistActiveSession?: boolean;
+	timeOfLastTextInput?: number;
+	totalActionCount: number;
 };
 
 export type ActionByType = {
-	textInputCount: number;
-	nodeInsertionCount: number;
-	nodeAttributeChangeCount: number;
-	contentMovedCount: number;
-	nodeDeletionCount: number;
-	undoCount: number;
-	markChangeCount: number;
 	contentDeletedCount: number;
+	contentMovedCount: number;
+	markChangeCount: number;
+	nodeAttributeChangeCount: number;
+	nodeDeletionCount: number;
+	nodeInsertionCount: number;
+	textInputCount: number;
+	undoCount: number;
 };
 
 export const initialPluginState: MetricsState = {

@@ -133,16 +133,16 @@ const lineLengthGridLines = (highlights: Highlights) => {
 };
 
 type Props = {
+	containerElement: HTMLElement;
+	editorWidth: number;
+	gridType: GridType;
+	highlight: Highlights;
+
+	shouldCalcBreakoutGridLines?: boolean;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	theme: any;
-	shouldCalcBreakoutGridLines?: boolean;
-	containerElement: HTMLElement;
-	editorWidth: number;
-
 	visible: boolean;
-	gridType: GridType;
-	highlight: Highlights;
 };
 
 const Grid = ({

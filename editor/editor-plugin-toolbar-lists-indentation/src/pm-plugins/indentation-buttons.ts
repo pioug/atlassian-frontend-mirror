@@ -7,19 +7,19 @@ export type IndentationButtonNode = null | 'paragraph_heading' | 'list' | 'taskL
 
 export interface IndentationButtons {
 	indentDisabled: boolean;
-	outdentDisabled: boolean;
 	node: IndentationButtonNode; // used to determine which indent/outdent function to call on button click, see '../ui/onItemActivated
+	outdentDisabled: boolean;
 }
 
 export interface TaskDecisionState {
-	isInsideTask: boolean;
 	indentDisabled: boolean;
+	isInsideTask: boolean;
 	outdentDisabled: boolean;
 }
 
 interface IndentationState {
-	isIndentationAllowed?: boolean;
 	indentDisabled?: boolean;
+	isIndentationAllowed?: boolean;
 	outdentDisabled?: boolean;
 }
 

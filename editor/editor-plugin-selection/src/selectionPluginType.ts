@@ -11,14 +11,14 @@ import type { EditorSelectionAPI, SelectionPluginOptions } from './types';
 export type SelectionPlugin = NextEditorPlugin<
 	'selection',
 	{
-		pluginConfiguration: SelectionPluginOptions | undefined;
 		actions: EditorSelectionAPI;
-		dependencies: [OptionalPlugin<InteractionPlugin>];
 		commands: {
-			displayGapCursor: (toggle: boolean) => EditorCommand;
 			clearManualSelection: () => EditorCommand;
+			displayGapCursor: (toggle: boolean) => EditorCommand;
 			setManualSelection: (anchor: number, head: number) => EditorCommand;
 		};
+		dependencies: [OptionalPlugin<InteractionPlugin>];
+		pluginConfiguration: SelectionPluginOptions | undefined;
 		sharedState: SelectionSharedState;
 	}
 >;

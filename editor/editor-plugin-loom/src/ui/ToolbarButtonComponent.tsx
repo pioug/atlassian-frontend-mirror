@@ -28,11 +28,11 @@ import { type ButtonComponentProps } from '../types';
 // Derived from values from platform/packages/editor/editor-core/src/ui/Appearance/FullPage/MainToolbar.tsx
 const LOOM_BUTTON_WIDTH_BREAKPOINT = 1076;
 interface Props extends Omit<ButtonComponentProps, 'onClickBeforeInit'> {
-	disabled: boolean;
-	appearance: EditorAppearance;
 	api: ExtractInjectionAPI<LoomPlugin> | undefined;
-	onClick: (event: React.MouseEvent<HTMLElement>) => void;
+	appearance: EditorAppearance;
+	disabled: boolean;
 	hideTooltip?: boolean;
+	onClick: (event: React.MouseEvent<HTMLElement>) => void;
 }
 
 const iconMinWidthStyle = css({

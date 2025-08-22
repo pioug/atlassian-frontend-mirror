@@ -200,9 +200,9 @@ function handleTextInputInsideCursorTargetDecoration({
 	view,
 	cursorTarget,
 }: {
+	cursorTarget: NonNullable<InlineCursorTargetState['cursorTarget']>;
 	event: InputEvent | CompositionEvent;
 	view: EditorView;
-	cursorTarget: NonNullable<InlineCursorTargetState['cursorTarget']>;
 }) {
 	event.stopPropagation();
 	event.preventDefault();

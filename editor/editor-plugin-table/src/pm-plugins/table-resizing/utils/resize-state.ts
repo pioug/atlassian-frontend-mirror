@@ -27,15 +27,15 @@ export const getResizeState = ({
 	shouldUseIncreasedScalingPercent = false,
 	isCommentEditor = false,
 }: {
-	minWidth: number;
+	domAtPos: (pos: number) => { node: Node; offset: number };
+	isCommentEditor: boolean;
+	isTableScalingEnabled: boolean;
 	maxSize: number;
+	minWidth: number;
+	shouldUseIncreasedScalingPercent: boolean;
+	start: number;
 	table: PMNode;
 	tableRef: HTMLTableElement | null;
-	start: number;
-	domAtPos: (pos: number) => { node: Node; offset: number };
-	isTableScalingEnabled: boolean;
-	shouldUseIncreasedScalingPercent: boolean;
-	isCommentEditor: boolean;
 }): ResizeState => {
 	if (
 		(isTableScalingEnabled && !isCommentEditor) ||
@@ -235,7 +235,7 @@ export const bulkColumnsResize = (
 		columnsIndexes.indexOf(sourceColumnIndex) > -1 ? sourceColumnIndex : sourceColumnIndex + 1;
 	const sourceCol = resizeState.cols[colIndex];
 	const seenColumns: {
-		[key: number]: { width: number; minWidth: number; index: number };
+		[key: number]: { index: number; minWidth: number; width: number; };
 	} = {};
 	const widthsDiffs: number[] = [];
 	const cols = resizeState.cols.map((col) => {

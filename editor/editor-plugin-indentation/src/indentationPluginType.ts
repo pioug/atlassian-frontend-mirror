@@ -5,8 +5,8 @@ import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { IndentationInputMethod } from './editor-commands/utils';
 
 type IndentationPluginSharedState = {
-	isIndentationAllowed: boolean;
 	indentDisabled: boolean;
+	isIndentationAllowed: boolean;
 	outdentDisabled: boolean;
 };
 
@@ -20,22 +20,22 @@ export type IndentationPluginActions = {
 export type IndentationPlugin = NextEditorPlugin<
 	'indentation',
 	{
-		dependencies: IndentationPluginDependencies;
 		actions: IndentationPluginActions;
+		dependencies: IndentationPluginDependencies;
 		sharedState: IndentationPluginSharedState | undefined;
 	}
 >;
 
 export interface GetAttrsChange<T, V> {
-	node: Node;
-	prevAttrs?: T;
 	newAttrs: T | false | undefined;
+	node: Node;
 	options: V;
+	prevAttrs?: T;
 }
 
 export type GetAttrsWithChangesRecorder<T, V> = {
 	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	getAttrs(prevAttrs?: T | undefined, node?: Node): T | false | undefined;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	getAndResetAttrsChanges(): GetAttrsChange<T, V>[];
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
+	getAttrs(prevAttrs?: T | undefined, node?: Node): T | false | undefined;
 };

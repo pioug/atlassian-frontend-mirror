@@ -94,11 +94,11 @@ export function currentColWidth(
 }
 
 interface getTableMaxWidthProps {
+	getEditorContainerWidth: GetEditorContainerWidth;
+	layout: 'default' | 'wide' | 'full-width';
+	state: EditorState;
 	table: PMNode;
 	tableStart: number;
-	state: EditorState;
-	layout: 'default' | 'wide' | 'full-width';
-	getEditorContainerWidth: GetEditorContainerWidth;
 }
 
 export const getTableMaxWidth = ({

@@ -21,13 +21,13 @@ const interactiveStyles = css({
 });
 
 type MediaViewerContainerProps = {
+	children?: React.ReactNode;
+	isEditorViewMode?: boolean;
+	isInline?: boolean;
+	isSelected?: boolean;
+	mediaClientConfig: MediaClientConfig;
 	mediaNode: PMNode;
 	selectedMediaContainerNode: () => PMNode | undefined;
-	mediaClientConfig: MediaClientConfig;
-	isEditorViewMode?: boolean;
-	isSelected?: boolean;
-	isInline?: boolean;
-	children?: React.ReactNode;
 };
 const mediaViewerContainerTestID = 'media-viewer-container-test';
 export const MediaViewerContainer = ({

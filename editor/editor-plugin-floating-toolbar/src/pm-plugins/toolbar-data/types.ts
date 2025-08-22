@@ -1,9 +1,9 @@
 export type FloatingToolbarPluginAction =
 	| {
-			type: 'SHOW_CONFIRM_DIALOG';
 			data: {
 				buttonIndex: number;
 			};
+			type: 'SHOW_CONFIRM_DIALOG';
 	  }
 	| {
 			type: 'HIDE_CONFIRM_DIALOG';

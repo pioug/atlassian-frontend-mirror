@@ -9,9 +9,9 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import MentionIcon from '@atlaskit/icon/core/migration/mention--editor-mention';
 
 interface Props {
-	onInsertMention: () => void;
 	editorView?: EditorView;
 	isDisabled?: boolean;
+	onInsertMention: () => void;
 	testId?: string;
 }
 

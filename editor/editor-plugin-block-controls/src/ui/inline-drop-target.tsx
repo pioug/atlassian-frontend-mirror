@@ -71,10 +71,10 @@ const dropTargetLayoutHintLeftStyle = css({
 });
 
 type NodeDimensionType = {
-	width: string;
+	bottom: string;
 	height: string;
 	top: string;
-	bottom: string;
+	width: string;
 	widthOffset?: string;
 };
 

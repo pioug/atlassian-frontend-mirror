@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/analytics-namespaced-context",
-	"version": "7.0.1",
+	"version": "7.0.2",
 	"description": "Provides a namespace for AnalyticsContext data (@atlaskit/analytics-next)",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

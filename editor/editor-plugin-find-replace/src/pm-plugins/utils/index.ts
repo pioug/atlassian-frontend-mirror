@@ -88,12 +88,12 @@ export const createDecoration = (match: Match, isSelected?: Boolean) => {
 };
 
 type FindMatchesType = {
+	api?: ExtractInjectionAPI<FindReplacePlugin>;
 	content: PmNode | Fragment;
-	searchText: string;
-	shouldMatchCase: boolean;
 	contentIndex?: number;
 	getIntl?: () => IntlShape;
-	api?: ExtractInjectionAPI<FindReplacePlugin>;
+	searchText: string;
+	shouldMatchCase: boolean;
 };
 
 export function findMatches({
@@ -528,7 +528,7 @@ export const findIndexBeforePosition = (items: Decoration[], position: number) =
  */
 export const isMatchAffectedByStep = (
 	match: Match,
-	step: Step & { from: number; to: number; slice: Slice },
+	step: Step & { from: number; slice: Slice; to: number; },
 	tr: ReadonlyTransaction,
 ) => {
 	const { from, to, slice } = step;

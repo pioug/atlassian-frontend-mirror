@@ -32,18 +32,18 @@ import FixedButton from './FixedButton';
 import { tableFloatingCellButtonSelectedStyles, tableFloatingCellButtonStyles } from './styles';
 
 export interface Props {
-	editorView: EditorView;
-	tableWrapper?: HTMLElement;
-	tableNode?: PMNode;
-	targetCellPosition: number;
-	isContextualMenuOpen?: boolean;
-	mountPoint?: HTMLElement;
 	boundariesElement?: HTMLElement;
-	scrollableElement?: HTMLElement;
-	isNumberColumnEnabled?: boolean;
-	stickyHeader?: RowStickyState;
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
+	editorView: EditorView;
 	isCellMenuOpenByKeyboard?: boolean;
+	isContextualMenuOpen?: boolean;
+	isNumberColumnEnabled?: boolean;
+	mountPoint?: HTMLElement;
+	scrollableElement?: HTMLElement;
+	stickyHeader?: RowStickyState;
+	tableNode?: PMNode;
+	tableWrapper?: HTMLElement;
+	targetCellPosition: number;
 }
 
 const BUTTON_OFFSET = 3;

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "210.1.4",
+	"version": "210.1.6",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -110,7 +110,6 @@
 		"@atlaskit/synchrony-test-helpers": "workspace:^",
 		"@atlaskit/toggle": "workspace:^",
 		"@atlaskit/util-data-test": "workspace:^",
-		"@atlaskit/visual-regression": "workspace:^",
 		"@atlassian/adf-schema-json": "root:*",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/search-provider": "workspace:^",

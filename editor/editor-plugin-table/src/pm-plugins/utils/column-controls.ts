@@ -8,9 +8,9 @@ import { findTable, getSelectionRect } from '@atlaskit/editor-tables/utils';
 import { tableDeleteButtonSize } from '../../ui/consts';
 
 interface CellWidthInfo {
-	width: number;
 	colspan: number;
 	colwidth: string | undefined;
+	width: number;
 }
 
 export const getColumnsWidths = (view: EditorView): Array<number | undefined> => {
@@ -44,7 +44,7 @@ export const getColumnsWidths = (view: EditorView): Array<number | undefined> =>
 export const getColumnDeleteButtonParams = (
 	columnsWidths: Array<number | undefined>,
 	selection: Selection,
-): { left: number; indexes: number[] } | null => {
+): { indexes: number[]; left: number; } | null => {
 	const rect = getSelectionRect(selection);
 	if (!rect) {
 		return null;

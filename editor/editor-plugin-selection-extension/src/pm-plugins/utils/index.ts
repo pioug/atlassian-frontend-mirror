@@ -25,10 +25,10 @@ const getSelectedRect = (selection: CellSelection): Rect => {
 };
 
 type SelectionInfo = {
+	nodePos: number;
+	selectedNode: PMNode;
 	selectedNodeAdf: ADFEntity;
 	selectionRanges?: SelectionRange[];
-	selectedNode: PMNode;
-	nodePos: number;
 };
 
 const getSelectionInfoFromSameNode = (selection: TextSelection) => {

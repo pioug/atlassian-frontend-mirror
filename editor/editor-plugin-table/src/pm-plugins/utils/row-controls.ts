@@ -9,9 +9,9 @@ import { TableCssClassName as ClassName } from '../../types';
 import { tableDeleteButtonSize } from '../../ui/consts';
 
 export interface RowParams {
-	startIndex: number;
 	endIndex: number;
 	height: number;
+	startIndex: number;
 }
 
 export const getRowHeights = (tableRef: HTMLTableElement): number[] => {
@@ -39,7 +39,7 @@ export const getRowDeleteButtonParams = (
 	rowsHeights: Array<number | undefined>,
 	selection: Selection,
 	offsetTop = 0,
-): { top: number; indexes: number[] } | null => {
+): { indexes: number[]; top: number; } | null => {
 	const rect = getSelectionRect(selection);
 	if (!rect) {
 		return null;
@@ -147,7 +147,7 @@ export const copyPreviousRow =
 		);
 
 		const cells = [] as PMNode[];
-		const fixRowspans: { pos: number; node: PMNode }[] = [];
+		const fixRowspans: { node: PMNode; pos: number; }[] = [];
 		for (let i = 0; i < cellsPositionsInOriginalRow.length; ) {
 			const pos = cellsPositionsInOriginalRow[i];
 			const documentCellPos = pos + table.start;

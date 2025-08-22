@@ -3,7 +3,7 @@ export enum HistoryActionTypes {
 }
 
 export interface HistoryAction {
-	type: HistoryActionTypes.UPDATE;
-	canUndo: boolean;
 	canRedo: boolean;
+	canUndo: boolean;
+	type: HistoryActionTypes.UPDATE;
 }

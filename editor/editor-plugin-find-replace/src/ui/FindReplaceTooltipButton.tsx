@@ -5,15 +5,15 @@ import { findKeymapByDescription, ToolTipContent } from '@atlaskit/editor-common
 import type { IconProps } from '@atlaskit/icon/types';
 import Tooltip from '@atlaskit/tooltip';
 interface Props {
-	title: string;
+	appearance?: 'default' | 'primary' | 'subtle';
+	disabled?: boolean;
 	icon: React.ComponentType<React.PropsWithChildren<IconProps>>;
 	iconLabel: string;
 	iconSize?: 'small' | undefined;
+	isPressed?: boolean;
 	keymapDescription: string;
 	onClick: (ref: React.RefObject<HTMLButtonElement>) => void;
-	disabled?: boolean;
-	isPressed?: boolean;
-	appearance?: 'default' | 'primary' | 'subtle';
+	title: string;
 }
 
 // eslint-disable-next-line @repo/internal/react/no-class-components

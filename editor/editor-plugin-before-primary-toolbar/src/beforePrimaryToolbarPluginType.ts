@@ -12,7 +12,7 @@ export type BeforePrimaryToolbarPluginDependencies = [OptionalPlugin<PrimaryTool
 export type BeforePrimaryToolbarPlugin = NextEditorPlugin<
 	'beforePrimaryToolbar',
 	{
-		pluginConfiguration: Config;
 		dependencies: BeforePrimaryToolbarPluginDependencies;
+		pluginConfiguration: Config;
 	}
 >;

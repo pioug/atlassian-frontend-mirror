@@ -7,12 +7,12 @@ import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import type { AlignmentState } from '../../../pm-plugins/types';
 
 export interface Props {
-	value: AlignmentState;
-	label: string;
-	isSelected?: boolean;
-	onClick: (value: AlignmentState, shouldClosePopup: boolean) => void;
 	content: React.ReactElement;
+	isSelected?: boolean;
+	label: string;
+	onClick: (value: AlignmentState, shouldClosePopup: boolean) => void;
 	shortcut?: Keymap;
+	value: AlignmentState;
 }
 
 function AlignmentButton({ label, isSelected, content, shortcut, onClick, value }: Props) {

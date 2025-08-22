@@ -16,6 +16,9 @@ import type { HighlightPluginState } from './pm-plugins/main';
 export type HighlightPlugin = NextEditorPlugin<
 	'highlight',
 	{
+		commands: {
+			changeColor: ({ color }: { color: string; inputMethod: INPUT_METHOD }) => EditorCommand;
+		};
 		dependencies: [
 			// Optional, we won't log analytics if it's not available
 			OptionalPlugin<AnalyticsPlugin>,
@@ -28,8 +31,5 @@ export type HighlightPlugin = NextEditorPlugin<
 			OptionalPlugin<UserPreferencesPlugin>,
 		];
 		sharedState: HighlightPluginState | undefined;
-		commands: {
-			changeColor: ({ color }: { color: string; inputMethod: INPUT_METHOD }) => EditorCommand;
-		};
 	}
 >;

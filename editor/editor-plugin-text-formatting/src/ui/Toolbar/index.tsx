@@ -43,17 +43,17 @@ import { SingleToolbarButtons } from './single-toolbar-buttons';
 import type { MenuIconItem, ToolbarType } from './types';
 
 export type ToolbarFormattingProps = {
-	editorView: EditorView;
-	isToolbarDisabled: boolean;
-	toolbarSize: ToolbarSize;
-	isReducedSpacing: boolean;
-	shouldUseResponsiveToolbar: boolean;
-	popupsMountPoint?: HTMLElement;
-	popupsBoundariesElement?: HTMLElement;
-	popupsScrollableElement?: HTMLElement;
-	editorAnalyticsAPI?: EditorAnalyticsAPI;
-	textFormattingState: TextFormattingState;
 	api: ExtractInjectionAPI<TextFormattingPlugin> | undefined;
+	editorAnalyticsAPI?: EditorAnalyticsAPI;
+	editorView: EditorView;
+	isReducedSpacing: boolean;
+	isToolbarDisabled: boolean;
+	popupsBoundariesElement?: HTMLElement;
+	popupsMountPoint?: HTMLElement;
+	popupsScrollableElement?: HTMLElement;
+	shouldUseResponsiveToolbar: boolean;
+	textFormattingState: TextFormattingState;
+	toolbarSize: ToolbarSize;
 	toolbarType: ToolbarType;
 };
 

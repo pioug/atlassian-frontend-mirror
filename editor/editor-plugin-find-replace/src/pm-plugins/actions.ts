@@ -16,45 +16,45 @@ export enum FindReplaceActionTypes {
 }
 
 export interface Activate {
-	type: FindReplaceActionTypes.ACTIVATE;
 	findText?: string;
-	matches?: Match[];
 	index?: number;
+	matches?: Match[];
+	type: FindReplaceActionTypes.ACTIVATE;
 }
 
 export interface Find {
-	type: FindReplaceActionTypes.FIND;
 	findText: string;
-	matches: Match[];
 	index: number;
+	matches: Match[];
+	type: FindReplaceActionTypes.FIND;
 }
 
 export interface FindNext {
-	type: FindReplaceActionTypes.FIND_NEXT;
-	index: number;
 	decorationSet: DecorationSet;
+	index: number;
+	type: FindReplaceActionTypes.FIND_NEXT;
 }
 
 export interface FindPrevious {
-	type: FindReplaceActionTypes.FIND_PREVIOUS;
-	index: number;
 	decorationSet: DecorationSet;
+	index: number;
+	type: FindReplaceActionTypes.FIND_PREVIOUS;
 }
 
 export interface Replace {
-	type: FindReplaceActionTypes.REPLACE;
-	replaceText: string;
 	decorationSet: DecorationSet;
-	matches: Match[];
 	index: number;
+	matches: Match[];
+	replaceText: string;
+	type: FindReplaceActionTypes.REPLACE;
 }
 
 export interface ReplaceAll {
-	type: FindReplaceActionTypes.REPLACE_ALL;
-	replaceText: string;
 	decorationSet: DecorationSet;
-	matches: Match[];
 	index: number;
+	matches: Match[];
+	replaceText: string;
+	type: FindReplaceActionTypes.REPLACE_ALL;
 }
 
 export interface Cancel {
@@ -66,8 +66,8 @@ export interface Blur {
 }
 
 export interface UpdateDecorations {
-	type: FindReplaceActionTypes.UPDATE_DECORATIONS;
 	decorationSet: DecorationSet;
+	type: FindReplaceActionTypes.UPDATE_DECORATIONS;
 }
 export interface ToggleMatchCase {
 	type: FindReplaceActionTypes.TOGGLE_MATCH_CASE;

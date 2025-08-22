@@ -117,15 +117,15 @@ const tooltipContainerStylesStickyHeaderWithMarksFix = css({
 
 // TODO: ED-26959 - Share prop types between DragHandle - generic enough to create a type for block control decoration
 type Props = {
-	view: EditorView;
+	anchorName: string;
+	anchorRectCache?: AnchorRectCache;
 	api: ExtractInjectionAPI<BlockControlsPlugin>;
 	formatMessage: IntlShape['formatMessage'];
 	getPos: () => number | undefined;
 	nodeType: string;
-	anchorName: string;
 	rootAnchorName?: string;
 	rootNodeType: string;
-	anchorRectCache?: AnchorRectCache;
+	view: EditorView;
 };
 
 export const TypeAheadControl = ({

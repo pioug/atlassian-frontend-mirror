@@ -594,12 +594,14 @@ export const messages: Messages = defineMessages({
 	preview_modal: {
 		id: 'fabric.linking.preview_modal',
 		defaultMessage: 'Open preview modal',
-		description: 'Button used to view a modal view of your content without needing to navigate to it.',
+		description:
+			'Button used to view a modal view of your content without needing to navigate to it.',
 	},
 	preview_panel: {
 		id: 'fabric.linking.preview_panel',
 		defaultMessage: 'Open preview panel',
-		description: 'Button used to view a side panel view of your content without needing to navigate to it.',
+		description:
+			'Button used to view a side panel view of your content without needing to navigate to it.',
 	},
 	preview_close: {
 		id: 'fabric.linking.preview_close',

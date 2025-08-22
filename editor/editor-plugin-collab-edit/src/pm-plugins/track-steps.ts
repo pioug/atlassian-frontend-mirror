@@ -38,14 +38,14 @@ function groupBy<T>(array: T[], keyGetter: (item: T) => string): Record<string, 
 }
 
 export type SanitizedStep = {
-	stepType: string;
 	attr?: string;
 	markType?: string;
+	stepType: string;
 };
 
 export type StepMetadataAnalytics = {
-	startedAt: number;
 	endedAt: number;
+	startedAt: number;
 	stepTypesAmount: {
 		[key: string]: number;
 	};
@@ -152,9 +152,9 @@ export const task = (
 export type CacheType = Map<
 	number,
 	{
-		steps: ReadonlyArray<Step>;
-		startedAt: number;
 		endedAt: number;
+		startedAt: number;
+		steps: ReadonlyArray<Step>;
 	}
 >;
 const stepsSentCache: CacheType = new Map();
@@ -162,8 +162,8 @@ const stepsSentCache: CacheType = new Map();
 type TrackProps = {
 	api: ExtractInjectionAPI<CollabEditPlugin> | undefined;
 	newEditorState: EditorState;
-	transactions: Readonly<Transaction[]>;
 	onTrackDataProcessed: (data: StepMetadataAnalytics[]) => void;
+	transactions: Readonly<Transaction[]>;
 };
 
 // Every ten seconds we will try to process the step data.
@@ -174,8 +174,8 @@ type Scheduler = {
 	postTask: (
 		cb: () => void,
 		options: {
-			priority: 'background';
 			delay: number;
+			priority: 'background';
 		},
 	) => Promise<unknown>;
 };

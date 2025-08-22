@@ -20,15 +20,15 @@ import type {
 
 type PickerType = 'clipboard' | 'dropzone' | 'customMediaPicker';
 type ExtendedComponentConfigs = {
+	clipboard: null;
 	customMediaPicker: CustomMediaPicker;
 	dropzone: null;
-	clipboard: null;
 };
 
 export type PickerFacadeConfig = {
-	mediaClientConfig: MediaClientConfig;
 	errorReporter: ErrorReportingHandler;
 	featureFlags?: MediaFeatureFlags;
+	mediaClientConfig: MediaClientConfig;
 };
 
 type NewMediaEvent = (

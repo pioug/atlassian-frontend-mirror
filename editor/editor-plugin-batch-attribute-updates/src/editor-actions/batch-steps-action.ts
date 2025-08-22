@@ -5,8 +5,8 @@ import { AttrStep, type Step } from '@atlaskit/editor-prosemirror/transform';
 import type { BatchStepsAction } from '../batchAttributeUpdatesPluginType';
 
 type AttributeData = {
-	position: number;
 	attrs: Record<string, unknown>;
+	position: number;
 };
 export const parseStepAttributeData = (step: SetAttrsStep | AttrStep): AttributeData => {
 	if (step instanceof SetAttrsStep) {

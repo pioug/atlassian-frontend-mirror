@@ -6,9 +6,9 @@ import { createPlugin } from './pm-plugins/main';
 import BlockMenu from './ui/block-menu';
 import { getBlockMenuComponents } from './ui/block-menu-components';
 
-export const blockMenuPlugin: BlockMenuPlugin = ({ api }) => {
+export const blockMenuPlugin: BlockMenuPlugin = ({ api, config }) => {
 	const registry = createBlockMenuRegistry();
-	registry.register(getBlockMenuComponents(api));
+	registry.register(getBlockMenuComponents({ api, config }));
 
 	return {
 		name: 'blockMenu',

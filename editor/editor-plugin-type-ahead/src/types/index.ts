@@ -37,35 +37,35 @@ export interface TypeAheadStatsSerializable extends TypeAheadStats {
 }
 
 export interface TypeAheadStatsModifier extends TypeAheadStatsSerializable {
-	increaseArrowUp: () => void;
 	increaseArrowDown: () => void;
+	increaseArrowUp: () => void;
 }
 
 export interface TypeAheadStatsMobileModifier extends TypeAheadStatsSerializable {
-	resetTime: () => void;
 	closeTime: () => void;
+	resetTime: () => void;
 }
 
 export type TypeAheadPluginState = {
-	decorationSet: DecorationSet;
 	decorationElement: HTMLElement | null;
-	typeAheadHandlers: Array<TypeAheadHandler>;
-	query: string;
-	items: Array<TypeAheadItem>;
+	decorationSet: DecorationSet;
 	errorInfo: TypeAheadErrorInfo;
-	triggerHandler?: TypeAheadHandler;
-	selectedIndex: number;
-	stats: TypeAheadStatsSerializable | null;
 	inputMethod: TypeAheadInputMethod | null;
+	items: Array<TypeAheadItem>;
+	query: string;
 	/**
 	 * If true, removes the trigger character from query when typeahead is closed
 	 */
 	removePrefixTriggerOnCancel?: boolean;
+	selectedIndex: number;
+	stats: TypeAheadStatsSerializable | null;
+	triggerHandler?: TypeAheadHandler;
+	typeAheadHandlers: Array<TypeAheadHandler>;
 };
 
 export type OnInsertSelectedItemProps = {
-	mode: SelectItemMode;
 	index: number;
+	mode: SelectItemMode;
 	query: string;
 };
 
@@ -94,13 +94,13 @@ export type PopupMountPointReference = Record<'current', PopupMountPoints | null
 export type CreateTypeAheadDecorations = (
 	tr: ReadonlyTransaction,
 	options: {
-		triggerHandler: TypeAheadHandler;
 		inputMethod: TypeAheadInputMethod;
 		reopenQuery?: string;
+		triggerHandler: TypeAheadHandler;
 	},
 ) => {
-	decorationSet: DecorationSet;
 	decorationElement: HTMLElement | null;
+	decorationSet: DecorationSet;
 	stats: TypeAheadStatsSerializable | null;
 };
 
@@ -122,21 +122,21 @@ export type TypeAheadPluginOptions = {
 };
 
 export interface TypeAheadPluginSharedState {
-	query: string;
-	isOpen: boolean;
-	isAllowed: boolean;
 	currentHandler?: TypeAheadHandler;
-	decorationSet: DecorationSet;
 	decorationElement: HTMLElement | null;
-	triggerHandler?: TypeAheadHandler;
-	items: Array<TypeAheadItem>;
+	decorationSet: DecorationSet;
 	errorInfo: TypeAheadErrorInfo;
+	isAllowed: boolean;
+	isOpen: boolean;
+	items: Array<TypeAheadItem>;
+	query: string;
 	selectedIndex: number;
+	triggerHandler?: TypeAheadHandler;
 }
 
 export type OpenTypeAheadProps = {
-	triggerHandler: TypeAheadHandler;
 	inputMethod: TypeAheadInputMethod;
 	query?: string;
 	removePrefixTriggerOnCancel?: boolean;
+	triggerHandler: TypeAheadHandler;
 };

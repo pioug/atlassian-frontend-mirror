@@ -27,21 +27,20 @@ export type DatasourceNode = Omit<Node, 'attrs'> & {
 };
 
 export type CardInfo = {
-	title?: string;
-	url?: string;
 	id?: string;
 	pos: number;
+	title?: string;
+	url?: string;
 };
 
 export type Request = {
 	/**
-	 * The position of the link in the doc this request for upgrade is for
+	 * Analytics action to be used when disaptching
+	 * analytics events once the link is successfully/unsuccessfully
+	 * resolved. Preserves the users "intent" ie was this a link
+	 * being inserted or updated?
 	 */
-	pos: number;
-	/**
-	 * The URL of the link being upgraded/resolved
-	 */
-	url: string;
+	analyticsAction?: ACTION;
 	/**
 	 * The requested appearance to upgrade to
 	 */
@@ -53,11 +52,9 @@ export type Request = {
 	 */
 	compareLinkText: boolean;
 	/**
-	 * Analytics input method which preserves "how" the change
-	 * has occured. Used when analytics are dispatched after the link
-	 * is successfully/unsuccessfully resolved.
+	 * The position of the link in the doc this request for upgrade is for
 	 */
-	source: CardReplacementInputMethod;
+	pos: number;
 	/**
 	 * The previous appearance of the link
 	 * This is necessary when tracking an update of a link
@@ -66,13 +63,6 @@ export type Request = {
 	 */
 	previousAppearance?: CardAppearance | 'url';
 	/**
-	 * Analytics action to be used when disaptching
-	 * analytics events once the link is successfully/unsuccessfully
-	 * resolved. Preserves the users "intent" ie was this a link
-	 * being inserted or updated?
-	 */
-	analyticsAction?: ACTION;
-	/**
 	 * Describes if the requested `appearance` MUST be returned by the card provider
 	 * when resolving the link, because the request is associated with the user intent
 	 * to explicitly change the link appearance to the target appearance (view switcher), and therefore
@@ -80,11 +70,21 @@ export type Request = {
 	 */
 	shouldReplaceLink?: boolean;
 	/**
+	 * Analytics input method which preserves "how" the change
+	 * has occured. Used when analytics are dispatched after the link
+	 * is successfully/unsuccessfully resolved.
+	 */
+	source: CardReplacementInputMethod;
+	/**
 	 * Source UI that triggered this step if relevant
 	 * Primarily for transfering link picker UI event from initial UI action
 	 * through to the end of the link queue/request saga
 	 */
 	sourceEvent?: UIAnalyticsEvent | null | undefined;
+	/**
+	 * The URL of the link being upgraded/resolved
+	 */
+	url: string;
 };
 
 /**
@@ -94,46 +94,46 @@ export type Request = {
 type DatasourceStash = Record<string, { views: DatasourceAdfView[] }>;
 
 export type CardPluginState = {
-	requests: Request[];
-	provider: CardProvider | null;
+	allowBlockCards?: boolean;
+	allowEmbeds?: boolean;
 	cards: CardInfo[];
+	datasourceModalType?: DatasourceModalType;
 	datasourceStash: DatasourceStash;
+	datasourceTableRef?: HTMLElement;
+	editorAppearance?: EditorAppearance;
+	inlineCardAwarenessCandidatePosition?: number;
+	layout?: DatasourceTableLayout;
+	overlayCandidatePosition?: number;
+	provider: CardProvider | null;
+	removeOverlay?: () => void;
+	requests: Request[];
+	selectedInlineLinkPosition?: number;
+	showDatasourceModal: boolean;
 	showLinkingToolbar: boolean;
 	smartLinkEvents?: SmartLinkEvents;
-	editorAppearance?: EditorAppearance;
-	showDatasourceModal: boolean;
-	datasourceModalType?: DatasourceModalType;
-	datasourceTableRef?: HTMLElement;
-	layout?: DatasourceTableLayout;
-	inlineCardAwarenessCandidatePosition?: number;
-	overlayCandidatePosition?: number;
-	removeOverlay?: () => void;
-	selectedInlineLinkPosition?: number;
-	allowEmbeds?: boolean;
-	allowBlockCards?: boolean;
 };
 
 export type CardPluginOptions = CardOptions & {
+	cardPluginEvents?: EditorCardPluginEvents<CardPluginEvent>;
+	CompetitorPrompt?: React.ComponentType<{ linkType?: string; sourceUrl: string; }>;
+	disableFloatingToolbar?: boolean;
 	editorAppearance?: EditorAppearance;
 	fullWidthMode?: boolean;
-	linkPicker?: LinkPickerOptions;
-	cardPluginEvents?: EditorCardPluginEvents<CardPluginEvent>;
-	lpLinkPicker?: boolean;
-	disableFloatingToolbar?: boolean;
-	onClickCallback?: OnClickCallback;
 	isPageSSRed?: boolean;
-	CompetitorPrompt?: React.ComponentType<{ sourceUrl: string; linkType?: string }>;
+	linkPicker?: LinkPickerOptions;
+	lpLinkPicker?: boolean;
+	onClickCallback?: OnClickCallback;
 };
 
 // actions
 export type SetProvider = {
-	type: 'SET_PROVIDER';
 	provider: CardProvider | null;
+	type: 'SET_PROVIDER';
 };
 
 export type Queue = {
-	type: 'QUEUE';
 	requests: Request[];
+	type: 'QUEUE';
 };
 
 export type Resolve = {
@@ -142,13 +142,13 @@ export type Resolve = {
 };
 
 export type Register = {
-	type: 'REGISTER';
 	info: CardInfo;
+	type: 'REGISTER';
 };
 
 export type RemoveCard = {
-	type: 'REMOVE_CARD';
 	info: Partial<CardInfo>;
+	type: 'REMOVE_CARD';
 };
 
 export type ShowLinkToolbar = {
@@ -160,8 +160,8 @@ export type HideLinkToolbar = {
 };
 
 export type ShowDatasourceModal = {
-	type: 'SHOW_DATASOURCE_MODAL';
 	modalType: DatasourceModalType;
+	type: 'SHOW_DATASOURCE_MODAL';
 };
 
 export type HideDatasourceModal = {
@@ -169,24 +169,24 @@ export type HideDatasourceModal = {
 };
 
 export type RegisterSmartCardEvents = {
-	type: 'REGISTER_EVENTS';
 	smartLinkEvents: SmartLinkEvents;
+	type: 'REGISTER_EVENTS';
 };
 
 export type SetDatasourceTableRef = {
-	type: 'SET_DATASOURCE_TABLE_REF';
 	datasourceTableRef?: HTMLElement;
+	type: 'SET_DATASOURCE_TABLE_REF';
 };
 
 export type SetCardLayout = {
-	type: 'SET_CARD_LAYOUT';
 	layout: DatasourceTableLayout;
+	type: 'SET_CARD_LAYOUT';
 };
 
 export type SetCardLayoutAndDatasourceTableRef = {
-	type: 'SET_CARD_LAYOUT_AND_DATASOURCE_TABLE_REF';
-	layout: DatasourceTableLayout;
 	datasourceTableRef?: HTMLElement;
+	layout: DatasourceTableLayout;
+	type: 'SET_CARD_LAYOUT_AND_DATASOURCE_TABLE_REF';
 };
 
 type ClearOverlayCandidate = {
@@ -194,14 +194,14 @@ type ClearOverlayCandidate = {
 };
 
 type RegisterRemoveOverlayOnInsertedLink = {
-	type: 'REGISTER_REMOVE_OVERLAY_ON_INSERTED_LINK';
 	callback: () => void;
 	info?: Register['info'];
+	type: 'REGISTER_REMOVE_OVERLAY_ON_INSERTED_LINK';
 };
 
 export type SetDatasourceStash = {
-	type: 'SET_DATASOURCE_STASH';
 	datasourceStash: { url: string; views: DatasourceAdfView[] };
+	type: 'SET_DATASOURCE_STASH';
 };
 
 export type RemoveDatasourceStash = {

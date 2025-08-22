@@ -14,9 +14,9 @@ import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmo
 export type DateSegment = 'day' | 'month' | 'year';
 
 export type DateType = {
-	year: number;
-	month: number;
 	day?: number;
+	month: number;
+	year: number;
 };
 
 export interface DatePluginOptions {
@@ -31,17 +31,17 @@ export interface DatePluginOptions {
 export type DatePluginConfig = DatePluginOptions;
 
 export type DatePluginSharedState = {
-	showDatePickerAt?: number | null;
-	isNew: boolean;
 	focusDateInput: boolean;
 	isInitialised: boolean;
+	isNew: boolean;
+	showDatePickerAt?: number | null;
 };
 
 export type InsertDate = (props: {
-	date?: DateType;
-	inputMethod?: TOOLBAR_MENU_TYPE;
 	commitMethod?: INPUT_METHOD.PICKER | INPUT_METHOD.KEYBOARD;
+	date?: DateType;
 	enterPressed?: boolean;
+	inputMethod?: TOOLBAR_MENU_TYPE;
 }) => EditorCommand;
 
 export type DeleteDate = EditorCommand;
@@ -49,17 +49,17 @@ export type DeleteDate = EditorCommand;
 export type DatePlugin = NextEditorPlugin<
 	'date',
 	{
-		pluginConfiguration: DatePluginOptions | undefined;
+		commands: {
+			deleteDate: DeleteDate;
+			insertDate: InsertDate;
+		};
 		dependencies: [
 			typeof analyticsPlugin,
 			EditorDisabledPlugin,
 			OptionalPlugin<AnnotationPlugin>,
 			OptionalPlugin<EditorViewModePlugin>,
 		];
+		pluginConfiguration: DatePluginOptions | undefined;
 		sharedState: DatePluginSharedState;
-		commands: {
-			insertDate: InsertDate;
-			deleteDate: DeleteDate;
-		};
 	}
 >;

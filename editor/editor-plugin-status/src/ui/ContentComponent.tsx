@@ -14,11 +14,11 @@ import StatusPicker from './statusPicker';
 
 interface ContentComponentProps {
 	api: ExtractInjectionAPI<StatusPlugin> | undefined;
-	popupsMountPoint?: HTMLElement;
-	popupsBoundariesElement?: HTMLElement;
-	popupsScrollableElement?: HTMLElement;
-	editorView: EditorView;
 	domAtPos: DomAtPos;
+	editorView: EditorView;
+	popupsBoundariesElement?: HTMLElement;
+	popupsMountPoint?: HTMLElement;
+	popupsScrollableElement?: HTMLElement;
 }
 
 export function ContentComponent({

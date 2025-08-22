@@ -18,80 +18,78 @@ import type { MediaPluginOptions } from '../types/media-plugin-options';
 import type PickerFacade from './picker-facade';
 
 export interface MediaNodeWithPosHandler {
-	node: PMNode;
 	getPos: ProsemirrorGetPosHandler;
+	node: PMNode;
 }
 
 export interface MediaPluginState {
-	allowsUploads: boolean;
-	mediaClientConfig?: MediaClientConfig;
-	uploadMediaClientConfig?: MediaClientConfig;
-	ignoreLinks: boolean;
-	waitForMediaUpload: boolean;
-	allUploadsFinished: boolean;
-	showDropzone: boolean;
-	isFullscreen: boolean;
-	element?: HTMLElement;
-	videoControlsWrapperRef?: HTMLElement;
-	layout: MediaSingleLayout;
-	mediaNodes: MediaNodeWithPosHandler[];
-	options: MediaPluginOptions;
-	mediaProvider?: MediaProvider;
-	pickers: PickerFacade[];
-	pickerPromises: Array<Promise<PickerFacade>>;
-	editingMediaSinglePos?: number;
-	showEditingDialog?: boolean;
-	mediaOptions?: MediaOptions;
-	isResizing: boolean;
-	resizingWidth: number;
-	currentMaxWidth?: number;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	addPendingTask: (promise: Promise<any>) => void;
 	allowInlineImages?: boolean;
-	lastAddedMediaSingleFileIds: { id: string; selectionPosition: number }[];
+	allowsUploads: boolean;
+	allUploadsFinished: boolean;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
+	clone(): MediaPluginState;
+	currentMaxWidth?: number;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
+	destroy(): void;
 	dispatch?: Dispatch;
-	setMediaProvider: (mediaProvider?: Promise<MediaProvider>) => Promise<void>;
+	editingMediaSinglePos?: number;
+	element?: HTMLElement;
+	findMediaNode: (id: string) => MediaNodeWithPosHandler | null;
 	getMediaOptions: () => MediaPluginOptions;
+	handleDrag: (dragState: 'enter' | 'leave') => void;
+	handleMediaGroupUpdate: (oldNodes: PMNode[], newNodes: PMNode[]) => void;
+	handleMediaNodeMount: (node: PMNode, getPos: ProsemirrorGetPosHandler) => void;
+	handleMediaNodeRemoval: (node: PMNode | undefined, getPos: ProsemirrorGetPosHandler) => void;
+	handleMediaNodeUnmount: (oldNode: PMNode) => void;
+	ignoreLinks: boolean;
 	insertFile: (
 		mediaState: MediaState,
 		onMediaStateChanged: MediaStateEventSubscriber,
 		pickerType?: string,
 		insertMediaVia?: InsertMediaVia,
 	) => void;
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	addPendingTask: (promise: Promise<any>) => void;
-	splitMediaGroup: () => boolean;
-	onPopupPickerClose: () => void;
-	showMediaPicker: () => void;
-	setBrowseFn: (browseFn: () => void) => void;
-	onPopupToggle: (onPopupToogleCallback: (isOpen: boolean) => void) => void;
-	waitForPendingTasks: (
-		timeout?: number,
-		lastTask?: Promise<MediaState | null>,
-	) => Promise<MediaState | null>;
-	handleMediaNodeRemoval: (node: PMNode | undefined, getPos: ProsemirrorGetPosHandler) => void;
-	handleMediaNodeMount: (node: PMNode, getPos: ProsemirrorGetPosHandler) => void;
-	handleMediaNodeUnmount: (oldNode: PMNode) => void;
-	handleMediaGroupUpdate: (oldNodes: PMNode[], newNodes: PMNode[]) => void;
-	findMediaNode: (id: string) => MediaNodeWithPosHandler | null;
-	updateMediaSingleNodeAttrs: (id: string, attrs: object) => undefined | boolean;
-	removeSelectedMediaContainer: () => boolean;
-	selectedMediaContainerNode: () => PMNode | undefined;
-	handleDrag: (dragState: 'enter' | 'leave') => void;
+	isFullscreen: boolean;
 	isIdentifierInEditorScope: (identifier: Identifier) => boolean;
+	// Media Viewer State
+	isMediaViewerVisible?: boolean;
+	isResizing: boolean;
+	lastAddedMediaSingleFileIds: { id: string; selectionPosition: number }[];
+	layout: MediaSingleLayout;
+	mediaClientConfig?: MediaClientConfig;
+	mediaNodes: MediaNodeWithPosHandler[];
+	mediaOptions?: MediaOptions;
+	mediaProvider?: MediaProvider;
+	mediaViewerSelectedMedia?: MediaADFAttrs;
+	onPopupPickerClose: () => void;
+	onPopupToggle: (onPopupToogleCallback: (isOpen: boolean) => void) => void;
+	options: MediaPluginOptions;
+	pickerPromises: Array<Promise<PickerFacade>>;
+	pickers: PickerFacade[];
+	removeSelectedMediaContainer: () => boolean;
+	resizingWidth: number;
+	selectedMediaContainerNode: () => PMNode | undefined;
+	setBrowseFn: (browseFn: () => void) => void;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
+	setIsResizing(isResizing: boolean): void;
+	setMediaProvider: (mediaProvider?: Promise<MediaProvider>) => Promise<void>;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
+	setResizingWidth(width: number): void;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
+	setView(view: EditorView): void;
+	showDropzone: boolean;
+	showEditingDialog?: boolean;
+	showMediaPicker: () => void;
+
+	splitMediaGroup: () => boolean;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
+	subscribeToUploadInProgressState(fn: (isUploading: boolean) => void): void;
 	trackOutOfScopeIdentifier: (identifier: Identifier) => void;
 
 	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	updateElement(): void;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	setIsResizing(isResizing: boolean): void;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	setResizingWidth(width: number): void;
-
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	setView(view: EditorView): void;
-
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	destroy(): void;
+	unsubscribeFromUploadInProgressState(fn: (isUploading: boolean) => void): void;
 
 	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	updateAndDispatch(
@@ -104,15 +102,17 @@ export interface MediaPluginState {
 	): void;
 
 	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	clone(): MediaPluginState;
+	updateElement(): void;
 
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	subscribeToUploadInProgressState(fn: (isUploading: boolean) => void): void;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	unsubscribeFromUploadInProgressState(fn: (isUploading: boolean) => void): void;
-	// Media Viewer State
-	isMediaViewerVisible?: boolean;
-	mediaViewerSelectedMedia?: MediaADFAttrs;
+	updateMediaSingleNodeAttrs: (id: string, attrs: object) => undefined | boolean;
+
+	uploadMediaClientConfig?: MediaClientConfig;
+	videoControlsWrapperRef?: HTMLElement;
+	waitForMediaUpload: boolean;
+	waitForPendingTasks: (
+		timeout?: number,
+		lastTask?: Promise<MediaState | null>,
+	) => Promise<MediaState | null>;
 }
 
 export type EventInput = 'keyboard' | 'mouse' | 'floatingToolBar';

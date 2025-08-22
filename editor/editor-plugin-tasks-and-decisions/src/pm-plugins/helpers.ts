@@ -252,7 +252,7 @@ export function getAllTaskItemsDataInRootTaskList(view: EditorView) {
 	if (rootTaskListData) {
 		const rootTaskList = rootTaskListData.node;
 		const rootTaskListStartPos = rootTaskListData.start;
-		const allTaskItems: Array<{ node: Node; pos: number; index: number }> = [];
+		const allTaskItems: Array<{ index: number; node: Node; pos: number; }> = [];
 		rootTaskList.descendants((node, pos, parent, index) => {
 			if (node.type === taskItem) {
 				allTaskItems.push({
@@ -268,7 +268,7 @@ export function getAllTaskItemsDataInRootTaskList(view: EditorView) {
 
 export function getCurrentTaskItemIndex(
 	view: EditorView,
-	allTaskItems: Array<{ node: Node; pos: number; index: number }>,
+	allTaskItems: Array<{ index: number; node: Node; pos: number; }>,
 ) {
 	const { state } = view;
 	const $fromPos = state.selection.$from;
@@ -368,8 +368,8 @@ export function closeRequestEditPopupAt(view: EditorView) {
 }
 
 export function findFirstParentListNode($pos: ResolvedPos): {
-	pos: number;
 	node: Node;
+	pos: number;
 } | null {
 	const currentNode = $pos.doc.nodeAt($pos.pos);
 	let listNodePosition: number | undefined | null = null;

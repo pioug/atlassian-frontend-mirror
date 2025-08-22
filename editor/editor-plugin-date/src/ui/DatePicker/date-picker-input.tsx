@@ -44,17 +44,17 @@ const dateTextFieldWrapper = css({
 });
 
 export interface InputProps {
-	/** Locale code string (eg. "en-AU") */
-	locale: string;
-	date: DateType;
-	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
-	onNewDate: (date: DateType) => void;
-	onSubmitDate: (date: DateType | null) => void;
-	onEmptySubmit: () => void;
 	/** Automatically focus the text field */
 	autoFocus?: boolean;
 	/** Automatically select all text in the field. Requires autoFocus to be true. */
 	autoSelectAll?: boolean;
+	date: DateType;
+	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
+	/** Locale code string (eg. "en-AU") */
+	locale: string;
+	onEmptySubmit: () => void;
+	onNewDate: (date: DateType) => void;
+	onSubmitDate: (date: DateType | null) => void;
 }
 
 export interface InputState {

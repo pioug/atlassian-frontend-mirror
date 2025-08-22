@@ -18,7 +18,18 @@ import type { BlockTypePluginOptions } from './pm-plugins/types';
 export type BlockTypePlugin = NextEditorPlugin<
 	'blockType',
 	{
-		pluginConfiguration: BlockTypePluginOptions | undefined;
+		actions: {
+			insertBlockQuote: (inputMethod: InputMethod) => Command;
+		};
+		commands: {
+			clearFormatting: (inputMethod: ClearFormattingInputMethod) => EditorCommand;
+			insertBlockQuote: (inputMethod: InputMethod) => EditorCommand;
+			setTextLevel: (
+				level: TextBlockTypes,
+				inputMethod: InputMethod,
+				fromBlockQuote?: boolean,
+			) => EditorCommand;
+		};
 		dependencies: [
 			OptionalPlugin<AnalyticsPlugin>,
 			OptionalPlugin<PrimaryToolbarPlugin>,
@@ -26,18 +37,7 @@ export type BlockTypePlugin = NextEditorPlugin<
 			OptionalPlugin<UserPreferencesPlugin>,
 			OptionalPlugin<ToolbarPlugin>,
 		];
+		pluginConfiguration: BlockTypePluginOptions | undefined;
 		sharedState: BlockTypeState | undefined;
-		actions: {
-			insertBlockQuote: (inputMethod: InputMethod) => Command;
-		};
-		commands: {
-			setTextLevel: (
-				level: TextBlockTypes,
-				inputMethod: InputMethod,
-				fromBlockQuote?: boolean,
-			) => EditorCommand;
-			insertBlockQuote: (inputMethod: InputMethod) => EditorCommand;
-			clearFormatting: (inputMethod: ClearFormattingInputMethod) => EditorCommand;
-		};
 	}
 >;

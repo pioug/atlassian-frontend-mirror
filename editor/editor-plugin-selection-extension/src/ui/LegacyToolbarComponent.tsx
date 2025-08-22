@@ -11,8 +11,8 @@ import {
 import type { ExtensionToolbarItemConfiguration, GetMenuItemsFn, GetToolbarItemFn } from '../types';
 
 export type ToolbarItemExtension = {
-	getToolbarItem: GetToolbarItemFn;
 	getMenuItems?: GetMenuItemsFn;
+	getToolbarItem: GetToolbarItemFn;
 };
 
 type LegacyPrimaryToolbarComponentProps = {
@@ -34,8 +34,8 @@ export const LegacyPrimaryToolbarComponent = ({
 };
 
 type LegacyExtensionToolbarItemProps = {
-	toolbarItem: ExtensionToolbarItemConfiguration;
 	getMenuItems?: GetMenuItemsFn;
+	toolbarItem: ExtensionToolbarItemConfiguration;
 };
 
 export const LegacyExtensionToolbarItem = ({

@@ -65,7 +65,7 @@ const providerBuilder: ProviderBuilder =
 
 const createAddInlineCommentMark =
 	(providerPromise: Promise<CollabEditProvider>) =>
-	({ from, to, mark }: { from: number; to: number; mark: Mark }): boolean => {
+	({ from, to, mark }: { from: number; mark: Mark; to: number; }): boolean => {
 		providerPromise.then((provider) => {
 			const commentMark = new AddMarkStep(Math.min(from, to), Math.max(from, to), mark);
 
@@ -78,7 +78,7 @@ const createAddInlineCommentMark =
 
 const createAddInlineCommentNodeMark =
 	(providerPromise: Promise<CollabEditProvider>) =>
-	({ pos, mark }: { pos: number; mark: Mark }): boolean => {
+	({ pos, mark }: { mark: Mark; pos: number; }): boolean => {
 		providerPromise.then((provider) => {
 			const commentMark = new AddNodeMarkStep(pos, mark);
 

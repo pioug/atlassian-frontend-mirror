@@ -15,17 +15,17 @@ import {
 } from '../FloatingToolbar/utils';
 
 export interface Props {
-	getNodeFromPos: (pos: number) => Node;
-	getFixedCoordinatesFromPos: (pos: number) => Coordinates;
-	insertPlaceholder: (value: string) => void;
-	hidePlaceholderFloatingToolbar: () => void;
-	setFocusInEditor: () => void;
-
-	showInsertPanelAt: number;
-	editorViewDOM: HTMLElement;
-	popupsMountPoint?: HTMLElement;
-	popupsBoundariesElement?: HTMLElement;
 	children?: React.ReactNode;
+	editorViewDOM: HTMLElement;
+	getFixedCoordinatesFromPos: (pos: number) => Coordinates;
+	getNodeFromPos: (pos: number) => Node;
+	hidePlaceholderFloatingToolbar: () => void;
+
+	insertPlaceholder: (value: string) => void;
+	popupsBoundariesElement?: HTMLElement;
+	popupsMountPoint?: HTMLElement;
+	setFocusInEditor: () => void;
+	showInsertPanelAt: number;
 }
 
 // eslint-disable-next-line @repo/internal/react/no-class-components

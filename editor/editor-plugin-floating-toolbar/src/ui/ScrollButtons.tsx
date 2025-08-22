@@ -32,10 +32,10 @@ const LeftIcon = ChevronLeftLargeIcon;
 const RightIcon = ChevronRightLargeIcon;
 
 interface ScrollButtonsProps {
-	intl: IntlShape;
-	scrollContainerRef: React.RefObject<HTMLDivElement>;
-	node: Node;
 	disabled: boolean;
+	intl: IntlShape;
+	node: Node;
+	scrollContainerRef: React.RefObject<HTMLDivElement>;
 }
 
 // Remove this component (replaced by ScrollButton) as part of platform_editor_controls clean up

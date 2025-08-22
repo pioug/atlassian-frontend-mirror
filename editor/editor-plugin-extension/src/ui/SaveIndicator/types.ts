@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react';
 
 interface SaveIndicatorRenderOptions {
-	onSaveStarted: () => void;
 	onSaveEnded: () => void;
+	onSaveStarted: () => void;
 }
 
 export interface SaveIndicatorProps {

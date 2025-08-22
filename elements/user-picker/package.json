@@ -87,7 +87,6 @@
 		"@atlaskit/analytics-viewer": "workspace:^",
 		"@atlaskit/elements-test-helpers": "workspace:^",
 		"@atlaskit/heading": "workspace:^",
-		"@atlaskit/visual-regression": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@emotion/styled": "root:*",
 		"@testing-library/dom": "root:*",

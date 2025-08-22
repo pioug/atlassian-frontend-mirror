@@ -94,11 +94,11 @@ const createOpenTypeAhead =
 	};
 
 type InsertTypeAheadItemProps = {
-	triggerHandler: TypeAheadHandler;
 	contentItem: TypeAheadItem;
+	mode?: SelectItemMode;
 	query: string;
 	sourceListItem: TypeAheadItem[];
-	mode?: SelectItemMode;
+	triggerHandler: TypeAheadHandler;
 };
 const createInsertTypeAheadItem =
 	(editorViewRef: EditorViewRef) =>
@@ -134,8 +134,8 @@ const createFindHandlerByTrigger =
 	};
 
 type CloseTypeAheadProps = {
-	insertCurrentQueryAsRawText: boolean;
 	attachCommand?: Command;
+	insertCurrentQueryAsRawText: boolean;
 };
 const createCloseTypeAhead =
 	(editorViewRef: EditorViewRef) =>

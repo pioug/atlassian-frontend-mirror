@@ -15,18 +15,18 @@ import { type MenuIconItem, type ToolbarType } from './types';
 
 type DropdownMenuProps = {
 	editorView: EditorView;
+	hasFormattingActive: boolean;
+	hasMoreButton: boolean;
+	isDisabled?: boolean;
 	isReducedSpacing: boolean;
 	items: {
 		items: MenuIconItem[];
 	}[];
 	moreButtonLabel: string;
-	hasFormattingActive: boolean;
 	popupsBoundariesElement?: HTMLElement;
 	popupsMountPoint?: HTMLElement;
 	popupsScrollableElement?: HTMLElement;
-	hasMoreButton: boolean;
 	toolbarType: ToolbarType;
-	isDisabled?: boolean;
 } & WrappedComponentProps;
 
 export const FormattingTextDropdownMenu = React.memo(

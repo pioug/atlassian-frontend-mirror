@@ -49,8 +49,8 @@ function Component({
 	mentionProvider,
 	api,
 }: {
-	mentionProvider: Promise<MentionProvider> | undefined;
 	api: ExtractInjectionAPI<MentionsPlugin> | undefined;
+	mentionProvider: Promise<MentionProvider> | undefined;
 }) {
 	const mentionProviderMemo = useMemo(() => {
 		return mentionProvider;
@@ -175,10 +175,10 @@ const mentionsPlugin: MentionsPlugin = ({ config: options, api }) => {
 			},
 			announceMentionsInsertion: (
 				mentionChanges: {
-					type: 'added' | 'deleted';
-					localId: string;
 					id: string;
+					localId: string;
 					taskLocalId?: string;
+					type: 'added' | 'deleted';
 				}[],
 			) => {
 				if (options?.handleMentionsChanged) {

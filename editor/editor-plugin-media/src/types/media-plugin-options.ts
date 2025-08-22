@@ -5,14 +5,14 @@ import type { ErrorReporter } from '@atlaskit/editor-common/utils';
 import type { CustomMediaPicker, MediaState } from './index';
 
 export type MediaPluginOptions = {
-	providerFactory: ProviderFactory;
+	allowResizing: boolean;
+	customDropzoneContainer?: HTMLElement;
+	customMediaPicker?: CustomMediaPicker;
+	errorReporter?: ErrorReporter;
 	nodeViews: {
 		[name: string]: NodeViewConstructor;
 	};
-	errorReporter?: ErrorReporter;
+	providerFactory: ProviderFactory;
 	uploadErrorHandler?: (state: MediaState) => void;
 	waitForMediaUpload?: boolean;
-	customDropzoneContainer?: HTMLElement;
-	customMediaPicker?: CustomMediaPicker;
-	allowResizing: boolean;
 };

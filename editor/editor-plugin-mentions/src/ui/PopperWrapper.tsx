@@ -8,13 +8,13 @@ import { useFocusTrap } from './useFocusTrap';
 
 interface Props {
 	/**
-	 * Replacement reference element to position popper relative to.
-	 */
-	referenceElement: HTMLElement;
-	/**
 	 * Returns the element to be positioned.
 	 */
 	children: React.ReactNode;
+	/**
+	 * Replacement reference element to position popper relative to.
+	 */
+	referenceElement: HTMLElement;
 }
 
 // From `packages/design-system/popup/src/reposition-on-update.tsx`

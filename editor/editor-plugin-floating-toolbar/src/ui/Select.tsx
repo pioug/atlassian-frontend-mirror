@@ -5,20 +5,20 @@ import type { ValueType } from '@atlaskit/select';
 import Select from '@atlaskit/select';
 
 export interface Props {
-	hideExpandIcon?: boolean;
-	options: SelectOption[];
-	dispatchCommand: (command: Function) => void;
-	mountPoint?: HTMLElement;
-	boundariesElement?: HTMLElement;
-	scrollableElement?: HTMLElement;
-	defaultValue?: SelectOption | null;
-	placeholder?: string;
-	onChange?: (change: ValueType<SelectOption>) => void;
-	width?: number;
-	filterOption?: ((option: SelectOption, rawInput: string) => boolean) | null;
-	setDisableParentScroll?: (disable: boolean) => void;
 	ariaLabel?: string;
+	boundariesElement?: HTMLElement;
 	classNamePrefix?: string;
+	defaultValue?: SelectOption | null;
+	dispatchCommand: (command: Function) => void;
+	filterOption?: ((option: SelectOption, rawInput: string) => boolean) | null;
+	hideExpandIcon?: boolean;
+	mountPoint?: HTMLElement;
+	onChange?: (change: ValueType<SelectOption>) => void;
+	options: SelectOption[];
+	placeholder?: string;
+	scrollableElement?: HTMLElement;
+	setDisableParentScroll?: (disable: boolean) => void;
+	width?: number;
 }
 
 export default function Search(props: Props) {

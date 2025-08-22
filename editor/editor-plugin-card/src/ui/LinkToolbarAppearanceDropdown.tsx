@@ -26,9 +26,9 @@ import { DatasourceDropdownOption, datasourceDisplayInformation } from './Dataso
 import { getUnavailableMessage, type LinkToolbarAppearanceProps } from './LinkToolbarAppearance';
 
 type Props = LinkToolbarAppearanceProps & {
+	allowDatasource?: boolean;
 	dispatchCommand: (command: Command) => void;
 	settingsConfig: FloatingToolbarItem<Command>;
-	allowDatasource?: boolean;
 };
 
 export const LinkAppearanceMenu = ({
@@ -202,8 +202,8 @@ export const getLinkAppearanceDropdown = ({
 	isDatasourceView,
 	settingsConfig,
 }: LinkToolbarAppearanceProps & {
-	settingsConfig: FloatingToolbarItem<Command>;
 	allowDatasource?: boolean;
+	settingsConfig: FloatingToolbarItem<Command>;
 }) => {
 	const alignmentItemOptions: DropdownOptions<Command> = {
 		render: (props) => {

@@ -1,7 +1,7 @@
 export type OnInsertAttrs = {
-	id: string;
 	collection: string | undefined;
-	dimensions?: { width: number; height: number };
-	occurrenceKey: string | undefined;
+	dimensions?: { height: number; width: number; };
 	fileMimeType: string;
+	id: string;
+	occurrenceKey: string | undefined;
 };

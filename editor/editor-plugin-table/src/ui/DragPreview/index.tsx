@@ -20,8 +20,8 @@ export const DragPreview = ({
 	height,
 }: {
 	direction: TableDirection;
-	width: number;
 	height: number;
+	width: number;
 }) => {
 	const marginLeft = direction === 'row' ? -14 : width / 2 - 14;
 	const marginTop = direction === 'row' ? height / 2 - 14 : -10;

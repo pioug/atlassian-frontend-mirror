@@ -11,11 +11,11 @@ import { type CardType } from '../../types';
 export type EditVariant = 'none' | 'edit-link' | 'edit-datasource' | 'edit-dropdown';
 
 export interface EditDatasourceToolbarButtonWithCommonProps {
-	intl: IntlShape;
-	onLinkEditClick: Command;
+	currentAppearance?: CardType;
 	editorAnalyticsApi?: EditorAnalyticsAPI;
 	editorView?: EditorView;
-	currentAppearance?: CardType;
+	intl: IntlShape;
+	onLinkEditClick: Command;
 }
 
 export interface EditDatasourceToolbarButtonWithUrlProps
@@ -33,7 +33,7 @@ export interface EditDatasourceToolbarButtonWithDatasourceIdProps
 
 export type EditDatasourceToolbarButtonProps = EditDatasourceToolbarButtonWithCommonProps & {
 	cardContext?: CardContext;
-	url?: string;
 	datasourceId?: string;
 	node?: Node;
+	url?: string;
 };

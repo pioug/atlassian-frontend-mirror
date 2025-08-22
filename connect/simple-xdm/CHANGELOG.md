@@ -1,5 +1,12 @@
 # @atlaskit/simple-xdm
 
+## 1.0.5
+
+### Patch Changes
+
+- [`bbabc624ff789`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bbabc624ff789) -
+  Sorted type and interface props to improve Atlaskit docs
+
 ## 1.0.4
 
 ### Patch Changes

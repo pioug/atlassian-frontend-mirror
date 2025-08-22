@@ -513,3 +513,21 @@ export const PIN_MENU_ITEM = {
 	key: 'pin-menu-item',
 	type: 'menu-item',
 } as const;
+
+/**
+ * Pin section
+ */
+export const PIN_SECTION = {
+	key: 'pin-section',
+	type: 'section',
+} as const;
+
+export const PIN_GROUP = {
+	key: 'pin-group',
+	type: 'group',
+} as const;
+
+export const PIN_BUTTON = {
+	key: 'pin-button',
+	type: 'button',
+} as const;

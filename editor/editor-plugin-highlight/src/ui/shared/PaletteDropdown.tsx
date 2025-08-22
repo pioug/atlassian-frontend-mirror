@@ -18,14 +18,14 @@ import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 type PaletteDropdownProps = {
-	popupsMountPoint?: HTMLElement;
-	popupsBoundariesElement?: HTMLElement;
-	popupsScrollableElement?: HTMLElement;
-	isOpen: boolean;
 	activeColor: string | null;
-	trigger: React.ReactElement;
-	onColorChange: (color: string) => void;
+	isOpen: boolean;
 	isOpenedByKeyboard: boolean;
+	onColorChange: (color: string) => void;
+	popupsBoundariesElement?: HTMLElement;
+	popupsMountPoint?: HTMLElement;
+	popupsScrollableElement?: HTMLElement;
+	trigger: React.ReactElement;
 } & WithOutsideClickProps;
 
 const HIGHLIGHT_COLOR_PICKER_COLUMNS = 8;

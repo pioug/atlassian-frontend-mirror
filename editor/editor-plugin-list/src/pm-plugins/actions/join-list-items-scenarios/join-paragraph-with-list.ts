@@ -2,7 +2,7 @@ import { insertContentDeleteRange } from '@atlaskit/editor-common/utils';
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
-type DeleteAction = (props: { tr: Transaction; $next: ResolvedPos; $head: ResolvedPos }) => boolean;
+type DeleteAction = (props: { $head: ResolvedPos; $next: ResolvedPos; tr: Transaction; }) => boolean;
 
 //Case for two adjacent nodes with the first being a list item and the last being a paragraph
 export const joinParagrapWithList: DeleteAction = ({ tr, $next, $head }) => {

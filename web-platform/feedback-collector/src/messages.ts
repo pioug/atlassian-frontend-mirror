@@ -157,4 +157,14 @@ export const messages = defineMessages({
 		description:
 			'The textarea label where users can write their suggestion for custom feedback collector',
 	},
+	validationErrorTypeRequired: {
+		id: 'feedback-collector.validation.type.required',
+		defaultMessage: 'Please select a feedback type',
+		description: 'Error message when feedback type is not selected',
+	},
+	validationErrorDescriptionRequired: {
+		id: 'feedback-collector.validation.description.required',
+		defaultMessage: 'Please provide a description',
+		description: 'Error message when description is not provided',
+	},
 });

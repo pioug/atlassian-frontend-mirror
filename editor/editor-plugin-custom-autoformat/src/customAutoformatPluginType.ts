@@ -6,10 +6,10 @@ import type { CustomAutoformatPluginOptions, CustomAutoformatPluginSharedState }
 export type CustomAutoformatPlugin = NextEditorPlugin<
 	'customAutoformat',
 	{
-		sharedState: CustomAutoformatPluginSharedState | undefined;
-		pluginConfiguration: CustomAutoformatPluginOptions;
 		actions: {
 			setProvider: (provider: Promise<AutoformattingProvider>) => Promise<boolean>;
 		};
+		pluginConfiguration: CustomAutoformatPluginOptions;
+		sharedState: CustomAutoformatPluginSharedState | undefined;
 	}
 >;

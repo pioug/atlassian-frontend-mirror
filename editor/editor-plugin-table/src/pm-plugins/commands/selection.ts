@@ -337,9 +337,9 @@ const selectFullTable =
 		startPos,
 		dir,
 	}: {
+		dir: TableSelectionDirection;
 		node: PmNode;
 		startPos: number;
-		dir: TableSelectionDirection;
 	}): Command =>
 	(state, dispatch) => {
 		const { doc } = state;

@@ -13,26 +13,26 @@ import type { MentionsPlugin } from '@atlaskit/editor-plugin-mentions';
 import type { Slice } from '@atlaskit/editor-prosemirror/model';
 
 export interface PastePluginState {
+	lastContentPasted: LastContentPasted | null;
 	/** map of pasted macro link positions that will to be mapped through incoming transactions */
 	pastedMacroPositions: { [key: string]: number };
-	lastContentPasted: LastContentPasted | null;
 }
 
 export type LastContentPasted = {
 	isPlainText: boolean;
-	text?: string;
 	isShiftPressed: boolean;
-	pasteStartPos: number;
-	pasteEndPos: number;
-	pastedSlice: Slice;
 	pastedAt: number;
+	pastedSlice: Slice;
+	pasteEndPos: number;
 	pasteSource: PasteSource;
+	pasteStartPos: number;
+	text?: string;
 };
 
 export type PastePluginOptions = {
 	cardOptions?: CardOptions;
-	sanitizePrivateContent?: boolean;
 	isFullPage?: boolean;
+	sanitizePrivateContent?: boolean;
 };
 
 export type PastePluginDependencies = [
@@ -50,8 +50,8 @@ export type PastePluginDependencies = [
 export type PastePlugin = NextEditorPlugin<
 	'paste',
 	{
-		pluginConfiguration: PastePluginOptions;
 		dependencies: PastePluginDependencies;
+		pluginConfiguration: PastePluginOptions;
 		sharedState: {
 			lastContentPasted: LastContentPasted | null;
 		};

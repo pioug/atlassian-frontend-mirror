@@ -20,8 +20,8 @@ const displayCategoryFromDisplay = (display: string) => {
 
 type LinkEventHandlers = {
 	[EVENT.CREATED]: (data: LinkCreatedEvent['data']) => void;
-	[EVENT.UPDATED]: (data: LinkUpdatedEvent['data']) => void;
 	[EVENT.DELETED]: (data: LinkDeletedEvent['data']) => void;
+	[EVENT.UPDATED]: (data: LinkUpdatedEvent['data']) => void;
 };
 
 /**

@@ -29,14 +29,14 @@ import { DatasourceIcon } from './DatasourceIcon';
 import { useFetchDatasourceInfo } from './useFetchDatasourceInfo';
 
 export interface DatasourceAppearanceButtonProps {
-	intl: IntlShape;
-	editorAnalyticsApi?: EditorAnalyticsAPI;
-	url: string;
-	editorView?: EditorView;
-	editorState: EditorState;
 	cardContext?: CardContext;
-	selected?: boolean;
+	editorAnalyticsApi?: EditorAnalyticsAPI;
+	editorState: EditorState;
+	editorView?: EditorView;
 	inputMethod: string;
+	intl: IntlShape;
+	selected?: boolean;
+	url: string;
 }
 
 const buttonStyles = css({

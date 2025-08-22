@@ -8,8 +8,8 @@ import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 type PmMutationRecord =
 	| MutationRecord
 	| {
-			type: 'selection';
 			target: Node;
+			type: 'selection';
 	  };
 
 const serializePlaceholderNode = (node: PMNode): HTMLElement => {

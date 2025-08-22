@@ -16,8 +16,8 @@ import { getMethod } from './common';
 
 type EventHandlers = {
 	[EVENT.CREATED]: (data: DatasourceCreatedEvent['data']) => void;
-	[EVENT.UPDATED]: (data: DatasourceUpdatedEvent['data']) => void;
 	[EVENT.DELETED]: (data: DatasourceDeletedEvent['data']) => void;
+	[EVENT.UPDATED]: (data: DatasourceUpdatedEvent['data']) => void;
 };
 
 type Metadata = Parameters<typeof getMethod>[0];

@@ -9,22 +9,22 @@ import type {
 
 export type ContextPanelPluginOptions = {
 	objectSideBar: {
-		showPanel: ShowObjectSidebar;
 		closePanel: HideObjectSidebar;
 		closePanelById: HideObjectSidebarById;
+		showPanel: ShowObjectSidebar;
 	};
 };
 
 export type ContextPanelPlugin = NextEditorPlugin<
 	'contextPanel',
 	{
-		pluginConfiguration: ContextPanelPluginOptions | undefined;
 		actions: {
 			applyChange: typeof applyChange;
-			showPanel?: ContextPanelPluginOptions['objectSideBar']['showPanel'];
 			closePanel?: ContextPanelPluginOptions['objectSideBar']['closePanel'];
 			closePanelById?: ContextPanelPluginOptions['objectSideBar']['closePanelById'];
+			showPanel?: ContextPanelPluginOptions['objectSideBar']['showPanel'];
 		};
+		pluginConfiguration: ContextPanelPluginOptions | undefined;
 		sharedState: { contents: React.ReactNode[] | undefined } | undefined;
 	}
 >;

@@ -23,6 +23,19 @@ import type {
 
 type HyperlinkPluginCommands = {
 	/**
+	 * EditorCommand to remove the current active link.
+	 *
+	 * Example:
+	 *
+	 * ```
+	 * api.core.actions.execute(
+	 *   api.hyperlink.commands.removeLink()
+	 * )
+	 * ```
+	 */
+	removeLink: () => EditorCommand;
+
+	/**
 	 * EditorCommand to show link toolbar.
 	 *
 	 * Example:
@@ -47,19 +60,6 @@ type HyperlinkPluginCommands = {
 	 * ```
 	 */
 	updateLink: (href: string, text: string) => EditorCommand;
-
-	/**
-	 * EditorCommand to remove the current active link.
-	 *
-	 * Example:
-	 *
-	 * ```
-	 * api.core.actions.execute(
-	 *   api.hyperlink.commands.removeLink()
-	 * )
-	 * ```
-	 */
-	removeLink: () => EditorCommand;
 };
 
 export type HyperlinkPluginDependencies = [
@@ -86,10 +86,10 @@ export type HyperlinkPluginSharedState = HyperlinkState | undefined;
 export type HyperlinkPlugin = NextEditorPlugin<
 	'hyperlink',
 	{
-		pluginConfiguration: HyperlinkPluginOptions | undefined;
-		dependencies: HyperlinkPluginDependencies;
 		actions: HyperlinkPluginActions;
 		commands: HyperlinkPluginCommands;
+		dependencies: HyperlinkPluginDependencies;
+		pluginConfiguration: HyperlinkPluginOptions | undefined;
 		sharedState: HyperlinkPluginSharedState;
 	}
 >;

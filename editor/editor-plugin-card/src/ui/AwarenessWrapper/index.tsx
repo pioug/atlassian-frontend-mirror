@@ -25,15 +25,15 @@ import {
 import { DiscoveryPulse } from '../Pulse';
 
 type AwarenessWrapperProps = {
-	isInserted?: boolean;
-	isResolvedViewRendered?: boolean;
 	children: JSX.Element;
+	isInserted?: boolean;
+	isOverlayEnabled?: boolean;
+	isPulseEnabled?: boolean;
+	isResolvedViewRendered?: boolean;
+	isSelected?: boolean;
 	markMostRecentlyInsertedLink: (isLinkMostRecentlyInserted: boolean) => void;
 	setOverlayHoveredStyles: (isHovered: boolean) => void;
 	url: string;
-	isOverlayEnabled?: boolean;
-	isPulseEnabled?: boolean;
-	isSelected?: boolean;
 } & Partial<SmartCardProps>;
 
 // editor adds a standard line-height that is bigger than an inline smart link

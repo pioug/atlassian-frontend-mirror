@@ -101,12 +101,12 @@ export type DropTargetStyle = 'default' | 'remainingHeight';
 
 export type DropTargetProps = {
 	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined;
-	getPos: () => number | undefined;
-	prevNode?: PMNode;
-	nextNode?: PMNode;
-	parentNode?: PMNode;
 	dropTargetStyle?: DropTargetStyle;
 	formatMessage?: IntlShape['formatMessage'];
+	getPos: () => number | undefined;
+	nextNode?: PMNode;
+	parentNode?: PMNode;
+	prevNode?: PMNode;
 };
 
 const HoverZone = ({
@@ -121,16 +121,16 @@ const HoverZone = ({
 	isNestedDropTarget,
 	dropTargetStyle,
 }: {
+	anchorRectCache?: AnchorRectCache;
+	dropTargetStyle?: DropTargetStyle;
+	editorWidth?: number;
+	isNestedDropTarget?: boolean;
+	node?: PMNode;
 	onDragEnter: () => void;
 	onDragLeave: () => void;
 	onDrop: () => void;
-	anchorRectCache?: AnchorRectCache;
-	position: 'upper' | 'lower';
-	node?: PMNode;
 	parent?: PMNode;
-	editorWidth?: number;
-	isNestedDropTarget?: boolean;
-	dropTargetStyle?: DropTargetStyle;
+	position: 'upper' | 'lower';
 }) => {
 	const ref = useRef<HTMLDivElement | null>(null);
 

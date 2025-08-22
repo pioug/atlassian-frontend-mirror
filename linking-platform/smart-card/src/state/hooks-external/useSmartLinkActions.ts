@@ -90,9 +90,9 @@ export function useSmartLinkActions({
 			actions.push(toAction(viewActionProps, invokeClientAction, messages.view, 'view-content'));
 		}
 
-		const previewActionProps = extractInvokePreviewAction({ 
-			...invokeParam, 
-			fireEvent, 
+		const previewActionProps = extractInvokePreviewAction({
+			...invokeParam,
+			fireEvent,
 			origin,
 			isPreviewPanelAvailable,
 			openPreviewPanel,

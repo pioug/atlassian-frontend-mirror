@@ -8,6 +8,7 @@ import {
 	OVERFLOW_MENU,
 	OVERFLOW_SECTION,
 	OVERFLOW_SECTION_RANK,
+	PIN_SECTION,
 	TEXT_SECTION,
 	TOOLBAR_RANK,
 	TOOLBARS,
@@ -24,6 +25,7 @@ import { Section } from './Section';
 
 export const getToolbarComponents = (
 	api?: ExtractInjectionAPI<ToolbarPlugin>,
+	disableSelectionToolbar?: boolean,
 ): RegisterComponent[] => {
 	return [
 		{
@@ -57,7 +59,12 @@ export const getToolbarComponents = (
 			],
 			component: ({ children, parents }) => {
 				return (
-					<Section parents={parents} api={api} testId="text-section">
+					<Section
+						parents={parents}
+						api={api}
+						disableSelectionToolbar={disableSelectionToolbar}
+						testId="text-section"
+					>
 						{children}
 					</Section>
 				);
@@ -146,6 +153,17 @@ export const getToolbarComponents = (
 			component: ({ children }) => {
 				return <OverflowMenu>{children}</OverflowMenu>;
 			},
+		},
+		{
+			type: PIN_SECTION.type,
+			key: PIN_SECTION.key,
+			parents: [
+				{
+					type: 'toolbar',
+					key: TOOLBARS.PRIMARY_TOOLBAR,
+					rank: TOOLBAR_RANK[PIN_SECTION.key],
+				},
+			],
 		},
 	];
 };

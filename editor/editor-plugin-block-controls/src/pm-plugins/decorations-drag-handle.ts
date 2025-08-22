@@ -40,15 +40,15 @@ export const findHandleDec = (decorations: DecorationSet, from?: number, to?: nu
 };
 
 type DragHandleDecorationParams = {
-	api: ExtractInjectionAPI<BlockControlsPlugin>;
-	formatMessage: IntlShape['formatMessage'];
-	pos: number;
 	anchorName: string;
+	anchorRectCache?: AnchorRectCache;
+	api: ExtractInjectionAPI<BlockControlsPlugin>;
+	editorState: EditorState;
+	formatMessage: IntlShape['formatMessage'];
+	handleOptions?: HandleOptions;
 	nodeType: string;
 	nodeViewPortalProviderAPI: PortalProviderAPI;
-	handleOptions?: HandleOptions;
-	anchorRectCache?: AnchorRectCache;
-	editorState: EditorState;
+	pos: number;
 };
 
 export const dragHandleDecoration = ({

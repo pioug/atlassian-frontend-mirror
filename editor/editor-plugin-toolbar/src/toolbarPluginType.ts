@@ -11,7 +11,10 @@ import type { ToolbarPluginOptions } from './types';
 export type ToolbarPlugin = NextEditorPlugin<
 	'toolbar',
 	{
-		pluginConfiguration?: ToolbarPluginOptions;
+		actions: {
+			getComponents: () => Array<RegisterComponent>;
+			registerComponents: (toolbarComponents: Array<RegisterComponent>) => void;
+		};
 		dependencies: [
 			OptionalPlugin<UserIntentPlugin>,
 			OptionalPlugin<SelectionPlugin>,
@@ -19,9 +22,9 @@ export type ToolbarPlugin = NextEditorPlugin<
 			OptionalPlugin<EditorViewModePlugin>,
 			OptionalPlugin<ConnectivityPlugin>,
 		];
-		actions: {
-			registerComponents: (toolbarComponents: Array<RegisterComponent>) => void;
-			getComponents: () => Array<RegisterComponent>;
+		pluginConfiguration?: ToolbarPluginOptions;
+		sharedState: {
+			shouldShowToolbar: boolean;
 		};
 	}
 >;

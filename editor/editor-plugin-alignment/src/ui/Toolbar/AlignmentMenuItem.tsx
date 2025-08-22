@@ -21,9 +21,9 @@ export const AlignmentMenuItem = ({
 	alignment,
 	parents,
 }: {
-	option: OptionInfo;
-	api: ExtractInjectionAPI<AlignmentPlugin> | undefined;
 	alignment: AlignmentState;
+	api: ExtractInjectionAPI<AlignmentPlugin> | undefined;
+	option: OptionInfo;
 	parents: ToolbarComponentTypes;
 }) => {
 	const { align } = useSharedPluginStateWithSelector(api, ['alignment'], (states) => {

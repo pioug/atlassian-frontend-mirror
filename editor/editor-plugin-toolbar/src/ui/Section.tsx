@@ -10,21 +10,27 @@ import type { ToolbarComponentType, ToolbarComponentTypes } from '@atlaskit/edit
 import type { ToolbarPlugin } from '../toolbarPluginType';
 
 type SectionProps = {
-	children: React.ReactNode;
-	parents: ToolbarComponentTypes;
 	api?: ExtractInjectionAPI<ToolbarPlugin>;
-	testId?: string;
-	showSeparatorInFullPagePrimaryToolbar?: boolean;
+	children: React.ReactNode;
+	disableSelectionToolbar?: boolean;
 	isSharedSection?: boolean;
+	parents: ToolbarComponentTypes;
+	showSeparatorInFullPagePrimaryToolbar?: boolean;
+	testId?: string;
 };
 
 const shouldShowSection = (
 	editMode: ViewMode | undefined,
 	toolbar: ToolbarComponentType | undefined,
 	toolbarDocking: UserPreferences['toolbarDockingInitialPosition'],
+	disableSelectionToolbar?: boolean,
 ) => {
 	if (editMode === 'view') {
 		return false;
+	}
+
+	if (disableSelectionToolbar) {
+		return true;
 	}
 
 	if (toolbar?.key === TOOLBARS.INLINE_TEXT_TOOLBAR && toolbarDocking !== 'top') {
@@ -45,6 +51,7 @@ export const Section = ({
 	testId,
 	showSeparatorInFullPagePrimaryToolbar,
 	isSharedSection = true,
+	disableSelectionToolbar,
 }: SectionProps) => {
 	const editMode = useSharedPluginStateSelector(api, 'editorViewMode.mode');
 	const toolbarDocking = useSharedPluginStateSelector(
@@ -54,7 +61,10 @@ export const Section = ({
 	const toolbar = parents.find((parent) => parent.type === 'toolbar');
 	const { editorAppearance } = useEditorToolbar();
 
-	if (isSharedSection && !shouldShowSection(editMode, toolbar, toolbarDocking)) {
+	if (
+		isSharedSection &&
+		!shouldShowSection(editMode, toolbar, toolbarDocking, disableSelectionToolbar)
+	) {
 		return null;
 	}
 

@@ -8,29 +8,29 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { PluginInjectionAPI } from '../types';
 
 export type TableOptions = {
-	isFullWidthModeEnabled?: boolean;
-	wasFullWidthModeEnabled?: boolean;
-	isDragAndDropEnabled?: boolean;
-	isTableScalingEnabled?: boolean;
-	isCommentEditor?: boolean;
 	isChromelessEditor?: boolean;
+	isCommentEditor?: boolean;
+	isDragAndDropEnabled?: boolean;
+	isFullWidthModeEnabled?: boolean;
+	isTableScalingEnabled?: boolean;
 	shouldUseIncreasedScalingPercent?: boolean;
+	wasFullWidthModeEnabled?: boolean;
 };
 
 export interface Props {
-	node: PmNode;
-	view: EditorView;
 	allowColumnResizing?: boolean;
-	allowTableResizing?: boolean;
-	allowTableAlignment?: boolean;
 	allowControls?: boolean;
+	allowTableAlignment?: boolean;
+	allowTableResizing?: boolean;
 	cellMinWidth?: number;
-	portalProviderAPI: PortalProviderAPI;
+	dispatchAnalyticsEvent: DispatchAnalyticsEvent;
 	eventDispatcher: EventDispatcher;
-	getPos: () => number | undefined;
-	options?: TableOptions;
 	getEditorContainerWidth: GetEditorContainerWidth;
 	getEditorFeatureFlags: GetEditorFeatureFlags;
-	dispatchAnalyticsEvent: DispatchAnalyticsEvent;
+	getPos: () => number | undefined;
+	node: PmNode;
+	options?: TableOptions;
 	pluginInjectionApi?: PluginInjectionAPI;
+	portalProviderAPI: PortalProviderAPI;
+	view: EditorView;
 }

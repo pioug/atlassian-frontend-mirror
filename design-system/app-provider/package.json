@@ -53,7 +53,6 @@
 		"@atlaskit/dropdown-menu": "workspace:^",
 		"@atlaskit/ds-lib": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
-		"@atlaskit/visual-regression": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",

@@ -21,8 +21,8 @@ import type { IconHookProps, MenuIconItem, ToolbarType } from '../types';
 
 interface ClearIconHookProps extends IconHookProps {
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
-	formattingPluginInitialised: boolean | undefined;
 	formattingIsPresent: boolean | undefined;
+	formattingPluginInitialised: boolean | undefined;
 	toolbarType: ToolbarType;
 }
 

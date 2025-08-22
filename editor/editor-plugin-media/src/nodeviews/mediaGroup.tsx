@@ -26,23 +26,23 @@ import { MediaGroupNext } from './mediaGroupNext';
 interface MediaGroupNodeViewProps {
 	allowLazyLoading?: boolean;
 	isCopyPasteEnabled?: boolean;
-	providerFactory: ProviderFactory;
 	mediaOptions: MediaOptions;
 	pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
+	providerFactory: ProviderFactory;
 }
 
 interface RenderFn {
+	editorDisabled?: boolean;
 	// remove next two plugin states when cleaning up `platform_editor_usesharedpluginstatewithselector`
 	editorDisabledPlugin?: EditorDisabledPluginState;
-	editorViewModePlugin?: EditorViewModePluginState | null;
-	editorDisabled?: boolean;
 	editorViewMode?: 'view' | 'edit';
+	editorViewModePlugin?: EditorViewModePluginState | null;
 	mediaProvider?: MediaProvider | null;
 }
 
 interface MediaGroupNodeViewInternalProps {
-	renderFn: (props: RenderFn) => JSX.Element | null;
 	pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
+	renderFn: (props: RenderFn) => JSX.Element | null;
 }
 
 const selector = (

@@ -121,7 +121,7 @@ function moveSpaceFrom(
 	destIdx: number,
 	amount: number,
 	useFreeSpace: boolean = true,
-): { state: ResizeState; amount: number } {
+): { amount: number; state: ResizeState; } {
 	const srcCol = state.cols[srcIdx];
 	const destCol = state.cols[destIdx];
 
@@ -172,7 +172,7 @@ function stackSpace(
 	state: ResizeState,
 	destIdx: number,
 	amount: number,
-): { state: ResizeState; remaining: number } {
+): { remaining: number; state: ResizeState; } {
 	let candidates = getCandidates(state, destIdx, amount);
 
 	while (candidates.length && amount) {

@@ -76,8 +76,8 @@ type Position = {
 };
 type InsertBlockNodeProps = {
 	node: PMNode;
-	tr: Transaction;
 	position: Position;
+	tr: Transaction;
 };
 export const insertBlockNode = ({ node, tr, position }: InsertBlockNodeProps): Transaction => {
 	const {
@@ -124,9 +124,9 @@ export const insertBlockNode = ({ node, tr, position }: InsertBlockNodeProps): T
 
 type InsertInlineNodeOrFragmentProps = {
 	maybeFragment: Fragment | PMNode;
-	tr: Transaction;
 	position: Position;
 	selectInlineNode: boolean;
+	tr: Transaction;
 };
 export const insertInlineNodeOrFragment = ({
 	maybeFragment,
@@ -151,13 +151,13 @@ export const insertInlineNodeOrFragment = ({
 };
 
 type InsertProseMirrorContentProps = {
-	tr: Transaction;
 	node: PMNode | Fragment;
 	position: {
 		$from: ResolvedPos;
 		$to: ResolvedPos;
 	};
 	selectNodeInserted: boolean;
+	tr: Transaction;
 };
 export const insertProseMirrorContent = ({
 	tr,

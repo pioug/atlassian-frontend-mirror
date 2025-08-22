@@ -17,18 +17,18 @@ export type MentionActionOpenTypeAhead = (inputMethod: TypeAheadInputMethod) => 
 
 export type MentionActionAnnounceMentionsInsertion = (
 	mentionIds: {
-		type: 'added' | 'deleted';
-		localId: string;
 		id: string;
+		localId: string;
 		taskLocalId?: string;
+		type: 'added' | 'deleted';
 	}[],
 ) => void;
 
 export type MentionActionSetProvider = (provider: Promise<MentionProvider>) => Promise<boolean>;
 
 export type MentionActions = {
-	openTypeAhead: MentionActionOpenTypeAhead;
 	announceMentionsInsertion: MentionActionAnnounceMentionsInsertion;
+	openTypeAhead: MentionActionOpenTypeAhead;
 	setProvider: MentionActionSetProvider;
 };
 
@@ -43,9 +43,6 @@ export type MentionPluginDependencies = [
 export type MentionsPlugin = NextEditorPlugin<
 	'mention',
 	{
-		pluginConfiguration: MentionPluginOptions | undefined;
-		dependencies: MentionPluginDependencies;
-		sharedState: MentionSharedState | undefined;
 		actions: MentionActions;
 		commands: {
 			/**
@@ -64,5 +61,8 @@ export type MentionsPlugin = NextEditorPlugin<
 			 */
 			insertMention: (params: InsertMentionParameters) => EditorCommand;
 		};
+		dependencies: MentionPluginDependencies;
+		pluginConfiguration: MentionPluginOptions | undefined;
+		sharedState: MentionSharedState | undefined;
 	}
 >;

@@ -8,104 +8,227 @@ test.describe('skip links', () => {
 		});
 	});
 
-	test('should move focus after clicking the skip link', async ({ page }) => {
-		await page.visitExample('design-system', 'navigation-system', 'composition');
+	test.describe('platform_dst_nav4_skip_links_hydration_fix enabled', () => {
+		test('should move focus after clicking the skip link', async ({ page }) => {
+			await page.visitExample('design-system', 'navigation-system', 'composition', {
+				featureFlag: 'platform_dst_nav4_skip_links_defer_until_focus',
+			});
 
-		const bannerSkipLink = page.getByRole('link', { name: 'Banner', includeHidden: true });
+			const bannerSkipLink = page.getByRole('link', { name: 'Banner', includeHidden: true });
 
-		await bannerSkipLink.focus();
-		await bannerSkipLink.click();
+			await bannerSkipLink.focus();
+			await bannerSkipLink.click();
 
-		const skipLinkHref = await bannerSkipLink.getAttribute('href');
-		const activeElementId = await page.evaluate(() => document.activeElement?.id);
+			const skipLinkHref = await bannerSkipLink.getAttribute('href');
+			const activeElementId = await page.evaluate(() => document.activeElement?.id);
 
-		expect(`#${activeElementId}`).toEqual(skipLinkHref);
-	});
-
-	test('should move focus after clicking the skip link (with React 18 useId)', async ({ page }) => {
-		/**
-		 * This test case exists because the `useId()` hook in React 18 has ids with `:` characters.
-		 *
-		 * This previously broke our skip links.
-		 */
-		await page.visitExample('design-system', 'navigation-system', 'composition', {
-			featureFlag: 'platform-dst-react-18-use-id',
+			expect(`#${activeElementId}`).toEqual(skipLinkHref);
 		});
 
-		const bannerSkipLink = page.getByRole('link', { name: 'Banner', includeHidden: true });
+		test('should move focus after clicking the skip link (with React 18 useId)', async ({
+			page,
+		}) => {
+			/**
+			 * This test case exists because the `useId()` hook in React 18 has ids with `:` characters.
+			 *
+			 * This previously broke our skip links.
+			 */
+			await page.visitExample('design-system', 'navigation-system', 'composition', {
+				featureFlag: 'platform-dst-react-18-use-id&platform_dst_nav4_skip_links_defer_until_focus',
+			});
 
-		await bannerSkipLink.focus();
-		await bannerSkipLink.click();
+			const bannerSkipLink = page.getByRole('link', { name: 'Banner', includeHidden: true });
 
-		const skipLinkHref = await bannerSkipLink.getAttribute('href');
-		const activeElementId = await page.evaluate(() => document.activeElement?.id);
+			await bannerSkipLink.focus();
+			await bannerSkipLink.click();
 
-		expect(`#${activeElementId}`).toEqual(skipLinkHref);
+			const skipLinkHref = await bannerSkipLink.getAttribute('href');
+			const activeElementId = await page.evaluate(() => document.activeElement?.id);
+
+			expect(`#${activeElementId}`).toEqual(skipLinkHref);
+		});
+
+		test('should not be visible until it has focus', async ({ page }) => {
+			await page.visitExample('design-system', 'navigation-system', 'composition', {
+				featureFlag: 'platform_dst_nav4_skip_links_defer_until_focus',
+			});
+
+			const skipLinkContainer = page.getByTestId('root--skip-links-container');
+			const firstSkipLink = skipLinkContainer.getByRole('link').first();
+
+			/**
+			 * Using `opacity` checks to see if the skip links are visible because `.toBeVisible()` does not consider opacity.
+			 *
+			 * We don't use `display: none` because we want it to still be interactive.
+			 */
+			await expect(skipLinkContainer).toHaveCSS('opacity', '0');
+			await firstSkipLink.focus();
+			await expect(skipLinkContainer).toHaveCSS('opacity', '1');
+		});
+
+		test('should be hidden when pressing escape while focus is inside', async ({ page }) => {
+			await page.visitExample('design-system', 'navigation-system', 'composition', {
+				featureFlag: 'platform_dst_nav4_skip_links_defer_until_focus',
+			});
+
+			const skipLinkContainer = page.getByTestId('root--skip-links-container');
+			const firstSkipLink = skipLinkContainer.getByRole('link').first();
+
+			/**
+			 * Using `opacity` checks to see if the skip links are visible because `.toBeVisible()` does not consider opacity.
+			 *
+			 * We don't use `display: none` because we want it to still be interactive.
+			 */
+			await firstSkipLink.focus();
+			await expect(skipLinkContainer).toHaveCSS('opacity', '1');
+			await firstSkipLink.press('Escape');
+			await expect(skipLinkContainer).toHaveCSS('opacity', '0');
+		});
+
+		test('should expand side navigation when navigating by skip link on desktop', async ({
+			page,
+		}) => {
+			await page.visitExample('design-system', 'navigation-system', 'composition', {
+				featureFlag: 'platform_dst_nav4_skip_links_defer_until_focus',
+			});
+
+			const collapseSidebarButton = page.getByRole('button', { name: 'Collapse sidebar' });
+			const sidebar = page.getByLabel('Sidebar');
+			const sidebarSkipLink = page.getByRole('link', { name: 'Sidebar' });
+
+			await collapseSidebarButton.click();
+			await expect(sidebar).toBeHidden();
+
+			await sidebarSkipLink.press('Enter');
+			await expect(sidebar).toBeVisible();
+			await expect(sidebar).toBeFocused();
+		});
+
+		test('should expand side navigation when navigating by skip link on mobile', async ({
+			page,
+		}) => {
+			await page.visitExample('design-system', 'navigation-system', 'composition', {
+				featureFlag: 'platform_dst_nav4_skip_links_defer_until_focus',
+			});
+
+			const sidebar = page.getByLabel('Sidebar');
+			const sidebarSkipLink = page.getByRole('link', { name: 'Sidebar' });
+
+			page.setViewportSize({ width: 400, height: 780 });
+
+			// Sidebar is collapsed by default on mobile
+			await expect(sidebar).toBeHidden();
+
+			await sidebarSkipLink.press('Enter');
+			await expect(sidebar).toBeVisible();
+			await expect(sidebar).toBeFocused();
+		});
 	});
 
-	test('should not be visible until it has focus', async ({ page }) => {
-		await page.visitExample('design-system', 'navigation-system', 'composition');
+	test.describe('platform_dst_nav4_skip_links_hydration_fix disabled', () => {
+		test('should move focus after clicking the skip link', async ({ page }) => {
+			await page.visitExample('design-system', 'navigation-system', 'composition');
 
-		const skipLinkContainer = page.getByTestId('root--skip-links-container');
-		const firstSkipLink = skipLinkContainer.getByRole('link').first();
+			const bannerSkipLink = page.getByRole('link', { name: 'Banner', includeHidden: true });
 
-		/**
-		 * Using `opacity` checks to see if the skip links are visible because `.toBeVisible()` does not consider opacity.
-		 *
-		 * We don't use `display: none` because we want it to still be interactive.
-		 */
-		await expect(skipLinkContainer).toHaveCSS('opacity', '0');
-		await firstSkipLink.focus();
-		await expect(skipLinkContainer).toHaveCSS('opacity', '1');
-	});
+			await bannerSkipLink.focus();
+			await bannerSkipLink.click();
 
-	test('should be hidden when pressing escape while focus is inside', async ({ page }) => {
-		await page.visitExample('design-system', 'navigation-system', 'composition');
+			const skipLinkHref = await bannerSkipLink.getAttribute('href');
+			const activeElementId = await page.evaluate(() => document.activeElement?.id);
 
-		const skipLinkContainer = page.getByTestId('root--skip-links-container');
-		const firstSkipLink = skipLinkContainer.getByRole('link').first();
+			expect(`#${activeElementId}`).toEqual(skipLinkHref);
+		});
 
-		/**
-		 * Using `opacity` checks to see if the skip links are visible because `.toBeVisible()` does not consider opacity.
-		 *
-		 * We don't use `display: none` because we want it to still be interactive.
-		 */
-		await firstSkipLink.focus();
-		await expect(skipLinkContainer).toHaveCSS('opacity', '1');
-		await firstSkipLink.press('Escape');
-		await expect(skipLinkContainer).toHaveCSS('opacity', '0');
-	});
+		test('should move focus after clicking the skip link (with React 18 useId)', async ({
+			page,
+		}) => {
+			/**
+			 * This test case exists because the `useId()` hook in React 18 has ids with `:` characters.
+			 *
+			 * This previously broke our skip links.
+			 */
+			await page.visitExample('design-system', 'navigation-system', 'composition', {
+				featureFlag: 'platform-dst-react-18-use-id',
+			});
 
-	test('should expand side navigation when navigating by skip link on desktop', async ({
-		page,
-	}) => {
-		await page.visitExample('design-system', 'navigation-system', 'composition');
+			const bannerSkipLink = page.getByRole('link', { name: 'Banner', includeHidden: true });
 
-		const collapseSidebarButton = page.getByRole('button', { name: 'Collapse sidebar' });
-		const sidebar = page.getByLabel('Sidebar');
-		const sidebarSkipLink = page.getByRole('link', { name: 'Sidebar' });
+			await bannerSkipLink.focus();
+			await bannerSkipLink.click();
 
-		await collapseSidebarButton.click();
-		await expect(sidebar).toBeHidden();
+			const skipLinkHref = await bannerSkipLink.getAttribute('href');
+			const activeElementId = await page.evaluate(() => document.activeElement?.id);
 
-		await sidebarSkipLink.press('Enter');
-		await expect(sidebar).toBeVisible();
-		await expect(sidebar).toBeFocused();
-	});
+			expect(`#${activeElementId}`).toEqual(skipLinkHref);
+		});
 
-	test('should expand side navigation when navigating by skip link on mobile', async ({ page }) => {
-		await page.visitExample('design-system', 'navigation-system', 'composition');
+		test('should not be visible until it has focus', async ({ page }) => {
+			await page.visitExample('design-system', 'navigation-system', 'composition');
 
-		const sidebar = page.getByLabel('Sidebar');
-		const sidebarSkipLink = page.getByRole('link', { name: 'Sidebar' });
+			const skipLinkContainer = page.getByTestId('root--skip-links-container');
+			const firstSkipLink = skipLinkContainer.getByRole('link').first();
 
-		page.setViewportSize({ width: 400, height: 780 });
+			/**
+			 * Using `opacity` checks to see if the skip links are visible because `.toBeVisible()` does not consider opacity.
+			 *
+			 * We don't use `display: none` because we want it to still be interactive.
+			 */
+			await expect(skipLinkContainer).toHaveCSS('opacity', '0');
+			await firstSkipLink.focus();
+			await expect(skipLinkContainer).toHaveCSS('opacity', '1');
+		});
 
-		// Sidebar is collapsed by default on mobile
-		await expect(sidebar).toBeHidden();
+		test('should be hidden when pressing escape while focus is inside', async ({ page }) => {
+			await page.visitExample('design-system', 'navigation-system', 'composition');
 
-		await sidebarSkipLink.press('Enter');
-		await expect(sidebar).toBeVisible();
-		await expect(sidebar).toBeFocused();
+			const skipLinkContainer = page.getByTestId('root--skip-links-container');
+			const firstSkipLink = skipLinkContainer.getByRole('link').first();
+
+			/**
+			 * Using `opacity` checks to see if the skip links are visible because `.toBeVisible()` does not consider opacity.
+			 *
+			 * We don't use `display: none` because we want it to still be interactive.
+			 */
+			await firstSkipLink.focus();
+			await expect(skipLinkContainer).toHaveCSS('opacity', '1');
+			await firstSkipLink.press('Escape');
+			await expect(skipLinkContainer).toHaveCSS('opacity', '0');
+		});
+
+		test('should expand side navigation when navigating by skip link on desktop', async ({
+			page,
+		}) => {
+			await page.visitExample('design-system', 'navigation-system', 'composition');
+
+			const collapseSidebarButton = page.getByRole('button', { name: 'Collapse sidebar' });
+			const sidebar = page.getByLabel('Sidebar');
+			const sidebarSkipLink = page.getByRole('link', { name: 'Sidebar' });
+
+			await collapseSidebarButton.click();
+			await expect(sidebar).toBeHidden();
+
+			await sidebarSkipLink.press('Enter');
+			await expect(sidebar).toBeVisible();
+			await expect(sidebar).toBeFocused();
+		});
+
+		test('should expand side navigation when navigating by skip link on mobile', async ({
+			page,
+		}) => {
+			await page.visitExample('design-system', 'navigation-system', 'composition');
+
+			const sidebar = page.getByLabel('Sidebar');
+			const sidebarSkipLink = page.getByRole('link', { name: 'Sidebar' });
+
+			page.setViewportSize({ width: 400, height: 780 });
+
+			// Sidebar is collapsed by default on mobile
+			await expect(sidebar).toBeHidden();
+
+			await sidebarSkipLink.press('Enter');
+			await expect(sidebar).toBeVisible();
+			await expect(sidebar).toBeFocused();
+		});
 	});
 });

@@ -56,9 +56,9 @@ export function useConfigPanelPluginHook({
 	configPanelId,
 	api,
 }: {
-	editorView: EditorView;
-	configPanelId: string;
 	api?: ExtractInjectionAPI<ExtensionPlugin>;
+	configPanelId: string;
+	editorView: EditorView;
 }) {
 	const editorState = editorView.state;
 	const { showContextPanel, extensionProvider, processParametersAfter } = useSharedState(api);

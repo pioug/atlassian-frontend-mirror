@@ -96,7 +96,7 @@ export const tablesHaveDifferentNoOfRows = (
 
 function filterNearSelection<T, U>(
 	selection: Selection,
-	findNode: (selection: Selection) => { pos: number; node: PmNode } | undefined,
+	findNode: (selection: Selection) => { node: PmNode; pos: number; } | undefined,
 	predicate: (node: PmNode, pos?: number) => T,
 	defaultValue: U,
 ): T | U {

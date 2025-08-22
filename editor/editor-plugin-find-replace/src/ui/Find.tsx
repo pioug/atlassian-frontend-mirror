@@ -39,11 +39,17 @@ import {
 export const FIND_DEBOUNCE_MS = 100;
 
 export type FindProps = {
-	findText?: string;
 	count: { index: number; total: number };
-	shouldFocus: boolean;
-	onFindBlur: () => void;
+	findText?: string;
+	findTyped: boolean;
+	onArrowDown: () => void;
+	onCancel: ({
+		triggerMethod,
+	}: {
+		triggerMethod: TRIGGER_METHOD.KEYBOARD | TRIGGER_METHOD.TOOLBAR | TRIGGER_METHOD.BUTTON;
+	}) => void;
 	onFind: (findText?: string) => void;
+	onFindBlur: () => void;
 	onFindNext: ({
 		triggerMethod,
 	}: {
@@ -55,14 +61,8 @@ export type FindProps = {
 		triggerMethod: TRIGGER_METHOD.KEYBOARD | TRIGGER_METHOD.BUTTON;
 	}) => void;
 	onFindTextfieldRefSet: (ref: React.RefObject<HTMLInputElement>) => void;
-	onCancel: ({
-		triggerMethod,
-	}: {
-		triggerMethod: TRIGGER_METHOD.KEYBOARD | TRIGGER_METHOD.TOOLBAR | TRIGGER_METHOD.BUTTON;
-	}) => void;
-	onArrowDown: () => void;
 	setFindTyped: (value: boolean) => void;
-	findTyped: boolean;
+	shouldFocus: boolean;
 } & MatchCaseProps;
 
 type State = {

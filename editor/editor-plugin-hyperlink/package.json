@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-hyperlink",
-	"version": "5.4.9",
+	"version": "5.4.11",
 	"description": "Hyperlink plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -67,7 +67,6 @@
 		"@atlaskit/media-test-helpers": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@atlaskit/util-data-test": "workspace:^",
-		"@atlaskit/visual-regression": "workspace:^",
 		"@testing-library/react": "root:*",
 		"raf-stub": "root:*",
 		"wait-for-expect": "root:*"

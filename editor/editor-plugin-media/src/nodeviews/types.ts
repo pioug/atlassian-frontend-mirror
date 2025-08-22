@@ -13,44 +13,44 @@ import type { MediaNextEditorPluginType } from '../mediaPluginType';
 import type { ForwardRef, MediaOptions, getPosHandler as ProsemirrorGetPosHandler } from '../types';
 
 export interface MediaSingleNodeProps {
-	view: EditorView;
-	node: PMNode;
-	getPos: ProsemirrorGetPosHandler;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	addPendingTask?: (promise: Promise<any>) => void;
+	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
+	dispatchAnalyticsEvent: DispatchAnalyticsEvent;
+	editorAppearance?: EditorAppearance;
+	editorDisabled?: boolean;
+	editorViewMode?: boolean;
 	eventDispatcher: EventDispatcher;
-	width: number;
-	selected: Function;
+	forwardRef: ForwardRef;
+	fullWidthMode?: boolean;
+	getPos: ProsemirrorGetPosHandler;
+	isCopyPasteEnabled?: boolean;
+	isDrafting?: boolean;
 	lineLength: number;
 	mediaOptions: MediaOptions;
 	mediaProvider?: Promise<MediaProvider>;
-	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
-	fullWidthMode?: boolean;
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	addPendingTask?: (promise: Promise<any>) => void;
-	isDrafting?: boolean;
-	targetNodeId?: string;
-	dispatchAnalyticsEvent: DispatchAnalyticsEvent;
-	isCopyPasteEnabled?: boolean;
-	forwardRef: ForwardRef;
+	node: PMNode;
 	pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
-	editorViewMode?: boolean;
-	editorDisabled?: boolean;
-	editorAppearance?: EditorAppearance;
+	selected: Function;
+	targetNodeId?: string;
+	view: EditorView;
+	width: number;
 }
 
 export interface MediaSingleNodeViewProps {
-	eventDispatcher: EventDispatcher;
-	providerFactory: ProviderFactory;
-	mediaOptions: MediaOptions;
-	fullWidthMode?: boolean;
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
-	isCopyPasteEnabled?: boolean;
-	pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
 	editorAppearance?: EditorAppearance;
+	eventDispatcher: EventDispatcher;
+	fullWidthMode?: boolean;
+	isCopyPasteEnabled?: boolean;
+	mediaOptions: MediaOptions;
+	pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
+	providerFactory: ProviderFactory;
 }
 
 export interface MediaNodeViewProps {
 	eventDispatcher: EventDispatcher;
-	providerFactory: ProviderFactory;
 	mediaOptions: MediaOptions;
 	pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
+	providerFactory: ProviderFactory;
 }

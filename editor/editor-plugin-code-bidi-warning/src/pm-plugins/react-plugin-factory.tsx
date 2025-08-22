@@ -36,14 +36,14 @@ export function createBidiWarningsDecorationSetFromDoc({
 	tooltipEnabled,
 	nodeViewPortalProviderAPI,
 }: {
-	doc: PmNode;
 	codeBidiWarningLabel: string;
-	tooltipEnabled: boolean;
+	doc: PmNode;
 	nodeViewPortalProviderAPI: PortalProviderAPI;
+	tooltipEnabled: boolean;
 }) {
 	const bidiCharactersAndTheirPositions: {
-		position: number;
 		bidiCharacter: string;
+		position: number;
 	}[] = [];
 
 	doc.descendants((node, pos) => {
@@ -132,9 +132,9 @@ function renderDOM({
 }: {
 	bidiCharacter: string;
 	codeBidiWarningLabel: string;
-	tooltipEnabled: boolean;
 	nodeViewPortalProviderAPI: PortalProviderAPI;
 	renderKey: string;
+	tooltipEnabled: boolean;
 }) {
 	const element = document.createElement('span');
 

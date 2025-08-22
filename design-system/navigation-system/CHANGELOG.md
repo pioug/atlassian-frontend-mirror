@@ -1,5 +1,18 @@
 # @atlassian/navigation-system
 
+## 0.183.0
+
+### Minor Changes
+
+- [`4c0f75924fd2b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4c0f75924fd2b) -
+  Internal refactors to skip links behind a feature flag.
+
+### Patch Changes
+
+- [`098cfbb01dc36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/098cfbb01dc36) -
+  Add missing npmignore files to remove unnecessary files from published package
+- Updated dependencies
+
 ## 0.182.0
 
 ### Minor Changes

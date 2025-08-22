@@ -12,7 +12,7 @@ export const splitCell: Command = (state, dispatch) => {
 	const tableState: TablePluginState = getPluginState(state);
 	const { tableHeader, tableCell } = state.schema.nodes;
 	if (dispatch) {
-		return splitCellWithType(({ row, col }: { row: number; col: number }) => {
+		return splitCellWithType(({ row, col }: { col: number; row: number; }) => {
 			if (
 				(row === 0 && tableState.isHeaderRowEnabled) ||
 				(col === 0 && tableState.isHeaderColumnEnabled)

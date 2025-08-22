@@ -119,8 +119,8 @@ const getCoordsBelowSelection = (bottomCoords: CoordsAtPos, toolbarRect: DOMRect
 };
 
 export type CoordsAtPos = {
-	top: number;
 	bottom: number;
 	left: number;
 	right: number;
+	top: number;
 };

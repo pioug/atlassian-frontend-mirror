@@ -87,22 +87,22 @@ const getInitialFields = (
 };
 
 type Props = {
-	name: string;
+	error?: string;
 	extensionManifest: ExtensionManifest;
 	field: Fieldset;
-	parameters?: Parameters;
-	onFieldChange: OnFieldChange;
 	firstVisibleFieldName?: string;
-	error?: string;
 	formComponent: (props: FormContentProps) => JSX.Element;
+	name: string;
+	onFieldChange: OnFieldChange;
+	parameters?: Parameters;
 } & WrappedComponentProps;
 
 type State = {
-	isAdding: boolean;
-	visibleFields: Set<string>;
 	currentParameters: Parameters;
+	isAdding: boolean;
 	selectedFields: FieldDefinition[];
 	selectOptions: OptionType[];
+	visibleFields: Set<string>;
 };
 
 // eslint-disable-next-line @repo/internal/react/no-class-components

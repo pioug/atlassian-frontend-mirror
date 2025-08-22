@@ -45,10 +45,10 @@ import { PrimaryToolbarComponent } from './ui/PrimaryToolbarComponent';
 import { getToolbarComponents } from './ui/toolbar-components';
 
 type SelectionToolbarPluginState = {
-	selectionStable: boolean;
 	hide: boolean;
-	toolbarDocking: ToolbarDocking;
 	isBlockMenuOpen?: boolean;
+	selectionStable: boolean;
+	toolbarDocking: ToolbarDocking;
 };
 
 const getToolbarDocking = (
@@ -78,7 +78,9 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 	const { userPreferencesProvider, contextualFormattingEnabled } = config;
 
 	if (expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true)) {
-		api?.toolbar?.actions.registerComponents(getToolbarComponents(api));
+		api?.toolbar?.actions.registerComponents(
+			getToolbarComponents(api, contextualFormattingEnabled),
+		);
 	} else {
 		if (editorExperiment('platform_editor_controls', 'variant1', { exposure: true })) {
 			primaryToolbarComponent = ({ disabled }) => {

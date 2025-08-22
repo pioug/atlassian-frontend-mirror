@@ -11,7 +11,7 @@ export type SharedInteractionState = {
 export type InteractionPlugin = NextEditorPlugin<
 	'interaction',
 	{
-		sharedState: SharedInteractionState;
 		commands: InteractionCommands;
+		sharedState: SharedInteractionState;
 	}
 >;

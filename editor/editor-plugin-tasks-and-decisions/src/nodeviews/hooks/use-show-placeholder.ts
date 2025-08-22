@@ -8,8 +8,8 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { TasksAndDecisionsPlugin } from '../../tasksAndDecisionsPluginType';
 
 type Props2 = {
-	editorView: EditorView;
 	api: ExtractInjectionAPI<TasksAndDecisionsPlugin> | undefined;
+	editorView: EditorView;
 	getPos: () => number | undefined;
 	isContentNodeEmpty: boolean;
 };

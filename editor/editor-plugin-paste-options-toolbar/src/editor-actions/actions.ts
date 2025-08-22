@@ -12,15 +12,15 @@ export enum PastePluginActionTypes {
 }
 
 export interface ShowPasteOptions {
-	type: PastePluginActionTypes.SHOW_PASTE_OPTIONS;
 	data: {
-		plaintext: string;
-		selectedOption: ToolbarDropdownOption;
 		isPlainText: boolean;
-		richTextSlice: Slice;
-		pasteStartPos: number;
 		pasteEndPos: number;
+		pasteStartPos: number;
+		plaintext: string;
+		richTextSlice: Slice;
+		selectedOption: ToolbarDropdownOption;
 	};
+	type: PastePluginActionTypes.SHOW_PASTE_OPTIONS;
 }
 
 export interface HidePasteOptions {
@@ -32,10 +32,10 @@ export interface HighlightContent {
 }
 
 export interface ChangeFormat {
-	type: PastePluginActionTypes.CHANGE_FORMAT;
 	data: {
 		selectedOption: ToolbarDropdownOption;
 	};
+	type: PastePluginActionTypes.CHANGE_FORMAT;
 }
 
 export type PastePluginAction =

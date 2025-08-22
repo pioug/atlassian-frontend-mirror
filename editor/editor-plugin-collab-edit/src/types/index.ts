@@ -9,9 +9,9 @@ import { type Step } from '@atlaskit/editor-prosemirror/dist/types/transform';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 export type PrivateCollabEditOptions = CollabEditOptions & {
-	sanitizePrivateContent?: boolean;
-	onSyncUpError?: SyncUpErrorFunction;
 	hideTelecursorOnLoad?: boolean;
+	onSyncUpError?: SyncUpErrorFunction;
+	sanitizePrivateContent?: boolean;
 };
 
 export type ProviderCallback = <ReturnType>(
@@ -24,9 +24,9 @@ export type ProviderBuilder = (
 ) => ProviderCallback;
 
 export interface ReadOnlyParticipants {
+	eq: (other: ReadOnlyParticipants) => boolean;
 	get: (sessionId: string) => CollabParticipant | undefined;
 	toArray: () => ReadonlyArray<CollabParticipant>;
-	eq: (other: ReadOnlyParticipants) => boolean;
 }
 
 export type CollabInitializedMetadata = {
@@ -36,26 +36,26 @@ export type CollabInitializedMetadata = {
 };
 
 export type LastOrganicChangeMetadata = {
-	lastLocalOrganicChangeAt: null | number;
-	lastRemoteOrganicChangeAt: null | number;
 	lastLocalOrganicBodyChangeAt: null | number;
+	lastLocalOrganicChangeAt: null | number;
 	lastRemoteOrganicBodyChangeAt: null | number;
+	lastRemoteOrganicChangeAt: null | number;
 };
 
 export type TrackSpammingStepsMetadata = {
-	recentTransactionsTimestemps: Map<string, { timestamp: number; steps: Step[] }>;
+	recentTransactionsTimestemps: Map<string, { steps: Step[]; timestamp: number; }>;
 };
 
 export type CollabSendableSteps = {
-	version: number;
-	steps: readonly Step[];
 	clientID: number | string;
 	origins: readonly Transaction[];
+	steps: readonly Step[];
+	version: number;
 };
 
 export type CollabEditPluginSharedState = {
-	initialised: CollabInitializedMetadata & LastOrganicChangeMetadata;
 	activeParticipants: ReadOnlyParticipants | undefined;
-	sessionId: string | undefined;
+	initialised: CollabInitializedMetadata & LastOrganicChangeMetadata;
 	lastReconnectionConflictMetadata: CollabEventConflictPayload | undefined;
+	sessionId: string | undefined;
 };

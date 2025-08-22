@@ -26,8 +26,8 @@ interface ChildrenProps {
 }
 
 export type Props = {
-	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
 	analyticsName: string;
+	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
 	children: (props: ChildrenProps) => React.ReactElement | null;
 };
 

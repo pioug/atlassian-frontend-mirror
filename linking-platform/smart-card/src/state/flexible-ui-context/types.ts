@@ -271,7 +271,6 @@ export type FlexibleUiDataContext = {
 		location?: string;
 		pronouns?: string;
 	};
-	
 };
 
 export type LinkTitle = {

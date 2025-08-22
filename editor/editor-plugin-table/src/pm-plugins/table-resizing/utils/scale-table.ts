@@ -23,15 +23,15 @@ import { hasTableBeenResized, insertColgroupFromNode } from './colgroup';
 import { syncStickyRowToTable } from './dom';
 
 interface ScaleOptions {
-	node: PMNode;
-	prevNode: PMNode;
-	start: number;
 	containerWidth?: number;
-	previousContainerWidth?: number;
-	parentWidth?: number;
-	layoutChanged?: boolean;
 	isFullWidthModeEnabled?: boolean;
 	isTableResizingEnabled?: boolean;
+	layoutChanged?: boolean;
+	node: PMNode;
+	parentWidth?: number;
+	previousContainerWidth?: number;
+	prevNode: PMNode;
+	start: number;
 }
 
 // Base function to trigger the actual scale on a table node.

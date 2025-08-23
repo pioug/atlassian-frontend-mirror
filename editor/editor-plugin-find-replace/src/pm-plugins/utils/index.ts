@@ -528,7 +528,7 @@ export const findIndexBeforePosition = (items: Decoration[], position: number) =
  */
 export const isMatchAffectedByStep = (
 	match: Match,
-	step: Step & { from: number; slice: Slice; to: number; },
+	step: Step & { from: number; slice: Slice; to: number },
 	tr: ReadonlyTransaction,
 ) => {
 	const { from, to, slice } = step;

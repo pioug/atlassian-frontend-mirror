@@ -46,7 +46,7 @@ import { isImage } from './is-type';
 
 interface MediaSingleState extends MediaState {
 	contextId?: string;
-	dimensions: { height: number; width: number; };
+	dimensions: { height: number; width: number };
 	scaleFactor?: number;
 }
 

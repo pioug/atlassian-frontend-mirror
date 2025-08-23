@@ -25,7 +25,7 @@ export type RowInsertPosition = 'TOP' | 'BOTTOM';
  * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-6877 Internal documentation for deprecation (no external access)}
  **/
 export type PermittedLayoutsDescriptor = TableLayout[] | 'all';
-export type Cell = { node: PmNode; pos: number; start: number; };
+export type Cell = { node: PmNode; pos: number; start: number };
 export type CellTransform = (cell: Cell) => (tr: Transaction) => Transaction;
 
 export interface InsertRowOptions {
@@ -207,10 +207,10 @@ export interface TablePluginState {
 }
 
 export type TablePluginAction =
-	| { data: { editorHasFocus: boolean }; type: 'SET_EDITOR_FOCUS'; }
+	| { data: { editorHasFocus: boolean }; type: 'SET_EDITOR_FOCUS' }
 	| { type: 'TOGGLE_HEADER_ROW' }
 	| { type: 'TOGGLE_HEADER_COLUMN' }
-	| { data: { ordering: TableColumnOrdering }; type: 'SORT_TABLE'; }
+	| { data: { ordering: TableColumnOrdering }; type: 'SORT_TABLE' }
 	| {
 			data: {
 				isHeaderColumnEnabled: boolean;
@@ -295,9 +295,9 @@ export type TablePluginAction =
 			data: { decorationSet: DecorationSet };
 			type: 'STOP_KEYBOARD_COLUMN_RESIZE';
 	  }
-	| { data: { decorationSet: DecorationSet }; type: 'CLEAR_HOVER_SELECTION'; }
-	| { data: { decorationSet: DecorationSet }; type: 'SHOW_RESIZE_HANDLE_LINE'; }
-	| { data: { decorationSet: DecorationSet }; type: 'HIDE_RESIZE_HANDLE_LINE'; }
+	| { data: { decorationSet: DecorationSet }; type: 'CLEAR_HOVER_SELECTION' }
+	| { data: { decorationSet: DecorationSet }; type: 'SHOW_RESIZE_HANDLE_LINE' }
+	| { data: { decorationSet: DecorationSet }; type: 'HIDE_RESIZE_HANDLE_LINE' }
 	| {
 			data: {
 				hoveredCell: CellHoverMeta;
@@ -310,12 +310,12 @@ export type TablePluginAction =
 			};
 			type: 'TABLE_HOVERED';
 	  }
-	| { data: { targetCellPosition?: number }; type: 'SET_TARGET_CELL_POSITION'; }
+	| { data: { targetCellPosition?: number }; type: 'SET_TARGET_CELL_POSITION' }
 	| {
-			data: { decorationSet: DecorationSet; targetCellPosition: number; };
+			data: { decorationSet: DecorationSet; targetCellPosition: number };
 			type: 'SELECT_COLUMN';
 	  }
-	| { data: { insertRowButtonIndex: number }; type: 'SHOW_INSERT_ROW_BUTTON'; }
+	| { data: { insertRowButtonIndex: number }; type: 'SHOW_INSERT_ROW_BUTTON' }
 	| {
 			data: { insertColumnButtonIndex: number };
 			type: 'SHOW_INSERT_COLUMN_BUTTON';
@@ -338,11 +338,11 @@ export type ColumnResizingPluginAction =
 	  }
 	| { type: 'STOP_RESIZING' }
 	| {
-			data: { dragging: { startWidth: number; startX: number; } | null };
+			data: { dragging: { startWidth: number; startX: number } | null };
 			type: 'SET_DRAGGING';
 	  }
 	| {
-			data: { lastClick: { time: number; x: number; y: number; } | null };
+			data: { lastClick: { time: number; x: number; y: number } | null };
 			type: 'SET_LAST_CLICK';
 	  };
 

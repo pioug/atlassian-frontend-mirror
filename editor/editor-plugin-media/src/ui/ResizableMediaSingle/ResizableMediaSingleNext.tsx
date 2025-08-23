@@ -217,7 +217,7 @@ const calculateSizeState =
 		};
 	};
 
-const getAspectRatio = ({ width, height }: { height: number; width: number | undefined; }) => {
+const getAspectRatio = ({ width, height }: { height: number; width: number | undefined }) => {
 	if (width && height > 0) {
 		return width / height;
 	}
@@ -227,7 +227,7 @@ const getAspectRatio = ({ width, height }: { height: number; width: number | und
 };
 
 const updateSizeInPluginState = throttle(
-	({ width, view }: { view: EditorView; width?: number; }) => {
+	({ width, view }: { view: EditorView; width?: number }) => {
 		const { state, dispatch } = view;
 		const tr = state.tr;
 		tr.setMeta(MEDIA_PLUGIN_RESIZING_WIDTH_KEY, width);

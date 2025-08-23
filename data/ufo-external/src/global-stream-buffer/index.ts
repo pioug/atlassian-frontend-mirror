@@ -10,14 +10,14 @@ import {
 } from '../types';
 
 export type GlobalEventStream = {
-	push(event: UFOGlobalEventStreamEvent): void;
 	__buffer_only__: boolean;
+	push(event: UFOGlobalEventStreamEvent): void;
 };
 
 type GlobalEventStreamBuffer = {
-	push(event: UFOGlobalEventStreamEvent): void;
 	__buffer_only__: boolean;
 	getStream: () => Array<UFOGlobalEventStreamEvent>;
+	push(event: UFOGlobalEventStreamEvent): void;
 };
 
 declare global {

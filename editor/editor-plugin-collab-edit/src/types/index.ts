@@ -43,7 +43,7 @@ export type LastOrganicChangeMetadata = {
 };
 
 export type TrackSpammingStepsMetadata = {
-	recentTransactionsTimestemps: Map<string, { steps: Step[]; timestamp: number; }>;
+	recentTransactionsTimestemps: Map<string, { steps: Step[]; timestamp: number }>;
 };
 
 export type CollabSendableSteps = {

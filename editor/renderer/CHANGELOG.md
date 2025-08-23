@@ -1,5 +1,14 @@
 # @atlaskit/renderer
 
+## 120.5.1
+
+### Patch Changes
+
+- [`ffc3ef708967c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ffc3ef708967c) -
+  [ux] Adds an optional disablePreviewPanel prop on a smartcard to allow consumers opt out of
+  opening Preview Panel by default when a smartlink is clicked.
+- Updated dependencies
+
 ## 120.5.0
 
 ### Minor Changes

@@ -72,7 +72,7 @@ export const InlineCard = memo(
 		);
 
 		const onResolve = useCallback(
-			(data: { title?: string; url?: string; }) => {
+			(data: { title?: string; url?: string }) => {
 				if (!getPos || typeof getPos === 'boolean') {
 					return;
 				}
@@ -106,7 +106,7 @@ export const InlineCard = memo(
 		);
 
 		const onError = useCallback(
-			(data: { err?: Error; url?: string; }) => {
+			(data: { err?: Error; url?: string }) => {
 				const { url, err } = data;
 				if (err) {
 					throw err;

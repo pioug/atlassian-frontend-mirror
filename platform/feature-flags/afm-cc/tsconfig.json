@@ -1,5 +1,10 @@
 {
 	"extends": "../../../../tsconfig.entry-points.confluence.json",
+	"compilerOptions": {
+		"outDir": "../../../../../confluence/tsDist/@atlaskit__platform-feature-flags",
+		"rootDir": "../",
+		"composite": true
+	},
 	"include": [
 		"../src/**/*.ts"
 	],
@@ -14,11 +19,6 @@
 		"../src/**/stories/*",
 		"../src/**/stories/**/*"
 	],
-	"compilerOptions": {
-		"composite": true,
-		"outDir": "../../../../../confluence/tsDist/@atlaskit__platform-feature-flags",
-		"rootDir": "../"
-	},
 	"references": [
 		{
 			"path": "../../../measurement/feature-gate-js-client/afm-cc/tsconfig.json"

@@ -15,7 +15,7 @@ export type HelpDialogDependencies = [
 
 export type HelpDialogPluginOptions =
 	| boolean
-	| { aiEnabled?: boolean; imageUploadProviderExists?: boolean; };
+	| { aiEnabled?: boolean; imageUploadProviderExists?: boolean };
 
 export type HelpDialogPlugin = NextEditorPlugin<
 	'helpDialog',

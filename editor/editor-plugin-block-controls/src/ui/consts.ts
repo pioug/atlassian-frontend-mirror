@@ -177,7 +177,7 @@ export const spaceLookupMap = Object.fromEntries(
 	}),
 );
 
-export const spacingBetweenNodesForPreview: { [key: string]: { bottom: string; top: string; } } = {
+export const spacingBetweenNodesForPreview: { [key: string]: { bottom: string; top: string } } = {
 	paragraph: { top: '0.75rem', bottom: '0' },
 	heading1: { top: '1.45833em', bottom: '0' },
 	heading2: { top: '1.4em', bottom: '0' },
@@ -208,7 +208,7 @@ export const spacingBetweenNodesForPreview: { [key: string]: { bottom: string; t
 // Note this is not the actually margin of the DOM elements,
 // but a percepted margin, e.g. a paragraph has additional margin
 // due to the line height and the white spaces.
-export const nodeMargins: { [key: string]: { bottom: number; top: number; } } = {
+export const nodeMargins: { [key: string]: { bottom: number; top: number } } = {
 	table: { top: 24, bottom: 16 },
 	paragraph: { top: 12, bottom: 6 },
 	bulletList: { top: 16, bottom: 0 },

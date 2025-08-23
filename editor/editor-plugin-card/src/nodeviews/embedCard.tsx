@@ -232,7 +232,7 @@ export class EmbedCardComponent extends React.PureComponent<
 		}
 	};
 
-	onResolve = (data: { aspectRatio?: number; title?: string; url?: string; }) => {
+	onResolve = (data: { aspectRatio?: number; title?: string; url?: string }) => {
 		const { view } = this.props;
 
 		const { title, url, aspectRatio } = data;

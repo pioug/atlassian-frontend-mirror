@@ -16,6 +16,21 @@ export type RatingRender = (props: { isChecked: boolean }) => React.ReactNode;
 
 export interface RatingProps {
 	/**
+   * Id that is passed to both the label and the radio button element.
+   * This is needed to declare their relationship.
+
+   * When using this with the `<Rating />` component this is handled for you.
+   */
+	id?: string;
+
+	/**
+   * Sets checked state on the rating item.
+
+   * When using this with the `<Rating />` component this is handled for you.
+   */
+	isChecked?: boolean;
+
+	/**
 	 * Label for the rating item.
 	 * This will be read by screen readers as well as used in the tooltip when hovering over the item.
 	 */
@@ -29,11 +44,13 @@ export interface RatingProps {
 	name?: string;
 
 	/**
-   * Sets checked state on the rating item.
+   * Handler that is called back whenever the radio button element changes its checked state.
+   * When checked will be passed the `value` -
+   * when unchecked will be passed `undefined`.
 
    * When using this with the `<Rating />` component this is handled for you.
    */
-	isChecked?: boolean;
+	onChange?: (value?: string) => void;
 
 	/**
    A `testId` prop is provided for specified elements,
@@ -57,23 +74,6 @@ export interface RatingProps {
 	 * This will be passed back in the `onChange()` handler when checked.
 	 */
 	value: string;
-
-	/**
-   * Id that is passed to both the label and the radio button element.
-   * This is needed to declare their relationship.
-
-   * When using this with the `<Rating />` component this is handled for you.
-   */
-	id?: string;
-
-	/**
-   * Handler that is called back whenever the radio button element changes its checked state.
-   * When checked will be passed the `value` -
-   * when unchecked will be passed `undefined`.
-
-   * When using this with the `<Rating />` component this is handled for you.
-   */
-	onChange?: (value?: string) => void;
 }
 
 export interface InternalRatingProps extends RatingProps {

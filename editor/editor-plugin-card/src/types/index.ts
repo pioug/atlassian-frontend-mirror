@@ -115,7 +115,7 @@ export type CardPluginState = {
 
 export type CardPluginOptions = CardOptions & {
 	cardPluginEvents?: EditorCardPluginEvents<CardPluginEvent>;
-	CompetitorPrompt?: React.ComponentType<{ linkType?: string; sourceUrl: string; }>;
+	CompetitorPrompt?: React.ComponentType<{ linkType?: string; sourceUrl: string }>;
 	disableFloatingToolbar?: boolean;
 	editorAppearance?: EditorAppearance;
 	fullWidthMode?: boolean;

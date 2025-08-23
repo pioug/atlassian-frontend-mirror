@@ -1,5 +1,12 @@
 # @atlaskit/rating
 
+## 3.0.8
+
+### Patch Changes
+
+- [`5e872bdd351ed`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5e872bdd351ed) -
+  Sorted type and interface props to improve Atlaskit docs
+
 ## 3.0.7
 
 ### Patch Changes

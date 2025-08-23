@@ -11,7 +11,7 @@ import type { CustomizedHelperMessage } from './types';
 
 export type MediaInsertPluginState = {
 	isOpen?: boolean;
-	mountInfo?: { mountPoint: HTMLElement; ref: HTMLElement; };
+	mountInfo?: { mountPoint: HTMLElement; ref: HTMLElement };
 };
 
 export type MediaInsertPluginDependencies = [

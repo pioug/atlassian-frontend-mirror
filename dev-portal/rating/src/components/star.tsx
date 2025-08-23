@@ -9,19 +9,19 @@ import Rating, { type RatingProps, type RatingRender } from './rating';
 
 export interface StarProps extends RatingProps {
 	/**
-   * Size of the star icon.
-
-   * Defaults to `"large"`.
-   */
-	size?: 'small' | 'medium' | 'large' | 'xlarge';
-
-	/**
    * Color of the star icon,
    * when wanting to customize the color please ensure you use `colors` from `@atlaskit/theme`.
 
    * Defaults to `colors.Y200`.
    */
 	color?: string;
+
+	/**
+   * Size of the star icon.
+
+   * Defaults to `"large"`.
+   */
+	size?: 'small' | 'medium' | 'large' | 'xlarge';
 
 	/**
 	 * Spacing between the star and the text.

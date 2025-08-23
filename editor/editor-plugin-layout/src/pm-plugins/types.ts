@@ -10,4 +10,4 @@ export type LayoutState = {
 	pos: number | null;
 	selectedLayout: PresetLayout | undefined;
 };
-export type Change = { from: number; slice: Slice; to: number; };
+export type Change = { from: number; slice: Slice; to: number };

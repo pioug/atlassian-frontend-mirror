@@ -191,50 +191,52 @@ describe('smart-card: card states, block', () => {
 			});
 		});
 
-		eeTest.describe('platform_editor_preview_panel_linking_exp', 'is disabled').variant(false, () => {
-			it('delegate the click to the preview panel handler event if disablePreviewPanel set', async () => {
-				const isPreviewPanelAvailable = jest.fn().mockReturnValue(true);
-				const openPreviewPanel = jest.fn();
+		eeTest
+			.describe('platform_editor_preview_panel_linking_exp', 'is disabled')
+			.variant(false, () => {
+				it('delegate the click to the preview panel handler event if disablePreviewPanel set', async () => {
+					const isPreviewPanelAvailable = jest.fn().mockReturnValue(true);
+					const openPreviewPanel = jest.fn();
 
-				render(
-					<FabricAnalyticsListeners client={mockAnalyticsClient}>
-						<IntlProvider locale="en">
-							<Provider
-								client={mockClient}
-								isPreviewPanelAvailable={isPreviewPanelAvailable}
-								openPreviewPanel={openPreviewPanel}
-							>
-								<Card appearance="block" url={mockUrl} id="some-id" disablePreviewPanel={true} />
-							</Provider>
-						</IntlProvider>
-					</FabricAnalyticsListeners>,
-				);
-				await screen.findByText('I love cheese');
-				await screen.findByText('Here is your serving of cheese: 🧀');
+					render(
+						<FabricAnalyticsListeners client={mockAnalyticsClient}>
+							<IntlProvider locale="en">
+								<Provider
+									client={mockClient}
+									isPreviewPanelAvailable={isPreviewPanelAvailable}
+									openPreviewPanel={openPreviewPanel}
+								>
+									<Card appearance="block" url={mockUrl} id="some-id" disablePreviewPanel={true} />
+								</Provider>
+							</IntlProvider>
+						</FabricAnalyticsListeners>,
+					);
+					await screen.findByText('I love cheese');
+					await screen.findByText('Here is your serving of cheese: 🧀');
 
-				const link = screen.getByRole('link');
-				await userEvent.click(link);
+					const link = screen.getByRole('link');
+					await userEvent.click(link);
 
-				expect(isPreviewPanelAvailable).toHaveBeenCalledWith({
-					ari: 'ari:cloud:example:1234',
-				});
-				expect(openPreviewPanel).toHaveBeenCalledWith({
-					ari: 'ari:cloud:example:1234',
-					url: mockUrl,
-					name: 'I love cheese',
-					iconUrl: 'https://www.ilovecheese.com/icon.png',
-				});
-				expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
-					expect.objectContaining({
-						action: 'clicked',
-						actionSubject: 'link',
-						attributes: expect.objectContaining({
-							clickOutcome: 'previewPanel',
+					expect(isPreviewPanelAvailable).toHaveBeenCalledWith({
+						ari: 'ari:cloud:example:1234',
+					});
+					expect(openPreviewPanel).toHaveBeenCalledWith({
+						ari: 'ari:cloud:example:1234',
+						url: mockUrl,
+						name: 'I love cheese',
+						iconUrl: 'https://www.ilovecheese.com/icon.png',
+					});
+					expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+						expect.objectContaining({
+							action: 'clicked',
+							actionSubject: 'link',
+							attributes: expect.objectContaining({
+								clickOutcome: 'previewPanel',
+							}),
 						}),
-					}),
-				);
+					);
+				});
 			});
-		});
 
 		it('does not delegate the click to the preview panel handler if the object type is not supported as a preview panel', async () => {
 			window.open = jest.fn();

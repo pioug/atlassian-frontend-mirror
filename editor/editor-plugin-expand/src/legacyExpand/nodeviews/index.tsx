@@ -621,7 +621,7 @@ export class ExpandNodeView implements NodeView {
 		);
 	}
 
-	ignoreMutation(mutationRecord: MutationRecord | { target: Node; type: 'selection'; }) {
+	ignoreMutation(mutationRecord: MutationRecord | { target: Node; type: 'selection' }) {
 		// ME-1931: Mobile relies on composition which creates dom mutations. If we ignore them, prosemirror
 		// does not recognise the changes and reverts them.
 		if (

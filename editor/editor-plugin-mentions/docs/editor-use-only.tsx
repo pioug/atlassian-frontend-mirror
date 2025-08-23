@@ -7,7 +7,7 @@ import SectionMessage from '@atlaskit/section-message';
 function AlternativePackagesMessage({
 	alternatePackages,
 }: React.PropsWithoutRef<{
-	alternatePackages?: { link: string; name: string; }[];
+	alternatePackages?: { link: string; name: string }[];
 }>) {
 	if (!alternatePackages) {
 		return null;
@@ -49,7 +49,7 @@ function AlternativePackagesMessage({
 
 export function createEditorUseOnlyNotice(
 	componentName: string,
-	alternatePackages?: { link: string; name: string; }[],
+	alternatePackages?: { link: string; name: string }[],
 ) {
 	return (
 		<SectionMessage title="Internal Editor Use Only" appearance="error">

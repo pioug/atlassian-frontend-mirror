@@ -67,7 +67,7 @@ export class DecisionItemNodeView implements NodeView {
 	 * // Mutation outside contentDOM will be ignored
 	 * const shouldIgnore = decisionItemNodeView.ignoreMutation(mutationRecord);
 	 */
-	public ignoreMutation(mutation: MutationRecord | { target: Node; type: 'selection'; }): boolean {
+	public ignoreMutation(mutation: MutationRecord | { target: Node; type: 'selection' }): boolean {
 		// This was discovered while implementing the platform_editor_debounce_portal_provider experiment
 		// And there will only be an issue if the experiment is enabled.
 		// As such, this fix is behind this experiment.

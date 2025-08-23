@@ -25,7 +25,7 @@ import { validate } from '../utils';
 import { formatOptionLabel } from './SelectItem';
 import UnhandledType from './UnhandledType';
 
-function FieldError({ name, field }: { field: CustomField; name: string; }) {
+function FieldError({ name, field }: { field: CustomField; name: string }) {
 	const { type } = field.options.resolver;
 	return (
 		<UnhandledType

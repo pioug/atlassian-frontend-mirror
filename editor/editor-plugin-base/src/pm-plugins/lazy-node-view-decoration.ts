@@ -12,7 +12,7 @@ type LazyNodeViewPluginState = {
 type LoadedNodeTypes = Set<string>;
 
 type LazyNodeViewPluginActions =
-	| { nodeTypes: LoadedNodeTypes; type: 'add'; }
+	| { nodeTypes: LoadedNodeTypes; type: 'add' }
 	| { type: 'clear' }
 	| undefined;
 

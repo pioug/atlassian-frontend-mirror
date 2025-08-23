@@ -416,7 +416,7 @@ function ToolbarInsertBlockWithInjectionApi({
 		? emojiProviderPromise
 		: getEmojiProvider();
 
-	const onShowMediaPicker = (mountInfo?: { mountPoint: HTMLElement; ref: HTMLElement; }) => {
+	const onShowMediaPicker = (mountInfo?: { mountPoint: HTMLElement; ref: HTMLElement }) => {
 		if (!showMediaPicker) {
 			return;
 		}

@@ -15,18 +15,18 @@ export enum UFOGlobalEventStreamEventType {
 export type SubscribeCallback = (data: ExperienceData) => void;
 
 export type UFOGlobalEventStreamExperiencePayload = {
-	type: UFOGlobalEventStreamEventType.EXPERIENCE_PAYLOAD;
 	payload: ExperienceData;
+	type: UFOGlobalEventStreamEventType.EXPERIENCE_PAYLOAD;
 };
 
 export type UFOGlobalEventStreamSubscribe = {
+	payload: { callback: SubscribeCallback; experienceId: string };
 	type: UFOGlobalEventStreamEventType.SUBSCRIBE;
-	payload: { experienceId: string; callback: SubscribeCallback };
 };
 
 export type UFOGlobalEventStreamUnsubscribe = {
+	payload: { callback: SubscribeCallback; experienceId: string };
 	type: UFOGlobalEventStreamEventType.UNSUBSCRIBE;
-	payload: { experienceId: string; callback: SubscribeCallback };
 };
 
 export type UFOGlobalEventStreamEvent =
@@ -39,9 +39,9 @@ export type CustomData = {
 };
 
 export type ExperienceMetrics = {
-	startTime: null | number;
 	endTime: null | number;
 	marks: Array<{ name: string; time: number }>;
+	startTime: null | number;
 };
 
 export enum PageVisibleState {
@@ -52,23 +52,23 @@ export enum PageVisibleState {
 
 export type Timing =
 	| {
+			component?: string;
+			endMark: string;
 			key: string;
 			startMark: string;
-			endMark: string;
-			component?: string;
 	  }
 	| {
+			component?: string;
+			endMark: string;
 			key: string;
-			endMark: string;
-			component?: string;
 	  }
 	| {
+			component?: string;
 			key: string;
 			startMark: string;
-			component?: string;
 	  };
 
-export type ReportedTiming = { startTime: number; duration: number };
+export type ReportedTiming = { duration: number; startTime: number };
 
 export type ReportedTimings = {
 	[key: string]: ReportedTiming;
@@ -123,10 +123,10 @@ export type CustomHistogramConfig = {
 };
 
 export type HistogramConfig = {
+	[ExperiencePerformanceTypes.Custom]?: CustomHistogramConfig;
+	[ExperiencePerformanceTypes.InlineResult]?: InteractionHistogramConfig;
 	[ExperiencePerformanceTypes.PageLoad]?: PageLoadHistogramConfig;
 	[ExperiencePerformanceTypes.PageSegmentLoad]?: PageSegmentLoadHistogramConfig;
-	[ExperiencePerformanceTypes.InlineResult]?: InteractionHistogramConfig;
-	[ExperiencePerformanceTypes.Custom]?: CustomHistogramConfig;
 };
 
 export type PerformanceConfig = {
@@ -134,28 +134,28 @@ export type PerformanceConfig = {
 };
 
 export interface ExperienceData {
-	id: string;
-	uuid: string | null;
-	type: ExperienceTypes;
-	schemaVersion: string;
-	performanceType: ExperiencePerformanceTypes;
 	category: string | null;
-	state: UFOExperienceStateType;
+	children: Array<ExperienceData>;
+	explicitTimings: ReportedTimings;
+	featureFlags: string[];
+	id: string;
+	isSSROutputAsFMP: boolean;
 	metadata: CustomData;
 	metrics: ExperienceMetrics;
-	children: Array<ExperienceData>;
 	pageVisibleState: PageVisibleState;
+	performanceConfig?: PerformanceConfig;
+	performanceType: ExperiencePerformanceTypes;
 	platform: { component: string } | null;
 	result: {
-		success: boolean;
-		startTime: number | null;
 		duration: number;
+		startTime: number | null;
+		success: boolean;
 	};
-	featureFlags: string[];
-	isSSROutputAsFMP: boolean;
+	schemaVersion: string;
+	state: UFOExperienceStateType;
 	timings: Timing[];
-	explicitTimings: ReportedTimings;
-	performanceConfig?: PerformanceConfig;
+	type: ExperienceTypes;
+	uuid: string | null;
 }
 
 export interface PageLoadExperienceData extends ExperienceData {

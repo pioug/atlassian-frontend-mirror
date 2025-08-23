@@ -499,7 +499,7 @@ const enter = (
 					? 'taskList'
 					: 'decisionList';
 
-				const addItem = ({ tr, itemLocalId }: { itemLocalId?: string; tr: Transaction; }) => {
+				const addItem = ({ tr, itemLocalId }: { itemLocalId?: string; tr: Transaction }) => {
 					// ED-8932: When cursor is at the beginning of a task item, instead of split, we insert above.
 					if ($from.pos === $to.pos && $from.parentOffset === 0) {
 						const newTask = nodeType.createAndFill({ localId: itemLocalId });

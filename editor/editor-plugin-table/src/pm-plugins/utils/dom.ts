@@ -230,7 +230,7 @@ export const getTop = (element: HTMLElement | Window | undefined): number => {
 export const findNearestCellIndexToPoint = (
 	x: number,
 	y: number,
-): { col: number; row: number; } | undefined => {
+): { col: number; row: number } | undefined => {
 	const elements = document.elementsFromPoint(x, y);
 	const cell = elements.find(
 		(el) => el.nodeName.toUpperCase() === 'TD' || el.nodeName.toUpperCase() === 'TH',

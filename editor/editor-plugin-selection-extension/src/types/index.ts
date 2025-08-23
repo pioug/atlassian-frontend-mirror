@@ -88,7 +88,7 @@ export type SelectionExtensionPluginOptions = {
  */
 export type SelectionExtensionPluginConfiguration = SelectionExtensionPluginOptions;
 
-export type SelectionExtensionCoords = { bottom: number; left: number; right: number; top: number; };
+export type SelectionExtensionCoords = { bottom: number; left: number; right: number; top: number };
 
 export type BoundingBoxOffset = {
 	bottom: number;

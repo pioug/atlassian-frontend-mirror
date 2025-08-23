@@ -135,7 +135,7 @@ const ImageBorder = ({
 		focusFirstOption(sizeSubmenuRef, isSizeSubmenuOpen);
 	}, [isColorSubmenuOpen, isSizeSubmenuOpen, isOpenByKeyboard]);
 
-	const borderSizeOptions: { icon: Icon; name: string; value: number; }[] = [
+	const borderSizeOptions: { icon: Icon; name: string; value: number }[] = [
 		{
 			name: formatMessage(messages.borderSizeSubtle),
 			value: 1,

@@ -13,4 +13,4 @@ export interface CodeBlockPluginOptions extends LongPressSelectionPluginOptions 
  */
 export type CodeBlockOptions = CodeBlockPluginOptions;
 
-export type CodeBlockLineAttributes = { lineNumber: number; lineStart: number; };
+export type CodeBlockLineAttributes = { lineNumber: number; lineStart: number };

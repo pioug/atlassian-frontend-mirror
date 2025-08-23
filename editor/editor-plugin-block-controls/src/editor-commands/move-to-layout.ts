@@ -346,7 +346,7 @@ export const moveToLayout =
 	(
 		from: number,
 		to: number,
-		options?: { moveNodeAtCursorPos?: boolean; moveToEnd?: boolean; selectMovedNode?: boolean; },
+		options?: { moveNodeAtCursorPos?: boolean; moveToEnd?: boolean; selectMovedNode?: boolean },
 	): EditorCommand =>
 	({ tr }) => {
 		if (!api) {

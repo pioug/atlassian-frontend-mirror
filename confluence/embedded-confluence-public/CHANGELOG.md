@@ -1,5 +1,13 @@
 # @atlaskit/embedded-confluence
 
+## 4.1.0
+
+### Minor Changes
+
+- [`b62d02df34d9f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b62d02df34d9f) -
+  Updating documentation to include new allowedFeatures: modern-header, disable-help-button,
+  disable-title-toolbar, and disable-publish-close-buttons.
+
 ## 4.0.3
 
 ### Patch Changes

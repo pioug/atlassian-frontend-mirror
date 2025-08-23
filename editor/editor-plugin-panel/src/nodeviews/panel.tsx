@@ -170,7 +170,7 @@ class PanelNodeView {
 		);
 	}
 
-	ignoreMutation(mutation: MutationRecord | { target: Node; type: 'selection'; }) {
+	ignoreMutation(mutation: MutationRecord | { target: Node; type: 'selection' }) {
 		// ignore mutation if it caused by the icon.
 		if (!this.icon) {
 			return false;

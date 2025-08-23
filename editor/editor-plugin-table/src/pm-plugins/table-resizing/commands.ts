@@ -88,7 +88,7 @@ export const stopResizing = (tr?: Transaction) =>
 	);
 
 export const setDragging = (
-	dragging: { startWidth: number; startX: number; } | null,
+	dragging: { startWidth: number; startX: number } | null,
 	tr?: Transaction,
 ) =>
 	createCommand(
@@ -102,7 +102,7 @@ export const setDragging = (
 	);
 
 const setLastClick = (
-	lastClick: { time: number; x: number; y: number; } | null,
+	lastClick: { time: number; x: number; y: number } | null,
 	transform?: (tr: Transaction) => Transaction,
 ) =>
 	createCommand(

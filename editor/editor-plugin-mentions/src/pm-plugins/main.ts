@@ -241,7 +241,7 @@ export function createMentionPlugin({
 						);
 
 						if (mentionNodesBefore.length > mentionLocalIdsAfter.size) {
-							const deletedMentions: { id: string; localId: string; type: 'deleted'; }[] =
+							const deletedMentions: { id: string; localId: string; type: 'deleted' }[] =
 								mentionNodesBefore
 									.filter(({ node }) => !mentionLocalIdsAfter.has(node.attrs.localId))
 									.map(({ node }) => ({

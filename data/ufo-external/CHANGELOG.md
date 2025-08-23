@@ -1,5 +1,12 @@
 # @af/ufo-types
 
+## 0.4.1
+
+### Patch Changes
+
+- [`5e872bdd351ed`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5e872bdd351ed) -
+  Sorted type and interface props to improve Atlaskit docs
+
 ## 0.4.0
 
 ### Minor Changes

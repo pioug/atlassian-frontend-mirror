@@ -69,7 +69,7 @@ function hyphenate(property: string): string {
 	return property.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`).replace(/^ms/, '-ms');
 }
 
-type WidgetProps = { isHighlight: boolean; isInWord: boolean; type: SelectionType; };
+type WidgetProps = { isHighlight: boolean; isInWord: boolean; type: SelectionType };
 
 const Widget = ({ type, isHighlight, isInWord }: WidgetProps) => {
 	const span = document.createElement('span');

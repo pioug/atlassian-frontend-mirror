@@ -12,7 +12,7 @@ const previewStyle = {
 
 export type DragPreviewContent = {
 	dom: HTMLElement;
-	nodeSpacing?: { bottom: string; top: string; };
+	nodeSpacing?: { bottom: string; top: string };
 	nodeType: string;
 };
 
@@ -64,7 +64,7 @@ const createGenericPreview = () => {
 const createContentPreviewElement = (
 	dom: HTMLElement,
 	nodeType: string,
-	nodeSpacing?: { bottom: string; top: string; },
+	nodeSpacing?: { bottom: string; top: string },
 ) => {
 	const contentPreviewOneElement = document.createElement('div');
 	contentPreviewOneElement.classList.add('ProseMirror', 'block-ctrl-drag-preview');
@@ -101,7 +101,7 @@ const isGenericPreview = (dom: HTMLElement, nodeType: string) => {
 const createPreviewForElement = (
 	dom: HTMLElement,
 	nodeType: string,
-	nodeSpacing?: { bottom: string; top: string; },
+	nodeSpacing?: { bottom: string; top: string },
 ) => {
 	const shouldBeGenericPreview = isGenericPreview(dom, nodeType);
 	if (shouldBeGenericPreview) {

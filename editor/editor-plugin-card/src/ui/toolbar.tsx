@@ -1041,7 +1041,7 @@ export const getStartingToolbarItems = (
 		intl: IntlShape,
 		link: string,
 		onEditLink: Command,
-		metadata: { title: string; url: string; },
+		metadata: { title: string; url: string },
 		state?: EditorState,
 	): FloatingToolbarItem<Command>[] => {
 		const editLinkItem: FloatingToolbarItem<Command>[] = options.allowDatasource

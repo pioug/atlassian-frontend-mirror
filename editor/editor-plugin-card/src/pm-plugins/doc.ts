@@ -653,7 +653,7 @@ export const updateCardViaDatasource = (args: UpdateCardArgs) => {
 			}
 		} else if (node.type.isText) {
 			// url to datasource
-			let link: { pos: number; text: string | undefined; url: string; } | undefined;
+			let link: { pos: number; text: string | undefined; url: string } | undefined;
 			state.doc.nodesBetween(from, to, (node, pos) => {
 				// get the actual start position of a link within the node
 				const linkMark = node.marks.find((mark) => mark.type === state.schema.marks.link);

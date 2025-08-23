@@ -1,7 +1,5 @@
 import { v4 as createUUID } from 'uuid';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 // Mock all dependencies
 jest.mock('uuid');
 jest.mock('../../coinflip');
@@ -10,7 +8,6 @@ jest.mock('../../interaction-id-context');
 jest.mock('../../interaction-metrics');
 jest.mock('../../route-name-context');
 jest.mock('../../experience-trace-id-context');
-jest.mock('@atlaskit/platform-feature-flags');
 
 import coinflip from '../../coinflip';
 import { getDoNotAbortActivePressInteraction, getInteractionRate } from '../../config';
@@ -36,7 +33,6 @@ const mockGetActiveTrace = getActiveTrace as jest.MockedFunction<typeof getActiv
 const mockSetInteractionActiveTrace = setInteractionActiveTrace as jest.MockedFunction<
 	typeof setInteractionActiveTrace
 >;
-const mockFg = fg as jest.MockedFunction<typeof fg>;
 const mockCreateUUID = createUUID as jest.MockedFunction<typeof createUUID>;
 
 describe('internal traceUFOInteraction', () => {
@@ -54,7 +50,6 @@ describe('internal traceUFOInteraction', () => {
 		mockGetDoNotAbortActivePressInteraction.mockReturnValue(undefined);
 		mockGetActiveInteraction.mockReturnValue(undefined);
 		mockGetActiveTrace.mockReturnValue(mockTraceContext);
-		mockFg.mockReturnValue(false);
 		mockCreateUUID.mockReturnValue('test-uuid-123');
 
 		// Mock performance.now
@@ -166,148 +161,83 @@ describe('internal traceUFOInteraction', () => {
 		});
 	});
 
-	describe('abort logic with feature gate - platform_ufo_abort_measurement_fix', () => {
-		describe('when feature gate is TRUE', () => {
-			beforeEach(() => {
-				mockFg.mockReturnValue(true);
-			});
+	describe('abort logic', () => {
+		it('should abort all interactions BEFORE coinflip when not in doNotAbortActivePressInteraction list and coinflip fails', () => {
+			mockGetDoNotAbortActivePressInteraction.mockReturnValue(undefined);
+			mockCoinflip.mockReturnValue(false);
 
-			it('should abort all interactions BEFORE coinflip when not in doNotAbortActivePressInteraction list', () => {
-				mockGetDoNotAbortActivePressInteraction.mockReturnValue(undefined);
-				mockCoinflip.mockReturnValue(false); // coinflip fails
+			traceUFOInteraction('test-interaction', 'press');
 
-				traceUFOInteraction('test-interaction', 'press');
-
-				// abortAll should be called even when coinflip fails
-				expect(mockAbortAll).toHaveBeenCalledWith('new_interaction', 'test-interaction');
-				expect(mockAbortAll).toHaveBeenCalledTimes(1);
-				// addNewInteraction should not be called since coinflip failed
-				expect(mockAddNewInteraction).not.toHaveBeenCalled();
-			});
-
-			it('should abort all interactions BEFORE coinflip and add new interaction when coinflip passes', () => {
-				mockGetDoNotAbortActivePressInteraction.mockReturnValue(undefined);
-				mockCoinflip.mockReturnValue(true); // coinflip passes
-
-				traceUFOInteraction('test-interaction', 'press');
-
-				// abortAll should be called before coinflip
-				expect(mockAbortAll).toHaveBeenCalledWith('new_interaction', 'test-interaction');
-				expect(mockAbortAll).toHaveBeenCalledTimes(1);
-				// addNewInteraction should be called since coinflip passed
-				expect(mockAddNewInteraction).toHaveBeenCalledWith(
-					'test-uuid-123',
-					'test-interaction',
-					'press',
-					1000,
-					1,
-					[],
-					'test-route',
-					mockTraceContext,
-				);
-			});
-
-			it('should not call abortAll when interaction is in doNotAbortActivePressInteraction list and active interaction matches', () => {
-				mockGetDoNotAbortActivePressInteraction.mockReturnValue(['test-interaction']);
-				mockGetActiveInteraction.mockReturnValue({
-					id: 'active-id',
-					ufoName: 'test-interaction',
-					type: 'press',
-				} as any);
-
-				traceUFOInteraction('test-interaction', 'press');
-
-				expect(mockAbortAll).not.toHaveBeenCalled();
-				expect(mockCoinflip).not.toHaveBeenCalled();
-				expect(mockAddNewInteraction).not.toHaveBeenCalled();
-			});
-
-			it('should proceed with coinflip when interaction is in doNotAbortActivePressInteraction list but active interaction does not match', () => {
-				mockGetDoNotAbortActivePressInteraction.mockReturnValue(['test-interaction']);
-				mockGetActiveInteraction.mockReturnValue({
-					id: 'active-id',
-					ufoName: 'some-interaction',
-					type: 'hover',
-				} as any);
-				mockCoinflip.mockReturnValue(true);
-
-				traceUFOInteraction('test-interaction', 'press');
-
-				// The feature gate abortAll should NOT be called when interaction is in pressInteractionsList
-				expect(mockCoinflip).toHaveBeenCalled();
-				expect(mockAddNewInteraction).toHaveBeenCalled();
-			});
-
-			it('should abort interactions when interaction is NOT in doNotAbortActivePressInteraction list', () => {
-				mockGetDoNotAbortActivePressInteraction.mockReturnValue(['other-interaction']);
-				mockGetActiveInteraction.mockReturnValue({
-					id: 'active-id',
-					ufoName: 'some-active-interaction',
-					type: 'press',
-				} as any);
-				mockCoinflip.mockReturnValue(false); // coinflip fails
-
-				traceUFOInteraction('test-interaction', 'press');
-
-				// When interaction is NOT in pressInteractionsList, feature gate abortAll should be called
-				expect(mockAbortAll).toHaveBeenCalledWith('new_interaction', 'test-interaction');
-				expect(mockAbortAll).toHaveBeenCalledTimes(1);
-				// addNewInteraction should NOT be called since coinflip failed
-				expect(mockAddNewInteraction).not.toHaveBeenCalled();
-			});
+			expect(mockAbortAll).toHaveBeenCalledWith('new_interaction', 'test-interaction');
+			expect(mockAbortAll).toHaveBeenCalledTimes(1);
+			expect(mockAddNewInteraction).not.toHaveBeenCalled();
 		});
 
-		describe('when feature gate is FALSE', () => {
-			beforeEach(() => {
-				mockFg.mockReturnValue(false);
-			});
+		it('should abort all interactions BEFORE coinflip and add new interaction when coinflip passes', () => {
+			mockGetDoNotAbortActivePressInteraction.mockReturnValue(undefined);
+			mockCoinflip.mockReturnValue(true);
 
-			it('should NOT abort all interactions when coinflip fails', () => {
-				mockGetDoNotAbortActivePressInteraction.mockReturnValue(undefined);
-				mockCoinflip.mockReturnValue(false); // coinflip fails
+			traceUFOInteraction('test-interaction', 'press');
 
-				traceUFOInteraction('test-interaction', 'press');
+			expect(mockAbortAll).toHaveBeenCalledWith('new_interaction', 'test-interaction');
+			expect(mockAbortAll).toHaveBeenCalledTimes(1);
+			expect(mockAddNewInteraction).toHaveBeenCalledWith(
+				'test-uuid-123',
+				'test-interaction',
+				'press',
+				1000,
+				1,
+				[],
+				'test-route',
+				mockTraceContext,
+			);
+		});
 
-				// abortAll should NOT be called when coinflip fails
-				expect(mockAbortAll).not.toHaveBeenCalled();
-				expect(mockAddNewInteraction).not.toHaveBeenCalled();
-			});
+		it('should not call abortAll when interaction is in doNotAbortActivePressInteraction list and active interaction matches', () => {
+			mockGetDoNotAbortActivePressInteraction.mockReturnValue(['test-interaction']);
+			mockGetActiveInteraction.mockReturnValue({
+				id: 'active-id',
+				ufoName: 'test-interaction',
+				type: 'press',
+			} as any);
 
-			it('should abort all interactions AFTER coinflip when coinflip passes', () => {
-				mockGetDoNotAbortActivePressInteraction.mockReturnValue(undefined);
-				mockCoinflip.mockReturnValue(true); // coinflip passes
+			traceUFOInteraction('test-interaction', 'press');
 
-				traceUFOInteraction('test-interaction', 'press');
+			expect(mockAbortAll).not.toHaveBeenCalled();
+			expect(mockCoinflip).not.toHaveBeenCalled();
+			expect(mockAddNewInteraction).not.toHaveBeenCalled();
+		});
 
-				// abortAll should be called after coinflip
-				expect(mockCoinflip).toHaveBeenCalledWith(1);
-				expect(mockAbortAll).toHaveBeenCalledWith('new_interaction', 'test-interaction');
-				expect(mockAddNewInteraction).toHaveBeenCalledWith(
-					'test-uuid-123',
-					'test-interaction',
-					'press',
-					1000,
-					1,
-					[],
-					'test-route',
-					mockTraceContext,
-				);
-			});
+		it('should proceed with coinflip when interaction is in doNotAbortActivePressInteraction list but active interaction does not match', () => {
+			mockGetDoNotAbortActivePressInteraction.mockReturnValue(['test-interaction']);
+			mockGetActiveInteraction.mockReturnValue({
+				id: 'active-id',
+				ufoName: 'some-interaction',
+				type: 'hover',
+			} as any);
+			mockCoinflip.mockReturnValue(true);
 
-			it('should not call abortAll when interaction is in doNotAbortActivePressInteraction list and active interaction matches', () => {
-				mockGetDoNotAbortActivePressInteraction.mockReturnValue(['test-interaction']);
-				mockGetActiveInteraction.mockReturnValue({
-					id: 'active-id',
-					ufoName: 'test-interaction',
-					type: 'press',
-				} as any);
+			traceUFOInteraction('test-interaction', 'press');
 
-				traceUFOInteraction('test-interaction', 'press');
+			expect(mockAbortAll).not.toHaveBeenCalled();
+			expect(mockCoinflip).toHaveBeenCalled();
+			expect(mockAddNewInteraction).toHaveBeenCalled();
+		});
 
-				expect(mockAbortAll).not.toHaveBeenCalled();
-				expect(mockCoinflip).not.toHaveBeenCalled();
-				expect(mockAddNewInteraction).not.toHaveBeenCalled();
-			});
+		it('should abort interactions when interaction is NOT in doNotAbortActivePressInteraction list and coinflip fails', () => {
+			mockGetDoNotAbortActivePressInteraction.mockReturnValue(['other-interaction']);
+			mockGetActiveInteraction.mockReturnValue({
+				id: 'active-id',
+				ufoName: 'some-active-interaction',
+				type: 'press',
+			} as any);
+			mockCoinflip.mockReturnValue(false);
+
+			traceUFOInteraction('test-interaction', 'press');
+
+			expect(mockAbortAll).toHaveBeenCalledWith('new_interaction', 'test-interaction');
+			expect(mockAbortAll).toHaveBeenCalledTimes(1);
+			expect(mockAddNewInteraction).not.toHaveBeenCalled();
 		});
 	});
 
@@ -500,7 +430,6 @@ describe('internal traceUFOInteraction', () => {
 		it('should handle undefined doNotAbortActivePressInteraction list', () => {
 			mockGetDoNotAbortActivePressInteraction.mockReturnValue(undefined);
 			mockCoinflip.mockReturnValue(true);
-			mockFg.mockReturnValue(true);
 
 			traceUFOInteraction('test-interaction', 'press');
 
@@ -510,7 +439,6 @@ describe('internal traceUFOInteraction', () => {
 		it('should handle empty doNotAbortActivePressInteraction list', () => {
 			mockGetDoNotAbortActivePressInteraction.mockReturnValue([]);
 			mockCoinflip.mockReturnValue(true);
-			mockFg.mockReturnValue(true);
 
 			traceUFOInteraction('test-interaction', 'press');
 

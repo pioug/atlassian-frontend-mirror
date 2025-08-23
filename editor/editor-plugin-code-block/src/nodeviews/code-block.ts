@@ -213,7 +213,7 @@ export class CodeBlockView {
 		return true;
 	}
 
-	ignoreMutation(record: MutationRecord | { target: Node; type: 'selection'; }) {
+	ignoreMutation(record: MutationRecord | { target: Node; type: 'selection' }) {
 		const pluginState = getPluginState(this.view.state);
 		if (pluginState?.shouldIgnoreFollowingMutations) {
 			return true;

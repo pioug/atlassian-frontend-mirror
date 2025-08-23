@@ -77,6 +77,9 @@ const CopyBlockMenuItem = ({ api }: CopyBlockMenuItemProps & WrappedComponentPro
 				const domNode = toDOM(selection.node, schema);
 				copyDomNode(domNode, nodeType, selection);
 			}
+
+			// close the block menu after copying
+			api?.core.actions.execute(api?.blockControls?.commands.toggleBlockMenu({ closeMenu: true }));
 		}
 	};
 

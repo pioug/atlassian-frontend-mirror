@@ -81,7 +81,7 @@ export function wrapInList(listType: NodeType, attrs?: Attrs) {
 function doWrapInList(
 	tr: Transaction,
 	range: NodeRange,
-	wrappers: Array<{ attrs?: Attrs | null; type: NodeType; }>,
+	wrappers: Array<{ attrs?: Attrs | null; type: NodeType }>,
 	joinBefore: boolean,
 	listType: NodeType,
 ) {

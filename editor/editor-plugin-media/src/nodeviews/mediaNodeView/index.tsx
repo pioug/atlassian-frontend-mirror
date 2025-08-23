@@ -151,7 +151,7 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 		return isMediaBlobUrlFromAttrs(attrs);
 	}
 
-	onExternalImageLoaded = (dimensions: { height: number; width: number; }) => {
+	onExternalImageLoaded = (dimensions: { height: number; width: number }) => {
 		const getPos = this.getPos as getPosHandlerNode;
 		const { width, height, ...rest } = this.getAttrs();
 		if (!width || !height) {

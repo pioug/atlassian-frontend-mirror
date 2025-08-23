@@ -34,7 +34,7 @@ export class BlockCardComponent extends React.PureComponent<SmartCardProps & { i
 		this.scrollContainer = findOverflowScrollParent(props.view.dom as HTMLElement) || undefined;
 	}
 
-	onResolve = (data: { title?: string; url?: string; }) => {
+	onResolve = (data: { title?: string; url?: string }) => {
 		const { getPos, view } = this.props;
 		if (!getPos || typeof getPos === 'boolean') {
 			return;
@@ -226,7 +226,7 @@ export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
 export interface BlockCardNodeViewProperties {
 	actionOptions: BlockCardNodeViewProps['actionOptions'];
 	allowDatasource: boolean | undefined;
-	CompetitorPrompt?: React.ComponentType<{ linkType?: string; sourceUrl: string; }>;
+	CompetitorPrompt?: React.ComponentType<{ linkType?: string; sourceUrl: string }>;
 	inlineCardViewProducer: ReturnType<typeof getInlineNodeViewProducer>;
 	isPageSSRed: BlockCardNodeViewProps['isPageSSRed'];
 	onClickCallback: BlockCardNodeViewProps['onClickCallback'];

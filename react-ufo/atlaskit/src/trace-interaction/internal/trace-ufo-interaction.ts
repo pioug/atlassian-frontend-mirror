@@ -1,7 +1,5 @@
 import { v4 as createUUID } from 'uuid';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import coinflip from '../../coinflip';
 import { getDoNotAbortActivePressInteraction, getInteractionRate } from '../../config';
 import { getActiveTrace, setInteractionActiveTrace } from '../../experience-trace-id-context';
@@ -24,15 +22,11 @@ function traceUFOInteraction(
 			return;
 		}
 	} else {
-		if (fg('platform_ufo_abort_measurement_fix')) {
-			// abort any existing interaction regardless if the next interaction's coinflip returns true or false
-			abortAll('new_interaction', name);
-		}
+		// Abort any existing interaction regardless of the coinflip outcome
+		// Ensures measurements are not carried over between distinct interactions
+		abortAll('new_interaction', name);
 	}
 	if (coinflip(rate)) {
-		if (!fg('platform_ufo_abort_measurement_fix')) {
-			abortAll('new_interaction', name);
-		}
 		const startTimestamp = startTime ?? performance.now();
 		const newId = createUUID();
 		DefaultInteractionID.current = newId;

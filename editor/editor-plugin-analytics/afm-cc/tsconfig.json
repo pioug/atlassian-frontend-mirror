@@ -2,9 +2,9 @@
 	"extends": "../../../../tsconfig.entry-points.confluence.json",
 	"compilerOptions": {
 		"target": "es5",
-		"composite": true,
 		"outDir": "../../../../../confluence/tsDist/@atlaskit__editor-plugin-analytics",
-		"rootDir": "../"
+		"rootDir": "../",
+		"composite": true
 	},
 	"include": [
 		"../src/**/*.ts",

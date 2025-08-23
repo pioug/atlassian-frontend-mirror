@@ -4,7 +4,7 @@ import { token } from '@atlaskit/tokens';
 
 import { Rating, RatingGroup } from '../src';
 
-const Emoji = ({ children, isChecked }: { isChecked: boolean; children: React.ReactNode }) => (
+const Emoji = ({ children, isChecked }: { children: React.ReactNode; isChecked: boolean }) => (
 	<div
 		style={{
 			// Setting font size is important here as it's set to ZERO in the parent Rating to work around inline-block spacing issues.

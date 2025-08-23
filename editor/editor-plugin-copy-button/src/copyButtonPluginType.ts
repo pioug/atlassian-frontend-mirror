@@ -21,5 +21,5 @@ export type CopyButtonPlugin = NextEditorPlugin<
 
 export type CopyButtonPluginState = {
 	copied: boolean;
-	markSelection?: { end: number; markType: MarkType; start: number; };
+	markSelection?: { end: number; markType: MarkType; start: number };
 };

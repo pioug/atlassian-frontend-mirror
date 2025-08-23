@@ -5,9 +5,9 @@
 		"lib": [
 			"ES2021.String"
 		],
-		"composite": true,
 		"outDir": "../../../../../confluence/tsDist/@atlaskit__eslint-plugin-ui-styling-standard",
-		"rootDir": "../"
+		"rootDir": "../",
+		"composite": true
 	},
 	"include": [
 		"../src/**/*.ts",

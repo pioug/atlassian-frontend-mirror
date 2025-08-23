@@ -46,18 +46,13 @@ const styles = cssMap({
 
 export interface RatingGroupProps {
 	/**
-	 * Callback that is called everytime the rating changes.
-	 * Use this in conjunction with `value` for [controlled behaviour](https://reactjs.org/docs/forms.html#controlled-components).
-	 */
-	onChange?: (value?: string) => void;
+   * Pass in child rating items.
+   * This component expects the markup to be defined in a particular way,
+   * so if you pass extra wrapping markup expect undefined behaviour.
 
-	/**
-   * Group name for all of the child rating items.
-   * If you have **multiple ratings on the same page make sure to have a unique name** for each group.
-
-   * Defaults to `"ak--rating-group"`.
+   * You can have any amount of child rating items.
    */
-	groupName?: string;
+	children: JSX.Element | JSX.Element[];
 
 	/**
    * Will set the default checked value for a child radio rating item.
@@ -68,12 +63,18 @@ export interface RatingGroupProps {
 	defaultValue?: string;
 
 	/**
-   * Value that is used to check a child rating item.
-   * Use when wanting to use this in a [controlled way](https://reactjs.org/docs/forms.html#controlled-components).
+   * Group name for all of the child rating items.
+   * If you have **multiple ratings on the same page make sure to have a unique name** for each group.
 
-   * Do not use with `defaultValue`.
+   * Defaults to `"ak--rating-group"`.
    */
-	value?: string;
+	groupName?: string;
+
+	/**
+	 * Callback that is called everytime the rating changes.
+	 * Use this in conjunction with `value` for [controlled behaviour](https://reactjs.org/docs/forms.html#controlled-components).
+	 */
+	onChange?: (value?: string) => void;
 
 	/**
    A `testId` prop is provided for specified elements,
@@ -88,13 +89,12 @@ export interface RatingGroupProps {
 	testId?: string;
 
 	/**
-   * Pass in child rating items.
-   * This component expects the markup to be defined in a particular way,
-   * so if you pass extra wrapping markup expect undefined behaviour.
+   * Value that is used to check a child rating item.
+   * Use when wanting to use this in a [controlled way](https://reactjs.org/docs/forms.html#controlled-components).
 
-   * You can have any amount of child rating items.
+   * Do not use with `defaultValue`.
    */
-	children: JSX.Element | JSX.Element[];
+	value?: string;
 }
 
 export default function RatingGroup({

@@ -235,7 +235,7 @@ export const bulkColumnsResize = (
 		columnsIndexes.indexOf(sourceColumnIndex) > -1 ? sourceColumnIndex : sourceColumnIndex + 1;
 	const sourceCol = resizeState.cols[colIndex];
 	const seenColumns: {
-		[key: number]: { index: number; minWidth: number; width: number; };
+		[key: number]: { index: number; minWidth: number; width: number };
 	} = {};
 	const widthsDiffs: number[] = [];
 	const cols = resizeState.cols.map((col) => {

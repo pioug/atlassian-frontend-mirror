@@ -39,7 +39,7 @@ export const getRowDeleteButtonParams = (
 	rowsHeights: Array<number | undefined>,
 	selection: Selection,
 	offsetTop = 0,
-): { indexes: number[]; top: number; } | null => {
+): { indexes: number[]; top: number } | null => {
 	const rect = getSelectionRect(selection);
 	if (!rect) {
 		return null;
@@ -147,7 +147,7 @@ export const copyPreviousRow =
 		);
 
 		const cells = [] as PMNode[];
-		const fixRowspans: { node: PMNode; pos: number; }[] = [];
+		const fixRowspans: { node: PMNode; pos: number }[] = [];
 		for (let i = 0; i < cellsPositionsInOriginalRow.length; ) {
 			const pos = cellsPositionsInOriginalRow[i];
 			const documentCellPos = pos + table.start;

@@ -15,7 +15,7 @@ export const validate = <T>(
 const isEmptyString = <T>(value: T) => typeof value === 'string' && value === '';
 const isEmptyArray = <T>(value: T) => Array.isArray(value) && value.length === 0;
 
-type ValidationProps = { isMultiple?: boolean; isRequired?: boolean; };
+type ValidationProps = { isMultiple?: boolean; isRequired?: boolean };
 
 const getUngroupedOptions = (groupedOptions: GroupBase<Option>[]): Option[] => {
 	return groupedOptions.flatMap((option) => option.options);

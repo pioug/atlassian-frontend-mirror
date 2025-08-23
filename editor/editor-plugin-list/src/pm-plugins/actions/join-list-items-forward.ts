@@ -19,7 +19,7 @@ type ScenariosAllowed =
 	| LIST_TEXT_SCENARIOS.JOIN_PARENT_SIBLING_TO_PARENT_CHILD
 	| LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH;
 
-type DeleteAction = (props: { $head: ResolvedPos; $next: ResolvedPos; tr: Transaction; }) => boolean;
+type DeleteAction = (props: { $head: ResolvedPos; $next: ResolvedPos; tr: Transaction }) => boolean;
 
 type ScenarioAction = false | [ScenariosAllowed, DeleteAction];
 

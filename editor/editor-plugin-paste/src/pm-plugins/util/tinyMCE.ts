@@ -25,7 +25,7 @@ export const isPastedFromTinyMCEConfluence = (
  */
 export const wrapWithTable = (
 	html: string,
-): { nonTableWrappedDoc: Document; tableWrappedDoc: Document; } => {
+): { nonTableWrappedDoc: Document; tableWrappedDoc: Document } => {
 	const parser = new DOMParser();
 	const nonTableWrappedDoc = parser.parseFromString(html, 'text/html');
 	const tableWrappedDoc = parser.parseFromString(`<table>${html}</table>`, 'text/html');

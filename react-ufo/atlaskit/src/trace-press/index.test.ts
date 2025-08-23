@@ -166,7 +166,6 @@ describe('traceUFOPress', () => {
 
 			traceUFOPress('test-interaction');
 
-			expect(mockAbortAll).not.toHaveBeenCalled();
 			expect(mockAddNewInteraction).not.toHaveBeenCalled();
 			expect(mockSetInteractionActiveTrace).not.toHaveBeenCalled();
 			expect(DefaultInteractionID.current).toBe(null);

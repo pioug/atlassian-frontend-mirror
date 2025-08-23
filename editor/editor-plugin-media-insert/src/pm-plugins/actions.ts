@@ -12,14 +12,14 @@ const setPopupMeta = ({
 	tr,
 	mountInfo,
 }: {
-	mountInfo?: { mountPoint: HTMLElement; ref: HTMLElement; };
+	mountInfo?: { mountPoint: HTMLElement; ref: HTMLElement };
 	tr: Transaction;
 	type: MediaInsertPluginAction;
 }) => tr.setMeta(pluginKey, { type, mountInfo });
 
 export const showMediaInsertPopup = (
 	tr: Transaction,
-	mountInfo?: { mountPoint: HTMLElement; ref: HTMLElement; },
+	mountInfo?: { mountPoint: HTMLElement; ref: HTMLElement },
 ) => {
 	return setPopupMeta({ type: ACTION_OPEN_POPUP, mountInfo, tr });
 };

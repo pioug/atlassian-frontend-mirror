@@ -181,7 +181,7 @@ export class TaskItemNodeView implements NodeView {
 		return true;
 	}
 
-	ignoreMutation(mutation: MutationRecord | { target: Node; type: 'selection'; }) {
+	ignoreMutation(mutation: MutationRecord | { target: Node; type: 'selection' }) {
 		if (!this.contentDOM) {
 			return true;
 		}

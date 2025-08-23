@@ -347,7 +347,7 @@ const getNodeSpacingForPreview = (node?: PMNode) => {
 	return spacingBetweenNodesForPreview[nodeTypeName] || spacingBetweenNodesForPreview['default'];
 };
 
-const getNodeMargins = (node?: PMNode): { bottom: number; top: number; } => {
+const getNodeMargins = (node?: PMNode): { bottom: number; top: number } => {
 	if (!node) {
 		return nodeMargins['default'];
 	}

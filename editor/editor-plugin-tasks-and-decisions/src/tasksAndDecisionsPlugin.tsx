@@ -48,7 +48,7 @@ const taskDecisionToolbarGroupStyles = css({
 
 const addItem =
 	(insert: (node: PMNode) => Transaction, listType: TaskDecisionListType, schema: Schema) =>
-	({ listLocalId, itemLocalId }: { itemLocalId?: string; listLocalId?: string; }) => {
+	({ listLocalId, itemLocalId }: { itemLocalId?: string; listLocalId?: string }) => {
 		const { list, item } = getListTypes(listType, schema);
 		return insert(
 			list.createChecked(

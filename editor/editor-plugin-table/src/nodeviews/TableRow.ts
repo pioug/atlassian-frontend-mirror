@@ -220,7 +220,7 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 		}
 	}
 
-	ignoreMutation(mutationRecord: MutationRecord | { target: Node; type: 'selection'; }) {
+	ignoreMutation(mutationRecord: MutationRecord | { target: Node; type: 'selection' }) {
 		/* tableRows are not directly editable by the user
 		 * so it should be safe to ignore mutations that we cause
 		 * by updating styles and classnames on this DOM element

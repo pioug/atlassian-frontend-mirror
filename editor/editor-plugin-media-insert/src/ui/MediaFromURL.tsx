@@ -66,9 +66,9 @@ type PreviewState = {
 
 type PreviewStateAction =
 	| { type: 'loading' }
-	| { error: string; type: 'error'; }
-	| { type: 'warning'; url: string; warning: string; }
-	| { payload: Required<OnInsertAttrs>; type: 'success'; }
+	| { error: string; type: 'error' }
+	| { type: 'warning'; url: string; warning: string }
+	| { payload: Required<OnInsertAttrs>; type: 'success' }
 	| { type: 'reset' };
 
 const INITIAL_PREVIEW_STATE: Readonly<PreviewState> = Object.freeze({

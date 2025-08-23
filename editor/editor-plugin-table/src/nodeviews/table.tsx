@@ -185,7 +185,7 @@ export default class TableView extends ReactNodeView<Props> {
 			// Set up a temporary mutation handler that:
 			// - Ignores all DOM mutations except selection changes
 			// - Tracks when mutations have been ignored via mutationsIgnored flag
-			this.ignoreMutation = (m: MutationRecord | { target: Node; type: string; }) => {
+			this.ignoreMutation = (m: MutationRecord | { target: Node; type: string }) => {
 				const isSelectionMutation = m.type === 'selection';
 				if (!isSelectionMutation) {
 					mutationsIgnored = true;
@@ -424,7 +424,7 @@ export default class TableView extends ReactNodeView<Props> {
 		});
 	}
 
-	ignoreMutation(mutation: MutationRecord | { target: Node; type: 'selection'; }) {
+	ignoreMutation(mutation: MutationRecord | { target: Node; type: 'selection' }) {
 		const {
 			type,
 			target: { nodeName, firstChild },

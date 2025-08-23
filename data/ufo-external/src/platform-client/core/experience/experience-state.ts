@@ -1,6 +1,6 @@
 export type UFOExperienceStateType = {
-	id: string;
 	final?: boolean;
+	id: string;
 	success?: boolean;
 };
 

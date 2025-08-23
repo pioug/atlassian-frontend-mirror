@@ -45,7 +45,7 @@ const INITIAL_UPLOAD_STATE: Readonly<UploadState> = Object.freeze({
 type ACTIONS =
 	| { type: 'open' }
 	| { type: 'close' }
-	| { error: MediaErrorName; type: 'error'; }
+	| { error: MediaErrorName; type: 'error' }
 	| { type: 'reset' };
 
 const uploadReducer = (state: UploadState, action: ACTIONS): UploadState => {

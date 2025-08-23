@@ -89,7 +89,7 @@ const generateAnalyticsPayload = (
 export const getListTypes = (
 	listType: TaskDecisionListType,
 	schema: Schema,
-): { item: NodeType; list: NodeType; } => {
+): { item: NodeType; list: NodeType } => {
 	const { decisionList, decisionItem, taskList, taskItem } = schema.nodes;
 	if (listType === 'taskList') {
 		return {

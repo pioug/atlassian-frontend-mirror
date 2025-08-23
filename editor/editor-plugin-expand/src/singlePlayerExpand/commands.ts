@@ -217,7 +217,7 @@ export const toggleExpandExpanded =
 	};
 
 export const updateExpandTitle =
-	({ title, nodeType, pos }: { nodeType: NodeType; pos: number; title: string; }): Command =>
+	({ title, nodeType, pos }: { nodeType: NodeType; pos: number; title: string }): Command =>
 	(state, dispatch) => {
 		const node = state.doc.nodeAt(pos);
 		if (node && node.type === nodeType && dispatch) {

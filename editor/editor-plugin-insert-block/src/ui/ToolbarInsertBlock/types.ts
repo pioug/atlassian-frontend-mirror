@@ -53,7 +53,7 @@ export interface Props {
 		node?: PMNode,
 		isEditing?: boolean,
 	) => (view: EditorView) => void;
-	onShowMediaPicker?: (mountInfo?: { mountPoint: HTMLElement; ref: HTMLElement; }) => void;
+	onShowMediaPicker?: (mountInfo?: { mountPoint: HTMLElement; ref: HTMLElement }) => void;
 	placeholderTextEnabled?: boolean;
 	pluginInjectionApi: ExtractInjectionAPI<InsertBlockPlugin> | undefined;
 	popupsBoundariesElement?: HTMLElement;

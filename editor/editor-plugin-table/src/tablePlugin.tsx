@@ -503,7 +503,7 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 						const { dragAndDropEnabled } = options || ({} as TablePluginOptions);
 
 						return tableEditing({
-							reportFixedTable: ({ tr, reason }: { reason: string; tr: Transaction; }) => {
+							reportFixedTable: ({ tr, reason }: { reason: string; tr: Transaction }) => {
 								editorAnalyticsAPI?.attachAnalyticsEvent({
 									action: TABLE_ACTION.FIXED,
 									actionSubject: ACTION_SUBJECT.TABLE,

@@ -48,7 +48,7 @@ export type MultiSelectDnD = {
 export interface PluginState {
 	activeDropTargetNode?: ActiveDropTargetNode;
 	activeNode?: ActiveNode;
-	blockMenuOptions?: { canMoveDown?: boolean; canMoveUp?: boolean; };
+	blockMenuOptions?: { canMoveDown?: boolean; canMoveUp?: boolean };
 	decorations: DecorationSet;
 	editorHeight: number;
 	editorWidthLeft: number;
@@ -78,7 +78,7 @@ export type BlockControlsSharedState =
 	| {
 			activeDropTargetNode?: ActiveDropTargetNode;
 			activeNode?: ActiveNode;
-			blockMenuOptions?: { canMoveDown?: boolean; canMoveUp?: boolean; };
+			blockMenuOptions?: { canMoveDown?: boolean; canMoveUp?: boolean };
 			isDragging: boolean;
 			isEditing?: boolean;
 			isMenuOpen: boolean;
@@ -133,7 +133,7 @@ export type BlockControlsPlugin = NextEditorPlugin<
 			moveToLayout: (
 				start: number,
 				to: number,
-				options?: { moveNodeAtCursorPos?: boolean; moveToEnd?: boolean; selectMovedNode?: boolean; },
+				options?: { moveNodeAtCursorPos?: boolean; moveToEnd?: boolean; selectMovedNode?: boolean },
 			) => EditorCommand;
 			setMultiSelectPositions: (anchor?: number, head?: number) => EditorCommand;
 			setNodeDragged: (
@@ -151,7 +151,7 @@ export type BlockControlsPlugin = NextEditorPlugin<
 				rootAnchorName?: string,
 				rootNodeType?: string,
 			) => EditorCommand;
-			toggleBlockMenu: (options?: { anchorName?: string; closeMenu?: boolean; }) => EditorCommand;
+			toggleBlockMenu: (options?: { anchorName?: string; closeMenu?: boolean }) => EditorCommand;
 		};
 		dependencies: BlockControlsPluginDependencies;
 		sharedState: BlockControlsSharedState;

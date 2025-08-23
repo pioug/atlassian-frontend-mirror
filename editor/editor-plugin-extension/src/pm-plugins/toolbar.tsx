@@ -47,7 +47,7 @@ import type { Position } from './utils';
 import { getSelectedExtension } from './utils';
 
 // non-bodied extensions nested inside panels, blockquotes and lists do not support layouts
-const isNestedNBM = (state: EditorState, selectedExtNode: { node: PMNode; pos: number; }) => {
+const isNestedNBM = (state: EditorState, selectedExtNode: { node: PMNode; pos: number }) => {
 	const {
 		schema: {
 			nodes: { extension, panel, blockquote, listItem },
@@ -65,7 +65,7 @@ const isNestedNBM = (state: EditorState, selectedExtNode: { node: PMNode; pos: n
 	);
 };
 
-const isLayoutSupported = (state: EditorState, selectedExtNode: { node: PMNode; pos: number; }) => {
+const isLayoutSupported = (state: EditorState, selectedExtNode: { node: PMNode; pos: number }) => {
 	const {
 		schema: {
 			nodes: { bodiedExtension, extension, layoutSection, table, expand, multiBodiedExtension },
@@ -334,7 +334,7 @@ const calculateToolbarPosition = (
 	editorView: EditorView,
 	nextPos: Position,
 	state: EditorState,
-	extensionNode: { node: PMNode; pos: number; } | null | undefined,
+	extensionNode: { node: PMNode; pos: number } | null | undefined,
 ): Position => {
 	const {
 		state: { schema, selection },

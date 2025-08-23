@@ -3,9 +3,9 @@
 	"compilerOptions": {
 		"declaration": true,
 		"target": "es5",
-		"composite": true,
 		"outDir": "../../../../../confluence/tsDist/@atlaskit__mention",
-		"rootDir": "../"
+		"rootDir": "../",
+		"composite": true
 	},
 	"include": [
 		"../src/**/*.ts",

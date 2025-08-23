@@ -28,7 +28,7 @@ export const getNearestNonTextNode = (node: Node) =>
  * |               | [FloatingToolbar]               |  |
  */
 const convertFixedCoordinatesToAbsolutePositioning = (
-	coordinates: { bottom?: number; left?: number; right?: number; top?: number; },
+	coordinates: { bottom?: number; left?: number; right?: number; top?: number },
 	offsetParent: HTMLElement,
 	cursorHeight: number,
 ) => {
@@ -59,7 +59,7 @@ export const handlePositionCalculatedWith =
 			top?: number;
 		},
 	) =>
-	(position: { bottom?: number; left?: number; right?: number; top?: number; }) => {
+	(position: { bottom?: number; left?: number; right?: number; top?: number }) => {
 		if (!offsetParent) {
 			return position;
 		}

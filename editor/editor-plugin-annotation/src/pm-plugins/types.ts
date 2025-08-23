@@ -75,7 +75,7 @@ export type InlineCommentAction =
 			};
 			type: ACTIONS.ADD_INLINE_COMMENT;
 	  }
-	| { data: { isVisible: boolean }; type: ACTIONS.INLINE_COMMENT_SET_VISIBLE; }
+	| { data: { isVisible: boolean }; type: ACTIONS.INLINE_COMMENT_SET_VISIBLE }
 	| {
 			data: {
 				isOpeningMediaCommentFromToolbar?: boolean;

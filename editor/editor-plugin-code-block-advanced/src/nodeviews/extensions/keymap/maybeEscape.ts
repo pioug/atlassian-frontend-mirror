@@ -32,7 +32,7 @@ export const maybeEscapeKeymap = ({
 	}
 	const node = getNode();
 	const { state } = cm;
-	let main: { empty: boolean; from: number; head: number; to: number; } = state.selection.main;
+	let main: { empty: boolean; from: number; head: number; to: number } = state.selection.main;
 	if (!main.empty) {
 		return false;
 	}

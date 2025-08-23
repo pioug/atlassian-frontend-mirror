@@ -44,7 +44,7 @@ export const getColumnsWidths = (view: EditorView): Array<number | undefined> =>
 export const getColumnDeleteButtonParams = (
 	columnsWidths: Array<number | undefined>,
 	selection: Selection,
-): { indexes: number[]; left: number; } | null => {
+): { indexes: number[]; left: number } | null => {
 	const rect = getSelectionRect(selection);
 	if (!rect) {
 		return null;

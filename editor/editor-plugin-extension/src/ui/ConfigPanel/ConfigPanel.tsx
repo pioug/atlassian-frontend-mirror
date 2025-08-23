@@ -139,10 +139,10 @@ const WithOnFieldChange = ({
 }: {
 	autoSave: boolean;
 	children: (onFieldChange: OnFieldChange) => React.ReactElement;
-	getState: () => { errors: ValidationErrors; values: Parameters; };
+	getState: () => { errors: ValidationErrors; values: Parameters };
 	handleSubmit: (parameters: Parameters) => void;
 }) => {
-	const getStateRef = useRef<() => { errors: ValidationErrors; values: Parameters; }>(getState);
+	const getStateRef = useRef<() => { errors: ValidationErrors; values: Parameters }>(getState);
 
 	useEffect(() => {
 		getStateRef.current = getState;

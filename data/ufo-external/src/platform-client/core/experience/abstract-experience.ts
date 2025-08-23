@@ -46,14 +46,14 @@ export const perfNowOrTimestamp = (timestamp?: number) => {
 
 export type AbstractExperienceConfig = {
 	category?: string | null;
-	until?: Function | null;
-	type: ExperienceTypes;
-	performanceType: ExperiencePerformanceTypes;
-	platform?: { component: string };
 	featureFlags?: string[];
 	isSSROutputAsFMP?: boolean;
-	timings?: Timing[];
 	performanceConfig?: PerformanceConfig;
+	performanceType: ExperiencePerformanceTypes;
+	platform?: { component: string };
+	timings?: Timing[];
+	type: ExperienceTypes;
+	until?: Function | null;
 };
 
 export type EndStateConfig = {

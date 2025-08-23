@@ -30,8 +30,8 @@ export type CollabEditPlugin = NextEditorPlugin<
 	'collabEdit',
 	{
 		actions: {
-			addInlineCommentMark: (props: { from: number; mark: Mark; to: number; }) => boolean;
-			addInlineCommentNodeMark: (props: { mark: Mark; pos: number; }) => boolean;
+			addInlineCommentMark: (props: { from: number; mark: Mark; to: number }) => boolean;
+			addInlineCommentNodeMark: (props: { mark: Mark; pos: number }) => boolean;
 			getAvatarColor: (str: string) => {
 				backgroundColor: string;
 				index: number;

@@ -296,7 +296,7 @@ export class LayoutSectionView extends ReactNodeView<LayoutSectionViewProps> {
 	 * @example
 	 * @returns
 	 */
-	ignoreMutation(mutation: MutationRecord | { target: Node; type: 'selection'; }) {
+	ignoreMutation(mutation: MutationRecord | { target: Node; type: 'selection' }) {
 		return ignoreResizerMutations(mutation);
 	}
 }

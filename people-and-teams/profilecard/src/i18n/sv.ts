@@ -53,6 +53,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week': 'Personens konto inaktiverades den här veckan.',
   'pt.profile-card.inactive.account.no.date': 'Personens konto har inaktiverats.',
   'pt.profile-card.more-icon-label': 'Mer',
+  'pt.profile-card.more-icon-label-with-name': 'Fler åtgärder för {fullName}',
   'pt.team-profile-card.aria-label': 'Mer information om teamet',
   'pt.team-profile-card.directReports.heading': 'Direkt underordnade',
   'pt.team-profile-card.error.refresh-button': 'Försök igen',

@@ -18,6 +18,14 @@ export default {
   'ptc-directory.team-profile-page.team-containers.add-jira-project-title': 'Thêm dự án',
   'ptc-directory.team-profile-page.team-containers.add-loom-space-description': 'Loom',
   'ptc-directory.team-profile-page.team-containers.add-loom-space-title': 'Thêm không gian',
+  'ptc-directory.team-profile-page.team-containers.create.add-confluence-space-description': 'Tạo ngân hàng kiến thức',
+  'ptc-directory.team-profile-page.team-containers.create.add-confluence-space-title': 'Không gian Confluence',
+  'ptc-directory.team-profile-page.team-containers.create.add-jira-project-description':
+    'Lập kế hoạch cho các tác vụ dự án',
+  'ptc-directory.team-profile-page.team-containers.create.add-jira-project-title': 'Dự án Jira',
+  'ptc-directory.team-profile-page.team-containers.create.add-loom-space-description': 'Chia sẻ cập nhật không đồng bộ',
+  'ptc-directory.team-profile-page.team-containers.create.add-loom-space-title': 'Không gian Loom',
+  'ptc-directory.team-profile-page.team-containers.create.add-web-link-title': 'Thêm liên kết web bất kỳ',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.cancel-button': 'Hủy',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.description':
     '{containerType, select, JiraProject {Đội ngũ này sẽ không được kết nối với dự án Jira {containerName} nữa.} ConfluenceSpace {Đội ngũ này sẽ không được kết nối với không gian Confluence {containerName} nữa.} LoomSpace {Đội ngũ này sẽ không được kết nối với không gian Loom {containerName} nữa.} other {Đội ngũ này sẽ không được kết nối với liên kết {containerName} nữa.}}',

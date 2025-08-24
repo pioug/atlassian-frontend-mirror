@@ -18,6 +18,15 @@ export default {
   'ptc-directory.team-profile-page.team-containers.add-jira-project-title': 'Projekt hozzáadása',
   'ptc-directory.team-profile-page.team-containers.add-loom-space-description': 'Loom',
   'ptc-directory.team-profile-page.team-containers.add-loom-space-title': 'Munkatér hozzáadása',
+  'ptc-directory.team-profile-page.team-containers.create.add-confluence-space-description': 'Tudásbank létrehozása',
+  'ptc-directory.team-profile-page.team-containers.create.add-confluence-space-title': 'Confluence-munkatér',
+  'ptc-directory.team-profile-page.team-containers.create.add-jira-project-description':
+    'Megtervezheted a projektfeladatokat',
+  'ptc-directory.team-profile-page.team-containers.create.add-jira-project-title': 'Jira projekt',
+  'ptc-directory.team-profile-page.team-containers.create.add-loom-space-description':
+    'Megoszthatod az aszinkron frissítéseket',
+  'ptc-directory.team-profile-page.team-containers.create.add-loom-space-title': 'Loom-munkatér',
+  'ptc-directory.team-profile-page.team-containers.create.add-web-link-title': 'Bármilyen weblinket hozzáadhatsz',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.cancel-button': 'Mégse',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.description':
     '{containerType, select, JiraProject {A csapat ezentúl nem lesz összekapcsolva a(z) {containerName} Jira-projekttel.} ConfluenceSpace {A csapat ezentúl nem lesz összekapcsolva a(z) {containerName} Confluence-munkatérrel.} LoomSpace {A csapat ezentúl nem lesz összekapcsolva a(z) {containerName} Loom-munkatérrel.} other {A csapat ezentúl nem lesz összekapcsolva a(z) {containerName} linkkel.}}',

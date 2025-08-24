@@ -18,6 +18,15 @@ export default {
   'ptc-directory.team-profile-page.team-containers.add-jira-project-title': 'Přidat projekt',
   'ptc-directory.team-profile-page.team-containers.add-loom-space-description': 'Loom',
   'ptc-directory.team-profile-page.team-containers.add-loom-space-title': 'Přidat prostor',
+  'ptc-directory.team-profile-page.team-containers.create.add-confluence-space-description':
+    'Vytvořte znalostní banku.',
+  'ptc-directory.team-profile-page.team-containers.create.add-confluence-space-title': 'Prostor Confluence',
+  'ptc-directory.team-profile-page.team-containers.create.add-jira-project-description': 'Plánujte projektové úkoly.',
+  'ptc-directory.team-profile-page.team-containers.create.add-jira-project-title': 'Projekt Jira',
+  'ptc-directory.team-profile-page.team-containers.create.add-loom-space-description':
+    'Sdílejte asynchronní aktualizace.',
+  'ptc-directory.team-profile-page.team-containers.create.add-loom-space-title': 'Prostor Loom',
+  'ptc-directory.team-profile-page.team-containers.create.add-web-link-title': 'Přidejte libovolný webový odkaz',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.cancel-button': 'Zrušit',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.description':
     '{containerType, select, JiraProject {Tento tým již nebude připojen k projektu Jira {containerName}.} ConfluenceSpace {Tento tým již nebude připojen k prostoru Confluence {containerName}.} LoomSpace {Tento tým již nebude připojen k prostoru Loom {containerName}.} other {Tento tým již nebude připojen k odkazu {containerName}.}}',

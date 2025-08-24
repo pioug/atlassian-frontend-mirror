@@ -18,6 +18,13 @@ export default {
   'ptc-directory.team-profile-page.team-containers.add-jira-project-title': 'Dodaj projekat',
   'ptc-directory.team-profile-page.team-containers.add-loom-space-description': 'Loom',
   'ptc-directory.team-profile-page.team-containers.add-loom-space-title': 'Dodaj prostor',
+  'ptc-directory.team-profile-page.team-containers.create.add-confluence-space-description': 'Napravite resurse znanja',
+  'ptc-directory.team-profile-page.team-containers.create.add-confluence-space-title': 'Confluence prostor',
+  'ptc-directory.team-profile-page.team-containers.create.add-jira-project-description': 'Planirajte projektne zadatke',
+  'ptc-directory.team-profile-page.team-containers.create.add-jira-project-title': 'Jira projekat',
+  'ptc-directory.team-profile-page.team-containers.create.add-loom-space-description': 'Delite asinhrona ažuriranja',
+  'ptc-directory.team-profile-page.team-containers.create.add-loom-space-title': 'Loom prostor',
+  'ptc-directory.team-profile-page.team-containers.create.add-web-link-title': 'Dodaj bilo koji veb-link',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.cancel-button': 'Otkaži',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.description':
     '{containerType, select, JiraProject {Ovaj tim više neće biti povezan sa {containerName} Jira projektom.} ConfluenceSpace {Ovaj tim više neće biti povezan sa {containerName} Confluence prostorom.} LoomSpace {Ovaj tim više neće biti povezan sa {containerName} Loom prostorom.} other {Ovaj tim više neće biti povezan sa {containerName} linkom.}}',

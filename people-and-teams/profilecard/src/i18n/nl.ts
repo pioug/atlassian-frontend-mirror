@@ -53,6 +53,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week': 'Zijn/haar account is deze week gedeactiveerd.',
   'pt.profile-card.inactive.account.no.date': 'Zijn/haar account is gedeactiveerd.',
   'pt.profile-card.more-icon-label': 'Meer',
+  'pt.profile-card.more-icon-label-with-name': 'Meer acties voor {fullName}',
   'pt.team-profile-card.aria-label': 'Meer informatie over dit team',
   'pt.team-profile-card.directReports.heading': 'Directe rapporten',
   'pt.team-profile-card.error.refresh-button': 'Opnieuw proberen',

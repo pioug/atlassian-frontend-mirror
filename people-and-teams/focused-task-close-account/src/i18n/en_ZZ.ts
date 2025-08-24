@@ -70,14 +70,22 @@ export default {
   'focused-task-close-account.delete-account.overview.heading.self': '⁣⁢Delete your account⁭‌⁪⁮؜؜⁡⁫⁯⁯⁡⁫⁬⁬⁮⁪⁯⁪⁠⁣⁤',
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created-issue-refresh.admin':
     "⁣⁢For example, pages, work items, and comments they've created in products.⁬⁡⁬⁫‌⁡⁬⁮‍⁮‍⁭⁠⁠⁠⁪؜؜⁬⁣⁤",
+  'focused-task-close-account.delete-account.overview.inline-dialog.content-created-issue-refresh.admin-appify':
+    "⁣⁢For example, pages, work items, and comments they've created in apps.⁫⁮⁮⁭⁪‌‌⁭⁯⁮⁪⁪⁫‌⁯⁪⁭⁠؜؜⁬⁣⁤",
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin':
     "⁣⁢For example, pages, issues, and comments they've created in products.⁬⁯⁮⁫⁬‌⁠⁠‍⁭⁪⁬⁪⁡⁯⁠⁭⁡⁠⁬⁮⁯⁡‌⁪⁣⁤",
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':
     "⁣⁢For example, pages, work items, and comments you've created in products.⁬⁯⁪⁯‍⁭‍⁬‌⁯⁡‍⁫⁬⁫⁪⁠‌‌⁫‍⁣⁤",
+  'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self-appify':
+    "⁣⁢For example, pages, work items, and comments you've created in apps.‍⁪⁭‍⁠؜⁠‌⁠⁯‌⁡⁮‌⁭⁯‌؜⁣⁤",
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.admin':
     '⁣⁢You or other users may have installed apps that add features to Atlassian products. These apps may have stored the user’s profile information.⁭‌⁡‌‌‍⁯⁯⁬؜⁠⁯⁭⁬؜⁡⁬⁠⁠⁪⁪⁮‌⁯⁣⁤',
+  'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.admin-appify':
+    '⁣⁢You or other users may have installed apps that add features to Atlassian apps. These apps may have stored the user’s profile information.⁭‍⁬⁯⁪⁭‌⁫؜‌⁯‍⁫⁬؜⁠⁫⁪⁣⁤',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.self':
     '⁣⁢You or other users may have installed apps that add features to Atlassian products. These apps may have stored your profile information.⁠‍‌⁠⁫⁯⁡‌⁮⁪⁫⁯⁠⁠⁭⁮‍⁠‌‍‌⁪‍⁯⁣⁤',
+  'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.self-appify':
+    '⁣⁢You or other users may have installed apps that add features to Atlassian apps. These apps may have stored your profile information.⁭⁠؜⁫‍⁪⁯؜‌⁡⁫‍⁬‍⁪⁭؜⁪⁪⁠‌⁯‌⁫⁬⁣⁤',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.li1.admin':
     "⁣⁢Information related to purchases, which we're required to keep for financial reporting.⁭⁠⁫⁠⁪⁬⁡‌⁫⁫⁭‌‍⁮⁠؜⁪⁠⁭⁡⁣⁤",
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.li1.self':
@@ -96,8 +104,12 @@ export default {
     '⁣⁢We keep personal data for limited periods when we have legitimate business or legal purposes. Some examples include:⁮⁮‌‌⁪⁭؜⁪⁫؜⁠؜‍‍‌⁡‍؜⁡⁭⁣⁤',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.admin':
     '⁣⁢We don’t delete any personal data from content created by users, such as names or email addresses they typed in a page or work item. The product admins need to delete that data manually.‍⁬⁮⁭⁬⁠⁮⁠⁫‍؜⁭‍⁠؜‌⁫⁯⁮‍⁪⁣⁤',
+  'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.admin-appify':
+    '⁣⁢We don’t delete any personal data from content created by users, such as names or email addresses they typed in a page or work item. The app admins need to delete that data manually.⁮⁭⁮⁪⁭‌⁭⁠‍؜‍‌⁯⁬‍⁮؜⁣⁤',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.self':
     "⁣⁢We don't delete any personal data from content created by you or other people, such as names or email addresses typed into a page or work item. Your product admins need to delete that data manually.⁪⁡⁬⁬⁯؜⁮‌‍‌⁠⁠؜⁭⁫⁯⁭⁮⁮⁡⁫⁪⁮⁪⁣⁤",
+  'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p2.self-appify':
+    "⁣⁢We don't delete any personal data from content created by you or other people, such as names or email addresses typed into a page or work item. Your app admins need to delete that data manually.‍⁫⁬؜⁠⁫⁯⁭⁠⁯⁯؜⁠⁭‍⁪⁭⁭‍⁬⁬⁮⁮؜⁪⁣⁤",
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.admin':
     '⁣⁢Users have the right to submit complaints to the supervisory authority in their country.⁮⁭؜‌⁬⁬⁠⁯⁡‍⁮‍‌⁮‍⁪⁫؜⁫‌⁮‍⁬⁭⁬⁡⁣⁤',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.self':

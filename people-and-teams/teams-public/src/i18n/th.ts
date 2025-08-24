@@ -18,6 +18,13 @@ export default {
   'ptc-directory.team-profile-page.team-containers.add-jira-project-title': 'เพิ่มโปรเจกต์',
   'ptc-directory.team-profile-page.team-containers.add-loom-space-description': 'Loom',
   'ptc-directory.team-profile-page.team-containers.add-loom-space-title': 'เพิ่มพื้นที่',
+  'ptc-directory.team-profile-page.team-containers.create.add-confluence-space-description': 'สร้างขอบเขตความรู้',
+  'ptc-directory.team-profile-page.team-containers.create.add-confluence-space-title': 'พื้นที่ Confluence',
+  'ptc-directory.team-profile-page.team-containers.create.add-jira-project-description': 'วางแผนงานโปรเจกต์',
+  'ptc-directory.team-profile-page.team-containers.create.add-jira-project-title': 'โปรเจกต์ Jira',
+  'ptc-directory.team-profile-page.team-containers.create.add-loom-space-description': 'แชร์การอัปเดตแบบอะซิงค์',
+  'ptc-directory.team-profile-page.team-containers.create.add-loom-space-title': 'พื้นที่ Loom',
+  'ptc-directory.team-profile-page.team-containers.create.add-web-link-title': 'เพิ่มลิงก์เว็บใดก็ได้',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.cancel-button': 'ยกเลิก',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.description':
     '{containerType, select, JiraProject {ทีมนี้จะไม่เชื่อมต่อกับโปรเจกต์ Jira {containerName} อีกต่อไป} ConfluenceSpace {ทีมนี้จะไม่เชื่อมต่อกับพื้นที่ Confluence {containerName} อีกต่อไป} LoomSpace {ทีมนี้จะไม่เชื่อมต่อกับพื้นที่ Loom {containerName} อีกต่อไป} other {ทีมนี้จะไม่เชื่อมต่อกับลิงก์ {containerName} อีกต่อไป}}',

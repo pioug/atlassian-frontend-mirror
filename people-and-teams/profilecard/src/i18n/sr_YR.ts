@@ -53,6 +53,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week': 'Налог корисника је деактивиран ове недеље.',
   'pt.profile-card.inactive.account.no.date': 'Налог корисника је деактивиран.',
   'pt.profile-card.more-icon-label': 'Још',
+  'pt.profile-card.more-icon-label-with-name': 'Више радњи за {fullName}',
   'pt.team-profile-card.aria-label': 'Више информација о овом тиму',
   'pt.team-profile-card.directReports.heading': 'Директни извештаји',
   'pt.team-profile-card.error.refresh-button': 'Пробај поново',

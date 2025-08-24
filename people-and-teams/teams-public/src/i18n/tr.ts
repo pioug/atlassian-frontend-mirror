@@ -18,6 +18,14 @@ export default {
   'ptc-directory.team-profile-page.team-containers.add-jira-project-title': 'Proje ekleyin',
   'ptc-directory.team-profile-page.team-containers.add-loom-space-description': 'Loom',
   'ptc-directory.team-profile-page.team-containers.add-loom-space-title': 'Alan ekleyin',
+  'ptc-directory.team-profile-page.team-containers.create.add-confluence-space-description': 'Bilgi bankası oluşturun',
+  'ptc-directory.team-profile-page.team-containers.create.add-confluence-space-title': 'Confluence alanı',
+  'ptc-directory.team-profile-page.team-containers.create.add-jira-project-description': 'Proje görevlerini planlayın',
+  'ptc-directory.team-profile-page.team-containers.create.add-jira-project-title': 'Jira projesi',
+  'ptc-directory.team-profile-page.team-containers.create.add-loom-space-description':
+    'Senkronize olmayan güncellemeler paylaşın',
+  'ptc-directory.team-profile-page.team-containers.create.add-loom-space-title': 'Loom alanı',
+  'ptc-directory.team-profile-page.team-containers.create.add-web-link-title': 'Bir web bağlantısı ekleyin',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.cancel-button': 'İptal',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.description':
     '{containerType, select, JiraProject {Bu takım artık {containerName} Jira projesine bağlı olmayacak.} ConfluenceSpace {Bu takım artık {containerName} Confluence alanına bağlı olmayacak.} LoomSpace {Bu takım artık {containerName} Loom alanına bağlı olmayacak.} other {Bu takım artık {containerName} bağlantısına bağlı olmayacak.}}',

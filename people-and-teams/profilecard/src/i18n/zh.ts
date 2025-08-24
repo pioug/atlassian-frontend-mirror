@@ -49,6 +49,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week': '他们的帐户本周已被停用。',
   'pt.profile-card.inactive.account.no.date': '他们的帐户已被停用。',
   'pt.profile-card.more-icon-label': '更多',
+  'pt.profile-card.more-icon-label-with-name': '针对 "{fullName}" 的更多操作',
   'pt.team-profile-card.aria-label': '有关此团队的更多信息',
   'pt.team-profile-card.directReports.heading': '直接下属',
   'pt.team-profile-card.error.refresh-button': '请重试',

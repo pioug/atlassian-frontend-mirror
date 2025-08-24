@@ -56,6 +56,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week': 'Обліковий запис користувача деактивовано цього тижня.',
   'pt.profile-card.inactive.account.no.date': 'Обліковий запис користувача деактивовано.',
   'pt.profile-card.more-icon-label': 'Більше варіантів',
+  'pt.profile-card.more-icon-label-with-name': 'Інші дії для агента {fullName}',
   'pt.team-profile-card.aria-label': 'Докладніше про цю команду',
   'pt.team-profile-card.directReports.heading': 'Безпосередні підлеглі',
   'pt.team-profile-card.error.refresh-button': 'Повторіть спробу',

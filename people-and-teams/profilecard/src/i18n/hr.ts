@@ -53,6 +53,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week': 'Njegov račun je deaktiviran ovaj tjedan.',
   'pt.profile-card.inactive.account.no.date': 'Njegov račun je deaktiviran.',
   'pt.profile-card.more-icon-label': 'Više',
+  'pt.profile-card.more-icon-label-with-name': 'Još radnji za agenta {fullName}',
   'pt.team-profile-card.aria-label': 'Više informacija o ovom timu',
   'pt.team-profile-card.directReports.heading': 'Izravni izvještaji',
   'pt.team-profile-card.error.refresh-button': 'Pokušaj ponovno',

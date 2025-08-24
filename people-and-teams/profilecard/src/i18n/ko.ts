@@ -51,6 +51,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week': '계정이 이번 주에 비활성화되었습니다.',
   'pt.profile-card.inactive.account.no.date': '계정이 비활성화되었습니다.',
   'pt.profile-card.more-icon-label': '더 보기',
+  'pt.profile-card.more-icon-label-with-name': '{fullName}에 대한 더 많은 작업 보기',
   'pt.team-profile-card.aria-label': '이 팀에 대한 추가 정보',
   'pt.team-profile-card.directReports.heading': '부하 직원',
   'pt.team-profile-card.error.refresh-button': '다시 시도',

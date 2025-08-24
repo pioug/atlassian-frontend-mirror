@@ -53,6 +53,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week': 'Vedkommendes konto ble deaktivert denne uken.',
   'pt.profile-card.inactive.account.no.date': 'Vedkommendes konto er deaktivert.',
   'pt.profile-card.more-icon-label': 'Mer',
+  'pt.profile-card.more-icon-label-with-name': 'Flere handlinger for {fullName}',
   'pt.team-profile-card.aria-label': 'Mer informasjon om dette teamet',
   'pt.team-profile-card.directReports.heading': 'Direkte underordnede',
   'pt.team-profile-card.error.refresh-button': 'Prøv på nytt',

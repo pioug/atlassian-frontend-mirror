@@ -17,7 +17,79 @@
 	],
 	"atlaskit:src": "src/index.tsx",
 	"atlassian": {
-		"team": "Design System Team"
+		"team": "Design System Team",
+		"website": {
+			"name": "Icon",
+			"category": "Images and icons",
+			"subPages": [
+				{
+					"title": "Icon (legacy)",
+					"id": "icon-legacy",
+					"sortKey": 1,
+					"status": {
+						"type": "deprecated",
+						"description": "Legacy icons (`@atlaskit/icon/glyph`) are deprecated. We recommend migrating to our new iconography system.",
+						"actions": [
+							{
+								"text": "View new icons",
+								"href": "/components/icon/"
+							},
+							{
+								"text": "Migration Guide",
+								"href": "/components/icon/migration-guide/"
+							}
+						]
+					}
+				},
+				{
+					"title": "Icon tile",
+					"id": "icon-tile",
+					"status": {
+						"type": "open-alpha",
+						"description": "This is an experiment. We may make frequent breaking changes with limited notice."
+					},
+					"sortKey": 2
+				},
+				{
+					"title": "Custom icon (legacy)",
+					"id": "custom-icon",
+					"sortKey": 3,
+					"status": {
+						"type": "deprecated",
+						"description": "Custom icon is deprecated. We recommend using either an existing icon from @atlaskit/icon or @atlaskit/icon-lab, or contributing to @atlaskit/icon-lab directly. For third party logos, use an SVG element along with a label.",
+						"actions": [
+							{
+								"text": "View available icons",
+								"href": "/components/icon/"
+							},
+							{
+								"text": "Contribute an icon (Atlassians only)",
+								"href": "https://go.atlassian.com/ads-icon-contribution"
+							}
+						]
+					}
+				},
+				{
+					"title": "Custom SVG",
+					"id": "custom-svg",
+					"sortKey": 4,
+					"status": {
+						"type": "deprecated",
+						"description": "Custom SVG is deprecated. We recommend using either an existing icon from @atlaskit/icon or @atlaskit/icon-lab, or contributing to @atlaskit/icon-lab directly. For third party logos, use an SVG element along with a label.",
+						"actions": [
+							{
+								"text": "View available icons",
+								"href": "/components/icon/"
+							},
+							{
+								"text": "Contribute an icon (Atlassians only)",
+								"href": "https://go.atlassian.com/ads-icon-contribution"
+							}
+						]
+					}
+				}
+			]
+		}
 	},
 	"scripts": {
 		"build-glyphs": "ts-node --project ../../../tsconfig.node.json ./build/index.tsx"

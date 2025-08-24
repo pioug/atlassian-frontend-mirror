@@ -18,6 +18,15 @@ export default {
   'ptc-directory.team-profile-page.team-containers.add-jira-project-title': 'プロジェクトを追加する',
   'ptc-directory.team-profile-page.team-containers.add-loom-space-description': 'Loom',
   'ptc-directory.team-profile-page.team-containers.add-loom-space-title': 'スペースを追加する',
+  'ptc-directory.team-profile-page.team-containers.create.add-confluence-space-description':
+    'ナレッジ バンクを作成します',
+  'ptc-directory.team-profile-page.team-containers.create.add-confluence-space-title': 'Confluence スペース',
+  'ptc-directory.team-profile-page.team-containers.create.add-jira-project-description':
+    'プロジェクト タスクを計画します',
+  'ptc-directory.team-profile-page.team-containers.create.add-jira-project-title': 'Jira プロジェクト',
+  'ptc-directory.team-profile-page.team-containers.create.add-loom-space-description': '非同期アップデートを共有します',
+  'ptc-directory.team-profile-page.team-containers.create.add-loom-space-title': 'Loom スペース',
+  'ptc-directory.team-profile-page.team-containers.create.add-web-link-title': 'Web リンクを追加します',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.cancel-button': 'キャンセル',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.description':
     '{containerType, select, JiraProject {このチームは Jira プロジェクト {containerName} に接続されなくなります。} ConfluenceSpace {このチームは Confluence スペース {containerName} に接続されなくなります。} LoomSpace {このチームは Loom スペース {containerName} に接続されなくなります。} other {このチームはリンク {containerName} に接続されなくなります。}}',

@@ -18,6 +18,14 @@ export default {
   'ptc-directory.team-profile-page.team-containers.add-jira-project-title': 'Legg til prosjekt',
   'ptc-directory.team-profile-page.team-containers.add-loom-space-description': 'Loom',
   'ptc-directory.team-profile-page.team-containers.add-loom-space-title': 'Legg til område',
+  'ptc-directory.team-profile-page.team-containers.create.add-confluence-space-description': 'Opprett en kunnskapsbank',
+  'ptc-directory.team-profile-page.team-containers.create.add-confluence-space-title': 'Confluence-område',
+  'ptc-directory.team-profile-page.team-containers.create.add-jira-project-description': 'Planlegg prosjektoppgaver',
+  'ptc-directory.team-profile-page.team-containers.create.add-jira-project-title': 'Jira-prosjekt',
+  'ptc-directory.team-profile-page.team-containers.create.add-loom-space-description': 'Del asynkrone oppdateringer',
+  'ptc-directory.team-profile-page.team-containers.create.add-loom-space-title': 'Loom-område',
+  'ptc-directory.team-profile-page.team-containers.create.add-web-link-title':
+    'Legg til en hvilken som helst internettkobling',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.cancel-button': 'Avbryt',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.description':
     '{containerType, select, JiraProject {Dette teamet vil ikke lenger være tilkoblet Jira-prosjektet {containerName}.} ConfluenceSpace {Dette teamet vil ikke lenger være tilkoblet Confluence-området {containerName}.} LoomSpace {Dette teamet vil ikke lenger være tilkoblet Loom-området {containerName}.} other {Dette teamet vil ikke lenger være tilkoblet koblingen {containerName}.}}',

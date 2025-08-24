@@ -18,6 +18,13 @@ export default {
   'ptc-directory.team-profile-page.team-containers.add-jira-project-title': '添加项目',
   'ptc-directory.team-profile-page.team-containers.add-loom-space-description': 'Loom',
   'ptc-directory.team-profile-page.team-containers.add-loom-space-title': '添加空间',
+  'ptc-directory.team-profile-page.team-containers.create.add-confluence-space-description': '创建知识库',
+  'ptc-directory.team-profile-page.team-containers.create.add-confluence-space-title': 'Confluence 空间',
+  'ptc-directory.team-profile-page.team-containers.create.add-jira-project-description': '规划项目任务',
+  'ptc-directory.team-profile-page.team-containers.create.add-jira-project-title': 'Jira 项目',
+  'ptc-directory.team-profile-page.team-containers.create.add-loom-space-description': '分享异步更新',
+  'ptc-directory.team-profile-page.team-containers.create.add-loom-space-title': 'Loom 空间',
+  'ptc-directory.team-profile-page.team-containers.create.add-web-link-title': '添加任意网络链接',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.cancel-button': '取消',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.description':
     '{containerType, select, JiraProject {此团队将不再连接到 "{containerName}" Jira 项目。} ConfluenceSpace {此团队将不再连接到 "{containerName}" Confluence 空间。} LoomSpace {此团队将不再连接到 "{containerName}" Loom 空间。} other {此团队将不再连接到 "{containerName}" 链接。}}',

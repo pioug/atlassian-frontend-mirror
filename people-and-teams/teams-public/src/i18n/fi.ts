@@ -18,6 +18,13 @@ export default {
   'ptc-directory.team-profile-page.team-containers.add-jira-project-title': 'Lisää projekti',
   'ptc-directory.team-profile-page.team-containers.add-loom-space-description': 'Loom',
   'ptc-directory.team-profile-page.team-containers.add-loom-space-title': 'Lisää työtila',
+  'ptc-directory.team-profile-page.team-containers.create.add-confluence-space-description': 'Luo tietopankki',
+  'ptc-directory.team-profile-page.team-containers.create.add-confluence-space-title': 'Confluence-työtila',
+  'ptc-directory.team-profile-page.team-containers.create.add-jira-project-description': 'Suunnittele projektitehtävät',
+  'ptc-directory.team-profile-page.team-containers.create.add-jira-project-title': 'Jira-projekti',
+  'ptc-directory.team-profile-page.team-containers.create.add-loom-space-description': 'Jaa asynkronisia päivityksiä',
+  'ptc-directory.team-profile-page.team-containers.create.add-loom-space-title': 'Loom-työtila',
+  'ptc-directory.team-profile-page.team-containers.create.add-web-link-title': 'Lisää mikä tahansa verkkolinkki',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.cancel-button': 'Peruuta',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.description':
     '{containerType, select, JiraProject {Tämän tiimin yhteys Jira-projektiin {containerName} poistetaan.} ConfluenceSpace {Tämän tiimin yhteys Confluence-työtilaan {containerName} poistetaan.} LoomSpace {Tämän tiimin yhteys Loom-työtilaan {containerName} poistetaan.} other {Tämän tiimin yhteys linkkiin {containerName} poistetaan.}}',

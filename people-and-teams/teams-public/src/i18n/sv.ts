@@ -18,6 +18,14 @@ export default {
   'ptc-directory.team-profile-page.team-containers.add-jira-project-title': 'Lägg till projekt',
   'ptc-directory.team-profile-page.team-containers.add-loom-space-description': 'Loom',
   'ptc-directory.team-profile-page.team-containers.add-loom-space-title': 'Lägg till utrymme',
+  'ptc-directory.team-profile-page.team-containers.create.add-confluence-space-description': 'Skapa en kunskapsbank',
+  'ptc-directory.team-profile-page.team-containers.create.add-confluence-space-title': 'Confluence-utrymme',
+  'ptc-directory.team-profile-page.team-containers.create.add-jira-project-description': 'Planera projektuppgifter',
+  'ptc-directory.team-profile-page.team-containers.create.add-jira-project-title': 'Jira-projekt',
+  'ptc-directory.team-profile-page.team-containers.create.add-loom-space-description':
+    'Dela asynkroniska uppdateringar',
+  'ptc-directory.team-profile-page.team-containers.create.add-loom-space-title': 'Loom-utrymme',
+  'ptc-directory.team-profile-page.team-containers.create.add-web-link-title': 'Lägg till en webblänk',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.cancel-button': 'Avbryt',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.description':
     '{containerType, select, JiraProject {Det här teamet kommer inte längre vara anslutet till Jira-projektet {containerName}.} ConfluenceSpace {Det här teamet kommer inte längre vara anslutet till Confluence-utrymmet {containerName}.} LoomSpace {Det här teamet kommer inte längre vara anslutet till Loom-utrymmet {containerName}.} other {Det här teamet kommer inte längre vara anslutet till länken {containerName}.}}',

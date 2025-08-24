@@ -52,6 +52,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week': 'Tài khoản của họ đã bị hủy kích hoạt trong tuần này.',
   'pt.profile-card.inactive.account.no.date': 'Tài khoản của họ đã bị hủy kích hoạt.',
   'pt.profile-card.more-icon-label': 'Khác',
+  'pt.profile-card.more-icon-label-with-name': 'Thao tác khác đối với {fullName}',
   'pt.team-profile-card.aria-label': 'Thông tin khác về đội ngũ này',
   'pt.team-profile-card.directReports.heading': 'Báo cáo trực tiếp',
   'pt.team-profile-card.error.refresh-button': 'Thử lại',

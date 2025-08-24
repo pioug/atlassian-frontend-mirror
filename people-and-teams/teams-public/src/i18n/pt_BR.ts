@@ -18,6 +18,16 @@ export default {
   'ptc-directory.team-profile-page.team-containers.add-jira-project-title': 'Adicionar projeto',
   'ptc-directory.team-profile-page.team-containers.add-loom-space-description': 'Loom',
   'ptc-directory.team-profile-page.team-containers.add-loom-space-title': 'Adicionar espaço',
+  'ptc-directory.team-profile-page.team-containers.create.add-confluence-space-description':
+    'Crie uma base de conhecimentos',
+  'ptc-directory.team-profile-page.team-containers.create.add-confluence-space-title': 'Espaço do Confluence',
+  'ptc-directory.team-profile-page.team-containers.create.add-jira-project-description':
+    'Planeje as tarefas do projeto',
+  'ptc-directory.team-profile-page.team-containers.create.add-jira-project-title': 'Projeto do Jira',
+  'ptc-directory.team-profile-page.team-containers.create.add-loom-space-description':
+    'Compartilhe atualizações assíncronas',
+  'ptc-directory.team-profile-page.team-containers.create.add-loom-space-title': 'Espaço do Loom',
+  'ptc-directory.team-profile-page.team-containers.create.add-web-link-title': 'Adicione qualquer link da web',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.cancel-button': 'Cancelar',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.description':
     '{containerType, select, JiraProject {Essa equipe não vai mais estar conectada ao projeto {containerName} do Jira.} ConfluenceSpace {Essa equipe não vai mais estar conectada ao espaço {containerName} do Confluence.} LoomSpace {Essa equipe não vai mais estar conectada ao espaço {containerName} do Loom.} other {Essa equipe não vai mais estar conectada ao link {containerName}.}}',

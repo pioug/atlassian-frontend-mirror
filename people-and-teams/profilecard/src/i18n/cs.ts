@@ -52,6 +52,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week': 'Účet uživatele byl deaktivován tento týden.',
   'pt.profile-card.inactive.account.no.date': 'Účet uživatele byl deaktivován.',
   'pt.profile-card.more-icon-label': 'Více',
+  'pt.profile-card.more-icon-label-with-name': 'Další akce položky {fullName}',
   'pt.team-profile-card.aria-label': 'Další informace o tomto týmu',
   'pt.team-profile-card.directReports.heading': 'Přímí nadřízení',
   'pt.team-profile-card.error.refresh-button': 'Zkusit znovu',

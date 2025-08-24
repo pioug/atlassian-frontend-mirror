@@ -18,6 +18,13 @@ export default {
   'ptc-directory.team-profile-page.team-containers.add-jira-project-title': '프로젝트 추가',
   'ptc-directory.team-profile-page.team-containers.add-loom-space-description': 'Loom',
   'ptc-directory.team-profile-page.team-containers.add-loom-space-title': '스페이스 추가',
+  'ptc-directory.team-profile-page.team-containers.create.add-confluence-space-description': '지식 은행을 만듭니다',
+  'ptc-directory.team-profile-page.team-containers.create.add-confluence-space-title': 'Confluence 스페이스',
+  'ptc-directory.team-profile-page.team-containers.create.add-jira-project-description': '프로젝트 작업을 계획합니다',
+  'ptc-directory.team-profile-page.team-containers.create.add-jira-project-title': 'Jira 프로젝트',
+  'ptc-directory.team-profile-page.team-containers.create.add-loom-space-description': '비동기 업데이트를 공유합니다',
+  'ptc-directory.team-profile-page.team-containers.create.add-loom-space-title': 'Loom 스페이스',
+  'ptc-directory.team-profile-page.team-containers.create.add-web-link-title': '웹 링크 추가',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.cancel-button': '취소',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.description':
     '{containerType, select, JiraProject {이 팀은 더 이상 {containerName} Jira 프로젝트에 연결되지 않습니다.} ConfluenceSpace {이 팀은 더 이상 {containerName} Confluence 스페이스에 연결되지 않습니다.} LoomSpace {이 팀은 더 이상 {containerName} Loom 스페이스에 연결되지 않습니다.} other {이 팀은 더 이상 {containerName} 링크에 연결되지 않습니다.}}',

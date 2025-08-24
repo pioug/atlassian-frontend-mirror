@@ -55,6 +55,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week': 'Hänen tilinsä poistettiin käytöstä tällä viikolla.',
   'pt.profile-card.inactive.account.no.date': 'Hänen tilinsä on poistettu käytöstä.',
   'pt.profile-card.more-icon-label': 'Lisää',
+  'pt.profile-card.more-icon-label-with-name': 'Lisää toimintoja asiakaspalvelijalle {fullName}',
   'pt.team-profile-card.aria-label': 'Lisätietoja tästä tiimistä',
   'pt.team-profile-card.directReports.heading': 'Suorat alaiset',
   'pt.team-profile-card.error.refresh-button': 'Yritä uudelleen',

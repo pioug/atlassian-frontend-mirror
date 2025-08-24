@@ -58,6 +58,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week': 'Das Konto dieser Person wurde diese Woche deaktiviert.',
   'pt.profile-card.inactive.account.no.date': 'Das Konto dieser Person wurde deaktiviert.',
   'pt.profile-card.more-icon-label': 'Mehr',
+  'pt.profile-card.more-icon-label-with-name': 'Weitere Aktionen für {fullName}',
   'pt.team-profile-card.aria-label': 'Weitere Informationen zu diesem Team',
   'pt.team-profile-card.directReports.heading': 'Direkt unterstellt',
   'pt.team-profile-card.error.refresh-button': 'Versuchen Sie es erneut.',

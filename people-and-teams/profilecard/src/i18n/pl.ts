@@ -55,6 +55,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week': 'Jej konto zostało zdezaktywowane w tym tygodniu.',
   'pt.profile-card.inactive.account.no.date': 'Jej konto zostało zdezaktywowane pomyślnie.',
   'pt.profile-card.more-icon-label': 'Więcej',
+  'pt.profile-card.more-icon-label-with-name': 'Więcej czynności dla {fullName}',
   'pt.team-profile-card.aria-label': 'Więcej informacji o tym zespole',
   'pt.team-profile-card.directReports.heading': 'Bezpośredni podwładni',
   'pt.team-profile-card.error.refresh-button': 'Spróbuj ponownie',

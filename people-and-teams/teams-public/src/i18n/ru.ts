@@ -18,6 +18,14 @@ export default {
   'ptc-directory.team-profile-page.team-containers.add-jira-project-title': 'Добавление проекта',
   'ptc-directory.team-profile-page.team-containers.add-loom-space-description': 'Loom',
   'ptc-directory.team-profile-page.team-containers.add-loom-space-title': 'Добавление раздела',
+  'ptc-directory.team-profile-page.team-containers.create.add-confluence-space-description': 'Создание банка знаний',
+  'ptc-directory.team-profile-page.team-containers.create.add-confluence-space-title': 'Раздел Confluence',
+  'ptc-directory.team-profile-page.team-containers.create.add-jira-project-description': 'Планирование задач проекта',
+  'ptc-directory.team-profile-page.team-containers.create.add-jira-project-title': 'Проект Jira',
+  'ptc-directory.team-profile-page.team-containers.create.add-loom-space-description':
+    'Предоставление доступа к асинхронным обновлениям',
+  'ptc-directory.team-profile-page.team-containers.create.add-loom-space-title': 'Раздел Loom',
+  'ptc-directory.team-profile-page.team-containers.create.add-web-link-title': 'Добавьте любую веб-ссылку',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.cancel-button': 'Отмена',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.description':
     '{containerType, select, JiraProject {Эта команда больше не будет связана с проектом Jira {containerName}.} ConfluenceSpace {Эта команда больше не будет связана с разделом Confluence {containerName}.} LoomSpace {Эта команда больше не будет связана с разделом Loom {containerName}.} other {Эта команда больше не будет связана со ссылкой {containerName}.}}',

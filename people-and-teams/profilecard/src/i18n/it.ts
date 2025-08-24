@@ -52,6 +52,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week': 'Il suo account è stato disattivato questa settimana.',
   'pt.profile-card.inactive.account.no.date': 'Il suo account è stato disattivato.',
   'pt.profile-card.more-icon-label': 'Altro',
+  'pt.profile-card.more-icon-label-with-name': 'Altre azioni per {fullName}',
   'pt.team-profile-card.aria-label': 'Ulteriori informazioni su questo team',
   'pt.team-profile-card.directReports.heading': 'Report diretti',
   'pt.team-profile-card.error.refresh-button': 'Riprova',

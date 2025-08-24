@@ -18,6 +18,13 @@ export default {
   'ptc-directory.team-profile-page.team-containers.add-jira-project-title': '新增專案',
   'ptc-directory.team-profile-page.team-containers.add-loom-space-description': 'Loom',
   'ptc-directory.team-profile-page.team-containers.add-loom-space-title': '新增空間',
+  'ptc-directory.team-profile-page.team-containers.create.add-confluence-space-description': '建立知識金庫',
+  'ptc-directory.team-profile-page.team-containers.create.add-confluence-space-title': 'Confluence 空間',
+  'ptc-directory.team-profile-page.team-containers.create.add-jira-project-description': '規劃專案任務',
+  'ptc-directory.team-profile-page.team-containers.create.add-jira-project-title': 'Jira 專案',
+  'ptc-directory.team-profile-page.team-containers.create.add-loom-space-description': '分享非同步的更新',
+  'ptc-directory.team-profile-page.team-containers.create.add-loom-space-title': 'Loom 空間',
+  'ptc-directory.team-profile-page.team-containers.create.add-web-link-title': '新增 Web 連結',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.cancel-button': '取消',
   'ptc-directory.team-profile-page.team-containers.disconnect-dialog.description':
     '{containerType, select, JiraProject {這個團隊將不再連接至 {containerName} Jira 專案。} ConfluenceSpace {這個團隊將不再連接至 {containerName} Confluence 空間。} LoomSpace {這個團隊將不再連接至 {containerName} Loom 空間。} other {這個團隊將不再連接至 {containerName} 連結。}}',

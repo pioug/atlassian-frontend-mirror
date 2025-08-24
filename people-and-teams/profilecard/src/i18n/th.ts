@@ -52,6 +52,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week': 'บัญชีของผู้ใช้ถูกปิดใช้งานไปแล้วในสัปดาห์นี้',
   'pt.profile-card.inactive.account.no.date': 'บัญชีของผู้ใช้ถูกปิดใช้งานไปแล้ว',
   'pt.profile-card.more-icon-label': 'เพิ่มเติม',
+  'pt.profile-card.more-icon-label-with-name': 'การดำเนินการเพิ่มเติมสำหรับ {fullName}',
   'pt.team-profile-card.aria-label': 'ข้อมูลเพิ่มเติมเกี่ยวกับทีมนี้',
   'pt.team-profile-card.directReports.heading': 'รายงานโดยตรง',
   'pt.team-profile-card.error.refresh-button': 'ลองอีกครั้ง',

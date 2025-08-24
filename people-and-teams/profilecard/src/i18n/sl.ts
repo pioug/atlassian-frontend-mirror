@@ -56,6 +56,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week': 'Račun tega uporabnika je bil deaktiviran ta teden.',
   'pt.profile-card.inactive.account.no.date': 'Račun tega uporabnika je bil deaktiviran.',
   'pt.profile-card.more-icon-label': 'Več',
+  'pt.profile-card.more-icon-label-with-name': 'Več dejanj za {fullName}',
   'pt.team-profile-card.aria-label': 'Več informacij o tej ekipi',
   'pt.team-profile-card.directReports.heading': 'Neposredno podrejeni',
   'pt.team-profile-card.error.refresh-button': 'Poskusi znova',

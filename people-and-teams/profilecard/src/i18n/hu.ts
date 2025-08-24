@@ -53,6 +53,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week': 'A fiókját ezen a héten inaktiváltuk.',
   'pt.profile-card.inactive.account.no.date': 'A fiókját inaktiváltuk.',
   'pt.profile-card.more-icon-label': 'Továbbiak',
+  'pt.profile-card.more-icon-label-with-name': 'További műveletek a következőhöz: {fullName}',
   'pt.team-profile-card.aria-label': 'További információ erről a csapatról',
   'pt.team-profile-card.directReports.heading': 'Közvetlen beosztottak',
   'pt.team-profile-card.error.refresh-button': 'Próbáld újra',

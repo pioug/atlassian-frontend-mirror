@@ -117,9 +117,9 @@ const defaultMockResponseItems: DatasourceDataResponseItem[] = [
 
 const setup = (
 	stateOverride: Partial<DatasourceTableState> & {
-		visibleColumnKeys?: string[] | null;
 		onVisibleColumnKeysChange?: ((visibleColumnKeys: string[]) => void) | null;
 		responseItems?: DatasourceDataResponseItem[];
+		visibleColumnKeys?: string[] | null;
 	} = {},
 	propsOverride: Partial<DatasourceTableViewProps> = {},
 ) => {
@@ -182,9 +182,9 @@ const setup = (
 
 const setupAssetsTable = (
 	stateOverride: Partial<DatasourceTableState> & {
-		visibleColumnKeys?: string[] | null;
 		onVisibleColumnKeysChange?: ((visibleColumnKeys: string[]) => void) | null;
 		responseItems?: DatasourceDataResponseItem[];
+		visibleColumnKeys?: string[] | null;
 	} = {},
 	propsOverride: Partial<DatasourceTableViewProps> = {},
 ) => {

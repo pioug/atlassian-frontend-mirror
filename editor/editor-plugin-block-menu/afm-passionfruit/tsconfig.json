@@ -27,6 +27,12 @@
 			"path": "../../editor-plugin-block-controls/afm-passionfruit/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-decorations/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-selection/afm-passionfruit/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-user-intent/afm-passionfruit/tsconfig.json"
 		},
 		{

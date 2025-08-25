@@ -10,15 +10,15 @@ export type FooterBlockProps = {
 	actions?: ActionItem[];
 
 	/**
-	 * Function to be called when footer action dropdown open state is changed.
+	 * Allows rendering of the footer regardless of whether the block has resolved
 	 */
-	onActionMenuOpenChange?: (options: OnActionMenuOpenChangeOptions) => void;
+	alwaysShow?: boolean;
 	/**
 	 * Allows hiding of the resources provider
 	 */
 	hideProvider?: boolean;
 	/**
-	 * Allows rendering of the footer regardless of whether the block has resolved
+	 * Function to be called when footer action dropdown open state is changed.
 	 */
-	alwaysShow?: boolean;
+	onActionMenuOpenChange?: (options: OnActionMenuOpenChangeOptions) => void;
 } & BlockProps;

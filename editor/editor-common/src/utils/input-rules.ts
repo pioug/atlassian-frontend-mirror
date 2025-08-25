@@ -39,8 +39,6 @@ export const inputRuleWithAnalytics = (
 };
 
 type WrappingRuleProps = {
-	match: RegExp;
-	nodeType: NodeType;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	getAttrs?: Record<string, any> | ((matchResult: RegExpExecArray) => Record<string, any>);
@@ -49,6 +47,8 @@ type WrappingRuleProps = {
 		node: PMNode,
 		joinScenario: JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST,
 	) => boolean;
+	match: RegExp;
+	nodeType: NodeType;
 };
 
 export const createWrappingJoinRule = ({

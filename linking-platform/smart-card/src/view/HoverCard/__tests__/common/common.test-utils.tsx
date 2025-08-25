@@ -25,9 +25,9 @@ export const mockUrl = 'https://some.url';
 
 type TestConfig = {
 	testIds: {
-		unauthorizedTestId: string;
 		erroredTestId?: string;
 		secondaryChildTestId: string;
+		unauthorizedTestId: string;
 	};
 };
 

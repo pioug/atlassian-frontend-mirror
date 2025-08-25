@@ -64,14 +64,14 @@ export class Rect {
 
 export interface TableRect extends Rect {
 	map: TableMap;
-	tableStart: number;
 	table: PMNode;
+	tableStart: number;
 }
 
 export type TableContext = {
 	map: TableMap;
-	tableStart: number;
 	table: PMNode;
+	tableStart: number;
 };
 
 export enum TableProblemTypes {
@@ -82,28 +82,28 @@ export enum TableProblemTypes {
 }
 
 export type TableProblemCollision = {
-	type: TableProblemTypes.COLLISION;
-	row: number;
-	pos: number;
 	n: number;
+	pos: number;
+	row: number;
+	type: TableProblemTypes.COLLISION;
 };
 
 export type TableProblemLongRowspan = {
-	type: TableProblemTypes.OVERLONG_ROWSPAN;
-	pos: number;
 	n: number;
+	pos: number;
+	type: TableProblemTypes.OVERLONG_ROWSPAN;
 };
 
 export type TableProblemMissing = {
-	type: TableProblemTypes.MISSING;
-	row: number;
 	n: number;
+	row: number;
+	type: TableProblemTypes.MISSING;
 };
 
 export type TableProblemColWidthMismatch = {
-	type: TableProblemTypes;
-	pos: number;
 	colwidth: number;
+	pos: number;
+	type: TableProblemTypes;
 };
 
 export type TableProblem =

@@ -51,8 +51,7 @@ export const smartCardStyles = () => css`
 			}`
 			: ''}
 
-		${expValEqualsNoExposure('platform_editor_find_and_replace_improvements', 'isEnabled', true) &&
-		fg('platform_editor_find_and_replace_improvements_1')
+		${expValEqualsNoExposure('platform_editor_find_and_replace_improvements', 'isEnabled', true)
 			? `
 				&.${akEditorSelectedNodeClassName}:not(.search-match-block) .${SmartCardSharedCssClassName.LOADER_WRAPPER} > a {
 				${getSelectionStyles([SelectionStyle.BoxShadow])}
@@ -143,8 +142,7 @@ export const smartCardStyles = () => css`
 			}
 		}
 
-		${expValEqualsNoExposure('platform_editor_find_and_replace_improvements', 'isEnabled', true) &&
-		fg('platform_editor_find_and_replace_improvements_1')
+		${expValEqualsNoExposure('platform_editor_find_and_replace_improvements', 'isEnabled', true)
 			? `
 				&.${akEditorSelectedNodeClassName}:not(.search-match-block) .${SmartCardSharedCssClassName.LOADER_WRAPPER} > div::after {
 					${getSelectionStyles([SelectionStyle.BoxShadow])}

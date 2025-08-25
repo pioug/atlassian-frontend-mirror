@@ -36,16 +36,16 @@ type TriggerPosition =
 	| 'right-start';
 
 type ProfileCardWrapperProps = {
-	userId?: string | null;
-	position?: TriggerPosition;
-	isAnonymous?: boolean;
+	ariaLabel?: string;
 	canViewProfile?: boolean;
 	children: ReactNode;
-	fullName?: string;
 	disabledAriaAttributes?: boolean;
-	onVisibilityChange?: (isVisible: boolean) => void;
+	fullName?: string;
+	isAnonymous?: boolean;
 	offset?: [number, number];
-	ariaLabel?: string;
+	onVisibilityChange?: (isVisible: boolean) => void;
+	position?: TriggerPosition;
+	userId?: string | null;
 };
 
 export type ProfileCardWrapper = React.ComponentType<ProfileCardWrapperProps>;

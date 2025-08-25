@@ -65,12 +65,12 @@ describe('onValues', () => {
 	const onNext = jest.fn();
 
 	type OnValuesConsumerProps = {
-		jqlSearchableFields: JQLFieldResponse[];
-		jqlFieldValues: JQLFieldValueResponse[];
-		field?: string;
-		query?: string;
 		done: jest.DoneCallback;
+		field?: string;
+		jqlFieldValues: JQLFieldValueResponse[];
+		jqlSearchableFields: JQLFieldResponse[];
 		onAssert: (fields: AutocompleteOptions) => void;
+		query?: string;
 	};
 
 	const OnValuesConsumer = ({

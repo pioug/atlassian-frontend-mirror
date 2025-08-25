@@ -47,15 +47,15 @@ const copyAnchorButtonStyles = css({
 });
 
 type Props = {
-	onCopyText: () => Promise<void>;
 	enableNestedHeaderLinks?: boolean;
-	level: number;
-	hideFromScreenReader?: boolean;
 	headingId?: string;
+	hideFromScreenReader?: boolean;
+	level: number;
+	onCopyText: () => Promise<void>;
 };
 
 type HeadingAnchorProps = Props & React.PropsWithChildren<unknown> & WrappedComponentProps;
-type HeadingAnchorState = { tooltipMessage?: string; isClicked: boolean };
+type HeadingAnchorState = { isClicked: boolean; tooltipMessage?: string };
 
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components

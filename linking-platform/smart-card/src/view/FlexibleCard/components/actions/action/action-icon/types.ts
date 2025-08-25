@@ -4,8 +4,8 @@ import type { SmartLinkSize } from '../../../../../../constants';
 
 export type ActionIconProps = {
 	asStackItemIcon?: boolean;
-	size?: SmartLinkSize;
 	icon?: ReactChild;
 	isDisabled?: boolean;
+	size?: SmartLinkSize;
 	testId?: string;
 };

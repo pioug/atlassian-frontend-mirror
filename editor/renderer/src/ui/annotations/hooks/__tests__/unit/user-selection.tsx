@@ -127,8 +127,8 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 		let myFakeValidRange: Range;
 
 		type Props = {
-			rendererRef: React.RefObject<HTMLDivElement>;
 			fakeFunction: (range: any) => void;
+			rendererRef: React.RefObject<HTMLDivElement>;
 		};
 
 		const DummyComponent = (props: Props) => {

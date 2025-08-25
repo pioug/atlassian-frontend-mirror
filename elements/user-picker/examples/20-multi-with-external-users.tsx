@@ -15,7 +15,7 @@ interface Option {
 	value: string;
 }
 
-const sources: Array<{ value: UserSource; label: string }> = [
+const sources: Array<{ label: string; value: UserSource }> = [
 	{ value: 'jira', label: 'Jira' },
 	{ value: 'confluence', label: 'Confluence' },
 	{ value: 'other-atlassian', label: 'Other Atlassian Products' },

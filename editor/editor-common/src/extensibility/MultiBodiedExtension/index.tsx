@@ -62,21 +62,21 @@ export type TryExtensionHandlerType = (
 ) => React.ReactElement | null;
 
 type Props = {
-	node: PmNode;
-	handleContentDOMRef: (node: HTMLElement | null) => void;
-	editorView: EditorView;
-	getPos: () => number | undefined;
-	tryExtensionHandler: TryExtensionHandlerType;
-	eventDispatcher?: EventDispatcher;
-	pluginInjectionApi?: ExtensionsPluginInjectionAPI;
+	allowBodiedOverride?: boolean;
 	editorAppearance?: EditorAppearance;
-	macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags;
-	isNodeSelected?: boolean;
+	editorView: EditorView;
+	eventDispatcher?: EventDispatcher;
+	getPos: () => number | undefined;
+	handleContentDOMRef: (node: HTMLElement | null) => void;
+	isLivePageViewMode?: boolean;
 	isNodeHovered?: boolean;
 	isNodeNested?: boolean;
+	isNodeSelected?: boolean;
+	macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags;
+	node: PmNode;
+	pluginInjectionApi?: ExtensionsPluginInjectionAPI;
 	setIsNodeHovered?: (isHovered: boolean) => void;
-	isLivePageViewMode?: boolean;
-	allowBodiedOverride?: boolean;
+	tryExtensionHandler: TryExtensionHandlerType;
 };
 
 type PropsWithWidth = Props & {
@@ -84,8 +84,8 @@ type PropsWithWidth = Props & {
 };
 
 interface CustomImageData {
-	url: string;
 	height?: number;
+	url: string;
 	width?: number;
 }
 type ImageData = CustomImageData | undefined;
@@ -334,7 +334,7 @@ const MultiBodiedExtensionWithWidth = ({
 };
 
 const useMultiBodyExtensionSharedPluginState = sharedPluginStateHookMigratorFactory<
-	{ widthState: { width: number; lineLength?: number } | undefined },
+	{ widthState: { lineLength?: number; width: number } | undefined },
 	ExtensionsPluginInjectionAPI
 >(
 	(pluginInjectionApi) => {

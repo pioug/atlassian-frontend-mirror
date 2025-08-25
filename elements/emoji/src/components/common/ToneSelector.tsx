@@ -35,8 +35,8 @@ const hidden = css({
 export interface Props {
 	emoji: EmojiDescriptionWithVariations;
 	isVisible: boolean;
-	onToneSelected: OnToneSelected;
 	onToneClose?: () => void;
+	onToneSelected: OnToneSelected;
 	selectedTone?: ToneSelection;
 }
 

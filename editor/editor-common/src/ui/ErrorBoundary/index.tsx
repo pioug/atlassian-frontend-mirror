@@ -7,11 +7,11 @@ import { logException } from '../../monitoring/error';
 type ErrorCrashPayload = Extract<ErrorEventPayload, { action: ACTION.EDITOR_CRASHED }>;
 
 interface ErrorBoundaryProps {
+	children?: React.ReactNode;
 	component: ErrorCrashPayload['actionSubject'];
 	componentId?: ErrorCrashPayload['actionSubjectId'];
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 	fallbackComponent?: React.ReactNode;
-	children?: React.ReactNode;
 }
 
 interface ErrorBoundaryState {

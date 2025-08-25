@@ -13,22 +13,22 @@ export interface ContentRef {
 }
 
 export interface ObjectKey {
-	localId: string;
 	containerAri?: string;
+	localId: string;
 	objectAri: string;
 }
 
 export interface BaseItem<S> extends ObjectKey {
-	state: S;
 	lastUpdateDate: Date;
+	state: S;
 	type: DecisionType | TaskType;
 }
 
 export interface ServiceDecision {
 	creationDate?: string;
 	creatorId?: UserId;
-	lastUpdaterId?: UserId;
 	lastUpdateDate: string;
+	lastUpdaterId?: UserId;
 	localId: string;
 	objectAri: string;
 	participants?: UserId[];
@@ -58,8 +58,8 @@ export interface ServiceTaskState {
 export interface Decision extends BaseItem<DecisionState> {
 	creationDate?: Date;
 	creator?: UserId;
-	lastUpdater?: UserId;
 	lastUpdateDate: Date;
+	lastUpdater?: UserId;
 	participants?: UserId[];
 	status: DecisionStatus;
 	type: DecisionType;
@@ -72,8 +72,8 @@ export type UserId = string;
 export interface ServiceTask {
 	creationDate?: string;
 	creatorId?: UserId;
-	lastUpdaterId?: UserId;
 	lastUpdateDate: string;
+	lastUpdaterId?: UserId;
 	localId: string;
 	objectAri: string;
 	parentLocalId?: string;
@@ -86,8 +86,8 @@ export interface ServiceTask {
 export interface Task extends BaseItem<TaskState> {
 	creationDate?: Date;
 	creator?: UserId;
-	lastUpdater?: UserId;
 	lastUpdateDate: Date;
+	lastUpdater?: UserId;
 	parentLocalId?: string;
 	participants?: UserId[];
 	position?: number;
@@ -99,8 +99,8 @@ export type Handler = (state: TaskState | DecisionState) => void;
 export type RecentUpdatesId = string;
 
 export interface RecentUpdateContext {
-	objectAri: string;
 	localId?: string;
+	objectAri: string;
 }
 
 /**
@@ -125,8 +125,6 @@ export interface RecentUpdatesListener {
 }
 
 export interface TaskDecisionResourceConfig extends ServiceConfig {
-	pubSubClient?: PubSubClient;
-
 	/**
 	 * Indicates if initial state for an action or decision is should be cached,
 	 * from the content, i.e. was originally hydrated from the service initially,
@@ -138,28 +136,30 @@ export interface TaskDecisionResourceConfig extends ServiceConfig {
 	 * If false the state will always be hydrated from the service on first view.
 	 */
 	disableServiceHydration?: boolean;
+
+	pubSubClient?: PubSubClient;
 }
 
 export interface TaskDecisionProvider {
-	unsubscribeRecentUpdates(id: RecentUpdatesId): void;
 	notifyRecentUpdates(updateContext: RecentUpdateContext): void;
-
-	// Tasks
-	toggleTask(objectKey: ObjectKey, state: TaskState): Promise<TaskState>;
 	subscribe(
 		objectKey: ObjectKey,
 		handler: Handler,
 		item?: BaseItem<TaskState | DecisionState>,
 	): void;
+
+	// Tasks
+	toggleTask(objectKey: ObjectKey, state: TaskState): Promise<TaskState>;
 	unsubscribe(objectKey: ObjectKey, handler: Handler): void;
+	unsubscribeRecentUpdates(id: RecentUpdatesId): void;
 }
 
 /**
  * Same as RendererContext in editor-core (don't want an direct dep though)
  */
 export interface RendererContext {
-	objectAri: string;
 	containerAri?: string;
+	objectAri: string;
 }
 
 export interface RenderDocument {
@@ -184,13 +184,13 @@ export interface PubSubOnEvent<T = any> {
 }
 
 export interface PubSubClient {
-	on(eventAvi: string, listener: PubSubOnEvent): PubSubClient;
-
-	off(eventAvi: string, listener: PubSubOnEvent): PubSubClient;
-
 	join(aris: ARI[]): Promise<PubSubClient>;
 
 	leave(aris: ARI[]): Promise<PubSubClient>;
+
+	off(eventAvi: string, listener: PubSubOnEvent): PubSubClient;
+
+	on(eventAvi: string, listener: PubSubOnEvent): PubSubClient;
 }
 
 export enum PubSubSpecialEventType {

@@ -13,26 +13,26 @@ import type {
 import { type OnErrorCallback } from '../types';
 
 export type EmbedCardProps = {
-	url: string;
+	actionOptions?: CardActionOptions;
 	cardState: CardState;
+	CompetitorPrompt?: React.ComponentType<{ linkType?: string; sourceUrl: string }>;
+	frameStyle?: FrameStyle;
 	handleAuthorize: (() => void) | undefined;
 	handleErrorRetry: () => void;
 	handleFrameClick: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
 	handleInvoke: InvokeHandler;
 	id?: string;
-	isSelected?: boolean;
-	frameStyle?: FrameStyle;
-	platform?: CardPlatform;
-	onResolve?: OnResolveCallback;
-	onError?: OnErrorCallback;
-	testId?: string;
+	iframeUrlType?: EmbedIframeUrlType;
 	inheritDimensions?: boolean;
-	actionOptions?: CardActionOptions;
+	isSelected?: boolean;
+	onError?: OnErrorCallback;
 	onIframeDwell?: (dwellTime: number, dwellPercentVisible: number) => void;
 	onIframeFocus?: () => void;
-	iframeUrlType?: EmbedIframeUrlType;
+	onResolve?: OnResolveCallback;
+	platform?: CardPlatform;
 	renderers?: CardProviderRenderers;
-	CompetitorPrompt?: React.ComponentType<{ sourceUrl: string; linkType?: string }>;
+	testId?: string;
+	url: string;
 };
 export interface WithShowControlMethodProp {
 	showControls?: () => void;
@@ -56,8 +56,8 @@ export type AccessTypes =
 export interface AccessContext {
 	accessType?: AccessTypes;
 	cloudId?: string;
-	url?: string;
 	smartLinksAccessMetadataExperimentCohort?: 'experiment' | 'control' | 'not-enrolled';
+	url?: string;
 }
 
 export type InlinePreloaderStyle = 'on-left-with-skeleton' | 'on-right-without-skeleton';

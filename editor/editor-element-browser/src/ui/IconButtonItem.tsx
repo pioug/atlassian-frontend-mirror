@@ -108,8 +108,8 @@ const textStyles = xcss({
 
 type LargeIconButtonProps = {
 	icon?: React.ReactNode;
-	isSelected?: boolean;
 	isDisabled?: boolean;
+	isSelected?: boolean;
 	onClick?: () => void;
 };
 

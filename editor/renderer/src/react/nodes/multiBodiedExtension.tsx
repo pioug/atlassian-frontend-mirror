@@ -24,25 +24,25 @@ import { useMultiBodiedExtensionContext } from './multiBodiedExtension/context';
 type Props = React.PropsWithChildren<{
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	serializer: Serializer<any>;
+	content?: any;
 	extensionHandlers?: ExtensionHandlers;
-	rendererContext: RendererContext;
-	providers: ProviderFactory;
-	extensionType: string;
 	extensionKey: string;
-	path?: PMNode[];
+	extensionType: string;
+	layout?: ExtensionLayout;
+	localId?: string;
+	marks?: PMMark[];
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	originalContent?: any;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	parameters?: any;
+	path?: PMNode[];
+	providers: ProviderFactory;
+	rendererContext: RendererContext;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	content?: any;
-	layout?: ExtensionLayout;
-	localId?: string;
-	marks?: PMMark[];
+	serializer: Serializer<any>;
 }>;
 
 const containerStyles = css({
@@ -67,9 +67,9 @@ const MultiBodiedExtensionWrapper = ({
 	layout,
 	children,
 }: React.PropsWithChildren<{
-	width: number;
-	path: PMNode[];
 	layout: ExtensionLayout;
+	path: PMNode[];
+	width: number;
 }>) => {
 	const isTopLevel = path.length < 1;
 	const centerAlignClass =

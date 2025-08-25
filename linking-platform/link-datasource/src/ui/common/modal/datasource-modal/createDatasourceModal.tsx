@@ -22,9 +22,9 @@ export const createDatasourceModal = <Parameters extends DatasourceParameters>({
 	dataProvider,
 	component: ModalContent,
 }: {
-	isValidParameters: (params: DatasourceParameters | undefined) => boolean;
-	dataProvider: string;
 	component: React.ComponentType<ConnectedConfigModalProps<Parameters>>;
+	dataProvider: string;
+	isValidParameters: (params: DatasourceParameters | undefined) => boolean;
 }) => {
 	return (
 		props: ConfigModalProps<

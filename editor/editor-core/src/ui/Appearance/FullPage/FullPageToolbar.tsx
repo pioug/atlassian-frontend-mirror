@@ -62,25 +62,25 @@ export type ToolbarEditorPlugins = [
 
 export interface FullPageToolbarProps {
 	appearance?: EditorAppearance;
-	providerFactory: ProviderFactory;
+	beforeIcon?: ReactElement;
+	collabEdit?: CollabEditOptions;
+	containerElement: HTMLElement | null;
+	customPrimaryToolbarComponents?: PrimaryToolbarComponents;
+	disabled: boolean;
+	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 	editorActions?: EditorActions;
+	editorAPI: PublicPluginAPI<ToolbarEditorPlugins> | undefined;
 	editorDOMElement: JSX.Element;
 	editorView: EditorView;
 	eventDispatcher: EventDispatcher;
-	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
-	primaryToolbarComponents?: ToolbarUIComponentFactory[];
-	customPrimaryToolbarComponents?: PrimaryToolbarComponents;
-	popupsMountPoint?: HTMLElement;
-	popupsBoundariesElement?: HTMLElement;
-	popupsScrollableElement?: HTMLElement;
-	disabled: boolean;
-	collabEdit?: CollabEditOptions;
-	showKeyline: boolean;
-	containerElement: HTMLElement | null;
-	beforeIcon?: ReactElement;
-	hasMinWidth?: boolean;
 	featureFlags: FeatureFlags;
-	editorAPI: PublicPluginAPI<ToolbarEditorPlugins> | undefined;
+	hasMinWidth?: boolean;
+	popupsBoundariesElement?: HTMLElement;
+	popupsMountPoint?: HTMLElement;
+	popupsScrollableElement?: HTMLElement;
+	primaryToolbarComponents?: ToolbarUIComponentFactory[];
+	providerFactory: ProviderFactory;
+	showKeyline: boolean;
 }
 
 export const EditorToolbar = React.memo((props: FullPageToolbarProps & WrappedComponentProps) => {

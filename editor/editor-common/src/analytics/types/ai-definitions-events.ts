@@ -28,8 +28,8 @@ type AIDefinitionsErrorAEP = OperationalAEP<
 	ACTION_SUBJECT.AI_DEFINITIONS,
 	ACTION_SUBJECT_ID,
 	{
-		errorMessage?: string;
 		componentStack?: string;
+		errorMessage?: string;
 	}
 >;
 

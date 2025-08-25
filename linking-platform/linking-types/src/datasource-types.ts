@@ -37,9 +37,6 @@ export interface DateTimeType {
  */
 
 export interface Tag {
-	id?: string;
-	text: string;
-	url?: string;
 	color?:
 		| 'standard'
 		| 'green'
@@ -62,6 +59,9 @@ export interface Tag {
 		| 'greyLight'
 		| 'tealLight'
 		| 'yellowLight';
+	id?: string;
+	text: string;
+	url?: string;
 }
 
 export interface TagType {
@@ -71,8 +71,8 @@ export interface TagType {
 
 export interface User {
 	atlassianUserId?: string;
-	displayName?: string;
 	avatarSource?: string;
+	displayName?: string;
 	url?: string;
 }
 
@@ -83,12 +83,12 @@ export interface UserType {
 
 export interface Status {
 	id?: string;
-	text: string;
 	// based on https://atlassian.design/components/lozenge/code#Lozenge-appearance to enable FE to map to the right UI configuration
 	style?: {
 		appearance?: 'default' | 'inprogress' | 'moved' | 'new' | 'removed' | 'success';
 		isBold?: boolean;
 	};
+	text: string;
 	transitionId?: string;
 }
 
@@ -98,13 +98,13 @@ export interface StatusType {
 }
 
 export interface Link {
-	url: string;
-	text?: string;
 	// There are different ways we want to represent a link.
 	// This will control those specific variations. Like `key` will show bold/gray link.
 	style?: {
 		appearance?: 'default' | 'key';
 	};
+	text?: string;
+	url: string;
 }
 
 export interface LinkType {
@@ -113,10 +113,10 @@ export interface LinkType {
 }
 
 export interface Icon {
-	source: string;
-	label?: string;
-	text?: string;
 	id?: string;
+	label?: string;
+	source: string;
+	text?: string;
 }
 
 export interface IconType {
@@ -139,10 +139,10 @@ export type DatasourceType =
 	| UserType;
 
 export interface DatasourceResponseSchemaProperty {
+	isList?: boolean;
 	key: string;
 	title: string;
 	type: DatasourceType['type'];
-	isList?: boolean;
 }
 
 export interface DatasourceDataResponseItem {
@@ -161,22 +161,22 @@ export interface DatasourceParameters {
 export interface DatasourceDataRequest {
 	fields?: string[];
 	includeSchema?: boolean;
-	parameters: DatasourceParameters;
-	pageSize: number;
 	pageCursor?: string;
+	pageSize: number;
+	parameters: DatasourceParameters;
 }
 
 export interface DatasourceResponseParameter {
+	description: string;
+	isList?: boolean;
+	isRequired?: boolean;
 	key: string;
 	type: DatasourceType['type'];
-	description: string;
-	isRequired?: boolean;
-	isList?: boolean;
 }
 
 interface DatasourceResponse<TData> {
-	meta: DatasourceMeta;
 	data: TData;
+	meta: DatasourceMeta;
 }
 
 export interface DatasourceDetailsResponse extends DatasourceResponse<DatasourceDetails> {}
@@ -187,42 +187,42 @@ export type Visibility = 'public' | 'restricted' | 'other' | 'not_found';
 export type Access = 'granted' | 'forbidden' | 'unauthorized' | 'not_found';
 
 export interface AuthService {
-	key: string;
 	displayName: string;
+	key: string;
 	url: string;
 }
 
 export type DatasourceDetails = {
 	ari: string;
+	description: string;
 	id: string;
 	name: string;
-	description: string;
 	parameters: DatasourceResponseParameter[];
 	schema: DatasourceDetailsSchema;
 };
 
 export type DatasourceData = {
 	items: DatasourceDataResponseItem[];
-	schema?: DatasourceDataSchema;
 	nextPageCursor?: string;
+	schema?: DatasourceDataSchema;
 	totalCount?: number;
 };
 
 export type DatasourceDataSchema = {
-	properties: DatasourceResponseSchemaProperty[];
 	defaultProperties?: string[];
+	properties: DatasourceResponseSchemaProperty[];
 };
 
 export type DatasourceDetailsSchema = {
-	properties: DatasourceResponseSchemaProperty[];
 	defaultProperties: string[];
+	properties: DatasourceResponseSchemaProperty[];
 };
 
 export type DatasourceMeta = {
-	access: Access;
-	visibility: Visibility;
-	auth?: AuthService[];
 	[k: string]: any;
+	access: Access;
+	auth?: AuthService[];
+	visibility: Visibility;
 };
 
 export type DatasourceTableStatusType =
@@ -238,8 +238,8 @@ export type DatasourceDetailsRequest = {
 };
 
 export interface RichText {
-	type: 'adf';
 	text: string;
+	type: 'adf';
 }
 
 export interface RichTextType {

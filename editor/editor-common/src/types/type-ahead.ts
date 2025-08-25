@@ -10,24 +10,24 @@ import type { SelectItemMode, TypeAheadAvailableNodes } from '../type-ahead';
 import type { EditorCommand } from '../types';
 
 type TypeAheadForceSelectProps = {
-	query: string;
-	items: Array<TypeAheadItem>;
 	editorState: EditorState;
+	items: Array<TypeAheadItem>;
+	query: string;
 };
 
 export interface TypeAheadStats {
-	startedAt: number;
 	endedAt: number;
 	keyCount: {
-		arrowUp: number;
 		arrowDown: number;
+		arrowUp: number;
 	};
+	startedAt: number;
 }
 
 export type TypeAheadItemRenderProps = {
+	isSelected: boolean;
 	onClick: () => void;
 	onHover: () => void;
-	isSelected: boolean;
 };
 
 export type TypeAheadInsert = (
@@ -41,63 +41,42 @@ export type TypeAheadSelectItem = (
 	insert: TypeAheadInsert,
 	meta: {
 		mode: SelectItemMode;
-		stats: TypeAheadStats;
 		query: string;
 		sourceListItem: Array<TypeAheadItem>;
+		stats: TypeAheadStats;
 	},
 ) => Transaction | false;
 
 export type TypeAheadItem = {
-	title: string;
-	description?: string;
-	keyshortcut?: string;
-	key?: string | number;
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	icon?: () => ReactElement<any>;
-	render?: (props: TypeAheadItemRenderProps) => React.ReactElement<TypeAheadItemRenderProps> | null;
-	// Offline editing work - when we move away from `PluginOptions` (to be deprecated) for editor we need to avoid this
-	// but for now this greatly simplifies our work
-	isDisabledOffline?: boolean;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	[key: string]: any;
+	description?: string;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	icon?: () => ReactElement<any>;
+	// Offline editing work - when we move away from `PluginOptions` (to be deprecated) for editor we need to avoid this
+	// but for now this greatly simplifies our work
+	isDisabledOffline?: boolean;
+	key?: string | number;
+	keyshortcut?: string;
+	render?: (props: TypeAheadItemRenderProps) => React.ReactElement<TypeAheadItemRenderProps> | null;
+	title: string;
 };
 
 export type TypeAheadForceSelect = (props: TypeAheadForceSelectProps) => TypeAheadItem | undefined;
 
 export type MoreOptionsButtonConfig = {
-	title: string;
 	ariaLabel?: string;
-	onClick: EditorCommand;
 	iconBefore?: ReactNode;
+	onClick: EditorCommand;
+	title: string;
 };
 
 export type TypeAheadHandler = {
-	id: TypeAheadAvailableNodes;
-
-	/** Pattern that will trigger the TypeAhead */
-	trigger: string;
-
 	/** Custom regex must have a capture group around trigger so it's possible to
 	 * use it without needing to scan through all triggers again */
 	customRegex?: string;
-
-	headless?: boolean;
-
-	/** Handler returns typeahead item based on query. Used to find which item to insert. */
-	forceSelect?: TypeAheadForceSelect;
-
-	onInvokeAnalytics?: TypeAheadPayload;
-
-	/** Handler executes logic when TypeAhead opens */
-	onOpen?: (editorState: EditorState) => void;
-
-	/** Handler returns an array of TypeAheadItem based on query to be displayed in the TypeAhead */
-	getItems: (props: { query: string; editorState: EditorState }) => Promise<Array<TypeAheadItem>>;
-
-	/** Handler returns a transaction which inserts the TypeAheadItem into the doc */
-	selectItem: TypeAheadSelectItem;
 
 	/** Handler executes logic when TypeAhead is dismissed */
 	dismiss?: (props: {
@@ -107,7 +86,28 @@ export type TypeAheadHandler = {
 		wasItemInserted?: boolean;
 	}) => void;
 
+	/** Handler returns typeahead item based on query. Used to find which item to insert. */
+	forceSelect?: TypeAheadForceSelect;
+
 	getHighlight?: (state: EditorState) => JSX.Element | null;
 
+	/** Handler returns an array of TypeAheadItem based on query to be displayed in the TypeAhead */
+	getItems: (props: { editorState: EditorState; query: string }) => Promise<Array<TypeAheadItem>>;
+
 	getMoreOptionsButtonConfig?: (intl: IntlShape) => MoreOptionsButtonConfig;
+
+	headless?: boolean;
+
+	id: TypeAheadAvailableNodes;
+
+	onInvokeAnalytics?: TypeAheadPayload;
+
+	/** Handler executes logic when TypeAhead opens */
+	onOpen?: (editorState: EditorState) => void;
+
+	/** Handler returns a transaction which inserts the TypeAheadItem into the doc */
+	selectItem: TypeAheadSelectItem;
+
+	/** Pattern that will trigger the TypeAhead */
+	trigger: string;
 };

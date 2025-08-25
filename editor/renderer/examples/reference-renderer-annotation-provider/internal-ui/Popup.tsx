@@ -8,7 +8,7 @@ import React from 'react';
 import { css, jsx, keyframes } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 
-type Props = { children: React.ReactNode; top: number; left: number };
+type Props = { children: React.ReactNode; left: number; top: number };
 export const Popup = React.forwardRef<HTMLDivElement, Props>(function Popup(
 	{ children, top, left }: Props,
 	ref,

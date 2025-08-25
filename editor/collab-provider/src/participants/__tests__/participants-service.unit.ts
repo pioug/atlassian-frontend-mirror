@@ -49,14 +49,14 @@ const agentPayload: PresencePayload = {
 
 const participantsServiceConstructor = (deps: {
 	analyticsHelper?: AnalyticsHelper;
-	participantsState?: ParticipantsState;
-	emit?: any;
-	getUser?: any;
-	broadcast?: any;
-	sendPresenceJoined?: any;
-	getPresenceData?: any;
-	setUserId?: any;
 	batchProps?: BatchProps;
+	broadcast?: any;
+	emit?: any;
+	getPresenceData?: any;
+	getUser?: any;
+	participantsState?: ParticipantsState;
+	sendPresenceJoined?: any;
+	setUserId?: any;
 }): ParticipantsService =>
 	new ParticipantsService(
 		deps.analyticsHelper,

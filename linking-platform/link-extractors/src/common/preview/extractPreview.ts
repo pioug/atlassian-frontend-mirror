@@ -5,9 +5,9 @@ import { extractPlatformIsSupported } from '../platform/extractPlatformIsSupport
 import { extractUrlFromLinkJsonLd } from '../url';
 
 export interface LinkPreview {
-	src?: string;
-	content?: string;
 	aspectRatio?: number;
+	content?: string;
+	src?: string;
 }
 
 export type EmbedIframeUrlType = 'href' | 'interactiveHref';

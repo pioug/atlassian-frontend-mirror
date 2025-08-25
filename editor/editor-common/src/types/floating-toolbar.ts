@@ -22,18 +22,18 @@ import type { MarkOptions, NodeOptions } from './copy-button';
  * New dropdown types to support editor controls
  */
 export type OverflowDropdownHeading = {
-	type: 'overflow-dropdown-heading';
 	title: string;
+	type: 'overflow-dropdown-heading';
 };
 
 type OverflowDropdownCustom<T extends Object> = {
-	type: 'custom';
 	fallback: Array<FloatingToolbarFallbackItem<T>>;
+	hidden?: boolean;
 	render: (
 		view?: EditorView,
 		dropdownOption?: Omit<DropdownMenuItemProps, 'item'>,
 	) => React.ReactNode;
-	hidden?: boolean;
+	type: 'custom';
 };
 
 export type OverflowDropdownOption<T extends Object> = DropdownOptionT<T> & { rank?: number };
@@ -46,46 +46,46 @@ export type FloatingToolbarOverflowDropdownOptions<T extends Object> = Array<
 >;
 
 export type FloatingToolbarOverflowDropdown<T extends Object> = {
-	type: 'overflow-dropdown';
-	options: FloatingToolbarOverflowDropdownOptions<T>;
-	testId?: string;
-	id?: string;
-	hidden?: boolean;
-	disabled?: boolean;
-	tooltip?: string;
-	dropdownWidth?: number;
-	showSelected?: boolean;
 	// A prop to align the dropdown with the floating toolbar instead of the toolbar item
 	alignDropdownWithToolbar?: boolean;
-	supportsViewMode?: boolean; // TODO: MODES-3950 - Clean up this floating toolbar view mode logic
+	disabled?: boolean;
+	dropdownWidth?: number;
+	hidden?: boolean;
+	id?: string;
 	onClick?: () => void;
+	options: FloatingToolbarOverflowDropdownOptions<T>;
+	showSelected?: boolean;
+	supportsViewMode?: boolean; // TODO: MODES-3950 - Clean up this floating toolbar view mode logic
+	testId?: string;
+	tooltip?: string;
+	type: 'overflow-dropdown';
 };
 
 export interface RenderOptionsPropsT<T extends Object> {
-	hide: () => void;
 	dispatchCommand: (command: T) => void;
+	hide: () => void;
 }
 
 export interface DropdownOptionT<T extends Object> {
+	description?: string;
+	disabled?: boolean;
+	domItemOptions?: { type: typeOption };
+	elemAfter?: React.ReactNode;
+	hidden?: boolean;
+	icon?: React.ReactNode;
 	id?: string;
-	title: string;
+	onBlur?: T;
 	onClick: T;
+	onFocus?: T;
 	onMouseDown?: T;
-	onMouseOver?: T;
 	onMouseEnter?: T;
 	onMouseLeave?: T;
 	onMouseOut?: T;
-	onFocus?: T;
-	onBlur?: T;
+	onMouseOver?: T;
 	selected?: boolean;
-	disabled?: boolean;
-	hidden?: boolean;
-	domItemOptions?: { type: typeOption };
 	testId?: string;
+	title: string;
 	tooltip?: string;
-	elemAfter?: React.ReactNode;
-	icon?: React.ReactNode;
-	description?: string;
 }
 
 export type typeOption =
@@ -97,20 +97,20 @@ export type typeOption =
 export type DropdownOptions<T extends Object> =
 	| Array<DropdownOptionT<T>>
 	| {
+			height: number;
 			// Ignored via go/ees005
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			render: (props: RenderOptionsPropsT<T>) => React.ReactElement<any> | null;
-			height: number;
 			width: number;
 	  };
 
 export interface SelectOption<T extends Object = Object> {
-	value: string;
-	label: string;
-	selected?: boolean;
+	data?: T;
 	disabled?: boolean;
 	hidden?: boolean;
-	data?: T;
+	label: string;
+	selected?: boolean;
+	value: string;
 }
 
 export type ButtonAppearance = 'subtle' | 'danger';
@@ -120,118 +120,117 @@ export type RenderOptionsProps = RenderOptionsPropsT<Command>;
 export type AlignType = 'left' | 'center' | 'right';
 
 interface Position {
-	top?: number;
-	right?: number;
 	bottom?: number;
 	left?: number;
+	right?: number;
+	top?: number;
 }
 
 type PositionOffset = Position;
 
 export type ConfirmDialogChildInfo = {
+	amount: number;
 	id: string;
 	name: string | null;
-	amount: number;
 };
 
 export interface ConfirmDialogOptions {
-	title?: string; // Defaults to "Are you sure?"
-	message: string;
-	okButtonLabel?: string; // Defaults to "OK"
 	cancelButtonLabel?: string; // Defaults to "Cancel"
-	isReferentialityDialog?: boolean; // option for extra content
 	checkboxLabel?: string;
-	messagePrefix?: string;
 	getChildrenInfo?: () => ConfirmDialogChildInfo[];
+	isReferentialityDialog?: boolean; // option for extra content
+	message: string;
+	messagePrefix?: string;
+	okButtonLabel?: string; // Defaults to "OK"
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	onConfirm?: (...args: any[]) => Command;
+	title?: string; // Defaults to "Are you sure?"
 }
 
 export type ConfirmationDialogProps = {
-	onConfirm: (isCheck?: boolean) => void;
 	/**
 	 * onClose is called every time when the dialog is closed.
 	 * Either clicking on 'Confirm' button or 'Cancel' button,
 	 * which means it is being called after onConfirm, or by itself when clicking 'Cancel' button.
 	 */
 	onClose: () => void;
+	onConfirm: (isCheck?: boolean) => void;
 	options?: ConfirmDialogOptions;
 	testId?: string;
 };
 
 export type FloatingToolbarButtonSpotlightConfig = {
 	isSpotlightOpen: boolean;
-	pulse?: boolean;
 	onTargetClick?: () => void;
+	pulse?: boolean;
 	spotlightCardOptions: React.ComponentProps<typeof SpotlightCard> & { placement?: Placement };
 };
 
 export type FloatingToolbarCopyButton = {
-	type: 'copy-button';
-	items: Array<FloatingToolbarSeparator | MarkOptions | NodeOptions>;
 	hidden?: boolean;
+	items: Array<FloatingToolbarSeparator | MarkOptions | NodeOptions>;
 	supportsViewMode?: boolean; // TODO: MODES-3950 - Clean up this floating toolbar view mode logic
+	type: 'copy-button';
 };
 
 export type FloatingToolbarButton<T extends Object> = {
-	id?: string;
-	type: 'button';
-	isRadioButton?: boolean;
-	title: string;
-	onClick: T;
-	showTitle?: boolean;
-	onMouseEnter?: T;
-	onMouseLeave?: T;
-	onFocus?: T;
-	onBlur?: T;
-	onMount?: () => void;
-	onUnmount?: () => void;
-	icon?: Icon;
-	iconFallback?: Icon;
-	iconAfter?: Icon;
-	selected?: boolean;
-	disabled?: boolean;
-	hidden?: boolean;
 	appearance?: ButtonAppearance;
-	href?: string;
-	target?: string;
+	ariaHasPopup?: boolean | 'dialog' | 'menu' | 'listbox' | 'tree' | 'grid' | undefined;
+	ariaLabel?: string; // For accessibility, aria-label for the button
 	className?: string;
-	tooltipContent?: TooltipProps['content'];
-	testId?: string;
-	interactionName?: string;
-	hideTooltipOnClick?: boolean;
 	confirmDialog?: ConfirmDialogOptions | (() => ConfirmDialogOptions);
+	disabled?: boolean;
+	focusEditoronEnter?: boolean; // To focus the editor when button is pressed default value - false
+	hidden?: boolean;
+	hideTooltipOnClick?: boolean;
+	href?: string;
+	icon?: Icon;
+	iconAfter?: Icon;
+	iconFallback?: Icon;
+	id?: string;
+	interactionName?: string;
+	isRadioButton?: boolean;
 	// For sending data over the mobile bridge
 	metadata?: { [key: string]: string };
-	ariaHasPopup?: boolean | 'dialog' | 'menu' | 'listbox' | 'tree' | 'grid' | undefined;
-	tabIndex?: number | null | undefined;
-	focusEditoronEnter?: boolean; // To focus the editor when button is pressed default value - false
-	supportsViewMode?: boolean; // TODO: MODES-3950 - Clean up this floating toolbar view mode logic
+	onBlur?: T;
+	onClick: T;
+	onFocus?: T;
+	onMount?: () => void;
+	onMouseEnter?: T;
+	onMouseLeave?: T;
+	onUnmount?: () => void;
 	/** If true, the component will have pulse onboarding effect around it. */
 	pulse?: boolean;
+	selected?: boolean;
+	showTitle?: boolean;
 	spotlightConfig?: FloatingToolbarButtonSpotlightConfig;
-	ariaLabel?: string; // For accessibility, aria-label for the button
+	supportsViewMode?: boolean; // TODO: MODES-3950 - Clean up this floating toolbar view mode logic
+	tabIndex?: number | null | undefined;
+	target?: string;
+	testId?: string;
+	title: string;
+	tooltipContent?: TooltipProps['content'];
+	type: 'button';
 };
 
 export type FloatingToolbarInput<T extends Object> = {
-	id: string;
-	type: 'input';
-	title?: string;
+	defaultValue?: string;
 	description?: string;
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	onSubmit: (...args: any[]) => T;
+	hidden?: boolean;
+	id: string;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	onBlur: (...args: any[]) => T;
-	defaultValue?: string;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	onSubmit: (...args: any[]) => T;
 	placeholder?: string;
-	hidden?: boolean;
+	title?: string;
+	type: 'input';
 };
 
 export type FloatingToolbarCustom<T extends Object> = {
-	type: 'custom';
 	/**
 	 * By default -- the floating toolbar supports navigating between
 	 * items using arrow keys (to meet aria guidelines).
@@ -244,30 +243,31 @@ export type FloatingToolbarCustom<T extends Object> = {
 	 */
 	disableArrowNavigation?: boolean;
 	fallback: Array<FloatingToolbarFallbackItem<T>>;
+	hidden?: boolean;
 	// No superset of all these types yet
 	render: (
 		view?: EditorView,
 		idx?: number,
 		dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
 	) => React.ReactNode;
-	hidden?: boolean;
 	supportsViewMode?: boolean; // TODO: MODES-3950 - Clean up this floating toolbar view mode logic
+	type: 'custom';
 };
 
 type FloatingToolbarSelectBase<T extends Object, V = SelectOption> = {
-	id: string;
-	type: 'select';
-	selectType: 'list' | 'emoji' | 'date' | 'color';
-	title?: string;
-	isAriaExpanded?: boolean;
-	options: V[];
+	defaultValue?: V | null;
+	filterOption?: ((option: V, rawInput: string) => boolean) | null;
 	hidden?: boolean;
 	hideExpandIcon?: boolean;
-	defaultValue?: V | null;
+	id: string;
+	isAriaExpanded?: boolean;
+	onChange: (selected: V) => T;
+	options: V[];
 	placeholder?: string;
 	returnEscToButton?: boolean;
-	onChange: (selected: V) => T;
-	filterOption?: ((option: V, rawInput: string) => boolean) | null;
+	selectType: 'list' | 'emoji' | 'date' | 'color';
+	title?: string;
+	type: 'select';
 };
 
 export type FloatingToolbarListPicker<T extends Object> = FloatingToolbarSelectBase<T> & {
@@ -282,14 +282,14 @@ export type FloatingToolbarColorPicker<T extends Object> = FloatingToolbarSelect
 };
 
 export type FloatingToolbarEmojiPicker<T extends Object> = FloatingToolbarSelectBase<T, EmojiId> & {
-	selectType: 'emoji';
-	selected?: boolean;
 	options: never[];
+	selected?: boolean;
+	selectType: 'emoji';
 };
 
 export type FloatingToolbarDatePicker<T extends Object> = FloatingToolbarSelectBase<T, number> & {
-	selectType: 'date';
 	options: never[];
+	selectType: 'date';
 };
 
 export type FloatingToolbarSelect<T extends Object> =
@@ -299,46 +299,46 @@ export type FloatingToolbarSelect<T extends Object> =
 	| FloatingToolbarDatePicker<T>;
 
 export type FloatingToolbarSeparator = {
-	type: 'separator';
-	hidden?: boolean;
 	fullHeight?: boolean;
+	hidden?: boolean;
 	supportsViewMode?: boolean; // TODO: MODES-3950 - Clean up this floating toolbar view mode logic
+	type: 'separator';
 };
 
 export type ExtensionDropdownOptions = () => DropdownOptions<Function>;
 
 export type FloatingToolbarDropdown<T extends Object> = {
-	testId?: string;
-	id?: string;
-	type: 'dropdown';
-	title: string;
+	// A prop to align the dropdown with the floating toolbar instead of the toolbar item
+	alignDropdownWithToolbar?: boolean;
+	disabled?: boolean;
+	dropdownWidth?: number;
+	footer?: React.ReactNode;
+	hidden?: boolean;
+	hideExpandIcon?: boolean;
 	icon?: Icon;
 	/**
 	 * Places an icon before the title as a representation
 	 */
 	iconBefore?: Icon;
-	options: DropdownOptions<T> | ExtensionDropdownOptions;
-	hidden?: boolean;
-	hideExpandIcon?: boolean;
-	disabled?: boolean;
-	tooltip?: string;
-	dropdownWidth?: number;
-	showSelected?: boolean;
-	// A prop to align the dropdown with the floating toolbar instead of the toolbar item
-	alignDropdownWithToolbar?: boolean;
+	id?: string;
+	onClick?: () => void;
+	onMount?: () => void;
 	onToggle?: (state: EditorState, dispatch: CommandDispatch | undefined) => boolean;
-	footer?: React.ReactNode;
+	options: DropdownOptions<T> | ExtensionDropdownOptions;
 	/** If true, the component will have pulse onboarding effect around it. */
 	pulse?: boolean;
-	onMount?: () => void;
-	onClick?: () => void;
 	shouldFitContainer?: boolean;
+	showSelected?: boolean;
+	testId?: string;
+	title: string;
+	tooltip?: string;
+	type: 'dropdown';
 };
 
 type FloatingToolbarExtensionsPlaceholder = {
-	type: 'extensions-placeholder';
 	hidden?: boolean;
 	separator?: 'start' | 'end' | 'both';
+	type: 'extensions-placeholder';
 };
 
 /**
@@ -370,8 +370,30 @@ export type FloatingToolbarItem<T extends Object> =
 	| FloatingToolbarOverflowDropdown<T>;
 
 export interface FloatingToolbarConfig {
-	/** Used for the ariaLabel on the <Popup /> component */
-	title: string;
+	/**
+	 * For internal use only, we will be depricating this API soon.
+	 * If any config has __suppressAllToolbars set to true, no floating toolbar will be rendered.
+	 * Use case:
+	 * When a node is nested inside a table and the cursor is inside of the nested node.
+	 * Nested node's toolbar is active. When table's menu opens, we provide table's config with
+	 * __suppressAllToolbars set to true.
+	 */
+	__suppressAllToolbars?: boolean;
+
+	/** Absolute offset of the toolbar */
+	absoluteOffset?: PositionOffset;
+
+	align?: AlignType;
+
+	/** Class added to Toolbar wrapper */
+	className?: string;
+
+	/**
+	 * Enable Popup component's focus trap
+	 */
+	focusTrap?: boolean;
+
+	forcePlacement?: boolean;
 
 	/**
 	 * Override the DOM reference used to apply as the target for the
@@ -382,13 +404,11 @@ export interface FloatingToolbarConfig {
 	 */
 	getDomRef?: (view: EditorView) => HTMLElement | undefined;
 
-	/** Can prevent the Toolbar from rendering */
-	visible?: boolean;
+	/** aria-label added to role='radiogroup'element */
+	groupLabel?: string;
 
-	/**
-	 * nodeType or list of `nodeType`s this floating toolbar should be shown for.
-	 **/
-	nodeType: NodeType | NodeType[];
+	/** Toolbar height */
+	height?: number;
 
 	/** Items that will populate the Toolbar.
 	 *
@@ -397,49 +417,29 @@ export interface FloatingToolbarConfig {
 	items:
 		| Array<FloatingToolbarItem<Command>>
 		| ((node: Node) => Array<FloatingToolbarItem<Command>>);
+	mediaAssistiveMessage?: string;
 
-	/** aria-label added to role='radiogroup'element */
-	groupLabel?: string;
-
-	align?: AlignType;
-
-	/** Class added to Toolbar wrapper */
-	className?: string;
-
-	/** Toolbar height */
-	height?: number;
-
-	/** Toolbar width */
-	width?: number;
-	zIndex?: number;
+	/**
+	 * nodeType or list of `nodeType`s this floating toolbar should be shown for.
+	 **/
+	nodeType: NodeType | NodeType[];
 
 	/** Offset the position of the toolbar. */
 	offset?: [number, number];
 
-	/** Absolute offset of the toolbar */
-	absoluteOffset?: PositionOffset;
-
-	forcePlacement?: boolean;
-
 	onPositionCalculated?: (editorView: EditorView, nextPos: Position) => Position;
-	scrollable?: boolean;
-	/**
-	 * Enable Popup component's focus trap
-	 */
-	focusTrap?: boolean;
-	preventPopupOverflow?: boolean;
-	mediaAssistiveMessage?: string;
-	stick?: boolean;
 
-	/**
-	 * For internal use only, we will be depricating this API soon.
-	 * If any config has __suppressAllToolbars set to true, no floating toolbar will be rendered.
-	 * Use case:
-	 * When a node is nested inside a table and the cursor is inside of the nested node.
-	 * Nested node's toolbar is active. When table's menu opens, we provide table's config with
-	 * __suppressAllToolbars set to true.
-	 */
-	__suppressAllToolbars?: boolean;
+	preventPopupOverflow?: boolean;
+	scrollable?: boolean;
+	stick?: boolean;
+	/** Used for the ariaLabel on the <Popup /> component */
+	title: string;
+	/** Can prevent the Toolbar from rendering */
+	visible?: boolean;
+	/** Toolbar width */
+	width?: number;
+
+	zIndex?: number;
 }
 
 export type FloatingToolbarHandler = (

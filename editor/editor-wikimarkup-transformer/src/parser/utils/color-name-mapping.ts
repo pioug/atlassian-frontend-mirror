@@ -3,9 +3,9 @@ export interface RGBColors {
 }
 
 export interface RGB {
-	r: number;
-	g: number;
 	b: number;
+	g: number;
+	r: number;
 }
 
 const mapping: RGBColors = {

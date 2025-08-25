@@ -23,21 +23,21 @@ const noFilterOptions = () => true;
 
 export interface FilterPopupSelectProps {
 	buttonLabel: string;
-	searchPlaceholder?: string;
-	totalCount?: number;
 	filterName: string;
 	isDisabled: boolean;
-	showLoading: boolean;
-	showHydrating: boolean;
-	shouldShowFooter: boolean;
-	status: 'empty' | 'loading' | 'resolved' | 'rejected' | 'loadingMore';
 	menuListProps: CustomMenuListProps;
-	options: ValueType<SelectOption, true>;
-	selectedOptions: ValueType<SelectOption, true>;
-	onSelectionChange: (newValue: ValueType<SelectOption, true>) => void;
 	onInputChange: (newValue: string, actionMeta: InputActionMeta) => void;
-	onMenuOpen?: () => void;
 	onMenuClose?: () => void;
+	onMenuOpen?: () => void;
+	onSelectionChange: (newValue: ValueType<SelectOption, true>) => void;
+	options: ValueType<SelectOption, true>;
+	searchPlaceholder?: string;
+	selectedOptions: ValueType<SelectOption, true>;
+	shouldShowFooter: boolean;
+	showHydrating: boolean;
+	showLoading: boolean;
+	status: 'empty' | 'loading' | 'resolved' | 'rejected' | 'loadingMore';
+	totalCount?: number;
 }
 
 export const FilterPopupSelect = ({

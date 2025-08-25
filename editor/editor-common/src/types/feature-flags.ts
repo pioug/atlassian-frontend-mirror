@@ -32,51 +32,12 @@ import type { DisableSpellcheckByBrowser } from './supported-browsers';
 export type FeatureFlags = {
 	/**
 	 * @description
-	 * Whether a placeholder bracket hint was provided (`string => boolean`)
-	 * Placeholder text to be displayed when a bracket '{' is typed and the line is empty e.g. 'Did you mean to use '/' to insert content?'
-	 * This is used to aid migration for TinyMCE power users to the new Fabric editor power user shortcuts.
-	 *
-	 * @see https://product-fabric.atlassian.net/l/c/4JLjusAP
-	 * @default true
-	 */
-	placeholderBracketHint?: boolean;
-
-	/**
-	 * @description
-	 * Whether placeholder hints were provided (`string[] => boolean`)
-	 * Placeholder text values to display on new empty lines.
-	 *
-	 * @see https://product-fabric.atlassian.net/l/c/GG1Yv9cK
-	 * @default false
-	 */
-	placeholderHints?: boolean;
-
-	/**
-	 * @description
-	 * Enable `localId` generation for extensions.
-	 *
-	 * @see https://product-fabric.atlassian.net/l/c/2m0i9jLX
-	 * @default false
-	 */
-	extensionLocalIdGeneration?: boolean;
-
-	/**
-	 * @description
 	 * Enable add column custom step
 	 *
 	 * @see https://product-fabric.atlassian.net/browse/ED-8856
 	 * @default false
 	 */
 	addColumnWithCustomStep?: boolean;
-
-	/**
-	 * @description
-	 * Enable undo/redo buttons and functionality within the editor
-	 *
-	 * @see https://product-fabric.atlassian.net/browse/ED-9537
-	 * @default false
-	 */
-	undoRedoButtons?: boolean;
 
 	/**
 	 * @description
@@ -87,48 +48,12 @@ export type FeatureFlags = {
 	catchAllTracking?: boolean;
 
 	/**
-	 * @private
-	 * @deprecated This is always on now and this prop is no longer required.
-	 * @description
-	 * Yield to user interaction work before sending analytics
-	 *
-	 * @see https://product-fabric.atlassian.net/browse/ED-10584
-	 * @default false
+	 * Enable custom up/down key handler when cursor below/above an inline media
+	 * @see https://product-fabric.atlassian.net/browse/ED-13066
+	 * Chrome bug: https://bugs.chromium.org/p/chromium/issues/detail?id=1227468
+	 * @default undefined
 	 */
-	queueAnalytics?: boolean;
-
-	/**
-	 * Show the avatar group as a plugin
-	 * @see https://product-fabric.atlassian.net/browse/CERN-747
-	 * @default false
-	 */
-	showAvatarGroupAsPlugin?: boolean;
-
-	/**
-	 * @description
-	 * Enables docStructure for unhandleErrorEvents
-	 *
-	 * @see https://product-fabric.atlassian.net/browse/ED-12998
-	 * @default false
-	 */
-	errorBoundaryDocStructure?: boolean;
-
-	/**
-	 * @description
-	 * Enables docStructure for synchronyError
-	 *
-	 * @see https://product-fabric.atlassian.net/browse/ED-12998
-	 * @default false
-	 */
-	synchronyErrorDocStructure?: boolean;
-
-	/**
-	 * @decsription
-	 * Enables the view update subscription plugin
-	 *
-	 * @default false
-	 */
-	enableViewUpdateSubscription?: boolean;
+	chromeCursorHandlerFixedVersion?: number;
 
 	/**
 	 * @description
@@ -140,29 +65,23 @@ export type FeatureFlags = {
 	collabAvatarScroll?: boolean;
 
 	/**
-	 * Split editor toolbar to two lines when viewport is small
-	 * @see https://product-fabric.atlassian.net/browse/CERN-1124
-	 * @default false
-	 */
-	twoLineEditorToolbar?: boolean;
-
-	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
-	/**
-	 * @deprecated
 	 * @description
-	 * Enable new collab service
-	 * @see https://product-fabric.atlassian.net/browse/ED-14097
+	 * Enables extra analytics to be added for comments on media
+	 *
+	 * @see https://product-fabric.atlassian.net/browse/ED-23355
 	 * @default false
 	 */
-	useNativeCollabPlugin?: boolean;
+	commentsOnMediaAnalytics?: boolean;
 
 	/**
-	 * Enable custom up/down key handler when cursor below/above an inline media
-	 * @see https://product-fabric.atlassian.net/browse/ED-13066
-	 * Chrome bug: https://bugs.chromium.org/p/chromium/issues/detail?id=1227468
-	 * @default undefined
+	 * @description
+	 * Enables fix for comment sidebar is not scrolled into view when adding/viewing a comment on media
+	 *
+	 * @see https://product-fabric.atlassian.net/browse/ED-23281
+	 * @default false
+
 	 */
-	chromeCursorHandlerFixedVersion?: number;
+	commentsOnMediaAutoscrollInEditor?: boolean;
 
 	/**
 	 * @description
@@ -184,6 +103,52 @@ export type FeatureFlags = {
 	disableSpellcheckByBrowser?: DisableSpellcheckByBrowser | undefined;
 
 	/**
+	 * @decsription
+	 * Enables the view update subscription plugin
+	 *
+	 * @default false
+	 */
+	enableViewUpdateSubscription?: boolean;
+
+	/**
+	 * @description
+	 * Enables docStructure for unhandleErrorEvents
+	 *
+	 * @see https://product-fabric.atlassian.net/browse/ED-12998
+	 * @default false
+	 */
+	errorBoundaryDocStructure?: boolean;
+
+	/**
+	 * @description
+	 * Enable the new editor media resize experience.
+	 *
+	 * @see https://product-fabric.atlassian.net/browse/ED-18316
+	 * @default false
+	 */
+	extendedMediaResizeExperience?: boolean | undefined;
+
+	/**
+	 * @description
+	 * Enable `localId` generation for extensions.
+	 *
+	 * @see https://product-fabric.atlassian.net/l/c/2m0i9jLX
+	 * @default false
+	 */
+	extensionLocalIdGeneration?: boolean;
+
+	/**
+	 * @description
+	 * Used by the legacy content macro to disable render tracking due to excessive logs.
+	 * Will be removed once re-rendering issue is resolved.
+	 * Note: This is hardcoded into the LCM code, it does not exist in Switcheroo.
+	 *
+	 * @see https://product-fabric.atlassian.net/browse/ED-26650
+	 * @default false
+	 */
+	lcmPreventRenderTracking?: boolean;
+
+	/**
 	 * @description
 	 * Use the linking platform link picker for link insertion and edit
 	 *
@@ -195,12 +160,70 @@ export type FeatureFlags = {
 
 	/**
 	 * @description
-	 * Enable the new editor media resize experience.
+	 * Enables macro interaction visual updates
 	 *
-	 * @see https://product-fabric.atlassian.net/browse/ED-18316
+	 * @see https://product-fabric.atlassian.net/browse/PGXT-4910
 	 * @default false
 	 */
-	extendedMediaResizeExperience?: boolean | undefined;
+	macroInteractionUpdates?: boolean;
+
+	/**
+	 * @description
+	 * Enables more elements in view in quick insert typeahead
+	 *
+	 * @see https://product-fabric.atlassian.net/browse/ED-24231
+	 * @default false
+
+	 */
+	moreElementsInQuickInsertView?: boolean;
+
+	/**
+	 * @description
+	 * Whether a placeholder bracket hint was provided (`string => boolean`)
+	 * Placeholder text to be displayed when a bracket '{' is typed and the line is empty e.g. 'Did you mean to use '/' to insert content?'
+	 * This is used to aid migration for TinyMCE power users to the new Fabric editor power user shortcuts.
+	 *
+	 * @see https://product-fabric.atlassian.net/l/c/4JLjusAP
+	 * @default true
+	 */
+	placeholderBracketHint?: boolean;
+
+	/**
+	 * @description
+	 * Whether placeholder hints were provided (`string[] => boolean`)
+	 * Placeholder text values to display on new empty lines.
+	 *
+	 * @see https://product-fabric.atlassian.net/l/c/GG1Yv9cK
+	 * @default false
+	 */
+	placeholderHints?: boolean;
+
+	/**
+	 * @private
+	 * @deprecated This is always on now and this prop is no longer required.
+	 * @description
+	 * Yield to user interaction work before sending analytics
+	 *
+	 * @see https://product-fabric.atlassian.net/browse/ED-10584
+	 * @default false
+	 */
+	queueAnalytics?: boolean;
+
+	/**
+	 * Show the avatar group as a plugin
+	 * @see https://product-fabric.atlassian.net/browse/CERN-747
+	 * @default false
+	 */
+	showAvatarGroupAsPlugin?: boolean;
+
+	/**
+	 * @description
+	 * Enables docStructure for synchronyError
+	 *
+	 * @see https://product-fabric.atlassian.net/browse/ED-12998
+	 * @default false
+	 */
+	synchronyErrorDocStructure?: boolean;
 
 	/**
 	 * @description
@@ -230,53 +253,30 @@ export type FeatureFlags = {
 	tableWithFixedColumnWidthsOption?: boolean;
 
 	/**
-	 * @description
-	 * Enables macro interaction visual updates
-	 *
-	 * @see https://product-fabric.atlassian.net/browse/PGXT-4910
+	 * Split editor toolbar to two lines when viewport is small
+	 * @see https://product-fabric.atlassian.net/browse/CERN-1124
 	 * @default false
 	 */
-	macroInteractionUpdates?: boolean;
+	twoLineEditorToolbar?: boolean;
 
 	/**
 	 * @description
-	 * Enables extra analytics to be added for comments on media
+	 * Enable undo/redo buttons and functionality within the editor
 	 *
-	 * @see https://product-fabric.atlassian.net/browse/ED-23355
+	 * @see https://product-fabric.atlassian.net/browse/ED-9537
 	 * @default false
 	 */
-	commentsOnMediaAnalytics?: boolean;
+	undoRedoButtons?: boolean;
 
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/**
+	 * @deprecated
 	 * @description
-	 * Enables fix for comment sidebar is not scrolled into view when adding/viewing a comment on media
-	 *
-	 * @see https://product-fabric.atlassian.net/browse/ED-23281
-	 * @default false
-
-	 */
-	commentsOnMediaAutoscrollInEditor?: boolean;
-
-	/**
-	 * @description
-	 * Enables more elements in view in quick insert typeahead
-	 *
-	 * @see https://product-fabric.atlassian.net/browse/ED-24231
-	 * @default false
-
-	 */
-	moreElementsInQuickInsertView?: boolean;
-
-	/**
-	 * @description
-	 * Used by the legacy content macro to disable render tracking due to excessive logs.
-	 * Will be removed once re-rendering issue is resolved.
-	 * Note: This is hardcoded into the LCM code, it does not exist in Switcheroo.
-	 *
-	 * @see https://product-fabric.atlassian.net/browse/ED-26650
+	 * Enable new collab service
+	 * @see https://product-fabric.atlassian.net/browse/ED-14097
 	 * @default false
 	 */
-	lcmPreventRenderTracking?: boolean;
+	useNativeCollabPlugin?: boolean;
 };
 
 export type FeatureFlagKey = keyof FeatureFlags;

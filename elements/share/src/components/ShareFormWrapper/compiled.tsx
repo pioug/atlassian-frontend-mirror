@@ -40,8 +40,8 @@ export const InlineDialogFormWrapper = ({
 	isExtendedShareDialogEnabled,
 }: React.PropsWithChildren<{
 	integrationMode?: IntegrationMode;
-	isMenuItemSelected?: boolean;
 	isExtendedShareDialogEnabled?: boolean;
+	isMenuItemSelected?: boolean;
 }>) => {
 	if (!isMenuItemSelected && integrationMode === 'menu') {
 		return <Box xcss={cx(styles.menuNotSelectedAndMenuIntegration)}>{children}</Box>;
@@ -64,8 +64,8 @@ export const InlineDialogContentWrapper = ({
 	isExtendedShareDialogEnabled,
 }: {
 	children: React.ReactNode;
-	label?: string;
 	isExtendedShareDialogEnabled?: boolean;
+	label?: string;
 }) => (
 	<Box
 		aria-label={label}

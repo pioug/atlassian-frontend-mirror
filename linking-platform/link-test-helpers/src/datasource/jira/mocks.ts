@@ -193,10 +193,10 @@ const buildDataResponse = ({
 	includeAuthInfo = false,
 	includeUnsupportedLinks = true,
 }: Parameters<GenerateDataResponse>[0] & {
-	maxItems?: number;
-	isUnauthorized?: boolean;
 	includeAuthInfo?: boolean;
 	includeUnsupportedLinks?: boolean;
+	isUnauthorized?: boolean;
+	maxItems?: number;
 }): ReturnType<GenerateDataResponse> => {
 	const schema = {
 		properties: defaultDetailsResponse.data.schema.properties.filter(({ key }) => {

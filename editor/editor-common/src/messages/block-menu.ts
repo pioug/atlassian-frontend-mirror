@@ -3,17 +3,17 @@ import { defineMessages } from 'react-intl-next';
 export const messages = defineMessages({
 	copyBlock: {
 		id: 'fabric.editor.block.menu.copy.block',
-		defaultMessage: 'Copy Block',
+		defaultMessage: 'Copy block',
 		description: 'Copy the selected block to the clipboard',
 	},
 	moveUpBlock: {
 		id: 'fabric.editor.block.menu.move.up',
-		defaultMessage: 'Move Up',
+		defaultMessage: 'Move up',
 		description: 'Move the selected block up',
 	},
 	moveDownBlock: {
 		id: 'fabric.editor.block.menu.move.down',
-		defaultMessage: 'Move Down',
+		defaultMessage: 'Move down',
 		description: 'Move the selected block down',
 	},
 	copyLink: {

@@ -5,6 +5,8 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, Global, jsx } from '@emotion/react';
 
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+
 /**
  * Unset the selection background color as we are using our own
  * Otherwise we might have a mix of grey + our selection marker depending on the state.
@@ -21,6 +23,21 @@ const globalStyles = css({
 	},
 });
 
+const hideSelectionStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror  *.danger::selection': {
+		background: 'transparent',
+	},
+});
+
 export const GlobalStylesWrapper = () => {
-	return <Global styles={globalStyles} />;
+	return (
+		<Global
+			styles={[
+				globalStyles,
+				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
+					hideSelectionStyles,
+			]}
+		/>
+	);
 };

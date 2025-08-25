@@ -6,8 +6,8 @@ export type RecentActivitiesPerfAEP = OperationalAEP<
 	ACTION_SUBJECT.SEARCH_RESULT,
 	ACTION_SUBJECT_ID.RECENT_ACTIVITIES,
 	{
-		duration: number;
 		count: number;
+		duration: number;
 		errorCode?: number;
 	}
 >;
@@ -17,8 +17,8 @@ export type QuickSearchPerfAEP = OperationalAEP<
 	ACTION_SUBJECT.SEARCH_RESULT,
 	ACTION_SUBJECT_ID.QUICK_SEARCH,
 	{
-		duration: number;
 		count: number;
+		duration: number;
 		errorCode?: number;
 	}
 >;
@@ -38,8 +38,8 @@ export type ViewedCreateLinkInlineDialogAEP = ScreenAEP<
 	ACTION_SUBJECT.CREATE_LINK_INLINE_DIALOG,
 	undefined,
 	{
-		timesViewed: number;
 		searchSessionId: string;
+		timesViewed: number;
 		trigger: string;
 	},
 	undefined
@@ -50,8 +50,8 @@ export type DismissedCreateLinkInlineDialogAEP = UIAEP<
 	ACTION_SUBJECT.CREATE_LINK_INLINE_DIALOG,
 	undefined,
 	{
-		source: string;
 		searchSessionId: string;
+		source: string;
 		trigger: string;
 	},
 	undefined
@@ -61,12 +61,12 @@ export type EnteredTextLinkSearchInputAEP = UIAEP<
 	ACTION_SUBJECT.TEXT,
 	ACTION_SUBJECT_ID.LINK_SEARCH_INPUT,
 	{
+		queryHash: string;
 		queryLength: number;
 		queryVersion: number;
-		queryHash: string;
 		searchSessionId: string;
-		wordCount: number;
 		source: string;
+		wordCount: number;
 	},
 	{
 		query: string;
@@ -78,14 +78,14 @@ export type ShownPreQuerySearchResultsAEP = UIAEP<
 	ACTION_SUBJECT.SEARCH_RESULT,
 	ACTION_SUBJECT_ID.PRE_QUERY_SEARCH_RESULTS,
 	{
-		source: string;
 		preQueryRequestDurationMs: number;
-		searchSessionId: string;
 		resultCount: number;
 		results: Array<{
 			resultContentId: string;
 			resultType: string;
 		}>;
+		searchSessionId: string;
+		source: string;
 	},
 	undefined
 >;
@@ -95,14 +95,14 @@ export type ShownPostQuerySearchResultsAEP = UIAEP<
 	ACTION_SUBJECT.SEARCH_RESULT,
 	ACTION_SUBJECT_ID.POST_QUERY_SEARCH_RESULTS,
 	{
-		source: string;
 		postQueryRequestDurationMs: number;
-		searchSessionId: string;
 		resultCount: number;
 		results: Array<{
 			resultContentId: string;
 			resultType: string;
 		}>;
+		searchSessionId: string;
+		source: string;
 	},
 	undefined
 >;
@@ -112,10 +112,10 @@ export type HighlightedSearchResultsAEP = UIAEP<
 	ACTION_SUBJECT.SEARCH_RESULT,
 	undefined,
 	{
-		source: string;
 		searchSessionId: string;
-		selectedResultId: string;
 		selectedRelativePosition: number;
+		selectedResultId: string;
+		source: string;
 	},
 	undefined
 >;
@@ -125,13 +125,13 @@ export type SelectedSearchResultsAEP = UIAEP<
 	ACTION_SUBJECT.SEARCH_RESULT,
 	undefined,
 	{
-		source: string;
-		searchSessionId: string;
-		trigger: string;
-		resultCount: number;
-		selectedResultId: string;
-		selectedRelativePosition: number;
 		prefetch: boolean;
+		resultCount: number;
+		searchSessionId: string;
+		selectedRelativePosition: number;
+		selectedResultId: string;
+		source: string;
+		trigger: string;
 	},
 	undefined
 >;

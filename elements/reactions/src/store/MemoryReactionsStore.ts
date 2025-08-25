@@ -63,8 +63,8 @@ export const ufoExperiences = {
  * Optional metadata information in the store used in sending the API client requests
  */
 interface StoreMetadata {
-	subproduct?: string;
 	[k: string]: any;
+	subproduct?: string;
 }
 
 export class MemoryReactionsStore implements Store {

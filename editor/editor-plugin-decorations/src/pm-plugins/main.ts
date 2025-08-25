@@ -4,6 +4,7 @@ import { type Node, type NodeType } from '@atlaskit/editor-prosemirror/model';
 import { type EditorState, NodeSelection, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 export const decorationStateKey = new PluginKey('decorationPlugin');
 
@@ -82,7 +83,7 @@ export const hoverDecoration =
 	};
 
 export type DecorationState = {
-	decoration?: Decoration;
+	decoration?: Decoration | DecorationSet;
 };
 
 type HoverDecorationHandler = typeof hoverDecoration;
@@ -94,11 +95,19 @@ export default () => {
 		state: {
 			init: (): DecorationState => ({ decoration: undefined }),
 			apply(tr, pluginState: DecorationState): DecorationState {
-				if (pluginState.decoration) {
+				if (pluginState.decoration && pluginState.decoration instanceof Decoration) {
 					const mapResult = tr.mapping.mapResult(pluginState.decoration.from);
 					if (mapResult.deleted) {
 						pluginState = { decoration: undefined };
 					}
+				}
+
+				if (
+					pluginState.decoration &&
+					pluginState.decoration instanceof DecorationSet &&
+					expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
+				) {
+					pluginState.decoration = pluginState.decoration.map(tr.mapping, tr.doc);
 				}
 
 				const meta = tr.getMeta(decorationStateKey);
@@ -123,9 +132,18 @@ export default () => {
 			decorations(state: EditorState) {
 				const { doc } = state;
 				const { decoration } = decorationStateKey.getState(state) as DecorationState;
-				if (decoration) {
+
+				if (decoration instanceof Decoration) {
 					return DecorationSet.create(doc, [decoration]);
 				}
+
+				if (
+					decoration instanceof DecorationSet &&
+					expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
+				) {
+					return decoration;
+				}
+
 				return null;
 			},
 		},

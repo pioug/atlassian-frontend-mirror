@@ -1,6 +1,8 @@
 import { type BlockProps, type ElementItem } from '../types';
 
 export type MetadataBlockProps = {
+	className?: string;
+
 	/**
 	 * Determines the number of lines the metadata should span across.
 	 * Default is 2. Maximum is 2.
@@ -26,6 +28,4 @@ export type MetadataBlockProps = {
 	 * @see ElementItem
 	 */
 	secondary?: ElementItem[];
-
-	className?: string;
 } & BlockProps;

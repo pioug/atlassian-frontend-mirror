@@ -72,8 +72,12 @@ export default {
   'fabric.linking.connect_unauthorised_account_action': '⁣⁢Connect to {context}‌⁪⁬⁠⁬⁠⁫⁪⁡⁭‌؜⁫⁯‌⁫⁫⁯؜⁪⁬⁣⁤',
   'fabric.linking.connect_unauthorised_account_description':
     '⁣⁢Connect your {context} account to collaborate on work across Atlassian products.⁬‌⁯⁪⁠⁪⁪؜⁡⁠⁪؜⁬⁯⁯⁯⁡‌⁮‍⁡⁡⁠⁪⁫‌⁣⁤',
+  'fabric.linking.connect_unauthorised_account_description-appify':
+    '⁣⁢Connect your {context} account to collaborate on work across Atlassian apps.؜⁡⁯⁮⁮؜⁮⁫⁪‍؜⁠⁡⁭؜⁪⁮⁡⁬⁪⁮⁠‌⁠⁣⁤',
   'fabric.linking.connect_unauthorised_account_description_no_provider':
     '⁣⁢Connect your account to collaborate on work across Atlassian products.⁡⁯⁮‍‌؜⁬⁠⁡⁮‍⁯⁫⁯‌‌⁠⁮‌⁣⁤',
+  'fabric.linking.connect_unauthorised_account_description_no_provider-appify':
+    '⁣⁢Connect your account to collaborate on work across Atlassian apps.⁬⁭⁪⁫⁮‍⁠⁠⁠‌⁬⁠⁪⁯⁭⁯⁯⁬⁠⁫⁯⁭⁡؜⁣⁤',
   'fabric.linking.continue': '⁣⁢Continue⁭‌؜⁪⁡⁭⁬⁯⁯؜⁠⁡⁬⁠‌؜⁯⁫⁫⁠⁣⁤',
   'fabric.linking.copied_summary_action_description': '⁣⁢Copied summary to clipboard⁪⁮‍‌؜⁪‍‌⁭‌‍؜⁮⁠⁮⁫⁮⁫⁡⁣⁤',
   'fabric.linking.copied_url_to_clipboard': '⁣⁢Copied!⁡⁠⁭⁮⁭؜؜⁫⁬⁫‍⁮⁬⁡⁮⁡⁡⁠⁣⁤',
@@ -121,6 +125,8 @@ export default {
   'fabric.linking.join_to_view-issue-term-refresh': '⁣⁢Join {context} to view this work item⁬⁭⁠⁪⁪‍‍⁬⁬⁯⁪⁮⁭⁠؜⁡⁡⁮⁣⁤',
   'fabric.linking.learn_more_about_connecting_account':
     '⁣⁢Learn more about connecting your account to Atlassian products.⁭⁬⁭؜⁡‌⁠⁬‍‌⁯⁪⁬⁭⁡⁫⁭‍‍⁬⁮⁣⁤',
+  'fabric.linking.learn_more_about_connecting_account-appify':
+    '⁣⁢Learn more about connecting your account to Atlassian apps.⁠⁫⁫⁮‍⁪‍‍⁪⁫⁯⁬‌؜⁠⁪‍⁡⁡⁫⁣⁤',
   'fabric.linking.learn_more_about_smart_links': '⁣⁢Learn more about Smart Links.⁬⁫⁯⁡⁯‌⁡⁬‌؜⁮⁠⁯⁡‍⁫⁬⁭‌⁠⁡⁫⁯؜⁭⁯‌⁡⁣⁤',
   'fabric.linking.link_safety_warning_message':
     '⁣⁢The link {unsafeLinkText} is taking you to a different site, <a>actual link here</a>؜⁪⁭⁯⁫⁬⁬⁬⁪‌؜⁬⁪⁫⁬⁪‍⁠‍‌⁬⁪⁪⁣⁤',
@@ -143,6 +149,8 @@ export default {
   'fabric.linking.preview_improved': '⁣⁢Open preview؜⁡‌⁮⁭⁫‍؜⁪⁠⁮⁭⁡⁮⁯⁫⁬؜‌⁬⁬⁠؜⁣⁤',
   'fabric.linking.preview_max_size': '⁣⁢View full screen⁯‌⁯⁬⁫؜⁮‍‍⁭⁬⁯⁫‌‍⁫⁣⁤',
   'fabric.linking.preview_min_size': '⁣⁢Close full screen⁠⁭⁪⁮⁮⁪⁭⁮⁠‍⁯⁮⁪⁡⁠⁠‌‌⁪⁣⁤',
+  'fabric.linking.preview_modal': '⁣⁢Open preview modal؜⁪⁡⁡⁭⁪‌⁫؜‍⁫⁭⁫؜⁪؜؜‍‌⁯⁮⁣⁤',
+  'fabric.linking.preview_panel': '⁣⁢Open preview panel⁯⁪⁠‍⁡⁠⁫⁡⁭⁡⁡⁫⁫⁮⁪⁭⁡؜⁯⁣⁤',
   'fabric.linking.priority_blocker': '⁣⁢Blocker⁮‌⁠⁮⁯‍⁯⁫⁪⁠‍‌⁭‍⁪‍⁣⁤',
   'fabric.linking.priority_critical': '⁣⁢Critical⁯؜⁫‍⁬‌⁠⁠⁭؜⁭⁬⁯⁠⁮⁪⁪⁬‌‌‍‍⁮؜؜⁡⁣⁤',
   'fabric.linking.priority_high': '⁣⁢High‍⁪⁬⁪⁭⁠⁭⁪⁠‌؜⁪⁭⁫‍⁪⁡⁪‍⁭⁯⁠⁣⁤',

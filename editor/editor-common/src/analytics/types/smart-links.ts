@@ -31,6 +31,7 @@ export const SmartLinkNodeContexts: { [P in SmartLinkNodeContext]: P } = {
 export type InsertSmartLinkAEP = InsertAEP<
 	ACTION_SUBJECT_ID.SMART_LINK,
 	{
+		fromCurrentDomain: boolean;
 		inputMethod:
 			| INPUT_METHOD.CLIPBOARD
 			| INPUT_METHOD.AUTO_DETECT
@@ -38,9 +39,8 @@ export type InsertSmartLinkAEP = InsertAEP<
 			| INPUT_METHOD.MANUAL
 			| INPUT_METHOD.FORMATTING
 			| INPUT_METHOD.FLOATING_TB;
-		nodeType: 'inlineCard' | 'blockCard' | 'embedCard';
 		nodeContext: SmartLinkNodeContext;
-		fromCurrentDomain: boolean;
+		nodeType: 'inlineCard' | 'blockCard' | 'embedCard';
 	},
 	{
 		domainName: string;

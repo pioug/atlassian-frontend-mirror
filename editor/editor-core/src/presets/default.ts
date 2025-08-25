@@ -59,27 +59,6 @@ import type { DefaultPresetBuilder } from './default-preset-type';
 // #endregion
 
 export type DefaultPresetPluginOptions = {
-	paste?: PastePluginOptions;
-	base?: BasePluginOptions;
-	blockType?: BlockTypePluginOptions;
-	placeholder?: PlaceholderPluginOptions;
-	textFormatting?: TextFormattingPluginOptions;
-	submitEditor?: (editorView: EditorView) => void;
-	quickInsert?: QuickInsertPluginOptions;
-	codeBlock?: CodeBlockPluginOptions;
-	selection?: SelectionPluginOptions;
-	hyperlinkOptions?: HyperlinkPluginOptions;
-	createAnalyticsEvent?: CreateUIAnalyticsEvent;
-	typeAhead?: TypeAheadPluginOptions;
-	allowAnalyticsGASV3?: boolean;
-	performanceTracking?: PerformanceTracking;
-	appearance?: EditorAppearance | undefined;
-	allowUndoRedoButtons?: boolean;
-	preferenceToolbarAboveSelection?: boolean;
-	featureFlags?: FeatureFlags;
-	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
-	disabled?: boolean;
-	toolbar?: ToolbarPluginOptions;
 	/**
 	 * There is expected to be temporary divergence between Live Page editor expand behaviour and the standard expand behaviour.
 	 *
@@ -90,6 +69,27 @@ export type DefaultPresetPluginOptions = {
 	 * @default false
 	 */
 	__livePage?: boolean;
+	allowAnalyticsGASV3?: boolean;
+	allowUndoRedoButtons?: boolean;
+	appearance?: EditorAppearance | undefined;
+	base?: BasePluginOptions;
+	blockType?: BlockTypePluginOptions;
+	codeBlock?: CodeBlockPluginOptions;
+	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
+	createAnalyticsEvent?: CreateUIAnalyticsEvent;
+	disabled?: boolean;
+	featureFlags?: FeatureFlags;
+	hyperlinkOptions?: HyperlinkPluginOptions;
+	paste?: PastePluginOptions;
+	performanceTracking?: PerformanceTracking;
+	placeholder?: PlaceholderPluginOptions;
+	preferenceToolbarAboveSelection?: boolean;
+	quickInsert?: QuickInsertPluginOptions;
+	selection?: SelectionPluginOptions;
+	submitEditor?: (editorView: EditorView) => void;
+	textFormatting?: TextFormattingPluginOptions;
+	toolbar?: ToolbarPluginOptions;
+	typeAhead?: TypeAheadPluginOptions;
 };
 
 /**

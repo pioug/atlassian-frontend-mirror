@@ -8,16 +8,16 @@ import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
 interface Props {
 	extensionHandlers?: ExtensionHandlers;
-	providers: ProviderFactory;
-	rendererContext: RendererContext;
-	extensionType: string;
 	extensionKey: string;
-	text?: string;
+	extensionType: string;
+	localId?: string;
+	marks?: PMMark[];
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	parameters?: any;
-	localId?: string;
-	marks?: PMMark[];
+	providers: ProviderFactory;
+	rendererContext: RendererContext;
+	text?: string;
 }
 
 const InlineExtension = (props: Props) => {

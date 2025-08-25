@@ -97,7 +97,7 @@ const useCounterToVisible = (base: number) => {
 };
 
 // Define each section component using the custom hook
-const SectionOne = ({ base, appCreatedAt }: { base: number; appCreatedAt: number }) => {
+const SectionOne = ({ base, appCreatedAt }: { appCreatedAt: number; base: number }) => {
 	const visibleAt = useCounterToVisible(base);
 	if (!visibleAt) {
 		return null;
@@ -111,7 +111,7 @@ const SectionOne = ({ base, appCreatedAt }: { base: number; appCreatedAt: number
 	);
 };
 
-const SectionTwo = ({ base, appCreatedAt }: { base: number; appCreatedAt: number }) => {
+const SectionTwo = ({ base, appCreatedAt }: { appCreatedAt: number; base: number }) => {
 	const visibleAt = useCounterToVisible(base);
 
 	if (!visibleAt) {
@@ -126,7 +126,7 @@ const SectionTwo = ({ base, appCreatedAt }: { base: number; appCreatedAt: number
 	);
 };
 
-const SectionThree = ({ base, appCreatedAt }: { base: number; appCreatedAt: number }) => {
+const SectionThree = ({ base, appCreatedAt }: { appCreatedAt: number; base: number }) => {
 	const visibleAt = useCounterToVisible(base);
 
 	if (!visibleAt) {
@@ -141,7 +141,7 @@ const SectionThree = ({ base, appCreatedAt }: { base: number; appCreatedAt: numb
 	);
 };
 
-const SectionFour = ({ base, appCreatedAt }: { base: number; appCreatedAt: number }) => {
+const SectionFour = ({ base, appCreatedAt }: { appCreatedAt: number; base: number }) => {
 	const visibleAt = useCounterToVisible(base);
 
 	if (!visibleAt) {
@@ -156,7 +156,7 @@ const SectionFour = ({ base, appCreatedAt }: { base: number; appCreatedAt: numbe
 	);
 };
 
-const SectionFive = ({ base, appCreatedAt }: { base: number; appCreatedAt: number }) => {
+const SectionFive = ({ base, appCreatedAt }: { appCreatedAt: number; base: number }) => {
 	const visibleAt = useCounterToVisible(base);
 
 	if (!visibleAt) {
@@ -171,7 +171,7 @@ const SectionFive = ({ base, appCreatedAt }: { base: number; appCreatedAt: numbe
 	);
 };
 
-const SectionSix = ({ base, appCreatedAt }: { base: number; appCreatedAt: number }) => {
+const SectionSix = ({ base, appCreatedAt }: { appCreatedAt: number; base: number }) => {
 	const visibleAt = useCounterToVisible(base);
 
 	if (!visibleAt) {
@@ -186,7 +186,7 @@ const SectionSix = ({ base, appCreatedAt }: { base: number; appCreatedAt: number
 	);
 };
 
-const SectionSeven = ({ base, appCreatedAt }: { base: number; appCreatedAt: number }) => {
+const SectionSeven = ({ base, appCreatedAt }: { appCreatedAt: number; base: number }) => {
 	const visibleAt = useCounterToVisible(base);
 
 	if (!visibleAt) {
@@ -201,7 +201,7 @@ const SectionSeven = ({ base, appCreatedAt }: { base: number; appCreatedAt: numb
 	);
 };
 
-const SectionEight = ({ base, appCreatedAt }: { base: number; appCreatedAt: number }) => {
+const SectionEight = ({ base, appCreatedAt }: { appCreatedAt: number; base: number }) => {
 	const visibleAt = useCounterToVisible(base);
 
 	if (!visibleAt) {
@@ -216,7 +216,7 @@ const SectionEight = ({ base, appCreatedAt }: { base: number; appCreatedAt: numb
 	);
 };
 
-const SectionNine = ({ base, appCreatedAt }: { base: number; appCreatedAt: number }) => {
+const SectionNine = ({ base, appCreatedAt }: { appCreatedAt: number; base: number }) => {
 	const visibleAt = useCounterToVisible(base);
 
 	if (!visibleAt) {
@@ -231,7 +231,7 @@ const SectionNine = ({ base, appCreatedAt }: { base: number; appCreatedAt: numbe
 	);
 };
 
-const SectionTen = ({ base, appCreatedAt }: { base: number; appCreatedAt: number }) => {
+const SectionTen = ({ base, appCreatedAt }: { appCreatedAt: number; base: number }) => {
 	const visibleAt = useCounterToVisible(base);
 
 	if (!visibleAt) {

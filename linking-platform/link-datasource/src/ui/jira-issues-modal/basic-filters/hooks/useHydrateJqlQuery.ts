@@ -14,8 +14,8 @@ import { mapHydrateResponseData } from '../utils/transformers';
 import { getAssigneeUnassignedFilterOption } from './useFilterOptions';
 
 export interface HydrateJqlState extends CommonBasicFilterHookState {
-	hydratedOptions: SelectedOptionsMap & { basicInputTextValue?: string };
 	fetchHydratedJqlOptions: () => Promise<void>;
+	hydratedOptions: SelectedOptionsMap & { basicInputTextValue?: string };
 }
 
 export const useHydrateJqlQuery = (cloudId: string, jql: string): HydrateJqlState => {

@@ -10,9 +10,9 @@ describe('extractProviderIcon', () => {
 		provider,
 		icon,
 	}: {
+		icon?: JsonLd.Primitives.Image | JsonLd.Primitives.Link;
 		name?: string;
 		provider?: string;
-		icon?: JsonLd.Primitives.Image | JsonLd.Primitives.Link;
 	}): JsonLd.Data.BaseData => {
 		const baseData: JsonLd.Data.BaseData = {
 			'@type': 'Object',

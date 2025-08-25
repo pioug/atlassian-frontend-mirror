@@ -11,16 +11,16 @@ export type MultiPartFetchResult<PartsType> = {
 	parts: PartsGenerator<PartsType>;
 };
 export type BodyResult<T> = {
-	isMultipart: false;
 	body: T;
+	isMultipart: false;
 };
 export type RequestServiceResult<PartsType, BodyType> =
 	| MultiPartFetchResult<PartsType>
 	| BodyResult<BodyType>;
 /** Copied from meros types, as there are difficulties with resolving the type in CI */
 export type Part<Body, Fallback> =
-	| { json: false; headers: Record<string, string>; body: Fallback }
-	| { json: true; headers: Record<string, string>; body: Body };
+	| { body: Fallback; headers: Record<string, string>; json: false }
+	| { body: Body; headers: Record<string, string>; json: true };
 type Options = Omit<RequestServiceOptions, 'ignoreResponsePayload'>;
 
 /**
@@ -49,8 +49,8 @@ export const requestServiceMultipart = async <PartsType, BodyType>(
 	const tracingHeaderEnabled = fg('platform_collab_provider_tracingheaders');
 	addFeatureFlagAccessed(TRACING_HEADER_FOR_SERVICE_UTIL, tracingHeaderEnabled);
 	let tracingHeaders: {
-		'X-B3-TraceId'?: string;
 		'X-B3-SpanId'?: string;
+		'X-B3-TraceId'?: string;
 	} | null = {};
 	if (tracingHeaderEnabled) {
 		tracingHeaders = getActiveTraceHttpRequestHeaders(url);

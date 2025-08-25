@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-test-helpers",
-	"version": "8.3.0",
+	"version": "8.3.1",
 	"description": "Collection of test helpers used in linking platform examples and specs",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -28,13 +28,6 @@
 		"dist/esm/jest/index.js"
 	],
 	"atlaskit:src": "src/index.ts",
-	"af:exports": {
-		"./jest": "./src/jest/index.ts",
-		"./datasource": "./src/datasource/index.ts",
-		"./assets": "./src/datasource/assets/index.ts",
-		"./images": "./src/images/index.ts",
-		".": "./src/index.ts"
-	},
 	"exports": {
 		"./jest": "./src/jest/index.ts",
 		"./datasource": "./src/datasource/index.ts",

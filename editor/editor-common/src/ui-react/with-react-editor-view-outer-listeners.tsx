@@ -15,31 +15,31 @@ export const OutsideClickTargetRefContext = React.createContext<(el: HTMLElement
 
 // This needs exporting to be used alongside `withReactEditorViewOuterListeners`
 export interface WithOutsideClickProps {
-	handleClickOutside?: SimpleEventHandler<MouseEvent>;
-	handleEscapeKeydown?: SimpleEventHandler<KeyboardEvent>;
-	handleEnterKeydown?: SimpleEventHandler<KeyboardEvent>;
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	targetRef?: any;
-	closeOnTab?: boolean;
 	/**
 	 * Use when you want the click handler to call on the capture phase instead of during bubbling.
 	 * This is useful when you're in a popup with interative UI elements that may disappear on click
 	 * like when toggling UI states
 	 */
 	captureClick?: boolean;
+	closeOnTab?: boolean;
+	handleClickOutside?: SimpleEventHandler<MouseEvent>;
+	handleEnterKeydown?: SimpleEventHandler<KeyboardEvent>;
+	handleEscapeKeydown?: SimpleEventHandler<KeyboardEvent>;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	targetRef?: any;
 }
 
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
 class WithOutsideClick extends PureComponent<
 	WithOutsideClickProps & {
-		isActiveComponent: boolean;
-		editorView?: EditorView;
-		editorRef?: React.RefObject<HTMLDivElement>;
-		popupsMountPoint?: HTMLElement;
 		children?: React.ReactNode;
+		editorRef?: React.RefObject<HTMLDivElement>;
+		editorView?: EditorView;
+		isActiveComponent: boolean;
 		outsideClickTargetRef: React.MutableRefObject<WeakRef<HTMLElement> | null>;
+		popupsMountPoint?: HTMLElement;
 	},
 	Object
 > {

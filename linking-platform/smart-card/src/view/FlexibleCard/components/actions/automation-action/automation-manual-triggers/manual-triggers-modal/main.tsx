@@ -12,17 +12,17 @@ import { AutomationModalFooter } from './sub-components/footer';
 import { AutomationModalHeader } from './sub-components/header';
 
 export type AutomationModalProps = {
-	baseAutomationUrl: string;
-	objectAri: string;
-	siteAri: string;
-	canManageAutomation: boolean;
 	analyticsSource: string;
-	modalTitle: React.ReactNode;
-	modalDescription?: React.ReactNode;
-	emptyStateDescription?: React.ReactNode;
+	baseAutomationUrl: string;
+	canManageAutomation: boolean;
 	emptyStateAdminDescription?: React.ReactNode;
+	emptyStateDescription?: React.ReactNode;
+	modalDescription?: React.ReactNode;
+	modalTitle: React.ReactNode;
+	objectAri: string;
 	onClose: () => void;
 	onCloseComplete?: () => void;
+	siteAri: string;
 };
 
 export const AutomationModal = ({

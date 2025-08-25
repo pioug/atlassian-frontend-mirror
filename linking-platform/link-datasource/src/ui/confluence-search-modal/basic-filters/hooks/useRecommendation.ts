@@ -9,16 +9,16 @@ import { type SelectOption } from '../../../common/modal/popup-select/types';
 
 interface FetchFilterOptionsProps {
 	cloudId: string;
-	userId: string;
 	searchTerm: string;
+	userId: string;
 }
 
 interface UserRecommendationState {
+	errors: unknown[];
+	fetchFilterOptions: (prop: FetchFilterOptionsProps) => Promise<any>;
 	filterOptions: SelectOption[];
 	reset: () => void;
 	status: FilterPopupSelectProps['status'];
-	errors: unknown[];
-	fetchFilterOptions: (prop: FetchFilterOptionsProps) => Promise<any>;
 }
 
 const useRecommendation = (): UserRecommendationState => {

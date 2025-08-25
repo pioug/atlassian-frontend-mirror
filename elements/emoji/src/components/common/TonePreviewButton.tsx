@@ -63,12 +63,12 @@ const hidden = css({
 });
 
 export interface Props {
+	ariaExpanded?: boolean;
+	ariaLabelText?: string;
 	emoji: EmojiDescription;
 	isVisible?: boolean;
 	onSelected?: () => void;
 	selectOnHover?: boolean;
-	ariaLabelText?: string;
-	ariaExpanded?: boolean;
 }
 
 export const TonePreviewButton = forwardRef<HTMLButtonElement, Props>((props: Props, ref) => {

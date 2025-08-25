@@ -1,5 +1,32 @@
 # @atlaskit/editor-common
 
+## 107.30.0
+
+### Minor Changes
+
+- [`0ff4a6c7a39ef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0ff4a6c7a39ef) -
+  Creates global fold state to retain folds after breakouts and page resizing
+
+### Patch Changes
+
+- Updated dependencies
+
+## 107.29.0
+
+### Minor Changes
+
+- [`f0b0ea63f59bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f0b0ea63f59bc) -
+  [ux] ED-28803 Register Delete Button in block menu and add delete functionality and hover styles
+
+### Patch Changes
+
+- [`e229628ac96dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e229628ac96dd) -
+  [ED-28430] clean up FG platform_editor_find_and_replace_improvements_1 for find & replace
+  additional fixes
+- [`0fdcb6f2f96fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0fdcb6f2f96fd) -
+  Sorted type and interface props to improve Atlaskit docs
+- Updated dependencies
+
 ## 107.28.2
 
 ### Patch Changes

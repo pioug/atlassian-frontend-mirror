@@ -27,10 +27,10 @@ const styles = cssMap({
 });
 
 type EmptyStateProps = {
-	header: string;
-	testId?: string;
 	description?: React.ReactNode;
+	header: string;
 	renderImage?: () => React.ReactNode;
+	testId?: string;
 };
 
 export const EmptyState = ({ testId, header, description, renderImage }: EmptyStateProps) => {

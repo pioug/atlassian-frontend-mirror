@@ -143,9 +143,9 @@ export const ListButtonItem = memo((props: ButtonItemProps) => {
 });
 
 export interface ViewAllButtonItemProps {
+	isViewAllInserts?: boolean;
 	label: string;
 	onClick: () => void;
-	isViewAllInserts?: boolean;
 }
 
 export const ViewAllButtonItem = memo(

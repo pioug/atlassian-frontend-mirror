@@ -26,20 +26,20 @@ const styles = cssMap({
 });
 
 export interface InlineCardResolvingViewProps {
-	/** The url to display */
-	url: string;
 	inlinePreloaderStyle?: InlinePreloaderStyle;
-	/** The optional click handler */
-	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
 	/** A flag that determines whether the card is selected in edit mode. */
 	isSelected?: boolean;
+	/** The optional click handler */
+	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
+	/** An optional placeholder displayed while the smart card is resolving. */
+	resolvingPlaceholder?: string;
 	/** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
 	testId?: string;
 	titleTextColor?: string;
-	/** An optional placeholder displayed while the smart card is resolving. */
-	resolvingPlaceholder?: string;
 	/** Truncates the card to one line */
 	truncateInline?: boolean;
+	/** The url to display */
+	url: string;
 }
 
 export const InlineCardResolvingView = ({

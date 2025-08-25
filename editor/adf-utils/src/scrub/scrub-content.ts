@@ -22,6 +22,7 @@ const BYPASS_ATTR_LIST: { [key: string]: Array<string> } = {
 	tableHeader: ['background', 'colspan', 'colwidth', 'defaultMarks', 'rowspan'],
 	tableRow: ['defaultMarks'],
 	taskItem: ['state'],
+	blockTaskItem: ['state'],
 };
 
 type Entry<T> = [string, T];

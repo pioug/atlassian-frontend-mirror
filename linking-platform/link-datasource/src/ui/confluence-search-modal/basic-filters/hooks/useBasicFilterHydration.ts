@@ -9,8 +9,8 @@ import { type UserHydrationAGGResponse } from '../types';
 
 export interface BasicFilterHydrationState extends Omit<CommonBasicFilterHookState, 'errors'> {
 	hydrateUsersFromAccountIds: (accountIds: string[]) => void;
-	users: SelectOption[];
 	reset: () => void;
+	users: SelectOption[];
 }
 
 export const useBasicFilterHydration = (): BasicFilterHydrationState => {

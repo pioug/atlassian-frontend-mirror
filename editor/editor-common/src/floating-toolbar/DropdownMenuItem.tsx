@@ -40,26 +40,26 @@ const spacerStyles = css({
 });
 
 export interface Props {
-	hide: Function;
 	dispatchCommand: Function;
-	items: Array<DropdownOptionT<Function>> | FloatingToolbarOverflowDropdownOptions<Function>;
-	showSelected?: boolean;
 	editorView?: EditorView;
 	extensions?: ExtensionProps;
+	hide: Function;
+	items: Array<DropdownOptionT<Function>> | FloatingToolbarOverflowDropdownOptions<Function>;
+	showSelected?: boolean;
 }
 export type ExtensionProps = {
-	node: Node;
 	extensionApi?: ExtensionAPI;
 	extensionsProvider?: Promise<ExtensionProvider>;
+	node: Node;
 };
 // Extend the ButtonItem component type to allow mouse events to be accepted from the Typescript check
 export interface DropdownButtonItemProps extends ButtonItemProps {
+	onBlur?: (event: React.MouseEvent | React.KeyboardEvent) => void;
+	onFocus?: (event: React.MouseEvent | React.KeyboardEvent) => void;
 	onMouseEnter?: (event: React.MouseEvent | React.KeyboardEvent) => void;
-	onMouseOver?: (event: React.MouseEvent | React.KeyboardEvent) => void;
 	onMouseLeave?: (event: React.MouseEvent | React.KeyboardEvent) => void;
 	onMouseOut?: (event: React.MouseEvent | React.KeyboardEvent) => void;
-	onFocus?: (event: React.MouseEvent | React.KeyboardEvent) => void;
-	onBlur?: (event: React.MouseEvent | React.KeyboardEvent) => void;
+	onMouseOver?: (event: React.MouseEvent | React.KeyboardEvent) => void;
 }
 const DropdownButtonItem: React.MemoExoticComponent<
 	React.ForwardRefExoticComponent<DropdownButtonItemProps & React.RefAttributes<HTMLElement>>
@@ -68,9 +68,9 @@ const DropdownButtonItem: React.MemoExoticComponent<
 > = ButtonItem as any;
 
 type SelectedIconBeforeProps = {
+	intl: IntlShape;
 	itemSelected?: boolean;
 	showSelected: boolean;
-	intl: IntlShape;
 };
 const SelectedIconBefore = ({ itemSelected, intl, showSelected }: SelectedIconBeforeProps) => {
 	if (showSelected && itemSelected) {
@@ -90,13 +90,13 @@ const SelectedIconBefore = ({ itemSelected, intl, showSelected }: SelectedIconBe
 };
 
 export type DropdownMenuItemProps = {
-	item: DropdownOptionT<Function>;
-	hide: Function;
 	dispatchCommand: Function;
 	editorView?: EditorView;
+	hide: Function;
 	intl: IntlShape;
-	showSelected: boolean;
+	item: DropdownOptionT<Function>;
 	itemSelected?: boolean;
+	showSelected: boolean;
 };
 export const DropdownMenuItem = (props: DropdownMenuItemProps) => {
 	const { item, hide, dispatchCommand, editorView, showSelected, intl } = props;

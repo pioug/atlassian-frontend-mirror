@@ -5,11 +5,11 @@ import { type LinkAction } from '../../../../../state/hooks-external/useSmartLin
 import { type HoverCardLoadingViewProps } from '../resolving/types';
 
 export type HoverCardResolvedProps = {
-	extensionKey?: string;
-	id?: string;
-	url: string;
 	cardActions?: LinkAction[];
 	cardState: CardState;
+	extensionKey?: string;
+	id?: string;
 	isAISummaryEnabled?: boolean;
 	onActionClick: (actionId: string | ActionName) => void;
+	url: string;
 } & HoverCardLoadingViewProps;

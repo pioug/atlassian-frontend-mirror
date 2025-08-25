@@ -16,35 +16,35 @@ import {
 	validatePosition,
 } from './utils';
 export interface Props {
-	zIndex?: number;
+	absoluteOffset?: Position;
 	// The alignments are using the same placements from Popper
 	// https://popper.js.org/popper-documentation.html#Popper.placements
 	alignX?: 'left' | 'right' | 'center' | 'end';
 	alignY?: 'top' | 'bottom' | 'start';
-	target?: HTMLElement;
+	allowOutOfBounds?: boolean; // Allow to correct position elements inside table: https://product-fabric.atlassian.net/browse/ED-7191
+	/** `null` should only be used if we provide enough context to screen readers to exclude aria-label attribute */
+	ariaLabel?: string | null;
+	boundariesElement?: HTMLElement;
+	children?: React.ReactNode;
 	fitHeight?: number;
 	fitWidth?: number;
-	boundariesElement?: HTMLElement;
+	/** Enable focus trap to contain the user's focus within the popup */
+	focusTrap?: boolean;
+	forcePlacement?: boolean;
 	mountTo?: HTMLElement;
 	// horizontal offset, vertical offset
 	offset?: number[];
-	onUnmount?: () => void;
-	onPositionCalculated?: (position: Position) => Position;
 	onPlacementChanged?: (placement: [string, string]) => void;
-	shouldRenderPopup?: (position: Position) => boolean;
-	scrollableElement?: HTMLElement;
-	stick?: boolean;
-	/** `null` should only be used if we provide enough context to screen readers to exclude aria-label attribute */
-	ariaLabel?: string | null;
-	forcePlacement?: boolean;
-	allowOutOfBounds?: boolean; // Allow to correct position elements inside table: https://product-fabric.atlassian.net/browse/ED-7191
-	rect?: DOMRect;
-	style?: React.CSSProperties;
-	/** Enable focus trap to contain the user's focus within the popup */
-	focusTrap?: boolean;
+	onPositionCalculated?: (position: Position) => Position;
+	onUnmount?: () => void;
 	preventOverflow?: boolean;
-	absoluteOffset?: Position;
-	children?: React.ReactNode;
+	rect?: DOMRect;
+	scrollableElement?: HTMLElement;
+	shouldRenderPopup?: (position: Position) => boolean;
+	stick?: boolean;
+	style?: React.CSSProperties;
+	target?: HTMLElement;
+	zIndex?: number;
 }
 
 export interface State {

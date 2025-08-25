@@ -60,11 +60,7 @@ import {
 	expandStylesMixin_without_fg_platform_editor_nested_dnd_styles_changes,
 } from './styles/expandStyles';
 import { extensionStyles } from './styles/extensionStyles';
-import {
-	findReplaceStyles,
-	findReplaceStylesNew,
-	findReplaceStylesNewNoImportant,
-} from './styles/findReplaceStyles';
+import { findReplaceStyles, findReplaceStylesNew } from './styles/findReplaceStyles';
 import { firstBlockNodeStyles } from './styles/firstBlockNodeStyles';
 import { firstFloatingToolbarButtonStyles } from './styles/floatingToolbarStyles';
 import { fullPageEditorStyles } from './styles/fullPageEditorStyles';
@@ -167,12 +163,12 @@ const isFirefox: boolean =
 	typeof navigator !== 'undefined' && navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
 
 export type EditorContentContainerProps = {
-	className?: string;
-	children?: React.ReactNode;
-	featureFlags?: FeatureFlags;
-	viewMode?: 'view' | 'edit';
-	isScrollable?: boolean;
 	appearance?: EditorAppearance;
+	children?: React.ReactNode;
+	className?: string;
+	featureFlags?: FeatureFlags;
+	isScrollable?: boolean;
+	viewMode?: 'view' | 'edit';
 };
 
 /**
@@ -323,11 +319,8 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					fg('platform-visual-refresh-icons') && expandStylesMixin_fg_platform_visual_refresh_icons,
 					expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
-						? fg('platform_editor_find_and_replace_improvements_1')
-							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-								findReplaceStylesNewNoImportant
-							: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-								findReplaceStylesNew
+						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							findReplaceStylesNew
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							findReplaceStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -353,7 +346,7 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 								'platform_editor_find_and_replace_improvements',
 								'isEnabled',
 								true,
-							) && fg('platform_editor_find_and_replace_improvements_1')
+							)
 							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 								statusStylesMixin_fg_platform_component_visual_refresh_with_search_match
 							: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -362,18 +355,14 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 									'platform_editor_find_and_replace_improvements',
 									'isEnabled',
 									true,
-							  ) && fg('platform_editor_find_and_replace_improvements_1')
+							  )
 							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 								statusStylesMixin_without_fg_platform_component_visual_refresh_with_search_match
 							: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 								statusStylesMixin_without_fg_platform_component_visual_refresh,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					annotationStyles,
-					expValEqualsNoExposure(
-						'platform_editor_find_and_replace_improvements',
-						'isEnabled',
-						true,
-					) && fg('platform_editor_find_and_replace_improvements_1')
+					expValEqualsNoExposure('platform_editor_find_and_replace_improvements', 'isEnabled', true)
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							smartCardStylesWithSearchMatch
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -512,11 +501,7 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					firstBlockNodeStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					mentionNodeStyles,
-					expValEqualsNoExposure(
-						'platform_editor_find_and_replace_improvements',
-						'isEnabled',
-						true,
-					) && fg('platform_editor_find_and_replace_improvements_1')
+					expValEqualsNoExposure('platform_editor_find_and_replace_improvements', 'isEnabled', true)
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							mentionsSelectionStylesWithSearchMatch
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -551,10 +536,8 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 				style={style as React.CSSProperties}
 				// eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- Adding tabIndex here because this is a scrollable container and it needs to be focusable so keyboard users can scroll it.
-				tabIndex={isScrollable && fg('platform_editor_editor_container_a11y_focus') ? 0 : undefined}
-				role={
-					isScrollable && fg('platform_editor_editor_container_a11y_focus') ? 'region' : undefined
-				}
+				tabIndex={isScrollable ? 0 : undefined}
+				role={isScrollable ? 'region' : undefined}
 			>
 				{children}
 			</div>

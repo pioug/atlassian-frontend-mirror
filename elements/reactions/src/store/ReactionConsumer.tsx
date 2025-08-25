@@ -6,17 +6,17 @@ import { type Actions, type State, type StorePropInput, type Store } from '../ty
  */
 export type ReactioConsumerProps<PropsFromState, PropsFromActions> = {
 	/**
-	 * Return a plain object containing the data that the connected component needs
+	 * Component to render
 	 */
-	mapStateToProps?: (state: State) => PropsFromState;
+	children: (props: PropsFromState & PropsFromActions) => React.ReactNode;
 	/**
 	 * Specify which actions the child component might need to dispatch from its props
 	 */
 	mapActionsToProps?: (actions: Actions) => PropsFromActions;
 	/**
-	 * Component to render
+	 * Return a plain object containing the data that the connected component needs
 	 */
-	children: (props: PropsFromState & PropsFromActions) => React.ReactNode;
+	mapStateToProps?: (state: State) => PropsFromState;
 	/**
 	 * Reference to the store.
 	 * @remarks

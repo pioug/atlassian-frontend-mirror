@@ -7,8 +7,8 @@ export type VisitedLinkAEP = TrackAEP<
 	ACTION_SUBJECT.LINK,
 	undefined,
 	{
-		platform: PLATFORMS;
 		mode: MODE;
+		platform: PLATFORMS;
 	},
 	undefined
 >;

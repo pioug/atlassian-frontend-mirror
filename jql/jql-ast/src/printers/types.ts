@@ -1,12 +1,12 @@
 export interface Group {
-	type: 'group';
 	contents: Doc[];
+	type: 'group';
 }
 
 export interface IfBreak {
-	type: 'if-break';
 	breakContents: Doc;
 	flatContents: Doc;
+	type: 'if-break';
 }
 
 export interface NewLine {

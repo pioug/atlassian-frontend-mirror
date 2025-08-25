@@ -2,11 +2,11 @@ import type { JsonLd } from './jsonld';
 
 interface JsonLdDefaults {
 	meta: {
-		public: JsonLd.Meta.Public;
 		granted: JsonLd.Meta.Granted;
-		unauthorized: JsonLd.Meta.Unauthorized;
-		permissionDenied: JsonLd.Meta.PermissionDenied;
 		notFound: JsonLd.Meta.NotFound;
+		permissionDenied: JsonLd.Meta.PermissionDenied;
+		public: JsonLd.Meta.Public;
+		unauthorized: JsonLd.Meta.Unauthorized;
 	};
 }
 

@@ -38,7 +38,7 @@ import { cmTheme, codeFoldingTheme } from '../ui/theme';
 import { syncCMWithPM } from './codemirrorSync/syncCMWithPM';
 import { getCMSelectionChanges } from './codemirrorSync/updateCMSelection';
 import { firstCodeBlockInDocument } from './extensions/firstCodeBlockInDocument';
-import { foldGutterExtension } from './extensions/foldGutter';
+import { foldGutterExtension, getCodeBlockFoldStateEffects } from './extensions/foldGutter';
 import { keymapExtension } from './extensions/keymap';
 import { manageSelectionMarker } from './extensions/manageSelectionMarker';
 import { prosemirrorDecorationPlugin } from './extensions/prosemirrorDecorations';
@@ -146,7 +146,9 @@ class CodeBlockAdvancedNodeView implements NodeView {
 				tripleClickSelectAllExtension(),
 				firstCodeBlockInDocument(getPos),
 				CodeMirror.contentAttributes.of({ 'aria-label': formattedAriaLabel }),
-				config.allowCodeFolding ? [foldGutterExtension({ selectNode })] : [],
+				config.allowCodeFolding
+					? [foldGutterExtension({ selectNode, getNode: () => this.node })]
+					: [],
 			],
 		});
 
@@ -164,6 +166,11 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		this.updating = false;
 		this.updateLanguage();
 		this.wordWrappingEnabled = isCodeBlockWordWrapEnabled(node);
+
+		// Restore fold state after initialization
+		if (config.allowCodeFolding) {
+			this.restoreFoldState();
+		}
 	}
 
 	destroy() {
@@ -231,6 +238,15 @@ class CodeBlockAdvancedNodeView implements NodeView {
 			);
 		}
 		return undefined;
+	}
+
+	private restoreFoldState() {
+		this.updating = true;
+		const effects = getCodeBlockFoldStateEffects({ node: this.node, cm: this.cm });
+		if (effects) {
+			this.cm.dispatch({ effects });
+		}
+		this.updating = false;
 	}
 
 	update(node: PMNode, _: readonly Decoration[], innerDecorations: DecorationSource) {

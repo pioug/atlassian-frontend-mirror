@@ -30,48 +30,6 @@ import {
  * operations with no return type.
  */
 export interface JastVisitor<Result> {
-	visitQuery?: (query: Query) => Result;
-
-	visitCompoundClause?: (compoundClause: CompoundClause) => Result;
-
-	visitCompoundOperator?: (compoundOperator: CompoundOperator) => Result;
-
-	visitTerminalClause?: (terminalClause: TerminalClause) => Result;
-
-	visitNotClause?: (notClause: NotClause) => Result;
-
-	visitNotClauseOperator?: (notClauseOperator: NotClauseOperator) => Result;
-
-	visitField?: (field: Field) => Result;
-
-	visitProperty?: (property: Property) => Result;
-
-	visitOperator?: (operator: Operator) => Result;
-
-	visitListOperand?: (listOperand: ListOperand) => Result;
-
-	visitValueOperand?: (valueOperand: ValueOperand) => Result;
-
-	visitKeywordOperand?: (keywordOperand: KeywordOperand) => Result;
-
-	visitFunctionOperand?: (functionOperand: FunctionOperand) => Result;
-
-	visitFunction?: (functionString: FunctionString) => Result;
-
-	visitArgument?: (argument: Argument) => Result;
-
-	visitPredicate?: (predicate: Predicate) => Result;
-
-	visitPredicateOperator?: (predicateOperator: PredicateOperator) => Result;
-
-	visitOrderBy?: (orderBy: OrderBy) => Result;
-
-	visitOrderByOperator?: (orderByOperator: OrderByOperator) => Result;
-
-	visitOrderByField?: (orderByField: OrderByField) => Result;
-
-	visitOrderByDirection?: (orderByDirection: OrderByDirection) => Result;
-
 	/**
 	 * Visit a node, and return a user-defined result of the operation.
 	 *
@@ -79,6 +37,8 @@ export interface JastVisitor<Result> {
 	 * @returns The result of visiting the node.
 	 */
 	visit(node: AstNode): Result;
+
+	visitArgument?: (argument: Argument) => Result;
 
 	/**
 	 * Visit the children of a node, and return a user-defined result
@@ -88,4 +48,44 @@ export interface JastVisitor<Result> {
 	 * @returns The result of visiting the children of the node.
 	 */
 	visitChildren(node: AstNode): Result;
+
+	visitCompoundClause?: (compoundClause: CompoundClause) => Result;
+
+	visitCompoundOperator?: (compoundOperator: CompoundOperator) => Result;
+
+	visitField?: (field: Field) => Result;
+
+	visitFunction?: (functionString: FunctionString) => Result;
+
+	visitFunctionOperand?: (functionOperand: FunctionOperand) => Result;
+
+	visitKeywordOperand?: (keywordOperand: KeywordOperand) => Result;
+
+	visitListOperand?: (listOperand: ListOperand) => Result;
+
+	visitNotClause?: (notClause: NotClause) => Result;
+
+	visitNotClauseOperator?: (notClauseOperator: NotClauseOperator) => Result;
+
+	visitOperator?: (operator: Operator) => Result;
+
+	visitOrderBy?: (orderBy: OrderBy) => Result;
+
+	visitOrderByDirection?: (orderByDirection: OrderByDirection) => Result;
+
+	visitOrderByField?: (orderByField: OrderByField) => Result;
+
+	visitOrderByOperator?: (orderByOperator: OrderByOperator) => Result;
+
+	visitPredicate?: (predicate: Predicate) => Result;
+
+	visitPredicateOperator?: (predicateOperator: PredicateOperator) => Result;
+
+	visitProperty?: (property: Property) => Result;
+
+	visitQuery?: (query: Query) => Result;
+
+	visitTerminalClause?: (terminalClause: TerminalClause) => Result;
+
+	visitValueOperand?: (valueOperand: ValueOperand) => Result;
 }

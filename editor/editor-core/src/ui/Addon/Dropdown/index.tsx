@@ -14,8 +14,8 @@ import { dropdown } from './styles';
 
 export interface Props {
 	children?: React.ReactNode;
-	onClick: (actionOnClick: EditorActions, renderOnClick: RenderOnClickHandler) => void;
 	editorActions: EditorActions;
+	onClick: (actionOnClick: EditorActions, renderOnClick: RenderOnClickHandler) => void;
 	togglePopup: () => void;
 }
 

@@ -51,17 +51,17 @@ export const preloadEmojiPicker = () => {
 
 export interface Props extends LoadingProps {
 	/**
-	 * Callback to be executed on emoji selection.
+	 * Flag to disable tone selector.
 	 */
-	onSelection?: OnEmojiEvent;
+	hideToneSelector?: boolean;
 	/**
 	 * Callback to handle picker reference.
 	 */
 	onPickerRef?: PickerRefHandler;
 	/**
-	 * Flag to disable tone selector.
+	 * Callback to be executed on emoji selection.
 	 */
-	hideToneSelector?: boolean;
+	onSelection?: OnEmojiEvent;
 	/**
 	 * Size of Emoji Picker. default value is 'medium'.
 	 */

@@ -5,21 +5,21 @@ import { useMouseDownEvent } from '../../../state/analytics/useLinkClicked';
 import { WrapperAnchor, WrapperSpan } from './styled';
 
 export interface FrameViewProps {
+	children?: React.ReactNode;
+	className?: string;
+	/** A flag that determines whether a card is in hover state in edit mode. */
+	isHovered?: boolean;
 	/** A flag that determines whether the card is selected in edit mode. */
 	isSelected?: boolean;
-	/** A flag that determines whether the card needs a backgorund or not */
-	withoutBackground?: boolean;
-	children?: React.ReactNode;
 	link?: string;
 	/** The optional click handler */
 	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
 	/** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
 	testId?: string;
-	className?: string;
-	/** A flag that determines whether a card is in hover state in edit mode. */
-	isHovered?: boolean;
 	/** A flag that determines whether a card is truncated to 1 line */
 	truncateInline?: boolean;
+	/** A flag that determines whether the card needs a backgorund or not */
+	withoutBackground?: boolean;
 }
 
 export const Frame = forwardRef<HTMLSpanElement & null, FrameViewProps>((props, ref) => {

@@ -124,17 +124,17 @@ export const getShouldShowBodiedMacroLabel = (
 };
 
 type ExtensionLabelProps = {
-	text: string;
+	customContainerStyles?: CSSProperties;
 	extensionName: string;
+	isBodiedMacro?: boolean;
 	isNodeHovered?: boolean;
 	isNodeNested?: boolean;
-	customContainerStyles?: CSSProperties;
-	setIsNodeHovered?: (isHovered: boolean) => void;
-	isBodiedMacro?: boolean;
-	showUpdatedLivePages1PBodiedExtensionUI?: boolean;
-	showLivePagesBodiedMacrosRendererView?: boolean;
-	showBodiedExtensionRendererView?: boolean;
 	pluginInjectionApi?: ExtensionsPluginInjectionAPI;
+	setIsNodeHovered?: (isHovered: boolean) => void;
+	showBodiedExtensionRendererView?: boolean;
+	showLivePagesBodiedMacrosRendererView?: boolean;
+	showUpdatedLivePages1PBodiedExtensionUI?: boolean;
+	text: string;
 };
 
 export const ExtensionLabel = ({

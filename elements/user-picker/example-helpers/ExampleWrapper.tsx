@@ -10,13 +10,13 @@ import {
 } from '../src/types';
 
 type ChildrenProps = {
-	options: OptionData[];
 	loadUsers: LoadOptions;
+	options: OptionData[];
 } & Pick<UserPickerProps, 'onInputChange' | 'onSelection'>;
 
 export type Props = {
-	children: (props: ChildrenProps) => React.ReactNode;
 	analytics?: boolean;
+	children: (props: ChildrenProps) => React.ReactNode;
 };
 
 export class ExampleWrapper extends React.PureComponent<Props, { options: OptionData[] }> {

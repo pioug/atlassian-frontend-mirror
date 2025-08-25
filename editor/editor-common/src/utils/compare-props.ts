@@ -1,10 +1,10 @@
 import React from 'react';
 
 type ChangedData<T> = {
-	key: keyof T;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	difference?: any;
+	key: keyof T;
 	maxDepthReached?: boolean;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -17,15 +17,15 @@ type ChangedData<T> = {
 type Changed<T> = Array<ChangedData<T>>;
 
 export type PropsDifference<T> = {
-	removed: Array<keyof T>;
 	added: Array<keyof T>;
 	changed: Changed<T>;
+	removed: Array<keyof T>;
 };
 
 export type ShallowPropsDifference<T> = {
-	removed: Array<keyof T>;
 	added: Array<keyof T>;
 	changed: Array<keyof T>;
+	removed: Array<keyof T>;
 };
 
 export const getKeys = Object.keys as <T>(obj: T) => Array<keyof T>;

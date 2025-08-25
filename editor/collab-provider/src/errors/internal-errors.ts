@@ -15,75 +15,75 @@ export enum INTERNAL_ERROR_CODE {
 }
 
 type DocumentRecoveryError = {
-	message: string;
 	data: {
 		code: INTERNAL_ERROR_CODE.DOCUMENT_RESTORE_ERROR;
 		status: number; // 500
 	};
+	message: string;
 };
 type AddStepsError = {
-	message: string;
 	data: {
 		code: INTERNAL_ERROR_CODE.ADD_STEPS_ERROR;
 		status: number; // 500
 	};
+	message: string;
 };
 
 type OutOfSyncClientDatalossEvent = {
-	message: string;
 	data: {
+		code: INTERNAL_ERROR_CODE.OUT_OF_SYNC_CLIENT_DATA_LOSS_EVENT;
 		meta: {
 			reason?: string;
 		};
-		code: INTERNAL_ERROR_CODE.OUT_OF_SYNC_CLIENT_DATA_LOSS_EVENT;
 	};
+	message: string;
 };
 
 // Channel Errors
 export type CatchUpFailedError = {
-	message: string;
 	data: {
 		code: INTERNAL_ERROR_CODE.CATCHUP_FAILED;
 		status: number; // ?
 	};
+	message: string;
 };
 export type TokenPermissionError = {
-	message: string; // 'Insufficient editing permissions'
 	data: {
 		code: INTERNAL_ERROR_CODE.TOKEN_PERMISSION_ERROR;
-		status: number; // 403
 		meta: {
 			originalError?: unknown;
 			reason?: string; // RESOURCE_DELETED
 		};
+		status: number; // 403
 	};
+	message: string; // 'Insufficient editing permissions'
 };
 export type ReconnectionError = {
-	message: string; // 'Caught error during reconnection'
 	data: {
 		code: INTERNAL_ERROR_CODE.RECONNECTION_ERROR;
 		status: number; // 500
 	};
+	message: string; // 'Caught error during reconnection'
 };
 export type ConnectionError = {
-	message: string;
 	data: {
 		code: INTERNAL_ERROR_CODE.CONNECTION_ERROR;
 		// some error data stuff
 	};
+	message: string;
 };
 export type ReconnectionNetworkError = {
-	message: string; // Reconnection failed 8 times when browser was offline, likely there was a network issue
 	data: {
 		code: INTERNAL_ERROR_CODE.RECONNECTION_NETWORK_ISSUE;
 	};
+	message: string; // Reconnection failed 8 times when browser was offline, likely there was a network issue
 };
 export type DocumentNotFoundError = {
-	message: string; // The requested document is not found
 	data: {
 		code: INTERNAL_ERROR_CODE.DOCUMENT_NOT_FOUND;
 		status: number; // 404
 	};
+	message: string; // The requested document is not found
 };
 
 /**
@@ -91,25 +91,25 @@ export type DocumentNotFoundError = {
  * changes can be saved to NCS.
  */
 export type InternalDocumentUpdateFailure = {
-	message: 'The provider failed to apply changes to the editor';
 	data: {
 		code: INTERNAL_ERROR_CODE.DOCUMENT_UPDATE_ERROR;
 		meta: {
-			newVersion?: number;
 			editorVersion?: number;
+			newVersion?: number;
 		};
 		status: 500;
 	};
+	message: 'The provider failed to apply changes to the editor';
 };
 
 /**
  * When in view only mode, we should not generate any steps whatsoever.
  */
 export type ViewOnlyStepsError = {
-	message: 'Attempted to send steps in view only mode';
 	data: {
 		code: INTERNAL_ERROR_CODE.VIEW_ONLY_STEPS_ERROR;
 	};
+	message: 'Attempted to send steps in view only mode';
 };
 
 /**

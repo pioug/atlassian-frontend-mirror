@@ -28,11 +28,11 @@ import { ExampleEditor, LOCALSTORAGE_defaultDocKey } from './5-full-page';
 const isEmptyDoc = (adf: any) => adf.content.length === 0;
 
 type TemplateDefinition = {
-	title: string;
-	desc: string;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	adf: any;
+	desc: string;
+	title: string;
 };
 
 const templates: Array<TemplateDefinition> = new Array(20).fill({
@@ -90,10 +90,10 @@ const clearTableWidths = (adf: any) => {
 };
 
 type TemplatePanelState = {
-	selectedTemplate: TemplateDefinition | null;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	adf: any;
+	selectedTemplate: TemplateDefinition | null;
 };
 
 // Ignored via go/ees005

@@ -15,6 +15,14 @@ export type ReactionAction = (
 
 export type Actions = {
 	/**
+	 * Add a new reation api
+	 */
+	addReaction: ReactionAction;
+	/**
+	 * Hover an existing reaction emoji api
+	 */
+	getDetailedReaction: ReactionAction;
+	/**
 	 * Retrieve reaction collection api
 	 * @param containerId the container for reactions/ari in the page
 	 * @param aris collection of Asset ids in the container
@@ -24,12 +32,4 @@ export type Actions = {
 	 * Select/deselect a rection callback
 	 */
 	toggleReaction: ReactionAction;
-	/**
-	 * Add a new reation api
-	 */
-	addReaction: ReactionAction;
-	/**
-	 * Hover an existing reaction emoji api
-	 */
-	getDetailedReaction: ReactionAction;
 };

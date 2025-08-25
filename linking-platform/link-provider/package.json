@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-provider",
-	"version": "3.7.0",
+	"version": "3.7.1",
 	"description": "Contains provider with react context for anything link related and the link http client",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -29,9 +29,6 @@
 	},
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
-	"af:exports": {
-		".": "./src/index.ts"
-	},
 	"exports": {
 		".": "./src/index.ts"
 	},

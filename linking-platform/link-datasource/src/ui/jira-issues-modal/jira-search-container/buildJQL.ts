@@ -17,10 +17,10 @@ import { type BasicFilterFieldType, type SelectedOptionsMap } from '../basic-fil
 import { availableBasicFilterTypes } from '../basic-filters/ui';
 
 type BuildJQLInput = {
-	rawSearch: string;
+	filterValues?: SelectedOptionsMap;
 	orderDirection?: string;
 	orderKey?: string;
-	filterValues?: SelectedOptionsMap;
+	rawSearch: string;
 };
 
 const fuzzySearchRegExp = /^"(.+)"$/;

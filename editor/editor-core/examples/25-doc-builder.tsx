@@ -18,8 +18,8 @@ interface DocBuilderState {
 }
 
 type NodeMapping = {
-	name: string | ((node: any) => string);
 	attrs?: Array<string>;
+	name: string | ((node: any) => string);
 };
 
 const nodeTypes: Record<string, NodeMapping> = {

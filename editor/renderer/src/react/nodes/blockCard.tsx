@@ -36,15 +36,15 @@ const datasourceContainerStyle = css({
 });
 
 export default function BlockCard(props: {
-	url?: string;
 	data?: object;
-	eventHandlers?: EventHandlers;
 	datasource?: DatasourceAttributeProperties;
+	eventHandlers?: EventHandlers;
+	isNodeNested?: boolean;
+	layout?: string;
 	portal?: HTMLElement;
 	rendererAppearance?: RendererAppearance;
 	smartLinks?: SmartLinksOptions;
-	layout?: string;
-	isNodeNested?: boolean;
+	url?: string;
 }) {
 	const { url, data, eventHandlers, smartLinks, isNodeNested } = props;
 	const portal = usePortal(props);

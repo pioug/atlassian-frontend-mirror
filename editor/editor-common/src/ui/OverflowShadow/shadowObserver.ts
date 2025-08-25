@@ -38,8 +38,8 @@ export class ShadowObserver {
 	private scrollContainer: HTMLElement;
 	private onUpdateShadows: (eventData: ShadowsStates) => void;
 	private sentinels: {
-		right?: HTMLDivElement;
 		left?: HTMLDivElement;
+		right?: HTMLDivElement;
 	} = {};
 
 	private requestCallbackId?: number;
@@ -53,8 +53,8 @@ export class ShadowObserver {
 		scrollContainer,
 		onUpdateShadows,
 	}: {
-		scrollContainer: HTMLElement;
 		onUpdateShadows: (eventData: ShadowsStates) => void;
+		scrollContainer: HTMLElement;
 	}) {
 		this.scrollContainer = scrollContainer;
 		this.onUpdateShadows = onUpdateShadows;

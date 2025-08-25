@@ -17,11 +17,11 @@ export function AttachedComment({
 	stickyHeaderHeight,
 	children,
 }: {
-	range: Range;
 	activeComment: string;
-	stickyHeaderHeight: number;
-	portalContainer: Element;
 	children: React.ReactNode;
+	portalContainer: Element;
+	range: Range;
+	stickyHeaderHeight: number;
 }) {
 	const position = usePosition({ range, portalContainer });
 	// ^ get range from activeComment

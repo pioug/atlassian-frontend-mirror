@@ -29,14 +29,14 @@ import { overlay } from '../styles';
 import { inlineWrapperStyles, wrapperStyle } from './styles';
 
 export interface Props {
+	children?: React.ReactNode;
+	isLivePageViewMode?: boolean;
+	isNodeHovered?: boolean;
+	isNodeSelected?: boolean;
+	macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags;
 	node: PmNode;
 	pluginInjectionApi: ExtensionsPluginInjectionAPI;
-	children?: React.ReactNode;
-	macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags;
-	isNodeSelected?: boolean;
-	isNodeHovered?: boolean;
 	setIsNodeHovered?: (isHovered: boolean) => void;
-	isLivePageViewMode?: boolean;
 }
 
 const useInlineExtensionSharedPluginState = sharedPluginStateHookMigratorFactory<

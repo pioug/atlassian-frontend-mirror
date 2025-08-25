@@ -8,12 +8,12 @@ import { type MentionEventHandlers } from '../EventHandlers';
 import { MentionWithProviders } from './mention-with-providers';
 
 export interface MentionProps {
-	id: string;
-	providers?: ProviderFactory;
-	eventHandlers?: MentionEventHandlers;
-	text: string;
 	accessLevel?: string;
+	eventHandlers?: MentionEventHandlers;
+	id: string;
 	localId?: string;
+	providers?: ProviderFactory;
+	text: string;
 }
 
 export interface MentionState {

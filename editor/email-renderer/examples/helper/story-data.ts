@@ -1,9 +1,9 @@
 import { grinEmoji, evilburnsEmoji } from '@atlaskit/util-data-test/emoji-samples';
 
 type EmojiAttrs = {
+	fallback?: string;
 	id: string;
 	shortName: string;
-	fallback?: string;
 	text?: string;
 };
 

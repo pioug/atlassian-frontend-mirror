@@ -27,14 +27,14 @@ interface ExtensionNodeViewOptions {
 }
 
 interface ReactExtensionNodeProps {
-	extensionNodeViewOptions?: ExtensionNodeViewOptions;
-	providerFactory: ProviderFactory;
 	extensionHandlers: ExtensionHandlers;
-	pluginInjectionApi: ExtensionsPluginInjectionAPI;
+	extensionNodeViewOptions?: ExtensionNodeViewOptions;
 	macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags;
+	pluginInjectionApi: ExtensionsPluginInjectionAPI;
+	providerFactory: ProviderFactory;
+	rendererExtensionHandlers?: ExtensionHandlers;
 	showLivePagesBodiedMacrosRendererView?: (node: ADFEntity) => boolean;
 	showUpdatedLivePages1PBodiedExtensionUI?: (node: ADFEntity) => boolean;
-	rendererExtensionHandlers?: ExtensionHandlers;
 }
 
 // getInlineNodeViewProducer is a new api to use instead of ReactNodeView
@@ -45,7 +45,7 @@ interface ReactExtensionNodeProps {
 export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 	ReactExtensionNodeProps & AdditionalParams
 > {
-	ignoreMutation(mutation: MutationRecord | { type: 'selection'; target: Node }) {
+	ignoreMutation(mutation: MutationRecord | { target: Node; type: 'selection' }) {
 		// Extensions can perform async operations that will change the DOM.
 		// To avoid having their tree rebuilt, we need to ignore the mutation
 		// for atom based extensions if its not a layout, we need to give
@@ -101,15 +101,15 @@ export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 
 	render(
 		props: {
-			providerFactory: ProviderFactory;
 			extensionHandlers: ExtensionHandlers;
 			// referentiality plugin won't utilise appearance just yet
 			extensionNodeViewOptions?: ExtensionNodeViewOptions;
-			pluginInjectionApi: ExtensionsPluginInjectionAPI;
 			macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags;
+			pluginInjectionApi: ExtensionsPluginInjectionAPI;
+			providerFactory: ProviderFactory;
+			rendererExtensionHandlers?: ExtensionHandlers;
 			showLivePagesBodiedMacrosRendererView?: (node: ADFEntity) => boolean;
 			showUpdatedLivePages1PBodiedExtensionUI?: (node: ADFEntity) => boolean;
-			rendererExtensionHandlers?: ExtensionHandlers;
 		},
 		forwardRef: ForwardRef,
 	) {

@@ -22,18 +22,18 @@ import { DropdownMenuItem } from './DropdownMenuItem';
 import { DropdownSeparator } from './DropdownSeparator';
 
 export interface DropdownMenuOptions {
-	hide: Function;
 	dispatchCommand: Function;
+	hide: Function;
 	intl: IntlShape;
 	showSelected: boolean;
 }
 
 type OverflowExtensionPlaceholderProps = {
-	node: PMNode;
-	editorView: EditorView;
-	extension: ExtensionProps;
 	disabled?: (key: string) => boolean;
 	dropdownOptions?: DropdownMenuOptions;
+	editorView: EditorView;
+	extension: ExtensionProps;
+	node: PMNode;
 };
 
 export type ExtensionProps = {
@@ -62,10 +62,10 @@ const convertExtensionToDropdownMenuItem = ({
 	node,
 	extension,
 }: {
-	item: ExtensionToolbarButton;
 	disabled?: (key: string) => boolean;
-	node: PMNode;
 	extension: ExtensionProps;
+	item: ExtensionToolbarButton;
+	node: PMNode;
 }): DropdownOptionT<Function> => {
 	const ButtonIcon = item.icon
 		? Loadable<{ label: string }, never>({
@@ -112,12 +112,12 @@ const DropdownMenuExtensionItem = ({
 	extension,
 	dropdownOptions,
 }: {
-	item: ExtensionToolbarButton;
-	editorView: EditorView;
 	disabled?: (key: string) => boolean;
-	node: PMNode;
-	extension: ExtensionProps;
 	dropdownOptions: DropdownMenuOptions;
+	editorView: EditorView;
+	extension: ExtensionProps;
+	item: ExtensionToolbarButton;
+	node: PMNode;
 }) => {
 	const dropdownItem = convertExtensionToDropdownMenuItem({
 		item,

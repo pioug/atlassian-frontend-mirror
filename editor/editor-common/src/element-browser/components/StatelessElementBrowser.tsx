@@ -40,18 +40,20 @@ import ElementList from './ElementList/ElementList';
 import ElementSearch from './ElementSearch';
 
 export type StatelessElementBrowserProps = {
+	cache?: CellMeasurerCache;
 	categories?: Category[];
+	emptyStateHandler?: EmptyStateHandler;
 	items: QuickInsertItem[];
+	mode: keyof typeof Modes;
+	onInsertItem: (item: QuickInsertItem) => void;
 	onSearch: (searchTerm: string) => void;
 	onSelectCategory: (category: Category) => void;
 	onSelectItem?: (item: QuickInsertItem) => void;
-	onInsertItem: (item: QuickInsertItem) => void;
-	selectedCategory?: string;
-	showSearch: boolean;
-	showCategories: boolean;
-	mode: keyof typeof Modes;
+	onViewMore?: () => void;
 	searchTerm?: string;
-	emptyStateHandler?: EmptyStateHandler;
+	selectedCategory?: string;
+	showCategories: boolean;
+	showSearch: boolean;
 	/**
 	 * @private
 	 * @deprecated
@@ -59,8 +61,6 @@ export type StatelessElementBrowserProps = {
 	 * Please clean up viewMoreItem when cleaning up platform_editor_refactor_view_more
 	 */
 	viewMoreItem?: QuickInsertItem;
-	onViewMore?: () => void;
-	cache?: CellMeasurerCache;
 } & WithAnalyticsEventsProps;
 
 const wrapper = css({
@@ -375,17 +375,17 @@ function MobileBrowser({
 	focusOnEmptyStateButton = false,
 }: StatelessElementBrowserProps &
 	SelectedItemProps & {
-		focusOnSearch: boolean;
-		focusOnViewMore: boolean;
-		focusOnEmptyStateButton?: boolean;
-		setFocusOnSearch: () => void;
-		onKeyPress: (e: React.KeyboardEvent) => void;
-		onKeyDown: (e: React.KeyboardEvent<HTMLDivElement>) => void;
-		setFocusedItemIndex: (index: number) => void;
-		setColumnCount: (columnCount: number) => void;
 		columnCount: number;
 		focusedCategoryIndex?: number;
+		focusOnEmptyStateButton?: boolean;
+		focusOnSearch: boolean;
+		focusOnViewMore: boolean;
+		onKeyDown: (e: React.KeyboardEvent<HTMLDivElement>) => void;
+		onKeyPress: (e: React.KeyboardEvent) => void;
+		setColumnCount: (columnCount: number) => void;
 		setFocusedCategoryIndex: (index: number) => void;
+		setFocusedItemIndex: (index: number) => void;
+		setFocusOnSearch: () => void;
 	}) {
 	return (
 		// eslint-disable-next-line jsx-a11y/no-static-element-interactions
@@ -490,17 +490,17 @@ function DesktopBrowser({
 	focusOnEmptyStateButton = false,
 }: StatelessElementBrowserProps &
 	SelectedItemProps & {
-		focusOnSearch: boolean;
-		focusOnEmptyStateButton?: boolean;
-		setFocusOnSearch: () => void;
-		onKeyPress: (e: React.KeyboardEvent) => void;
-		onKeyDown: (e: React.KeyboardEvent<HTMLDivElement>) => void;
-		setFocusedItemIndex: (index: number) => void;
+		columnCount: number;
 		focusedCategoryIndex?: number;
-		setFocusedCategoryIndex: (index: number) => void;
+		focusOnEmptyStateButton?: boolean;
+		focusOnSearch: boolean;
+		onKeyDown: (e: React.KeyboardEvent<HTMLDivElement>) => void;
+		onKeyPress: (e: React.KeyboardEvent) => void;
 		selectedCategoryIndex?: number;
 		setColumnCount: (columnCount: number) => void;
-		columnCount: number;
+		setFocusedCategoryIndex: (index: number) => void;
+		setFocusedItemIndex: (index: number) => void;
+		setFocusOnSearch: () => void;
 	}) {
 	return (
 		<div css={elementBrowserContainer} data-testid="desktop__element-browser">

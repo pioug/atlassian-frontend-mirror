@@ -15,21 +15,21 @@ export type ClickOutcome =
 
 export type UiLinkClickedEventProps = {
 	/**
-	 * Whether the click occurred with the left, middle or right mouse button
-	 */
-	clickType: ClickType;
-	/**
 	 * The user outcome for clicking the link as far as can be reasonably be determined
 	 * This ignores any programmatic cancellation of the outcome (ie e.preventDefault()) and
 	 * thus this represents the user intent, not necessarily the actual outcome
 	 */
 	clickOutcome: ClickOutcome;
 	/**
-	 * The keys held by the user at the time of clicking the link (which influence `clickOutcome`)
+	 * Whether the click occurred with the left, middle or right mouse button
 	 */
-	keysHeld: ('alt' | 'ctrl' | 'meta' | 'shift')[];
+	clickType: ClickType;
 	/**
 	 * Whether the browser's default behaviour was prevented programmatically
 	 */
 	defaultPrevented: boolean;
+	/**
+	 * The keys held by the user at the time of clicking the link (which influence `clickOutcome`)
+	 */
+	keysHeld: ('alt' | 'ctrl' | 'meta' | 'shift')[];
 };

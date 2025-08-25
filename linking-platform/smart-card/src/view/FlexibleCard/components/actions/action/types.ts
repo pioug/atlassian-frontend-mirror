@@ -16,70 +16,19 @@ export type ActionMessage = {
 
 export type ActionProps = {
 	/**
-	 * Determines the appearance of the action.
-	 */
-	as?: 'button' | 'dropdown-item' | 'stack-item';
-
-	/**
-	 * Determines the size of the Action. Corresponds to an Action appearance.
-	 */
-	size?: SmartLinkSize;
-
-	/**
-	 * Determines the text content of the Action.
-	 */
-	content?: ReactNode;
-
-	/**
 	 * Determines the appearance of the action. Corresponds to the Atlaskit action appearance.
 	 */
 	appearance?: Appearance;
 
 	/**
-	 * Determines the onClick behaviour of the Action.
+	 * Additional text properties for accessibility of actions
 	 */
-	onClick: () => any;
+	ariaLabel?: string;
 
 	/**
-	 * Error callback - each action is to provide its own implementation.
+	 * Determines the appearance of the action.
 	 */
-	onError?: (error: ActionMessage) => void;
-
-	/**
-	 * Determines the icon rendered within the Action.
-	 */
-	icon?: ReactChild;
-
-	/**
-	 * Determines where the icon should be rendered if text is provided.
-	 */
-	iconPosition?: 'before' | 'after';
-
-	/**
-	 * Conditionally show a spinner over the top of a button or disable a dropdown item
-	 * while server action is executing.
-	 */
-	isLoading?: boolean;
-
-	/**
-	 * Determines the tooltip message when hovering over the Action.
-	 */
-	tooltipMessage?: ReactNode;
-
-	/**
-	 * Determines the onHide behaviour of the Tooltip
-	 */
-	tooltipOnHide?: (analyticsEvent: UIAnalyticsEvent) => any;
-
-	/**
-	 * Determines the hideTooltipOnMouseDown behaviour of the Tooltip
-	 */
-	hideTooltipOnMouseDown?: boolean;
-
-	/**
-	 * Determines if the tooltip should be hidden
-	 */
-	hideTooltip?: boolean;
+	as?: 'button' | 'dropdown-item' | 'stack-item';
 
 	/**
 	 * @deprecated Use 'as' instead
@@ -93,9 +42,73 @@ export type ActionProps = {
 	className?: string;
 
 	/**
+	 * Determines the text content of the Action.
+	 */
+	content?: ReactNode;
+
+	/**
+	 * Determines if the tooltip should be hidden
+	 */
+	hideTooltip?: boolean;
+
+	/**
+	 * Determines the hideTooltipOnMouseDown behaviour of the Tooltip
+	 */
+	hideTooltipOnMouseDown?: boolean;
+
+	/**
+	 * Allows the use of hyperlinks as buttons via the atlaskit component
+	 */
+	href?: string;
+
+	/**
+	 * Determines the icon rendered within the Action.
+	 */
+	icon?: ReactChild;
+
+	/**
+	 * Determines where the icon should be rendered if text is provided.
+	 */
+	iconPosition?: 'before' | 'after';
+
+	/**
+	 * Determines whether the button displays as disabled.
+	 */
+	isDisabled?: boolean;
+
+	/**
+	 * Conditionally show a spinner over the top of a button or disable a dropdown item
+	 * while server action is executing.
+	 */
+	isLoading?: boolean;
+
+	/**
+	 * Determines the onClick behaviour of the Action.
+	 */
+	onClick: () => any;
+
+	/**
+	 * Error callback - each action is to provide its own implementation.
+	 */
+	onError?: (error: ActionMessage) => void;
+
+	/* Optional callback that can be invoked to update the action blocks loading state */
+	onLoadingChange?: (isLoading: boolean) => void;
+
+	/**
+	 * Determines the size of the Action. Corresponds to an Action appearance.
+	 */
+	size?: SmartLinkSize;
+
+	/**
 	 * Used to add space along the inline axis in ActionStackItem.
 	 */
 	spaceInline?: Space;
+
+	/**
+	 * For dynamic styles
+	 */
+	style?: React.CSSProperties;
 
 	/**
 	 * A `testId` prop is provided for specified elements, which is a unique
@@ -105,24 +118,14 @@ export type ActionProps = {
 	testId?: string;
 
 	/**
-	 * Determines whether the button displays as disabled.
+	 * Determines the tooltip message when hovering over the Action.
 	 */
-	isDisabled?: boolean;
+	tooltipMessage?: ReactNode;
 
 	/**
-	 * For dynamic styles
+	 * Determines the onHide behaviour of the Tooltip
 	 */
-	style?: React.CSSProperties;
-
-	/**
-	 * Allows the use of hyperlinks as buttons via the atlaskit component
-	 */
-	href?: string;
-
-	/**
-	 * Additional text properties for accessibility of actions
-	 */
-	ariaLabel?: string;
+	tooltipOnHide?: (analyticsEvent: UIAnalyticsEvent) => any;
 
 	/**
 	 * Optional wrapper component to wrap the action
@@ -130,7 +133,4 @@ export type ActionProps = {
 	 * Cleanup on https://product-fabric.atlassian.net/browse/EDM-9649
 	 */
 	wrapper?: React.ElementType;
-
-	/* Optional callback that can be invoked to update the action blocks loading state */
-	onLoadingChange?: (isLoading: boolean) => void;
 };

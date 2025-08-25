@@ -17,10 +17,10 @@ import { asyncPopupSelectMessages } from './messages';
 
 export interface AsyncPopupSelectProps {
 	filterType: BasicFilterFieldType;
-	selection: SelectOption[];
+	isDisabled?: boolean;
 	isJQLHydrating: boolean;
 	onSelectionChange?: (filterType: BasicFilterFieldType, options: SelectOption[]) => void;
-	isDisabled?: boolean;
+	selection: SelectOption[];
 	site?: Site;
 }
 

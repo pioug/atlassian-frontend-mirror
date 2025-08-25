@@ -25,9 +25,9 @@ import type { Category } from '../types';
 
 interface Props {
 	categories?: Category[];
+	focusedCategoryIndex?: number;
 	onSelectCategory: (category: Category) => void;
 	selectedCategory?: string;
-	focusedCategoryIndex?: number;
 	setFocusedCategoryIndex: (index: number) => void;
 	setFocusedItemIndex: (index: number) => void;
 	setFocusOnSearch?: () => void;
@@ -91,15 +91,15 @@ function CategoryList({
 
 type CategoryListItemProps = {
 	category: Category;
+	focus: boolean;
+	index: number;
 	onSelectCategory: (category: Category) => void;
 	selectedCategory?: string;
-	index: number;
-	focus: boolean;
+	selectNextCategory?: () => void;
+	selectPreviousCategory?: () => void;
 	setFocusedCategoryIndex: (index: number) => void;
 	setFocusedItemIndex?: (index: number) => void;
 	setFocusOnSearch?: () => void;
-	selectPreviousCategory?: () => void;
-	selectNextCategory?: () => void;
 };
 
 function CategoryListItem({

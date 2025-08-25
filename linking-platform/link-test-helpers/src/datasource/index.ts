@@ -86,17 +86,17 @@ interface ResolveBatchRequest
 let numberOfLoads = 0;
 
 type MockOptions = {
-	type?: 'jira' | 'confluence';
-	datasourceId?: string;
-	shouldMockORSBatch?: boolean;
-	initialVisibleColumnKeys?: string[];
-	delayedResponse?: boolean; // For playwright VR tests
 	availableSitesOverride?: Site[];
+	datasourceId?: string;
+	delayedResponse?: boolean; // For playwright VR tests
+	initialVisibleColumnKeys?: string[];
 	/**
 	 * Use infinity for an infinite delay (promise never resolves or rejects)
 	 * Default is 600ms
 	 */
 	mockExecutionDelay?: number;
+	shouldMockORSBatch?: boolean;
+	type?: 'jira' | 'confluence';
 };
 
 export const mockDatasourceFetchRequests = ({

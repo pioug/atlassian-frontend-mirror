@@ -67,12 +67,12 @@ const uploadPreviewText = css({
 });
 
 export interface EmojiUploadPreviewProps {
+	errorMessage?: Message;
 	name: string;
+	onAddEmoji: () => void;
+	onUploadCancelled: () => void;
 	previewImage: string;
 	uploadStatus?: UploadStatus;
-	errorMessage?: Message;
-	onUploadCancelled: () => void;
-	onAddEmoji: () => void;
 }
 
 export const uploadPreviewTestId = 'upload-preview';

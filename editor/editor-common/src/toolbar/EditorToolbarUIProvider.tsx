@@ -6,13 +6,23 @@ import { ToolbarUIProvider } from '@atlaskit/editor-toolbar';
 
 import type { ExtractInjectionAPI, NextEditorPlugin } from '../types';
 
-type Props = Pick<ToolbarUIContextType, 'popupsMountPoint'> & {
+type Props = Pick<
+	ToolbarUIContextType,
+	'popupsMountPoint' | 'popupsBoundariesElement' | 'popupsScrollableElement'
+> & {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	api: ExtractInjectionAPI<NextEditorPlugin<any, any>> | undefined;
 	children: React.ReactNode;
 	isDisabled?: boolean;
 };
-export const EditorToolbarUIProvider = ({ children, api, isDisabled, popupsMountPoint }: Props) => {
+export const EditorToolbarUIProvider = ({
+	children,
+	api,
+	isDisabled,
+	popupsMountPoint,
+	popupsBoundariesElement,
+	popupsScrollableElement,
+}: Props) => {
 	const onDropdownOpenChanged = useCallback(
 		({ isOpen }: OnOpenChangeArgs) => {
 			if (!isOpen) {
@@ -36,6 +46,8 @@ export const EditorToolbarUIProvider = ({ children, api, isDisabled, popupsMount
 			preventDefaultOnMouseDown
 			isDisabled={isDisabled}
 			popupsMountPoint={popupsMountPoint}
+			popupsBoundariesElement={popupsBoundariesElement}
+			popupsScrollableElement={popupsScrollableElement}
 		>
 			{children}
 		</ToolbarUIProvider>

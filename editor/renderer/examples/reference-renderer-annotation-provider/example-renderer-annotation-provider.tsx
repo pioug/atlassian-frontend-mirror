@@ -98,8 +98,8 @@ function SelectionComponent({
 	const mountPoint = document.querySelector(`#${popupPortalContainerId}`)!;
 	const annotationProductDispatch = React.useContext(ExampleAnnotationProductDispatch);
 	const [draft, setDraft] = useState<{
-		id: string;
 		draftDoc?: DocNode;
+		id: string;
 	}>();
 	const eventEmitter = getRendererAnnotationEventEmitter();
 	const annotationManager = getRendererAnnotationManager();
@@ -313,16 +313,16 @@ function SelectionComponent({
 
 type MockAnnotationState = {
 	[annotationId: string]: {
-		state: AnnotationMarkStates;
 		comments: string[];
+		state: AnnotationMarkStates;
 	};
 };
 
 type ProductState = {
-	document: DocNode;
+	activeComment?: { id: string; type: 'annotation' | 'draft' };
 	annotationState: MockAnnotationState;
+	document: DocNode;
 	drafts: { [rangeKey: string]: string };
-	activeComment?: { type: 'annotation' | 'draft'; id: string };
 };
 
 export const ExampleAnnotationProductStateContext = React.createContext({} as ProductState);
@@ -335,9 +335,9 @@ export const ExampleAnnotationProductState = ({
 	initialDoc,
 	children,
 }: {
+	children: React.ReactNode;
 	initialAnnotationState: MockAnnotationState;
 	initialDoc: DocNode;
-	children: React.ReactNode;
 }) => {
 	const [state, dispatch] = React.useReducer(productStateReducer, {
 		drafts: {},
@@ -355,17 +355,17 @@ export const ExampleAnnotationProductState = ({
 };
 
 type ProductStateReducerAction =
-	| { type: 'annotation.resolved'; id: string }
-	| { type: 'annotation.unresolved'; id: string }
-	| { type: 'annotation.create'; id: string; initialComment: string }
-	| { type: 'draft.create'; rangeKey: string; content: string }
-	| { type: 'comment.add'; id: string; initialComment: string }
-	| { type: 'document.update'; document: DocNode };
+	| { id: string; type: 'annotation.resolved' }
+	| { id: string; type: 'annotation.unresolved' }
+	| { id: string; initialComment: string; type: 'annotation.create' }
+	| { content: string; rangeKey: string; type: 'draft.create' }
+	| { id: string; initialComment: string; type: 'comment.add' }
+	| { document: DocNode; type: 'document.update' };
 
 type ProductInternalState = {
-	drafts: { [rangeKey: string]: string };
 	annotationState: MockAnnotationState;
 	document: DocNode;
+	drafts: { [rangeKey: string]: string };
 };
 
 function productStateReducer(

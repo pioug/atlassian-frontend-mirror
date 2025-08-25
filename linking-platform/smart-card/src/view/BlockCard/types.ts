@@ -5,18 +5,18 @@ import { type CardActionOptions, type OnResolveCallback } from '../Card/types';
 import { type OnErrorCallback } from '../types';
 
 export type BlockCardProps = {
-	id: string;
-	url: string;
-	cardState: CardState;
+	actionOptions?: CardActionOptions;
 	authFlow?: CardAuthFlowOpts['authFlow'];
+	cardState: CardState;
+	CompetitorPrompt?: React.ComponentType<{ linkType?: string; sourceUrl: string }>;
 	handleAuthorize: (() => void) | undefined;
 	handleFrameClick: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
-	isSelected?: boolean;
-	onResolve?: OnResolveCallback;
-	onError?: OnErrorCallback;
-	testId?: string;
-	actionOptions?: CardActionOptions;
-	renderers?: CardProviderRenderers;
-	CompetitorPrompt?: React.ComponentType<{ sourceUrl: string; linkType?: string }>;
 	hideIconLoadingSkeleton?: boolean;
+	id: string;
+	isSelected?: boolean;
+	onError?: OnErrorCallback;
+	onResolve?: OnResolveCallback;
+	renderers?: CardProviderRenderers;
+	testId?: string;
+	url: string;
 };

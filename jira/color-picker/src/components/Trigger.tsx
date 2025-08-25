@@ -12,13 +12,13 @@ import { B100, DN600A, N0 } from '@atlaskit/theme/colors';
 import { type SwatchSize, type ColorCardVariant } from '../types';
 
 export interface Props {
-	value: string;
+	expanded?: boolean;
+	id?: string;
+	isDisabled?: boolean;
 	label?: string;
 	onClick?: () => void;
-	expanded?: boolean;
 	swatchSize?: SwatchSize;
-	isDisabled?: boolean;
-	id?: string;
+	value: string;
 	variant?: ColorCardVariant;
 }
 

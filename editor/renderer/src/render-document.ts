@@ -24,16 +24,16 @@ import { countNodes } from './ui/Renderer/count-nodes';
 import { type RendererAppearance } from './ui/Renderer/types';
 
 export interface RenderOutput<T> {
+	pmDoc?: PMNode;
 	result: T;
 	stat: RenderOutputStat;
-	pmDoc?: PMNode;
 }
 
 export interface RenderOutputStat {
 	buildTreeTime?: number;
+	nodesCount?: Record<string, number>;
 	sanitizeTime: number;
 	serializeTime?: number;
-	nodesCount?: Record<string, number>;
 }
 
 export interface ResultWithTime<T> {

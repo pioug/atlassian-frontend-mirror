@@ -88,9 +88,6 @@
 			"path": "../../design-system/tokens/tsconfig.app.json"
 		},
 		{
-			"path": "../../../build/test-tooling/visual-regression/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/width-detector/tsconfig.app.json"
 		},
 		{

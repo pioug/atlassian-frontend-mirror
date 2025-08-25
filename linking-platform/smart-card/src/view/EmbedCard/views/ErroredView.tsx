@@ -16,10 +16,10 @@ import { messages } from '../../../messages';
 import { Frame } from '../components/ErrorFrame';
 
 export interface ErroredViewProps {
-	onRetry?: (val: any) => void;
-	isSelected?: boolean;
-	testId?: string;
 	inheritDimensions?: boolean;
+	isSelected?: boolean;
+	onRetry?: (val: any) => void;
+	testId?: string;
 }
 
 const styles = cssMap({

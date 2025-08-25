@@ -15,12 +15,12 @@ export type EditorStateNotificationPluginState = {
 
 export const createEditorStateNotificationPlugin = (
 	onEditorStateUpdated: (props: {
-		oldEditorState: EditorState;
 		newEditorState: EditorState;
+		oldEditorState: EditorState;
 	}) => void,
 	onEditorViewStateUpdatedCallbacks: Array<{
-		pluginName: string;
 		callback: (props: EditorViewStateUpdatedCallbackProps) => void;
+		pluginName: string;
 	}>,
 ) => {
 	const transactions: ReadonlyTransaction[] = [];

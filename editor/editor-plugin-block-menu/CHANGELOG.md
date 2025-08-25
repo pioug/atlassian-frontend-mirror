@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 0.0.11
+
+### Patch Changes
+
+- [`f0b0ea63f59bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f0b0ea63f59bc) -
+  [ux] ED-28803 Register Delete Button in block menu and add delete functionality and hover styles
+- [`580ef908f3abf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/580ef908f3abf) -
+  ED-28592: Close menu after copy click
+- Updated dependencies
+
 ## 0.0.10
 
 ### Patch Changes

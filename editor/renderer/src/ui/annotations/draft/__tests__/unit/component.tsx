@@ -43,8 +43,8 @@ describe('Annotations: draft/component', () => {
 	describe('#TextWithAnnotationDraft', () => {
 		function renderTextWithAnnotationDraft(
 			textPos: {
-				startPos: number;
 				endPos: number;
+				startPos: number;
 			},
 			draftSelection: Position,
 		) {
@@ -86,8 +86,8 @@ describe('Annotations: draft/component', () => {
 			[
 				string,
 				{
-					startPos: number;
 					endPos: number;
+					startPos: number;
 				},
 				Position,
 				string,

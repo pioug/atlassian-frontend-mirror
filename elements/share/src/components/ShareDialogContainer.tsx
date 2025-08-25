@@ -56,9 +56,9 @@ export const defaultConfig: ConfigResponse = {
 
 export type State = {
 	config?: ConfigResponse;
+	currentPageUrl: string;
 	isFetchingConfig: boolean;
 	shareActionCount: number;
-	currentPageUrl: string;
 	shortenedCopyLink: null | string;
 	shortenedCopyLinkData?: ShortenRequest;
 };

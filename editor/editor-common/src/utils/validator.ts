@@ -22,9 +22,9 @@ export type ADFStage = (typeof ADFStages)[keyof typeof ADFStages];
  * Use ADNode instead for content nodes (any node other than the doc).
  */
 export interface ADDoc {
-	version: 1;
-	type: 'doc';
 	content: ADNode[];
+	type: 'doc';
+	version: 1;
 }
 
 /*
@@ -38,29 +38,29 @@ export interface ADDoc {
  * Do not use this for ADF documents - they should use the ADDoc interface.
  */
 export interface ADNode {
-	type: string;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	attrs?: any;
 	content?: ADNode[];
 	marks?: ADMark[];
 	text?: string;
+	type: string;
 }
 
 export interface ADMark {
-	type: string;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	attrs?: any;
+	type: string;
 }
 
 export interface ADMarkSimple {
-	type: {
-		name: string;
-	};
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	attrs?: any;
+	type: {
+		name: string;
+	};
 }
 
 /*

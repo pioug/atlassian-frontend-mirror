@@ -1,5 +1,20 @@
 # @atlaskit/spotlight
 
+## 0.1.0
+
+### Minor Changes
+
+- [`0bc8c3d1f15ee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0bc8c3d1f15ee) -
+  Apply `flex-direction: row-reverse;` to `SpotlightControls` to make `SpotlightDismissControl` the
+  first focusable element in `Spotlight`.
+
+### Patch Changes
+
+- [`6fa400e1910b7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6fa400e1910b7) -
+  Styling update to `PopoverContent` to set `z-index: 800` to ensure `Spotlight` displays correctly
+  on top of Atlassian layering elements.
+- Updated dependencies
+
 ## 0.0.18
 
 ### Patch Changes

@@ -22,18 +22,18 @@ import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags'
 import type { EditorProps } from '../src/types/editor-props';
 
 type CollabProviderProps = {
-	documentAri: string;
 	collabEndpoint: string;
+	documentAri: string;
 };
 
 type OrNull<T> = T | null;
 type MountEditorOptions = CollabProviderProps;
 type WindowForTesting = Window & {
-	__mountEditor?: (props: EditorProps, opts: MountEditorOptions) => void;
-	__unmountEditor?: () => void;
 	__editorView?: EditorView | null;
-	__TextSelection?: TextSelection | null;
+	__mountEditor?: (props: EditorProps, opts: MountEditorOptions) => void;
 	__setViewMode?: OrNull<(mode: 'view' | 'edit') => void>;
+	__TextSelection?: TextSelection | null;
+	__unmountEditor?: () => void;
 };
 
 const getFeatureFlags = (urlParams: URLSearchParams): Record<string, boolean> | undefined => {

@@ -20,8 +20,8 @@ interface FilteredProps {
 }
 
 interface FilteredState {
-	unfilteredEmojis: EmojiDescription[];
 	emojis: EmojiDescription[];
+	unfilteredEmojis: EmojiDescription[];
 }
 
 class ResourcedFilteredEmojiList extends PureComponent<FilteredProps, FilteredState> {

@@ -69,20 +69,20 @@ export type LazyShareFormProps = Pick<
 		'showIntegrationForm' | 'selectedIntegration' | 'isSharing' | 'shareError' | 'defaultValue'
 	> &
 	Pick<IntegrationFormProps, 'Content'> & {
+		loadOptions?: LoadOptions;
+		onDismiss: (data: ShareData) => void;
 		// actions
 		onLinkCopy: () => void;
-		onDismiss: (data: ShareData) => void;
+		onMenuItemChange: (menuType: MenuType) => void;
 		onSubmit: (data: ShareData) => void;
 		onTabChange: (index: number) => void;
-		onMenuItemChange: (menuType: MenuType) => void;
-		loadOptions?: LoadOptions;
 
 		// ref
 		selectPortalRef: any;
 
+		setIsLoading: (isLoading: boolean) => void;
 		// others
 		showTitle: boolean;
-		setIsLoading: (isLoading: boolean) => void;
 	};
 
 const footerBottomMessageStyles = css({

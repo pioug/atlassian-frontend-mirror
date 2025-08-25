@@ -7,39 +7,39 @@ import type { INPUT_METHOD } from '../analytics';
  * @see https://product-fabric.atlassian.net/browse/ED-27496
  */
 export interface TextFormattingOptions {
-	disableSuperscriptAndSubscript?: boolean;
-	disableUnderline?: boolean;
 	disableCode?: boolean;
 	disableSmartTextCompletion?: boolean;
 	disableStrikethrough?: boolean;
+	disableSuperscriptAndSubscript?: boolean;
+	disableUnderline?: boolean;
 	responsiveToolbarMenu?: boolean;
 }
 
 export interface TextFormattingState {
-	isInitialised: boolean;
+	codeActive?: boolean;
+	codeDisabled?: boolean;
+	codeHidden?: boolean;
+	codeInSelection?: boolean;
 	emActive?: boolean;
 	emDisabled?: boolean;
 	emHidden?: boolean;
-	codeActive?: boolean;
-	codeInSelection?: boolean;
-	codeDisabled?: boolean;
-	codeHidden?: boolean;
-	underlineActive?: boolean;
-	underlineDisabled?: boolean;
-	underlineHidden?: boolean;
+	formattingIsPresent?: boolean;
+	isInitialised: boolean;
 	strikeActive?: boolean;
 	strikeDisabled?: boolean;
 	strikeHidden?: boolean;
 	strongActive?: boolean;
 	strongDisabled?: boolean;
 	strongHidden?: boolean;
-	superscriptActive?: boolean;
-	superscriptDisabled?: boolean;
-	superscriptHidden?: boolean;
 	subscriptActive?: boolean;
 	subscriptDisabled?: boolean;
 	subscriptHidden?: boolean;
-	formattingIsPresent?: boolean;
+	superscriptActive?: boolean;
+	superscriptDisabled?: boolean;
+	superscriptHidden?: boolean;
+	underlineActive?: boolean;
+	underlineDisabled?: boolean;
+	underlineHidden?: boolean;
 }
 
 export type InputMethodToolbar = INPUT_METHOD.TOOLBAR | INPUT_METHOD.FLOATING_TB;

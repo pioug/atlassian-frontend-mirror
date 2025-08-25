@@ -44,9 +44,9 @@ import {
 
 type Props = {
 	isSelected: boolean;
-	option: SelectableAutocompleteOption;
 	onClick: () => void;
 	onMouseMove: () => void;
+	option: SelectableAutocompleteOption;
 };
 
 type ResizedIconProps = {

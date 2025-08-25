@@ -5,11 +5,11 @@ import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import type { TriggerProps } from '@atlaskit/popup/types';
 
 export interface PopupTriggerProps {
-	triggerProps: TriggerProps;
 	isSelected: boolean;
 	labelPrefix: string;
-	selectedLabel?: string;
 	onClick: () => void;
+	selectedLabel?: string;
+	triggerProps: TriggerProps;
 }
 
 export const PopupTrigger = ({

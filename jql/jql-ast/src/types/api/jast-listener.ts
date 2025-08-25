@@ -27,91 +27,91 @@ import {
  * This interface defines a complete listener for a JQL AST.
  */
 export interface JastListener {
-	enterEveryNode?: (query: AstNode) => void;
-
-	exitEveryNode?: (query: AstNode) => void;
-
-	enterQuery?: (query: Query) => void;
-
-	exitQuery?: (query: Query) => void;
+	enterArgument?: (argument: Argument) => void;
 
 	enterCompoundClause?: (compoundClause: CompoundClause) => void;
 
-	exitCompoundClause?: (compoundClause: CompoundClause) => void;
-
 	enterCompoundOperator?: (compoundOperator: CompoundOperator) => void;
 
-	exitCompoundOperator?: (compoundOperator: CompoundOperator) => void;
-
-	enterTerminalClause?: (terminalClause: TerminalClause) => void;
-
-	exitTerminalClause?: (terminalClause: TerminalClause) => void;
-
-	enterNotClause?: (notClause: NotClause) => void;
-
-	exitNotClause?: (notClause: NotClause) => void;
-
-	enterNotClauseOperator?: (notClauseOperator: NotClauseOperator) => void;
-
-	exitNotClauseOperator?: (notClauseOperator: NotClauseOperator) => void;
+	enterEveryNode?: (query: AstNode) => void;
 
 	enterField?: (field: Field) => void;
 
-	exitField?: (field: Field) => void;
-
-	enterProperty?: (field: Property) => void;
-
-	exitProperty?: (field: Property) => void;
-
-	enterOperator?: (operator: Operator) => void;
-
-	exitOperator?: (operator: Operator) => void;
-
-	enterListOperand?: (listOperand: ListOperand) => void;
-
-	exitListOperand?: (listOperand: ListOperand) => void;
-
-	enterValueOperand?: (valueOperand: ValueOperand) => void;
-
-	exitValueOperand?: (valueOperand: ValueOperand) => void;
-
-	enterKeywordOperand?: (keywordOperand: KeywordOperand) => void;
-
-	exitKeywordOperand?: (keywordOperand: KeywordOperand) => void;
+	enterFunction?: (functionString: FunctionString) => void;
 
 	enterFunctionOperand?: (functionOperand: FunctionOperand) => void;
 
-	exitFunctionOperand?: (functionOperand: FunctionOperand) => void;
+	enterKeywordOperand?: (keywordOperand: KeywordOperand) => void;
 
-	enterFunction?: (functionString: FunctionString) => void;
+	enterListOperand?: (listOperand: ListOperand) => void;
 
-	exitFunction?: (functionString: FunctionString) => void;
+	enterNotClause?: (notClause: NotClause) => void;
 
-	enterArgument?: (argument: Argument) => void;
+	enterNotClauseOperator?: (notClauseOperator: NotClauseOperator) => void;
 
-	exitArgument?: (argument: Argument) => void;
-
-	enterPredicate?: (predicate: Predicate) => void;
-
-	exitPredicate?: (predicate: Predicate) => void;
-
-	enterPredicateOperator?: (predicateOperator: PredicateOperator) => void;
-
-	exitPredicateOperator?: (predicateOperator: PredicateOperator) => void;
+	enterOperator?: (operator: Operator) => void;
 
 	enterOrderBy?: (orderBy: OrderBy) => void;
 
-	exitOrderBy?: (orderBy: OrderBy) => void;
-
-	enterOrderByOperator?: (orderByOperator: OrderByOperator) => void;
-
-	exitOrderByOperator?: (orderByOperator: OrderByOperator) => void;
+	enterOrderByDirection?: (orderByDirection: OrderByDirection) => void;
 
 	enterOrderByField?: (orderByField: OrderByField) => void;
 
-	exitOrderByField?: (orderByField: OrderByField) => void;
+	enterOrderByOperator?: (orderByOperator: OrderByOperator) => void;
 
-	enterOrderByDirection?: (orderByDirection: OrderByDirection) => void;
+	enterPredicate?: (predicate: Predicate) => void;
+
+	enterPredicateOperator?: (predicateOperator: PredicateOperator) => void;
+
+	enterProperty?: (field: Property) => void;
+
+	enterQuery?: (query: Query) => void;
+
+	enterTerminalClause?: (terminalClause: TerminalClause) => void;
+
+	enterValueOperand?: (valueOperand: ValueOperand) => void;
+
+	exitArgument?: (argument: Argument) => void;
+
+	exitCompoundClause?: (compoundClause: CompoundClause) => void;
+
+	exitCompoundOperator?: (compoundOperator: CompoundOperator) => void;
+
+	exitEveryNode?: (query: AstNode) => void;
+
+	exitField?: (field: Field) => void;
+
+	exitFunction?: (functionString: FunctionString) => void;
+
+	exitFunctionOperand?: (functionOperand: FunctionOperand) => void;
+
+	exitKeywordOperand?: (keywordOperand: KeywordOperand) => void;
+
+	exitListOperand?: (listOperand: ListOperand) => void;
+
+	exitNotClause?: (notClause: NotClause) => void;
+
+	exitNotClauseOperator?: (notClauseOperator: NotClauseOperator) => void;
+
+	exitOperator?: (operator: Operator) => void;
+
+	exitOrderBy?: (orderBy: OrderBy) => void;
 
 	exitOrderByDirection?: (orderByDirection: OrderByDirection) => void;
+
+	exitOrderByField?: (orderByField: OrderByField) => void;
+
+	exitOrderByOperator?: (orderByOperator: OrderByOperator) => void;
+
+	exitPredicate?: (predicate: Predicate) => void;
+
+	exitPredicateOperator?: (predicateOperator: PredicateOperator) => void;
+
+	exitProperty?: (field: Property) => void;
+
+	exitQuery?: (query: Query) => void;
+
+	exitTerminalClause?: (terminalClause: TerminalClause) => void;
+
+	exitValueOperand?: (valueOperand: ValueOperand) => void;
 }

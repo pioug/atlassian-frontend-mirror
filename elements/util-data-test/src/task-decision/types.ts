@@ -7,14 +7,14 @@ export type DecisionType = 'DECISION';
 export type TaskType = 'TASK';
 
 export interface ObjectKey {
-	localId: string;
 	containerAri?: string;
+	localId: string;
 	objectAri: string;
 }
 
 export interface BaseItem<S> extends ObjectKey {
-	state: S;
 	lastUpdateDate: Date;
+	state: S;
 	type: DecisionType | TaskType;
 }
 
@@ -23,20 +23,20 @@ export type Handler = (state: TaskState | DecisionState) => void;
 export type RecentUpdatesId = string;
 
 export interface RecentUpdateContext {
-	objectAri: string;
 	localId?: string;
+	objectAri: string;
 }
 
 export interface TaskDecisionProvider {
-	unsubscribeRecentUpdates(id: RecentUpdatesId): void;
 	notifyRecentUpdates(updateContext: RecentUpdateContext): void;
-
-	// Tasks
-	toggleTask(objectKey: ObjectKey, state: TaskState): Promise<TaskState>;
 	subscribe(
 		objectKey: ObjectKey,
 		handler: Handler,
 		item?: BaseItem<TaskState | DecisionState>,
 	): void;
+
+	// Tasks
+	toggleTask(objectKey: ObjectKey, state: TaskState): Promise<TaskState>;
 	unsubscribe(objectKey: ObjectKey, handler: Handler): void;
+	unsubscribeRecentUpdates(id: RecentUpdatesId): void;
 }

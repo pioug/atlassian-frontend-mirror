@@ -8,14 +8,14 @@ import { cssMap, jsx } from '@compiled/react';
 import Image from '@atlaskit/image';
 
 export type RenderSVGProps = {
-	size?: 'xlarge' | 'large' | 'medium';
 	alt: string;
+	size?: 'xlarge' | 'large' | 'medium';
 };
 
 type RenderSVGInternalProps = RenderSVGProps & {
+	className?: string;
 	src: string;
 	srcDark?: string;
-	className?: string;
 };
 
 const imageSizeStyles = cssMap({

@@ -59,11 +59,11 @@ const ConvoWrapper = styled.div({
 });
 
 interface FileProps {
-	name: string;
 	code: string;
 	conversations: ConversationType[];
-	provider: ResourceProvider;
 	dataProviders?: ProviderFactory;
+	name: string;
+	provider: ResourceProvider;
 }
 
 const objectId = 'container:abc:abc/1234567';
@@ -176,14 +176,14 @@ class File extends React.Component<FileProps, { addAt?: number }> {
 	}
 }
 
-type DemoProps = { provider: ResourceProvider; dataProviders: ProviderFactory };
+type DemoProps = { dataProviders: ProviderFactory; provider: ResourceProvider };
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class Demo extends React.Component<
 	DemoProps,
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	{ conversations: any[]; selectedUser: User; responseCode: number }
+	{ conversations: any[]; responseCode: number; selectedUser: User }
 > {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any

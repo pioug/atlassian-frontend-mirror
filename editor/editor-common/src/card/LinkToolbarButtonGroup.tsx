@@ -44,14 +44,14 @@ const disallowedWrapperStyle = css({
 });
 
 export interface ButtonOptionProps {
-	title: string;
-	selected: boolean;
-	testId: string;
 	disabled: boolean;
-	tooltipContent?: string | null;
-	onClick: () => void;
 	icon: (props: NewCoreIconProps) => JSX.Element;
 	iconFallback: (props: IconProps) => JSX.Element;
+	onClick: () => void;
+	selected: boolean;
+	testId: string;
+	title: string;
+	tooltipContent?: string | null;
 }
 
 export interface LinkToolbarButtonGroupProps {

@@ -95,38 +95,38 @@ export type RegisterToolbar = ToolbarType & {
 };
 
 export type RegisterToolbarSection = ToolbarSectionType & {
-	parents: Parents<ToolbarType>;
 	component?: ToolbarSectionComponent;
+	parents: Parents<ToolbarType>;
 };
 
 export type RegisterToolbarGroup = ToolbarGroupType & {
-	parents: Parents<ToolbarSectionType>;
 	component?: ToolbarGroupComponent;
+	parents: Parents<ToolbarSectionType>;
 };
 
 export type RegisterToolbarButton = ToolbarButtonType & {
-	parents: Parents<ToolbarGroupType>;
 	component?: ToolbarButtonComponent;
+	parents: Parents<ToolbarGroupType>;
 };
 
 export type RegisterToolbarMenu = ToolbarMenuType & {
-	parents: Parents<ToolbarGroupType>;
 	component?: ToolbarMenuComponent;
+	parents: Parents<ToolbarGroupType>;
 };
 
 export type RegisterToolbarNestedMenu = ToolbarNestedMenuType & {
-	parents: Parents<ToolbarMenuSectionType>;
 	component: ToolbarNestedMenuComponent;
+	parents: Parents<ToolbarMenuSectionType>;
 };
 
 export type RegisterToolbarMenuSection = ToolbarMenuSectionType & {
-	parents: Parents<ToolbarMenuType | ToolbarNestedMenuType>;
 	component?: ToolbarMenuSectionComponent;
+	parents: Parents<ToolbarMenuType | ToolbarNestedMenuType>;
 };
 
 export type RegisterToolbarMenuItem = ToolbarMenuItemType & {
-	parents: Parents<ToolbarMenuSectionType>;
 	component?: ToolbarMenuItemComponent;
+	parents: Parents<ToolbarMenuSectionType>;
 };
 
 export type RegisterComponent =

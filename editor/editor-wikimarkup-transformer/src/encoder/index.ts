@@ -26,8 +26,8 @@ import { type Context } from '../interfaces';
 export type MarkEncoder = (text: string, attrs: any) => string;
 export type NodeEncoder = (node: PMNode, opts?: NodeEncoderOpts) => string;
 export type NodeEncoderOpts = {
-	parent?: PMNode;
 	context?: Context;
+	parent?: PMNode;
 };
 
 const nodeEncoderMapping: { [key: string]: NodeEncoder } = {

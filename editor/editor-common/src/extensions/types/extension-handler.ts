@@ -4,14 +4,14 @@ import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { Parameters } from './extension-parameters';
 
 export interface ExtensionParams<T extends Parameters> {
+	content?: object | string; // This would be the original Atlassian Document Format
 	extensionKey: string;
 	extensionType: string;
-	type?: 'extension' | 'inlineExtension' | 'bodiedExtension' | 'multiBodiedExtension';
-	parameters?: T;
-	content?: object | string; // This would be the original Atlassian Document Format
-	localId?: string;
 	fragmentLocalId?: string;
 	layout?: string;
+	localId?: string;
+	parameters?: T;
+	type?: 'extension' | 'inlineExtension' | 'bodiedExtension' | 'multiBodiedExtension';
 }
 
 export type ExtensionHandler<T extends Parameters = Parameters> = (
@@ -31,19 +31,14 @@ export type TransformBefore<T extends Parameters = Parameters> = (data: T) => an
 export type TransformAfter<T extends Parameters = Parameters> = (data: any) => Promise<Partial<T>>;
 
 export type ExtensionAPI<T extends Parameters = Parameters> = {
-	editInContextPanel: (
-		transformBefore: TransformBefore<T>,
-		transformAfter: TransformAfter<T>,
-	) => void;
 	_editInLegacyMacroBrowser: () => void;
-	getNodeWithPosByLocalId: (localId: string) => NodeWithPos;
 	doc: {
 		insertAfter: (
 			localId: string,
 			adf: ADFEntity,
 			options?: {
-				allowSelectionToNewNode?: boolean;
 				allowSelectionNearNewNode?: boolean;
+				allowSelectionToNewNode?: boolean;
 			},
 		) => void;
 		scrollTo: (localId: string) => void;
@@ -58,6 +53,11 @@ export type ExtensionAPI<T extends Parameters = Parameters> = {
 			},
 		) => void;
 	};
+	editInContextPanel: (
+		transformBefore: TransformBefore<T>,
+		transformAfter: TransformAfter<T>,
+	) => void;
+	getNodeWithPosByLocalId: (localId: string) => NodeWithPos;
 };
 
 export type UpdateExtension<T extends Parameters = Parameters> = (
@@ -82,15 +82,15 @@ export type ReferenceEntity = {
 
 //Update action api once finalised
 export type MultiBodiedExtensionActions = {
-	changeActive: (index: number) => boolean;
 	addChild: () => boolean;
-	getChildrenCount: () => number;
-	removeChild: (index: number) => boolean;
-	updateParameters: (parameters: Parameters) => boolean;
+	changeActive: (index: number) => boolean;
 	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	getChildren(): Array<ADFEntity>;
 	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	getChildrenContainer(): React.ReactNode;
+	getChildrenCount: () => number;
+	removeChild: (index: number) => boolean;
+	updateParameters: (parameters: Parameters) => boolean;
 };
 
 // DEPRECATED

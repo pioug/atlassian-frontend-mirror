@@ -37,9 +37,9 @@ jest.mock('react-intl-next', () => {
 });
 
 type Scenario = {
-	product: ProductName;
-	isBrowseUsersDisabled: boolean;
 	disableSharingToEmails: boolean;
+	isBrowseUsersDisabled: boolean;
+	product: ProductName;
 };
 
 type ScenarioAndOutcome<T> = [string, Scenario, T];

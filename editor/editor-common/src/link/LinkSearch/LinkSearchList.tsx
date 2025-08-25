@@ -32,16 +32,16 @@ export const linkSearchList = css({
 });
 
 export interface Props {
-	items?: LinkSearchListItemData[];
+	ariaControls?: string;
+	id?: string;
 	isLoading: boolean;
-	selectedIndex: number;
-	onSelect: (href: string, text: string) => void;
-	onMouseMove?: (objectId: string) => void;
+	items?: LinkSearchListItemData[];
 	onMouseEnter?: (objectId: string) => void;
 	onMouseLeave?: (objectId: string) => void;
-	ariaControls?: string;
+	onMouseMove?: (objectId: string) => void;
+	onSelect: (href: string, text: string) => void;
 	role?: string;
-	id?: string;
+	selectedIndex: number;
 }
 
 // Ignored via go/ees005

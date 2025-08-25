@@ -36,9 +36,9 @@ export function getRealEmojiProvider() {
 
 export interface Props {
 	children: ReactElement<any>;
-	emojiConfig: EmojiResourceConfig;
 	customEmojiProvider?: Promise<EmojiProvider>;
 	customPadding?: number;
+	emojiConfig: EmojiResourceConfig;
 }
 
 export const ResourcedEmojiControl = (props: React.PropsWithChildren<Props>) => {

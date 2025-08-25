@@ -7,10 +7,10 @@ import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 type TableProps = SharedTableProps & {
-	innerRef?: React.RefObject<HTMLTableElement>;
 	children: React.ReactNode[];
-	isPresentational?: boolean;
 	fixTableSSRResizing?: boolean;
+	innerRef?: React.RefObject<HTMLTableElement>;
+	isPresentational?: boolean;
 };
 
 export const Table = React.memo(

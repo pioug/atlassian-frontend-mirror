@@ -11,5 +11,4 @@ export {
 	searchMatchExpandTitleClass,
 	findReplaceStyles,
 	findReplaceStylesNew,
-	findReplaceStylesNewNoImportant,
 } from '@atlaskit/editor-plugin-find-replace/styles';

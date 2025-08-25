@@ -4,8 +4,8 @@ import { dataAttributes, updateWindowSelectionAroundDraft } from '../../dom';
 
 let createRangeMock: jest.SpyInstance;
 let rangeMock: {
-	setStart: jest.Mock;
 	setEndAfter: jest.Mock;
+	setStart: jest.Mock;
 };
 
 beforeEach(() => {
@@ -44,8 +44,8 @@ describe('Annotations: draft/dom', () => {
 
 		describe('when there selection', () => {
 			let selectionMock: {
-				removeAllRanges: jest.Mock;
 				addRange: jest.Mock;
+				removeAllRanges: jest.Mock;
 			};
 			let getSelectionSpy: jest.SpyInstance;
 			beforeEach(() => {

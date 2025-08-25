@@ -22,15 +22,15 @@ type ConfigPanelCrashedAEP = UIAEP<
 	ACTION_SUBJECT.CONFIG_PANEL,
 	undefined,
 	{
-		product: string;
 		browserInfo: string;
-		extensionKey: string;
-		fields: string;
 		error: string;
 		errorInfo?: {
 			componentStack: string;
 		};
 		errorStack?: string;
+		extensionKey: string;
+		fields: string;
+		product: string;
 	},
 	undefined
 >;

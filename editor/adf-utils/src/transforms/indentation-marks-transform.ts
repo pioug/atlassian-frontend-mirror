@@ -24,8 +24,8 @@ const removeIndentationFromHeadings = (node: ADFEntity) => {
 };
 
 interface TransformIndentationMarksResult {
-	transformedAdf: ADFEntity;
 	isTransformed: boolean;
+	transformedAdf: ADFEntity;
 }
 
 export const transformIndentationMarks = (adf: ADFEntity): TransformIndentationMarksResult => {

@@ -29,13 +29,13 @@ const SMALL_LINK_TOOLBAR_ANALYTICS_SOURCE = 'smallLinkToolbar';
 export type OnDropdownChange = (isOpen: boolean) => void;
 
 export type DropdownProps = {
+	editorView: EditorView;
 	/** Callback fired when the Configure dropdown item is clicked */
 	onConfigureClick: () => void;
-	/** Callback fired when the Open Link dropdown item is clicked */
-	onOpenLinkClick?: (event: MouseEvent<HTMLAnchorElement>) => void;
 	/** Callback fired when the dropdown is open or close */
 	onDropdownChange?: OnDropdownChange;
-	editorView: EditorView;
+	/** Callback fired when the Open Link dropdown item is clicked */
+	onOpenLinkClick?: (event: MouseEvent<HTMLAnchorElement>) => void;
 	testId: string;
 };
 

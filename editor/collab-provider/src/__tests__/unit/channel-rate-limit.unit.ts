@@ -4,7 +4,7 @@ import type { Config } from '../../types';
 import { createSocketIOSocket } from '../../socket-io-provider';
 import { Channel } from '../../channel';
 
-let fakeAnalyticsWebClient: AnalyticsWebClient = {
+const fakeAnalyticsWebClient: AnalyticsWebClient = {
 	sendOperationalEvent: jest.fn(),
 	sendScreenEvent: jest.fn(),
 	sendTrackEvent: jest.fn(),

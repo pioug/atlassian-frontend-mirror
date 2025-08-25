@@ -8,10 +8,10 @@ import type { InputRulePluginState, OnBeforeRegexMatch, OnInputEvent } from './t
 
 type Options = {
 	allowInsertTextOnDocument?: boolean;
-	checkOnBlur?: boolean;
 	appendTextOnBlur?: string;
-	onInputEvent?: OnInputEvent;
+	checkOnBlur?: boolean;
 	onBeforeRegexMatch?: OnBeforeRegexMatch;
+	onInputEvent?: OnInputEvent;
 };
 
 export function createInputRulePlugin(

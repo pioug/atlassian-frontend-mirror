@@ -1,8 +1,8 @@
 import React from 'react';
 
 interface Props {
-	text: string;
 	allowPlaceholderText?: boolean;
+	text: string;
 }
 
 export default function Placeholder(props: Props) {

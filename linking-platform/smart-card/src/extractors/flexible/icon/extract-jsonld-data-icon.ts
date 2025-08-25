@@ -35,11 +35,11 @@ function chooseIcon({
 	data,
 	providerIcon,
 }: {
-	urlIcon: IconDescriptor | undefined;
+	data: JsonLd.Data.BaseData;
+	label: string | undefined;
 	providerIcon: IconDescriptor | undefined;
 	type: string;
-	label: string | undefined;
-	data: JsonLd.Data.BaseData;
+	urlIcon: IconDescriptor | undefined;
 }) {
 	const providerId = (data.generator as JsonLd.Primitives.Object)?.['@id'];
 	const fileFormat = (data as JsonLd.Data.Document)?.['schema:fileFormat'];
@@ -62,10 +62,10 @@ function typeToIconDescriptor({
 	providerId,
 	data,
 }: {
-	type: string;
+	data: JsonLd.Data.BaseData;
 	label: string | undefined;
 	providerId: string | undefined;
-	data: JsonLd.Data.BaseData;
+	type: string;
 }): IconDescriptor | undefined {
 	switch (type) {
 		case 'atlassian:Goal':

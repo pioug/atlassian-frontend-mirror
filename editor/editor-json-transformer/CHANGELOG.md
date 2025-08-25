@@ -1,5 +1,13 @@
 # @atlaskit/editor-json-transformer
 
+## 8.27.1
+
+### Patch Changes
+
+- [`0fdcb6f2f96fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0fdcb6f2f96fd) -
+  Sorted type and interface props to improve Atlaskit docs
+- Updated dependencies
+
 ## 8.27.0
 
 ### Minor Changes

@@ -21,15 +21,15 @@ const styles = cssMap({
 });
 
 type ToolbarDropdownMenuProps = {
-	iconBefore: React.ReactNode;
 	children?: ReactNode;
-	isDisabled?: boolean;
-	testId?: string;
-	label?: string;
 	/**
 	 * Whether to add margin around sections to align with 4px block padding existing in current editor dropdown
 	 */
 	hasSectionMargin?: boolean;
+	iconBefore: React.ReactNode;
+	isDisabled?: boolean;
+	label?: string;
+	testId?: string;
 };
 
 const ToolbarDropdownMenuContent = ({

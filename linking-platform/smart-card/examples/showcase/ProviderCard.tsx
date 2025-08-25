@@ -90,10 +90,10 @@ const headerStyle = css({
 });
 
 interface ProviderCardProps extends ExampleUrl {
-	onExpand: (resolver: string) => void;
-	onCollapse: (resolver: string) => void;
-	expanded: boolean;
 	config: ExampleUIConfig;
+	expanded: boolean;
+	onCollapse: (resolver: string) => void;
+	onExpand: (resolver: string) => void;
 }
 
 export const ProviderCard = ({

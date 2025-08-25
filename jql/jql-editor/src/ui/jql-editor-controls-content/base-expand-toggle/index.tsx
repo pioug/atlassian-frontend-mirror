@@ -32,8 +32,8 @@ const CollapseCircleIcon = ({ isDisabled }: { isDisabled?: boolean }) => (
 );
 
 type Props = {
-	expanded: boolean;
 	editorId: string;
+	expanded: boolean;
 	isDisabled?: boolean;
 	label: string;
 	onClick: () => void;

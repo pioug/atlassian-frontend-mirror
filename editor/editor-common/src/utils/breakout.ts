@@ -22,13 +22,6 @@ import { parsePx } from './dom';
  *
  */
 export type BreakoutConstsType = {
-	padding: number;
-	defaultLayoutWidth: number;
-	wideScaleRatio: number;
-	fullWidthLayoutWidth: number;
-	wideLayoutWidth: number;
-	mapBreakpointToLayoutMaxWidth: typeof mapBreakpointToLayoutMaxWidth;
-	getBreakpoint: typeof getBreakpoint;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	calcBreakoutWidth: any;
@@ -39,6 +32,13 @@ export type BreakoutConstsType = {
 	calcWideWidth: (
 		breakoutConsts: BreakoutConstsType,
 	) => (containerWidth?: number, maxWidth?: number, fallback?: string, padding?: number) => string;
+	defaultLayoutWidth: number;
+	fullWidthLayoutWidth: number;
+	getBreakpoint: typeof getBreakpoint;
+	mapBreakpointToLayoutMaxWidth: typeof mapBreakpointToLayoutMaxWidth;
+	padding: number;
+	wideLayoutWidth: number;
+	wideScaleRatio: number;
 };
 
 const breakoutConsts: BreakoutConstsType = {
@@ -146,15 +146,15 @@ export function calculateBreakoutStyles({
 }: {
 	mode: BreakoutMarkAttrs['mode'];
 	/**
-	 * offsetWidth of the content the editor is attached to.
-	 * Expected to be retrieved via `WidthState.lineLength`.
-	 */
-	widthStateWidth?: number;
-	/**
 	 * clientWidth of the content area in the editor (ie. EditorPlugin contentComponents).
 	 * Expected to be retrieved via `WidthState.width`.
 	 */
 	widthStateLineLength?: number;
+	/**
+	 * offsetWidth of the content the editor is attached to.
+	 * Expected to be retrieved via `WidthState.lineLength`.
+	 */
+	widthStateWidth?: number;
 }) {
 	const breakoutWidth = calcBreakoutWidth(mode, widthStateWidth);
 	const breakoutWidthPx = parsePx(breakoutWidth) as number;

@@ -48,10 +48,10 @@ export type CreateReactNodeViewProps<NodeViewOptions> = (
  * @see {withLazyLoading}
  */
 export type LazyLoadingProps<NodeViewOptions> = {
-	nodeName: string;
-	loader: () => Promise<CreateReactNodeViewProps<NodeViewOptions>>;
-	getNodeViewOptions: () => NodeViewOptions;
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
+	getNodeViewOptions: () => NodeViewOptions;
+	loader: () => Promise<CreateReactNodeViewProps<NodeViewOptions>>;
+	nodeName: string;
 };
 
 /**

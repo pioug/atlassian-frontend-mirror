@@ -169,7 +169,7 @@ export const createMoveMapStep = (
 function getDiffRange(
 	before: Fragment,
 	after: Fragment,
-): { start: number; end: number } | undefined {
+): { end: number; start: number } | undefined {
 	// https://prosemirror.net/docs/ref/#model.Fragment.findDiffStart
 	const start = before.findDiffStart(after);
 	// Important: diffEnd value is {a,b} object since end pos will differ.

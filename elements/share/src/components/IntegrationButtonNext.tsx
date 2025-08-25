@@ -21,8 +21,8 @@ const styles = cssMap({
 });
 
 type Props = {
-	text: React.ReactNode;
 	IntegrationIcon: React.ComponentType;
+	text: React.ReactNode;
 } & Pick<ButtonProps, 'onClick'>;
 
 const IntegrationButton = (props: Props) => {

@@ -37,8 +37,8 @@ export const useAvailableSites = ({
 } = {}) => {
 	const [state, setState] = useState<{
 		data: AvailableSite[];
-		loading: boolean;
 		error?: Error;
+		loading: boolean;
 	}>({
 		data: [],
 		loading: true,
@@ -85,8 +85,8 @@ export const useAvailableSitesV2 = ({ gatewayBaseUrl }: { gatewayBaseUrl?: strin
 	const isMounted = useIsMounted();
 	const [state, setState] = useState<{
 		data: AvailableSite[];
-		loading: boolean;
 		error?: unknown;
+		loading: boolean;
 	}>({
 		data: [],
 		loading: true,

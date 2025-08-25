@@ -9,8 +9,8 @@ export function determineTableHeaderStateFromTableNode(
 	tableMap: TableMap,
 	types: TableNodeCache,
 ): {
-	rowHeaderEnabled: boolean;
 	columnHeaderEnabled: boolean;
+	rowHeaderEnabled: boolean;
 } {
 	// We only really need to check the 2nd cell in the row/col if it's a header, since we only support a single full row/col header on the top & left
 	// of a table. We can assume that if the 2nd cell is a header then the entire row/col is a header.

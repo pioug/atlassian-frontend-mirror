@@ -164,9 +164,6 @@ class PanelNodeView {
 			),
 			this.icon,
 			this.key,
-			undefined,
-			// @portal-render-immediately
-			true,
 		);
 	}
 

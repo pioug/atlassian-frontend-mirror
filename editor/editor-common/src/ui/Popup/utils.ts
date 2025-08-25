@@ -1,18 +1,18 @@
 export interface Position {
-	top?: number;
-	right?: number;
 	bottom?: number;
 	left?: number;
+	right?: number;
+	top?: number;
 }
 
 export interface CalculatePositionParams {
-	placement: [string, string];
-	target?: HTMLElement;
-	popup?: HTMLElement;
-	offset: number[];
-	stick?: boolean;
 	allowOutOfBounds?: boolean;
+	offset: number[];
+	placement: [string, string];
+	popup?: HTMLElement;
 	rect?: DOMRect;
+	stick?: boolean;
+	target?: HTMLElement;
 }
 
 export function isBody(elem: HTMLElement | Element): boolean {
@@ -157,21 +157,21 @@ const calculateHorizontalPlacement = ({
 
 	allowOutOfBounds = false,
 }: {
-	placement: string;
-	targetLeft: number;
-	targetRight: number;
-	targetWidth: number;
-
+	allowOutOfBounds: boolean;
 	isPopupParentBody: boolean;
+	offset: Array<number>;
+	placement: string;
+
+	popupClientWidth: number;
+	popupOffsetParentClientWidth: number;
 	popupOffsetParentLeft: number;
 	popupOffsetParentRight: number;
 	popupOffsetParentScrollLeft: number;
-	popupOffsetParentClientWidth: number;
 
-	popupClientWidth: number;
-	offset: Array<number>;
+	targetLeft: number;
+	targetRight: number;
 
-	allowOutOfBounds: boolean;
+	targetWidth: number;
 }): Position => {
 	const position = {} as Position;
 
@@ -251,13 +251,13 @@ const calculateVerticalStickBottom = ({
 	offset,
 	position,
 }: {
-	target: HTMLElement;
-	targetTop: number;
-	targetHeight: number;
-
-	popup: HTMLElement;
 	offset: Array<number>;
+	popup: HTMLElement;
 	position: Position;
+
+	target: HTMLElement;
+	targetHeight: number;
+	targetTop: number;
 }): Position => {
 	const scrollParent = findOverflowScrollParent(target);
 	const newPos = { ...position };
@@ -291,16 +291,16 @@ const calculateVerticalStickTop = ({
 	position,
 	placement,
 }: {
-	target: HTMLElement;
-	targetTop: number;
-	targetHeight: number;
-	popupOffsetParentHeight: number;
-	popupOffsetParent: HTMLElement;
-
-	popup: HTMLElement;
 	offset: Array<number>;
-	position: Position;
 	placement: string;
+	popup: HTMLElement;
+	popupOffsetParent: HTMLElement;
+	popupOffsetParentHeight: number;
+
+	position: Position;
+	target: HTMLElement;
+	targetHeight: number;
+	targetTop: number;
 }): Position => {
 	const scrollParent = findOverflowScrollParent(target);
 	const newPos = { ...position };
@@ -350,18 +350,18 @@ const calculateVerticalPlacement = ({
 	borderBottomWidth,
 	offset,
 }: {
-	placement: string;
-	targetTop: number;
-	targetHeight: number;
-
+	borderBottomWidth: number;
 	isPopupParentBody: boolean;
+	offset: Array<number>;
+
+	placement: string;
 
 	popupOffsetParentHeight: number;
-	popupOffsetParentTop: number;
 	popupOffsetParentScrollTop: number;
+	popupOffsetParentTop: number;
 
-	borderBottomWidth: number;
-	offset: Array<number>;
+	targetHeight: number;
+	targetTop: number;
 }): Position => {
 	const position = {} as Position;
 

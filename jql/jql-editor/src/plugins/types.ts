@@ -7,17 +7,17 @@ export type {
 
 export type PluginContainers = {
 	/**
-	 * Container for plugin components which should be appended to the top level container element.
+	 * Container for plugin components which should be appended at the end of the editor input.
 	 */
-	main?: HTMLElement;
+	editor_controls?: HTMLElement;
 	/**
 	 * Container for plugin components which should be appended to the footer underneath the editor input.
 	 */
 	footer?: HTMLElement;
 	/**
-	 * Container for plugin components which should be appended at the end of the editor input.
+	 * Container for plugin components which should be appended to the top level container element.
 	 */
-	editor_controls?: HTMLElement;
+	main?: HTMLElement;
 };
 
 export type PluginContainerKey = keyof PluginContainers;

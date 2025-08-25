@@ -98,12 +98,12 @@ export class ParticipantsService {
 	};
 
 	sendAIProviderChanged = (payload: {
-		userId: string;
-		sessionId: string;
-		clientId: string | number;
-		providerId?: string;
 		action: 'add' | 'remove';
+		clientId: string | number;
 		permit?: UserPermitType;
+		providerId?: string;
+		sessionId: string;
+		userId: string;
 	}) => {
 		if (payload.providerId) {
 			for (const propKey in payload.permit) {

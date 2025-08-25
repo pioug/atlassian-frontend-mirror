@@ -23,15 +23,15 @@ export interface JIRACustomEncoders {
 }
 
 export interface ContextInfo {
-	clientId: string;
 	baseUrl: string;
-	token: string;
+	clientId: string;
 	collection: string;
+	token: string;
 }
 
 export interface MediaContextInfo {
-	viewContext?: ContextInfo;
 	uploadContext?: ContextInfo;
+	viewContext?: ContextInfo;
 }
 
 export class JIRATransformer implements Transformer<string> {

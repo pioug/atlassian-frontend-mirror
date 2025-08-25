@@ -64,13 +64,13 @@ describe('onFunctions', () => {
 	const onNext = jest.fn();
 
 	type OnFunctionsConsumerProps = {
-		jqlSearchableFields: JQLFieldResponse[];
-		jqlFunctions: JQLFunctionResponse[];
-		field?: string;
-		query?: string;
-		isListOperator?: boolean;
 		done: jest.DoneCallback;
+		field?: string;
+		isListOperator?: boolean;
+		jqlFunctions: JQLFunctionResponse[];
+		jqlSearchableFields: JQLFieldResponse[];
 		onAssert: (fields: AutocompleteOptions) => void;
+		query?: string;
 	};
 
 	const OnFunctionsConsumer = ({

@@ -25,7 +25,6 @@ export enum NCS_ERROR_CODE {
 // NCS Errors
 // - Step rejection errors
 type HeadVersionUpdateFailedError = {
-	message: string; // Version number does not match current head version.
 	data: {
 		code: NCS_ERROR_CODE.HEAD_VERSION_UPDATE_FAILED;
 		meta: {
@@ -36,18 +35,18 @@ type HeadVersionUpdateFailedError = {
 		};
 		status: number; // 409
 	};
+	message: string; // Version number does not match current head version.
 };
 type VersionAlreadyPresentInDynamoError = {
-	message: string; // Version already exists
 	data: {
 		code: NCS_ERROR_CODE.VERSION_NUMBER_ALREADY_EXISTS;
 		meta: string; // Incoming version number already exists. Therefore, new ProseMirror steps will be rejected.
 		status: number; // 409
 	};
+	message: string; // Version already exists
 };
 // - Permission errors
 type InsufficientEditingPermissionError = {
-	message: string; // No permission
 	data: {
 		code: NCS_ERROR_CODE.INSUFFICIENT_EDITING_PERMISSION;
 		meta: {
@@ -56,68 +55,68 @@ type InsufficientEditingPermissionError = {
 		};
 		status: number; // 401
 	};
+	message: string; // No permission
 };
 type ForbiddenUserTokenError = {
-	message: string; // Various issues with the user context token
 	data: {
 		code: NCS_ERROR_CODE.FORBIDDEN_USER_TOKEN;
 		meta: string; // Forbidden to access pass due to invalid user token
 		status: number; // 403
 	};
+	message: string; // Various issues with the user context token
 };
 // - Page missing / TTL errors
 type NCSDocumentNotFoundError = {
-	message: string; // The requested document is not found
 	data: {
 		code: NCS_ERROR_CODE.DOCUMENT_NOT_FOUND;
 		status: number; // 404
 	};
+	message: string; // The requested document is not found
 };
 // - Server errors
 type FailedToLoadInitDataError = {
-	message: string; // Failed to load initialisation data after connection established
 	data: {
 		code: NCS_ERROR_CODE.INIT_DATA_LOAD_FAILED;
 		status: number; // 500
 	};
+	message: string; // Failed to load initialisation data after connection established
 };
 /**
  * The backend has retrieved the document successfully, as ADF, but failed to convert it to Prosemirror.
  * This might be because invalid ADF has been written to a document, as it was not validated correctly.
  */
 type ProsemirrorSchemaValidationError = {
-	message: string; // Failed to load initialisation data after connection established
 	data: {
 		code: NCS_ERROR_CODE.PROSEMIRROR_SCHEMA_VALIDATION_ERROR;
 		status: number; // Could be 4xx or 5xx, depending on init or reset endpoint.
 	};
+	message: string; // Failed to load initialisation data after connection established
 };
 type ErrorMappingError = {
-	message: string; // 'Internal Server Error'
 	data: {
 		code: NCS_ERROR_CODE.ERROR_MAPPING_ERROR;
 		status: number; // 500
 	};
+	message: string; // 'Internal Server Error'
 };
 // - Less common back-end errors
 type InvalidNamespaceDefinedError = {
-	message: string;
 	data: {
 		code: NCS_ERROR_CODE.NAMESPACE_INVALID;
 		meta: string;
 		status: number; // 400
 	};
+	message: string;
 };
 type SocketNamespaceNotFoundError = {
-	message: string;
 	data: {
 		code: NCS_ERROR_CODE.NAMESPACE_NOT_FOUND;
 		meta: string;
 		status: number; // 500
 	};
+	message: string;
 };
 type TenantInstanceMaintenanceError = {
-	message: string;
 	data: {
 		code: NCS_ERROR_CODE.TENANT_INSTANCE_MAINTENANCE;
 		meta: {
@@ -126,71 +125,72 @@ type TenantInstanceMaintenanceError = {
 		};
 		status: number; // 423
 	};
+	message: string;
 };
 type NamespaceLockedError = {
-	message: string;
 	data: {
 		code: NCS_ERROR_CODE.LOCKED_DOCUMENT;
 		meta: string;
 		status: number; // 400
 	};
+	message: string;
 };
 type EmptyBroadcastError = {
-	message: string;
 	data: {
 		code: NCS_ERROR_CODE.EMPTY_BROADCAST;
 		meta: string;
 		status: number; // 400
 	};
+	message: string;
 };
 type DynamoError = {
-	message: string; // Error while updating metadata
 	data: {
 		code: NCS_ERROR_CODE.DYNAMO_ERROR;
 		meta: string; // No value returned from metadata while updating
 		status: number; // 500
 	};
+	message: string; // Error while updating metadata
 };
 type InvalidActivationIdError = {
-	message: string;
 	data: {
 		code: NCS_ERROR_CODE.INVALID_ACTIVATION_ID;
 		meta: string;
 		status: number; // 400
 	};
+	message: string;
 };
 type InvalidDocumentAriError = {
-	message: string;
 	data: {
 		code: NCS_ERROR_CODE.INVALID_DOCUMENT_ARI;
 		meta: string;
 		status: number; // 400
 	};
+	message: string;
 };
 type InvalidCloudIdError = {
-	message: string;
 	data: {
 		code: NCS_ERROR_CODE.INVALID_CLOUD_ID;
 		meta: string;
 		status: number; // 401
 	};
+	message: string;
 };
 /**
  * The client is trying to send too many messages or messages that are too large. This not expected to be a standard
  * operating condition and should only ever indicate a frontend bug.
  */
 export type RateLimitError = {
-	message: string;
 	data: {
 		code: NCS_ERROR_CODE.RATE_LIMIT_ERROR;
 		meta: {
-			rateLimitType: number;
 			maxStepSize: number;
-			stepSizeCounter: number;
+			rateLimitType: number;
 			stepCounter: number;
+			stepSizeCounter: number;
 		};
 		status: 500;
 	};
+	message: string;
 };
 
 export type NCSErrors =

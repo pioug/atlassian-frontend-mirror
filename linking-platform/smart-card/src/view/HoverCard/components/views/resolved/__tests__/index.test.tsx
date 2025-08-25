@@ -81,9 +81,9 @@ describe('HoverCardResolvedView', () => {
 		isAISummaryEnabled,
 		cardState,
 	}: {
-		mockResponse?: JsonLd.Response;
-		isAISummaryEnabled?: boolean;
 		cardState: any;
+		isAISummaryEnabled?: boolean;
+		mockResponse?: JsonLd.Response;
 	}) => {
 		return (
 			<HoverCardResolvedView
@@ -112,8 +112,8 @@ describe('HoverCardResolvedView', () => {
 		mockResponse = mockConfluenceResponse as JsonLdDatasourceResponse,
 		isAISummaryEnabled,
 	}: {
-		mockResponse?: JsonLd.Response;
 		isAISummaryEnabled?: boolean;
+		mockResponse?: JsonLd.Response;
 	} = {}) => {
 		cardState = getCardState({
 			data: mockResponse.data,

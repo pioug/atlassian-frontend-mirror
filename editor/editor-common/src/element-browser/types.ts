@@ -1,6 +1,6 @@
 export type Category = {
-	title: string;
 	name: string;
+	title: string;
 };
 
 export enum Modes {
@@ -9,6 +9,6 @@ export enum Modes {
 }
 
 export type SelectedItemProps = {
-	selectedItemIndex?: number;
 	focusedItemIndex?: number;
+	selectedItemIndex?: number;
 };

@@ -411,6 +411,16 @@ export const TABLE_SIZE_PICKER = {
 	type: 'button',
 } as const;
 
+export const INSERT_GROUP = {
+	key: 'insert-group',
+	type: 'group',
+} as const;
+
+export const INSERT_BUTTON = {
+	key: 'insert-button',
+	type: 'button',
+} as const;
+
 /*
  * Linking section
  */

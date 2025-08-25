@@ -82,8 +82,8 @@ const integrationTabText = (integrationName: string) => (
 );
 
 export type State = {
-	selectedTab: TabType;
 	selectedMenuItem: MenuType;
+	selectedTab: TabType;
 };
 
 export type InternalFormProps = FormChildrenArgs<ShareData> &

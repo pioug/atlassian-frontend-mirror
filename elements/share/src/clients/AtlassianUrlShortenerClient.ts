@@ -1,9 +1,9 @@
 export interface ShortenRequest {
 	cloudId?: string;
+	originId?: string;
+	params: Record<string, string>;
 	product: string;
 	type: string;
-	params: Record<string, string>;
-	originId?: string;
 }
 
 export interface ShortenResponse {

@@ -20,23 +20,6 @@ tester.run('no-dark-theme-vr-tests', rule, {
 		});
 			`,
 		},
-		{
-			name: 'light and dark theme VR tests, API imported from invalid source',
-			code: `
-		import { snapshot } from '@atlaskit/visual-regression';
-
-        snapshot(ComponentName, {
-			variants: [
-				{
-					name: 'Light',
-					environment: {
-						colorScheme: 'light',
-					},
-				},
-			],
-		});
-			`,
-		},
 	],
 	invalid: [
 		{

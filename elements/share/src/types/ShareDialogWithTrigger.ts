@@ -13,10 +13,10 @@ import type { Integration } from './ShareEntities';
 export type RenderCustomTriggerButton = (
 	args: {
 		error?: ShareError;
+		iconBefore?: React.ComponentType<NewCoreIconProps>;
 		isDisabled?: boolean;
 		isSelected?: boolean;
 		onClick: () => void;
-		iconBefore?: React.ComponentType<NewCoreIconProps>;
 	},
 	triggerProps: TriggerProps,
 ) => React.ReactNode;
@@ -80,28 +80,28 @@ export type ShareDialogWithTriggerProps = Pick<
 	| 'isExtendedShareDialogEnabled'
 	| 'CustomSubmitButton'
 > & {
-	config?: ConfigResponse;
-	isFetchingConfig?: boolean;
-	children?: RenderCustomTriggerButton;
-	copyLink: string;
 	analyticsDecorator?: (payload: AnalyticsEventPayload) => AnalyticsEventPayload;
-	isDisabled?: boolean;
-	onShareSubmit?: (shareContentState: ShareData) => Promise<any>;
+	children?: RenderCustomTriggerButton;
+	config?: ConfigResponse;
+	copyLink: string;
 	copyLinkOrigin?: OriginTracing;
 	formShareOrigin?: OriginTracing;
+	isDisabled?: boolean;
+	isFetchingConfig?: boolean;
+	onShareSubmit?: (shareContentState: ShareData) => Promise<any>;
 	submitButtonLabel?: React.ReactNode;
 };
 
 export type ShareDialogWithTriggerStates = {
-	isLoading: boolean;
-	isDialogOpen: boolean;
-	isSharing: boolean;
-	shareError?: ShareError;
-	ignoreIntermediateState: boolean;
 	defaultValue: ShareData;
-	isUsingSplitButton: boolean;
-	showIntegrationForm: boolean;
-	selectedIntegration: Integration | null;
-	tabIndex: number;
+	ignoreIntermediateState: boolean;
+	isDialogOpen: boolean;
+	isLoading: boolean;
 	isMenuItemSelected: boolean;
+	isSharing: boolean;
+	isUsingSplitButton: boolean;
+	selectedIntegration: Integration | null;
+	shareError?: ShareError;
+	showIntegrationForm: boolean;
+	tabIndex: number;
 };

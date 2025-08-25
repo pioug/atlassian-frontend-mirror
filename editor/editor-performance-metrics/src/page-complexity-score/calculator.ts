@@ -16,8 +16,8 @@ export class DocumentComplexityCalculator {
 	public async calculateTreeWeight(
 		nodeDocument: AdfNode,
 		options: {
-			useWebWorker?: boolean;
 			debug?: boolean;
+			useWebWorker?: boolean;
 		} = {
 			useWebWorker: true,
 			debug: false,

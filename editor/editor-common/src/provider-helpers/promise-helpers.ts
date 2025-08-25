@@ -9,10 +9,10 @@ type FulfiledResult<T> = {
 };
 
 type RejectedResult = {
-	status: ResultStatus.FAILED;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	reason: any;
+	status: ResultStatus.FAILED;
 };
 
 const isFullfilled = <T>(result: FulfiledResult<T> | RejectedResult): result is FulfiledResult<T> =>

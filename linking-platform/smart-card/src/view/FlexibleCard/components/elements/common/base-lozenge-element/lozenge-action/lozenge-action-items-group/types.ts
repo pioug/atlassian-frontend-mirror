@@ -4,6 +4,6 @@ import { type LozengeItem } from '../types';
 
 export type LozengeActionItemsGroupProps = {
 	items: LozengeItem[];
-	testId?: string;
 	onClick?: (id: string, text: string, appearance?: ThemeAppearance) => Promise<void>;
+	testId?: string;
 };

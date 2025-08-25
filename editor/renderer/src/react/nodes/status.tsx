@@ -8,9 +8,9 @@ import {
 } from '../../ui/annotations/element/useInlineAnnotationProps';
 
 export interface Props extends MarkDataAttributes {
-	text: string;
 	color: Color;
 	localId?: string;
+	text: string;
 }
 
 export default memo(function Status(props: Props) {

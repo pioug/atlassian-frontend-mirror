@@ -2,12 +2,12 @@ import { type ACTION, type ACTION_SUBJECT } from './enums';
 import type { OperationalAEP } from './utils';
 
 export type NcsSessionStepMetrics = {
-	ncsSessionId?: string;
-	totalStepSize: number;
-	numberOfSteps: number;
 	maxStepSize: number;
-	stepSizeSumForP90?: number[];
+	ncsSessionId?: string;
+	numberOfSteps: number;
 	p90StepSize?: number;
+	stepSizeSumForP90?: number[];
+	totalStepSize: number;
 };
 
 export type NcsSessionStepEventAEP = OperationalAEP<

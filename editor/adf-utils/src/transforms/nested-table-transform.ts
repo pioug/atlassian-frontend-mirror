@@ -47,10 +47,10 @@ function isInsideBodiedExtension(parent: EntityParent) {
 export const transformNestedTablesIncomingDocument = (
 	adf: ADFEntity,
 	// TODO: EDITOR-806 - Remove options when cleaning feature gate platform_editor_nested_table_extension_comment_fix as no longer needed
-	options: { environment?: 'renderer' | 'editor'; disableNestedRendererTreatment?: boolean } = {},
+	options: { disableNestedRendererTreatment?: boolean; environment?: 'renderer' | 'editor' } = {},
 ): {
-	transformedAdf: ADFEntity;
 	isTransformed: boolean;
+	transformedAdf: ADFEntity;
 } => {
 	let isTransformed: boolean = false;
 

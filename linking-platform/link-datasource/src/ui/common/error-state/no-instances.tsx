@@ -24,9 +24,9 @@ const styles = cssMap({
 });
 
 interface NoInstanceViewProps {
-	title: MessageDescriptor;
 	description: MessageDescriptor;
 	testId: string;
+	title: MessageDescriptor;
 }
 
 export const NoInstancesView = ({ title, description, testId }: NoInstanceViewProps) => {

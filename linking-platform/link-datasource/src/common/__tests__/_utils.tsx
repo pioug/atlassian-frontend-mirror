@@ -215,21 +215,21 @@ export const setupFactory = <Parameters extends DatasourceParameters, InsertArgs
 	};
 	const setup = async (
 		args: {
-			parameters?: Parameters;
-			hookState?: DatasourceTableState;
-			visibleColumnKeys?: string[];
+			columnCustomSizes?: ConfigModalProps<ADF, Parameters>['columnCustomSizes'];
+			disableDisplayDropdown?: ConfluenceSearchConfigModalProps['disableDisplayDropdown'];
 			dontWaitForSitesToLoad?: boolean;
+			hookState?: DatasourceTableState;
 			mockSiteDataOverride?: {
 				cloudId: string;
-				url: string;
 				displayName: string;
+				url: string;
 			}[];
-			columnCustomSizes?: ConfigModalProps<ADF, Parameters>['columnCustomSizes'];
-			wrappedColumnKeys?: ConfigModalProps<ADF, Parameters>['wrappedColumnKeys'];
+			overrideParameters?: ConfluenceSearchConfigModalProps['overrideParameters'];
+			parameters?: Parameters;
 			url?: ConfigModalProps<ADF, Parameters>['url'];
 			viewMode?: DisplayViewModes;
-			disableDisplayDropdown?: ConfluenceSearchConfigModalProps['disableDisplayDropdown'];
-			overrideParameters?: ConfluenceSearchConfigModalProps['overrideParameters'];
+			visibleColumnKeys?: string[];
+			wrappedColumnKeys?: ConfigModalProps<ADF, Parameters>['wrappedColumnKeys'];
 		} = {},
 	) => {
 		asMock(getAvailableSites).mockResolvedValue(args.mockSiteDataOverride || mockSiteData);

@@ -12,7 +12,7 @@ type DispatchAnalyticsEvent = (event: AnalyticsEventPayload) => void;
 
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type DocumentData = { rendererId: string; doc: any; appearance?: string };
+type DocumentData = { appearance?: string; doc: any; rendererId: string };
 
 const rendersMap: { [appearance: string]: Set<string> } = {};
 

@@ -429,8 +429,8 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
 		});
 
 		const appearances: {
-			appearance: RendererAppearance;
 			analyticsAppearance: EDITOR_APPEARANCE_CONTEXT;
+			appearance: RendererAppearance;
 		}[] = [
 			{
 				appearance: 'full-page',

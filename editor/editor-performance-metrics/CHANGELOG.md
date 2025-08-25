@@ -1,5 +1,12 @@
 # @atlaskit/editor-performance-metrics
 
+## 2.1.5
+
+### Patch Changes
+
+- [`0fdcb6f2f96fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0fdcb6f2f96fd) -
+  Sorted type and interface props to improve Atlaskit docs
+
 ## 2.1.4
 
 ### Patch Changes

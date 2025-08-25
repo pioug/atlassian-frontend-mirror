@@ -5,16 +5,16 @@ import { type ReactionsStore, type ReactionClient, MemoryReactionsStore } from '
 
 export interface ExampleWrapperProps {
 	/**
-	 * Caller client object
-	 */
-	client?: ReactionClient;
-	/**
 	 *
 	 */
 	children:
 		| ((store: ReactionsStore) => React.ReactChild | React.ReactChild[])
 		| React.ReactChild
 		| React.ReactChild[];
+	/**
+	 * Caller client object
+	 */
+	client?: ReactionClient;
 }
 
 /**

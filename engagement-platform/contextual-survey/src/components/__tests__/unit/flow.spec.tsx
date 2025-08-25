@@ -10,8 +10,8 @@ jest.useFakeTimers();
 
 type Props = {
 	hasUserAnswered: boolean;
-	onSubmit: (value: FormValues) => Promise<void>;
 	onDismiss: () => void;
+	onSubmit: (value: FormValues) => Promise<void>;
 };
 
 function App({ hasUserAnswered, onSubmit, onDismiss }: Props) {

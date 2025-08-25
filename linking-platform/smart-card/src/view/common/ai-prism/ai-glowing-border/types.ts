@@ -10,22 +10,22 @@ import type { AIBorderPalette } from '../types';
 
 export type AIGlowingBorderProps = {
 	children: ReactNode;
-	palette: AIBorderPalette;
-	isMoving?: boolean;
-	isGlowing?: boolean;
-	testId?: string;
 	/**
 	 * For compiled css
 	 */
 	className?: string;
+	isGlowing?: boolean;
+	isMoving?: boolean;
+	palette: AIBorderPalette;
+	testId?: string;
 };
 
 export type AnimatedSvgContainerProps = {
-	palette: AIBorderPalette;
-	isMoving?: boolean;
-	isGlowing?: boolean;
 	/**
 	 * For compiled css
 	 */
 	className?: string;
+	isGlowing?: boolean;
+	isMoving?: boolean;
+	palette: AIBorderPalette;
 };

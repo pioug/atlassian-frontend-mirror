@@ -17,24 +17,24 @@ import { styledImage } from '../styles';
 import { LozengeComponent } from './LozengeComponent';
 
 export interface Props {
-	node: PmNode;
-	showMacroInteractionDesignUpdates?: boolean;
-	isNodeSelected?: boolean;
+	customContainerStyles?: CSSProperties;
+	isBodiedMacro?: boolean;
 	isNodeHovered?: boolean;
 	isNodeNested?: boolean;
-	customContainerStyles?: CSSProperties;
-	setIsNodeHovered?: (isHovered: boolean) => void;
-	isBodiedMacro?: boolean;
-	showLivePagesBodiedMacrosRendererView?: boolean;
-	showUpdatedLivePages1PBodiedExtensionUI?: boolean;
-	showBodiedExtensionRendererView?: boolean;
-	setShowBodiedExtensionRendererView?: (showBodiedExtensionRendererView: boolean) => void;
+	isNodeSelected?: boolean;
+	node: PmNode;
 	pluginInjectionApi?: ExtensionsPluginInjectionAPI;
+	setIsNodeHovered?: (isHovered: boolean) => void;
+	setShowBodiedExtensionRendererView?: (showBodiedExtensionRendererView: boolean) => void;
+	showBodiedExtensionRendererView?: boolean;
+	showLivePagesBodiedMacrosRendererView?: boolean;
+	showMacroInteractionDesignUpdates?: boolean;
+	showUpdatedLivePages1PBodiedExtensionUI?: boolean;
 }
 
 export interface LozengeData {
-	url: string;
 	height?: number;
+	url: string;
 	width?: number;
 }
 

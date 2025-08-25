@@ -13,9 +13,9 @@ export type CardInnerAppearance = CardAppearance | 'embedPreview' | 'flexible' |
 export type EmbedIframeUrlType = 'href' | 'interactiveHref';
 
 export type OnResolveCallback = (data: {
-	url?: string;
-	title?: string;
 	aspectRatio?: number;
+	title?: string;
+	url?: string;
 }) => void;
 
 export enum CardAction {
@@ -33,7 +33,7 @@ export type CardActionOptions =
 	| {
 			hide: true;
 	  }
-	| { hide: false; exclude?: Array<CardAction> };
+	| { exclude?: Array<CardAction>; hide: false };
 
 interface ActionProps {
 	/**
@@ -47,13 +47,13 @@ interface ActionProps {
 
 interface HoverPreviewProps extends ActionProps {
 	/**
-	 * Flag to display hover preview on hover.
-	 */
-	showHoverPreview?: boolean;
-	/**
 	 * Configuration for hover card.
 	 */
 	hoverPreviewOptions?: HoverPreviewOptions;
+	/**
+	 * Flag to display hover preview on hover.
+	 */
+	showHoverPreview?: boolean;
 }
 
 export interface BaseCardProps {
@@ -62,11 +62,20 @@ export interface BaseCardProps {
 	 */
 	appearance: CardAppearance;
 	/**
+	 * Competitor Prompt Component for Competitor link experiment
+	 */
+	CompetitorPrompt?: React.ComponentType<{ linkType?: string; sourceUrl: string }>;
+	/**
 	 * The container which `react-lazily-render` listens to for scroll events.
 	 * This property can be used in a scenario where you want to specify your own scroll container
 	 * while the Card component is (lazy)loading.
 	 */
 	container?: HTMLElement;
+	/**
+	 * When Preview panel is supported, onClick is ignored and the panel opens by default.
+	 * This prop allows smartlinks inside of editor to bypass that as they have other ways to open Preview panel.
+	 */
+	disablePreviewPanel?: boolean;
 	/**
 	 * A React component responsible for returning a fallback UI when smart link fails to render because of uncaught errors.
 	 */
@@ -112,15 +121,6 @@ export interface BaseCardProps {
 	 * The url link of the resource to be resolved and shown as Smart Link.
 	 */
 	url?: string;
-	/**
-	 * Competitor Prompt Component for Competitor link experiment
-	 */
-	CompetitorPrompt?: React.ComponentType<{ sourceUrl: string; linkType?: string }>;
-	/**
-	 * When Preview panel is supported, onClick is ignored and the panel opens by default.
-	 * This prop allows smartlinks inside of editor to bypass that as they have other ways to open Preview panel.
-	 */
-	disablePreviewPanel?: boolean;
 }
 
 export interface InlineProps extends HoverPreviewProps {

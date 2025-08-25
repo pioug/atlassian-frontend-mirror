@@ -8,9 +8,9 @@ import type { EmptyStateHandler } from './empty-state-handler';
 export type QuickInsertOptions =
 	| boolean
 	| {
-			provider?: Promise<QuickInsertProvider>;
-			prioritySortingFn?: (items: QuickInsertItem[]) => Fuse.FuseSortFunction | undefined;
 			onInsert?: (item: QuickInsertItem) => void;
+			prioritySortingFn?: (items: QuickInsertItem[]) => Fuse.FuseSortFunction | undefined;
+			provider?: Promise<QuickInsertProvider>;
 	  };
 
 export type QuickInsertHandlerFn = ((intl: IntlShape) => Array<QuickInsertItem>) & {
@@ -24,19 +24,19 @@ export type IconProps = {
 };
 
 export type QuickInsertSearchOptions = {
-	query?: string;
 	category?: string;
 	disableDefaultItems?: boolean;
 	featuredItems?: boolean;
 	prioritySortingFn?: (items: QuickInsertItem[]) => Fuse.FuseSortFunction | undefined;
+	query?: string;
 };
 
 export type QuickInsertPluginState = {
+	emptyStateHandler?: EmptyStateHandler;
 	isElementBrowserModalOpen: boolean;
 	lazyDefaultItems: () => QuickInsertItem[];
 	providedItems?: QuickInsertItem[];
 	provider?: QuickInsertProvider;
-	emptyStateHandler?: EmptyStateHandler;
 	searchOptions?: QuickInsertSearchOptions;
 };
 
@@ -48,18 +48,18 @@ export type QuickInsertPluginStateKeys = keyof QuickInsertPluginState;
  * @see https://product-fabric.atlassian.net/browse/ED-27496
  */
 export interface QuickInsertPluginOptions {
-	headless?: boolean;
 	disableDefaultItems?: boolean;
-	enableElementBrowser?: boolean;
 	elementBrowserHelpUrl?: string;
 	emptyStateHandler?: EmptyStateHandler;
-	prioritySortingFn?: (items: QuickInsertItem[]) => Fuse.FuseSortFunction | undefined;
+	enableElementBrowser?: boolean;
+	headless?: boolean;
 	onInsert?: (item: QuickInsertItem) => void;
+	prioritySortingFn?: (items: QuickInsertItem[]) => Fuse.FuseSortFunction | undefined;
 }
 
 export type QuickInsertSharedState = {
-	lazyDefaultItems: () => QuickInsertItem[];
 	emptyStateHandler?: EmptyStateHandler;
-	providedItems?: QuickInsertItem[];
 	isElementBrowserModalOpen: boolean;
+	lazyDefaultItems: () => QuickInsertItem[];
+	providedItems?: QuickInsertItem[];
 };

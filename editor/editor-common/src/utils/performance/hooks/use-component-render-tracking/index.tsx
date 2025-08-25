@@ -15,9 +15,9 @@ type OnRenderCb<Props = undefined> = ({
 	renderCount,
 	propsDifference,
 }: {
-	renderCount: number;
-	propsDifference: PropsDiff<Props> | undefined;
 	componentId: string;
+	propsDifference: PropsDiff<Props> | undefined;
+	renderCount: number;
 }) => void;
 
 export type UseComponentRenderTrackingArgs<Props = undefined> = {

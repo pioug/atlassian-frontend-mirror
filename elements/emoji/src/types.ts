@@ -14,7 +14,23 @@ export interface EmojiProvider
 	 * Will allow emoji to render site emojis without needing to fail first
 	 */
 
-	getMediaEmojiDescriptionURLWithInlineToken(emoji: EmojiDescription): Promise<EmojiDescription>;
+	/**
+	 * Returns a list of all the non-standard categories with emojis in the EmojiRepository
+	 * e.g. 'FREQUENT', 'ATLASSIAN' and 'CUSTOM'
+	 */
+	calculateDynamicCategories?(): Promise<string[]>;
+
+	/**
+	 * Deletes the given emoji from the site emoji service
+	 * No changes are made if it is not a media emoji, no siteEmojiResource has been initialised
+	 * or the user is not authorised.
+	 * It should also be removed from the EmojiResource so it cannot be returned via search
+	 *
+	 * Optional.
+	 *
+	 * @return a boolean indicating whether the delete was successful
+	 */
+	deleteSiteEmoji(emoji: EmojiDescription): Promise<boolean>;
 
 	/**
 	 * Returns the first fetched emoji matching the emojiId.id.
@@ -27,11 +43,9 @@ export interface EmojiProvider
 	): OptionalEmojiDescriptionWithVariations | Promise<OptionalEmojiDescriptionWithVariations>;
 
 	/**
-	 * Returns the first matching emoji matching the shortName, or null if none found.
-	 *
-	 * Will load media api images before returning.
+	 * Fetches and returns emojiResource
 	 */
-	findByShortName(shortName: string): OptionalEmojiDescription | Promise<OptionalEmojiDescription>;
+	fetchEmojiProvider(force?: boolean): Promise<EmojiRepository | undefined>;
 
 	/**
 	 * Returns the first matching emoji matching the emojiId.id.
@@ -49,6 +63,13 @@ export interface EmojiProvider
 	findById(id: string): OptionalEmojiDescription | Promise<OptionalEmojiDescription>;
 
 	/**
+	 * Returns the first matching emoji matching the shortName, or null if none found.
+	 *
+	 * Will load media api images before returning.
+	 */
+	findByShortName(shortName: string): OptionalEmojiDescription | Promise<OptionalEmojiDescription>;
+
+	/**
 	 * Finds emojis belonging to specified category.
 	 *
 	 * Does not automatically load Media API images.
@@ -61,6 +82,11 @@ export interface EmojiProvider
 	getAsciiMap(): Promise<Map<string, EmojiDescription>>;
 
 	/**
+	 * Returns the logged user passed by the Product
+	 */
+	getCurrentUser(): OptionalUser;
+
+	/**
 	 * Returns, in a Promise, an array of the most frequently used emoji, ordered from most frequent to least frequent.
 	 * If there is no frequently used data then an empty array should be returned.
 	 *
@@ -68,25 +94,18 @@ export interface EmojiProvider
 	 */
 	getFrequentlyUsed(options?: SearchOptions): Promise<EmojiDescription[]>;
 
-	/**
-	 * Records an emoji selection, for example for using in tracking recent emoji.
-	 * If no recordConfig is configured then a resolved promise should be returned
-	 *
-	 * Optional.
-	 */
-	recordSelection?(emoji: EmojiDescription): Promise<any>;
+	getMediaEmojiDescriptionURLWithInlineToken(emoji: EmojiDescription): Promise<EmojiDescription>;
 
 	/**
-	 * Deletes the given emoji from the site emoji service
-	 * No changes are made if it is not a media emoji, no siteEmojiResource has been initialised
-	 * or the user is not authorised.
-	 * It should also be removed from the EmojiResource so it cannot be returned via search
-	 *
-	 * Optional.
-	 *
-	 * @return a boolean indicating whether the delete was successful
+	 * Returns a constructed URL to fetch emoji media asset if 'optimisticImageApi' config has been provided
 	 */
-	deleteSiteEmoji(emoji: EmojiDescription): Promise<boolean>;
+	getOptimisticImageURL(emojiId: EmojiId): string | undefined;
+
+	/**
+	 * Used by the picker and typeahead to obtain a skin tone preference
+	 * if the user has previously selected one via the Tone Selector
+	 */
+	getSelectedTone(): ToneSelection;
 
 	/**
 	 * Load media emoji that may require authentication to download, producing
@@ -108,6 +127,13 @@ export interface EmojiProvider
 	): OptionalEmojiDescription | Promise<OptionalEmojiDescription>;
 
 	/**
+	 * @return a boolean indicating whether providers should be fetched on-demand only, and automatic fetches prevented
+	 *
+	 * Optional.
+	 */
+	onlyFetchOnDemand?(): boolean;
+
+	/**
 	 * Indicates if media emoji should be rendered optimistically,
 	 * i.e. assume the url can be rendered directly from the URL, and
 	 * only explicitly loaded via loadEmojiImageData if it fails to load.
@@ -117,44 +143,18 @@ export interface EmojiProvider
 	optimisticMediaRendering(emoji: EmojiDescription, useAlt?: boolean): boolean;
 
 	/**
-	 * Used by the picker and typeahead to obtain a skin tone preference
-	 * if the user has previously selected one via the Tone Selector
+	 * Records an emoji selection, for example for using in tracking recent emoji.
+	 * If no recordConfig is configured then a resolved promise should be returned
+	 *
+	 * Optional.
 	 */
-	getSelectedTone(): ToneSelection;
+	recordSelection?(emoji: EmojiDescription): Promise<any>;
 
 	/**
 	 * Used by Tone Selector to indicate to the provider that the user
 	 * has selected a skin tone preference that should be remembered
 	 */
 	setSelectedTone(tone: ToneSelection): void;
-
-	/**
-	 * Returns a list of all the non-standard categories with emojis in the EmojiRepository
-	 * e.g. 'FREQUENT', 'ATLASSIAN' and 'CUSTOM'
-	 */
-	calculateDynamicCategories?(): Promise<string[]>;
-
-	/**
-	 * Returns the logged user passed by the Product
-	 */
-	getCurrentUser(): OptionalUser;
-
-	/**
-	 * Fetches and returns emojiResource
-	 */
-	fetchEmojiProvider(force?: boolean): Promise<EmojiRepository | undefined>;
-
-	/**
-	 * Returns a constructed URL to fetch emoji media asset if 'optimisticImageApi' config has been provided
-	 */
-	getOptimisticImageURL(emojiId: EmojiId): string | undefined;
-
-	/**
-	 * @return a boolean indicating whether providers should be fetched on-demand only, and automatic fetches prevented
-	 *
-	 * Optional.
-	 */
-	onlyFetchOnDemand?(): boolean;
 }
 
 export interface UploadingEmojiProvider extends EmojiProvider {
@@ -166,6 +166,11 @@ export interface UploadingEmojiProvider extends EmojiProvider {
 	isUploadSupported(): Promise<boolean>;
 
 	/**
+	 * Allows the preloading of data (e.g. authentication tokens) to speed the uploading of emoji.
+	 */
+	prepareForUpload(): Promise<void>;
+
+	/**
 	 * Uploads an emoji to the configured repository.
 	 *
 	 * Will return a promise with the EmojiDescription once completed.
@@ -173,11 +178,6 @@ export interface UploadingEmojiProvider extends EmojiProvider {
 	 * The last search will be re-run to ensure the new emoji is considered in the search.
 	 */
 	uploadCustomEmoji(upload: EmojiUpload, retry?: boolean): Promise<EmojiDescription>;
-
-	/**
-	 * Allows the preloading of data (e.g. authentication tokens) to speed the uploading of emoji.
-	 */
-	prepareForUpload(): Promise<void>;
 }
 
 export type RelativePosition = 'above' | 'below' | 'auto';
@@ -196,16 +196,16 @@ export interface Styles {
  * fallback behaviour will be to attempt to find a matching emoji by shortName.
  */
 export interface EmojiId {
-	shortName: string;
-	id?: string;
 	fallback?: string;
+	id?: string;
+	shortName: string;
 }
 
 export interface SpriteSheet {
-	url: string;
-	row: number;
 	column: number;
 	height: number;
+	row: number;
+	url: string;
 	width: number;
 }
 
@@ -216,8 +216,8 @@ export interface EmojiImageRepresentation {
 
 export interface SpriteImageRepresentation extends EmojiImageRepresentation {
 	x: number;
-	y: number;
 	xIndex: number;
+	y: number;
 	yIndex: number;
 }
 
@@ -251,16 +251,16 @@ export type EmojiRepresentation =
 	| undefined;
 
 export interface EmojiDescription extends EmojiId {
-	name?: string;
-	order?: number;
-	type: string;
-	category: string;
+	altRepresentation?: EmojiRepresentation;
 	ascii?: string[];
+	category: string;
 	createdDate?: string;
 	creatorUserId?: string;
+	name?: string;
+	order?: number;
 	representation: EmojiRepresentation;
-	altRepresentation?: EmojiRepresentation;
 	searchable: boolean;
+	type: string;
 }
 
 export interface EmojiDescriptionWithVariations extends EmojiDescription {
@@ -282,19 +282,19 @@ export type OptionalEmojiDescriptionWithVariations = EmojiDescriptionWithVariati
 export type EmojiServiceRepresentation = SpriteServiceRepresentation | ImageRepresentation;
 
 export interface EmojiServiceDescription {
-	id: string;
-	shortName: string;
-	name?: string;
-	order?: number;
-	fallback?: string;
+	altRepresentations?: AltRepresentations;
 	ascii?: string[];
+	category: string;
 	createdDate?: string;
 	creatorUserId?: string;
-	type: string;
-	category: string;
+	fallback?: string;
+	id: string;
+	name?: string;
+	order?: number;
 	representation: EmojiServiceRepresentation;
-	altRepresentations?: AltRepresentations;
 	searchable: boolean;
+	shortName: string;
+	type: string;
 }
 
 export interface EmojiServiceDescriptionWithVariations extends EmojiServiceDescription {
@@ -314,16 +314,16 @@ export interface SpriteSheets {
  * (indicated by urls beginning with the url of the token.)
  */
 export interface MediaApiToken {
-	url: string;
 	clientId: string;
-	jwt: string;
 	collectionName: string;
 	expiresAt: number; // seconds since Epoch UTC
+	jwt: string;
+	url: string;
 }
 
 export interface EmojiMeta {
-	spriteSheets?: SpriteSheets;
 	mediaApiToken?: MediaApiToken;
+	spriteSheets?: SpriteSheets;
 }
 
 /**
@@ -340,9 +340,9 @@ export interface EmojiResponse {
 }
 
 export interface CategoryDescription {
+	icon: any;
 	id: string;
 	name: keyof typeof messages;
-	icon: any;
 	order: number;
 }
 
@@ -377,8 +377,8 @@ export enum SearchSourceTypes {
 }
 
 export interface SearchOptions {
-	skinTone?: number; // skin tone offset starting at 1
 	limit?: number;
+	skinTone?: number; // skin tone offset starting at 1
 	sort?: SearchSort;
 	source?: SearchSourceTypes; // only used for analytics
 }
@@ -391,12 +391,12 @@ export interface EmojiSearchResult {
 export type ToneSelection = number | undefined;
 
 export interface EmojiUpload {
+	dataURL: string;
+	filename: string;
+	height: number;
 	name: string;
 	shortName: string;
-	filename: string;
-	dataURL: string;
 	width: number;
-	height: number;
 }
 
 export interface User {

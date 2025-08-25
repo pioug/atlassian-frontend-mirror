@@ -15,8 +15,8 @@ import { default as FullPageExample } from './5-full-page';
 const emitter = new AnnotationUpdateEmitter();
 
 function AnnotationCheckbox(props: {
-	id: string;
 	checked: boolean;
+	id: string;
 	onChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
 	const { id, checked, onChange } = props;
@@ -31,10 +31,10 @@ function AnnotationCheckbox(props: {
 }
 
 function EnableAnnotationTypeCheckbox(props: {
-	id: string;
 	checked: boolean;
-	type: string;
+	id: string;
 	onChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
+	type: string;
 }) {
 	const { id, checked, onChange, type } = props;
 	return (
@@ -47,10 +47,10 @@ function EnableAnnotationTypeCheckbox(props: {
 }
 
 function EnableDisallowOnWhiteSpaceCheckbox(props: {
-	id: string;
 	checked: boolean;
-	type: string;
+	id: string;
 	onChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
+	type: string;
 }) {
 	const { id, checked, onChange, type } = props;
 	return (
@@ -64,8 +64,8 @@ function EnableDisallowOnWhiteSpaceCheckbox(props: {
 
 type State = {
 	annotationStates: Map<string, boolean>;
-	isInlineCommentsEnabled: boolean;
 	isDisallowOnWhiteSpaceEnabled: boolean;
+	isInlineCommentsEnabled: boolean;
 };
 
 // Ignored via go/ees005

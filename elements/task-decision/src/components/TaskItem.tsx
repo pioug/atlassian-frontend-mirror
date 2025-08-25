@@ -168,20 +168,20 @@ const checkboxStyles = css({
 });
 
 export interface Props {
-	taskId: string;
+	appearance?: Appearance;
+	children?: any;
+	contentRef?: ContentRef;
+	dataAttributes?: { [key: string]: string | number };
+	disabled?: boolean;
+	inputRef?: Ref<HTMLInputElement>;
 	isDone?: boolean;
 	isFocused?: boolean;
 	isRenderer?: boolean;
 	onChange?: (taskId: string, isChecked: boolean) => void;
 	onClick?: () => void;
-	contentRef?: ContentRef;
-	children?: any;
 	placeholder?: string;
 	showPlaceholder?: boolean;
-	appearance?: Appearance;
-	disabled?: boolean;
-	dataAttributes?: { [key: string]: string | number };
-	inputRef?: Ref<HTMLInputElement>;
+	taskId: string;
 }
 
 let taskCount = 0;

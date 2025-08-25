@@ -24,8 +24,8 @@ export const findChangedNodesFromTransaction = (tr: Transaction): PMNode[] => {
 	const nodes: PMNode[] = [];
 	const steps = (tr.steps || []) as (Step & {
 		from: number;
-		to: number;
 		slice?: Slice;
+		to: number;
 	})[];
 
 	steps.forEach((step) => {

@@ -10,8 +10,8 @@ export const ProviderCardExampleList = ({
 	examples,
 	config,
 }: {
-	examples: ExampleUrl['examples'];
 	config: ExampleUIConfig;
+	examples: ExampleUrl['examples'];
 }): JSX.Element => {
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

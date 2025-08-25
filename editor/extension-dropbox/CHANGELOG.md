@@ -1,5 +1,13 @@
 # @atlaskit/editor-extension-dropbox
 
+## 1.0.3
+
+### Patch Changes
+
+- [`0fdcb6f2f96fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0fdcb6f2f96fd) -
+  Sorted type and interface props to improve Atlaskit docs
+- Updated dependencies
+
 ## 1.0.2
 
 ### Patch Changes

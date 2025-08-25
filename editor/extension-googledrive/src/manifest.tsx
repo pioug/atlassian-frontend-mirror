@@ -11,10 +11,10 @@ declare global {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		google: any;
 		GooglePicker: {
+			accessToken?: string;
 			// Ignored via go/ees005
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			token_client: any;
-			accessToken?: string;
 		};
 	}
 }
@@ -52,8 +52,8 @@ function createPicker(appKey: string) {
 	// Request an access token.
 	window.appKey = appKey;
 	window.GooglePicker.token_client.callback = async (response: {
-		error: undefined;
 		access_token: string | undefined;
+		error: undefined;
 		// Ignored via go/ees005
 		// eslint-disable-next-line require-await
 	}) => {

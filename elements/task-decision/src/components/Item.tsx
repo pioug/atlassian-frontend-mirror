@@ -9,15 +9,15 @@ import { type Appearance, type ContentRef, type TaskType, type DecisionType } fr
 import { token } from '@atlaskit/tokens';
 
 export interface Props {
+	appearance?: Appearance;
+	checkBoxId?: string;
+	children?: any;
+	contentRef?: ContentRef;
+	dataAttributes?: { [key: string]: string | number };
 	icon: JSX.Element;
 	itemType: TaskType | DecisionType;
-	children?: any;
-	appearance?: Appearance;
-	contentRef?: ContentRef;
 	placeholder?: string;
 	showPlaceholder?: boolean;
-	dataAttributes?: { [key: string]: string | number };
-	checkBoxId?: string;
 }
 
 const placeholderStyles = css({

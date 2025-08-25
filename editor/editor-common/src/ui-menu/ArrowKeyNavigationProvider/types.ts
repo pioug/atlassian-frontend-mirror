@@ -1,6 +1,6 @@
 export interface KeyDownHandlerContext {
-	handleArrowRight: () => void;
 	handleArrowLeft: () => void;
+	handleArrowRight: () => void;
 	handleTab: () => void;
 }
 
@@ -12,35 +12,35 @@ export enum ArrowKeyNavigationType {
 }
 
 export type ColorPaletteArrowKeyNavigationOptions = {
-	type: ArrowKeyNavigationType.COLOR;
-	selectedRowIndex: number;
-	selectedColumnIndex: number;
+	children?: React.ReactNode;
 	isOpenedByKeyboard: boolean;
 	isPopupPositioned: boolean;
-	children?: React.ReactNode;
+	selectedColumnIndex: number;
+	selectedRowIndex: number;
+	type: ArrowKeyNavigationType.COLOR;
 };
 
 export type ColorPaletteArrowKeyNavigationProps = ColorPaletteArrowKeyNavigationOptions & {
-	handleClose?: SimpleEventHandler<KeyboardEvent>;
 	closeOnTab?: boolean;
 	editorRef: React.RefObject<HTMLDivElement>;
+	handleClose?: SimpleEventHandler<KeyboardEvent>;
 	ignoreEscapeKey?: boolean | false;
 	popupsMountPoint?: HTMLElement | undefined;
 };
 
 export type MenuArrowKeyNavigationOptions = {
-	type: ArrowKeyNavigationType.MENU;
-	disableArrowKeyNavigation?: boolean;
-	keyDownHandlerContext?: KeyDownHandlerContext;
-	disableCloseOnArrowClick?: boolean;
 	children?: React.ReactNode;
+	disableArrowKeyNavigation?: boolean;
+	disableCloseOnArrowClick?: boolean;
+	keyDownHandlerContext?: KeyDownHandlerContext;
+	type: ArrowKeyNavigationType.MENU;
 };
 
 export type MenuArrowKeyNavigationProviderProps = MenuArrowKeyNavigationOptions & {
-	handleClose?: SimpleEventHandler<KeyboardEvent>;
-	onSelection?: (index: number) => void;
 	closeOnTab?: boolean;
 	editorRef: React.RefObject<HTMLDivElement>;
+	handleClose?: SimpleEventHandler<KeyboardEvent>;
+	onSelection?: (index: number) => void;
 	popupsMountPoint?: HTMLElement | undefined;
 };
 

@@ -38,9 +38,6 @@
 	"peerDependencies": {
 		"react": "^18.2.0"
 	},
-	"af:exports": {
-		".": "./src/index.ts"
-	},
 	"exports": {
 		".": "./src/index.ts"
 	},

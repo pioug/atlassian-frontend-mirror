@@ -35,32 +35,32 @@ import { N0, N40 } from '@atlaskit/theme/colors';
 export type Props = {
 	/** the toggle that decides if the selected color will be automatically focused on load */
 	autoFocus?: boolean;
+	/** color of checkmark on selected color */
+	checkMarkColor?: string;
+	/** maximum column length */
+	cols: number;
+	/** You should not be accessing this prop under any circumstances. It is provided by @atlaskit/analytics-next. */
+	createAnalyticsEvent?: any;
+	/** the ref object (usually the currently selected color palette) that consumer can leverage to focus on load */
+	initialFocusRef?: Ref<HTMLDivElement>;
 	/** the toggle that decides if users can tab outside the color picker (arrow keys will always cycle the focus) */
 	isFocusLockEnabled?: boolean;
 	/** the toggle that decides if menu-related assistive technology should be applied */
 	isInsideMenu?: boolean;
 	/** color picker button label */
 	label?: string;
-	/** list of available colors */
-	palette: Palette;
-	/** selected color */
-	selectedColor?: string;
-	/** maximum column length */
-	cols: number;
-	/** color of checkmark on selected color */
-	checkMarkColor?: string;
+	/** style of the color-picker, either 'Compact' or 'Standard', default value is 'Standard' */
+	mode?: Mode;
 	/** onChange handler */
 	onChange: (
 		event: MouseEvent | KeyboardEvent,
 		value: string,
 		analyticsEvent?: UIAnalyticsEvent,
 	) => void;
-	/** You should not be accessing this prop under any circumstances. It is provided by @atlaskit/analytics-next. */
-	createAnalyticsEvent?: any;
-	/** style of the color-picker, either 'Compact' or 'Standard', default value is 'Standard' */
-	mode?: Mode;
-	/** the ref object (usually the currently selected color palette) that consumer can leverage to focus on load */
-	initialFocusRef?: Ref<HTMLDivElement>;
+	/** list of available colors */
+	palette: Palette;
+	/** selected color */
+	selectedColor?: string;
 	/** Variant of color card */
 	variant?: ColorCardVariant;
 };

@@ -45,8 +45,8 @@ const styles = cssMap({
 const isSafari = typeof window !== 'undefined' && window.navigator.userAgent.indexOf('Safari');
 
 type InputProps = {
-	text: string;
 	label: string;
+	text: string;
 };
 
 export const HiddenInput = React.forwardRef<HTMLInputElement, InputProps>(
@@ -66,15 +66,15 @@ export const HiddenInput = React.forwardRef<HTMLInputElement, InputProps>(
 );
 
 export type Props = {
-	onLinkCopy?: (link: string) => void;
-	link: string;
-	isDisabled?: boolean;
-	copyTooltipText?: string;
 	children?: string | ReactElement;
-	copyLinkButtonText: string;
 	copiedToClipboardText: string;
+	copyLinkButtonText: string;
+	copyTooltipText?: string;
 	iconBefore?: ReactElement;
+	isDisabled?: boolean;
 	isExtendedShareDialogEnabled?: boolean;
+	link: string;
+	onLinkCopy?: (link: string) => void;
 };
 
 export type State = {

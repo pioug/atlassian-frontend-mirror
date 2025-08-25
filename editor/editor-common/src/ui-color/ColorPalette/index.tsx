@@ -23,17 +23,15 @@ import {
 } from './utils';
 
 interface Props {
-	selectedColor: string | null;
+	className?: string;
+	cols?: number;
 	onClick: (value: string, label: string) => void;
 	onKeyDown?: (value: string, label: string, event: React.KeyboardEvent) => void;
-	cols?: number;
-	className?: string;
 	/**
 	 * paletteOptions is the prop, where any configuration related to
 	 * how palette should look or behave will be added.
 	 */
 	paletteOptions: {
-		palette: PaletteColor[];
 		/**
 		 * If hexToPaletteColor is passed, it will be called to convert
 		 *  hexCodes passed in palette props to DST token.
@@ -42,6 +40,7 @@ interface Props {
 		 *  mapping function to map tokens.
 		 */
 		hexToPaletteColor?: (hexColor: string) => string | undefined;
+		palette: PaletteColor[];
 		/**
 		 * We have pivoted from having logic inside ColorPalette determining
 		 *  which tooltip messages should be used to consumer of ColorPalette giving
@@ -52,6 +51,7 @@ interface Props {
 		 */
 		paletteColorTooltipMessages?: PaletteTooltipMessages;
 	};
+	selectedColor: string | null;
 }
 
 /**

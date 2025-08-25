@@ -18,8 +18,8 @@ import Page from '@atlaskit/page';
 import { token } from '@atlaskit/tokens';
 
 interface VRTestCaseOpts {
-	title: string;
 	children: () => JSX.Element;
+	title: string;
 }
 
 const subHeaderCSS = css({

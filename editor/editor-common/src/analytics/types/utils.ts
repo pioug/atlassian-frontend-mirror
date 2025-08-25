@@ -17,12 +17,12 @@ type AEP<
 	action: Action;
 	actionSubject: ActionSubject;
 	actionSubjectId?: ActionSubjectID;
-	containerId?: ContainerId;
-	objectId?: ObjectId;
-	childObjectId?: ChildObjectId;
 	attributes?: Attributes & {
 		[key in keyof ImplicitAttributes]?: ImplicitAttributes[key];
 	};
+	childObjectId?: ChildObjectId;
+	containerId?: ContainerId;
+	objectId?: ObjectId;
 } & (
 	| {
 			eventType: Exclude<EventType, EVENT_TYPE.OPERATIONAL>;
@@ -131,12 +131,12 @@ export enum SELECTION_POSITION {
 }
 
 export interface NonRequiredAttributes {
-	insertLocation?: string;
-	insertedLocation?: string;
-	nodeLocation?: string;
 	changeFromLocation?: string;
-	selectionType?: SELECTION_TYPE;
+	insertedLocation?: string;
+	insertLocation?: string;
+	nodeLocation?: string;
 	selectionPosition?: SELECTION_POSITION;
+	selectionType?: SELECTION_TYPE;
 }
 
 export type InsertAEP<ActionSubjectID, Attributes, NonPrivacySafeAttributes> = TrackAEP<

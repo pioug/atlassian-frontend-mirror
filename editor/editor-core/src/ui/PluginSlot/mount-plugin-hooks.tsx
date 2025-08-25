@@ -15,9 +15,9 @@ function MountPluginHook({ usePluginHook, editorView, containerElement }: MountP
 }
 
 interface MountPluginHooksProps {
+	containerElement: HTMLElement | null;
 	editorView: EditorView | undefined;
 	pluginHooks: ReactHookFactory[] | undefined;
-	containerElement: HTMLElement | null;
 }
 
 export function MountPluginHooks({

@@ -25,15 +25,15 @@ interface SharedIconComponentProps {
 	 */
 	iconUrl: string;
 	/**
-	 * Text that labels the icon. Will not be capitalised.
-	 */
-	text?: string;
-	/**
 	 * Label.
 	 * Used for icon alt.
 	 */
 	label?: string;
 	testId: string;
+	/**
+	 * Text that labels the icon. Will not be capitalised.
+	 */
+	text?: string;
 }
 
 /**

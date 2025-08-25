@@ -8,11 +8,11 @@ import { parseMacroKeyword } from './keyword';
 import { escapeHandler } from '../utils/escape';
 
 export interface FormatterOption {
+	// The closing symbol
+	closing: string;
 	context: Context;
 	// The opening symbol
 	opening: string;
-	// The closing symbol
-	closing: string;
 	// This function will be called with the rawContent
 	rawContentProcessor: (raw: string, length: number) => Token;
 }

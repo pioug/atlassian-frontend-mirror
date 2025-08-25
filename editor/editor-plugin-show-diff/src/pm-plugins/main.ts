@@ -88,30 +88,12 @@ export const createPlugin = (config: DiffParams | undefined) => {
 		key: showDiffPluginKey,
 		state: {
 			init(_: EditorStateConfig, state: EditorState) {
-				const schema = state.schema;
-				const isDisplayingChanges = (config?.steps ?? []).length > 0;
-				const steps = (config?.steps ?? []).map((step) => ProseMirrorStep.fromJSON(schema, step));
-
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				const nodeViews: Record<string, NodeViewConstructor> = (editorView as any)?.nodeViews || {};
+				// We do initial setup after we setup the editor view
 				return {
-					steps,
-					originalDoc: config?.originalDoc
-						? processRawValue(state.schema, config.originalDoc)
-						: undefined,
-					decorations: calculateDecorations({
-						state,
-						pluginState: {
-							steps,
-							originalDoc: config?.originalDoc
-								? processRawValue(state.schema, config.originalDoc)
-								: undefined,
-							isDisplayingChanges,
-						},
-						editorView,
-						nodeViews,
-					}),
-					isDisplayingChanges,
+					steps: [],
+					originalDoc: undefined,
+					decorations: DecorationSet.empty,
+					isDisplayingChanges: false,
 				};
 			},
 			apply: (
@@ -128,23 +110,21 @@ export const createPlugin = (config: DiffParams | undefined) => {
 
 				if (meta) {
 					if (meta?.action === 'SHOW_DIFF') {
-						// Calculate and store decorations in state
-						const decorations = calculateDecorations({
-							state: newState,
-							pluginState: {
-								steps: meta.steps ?? currentPluginState.steps,
-								originalDoc: meta.originalDoc ?? currentPluginState.originalDoc,
-								isDisplayingChanges: true,
-							},
-							editorView,
-							nodeViews: nodeViews,
-						});
+						// Update the plugin state with the new metadata
 						newPluginState = {
 							...currentPluginState,
 							...meta,
-							decorations,
 							isDisplayingChanges: true,
 						};
+						// Calculate and store decorations in state
+						const decorations = calculateDecorations({
+							state: newState,
+							pluginState: newPluginState,
+							editorView,
+							nodeViews: nodeViews,
+						});
+						// Update the decorations
+						newPluginState.decorations = decorations;
 					} else if (meta?.action === 'HIDE_DIFF') {
 						newPluginState = {
 							...currentPluginState,
@@ -165,7 +145,25 @@ export const createPlugin = (config: DiffParams | undefined) => {
 		},
 		view(editorView: EditorView) {
 			setEditorView(editorView);
-			return {};
+			let isFirst = true;
+			return {
+				update(view: EditorView) {
+					// If we're using configuration to show diffs we initialise here once we setup the editor view
+					if (config?.originalDoc && config?.steps && config.steps.length > 0 && isFirst) {
+						isFirst = false;
+
+						view.dispatch(
+							view.state.tr.setMeta(showDiffPluginKey, {
+								action: 'SHOW_DIFF',
+								steps: config.steps.map((step) =>
+									ProseMirrorStep.fromJSON(view.state.schema, step),
+								),
+								originalDoc: processRawValue(view.state.schema, config.originalDoc),
+							}),
+						);
+					}
+				},
+			};
 		},
 		props: {
 			decorations: (state: EditorState) => {

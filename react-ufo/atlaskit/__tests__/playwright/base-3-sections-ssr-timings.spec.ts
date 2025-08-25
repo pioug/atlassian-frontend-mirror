@@ -4,7 +4,7 @@
 import { expect, test, viewports } from './fixtures';
 
 test.describe('ReactUFO: SSR Timings', () => {
-	const requiredFeatureFlags = ['ufo_payload_use_idle_callback', 'platform_ufo_ssr_size_field'];
+	const requiredFeatureFlags = ['ufo_payload_use_idle_callback'];
 	const featureFlagsCombos = [[...requiredFeatureFlags]];
 	for (const featureFlags of featureFlagsCombos) {
 		test.describe(`with feature flags ${featureFlags.join(', ')}`, () => {

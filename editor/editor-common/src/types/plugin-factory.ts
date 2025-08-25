@@ -12,16 +12,16 @@ import type { ErrorReporter } from '../utils';
 import type { FeatureFlags } from './feature-flags';
 
 export type PMPluginFactoryParams = {
-	schema: Schema;
 	dispatch: Dispatch;
-	eventDispatcher: EventDispatcher;
-	providerFactory: ProviderFactory;
-	errorReporter?: ErrorReporter;
-	portalProviderAPI: PortalProviderAPI;
-	nodeViewPortalProviderAPI: PortalProviderAPI;
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent;
+	errorReporter?: ErrorReporter;
+	eventDispatcher: EventDispatcher;
 	featureFlags: FeatureFlags;
 	getIntl: () => IntlShape;
+	nodeViewPortalProviderAPI: PortalProviderAPI;
+	portalProviderAPI: PortalProviderAPI;
+	providerFactory: ProviderFactory;
+	schema: Schema;
 };
 
 export type PMPluginFactory = (params: PMPluginFactoryParams) => SafePlugin | undefined;

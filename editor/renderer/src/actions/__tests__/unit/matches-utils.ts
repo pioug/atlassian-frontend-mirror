@@ -86,9 +86,9 @@ describe('RendererActions matches', () => {
 					string, // Query text
 					number, // Position of query
 					{
+						blockNodePos: number | undefined;
 						matchIndex: number;
 						numMatches: number;
-						blockNodePos: number | undefined;
 					}, // Expected result
 				]
 			>([

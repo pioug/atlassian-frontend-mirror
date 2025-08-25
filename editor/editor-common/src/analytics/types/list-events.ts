@@ -26,10 +26,10 @@ export enum OUTDENT_SCENARIOS {
 }
 
 export type CommonListAnalyticsAttributes = {
-	itemIndexAtSelectionStart: number;
-	itemIndexAtSelectionEnd: number;
-	indentLevelAtSelectionStart: number;
 	indentLevelAtSelectionEnd: number;
+	indentLevelAtSelectionStart: number;
+	itemIndexAtSelectionEnd: number;
+	itemIndexAtSelectionStart: number;
 	itemsInSelection: number;
 };
 
@@ -47,8 +47,8 @@ type ListItemJoinedFormatAEP<Attributes> = TrackAEP<
 >;
 
 type ListItemJoinedForwardAEP = ListItemJoinedFormatAEP<{
-	inputMethod: INPUT_METHOD.KEYBOARD;
 	direction: DELETE_DIRECTION.FORWARD;
+	inputMethod: INPUT_METHOD.KEYBOARD;
 	scenario:
 		| LIST_TEXT_SCENARIOS.JOIN_PARAGRAPH_WITH_LIST
 		| LIST_TEXT_SCENARIOS.JOIN_SIBLINGS
@@ -58,8 +58,8 @@ type ListItemJoinedForwardAEP = ListItemJoinedFormatAEP<{
 }>;
 
 type ListItemJoinedBackwardsAEP = ListItemJoinedFormatAEP<{
-	inputMethod: INPUT_METHOD.KEYBOARD;
 	direction: DELETE_DIRECTION.BACKWARD;
+	inputMethod: INPUT_METHOD.KEYBOARD;
 	scenario:
 		| LIST_TEXT_SCENARIOS.JOIN_SIBLINGS
 		| LIST_TEXT_SCENARIOS.JOIN_DESCENDANT_TO_PARENT
@@ -73,8 +73,8 @@ type ListConvertedTrackAEP = TrackAEP<
 	| ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER
 	| ACTION_SUBJECT_ID.TEXT,
 	{
-		transformedFrom: ACTION_SUBJECT_ID.FORMAT_LIST_BULLET | ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER;
 		inputMethod: INPUT_METHOD.TOOLBAR | INPUT_METHOD.KEYBOARD | INPUT_METHOD.FLOATING_TB;
+		transformedFrom: ACTION_SUBJECT_ID.FORMAT_LIST_BULLET | ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER;
 	} & CommonListAnalyticsAttributes,
 	undefined
 >;
@@ -111,8 +111,8 @@ type ListInsertedAEP = TrackAEP<
 			| INPUT_METHOD.TOOLBAR
 			| INPUT_METHOD.QUICK_INSERT
 			| INPUT_METHOD.FLOATING_TB;
-		listStartNumber?: number;
 		joinScenario?: JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST;
+		listStartNumber?: number;
 	},
 	undefined,
 	NonRequiredAttributes
@@ -124,8 +124,8 @@ type ListContentSanitizedAEP = TrackAEP<
 	ACTION_SUBJECT_ID.FORMAT_LIST_BULLET | ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER,
 	{
 		inputMethod: INPUT_METHOD.FORMATTING;
-		nodeSanitized: string;
 		marksRemoved: string[];
+		nodeSanitized: string;
 	},
 	undefined
 >;

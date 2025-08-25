@@ -82,18 +82,18 @@ const renderReaction = ({
 	showSubtleStyle = false,
 	optimistic = false,
 }: {
-	reacted: boolean;
 	count: number;
-	onClick?: ReactionClick;
-	onMouseEnter?: ReactionMouseEnter;
 	enableFlash?: boolean;
-	onEvent?: (event: UIAnalyticsEvent, channel?: string) => void;
-	users?: User[];
-	showParticleEffect?: boolean;
-	showOpaqueBackground?: boolean;
 	isViewOnly?: boolean;
-	showSubtleStyle?: boolean;
+	onClick?: ReactionClick;
+	onEvent?: (event: UIAnalyticsEvent, channel?: string) => void;
+	onMouseEnter?: ReactionMouseEnter;
 	optimistic?: boolean;
+	reacted: boolean;
+	showOpaqueBackground?: boolean;
+	showParticleEffect?: boolean;
+	showSubtleStyle?: boolean;
+	users?: User[];
 }) =>
 	renderWithIntl(
 		<AnalyticsListener channel="fabric-elements" onEvent={onEvent}>

@@ -373,6 +373,7 @@ describe('validate Attribute', () => {
 			'hardBreak',
 			'taskList',
 			'taskItem',
+			'blockTaskItem',
 			'blockquote',
 		]);
 		let errorCallbackMock: jest.Mock;

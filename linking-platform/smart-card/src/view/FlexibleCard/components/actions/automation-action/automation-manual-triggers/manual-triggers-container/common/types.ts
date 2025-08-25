@@ -38,8 +38,8 @@ export type UserInputPrompt =
 	| UserInputParagraphPrompt;
 
 type UserInputValueBase<Value, Type extends UserInputType> = {
-	value: Value;
 	inputType: Type;
+	value: Value;
 };
 
 export type UserInputBooleanValue = UserInputValueBase<boolean, UserInputType.BOOLEAN>;
@@ -99,8 +99,8 @@ export type RuleQuery = {
 };
 
 export type SelectedRule = {
-	rule: ManualRule;
 	objects: Ari[];
+	rule: ManualRule;
 };
 
 export type SelectorOption = {

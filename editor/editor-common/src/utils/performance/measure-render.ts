@@ -1,8 +1,8 @@
 import { isPerformanceAPIAvailable } from './is-performance-api-available';
 
 type DistortedDurationMonitor = {
-	distortedDuration: boolean;
 	cleanup: () => void;
+	distortedDuration: boolean;
 };
 
 /**
@@ -85,8 +85,6 @@ export function measureRender(
 		startTime,
 		distortedDuration,
 	}: {
-		duration: number;
-		startTime: number;
 		/**
 		 * Will be true when the measurement takes place in a background tab or some
 		 * other case which results in the Document.visibilityState not being visible.
@@ -95,6 +93,8 @@ export function measureRender(
 		 * onMeasureComplete description for more details.
 		 */
 		distortedDuration: boolean;
+		duration: number;
+		startTime: number;
 	}) => void,
 ) {
 	if (!isPerformanceAPIAvailable()) {

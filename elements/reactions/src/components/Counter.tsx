@@ -61,9 +61,13 @@ export const RENDER_LABEL_TESTID = 'counter_label_wrapper';
 
 export interface CounterProps {
 	/**
-	 * Count of emoji been selected
+	 * Duration of how long the motion will take (defaults to "medium" from '@atlaskit/motion')
 	 */
-	value: number;
+	animationDuration?: Durations;
+	/**
+	 * Optional wrapper class name
+	 */
+	className?: string;
 	/**
 	 * Has the emoji been selected by given user (defaults to false)
 	 */
@@ -77,14 +81,6 @@ export interface CounterProps {
 	 */
 	overLimitLabel?: string;
 	/**
-	 * Optional wrapper class name
-	 */
-	className?: string;
-	/**
-	 * Duration of how long the motion will take (defaults to "medium" from '@atlaskit/motion')
-	 */
-	animationDuration?: Durations;
-	/**
 	 * Optional prop to use a darker text color for the counter
 	 */
 	useDarkerFont?: boolean;
@@ -92,6 +88,10 @@ export interface CounterProps {
 	 * Optional prop to show updated styling for counter
 	 */
 	useUpdatedStyles?: boolean;
+	/**
+	 * Count of emoji been selected
+	 */
+	value: number;
 }
 
 /**

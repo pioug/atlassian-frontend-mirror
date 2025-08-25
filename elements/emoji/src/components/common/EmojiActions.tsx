@@ -65,24 +65,24 @@ const previewFooter = css({
 });
 
 export interface Props {
-	selectedTone?: ToneSelection;
-	onToneSelected?: OnToneSelected;
-	onToneSelectorCancelled?: OnToneSelectorCancelled;
-	toneEmoji?: EmojiDescriptionWithVariations;
-	uploading: boolean;
-	uploadEnabled: boolean;
 	emojiToDelete?: EmojiDescription;
 	initialUploadName?: string;
-	uploadErrorMessage?: Message;
-	onUploadCancelled: () => void;
-	onUploadEmoji: OnUploadEmoji;
+	onChange: (value: string) => void;
 	onCloseDelete: () => void;
 	onDeleteEmoji: OnDeleteEmoji;
 	onFileChooserClicked?: () => void;
 	onOpenUpload: () => void;
+	onToneSelected?: OnToneSelected;
+	onToneSelectorCancelled?: OnToneSelectorCancelled;
+	onUploadCancelled: () => void;
+	onUploadEmoji: OnUploadEmoji;
 	query?: string;
-	onChange: (value: string) => void;
 	resultsCount?: number;
+	selectedTone?: ToneSelection;
+	toneEmoji?: EmojiDescriptionWithVariations;
+	uploadEnabled: boolean;
+	uploadErrorMessage?: Message;
+	uploading: boolean;
 }
 
 export const emojiActionsTestId = 'emoji-actions';
@@ -132,8 +132,8 @@ const AddOwnEmoji = (props: AddOwnEmojiProps) => {
 };
 
 type TonesWrapperProps = PropsWithWrappedComponentPropsType & {
-	onToneOpen: () => void;
 	onToneClose: () => void;
+	onToneOpen: () => void;
 	onToneSelected: (toneValue: ToneValueType) => void;
 	showToneSelector: boolean;
 };

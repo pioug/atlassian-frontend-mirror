@@ -17,12 +17,16 @@ beforeEach(() => {
 
 function mockCreateContainers() {
 	const updateContainerLoading = jest.fn();
+	const updateContainerCreated = jest.fn();
 	let state = {
 		Jira: { isCreated: false },
 		Confluence: { isCreated: false },
 		Loom: { isCreated: false },
 	};
-	(useCreateContainers as jest.Mock).mockImplementation(() => [state, { updateContainerLoading }]);
+	(useCreateContainers as jest.Mock).mockImplementation(() => [
+		state,
+		{ updateContainerLoading, updateContainerCreated },
+	]);
 	const setContainers = (value: Partial<typeof state>) => {
 		state = { ...state, ...value };
 	};

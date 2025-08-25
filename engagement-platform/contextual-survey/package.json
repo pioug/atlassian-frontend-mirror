@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/contextual-survey",
-	"version": "5.0.6",
+	"version": "5.0.7",
 	"description": "A React component used to ask the user for feedback",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -24,10 +24,6 @@
 		"*.compiled.css"
 	],
 	"atlaskit:src": "src/index.ts",
-	"af:exports": {
-		".": "./src/index.ts",
-		"./types": "./src/types.ts"
-	},
 	"exports": {
 		".": "./src/index.ts",
 		"./types": "./src/types.ts"

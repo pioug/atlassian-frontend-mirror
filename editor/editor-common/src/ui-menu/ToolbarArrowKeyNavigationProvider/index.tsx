@@ -59,16 +59,16 @@ export const ToolbarArrowKeyNavigationProvider = ({
 	useStickyToolbar,
 	intl,
 }: {
-	children: ReactNode;
-	editorView?: EditorView;
 	// Selector is used to filterout the keyevents originated outside of toolbars/any child component
 	childComponentSelector: string;
-	handleEscape?: (event: KeyboardEvent) => void;
+	children: ReactNode;
 	disableArrowKeyNavigation?: boolean;
-	isShortcutToFocusToolbar?: (event: KeyboardEvent) => boolean;
 	editorAppearance?: EditorAppearance;
-	useStickyToolbar?: UseStickyToolbarType;
+	editorView?: EditorView;
+	handleEscape?: (event: KeyboardEvent) => void;
 	intl: IntlShape;
+	isShortcutToFocusToolbar?: (event: KeyboardEvent) => boolean;
+	useStickyToolbar?: UseStickyToolbarType;
 }) => {
 	const wrapperRef = useRef<HTMLDivElement>(null);
 	const selectedItemIndex = useRef(0);

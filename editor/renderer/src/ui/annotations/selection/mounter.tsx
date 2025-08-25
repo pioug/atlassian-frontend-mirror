@@ -36,16 +36,16 @@ import {
 } from '../contexts/AnnotationRangeContext';
 
 type Props = {
-	range: Range | null;
-	draftRange: Range | null;
+	applyAnnotation: ApplyAnnotation;
 	component: React.ComponentType<React.PropsWithChildren<InlineCommentSelectionComponentProps>>;
-	wrapperDOM: React.RefObject<HTMLDivElement>;
+	createAnalyticsEvent?: CreateUIAnalyticsEvent;
 	documentPosition: Position | false;
+	draftRange: Range | null;
+	generateIndexMatch?: (pos: Position) => false | AnnotationByMatches;
 	isAnnotationAllowed: boolean;
 	onClose: () => void;
-	applyAnnotation: ApplyAnnotation;
-	createAnalyticsEvent?: CreateUIAnalyticsEvent;
-	generateIndexMatch?: (pos: Position) => false | AnnotationByMatches;
+	range: Range | null;
+	wrapperDOM: React.RefObject<HTMLDivElement>;
 };
 
 export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithChildren<Props>) => {

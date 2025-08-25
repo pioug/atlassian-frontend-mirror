@@ -20,11 +20,11 @@ export const availableBasicFilterTypes: BasicFilterFieldType[] = [
 ];
 
 export interface BasicFilterContainerProps {
-	jql: string;
-	site?: Site;
-	selections: SelectedOptionsMap;
-	onChange: (filterType: BasicFilterFieldType, options: SelectOption[]) => void;
 	isJQLHydrating: boolean;
+	jql: string;
+	onChange: (filterType: BasicFilterFieldType, options: SelectOption[]) => void;
+	selections: SelectedOptionsMap;
+	site?: Site;
 }
 
 const styles = cssMap({

@@ -45,9 +45,9 @@ const validErrorStatuses: SmartLinkStatus[] = [
 
 type CustomUnresolvedActionProps = Prettify<
 	{
-		testId?: string;
-		onlyShowIfAction?: boolean;
 		Container?: React.ComponentType<{ children: React.ReactNode }>;
+		onlyShowIfAction?: boolean;
+		testId?: string;
 	} & Partial<Record<ErrorStatus, CustomStatusComponents>>
 >;
 

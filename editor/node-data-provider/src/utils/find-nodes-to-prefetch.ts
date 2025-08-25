@@ -3,10 +3,10 @@ import type { JSONDocNode, JSONNode } from '@atlaskit/editor-json-transformer';
 import type { NodeDataProvider } from '../node-data-provider';
 
 interface ProviderWithNodes {
-	/** The provider that supports the nodes. */
-	provider: NodeDataProvider<JSONNode, unknown>;
 	/** The nodes that are supported by the provider. */
 	nodes: JSONNode[];
+	/** The provider that supports the nodes. */
+	provider: NodeDataProvider<JSONNode, unknown>;
 }
 
 /**
@@ -20,8 +20,8 @@ interface ProviderWithNodes {
 export function findNodesToPrefetch(
 	doc: JSONDocNode,
 	providers: {
-		provider: NodeDataProvider<JSONNode, unknown>;
 		maxNodesToPrefetch: number;
+		provider: NodeDataProvider<JSONNode, unknown>;
 	}[],
 	maxNodesToVisit: number,
 ): ProviderWithNodes[] {

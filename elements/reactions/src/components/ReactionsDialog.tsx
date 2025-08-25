@@ -47,27 +47,27 @@ export const RENDER_MODAL_TESTID = 'render-reactions-modal';
 
 export interface ReactionsDialogProps {
 	/**
-	 * List of reactions to render (defaults to empty list)
-	 */
-	reactions: ReactionSummary[];
-	/**
-	 * Optional handler when the dialog closes
-	 */
-	handleCloseReactionsDialog: OnCloseHandler;
-	/**
 	 * Provider for loading emojis
 	 */
 	emojiProvider: Promise<EmojiProvider>;
 	/**
-	 * Current emoji selected to show the reactions dialog
+	 * Optional handler when the dialog closes
 	 */
-	selectedEmojiId: string;
+	handleCloseReactionsDialog: OnCloseHandler;
+	handlePaginationChange?: (emojiId: string, currentPage: number, maxPages: number) => void;
 	/**
 	 * Optional callback function called when user selects a reaction in reactions dialog
 	 */
 	handleSelectReaction?: (emojiId: string) => void;
-	handlePaginationChange?: (emojiId: string, currentPage: number, maxPages: number) => void;
 	ProfileCardWrapper?: ProfileCardWrapper;
+	/**
+	 * List of reactions to render (defaults to empty list)
+	 */
+	reactions: ReactionSummary[];
+	/**
+	 * Current emoji selected to show the reactions dialog
+	 */
+	selectedEmojiId: string;
 }
 
 export const ReactionsDialog = ({

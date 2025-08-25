@@ -40,9 +40,9 @@ export const actions: Actions = {
 			const promise = getInitialData(`/rest/api/latest/jql/autocompletedata`)
 				.then((res) => {
 					const initialValue: {
-						jqlSearchableFields: JQLFieldResponse[];
-						jqlOrderableFields: JQLFieldResponse[];
 						jqlFunctions: JQLFunctionResponse[];
+						jqlOrderableFields: JQLFieldResponse[];
+						jqlSearchableFields: JQLFieldResponse[];
 					} = {
 						jqlSearchableFields: [],
 						jqlOrderableFields: [],

@@ -4,19 +4,19 @@ import { type Comment } from './ShareEntities';
 import { type User } from './User';
 
 export type ShareContentState = {
-	users: User[];
 	comment?: Comment;
+	users: User[];
 };
 
 export type ShareError = {
-	message: string;
 	errorCode?: string;
 	helpUrl?: string;
+	message: string;
 	retryable: boolean;
 };
 
 export type ShareData = {
-	users: OptionData[];
-	comment: Comment;
 	[key: string]: unknown;
+	comment: Comment;
+	users: OptionData[];
 };

@@ -4,12 +4,12 @@ import type { TimelineEvent } from './timelineTypes';
 import type { HeatmapEntrySource } from './types';
 
 export type HeatmapEntryData = {
-	time: DOMHighResTimeStamp;
 	elementName: string | null;
-	wrapperSectionName: string | null;
+	ratio: number | null;
 	rect: HeatmapRect | null;
 	source: HeatmapEntrySource | null;
-	ratio: number | null;
+	time: DOMHighResTimeStamp;
+	wrapperSectionName: string | null;
 };
 export type HeatmapEntry = {
 	head: HeatmapEntryData | null;
@@ -24,21 +24,21 @@ export function createEmptyHeatmapEntry(): HeatmapEntry {
 }
 
 export type Heatmap = {
-	map: Array<Array<HeatmapEntry>>;
 	height: number;
-	width: number;
+	map: Array<Array<HeatmapEntry>>;
 	scaleX: number;
 	scaleY: number;
+	width: number;
 };
 
 /**
  * Represents a rectangular area in the heatmap.
  */
 export type HeatmapRect = {
-	left: number;
-	top: number;
-	right: number;
 	bottom: number;
+	left: number;
+	right: number;
+	top: number;
 };
 
 export function cloneEntry(entry: HeatmapEntry): HeatmapEntry {
@@ -95,11 +95,11 @@ export function isRectInside(
  * Parameters required for transforming a heatmap.
  */
 type TransformHeatmapProps = {
-	rect: HeatmapRect;
 	entry: Omit<HeatmapEntryData, 'source'>;
-	transformSource: HeatmapEntrySource | null;
 	heatmap: Heatmap;
 	onEmptyRow: (props: { entry: Omit<HeatmapEntryData, 'source'>; row: number }) => void;
+	rect: HeatmapRect;
+	transformSource: HeatmapEntrySource | null;
 };
 
 /**
@@ -214,7 +214,7 @@ function createDOMRect(x: number, y: number, width: number, height: number): DOM
  * @param {Heatmap} props.heatmap - The heatmap with scaling information.
  * @returns {HeatmapRect} The mapped heatmap rectangle.
  */
-export function mapDOMRectToHeatmap(props: { rect: DOMRect; heatmap: Heatmap }): HeatmapRect {
+export function mapDOMRectToHeatmap(props: { heatmap: Heatmap; rect: DOMRect }): HeatmapRect {
 	const {
 		rect,
 		heatmap: { scaleX, scaleY },
@@ -262,8 +262,8 @@ export function getElementRatio(props: { rect: HeatmapRect; viewport: ViewportDi
 }
 
 export type ViewportDimension = {
-	w: number;
 	h: number;
+	w: number;
 };
 
 /**
@@ -294,8 +294,8 @@ export function createHeatmapWithAspectRatio({
 	viewport,
 	heatmapSize,
 }: {
-	viewport: ViewportDimension;
 	heatmapSize: number;
+	viewport: ViewportDimension;
 }): Heatmap {
 	const maxHeatmapSize = 1000;
 	const safeSize = Math.min(heatmapSize, maxHeatmapSize);

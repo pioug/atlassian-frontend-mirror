@@ -4,6 +4,6 @@ export type EmptyStateHandler = (params: EmptyStateHandlerParams) => React.React
 
 export type EmptyStateHandlerParams = {
 	mode: string;
-	selectedCategory?: string;
 	searchTerm?: string;
+	selectedCategory?: string;
 };

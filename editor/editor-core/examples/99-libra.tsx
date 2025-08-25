@@ -13,48 +13,48 @@ import type { EditorProps } from '../src/types/editor-props';
 import { version } from '../src/version-wrapper';
 
 interface TestExtensionProviders {
+	[key: string]: boolean | undefined;
 	extensionFrameManifest?: boolean;
 	floatingToolbarManifest?: boolean;
-	[key: string]: boolean | undefined;
 }
 type MountEditorOptions = {
-	i18n?: { locale: string };
-	mode?: 'dark';
-	withSidebar?: boolean;
-	/** Toggles chosen extension providers */
-	withTestExtensionProviders?: TestExtensionProviders;
-	withContextPanel?: boolean;
-	providers?: Record<string, boolean>;
-	extensionHandlers?: boolean;
-	invalidAltTextValues?: string[];
-	withCollab?: boolean;
-	withLinkPickerOptions?: boolean;
-	withConfluenceMacrosExtensionProvider?: boolean;
-	withTitleFocusHandler?: boolean;
-	withLinkCreateJira?: boolean;
 	/** Api mock configurations */
 	datasourceMocks?: {
 		initialVisibleColumnKeys?: string[];
-		shouldMockORSBatch?: boolean;
 		shouldMockAssets?: boolean;
+		shouldMockORSBatch?: boolean;
 	};
+	extensionHandlers?: boolean;
+	i18n?: { locale: string };
+	invalidAltTextValues?: string[];
 	isLivePage?: boolean;
+	mode?: 'dark';
+	providers?: Record<string, boolean>;
+	withCollab?: boolean;
+	withConfluenceMacrosExtensionProvider?: boolean;
+	withContextPanel?: boolean;
+	withLinkCreateJira?: boolean;
+	withLinkPickerOptions?: boolean;
+	withSidebar?: boolean;
+	/** Toggles chosen extension providers */
+	withTestExtensionProviders?: TestExtensionProviders;
+	withTitleFocusHandler?: boolean;
 };
 
 type LibraReactPerformanceEntry = {
-	id: string;
-	phase: string;
 	actualDuration: number;
 	baseDuration: number;
-	startTime: number;
 	commitTime: number;
+	id: string;
+	phase: string;
+	startTime: number;
 };
 type WindowForTesting = Window & {
-	__mountEditor?: (props: EditorProps, opts: MountEditorOptions) => void;
-	__unmountEditor?: () => Array<LibraReactPerformanceEntry>;
-	__editorView?: EditorView | null;
-	__TextSelection?: TextSelection | null;
 	__buildInfo?: { EDITOR_VERSION?: string } | null;
+	__editorView?: EditorView | null;
+	__mountEditor?: (props: EditorProps, opts: MountEditorOptions) => void;
+	__TextSelection?: TextSelection | null;
+	__unmountEditor?: () => Array<LibraReactPerformanceEntry>;
 };
 
 const RawEditor = (props: EditorProps) => {

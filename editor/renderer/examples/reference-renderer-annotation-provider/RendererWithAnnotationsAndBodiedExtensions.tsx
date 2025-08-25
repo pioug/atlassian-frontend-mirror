@@ -56,11 +56,11 @@ function BodiedExtensionRenderer({
 	document,
 	annotationProvider,
 }: {
-	localRef: React.MutableRefObject<HTMLDivElement | null>;
-	document: DocNode;
 	annotationProvider: ReturnType<
 		typeof useExampleRendererAnnotationProvider
 	>['rendererAnnotationProvider'];
+	document: DocNode;
+	localRef: React.MutableRefObject<HTMLDivElement | null>;
 }) {
 	const { viewComponent, selectionComponent, ...originalAnnotationProps } =
 		annotationProvider.inlineComment;
@@ -100,13 +100,13 @@ const AppHeader = ({
 	>['rendererAnnotationProvider'];
 }) => {
 	const [modalProps, setModalProps] = useState<
-		{ onConfirm: () => void; onCancel: () => void } | undefined
+		{ onCancel: () => void; onConfirm: () => void } | undefined
 	>(undefined);
 	const [unsavedChanges, setUnsavedChanges] = useState(false);
 	const onChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
 		setUnsavedChanges((current) => !current);
 	}, []);
-	const openModal = useCallback((endProps: { onConfirm: () => void; onCancel: () => void }) => {
+	const openModal = useCallback((endProps: { onCancel: () => void; onConfirm: () => void }) => {
 		setModalProps(endProps);
 	}, []);
 
@@ -237,8 +237,8 @@ export function RendererWithAnnotationsAndBodiedExtensions({
 }: {
 	initialData: {
 		[annotationId: string]: {
-			state: AnnotationMarkStates;
 			comments: string[];
+			state: AnnotationMarkStates;
 		};
 	};
 	initialDoc: DocNode;

@@ -47,11 +47,11 @@ describe('onOperators', () => {
 	const onNext = jest.fn();
 
 	type OnOperatorsConsumerProps = {
-		jqlSearchableFields: JQLFieldResponse[];
-		field?: string;
-		query?: string;
 		done: jest.DoneCallback;
+		field?: string;
+		jqlSearchableFields: JQLFieldResponse[];
 		onAssert: (fields: AutocompleteOptions) => void;
+		query?: string;
 	};
 
 	const OnOperatorsConsumer = ({

@@ -10,14 +10,14 @@ type OfflineEditingAEP = TrackAEP<
 	ACTION_SUBJECT.OFFLINE_EDITING,
 	ACTION_SUBJECT_ID.OFFLINE_EDITING,
 	{
-		errorMessage?: string;
-		version?: number;
-		stepsCount?: number;
-		status?: string;
-		retryCount?: number;
 		disabled?: string | boolean;
-		retrySource?: string;
+		errorMessage?: string;
 		healthy?: boolean;
+		retryCount?: number;
+		retrySource?: string;
+		status?: string;
+		stepsCount?: number;
+		version?: number;
 	},
 	undefined
 >;

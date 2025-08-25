@@ -52,24 +52,14 @@ const styles = cssMap({
 interface ReactionSummaryButtonProps
 	extends Pick<ReactionsProps, 'emojiProvider' | 'reactions' | 'useButtonAlignmentStyling'> {
 	/**
-	 * event handler when the summary button is clicked to view all reactions
-	 */
-	onClick: () => void;
-
-	/**
 	 * The number of emojis to show in the summary button
 	 */
 	emojisToShow?: number;
 
 	/**
-	 * Optional prop for using an opaque button background instead of a transparent background
+	 * event handler when the summary button is clicked to view all reactions
 	 */
-	showOpaqueBackground?: boolean;
-
-	/**
-	 * Optional prop for applying subtle styling to reaction summary button
-	 */
-	subtleReactionsSummaryAndPicker?: boolean;
+	onClick: () => void;
 
 	/**
 	 * Optional event handler when mouse enters the button
@@ -82,14 +72,24 @@ interface ReactionSummaryButtonProps
 	onMouseLeave?: () => void;
 
 	/**
-	 * Optional prop for the optimistic image URL
+	 * Optional prop for using an opaque button background instead of a transparent background
 	 */
-	summaryGetOptimisticImageURL?: (emojiId: string) => string;
+	showOpaqueBackground?: boolean;
+
+	/**
+	 * Optional prop for applying subtle styling to reaction summary button
+	 */
+	subtleReactionsSummaryAndPicker?: boolean;
 
 	/**
 	 * Optional prop to add an icon to the end of the summary button
 	 */
 	summaryButtonIconAfter?: React.ReactNode;
+
+	/**
+	 * Optional prop for the optimistic image URL
+	 */
+	summaryGetOptimisticImageURL?: (emojiId: string) => string;
 
 	/**
 	 * Optional prop to set the most recently clicked emoji id

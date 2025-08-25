@@ -278,8 +278,8 @@ describe('useSmartLinkLifecycleAnalytics', () => {
 
 			const Component = () => {
 				const [link, setLink] = useState<{
-					url?: string;
 					displayText?: string | null;
+					url?: string;
 				}>({ url });
 
 				const callbacks = useSmartLinkLifecycleAnalytics();

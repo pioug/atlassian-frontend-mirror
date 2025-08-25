@@ -27,6 +27,12 @@
 			"path": "../../editor-plugin-block-controls/afm-rovo-extension/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-decorations/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-selection/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-user-intent/afm-rovo-extension/tsconfig.json"
 		},
 		{

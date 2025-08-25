@@ -16,8 +16,8 @@ jest.mock('./internals/editorPerformanceMetrics', () => ({
 
 describe('PerformanceMetrics Component', () => {
 	let mockObserver: {
-		onIdleBuffer: jest.Mock;
 		onceNextIdle: jest.Mock;
+		onIdleBuffer: jest.Mock;
 		start: jest.Mock;
 		stop: jest.Mock;
 	};

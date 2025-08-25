@@ -6,12 +6,12 @@ export type HighlightActionsMenuAEP = UIAEP<
 	ACTION_SUBJECT.BUTTON,
 	ACTION_SUBJECT_ID.CREATE_INLINE_COMMENT_FROM_HIGHLIGHT_ACTIONS_MENU,
 	{
-		source: string;
 		/**
 		 * The page mode, which can be either 'edit' or 'view'.
 		 * 'edit' mode is used in the editor, while 'view' mode is used in the renderer.
 		 */
 		pageMode?: 'edit' | 'view';
+		source: string;
 		/**
 		 * Represents the node from which the comment button action originates.
 		 */

@@ -309,8 +309,8 @@ describe(`Editor`, () => {
 		};
 
 		const appearances: {
-			appearance: EditorAppearance;
 			analyticsAppearance: EDITOR_APPEARANCE_CONTEXT;
+			appearance: EditorAppearance;
 		}[] = [
 			{
 				appearance: 'full-page',

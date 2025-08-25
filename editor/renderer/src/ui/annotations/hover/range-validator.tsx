@@ -11,8 +11,8 @@ import { useAnnotationHoverContext } from '../contexts/AnnotationHoverContext';
 
 type Props = {
 	component: React.ComponentType<InlineCommentHoverComponentProps>;
-	rendererRef: React.RefObject<HTMLDivElement>;
 	createAnalyticsEvent?: CreateUIAnalyticsEvent;
+	rendererRef: React.RefObject<HTMLDivElement>;
 };
 
 export const RangeValidator = (props: Props) => {

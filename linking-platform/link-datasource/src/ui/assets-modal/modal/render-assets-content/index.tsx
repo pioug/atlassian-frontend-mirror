@@ -22,20 +22,20 @@ import { EmptyState, IssueLikeDataTableView } from '../../../issue-like-table';
 import { InitialStateView } from './initial-state-view';
 
 export interface RenderAssetsContentProps {
-	isFetchingInitialData: boolean;
-	status: DatasourceTableStatusType;
-	responseItems: DatasourceDataResponseItem[];
-	responseItemIds: string[];
-	visibleColumnKeys?: string[];
-	datasourceId: string;
 	aql?: string;
-	schemaId?: string;
-	onNextPage: () => void;
-	hasNextPage: boolean;
-	loadDatasourceDetails: () => Promise<void>;
 	columns: DatasourceResponseSchemaProperty[];
+	datasourceId: string;
 	defaultVisibleColumnKeys: string[];
+	hasNextPage: boolean;
+	isFetchingInitialData: boolean;
+	loadDatasourceDetails: () => Promise<void>;
+	onNextPage: () => void;
 	onVisibleColumnKeysChange: (visibleColumnKeys: string[]) => void;
+	responseItemIds: string[];
+	responseItems: DatasourceDataResponseItem[];
+	schemaId?: string;
+	status: DatasourceTableStatusType;
+	visibleColumnKeys?: string[];
 }
 
 export const MODAL_HEIGHT = 420;

@@ -18,27 +18,27 @@ import { fg } from '@atlaskit/platform-feature-flags';
 interface Props {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	serializer: Serializer<any>;
+	content?: any;
 	extensionHandlers?: ExtensionHandlers;
-	rendererContext: RendererContext;
-	providers: ProviderFactory;
-	extensionType: string;
 	extensionKey: string;
-	path?: PMNode[];
+	extensionType: string;
+	extensionViewportSizes?: ExtensionViewportSize[];
+	layout?: ExtensionLayout;
+	localId?: string;
+	marks?: PMMark[];
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	originalContent?: any;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	parameters?: any;
+	path?: PMNode[];
+	providers: ProviderFactory;
+	rendererContext: RendererContext;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	content?: any;
-	layout?: ExtensionLayout;
-	localId?: string;
-	marks?: PMMark[];
+	serializer: Serializer<any>;
 	startPos: number;
-	extensionViewportSizes?: ExtensionViewportSize[];
 }
 
 const ValidationContextWrapper = ({ children }: { children: React.ReactNode }) => {

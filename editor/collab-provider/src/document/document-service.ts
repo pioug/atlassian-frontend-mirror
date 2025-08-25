@@ -952,9 +952,9 @@ export class DocumentService implements DocumentServiceInterface {
 		onSyncUpError,
 		clientId,
 	}: {
+		clientId: number | string | undefined;
 		getState: () => EditorState;
 		onSyncUpError?: SyncUpErrorFunction;
-		clientId: number | string | undefined;
 	}): this {
 		this.getState = getState;
 		this.onSyncUpError = onSyncUpError || noop;

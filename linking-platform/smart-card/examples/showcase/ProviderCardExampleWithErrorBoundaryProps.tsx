@@ -7,8 +7,8 @@ import { Card } from '../../src';
 import { type ExampleUIConfig } from './types';
 
 interface ProviderCardExampleWithErrorBoundaryProps {
-	url: string;
 	config: ExampleUIConfig;
+	url: string;
 }
 interface ProviderCardExampleWithErrorBoundaryState {
 	error: Error | null;

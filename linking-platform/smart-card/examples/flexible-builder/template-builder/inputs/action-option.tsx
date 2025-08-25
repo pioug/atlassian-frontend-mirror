@@ -19,11 +19,11 @@ const gridStyles = cssMap({
 });
 
 type ActionProp = {
-	name: ActionName;
 	content?: string;
-	hideIcon?: boolean;
 	hideContent?: boolean;
+	hideIcon?: boolean;
 	icon?: React.ReactNode;
+	name: ActionName;
 };
 
 const options = Object.values(ActionName).map((name) => ({

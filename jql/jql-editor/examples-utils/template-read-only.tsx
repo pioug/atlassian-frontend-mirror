@@ -7,9 +7,9 @@ import { JQLEditorReadOnly } from '../src';
 import { Container } from './styled';
 
 export type TemplateReadOnlyArgs = {
-	query: string;
-	isSearch?: boolean;
 	isCompact?: boolean;
+	isSearch?: boolean;
+	query: string;
 };
 
 export const TemplateReadOnly = ({

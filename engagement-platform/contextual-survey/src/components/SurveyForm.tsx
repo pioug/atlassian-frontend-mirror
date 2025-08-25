@@ -23,11 +23,11 @@ const transitionBaseStyles = css({
 });
 
 interface Props {
+	onSubmit: OnSubmitHandler<FormValues>;
 	question: string;
 	statement?: string;
-	textPlaceholder: string;
 	textLabel: string;
-	onSubmit: OnSubmitHandler<FormValues>;
+	textPlaceholder: string;
 }
 
 type TransitionState = 'entering' | 'entered' | 'exiting' | 'exited' | 'unmounted';

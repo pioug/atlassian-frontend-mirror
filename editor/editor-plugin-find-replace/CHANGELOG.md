@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 3.2.8
+
+### Patch Changes
+
+- [`e229628ac96dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e229628ac96dd) -
+  [ED-28430] clean up FG platform_editor_find_and_replace_improvements_1 for find & replace
+  additional fixes
+- Updated dependencies
+
 ## 3.2.7
 
 ### Patch Changes

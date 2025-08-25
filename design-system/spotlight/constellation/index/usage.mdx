@@ -1,0 +1,104 @@
+import { SingleStepSpotlightTable, MultiStepSpotlightTable } from '@af/design-system-docs-ui';
+
+## Usage
+
+A spotlight focuses attention on a specific part of the UI, such as a button or icon, to educate
+users about key features or workflows. Spotlights are most effective for onboarding new users,
+driving feature discovery, or highlighting important changes. Use them sparingly — if your UI needs
+frequent spotlights, consider simplifying the core experience instead.
+
+## Spotlight Scenarios
+
+### Top use cases
+
+- **Onboarding new users**: Guide first-time users to essential features and workflows.
+- **Feature discovery**: Help existing users learn about new or updated capabilities.
+
+### Growth use cases
+
+- **Cross-flow, cross-join, co-use**: Use spotlights only when triggered by another message type
+  (e.g., a banner that asks for permission to “show me” before triggering a spotlight).
+
+### Unsupported use cases
+
+- **Transactional**: Never use spotlights for transactional messages.
+
+## Guiding Principles
+
+- **Use sparingly**: Spotlights are a Level 3 (Neutral Plus) attention component. Overuse can
+  distract and fatigue users.
+- **One at a time**: Only show one spotlight at a time.
+- **Dismissibility**: Always provide a dismiss option. Never force participation.
+- **Step count**: Prefer single-step spotlights. For tours, keep flows short (2–3 steps max).
+- **Orchestration**: Build spotlights with Post Office to avoid message collisions and enforce
+  fatigue rules (Atlassians Only).
+- **Media**: Use media (images or video) only when it enhances understanding. Exclude media if the
+  spotlight already focuses attention effectively.
+
+## Anatomy & Specifications
+
+### Single Step Spotlight
+
+<SingleStepSpotlightTable />
+<br />
+
+### Multi Step Spotlight/Tour
+
+<MultiStepSpotlightTable />
+<br />
+
+## Visual Guidance
+
+- **Complexity**: Match the visual complexity to the feature’s learning curve. Use text-only for
+  simple features, a single illustration for moderate complexity, and a narrative/motion for complex
+  flows.
+
+- **Brand color**: Use solid backgrounds to focus attention. Limit to three brand colors per
+  composition.
+
+- **Composition**: Highlight the focal point with size, color, and gesture lines. Use motion only if
+  it clarifies the feature.
+
+## Behavior
+
+- **Entry points**: Spotlights should be triggered contextually and never interrupt core workflows.
+  For cross-product or promotional spotlights, use a less obtrusive entrypoint (like a banner)
+  first.
+
+- **Tours**: Sequence steps logically. Keep flows short and focused.
+
+## Best Practices
+
+- Use spotlights only when necessary to drive understanding or adoption.
+- Sequence multi-step spotlights logically; aim for 2–3 steps max.
+- Always allow users to dismiss or skip.
+- Avoid competing with other in-product messages.
+- Prefer embedded, contextual education over overlays.
+
+## Accessibility
+
+- The headline is used as the accessible name for the spotlight dialog.
+- Keep content concise and avoid motion that could be disruptive.
+- Ensure the carat and spotlight are not truncated by the browser bounds.
+
+## Content Guidelines
+
+## Headline
+
+- Required. Begin with an active verb where possible.
+- Brief and direct; communicate the main benefit.
+- Limit to one line and use sentence case.
+
+## Body
+
+- Required. Briefly elaborate on the intent.
+- Avoid repeating the headline verb.
+- Two lines max. Focus on benefits and relevance.
+- Reference only visible elements.
+
+## CTA
+
+- Required. One clear next action.
+- Avoid plan or feature names in CTAs.
+- For tours: “Next”, “Back”, “Done”.
+- For features: 1–3 words; “Done” is acceptable if no clear next action.

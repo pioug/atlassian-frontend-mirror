@@ -1,8 +1,8 @@
 export type ErrorReporterTags = { [key: string]: string };
 
 export interface ErrorReportingHandler {
-	captureMessage: (msg: string, tags?: ErrorReporterTags) => void;
 	captureException: (err: Error, tags?: ErrorReporterTags) => void;
+	captureMessage: (msg: string, tags?: ErrorReporterTags) => void;
 }
 
 export class ErrorReporter {

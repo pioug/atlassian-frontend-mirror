@@ -21,10 +21,10 @@ const transformBrowserElementItem = (item: InsertPanelItem): ItemData => {
 
 // TODO: ED-26961 - Title will need to be i18n
 type CategoryData = {
-	id: string;
-	title: string;
-	subcategories: { id: string; title: string }[] | [];
 	defautltItems: string[] | [];
+	id: string;
+	subcategories: { id: string; title: string }[] | [];
+	title: string;
 };
 export const CategoriesStructure: CategoryData[] = [
 	{
@@ -128,13 +128,13 @@ export const useItems = (
 	quickInsertPanelItems: QuickInsertPanelItem[],
 	query?: string,
 ): {
-	suggested?: GroupData;
 	categoryRegistry: CategoryRegistry;
 	itemsRegistry: ItemsRegistry;
-	selectedCategory?: string;
 	searchItems?: ItemData[];
+	selectedCategory?: string;
 	setSearchText: (searchText: string | undefined) => void;
 	setSelectedCategory: (categoryId: string | undefined) => void;
+	suggested?: GroupData;
 } => {
 	const [searchText, setSearchText] = useState<string | undefined>(query);
 	const [selectedCategory, setSelectedCategory] = useState<string | undefined>();

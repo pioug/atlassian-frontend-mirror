@@ -13,11 +13,11 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { mainToolbarFirstChildStyle, mainToolbarSecondChildStyle } from './MainToolbar';
 
 interface ChildWrapperProps {
-	twoLineEditorToolbar: boolean;
-	children: React.ReactNode;
-	role?: string;
 	'aria-label'?: string;
+	children: React.ReactNode;
 	'data-testid'?: string;
+	role?: string;
+	twoLineEditorToolbar: boolean;
 }
 
 // Pre-computed static styles for first- and second-child wrappers.

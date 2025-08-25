@@ -23,14 +23,14 @@ export enum JoinDirection {
 }
 
 type JoinSiblingListsProps = {
-	tr: Transaction;
 	direction?: JoinDirection;
 	forceListType?: NodeType;
+	tr: Transaction;
 };
 
 type ListsJoined = {
-	orderedList: number;
 	bulletList: number;
+	orderedList: number;
 };
 
 export const joinSiblingLists = ({

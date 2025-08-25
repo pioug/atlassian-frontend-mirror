@@ -119,10 +119,12 @@ const renderName = (nickname?: string, fullName?: string, meta?: string) => {
 				styles.fullNameLabel,
 				styles.activeAccount,
 				meta
-					? fg('platform_editor_profilecard_style_fix')
+					? fg('platform_editor_profilecard_style_fix') ||
+						fg('enable_absolute_positioning_profile_card')
 						? styles.metaLabelWithHighSpecificity
 						: styles.metaLabel
-					: fg('platform_editor_profilecard_style_fix')
+					: fg('platform_editor_profilecard_style_fix') ||
+						  fg('enable_absolute_positioning_profile_card')
 						? styles.noMetaLabelWithHighSpecificity
 						: styles.noMetaLabel,
 			)}

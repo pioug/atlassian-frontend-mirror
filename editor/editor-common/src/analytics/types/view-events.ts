@@ -7,10 +7,10 @@ export type ViewInlineCommentsButtonEventAEP = UIAEP<
 	ACTION_SUBJECT.BUTTON,
 	ACTION_SUBJECT_ID.INLINE_COMMENT,
 	{
-		isDisabled: boolean;
-		mode: MODE.EDITOR;
 		inputMethod: INPUT_METHOD.FLOATING_TB;
+		isDisabled: boolean;
 		isNonTextInlineNodeInludedInComment: boolean;
+		mode: MODE.EDITOR;
 	},
 	undefined
 >;

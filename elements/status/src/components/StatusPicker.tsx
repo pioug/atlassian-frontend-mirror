@@ -25,13 +25,13 @@ const fieldTextWrapperStyles = css({
 });
 
 export interface Props {
-	selectedColor: ColorType;
-	text: string;
-	onEnter: () => void;
+	autoFocus?: boolean;
 	onColorClick: (value: ColorType) => void;
 	onColorHover?: (value: ColorType) => void;
+	onEnter: () => void;
 	onTextChanged: (value: string) => void;
-	autoFocus?: boolean;
+	selectedColor: ColorType;
+	text: string;
 }
 
 class Picker extends PureComponent<Props & WrappedComponentProps, any> {

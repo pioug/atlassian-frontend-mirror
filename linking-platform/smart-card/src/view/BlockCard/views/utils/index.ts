@@ -159,9 +159,9 @@ export const getSimulatedBetterMetadata = (cardDetails?: JsonLd.Response): Simul
 };
 
 type SimulatedMetadata = {
+	bottomMetadata?: ElementItem[];
 	titleMetadata: ElementItem[];
 	topMetadata: ElementItem[];
-	bottomMetadata?: ElementItem[];
 };
 
 export const FlexibleCardUiOptions: InternalFlexibleUiOptions = {

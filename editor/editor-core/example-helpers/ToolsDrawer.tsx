@@ -134,31 +134,31 @@ const enabledFeatureNames: { [P in keyof ToolbarFeatures]: string } = {
 };
 
 export interface State {
-	reloadEditor: boolean;
-	editorEnabled: boolean;
-	imageUploadProvider: ProviderState;
-	mentionProvider: ProviderState;
-	mediaProvider: ProviderState;
-	emojiProvider: ProviderState;
-	taskDecisionProvider: ProviderState;
-	contextIdentifierProvider: ProviderState;
 	activityProvider: ProviderState;
+	contextIdentifierProvider: ProviderState;
+	editorEnabled: boolean;
+	emojiProvider: ProviderState;
+	enabledFeatures: ToolbarFeatures;
+	imageUploadProvider: ProviderState;
 	jsonDocument?: string;
 	mediaMockEnabled: boolean;
-	enabledFeatures: ToolbarFeatures;
+	mediaProvider: ProviderState;
+	mentionProvider: ProviderState;
+	reloadEditor: boolean;
+	taskDecisionProvider: ProviderState;
 }
 
 interface RenderEditorProps {
+	activityProvider: (typeof providers)['activityProvider'][ProviderState];
+	contextIdentifierProvider: (typeof providers)['contextIdentifierProvider'][ProviderState];
 	disabled: boolean;
+	emojiProvider: (typeof providers)['emojiProvider'][ProviderState];
 	enabledFeatures: ToolbarFeatures;
-	mentionProvider: (typeof providers)['mentionProvider'][ProviderState];
 	imageUploadProvider: (typeof providers)['imageUploadProvider'][ProviderState];
 	mediaProvider: (typeof providers)['mediaProvider'][ProviderState];
-	emojiProvider: (typeof providers)['emojiProvider'][ProviderState];
-	taskDecisionProvider: (typeof providers)['taskDecisionProvider'][ProviderState];
-	contextIdentifierProvider: (typeof providers)['contextIdentifierProvider'][ProviderState];
-	activityProvider: (typeof providers)['activityProvider'][ProviderState];
+	mentionProvider: (typeof providers)['mentionProvider'][ProviderState];
 	onChange: (editorView: EditorView) => void;
+	taskDecisionProvider: (typeof providers)['taskDecisionProvider'][ProviderState];
 }
 
 export interface Props {

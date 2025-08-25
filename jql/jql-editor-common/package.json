@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/jql-editor-common",
-	"version": "3.0.0",
+	"version": "3.0.1",
 	"description": "Common constants, types and utilities used by the JQL editor and its dependant packages.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -29,9 +29,6 @@
 	},
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
-	"af:exports": {
-		".": "./src/index.ts"
-	},
 	"exports": {
 		".": "./src/index.ts"
 	},

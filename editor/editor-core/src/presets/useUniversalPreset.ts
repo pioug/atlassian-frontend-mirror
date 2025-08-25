@@ -9,8 +9,8 @@ import type { EditorProps } from '../types/editor-props';
 import { type InitialPluginConfiguration } from './universal';
 
 interface PresetProps {
-	props: EditorProps;
 	initialPluginConfiguration?: InitialPluginConfiguration;
+	props: EditorProps;
 }
 
 export default function useUniversalPreset({ props, initialPluginConfiguration }: PresetProps) {

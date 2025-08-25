@@ -75,14 +75,14 @@ export const AnnotationDraft = ({
 };
 
 type ApplyAnnotationsProps = {
-	texts: string[];
+	draftPosition: Position;
+	marks?: readonly Mark[];
 	shouldApplyAnnotationAt:
 		| InsertDraftPosition.INSIDE
 		| InsertDraftPosition.START
 		| InsertDraftPosition.END;
-	draftPosition: Position;
 	textHighlighter?: TextHighlighter;
-	marks?: readonly Mark[];
+	texts: string[];
 };
 
 export const getAnnotationIndex = (
@@ -136,10 +136,10 @@ export const applyAnnotationOnText = ({
 };
 
 type Props = React.PropsWithChildren<{
-	startPos: number;
 	endPos: number;
-	textHighlighter?: TextHighlighter;
 	marks?: readonly Mark[];
+	startPos: number;
+	textHighlighter?: TextHighlighter;
 }>;
 
 export const TextWithAnnotationDraft = ({

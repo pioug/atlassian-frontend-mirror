@@ -108,7 +108,7 @@ export class VCObserverWrapper implements VCObserverInterface {
 	}
 
 	async getVCResult(param: GetVCResultType): Promise<VCResult> {
-		const { experienceKey } = param;
+		const { experienceKey, include3p } = param;
 
 		const v1v2Result =
 			isVCRevisionEnabled('fy25.01', experienceKey) || isVCRevisionEnabled('fy25.02', experienceKey)
@@ -121,6 +121,7 @@ export class VCObserverWrapper implements VCObserverInterface {
 					stop: param.stop,
 					interactionId: param.interactionId,
 					ssr: param.includeSSRInV3 ? param.ssr : undefined,
+					include3p,
 				})
 			: [];
 

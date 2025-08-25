@@ -15,10 +15,10 @@ import { useEditorContext } from '../EditorContext';
 import { messages } from './messages';
 
 interface Props {
-	title?: string;
-	titlePosition?: PositionType;
 	// In future, this will be required once the fake plugin key is removed
 	editorApi?: ExtractInjectionAPI<HelpDialogPlugin> | undefined;
+	title?: string;
+	titlePosition?: PositionType;
 }
 
 // Please, do not copy or use this kind of code below

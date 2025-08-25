@@ -24,10 +24,6 @@
 		"**/*.compiled.css"
 	],
 	"atlaskit:src": "src/index.tsx",
-	"af:exports": {
-		"./filmstrip": "./src/filmstrip.tsx",
-		".": "./src/index.tsx"
-	},
 	"exports": {
 		"./filmstrip": "./src/filmstrip.tsx",
 		".": "./src/index.tsx"

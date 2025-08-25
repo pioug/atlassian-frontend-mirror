@@ -42,8 +42,8 @@ const icons: { [K in DecisionState]: string } = {
 };
 
 interface DecisionItemAttrs {
-	state: DecisionState;
 	localId: string;
+	state: DecisionState;
 }
 
 export default function decisionItem({ attrs, text }: NodeSerializerOpts) {

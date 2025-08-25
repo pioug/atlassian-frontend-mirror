@@ -9,10 +9,10 @@ type AIUnhandledErrorCaughtAEP = OperationalAEP<
 >;
 
 export type AIMarkdownConversionErrorCaughtAttributes = {
-	errorType: 'markdownToProseMirrorError';
-	errorSubType?: 'noProseMirrorDoc' | 'emptyProseMirrorDoc' | 'invalidProseMirrorDoc';
 	componentStack: string;
 	errorMessage?: string;
+	errorSubType?: 'noProseMirrorDoc' | 'emptyProseMirrorDoc' | 'invalidProseMirrorDoc';
+	errorType: 'markdownToProseMirrorError';
 };
 
 export type AIMarkdownConversionErrorCaughtAEP = OperationalAEP<

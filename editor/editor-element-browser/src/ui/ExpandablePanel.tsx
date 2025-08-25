@@ -23,11 +23,11 @@ const itemsContainerStyles = xcss({
 });
 
 export interface ExpandablePanelProps {
-	id: string;
-	label: string;
-	items: ItemData[];
-	hasSeparator?: boolean;
 	attributes?: { new?: boolean };
+	hasSeparator?: boolean;
+	id: string;
+	items: ItemData[];
+	label: string;
 	onItemSelected?: (index: number, categoryId: string) => void;
 	onViewAllSelected?: (categoryId: string) => void;
 }

@@ -62,18 +62,18 @@ const uIMediaSingleLayoutStyles = css({
 });
 
 type EmbedCardInternalProps = {
-	url?: string;
 	data?: object;
 	eventHandlers?: EventHandlers;
-	portal?: HTMLElement;
+	isInsideOfBlockNode?: boolean;
+	isInsideOfInlineExtension?: boolean;
+	layout: RichMediaLayout;
 	originalHeight?: number;
 	originalWidth?: number;
-	width?: number;
-	layout: RichMediaLayout;
+	portal?: HTMLElement;
 	rendererAppearance?: RendererAppearance;
-	isInsideOfBlockNode?: boolean;
 	smartLinks?: SmartLinksOptions;
-	isInsideOfInlineExtension?: boolean;
+	url?: string;
+	width?: number;
 };
 
 function EmbedCardInternal(props: EmbedCardInternalProps) {

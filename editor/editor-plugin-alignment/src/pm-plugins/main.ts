@@ -8,7 +8,7 @@ import { isAlignable } from '../editor-commands';
 import type { AlignmentPluginState } from './types';
 import { getActiveAlignment } from './utils';
 
-export function createInitialPluginState(
+function createInitialPluginState(
 	editorState: EditorState,
 	pluginConfig: AlignmentPluginState,
 ): AlignmentPluginState {

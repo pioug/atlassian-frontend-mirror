@@ -17,10 +17,10 @@ export const useColumnVisibility = ({
 	defaultVisibleColumnKeys,
 	initialVisibleColumnKeys,
 }: {
-	visibleColumnKeys: string[] | undefined;
-	setVisibleColumnKeys: (keys: string[]) => void;
 	defaultVisibleColumnKeys: string[];
 	initialVisibleColumnKeys: string[] | undefined;
+	setVisibleColumnKeys: (keys: string[]) => void;
+	visibleColumnKeys: string[] | undefined;
 }): ColumnVisibilityProps => {
 	const userInteractions = useUserInteractions();
 

@@ -16,9 +16,9 @@ import { editedOrCreatedByMessage } from './messages';
 
 interface EditedOrCreatedByFilterProps {
 	cloudId?: string;
-	selection: SelectOption[];
 	isHydrating?: boolean;
 	onSelectionChange: (filterType: CLOLBasicFilters, selection: SelectOption[]) => void;
+	selection: SelectOption[];
 }
 
 const filterName = `clol-basic-filter-${CLOLBasicFilters.editedOrCreatedBy}`;

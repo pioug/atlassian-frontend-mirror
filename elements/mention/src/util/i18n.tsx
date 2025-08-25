@@ -3,8 +3,8 @@ import { FormattedMessage, type MessageDescriptor, useIntl } from 'react-intl-ne
 import { messages } from '../components/i18n';
 
 export type Formatter = (props: {
-	values?: { [k: string]: string };
 	children?(props: string): React.ReactElement;
+	values?: { [k: string]: string };
 }) => React.ReactElement | null;
 
 type FormatterFactory = (messageDescriptor: MessageDescriptor) => Formatter;
@@ -15,8 +15,8 @@ export const propFormatter: FormatterFactory =
 		values,
 		children,
 	}: {
-		values?: { [k: string]: string };
 		children?(props: string): React.ReactElement;
+		values?: { [k: string]: string };
 	}) => {
 		const { formatMessage } = useIntl();
 		const message = formatMessage(messageDescriptor, values);

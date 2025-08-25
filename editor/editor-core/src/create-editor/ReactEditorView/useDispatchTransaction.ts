@@ -29,10 +29,10 @@ export const useDispatchTransaction = ({
 	onEditorViewUpdated,
 	isRemoteReplaceDocumentTransaction,
 }: {
-	onChange: EditorOnChangeHandler | undefined;
 	dispatchAnalyticsEvent: (payload: AnalyticsEventPayload) => void;
-	onEditorViewUpdated: (params: EditorViewStateUpdatedCallbackProps) => void;
 	isRemoteReplaceDocumentTransaction?: (tr: Transaction) => boolean;
+	onChange: EditorOnChangeHandler | undefined;
+	onEditorViewUpdated: (params: EditorViewStateUpdatedCallbackProps) => void;
 }): DispatchTransaction => {
 	// We need to have a ref to the latest `onChange` since the `dispatchTransaction` gets captured
 	const onChangeRef = useRef(onChange);

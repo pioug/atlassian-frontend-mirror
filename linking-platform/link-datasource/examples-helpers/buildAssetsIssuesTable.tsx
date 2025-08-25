@@ -14,12 +14,12 @@ import SmartLinkClient from './smartLinkCustomClient';
 import { useAssetsTableProps } from './useAssetsTableProps';
 
 interface AssetsTableViewProps {
-	parameters?: DatasourceParameters;
-	mockDatasourceFetchRequest?: boolean;
 	/**
 	 * Used to use the lazy loaded version for examples on atlaskit
 	 */
 	DatasourceTable?: typeof DataSourceTableViewNoSuspense | typeof DatasourceTableView;
+	mockDatasourceFetchRequest?: boolean;
+	parameters?: DatasourceParameters;
 }
 
 const AssetsTableView = ({

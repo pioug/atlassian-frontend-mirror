@@ -7,10 +7,10 @@ type CopyAEP = TrackAEP<
 	undefined,
 	{
 		content: string[];
+		extensionKey?: string;
+		extensionType?: string;
 		inputMethod?: string;
 		nodeType?: string;
-		extensionType?: string;
-		extensionKey?: string;
 	},
 	undefined
 >;
@@ -21,9 +21,9 @@ type CutAEP = TrackAEP<
 	undefined,
 	{
 		content: string[];
-		nodeType?: string;
-		extensionType?: string;
 		extensionKey?: string;
+		extensionType?: string;
+		nodeType?: string;
 	},
 	undefined
 >;

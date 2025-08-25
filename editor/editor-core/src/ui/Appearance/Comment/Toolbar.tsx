@@ -152,10 +152,10 @@ const stickyToolbarWrapperStyleNew = css({
 });
 
 type StickyToolbarProps = {
+	children?: React.ReactNode;
 	externalToolbarRef?: RefObject<HTMLElement>;
 	offsetTop?: number;
 	twoLineEditorToolbar?: boolean;
-	children?: React.ReactNode;
 };
 
 const StickyToolbar = (props: StickyToolbarProps) => {
@@ -207,8 +207,8 @@ const StickyToolbar = (props: StickyToolbarProps) => {
 };
 
 type FixedToolbarProps = {
-	twoLineEditorToolbar?: boolean;
 	children?: React.ReactNode;
+	twoLineEditorToolbar?: boolean;
 };
 
 const FixedToolbar = (props: FixedToolbarProps) => (
@@ -261,9 +261,9 @@ const getStickyParameters = (configuration: UseStickyToolbarType) => {
 };
 
 type MainToolbarProps = {
-	useStickyToolbar?: UseStickyToolbarType;
-	twoLineEditorToolbar?: boolean;
 	children?: React.ReactNode;
+	twoLineEditorToolbar?: boolean;
+	useStickyToolbar?: UseStickyToolbarType;
 };
 
 export const MainToolbar = ({

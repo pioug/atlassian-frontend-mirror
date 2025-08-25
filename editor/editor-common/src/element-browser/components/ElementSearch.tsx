@@ -23,15 +23,15 @@ import commonMessages from '../messages';
 import { Modes } from '../types';
 
 interface Props {
-	onSearch: (value: string) => void;
-	mode: keyof typeof Modes;
+	ariaControlsId?: string;
 	focus: boolean;
+	items: QuickInsertItem[];
+	mode: keyof typeof Modes;
 	onClick: (e: React.MouseEvent) => void;
 	onKeyDown: (e: React.KeyboardEvent) => void;
+	onSearch: (value: string) => void;
 	searchTerm?: string;
-	items: QuickInsertItem[];
 	selectedItemIndex?: number;
-	ariaControlsId?: string;
 }
 
 function ElementSearch({

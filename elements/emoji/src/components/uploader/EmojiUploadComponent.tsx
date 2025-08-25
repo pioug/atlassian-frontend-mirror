@@ -47,10 +47,10 @@ const emojiUploadFooter = css({
 });
 
 export interface Props {
-	emojiProvider: EmojiProvider;
-	onUploaderRef?: UploadRefHandler;
 	createAnalyticsEvent?: CreateUIAnalyticsEvent;
 	disableFocusLock?: boolean;
+	emojiProvider: EmojiProvider;
+	onUploaderRef?: UploadRefHandler;
 }
 
 const EmojiUploadComponent = (props: Props) => {

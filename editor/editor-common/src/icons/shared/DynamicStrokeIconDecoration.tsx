@@ -23,9 +23,9 @@ const textColorIconWrapper = xcss({
 });
 
 type DynamicStrokeIconDecorationProps = {
-	selectedColor?: string | null;
 	disabled?: boolean;
 	icon: React.ReactNode;
+	selectedColor?: string | null;
 };
 
 const getBackground = (selectedColor?: string | null, disabled?: boolean) => {

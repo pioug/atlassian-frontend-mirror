@@ -21,10 +21,10 @@ export interface ObserverInterface {
 	start(props: StartProps): void;
 }
 export type CalculateVCOptions = {
-	ignoreNodeReplacements: boolean;
-	ignoreLayoutShifts: boolean;
-	ignoreElementMoved: boolean;
 	heatmapSize: number;
+	ignoreElementMoved: boolean;
+	ignoreLayoutShifts: boolean;
+	ignoreNodeReplacements: boolean;
 };
 
 export type EditorPerformanceObserverOptions = {

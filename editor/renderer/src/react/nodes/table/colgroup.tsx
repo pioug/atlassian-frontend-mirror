@@ -34,8 +34,8 @@ const fixColumnWidth = ({
 	scaleDownPercent,
 }: {
 	columnWidth: number;
-	zeroWidthColumnsCount: number;
 	scaleDownPercent: number;
+	zeroWidthColumnsCount: number;
 }): number => {
 	if (columnWidth === 0) {
 		return columnWidth;
@@ -55,10 +55,10 @@ const fixColumnWidth = ({
 };
 
 interface ScaleOptions {
+	isNumberColumnEnabled: boolean;
+	maxScale: number;
 	renderWidth: number;
 	tableWidth: number;
-	maxScale: number;
-	isNumberColumnEnabled: boolean;
 }
 const calcScalePercent = ({
 	renderWidth,
@@ -85,8 +85,8 @@ export const colWidthSum = (columnWidths: number[]) =>
 
 const renderScaleDownColgroup = (
 	props: SharedTableProps & {
-		isTableScalingEnabled: boolean;
 		isTableFixedColumnWidthsOptionEnabled: boolean;
+		isTableScalingEnabled: boolean;
 		isTopLevelRenderer?: boolean;
 	},
 ): CSSProperties[] | null => {

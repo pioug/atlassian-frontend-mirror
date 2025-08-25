@@ -2,13 +2,13 @@ import type { TextHighlighter } from '../types';
 
 export type TextSegment =
 	| {
-			type: 'plain';
 			text: string;
+			type: 'plain';
 	  }
 	| {
-			type: 'match';
-			text: string;
 			groups: Array<string> | undefined;
+			text: string;
+			type: 'match';
 	  };
 
 export function segmentText(

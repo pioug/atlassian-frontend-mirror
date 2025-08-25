@@ -1,8 +1,8 @@
 import { type ServerActionOpts } from '@atlaskit/linking-common';
 
 export interface ResolveRequest {
-	resourceUrl: string;
 	context?: string;
+	resourceUrl: string;
 }
 
 export interface BatchResolveRequest {
@@ -17,7 +17,7 @@ export interface SearchInvokeRequest {
 	query: string;
 }
 
-type ResourcePayloadUrl = { resourceUrl: string; ignoreCachedValue?: boolean };
+type ResourcePayloadUrl = { ignoreCachedValue?: boolean; resourceUrl: string };
 type ResourcePayloadAri = { ari: string };
 
 export type ResourceType = 'URL' | 'ARI';

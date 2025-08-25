@@ -211,7 +211,7 @@ export default class VCObserverNew {
 	}
 
 	async getVCResult(param: VCObserverGetVCResultParam) {
-		const { start, stop, interactionId } = param;
+		const { start, stop, interactionId, include3p } = param;
 		const results: RevisionPayloadEntry[] = [];
 
 		this.addStartEntry(start);
@@ -229,6 +229,7 @@ export default class VCObserverNew {
 			stopTime: stop,
 			interactionId,
 			isPostInteraction: this.isPostInteraction,
+			include3p,
 		});
 		if (fy25_03) {
 			results.push(fy25_03);

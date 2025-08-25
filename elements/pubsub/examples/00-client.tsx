@@ -31,14 +31,14 @@ try {
 }
 
 interface State {
-	fpsUrl: string;
 	apsUrl: string;
 	channelInput: string;
-	eventType: string;
-	events: string[];
-	status: string;
-	protocols: ProtocolName[];
 	client: Client;
+	events: string[];
+	eventType: string;
+	fpsUrl: string;
+	protocols: ProtocolName[];
+	status: string;
 }
 
 type ProtocolName = 'APS';

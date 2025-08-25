@@ -9,9 +9,9 @@ import { type JQLNodeSpec } from '../types';
 import { AvatarWrapper, NameContainer, UserContainer } from './styled';
 
 export type Props = {
+	fieldName: string;
 	id: string;
 	name: string;
-	fieldName: string;
 };
 
 const User = ({ id, name, fieldName, selected, error }: NodeViewProps<Props>) => {

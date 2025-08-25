@@ -11,8 +11,8 @@ export const TooltipContent = styled.div({
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const OptionListItem = styled.li<{
-	isSelected: boolean;
 	isDeprecated: boolean;
+	isSelected: boolean;
 }>(
 	{
 		cursor: 'pointer',

@@ -1,12 +1,11 @@
 export const PROFILER_KEY = '__editorRenderCountProfiler';
 
 interface ComponentInstanceRenderCounter {
-	instanceId: string;
 	count: number;
+	instanceId: string;
 }
 
 type ProfilerData = {
-	enabled: boolean;
 	components?: {
 		[componentId: string]: {
 			[instanceId: string]: {
@@ -14,6 +13,7 @@ type ProfilerData = {
 			};
 		};
 	};
+	enabled: boolean;
 };
 
 type RenderCountProfilerInstanceParams = {
@@ -75,8 +75,8 @@ export class RenderCountProfiler {
 		instanceId,
 	}: {
 		componentId: string;
-		renderCount: number;
 		instanceId: string;
+		renderCount: number;
 	}): void {
 		const profilerData = this.store[PROFILER_KEY];
 		const instance = { count: renderCount };

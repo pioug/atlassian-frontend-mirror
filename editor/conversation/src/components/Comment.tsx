@@ -20,9 +20,9 @@ import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import isEqual from 'lodash/isEqual';
 
 export interface Props extends SharedProps {
-	conversationId: string;
 	canModerateComment?: boolean;
 	comment: CommentType;
+	conversationId: string;
 	showBeforeUnloadWarning?: boolean;
 }
 
@@ -32,10 +32,10 @@ export interface State {
 	lastDispatch?: {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		handler: any;
+		args: any[];
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		args: any[];
+		handler: any;
 	};
 }
 

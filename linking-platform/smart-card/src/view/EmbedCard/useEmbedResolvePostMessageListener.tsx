@@ -3,8 +3,8 @@ import { useEffect } from 'react';
 import useResolve from '../../state/hooks/use-resolve';
 
 interface UseEmbedResolvePostMessageListenerProps {
-	url: string;
 	embedIframeRef: React.ForwardedRef<HTMLIFrameElement>;
+	url: string;
 }
 
 export const useEmbedResolvePostMessageListener = ({

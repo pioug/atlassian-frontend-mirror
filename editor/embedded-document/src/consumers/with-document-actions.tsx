@@ -8,11 +8,11 @@ export interface Props {
 }
 
 export interface DocumentActions {
+	cancelEdit: () => void;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	createDocument: (value: any) => Promise<DocumentModel>;
 	editDocument: () => void;
-	cancelEdit: () => void;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	updateDocument: (value: any) => Promise<DocumentModel>;

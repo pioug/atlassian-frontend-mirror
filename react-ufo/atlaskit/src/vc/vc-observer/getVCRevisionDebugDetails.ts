@@ -25,6 +25,7 @@ export interface VCRevisionDebugDetails {
 	revision: string;
 	isClean: boolean;
 	abortReason?: VCAbortReason | null;
+	abortTimestamp?: number;
 	vcLogs: VCLogEntry[];
 	interactionId?: string;
 }

@@ -36,16 +36,16 @@ const dropDownIntegrationButtonWrapperStyles = css({
 });
 
 type SplitButtonProps = {
-	shareButton: React.ReactNode;
-	handleOpenSplitButton: () => void;
-	handleCloseSplitButton: () => void;
-	isUsingSplitButton: boolean;
-	shareIntegrations: Array<Integration>;
-	onIntegrationClick: (integration: Integration) => void;
-	triggerButtonAppearance?: IconButtonProps['appearance'];
-	dialogZIndex?: number;
-	dialogPlacement?: DialogPlacement;
 	createAndFireEvent: (payload: AnalyticsEventPayload) => void;
+	dialogPlacement?: DialogPlacement;
+	dialogZIndex?: number;
+	handleCloseSplitButton: () => void;
+	handleOpenSplitButton: () => void;
+	isUsingSplitButton: boolean;
+	onIntegrationClick: (integration: Integration) => void;
+	shareButton: React.ReactNode;
+	shareIntegrations: Array<Integration>;
+	triggerButtonAppearance?: IconButtonProps['appearance'];
 };
 
 type SplitButtonDropdownProps = Pick<

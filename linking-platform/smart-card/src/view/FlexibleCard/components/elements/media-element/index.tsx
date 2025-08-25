@@ -51,6 +51,12 @@ const styles = css({
 
 export type MediaElementProps = ElementProps & {
 	/**
+	 * Function to be called on error loading media.
+	 * @internal
+	 */
+	onError?: () => void;
+	onLoad?: () => void;
+	/**
 	 * The type of media to display. Can be image.
 	 */
 	type?: MediaType;
@@ -58,12 +64,6 @@ export type MediaElementProps = ElementProps & {
 	 * The URL of the associated media to display.
 	 */
 	url?: string;
-	/**
-	 * Function to be called on error loading media.
-	 * @internal
-	 */
-	onError?: () => void;
-	onLoad?: () => void;
 };
 
 /**

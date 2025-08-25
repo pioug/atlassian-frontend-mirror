@@ -13,13 +13,13 @@ describe('ClearIndicator', () => {
 	const describedById = 'test-described';
 
 	type MockProps = {
-		selectProps: SelectProps<OptionType, boolean>;
-		innerRef: (ref: React.Ref<HTMLInputElement>) => void;
+		'aria-describedby'?: AriaAttributesType;
+		'aria-labelledby'?: AriaAttributesType;
 		cx: () => void;
 		getClassNames: () => void;
 		getStyles: () => void;
-		'aria-describedby'?: AriaAttributesType;
-		'aria-labelledby'?: AriaAttributesType;
+		innerRef: (ref: React.Ref<HTMLInputElement>) => void;
+		selectProps: SelectProps<OptionType, boolean>;
 	};
 	let mockedProps: MockProps;
 

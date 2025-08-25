@@ -12,6 +12,7 @@ export type GetVCResultType = {
 	experienceKey: string;
 	interactionId?: string;
 	includeSSRRatio?: boolean;
+	include3p?: boolean;
 };
 
 export type SelectorConfig = {

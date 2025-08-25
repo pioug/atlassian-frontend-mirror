@@ -23,13 +23,13 @@ import { isOutdatedBrowser } from '../utils/outdatedBrowsers';
 import { WithEditorView } from './WithEditorView';
 
 export type ErrorBoundaryProps = {
-	createAnalyticsEvent?: CreateUIAnalyticsEvent;
-	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
-	editorView?: EditorView;
-	rethrow?: boolean;
 	children: React.ReactNode;
-	featureFlags: FeatureFlags;
+	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
+	createAnalyticsEvent?: CreateUIAnalyticsEvent;
+	editorView?: EditorView;
 	errorTracking?: boolean;
+	featureFlags: FeatureFlags;
+	rethrow?: boolean;
 };
 
 export type ErrorBoundaryState = {
@@ -37,10 +37,10 @@ export type ErrorBoundaryState = {
 };
 
 type AnalyticsErrorBoundaryAttributes = {
-	error: Error;
-	info?: ErrorInfo;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	[key: string]: any;
+	error: Error;
+	info?: ErrorInfo;
 };
 
 // Ignored via go/ees005

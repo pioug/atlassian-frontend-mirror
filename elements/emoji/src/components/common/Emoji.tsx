@@ -132,9 +132,70 @@ const emojiImageContainer = css({
 export interface Props
 	extends Omit<React.HTMLAttributes<HTMLSpanElement>, 'onMouseMove' | 'onFocus'> {
 	/**
+	 * Auto Width takes the constraint of height and enables native scaling based on the emojis image.
+	 * This is primarily used when rendering emojis for SSR as the component does not know the width and height
+	 * at the time of the render. It overrides the emoji representations width with 'auto' on the images width attribute
+	 *
+	 * Used only for image based emojis
+	 */
+	autoWidth?: boolean;
+
+	/**
+	 * Additional css classes, if required.
+	 */
+	className?: string;
+
+	/**
+	 * Disables lazy load on images
+	 */
+	disableLazyLoad?: boolean;
+
+	/**
+	 * This should only be set when the emoji is being used in the Editor.
+	 * Currently when set -- this prevents any aria labels being added.
+	 * This is acceptable in Editor -- as it uses another technique to announce the emoji nodes.
+	 */
+	editorEmoji?: true;
+
+	/**
 	 * The emoji to render
 	 */
 	emoji: EmojiDescription;
+
+	/**
+	 * Fits emoji to height in pixels, keeping aspect ratio
+	 */
+	fitToHeight?: number;
+
+	/**
+	 * Called when an emoji is deleted
+	 */
+	onDelete?: OnEmojiEvent;
+
+	/**
+	 * Called when the mouse moves over the emoji.
+	 */
+	onFocus?: OnEmojiEvent;
+
+	/**
+	 * Callback for if an emoji image fails to load.
+	 */
+	onLoadError?: OnEmojiEvent<HTMLImageElement>;
+
+	/**
+	 * Callback for if an emoji image succesfully loads.
+	 */
+	onLoadSuccess?: (emoji: EmojiDescription) => void;
+
+	/**
+	 * Called when the mouse moves over the emoji.
+	 */
+	onMouseMove?: OnEmojiEvent;
+
+	/**
+	 * Called when an emoji is selected
+	 */
+	onSelected?: OnEmojiEvent;
 
 	/**
 	 * Show the emoji as selected
@@ -149,44 +210,9 @@ export interface Props
 	selectOnHover?: boolean;
 
 	/**
-	 * Called when an emoji is selected
+	 * Indicates whether emoji is an interactive element (tab index and role) or just a view
 	 */
-	onSelected?: OnEmojiEvent;
-
-	/**
-	 * Called when the mouse moves over the emoji.
-	 */
-	onMouseMove?: OnEmojiEvent;
-
-	/**
-	 * Called when the mouse moves over the emoji.
-	 */
-	onFocus?: OnEmojiEvent;
-
-	/**
-	 * Called when an emoji is deleted
-	 */
-	onDelete?: OnEmojiEvent;
-
-	/**
-	 * Callback for if an emoji image fails to load.
-	 */
-	onLoadError?: OnEmojiEvent<HTMLImageElement>;
-
-	/**
-	 * Callback for if an emoji image succesfully loads.
-	 */
-	onLoadSuccess?: (emoji: EmojiDescription) => void;
-
-	/**
-	 * Additional css classes, if required.
-	 */
-	className?: string;
-
-	/**
-	 * Show a tooltip on mouse hover.
-	 */
-	showTooltip?: boolean;
+	shouldBeInteractive?: boolean;
 
 	/**
 	 * Show a delete button on mouse hover
@@ -195,35 +221,9 @@ export interface Props
 	showDelete?: boolean;
 
 	/**
-	 * Fits emoji to height in pixels, keeping aspect ratio
+	 * Show a tooltip on mouse hover.
 	 */
-	fitToHeight?: number;
-
-	/**
-	 * Indicates whether emoji is an interactive element (tab index and role) or just a view
-	 */
-	shouldBeInteractive?: boolean;
-
-	/**
-	 * Disables lazy load on images
-	 */
-	disableLazyLoad?: boolean;
-
-	/**
-	 * Auto Width takes the constraint of height and enables native scaling based on the emojis image.
-	 * This is primarily used when rendering emojis for SSR as the component does not know the width and height
-	 * at the time of the render. It overrides the emoji representations width with 'auto' on the images width attribute
-	 *
-	 * Used only for image based emojis
-	 */
-	autoWidth?: boolean;
-
-	/**
-	 * This should only be set when the emoji is being used in the Editor.
-	 * Currently when set -- this prevents any aria labels being added.
-	 * This is acceptable in Editor -- as it uses another technique to announce the emoji nodes.
-	 */
-	editorEmoji?: true;
+	showTooltip?: boolean;
 }
 
 const handleMouseDown = (props: Props, event: MouseEvent<any>) => {

@@ -24,19 +24,25 @@ export interface Transformer<T> {
 export type CorePlugin = NextEditorPlugin<
 	'core',
 	{
-		pluginConfiguration: {
-			getEditorView: () => EditorView | undefined;
-			// Optional analytics callback to fire events - core plugin isn't able to consume AnalyticsPlugin as a dependency like other plugins
-			fireAnalyticsEvent?: FireAnalyticsCallback;
-		};
-		sharedState: {
-			/**
-			 * The schema of the editor. It is guarranteed to be static for its lifecycle
-			 * so is safe to use `currentState`
-			 */
-			schema: Schema | undefined;
-		};
 		actions: {
+			/**
+			 * Blurs the editor.
+			 *
+			 * Calls blur on the editor DOM element.
+			 *
+			 * @returns (boolean) if the blur was successful
+			 */
+			blur: () => boolean;
+			/**
+			 * Create a transformer
+			 *
+			 * @param schema Schema of the document
+			 * @returns Transformer which can be used to request a document
+			 */
+			// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
+			createTransformer<Format>(
+				cb: (schema: Schema) => Transformer<Format>,
+			): Transformer<Format> | undefined;
 			/**
 			 * Dispatches an EditorCommand to ProseMirror
 			 *
@@ -56,22 +62,14 @@ export type CorePlugin = NextEditorPlugin<
 			 * @returns (boolean) if the focus was successful
 			 */
 			focus: (options?: { scrollIntoView: boolean }) => boolean;
+
 			/**
-			 * Blurs the editor.
+			 * Get the anchor ID for a ProseMirror node.
 			 *
-			 * Calls blur on the editor DOM element.
-			 *
-			 * @returns (boolean) if the blur was successful
+			 * @param node - The ProseMirror node to get the anchor ID for.
+			 * @returns The anchor ID if found, otherwise undefined.
 			 */
-			blur: () => boolean;
-			/**
-			 * Scroll to a specific position in the editor using native Element.scrollIntoView
-			 *
-			 * @param pos - Position number scroll to
-			 * @param scrollOptions - [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/scrollIntoView)
-			 * @returns (boolean) if scroll was successful
-			 */
-			scrollToPos: (pos: number, scrollOptions?: boolean | ScrollIntoViewOptions) => boolean;
+			getAnchorIdForNode: (node: PMNode) => string | undefined;
 
 			/**
 			 * Replaces the current content of the editor with the provided raw value.
@@ -107,23 +105,25 @@ export type CorePlugin = NextEditorPlugin<
 			): void;
 
 			/**
-			 * Create a transformer
+			 * Scroll to a specific position in the editor using native Element.scrollIntoView
 			 *
-			 * @param schema Schema of the document
-			 * @returns Transformer which can be used to request a document
+			 * @param pos - Position number scroll to
+			 * @param scrollOptions - [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/scrollIntoView)
+			 * @returns (boolean) if scroll was successful
 			 */
-			// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-			createTransformer<Format>(
-				cb: (schema: Schema) => Transformer<Format>,
-			): Transformer<Format> | undefined;
-
+			scrollToPos: (pos: number, scrollOptions?: boolean | ScrollIntoViewOptions) => boolean;
+		};
+		pluginConfiguration: {
+			// Optional analytics callback to fire events - core plugin isn't able to consume AnalyticsPlugin as a dependency like other plugins
+			fireAnalyticsEvent?: FireAnalyticsCallback;
+			getEditorView: () => EditorView | undefined;
+		};
+		sharedState: {
 			/**
-			 * Get the anchor ID for a ProseMirror node.
-			 *
-			 * @param node - The ProseMirror node to get the anchor ID for.
-			 * @returns The anchor ID if found, otherwise undefined.
+			 * The schema of the editor. It is guarranteed to be static for its lifecycle
+			 * so is safe to use `currentState`
 			 */
-			getAnchorIdForNode: (node: PMNode) => string | undefined;
+			schema: Schema | undefined;
 		};
 	}
 >;
@@ -468,10 +468,10 @@ export type ExtractPluginSharedState<PluginOrMetadata> =
 		? PluginOrMetadata extends (props: {
 				// Ignored via go/ees005
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				config: any;
+				api: any;
 				// Ignored via go/ees005
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				api: any;
+				config: any;
 				// Ignored via go/ees005
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			}) => DefaultEditorPlugin<any, infer Metadata>
@@ -499,10 +499,10 @@ export type ExtractPluginActions<PluginOrMetadata> =
 		? PluginOrMetadata extends (props: {
 				// Ignored via go/ees005
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				config: any;
+				api: any;
 				// Ignored via go/ees005
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				api: any;
+				config: any;
 				// Ignored via go/ees005
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			}) => DefaultEditorPlugin<any, infer Metadata>
@@ -654,24 +654,6 @@ export type DefaultEditorPlugin<
  */
 export interface NextEditorPluginMetadata {
 	/**
-	 * The real implementation will be infered by BasePluginDependenciesAPI and other
-	 * internal types.
-	 */
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	readonly sharedState?: any;
-	/**
-	 * The real implementation will be infered by Preset internal types and  @see NextEditorPluginFunctionOptionalConfigDefinition
-	 */
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	readonly pluginConfiguration?: any;
-	/**
-	 * This is used only on compile time. There is no runtime implementation for the dependencies
-	 * @see DependencyPlugin
-	 */
-	readonly dependencies?: DependencyPlugin[];
-	/**
 	 * @see NextEditorPluginActions
 	 */
 	readonly actions?: NextEditorPluginActions;
@@ -680,6 +662,24 @@ export interface NextEditorPluginMetadata {
 	 * @see NextEditorEditorCommands
 	 */
 	readonly commands?: NextEditorEditorCommands;
+	/**
+	 * This is used only on compile time. There is no runtime implementation for the dependencies
+	 * @see DependencyPlugin
+	 */
+	readonly dependencies?: DependencyPlugin[];
+	/**
+	 * The real implementation will be infered by Preset internal types and  @see NextEditorPluginFunctionOptionalConfigDefinition
+	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	readonly pluginConfiguration?: any;
+	/**
+	 * The real implementation will be infered by BasePluginDependenciesAPI and other
+	 * internal types.
+	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	readonly sharedState?: any;
 }
 
 /**
@@ -692,7 +692,6 @@ export type NextEditorPluginFunctionOptionalConfigDefinition<
 	Metadata extends NextEditorPluginMetadata,
 	Configuration = undefined,
 > = (props: {
-	config: Configuration;
 	api?: {
 		[Plugin in Name]: BasePluginDependenciesAPI<Metadata>;
 	} & RequiredPluginDependenciesAPI<
@@ -701,6 +700,7 @@ export type NextEditorPluginFunctionOptionalConfigDefinition<
 		OptionalPluginDependenciesAPI<
 			ExtractOptionalPlugins<ExtractPluginDependenciesFromMetadata<Metadata>>
 		>;
+	config: Configuration;
 }) => DefaultEditorPlugin<Name, Metadata>;
 
 /**
@@ -781,6 +781,8 @@ type Unsubscribe = () => void;
  *
  */
 export type BasePluginDependenciesAPI<Metadata extends NextEditorPluginMetadata> = {
+	actions: ExtractPluginActions<Metadata>;
+	commands: ExtractCommandsFromMetadata<Metadata>;
 	sharedState: {
 		currentState: () => ExtractPluginSharedState<Metadata> | undefined;
 		onChange: (
@@ -790,8 +792,6 @@ export type BasePluginDependenciesAPI<Metadata extends NextEditorPluginMetadata>
 			}) => void,
 		) => Unsubscribe;
 	};
-	actions: ExtractPluginActions<Metadata>;
-	commands: ExtractCommandsFromMetadata<Metadata>;
 };
 
 /**

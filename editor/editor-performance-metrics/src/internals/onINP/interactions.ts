@@ -6,9 +6,9 @@ interface PerformanceEventTiming extends PerformanceEntry {
 }
 
 interface Interaction {
+	entries: PerformanceEventTiming[];
 	id: number;
 	latency: number;
-	entries: PerformanceEventTiming[];
 }
 
 export class InteractionManager {

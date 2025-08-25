@@ -1,8 +1,8 @@
 interface MarkJson {
-	type: string;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	attrs: { [key: string]: any };
+	type: string;
 }
 
 type CanOverrideUnsupportedMark = (markJson?: MarkJson) => boolean;

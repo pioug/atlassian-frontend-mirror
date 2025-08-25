@@ -26,9 +26,6 @@
 			"name": "Notification Log Client"
 		}
 	},
-	"af:exports": {
-		".": "./src/index.ts"
-	},
 	"exports": {
 		".": "./src/index.ts"
 	},

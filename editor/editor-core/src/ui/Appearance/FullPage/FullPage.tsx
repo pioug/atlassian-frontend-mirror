@@ -40,7 +40,6 @@ import { FullPageContentArea } from './FullPageContentArea';
 import type { ToolbarEditorPlugins } from './FullPageToolbar';
 import { FullPageToolbar } from './FullPageToolbar';
 import { FullPageToolbarNext } from './FullPageToolbarNext';
-import { getEditorViewMode } from './getEditorViewModeSync';
 import { fullPageEditorWrapper } from './StyledComponents';
 import { type ScrollContainerRefs } from './types';
 
@@ -108,9 +107,9 @@ const hasCustomComponents = (components?: PrimaryToolbarComponents) => {
 
 const useFullPageEditorPluginsStates = sharedPluginStateHookMigratorFactory<
 	{
-		primaryToolbarState: PrimaryToolbarPluginState | undefined;
 		editorViewModeState: Pick<EditorViewModePluginState, 'mode'> | undefined | null;
 		interactionState: 'hasNotHadInteraction' | null | undefined;
+		primaryToolbarState: PrimaryToolbarPluginState | undefined;
 	},
 	| PublicPluginAPI<
 			[
@@ -169,7 +168,6 @@ export const FullPageEditor = (props: ComponentProps) => {
 		editorAPI,
 		primaryToolbarHookState?.components,
 	);
-	const viewMode = getEditorViewMode(editorViewModeState, props.preset);
 
 	const hasHadInteraction = interactionState !== 'hasNotHadInteraction';
 
@@ -210,12 +208,7 @@ export const FullPageEditor = (props: ComponentProps) => {
 		primaryToolbarComponents = primaryToolbarState.components.concat(primaryToolbarComponents);
 	}
 
-	let isEditorToolbarHidden =
-		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-		fg('platform_editor_sync_editor_view_mode_state') &&
-		!fg('platform_editor_sync_editor_view_mode_state_revert')
-			? viewMode === 'view'
-			: editorViewModeState?.mode === 'view';
+	let isEditorToolbarHidden = editorViewModeState?.mode === 'view';
 
 	const { customPrimaryToolbarComponents } = props;
 
@@ -267,6 +260,8 @@ export const FullPageEditor = (props: ComponentProps) => {
 								editorAPI={editorAPI}
 								editorView={props.editorView}
 								popupsMountPoint={props.popupsMountPoint}
+								popupsBoundariesElement={props.popupsBoundariesElement}
+								popupsScrollableElement={props.popupsScrollableElement}
 								showKeyline={showKeyline}
 							/>
 						</IntlProvider>

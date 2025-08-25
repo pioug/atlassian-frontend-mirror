@@ -9,9 +9,9 @@ import { token } from '@atlaskit/tokens';
 import { cssMap, jsx } from '@compiled/react';
 
 export type Props = {
-	selectProps?: SelectProps<OptionType, boolean>;
-	innerRef: (ref: React.Ref<HTMLInputElement>) => void;
 	ariaDescribedBy?: AriaAttributesType;
+	innerRef: (ref: React.Ref<HTMLInputElement>) => void;
+	selectProps?: SelectProps<OptionType, boolean>;
 };
 
 const inputStyles = cssMap({

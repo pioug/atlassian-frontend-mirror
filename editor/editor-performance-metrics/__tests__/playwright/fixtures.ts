@@ -38,9 +38,9 @@ const prepareParams = (params?: { [key: string]: string | boolean }) => {
 
 const getExampleURL = (props: {
 	baseURL: string | undefined;
+	exampleId: string | undefined;
 	groupId: string;
 	packageId: string;
-	exampleId: string | undefined;
 	params: Record<string, string | boolean> | undefined;
 }) => {
 	const { baseURL, groupId, packageId, exampleId, params } = props;
@@ -59,15 +59,6 @@ const getExampleURL = (props: {
 };
 
 export const test = base.extend<{
-	viewport: {
-		width: number;
-		height: number;
-	};
-	getTimeline: () => Promise<Timeline | null>;
-	getTimelineEvents: () => Promise<TimelineEvents>;
-	getMetrics: () => Promise<EditorPerformanceMetrics | null>;
-	resetTicks: () => Promise<void>;
-	waitForTicks: (tickNth: number) => Promise<DOMHighResTimeStamp>;
 	examplePage:
 		| 'vc-observer-next'
 		| 'vc-observer-react-remount'
@@ -79,13 +70,22 @@ export const test = base.extend<{
 		| 'basic-react'
 		| 'ttai-with-timers'
 		| 'latency-keyboard-events';
+	getMetrics: () => Promise<EditorPerformanceMetrics | null>;
 	getSectionVisibleAt: (sectionTestId: string) => Promise<DOMHighResTimeStamp | null>;
+	getTimeline: () => Promise<Timeline | null>;
+	getTimelineEvents: () => Promise<TimelineEvents>;
 	/**
 	 * This fixture allow the tests to get the TTVCTarget value set on the example page.
 	 *
 	 * ⚠️ Your example needs to manually set the global variable called `__editor_metrics_tests__calculated_ttvc`.
 	 */
 	getTTVCTargets: () => Promise<TTVCTargets | null>;
+	resetTicks: () => Promise<void>;
+	viewport: {
+		height: number;
+		width: number;
+	};
+	waitForTicks: (tickNth: number) => Promise<DOMHighResTimeStamp>;
 }>({
 	viewport: {
 		width: 800,

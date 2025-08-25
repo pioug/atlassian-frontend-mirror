@@ -37,26 +37,26 @@ const styles = cssMap({
 });
 
 export interface InlineCardForbiddenViewProps {
-	/** The url to display */
-	url: string;
-	/** The icon of the service (e.g. Dropbox/Asana/Google/etc) to display */
-	icon?: React.ReactNode;
 	/** The name of the service (e.g. Jira/Confluence/Asana/etc) to display */
 	context?: string;
-	/** The optional click handler */
-	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
-	/** The optional handler for "Connect" button */
-	onAuthorise?: () => void;
+	/** The icon of the service (e.g. Dropbox/Asana/Google/etc) to display */
+	icon?: React.ReactNode;
 	/** A flag that determines whether the card is selected in edit mode. */
 	isSelected?: boolean;
-	/** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
-	testId?: string;
+	/** The optional handler for "Connect" button */
+	onAuthorise?: () => void;
+	/** The optional click handler */
+	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
 	/* Describes additional metadata based on the type of access a user has to the link */
 	requestAccessContext?: RequestAccessContextProps;
 	/** Enables showing a custom preview on hover of link */
 	showHoverPreview?: boolean;
+	/** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
+	testId?: string;
 	/** Truncates the card to one line */
 	truncateInline?: boolean;
+	/** The url to display */
+	url: string;
 }
 
 const fallbackForbiddenIcon = () => {

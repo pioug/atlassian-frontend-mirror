@@ -141,16 +141,16 @@ const fullPageExampleWrapper = css({
 });
 
 interface LatencyPanelProps {
-	latencyMode: LatencyMode;
-	onLatencyModeChanged: (mode: LatencyMode) => void;
 	fixedLatency: number;
-	variableLatencyFrom: number;
-	variableLatencyTo: number;
+	latencyMode: LatencyMode;
 	onFixedLatencyChange: (mode: number) => void;
+	onFocusLatencyChange: (mode: number) => void;
+	onInitLatencyChange: (mode: number) => void;
+	onLatencyModeChanged: (mode: LatencyMode) => void;
 	onVariableLatencyFromChange: (mode: number) => void;
 	onVariableLatencyToChange: (mode: number) => void;
-	onInitLatencyChange: (mode: number) => void;
-	onFocusLatencyChange: (mode: number) => void;
+	variableLatencyFrom: number;
+	variableLatencyTo: number;
 }
 
 const LatencyPanel = (props: LatencyPanelProps) => {

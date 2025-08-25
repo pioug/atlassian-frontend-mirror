@@ -7,28 +7,19 @@ import type { GetResolvedEditorStateReason } from '@atlaskit/editor-common/types
 
 // This interface is to make sure both DocumentService and NullDocumentService have same signatures
 export interface DocumentServiceInterface {
-	setup: (params: {
-		getState: () => EditorState;
-		onSyncUpError?: SyncUpErrorFunction;
-		clientId: number | string | undefined;
-	}) => this;
-	updateDocument: (params: {
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		doc: any;
-		version: number;
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		metadata: any;
-		reserveCursor?: boolean;
-	}) => void;
+	getCurrentPmVersion: () => number;
+	getCurrentState: () => Promise<ResolvedEditorState>;
+	getFinalAcknowledgedState: (reason: GetResolvedEditorStateReason) => Promise<ResolvedEditorState>;
+	getIsNamespaceLocked: () => boolean;
+	getUnconfirmedSteps: () => readonly ProseMirrorStep[] | undefined;
+	onErrorHandled: (error: InternalError) => void;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	onRestore: (params: { doc: any; version: number; metadata: any }) => void;
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	onStepsAdded: (data: { version: number; steps: any[] }) => void;
+	onRestore: (params: { doc: any; metadata: any; version: number }) => void;
 	onStepRejectedError: () => void;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	onStepsAdded: (data: { steps: any[]; version: number }) => void;
 	send: (
 		tr: Transaction | null,
 		oldState: EditorState | null,
@@ -39,11 +30,20 @@ export interface DocumentServiceInterface {
 		sendAnalyticsEvent?: boolean,
 		reason?: GetResolvedEditorStateReason,
 	) => void;
+	setup: (params: {
+		clientId: number | string | undefined;
+		getState: () => EditorState;
+		onSyncUpError?: SyncUpErrorFunction;
+	}) => this;
 	throttledCatchupv2: () => void;
-	getCurrentState: () => Promise<ResolvedEditorState>;
-	getFinalAcknowledgedState: (reason: GetResolvedEditorStateReason) => Promise<ResolvedEditorState>;
-	getIsNamespaceLocked: () => boolean;
-	getUnconfirmedSteps: () => readonly ProseMirrorStep[] | undefined;
-	getCurrentPmVersion: () => number;
-	onErrorHandled: (error: InternalError) => void;
+	updateDocument: (params: {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		doc: any;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		metadata: any;
+		reserveCursor?: boolean;
+		version: number;
+	}) => void;
 }

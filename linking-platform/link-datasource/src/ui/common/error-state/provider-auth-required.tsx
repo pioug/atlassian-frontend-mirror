@@ -32,11 +32,11 @@ const learnMoreAboutSmartLinksUrl =
 
 interface ProviderAuthRequiredProps {
 	auth: DatasourceMeta['auth'];
-	onAuthSuccess: () => void;
-	onAuthError: () => void;
-	extensionKey: string | null;
-	providerName: DatasourceMeta['providerName'];
 	datasourceId: string;
+	extensionKey: string | null;
+	onAuthError: () => void;
+	onAuthSuccess: () => void;
+	providerName: DatasourceMeta['providerName'];
 }
 
 export const ProviderAuthRequired = ({

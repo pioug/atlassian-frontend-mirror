@@ -1,9 +1,10 @@
 /* eslint-disable @atlaskit/design-system/no-styled-tagged-template-expression -- needs manual remediation */
 import React, { type ReactNode } from 'react';
 
-import { keyframes as keyframescompiled } from '@compiled/react';
+import { cssMap as cssMapCompiled, keyframes as keyframescompiled } from '@compiled/react';
 
 import { cssMap, cx } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -187,6 +188,34 @@ const styles = cssMap({
 	},
 });
 
+const stylesCompiled = cssMapCompiled({
+	jobTitleLabel: {
+		marginTop: token('space.0'),
+		marginBottom: token('space.0'),
+		marginLeft: token('space.150'),
+		marginRight: token('space.0'),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'> #profile-card-job-title-label-text': {
+			color: token('color.text.inverse'),
+		},
+	},
+	actionButtonGroup: {
+		userSelect: 'none',
+		marginTop: token('space.200'),
+		marginRight: token('space.0'),
+		marginLeft: token('space.0'),
+		marginBottom: token('space.0'),
+		textAlign: 'right',
+		justifyContent: 'flex-end',
+		gap: token('space.075'),
+		display: 'flex',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'&#profile-card-action-button-group span': {
+			color: token('color.text.subtle'),
+		},
+	},
+});
+
 export const ProfileImage = ({ children }: { children: ReactNode }) => (
 	<Box xcss={cx(styles.profileImage)}>{children}</Box>
 );
@@ -212,7 +241,15 @@ export const ActionButtonGroup = ({
 	children: ReactNode;
 	testId?: string;
 }) => (
-	<Box testId={testId} xcss={cx(styles.actionButtonGroup)}>
+	<Box
+		testId={testId}
+		xcss={cx(
+			fg('enable_absolute_positioning_profile_card')
+				? stylesCompiled.actionButtonGroup
+				: styles.actionButtonGroup,
+		)}
+		id="profile-card-action-button-group"
+	>
 		{children}
 	</Box>
 );
@@ -250,8 +287,14 @@ export const CustomLozengeContainer = ({ children }: { children: ReactNode }) =>
 );
 
 export const JobTitleLabel = ({ children }: { children: ReactNode }) => (
-	<Box xcss={cx(styles.jobTitleLabel)}>
-		<Text maxLines={1} color="color.text.inverse">
+	<Box
+		xcss={cx(
+			fg('enable_absolute_positioning_profile_card')
+				? stylesCompiled.jobTitleLabel
+				: styles.jobTitleLabel,
+		)}
+	>
+		<Text maxLines={1} color="color.text.inverse" id="profile-card-job-title-label-text">
 			{children}
 		</Text>
 	</Box>

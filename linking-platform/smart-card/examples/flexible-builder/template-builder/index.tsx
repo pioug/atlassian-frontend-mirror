@@ -17,8 +17,8 @@ const TemplateBuilder = ({
 	template,
 	onChange,
 }: {
-	template: FlexibleTemplate;
 	onChange: (template: FlexibleTemplate) => void;
+	template: FlexibleTemplate;
 }) => {
 	const display = useMemo(
 		() =>

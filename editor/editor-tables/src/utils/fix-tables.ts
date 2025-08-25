@@ -18,9 +18,9 @@ export type ReportFixedTable = ({
 	tr,
 	reason,
 }: {
+	reason: string;
 	state: EditorState;
 	tr: Transaction;
-	reason: string;
 }) => void;
 
 // Helper for iterating through the nodes in a document that changed

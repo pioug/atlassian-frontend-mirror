@@ -217,7 +217,7 @@ export const moveRow =
 			(index) => tableMap.positionAt(index, 0, table.node) + table.pos,
 		);
 
-		const originNodes = originPositions.reduce<{ pos: number; node: PMNode }[]>((acc, pos) => {
+		const originNodes = originPositions.reduce<{ node: PMNode; pos: number }[]>((acc, pos) => {
 			const node = tr.doc.nodeAt(tr.mapping.map(pos));
 			if (node) {
 				return [...acc, { pos, node }];

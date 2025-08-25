@@ -106,10 +106,10 @@ const LinkPickerPopup = ({
 	placement = 'bottom-start',
 	...props
 }: {
-	isOpen: boolean;
 	handleToggle: () => void;
-	trigger: PopupProps['trigger'];
+	isOpen: boolean;
 	placement?: PopupProps['placement'];
+	trigger: PopupProps['trigger'];
 } & Omit<LinkPickerProps, 'onCancel'>) => {
 	return (
 		<Popup

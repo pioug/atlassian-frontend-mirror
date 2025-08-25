@@ -32,13 +32,13 @@ import type { RendererAppearance } from '../../ui/Renderer/types';
 
 type HoverLinkOverlayProps = React.ComponentProps<typeof HoverLinkOverlay>;
 export interface InlineCardProps extends MarkDataAttributes {
-	url?: string;
 	data?: object;
 	eventHandlers?: EventHandlers;
-	portal?: HTMLElement;
-	smartLinks?: SmartLinksOptions;
 	marks?: Mark[];
+	portal?: HTMLElement;
 	rendererAppearance?: RendererAppearance;
+	smartLinks?: SmartLinksOptions;
+	url?: string;
 }
 const HoverLinkOverlayNoop = (props: OverlayWithCardContextProps) => (
 	<Fragment>{props.children}</Fragment>
@@ -51,9 +51,9 @@ const HoverLinkOverlayWithCondition = componentWithCondition(
 );
 
 type OverlayWithCardContextProps = HoverLinkOverlayProps & {
-	url: string;
-	rendererAppearance?: RendererAppearance;
 	isResolvedViewRendered?: boolean;
+	rendererAppearance?: RendererAppearance;
+	url: string;
 };
 
 const OverlayWithCardContext = ({

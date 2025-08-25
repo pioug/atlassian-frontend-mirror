@@ -42,17 +42,17 @@ export const getBadgeSize = (width?: number, height?: number) => {
 };
 
 export type CommentBadgeProps = {
-	intl: IntlShape;
-	width?: number;
+	badgeOffsetRight?: string;
 	height?: number;
-	status?: 'default' | 'entered' | 'active';
+	intl: IntlShape;
+	isDrafting?: boolean;
+	isEditor?: boolean;
 	mediaSingleElement?: HTMLElement | null;
 	onClick: (e: React.MouseEvent) => void;
 	onMouseEnter?: (e: React.MouseEvent) => void;
 	onMouseLeave?: (e: React.MouseEvent) => void;
-	isEditor?: boolean;
-	isDrafting?: boolean;
-	badgeOffsetRight?: string;
+	status?: 'default' | 'entered' | 'active';
+	width?: number;
 };
 
 export const CommentBadge = forwardRef<HTMLDivElement, CommentBadgeProps>(

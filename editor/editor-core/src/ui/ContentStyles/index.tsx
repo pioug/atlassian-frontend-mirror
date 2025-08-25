@@ -54,7 +54,6 @@ import { blocktypeStyles } from '@atlaskit/editor-plugins/block-type/styles';
 import {
 	findReplaceStyles,
 	findReplaceStylesNew,
-	findReplaceStylesNewNoImportant,
 } from '@atlaskit/editor-plugins/find-replace/styles';
 import { textHighlightStyle } from '@atlaskit/editor-plugins/paste-options-toolbar/styles';
 import {
@@ -113,17 +112,17 @@ export const linkStyles = css`
 `;
 
 type ContentStylesProps = {
-	theme?: Theme;
+	appearance?: EditorAppearance;
 	colorMode?: 'light' | 'dark';
 	featureFlags?: FeatureFlags;
-	viewMode?: 'view' | 'edit';
+	isScrollable?: boolean;
+	theme?: Theme;
 	typographyTheme?:
 		| 'typography'
 		| 'typography-adg3'
 		| 'typography-modernized'
 		| 'typography-refreshed';
-	isScrollable?: boolean;
-	appearance?: EditorAppearance;
+	viewMode?: 'view' | 'edit';
 };
 
 const ruleStyles = () => css`
@@ -552,8 +551,7 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
 	${mentionNodeStyles}
 	${fg('platform_editor_centre_mention_padding') &&
 	mentionNodeStylesMixin_fg_platform_editor_centre_mention_padding}
-	${expValEqualsNoExposure('platform_editor_find_and_replace_improvements', 'isEnabled', true) &&
-	fg('platform_editor_find_and_replace_improvements_1')
+	${expValEqualsNoExposure('platform_editor_find_and_replace_improvements', 'isEnabled', true)
 		? mentionsSelectionStylesWithSearchMatch
 		: mentionSelectionStyles}
   ${fg('platform_editor_fix_emoji_style_selectors') ? emojiStylesWithSelectorFixes : emojiStyles}
@@ -565,9 +563,7 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
   ${extensionStyles}
   ${expandStyles()}
   ${expValEqualsNoExposure('platform_editor_find_and_replace_improvements', 'isEnabled', true)
-		? fg('platform_editor_find_and_replace_improvements_1')
-			? findReplaceStylesNewNoImportant
-			: findReplaceStylesNew
+		? findReplaceStylesNew
 		: findReplaceStyles}
   ${textHighlightStyle}
   ${taskDecisionStyles}
@@ -694,8 +690,8 @@ export const createEditorContentStyle = (styles?: SerializedStyles) => {
 					data-editor-scroll-container="true"
 					data-testid="editor-content-container"
 					// eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- Adding tabIndex here because this is a scrollable container and it needs to be focusable so keyboard users can scroll it.
-					tabIndex={fg('platform_editor_editor_container_a11y_focus') ? 0 : undefined}
-					role={fg('platform_editor_editor_container_a11y_focus') ? 'region' : undefined}
+					tabIndex={0}
+					role="region"
 				>
 					{children}
 				</div>

@@ -20,8 +20,8 @@ const RESOLVE_BEFORE_MACROS = ['jira'];
 class FullPageWithFF extends React.Component<
 	Props,
 	{
-		resolveBeforeMacros: string[];
 		reloadEditor: boolean;
+		resolveBeforeMacros: string[];
 	}
 > {
 	constructor(props: Props) {

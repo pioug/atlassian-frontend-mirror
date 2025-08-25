@@ -29,9 +29,9 @@ const getEmailAvatarWrapperStyle = (isLozenge?: boolean, isPendingAction?: boole
 };
 
 export type AddOptionAvatarProps = {
-	label?: string;
 	isLozenge?: boolean;
 	isPendingAction?: boolean;
+	label?: string;
 };
 
 export const AddOptionAvatar: React.FunctionComponent<AddOptionAvatarProps> = ({

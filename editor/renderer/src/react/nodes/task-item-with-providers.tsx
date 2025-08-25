@@ -7,18 +7,18 @@ import {
 } from '@atlaskit/task-decision';
 
 interface Props {
-	taskId: string;
-	objectAri: string;
+	children?: ReactNode;
+	contentRef?: ContentRef;
+	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
+	dataAttributes?: { [key: string]: string | number };
+	disabled?: boolean;
 	isDone: boolean;
 	isRenderer?: boolean;
-	contentRef?: ContentRef;
+	objectAri: string;
 	onChange?: (taskId: string, isChecked: boolean) => void;
 	showPlaceholder?: boolean;
-	children?: ReactNode;
 	taskDecisionProvider?: Promise<TaskDecisionProvider>;
-	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
-	disabled?: boolean;
-	dataAttributes?: { [key: string]: string | number };
+	taskId: string;
 }
 
 export default function TaskItemWithProviders(props: Props) {

@@ -2,9 +2,9 @@ import { type JsonLd } from '@atlaskit/json-ld-types';
 import { extractUrlFromIconJsonLd } from '@atlaskit/link-extractors';
 
 export interface LinkTaskType {
+	icon?: string;
 	id?: string;
 	name?: string;
-	icon?: string;
 }
 
 export const extractTaskType = (jsonLd: JsonLd.Data.Task): LinkTaskType | undefined => {

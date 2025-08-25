@@ -115,9 +115,9 @@ describe('2-way sync', () => {
 		integrationKey,
 		hasNextPage = false,
 	}: {
-		items: ItemWithPermissionMock[];
-		integrationKey: string;
 		hasNextPage?: boolean;
+		integrationKey: string;
+		items: ItemWithPermissionMock[];
 	}) => {
 		mockFetchDatasourceData(items, hasNextPage);
 		mockActionsDiscovery(items, integrationKey);

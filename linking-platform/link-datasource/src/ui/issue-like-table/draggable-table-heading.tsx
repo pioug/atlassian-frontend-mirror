@@ -106,11 +106,11 @@ const TableHeading = styled.th({
 
 type DraggableState =
 	| { type: 'idle' }
-	| { type: 'preview'; container: HTMLElement }
+	| { container: HTMLElement; type: 'preview' }
 	| { type: 'dragging' }
 	| {
-			type: 'resizing';
 			initialWidth: number;
+			type: 'resizing';
 	  };
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
@@ -187,15 +187,15 @@ const draggingState: DraggableState = { type: 'dragging' };
 
 interface DraggableTableHeadingProps {
 	children: ReactNode;
-	id: string;
-	index: number;
-	tableId: symbol;
 	dndPreviewHeight: number;
 	dragPreview: React.ReactNode;
-	width?: number;
-	onWidthChange?: (width: number) => void;
+	id: string;
+	index: number;
 	isWrapped?: boolean;
 	onIsWrappedChange?: (shouldWrap: boolean) => void;
+	onWidthChange?: (width: number) => void;
+	tableId: symbol;
+	width?: number;
 }
 
 export const DraggableTableHeading = ({

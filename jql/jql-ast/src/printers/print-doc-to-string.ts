@@ -26,12 +26,12 @@ const computeFlatWidth = (doc: Doc | Doc[]): number => {
 };
 
 type PrintContext = {
+	breakContents: boolean;
 	printWidth: number | null;
 	startIndex: number;
-	breakContents: boolean;
 };
 
-type PrintOutput = { result: string; endIndex: number };
+type PrintOutput = { endIndex: number; result: string };
 
 const printDoc = (doc: Doc, context: PrintContext): PrintOutput => {
 	if (typeof doc === 'string') {

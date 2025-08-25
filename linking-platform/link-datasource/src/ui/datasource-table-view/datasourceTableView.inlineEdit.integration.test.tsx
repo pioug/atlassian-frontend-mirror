@@ -26,8 +26,8 @@ describe('inline edit with sweet state', () => {
 	type ItemMock = {
 		ari: string;
 		key: string;
-		url: string;
 		summary: string;
+		url: string;
 	};
 
 	const mockFetchDatasourceData = (mockItems: ItemMock[]) => {
@@ -194,8 +194,8 @@ describe('inline edit with sweet state', () => {
 		summary,
 	}: {
 		key: string;
-		url: string;
 		summary: string;
+		url: string;
 	}) => {
 		mockFetchDatasourceData([{ ari, key, url, summary }]);
 		mockActionsDiscovery([{ ari, key, url, summary }]);

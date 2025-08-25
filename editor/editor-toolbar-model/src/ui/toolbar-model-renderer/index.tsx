@@ -18,10 +18,6 @@ import type {
 
 type ToolbarProps = {
 	/**
-	 * Toolbar component
-	 */
-	toolbar: RegisterToolbar;
-	/**
 	 * Every registered toolbar component
 	 */
 	components: RegisterComponent[];
@@ -30,9 +26,13 @@ type ToolbarProps = {
 	 */
 	fallbacks: {
 		group: ToolbarGroupComponent;
-		section: ToolbarSectionComponent;
 		menuSection: ToolbarMenuSectionComponent;
+		section: ToolbarSectionComponent;
 	};
+	/**
+	 * Toolbar component
+	 */
+	toolbar: RegisterToolbar;
 };
 
 const NoOp = <T extends Record<string, unknown> = Record<string, unknown>>(
@@ -101,8 +101,8 @@ export const ToolbarModelRenderer = ({ toolbar, components, fallbacks }: Toolbar
 		index,
 		parents,
 	}: {
-		item: RegisterToolbarButton | RegisterToolbarMenu;
 		index: number;
+		item: RegisterToolbarButton | RegisterToolbarMenu;
 		parents: ToolbarComponentTypes;
 	}) => {
 		if (item.type === 'menu') {

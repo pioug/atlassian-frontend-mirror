@@ -16,9 +16,9 @@ import type { EditorPerformanceObserver } from './internals/editorPerformanceObs
 import { getGlobalEditorMetricsObserver } from './internals/global';
 
 type OnTTVC = (result: {
-	ttvc: TTVCTargets;
 	// Relative to when the component was mounted
 	relativeTTVC: TTVCTargets;
+	ttvc: TTVCTargets;
 }) => void;
 type OnUserLatency = (result: { latency: LatencyPercentileTargets }) => void;
 type OnTTAI = (result: { idleAt: DOMHighResTimeStamp }) => void;
@@ -38,9 +38,9 @@ type OnTTAI = (result: { idleAt: DOMHighResTimeStamp }) => void;
  *        idleAt: This number represents the moment the browser as truly idle
  */
 type PerformanceMetricsProps = {
+	onTTAI?: OnTTAI;
 	onTTVC?: OnTTVC;
 	onUserLatency?: OnUserLatency;
-	onTTAI?: OnTTAI;
 };
 
 export type {

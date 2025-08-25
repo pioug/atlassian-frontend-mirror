@@ -38,7 +38,7 @@ describe('dropbox extension manifest', () => {
 			},
 		};
 
-		let inlineCard = await callAction('FAKE_KEY');
+		const inlineCard = await callAction('FAKE_KEY');
 
 		expect(inlineCard).toEqual({
 			type: 'inlineCard',
@@ -62,10 +62,10 @@ describe('dropbox extension manifest', () => {
 			},
 		};
 
-		let inlineCard = await callAction('FAKE_KEY', true);
+		const inlineCard = await callAction('FAKE_KEY', true);
 
-		let mountPoint = document.getElementById(POPUP_MOUNTPOINT);
-		let tagName = mountPoint && mountPoint.tagName;
+		const mountPoint = document.getElementById(POPUP_MOUNTPOINT);
+		const tagName = mountPoint && mountPoint.tagName;
 
 		expect(tagName).toEqual('DIV');
 
@@ -77,9 +77,9 @@ describe('dropbox extension manifest', () => {
 		});
 	});
 	it('should load modal if canMountInIframe check returns true', async () => {
-		let mockRender = asMock(ReactDOM.render);
+		const mockRender = asMock(ReactDOM.render);
 
-		let mockUnmount = asMock(ReactDOM.unmountComponentAtNode);
+		const mockUnmount = asMock(ReactDOM.unmountComponentAtNode);
 
 		window.Dropbox = {
 			choose: ({ success }) => {
@@ -87,17 +87,17 @@ describe('dropbox extension manifest', () => {
 			},
 		};
 
-		let inlineCard = await callAction('FAKE_KEY', true);
+		const inlineCard = await callAction('FAKE_KEY', true);
 
 		expect(mockRender.mock.calls.length).toEqual(1);
 		expect(mockUnmount.mock.calls.length).toEqual(1);
 
-		let [component, mountPoint] = mockRender.mock.calls[0];
-		let [unMountPoint] = mockUnmount.mock.calls[0];
+		const [component, mountPoint] = mockRender.mock.calls[0];
+		const [unMountPoint] = mockUnmount.mock.calls[0];
 
-		let id = mountPoint! && mountPoint!.id;
-		let unmountId = unMountPoint! && unMountPoint!.id;
-		let componentName = component && component.type && component.type.name;
+		const id = mountPoint! && mountPoint!.id;
+		const unmountId = unMountPoint! && unMountPoint!.id;
+		const componentName = component && component.type && component.type.name;
 
 		expect(componentName).toEqual('Modal');
 		expect(id).toEqual(POPUP_MOUNTPOINT);

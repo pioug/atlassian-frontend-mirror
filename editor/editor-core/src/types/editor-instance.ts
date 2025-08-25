@@ -10,16 +10,16 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { OnEditorViewStateUpdated } from '../create-editor/get-plugins';
 
 export interface EditorInstance {
+	contentComponents: UIComponentFactory[];
+	contentTransformer?: Transformer<string>;
 	editorView: EditorView;
 	eventDispatcher: EventDispatcher;
-	contentComponents: UIComponentFactory[];
+	insertMenuItems?: MenuItem[];
+	onEditorViewStateUpdatedCallbacks: {
+		callback: OnEditorViewStateUpdated;
+		pluginName: string;
+	}[];
 	pluginHooks: ReactHookFactory[];
 	primaryToolbarComponents: ToolbarUIComponentFactory[];
 	secondaryToolbarComponents: UIComponentFactory[];
-	onEditorViewStateUpdatedCallbacks: {
-		pluginName: string;
-		callback: OnEditorViewStateUpdated;
-	}[];
-	contentTransformer?: Transformer<string>;
-	insertMenuItems?: MenuItem[];
 }

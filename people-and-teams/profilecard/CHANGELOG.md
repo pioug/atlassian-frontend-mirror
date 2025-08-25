@@ -1,5 +1,16 @@
 # @atlaskit/profilecard
 
+## 24.7.0
+
+### Minor Changes
+
+- [`8bbfda161707b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8bbfda161707b) -
+  Changed profile card positioning strategy from fixed to absolute
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.6.0
 
 ### Minor Changes

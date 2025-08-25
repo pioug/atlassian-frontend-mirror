@@ -15,8 +15,8 @@ export interface AddonCommonProps extends AddonActions {
 }
 
 export interface AddonProps extends AddonCommonProps {
-	onClick?: (actions: AddonActions) => void;
 	children?: React.ReactElement[];
+	onClick?: (actions: AddonActions) => void;
 }
 
 export interface AddonConfiguration extends AddonCommonProps {

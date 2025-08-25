@@ -28,8 +28,8 @@ const integrationIconWrapperStyle = css`
 `;
 
 type Props = CustomThemeButtonProps & {
-	text: React.ReactNode;
 	IntegrationIcon: React.ComponentType;
+	text: React.ReactNode;
 	textColor?: string;
 };
 

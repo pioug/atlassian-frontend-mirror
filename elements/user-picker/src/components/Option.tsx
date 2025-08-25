@@ -14,13 +14,13 @@ import { isValidEmail } from './emailValidation';
 
 export type OptionProps = AkOptionProps & {
 	data: OptionType;
-	isSelected: boolean;
 	isDisabled: boolean;
 	isFocused: boolean;
-	status?: string;
+	isSelected: boolean;
 	selectProps: {
 		emailLabel?: string;
 	};
+	status?: string;
 };
 
 const defaultOption = ({ data: { data }, isSelected, status }: OptionProps) => (

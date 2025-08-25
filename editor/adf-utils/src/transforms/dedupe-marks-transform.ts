@@ -37,8 +37,8 @@ const maybeHasDisallowedDuplicateMarks = (node: ADFEntity): boolean => {
 };
 
 interface MaybeRemoveDisallowedDuplicateMarksResult {
-	node?: ADFEntity;
 	discardedMarks: ADFEntityMark[];
+	node?: ADFEntity;
 }
 
 const maybeRemoveDisallowedDuplicateMarks = (
@@ -92,9 +92,9 @@ const maybeRemoveDisallowedDuplicateMarks = (
 };
 
 interface TransformDedupeMarksResult {
-	transformedAdf: ADFEntity;
-	isTransformed: boolean;
 	discardedMarks: ADFEntityMark[];
+	isTransformed: boolean;
+	transformedAdf: ADFEntity;
 }
 
 export const transformDedupeMarks = (adf: ADFEntity): TransformDedupeMarksResult => {

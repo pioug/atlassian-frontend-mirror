@@ -14,8 +14,8 @@ export type ValidResult = {
 	validatedAql: string;
 };
 export type InvalidResult = {
-	type: 'invalid';
 	error: string;
+	type: 'invalid';
 };
 export type AqlValidationResult = IdleResult | LoadingResult | ValidResult | InvalidResult;
 
@@ -26,8 +26,8 @@ export type AqlValidationResponse = {
 
 export type UseValidateAqlTextState = {
 	debouncedValidation: (value: string | undefined) => Promise<string | undefined>;
-	validateAqlText: (aql: string) => Promise<'error' | undefined>;
 	lastValidationResult: AqlValidationResult;
+	validateAqlText: (aql: string) => Promise<'error' | undefined>;
 };
 
 export const SEARCH_DEBOUNCE = 350;

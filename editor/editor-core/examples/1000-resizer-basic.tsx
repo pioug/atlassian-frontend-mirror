@@ -27,9 +27,9 @@ const snapping: OptionsPropType = [
 ];
 
 function Parent(props: {
-	text: string;
 	handleSize: HandleSize | undefined;
 	handleSnap: boolean | undefined;
+	text: string;
 }): JSX.Element {
 	const [width, setWidth] = useState(80);
 

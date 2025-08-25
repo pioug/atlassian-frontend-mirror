@@ -13,12 +13,12 @@ type CardErrorBoundaryProps = {
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class CardErrorBoundary extends React.PureComponent<
 	{
-		url?: string;
-		onClick?: (e: React.MouseEvent<HTMLElement>, url?: string) => void;
-		isDatasource?: boolean;
 		children?: React.ReactNode;
 		// Only used in Sentry tagging
 		datasourceId?: string;
+		isDatasource?: boolean;
+		onClick?: (e: React.MouseEvent<HTMLElement>, url?: string) => void;
+		url?: string;
 	} & CardErrorBoundaryProps
 > {
 	state = {

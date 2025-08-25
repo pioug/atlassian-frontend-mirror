@@ -116,9 +116,9 @@ const getIconClassName = (isSortingAllowed: boolean, sortOrdered?: SortOrder) =>
 
 type SortingIconProps = {
 	isSortingAllowed: boolean;
-	sortOrdered?: SortOrder;
 	onClick: () => void;
 	onKeyDown: (event: React.KeyboardEvent<HTMLElement>) => void;
+	sortOrdered?: SortOrder;
 } & WrappedComponentProps;
 
 const getTooltipTitle = (

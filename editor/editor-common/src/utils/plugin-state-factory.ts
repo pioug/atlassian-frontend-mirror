@@ -71,15 +71,15 @@ type MapState<PluginState> = (
 ) => PluginState;
 
 type SafePlugin<PluginState, Action, InitialState extends PluginState> = {
-	createPluginState: (
-		dispatch: Dispatch,
-		initialState: InitialState | ((state: EditorState) => InitialState),
-	) => SafeStateField<PluginState>;
-
 	createCommand: <A = Action>(
 		action: A | ((state: Readonly<EditorState>) => A | false),
 		transform?: (tr: Transaction, state: EditorState) => Transaction,
 	) => Command;
+
+	createPluginState: (
+		dispatch: Dispatch,
+		initialState: InitialState | ((state: EditorState) => InitialState),
+	) => SafeStateField<PluginState>;
 
 	getPluginState: (state: EditorState) => PluginState;
 };

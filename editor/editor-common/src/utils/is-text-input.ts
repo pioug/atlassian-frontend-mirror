@@ -4,8 +4,8 @@ import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 
 interface DetailedReplaceStep extends ReplaceStep {
 	from: number;
-	to: number;
 	slice: Slice;
+	to: number;
 }
 
 export const isTextInput = (tr: Transaction | ReadonlyTransaction): boolean => {

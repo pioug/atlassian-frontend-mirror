@@ -13,8 +13,8 @@ export type MediaImageBase64 = {
 };
 
 export interface SerializeFragmentWithAttachmentsResult {
-	result: string | null;
 	embeddedImages: MediaImageBase64[];
+	result: string | null;
 }
 
 export interface SerializerWithImages<T> extends Serializer<T> {

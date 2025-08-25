@@ -17,16 +17,14 @@ export interface OrderBy
 	extends AstNode<ParentOfOrderBy & AstNode>,
 		Removable,
 		Replaceable<OrderBy> {
-	type: typeof NODE_TYPE_ORDER_BY;
-	/**
-	 * The ORDER BY keyword used in an order-by clause.
-	 */
-	operator: OrderByOperator;
 	/**
 	 * The list of order-by clause fields and their ordering directives.
 	 */
 	fields: OrderByField[];
-
+	/**
+	 * The ORDER BY keyword used in an order-by clause.
+	 */
+	operator: OrderByOperator;
 	/**
 	 * Prepend the provided order by field to the list of fields in this node.
 	 *
@@ -35,12 +33,11 @@ export interface OrderBy
 	prependOrderField: (orderField: OrderByField) => void;
 
 	/**
-	 * Set the direction of the primary order by field to the provided value. If there is no primary order by field then
-	 * this function is a noop.
-	 *
-	 * @param orderDirection Direction to set for the order by clause
+	 * Removes the matching child field. If the field to remove is not found then
+	 * no changes will be made.
+	 * @param orderByField orderByField, existing orderByField in the ast, which should be removed
 	 */
-	setOrderDirection: (orderDirection: OrderByDirection) => void;
+	removeOrderField: (orderByField: OrderByField) => void;
 
 	/**
 	 * Replace the matching child field with the provided `nextOrderByField` node. If the field to replace is not found then
@@ -51,11 +48,14 @@ export interface OrderBy
 	replaceOrderField: (orderByField: OrderByField, nextOrderByField: OrderByField) => void;
 
 	/**
-	 * Removes the matching child field. If the field to remove is not found then
-	 * no changes will be made.
-	 * @param orderByField orderByField, existing orderByField in the ast, which should be removed
+	 * Set the direction of the primary order by field to the provided value. If there is no primary order by field then
+	 * this function is a noop.
+	 *
+	 * @param orderDirection Direction to set for the order by clause
 	 */
-	removeOrderField: (orderByField: OrderByField) => void;
+	setOrderDirection: (orderDirection: OrderByDirection) => void;
+
+	type: typeof NODE_TYPE_ORDER_BY;
 }
 
 /**
@@ -76,13 +76,13 @@ export interface OrderByField
 		Removable,
 		Replaceable<OrderByField> {
 	/**
-	 * The field to order by.
-	 */
-	field: Field;
-	/**
 	 * The direction in which to order the results.
 	 */
 	direction: OrderByDirection | void;
+	/**
+	 * The field to order by.
+	 */
+	field: Field;
 
 	/**
 	 * Set the direction of this order by field to the provided value.

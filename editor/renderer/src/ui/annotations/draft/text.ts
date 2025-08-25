@@ -23,8 +23,8 @@ function isReactElement<P>(child: React.ReactNode): child is React.ReactElement<
 }
 
 type Offset = {
-	startOffset: number;
 	endOffset: number;
+	startOffset: number;
 };
 
 export const splitText = (text: string, { startOffset, endOffset }: Offset): string[] | null => {

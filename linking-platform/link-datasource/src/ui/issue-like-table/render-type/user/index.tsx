@@ -47,9 +47,9 @@ const AvatarGroupWrapperStyles = styled.div({
 });
 
 export interface UserProps extends User {
+	avatarSize?: SizeType;
 	children?: React.ReactElement;
 	testId?: string;
-	avatarSize?: SizeType;
 }
 
 const getMaxUserCount = (userCount: number, availableWidth: number) => {

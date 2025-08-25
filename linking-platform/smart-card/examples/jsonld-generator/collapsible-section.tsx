@@ -19,7 +19,7 @@ const contentStyles = xcss({
 	paddingBlockStart: 'space.0',
 });
 
-const CollapsibleSection = (props: { title: string; children: any }) => {
+const CollapsibleSection = (props: { children: any; title: string }) => {
 	const [isSectionOpen, setIsSectionOpen] = useState(false);
 	return (
 		<Box xcss={containerStyles}>

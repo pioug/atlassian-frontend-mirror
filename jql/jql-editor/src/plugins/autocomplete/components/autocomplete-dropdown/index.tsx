@@ -40,13 +40,13 @@ import {
 } from './styled';
 
 type Props = {
-	options: SelectableAutocompleteOption[];
-	loading: boolean;
 	keymap: PluginKeymap;
+	loading: boolean;
 	onClick: (
 		option: SelectableAutocompleteOption,
 		analyticsAttributes: AutocompleteAnalyticsAttributes,
 	) => void;
+	options: SelectableAutocompleteOption[];
 };
 
 const getPreviousOptionId = (

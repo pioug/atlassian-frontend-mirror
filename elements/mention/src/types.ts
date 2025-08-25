@@ -2,8 +2,8 @@ import { type SyntheticEvent } from 'react';
 import { type ServiceConfig } from '@atlaskit/util-service-support/types';
 
 export interface MentionNameResolver {
-	lookupName(id: string): Promise<MentionNameDetails> | MentionNameDetails;
 	cacheName(id: string, name: string): void;
+	lookupName(id: string): Promise<MentionNameDetails> | MentionNameDetails;
 }
 
 export type MentionStats = { [key: string]: any };
@@ -33,15 +33,15 @@ export interface AnalyticsCallback {
 
 export interface MentionResourceConfig extends ServiceConfig {
 	containerId?: string;
-	productId?: string;
-	shouldHighlightMention?: (mention: MentionDescription) => boolean;
-	mentionNameResolver?: MentionNameResolver;
-	shouldEnableInvite?: boolean;
-	onInviteItemClick?: (flow: InviteFlow) => void;
-	userRole?: UserRole;
-	productName?: string;
 	debounceTime?: number;
 	inviteXProductUser?: (userId: string, mentionName: string) => Promise<void>;
+	mentionNameResolver?: MentionNameResolver;
+	onInviteItemClick?: (flow: InviteFlow) => void;
+	productId?: string;
+	productName?: string;
+	shouldEnableInvite?: boolean;
+	shouldHighlightMention?: (mention: MentionDescription) => boolean;
+	userRole?: UserRole;
 }
 
 export interface ResourceProvider<Result> {
@@ -71,9 +71,9 @@ export interface ResourceProvider<Result> {
 }
 
 export type MentionContextIdentifier = {
+	childObjectId?: string;
 	containerId?: string;
 	objectId?: string;
-	childObjectId?: string;
 	sessionId?: string;
 };
 
@@ -82,59 +82,59 @@ export interface MentionProvider
 		InviteFromMentionProvider,
 		XProductInviteMentionProvider {
 	filter(query?: string, contextIdentifier?: MentionContextIdentifier): void;
+	isFiltering(query: string): boolean;
 	recordMentionSelection(
 		mention: MentionDescription,
 		contextIdentifier?: MentionContextIdentifier,
 	): void;
 	shouldHighlightMention(mention: MentionDescription): boolean;
-	isFiltering(query: string): boolean;
 }
 
 export interface HighlightDetail {
-	start: number;
 	end: number;
+	start: number;
 }
 
 export interface Highlight {
-	name: HighlightDetail[];
 	mentionName: HighlightDetail[];
+	name: HighlightDetail[];
 	nickname: HighlightDetail[];
 }
 
 export interface Presence {
-	time?: string;
 	status?: string;
+	time?: string;
 }
 
 export type LozengeColor = 'default' | 'success' | 'removed' | 'inprogress' | 'new' | 'moved';
 
 export interface LozengeProps {
-	text: React.ReactNode;
 	appearance?: LozengeColor;
+	text: React.ReactNode;
 }
 
 export interface MentionDescription {
-	id: string;
-	avatarUrl?: string;
-	name?: string;
-	mentionName?: string;
-	nickname?: string;
-	highlight?: Highlight;
-	lozenge?: string | LozengeProps;
-	presence?: Presence;
 	accessLevel?: string;
-	inContext?: boolean;
-	userType?: string;
+	avatarUrl?: string;
 	// Team mention can use context to store members data
 	context?: MentionDescContext;
-	source?: string; //e.g. 'smarts'
+	highlight?: Highlight;
+	id: string;
+	inContext?: boolean;
 	isXProductUser?: boolean;
+	lozenge?: string | LozengeProps;
+	mentionName?: string;
+	name?: string;
+	nickname?: string;
+	presence?: Presence;
+	source?: string; //e.g. 'smarts'
+	userType?: string;
 }
 
 export interface MentionDescContext {
-	members: TeamMember[];
 	includesYou: boolean;
 	memberCount: number;
+	members: TeamMember[];
 	teamLink: string;
 }
 
@@ -150,13 +150,13 @@ export interface TeamMember {
 
 // data is returned from team search service
 export interface Team {
-	id: string;
-	smallAvatarImageUrl: string;
 	displayName: string;
-	members: TeamMember[];
+	highlight?: Highlight;
+	id: string;
 	includesYou: boolean;
 	memberCount: number;
-	highlight?: Highlight;
+	members: TeamMember[];
+	smallAvatarImageUrl: string;
 }
 
 export type MentionEventHandler = (
@@ -250,9 +250,9 @@ export type InviteFlow = 'mention' | 'assign';
 export type UserRole = 'admin' | 'trusted' | 'basic';
 
 export interface InviteFromMentionProvider {
+	onInviteItemClick?(flow: InviteFlow): void;
 	productName?: string;
 	shouldEnableInvite?: boolean;
-	onInviteItemClick?(flow: InviteFlow): void;
 	userRole?: UserRole;
 }
 

@@ -1,9 +1,9 @@
 import type { EnvironmentsKeys, ProductType } from '@atlaskit/linking-common';
 
 export interface AISummaryServiceInt {
-	summariseUrl: () => Promise<AISummaryState>;
 	state: AISummaryState;
 	subscribe: (stateSetter: StateSetter) => () => void;
+	summariseUrl: () => Promise<AISummaryState>;
 }
 export class ChunkProcessingError extends Error {
 	constructor(error: any) {
@@ -12,48 +12,48 @@ export class ChunkProcessingError extends Error {
 }
 
 export type AISummaryServiceProps = {
-	baseUrl?: string;
-	onError?: (id: string, reason?: string) => void;
-	onStart?: (id: string) => void;
-	onSuccess?: (id: string) => void;
-	product?: ProductType;
 	/**
 	 * we should always include the ARI if possible
 	 */
 	ari?: string;
+	baseUrl?: string;
 	envKey?: EnvironmentsKeys;
 	locale?: string;
+	onError?: (id: string, reason?: string) => void;
+	onStart?: (id: string) => void;
+	onSuccess?: (id: string) => void;
+	product?: ProductType;
 	url: string;
 };
 
 export type AISummaryServiceConfig = {
-	requestUrl: string;
 	headers: Record<string, string>;
+	requestUrl: string;
 };
 
 export type AISummaryStatus = 'ready' | 'loading' | 'error' | 'done';
 
 export type PostAgentPayload = {
+	agent_input_context: AgentInputContext;
+	ai_feature_input?: FeatureInputContext;
 	/**
 	 * Which agent in `assistance_service` to use.
 	 */
 	recipient_agent_named_id: 'smartlink_summary_agent';
-	agent_input_context: AgentInputContext;
 	user_intent?: string;
-	ai_feature_input?: FeatureInputContext;
 };
 
 export type AgentInputContext = {
-	content_url: string;
 	content_ari?: string;
+	content_url: string;
+	locale?: string;
 	prompt_id: PromptId;
 	summary_output_mimetype?: SummaryOutputMimeType;
-	locale?: string;
 };
 
 export type FeatureInputContext = {
-	content_url: string;
 	content_ari?: string;
+	content_url: string;
 	locale?: string;
 };
 
@@ -79,8 +79,8 @@ export type ErrorMessage = (typeof errorMessages)[number];
 
 export type AISummaryState = {
 	content: string;
-	status: AISummaryStatus;
 	error?: string;
+	status: AISummaryStatus;
 };
 
 export type StateSetter = (state: AISummaryState) => any;
@@ -88,56 +88,56 @@ export type StateSetter = (state: AISummaryState) => any;
 export type StreamMessage = StreamTrace | StreamAnswerPart | StreamResponse | StreamError;
 
 export type StreamResponse = {
-	type: 'FINAL_RESPONSE';
 	message: {
-		message: Message;
 		content: string;
+		message: Message;
 	};
-	millisOffset?: number;
 	metadata?: {
 		request_id?: string;
 	};
+	millisOffset?: number;
+	type: 'FINAL_RESPONSE';
 };
 
 export type StreamError = {
-	type: 'ERROR';
 	message: {
 		content: string;
-		status_code?: number;
 		message_template?: ErrorMessage;
+		status_code?: number;
 	};
-	millisOffset: number;
 	metadata: null | {
 		error_message?: string;
 		request_id?: string;
 		timeout?: number;
 	};
+	millisOffset: number;
+	type: 'ERROR';
 };
 
 export type StreamAnswerPart = {
-	type: 'ANSWER_PART';
 	message: { content: string; role: 'ASSISTANT' };
-	millisOffset: number;
 	metadata?: {
-		run_id?: string;
 		request_id?: string;
+		run_id?: string;
 	};
+	millisOffset: number;
+	type: 'ANSWER_PART';
 };
 
 export type StreamTrace = {
-	type: 'TRACE';
 	message: {
-		message_template: string;
 		content: string;
+		message_template: string;
 		user_query: string;
 	};
-	millisOffset: number;
 	metadata?: {
-		run_id: string;
-		request_id: string;
-		plugin_name?: string;
 		plugin_input?: string;
+		plugin_name?: string;
+		request_id: string;
+		run_id: string;
 	};
+	millisOffset: number;
+	type: 'TRACE';
 };
 
 export type Usage = {
@@ -148,12 +148,12 @@ export type Usage = {
 };
 
 export type ModelUsage = {
-	total_tokens: number;
-	prompt_tokens: number;
 	completion_tokens: number;
+	duration: number;
+	prompt_tokens: number;
 	request_count: number;
 	total_cost: number;
-	duration: number;
+	total_tokens: number;
 };
 
 export type Metadata = {
@@ -180,13 +180,13 @@ export type Message = {
 	content_mime_type: ContentType;
 	conversation_channel_id?: string;
 	experience_id: ExperienceId;
+	id: number;
 	message_metadata?: Metadata;
 	plugin_invocations: PluginInvocationMessage[];
 	role: Role;
-	id: number;
+	sources?: Sources;
 	time_created: string;
 	user_ari: string;
-	sources?: Sources;
 };
 
 export type ContentType = 'text/markdown';
@@ -198,21 +198,21 @@ export type Role = 'ASSISTANT';
 export type Appendices = Array<Appendix>;
 
 export type Appendix = {
-	type: 'requestForm' | 'helpDesk';
-	content: string;
 	appendix_sources?: Sources;
+	content: string;
+	type: 'requestForm' | 'helpDesk';
 };
 
 export type Sources = Array<Source>;
 
 export type Source = {
 	ari: string;
+	id: number;
+	lastModified: string;
+	message_id: number;
 	title: string;
 	type: string;
 	url: string;
-	lastModified: string;
-	message_id: number;
-	id: number;
 };
 
 export type PluginInvocation = {

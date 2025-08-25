@@ -41,26 +41,26 @@ import {
 	wrapperStyleInheritedCursor,
 } from './styles';
 export interface Props {
-	node: PmNode;
-	getPos: ProsemirrorGetPosHandler;
-	view: EditorView;
-	extensionProvider?: ExtensionProvider;
-	handleContentDOMRef: (node: HTMLElement | null) => void;
 	children?: React.ReactNode;
-	references?: ReferenceEntity[];
-	hideFrame?: boolean;
 	editorAppearance?: EditorAppearance;
-	pluginInjectionApi: ExtensionsPluginInjectionAPI;
-	macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags;
-	isNodeSelected?: boolean;
+	extensionProvider?: ExtensionProvider;
+	getPos: ProsemirrorGetPosHandler;
+	handleContentDOMRef: (node: HTMLElement | null) => void;
+	hideFrame?: boolean;
+	isLivePageViewMode?: boolean;
 	isNodeHovered?: boolean;
 	isNodeNested?: boolean;
+	isNodeSelected?: boolean;
+	macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags;
+	node: PmNode;
+	pluginInjectionApi: ExtensionsPluginInjectionAPI;
+	references?: ReferenceEntity[];
 	setIsNodeHovered?: (isHovered: boolean) => void;
+	setShowBodiedExtensionRendererView?: (showBodiedExtensionRendererView: boolean) => void;
+	showBodiedExtensionRendererView?: boolean;
 	showLivePagesBodiedMacrosRendererView?: boolean;
 	showUpdatedLivePages1PBodiedExtensionUI?: boolean;
-	showBodiedExtensionRendererView?: boolean;
-	setShowBodiedExtensionRendererView?: (showBodiedExtensionRendererView: boolean) => void;
-	isLivePageViewMode?: boolean;
+	view: EditorView;
 }
 
 type WidthStateProps = { widthState: EditorContainerWidth };
@@ -300,7 +300,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 }
 
 const useExtensionSharedPluginState = sharedPluginStateHookMigratorFactory<
-	{ widthState: { width: number; lineLength?: number } },
+	{ widthState: { lineLength?: number; width: number } },
 	ExtensionsPluginInjectionAPI
 >(
 	(pluginInjectionApi) => {

@@ -9,7 +9,7 @@ const styles = cssMap({
 	},
 });
 
-const StatusInParagraph = ({ text, color }: { text: string; color: Color }) => (
+const StatusInParagraph = ({ text, color }: { color: Color; text: string }) => (
 	<p>
 		<Status text={text} color={color} isBold />
 	</p>

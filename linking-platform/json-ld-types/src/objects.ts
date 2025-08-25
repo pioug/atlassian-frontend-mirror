@@ -1,111 +1,111 @@
 import type { JsonLd } from './jsonld';
 
 export interface JsonLdBlogPostDocument {
-	meta: JsonLd.Meta.BaseMeta;
 	data: JsonLd.Data.BlogPostDocument;
+	meta: JsonLd.Meta.BaseMeta;
 }
 
 export interface JsonLdDocument {
-	meta: JsonLd.Meta.BaseMeta;
 	data: JsonLd.Data.Document;
+	meta: JsonLd.Meta.BaseMeta;
 }
 
 export interface JsonLdDocumentFolder {
-	meta: JsonLd.Meta.BaseMeta;
 	data: JsonLd.Data.DocumentFolder;
+	meta: JsonLd.Meta.BaseMeta;
 }
 
 export interface JsonLdDocumentFolderPaged {
-	meta: JsonLd.Meta.BaseMeta;
 	data: JsonLd.Data.DocumentFolderPaged;
+	meta: JsonLd.Meta.BaseMeta;
 }
 
 export interface JsonLdMessage {
-	meta: JsonLd.Meta.BaseMeta;
 	data: JsonLd.Data.Message;
+	meta: JsonLd.Meta.BaseMeta;
 }
 
 export interface JsonLdPresentationDocument {
-	meta: JsonLd.Meta.BaseMeta;
 	data: JsonLd.Data.PresentationDocument;
+	meta: JsonLd.Meta.BaseMeta;
 }
 
 export interface JsonLdGoal {
-	meta: JsonLd.Meta.BaseMeta;
 	data: JsonLd.Data.Goal;
+	meta: JsonLd.Meta.BaseMeta;
 }
 
 export interface JsonLdObject {
-	meta: JsonLd.Meta.BaseMeta;
 	data: JsonLd.Data.Object;
+	meta: JsonLd.Meta.BaseMeta;
 }
 
 export interface JsonLdType {
-	meta: JsonLd.Meta.BaseMeta;
 	data: JsonLd.Data.Type;
+	meta: JsonLd.Meta.BaseMeta;
 }
 
 export interface JsonLdSchema {
-	meta: JsonLd.Meta.BaseMeta;
 	data: JsonLd.Data.Schema;
+	meta: JsonLd.Meta.BaseMeta;
 }
 
 export interface JsonLdProject {
-	meta: JsonLd.Meta.BaseMeta;
 	data: JsonLd.Data.Project;
+	meta: JsonLd.Meta.BaseMeta;
 }
 
 export interface JsonLdSourceCodeDocument {
-	meta: JsonLd.Meta.BaseMeta;
 	data: JsonLd.Data.SourceCodeDocument;
+	meta: JsonLd.Meta.BaseMeta;
 }
 
 export interface JsonLdSourceCodeCommit {
-	meta: JsonLd.Meta.BaseMeta;
 	data: JsonLd.Data.SourceCodeCommit;
+	meta: JsonLd.Meta.BaseMeta;
 }
 
 export interface JsonLdSourceCodePullRequest {
-	meta: JsonLd.Meta.BaseMeta;
 	data: JsonLd.Data.SourceCodePullRequest;
+	meta: JsonLd.Meta.BaseMeta;
 }
 
 export interface JsonLdSourceCodeReference {
-	meta: JsonLd.Meta.BaseMeta;
 	data: JsonLd.Data.SourceCodeReference;
+	meta: JsonLd.Meta.BaseMeta;
 }
 
 export interface JsonLdSourceCodeRepository {
-	meta: JsonLd.Meta.BaseMeta;
 	data: JsonLd.Data.SourceCodeRepository;
+	meta: JsonLd.Meta.BaseMeta;
 }
 
 export interface JsonLdSpreadsheetDocument {
-	meta: JsonLd.Meta.BaseMeta;
 	data: JsonLd.Data.SpreadSheetDocument;
+	meta: JsonLd.Meta.BaseMeta;
 }
 
 export interface JsonLdTask {
-	meta: JsonLd.Meta.BaseMeta;
 	data: JsonLd.Data.Task;
+	meta: JsonLd.Meta.BaseMeta;
 }
 
 export interface JsonLdTemplate {
-	meta: JsonLd.Meta.BaseMeta;
 	data: JsonLd.Data.Template;
+	meta: JsonLd.Meta.BaseMeta;
 }
 
 export interface JsonLdTextDocument {
-	meta: JsonLd.Meta.BaseMeta;
 	data: JsonLd.Data.TextDocument;
+	meta: JsonLd.Meta.BaseMeta;
 }
 
 export interface JsonLdTaskType {
-	meta: JsonLd.Meta.BaseMeta;
 	data: JsonLd.Data.TaskType;
+	meta: JsonLd.Meta.BaseMeta;
 }
 
 export interface JsonLdUndefinedLinkDocument {
-	meta: JsonLd.Meta.BaseMeta;
 	data: JsonLd.Data.UndefinedLinkDocument;
+	meta: JsonLd.Meta.BaseMeta;
 }

@@ -110,11 +110,11 @@ const colorPaletteWrapperStyles = css({
 });
 
 interface ColorPaletteProps {
-	selectedColor?: ColorType;
+	className?: string;
+	cols?: number;
 	onClick: (value: ColorType) => void;
 	onHover?: (value: ColorType) => void;
-	cols?: number;
-	className?: string;
+	selectedColor?: ColorType;
 }
 
 const VK_LEFT = 37; //ArrowLeft

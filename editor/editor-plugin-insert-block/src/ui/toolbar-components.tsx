@@ -22,14 +22,19 @@ import {
 	TABLE_BUTTON,
 	TABLE_GROUP,
 	TABLE_SIZE_PICKER,
+	INSERT_GROUP,
+	INSERT_BUTTON,
+	INSERT_GROUP_RANK,
 } from '@atlaskit/editor-common/toolbar';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { Command, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
 
 import type { InsertBlockPlugin } from '../insertBlockPluginType';
 
 import { EmojiButton } from './toolbar-components/EmojiButton';
 import { ImageButton } from './toolbar-components/ImageButton';
+import { InsertButton } from './toolbar-components/InsertButton';
 import { LayoutButton } from './toolbar-components/LayoutButton';
 import { MediaButton } from './toolbar-components/MediaButton';
 import { MentionButton } from './toolbar-components/MentionButton';
@@ -39,6 +44,12 @@ import { TaskListButton } from './toolbar-components/TaskListButton';
 
 type GetToolbarComponentsProps = {
 	api?: ExtractInjectionAPI<InsertBlockPlugin>;
+	expandEnabled?: boolean;
+	horizontalRuleEnabled?: boolean;
+	insertMenuItems?: MenuItem[];
+	nativeStatusSupported?: boolean;
+	onInsertBlockType?: (name: string) => Command;
+	showElementBrowserLink?: boolean;
 	tableSelectorSupported?: boolean;
 	toolbarShowPlusInsertOnly?: boolean;
 };
@@ -47,10 +58,51 @@ export const getToolbarComponents = ({
 	api,
 	tableSelectorSupported,
 	toolbarShowPlusInsertOnly,
+	showElementBrowserLink,
+	onInsertBlockType,
+	nativeStatusSupported,
+	horizontalRuleEnabled,
+	expandEnabled,
+	insertMenuItems,
 }: GetToolbarComponentsProps): RegisterComponent[] => {
 	return [
 		...(toolbarShowPlusInsertOnly
-			? []
+			? [
+					{
+						type: INSERT_GROUP.type,
+						key: INSERT_GROUP.key,
+						parents: [
+							{
+								type: INSERT_BLOCK_SECTION.type,
+								key: INSERT_BLOCK_SECTION.key,
+								rank: INSERT_BLOCK_SECTION_RANK[INSERT_GROUP.key],
+							},
+						],
+					},
+					{
+						type: INSERT_BUTTON.type,
+						key: INSERT_BUTTON.key,
+						parents: [
+							{
+								type: INSERT_GROUP.type,
+								key: INSERT_GROUP.key,
+								rank: INSERT_GROUP_RANK[INSERT_BUTTON.key],
+							},
+						],
+						component: () => (
+							<InsertButton
+								api={api}
+								showElementBrowserLink={showElementBrowserLink}
+								tableSelectorSupported={tableSelectorSupported}
+								onInsertBlockType={onInsertBlockType}
+								nativeStatusSupported={nativeStatusSupported}
+								horizontalRuleEnabled={horizontalRuleEnabled}
+								expandEnabled={expandEnabled}
+								insertMenuItems={insertMenuItems}
+							/>
+						),
+					},
+				]
 			: [
 					{
 						type: TASK_LIST_GROUP.type,
@@ -203,6 +255,41 @@ export const getToolbarComponents = ({
 						],
 						component: () => (
 							<TableSizePicker api={api} tableSelectorSupported={tableSelectorSupported} />
+						),
+					},
+					{
+						type: INSERT_GROUP.type,
+						key: INSERT_GROUP.key,
+						parents: [
+							{
+								type: INSERT_BLOCK_SECTION.type,
+								key: INSERT_BLOCK_SECTION.key,
+								rank: INSERT_BLOCK_SECTION_RANK[INSERT_GROUP.key],
+							},
+						],
+					},
+					{
+						type: INSERT_BUTTON.type,
+						key: INSERT_BUTTON.key,
+						parents: [
+							{
+								type: INSERT_GROUP.type,
+								key: INSERT_GROUP.key,
+								rank: INSERT_GROUP_RANK[INSERT_BUTTON.key],
+							},
+						],
+						component: () => (
+							<InsertButton
+								api={api}
+								showElementBrowserLink={showElementBrowserLink}
+								tableSelectorSupported={tableSelectorSupported}
+								onInsertBlockType={onInsertBlockType}
+								nativeStatusSupported={nativeStatusSupported}
+								horizontalRuleEnabled={horizontalRuleEnabled}
+								expandEnabled={expandEnabled}
+								insertMenuItems={insertMenuItems}
+								numberOfButtons={7} // TODO: ED-28759 - Default to 7 buttons - Remove this once we have a proper way to do toolbar responsiveness
+							/>
 						),
 					},
 				]),

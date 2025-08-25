@@ -2,8 +2,8 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 type NodeCount = Record<string, number>;
 type NodesCount = {
-	nodeCount: NodeCount;
 	extensionNodeCount: NodeCount;
+	nodeCount: NodeCount;
 };
 
 export function countNodes(state: EditorState): NodesCount {

@@ -55,8 +55,8 @@ type Context = {
 
 export interface Props<P extends NamedPluginKeys> {
 	debounce?: boolean;
-	eventDispatcher?: EventDispatcher;
 	editorView?: EditorView;
+	eventDispatcher?: EventDispatcher;
 	plugins: P;
 	render: (pluginState: NamedPluginStates<P>) => React.ReactElement | null;
 }
@@ -195,9 +195,9 @@ export class WithPluginStateInner<P extends NamedPluginKeys> extends React.Compo
 		pluginName,
 		performanceOptions,
 	}: {
-		stateSubset: State;
-		pluginName: string;
 		performanceOptions: PerformanceOptions;
+		pluginName: string;
+		stateSubset: State;
 	}) => {
 		this.notAppliedState = { ...this.notAppliedState, ...stateSubset };
 

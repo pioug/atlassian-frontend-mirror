@@ -6,26 +6,26 @@ import rafSchedule from 'raf-schd';
 import { positionPropToPopperPosition } from './internal/helpers';
 
 export type Props = {
+	children?: React.ReactNode;
 	content: ReactNode | null;
 	offset: string;
-	position: string;
 	onPositioned: () => void;
-	children?: React.ReactNode;
+	position: string;
 };
 
 export type State = {
+	cssPosition: string; // 'fixed' or 'absolute'
 	hasExtractedStyles: boolean;
-	position?: string;
-	transform?: string;
+	maxHeight: number | null;
 	offsets: {
 		popper: {
 			left: number;
 			top: number;
 		};
 	};
-	cssPosition: string; // 'fixed' or 'absolute'
 	originalHeight: number | null;
-	maxHeight: number | null;
+	position?: string;
+	transform?: string;
 };
 
 const defaultState = {

@@ -15,11 +15,11 @@ type ExtraProps = {
 };
 
 export default function OrderedList(props: {
-	order?: number;
-	start?: number;
-	path?: Node[];
-	content?: Node[];
 	children: React.ReactNode;
+	content?: Node[];
+	order?: number;
+	path?: Node[];
+	start?: number;
 }) {
 	const extraProps: ExtraProps = {};
 

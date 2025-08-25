@@ -12,15 +12,15 @@ export type Comment = {
 };
 
 export type MetaData = {
-	productId: string;
 	atlOriginId: string;
+	productId: string;
 	shareeAction?: 'view' | 'edit';
 };
 
 // Third party integrations
 export type ContentProps = {
-	onClose: () => void;
 	changeTab?: (index: TabType) => void;
+	onClose: () => void;
 };
 
 export enum TabType {
@@ -31,14 +31,14 @@ export enum TabType {
 export type MenuType = 'none' | 'default' | 'Slack';
 
 export type Integration = {
-	type: string;
-	Icon: React.ComponentType;
 	Content: React.ComponentType<ContentProps>;
+	Icon: React.ComponentType;
+	type: string;
 };
 
 export type IntegrationMode = 'tabs' | 'split' | 'menu' | 'off';
 
 export type AdditionalTab = {
-	label: string;
 	Content: React.ComponentType<ContentProps>;
+	label: string;
 };

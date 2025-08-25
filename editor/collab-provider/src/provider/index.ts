@@ -342,10 +342,10 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 		editorApi,
 		onSyncUpError,
 	}: {
-		getState: () => EditorState;
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		editorApi?: any;
+		getState: () => EditorState;
 		onSyncUpError?: SyncUpErrorFunction;
 	}): this {
 		this.checkForCookies();

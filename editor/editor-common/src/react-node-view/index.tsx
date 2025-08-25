@@ -175,7 +175,7 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 		return htmlElement;
 	}
 
-	getContentDOM(): { dom: HTMLElement; contentDOM?: HTMLElement | null | undefined } | undefined {
+	getContentDOM(): { contentDOM?: HTMLElement | null | undefined; dom: HTMLElement } | undefined {
 		return undefined;
 	}
 

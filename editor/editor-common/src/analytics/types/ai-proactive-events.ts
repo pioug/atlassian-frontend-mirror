@@ -6,13 +6,13 @@ type AIProactiveApiReceivedAEP = OperationalAEP<
 	ACTION_SUBJECT.EDITOR_PLUGIN_AI,
 	ACTION_SUBJECT_ID.PROACTIVE_SUGGESTION,
 	{
+		maxDuration: number;
 		meanDuration: number;
 		medianDuration: number;
 		minDuration: number;
-		maxDuration: number;
-		totalSuggestions: number;
 		totalAcceptedSuggestions: number;
 		totalDismissedSuggestions: number;
+		totalSuggestions: number;
 	}
 >;
 
@@ -22,8 +22,8 @@ type AIProactiveSuggestionDisplayToggledAEP = TrackAEP<
 	ACTION_SUBJECT_ID.PROACTIVE_SUGGESTION,
 	{
 		toggledToValue: boolean;
-		triggeredFrom: string;
 		totalSuggestions: number;
+		triggeredFrom: string;
 	},
 	undefined
 >;
@@ -34,12 +34,12 @@ type AIProactiveSuggestionInsertedAEP = TrackAEP<
 	ACTION_SUBJECT_ID.PROACTIVE_SUGGESTION,
 	{
 		aiInteractionID: string | undefined;
-		triggeredFrom: string;
-		transformAction?: string;
-		type?: string;
 		details?: { [key: string]: string[] | string };
-		transformType: 'REPLACE_PARAGRAPH';
 		insertionMethod: 'replace' | 'insertBelow';
+		transformAction?: string;
+		transformType: 'REPLACE_PARAGRAPH';
+		triggeredFrom: string;
+		type?: string;
 	},
 	undefined
 >;
@@ -50,11 +50,11 @@ type AIProactiveSuggestionDismissedAEP = TrackAEP<
 	ACTION_SUBJECT_ID.PROACTIVE_SUGGESTION,
 	{
 		aiInteractionID: string | undefined;
-		triggeredFrom: string;
-		transformAction?: string;
-		type?: string;
 		details?: { [key: string]: string[] | string };
+		transformAction?: string;
 		transformType: 'REPLACE_PARAGRAPH';
+		triggeredFrom: string;
+		type?: string;
 	},
 	undefined
 >;
@@ -64,9 +64,9 @@ type AIProactiveSuggestionFeedbackClickedAEP = UIAEP<
 	ACTION_SUBJECT.EDITOR_PLUGIN_AI,
 	ACTION_SUBJECT_ID.RESPONSE_FEEDBACK_BUTTON,
 	{
-		sentiment: string;
-		product: string;
 		configItemTitle: 'proactive-recommendation';
+		product: string;
+		sentiment: string;
 	},
 	undefined
 >;

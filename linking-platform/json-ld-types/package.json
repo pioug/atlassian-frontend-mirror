@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/json-ld-types",
-	"version": "1.4.0",
+	"version": "1.4.1",
 	"description": "A set of types for the Atlassian Object Vocabulary",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -28,9 +28,6 @@
 	},
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
-	"af:exports": {
-		".": "./src/index.ts"
-	},
 	"exports": {
 		".": "./src/index.ts"
 	},

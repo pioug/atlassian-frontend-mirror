@@ -4,19 +4,19 @@ export type ARI = string;
 export type AVI = string;
 
 export interface PubSubClient {
-	on(eventAvi: string, listener: OnEvent): PubSubClient;
-
-	off(eventAvi: string, listener: OnEvent): PubSubClient;
-
 	join(aris: ARI[]): Promise<PubSubClient>;
 
 	leave(aris: ARI[]): Promise<PubSubClient>;
+
+	off(eventAvi: string, listener: OnEvent): PubSubClient;
+
+	on(eventAvi: string, listener: OnEvent): PubSubClient;
 }
 
 export interface ActionablePubSubClient extends PubSubClient {
-	networkUp(): void;
-
 	networkDown(): void;
+
+	networkUp(): void;
 }
 
 export interface OnEvent<T = any> {
@@ -39,17 +39,13 @@ export interface AnalyticsWebClient {
 }
 
 export interface PubSubClientConfig extends ServiceConfig {
-	product: string;
+	analyticsClient?: AnalyticsWebClient;
 	apsProtocol?: {
 		/**
 		 * When 'true', this Client will support the APS protocol
 		 * @deprecated APS is now the only available protocol, so disabling it will result in no protocol being enabled.
 		 */
 		enabled: boolean;
-		/**
-		 * In case the consumer needs to specify a custom URL. If this value is not passed the default URL will be used.
-		 */
-		url?: URL;
 		/**
 		 * The preferred transport mechanism to be used by the APS client. Default is 'WEBSOCKET'
 		 */
@@ -59,9 +55,13 @@ export interface PubSubClientConfig extends ServiceConfig {
 		 * one fails. Default is 'false'
 		 */
 		skipFallback?: boolean;
+		/**
+		 * In case the consumer needs to specify a custom URL. If this value is not passed the default URL will be used.
+		 */
+		url?: URL;
 	};
 	featureFlags?: {
 		[key: string]: boolean;
 	};
-	analyticsClient?: AnalyticsWebClient;
+	product: string;
 }

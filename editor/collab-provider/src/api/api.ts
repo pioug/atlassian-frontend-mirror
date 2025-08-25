@@ -92,8 +92,8 @@ export class Api {
 		const tracingHeaderEnabled = fg('platform_collab_provider_tracingheaders');
 		addFeatureFlagAccessed('platform_collab_provider_tracingheaders', tracingHeaderEnabled);
 		let tracingHeaders: {
-			'X-B3-TraceId'?: string;
 			'X-B3-SpanId'?: string;
+			'X-B3-TraceId'?: string;
 		} | null = {};
 		if (tracingHeaderEnabled) {
 			tracingHeaders = getActiveTraceHttpRequestHeaders(url);

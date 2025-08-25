@@ -19,10 +19,10 @@ export function handleNavigation({
 	onClickCallback,
 	fireAnalyticsEvent,
 }: {
+	event: MouseEvent<HTMLAnchorElement>;
 	fireAnalyticsEvent: ((payload: AnalyticsEventPayload) => void | undefined) | undefined;
 	onClickCallback?: OnClickCallback;
 	url: string;
-	event: MouseEvent<HTMLAnchorElement>;
 }): void {
 	if (fireAnalyticsEvent) {
 		fireAnalyticsEvent({

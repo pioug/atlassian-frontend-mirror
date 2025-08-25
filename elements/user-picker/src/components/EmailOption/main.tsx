@@ -16,9 +16,9 @@ import { type EmailValidationResponse } from '../emailValidation';
 
 export type EmailOptionProps = {
 	email: Email;
+	emailValidity: EmailValidationResponse;
 	isSelected: boolean;
 	label?: string;
-	emailValidity: EmailValidationResponse;
 };
 
 const getAddEmailMessage: (validity: EmailValidationResponse) => any = (validity) =>

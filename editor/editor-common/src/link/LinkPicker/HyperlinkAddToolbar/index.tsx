@@ -15,8 +15,15 @@ import HyperlinkAddToolbarComp from './HyperlinkAddToolbar';
 
 export interface HyperlinkAddToolbarProps
 	extends Pick<EditorLinkPickerProps, 'onCancel' | 'invokeMethod' | 'onClose'> {
-	view: EditorView;
-	providerFactory: ProviderFactory;
+	displayText?: string;
+	displayUrl?: string;
+	editorAppearance?: EditorAppearance;
+	inputMethod?: string;
+	isOffline?: boolean;
+	linkPickerOptions?: LinkPickerOptions;
+	lpLinkPicker: boolean;
+	onClickAwayCallback?: Command;
+	onEscapeCallback?: Command;
 	onSubmit: (
 		href: string,
 		title: string | undefined,
@@ -24,17 +31,10 @@ export interface HyperlinkAddToolbarProps
 		inputMethod: LinkInputType,
 		analytic?: UIAnalyticsEvent | null | undefined,
 	) => void;
-	lpLinkPicker: boolean;
-	linkPickerOptions?: LinkPickerOptions;
-	displayText?: string;
-	displayUrl?: string;
-	onEscapeCallback?: Command;
-	onClickAwayCallback?: Command;
-	editorAppearance?: EditorAppearance;
-	inputMethod?: string;
+	providerFactory: ProviderFactory;
 	searchSessionId?: string;
 	timesViewed?: number;
-	isOffline?: boolean;
+	view: EditorView;
 }
 
 /**

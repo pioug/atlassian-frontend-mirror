@@ -30,21 +30,21 @@ type DatasourceContextValue<Parameters extends DatasourceParameters = Datasource
 			DatasourceContextProviderProps<Parameters>,
 			'datasourceId' | 'onInsert' | 'isValidParameters'
 		> & {
-			tableState: DatasourceTableState;
-			visibleColumnKeys?: string[];
 			parameters: Parameters | undefined;
 			setParameters: React.Dispatch<React.SetStateAction<Parameters | undefined>>;
+			tableState: DatasourceTableState;
+			visibleColumnKeys?: string[];
 		};
 
 const DatasourceContext = React.createContext<DatasourceContextValue | null>(null);
 
 type DatasourceContextProviderProps<Parameters extends DatasourceParameters> = PropsWithChildren<{
 	datasourceId: string;
-	isValidParameters: (params: DatasourceParameters | undefined) => boolean;
+	initialColumnCustomSizes?: ColumnSizesMap | undefined;
 	initialParameters: Parameters | undefined;
 	initialVisibleColumnKeys?: string[] | undefined;
 	initialWrappedColumnKeys?: string[] | undefined;
-	initialColumnCustomSizes?: ColumnSizesMap | undefined;
+	isValidParameters: (params: DatasourceParameters | undefined) => boolean;
 	onInsert: OnInsertFunction<InlineCardAdf | DatasourceAdf<Parameters>>;
 }>;
 

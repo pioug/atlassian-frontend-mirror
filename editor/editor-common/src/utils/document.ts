@@ -122,8 +122,8 @@ function getChangedNodesIn({
 	tr,
 	doc,
 }: {
-	tr: ReadonlyTransaction | Transaction;
 	doc: Node;
+	tr: ReadonlyTransaction | Transaction;
 }): { node: Node; pos: number }[] {
 	const nodes: { node: Node; pos: number }[] = [];
 	const stepRange = getStepRange(tr);
@@ -152,9 +152,9 @@ export function getChangedNodes(
 }
 
 type __ReplaceStep = ReplaceStep & {
+	from: number;
 	// Properties `to` and `from` are private attributes of ReplaceStep.
 	to: number;
-	from: number;
 };
 
 // When document first load in Confluence, initially it is an empty document

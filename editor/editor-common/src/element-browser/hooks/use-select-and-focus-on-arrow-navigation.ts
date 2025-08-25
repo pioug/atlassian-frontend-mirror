@@ -44,14 +44,14 @@ import { fg } from '@atlaskit/platform-feature-flags';
  */
 
 type ReducerState = {
-	focusOnSearch: boolean;
-	focusOnViewMore: boolean;
-	focusOnEmptyStateButton?: boolean;
-	selectedItemIndex?: number;
-	focusedItemIndex?: number;
-	listSize: number;
 	canFocusViewMore?: boolean;
 	focusedCategoryIndex?: number;
+	focusedItemIndex?: number;
+	focusOnEmptyStateButton?: boolean;
+	focusOnSearch: boolean;
+	focusOnViewMore: boolean;
+	listSize: number;
+	selectedItemIndex?: number;
 };
 
 export enum ACTIONS {
@@ -61,11 +61,11 @@ export enum ACTIONS {
 }
 
 export type ReducerAction = {
-	type: ACTIONS;
 	payload: Partial<ReducerState> & {
 		positions?: number;
 		step?: number;
 	};
+	type: ACTIONS;
 };
 
 const reducer = (state: ReducerState, action: ReducerAction) => {
@@ -302,15 +302,15 @@ const skipBackwardOffsetToSafeItem = (
 };
 
 export type useSelectAndFocusReturnType = {
-	selectedItemIndex?: number;
-	onKeyDown: (e: React.KeyboardEvent<HTMLDivElement>) => void;
+	focusedCategoryIndex?: number;
+	focusedItemIndex?: number;
+	focusOnEmptyStateButton?: boolean;
 	focusOnSearch: boolean;
 	focusOnViewMore: boolean;
-	focusOnEmptyStateButton?: boolean;
-	focusedItemIndex?: number;
-	focusedCategoryIndex?: number;
-	setFocusedItemIndex: (index?: number) => void;
+	onKeyDown: (e: React.KeyboardEvent<HTMLDivElement>) => void;
+	selectedItemIndex?: number;
 	setFocusedCategoryIndex: (index?: number) => void;
+	setFocusedItemIndex: (index?: number) => void;
 	setFocusOnSearch: () => void;
 };
 

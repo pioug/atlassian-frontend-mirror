@@ -19,11 +19,11 @@ export type ObjectSchemaOption = {
 export type FetchObjectSchemaResponse = ObjectSchema;
 
 export type FetchObjectSchemasResponse = {
-	startAt: number;
+	isLast: boolean;
 	maxResults: number;
+	startAt: number;
 	total: number;
 	values: ObjectSchema[];
-	isLast: boolean;
 };
 
 export type ValidationError = {
@@ -31,9 +31,9 @@ export type ValidationError = {
 };
 
 export type AqlValidateResponse = {
-	isValid: boolean;
 	errorMessages: string[];
 	errors?: ValidationError;
+	isValid: boolean;
 };
 
 // These are to enforce the field "name" property and keep everything typed
@@ -41,6 +41,6 @@ export const objectSchemaKey = 'objectSchema' as const;
 export const aqlKey = 'aql' as const;
 
 export type SearchForm = {
-	[objectSchemaKey]: ObjectSchemaOption | undefined | null;
 	[aqlKey]: string;
+	[objectSchemaKey]: ObjectSchemaOption | undefined | null;
 };

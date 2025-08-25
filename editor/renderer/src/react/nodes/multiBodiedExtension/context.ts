@@ -8,13 +8,13 @@ import {
 import { useProvider } from '@atlaskit/editor-common/provider-factory';
 
 type useMultiBodiedExtensionContextProps = {
-	extensionType: string;
 	extensionKey: string;
+	extensionType: string;
 };
 
 type MultiBodiedExtensionLoadingContext = {
-	loading: boolean;
 	extensionContext: MultiBodiedExtensionContext | null;
+	loading: boolean;
 };
 
 export type MultiBodiedExtensionContext = {

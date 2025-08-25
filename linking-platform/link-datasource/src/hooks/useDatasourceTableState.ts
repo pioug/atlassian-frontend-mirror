@@ -25,8 +25,8 @@ import useErrorLogger from './useErrorLogger';
 
 export interface onNextPageProps {
 	isSchemaFromData?: boolean;
-	shouldRequestFirstPage?: boolean;
 	shouldForceRequest?: boolean;
+	shouldRequestFirstPage?: boolean;
 }
 
 export type NextPageType = (requestInfo?: onNextPageProps) => void;
@@ -39,43 +39,43 @@ interface ResetOptions {
 }
 
 export interface DatasourceTableState {
-	/** The current status of the table for rendering of the different UI states (e.g.: loading, error, etc). */
-	status: DatasourceTableStatusType;
-	/** Requests the available data with pagination and also sets column headers if not already available */
-	onNextPage: NextPageType;
-	/** Resets state of the hook to be as if it is a first time it is being called. */
-	reset: (options?: ResetOptions) => void;
-	/** Requests the available column schemas that can be displayed within the table */
-	loadDatasourceDetails: () => Promise<void>;
-	/** Item ids to be hydrated from a store by consumers [NOTE: They must be in the same order as responseItems] */
-	responseItemIds: string[];
-	/** Items to be rendered within the table */
-	responseItems: DatasourceDataResponseItem[];
-	/** Indicates whether there is still more data that can be paginated */
-	hasNextPage: boolean;
+	/** Auth info used to connect to the provider account. */
+	authDetails?: DatasourceMeta['auth'];
 	/** All available columns for a datasource table to display */
 	columns: DatasourceResponseSchemaProperty[];
 	/** The keys belonging to all of the currently visible columns in a table */
 	defaultVisibleColumnKeys: string[];
-	/** Total count of response items available for pagination in a query */
-	totalCount?: number;
 	/** List of objects types that will be included in the reponse (e.g. 'issues' for Jira) */
 	destinationObjectTypes: string[];
 	/** Used as an indicated of which provider type is being used - originates from ORS */
 	extensionKey?: string;
+	/** Indicates whether there is still more data that can be paginated */
+	hasNextPage: boolean;
+	/** Requests the available column schemas that can be displayed within the table */
+	loadDatasourceDetails: () => Promise<void>;
+	/** Requests the available data with pagination and also sets column headers if not already available */
+	onNextPage: NextPageType;
 	/** Indicates which provider name is being used - originates from ORS */
 	providerName?: string;
-	/** Auth info used to connect to the provider account. */
-	authDetails?: DatasourceMeta['auth'];
+	/** Resets state of the hook to be as if it is a first time it is being called. */
+	reset: (options?: ResetOptions) => void;
+	/** Item ids to be hydrated from a store by consumers [NOTE: They must be in the same order as responseItems] */
+	responseItemIds: string[];
+	/** Items to be rendered within the table */
+	responseItems: DatasourceDataResponseItem[];
+	/** The current status of the table for rendering of the different UI states (e.g.: loading, error, etc). */
+	status: DatasourceTableStatusType;
+	/** Total count of response items available for pagination in a query */
+	totalCount?: number;
 }
 
 export interface DatasourceTableStateProps {
 	/** Unique identifier for which type of datasource is being rendered and for making its requests */
 	datasourceId: string;
-	/** Parameters for making the data requests necessary to render data within the table */
-	parameters?: DatasourceParameters;
 	/** Keys for each of the columns to be shown in the table */
 	fieldKeys?: string[];
+	/** Parameters for making the data requests necessary to render data within the table */
+	parameters?: DatasourceParameters;
 }
 
 export const useDatasourceTableState = ({

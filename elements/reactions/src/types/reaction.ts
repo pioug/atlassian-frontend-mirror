@@ -18,13 +18,21 @@ export interface ReactionSummary {
 	 */
 	containerAri: string;
 	/**
+	 * Number of selected count for the emoji
+	 */
+	count: number;
+	/**
 	 * unique Atlassian identifier for an emoji
 	 */
 	emojiId: string;
 	/**
-	 * Number of selected count for the emoji
+	 * A path to the emoji image, used for optimistic rendering.
 	 */
-	count: number;
+	emojiPath?: string;
+	/**
+	 * @deprecated Legacy content Not in use anymore
+	 */
+	optimisticallyUpdated?: boolean;
 	/**
 	 * Has the current user selected the emoji or not
 	 */
@@ -33,14 +41,6 @@ export interface ReactionSummary {
 	 * Users collection
 	 */
 	users?: User[];
-	/**
-	 * @deprecated Legacy content Not in use anymore
-	 */
-	optimisticallyUpdated?: boolean;
-	/**
-	 * A path to the emoji image, used for optimistic rendering.
-	 */
-	emojiPath?: string;
 }
 
 /**
@@ -121,8 +121,8 @@ export type ReactionsState =
 	| ReactionsError;
 
 export type ReactionsReadyState = {
-	readonly status: ReactionStatus.ready;
 	readonly reactions: ReactionSummary[];
+	readonly status: ReactionStatus.ready;
 };
 
 export type ReactionsLoading = {
@@ -130,8 +130,8 @@ export type ReactionsLoading = {
 };
 
 export type ReactionsError = {
-	readonly status: ReactionStatus.error;
 	readonly message: string;
+	readonly status: ReactionStatus.error;
 };
 
 export type ReactionsNotLoaded = {

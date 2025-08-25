@@ -7,7 +7,7 @@ describe('enable dropbox', () => {
 		expect(window.Dropbox.appKey).toEqual('fake-appkey');
 	});
 	it('should not replace existing dropbox property', async () => {
-		let fakeDropbox = {
+		const fakeDropbox = {
 			appKey: 'nunya',
 			testProperty: 'thing',
 			choose: () => undefined,

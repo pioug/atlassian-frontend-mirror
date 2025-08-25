@@ -18,7 +18,7 @@ import { FloatingToolbarComponent } from './ui/FloatingToolbarComponent';
 import { PrimaryToolbarComponent } from './ui/PrimaryToolbarComponent';
 import { getToolbarComponents } from './ui/toolbar-components';
 
-export const defaultConfig: AlignmentPluginState = {
+const defaultConfig: AlignmentPluginState = {
 	align: 'start',
 };
 

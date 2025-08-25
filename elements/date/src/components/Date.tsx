@@ -8,13 +8,13 @@ export type ValueType = number;
 export type OnClick = (value: ValueType, event: React.SyntheticEvent<any>) => void;
 
 export type Props = {
-	onClick?: OnClick;
-	value: ValueType;
-	format?: string;
-	color?: Color;
-	className?: string;
 	children?: // eslint-disable-next-line @typescript-eslint/ban-types
 	React.FunctionComponent<React.PropsWithChildren<Props>> | string | React.ReactNode;
+	className?: string;
+	color?: Color;
+	format?: string;
+	onClick?: OnClick;
+	value: ValueType;
 };
 
 const isClickable = <P extends { onClick?: OnClick }, T extends P & { onClick: OnClick }>(

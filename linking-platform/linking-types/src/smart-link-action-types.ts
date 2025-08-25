@@ -32,15 +32,15 @@ export type InvokeRequestAction<TPayload extends object = {}> = {
 	 */
 	actionType: SmartLinkActionType;
 	/**
+	 * Payload needed by the action to perform this action. Needs to be constructed by the FE
+	 */
+	payload?: TPayload;
+	/**
 	 * object to identify the resource upon which the action will be performed.
 	 * This information is provided from the backend and is supplied back to the backend as is
 	 * FE does not need to know the strucutre of this property
 	 */
 	resourceIdentifiers: Record<string, any>;
-	/**
-	 * Payload needed by the action to perform this action. Needs to be constructed by the FE
-	 */
-	payload?: TPayload;
 };
 
 /**
@@ -60,14 +60,14 @@ export type InvokeResponse = {};
  */
 export type InvokeErrorResponse = InvokeResponse & {
 	/**
-	 * Error message returned from the product API
-	 */
-	message?: string;
-
-	/**
 	 * Error code returned from the product API
 	 */
 	errorCode?: string;
+
+	/**
+	 * Error message returned from the product API
+	 */
+	message?: string;
 };
 
 /**
@@ -75,9 +75,9 @@ export type InvokeErrorResponse = InvokeResponse & {
  */
 export type GetStatusTransitionsInvokeResponse = InvokeResponse & {
 	transitions: {
+		appearance?: string;
 		id: string;
 		name: string;
-		appearance?: string;
 	}[];
 };
 

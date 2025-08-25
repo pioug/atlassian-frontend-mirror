@@ -85,7 +85,7 @@ const Example = () => {
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 							style={getListStyle(snapshot.isDraggingOver)}
 						>
-							{items.map((item: { id: string; content: ReactNode }, index: number) => (
+							{items.map((item: { content: ReactNode; id: string }, index: number) => (
 								<Draggable key={item.id} draggableId={item.id} index={index}>
 									{(provided, snapshot) => (
 										<div

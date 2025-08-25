@@ -53,25 +53,34 @@ export const useManualRules = (site: Ari, query: RuleQuery) => {
 };
 
 export interface ManualRulesData {
-	triggerFetch: () => Promise<void>;
-	initialised: boolean;
 	error: any;
-	rules: ManualRule[];
-	invokingRuleId: number | null;
+	initialised: boolean;
 	invokeRuleOrShowDialog: ManualRuleInvoker;
+	invokingRuleId: number | null;
+	rules: ManualRule[];
+	triggerFetch: () => Promise<void>;
 }
 
 export interface ManualRulesContainerProps {
-	site: Ari; // extract cloudId from this value
-	query: RuleQuery;
+	children: (data: ManualRulesData) => React.ReactElement;
+	onInputsModalClosed?: () => void;
 
 	onInputsModalOpened?: () => void;
-	onInputsModalClosed?: () => void;
+	// The call to the invocation API failed for ONE or MORE objects (but not neccessarily all objects).
+	// The success/failure of execution for the objects that successfully had a rule invocation
+	// is unknown.
+	onRuleInvocationFailure?: (
+		ruleId: number,
+		successfulObjectIds: string[],
+		failedObjects: string[],
+	) => void;
 
 	/********
 	 * Lifecycle handlers
 	 */
 
+	// The call to the invocation API is done.
+	onRuleInvocationLifecycleDone?: (ruleId: number, objectIds: string[]) => void;
 	// A call to the invocation API is made here, with one or more objects.
 	// The success/failure of invocation is unknown.
 	onRuleInvocationLifecycleStarted?: (
@@ -82,18 +91,9 @@ export interface ManualRulesContainerProps {
 	// The call to the invocation API succeeded for ALL objects. The success/failure
 	// of async execution of the rule is unknown.
 	onRuleInvocationSuccess?: (ruleId: number, objectIds: string[]) => void;
-	// The call to the invocation API failed for ONE or MORE objects (but not neccessarily all objects).
-	// The success/failure of execution for the objects that successfully had a rule invocation
-	// is unknown.
-	onRuleInvocationFailure?: (
-		ruleId: number,
-		successfulObjectIds: string[],
-		failedObjects: string[],
-	) => void;
-	// The call to the invocation API is done.
-	onRuleInvocationLifecycleDone?: (ruleId: number, objectIds: string[]) => void;
+	query: RuleQuery;
 
-	children: (data: ManualRulesData) => React.ReactElement;
+	site: Ari; // extract cloudId from this value
 }
 
 /**

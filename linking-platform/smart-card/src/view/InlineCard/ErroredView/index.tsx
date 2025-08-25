@@ -17,24 +17,24 @@ import { Frame } from '../Frame';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
 
 export interface InlineCardErroredViewProps {
-	/** The url to display */
-	url: string;
+	/* Icon to be provided to show this error state */
+	icon?: React.ReactNode;
+	/** A flag that determines whether the card is selected in edit mode. */
+	isSelected?: boolean;
 	/** The error message to display */
 	message: string;
 	/** The optional click handler */
 	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
 	/** What to do when a user clicks "Try again" button */
 	onRetry?: () => void;
-	/** A flag that determines whether the card is selected in edit mode. */
-	isSelected?: boolean;
-	/** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
-	testId?: string;
-	/* Icon to be provided to show this error state */
-	icon?: React.ReactNode;
 	/** Enables showing a custom preview on hover of link */
 	showHoverPreview?: boolean;
+	/** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
+	testId?: string;
 	/** Truncates the card to one line */
 	truncateInline?: boolean;
+	/** The url to display */
+	url: string;
 }
 
 const fallbackIcon = () => {

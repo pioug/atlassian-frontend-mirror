@@ -28,8 +28,8 @@ const entry = (time: DOMHighResTimeStamp): HeatmapEntry => {
 };
 describe('measurements: getVCPercentileTargets', () => {
 	const testCases: Array<{
-		timestampPercent: Record<string, number>;
 		expectedVCTarget: Record<string, number | undefined>;
+		timestampPercent: Record<string, number>;
 	}> = [
 		{
 			timestampPercent: {

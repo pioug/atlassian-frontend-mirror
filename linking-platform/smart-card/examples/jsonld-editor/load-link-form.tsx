@@ -46,14 +46,14 @@ const LoadLinkForm = ({
 	onSubmit,
 	branchDeploy,
 }: {
+	branchDeploy?: string;
 	error?: string;
 	onSubmit: (url: string, ari?: string, branchDeploy?: string, envKey?: EnvironmentsKeys) => void;
-	branchDeploy?: string;
 }) => {
 	const [showAdvancedOptions, setShowAdvancedOptions] = useState(false);
 
 	const handleSubmit = useCallback(
-		(formState: { url: string; ari: string; branchDeploy: string }) => {
+		(formState: { ari: string; branchDeploy: string; url: string }) => {
 			const envKey = PROD_URLS.some((prodUrl) => formState.url.startsWith(prodUrl))
 				? 'production'
 				: 'staging';

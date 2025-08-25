@@ -1,11 +1,11 @@
 import type React from 'react';
 
 export interface SkeletonProps {
-	width?: number | string;
-	height?: number | string;
-	borderRadius?: number | string;
 	appearance?: 'gray' | 'blue' | 'darkGray';
+	borderRadius?: number | string;
+	height?: number | string;
 	isShimmering?: boolean;
-	testId?: string;
 	style?: React.CSSProperties;
+	testId?: string;
+	width?: number | string;
 }

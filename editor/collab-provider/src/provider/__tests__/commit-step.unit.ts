@@ -77,8 +77,8 @@ const createTestHelpers = (
 		clientId = 'client1',
 		options: {
 			__livePage?: boolean;
-			hasRecovered?: boolean;
 			collabMode?: string;
+			hasRecovered?: boolean;
 			isPublish?: boolean;
 			lockSteps?: (stepOrigins?: readonly Transaction[]) => void;
 		} = {
@@ -236,10 +236,10 @@ describe('commitStepQueue', () => {
 			errCode = '',
 			delay = undefined,
 		}: {
+			delay?: number;
+			errCode?: string;
 			type?: string;
 			version?: number;
-			errCode?: string;
-			delay?: number;
 		}) => {
 			broadcastSpy.mockImplementation(
 				// @ts-ignore type checks

@@ -23,7 +23,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 describe('MarkdownTransformer', () => {
 	const transformer = new MarkdownTransformer();
 
-	const mediaNode = ({ url = 'image.jpg', alt = undefined }: { url?: string; alt?: string } = {}) =>
+	const mediaNode = ({ url = 'image.jpg', alt = undefined }: { alt?: string; url?: string } = {}) =>
 		mediaSingle()(media({ url, type: 'external', alt })());
 
 	describe('media', () => {

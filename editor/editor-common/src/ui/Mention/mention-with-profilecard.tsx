@@ -8,17 +8,17 @@ import type { ProfilecardProvider } from '../../provider-factory/profile-card-pr
 import type { MentionEventHandler } from '../EventHandlers';
 
 export interface Props {
+	accessLevel?: string;
 	autoFocus?: boolean;
 	id: string;
-	text: string;
-	accessLevel?: string;
+	localId?: string;
 	mentionProvider?: Promise<MentionProvider>;
-	profilecardProvider: ProfilecardProvider;
 	onClick?: MentionEventHandler;
 	onMouseEnter?: MentionEventHandler;
 	onMouseLeave?: MentionEventHandler;
-	localId?: string;
+	profilecardProvider: ProfilecardProvider;
 	ssrPlaceholderId?: string;
+	text: string;
 }
 
 export default function MentionWithProfileCard({

@@ -11,11 +11,11 @@ import { token } from '@atlaskit/tokens';
 
 export interface WrapperProps extends React.ComponentProps<any> {
 	href?: string;
-	isSelected?: boolean;
-	isInteractive?: boolean;
-	withoutBackground?: boolean;
 	isHovered?: boolean;
+	isInteractive?: boolean;
+	isSelected?: boolean;
 	truncateInline?: boolean;
+	withoutBackground?: boolean;
 }
 
 export const WrapperSpan = forwardRef<HTMLSpanElement, WrapperProps>(

@@ -138,8 +138,8 @@ const setupBasicFilter = async ({
 	openPicker = true,
 	filterType = 'status',
 }: RenderResult & {
-	openPicker?: boolean;
 	filterType?: BasicFilterFieldType;
+	openPicker?: boolean;
 }) => {
 	// switch to basic search because default is JQL
 	// in current implementation JQL doesn't have basic filters

@@ -22,8 +22,8 @@ const setupPublisher = ({
 	},
 	version = '1.0.0',
 }: {
-	product: string;
 	onSendOperationalEvent?: SendOperationEventHandler;
+	product: string;
 	version?: string;
 }) => {
 	payloadPublisher.setup({

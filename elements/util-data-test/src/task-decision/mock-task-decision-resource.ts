@@ -11,10 +11,10 @@ import type {
 } from './types';
 
 export interface MockTaskDecisionResourceConfig {
+	empty?: boolean;
+	error?: boolean;
 	hasMore?: boolean;
 	lag?: number;
-	error?: boolean;
-	empty?: boolean;
 }
 
 let debouncedTaskStateQuery: number | null = null;

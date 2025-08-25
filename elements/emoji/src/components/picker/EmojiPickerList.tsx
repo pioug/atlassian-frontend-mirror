@@ -62,32 +62,32 @@ export interface OnSearch {
 }
 
 export interface Props {
-	emojis: EmojiDescription[];
+	activeCategoryId?: CategoryId | null;
 	currentUser?: User;
-	onEmojiSelected?: OnEmojiEvent;
+	emojis: EmojiDescription[];
+	emojiToDelete?: EmojiDescription;
+	initialUploadName?: string;
+	loading?: boolean;
+	onCategoryActivated?: OnCategory;
+	onCloseDelete: () => void;
+	onDeleteEmoji: OnDeleteEmoji;
 	onEmojiActive?: OnEmojiEvent;
 	onEmojiDelete?: OnEmojiEvent;
-	onCategoryActivated?: OnCategory;
-	selectedTone?: ToneSelection;
-	onSearch?: OnSearch;
-	loading?: boolean;
-	query?: string;
-	initialUploadName?: string;
-	onToneSelected?: OnToneSelected;
-	onToneSelectorCancelled?: OnToneSelectorCancelled;
-	toneEmoji?: EmojiDescriptionWithVariations;
-	uploading: boolean;
-	emojiToDelete?: EmojiDescription;
-	uploadErrorMessage?: Message;
-	uploadEnabled: boolean;
-	onUploadEmoji: OnUploadEmoji;
-	onUploadCancelled: () => void;
-	onDeleteEmoji: OnDeleteEmoji;
-	onCloseDelete: () => void;
+	onEmojiSelected?: OnEmojiEvent;
 	onFileChooserClicked?: () => void;
 	onOpenUpload: () => void;
+	onSearch?: OnSearch;
+	onToneSelected?: OnToneSelected;
+	onToneSelectorCancelled?: OnToneSelectorCancelled;
+	onUploadCancelled: () => void;
+	onUploadEmoji: OnUploadEmoji;
+	query?: string;
+	selectedTone?: ToneSelection;
 	size?: PickerSize;
-	activeCategoryId?: CategoryId | null;
+	toneEmoji?: EmojiDescriptionWithVariations;
+	uploadEnabled: boolean;
+	uploadErrorMessage?: Message;
+	uploading: boolean;
 }
 
 export interface State {}
@@ -95,19 +95,19 @@ export interface State {}
 export type PickerListRef = {
 	reveal: (category: CategoryId) => void;
 	scrollToBottom: () => void;
-	scrollToTop: () => void;
-	scrollToRow: (index?: number) => void;
 	scrollToRecentlyUploaded: (uploadedEmoji: EmojiDescription) => void;
+	scrollToRow: (index?: number) => void;
+	scrollToTop: () => void;
 };
 
 /**
  * Emoji grouped by a category title ie. Frequent, Your Uploads, All Uploads
  */
 interface EmojiGroup {
-	emojis: EmojiDescription[];
-	title: string;
 	category: CategoryGroupKey;
+	emojis: EmojiDescription[];
 	order: number;
+	title: string;
 }
 
 type Orderable = {

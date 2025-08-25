@@ -84,13 +84,13 @@ const disabledButtonStyles = xcss({
 const headingContainerStyles = xcss({ textAlign: 'left', color: 'color.text.accent.orange' });
 
 interface ButtonBaseProps {
+	attributes?: { new?: boolean };
 	id: string;
-	mode: 'navigation' | 'expandable';
-	label?: string;
-	isSelected?: boolean;
 	isDisabled?: boolean;
 	isExpanded?: boolean;
-	attributes?: { new?: boolean };
+	isSelected?: boolean;
+	label?: string;
+	mode: 'navigation' | 'expandable';
 	onClick?: (id: string) => void;
 }
 

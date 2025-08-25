@@ -46,18 +46,18 @@ export async function request<T = BatchResponse>(
 export type BatchResponse = Array<SuccessResponse | ErrorResponse>;
 
 export type SuccessResponse = {
-	status: number;
 	body: JsonLd.Response;
+	status: number;
 };
 
 export interface ErrorResponse {
-	status: number;
 	error: ErrorResponseBody;
+	status: number;
 }
 export interface ErrorResponseBody {
-	type: ServerErrorType;
 	message: string;
 	status: number;
+	type: ServerErrorType;
 }
 
 export const isErrorResponse = (

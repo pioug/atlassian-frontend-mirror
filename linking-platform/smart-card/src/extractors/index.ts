@@ -4,8 +4,8 @@ export interface ExtractorFunction<T> {
 
 export interface ExtractOptions<T> {
 	defaultExtractorFunction: ExtractorFunction<T>;
-	extractorPrioritiesByType: { [type: string]: number };
 	extractorFunctionsByType: { [type: string]: ExtractorFunction<T> };
+	extractorPrioritiesByType: { [type: string]: number };
 	json: any;
 }
 

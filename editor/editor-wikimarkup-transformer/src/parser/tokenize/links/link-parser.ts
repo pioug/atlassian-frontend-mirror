@@ -122,10 +122,10 @@ function extractNumber(buf: StringBuffer): number {
 }
 
 export interface Link {
-	readonly originalLinkText: string;
 	readonly linkBody: string | null;
-	readonly notLinkBody: string;
 	readonly linkTitle: string | null;
+	readonly notLinkBody: string;
+	readonly originalLinkText: string;
 }
 
 export function parseLink(linkText: string): Link {
@@ -150,13 +150,13 @@ export function parseLink(linkText: string): Link {
 }
 
 export interface ContentLink extends Link {
-	readonly spaceKey: string | null;
-	readonly destinationTitle: string;
 	readonly anchor: string | null;
-	readonly shortcutName: string | null;
-	readonly shortcutValue: string | null;
 	readonly attachmentName: string | null;
 	readonly contentId: number;
+	readonly destinationTitle: string;
+	readonly shortcutName: string | null;
+	readonly shortcutValue: string | null;
+	readonly spaceKey: string | null;
 }
 
 export function parseContentLink(link: Link | string): ContentLink {

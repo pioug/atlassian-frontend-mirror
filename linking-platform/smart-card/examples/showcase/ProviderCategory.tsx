@@ -14,8 +14,8 @@ import { type ExampleUIConfig, type ExampleUrl } from './types';
 
 interface ProviderCategoryProps {
 	category: string;
-	examples: ExampleUrl[];
 	config: ExampleUIConfig;
+	examples: ExampleUrl[];
 }
 
 export const ProviderCategory = ({ category, examples, config }: ProviderCategoryProps) => {

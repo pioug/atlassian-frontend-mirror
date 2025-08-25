@@ -93,9 +93,9 @@ const defaultOptionValue: DateRangeValue = 'anyTime';
 export type DateRangeSelection = Pick<DateRangeOption, 'value' | 'from' | 'to'>;
 
 interface DateRangeProps {
+	filterName?: string;
 	onSelectionChange: (options: DateRangeSelection) => void;
 	selection?: DateRangeSelection;
-	filterName?: string;
 }
 
 export const DateRangePicker = ({

@@ -36,12 +36,12 @@ const resizeOffsetStyles = xcss({
 });
 
 type ExternalImageBadgeProps = {
+	children: ReactNode | ((props: { visible: boolean }) => ReactNode);
+	extendedResizeOffset?: boolean;
 	mediaElement?: HTMLElement | null;
 	mediaHeight?: number;
 	mediaWidth?: number;
-	extendedResizeOffset?: boolean;
 	useMinimumZIndex?: boolean;
-	children: ReactNode | ((props: { visible: boolean }) => ReactNode);
 };
 
 const getBadgeVisible = (width?: number, height?: number) => {

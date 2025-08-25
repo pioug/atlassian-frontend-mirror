@@ -13,19 +13,19 @@ export type BasicEventTimestamp<
 	name extends string,
 	data = Record<string, string | number | undefined | null>,
 > = {
-	type: name;
-	startTime: DOMHighResTimeStamp;
 	data: data;
+	startTime: DOMHighResTimeStamp;
+	type: name;
 };
 
 export type ElementChangedEvent = BasicEventTimestamp<
 	'element:changed',
 	{
-		wrapperSectionName: string;
 		elementName: string;
-		rect: DOMRectReadOnly;
 		previousRect: DOMRectReadOnly | undefined;
+		rect: DOMRectReadOnly;
 		source: HeatmapEntrySource;
+		wrapperSectionName: string;
 	}
 >;
 export type AbortUserInteractionEvent = BasicEventTimestamp<
@@ -51,11 +51,11 @@ export type UserEvent = BasicEventTimestamp<
 	`user-event:${UserEventCategory}`,
 	{
 		category: UserEventCategory;
-		elementName: string;
-		eventName: string;
 		duration: number;
+		elementName: string;
 		// Made optional for now because unsure if this affects production logic or not
 		entry?: PerformanceEventTiming;
+		eventName: string;
 	}
 >;
 export type IdleTimeEvent = BasicEventTimestamp<
@@ -84,8 +84,8 @@ export type HoldIdleStartEvent = BasicEventTimestamp<
 export type HoldIdleEndEvent = BasicEventTimestamp<
 	'hold-idle:end',
 	{
-		source: HoldIdleEventSources;
 		duration: number;
+		source: HoldIdleEventSources;
 		uuid: string;
 	}
 >;
@@ -115,11 +115,6 @@ export type TimelineEventsGrouped = {
 };
 
 export type TimelineOptions = {
-	cleanup: {
-		// TODO: PGXT-7918 - Remove threshold. Set threshold option for 10 events for debugging purposes
-		// https://product-fabric.atlassian.net/browse/PGXT-7918
-		eventsThreshold: 10 | 100 | 1000 | 3000 | 10000;
-	};
 	/*
 	 * Control how often the Idle Buffer is flushed to the subscribers.
 	 *
@@ -127,14 +122,19 @@ export type TimelineOptions = {
 	 */
 	buffer: {
 		/**
-		 * Based in the amount of events added on Timeline
-		 */
-		eventsThreshold: 1 | 200;
-		/**
 		 * Based in the amount of idle cycles
 		 */
 		cyclesThreshold: 1 | 5 | 10 | 100;
+		/**
+		 * Based in the amount of events added on Timeline
+		 */
+		eventsThreshold: 1 | 200;
 	} | null;
+	cleanup: {
+		// TODO: PGXT-7918 - Remove threshold. Set threshold option for 10 events for debugging purposes
+		// https://product-fabric.atlassian.net/browse/PGXT-7918
+		eventsThreshold: 10 | 100 | 1000 | 3000 | 10000;
+	};
 
 	/**
 	 * The maximum duration (in milliseconds) to hold an idle event before timing out.

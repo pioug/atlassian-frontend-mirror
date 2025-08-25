@@ -6,11 +6,11 @@ import { RendererContext as ActionsContext } from '../../RendererActionsContext'
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 type Props = {
+	createAnalyticsEvent?: CreateUIAnalyticsEvent;
+	rendererRef: React.RefObject<HTMLDivElement>;
 	selectionComponent: React.ComponentType<
 		React.PropsWithChildren<InlineCommentSelectionComponentProps>
 	>;
-	rendererRef: React.RefObject<HTMLDivElement>;
-	createAnalyticsEvent?: CreateUIAnalyticsEvent;
 };
 
 export const SelectionRangeValidator = (props: Props) => {

@@ -14,7 +14,7 @@ import ReactSerializer from '../../../../react';
 import type { RendererAppearance } from '../../../../ui/Renderer/types';
 
 const renderWidth = akEditorDefaultLayoutWidth;
-let serialiser = new ReactSerializer({});
+const serialiser = new ReactSerializer({});
 const tableDoc = {
 	...table(
 		tr([th()(p('Heading content 1')), th()(p('Header content 2')), th()(p('Header content 3'))]),

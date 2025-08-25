@@ -20,9 +20,9 @@ const getMediaClientConfig = async () => {
 };
 
 type PageProps = {
+	mediaClientConfig: MediaClientConfig;
 	ssr: SSR;
 	title: string;
-	mediaClientConfig: MediaClientConfig;
 };
 
 const Page = ({ ssr, title, mediaClientConfig }: PageProps) => {

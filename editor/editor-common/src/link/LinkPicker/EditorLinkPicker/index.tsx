@@ -16,17 +16,17 @@ type OptionalKeys<T extends Object, K extends keyof T> = Omit<T, K> & Partial<Pi
 
 export interface EditorLinkPickerProps
 	extends OptionalKeys<React.ComponentProps<typeof LazyLinkPicker>, 'onCancel'> {
-	view: EditorView;
+	editorAppearance?: EditorAppearance;
 	/**
 	 * Used for analytics purposes to describe how the link picker was invoked
 	 * Should be roughly equivalent to the `inputMethod` analytics value
 	 */
 	invokeMethod?: string;
-	editorAppearance?: EditorAppearance;
+	onClickAwayCallback?: Command;
 	/** Callback to execute on unmount */
 	onClose?: () => void;
 	onEscapeCallback?: Command;
-	onClickAwayCallback?: Command;
+	view: EditorView;
 }
 
 export const EditorLinkPicker = ({

@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-type ValidationContextType = { skipValidation?: boolean; allowNestedTables?: boolean } | null;
+type ValidationContextType = { allowNestedTables?: boolean; skipValidation?: boolean } | null;
 
 /**
  * The ValidationContext is used to pass down the `skipValidation` flag from the NBMRenderer

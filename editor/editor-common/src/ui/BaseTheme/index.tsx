@@ -19,9 +19,9 @@ export function mapBreakpointToLayoutMaxWidth(breakpoint: Breakpoints) {
 }
 
 type BaseThemeWrapperProps = {
+	baseFontSize?: number;
 	breakpoint: Breakpoints;
 	children: React.ReactNode;
-	baseFontSize?: number;
 };
 
 declare module '@emotion/react' {
@@ -44,8 +44,8 @@ export function BaseThemeWrapper({ baseFontSize, children }: BaseThemeWrapperPro
 }
 
 type BaseThemeProps = {
-	children: React.ReactNode;
 	baseFontSize?: number;
+	children: React.ReactNode;
 };
 
 export function BaseTheme({ children, baseFontSize }: BaseThemeProps) {

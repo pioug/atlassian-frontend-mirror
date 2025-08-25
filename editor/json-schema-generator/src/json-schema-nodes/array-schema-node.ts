@@ -2,8 +2,8 @@ import type SchemaNode from './schema-node';
 import SchemaNodeWithValidators, { type Indexed } from './schema-node-with-validators';
 
 export interface ArrayValidators extends Indexed {
-	minItems?: number; // 6.12
 	maxItems?: number; // 6.11
+	minItems?: number; // 6.12
 }
 
 export default class ArraySchemaNode extends SchemaNodeWithValidators<ArrayValidators> {

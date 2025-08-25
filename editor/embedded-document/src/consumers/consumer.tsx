@@ -6,18 +6,18 @@ export interface Props<
 	PropsFromActions extends Object,
 	RenderProps extends Object,
 > {
-	stateMapper?: (state: State) => PropsFromState;
 	actionsMapper?: (actions: Actions) => PropsFromActions;
+	children: (props: PropsFromState & PropsFromActions & RenderProps) => React.ReactNode;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	renderPropsMapper?: (renderProps: any) => RenderProps;
-	children: (props: PropsFromState & PropsFromActions & RenderProps) => React.ReactNode;
+	stateMapper?: (state: State) => PropsFromState;
 }
 
 export interface ConsumerProps<A, V, R> {
 	actions: A;
-	value: V;
 	renderProps: R;
+	value: V;
 }
 
 // Ignored via go/ees005

@@ -10,17 +10,17 @@ import type { EditorActionsOptions } from './editor-actions';
 import type { EditorAppearance } from './editor-appearance';
 
 export type UiComponentFactoryParams = {
-	editorView: EditorView;
-	editorActions: EditorActionsOptions;
-	eventDispatcher: EventDispatcher;
-	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
-	providerFactory: ProviderFactory;
 	appearance: EditorAppearance;
-	popupsMountPoint?: HTMLElement;
-	popupsBoundariesElement?: HTMLElement;
-	popupsScrollableElement?: HTMLElement;
 	containerElement: HTMLElement | null;
 	disabled: boolean;
+	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
+	editorActions: EditorActionsOptions;
+	editorView: EditorView;
+	eventDispatcher: EventDispatcher;
+	popupsBoundariesElement?: HTMLElement;
+	popupsMountPoint?: HTMLElement;
+	popupsScrollableElement?: HTMLElement;
+	providerFactory: ProviderFactory;
 	wrapperElement: HTMLElement | null;
 };
 export type UIComponentFactory = (

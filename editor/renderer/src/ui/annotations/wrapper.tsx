@@ -5,9 +5,9 @@ import { SelectionRangeValidator } from './selection/range-validator';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 type Props = {
-	rendererRef: React.RefObject<HTMLDivElement>;
 	createAnalyticsEvent?: CreateUIAnalyticsEvent;
 	isNestedRender?: boolean;
+	rendererRef: React.RefObject<HTMLDivElement>;
 };
 export const AnnotationsContextWrapper = (props: React.PropsWithChildren<Props>): JSX.Element => {
 	const providers = useContext(ProvidersContext);

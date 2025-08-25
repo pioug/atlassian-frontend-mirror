@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/task-decision",
-	"version": "19.2.8",
+	"version": "19.2.9",
 	"description": "Tasks and decisions react components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -24,12 +24,6 @@
 		"**/*.compiled.css"
 	],
 	"atlaskit:src": "src/index.ts",
-	"af:exports": {
-		".": "./src/index.ts",
-		"./constants": "./src/constants.ts",
-		"./type-helpers": "./src/type-helpers.ts",
-		"./types": "./src/types.ts"
-	},
 	"exports": {
 		".": "./src/index.ts",
 		"./constants": "./src/constants.ts",

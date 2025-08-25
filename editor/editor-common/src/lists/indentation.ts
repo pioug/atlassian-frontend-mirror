@@ -6,8 +6,8 @@ export const hasValidListIndentationLevel = ({
 	tr,
 	maxIndentation,
 }: {
-	tr: Transaction;
 	maxIndentation: number;
+	tr: Transaction;
 }): boolean => {
 	const initialIndentationLevel = numberNestedLists(tr.selection.$from);
 	let currentIndentationLevel: number;

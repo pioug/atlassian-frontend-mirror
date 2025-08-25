@@ -39,9 +39,9 @@ export const emailDomainWrapper = css({
 });
 
 export type ExternalUserOptionProps = WithAnalyticsEventsProps & {
-	user: ExternalUser;
-	status?: string;
 	isSelected: boolean;
+	status?: string;
+	user: ExternalUser;
 };
 
 class ExternalUserOptionImpl extends React.PureComponent<ExternalUserOptionProps> {

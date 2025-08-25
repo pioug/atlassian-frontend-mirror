@@ -1,5 +1,17 @@
 # @atlaskit/editor-statsig-tmp
 
+## 11.6.0
+
+### Minor Changes
+
+- [`2a8dcec064275`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a8dcec064275) -
+  [ED-28449] add experiment to config file
+
+### Patch Changes
+
+- [`0fdcb6f2f96fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0fdcb6f2f96fd) -
+  Sorted type and interface props to improve Atlaskit docs
+
 ## 11.5.0
 
 ### Minor Changes

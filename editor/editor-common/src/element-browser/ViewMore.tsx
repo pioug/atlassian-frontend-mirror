@@ -22,7 +22,7 @@ const itemBefore = css({
 	marginRight: token('space.050', '4px'),
 });
 
-export const ViewMore = ({ item, focus }: { item: QuickInsertItem; focus: boolean }) => {
+export const ViewMore = ({ item, focus }: { focus: boolean; item: QuickInsertItem }) => {
 	const ref = useRef<HTMLElement>(null);
 	useEffect(() => {
 		if (ref.current && focus) {

@@ -13,11 +13,11 @@ function isValidEntry(entry: IntersectionObserverEntry) {
 export type CreateMutationObserverProps = {
 	onAttributeMutation: (props: { target: HTMLElement }) => void;
 
-	onMutationFinished: (props: { targets: Array<HTMLElement> }) => void;
 	onChildListMutation: (props: {
 		addedNodes: ReadonlyArray<HTMLElement>;
 		removedNodes: ReadonlyArray<HTMLElement>;
 	}) => void;
+	onMutationFinished: (props: { targets: Array<HTMLElement> }) => void;
 };
 
 export function createMutationObserver({
@@ -74,8 +74,8 @@ export function createMutationObserver({
 }
 
 type DoTag = (props: {
-	target: HTMLElement;
 	rect: DOMRectReadOnly;
+	target: HTMLElement;
 }) => HeatmapEntrySource | undefined | null;
 
 export interface TaintedIntersectionObserver {
@@ -88,14 +88,14 @@ export interface TaintedIntersectionObserver {
 
 export function createIntersectionObserver(props: {
 	onEntry: (entry: {
-		target: HTMLElement;
 		rect: DOMRectReadOnly;
 		startTime: DOMHighResTimeStamp;
 		taintedTag: HeatmapEntrySource;
+		target: HTMLElement;
 	}) => void;
 	onObserved: (props: {
-		startTime: DOMHighResTimeStamp;
 		elements: ReadonlyArray<WeakRef<HTMLElement>>;
+		startTime: DOMHighResTimeStamp;
 	}) => void;
 }): TaintedIntersectionObserver | null {
 	if (!isBrowserSupported) {
@@ -183,14 +183,14 @@ type LayoutShiftAttribution = {
 };
 type ChangedRect = Array<{
 	node: HTMLElement;
-	rect: DOMRectReadOnly;
 	previousRect: DOMRectReadOnly;
+	rect: DOMRectReadOnly;
 }>;
 type CreatePerformanceObserverProps = {
-	onFirstPaint: (startTime: DOMHighResTimeStamp) => void;
 	onFirstContentfulPaint: (startTime: DOMHighResTimeStamp) => void;
-	onLongTask: (props: { startTime: DOMHighResTimeStamp; duration: number }) => void;
-	onLayoutShift: (props: { startTime: DOMHighResTimeStamp; changedRects: ChangedRect }) => void;
+	onFirstPaint: (startTime: DOMHighResTimeStamp) => void;
+	onLayoutShift: (props: { changedRects: ChangedRect; startTime: DOMHighResTimeStamp }) => void;
+	onLongTask: (props: { duration: number; startTime: DOMHighResTimeStamp }) => void;
 };
 export function createPerformanceObserver(props: CreatePerformanceObserverProps) {
 	if (typeof window.PerformanceObserver !== 'function') {

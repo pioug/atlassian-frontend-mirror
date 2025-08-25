@@ -26,8 +26,8 @@ const UnresolvedAction = ({
 	testId = 'unresolved-action',
 	hasPadding = false,
 }: {
-	testId?: string;
 	hasPadding?: boolean;
+	testId?: string;
 }) => {
 	const context = useFlexibleUiContext();
 	const data = context?.actions?.[InternalActionName.UnresolvedAction];

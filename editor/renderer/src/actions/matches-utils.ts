@@ -9,10 +9,10 @@ export function getIndexMatch(
 	selectedText: string,
 	startIndex: number,
 ): {
-	numMatches: number;
-	matchIndex: number;
-	textContent: string;
 	blockNodePos?: number;
+	matchIndex: number;
+	numMatches: number;
+	textContent: string;
 } {
 	let textContent = '';
 	let matchIndex = 0;

@@ -1,10 +1,16 @@
 import { findFarthestParentNode, isListNode } from '@atlaskit/editor-common/utils';
-import type { Node, NodeType, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import {
+	NodeRange,
+	type Node,
+	type NodeType,
+	type ResolvedPos,
+} from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { liftTarget } from '@atlaskit/editor-prosemirror/transform';
 import {
 	findParentNodeClosestToPos,
+	findParentNodeOfTypeClosestToPos,
 	hasParentNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -15,6 +21,15 @@ import { ACTIONS } from './types';
 
 export const isInsideTaskOrDecisionItem = (state: EditorState) => {
 	const { decisionItem, taskItem, blockTaskItem } = state.schema.nodes;
+	if (blockTaskItem) {
+		return Boolean(
+			findParentNodeOfTypeClosestToPos(state.selection.$from, [
+				decisionItem,
+				taskItem,
+				blockTaskItem,
+			]),
+		);
+	}
 	return hasParentNodeOfType([decisionItem, taskItem, blockTaskItem])(state.selection);
 };
 
@@ -51,7 +66,21 @@ export const isTable = (node?: Node | null): boolean => {
  * ("nested") taskList, if one exists.
  */
 export const getBlockRange = ($from: ResolvedPos, $to: ResolvedPos) => {
-	const { taskList } = $from.doc.type.schema.nodes;
+	const { taskList, blockTaskItem } = $from.doc.type.schema.nodes;
+	const blockTaskItemNode = findFarthestParentNode((node) => node.type === blockTaskItem)($from);
+
+	if (blockTaskItem && blockTaskItemNode) {
+		const startOfNodeInBlockTaskItem = $from.doc.resolve(blockTaskItemNode.start);
+
+		const lastNode = $to.node($to.depth);
+		const endOfNodeInBlockTaskItem = $from.doc.resolve($to.start() + lastNode.nodeSize - 1);
+
+		return new NodeRange(
+			startOfNodeInBlockTaskItem,
+			endOfNodeInBlockTaskItem,
+			blockTaskItemNode.depth - 1,
+		);
+	}
 
 	let end = $to.end();
 	const $after = $to.doc.resolve(end + 1);

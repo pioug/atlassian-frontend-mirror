@@ -14,7 +14,7 @@ const getWidthRelativeGuideline = (
 	nodeWithPos: NodeWithPos,
 	editorWidth: number,
 	topOffset: number,
-	size?: { width: number; height: number },
+	size?: { height: number; width: number },
 ): GuidelineConfig | null => {
 	const { node, pos } = nodeWithPos;
 
@@ -75,7 +75,7 @@ const getHeightRelativeGuideline = (
 	nodeWithPos: NodeWithPos,
 	editorWidth: number,
 	topOffset: number,
-	size?: { width: number; height: number },
+	size?: { height: number; width: number },
 ): GuidelineConfig | null => {
 	const { node, pos } = nodeWithPos;
 	const { height: viewHeight } = view.dom.getBoundingClientRect();
@@ -153,7 +153,7 @@ export const getRelativeGuidelines = (
 	view: EditorView,
 	editorWidth: number,
 	topOffset: number,
-	size: { width: number; height: number },
+	size: { height: number; width: number },
 ) => {
 	const matchWidth = relativeGuides.width ? relativeGuides.width[Math.round(size.width)] : [];
 	const matchHeight = relativeGuides.height ? relativeGuides.height[Math.round(size.height)] : [];

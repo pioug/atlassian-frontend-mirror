@@ -5,6 +5,11 @@ type NodeObservationConfig = {
 
 export type NodeVisibilityManager = {
 	/**
+	 * Kills the IntersectionObserver and all callbacks
+	 * @returns
+	 */
+	disconnect: () => void;
+	/**
 	 * Establishes IntersectionObserver for the editor to monitor all node viewport visibility
 	 * @param editorDivElement
 	 * @returns
@@ -14,11 +19,6 @@ export type NodeVisibilityManager = {
 	 * observes specific node element with callbacks for triggering when the node is visible or hidden
 	 */
 	observe: (observeConfig: NodeObservationConfig) => () => void;
-	/**
-	 * Kills the IntersectionObserver and all callbacks
-	 * @returns
-	 */
-	disconnect: () => void;
 };
 
 type NodeVisibilityManagerFn = (editorElement: HTMLElement) => NodeVisibilityManager;

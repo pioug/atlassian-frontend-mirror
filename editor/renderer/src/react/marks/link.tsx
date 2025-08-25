@@ -29,8 +29,8 @@ const anchorStyles = css({
 });
 
 interface LinkProps extends LinkAttributes {
-	target?: string;
 	isMediaLink?: boolean;
+	target?: string;
 }
 
 export default function Link(props: MarkProps<LinkProps>) {

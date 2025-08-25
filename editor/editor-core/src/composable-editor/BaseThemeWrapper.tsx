@@ -6,8 +6,8 @@ import { ThemeProvider } from '@emotion/react';
 import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles';
 
 type BaseThemeProps = {
-	children: React.ReactNode;
 	baseFontSize?: number;
+	children: React.ReactNode;
 };
 
 // Default value from: `import { fontSize } from '@atlaskit/theme/constants';`

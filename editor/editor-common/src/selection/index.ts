@@ -142,8 +142,8 @@ export function createSelectionClickHandler(
 	nodes: string[],
 	isValidTarget: (target: HTMLElement) => boolean,
 	options: {
-		useLongPressSelection: boolean;
 		getNodeSelectionPos?: (state: EditorState, nodePos: number) => number;
+		useLongPressSelection: boolean;
 	},
 ) {
 	return function handleClickOn(

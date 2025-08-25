@@ -17,10 +17,10 @@ import Renderer from '../src/ui/Renderer';
 import { token } from '@atlaskit/tokens';
 
 export interface State {
-	value: string;
-	validator?: (...args: any[]) => any;
-	fetchingSchema: boolean;
 	err?: Error;
+	fetchingSchema: boolean;
+	validator?: (...args: any[]) => any;
+	value: string;
 }
 
 const defaultDocument = {

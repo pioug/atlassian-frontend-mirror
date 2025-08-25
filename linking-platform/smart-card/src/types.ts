@@ -12,8 +12,8 @@ export type InlinePreloaderStyle = 'on-left-with-skeleton' | 'on-right-without-s
 export type LozengeColor = 'default' | 'success' | 'removed' | 'inprogress' | 'new' | 'moved';
 
 export interface LozengeProps {
-	text: string;
 	appearance?: LozengeColor; // defaults to 'default'
-	style?: AtlaskitLozengeProps['style'];
 	isBold?: boolean; // defaults to false
+	style?: AtlaskitLozengeProps['style'];
+	text: string;
 }

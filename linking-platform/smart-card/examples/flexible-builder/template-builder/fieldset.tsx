@@ -16,8 +16,8 @@ const Fieldset = ({
 	defaultOpen = true,
 	legend,
 }: PropsWithChildren<{
-	legend?: string;
 	defaultOpen?: boolean;
+	legend?: string;
 }>) => {
 	const [open, setOpen] = useState<boolean>(defaultOpen);
 	const handleOnClick = useCallback(() => setOpen(!open), [open]);

@@ -1,10 +1,10 @@
 export interface ActivityItem {
-	objectId: string;
-	name: string;
 	container: string;
-	url: string;
 	iconUrl: string;
+	name: string;
+	objectId: string;
 	type?: string;
+	url: string;
 	viewedTimestamp?: string;
 }
 
@@ -20,20 +20,20 @@ export type ActivityObjectType = 'ISSUE' | 'PAGE' | 'BLOGPOST';
 export interface ActivityContainer {
 	id: string;
 	name: string | null;
-	type: ActivitiesContainerType;
 	product: ActivityProduct;
+	type: ActivitiesContainerType;
 }
 
 export interface ActivityObject {
+	cloudId: string;
+	containers: Array<ActivityContainer>;
+	iconUrl: string;
 	id: string;
 	localResourceId: string;
 	name: string;
-	type: ActivityObjectType;
 	product: ActivityProduct;
-	cloudId: string;
+	type: ActivityObjectType;
 	url: string;
-	iconUrl: string;
-	containers: Array<ActivityContainer>;
 }
 
 export interface ActivityResponse {
@@ -43,8 +43,8 @@ export interface ActivityResponse {
 				viewed: {
 					nodes: Array<{
 						id: string;
-						timestamp: string;
 						object: ActivityObject;
+						timestamp: string;
 					}>;
 				};
 			};

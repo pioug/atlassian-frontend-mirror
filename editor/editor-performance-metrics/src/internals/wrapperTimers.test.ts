@@ -2,7 +2,7 @@ import type { TimelineHoldable } from './timelineInterfaces';
 import { wrapperTimers } from './wrapperTimers';
 
 describe('wrapperTimers', () => {
-	let mockGlobalContext: { setTimeout: typeof setTimeout; clearTimeout: typeof clearTimeout };
+	let mockGlobalContext: { clearTimeout: typeof clearTimeout; setTimeout: typeof setTimeout };
 	let mockTimelineHoldable: TimelineHoldable;
 	let originalSetTimeout: typeof setTimeout;
 	let originalClearTimeout: typeof clearTimeout;

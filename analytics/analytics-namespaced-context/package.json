@@ -21,17 +21,6 @@
 		}
 	},
 	"atlaskit:src": "src/index.ts",
-	"af:exports": {
-		"./MediaAnalyticsContext": "./src/MediaAnalyticsContext.tsx",
-		"./NavigationAnalyticsContext": "./src/NavigationAnalyticsContext.tsx",
-		"./PeopleTeamsAnalyticsContext": "./src/PeopleTeamsAnalyticsContext.tsx",
-		"./RecentWorkAnalyticsContext": "./src/RecentWorkAnalyticsContext.tsx",
-		"./FabricEditorAnalyticsContext": "./src/FabricEditorAnalyticsContext.tsx",
-		"./AtlasAnalyticsContext": "./src/AtlasAnalyticsContext.tsx",
-		"./LinkingPlatformAnalyticsContext": "./src/LinkingPlatformAnalyticsContext.tsx",
-		"./PostOfficeAnalyticsContext": "./src/PostOfficeAnalyticsContext.tsx",
-		".": "./src/index.ts"
-	},
 	"exports": {
 		"./MediaAnalyticsContext": "./src/MediaAnalyticsContext.tsx",
 		"./NavigationAnalyticsContext": "./src/NavigationAnalyticsContext.tsx",

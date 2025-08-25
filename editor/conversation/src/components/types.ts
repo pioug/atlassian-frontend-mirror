@@ -19,11 +19,17 @@ export type RenderEditorWithComments = (
  * Props which are passed down from the parent Conversation/Comment
  */
 export interface SharedProps {
-	user?: User;
+	allowFeedbackAndHelpButtons?: boolean;
 	comments?: CommentType[];
+	containerId?: string;
+
+	// Provider
+	dataProviders?: ProviderFactory;
+	disableScrollTo?: boolean;
+	isHighlighted?: boolean;
 	/* Optionally restricts visual nesting of comments to a maximum level. */
 	maxCommentNesting?: number;
-
+	objectId?: string;
 	// Dispatch
 	onAddComment?: (
 		conversationId: string,
@@ -34,21 +40,11 @@ export interface SharedProps {
 		localId?: string,
 		onSuccess?: SuccessHandler,
 	) => void;
-	onUpdateComment?: (
-		conversationId: string,
-		commentId: string,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		value: any,
-		onSuccess?: SuccessHandler,
-	) => void;
-	onDeleteComment?: (conversationId: string, commentId: string, onSuccess?: SuccessHandler) => void;
-	onRevertComment?: (conversationId: string, commentId: string) => void;
-	onCancelComment?: (conversationId: string, commentId: string) => void;
 	onCancel?: () => void;
-	onHighlightComment?: (event: React.MouseEvent<HTMLAnchorElement>, commentId: string) => void;
-	onEditorOpen?: () => void;
-	onEditorClose?: () => void;
+	onCancelComment?: (conversationId: string, commentId: string) => void;
+	onCommentPermalinkClick?: (event: React.MouseEvent<HTMLAnchorElement>, commentId: string) => void;
+	onDeleteComment?: (conversationId: string, commentId: string, onSuccess?: SuccessHandler) => void;
+
 	onEditorChange?: (
 		isLocal: boolean,
 		// Ignored via go/ees005
@@ -63,31 +59,35 @@ export interface SharedProps {
 		containerId?: string,
 	) => void;
 
-	// Provider
-	dataProviders?: ProviderFactory;
+	onEditorClose?: () => void;
+	onEditorOpen?: () => void;
+	onHighlightComment?: (event: React.MouseEvent<HTMLAnchorElement>, commentId: string) => void;
+
+	onRetry?: (localId?: string) => void;
+
+	onRevertComment?: (conversationId: string, commentId: string) => void;
+	onUpdateComment?: (
+		conversationId: string,
+		commentId: string,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		value: any,
+		onSuccess?: SuccessHandler,
+	) => void;
 
 	// Event Hooks
 	onUserClick?: (user: User) => void;
-	onRetry?: (localId?: string) => void;
-	onCommentPermalinkClick?: (event: React.MouseEvent<HTMLAnchorElement>, commentId: string) => void;
-
-	// Editor
-	renderEditor?: RenderEditorWithComments;
-
-	objectId?: string;
-	containerId?: string;
-
-	isHighlighted?: boolean;
 	placeholder?: string;
-	disableScrollTo?: boolean;
-	allowFeedbackAndHelpButtons?: boolean;
-	sendAnalyticsEvent: SendAnalyticsEvent;
-
 	portal?: HTMLElement;
-
 	renderAdditionalCommentActions?: (
 		CommentAction: typeof AkCommentAction,
 		comment: CommentType,
 	) => JSX.Element[];
 	renderAfterComment?: (comment: CommentType) => JSX.Element;
+
+	// Editor
+	renderEditor?: RenderEditorWithComments;
+
+	sendAnalyticsEvent: SendAnalyticsEvent;
+	user?: User;
 }

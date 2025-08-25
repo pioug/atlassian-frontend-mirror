@@ -18,12 +18,12 @@ export function createWrapSelectionTransaction({
 	type,
 	nodeAttributes,
 }: {
-	state: EditorState;
-	type: NodeType;
 	// This should be the node attributes from the ADF schema where prosemirror attributes are specified
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	nodeAttributes?: Record<string, any>;
+	state: EditorState;
+	type: NodeType;
 }) {
 	let { tr } = state;
 	const { alignment, indentation } = state.schema.marks;

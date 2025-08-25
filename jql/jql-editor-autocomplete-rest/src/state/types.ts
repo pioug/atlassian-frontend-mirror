@@ -10,9 +10,9 @@ import {
 
 export type Store = {
 	initialDataFetched: boolean;
-	jqlSearchableFields$: Observable<JQLFieldResponse>;
-	jqlOrderableFields$: Observable<JQLFieldResponse>;
 	jqlFunctions$: Observable<JQLFunctionResponse>;
+	jqlOrderableFields$: Observable<JQLFieldResponse>;
+	jqlSearchableFields$: Observable<JQLFieldResponse>;
 };
 
 export type Actions = {

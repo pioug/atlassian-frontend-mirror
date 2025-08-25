@@ -2,15 +2,15 @@ import React, { createContext, useReducer } from 'react';
 import { AnnotationMarkStates } from '@atlaskit/adf-schema';
 
 type MyAction =
-	| { type: 'resolved'; id: string }
-	| { type: 'unresolved'; id: string }
-	| { type: 'add'; id: string };
+	| { id: string; type: 'resolved' }
+	| { id: string; type: 'unresolved' }
+	| { id: string; type: 'add' };
 // type MyOnChange = (id: AnnotationId, type: AnnotationMarkStates) => void;
 type MyData = { [key: string]: AnnotationMarkStates };
 type MyReducer = React.Reducer<MyData, MyAction>;
 type MyState = {
-	state: MyData;
 	dispatch: React.Dispatch<React.ReducerAction<MyReducer>>;
+	state: MyData;
 };
 
 const initialData: MyData = {

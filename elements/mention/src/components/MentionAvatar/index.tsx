@@ -6,8 +6,8 @@ import { token } from '@atlaskit/tokens';
 import { isTeamMention, type MentionDescription, type Presence } from '../../types';
 
 type MentionAvatarProps = {
-	selected?: boolean;
 	mention: MentionDescription;
+	selected?: boolean;
 };
 export const MentionAvatar = ({ mention, selected }: MentionAvatarProps) => {
 	const { avatarUrl, presence } = mention;

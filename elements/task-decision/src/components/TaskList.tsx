@@ -19,8 +19,8 @@ const taskListStyles = css({
 });
 
 export interface Props {
-	listId?: string;
 	children?: ReactNode;
+	listId?: string;
 }
 
 const TaskList = ({ listId, children }: Props) => {

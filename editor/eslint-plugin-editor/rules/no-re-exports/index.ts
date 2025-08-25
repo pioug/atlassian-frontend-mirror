@@ -2,7 +2,7 @@ import type { AST, Rule } from 'eslint';
 
 type Location = AST.SourceLocation | null | undefined;
 
-function createReportEntry({ name, loc }: { name: string; loc: Location }) {
+function createReportEntry({ name, loc }: { loc: Location; name: string }) {
 	return {
 		data: { name },
 		loc: loc ?? { line: 0, column: 0 },

@@ -98,9 +98,45 @@ export interface ReactionPickerProps
 	extends Pick<SelectorProps, 'pickerQuickReactionEmojiIds'>,
 		Partial<Pick<TriggerProps, 'tooltipContent' | 'miniMode'>> {
 	/**
+	 * Optional Show the "more emoji" selector icon for choosing emoji beyond the default list of emojis (defaults to false)
+	 */
+	allowAllEmojis?: boolean;
+	/**
+	 * Optional class name
+	 */
+	className?: string;
+	/**
+	 * Enable/Disable the button to be clickable (defaults to false)
+	 */
+	disabled?: boolean;
+	/**
+	 * Optional emoji picker size to control the size of emoji picker
+	 */
+	emojiPickerSize?: PickerSize;
+	/**
 	 * Provider for loading emojis
 	 */
 	emojiProvider: Promise<EmojiProvider>;
+	/**
+	 * Optional prop for hoverable reaction picker
+	 */
+	hoverableReactionPicker?: boolean;
+	/**
+	 * Optional prop to set a delay for the reaction picker when it opens/closes on hover
+	 */
+	hoverableReactionPickerDelay?: number;
+	/**
+	 * Optional prop to say if the reactions component is in a list
+	 */
+	isListItem?: boolean;
+	/**
+	 * Optional event handler when the emoji picker is clicked outside and closed
+	 */
+	onCancel?: () => void;
+	/**
+	 * Optional event handler when the emoji picker is opened
+	 */
+	onOpen?: () => void;
 	/**
 	 * Event callback when an emoji button is selected
 	 * @param emojiId emoji unique id
@@ -108,45 +144,9 @@ export interface ReactionPickerProps
 	 */
 	onSelection: (emojiId: string, source: ReactionSource) => void;
 	/**
-	 * Optional class name
-	 */
-	className?: string;
-	/**
-	 * Optional Show the "more emoji" selector icon for choosing emoji beyond the default list of emojis (defaults to false)
-	 */
-	allowAllEmojis?: boolean;
-	/**
-	 * Enable/Disable the button to be clickable (defaults to false)
-	 */
-	disabled?: boolean;
-	/**
-	 * Optional event handler when the emoji picker is opened
-	 */
-	onOpen?: () => void;
-	/**
-	 * Optional event handler when the emoji picker is clicked outside and closed
-	 */
-	onCancel?: () => void;
-	/**
 	 * Optional event handler when the custom emoji picker icon is selected
 	 */
 	onShowMore?: () => void;
-	/**
-	 * Optional emoji picker size to control the size of emoji picker
-	 */
-	emojiPickerSize?: PickerSize;
-	/**
-	 * Optional prop for using an opaque button background instead of a transparent background
-	 */
-	showOpaqueBackground?: boolean;
-	/**
-	 * Optional prop for applying subtle styling to reaction summary and picker
-	 */
-	subtleReactionsSummaryAndPicker?: boolean;
-	/**
-	 * Optional prop for displaying text to add a reaction
-	 */
-	showAddReactionText?: boolean;
 	/**
 	 * Optional prop for controlling the picker location
 	 */
@@ -160,17 +160,17 @@ export interface ReactionPickerProps
 	 */
 	reactionPickerTriggerText?: string;
 	/**
-	 * Optional prop to say if the reactions component is in a list
+	 * Optional prop for displaying text to add a reaction
 	 */
-	isListItem?: boolean;
+	showAddReactionText?: boolean;
 	/**
-	 * Optional prop for hoverable reaction picker
+	 * Optional prop for using an opaque button background instead of a transparent background
 	 */
-	hoverableReactionPicker?: boolean;
+	showOpaqueBackground?: boolean;
 	/**
-	 * Optional prop to set a delay for the reaction picker when it opens/closes on hover
+	 * Optional prop for applying subtle styling to reaction summary and picker
 	 */
-	hoverableReactionPickerDelay?: number;
+	subtleReactionsSummaryAndPicker?: boolean;
 }
 
 /**
@@ -543,11 +543,11 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 });
 
 export interface PopperWrapperProps {
-	settings: {
-		showFullPicker: boolean;
-		popperPlacement: Placement;
-	};
 	popperModifiers?: PopperProps<{}>['modifiers'];
+	settings: {
+		popperPlacement: Placement;
+		showFullPicker: boolean;
+	};
 }
 
 export const PopperWrapper = (props: PropsWithChildren<PopperWrapperProps>) => {

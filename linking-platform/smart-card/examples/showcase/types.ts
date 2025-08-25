@@ -4,28 +4,28 @@ import { type CardAppearance } from '../../src';
 
 export type ExampleUrls = Array<ExampleUrl>;
 export interface ExampleResourceType {
-	resourceType: string;
 	displayName: string;
+	resourceType: string;
 	urls: string[];
 }
 export type ExampleRolloutStatus = 'not-started' | 'rolling-out' | 'rolled-out';
 export interface ExampleUrl {
-	resolver: string;
-	category: string;
 	avatarUrl: string;
+	category: string;
 	examples: ExampleResourceType[];
-	rollout: {
-		status: ExampleRolloutStatus;
-		percentage: number;
-	};
 	reliability: {
-		tier: number;
-		extensionKey: string;
-		definitionId: {
-			staging: string;
-			production: string;
-		};
 		auth: boolean;
+		definitionId: {
+			production: string;
+			staging: string;
+		};
+		extensionKey: string;
+		tier: number;
+	};
+	resolver: string;
+	rollout: {
+		percentage: number;
+		status: ExampleRolloutStatus;
 	};
 }
 export interface ExampleUIConfig {

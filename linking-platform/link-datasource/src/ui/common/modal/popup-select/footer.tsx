@@ -12,8 +12,8 @@ import { asyncPopupSelectMessages } from './messages';
 
 export interface PopupFooterProps {
 	currentDisplayCount: number;
-	totalCount: number;
 	filterName: string;
+	totalCount: number;
 }
 
 const styles = cssMap({

@@ -8,8 +8,8 @@ export const EmojiPickerListContext = createContext<EmojiPickerListContextType>(
 
 export interface EmojiPickerListContextProviderProps {
 	initialEmojisFocus: {
-		rowIndex: number;
 		columnIndex: number;
+		rowIndex: number;
 	};
 }
 

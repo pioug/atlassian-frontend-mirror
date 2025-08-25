@@ -1,5 +1,12 @@
 # @atlaskit/jql-ast
 
+## 3.3.2
+
+### Patch Changes
+
+- [`92b1368d9607d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/92b1368d9607d) -
+  Sorted type and interface props to improve Atlaskit docs
+
 ## 3.3.1
 
 ### Patch Changes

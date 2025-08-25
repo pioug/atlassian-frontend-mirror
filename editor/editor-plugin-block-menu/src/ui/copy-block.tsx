@@ -80,6 +80,7 @@ const CopyBlockMenuItem = ({ api }: CopyBlockMenuItemProps & WrappedComponentPro
 
 			// close the block menu after copying
 			api?.core.actions.execute(api?.blockControls?.commands.toggleBlockMenu({ closeMenu: true }));
+			api?.core.actions.focus();
 		}
 	};
 

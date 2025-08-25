@@ -18,14 +18,14 @@ import { useDatasourceAnalyticsEvents } from '../../../../analytics';
 import { basicSearchInputMessages } from './messages';
 
 export interface BasicSearchInputProps {
+	ariaLabel: MessageDescriptor;
+	fullWidth?: boolean;
 	isDisabled?: boolean;
 	isSearching?: boolean;
 	onChange: React.FormEventHandler<HTMLInputElement>;
 	onSearch: (searchTerm: string) => void;
 	searchTerm: string;
-	fullWidth?: boolean;
 	testId: string;
-	ariaLabel: MessageDescriptor;
 }
 
 const styles = cssMap({

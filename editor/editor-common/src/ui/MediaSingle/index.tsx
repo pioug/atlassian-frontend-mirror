@@ -25,13 +25,21 @@ import { MediaSingleDimensionHelper, MediaWrapper } from './styled';
 import type { MediaSingleSize } from './types';
 export interface Props {
 	children: React.ReactNode;
-	layout: MediaSingleLayout;
-	width?: number;
-	height: number;
-	lineLength: number;
-	containerWidth?: number;
-	isLoading?: boolean;
 	className?: string;
+	containerWidth?: number;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	dataAttributes?: Record<string, any>;
+	editorAppearance?: EditorAppearance;
+	fullWidthMode?: boolean;
+	handleMediaSingleRef?: React.RefObject<HTMLDivElement>;
+	hasFallbackContainer?: boolean;
+	height: number;
+	isInsideOfInlineExtension?: boolean;
+	isLoading?: boolean;
+	layout: MediaSingleLayout;
+	lineLength: number;
+	nodeType?: string;
 	/**
 	 * @private
 	 * @deprecated Use {@link Props.size.width} instead.
@@ -39,15 +47,7 @@ export interface Props {
 	 */
 	pctWidth?: number;
 	size?: MediaSingleSize;
-	nodeType?: string;
-	fullWidthMode?: boolean;
-	hasFallbackContainer?: boolean;
-	handleMediaSingleRef?: React.RefObject<HTMLDivElement>;
-	isInsideOfInlineExtension?: boolean;
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	dataAttributes?: Record<string, any>;
-	editorAppearance?: EditorAppearance;
+	width?: number;
 }
 
 /**

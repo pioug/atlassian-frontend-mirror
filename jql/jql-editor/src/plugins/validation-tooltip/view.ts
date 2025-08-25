@@ -12,7 +12,7 @@ import {
 	TOOLTIP_EXIT_CLASSNAME,
 } from './constants';
 
-type Coords = { left: number; right: number; top: number; bottom: number };
+type Coords = { bottom: number; left: number; right: number; top: number };
 export class ValidationTooltipPluginView {
 	tooltip: HTMLElement;
 	constructor(mainId: string) {

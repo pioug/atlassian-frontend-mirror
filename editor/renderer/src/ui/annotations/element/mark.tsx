@@ -139,13 +139,13 @@ const accessibilityStyles = css({
 });
 
 type MarkComponentProps = {
-	id: AnnotationId;
 	annotationParentIds: AnnotationId[];
 	dataAttributes: AnnotationDataAttributes;
-	state: AnnotationMarkStates | null;
 	hasFocus: boolean;
+	id: AnnotationId;
 	isHovered: boolean;
 	onClick: (props: OnAnnotationClickPayload) => void;
+	state: AnnotationMarkStates | null;
 	useBlockLevel?: boolean;
 };
 export const MarkComponent = ({

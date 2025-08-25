@@ -66,14 +66,14 @@ const iconStyle = css({
 });
 
 export interface Props {
+	id?: string;
 	item: LinkSearchListItemData;
-	selected: boolean;
-	onSelect: (href: string, text: string) => void;
-	onMouseMove?: (objectId: string) => void;
 	onMouseEnter?: (objectId: string) => void;
 	onMouseLeave?: (objectId: string) => void;
-	id?: string;
+	onMouseMove?: (objectId: string) => void;
+	onSelect: (href: string, text: string) => void;
 	role?: string;
+	selected: boolean;
 }
 
 // Ignored via go/ees005

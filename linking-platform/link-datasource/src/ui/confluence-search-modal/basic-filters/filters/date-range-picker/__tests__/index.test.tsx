@@ -33,8 +33,8 @@ describe('DateRangePicker', () => {
 	const buildTestFixture = (
 		onSelectionChange: (updatedOption: DateRangeSelection) => void,
 		config?: {
-			selection?: DateRangeOption | undefined;
 			filterName?: string;
+			selection?: DateRangeOption | undefined;
 		},
 	) => {
 		return (

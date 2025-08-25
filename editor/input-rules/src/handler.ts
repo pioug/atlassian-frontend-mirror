@@ -16,11 +16,11 @@ import type {
 } from './types';
 
 type Options = {
+	allowInsertTextOnDocument: boolean;
+	onBeforeRegexMatch?: OnBeforeRegexMatch;
+	onInputEvent?: OnInputEvent;
 	pluginKey: PluginKey;
 	rules: InputRuleWrapper[];
-	allowInsertTextOnDocument: boolean;
-	onInputEvent?: OnInputEvent;
-	onBeforeRegexMatch?: OnBeforeRegexMatch;
 };
 
 export const createInputEventHandler =
@@ -84,16 +84,16 @@ export const createInputEventHandler =
 	};
 
 type FindMatchOnRulesProps = {
-	rules: InputRuleWrapper[];
-	textBefore: string;
 	from: number;
-	to: number;
+	rules: InputRuleWrapper[];
 	state: EditorState;
+	textBefore: string;
+	to: number;
 };
 type RuleMatchedResult = {
 	from: number;
-	to: number;
 	matchedRule: MatchedRule;
+	to: number;
 };
 function findMatchOnRules({
 	rules,

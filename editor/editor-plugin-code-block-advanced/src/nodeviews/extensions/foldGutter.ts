@@ -1,7 +1,14 @@
-import { foldGutter, codeFolding } from '@codemirror/language';
+import { foldGutter, codeFolding, foldState, foldEffect } from '@codemirror/language';
+import { type StateEffect } from '@codemirror/state';
+import type { EditorView as CodeMirror } from '@codemirror/view';
 
+import {
+	setCodeBlockFoldState,
+	type FoldRange,
+	getCodeBlockFoldState,
+} from '@atlaskit/editor-common/code-block';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
-import type { DOMOutputSpec } from '@atlaskit/editor-prosemirror/model';
+import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import { token } from '@atlaskit/tokens';
 
@@ -48,9 +55,29 @@ const chevronRight: DOMOutputSpec = [
 	],
 ];
 
-export function foldGutterExtension({ selectNode }: { selectNode: () => void }) {
+export function foldGutterExtension({
+	selectNode,
+	getNode,
+}: {
+	getNode: () => PMNode;
+	selectNode: () => void;
+}) {
 	return [
 		foldGutter({
+			foldingChanged: (update) => {
+				const folds = update.state.field(foldState, false);
+				if (!folds) {
+					return false;
+				}
+				const foldRanges: FoldRange[] = [];
+
+				folds.between(0, update.state.doc.length, (from, to) => {
+					foldRanges.push({ from, to });
+				});
+
+				setCodeBlockFoldState(getNode(), foldRanges);
+				return false;
+			},
 			domEventHandlers: {
 				click: (_view, _, event) => {
 					// If we're trying to click the button, don't select
@@ -125,4 +152,28 @@ export function foldGutterExtension({ selectNode }: { selectNode: () => void }) 
 			},
 		}),
 	];
+}
+
+export function getCodeBlockFoldStateEffects({
+	node,
+	cm,
+}: {
+	cm: CodeMirror;
+	node: PMNode;
+}): StateEffect<unknown>[] | undefined {
+	const savedFolds = getCodeBlockFoldState(node);
+	if (savedFolds.length === 0) {
+		return undefined;
+	}
+
+	// Create fold effects for each saved fold range
+	const effects = [];
+	for (const foldRange of savedFolds) {
+		// Validate that the fold range is still valid for the current document
+		const docLength = cm.state.doc.length;
+		if (foldRange.from >= 0 && foldRange.to <= docLength && foldRange.from < foldRange.to) {
+			effects.push(foldEffect.of({ from: foldRange.from, to: foldRange.to }));
+		}
+	}
+	return effects;
 }

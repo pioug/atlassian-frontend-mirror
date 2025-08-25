@@ -160,20 +160,20 @@ export type Props = {
 	onTitleChange?: (title: string) => void;
 };
 export type State = {
-	isInviteToEditButtonSelected: boolean;
-	documentId?: string;
+	__livePage: boolean;
+	__liveView: boolean;
 	collabUrl?: string;
+	collabUrlInput?: HTMLInputElement;
+	documentId?: string;
+	documentIdInput?: HTMLInputElement;
 	/**
 	 * document to preload into the editor prior to collab booting up
 	 */
 	draftDoc?: string;
-	documentIdInput?: HTMLInputElement;
-	collabUrlInput?: HTMLInputElement;
-	hasError?: boolean;
-	title?: string;
-	__livePage: boolean;
-	__liveView: boolean;
 	editorView?: EditorView;
+	hasError?: boolean;
+	isInviteToEditButtonSelected: boolean;
+	title?: string;
 };
 
 const getQueryParam = (param: string) => {

@@ -53,16 +53,6 @@ export type QuickInsertItemId =
 	| 'fivecolumnslayout';
 
 export type QuickInsertItem = TypeAheadItem & {
-	/** other names used to find the item */
-	keywords?: Array<string>;
-	/** categories where to find the item */
-	categories?: Array<string>;
-	/** optional sorting priority */
-	priority?: number;
-	/** optional identifier */
-	id?: QuickInsertItemId;
-	/** indicates if the item will be highlighted where appropriate (plus menu for now) */
-	featured?: boolean;
 	/**
 	 * What to do on insert
 	 *
@@ -75,6 +65,16 @@ export type QuickInsertItem = TypeAheadItem & {
 		state: EditorState,
 		source?: INPUT_METHOD.TOOLBAR | INPUT_METHOD.QUICK_INSERT,
 	) => Transaction | false;
+	/** categories where to find the item */
+	categories?: Array<string>;
+	/** indicates if the item will be highlighted where appropriate (plus menu for now) */
+	featured?: boolean;
+	/** optional identifier */
+	id?: QuickInsertItemId;
+	/** other names used to find the item */
+	keywords?: Array<string>;
+	/** optional sorting priority */
+	priority?: number;
 };
 
 export type QuickInsertProvider = {

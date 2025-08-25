@@ -74,12 +74,12 @@ const mapToAutocompleteOptions = (data: JQLFieldResponse[]): AutocompleteOptions
 
 describe('onFields', () => {
 	type OnFieldsConsumerProps = {
-		jqlSearchableFields?: JQLFieldResponse[];
-		jqlOrderableFields?: JQLFieldResponse[];
-		query?: string;
 		clause?: JQLClause;
 		done: jest.DoneCallback;
+		jqlOrderableFields?: JQLFieldResponse[];
+		jqlSearchableFields?: JQLFieldResponse[];
 		onAssert: (fields: AutocompleteOptions) => void;
+		query?: string;
 	};
 
 	const OnFieldsConsumer = ({

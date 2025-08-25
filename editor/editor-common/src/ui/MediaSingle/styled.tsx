@@ -224,21 +224,21 @@ export function roundToClosestEvenPxValue(widthValue: string) {
 export interface MediaSingleWrapperProps {
 	containerWidth?: number;
 	fullWidthMode?: boolean;
+	innerRef?: ((elem: HTMLDivElement) => void) | RefObject<HTMLDivElement>;
+	isExtendedResizeExperienceOn?: boolean;
+	isInsideOfInlineExtension?: boolean;
+	isNestedNode?: boolean;
 	isResized?: boolean;
 	layout: MediaSingleLayout;
+	mediaSingleWidth?: number;
+	nodeType?: string;
 	/**
 	 * @private
 	 * @deprecated Use {@link MediaSingleWrapperProps["mediaSingleWidth"]} instead.
 	 * Cleanup ticket: https://product-fabric.atlassian.net/browse/ED-19076
 	 */
 	pctWidth?: number;
-	mediaSingleWidth?: number;
 	width?: number;
-	innerRef?: ((elem: HTMLDivElement) => void) | RefObject<HTMLDivElement>;
-	isExtendedResizeExperienceOn?: boolean;
-	isNestedNode?: boolean;
-	isInsideOfInlineExtension?: boolean;
-	nodeType?: string;
 }
 
 /**
@@ -354,9 +354,9 @@ export const MediaSingleDimensionHelper = ({
 };
 
 export interface MediaWrapperProps {
-	paddingBottom?: string;
-	height?: number;
 	hasFallbackContainer?: boolean;
+	height?: number;
+	paddingBottom?: string;
 }
 
 const RenderFallbackContainer = ({

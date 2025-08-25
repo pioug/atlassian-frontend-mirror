@@ -7,7 +7,7 @@ import type { Ari } from '../types';
  */
 export const extractCloudIdAndProductFromSite = (
 	site: Ari,
-): { product: string; cloudId: string } => {
+): { cloudId: string; product: string } => {
 	let cloudId;
 	let resourceOwner;
 	let resourceType;

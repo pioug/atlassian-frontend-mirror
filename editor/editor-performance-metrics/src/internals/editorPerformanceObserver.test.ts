@@ -175,7 +175,7 @@ describe('EditorPerformanceObserver', () => {
 
 	describe('EditorPerformanceObserver start/stop functionality', () => {
 		let observer: EditorPerformanceObserver;
-		let mockDomObservers: { observe: jest.Mock; disconnect: jest.Mock };
+		let mockDomObservers: { disconnect: jest.Mock; observe: jest.Mock };
 		let mockFirstInteraction: { disconnect: jest.Mock };
 		let mockUserEventsObserver: { disconnect: jest.Mock };
 

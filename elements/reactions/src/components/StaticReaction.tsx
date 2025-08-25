@@ -32,11 +32,11 @@ const styles = cssMap({
 });
 
 type StaticReactionProps = {
-	onMouseEnter?: (event: React.MouseEvent<HTMLButtonElement>) => void;
-	onFocus?: (event: React.FocusEvent<HTMLButtonElement>) => void;
-	testId?: string;
 	children?: React.ReactNode;
 	dataAttributes?: { [key: string]: string };
+	onFocus?: (event: React.FocusEvent<HTMLButtonElement>) => void;
+	onMouseEnter?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+	testId?: string;
 };
 
 export const StaticReaction = ({

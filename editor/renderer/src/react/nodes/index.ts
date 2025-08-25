@@ -313,22 +313,22 @@ export const toReact = (
 };
 
 export interface TextWrapper {
+	content: Node[];
+	nodeSize: number;
 	type: {
 		name: 'textWrapper';
 	};
-	content: Node[];
-	nodeSize: number;
 }
 
 interface NodeSimple {
-	type: {
-		name: string;
-	};
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	attrs?: any;
-	text?: string;
 	nodeSize: number;
+	text?: string;
+	type: {
+		name: string;
+	};
 }
 
 /*

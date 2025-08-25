@@ -5,7 +5,7 @@ import DecisionItem from '../../../../react/nodes/decisionItem';
 import ReactSerializer from '../../../../react';
 
 describe('Renderer - React/Nodes/DecisionItem', () => {
-	let serialiser = new ReactSerializer({});
+	const serialiser = new ReactSerializer({});
 	const text: any = 'This is a list item';
 	const listItem = shallow(
 		<DecisionItem

@@ -26,7 +26,7 @@ describe('Annotations: Hooks/useInlineCommentsFilter', () => {
 	const Wrapper = ({
 		children,
 		states,
-	}: React.PropsWithChildren<{ states: any; children?: ReactNode }>) => {
+	}: React.PropsWithChildren<{ children?: ReactNode; states: any }>) => {
 		return (
 			<InlineCommentsStateContext.Provider value={states}>
 				{children}

@@ -17,9 +17,9 @@ import { type ConfluenceSearchDatasourceParameters } from '../types';
 import { searchMessages } from './messages';
 
 interface Props {
-	parameters: ConfluenceSearchDatasourceParameters;
 	isSearching: boolean;
 	onSearch: (searchTerm: string, filters?: SelectedOptionsMap) => void;
+	parameters: ConfluenceSearchDatasourceParameters;
 }
 
 const styles = cssMap({

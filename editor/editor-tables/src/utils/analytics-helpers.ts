@@ -6,10 +6,10 @@ import { findTable } from './find';
 import { getSelectionRect } from './get-selection-rect';
 
 export function getSelectedTableInfo(selection: Selection): {
-	table: ReturnType<typeof findTable> | undefined;
 	map: TableMap | undefined;
-	totalRowCount: number;
+	table: ReturnType<typeof findTable> | undefined;
 	totalColumnCount: number;
+	totalRowCount: number;
 } {
 	let map;
 	let totalRowCount = 0;

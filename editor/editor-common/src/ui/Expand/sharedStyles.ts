@@ -21,10 +21,10 @@ const EXPAND_EXPANDED_BORDER_COLOR = token('color.border');
 
 export const EXPAND_CONTAINER_PADDING = 8;
 export interface StyleProps {
-	expanded?: boolean;
-	focused?: boolean;
 	'data-node-type'?: 'expand' | 'nestedExpand';
 	'data-title'?: string;
+	expanded?: boolean;
+	focused?: boolean;
 }
 
 const containerStyles = (styleProps: StyleProps) => {

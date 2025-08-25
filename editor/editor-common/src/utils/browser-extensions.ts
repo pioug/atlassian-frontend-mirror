@@ -6,13 +6,13 @@ type ScheduledCleanupWork = () => void;
 type ScheduleCleanup = (cb: ScheduledCleanupWork) => void;
 
 type DetectorFns = {
-	sync: () => boolean;
 	async: (detected: NotifyDetected, cleanup: ScheduleCleanup) => void;
+	sync: () => boolean;
 };
 
 type DetectorRegistration = {
-	name: UserBrowserExtension;
 	fns: Partial<DetectorFns>;
+	name: UserBrowserExtension;
 };
 
 type Detector = DetectorRegistration & {

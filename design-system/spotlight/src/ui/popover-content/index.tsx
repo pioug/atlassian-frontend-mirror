@@ -11,6 +11,12 @@ import { SpotlightContext } from '../../controllers/context';
 import type { Placement } from '../../types';
 
 const styles = cssMap({
+	root: {
+		zIndex: 700,
+	},
+});
+
+const visibilityStyles = cssMap({
 	visible: {
 		pointerEvents: 'auto',
 		visibility: 'visible',
@@ -74,7 +80,7 @@ export const PopoverContent = ({ children, placement, isVisible = true }: Popove
 		<Popper offset={offset} placement={popperPlacementMap[placement]}>
 			{({ ref, style }) => (
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-				<div ref={ref} style={style} css={styles[visibility]}>
+				<div ref={ref} style={style} css={[styles.root, visibilityStyles[visibility]]}>
 					{children}
 				</div>
 			)}

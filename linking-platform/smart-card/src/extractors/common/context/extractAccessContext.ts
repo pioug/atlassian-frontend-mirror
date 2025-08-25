@@ -13,10 +13,10 @@ export const extractRequestAccessContextImproved = ({
 	product,
 	createAnalyticsEvent,
 }: {
-	jsonLd: JsonLd.Meta.BaseMeta;
-	url: string;
-	product: string;
 	createAnalyticsEvent?: CreateUIAnalyticsEvent;
+	jsonLd: JsonLd.Meta.BaseMeta;
+	product: string;
+	url: string;
 }): RequestAccessContextProps => {
 	const requestAccess = jsonLd?.requestAccess
 		? {

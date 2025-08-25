@@ -50,7 +50,7 @@ function eeTest<ExperimentName extends keyof EditorExperimentsConfig>(
 	experimentName: ExperimentName,
 	cases: EditorExperimentsConfig[ExperimentName]['defaultValue'] extends string
 		? Record<EditorExperimentsConfig[ExperimentName]['defaultValue'], DescribeBody>
-		: { true: DescribeBody; false: DescribeBody },
+		: { false: DescribeBody; true: DescribeBody },
 	otherExperiments?: EditorExperimentOverrides,
 ) {
 	setupEditorExperiments('test', {});
@@ -120,11 +120,11 @@ eeTest.describe = function eeTestDescribe<ExperimentName extends keyof EditorExp
 	experimentName: ExperimentName,
 	describeName: string,
 ): {
+	each: (describeBody: DescribeBody) => void;
 	variant: (
 		value: EditorExperimentsConfig[ExperimentName]['defaultValue'],
 		describeBody: DescribeBody,
 	) => void;
-	each: (describeBody: DescribeBody) => void;
 } {
 	function eeTest(
 		value: EditorExperimentsConfig[ExperimentName]['defaultValue'],

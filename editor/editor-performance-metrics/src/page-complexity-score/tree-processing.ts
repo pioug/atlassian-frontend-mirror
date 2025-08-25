@@ -1,10 +1,10 @@
 import type { AdfNode, ComplexityResult, DebugNodePath } from './types';
 
 interface StackEntry {
-	node: AdfNode;
 	multiplier: number;
-	pathLength: number;
+	node: AdfNode;
 	path: string[];
+	pathLength: number;
 }
 
 /**
@@ -75,12 +75,12 @@ export function collectLeafNodesWeightsInternal(
 	const debugPathsMap = new Map<
 		string,
 		{
-			path: string[];
-			type: string;
 			baseWeight: number;
-			parentWeight: number;
 			count: number;
+			parentWeight: number;
+			path: string[];
 			totalWeight: number;
+			type: string;
 		}
 	>();
 
@@ -90,10 +90,10 @@ export function collectLeafNodesWeightsInternal(
 		baseWeight,
 		parentWeight,
 	}: {
-		path: string[];
-		leafNode: AdfNode;
 		baseWeight: number;
+		leafNode: AdfNode;
 		parentWeight: number;
+		path: string[];
 	}) {
 		const pathKey = path.concat([leafNode.type]).join('->');
 
@@ -280,13 +280,13 @@ function createWorker(fn: Function): Worker {
 class WorkerManager {
 	private static instance: WorkerManager;
 	private worker: Worker | null = null;
-	private currentTask: { resolve: Function; reject: Function } | null = null;
+	private currentTask: { reject: Function; resolve: Function } | null = null;
 	private isProcessing = false;
 	private taskQueue: Array<{
-		root: AdfNode;
 		options: SerializableOptions;
-		resolve: Function;
 		reject: Function;
+		resolve: Function;
+		root: AdfNode;
 	}> = [];
 
 	private constructor() {
@@ -389,8 +389,8 @@ class WorkerManager {
 export function collectLeafNodesWeights(
 	root: AdfNode,
 	options: {
-		useWebWorker?: boolean;
 		debug?: boolean;
+		useWebWorker?: boolean;
 	},
 ): Promise<ComplexityResult> {
 	if (!options.useWebWorker || !isWebWorkerSupported()) {

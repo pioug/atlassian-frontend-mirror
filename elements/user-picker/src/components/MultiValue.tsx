@@ -41,12 +41,12 @@ const nameWrapper = css({
 });
 
 type Props = MultiValueProps<OptionType> & {
-	isFocused?: boolean;
 	data: Option;
 	innerProps: any;
+	isFocused?: boolean;
+	ref?: React.RefObject<HTMLDivElement>;
 	removeProps: { onClick: Function };
 	selectProps: UserPickerProps;
-	ref?: React.RefObject<HTMLDivElement>;
 };
 
 export class MultiValue extends React.Component<Props> {

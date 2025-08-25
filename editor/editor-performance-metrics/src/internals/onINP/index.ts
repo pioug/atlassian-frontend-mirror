@@ -5,7 +5,7 @@ import { InteractionManager } from './interactions';
 import { onHidden } from './onHidden';
 import { whenIdle } from './whenIdle';
 
-export type Metric = { value: number; delta: number; entries: PerformanceEntry[] };
+export type Metric = { delta: number; entries: PerformanceEntry[]; value: number };
 export type CleanupOnINP = () => void;
 type OnINP = (result: Metric) => void;
 

@@ -12,35 +12,35 @@ import { type ContextViewModel, type FrameStyle } from '../types';
 import { useEmbedResolvePostMessageListener } from '../useEmbedResolvePostMessageListener';
 
 export interface EmbedCardResolvedViewProps {
-	/** The title of the link */
-	title?: string;
+	/** Component to prompt for competitor link */
+	CompetitorPrompt?: React.ComponentType<{ linkType?: string; sourceUrl: string }>;
 	/** The context view model */
 	context?: ContextViewModel;
-	/** The link to display */
-	link: string;
-	/** A flag that determines whether the card is selected in edit mode. */
-	isSelected?: boolean;
 	/** A prop that determines the style of a frame: whether to show it, hide it or only show it when a user hovers over embed */
 	frameStyle?: FrameStyle;
-	/** The src to be used for the `iframe` */
-	preview?: { src?: string; aspectRatio?: number };
-	/** A flag that determines whether link source can be trusted in iframe **/
-	isTrusted?: boolean;
-	/** The optional click handler */
-	onClick?: (evt: React.MouseEvent) => void;
-	/** For testing purposes only. */
-	testId?: string;
+	inheritDimensions?: boolean;
+	/** A flag that determines whether the card is selected in edit mode. */
+	isSelected?: boolean;
 	/* It determines whether a link source supports different design theme modes */
 	isSupportTheming?: boolean;
-	inheritDimensions?: boolean;
+	/** A flag that determines whether link source can be trusted in iframe **/
+	isTrusted?: boolean;
+	/** The link to display */
+	link: string;
+	/** The optional click handler */
+	onClick?: (evt: React.MouseEvent) => void;
 	/** Optional callback for when user dwells cursor over iframe - for analytics **/
 	onIframeDwell?: (dwellTime: number, dwellPercentVisible: number) => void;
 	/** Optional callback for when user navigates into an iframe - for analytics **/
 	onIframeFocus?: () => void;
+	/** The src to be used for the `iframe` */
+	preview?: { aspectRatio?: number; src?: string };
+	/** For testing purposes only. */
+	testId?: string;
+	/** The title of the link */
+	title?: string;
 	/** Type of the object */
 	type?: string[];
-	/** Component to prompt for competitor link */
-	CompetitorPrompt?: React.ComponentType<{ sourceUrl: string; linkType?: string }>;
 }
 
 export const EmbedCardResolvedView = React.forwardRef<

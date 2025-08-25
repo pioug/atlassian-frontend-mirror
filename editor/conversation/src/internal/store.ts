@@ -7,15 +7,15 @@ import { type User } from '../model/User';
 
 export interface State {
 	conversations: Conversation[];
-	user?: User;
 	highlighted?: string;
+	user?: User;
 }
 
 export interface Action {
-	type: string;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	payload?: any;
+	type: string;
 }
 
 export type Handler = (state: State | undefined) => void;

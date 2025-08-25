@@ -55,15 +55,15 @@ export const calcPctWidth = (
 	Math.ceil(calcPxFromPct(pctWidth / 100, containerWidth.lineLength || containerWidth.width));
 
 export const calcMediaPxWidth = (opts: {
-	origWidth: number;
-	origHeight: number;
-	state?: EditorState;
 	containerWidth: EditorContainerWidth;
+	isFullWidthModeEnabled?: boolean;
 	layout?: MediaSingleLayout;
+	origHeight: number;
+	origWidth: number;
 	pctWidth?: number;
 	pos?: number;
 	resizedPctWidth?: number;
-	isFullWidthModeEnabled?: boolean;
+	state?: EditorState;
 }): number => {
 	const { origWidth, origHeight, layout, pctWidth, containerWidth, resizedPctWidth } = opts;
 	const { width, lineLength } = containerWidth;

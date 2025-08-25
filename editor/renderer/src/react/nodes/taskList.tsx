@@ -3,8 +3,8 @@ import React, { PureComponent, Children, type ReactNode } from 'react';
 import { TaskList as AkTaskList } from '@atlaskit/task-decision';
 
 export interface Props {
-	localId?: string;
 	children?: ReactNode;
+	localId?: string;
 }
 
 // Ignored via go/ees005

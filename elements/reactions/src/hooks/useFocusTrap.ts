@@ -8,8 +8,8 @@ import { useEffect } from 'react';
 import createFocusTrap from 'focus-trap';
 
 export type FocusManagerHook = {
-	targetRef: HTMLDivElement | null;
 	initialFocusRef: HTMLElement | null;
+	targetRef: HTMLDivElement | null;
 };
 
 export const useFocusTrap = ({ targetRef, initialFocusRef }: FocusManagerHook): void => {

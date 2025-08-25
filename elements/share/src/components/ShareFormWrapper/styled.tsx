@@ -24,8 +24,8 @@ const calculateFormWrapperWidth = ({
 	isExtendedShareDialogEnabled,
 }: {
 	integrationMode?: IntegrationMode;
-	isMenuItemSelected?: boolean;
 	isExtendedShareDialogEnabled?: boolean;
+	isMenuItemSelected?: boolean;
 }) => {
 	const formWidth = `${isExtendedShareDialogEnabled ? 452 : 8 * 44}px`;
 
@@ -47,8 +47,8 @@ export const InlineDialogFormWrapper = ({
 	isExtendedShareDialogEnabled,
 }: PropsWithChildren<{
 	integrationMode?: IntegrationMode;
-	isMenuItemSelected?: boolean;
 	isExtendedShareDialogEnabled?: boolean;
+	isMenuItemSelected?: boolean;
 }>) => {
 	const styles = {
 		width: calculateFormWrapperWidth({
@@ -86,7 +86,7 @@ export const InlineDialogContentWrapper = ({
 	children,
 	label,
 	isExtendedShareDialogEnabled,
-}: PropsWithChildren<{ label?: string; isExtendedShareDialogEnabled?: boolean }>) => {
+}: PropsWithChildren<{ isExtendedShareDialogEnabled?: boolean; label?: string }>) => {
 	return (
 		<div
 			css={

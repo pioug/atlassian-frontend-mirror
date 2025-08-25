@@ -18,8 +18,8 @@ interface GetFieldValuesProps {
 	cloudId: string;
 	jql: string;
 	jqlTerm: BasicFilterFieldType;
-	searchString: string;
 	pageCursor?: string;
+	searchString: string;
 }
 
 const AGG_BASE_URL = '/gateway/api/graphql';

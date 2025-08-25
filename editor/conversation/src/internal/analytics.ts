@@ -28,9 +28,9 @@ export enum eventTypes {
 }
 
 export interface AnalyticsEvent {
-	update: (attributes: object) => void;
-	fire: (channel: string) => void;
 	attributes: object;
+	fire: (channel: string) => void;
+	update: (attributes: object) => void;
 }
 
 export type EventAttributes = {
@@ -38,14 +38,14 @@ export type EventAttributes = {
 };
 
 export type EventData = {
-	actionSubjectId?: string;
-	objectId?: string;
-	containerId?: string;
-	nestedDepth?: number;
-	eventType?: eventTypes;
 	action?: string;
 	actionSubject?: string;
+	actionSubjectId?: string;
 	attributes?: EventAttributes;
+	containerId?: string;
+	eventType?: eventTypes;
+	nestedDepth?: number;
+	objectId?: string;
 };
 
 export function fireEvent(analyticsEvent: UIAnalyticsEvent, eventData: EventData) {

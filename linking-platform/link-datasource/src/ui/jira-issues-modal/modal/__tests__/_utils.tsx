@@ -22,8 +22,8 @@ export const getDefaultParameters: () => JiraIssueDatasourceParameters = () => (
 const getAdfOnInsert = (args: {
 	cloudId?: string;
 	jql?: string;
-	properties?: JiraIssuesDatasourceAdf['attrs']['datasource']['views'][0]['properties'];
 	jqlUrl?: string;
+	properties?: JiraIssuesDatasourceAdf['attrs']['datasource']['views'][0]['properties'];
 }) => {
 	const adf: JiraIssuesDatasourceAdf = {
 		type: 'blockCard',

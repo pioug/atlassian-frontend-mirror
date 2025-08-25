@@ -59,36 +59,6 @@ interface ReactionSummaryViewProps
 		>,
 		Pick<TriggerProps, 'tooltipContent' | 'reactionPickerTriggerIcon' | 'disabled'> {
 	/**
-	 * Optional prop to change the placement of the summary popup reaction list
-	 */
-	placement?: Placement;
-	/**
-	 * event handler when a a reaction button is clicked inside the summary
-	 */
-	onReactionClick: ReactionClick;
-	/**
-	 * Event callback when an emoji button is selected
-	 * @param emojiId emoji unique id
-	 * @param source source where the reaction was picked (either the initial default reactions or the custom reactions picker)
-	 */
-	onSelection: (emojiId: string, source: ReactionSource) => void;
-	/**
-	 * Optional event when the mouse cursor hovers over a reaction button inside the summary
-	 */
-	onReactionMouseEnter?: ReactionMouseEnter;
-	/**
-	 * Optional event when focused a reaction inside the summary
-	 */
-	onReactionFocused?: ReactionFocused;
-	/**
-	 * Optional prop for using an opaque button background instead of a transparent background
-	 */
-	showOpaqueBackground?: boolean;
-	/**
-	 * Optional prop for applying subtle styling to reaction picker
-	 */
-	subtleReactionsSummaryAndPicker?: boolean;
-	/**
 	 * Optional prop for enabling the Reactions Dialog
 	 */
 	allowUserDialog?: boolean;
@@ -96,14 +66,6 @@ interface ReactionSummaryViewProps
 	 * Optional function when the user wants to open the Reactions Dialog
 	 */
 	handleOpenReactionsDialog?: (options?: OpenReactionsDialogOptions) => void;
-	/**
-	 * Optional prop for controlling if the reactions component is view only, disabling adding reactions
-	 */
-	isViewOnly?: boolean;
-	/**
-	 * Optional event handler when the emoji picker is opened
-	 */
-	onOpen?: () => void;
 	/**
 	 * Optional prop to make the summary view open on hover
 	 */
@@ -113,13 +75,51 @@ interface ReactionSummaryViewProps
 	 */
 	hoverableSummaryViewDelay?: number;
 	/**
-	 * Optional prop for the optimistic image URL
+	 * Optional prop for controlling if the reactions component is view only, disabling adding reactions
 	 */
-	summaryGetOptimisticImageURL?: (emojiId: string) => string;
+	isViewOnly?: boolean;
+	/**
+	 * Optional event handler when the emoji picker is opened
+	 */
+	onOpen?: () => void;
+	/**
+	 * event handler when a a reaction button is clicked inside the summary
+	 */
+	onReactionClick: ReactionClick;
+	/**
+	 * Optional event when focused a reaction inside the summary
+	 */
+	onReactionFocused?: ReactionFocused;
+	/**
+	 * Optional event when the mouse cursor hovers over a reaction button inside the summary
+	 */
+	onReactionMouseEnter?: ReactionMouseEnter;
+	/**
+	 * Event callback when an emoji button is selected
+	 * @param emojiId emoji unique id
+	 * @param source source where the reaction was picked (either the initial default reactions or the custom reactions picker)
+	 */
+	onSelection: (emojiId: string, source: ReactionSource) => void;
+	/**
+	 * Optional prop to change the placement of the summary popup reaction list
+	 */
+	placement?: Placement;
+	/**
+	 * Optional prop for using an opaque button background instead of a transparent background
+	 */
+	showOpaqueBackground?: boolean;
+	/**
+	 * Optional prop for applying subtle styling to reaction picker
+	 */
+	subtleReactionsSummaryAndPicker?: boolean;
 	/**
 	 * Optional prop to control if the side picker is shown
 	 */
 	summaryButtonIconAfter?: React.ReactNode;
+	/**
+	 * Optional prop for the optimistic image URL
+	 */
+	summaryGetOptimisticImageURL?: (emojiId: string) => string;
 	/**
 	 * Optional prop to set the most recently clicked id
 	 */

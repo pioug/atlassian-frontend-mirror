@@ -11,19 +11,9 @@ import type { CardActionOptions } from '../Card/types';
 
 export interface HoverCardProps extends WithAnalyticsEventsProps {
 	/**
-	 * Unique ID for a hover card. Used for analytics.
+	 * Configure visibility of server and client actions
 	 */
-	id?: string;
-
-	/**
-	 * Hover card will display data from this url.
-	 */
-	url: string;
-
-	/**
-	 * React children component over which the hover card can be triggered.
-	 */
-	children: ReactElement;
+	actionOptions?: CardActionOptions;
 
 	/**
 	 * Determines if the hover card is allowed to open. If changed from true to false while the
@@ -32,21 +22,15 @@ export interface HoverCardProps extends WithAnalyticsEventsProps {
 	canOpen?: boolean;
 
 	/**
+	 * React children component over which the hover card can be triggered.
+	 */
+	children: ReactElement;
+
+	/**
 	 * Determines if the hover card should close when the children passed in are
 	 * clicked.
 	 */
 	closeOnChildClick?: boolean;
-
-	/**
-	 * Configure visibility of server and client actions
-	 */
-	actionOptions?: CardActionOptions;
-
-	/**
-	 * Z-index that the hover card should be displayed in.
-	 * This is passed to the portal component.
-	 */
-	zIndex?: number;
 
 	/**
 	 * Additional configurations for hover card.
@@ -54,10 +38,9 @@ export interface HoverCardProps extends WithAnalyticsEventsProps {
 	hoverPreviewOptions?: HoverPreviewOptions;
 
 	/**
-	 * Use this to set the accessibility role for the hover card.
-	 * Should be used along with `label` or `titleId` for supported roles.
+	 * Unique ID for a hover card. Used for analytics.
 	 */
-	role?: string;
+	id?: string;
 
 	/**
 	 * Refers to an `aria-label` attribute. Sets an accessible name for the hover card to announce it to users of assistive technology.
@@ -66,10 +49,27 @@ export interface HoverCardProps extends WithAnalyticsEventsProps {
 	label?: string;
 
 	/**
+	 * Use this to set the accessibility role for the hover card.
+	 * Should be used along with `label` or `titleId` for supported roles.
+	 */
+	role?: string;
+
+	/**
 	 * Id referenced by the hover card `aria-labelledby` attribute.
 	 * Usage of either this, or the `label` attribute is strongly recommended.
 	 */
 	titleId?: string;
+
+	/**
+	 * Hover card will display data from this url.
+	 */
+	url: string;
+
+	/**
+	 * Z-index that the hover card should be displayed in.
+	 * This is passed to the portal component.
+	 */
+	zIndex?: number;
 }
 
 /**
@@ -97,15 +97,15 @@ export interface HoverCardComponentProps extends HoverCardProps, HoverCardIntern
 }
 
 export type HoverCardContentProps = {
-	id?: string;
+	actionOptions?: CardActionOptions;
 	cardState: CardState;
-	renderers?: CardProviderRenderers;
+	id?: string;
 	onActionClick: (actionId: string | ActionName) => void;
-	onResolve: () => void;
-	url: string;
 	onMouseEnter?: MouseEventHandler;
 	onMouseLeave?: MouseEventHandler;
-	actionOptions?: CardActionOptions;
+	onResolve: () => void;
+	renderers?: CardProviderRenderers;
+	url: string;
 };
 
 export type ContentContainerProps = React.HTMLAttributes<HTMLDivElement> & {

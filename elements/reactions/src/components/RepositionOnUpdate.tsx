@@ -5,11 +5,11 @@ import React, { Fragment, useLayoutEffect, useRef } from 'react';
 import { type PopperChildrenProps, type Placement } from '@atlaskit/popper';
 
 export type RepositionOnUpdateProps = {
-	update: PopperChildrenProps['update'];
 	settings: {
-		showFullPicker: boolean;
 		popperPlacement: Placement;
+		showFullPicker: boolean;
 	};
+	update: PopperChildrenProps['update'];
 };
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc

@@ -6,10 +6,10 @@ export type PageElementCounts = {
 	elements: {
 		[key: string]: number;
 	};
-	textFormats: {
+	macros: {
 		[key: string]: number;
 	};
-	macros: {
+	textFormats: {
 		[key: string]: number;
 	};
 	unexpectedElements: {

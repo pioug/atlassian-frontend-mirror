@@ -148,12 +148,12 @@ const doc = {
 	],
 };
 
-function TextHighliterComponent({ match, marks }: { match: string; marks: Set<string> }) {
+function TextHighliterComponent({ match, marks }: { marks: Set<string>; match: string }) {
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 	return <span style={{ color: 'red', border: '1px solid red' }}>{match}</span>;
 }
 
-function FilteredTextHighliterComponent({ match, marks }: { match: string; marks: Set<string> }) {
+function FilteredTextHighliterComponent({ match, marks }: { marks: Set<string>; match: string }) {
 	return marks.has('link') ? (
 		<Fragment>{match}</Fragment>
 	) : (

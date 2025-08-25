@@ -371,20 +371,9 @@ export const ReactMediaInlineNode =
 		dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
 	) =>
 	(node: PMNode, view: EditorView, getPos: getPosHandler): NodeView => {
-		return new MediaInlineNodeView(
-			node,
-			view,
-			getPos,
-			portalProviderAPI,
-			eventDispatcher,
-			{
-				providerFactory,
-				dispatchAnalyticsEvent,
-				api,
-			},
-			undefined,
-			undefined,
-			// @portal-render-immediately
-			true,
-		).init();
+		return new MediaInlineNodeView(node, view, getPos, portalProviderAPI, eventDispatcher, {
+			providerFactory,
+			dispatchAnalyticsEvent,
+			api,
+		}).init();
 	};

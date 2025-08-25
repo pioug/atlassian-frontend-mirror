@@ -14,14 +14,14 @@ export type LozengeActionErrorProps = {
 	invokePreviewAction?: InvokeClientActionProps;
 
 	/**
-	 * Data test id used for testing purposes
-	 */
-	testId?: string;
-
-	/**
 	 * Maximum number of lines displayed inside of the dropdown
 	 */
 	maxLineNumber?: number;
+
+	/**
+	 * Data test id used for testing purposes
+	 */
+	testId?: string;
 
 	/**
 	 * The url of the link. Used in reload functionality

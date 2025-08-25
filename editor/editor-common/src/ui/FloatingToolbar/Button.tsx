@@ -18,43 +18,43 @@ const customSizeAndPadding = {
 };
 
 export interface Props {
-	title?: string;
+	appearance?: ButtonAppearance;
+	areaControls?: string;
+	ariaHasPopup?: boolean | 'dialog' | 'menu' | 'listbox' | 'tree' | 'grid' | undefined;
+	ariaLabel?: string;
+	children?: React.ReactNode;
+	className?: string;
+	disabled?: boolean;
+	hideTooltipOnClick?: boolean;
+	href?: string;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	icon?: React.ReactElement<any>;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	iconAfter?: React.ReactElement<any>;
+	interactionName?: string;
+	isRadioButton?: boolean;
+	onBlur?: <T>(event: React.FocusEvent<T>) => void;
 	onClick?: React.MouseEventHandler;
+	onFocus?: <T>(event: React.FocusEvent<T>) => void;
 	onKeyDown?: React.KeyboardEventHandler;
+	onMount?: () => void;
 	onMouseEnter?: <T>(event: React.MouseEvent<T>) => void;
 	onMouseLeave?: <T>(event: React.MouseEvent<T>) => void;
-	onFocus?: <T>(event: React.FocusEvent<T>) => void;
-	onBlur?: <T>(event: React.FocusEvent<T>) => void;
-	onMount?: () => void;
 	onUnmount?: () => void;
+	/** If true, the component will have pulse onboarding effect around it. */
+	pulse?: boolean;
 	selected?: boolean;
-	disabled?: boolean;
-	appearance?: ButtonAppearance;
-	ariaHasPopup?: boolean | 'dialog' | 'menu' | 'listbox' | 'tree' | 'grid' | undefined;
-	ariaLabel?: string;
-	href?: string;
+	spotlightConfig?: FloatingToolbarButtonSpotlightConfig;
+	tabIndex?: number | null | undefined;
 	target?: string;
-	children?: React.ReactNode;
-	className?: string;
+	testId?: string;
+	title?: string;
 	tooltipContent?: TooltipProps['content'];
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	tooltipStyle?: React.ForwardRefExoticComponent<any> | React.ComponentType<any>;
-	testId?: string;
-	interactionName?: string;
-	hideTooltipOnClick?: boolean;
-	tabIndex?: number | null | undefined;
-	areaControls?: string;
-	isRadioButton?: boolean;
-	/** If true, the component will have pulse onboarding effect around it. */
-	pulse?: boolean;
-	spotlightConfig?: FloatingToolbarButtonSpotlightConfig;
 }
 
 export default ({

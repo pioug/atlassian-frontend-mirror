@@ -65,8 +65,8 @@ const ACTION_INPUT_METHOD_NAME_MAP: Record<LifecycleAction, InputMethodAttribute
 
 const DEFAULT_ATTRIBUTES_MAP: {
 	created: LinkCreatedAttributesType;
-	updated: LinkUpdatedAttributesType;
 	deleted: LinkDeletedAttributesType;
+	updated: LinkUpdatedAttributesType;
 } = {
 	created: {
 		sourceEvent: null,

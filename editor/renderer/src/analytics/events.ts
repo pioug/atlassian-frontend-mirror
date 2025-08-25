@@ -40,12 +40,12 @@ type RendererRenderedAEP = AEP<
 	ACTION_SUBJECT.RENDERER,
 	undefined,
 	{
-		platform: PLATFORM.WEB;
-		duration: number;
 		distortedDuration: boolean;
-		ttfb?: number;
+		duration: number;
 		nodes: Record<string, number>;
+		platform: PLATFORM.WEB;
 		severity?: SEVERITY;
+		ttfb?: number;
 	},
 	EVENT_TYPE.OPERATIONAL
 >;
@@ -55,11 +55,11 @@ export type ComponentCrashErrorAEP = OperationalAEP<
 	ACTION_SUBJECT.RENDERER,
 	ACTION_SUBJECT_ID,
 	{
-		platform: PLATFORM.WEB;
-		errorMessage?: string;
-		errorStack?: string;
 		componentStack?: string;
+		errorMessage?: string;
 		errorRethrown?: boolean;
+		errorStack?: string;
+		platform: PLATFORM.WEB;
 	}
 >;
 
@@ -78,8 +78,8 @@ type InvalidProsemirrorDocumentErrorAEP = AEP<
 	ACTION_SUBJECT.RENDERER,
 	ACTION_SUBJECT_ID,
 	{
-		platform: PLATFORM.WEB;
 		errorStack?: string;
+		platform: PLATFORM.WEB;
 	},
 	EVENT_TYPE.OPERATIONAL
 >;
@@ -91,10 +91,10 @@ type RendererUnsupportedContentLevelsTrackingSucceeded = AEP<
 	{
 		appearance?: string;
 		platform: PLATFORM.WEB;
-		unsupportedContentLevelSeverity: UNSUPPORTED_CONTENT_LEVEL_SEVERITY;
-		unsupportedContentLevelPercentage: number;
-		unsupportedNodesCount: number;
 		supportedNodesCount: number;
+		unsupportedContentLevelPercentage: number;
+		unsupportedContentLevelSeverity: UNSUPPORTED_CONTENT_LEVEL_SEVERITY;
+		unsupportedNodesCount: number;
 		unsupportedNodeTypeCount: Record<string, number>;
 	},
 	EVENT_TYPE.OPERATIONAL
@@ -105,8 +105,8 @@ type RendererUnsupportedContentLevelsTrackingErrored = AEP<
 	ACTION_SUBJECT.RENDERER,
 	undefined,
 	{
-		platform: PLATFORM.WEB;
 		error: string;
+		platform: PLATFORM.WEB;
 	},
 	EVENT_TYPE.OPERATIONAL
 >;
@@ -146,7 +146,7 @@ type AnchorLinkAEP = UIAEP<
 	ACTION.VIEWED,
 	ACTION_SUBJECT.ANCHOR_LINK,
 	undefined,
-	{ platform: PLATFORM.WEB; mode: MODE.RENDERER }
+	{ mode: MODE.RENDERER; platform: PLATFORM.WEB }
 >;
 
 type CodeBlockCopyAEP = ButtonAEP<ACTION_SUBJECT_ID.CODEBLOCK_COPY, undefined>;
@@ -160,8 +160,8 @@ type TableSortColumnNotAllowedAEP = AEP<
 	ACTION_SUBJECT.TABLE,
 	undefined,
 	{
-		platform: PLATFORM.WEB;
 		mode: MODE.RENDERER;
+		platform: PLATFORM.WEB;
 	},
 	EVENT_TYPE.TRACK
 >;
@@ -171,10 +171,10 @@ type TableSortColumnAEP = AEP<
 	ACTION_SUBJECT.TABLE,
 	undefined,
 	{
-		platform: PLATFORM.WEB;
-		mode: MODE.RENDERER;
-		sortOrder: SortOrder;
 		columnIndex: number;
+		mode: MODE.RENDERER;
+		platform: PLATFORM.WEB;
+		sortOrder: SortOrder;
 	},
 	EVENT_TYPE.TRACK
 >;
@@ -184,8 +184,8 @@ type VisitLinkAEP = AEP<
 	ACTION_SUBJECT.LINK,
 	undefined,
 	{
-		platform: PLATFORM.WEB;
 		mode: MODE.RENDERER;
+		platform: PLATFORM.WEB;
 	},
 	EVENT_TYPE.TRACK
 >;
@@ -195,8 +195,8 @@ type VisitMediaLinkAEP = AEP<
 	ACTION_SUBJECT.MEDIA,
 	ACTION_SUBJECT_ID.LINK,
 	{
-		platform: PLATFORM.WEB;
 		mode: MODE.RENDERER;
+		platform: PLATFORM.WEB;
 	},
 	EVENT_TYPE.TRACK
 >;
@@ -206,9 +206,9 @@ type ExpandAEP = AEP<
 	ACTION_SUBJECT.EXPAND | ACTION_SUBJECT.NESTED_EXPAND,
 	undefined,
 	{
-		platform: PLATFORM.WEB;
-		mode: MODE.RENDERER;
 		expanded: boolean;
+		mode: MODE.RENDERER;
+		platform: PLATFORM.WEB;
 	},
 	EVENT_TYPE.TRACK
 >;

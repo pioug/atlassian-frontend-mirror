@@ -13,9 +13,9 @@ export type ShareResponse = {
 	shareRequestId: string;
 };
 export interface ShareClient {
-	share: ShareRequest;
-
 	getConfig(cloudId: string): Promise<ConfigResponse>;
+
+	share: ShareRequest;
 }
 
 export type ConfigResponse = {

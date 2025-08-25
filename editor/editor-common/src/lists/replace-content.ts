@@ -5,8 +5,8 @@ import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import { ReplaceAroundStep, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 
 type Params = {
-	insertPosition: number;
 	$target: ResolvedPos;
+	insertPosition: number;
 };
 export const moveTargetIntoList = ({ insertPosition, $target }: Params): Step => {
 	// take the text content of the paragraph and insert after the paragraph up until before the the cut

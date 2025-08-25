@@ -82,11 +82,11 @@ class CodeBlockModel {
 }
 
 interface RendererPageInterface {
-	page: Page;
 	annotation: AnnotationModel;
 	codeBlock: CodeBlockModel;
-	waitForRendererStable: () => Promise<void>;
 	getAnalyticsEvents: () => Promise<GasPurePayload[]>;
+	page: Page;
+	waitForRendererStable: () => Promise<void>;
 }
 
 type RendererPropsOptional = Omit<
@@ -96,15 +96,15 @@ type RendererPropsOptional = Omit<
 	'document' | 'dataProviders'
 >;
 type MountRendererOptions = {
+	enableClickToEdit?: boolean;
+	exampleType?: string;
+	mockInlineComments?: boolean;
 	showSidebar?: boolean;
 	withRendererActions?: boolean;
-	mockInlineComments?: boolean;
-	exampleType?: string;
-	enableClickToEdit?: boolean;
 };
 
 // Based on https://github.com/microsoft/playwright/issues/6347
-async function mockDate(page: Page, date: { year: number; month: number; day: number }) {
+async function mockDate(page: Page, date: { day: number; month: number; year: number }) {
 	// Calculate the date (account for offset)
 	const fakeNow = new Date(Date.UTC(date.year, date.month - 1, date.day)).valueOf();
 
@@ -173,11 +173,11 @@ class RendererPageModel implements RendererPageInterface {
 		platformFeatureFlags,
 		editorExperiments,
 	}: {
-		rendererProps: RendererPropsOptional;
-		rendererMountOptions: MountRendererOptions;
 		adf: DocNode | string | Record<string, unknown> | undefined;
-		platformFeatureFlags?: Record<string, boolean>;
 		editorExperiments?: EditorExperimentOverrides;
+		platformFeatureFlags?: Record<string, boolean>;
+		rendererMountOptions: MountRendererOptions;
+		rendererProps: RendererPropsOptional;
 	}) {
 		await this.rendererContainer.waitFor({ state: 'attached' });
 
@@ -186,11 +186,11 @@ class RendererPageModel implements RendererPageInterface {
 		});
 
 		type RendererMountEvaluateProps = {
-			_props: unknown;
-			_mountOptions: MountRendererOptions;
 			_adf: DocNode | string | Record<string, unknown> | undefined;
-			platformFeatureFlags?: Record<string, boolean>;
+			_mountOptions: MountRendererOptions;
+			_props: unknown;
 			editorExperiments?: EditorExperimentOverrides;
+			platformFeatureFlags?: Record<string, boolean>;
 		};
 		type DoEvaluate = (arg: RendererMountEvaluateProps) => void;
 
@@ -251,17 +251,17 @@ class RendererPageModel implements RendererPageInterface {
 }
 
 export const rendererTestCase = base.extend<{
-	renderer: RendererPageInterface;
-	rendererProps: RendererPropsOptional;
-	rendererMountOptions: MountRendererOptions;
 	adf: DocNode | string | Record<string, unknown> | undefined;
-	platformFeatureFlags?: Record<string, boolean>;
 	/**
 	 * Note: This is not available when used with the `exampleType` option.
 	 * This is because custom examples will have their application loaded
 	 * prior to the experiment overrides being applied.
 	 */
 	editorExperiments?: EditorExperimentOverrides;
+	platformFeatureFlags?: Record<string, boolean>;
+	renderer: RendererPageInterface;
+	rendererMountOptions: MountRendererOptions;
+	rendererProps: RendererPropsOptional;
 }>({
 	rendererProps: {},
 	rendererMountOptions: {},

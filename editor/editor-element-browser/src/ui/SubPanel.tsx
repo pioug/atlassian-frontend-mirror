@@ -14,10 +14,10 @@ const itemContainerStyles = xcss({
 });
 
 interface SubPanelWithBackButtonProps {
-	label: string;
 	buttonLabel: string;
-	onClick: () => void;
 	children: React.ReactNode;
+	label: string;
+	onClick: () => void;
 }
 export const SubPanelWithBackButton = memo(
 	({ label, buttonLabel, onClick, children }: SubPanelWithBackButtonProps) => {

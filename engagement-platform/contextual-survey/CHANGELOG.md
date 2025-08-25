@@ -1,5 +1,13 @@
 # @atlaskit/contextual-survey
 
+## 5.0.7
+
+### Patch Changes
+
+- [`0fdcb6f2f96fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0fdcb6f2f96fd) -
+  Sorted type and interface props to improve Atlaskit docs
+- Updated dependencies
+
 ## 5.0.6
 
 ### Patch Changes

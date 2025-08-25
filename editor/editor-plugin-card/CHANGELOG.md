@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-card
 
+## 7.5.0
+
+### Minor Changes
+
+- [`22e6e9fdea37a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22e6e9fdea37a) -
+  Debounced embed card
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.4.9
 
 ### Patch Changes

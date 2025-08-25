@@ -75,9 +75,9 @@ describe('HoverCardResolvedView', () => {
 		isAISummaryEnabled,
 		cardState,
 	}: {
-		mockResponse?: JsonLd.Response;
-		isAISummaryEnabled?: boolean;
 		cardState: any;
+		isAISummaryEnabled?: boolean;
+		mockResponse?: JsonLd.Response;
 	}) => {
 		return (
 			<HoverCardResolvedView
@@ -106,8 +106,8 @@ describe('HoverCardResolvedView', () => {
 		mockResponse = mocks.entityDataSuccess,
 		isAISummaryEnabled,
 	}: {
-		mockResponse?: SmartLinkResponse;
 		isAISummaryEnabled?: boolean;
+		mockResponse?: SmartLinkResponse;
 	} = {}) => {
 		cardState = getCardState({
 			data: mockResponse.data,

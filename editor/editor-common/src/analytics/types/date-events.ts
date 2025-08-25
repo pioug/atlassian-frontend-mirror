@@ -54,8 +54,8 @@ type CommitDateAEP = TrackAEP<
 	undefined,
 	{
 		commitMethod: INPUT_METHOD.PICKER | INPUT_METHOD.BLUR | INPUT_METHOD.KEYBOARD;
-		isValid: true | false;
 		isToday: true | false;
+		isValid: true | false;
 	},
 	undefined
 >;

@@ -10,12 +10,12 @@ import {
 } from '../../ui/annotations/element/useInlineAnnotationProps';
 
 export interface Props extends MarkDataAttributes {
-	id: string;
-	providers?: ProviderFactory;
-	eventHandlers?: EventHandlers;
-	text: string;
 	accessLevel?: string;
+	eventHandlers?: EventHandlers;
+	id: string;
 	localId?: string;
+	providers?: ProviderFactory;
+	text: string;
 }
 
 export default memo(function MentionItem(props: Props) {

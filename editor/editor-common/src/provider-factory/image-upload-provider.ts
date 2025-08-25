@@ -1,8 +1,8 @@
 import type { ImageUploadPluginReferenceEvent } from '../types';
 
 export type InsertedImageProperties = {
-	src?: string;
 	alt?: string;
+	src?: string;
 	title?: string;
 };
 

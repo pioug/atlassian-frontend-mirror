@@ -57,20 +57,20 @@ const providers = {
 rejectedPromise.catch(() => {});
 
 export interface State {
-	reloadEditor: boolean;
-	editorEnabled: boolean;
-	mentionProvider: 'resolved' | 'pending' | 'rejected' | 'undefined';
-	emojiProvider: 'resolved' | 'pending' | 'rejected' | 'undefined';
 	activityProvider: 'resolved' | 'pending' | 'rejected' | 'undefined';
 	document?: string;
+	editorEnabled: boolean;
+	emojiProvider: 'resolved' | 'pending' | 'rejected' | 'undefined';
+	mentionProvider: 'resolved' | 'pending' | 'rejected' | 'undefined';
+	reloadEditor: boolean;
 }
 
 export type Props = {
 	renderEditor: (props: {
-		disabled: boolean;
-		mentionProvider?: Promise<MentionProvider>;
-		emojiProvider?: Promise<EmojiProvider>;
 		activityProvider?: Promise<ActivityProvider> | MockActivityResource;
+		disabled: boolean;
+		emojiProvider?: Promise<EmojiProvider>;
+		mentionProvider?: Promise<MentionProvider>;
 		onChange: (view: EditorView) => void;
 	}) => React.ReactChild;
 };

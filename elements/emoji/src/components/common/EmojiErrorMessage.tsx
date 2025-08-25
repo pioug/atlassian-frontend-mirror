@@ -40,9 +40,9 @@ const errorMessageStyles = cssMap({
 });
 
 export interface Props {
+	errorStyle: ErrorStyle;
 	message: Message;
 	tooltip?: boolean;
-	errorStyle: ErrorStyle;
 }
 
 export const emojiErrorScreenreaderTestId = 'emoji-error-screenreader-message';

@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-caption
 
+## 3.2.0
+
+### Minor Changes
+
+- [`1b13c6ccd13e1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b13c6ccd13e1) -
+  Debounced caption rendering
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.1.5
 
 ### Patch Changes

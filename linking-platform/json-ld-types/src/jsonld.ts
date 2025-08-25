@@ -77,8 +77,8 @@ export namespace JsonLd {
     ----------------------------
   */
 		export interface AuthService {
-			key: string;
 			displayName: string;
+			key: string;
 			url: string;
 		}
 		/*
@@ -97,9 +97,9 @@ export namespace JsonLd {
 		}
 
 		export interface PreviewExtension {
-			'atlassian:supportedPlatforms'?: Primitives.Platforms[];
 			/* Embed's aspect ratio */
 			'atlassian:aspectRatio'?: number;
+			'atlassian:supportedPlatforms'?: Primitives.Platforms[];
 			/* A target resource pointed to by a Link that provides an editable/interactive mode. */
 			interactiveHref?: string;
 		}
@@ -110,15 +110,15 @@ export namespace JsonLd {
 		}
 
 		export interface SubTasksProgress {
-			totalCount: number;
 			resolvedCount: number;
+			totalCount: number;
 		}
 
 		export interface UserAttributes {
-			role?: string;
 			department?: string;
 			location?: string;
 			pronouns?: string;
+			role?: string;
 		}
 		/*
       -----------------------
@@ -132,6 +132,8 @@ export namespace JsonLd {
 			'@id'?: string;
 			/* Identifies the Object or Link type. Multiple values may be specified. */
 			'@type': Property<'Object' | ObjectType>;
+			/* Identifies an inclusive option for a Question. Use of anyOf implies that the Question can have multiple answers. To indicate that a Question can have only one answer, use oneOf. */
+			anyOf?: Array<Primitives.Object | Primitives.Link>;
 			/* Identifies a resource attached or related to an object that potentially requires special handling. The intent is to provide a model that is at least semantically similar to attachments in email. */
 			attachment?: Property<Primitives.Object | Primitives.Link>;
 			/* Identifies one or more entities to which this object is attributed. The attributed entities might not be Actors. For instance, an object might be attributed to the completion of another activity.*/
@@ -149,8 +151,17 @@ export namespace JsonLd {
 			bto?: Property<Primitives.Object | Primitives.Link>;
 			/* Identifies an Object that is part of the public secondary audience of this Object. */
 			cc?: Property<Primitives.Object | Primitives.Link>;
+			/* Indicates that a question has been closed, and answers are no longer accepted. */
+			closed?: Primitives.Object | Primitives.Link | string | boolean;
+			/* The content or textual representation of the Object encoded as a JSON string. By default, the value of content is HTML. The mediaType property can be used in the object to indicate a different content type. The content may be expressed using multiple language-tagged values. */
+			content?: string;
+			contentMap?: Record<string, string>;
 			/* Identifies the context within which the object exists or an activity was performed. The notion of "context" used is intentionally vague. The intended function is to serve as a means of grouping objects and activities that share a common originating context or purpose. An example could be all activities relating to a common project or event. */
 			context?: Primitives.Object | Primitives.Link;
+			/* When the object describes a time-bound resource, such as an audio or video, a meeting, etc, the duration property indicates the object's approximate duration. The value must be expressed as an xsd:duration as defined by [ xmlschema11-2], section 3.3.6 (e.g. a period of 5 seconds is represented as "PT5S"). */
+			duration?: string;
+			/* The date and time describing the actual or expected ending time of the object. When used with an Activity object, for instance, the endTime property specifies the moment the activity concluded or is expected to conclude. */
+			endTime?: string;
 			/* Identifies the entity (e.g. an application) that generated the object. */
 			generator?: Primitives.Object | Primitives.Link;
 			/* Indicates an entity that describes an icon for this object. The image should have an aspect ratio of one (horizontal) to one (vertical) and should be suitable for presentation at a small size. */
@@ -161,45 +172,34 @@ export namespace JsonLd {
 			inReplyTo?: Property<Primitives.Object | Primitives.Link>;
 			/* Indicates one or more physical or logical locations associated with the object. */
 			location?: Property<Primitives.Object | Primitives.Link>;
-			/* Identifies an exclusive option for a Question. Use of oneOf implies that the Question can have only a single answer. To indicate that a Question can have multiple answers, use anyOf. */
-			oneOf?: Array<Primitives.Object | Primitives.Link>;
-			/* Identifies an inclusive option for a Question. Use of anyOf implies that the Question can have multiple answers. To indicate that a Question can have only one answer, use oneOf. */
-			anyOf?: Array<Primitives.Object | Primitives.Link>;
-			/* Indicates that a question has been closed, and answers are no longer accepted. */
-			closed?: Primitives.Object | Primitives.Link | string | boolean;
-			/* Identifies an entity that provides a preview of this object. */
-			preview?: string | ((Primitives.LinkModel | Primitives.Object) & PreviewExtension);
-			/* Identifies a Collection containing objects considered to be responses to this object. */
-			replies?: Collection<T>;
-			/* One or more "tags" that have been associated with an objects. A tag can be any kind of Object. The key difference between attachment and tag is that the former implies association by inclusion, while the latter implies associated by reference. */
-			tag?: Property<Primitives.Object | Primitives.Link>;
-			/* Identifies an entity considered to be part of the public primary audience of an Object */
-			to?: Property<Primitives.Object | Primitives.Link>;
-			/* Identifies one or more links to representations of the object */
-			url?: Property<string | Primitives.Link>;
-			/* The content or textual representation of the Object encoded as a JSON string. By default, the value of content is HTML. The mediaType property can be used in the object to indicate a different content type. The content may be expressed using multiple language-tagged values. */
-			content?: string;
-			contentMap?: Record<string, string>;
+			/* When used on a Link, identifies the MIME media type of the referenced resource. When used on an Object, identifies the MIME media type of the value of the content property. If not specified, the content property is assumed to contain text/html content. */
+			mediaType?: string;
 			/* A simple, human-readable, plain-text name for the object. HTML markup must not be included. The name may be expressed using multiple language-tagged values. */
 			name?: string;
 			nameMap?: Record<string, string>;
-			/* When the object describes a time-bound resource, such as an audio or video, a meeting, etc, the duration property indicates the object's approximate duration. The value must be expressed as an xsd:duration as defined by [ xmlschema11-2], section 3.3.6 (e.g. a period of 5 seconds is represented as "PT5S"). */
-			duration?: string;
-			/* When used on a Link, identifies the MIME media type of the referenced resource. When used on an Object, identifies the MIME media type of the value of the content property. If not specified, the content property is assumed to contain text/html content. */
-			mediaType?: string;
-			/* The date and time describing the actual or expected ending time of the object. When used with an Activity object, for instance, the endTime property specifies the moment the activity concluded or is expected to conclude. */
-			endTime?: string;
+			/* Identifies an exclusive option for a Question. Use of oneOf implies that the Question can have only a single answer. To indicate that a Question can have multiple answers, use anyOf. */
+			oneOf?: Array<Primitives.Object | Primitives.Link>;
+			/* Identifies an entity that provides a preview of this object. */
+			preview?: string | ((Primitives.LinkModel | Primitives.Object) & PreviewExtension);
 			/* The date and time at which the object was published */
 			published?: string;
+			/* Identifies a Collection containing objects considered to be responses to this object. */
+			replies?: Collection<T>;
 			/* The date and time describing the actual or expected starting time of the object. When used with an Activity object, for instance, the startTime property specifies the moment the activity began or is scheduled to begin. */
 			startTime?: string;
 			/* A natural language summarization of the object encoded as HTML. Multiple language tagged summaries may be provided. */
 			summary?: string;
 			summaryMap?: Record<string, string>;
-			/* The date and time at which the object was updated */
-			updated?: string;
+			/* One or more "tags" that have been associated with an objects. A tag can be any kind of Object. The key difference between attachment and tag is that the former implies association by inclusion, while the latter implies associated by reference. */
+			tag?: Property<Primitives.Object | Primitives.Link>;
 			/* To Show number of members in a team */
 			teamMemberCount?: number;
+			/* Identifies an entity considered to be part of the public primary audience of an Object */
+			to?: Property<Primitives.Object | Primitives.Link>;
+			/* The date and time at which the object was updated */
+			updated?: string;
+			/* Identifies one or more links to representations of the object */
+			url?: Property<string | Primitives.Link>;
 			/* User details containing few user information like department, designation, location and pronouns */
 			userAttributes?: Primitives.UserAttributes;
 		}
@@ -208,39 +208,39 @@ export namespace JsonLd {
 		export type Link = string | LinkModel;
 		export interface LinkModel {
 			'@type': 'Link';
+			/* On a Link, specifies a hint as to the rendering height in device-independent pixels of the linked resource. */
+			height?: number;
 			/* The target resource pointed to by a Link. */
 			href?: string;
-			/* A link relation associated with a Link. The value must conform to both the [HTML5] and [RFC5988] "link relation" definitions. In the [HTML5], any string not containing the "space" U+0020, "tab" (U+0009), "LF" (U+000A), "FF" (U+000C), "CR" (U+000D) or "," (U+002C) characters can be used as a valid link relation. */
-			rel?: Primitives.Link;
+			/* Hints as to the language used by the target resource. Value must be a [BCP47] Language-Tag. */
+			hreflang?: string;
 			/* When used on a Link, identifies the MIME media type of the referenced resource. When used on an Object, identifies the MIME media type of the value of the content property. If not specified, the content property is assumed to contain text/html content. */
 			mediaType?: string;
 			/* A simple, human-readable, plain-text name for the object. HTML markup must not be included. The name may be expressed using multiple language-tagged values. */
 			name?: string;
 			nameMap?: Record<string, string>;
-			/* Hints as to the language used by the target resource. Value must be a [BCP47] Language-Tag. */
-			hreflang?: string;
-			/* On a Link, specifies a hint as to the rendering height in device-independent pixels of the linked resource. */
-			height?: number;
-			/* On a Link, specifies a hint as to the rendering width in device-independent pixels of the linked resource. */
-			width?: number;
 			/* Identifies an entity that provides a preview of this object. */
 			preview?: string | ((Primitives.LinkModel | Primitives.Object) & PreviewExtension);
+			/* A link relation associated with a Link. The value must conform to both the [HTML5] and [RFC5988] "link relation" definitions. In the [HTML5], any string not containing the "space" U+0020, "tab" (U+0009), "LF" (U+000A), "FF" (U+000C), "CR" (U+000D) or "," (U+002C) characters can be used as a valid link relation. */
+			rel?: Primitives.Link;
+			/* On a Link, specifies a hint as to the rendering width in device-independent pixels of the linked resource. */
+			width?: number;
 		}
 
 		/* An Activity is a subtype of Object that describes some form of action that may happen, is currently happening, or has already happened. The Activity type itself serves as an abstract base type for all types of activities. It is important to note that the Activity type itself does not carry any specific semantics about the kind of action being taken. */
 		export interface Activity {
 			/* Describes one or more entities that either performed or are expected to perform the activity. Any single activity can have multiple actors. The actor may be specified using an indirect Link. */
 			actor?: Primitives.Object | Primitives.Link;
-			/* When used within an Activity, describes the direct object of the activity. For instance, in the activity "John added a movie to his wishlist", the object of the activity is the movie added. When used within a Relationship describes the entity to which the subject is related */
-			object?: Primitives.Object | Primitives.Link;
-			/* Describes the indirect object, or target, of the activity. The precise meaning of the target is largely dependent on the type of action being described but will often be the object of the English preposition "to". For instance, in the activity "John added a movie to his wishlist", the target of the activity is John's wishlist. An activity can have more than one target. */
-			target?: Primitives.Object | Primitives.Link;
-			/* Describes the result of the activity. For instance, if a particular action results in the creation of a new resource, the result property can be used to describe that new resource. */
-			result?: Primitives.Object | Primitives.Link;
-			/* Describes an indirect object of the activity from which the activity is directed. The precise meaning of the origin is the object of the English preposition "from". For instance, in the activity "John moved an item to List B from List A", the origin of the activity is "List A". */
-			origin?: Primitives.Object | Primitives.Link;
 			/* Identifies one or more objects used (or to be used) in the completion of an Activity. */
 			instrument?: Property<Primitives.Object | Primitives.Link>;
+			/* When used within an Activity, describes the direct object of the activity. For instance, in the activity "John added a movie to his wishlist", the object of the activity is the movie added. When used within a Relationship describes the entity to which the subject is related */
+			object?: Primitives.Object | Primitives.Link;
+			/* Describes an indirect object of the activity from which the activity is directed. The precise meaning of the origin is the object of the English preposition "from". For instance, in the activity "John moved an item to List B from List A", the origin of the activity is "List A". */
+			origin?: Primitives.Object | Primitives.Link;
+			/* Describes the result of the activity. For instance, if a particular action results in the creation of a new resource, the result property can be used to describe that new resource. */
+			result?: Primitives.Object | Primitives.Link;
+			/* Describes the indirect object, or target, of the activity. The precise meaning of the target is largely dependent on the type of action being described but will often be the object of the English preposition "to". For instance, in the activity "John added a movie to his wishlist", the target of the activity is John's wishlist. An activity can have more than one target. */
+			target?: Primitives.Object | Primitives.Link;
 		}
 
 		/* Instances of IntransitiveActivity are a subtype of Activity representing intransitive actions. The object property is therefore inappropriate for these activities. */
@@ -248,16 +248,16 @@ export namespace JsonLd {
 
 		/* A Collection is a subtype of Object that represents ordered or unordered sets of Object or Link instances. Refer to the Activity Streams 2.0 Core specification for a complete description of the Collection type. */
 		export interface Collection<T> {
-			/* A non-negative integer specifying the total number of objects contained by the logical view of the collection. This number might not reflect the actual number of items serialized within the Collection object instance. */
-			totalItems?: number;
 			/* In a paged Collection, indicates the page that contains the most recently updated member items. */
 			current?: CollectionPage<T> | Primitives.Link;
 			/* In a paged Collection, indicates the furthest preceeding page of items in the collection. */
 			first?: CollectionPage<T> | Primitives.Link;
-			/* In a paged Collection, indicates the furthest proceeding page of the collection. */
-			last?: CollectionPage<T> | Primitives.Link;
 			/* Identifies the items contained in a collection. The items might be ordered or unordered. */
 			items?: Primitives.Object | Primitives.Link | Array<Primitives.Object | Primitives.Link | T>;
+			/* In a paged Collection, indicates the furthest proceeding page of the collection. */
+			last?: CollectionPage<T> | Primitives.Link;
+			/* A non-negative integer specifying the total number of objects contained by the logical view of the collection. This number might not reflect the actual number of items serialized within the Collection object instance. */
+			totalItems?: number;
 		}
 
 		/* A subtype of Collection in which members of the logical collection are assumed to always be strictly ordered. */
@@ -265,10 +265,10 @@ export namespace JsonLd {
 
 		/* Used to represent distinct subsets of items from a Collection. Refer to the Activity Streams 2.0 Core for a complete description of the CollectionPage object. */
 		export interface CollectionPage<T = any> extends Collection<T> {
-			/* Identifies the Collection to which a CollectionPage objects items belong. */
-			partOf?: Primitives.Link | Collection<T>;
 			/* In a paged Collection, indicates the next page of items. */
 			next?: CollectionPage<T> | Primitives.Link;
+			/* Identifies the Collection to which a CollectionPage objects items belong. */
+			partOf?: Primitives.Link | Collection<T>;
 			/* In a paged Collection, identifies the previous page of items. */
 			prev?: CollectionPage<T> | Primitives.Link;
 		}
@@ -303,39 +303,39 @@ export namespace JsonLd {
 		/* Represents an individual person. */
 		export interface Person<T = any> extends Primitives.Object<T> {
 			'@type': TypeProperty<'Person'>;
+			/* The name displayed in the UI for the user */
+			'atlassian:displayName'?: string;
+			/* Collection of email addresses associated with the user */
+			'atlassian:emails'?: Array<{
+				/* Whether this is the primary email for the user */
+				primary?: boolean;
+				/* The email address */
+				value: string;
+			}>;
+			/* Additional profile information as key-value pairs */
+			'atlassian:extendedProfile'?: Record<string, any>;
 			/* A globally unique identifier for the user */
 			'atlassian:externalId'?: string;
-			/* The username used to log in */
-			'atlassian:userName'?: string;
 			/* Components of the user's name */
 			'atlassian:name'?: {
-				/* The given (first) name of the user */
-				givenName?: string;
 				/* The family (last) name of the user */
 				familyName?: string;
 				/* The full formatted name of the user */
 				formatted?: string;
+				/* The given (first) name of the user */
+				givenName?: string;
 			};
 			/* A casual or familiar name for the user */
 			'atlassian:nickname'?: string;
-			/* The name displayed in the UI for the user */
-			'atlassian:displayName'?: string;
 			/* Collection of photos associated with the user */
 			'atlassian:photos'?: Array<{
-				/* URL to the photo */
-				value?: string;
 				/* Type of photo */
 				type?: 'photo' | 'thumbnail';
+				/* URL to the photo */
+				value?: string;
 			}>;
-			/* Collection of email addresses associated with the user */
-			'atlassian:emails'?: Array<{
-				/* The email address */
-				value: string;
-				/* Whether this is the primary email for the user */
-				primary?: boolean;
-			}>;
-			/* Additional profile information as key-value pairs */
-			'atlassian:extendedProfile'?: Record<string, any>;
+			/* The username used to log in */
+			'atlassian:userName'?: string;
 		}
 
 		/* Represents a service of any kind. */
@@ -352,12 +352,12 @@ export namespace JsonLd {
 		/* Describes a relationship between two individuals. The subject and object properties are used to identify the connected individuals. */
 		export interface Relationship extends Primitives.Object {
 			'@type': TypeProperty<'Relationship'>;
-			/* On a Relationship object, the subject property identifies one of the connected individuals. For instance, for a Relationship object describing "John is related to Sally", subject would refer to John. */
-			subject?: Primitives.Link | Primitives.Object;
 			/* When used within an Activity, describes the direct object of the activity. For instance, in the activity "John added a movie to his wishlist", the object of the activity is the movie added. When used within a Relationship describes the entity to which the subject is related */
 			object?: Primitives.Object | Primitives.Link;
 			/* On a Relationship object, the relationship property identifies the kind of relationship that exists between subject and object. */
 			relationship?: Primitives.Object;
+			/* On a Relationship object, the subject property identifies one of the connected individuals. For instance, for a Relationship object describing "John is related to Sally", subject would refer to John. */
+			subject?: Primitives.Link | Primitives.Object;
 		}
 		/* Represents any kind of multi-paragraph written work. */
 		export interface Article extends Primitives.Object {
@@ -419,16 +419,16 @@ export namespace JsonLd {
 		}
 		/* State controls the state lozenge */
 		export interface State extends Primitives.Object {
-			appearance?: string;
 			accent?: string;
+			appearance?: string;
 		}
 		/* A Tombstone represents a content object that has been deleted. It can be used in Collections to signify that there used to be an object at this position, but it has been deleted. */
 		export interface Tombstone extends Primitives.Object {
 			'@type': TypeProperty<'Tombstone'>;
-			/* On a Tombstone object, the formerType property identifies the type of the object that was deleted. */
-			formerType?: Primitives.Object;
 			/* On a Tombstone object, the deleted property is a timestamp for when the object was deleted. */
 			deleted?: string;
+			/* On a Tombstone object, the formerType property identifies the type of the object that was deleted. */
+			formerType?: Primitives.Object;
 		}
 
 		/*
@@ -441,9 +441,9 @@ export namespace JsonLd {
 		export type AssignedObjectActions = AssignAction | SubscribeAction | ServerAction;
 		/* Represents an assignable resource - a Task, Issue, etc. */
 		export interface AssignedObject {
-			'atlassian:assignedTo'?: Primitives.Link | Person;
-			'atlassian:assignedBy'?: Primitives.Link | Person;
 			'atlassian:assigned'?: string;
+			'atlassian:assignedBy'?: Primitives.Link | Person;
+			'atlassian:assignedTo'?: Primitives.Link | Person;
 			'atlassian:subscriber'?: Primitives.Link | Person;
 			'atlassian:subscriberCount'?: number;
 		}
@@ -467,17 +467,17 @@ export namespace JsonLd {
 			name: string;
 
 			/**
+			 * references a field in the response to which the action is associated with
+			 * for eg. "tag" for jira issues
+			 */
+			refField?: string;
+			/**
 			 * An object with key value to identify the resource.
 			 * For e.g. for a jira issue link/resource, it could be hostname, and issueId
 			 * The values can change for different action and resources hence the type is not strictly defined
 			 */
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			resourceIdentifiers?: Record<string, any>;
-			/**
-			 * references a field in the response to which the action is associated with
-			 * for eg. "tag" for jira issues
-			 */
-			refField?: string;
 		};
 
 		/**
@@ -527,19 +527,19 @@ export namespace JsonLd {
 
 	export namespace Meta {
 		export interface BaseMeta {
+			[k: string]: any;
 			access: Primitives.Access;
-			visibility: Primitives.Visibility;
+			'atlassian:remoteLinkCategory'?: string;
 			auth?: Primitives.AuthService[];
+			category?: any;
+			containerId?: any;
 			follow?: boolean;
 			objectId?: any;
-			tenantId?: any;
-			resourceType?: any;
-			containerId?: any;
-			category?: any;
 			product?: any;
+			resourceType?: any;
 			subproduct?: any;
-			[k: string]: any;
-			'atlassian:remoteLinkCategory'?: string;
+			tenantId?: any;
+			visibility: Primitives.Visibility;
 		}
 
 		export interface Public extends BaseMeta {
@@ -568,33 +568,33 @@ export namespace JsonLd {
 		export interface BaseData extends Primitives.Object {
 			'@context': Primitives.Context;
 			'@type': Primitives.Property<Primitives.ObjectType>;
-			'schema:potentialAction'?: Primitives.Property<Primitives.Action>;
-			// Most JSON-lD resoures will be downloadable; main path being Documents.
-			'atlassian:downloadUrl'?: string;
-			// Used when a Smart Link is clicked, as opposed to the original URL being unfurled to its JSON-LD representation.
-			'atlassian:visitUrl'?: string;
-			// Used to store emoji value for content title
-			'atlassian:titlePrefix'?: TitlePrefix;
-			'atlassian:updatedBy'?:
-				| Primitives.Link
-				| Primitives.Person
-				| Primitives.Collection<Primitives.Link | Primitives.Person>;
+			/**
+			 * The Atlassian Resource Identifier (ARI) of the object
+			 */
+			'atlassian:ari'?: string;
 			'atlassian:createdBy'?:
 				| Primitives.Link
 				| Primitives.Person
 				| Primitives.Collection<Primitives.Link | Primitives.Person>;
-			'schema:dateCreated'?: string;
+			// Most JSON-lD resoures will be downloadable; main path being Documents.
+			'atlassian:downloadUrl'?: string;
+			'atlassian:ownedBy'?: Primitives.Person;
 			/**
 			 * Added because schema:potentialAction could not be used by the new action implementation
 			 * https://product-fabric.atlassian.net/wiki/spaces/EM/pages/3531374887/Alternatives+for+using+potentialActions+property
 			 * https://team.atlassian.com/project/ATLAS-13099
 			 */
 			'atlassian:serverAction'?: Primitives.Property<Primitives.ServerAction>;
-			'atlassian:ownedBy'?: Primitives.Person;
-			/**
-			 * The Atlassian Resource Identifier (ARI) of the object
-			 */
-			'atlassian:ari'?: string;
+			// Used to store emoji value for content title
+			'atlassian:titlePrefix'?: TitlePrefix;
+			'atlassian:updatedBy'?:
+				| Primitives.Link
+				| Primitives.Person
+				| Primitives.Collection<Primitives.Link | Primitives.Person>;
+			// Used when a Smart Link is clicked, as opposed to the original URL being unfurled to its JSON-LD representation.
+			'atlassian:visitUrl'?: string;
+			'schema:dateCreated'?: string;
+			'schema:potentialAction'?: Primitives.Property<Primitives.Action>;
 		}
 
 		export interface BaseCollectionData<T extends BaseData> extends Primitives.Collection<T> {
@@ -610,8 +610,8 @@ export namespace JsonLd {
 		}
 
 		export interface TitlePrefix extends Primitives.Object {
-			text: string;
 			'@type': Primitives.Property<Primitives.ObjectType>;
+			text: string;
 		}
 
 		export type DocumentAction =
@@ -635,20 +635,20 @@ export namespace JsonLd {
 				| Primitives.TypeProperty<'Document', 'Object'>
 				| Primitives.TypeProperty<DocumentChildType, DocumentParentType>
 				| Primitives.TypeProperty<'schema:DigitalDocument', 'Document'>;
-			'schema:fileFormat'?: string;
-			'atlassian:fileSize'?: number;
-			'schema:commentCount'?: number;
-			'atlassian:isDeleted'?: boolean;
-			'schema:potentialAction'?: Primitives.Property<DocumentAction>;
 			'atlassian:attachmentCount'?: number;
-			'atlassian:dateViewed'?: string;
 			'atlassian:checkItems'?: Primitives.CheckItemProgress;
+			'atlassian:dateViewed'?: string;
+			'atlassian:fileSize'?: number;
+			'atlassian:isDeleted'?: boolean;
 			'atlassian:reactCount'?: number;
+			'atlassian:readTimeInMinutes'?: number;
 			'atlassian:state'?: string | Primitives.State;
 			'atlassian:viewCount'?: number;
 			'atlassian:viewerCount'?: number;
 			'atlassian:voteCount'?: number;
-			'atlassian:readTimeInMinutes'?: number;
+			'schema:commentCount'?: number;
+			'schema:fileFormat'?: string;
+			'schema:potentialAction'?: Primitives.Property<DocumentAction>;
 			version?: string;
 		}
 
@@ -676,10 +676,10 @@ export namespace JsonLd {
 		export type MessageAction = ReplyAction | DeleteAction | ViewAction;
 		export interface Message extends BaseData {
 			'@type': Primitives.TypeProperty<'schema:Message'>;
-			dateSent?: string;
-			dateReceived?: string;
-			dateRead?: string;
 			'atlassian:reactCount'?: number;
+			dateRead?: string;
+			dateReceived?: string;
+			dateSent?: string;
 			'schema:potentialAction'?: Primitives.Property<MessageAction>;
 		}
 
@@ -709,9 +709,9 @@ export namespace JsonLd {
 
 		export interface Object extends BaseData {
 			'@type': Primitives.TypeProperty<'atlassian:Object'>;
-			'schema:dateCreated'?: string; // xsd:dateTime
 			'schema:attachmentCount'?: number;
 			'schema:commentCount'?: number;
+			'schema:dateCreated'?: string; // xsd:dateTime
 		}
 
 		export interface Type extends BaseData {
@@ -726,6 +726,7 @@ export namespace JsonLd {
 
 		export interface Project extends BaseData {
 			'@type': Primitives.TypeProperty<'atlassian:Project'>;
+			'atlassian:appliedToComponentsCount'?: number;
 			'atlassian:attachmentCount'?: number;
 			'atlassian:checkItems'?: Primitives.CheckItemProgress;
 			'atlassian:isDeleted': boolean;
@@ -734,18 +735,17 @@ export namespace JsonLd {
 				| Primitives.Person
 				| Primitives.Collection<Primitives.Person>;
 			'atlassian:reactCount'?: number;
-			'schema:commentCount'?: number;
 			'atlassian:state'?: string | Primitives.State;
-			'atlassian:appliedToComponentsCount'?: number;
+			'schema:commentCount'?: number;
 		}
 
 		export interface SourceCodeDocument extends Document {
-			'schema:programmingLanguage'?: string; // ComputerLanguage | Text
-			'schema:codeSampleType'?: string;
-			'schema:targetProduct'?: string;
-			'schema:runtimePlatform'?: string;
-			'schema:potentialAction'?: Primitives.Property<DocumentAction>;
 			'atlassian:latestCommit'?: Partial<SourceCodeCommit> | Primitives.Link;
+			'schema:codeSampleType'?: string;
+			'schema:potentialAction'?: Primitives.Property<DocumentAction>;
+			'schema:programmingLanguage'?: string; // ComputerLanguage | Text
+			'schema:runtimePlatform'?: string;
+			'schema:targetProduct'?: string;
 		}
 
 		export type SourceCodeCommitAction = DeleteAction | ViewAction | WatchAction;
@@ -754,8 +754,8 @@ export namespace JsonLd {
 			'atlassian:committedBy': Primitives.Link | Primitives.Person;
 			'atlassian:parent'?: Primitives.Property<Primitives.Object | Primitives.Link>;
 			'schema:commentCount'?: number; // xsd:datetime
-			'schema:programmingLanguage'?: string; // ComputerLanguage | Text
 			'schema:potentialAction'?: Primitives.Property<SourceCodeCommitAction>;
+			'schema:programmingLanguage'?: string; // ComputerLanguage | Text
 		}
 
 		export type SourceCodePullRequestAction =
@@ -766,34 +766,34 @@ export namespace JsonLd {
 		export interface SourceCodePullRequest extends BaseData {
 			'@type': Primitives.TypeProperty<'atlassian:SourceCodePullRequest'>;
 			'atlassian:internalId'?: string;
-			'atlassian:state': string | Primitives.Link | Primitives.State; // xsd:string | rdf:langString
-			'atlassian:mergeSource'?:
-				| Partial<SourceCodeCommit>
-				| Partial<SourceCodeReference>
-				| Primitives.Link;
+			'atlassian:isMerged': boolean;
+			'atlassian:mergeable'?: boolean;
+			'atlassian:mergeCommit'?: Partial<SourceCodeCommit> | Primitives.Link;
+			'atlassian:merged'?: string; // xsd:dateTime
+			'atlassian:mergedBy'?: Primitives.Link | Primitives.Person;
 			'atlassian:mergeDestination'?:
 				| Partial<SourceCodeCommit>
 				| Partial<SourceCodeReference>
 				| Primitives.Link;
-			'atlassian:mergeCommit'?: Partial<SourceCodeCommit> | Primitives.Link;
-			'atlassian:mergeable'?: boolean;
-			'atlassian:isMerged': boolean;
-			'atlassian:merged'?: string; // xsd:dateTime
-			'atlassian:mergedBy'?: Primitives.Link | Primitives.Person;
-			'atlassian:reviewer'?: Array<Primitives.Link | Primitives.Person>;
+			'atlassian:mergeSource'?:
+				| Partial<SourceCodeCommit>
+				| Partial<SourceCodeReference>
+				| Primitives.Link;
 			'atlassian:reviewedBy'?: Array<Primitives.Link | Primitives.Person>;
+			'atlassian:reviewer'?: Array<Primitives.Link | Primitives.Person>;
+			'atlassian:state': string | Primitives.Link | Primitives.State; // xsd:string | rdf:langString
 			'atlassian:subscriberCount'?: number;
 			'atlassian:voteCount'?: number;
-			'schema:programmingLanguage'?: string;
 			'schema:potentialAction'?: Primitives.Property<SourceCodePullRequestAction>;
+			'schema:programmingLanguage'?: string;
 		}
 
 		export type SourceCodeReferenceAction = DownloadAction | DeleteAction | ViewAction;
 		export interface SourceCodeReference extends BaseData {
 			'@type': Primitives.TypeProperty<'atlassian:SourceCodeReference'>;
 			'atlassian:commit': Partial<SourceCodeCommit> | Primitives.Link;
-			'schema:programmingLanguage'?: string; // ComputerLanguage | Text
 			'schema:potentialAction'?: Primitives.Property<SourceCodeReferenceAction>;
+			'schema:programmingLanguage'?: string; // ComputerLanguage | Text
 		}
 
 		export type SourceCodeRepositoryAction =
@@ -803,32 +803,32 @@ export namespace JsonLd {
 			| WatchAction;
 		export interface SourceCodeRepository extends BaseData {
 			'@type': Primitives.TypeProperty<'atlassian:SourceCodeRepository'>;
+			'atlassian:latestCommit'?: Partial<SourceCodeCommit> | Primitives.Link;
 			'atlassian:subscriber'?: Primitives.Link | Primitives.Person;
 			'atlassian:subscriberCount': number;
 			'atlassian:viewCount'?: number;
 			'atlassian:voteCount'?: number;
-			'schema:programmingLanguage'?: string; // ComputerLanguage | Text
 			'schema:potentialAction'?: Primitives.Property<SourceCodeRepositoryAction>;
-			'atlassian:latestCommit'?: Partial<SourceCodeCommit> | Primitives.Link;
+			'schema:programmingLanguage'?: string; // ComputerLanguage | Text
 		}
 
 		export type TaskAction = Primitives.AssignedObjectActions;
 		export interface Task extends BaseData, Primitives.AssignedObject {
 			'@type': Primitives.TypeProperty<'atlassian:Task'>;
 			'atlassian:attachmentCount'?: number;
-			'atlassian:isCompleted'?: boolean;
 			'atlassian:checkItems'?: Primitives.CheckItemProgress;
 			'atlassian:completed'?: string;
+			'atlassian:isCompleted'?: boolean;
 			'atlassian:isDeleted'?: boolean;
+			'atlassian:originalEstimateInSeconds'?: number;
 			'atlassian:priority'?: string | Primitives.Object;
 			'atlassian:reactCount'?: number;
-			'atlassian:taskType'?: TaskType | Primitives.Object | Primitives.Link;
+			'atlassian:storyPoints'?: number;
+			'atlassian:subTasks'?: Primitives.SubTasksProgress;
 			'atlassian:taskStatus'?: Primitives.Object;
+			'atlassian:taskType'?: TaskType | Primitives.Object | Primitives.Link;
 			'atlassian:viewCount'?: number;
 			'atlassian:voteCount'?: number;
-			'atlassian:storyPoints'?: number;
-			'atlassian:originalEstimateInSeconds'?: number;
-			'atlassian:subTasks'?: Primitives.SubTasksProgress;
 			'schema:commentCount'?: number;
 			'schema:potentialAction'?: Primitives.Property<TaskAction>;
 		}
@@ -845,19 +845,19 @@ export namespace JsonLd {
 	}
 
 	export interface Response<T extends Data.BaseData = Data.BaseData> {
-		meta: Meta.BaseMeta;
 		data: Data.BaseData | Data.BaseCollectionData<T> | Data.BaseCollectionPage<T> | undefined;
+		meta: Meta.BaseMeta;
 	}
 	export interface Object<MetaType extends Meta.BaseMeta, DataType extends Data.BaseData> {
-		meta: MetaType;
 		data: DataType | undefined;
+		meta: MetaType;
 	}
 	export interface Collection<
 		MetaType extends Meta.BaseMeta = Meta.BaseMeta,
 		ResourceType extends Data.BaseData = Data.BaseData,
 		DataType = Data.BaseCollectionData<ResourceType>,
 	> {
-		meta: MetaType;
 		data: DataType | undefined;
+		meta: MetaType;
 	}
 }

@@ -7,8 +7,8 @@ import {
 } from './track-transactions';
 
 interface Reading {
-	name: string;
 	duration: number;
+	name: string;
 	startTime: number;
 }
 type ObservationCallback = (entries: PerformanceObserverEntryList) => void;

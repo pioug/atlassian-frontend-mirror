@@ -351,10 +351,15 @@ const buttonOrAnchorStyles = cssMap({
 		[dragHandleDisplayVar]: 'none',
 		'&:hover': {
 			[dragHandleDisplayVar]: 'flex',
-			animationDuration: '0s',
 			animationName: dragCursorAnimation,
-			// 800ms taken from drag and drop guidelines
+
+			// instant animation
+			animationDuration: '0s',
+
+			// delay cursor change
 			animationDelay: '800ms',
+
+			// keep the end state when the animation ends
 			animationFillMode: 'forwards',
 		},
 	},

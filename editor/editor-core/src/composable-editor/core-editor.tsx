@@ -73,9 +73,9 @@ function Editor(passedProps: EditorProps & EditorNextProps & WithAppearanceCompo
 
 	const onEditorCreated = useCallback(
 		(instance: {
-			view: EditorView;
 			eventDispatcher: EventDispatcher;
 			transformer?: Transformer<string>;
+			view: EditorView;
 		}) => {
 			const { contextIdentifierProvider, onEditorReady, featureFlags } = propsRef.current;
 
@@ -108,7 +108,7 @@ function Editor(passedProps: EditorProps & EditorNextProps & WithAppearanceCompo
 	);
 
 	const onEditorDestroyed = useCallback(
-		(_instance: { view: EditorView; transformer?: Transformer<string> }) => {
+		(_instance: { transformer?: Transformer<string>; view: EditorView }) => {
 			const { onDestroy } = propsRef.current;
 			editorActions._privateUnregisterEditor();
 

@@ -1,8 +1,7 @@
 import { findCutBefore } from '@atlaskit/editor-common/commands';
 import type { Command } from '@atlaskit/editor-common/types';
 import { findFarthestParentNode } from '@atlaskit/editor-common/utils';
-import { NodeRange, type ResolvedPos } from '@atlaskit/editor-prosemirror/model';
-import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { type ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { findWrapping, ReplaceAroundStep } from '@atlaskit/editor-prosemirror/transform';
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 
@@ -71,35 +70,7 @@ export const wrapSelectionInTaskList: Command = (state, dispatch) => {
 		return true;
 	}
 
-	let blockRange = getBlockRange($from, $to);
-
-	if (blockTaskItem && isBlockTaskItem && blockTaskItemNode) {
-		const startOfNodeInBlockTaskItem = state.doc.resolve(blockTaskItemNode.start);
-
-		if (state.selection instanceof TextSelection && state.selection.$to !== state.selection.$from) {
-			const lastNode = $to.node($to.depth);
-			const endOfNodeInBlockTaskItem = state.doc.resolve($to.start() + lastNode.nodeSize - 1);
-
-			if (lastNode.type === taskItem) {
-				blockRange = new NodeRange(
-					startOfNodeInBlockTaskItem,
-					endOfNodeInBlockTaskItem,
-					blockTaskItemNode.depth - 1,
-				);
-			}
-		} else {
-			// Get the Resolved $from and $to of the node nested inside the blockTaskItem
-			const endOfNodeInBlockTaskItem = state.doc.resolve(
-				blockTaskItemNode.start + blockTaskItemNode.node.nodeSize - 1,
-			);
-
-			blockRange = new NodeRange(
-				startOfNodeInBlockTaskItem,
-				endOfNodeInBlockTaskItem,
-				blockTaskItemNode.depth - 1,
-			);
-		}
-	}
+	const blockRange = getBlockRange($from, $to);
 
 	if (!blockRange) {
 		return true;

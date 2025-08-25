@@ -69,11 +69,11 @@ const i18n = defineMessages({
 });
 
 type EditToggleProps = {
-	isNodeHovered?: boolean;
 	customContainerStyles?: CSSProperties;
+	isNodeHovered?: boolean;
 	setIsNodeHovered?: (isNodeHovered: boolean) => void;
-	showBodiedExtensionRendererView?: boolean;
 	setShowBodiedExtensionRendererView?: (showBodiedExtensionRendererView: boolean) => void;
+	showBodiedExtensionRendererView?: boolean;
 };
 
 // Used to toggle between edit and renderer mode for bodied macros in live pages

@@ -28,15 +28,15 @@ const styles = cssMap({
 });
 
 export type CustomMenuListProps = {
+	errors?: unknown[];
+	filterLabel?: string;
+	filterName: string;
+	handleShowMore?: () => void;
+	isEmpty?: boolean;
 	isError?: boolean;
 	isLoading?: boolean;
 	isLoadingMore?: boolean;
-	isEmpty?: boolean;
 	showMore?: boolean;
-	handleShowMore?: () => void;
-	filterName: string;
-	errors?: unknown[];
-	filterLabel?: string;
 };
 
 const CustomMenuList = ({ children, ...props }: MenuListComponentProps<SelectOption, true>) => {

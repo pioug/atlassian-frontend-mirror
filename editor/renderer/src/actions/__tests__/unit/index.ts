@@ -57,7 +57,7 @@ describe('RendererActions', () => {
 		});
 
 		function initActions(doc: any) {
-			let actions = new RendererActions(true);
+			const actions = new RendererActions(true);
 			actions._privateRegisterRenderer(
 				mockArg,
 				defaultSchema.nodeFromJSON(doc),
@@ -67,27 +67,27 @@ describe('RendererActions', () => {
 			return actions;
 		}
 		it('should delete the annotation with provided ID', () => {
-			let actions = initActions(simpleTextWithAnnotation(annotationId));
+			const actions = initActions(simpleTextWithAnnotation(annotationId));
 			expect(actions.deleteAnnotation(annotationId, 'inlineComment')).toMatchSnapshot();
 		});
 
 		it('should delete the annotation on media with provided ID', () => {
-			let actions = initActions(mediaWithAnnotation(annotationId));
+			const actions = initActions(mediaWithAnnotation(annotationId));
 			expect(actions.deleteAnnotation(annotationId, 'inlineComment')).toMatchSnapshot();
 		});
 
 		it('should delete the annotation with provided ID without touching overlapping marks', () => {
-			let actions = initActions(textWithOverlappingAnnotations(annotationId));
+			const actions = initActions(textWithOverlappingAnnotations(annotationId));
 			expect(actions.deleteAnnotation(annotationId, 'inlineComment')).toMatchSnapshot();
 		});
 
 		it('should delete the annotation when spanning multiple nodes', () => {
-			let actions = initActions(annotationSpanningMultiText(annotationId));
+			const actions = initActions(annotationSpanningMultiText(annotationId));
 			expect(actions.deleteAnnotation(annotationId, 'inlineComment')).toMatchSnapshot();
 		});
 
 		it('should trigger the analytics event when annotation is detected', () => {
-			let actions = initActions(simpleTextWithAnnotation(annotationId));
+			const actions = initActions(simpleTextWithAnnotation(annotationId));
 			actions.deleteAnnotation(annotationId, 'inlineComment');
 
 			expect(onAnalyticsEvent).toBeCalledWith({
@@ -100,7 +100,7 @@ describe('RendererActions', () => {
 		});
 
 		it('should not trigger the analytics event when annotation is not detected', () => {
-			let actions = initActions(simpleTextWithAnnotation(annotationId));
+			const actions = initActions(simpleTextWithAnnotation(annotationId));
 			actions.deleteAnnotation('noAnnotation', 'inlineComment');
 
 			expect(onAnalyticsEvent).toBeCalledTimes(0);
@@ -109,7 +109,7 @@ describe('RendererActions', () => {
 
 	describe('applyAnnotation', () => {
 		const initActions = (doc: any) => {
-			let actions = new RendererActions(true);
+			const actions = new RendererActions(true);
 			actions._privateRegisterRenderer(mockArg, defaultSchema.nodeFromJSON(doc), defaultSchema);
 			return actions;
 		};

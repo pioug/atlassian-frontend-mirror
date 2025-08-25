@@ -35,8 +35,8 @@ const i18n = defineMessages({
 });
 
 type AutomationModalHeaderProps = {
-	modalTitle?: React.ReactNode;
 	modalDescription?: React.ReactNode;
+	modalTitle?: React.ReactNode;
 };
 
 export const AutomationModalHeader = ({

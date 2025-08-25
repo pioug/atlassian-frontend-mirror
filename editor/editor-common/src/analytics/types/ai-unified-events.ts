@@ -7,29 +7,29 @@ import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID } from './enums';
 import type { TrackAEP } from './utils';
 
 export type AIUnifiedCommonAttributes = {
-	singleInstrumentationID: string;
-	aiInteractionID: string;
-	aiFeatureName: string;
-	proactiveAIGenerated: 0 | 1;
-	userGeneratedAI: 0 | 1;
-	isAIFeature: 1;
 	aiExperienceName?: string;
-	traceIds?: string[];
+	aiFeatureName: string;
+	aiInteractionID: string;
 	invokedFrom?: string;
+	isAIFeature: 1;
 	/**
 	 * Nudge metrics will be used passed in analytics events.
 	 * It is currently only set when "Improve writing" is triggered from the
 	 * "Improve writing" nudge.
 	 */
 	nudgeMetrics?: Record<string, number | undefined>;
+	proactiveAIGenerated: 0 | 1;
+	singleInstrumentationID: string;
+	traceIds?: string[];
+	userGeneratedAI: 0 | 1;
 };
 
 type AIUnifiedAgentAttributes = {
-	agentName?: string;
-	agentId?: string;
 	agentCreatorType?: string;
 	agentExternalConfigReference?: string;
+	agentId?: string;
 	agentIsDefault?: boolean;
+	agentName?: string;
 };
 
 type AIInteractionInitiatedAEP = TrackAEP<
@@ -62,9 +62,9 @@ type AIResultActionedAEP = TrackAEP<
 	ACTION_SUBJECT_ID.EDITOR_PLUGIN_AI,
 	AIUnifiedCommonAttributes &
 		AIUnifiedAgentAttributes & {
+			aiResultAction: string;
 			promptType?: string;
 			refinementCount?: number;
-			aiResultAction: string;
 		},
 	undefined
 >;
@@ -75,8 +75,8 @@ type AIResultErrorAEP = TrackAEP<
 	ACTION_SUBJECT_ID.EDITOR_PLUGIN_AI,
 	AIUnifiedCommonAttributes &
 		AIUnifiedAgentAttributes & {
-			aiErrorMessage?: string;
 			aiErrorCode?: number;
+			aiErrorMessage?: string;
 		},
 	undefined
 >;

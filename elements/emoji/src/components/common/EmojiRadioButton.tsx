@@ -77,11 +77,11 @@ const emojiRadio = css({
 });
 
 export interface Props {
+	ariaLabelText?: string;
+	defaultChecked?: boolean;
 	emoji: EmojiDescription;
 	onSelected?: () => void;
 	selectOnHover?: boolean;
-	ariaLabelText?: string;
-	defaultChecked?: boolean;
 }
 
 const handleMouseDown = (props: Props, event: MouseEvent<any>) => {

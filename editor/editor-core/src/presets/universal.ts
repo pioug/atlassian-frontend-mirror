@@ -78,34 +78,34 @@ export type UniversalPresetProps = DefaultPresetPluginOptions &
  * Note: not all plugins are configurable via this mechanism, and for plugins configured -- it is only doing a subset of the configuration.
  */
 export type InitialPluginConfiguration = {
+	extensionPlugin?: {
+		__rendererExtensionOptions?: ExtensionPluginOptions['__rendererExtensionOptions'];
+	};
+	insertBlockPlugin?: {
+		toolbarShowPlusInsertOnly?: boolean;
+	};
 	mentionsPlugin?: {
 		handleMentionsChanged?: (
 			mentionChanges: {
-				type: 'added' | 'deleted';
-				localId: string;
 				id: string;
+				localId: string;
 				taskLocalId?: string;
+				type: 'added' | 'deleted';
 			}[],
 		) => void;
 	};
 	tasksAndDecisionsPlugin?: {
+		allowBlockTaskItem?: boolean;
 		hasEditPermission?: boolean;
 		quickInsertActionDescription?: string;
 		requestEditPermission?: () => void;
 		taskPlaceholder?: string;
-		allowBlockTaskItem?: boolean;
-	};
-	extensionPlugin?: {
-		__rendererExtensionOptions?: ExtensionPluginOptions['__rendererExtensionOptions'];
-	};
-	trackChangesPlugin?: {
-		showOnToolbar?: boolean;
 	};
 	toolbarPlugin?: {
 		disableSelectionToolbar?: boolean;
 	};
-	insertBlockPlugin?: {
-		toolbarShowPlusInsertOnly?: boolean;
+	trackChangesPlugin?: {
+		showOnToolbar?: boolean;
 	};
 };
 
@@ -129,7 +129,7 @@ export default function createUniversalPresetInternal({
 	createAnalyticsEvent,
 }: {
 	appearance: EditorAppearance | undefined;
-	props: UniversalPresetProps;
+	createAnalyticsEvent?: CreateUIAnalyticsEvent;
 	featureFlags: FeatureFlags;
 	/**
 	 * Allows configuring plugins as the universal preset blocks direct access
@@ -137,7 +137,7 @@ export default function createUniversalPresetInternal({
 	 */
 	initialPluginConfiguration?: InitialPluginConfiguration;
 	prevAppearance?: EditorAppearance;
-	createAnalyticsEvent?: CreateUIAnalyticsEvent;
+	props: UniversalPresetProps;
 }) {
 	const isComment = appearance === 'comment';
 	const isChromeless = appearance === 'chromeless';

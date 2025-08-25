@@ -9,12 +9,12 @@ import {
 } from '../../ui/TaskItemsFormatContext/TaskItemsFormatContext';
 
 export interface Props {
-	localId: string;
-	rendererContext?: RendererContext;
-	state?: string;
-	providers?: ProviderFactory;
 	children?: ReactNode;
 	disabled?: boolean;
+	localId: string;
+	providers?: ProviderFactory;
+	rendererContext?: RendererContext;
+	state?: string;
 }
 
 // Ignored via go/ees005

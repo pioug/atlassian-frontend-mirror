@@ -17,8 +17,8 @@ const CustomFieldset = ({
 	children,
 	templateColumns,
 }: {
-	legend: string;
 	children: React.ReactNode;
+	legend: string;
 	templateColumns?: string;
 }) => (
 	<Bleed all="space.100" xcss={boxStyles}>

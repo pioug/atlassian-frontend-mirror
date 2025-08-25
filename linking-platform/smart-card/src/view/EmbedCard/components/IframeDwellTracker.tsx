@@ -5,10 +5,10 @@
 import { useEffect, useRef, useState } from 'react';
 
 export interface IframeDwellTrackerProps {
+	iframePercentVisible: number;
 	isIframeLoaded: boolean;
 	isMouseOver: boolean;
 	isWindowFocused: boolean;
-	iframePercentVisible: number;
 	onIframeDwell?: (dwellTime: number, dwellPercentVisible: number) => void;
 }
 
@@ -26,8 +26,8 @@ export const IframeDwellTracker = ({
 	onIframeDwell,
 }: IframeDwellTrackerProps) => {
 	const [dwell, setDwell] = useState<{
-		time: number;
 		percentVisible: number;
+		time: number;
 	}>({ time: 0, percentVisible: 0 });
 	const dwellTimeoutId = useRef<ReturnType<typeof setTimeout>>();
 

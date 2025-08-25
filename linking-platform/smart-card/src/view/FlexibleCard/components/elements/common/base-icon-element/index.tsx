@@ -24,33 +24,6 @@ import type { ElementProps } from '../../index';
 
 export type BaseIconElementProps = ElementProps & {
 	/**
-	 * If provided, Icon element will use this render function instead.
-	 */
-	render?: () => React.ReactNode;
-	/**
-	 * The Atlaskit Icon to display. If no icon is provided, then the URL provided
-	 * will be used.
-	 */
-	icon?: IconType;
-	/**
-	 * If provided, overrideIcon will be rendered in the place of the provided icon or one that is
-	 * supplied by the URL.
-	 */
-	overrideIcon?: React.ReactNode;
-	/**
-	 * The label provided to the Atlaskit Icon.
-	 */
-	label?: string;
-	/**
-	 * Determines the position of the link icon in relative to the vertical
-	 * height.  It can either be centred or placed on “top”. Default is top.
-	 */
-	position?: SmartLinkPosition;
-	/**
-	 * The icon from this url will be used if no render function or Atlaskit Icon is provided.
-	 */
-	url?: string;
-	/**
 	 * Whether to display the icon as a square or round image.
 	 */
 	appearance?: 'square' | 'round';
@@ -58,6 +31,33 @@ export type BaseIconElementProps = ElementProps & {
 	 * For images, whether to hide the loading skeleton while the image is loading.
 	 */
 	hideLoadingSkeleton?: boolean;
+	/**
+	 * The Atlaskit Icon to display. If no icon is provided, then the URL provided
+	 * will be used.
+	 */
+	icon?: IconType;
+	/**
+	 * The label provided to the Atlaskit Icon.
+	 */
+	label?: string;
+	/**
+	 * If provided, overrideIcon will be rendered in the place of the provided icon or one that is
+	 * supplied by the URL.
+	 */
+	overrideIcon?: React.ReactNode;
+	/**
+	 * Determines the position of the link icon in relative to the vertical
+	 * height.  It can either be centred or placed on “top”. Default is top.
+	 */
+	position?: SmartLinkPosition;
+	/**
+	 * If provided, Icon element will use this render function instead.
+	 */
+	render?: () => React.ReactNode;
+	/**
+	 * The icon from this url will be used if no render function or Atlaskit Icon is provided.
+	 */
+	url?: string;
 };
 
 const styles = cssMap({

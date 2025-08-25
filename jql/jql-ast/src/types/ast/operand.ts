@@ -16,12 +16,12 @@ export type KeywordOperandValue = typeof OPERAND_EMPTY;
  * An operand that is a user-provided value.
  */
 export interface ValueOperand extends AstNode {
-	type: typeof NODE_TYPE_OPERAND;
 	operandType: typeof OPERAND_TYPE_VALUE;
 	/**
 	 * Literal operand value (with quotes and escaping preserved).
 	 */
 	text: string;
+	type: typeof NODE_TYPE_OPERAND;
 	/**
 	 * Semantic operand value (without quotes or escaping derived from those quotes).
 	 */
@@ -34,8 +34,8 @@ export interface ValueOperand extends AstNode {
  * for more information about operand keywords.
  */
 export interface KeywordOperand extends AstNode {
-	type: typeof NODE_TYPE_OPERAND;
 	operandType: typeof OPERAND_TYPE_KEYWORD;
+	type: typeof NODE_TYPE_OPERAND;
 	/**
 	 * The keyword that is the operand value.
 	 */
@@ -48,16 +48,16 @@ export interface KeywordOperand extends AstNode {
  * information about JQL functions.
  */
 export interface FunctionOperand extends AstNode {
-	type: typeof NODE_TYPE_OPERAND;
-	operandType: typeof OPERAND_TYPE_FUNCTION;
-	/**
-	 * The name of the function.
-	 */
-	function: FunctionString;
 	/**
 	 * The list of function arguments.
 	 */
 	arguments: Argument[];
+	/**
+	 * The name of the function.
+	 */
+	function: FunctionString;
+	operandType: typeof OPERAND_TYPE_FUNCTION;
+	type: typeof NODE_TYPE_OPERAND;
 }
 
 /**
@@ -78,17 +78,17 @@ export interface FunctionString extends AstNode {
  * An operand that is a list of values.
  */
 export interface ListOperand extends AstNode {
-	type: typeof NODE_TYPE_OPERAND;
-	operandType: typeof OPERAND_TYPE_LIST;
-	/**
-	 * The list of operand values.
-	 */
-	values: Operand[];
-
 	/**
 	 * Function to append operand to existing list of operand
 	 */
 	appendOperand: (this: ListOperand, operand: Operand) => void;
+	operandType: typeof OPERAND_TYPE_LIST;
+	type: typeof NODE_TYPE_OPERAND;
+
+	/**
+	 * The list of operand values.
+	 */
+	values: Operand[];
 }
 
 //

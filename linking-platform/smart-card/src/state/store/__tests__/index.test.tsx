@@ -152,9 +152,9 @@ describe('useSmartCardState()', () => {
 			testId,
 			onRender,
 		}: {
-			url: string;
-			testId: string;
 			onRender: () => void;
+			testId: string;
+			url: string;
 		}) => {
 			const state = useSmartCardState(url);
 			onRender();
@@ -344,9 +344,9 @@ describe('useSmartCardState()', () => {
 			testId,
 			onRender,
 		}: {
-			url: string;
-			testId: string;
 			onRender: () => void;
+			testId: string;
+			url: string;
 		}) => {
 			const state = useSmartCardState(url);
 			onRender();

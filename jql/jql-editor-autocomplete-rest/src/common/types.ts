@@ -4,22 +4,20 @@ export type JQLAutocompleteResponse = {
 };
 
 export type JQLFieldResponse = {
-	displayName: string;
-	value: string;
-	types: string[];
-	operators: string[];
-	searchable?: string;
-	deprecated?: string;
-	deprecatedSearcherKey?: string;
-	orderable?: string;
 	auto?: string;
 	cfid?: string;
+	deprecated?: string;
+	deprecatedSearcherKey?: string;
+	displayName: string;
+	operators: string[];
+	orderable?: string;
+	searchable?: string;
+	types: string[];
+	value: string;
 };
 
 export type JQLFunctionResponse = {
 	displayName: string;
-	value: string;
-	types: string[];
 	/**
 	 * `true` if the function **only** supports list operators.
 	 */
@@ -28,6 +26,8 @@ export type JQLFunctionResponse = {
 	 * `true` if the function supports **both** list and single value operators.
 	 */
 	supportsListAndSingleValueOperators?: string;
+	types: string[];
+	value: string;
 };
 
 export type JQLFieldValueResponse = {

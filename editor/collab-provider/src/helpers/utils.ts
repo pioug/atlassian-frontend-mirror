@@ -49,22 +49,22 @@ export const getSubProduct = (productInfo?: ProductInformation): string =>
 	productInfo?.subProduct ?? (!!productInfo?.product ? 'none' : 'unknown');
 
 interface Step {
-	stepType: string;
-	userId?: string;
-	from?: number;
-	to?: number;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	[key: string]: any;
+	from?: number;
 	gapFrom?: number;
 	gapTo?: number;
 	insert?: number;
+	stepType: string;
+	to?: number;
+	userId?: string;
 }
 
 export type UGCFreeStepDetails = {
-	type: string;
 	contentTypes: string;
 	stepSizeInBytes?: number;
+	type: string;
 };
 
 // Get as step info which is known not to contain user generated content.

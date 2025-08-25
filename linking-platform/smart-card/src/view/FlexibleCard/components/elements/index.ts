@@ -2,15 +2,15 @@ import { type ElementName, type SmartLinkSize } from '../../../../constants';
 
 export type ElementProps = {
 	/**
+	 * For compiled css
+	 */
+	className?: string;
+	/**
 	 * Name of the element, can be used as a selector.
 	 * E.g. [data-smart-element="Provider"]
 	 * @internal
 	 */
 	name?: ElementName;
-	/**
-	 * For compiled css
-	 */
-	className?: string;
 	/**
 	 * The size of the element to display.
 	 */

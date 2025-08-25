@@ -23,10 +23,12 @@ import { useToolbarPortal } from '../../Toolbar/ToolbarPortal';
 type FullPageToolbarNextProps = {
 	beforeIcon?: React.ReactNode;
 	editorAPI?: PublicPluginAPI<[ToolbarPlugin]>;
-	toolbarDockingPosition?: 'top' | 'none';
 	editorView?: EditorView;
+	popupsBoundariesElement?: HTMLElement;
 	popupsMountPoint?: HTMLElement;
+	popupsScrollableElement?: HTMLElement;
 	showKeyline: boolean;
+	toolbarDockingPosition?: 'top' | 'none';
 };
 
 const styles = cssMap({
@@ -52,8 +54,8 @@ const MainToolbarWrapper = ({
 	showKeyline,
 }: {
 	children: React.ReactNode;
-	testId?: string;
 	showKeyline: boolean;
+	testId?: string;
 }) => {
 	return (
 		<div

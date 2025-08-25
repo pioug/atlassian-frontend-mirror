@@ -6,13 +6,13 @@ export const EXPIRES_AT_LATENCY_IN_SECONDS = 30;
 
 interface TokenDetail {
 	/**
-	 * mediaApiToken is initialized from site emoji, if expired will be refreshed
-	 */
-	mediaApiToken?: MediaApiToken;
-	/**
 	 * activeTokenRefresh is the active pending promise, used to prevents concurrent same promises
 	 */
 	activeTokenRefresh?: Promise<MediaApiToken>;
+	/**
+	 * mediaApiToken is initialized from site emoji, if expired will be refreshed
+	 */
+	mediaApiToken?: MediaApiToken;
 }
 
 export type TokenType = 'read' | 'upload';

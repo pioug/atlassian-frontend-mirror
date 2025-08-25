@@ -14,9 +14,9 @@ const onClose = () => debug('picker closed');
 export interface Props {
 	label: string;
 	onSelection?: OnMentionEvent;
-	resourceProvider?: MentionProvider;
 	presenceProvider?: PresenceProvider;
 	relativePosition?: Position;
+	resourceProvider?: MentionProvider;
 	zIndex?: number;
 }
 

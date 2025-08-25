@@ -18,15 +18,15 @@ export interface Callback {
 
 export interface Props {
 	inputId?: string;
-	onUp?: Callback;
+	inputRef?: any;
+	label?: string;
+	onBlur?: FocusEventHandler<any>;
+	onChange?: FormEventHandler<any>;
 	onDown?: Callback;
 	onEnter?: Callback;
 	onEscape?: Callback;
-	onChange?: FormEventHandler<any>;
 	onFocus?: FocusEventHandler<any>;
-	onBlur?: FocusEventHandler<any>;
-	inputRef?: any;
-	label?: string;
+	onUp?: Callback;
 }
 
 class SearchTextInput extends PureComponent<Props, {}> {

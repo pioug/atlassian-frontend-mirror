@@ -16,8 +16,8 @@ import { token } from '@atlaskit/tokens';
 import NotFoundIllustration from './NotFoundIllustration';
 
 type Props = {
-	onExternalLinkClick: () => void;
 	focusOnEmptyStateButton?: boolean;
+	onExternalLinkClick: () => void;
 };
 
 export default function EmptyState({

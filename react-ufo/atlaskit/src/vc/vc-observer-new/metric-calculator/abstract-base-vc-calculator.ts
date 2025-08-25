@@ -38,11 +38,12 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 	constructor(revisionNo: string) {
 		this.revisionNo = revisionNo;
 	}
-	protected abstract isEntryIncluded(entry: VCObserverEntry): boolean;
+	protected abstract isEntryIncluded(entry: VCObserverEntry, include3p?: boolean): boolean;
 
 	protected abstract getVCCleanStatus(filteredEntries: ReadonlyArray<VCObserverEntry>): {
 		isVCClean: boolean;
 		dirtyReason?: VCAbortReason;
+		abortTimestamp?: number;
 	};
 
 	private filterViewportEntries(
@@ -285,9 +286,10 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 		orderedEntries,
 		interactionId,
 		isPostInteraction,
+		include3p,
 	}: VCCalculatorParam): Promise<RevisionPayloadEntry | undefined> {
 		const filteredEntries = orderedEntries.filter((entry) => {
-			return this.isEntryIncluded(entry);
+			return this.isEntryIncluded(entry, include3p);
 		});
 
 		let isVCClean: boolean;
@@ -302,6 +304,11 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 				'metric:vc90': null,
 				clean: false,
 				abortReason: dirtyReason,
+				...(fg('platform_ufo_abort_timestamp_by_revision')
+					? {
+							abortTimestamp: getVCCleanStatusResult.abortTimestamp,
+						}
+					: {}),
 			};
 		}
 

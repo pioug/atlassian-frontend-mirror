@@ -10,14 +10,14 @@ import type { Command, FloatingToolbarItem } from '../types';
 
 export interface OptionConfig {
 	appearance?: CardAppearance;
-	title: string;
+	description?: string;
+	disabled?: boolean;
+	hidden?: boolean;
 	onClick: Command;
 	selected: boolean;
 	testId: string;
-	disabled?: boolean;
-	hidden?: boolean;
+	title: string;
 	tooltip?: string;
-	description?: string;
 }
 
 export type CardReplacementInputMethod =
@@ -54,7 +54,7 @@ export type GetStartingToolbarItems = (
 	intl: IntlShape,
 	link: string,
 	onEditLink: Command,
-	metadata: { url: string; title: string },
+	metadata: { title: string; url: string },
 	state?: EditorState,
 ) => FloatingToolbarItem<Command>[];
 
@@ -64,9 +64,9 @@ export type GetEndingToolbarItems = (
 ) => FloatingToolbarItem<Command>[];
 
 export type CardPluginActions = {
-	queueCardsFromChangedTr: QueueCardsFromTransactionAction;
-	hideLinkToolbar: HideLinkToolbarAction;
-	getStartingToolbarItems: GetStartingToolbarItems;
 	getEndingToolbarItems: GetEndingToolbarItems;
+	getStartingToolbarItems: GetStartingToolbarItems;
+	hideLinkToolbar: HideLinkToolbarAction;
+	queueCardsFromChangedTr: QueueCardsFromTransactionAction;
 	setProvider: (provider: Promise<CardProvider>) => Promise<boolean>;
 };

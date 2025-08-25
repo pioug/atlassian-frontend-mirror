@@ -20,13 +20,13 @@ const ReactionPicker = componentWithCondition(
 
 export interface ConnectedReactionPickerProps extends Omit<ReactionPickerProps, 'onSelection'> {
 	/**
-	 * Wrapper id for reactions list
-	 */
-	containerAri: string;
-	/**
 	 * Individual id for a reaction
 	 */
 	ari: string;
+	/**
+	 * Wrapper id for reactions list
+	 */
+	containerAri: string;
 	/**
 	 * Reference to the store.
 	 * @remarks

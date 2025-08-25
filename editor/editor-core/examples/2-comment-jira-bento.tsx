@@ -33,9 +33,9 @@ export type Props = {
 };
 
 export type State = {
-	isExpanded?: boolean;
-	isEditingMode?: boolean;
 	assistiveLabel?: string;
+	isEditingMode?: boolean;
+	isExpanded?: boolean;
 };
 
 const LOCALSTORAGE_DOC_KEY = 'fabric.editor.example.comment';

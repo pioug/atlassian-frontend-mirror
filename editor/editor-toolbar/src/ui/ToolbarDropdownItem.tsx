@@ -55,10 +55,10 @@ const styles = cssMap({
 });
 
 export type CustomDropdownMenuItemButtonProps = CustomItemComponentProps & {
-	'aria-haspopup'?: boolean;
 	'aria-disabled'?: boolean;
-	'aria-pressed'?: boolean;
+	'aria-haspopup'?: boolean;
 	'aria-keyshortcuts'?: string;
+	'aria-pressed'?: boolean;
 };
 
 const CustomDropdownMenuItemButton = forwardRef<
@@ -99,17 +99,17 @@ const CustomDropdownMenuItemButton = forwardRef<
 );
 
 type ToolbarDropdownItemProps = {
-	onClick?: (e: React.MouseEvent | React.KeyboardEvent) => void;
-	elemBefore?: ReactNode;
-	elemAfter?: ReactNode;
-	isSelected?: boolean;
-	children?: React.ReactNode;
-	textStyle?: TextStyle;
-	isDisabled?: boolean;
-	hasNestedDropdownMenu?: boolean;
-	triggerRef?: Ref<HTMLButtonElement>;
-	testId?: string;
 	ariaKeyshortcuts?: string;
+	children?: React.ReactNode;
+	elemAfter?: ReactNode;
+	elemBefore?: ReactNode;
+	hasNestedDropdownMenu?: boolean;
+	isDisabled?: boolean;
+	isSelected?: boolean;
+	onClick?: (e: React.MouseEvent | React.KeyboardEvent) => void;
+	testId?: string;
+	textStyle?: TextStyle;
+	triggerRef?: Ref<HTMLButtonElement>;
 };
 
 export const ToolbarDropdownItem = ({

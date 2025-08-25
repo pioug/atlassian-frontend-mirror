@@ -1,8 +1,8 @@
 export interface ADFEntityMark {
-	type: string;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	attrs?: { [name: string]: any };
+	type: string;
 }
 
 /*
@@ -10,16 +10,16 @@ export interface ADFEntityMark {
  * ADNode and JSONNode are serialisable versions of this interface.
  */
 export interface ADFEntity {
-	type: string;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	[key: string]: any;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	attrs?: { [name: string]: any };
 	content?: Array<ADFEntity | undefined>;
 	marks?: Array<ADFEntityMark>;
 	text?: string;
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	[key: string]: any;
+	type: string;
 }
 
 export type Visitor = (

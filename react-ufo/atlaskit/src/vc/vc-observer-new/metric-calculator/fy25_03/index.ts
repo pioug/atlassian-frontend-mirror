@@ -14,7 +14,7 @@ const ABORTING_WINDOW_EVENT = ['wheel', 'scroll', 'keydown', 'resize'] as const;
 
 const REVISION_NO = 'fy25.03';
 
-const getConsideredEntryTypes = (): VCObserverEntryType[] => {
+const getConsideredEntryTypes = (include3p?: boolean): VCObserverEntryType[] => {
 	const entryTypes: VCObserverEntryType[] = [
 		'mutation:child-element',
 		'mutation:element',
@@ -25,7 +25,7 @@ const getConsideredEntryTypes = (): VCObserverEntryType[] => {
 
 	// If not exclude 3p elements from ttvc,
 	// including the tags into the ConsideredEntryTypes so that it won't be ignored for TTVC calculation
-	if (!fg('platform_ufo_exclude_3p_elements_from_ttvc')) {
+	if (!fg('platform_ufo_exclude_3p_elements_from_ttvc') || include3p) {
 		entryTypes.push('mutation:third-party-element');
 	}
 
@@ -69,8 +69,8 @@ export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 		super(REVISION_NO);
 	}
 
-	protected isEntryIncluded(entry: VCObserverEntry): boolean {
-		if (!getConsideredEntryTypes().includes(entry.data.type)) {
+	protected isEntryIncluded(entry: VCObserverEntry, include3p?: boolean): boolean {
+		if (!getConsideredEntryTypes(include3p).includes(entry.data.type)) {
 			return false;
 		}
 		if (entry.data.type === 'mutation:attribute') {
@@ -116,11 +116,15 @@ export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 
 	protected getVCCleanStatus(filteredEntries: readonly VCObserverEntry[]) {
 		let dirtyReason: VCAbortReason | '' = '';
+		let abortTimestamp = -1;
 		const hasAbortEvent = filteredEntries.some((entry) => {
 			if (entry.data.type === 'window:event') {
 				const data = entry.data as WindowEventEntryData;
 				if (ABORTING_WINDOW_EVENT.includes(data.eventType)) {
 					dirtyReason = data.eventType === 'keydown' ? 'keypress' : data.eventType;
+					if (fg('platform_ufo_abort_timestamp_by_revision')) {
+						abortTimestamp = Math.round(entry.time);
+					}
 					return true;
 				}
 			}
@@ -131,6 +135,7 @@ export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 			return {
 				isVCClean: false,
 				dirtyReason,
+				...(fg('platform_ufo_abort_timestamp_by_revision') ? { abortTimestamp } : {}),
 			};
 		}
 

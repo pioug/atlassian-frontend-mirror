@@ -19,9 +19,9 @@ import { getCleanedSelectProps } from '../../utils';
 
 interface StatusEditTypeProps extends Omit<FieldProps<string>, 'value'> {
 	currentValue: DatasourceTypeWithOnlyTypeValues<'status'>;
+	executeFetch?: ExecuteFetch;
 	labelId?: string;
 	setEditValues: React.Dispatch<React.SetStateAction<DatasourceTypeWithOnlyValues>>;
-	executeFetch?: ExecuteFetch;
 }
 
 const StatusEditType = (props: StatusEditTypeProps) => {

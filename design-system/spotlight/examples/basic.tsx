@@ -40,8 +40,8 @@ export default function Basic() {
 				<SpotlightHeader>
 					<SpotlightHeadline>Headline</SpotlightHeadline>
 					<SpotlightControls>
-						<SpotlightShowMoreControl />
 						<SpotlightDismissControl />
+						<SpotlightShowMoreControl />
 					</SpotlightControls>
 				</SpotlightHeader>
 				<SpotlightMedia>

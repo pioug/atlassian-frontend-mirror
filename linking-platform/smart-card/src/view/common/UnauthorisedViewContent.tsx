@@ -11,16 +11,16 @@ import { messages } from '../../messages';
 
 type UnauthorisedViewContentProps = {
 	/**
-	 * Is the name of the provider for the account that needs to be connected
-	 * Eg. Google, Microsoft etc
-	 */
-	providerName?: string;
-
-	/**
 	 * If `true`, display an alternative message which prompts user to connect all
 	 * Atlassian products (vs. smart links only) to the 3rd party account.
 	 */
 	isProductIntegrationSupported?: boolean;
+
+	/**
+	 * Is the name of the provider for the account that needs to be connected
+	 * Eg. Google, Microsoft etc
+	 */
+	providerName?: string;
 
 	/**
 	 * A `testId` prop is provided for specified elements, which is a unique

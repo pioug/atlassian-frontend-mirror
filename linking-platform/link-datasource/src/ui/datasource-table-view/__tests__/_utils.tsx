@@ -11,8 +11,8 @@ const ORS_FETCH_DATASOURCE_DATA_ENDPOINT =
 
 export const mockFetchDatasourceDataEndpoint = (
 	overrides: {
-		meta: Partial<DatasourceDataResponse['meta']>;
 		data: DatasourceDataResponse['data'];
+		meta: Partial<DatasourceDataResponse['meta']>;
 	} & Omit<DatasourceDataResponse, 'meta' | 'data'>,
 ) => {
 	fetchMock.post(

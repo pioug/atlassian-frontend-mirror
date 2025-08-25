@@ -11,12 +11,12 @@ const getTargetNode = (target: string | Element): Element | null => {
 };
 
 export interface Props {
-	target: string | Element;
-	relativePosition?: RelativePosition;
+	children: ReactElement<any>;
 	offsetX?: number;
 	offsetY?: number;
+	relativePosition?: RelativePosition;
+	target: string | Element;
 	zIndex?: string | number;
-	children: ReactElement<any>;
 }
 
 const Popup = (props: React.PropsWithChildren<Props>) => {

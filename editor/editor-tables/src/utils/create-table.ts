@@ -16,13 +16,13 @@ const createCell = (cellType: NodeType, cellContent?: PMNode): PMNode | undefine
 // `cellContent` defines the content of each cell.
 
 type CreateTableProps = {
-	schema: Schema;
-	rowsCount?: number;
-	colsCount?: number;
-	withHeaderRow?: boolean;
 	cellContent?: PMNode;
-	tableWidth?: number | 'inherit';
+	colsCount?: number;
 	layout?: string;
+	rowsCount?: number;
+	schema: Schema;
+	tableWidth?: number | 'inherit';
+	withHeaderRow?: boolean;
 };
 
 export const createTable = ({

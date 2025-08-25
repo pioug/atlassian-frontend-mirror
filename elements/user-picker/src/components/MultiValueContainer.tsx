@@ -14,8 +14,8 @@ import { token } from '@atlaskit/tokens';
 import { cssMap, jsx } from '@compiled/react';
 
 export type State = {
-	valueSize: number;
 	previousValueSize: number;
+	valueSize: number;
 };
 
 type Props = MultiValueProps<Option<User>[], true> & {

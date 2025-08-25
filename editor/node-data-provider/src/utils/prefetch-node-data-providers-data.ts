@@ -43,9 +43,9 @@ type SsrData = { [dataKey: string]: unknown };
  */
 type NodeDataProvidersSsrData = {
 	[providerName: string]: {
-		success: boolean;
-		duration: number;
 		data: SsrData;
+		duration: number;
+		success: boolean;
 	};
 };
 
@@ -54,12 +54,6 @@ interface Props {
 	 * The document for which to prefetch data.
 	 */
 	doc: JSONDocNode;
-	/**
-	 * A global timeout in milliseconds for all fetch requests.
-	 *
-	 * Each provider will use the minimum of this value and its own specific timeout.
-	 */
-	timeout: number;
 	/**
 	 * The maximum number of nodes to visit when searching for nodes to prefetch.
 	 * This is a performance safeguard for very large documents.
@@ -73,10 +67,6 @@ interface Props {
 	 */
 	providers: {
 		/**
-		 * The provider instance to use for prefetching.
-		 */
-		provider: NodeDataProvider<JSONNode, unknown>;
-		/**
 		 * The maximum number of nodes to prefetch for this specific provider.
 		 * This helps prevent performance issues with documents containing many
 		 * nodes of the same type.
@@ -85,6 +75,10 @@ interface Props {
 		 */
 		maxNodesToPrefetch?: number;
 		/**
+		 * The provider instance to use for prefetching.
+		 */
+		provider: NodeDataProvider<JSONNode, unknown>;
+		/**
 		 * The timeout in milliseconds for the fetch request for this specific provider.
 		 * If the request takes longer than this, it will be aborted and return no data.
 		 *
@@ -92,6 +86,12 @@ interface Props {
 		 */
 		timeout?: number;
 	}[];
+	/**
+	 * A global timeout in milliseconds for all fetch requests.
+	 *
+	 * Each provider will use the minimum of this value and its own specific timeout.
+	 */
+	timeout: number;
 }
 
 /**
@@ -158,11 +158,11 @@ export async function prefetchNodeDataProvidersData({
 	);
 
 	interface ProviderResult {
-		provider: NodeDataProvider<JSONNode, unknown>;
-		nodes: JSONNode[];
-		success: boolean;
-		duration: number;
 		data: unknown[];
+		duration: number;
+		nodes: JSONNode[];
+		provider: NodeDataProvider<JSONNode, unknown>;
+		success: boolean;
 	}
 
 	const promises = nodesWithProviders.map<Promise<ProviderResult>>(

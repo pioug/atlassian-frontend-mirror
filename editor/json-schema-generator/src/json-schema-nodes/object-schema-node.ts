@@ -4,8 +4,8 @@ import { isObject } from '../utils';
 
 type Properties = {
 	[key: string]: {
-		value: SchemaNode;
 		required?: boolean;
+		value: SchemaNode;
 	};
 }; // 6.18, 6.17
 

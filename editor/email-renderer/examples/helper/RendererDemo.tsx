@@ -9,9 +9,9 @@ import type { MetaDataContext } from '../../src/interfaces';
 import EmailSerializer from '../../src';
 
 export interface DemoRendererProps {
-	serializer: 'email';
 	document?: object;
 	maxHeight?: number;
+	serializer: 'email';
 	truncationEnabled?: boolean;
 }
 

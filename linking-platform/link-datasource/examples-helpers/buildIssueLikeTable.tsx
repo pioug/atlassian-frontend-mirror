@@ -21,17 +21,17 @@ import SmartLinkClient from './smartLinkCustomClient';
 import { useCommonTableProps } from './useCommonTableProps';
 
 type Props = {
-	isReadonly?: boolean;
-	canResizeColumns?: boolean;
 	canControlWrapping?: boolean;
-	skipIntl?: boolean;
+	canResizeColumns?: boolean;
 	forceLoading?: boolean;
-	visibleColumnKeys?: string[];
+	isReadonly?: boolean;
 	/**
 	 * Use infinity for an infinite delay (promise never resolves or rejects)
 	 * Default is 600ms
 	 */
 	mockExecutionDelay?: number;
+	skipIntl?: boolean;
+	visibleColumnKeys?: string[];
 };
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard

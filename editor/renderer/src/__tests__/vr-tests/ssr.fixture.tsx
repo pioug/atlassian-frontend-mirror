@@ -50,8 +50,8 @@ const RendererWrapper = ({
 };
 
 interface CustomProvidersProps {
-	children?: JSX.Element;
 	[k: string]: any;
+	children?: JSX.Element;
 }
 
 const RendererSSR = ({

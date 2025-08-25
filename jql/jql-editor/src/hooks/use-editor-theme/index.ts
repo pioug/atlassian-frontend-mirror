@@ -16,19 +16,19 @@ export type EditorTheme = {
 	 */
 	expandedRows: number;
 	/**
-	 * Toggle the editor view expanded state.
+	 * `false` matches AK's default field styling
+	 * `true` matches AK's compact field styling, generally used for search purposes.
 	 */
-	toggleExpanded: () => void;
+	isCompact: boolean;
 	/**
 	 * `true` shows search button, other search related elements
 	 * `false` to act as a text field
 	 */
 	isSearch: boolean;
 	/**
-	 * `false` matches AK's default field styling
-	 * `true` matches AK's compact field styling, generally used for search purposes.
+	 * Toggle the editor view expanded state.
 	 */
-	isCompact: boolean;
+	toggleExpanded: () => void;
 };
 
 const defaultMaxRows = 3;
@@ -52,8 +52,8 @@ export const useEditorTheme = ({
 	isSearch = false,
 	isCompact = false,
 }: {
-	isSearch?: boolean;
 	isCompact?: boolean;
+	isSearch?: boolean;
 }): EditorTheme => {
 	const [expanded, setExpanded] = useState(false);
 

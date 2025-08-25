@@ -9,38 +9,38 @@ export interface AdfAttrs {
 }
 
 export interface AdfMark {
-	type: string;
 	attrs?: AdfAttrs;
+	type: string;
 }
 
 export interface AdfNode {
-	type: string;
-	content?: AdfNode[];
-	text?: string;
 	attrs?: AdfAttrs;
+	content?: AdfNode[];
 	marks?: AdfMark[];
+	text?: string;
+	type: string;
 }
 
 export interface DocumentMetrics {
-	totalNodes: number;
+	externalDataSources: number;
+	interactiveElements: number;
 	leafNodes: number;
 	maxDepth: number;
 	nodeTypes: Map<string, number>;
-	interactiveElements: number;
-	externalDataSources: number;
+	totalNodes: number;
 }
 
 export interface LeafNodeDebugInfo {
-	type: string;
 	baseWeight: number;
-	parentWeight: number;
 	count: number; // Number of similar nodes
+	parentWeight: number;
 	totalWeight: number; // Combined weight of all similar nodes
+	type: string;
 }
 
 export type DebugNodePath = (string | LeafNodeDebugInfo)[];
 
 export type ComplexityResult = {
-	weight: number;
 	debugPaths?: DebugNodePath[];
+	weight: number;
 };

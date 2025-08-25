@@ -10,9 +10,19 @@ import { type ActionProps } from '../actions/action/types';
 
 export type BlockProps = {
 	/**
+	 * Ref to block wrapper div.
+	 */
+	blockRef?: Ref<HTMLDivElement>;
+
+	/**
 	 * React children
 	 */
 	children?: ReactNode | undefined;
+
+	/**
+	 * For compiled css
+	 */
+	className?: string;
 
 	/**
 	 * The direction that the block should arrange its elements. Can be vertical
@@ -22,32 +32,9 @@ export type BlockProps = {
 	direction?: SmartLinkDirection;
 
 	/**
-	 * For compiled css
+	 * For image icons in the title, whether to hide the loading skeleton while the image is loading.
 	 */
-	className?: string;
-
-	/**
-	 * For dynamic styles
-	 */
-	style?: React.CSSProperties;
-
-	/**
-	 * The size of the block and the size that the underlying elements should
-	 * default to.
-	 */
-	size?: SmartLinkSize;
-
-	/**
-	 * A `testId` prop is provided for specified elements, which is a unique
-	 * string that appears as a data attribute `data-testid` in the rendered code,
-	 * serving as a hook for automated tests
-	 */
-	testId?: string;
-
-	/**
-	 * Ref to block wrapper div.
-	 */
-	blockRef?: Ref<HTMLDivElement>;
+	hideIconLoadingSkeleton?: boolean;
 
 	/**
 	 * Function to be called on render of block.
@@ -65,10 +52,23 @@ export type BlockProps = {
 	 * A unique identifier for the placeholder loading state, which is constant across all loading states of the same item.
 	 */
 	placeholderId?: string;
+
 	/**
-	 * For image icons in the title, whether to hide the loading skeleton while the image is loading.
+	 * The size of the block and the size that the underlying elements should
+	 * default to.
 	 */
-	hideIconLoadingSkeleton?: boolean;
+	size?: SmartLinkSize;
+
+	/**
+	 * For dynamic styles
+	 */
+	style?: React.CSSProperties;
+	/**
+	 * A `testId` prop is provided for specified elements, which is a unique
+	 * string that appears as a data attribute `data-testid` in the rendered code,
+	 * serving as a hook for automated tests
+	 */
+	testId?: string;
 };
 
 /**
@@ -93,6 +93,11 @@ export type ElementItem = {
  */
 export type BaseActionItem = {
 	/**
+	 * Determines the text content of the Action.
+	 */
+	content?: React.ReactNode;
+
+	/**
 	 * Determines whether the action should hide the text content of the button.
 	 */
 	hideContent?: boolean;
@@ -108,6 +113,11 @@ export type BaseActionItem = {
 	iconPosition?: 'before' | 'after';
 
 	/**
+	 * Determines whether the button displays as disabled.
+	 */
+	isDisabled?: boolean;
+
+	/**
 	 * Determines the text and icon representation of the action, with exception
 	 * to CustomAction.
 	 */
@@ -117,11 +127,6 @@ export type BaseActionItem = {
 	 * Determines the onClick behaviour of the action.
 	 */
 	onClick: () => any;
-
-	/**
-	 * Determines the text content of the Action.
-	 */
-	content?: React.ReactNode;
 
 	/**
 	 * Determines the size of the Action. Corresponds to an Action appearance.
@@ -134,11 +139,6 @@ export type BaseActionItem = {
 	 * serving as a hook for automated tests
 	 */
 	testId?: string;
-
-	/**
-	 * Determines whether the button displays as disabled.
-	 */
-	isDisabled?: boolean;
 };
 
 /**
@@ -154,6 +154,11 @@ export type BaseDataActionItem = {
 	 * Determines whether the action should hide the icon inside the button.
 	 */
 	hideIcon?: boolean;
+
+	/**
+	 * Determines whether the button displays as disabled.
+	 */
+	isDisabled?: boolean;
 
 	/**
 	 * Determines the text and icon representation of the action, with exception
@@ -178,11 +183,6 @@ export type BaseDataActionItem = {
 	 * serving as a hook for automated tests
 	 */
 	testId?: string;
-
-	/**
-	 * Determines whether the button displays as disabled.
-	 */
-	isDisabled?: boolean;
 };
 
 /**
@@ -214,9 +214,9 @@ export type NamedActionItem = BaseActionItem & {
  * This represents an action where either Icon or label must be provided.
  */
 export type CustomActionItem = BaseActionItem & {
-	name: ActionName.CustomAction;
-	href?: string;
 	ariaLabel?: string;
+	href?: string;
+	name: ActionName.CustomAction;
 } & (
 		| (Required<Pick<ActionProps, 'icon' | 'iconPosition'>> & Pick<ActionProps, 'content'>)
 		| ((Required<Pick<ActionProps, 'content'>> & Pick<ActionProps, 'icon' | 'iconPosition'>) &
@@ -316,13 +316,13 @@ export type OwnedByGroup = {
 export type AssignedToGroup = {
 	name: ElementName.AssignedToGroup;
 	/**
-	 * Shows a name prefix Assigned To in the Avatar tooltip.
-	 */
-	showNamePrefix?: boolean;
-	/**
 	 * Shows a default unassigned fallback avatar when no person is assigned.
 	 */
 	showFallbackAvatar?: boolean;
+	/**
+	 * Shows a name prefix Assigned To in the Avatar tooltip.
+	 */
+	showNamePrefix?: boolean;
 };
 
 /**
@@ -365,14 +365,14 @@ export type CreatedBy = {
  * @see OwnedBy
  */
 export type OwnedBy = {
-	name: ElementName.OwnedBy;
+	fontSize?: 'font.body' | 'font.body.large' | 'font.body.small' | 'font.body.UNSAFE_small';
 
+	hideFormat?: boolean;
+	name: ElementName.OwnedBy;
 	// Note: These types originate from `OwnedByElementProps` however due to compilation issues with Atlaskit
 	// they have been replaced with their direct types
 	// https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183586/overview
 	textPrefix?: 'owned_by' | 'owned_by_override';
-	hideFormat?: boolean;
-	fontSize?: 'font.body' | 'font.body.large' | 'font.body.small' | 'font.body.UNSAFE_small';
 };
 /**
  * Represents the props available for an CreatedOn element.
@@ -424,15 +424,15 @@ export type ModifiedBy = {
  * @see ModifiedOn
  */
 export type ModifiedOn = {
+	// Note: This type originates from `ModifiedOnElementProps` however due to compilation issues with Atlaskit
+	// it has been replaced with its direct type
+	// https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183586/overview
+	fontSize?: 'font.body' | 'font.body.large' | 'font.body.small' | 'font.body.UNSAFE_small';
 	name: ElementName.ModifiedOn;
 	/**
 	 * A string which will be displayed before the specified element.
 	 */
 	text?: string;
-	// Note: This type originates from `ModifiedOnElementProps` however due to compilation issues with Atlaskit
-	// it has been replaced with its direct type
-	// https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/183586/overview
-	fontSize?: 'font.body' | 'font.body.large' | 'font.body.small' | 'font.body.UNSAFE_small';
 };
 /**
  * Represents the props available for an Preview element.
@@ -460,8 +460,8 @@ export type ProgrammingLanguage = {
  * @see Provider
  */
 export type Provider = {
-	name: ElementName.Provider;
 	hideIcon?: boolean;
+	name: ElementName.Provider;
 };
 /**
  * Represents the props available for an ReactCount element.

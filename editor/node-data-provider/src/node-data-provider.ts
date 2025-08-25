@@ -29,8 +29,8 @@ type SSRData<Data> = { [dataKey: string]: Data };
 type CacheData<Data> = Record<
 	string,
 	{
-		source: 'ssr' | 'network';
 		data: Data | Promise<Data>;
+		source: 'ssr' | 'network';
 	}
 >;
 
@@ -40,9 +40,9 @@ type CacheData<Data> = Record<
  */
 type CallbackPayload<Data> =
 	| {
+			data?: undefined;
 			/** An error that occurred while fetching data. */
 			error: Error;
-			data?: undefined;
 	  }
 	| {
 			/** Fetched data for the node. */

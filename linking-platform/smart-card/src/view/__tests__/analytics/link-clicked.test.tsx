@@ -35,13 +35,13 @@ type TestCaseOptions = {
 	 */
 	beforeClick?: () => Promise<void>;
 	/**
-	 * Link selector to target an element to click
-	 */
-	selector?: () => Promise<HTMLElement>;
-	/**
 	 * Expected context to be seen on the event
 	 */
 	context?: Record<string, unknown>[];
+	/**
+	 * Link selector to target an element to click
+	 */
+	selector?: () => Promise<HTMLElement>;
 };
 
 const PACKAGE_CONTEXT = {

@@ -3,10 +3,6 @@
  */
 export type IconPriorityOpts<T> = {
 	/**
-	 * Icon choice corresponding to the file format (based on MIME type) for the object.
-	 */
-	fileFormatIcon: T | undefined;
-	/**
 	 * Icon choice corresponding to the document type for the object.
 	 * @remark Document type icons can be provider-specific. This covers use cases
 	 * where a document type + provider combo is necessary to offer a unique icon
@@ -16,14 +12,18 @@ export type IconPriorityOpts<T> = {
 	 */
 	documentTypeIcon: T | undefined;
 	/**
-	 * The icon choice extracted from the icon property of the JSON-LD data object.
+	 * Icon choice corresponding to the file format (based on MIME type) for the object.
 	 */
-	urlIcon: T | undefined;
+	fileFormatIcon: T | undefined;
 	/**
 	 * The icon choice extracted from the generator object (provider) of the
 	 * JSON-LD data object.
 	 */
 	providerIcon: T | undefined;
+	/**
+	 * The icon choice extracted from the icon property of the JSON-LD data object.
+	 */
+	urlIcon: T | undefined;
 };
 
 /**

@@ -12,8 +12,8 @@ describe('useEmoji', () => {
 		children,
 		emojiProvider,
 	}: React.PropsWithChildren<{
-		emojiProvider: EmojiResource;
 		children?: React.ReactNode;
+		emojiProvider: EmojiResource;
 	}>) => <EmojiCommonProvider emojiProvider={emojiProvider}>{children}</EmojiCommonProvider>;
 
 	const renderHookWithProvider = async (uploadSupported = false) => {

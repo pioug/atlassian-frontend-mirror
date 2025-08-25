@@ -35,12 +35,12 @@ const DefaultView = ({
 	onCategorySelected,
 	setSelectedItem,
 }: {
-	suggested?: GroupData;
-	itemsRegistry: ItemsRegistry;
 	categoryRegistry: CategoryRegistry;
-	onItemSelected: (index: number) => void;
+	itemsRegistry: ItemsRegistry;
 	onCategorySelected: (categoryId: string) => void;
+	onItemSelected: (index: number) => void;
 	setSelectedItem?: OnSelectItem;
+	suggested?: GroupData;
 }) => {
 	return (
 		<Stack>
@@ -90,9 +90,9 @@ const CategoryView = ({
 	onBackButtonClicked,
 }: {
 	categoryRegistry: CategoryRegistry;
-	selectedCategory: string;
-	onItemSelected: (index: number) => void;
 	onBackButtonClicked: () => void;
+	onItemSelected: (index: number) => void;
+	selectedCategory: string;
 }) => {
 	const categoryData = PredefinedCategories.get(selectedCategory);
 

@@ -243,9 +243,9 @@ const PlainJiraIssuesConfigModal = (props: ConnectedJiraConfigModalProps) => {
 				basicFilterSelections,
 				isQueryComplex,
 			}: {
-				searchMethod: JiraSearchMethod;
 				basicFilterSelections: SelectedOptionsMap;
 				isQueryComplex: boolean;
+				searchMethod: JiraSearchMethod;
 			},
 		) => {
 			searchCount.current++;

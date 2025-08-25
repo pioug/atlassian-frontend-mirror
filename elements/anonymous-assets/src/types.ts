@@ -147,8 +147,8 @@ export type AnonymousAsset = {
 };
 
 export type GetAnonymousAvatarWithStylingProps = {
-	/** key value pair of additional styling to apply to svg. Key is expected to be kebab-case */
-	styleProperties: Record<string, string>;
 	/** The optional index to specify which anonymous asset to select. If none is provided, a random index will be selected */
 	index?: number;
+	/** key value pair of additional styling to apply to svg. Key is expected to be kebab-case */
+	styleProperties: Record<string, string>;
 } & Omit<FetchWithRetryParams, 'url' | 'shouldRetryOnApiError'>;

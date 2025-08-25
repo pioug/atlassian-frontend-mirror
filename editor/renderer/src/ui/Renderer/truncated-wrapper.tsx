@@ -8,16 +8,16 @@ import { Component } from 'react';
 import { token } from '@atlaskit/tokens';
 
 interface TruncatedWrapperProps {
-	height?: number;
-	fadeHeight?: number;
 	backgroundColor?: string;
 	children?: React.ReactNode;
+	fadeHeight?: number;
+	height?: number;
 }
 
 type FadeOutProps = React.PropsWithChildren<{
-	height: number;
-	fadeHeight: number;
 	backgroundColor: string;
+	fadeHeight: number;
+	height: number;
 }>;
 
 const fadeOutStyles = (maxHeight: number, top: number, backgroundColor: string) =>

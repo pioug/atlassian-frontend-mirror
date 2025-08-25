@@ -29,9 +29,9 @@ import {
 } from '../../test-utils/ast';
 
 type TestCase = {
-	name: string;
-	input: string;
 	expected: string;
+	input: string;
+	name: string;
 	transform: ((query: Query) => void) | JastListener;
 };
 const testCases: TestCase[] = [

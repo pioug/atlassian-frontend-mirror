@@ -134,9 +134,9 @@ export function unstable_editorExperimentParam<
 	experimentName: ExperimentName,
 	paramName: ParamKey,
 	options: {
+		defaultValue: ParamValue;
 		exposure?: boolean;
 		typeGuard: (value: unknown) => value is ParamValue;
-		defaultValue: ParamValue;
 	},
 ): ParamValue {
 	if (_paramOverrides[experimentName]?.[paramName] !== undefined) {

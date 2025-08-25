@@ -31,8 +31,8 @@ export type {
 } from './types';
 
 interface WrapperProps {
-	props: EditorProps;
 	initialPluginConfiguration?: InitialPluginConfiguration;
+	props: EditorProps;
 }
 
 const ComposableEditorWrapper = ({ props, initialPluginConfiguration }: WrapperProps) => {

@@ -30,24 +30,24 @@ export interface OnClose {
 export type Position = 'above' | 'below' | 'auto';
 
 export interface Props {
-	resourceProvider: MentionProvider;
-	presenceProvider?: PresenceProvider;
-	query?: string;
-
-	onSelection?: OnMentionEvent;
-	onOpen?: OnOpen;
-	onClose?: OnClose;
-
-	target?: string;
-	position?: Position;
-	zIndex?: number | string;
 	offsetX?: number;
 	offsetY?: number;
+	onClose?: OnClose;
+
+	onOpen?: OnOpen;
+	onSelection?: OnMentionEvent;
+	position?: Position;
+
+	presenceProvider?: PresenceProvider;
+	query?: string;
+	resourceProvider: MentionProvider;
+	target?: string;
+	zIndex?: number | string;
 }
 
 export interface State {
-	visible: boolean;
 	info?: string;
+	visible: boolean;
 }
 
 /**

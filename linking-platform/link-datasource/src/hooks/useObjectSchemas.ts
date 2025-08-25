@@ -9,11 +9,11 @@ export type FetchObjectSchemasDetails = Pick<
 >;
 
 export type UseObjectSchemasState = {
-	objectSchemasLoading: boolean;
-	objectSchemasError: Error | undefined;
-	objectSchemas: ObjectSchema[] | undefined;
-	totalObjectSchemas: number | undefined;
 	fetchObjectSchemas: (query: string) => Promise<FetchObjectSchemasDetails>;
+	objectSchemas: ObjectSchema[] | undefined;
+	objectSchemasError: Error | undefined;
+	objectSchemasLoading: boolean;
+	totalObjectSchemas: number | undefined;
 };
 
 export const useObjectSchemas = (workspaceId: string): UseObjectSchemasState => {

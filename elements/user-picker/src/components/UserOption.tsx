@@ -15,9 +15,9 @@ import { hasValue } from './utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 export type UserOptionProps = {
-	user: User;
-	status?: string;
 	isSelected: boolean;
+	status?: string;
+	user: User;
 };
 
 export class UserOption extends React.PureComponent<UserOptionProps> {

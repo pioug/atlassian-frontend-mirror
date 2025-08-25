@@ -20,8 +20,8 @@ jest.mock('@atlaskit/editor-common/media-single', () => ({
 }));
 
 type Props = {
-	includeNodeType: boolean;
 	excerptIncludeClass: boolean;
+	includeNodeType: boolean;
 	type?: MediaType;
 };
 

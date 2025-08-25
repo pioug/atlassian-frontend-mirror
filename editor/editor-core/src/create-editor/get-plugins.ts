@@ -16,19 +16,19 @@ import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 
 export type LightPMPluginFactoryParams = {
-	// We can type this safe, we already remove the real code from this types
-	schema: Schema;
 	dispatch: Dispatch;
-	eventDispatcher: EventDispatcher;
-	providerFactory: ProviderFactory;
-	// We dont use this for now
-	props: Object;
-	prevProps?: Object;
-	portalProviderAPI: PortalProviderAPI;
-	nodeViewPortalProviderAPI: PortalProviderAPI;
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent;
+	eventDispatcher: EventDispatcher;
 	featureFlags: FeatureFlags;
 	getIntl: () => IntlShape;
+	nodeViewPortalProviderAPI: PortalProviderAPI;
+	portalProviderAPI: PortalProviderAPI;
+	prevProps?: Object;
+	// We dont use this for now
+	props: Object;
+	providerFactory: ProviderFactory;
+	// We can type this safe, we already remove the real code from this types
+	schema: Schema;
 };
 export type LightPMPluginFactory = (params: LightPMPluginFactoryParams) => SafePlugin | undefined;
 export type LightPMPlugin = {
@@ -37,21 +37,21 @@ export type LightPMPlugin = {
 };
 
 export type OnEditorViewStateUpdated = (props: {
+	readonly newEditorState: Readonly<EditorState>;
+	readonly oldEditorState: Readonly<EditorState>;
 	readonly originalTransaction: Readonly<Transaction>;
 	readonly transactions: ReadonlyArray<Transaction>;
-	readonly oldEditorState: Readonly<EditorState>;
-	readonly newEditorState: Readonly<EditorState>;
 }) => void;
 
 export interface LightEditorPlugin {
-	name: string;
-	marks?: () => MarkConfig[];
-	nodes?: () => NodeConfig[];
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	pmPlugins?: (pluginOptions?: any) => Array<LightPMPlugin>;
 	contentComponent?: UIComponentFactory;
-	usePluginHook?: ReactHookFactory;
+	marks?: () => MarkConfig[];
+	name: string;
+	nodes?: () => NodeConfig[];
+	onEditorViewStateUpdated?: OnEditorViewStateUpdated;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	pluginsOptions?: Record<string, any>;
-	onEditorViewStateUpdated?: OnEditorViewStateUpdated;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	pmPlugins?: (pluginOptions?: any) => Array<LightPMPlugin>;
+	usePluginHook?: ReactHookFactory;
 }

@@ -5,18 +5,18 @@ interface OnWebSocketEvent<T = any> {
 }
 
 export interface WebsocketClientParams {
-	url: URL;
-	onMessage?: OnWebSocketEvent;
-	onOpen?: OnWebSocketEvent;
 	onClose?: OnWebSocketEvent;
 	onError?: OnWebSocketEvent;
+	onMessage?: OnWebSocketEvent;
 	onMessageSendError?: OnWebSocketEvent;
+	onOpen?: OnWebSocketEvent;
+	url: URL;
 }
 
 interface Message {
-	type: 'subscribe' | 'unsubscribe';
 	channels: string[];
 	replayFrom?: number;
+	type: 'subscribe' | 'unsubscribe';
 }
 
 export default class WebsocketClient {

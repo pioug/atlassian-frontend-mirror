@@ -53,11 +53,11 @@ function renderTime(time?: string) {
 
 export interface Props {
 	mention: MentionDescription;
-	selected?: boolean;
+	onMouseEnter?: OnMentionEvent;
 	// TODO: Remove onMouseMove -> https://product-fabric.atlassian.net/browse/FS-3897
 	onMouseMove?: OnMentionEvent;
-	onMouseEnter?: OnMentionEvent;
 	onSelection?: OnMentionEvent;
+	selected?: boolean;
 }
 
 export default class MentionItem extends React.PureComponent<Props, {}> {

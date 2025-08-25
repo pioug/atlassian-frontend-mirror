@@ -36,7 +36,7 @@ export function applyCellStep(
 	cellStep: CellStep,
 	isDelete: boolean,
 	column: number,
-): { tr: Transform; skipRows: number; cellStep: CellStep } {
+): { cellStep: CellStep; skipRows: number; tr: Transform } {
 	// Apply the merge actions,
 	if (cellStep.mergeWith !== undefined) {
 		// Ignored via go/ees005
@@ -134,7 +134,7 @@ function getOffset(map: StepMap, cellStep: CellStep, isDelete: boolean): number 
  */
 export function invertCellStep(
 	doc: ProseMirrorNode,
-	getTableRectAndColumn: () => { rect: TableRect; column: number },
+	getTableRectAndColumn: () => { column: number; rect: TableRect },
 	cellStep: CellStep,
 	isDelete: boolean,
 	stepMap: StepMap,

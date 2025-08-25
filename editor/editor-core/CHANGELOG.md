@@ -1,5 +1,20 @@
 # @atlaskit/editor-core
 
+## 210.1.7
+
+### Patch Changes
+
+- [`977517b25c6f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/977517b25c6f3) -
+  Cleanup synchronous view mode check that is no longer required
+- [`e229628ac96dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e229628ac96dd) -
+  [ED-28430] clean up FG platform_editor_find_and_replace_improvements_1 for find & replace
+  additional fixes
+- [`b1a4bc3fda78c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b1a4bc3fda78c) -
+  [EDITOR-1128] clean up fg platform_editor_editor_container_a11y_focus
+- [`0fdcb6f2f96fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0fdcb6f2f96fd) -
+  Sorted type and interface props to improve Atlaskit docs
+- Updated dependencies
+
 ## 210.1.6
 
 ### Patch Changes

@@ -17,10 +17,10 @@ import { type DatasourceTypeWithOnlyValues, type TableViewPropsRenderType } from
 import { InlineEdit } from './inline-edit';
 
 interface TableCellContentProps {
-	id: string;
 	columnKey: string;
 	columnTitle: string;
 	columnType: DatasourceType['type'];
+	id: string;
 	/** Used to retrieve cell content from the store */
 	renderItem: TableViewPropsRenderType;
 	wrappedColumnKeys: string[] | undefined;
@@ -41,10 +41,10 @@ const TooltipWrapper = ({
 	wrappedColumnKeys,
 	children,
 }: {
+	children: React.ReactNode;
 	columnKey: string;
 	datasourceTypeWithValues: DatasourceTypeWithOnlyValues;
 	wrappedColumnKeys: string[] | undefined;
-	children: React.ReactNode;
 }) => {
 	const intl = useIntl();
 
@@ -116,9 +116,9 @@ const InlineEditableCell = ({
 	columnKey: string;
 	columnTitle: string;
 	integrationKey: string;
-	wrappedColumnKeys: string[] | undefined;
-	values: DatasourceTypeWithOnlyValues;
 	renderItem: TableViewPropsRenderType;
+	values: DatasourceTypeWithOnlyValues;
+	wrappedColumnKeys: string[] | undefined;
 }) => {
 	// Callbacks are returned only when the ari is editable and the action schemas exist in the store
 	const { execute, executeFetch } = useExecuteAtomicAction({
@@ -177,9 +177,9 @@ const toDatasourceTypeWithValues = ({
 	columnKey,
 	columnType,
 }: {
-	rowData: DatasourceDataResponseItem;
 	columnKey: string;
 	columnType: DatasourceType['type'];
+	rowData: DatasourceDataResponseItem;
 }) => {
 	// Need to make sure we keep falsy values like 0 and '', as well as the boolean false.
 	const value = rowData[columnKey]?.data;

@@ -15,11 +15,11 @@ export enum TARGET_SELECTION_SOURCE {
 
 // Not a discriminated union because we are using `selection.toJSON()`
 export type SelectionJson = {
-	type: SELECTION_TYPE;
 	anchor?: number;
 	head?: number;
-	side?: GAP_CURSOR_POSITION;
 	pos?: number;
+	side?: GAP_CURSOR_POSITION;
+	type: SELECTION_TYPE;
 };
 
 export type ExtensionType =
@@ -32,14 +32,14 @@ type ExtensionUpdateAEP = TrackAEP<
 	ACTION_SUBJECT.EXTENSION,
 	ExtensionType,
 	{
-		// com.atlassian.ecosystem - Forge
-		extensionType: string;
 		/**
 		 * extensionkey follows this format:
 		 * `${manifest.key}:${manifest.modules.nodes.name}`
 		 * e.g: 'awesome:item', 'awesome:default', 'awesome:list'
 		 */
 		extensionKey: string;
+		// com.atlassian.ecosystem - Forge
+		extensionType: string;
 		layout?: ExtensionLayout;
 		// UUID
 		localId?: string;
@@ -55,10 +55,10 @@ type ExtensionDeletedAEP = TrackAEP<
 	ACTION_SUBJECT.EXTENSION,
 	ExtensionType,
 	{
-		extensionType: string;
 		extensionKey: string;
-		localId: string;
+		extensionType: string;
 		inputMethod?: INPUT_METHOD.TOOLBAR | INPUT_METHOD.FLOATING_TB;
+		localId: string;
 	},
 	INPUT_METHOD.TOOLBAR | INPUT_METHOD.FLOATING_TB
 >;

@@ -106,12 +106,12 @@ const AnnotationControl = ({
 	setHoveredAnnotationId,
 	selectedAnnotationId,
 }: {
-	id: string;
-	resolved: boolean;
 	annotationProviders: AnnotationProviders;
 	hoveredAnnotationId: string | null;
-	setHoveredAnnotationId: React.Dispatch<React.SetStateAction<string | null>>;
+	id: string;
+	resolved: boolean;
 	selectedAnnotationId: string | null;
+	setHoveredAnnotationId: React.Dispatch<React.SetStateAction<string | null>>;
 }) => {
 	const [resolvedSate, setResolvedState] = useState(resolved);
 	// list the controls for the annotations like resolved state, hovered, selected, delete, etcs

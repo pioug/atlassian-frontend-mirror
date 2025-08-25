@@ -9,10 +9,10 @@ import { IntlProvider } from 'react-intl-next';
 import { type EmojiProvider, ResourcedEmoji } from '../src';
 
 interface RenderRealEmojisProps {
-	emailProvider: Promise<EmojiProvider>;
-	hideWrongEmojis?: boolean;
-	enableReMount?: boolean;
 	count: number;
+	emailProvider: Promise<EmojiProvider>;
+	enableReMount?: boolean;
+	hideWrongEmojis?: boolean;
 }
 
 export const RenderRealResourcedEmojis = memo((props: RenderRealEmojisProps) => {
@@ -93,9 +93,9 @@ export const RenderRealResourcedEmojis = memo((props: RenderRealEmojisProps) => 
 
 interface ParentProps {
 	count: number;
-	reMountEnabled: boolean;
-	onToggleReMount: (reMount: boolean) => void;
 	onCount: (count: number) => void;
+	onToggleReMount: (reMount: boolean) => void;
+	reMountEnabled: boolean;
 }
 const Parent = ({
 	children,

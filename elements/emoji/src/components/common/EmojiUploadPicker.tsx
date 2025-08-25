@@ -105,12 +105,12 @@ export const uploadEmojiComponentTestId = 'upload-emoji-component';
 export const cancelEmojiUploadPickerTestId = 'cancel-emoji-upload-picker';
 
 export interface Props {
-	onUploadEmoji: OnUploadEmoji;
-	onUploadCancelled: () => void;
-	onFileChooserClicked?: () => void;
+	disableFocusLock?: boolean;
 	errorMessage?: Message;
 	initialUploadName?: string;
-	disableFocusLock?: boolean;
+	onFileChooserClicked?: () => void;
+	onUploadCancelled: () => void;
+	onUploadEmoji: OnUploadEmoji;
 }
 
 const disallowedReplacementsMap = new Map([
@@ -143,12 +143,12 @@ const toEmojiName = (uploadName: string): string => {
 };
 
 interface ChooseEmojiFileProps {
+	errorMessage?: Message;
 	name?: string;
 	onChooseFile: ChangeEventHandler<any>;
 	onClick?: () => void;
 	onNameChange: ChangeEventHandler<any>;
 	onUploadCancelled: () => void;
-	errorMessage?: Message;
 }
 
 type ChooseEmojiFilePropsType = ChooseEmojiFileProps & WrappedComponentProps;
@@ -312,7 +312,7 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 		}
 
 		if (filename && name && previewImage) {
-			const notifyUpload = (size: { width: number; height: number }) => {
+			const notifyUpload = (size: { height: number; width: number }) => {
 				const { width, height } = size;
 				setUploadStatus(UploadStatus.Uploading);
 

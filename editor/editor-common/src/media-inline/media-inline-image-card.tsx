@@ -32,18 +32,18 @@ import { InlineImageCardErrorView } from './views/error-view';
 import { InlineImageCardLoadingView } from './views/loading-view';
 
 export interface MediaInlineImageCardProps {
-	identifier: FileIdentifier;
-	mediaClient?: MediaClient;
-	isSelected?: boolean;
-	isLazy?: boolean;
-	serializeDataAttrs?: boolean;
 	border?: {
-		borderSize?: number;
 		borderColor?: string;
+		borderSize?: number;
 	};
-	ssr?: MediaSSR;
-	shouldOpenMediaViewer?: boolean;
+	identifier: FileIdentifier;
+	isLazy?: boolean;
+	isSelected?: boolean;
 	isViewOnly?: boolean;
+	mediaClient?: MediaClient;
+	serializeDataAttrs?: boolean;
+	shouldOpenMediaViewer?: boolean;
+	ssr?: MediaSSR;
 }
 
 export const MediaInlineImageCardInternal = ({

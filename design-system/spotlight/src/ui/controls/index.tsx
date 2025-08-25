@@ -1,6 +1,19 @@
-import React, { forwardRef, type ReactNode } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { forwardRef, type ReactNode } from 'react';
 
-import { Flex } from '@atlaskit/primitives/compiled';
+import { cssMap, jsx } from '@atlaskit/css';
+import { token } from '@atlaskit/tokens';
+
+const styles = cssMap({
+	root: {
+		display: 'flex',
+		flexDirection: 'row-reverse',
+		gap: token('space.100'),
+	},
+});
 
 export interface SpotlightControlsProps {
 	/**
@@ -24,9 +37,9 @@ export interface SpotlightControlsProps {
 export const SpotlightControls = forwardRef<HTMLDivElement, SpotlightControlsProps>(
 	({ testId, children }: SpotlightControlsProps, ref) => {
 		return (
-			<Flex testId={testId} ref={ref} gap="space.100" role="group">
+			<div data-testid={testId} ref={ref} css={styles.root} role="group">
 				{children}
-			</Flex>
+			</div>
 		);
 	},
 );

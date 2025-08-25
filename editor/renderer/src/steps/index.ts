@@ -244,9 +244,9 @@ export function resolvePos(node: Node | null, offset: number, findEnd = false) {
 }
 
 interface AnnotationStepOptions {
-	schema: Schema;
 	annotationId: string;
 	annotationType: 'inlineComment';
+	schema: Schema;
 }
 
 export function getPosFromRange(range: Range): { from: number; to: number } | false {

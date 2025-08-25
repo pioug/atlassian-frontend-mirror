@@ -17,8 +17,8 @@ import { messages } from '../i18n';
 import { SizeableAvatar } from '../SizeableAvatar';
 
 export type TeamOptionProps = {
-	team: Team;
 	isSelected: boolean;
+	team: Team;
 };
 
 export class TeamOption extends React.PureComponent<TeamOptionProps> {

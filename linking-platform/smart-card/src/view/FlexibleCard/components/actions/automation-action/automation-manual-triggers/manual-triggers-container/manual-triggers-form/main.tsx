@@ -24,12 +24,12 @@ import SelectInputPrompt from './select-prompt/main';
 import TextInputPrompt from './text-prompt/main';
 
 export interface UserInputProps {
-	selectedRule: SelectedRule;
 	clearSelectedRule: () => any;
 	invokeRule: (ruleId: number, objects: Ari[], userInputs?: UserInputs) => Promise<void>;
+	onInputsModalClosed?: () => void;
 
 	onInputsModalOpened?: () => void;
-	onInputsModalClosed?: () => void;
+	selectedRule: SelectedRule;
 }
 
 const UserInputForm = (props: UserInputProps) => {

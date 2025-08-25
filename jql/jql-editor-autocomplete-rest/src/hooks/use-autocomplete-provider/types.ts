@@ -10,9 +10,9 @@ export type FieldValuesCache = {
 };
 
 export type UpdateCacheAction = {
-	type: 'update-cache';
 	payload: {
 		cacheKey: string;
 		values: AutocompleteOptions;
 	};
+	type: 'update-cache';
 };

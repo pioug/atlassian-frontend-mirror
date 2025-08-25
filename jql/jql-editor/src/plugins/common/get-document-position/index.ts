@@ -11,13 +11,13 @@ type NodePositionAccumulator = {
 	 */
 	doc: number;
 	/**
-	 * Plain text position.
-	 */
-	text: number;
-	/**
 	 * True when we have entered the initial block node of our document (this excludes the document node itself).
 	 */
 	enteredInitialBlock: boolean;
+	/**
+	 * Plain text position.
+	 */
+	text: number;
 };
 
 /**

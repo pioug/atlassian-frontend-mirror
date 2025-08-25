@@ -19,16 +19,16 @@ export interface OutlierReport {
 }
 
 export interface PluginPerformanceReportOptions {
-	usePerformanceMarks?: boolean;
+	outlierFactor: number;
+	outlierThreshold: number;
 	samplingRate: number;
 	slowThreshold: number;
-	outlierThreshold: number;
-	outlierFactor: number;
+	usePerformanceMarks?: boolean;
 }
 
 export type NodesCount = {
-	nodeCount: NodeCount;
 	extensionNodeCount: NodeCount;
+	nodeCount: NodeCount;
 };
 
 export class PluginPerformanceReport {

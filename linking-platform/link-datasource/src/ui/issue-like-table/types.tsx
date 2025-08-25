@@ -31,11 +31,10 @@ export interface ColumnSizesMap {
 }
 
 export interface IssueLikeDataTableViewProps {
-	testId?: string;
 	/**
-	 * Datasource extension key. Optional as value may not have been returned yet
+	 * Map of column key to custom column width
 	 */
-	extensionKey?: string | null;
+	columnCustomSizes?: ColumnSizesMap;
 	/**
 	 * All available columns/properties.
 	 * Consumer should not reorder these columns to align with `visibleColumnKeys`.
@@ -43,15 +42,29 @@ export interface IssueLikeDataTableViewProps {
 	 */
 	columns: DatasourceResponseSchemaProperty[];
 	/**
-	 * List of properties/column keys that are visible/selected
+	 * Datasource extension key. Optional as value may not have been returned yet
 	 */
-	visibleColumnKeys: string[];
+	extensionKey?: string | null;
 	hasNextPage: boolean;
-	status: DatasourceTableStatusType;
-	items: DatasourceDataResponseItem[];
 	itemIds: string[];
-	onNextPage: NextPageType;
+	items: DatasourceDataResponseItem[];
+	onColumnResize?: (key: string, width: number) => void;
 	onLoadDatasourceDetails: () => Promise<void>;
+	onNextPage: NextPageType;
+	/**
+	 * Callback to be invoked whenever a user changes the visible columns in a datasource table
+	 * either by selecting/unselecting or reordering (drag and drop)
+	 *
+	 * @param visibleColumnKeys the array of keys for all of the selected columns
+	 */
+	onVisibleColumnKeysChange?: (visibleColumnKeys: string[]) => void;
+	/**
+	 * Callback to be invoked whenever user changes wrap attribute of the column.
+	 *
+	 * @param key Column key
+	 * @param shouldWrap  Whenever column should wrap
+	 */
+	onWrappedColumnChange?: (key: string, shouldWrap: boolean) => void;
 	/**
 	 * A function to define new or override existing render components.
 	 * eg:
@@ -65,13 +78,6 @@ export interface IssueLikeDataTableViewProps {
 	 * };
 	 */
 	renderItem?: TableViewPropsRenderType;
-	/**
-	 * Callback to be invoked whenever a user changes the visible columns in a datasource table
-	 * either by selecting/unselecting or reordering (drag and drop)
-	 *
-	 * @param visibleColumnKeys the array of keys for all of the selected columns
-	 */
-	onVisibleColumnKeysChange?: (visibleColumnKeys: string[]) => void;
 
 	/**
 	 * If this number is set it will restrict (max-height) maximum size of the component AND make main container a scrollable container.
@@ -79,31 +85,25 @@ export interface IssueLikeDataTableViewProps {
 	 */
 	scrollableContainerHeight?: number;
 
+	status: DatasourceTableStatusType;
+	testId?: string;
+
 	/**
-	 * Map of column key to custom column width
+	 * List of properties/column keys that are visible/selected
 	 */
-	columnCustomSizes?: ColumnSizesMap;
-	onColumnResize?: (key: string, width: number) => void;
+	visibleColumnKeys: string[];
 
 	/**
 	 * List of column keys that needs to be shown without truncation (content will wrap to a new line)
 	 */
 	wrappedColumnKeys?: string[];
-
-	/**
-	 * Callback to be invoked whenever user changes wrap attribute of the column.
-	 *
-	 * @param key Column key
-	 * @param shouldWrap  Whenever column should wrap
-	 */
-	onWrappedColumnChange?: (key: string, shouldWrap: boolean) => void;
 }
 
 export interface HeaderRowCellType {
-	key: string;
-	width?: number;
-	shouldTruncate?: boolean;
 	content?: React.ReactNode | string;
+	key: string;
+	shouldTruncate?: boolean;
+	width?: number;
 }
 
 export interface RowType {
@@ -113,9 +113,9 @@ export interface RowType {
 }
 
 export interface RowCellType {
+	content?: React.ReactNode | string;
 	key: string;
+	shouldTruncate?: boolean;
 	type?: DatasourceType['type'];
 	width?: number;
-	shouldTruncate?: boolean;
-	content?: React.ReactNode | string;
 }

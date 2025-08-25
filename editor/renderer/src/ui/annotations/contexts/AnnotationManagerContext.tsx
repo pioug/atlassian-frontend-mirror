@@ -34,15 +34,15 @@ interface AnnotationState {
 type AnnotationsStateRecord = Record<AnnotationId, AnnotationState>;
 
 interface AnnotationManagerStateContext {
-	isDrafting: boolean;
-	draftId: string | undefined;
-	draftMarkRef: HTMLElement | undefined;
-	draftActionResult: ActionResult | undefined;
-
 	annotations: AnnotationsStateRecord;
+	currentHoveredAnnotationId: AnnotationId | undefined;
 	currentSelectedAnnotationId: AnnotationId | undefined;
 	currentSelectedMarkRef: HTMLElement | undefined;
-	currentHoveredAnnotationId: AnnotationId | undefined;
+
+	draftActionResult: ActionResult | undefined;
+	draftId: string | undefined;
+	draftMarkRef: HTMLElement | undefined;
+	isDrafting: boolean;
 }
 
 interface AnnotationManagerDispatchContext {
@@ -72,20 +72,20 @@ const AnnotationManagerDispatchContext = createContext<AnnotationManagerDispatch
 type AnnotationManagerAction =
 	| { type: 'reset' }
 	| {
-			type: 'loadAnnotation';
 			data: {
 				id: AnnotationId;
 				markState?: AnnotationMarkStates;
 			}[];
+			type: 'loadAnnotation';
 	  }
 	| {
-			type: 'updateAnnotation';
 			data: {
-				id: AnnotationId;
-				selected?: boolean;
 				hovered?: boolean;
+				id: AnnotationId;
 				markState?: AnnotationMarkStates;
+				selected?: boolean;
 			};
+			type: 'updateAnnotation';
 	  }
 	| {
 			type: 'resetSelectedAnnotation';
@@ -94,24 +94,24 @@ type AnnotationManagerAction =
 			type: 'resetHoveredAnnotation';
 	  }
 	| {
-			type: 'setDrafting';
 			data: {
-				isDrafting: boolean;
-				draftId: string | undefined;
 				draftActionResult: ActionResult | undefined;
+				draftId: string | undefined;
+				isDrafting: boolean;
 			};
+			type: 'setDrafting';
 	  }
 	| {
-			type: 'setDraftMarkRef';
 			data: {
 				draftMarkRef: HTMLElement | undefined;
 			};
+			type: 'setDraftMarkRef';
 	  }
 	| {
-			type: 'setSelectedMarkRef';
 			data: {
 				markRef: HTMLElement | undefined;
 			};
+			type: 'setSelectedMarkRef';
 	  };
 
 function reducer(
@@ -318,8 +318,8 @@ export const AnnotationManagerProvider = ({
 	annotationManager,
 	updateSubscriber,
 }: {
-	children?: ReactNode;
 	annotationManager?: AnnotationManager;
+	children?: ReactNode;
 	updateSubscriber?: AnnotationUpdateEmitter;
 }) => {
 	const [state, dispatch] = useReducer(reducer, initState);

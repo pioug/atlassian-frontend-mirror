@@ -10,9 +10,9 @@ import { type DatasourceOperationFailedAttributesType } from '../analytics/gener
 const getNetworkFields = (
 	error: unknown,
 ): {
-	traceId: string | null;
-	status: number | null;
 	reason: DatasourceOperationFailedAttributesType['reason'];
+	status: number | null;
+	traceId: string | null;
 } => {
 	switch (true) {
 		case error instanceof Response:

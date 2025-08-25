@@ -51,10 +51,10 @@ const flexibleIconSize = css({
 });
 
 interface MainToolbarWrapperProps {
-	showKeyline: boolean;
-	twoLineEditorToolbar: boolean;
 	children: React.ReactNode;
 	'data-testid'?: string;
+	showKeyline: boolean;
+	twoLineEditorToolbar: boolean;
 }
 
 // box-shadow is overriden by the mainToolbar

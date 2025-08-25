@@ -7,12 +7,12 @@ import type { EntityType } from './entity-types';
  * It will be included in `meta` when we deprecate jsonLd as part of the response.
  */
 export interface ProviderGenerator {
-	id?: string;
-	name?: string;
-	image?: string;
 	icon?: {
 		url: string;
 	};
+	id?: string;
+	image?: string;
+	name?: string;
 }
 
 export type SmartLinkResponse = JsonLd.Response & {

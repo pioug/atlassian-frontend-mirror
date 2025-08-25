@@ -21,7 +21,7 @@ function moveTableRow(
 	targetRowIndex: number,
 	options?: MoveOptions,
 ): Transaction {
-	let state = EditorState.create({ doc: table });
+	const state = EditorState.create({ doc: table });
 	let { tr } = state;
 	tr = moveRow(state, [originRowIndex], targetRowIndex, options)(tr);
 	return tr;
@@ -352,27 +352,27 @@ describe('table__moveRow', () => {
 				});
 
 				it('row 0 to 2', () => {
-					let newTr = moveTableRow(original, 0, 2);
+					const newTr = moveTableRow(original, 0, 2);
 					expect(newTr.doc).toEqualDocument(expected);
 				});
 
 				it('row 1 to 0', () => {
-					let newTr = moveTableRow(original, 1, 0);
+					const newTr = moveTableRow(original, 1, 0);
 					expect(newTr.doc).toEqualDocument(expected);
 				});
 
 				it('row 1 to 1', () => {
-					let newTr = moveTableRow(original, 1, 1);
+					const newTr = moveTableRow(original, 1, 1);
 					expect(newTr.doc).toEqualDocument(expected);
 				});
 
 				it('row 1 to 2', () => {
-					let newTr = moveTableRow(original, 1, 2);
+					const newTr = moveTableRow(original, 1, 2);
 					expect(newTr.doc).toEqualDocument(expected);
 				});
 
 				it('row 2 to 0', () => {
-					let newTr = moveTableRow(original, 2, 0);
+					const newTr = moveTableRow(original, 2, 0);
 					expect(newTr.doc).toEqualDocument(expected);
 				});
 
@@ -381,7 +381,7 @@ describe('table__moveRow', () => {
 				});
 
 				it('row 2 to 2', () => {
-					let newTr = moveTableRow(original, 2, 2);
+					const newTr = moveTableRow(original, 2, 2);
 					expect(newTr.doc).toEqualDocument(expected);
 				});
 			});
@@ -402,23 +402,23 @@ describe('table__moveRow', () => {
 				);
 
 				it('row 0 to 2', () => {
-					let newTr = moveTableRow(original, 0, 2);
+					const newTr = moveTableRow(original, 0, 2);
 					expect(newTr.doc).toEqualDocument(expected);
 				});
 
 				it('row 1 to 2', () => {
-					let newTr = moveTableRow(original, 1, 2);
+					const newTr = moveTableRow(original, 1, 2);
 					expect(newTr.doc).toEqualDocument(expected);
 				});
 
 				it('row 2 to 0', () => {
-					let newTr = moveTableRow(original, 2, 0);
+					const newTr = moveTableRow(original, 2, 0);
 					expect(newTr.doc).toEqualDocument(expected);
 				});
 
 				describe('with tryToFit true', () => {
 					it('row 2 to 1', () => {
-						let newTr = moveTableRow(original, 2, 1, {
+						const newTr = moveTableRow(original, 2, 1, {
 							tryToFit: true,
 							direction: 0,
 						});
@@ -441,7 +441,7 @@ describe('table__moveRow', () => {
 				);
 
 				it('row 0 to 2', () => {
-					let newTr = moveTableRow(original, 0, 2);
+					const newTr = moveTableRow(original, 0, 2);
 					expect(newTr.doc).toEqualDocument(original);
 				});
 
@@ -450,12 +450,12 @@ describe('table__moveRow', () => {
 				});
 
 				it('row 2 to 0', () => {
-					let newTr = moveTableRow(original, 2, 0);
+					const newTr = moveTableRow(original, 2, 0);
 					expect(newTr.doc).toEqualDocument(original);
 				});
 
 				it('row 1 to 0', () => {
-					let newTr = moveTableRow(original, 1, 0);
+					const newTr = moveTableRow(original, 1, 0);
 					expect(newTr.doc).toEqualDocument(original);
 				});
 			});
@@ -470,7 +470,7 @@ describe('table__moveRow', () => {
 		);
 
 		it('should move row 2 to 0', () => {
-			let newTr = moveTableRow(original, 2, 0);
+			const newTr = moveTableRow(original, 2, 0);
 			const expected = createTableWithDoc(
 				row(th()(p('4')), th()(p('5')), th()(p('===')), th({ colspan: 2 })(p('E'))),
 				row(td()(p('1')), td()(p('2')), td()(p('===')), td()(p('a')), td()(p('b'))),
@@ -481,7 +481,7 @@ describe('table__moveRow', () => {
 		});
 
 		it('should move row 0 to 2 and', () => {
-			let newTr = moveTableRow(original, 0, 2);
+			const newTr = moveTableRow(original, 0, 2);
 			const expected = createTableWithDoc(
 				row(th({ colspan: 2 })(p('3')), th()(p('===')), th()(p('c')), th()(p('d'))),
 				row(td()(p('4')), td()(p('5')), td()(p('===')), td({ colspan: 2 })(p('E'))),
@@ -570,7 +570,7 @@ describe('table__moveRow', () => {
 			);
 
 			it('should move row 4 to position 1 with default direction', () => {
-				let newTr = moveTableRow(original, 4, 1, {
+				const newTr = moveTableRow(original, 4, 1, {
 					tryToFit: true,
 					direction: 0,
 				});
@@ -578,7 +578,7 @@ describe('table__moveRow', () => {
 			});
 
 			it('should move row 4 to position 1 with direction zero', () => {
-				let newTr = moveTableRow(original, 4, 1, {
+				const newTr = moveTableRow(original, 4, 1, {
 					tryToFit: true,
 					direction: 0,
 				});
@@ -586,7 +586,7 @@ describe('table__moveRow', () => {
 			});
 
 			it('should move row 4 to position 1 with direction -1', () => {
-				let newTr = moveTableRow(original, 4, 1, {
+				const newTr = moveTableRow(original, 4, 1, {
 					tryToFit: true,
 					direction: -1,
 				});
@@ -594,7 +594,7 @@ describe('table__moveRow', () => {
 			});
 
 			it('should move row 4 to position 1 with direction 1', () => {
-				let newTr = moveTableRow(original, 4, 1, {
+				const newTr = moveTableRow(original, 4, 1, {
 					tryToFit: true,
 					direction: 1,
 				});
@@ -679,7 +679,7 @@ describe('table__moveRow', () => {
 			);
 
 			it('should move row 0 to position 4 with default direction', () => {
-				let newTr = moveTableRow(original, 0, 4, {
+				const newTr = moveTableRow(original, 0, 4, {
 					tryToFit: true,
 					direction: 0,
 				});
@@ -687,7 +687,7 @@ describe('table__moveRow', () => {
 			});
 
 			it('should move row 0 to position 4 with direction 0', () => {
-				let newTr = moveTableRow(original, 0, 4, {
+				const newTr = moveTableRow(original, 0, 4, {
 					tryToFit: true,
 					direction: 0,
 				});
@@ -695,7 +695,7 @@ describe('table__moveRow', () => {
 			});
 
 			it('should move row 0 to position 4 with direction 1', () => {
-				let newTr = moveTableRow(original, 0, 4, {
+				const newTr = moveTableRow(original, 0, 4, {
 					tryToFit: true,
 					direction: 1,
 				});
@@ -703,7 +703,7 @@ describe('table__moveRow', () => {
 			});
 
 			it('should move row 0 to position 4 with direction -1', () => {
-				let newTr = moveTableRow(original, 0, 4, {
+				const newTr = moveTableRow(original, 0, 4, {
 					tryToFit: true,
 					direction: -1,
 				});

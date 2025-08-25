@@ -75,9 +75,9 @@ const categorySelectorTablist = css({
 	alignItems: 'center',
 });
 export interface Props {
-	dynamicCategories?: CategoryId[];
 	activeCategoryId?: CategoryId | null;
 	disableCategories?: boolean;
+	dynamicCategories?: CategoryId[];
 	onCategorySelected?: OnCategory;
 }
 

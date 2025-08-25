@@ -33,11 +33,11 @@ const FieldContainer = styled.div({
 });
 
 type AssetsObjectSchemaSelectProps = {
+	classNamePrefix?: string;
+	initialObjectSchemas: ObjectSchema[] | undefined;
+	testId?: string;
 	value: ObjectSchema | undefined;
 	workspaceId: string;
-	initialObjectSchemas: ObjectSchema[] | undefined;
-	classNamePrefix?: string;
-	testId?: string;
 };
 
 export const SEARCH_DEBOUNCE_MS = 350;

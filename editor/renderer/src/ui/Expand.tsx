@@ -32,11 +32,11 @@ import { ActiveHeaderIdConsumer } from './active-header-id-provider';
 import type { RendererAppearance } from './Renderer/types';
 
 type StyleProps = {
-	expanded?: boolean;
-	focused?: boolean;
+	children?: React.ReactNode;
 	'data-node-type'?: 'expand' | 'nestedExpand';
 	'data-title'?: string;
-	children?: React.ReactNode;
+	expanded?: boolean;
+	focused?: boolean;
 };
 
 const titleStyles = css({
@@ -212,12 +212,12 @@ const ContentContainer = (props: StyleProps) => {
 };
 
 export interface ExpandProps {
-	title: string;
-	nodeType: 'expand' | 'nestedExpand';
 	children: React.ReactNode;
 	fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
 	nestedHeaderIds?: Array<string>;
+	nodeType: 'expand' | 'nestedExpand';
 	rendererAppearance?: RendererAppearance;
+	title: string;
 }
 
 function fireExpandToggleAnalytics(

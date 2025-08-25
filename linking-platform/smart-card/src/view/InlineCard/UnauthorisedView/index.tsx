@@ -20,28 +20,28 @@ import { Frame } from '../Frame';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
 
 export interface InlineCardUnauthorizedViewProps {
-	/** The url to display */
-	url: string;
-	/** The icon of the service (e.g. Dropbox/Asana/Google/etc) to display */
-	icon?: React.ReactNode;
 	/** The name of the service (e.g. Dropbox/Asana/Google/etc) to display */
 	context?: string;
-	/** The optional click handler */
-	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
-	/** What to do when a user hit "Try another account" button */
-	onAuthorise?: () => void;
-	/** A flag that determines whether the card is selected in edit mode. */
-	isSelected?: boolean;
-	/** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
-	testId?: string;
-	/** Enables showing a custom preview on hover of link */
-	showHoverPreview?: boolean;
-	/** A smart link id that may be used in analytics */
-	id?: string;
 	/** An identifier of the provider which will be executing the action. */
 	extensionKey?: string;
+	/** The icon of the service (e.g. Dropbox/Asana/Google/etc) to display */
+	icon?: React.ReactNode;
+	/** A smart link id that may be used in analytics */
+	id?: string;
+	/** A flag that determines whether the card is selected in edit mode. */
+	isSelected?: boolean;
+	/** What to do when a user hit "Try another account" button */
+	onAuthorise?: () => void;
+	/** The optional click handler */
+	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
+	/** Enables showing a custom preview on hover of link */
+	showHoverPreview?: boolean;
+	/** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
+	testId?: string;
 	/** Truncates the card to one line */
 	truncateInline?: boolean;
+	/** The url to display */
+	url: string;
 }
 
 const fallbackUnauthorizedIcon = () => {

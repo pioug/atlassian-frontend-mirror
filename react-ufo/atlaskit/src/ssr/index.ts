@@ -1,4 +1,4 @@
-import { fg } from '@atlaskit/platform-feature-flags';
+//
 
 export type FeatureFlagValue = boolean | string | number | Record<any, any>;
 export type ReportedTiming = { startTime: number; duration: number; size?: number };
@@ -52,7 +52,7 @@ function mapEntry(entry: ReportedTiming) {
 	return {
 		startTime: Math.round(entry.startTime),
 		duration: Math.round(entry.duration),
-		...(entry.size && fg('platform_ufo_ssr_size_field') ? { size: Math.round(entry.size) } : {}),
+		...(entry.size ? { size: Math.round(entry.size) } : {}),
 	};
 }
 

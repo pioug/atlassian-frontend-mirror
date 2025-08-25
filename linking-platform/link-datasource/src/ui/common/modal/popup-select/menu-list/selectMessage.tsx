@@ -22,9 +22,9 @@ const styles = cssMap({
 });
 
 interface CustomSelectMessageProps {
+	description?: MessageDescriptor;
 	icon: React.ReactNode;
 	message: MessageDescriptor;
-	description?: MessageDescriptor;
 	testId: string;
 }
 

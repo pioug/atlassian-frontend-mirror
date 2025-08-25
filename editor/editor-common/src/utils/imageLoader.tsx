@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import type { ComponentType } from 'react';
 
 export interface ImageLoaderProps {
-	url?: string;
-	onExternalImageLoaded?: (dimensions: { width: number; height: number }) => void;
 	imageStatus?: ImageStatus;
+	onExternalImageLoaded?: (dimensions: { height: number; width: number }) => void;
+	url?: string;
 }
 
 export interface ImageLoaderState {

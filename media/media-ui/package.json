@@ -70,7 +70,6 @@
 		"@atlaskit/analytics-listeners": "workspace:^",
 		"@atlaskit/media-test-data": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
-		"@atlaskit/visual-regression": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@testing-library/jest-dom": "root:*",
 		"@testing-library/react": "root:*",

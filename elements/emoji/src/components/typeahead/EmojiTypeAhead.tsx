@@ -20,12 +20,12 @@ const emojiTypeAheadComponentLoader: () => Promise<ComponentClass<ComponentProps
 	emojiTypeAheadModuleLoader().then((module) => module.default);
 
 export interface Props extends EmojiTypeAheadBaseProps, LoadingProps {
-	/** CSS selector, or target HTML element */
-	target?: string | HTMLElement;
-	position?: RelativePosition;
-	zIndex?: number | string;
 	offsetX?: number;
 	offsetY?: number;
+	position?: RelativePosition;
+	/** CSS selector, or target HTML element */
+	target?: string | HTMLElement;
+	zIndex?: number | string;
 }
 
 export default class EmojiTypeahead extends LoadingEmojiComponent<Props, LoadingState> {

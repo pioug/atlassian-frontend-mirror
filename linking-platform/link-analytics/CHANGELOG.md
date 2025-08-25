@@ -1,5 +1,13 @@
 # @atlaskit/link-analytics
 
+## 10.0.6
+
+### Patch Changes
+
+- [`1b7d48c39ae03`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b7d48c39ae03) -
+  Sorted type and interface props to improve Atlaskit docs
+- Updated dependencies
+
 ## 10.0.5
 
 ### Patch Changes

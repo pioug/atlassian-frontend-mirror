@@ -3,14 +3,14 @@ import type { TableLayout } from '@atlaskit/adf-schema';
 import type { RendererAppearance } from '../../../ui/Renderer/types';
 
 export type SharedTableProps = {
+	allowTableResizing?: boolean;
 	columnWidths?: Array<number>;
-	layout: TableLayout;
-	isNumberColumnEnabled: boolean;
-	renderWidth: number;
-	tableNode?: PMNode;
-	rendererAppearance: RendererAppearance;
+	isinsideMultiBodiedExtension?: boolean;
 	isInsideOfBlockNode?: boolean;
 	isInsideOfTable?: boolean;
-	isinsideMultiBodiedExtension?: boolean;
-	allowTableResizing?: boolean;
+	isNumberColumnEnabled: boolean;
+	layout: TableLayout;
+	rendererAppearance: RendererAppearance;
+	renderWidth: number;
+	tableNode?: PMNode;
 };

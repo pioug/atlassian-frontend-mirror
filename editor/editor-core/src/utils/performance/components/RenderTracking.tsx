@@ -15,9 +15,9 @@ type RenderActions = ACTION.RE_RENDERED;
 type RenderActionSubjects = ACTION_SUBJECT.EDITOR | ACTION_SUBJECT.REACT_EDITOR_VIEW;
 
 export type RenderTrackingProps<ComponentProps> = {
-	componentProps: ComponentProps;
 	action: RenderActions;
 	actionSubject: RenderActionSubjects;
+	componentProps: ComponentProps;
 	handleAnalyticsEvent: FireAnalyticsCallback;
 	propsToIgnore?: Array<keyof ComponentProps>;
 	useShallow?: boolean;

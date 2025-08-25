@@ -18,16 +18,16 @@ import { DisplayViewDropDown } from '../display-view-dropdown/display-view-drop-
 import { useViewModeContext } from './useViewModeContext';
 
 export interface ModeSwitcherPropsOption<T extends string = string> {
-	label: string;
-	value: T;
 	disabled?: boolean;
+	label: string;
 	tooltipText?: string;
+	value: T;
 }
 export interface ModeSwitcherProps<T extends string = string> {
 	isCompact?: boolean;
 	isDisabled?: boolean;
-	options: ModeSwitcherPropsOption<T>[];
 	onOptionValueChange: (selectedOptionValue: T) => void;
+	options: ModeSwitcherPropsOption<T>[];
 	selectedOptionValue?: string;
 }
 

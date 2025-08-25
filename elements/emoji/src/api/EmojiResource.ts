@@ -56,24 +56,6 @@ export type { EmojiProvider, UploadingEmojiProvider } from '../types'; // Re-exp
 
 export interface EmojiResourceConfig {
 	/**
-	 * The service configuration for remotely recording emoji selections.
-	 * A post will be performed to this URL with the EmojiId as the body.
-	 */
-	recordConfig?: ServiceConfig;
-
-	/**
-	 * This defines the different providers. Later providers will override earlier
-	 * providers when performing shortName based look up.
-	 */
-	providers: ServiceConfig[];
-
-	/**
-	 * Additional configuration:
-	 * * On-demand Fetching - Useful for when a product may prefer manually controlling when providers are fetched
-	 */
-	options?: Options;
-
-	/**
 	 * Must be set to true to enable upload support in the emoji components.
 	 *
 	 * Can be used for the restriction of the upload UI based on permissions, or feature flags.
@@ -89,11 +71,14 @@ export interface EmojiResourceConfig {
 	currentUser?: User;
 
 	/**
-	 * This is specifically used for fetching a meta information of a single emoji.
-	 * Useful for when rendering a single or a subset of emojis on a page that does not require the
-	 * whole provider list to be downloaded.
+	 * A callback triggered on emoji load failure
 	 */
-	singleEmojiApi?: SingleEmojiApiLoaderConfig;
+	onEmojiLoadFail?: EmojiLoadFailCallback;
+
+	/**
+	 * A callback triggered on emoji load success
+	 */
+	onEmojiLoadSuccess?: EmojiLoadSuccessCallback;
 
 	/**
 	 * Renders an image while the provider is being downloaded to reduce the time
@@ -102,14 +87,29 @@ export interface EmojiResourceConfig {
 	optimisticImageApi?: OptimisticImageApiLoaderConfig;
 
 	/**
-	 * A callback triggered on emoji load success
+	 * Additional configuration:
+	 * * On-demand Fetching - Useful for when a product may prefer manually controlling when providers are fetched
 	 */
-	onEmojiLoadSuccess?: EmojiLoadSuccessCallback;
+	options?: Options;
 
 	/**
-	 * A callback triggered on emoji load failure
+	 * This defines the different providers. Later providers will override earlier
+	 * providers when performing shortName based look up.
 	 */
-	onEmojiLoadFail?: EmojiLoadFailCallback;
+	providers: ServiceConfig[];
+
+	/**
+	 * The service configuration for remotely recording emoji selections.
+	 * A post will be performed to this URL with the EmojiId as the body.
+	 */
+	recordConfig?: ServiceConfig;
+
+	/**
+	 * This is specifically used for fetching a meta information of a single emoji.
+	 * Useful for when rendering a single or a subset of emojis on a page that does not require the
+	 * whole provider list to be downloaded.
+	 */
+	singleEmojiApi?: SingleEmojiApiLoaderConfig;
 }
 
 export interface OnEmojiProviderChange extends OnProviderChange<EmojiSearchResult, any, void> {}
@@ -119,8 +119,8 @@ export interface Retry<T> {
 }
 
 export interface ResolveReject<T> {
-	resolve(result: T): void;
 	reject(reason?: any): void;
+	resolve(result: T): void;
 }
 
 /**
@@ -142,8 +142,8 @@ export const supportsUploadFeature = (
 };
 
 export interface LastQuery {
-	query?: string;
 	options?: SearchOptions;
+	query?: string;
 }
 
 export class EmojiResource

@@ -123,14 +123,14 @@ const linkifyMatch = (text: string): Match[] => {
 };
 
 interface Match {
-	schema: any;
 	index: number;
+	input?: string;
 	lastIndex: number;
+	length?: number;
 	raw: string;
+	schema: any;
 	text: string;
 	url: string;
-	length?: number;
-	input?: string;
 }
 
 export const isSafeUrl = (url: string): boolean => {

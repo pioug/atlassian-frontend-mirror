@@ -11,11 +11,11 @@ import Tooltip from '@atlaskit/tooltip';
 import { commentMessages as messages } from '../media';
 
 type CommentBadgeProps = {
-	status?: 'default' | 'entered' | 'active';
 	mediaSingleElement?: HTMLElement | null;
 	onClick: (e: React.MouseEvent) => void;
 	onMouseEnter?: (e: React.MouseEvent) => void;
 	onMouseLeave?: (e: React.MouseEvent) => void;
+	status?: 'default' | 'entered' | 'active';
 };
 
 const baseStyles = xcss({

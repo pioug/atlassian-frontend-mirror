@@ -37,108 +37,108 @@ export class AnnotationUpdateEmitter extends EventEmitter {
 }
 
 type AnnotationByMatches = {
-	originalSelection: string;
-	numMatches: number;
 	matchIndex: number;
+	numMatches: number;
+	originalSelection: string;
 	pos?: number;
 	// isAnnotationAllowed?: boolean;
 };
 
 // type ActionResult = { step: Step; doc: JSONDocNode } | false;
 export type ActionResult = {
-	step: AddMarkStep | AddNodeMarkStep;
 	doc: JSONDocNode;
 	/** The list of types of all inline nodes, which were wrapped by annotation. */
 	inlineNodeTypes?: string[];
+	step: AddMarkStep | AddNodeMarkStep;
 	targetNodeType?: string;
 } & AnnotationByMatches;
 // | false;
 
 export type ClearAnnotationActionResult = {
-	step: RemoveMarkStep | RemoveNodeMarkStep;
 	doc: JSONDocNode;
+	step: RemoveMarkStep | RemoveNodeMarkStep;
 };
 
 // ### Events
 export type AnnotationDraftStartedData = {
-	targetElement: HTMLElement | undefined;
-	/**
-	 * This list of inline node types at the draft selection location
-	 */
-	inlineNodeTypes: string[];
 	/**
 	 * The actionResult can be used by Product so they're able to perform the
 	 * required NCS transaction to add the annotation to the document.
 	 */
 	actionResult: ActionResult | undefined;
+	/**
+	 * This list of inline node types at the draft selection location
+	 */
+	inlineNodeTypes: string[];
+	targetElement: HTMLElement | undefined;
 };
 
 export type AnnotationSelectedChangeData = {
 	annotationId: AnnotationId;
-	isSelected: boolean;
 	inlineNodeTypes: string[];
+	isSelected: boolean;
 };
 
 export type AnnotationManagerEvents =
 	| {
-			name: 'draftAnnotationStarted';
 			data: AnnotationDraftStartedData;
+			name: 'draftAnnotationStarted';
 	  }
 	| {
-			name: 'annotationSelectionChanged';
 			data: AnnotationSelectedChangeData;
+			name: 'annotationSelectionChanged';
 	  };
 
 // ### Hook Results
 export type ManagerFailureReasons = 'manager-not-initialized' | 'hook-execution-error';
 
 export type StartDraftResult =
-	| { success: false; reason: ManagerFailureReasons | 'invalid-range' | 'draft-in-progress' }
+	| { reason: ManagerFailureReasons | 'invalid-range' | 'draft-in-progress'; success: false }
 	| ({ success: true } & AnnotationDraftStartedData);
 
 export type ClearDraftResult =
-	| { success: false; reason: ManagerFailureReasons | 'draft-not-started' }
+	| { reason: ManagerFailureReasons | 'draft-not-started'; success: false }
 	| { success: true };
 
 export type ApplyDraftResult =
 	| {
-			success: false;
 			reason: ManagerFailureReasons | 'draft-not-started' | 'range-no-longer-exists';
+			success: false;
 	  }
 	| {
-			success: true;
-			targetElement: HTMLElement | undefined;
-
 			/**
 			 * The actionResult will be set if the id passed to the applyDraft method is different from the id created
 			 * from the startDraft call.
 			 */
 			actionResult: ActionResult | undefined;
+			success: true;
+
+			targetElement: HTMLElement | undefined;
 	  };
 
 export type GetDraftResult =
-	| { success: false; reason: ManagerFailureReasons | 'draft-not-started' }
+	| { reason: ManagerFailureReasons | 'draft-not-started'; success: false }
 	| ({ success: true } & AnnotationDraftStartedData);
 
 export type ClearAnnotationResult =
-	| { success: false; reason: ManagerFailureReasons | 'id-not-valid' | 'clear-failed' }
+	| { reason: ManagerFailureReasons | 'id-not-valid' | 'clear-failed'; success: false }
 	| {
-			success: true;
 			actionResult: ClearAnnotationActionResult | undefined;
+			success: true;
 	  };
 
 export type SelectAnnotationResult =
-	| { success: false; reason: ManagerFailureReasons | 'id-not-valid' | 'draft-in-progress' }
+	| { reason: ManagerFailureReasons | 'id-not-valid' | 'draft-in-progress'; success: false }
 	| {
-			success: true;
 			isSelected: boolean;
+			success: true;
 	  };
 
 export type HoverAnnotationResult =
-	| { success: false; reason: ManagerFailureReasons | 'id-not-valid' }
+	| { reason: ManagerFailureReasons | 'id-not-valid'; success: false }
 	| {
-			success: true;
 			isHovered: boolean;
+			success: true;
 	  };
 
 /**
@@ -146,9 +146,6 @@ export type HoverAnnotationResult =
  */
 export type AnnotationManagerMethods = {
 	allowAnnotation: () => boolean;
-	startDraft: () => StartDraftResult;
-	clearDraft: () => ClearDraftResult;
-
 	/**
 	 * This will apply the current draft to the document.
 	 *
@@ -160,6 +157,9 @@ export type AnnotationManagerMethods = {
 	 * as this creates different behaviour between the editor and renderer.
 	 */
 	applyDraft: (id: AnnotationId) => ApplyDraftResult;
+	clearAnnotation: (id: AnnotationId) => ClearAnnotationResult;
+
+	clearDraft: () => ClearDraftResult;
 
 	/**
 	 * This can be used to inspect the current active draft.
@@ -167,9 +167,9 @@ export type AnnotationManagerMethods = {
 	 */
 	getDraft: () => GetDraftResult;
 
-	setIsAnnotationSelected: (id: AnnotationId, isSelected: boolean) => SelectAnnotationResult;
 	setIsAnnotationHovered: (id: AnnotationId, isHovered: boolean) => HoverAnnotationResult;
-	clearAnnotation: (id: AnnotationId) => ClearAnnotationResult;
+	setIsAnnotationSelected: (id: AnnotationId, isSelected: boolean) => SelectAnnotationResult;
+	startDraft: () => StartDraftResult;
 };
 
 /*
@@ -177,33 +177,12 @@ export type AnnotationManagerMethods = {
  */
 export type AnnotationManager = AnnotationManagerMethods & {
 	/**
-	 * This method is used to set a preemptive gate. A preemptive gate is a function that will be called
-	 * before the manager performs an action. If the function returns false, the action will not be performed.
-	 */
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	setPreemptiveGate(handler: () => Promise<boolean>): AnnotationManager;
-
-	/**
 	 * This method is used to run the configured preemptive gate check.
 	 * @private
 	 * @internal
 	 */
 	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	checkPreemptiveGate(): Promise<boolean>;
-
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	onDraftAnnotationStarted(handler: (data: AnnotationDraftStartedData) => void): AnnotationManager;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	offDraftAnnotationStarted(handler: (data: AnnotationDraftStartedData) => void): AnnotationManager;
-
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	onAnnotationSelectionChange(
-		handler: (data: AnnotationSelectedChangeData) => void,
-	): AnnotationManager;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	offAnnotationSelectionChange(
-		handler: (data: AnnotationSelectedChangeData) => void,
-	): AnnotationManager;
 
 	/**
 	 * @private
@@ -214,15 +193,15 @@ export type AnnotationManager = AnnotationManagerMethods & {
 	emit(
 		event:
 			| {
-					name: 'draftAnnotationStarted';
 					data: AnnotationDraftStartedData;
+					name: 'draftAnnotationStarted';
 			  }
 			| {
 					name: 'draftAnnotationCleared';
 			  }
 			| {
-					name: 'annotationSelectionChanged';
 					data: AnnotationSelectedChangeData;
+					name: 'annotationSelectionChanged';
 			  },
 	): AnnotationManager;
 
@@ -236,6 +215,27 @@ export type AnnotationManager = AnnotationManagerMethods & {
 		method: H,
 		handler: AnnotationManagerMethods[H],
 	): AnnotationManager;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
+	offAnnotationSelectionChange(
+		handler: (data: AnnotationSelectedChangeData) => void,
+	): AnnotationManager;
+
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
+	offDraftAnnotationStarted(handler: (data: AnnotationDraftStartedData) => void): AnnotationManager;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
+	onAnnotationSelectionChange(
+		handler: (data: AnnotationSelectedChangeData) => void,
+	): AnnotationManager;
+
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
+	onDraftAnnotationStarted(handler: (data: AnnotationDraftStartedData) => void): AnnotationManager;
+
+	/**
+	 * This method is used to set a preemptive gate. A preemptive gate is a function that will be called
+	 * before the manager performs an action. If the function returns false, the action will not be performed.
+	 */
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
+	setPreemptiveGate(handler: () => Promise<boolean>): AnnotationManager;
 
 	/**
 	 *

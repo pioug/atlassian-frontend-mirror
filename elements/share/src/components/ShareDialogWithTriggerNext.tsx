@@ -415,8 +415,8 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
 		isMenuItemSelected,
 		dialogPlacement,
 	}: {
-		isMenuItemSelected?: boolean;
 		dialogPlacement?: string;
+		isMenuItemSelected?: boolean;
 	}): [number, number] => {
 		if (isMenuItemSelected && dialogPlacement === 'bottom-end') {
 			return [-0.1, 8];

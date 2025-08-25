@@ -98,7 +98,7 @@ describe('getCreatableSuggestedEmailProps', () => {
 			expect(isOptionDisabled({ data: { type: 'user' } })).toBeFalsy();
 		});
 
-		test.each<[boolean, { type: string; id: string }, EmailValidationResponse]>([
+		test.each<[boolean, { id: string; type: string }, EmailValidationResponse]>([
 			[false, { type: 'email', id: '1' }, 'VALID'],
 			[true, { type: 'email', id: '2' }, 'POTENTIAL'],
 			[true, { type: 'email', id: '3' }, 'INVALID'],

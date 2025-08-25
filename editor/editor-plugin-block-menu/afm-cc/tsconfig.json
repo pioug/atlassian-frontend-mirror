@@ -27,6 +27,12 @@
 			"path": "../../editor-plugin-block-controls/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-decorations/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-selection/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-user-intent/afm-cc/tsconfig.json"
 		},
 		{

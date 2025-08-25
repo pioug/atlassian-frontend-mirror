@@ -29,8 +29,8 @@ const styles = cssMap({
 
 export interface SiteSelectorProps {
 	availableSites: Site[] | undefined;
-	onSiteSelection: (selectedSite: Site) => void;
 	label: MessageDescriptor;
+	onSiteSelection: (selectedSite: Site) => void;
 	selectedSite?: Site;
 	testId: string;
 }

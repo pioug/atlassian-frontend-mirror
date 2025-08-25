@@ -1,0 +1,73 @@
+---
+order: 0
+---
+
+import PlacementsExample from '../../examples/constellation/placements';
+import SingleStepExample from '../../examples/constellation/single-step';
+import MultipleStepsExample from '../../examples/constellation/multiple-steps';
+import MediaExample from '../../examples/constellation/media';
+import ControlsExample from '../../examples/constellation/controls';
+
+## Single Step
+
+Ideally, spotlights should only have a single step so as not to overwhelm users with too much
+information. Try and combine or eliminate tasks where possible. Dismiss functionality is required.
+Don't force users to participate.
+
+To show/hide the `Spotlight`, simply use a `useState` to control the `isVisible` prop on
+`PopoverContent`. To position the `Spotlight`, use `PopoverProvider`, `PopoverTarget` and
+`PopoverContent` and set the
+
+<Example Component={SingleStepExample} packageName="@atlaskit/spinner" />
+
+## Multiple Steps/Tour
+
+Multiple steps should be avoided if possible. Try and combine or eliminate steps where possible. If
+multiple steps are required, preference managing the tour with a `useState`. As a last resort a
+React context may be used. However, these contexts will often need to be wrapping the entire `App`
+and therefore will cause the entire `App` to re-render every time a new spotlight step is shown.
+
+<Example Component={MultipleStepsExample} packageName="@atlaskit/spinner" />
+
+## Placements
+
+Spotlight placements are static — they do not change as the user scrolls, or if the `PopoverContent`
+overflows out of the viewport. Make sure to choose a placement that ensures the `Spotlight` is
+displayed in full.
+
+By design `@atlaskit/spotlight` does not have a blanket, scroll-lock, focus-trap, or click-outside
+to dismiss functionality. This is to ensure the user is not hijacked into the spotlight experience,
+and can opt-in if they are interested.
+
+<Example Component={PlacementsExample} packageName="@atlaskit/spinner" />
+
+## Media
+
+Media is optional for a `Spotlight`. However if it is used it must be 295px width X 135px height.
+This is to ensure correct reflow on smaller viewports.
+
+Media can be an image, video, animation, or any other visual aid to communicate spotlight intent.
+
+<Example Component={MediaExample} packageName="@atlaskit/spinner" />
+
+## Controls
+
+`SpotlightDismissControl` is required for all `Spotlight` components. It **must** be the first
+focusable element on the `Spotlight` card. This means that when defining the controls,
+`SpotlightDismissControl` should appear first in the DOM order:
+
+```tsx
+<SpotlighControls>
+	<SpotlightDismissControl />
+	<SpotlightShowMoreControl />
+</SpotlighControls>
+```
+
+Internally, `SpotlighControls` applies `flex-direction: row-reverse;` so that
+`SpotlightDismissControl` visually displays after `SpotlightShowMoreControl` while maintaining
+correct tabbing order.
+
+`SpotlightShowMoreControl` is optional for `Spotlight` components. It should be used to allow users
+to opt out of a spotlight experience, or understand why they are seeing the spotlight experience.
+
+<Example Component={ControlsExample} packageName="@atlaskit/spinner" />

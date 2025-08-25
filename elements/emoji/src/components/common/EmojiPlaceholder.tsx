@@ -23,11 +23,11 @@ const placeholderContainer = css({
 });
 
 export interface Props {
-	shortName: string;
-	size?: number;
-	showTooltip?: boolean;
-	representation?: EmojiImageRepresentation;
 	loading?: boolean;
+	representation?: EmojiImageRepresentation;
+	shortName: string;
+	showTooltip?: boolean;
+	size?: number;
 	xcss?: StrictXCSSProp<'backgroundColor', never>;
 }
 

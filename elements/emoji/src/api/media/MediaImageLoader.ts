@@ -17,9 +17,9 @@ interface LoadResolver {
 }
 
 interface MediaQueueItem {
-	url: string;
-	resolve: LoadResolver;
 	reject: Function;
+	resolve: LoadResolver;
+	url: string;
 }
 
 export default class MediaImageLoader {

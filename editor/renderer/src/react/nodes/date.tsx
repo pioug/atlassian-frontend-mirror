@@ -13,8 +13,8 @@ import {
 } from '../../ui/annotations/element/useInlineAnnotationProps';
 
 export interface Props extends MarkDataAttributes {
-	timestamp: string;
 	parentIsIncompleteTask?: boolean;
+	timestamp: string;
 }
 
 const Date = memo(function Date(props: Props & WrappedComponentProps) {

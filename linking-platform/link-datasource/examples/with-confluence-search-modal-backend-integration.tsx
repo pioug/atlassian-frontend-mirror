@@ -54,8 +54,8 @@ function PresetPicker({
 	onChange,
 }: {
 	disableDisplayDropdown: boolean;
-	overrideEntityTypes: string[] | undefined;
 	onChange: (overrideEntityTypes: string[], disableDropdown: boolean) => void;
+	overrideEntityTypes: string[] | undefined;
 }) {
 	const isDatabasePreset = useMemo(() => {
 		return (
@@ -87,8 +87,8 @@ function OverrideEntityTypes({
 	overrideEntityTypes,
 	onChange,
 }: {
-	overrideEntityTypes: string[] | undefined;
 	onChange: (override: string[] | undefined) => void;
+	overrideEntityTypes: string[] | undefined;
 }) {
 	return (
 		<Box xcss={styles.configurationBox} backgroundColor="color.background.accent.lime.subtler">

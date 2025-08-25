@@ -7,7 +7,7 @@ export type BreakoutResizedAEP = TrackAEP<
 	ACTION.RESIZED,
 	ACTION_SUBJECT.ELEMENT,
 	undefined,
-	{ nodeType: BreakoutSupportedNodes; prevWidth?: number; newWidth?: number },
+	{ newWidth?: number; nodeType: BreakoutSupportedNodes; prevWidth?: number },
 	undefined
 >;
 
@@ -16,11 +16,11 @@ export type BreakoutResizedPerfSamplingAEP = OperationalAEP<
 	ACTION_SUBJECT.ELEMENT,
 	undefined,
 	{
-		nodeType: BreakoutSupportedNodes;
-		frameRate: number;
-		nodeSize: number;
 		docSize: number;
+		frameRate: number;
 		isInitialSample: boolean;
+		nodeSize: number;
+		nodeType: BreakoutSupportedNodes;
 	}
 >;
 

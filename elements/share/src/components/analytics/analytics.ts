@@ -108,8 +108,8 @@ export const shareConfigurationLoaded = (attributes: {
 	});
 
 export const shareConfigurationLoadFailed = (attributes: {
-	statusCode: string | number | undefined;
 	durationMs: number;
+	statusCode: string | number | undefined;
 }) =>
 	createEvent('track', ANALYTICS_SOURCE, 'error', 'shareConfiguration', undefined, {
 		source: ANALYTICS_SOURCE,
@@ -125,13 +125,13 @@ export const copyLinkButtonClicked = ({
 	isPublicLink = false,
 	ari,
 }: {
-	start: number;
-	shareContentType?: string;
-	shareContentSubType?: string;
-	shareContentId?: string;
-	shareOrigin?: OriginTracing;
-	isPublicLink?: boolean;
 	ari?: string;
+	isPublicLink?: boolean;
+	shareContentId?: string;
+	shareContentSubType?: string;
+	shareContentType?: string;
+	shareOrigin?: OriginTracing;
+	start: number;
 }) =>
 	createEvent('ui', ANALYTICS_SOURCE, 'clicked', 'button', 'copyShareLink', {
 		source: ANALYTICS_SOURCE,
@@ -156,13 +156,13 @@ export const formShareSubmitted = ({
 	shareOrigin,
 	isPublicLink = false,
 }: {
-	start: number;
 	data: DialogContentState;
-	shareContentType?: string;
-	shareContentSubType?: string;
-	shareContentId?: string;
-	shareOrigin?: OriginTracing;
 	isPublicLink?: boolean;
+	shareContentId?: string;
+	shareContentSubType?: string;
+	shareContentType?: string;
+	shareOrigin?: OriginTracing;
+	start: number;
 }) => {
 	const users = extractIdsByType(data, isUser);
 	const externalUsers = extractIdsByType(data, isExternalUser);
@@ -223,17 +223,17 @@ export const jiraPageSharedEvent = ({
 	source = ANALYTICS_SOURCE,
 	actionSubjectId = 'submitShare',
 }: {
-	start: number;
-	data: DialogContentState;
-	shareContentType?: string;
-	shareContentSubType?: string;
-	shareContentId?: string;
-	shareOrigin?: OriginTracing;
-	isPublicLink?: boolean;
-	productAttributes?: any;
-	loggedInAccountId?: string;
-	source?: string;
 	actionSubjectId?: string;
+	data: DialogContentState;
+	isPublicLink?: boolean;
+	loggedInAccountId?: string;
+	productAttributes?: any;
+	shareContentId?: string;
+	shareContentSubType?: string;
+	shareContentType?: string;
+	shareOrigin?: OriginTracing;
+	source?: string;
+	start: number;
 }): AnalyticsEventPayload => {
 	const users = extractIdsByType(data, isUser);
 	const externalUsers = extractIdsByType(data, isExternalUser);

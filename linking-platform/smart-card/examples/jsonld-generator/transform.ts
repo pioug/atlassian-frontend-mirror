@@ -2,12 +2,12 @@ import { type JsonLd } from '@atlaskit/json-ld-types';
 
 type FormLinkData = {
 	attachmentCount?: number;
-	commentCount?: number;
-	description?: string;
 	checkedItemProgressCount?: number;
 	checkedItemProgressTotalCount?: number;
+	commentCount?: number;
 	createdByImageUrl?: string;
 	createdByName?: string;
+	description?: string;
 	downloadUrl?: string;
 	dueOn?: string;
 	embedAspectRatio?: number;

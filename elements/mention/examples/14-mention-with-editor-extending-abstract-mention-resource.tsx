@@ -110,8 +110,8 @@ export type Props = {
 };
 
 export type State = {
-	isExpanded?: boolean;
 	defaultValue?: Node | string | Object;
+	isExpanded?: boolean;
 };
 
 export class MentionEditor extends React.Component<Props, State> {

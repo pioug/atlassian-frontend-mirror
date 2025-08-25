@@ -75,7 +75,7 @@ type ExtractPluginConfiguration<Plugin> =
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			// Ignored via go/ees005
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			Plugin extends (props: { config: any; api: any }) => DefaultEditorPlugin<any, infer Metadata>
+			Plugin extends (props: { api: any; config: any }) => DefaultEditorPlugin<any, infer Metadata>
 			? ExtractPluginConfigurationFromMetadata<Metadata>
 			: never
 		: never;

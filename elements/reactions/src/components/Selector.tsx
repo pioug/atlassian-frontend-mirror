@@ -78,25 +78,25 @@ export interface SelectorProps {
 	 */
 	emojiProvider: Promise<EmojiProvider>;
 	/**
-	 * Event handler when an emoji gets selected
+	 * Optional prop for hoverable reaction picker selector
 	 */
-	onSelection: OnEmojiEvent;
-	/**
-	 * Enable/Disable selection of extra custom emoji beyond default list (defaults to false)
-	 */
-	showMore?: boolean;
+	hoverableReactionPickerSelector?: boolean;
 	/**
 	 * Optional event when extra custom emojis icon is selected
 	 */
 	onMoreClick?: React.MouseEventHandler<HTMLElement>;
 	/**
+	 * Event handler when an emoji gets selected
+	 */
+	onSelection: OnEmojiEvent;
+	/**
 	 * Optional emojis shown for user to select from when the reaction add button is clicked (defaults to pre-defined list of emojis {@link DefaultReactions})
 	 */
 	pickerQuickReactionEmojiIds?: EmojiId[];
 	/**
-	 * Optional prop for hoverable reaction picker selector
+	 * Enable/Disable selection of extra custom emoji beyond default list (defaults to false)
 	 */
-	hoverableReactionPickerSelector?: boolean;
+	showMore?: boolean;
 }
 
 type RevealProps = {

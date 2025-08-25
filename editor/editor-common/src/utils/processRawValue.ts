@@ -29,7 +29,7 @@ interface NodeType {
 const transformNestedTablesWithAnalytics = (
 	node: ADFEntity,
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
-): { transformedAdf: ADFEntity; isTransformed: boolean } => {
+): { isTransformed: boolean; transformedAdf: ADFEntity } => {
 	try {
 		const { transformedAdf, isTransformed } = transformNestedTablesIncomingDocument(node);
 

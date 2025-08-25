@@ -18,9 +18,9 @@ import { getCleanedSelectProps } from '../../utils';
 
 interface IconEditTypeProps extends Omit<FieldProps<string>, 'value'> {
 	currentValue: DatasourceTypeWithOnlyTypeValues<'icon'>;
+	executeFetch?: ExecuteFetch;
 	labelId?: string;
 	setEditValues: React.Dispatch<React.SetStateAction<DatasourceTypeWithOnlyValues>>;
-	executeFetch?: ExecuteFetch;
 }
 
 const IconEditType = (props: IconEditTypeProps) => {

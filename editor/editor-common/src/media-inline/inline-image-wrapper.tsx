@@ -30,12 +30,12 @@ const sizeWrapperStyle = css({
 });
 
 type Props = {
-	children: ReactElement;
-	isSelected?: boolean;
 	aspectRatio?: number | string;
-	borderSize?: number;
 	borderColor?: string;
+	borderSize?: number;
+	children: ReactElement;
 	htmlAttrs?: { [key: string]: string | number | undefined };
+	isSelected?: boolean;
 	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
 };
 

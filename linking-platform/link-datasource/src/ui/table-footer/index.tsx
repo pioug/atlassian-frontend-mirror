@@ -21,9 +21,9 @@ import { SyncInfo } from './sync-info';
 
 export type TableFooterProps = {
 	datasourceId: string;
+	isLoading: boolean;
 	itemCount?: number;
 	onRefresh?: () => void;
-	isLoading: boolean;
 	url?: string;
 };
 

@@ -18,31 +18,31 @@ export interface AddColumnStepInfo {
  */
 export interface CellStep {
 	from: number; // beginning of cell at column
-	to: number; // end of cell at column
+	mergeWith?: number; // Represent the cell that has to do the merge operation
 
 	// Used to add a cell with a specific content. Useful for reverse a delete add column
 	newCell?: ProseMirrorNode;
 
-	mergeWith?: number; // Represent the cell that has to do the merge operation
+	to: number; // end of cell at column
 }
 
 export interface CellStepJson {
 	from: number;
-	to: number; // end of cell at column
+	mergeWith?: number; // Represent the cell that has to do the merge operation
 
 	// Used to add a cell with a specific content. Useful for reverse a delete add column
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	newCell?: { [key: string]: any }; // ToJson type of ProseMirrorNode.toJson()
-	mergeWith?: number; // Represent the cell that has to do the merge operation
+	to: number; // end of cell at column
 }
 
 export interface AddColumnStepJson {
+	cells: CellStepJson[];
+	isDelete: boolean;
+	sideEffects?: SideEffectsJSON;
 	stepType: 'ak-add-column';
 	tablePos: number;
-	cells: CellStepJson[];
-	sideEffects?: SideEffectsJSON;
-	isDelete: boolean;
 }
 
 export interface TableColumnOrdering {

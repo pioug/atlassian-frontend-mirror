@@ -41,10 +41,10 @@ const mentionProvider = Promise.resolve({
 const taskDecisionProvider = Promise.resolve(getMockTaskDecisionResource());
 
 type MountProps = { [T in keyof RendererProps]?: RendererProps[T] } & {
+	enableClickToEdit?: boolean;
+	mockInlineComments?: boolean;
 	showSidebar?: boolean;
 	withRendererActions?: boolean;
-	mockInlineComments?: boolean;
-	enableClickToEdit?: boolean;
 };
 
 const providerFactory = ProviderFactory.create({
@@ -60,11 +60,11 @@ function renderRenderer({
 	props,
 	setMode,
 }: {
-	props: MountProps;
 	adf: any;
-	setMode?: (mode: boolean) => void;
-	platformFeatureFlags?: Record<string, boolean>;
 	editorExperiments?: EditorExperimentOverrides;
+	platformFeatureFlags?: Record<string, boolean>;
+	props: MountProps;
+	setMode?: (mode: boolean) => void;
 }) {
 	const { showSidebar, ...reactProps } = props;
 	return (

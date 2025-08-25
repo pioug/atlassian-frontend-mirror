@@ -19,9 +19,6 @@
 		"*.compiled.css"
 	],
 	"atlaskit:src": "src/reportError.ts",
-	"af:exports": {
-		".": "./src/reportError.ts"
-	},
 	"exports": {
 		".": "./src/reportError.ts"
 	},

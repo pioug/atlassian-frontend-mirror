@@ -21,34 +21,34 @@ export enum InsertStatus {
 }
 
 export type InsertState = {
-	type: InsertStatus.INSERT_LINK_TOOLBAR;
 	from: number;
 	to: number;
+	type: InsertStatus.INSERT_LINK_TOOLBAR;
 };
 
 export type EditInsertedState = {
-	type: InsertStatus.EDIT_INSERTED_TOOLBAR;
 	node: Node;
 	pos: number;
+	type: InsertStatus.EDIT_INSERTED_TOOLBAR;
 };
 
 export type EditState = {
-	type: InsertStatus.EDIT_LINK_TOOLBAR;
 	node: Node;
 	pos: number;
+	type: InsertStatus.EDIT_LINK_TOOLBAR;
 };
 
 export type LinkToolbarState = EditState | EditInsertedState | InsertState | undefined;
 
 export interface HyperlinkState {
-	activeText?: string;
 	activeLinkMark?: LinkToolbarState;
-	timesViewed: number;
+	activeText?: string;
 	canInsertLink: boolean;
-	searchSessionId?: string;
-	inputMethod?: INPUT_METHOD;
-	editorAppearance?: EditorAppearance;
 	configureButtonTargetPos?: number;
-	decorations?: DecorationSet;
 	configureDropdownOpen?: boolean;
+	decorations?: DecorationSet;
+	editorAppearance?: EditorAppearance;
+	inputMethod?: INPUT_METHOD;
+	searchSessionId?: string;
+	timesViewed: number;
 }

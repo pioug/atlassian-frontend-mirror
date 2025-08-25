@@ -100,7 +100,7 @@ export class GapCursorSelection extends Selection {
 
 	static fromJSON(
 		doc: PMNode,
-		json: { pos: number; type: string; side: Side },
+		json: { pos: number; side: Side; type: string },
 	): GapCursorSelection {
 		return new GapCursorSelection(doc.resolve(json.pos), json.side);
 	}

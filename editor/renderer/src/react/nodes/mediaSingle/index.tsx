@@ -30,26 +30,26 @@ import { useAnnotationRangeDispatch } from '../../../ui/annotations/contexts/Ann
 import { useAnnotationHoverDispatch } from '../../../ui/annotations/contexts/AnnotationHoverContext';
 
 export interface Props {
-	children: React.ReactNode;
-	layout: MediaSingleLayout;
-	eventHandlers?: EventHandlers;
-	width?: number;
-	widthType?: MediaSingleWidthType;
-	isInsideOfBlockNode?: boolean;
-	rendererAppearance: RendererAppearance;
-	fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
-	featureFlags?: MediaFeatureFlags;
 	allowCaptions?: boolean;
-	isInsideOfInlineExtension?: boolean;
+	children: React.ReactNode;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	dataAttributes?: Record<string, any>;
 	editorAppearance?: EditorAppearance;
+	eventHandlers?: EventHandlers;
+	featureFlags?: MediaFeatureFlags;
+	fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
+	isInsideOfBlockNode?: boolean;
+	isInsideOfInlineExtension?: boolean;
+	layout: MediaSingleLayout;
+	rendererAppearance: RendererAppearance;
+	width?: number;
+	widthType?: MediaSingleWidthType;
 }
 
 interface ChildElements {
-	media: ReactElement<MediaProps & MediaADFAttrs>;
 	caption: React.ReactNode;
+	media: ReactElement<MediaProps & MediaADFAttrs>;
 }
 
 const DEFAULT_WIDTH = 250;
@@ -137,7 +137,7 @@ const MediaSingleWithChildren = (props: Props & ChildElements & WrappedComponent
 	});
 	const ref = React.useRef<HTMLDivElement>(null);
 	const onExternalImageLoaded = React.useCallback(
-		({ width, height }: { width: number; height: number }) => {
+		({ width, height }: { height: number; width: number }) => {
 			setExternalImageDimensions({
 				width,
 				height,

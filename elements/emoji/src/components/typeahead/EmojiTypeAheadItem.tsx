@@ -18,12 +18,12 @@ import { type EmojiTypeAheadWidth } from '../../util/shared-styles';
 import { typeaheadSelected } from './styles';
 
 export interface Props {
-	onMouseMove: OnEmojiEvent;
-	onSelection: OnEmojiEvent;
-	selected: boolean;
 	emoji: EmojiDescription;
 	emojiProvider?: EmojiProvider;
 	forwardedRef?: React.Ref<HTMLDivElement>;
+	onMouseMove: OnEmojiEvent;
+	onSelection: OnEmojiEvent;
+	selected: boolean;
 }
 
 const typeAheadWidth: EmojiTypeAheadWidth = 350;

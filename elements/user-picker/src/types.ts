@@ -9,6 +9,41 @@ import { type StylesConfig, type SelectComponentsConfig } from '@atlaskit/select
 import { type BaseUserPickerWithoutAnalytics } from './components/BaseUserPicker';
 
 export type UserPickerProps = WithAnalyticsEventsProps & {
+	/** Message to encourage the user to add more items to user picker. */
+	addMoreMessage?: string;
+	/** Whether the user is allowed to enter emails as a value. */
+	allowEmail?: boolean;
+	/** Anchor for the user picker popup. */
+	anchor?: React.ComponentType<any>;
+	/** Appearance of the user picker. */
+	appearance?: Appearance;
+	/** Accessibility: Identifies the element (or elements) that describe the current element.*/
+	ariaDescribedBy?: string;
+	/** Accessibility: Uses to set aria-label of the input*/
+	ariaLabel?: string;
+	/** Accessibility: Identifies the element (or elements) that labels the current element.*/
+	ariaLabelledBy?: string;
+	/** Accessibility: Used to set the priority with which screen reader should treat updates to live regions.*/
+	ariaLive?: 'polite' | 'off' | 'assertive';
+	/** Override the internal behaviour to automatically focus the control when the picker is open */
+	autoFocus?: boolean;
+	/** React-select prop for blocking menu scroll on container when menu scrolled to the very top/bottom of the menu */
+	captureMenuScroll?: boolean;
+	/** Optional tooltip to display on hover over the clear indicator. */
+	clearValueLabel?: string;
+	/** Whether to close menu on scroll */
+	closeMenuOnScroll?: boolean | EventListener;
+	/** Override the default components used in the user picker. */
+	components?: SelectComponentsConfig<OptionData, boolean>;
+	/** Default value for the field to be used on initial render.
+	 * `defaultValue` differs from `value` in that it sets the initial value then leaves the component 'uncontrolled'
+	 * whereas setting the `value` prop delegates responsibility for maintaining the value to the caller
+	 * (i.e. listen to `onChange`) */
+	defaultValue?: DefaultValue;
+	/** Whether to disable interaction with the input */
+	disableInput?: boolean;
+	/** Email option label */
+	emailLabel?: string;
 	/**
 	 * Used to configure additional information regarding where the
 	 * user picker has been mounted.
@@ -27,18 +62,30 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
 	 * for the analytic events or does not care about SSR.
 	 */
 	fieldId: string | null;
-	/** List of users or teams to be used as options by the user picker. */
-	options?: OptionData[];
-	/** Width of the user picker field. It can be the amount of pixels as numbers or a string with the percentage. */
-	width?: number | string;
+	/** Footer to be displayed in MenuList */
+	footer?: React.ReactNode;
+	/** Ref to the underlying select */
+	forwardedRef?: React.ForwardedRef<UserPickerRef>;
+	/** group the options by type */
+	groupByTypeOrder?: NonNullable<OptionData['type']>[];
+	/** Header to be displayed in MenuList */
+	header?: React.ReactNode;
 	/** Sets the height of the user picker. If not set, the height settings will be based on the "compact" or "normal" appearance. */
 	height?: number | string;
-	/** Sets the minimum width for the menu. If not set, menu will always have the same width of the field. */
-	menuMinWidth?: number;
-	/** Sets max height of the user picker. If not set, the height will grow based on number of picked users. */
-	maxPickerHeight?: number;
-	/** Sets the background color to be the same color as a textfield (Atlaskit N10) */
-	textFieldBackgroundColor?: boolean;
+	/** Allows clicking on a label with the same id to open user picker. */
+	inputId?: string;
+	/** Display a remove button on the single picker. True by default. */
+	isClearable?: boolean;
+	/** Disable all interactions with the picker, putting it in a read-only state. */
+	isDisabled?: boolean;
+	/** Display the  picker with a style to show the value is invalid */
+	isInvalid?: boolean;
+	/** Show the loading indicator. */
+	isLoading?: boolean;
+	/** To enable multi user picker. */
+	isMulti?: boolean;
+	/** Override default email validation function. */
+	isValidEmail?: EmailValidator;
 	/**
 	 * Function used to load options asynchronously.
 	 * accepts two optional params:
@@ -58,59 +105,22 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
 	 * signal: AbortController signal to abort the request if the tooltip is closed
 	 */
 	loadUserSource?: LoadUserSource;
-	/** Callback for value change events fired whenever a selection is inserted or removed. */
-	onChange?: OnChange;
-	/** To enable multi user picker. */
-	isMulti?: boolean;
-	/** Input text value. */
-	search?: string;
-	/** Anchor for the user picker popup. */
-	anchor?: React.ComponentType<any>;
-	/** Controls if user picker menu is open or not. If not provided, UserPicker will control menu state internally. */
-	open?: boolean;
-	/** Show the loading indicator. */
-	isLoading?: boolean;
-	/** Callback for search input text change events. */
-	onInputChange?: OnInputChange;
-	/** Callback for when a selection is made. */
-	onSelection?: OnOption;
-	/** Callback for when the field gains focus. */
-	onFocus?: OnPicker;
-	/** Callback for when the field loses focus. */
-	onBlur?: OnPicker;
-	/** Callback for when the value/s in the picker is cleared. */
-	onClear?: OnPicker;
-	/** Callback that is triggered when popup picker is opened */
-	onOpen?: OnPicker;
-	/** Callback that is triggered when popup picker is closed */
-	onClose?: OnPicker;
-	/** Callback that is trigger on key down in text input */
-	onKeyDown?: (event: React.KeyboardEvent) => void;
-	/** Appearance of the user picker. */
-	appearance?: Appearance;
-	/** Display the picker with a subtle style. */
-	subtle?: boolean;
+	/** The maximum number options to be displayed in the dropdown menu during any state of search. The value should be non-negative. */
+	maxOptions?: number;
+	/** Sets max height of the user picker. If not set, the height will grow based on number of picked users. */
+	maxPickerHeight?: number;
+	/** Sets the minimum width for the menu. If not set, menu will always have the same width of the field. */
+	menuMinWidth?: number;
+	/** Whether the menu should use a portal, and where it should attach. */
+	menuPortalTarget?: HTMLElement;
+	/** React-select prop for controlling menu position */
+	menuPosition?: 'absolute' | 'fixed';
+	/** Whether to block scrolling actions */
+	menuShouldBlockScroll?: boolean;
+	/** Name to use for input element. */
+	name?: string;
 	/** Display the picker with no border. */
 	noBorder?: boolean;
-	/**
-	 * You may pass through a `StylesConfig` to be merged with the picker default styles if a custom override is required.
-	 * Consider using noBorder, subtle before customising further.
-	 * See https://react-select.com/styles
-	 */
-	styles?: StylesConfig;
-	/** Override the default components used in the user picker. */
-	components?: SelectComponentsConfig<OptionData, boolean>;
-	/** Default value for the field to be used on initial render.
-	 * `defaultValue` differs from `value` in that it sets the initial value then leaves the component 'uncontrolled'
-	 * whereas setting the `value` prop delegates responsibility for maintaining the value to the caller
-	 * (i.e. listen to `onChange`) */
-	defaultValue?: DefaultValue;
-	/** Placeholder text to be shown when there is no value in the field. */
-	placeholder?: React.ReactNode;
-	/** Placeholder avatar style - defaults to person */
-	placeholderAvatar?: 'person' | 'team';
-	/** Message to encourage the user to add more items to user picker. */
-	addMoreMessage?: string;
 	/** Message to be shown when the menu is open but no options are provided.
 	 * If message is null, no message will be displayed.
 	 * If message is undefined, default message will be displayed.
@@ -119,83 +129,69 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
 		| ((value: { inputValue: string }) => string | null | React.ReactNode)
 		| null
 		| React.ReactNode;
-	/** Footer to be displayed in MenuList */
-	footer?: React.ReactNode;
-	/** Controls if the user picker has a value or not. If not provided, UserPicker will control the value internally. */
-	value?: Value;
-	/** Disable all interactions with the picker, putting it in a read-only state. */
-	isDisabled?: boolean;
-	/** Display the  picker with a style to show the value is invalid */
-	isInvalid?: boolean;
-	/** Display a remove button on the single picker. True by default. */
-	isClearable?: boolean;
-	/** Optional tooltip to display on hover over the clear indicator. */
-	clearValueLabel?: string;
-	/** React-select prop for controlling menu position */
-	menuPosition?: 'absolute' | 'fixed';
-	/** React-select prop for blocking menu scroll on container when menu scrolled to the very top/bottom of the menu */
-	captureMenuScroll?: boolean;
-	/** Whether the menu should use a portal, and where it should attach. */
-	menuPortalTarget?: HTMLElement;
-	/** Whether the user is allowed to enter emails as a value. */
-	allowEmail?: boolean;
-	/** Setting this with allowEmail will cause the picker to constantly show an email option at the bottom for the supplied email domain/an email the user types in */
-	suggestEmailsForDomain?: string;
-	/** Email option label */
-	emailLabel?: string;
-	/** Whether to disable interaction with the input */
-	disableInput?: boolean;
-	/** Override default email validation function. */
-	isValidEmail?: EmailValidator;
-	/** Override the internal behaviour to automatically focus the control when the picker is open */
-	autoFocus?: boolean;
-	/** The maximum number options to be displayed in the dropdown menu during any state of search. The value should be non-negative. */
-	maxOptions?: number;
-	/** Allows clicking on a label with the same id to open user picker. */
-	inputId?: string;
-	/** Whether to close menu on scroll */
-	closeMenuOnScroll?: boolean | EventListener;
-	/** Whether to block scrolling actions */
-	menuShouldBlockScroll?: boolean;
-	/** Accessibility: Uses to set aria-label of the input*/
-	ariaLabel?: string;
-	/** Accessibility: Identifies the element (or elements) that labels the current element.*/
-	ariaLabelledBy?: string;
-	/** Accessibility: Identifies the element (or elements) that describe the current element.*/
-	ariaDescribedBy?: string;
-	/** Accessibility: Used to set the priority with which screen reader should treat updates to live regions.*/
-	ariaLive?: 'polite' | 'off' | 'assertive';
-	/** Name to use for input element. */
-	name?: string;
-	/** Header to be displayed in MenuList */
-	header?: React.ReactNode;
+	/** Callback for when the field loses focus. */
+	onBlur?: OnPicker;
+	/** Callback for value change events fired whenever a selection is inserted or removed. */
+	onChange?: OnChange;
+	/** Callback for when the value/s in the picker is cleared. */
+	onClear?: OnPicker;
+	/** Callback that is triggered when popup picker is closed */
+	onClose?: OnPicker;
+	/** Callback for when the field gains focus. */
+	onFocus?: OnPicker;
+	/** Callback for search input text change events. */
+	onInputChange?: OnInputChange;
+	/** Callback that is trigger on key down in text input */
+	onKeyDown?: (event: React.KeyboardEvent) => void;
+	/** Callback that is triggered when popup picker is opened */
+	onOpen?: OnPicker;
+	/** Callback for when a selection is made. */
+	onSelection?: OnOption;
+	/** Controls if user picker menu is open or not. If not provided, UserPicker will control menu state internally. */
+	open?: boolean;
+	/** Override the internal behaviour of default menu open on focus and applicable for single value select  */
+	openMenuOnClick?: boolean;
+	/** List of users or teams to be used as options by the user picker. */
+	options?: OptionData[];
+	/** Placeholder text to be shown when there is no value in the field. */
+	placeholder?: React.ReactNode;
+	/** Placeholder avatar style - defaults to person */
+	placeholderAvatar?: 'person' | 'team';
 	/** Accessibility: A field to dictate if this is a mandatory field in the form. */
 	required?: boolean;
+	/** Input text value. */
+	search?: string;
+	/** Override default behavior and show the clear indicator. */
+	showClearIndicator?: boolean;
+	/** Positioning strategy for the popper element */
+	strategy?: 'fixed' | 'absolute';
+	/**
+	 * You may pass through a `StylesConfig` to be merged with the picker default styles if a custom override is required.
+	 * Consider using noBorder, subtle before customising further.
+	 * See https://react-select.com/styles
+	 */
+	styles?: StylesConfig;
+	/** Display the picker with a subtle style. */
+	subtle?: boolean;
+	/** Setting this with allowEmail will cause the picker to constantly show an email option at the bottom for the supplied email domain/an email the user types in */
+	suggestEmailsForDomain?: string;
+	/** Sets the background color to be the same color as a textfield (Atlaskit N10) */
+	textFieldBackgroundColor?: boolean;
 	/**
 	 * Enables workaround for when <Select /> is nested inside <Draggable /> from react-beautiful-dnd
 	 * This relationship prevents the dropdown menu from opening because of bugs in the default focus state and clicking in a particular area of <Select />
 	 * Context: https://hello.atlassian.net/wiki/spaces/~989411314/pages/2861097485/Investigation+Notes+for+atlaskit+select+react-beautiful-dnd#Temporary-Solution
 	 */
 	UNSAFE_hasDraggableParentComponent?: boolean;
-	/** Override the internal behaviour of default menu open on focus and applicable for single value select  */
-	openMenuOnClick?: boolean;
-	/** Positioning strategy for the popper element */
-	strategy?: 'fixed' | 'absolute';
-	/** Override default behavior and show the clear indicator. */
-	showClearIndicator?: boolean;
-	/** Ref to the underlying select */
-	forwardedRef?: React.ForwardedRef<UserPickerRef>;
-	/** group the options by type */
-	groupByTypeOrder?: NonNullable<OptionData['type']>[];
+	/** Controls if the user picker has a value or not. If not provided, UserPicker will control the value internally. */
+	value?: Value;
+	/** Width of the user picker field. It can be the amount of pixels as numbers or a string with the percentage. */
+	width?: number | string;
 };
 
-export type UserPickerRef = { focus: () => void; blur: () => void };
+export type UserPickerRef = { blur: () => void; focus: () => void };
 
 export type PopupUserPickerProps = UserPickerProps & {
-	/** Whether to use the popup version of the single picker */
-	target: Target;
-	/** Optional title assigned to popup picker */
-	popupTitle?: string;
 	/**
 	 * The boundary element that the popup will check for overflow.
 	 * Defaults to `"viewport"` which are parent scroll containers,
@@ -211,6 +207,8 @@ export type PopupUserPickerProps = UserPickerProps & {
 	 * Defaults to `"auto"`.
 	 */
 	placement?: Placement;
+	/** Optional title assigned to popup picker */
+	popupTitle?: string;
 	/**
 	 * The root boundary that the popup will check for overflow.
 	 * Defaults to `"viewport"` but can be set to `"document"`.
@@ -222,6 +220,8 @@ export type PopupUserPickerProps = UserPickerProps & {
 	 * fit in the viewport.
 	 */
 	shouldFlip?: boolean;
+	/** Whether to use the popup version of the single picker */
+	target: Target;
 };
 
 export type AriaAttributesType =
@@ -233,22 +233,22 @@ export type BoundariesElement = 'scrollParent' | 'window' | 'viewport' | HTMLEle
 export type RootBoundary = 'viewport' | 'document';
 
 export type UserPickerState = {
-	options: OptionData[];
-	value?: AtlaskitSelectValue;
-	isDefaultSet: boolean;
-	inflightRequest: number;
 	count: number;
 	hoveringClearIndicator: boolean;
-	menuIsOpen: boolean;
+	inflightRequest: number;
+	initialFocusHandled: boolean;
 	inputValue: string;
+	isDefaultSet: boolean;
+	menuIsOpen: boolean;
+	options: OptionData[];
 	resolving: boolean;
 	showError: boolean;
-	initialFocusHandled: boolean;
+	value?: AtlaskitSelectValue;
 };
 
 export interface HighlightRange {
-	start: number;
 	end: number;
+	start: number;
 }
 
 export interface UserHighlight {
@@ -257,8 +257,8 @@ export interface UserHighlight {
 }
 
 export interface TeamHighlight {
-	name: HighlightRange[];
 	description?: HighlightRange[];
+	name: HighlightRange[];
 }
 
 export interface GroupHighlight {
@@ -276,9 +276,9 @@ export interface OptionData {
 	isDisabled?: boolean;
 	lozenge?: string | LozengeProps | ReactNode;
 	name: string;
-	type?: 'user' | 'team' | 'email' | 'group' | 'custom' | 'external_user';
-	tooltip?: string;
 	title?: string;
+	tooltip?: string;
+	type?: 'user' | 'team' | 'email' | 'group' | 'custom' | 'external_user';
 	verified?: boolean;
 }
 
@@ -295,55 +295,55 @@ export type UserSource =
 
 export interface ExternalUser extends User {
 	externalUserType?: 'crossSite' | 'thirdParty';
+	hasProductAccess?: boolean;
 	requiresSourceHydration?: boolean;
 	sources: UserSource[];
-	hasProductAccess?: boolean;
 }
 
 export interface User extends OptionData {
 	avatarUrl?: string;
-	publicName?: string;
-	highlight?: UserHighlight;
 	byline?: string;
-	type?: 'user' | 'external_user';
 	email?: string;
+	highlight?: UserHighlight;
 	isExternal?: boolean;
+	publicName?: string;
 	title?: string;
+	type?: 'user' | 'external_user';
 }
 
 export type LozengeColor = 'default' | 'success' | 'removed' | 'inprogress' | 'new' | 'moved';
 
 export interface LozengeProps {
-	text: string;
-	tooltip?: string;
 	appearance?: LozengeColor;
 	isBold?: boolean;
+	text: string;
+	tooltip?: string;
 }
 export const TeamType = 'team';
 
 export interface TeamMember {
-	name: string;
 	id: string;
+	name: string;
 }
 
 export interface Team extends OptionData {
 	avatarUrl?: string;
+	byline?: string;
 	description?: string;
+	highlight?: TeamHighlight;
+	includesYou?: boolean;
 	memberCount?: number;
 	members?: TeamMember[];
-	includesYou?: boolean;
-	highlight?: TeamHighlight;
 	type: 'team';
-	byline?: string;
 	verified?: boolean;
 }
 
 export const GroupType = 'group';
 
 export interface Group extends OptionData {
+	byline?: string;
 	highlight?: GroupHighlight;
 	type: 'group';
-	byline?: string;
 }
 
 /*
@@ -351,10 +351,10 @@ export interface Group extends OptionData {
  * without affecting other Option types
  */
 export interface Custom extends OptionData {
+	analyticsType?: string;
 	avatarUrl?: string;
 	byline?: string;
 	highlight?: CustomHighlight;
-	analyticsType?: string;
 	type: 'custom';
 }
 
@@ -367,9 +367,9 @@ export const EmailType = 'email';
 export const CustomType = 'custom';
 
 export interface Email extends OptionData {
-	type: 'email';
-	suggestion?: boolean;
 	isPendingAction?: boolean;
+	suggestion?: boolean;
+	type: 'email';
 }
 
 export type ActionTypes =
@@ -431,12 +431,12 @@ export type AtlaskitSelectValue = Option | Array<Option> | null | undefined;
 export type AtlasKitSelectChange = (
 	value: AtlaskitSelectValue,
 	extraInfo: {
-		removedValue?: Option;
-		option?: Option;
 		action: ActionTypes;
+		option?: Option;
+		removedValue?: Option;
 	},
 ) => void;
 
 export type Appearance = 'normal' | 'compact';
 
-export type Target = (options: { ref: any; isOpen: boolean }) => ReactNode;
+export type Target = (options: { isOpen: boolean; ref: any }) => ReactNode;

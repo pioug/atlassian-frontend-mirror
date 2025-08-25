@@ -23,10 +23,10 @@ const pendingPromise = new Promise<any>(() => {});
 interface Providers {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	mentionProvider: any;
+	activityProvider: any;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	activityProvider: any;
+	mentionProvider: any;
 }
 
 const providers: Providers = {
@@ -53,20 +53,20 @@ const providers: Providers = {
 rejectedPromise.catch(() => {});
 
 export interface State {
-	reloadEditor: boolean;
-	editorEnabled: boolean;
-	mentionProvider: string;
 	activityProvider: string;
 	document?: string;
+	editorEnabled: boolean;
+	mentionProvider: string;
+	reloadEditor: boolean;
 }
 
 export interface RenderEditorProps {
+	activityProvider?: string;
 	disabled: boolean;
+	mentionProvider?: string;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	onChange: (editorView: any) => void;
-	mentionProvider?: string;
-	activityProvider?: string;
 }
 
 // Ignored via go/ees005

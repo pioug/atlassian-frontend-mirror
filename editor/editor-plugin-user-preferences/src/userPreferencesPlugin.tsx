@@ -36,7 +36,7 @@ export const userPreferencesPlugin: UserPreferencesPlugin = ({ config, api }) =>
 			},
 			getUserPreferences: () => {
 				if (!userPreferencesProvider) {
-					return undefined;
+					return config.initialUserPreferences;
 				}
 				return userPreferencesProvider.getPreferences();
 			},

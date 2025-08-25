@@ -35,22 +35,22 @@ import { BaseThemeWrapper } from './BaseThemeWrapper';
 import { getBaseFontSize } from './utils/getBaseFontSize';
 
 interface InternalProps {
-	props: EditorNextProps;
-	handleAnalyticsEvent: FireAnalyticsCallback;
-	createAnalyticsEvent: CreateUIAnalyticsEvent;
-	handleSave: (view: EditorView) => void;
-	editorActions: EditorActions;
-	onEditorCreated: (instance: {
-		view: EditorView;
-		eventDispatcher: EventDispatcher;
-		transformer?: Transformer<string>;
-	}) => void;
-	onEditorDestroyed: (_instance: { view: EditorView; transformer?: Transformer<string> }) => void;
-	preset: EditorPresetBuilder<string[], AllEditorPresetPluginTypes[]>;
-	providerFactory: ProviderFactory;
 	AppearanceComponent: React.ComponentType<
 		React.PropsWithChildren<EditorAppearanceComponentProps<[]>>
 	>;
+	createAnalyticsEvent: CreateUIAnalyticsEvent;
+	editorActions: EditorActions;
+	handleAnalyticsEvent: FireAnalyticsCallback;
+	handleSave: (view: EditorView) => void;
+	onEditorCreated: (instance: {
+		eventDispatcher: EventDispatcher;
+		transformer?: Transformer<string>;
+		view: EditorView;
+	}) => void;
+	onEditorDestroyed: (_instance: { transformer?: Transformer<string>; view: EditorView }) => void;
+	preset: EditorPresetBuilder<string[], AllEditorPresetPluginTypes[]>;
+	props: EditorNextProps;
+	providerFactory: ProviderFactory;
 }
 
 const editorContainerStyles = css({

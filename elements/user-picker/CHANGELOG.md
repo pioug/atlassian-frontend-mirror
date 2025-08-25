@@ -1,5 +1,13 @@
 # @atlaskit/user-picker
 
+## 11.6.2
+
+### Patch Changes
+
+- [`0fdcb6f2f96fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0fdcb6f2f96fd) -
+  Sorted type and interface props to improve Atlaskit docs
+- Updated dependencies
+
 ## 11.6.1
 
 ### Patch Changes

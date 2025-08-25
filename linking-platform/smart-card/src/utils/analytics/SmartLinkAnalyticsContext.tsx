@@ -12,11 +12,11 @@ import { type CardType, useSmartCardState as useSmartLinkState } from '../../sta
 import { context } from './analytics';
 
 type SmartLinkAnalyticsContextProps = {
-	url: string;
+	children?: React.ReactNode;
 	display?: string;
 	id?: string | undefined;
 	source?: string;
-	children?: React.ReactNode;
+	url: string;
 };
 
 const getExtendedResolvedAttributes = (
@@ -35,12 +35,12 @@ const getExtendedResolvedAttributes = (
 
 type GetSmartLinkAnalyticsContextParam = {
 	display?: string;
+	error?: CardState['error'];
 	id?: string | undefined;
-	source?: string;
 	response?: JsonLd.Response;
+	source?: string;
 	status?: CardType;
 	url: string;
-	error?: CardState['error'];
 };
 const getSmartLinkAnalyticsContext = ({
 	display,
@@ -64,12 +64,12 @@ const getSmartLinkAnalyticsContext = ({
 };
 
 type SmartLinkAnalyticsContextType = {
-	source?: string;
 	attributes?: typeof context &
 		ReturnType<typeof getResolvedAttributes> & {
 			display?: string;
 			id?: string;
 		};
+	source?: string;
 };
 
 /**

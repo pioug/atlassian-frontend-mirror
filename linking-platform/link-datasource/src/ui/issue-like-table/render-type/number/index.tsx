@@ -5,8 +5,8 @@ import { type NumberType } from '@atlaskit/linking-types';
 import TextRenderType from '../text';
 
 interface NumberProps {
-	testId?: string;
 	number: NumberType['value'];
+	testId?: string;
 }
 
 export const NUMBER_TYPE_TEST_ID = 'link-datasource-render-type--number';

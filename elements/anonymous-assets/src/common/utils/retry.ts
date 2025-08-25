@@ -1,10 +1,10 @@
 export type FetchWithRetryParams = {
-	url: string;
-	options?: RequestInit;
-	shouldRetryOnApiError: boolean;
-	retries?: number;
 	baseDelay?: number;
 	maxDelay?: number;
+	options?: RequestInit;
+	retries?: number;
+	shouldRetryOnApiError: boolean;
+	url: string;
 };
 
 /**

@@ -23,7 +23,6 @@ import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { Label, ValidMessage } from '@atlaskit/form';
 import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down--hipchat-chevron-down';
 import ChevronUpIcon from '@atlaskit/icon/core/migration/chevron-up--hipchat-chevron-up';
-import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Inline, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
@@ -344,8 +343,7 @@ class Replace extends React.PureComponent<ReplaceProps & WrappedComponentProps, 
 				</div>
 				<div
 					css={
-						expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true) &&
-						fg('platform_editor_find_and_replace_improvements_1')
+						expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
 							? [
 									sectionWrapperStyles,
 									sectionWrapperStylesAlternate,
@@ -357,8 +355,7 @@ class Replace extends React.PureComponent<ReplaceProps & WrappedComponentProps, 
 				>
 					<div
 						css={
-							expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true) &&
-							fg('platform_editor_find_and_replace_improvements_1')
+							expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
 								? orderOneStylesNew
 								: orderOneStyles
 						}

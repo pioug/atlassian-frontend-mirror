@@ -6,29 +6,29 @@ import React, { createContext, type ReactNode, useContext, useState } from 'reac
 import { ManualRulesContainer, type ManualRulesData } from '../../manual-triggers-container';
 
 type AutomationMenuContextContainerProps = {
-	baseAutomationUrl: string;
-	objectAri: string;
-	siteAri: string;
-	canManageAutomation: boolean;
 	analyticsSource: string;
+	baseAutomationUrl: string;
+	canManageAutomation: boolean;
 	children: () => React.ReactElement;
-	emptyStateDescription?: React.ReactNode;
 	emptyStateAdminDescription?: React.ReactNode;
-	onRuleInvocationSuccess?: () => void;
+	emptyStateDescription?: React.ReactNode;
+	objectAri: string;
 	onRuleInvocationFailure?: () => void;
 	onRuleInvocationLifecycleDone?: () => void;
+	onRuleInvocationSuccess?: () => void;
+	siteAri: string;
 };
 
 export type RuleExecutionState = 'SUCCEED' | 'FAILURE' | 'NONE';
 
 export type MenuContext = Omit<ManualRulesData, 'error'> & {
-	fetchError: any;
 	analyticsSource: string;
-	objectAri: string;
 	baseAutomationUrl: string;
 	canManageAutomation: boolean;
-	emptyStateDescription?: React.ReactNode;
 	emptyStateAdminDescription?: React.ReactNode;
+	emptyStateDescription?: React.ReactNode;
+	fetchError: any;
+	objectAri: string;
 	ruleExecutionState: RuleExecutionState;
 };
 

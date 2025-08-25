@@ -7,12 +7,12 @@ export interface PresenceMap {
 }
 
 export interface PresenceResourceConfig {
-	url: string;
-	cloudId: string;
-	productId?: string;
 	cache?: PresenceCache;
 	cacheExpiry?: number;
+	cloudId: string;
 	parser?: PresenceParser;
+	productId?: string;
+	url: string;
 }
 
 export interface PresenceCache {
@@ -32,12 +32,12 @@ export interface Data {
 }
 
 export interface PresenceBulk {
-	userId: string;
-	state: null | string;
-	type: null | string;
 	date: null | string;
 	message: null | string;
+	state: null | string;
 	stateMetadata?: string;
+	type: null | string;
+	userId: string;
 }
 
 type Query = {

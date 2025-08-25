@@ -26,10 +26,10 @@ import {
 } from '../contexts/AnnotationManagerContext';
 
 type ListenEventProps = {
-	id: AnnotationId;
-	updateSubscriber: AnnotationUpdateEmitter | null;
 	createAnalyticsEvent?: CreateUIAnalyticsEvent;
+	id: AnnotationId;
 	isNestedRender?: boolean;
+	updateSubscriber: AnnotationUpdateEmitter | null;
 };
 
 type UseAnnotationUpdateSatteByEventProps = {

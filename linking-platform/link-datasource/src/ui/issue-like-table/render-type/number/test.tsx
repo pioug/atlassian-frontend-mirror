@@ -5,7 +5,7 @@ import { render } from '@testing-library/react';
 import NumberType, { NUMBER_TYPE_TEST_ID } from './index';
 
 describe('Number Type', () => {
-	const setup = ({ number, ...props }: { number: number; [key: string]: any }) => {
+	const setup = ({ number, ...props }: { [key: string]: any; number: number }) => {
 		return render(<NumberType number={number} {...props} />);
 	};
 

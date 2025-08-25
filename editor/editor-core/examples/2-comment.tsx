@@ -64,16 +64,16 @@ export type Props = {
 
 export type State = {
 	hasJquery?: boolean;
-	isExpanded?: boolean;
 	intlState: { locale: string; messages: { [key: string]: string } };
+	isExpanded?: boolean;
 };
 
 declare global {
 	interface Window {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		jQuery: any;
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		ATL_JQ_PAGE_PROPS: any;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		jQuery: any;
 	}
 }
 

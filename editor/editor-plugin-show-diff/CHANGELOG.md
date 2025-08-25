@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 0.1.6
+
+### Patch Changes
+
+- [`3d9a6a0aae8c5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d9a6a0aae8c5) -
+  Fix show diff not loading inline node diffs on load
+- Updated dependencies
+
 ## 0.1.5
 
 ### Patch Changes

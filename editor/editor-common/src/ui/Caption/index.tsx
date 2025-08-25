@@ -30,12 +30,12 @@ const placeholderStyle = xcss({
 });
 
 type Props = {
-	selected?: boolean;
-	hasContent?: boolean;
 	children?: React.ReactNode;
 	dataAttributes?: {
 		'data-renderer-start-pos': number;
 	};
+	hasContent?: boolean;
+	selected?: boolean;
 };
 
 // Ignored via go/ees005

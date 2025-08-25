@@ -6,9 +6,9 @@ import { type DateTimeType, type DateType, type TimeType } from '@atlaskit/linki
 import { Text } from '@atlaskit/primitives/compiled';
 
 export interface DateProps {
+	display: (DateType | TimeType | DateTimeType)['type'];
 	testId?: string;
 	value: (DateType | TimeType | DateTimeType)['value'];
-	display: (DateType | TimeType | DateTimeType)['type'];
 }
 
 export const DATETIME_TYPE_TEST_ID = 'link-datasource-render-type--datetime';

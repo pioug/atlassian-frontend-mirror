@@ -31,7 +31,7 @@ const generateJiraTask = (
 	taskName: string,
 	taskType: string,
 	taskTypeName: string,
-	taskTag: { name?: string; appearance?: string } = {},
+	taskTag: { appearance?: string; name?: string } = {},
 ) => ({
 	'@type': ['Object', 'atlassian:Task'],
 	'@context': {

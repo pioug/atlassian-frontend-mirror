@@ -85,6 +85,8 @@ function isLastCellInRow(rect: TableRect, row: number, col: number): boolean {
 }
 
 interface RowsHandler {
+	end: (tr: Transform, rect: TableRect, col: number) => void;
+
 	handle: (
 		tr: Transform,
 		rect: TableRect,
@@ -95,8 +97,6 @@ interface RowsHandler {
 		handled: boolean;
 		skipRows?: number;
 	};
-
-	end: (tr: Transform, rect: TableRect, col: number) => void;
 }
 
 function removeRowWithLastCell(
@@ -105,8 +105,8 @@ function removeRowWithLastCell(
 	row: number,
 	_col: number,
 ): {
-	skipRows: number;
 	row: RowSideEffect;
+	skipRows: number;
 } {
 	// Get row pos
 	let from = rect.tableStart;

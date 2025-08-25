@@ -14,13 +14,21 @@ import {
 import { type SuccessHandler } from '../internal/actions';
 
 export interface Props extends SharedProps {
-	id?: string;
-	localId?: string;
-	conversation?: ConversationType;
-	objectId: string;
+	canModerateComments?: boolean;
 	containerId?: string;
-	showBeforeUnloadWarning?: boolean;
+	conversation?: ConversationType;
+	createAnalyticsEvent: createAnalyticsEvent;
+	id?: string;
+	isExpanded?: boolean;
 
+	localId?: string;
+
+	meta?: {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		[key: string]: any;
+	};
+	objectId: string;
 	// Dispatch
 	onCreateConversation?: (
 		localId: string,
@@ -35,16 +43,8 @@ export interface Props extends SharedProps {
 		onSuccess?: SuccessHandler,
 	) => void;
 
-	isExpanded?: boolean;
-	meta?: {
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		[key: string]: any;
-	};
-	createAnalyticsEvent: createAnalyticsEvent;
-
 	portal?: HTMLElement;
-	canModerateComments?: boolean;
+	showBeforeUnloadWarning?: boolean;
 }
 
 export interface State {

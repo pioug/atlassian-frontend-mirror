@@ -37,7 +37,7 @@ import Alignment from '../Alignment';
 
 import { IconMap } from './icon-map';
 
-export interface State {
+interface State {
 	isOpen: boolean;
 }
 
@@ -54,7 +54,7 @@ export interface Props {
 }
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
-export class AlignmentToolbar extends React.Component<Props & WrappedComponentProps, State> {
+class AlignmentToolbar extends React.Component<Props & WrappedComponentProps, State> {
 	static displayName = 'AlignmentToolbar';
 	private toolbarItemRef = React.createRef<HTMLElement>();
 

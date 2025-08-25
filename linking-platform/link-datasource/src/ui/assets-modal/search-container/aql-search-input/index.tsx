@@ -44,10 +44,10 @@ const buttonBaseStyles = css({
 const AQLSupportDocumentLink =
 	'https://support.atlassian.com/jira-service-management-cloud/docs/use-assets-query-language-aql/';
 export interface AqlSearchInputProps {
+	isSearching: boolean;
+	testId?: string;
 	value: string;
 	workspaceId: string;
-	testId?: string;
-	isSearching: boolean;
 }
 
 const styles = cssMap({

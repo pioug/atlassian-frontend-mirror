@@ -19,9 +19,9 @@ import { type OnErrorCallback } from '../types';
 
 export type FlexibleCardProps = {
 	/**
-	 * @internal A unique ID for a Smart Link.
+	 * Configure visibility of server and client actions
 	 */
-	id?: string;
+	actionOptions?: CardActionOptions;
 
 	/**
 	 * Determines the appearance of the Smart Link.
@@ -42,10 +42,24 @@ export type FlexibleCardProps = {
 	children: React.ReactNode;
 
 	/**
-	 * Determines the onClick behaviour of Flexible UI. This will proxy to the
-	 * TitleBlock if supplied.
+	 * Competitor Prompt Component for Competitor link experiment
 	 */
-	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
+	CompetitorPrompt?: React.ComponentType<{ linkType?: string; sourceUrl: string }>;
+
+	/**
+	 * For image icons in the title, whether to show a loading skeleton while the image is loading.
+	 */
+	hideIconLoadingSkeleton?: boolean;
+
+	/**
+	 * Configuration options for hover preview
+	 */
+	hoverPreviewOptions?: HoverPreviewOptions;
+
+	/**
+	 * @internal A unique ID for a Smart Link.
+	 */
+	id?: string;
 
 	/**
 	 * An additional action that can be performed when link is not resolved, e.g.
@@ -53,6 +67,12 @@ export type FlexibleCardProps = {
 	 * @internal
 	 */
 	onAuthorize?: () => void;
+
+	/**
+	 * Determines the onClick behaviour of Flexible UI. This will proxy to the
+	 * TitleBlock if supplied.
+	 */
+	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
 
 	/**
 	 * function to be called after a flexible card has rendered its error states
@@ -76,9 +96,10 @@ export type FlexibleCardProps = {
 	renderers?: CardProviderRenderers;
 
 	/**
-	 * Configure visibility of server and client actions
+	 * Determine whether or not a preview card should show up when a user hovers
+	 * over the smartlink. Default value is false.
 	 */
-	actionOptions?: CardActionOptions;
+	showHoverPreview?: boolean;
 
 	/**
 	 * A `testId` prop is provided for specified elements, which is a unique
@@ -92,31 +113,10 @@ export type FlexibleCardProps = {
 	 * @see InternalFlexibleUiOptions
 	 */
 	ui?: InternalFlexibleUiOptions;
-
 	/**
 	 * Determines the URL of the Smart Link.
 	 */
 	url: string;
-
-	/**
-	 * Determine whether or not a preview card should show up when a user hovers
-	 * over the smartlink. Default value is false.
-	 */
-	showHoverPreview?: boolean;
-
-	/**
-	 * Configuration options for hover preview
-	 */
-	hoverPreviewOptions?: HoverPreviewOptions;
-
-	/**
-	 * Competitor Prompt Component for Competitor link experiment
-	 */
-	CompetitorPrompt?: React.ComponentType<{ sourceUrl: string; linkType?: string }>;
-	/**
-	 * For image icons in the title, whether to show a loading skeleton while the image is loading.
-	 */
-	hideIconLoadingSkeleton?: boolean;
 };
 
 export type InternalFlexibleUiOptions = FlexibleUiOptions & {
@@ -130,6 +130,16 @@ export type FlexibleUiOptions = {
 	clickableContainer?: boolean;
 
 	/**
+	 * Flag to enable specific SmartCard components to directly enable or disable the SnippetRennderer override
+	 */
+	enableSnippetRenderer?: boolean;
+
+	/**
+	 * Determines whether to hide css background color styling.
+	 */
+	hideBackground?: boolean;
+
+	/**
 	 * Determines whether to hide elevation styling.
 	 */
 	hideElevation?: boolean;
@@ -138,11 +148,6 @@ export type FlexibleUiOptions = {
 	 * Determines whether to hide css padding styling.
 	 */
 	hidePadding?: boolean;
-
-	/**
-	 * Determines whether to hide css background color styling.
-	 */
-	hideBackground?: boolean;
 
 	/**
 	 * Remove TitleBlock requirement and child component restriction.
@@ -169,11 +174,6 @@ export type FlexibleUiOptions = {
 	 * This is passed to the portal component.
 	 */
 	zIndex?: number;
-
-	/**
-	 * Flag to enable specific SmartCard components to directly enable or disable the SnippetRennderer override
-	 */
-	enableSnippetRenderer?: boolean;
 };
 
 /**
@@ -200,18 +200,18 @@ export type ExtractFlexibleUiDataContextParams = Pick<
 	FlexibleCardProps,
 	'appearance' | 'id' | 'actionOptions' | 'origin' | 'onAuthorize' | 'onClick' | 'renderers' | 'url'
 > & {
-	fireEvent?: FireEventFunction;
-	status?: SmartLinkStatus;
-	response?: SmartLinkResponse;
-	resolve?: ResolveFunction;
 	aiSummaryConfig?: AISummaryConfig;
+	fireEvent?: FireEventFunction;
 	isPreviewPanelAvailable?: (params: { ari: string }) => boolean;
 	openPreviewPanel?: (params: {
 		ari: string;
-		url: string;
-		name: string;
 		iconUrl: string | undefined;
+		name: string;
+		url: string;
 	}) => void;
+	resolve?: ResolveFunction;
+	response?: SmartLinkResponse;
+	status?: SmartLinkStatus;
 };
 
 /**

@@ -6,10 +6,10 @@ export type TTITracking = {
 	enabled: boolean;
 
 	/**
-	 * @description Time between long tasks that tti measurement considers long enough to treat page as interactive in ms
-	 * @default: 1000
+	 * @description Control whether TTI severity is tracked. When this is false the severity is not recorded.
+	 * @default false
 	 */
-	ttiIdleThreshold?: number;
+	trackSeverity?: boolean;
 
 	/**
 	 * @description Time in [seconds] after which to stop tti measurements, used to prevent issues when page never becomes responsive, e.g. infinite loops in rendering / etc...
@@ -18,22 +18,10 @@ export type TTITracking = {
 	ttiCancelTimeout?: number;
 
 	/**
-	 * @description Control whether TTI severity is tracked. When this is false the severity is not recorded.
-	 * @default false
+	 * @description Control for calculating ttiFromInvocation severity level (NORMAL/DEGRADED/BLOCKING). Depends on trackSeverity being true.
+	 * @default 8000
 	 */
-	trackSeverity?: boolean;
-
-	/**
-	 * @description Control for calculating tti severity level (NORMAL/DEGRADED/BLOCKING). Depends on trackSeverity being true.
-	 * @default 40000
-	 */
-	ttiSeverityNormalThreshold?: number;
-
-	/**
-	 * @description Control for calculating tti severity level (NORMAL/DEGRADED/BLOCKING). Depends on trackSeverity being true.
-	 * @default 60000
-	 */
-	ttiSeverityDegradedThreshold?: number;
+	ttiFromInvocationSeverityDegradedThreshold?: number;
 
 	/**
 	 * @description Control for calculating ttiFromInvocation severity level (NORMAL/DEGRADED/BLOCKING). Depends on trackSeverity being true.
@@ -42,10 +30,22 @@ export type TTITracking = {
 	ttiFromInvocationSeverityNormalThreshold?: number;
 
 	/**
-	 * @description Control for calculating ttiFromInvocation severity level (NORMAL/DEGRADED/BLOCKING). Depends on trackSeverity being true.
-	 * @default 8000
+	 * @description Time between long tasks that tti measurement considers long enough to treat page as interactive in ms
+	 * @default: 1000
 	 */
-	ttiFromInvocationSeverityDegradedThreshold?: number;
+	ttiIdleThreshold?: number;
+
+	/**
+	 * @description Control for calculating tti severity level (NORMAL/DEGRADED/BLOCKING). Depends on trackSeverity being true.
+	 * @default 60000
+	 */
+	ttiSeverityDegradedThreshold?: number;
+
+	/**
+	 * @description Control for calculating tti severity level (NORMAL/DEGRADED/BLOCKING). Depends on trackSeverity being true.
+	 * @default 40000
+	 */
+	ttiSeverityNormalThreshold?: number;
 };
 
 export type TransactionTracking = {
@@ -56,10 +56,16 @@ export type TransactionTracking = {
 	enabled: boolean;
 
 	/**
-	 * @description Enable timing using browser performance API. This option has been added to verify memory leaks.
-	 * @default false
+	 * @description The factor by which statistically significant outliers in plugin execution times are computed where t = p75 + (p75 - p25) * outlierFactor.
+	 * @default 3
 	 **/
-	usePerformanceMarks?: boolean;
+	outlierFactor?: number;
+
+	/**
+	 * @description Transactions that need longer to dispatch than [outlierThreshold]ms AND have outlier plugins generate a `dispatchTransaction` event. Depends on enabled being true.
+	 * @default 30
+	 **/
+	outlierThreshold?: number;
 
 	/**
 	 * @description The nth transaction after which a `dispatchTransaction` event is sent. Depends on enabled being true.
@@ -74,16 +80,10 @@ export type TransactionTracking = {
 	slowThreshold?: number;
 
 	/**
-	 * @description Transactions that need longer to dispatch than [outlierThreshold]ms AND have outlier plugins generate a `dispatchTransaction` event. Depends on enabled being true.
-	 * @default 30
+	 * @description Enable timing using browser performance API. This option has been added to verify memory leaks.
+	 * @default false
 	 **/
-	outlierThreshold?: number;
-
-	/**
-	 * @description The factor by which statistically significant outliers in plugin execution times are computed where t = p75 + (p75 - p25) * outlierFactor.
-	 * @default 3
-	 **/
-	outlierFactor?: number;
+	usePerformanceMarks?: boolean;
 };
 
 export type UITracking = {
@@ -139,6 +139,18 @@ export type BrowserFreezetracking = {
 	enabled?: boolean; // not implemented
 
 	/**
+	 * @description Control for calculating severity level (NORMAL/DEGRADED/BLOCKING). Depends on severityTracking being true.
+	 * @default 3000
+	 */
+	severityDegradedThreshold?: number;
+
+	/**
+	 * @description Control for calculating severity level (NORMAL/DEGRADED/BLOCKING). Depends on severityTracking being true.
+	 * @default 2000
+	 */
+	severityNormalThreshold?: number;
+
+	/**
 	 * @description Control whether browser freeze interaction type is tracked. When this is false the interaction type is not recorded.
 	 * @default false
 	 */
@@ -149,28 +161,16 @@ export type BrowserFreezetracking = {
 	 * @default false
 	 */
 	trackSeverity?: boolean;
-
-	/**
-	 * @description Control for calculating severity level (NORMAL/DEGRADED/BLOCKING). Depends on severityTracking being true.
-	 * @default 2000
-	 */
-	severityNormalThreshold?: number;
-
-	/**
-	 * @description Control for calculating severity level (NORMAL/DEGRADED/BLOCKING). Depends on severityTracking being true.
-	 * @default 3000
-	 */
-	severityDegradedThreshold?: number;
 };
 
 export type ProseMirrorRenderedTracking = {
 	enabled?: boolean; // not implemented
 
 	/**
-	 * @description Control whether proseMirror rendered event severity is tracked. When this is false the severity is not recorded.
-	 * @default false
+	 * @description Control for calculating severity level (NORMAL/DEGRADED/BLOCKING). Depends on severityTracking being true.
+	 * @default 3000
 	 */
-	trackSeverity: boolean;
+	severityDegradedThreshold: number;
 
 	/**
 	 * @description Control for calculating severity level (NORMAL/DEGRADED/BLOCKING). Depends on severityTracking being true.
@@ -179,19 +179,13 @@ export type ProseMirrorRenderedTracking = {
 	severityNormalThreshold: number;
 
 	/**
-	 * @description Control for calculating severity level (NORMAL/DEGRADED/BLOCKING). Depends on severityTracking being true.
-	 * @default 3000
+	 * @description Control whether proseMirror rendered event severity is tracked. When this is false the severity is not recorded.
+	 * @default false
 	 */
-	severityDegradedThreshold: number;
+	trackSeverity: boolean;
 };
 
 export interface InputTracking {
-	/**
-	 * @description Control whether samples of typing performance are taken. When this is false no measurements are taken and no events are sent.
-	 * @default false
-	 */
-	enabled: boolean;
-
 	/**
 	 * @description Control whether samples of typing performance are taken. Depends on enabled being true.
 	 * @default false
@@ -199,16 +193,10 @@ export interface InputTracking {
 	countNodes?: boolean;
 
 	/**
-	 * @description Control for which nth transaction a typing performance sample is taken. Depends on enabled being true.
-	 * @default 100
+	 * @description Control whether samples of typing performance are taken. When this is false no measurements are taken and no events are sent.
+	 * @default false
 	 */
-	samplingRate?: number;
-
-	/**
-	 * @description input events that exceed [slowThreshold]ms generate analytics event. Depends on enabled being true.
-	 * @default 300
-	 */
-	slowThreshold?: number;
+	enabled: boolean;
 
 	/**
 	 * @description input events that exceed [freezeThreshold]ms generate analytics event. Depends on enabled being true.
@@ -217,16 +205,10 @@ export interface InputTracking {
 	freezeThreshold?: number;
 
 	/**
-	 * @description Control whether input tracking severity is tracked. When this is false the severity is not recorded.
-	 * @default false
-	 */
-	trackSeverity?: boolean;
-
-	/**
-	 * @description Control for calculating severity level (NORMAL/DEGRADED/BLOCKING). Depends on severityTracking being true.
+	 * @description Control for which nth transaction a typing performance sample is taken. Depends on enabled being true.
 	 * @default 100
 	 */
-	severityNormalThreshold?: number;
+	samplingRate?: number;
 
 	/**
 	 * @description Control for calculating severity level (NORMAL/DEGRADED/BLOCKING). Depends on severityTracking being true.
@@ -235,16 +217,34 @@ export interface InputTracking {
 	severityDegradedThreshold?: number;
 
 	/**
-	 * @description Track individual keypress processing time when multiple keypress happened in one frame.
-	 * @default false
+	 * @description Control for calculating severity level (NORMAL/DEGRADED/BLOCKING). Depends on severityTracking being true.
+	 * @default 100
 	 */
-	trackSingleKeypress?: boolean;
+	severityNormalThreshold?: number;
+
+	/**
+	 * @description input events that exceed [slowThreshold]ms generate analytics event. Depends on enabled being true.
+	 * @default 300
+	 */
+	slowThreshold?: number;
 
 	/**
 	 * @description Track keypress processing time including browser rendering time.
 	 * @default false
 	 */
 	trackRenderingTime?: boolean;
+
+	/**
+	 * @description Control whether input tracking severity is tracked. When this is false the severity is not recorded.
+	 * @default false
+	 */
+	trackSeverity?: boolean;
+
+	/**
+	 * @description Track individual keypress processing time when multiple keypress happened in one frame.
+	 * @default false
+	 */
+	trackSingleKeypress?: boolean;
 }
 
 export type ContentRetrievalTracking = {
@@ -254,12 +254,6 @@ export type ContentRetrievalTracking = {
 	 * @default false
 	 */
 	enabled: boolean;
-
-	/**
-	 * @description Control how frequently/at what rate successful editor content retrieval events are dispatched.
-	 * @default 100
-	 */
-	successSamplingRate?: number;
 
 	/**
 	 * @description Control how frequently/at what rate failed editor content retrieval events are dispatched.
@@ -272,6 +266,12 @@ export type ContentRetrievalTracking = {
 	 * @default false
 	 */
 	reportErrorStack?: boolean;
+
+	/**
+	 * @description Control how frequently/at what rate successful editor content retrieval events are dispatched.
+	 * @default 100
+	 */
+	successSamplingRate?: number;
 };
 
 export type OnChangeCallbackTracking = {
@@ -329,30 +329,27 @@ export type ErrorTracking = {
 };
 
 export type PerformanceTracking = {
+	bFreezeTracking?: BrowserFreezetracking;
+
 	/**
 	 * @description Control whether measurements for all analytics events are performed
 	 */
 	catchAllTracking?: CatchAllTracking;
 
 	/**
-	 * @description Control whether time to interactive is tracked
+	 * @description Control whether editor content retrieval events are tracked
 	 */
-	ttiTracking?: TTITracking;
+	contentRetrievalTracking?: ContentRetrievalTracking;
+
+	/**
+	 * @description Control whether top-level Editor errors caught by ErrorBoundary are tracked.
+	 */
+	errorTracking?: ErrorTracking;
 
 	/**
 	 * @description Control whether transactions are tracked
 	 */
 	inputTracking?: InputTracking;
-
-	/**
-	 * @description Control whether transactions are tracked
-	 */
-	transactionTracking?: TransactionTracking;
-
-	/**
-	 * @description Control whether editor ui is tracked
-	 */
-	uiTracking?: UITracking;
 
 	/**
 	 * @description Control whether nodeviews are tracked
@@ -362,18 +359,6 @@ export type PerformanceTracking = {
 	/**
 	 * @description Control whether browser freezes / long tasks are tracked
 	 */
-
-	bFreezeTracking?: BrowserFreezetracking;
-
-	/**
-	 * @description Control whether proseMirror rendered event is tracked
-	 */
-	proseMirrorRenderedTracking?: ProseMirrorRenderedTracking;
-
-	/**
-	 * @description Control whether editor content retrieval events are tracked
-	 */
-	contentRetrievalTracking?: ContentRetrievalTracking;
 
 	/**
 	 * @description Control onChange callback is tracked. Requires TransactionTracking to be enabled,
@@ -392,6 +377,11 @@ export type PerformanceTracking = {
 	pasteTracking?: PasteTracking;
 
 	/**
+	 * @description Control whether proseMirror rendered event is tracked
+	 */
+	proseMirrorRenderedTracking?: ProseMirrorRenderedTracking;
+
+	/**
 	 * @description Control whether render of different component is tracked.
 	 */
 	renderTracking?: RenderTracking;
@@ -402,7 +392,17 @@ export type PerformanceTracking = {
 	startedTracking?: StartedTracking;
 
 	/**
-	 * @description Control whether top-level Editor errors caught by ErrorBoundary are tracked.
+	 * @description Control whether transactions are tracked
 	 */
-	errorTracking?: ErrorTracking;
+	transactionTracking?: TransactionTracking;
+
+	/**
+	 * @description Control whether time to interactive is tracked
+	 */
+	ttiTracking?: TTITracking;
+
+	/**
+	 * @description Control whether editor ui is tracked
+	 */
+	uiTracking?: UITracking;
 };

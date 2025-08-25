@@ -21,16 +21,6 @@ export type Request<T> = (
 
 export interface Client {
 	/**
-	 * fetch reactions request handler
-	 * @param containerAri container wrapper id
-	 * @param aris container reaction assets unique ids
-	 */
-	getReactions(containerAri: string, aris: string[]): Promise<Reactions>;
-	/**
-	 * Fetch details for a given reaction.
-	 */
-	getDetailedReaction: Request<ReactionSummary>;
-	/**
 	 * Fetch request when adding a reaction to a container.
 	 */
 	addReaction: Request<ReactionSummary[]>;
@@ -38,4 +28,14 @@ export interface Client {
 	 * Fetch request when removing a reaction from a container.
 	 */
 	deleteReaction: Request<ReactionSummary[]>;
+	/**
+	 * Fetch details for a given reaction.
+	 */
+	getDetailedReaction: Request<ReactionSummary>;
+	/**
+	 * fetch reactions request handler
+	 * @param containerAri container wrapper id
+	 * @param aris container reaction assets unique ids
+	 */
+	getReactions(containerAri: string, aris: string[]): Promise<Reactions>;
 }

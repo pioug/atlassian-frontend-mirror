@@ -45,11 +45,11 @@ const idle = () => {
 };
 
 type TemplateDefinition = {
-	title: string;
-	desc: string;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	adf: any;
+	desc: string;
+	title: string;
 };
 
 const templates: Array<TemplateDefinition> = new Array(20).fill({
@@ -119,8 +119,8 @@ type TemplatePanelState = {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	adf: any;
-	selectedTemplate: TemplateDefinition | null;
 	panelVisible: boolean;
+	selectedTemplate: TemplateDefinition | null;
 };
 
 type TemplatePanelProps = {

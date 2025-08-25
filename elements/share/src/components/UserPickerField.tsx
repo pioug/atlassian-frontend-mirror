@@ -41,25 +41,25 @@ const validate = (value: Value) => {
 	return value && value instanceof Array && value.length > 0 ? undefined : REQUIRED;
 };
 export type Props = {
-	loadOptions?: LoadOptions;
-	defaultValue?: OptionData[];
-	config?: ConfigResponse;
-	isLoading?: boolean;
-	product: ProductName;
-	onInputChange?: (query?: string, sessionId?: string) => void;
-	enableSmartUserPicker?: boolean;
-	loggedInAccountId?: string;
 	cloudId?: string;
-	onChange?: (value: Value) => void;
-	selectPortalRef?: React.Ref<HTMLDivElement>;
-	isPublicLink?: boolean;
+	config?: ConfigResponse;
+	defaultValue?: OptionData[];
+	enableSmartUserPicker?: boolean;
 	helperMessage?: string;
-	orgId?: string;
 	isBrowseUsersDisabled?: boolean;
+	isExtendedShareDialogEnabled?: boolean;
+	isLoading?: boolean;
+	isPublicLink?: boolean;
+	loadOptions?: LoadOptions;
+	loggedInAccountId?: string;
+	onChange?: (value: Value) => void;
+	onInputChange?: (query?: string, sessionId?: string) => void;
+	orgId?: string;
+	product: ProductName;
+	productAttributes?: SmartUserPickerProps['productAttributes'];
+	selectPortalRef?: React.Ref<HTMLDivElement>;
 	shareError?: ShareError;
 	userPickerOptions?: UserPickerOptions;
-	productAttributes?: SmartUserPickerProps['productAttributes'];
-	isExtendedShareDialogEnabled?: boolean;
 };
 
 type GetMessageDescriptor = (

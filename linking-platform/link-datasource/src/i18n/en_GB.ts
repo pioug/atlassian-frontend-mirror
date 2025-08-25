@@ -91,6 +91,8 @@ export default {
   'linkDataSource.datasource.table.authConnectButtonText': 'Connect',
   'linkDataSource.datasource.table.authScreenDescriptionText':
     'Connect your {providerName} account to collaborate on work across Atlassian products.',
+  'linkDataSource.datasource.table.authScreenDescriptionText-appify':
+    'Connect your {providerName} account to collaborate on work across Atlassian apps.',
   'linkDataSource.datasource.table.authScreenHeaderText': 'Connect your {providerName} account',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'Learn more about Smart Links.',
   'linkDataSource.issue-line-table.edit-button-label.non-final': '{fieldValue}, {fieldName} field',

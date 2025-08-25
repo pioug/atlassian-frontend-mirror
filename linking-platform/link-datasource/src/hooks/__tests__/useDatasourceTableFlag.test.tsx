@@ -12,8 +12,8 @@ import { EVENT_CHANNEL } from '../../analytics';
 import { useDatasourceTableFlag } from '../useDatasourceTableFlag';
 
 interface ConsumerProps {
-	options?: Parameters<typeof useDatasourceTableFlag>[0];
 	flag?: Parameters<ReturnType<typeof useDatasourceTableFlag>['showErrorFlag']>[0];
+	options?: Parameters<typeof useDatasourceTableFlag>[0];
 }
 const Consumer = (props?: ConsumerProps) => {
 	const { showErrorFlag } = useDatasourceTableFlag(props?.options);

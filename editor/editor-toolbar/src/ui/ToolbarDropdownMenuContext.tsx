@@ -1,9 +1,9 @@
 import React, { createContext, useContext, useState } from 'react';
 
 interface ToolbarDropdownMenuContextValue {
-	openMenu: () => void;
 	closeMenu: () => void;
 	isOpen: boolean;
+	openMenu: () => void;
 }
 
 const ToolbarDropdownMenuContext = createContext<ToolbarDropdownMenuContextValue | undefined>(

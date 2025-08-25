@@ -35,7 +35,7 @@ describe('MediaSingle', () => {
 
 	const mountMediaSingle = (
 		mediaSingleProps: Partial<MediaSingleProps> = {},
-		mediaProps: Partial<MediaProps & { width: number; heigth: number }> = {},
+		mediaProps: Partial<MediaProps & { heigth: number; width: number }> = {},
 		showCaption: boolean = true,
 	): ReactWrapper<WrappedComponentProps, any> => {
 		return mountWithIntl(

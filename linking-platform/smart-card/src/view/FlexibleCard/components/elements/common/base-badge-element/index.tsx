@@ -94,6 +94,10 @@ export type BaseBadgeElementProps = ElementProps & {
 	 */
 	appearance?: 'default' | 'subtle';
 	/**
+	 * Color of the text and badge
+	 */
+	color?: string;
+	/**
 	 * Determines whether the badge icon should be hidden. When set to true,
 	 * the badge will be displayed without the icon, showing only the label text.
 	 */
@@ -104,17 +108,13 @@ export type BaseBadgeElementProps = ElementProps & {
 	 */
 	icon?: IconType;
 	/**
-	 * The icon from this URL will be used for the badge if no Atlaskit Icon is provided.
-	 */
-	url?: string;
-	/**
 	 * The text to display for the badge.
 	 */
 	label?: string;
 	/**
-	 * Color of the text and badge
+	 * The icon from this URL will be used for the badge if no Atlaskit Icon is provided.
 	 */
-	color?: string;
+	url?: string;
 };
 
 /**

@@ -1,6 +1,6 @@
 export type QueryRecord = {
-	jql: string;
 	count: number;
+	jql: string;
 };
 
 export type QueryPerformance = {

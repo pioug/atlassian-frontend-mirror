@@ -72,14 +72,14 @@ const deleteEmojiLabelId = 'fabric.emoji.delete.label.id';
 
 export interface Props {
 	emoji: EmojiDescription;
-	onDeleteEmoji: OnDeleteEmoji;
-	onCloseDelete: () => void;
 	errorMessage?: string;
+	onCloseDelete: () => void;
+	onDeleteEmoji: OnDeleteEmoji;
 }
 
 export interface State {
-	loading: boolean;
 	error: boolean;
+	loading: boolean;
 }
 
 class EmojiDeletePreview extends Component<Props & WrappedComponentProps, State> {

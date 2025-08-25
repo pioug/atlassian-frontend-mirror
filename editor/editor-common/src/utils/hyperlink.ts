@@ -159,8 +159,8 @@ function findLinkMatches(text: string): Match[] {
 }
 
 interface filepathMatch {
-	startIndex: number;
 	endIndex: number;
+	startIndex: number;
 }
 
 export const findFilepaths = (text: string, offset: number = 0): Array<filepathMatch> => {

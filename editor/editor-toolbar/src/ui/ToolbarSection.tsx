@@ -27,11 +27,11 @@ const separator = css({
 
 type ToolbarSectionProps = {
 	children?: ReactNode;
-	testId?: string;
 	/**
 	 * Whether to add a separator at the start of the section
 	 */
 	hasSeparator?: boolean;
+	testId?: string;
 };
 
 export const ToolbarSection = ({ children, testId, hasSeparator }: ToolbarSectionProps) => {

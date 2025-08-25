@@ -50,7 +50,7 @@ function removeSpecialCharacters(node: Node) {
 	Array.from(node.childNodes).forEach((child) => removeSpecialCharacters(child));
 }
 
-function parseContent(text: string): { title: string; body: string } | null {
+function parseContent(text: string): { body: string; title: string } | null {
 	const newlineIndex = text.indexOf('\n');
 
 	if (newlineIndex === -1) {
@@ -79,9 +79,9 @@ export function transformHtml(
 	html: string,
 	options: {
 		disableBitbucketLinkStripping?: boolean;
+		shouldParseCaptions?: boolean;
 		shouldParseCodeSuggestions?: boolean;
 		shouldParseImageResizingAttributes?: boolean;
-		shouldParseCaptions?: boolean;
 	},
 ): HTMLElement {
 	const el = document.createElement('div');

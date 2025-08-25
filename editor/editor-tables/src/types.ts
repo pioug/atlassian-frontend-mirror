@@ -7,10 +7,10 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 // copied CellAttributes from adf-schema to avoid dependency cycles
 export interface CellAttributes {
-	colspan?: number;
-	rowspan?: number;
-	colwidth?: number[];
 	background?: string;
+	colspan?: number;
+	colwidth?: number[];
+	rowspan?: number;
 }
 
 export interface SelectionBounds {
@@ -19,15 +19,15 @@ export interface SelectionBounds {
 }
 
 export interface SerializedCellSelection {
-	type: 'cell';
 	anchor: number;
 	head: number;
+	type: 'cell';
 }
 
 export interface CellSelectionRect {
 	height: number;
-	width: number;
 	rows: Fragment[];
+	width: number;
 }
 
 export type Axis = 'horiz' | 'vert';
@@ -62,13 +62,13 @@ export type CellAttributesWithColSpan = CellAttributes & {
 export type Writeable<T> = { -readonly [P in keyof T]: T[P] };
 
 export interface MoveOptions {
-	tryToFit?: boolean;
 	direction?: number;
 	selectAfterMove?: boolean;
+	tryToFit?: boolean;
 }
 
 export interface CloneOptions {
-	tryToFit?: boolean;
 	direction?: number;
 	selectAfterClone?: boolean;
+	tryToFit?: boolean;
 }

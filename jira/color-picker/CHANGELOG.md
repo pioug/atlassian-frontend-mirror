@@ -1,5 +1,13 @@
 # @atlaskit/color-picker
 
+## 5.2.4
+
+### Patch Changes
+
+- [`92b1368d9607d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/92b1368d9607d) -
+  Sorted type and interface props to improve Atlaskit docs
+- Updated dependencies
+
 ## 5.2.3
 
 ### Patch Changes

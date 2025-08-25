@@ -1,8 +1,8 @@
 export type EnabledHandles = { left?: boolean; right?: boolean };
 
 export type Dimensions = {
-	width: number;
 	height: number;
+	width: number;
 };
 
 export type Position = {
@@ -19,8 +19,8 @@ export type HandleResize = (newWidth: Position & Dimensions, delta: Dimensions) 
 export type HandleResizeStart = () => void;
 
 export type HandleStyles = {
-	right?: React.CSSProperties;
 	left?: React.CSSProperties;
+	right?: React.CSSProperties;
 };
 
 export type HandleSize = 'small' | 'medium' | 'large' | 'clamped';

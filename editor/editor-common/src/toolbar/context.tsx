@@ -5,8 +5,8 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { EditorAppearance } from '../types';
 
 export type EditorToolbarContextType = {
-	editorView: EditorView | null;
 	editorAppearance?: EditorAppearance;
+	editorView: EditorView | null;
 };
 
 const EditorToolbarContext = createContext<EditorToolbarContextType>({
@@ -37,7 +37,12 @@ export const EditorToolbarProvider = ({
 	editorAppearance,
 }: EditorToolbarProviderProps) => {
 	return (
-		<EditorToolbarContext.Provider value={{ editorView, editorAppearance }}>
+		<EditorToolbarContext.Provider
+			value={{
+				editorView,
+				editorAppearance,
+			}}
+		>
 			{children}
 		</EditorToolbarContext.Provider>
 	);

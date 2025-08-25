@@ -381,7 +381,7 @@ export default function ComposableEditorPageWrapper() {
  * React component that re renders to monitor non React state changes
  */
 // @typescript-eslint/no-explicit-any
-function StateMonitor({ getState, delay = 500 }: { getState?: () => any; delay?: number }) {
+function StateMonitor({ getState, delay = 500 }: { delay?: number; getState?: () => any }) {
 	const [state, setState] = React.useState<string>();
 
 	React.useEffect(() => {

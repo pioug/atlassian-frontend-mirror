@@ -28,31 +28,31 @@ export type ShareFormProps = Pick<
 	| 'CustomSubmitButton'
 > & {
 	config?: ConfigResponse;
-	isFetchingConfig?: boolean;
+	Content?: React.ReactNode;
 	copyLink: string;
+	defaultValue?: ShareData;
+	fieldsFooter?: React.ReactNode;
+	handleCloseDialog?: () => void;
+	helperMessage?: string;
+	isDisabled?: boolean;
+	isFetchingConfig?: boolean;
 	isSharing?: boolean;
+	isSplitButton?: boolean;
+	isSubmitShareDisabled?: boolean;
+	loadOptions?: LoadOptions;
+	onDismiss?: (data: ShareData) => void;
+	onLinkCopy?: (link: string) => void;
+	onMenuItemChange?: (menuItem: MenuType) => void;
+	onSubmit?: (data: ShareData) => void;
+	onTabChange?: (index: number) => void;
+	onUserInputChange?: (query?: string, sessionId?: string) => void;
+	product?: ProductName;
+	selectedMenuItem?: number;
+	selectPortalRef?: React.Ref<HTMLDivElement>;
 	shareError?: ShareError;
+	showTitle?: boolean;
 	submitButtonLabel?: React.ReactNode;
 	title?: React.ReactNode;
-	showTitle?: boolean;
-	helperMessage?: string;
-	defaultValue?: ShareData;
-	product?: ProductName;
-	fieldsFooter?: React.ReactNode;
-	selectPortalRef?: React.Ref<HTMLDivElement>;
-	isDisabled?: boolean;
-	isSplitButton?: boolean;
-	loadOptions?: LoadOptions;
-	onLinkCopy?: (link: string) => void;
-	onSubmit?: (data: ShareData) => void;
-	onDismiss?: (data: ShareData) => void;
-	onUserInputChange?: (query?: string, sessionId?: string) => void;
-	onTabChange?: (index: number) => void;
-	onMenuItemChange?: (menuItem: MenuType) => void;
-	selectedMenuItem?: number;
-	Content?: React.ReactNode;
-	handleCloseDialog?: () => void;
-	isSubmitShareDisabled?: boolean;
 };
 
 export type RenderCustomSubmitButtonProps = Pick<

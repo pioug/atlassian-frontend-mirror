@@ -2,9 +2,9 @@ import type { OnEmojiEvent, RelativePosition } from '../src/types';
 import type { EmojiProvider } from '../src/resource';
 
 export interface TypeaheadProps {
+	emojiProvider: Promise<EmojiProvider>;
 	label: string;
 	onSelection: OnEmojiEvent;
-	emojiProvider: Promise<EmojiProvider>;
 	position?: RelativePosition;
 }
 

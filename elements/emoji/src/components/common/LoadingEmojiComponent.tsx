@@ -10,8 +10,8 @@ export interface Props {
 }
 
 export interface State {
-	loadedEmojiProvider?: EmojiProvider;
 	asyncLoadedComponent?: ComponentType<React.PropsWithChildren<any>>;
+	loadedEmojiProvider?: EmojiProvider;
 }
 
 /**

@@ -32,9 +32,9 @@ const emojiCategoryTitle = css({
 export const RENDER_EMOJI_PICKER_CATEGORY_HEADING_TESTID = 'render-emoji-picker-categorty-heading';
 
 export interface Props {
+	className?: string;
 	id: CategoryGroupKey;
 	title: string;
-	className?: string;
 }
 
 const EmojiPickerCategoryHeading = ({ id, title, className }: Props) => (

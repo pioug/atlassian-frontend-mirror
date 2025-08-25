@@ -19,14 +19,14 @@ import { mockConfluenceResponse } from '../__mocks__/mocks';
 import { mockUrl } from './common.test-utils';
 
 export type SetUpParams = {
-	mock?: any;
-	testId?: string;
 	component?: ReactElement;
 	extraCardProps?: Partial<CardProps>;
+	mock?: any;
 	mockFetch?: () => unknown;
+	testId?: string;
 	userEventOptions?: {
-		delay?: number | null;
 		advanceTimers?: typeof jest.advanceTimersByTime;
+		delay?: number | null;
 	};
 };
 

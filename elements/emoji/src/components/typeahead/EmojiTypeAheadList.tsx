@@ -33,8 +33,8 @@ function getKeyByIndex(emojis: EmojiDescription[], index: number): string | unde
 
 export interface Props {
 	emojis: EmojiDescription[];
-	onEmojiSelected?: OnEmojiEvent;
 	loading?: boolean;
+	onEmojiSelected?: OnEmojiEvent;
 }
 
 export interface State {

@@ -129,14 +129,14 @@ const createSaveAndCancelButtons =
 	);
 
 export type State = {
-	disabled: boolean;
-	title?: string;
 	appearance: EditorAppearance;
+	disabled: boolean;
 	mediaOptions: Map<string, Providers>;
+	title?: string;
 };
 interface Providers {
-	mediaProvider: Promise<MediaProvider>;
 	editorProviders: any;
+	mediaProvider: Promise<MediaProvider>;
 }
 
 const mediaProviders = new Map<string, Providers>();
@@ -516,8 +516,8 @@ class ExampleEditorComponent extends React.Component<EditorProps & ExampleProps,
 }
 
 interface ClipboardWrapperProps {
-	mediaProvider: Promise<MediaProvider>;
 	children: Function;
+	mediaProvider: Promise<MediaProvider>;
 }
 
 const ClipboardWrapper = (props: ClipboardWrapperProps) => {

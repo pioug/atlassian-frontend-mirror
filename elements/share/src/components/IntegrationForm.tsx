@@ -43,9 +43,9 @@ export const formWrapperStyle = css`
 `;
 
 export type IntegrationFormProps = {
+	changeTab?: (index: number) => void;
 	Content: React.ComponentType<ContentProps> | null;
 	onIntegrationClose?: () => void;
-	changeTab?: (index: number) => void;
 };
 
 export const IntegrationForm = ({

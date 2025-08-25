@@ -27,11 +27,11 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 export type Props = {
-	visible: boolean;
-	editorAPI: PublicPluginAPI<[OptionalPlugin<ContextPanelPlugin>]> | undefined;
 	children?: React.ReactElement;
-	hasPadding?: boolean;
 	customWidth?: number;
+	editorAPI: PublicPluginAPI<[OptionalPlugin<ContextPanelPlugin>]> | undefined;
+	hasPadding?: boolean;
+	visible: boolean;
 };
 
 const ANIM_SPEED_MS = 500;
@@ -71,14 +71,14 @@ const paddingStyles = css({
 });
 
 type SwappableContentAreaProps = {
-	pluginContent?: React.ReactNode;
 	editorView?: EditorView;
 	intl: IntlShape;
+	pluginContent?: React.ReactNode;
 } & Props;
 
 type State = {
-	mounted: boolean;
 	currentPluginContent?: React.ReactNode;
+	mounted: boolean;
 };
 
 // Ignored via go/ees005

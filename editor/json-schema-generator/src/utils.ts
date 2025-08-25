@@ -20,13 +20,13 @@ import {
 } from 'typescript';
 
 export type TagInfo = {
-	name?: string;
-	stage?: number;
-	allowUnsupportedBlock?: boolean;
-	allowUnsupportedInline?: boolean;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	[key: string]: any;
+	allowUnsupportedBlock?: boolean;
+	allowUnsupportedInline?: boolean;
+	name?: string;
+	stage?: number;
 };
 
 export type PrimitiveType = number | boolean | string;

@@ -26,13 +26,13 @@ export const InlineImageCard = ({
 	crop,
 	stretch,
 }: {
-	identifier: FileIdentifier;
-	renderError: (props: { error: Error }) => JSX.Element | null;
-	dimensions?: Dimensions;
-	isLazy?: boolean;
 	alt?: string;
-	ssr?: SSR;
 	crop?: boolean;
+	dimensions?: Dimensions;
+	identifier: FileIdentifier;
+	isLazy?: boolean;
+	renderError: (props: { error: Error }) => JSX.Element | null;
+	ssr?: SSR;
 	stretch?: boolean;
 }) => {
 	// Generate unique traceId for file

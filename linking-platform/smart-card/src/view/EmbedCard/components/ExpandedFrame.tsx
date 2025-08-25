@@ -17,23 +17,6 @@ import { type FrameStyle } from '../types';
 import { className } from './styled';
 
 export interface ExpandedFrameProps {
-	isPlaceholder?: boolean;
-	href?: string;
-	icon?: React.ReactNode;
-	text?: React.ReactNode;
-	minWidth?: number;
-	maxWidth?: number;
-	children?: React.ReactNode;
-	/** A flag that determines whether the card is selected in edit mode. */
-	isSelected?: boolean;
-	/** A prop that determines the style of a frame: whether to show it, hide it or only show it when a user hovers over embed */
-	frameStyle?: FrameStyle;
-	/** The optional click handler */
-	onClick?: (evt: React.MouseEvent) => void;
-	/** For testing purposes only */
-	testId?: string;
-	/** If dimensions of the card are to be inherited from the parent */
-	inheritDimensions?: boolean;
 	/**
 	 * To enable scrolling in use cases where the content will not have it's own scrollbar.
 	 *
@@ -42,6 +25,22 @@ export interface ExpandedFrameProps {
 	 * Always enable this when when the card is not resolved so the connect account button is not hiddden.
 	 */
 	allowScrollBar?: boolean;
+	children?: React.ReactNode;
+	/** Component to prompt for competitor link */
+	CompetitorPrompt?: React.ComponentType<{ linkType?: string; sourceUrl: string }>;
+	/** A prop that determines the style of a frame: whether to show it, hide it or only show it when a user hovers over embed */
+	frameStyle?: FrameStyle;
+	href?: string;
+	icon?: React.ReactNode;
+	/** If dimensions of the card are to be inherited from the parent */
+	inheritDimensions?: boolean;
+	isPlaceholder?: boolean;
+	/** A flag that determines whether the card is selected in edit mode. */
+	isSelected?: boolean;
+	maxWidth?: number;
+	minWidth?: number;
+	/** The optional click handler */
+	onClick?: (evt: React.MouseEvent) => void;
 	/**
 	 * Should the CSS `overflow` property be set to hidden or auto (clipping or
 	 * supporting a scroll bar), or left out altogether.
@@ -52,8 +51,9 @@ export interface ExpandedFrameProps {
 	 * @default true
 	 */
 	setOverflow?: boolean;
-	/** Component to prompt for competitor link */
-	CompetitorPrompt?: React.ComponentType<{ sourceUrl: string; linkType?: string }>;
+	/** For testing purposes only */
+	testId?: string;
+	text?: React.ReactNode;
 }
 
 export const ExpandedFrame = ({

@@ -7,10 +7,10 @@ import SelectOption from './select-option';
 const MaxLinesOption = (props: {
 	defaultValue: number;
 	label?: string;
+	max: number;
 	name: string;
 	onChange: (template: BlockTemplate) => void;
 	propName: string;
-	max: number;
 	template: BlockTemplate;
 }) => {
 	const { defaultValue, max } = props;

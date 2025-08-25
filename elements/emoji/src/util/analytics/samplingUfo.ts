@@ -8,13 +8,13 @@ interface SamplingInstancesRecord {
 }
 
 interface UFOExperienceSampledRecord {
-	sampledInstance: SamplingInstancesRecord;
 	sampled: boolean;
+	sampledInstance: SamplingInstancesRecord;
 }
 export interface WithSamplingUFOExperience extends Omit<UFOExperience, 'start'> {
 	start: (options: {
-		samplingRate: number;
 		samplingFunc?: SamplingFunc;
+		samplingRate: number;
 		startTime?: number;
 	}) => Promise<void>;
 }
@@ -81,8 +81,8 @@ export const withSampling = (ufoExperience: UFOExperience) => {
 	};
 
 	const start = async (options: {
-		samplingRate: number;
 		samplingFunc?: SamplingFunc;
+		samplingRate: number;
 		startTime?: number;
 	}): Promise<void> => {
 		// check if the experience has already sampled before

@@ -1,5 +1,13 @@
 # @atlaskit/link-extractors
 
+## 2.4.4
+
+### Patch Changes
+
+- [`1b7d48c39ae03`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b7d48c39ae03) -
+  Sorted type and interface props to improve Atlaskit docs
+- Updated dependencies
+
 ## 2.4.3
 
 ### Patch Changes

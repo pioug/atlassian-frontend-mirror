@@ -5,8 +5,8 @@ import { getAvatarSize } from './utils';
 
 export type Props = {
 	appearance: string;
-	src?: string;
 	presence?: string;
+	src?: string;
 	type?: 'person' | 'team';
 };
 

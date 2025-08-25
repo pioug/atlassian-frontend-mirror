@@ -43,9 +43,9 @@ function WrappedHeadingAnchor({
 	hideFromScreenReader,
 }: {
 	enableNestedHeaderLinks: boolean | undefined;
-	level: number;
 	headingId: string;
 	hideFromScreenReader?: boolean;
+	level: number;
 }) {
 	return (
 		<AnalyticsContext.Consumer>
@@ -73,12 +73,12 @@ function WrappedHeadingAnchor({
 
 function Heading(
 	props: NodeProps<{
-		level: HeadingLevels;
-		headingId?: string;
-		showAnchorLink?: boolean;
 		allowHeadingAnchorLinks?: HeadingAnchorLinksProps;
-		marks?: PMNode['marks'];
+		headingId?: string;
 		invisible?: boolean;
+		level: HeadingLevels;
+		marks?: PMNode['marks'];
+		showAnchorLink?: boolean;
 	}>,
 ) {
 	const { headingId, dataAttributes, allowHeadingAnchorLinks, marks, invisible } = props;

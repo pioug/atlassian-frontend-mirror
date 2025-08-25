@@ -87,11 +87,11 @@ export const getMediaSingleDimensions = (
 	mediaSingle: PMNode,
 	editorWidth: number = akEditorDefaultLayoutWidth,
 ): {
-	width: number;
 	height: number;
-	originalWidth: number;
 	originalHeight: number;
+	originalWidth: number;
 	ratio: number;
+	width: number;
 } | null => {
 	if (mediaSingle.type !== mediaSingle.type.schema.nodes.mediaSingle) {
 		return null;

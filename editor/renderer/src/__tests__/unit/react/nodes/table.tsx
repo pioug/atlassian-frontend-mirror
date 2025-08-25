@@ -58,13 +58,13 @@ const mountBasicTable = ({
 	isInsideOfBlockNode = false,
 	allowTableResizing = false,
 }: {
+	allowTableResizing?: boolean;
 	columnWidths?: number[];
+	isInsideOfBlockNode?: boolean;
 	isNumberColumnEnabled?: boolean;
-	renderWidth?: number;
 	layout?: TableLayout;
 	rendererAppearance?: RendererAppearance;
-	isInsideOfBlockNode?: boolean;
-	allowTableResizing?: boolean;
+	renderWidth?: number;
 } = {}) => {
 	return mountWithIntl(
 		<Table

@@ -74,8 +74,8 @@ const Modal = ({
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	onClose: () => any;
-	TEST_ONLY_src?: string;
 	showModal?: boolean;
+	TEST_ONLY_src?: string;
 }) => {
 	const [isOpen, setIsOpen] = useState(true);
 

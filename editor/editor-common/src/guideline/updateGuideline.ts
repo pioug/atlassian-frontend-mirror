@@ -5,7 +5,7 @@ const activeGuidelineStyle = <T extends { active?: boolean; show?: boolean }>(gu
 });
 
 export const getGuidelinesWithHighlights = <
-	T extends { key: string; active?: boolean; show?: boolean },
+	T extends { active?: boolean; key: string; show?: boolean },
 >(
 	gap: number,
 	maxGap: number,

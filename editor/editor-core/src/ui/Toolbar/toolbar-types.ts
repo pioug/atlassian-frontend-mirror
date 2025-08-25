@@ -11,33 +11,33 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type EditorActions from '../../actions';
 
 export interface ToolbarBreakPoint {
-	width: number;
 	size: ToolbarSize;
+	width: number;
 }
 
 export interface ToolbarProps {
-	items?: Array<ToolbarUIComponentFactory>;
-	editorView: EditorView;
-	editorActions?: EditorActions;
-	eventDispatcher: EventDispatcher;
-	providerFactory: ProviderFactory;
 	appearance?: EditorAppearance;
-	popupsMountPoint?: HTMLElement;
-	popupsBoundariesElement?: HTMLElement;
-	popupsScrollableElement?: HTMLElement;
+	containerElement: HTMLElement | null;
 	disabled: boolean;
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
-	toolbarSize: ToolbarSize;
-	containerElement: HTMLElement | null;
+	editorActions?: EditorActions;
+	editorView: EditorView;
+	eventDispatcher: EventDispatcher;
 	hasMinWidth?: boolean;
+	items?: Array<ToolbarUIComponentFactory>;
+	popupsBoundariesElement?: HTMLElement;
+	popupsMountPoint?: HTMLElement;
+	popupsScrollableElement?: HTMLElement;
+	providerFactory: ProviderFactory;
+	toolbarSize: ToolbarSize;
 	twoLineEditorToolbar?: boolean;
 }
 
 export type ToolbarWithSizeDetectorProps = Omit<ToolbarProps, 'toolbarSize'>;
 
 export interface ToolbarInnerProps extends ToolbarProps {
-	isToolbarReducedSpacing: boolean;
 	isReducedSpacing?: boolean;
+	isToolbarReducedSpacing: boolean;
 }
 
 export const toolbarTestIdPrefix = 'ak-editor-toolbar-button';

@@ -81,8 +81,8 @@ describe('Renderer - React/Nodes/WindowedCodeBlock', () => {
 				mockObserver.triggerIntersect({ isIntersecting: false });
 			});
 
-			let lightWeightCodeBlock = getLightWeightCodeBlock();
-			let akCodeBlock = getAkCodeBlock();
+			const lightWeightCodeBlock = getLightWeightCodeBlock();
+			const akCodeBlock = getAkCodeBlock();
 
 			expect(lightWeightCodeBlock).toBeTruthy();
 			expect(lightWeightCodeBlock?.textContent).toBe(textSample);

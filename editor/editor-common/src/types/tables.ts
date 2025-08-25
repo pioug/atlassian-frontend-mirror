@@ -1,6 +1,6 @@
 export interface ColumnResizingPluginState {
-	resizeHandlePos: number | null;
-	dragging: { startX: number; startWidth: number } | null;
-	lastClick: { x: number; y: number; time: number } | null;
+	dragging: { startWidth: number; startX: number } | null;
+	lastClick: { time: number; x: number; y: number } | null;
 	lastColumnResizable?: boolean;
+	resizeHandlePos: number | null;
 }

@@ -202,6 +202,8 @@ export interface InteractionMetrics {
 	experimentalVC90?: number;
 	unknownElementName?: string;
 	unknownElementHierarchy?: string;
+	hold3pActive?: Map<string, HoldActive>;
+	hold3pInfo?: HoldInfo[];
 }
 
 export type LoadProfilerEventInfo = {

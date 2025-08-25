@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 export interface Props {
-	target?: string;
-	relativePosition?: 'above' | 'below' | 'auto';
+	children?: any;
 	offsetX?: number;
 	offsetY?: number;
+	relativePosition?: 'above' | 'below' | 'auto';
+	target?: string;
 	zIndex?: number | string;
-	children?: any;
 }
 
 /*

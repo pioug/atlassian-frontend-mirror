@@ -32,6 +32,19 @@ export interface OnLifecycle {
 }
 
 export interface EmojiTypeAheadBaseProps {
+	createAnalyticsEvent?: CreateUIAnalyticsEvent;
+	/**
+	 * Number of results to be displayed in the search results list
+	 */
+	listLimit?: number;
+	/**
+	 * Callback to be executed when typeahead component disappears
+	 */
+	onClose?: OnLifecycle;
+	/**
+	 * Callback to be executed when typeahead component is being shown
+	 */
+	onOpen?: OnLifecycle;
 	/**
 	 * Callback to be executed when user selects an emoji.
 	 */
@@ -40,19 +53,6 @@ export interface EmojiTypeAheadBaseProps {
 	 * Search query.
 	 */
 	query?: string;
-	/**
-	 * Number of results to be displayed in the search results list
-	 */
-	listLimit?: number;
-	/**
-	 * Callback to be executed when typeahead component is being shown
-	 */
-	onOpen?: OnLifecycle;
-	/**
-	 * Callback to be executed when typeahead component disappears
-	 */
-	onClose?: OnLifecycle;
-	createAnalyticsEvent?: CreateUIAnalyticsEvent;
 }
 
 export interface Props extends EmojiTypeAheadBaseProps {
@@ -63,9 +63,9 @@ export interface Props extends EmojiTypeAheadBaseProps {
 }
 
 export interface State {
-	visible: boolean;
 	emojis: EmojiDescription[];
 	loading: boolean;
+	visible: boolean;
 }
 
 const isFullShortName = (query?: string) =>

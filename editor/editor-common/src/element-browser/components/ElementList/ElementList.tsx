@@ -63,19 +63,19 @@ export const itemIcon = css({
 });
 
 export interface Props {
+	cache?: CellMeasurerCache;
+	columnCount: number;
+	emptyStateHandler?: EmptyStateHandler;
+	focusOnEmptyStateButton?: boolean;
 	items: QuickInsertItem[];
 	mode: keyof typeof Modes;
 	onInsertItem: (item: QuickInsertItem) => void;
-	columnCount: number;
-	setColumnCount: (columnCount: number) => void;
-	setFocusedItemIndex: (index: number) => void;
-	setFocusedCategoryIndex?: (index: number) => void; // undefined for the case of mobile browser or when no categories
-	emptyStateHandler?: EmptyStateHandler;
+	searchTerm?: string;
 	selectedCategory?: string;
 	selectedCategoryIndex?: number;
-	searchTerm?: string;
-	cache?: CellMeasurerCache;
-	focusOnEmptyStateButton?: boolean;
+	setColumnCount: (columnCount: number) => void;
+	setFocusedCategoryIndex?: (index: number) => void; // undefined for the case of mobile browser or when no categories
+	setFocusedItemIndex: (index: number) => void;
 }
 
 function ElementList({
@@ -222,18 +222,18 @@ function ElementList({
 }
 
 type ElementListSingleColumnProps = {
-	items: QuickInsertItem[];
-	fullMode: boolean;
-	setFocusedItemIndex: (index: number) => void;
-	rowHeight: ({ index }: { index: number }) => number;
-	containerWidth: number;
-	height: number;
-	onInsertItem: (item: QuickInsertItem) => void;
 	cache: CellMeasurerCache;
+	containerWidth: number;
 	focusedItemIndex?: number;
-	setFocusedCategoryIndex?: (index: number) => void;
+	fullMode: boolean;
+	height: number;
+	items: QuickInsertItem[];
+	onInsertItem: (item: QuickInsertItem) => void;
+	rowHeight: ({ index }: { index: number }) => number;
 	selectedCategoryIndex?: number;
 	selectedItemIndex?: number;
+	setFocusedCategoryIndex?: (index: number) => void;
+	setFocusedItemIndex: (index: number) => void;
 };
 
 const ElementListSingleColumn = (props: ElementListSingleColumnProps) => {
@@ -262,8 +262,8 @@ const ElementListSingleColumn = (props: ElementListSingleColumnProps) => {
 			}: {
 				index: number;
 				key: string | number;
-				style: object;
 				parent: object;
+				style: object;
 			}) => {
 				return (
 					<CellMeasurer key={key} cache={cache} parent={parent} columnIndex={0} rowIndex={index}>
@@ -348,19 +348,19 @@ const ElementListSingleColumn = (props: ElementListSingleColumnProps) => {
 };
 
 type ElementListMultipleColumnsProps = {
-	columnCount: number;
-	items: QuickInsertItem[];
-	fullMode: boolean;
-	setFocusedItemIndex: (index: number) => void;
-	rowHeight: ({ index }: { index: number }) => number;
-	containerWidth: number;
-	height: number;
-	onInsertItem: (item: QuickInsertItem) => void;
 	cache: CellMeasurerCache;
+	columnCount: number;
+	containerWidth: number;
 	focusedItemIndex?: number;
-	setFocusedCategoryIndex?: (index: number) => void;
+	fullMode: boolean;
+	height: number;
+	items: QuickInsertItem[];
+	onInsertItem: (item: QuickInsertItem) => void;
+	rowHeight: ({ index }: { index: number }) => number;
 	selectedCategoryIndex?: number;
 	selectedItemIndex?: number;
+	setFocusedCategoryIndex?: (index: number) => void;
+	setFocusedItemIndex: (index: number) => void;
 };
 
 const ElementListMultipleColumns = (props: ElementListMultipleColumnsProps) => {
@@ -393,9 +393,9 @@ const ElementListMultipleColumns = (props: ElementListMultipleColumnsProps) => {
 				style,
 			}: {
 				columnIndex: number;
-				rowIndex: number;
 				key: string | number;
 				parent: object;
+				rowIndex: number;
 				style: object;
 			}) => {
 				const index = rowIndex * columnCount + columnIndex;
@@ -498,14 +498,14 @@ const ElementListMultipleColumns = (props: ElementListMultipleColumnsProps) => {
 };
 
 type ElementItemType = {
+	focus: boolean;
+	index: number;
 	inlineMode: boolean;
 	item: QuickInsertItem;
 	onInsertItem: (item: QuickInsertItem) => void;
-	selected: boolean;
-	focus: boolean;
-	setFocusedItemIndex: (index: number) => void;
-	index: number;
 	role?: string;
+	selected: boolean;
+	setFocusedItemIndex: (index: number) => void;
 };
 
 const MemoizedElementItem = memo(ElementItem);

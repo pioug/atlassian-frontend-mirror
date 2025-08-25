@@ -18,6 +18,7 @@ import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { blockNodesVerticalMargin } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -352,6 +353,26 @@ export const InputQuery = React.memo(
 				checkKeyEvent(event);
 			};
 
+			const onPaste = (event: ClipboardEvent) => {
+				const html = event.clipboardData?.getData('text/html');
+				const plainText = event.clipboardData?.getData('text/plain');
+
+				if (html && plainText) {
+					event.preventDefault();
+
+					// insert the plain text into the type-ahead input field
+					const selection = window.getSelection();
+					if (selection && ref.current) {
+						if (selection.rangeCount > 0) {
+							const range = selection.getRangeAt(0);
+							range.deleteContents();
+							range.insertNode(document.createTextNode(plainText));
+							range.collapse(false);
+						}
+					}
+				}
+			};
+
 			const onFocusOut = (event: FocusEvent) => {
 				const { relatedTarget } = event;
 
@@ -465,6 +486,11 @@ export const InputQuery = React.memo(
 			// Ignored via go/ees005
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			element.addEventListener('beforeinput', beforeinput);
+			if (expValEquals('platform_editor_paste_rich_text_bugfix', 'isEnabled', true)) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+				element.addEventListener('paste', onPaste);
+			}
 
 			return () => {
 				// Ignored via go/ees005
@@ -479,6 +505,11 @@ export const InputQuery = React.memo(
 				// Ignored via go/ees005
 				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 				element.removeEventListener('beforeinput', beforeinput);
+				if (expValEquals('platform_editor_paste_rich_text_bugfix', 'isEnabled', true)) {
+					// Ignored via go/ees005
+					// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+					element.removeEventListener('paste', onPaste);
+				}
 
 				if (browser.safari) {
 					// Ignored via go/ees005

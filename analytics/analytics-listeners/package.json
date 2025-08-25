@@ -21,13 +21,6 @@
 		}
 	},
 	"atlaskit:src": "src/index.ts",
-	"af:exports": {
-		".": "./src/index.ts",
-		"./FabricAnalyticsListeners": "./src/FabricAnalyticsListeners.tsx",
-		"./GenericAnalyticsListener": "./src/GenericAnalyticsListener.tsx",
-		"./analytics-web-client-wrapper": "./src/analytics-web-client-wrapper.ts",
-		"./types": "./src/types.ts"
-	},
 	"exports": {
 		".": "./src/index.ts",
 		"./FabricAnalyticsListeners": "./src/FabricAnalyticsListeners.tsx",

@@ -5,8 +5,8 @@ export type ProductKeys = {
 };
 
 export type ExperimentConfigValue = {
-	productKeys?: ProductKeys;
 	param: string;
+	productKeys?: ProductKeys;
 	typeGuard: (value: unknown) => boolean;
 } & (
 	| {
@@ -19,14 +19,14 @@ export type ExperimentConfigValue = {
 );
 
 export type BooleanExperimentConfig = {
-	productKeys?: ProductKeys;
-	param: string;
 	defaultValue: boolean;
+	param: string;
+	productKeys?: ProductKeys;
 };
 
 export type MultivariateExperimentConfig<T extends string[]> = {
-	productKeys?: ProductKeys;
-	param: string;
-	values: [...T]; // Converts string array into a tuple
 	defaultValue: T[number];
+	param: string;
+	productKeys?: ProductKeys;
+	values: [...T]; // Converts string array into a tuple
 };

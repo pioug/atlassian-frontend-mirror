@@ -15,16 +15,6 @@ import {
  * A parsed JQL query.
  */
 export interface Query extends AstNode, ParentOfClause, ParentOfOrderBy {
-	type: typeof NODE_TYPE_QUERY;
-	/**
-	 * The <em>where</em> part of the JQL query.
-	 */
-	where: Clause | void;
-	/**
-	 * The <em>order by</em> part of the JQL query.
-	 */
-	orderBy: OrderBy | void;
-
 	/**
 	 * Append the provided clause to the query. If there is no previous `where` clause then it will be set to the provided
 	 * value, otherwise a compound clause will be formed using the provided compound operator.
@@ -33,7 +23,10 @@ export interface Query extends AstNode, ParentOfClause, ParentOfOrderBy {
 	 * @param compoundOperatorValue Operator to use when appending to a compound clause
 	 */
 	appendClause: (clause: Clause, compoundOperatorValue: CompoundOperatorValue) => void;
-
+	/**
+	 * The <em>order by</em> part of the JQL query.
+	 */
+	orderBy: OrderBy | void;
 	/**
 	 * Prepend the provided order by field to the list of fields in the order by node. If `orderBy` is undefined then a
 	 * new order by node is set with the provided field.
@@ -49,12 +42,23 @@ export interface Query extends AstNode, ParentOfClause, ParentOfOrderBy {
 	 * @param orderDirection Direction to set for the order by clause
 	 */
 	setOrderDirection: (orderDirection: OrderByDirection) => void;
+
+	type: typeof NODE_TYPE_QUERY;
+
+	/**
+	 * The <em>where</em> part of the JQL query.
+	 */
+	where: Clause | void;
 }
 
 /**
  * A complete abstract syntax tree for a JQL expression.
  */
 export interface Jast {
+	/**
+	 * Collection of errors that occurred while parsing the JQL expression.
+	 */
+	errors: JQLParseError[];
 	/**
 	 * A parsed JQL query. This will be undefined if the JQL could not be parsed.
 	 */
@@ -63,8 +67,4 @@ export interface Jast {
 	 * The original query string used to construct the AST.
 	 */
 	represents: string;
-	/**
-	 * Collection of errors that occurred while parsing the JQL expression.
-	 */
-	errors: JQLParseError[];
 }

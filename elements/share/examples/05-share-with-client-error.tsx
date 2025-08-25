@@ -37,9 +37,9 @@ import { type IntegrationMode } from '../src/types/ShareEntities';
 
 type UserData = {
 	avatarUrl?: string;
+	fixed?: boolean;
 	id: string;
 	includesYou?: boolean;
-	fixed?: boolean;
 	lozenge?: string;
 	memberCount?: number;
 	name: string;
@@ -98,31 +98,31 @@ const loadUserOptions = (searchText?: string): OptionData[] => {
 type ExampleState = {
 	chosenConfig: number;
 	customButton: boolean;
-	customTitle: boolean;
 	customHelperMessage: boolean;
+	customTitle: boolean;
 	customTooltipText: boolean;
 	customTriggerButtonIcon: boolean;
-	escapeOnKeyPress: boolean;
-	restrictionMessage: boolean;
-	useUrlShortener: boolean;
-	shortLinkData?: ShortenRequest;
-	product: ProductName;
-	hasFooter: boolean;
 	enableSmartUserPicker: boolean;
+	escapeOnKeyPress: boolean;
+	hasFooter: boolean;
 	hasShareFieldsFooter: boolean;
+	hasSplit: boolean;
+	hasTabs: boolean;
+	integrationMode: IntegrationMode;
 	isCopyDisabled: boolean;
 	isPublicLink: boolean;
-	hasTabs: boolean;
-	hasSplit: boolean;
-	shareIntegrations: Array<Integration>;
-	integrationMode: IntegrationMode;
-	locales: string[];
 	locale: string;
+	locales: string[];
+	product: ProductName;
+	restrictionMessage: boolean;
+	shareIntegrations: Array<Integration>;
+	shortLinkData?: ShortenRequest;
+	useUrlShortener: boolean;
 };
 
 type State = {
-	isAutoOpenDialog: boolean;
 	dialogPlacement: DialogPlacement;
+	isAutoOpenDialog: boolean;
 	triggerButtonAppearance: IconButtonProps['appearance'];
 	triggerButtonStyle: ShareButtonStyle;
 	triggerButtonTooltipPosition: TooltipPosition;

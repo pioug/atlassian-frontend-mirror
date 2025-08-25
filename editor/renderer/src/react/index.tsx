@@ -58,47 +58,47 @@ import { segmentText } from './utils/segment-text';
 import { renderTextSegments } from './utils/render-text-segments';
 
 export interface ReactSerializerInit {
+	allowAltTextOnImages?: boolean;
+	allowAnnotations?: boolean;
+	allowColumnSorting?: boolean;
+	allowCopyToClipboard?: boolean;
+	allowCustomPanels?: boolean;
+	allowHeadingAnchorLinks?: HeadingAnchorLinksProps;
+	allowMediaLinking?: boolean;
+	allowPlaceholderText?: boolean;
+	allowSelectAllTrap?: boolean;
+	allowTableAlignment?: boolean;
+	allowTableResizing?: boolean;
+	allowWindowedCodeBlock?: boolean;
+	allowWrapCodeBlock?: boolean;
+	appearance?: RendererAppearance;
+	disableActions?: boolean;
+	disableHeadingIDs?: boolean;
+	disableTableOverflowShadow?: boolean;
+	emojiResourceConfig?: EmojiResourceConfig;
+	eventHandlers?: EventHandlers;
+	extensionHandlers?: ExtensionHandlers;
+	extensionViewportSizes?: ExtensionViewportSize[];
+	fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
+	getExtensionHeight?: GetPMNodeHeight;
+	isInsideOfInlineExtension?: boolean;
+	isPresentational?: boolean;
+	media?: MediaOptions;
+	nodeComponents?: NodeComponentsProps;
+	objectContext?: RendererContext;
+	portal?: HTMLElement;
+	providers?: ProviderFactory;
+	shouldOpenMediaViewer?: boolean;
+	smartLinks?: SmartLinksOptions;
 	/**
 	 * Used for to set positions on nodes for annotations.
 	 *
 	 * When not provided defaults to 1.
 	 */
 	startPos?: number;
-	providers?: ProviderFactory;
-	eventHandlers?: EventHandlers;
-	extensionHandlers?: ExtensionHandlers;
-	portal?: HTMLElement;
-	objectContext?: RendererContext;
-	appearance?: RendererAppearance;
-	disableHeadingIDs?: boolean;
-	disableActions?: boolean;
-	allowHeadingAnchorLinks?: HeadingAnchorLinksProps;
-	allowColumnSorting?: boolean;
-	fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
-	shouldOpenMediaViewer?: boolean;
-	allowAltTextOnImages?: boolean;
 	stickyHeaders?: StickyHeaderConfig;
-	allowMediaLinking?: boolean;
 	surroundTextNodesWithTextWrapper?: boolean;
-	media?: MediaOptions;
-	emojiResourceConfig?: EmojiResourceConfig;
-	smartLinks?: SmartLinksOptions;
-	extensionViewportSizes?: ExtensionViewportSize[];
-	getExtensionHeight?: GetPMNodeHeight;
-	allowCopyToClipboard?: boolean;
-	allowWrapCodeBlock?: boolean;
-	allowPlaceholderText?: boolean;
-	allowCustomPanels?: boolean;
-	allowAnnotations?: boolean;
-	allowSelectAllTrap?: boolean;
-	nodeComponents?: NodeComponentsProps;
-	allowWindowedCodeBlock?: boolean;
-	isInsideOfInlineExtension?: boolean;
 	textHighlighter?: TextHighlighter;
-	allowTableAlignment?: boolean;
-	allowTableResizing?: boolean;
-	isPresentational?: boolean;
-	disableTableOverflowShadow?: boolean;
 }
 
 interface ParentInfo {
@@ -108,8 +108,8 @@ interface ParentInfo {
 }
 
 interface FragmentChildContext {
-	parentInfo?: ParentInfo;
 	index: number;
+	parentInfo?: ParentInfo;
 }
 
 interface ParentNodeInfo {
@@ -123,8 +123,8 @@ interface ParentMarkInfo {
 
 type SerializeMarkProps = {
 	mark: Mark;
-	parentNode: ParentNodeInfo;
 	parentMark: ParentMarkInfo;
+	parentNode: ParentNodeInfo;
 };
 
 type MarkWithContent = Partial<Mark> & {

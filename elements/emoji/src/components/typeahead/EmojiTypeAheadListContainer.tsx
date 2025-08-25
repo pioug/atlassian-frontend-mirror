@@ -26,9 +26,9 @@ const typeAheadList = css({
 });
 
 export function EmojiTypeAheadListContainer(props: {
+	children: React.ReactNode;
 	hasEmoji: boolean;
 	loading?: boolean;
-	children: React.ReactNode;
 }) {
 	const { hasEmoji, loading } = props;
 

@@ -9,22 +9,22 @@ import type {
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 
 export type EditorViewStateUpdatedCallbackProps = {
+	readonly newEditorState: Readonly<EditorState>;
+	readonly oldEditorState: Readonly<EditorState>;
 	readonly originalTransaction: Readonly<Transaction>;
 	readonly transactions: readonly Transaction[];
-	readonly oldEditorState: Readonly<EditorState>;
-	readonly newEditorState: Readonly<EditorState>;
 };
 
 export interface EditorConfig {
-	nodes: NodeConfig[];
-	marks: MarkConfig[];
-	pmPlugins: Array<PMPlugin>;
 	contentComponents: UIComponentFactory[];
+	marks: MarkConfig[];
+	nodes: NodeConfig[];
+	onEditorViewStateUpdatedCallbacks: Array<{
+		callback: (props: EditorViewStateUpdatedCallbackProps) => void;
+		pluginName: string;
+	}>;
 	pluginHooks: ReactHookFactory[];
+	pmPlugins: Array<PMPlugin>;
 	primaryToolbarComponents: ToolbarUIComponentFactory[];
 	secondaryToolbarComponents: UIComponentFactory[];
-	onEditorViewStateUpdatedCallbacks: Array<{
-		pluginName: string;
-		callback: (props: EditorViewStateUpdatedCallbackProps) => void;
-	}>;
 }

@@ -14,7 +14,7 @@ export type OnHandlerApply = (
 ) => void;
 
 export interface InputRuleWrapper {
-	match: RegExp;
 	handler: InputRuleHandler;
+	match: RegExp;
 	onHandlerApply?: OnHandlerApply;
 }

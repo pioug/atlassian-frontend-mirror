@@ -26,10 +26,10 @@ export type StickyMode = 'none' | 'stick' | 'pin-bottom';
 export const tableStickyPadding = 8;
 
 type FixedProps = React.PropsWithChildren<{
+	allowTableResizing?: boolean;
+	mode: StickyMode;
 	top?: number;
 	wrapperWidth: number;
-	mode: StickyMode;
-	allowTableResizing?: boolean;
 }>;
 
 const modeSpecficStyles: Record<StickyMode, SerializedStyles> = {
@@ -118,23 +118,23 @@ const FixedTableDiv = (props: FixedProps) => {
 };
 
 type StickyTableProps = {
-	left?: number;
-	top?: number;
-	mode: StickyMode;
-	innerRef: React.RefObject<HTMLDivElement>;
-	rowHeight: number;
-
-	wrapperWidth: number;
-	tableWidth: 'inherit' | number;
-	isNumberColumnEnabled: boolean;
-	children: React.ReactNode[];
-	layout: TableLayout;
-	columnWidths?: number[];
-	renderWidth: number;
-	tableNode?: PMNode;
-	rendererAppearance: RendererAppearance;
 	allowTableResizing?: boolean;
+	children: React.ReactNode[];
+	columnWidths?: number[];
 	fixTableSSRResizing?: boolean;
+	innerRef: React.RefObject<HTMLDivElement>;
+
+	isNumberColumnEnabled: boolean;
+	layout: TableLayout;
+	left?: number;
+	mode: StickyMode;
+	rendererAppearance: RendererAppearance;
+	renderWidth: number;
+	rowHeight: number;
+	tableNode?: PMNode;
+	tableWidth: 'inherit' | number;
+	top?: number;
+	wrapperWidth: number;
 } & OverflowShadowProps;
 
 export const StickyTable = ({

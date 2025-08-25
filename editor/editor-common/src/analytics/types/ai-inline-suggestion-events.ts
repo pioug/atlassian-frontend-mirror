@@ -14,12 +14,12 @@ type SuggestionPayload = BaseLineSuggestionPayload & {
 };
 
 type BaseLineSuggestionPayload = {
+	inlineSuggestionSessionId?: string | null;
 	locale: string;
-	suggestionType?: string;
 	/* TODO - matchedFormat only exist for date suggestion, need to revisit
 	 * & use discriminated unions in the future to narrow down */
 	matchedFormat?: string;
-	inlineSuggestionSessionId?: string | null;
+	suggestionType?: string;
 };
 
 type InsertSuggestionAEP = TrackAEP<

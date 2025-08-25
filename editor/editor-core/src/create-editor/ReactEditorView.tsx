@@ -99,44 +99,44 @@ import { useFireFullWidthEvent } from './ReactEditorView/useFireFullWidthEvent';
 const EDIT_AREA_ID = 'ak-editor-textarea';
 
 export interface EditorViewProps extends WrappedComponentProps {
+	createAnalyticsEvent?: CreateUIAnalyticsEvent;
+	disabled?: boolean;
 	editorProps: (EditorProps | EditorNextProps) & {
 		preset?: EditorNextProps['preset'];
 	};
-	createAnalyticsEvent?: CreateUIAnalyticsEvent;
-	providerFactory: ProviderFactory;
-	portalProviderAPI: PortalProviderAPI;
 	nodeViewPortalProviderAPI: PortalProviderAPI;
-	disabled?: boolean;
-	render?: (props: {
-		editor: JSX.Element;
-		view?: EditorView;
+	onEditorCreated: (instance: {
 		config: EditorConfig;
 		eventDispatcher: EventDispatcher;
 		transformer?: Transformer<string>;
+		view: EditorView;
+	}) => void;
+	onEditorDestroyed: (instance: {
+		config: EditorConfig;
+		eventDispatcher: EventDispatcher;
+		transformer?: Transformer<string>;
+		view: EditorView;
+	}) => void;
+	portalProviderAPI: PortalProviderAPI;
+	preset: EditorPresetBuilder<string[], AllEditorPresetPluginTypes[]>;
+	providerFactory: ProviderFactory;
+	render?: (props: {
+		config: EditorConfig;
 		dispatchAnalyticsEvent: DispatchAnalyticsEvent;
-		editorRef: React.RefObject<HTMLDivElement>;
+		editor: JSX.Element;
 		// We can't know this type at runtime
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		editorAPI: PublicPluginAPI<any> | undefined;
+		editorRef: React.RefObject<HTMLDivElement>;
+		eventDispatcher: EventDispatcher;
+		transformer?: Transformer<string>;
+		view?: EditorView;
 	}) => JSX.Element;
-	onEditorCreated: (instance: {
-		view: EditorView;
-		config: EditorConfig;
-		eventDispatcher: EventDispatcher;
-		transformer?: Transformer<string>;
-	}) => void;
-	onEditorDestroyed: (instance: {
-		view: EditorView;
-		config: EditorConfig;
-		eventDispatcher: EventDispatcher;
-		transformer?: Transformer<string>;
-	}) => void;
-	preset: EditorPresetBuilder<string[], AllEditorPresetPluginTypes[]>;
 }
 
 interface CreateEditorStateOptions {
-	props: EditorViewProps;
 	doc?: string | Object | PMNode;
+	props: EditorViewProps;
 	resetting?: boolean;
 	selectionAtStart?: boolean;
 }

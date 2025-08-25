@@ -3,9 +3,9 @@ import { JastBuilder } from '../api';
 import { computeJqlInsights, type JqlInsightsAttributes } from './jql-insights-listener';
 
 type TestCase = {
-	name: string;
-	jql: string;
 	expected: JqlInsightsAttributes;
+	jql: string;
+	name: string;
 };
 
 const testCases: TestCase[] = [

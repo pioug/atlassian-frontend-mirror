@@ -51,14 +51,14 @@ const isAndroidChromium =
 	typeof window !== 'undefined' && /Version\/.* Chrome\/.*/.test(window.navigator.userAgent);
 
 export interface OwnProps {
-	text: string;
 	color: Color;
-	style?: StatusStyle;
+	isBold?: boolean;
 	localId?: string;
 	onClick?: (event: React.SyntheticEvent<any>) => void;
 	onHover?: () => void;
 	role?: string;
-	isBold?: boolean;
+	style?: StatusStyle;
+	text: string;
 }
 
 export type Props = OwnProps & WithAnalyticsEventsProps;

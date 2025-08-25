@@ -206,8 +206,8 @@ describe('actions', () => {
 					testOptions: {
 						actionSubjectId: string;
 						actionType: string;
-						testId: string;
 						response: JsonLd.Response;
+						testId: string;
 					},
 				) => {
 					const { actionType, actionSubjectId, testId, response } = testOptions;

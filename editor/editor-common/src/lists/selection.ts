@@ -26,7 +26,7 @@ export const getListItemAttributes = ($pos: ResolvedPos) => {
 	return { indentLevel, itemIndex };
 };
 
-type NormalizeListItemsSelection = (props: { selection: Selection; doc: PMNode }) => Selection;
+type NormalizeListItemsSelection = (props: { doc: PMNode; selection: Selection }) => Selection;
 export const normalizeListItemsSelection: NormalizeListItemsSelection = ({ selection, doc }) => {
 	if (selection.empty) {
 		return selection;

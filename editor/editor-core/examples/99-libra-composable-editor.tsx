@@ -16,25 +16,25 @@ import type { EditorNextProps } from '../src/types/editor-props';
 import { version } from '../src/version-wrapper';
 
 type LibraReactPerformanceEntry = {
-	id: string;
-	phase: string;
 	actualDuration: number;
 	baseDuration: number;
-	startTime: number;
 	commitTime: number;
+	id: string;
+	phase: string;
+	startTime: number;
 };
 type EditorOperationalEvent = {
 	payload: unknown;
 };
 type WindowForTesting = Window & {
-	__mountEditor?: (props: EditorNextProps, opts: Record<string, boolean>) => void;
-	__unmountEditor?: () => {
-		reactPerformanceData: Array<LibraReactPerformanceEntry>;
-		editorOperationalEvents: Array<EditorOperationalEvent>;
-	};
-	__editorView?: EditorView | null;
-	__TextSelection?: TextSelection | null;
 	__buildInfo?: { EDITOR_VERSION?: string } | null;
+	__editorView?: EditorView | null;
+	__mountEditor?: (props: EditorNextProps, opts: Record<string, boolean>) => void;
+	__TextSelection?: TextSelection | null;
+	__unmountEditor?: () => {
+		editorOperationalEvents: Array<EditorOperationalEvent>;
+		reactPerformanceData: Array<LibraReactPerformanceEntry>;
+	};
 };
 
 const RawEditor = (props: EditorNextProps) => {

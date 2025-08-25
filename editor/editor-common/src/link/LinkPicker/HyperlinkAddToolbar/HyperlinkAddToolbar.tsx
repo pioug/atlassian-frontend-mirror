@@ -132,24 +132,24 @@ export const messages = defineMessages({
 });
 
 interface BaseProps {
+	activityProvider?: Promise<ActivityProvider>;
+	autoFocus?: boolean;
+	displayUrl?: string;
+	inputMethod?: string;
+	onClickAwayCallback?: Command;
+	onEscapeCallback?: Command;
 	onSubmit?: (
 		href: string,
 		title: string | undefined,
 		displayText: string | undefined,
 		inputMethod: LinkInputType,
 	) => void;
-	popupsMountPoint?: HTMLElement;
 	popupsBoundariesElement?: HTMLElement;
-	autoFocus?: boolean;
-	activityProvider?: Promise<ActivityProvider>;
+	popupsMountPoint?: HTMLElement;
 	searchProvider?: Promise<SearchProvider>;
-	displayUrl?: string;
-	view: EditorView;
-	onEscapeCallback?: Command;
-	onClickAwayCallback?: Command;
 	searchSessionId?: string;
-	inputMethod?: string;
 	timesViewed?: number;
+	view: EditorView;
 }
 
 interface DefaultProps {
@@ -164,12 +164,12 @@ type HyperlinkLinkAddToolbarProps = WrappedComponentProps &
 
 export interface State {
 	activityProvider?: ActivityProvider;
-	searchProvider?: SearchProvider;
-	items: LinkSearchListItemData[];
-	selectedIndex: number;
+	displayText: string;
 	displayUrl: string;
 	isLoading: boolean;
-	displayText: string;
+	items: LinkSearchListItemData[];
+	searchProvider?: SearchProvider;
+	selectedIndex: number;
 }
 
 const defaultIcon = <Page16Icon label={'page'} />;

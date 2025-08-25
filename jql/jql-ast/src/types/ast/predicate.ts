@@ -10,13 +10,13 @@ export type PredicateOperatorValue = (typeof PREDICATE_OPERATORS)[number];
  */
 export interface Predicate extends AstNode {
 	/**
-	 * The operator between the field and the operand.
-	 */
-	operator: PredicateOperator;
-	/**
 	 * The operand applied to the operator.
 	 */
 	operand: Operand | void;
+	/**
+	 * The operator between the field and the operand.
+	 */
+	operator: PredicateOperator;
 }
 
 /**

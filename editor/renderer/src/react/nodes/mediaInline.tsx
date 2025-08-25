@@ -28,25 +28,25 @@ import { ACTION_SUBJECT } from '../../analytics/enums';
 import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
 
 type RenderMediaInlineProps = {
-	identifier: FileIdentifier;
-	clipboardAttrs: ClipboardAttrs;
-	intl?: IntlShape;
 	children?: React.ReactNode;
+	clipboardAttrs: ClipboardAttrs;
 	collection?: string;
 	eventHandlers?: EventHandlers;
-	rendererAppearance?: RendererAppearance;
 	featureFlags?: MediaFeatureFlags;
+	identifier: FileIdentifier;
+	intl?: IntlShape;
+	rendererAppearance?: RendererAppearance;
 	rendererContext?: RendererContext;
 };
 
 type MediaInlineProps = {
-	id: string;
-	providers: ProviderFactory;
 	collection?: string;
 	eventHandlers?: EventHandlers;
-	rendererAppearance?: RendererAppearance;
 	featureFlags?: MediaFeatureFlags;
+	id: string;
 	marks?: Array<Mark>;
+	providers: ProviderFactory;
+	rendererAppearance?: RendererAppearance;
 	ssr?: MediaSSR;
 };
 

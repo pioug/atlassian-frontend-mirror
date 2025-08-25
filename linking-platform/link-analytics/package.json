@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-analytics",
-	"version": "10.0.5",
+	"version": "10.0.6",
 	"description": "Contains analytics and utils to assist in instrumenting Linking Platform components.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -56,10 +56,6 @@
 		"@testing-library/user-event": "root:*",
 		"fetch-mock": "root:*",
 		"react-intl-next": "root:*"
-	},
-	"af:exports": {
-		".": "./src/index.ts",
-		"./resolved-attributes": "./src/resolved-attributes.ts"
 	},
 	"exports": {
 		".": "./src/index.ts",

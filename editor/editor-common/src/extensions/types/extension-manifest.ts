@@ -17,11 +17,11 @@ export type ExtensionType = string;
 export type ExtensionKey = string;
 export type ExtensionModuleKey = string;
 export type ExtensionComponentProps<T extends Parameters = Parameters> = {
-	node: ExtensionParams<T>;
-	actions?: MultiBodiedExtensionActions;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	[key: string]: any; // many renderers pass their own context through too
+	actions?: MultiBodiedExtensionActions;
+	node: ExtensionParams<T>;
 };
 
 export type ExtensionComponent<T extends Parameters> = ComponentType<
@@ -36,8 +36,8 @@ export type Deserializer<T extends Parameters = Parameters> = (value: string) =>
 
 export type ExtensionModuleActionObject<T extends Parameters = Parameters> = {
 	key: ExtensionModuleKey;
-	type: 'node';
 	parameters?: T;
+	type: 'node';
 };
 
 export type MaybeADFEntity = MaybeESModule<ADFEntity | Array<ADFEntity> | void>;
@@ -48,27 +48,27 @@ export type ExtensionModuleAction<T extends Parameters = Parameters> =
 	| ExtensionModuleActionHandler;
 
 export type ExtensionModule<T extends Parameters = Parameters> = {
-	key: string;
-	title?: string;
-	description?: string;
-	icon?: () => ExtensionIconModule;
-	priority?: number;
-	featured?: boolean;
-	keywords?: string[];
-	categories?: string[];
 	action: ExtensionModuleAction<T>;
+	categories?: string[];
+	description?: string;
+	featured?: boolean;
+	icon?: () => ExtensionIconModule;
+	key: string;
+	keywords?: string[];
 	parameters?: T;
+	priority?: number;
+	title?: string;
 };
 
 export type DynamicFieldDefinitions<T> = (parameters: T) => FieldDefinition[];
 
 export type ExtensionModuleNode<T extends Parameters = Parameters> = {
-	type: 'extension' | 'inlineExtension' | 'bodiedExtension' | 'multiBodiedExtension';
-	render: () => ExtensionComponentModule<T>;
-	update?: UpdateExtension<T>;
 	getFieldsDefinition?: (
 		extensionParameters: T,
 	) => Promise<FieldDefinition[] | DynamicFieldDefinitions<T>>;
+	render: () => ExtensionComponentModule<T>;
+	type: 'extension' | 'inlineExtension' | 'bodiedExtension' | 'multiBodiedExtension';
+	update?: UpdateExtension<T>;
 };
 
 export type PreloadableExtensionModuleNode<T extends Parameters = Parameters> =
@@ -101,8 +101,8 @@ export type ExtensionModuleFieldTypeUser = {
 };
 
 export type ExtensionModuleFieldTypeFieldset<T extends Parameters = Parameters> = {
-	serializer?: Serializer<T>;
 	deserializer?: Deserializer<T>;
+	serializer?: Serializer<T>;
 };
 
 export type ExtensionModuleFields<T extends Parameters = Parameters> = {
@@ -118,16 +118,16 @@ export type ExtensionModuleFields<T extends Parameters = Parameters> = {
 };
 
 export type ExtensionModules<T extends Parameters = Parameters> = {
-	// define items to show up in the slash menu, element browser and plus menu
-	quickInsert?: ExtensionModule<T>[];
-	// define how to handle each type of node (update, render, config, etc)
-	nodes?: ExtensionModuleNodes<T>;
-	// define how to handle special fields used in config forms
-	fields?: ExtensionModuleFields<T>;
 	// define how/when to convert pasted content to this extension
 	autoConvert?: ExtensionModuleAutoConvert;
 	// define buttons in toolbars for certain node types
 	contextualToolbars?: ContextualToolbar[];
+	// define how to handle special fields used in config forms
+	fields?: ExtensionModuleFields<T>;
+	// define how to handle each type of node (update, render, config, etc)
+	nodes?: ExtensionModuleNodes<T>;
+	// define items to show up in the slash menu, element browser and plus menu
+	quickInsert?: ExtensionModule<T>[];
 };
 
 export type ExtensionQuickInsertModule = 'quickInsert';
@@ -146,21 +146,21 @@ export type ExtensionDeprecationStatus = {
 };
 
 export type ExtensionManifest<T extends Parameters = Parameters> = {
-	type: ExtensionType;
-	key: ExtensionKey;
-	title: string;
-	description?: string;
-	summary?: string;
-	deprecation?: ExtensionDeprecationStatus;
+	autoConvert?: { matchers: Array<AutoConvertMatches> };
 	categories?: string[];
-	keywords?: string[];
+	deprecation?: ExtensionDeprecationStatus;
+	description?: string;
 	documentationUrl?: string;
 	icons: {
-		'48': () => ExtensionIconModule;
 		[dimensions: string]: () => ExtensionIconModule;
+		'48': () => ExtensionIconModule;
 	};
+	key: ExtensionKey;
+	keywords?: string[];
 	modules: ExtensionModules<T>;
-	autoConvert?: { matchers: Array<AutoConvertMatches> };
+	summary?: string;
+	title: string;
+	type: ExtensionType;
 };
 
 // deprecated types

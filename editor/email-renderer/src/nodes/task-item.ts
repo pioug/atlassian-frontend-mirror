@@ -50,8 +50,8 @@ const icons: { [K in TaskState]: string } = {
 };
 
 interface TaskItemAttrs {
-	state: TaskState;
 	localId: string;
+	state: TaskState;
 }
 
 export default function taskItem({ attrs, text }: NodeSerializerOpts) {

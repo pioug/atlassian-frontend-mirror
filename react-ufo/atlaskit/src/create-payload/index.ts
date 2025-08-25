@@ -150,7 +150,7 @@ function getMoreAccuratePageVisibilityUpToTTI(interaction: InteractionMetrics) {
 	return old;
 }
 
-function getMoreAccuratePageVisibilityUpToTTAI(interaction: InteractionMetrics) {
+export function getMoreAccuratePageVisibilityUpToTTAI(interaction: InteractionMetrics) {
 	const old = getPageVisibilityUpToTTAI(interaction);
 	const buffered = getVisibilityStateFromPerformance(interaction.end);
 	if (!buffered) {
@@ -754,8 +754,7 @@ async function createInteractionMetricsPayload(
 		if (
 			!experimental &&
 			(isBM3ConfigSSRDoneAsFmp || isUFOConfigSSRDoneAsFmp) &&
-			SSRDoneTimeValue !== undefined &&
-			fg('ufo_chrome_devtools_uplift')
+			SSRDoneTimeValue !== undefined
 		) {
 			try {
 				performance.mark(`FMP`, {
@@ -840,10 +839,9 @@ async function createInteractionMetricsPayload(
 	]);
 
 	if (!experimental) {
-		fg('ufo_chrome_devtools_uplift') &&
-			addPerformanceMeasures(interaction.start, [
-				...((finalVCMetrics?.['ufo:vc:rev'] as RevisionPayload | undefined) || []),
-			]);
+		addPerformanceMeasures(interaction.start, [
+			...((finalVCMetrics?.['ufo:vc:rev'] as RevisionPayload | undefined) || []),
+		]);
 	}
 
 	const getReactHydrationStats = () => {

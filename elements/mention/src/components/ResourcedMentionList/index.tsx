@@ -36,16 +36,16 @@ function extractPresences(mentions: MentionDescription[]) {
 }
 
 export interface Props {
-	resourceProvider: MentionProvider;
+	onSelection?: OnMentionEvent;
 	presenceProvider?: PresenceProvider;
 	query?: string;
-	onSelection?: OnMentionEvent;
 	resourceError?: Error;
+	resourceProvider: MentionProvider;
 }
 
 export interface State {
-	resourceError?: Error;
 	mentions: MentionDescription[];
+	resourceError?: Error;
 }
 
 export class ResourcedMentionListWithoutAnalytics extends React.PureComponent<

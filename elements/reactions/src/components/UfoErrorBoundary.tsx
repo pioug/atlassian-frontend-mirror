@@ -3,11 +3,11 @@ import { type UFOExperience } from '@atlaskit/ufo';
 import { type WithSamplingUFOExperience } from '@atlaskit/emoji';
 
 export interface UfoErrorBoundaryProps {
+	children?: React.ReactNode;
 	/**
 	 * UFO Experiences to notify failure when the children components fail on rendering
 	 */
 	experiences: UFOExperience[] | WithSamplingUFOExperience[];
-	children?: React.ReactNode;
 }
 
 /**

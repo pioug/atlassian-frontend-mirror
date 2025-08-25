@@ -50,9 +50,9 @@ describe('Text field input prompt', () => {
 	});
 
 	type numberTestType = {
+		error?: Errors;
 		isRequired: boolean;
 		value: string;
-		error?: Errors;
 	};
 
 	const numberTests: numberTestType[] = [

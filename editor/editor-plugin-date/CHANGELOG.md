@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-date
 
+## 5.1.11
+
+### Patch Changes
+
+- [`db857b08dd89a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/db857b08dd89a) -
+  [EDITOR-1202] Make dates in blockTaskItem be formatted correctly
+- Updated dependencies
+
 ## 5.1.10
 
 ### Patch Changes

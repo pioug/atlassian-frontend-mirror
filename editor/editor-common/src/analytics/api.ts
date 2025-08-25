@@ -3,10 +3,10 @@ import type { Transaction, Selection } from '@atlaskit/editor-prosemirror/state'
 import type { AnalyticsEventPayload } from './types/events';
 
 export type FireAnalyticsEventOptions = {
-	immediate?: boolean;
 	context?: {
 		selection: Selection;
 	};
+	immediate?: boolean;
 };
 
 export type EditorAnalyticsAPI = {
@@ -16,7 +16,7 @@ export type EditorAnalyticsAPI = {
 	 * @param {AnalyticsEventPayload} payload - analytics payload
 	 * @param {string} [channel="editor"] - optional channel identifier
 	 * @param {Transaction} tr - a transaction
-	 * @return {boolean} true if submitted successful, false if not submitted
+	 * @returns {boolean} true if submitted successful, false if not submitted
 	 */
 	attachAnalyticsEvent: (
 		payload: AnalyticsEventPayload,

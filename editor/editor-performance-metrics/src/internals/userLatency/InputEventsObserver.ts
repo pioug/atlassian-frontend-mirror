@@ -1,11 +1,11 @@
 import { backgroundTask } from '../backgroundTasks';
 
 export type InputEventType = {
-	elementRef: WeakRef<HTMLElement>;
-	startTime: DOMHighResTimeStamp;
 	duration: number;
-	eventName: string;
+	elementRef: WeakRef<HTMLElement>;
 	entry: PerformanceEventTiming;
+	eventName: string;
+	startTime: DOMHighResTimeStamp;
 };
 
 const ALLOWED_DURATION = 40;

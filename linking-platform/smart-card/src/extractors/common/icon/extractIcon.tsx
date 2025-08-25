@@ -25,13 +25,13 @@ import { extractorPriorityMap } from './priority';
 
 export type IconPriority = 'type' | 'provider';
 export interface IconOpts {
-	title?: string;
-	provider?: LinkProvider;
 	fileFormat?: string;
-	taskType?: LinkTaskType;
-	priority?: IconPriority;
 	icon?: string;
+	priority?: IconPriority;
+	provider?: LinkProvider;
 	showIconLabel?: boolean;
+	taskType?: LinkTaskType;
+	title?: string;
 }
 
 export const extractIcon = (

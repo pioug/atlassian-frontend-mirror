@@ -55,17 +55,6 @@ export interface CompoundClause
 		Removable,
 		Replaceable<Clause>,
 		ParentOfClause {
-	type: typeof NODE_TYPE_CLAUSE;
-	clauseType: typeof CLAUSE_TYPE_COMPOUND;
-	/**
-	 * The operator between the clauses.
-	 */
-	operator: CompoundOperator;
-	/**
-	 * List of nested clauses.
-	 */
-	clauses: Clause[];
-
 	/**
 	 * Append the provided clause to this compound clause. If the clause to append is also a compound clause sharing the
 	 * same operator as this node then the two compound clauses will be merged.
@@ -73,6 +62,17 @@ export interface CompoundClause
 	 * @param clause Clause to append
 	 */
 	appendClause: (clause: Clause) => void;
+	/**
+	 * List of nested clauses.
+	 */
+	clauses: Clause[];
+	clauseType: typeof CLAUSE_TYPE_COMPOUND;
+	/**
+	 * The operator between the clauses.
+	 */
+	operator: CompoundOperator;
+
+	type: typeof NODE_TYPE_CLAUSE;
 }
 
 /**
@@ -82,37 +82,37 @@ export interface TerminalClause
 	extends AstNode<ParentOfClause & AstNode>,
 		Removable,
 		Replaceable<Clause> {
-	type: typeof NODE_TYPE_CLAUSE;
+	/**
+	 * Function to add operand to existing operand
+	 */
+	appendOperand: (this: TerminalClause, operand: Operand) => void;
 	clauseType: typeof CLAUSE_TYPE_TERMINAL;
 	/**
 	 * The field in the clause.
 	 */
 	field: Field;
 	/**
+	 * The operand to which the operator is applied.
+	 */
+	operand: Operand | void;
+	/**
 	 * The operator between the field and operand.
 	 * @see https://support.atlassian.com/jira-software-cloud/docs/advanced-search-reference-jql-operators
 	 */
 	operator: Operator | void;
 	/**
-	 * The operand to which the operator is applied.
-	 */
-	operand: Operand | void;
-	/**
 	 * The list of time predicates.
 	 */
 	predicates: Predicate[];
-	/**
-	 * Function to update operator
-	 */
-	setOperator: (this: TerminalClause, operator: Operator) => void;
 	/**
 	 * Function to update operand
 	 */
 	setOperand: (this: TerminalClause, operand: Operand) => void;
 	/**
-	 * Function to add operand to existing operand
+	 * Function to update operator
 	 */
-	appendOperand: (this: TerminalClause, operand: Operand) => void;
+	setOperator: (this: TerminalClause, operator: Operator) => void;
+	type: typeof NODE_TYPE_CLAUSE;
 }
 
 /**
@@ -124,10 +124,10 @@ export interface NotClause
 		Removable,
 		Replaceable<Clause>,
 		ParentOfClause {
-	type: typeof NODE_TYPE_CLAUSE;
-	clauseType: typeof CLAUSE_TYPE_NOT;
 	clause: Clause;
+	clauseType: typeof CLAUSE_TYPE_NOT;
 	operator: NotClauseOperator;
+	type: typeof NODE_TYPE_CLAUSE;
 }
 
 /**

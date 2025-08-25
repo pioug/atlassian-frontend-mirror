@@ -10,9 +10,9 @@ import { useDatasourceAnalyticsEvents } from '../../../../../analytics';
 import { asyncPopupSelectMessages } from './messages';
 
 type ShowMoreButtonProps = {
-	onShowMore: () => void;
-	filterName: string;
 	filterLabel?: string;
+	filterName: string;
+	onShowMore: () => void;
 };
 
 const ShowMoreButton = ({ onShowMore, filterName, filterLabel = '' }: ShowMoreButtonProps) => {

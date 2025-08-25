@@ -6,10 +6,10 @@ export interface JsonLdDatasourceResponse extends JsonLd.Response {
 }
 
 export type DatasourceResolveResponse = {
-	id: string;
 	ari?: string;
+	description?: string;
+	id: string;
 	key?: string;
 	name?: string;
-	description?: string;
 	parameters: DatasourceParameters;
 };

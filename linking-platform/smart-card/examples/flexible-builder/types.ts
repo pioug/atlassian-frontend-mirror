@@ -6,14 +6,14 @@ import { type FlexibleUiOptions } from '../../src/view/FlexibleCard/types';
 import { type BlockName } from './constants';
 
 export type FlexibleTemplate = {
-	cardProps?: Partial<CardProps>;
 	blocks?: BlockTemplate[];
+	cardProps?: Partial<CardProps>;
 	ui?: FlexibleUiOptions;
 };
 
 export type BlockTemplate = {
-	name: BlockName;
 	[key: string]: any;
+	name: BlockName;
 };
 
 export type BlockBuilderProps = {

@@ -1,4 +1,5 @@
 export type EditorUGCTokens = {
+	'editor.font.body': string;
 	'editor.font.heading.h1': string;
 	'editor.font.heading.h2': string;
 	'editor.font.heading.h3': string;
@@ -11,7 +12,6 @@ export type EditorUGCTokens = {
 	'editor.font.weight.heading.h4.bold': string;
 	'editor.font.weight.heading.h5.bold': string;
 	'editor.font.weight.heading.h6.bold': string;
-	'editor.font.body': string;
 };
 
 export const editorUGCTokens: EditorUGCTokens = {

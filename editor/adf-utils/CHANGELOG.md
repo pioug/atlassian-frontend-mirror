@@ -1,5 +1,14 @@
 # @atlaskit/adf-utils
 
+## 19.21.2
+
+### Patch Changes
+
+- [`3d63d4f953f04`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d63d4f953f04) -
+  EDITOR-1171 Unifying adf-utils behaviours for blockTaskItem and taskItem
+- [`0fdcb6f2f96fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0fdcb6f2f96fd) -
+  Sorted type and interface props to improve Atlaskit docs
+
 ## 19.21.1
 
 ### Patch Changes

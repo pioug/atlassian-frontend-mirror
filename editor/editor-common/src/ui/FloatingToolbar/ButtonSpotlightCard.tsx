@@ -5,8 +5,8 @@ import { type Placement, Popper } from '@atlaskit/popper';
 
 type PropsFromSpotlightCard = ComponentProps<typeof SpotlightCard>;
 export type ButtonSpotlightCardProps = PropsFromSpotlightCard & {
-	referenceElement: HTMLElement;
 	placement?: Placement;
+	referenceElement: HTMLElement;
 };
 
 /*

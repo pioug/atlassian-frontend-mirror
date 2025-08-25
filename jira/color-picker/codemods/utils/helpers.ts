@@ -29,8 +29,8 @@ export function getDefaultSpecifierName({
 	base,
 	packageName,
 }: {
-	j: core.JSCodeshift;
 	base: Collection<any>;
+	j: core.JSCodeshift;
 	packageName: string;
 }): Nullable<string> {
 	const specifiers = base
@@ -50,10 +50,10 @@ export function getSpecifierName({
 	packageName,
 	component,
 }: {
-	j: core.JSCodeshift;
 	base: Collection<any>;
-	packageName: string;
 	component: string;
+	j: core.JSCodeshift;
+	packageName: string;
 }): Nullable<string> {
 	const specifiers = base
 		.find(j.ImportDeclaration)
@@ -76,9 +76,9 @@ export function getJSXAttributesByName({
 	element,
 	attributeName,
 }: {
-	j: core.JSCodeshift;
-	element: JSXElement | ASTPath<JSXElement>;
 	attributeName: string;
+	element: JSXElement | ASTPath<JSXElement>;
+	j: core.JSCodeshift;
 }): Collection<JSXAttribute> {
 	return j(element)
 		.find(j.JSXOpeningElement)
@@ -96,9 +96,9 @@ export function hasJSXAttributesByName({
 	element,
 	attributeName,
 }: {
-	j: core.JSCodeshift;
-	element: JSXElement;
 	attributeName: string;
+	element: JSXElement;
+	j: core.JSCodeshift;
 }): boolean {
 	return getJSXAttributesByName({ j, element, attributeName }).length > 0;
 }
@@ -108,9 +108,9 @@ export function isUsingSupportedSpread({
 	base,
 	element,
 }: {
-	j: core.JSCodeshift;
 	base: Collection<any>;
 	element: NodePath<JSXElement, JSXElement>;
+	j: core.JSCodeshift;
 }): boolean {
 	const isUsingSpread: boolean = j(element).find(j.JSXSpreadAttribute).length > 0;
 
@@ -153,9 +153,9 @@ export function isUsingThroughSpread({
 	element,
 	propName,
 }: {
-	j: core.JSCodeshift;
 	base: Collection<any>;
 	element: NodePath<JSXElement, JSXElement>;
+	j: core.JSCodeshift;
 	propName: string;
 }): boolean {
 	if (!isUsingSupportedSpread({ j, base, element })) {
@@ -233,9 +233,9 @@ export function isUsingProp({
 	element,
 	propName,
 }: {
-	j: core.JSCodeshift;
 	base: Collection<any>;
 	element: NodePath<JSXElement, JSXElement>;
+	j: core.JSCodeshift;
 	propName: string;
 }): boolean {
 	return (
@@ -272,8 +272,8 @@ export function addCommentToStartOfFile({
 	base,
 	message,
 }: {
-	j: core.JSCodeshift;
 	base: Collection<Node>;
+	j: core.JSCodeshift;
 	message: string;
 }) {
 	addCommentBefore({
@@ -290,8 +290,8 @@ export function addCommentBefore({
 	message,
 }: {
 	j: core.JSCodeshift;
-	target: Collection<Node>;
 	message: string;
+	target: Collection<Node>;
 }) {
 	const content: string = ` TODO: (from codemod) ${clean(message)} `;
 	target.forEach((path) => {

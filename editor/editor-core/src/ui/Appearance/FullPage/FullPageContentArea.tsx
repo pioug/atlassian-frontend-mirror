@@ -71,9 +71,9 @@ const editorContentAreaStyle = ({
 	fullWidthMode,
 	isEditorToolbarHidden,
 }: {
-	layoutMaxWidth: number;
 	fullWidthMode: boolean;
 	isEditorToolbarHidden?: boolean;
+	layoutMaxWidth: number;
 }) => [
 	editorContentArea,
 	editorContentAreaProsemirrorStyle,
@@ -386,27 +386,27 @@ const contentAreaHeightNoToolbar = css({
 });
 
 interface FullPageEditorContentAreaProps {
-	editorAPI: PublicPluginAPI<[OptionalPlugin<ContextPanelPlugin>]> | undefined;
 	appearance: EditorAppearance | undefined;
 	contentComponents: UIComponentFactory[] | undefined;
-	pluginHooks: ReactHookFactory[] | undefined;
 	contextPanel: ReactComponents | undefined;
 	customContentComponents: ContentComponents | undefined;
 	disabled: boolean | undefined;
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent | undefined;
 	editorActions: EditorActions | undefined;
+	editorAPI: PublicPluginAPI<[OptionalPlugin<ContextPanelPlugin>]> | undefined;
 	editorDOMElement: ReactElement;
 	editorView: EditorView;
 	eventDispatcher: EventDispatcher | undefined;
-	popupsMountPoint: HTMLElement | undefined;
+	featureFlags?: FeatureFlags;
+	hasHadInteraction?: boolean;
+	isEditorToolbarHidden?: boolean;
+	pluginHooks: ReactHookFactory[] | undefined;
 	popupsBoundariesElement: HTMLElement | undefined;
+	popupsMountPoint: HTMLElement | undefined;
 	popupsScrollableElement: HTMLElement | undefined;
 	providerFactory: ProviderFactory;
-	wrapperElement: HTMLElement | null;
-	hasHadInteraction?: boolean;
-	featureFlags?: FeatureFlags;
 	viewMode: ViewMode | undefined;
-	isEditorToolbarHidden?: boolean;
+	wrapperElement: HTMLElement | null;
 }
 
 export const CONTENT_AREA_TEST_ID = 'ak-editor-fp-content-area';

@@ -4,10 +4,10 @@ export type ARI = string;
 export type AVI = string;
 
 export interface SubscribeServiceResponse {
-	protocol: ProtocolConfig | undefined;
 	errors: {
 		statusCode: number;
 	}[];
+	protocol: ProtocolConfig | undefined;
 }
 
 export interface ProtocolConfig {
@@ -15,21 +15,21 @@ export interface ProtocolConfig {
 }
 
 export interface Protocol {
+	getCapabilities(): string[];
+
 	getType(): string;
+
+	networkDown(): void;
+
+	networkUp(): void;
+
+	off(event: EventType, handler: OnEvent): void;
+
+	on(event: EventType, handler: OnEvent): void;
 
 	subscribe(config: ProtocolConfig): void;
 
 	unsubscribeAll(): void;
-
-	getCapabilities(): string[];
-
-	on(event: EventType, handler: OnEvent): void;
-
-	off(event: EventType, handler: OnEvent): void;
-
-	networkUp(): void;
-
-	networkDown(): void;
 }
 
 export enum EventType {

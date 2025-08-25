@@ -42,16 +42,16 @@ function sameRectDimensions(a: DOMRect | null | undefined, b: DOMRect | null | u
 }
 
 export type DOMObserversProps = {
-	timeline: TimelineClock;
 	onChange: (props: {
-		startTime: DOMHighResTimeStamp;
-		rect: DOMRectReadOnly;
-		previousRect: DOMRectReadOnly | undefined;
 		elementRef: WeakRef<HTMLElement>;
-		visible: boolean;
+		previousRect: DOMRectReadOnly | undefined;
+		rect: DOMRectReadOnly;
 		source: HeatmapEntrySource;
+		startTime: DOMHighResTimeStamp;
+		visible: boolean;
 	}) => void;
 	onDOMContentChange: (props: { targetRef: WeakRef<HTMLElement> }) => void;
+	timeline: TimelineClock;
 };
 export class DOMObservers {
 	private timeline: Readonly<TimelineClock>;

@@ -85,10 +85,10 @@ const label = css({
 });
 
 type State = {
-	editMode: boolean;
 	diffs: Change[];
 	documentOne: string;
 	documentTwo: string;
+	editMode: boolean;
 };
 
 // Ignored via go/ees005

@@ -214,8 +214,8 @@ const handleWrapperOnClick = (
 
 export const RendererFunctionalComponent = (
 	props: RendererProps & {
-		startPos?: number;
 		skipValidation?: boolean;
+		startPos?: number;
 		validationOverrides?: { allowNestedTables?: boolean };
 	},
 ) => {
@@ -678,25 +678,25 @@ export const RendererWithAnalytics = React.memo((props: RendererProps) => (
 ));
 
 export type RendererWrapperProps = {
+	addTelepointer?: boolean;
 	allowAnnotations?: boolean;
-	appearance: RendererAppearance;
-	innerRef?: React.RefObject<HTMLDivElement>;
 	allowColumnSorting?: boolean;
 	allowCopyToClipboard?: boolean;
-	allowWrapCodeBlock?: boolean;
-	allowPlaceholderText?: boolean;
 	allowCustomPanels?: boolean;
-	addTelepointer?: boolean;
 	allowNestedHeaderLinks: boolean;
-	useBlockRenderForCodeBlock: boolean;
+	allowPlaceholderText?: boolean;
+	allowRendererContainerStyles?: boolean;
+	allowTableResizing?: boolean;
+	allowWrapCodeBlock?: boolean;
+	appearance: RendererAppearance;
+	innerRef?: React.RefObject<HTMLDivElement>;
+	isInsideOfInlineExtension?: boolean;
+	isTopLevelRenderer?: boolean;
 	onClick?: (event: React.MouseEvent) => void;
 	onMouseDown?: (event: React.MouseEvent) => void;
-	ssr?: MediaSSR;
-	isInsideOfInlineExtension?: boolean;
-	allowTableResizing?: boolean;
-	isTopLevelRenderer?: boolean;
 	shouldRemoveEmptySpaceAroundContent?: boolean;
-	allowRendererContainerStyles?: boolean;
+	ssr?: MediaSSR;
+	useBlockRenderForCodeBlock: boolean;
 } & { children?: React.ReactNode };
 
 const RendererWrapper = React.memo((props: RendererWrapperProps) => {
@@ -892,10 +892,10 @@ function RendererActionsInternalUpdater({
 	schema,
 	onAnalyticsEvent,
 }: {
-	doc?: PMNode;
-	schema: Schema;
 	children: JSX.Element | null;
+	doc?: PMNode;
 	onAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
+	schema: Schema;
 }) {
 	const rootRendererContextValue = React.useContext(RootRendererContext);
 	const actions = useContext(ActionsContext);

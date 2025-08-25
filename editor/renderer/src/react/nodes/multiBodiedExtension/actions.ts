@@ -3,11 +3,11 @@ import React from 'react';
 import type { MultiBodiedExtensionActions } from '@atlaskit/editor-common/extensions';
 
 type ActionsProps = {
-	updateActiveChild: (index: number) => void;
-	children: React.ReactNode;
 	// Allows MBE macro to render bodies; see RFC: https://hello.atlassian.net/wiki/spaces/EDITOR/pages/4843571091/Editor+RFC+064+MultiBodiedExtension+Extensibility
 	allowBodiedOverride: boolean;
+	children: React.ReactNode;
 	childrenContainer: React.ReactNode;
+	updateActiveChild: (index: number) => void;
 };
 
 export const useMultiBodiedExtensionActions = ({

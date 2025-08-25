@@ -50,13 +50,13 @@ export function getMediaSinglePixelWidth(
 }
 
 export interface calcMediaSinglePixelWidthProps {
+	containerWidth: number;
+	contentWidth?: number;
+	gutterOffset: number;
+	layout: RichMediaLayout;
+	origWidth: number;
 	width?: number;
 	widthType?: 'percentage' | 'pixel';
-	origWidth: number;
-	layout: RichMediaLayout;
-	contentWidth?: number;
-	containerWidth: number;
-	gutterOffset: number;
 }
 /**
  * Convert width attribute to pixel value for legacy (resized or not resisized) and new media single node for new experience

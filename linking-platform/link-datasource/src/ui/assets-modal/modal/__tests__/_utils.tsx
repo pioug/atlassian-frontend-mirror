@@ -185,9 +185,9 @@ export const getAssetsClientErrorHookState: ({
 	existingObjectSchemaError,
 	objectSchemasError,
 }: {
-	workspaceError?: Error;
 	existingObjectSchemaError?: Error;
 	objectSchemasError?: Error;
+	workspaceError?: Error;
 }) => UseAssetsClientState = ({
 	workspaceError,
 	existingObjectSchemaError,
@@ -211,11 +211,11 @@ export const geValidateAqlTextDefaultHookState: () => UseValidateAqlTextState = 
 
 export const setup = async (
 	args: {
-		parameters?: AssetsDatasourceParameters;
-		datasourceTableHookState?: DatasourceTableState;
 		assetsClientHookState?: UseAssetsClientState;
-		validateAqlTextHookState?: UseValidateAqlTextState;
+		datasourceTableHookState?: DatasourceTableState;
 		objectSchemasHookState?: UseObjectSchemasState;
+		parameters?: AssetsDatasourceParameters;
+		validateAqlTextHookState?: UseValidateAqlTextState;
 		visibleColumnKeys?: string[];
 	} = {},
 ) => {

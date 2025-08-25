@@ -34,35 +34,35 @@ export type MediaProvider = {
 };
 
 export interface MediaCardProps {
-	id?: string;
+	alt?: string;
+	appearance?: CardAppearance;
+	cardDimensions?: CardDimensions;
+	collection?: string;
 	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	dataAttributes?: Record<string, any>;
+	disableOverlay?: boolean;
+	enableSyncMediaCard?: boolean;
 	eventHandlers?: {
 		media?: {
 			onClick?: CardOnClickCallback;
 		};
 	};
-	shouldOpenMediaViewer?: boolean;
-	type: MediaType;
-	collection?: string;
-	url?: string;
-	cardDimensions?: CardDimensions;
-	originalDimensions?: NumericalCardDimensions;
-	resizeMode?: ImageResizeMode;
-	appearance?: CardAppearance;
-	rendererAppearance?: RendererAppearance;
-	occurrenceKey?: string;
-	imageStatus?: ImageStatus;
-	disableOverlay?: boolean;
-	useInlinePlayer?: boolean;
-	rendererContext?: RendererContext;
-	alt?: string;
 	featureFlags?: MediaFeatureFlags;
+	id?: string;
+	imageStatus?: ImageStatus;
+	occurrenceKey?: string;
+	originalDimensions?: NumericalCardDimensions;
+	rendererAppearance?: RendererAppearance;
+	rendererContext?: RendererContext;
+	resizeMode?: ImageResizeMode;
 	shouldEnableDownloadButton?: boolean;
+	shouldOpenMediaViewer?: boolean;
 	ssr?: MediaSSR;
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	dataAttributes?: Record<string, any>;
-	enableSyncMediaCard?: boolean;
+	type: MediaType;
+	url?: string;
+	useInlinePlayer?: boolean;
 }
 
 interface State {
@@ -371,12 +371,12 @@ export class MediaCardView extends Component<
 }
 
 export type ClipboardAttrs = {
-	id: string;
 	alt?: string;
 	collection?: string;
 	contextIdentifierProvider?: ContextIdentifierProvider;
-	originalDimensions?: NumericalCardDimensions;
 	fileState?: FileState;
+	id: string;
+	originalDimensions?: NumericalCardDimensions;
 };
 
 // Needed for copy & paste

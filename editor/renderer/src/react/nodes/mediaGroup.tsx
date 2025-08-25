@@ -17,9 +17,9 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 export interface MediaGroupProps {
 	children?: React.ReactNode;
+	enableDownloadButton?: boolean;
 	eventHandlers?: EventHandlers;
 	featureFlags?: MediaFeatureFlags;
-	enableDownloadButton?: boolean;
 }
 
 interface MediaGroupState {

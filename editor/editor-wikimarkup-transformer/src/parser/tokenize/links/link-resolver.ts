@@ -14,7 +14,7 @@ import { issueLinkResolver } from './issue-link';
  *
  * @param context    The render context
  * @param parsedLink The parsed link information
- * @return the corresponding link. If no link can be created, null is returned
+ * @returns the corresponding link. If no link can be created, null is returned
  */
 type ContentLinkResolver = (
 	parsedLink: ContentLink,

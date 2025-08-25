@@ -8,9 +8,9 @@ type TypeAheadRenderedAEP = OperationalAEP<
 	ACTION_SUBJECT.TYPEAHEAD,
 	undefined,
 	{
-		time?: number;
-		items?: number;
 		initial?: boolean;
+		items?: number;
+		time?: number;
 	}
 >;
 
@@ -45,9 +45,9 @@ type TypeAheadInputMethod =
 	| 'blockControl';
 
 type TypeAheadClosedAttributes = {
-	inputMethod: INPUT_METHOD.KEYBOARD | INPUT_METHOD.MOUSE | null;
 	closeAction: ACTION.INSERTED | ACTION.CANCELLED | ACTION.VIEW_MORE | null;
 	hasQuery: boolean;
+	inputMethod: INPUT_METHOD.KEYBOARD | INPUT_METHOD.MOUSE | null;
 	invocationMethod?: TypeAheadInputMethod | null;
 };
 

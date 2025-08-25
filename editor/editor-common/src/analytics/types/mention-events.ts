@@ -13,12 +13,12 @@ type MentionTypeaheadCancelledEventPayload = UIAEP<
 	undefined,
 	{
 		componentName: string;
+		downKeyCount: number;
 		duration: number;
 		queryLength?: number;
+		sessionId: string;
 		spaceInQuery?: boolean;
 		upKeyCount: number;
-		downKeyCount: number;
-		sessionId: string;
 	},
 	undefined
 >;
@@ -28,12 +28,12 @@ type MentionTypeaheadInviteItemViewedPayload = UIAEP<
 	ACTION_SUBJECT.INVITE_ITEM,
 	undefined,
 	{
+		childObjectId?: string;
 		componentName: string;
 		containerId: string;
 		objectId: string;
-		childObjectId?: string;
-		userRole?: string;
 		sessionId: string;
+		userRole?: string;
 	},
 	undefined
 >;
@@ -43,18 +43,18 @@ type MentionTypeaheadInviteItemClickedPayload = UIAEP<
 	ACTION_SUBJECT.INVITE_ITEM,
 	undefined,
 	{
+		childObjectId?: string;
 		componentName: string;
+		containerId: string;
+		downKeyCount: number;
 		duration: number;
+		keyboardKey?: string;
+		objectId: string;
 		queryLength?: number;
+		sessionId: string;
 		spaceInQuery?: boolean;
 		upKeyCount: number;
-		downKeyCount: number;
-		containerId: string;
-		objectId: string;
-		childObjectId?: string;
 		userRole?: string;
-		sessionId: string;
-		keyboardKey?: string;
 	},
 	undefined
 >;
@@ -64,27 +64,27 @@ type MentionTypeaheadInsertedPayload = UIAEP<
 	ACTION_SUBJECT.MENTION_TYPEAHEAD,
 	undefined,
 	{
-		sessionId: string;
-		duration: number;
-		position?: number;
-		keyboardKey?: string;
-		source?: string;
-		queryLength?: number;
-		spaceInQuery?: boolean;
-		isSpecial: boolean;
 		accessLevel: string;
-		userType?: string;
-		userId: string;
-		upKeyCount: number;
-		downKeyCount: number;
-		memberCount?: number | null;
-		includesYou?: boolean | null;
-		taskListId?: string;
-		taskItemId?: string;
-		localId?: string;
-		containerId?: string;
-		objectId?: string;
 		childObjectId?: string;
+		containerId?: string;
+		downKeyCount: number;
+		duration: number;
+		includesYou?: boolean | null;
+		isSpecial: boolean;
+		keyboardKey?: string;
+		localId?: string;
+		memberCount?: number | null;
+		objectId?: string;
+		position?: number;
+		queryLength?: number;
+		sessionId: string;
+		source?: string;
+		spaceInQuery?: boolean;
+		taskItemId?: string;
+		taskListId?: string;
+		upKeyCount: number;
+		userId: string;
+		userType?: string;
 	},
 	undefined,
 	string | undefined,
@@ -99,14 +99,14 @@ type MentionTypeaheadRenderedPayload = OperationalAEP<
 	{
 		componentName: string;
 		duration: number;
-		userIds: Array<string> | null;
-		teams: Array<{
-			teamId: string;
-			includesYou: boolean;
-			memberCount: number;
-		}> | null;
 		queryLength?: number;
 		spaceInQuery?: boolean;
+		teams: Array<{
+			includesYou: boolean;
+			memberCount: number;
+			teamId: string;
+		}> | null;
+		userIds: Array<string> | null;
 		xProductMentionsLength?: number;
 	}
 >;

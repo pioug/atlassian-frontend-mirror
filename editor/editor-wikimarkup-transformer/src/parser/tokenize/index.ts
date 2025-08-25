@@ -67,15 +67,15 @@ export enum TokenType {
 }
 
 export interface TextToken {
-	readonly type: 'text';
-	readonly text: string;
 	readonly length: number;
+	readonly text: string;
+	readonly type: 'text';
 }
 
 export interface PMNodeToken {
-	readonly type: 'pmnode';
-	readonly nodes: PMNode[];
 	readonly length: number;
+	readonly nodes: PMNode[];
+	readonly type: 'pmnode';
 }
 
 export type TokenErrCallback = (err: Error, tokenType: string) => void;
@@ -88,10 +88,10 @@ export type TokenParser = ({
 	schema,
 	context,
 }: {
+	context: Context;
 	input: string;
 	position: number;
 	schema: Schema;
-	context: Context;
 }) => Token;
 
 const tokenToTokenParserMapping: {

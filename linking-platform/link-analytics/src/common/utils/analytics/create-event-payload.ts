@@ -17,18 +17,18 @@ export type EventPayloadAttributes<K extends EventKey> = OptionalIfUndefined<
 type EventTypes = 'ui' | 'track' | 'operational' | 'screen';
 
 type ScreenEventPayload<K extends EventKey> = {
-	eventType: 'screen';
-	name: string;
 	action: 'viewed';
 	attributes?: AnalyticsEventAttributes[K];
+	eventType: 'screen';
+	name: string;
 };
 
 type EventPayload<K extends EventKey> = {
-	eventType: Omit<EventTypes, 'screen'>;
-	actionSubject: string;
 	action: string;
+	actionSubject: string;
 	actionSubjectId?: string;
 	attributes?: AnalyticsEventAttributes[K];
+	eventType: Omit<EventTypes, 'screen'>;
 };
 
 const createEventPayload = <K extends EventKey>(

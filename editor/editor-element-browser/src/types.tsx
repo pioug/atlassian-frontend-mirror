@@ -17,9 +17,9 @@ type ElementCategory = 'media' | 'collaborate' | 'apps' | 'data' | 'structure';
 
 export type InsertPanelItem = TypeAheadItem & {
 	category?: ElementCategory;
-	subCategory?: StructureSubcategory | DataSubcategory;
-	shouldDisplayAtTop?: boolean; // some elements have to be displayed at the top of the category/subcategory
 	shouldDisplay?: boolean; // some items should not be displayed in new Quick Insert and Right Rail (AI, lists)
+	shouldDisplayAtTop?: boolean; // some elements have to be displayed at the top of the category/subcategory
+	subCategory?: StructureSubcategory | DataSubcategory;
 	tempKey: number; // index in the items array
 };
 
@@ -31,22 +31,22 @@ export interface QuickInsertPanelProps {
 	 */
 	items: QuickInsertPanelItem[];
 
+	onItemInsert: (mode: SelectItemMode, index: number) => void;
+
+	onViewAllItemsClick?: () => void;
+
 	/**
 	 * If not an empty string, the query should be used to display search results
 	 */
 	query: string;
 
-	onItemInsert: (mode: SelectItemMode, index: number) => void;
-
-	onViewAllItemsClick?: () => void;
+	setSelectedItem?: OnSelectItem;
 
 	/**
 	 * A `testId` prop is provided for specified elements, which is a unique
 	 * string that appears as a data attribute `data-testid` in the rendered code,
 	 * serving as a hook for automated tests */
 	testId?: string;
-
-	setSelectedItem?: OnSelectItem;
 }
 
 export type SideInsertPanelProps = {

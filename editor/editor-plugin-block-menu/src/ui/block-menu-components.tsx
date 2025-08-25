@@ -8,7 +8,6 @@ import {
 } from '@atlaskit/editor-toolbar';
 import ChangesIcon from '@atlaskit/icon/core/changes';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
-import DeleteIcon from '@atlaskit/icon/core/delete';
 import ListBulletedIcon from '@atlaskit/icon/core/list-bulleted';
 import TaskIcon from '@atlaskit/icon/core/task';
 
@@ -17,6 +16,7 @@ import { type RegisterBlockMenuComponent } from '../blockMenuPluginType';
 
 import CopyBlockMenuItem from './copy-block';
 import { CopyLinkDropdownItem } from './copy-link';
+import { DeleteDropdownItem } from './delete-button';
 import { MoveDownDropdownItem } from './move-down';
 import { MoveUpDropdownItem } from './move-up';
 
@@ -142,13 +142,9 @@ export const getBlockMenuComponents = ({
 			parent: {
 				type: 'block-menu-section' as const,
 				key: 'block-menu-section-delete',
-				rank: 100,
+				rank: 50,
 			},
-			component: () => {
-				return (
-					<ToolbarDropdownItem elemBefore={<DeleteIcon label="" />}>Delete</ToolbarDropdownItem>
-				);
-			},
+			component: () => <DeleteDropdownItem api={api} />,
 		},
 	];
 };

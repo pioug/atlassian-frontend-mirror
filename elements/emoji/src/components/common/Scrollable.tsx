@@ -23,11 +23,11 @@ export interface OnScroll {
 }
 
 export interface Props {
+	children?: ReactNode;
 	className?: string;
 	maxHeight?: string;
-	children?: ReactNode;
-	onScroll?: OnScroll;
 	onMouseLeave?: MouseEventHandler<any>;
+	onScroll?: OnScroll;
 }
 
 export default class Scrollable extends PureComponent<Props, {}> {

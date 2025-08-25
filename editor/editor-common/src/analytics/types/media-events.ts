@@ -48,8 +48,8 @@ export type CaptionTrackAction = TrackAEP<
 >;
 
 type MediaAltTextAttributes = {
-	type: 'mediaSingle' | 'mediaInline';
 	mediaType: 'image' | 'file' | 'external';
+	type: 'mediaSingle' | 'mediaInline';
 };
 
 type MediaAltTextAction = TrackAEP<
@@ -71,12 +71,12 @@ type MediaUIAction = UIAEP<
 >;
 
 type MediaResizeAttributes = {
+	inputMethod: EventInput;
+	layout: string;
+	parentNode?: string;
+	snapType: GuidelineTypes;
 	width?: number;
 	widthType: WidthTypes;
-	layout: string;
-	snapType: GuidelineTypes;
-	parentNode?: string;
-	inputMethod: EventInput;
 };
 
 export type MediaResizeTrackAction = UIAEP<
@@ -88,11 +88,11 @@ export type MediaResizeTrackAction = UIAEP<
 >;
 
 type MediaInputResizeAttributes = {
-	width: number;
-	layout: RichMediaLayout;
-	validation: 'valid' | 'greater-than-max' | 'less-than-min';
-	parentNode?: string;
 	inputMethod: EventInput;
+	layout: RichMediaLayout;
+	parentNode?: string;
+	validation: 'valid' | 'greater-than-max' | 'less-than-min';
+	width: number;
 };
 
 export type MediaInputResizeTrackAction = UIAEP<
@@ -119,7 +119,7 @@ export type MediaViewerEventAction = UIAEP<
 	ACTION.OPENED,
 	ACTION_SUBJECT.MEDIA_VIEWER,
 	ACTION_SUBJECT_ID.MEDIA,
-	{ nodeType: string; inputMethod: INPUT_METHOD.DOUBLE_CLICK },
+	{ inputMethod: INPUT_METHOD.DOUBLE_CLICK; nodeType: string },
 	undefined
 >;
 

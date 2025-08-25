@@ -11,6 +11,7 @@ import getSSRDoneTimeValue from './get-ssr-done-time-value';
 
 async function getVCMetrics(
 	interaction: InteractionMetrics,
+	include3p: boolean = false,
 ): Promise<VCResult & { 'metric:vc90'?: number | null }> {
 	const config = getConfig();
 	if (!config?.vc?.enabled) {
@@ -71,6 +72,7 @@ async function getVCMetrics(
 		interactionId: interaction.id,
 		includeSSRRatio: config.vc?.includeSSRRatio,
 		...ssr,
+		include3p,
 	});
 
 	observer.stop(interaction.ufoName);

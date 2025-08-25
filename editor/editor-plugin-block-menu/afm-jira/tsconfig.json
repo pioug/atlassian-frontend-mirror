@@ -27,6 +27,12 @@
 			"path": "../../editor-plugin-block-controls/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-decorations/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-selection/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-user-intent/afm-jira/tsconfig.json"
 		},
 		{

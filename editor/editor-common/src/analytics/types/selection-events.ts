@@ -14,8 +14,8 @@ export type SelectNodeAEP = SelectAEP<ACTION_SUBJECT_ID.NODE, { node: string }>;
 export type SelectRangeAEP = SelectAEP<
 	ACTION_SUBJECT_ID.RANGE,
 	{
-		nodes: string[];
 		from: number;
+		nodes: string[];
 		to: number;
 	}
 >;

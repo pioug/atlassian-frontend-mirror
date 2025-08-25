@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import { default as Renderer } from '../src/ui/Renderer';
 
 type Document = {
+	content: {
+		content?: {
+			text: string;
+			type: string;
+		}[];
+		type: string;
+	}[];
 	type: string;
 	version: number;
-	content: {
-		type: string;
-		content?: {
-			type: string;
-			text: string;
-		}[];
-	}[];
 };
 
 type Step = [string, Document];

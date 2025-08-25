@@ -26,11 +26,11 @@ export function parseString({
 	context,
 	includeLeadingSpace = false,
 }: {
+	context: Context;
+	ignoreTokenTypes: TokenType[];
+	includeLeadingSpace?: boolean;
 	input: string;
 	schema: Schema;
-	ignoreTokenTypes: TokenType[];
-	context: Context;
-	includeLeadingSpace?: boolean;
 }): PMNode[] {
 	let index = 0;
 	let state = processState.NEWLINE;

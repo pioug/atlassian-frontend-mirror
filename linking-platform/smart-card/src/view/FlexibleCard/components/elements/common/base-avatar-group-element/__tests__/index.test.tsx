@@ -97,7 +97,7 @@ describe('Element: Avatar Group', () => {
 
 	it.each(authorsWithNoImages.map((author, index) => ({ name: author.name, index })))(
 		'no prefix for a name in element tooltip if there are more than one person',
-		async (author: { name: string; index: number }) => {
+		async (author: { index: number; name: string }) => {
 			renderWithIntl(
 				<AvatarGroup
 					name={ElementName.AssignedToGroup}

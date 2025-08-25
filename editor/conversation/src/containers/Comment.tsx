@@ -7,9 +7,9 @@ import { type State } from '../internal/store';
 
 export interface Props extends SharedProps {
 	comment: CommentType;
+	containerId?: string;
 	conversationId: string;
 	objectId?: string;
-	containerId?: string;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	renderComment: (props: any) => JSX.Element;

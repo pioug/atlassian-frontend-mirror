@@ -2,7 +2,7 @@ const maxEmojiSizeInBytes = 1048576;
 
 export const getNaturalImageSize = (
 	dataURL: string,
-): Promise<{ width: number; height: number }> => {
+): Promise<{ height: number; width: number }> => {
 	return new Promise((resolve, reject) => {
 		const img = new Image();
 		img.addEventListener('load', () => {

@@ -3,20 +3,20 @@ import { type ServerErrorType } from '@atlaskit/linking-common';
 export type BatchResponse = Array<SuccessResponse | ErrorResponse>;
 
 export type SuccessResponse = {
-	status: number;
 	body: JsonLd.Response;
+	status: number;
 };
 
 export interface ErrorResponse {
-	status: number;
 	error: ErrorResponseBody;
+	status: number;
 }
 
 export interface ErrorResponseBody {
-	type: ServerErrorType;
+	extensionKey?: string;
 	message: string;
 	status: number;
-	extensionKey?: string;
+	type: ServerErrorType;
 }
 
 export const isSuccessfulResponse = (
@@ -46,10 +46,10 @@ export const isErrorResponse = (
 export interface SearchProviderInfo {
 	key: string;
 	metadata: {
-		name: string;
+		[key: string]: unknown;
 		avatarUrl: string;
 		displayName?: string;
-		[key: string]: unknown;
+		name: string;
 	};
 }
 

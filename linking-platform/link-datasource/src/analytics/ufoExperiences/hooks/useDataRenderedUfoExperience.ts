@@ -5,11 +5,11 @@ import { type DatasourceTableStatusType } from '@atlaskit/linking-types';
 import { addMetadataToExperience, failUfoExperience, succeedUfoExperience } from '../index';
 
 interface DataRenderedUfoExperienceProps {
-	status: DatasourceTableStatusType;
-	experienceId: string;
-	itemCount: number;
 	canBeLink?: boolean;
+	experienceId: string;
 	extensionKey?: string | null;
+	itemCount: number;
+	status: DatasourceTableStatusType;
 }
 
 /**

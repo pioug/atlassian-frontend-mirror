@@ -44,11 +44,11 @@ const mainTextStyles = css({
 });
 
 interface InitialStateViewProps {
+	description: MessageDescriptor;
 	icon: JSX.Element;
+	learnMoreLink?: { href: string; text: MessageDescriptor };
 	showBeta?: boolean;
 	title: MessageDescriptor;
-	description: MessageDescriptor;
-	learnMoreLink?: { href: string; text: MessageDescriptor };
 }
 
 export const InitialStateView = ({

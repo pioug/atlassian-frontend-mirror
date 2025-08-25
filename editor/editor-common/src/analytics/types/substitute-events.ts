@@ -25,8 +25,8 @@ type SubstituteAEP<ActionSubjectID, Attributes> = TrackAEP<
 type SubstituteProductAEP = SubstituteAEP<
 	ACTION_SUBJECT_ID.PRODUCT_NAME,
 	{
-		product: string;
 		originalSpelling: string;
+		product: string;
 	}
 >;
 

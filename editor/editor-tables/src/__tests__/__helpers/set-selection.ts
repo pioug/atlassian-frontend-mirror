@@ -6,7 +6,7 @@ import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state
 const positionExists = (position: number | undefined): boolean => typeof position === 'number';
 
 export function setSelectionTransform(doc: RefsNode, tr: Transaction) {
-	let refs: Refs = doc.refs;
+	const refs: Refs = doc.refs;
 
 	if (refs) {
 		// Collapsed selection.

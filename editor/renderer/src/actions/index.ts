@@ -31,7 +31,7 @@ import { createAnnotationStep, getPosFromRange } from '../steps';
 import { getRendererRangeInlineNodeNames } from './get-renderer-range-inline-node-names';
 import { getIndexMatch } from './matches-utils';
 
-type ActionResult = { step: Step; doc: JSONDocNode } | false;
+type ActionResult = { doc: JSONDocNode; step: Step } | false;
 type Position = { from: number; to: number };
 type Annotation = { annotationId: string; annotationType: AnnotationTypes };
 
@@ -44,9 +44,9 @@ interface RendererActionsOptions {
 export type ApplyAnnotation = (pos: Position, annotation: Annotation) => AnnotationActionResult;
 
 interface AnnotationsRendererActionsOptions {
-	isValidAnnotationPosition: (pos: Position) => boolean;
 	applyAnnotation: ApplyAnnotation;
 	getAnnotationMarks: () => Mark[];
+	isValidAnnotationPosition: (pos: Position) => boolean;
 }
 
 interface PositionRendererActionsOptions {

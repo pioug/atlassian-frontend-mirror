@@ -6,12 +6,12 @@ import { type Context } from '../../interfaces';
 // eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 // TODO: Create a type for rawContentProcessor which will be shared among parsers
 export interface MacroOption {
+	// This function will be called with the rawAttrs and rawContent
+	context: Context;
 	// The macro keyword
 	keyword: string;
 	// If the macro needs a paired closing part
 	paired: boolean;
-	// This function will be called with the rawAttrs and rawContent
-	context: Context;
 	rawContentProcessor: (
 		rawAttrs: string,
 		rawContent: string,

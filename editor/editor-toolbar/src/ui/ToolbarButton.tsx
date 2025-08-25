@@ -52,16 +52,16 @@ const styles = cssMap({
 });
 
 type ToolbarButtonProps = Partial<TriggerProps> & {
+	ariaKeyshortcuts?: string;
 	children?: ReactNode;
-	isSelected?: boolean;
-	onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
-	onBlur?: (event: React.FocusEvent<HTMLButtonElement>) => void;
-	onFocus?: (event: React.FocusEvent<HTMLButtonElement>) => void;
-	testId?: string;
 	iconBefore: React.ReactNode;
 	isDisabled?: boolean;
-	ariaKeyshortcuts?: string;
+	isSelected?: boolean;
 	label?: string;
+	onBlur?: (event: React.FocusEvent<HTMLButtonElement>) => void;
+	onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+	onFocus?: (event: React.FocusEvent<HTMLButtonElement>) => void;
+	testId?: string;
 };
 
 export const ToolbarButton = forwardRef(

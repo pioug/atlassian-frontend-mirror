@@ -29,11 +29,11 @@ const commonStyles = css({
 
 export interface PulseProps {
 	children: JSX.Element;
-	showPulse?: boolean;
+	isInline?: boolean;
 	onAnimationIteration?: React.AnimationEventHandler<HTMLSpanElement>;
 	onAnimationStart?: React.AnimationEventHandler<HTMLSpanElement>;
+	showPulse?: boolean;
 	testId?: string;
-	isInline?: boolean;
 }
 
 export const Pulse = ({

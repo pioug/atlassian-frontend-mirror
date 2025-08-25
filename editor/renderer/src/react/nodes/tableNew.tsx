@@ -162,16 +162,16 @@ export const addSortableColumn = (
 };
 
 export type TableProps = SharedTableProps & {
+	allowColumnSorting?: boolean;
+	allowTableAlignment?: boolean;
+	allowTableResizing?: boolean;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	children: React.ReactElement<any> | Array<React.ReactElement<any>>;
-	tableNode?: PMNode;
-	rendererAppearance?: RendererAppearance;
-	allowColumnSorting?: boolean;
-	stickyHeaders?: StickyHeaderConfig;
-	allowTableAlignment?: boolean;
-	allowTableResizing?: boolean;
 	isPresentational?: boolean;
+	rendererAppearance?: RendererAppearance;
+	stickyHeaders?: StickyHeaderConfig;
+	tableNode?: PMNode;
 };
 
 export const isHeaderRowEnabled = (
@@ -207,9 +207,9 @@ export interface TableOrderStatus {
 }
 
 export interface TableState {
+	headerRowHeight: number;
 	stickyMode: StickyMode;
 	wrapperWidth: number;
-	headerRowHeight: number;
 }
 
 /**

@@ -56,24 +56,24 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, State> {
 
 type WithErrorBoundaryProps = {
 	/**
+	 * To adjust size of the editor
+	 * `false` matches AK's default field styling
+	 * `true` matches AK's compact field styling, used for search purposes
+	 */
+	isCompact?: boolean;
+	/**
 	 * Called if an unexpected error is thrown while rendering the editor.
 	 */
 	onRenderError?: (error: Error) => void;
-	/**
-	 * The query to render in the editor.
-	 */
-	query: string;
 	/**
 	 * Called every time the search command is given in the editor with the current query value and respective Jast object.
 	 * If not passed, hides the search button/other search related functionality, allowing this to be usable as a form field.
 	 */
 	onSearch?: JQLEditorUIProps['onSearch'];
 	/**
-	 * To adjust size of the editor
-	 * `false` matches AK's default field styling
-	 * `true` matches AK's compact field styling, used for search purposes
+	 * The query to render in the editor.
 	 */
-	isCompact?: boolean;
+	query: string;
 };
 
 export const withErrorBoundary = <Props extends WithErrorBoundaryProps>(

@@ -16,9 +16,9 @@ export type HighlightTextAEP = TrackAEP<
 	ACTION_SUBJECT.TEXT,
 	ACTION_SUBJECT_ID.FORMAT_BACKGROUND_COLOR,
 	{
+		inputMethod: INPUT_METHOD;
 		newColor: string;
 		previousColor: string;
-		inputMethod: INPUT_METHOD;
 	},
 	undefined
 >;

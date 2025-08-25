@@ -28,7 +28,7 @@ export function getHashCode(str: string): number {
  * @param str - The input string used to determine the participant color.
  * @returns An object containing the index and the corresponding participant color.
  */
-export function getParticipantColor(str: string): { index: number; color: ParticipantColor } {
+export function getParticipantColor(str: string): { color: ParticipantColor; index: number } {
 	const index = getHashCode(str) % participantColors.length;
 
 	return { index, color: participantColors[index] };

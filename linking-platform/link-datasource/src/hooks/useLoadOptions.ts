@@ -30,9 +30,9 @@ const loadOptions = async <T>(
 };
 
 type LoadOptionsState<E> = {
+	hasFailed: boolean;
 	isLoading: boolean;
 	options: E[];
-	hasFailed: boolean;
 };
 
 const reducer = <T>(state: LoadOptionsState<T>, payload: Partial<LoadOptionsState<T>>) => {
@@ -40,9 +40,9 @@ const reducer = <T>(state: LoadOptionsState<T>, payload: Partial<LoadOptionsStat
 };
 
 export type LoadOptionsProps<T> = {
-	fetchInputs?: AtomicActionExecuteRequest['parameters']['inputs'];
-	executeFetch?: ExecuteFetch;
 	emptyOption?: T;
+	executeFetch?: ExecuteFetch;
+	fetchInputs?: AtomicActionExecuteRequest['parameters']['inputs'];
 };
 
 export const useLoadOptions = <T>({

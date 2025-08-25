@@ -1,5 +1,13 @@
 # @atlaskit/link-picker
 
+## 3.9.7
+
+### Patch Changes
+
+- [`1b7d48c39ae03`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b7d48c39ae03) -
+  Sorted type and interface props to improve Atlaskit docs
+- Updated dependencies
+
 ## 3.9.6
 
 ### Patch Changes

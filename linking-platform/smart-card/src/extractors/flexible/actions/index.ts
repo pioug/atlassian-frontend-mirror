@@ -16,21 +16,21 @@ import { extractPreviewClientAction } from './extract-preview-action';
 import { extractViewRelatedLinksAction } from './extract-view-related-links-action';
 
 export type ExtractActionsParam = {
-	response: JsonLd.Response;
-	url?: string;
 	actionOptions?: CardActionOptions;
-	id?: string;
 	aiSummaryConfig?: AISummaryConfig;
 	appearance?: CardInnerAppearance;
-	origin?: AnalyticsOrigin;
 	fireEvent?: FireEventFunction;
+	id?: string;
 	isPreviewPanelAvailable?: (params: { ari: string }) => boolean;
 	openPreviewPanel?: (params: {
 		ari: string;
-		url: string;
-		name: string;
 		iconUrl: string | undefined;
+		name: string;
+		url: string;
 	}) => void;
+	origin?: AnalyticsOrigin;
+	response: JsonLd.Response;
+	url?: string;
 };
 
 export const extractFlexibleCardActions = ({

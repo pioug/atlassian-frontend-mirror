@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-media
 
+## 5.3.0
+
+### Minor Changes
+
+- [`be641b962b3ca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be641b962b3ca) -
+  Debounced media inline rendering
+- [`a994e589f089b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a994e589f089b) -
+  Debounced media group rendering
+- [`b78d65b49af6a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b78d65b49af6a) -
+  Debounced media nodeview rendering
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.2.14
 
 ### Patch Changes

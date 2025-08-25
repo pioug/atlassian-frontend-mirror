@@ -168,19 +168,19 @@ export const findAndTrackUnsupportedContentNodes = (
 };
 
 interface UnsupportedNode {
-	type: string;
 	ancestry: string;
-	parentType: string;
-	marks: {
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		[key: string]: any;
-	}[];
 	attrs: {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		[key: string]: any;
 	};
+	marks: {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		[key: string]: any;
+	}[];
+	parentType: string;
+	type: string;
 }
 
 export const fireUnsupportedEvent = (

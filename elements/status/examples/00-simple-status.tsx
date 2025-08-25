@@ -9,7 +9,7 @@ const containerStyles = css({
 	width: '140px',
 });
 
-const StatusInParagraph = ({ text, color }: { text: string; color: Color }) => (
+const StatusInParagraph = ({ text, color }: { color: Color; text: string }) => (
 	<p>
 		<Status text={text} color={color} />
 	</p>

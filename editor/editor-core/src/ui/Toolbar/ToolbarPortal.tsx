@@ -8,8 +8,8 @@ import { jsx, cssMap } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 
 type ToolbarPortalContextValue = {
-	Portal: React.ComponentType<{ children: React.ReactNode }>;
 	isActive: boolean;
+	Portal: React.ComponentType<{ children: React.ReactNode }>;
 };
 
 const ToolbarPortalContext = React.createContext<ToolbarPortalContextValue | undefined>(undefined);
@@ -20,8 +20,8 @@ export const ToolbarPortalContextProvider = ({
 	isActive,
 }: {
 	children: React.ReactNode;
-	portal: React.ComponentType<{ children: React.ReactNode }>;
 	isActive: boolean;
+	portal: React.ComponentType<{ children: React.ReactNode }>;
 }) => {
 	const value = React.useMemo(() => ({ Portal: portal, isActive }), [portal, isActive]);
 	return <ToolbarPortalContext.Provider value={value}>{children}</ToolbarPortalContext.Provider>;

@@ -21,8 +21,8 @@ type Row = {
 };
 
 type SkeletonProps = {
-	width: number;
 	itemName: string;
+	width: number;
 };
 
 const SkeletonComponent = ({ width, itemName }: SkeletonProps) => (

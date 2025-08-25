@@ -13,9 +13,9 @@ import { messages } from './messages';
 import { inputStyle } from './styles';
 
 export interface Props {
-	text?: string;
-	onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
 	label?: string;
+	onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
+	text?: string;
 }
 
 // Ignored via go/ees005

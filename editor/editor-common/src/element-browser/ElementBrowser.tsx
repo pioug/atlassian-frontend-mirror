@@ -9,15 +9,17 @@ import StatelessElementBrowser from './components/StatelessElementBrowser';
 import type { Category, Modes } from './types';
 
 export interface Props {
+	cache?: CellMeasurerCache;
 	categories?: Category[];
-	mode: keyof typeof Modes;
-	getItems: (query?: string, category?: string) => QuickInsertItem[];
-	onSelectItem?: (item: QuickInsertItem) => void;
-	onInsertItem: (item: QuickInsertItem) => void;
-	showSearch: boolean;
-	showCategories: boolean;
 	defaultCategory?: string;
 	emptyStateHandler?: EmptyStateHandler;
+	getItems: (query?: string, category?: string) => QuickInsertItem[];
+	mode: keyof typeof Modes;
+	onInsertItem: (item: QuickInsertItem) => void;
+	onSelectItem?: (item: QuickInsertItem) => void;
+	onViewMore?: () => void;
+	showCategories: boolean;
+	showSearch: boolean;
 	/**
 	 * @private
 	 * @deprecated
@@ -25,15 +27,13 @@ export interface Props {
 	 * Please clean up viewMoreItem when cleaning up platform_editor_refactor_view_more
 	 */
 	viewMoreItem?: QuickInsertItem;
-	onViewMore?: () => void;
-	cache?: CellMeasurerCache;
 }
 
 export interface State {
-	items: QuickInsertItem[];
 	categories: Category[];
-	selectedCategory?: string;
+	items: QuickInsertItem[];
 	searchTerm?: string;
+	selectedCategory?: string;
 }
 
 // Ignored via go/ees005

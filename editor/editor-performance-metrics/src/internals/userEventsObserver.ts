@@ -1,10 +1,10 @@
 import { backgroundTask } from './backgroundTasks';
 
 export type UserEventType = {
-	elementRef: WeakRef<HTMLElement>;
-	startTime: DOMHighResTimeStamp;
 	duration: number;
+	elementRef: WeakRef<HTMLElement>;
 	eventName: string;
+	startTime: DOMHighResTimeStamp;
 };
 
 const ALLOWED_DURATION = 40;

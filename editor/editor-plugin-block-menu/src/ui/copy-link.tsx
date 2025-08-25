@@ -21,6 +21,11 @@ const CopyLinkDropdownItemContent = ({ api, config }: Props & WrappedComponentPr
 	const { formatMessage } = useIntl();
 
 	const handleClick = useCallback(() => {
+		api?.core.actions.execute(({ tr }) => {
+			api?.blockControls?.commands?.toggleBlockMenu({ closeMenu: true })({ tr });
+			return tr;
+		});
+		api?.core.actions.focus();
 		return copyLink(config?.getLinkPath, config?.blockQueryParam, api);
 	}, [config?.getLinkPath, config?.blockQueryParam, api]);
 

@@ -15,18 +15,18 @@ import { AssetsObjectSchemaSelect } from './object-schema-select';
 import { FormRowContainer } from './styled';
 
 export type InitialSearchData = {
+	aql?: string;
 	objectSchema?: ObjectSchema;
 	objectSchemas?: ObjectSchema[];
-	aql?: string;
 };
 
 export interface SearchContainerProps {
-	workspaceId: string;
 	initialSearchData: InitialSearchData;
-	onSearch: (aql: string, schemaId: string) => void;
+	isSearching: boolean;
 	// This is due to ModalTitle needing a ModalDialog so should be passed down
 	modalTitle?: JSX.Element;
-	isSearching: boolean;
+	onSearch: (aql: string, schemaId: string) => void;
+	workspaceId: string;
 }
 
 const DEFAULT_AQL_QUERY = '';

@@ -26,9 +26,9 @@ const sourceWrapperStyles = xcss({
 });
 
 type RenderableSource = {
-	sourceType: UserSource;
 	icon: ReactNode;
-	label: { id: string; defaultMessage: string; description: string };
+	label: { defaultMessage: string; description: string; id: string };
+	sourceType: UserSource;
 };
 
 const SUPPORTED_SOURCES_APPIFY: RenderableSource[] = [

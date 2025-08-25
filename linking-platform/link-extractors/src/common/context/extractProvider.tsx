@@ -8,10 +8,10 @@ import { CONFLUENCE_GENERATOR_ID, JIRA_GENERATOR_ID } from '../constants';
 import { extractUrlFromIconJsonLd, extractUrlFromLinkJsonLd } from '../url';
 
 export interface LinkProvider {
-	text: string;
-	id?: string;
 	icon?: React.ReactNode;
+	id?: string;
 	image?: string;
+	text: string;
 }
 
 /**

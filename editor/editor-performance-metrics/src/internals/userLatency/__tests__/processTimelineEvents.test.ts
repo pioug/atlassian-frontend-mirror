@@ -14,12 +14,12 @@ const createMockInputEvent = ({
 	entryType,
 	eventName,
 }: {
-	startTime: number;
 	duration: number;
-	processingStart: number;
-	processingEnd: number;
 	entryType: UserEventCategory;
 	eventName: string;
+	processingEnd: number;
+	processingStart: number;
+	startTime: number;
 }): UserEvent => ({
 	type: `user-event:${entryType}`,
 	startTime: 0,
@@ -48,10 +48,10 @@ const createMockPerfEvent = ({
 	invokerType,
 	duration,
 }: {
-	entryStartTime: number;
-	scriptStartTime: number;
-	invokerType: string;
 	duration: number;
+	entryStartTime: number;
+	invokerType: string;
+	scriptStartTime: number;
 }): PerformanceLongAnimationFrameEvent => ({
 	type: 'performance:long-animation-frame',
 	data: {

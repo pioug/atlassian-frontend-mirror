@@ -4,7 +4,7 @@ import Heading from '@atlaskit/heading';
 import Link from '@atlaskit/link';
 import { Box, Stack } from '@atlaskit/primitives/compiled';
 
-const ContentTable = ({ items = [] }: { items: { name: string; content: any }[] }) => {
+const ContentTable = ({ items = [] }: { items: { content: any; name: string }[] }) => {
 	return (
 		<Stack space="space.150">
 			<Stack as="ul">

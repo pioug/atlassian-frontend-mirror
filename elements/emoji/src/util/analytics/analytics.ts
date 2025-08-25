@@ -76,10 +76,10 @@ export const openedPickerEvent = () => emojiPickerEvent('opened');
 export const closedPickerEvent = (attributes: Duration) => emojiPickerEvent('closed', attributes);
 
 interface EmojiAttributes {
-	emojiId: string;
 	baseEmojiId?: string; // mobile only
-	skinToneModifier?: string;
 	category: string;
+	emojiId: string;
+	skinToneModifier?: string;
 	type: string;
 }
 
@@ -119,7 +119,7 @@ export const pickerClickedEvent = (
 export const categoryClickedEvent = (attributes: { category: string }) =>
 	emojiPickerEvent('clicked', attributes, 'category');
 
-export const pickerSearchedEvent = (attributes: { queryLength: number; numMatches: number }) =>
+export const pickerSearchedEvent = (attributes: { numMatches: number; queryLength: number }) =>
 	emojiPickerEvent('searched', attributes, 'query');
 
 const skintoneSelectorEvent = (action: string, attributes = {}) =>
@@ -165,9 +165,9 @@ export const deleteCancelEvent = (attributes: Attributes) =>
 export const selectedFileEvent = () => createEvent('ui', 'clicked', 'emojiUploader', 'selectFile');
 
 interface CommonAttributes {
+	emojiIds: string[];
 	queryLength: number;
 	spaceInQuery: boolean;
-	emojiIds: string[];
 }
 
 const extractCommonAttributes = (

@@ -52,16 +52,16 @@ type FormatSuperSubAEP = FormatAEP<
 type FormatIndentationAEP = FormatAEP<
 	ACTION_SUBJECT_ID.FORMAT_INDENT,
 	{
-		inputMethod: INPUT_METHOD.TOOLBAR | INPUT_METHOD.KEYBOARD | INPUT_METHOD.FLOATING_TB;
 		direction: INDENT_DIRECTION.INDENT | INDENT_DIRECTION.OUTDENT;
-		previousIndentationLevel: number;
-		newIndentLevel: number;
 		indentType:
 			| INDENT_TYPE.PARAGRAPH
 			| INDENT_TYPE.LIST
 			| INDENT_TYPE.HEADING
 			| INDENT_TYPE.CODE_BLOCK
 			| INDENT_TYPE.TASK_LIST;
+		inputMethod: INPUT_METHOD.TOOLBAR | INPUT_METHOD.KEYBOARD | INPUT_METHOD.FLOATING_TB;
+		newIndentLevel: number;
+		previousIndentationLevel: number;
 	}
 >;
 
@@ -98,18 +98,18 @@ type FormatBlockQuoteAEP = FormatAEP<
 type FormatClearAEP = FormatAEP<
 	ACTION_SUBJECT_ID.FORMAT_CLEAR,
 	{
-		inputMethod: INPUT_METHOD.TOOLBAR | INPUT_METHOD.SHORTCUT | INPUT_METHOD.FLOATING_TB;
-		formattingCleared: string[];
 		dropdownMenu?: 'textFormatting' | 'textStyle';
+		formattingCleared: string[];
+		inputMethod: INPUT_METHOD.TOOLBAR | INPUT_METHOD.SHORTCUT | INPUT_METHOD.FLOATING_TB;
 	}
 >;
 
 type FormatColorAEP = FormatAEP<
 	ACTION_SUBJECT_ID.FORMAT_COLOR,
 	{
+		inputMethod?: INPUT_METHOD.TOOLBAR | INPUT_METHOD.FLOATING_TB;
 		newColor: string;
 		previousColor: string;
-		inputMethod?: INPUT_METHOD.TOOLBAR | INPUT_METHOD.FLOATING_TB;
 	}
 >;
 

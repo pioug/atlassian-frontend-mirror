@@ -13,20 +13,20 @@ import { RendererCssClassName } from '../../consts';
 
 interface Props {
 	extensionHandlers?: ExtensionHandlers;
-	providers: ProviderFactory;
-	rendererContext: RendererContext;
-	extensionType: string;
 	extensionKey: string;
-	path?: PMNode[];
-	text?: string;
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	parameters?: any;
+	extensionType: string;
+	extensionViewportSizes?: ExtensionViewportSize[];
 	layout?: ExtensionLayout;
 	localId?: string;
 	marks?: PMMark[];
-	extensionViewportSizes?: ExtensionViewportSize[];
 	nodeHeight?: string;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	parameters?: any;
+	path?: PMNode[];
+	providers: ProviderFactory;
+	rendererContext: RendererContext;
+	text?: string;
 }
 
 type AllOrNone<T> = T | { [K in keyof T]?: never };

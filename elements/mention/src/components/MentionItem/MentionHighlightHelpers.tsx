@@ -2,8 +2,8 @@ import React, { type ComponentType } from 'react';
 import { type HighlightDetail } from '../../types';
 
 interface Part {
-	value: string;
 	matches: boolean;
+	value: string;
 }
 
 export function renderHighlight(

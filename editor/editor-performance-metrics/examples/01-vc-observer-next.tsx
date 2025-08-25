@@ -218,8 +218,8 @@ const SideButton = ({
 	index,
 	onFinished,
 }: {
-	name: string;
 	index: number;
+	name: string;
 	onFinished: (i: number) => void;
 }) => {
 	const buttonRef = useRef<HTMLButtonElement | null>(null);

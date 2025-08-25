@@ -22,20 +22,20 @@ export interface SelectionPluginState {
 	selectionRelativeToNode?: RelativeSelectionPos;
 }
 export type SetSelectionRelativeToNode = (props: {
-	selectionRelativeToNode?: RelativeSelectionPos;
 	selection?: Selection | null;
+	selectionRelativeToNode?: RelativeSelectionPos;
 }) => (state: EditorState) => Transaction;
 
 export type EditorSelectionAPI = {
-	setSelectionRelativeToNode: SetSelectionRelativeToNode;
 	getSelectionPluginState: (state: EditorState) => SelectionPluginState;
+	setSelectionRelativeToNode: SetSelectionRelativeToNode;
 };
 
 export type SelectionPluginOptions = LongPressSelectionPluginOptions;
 
 export type SelectionSharedState =
 	| {
-			selectionRelativeToNode?: RelativeSelectionPos | undefined;
 			selection?: Selection | undefined;
+			selectionRelativeToNode?: RelativeSelectionPos | undefined;
 	  }
 	| undefined;

@@ -45,12 +45,12 @@ export const Toolbar = (props: ToolbarProps): JSX.Element => {
 	);
 };
 
-type NewToolbarProps = Pick<ToolbarUIContextType, 'popupsMountPoint'> &
+type NewToolbarProps = Pick<ToolbarUIContextType, 'popupsMountPoint' | 'popupsBoundariesElement' | 'popupsScrollableElement'> &
 	Pick<EditorToolbarContextType, 'editorAppearance'> & {
-		toolbar: RegisterToolbar;
 		components: RegisterComponent[];
-		editorView?: EditorView;
 		editorAPI?: PublicPluginAPI<[ToolbarPlugin]>;
+		editorView?: EditorView;
+		toolbar: RegisterToolbar;
 	};
 
 /**
@@ -66,6 +66,8 @@ export const ToolbarNext = ({
 	editorAPI,
 	popupsMountPoint,
 	editorAppearance,
+	popupsBoundariesElement,
+	popupsScrollableElement,
 }: NewToolbarProps) => {
 	const connectivityStateMode = useSharedPluginStateSelector(editorAPI, 'connectivity.mode');
 	const isOffline = connectivityStateMode === 'offline';
@@ -76,6 +78,8 @@ export const ToolbarNext = ({
 				api={editorAPI}
 				isDisabled={isOffline}
 				popupsMountPoint={popupsMountPoint}
+				popupsBoundariesElement={popupsBoundariesElement}
+				popupsScrollableElement={popupsScrollableElement}
 			>
 				<ToolbarModelRenderer
 					toolbar={toolbar}

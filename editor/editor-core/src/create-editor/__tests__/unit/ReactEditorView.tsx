@@ -8,9 +8,9 @@ jest.mock('@atlaskit/editor-common/performance-measures', () => ({
 		(
 			measureName: string,
 			onMeasureComplete?: (measurement: {
+				distortedDuration: boolean;
 				duration: number;
 				startTime: number;
-				distortedDuration: boolean;
 			}) => void,
 		) => {
 			onMeasureComplete &&
@@ -153,8 +153,8 @@ const analyticsProps = () => ({
 });
 
 type Props = {
-	view: EditorView;
 	config: EditorConfig;
+	view: EditorView;
 };
 
 jest.mock('@atlaskit/react-ufo/interaction-metrics', () => ({

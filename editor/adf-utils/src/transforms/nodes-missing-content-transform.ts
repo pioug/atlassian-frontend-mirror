@@ -133,8 +133,8 @@ const removeMediaSingleWithNoContent = (reportTransform: ReportTransform) => (no
 type ReportTransform = () => void;
 
 interface TransformNodesMissingContentResult {
-	transformedAdf: ADFEntity;
 	isTransformed: boolean;
+	transformedAdf: ADFEntity;
 }
 
 export const transformNodesMissingContent = (

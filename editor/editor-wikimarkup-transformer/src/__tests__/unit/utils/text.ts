@@ -14,38 +14,38 @@ describe('StringBuffer', () => {
 	});
 
 	it('should return buffer when converted to string', () => {
-		let buffer = new StringBuffer('abcd');
+		const buffer = new StringBuffer('abcd');
 		expect('' + buffer).toEqual('abcd');
 	});
 
 	it('should delete substrings', () => {
-		let buffer = new StringBuffer('abcd');
+		const buffer = new StringBuffer('abcd');
 		buffer.delete(1, 3);
 		expect(buffer.toString()).toEqual('ad');
 		expect(buffer.length()).toEqual(2);
 	});
 
 	it('should delete substrings starting at 0', () => {
-		let buffer = new StringBuffer('abcd');
+		const buffer = new StringBuffer('abcd');
 		buffer.delete(0, 3);
 		expect(buffer.toString()).toEqual('d');
 		expect(buffer.length()).toEqual(1);
 	});
 
 	it('should append strings', () => {
-		let buffer = new StringBuffer('abcd');
+		const buffer = new StringBuffer('abcd');
 		buffer.append('efg');
 		expect(buffer.toString()).toEqual('abcdefg');
 		expect(buffer.length()).toEqual(7);
 	});
 
 	it('should return substrings', () => {
-		let buffer = new StringBuffer('abcd');
+		const buffer = new StringBuffer('abcd');
 		expect(buffer.substring(1, 3)).toEqual('bc');
 	});
 
 	it('should delete single characters', () => {
-		let buffer = new StringBuffer('abcd');
+		const buffer = new StringBuffer('abcd');
 		buffer.deleteCharAt(1);
 		expect(buffer.toString()).toEqual('acd');
 	});

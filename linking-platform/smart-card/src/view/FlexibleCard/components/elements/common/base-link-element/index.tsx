@@ -178,9 +178,17 @@ const themeStyleMap = cssMap({
 
 export type BaseLinkElementProps = ElementProps & {
 	/**
+	 * Ref passed into the link <a> element
+	 */
+	anchorRef?: React.Ref<HTMLAnchorElement>;
+	/**
 	 * Determines whether the link should display tooltip on hover.
 	 */
 	hideTooltip?: boolean;
+	/**
+	 * The number of lines that the link text should spread over. Maximum of 2 lines.
+	 */
+	maxLines?: number;
 	/**
 	 * Determines the behaviour when the Link is clicked. By default is used to
 	 * propagate analytics.
@@ -191,9 +199,9 @@ export type BaseLinkElementProps = ElementProps & {
 	 */
 	onMouseDown?: React.MouseEventHandler;
 	/**
-	 * The number of lines that the link text should spread over. Maximum of 2 lines.
+	 * The href target behaviour of the link.
 	 */
-	maxLines?: number;
+	target?: AnchorTarget;
 	/**
 	 * The text to display. Overrides the default link text.
 	 */
@@ -206,14 +214,6 @@ export type BaseLinkElementProps = ElementProps & {
 	 * The url that the Smart Link should be based upon.
 	 */
 	url?: string;
-	/**
-	 * The href target behaviour of the link.
-	 */
-	target?: AnchorTarget;
-	/**
-	 * Ref passed into the link <a> element
-	 */
-	anchorRef?: React.Ref<HTMLAnchorElement>;
 };
 
 /**

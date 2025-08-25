@@ -45,13 +45,13 @@ const getPersonNameWithPrefix = (
 
 export type BaseAvatarItemProps = {
 	/**
-	 * The image to be used in an `@atlaskit/avatar - this should be a url to the image src
-	 */
-	src?: string;
-	/**
 	 * The name of the person in the avatar.
 	 */
 	name: string;
+	/**
+	 * The image to be used in an `@atlaskit/avatar - this should be a url to the image src
+	 */
+	src?: string;
 };
 
 export type BaseAvatarGroupElementProps = ElementProps & {
@@ -64,13 +64,13 @@ export type BaseAvatarGroupElementProps = ElementProps & {
 	 */
 	maxCount?: number;
 	/**
-	 * Shows a name prefix in the Avatar tooltip (Created by, Assigned To, Owned by)
-	 */
-	showNamePrefix?: boolean;
-	/**
 	 * Shows a default fallback avatar if no persons in the AvatarGroup.
 	 */
 	showFallbackAvatar?: boolean;
+	/**
+	 * Shows a name prefix in the Avatar tooltip (Created by, Assigned To, Owned by)
+	 */
+	showNamePrefix?: boolean;
 };
 
 /**

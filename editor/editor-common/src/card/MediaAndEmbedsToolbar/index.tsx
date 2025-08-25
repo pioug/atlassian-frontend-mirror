@@ -52,10 +52,10 @@ type WidthPluginType = NextEditorPlugin<'width', { sharedState: EditorContainerW
 type WidthPluginDependencyApi = PluginDependenciesAPI<WidthPluginType> | undefined;
 
 export type LayoutIcon = {
-	id?: string;
-	value: MediaSingleLayout;
 	icon: Icon;
+	id?: string;
 	keyboardShortcut?: Keymap;
+	value: MediaSingleLayout;
 };
 
 export type IconMap = Array<LayoutIcon | { value: 'separator' }>;
@@ -291,14 +291,14 @@ const mapIconsToToolbarItem = (
 	});
 
 type MapIconToDropdownOptionsProps = {
+	allowPixelResizing?: boolean;
+	analyticsApi: EditorAnalyticsAPI | undefined;
 	icons: LayoutIcon[];
-	layout: MediaSingleLayout;
 	intl: IntlShape;
+	isChangingLayoutDisabled?: boolean;
+	layout: MediaSingleLayout;
 	nodeType: NodeType;
 	widthPluginDependencyApi: WidthPluginDependencyApi;
-	analyticsApi: EditorAnalyticsAPI | undefined;
-	isChangingLayoutDisabled?: boolean;
-	allowPixelResizing?: boolean;
 };
 
 const mapIconsToDropdownOptions = ({

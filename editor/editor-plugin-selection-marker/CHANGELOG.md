@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection-marker
 
+## 3.0.8
+
+### Patch Changes
+
+- [`f0b0ea63f59bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f0b0ea63f59bc) -
+  [ux] ED-28803 Register Delete Button in block menu and add delete functionality and hover styles
+- Updated dependencies
+
 ## 3.0.7
 
 ### Patch Changes

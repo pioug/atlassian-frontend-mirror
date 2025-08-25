@@ -18,10 +18,10 @@ const CardViewSection = ({
 	CardComponent = CardSSR,
 	...props
 }: {
-	description?: string;
-	title: string;
-	fontSize?: React.CSSProperties['fontSize'];
 	CardComponent?: typeof Card | typeof CardSSR;
+	description?: string;
+	fontSize?: React.CSSProperties['fontSize'];
+	title: string;
 } & Pick<ProviderProps, 'client'> &
 	CardProps) => (
 	<React.Fragment>

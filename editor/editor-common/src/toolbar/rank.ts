@@ -87,6 +87,8 @@ import {
 	LAYOUT_BUTTON,
 	TABLE_BUTTON,
 	TABLE_SIZE_PICKER,
+	INSERT_GROUP,
+	INSERT_BUTTON,
 	TRACK_CHANGES_SECTION,
 	UNDO_BUTTON,
 	REDO_BUTTON,
@@ -240,6 +242,7 @@ export const INSERT_BLOCK_SECTION_RANK = {
 	[EMOJI_GROUP.key]: 400,
 	[LAYOUT_GROUP.key]: 500,
 	[TABLE_GROUP.key]: 600,
+	[INSERT_GROUP.key]: 700,
 };
 
 export const TASK_LIST_GROUP_RANK = {
@@ -265,6 +268,10 @@ export const LAYOUT_GROUP_RANK = {
 export const TABLE_GROUP_RANK = {
 	[TABLE_BUTTON.key]: 100,
 	[TABLE_SIZE_PICKER.key]: 200,
+};
+
+export const INSERT_GROUP_RANK = {
+	[INSERT_BUTTON.key]: 100,
 };
 
 /**

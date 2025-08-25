@@ -11,11 +11,6 @@ export type CardStore = {
 
 export interface LinkDetails {
 	/**
-	 * The URL of the link.
-	 * If the link has been updated and the URL has changed, this is the new URL.
-	 */
-	url: string;
-	/**
 	 * The display category of the link.
 	 * This is optional and should be set to `link` if the link in question is not
 	 * being displayed as a smart link, but instead as some other type of "link" (eg. a blue link in editor).
@@ -25,12 +20,17 @@ export interface LinkDetails {
 	 * We aren't using this yet.
 	 */
 	smartLinkId?: string;
+	/**
+	 * The URL of the link.
+	 * If the link has been updated and the URL has changed, this is the new URL.
+	 */
+	url: string;
 }
 
 export interface DatasourceDetails {
-	url?: string;
 	datasourceId: string;
 	parameters: object;
+	url?: string;
 }
 
 export interface LinkLifecycleEventCallback {
@@ -64,23 +64,23 @@ export interface SmartLinkLifecycleMethods {
 	 */
 	linkCreated: LinkLifecycleEventCallback;
 	/**
-	 * Fires an event to track the update of a link.
-	 * @param details The link data including the url
-	 * @param sourceEvent (RECOMMENDED) A source analytic event that represents the trigger for creating the link
-	 * @param attributes (OPTIONAL) Custom attributes to decorate the event with
-	 */
-	linkUpdated: LinkLifecycleEventCallback;
-	/**
 	 * Fires an event to track the deletion of a link.
 	 * @param details The link data including the url
 	 * @param sourceEvent (RECOMMENDED) A source analytic event that represents the trigger for deleting the link
 	 * @param attributes(OPTIONAL)  Custom attributes to decorate the event with
 	 */
 	linkDeleted: LinkLifecycleEventCallback;
+	/**
+	 * Fires an event to track the update of a link.
+	 * @param details The link data including the url
+	 * @param sourceEvent (RECOMMENDED) A source analytic event that represents the trigger for creating the link
+	 * @param attributes (OPTIONAL) Custom attributes to decorate the event with
+	 */
+	linkUpdated: LinkLifecycleEventCallback;
 }
 
 export interface DatasourceLifecycleMethods {
 	datasourceCreated: DatasourceLifecycleEventCallback;
-	datasourceUpdated: DatasourceLifecycleEventCallback;
 	datasourceDeleted: DatasourceLifecycleEventCallback;
+	datasourceUpdated: DatasourceLifecycleEventCallback;
 }

@@ -52,12 +52,12 @@ const menuTitleStyles = css({
 });
 
 interface ShowcaseMenuProps {
-	onViewTypeChange: (appearance: CardAppearance) => void;
-	onAuthFlowChange: (authFlow: CardAuthFlowOpts['authFlow']) => void;
-	onEnvironmentChange: (environment: EnvironmentsKeys) => void;
-	onEntityChange: (entities: string[]) => void;
-	entities: string[];
 	config: ExampleUIConfig;
+	entities: string[];
+	onAuthFlowChange: (authFlow: CardAuthFlowOpts['authFlow']) => void;
+	onEntityChange: (entities: string[]) => void;
+	onEnvironmentChange: (environment: EnvironmentsKeys) => void;
+	onViewTypeChange: (appearance: CardAppearance) => void;
 }
 
 const outerDivStyles = css({

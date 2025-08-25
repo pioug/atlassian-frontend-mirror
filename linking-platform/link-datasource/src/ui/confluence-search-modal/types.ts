@@ -19,21 +19,21 @@ export interface ConnectedConfluenceSearchConfigModalProps
 }
 
 export type ConfluenceSearchDatasourceParameters = {
-	cloudId: string;
-	searchString?: string;
-	entityTypes?: string[];
-	contentARIs?: string[];
-	spaceKeys?: string[];
-	contributorAccountIds?: string[];
-	labels?: string[];
 	ancestorPageIds?: string[];
+	cloudId: string;
 	containerStatus?: string[];
+	contentARIs?: string[];
 	contentStatuses?: string[];
+	contributorAccountIds?: string[];
 	creatorAccountIds?: string[];
+	entityTypes?: string[];
+	labels?: string[];
 	lastModified?: DateRangeType;
 	lastModifiedFrom?: string;
 	lastModifiedTo?: string;
+	searchString?: string;
 	shouldMatchTitleOnly?: boolean;
+	spaceKeys?: string[];
 };
 
 export type ConfluenceSearchDatasourceAdf = DatasourceAdf<ConfluenceSearchDatasourceParameters>;

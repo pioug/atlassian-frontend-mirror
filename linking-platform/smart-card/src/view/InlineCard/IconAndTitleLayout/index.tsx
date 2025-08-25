@@ -72,19 +72,19 @@ const styles = cssMap({
 });
 
 export interface IconAndTitleLayoutProps {
-	emoji?: React.ReactNode;
-	icon?: React.ReactNode;
-	title: React.ReactNode;
-	right?: React.ReactNode;
-	titleColor?: string;
-	titleTextColor?: string;
 	children?: React.ReactNode;
 	defaultIcon?: React.ReactNode;
-	testId?: string;
+	emoji?: React.ReactNode;
+	icon?: React.ReactNode;
 	link?: string;
+	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
+	right?: React.ReactNode;
 	rightSide?: React.ReactNode;
 	rightSideSpacer?: boolean;
-	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
+	testId?: string;
+	title: React.ReactNode;
+	titleColor?: string;
+	titleTextColor?: string;
 	type?: string[];
 }
 

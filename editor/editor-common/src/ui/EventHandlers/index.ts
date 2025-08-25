@@ -39,19 +39,19 @@ export interface MentionEventHandlers {
 
 /** Callbacks for mouse events in the renderer */
 export interface EventHandlers {
+	link?: {
+		onClick?: LinkEventClickHandler;
+	};
+	media?: {
+		onClick?: CardEventClickHandler;
+	};
+	mention?: MentionEventHandlers;
 	/** This fires when there is a click in the renderer that wasn’t handled by anything in the
 	 * renderer. Example usage of this callback: load the editor in place of the renderer when
 	 * renderer text is clicked.
 	 * See example at /examples.html?groupId=editor&packageId=editor-core&exampleId=full-page-click-to-edit
 	 *  */
 	onUnhandledClick?: OnUnhandledClickHandler;
-	mention?: MentionEventHandlers;
-	media?: {
-		onClick?: CardEventClickHandler;
-	};
-	link?: {
-		onClick?: LinkEventClickHandler;
-	};
 	smartCard?: {
 		onClick?: SmartCardEventClickHandler;
 	};

@@ -2,8 +2,8 @@ import PrimitiveSchemaNode from './primitive-schema-node';
 import type { Indexed } from './schema-node-with-validators';
 
 export interface StringValidators extends Indexed {
-	minLength?: number; // 6.6
 	maxLength?: number; // 6.7
+	minLength?: number; // 6.6
 	pattern?: string; // 6.8
 }
 

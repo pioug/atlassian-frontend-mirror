@@ -13,8 +13,8 @@ import SmartLinkClient from './smartLinkCustomClient';
 import { useCommonTableProps } from './useCommonTableProps';
 
 interface ConfluenceSearchTableViewProps {
-	parameters?: DatasourceParameters;
 	mockDatasourceFetchRequest?: boolean;
+	parameters?: DatasourceParameters;
 }
 
 const ConfluenceSearchTableView = ({ parameters }: ConfluenceSearchTableViewProps) => {

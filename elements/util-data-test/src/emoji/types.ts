@@ -5,14 +5,14 @@ export interface PromiseBuilder<R> {
 }
 
 export interface UploadDetail {
-	upload: EmojiUpload;
 	emoji: EmojiDescription;
+	upload: EmojiUpload;
 }
 
 export interface MockEmojiResourceConfig {
-	promiseBuilder?: PromiseBuilder<any>;
-	uploadSupported?: boolean;
-	uploadError?: string;
-	optimisticRendering?: boolean;
 	currentUser?: User;
+	optimisticRendering?: boolean;
+	promiseBuilder?: PromiseBuilder<any>;
+	uploadError?: string;
+	uploadSupported?: boolean;
 }

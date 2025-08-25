@@ -9,8 +9,8 @@ type Scheduler = {
 	postTask: (
 		cb: () => void,
 		options: {
-			priority: 'background';
 			delay: number;
+			priority: 'background';
 			// Ignored via go/ees005
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			signal: any;

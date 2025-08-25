@@ -5,14 +5,14 @@ import ChromeCollapsed from '../ChromeCollapsed';
 import { IntlProviderIfMissingWrapper } from '../IntlProviderIfMissingWrapper/IntlProviderIfMissingWrapper';
 
 export interface Props {
-	placeholder?: string;
 	assistiveLabel?: string;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	children?: any;
 	isExpanded?: boolean;
+	onExpand?: () => void;
 
 	onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
-	onExpand?: () => void;
+	placeholder?: string;
 }
 
 export type State = Object;

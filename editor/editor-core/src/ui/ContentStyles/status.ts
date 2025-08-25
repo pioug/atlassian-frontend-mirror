@@ -18,8 +18,7 @@ import { token } from '@atlaskit/tokens';
 const getVisualRefreshStatusStyles = () =>
 	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 	fg('platform-component-visual-refresh')
-		? expValEqualsNoExposure('platform_editor_find_and_replace_improvements', 'isEnabled', true) &&
-			fg('platform_editor_find_and_replace_improvements_1')
+		? expValEqualsNoExposure('platform_editor_find_and_replace_improvements', 'isEnabled', true)
 			? css({
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values,  @atlaskit/ui-styling-standard/no-imported-style-values
 					[`&.${akEditorSelectedNodeClassName}:not('.search-match-block') .${StatusSharedCssClassName.STATUS_LOZENGE} > span`]:
@@ -34,8 +33,7 @@ const getVisualRefreshStatusStyles = () =>
 						box-shadow: ${akEditorSelectedBoldBoxShadow};
 					}
 				`
-		: expValEqualsNoExposure('platform_editor_find_and_replace_improvements', 'isEnabled', true) &&
-			  fg('platform_editor_find_and_replace_improvements_1')
+		: expValEqualsNoExposure('platform_editor_find_and_replace_improvements', 'isEnabled', true)
 			? // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
 				css`
 					&.${akEditorSelectedNodeClassName}:not('.search-match-block')

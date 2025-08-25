@@ -15,14 +15,23 @@ import { hasUfoMarked } from '../../util/analytics/ufoExperiences';
 
 export interface BaseResourcedEmojiProps {
 	/**
+	 * Custom Fallback allows a custom element or string to be rendered if an emoji fails to be fetched or found.
+	 * By default it takes the fallback or shortName inside emojiId, but if this prop is set it override the internal
+	 * fallbacks
+	 * customFallback<Element | string> else emojiId.fallback else emojiId.shortName.
+	 * Defaults to `undefined`.
+	 */
+	customFallback?: JSX.Element | string;
+	/**
+	 * This should only be set when the emoji is being used in the Editor.
+	 * Currently when set -- this prevents any aria labels being added.
+	 * This is acceptable in Editor -- as it uses another technique to announce the emoji nodes.
+	 */
+	editorEmoji?: true;
+	/**
 	 * Emoji to display
 	 */
 	emojiId: EmojiId;
-	/**
-	 * Allows to show the tooltip.
-	 * Defaults to `false`.
-	 */
-	showTooltip?: boolean;
 	/**
 	 * Scales the emoji proportionally to provided hight.
 	 * Defaults to `undefined`.
@@ -36,14 +45,6 @@ export interface BaseResourcedEmojiProps {
 	 */
 	optimistic?: boolean;
 	/**
-	 * Custom Fallback allows a custom element or string to be rendered if an emoji fails to be fetched or found.
-	 * By default it takes the fallback or shortName inside emojiId, but if this prop is set it override the internal
-	 * fallbacks
-	 * customFallback<Element | string> else emojiId.fallback else emojiId.shortName.
-	 * Defaults to `undefined`.
-	 */
-	customFallback?: JSX.Element | string;
-	/**
 	 * Will attempt to render a highly condensed version of the emoji with an image url before showing the meta version.
 	 * All that is required for optimistic images to render is an emojiId, imageUrl and sizing props.
 	 * Defaults to `undefined`.
@@ -51,16 +52,15 @@ export interface BaseResourcedEmojiProps {
 	optimisticImageURL?: string;
 
 	/**
-	 * This should only be set when the emoji is being used in the Editor.
-	 * Currently when set -- this prevents any aria labels being added.
-	 * This is acceptable in Editor -- as it uses another technique to announce the emoji nodes.
-	 */
-	editorEmoji?: true;
-
-	/**
 	 * allows custom styling to the placeholder component while the emoji is loading.
 	 */
 	placeholderXcss?: StrictXCSSProp<'backgroundColor', never>;
+
+	/**
+	 * Allows to show the tooltip.
+	 * Defaults to `false`.
+	 */
+	showTooltip?: boolean;
 }
 
 export interface Props extends BaseResourcedEmojiProps {
@@ -70,14 +70,14 @@ export interface Props extends BaseResourcedEmojiProps {
 	emojiProvider: Promise<EmojiProvider>;
 
 	/**
-	 * A callback triggered on emoji load success
-	 */
-	onEmojiLoadSuccess?: EmojiLoadSuccessCallback;
-
-	/**
 	 * A callback triggered on emoji load failure
 	 */
 	onEmojiLoadFail?: EmojiLoadFailCallback;
+
+	/**
+	 * A callback triggered on emoji load success
+	 */
+	onEmojiLoadSuccess?: EmojiLoadSuccessCallback;
 }
 
 enum ResourcedEmojiComponentRenderStatesEnum {

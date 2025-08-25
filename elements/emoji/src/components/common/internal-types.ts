@@ -7,8 +7,8 @@ export interface EmojiContext {
 }
 
 interface FocusIndexes {
-	rowIndex: number;
 	columnIndex: number;
+	rowIndex: number;
 }
 
 export interface EmojiPickerListContextType {

@@ -7,9 +7,9 @@ import { transformNestedTablesIncomingDocument } from '@atlaskit/adf-utils/trans
 import { type ADFEntity } from '@atlaskit/adf-utils/types';
 
 export type TableData = {
-	text?: string | null;
-	style?: Style;
 	attrs?: Attrs;
+	style?: Style;
+	text?: string | null;
 };
 
 const className = createClassName('commonTable');

@@ -1,16 +1,28 @@
 # @atlaskit/jql-autocomplete
 
+## 2.0.2
+
+### Patch Changes
+
+- [`92b1368d9607d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/92b1368d9607d) -
+  Sorted type and interface props to improve Atlaskit docs
+
 ## 2.0.1
 
 ### Patch Changes
 
-- [#83116](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83116) [`8d4e99057fe0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d4e99057fe0) - Upgrade Typescript from `4.9.5` to `5.4.2`
+- [#83116](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83116)
+  [`8d4e99057fe0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d4e99057fe0) -
+  Upgrade Typescript from `4.9.5` to `5.4.2`
 
 ## 2.0.0
 
 ### Major Changes
 
-- [#39978](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39978) [`978cfcda881`](https://bitbucket.org/atlassian/atlassian-frontend/commits/978cfcda881) - Migrate `jql-autocomplete` package to the `@atlaskit` namespace. Any consumers should update their imports to `@atlaskit/jql-autocomplete`.
+- [#39978](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39978)
+  [`978cfcda881`](https://bitbucket.org/atlassian/atlassian-frontend/commits/978cfcda881) - Migrate
+  `jql-autocomplete` package to the `@atlaskit` namespace. Any consumers should update their imports
+  to `@atlaskit/jql-autocomplete`.
 
 ### Patch Changes
 
@@ -20,13 +32,17 @@
 
 ### Patch Changes
 
-- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162)
+  [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete
+  version.json
 
 ## 1.2.5
 
 ### Patch Changes
 
-- [#38404](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38404) [`046f9e95899`](https://bitbucket.org/atlassian/atlassian-frontend/commits/046f9e95899) - Use deep import for antlr4-c3 dependency to mitigate lack of tree-shaking.
+- [#38404](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38404)
+  [`046f9e95899`](https://bitbucket.org/atlassian/atlassian-frontend/commits/046f9e95899) - Use deep
+  import for antlr4-c3 dependency to mitigate lack of tree-shaking.
 
 ## 1.2.4
 
@@ -34,7 +50,9 @@
 
 ### Patch Changes
 
-- [#36690](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36690) [`7926dc060ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7926dc060ff) - Clamp antlr4ts version to 0.5.0-alpha.4
+- [#36690](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36690)
+  [`7926dc060ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7926dc060ff) - Clamp
+  antlr4ts version to 0.5.0-alpha.4
 
 ## 1.2.3
 
@@ -42,31 +60,42 @@
 
 ### Patch Changes
 
-- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793)
+  [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure
+  legacy types are published for TS 4.5-4.8
 
 ## 1.2.2
 
 ### Patch Changes
 
-- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649)
+  [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade
+  Typescript from `4.5.5` to `4.9.5`
 
 ## 1.2.1
 
 ### Patch Changes
 
-- [#33285](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33285) [`5fbee461cc7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5fbee461cc7) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+- [#33285](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33285)
+  [`5fbee461cc7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5fbee461cc7) - Internal
+  change to enforce token usage for spacing properties. There is no expected visual or behaviour
+  change.
 
 ## 1.2.0
 
 ### Minor Changes
 
-- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258)
+  [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip
+  minor dependency bump
 
 ## 1.1.9
 
 ### Patch Changes
 
-- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874)
+  [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade
+  Typescript from `4.3.5` to `4.5.5`
 
 ## 1.1.8
 
@@ -74,7 +103,9 @@
 
 ### Patch Changes
 
-- [#25232](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25232) [`5a4217aeed6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a4217aeed6) - Add polyfill for node assert and util modules.
+- [#25232](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25232)
+  [`5a4217aeed6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a4217aeed6) - Add
+  polyfill for node assert and util modules.
 
 ## 1.1.7
 
@@ -109,7 +140,8 @@
 ### Patch Changes
 
 - 52ad1a8: VULN-570232 - Bump lodash to 4.17.21
-- cb93263: We are fixing a scenario for handling string within JQL query which are in unclosed single or double quote.
+- cb93263: We are fixing a scenario for handling string within JQL query which are in unclosed
+  single or double quote.
 
 ## 1.1.3
 
@@ -131,24 +163,29 @@
 
 ### Patch Changes
 
-- 1d78273: Fix an issue where autocomplete rule context would not return isList=true right after a comma
+- 1d78273: Fix an issue where autocomplete rule context would not return isList=true right after a
+  comma
 
 ## 1.1.0
 
 ### Minor Changes
 
-- 3c957a1: Improve autocomplete rule context accuracy when both operator and operand rules are suggested
+- 3c957a1: Improve autocomplete rule context accuracy when both operator and operand rules are
+  suggested
 
 ### Patch Changes
 
-- 1b1139c: Remove RPAREN from default delimiter tokens, effectively disabling suggestions right after an RPAREN token
-- c3cef8a: Update autocomplete replacement position to be inclusive of the entire token underneath the caret for single token selections.
+- 1b1139c: Remove RPAREN from default delimiter tokens, effectively disabling suggestions right
+  after an RPAREN token
+- c3cef8a: Update autocomplete replacement position to be inclusive of the entire token underneath
+  the caret for single token selections.
 
 ## 1.0.0
 
 ### Major Changes
 
-- 94c794c: Bump all TypeScript packages to 1.0.0 for release to production. From this point on, semver will be used in all packages.
+- 94c794c: Bump all TypeScript packages to 1.0.0 for release to production. From this point on,
+  semver will be used in all packages.
 
 ### Patch Changes
 
@@ -212,7 +249,8 @@
 
 ### Minor Changes
 
-- ab235ac: Operator-specific parsing for terminal clauses. Consolidation of terminal clause and operator nodes in AST.
+- ab235ac: Operator-specific parsing for terminal clauses. Consolidation of terminal clause and
+  operator nodes in AST.
 
 ### Patch Changes
 
@@ -238,7 +276,8 @@
 
 - fcdedf6: General improvements and JQL function support for editor validation.
 - 0272b09: Add validation message for malformed field property ids.
-- 380062a: Update jql-autocomplete to extend a grammar agnostic base class and make autocomplete options configurable.
+- 380062a: Update jql-autocomplete to extend a grammar agnostic base class and make autocomplete
+  options configurable.
 - fdde5d1: Add clause type to field rule context. Pass clause type to onFields callback.
 
 ## 0.3.0
@@ -282,7 +321,8 @@
 
 ### Minor Changes
 
-- 5afdcbd: Introduce autocomplete unhandled rules and position autocomplete based on first suggestion replace position
+- 5afdcbd: Introduce autocomplete unhandled rules and position autocomplete based on first
+  suggestion replace position
 
 ### Patch Changes
 
@@ -330,7 +370,8 @@
 
 ### Patch Changes
 
-- 2e8d06e: Update `jql-autosuggest` to accept a selection range which impacts the matchedText and replacePosition for suggestions
+- 2e8d06e: Update `jql-autosuggest` to accept a selection range which impacts the matchedText and
+  replacePosition for suggestions
 - Updated dependencies [2e8d06e]
   - @atlassiansox/jql-grammar@0.0.5
 
@@ -338,7 +379,8 @@
 
 ### Patch Changes
 
-- 6f89567: Improve accuracy of autocomplete suggestions from `jql-autosuggest` package and include information for token replacement.
+- 6f89567: Improve accuracy of autocomplete suggestions from `jql-autosuggest` package and include
+  information for token replacement.
 - Updated dependencies [6f89567]
   - @atlassiansox/jql-grammar@0.0.4
 

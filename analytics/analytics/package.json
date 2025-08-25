@@ -36,15 +36,6 @@
 		"redux": "root:*",
 		"wait-for-expect": "root:*"
 	},
-	"af:exports": {
-		".": "./src/index.js",
-		"./AnalyticsDecorator": "./src/AnalyticsDecorator.js",
-		"./AnalyticsDelegate": "./src/AnalyticsDelegate.js",
-		"./AnalyticsListener": "./src/AnalyticsListener.js",
-		"./cleanProps": "./src/cleanProps.js",
-		"./matchEvent": "./src/matchEvent.js",
-		"./withAnalytics": "./src/withAnalytics.js"
-	},
 	"exports": {
 		".": "./src/index.js",
 		"./AnalyticsDecorator": "./src/AnalyticsDecorator.js",

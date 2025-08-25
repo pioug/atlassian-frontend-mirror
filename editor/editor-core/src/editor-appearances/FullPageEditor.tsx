@@ -31,9 +31,9 @@ export type FullPageEditorProps = Pick<
 	| 'sanitizePrivateContent'
 	| '__livePage'
 > & {
+	appearance: 'full-page' | 'full-width';
 	onChange?: () => void;
 	onEditorReady?: (editorActions: EditorActions) => void;
-	appearance: 'full-page' | 'full-width';
 };
 
 /**

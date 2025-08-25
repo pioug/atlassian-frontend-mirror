@@ -1,13 +1,11 @@
 import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 export interface AddArgs {
-	style: string | null;
 	content: PMNode[];
+	style: string | null;
 }
 
 export interface Builder {
-	type: string;
-
 	/**
 	 * Add a item to the builder
 	 * @param {AddCellArgs[]} items
@@ -19,20 +17,22 @@ export interface Builder {
 	 * @returns {PMNode}
 	 */
 	buildPMNode: () => PMNode;
+
+	type: string;
 }
 
 export interface ListItem {
+	children: List[];
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	content?: any[];
 	parent: List;
-	children: List[];
 }
 
 export interface List {
 	children: ListItem[];
-	type: ListType;
 	parent?: ListItem;
+	type: ListType;
 }
 
 export type ListType = 'bulletList' | 'orderedList';
@@ -40,8 +40,8 @@ export type ListType = 'bulletList' | 'orderedList';
 export type CellType = 'tableHeader' | 'tableCell';
 
 export interface TableCell {
-	type: CellType;
 	content: PMNode[];
+	type: CellType;
 }
 
 export interface TableRow {
@@ -53,8 +53,8 @@ export interface Table {
 }
 
 export interface AddCellArgs extends AddArgs {
-	style: string;
 	content: PMNode[];
+	style: string;
 }
 
 export interface ConversionMap {
@@ -62,33 +62,33 @@ export interface ConversionMap {
 }
 export interface MediaConversionMap {
 	[key: string]: {
-		// mapping between wiki's filename and media's ID, defaults to key
-		transform?: string;
 		// flag whether ADF media node should be converted to embedded !file! or non-embedded [^file], defaults to embedded
 		embed?: boolean;
+		// mapping between wiki's filename and media's ID, defaults to key
+		transform?: string;
 	};
 }
 export type TokenErrCallback = (err: Error, tokenType: string) => void;
 
 export interface Context {
-	readonly issueKeyRegex?: RegExp | undefined;
-	readonly tokenErrCallback?: TokenErrCallback;
 	readonly conversion?: {
 		readonly inlineCardConversion?: ConversionMap;
 		readonly mediaConversion?: MediaConversionMap;
 		mentionConversion?: ConversionMap;
+	};
+	readonly defaults?: {
+		readonly media?: {
+			// defaults to 183, no height will be emitted when null
+			height: number | null;
+			// defaults to 200, no width will be emitted when null
+			width: number | null;
+		};
 	};
 	readonly hydration?: {
 		readonly media?: {
 			targetCollectionId?: string;
 		};
 	};
-	readonly defaults?: {
-		readonly media?: {
-			// defaults to 200, no width will be emitted when null
-			width: number | null;
-			// defaults to 183, no height will be emitted when null
-			height: number | null;
-		};
-	};
+	readonly issueKeyRegex?: RegExp | undefined;
+	readonly tokenErrCallback?: TokenErrCallback;
 }

@@ -57,9 +57,9 @@ const extractAction = (
 	isPreviewPanelAvailable?: (params: { ari: string }) => boolean,
 	openPreviewPanel?: (params: {
 		ari: string;
-		url: string;
-		name: string;
 		iconUrl: string | undefined;
+		name: string;
+		url: string;
 	}) => void,
 ): LinkLozengeInvokeActions | undefined => {
 	const extensionKey = getExtensionKey(response);
@@ -127,9 +127,9 @@ const extractState = (
 	isPreviewPanelAvailable?: (params: { ari: string }) => boolean,
 	openPreviewPanel?: (params: {
 		ari: string;
-		url: string;
-		name: string;
 		iconUrl: string | undefined;
+		name: string;
+		url: string;
 	}) => void,
 ): LinkLozenge | undefined => {
 	if (!response || !response.data) {

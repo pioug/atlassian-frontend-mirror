@@ -2,7 +2,7 @@ import { type MessageDescriptor } from 'react-intl-next';
 
 import { messages } from '../../../../../../messages';
 
-type ModalContent = { modalTitle: MessageDescriptor; modalDescription: MessageDescriptor };
+type ModalContent = { modalDescription: MessageDescriptor; modalTitle: MessageDescriptor };
 type ModalContentMap = {
 	[key: string]: {
 		[key: string]: ModalContent;

@@ -1,5 +1,13 @@
 # @atlaskit/task-decision
 
+## 19.2.9
+
+### Patch Changes
+
+- [`0fdcb6f2f96fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0fdcb6f2f96fd) -
+  Sorted type and interface props to improve Atlaskit docs
+- Updated dependencies
+
 ## 19.2.8
 
 ### Patch Changes

@@ -16,10 +16,10 @@ import type { OnAnnotationClickPayload } from '@atlaskit/editor-common/types';
 import { useAnnotationManagerDispatch } from '../contexts/AnnotationManagerContext';
 
 type MarkElementProps = React.PropsWithChildren<{
-	id: AnnotationId;
 	annotationParentIds: AnnotationId[];
-	dataAttributes: AnnotationDataAttributes;
 	annotationType: AnnotationTypes;
+	dataAttributes: AnnotationDataAttributes;
+	id: AnnotationId;
 	useBlockLevel?: boolean;
 }>;
 

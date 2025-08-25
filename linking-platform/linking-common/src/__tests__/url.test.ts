@@ -1,7 +1,7 @@
 import { normalizeUrl } from '../url';
 
 describe('normalizeUrl', () => {
-	it.each<string | { input: string; expected: string | null }>([
+	it.each<string | { expected: string | null; input: string }>([
 		'https://google.com',
 		'https://google.com/some-path',
 		'https://google.com/some-path/index.html',

@@ -1,11 +1,11 @@
 export interface Document {
-	documentId: string;
-	objectId: string;
+	body: string;
 	containerId?: string;
 	createdBy: User;
+	documentId: string;
 	language?: string;
+	objectId: string;
 	title?: string;
-	body: string;
 }
 
 export type User = Object;

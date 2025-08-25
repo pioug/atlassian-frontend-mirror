@@ -6,8 +6,8 @@ import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
 import { BaseTextElement, type BaseTextElementProps, toFormattedTextProps } from '../common';
 
 export type OwnedByElementProps = BaseTextElementProps & {
-	textPrefix?: keyof Pick<typeof messages, 'owned_by' | 'owned_by_override'>;
 	onRender?: (hasData: boolean) => void;
+	textPrefix?: keyof Pick<typeof messages, 'owned_by' | 'owned_by_override'>;
 };
 
 const OwnedByElement = (props: OwnedByElementProps): JSX.Element | null => {

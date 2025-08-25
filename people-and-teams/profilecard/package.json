@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "24.6.0",
+	"version": "24.7.0",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -190,6 +190,9 @@
 			"type": "boolean"
 		},
 		"jfp_a11y_team_profile_card_actions_label": {
+			"type": "boolean"
+		},
+		"enable_absolute_positioning_profile_card": {
 			"type": "boolean"
 		}
 	},

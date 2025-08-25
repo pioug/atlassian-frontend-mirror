@@ -11,8 +11,8 @@ import { useDatasourceAnalyticsEvents } from '../analytics';
 import { issueLikeTableMessages } from '../ui/issue-like-table/messages';
 
 interface DatasourceTableFlagOptions {
-	url?: string;
 	isFetchAction?: boolean;
+	url?: string;
 }
 
 const getErrorReason = (status?: number) => {

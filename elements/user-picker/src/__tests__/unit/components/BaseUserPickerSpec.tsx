@@ -50,7 +50,7 @@ const mockIntl = { formatMessage: mockFormatMessage };
 jest.mock('react-intl-next', () => {
 	return {
 		...(jest.requireActual('react-intl-next') as any),
-		FormattedMessage: ({ defaultMessage, children }: { defaultMessage: string; children?: any }) =>
+		FormattedMessage: ({ defaultMessage, children }: { children?: any; defaultMessage: string }) =>
 			children ? children(defaultMessage) : <span>{defaultMessage}</span>,
 		injectIntl: (Node: any) => (props: any) => <Node {...props} intl={mockIntl} />,
 	};

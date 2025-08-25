@@ -31,9 +31,9 @@ import {
 } from '../src/presets/universal';
 
 type CreateExamplePresetConfig = {
-	props?: UniversalPresetProps;
 	featureFlags?: EditorProps['featureFlags'];
 	initialPluginConfiguration?: InitialPluginConfiguration;
+	props?: UniversalPresetProps;
 };
 
 const createExamplePreset = (config: CreateExamplePresetConfig) => () => {
@@ -56,10 +56,10 @@ const EditorWithNodeViewFallback = memo(
 	}: {
 		adf?: Object;
 		appearance: EditorAppearance;
-		onReady: () => void;
-		props?: UniversalPresetProps;
 		featureFlags?: EditorProps['featureFlags'];
 		initialPluginConfiguration?: InitialPluginConfiguration;
+		onReady: () => void;
+		props?: UniversalPresetProps;
 	}) => {
 		const onEditorReady = useCallback(
 			(editorActions: EditorActions) => {
@@ -116,13 +116,13 @@ const EditorWithRealNodeView = memo(
 		featureFlags,
 		initialPluginConfiguration,
 	}: {
-		appearance: EditorAppearance;
-		onReady: () => void;
-		onDocChange: (doc: PMNode) => void;
 		adf: Object | undefined;
-		props?: UniversalPresetProps;
+		appearance: EditorAppearance;
 		featureFlags?: EditorProps['featureFlags'];
 		initialPluginConfiguration?: InitialPluginConfiguration;
+		onDocChange: (doc: PMNode) => void;
+		onReady: () => void;
+		props?: UniversalPresetProps;
 	}) => {
 		const onEditorReady = useCallback(
 			(editorActions: EditorActions) => {
@@ -200,13 +200,13 @@ export const SSRSimulator = memo(
 		experiments,
 		initialPluginConfiguration,
 	}: {
-		name: string;
-		appearance: EditorAppearance;
 		adf: Object | undefined;
-		props?: UniversalPresetProps;
-		featureFlags?: EditorProps['featureFlags'];
+		appearance: EditorAppearance;
 		experiments?: Record<string, boolean>;
+		featureFlags?: EditorProps['featureFlags'];
 		initialPluginConfiguration?: InitialPluginConfiguration;
+		name: string;
+		props?: UniversalPresetProps;
 	}) => {
 		const [mockedReady, setMockedReady] = useState(false);
 		const [notMockedReady, setNotMockedReady] = useState(false);

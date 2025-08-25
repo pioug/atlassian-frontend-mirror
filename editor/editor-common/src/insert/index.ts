@@ -233,9 +233,9 @@ export const safeInsert = (content: InsertableContent, position?: number) => (tr
 };
 
 type __ReplaceStep = (ReplaceStep | ReplaceAroundStep) & {
+	slice: Slice;
 	// Properties `to` and `slice` are private attributes of ReplaceStep.
 	to: number;
-	slice: Slice;
 };
 
 const finaliseInsert = (tr: Transaction, nodeLength: number) => {
@@ -343,9 +343,9 @@ export const shouldSplitSelectedNodeOnNodeInsertion = ({
 	grandParentNodeType,
 	content,
 }: {
-	parentNodeType: NodeType;
-	grandParentNodeType: NodeType;
 	content: Node;
+	grandParentNodeType: NodeType;
+	parentNodeType: NodeType;
 }) => {
 	if (
 		parentNodeType.name === 'doc' ||

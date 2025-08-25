@@ -16,22 +16,22 @@ import type { IntlShape } from 'react-intl-next';
 import { tableCellMessages } from '../../messages';
 
 type CellProps = CellAttributes & {
+	ariaSort?: string;
 	children?: React.ReactNode;
-	onClick?: () => void;
 	className?: string;
 	colGroupWidth?: string;
 	offsetTop?: number;
-	ariaSort?: string;
+	onClick?: () => void;
 };
 const IgnoreSorting = ['LABEL', 'INPUT'];
 
 export type CellWithSortingProps = CellProps & {
-	isHeaderRow?: boolean;
 	allowColumnSorting?: boolean;
-	onSorting?: (columnIndex?: number, currentSortOrdered?: SortOrder) => void;
 	columnIndex?: number;
-	sortOrdered?: SortOrder;
 	fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
+	isHeaderRow?: boolean;
+	onSorting?: (columnIndex?: number, currentSortOrdered?: SortOrder) => void;
+	sortOrdered?: SortOrder;
 };
 
 const nextStatusOrder = (currentSortOrder?: SortOrder): SortOrder => {
@@ -103,8 +103,8 @@ const getStyle = ({
 }: {
 	background?: string;
 	colGroupWidth?: string;
-	offsetTop?: number;
 	colorMode: ReturnType<typeof useThemeObserver>['colorMode'];
+	offsetTop?: number;
 }): CSSProperties => {
 	const style: CSSProperties = {};
 	if (

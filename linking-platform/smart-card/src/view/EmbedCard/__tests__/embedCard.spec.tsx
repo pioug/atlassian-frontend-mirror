@@ -267,9 +267,9 @@ describe('EmbedCard view component', () => {
 			hideProviderName,
 			hasScopeOverrides,
 		}: {
-			image?: JsonLd.Primitives.Image;
-			hideProviderName?: boolean;
 			hasScopeOverrides?: boolean;
+			hideProviderName?: boolean;
+			image?: JsonLd.Primitives.Image;
 		} = {}): CardState => ({
 			status: 'unauthorized',
 			details: {

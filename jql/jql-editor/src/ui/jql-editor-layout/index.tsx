@@ -25,25 +25,25 @@ import {
 
 type Props = {
 	/**
-	 * React node to render within the footer.
-	 */
-	EditorFooterContent: ReactNode;
-	/**
 	 * React node to render within the editor controls group.
 	 */
 	EditorControlsContent: ReactNode;
+	/**
+	 * React node to render within the footer.
+	 */
+	EditorFooterContent: ReactNode;
 	/**
 	 * Flag to determine whether the editor view (or autocomplete dropdown) currently has focus.
 	 */
 	editorViewHasFocus: boolean;
 	/**
-	 * Flag to determine whether line numbers should be shown in the editor.
-	 */
-	lineNumbersVisible: boolean;
-	/**
 	 * Flag to determine if there were any JQL parse errors in the last submitted query.
 	 */
 	editorViewIsInvalid: boolean;
+	/**
+	 * Flag to determine whether line numbers should be shown in the editor.
+	 */
+	lineNumbersVisible: boolean;
 	/**
 	 * ID to assign to the main wrapper of the editor.
 	 */
@@ -53,6 +53,10 @@ type Props = {
 	 */
 	onEditorMainRef?: (editorMain: HTMLElement | null) => void;
 	/**
+	 * Callback when the editor view is blurred.
+	 */
+	onEditorViewBlur?: () => void;
+	/**
 	 * Ref callback to the editor view container element.
 	 */
 	onEditorViewContainerRef?: (editorViewContainer: HTMLElement | null) => void;
@@ -61,17 +65,13 @@ type Props = {
 	 */
 	onEditorViewContainerScroll?: (event: React.UIEvent<HTMLElement>) => void;
 	/**
-	 * Ref callback to the editor view element which the Prosemirror editor will be bound to.
-	 */
-	onEditorViewRef?: (editorView: HTMLElement | null) => void;
-	/**
-	 * Callback when the editor view is blurred.
-	 */
-	onEditorViewBlur?: () => void;
-	/**
 	 * Callback when the editor view is focused.
 	 */
 	onEditorViewFocus?: (event: FocusEvent<HTMLElement>) => void;
+	/**
+	 * Ref callback to the editor view element which the Prosemirror editor will be bound to.
+	 */
+	onEditorViewRef?: (editorView: HTMLElement | null) => void;
 	/**
 	 * Callback when the editor view receives a CSS transition end event.
 	 */
@@ -183,8 +183,8 @@ export const JQLEditorReadOnly = ({
 	isCompact,
 	...props
 }: ReadOnlyProps & {
-	isSearch?: boolean;
 	isCompact?: boolean;
+	isSearch?: boolean;
 }) => {
 	const editorTheme = useEditorTheme({ isSearch, isCompact });
 

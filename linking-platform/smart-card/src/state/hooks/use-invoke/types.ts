@@ -47,7 +47,7 @@ export type InvokeRequestWithCardDetails = InvokeRequest & {
  */
 export type InvokeActions = {
 	create?: InvokeRequest;
+	delete?: InvokeRequest;
 	read?: InvokeRequest;
 	update?: InvokeRequestWithCardDetails;
-	delete?: InvokeRequest;
 };

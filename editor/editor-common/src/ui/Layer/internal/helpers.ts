@@ -2,8 +2,8 @@ import { type Placement } from 'popper.js';
 
 type PositionMap = {
 	[key: string]: {
-		position: Placement;
 		animation: 'top' | 'bottom' | 'left' | 'right';
+		position: Placement;
 	};
 };
 

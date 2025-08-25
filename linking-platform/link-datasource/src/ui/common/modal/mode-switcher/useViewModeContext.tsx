@@ -4,8 +4,8 @@ import type { DisplayViewModes } from '../../../../common/types';
 
 interface ViewModeHookState {
 	currentViewMode: DisplayViewModes;
-	setCurrentViewMode: (selectedMode: DisplayViewModes) => void;
 	disableDisplayDropdown: boolean;
+	setCurrentViewMode: (selectedMode: DisplayViewModes) => void;
 }
 
 const ViewModeContext = createContext<ViewModeHookState | null>(null);
@@ -15,9 +15,9 @@ export const DatasourceViewModeProvider = ({
 	disableDisplayDropdown,
 	children,
 }: {
-	viewMode: DisplayViewModes;
-	disableDisplayDropdown: boolean;
 	children: React.ReactNode;
+	disableDisplayDropdown: boolean;
+	viewMode: DisplayViewModes;
 }) => {
 	const [currentViewMode, setCurrentViewMode] = useState<DisplayViewModes>(initialViewMode);
 

@@ -51,11 +51,11 @@ export function mockReactDomWarningGlobal(
  * Custom type for simulate the UFOExperience main methods
  */
 export interface FakeUFOInstance {
-	start: jest.Mock;
-	success: jest.Mock;
-	failure: jest.Mock;
 	abort: jest.Mock;
 	addMetadata: jest.Mock;
+	failure: jest.Mock;
+	start: jest.Mock;
+	success: jest.Mock;
 }
 
 /**

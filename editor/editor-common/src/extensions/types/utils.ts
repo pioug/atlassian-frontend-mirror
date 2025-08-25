@@ -8,18 +8,18 @@ import type {
 } from './extension-manifest';
 
 export type MenuItem = {
-	key: string;
-	extensionType: ExtensionType;
-	extensionKey: ExtensionKey;
-	title: string;
-	description?: string;
-	summary?: string;
-	documentationUrl?: string;
-	featured: boolean;
-	keywords: string[];
 	categories: string[];
+	description?: string;
+	documentationUrl?: string;
+	extensionKey: ExtensionKey;
+	extensionType: ExtensionType;
+	featured: boolean;
 	icon: Icon;
+	key: string;
+	keywords: string[];
 	node: ADFEntity | ExtensionModuleActionHandler;
+	summary?: string;
+	title: string;
 };
 
 export type MenuItemMap = { [key: string]: MenuItem };

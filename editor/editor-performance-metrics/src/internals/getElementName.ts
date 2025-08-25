@@ -1,9 +1,9 @@
 export type SelectorConfig = {
-	id: boolean;
-	testId: boolean;
-	role: boolean;
 	className: boolean;
 	dataVC?: boolean;
+	id: boolean;
+	role: boolean;
+	testId: boolean;
 };
 
 const nameCache: WeakMap<HTMLElement, string> = new WeakMap();

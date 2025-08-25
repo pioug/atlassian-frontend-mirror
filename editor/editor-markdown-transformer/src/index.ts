@@ -23,8 +23,8 @@ function filterMdToPmSchemaMapping(schema: Schema, map: any) {
 }
 
 interface SchemaMapping {
-	nodes: { [key: string]: string | string[] };
 	marks: { [key: string]: string | string[] };
+	nodes: { [key: string]: string | string[] };
 }
 
 const pmSchemaToMdMapping: SchemaMapping = {

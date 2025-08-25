@@ -5,14 +5,14 @@ import { type Appearance } from '@atlaskit/button/types';
 
 export type Props = {
 	appearance?: Appearance;
+	'aria-haspopup'?: boolean;
+	autoFocus?: boolean;
 	iconBefore?: React.ReactChild;
+	isDisabled?: boolean;
 	isLoading?: boolean;
 	isSelected?: boolean;
-	isDisabled?: boolean;
 	onClick: (e: React.MouseEvent<HTMLElement>) => void;
 	text?: React.ReactNode;
-	autoFocus?: boolean;
-	'aria-haspopup'?: boolean;
 };
 
 export const ShareButton = React.forwardRef<HTMLElement, Props>(

@@ -4,9 +4,9 @@ import { mergeTextNodes, isText, isTextWrapper, isEmojiDoc } from '../../../../r
 import { grinEmoji } from '@atlaskit/util-data-test/emoji-samples';
 
 type EmojiAttrs = {
+	fallback?: string;
 	id: string;
 	shortName: string;
-	fallback?: string;
 	text?: string;
 };
 

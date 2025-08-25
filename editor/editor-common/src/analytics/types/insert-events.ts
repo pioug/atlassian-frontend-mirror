@@ -97,9 +97,9 @@ type InsertTableAEP = InsertAEP<
 			| INPUT_METHOD.FORMATTING
 			| INPUT_METHOD.PICKER
 			| INPUT_METHOD.SHORTCUT;
-		totalRowCount?: number;
-		totalColumnCount?: number;
 		localId?: string;
+		totalColumnCount?: number;
+		totalRowCount?: number;
 	},
 	undefined
 >;
@@ -115,19 +115,19 @@ type InsertExpandAEP = InsertAEP<
 type InsertActionDecisionAEP = InsertAEP<
 	ACTION_SUBJECT_ID.DECISION | ACTION_SUBJECT_ID.ACTION,
 	{
+		containerAri?: string;
 		inputMethod:
 			| INPUT_METHOD.QUICK_INSERT
 			| INPUT_METHOD.TOOLBAR
 			| INPUT_METHOD.INSERT_MENU
 			| INPUT_METHOD.FORMATTING
 			| INPUT_METHOD.KEYBOARD;
-		containerAri?: string;
-		objectAri?: string;
-		localId: string;
 		listLocalId: string;
-		userContext?: USER_CONTEXT.EDIT | USER_CONTEXT.NEW;
-		position: number;
 		listSize: number;
+		localId: string;
+		objectAri?: string;
+		position: number;
+		userContext?: USER_CONTEXT.EDIT | USER_CONTEXT.NEW;
 	},
 	undefined
 >;
@@ -163,10 +163,10 @@ export type InsertMediaVia =
 type InsertMediaSingleAEP = InsertAEP<
 	ACTION_SUBJECT_ID.MEDIA,
 	{
-		inputMethod: InputMethodInsertMedia;
 		fileExtension?: string;
-		type: ACTION_SUBJECT_ID.MEDIA_SINGLE | ACTION_SUBJECT_ID.MEDIA_GROUP;
+		inputMethod: InputMethodInsertMedia;
 		insertMediaVia?: InsertMediaVia;
+		type: ACTION_SUBJECT_ID.MEDIA_SINGLE | ACTION_SUBJECT_ID.MEDIA_GROUP;
 	},
 	undefined
 >;
@@ -174,10 +174,10 @@ type InsertMediaSingleAEP = InsertAEP<
 type InsertMediaGroupAEP = InsertAEP<
 	ACTION_SUBJECT_ID.MEDIA,
 	{
-		inputMethod?: InputMethodInsertMedia;
 		fileExtension?: string;
-		type: ACTION_SUBJECT_ID.MEDIA_SINGLE | ACTION_SUBJECT_ID.MEDIA_GROUP;
+		inputMethod?: InputMethodInsertMedia;
 		insertMediaVia?: InsertMediaVia;
+		type: ACTION_SUBJECT_ID.MEDIA_SINGLE | ACTION_SUBJECT_ID.MEDIA_GROUP;
 	},
 	undefined
 >;
@@ -185,10 +185,10 @@ type InsertMediaGroupAEP = InsertAEP<
 type InsertMediaInlineAEP = InsertAEP<
 	ACTION_SUBJECT_ID.MEDIA,
 	{
-		inputMethod?: InputMethodInsertMedia;
 		fileExtension?: string;
-		type: ACTION_SUBJECT_ID.MEDIA_INLINE;
+		inputMethod?: InputMethodInsertMedia;
 		insertMediaVia?: InsertMediaVia;
+		type: ACTION_SUBJECT_ID.MEDIA_INLINE;
 	},
 	undefined
 >;
@@ -203,8 +203,8 @@ export type InputMethodInsertLink =
 type InsertLinkAEP = InsertAEP<
 	ACTION_SUBJECT_ID.LINK,
 	{
-		inputMethod: InputMethodInsertLink;
 		fromCurrentDomain: boolean;
+		inputMethod: InputMethodInsertLink;
 	},
 	{
 		linkDomain: string;
@@ -214,7 +214,6 @@ type InsertLinkAEP = InsertAEP<
 type InsertLinkPreviewAEP = InsertAEP<
 	ACTION_SUBJECT_ID.LINK_PREVIEW,
 	{
-		status: LINK_STATUS.RESOLVED | LINK_STATUS.UNRESOLVED;
 		representation?:
 			| LINK_REPRESENTATION.TEXT
 			| LINK_REPRESENTATION.INLINE_CARD
@@ -235,6 +234,7 @@ type InsertLinkPreviewAEP = InsertAEP<
 			| LINK_RESOURCE.YOUTUBE
 			| LINK_RESOURCE.TWITTER
 			| LINK_RESOURCE.OTHER;
+		status: LINK_STATUS.RESOLVED | LINK_STATUS.UNRESOLVED;
 	},
 	undefined
 >;
@@ -251,6 +251,8 @@ type InsertMediaLinkAEP = InsertAEP<
 type InsertLayoutAEP = InsertAEP<
 	ACTION_SUBJECT_ID.LAYOUT,
 	{
+		columnCount?: number;
+		hasSelectedMultipleNodes?: boolean;
 		inputMethod:
 			| INPUT_METHOD.TOOLBAR
 			| INPUT_METHOD.INSERT_MENU
@@ -259,8 +261,6 @@ type InsertLayoutAEP = InsertAEP<
 		// For DRAG_AND_DROP inputMethod, track distinctive types of source nodes that are dragged to create layout
 		// and whether there are multiple nodes
 		nodeTypes?: string;
-		hasSelectedMultipleNodes?: boolean;
-		columnCount?: number;
 	},
 	undefined
 >;
@@ -280,10 +280,10 @@ export type InsertDateAEP = InsertAEP<
 type InsertExtensionAEP = InsertAEP<
 	ACTION_SUBJECT_ID.EXTENSION,
 	{
-		extensionType: string;
 		extensionKey: string;
-		key: string;
+		extensionType: string;
 		inputMethod: INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.TOOLBAR;
+		key: string;
 	},
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -293,25 +293,25 @@ type InsertExtensionAEP = InsertAEP<
 type InsertNodeViaExtensionAPIAEP = InsertAEP<
 	undefined,
 	{
-		nodeType: string;
-		inputMethod: INPUT_METHOD.EXTENSION_API;
-
-		// referentiality specific info
-		hasReferentiality: boolean;
-		nodeTypesReferenced?: string[];
-		// /referentiality
-
-		layout?: ExtensionLayout;
-
-		// if nodeType === extension
-		// eg. ${manifest.type} - com.atlassian.ecosystem
-		extensionType?: string;
 		/**
 		 * extensionkey follows this format:
 		 * ${manifest.key}:${manifest.modules.nodes.name}
 		 * e.g: 'awesome:item', 'awesome:default', 'awesome:list'
 		 */
 		extensionKey?: string;
+		// if nodeType === extension
+		// eg. ${manifest.type} - com.atlassian.ecosystem
+		extensionType?: string;
+
+		// referentiality specific info
+		hasReferentiality: boolean;
+		inputMethod: INPUT_METHOD.EXTENSION_API;
+		// /referentiality
+
+		layout?: ExtensionLayout;
+
+		nodeType: string;
+		nodeTypesReferenced?: string[];
 		// /extension
 	},
 	undefined
@@ -330,8 +330,8 @@ type FailedToInsertMediaPayload = OperationalAEP<
 	ACTION_SUBJECT.DOCUMENT,
 	ACTION_SUBJECT_ID.MEDIA_INLINE | ACTION_SUBJECT_ID.MEDIA_SINGLE | ACTION_SUBJECT_ID.MEDIA_GROUP,
 	{
-		inputMethod?: InputMethodInsertMedia;
 		fileExtension?: string;
+		inputMethod?: InputMethodInsertMedia;
 		insertMediaVia?: InsertMediaVia;
 		reason?: string;
 	}

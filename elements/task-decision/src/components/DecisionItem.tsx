@@ -30,12 +30,12 @@ const iconStylesWithPlaceholder = css({
 });
 
 export interface Props {
+	appearance?: Appearance;
 	children?: any;
 	contentRef?: ContentRef;
+	dataAttributes?: { [key: string]: string | number };
 	placeholder?: string;
 	showPlaceholder?: boolean;
-	appearance?: Appearance;
-	dataAttributes?: { [key: string]: string | number };
 }
 
 const DecisionItem = ({

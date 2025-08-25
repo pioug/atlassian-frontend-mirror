@@ -1,5 +1,21 @@
 # @atlassian/navigation-system
 
+## 1.0.0
+
+### Major Changes
+
+- [`9fb179b645f2d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9fb179b645f2d) -
+  This package is now in beta and is no longer considered experimental. We will be making iterative
+  improvements until GA.
+
+  This release contains no changes whatsoever.
+
+### Patch Changes
+
+- [`3136f686a1929`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3136f686a1929) -
+  Adding internal comments to help improve clarity.
+- Updated dependencies
+
 ## 0.183.0
 
 ### Minor Changes

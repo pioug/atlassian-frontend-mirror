@@ -6,49 +6,49 @@ import type { Position } from '../types';
 export type RangeType = 'selection' | 'hover' | null;
 
 interface AnnotationRangeStateContext {
+	hoverDraftDocumentPosition: Position | null;
+
+	hoverDraftRange: Range | null;
+
 	/**
 	 * This range represents the selection that the user has made before they intend to save an annotation
 	 */
 	range: Range | null;
-
 	/**
-	 * This represents the type of range that is currently set on the range property, ie, whether the range is a hover or selection.
+	 * When a selection or hover is promoted to a draft, we need to store the document position of the selection or hover.
+	 * This is only set once on promotion, the position should not change while the draft is open.
 	 */
-	type: RangeType;
+	selectionDraftDocumentPosition: Position | null;
 
 	/**
 	 * This range represents the "pre-committed" placeholder range that the user will eventually save as an annotation
 	 * If the user does not set allowDraftMode, this will be ignored as it only is set when we call applyAnnotationDraftAt()
 	 */
 	selectionDraftRange: Range | null;
-	hoverDraftRange: Range | null;
-
 	/**
-	 * When a selection or hover is promoted to a draft, we need to store the document position of the selection or hover.
-	 * This is only set once on promotion, the position should not change while the draft is open.
+	 * This represents the type of range that is currently set on the range property, ie, whether the range is a hover or selection.
 	 */
-	selectionDraftDocumentPosition: Position | null;
-	hoverDraftDocumentPosition: Position | null;
+	type: RangeType;
 }
 interface AnnotationRangeDispatchContext {
-	clearSelectionRange: () => void;
-	clearHoverRange: () => void;
-	setSelectionRange: (range: Range) => void;
-	setHoverTarget?: (target: HTMLElement) => void;
-	promoteSelectionToDraft: (position: Position | null) => void;
-	promoteHoverToDraft: (position: Position | null) => void;
-	clearSelectionDraft: () => void;
 	clearHoverDraft: () => void;
+	clearHoverRange: () => void;
+	clearSelectionDraft: () => void;
+	clearSelectionRange: () => void;
+	promoteHoverToDraft: (position: Position | null) => void;
+	promoteSelectionToDraft: (position: Position | null) => void;
+	setHoverTarget?: (target: HTMLElement) => void;
+	setSelectionRange: (range: Range) => void;
 }
 
 type State = {
-	type: RangeType;
-	selectionRange: Range | null;
-	hoverRange: Range | null;
-	selectionDraftRange: Range | null;
-	hoverDraftRange: Range | null;
-	selectionDraftDocumentPosition: Position | null;
 	hoverDraftDocumentPosition: Position | null;
+	hoverDraftRange: Range | null;
+	hoverRange: Range | null;
+	selectionDraftDocumentPosition: Position | null;
+	selectionDraftRange: Range | null;
+	selectionRange: Range | null;
+	type: RangeType;
 };
 
 const initialState: State = {
@@ -64,10 +64,10 @@ const initialState: State = {
 type Action =
 	| { type: 'clearSelection' }
 	| { type: 'clearHover' }
-	| { type: 'setSelection'; range: Range }
-	| { type: 'setHover'; range: Range }
-	| { type: 'promoteSelectionToDraft'; position: Position | null }
-	| { type: 'promoteHoverToDraft'; position: Position | null }
+	| { range: Range; type: 'setSelection' }
+	| { range: Range; type: 'setHover' }
+	| { position: Position | null; type: 'promoteSelectionToDraft' }
+	| { position: Position | null; type: 'promoteHoverToDraft' }
 	| { type: 'clearSelectionDraft' }
 	| { type: 'clearHoverDraft' };
 
@@ -165,8 +165,8 @@ export const AnnotationRangeProviderInner = ({
 	children,
 	allowCommentsOnMedia,
 }: {
-	children?: ReactNode;
 	allowCommentsOnMedia?: boolean;
+	children?: ReactNode;
 }) => {
 	const [
 		{
@@ -276,8 +276,8 @@ export const AnnotationRangeProvider = ({
 	allowCommentsOnMedia,
 	isNestedRender,
 }: {
-	children?: ReactNode;
 	allowCommentsOnMedia?: boolean;
+	children?: ReactNode;
 	isNestedRender?: boolean;
 }) => {
 	/*

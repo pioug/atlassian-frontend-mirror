@@ -84,8 +84,8 @@ describe('RelatedLinksModal', () => {
 		client = mockClient,
 	}: {
 		ari: string;
-		client?: CardClient;
 		baseUriWithNoTrailingSlash?: string;
+		client?: CardClient;
 	}) =>
 		renderWithIntl(
 			<AnalyticsListener onEvent={onEvent} channel={ANALYTICS_CHANNEL}>

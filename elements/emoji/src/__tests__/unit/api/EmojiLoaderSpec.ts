@@ -19,11 +19,11 @@ const header = (code: string | number): SecurityOptions => ({
 type MockFetchResponse = Array<
 	| string
 	| {
-			headers: any;
 			credentials: string;
-			request: any;
+			headers: any;
 			identifier: string;
 			isUnmatched: any;
+			request: any;
 	  }
 >;
 

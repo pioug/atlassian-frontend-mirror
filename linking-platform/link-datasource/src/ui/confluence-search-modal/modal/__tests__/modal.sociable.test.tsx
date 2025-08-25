@@ -104,9 +104,9 @@ describe('ConfluenceSearchConfigModal', () => {
 			spaceKeys,
 			entityTypes,
 		}: {
+			entityTypes?: string[];
 			searchString?: string;
 			spaceKeys?: string[];
-			entityTypes?: string[];
 		},
 		pages: { id: string; title: string }[],
 	) => {

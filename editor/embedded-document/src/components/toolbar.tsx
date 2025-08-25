@@ -18,7 +18,7 @@ const Toolbar = styled.div({
 
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default (props: { mode: Mode; editorActions?: any }) => {
+export default (props: { editorActions?: any; mode: Mode }) => {
 	const { mode, editorActions } = props;
 
 	return (

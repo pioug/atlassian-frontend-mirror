@@ -9,6 +9,7 @@ import {
 } from '../create-experimental-interaction-metrics-payload';
 import { setupHiddenTimingCapture } from '../hidden-timing';
 import {
+	interactionExtraMetrics,
 	type InteractionMetrics,
 	postInteractionLog,
 	sinkInteractionHandler,
@@ -137,6 +138,30 @@ function sinkPostInteractionLog(
 	});
 }
 
+function sinkInteractionExtraMetrics(
+	instance: GenericAnalyticWebClientInstance,
+	createInteractionExtraLogPayload: (interactionId: string, interaction: InteractionMetrics) => any,
+) {
+	interactionExtraMetrics.sinkHandler((interactionId: string, interaction: InteractionMetrics) => {
+		scheduleIdleCallback(async () => {
+			const payload = await createInteractionExtraLogPayload(interactionId, interaction);
+			if (payload) {
+				// NOTE: This API is used by the UFO DevTool Chrome Extension and also by Criterion
+				// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+				if (fg('enable_ufo_devtools_api_for_extra_events')) {
+					const devToolObserver = (globalThis as unknown as WindowWithUfoDevToolExtension)
+						.__ufo_devtool_onUfoPayload;
+
+					if (typeof devToolObserver === 'function') {
+						devToolObserver?.(payload);
+					}
+				}
+				instance.sendOperationalEvent(payload);
+			}
+		});
+	});
+}
+
 export function init(
 	analyticsWebClientAsync:
 		| Promise<GenericAnalyticWebClientPromise>
@@ -167,6 +192,10 @@ export function init(
 		if (config?.experimentalInteractionMetrics?.enabled) {
 			experimentalVC.initialize(vcOptions).start({ startTime: 0 });
 		}
+
+		if (fg('platform_ufo_enable_ttai_with_3p')) {
+			interactionExtraMetrics.initializeVCObserver(vcOptions);
+		}
 	}
 
 	setupHiddenTimingCapture();
@@ -189,29 +218,54 @@ export function init(
 		import(
 			/* webpackChunkName: "create-post-interaction-log-payload" */ '../create-post-interaction-log-payload'
 		),
-	]).then(([awc, payloadPackage, createPostInteractionLogPayloadPackage]) => {
-		if ((awc as GenericAnalyticWebClientPromise).getAnalyticsWebClientPromise) {
-			(awc as GenericAnalyticWebClientPromise).getAnalyticsWebClientPromise().then((client) => {
-				const instance = client.getInstance();
-				sinkInteraction(instance, payloadPackage);
+		import(
+			/* webpackChunkName: "create-interaction-extra-metrics-payload" */ '../create-interaction-extra-metrics-payload'
+		),
+	]).then(
+		([
+			awc,
+			payloadPackage,
+			createPostInteractionLogPayloadPackage,
+			createInteractionExtraMetricsPayloadPackage,
+		]) => {
+			if ((awc as GenericAnalyticWebClientPromise).getAnalyticsWebClientPromise) {
+				(awc as GenericAnalyticWebClientPromise).getAnalyticsWebClientPromise().then((client) => {
+					const instance = client.getInstance();
+					sinkInteraction(instance, payloadPackage);
+					if (config?.experimentalInteractionMetrics?.enabled) {
+						sinkExperimentalInteractionMetrics(instance, payloadPackage);
+					}
+					if (config.postInteractionLog?.enabled) {
+						sinkPostInteractionLog(instance, createPostInteractionLogPayloadPackage.default);
+					}
+					if (fg('platform_ufo_enable_ttai_with_3p')) {
+						sinkInteractionExtraMetrics(
+							instance,
+							createInteractionExtraMetricsPayloadPackage.default,
+						);
+					}
+				});
+			} else if ((awc as GenericAnalyticWebClientInstance).sendOperationalEvent) {
+				sinkInteraction(awc as GenericAnalyticWebClientInstance, payloadPackage);
 				if (config?.experimentalInteractionMetrics?.enabled) {
-					sinkExperimentalInteractionMetrics(instance, payloadPackage);
+					sinkExperimentalInteractionMetrics(
+						awc as GenericAnalyticWebClientInstance,
+						payloadPackage,
+					);
 				}
 				if (config.postInteractionLog?.enabled) {
-					sinkPostInteractionLog(instance, createPostInteractionLogPayloadPackage.default);
+					sinkPostInteractionLog(
+						awc as GenericAnalyticWebClientInstance,
+						createPostInteractionLogPayloadPackage.default,
+					);
 				}
-			});
-		} else if ((awc as GenericAnalyticWebClientInstance).sendOperationalEvent) {
-			sinkInteraction(awc as GenericAnalyticWebClientInstance, payloadPackage);
-			if (config?.experimentalInteractionMetrics?.enabled) {
-				sinkExperimentalInteractionMetrics(awc as GenericAnalyticWebClientInstance, payloadPackage);
+				if (fg('platform_ufo_enable_ttai_with_3p')) {
+					sinkInteractionExtraMetrics(
+						awc as GenericAnalyticWebClientInstance,
+						createInteractionExtraMetricsPayloadPackage.default,
+					);
+				}
 			}
-			if (config.postInteractionLog?.enabled) {
-				sinkPostInteractionLog(
-					awc as GenericAnalyticWebClientInstance,
-					createPostInteractionLogPayloadPackage.default,
-				);
-			}
-		}
-	});
+		},
+	);
 }

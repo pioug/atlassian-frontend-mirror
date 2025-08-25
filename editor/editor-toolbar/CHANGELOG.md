@@ -1,5 +1,15 @@
 # @atlaskit/editor-toolbar
 
+## 0.3.7
+
+### Patch Changes
+
+- [`f0b0ea63f59bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f0b0ea63f59bc) -
+  [ux] ED-28803 Register Delete Button in block menu and add delete functionality and hover styles
+- [`0fdcb6f2f96fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0fdcb6f2f96fd) -
+  Sorted type and interface props to improve Atlaskit docs
+- Updated dependencies
+
 ## 0.3.6
 
 ### Patch Changes

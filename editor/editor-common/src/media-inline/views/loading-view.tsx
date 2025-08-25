@@ -12,10 +12,10 @@ import { ICON_SIZE_THRESOLD } from './constants';
 import { Frame } from './frame';
 
 type Props = {
-	title?: string;
-	testId?: string;
 	/** Container height */
 	height?: number;
+	testId?: string;
+	title?: string;
 };
 
 export const InlineImageCardLoadingView = ({

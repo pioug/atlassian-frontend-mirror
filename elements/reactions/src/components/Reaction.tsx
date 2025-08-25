@@ -61,41 +61,17 @@ export const RENDER_REACTION_TESTID = 'render_reaction_wrapper';
 
 export interface ReactionProps {
 	/**
-	 * Data for the reaction
+	 * Optional prop for enabling the Reactions Dialog
 	 */
-	reaction: ReactionSummary;
+	allowUserDialog?: boolean;
 	/**
 	 * Provider for loading emojis
 	 */
 	emojiProvider: Promise<EmojiProvider>;
 	/**
-	 * event handler when the emoji button is clicked
-	 */
-	onClick: ReactionClick;
-	/**
-	 * Optional event when the mouse cursor hovers over the reaction
-	 */
-	onMouseEnter?: ReactionMouseEnter;
-	/**
-	 * Optional event when focused the reaction
-	 */
-	onFocused?: ReactionFocused;
-	/**
 	 * Show custom animation or render as standard without animation (defaults to false)
 	 */
 	flash?: boolean;
-	/**
-	 * Show a floating emoji particle effect (usually in response to a new reaction) (defaults to false)
-	 */
-	showParticleEffect?: boolean;
-	/**
-	 * Optional prop for using an opaque button background instead of a transparent background
-	 */
-	showOpaqueBackground?: boolean;
-	/**
-	 * Optional prop for enabling the Reactions Dialog
-	 */
-	allowUserDialog?: boolean;
 	/**
 	 * Optional function when the user wants to open the Reactions Dialog
 	 */
@@ -104,6 +80,30 @@ export interface ReactionProps {
 	 * Optional prop for controlling if the reactions component is view only, disabling adding reactions
 	 */
 	isViewOnly?: boolean;
+	/**
+	 * event handler when the emoji button is clicked
+	 */
+	onClick: ReactionClick;
+	/**
+	 * Optional event when focused the reaction
+	 */
+	onFocused?: ReactionFocused;
+	/**
+	 * Optional event when the mouse cursor hovers over the reaction
+	 */
+	onMouseEnter?: ReactionMouseEnter;
+	/**
+	 * Data for the reaction
+	 */
+	reaction: ReactionSummary;
+	/**
+	 * Optional prop for using an opaque button background instead of a transparent background
+	 */
+	showOpaqueBackground?: boolean;
+	/**
+	 * Show a floating emoji particle effect (usually in response to a new reaction) (defaults to false)
+	 */
+	showParticleEffect?: boolean;
 	/**
 	 * Optional prop for controlling if the reaction displayed is a default one and should not have a border
 	 */

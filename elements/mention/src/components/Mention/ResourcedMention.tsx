@@ -10,15 +10,15 @@ import Mention, { UNKNOWN_USER_ID } from './';
 import debug from '../../util/logger';
 
 export interface Props {
-	id: string;
-	text: string;
 	accessLevel?: string;
+	id: string;
 	localId?: string;
 	mentionProvider?: Promise<MentionProvider>;
 	onClick?: MentionEventHandler;
 	onMouseEnter?: MentionEventHandler;
 	onMouseLeave?: MentionEventHandler;
 	ssrPlaceholderId?: string;
+	text: string;
 }
 
 export interface State {

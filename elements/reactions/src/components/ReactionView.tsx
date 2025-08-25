@@ -63,13 +63,13 @@ const styles = cssMap({
 
 export interface ReactionViewProps {
 	/**
-	 * Selected reaction to get user data from
-	 */
-	reaction: ReactionSummary;
-	/**
 	 * Optional ProfileWrapper component to show profile card on hover
 	 */
 	ProfileCardWrapper?: ProfileCardWrapper;
+	/**
+	 * Selected reaction to get user data from
+	 */
+	reaction: ReactionSummary;
 }
 
 export const ReactionView = ({ reaction, ProfileCardWrapper }: ReactionViewProps) => {

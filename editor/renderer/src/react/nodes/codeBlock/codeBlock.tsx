@@ -16,12 +16,12 @@ import { codeBidiWarningMessages } from '@atlaskit/editor-common/messages';
 import CodeBlockContainer from './components/codeBlockContainer';
 
 export interface Props {
-	text: string;
-	language: SupportedLanguages;
 	allowCopyToClipboard?: boolean;
 	allowWrapCodeBlock?: boolean;
-	codeBidiWarningTooltipEnabled: boolean;
 	className?: string;
+	codeBidiWarningTooltipEnabled: boolean;
+	language: SupportedLanguages;
+	text: string;
 }
 
 function CodeBlock(props: Props & WrappedComponentProps) {

@@ -9,82 +9,82 @@ import type { RendererAppearance, HeadingAnchorLinksProps } from '../ui/Renderer
 import type { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema';
 
 export interface RendererContext {
-	objectAri?: string;
-	containerAri?: string;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	adDoc?: any;
+	containerAri?: string;
+	objectAri?: string;
 	schema?: Schema;
 }
 
 export interface NodeMeta {
-	text?: PMNode['text'];
-	providers?: ProviderFactory | undefined;
-	eventHandlers?: EventHandlers | undefined;
-	extensionHandlers?: ExtensionHandlers | undefined;
-	portal?: HTMLElement | undefined;
-	rendererContext?: RendererContext;
-	serializer: Serializer<JSX.Element>;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	[key: string]: any;
+	allowCopyToClipboard?: boolean;
+	allowCustomPanels?: boolean;
+	allowHeadingAnchorLinks?: HeadingAnchorLinksProps;
+	allowPlaceholderText?: boolean;
+	allowWrapCodeBlock?: boolean;
 	content?: {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		[key: string]: any;
 	} | null;
-	allowHeadingAnchorLinks?: HeadingAnchorLinksProps;
-	allowCopyToClipboard?: boolean;
-	allowWrapCodeBlock?: boolean;
-	allowPlaceholderText?: boolean;
-	allowCustomPanels?: boolean;
-	rendererAppearance?: RendererAppearance;
-	fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
-	nodeType: NodeType['name'];
-	marks: PMNode['marks'];
 	dataAttributes: {
 		'data-renderer-start-pos': number;
 	};
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	[key: string]: any;
+	eventHandlers?: EventHandlers | undefined;
+	extensionHandlers?: ExtensionHandlers | undefined;
+	fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
+	marks: PMNode['marks'];
+	nodeType: NodeType['name'];
+	portal?: HTMLElement | undefined;
+	providers?: ProviderFactory | undefined;
+	rendererAppearance?: RendererAppearance;
+	rendererContext?: RendererContext;
+	serializer: Serializer<JSX.Element>;
+	text?: PMNode['text'];
 }
 
 export interface MarkMeta {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	[key: string]: any;
 	dataAttributes: {
-		'data-renderer-mark': true;
 		'data-block-mark'?: true;
+		'data-renderer-mark': true;
 	};
 	eventHandlers?: EventHandlers;
 	fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	markKey?: any;
 	// Whether the node this mark belongs to is an inline node, if available
 	isInline?: boolean;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	[key: string]: any;
+	markKey?: any;
 }
 
 export interface AnnotationMarkMeta extends MarkMeta {
-	id: AnnotationId;
-	annotationType: AnnotationTypes;
-	annotationParentIds: string[];
 	allowAnnotations: boolean;
-	useBlockLevel?: boolean;
+	annotationParentIds: string[];
+	annotationType: AnnotationTypes;
+	id: AnnotationId;
 	isMediaInline?: boolean;
+	useBlockLevel?: boolean;
 }
 
 export type NodeProps<NodeAttrs = Object> = NodeAttrs & PropsWithChildren<NodeMeta>;
 export type MarkProps<MarkAttrs = Object> = MarkAttrs & PropsWithChildren<MarkMeta>;
 
 export type TextHighlighter = {
-	pattern: RegExp;
 	component: React.ComponentType<{
 		children: React.ReactNode;
-		match: string;
-		marks: Set<string>; // In future maybe extract the mark names from Schema
 		groups: Array<string> | undefined;
+		marks: Set<string>; // In future maybe extract the mark names from Schema
+		match: string;
 		startPos: number;
 	}>;
+	pattern: RegExp;
 };
 
 export interface ExtensionViewportSize {

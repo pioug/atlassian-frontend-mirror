@@ -24,10 +24,10 @@ import type { GetResolvedEditorStateReason } from '../types';
 // Format of the payload returned by the callback function passed to the collab provider
 // that gets called when syncing with the back-end service fails.
 export type NewCollabSyncUpErrorAttributes = {
-	lengthOfUnconfirmedSteps?: number;
-	tries: number;
-	maxRetries: number;
 	clientId?: number | string;
+	lengthOfUnconfirmedSteps?: number;
+	maxRetries: number;
+	tries: number;
 	version: number;
 };
 
@@ -37,8 +37,8 @@ export type NewCollabSyncUpErrorAttributes = {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ResolvedEditorState<T = any> = {
 	content: JSONDocNode | T;
-	title: string | null;
 	stepVersion: number;
+	title: string | null;
 };
 
 // Provider Errors
@@ -66,8 +66,8 @@ export enum PROVIDER_ERROR_CODE {
 type InsufficientEditingPermission = {
 	code: PROVIDER_ERROR_CODE.NO_PERMISSION_ERROR;
 	message: string;
-	recoverable: boolean;
 	reason?: string;
+	recoverable: boolean;
 	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/**
 	 * @deprecated switch to using either the error code or the recoverable flag
@@ -213,8 +213,8 @@ type NetworkIssue = {
 type InvalidProviderConfiguration = {
 	code: PROVIDER_ERROR_CODE.INVALID_PROVIDER_CONFIGURATION;
 	message: string;
-	recoverable: boolean;
 	reason: string;
+	recoverable: boolean;
 	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/**
 	 * @deprecated switch to using either the error code or the recoverable flag
@@ -230,8 +230,8 @@ type InvalidProviderConfiguration = {
 type InternalServiceError = {
 	code: PROVIDER_ERROR_CODE.INTERNAL_SERVICE_ERROR;
 	message: string;
-	recoverable: boolean;
 	reason: string;
+	recoverable: boolean;
 	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/**
 	 * @deprecated switch to using either the error code or the recoverable flag
@@ -283,25 +283,25 @@ export interface CollabEventInitData {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	json?: any;
-	version?: number;
-	sid?: string;
 	reserveCursor?: boolean;
+	sid?: string;
+	version?: number;
 }
 
 export interface CollabInitPayload extends CollabEventInitData {
+	caller?: string;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	doc: any;
-	version: number;
 	metadata?: Metadata;
 	reserveCursor?: boolean;
 	targetClientId?: string;
-	caller?: string;
+	version: number;
 }
 
 export interface CollabEventConnectionData {
-	sid: string;
 	initial: boolean;
+	sid: string;
 }
 
 export type CollabConnectedPayload = CollabEventConnectionData;
@@ -333,101 +333,101 @@ export interface CollabEventRemoteData {
 }
 
 type MarkJson = {
-	type: string;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	attrs: { [key: string]: any };
+	type: string;
 };
 
 export type NodeJson = {
-	type: string;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	attrs: { [key: string]: any };
 	content: NodeJson[];
 	marks: MarkJson[];
 	text?: string;
+	type: string;
 };
 
 type SliceJson = {
 	content: NodeJson[];
-	openStart: number;
 	openEnd: number;
+	openStart: number;
 };
 
 export interface StepMetadata {
 	metadata?: {
-		source?: string;
-		stepId?: string;
 		prevStepId?: string;
 		rebased?: boolean;
-		traceId?: string;
 		reqId?: string;
 		schemaVersion?: string;
+		source?: string;
+		stepId?: string;
+		traceId?: string;
 		unconfirmedStepAfterRecovery?: boolean;
 	};
 }
 
 export interface BaseStepPM extends StepMetadata {
 	clientId: number | string;
-	userId: string;
-	stepType: string;
-	to?: number;
 	from?: number;
 	slice?: SliceJson;
+	stepType: string;
+	to?: number;
+	userId: string;
 }
 
 // Match with ProseMirror: https://prosemirror.net/docs/ref/#transform.ReplaceStep
 export interface ReplaceStepPM extends BaseStepPM {
 	from: number;
-	to: number;
 	slice: SliceJson;
 	structure?: boolean;
+	to: number;
 }
 
 // Match with ProseMirror: https://prosemirror.net/docs/ref/#transform.ReplaceAroundStep
 export interface ReplaceAroundStepPM extends BaseStepPM {
 	from: number;
-	to: number;
 	gapFrom: number;
 	gapTo: number;
-	slice: SliceJson;
 	insert: number;
+	slice: SliceJson;
 	structure?: boolean;
+	to: number;
 }
 
 export type InlineCommentStepPM = InlineCommentAddMarkStepPM | InlineCommentAddNodeMarkStepPM;
 
 interface InlineCommentAddMarkStepPM extends BaseStepPM {
-	stepType: 'addMark';
 	from: number;
-	to: number;
 	mark?: {
-		type?: 'annotation';
 		attrs?: {
-			id?: string;
 			annotationType?: 'inlineComment';
+			id?: string;
 		};
+		type?: 'annotation';
 	};
+	stepType: 'addMark';
+	to: number;
 }
 
 export interface InlineCommentAddNodeMarkStepPM extends BaseStepPM {
-	stepType: 'addNodeMark';
-	pos: number;
 	mark?: {
-		type?: 'annotation';
 		attrs?: {
-			id?: string;
 			annotationType?: 'inlineComment';
+			id?: string;
 		};
+		type?: 'annotation';
 	};
+	pos: number;
+	stepType: 'addNodeMark';
 }
 
 // Match with ProseMirror: https://prosemirror.net/docs/ref/#transform.AttrStep
 export interface SetAttrsStepPM extends BaseStepPM {
-	stepType: 'setAttrs';
-	pos: number;
 	attrs: Record<string, unknown>;
+	pos: number;
+	stepType: 'setAttrs';
 }
 
 //Intersection: NCS custom step type config in adf-schema
@@ -443,63 +443,63 @@ export type StepJson =
 	| SetAttrsStepPM;
 
 export interface CollabDataPayload extends CollabEventRemoteData {
-	version: number;
 	json: StepJson[];
 	userIds: (number | string)[];
+	version: number;
 }
 
 export interface CollabSendableSelection {
-	type: 'textSelection' | 'nodeSelection';
 	// JWM does some weird serialisation stuff:
 	// eg. {"type":"nodeSelection","head":"{\"nodeId\":\"project:10002:view/list/node/summary-10000\"}"}
 	anchor?: number | string;
 	head?: number | string;
+	type: 'textSelection' | 'nodeSelection';
 }
 
 export type PresenceActivity = 'viewer' | 'editor';
 
 export type CollabActivityAIProviderChangedPayload = {
-	type: 'ai-provider:change';
 	action: 'add' | 'remove';
 	providerId?: string;
+	type: 'ai-provider:change';
 };
 
 export type CollabPresenceActivityChangePayload = {
-	type: 'participant:activity';
 	activity?: PresenceActivity;
+	type: 'participant:activity';
 };
 
 export interface CollabEventTelepointerData {
-	type: 'telepointer';
 	selection: CollabSendableSelection;
 	sessionId: string;
+	type: 'telepointer';
 }
 
 export type CollabTelepointerPayload = CollabEventTelepointerData;
 
 type ProviderParticipantPermitLevel = {
-	isPermittedToView?: boolean;
 	isPermittedToComment?: boolean;
 	isPermittedToEdit?: boolean;
+	isPermittedToView?: boolean;
 };
 
 export interface CollabParticipant {
-	lastActive: number;
-	sessionId: string;
 	avatar: string;
-	name: string;
 	cursorPos?: number;
-	permit?: ProviderParticipantPermitLevel;
 	isGuest?: boolean;
-	presenceId?: string;
-	presenceActivity?: PresenceActivity;
 	isHydrated?: boolean;
+	lastActive: number;
+	name: string;
+	permit?: ProviderParticipantPermitLevel;
+	presenceActivity?: PresenceActivity;
+	presenceId?: string;
+	sessionId: string;
 }
 
 export type ProviderParticipant = CollabParticipant & {
-	userId: string;
 	clientId: number | string;
 	email: string;
+	userId: string;
 };
 
 export interface CollabEventPresenceData {
@@ -525,23 +525,23 @@ export type CollabCommitStatusEventPayload = {
 };
 
 export type UserPermitType = {
-	isPermittedToView: boolean;
 	isPermittedToComment: boolean;
 	isPermittedToEdit: boolean;
+	isPermittedToView: boolean;
 };
 
 export type CollabPermissionEventPayload = UserPermitType;
 
 export type ConflictChange = {
 	from: number;
-	to: number;
 	local: Slice;
 	remote: Slice;
+	to: number;
 };
 
 export type ConflictChanges = {
-	inserted: ConflictChange[];
 	deleted: ConflictChange[];
+	inserted: ConflictChange[];
 };
 
 export interface CollabEventConflictPayload extends ConflictChanges {
@@ -549,70 +549,70 @@ export interface CollabEventConflictPayload extends ConflictChanges {
 }
 
 export interface CollabEvents {
-	'metadata:changed': Metadata;
-	init: CollabInitPayload;
+	'commit-status': CollabCommitStatusEventPayload;
 	connected: CollabConnectedPayload;
-	disconnected: CollabDisconnectedPayload;
+	connecting: CollabConnectingPayload;
 	data: CollabDataPayload;
-	telepointer: CollabTelepointerPayload;
-	presence: CollabPresencePayload;
-	'local-steps': CollabLocalStepsPayload;
-	error: ProviderError;
+	'data:conflict': CollabEventConflictPayload;
+	disconnected: CollabDisconnectedPayload;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	entity: any;
-	connecting: CollabConnectingPayload;
-	permission: CollabPermissionEventPayload;
-	'commit-status': CollabCommitStatusEventPayload;
+	error: ProviderError;
+	init: CollabInitPayload;
+	'local-steps': CollabLocalStepsPayload;
+	'metadata:changed': Metadata;
 	'namespace-lock:check': CollabNamespaceLockCheckPayload;
-	'data:conflict': CollabEventConflictPayload;
+	permission: CollabPermissionEventPayload;
+	presence: CollabPresencePayload;
 	'presence:changed': CollabPresenceActivityChangePayload;
+	telepointer: CollabTelepointerPayload;
 }
 
 export type SyncUpErrorFunction = (attributes: NewCollabSyncUpErrorAttributes) => void;
 
 export interface CollabEditProvider<Events extends CollabEvents = CollabEvents> {
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/method-signature-style -- method-signature-style ignored via go/ees013 (to be fixed)
-	initialize(getState: () => any, createStep: (json: object) => Step): this; // TO-DO: deprecate this
-
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	setup(props: {
-		getState?: () => EditorState;
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		editorApi?: any;
-		onSyncUpError?: SyncUpErrorFunction;
-	}): this;
-
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	send(tr: Transaction, oldState: EditorState, newState: EditorState): void;
-
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/method-signature-style -- method-signature-style ignored via go/ees013 (to be fixed)
-	on(evt: keyof Events, handler: (...args: any) => void): this;
-
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/method-signature-style -- method-signature-style ignored via go/ees013 (to be fixed)
-	off(evt: keyof Events, handler: (...args: any) => void): this;
-
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	unsubscribeAll(evt: keyof Events): this;
-
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	sendMessage<K extends keyof Events>(data: { type: K } & Events[K]): void;
-
 	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	getFinalAcknowledgedState(reason: GetResolvedEditorStateReason): Promise<ResolvedEditorState>;
 
 	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	getIsNamespaceLocked(): boolean;
+
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/method-signature-style -- method-signature-style ignored via go/ees013 (to be fixed)
+	initialize(getState: () => any, createStep: (json: object) => Step): this; // TO-DO: deprecate this
+
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/method-signature-style -- method-signature-style ignored via go/ees013 (to be fixed)
+	off(evt: keyof Events, handler: (...args: any) => void): this;
+
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/method-signature-style -- method-signature-style ignored via go/ees013 (to be fixed)
+	on(evt: keyof Events, handler: (...args: any) => void): this;
+
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
+	send(tr: Transaction, oldState: EditorState, newState: EditorState): void;
+
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
+	sendMessage<K extends keyof Events>(data: { type: K } & Events[K]): void;
+
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
+	setup(props: {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		editorApi?: any;
+		getState?: () => EditorState;
+		onSyncUpError?: SyncUpErrorFunction;
+	}): this;
+
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
+	unsubscribeAll(evt: keyof Events): this;
 }
 
 export type CollabEditOptions = {
 	provider?: Providers['collabEditProvider'];
-	userId?: string;
 	useNativePlugin?: boolean;
+	userId?: string;
 } & CollabInviteToEditProps &
 	CollabAnalyticsProps;
 
@@ -625,9 +625,9 @@ export type InviteToEditComponentProps = {
 	children: ReactElement<InviteToEditButtonProps>;
 };
 export interface CollabInviteToEditProps {
+	inviteToEditComponent?: React.ComponentType<React.PropsWithChildren<InviteToEditComponentProps>>;
 	inviteToEditHandler?: (event: React.MouseEvent<HTMLElement>) => void;
 	isInviteToEditButtonSelected?: boolean;
-	inviteToEditComponent?: React.ComponentType<React.PropsWithChildren<InviteToEditComponentProps>>;
 }
 
 export interface CollabAnalyticsProps {

@@ -24,9 +24,9 @@ import { getCleanedSelectProps } from '../../utils';
 
 interface UserEditTypeProps extends Omit<FieldProps<string>, 'value'> {
 	currentValue: DatasourceTypeWithOnlyTypeValues<'user'>;
+	executeFetch?: ExecuteFetch;
 	labelId?: string;
 	setEditValues: React.Dispatch<React.SetStateAction<DatasourceTypeWithOnlyValues>>;
-	executeFetch?: ExecuteFetch;
 }
 
 const UserEditType = (props: UserEditTypeProps) => {

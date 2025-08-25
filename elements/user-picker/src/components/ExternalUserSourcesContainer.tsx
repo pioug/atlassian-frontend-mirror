@@ -11,9 +11,9 @@ type SourcesChildrenFunc = (sourcesData: ExternalUserSourcesData) => ReactNode;
 
 interface SourcesContainerProps {
 	accountId: string;
-	shouldFetchSources: boolean;
-	initialSources: UserSource[];
 	children: SourcesChildrenFunc;
+	initialSources: UserSource[];
+	shouldFetchSources: boolean;
 }
 
 export const ExternalUserSourcesContainer = ({

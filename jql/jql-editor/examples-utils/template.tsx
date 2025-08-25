@@ -16,14 +16,14 @@ import { LocaleProvider } from './locale-provider';
 import { Container } from './styled';
 
 export type TemplateArgs = {
-	query: string;
-	messages?: ExternalMessage[];
-	isSearch?: boolean;
-	isCompact?: boolean;
-	enableRichInlineNodes?: boolean;
 	batchUpdates?: boolean;
-	Editor?: typeof JQLEditor;
 	deps?: Injectable[];
+	Editor?: typeof JQLEditor;
+	enableRichInlineNodes?: boolean;
+	isCompact?: boolean;
+	isSearch?: boolean;
+	messages?: ExternalMessage[];
+	query: string;
 };
 
 export const Template = ({

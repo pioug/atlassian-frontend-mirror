@@ -2,12 +2,12 @@ import type { SSR } from '@atlaskit/media-common';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 
 export type MediaInlineAttrs = {
-	type?: string;
 	alt?: string;
-	width?: number;
 	height?: number;
+	type?: string;
+	width?: number;
 };
 
-export type MediaSSR = { mode: SSR; config: MediaClientConfig };
+export type MediaSSR = { config: MediaClientConfig; mode: SSR };
 
-export type Dimensions = { width?: number; height?: number };
+export type Dimensions = { height?: number; width?: number };

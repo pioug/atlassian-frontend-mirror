@@ -13,34 +13,34 @@ import { browser } from '../../utils';
 import { panelTextInput, panelTextInputWithCustomWidth } from './styles';
 
 export interface Props {
+	ariaActiveDescendant?: string;
+	ariaAutoComplete?: boolean;
+	ariaControls?: string;
+	ariaExpanded?: boolean;
+	ariaInvalid?: boolean;
+	ariaLabel?: string;
+	ariaRequired?: boolean;
 	autoFocus?: boolean | FocusOptions;
 	defaultValue?: string;
-	onChange?: (value: string) => void;
-	onSubmit?: (value: string) => void;
+	describedById?: string;
+	inputId?: string;
+	maxLength?: number;
+	onBlur?: Function;
 	onCancel?: (e: KeyboardEvent) => void;
-	placeholder?: string;
-	onMouseDown?: Function;
+	onChange?: (value: string) => void;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	onKeyDown?: (e: KeyboardEvent<any>) => void;
-	// overrides default browser undo behaviour (cmd/ctrl + z) with that function
-	onUndo?: Function;
+	onMouseDown?: Function;
 	// overrides default browser redo behaviour (cm + shift + z / ctrl + y) with that function
 	onRedo?: Function;
-	onBlur?: Function;
-	width?: number;
-	maxLength?: number;
-	testId?: string;
-	ariaLabel?: string;
-	describedById?: string;
-	ariaExpanded?: boolean;
-	ariaActiveDescendant?: string;
-	ariaControls?: string;
+	onSubmit?: (value: string) => void;
+	// overrides default browser undo behaviour (cmd/ctrl + z) with that function
+	onUndo?: Function;
+	placeholder?: string;
 	role?: string;
-	ariaAutoComplete?: boolean;
-	ariaRequired?: boolean;
-	ariaInvalid?: boolean;
-	inputId?: string;
+	testId?: string;
+	width?: number;
 }
 
 export interface State {

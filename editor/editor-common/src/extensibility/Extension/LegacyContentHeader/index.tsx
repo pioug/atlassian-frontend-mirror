@@ -69,8 +69,8 @@ const lcmHeaderStyles = css({
 });
 
 export type LegacyContentHeaderProps = {
-	isNodeSelected?: boolean;
 	isNodeHovered?: boolean;
+	isNodeSelected?: boolean;
 	onMouseEnter?: () => void;
 	onMouseLeave?: () => void;
 };

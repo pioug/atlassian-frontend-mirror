@@ -3,12 +3,12 @@ import React, { useRef, type ChangeEventHandler } from 'react';
 import Button from '@atlaskit/button/new';
 
 export interface Props {
-	label: string;
+	accept?: string;
 	ariaDescribedBy?: string;
+	isDisabled?: boolean;
+	label: string;
 	onChange?: ChangeEventHandler<any>;
 	onClick?: () => void;
-	accept?: string;
-	isDisabled?: boolean;
 }
 
 export const chooseFileButtonTestId = 'choose-file-button';

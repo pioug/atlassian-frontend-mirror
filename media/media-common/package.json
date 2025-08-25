@@ -22,15 +22,6 @@
 	},
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
-	"af:exports": {
-		"./downloadUrl": "./src/downloadUrl.ts",
-		"./mediaFeatureFlags": "./src/mediaFeatureFlags/index.ts",
-		"./analytics": "./src/analytics/index.ts",
-		"./docs": "./src/docs/index.ts",
-		"./mediaTypeUtils": "./src/mediaTypeUtils/index.ts",
-		"./test-helpers": "./src/test-helpers/index.ts",
-		".": "./src/index.ts"
-	},
 	"exports": {
 		"./downloadUrl": "./src/downloadUrl.ts",
 		"./mediaFeatureFlags": "./src/mediaFeatureFlags/index.ts",

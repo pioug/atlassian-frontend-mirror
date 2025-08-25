@@ -22,9 +22,9 @@ const horizontalWrapperStyles = css({
 });
 
 export type VRTestWrapperOptions = {
-	title: string;
 	children: React.ReactNode;
 	height?: number;
+	title: string;
 };
 
 // Mocking Date.now for tests to be consistent

@@ -17,28 +17,28 @@ import type { QuickInsertProvider } from './quick-insert-provider';
 import type { SearchProvider } from './search-provider';
 
 export interface Providers {
-	mediaProvider?: Promise<MediaProvider>;
-	emojiProvider?: Promise<EmojiProvider>;
-	mentionProvider?: Promise<MentionProvider>;
-	extensionProvider?: Promise<ExtensionProvider>;
-	autoformattingProvider?: Promise<AutoformattingProvider>;
-	taskDecisionProvider?: Promise<TaskDecisionProvider>;
-	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
-	imageUploadProvider?: Promise<ImageUploadProvider>;
-	collabEditProvider?: Promise<CollabEditProvider>;
-	macroProvider?: Promise<MacroProvider>;
-	cardProvider?: Promise<CardProvider>;
-	quickInsertProvider?: Promise<QuickInsertProvider>;
-	profilecardProvider?: Promise<ProfilecardProvider>;
-	searchProvider?: Promise<SearchProvider>;
 	activityProvider?: Promise<ActivityProvider>;
-
+	autoformattingProvider?: Promise<AutoformattingProvider>;
+	cardProvider?: Promise<CardProvider>;
+	collabEditProvider?: Promise<CollabEditProvider>;
+	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
+	emojiProvider?: Promise<EmojiProvider>;
+	extensionProvider?: Promise<ExtensionProvider>;
+	imageUploadProvider?: Promise<ImageUploadProvider>;
+	macroProvider?: Promise<MacroProvider>;
+	mediaProvider?: Promise<MediaProvider>;
+	mentionProvider?: Promise<MentionProvider>;
 	// Ignored via go/ees005, go/ees007
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @atlaskit/editor/enforce-todo-comment-format
 	presenceProvider?: Promise<any>; // TODO: https://product-fabric.atlassian.net/browse/ED-8592
+	profilecardProvider?: Promise<ProfilecardProvider>;
+	quickInsertProvider?: Promise<QuickInsertProvider>;
 	// Ignored via go/ees005, go/ees007
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @atlaskit/editor/enforce-todo-comment-format
 	reactionsStore?: Promise<any>; // TODO: https://product-fabric.atlassian.net/browse/ED-8593
+
+	searchProvider?: Promise<SearchProvider>;
+	taskDecisionProvider?: Promise<TaskDecisionProvider>;
 }
 
 export type ProviderName = keyof Providers;

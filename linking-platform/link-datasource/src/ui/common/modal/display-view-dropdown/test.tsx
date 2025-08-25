@@ -9,8 +9,8 @@ import { DisplayViewDropDown } from './display-view-drop-down';
 
 describe('DisplayViewDropDown', () => {
 	type SetupProps = {
-		openDropDownByDefault: boolean;
 		defaultViewMode: DisplayViewModes;
+		openDropDownByDefault: boolean;
 	};
 
 	const setup = (props: Partial<SetupProps> = {}) => {

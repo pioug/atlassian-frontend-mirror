@@ -2,13 +2,13 @@ import React from 'react';
 import { type HighlightRange } from '../types';
 
 type Part = {
-	value: string;
 	matches: boolean;
+	value: string;
 };
 
 export interface Props {
-	highlights?: HighlightRange[];
 	children: string;
+	highlights?: HighlightRange[];
 }
 
 export class HighlightText extends React.PureComponent<Props> {

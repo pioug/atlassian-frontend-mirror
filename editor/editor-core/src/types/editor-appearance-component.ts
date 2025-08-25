@@ -31,52 +31,52 @@ import type {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface EditorAppearanceComponentProps<Plugins extends NextEditorPlugin<any, any>[]> {
-	editorAPI: PublicPluginAPI<Plugins> | undefined;
-	appearance?: EditorAppearance;
 	__livePage?: boolean;
-	preset?: EditorPresetBuilder<string[], AllEditorPresetPluginTypes[]>;
-	onSave?: (editorView: EditorView) => void;
-	onCancel?: (editorView: EditorView) => void;
+	appearance?: EditorAppearance;
+	collabEdit?: CollabEditOptions;
+	contentComponents?: UIComponentFactory[];
+	contextPanel?: ReactComponents;
+	customContentComponents?: ContentComponents;
 
-	providerFactory: ProviderFactory;
+	customPrimaryToolbarComponents?: PrimaryToolbarComponents;
+	customSecondaryToolbarComponents?: ReactComponents;
+	disabled?: boolean;
+	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
+
 	editorActions?: EditorActions;
+	editorAPI: PublicPluginAPI<Plugins> | undefined;
+
 	editorDOMElement: JSX.Element;
 	editorView?: EditorView;
 
+	enableToolbarMinWidth?: boolean;
 	eventDispatcher?: EventDispatcher;
-	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
+	extensionHandlers?: ExtensionHandlers;
+	featureFlags: FeatureFlags;
+	innerRef?: RefObject<HTMLDivElement>;
 
+	insertMenuItems?: MenuItem[];
 	maxHeight?: number;
 	minHeight?: number;
-
-	contentComponents?: UIComponentFactory[];
-	pluginHooks?: ReactHookFactory[];
-	primaryToolbarComponents?: ToolbarUIComponentFactory[];
-	primaryToolbarIconBefore?: ReactElement;
-	secondaryToolbarComponents?: UIComponentFactory[];
-
-	customContentComponents?: ContentComponents;
-	customPrimaryToolbarComponents?: PrimaryToolbarComponents;
-	customSecondaryToolbarComponents?: ReactComponents;
-	insertMenuItems?: MenuItem[];
-	contextPanel?: ReactComponents;
-
-	popupsMountPoint?: HTMLElement;
-	popupsBoundariesElement?: HTMLElement;
-	popupsScrollableElement?: HTMLElement;
-
-	extensionHandlers?: ExtensionHandlers;
-
-	disabled?: boolean;
-
-	collabEdit?: CollabEditOptions;
+	onCancel?: (editorView: EditorView) => void;
+	onSave?: (editorView: EditorView) => void;
 
 	persistScrollGutter?: boolean;
+	pluginHooks?: ReactHookFactory[];
+	popupsBoundariesElement?: HTMLElement;
 
-	enableToolbarMinWidth?: boolean;
+	popupsMountPoint?: HTMLElement;
 
-	featureFlags: FeatureFlags;
+	popupsScrollableElement?: HTMLElement;
+
+	preset?: EditorPresetBuilder<string[], AllEditorPresetPluginTypes[]>;
+
+	primaryToolbarComponents?: ToolbarUIComponentFactory[];
+
+	primaryToolbarIconBefore?: ReactElement;
+
+	providerFactory: ProviderFactory;
+	secondaryToolbarComponents?: UIComponentFactory[];
+
 	useStickyToolbar?: UseStickyToolbarType;
-
-	innerRef?: RefObject<HTMLDivElement>;
 }

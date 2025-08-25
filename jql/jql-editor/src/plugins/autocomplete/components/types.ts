@@ -14,9 +14,9 @@ export type {
 export type AutocompleteOptionType = 'field' | 'operator' | 'value' | 'function' | 'keyword';
 
 export type AutocompleteOptionExtra = {
-	replacePosition: Position;
 	context: JQLRuleContext | null;
 	matchedText: string;
+	replacePosition: Position;
 	type: AutocompleteOptionType;
 };
 
@@ -28,16 +28,16 @@ export type SelectableAutocompleteOption = AutocompleteOption &
 export type SelectableAutocompleteOptions = SelectableAutocompleteOption[];
 
 export type AutocompleteOptionGroup = {
-	tokens: SelectableAutocompleteOptions;
 	fields: SelectableAutocompleteOptions;
-	operators: SelectableAutocompleteOptions;
-	values: SelectableAutocompleteOptions;
 	functions: SelectableAutocompleteOptions;
+	operators: SelectableAutocompleteOptions;
+	tokens: SelectableAutocompleteOptions;
+	values: SelectableAutocompleteOptions;
 };
 
 export type AutocompletePosition = {
-	top: number;
 	left: number;
+	top: number;
 };
 
 export type AutocompleteProps = {
@@ -47,9 +47,9 @@ export type AutocompleteProps = {
 
 export type AutocompleteAnalyticsAttributes = {
 	keyboard: boolean;
+	nodeType: string;
 	numberOfOptions: number;
 	optionIndex: number;
 	optionType: AutocompleteOptionType;
 	queryLength: number;
-	nodeType: string;
 };

@@ -38,8 +38,8 @@ export const attachGenericProseMirrorMetadata = ({
 	dom,
 	options,
 }: {
-	nodeOrMark: PMNode | PMMark;
 	dom: HTMLElement;
+	nodeOrMark: PMNode | PMMark;
 	options?: {
 		anchrorId?: string;
 	};

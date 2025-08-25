@@ -6,22 +6,22 @@ export interface OptionBase {
 }
 
 export type IconLabelOption = OptionBase & {
-	optionType: 'iconLabel';
 	icon: string;
+	optionType: 'iconLabel';
 };
 
 export type LozengeLabelOption = OptionBase & {
-	optionType: 'lozengeLabel';
 	appearance?: LozengeAppearance;
+	optionType: 'lozengeLabel';
 };
 
 export type LozengeAppearance = 'default' | 'inprogress' | 'moved' | 'new' | 'removed' | 'success';
 
 export type AvatarLabelOption = OptionBase & {
-	optionType: 'avatarLabel';
 	avatar?: string;
-	isSquare?: boolean;
 	isGroup?: boolean;
+	isSquare?: boolean;
+	optionType: 'avatarLabel';
 };
 
 export type DateRangeType =
@@ -34,10 +34,10 @@ export type DateRangeType =
 	| 'custom';
 
 export type DateRangeOption = OptionBase & {
-	optionType: 'dateRange';
-	value: DateRangeType;
 	from?: string;
+	optionType: 'dateRange';
 	to?: string;
+	value: DateRangeType;
 };
 
 export type SelectOption =
@@ -49,6 +49,6 @@ export type SelectOption =
 export type FormatOptionLabel = (option: SelectOption) => ReactElement;
 
 export interface CommonBasicFilterHookState {
-	status: 'empty' | 'loading' | 'resolved' | 'rejected';
 	errors: unknown[];
+	status: 'empty' | 'loading' | 'resolved' | 'rejected';
 }

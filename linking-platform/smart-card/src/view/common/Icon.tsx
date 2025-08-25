@@ -10,16 +10,16 @@ import ImageLoader from 'react-render-image';
 import LinkIcon from '@atlaskit/icon/core/migration/link';
 
 export interface IconProps {
-	/* Url of the icon to be displayed. Note that this is only used if a JSX element is not provided */
-	url?: string;
-	/* Element to be displayed as an icon. We naively render this if it is provided. Allows us to pass in AK icons */
-	icon?: React.ReactNode;
 	/* Element to be displayed as an icon if icon not provided or icon url request return error. */
 	defaultIcon?: React.ReactNode;
-	/* A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests. */
-	testId?: string;
+	/* Element to be displayed as an icon. We naively render this if it is provided. Allows us to pass in AK icons */
+	icon?: React.ReactNode;
 	/* A prop to determine whether the icon is a Flexible UI rendered Icon, used internally by Flexible UI and Hover Preview */
 	isFlexibleUi?: boolean;
+	/* A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests. */
+	testId?: string;
+	/* Url of the icon to be displayed. Note that this is only used if a JSX element is not provided */
+	url?: string;
 }
 
 /**

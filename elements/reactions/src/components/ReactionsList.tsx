@@ -7,6 +7,13 @@ import { ReactionView } from './ReactionView';
 
 export interface ReactionsListProps {
 	/**
+	 * Provider for loading emojis
+	 */
+	/**
+	 * A functional component from Confluence to show a profile card on hover
+	 */
+	ProfileCardWrapper?: ProfileCardWrapper;
+	/**
 	 * Sorted list of reactions to render in list
 	 */
 	reactions: ReactionSummary[];
@@ -14,13 +21,6 @@ export interface ReactionsListProps {
 	 * Current emoji selected in the reactions dialog
 	 */
 	selectedEmojiId: string;
-	/**
-	 * Provider for loading emojis
-	 */
-	/**
-	 * A functional component from Confluence to show a profile card on hover
-	 */
-	ProfileCardWrapper?: ProfileCardWrapper;
 }
 
 export const ReactionsList = ({

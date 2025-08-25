@@ -12,14 +12,14 @@ import type { MultiBodiedExtensionActions } from '../../extensions';
 import { sendMBEAnalyticsEvent } from './utils';
 
 type ActionsProps = {
-	updateActiveChild: (index: number) => boolean;
-	node: PmNode;
-	editorView: EditorView;
-	getPos: () => number | undefined;
-	eventDispatcher?: EventDispatcher;
 	// Allows MBE macro to render bodies; see RFC: https://hello.atlassian.net/wiki/spaces/EDITOR/pages/4843571091/Editor+RFC+064+MultiBodiedExtension+Extensibility
 	allowBodiedOverride: boolean;
 	childrenContainer: React.ReactNode;
+	editorView: EditorView;
+	eventDispatcher?: EventDispatcher;
+	getPos: () => number | undefined;
+	node: PmNode;
+	updateActiveChild: (index: number) => boolean;
 };
 
 export const useMultiBodiedExtensionActions = ({

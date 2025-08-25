@@ -23,18 +23,18 @@ import type { IconColor } from '@atlaskit/tokens/css-type-schema';
 
 export interface Props {
 	autoFocus?: boolean;
+	checkMarkColor?: string;
+	focused?: boolean;
 	initialFocusRef?: Ref<HTMLDivElement>;
 	isInsideMenu?: boolean;
-	type: ColorCardType;
-	value: string;
+	isOption?: boolean;
+	isTabbing?: boolean;
 	label: string;
 	onClick?: (event: React.MouseEvent | React.KeyboardEvent, value: string) => void;
 	onKeyDown?: KeyboardEventHandler<HTMLElement>;
-	checkMarkColor?: string;
 	selected?: boolean;
-	focused?: boolean;
-	isOption?: boolean;
-	isTabbing?: boolean;
+	type: ColorCardType;
+	value: string;
 	variant?: ColorCardVariant;
 }
 

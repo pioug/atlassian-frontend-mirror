@@ -22,11 +22,6 @@
 	},
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
-	"af:exports": {
-		"./constants": "./src/constants.ts",
-		"./test-helpers": "./src/test-helpers/index.ts",
-		".": "./src/index.ts"
-	},
 	"exports": {
 		"./constants": "./src/constants.ts",
 		"./test-helpers": "./src/test-helpers/index.ts",

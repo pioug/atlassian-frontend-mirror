@@ -14,9 +14,9 @@ export type RuleSuggestionsWithRuleList<RuleContext> = Map<
 >;
 
 export type TokenSuggestions = {
-	values: string[];
 	matchedText: string;
 	replacePosition: Position;
+	values: string[];
 };
 
 /**
@@ -28,6 +28,6 @@ export type TokenSuggestions = {
  * grammer changes need to be introduced, as hardcoded names remain unchanged.
  */
 export type Suggestions<RuleContext> = {
-	tokens: TokenSuggestions;
 	rules: RuleSuggestionsWithRuleList<RuleContext>;
+	tokens: TokenSuggestions;
 };

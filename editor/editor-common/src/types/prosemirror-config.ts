@@ -7,8 +7,8 @@ export interface NodeConfig {
 }
 
 export interface MarkConfig {
-	name: string;
 	mark: MarkSpec;
+	name: string;
 }
 
 export interface NodeViewConfig {

@@ -54,30 +54,30 @@ import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
 import { useAnnotationRangeState } from '../../../ui/annotations/contexts/AnnotationRangeContext';
 
 export type MediaProps = MediaCardProps & {
-	providers?: ProviderFactory;
 	allowAltTextOnImages?: boolean;
-	children?: React.ReactNode;
-	isInsideOfBlockNode?: boolean;
-	marks: Array<LinkDefinition | BorderMarkDefinition | AnnotationMarkDefinition>;
-	isBorderMark: () => boolean;
-	isLinkMark: () => boolean;
-	isAnnotationMark?: () => boolean;
-	fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
-	featureFlags?: MediaFeatureFlags;
-	eventHandlers?: EventHandlers;
-	enableDownloadButton?: boolean;
 	allowAnnotationsDraftMode?: boolean;
+	children?: React.ReactNode;
+	enableDownloadButton?: boolean;
+	eventHandlers?: EventHandlers;
+	featureFlags?: MediaFeatureFlags;
+	fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
+	height?: number;
+	isAnnotationMark?: () => boolean;
+	isBorderMark: () => boolean;
+	isDrafting: boolean;
+	isInsideOfBlockNode?: boolean;
+	isLinkMark: () => boolean;
+	marks: Array<LinkDefinition | BorderMarkDefinition | AnnotationMarkDefinition>;
 	// only used for comment badge, is injected via nodes/mediaSingle
 	mediaSingleElement?: HTMLElement | null;
+	providers?: ProviderFactory;
 	// attributes for media node
 	width?: number;
-	height?: number;
-	isDrafting: boolean;
 };
 
 type Providers = {
-	mediaProvider?: Promise<MediaProvider>;
 	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
+	mediaProvider?: Promise<MediaProvider>;
 };
 
 const linkStyle = css({
@@ -302,9 +302,9 @@ const CommentBadgeWrapper = ({
  */
 
 type CommentBadgeNextWrapperProps = {
-	mediaSingleElement?: HTMLElement | null;
-	marks?: AnnotationMarkDefinition[];
 	isDrafting?: boolean;
+	marks?: AnnotationMarkDefinition[];
+	mediaSingleElement?: HTMLElement | null;
 };
 
 const CommentBadgeNextWrapper = ({

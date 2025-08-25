@@ -24,11 +24,6 @@
 		"*.compiled.css"
 	],
 	"atlaskit:src": "src/index.ts",
-	"af:exports": {
-		"./types": "./src/types.ts",
-		".": "./src/index.ts",
-		"./classnames": "./src/classnames.ts"
-	},
 	"exports": {
 		"./types": "./src/types.ts",
 		".": "./src/index.ts",

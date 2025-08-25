@@ -12,12 +12,12 @@ import { token } from '@atlaskit/tokens';
 
 import { type SelectOption } from './types';
 export interface PopupTriggerProps {
-	label: string;
-	testId?: string;
-	selectedOptions?: ReadonlyArray<SelectOption>;
-	isSelected?: boolean;
 	isDisabled?: boolean;
 	isLoading?: boolean;
+	isSelected?: boolean;
+	label: string;
+	selectedOptions?: ReadonlyArray<SelectOption>;
+	testId?: string;
 }
 
 const styles = cssMap({

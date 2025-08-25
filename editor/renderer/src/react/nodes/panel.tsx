@@ -23,8 +23,8 @@ import { token } from '@atlaskit/tokens';
 import { akEditorCustomIconSize } from '@atlaskit/editor-shared-styles/consts';
 import { fg } from '@atlaskit/platform-feature-flags';
 interface PanelStyledProps {
-	'data-panel-type': PanelType;
 	backgroundColor?: string;
+	'data-panel-type': PanelType;
 	hasIcon?: boolean;
 }
 
@@ -229,14 +229,14 @@ const PanelStyled = ({
 PanelStyled.displayName = 'PanelStyled';
 
 export interface Props {
-	children?: React.ReactNode;
-	providers?: ProviderFactory;
-	panelType: PanelType;
 	allowCustomPanels?: boolean;
+	children?: React.ReactNode;
+	panelColor?: string;
 	panelIcon?: string;
 	panelIconId?: string;
 	panelIconText?: string;
-	panelColor?: string;
+	panelType: PanelType;
+	providers?: ProviderFactory;
 }
 
 const panelIcons: {

@@ -112,51 +112,17 @@ export const RENDER_LIST_ITEM_WRAPPER_TESTID = 'render-list-item-wrapper';
 
 export interface TriggerProps {
 	/**
-	 * Optional Event handler when the button to open the picker is clicked
-	 * @param e Mouse Dom event
-	 * @param analyticsEvent atlaskit analytics event payload of the button
-	 */
-	onClick?: (e: React.MouseEvent<HTMLElement>, analyticsEvent: AnalyticsEvent) => void;
-	/**
-	 * apply "miniMode" className to the button
-	 */
-	miniMode?: boolean;
-	/**
-	 * Enable/Disable the button to be clickable (defaults to false)
-	 */
-	disabled?: boolean;
-	/**
-	 * Tooltip content for trigger button
-	 */
-	tooltipContent: React.ReactNode;
-	/**
 	 * Aria accessibility attributes that will be added to the button
 	 */
 	ariaAttributes?: AriaAttributes;
 	/**
-	 * Optional prop for using an opaque button background instead of a transparent background
+	 * Enable/Disable the button to be clickable (defaults to false)
 	 */
-	showOpaqueBackground?: boolean;
-	/**
-	 * Optional prop for displaying text to add a reaction
+	disabled?: boolean;
+	/*
+	 * Optional prop for controlling if the selector tray reaction picker trigger should be full width
 	 */
-	showAddReactionText?: boolean;
-	/**
-	 * Optional prop for applying subtle styling to reaction picker
-	 */
-	subtleReactionsSummaryAndPicker?: boolean;
-	/**
-	 * Optional prop for controlling icon inside Trigger
-	 */
-	reactionPickerTriggerIcon?: React.ReactNode;
-	/**
-	 * Optional prop for controlling if reaction picker is opened
-	 */
-	isSelected?: boolean;
-	/**
-	 * Optional prop for controlling text inside Trigger
-	 */
-	reactionPickerTriggerText?: string;
+	fullWidthSelectorTrayReactionPickerTrigger?: boolean;
 	/**
 	 * Optional prop for controlling if the summary view reaction picker trigger should be full width
 	 */
@@ -165,10 +131,44 @@ export interface TriggerProps {
 	 * Optional prop to say if the reactions component is in a list
 	 */
 	isListItem?: boolean;
-	/*
-	 * Optional prop for controlling if the selector tray reaction picker trigger should be full width
+	/**
+	 * Optional prop for controlling if reaction picker is opened
 	 */
-	fullWidthSelectorTrayReactionPickerTrigger?: boolean;
+	isSelected?: boolean;
+	/**
+	 * apply "miniMode" className to the button
+	 */
+	miniMode?: boolean;
+	/**
+	 * Optional Event handler when the button to open the picker is clicked
+	 * @param e Mouse Dom event
+	 * @param analyticsEvent atlaskit analytics event payload of the button
+	 */
+	onClick?: (e: React.MouseEvent<HTMLElement>, analyticsEvent: AnalyticsEvent) => void;
+	/**
+	 * Optional prop for controlling icon inside Trigger
+	 */
+	reactionPickerTriggerIcon?: React.ReactNode;
+	/**
+	 * Optional prop for controlling text inside Trigger
+	 */
+	reactionPickerTriggerText?: string;
+	/**
+	 * Optional prop for displaying text to add a reaction
+	 */
+	showAddReactionText?: boolean;
+	/**
+	 * Optional prop for using an opaque button background instead of a transparent background
+	 */
+	showOpaqueBackground?: boolean;
+	/**
+	 * Optional prop for applying subtle styling to reaction picker
+	 */
+	subtleReactionsSummaryAndPicker?: boolean;
+	/**
+	 * Tooltip content for trigger button
+	 */
+	tooltipContent: React.ReactNode;
 }
 
 const i18n = defineMessages({

@@ -20,10 +20,10 @@ const MAX_NESTED_TIMERS_ALLOWED_TO_BE_WRAPPED = 1;
  *   timeouts with delays up to 2000ms (2 seconds). Timeouts with larger delays are not wrapped. The `maxTimeoutAllowed` allows you to override the default timeout.
  * - Zero-delay timeouts (used for deferring to the next event loop) are also not wrapped.
  *
- * @param {Object} options - Configuration options for the wrapper.
- * @param {Object} options.globalContext - The global context containing setTimeout and clearTimeout functions.
+ * @param {object} options - Configuration options for the wrapper.
+ * @param {object} options.globalContext - The global context containing setTimeout and clearTimeout functions.
  *                                         This is typically the global `window` object in browser environments.
- * @param {Object} options.maxTimeoutAllowed - Override the default timeout delay allowed (useful for testing enviroments);
+ * @param {object} options.maxTimeoutAllowed - Override the default timeout delay allowed (useful for testing enviroments);
  * @param {typeof setTimeout} options.globalContext.setTimeout - The original setTimeout function to be wrapped.
  * @param {typeof clearTimeout} options.globalContext.clearTimeout - The original clearTimeout function to be wrapped.
  * @param {TimelineHoldable} options.timelineHoldable - An instance implementing the TimelineHoldable interface.
@@ -48,10 +48,10 @@ export const wrapperTimers = ({
 	maxTimeoutAllowed,
 	maxNestedTimers,
 }: {
-	globalContext: unknown & { setTimeout: typeof setTimeout; clearTimeout: typeof clearTimeout };
-	timelineHoldable: TimelineHoldable;
-	maxTimeoutAllowed?: number;
+	globalContext: unknown & { clearTimeout: typeof clearTimeout; setTimeout: typeof setTimeout };
 	maxNestedTimers?: number;
+	maxTimeoutAllowed?: number;
+	timelineHoldable: TimelineHoldable;
 }) => {
 	const timeoutsUnholdMap = new Map<NodeJS.Timeout | number, WeakRef<() => void>>();
 	const timeoutAllowed =

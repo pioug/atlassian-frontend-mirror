@@ -1,11 +1,11 @@
 export type GenerateContextProp = {
-	type?: string[] | string;
 	fileFormat?: string;
-	jiraTaskType?: string;
+	forceError?: boolean;
 	generatorId?: string;
+	jiraTaskType?: string;
 	metaAccess?: string;
 	metaVisibility?: string;
-	forceError?: boolean;
+	type?: string[] | string;
 };
 
 export const generateContext = ({

@@ -15,7 +15,7 @@ describe('transformInvalidMediaContent', () => {
 			['with duplicated media and captions', mediaSingleWithDuplicateMediaAndCaptions],
 			['with multiple empty and one non-empty caption', mediaSingleWithDuplicateCaptions3],
 		])('%s', (_, adf) => {
-			let { isTransformed, transformedAdf } = transformInvalidMediaContent(adf);
+			const { isTransformed, transformedAdf } = transformInvalidMediaContent(adf);
 			expect(isTransformed).toEqual(true);
 			expect(transformedAdf).toMatchSnapshot();
 		});

@@ -25,8 +25,8 @@ export const requestService = <T>(
 	const tracingHeaderEnabled = fg('platform_collab_provider_tracingheaders');
 	addFeatureFlagAccessed(TRACING_HEADER_FOR_SERVICE_UTIL, tracingHeaderEnabled);
 	let tracingHeaders: {
-		'X-B3-TraceId'?: string;
 		'X-B3-SpanId'?: string;
+		'X-B3-TraceId'?: string;
 	} | null = {};
 	if (tracingHeaderEnabled) {
 		tracingHeaders = getActiveTraceHttpRequestHeaders(url);

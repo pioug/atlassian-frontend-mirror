@@ -28,8 +28,8 @@ const taskDecisionProvider = Promise.resolve(getMockTaskDecisionResource());
 const contextIdentifierProvider = storyContextIdentifierProviderFactory();
 
 export interface State {
-	reloadEditor: boolean;
 	jsonDocument?: string;
+	reloadEditor: boolean;
 }
 
 interface Props {

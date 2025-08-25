@@ -104,8 +104,8 @@ describe('@atlaskit/editor-core/utils insert', () => {
 					editorView,
 					editorAPI,
 				}: {
-					editorView: EditorView;
 					editorAPI: PublicPluginAPI<[typeof rulePlugin]> | undefined;
+					editorView: EditorView;
 				}) => {
 					const { state, dispatch } = editorView;
 					editorAPI?.rule?.actions?.insertHorizontalRule(INPUT_METHOD.TOOLBAR)(state, dispatch);

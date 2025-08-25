@@ -15,24 +15,24 @@ export interface CardAuthFlowOpts {
 }
 
 export interface CardContext {
-	store: Store<CardStore>;
-	prefetchStore: Record<string, boolean>;
-	connections: CardConnections;
 	config: CardAuthFlowOpts;
+	connections: CardConnections;
 	extractors: {
 		getPreview: (url: string, platform?: CardPlatform) => LinkPreview | undefined;
 	};
-	renderers?: CardProviderRenderers;
 	isAdminHubAIEnabled?: boolean;
-	product?: ProductType;
-	shouldControlDataExport?: boolean;
 	isPreviewPanelAvailable?: (props: { ari: string }) => boolean;
 	openPreviewPanel?: (props: {
-		url: string;
 		ari: string;
-		name: string;
 		iconUrl: string | undefined;
+		name: string;
+		url: string;
 	}) => void;
+	prefetchStore: Record<string, boolean>;
+	product?: ProductType;
+	renderers?: CardProviderRenderers;
+	shouldControlDataExport?: boolean;
+	store: Store<CardStore>;
 }
 
 export interface CardProviderStoreOpts {
@@ -47,39 +47,19 @@ export interface CardProviderRenderers {
 
 export type CardProviderProps = {
 	/**
+	 * Any React components contains linking components.
+	 */
+	children: React.ReactNode;
+	/**
 	 * A client that make request to Object Resolver Service to resolve url for linking components.
 	 * See `CardClient` for more details.
 	 */
 	client?: CardClient;
 	/**
-	 * The options for redux store that contains linking data.
-	 * `initialState` can be used to set linking data and prevent card client to make a request to resolve the url.
-	 */
-	storeOptions?: CardProviderStoreOpts;
-	/**
-	 * Any React components contains linking components.
-	 */
-	children: React.ReactNode;
-	/**
-	 * A render function returning React component.
-	 * `emoji` is used to render Smart Link icon for Confluence emoji.
-	 */
-	renderers?: CardProviderRenderers;
-	/**
 	 * Flag indicated whether AI feature is enabled in AdminHub.
 	 * This is required for AI summary in Smart Links.
 	 */
 	isAdminHubAIEnabled?: boolean;
-	/**
-	 * The product that linking components are rendered in.
-	 * Required for features such as AI summary in Smart Links, Loom embed Smart Links, etc.
-	 */
-	product?: ProductType;
-	/**
-	 * Flag indicated by compliance to determine whether the content of this link should be controlled for data export.
-	 * This controls whether or not the link data should be blocked for data export during certain features, such as PDF export in Confluence.
-	 */
-	shouldControlDataExport?: boolean;
 	/**
 	 * Optional callback establishing whether the preview panel is available in the host application for the given linked resource.
 	 * Required to be defined to add support for preview panel handling.
@@ -90,24 +70,44 @@ export type CardProviderProps = {
 	 * Required to be defined to add support for preview panel handling.
 	 */
 	openPreviewPanel?: (props: {
-		url: string;
 		ari: string;
-		name: string;
 		iconUrl: string | undefined;
+		name: string;
+		url: string;
 	}) => void;
+	/**
+	 * The product that linking components are rendered in.
+	 * Required for features such as AI summary in Smart Links, Loom embed Smart Links, etc.
+	 */
+	product?: ProductType;
+	/**
+	 * A render function returning React component.
+	 * `emoji` is used to render Smart Link icon for Confluence emoji.
+	 */
+	renderers?: CardProviderRenderers;
+	/**
+	 * Flag indicated by compliance to determine whether the content of this link should be controlled for data export.
+	 * This controls whether or not the link data should be blocked for data export during certain features, such as PDF export in Confluence.
+	 */
+	shouldControlDataExport?: boolean;
+	/**
+	 * The options for redux store that contains linking data.
+	 * `initialState` can be used to set linking data and prevent card client to make a request to resolve the url.
+	 */
+	storeOptions?: CardProviderStoreOpts;
 } & CardAuthFlowOpts;
 
 export type SnippetRendererProps = AISnippetRendererProps | Record<string, never>;
 
 export type BaseSnippetRendererProps = {
-	fallbackText: string;
 	fallbackComponent: React.ReactNode;
-	maxLines: number;
+	fallbackText: string;
 	isHidden?: boolean;
+	maxLines: number;
 };
 export type AISnippetRendererProps = BaseSnippetRendererProps & {
+	cloudId: string;
 	contentId: string;
 	contentType: string;
-	cloudId: string;
 	showFooter?: boolean;
 };

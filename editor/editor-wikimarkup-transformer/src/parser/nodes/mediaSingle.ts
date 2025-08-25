@@ -25,7 +25,7 @@ export default function getMediaSingleNodeView(
 	const { link } = schema.marks;
 	const mediaMarks = [];
 
-	let mediaNodeAttrs: { width?: number; height?: number; alt?: string } = {};
+	let mediaNodeAttrs: { alt?: string; height?: number; width?: number } = {};
 	if (context?.defaults?.media?.width !== null) {
 		mediaNodeAttrs.width = context?.defaults?.media?.width ?? defaultWidth;
 	}

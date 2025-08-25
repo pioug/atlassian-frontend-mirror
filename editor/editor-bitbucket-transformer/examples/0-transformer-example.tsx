@@ -47,7 +47,7 @@ const container = css({
 });
 
 type Props = { actions: any };
-type State = { source: string; output: string };
+type State = { output: string; source: string };
 
 const smartCardClient = new ConfluenceCardClient('staging');
 

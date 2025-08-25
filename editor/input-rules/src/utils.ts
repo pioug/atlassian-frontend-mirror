@@ -38,17 +38,17 @@ const isCursorInsideUnsupportedMarks = (
 };
 
 type Options = {
-	isBlockNodeRule?: boolean;
 	allowInsertTextOnDocument?: boolean;
-	/**
-	 * Run checks on blur of the editor as well as during input
-	 */
-	checkOnBlur?: boolean;
 	/**
 	 * Append text to the checked text on blur. Useful for checks that normally require a trailing
 	 * space or similar
 	 */
 	appendTextOnBlur?: string;
+	/**
+	 * Run checks on blur of the editor as well as during input
+	 */
+	checkOnBlur?: boolean;
+	isBlockNodeRule?: boolean;
 };
 export const createPlugin = (
 	pluginName: string,

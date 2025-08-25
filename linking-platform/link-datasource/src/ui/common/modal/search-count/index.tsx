@@ -19,11 +19,11 @@ const styles = cssMap({
 });
 
 interface TableSearchCountProps {
-	url?: string;
 	prefixTextType: 'issue' | 'result' | 'item';
 	searchCount: number;
-	testId?: string;
 	styles?: React.CSSProperties;
+	testId?: string;
+	url?: string;
 }
 
 const ItemCountWrapper = ({

@@ -5,12 +5,12 @@ import transformer from '../1.0.0-popper-props';
 const applyTransform = require('jscodeshift/dist/testUtils').applyTransform;
 
 type TestArgs = {
-	it: string;
-	original: string;
-	expected: string;
-	mode?: 'only' | 'skip';
-	before?: () => void;
 	after?: () => void;
+	before?: () => void;
+	expected: string;
+	it: string;
+	mode?: 'only' | 'skip';
+	original: string;
 };
 
 function noop() {}

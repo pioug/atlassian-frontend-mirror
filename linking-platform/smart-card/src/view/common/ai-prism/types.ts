@@ -10,8 +10,8 @@ export type AIPrismProps = PropsWithChildren<
 
 export type AIBorderPalette = {
 	blue: string;
-	yellow: string;
 	teal: string;
+	yellow: string;
 };
 
 export type AIThemeBorderPalette = {

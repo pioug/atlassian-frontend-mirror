@@ -54,9 +54,9 @@ export enum ToolbarWidthsFullPageNext {
 }
 
 export type ToolbarUiComponentFactoryParams = UiComponentFactoryParams & {
-	toolbarSize: ToolbarSize;
-	isToolbarReducedSpacing: boolean;
 	isLastItem?: boolean;
+	isToolbarReducedSpacing: boolean;
+	toolbarSize: ToolbarSize;
 };
 export type ToolbarUIComponentFactory = (
 	params: ToolbarUiComponentFactoryParams,

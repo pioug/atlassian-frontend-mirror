@@ -73,9 +73,9 @@ describe('document-service', () => {
 				errorAnalyticsParams,
 			}: {
 				collabState: any; // You can replace 'any' with a more specific type if known
+				errorAnalyticsParams: any;
 				expectedVersion: number;
 				expectErrorAnalytics: boolean;
-				errorAnalyticsParams: any;
 			}) => {
 				expect.assertions(expectErrorAnalytics ? 5 : 3);
 
@@ -611,11 +611,11 @@ describe('document-service', () => {
 				actionEventCalls,
 				errorEvents,
 			}: {
-				state: any;
-				collabState: any;
-				expectedState: any;
 				actionEventCalls: number;
+				collabState: any;
 				errorEvents: Array<[Error, string]>;
+				expectedState: any;
+				state: any;
 			}) => {
 				const { service, analyticsHelperMock } = createMockService();
 				// @ts-ignore
@@ -782,7 +782,7 @@ describe('document-service', () => {
 			const setupService = (
 				state: any,
 				collabState: any,
-			): { service: any; analyticsHelperMock: any } => {
+			): { analyticsHelperMock: any; service: any } => {
 				const { service, analyticsHelperMock } = createMockService();
 				service.setup({ getState: jest.fn().mockReturnValue(state), clientId: 'id' });
 				(getCollabState as jest.Mock).mockReturnValue(collabState);
@@ -876,10 +876,10 @@ describe('document-service', () => {
 				errorContext,
 			}: {
 				collabState: any;
+				errorContext?: string;
+				errorMessage?: string;
 				expectedVersion: number;
 				shouldLogError: boolean;
-				errorMessage?: string;
-				errorContext?: string;
 			}) => {
 				const { service, analyticsHelperMock, participantsServiceMock, commitStepServiceMock } =
 					createMockService();

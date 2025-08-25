@@ -42,9 +42,9 @@ const blockNodeStyle = css({
 });
 
 export interface Props {
-	node?: PMNode;
 	children?: React.ReactNode;
 	dispatchAnalyticsEvent?: (payload: UnsupportedContentTooltipPayload) => void;
+	node?: PMNode;
 }
 
 const UnsupportedBlockNode = ({

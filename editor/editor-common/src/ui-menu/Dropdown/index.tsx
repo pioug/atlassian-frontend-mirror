@@ -10,32 +10,32 @@ import { ArrowKeyNavigationProvider } from '../ArrowKeyNavigationProvider';
 import type { ArrowKeyNavigationProviderOptions } from '../ArrowKeyNavigationProvider/types';
 
 export interface Props {
-	children?: React.ReactNode;
-	mountTo?: HTMLElement;
+	alignDropdownWithParentElement?: boolean;
+	alignX?: 'left' | 'right' | 'center';
+	alignY?: 'start' | 'bottom' | 'top';
+	arrowKeyNavigationProviderOptions: ArrowKeyNavigationProviderOptions;
 	boundariesElement?: HTMLElement;
+	children?: React.ReactNode;
+	dropdownListId?: string;
+	fitHeight?: number;
+	fitWidth?: number;
+	forcePlacement?: boolean;
+	isOpen?: boolean;
+	mountTo?: HTMLElement;
+	offset?: [number, number];
+	onOpenChange?: (attrs: OpenChangedEvent) => void;
 	scrollableElement?: HTMLElement;
+	shouldFitContainer?: boolean;
+	target?: HTMLElement;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	trigger?: React.ReactElement<any>;
-	isOpen?: boolean;
-	onOpenChange?: (attrs: OpenChangedEvent) => void;
-	fitWidth?: number;
-	fitHeight?: number;
 	zIndex?: number;
-	arrowKeyNavigationProviderOptions: ArrowKeyNavigationProviderOptions;
-	dropdownListId?: string;
-	alignDropdownWithParentElement?: boolean;
-	target?: HTMLElement;
-	forcePlacement?: boolean;
-	alignX?: 'left' | 'right' | 'center';
-	alignY?: 'start' | 'bottom' | 'top';
-	offset?: [number, number];
-	shouldFitContainer?: boolean;
 }
 
 export interface State {
-	target?: HTMLElement;
 	popupPlacement: [string, string];
+	target?: HTMLElement;
 }
 
 /**

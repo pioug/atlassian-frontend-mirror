@@ -1,17 +1,17 @@
 export interface User {
-	/**
-	 * user id in system
-	 */
-	id: string;
+	accountId?: string;
 	/**
 	 * name of user clicked on the reaction
 	 */
 	displayName: string;
 	/**
+	 * user id in system
+	 */
+	id: string;
+	/**
 	 * optional path to a user profile picture
 	 */
 	profilePicture?: ProfilePicture;
-	accountId?: string;
 }
 
 /**

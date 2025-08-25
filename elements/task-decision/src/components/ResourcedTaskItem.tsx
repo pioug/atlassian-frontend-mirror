@@ -12,23 +12,23 @@ import {
 import { FabricElementsAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
 
 export interface Props {
-	taskId: string;
+	appearance?: Appearance;
+	children?: any;
+	contentRef?: ContentRef;
+	dataAttributes?: { [key: string]: string | number };
+	disabled?: boolean;
+	disableOnChange?: boolean;
+	inputRef?: Ref<HTMLInputElement>;
 	isDone?: boolean;
-	isRenderer?: boolean;
 	isFocused?: boolean;
+	isRenderer?: boolean;
+	objectAri?: string;
 	onChange?: (taskId: string, isChecked: boolean) => void;
 	onClick?: () => void;
-	contentRef?: ContentRef;
-	children?: any;
-	taskDecisionProvider?: Promise<TaskDecisionProvider>;
-	objectAri?: string;
-	showPlaceholder?: boolean;
 	placeholder?: string;
-	appearance?: Appearance;
-	disabled?: boolean;
-	dataAttributes?: { [key: string]: string | number };
-	inputRef?: Ref<HTMLInputElement>;
-	disableOnChange?: boolean;
+	showPlaceholder?: boolean;
+	taskDecisionProvider?: Promise<TaskDecisionProvider>;
+	taskId: string;
 }
 
 export interface State {

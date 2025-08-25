@@ -1343,8 +1343,8 @@ export const generateDataResponse = ({
 	initialVisibleColumnKeys,
 	isUnauthorized = false,
 }: {
-	isUnauthorized?: boolean;
 	initialVisibleColumnKeys: string[];
+	isUnauthorized?: boolean;
 }): DatasourceDataResponse => {
 	const detailsResponse = defaultAssetsDetailsResponse;
 

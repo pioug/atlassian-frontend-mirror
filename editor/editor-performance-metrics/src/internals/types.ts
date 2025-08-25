@@ -11,8 +11,8 @@ export type HeatmapEntrySource =
 	| 'mutation:node-replacement';
 
 export type ViewportDimension = {
-	w: number;
 	h: number;
+	w: number;
 };
 
 export type UserEventCategory =

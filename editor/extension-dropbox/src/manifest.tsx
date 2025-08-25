@@ -15,10 +15,10 @@ declare global {
 		Dropbox: {
 			appKey?: string;
 			choose: (args: {
-				iframe?: boolean;
-				windowName?: string;
-				success: (value: DropboxFile[] | PromiseLike<DropboxFile[]>) => void;
 				cancel: () => void;
+				iframe?: boolean;
+				success: (value: DropboxFile[] | PromiseLike<DropboxFile[]>) => void;
+				windowName?: string;
 			}) => void;
 		};
 	}

@@ -61,9 +61,9 @@ const fieldsFooterStyles = css({
 const styles = xcss({ marginTop: 'space.300', flexGrow: 0, flexBasis: 0, minWidth: '112px' });
 type UserData = {
 	avatarUrl?: string;
+	fixed?: boolean;
 	id: string;
 	includesYou?: boolean;
-	fixed?: boolean;
 	lozenge?: string;
 	memberCount?: number;
 	name: string;
@@ -184,39 +184,39 @@ const triggerButtonTooltipPositionOptions: Array<TriggerPositionOption> = [
 ];
 
 type ExampleState = {
+	additionalTabs: Array<AdditionalTab>;
+	additionalUserFields: boolean;
 	chosenConfig: number;
 	customButton: boolean;
-	customTitle: boolean;
 	customHelperMessage: boolean;
+	customTitle: boolean;
 	customTooltipText: boolean;
 	customTriggerButtonIcon: boolean;
-	additionalUserFields: boolean;
-	escapeOnKeyPress: boolean;
-	restrictionMessage: boolean;
-	useUrlShortener: boolean;
-	shortLinkData?: ShortenRequest;
-	product: ProductName;
-	hasHeader: boolean;
-	hasFooter: boolean;
 	enableSmartUserPicker: boolean;
+	escapeOnKeyPress: boolean;
+	hasAdditionalTabs: boolean;
+	hasFooter: boolean;
+	hasHeader: boolean;
+	hasMenu: boolean;
 	hasShareFieldsFooter: boolean;
+	hasSplit: boolean;
+	hasTabs: boolean;
+	integrationMode: IntegrationMode;
 	isBrowseUsersDisabled: boolean;
 	isCopyDisabled: boolean;
 	isPublicLink: boolean;
-	hasMenu: boolean;
-	hasTabs: boolean;
-	hasAdditionalTabs: boolean;
-	hasSplit: boolean;
-	shareIntegrations: Array<Integration>;
-	additionalTabs: Array<AdditionalTab>;
-	integrationMode: IntegrationMode;
-	locales: string[];
 	locale: string;
+	locales: string[];
+	product: ProductName;
+	restrictionMessage: boolean;
+	shareIntegrations: Array<Integration>;
+	shortLinkData?: ShortenRequest;
+	useUrlShortener: boolean;
 };
 
 type State = {
-	isAutoOpenDialog: boolean;
 	dialogPlacement: DialogPlacement;
+	isAutoOpenDialog: boolean;
 	triggerButtonAppearance: IconButtonProps['appearance'];
 	triggerButtonStyle: ShareButtonStyle;
 	triggerButtonTooltipPosition: TooltipPosition;

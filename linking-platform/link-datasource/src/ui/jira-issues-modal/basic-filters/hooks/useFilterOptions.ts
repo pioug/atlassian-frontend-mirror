@@ -28,13 +28,13 @@ export interface FetchFilterOptionsProps {
 }
 
 export interface FilterOptionsState {
-	filterOptions: SelectOption[];
-	fetchFilterOptions: (prop?: FetchFilterOptionsProps) => Promise<void>;
-	reset: () => void;
-	totalCount: number;
-	pageCursor?: string;
-	status: 'empty' | 'loading' | 'resolved' | 'rejected' | 'loadingMore';
 	errors: unknown[];
+	fetchFilterOptions: (prop?: FetchFilterOptionsProps) => Promise<void>;
+	filterOptions: SelectOption[];
+	pageCursor?: string;
+	reset: () => void;
+	status: 'empty' | 'loading' | 'resolved' | 'rejected' | 'loadingMore';
+	totalCount: number;
 }
 
 export const getAssigneeUnassignedFilterOption = (

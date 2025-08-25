@@ -30,8 +30,8 @@ const CardViewExample = ({
 	url,
 	...props
 }: Omit<React.ComponentProps<typeof CardView>, 'client'> & {
-	fontSize?: React.CSSProperties['fontSize'];
 	CardComponent?: typeof Card | typeof CardSSR;
+	fontSize?: React.CSSProperties['fontSize'];
 }) => (
 	<React.Fragment>
 		<CardViewSection {...props} client={new ResolvingClient()} title="[Resolving]" />

@@ -23,16 +23,16 @@ import {
 import { fg } from '@atlaskit/platform-feature-flags';
 
 type Props = {
-	range: Range;
-	isWithinRange: boolean;
-	component: React.ComponentType<InlineCommentHoverComponentProps>;
-	wrapperDOM: React.RefObject<HTMLDivElement>;
-	documentPosition: Position | false;
-	isAnnotationAllowed: boolean;
-	onClose: () => void;
 	applyAnnotation: ApplyAnnotation;
+	component: React.ComponentType<InlineCommentHoverComponentProps>;
 	createAnalyticsEvent?: CreateUIAnalyticsEvent;
+	documentPosition: Position | false;
 	generateIndexMatch?: (pos: Position) => false | AnnotationByMatches;
+	isAnnotationAllowed: boolean;
+	isWithinRange: boolean;
+	onClose: () => void;
+	range: Range;
+	wrapperDOM: React.RefObject<HTMLDivElement>;
 };
 
 export const Mounter = React.memo((props: Props) => {

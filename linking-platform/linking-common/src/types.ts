@@ -3,14 +3,14 @@ import { type AnyAction } from 'redux';
 import type Environments from './environments';
 
 export interface InvokePayload<T> {
-	key: string;
-	context?: string;
 	action: T;
+	context?: string;
+	key: string;
 }
 
 export type InvocationSearchPayload = {
-	query: string;
 	context?: InvocationContext;
+	query: string;
 };
 
 export type InvocationContext = {
@@ -45,51 +45,51 @@ export type CardType =
 export type MetadataStatus = 'pending' | 'resolved' | 'errored';
 
 export interface CardAction<T = JsonLd.Response> extends AnyAction {
+	metadataStatus?: MetadataStatus;
+	payload?: T;
 	type: CardActionType;
 	url: string;
-	payload?: T;
-	metadataStatus?: MetadataStatus;
 }
 export interface ServerActionOpts {
-	type: string;
 	payload: ServerActionPayload;
+	type: string;
 }
 export interface ServerActionPayload {
-	id: string;
 	context?: JsonLd.Primitives.Object | JsonLd.Primitives.Link;
+	id: string;
 }
 
 export interface InlineCardAdf {
-	type: 'inlineCard';
 	attrs: {
 		url: string;
 	};
+	type: 'inlineCard';
 }
 export interface BlockCardAdf {
-	type: 'blockCard';
 	attrs: {
 		url: string;
 	};
+	type: 'blockCard';
 }
 export interface EmbedCardAdf {
-	type: 'embedCard';
 	attrs: {
-		url: string;
 		layout: 'wide';
+		url: string;
 	};
+	type: 'embedCard';
 }
 
 export interface DatasourceAdfTableViewColumn {
+	isWrapped?: boolean;
 	key: string;
 	width?: number;
-	isWrapped?: boolean;
 }
 
 export interface DatasourceAdfTableView {
-	type: 'table';
 	properties?: {
 		columns: DatasourceAdfTableViewColumn[];
 	};
+	type: 'table';
 }
 // TODO Remove me when next View be added. I am here as an example of intent
 // export interface DatasourceAdfSomethingView {
@@ -108,11 +108,11 @@ export interface Datasource<P extends Record<string, unknown> = Record<string, u
 export type DatasourceAdfView = DatasourceAdfTableView /*| DatasourceAdfSomethingView*/;
 
 export interface DatasourceAdf<P extends Record<string, unknown> = Record<string, unknown>> {
-	type: 'blockCard';
 	attrs: {
-		url?: string;
 		datasource: Datasource<P>;
+		url?: string;
 	};
+	type: 'blockCard';
 }
 export type CardAdf = InlineCardAdf | BlockCardAdf | EmbedCardAdf;
 

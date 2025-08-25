@@ -31,8 +31,8 @@ export type ContextAwareTokenSuggestions = TokenSuggestions & {
 };
 
 export type ContextAwareJQLSuggestions = {
-	tokens: ContextAwareTokenSuggestions;
 	rules: JQLRuleSuggestions;
+	tokens: ContextAwareTokenSuggestions;
 };
 
 /**
@@ -52,48 +52,48 @@ export type ExternalErrorAttributes = {
  */
 export type ExternalError = {
 	/**
-	 * Type of the message.
-	 */
-	type: 'error';
-	/**
-	 * Message to display.
-	 */
-	message: ReactNode;
-	/**
 	 * Optional identifying error type when a syntax error has occurred. This should be one of the types defined in the
 	 * `JqlSyntaxQueryErrorExtension` node of the Atlassian GraphQL schema.
 	 */
 	errorType?: string;
+	/**
+	 * Message to display.
+	 */
+	message: ReactNode;
+	/**
+	 * Type of the message.
+	 */
+	type: 'error';
 };
 
 export type ExternalWarning = {
 	/**
-	 * Type of the message.
-	 */
-	type: 'warning';
-	/**
 	 * Message to display.
 	 */
 	message: ReactNode;
+	/**
+	 * Type of the message.
+	 */
+	type: 'warning';
 };
 
 export type ExternalInfo = {
 	/**
-	 * Type of the message.
-	 */
-	type: 'info';
-	/**
 	 * Message to display.
 	 */
 	message: ReactNode;
+	/**
+	 * Type of the message.
+	 */
+	type: 'info';
 };
 
 export type CustomErrorComponent = React.ComponentType<
 	PropsWithChildren<{
-		testId: string;
-		editorTheme: EditorTheme;
 		editorId: string;
+		editorTheme: EditorTheme;
 		errorMessages: React.ReactElement[];
+		testId: string;
 		validationId: string;
 	}>
 >;
@@ -113,45 +113,18 @@ export type ExternalMessage = ExternalError | ExternalWarning | ExternalInfo;
 
 export type ExternalMessagesNormalized = {
 	errors: ExternalError[];
-	warnings: ExternalWarning[];
 	infos: ExternalInfo[];
+	warnings: ExternalWarning[];
 };
 
 export type AutocompletePosition = {
-	top: number;
 	left: number;
+	top: number;
 };
 
 export type OptionsKey = keyof Omit<AutocompleteOptionGroup, 'tokens'>;
 
 export type AutocompleteState = {
-	/**
-	 * ID of the currently selected autocomplete option, or `undefined` if no option is selected.
-	 */
-	selectedOptionId: string | undefined;
-	/**
-	 * Forces autocomplete to stay closed on next update, which is the desired behavior when:
-	 * - we select an autocomplete option
-	 * - we navigate the query with arrow keys
-	 */
-	shouldStayClosedOnNextUpdate: boolean;
-	/**
-	 * Manages current autocomplete visibility state, derived from `shouldStayClosedOnNextUpdate`.
-	 */
-	shouldStayClosed: boolean;
-	/**
-	 * Determines if autocomplete options are currently being loaded.
-	 */
-	loading: boolean;
-	/**
-	 * Autocomplete options returned by autocomplete provider functions.
-	 */
-	options: AutocompleteOptionGroup;
-	/**
-	 * Autocomplete provider is an Observable based API. This references any in-flight subscription so we can cancel it
-	 * upon a new request.
-	 */
-	subscription: Subscription | null;
 	/**
 	 * Subscription for a debounced autocomplete analytics event. This allows the event to be cancelled upon a new request.
 	 */
@@ -161,15 +134,42 @@ export type AutocompleteState = {
 	 */
 	container: HTMLElement | null;
 	/**
+	 * Determines if autocomplete options are currently being loaded.
+	 */
+	loading: boolean;
+	/**
 	 * Provides information about autocomplete offset parent's size and its position relative to the viewport.
 	 * This is used to calculate autocomplete dropdown position.
 	 */
 	offsetParentRect: DOMRectReadOnly | undefined;
 	/**
+	 * Autocomplete options returned by autocomplete provider functions.
+	 */
+	options: AutocompleteOptionGroup;
+	/**
 	 * Computed replace position start for the current set of autocomplete options.
 	 * We use this position to derive autocomplete dropdown coordinates.
 	 */
 	replacePositionStart: number;
+	/**
+	 * ID of the currently selected autocomplete option, or `undefined` if no option is selected.
+	 */
+	selectedOptionId: string | undefined;
+	/**
+	 * Manages current autocomplete visibility state, derived from `shouldStayClosedOnNextUpdate`.
+	 */
+	shouldStayClosed: boolean;
+	/**
+	 * Forces autocomplete to stay closed on next update, which is the desired behavior when:
+	 * - we select an autocomplete option
+	 * - we navigate the query with arrow keys
+	 */
+	shouldStayClosedOnNextUpdate: boolean;
+	/**
+	 * Autocomplete provider is an Observable based API. This references any in-flight subscription so we can cancel it
+	 * upon a new request.
+	 */
+	subscription: Subscription | null;
 };
 
 export type HydratedValuesMap = {
@@ -178,17 +178,21 @@ export type HydratedValuesMap = {
 
 export type State = {
 	/**
+	 * State managed by the autocomplete plugin.
+	 */
+	autocomplete: AutocompleteState;
+	/**
+	 * Provider object to fetch autocomplete data.
+	 */
+	autocompleteProvider: AutocompleteProvider;
+	/**
 	 * The controlled query prop passed to the container.
 	 */
 	controlledQuery: string;
 	/**
-	 * The current query string in the JQL editor.
+	 * Custom components to take over the rendering of certain parts of the jql editor
 	 */
-	query: string;
-	/**
-	 * Custom messages to display.
-	 */
-	externalMessages: ExternalMessage[];
+	customComponents?: CustomComponents;
 	/**
 	 * The current Prosemirror editor state.
 	 */
@@ -198,54 +202,10 @@ export type State = {
 	 */
 	editorView: EditorView | undefined;
 	/**
-	 * Flag to enable the searching indicator when a JQL search is in progress.
-	 */
-	isSearching: boolean | undefined;
-	/**
-	 * Mutable reference to a react-intl object.
-	 */
-	intlRef: MutableRefObject<IntlShape>;
-	/**
-	 * Provider object to fetch autocomplete data.
-	 */
-	autocompleteProvider: AutocompleteProvider;
-	/**
-	 * Prefix to use when computing id's for DOM elements (to allow multiple editors rendered on the same page).
-	 */
-	idPrefix: string;
-	/**
 	 * ID of the timeout used before setting `editorViewHasFocus=false`. This gives an opportunity for the timeout to be
 	 * cleared if another element within the context receives focus.
 	 */
 	editorViewBlurTimeout: number | null;
-	/**
-	 * Flag to determine whether the editor view (or autocomplete dropdown) currently has focus.
-	 */
-	editorViewHasFocus: boolean;
-	/**
-	 * Flag to determine whether line numbers should be shown in the editor.
-	 */
-	lineNumbersVisible: boolean;
-	/**
-	 * The first JQL parse error of the last submitted query, or {@code null} if there were no errors.
-	 */
-	jqlError: JQLParseError | null;
-	/**
-	 * State managed by the autocomplete plugin.
-	 */
-	autocomplete: AutocompleteState;
-	/**
-	 * Whether rich inline nodes feature should be enabled.
-	 */
-	enableRichInlineNodes: boolean;
-	/**
-	 * Map of hydrated values.
-	 */
-	hydratedValues: HydratedValuesMap;
-	/**
-	 * Reference to the ResizeObserver object used to process size changes within the editor.
-	 */
-	resizeObserver: ResizeObserver | undefined;
 	/**
 	 * Reference to the editor view container (scrollable element that contains line numbers and editor view).
 	 */
@@ -260,6 +220,42 @@ export type State = {
 	 */
 	editorViewContainerScroll: number;
 	/**
+	 * Flag to determine whether the editor view (or autocomplete dropdown) currently has focus.
+	 */
+	editorViewHasFocus: boolean;
+	/**
+	 * Whether rich inline nodes feature should be enabled.
+	 */
+	enableRichInlineNodes: boolean;
+	/**
+	 * Custom messages to display.
+	 */
+	externalMessages: ExternalMessage[];
+	/**
+	 * Map of hydrated values.
+	 */
+	hydratedValues: HydratedValuesMap;
+	/**
+	 * Prefix to use when computing id's for DOM elements (to allow multiple editors rendered on the same page).
+	 */
+	idPrefix: string;
+	/**
+	 * Mutable reference to a react-intl object.
+	 */
+	intlRef: MutableRefObject<IntlShape>;
+	/**
+	 * Flag to enable the searching indicator when a JQL search is in progress.
+	 */
+	isSearching: boolean | undefined;
+	/**
+	 * The first JQL parse error of the last submitted query, or {@code null} if there were no errors.
+	 */
+	jqlError: JQLParseError | null;
+	/**
+	 * Flag to determine whether line numbers should be shown in the editor.
+	 */
+	lineNumbersVisible: boolean;
+	/**
 	 * Called when we want to debug a particular error or action that has occurred within the editor. The message may
 	 * contain PII, and as such consumers should treat as a privacy unsafe error.
 	 */
@@ -271,32 +267,36 @@ export type State = {
 	 * handled which will prevent default behaviour of the help button, i.e. `e.preventDefault()`.
 	 */
 	onSyntaxHelp?: (e: MouseEvent<HTMLElement>) => boolean;
+	/**
+	 * The current query string in the JQL editor.
+	 */
+	query: string;
 
 	/**
-	 * Custom components to take over the rendering of certain parts of the jql editor
+	 * Reference to the ResizeObserver object used to process size changes within the editor.
 	 */
-	customComponents?: CustomComponents;
+	resizeObserver: ResizeObserver | undefined;
 };
 
 export type DebugMessageEventAttribute = string | number | boolean | void | null;
 
 export type Props = {
-	query: string;
-	externalMessages: ExternalMessage[];
-	isSearching: boolean | undefined;
-	intlRef: MutableRefObject<IntlShape>;
+	autocompleteProvider: AutocompleteProvider;
 	createAndFireAnalyticsEvent: (payload: JqlEditorAnalyticsEvent) => void;
-	onEditorMounted?: () => void;
+	customComponents?: CustomComponents;
+	enableRichInlineNodes: boolean;
+	externalMessages: ExternalMessage[];
+	intlRef: MutableRefObject<IntlShape>;
+	isSearching: boolean | undefined;
 	onDebugUnsafeMessage?: (
 		message: string,
 		event: { [key: string]: DebugMessageEventAttribute },
 	) => void;
-	onHydrate?: (query: string) => Promise<HydratedValues>;
-	onUpdate?: (query: string, jast: Jast) => void;
-	onSearch?: (query: string, jast: Jast) => void;
-	autocompleteProvider: AutocompleteProvider;
-	enableRichInlineNodes: boolean;
-	onSyntaxHelp?: (e: MouseEvent<HTMLElement>) => boolean;
+	onEditorMounted?: () => void;
 	onFocus?: (e: FocusEvent<HTMLElement>) => void;
-	customComponents?: CustomComponents;
+	onHydrate?: (query: string) => Promise<HydratedValues>;
+	onSearch?: (query: string, jast: Jast) => void;
+	onSyntaxHelp?: (e: MouseEvent<HTMLElement>) => boolean;
+	onUpdate?: (query: string, jast: Jast) => void;
+	query: string;
 };

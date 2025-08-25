@@ -49,8 +49,8 @@ export interface TeamMentionResourceConfig extends MentionResourceConfig {
  * Support
  */
 export interface ResolvingMentionProvider extends MentionProvider {
-	resolveMentionName(id: string): Promise<MentionNameDetails> | MentionNameDetails;
 	cacheMentionName(id: string, mentionName: string): void;
+	resolveMentionName(id: string): Promise<MentionNameDetails> | MentionNameDetails;
 	supportsMentionNameResolving(): boolean;
 }
 

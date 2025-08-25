@@ -51,6 +51,7 @@ import { newVCObserver } from '../vc';
 import { type VCObserverInterface } from '../vc/types';
 
 import { interactions } from './common/constants';
+import InteractionExtraMetrics from './interaction-extra-metrics';
 import PostInteractionLog from './post-interaction-log';
 
 export type {
@@ -75,6 +76,7 @@ const PreviousInteractionLog = {
 };
 
 export const postInteractionLog = new PostInteractionLog();
+export const interactionExtraMetrics = new InteractionExtraMetrics();
 
 const interactionQueue: { id: string; data: InteractionMetrics }[] = [];
 const segmentCache = new Map<string, SegmentInfo>();
@@ -242,23 +244,16 @@ export function addCustomTiming(interactionId: string, labelStack: LabelStack, d
 				const { startTime, endTime } = timingData;
 				try {
 					// for Firefox 102 and older
-					if (fg('ufo_chrome_devtools_uplift')) {
-						performance.measure(`🛸 ${labelStackToString(labelStack, key)} [custom_timing]`, {
-							start: startTime,
-							end: endTime,
-							detail: {
-								devtools: {
-									track: '🛸 reactUFO detailed timings',
-									color: 'tertiary-light',
-								},
+					performance.measure(`🛸 ${labelStackToString(labelStack, key)} [custom_timing]`, {
+						start: startTime,
+						end: endTime,
+						detail: {
+							devtools: {
+								track: '🛸 reactUFO detailed timings',
+								color: 'tertiary-light',
 							},
-						});
-					} else {
-						performance.measure(`🛸 ${labelStackToString(labelStack, key)} [custom_timing]`, {
-							start: startTime,
-							end: endTime,
-						});
-					}
+						},
+					});
 				} catch (e) {
 					// do nothing
 				}
@@ -316,23 +311,16 @@ export function addSpan(
 		if (isPerformanceTracingEnabled()) {
 			try {
 				// for Firefox 102 and older
-				if (fg('ufo_chrome_devtools_uplift')) {
-					performance.measure(`🛸 ${labelStackToString(labelStack, name)} [${type}]`, {
-						start,
-						end,
-						detail: {
-							devtools: {
-								track: '🛸 reactUFO detailed timings',
-								color: 'secondary',
-							},
+				performance.measure(`🛸 ${labelStackToString(labelStack, name)} [${type}]`, {
+					start,
+					end,
+					detail: {
+						devtools: {
+							track: '🛸 reactUFO detailed timings',
+							color: 'secondary',
 						},
-					});
-				} else {
-					performance.measure(`🛸 ${labelStackToString(labelStack, name)} [${type}]`, {
-						start,
-						end,
-					});
-				}
+					},
+				});
 			} catch (e) {
 				// do nothing
 			}
@@ -354,23 +342,16 @@ export function addSpanToAll(
 	if (isPerformanceTracingEnabled()) {
 		try {
 			// for Firefox 102 and older
-			if (fg('ufo_chrome_devtools_uplift')) {
-				performance.measure(`🛸 ${labelStackToString(labelStack, name)} [${type}]`, {
-					start,
-					end,
-					detail: {
-						devtools: {
-							track: '🛸 reactUFO detailed timings',
-							color: 'secondary',
-						},
+			performance.measure(`🛸 ${labelStackToString(labelStack, name)} [${type}]`, {
+				start,
+				end,
+				detail: {
+					devtools: {
+						track: '🛸 reactUFO detailed timings',
+						color: 'secondary',
 					},
-				});
-			} else {
-				performance.measure(`🛸 ${labelStackToString(labelStack, name)} [${type}]`, {
-					start,
-					end,
-				});
-			}
+				},
+			});
 		} catch (e) {
 			// do nothing
 		}
@@ -428,36 +409,43 @@ export function addHold(
 	if (interaction != null) {
 		const start = performance.now();
 		const holdActive = { labelStack, name, start };
-		if (getConfig()?.experimentalInteractionMetrics?.enabled && experimental) {
-			interaction.holdExpActive.set(id, { ...holdActive, start });
-		}
-		if (!experimental) {
-			interaction.holdActive.set(id, { ...holdActive, start });
+
+		if (fg('platform_ufo_enable_ttai_with_3p')) {
+			const is3pHold = labelStack.some((l) => 'type' in l && l.type === 'third-party');
+			if (is3pHold) {
+				if (!interaction.hold3pActive) {
+					interaction.hold3pActive = new Map();
+				}
+				interaction.hold3pActive.set(id, { ...holdActive, start });
+			} else {
+				interaction.holdActive.set(id, { ...holdActive, start });
+				addHoldCriterion(id, labelStack, name, start);
+			}
+		} else {
+			if (getConfig()?.experimentalInteractionMetrics?.enabled && experimental) {
+				interaction.holdExpActive.set(id, { ...holdActive, start });
+			}
+			if (!experimental) {
+				interaction.holdActive.set(id, { ...holdActive, start });
+			}
+			addHoldCriterion(id, labelStack, name, start);
 		}
 
-		addHoldCriterion(id, labelStack, name, start);
 		return () => {
 			const end = performance.now();
 			if (isPerformanceTracingEnabled()) {
 				try {
 					// for Firefox 102 and older
-					if (fg('ufo_chrome_devtools_uplift')) {
-						performance.measure(`🛸 ${labelStackToString(labelStack, name)} [hold]`, {
-							start,
-							end,
-							detail: {
-								devtools: {
-									track: '🛸 reactUFO detailed timings',
-									color: 'secondary-light',
-								},
+					performance.measure(`🛸 ${labelStackToString(labelStack, name)} [hold]`, {
+						start,
+						end,
+						detail: {
+							devtools: {
+								track: '🛸 reactUFO detailed timings',
+								color: 'secondary-light',
 							},
-						});
-					} else {
-						performance.measure(`🛸 ${labelStackToString(labelStack, name)} [hold]`, {
-							start,
-							end,
-						});
-					}
+						},
+					});
 				} catch (e) {
 					// do nothing
 				}
@@ -476,6 +464,19 @@ export function addHold(
 					currentInteraction.holdExpInfo.push({ ...expHold, end });
 					interaction.holdExpActive.delete(id);
 				}
+
+				if (fg('platform_ufo_enable_ttai_with_3p')) {
+					if (interaction.hold3pActive) {
+						const current3pHold = interaction.hold3pActive.get(id);
+						if (current3pHold != null) {
+							if (!currentInteraction.hold3pInfo) {
+								currentInteraction.hold3pInfo = [];
+							}
+							currentInteraction.hold3pInfo.push({ ...current3pHold, end });
+							interaction.hold3pActive.delete(id);
+						}
+					}
+				}
 			}
 		};
 	}
@@ -492,8 +493,21 @@ export function addHoldByID(
 	const interaction = interactions.get(interactionId);
 	if (interaction != null) {
 		const start = performance.now();
-		interaction.holdActive.set(id, { labelStack, name, start, ignoreOnSubmit });
-		addHoldCriterion(id, labelStack, name, start);
+		if (fg('platform_ufo_enable_ttai_with_3p')) {
+			const is3pHold = labelStack.some((l) => 'type' in l && l.type === 'third-party');
+			if (is3pHold) {
+				if (!interaction.hold3pActive) {
+					interaction.hold3pActive = new Map();
+				}
+				interaction.hold3pActive.set(id, { labelStack, name, start, ignoreOnSubmit });
+			} else {
+				interaction.holdActive.set(id, { labelStack, name, start, ignoreOnSubmit });
+				addHoldCriterion(id, labelStack, name, start);
+			}
+		} else {
+			interaction.holdActive.set(id, { labelStack, name, start, ignoreOnSubmit });
+			addHoldCriterion(id, labelStack, name, start);
+		}
 	}
 	return () => {};
 }
@@ -509,6 +523,19 @@ export function removeHoldByID(interactionId: string, id: string) {
 			currentInteraction.holdInfo.push({ ...currentHold, end });
 			interaction.holdActive.delete(id);
 			removeHoldCriterion(id);
+		}
+
+		if (fg('platform_ufo_enable_ttai_with_3p')) {
+			if (interaction.hold3pActive) {
+				const current3pHold = interaction.hold3pActive.get(id);
+				if (currentInteraction != null && current3pHold != null) {
+					if (!currentInteraction.hold3pInfo) {
+						currentInteraction.hold3pInfo = [];
+					}
+					currentInteraction.hold3pInfo.push({ ...current3pHold, end });
+					interaction.hold3pActive.delete(id);
+				}
+			}
 		}
 	}
 }
@@ -609,23 +636,16 @@ export function addProfilerTimings(
 	if (isPerformanceTracingEnabled()) {
 		try {
 			// for Firefox 102 and older
-			if (fg('ufo_chrome_devtools_uplift')) {
-				performance.measure(`🛸 ${labelStackToString(labelStack)} [react-profiler] ${type}`, {
-					start: startTime,
-					duration: actualDuration,
-					detail: {
-						devtools: {
-							track: '🛸 reactUFO detailed timings',
-							color: 'secondary-dark',
-						},
+			performance.measure(`🛸 ${labelStackToString(labelStack)} [react-profiler] ${type}`, {
+				start: startTime,
+				duration: actualDuration,
+				detail: {
+					devtools: {
+						track: '🛸 reactUFO detailed timings',
+						color: 'secondary-dark',
 					},
-				});
-			} else {
-				performance.measure(`🛸 ${labelStackToString(labelStack)} [react-profiler] ${type}`, {
-					start: startTime,
-					duration: actualDuration,
-				});
-			}
+				},
+			});
 		} catch (e) {
 			// do nothing
 		}
@@ -672,34 +692,26 @@ function finishInteraction(
 	data.end = endTime;
 	try {
 		// for Firefox 102 and older
-
-		if (fg('ufo_chrome_devtools_uplift')) {
-			performance.measure(`🛸 [${data.type}] ${data.ufoName} [ttai]`, {
-				start: data.start,
-				end: data.end,
-				detail: {
-					devtools: {
-						track: 'main metrics',
-						trackGroup: '🛸 reactUFO metrics',
-						color: 'tertiary',
-					},
+		performance.measure(`🛸 [${data.type}] ${data.ufoName} [ttai]`, {
+			start: data.start,
+			end: data.end,
+			detail: {
+				devtools: {
+					track: 'main metrics',
+					trackGroup: '🛸 reactUFO metrics',
+					color: 'tertiary',
 				},
-			});
+			},
+		});
 
-			performance.mark(`TTAI`, {
-				startTime: data.end,
-				detail: {
-					devtools: {
-						dataType: 'marker',
-					},
+		performance.mark(`TTAI`, {
+			startTime: data.end,
+			detail: {
+				devtools: {
+					dataType: 'marker',
 				},
-			});
-		} else {
-			performance.measure(`🛸 [${data.type}] ${data.ufoName} [ttai]`, {
-				start: data.start,
-				end: data.end,
-			});
-		}
+			},
+		});
 	} catch (e) {
 		// do nothing
 	}
@@ -718,25 +730,35 @@ function finishInteraction(
 	data.hydration = getReactHydrationStats();
 
 	// By this time, stop the post interaction log observer if coinflip rate is 0
-	if (fg('platform_ufo_post_interaction_check_name')) {
-		const sanitisedUfoName = sanitizeUfoName(data.ufoName);
-		if (!coinflip(getPostInteractionRate(sanitisedUfoName, data.type))) {
-			postInteractionLog.stopVCObserver();
-		}
-	} else {
-		if (!coinflip(getPostInteractionRate(data.routeName || data.ufoName, data.type))) {
-			postInteractionLog.stopVCObserver();
-		}
+	const sanitisedUfoName = sanitizeUfoName(data.ufoName);
+	if (!coinflip(getPostInteractionRate(sanitisedUfoName, data.type))) {
+		postInteractionLog.stopVCObserver();
 	}
 
-	if (!getConfig()?.experimentalInteractionMetrics?.enabled) {
-		remove(id);
+	if (fg('platform_ufo_enable_ttai_with_3p')) {
+		if (!data.hold3pActive || data.hold3pActive.size === 0) {
+			if (!getConfig()?.experimentalInteractionMetrics?.enabled) {
+				remove(id);
+			}
+			interactionExtraMetrics.stopVCObserver();
+		}
+	} else {
+		if (!getConfig()?.experimentalInteractionMetrics?.enabled) {
+			remove(id);
+		}
 	}
 
 	PreviousInteractionLog.name = data.ufoName || 'unknown';
 	PreviousInteractionLog.isAborted = data.abortReason != null;
 	if (data.ufoName) {
-		handleInteraction(id, data);
+		if (fg('platform_ufo_enable_ttai_with_3p')) {
+			if (interactionExtraMetrics.finishedInteractionId !== id) {
+				// If this same interaction was not already handled, handle it
+				handleInteraction(id, data);
+			}
+		} else {
+			handleInteraction(id, data);
+		}
 	}
 
 	if (isPerformanceTracingEnabled()) {
@@ -764,23 +786,16 @@ function finishInteraction(
 		try {
 			// for Firefox 102 and older
 			for (const [, { labelStack, start, end }] of profilerTimingMap.entries()) {
-				if (fg('ufo_chrome_devtools_uplift')) {
-					performance.measure(`🛸 ${labelStackToString(labelStack)} [segment_ttai]`, {
-						start,
-						end,
-						detail: {
-							devtools: {
-								track: '🛸 reactUFO detailed timings',
-								color: 'secondary-dark',
-							},
+				performance.measure(`🛸 ${labelStackToString(labelStack)} [segment_ttai]`, {
+					start,
+					end,
+					detail: {
+						devtools: {
+							track: '🛸 reactUFO detailed timings',
+							color: 'secondary-dark',
 						},
-					});
-				} else {
-					performance.measure(`🛸 ${labelStackToString(labelStack)} [segment_ttai]`, {
-						start,
-						end,
-					});
-				}
+					},
+				});
 			}
 		} catch (e) {
 			// do nothing
@@ -840,23 +855,58 @@ export function tryComplete(interactionId: string, endTime?: number) {
 				});
 			}
 
-			if (getConfig()?.experimentalInteractionMetrics?.enabled) {
-				remove(interactionId);
+			if (fg('platform_ufo_enable_ttai_with_3p')) {
+				if (interactionExtraMetrics.finishedInteractionId !== interactionId) {
+					// If interactionExtraMetrics is not waiting for measuring this interaction
+					if (getConfig()?.experimentalInteractionMetrics?.enabled) {
+						remove(interactionId);
+					}
+				}
+			} else {
+				if (getConfig()?.experimentalInteractionMetrics?.enabled) {
+					remove(interactionId);
+				}
 			}
 			activeSubmitted = false;
 		};
 
-		if (noMoreActiveHolds) {
-			if (!activeSubmitted) {
-				finishInteraction(interactionId, interaction, endTime);
-				activeSubmitted = true;
-			}
-
-			if (noMoreExpHolds) {
-				if (getConfig()?.experimentalInteractionMetrics?.enabled) {
-					onExperimentalInteractionComplete(interactionId, interaction, endTime);
+		if (fg('platform_ufo_enable_ttai_with_3p')) {
+			const noMoreActive3pHolds =
+				interaction.hold3pActive?.size === 0 || interaction.hold3pActive === undefined;
+			if (noMoreActiveHolds) {
+				if (!activeSubmitted) {
+					finishInteraction(interactionId, interaction, endTime);
+					interactionExtraMetrics.updateFinishedInteractionId(interactionId);
+					activeSubmitted = true;
 				}
-				postInteraction();
+
+				if (noMoreExpHolds) {
+					if (getConfig()?.experimentalInteractionMetrics?.enabled) {
+						onExperimentalInteractionComplete(interactionId, interaction, endTime);
+					}
+					postInteraction();
+				}
+				if (noMoreActive3pHolds) {
+					const data = {
+						...interaction,
+						end: endTime!,
+					};
+					interactionExtraMetrics.onInteractionComplete(interactionId, data);
+				}
+			}
+		} else {
+			if (noMoreActiveHolds) {
+				if (!activeSubmitted) {
+					finishInteraction(interactionId, interaction, endTime);
+					activeSubmitted = true;
+				}
+
+				if (noMoreExpHolds) {
+					if (getConfig()?.experimentalInteractionMetrics?.enabled) {
+						onExperimentalInteractionComplete(interactionId, interaction, endTime);
+					}
+					postInteraction();
+				}
 			}
 		}
 	}
@@ -895,6 +945,12 @@ export function abort(interactionId: string, abortReason: AbortReasonType) {
 		postInteractionLog.reset();
 		postInteractionLog.stopVCObserver();
 
+		if (fg('platform_ufo_enable_ttai_with_3p')) {
+			interactionExtraMetrics.stopVCObserver();
+			interactionExtraMetrics.reset();
+			remove(interactionId);
+		}
+
 		if (coinflip(getExperimentalInteractionRate(interaction.ufoName, interaction.type))) {
 			onExperimentalInteractionComplete(interactionId, interaction);
 			remove(interactionId);
@@ -927,6 +983,12 @@ export function abortByNewInteraction(interactionId: string, interactionName: st
 		finishInteraction(interactionId, interaction);
 		postInteractionLog.reset();
 		postInteractionLog.stopVCObserver();
+
+		if (fg('platform_ufo_enable_ttai_with_3p')) {
+			interactionExtraMetrics.stopVCObserver();
+			interactionExtraMetrics.reset();
+			remove(interactionId);
+		}
 
 		if (coinflip(getExperimentalInteractionRate(interaction.ufoName, interaction.type))) {
 			onExperimentalInteractionComplete(interactionId, interaction);
@@ -968,6 +1030,12 @@ export function abortAll(abortReason: AbortReasonType, abortedByInteractionName?
 		postInteractionLog.reset();
 		postInteractionLog.stopVCObserver();
 
+		if (fg('platform_ufo_enable_ttai_with_3p')) {
+			interactionExtraMetrics.stopVCObserver();
+			interactionExtraMetrics.reset();
+			remove(interactionId);
+		}
+
 		if (coinflip(getExperimentalInteractionRate(interaction.ufoName, interaction.type))) {
 			onExperimentalInteractionComplete(interactionId, interaction);
 			remove(interactionId);
@@ -991,13 +1059,7 @@ export function addNewInteraction(
 	routeName?: string | null,
 	trace: TraceIdContext | null = null,
 ) {
-	if (fg('platform_ufo_post_interaction_check_name')) {
-		postInteractionLog.reset();
-	} else {
-		if (coinflip(getPostInteractionRate(routeName || ufoName, type))) {
-			postInteractionLog.reset();
-		}
-	}
+	postInteractionLog.reset();
 	let vcObserver: VCObserverInterface | undefined;
 	let previousTime = startTime;
 
@@ -1085,6 +1147,8 @@ export function addNewInteraction(
 		changeTimeout,
 		trace,
 		vcObserver,
+		hold3pActive: new Map(),
+		hold3pInfo: [],
 	};
 	if (addFeatureFlagsToInteraction) {
 		currentFeatureFlagsAccessed.clear();
@@ -1120,19 +1184,17 @@ export function addNewInteraction(
 		if (observer) {
 			observer.start({ startTime, experienceKey: ufoName });
 		}
-		if (fg('platform_ufo_post_interaction_check_name')) {
-			// Start post interaction observer for all if config is enabled
-			// in case ufoName is updated at later time
-			if (getConfig()?.postInteractionLog?.enabled) {
-				postInteractionLog.startVCObserver({ startTime });
-			}
-		} else {
-			if (coinflip(getPostInteractionRate(routeName || ufoName, type))) {
-				postInteractionLog.startVCObserver({ startTime });
-			}
+		// Start post interaction observer for all if config is enabled
+		// in case ufoName is updated at later time
+		if (getConfig()?.postInteractionLog?.enabled) {
+			postInteractionLog.startVCObserver({ startTime });
 		}
+
 		if (coinflip(getExperimentalInteractionRate(ufoName, type))) {
 			experimentalVC.start({ startTime });
+		}
+		if (fg('platform_ufo_enable_ttai_with_3p')) {
+			interactionExtraMetrics.startVCObserver({ startTime }, interactionId);
 		}
 	}
 
@@ -1165,33 +1227,26 @@ export function addApdexToAll(apdex: ApdexType) {
 		interaction.apdex.push(apdex);
 		try {
 			// for Firefox 102 and older
-			if (fg('ufo_chrome_devtools_uplift')) {
-				performance.measure(`🛸 ${apdex.key} [bm3_tti]`, {
-					start: apdex.startTime ?? interaction.start,
-					end: apdex.stopTime,
-					detail: {
-						devtools: {
-							track: 'main metrics',
-							trackGroup: '🛸 reactUFO metrics',
-							color: 'primary-dark',
-						},
+			performance.measure(`🛸 ${apdex.key} [bm3_tti]`, {
+				start: apdex.startTime ?? interaction.start,
+				end: apdex.stopTime,
+				detail: {
+					devtools: {
+						track: 'main metrics',
+						trackGroup: '🛸 reactUFO metrics',
+						color: 'primary-dark',
 					},
-				});
+				},
+			});
 
-				performance.mark(`[bm3] TTI`, {
-					startTime: apdex.stopTime,
-					detail: {
-						devtools: {
-							dataType: 'marker',
-						},
+			performance.mark(`[bm3] TTI`, {
+				startTime: apdex.stopTime,
+				detail: {
+					devtools: {
+						dataType: 'marker',
 					},
-				});
-			} else {
-				performance.measure(`🛸 ${apdex.key} [bm3_tti]`, {
-					start: apdex.startTime ?? interaction.start,
-					end: apdex.stopTime,
-				});
-			}
+				},
+			});
 		} catch (e) {
 			// do nothing
 		}
@@ -1215,33 +1270,26 @@ export function addApdex(
 		interaction.apdex.push(apdexInfo);
 		try {
 			// for Firefox 102 and older
-			if (fg('ufo_chrome_devtools_uplift')) {
-				performance.measure(`🛸 ${apdexInfo.key} [bm3_tti]`, {
-					start: apdexInfo.startTime ?? interaction.start,
-					end: apdexInfo.stopTime,
-					detail: {
-						devtools: {
-							track: 'main metrics',
-							trackGroup: '🛸 reactUFO metrics',
-							color: 'primary-dark',
-						},
+			performance.measure(`🛸 ${apdexInfo.key} [bm3_tti]`, {
+				start: apdexInfo.startTime ?? interaction.start,
+				end: apdexInfo.stopTime,
+				detail: {
+					devtools: {
+						track: 'main metrics',
+						trackGroup: '🛸 reactUFO metrics',
+						color: 'primary-dark',
 					},
-				});
+				},
+			});
 
-				performance.mark(`[bm3] TTI`, {
-					startTime: apdexInfo.stopTime,
-					detail: {
-						devtools: {
-							dataType: 'marker',
-						},
+			performance.mark(`[bm3] TTI`, {
+				startTime: apdexInfo.stopTime,
+				detail: {
+					devtools: {
+						dataType: 'marker',
 					},
-				});
-			} else {
-				performance.measure(`🛸 ${apdexInfo.key} [bm3_tti]`, {
-					start: apdexInfo.startTime ?? interaction.start,
-					end: apdexInfo.stopTime,
-				});
-			}
+				},
+			});
 		} catch (e) {
 			// do nothing
 		}
@@ -1327,23 +1375,16 @@ export function addRedirect(
 			const prevRedirect = interaction.redirects.at(-2);
 			try {
 				// for Firefox 102 and older
-				if (fg('ufo_chrome_devtools_uplift')) {
-					performance.measure(`🛸 ${nextUfoName} [redirect]`, {
-						start: prevRedirect?.time ?? interaction.start,
-						end: time,
-						detail: {
-							devtools: {
-								track: '🛸 reactUFO detailed timings',
-								color: 'tertiary',
-							},
+				performance.measure(`🛸 ${nextUfoName} [redirect]`, {
+					start: prevRedirect?.time ?? interaction.start,
+					end: time,
+					detail: {
+						devtools: {
+							track: '🛸 reactUFO detailed timings',
+							color: 'tertiary',
 						},
-					});
-				} else {
-					performance.measure(`🛸 ${nextUfoName} [redirect]`, {
-						start: prevRedirect?.time ?? interaction.start,
-						end: time,
-					});
-				}
+					},
+				});
 			} catch (e) {
 				// do nothing
 			}

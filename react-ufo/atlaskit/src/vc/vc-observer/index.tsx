@@ -257,30 +257,56 @@ export class VCObserver implements VCObserverInterface {
 				}
 			} catch (e) {}
 
-			const vcAbortedResultWithRevisions = {
-				[`${fullPrefix}vc:state`]: false,
-				[`${fullPrefix}vc:abort:reason`]: abortReason.reason,
-				[`${fullPrefix}vc:abort:timestamp`]: abortReason.timestamp,
-				[`${fullPrefix}vc:rev`]: [
-					{
-						revision: 'fy25.02',
+			if (fg('platform_ufo_abort_timestamp_by_revision')) {
+				const vcAbortedResultWithRevisions = {
+					[`${fullPrefix}vc:rev`]: [
+						{
+							revision: 'fy25.02',
+							clean: false,
+							'metric:vc90': null,
+							abortReason: abortReason.reason,
+							abortTimestamp: Math.round(abortReason.timestamp),
+						},
+					] as RevisionPayload,
+				};
+
+				if (!isTTVCv1Disabled) {
+					(vcAbortedResultWithRevisions[`${fullPrefix}vc:rev`] as RevisionPayload).push({
+						revision: 'fy25.01',
 						clean: false,
 						'metric:vc90': null,
 						abortReason: abortReason.reason,
-					},
-				] as RevisionPayload,
-			};
+						abortTimestamp: Math.round(abortReason.timestamp),
+					});
+				}
 
-			if (!isTTVCv1Disabled) {
-				(vcAbortedResultWithRevisions[`${fullPrefix}vc:rev`] as RevisionPayload).push({
-					revision: 'fy25.01',
-					clean: false,
-					'metric:vc90': null,
-					abortReason: abortReason.reason,
-				});
+				return vcAbortedResultWithRevisions;
+			} else {
+				const vcAbortedResultWithRevisions = {
+					[`${fullPrefix}vc:state`]: false,
+					[`${fullPrefix}vc:abort:reason`]: abortReason.reason,
+					[`${fullPrefix}vc:abort:timestamp`]: abortReason.timestamp,
+					[`${fullPrefix}vc:rev`]: [
+						{
+							revision: 'fy25.02',
+							clean: false,
+							'metric:vc90': null,
+							abortReason: abortReason.reason,
+						},
+					] as RevisionPayload,
+				};
+
+				if (!isTTVCv1Disabled) {
+					(vcAbortedResultWithRevisions[`${fullPrefix}vc:rev`] as RevisionPayload).push({
+						revision: 'fy25.01',
+						clean: false,
+						'metric:vc90': null,
+						abortReason: abortReason.reason,
+					});
+				}
+
+				return vcAbortedResultWithRevisions;
 			}
-
-			return vcAbortedResultWithRevisions;
 		}
 
 		const ttvcV1Result = isTTVCv1Disabled
@@ -319,38 +345,6 @@ export class VCObserver implements VCObserverInterface {
 			viewport,
 			fixSSRAttribution: includeSSRRatio,
 		});
-
-		try {
-			if (!this.isPostInteraction) {
-				VCObserver.VCParts.forEach((key) => {
-					if (isTTVCv1Disabled) {
-						const duration = vcNext.VC[key];
-						if (duration !== null && duration !== undefined) {
-							if (!fg('ufo_chrome_devtools_uplift')) {
-								performance.measure(`VC${key}`, { start, duration });
-								performance.measure(`VC_Next${key}`, { start, duration });
-							}
-						}
-					} else {
-						const ttvcV1duration = VC[key];
-						if (ttvcV1duration !== null && ttvcV1duration !== undefined) {
-							if (!fg('ufo_chrome_devtools_uplift')) {
-								performance.measure(`VC${key}`, { start, duration: ttvcV1duration });
-							}
-						}
-
-						const ttvcV2duration = vcNext.VC[key];
-						if (ttvcV2duration !== null && ttvcV2duration !== undefined) {
-							if (!fg('ufo_chrome_devtools_uplift')) {
-								performance.measure(`VC_Next${key}`, { start, duration: ttvcV2duration });
-							}
-						}
-					}
-				});
-			}
-		} catch (e) {
-			/* empty */
-		}
 
 		const outOfBoundary = outOfBoundaryInfo ? { [`${fullPrefix}vc:oob`]: outOfBoundaryInfo } : {};
 		//const oldDomUpdates = oldDomUpdatesEnabled ? { [`${fullPrefix}vc:old:dom`]: vcNext.VCBox } : {};

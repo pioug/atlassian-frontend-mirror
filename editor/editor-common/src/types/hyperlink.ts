@@ -18,6 +18,10 @@ export type LinkPickerOptions = Partial<LinkPickerProps>;
  */
 export interface LinkingOptions {
 	/**
+	 * Convert compatible link text to hyperlinks on blur of the editor
+	 */
+	autoLinkOnBlur?: boolean;
+	/**
 	 * Initial props to configure the link picker component with. Primarily used to provide link search and suggestions capabilities.
 	 * @see https://atlaskit.atlassian.com/packages/editor/editor-core/example/full-page-with-link-picker
 	 * @see https://atlaskit.atlassian.com/packages/linking-platform/link-picker
@@ -27,10 +31,6 @@ export interface LinkingOptions {
 	 * Enables and configure smart link behaviour
 	 */
 	smartLinks?: CardOptions;
-	/**
-	 * Convert compatible link text to hyperlinks on blur of the editor
-	 */
-	autoLinkOnBlur?: boolean;
 }
 
 type OnClickCallback = ({
@@ -49,14 +49,14 @@ type OnClickCallback = ({
  * @see https://product-fabric.atlassian.net/browse/ED-27496
  */
 export interface HyperlinkPluginOptions {
-	linkPicker?: LinkPickerOptions;
-	platform?: 'mobile' | 'web';
-	editorAppearance?: EditorAppearance;
-	lpLinkPicker?: boolean;
-	disableFloatingToolbar?: boolean;
-	onClickCallback?: OnClickCallback;
 	/**
 	 * Convert compatible link text to hyperlinks on blur of the editor
 	 */
 	autoLinkOnBlur?: boolean;
+	disableFloatingToolbar?: boolean;
+	editorAppearance?: EditorAppearance;
+	linkPicker?: LinkPickerOptions;
+	lpLinkPicker?: boolean;
+	onClickCallback?: OnClickCallback;
+	platform?: 'mobile' | 'web';
 }

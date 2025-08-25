@@ -27,12 +27,12 @@ import type {
 export type { LightEditorPlugin } from './create-editor/get-plugins';
 
 export interface LightEditorConfig {
-	nodes: NodeConfig[];
-	marks: MarkConfig[];
-	plugins: Array<LightPMPlugin>;
 	contentComponents: UIComponentFactory[];
-	pluginHooks: ReactHookFactory[];
+	marks: MarkConfig[];
+	nodes: NodeConfig[];
 	onEditorViewStateUpdatedCallbacks: Array<OnEditorViewStateUpdated>;
+	pluginHooks: ReactHookFactory[];
+	plugins: Array<LightPMPlugin>;
 }
 
 function lightProcessPluginsList(editorPlugins: LightEditorPlugin[]): LightEditorConfig {
@@ -99,10 +99,10 @@ function lightProcessPluginsList(editorPlugins: LightEditorPlugin[]): LightEdito
 }
 
 type PluginData = {
+	editorConfig: LightEditorConfig;
+	onEditorViewStateUpdatedCallbacks: Array<OnEditorViewStateUpdated>;
 	plugins: Plugin[];
 	schema: Schema;
-	onEditorViewStateUpdatedCallbacks: Array<OnEditorViewStateUpdated>;
-	editorConfig: LightEditorConfig;
 };
 export const createPMSchemaAndPlugins =
 	(inputPreset: EditorPresetBuilder = new EditorPresetBuilder()) =>

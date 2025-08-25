@@ -8,11 +8,11 @@ import { type Document as DocumentModel } from '../model';
 
 export interface Props extends BaseProps {
 	doc?: DocumentModel;
-	isLoading?: boolean;
+	editorProps?: Partial<EditorProps>;
 	hasError?: boolean;
 
+	isLoading?: boolean;
 	mode: Mode;
-	editorProps?: Partial<EditorProps>;
 	rendererProps?: Partial<RendererProps>;
 }
 

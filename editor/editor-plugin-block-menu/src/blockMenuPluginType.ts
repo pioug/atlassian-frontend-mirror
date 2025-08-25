@@ -1,5 +1,6 @@
 import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { BlockControlsPlugin } from '@atlaskit/editor-plugin-block-controls';
+import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 
@@ -14,6 +15,7 @@ export type BlockMenuPlugin = NextEditorPlugin<
 			OptionalPlugin<BlockControlsPlugin>,
 			OptionalPlugin<UserIntentPlugin>,
 			OptionalPlugin<SelectionPlugin>,
+			OptionalPlugin<DecorationsPlugin>,
 		];
 		pluginConfiguration?: BlockMenuPluginOptions;
 	}

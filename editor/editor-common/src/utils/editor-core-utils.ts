@@ -18,7 +18,7 @@ export function isEmptyParagraph(node?: Node | null): boolean {
 
 export const stepHasSlice = (
 	step: Step,
-): step is Step & { from: number; to: number; slice: Slice } =>
+): step is Step & { from: number; slice: Slice; to: number } =>
 	step && step.hasOwnProperty('slice');
 
 /**

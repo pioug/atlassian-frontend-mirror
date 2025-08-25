@@ -2,9 +2,9 @@ import { grinEmoji, evilburnsEmoji } from '@atlaskit/util-data-test/emoji-sample
 import { videoLargeFileId, videoSquareFileId } from '@atlaskit/media-test-helpers';
 
 type EmojiAttrs = {
+	fallback?: string;
 	id: string;
 	shortName: string;
-	fallback?: string;
 	text?: string;
 };
 

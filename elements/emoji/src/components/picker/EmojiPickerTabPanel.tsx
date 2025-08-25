@@ -22,11 +22,11 @@ const emojiPickerList = css({
  * ticket: COLLAB-2317
  */
 interface EmojiPickerTabPanelProps extends WrappedComponentProps {
+	children?: React.ReactNode;
 	/**
 	 * Indicate whether the panel shows search results or full emojis list
 	 */
 	showSearchResults: boolean;
-	children?: React.ReactNode;
 }
 class EmojiPickerTabPanelInternal extends PureComponent<
 	PropsWithChildren<EmojiPickerTabPanelProps>

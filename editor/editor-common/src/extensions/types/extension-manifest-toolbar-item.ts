@@ -8,10 +8,13 @@ import type { ExtensionIconModule } from './extension-manifest-common';
 export type ToolbarButtonAction = (contextNode: ADFEntity, api: ExtensionAPI) => Promise<void>;
 
 export type ToolbarButton = ExtensionModuleToolbarButtonLabelOrIcon & {
-	key: string;
 	action: ToolbarButtonAction;
-	label: string;
 	ariaLabel?: string;
+	disabled?: boolean;
+	display?: 'icon' | 'label' | 'icon-and-label';
+	icon?: () => ExtensionIconModule;
+	key: string;
+	label: string;
 	tooltip?: React.ReactNode | string;
 	/**
 	 * Tooltip Style
@@ -21,9 +24,6 @@ export type ToolbarButton = ExtensionModuleToolbarButtonLabelOrIcon & {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	tooltipStyle?: React.ForwardRefExoticComponent<any> | React.ComponentType<any>;
-	icon?: () => ExtensionIconModule;
-	display?: 'icon' | 'label' | 'icon-and-label';
-	disabled?: boolean;
 };
 
 export type ToolbarItem = ToolbarButton | FloatingToolbarItem<Command>;
@@ -40,8 +40,8 @@ export type ExtensionModuleToolbarButtonLabelOrIcon =
 	| ExtensionModuleToolbarButtonWithLabel;
 
 export type ExtensionModuleToolbarButtonWithIcon = {
-	icon: () => ExtensionIconModule;
 	display?: 'icon' | 'icon-and-label';
+	icon: () => ExtensionIconModule;
 };
 
 export type ExtensionModuleToolbarButtonWithLabel = {
@@ -49,24 +49,27 @@ export type ExtensionModuleToolbarButtonWithLabel = {
 };
 
 export type ExtensionNodeContext = {
-	type: 'extension';
-	nodeType: 'extension' | 'inlineExtension' | 'bodiedExtension' | 'multiBodiedExtension';
 	extensionKey: string | string[];
 	extensionType?: string;
+	nodeType: 'extension' | 'inlineExtension' | 'bodiedExtension' | 'multiBodiedExtension';
 	shouldExclude?: (node: ADFEntity) => boolean;
+	type: 'extension';
 };
 
 export type StandardNodeContext = {
-	type: 'node';
 	nodeType: 'table';
+	type: 'node';
 };
 
 export type ExtensionToolbarItem = ExtensionToolbarButton | FloatingToolbarDropdown<Command>;
 
 export type ExtensionToolbarButton = {
+	action: ToolbarButtonAction;
+	ariaLabel?: string;
+	disabled?: boolean;
+	icon?: () => ExtensionIconModule;
 	key: string;
 	label?: string;
-	ariaLabel?: string;
 	tooltip?: React.ReactNode | string;
 	/**
 	 * Tooltip Style
@@ -76,7 +79,4 @@ export type ExtensionToolbarButton = {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	tooltipStyle?: React.ForwardRefExoticComponent<any> | React.ComponentType<any>;
-	icon?: () => ExtensionIconModule;
-	action: ToolbarButtonAction;
-	disabled?: boolean;
 };

@@ -16,9 +16,9 @@ const HighlightBarInternal = ({
 	left,
 }: {
 	children: React.ReactNode;
-	top: number;
 	left: number;
 	portalContainer: Element;
+	top: number;
 }) => {
 	const WINDOW_PADDING = 20;
 	const popupRef = React.useRef<HTMLDivElement>(null);
@@ -56,10 +56,10 @@ export function HighlightBar({
 	portalContainer,
 	children,
 }: {
+	children: React.ReactNode;
+	portalContainer: Element;
 	range: Range;
 	stickyHeaderHeight: number;
-	portalContainer: Element;
-	children: React.ReactNode;
 }) {
 	const position = usePosition({ range, portalContainer });
 

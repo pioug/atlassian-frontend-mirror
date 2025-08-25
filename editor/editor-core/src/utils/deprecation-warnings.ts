@@ -1,8 +1,8 @@
 export interface DeprecationWarning<Props> {
-	property: string;
-	description?: string;
-	type?: string;
 	condition?: (props: Props) => boolean;
+	description?: string;
+	property: string;
+	type?: string;
 }
 
 function deprecationWarnings<Props extends object>(

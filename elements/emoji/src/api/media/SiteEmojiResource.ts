@@ -37,8 +37,8 @@ export interface EmojiProgessCallback {
 }
 
 type TokenisedEmojiRepresentation = {
-	representation?: EmojiRepresentation;
 	altRepresentation?: EmojiRepresentation;
+	representation?: EmojiRepresentation;
 };
 
 // Assume media is 95% of total upload time.

@@ -101,20 +101,20 @@ const flashStyleOld = css({
 });
 
 interface ReactionButtonProps extends Pick<ReactionProps, 'flash'> {
-	onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
-	className?: string;
 	ariaLabel: string;
 	ariaPressed?: boolean;
+	children?: React.ReactNode;
+	className?: string;
+	dataAttributes?: { [key: string]: string };
+	onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+	onFocus?: (event: React.FocusEvent<HTMLButtonElement>) => void;
 	onMouseEnter?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 	onMouseLeave?: (event: React.MouseEvent<HTMLButtonElement>) => void;
-	onFocus?: (event: React.FocusEvent<HTMLButtonElement>) => void;
-	dataAttributes?: { [key: string]: string };
-	testId?: string;
-	children?: React.ReactNode;
-	showSubtleStyle?: boolean;
-	showOpaqueBackground?: boolean;
-	useCompactStyles?: boolean;
 	reacted?: boolean;
+	showOpaqueBackground?: boolean;
+	showSubtleStyle?: boolean;
+	testId?: string;
+	useCompactStyles?: boolean;
 }
 export const ReactionButton = ({
 	onClick,

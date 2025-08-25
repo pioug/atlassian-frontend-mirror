@@ -75,12 +75,12 @@ const emojiPickerRow = css({
 export interface Props {
 	category: CategoryGroupKey;
 	emojis: EmojiDescription[];
-	title: string;
-	showDelete: boolean;
-	onSelected?: OnEmojiEvent;
-	onMouseMove?: OnEmojiEvent;
-	onFocus?: OnEmojiEvent;
 	onDelete?: OnEmojiEvent;
+	onFocus?: OnEmojiEvent;
+	onMouseMove?: OnEmojiEvent;
+	onSelected?: OnEmojiEvent;
+	showDelete: boolean;
+	title: string;
 	virtualItemContext?: VirtualItemContext;
 }
 

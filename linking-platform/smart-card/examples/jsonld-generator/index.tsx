@@ -21,8 +21,8 @@ const gridStyles = cssMap({
 });
 
 interface FormLinkData {
-	url: string;
 	[key: string]: unknown;
+	url: string;
 }
 
 const JsonLdGenerator = ({ onSubmit }: { onSubmit: (response: JsonLd.Response) => void }) => {

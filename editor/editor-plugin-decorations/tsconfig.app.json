@@ -33,6 +33,15 @@
 	"references": [
 		{
 			"path": "../editor-common/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-tables/tsconfig.app.json"
+		},
+		{
+			"path": "../tmp-editor-statsig/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/tokens/tsconfig.app.json"
 		}
 	]
 }

@@ -143,10 +143,10 @@ describe('SnippetBlock', () => {
 				contentType,
 				cloudId,
 			}: {
-				fallbackText?: string;
+				cloudId: string;
 				contentId: string;
 				contentType: string;
-				cloudId: string;
+				fallbackText?: string;
 			}) => (
 				<div data-testid="mock-replacement">
 					{fallbackText} - {contentId} - {contentType} - {cloudId}

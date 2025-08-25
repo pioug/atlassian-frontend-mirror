@@ -1,21 +1,21 @@
 export type Token = {
 	new (type: string, tag: string, level: number): Token;
-	type: string;
-	content: string;
-	level: number;
-	tag: string;
 	attrs?: string[][];
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	children?: any[];
+	content: string;
+	level: number;
+	tag: string;
+	type: string;
 };
 
 export interface MdState {
-	Token: Token;
-	tokens: Token[];
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	md: any;
+	Token: Token;
+	tokens: Token[];
 }
 
 function createRule() {

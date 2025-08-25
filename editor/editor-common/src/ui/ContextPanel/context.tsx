@@ -16,10 +16,10 @@ import React from 'react';
 // panel
 
 export type ContextPanelContext = {
-	width: number;
-	positionedOverEditor: boolean;
-	broadcastWidth: (width: number) => void;
 	broadcastPosition: (positionedOverEditor: boolean) => void;
+	broadcastWidth: (width: number) => void;
+	positionedOverEditor: boolean;
+	width: number;
 };
 
 export const ContextPanel = React.createContext<ContextPanelContext>({
@@ -30,8 +30,8 @@ export const ContextPanel = React.createContext<ContextPanelContext>({
 });
 
 export type ContextPanelProviderState = {
-	width?: number;
 	positionedOverEditor?: boolean;
+	width?: number;
 };
 
 // Ignored via go/ees005

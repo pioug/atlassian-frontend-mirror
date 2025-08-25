@@ -11,10 +11,10 @@ import debounce from 'lodash/debounce';
 
 type AssistiveTextProps = {
 	assistiveText: string;
-	isInFocus: boolean;
-	id: string;
-	statusDebounceMillis?: number;
 	debounce?: boolean;
+	id: string;
+	isInFocus: boolean;
+	statusDebounceMillis?: number;
 };
 
 const assitiveTextStyles = css({

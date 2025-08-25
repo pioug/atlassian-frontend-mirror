@@ -78,13 +78,13 @@ export interface EmojiButtonProps {
 	 */
 	emojiProvider: Promise<EmojiProvider>;
 	/**
-	 * Event handler when a new emoji is selected
-	 */
-	onClick: OnEmojiEvent;
-	/**
 	 * Optional prop for hoverable reaction picker selector emoji
 	 */
 	hoverableReactionPickerSelectorEmoji?: boolean;
+	/**
+	 * Event handler when a new emoji is selected
+	 */
+	onClick: OnEmojiEvent;
 }
 
 /**

@@ -4,7 +4,7 @@ import Paragraph from '../../../../react/nodes/paragraph';
 import ReactSerializer from '../../../../react';
 
 describe('Renderer - React/Nodes/Paragraph', () => {
-	let serialiser = new ReactSerializer({});
+	const serialiser = new ReactSerializer({});
 
 	it('should wrap content with <p>-tag', () => {
 		const { container } = render(

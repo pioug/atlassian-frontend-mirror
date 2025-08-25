@@ -47,7 +47,7 @@ const consumeMessageEvents = async (
 	eventEmitter: EventEmitter2,
 	expectedNumberOfEvents: number,
 ) => {
-	const messages: { type: any; payload: any }[] = [];
+	const messages: { payload: any; type: any }[] = [];
 	await new Promise((resolve) => {
 		eventEmitter.on(EventType.MESSAGE, (type, payload) => {
 			messages.push({ type, payload });

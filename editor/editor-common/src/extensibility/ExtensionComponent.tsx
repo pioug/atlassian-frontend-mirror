@@ -30,31 +30,31 @@ import MultiBodiedExtension from './MultiBodiedExtension';
 import type { ExtensionsPluginInjectionAPI, MacroInteractionDesignFeatureFlags } from './types';
 
 export interface Props {
+	editorAppearance?: EditorAppearance;
 	editorView: EditorView;
-	node: PMNode;
-	getPos: ProsemirrorGetPosHandler;
-	handleContentDOMRef: (node: HTMLElement | null) => void;
+	eventDispatcher?: EventDispatcher;
 	extensionHandlers: ExtensionHandlers;
 	extensionProvider?: Promise<ExtensionProvider>;
-	references?: ReferenceEntity[];
-	editorAppearance?: EditorAppearance;
-	pluginInjectionApi: ExtensionsPluginInjectionAPI;
-	eventDispatcher?: EventDispatcher;
+	getPos: ProsemirrorGetPosHandler;
+	handleContentDOMRef: (node: HTMLElement | null) => void;
+	isLivePageViewMode?: boolean;
 	macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags;
+	node: PMNode;
+	pluginInjectionApi: ExtensionsPluginInjectionAPI;
+	references?: ReferenceEntity[];
+	rendererExtensionHandlers?: ExtensionHandlers;
 	showLivePagesBodiedMacrosRendererView?: (node: ADFEntity) => boolean;
 	showUpdatedLivePages1PBodiedExtensionUI?: (node: ADFEntity) => boolean;
-	rendererExtensionHandlers?: ExtensionHandlers;
-	isLivePageViewMode?: boolean;
 }
 
 export interface State {
-	extensionProvider?: ExtensionProvider;
-	extensionHandlersFromProvider?: ExtensionHandlers;
 	_privateProps?: {
-		__hideFrame?: boolean;
 		__allowBodiedOverride?: boolean; // Allows MBE macro to override the default body; see RFC: https://hello.atlassian.net/wiki/spaces/EDITOR/pages/4843571091/Editor+RFC+064+MultiBodiedExtension+Extensibility
+		__hideFrame?: boolean;
 	};
 	activeChildIndex?: number; // Holds the currently active Frame/Tab/Card
+	extensionHandlersFromProvider?: ExtensionHandlers;
+	extensionProvider?: ExtensionProvider;
 	isNodeHovered?: boolean;
 	showBodiedExtensionRendererView?: boolean; // Main state which will keep track to show the renderer or editor view of bodied macros in live pages. Controlled via the EditToggle
 }
@@ -62,8 +62,8 @@ export interface State {
 /* temporary type until FG cleaned up */
 export type PropsNew = Omit<Props, 'extensionProvider'> & {
 	extensionProvider?: ExtensionProvider;
-	showBodiedExtensionRendererView?: boolean;
 	setShowBodiedExtensionRendererView?: (showBodiedExtensionRendererView: boolean) => void;
+	showBodiedExtensionRendererView?: boolean;
 };
 
 /* temporary type until FG cleaned up */

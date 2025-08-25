@@ -58,20 +58,20 @@ const tableSelectorPopupWrapperStyles = css({
 });
 
 export interface TableSelectorPopupProps {
-	onUnmount?: () => void;
-	onSelection: OnTableSizeSelection;
-	target?: HTMLElement;
-	popupsMountPoint?: HTMLElement;
-	popupsBoundariesElement?: HTMLElement;
-	popupsScrollableElement?: HTMLElement;
+	allowOutsideSelection?: boolean;
+	defaultSize?: {
+		col: number;
+		row: number;
+	};
 	handleClickOutside?: SimpleEventHandler<MouseEvent>;
 	handleEscapeKeydown?: SimpleEventHandler<KeyboardEvent>;
 	isOpenedByKeyboard: boolean;
-	defaultSize?: {
-		row: number;
-		col: number;
-	};
-	allowOutsideSelection?: boolean;
+	onSelection: OnTableSizeSelection;
+	onUnmount?: () => void;
+	popupsBoundariesElement?: HTMLElement;
+	popupsMountPoint?: HTMLElement;
+	popupsScrollableElement?: HTMLElement;
+	target?: HTMLElement;
 }
 
 export const TableSelectorPopup = (props: TableSelectorPopupProps) => {
@@ -163,7 +163,7 @@ export const TableSelectorPopup = (props: TableSelectorPopupProps) => {
 	};
 
 	const getMaxRow = (
-		prevSize: { col: number; row: number; maxCol: number; maxRow: number },
+		prevSize: { col: number; maxCol: number; maxRow: number; row: number },
 		eventKey: string,
 	): number => {
 		switch (eventKey) {

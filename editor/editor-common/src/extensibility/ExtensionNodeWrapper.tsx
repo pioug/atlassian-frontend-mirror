@@ -26,8 +26,8 @@ const styles = css({
 
 type Props = {
 	children: React.ReactNode;
-	nodeType: string;
 	macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags;
+	nodeType: string;
 };
 
 /**

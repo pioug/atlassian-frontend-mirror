@@ -68,10 +68,10 @@ type EditorStartAEP = UIAEP<
 	ACTION_SUBJECT.EDITOR,
 	undefined,
 	{
-		platform: PLATFORMS.NATIVE | PLATFORMS.HYBRID | PLATFORMS.WEB;
-		featureFlags: FeatureFlagKey[];
 		accountLocale?: string;
 		browserLocale?: string;
+		featureFlags: FeatureFlagKey[];
+		platform: PLATFORMS.NATIVE | PLATFORMS.HYBRID | PLATFORMS.WEB;
 	},
 	undefined
 >;
@@ -84,12 +84,12 @@ type EditorPerfAEP = OperationalAEPWithObjectId<
 	ACTION_SUBJECT.EDITOR,
 	undefined,
 	{
-		duration: number;
-		startTime: number;
-		nodes?: Record<string, number>;
-		ttfb?: number;
-		severity?: SEVERITY;
 		distortedDuration?: boolean;
+		duration: number;
+		nodes?: Record<string, number>;
+		severity?: SEVERITY;
+		startTime: number;
+		ttfb?: number;
 	}
 >;
 
@@ -98,9 +98,9 @@ type EditorContentRetrievalPerformedAEP = OperationalAEP<
 	ACTION_SUBJECT.EDITOR,
 	undefined,
 	{
-		success: boolean;
 		errorInfo?: string;
 		errorStack?: string;
+		success: boolean;
 	}
 >;
 
@@ -109,8 +109,8 @@ type EditorRenderedAEP<T> = OperationalAEP<
 	ACTION_SUBJECT.EDITOR | ACTION_SUBJECT.REACT_EDITOR_VIEW,
 	undefined,
 	{
-		propsDifference: PropsDifference<T> | ShallowPropsDifference<T>;
 		count: number;
+		propsDifference: PropsDifference<T> | ShallowPropsDifference<T>;
 	}
 >;
 
@@ -120,9 +120,9 @@ type BrowserFreezePayload = OperationalAEPWithObjectId<
 	undefined,
 	{
 		freezeTime: number;
-		nodeSize: number;
-		nodeCount?: Record<string, number>;
 		interactionType?: BROWSER_FREEZE_INTERACTION_TYPE;
+		nodeCount?: Record<string, number>;
+		nodeSize: number;
 		severity?: SEVERITY;
 	}
 >;
@@ -140,9 +140,9 @@ type SlowInputAEP = OperationalAEPWithObjectId<
 	ACTION_SUBJECT.EDITOR,
 	undefined,
 	{
-		time: number;
-		nodeSize: number;
 		nodeCount?: Record<string, number>;
+		nodeSize: number;
+		time: number;
 	}
 >;
 
@@ -151,10 +151,10 @@ type InputPerfSamplingAEP = OperationalAEPWithObjectId<
 	ACTION_SUBJECT.EDITOR,
 	undefined,
 	{
-		time: number;
-		nodeSize: number;
 		nodeCount?: Record<string, number>;
+		nodeSize: number;
 		severity?: SEVERITY;
+		time: number;
 	}
 >;
 
@@ -165,9 +165,9 @@ type InputPerfSamplingAvgAEP = OperationalAEPWithObjectId<
 	{
 		mean: number;
 		median: number;
-		sampleSize: number;
 		nodeCount?: Record<string, number>;
 		nodeSize: number;
+		sampleSize: number;
 		severity?: SEVERITY;
 	}
 >;
@@ -186,8 +186,8 @@ type WithPluginStateCalledAEP = OperationalAEP<
 	ACTION_SUBJECT.EDITOR,
 	undefined,
 	{
-		plugin: string;
 		duration: number;
+		plugin: string;
 	}
 >;
 
@@ -196,8 +196,8 @@ type ReactNodeViewRenderedAEP = OperationalAEP<
 	ACTION_SUBJECT.EDITOR,
 	undefined,
 	{
-		node: string;
 		duration: number;
+		node: string;
 	}
 >;
 
@@ -230,19 +230,19 @@ type EditorStopAEP = UIAEP<
 	ACTION_SUBJECT.EDITOR,
 	ACTION_SUBJECT_ID.SAVE | ACTION_SUBJECT_ID.CANCEL,
 	{
-		inputMethod: INPUT_METHOD.TOOLBAR | INPUT_METHOD.SHORTCUT;
 		documentSize: number;
+		inputMethod: INPUT_METHOD.TOOLBAR | INPUT_METHOD.SHORTCUT;
 		nodeCount?: {
-			tables: number;
-			headings: number;
-			lists: number;
-			mediaSingles: number;
-			mediaGroups: number;
-			panels: number;
-			extensions: number;
-			decisions: number;
 			actions: number;
 			codeBlocks: number;
+			decisions: number;
+			extensions: number;
+			headings: number;
+			lists: number;
+			mediaGroups: number;
+			mediaSingles: number;
+			panels: number;
+			tables: number;
 		};
 	},
 	undefined
@@ -322,8 +322,8 @@ type FullWidthModeAEP = TrackAEP<
 	ACTION_SUBJECT.EDITOR,
 	undefined,
 	{
-		previousMode: FULL_WIDTH_MODE;
 		newMode: FULL_WIDTH_MODE;
+		previousMode: FULL_WIDTH_MODE;
 	},
 	undefined
 >;
@@ -333,9 +333,9 @@ type ExpandToggleAEP = TrackAEP<
 	ACTION_SUBJECT.EXPAND | ACTION_SUBJECT.NESTED_EXPAND,
 	undefined,
 	{
-		platform: PLATFORMS;
-		mode: MODE;
 		expanded: boolean;
+		mode: MODE;
+		platform: PLATFORMS;
 	},
 	undefined
 >;
@@ -357,8 +357,8 @@ type RichMediaLayoutAEP = TrackAEP<
 	ACTION_SUBJECT.MEDIA_SINGLE | ACTION_SUBJECT.EMBEDS,
 	ACTION_SUBJECT_ID.RICH_MEDIA_LAYOUT,
 	{
-		previousLayoutType: RichMediaLayout;
 		currentLayoutType: RichMediaLayout;
+		previousLayoutType: RichMediaLayout;
 	},
 	undefined
 >;
@@ -444,8 +444,8 @@ type BlocksDragInitAEP = OperationalAEP<
 	undefined,
 	{
 		duration: number;
-		startTime: number;
 		nodesCount: number | undefined;
+		startTime: number;
 	}
 >;
 
@@ -456,10 +456,10 @@ type CodeBlockWordWrapToggleAEP = TrackAEP<
 	ACTION_SUBJECT.CODE_BLOCK,
 	undefined,
 	{
-		platform: PLATFORMS;
-		mode: MODE;
-		wordWrapEnabled: boolean;
 		codeBlockNodeSize: number;
+		mode: MODE;
+		platform: PLATFORMS;
+		wordWrapEnabled: boolean;
 	},
 	undefined
 >;
@@ -469,8 +469,8 @@ export type RequestToEditAEP = UIAEP<
 	ACTION_SUBJECT.REQUEST_TO_EDIT_POP_UP,
 	undefined,
 	{
-		platform: PLATFORMS;
 		mode: MODE;
+		platform: PLATFORMS;
 	},
 	undefined
 >;
@@ -478,9 +478,9 @@ export type RequestToEditAEP = UIAEP<
 type CopyLinkToAnchorButtonAEP = ButtonAEP<
 	ACTION_SUBJECT_ID.COPY_LINK_TO_ANCHOR,
 	{
-		inputMethod: INPUT_METHOD;
 		extensionKey?: string;
 		extensionType?: string;
+		inputMethod: INPUT_METHOD;
 		isLivePage?: boolean;
 	}
 >;

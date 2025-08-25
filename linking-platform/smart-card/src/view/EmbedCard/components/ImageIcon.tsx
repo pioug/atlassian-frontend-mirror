@@ -19,11 +19,11 @@ const styles = cssMap({
 
 export interface ImageIconProps {
 	alt?: string;
+	appearance?: 'square' | 'round';
+	default?: React.ReactElement;
 	size?: number;
 	src?: string;
 	title?: string;
-	default?: React.ReactElement;
-	appearance?: 'square' | 'round';
 }
 
 export const ImageIcon = ({

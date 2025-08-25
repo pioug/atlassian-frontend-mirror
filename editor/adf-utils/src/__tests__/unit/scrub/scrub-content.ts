@@ -256,6 +256,15 @@ describe('scrubAttrs', () => {
 			const scrubbedAttrs = scrubAttrs('taskItem', attrs);
 			expect(scrubbedAttrs).toEqual(attrs);
 		});
+
+		it('should not replace bypassed attributes for blockTaskItem node', () => {
+			const attrs = {
+				state: 'TODO',
+			};
+
+			const scrubbedAttrs = scrubAttrs('blockTaskItem', attrs);
+			expect(scrubbedAttrs).toEqual(attrs);
+		});
 	});
 });
 

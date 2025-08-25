@@ -26,11 +26,11 @@ const options = (code: string | number, omitCredentials: boolean): SecurityOptio
 type MockFetchResponse = Array<
 	| string
 	| {
-			headers: any;
 			credentials: string;
-			request: any;
+			headers: any;
 			identifier: string;
 			isUnmatched: any;
+			request: any;
 	  }
 >;
 

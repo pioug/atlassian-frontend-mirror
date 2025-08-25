@@ -188,6 +188,16 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 				api,
 				tableSelectorSupported: options.tableSelectorSupported,
 				toolbarShowPlusInsertOnly: options.toolbarShowPlusInsertOnly,
+				showElementBrowserLink: options.showElementBrowserLink,
+				onInsertBlockType: handleInsertBlockType(
+					api?.codeBlock?.actions.insertCodeBlock,
+					api?.panel?.actions.insertPanel,
+					api?.blockType?.actions.insertBlockQuote,
+				),
+				nativeStatusSupported: options.nativeStatusSupported,
+				horizontalRuleEnabled: options.horizontalRuleEnabled,
+				expandEnabled: options.allowExpand,
+				insertMenuItems: options.insertMenuItems,
 			}),
 		);
 	} else {

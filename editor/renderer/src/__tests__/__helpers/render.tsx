@@ -54,7 +54,7 @@ export const setupMultipleRendersTestHelper = () => {
 		propsToChange: any[],
 		WrapperComponent?: (props: any) => JSX.Element,
 	) => {
-		let propsToChangeReversed = propsToChange.reverse();
+		const propsToChangeReversed = propsToChange.reverse();
 		while (timesToRender > 0) {
 			act(() => {
 				const changingProps = propsToChangeReversed[timesToRender - 1];
@@ -102,7 +102,7 @@ export const setupMultipleRendersTestHelper = () => {
 			return analyticsClient(analyticsEventHandler);
 		};
 
-		let WrapperComponent = ({ children }: { children: React.ReactNode }) => (
+		const WrapperComponent = ({ children }: { children: React.ReactNode }) => (
 			<FabricAnalyticsListeners client={mockAnalyticsClient(done)}>
 				{children}
 			</FabricAnalyticsListeners>

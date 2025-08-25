@@ -127,54 +127,54 @@ const eventHandlers: EventHandlers = {
 };
 
 interface DemoRendererProps {
-	withPortal?: boolean;
-	withProviders?: boolean;
-	withExtension?: boolean;
-	disableSidebar?: boolean;
-	disableEventHandlers?: boolean;
-	serializer: 'react' | 'text' | 'email';
-	document?: object;
-	showHowManyCopies?: boolean;
-	appearance?: RendererAppearance;
-	maxHeight?: number;
-	fadeOutHeight?: number;
-	truncationEnabled?: boolean;
-	allowHeadingAnchorLinks?: HeadingAnchorLinksProps;
-	allowColumnSorting?: boolean;
-	allowAnnotations?: boolean;
-	allowCopyToClipboard?: boolean;
-	allowWrapCodeBlock?: boolean;
-	allowPlaceholderText?: boolean;
-	allowCustomPanels?: boolean;
-	copies?: number;
-	schema?: Schema;
-	adfStage?: ADFStage;
 	actionButtons?: React.ReactNode;
-	annotationProvider?: AnnotationProviders | null;
-	useSpecBasedValidator?: boolean;
-	allowUgcScrubber?: boolean;
+	adfStage?: ADFStage;
+	allowAnnotations?: boolean;
+	allowColumnSorting?: boolean;
+	allowCopyToClipboard?: boolean;
+	allowCustomPanels?: boolean;
+	allowHeadingAnchorLinks?: HeadingAnchorLinksProps;
+	allowPlaceholderText?: boolean;
 	allowSelectAllTrap?: boolean;
-	onDocumentChange?: () => void;
+	allowUgcScrubber?: boolean;
+	allowWrapCodeBlock?: boolean;
 	analyticsEventSeverityTracking?: {
 		enabled: boolean;
-		severityNormalThreshold: number;
 		severityDegradedThreshold: number;
+		severityNormalThreshold: number;
 	};
+	annotationProvider?: AnnotationProviders | null;
+	appearance?: RendererAppearance;
+	copies?: number;
+	disableEventHandlers?: boolean;
+	disableSidebar?: boolean;
+	document?: object;
 	extensionHandlers?: ExtensionHandlers;
-	unsupportedContentLevelsTracking?: UnsupportedContentLevelsTracking;
+	fadeOutHeight?: number;
+	maxHeight?: number;
 	mediaOptions?: MediaOptions;
+	onDocumentChange?: () => void;
+	schema?: Schema;
+	serializer: 'react' | 'text' | 'email';
+	showHowManyCopies?: boolean;
+	truncationEnabled?: boolean;
 	UNSTABLE_allowTableAlignment?: boolean;
 	UNSTABLE_allowTableResizing?: boolean;
+	unsupportedContentLevelsTracking?: UnsupportedContentLevelsTracking;
+	useSpecBasedValidator?: boolean;
+	withExtension?: boolean;
+	withPortal?: boolean;
+	withProviders?: boolean;
 }
 
 interface DemoRendererState {
+	copies?: number;
 	input: string;
 	portal?: HTMLElement;
-	truncated: boolean;
-	showSidebar: boolean;
-	shouldUseEventHandlers: boolean;
-	copies?: number;
 	scrubbedAdf?: ADFEntity;
+	shouldUseEventHandlers: boolean;
+	showSidebar: boolean;
+	truncated: boolean;
 }
 
 // Ignored via go/ees005

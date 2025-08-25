@@ -3,7 +3,7 @@ import React from 'react';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 
 type LinkAnalyticsContextProps = {
-	url?: string;
+	children?: React.ReactNode;
 	/**
 	 * The display mode of the link
 	 * @example 'url'
@@ -11,7 +11,7 @@ type LinkAnalyticsContextProps = {
 	display?: string | undefined;
 	id?: string | undefined;
 	source?: string;
-	children?: React.ReactNode;
+	url?: string;
 };
 
 /**

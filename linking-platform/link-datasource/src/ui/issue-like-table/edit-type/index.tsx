@@ -26,11 +26,11 @@ export const editType = ({
 	setEditValues,
 	executeFetch,
 }: {
-	defaultValue: DatasourceTypeWithOnlyValues;
 	currentValue: DatasourceTypeWithOnlyValues;
+	defaultValue: DatasourceTypeWithOnlyValues;
+	executeFetch?: ExecuteFetch;
 	labelId?: string;
 	setEditValues: React.Dispatch<React.SetStateAction<DatasourceTypeWithOnlyValues>>;
-	executeFetch?: ExecuteFetch;
 }): Pick<React.ComponentProps<typeof InlineEdit>, 'defaultValue' | 'editView'> => {
 	switch (defaultValue.type) {
 		case 'string':

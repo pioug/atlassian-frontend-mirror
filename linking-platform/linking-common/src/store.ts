@@ -8,12 +8,12 @@ export interface CardStore {
 	[key: string]: CardState;
 }
 export interface CardState {
-	status: CardType;
 	details?: SmartLinkResponse;
+	error?: APIError;
 	/** @deprecated Feature removed (EDM-2205) */
 	lastUpdatedAt?: number;
-	error?: APIError;
 	metadataStatus?: MetadataStatus;
+	status: CardType;
 }
 
 export const getUrl = (store: Store<CardStore>, url: string) => {

@@ -2,8 +2,8 @@ import { TokenType } from './';
 import { MAX_LIST_DEPTH } from './list';
 
 interface KeywordToken {
-	type: TokenType;
 	regex: RegExp;
+	type: TokenType;
 }
 
 export const macroKeywordTokenMap: KeywordToken[] = [

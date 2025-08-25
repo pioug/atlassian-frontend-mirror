@@ -100,7 +100,7 @@ export function getTTISeverity(
 	ttiSeverityDegradedThreshold?: number,
 	ttiFromInvocationSeverityNormalThreshold?: number,
 	ttiFromInvocationSeverityDegradedThreshold?: number,
-): { ttiSeverity: SEVERITY; ttiFromInvocationSeverity: SEVERITY } {
+): { ttiFromInvocationSeverity: SEVERITY; ttiSeverity: SEVERITY } {
 	const ttiNormalThreshold = ttiSeverityNormalThreshold || TTI_SEVERITY_THRESHOLD_DEFAULTS.NORMAL;
 	const ttiDegradedThreshold =
 		ttiSeverityDegradedThreshold || TTI_SEVERITY_THRESHOLD_DEFAULTS.DEGRADED;

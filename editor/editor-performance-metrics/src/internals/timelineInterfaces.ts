@@ -106,15 +106,15 @@ export interface Timeline {
  * ```
  */
 export interface TimelineClock extends Timeline {
+	cleanupSubscribers: () => void;
 	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	markEvent(event: TimelineEvent): void;
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
+	onceAllSubscribersCleaned(cb: () => void): void;
 	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	onIdleBufferFlush(cb: OnIdleBufferFlushCallback): TimelineIdleUnsubcribe;
 	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	onNextIdle(cb: OnIdleBufferFlushCallback): TimelineIdleUnsubcribe;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	onceAllSubscribersCleaned(cb: () => void): void;
-	cleanupSubscribers: () => void;
 }
 
 /**
@@ -127,7 +127,7 @@ export interface TimelineClock extends Timeline {
  * Key Method:
  * - `hold(props)`: Initiates a hold operation, preventing idle detection until released.
  *
- * @param {Object} props - The properties for the hold operation.
+ * @param {object} props - The properties for the hold operation.
  * @param {HoldIdleEventSources} props.source - The source of the hold operation (e.g., 'setTimeout', 'Promise', 'fetch').
  *
  * @returns {UnHoldFunction} A function that, when called, releases the hold and allows idle detection to resume.

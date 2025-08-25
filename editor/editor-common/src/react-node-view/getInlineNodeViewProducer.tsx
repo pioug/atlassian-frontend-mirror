@@ -31,20 +31,20 @@ import { getOrCreateOnVisibleObserver } from './onVisibleObserverFactory';
 const isSSR = Boolean(process.env.REACT_SSR);
 
 export type InlineNodeViewComponentProps = {
-	view: EditorView;
 	getPos: () => GetPosReturn;
 	node: PMNode;
+	view: EditorView;
 };
 type InlineNodeViewComponent<ExtraComponentProps> = React.ComponentType<
 	React.PropsWithChildren<InlineNodeViewComponentProps & ExtraComponentProps>
 >;
 
 export type CreateNodeViewOptions<ExtraComponentProps> = {
-	nodeViewParams: NodeViewParams;
-	pmPluginFactoryParams: PMPluginFactoryParams;
 	Component: InlineNodeViewComponent<ExtraComponentProps>;
 	extraComponentProps: ExtraComponentProps;
 	extraNodeViewProps?: Pick<NodeView, 'stopEvent'>;
+	nodeViewParams: NodeViewParams;
+	pmPluginFactoryParams: PMPluginFactoryParams;
 };
 
 export const inlineNodeViewClassname = 'inlineNodeView';
@@ -382,12 +382,12 @@ function getPortalChildren<ExtraComponentProps>({
 	Component,
 	extraComponentProps,
 }: {
+	Component: InlineNodeViewComponent<ExtraComponentProps>;
+	currentNode: PMNode;
 	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	dispatchAnalyticsEvent(payload: AnalyticsEventPayload): void;
-	currentNode: PMNode;
-	nodeViewParams: NodeViewParams;
-	Component: InlineNodeViewComponent<ExtraComponentProps>;
 	extraComponentProps: ExtraComponentProps;
+	nodeViewParams: NodeViewParams;
 }) {
 	return function portalChildren() {
 		//  All inline nodes use `display: inline` to allow for multi-line
@@ -474,10 +474,10 @@ type NodeViewProducer = (
 type NodeViewProducerParameters = Parameters<NodeViewProducer>;
 type GetPosReturn = number | undefined;
 type NodeViewParams = {
+	decorations: Parameters<NodeViewProducer>[3];
+	getPos: () => GetPosReturn;
 	node: Parameters<NodeViewProducer>[0];
 	view: Parameters<NodeViewProducer>[1];
-	getPos: () => GetPosReturn;
-	decorations: Parameters<NodeViewProducer>[3];
 };
 
 const counterPerEditorViewMap = new WeakMap();
@@ -489,13 +489,13 @@ export function getInlineNodeViewProducer<ExtraComponentProps>({
 	extraComponentProps,
 	extraNodeViewProps,
 }: {
-	// The value of the params parameter in PMPluginFactories
-	pmPluginFactoryParams: PMPluginFactoryParams;
 	// A React component
 	Component: InlineNodeViewComponent<ExtraComponentProps>;
 	// Any extra props to be passed through to the react component
 	extraComponentProps?: ExtraComponentProps;
 	extraNodeViewProps?: Pick<NodeView, 'stopEvent'>;
+	// The value of the params parameter in PMPluginFactories
+	pmPluginFactoryParams: PMPluginFactoryParams;
 }): NodeViewProducer {
 	function nodeViewProducer(...nodeViewProducerParameters: NodeViewProducerParameters) {
 		const view = nodeViewProducerParameters[1];

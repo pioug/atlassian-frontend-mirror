@@ -43,4 +43,5 @@ export type VCObserverGetVCResultParam = {
 	stop: number;
 	interactionId?: string;
 	ssr?: number;
+	include3p?: boolean;
 };

@@ -49,15 +49,15 @@ const buttonWrapperStyles = css({
 });
 
 export interface ColorProps {
-	value: ColorType;
-	tabIndex?: number;
-	isSelected?: boolean;
-	onClick: (value: ColorType) => void;
-	onHover?: (value: ColorType) => void;
 	backgroundColor: string;
 	borderColor: string;
 	iconColor: string;
+	isSelected?: boolean;
+	onClick: (value: ColorType) => void;
+	onHover?: (value: ColorType) => void;
 	setRef?: (value: HTMLButtonElement) => HTMLButtonElement;
+	tabIndex?: number;
+	value: ColorType;
 }
 
 export default class Color extends PureComponent<ColorProps> {

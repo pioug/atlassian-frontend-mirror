@@ -12,9 +12,9 @@ const DEFAULT_SAMPLING_RATE = 100;
 const DEFAULT_SLOW_THRESHOLD = 7;
 
 export function getPerformanceOptions(view: EditorView): {
-	trackingEnabled: boolean;
 	samplingRate: number;
 	slowThreshold: number;
+	trackingEnabled: boolean;
 } {
 	// Please, do not copy or use this kind of code below
 	// @ts-ignore
@@ -54,9 +54,9 @@ export function stopMeasureReactNodeViewRendered({
 	samplingRate,
 	slowThreshold,
 }: {
-	nodeTypeName: string;
 	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	dispatchAnalyticsEvent(payload: AnalyticsEventPayload): void;
+	nodeTypeName: string;
 	// NOTE: the use of sampling rate with a global nodeView counter
 	// means that will be unequal weighting given to nodes which are
 	// tracked.

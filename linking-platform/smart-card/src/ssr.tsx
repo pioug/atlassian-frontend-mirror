@@ -11,7 +11,7 @@ import { context } from './utils/analytics/analytics';
 import { CardWithUrlContent } from './view/CardWithUrl/component';
 import { LoadingCardLink } from './view/CardWithUrl/component-lazy/LoadingCardLink';
 
-export type CardSSRProps = CardProps & { url: string; hideIconLoadingSkeleton?: boolean };
+export type CardSSRProps = CardProps & { hideIconLoadingSkeleton?: boolean; url: string };
 
 // SSR friendly version of smart-card
 // simplifies the logic around rendering and loading placeholders and

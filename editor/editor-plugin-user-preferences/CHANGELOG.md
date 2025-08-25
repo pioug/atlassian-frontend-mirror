@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-user-preferences
 
+## 1.2.5
+
+### Patch Changes
+
+- [`04ed1e34ba001`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/04ed1e34ba001) -
+  Return initialUserPreferences from config when userPreferencesProvider is unavailable
+- Updated dependencies
+
 ## 1.2.4
 
 ### Patch Changes

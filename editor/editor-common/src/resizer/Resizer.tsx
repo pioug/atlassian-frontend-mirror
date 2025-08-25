@@ -60,52 +60,37 @@ const resizerLabelStyles = xcss({
 });
 
 export type ResizerProps = {
+	appearance?: ResizerAppearance;
+	/**
+	 * Access to the inner most element which wraps passed children
+	 */
+	childrenDOMRef?: (ref: HTMLElement | null) => void;
 	// sets class name for the resizable component on top of default styles
 	// (resizerItemClassName in packages/editor/editor-common/src/styles/shared/resizer.ts)
 	className?: string;
 	// Enables resizing in left and/or right direction and enables handles
 	enable: EnabledHandles;
-	// initial width for now as Resizer is using defaultSize - defaults to 'auto' if not provided
-	width?: number;
-	minWidth?: number | string;
-	maxWidth?: number | string;
-	// The snap property is used to specify absolute pixel values that resizing should snap to.
-	// x and y are both optional, allowing you to only include the axis you want to define. Defaults to null.
-	snap?: Snap;
-	// The snapGap property is used to specify the minimum gap required in order to move to the next snapping target.
-	// Defaults to 0 which means that snap targets are always used.
-	snapGap?: number;
-	// Ratio that will scale the delta by
-	resizeRatio?: number;
-	appearance?: ResizerAppearance;
-
-	// control visibility of resize handle, by default handle is only visible on hover of element resizing
-	isHandleVisible?: boolean;
-	// Resizer lifecycle callbacks:
-	handleResizeStart: HandleResizeStart;
-	handleResize?: HandleResize;
-	handleResizeStop: HandleResize;
-	/**
-	 * This can be used to override the css class name applied to the resize handle.
-	 */
-	handleClassName?: string;
-	/**
-	 * This is used to override the style of resize handles wrapper.
-	 */
-	handleWrapperStyle?: CSSProperties;
-	/**
-	 * This property is used to override the style of one or more resize handles. Only the axis you specify will have
-	 * its handle style overriden.
-	 */
-	handleStyles?: HandleStyles;
 	/**
 	 * The handleAlignmentMethod is used in determining the vertical positioning of the resizer handle in relation to its children.
 	 */
 	handleAlignmentMethod?: HandleAlignmentMethod;
 	/**
+	 * This can be used to override the css class name applied to the resize handle.
+	 */
+	handleClassName?: string;
+	/**
+	 * The handleHighlight is used to determine how the handle looks when the users mouse hovers over the handle element.
+	 */
+	handleHighlight?: HandleHighlight;
+	/**
 	 * The handlePositioning is used to determine the horizontal position of the resizer handle in relation to its children.
 	 */
 	handlePositioning?: HandlePositioning;
+	handleResize?: HandleResize;
+
+	// Resizer lifecycle callbacks:
+	handleResizeStart: HandleResizeStart;
+	handleResizeStop: HandleResize;
 	/**
 	 * The handleSize is used to determine the width/height of the handle element.
 	 *
@@ -113,34 +98,49 @@ export type ResizerProps = {
 	 */
 	handleSize?: HandleSize;
 	/**
-	 * The handleHighlight is used to determine how the handle looks when the users mouse hovers over the handle element.
+	 * This property is used to override the style of one or more resize handles. Only the axis you specify will have
+	 * its handle style overriden.
 	 */
-	handleHighlight?: HandleHighlight;
+	handleStyles?: HandleStyles;
 	/**
 	 * The handle can display a tooltip when mouse hovers.
 	 */
 	handleTooltipContent?: TooltipProps['content'];
-
+	/**
+	 * This is used to override the style of resize handles wrapper.
+	 */
+	handleWrapperStyle?: CSSProperties;
+	// control visibility of resize handle, by default handle is only visible on hover of element resizing
+	isHandleVisible?: boolean;
+	/**
+	 * Children of the component, this is going to be display below the resizer
+	 * useful for displaying a label such as size or layout
+	 */
+	labelComponent?: React.ReactNode;
+	maxWidth?: number | string;
+	minWidth?: number | string;
 	/**
 	 * control if extended resize zone is needed, by default we apply it to the resizer
 	 */
 	needExtendedResizeZone?: boolean;
+	// Ratio that will scale the delta by
+	resizeRatio?: number;
+
+	// The snap property is used to specify absolute pixel values that resizing should snap to.
+	// x and y are both optional, allowing you to only include the axis you want to define. Defaults to null.
+	snap?: Snap;
+
+	// The snapGap property is used to specify the minimum gap required in order to move to the next snapping target.
+	// Defaults to 0 which means that snap targets are always used.
+	snapGap?: number;
 
 	/**
 	 * Additional styles to be applied to the resizer component
 	 */
 	style?: CSSProperties;
 
-	/**
-	 * Access to the inner most element which wraps passed children
-	 */
-	childrenDOMRef?: (ref: HTMLElement | null) => void;
-
-	/**
-	 * Children of the component, this is going to be display below the resizer
-	 * useful for displaying a label such as size or layout
-	 */
-	labelComponent?: React.ReactNode;
+	// initial width for now as Resizer is using defaultSize - defaults to 'auto' if not provided
+	width?: number;
 };
 
 type forwardRefType = {

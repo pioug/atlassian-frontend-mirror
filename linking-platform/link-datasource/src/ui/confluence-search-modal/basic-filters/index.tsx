@@ -13,9 +13,9 @@ import { CLOLBasicFilters, type SelectedOptionsMap } from './types';
 
 export interface BasicFilterContainerProps {
 	cloudId?: string;
-	selections: SelectedOptionsMap;
-	onChange: (filterType: CLOLBasicFilters, options: SelectOption | SelectOption[]) => void;
 	isHydrating?: boolean;
+	onChange: (filterType: CLOLBasicFilters, options: SelectOption | SelectOption[]) => void;
+	selections: SelectedOptionsMap;
 }
 
 const styles = cssMap({

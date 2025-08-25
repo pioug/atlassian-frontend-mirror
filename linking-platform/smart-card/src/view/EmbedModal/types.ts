@@ -19,16 +19,16 @@ export type EmbedModalContext = {
 export type EmbedModalProps = {
 	/* A function to dispatch analytics event */
 	fireEvent?: FireEventFunction;
+	/* The name of the iframe, if you need that for an external reference */
+	iframeName: string;
 	/* A download link action to invoke with useInvokeClientAction */
 	invokeDownloadAction?: InvokeClientActionProps;
 	/* An open link action to invoke with useInvokeClientAction */
 	invokeViewAction?: InvokeClientActionProps;
-	/* The name of the iframe, if you need that for an external reference */
-	iframeName: string;
-	/* A flag that determines whether link source can be trusted in iframe */
-	isTrusted?: boolean;
 	// /* It determines whether a link source supports different design theme modes */
 	isSupportTheming?: boolean;
+	/* A flag that determines whether link source can be trusted in iframe */
+	isTrusted?: boolean;
 	/* A link icon */
 	linkIcon?: Icon;
 	/* Add responses to the modal being closed */

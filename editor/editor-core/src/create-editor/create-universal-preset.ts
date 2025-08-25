@@ -13,9 +13,9 @@ export function createUniversalPreset({
 	prevProps,
 	initialPluginConfiguration,
 }: {
-	props: EditorProps;
-	prevProps?: EditorProps;
 	initialPluginConfiguration?: InitialPluginConfiguration;
+	prevProps?: EditorProps;
+	props: EditorProps;
 }) {
 	return createUniversalPresetInternal({
 		appearance: props.appearance,

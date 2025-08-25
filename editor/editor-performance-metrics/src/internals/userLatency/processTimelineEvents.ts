@@ -6,14 +6,14 @@ import type {
 
 // TODO: PGXT-7952 - develop user latency event interface more and consider moving this defintion https://product-fabric.atlassian.net/browse/PGXT-7952
 export interface UserLatencyEvent {
-	name: string;
-	category: string;
 	attribution: {
 		selector: string;
 	};
+	category: string;
 	firstInteraction: {
 		duration: number;
 	};
+	name: string;
 }
 
 type TimelineEventsMap = {
@@ -80,7 +80,7 @@ export const processTimelineEvents = (events: Readonly<TimelineEvent[]>): UserLa
 				 */
 				// @ts-expect-error
 				return frameEvent.data.entry.scripts.some(
-					(script: { startTime: number; invokerType: string }) => {
+					(script: { invokerType: string; startTime: number }) => {
 						if (script.invokerType !== 'event-listener') {
 							return false;
 						}

@@ -23,7 +23,16 @@
 	],
 	"references": [
 		{
+			"path": "../../editor-tables/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../../platform/feature-flags/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-townsquare/tsconfig.json"
 		},
 		{
 			"path": "../../editor-common/afm-townsquare/tsconfig.json"

@@ -46,11 +46,11 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 		hasValidAnnotationRange = true,
 		hasRangeAnnotatable = true,
 	}: {
-		fakeDocumentPosition?: Position | false;
-		isAnnotationAllowed?: boolean;
 		actionsDoc?: PMNode;
-		hasValidAnnotationRange?: boolean;
+		fakeDocumentPosition?: Position | false;
 		hasRangeAnnotatable?: boolean;
+		hasValidAnnotationRange?: boolean;
+		isAnnotationAllowed?: boolean;
 	} = {}) => {
 		const wrapperDOM = {
 			current: container!,

@@ -19,36 +19,36 @@ import { injectIntl } from 'react-intl-next';
 import type { IntlShape, WrappedComponentProps } from 'react-intl-next';
 import messages from '../messages';
 export interface Props {
-	/** color picker button label */
-	label?: string;
-	/** trigger id for accessability labelling */
-	triggerId?: string;
-	/** list of available colors */
-	palette: Palette;
-	/** selected color */
-	selectedColor?: string;
-	/** maximum column length */
-	cols?: number;
 	/** color of checkmark on selected color */
 	checkMarkColor?: string;
-	/** props for react-popper */
-	popperProps?: PopupSelectProps['popperProps'];
-	/** onChange handler */
-	onChange: (value: string, analyticsEvent?: object) => void;
+	/** maximum column length */
+	cols?: number;
 	/** You should not be accessing this prop under any circumstances. It is provided by @atlaskit/analytics-next. */
 	createAnalyticsEvent?: any;
+	/** diasble swatch button */
+	isDisabledSelectedSwatch?: boolean;
+	/** color picker button label */
+	label?: string;
+	/** onChange handler */
+	onChange: (value: string, analyticsEvent?: object) => void;
+	/** onMenuOpen handler */
+	onMenuOpen?: () => void;
+	/** list of available colors */
+	palette: Palette;
+	/** props for react-popper */
+	popperProps?: PopupSelectProps['popperProps'];
+	/** selected color */
+	selectedColor?: string;
 	/** swatch button size */
 	selectedColourSwatchSize?: SwatchSize;
 	/** swatch button default color */
 	showDefaultSwatchColor?: boolean;
-	/** diasble swatch button */
-	isDisabledSelectedSwatch?: boolean;
-	/** onMenuOpen handler */
-	onMenuOpen?: () => void;
-	/** Display filled or outline variant of the color */
-	variant?: ColorCardVariant;
 	/** Test ID  */
 	testId?: string;
+	/** trigger id for accessability labelling */
+	triggerId?: string;
+	/** Display filled or outline variant of the color */
+	variant?: ColorCardVariant;
 }
 
 const defaultPopperProps: Partial<PopupSelectProps['popperProps']> = {

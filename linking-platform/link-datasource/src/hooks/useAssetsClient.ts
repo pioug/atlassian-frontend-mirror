@@ -6,14 +6,14 @@ import { type ObjectSchema } from '../types/assets/types';
 import { type AssetsDatasourceParameters } from '../ui/assets-modal/types';
 
 export type UseAssetsClientState = {
-	workspaceId: string | undefined;
-	workspaceError: Error | undefined;
+	assetsClientLoading: boolean;
 	existingObjectSchema: ObjectSchema | undefined;
 	existingObjectSchemaError: Error | undefined;
 	objectSchemas: ObjectSchema[] | undefined;
 	objectSchemasError: Error | undefined;
 	totalObjectSchemas: number | undefined;
-	assetsClientLoading: boolean;
+	workspaceError: Error | undefined;
+	workspaceId: string | undefined;
 };
 
 const handleAssetsClientErrors = (

@@ -403,10 +403,10 @@ export function makeKeyMapArrayWithCommon(description: string, shortcuts: string
 }
 
 export interface Keymap {
-	description: string;
-	windows: string;
-	mac: string;
 	common?: string;
+	description: string;
+	mac: string;
+	windows: string;
 }
 
 function combineWithOldCommand(cmd: Command, oldCmd: Command): Command {

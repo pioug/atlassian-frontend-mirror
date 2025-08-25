@@ -4,10 +4,10 @@ import { type ContainerProps } from '../types';
 
 export type HoverCardDelayProps = PropsWithChildren<
 	Pick<ContainerProps, 'actionOptions' | 'hoverPreviewOptions'> & {
-		isHoverPreview?: boolean;
+		delay?: number;
 		isAuthTooltip?: boolean;
+		isHoverPreview?: boolean;
 		testId?: string;
 		url: string;
-		delay?: number;
 	}
 >;

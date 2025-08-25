@@ -8,15 +8,15 @@ import MediaElement from '../media-element';
 
 export type PreviewElementProps = ElementProps & {
 	/**
-	 * An image URL to render. This will replace the default image from smart link data.
-	 */
-	overrideUrl?: string;
-	/**
 	 * Function to be called on error loading media.
 	 * @internal
 	 */
 	onError?: () => void;
 	onLoad?: () => void;
+	/**
+	 * An image URL to render. This will replace the default image from smart link data.
+	 */
+	overrideUrl?: string;
 };
 
 const PreviewElement = (props: PreviewElementProps) => {

@@ -10,9 +10,9 @@ import { withSampling } from '@atlaskit/emoji';
  * Initial experience config object (deferred from @atlaskit/ufo inner types)
  */
 type Config = {
-	type: ExperienceTypes;
 	performanceType: ExperiencePerformanceTypes;
 	platform?: { component: string };
+	type: ExperienceTypes;
 };
 
 /**

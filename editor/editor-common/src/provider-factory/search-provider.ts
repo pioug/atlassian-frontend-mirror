@@ -1,10 +1,10 @@
 export interface QuickSearchResult {
-	objectId: string;
-	title: string;
-	url: string;
 	container: string;
 	contentType: LinkContentType;
+	objectId: string;
+	title: string;
 	updatedTimestamp?: string;
+	url: string;
 }
 
 export type LinkContentType =

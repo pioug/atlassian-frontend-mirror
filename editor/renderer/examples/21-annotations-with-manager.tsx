@@ -89,12 +89,12 @@ const AnnotationControl = React.memo(
 		setHoveredAnnotationId,
 		selectedAnnotationId,
 	}: {
-		id: string;
-		resolved: boolean;
 		annotationProviders: AnnotationProviders;
 		hoveredAnnotationId: string | null;
-		setHoveredAnnotationId: React.Dispatch<React.SetStateAction<string | null>>;
+		id: string;
+		resolved: boolean;
 		selectedAnnotationId: string | null;
+		setHoveredAnnotationId: React.Dispatch<React.SetStateAction<string | null>>;
 	}) => {
 		const { updateDocument } = useUpdateDocument();
 		const [resolvedSate, setResolvedState] = useState(resolved);

@@ -46,36 +46,36 @@ function beforeUnloadHandler(e: UnloadEvent) {
 }
 
 export interface Props {
+	allowFeedbackAndHelpButtons?: boolean;
+	// Provider
+	dataProviders?: ProviderFactory;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	defaultValue?: any;
+	disableScrollTo?: boolean;
+	isEditing?: boolean;
 	isExpanded?: boolean;
 	onCancel?: () => void;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	onSave?: (value: any) => void;
+	onChange?: (value: any) => void;
 	onClose?: () => void;
+
 	onOpen?: () => void;
-	isEditing?: boolean;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	onChange?: (value: any) => void;
-	showBeforeUnloadWarning?: boolean;
+	onSave?: (value: any) => void;
 
-	// Provider
-	dataProviders?: ProviderFactory;
-	user?: User;
-
+	placeholder?: string;
 	// Editor
 	renderEditor?: (Editor: typeof ComposableEditor, props: EditorProps) => JSX.Element;
-	placeholder?: string;
-	disableScrollTo?: boolean;
-	allowFeedbackAndHelpButtons?: boolean;
+	showBeforeUnloadWarning?: boolean;
+	user?: User;
 }
 
 export interface State {
-	isExpanded?: boolean;
 	isEditing?: boolean;
+	isExpanded?: boolean;
 }
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
@@ -341,9 +341,9 @@ export default class Editor extends React.Component<Props, State> {
 }
 
 interface WrapperProps {
-	props: EditorProps;
-	initialPluginConfiguration?: InitialPluginConfiguration;
 	allowFeedbackAndHelpButtons: boolean;
+	initialPluginConfiguration?: InitialPluginConfiguration;
+	props: EditorProps;
 }
 
 const ComposableEditorWrapper = ({

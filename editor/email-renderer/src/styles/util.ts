@@ -36,7 +36,7 @@ const DEFAULT_PARAGRAPH_SIZE = { size: headingSizes.h600.size, shift: 5 };
  *
  * */
 
-const headerMap = new Map<number | undefined, { size: number; shift: number }>([
+const headerMap = new Map<number | undefined, { shift: number; size: number }>([
 	[1, { size: headingSizes.h800.size, shift: 4 }],
 	[2, { size: headingSizes.h700.size, shift: 4 }],
 	[3, { size: headingSizes.h600.size, shift: 4 }],

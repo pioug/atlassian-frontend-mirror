@@ -2,6 +2,15 @@ import { type UserPreferences } from './user-preferences';
 
 export type PersistenceAPI = {
 	/**
+	 * Get the initial user preferences synchronously
+	 * This function is called on initialization
+	 * If not provided, loadUserPreferences will be called instead
+	 * @param userPreferences
+	 * @returns
+	 */
+	getInitialUserPreferences?: () => UserPreferences | undefined;
+
+	/**
 	 * Loads the user preferences
 	 * @returns
 	 */
@@ -17,13 +26,4 @@ export type PersistenceAPI = {
 		key: K,
 		value: UserPreferences[K],
 	) => Promise<Pick<UserPreferences, K>>;
-
-	/**
-	 * Get the initial user preferences synchronously
-	 * This function is called on initialization
-	 * If not provided, loadUserPreferences will be called instead
-	 * @param userPreferences
-	 * @returns
-	 */
-	getInitialUserPreferences?: () => UserPreferences | undefined;
 };

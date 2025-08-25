@@ -36,30 +36,30 @@ const getResizeAnalyticsEvent = (
 };
 
 export interface ResizableNumberSize {
-	width: number;
 	height: number;
+	width: number;
 }
 
 export type ResizerProps = Omit<ResizableMediaSingleProps, 'height' | 'width'> & {
-	selected?: boolean;
-	enable: EnabledHandles;
 	calcNewSize: (
 		newWidth: number,
 		stop: boolean,
 	) => { layout: RichMediaLayout; width: number | null };
-	snapPoints: number[];
-	scaleFactor?: number;
-	highlights: (width: number, snapPoints: number[]) => number[] | string[];
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
-	nodeType?: 'media' | 'embed';
-	innerPadding?: number;
-	height?: number;
-	width: number;
-	ratio?: string;
+	enable: EnabledHandles;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	handleComponentFunc?: (side: string) => React.ReactElement<any> | undefined;
 	handleStyles?: HandleStyles;
+	height?: number;
+	highlights: (width: number, snapPoints: number[]) => number[] | string[];
+	innerPadding?: number;
+	nodeType?: 'media' | 'embed';
+	ratio?: string;
+	scaleFactor?: number;
+	selected?: boolean;
+	snapPoints: number[];
+	width: number;
 };
 
 export type ResizerState = {

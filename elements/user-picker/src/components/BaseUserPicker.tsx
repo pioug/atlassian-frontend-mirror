@@ -43,12 +43,11 @@ import { groupOptionsByType } from '../util/group-options-by-type';
 import { userPickerOptionsShownUfoExperience } from '../util/ufoExperiences';
 
 export type BaseUserPickerProps = UserPickerProps & {
-	SelectComponent: React.ComponentType<any>;
-	pickerProps?: any;
-	styles: any;
 	components: any;
-	width: string | number;
 	name?: string;
+	pickerProps?: any;
+	SelectComponent: React.ComponentType<any>;
+	styles: any;
 	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
 	/**
 	 * @deprecated This is a temporary prop to enable user-pickers to work in Draggable elements in react-beautiful-dnd.
@@ -56,6 +55,7 @@ export type BaseUserPickerProps = UserPickerProps & {
 	 * It may be removed in a future minor or patch when a longer-term workaround is found.
 	 */
 	UNSAFE_hasDraggableParentComponent?: boolean;
+	width: string | number;
 };
 
 const loadingMessage = () => null;

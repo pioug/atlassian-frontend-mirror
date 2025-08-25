@@ -20,7 +20,7 @@ import { WithEditorView } from '../../WithEditorView';
 describe('WithEditorView', () => {
 	const createEditor = createProsemirrorEditorFactory();
 
-	function setup(options: { editorView: EditorView; child: ReactNode }) {
+	function setup(options: { child: ReactNode; editorView: EditorView }) {
 		const editorActions = new EditorActions();
 
 		editorActions._privateRegisterEditor(options.editorView, new EventDispatcher());

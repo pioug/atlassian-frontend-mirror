@@ -10,13 +10,13 @@ import type { MentionEventHandlers } from '../EventHandlers';
 import ResourcedMentionWithProfilecard from './mention-with-profilecard';
 
 export interface Props {
-	id: string;
-	text: string;
 	accessLevel?: string;
+	eventHandlers?: MentionEventHandlers;
+	id: string;
+	localId?: string;
 	mentionProvider?: Promise<MentionProvider>;
 	profilecardProvider?: Promise<ProfilecardProvider>;
-	eventHandlers?: MentionEventHandlers;
-	localId?: string;
+	text: string;
 }
 
 export interface State {

@@ -85,30 +85,30 @@ const colorPickerWrapper = () =>
 /* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
 
 type Props = WithAnalyticsEventsProps & {
-	currentColor?: string;
-	title?: string;
-	isAriaExpanded?: boolean;
-	onChange?: (color: PaletteColor) => void;
-	colorPalette: PaletteColor[];
-	placement: string;
-	cols?: number;
+	absoluteOffset?: PopupPosition;
 	alignX?: 'left' | 'right' | 'center' | 'end';
-	size?: {
-		width: string;
-		height: string;
-	};
-	mountPoint?: HTMLElement;
-	setDisableParentScroll?: (disable: boolean) => void;
+	colorPalette: PaletteColor[];
+	cols?: number;
+	currentColor?: string;
 	hexToPaletteColor?: (hexColor: string) => string | undefined;
+	isAriaExpanded?: boolean;
+	mountPoint?: HTMLElement;
+	onChange?: (color: PaletteColor) => void;
 	paletteColorTooltipMessages?: PaletteTooltipMessages;
+	placement: string;
+	returnEscToButton?: boolean;
+	setDisableParentScroll?: (disable: boolean) => void;
 
+	size?: {
+		height: string;
+		width: string;
+	};
 	/**
 	 * After picking the color the default behaviour is to focus the color picker button.
 	 * To prevent this use skipFocusButtonAfterPick.
 	 */
 	skipFocusButtonAfterPick?: boolean;
-	absoluteOffset?: PopupPosition;
-	returnEscToButton?: boolean;
+	title?: string;
 };
 
 const ColorPaletteWithReactViewListeners = withReactEditorViewOuterListeners(ColorPalette);

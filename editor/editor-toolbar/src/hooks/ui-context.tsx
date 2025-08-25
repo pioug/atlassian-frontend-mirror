@@ -4,22 +4,24 @@ import type { OnOpenChangeArgs } from '@atlaskit/dropdown-menu';
 
 export type ToolbarUIContextType = {
 	/**
+	 * Indicates whether the toolbar is disabled when the editor is offline.
+	 */
+	isDisabled?: boolean;
+
+	/**
 	 * Callback for when the dropdown is open/closed. Receives an object with `isOpen` state.
 	 *
 	 * If the dropdown was closed programmatically, the `event` parameter will be `null`.
 	 */
 	onDropdownOpenChanged: (args: OnOpenChangeArgs) => void;
 
+	popupsBoundariesElement?: HTMLElement;
+	popupsMountPoint?: HTMLElement;
+	popupsScrollableElement?: HTMLElement;
 	/**
 	 * Whether to prevent default behavior on mouse down events on ToolbarButton.
 	 */
 	preventDefaultOnMouseDown?: boolean;
-
-	/**
-	 * Indicates whether the toolbar is disabled when the editor is offline.
-	 */
-	isDisabled?: boolean;
-	popupsMountPoint?: HTMLElement;
 };
 
 const ToolbarUIContext = createContext<ToolbarUIContextType>({
@@ -52,10 +54,19 @@ export const ToolbarUIProvider = ({
 	preventDefaultOnMouseDown,
 	isDisabled,
 	popupsMountPoint,
+	popupsBoundariesElement,
+	popupsScrollableElement,
 }: ToolbarUIProviderProps) => {
 	return (
 		<ToolbarUIContext.Provider
-			value={{ onDropdownOpenChanged, preventDefaultOnMouseDown, isDisabled, popupsMountPoint }}
+			value={{
+				onDropdownOpenChanged,
+				preventDefaultOnMouseDown,
+				isDisabled,
+				popupsMountPoint,
+				popupsBoundariesElement,
+				popupsScrollableElement,
+			}}
 		>
 			{children}
 		</ToolbarUIContext.Provider>

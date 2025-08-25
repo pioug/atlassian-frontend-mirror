@@ -22,10 +22,10 @@ import { type EmojiAttributes } from '@atlaskit/adf-schema';
 
 export interface EmojiProps extends EmojiId, EmojiAttributes, MarkDataAttributes {
 	allowTextFallback?: boolean;
-	providers?: ProviderFactory;
 	fitToHeight?: number;
-	showTooltip?: boolean;
+	providers?: ProviderFactory;
 	resourceConfig?: EmojiResourceConfig;
+	showTooltip?: boolean;
 }
 
 // eslint-disable-next-line @repo/internal/react/no-class-components

@@ -23,42 +23,42 @@ export interface LinkAction {
 	 */
 	id: string;
 	/**
+	 * Promise to invoke on triggering this action.
+	 * @example Clicking on `Delete` leading to deletion of content.
+	 */
+	invoke: () => Promise<any>;
+	/**
 	 * Text to render for the action.
 	 * @description Use this in tooltips and UI.
 	 * @example `Delete`.
 	 */
 	text: React.ReactNode;
-	/**
-	 * Promise to invoke on triggering this action.
-	 * @example Clicking on `Delete` leading to deletion of content.
-	 */
-	invoke: () => Promise<any>;
 }
 
 export interface UseSmartLinkActionsOpts {
 	/**
-	 * Smart Link URL for which actions will be invoked.
-	 * @example https://start.atlassian.com
+	 * Configure the visiblity of actions
 	 */
-	url: string;
+	actionOptions?: CardActionOptions;
 	/**
 	 * Appearance under which these actions will be invoked.
 	 * @example `block` for card views.
 	 */
 	appearance: CardInnerAppearance;
 	/**
+	 * Smart link origin that the action being invoked from.
+	 */
+	origin?: AnalyticsOrigin;
+	/**
 	 * Platform on which actions are being invoked.
 	 * @default 'web'
 	 */
 	platform?: JsonLd.Primitives.Platforms;
 	/**
-	 * Smart link origin that the action being invoked from.
+	 * Smart Link URL for which actions will be invoked.
+	 * @example https://start.atlassian.com
 	 */
-	origin?: AnalyticsOrigin;
-	/**
-	 * Configure the visiblity of actions
-	 */
-	actionOptions?: CardActionOptions;
+	url: string;
 }
 
 export function useSmartLinkActions({

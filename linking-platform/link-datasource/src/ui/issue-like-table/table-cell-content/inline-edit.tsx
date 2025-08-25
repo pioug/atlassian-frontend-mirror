@@ -34,10 +34,10 @@ interface InlineEditProps {
 	ari: string;
 	columnKey: string;
 	columnTitle: string;
-	readView: React.ReactNode;
 	datasourceTypeWithValues: DatasourceTypeWithOnlyValues;
 	execute: (value: string | number) => Promise<AtomicActionExecuteResponse>;
 	executeFetch?: <E>(inputs: any) => Promise<E>;
+	readView: React.ReactNode;
 }
 
 /**

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 3.1.11
+
+### Patch Changes
+
+- [`2a8dcec064275`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a8dcec064275) -
+  [ux] [ED-28449] add a paste event listener to insert plain text when user tries to paste rich text
+  into the typeahead
+- Updated dependencies
+
 ## 3.1.10
 
 ### Patch Changes

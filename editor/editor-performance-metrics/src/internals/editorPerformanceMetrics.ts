@@ -17,10 +17,10 @@ import type { TimelineEventNames, UserEvent } from './timelineTypes';
 import type { UserEventCategory, ViewportDimension } from './types';
 
 export type CalculateVCOptions = {
-	ignoreNodeReplacements: boolean;
-	ignoreLayoutShifts: boolean;
-	ignoreElementMoved: boolean;
 	heatmapSize: number;
+	ignoreElementMoved: boolean;
+	ignoreLayoutShifts: boolean;
+	ignoreNodeReplacements: boolean;
 	rangeEventsFilter?: RangeEventsFilter | null;
 };
 

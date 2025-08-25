@@ -9,8 +9,8 @@ import type { ManualRule } from '../../../manual-triggers-container/common/types
 import { useAutomationMenu } from '../../menu-context';
 
 type AutomationModalFooterProps = {
-	selectedRule: ManualRule | undefined;
 	onClose: () => void;
+	selectedRule: ManualRule | undefined;
 };
 
 const i18n = defineMessages({

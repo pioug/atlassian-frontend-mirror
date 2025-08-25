@@ -1,5 +1,25 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.4.5
+
+### Patch Changes
+
+- [`b773a6a1dad0f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b773a6a1dad0f) -
+  add TTVC abort timestamp to payload
+- [`80ff64c68bc70`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/80ff64c68bc70) -
+  Clean up feature gate platform_ufo_post_interaction_check_name
+
+## 4.4.4
+
+### Patch Changes
+
+- [`bd5fbbc05c329`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd5fbbc05c329) -
+  Enable TTVC and TTAI for third party segment
+- [`7ed8bff88d7c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7ed8bff88d7c4) -
+  FG cleanup - ufo_chrome_devtools_uplift
+- [`c86a0e501d31c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c86a0e501d31c) -
+  FG cleanup - platform_ufo_ssr_size_field
+
 ## 4.4.3
 
 ### Patch Changes

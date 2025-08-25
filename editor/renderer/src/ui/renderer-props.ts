@@ -27,64 +27,6 @@ interface RawObjectFeatureFlags {
 }
 
 export interface RendererProps {
-	document: DocNode;
-	dataProviders?: ProviderFactory;
-	eventHandlers?: EventHandlers;
-	extensionHandlers?: ExtensionHandlers;
-	// Enables inline scripts to add support for breakout nodes,
-	// before main JavaScript bundle is available.
-	enableSsrInlineScripts?: boolean;
-	// Enables inline scripts from above on client for first render for hydration to prevent mismatch.
-	noOpSSRInlineScript?: boolean;
-	onComplete?: (stat: RenderOutputStat) => void;
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	onError?: (error: any) => void;
-	portal?: HTMLElement;
-	rendererContext?: RendererContext;
-	schema?: Schema;
-	appearance?: RendererAppearance;
-	adfStage?: ADFStage;
-	disableHeadingIDs?: boolean;
-	disableActions?: boolean;
-	allowHeadingAnchorLinks?: HeadingAnchorLinksProps;
-	allowPlaceholderText?: boolean;
-	maxHeight?: number;
-	fadeOutHeight?: number;
-	truncated?: boolean;
-	createAnalyticsEvent?: CreateUIAnalyticsEvent;
-	allowColumnSorting?: boolean;
-	shouldOpenMediaViewer?: boolean;
-	allowAltTextOnImages?: boolean;
-	stickyHeaders?: StickyHeaderProps;
-	media?: MediaOptions;
-	emojiResourceConfig?: EmojiResourceConfig;
-	smartLinks?: SmartLinksOptions;
-	extensionViewportSizes?: ExtensionViewportSize[];
-	getExtensionHeight?: GetPMNodeHeight;
-	allowAnnotations?: boolean;
-	annotationProvider?: AnnotationProviders | null;
-	innerRef?: React.RefObject<HTMLDivElement>;
-	/** @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-3649 Internal documentation for deprecation (no external access)} This prop will be removed and set as default enabled, as the same flag on the Editor is also now default enabled. */
-	useSpecBasedValidator?: boolean;
-	allowCopyToClipboard?: boolean;
-	allowWrapCodeBlock?: boolean;
-	allowCustomPanels?: boolean;
-	analyticsEventSeverityTracking?: {
-		enabled: boolean;
-		severityNormalThreshold: number;
-		severityDegradedThreshold: number;
-	};
-	allowUgcScrubber?: boolean;
-	allowSelectAllTrap?: boolean;
-	unsupportedContentLevelsTracking?: UnsupportedContentLevelsTracking;
-	nodeComponents?: NodeComponentsProps;
-	isInsideOfInlineExtension?: boolean;
-	isTopLevelRenderer?: boolean;
-	includeNodesCountInStats?: boolean;
-	allowRendererContainerStyles?: boolean;
-	// Removes the empty space, lines, hard breaks above and below the comment content
-	shouldRemoveEmptySpaceAroundContent?: boolean;
 	/**
 	 * When enabled a trailing telepointer will be added to the rendered document
 	 * following content updates.
@@ -95,20 +37,49 @@ export interface RendererProps {
 	 * is updated as a result of a content update.
 	 */
 	addTelepointer?: boolean;
-	textHighlighter?: TextHighlighter;
+	adfStage?: ADFStage;
+	allowAltTextOnImages?: boolean;
+	allowAnnotations?: boolean;
+	allowColumnSorting?: boolean;
+	allowCopyToClipboard?: boolean;
+	allowCustomPanels?: boolean;
+	allowHeadingAnchorLinks?: HeadingAnchorLinksProps;
+	allowPlaceholderText?: boolean;
+	allowRendererContainerStyles?: boolean;
+	allowSelectAllTrap?: boolean;
+	allowUgcScrubber?: boolean;
+	allowWrapCodeBlock?: boolean;
+	analyticsEventSeverityTracking?: {
+		enabled: boolean;
+		severityDegradedThreshold: number;
+		severityNormalThreshold: number;
+	};
+	annotationProvider?: AnnotationProviders | null;
+	appearance?: RendererAppearance;
+	createAnalyticsEvent?: CreateUIAnalyticsEvent;
 	/**
-	 * When true, elements may render without their default semantic roles
-	 * (e.g., using role="presentation"), indicating that they are used solely for layout or styling purposes.
-	 * Elements currently affected: Tables.
+	 * Creates a new `Serializer` to transform the ADF `document` into `JSX.Element`.
+	 * Allows Confluence to implement {@link https://hello.atlassian.net/wiki/spaces/~lmarinov/pages/5177285037/COMPLEXIT+Progressive+rendering+of+ADF progressive rendering}.
 	 */
-	UNSTABLE_isPresentational?: boolean;
-
+	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
+	createSerializer?(init: ReactSerializerInit): Serializer<JSX.Element> | null;
+	dataProviders?: ProviderFactory;
+	disableActions?: boolean;
+	disableHeadingIDs?: boolean;
 	/**
 	 * When true, disables the overflow shadow (visual indication) on the edges
 	 * of tables.
 	 */
 	disableTableOverflowShadow?: boolean;
-
+	document: DocNode;
+	emojiResourceConfig?: EmojiResourceConfig;
+	// Enables inline scripts to add support for breakout nodes,
+	// before main JavaScript bundle is available.
+	enableSsrInlineScripts?: boolean;
+	eventHandlers?: EventHandlers;
+	extensionHandlers?: ExtensionHandlers;
+	extensionViewportSizes?: ExtensionViewportSize[];
+	fadeOutHeight?: number;
 	/**
 	 * @default undefined
 	 * @description
@@ -138,16 +109,45 @@ export interface RendererProps {
 	 * ```
 	 */
 	featureFlags?: { [featureFlag: string]: boolean } | Partial<RawObjectFeatureFlags>;
+	getExtensionHeight?: GetPMNodeHeight;
+	includeNodesCountInStats?: boolean;
+	innerRef?: React.RefObject<HTMLDivElement>;
+	isInsideOfInlineExtension?: boolean;
+	isTopLevelRenderer?: boolean;
+	maxHeight?: number;
+	media?: MediaOptions;
+	nodeComponents?: NodeComponentsProps;
+	// Enables inline scripts from above on client for first render for hydration to prevent mismatch.
+	noOpSSRInlineScript?: boolean;
+	onComplete?: (stat: RenderOutputStat) => void;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	onError?: (error: any) => void;
+	portal?: HTMLElement;
+	rendererContext?: RendererContext;
+	schema?: Schema;
+	shouldOpenMediaViewer?: boolean;
+	// Removes the empty space, lines, hard breaks above and below the comment content
+	shouldRemoveEmptySpaceAroundContent?: boolean;
+	smartLinks?: SmartLinksOptions;
+	stickyHeaders?: StickyHeaderProps;
+	textHighlighter?: TextHighlighter;
+	truncated?: boolean;
 
-	/** @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-26490 Internal documentation for deprecation (no external access)}  This prop has been marked stable and therefore replaced by the `textHighlighter` prop. Please use `textHighlighter` prop instead. */
-	UNSTABLE_textHighlighter?: TextHighlighter;
 	UNSTABLE_allowTableAlignment?: boolean;
+
 	UNSTABLE_allowTableResizing?: boolean;
 
 	/**
-	 * Creates a new `Serializer` to transform the ADF `document` into `JSX.Element`.
-	 * Allows Confluence to implement {@link https://hello.atlassian.net/wiki/spaces/~lmarinov/pages/5177285037/COMPLEXIT+Progressive+rendering+of+ADF progressive rendering}.
+	 * When true, elements may render without their default semantic roles
+	 * (e.g., using role="presentation"), indicating that they are used solely for layout or styling purposes.
+	 * Elements currently affected: Tables.
 	 */
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	createSerializer?(init: ReactSerializerInit): Serializer<JSX.Element> | null;
+	UNSTABLE_isPresentational?: boolean;
+	/** @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-26490 Internal documentation for deprecation (no external access)}  This prop has been marked stable and therefore replaced by the `textHighlighter` prop. Please use `textHighlighter` prop instead. */
+	UNSTABLE_textHighlighter?: TextHighlighter;
+	unsupportedContentLevelsTracking?: UnsupportedContentLevelsTracking;
+
+	/** @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-3649 Internal documentation for deprecation (no external access)} This prop will be removed and set as default enabled, as the same flag on the Editor is also now default enabled. */
+	useSpecBasedValidator?: boolean;
 }

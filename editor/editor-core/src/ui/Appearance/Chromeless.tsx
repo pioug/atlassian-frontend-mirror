@@ -267,10 +267,10 @@ function RenderWithPluginState({ renderChrome, editorAPI }: RenderChromeProps) {
 }
 
 interface ChromelessEditorContainerProps {
-	maxHeight?: number;
-	minHeight: number;
 	children: React.ReactNode;
 	containerRef?: (ref: HTMLElement | null) => void;
+	maxHeight?: number;
+	minHeight: number;
 }
 
 function ChromelessEditorContainerNext({

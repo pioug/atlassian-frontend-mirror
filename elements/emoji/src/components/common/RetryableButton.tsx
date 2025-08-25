@@ -17,13 +17,13 @@ const buttonSpinner = css({
 });
 
 export interface Props {
-	label: string;
 	appearance: string;
-	error: boolean;
-	onSubmit: () => void;
-	loading: boolean;
 	ariaDescribedBy?: string;
 	ariaLabelledBy?: string;
+	error: boolean;
+	label: string;
+	loading: boolean;
+	onSubmit: () => void;
 }
 
 export const retryUploadButtonTestId = 'retry-upload-button';

@@ -27,7 +27,7 @@ export default function editorDeprecationWarnings(props: EditorProps) {
 	(Object.keys(deprecatedProperties) as Array<keyof typeof deprecatedProperties>).forEach(
 		(property) => {
 			if (props.hasOwnProperty(property)) {
-				const meta: { type?: string; message?: string } = deprecatedProperties[property];
+				const meta: { message?: string; type?: string } = deprecatedProperties[property];
 				const type = meta.type || 'enabled by default';
 
 				// eslint-disable-next-line no-console

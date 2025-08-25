@@ -26,10 +26,10 @@ type UnsupportedContentEncounteredAEP = TrackAEP<
 	ACTION_SUBJECT.DOCUMENT,
 	ACTION_SUBJECT_ID,
 	{
+		errorCode?: String;
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		unsupportedNode: Record<string, any>;
-		errorCode?: String;
 	}
 >;
 

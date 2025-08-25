@@ -3,8 +3,8 @@ import React from 'react';
 import { NoAccessWarning } from '../../util/i18n';
 
 type Props = {
-	name: string;
 	children: React.ReactNode;
+	name: string;
 };
 
 export const NoAccessTooltip = ({ name, children }: Props) => (

@@ -8,8 +8,8 @@ type PortalsBucketUpdater = React.Dispatch<
 type PortalRendererUpdater = React.Dispatch<React.SetStateAction<Array<PortalBucketType>>>;
 
 type PortalBucketType = {
-	portals: Record<string | number, React.ReactPortal>;
 	capacity: number;
+	portals: Record<string | number, React.ReactPortal>;
 	updater: PortalsBucketUpdater | null;
 };
 

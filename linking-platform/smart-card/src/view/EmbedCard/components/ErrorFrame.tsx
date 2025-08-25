@@ -11,17 +11,17 @@ import { token } from '@atlaskit/tokens';
 
 export interface FrameProps {
 	children?: React.ReactNode;
+	className?: string;
 	/* Set spacing and what elements are rendered. Compact is for loading and error views */
 	compact?: boolean;
-	/* Set whether it is selected. NB: The card is only selectable in the `editor` view, and will be provided by the editor */
-	isSelected?: boolean;
-	/* Set whether the frame has a hover state. Note that this should only be true in the `editor` view */
-	isHoverable?: boolean;
+	inheritDimensions?: boolean;
 	/* Set whether the height is fixed or auto (according to content) */
 	isFluidHeight?: boolean;
+	/* Set whether the frame has a hover state. Note that this should only be true in the `editor` view */
+	isHoverable?: boolean;
+	/* Set whether it is selected. NB: The card is only selectable in the `editor` view, and will be provided by the editor */
+	isSelected?: boolean;
 	testId?: string;
-	className?: string;
-	inheritDimensions?: boolean;
 }
 
 export const Frame = (

@@ -33,21 +33,21 @@ const fadeIn = keyframes({
 });
 
 export interface Props extends WithAnalyticsEventsProps {
-	isOpen?: boolean;
-	trigger?: React.ReactNode;
-	position: string;
-	onOpenChange?: (event: OpenChangedEvent) => void;
-	onPositioned?: () => void;
-	testId?: string;
-	shouldFitContainer: boolean;
 	children?: ReactNode;
 	id?: string;
+	isOpen?: boolean;
 	onDroplistRef?: (ref: HTMLDivElement | null) => unknown;
+	onOpenChange?: (event: OpenChangedEvent) => void;
+	onPositioned?: () => void;
+	position: string;
+	shouldFitContainer: boolean;
+	testId?: string;
+	trigger?: React.ReactNode;
 }
 
 export type OpenChangedEvent = {
-	isOpen: boolean;
 	event: MouseEvent | KeyboardEvent;
+	isOpen: boolean;
 };
 
 // Ignored via go/ees005

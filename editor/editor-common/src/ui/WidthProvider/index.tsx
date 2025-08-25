@@ -21,8 +21,8 @@ const styles = css({
 export type Breakpoints = 'S' | 'M' | 'L';
 
 export type WidthConsumerContext = {
-	width: number;
 	breakpoint: Breakpoints;
+	width: number;
 };
 
 const SCROLLBAR_WIDTH = 30;
@@ -53,9 +53,9 @@ export type WidthProviderState = {
 };
 
 type WidthProviderProps = {
+	children?: React.ReactNode;
 	className?: string;
 	shouldCheckExistingValue?: boolean;
-	children?: React.ReactNode;
 };
 
 /**

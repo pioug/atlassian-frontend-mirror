@@ -6,16 +6,16 @@ import { SortOrder } from '@atlaskit/editor-common/types';
 import { RendererCssClassName } from '../../consts';
 
 type Props = {
-	isNumberColumnEnabled?: number;
-	index?: number;
-	children?: React.ReactNode;
-	onSorting?: (columnIndex?: number, currentSortOrdered?: SortOrder) => void;
 	allowColumnSorting?: boolean;
+	children?: React.ReactNode;
+	index?: number;
+	innerRef?: React.Ref<HTMLTableRowElement>;
+	isNumberColumnEnabled?: number;
+	onSorting?: (columnIndex?: number, currentSortOrdered?: SortOrder) => void;
 	tableOrderStatus?: {
 		columnIndex: number;
 		order: SortOrder;
 	};
-	innerRef?: React.Ref<HTMLTableRowElement>;
 };
 
 type State = {

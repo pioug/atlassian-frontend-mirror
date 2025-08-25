@@ -4,13 +4,21 @@ import type { ArrowKeyNavigationProviderOptions } from '../ArrowKeyNavigationPro
 
 type SectionOptions = { hasSeparator?: boolean; title?: string };
 export interface Props {
-	mountTo?: HTMLElement;
+	// disabled by default to prevent new row insertion if enter pressed
+	allowEnterDefaultBehavior?: boolean;
+	arrowKeyNavigationProviderOptions: ArrowKeyNavigationProviderOptions;
 	boundariesElement?: HTMLElement;
-	scrollableElement?: HTMLElement;
+	children?: React.ReactNode;
+	disableArrowKeyNavigation?: boolean;
+	fitHeight?: number;
+	fitWidth?: number;
+	handleEscapeKeydown?: (e: KeyboardEvent) => void;
 	isOpen?: boolean;
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	onOpenChange?: (attrs: any) => void;
+	items: Array<{
+		items: MenuItem[];
+	}>;
+	mountTo?: HTMLElement;
+	offset?: Array<number>;
 	onItemActivated?: (attrs: { item: MenuItem; shouldCloseMenu?: boolean }) => void;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -18,56 +26,48 @@ export interface Props {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	onMouseLeave?: (attrs: any) => void;
-	fitWidth?: number;
-	fitHeight?: number;
-	offset?: Array<number>;
-	zIndex?: number;
-	items: Array<{
-		items: MenuItem[];
-	}>;
-	shouldUseDefaultRole?: boolean;
-	disableArrowKeyNavigation?: boolean;
-	shouldFocusFirstItem?: () => boolean;
-	arrowKeyNavigationProviderOptions: ArrowKeyNavigationProviderOptions;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	onOpenChange?: (attrs: any) => void;
+	scrollableElement?: HTMLElement;
 	section?: SectionOptions;
-	children?: React.ReactNode;
-	// disabled by default to prevent new row insertion if enter pressed
-	allowEnterDefaultBehavior?: boolean;
-	handleEscapeKeydown?: (e: KeyboardEvent) => void;
+	shouldFocusFirstItem?: () => boolean;
+	shouldUseDefaultRole?: boolean;
+	zIndex?: number;
 }
 
 export interface MenuItem {
-	key?: string;
+	'aria-expanded'?: React.AriaAttributes['aria-expanded'];
+	'aria-haspopup'?: React.AriaAttributes['aria-haspopup'];
+	'aria-keyshortcuts'?: React.AriaAttributes['aria-keyshortcuts'];
+	'aria-label'?: React.AriaAttributes['aria-label'];
+	className?: string;
 	content: string | React.ReactChild | React.ReactFragment;
-	value: {
-		name: string;
-	};
-	shortcut?: string;
+	'data-testid'?: string;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	elemAfter?: React.ReactElement<any>;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	elemBefore?: React.ReactElement<any>;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	elemAfter?: React.ReactElement<any>;
-	tooltipDescription?: string;
-	tooltipPosition?: string;
+	handleRef?: any;
 	isActive?: boolean;
 	isDisabled?: boolean;
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	handleRef?: any;
-	className?: string;
-	'aria-label'?: React.AriaAttributes['aria-label'];
-	'aria-haspopup'?: React.AriaAttributes['aria-haspopup'];
-	'aria-keyshortcuts'?: React.AriaAttributes['aria-keyshortcuts'];
-	'data-testid'?: string;
+	key?: string;
 	onClick?: () => void;
-	'aria-expanded'?: React.AriaAttributes['aria-expanded'];
+	shortcut?: string;
+	tooltipDescription?: string;
+	tooltipPosition?: string;
+	value: {
+		name: string;
+	};
 	wrapperTabIndex?: number | null;
 }
 
 export interface State {
-	target?: HTMLElement;
 	popupPlacement: [string, string];
 	selectionIndex: number;
+	target?: HTMLElement;
 }

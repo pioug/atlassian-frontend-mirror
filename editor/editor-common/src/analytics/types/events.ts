@@ -77,11 +77,11 @@ import type { ViewEventPayload } from './view-events';
 type Dispatch<T = any> = (eventName: PluginKey | string, data: T) => void;
 
 export type SimplifiedNode = {
-	type: string;
-	pos: number;
-	nodeSize: number;
-	marks?: string[];
 	content?: SimplifiedNode[];
+	marks?: string[];
+	nodeSize: number;
+	pos: number;
+	type: string;
 };
 
 export type AnalyticsEventPayload<T = void> =
@@ -150,8 +150,8 @@ type CustomPanelEventPayload = TrackAEP<
 	ACTION.CHANGED_BACKGROUND_COLOR | ACTION.CHANGED_ICON | ACTION.REMOVE_ICON,
 	ACTION_SUBJECT.PANEL,
 	ACTION_SUBJECT_ID.PANEL,
-	| { previousColor: string; newColor: string }
-	| { previousIcon: string; newIcon: string }
+	| { newColor: string; previousColor: string }
+	| { newIcon: string; previousIcon: string }
 	| { icon: string },
 	undefined
 >;
@@ -167,11 +167,11 @@ type MBEEventPayload = TrackAEP<
 	ACTION_SUBJECT.MULTI_BODIED_EXTENSION,
 	undefined,
 	{
-		extensionType: string;
-		extensionKey: string;
-		localId: string;
 		currentFramesCount: number;
+		extensionKey: string;
+		extensionType: string;
 		inputMethod?: INPUT_METHOD.TOOLBAR | INPUT_METHOD.FLOATING_TB;
+		localId: string;
 	},
 	undefined
 >;
@@ -192,8 +192,8 @@ export type AnalyticsEventPayloadWithChannel = {
 };
 
 export type AnalyticsDispatch = Dispatch<{
-	payload: AnalyticsEventPayload;
 	channel?: string;
+	payload: AnalyticsEventPayload;
 }>;
 
 export type FeatureExposureAEP = OperationalExposureAEP<
@@ -240,11 +240,11 @@ type FailedToUnmountErrorAEP = OperationalAEP<
 	ACTION_SUBJECT.EDITOR,
 	ACTION_SUBJECT_ID.REACT_NODE_VIEW,
 	{
-		error: Error;
 		domNodes: {
-			container?: string;
 			child?: string;
+			container?: string;
 		};
+		error: Error;
 	}
 >;
 
@@ -253,9 +253,9 @@ type SynchronyErrorAEP = OperationalAEP<
 	ACTION_SUBJECT.EDITOR,
 	undefined,
 	{
-		error: Error;
-		docStructure?: string | SimplifiedNode;
 		browserExtensions?: UserBrowserExtensionResults;
+		docStructure?: string | SimplifiedNode;
+		error: Error;
 	}
 >;
 
@@ -273,8 +273,8 @@ type InvalidDocumentEncounteredAEP = OperationalAEP<
 	{
 		nodeType: string;
 		reason: string;
-		tableLocalId: string;
 		spanValue: number;
+		tableLocalId: string;
 	}
 >;
 
@@ -294,10 +294,10 @@ type ContentComponentErrorAEP = OperationalAEP<
 	undefined,
 	{
 		component: CONTENT_COMPONENT;
-		error: string;
-		selection: { [key: string]: string };
-		position: number;
 		docSize: number;
+		error: string;
+		position: number;
+		selection: { [key: string]: string };
 	}
 >;
 
@@ -311,15 +311,15 @@ type PickerErrorAEP = OperationalAEP<
 >;
 
 export type ErrorEventAttributes = {
+	browserExtensions?: UserBrowserExtensionResults;
+	browserInfo?: string;
+	docStructure?: string | SimplifiedNode;
 	error: Error;
+	errorId?: string;
 	errorInfo: React.ErrorInfo;
 	errorRethrown?: boolean;
-	product?: string;
-	browserInfo?: string;
-	errorId?: string;
-	docStructure?: string | SimplifiedNode;
-	browserExtensions?: UserBrowserExtensionResults;
 	outdatedBrowser?: boolean;
+	product?: string;
 };
 
 type ComponentCrashErrorAEP = OperationalAEP<
@@ -378,6 +378,6 @@ export type FireAnalyticsEvent = (
 ) => FireAnalyticsCallback;
 
 export type FireAnalyticsEventPayload<T = void> = {
-	payload: AnalyticsEventPayload<T>;
 	channel?: string;
+	payload: AnalyticsEventPayload<T>;
 };

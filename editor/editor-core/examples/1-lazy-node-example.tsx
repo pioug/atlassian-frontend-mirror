@@ -129,10 +129,10 @@ const EditorWithhRealNodeView = memo(
 		onDocChange,
 		adf,
 	}: {
-		appearance: EditorAppearance;
-		onReady: () => void;
-		onDocChange: (doc: PMNode) => void;
 		adf?: Object;
+		appearance: EditorAppearance;
+		onDocChange: (doc: PMNode) => void;
+		onReady: () => void;
 	}) => {
 		const onEditorReady = useCallback(
 			(editorActions: EditorActions) => {
@@ -201,9 +201,9 @@ const LazyNodeViewComparison = memo(
 		appearance,
 		direction,
 	}: {
-		name: string;
 		appearance: EditorAppearance;
 		direction: 'row' | 'column';
+		name: string;
 	}) => {
 		const [liveAdf, setLiveADF] = useState(getDefaultAdf());
 

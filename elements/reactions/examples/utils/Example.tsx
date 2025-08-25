@@ -2,13 +2,13 @@ import React from 'react';
 
 export interface ExampleProps {
 	/**
-	 * Title of the example
-	 */
-	title: React.ReactNode | React.ReactElement;
-	/**
 	 * Body of the example (usually a React component)
 	 */
 	body: React.ReactNode | React.ReactElement;
+	/**
+	 * Title of the example
+	 */
+	title: React.ReactNode | React.ReactElement;
 }
 
 /**

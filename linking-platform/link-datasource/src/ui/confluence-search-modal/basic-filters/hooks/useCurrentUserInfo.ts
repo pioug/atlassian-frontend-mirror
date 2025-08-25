@@ -4,8 +4,8 @@ import { useBasicFilterAGG } from '../../../../services/useBasicFilterAGG';
 import { type UserInfo } from '../types';
 
 interface useUserInfoState {
-	user?: UserInfo;
 	getCurrentUserInfo: () => Promise<void>;
+	user?: UserInfo;
 }
 
 export const useCurrentUserInfo = (): useUserInfoState => {

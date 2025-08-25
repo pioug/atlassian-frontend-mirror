@@ -36,28 +36,28 @@ export interface ConnectedReactionsViewProps
 		>,
 		Pick<ReactionPickerProps, 'pickerQuickReactionEmojiIds'> {
 	/**
-	 * Wrapper id for reactions list
-	 */
-	containerAri: string;
-	/**
 	 * Individual id for a reaction
 	 */
 	ari: string;
 	/**
-	 * Reference to the store.
-	 * @remarks
-	 * This was initially implemented with a sync and Async versions and will be replaced with just a sync Store in a future release (Please use only the sync version)
+	 * Wrapper id for reactions list
 	 */
-	store: StorePropInput;
+	containerAri: string;
+	/**
+	 * Callback function when a reaction is successfully added
+	 */
+	onReactionSuccess?: ReactionUpdateSuccess;
 	/**
 	 * Optional boolean to control if particle animation on reactions appear
 	 */
 	particleEffectByEmojiEnabled?: boolean;
 
 	/**
-	 * Callback function when a reaction is successfully added
+	 * Reference to the store.
+	 * @remarks
+	 * This was initially implemented with a sync and Async versions and will be replaced with just a sync Store in a future release (Please use only the sync version)
 	 */
-	onReactionSuccess?: ReactionUpdateSuccess;
+	store: StorePropInput;
 }
 
 /**

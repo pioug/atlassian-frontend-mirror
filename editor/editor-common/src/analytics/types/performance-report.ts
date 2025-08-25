@@ -1,7 +1,7 @@
 export interface PluginMethodReport {
+	onEditorViewStateUpdated: number;
 	stateApply: number;
 	viewUpdate: number;
-	onEditorViewStateUpdated: number;
 }
 
 export interface PluginsReport {
@@ -10,17 +10,17 @@ export interface PluginsReport {
 
 export type NodeCount = Record<string, number>;
 export interface PluginPerformanceReportData {
-	trigger: string;
 	duration: number;
-	nodes: NodeCount;
 	extensionNodes: NodeCount;
+	nodes: NodeCount;
 	plugins: PluginsReport;
 	slowPlugins: PluginsReport;
 	stepDurations: {
-		stateApply: number;
-		viewUpdate: number;
+		countNodes: number;
 		onChange: number;
 		onEditorViewStateUpdated: number;
-		countNodes: number;
+		stateApply: number;
+		viewUpdate: number;
 	};
+	trigger: string;
 }

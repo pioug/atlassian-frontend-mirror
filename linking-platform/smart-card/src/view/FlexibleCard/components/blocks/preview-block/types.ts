@@ -15,14 +15,14 @@ export type PreviewBlockProps = {
 	onError?: () => void;
 
 	/**
+	 * An image URL to render. This will replace the default image from smart link data.
+	 */
+	overrideUrl?: string;
+
+	/**
 	 * The placement of the preview block in relation of its container.
 	 * This makes the preview block leave flex layout to absolute positioning
 	 * to the left/right of the container.
 	 */
 	placement?: MediaPlacement;
-
-	/**
-	 * An image URL to render. This will replace the default image from smart link data.
-	 */
-	overrideUrl?: string;
 } & BlockProps;

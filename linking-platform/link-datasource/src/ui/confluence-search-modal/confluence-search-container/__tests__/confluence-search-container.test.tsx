@@ -23,7 +23,7 @@ jest.mock('../../basic-filters/hooks/useBasicFilterHydration');
 
 type MockConfluenceSearchContainerProps = Partial<
 	React.ComponentProps<typeof ConfluenceSearchContainer>
-> & { onSearch: jest.Mock; hookOverrides?: BasicFilterHydrationState };
+> & { hookOverrides?: BasicFilterHydrationState; onSearch: jest.Mock };
 
 const onAnalyticFireEvent = jest.fn();
 

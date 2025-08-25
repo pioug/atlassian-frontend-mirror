@@ -1,5 +1,13 @@
 # @atlaskit/teams-public
 
+## 0.55.2
+
+### Patch Changes
+
+- [`3c55a7f90053f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c55a7f90053f) -
+  Fix issue with polling in creating containers
+- Updated dependencies
+
 ## 0.55.1
 
 ### Patch Changes

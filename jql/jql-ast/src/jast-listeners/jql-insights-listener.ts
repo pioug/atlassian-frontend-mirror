@@ -49,27 +49,45 @@ export const collapsedFieldType = (text: string): string | undefined => {
  * Analytics computed for a JQL query.
  */
 export type JqlInsightsAttributes = {
-	// Number of RHS values included in each of the specified fields
-	jqlFieldValueCount: {
-		issueType: number;
-		project: number;
-		assignee: number;
-		reporter: number;
-		priority: number;
-		status: number;
-		resolution: number;
-		team: number;
+	jqlClauseCount: {
+		// The number of AND clauses in our AST
+		and: number;
+		// The number of leaf clauses in our AST (i.e. NON compound clauses)
+		leaf: number;
+		// The number of NOT clauses in our AST
+		not: number;
+		// The number of OR clauses in our AST
+		or: number;
+		// The number of ORDER BY fields in our AST
+		orderBy: number;
 	};
+	// The number of errors encountered when parsing the JQL
+	jqlErrorCount: number;
 	// Whether a user has used the specified fields below in the WHERE portion of their query
 	jqlFieldIsUsed: {
-		summary: boolean;
-		due: boolean;
-		resolutionDate: boolean;
 		created: boolean;
+		due: boolean;
 		lastviewed: boolean;
-		updated: boolean;
+		resolutionDate: boolean;
+		summary: boolean;
 		team: boolean;
+		updated: boolean;
 	};
+	// Number of RHS values included in each of the specified fields
+	jqlFieldValueCount: {
+		assignee: number;
+		issueType: number;
+		priority: number;
+		project: number;
+		reporter: number;
+		resolution: number;
+		status: number;
+		team: number;
+	};
+	// Number of lines used in the query
+	jqlLineCount: number;
+	// The max number of nested compound clauses in our AST
+	jqlMaxCompoundClauseDepth: number;
 	// Sorted list of fields used in the query. If a field is not in our list of PRIVACY_SAFE_FIELDS then it will be
 	// included as 'other' This will give us an idea of the most common combination of fields used when users query.
 	jqlUsedFields: string[];
@@ -77,24 +95,6 @@ export type JqlInsightsAttributes = {
 	jqlUsedFieldsCount: number;
 	// List of fields used in the order by clause, de-duplicated and in the order of usage.
 	jqlUsedFieldsOrderBy: string[];
-	// Number of lines used in the query
-	jqlLineCount: number;
-	// The number of errors encountered when parsing the JQL
-	jqlErrorCount: number;
-	jqlClauseCount: {
-		// The number of ORDER BY fields in our AST
-		orderBy: number;
-		// The number of leaf clauses in our AST (i.e. NON compound clauses)
-		leaf: number;
-		// The number of AND clauses in our AST
-		and: number;
-		// The number of NOT clauses in our AST
-		not: number;
-		// The number of OR clauses in our AST
-		or: number;
-	};
-	// The max number of nested compound clauses in our AST
-	jqlMaxCompoundClauseDepth: number;
 };
 
 class JastAnalyticsListener implements JastListener {

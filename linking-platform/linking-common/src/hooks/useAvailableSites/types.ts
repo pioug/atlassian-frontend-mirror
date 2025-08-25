@@ -10,19 +10,19 @@ export interface AvailableSite {
 export type ProductName = 'jira' | 'confluence';
 
 export interface Site {
-	name: string;
-	url: URL;
-	products: ProductName[];
 	cloudId: string;
 	iconUrl: URL | null;
+	name: string;
+	products: ProductName[];
+	url: URL;
 }
 
 export type AvailableSitesRequest = {
-	products: AvailableSitesProductType[];
 	/**
 	 * Set the base url for network requests to the API gateway
 	 */
 	gatewayBaseUrl?: string;
+	products: AvailableSitesProductType[];
 };
 
 export interface AvailableSitesResponse {

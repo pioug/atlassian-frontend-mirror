@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "40.13.0",
+	"version": "40.13.1",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -100,7 +100,6 @@
 		"@atlaskit/media-test-helpers": "workspace:^",
 		"@atlaskit/react-ufo": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
-		"@atlaskit/visual-regression": "workspace:^",
 		"@atlassian/analytics-tooling": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/gemini": "workspace:^",

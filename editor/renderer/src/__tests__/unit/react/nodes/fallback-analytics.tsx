@@ -40,8 +40,8 @@ describe('Renderer - Fallback analytics', () => {
 	const setup = async (
 		renderComponent: React.ReactNode,
 		args?: {
-			url?: string;
 			datasourceId?: string;
+			url?: string;
 		},
 	) => {
 		const onAnalyticFireEvent = jest.fn();

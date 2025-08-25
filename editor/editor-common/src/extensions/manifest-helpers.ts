@@ -54,13 +54,13 @@ export function buildAction<T extends Parameters>(
 }
 
 type Extension = {
-	type: ExtensionType;
 	attrs: {
-		extensionType: ExtensionType;
 		extensionKey: ExtensionKey;
+		extensionType: ExtensionType;
 		// action.parameters coming from ExtensionModuleActionObject, TemplateParams
 		parameters: unknown;
 	};
+	type: ExtensionType;
 };
 
 export const resolveImportSync = <T extends Parameters>(importedModule: Module<T>) => {

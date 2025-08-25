@@ -135,11 +135,11 @@ type PasteBaseOperationalAEP<Action, Attributes> = OperationalAEP<
 type PasteAEP = PasteBaseAEP<
 	ACTION.PASTED,
 	{
-		inputMethod: INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;
-		type: PasteType;
 		content: PasteContent;
-		source?: PasteSource;
+		inputMethod: INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;
 		pasteSize: number;
+		source?: PasteSource;
+		type: PasteType;
 	},
 	| {
 			linkDomain?: string[];
@@ -151,8 +151,8 @@ type PasteAsPlainAEP = PasteBaseAEP<
 	ACTION.PASTED_AS_PLAIN,
 	{
 		inputMethod: string;
-		pasteSize: number;
 		linksInPasteCount: number;
+		pasteSize: number;
 	},
 	undefined
 >;
@@ -160,10 +160,10 @@ type PasteAsPlainAEP = PasteBaseAEP<
 type PastedTimedAEP = PasteBaseOperationalAEP<
 	ACTION.PASTED_TIMED,
 	{
-		pasteIntoNode: PASTE_ACTION_SUBJECT_ID;
 		content: Array<string>;
-		time: number;
 		distortedDuration: boolean;
+		pasteIntoNode: PASTE_ACTION_SUBJECT_ID;
+		time: number;
 	}
 >;
 

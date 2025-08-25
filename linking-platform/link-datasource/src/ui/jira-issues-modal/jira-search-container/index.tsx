@@ -52,6 +52,7 @@ export const DEFAULT_JQL_QUERY = 'ORDER BY created DESC';
 export const ALLOWED_ORDER_BY_KEYS = ['key', 'summary', 'assignee', 'status', 'created'];
 
 export interface SearchContainerProps {
+	initialSearchMethod: JiraSearchMethod;
 	isSearching?: boolean;
 	onSearch: (
 		query: JiraIssueDatasourceParametersQuery,
@@ -59,12 +60,11 @@ export interface SearchContainerProps {
 			searchMethod,
 			basicFilterSelections,
 		}: {
-			searchMethod: JiraSearchMethod;
 			basicFilterSelections: SelectedOptionsMap;
 			isQueryComplex: boolean;
+			searchMethod: JiraSearchMethod;
 		},
 	) => void;
-	initialSearchMethod: JiraSearchMethod;
 	onSearchMethodChange: (searchMethod: JiraSearchMethod) => void;
 	parameters?: JiraIssueDatasourceParameters;
 	searchBarJql?: string;

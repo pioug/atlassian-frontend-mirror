@@ -135,19 +135,19 @@ export interface PickerRefHandler {
 }
 
 export interface Props {
+	createAnalyticsEvent?: CreateUIAnalyticsEvent;
 	/**
-	 * Callback to be executed when user selects an emoji.
+	 * Flag to disable tone selector.
 	 */
-	onSelection?: OnEmojiEvent;
+	hideToneSelector?: boolean;
 	/**
 	 * Callback performed when picker reference is being set.
 	 */
 	onPickerRef?: PickerRefHandler;
 	/**
-	 * Flag to disable tone selector.
+	 * Callback to be executed when user selects an emoji.
 	 */
-	hideToneSelector?: boolean;
-	createAnalyticsEvent?: CreateUIAnalyticsEvent;
+	onSelection?: OnEmojiEvent;
 	size?: PickerSize;
 }
 
@@ -248,10 +248,10 @@ const EmojiPickerComponent = ({
 			searchEmoji,
 			frequentEmoji,
 		}: {
-			searchQuery?: string;
 			emojiToRender?: EmojiDescription[];
-			searchEmoji?: EmojiDescription[];
 			frequentEmoji?: EmojiDescription[];
+			searchEmoji?: EmojiDescription[];
+			searchQuery?: string;
 		}) => {
 			// Only enable categories for full emoji list (non-search)
 			const disableCategories = !!searchQuery;

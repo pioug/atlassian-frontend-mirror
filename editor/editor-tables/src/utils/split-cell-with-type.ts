@@ -23,9 +23,9 @@ export function cellWrapping($pos: ResolvedPos): PMNode | null {
 }
 
 export type GetCellTypeArgs = {
-	row: number;
 	col: number;
 	node: PMNode;
+	row: number;
 };
 
 type GetCellTypeCallback = (option: GetCellTypeArgs) => NodeType;

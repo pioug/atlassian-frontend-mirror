@@ -30,8 +30,8 @@ export const addMetadataAttributes = ({
 	nodeOrMark,
 	domSpec,
 }: {
-	nodeOrMark: PMNode | PMMark;
 	domSpec: DOMOutputSpec;
+	nodeOrMark: PMNode | PMMark;
 }): DOMOutputSpec => {
 	if (!Array.isArray(domSpec)) {
 		return domSpec;

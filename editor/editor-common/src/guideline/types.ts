@@ -5,13 +5,13 @@ import type { CSSToken } from '@atlaskit/tokens';
 export type WidthTypes = 'percentage' | 'pixel';
 
 export type LengthGuide = {
-	left: number;
-	right: number;
-	length: number;
 	isFullWidth?: boolean;
+	left: number;
+	length: number;
+	right: number;
 };
 
-export type Range = { start: number; end: number };
+export type Range = { end: number; start: number };
 
 /*
  * When x is 0, a vertical line is displayed at the center of the editor
@@ -34,20 +34,20 @@ export type GuidelineStyles = {
 	show?: boolean;
 	styles?: {
 		capStyle?: 'line';
-		lineStyle?: 'dashed' | 'solid'; // default solid
 		color?: CSSToken;
+		lineStyle?: 'dashed' | 'solid'; // default solid
 	};
 };
 
 export type GuidelineConfig = {
+	isFullWidth?: boolean;
 	key: string; // will be used as the React key
 	position: Position;
-	isFullWidth?: boolean;
 } & GuidelineStyles;
 
 export type GuidelineContainerRect = {
-	top: number;
 	left: number;
+	top: number;
 };
 
 export type GuidelinePluginState = {
@@ -66,20 +66,20 @@ export type GuidelineSnap = {
 };
 
 export type GuidelineSnapsReference = {
+	guidelineReference: GuidelineSnap[];
 	snaps: {
 		x?: number[];
 		y?: number[];
 	};
-	guidelineReference: GuidelineSnap[];
 };
 
 export type GuidelineTypes = 'default' | 'temporary' | 'relative' | 'none';
 
 export type RelativeGuides = {
-	width?: {
+	height?: {
 		[key: number]: NodeWithPos[];
 	};
-	height?: {
+	width?: {
 		[key: number]: NodeWithPos[];
 	};
 };

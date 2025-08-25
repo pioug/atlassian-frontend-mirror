@@ -10,8 +10,8 @@ import UserPicker from '../src';
 import { isTeam, isUser } from '../src/components/utils';
 
 type UserValueProps = {
-	user: OptionData;
 	onRemove: (user: OptionData) => void;
+	user: OptionData;
 };
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard

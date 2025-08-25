@@ -12,9 +12,9 @@ function expValInternal<
 	defaultValue,
 	fireExperimentExposure,
 }: {
+	defaultValue: DefaultValue;
 	experimentName: ExperimentName;
 	experimentParam: string;
-	defaultValue: DefaultValue;
 	fireExperimentExposure: boolean;
 }): DefaultValue {
 	const experimentConfig = editorExperimentsConfig[experimentName];

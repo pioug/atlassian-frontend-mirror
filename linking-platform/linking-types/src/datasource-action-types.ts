@@ -2,8 +2,8 @@
 
 interface ActionsDiscoveryInterface {
 	aris: string[];
-	fieldKeys: string[];
 	entityType: string;
+	fieldKeys: string[];
 }
 
 interface DatasourceIntegration extends ActionsDiscoveryInterface {
@@ -26,26 +26,26 @@ export interface PermissionInterface extends PermissionTypes {
 }
 
 export interface AtomicActionInterface {
-	integrationKey: string;
 	/**
 	 * To be sent to actions-service to execute an action
 	 * eg: atlassian:work-item:update:summary
 	 */
 	actionKey: string;
+	description?: string;
 	/**
 	 * To identify the actionable column in FE.
 	 * Should be the same as the last word in `actionKey`.
 	 */
 	fieldKey: string;
 	/**
-	 * types the field value can take
-	 */
-	type: 'string' | 'number';
-	description?: string;
-	/**
 	 * The inputs required to execute the action
 	 */
 	inputs?: ActionInputs;
+	integrationKey: string;
+	/**
+	 * types the field value can take
+	 */
+	type: 'string' | 'number';
 }
 
 type ActionInputs = { [key: string]: ActionInput };
@@ -55,9 +55,9 @@ type ActionInputs = { [key: string]: ActionInput };
  * actions that can be applied to it.
  */
 type ActionInput = {
-	type: 'string' | 'number';
 	description?: string;
 	fetchAction?: AtomicActionInterface;
+	type: 'string' | 'number';
 };
 
 export interface ActionsServiceDiscoveryResponse {
@@ -100,8 +100,8 @@ export type AtomicActionExecuteRequest<TInputs = ActionInputValue> = {
 	};
 } & (
 	| {
-			actionKey: string; // eg: atlassian:work-item:update:summary
 			actionId?: never;
+			actionKey: string; // eg: atlassian:work-item:update:summary
 	  }
 	| {
 			actionId: string; // eg: 23432163-2d27-4d1b-9017-0207157d8e55
@@ -119,14 +119,14 @@ export enum ActionOperationStatus {
  * T could be Icon or Status for example.
  */
 export interface AtomicActionExecuteResponse<T = unknown> {
-	operationStatus: ActionOperationStatus;
-	errors: ActionsServiceError[];
 	// eg: new entities created by the action execution or the results of a search action
 	entities?: T[];
+	errors: ActionsServiceError[];
+	operationStatus: ActionOperationStatus;
 }
 
 // Errors
 export interface ActionsServiceError {
-	message: string;
 	code: number;
+	message: string;
 }

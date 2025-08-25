@@ -2,8 +2,8 @@ interface MockEntry {
 	isIntersecting: boolean;
 }
 export interface MockIntersectionObserverOpts {
-	getMockEntries: () => MockEntry[];
 	disconnect: jest.Mock;
+	getMockEntries: () => MockEntry[];
 	takeRecords?: jest.Mock;
 	unobserve?: jest.Mock;
 }

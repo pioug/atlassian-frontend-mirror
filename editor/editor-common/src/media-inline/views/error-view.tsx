@@ -15,12 +15,12 @@ import { Frame } from './frame';
 import { IconWrapper } from './icon-wrapper';
 
 type Props = {
-	message: string;
-	/** Error icon. Default to document icon. */
-	icon?: React.ReactNode;
-	testId?: string;
 	/** Container height */
 	height?: number;
+	/** Error icon. Default to document icon. */
+	icon?: React.ReactNode;
+	message: string;
+	testId?: string;
 };
 
 export const InlineImageCardErrorView = ({

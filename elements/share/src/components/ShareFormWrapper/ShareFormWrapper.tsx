@@ -19,12 +19,12 @@ export type ShareFormWrapperProps = Pick<
 	ShareDialogWithTriggerProps,
 	'shareFormTitle' | 'isExtendedShareDialogEnabled'
 > & {
-	shouldShowTitle?: boolean;
 	children?: ReactNode;
-	header?: ReactNode;
 	footer?: ReactNode;
+	header?: ReactNode;
 	integrationMode?: IntegrationMode;
 	isMenuItemSelected?: boolean;
+	shouldShowTitle?: boolean;
 };
 
 const ShareFormWrapper = ({

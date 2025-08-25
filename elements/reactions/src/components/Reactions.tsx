@@ -119,135 +119,30 @@ export interface ReactionsProps
 		>,
 		Pick<SelectorProps, 'pickerQuickReactionEmojiIds'> {
 	/**
-	 * event handler to fetching the reactions
+	 * Optional prop for controlling if we can select emojis and display UI via summary view picker
 	 */
-	loadReaction: () => void;
+	allowSelectFromSummaryView?: boolean;
 	/**
-	 * Event callback when an emoji button is selected
+	 * Optional prop from checking a feature gate for rendering Reactions Dialog
 	 */
-	onSelection: (emojiId: string) => void;
+	allowUserDialog?: boolean;
 	/**
-	 * Optional list of reactions to render (defaults to empty list)
+	 * Optional error message to show when unable to display the reaction emoji
 	 */
-	reactions?: ReactionSummary[];
-	/**
-	 * Condition for the reaction list status while being fetched
-	 */
-	status: ReactionStatus;
-	/**
-	 * event handler when the emoji button is clicked
-	 */
-	onReactionClick: ReactionClick;
+	errorMessage?: string;
 	/**
 	 * Optional emoji reactions list to show custom animation or render as standard (key => emoji string "id", value => true/false to show custom animation)
 	 */
 	flash?: Record<string, boolean>;
-	/**
-	 * Optional emoji reactions list to show floating emoji particle effect (key => emoji string "id", value => true/false to show the particle effect).
-	 * Generally used for newly added reactions.
-	 */
-	particleEffectByEmoji?: Record<string, boolean>;
 	/**
 	 * Optional event to get reaction details for an emoji
 	 * @param emojiId current reaction emoji id
 	 */
 	getReactionDetails?: (emojiId: string) => void;
 	/**
-	 * Optional error message to show when unable to display the reaction emoji
-	 */
-	errorMessage?: string;
-	/**
-	 * quickReactionEmojiIds are emojis that will be shown in the the primary view even if the reaction count is zero
-	 */
-	quickReactionEmojis?: QuickReactionEmojiSummary;
-	/**
-	 * Optional callback function called when opening reactions dialog
-	 */
-	onDialogOpenCallback?: (emojiId: string, source?: string) => void;
-	/**
-	 * Optional callback function called when closing reactions dialog
-	 */
-	onDialogCloseCallback?: OnCloseHandler;
-	/**
-	 * Optional callback function called when selecting a reaction in reactions dialog
-	 */
-	onDialogSelectReactionCallback?: (emojiId: string) => void;
-	/**
-	 * Optional callback function called when navigating between pages in the reactions dialog
-	 */
-	onDialogPageChangeCallback?: (emojiId: string, curentPage: number, maxPages: number) => void;
-	/**
-	 * Enables a summary view for displaying reactions. If enabled and the number of reactions meets or exceeds the summaryViewThreshold, reactions will be shown in a more aggregated format.
-	 */
-	summaryViewEnabled?: boolean;
-	/**
-	 * The minimum number of reactions required to switch to the summary view when summaryViewEnabled is true. Defaults to 3 if not specified.
-	 */
-	summaryViewThreshold?: number;
-	/**
-	 * Optional prop to change the placement of the summary popup reaction list
-	 */
-	summaryViewPlacement?: Placement;
-	/**
-	 * Optional prop to change the style of the summary view
-	 */
-	useButtonAlignmentStyling?: boolean;
-	/**
-	 * Optional prop for using an opaque button background instead of a transparent background
-	 */
-	showOpaqueBackground?: boolean;
-	/**
-	 * Optional prop for applying subtle styling to reaction summary and picker
-	 */
-	subtleReactionsSummaryAndPicker?: boolean;
-	/**
-	 * Optional prop for displaying text to add a reaction
-	 */
-	showAddReactionText?: boolean;
-	/**
 	 * Optional prop for hiding default reactions displayed when there are no existing reactions
 	 */
 	hideDefaultReactions?: boolean;
-	/**
-	 * Optional prop from checking a feature gate for rendering Reactions Dialog
-	 */
-	allowUserDialog?: boolean;
-	/**
-	 * Optional prop for rendering a profile card wrapper in the Reactions Dialog
-	 */
-	ProfileCardWrapper?: ProfileCardWrapper;
-	/**
-	 * Optional prop to hide the user reactions and only render the picker
-	 */
-	onlyRenderPicker?: boolean;
-	/**
-	 * Optional prop for controlling if the reactions component is view only, disabling adding reactions
-	 */
-	isViewOnly?: boolean;
-	/*
-	 * Optional prop for disabling the wrap behavior on the reactions container
-	 */
-	noWrap?: boolean;
-	/**
-	 * Optional prop for using your own container for relative positioning for emoji picker popup
-	 */
-	noRelativeContainer?: boolean;
-	/**
-	 * Optional prop for controlling if default reactions are subtle
-	 */
-	showSubtleDefaultReactions?: boolean;
-	/**
-	 * Optional prop for controlling tooltip content of the trigger button
-	 */
-	reactionPickerTriggerTooltipContent?: string;
-	/**
-	 * Optional prop for controlling if we can select emojis and display UI via summary view picker
-	 */
-	allowSelectFromSummaryView?: boolean;
-	/**
-	 * Optional prop for controlling text of the trigger button
-	 */
-	reactionPickerTriggerText?: string;
 	/**
 	 * Optional prop for controlling if the summary view is hoverable
 	 */
@@ -257,21 +152,126 @@ export interface ReactionsProps
 	 */
 	isListItem?: boolean;
 	/**
-	 * Optional prop to optimistically render the image URL for a given emoji id. Typically used in SSR before the emoji Provider resolves & the real image is loaded.
+	 * Optional prop for controlling if the reactions component is view only, disabling adding reactions
 	 */
-	summaryGetOptimisticImageURL?: (emojiId: string) => string;
+	isViewOnly?: boolean;
+	/**
+	 * event handler to fetching the reactions
+	 */
+	loadReaction: () => void;
+	/**
+	 * Optional prop for using your own container for relative positioning for emoji picker popup
+	 */
+	noRelativeContainer?: boolean;
+	/*
+	 * Optional prop for disabling the wrap behavior on the reactions container
+	 */
+	noWrap?: boolean;
+	/**
+	 * Optional callback function called when closing reactions dialog
+	 */
+	onDialogCloseCallback?: OnCloseHandler;
+	/**
+	 * Optional callback function called when opening reactions dialog
+	 */
+	onDialogOpenCallback?: (emojiId: string, source?: string) => void;
+	/**
+	 * Optional callback function called when navigating between pages in the reactions dialog
+	 */
+	onDialogPageChangeCallback?: (emojiId: string, curentPage: number, maxPages: number) => void;
+	/**
+	 * Optional callback function called when selecting a reaction in reactions dialog
+	 */
+	onDialogSelectReactionCallback?: (emojiId: string) => void;
+	/**
+	 * Optional prop to hide the user reactions and only render the picker
+	 */
+	onlyRenderPicker?: boolean;
+	/**
+	 * event handler when the emoji button is clicked
+	 */
+	onReactionClick: ReactionClick;
+	/**
+	 * Event callback when an emoji button is selected
+	 */
+	onSelection: (emojiId: string) => void;
+	/**
+	 * Optional emoji reactions list to show floating emoji particle effect (key => emoji string "id", value => true/false to show the particle effect).
+	 * Generally used for newly added reactions.
+	 */
+	particleEffectByEmoji?: Record<string, boolean>;
+	/**
+	 * Optional prop for rendering a profile card wrapper in the Reactions Dialog
+	 */
+	ProfileCardWrapper?: ProfileCardWrapper;
+	/**
+	 * quickReactionEmojiIds are emojis that will be shown in the the primary view even if the reaction count is zero
+	 */
+	quickReactionEmojis?: QuickReactionEmojiSummary;
 	/**
 	 *  Optional prop to change the placement of the reaction picker popup
 	 */
 	reactionPickerPlacement?: Placement;
 	/**
-	 * Optional prop to add an icon to the end of the summary button
+	 * Optional prop for controlling text of the trigger button
 	 */
-	summaryButtonIconAfter?: React.ReactNode;
+	reactionPickerTriggerText?: string;
+	/**
+	 * Optional prop for controlling tooltip content of the trigger button
+	 */
+	reactionPickerTriggerTooltipContent?: string;
+	/**
+	 * Optional list of reactions to render (defaults to empty list)
+	 */
+	reactions?: ReactionSummary[];
 	/**
 	 * Optional prop to render the particle effect on the summary view
 	 */
 	renderParticleEffectOnSummaryView?: boolean;
+	/**
+	 * Optional prop for displaying text to add a reaction
+	 */
+	showAddReactionText?: boolean;
+	/**
+	 * Optional prop for using an opaque button background instead of a transparent background
+	 */
+	showOpaqueBackground?: boolean;
+	/**
+	 * Optional prop for controlling if default reactions are subtle
+	 */
+	showSubtleDefaultReactions?: boolean;
+	/**
+	 * Condition for the reaction list status while being fetched
+	 */
+	status: ReactionStatus;
+	/**
+	 * Optional prop for applying subtle styling to reaction summary and picker
+	 */
+	subtleReactionsSummaryAndPicker?: boolean;
+	/**
+	 * Optional prop to add an icon to the end of the summary button
+	 */
+	summaryButtonIconAfter?: React.ReactNode;
+	/**
+	 * Optional prop to optimistically render the image URL for a given emoji id. Typically used in SSR before the emoji Provider resolves & the real image is loaded.
+	 */
+	summaryGetOptimisticImageURL?: (emojiId: string) => string;
+	/**
+	 * Enables a summary view for displaying reactions. If enabled and the number of reactions meets or exceeds the summaryViewThreshold, reactions will be shown in a more aggregated format.
+	 */
+	summaryViewEnabled?: boolean;
+	/**
+	 * Optional prop to change the placement of the summary popup reaction list
+	 */
+	summaryViewPlacement?: Placement;
+	/**
+	 * The minimum number of reactions required to switch to the summary view when summaryViewEnabled is true. Defaults to 3 if not specified.
+	 */
+	summaryViewThreshold?: number;
+	/**
+	 * Optional prop to change the style of the summary view
+	 */
+	useButtonAlignmentStyling?: boolean;
 }
 
 export interface OpenReactionsDialogOptions {

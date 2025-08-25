@@ -7,12 +7,12 @@ import { columnIsHeader, tableNodeTypes } from '@atlaskit/editor-tables/utils';
 import { getCellIndex, hasMergedColumns, isRootRow } from './table-map';
 
 export interface Cell {
-	from: number;
-	to: number;
-	row: number;
-	col: number;
 	attrs?: CellAttributes;
+	col: number;
+	from: number;
 	hasMergedCells: boolean;
+	row: number;
+	to: number;
 	type: NodeType;
 }
 

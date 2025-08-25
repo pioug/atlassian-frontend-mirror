@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-expand
 
+## 4.3.0
+
+### Minor Changes
+
+- [`a0f51dcb9f31c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a0f51dcb9f31c) -
+  Debounced rendering of expand button
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.2.9
 
 ### Patch Changes

@@ -72,6 +72,7 @@ export default () => {
 							<SpotlightHeader>
 								<SpotlightHeadline>Headline</SpotlightHeadline>
 								<SpotlightControls>
+									<SpotlightDismissControl onClick={() => setIsVisible(false)} />
 									<DropdownMenu<HTMLButtonElement>
 										trigger={({ triggerRef, onClick }) => (
 											<SpotlightShowMoreControl ref={triggerRef} onClick={onClick} />
@@ -83,7 +84,6 @@ export default () => {
 											<DropdownItem>Why am I seeing this?</DropdownItem>
 										</DropdownItemGroup>
 									</DropdownMenu>
-									<SpotlightDismissControl onClick={() => setIsVisible(false)} />
 								</SpotlightControls>
 							</SpotlightHeader>
 							<SpotlightBody>

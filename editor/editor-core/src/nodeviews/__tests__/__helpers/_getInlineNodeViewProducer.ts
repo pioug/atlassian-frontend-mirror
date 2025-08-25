@@ -1,7 +1,7 @@
 export const buildAdfTrailingSpaces = ({
 	node,
 }: {
-	node: { type: string; attrs: { [key: string]: any } };
+	node: { attrs: { [key: string]: any }; type: string };
 }) => {
 	return {
 		version: 1,
@@ -34,7 +34,7 @@ export const buildAdfTrailingSpaces = ({
 export const buildAdfNoTrailingSpaces = ({
 	node,
 }: {
-	node: { type: string; attrs: { [key: string]: any } };
+	node: { attrs: { [key: string]: any }; type: string };
 }) => {
 	return {
 		version: 1,
@@ -51,7 +51,7 @@ export const buildAdfNoTrailingSpaces = ({
 export const buildAdfMultipleNodesAcrossLines = ({
 	node,
 }: {
-	node: { type: string; attrs: { [key: string]: any } };
+	node: { attrs: { [key: string]: any }; type: string };
 }) => {
 	return {
 		version: 1,
@@ -84,7 +84,7 @@ export const buildAdfMultipleNodesAcrossLines = ({
 export const buildAdfMultiline = ({
 	node,
 }: {
-	node: { type: string; attrs: { [key: string]: any } };
+	node: { attrs: { [key: string]: any }; type: string };
 }) => {
 	return {
 		version: 1,

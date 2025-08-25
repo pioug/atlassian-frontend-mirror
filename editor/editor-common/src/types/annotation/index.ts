@@ -12,55 +12,25 @@ import type { AnnotationManager } from '../../annotation';
 import type { AnnotationState, AnnotationUpdateEmitter } from './emitter';
 
 export type AnnotationByMatches = {
-	originalSelection: string;
-	numMatches: number;
-	matchIndex: number;
-	pos?: number;
 	isAnnotationAllowed?: boolean;
+	matchIndex: number;
+	numMatches: number;
+	originalSelection: string;
+	pos?: number;
 };
 
-type ActionResult = { step: RemoveMarkStep | RemoveNodeMarkStep; doc: JSONDocNode } | false;
+type ActionResult = { doc: JSONDocNode; step: RemoveMarkStep | RemoveNodeMarkStep } | false;
 export type AnnotationActionResult =
 	| ({
-			step: AddMarkStep | AddNodeMarkStep;
 			doc: JSONDocNode;
 			/** The list of types of all inline nodes, which were wrapped by annotation. */
 			inlineNodeTypes?: string[];
+			step: AddMarkStep | AddNodeMarkStep;
 			targetNodeType?: string;
 	  } & AnnotationByMatches)
 	| false;
 
 export type InlineCommentSelectionComponentProps = {
-	/**
-	 * Range selected
-	 */
-	range: Range | null;
-
-	/**
-	 * The draft range of a pre-committed annotation
-	 */
-	draftRange?: Range | null;
-
-	/**
-	 * Renderer/Editor DOM element ancestors wrapping the selection.
-	 */
-	wrapperDOM: HTMLElement;
-
-	/**
-	 * If it is possible to add an inline comment on this range
-	 */
-	isAnnotationAllowed: boolean;
-
-	/**
-	 * Creates an annotation mark in the document with the given id.
-	 */
-	onCreate: (annotationId: AnnotationId) => AnnotationActionResult;
-
-	/**
-	 * Indicates that a draft comment was discarded/cancelled
-	 */
-	onClose: () => void;
-
 	/**
 	 * Call this function to surround the range with a HTML tag.
 	 */
@@ -70,16 +40,46 @@ export type InlineCommentSelectionComponentProps = {
 	}) => AnnotationActionResult;
 
 	/**
-	 * Call this function to remove the draft HTML tags created by the applyDraftMode
+	 * The draft range of a pre-committed annotation
 	 */
-	removeDraftMode: () => void;
+	draftRange?: Range | null;
 
 	/**
 	 * getAnnotationIndexMatch finds the { numMatch, matchIndex } tuple of the current selection
 	 */
 	getAnnotationIndexMatch?: () => AnnotationByMatches | false;
+
 	/** The list of types of all inline nodes, which were wrapped by annotation. */
 	inlineNodeTypes?: string[];
+
+	/**
+	 * If it is possible to add an inline comment on this range
+	 */
+	isAnnotationAllowed: boolean;
+
+	/**
+	 * Indicates that a draft comment was discarded/cancelled
+	 */
+	onClose: () => void;
+
+	/**
+	 * Creates an annotation mark in the document with the given id.
+	 */
+	onCreate: (annotationId: AnnotationId) => AnnotationActionResult;
+
+	/**
+	 * Range selected
+	 */
+	range: Range | null;
+
+	/**
+	 * Call this function to remove the draft HTML tags created by the applyDraftMode
+	 */
+	removeDraftMode: () => void;
+	/**
+	 * Renderer/Editor DOM element ancestors wrapping the selection.
+	 */
+	wrapperDOM: HTMLElement;
 };
 
 type AnnotationInfo = {
@@ -114,36 +114,6 @@ export type InlineCommentViewComponentProps = {
 
 export type InlineCommentHoverComponentProps = {
 	/**
-	 * Range selected
-	 */
-	range: Range;
-
-	/**
-	 * Is mouse within the range container
-	 */
-	isWithinRange: boolean;
-
-	/**
-	 * Renderer/Editor DOM element ancestors wrapping the selection.
-	 */
-	wrapperDOM: HTMLElement;
-
-	/**
-	 * If it is possible to add an inline comment on this range
-	 */
-	isAnnotationAllowed: boolean;
-
-	/**
-	 * Creates an annotation mark in the document with the given id.
-	 */
-	onCreate: (annotationId: AnnotationId) => AnnotationActionResult;
-
-	/**
-	 * Indicates that a draft comment was discarded/cancelled
-	 */
-	onClose: () => void;
-
-	/**
 	 * Call this function to surround the range with a HTML tag.
 	 */
 	applyDraftMode: (options: {
@@ -152,34 +122,64 @@ export type InlineCommentHoverComponentProps = {
 	}) => AnnotationActionResult;
 
 	/**
+	 * getAnnotationIndexMatch finds the { numMatch, matchIndex } tuple of the current selection
+	 */
+	getAnnotationIndexMatch?: () => AnnotationByMatches | false;
+
+	/**
+	 * If it is possible to add an inline comment on this range
+	 */
+	isAnnotationAllowed: boolean;
+
+	/**
+	 * Is mouse within the range container
+	 */
+	isWithinRange: boolean;
+
+	/**
+	 * Indicates that a draft comment was discarded/cancelled
+	 */
+	onClose: () => void;
+
+	/**
+	 * Creates an annotation mark in the document with the given id.
+	 */
+	onCreate: (annotationId: AnnotationId) => AnnotationActionResult;
+
+	/**
+	 * Range selected
+	 */
+	range: Range;
+
+	/**
 	 * Call this function to remove the draft HTML tags created by the applyDraftMode
 	 */
 	removeDraftMode: () => void;
 
 	/**
-	 * getAnnotationIndexMatch finds the { numMatch, matchIndex } tuple of the current selection
+	 * Renderer/Editor DOM element ancestors wrapping the selection.
 	 */
-	getAnnotationIndexMatch?: () => AnnotationByMatches | false;
+	wrapperDOM: HTMLElement;
 };
 
 interface AnnotationTypeProvider<Type> {
+	allowCommentsOnMedia?: boolean;
+	allowDraftMode?: boolean;
 	getState: (annotationIds: string[], isNestedRender: boolean) => Promise<AnnotationState<Type>[]>;
 	updateSubscriber?: AnnotationUpdateEmitter;
-	allowDraftMode?: boolean;
-	allowCommentsOnMedia?: boolean;
 }
 
 export type InlineCommentAnnotationProvider =
 	AnnotationTypeProvider<AnnotationTypes.INLINE_COMMENT> & {
+		hoverComponent?: React.ComponentType<InlineCommentHoverComponentProps>;
 		selectionComponent?: React.ComponentType<
 			React.PropsWithChildren<InlineCommentSelectionComponentProps>
 		>;
 		viewComponent?: React.ComponentType<React.PropsWithChildren<InlineCommentViewComponentProps>>;
-		hoverComponent?: React.ComponentType<InlineCommentHoverComponentProps>;
 	};
 
 export type AnnotationProviders = {
-	inlineComment: InlineCommentAnnotationProvider;
-
 	annotationManager?: AnnotationManager;
+
+	inlineComment: InlineCommentAnnotationProvider;
 };

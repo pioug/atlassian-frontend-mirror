@@ -53,8 +53,8 @@ function ExampleCustomPluginForm() {
 	};
 
 	type MockedFormData = {
-		textFieldName?: string | undefined;
 		asyncSelectName?: MockOptions | null;
+		textFieldName?: string | undefined;
 	};
 
 	const mockHandleSubmit = async () => {

@@ -24,9 +24,9 @@ type SharedStateAPIProps = {
 };
 
 interface PluginInjectionAPIProps extends SharedStateAPIProps {
-	getEditorView: () => EditorView | undefined;
 	// Optional analytics callback - used exclusively by core plugin since it is unable to consume AnalyticsPlugin as a dependency
 	fireAnalyticsEvent?: FireAnalyticsCallback;
+	getEditorView: () => EditorView | undefined;
 }
 
 export type EditorStateDiff = {
@@ -77,8 +77,8 @@ function hasCommands(
 }
 
 type FilterPluginsWithListenersProps = {
-	plugins: Map<string, NextEditorPluginInitializedType>;
 	listeners: Map<string, Set<Callback>>;
+	plugins: Map<string, NextEditorPluginInitializedType>;
 };
 const filterPluginsWithListeners = ({
 	listeners,
@@ -299,15 +299,15 @@ interface PluginInjectionAPIDefinition {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	api: () => { [key: string]: BasePluginDependenciesAPI<any> };
-	onEditorViewUpdated: (props: EditorStateDelta) => void;
 	onEditorPluginInitialized: (plugin: NextEditorPluginInitializedType) => void;
+	onEditorViewUpdated: (props: EditorStateDelta) => void;
 }
 
 type GenericAPIWithCore = {
-	core: PluginDependenciesAPI<CorePlugin>;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	[key: string]: BasePluginDependenciesAPI<any>;
+	core: PluginDependenciesAPI<CorePlugin>;
 };
 const editorAPICache = new WeakMap<EditorPluginInjectionAPI, GenericAPIWithCore>();
 

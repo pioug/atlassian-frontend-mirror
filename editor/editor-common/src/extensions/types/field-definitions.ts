@@ -1,6 +1,4 @@
 export type Option = {
-	label: string;
-	value: string;
 	description?: string;
 	/**
 	 * If a string is passed, we use a image tag to create an icon.
@@ -9,6 +7,8 @@ export type Option = {
 	 * We can't enforce the size if a React component is passed so it's on the consumer to make the appropriate choice.
 	 */
 	icon?: string | React.ReactNode;
+	label: string;
+	value: string;
 };
 
 import type { Props as SmartUserPickerProps } from '@atlaskit/smart-user-picker';
@@ -27,30 +27,30 @@ export type UserFieldContext = Pick<
 >;
 
 interface BaseFieldDefinition {
+	allowDuplicates?: boolean;
 	description?: string;
+	isDisabled?: boolean;
+	isHidden?: boolean;
+	isRequired?: boolean;
 	label: string;
 	name: string;
-	isRequired?: boolean;
-	allowDuplicates?: boolean;
-	isHidden?: boolean;
-	isDisabled?: boolean;
 }
 
 interface BaseEnumField extends BaseFieldDefinition {
-	type: 'enum';
 	items: Option[];
+	type: 'enum';
 }
 
 export interface EnumSingleSelectField extends BaseEnumField {
-	style: 'select';
-	isMultiple?: false;
 	defaultValue?: string;
+	isMultiple?: false;
 	placeholder?: string;
+	style: 'select';
 }
 
 export interface EnumRadioFieldBase extends BaseEnumField {
-	style: 'radio';
 	isMultiple?: false;
+	style: 'radio';
 }
 
 // Radio fields are different, they cannot be deselected by a user
@@ -58,87 +58,87 @@ export interface EnumRadioFieldBase extends BaseEnumField {
 //
 // You can do that through `defaultValue`, or `isRequired: true`
 export interface EnumRadioFieldDefaulted extends EnumRadioFieldBase {
-	isRequired?: false;
 	defaultValue: string;
+	isRequired?: false;
 }
 
 export interface EnumRadioFieldRequired extends EnumRadioFieldBase {
-	isRequired: true;
 	defaultValue?: string;
+	isRequired: true;
 }
 
 export type EnumRadioField = EnumRadioFieldDefaulted | EnumRadioFieldRequired;
 
 export interface EnumMultipleSelectField extends BaseEnumField {
-	style: 'select';
-	isMultiple: true;
 	defaultValue?: string[];
+	isMultiple: true;
 	placeholder?: string;
+	style: 'select';
 }
 
 export interface EnumCheckboxField extends BaseEnumField {
-	style: 'checkbox';
-	isMultiple: true;
 	defaultValue?: string[];
+	isMultiple: true;
+	style: 'checkbox';
 }
 
 export type EnumSelectField = EnumSingleSelectField | EnumMultipleSelectField;
 export type EnumField = EnumSelectField | EnumRadioField | EnumCheckboxField;
 
 export interface StringOneLineField extends BaseFieldDefinition {
-	type: 'string';
-	style?: 'oneline';
 	defaultValue?: string;
 	placeholder?: string;
+	style?: 'oneline';
+	type: 'string';
 }
 
 export interface StringMultilineField extends BaseFieldDefinition {
-	type: 'string';
-	style: 'multiline';
 	defaultValue?: string;
-	placeholder?: string;
 	options?: {
 		minimumRows: number;
 	};
+	placeholder?: string;
+	style: 'multiline';
+	type: 'string';
 }
 
 export type StringField = StringOneLineField | StringMultilineField;
 
 export interface NumberField extends BaseFieldDefinition {
-	type: 'number';
 	defaultValue?: number;
 	placeholder?: string;
+	type: 'number';
 }
 
 export interface BooleanField extends BaseFieldDefinition {
-	type: 'boolean';
 	defaultValue?: boolean | string;
 	style?: 'checkbox' | 'toggle';
+	type: 'boolean';
 }
 
 export interface ColorField extends BaseFieldDefinition {
-	type: 'color';
 	defaultValue?: string;
+	type: 'color';
 }
 
 export interface DateField extends BaseFieldDefinition {
-	type: 'date';
 	defaultValue?: string;
 	placeholder?: string;
+	type: 'date';
 }
 
 export interface DateRangeField extends BaseFieldDefinition {
-	type: 'date-range';
 	defaultValue?: DateRangeResult;
 	items: Option[];
+	type: 'date-range';
 }
 export interface DateRangeResult {
+	from?: string;
+	to?: string;
 	type: 'date-range';
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	value: 'custom' | any;
-	from?: string;
-	to?: string;
 }
 
 export type FieldHandlerLink = {
@@ -146,34 +146,34 @@ export type FieldHandlerLink = {
 };
 
 interface BaseCustomField extends BaseFieldDefinition {
-	type: 'custom';
-	style?: 'select';
 	options: {
-		isCreatable?: boolean;
 		formatCreateLabel?: (inputValue: string) => React.ReactNode;
+		isCreatable?: boolean;
 		resolver: FieldHandlerLink;
 	};
 	placeholder?: string;
+	style?: 'select';
+	type: 'custom';
 }
 
 export interface CustomSingleField extends BaseCustomField {
-	isMultiple?: false;
 	defaultValue?: string;
+	isMultiple?: false;
 }
 
 export interface CustomMultipleField extends BaseCustomField {
-	isMultiple: true;
 	defaultValue?: string[];
+	isMultiple: true;
 }
 
 export interface UserField extends BaseFieldDefinition {
-	type: 'user';
 	defaultValue?: string | string[] | null | undefined;
-	placeholder?: string;
 	isMultiple?: boolean;
 	options: {
 		provider: FieldHandlerLink;
 	};
+	placeholder?: string;
+	type: 'user';
 }
 
 export type CustomField = CustomSingleField | CustomMultipleField;
@@ -189,13 +189,13 @@ export type NativeField =
 export type NestedFieldDefinition = NativeField | CustomField | UserField;
 
 export interface Fieldset extends BaseFieldDefinition {
-	type: 'fieldset';
 	fields: NestedFieldDefinition[];
 	options: {
 		isDynamic?: boolean;
-		transformer: FieldHandlerLink;
 		showTitle?: boolean;
+		transformer: FieldHandlerLink;
 	};
+	type: 'fieldset';
 }
 
 export type FieldDefinition = NestedFieldDefinition | Fieldset | GroupingField;
@@ -227,21 +227,21 @@ export interface GroupedField extends BaseFieldDefinition {
 }
 
 export interface ExpandField extends GroupedField {
-	type: 'expand';
 	isExpanded?: boolean;
+	type: 'expand';
 }
 
 export interface TabGroupField extends Omit<GroupedField, 'fields'> {
-	type: 'tab-group';
 	// The name of the tab field which should be default
 	defaultTab?: string;
 	fields: TabField[];
+	type: 'tab-group';
 }
 
 export interface TabField extends Omit<GroupedField, 'fields'> {
-	type: 'tab';
 	// Allow Expands to be under tabs
 	fields: (NestedFieldDefinition | ExpandField)[];
+	type: 'tab';
 }
 
 export type GroupingField = ExpandField | TabGroupField;

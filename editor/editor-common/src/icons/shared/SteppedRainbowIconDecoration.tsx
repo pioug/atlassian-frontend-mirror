@@ -63,9 +63,9 @@ const textColorIconWrapper = css({
 });
 
 type SteppedRainbowIconDecorationProps = {
-	selectedColor?: string | null;
 	disabled?: boolean;
 	icon: React.ReactNode;
+	selectedColor?: string | null;
 };
 
 const getBackground = (selectedColor?: string | null, disabled?: boolean) => {

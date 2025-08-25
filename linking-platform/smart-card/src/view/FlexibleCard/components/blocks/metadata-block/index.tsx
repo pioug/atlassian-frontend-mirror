@@ -86,10 +86,10 @@ const ElementItemRenderer = ({
 	maxLines = DEFAULT_MAX_LINES,
 }: {
 	align?: SmartLinkAlignment;
-	items?: ElementItem[];
 	display?: ElementDisplaySchemaType;
-	size?: SmartLinkSize;
+	items?: ElementItem[];
 	maxLines?: 1 | 2;
+	size?: SmartLinkSize;
 }) => {
 	const elements = renderElementItems(items, display);
 

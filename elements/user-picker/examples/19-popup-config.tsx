@@ -75,18 +75,18 @@ const placementOptions: Placement[] = [
 ];
 
 type PopupState = {
-	containerRef?: HTMLDivElement;
-	shouldFlip: boolean;
-	xOffset: number;
-	yOffset: number;
-	placement: {
-		label: string;
-		value: Placement;
-	};
 	boundariesElement: {
 		label: string;
 		value: Boundary;
 	};
+	containerRef?: HTMLDivElement;
+	placement: {
+		label: string;
+		value: Placement;
+	};
+	shouldFlip: boolean;
+	xOffset: number;
+	yOffset: number;
 };
 
 const getSelectItems = <Option,>(options: Option[]) =>

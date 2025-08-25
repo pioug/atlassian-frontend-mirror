@@ -33,14 +33,13 @@ const Content = styled.div({
 });
 
 export interface Props extends ProviderProps {
-	/* The ARI for the resource that points or refers to this document e.g. a page in Confluence */
-	objectId: string;
-
-	/* The ID of the embedded document. */
-	documentId?: string;
+	children?: React.ReactNode;
 
 	/* The ARI for the container that owns the document e.g. a space in Confluence */
 	containerId?: string;
+
+	/* The ID of the embedded document. */
+	documentId?: string;
 
 	/* The language of the embedded document. */
 	language?: string;
@@ -48,13 +47,14 @@ export interface Props extends ProviderProps {
 	/* The mode of the embedded document. View or edit. */
 	mode?: Mode;
 
+	/* The ARI for the resource that points or refers to this document e.g. a page in Confluence */
+	objectId: string;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	renderTitle?: (mode: Mode, doc?: any) => ReactElement<any>;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	renderToolbar?: (mode: Mode, editorActions?: any) => ReactElement<any>;
-	children?: React.ReactNode;
 }
 
 // Ignored via go/ees005

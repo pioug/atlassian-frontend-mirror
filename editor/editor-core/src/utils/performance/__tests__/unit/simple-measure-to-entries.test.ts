@@ -7,7 +7,7 @@ import {
 	EVENT_NAME_VIEW_STATE_UPDATED,
 } from '../../track-transactions';
 
-const createReading = (name: string): { name: string; duration: number; startTime: number } => {
+const createReading = (name: string): { duration: number; name: string; startTime: number } => {
 	return {
 		name,
 		duration: 1,
@@ -21,7 +21,7 @@ const getEntryList = (callback: jest.Mock, callIndex: number): PerformanceObserv
 
 describe('SimpleMeasurementLogger', () => {
 	let logger: SimpleMeasurementLogger;
-	let callback = jest.fn();
+	const callback = jest.fn();
 
 	beforeEach(() => {
 		logger = new SimpleMeasurementLogger();

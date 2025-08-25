@@ -30,20 +30,20 @@ const pluginsComponentsWrapper = css({
 });
 
 export interface Props {
-	items?: UIComponentFactory[];
-	pluginHooks?: ReactHookFactory[];
-	editorView?: EditorView;
-	editorActions?: EditorActions;
-	eventDispatcher?: EventDispatcher;
-	providerFactory: ProviderFactory;
 	appearance?: EditorAppearance;
-	popupsMountPoint?: HTMLElement;
-	popupsBoundariesElement?: HTMLElement;
-	popupsScrollableElement?: HTMLElement;
 	containerElement: HTMLElement | null;
+	contentArea?: HTMLElement;
 	disabled: boolean;
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
-	contentArea?: HTMLElement;
+	editorActions?: EditorActions;
+	editorView?: EditorView;
+	eventDispatcher?: EventDispatcher;
+	items?: UIComponentFactory[];
+	pluginHooks?: ReactHookFactory[];
+	popupsBoundariesElement?: HTMLElement;
+	popupsMountPoint?: HTMLElement;
+	popupsScrollableElement?: HTMLElement;
+	providerFactory: ProviderFactory;
 	wrapperElement: HTMLElement | null;
 }
 

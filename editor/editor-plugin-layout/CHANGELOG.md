@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-layout
 
+## 3.2.0
+
+### Minor Changes
+
+- [`bcc580d5e4bb9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bcc580d5e4bb9) -
+  Debounced layout rendering
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.1.11
 
 ### Patch Changes

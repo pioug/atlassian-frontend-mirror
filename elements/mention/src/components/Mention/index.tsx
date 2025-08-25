@@ -21,16 +21,16 @@ export const ANALYTICS_HOVER_DELAY = 1000;
 export const UNKNOWN_USER_ID = '_|unknown|_';
 
 export type OwnProps = {
-	id: string;
-	text: string;
-	isHighlighted?: boolean;
 	accessLevel?: string;
+	id: string;
+	isHighlighted?: boolean;
 	localId?: string;
 	onClick?: MentionEventHandler;
+	onHover?: () => void;
 	onMouseEnter?: MentionEventHandler;
 	onMouseLeave?: MentionEventHandler;
-	onHover?: () => void;
 	ssrPlaceholderId?: string;
+	text: string;
 };
 
 export type Props = OwnProps & WithAnalyticsEventsProps;

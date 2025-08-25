@@ -10,8 +10,8 @@ import { localStoragePrefix } from '../src/util/constants';
 import type { EmojiDescription } from '../src/types';
 
 export interface EmojiUsageProps {
-	emojiProvider: EmojiProvider;
 	emojiList: Array<EmojiDescription>;
+	emojiProvider: EmojiProvider;
 	emojiQueue: Array<string>;
 }
 

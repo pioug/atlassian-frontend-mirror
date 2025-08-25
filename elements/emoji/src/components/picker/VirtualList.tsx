@@ -33,17 +33,23 @@ const virtualRowStyle = css({
 });
 
 type Props = {
+	height: number;
+	onRowsRendered: (indexes: { startIndex: number }) => void;
 	overscanRowCount: number;
+	rowCount: number;
 	rowHeight: (index: number) => number;
 	rowRenderer: (context: VirtualItemContext) => JSX.Element;
-	onRowsRendered: (indexes: { startIndex: number }) => void;
-	rowCount: number;
 	scrollToAlignment: 'start' | 'end';
 	width: number;
-	height: number;
 };
 
 export type ListRef = {
+	/**
+	 * Scroll to a emoji in virtual list and focus on it
+	 * @param rIndex row index of virtual list
+	 * @param cIndex column index of virtual list
+	 */
+	scrollToEmojiAndFocus: (rIndex: number, cIndex: number) => void;
 	/**
 	 * Scroll to the row by row index
 	 * @param index row index of virtual list
@@ -56,12 +62,6 @@ export type ListRef = {
 	 */
 	scrollToRowAndFocusLastEmoji: (index?: number) => void;
 	/**
-	 * Scroll to a emoji in virtual list and focus on it
-	 * @param rIndex row index of virtual list
-	 * @param cIndex column index of virtual list
-	 */
-	scrollToEmojiAndFocus: (rIndex: number, cIndex: number) => void;
-	/**
 	 * Update the focus index of virtual list, which will manage tabIndex via EmojiPickerListContext
 	 * @param rIndex row index of virtual list
 	 * @param cIndex column index of virtual list
@@ -70,9 +70,9 @@ export type ListRef = {
 };
 
 type EmojiFocusInfo = {
-	rowIndex: number;
 	columnIndex: number;
 	element: HTMLButtonElement | null | undefined;
+	rowIndex: number;
 };
 
 export const virtualListScrollContainerTestId = 'virtual-list-scroll-container';

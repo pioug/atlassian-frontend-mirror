@@ -1,10 +1,5 @@
 export interface OnProviderChange<R, E, I> {
 	/**
-	 * Normal callback on a search result, or updated search result.
-	 */
-	result(result: R): void;
-
-	/**
 	 * When something goes wrong, e.g. underlying service is not available.
 	 */
 	error?(error: E): void;
@@ -20,6 +15,11 @@ export interface OnProviderChange<R, E, I> {
 	 * eventually be fulfilled.
 	 */
 	notReady?(): void;
+
+	/**
+	 * Normal callback on a search result, or updated search result.
+	 */
+	result(result: R): void;
 }
 
 /**
@@ -56,9 +56,9 @@ export interface KeyValues {
 }
 
 export interface SecurityOptions {
-	params?: KeyValues;
 	headers?: KeyValues;
 	omitCredentials?: boolean;
+	params?: KeyValues;
 }
 
 export const buildCredentials = (secOptions?: SecurityOptions) => {
@@ -81,14 +81,14 @@ export interface SecurityProvider {
 }
 
 export interface ServiceConfig {
-	url: string;
-	securityProvider?: SecurityProvider;
 	refreshedSecurityProvider?: RefreshSecurityProvider;
+	securityProvider?: SecurityProvider;
+	url: string;
 }
 
 export interface RequestServiceOptions {
+	ignoreResponsePayload?: boolean;
 	path?: string;
 	queryParams?: KeyValues;
 	requestInit?: RequestInit;
-	ignoreResponsePayload?: boolean;
 }

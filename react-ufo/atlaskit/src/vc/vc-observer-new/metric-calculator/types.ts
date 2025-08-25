@@ -7,6 +7,7 @@ export type VCCalculatorParam = {
 	orderedEntries: ReadonlyArray<VCObserverEntry>;
 	interactionId?: string;
 	isPostInteraction: boolean;
+	include3p?: boolean;
 };
 
 export interface VCCalculator {

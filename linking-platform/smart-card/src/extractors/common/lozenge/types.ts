@@ -21,9 +21,9 @@ export type LinkLozengeInvokeActions = InvokeActions;
 
 export interface LinkLozenge {
 	action?: LinkLozengeInvokeActions;
-	text: string;
 	appearance?: LinkLozengeColor;
 	style?: AtlaskitLozengeProps['style'];
+	text: string;
 }
 
 export type LinkDocumentState = 'archived' | 'draft' | 'current';

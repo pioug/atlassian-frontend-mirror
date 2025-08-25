@@ -12,10 +12,10 @@ export {
 } from '@atlaskit/util-data-test/task-decision-story-data';
 
 export interface GetItemsResponseOptions {
-	hasMore?: boolean;
-	idOffset?: number;
 	dateField?: string;
 	groupByDateSize?: number;
+	hasMore?: boolean;
+	idOffset?: number;
 }
 
 export const serviceTask: ServiceTask = getServiceTasksResponse().tasks[0];

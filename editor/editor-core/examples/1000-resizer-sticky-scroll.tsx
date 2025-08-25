@@ -12,7 +12,7 @@ import type { HandleResize, HandleSize } from '@atlaskit/editor-common/resizer';
 import { resizerStyles } from '@atlaskit/editor-common/styles';
 import { token } from '@atlaskit/tokens';
 
-function Parent(props: { text?: string; height: number; handleSize?: HandleSize }): JSX.Element {
+function Parent(props: { handleSize?: HandleSize; height: number; text?: string }): JSX.Element {
 	const [width, setWidth] = useState(80);
 	const [_height, setHeight] = useState(props.height);
 

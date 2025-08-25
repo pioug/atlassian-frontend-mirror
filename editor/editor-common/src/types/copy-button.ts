@@ -6,23 +6,23 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { type Command } from './command';
 
 export type MarkOptions = {
-	state: EditorState;
 	formatMessage: IntlShape['formatMessage'];
-	nodeType?: undefined;
 	markType: MarkType;
+	nodeType?: undefined;
+	onBlur?: Command;
+	onFocus?: Command;
 	onMouseEnter?: undefined;
 	onMouseLeave?: undefined;
-	onFocus?: Command;
-	onBlur?: Command;
+	state: EditorState;
 };
 
 export type NodeOptions = {
-	state: EditorState;
 	formatMessage: IntlShape['formatMessage'];
-	nodeType: NodeType | Array<NodeType>;
 	markType?: undefined;
+	nodeType: NodeType | Array<NodeType>;
+	onBlur?: Command;
+	onFocus?: Command;
 	onMouseEnter?: Command;
 	onMouseLeave?: Command;
-	onFocus?: Command;
-	onBlur?: Command;
+	state: EditorState;
 };

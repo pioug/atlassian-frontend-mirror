@@ -43,8 +43,8 @@ export const getJsonLdResponse = (url: string, meta = {}, data = {}) =>
 
 export interface GetCardStateProps {
 	data?: any;
-	meta?: Partial<JsonLd.Meta.BaseMeta>;
 	datasources?: DatasourceResolveResponse[];
+	meta?: Partial<JsonLd.Meta.BaseMeta>;
 	status?: CardType;
 }
 

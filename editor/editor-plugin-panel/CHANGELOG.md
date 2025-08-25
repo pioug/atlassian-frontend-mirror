@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-panel
 
+## 5.4.0
+
+### Minor Changes
+
+- [`113ef5c6037ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/113ef5c6037ab) -
+  Debounced rendering of panel
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.3.8
 
 ### Patch Changes

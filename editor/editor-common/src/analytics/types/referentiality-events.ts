@@ -6,9 +6,9 @@ export type InitialiseFragmentMarksAEP = OperationalAEP<
 	ACTION_SUBJECT.DOCUMENT,
 	undefined,
 	{
-		duration: number;
-		docSize: number;
 		count: number;
+		docSize: number;
+		duration: number;
 	}
 >;
 

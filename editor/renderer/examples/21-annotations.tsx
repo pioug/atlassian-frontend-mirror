@@ -489,8 +489,8 @@ const exampleDocumentWithComments = {
 const updateAnnotationSubscriber = new AnnotationUpdateEmitter();
 const AnnotationCheckbox = (props: {
 	id: string;
-	state: AnnotationMarkStates;
 	onChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
+	state: AnnotationMarkStates;
 }) => {
 	const { id, state, onChange } = props;
 	const onClick = React.useCallback(() => {

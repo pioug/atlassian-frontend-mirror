@@ -15,8 +15,8 @@ jest.mock('react', () => ({
 }));
 
 interface MockStore {
-	getState: jest.Mock;
 	dispatch: jest.Mock;
+	getState: jest.Mock;
 }
 interface MockPrefetchStore extends Record<string, string> {}
 interface MockConnections {

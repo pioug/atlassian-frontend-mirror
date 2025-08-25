@@ -41,13 +41,13 @@ type HydrateJqlQueryBody = {
 
 type FieldValuesBody = {
 	fieldValues: {
-		totalCount: number;
-		pageInfo: {
-			endCursor?: string;
-		};
 		edges: Array<{
 			node: AggJqlBuilderFieldNode;
 		}>;
+		pageInfo: {
+			endCursor?: string;
+		};
+		totalCount: number;
 	};
 };
 
@@ -76,13 +76,13 @@ type JqlBuilderStatusCategory = {
 };
 
 export type AggJqlBuilderFieldNode = {
-	jqlTerm: string;
 	displayName: string;
-	project?: JqlBuilderProject;
-	user?: JqlBuilderUser;
-	issueTypes?: Array<JqlBuilderIssueType>;
-	statusCategory?: JqlBuilderStatusCategory;
 	group?: JqlBuilderGroup;
+	issueTypes?: Array<JqlBuilderIssueType>;
+	jqlTerm: string;
+	project?: JqlBuilderProject;
+	statusCategory?: JqlBuilderStatusCategory;
+	user?: JqlBuilderUser;
 };
 
 export type HydrateResponse = JQLBuilderResponse<HydrateJqlQueryBody>;

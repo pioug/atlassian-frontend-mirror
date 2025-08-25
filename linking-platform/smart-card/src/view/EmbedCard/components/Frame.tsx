@@ -22,12 +22,12 @@ import { IFrame } from './IFrame';
 import { IframeDwellTracker } from './IframeDwellTracker';
 
 export interface FrameProps {
-	url?: string;
 	isTrusted?: boolean;
-	testId?: string;
 	onIframeDwell?: (dwellTime: number, dwellPercentVisible: number) => void;
 	onIframeFocus?: () => void;
+	testId?: string;
 	title?: string;
+	url?: string;
 }
 
 type Refs =

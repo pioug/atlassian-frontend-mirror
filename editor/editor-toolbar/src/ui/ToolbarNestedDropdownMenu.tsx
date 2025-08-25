@@ -5,12 +5,12 @@ import DropdownMenu from '@atlaskit/dropdown-menu';
 import { ToolbarDropdownItem } from './ToolbarDropdownItem';
 
 type ToolbarNestedDropdownMenuProps = {
-	elemBefore: ReactNode;
-	elemAfter: ReactNode;
-	text?: string;
 	children?: ReactNode;
+	elemAfter: ReactNode;
+	elemBefore: ReactNode;
 	isDisabled?: boolean;
 	testId?: string;
+	text?: string;
 };
 
 export const ToolbarNestedDropdownMenu = ({

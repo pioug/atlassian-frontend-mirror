@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 4.20.1
+
+### Patch Changes
+
+- [`1b7d48c39ae03`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b7d48c39ae03) -
+  Sorted type and interface props to improve Atlaskit docs
+- Updated dependencies
+
 ## 4.20.0
 
 ### Minor Changes

@@ -17,12 +17,12 @@ import { mentionTestResult } from './mention-test-data';
 import { HttpError } from './utils';
 
 export interface MockMentionConfig {
-	minWait?: number;
 	maxWait?: number;
 	mentionNameResolver?: MentionNameResolver;
+	minWait?: number;
+	onInviteItemClick?: (flow: InviteFlow) => void;
 	productName?: string;
 	shouldEnableInvite?: boolean;
-	onInviteItemClick?: (flow: InviteFlow) => void;
 	userRole?: UserRole;
 }
 
@@ -69,7 +69,7 @@ export class MockMentionResource
 		const notify = (mentions: MentionsResult) => {
 			if (searchTime >= this.lastReturnedSearch) {
 				this.lastReturnedSearch = searchTime;
-				let stats: { teamMentionDuration?: number; duration?: number } = {};
+				let stats: { duration?: number; teamMentionDuration?: number } = {};
 				if (query === 'team') {
 					stats.teamMentionDuration = 200;
 				} else {

@@ -8,9 +8,9 @@ export const shadowClassNames = {
 };
 
 export interface OverflowShadowProps {
+	disableTableOverflowShadow?: boolean;
 	handleRef?: (ref: HTMLElement | null) => void;
 	shadowClassNames?: string;
-	disableTableOverflowShadow?: boolean;
 }
 
 export interface OverflowShadowState {

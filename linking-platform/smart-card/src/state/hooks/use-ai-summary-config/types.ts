@@ -3,6 +3,6 @@ import { type EnvironmentsKeys, type ProductType } from '@atlaskit/linking-commo
 export type AISummaryConfig = {
 	baseUrl?: string;
 	envKey?: EnvironmentsKeys;
-	product?: ProductType;
 	isAdminHubAIEnabled?: boolean;
+	product?: ProductType;
 };

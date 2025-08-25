@@ -8,10 +8,10 @@ import { type ORDER_BY_CLAUSE, type WHERE_CLAUSE } from './constants';
 export type JQLClause = typeof WHERE_CLAUSE | typeof ORDER_BY_CLAUSE;
 
 export type JQLRuleContext = {
-	field?: string;
-	operator?: string;
-	isList?: boolean;
 	clause?: JQLClause;
+	field?: string;
+	isList?: boolean;
+	operator?: string;
 };
 
 export type JQLRuleContextWithErrors = JQLRuleContext & {
@@ -38,8 +38,8 @@ export type JQLRuleSuggestions = Partial<Record<JQLRuleKey, JQLRuleSuggestion>>;
  * Represents a collection of tokens and rules which are valid inputs for a given JQL query.
  */
 export type JQLSuggestions = {
-	tokens: TokenSuggestions;
 	rules: JQLRuleSuggestions;
+	tokens: TokenSuggestions;
 };
 
 export type MaybeParserRuleContext = ParserRuleContext | undefined;

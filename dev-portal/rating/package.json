@@ -62,9 +62,6 @@
 		}
 	},
 	"homepage": "https://atlaskit.atlassian.com/packages/design-system/rating",
-	"af:exports": {
-		".": "./src/index.tsx"
-	},
 	"exports": {
 		".": "./src/index.tsx"
 	}

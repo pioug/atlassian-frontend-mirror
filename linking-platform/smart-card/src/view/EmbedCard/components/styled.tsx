@@ -11,13 +11,13 @@ export const className = 'media-card-frame';
 export const embedHeaderHeight = 32;
 
 export interface WrapperProps {
-	minWidth?: number;
-	maxWidth?: number;
-	isInteractive?: boolean;
-	isSelected?: boolean;
+	className?: string;
 	frameStyle?: FrameStyle;
 	inheritDimensions?: boolean;
-	className?: string;
+	isInteractive?: boolean;
+	isSelected?: boolean;
+	maxWidth?: number;
+	minWidth?: number;
 }
 
 export interface HeaderProps {
@@ -25,17 +25,17 @@ export interface HeaderProps {
 }
 
 export interface ContentProps {
-	isInteractive: boolean;
 	/**
 	 * Whether to show a scroll bar (use overflow: auto) or hide overflow (overflow:hidden).
 	 * Always set to true for unresolved embeds, otherwise the connect account button may be hidden and unreachable.
 	 */
 	allowScrollBar: boolean;
+	frameStyle?: FrameStyle;
+	isInteractive: boolean;
 	/**
 	 * Remove the overflow: ... CSS property altogether.
 	 */
 	removeOverflow?: boolean;
-	frameStyle?: FrameStyle;
 }
 
 export interface ImageProps {

@@ -4,8 +4,8 @@ import { extractType } from '../primitives';
 import { extractUrlFromIconJsonLd } from '../url';
 
 export interface LinkContext {
-	name: string;
 	icon?: string;
+	name: string;
 	type?: JsonLd.Primitives.ObjectType[];
 }
 

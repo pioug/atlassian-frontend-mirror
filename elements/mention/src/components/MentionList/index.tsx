@@ -36,15 +36,15 @@ function getIndex(key: string, mentions?: MentionDescription[]): number | undefi
 }
 
 export interface Props {
-	mentions: MentionDescription[];
-	resourceError?: Error;
-	onSelection?: OnMentionEvent;
 	initialHighlightElement?: React.ReactElement | null;
+	mentions: MentionDescription[];
+	onSelection?: OnMentionEvent;
+	resourceError?: Error;
 }
 
 export interface State {
-	selectedKey?: string;
 	selectedIndex: number;
+	selectedKey?: string;
 }
 
 export interface Items {

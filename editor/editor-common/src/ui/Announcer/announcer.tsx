@@ -12,8 +12,6 @@ import React, { forwardRef, memo, useEffect, useState } from 'react';
 // For using a forced announcement in this case, set the 'key' attribute - key={Date.now()}
 
 type AnnouncerProps = {
-	ref?: Ref<HTMLDivElement>;
-
 	/** Set 'false' for announcing only changed text
 	 * (not announce duplicate part of string after second render),
 	 * and 'true' for announcing all the string after each render */
@@ -25,16 +23,18 @@ type AnnouncerProps = {
 	/** Used to describe what types of changes have occurred to an aria-live region */
 	ariaRelevant?: AriaAttributes['aria-relevant'];
 
+	/** Debounce delay.
+	 *  Set delay (ms) to prevent announce the same string multiple times.
+	 *  It can be useful for cases when the parent component re-renders with the same announcer's text. */
+	delay?: number;
+
+	ref?: Ref<HTMLDivElement>;
+
 	/** Role used to set attribute role. See more details https://dequeuniversity.com/library/aria/liveregion-playground#configOptions */
 	role?: 'status' | 'log' | 'alert' | 'timer' | 'marquee';
 
 	/** Text message that will be announced */
 	text: string;
-
-	/** Debounce delay.
-	 *  Set delay (ms) to prevent announce the same string multiple times.
-	 *  It can be useful for cases when the parent component re-renders with the same announcer's text. */
-	delay?: number;
 };
 
 // Note: Flag 'contentRendered' resolves bug with duplicates messages (NVDA + Firefox)

@@ -117,9 +117,9 @@ export function getNodeRenderer<T extends Parameters>(
 ) {
 	return Loadable<
 		{
+			actions?: MultiBodiedExtensionActions;
 			node: ExtensionParams<T>;
 			references?: ReferenceEntity[];
-			actions?: MultiBodiedExtensionActions;
 		},
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any

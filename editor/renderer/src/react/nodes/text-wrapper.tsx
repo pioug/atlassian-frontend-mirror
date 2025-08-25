@@ -5,11 +5,11 @@ import type { TextHighlighter } from '../types';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
 
 type Props = {
-	startPos: number;
-	endPos: number;
 	children?: ReactNode | null;
-	textHighlighter?: TextHighlighter;
+	endPos: number;
 	marks?: readonly Mark[];
+	startPos: number;
+	textHighlighter?: TextHighlighter;
 };
 
 const TextWrapper = (props: Props) => {

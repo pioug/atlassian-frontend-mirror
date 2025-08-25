@@ -16,9 +16,9 @@ type RemoveFn = (key: string) => void;
 type DestoryFn = () => void;
 
 export interface PortalProviderAPI {
-	render: RenderFn;
-	remove: RemoveFn;
 	destroy: DestoryFn;
+	remove: RemoveFn;
+	render: RenderFn;
 }
 
 export type PortalRendererComponent = () => JSX.Element;

@@ -2,6 +2,6 @@ import { type ProfileCardAction, type ProfileClient } from '@atlaskit/profilecar
 
 export interface ProfilecardProvider {
 	cloudId: string;
-	resourceClient: ProfileClient;
 	getActions: (id: string, text: string, accessLevel?: string) => ProfileCardAction[];
+	resourceClient: ProfileClient;
 }

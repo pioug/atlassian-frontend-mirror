@@ -5,7 +5,7 @@ import docWithNoDuplicateMarksValidAdf from './__fixtures__/doc-with-no-duplicat
 
 describe('transformDedupeMarks', () => {
 	it('should remove duplicate marks', () => {
-		let { isTransformed, transformedAdf, discardedMarks } = transformDedupeMarks(
+		const { isTransformed, transformedAdf, discardedMarks } = transformDedupeMarks(
 			docWithDuplicateMarksInvalidAdf,
 		);
 
@@ -32,7 +32,7 @@ describe('transformDedupeMarks', () => {
 	});
 
 	it('should not remove marks in valid complex doc, transformedAdf should remain unchanged', () => {
-		let { isTransformed, transformedAdf, discardedMarks } = transformDedupeMarks(
+		const { isTransformed, transformedAdf, discardedMarks } = transformDedupeMarks(
 			docWithNoDuplicateMarksValidAdf,
 		);
 		expect(discardedMarks.length).toEqual(0);

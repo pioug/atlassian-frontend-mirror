@@ -40,12 +40,12 @@ export enum ADD_STEPS_TYPE {
 }
 
 export type DocumentUpdateErrorAttributes = {
-	isDocTruthy?: boolean;
-	editorVersion?: number;
-	newVersion?: number;
-	docHasContent?: boolean;
-	isDocContentValid?: boolean;
 	caller?: string;
+	docHasContent?: boolean;
+	editorVersion?: number;
+	isDocContentValid?: boolean;
+	isDocTruthy?: boolean;
+	newVersion?: number;
 };
 
 export type CantSyncUpErrorAttributes = {
@@ -53,18 +53,18 @@ export type CantSyncUpErrorAttributes = {
 };
 
 export type ErrorAnalyticsEvent = {
-	eventAction: EVENT_ACTION.ERROR;
 	attributes: {
-		errorMessage: string;
-		originalErrorMessage: string | undefined;
-		errorName?: string;
-		errorCode?: string;
-		errorStatus?: string;
-		errorStack?: string;
 		documentAri?: string;
+		errorCode?: string;
+		errorMessage: string;
+		errorName?: string;
+		errorStack?: string;
+		errorStatus?: string;
 		mappedError?: ProviderError;
+		originalErrorMessage: string | undefined;
 		subProduct?: string;
 	} & DocumentUpdateErrorAttributes;
+	eventAction: EVENT_ACTION.ERROR;
 	nonPrivacySafeAttributes?: {
 		error: unknown;
 	};
@@ -76,276 +76,276 @@ export type BaseActionAnalyticsEventAttributes = {
 };
 
 type InvalidateTokenAnalyticsEvent = {
-	eventAction: EVENT_ACTION.INVALIDATE_TOKEN;
 	attributes: {
 		eventStatus: EVENT_STATUS.SUCCESS;
 		reason?: string;
 		usedCachedToken?: boolean;
 	} & BaseActionAnalyticsEventAttributes;
+	eventAction: EVENT_ACTION.INVALIDATE_TOKEN;
 };
 
 type AddStepsSuccessAnalyticsEvent = {
-	eventAction: EVENT_ACTION.ADD_STEPS;
 	attributes: {
 		eventStatus: EVENT_STATUS.SUCCESS;
-		type: ADD_STEPS_TYPE.ACCEPTED;
 		latency?: number;
 		stepType?: {
 			[key: string]: number;
 		};
+		type: ADD_STEPS_TYPE.ACCEPTED;
 	} & BaseActionAnalyticsEventAttributes;
+	eventAction: EVENT_ACTION.ADD_STEPS;
 };
 
 type AddStepsFailureAnalyticsEvent = {
-	eventAction: EVENT_ACTION.ADD_STEPS;
 	attributes: {
 		eventStatus: EVENT_STATUS.FAILURE;
-		type: ADD_STEPS_TYPE.REJECTED | ADD_STEPS_TYPE.ERROR;
 		latency?: number;
+		type: ADD_STEPS_TYPE.REJECTED | ADD_STEPS_TYPE.ERROR;
 	} & BaseActionAnalyticsEventAttributes;
+	eventAction: EVENT_ACTION.ADD_STEPS;
 };
 
 type ReInitDocFailAnalyticsEvent = {
-	eventAction: EVENT_ACTION.REINITIALISE_DOCUMENT;
 	attributes: {
 		eventStatus: EVENT_STATUS.FAILURE;
 		numUnconfirmedSteps: number;
 		triggeredByCatchup?: boolean;
 	} & BaseActionAnalyticsEventAttributes;
+	eventAction: EVENT_ACTION.REINITIALISE_DOCUMENT;
 };
 
 type ReInitDocSuccessAnalyticsEvent = {
-	eventAction: EVENT_ACTION.REINITIALISE_DOCUMENT;
 	attributes: {
 		eventStatus: EVENT_STATUS.SUCCESS;
 		numUnconfirmedSteps: number;
 		triggeredByCatchup?: boolean;
 	} & BaseActionAnalyticsEventAttributes;
+	eventAction: EVENT_ACTION.REINITIALISE_DOCUMENT;
 };
 
 type ConnectionSuccessAnalyticsEvent = {
-	eventAction: EVENT_ACTION.CONNECTION;
 	attributes: {
 		eventStatus: EVENT_STATUS.SUCCESS;
 		latency?: number;
 	} & BaseActionAnalyticsEventAttributes;
+	eventAction: EVENT_ACTION.CONNECTION;
 };
 
 type ConnectionFailureAnalyticsEvent = {
-	eventAction: EVENT_ACTION.CONNECTION;
 	attributes: {
 		eventStatus: EVENT_STATUS.FAILURE;
 		latency?: number;
 	} & BaseActionAnalyticsEventAttributes;
+	eventAction: EVENT_ACTION.CONNECTION;
 };
 
 type CatchUpSuccessAnalyticsEvent = {
-	eventAction: EVENT_ACTION.CATCHUP;
 	attributes: {
 		eventStatus: EVENT_STATUS.SUCCESS;
 		latency?: number;
 	} & BaseActionAnalyticsEventAttributes;
+	eventAction: EVENT_ACTION.CATCHUP;
 };
 
 type CatchUpFailureAnalyticsEvent = {
-	eventAction: EVENT_ACTION.CATCHUP;
 	attributes: {
 		eventStatus: EVENT_STATUS.FAILURE;
 		latency?: number;
 	} & BaseActionAnalyticsEventAttributes;
+	eventAction: EVENT_ACTION.CATCHUP;
 };
 
 type CatchUpDroppedStepsEvent = {
-	eventAction: EVENT_ACTION.DROPPED_STEPS;
 	attributes: {
 		numOfDroppedSteps: number;
 	} & BaseActionAnalyticsEventAttributes;
+	eventAction: EVENT_ACTION.DROPPED_STEPS;
 };
 
 type DocumentInitSuccessAnalyticsEvent = {
-	eventAction: EVENT_ACTION.DOCUMENT_INIT;
 	attributes: {
 		eventStatus: EVENT_STATUS.SUCCESS;
+		hasTitle: boolean;
 		latency?: number;
 		resetReason?: string; // Record whether document init required a page reset
-		hasTitle: boolean;
 	} & BaseActionAnalyticsEventAttributes;
+	eventAction: EVENT_ACTION.DOCUMENT_INIT;
 };
 
 type UpdateParticipantsSuccessAnalyticsEvent = {
-	eventAction: EVENT_ACTION.UPDATE_PARTICIPANTS;
 	attributes: {
 		eventStatus: EVENT_STATUS.SUCCESS;
 		participants: number;
 	} & BaseActionAnalyticsEventAttributes;
+	eventAction: EVENT_ACTION.UPDATE_PARTICIPANTS;
 };
 
 type CommitUnconfirmedStepsSuccessAnalyticsEvent = {
-	eventAction: EVENT_ACTION.COMMIT_UNCONFIRMED_STEPS;
 	attributes: {
 		eventStatus: EVENT_STATUS.SUCCESS;
 		latency?: number;
 		numUnconfirmedSteps?: number;
 	} & BaseActionAnalyticsEventAttributes;
+	eventAction: EVENT_ACTION.COMMIT_UNCONFIRMED_STEPS;
 };
 
 type CommitUnconfirmedStepsFailureAnalyticsEvent = {
-	eventAction: EVENT_ACTION.COMMIT_UNCONFIRMED_STEPS;
 	attributes: {
 		eventStatus: EVENT_STATUS.FAILURE;
 		latency?: number;
 		numUnconfirmedSteps?: number;
 	} & BaseActionAnalyticsEventAttributes;
+	eventAction: EVENT_ACTION.COMMIT_UNCONFIRMED_STEPS;
 };
 
 type PublishPageSuccessAnalyticsEvent = {
-	eventAction: EVENT_ACTION.PUBLISH_PAGE;
 	attributes: {
 		eventStatus: EVENT_STATUS.SUCCESS;
 		latency?: number;
 	} & BaseActionAnalyticsEventAttributes;
+	eventAction: EVENT_ACTION.PUBLISH_PAGE;
 };
 
 type PublishPageFailureAnalyticsEvent = {
-	eventAction: EVENT_ACTION.PUBLISH_PAGE;
 	attributes: {
 		eventStatus: EVENT_STATUS.FAILURE;
 		latency?: number;
 	} & BaseActionAnalyticsEventAttributes;
+	eventAction: EVENT_ACTION.PUBLISH_PAGE;
 };
 
 type GetCurrentStateSuccessAnalyticsEvent = {
-	eventAction: EVENT_ACTION.GET_CURRENT_STATE;
 	attributes: {
 		eventStatus: EVENT_STATUS.SUCCESS;
 		latency?: number;
 	} & BaseActionAnalyticsEventAttributes;
+	eventAction: EVENT_ACTION.GET_CURRENT_STATE;
 };
 
 type GetCurrentStateFailureAnalyticsEvent = {
-	eventAction: EVENT_ACTION.GET_CURRENT_STATE;
 	attributes: {
 		eventStatus: EVENT_STATUS.FAILURE;
 		latency?: number;
 	} & BaseActionAnalyticsEventAttributes;
+	eventAction: EVENT_ACTION.GET_CURRENT_STATE;
 };
 
 type SendStepsRetryAnalyticsEvent = {
-	eventAction: EVENT_ACTION.SEND_STEPS_RETRY;
 	attributes: {
-		eventStatus: EVENT_STATUS.INFO;
 		count: number;
+		eventStatus: EVENT_STATUS.INFO;
 	} & BaseActionAnalyticsEventAttributes;
+	eventAction: EVENT_ACTION.SEND_STEPS_RETRY;
 };
 
 type CatchupAfterMaxSendStepsRetryAnalyticsEvent = {
-	eventAction: EVENT_ACTION.CATCHUP_AFTER_MAX_SEND_STEPS_RETRY;
 	attributes: {
 		eventStatus: EVENT_STATUS.INFO;
 	} & BaseActionAnalyticsEventAttributes;
+	eventAction: EVENT_ACTION.CATCHUP_AFTER_MAX_SEND_STEPS_RETRY;
 };
 
 type WebsocketMessageVolumeMetricEvent = {
-	eventAction: EVENT_ACTION.WEBSOCKET_MESSAGE_VOLUME_METRIC;
 	attributes: {
 		eventStatus: EVENT_STATUS.INFO;
 		messageCount: number;
 		messageSize: number;
 	} & BaseActionAnalyticsEventAttributes;
+	eventAction: EVENT_ACTION.WEBSOCKET_MESSAGE_VOLUME_METRIC;
 };
 
 type ProviderInitializedAnalyticsEvent = {
-	eventAction: EVENT_ACTION.PROVIDER_INITIALIZED;
 	attributes: {
 		eventStatus: EVENT_STATUS.INFO;
-		isPreinitializing: boolean;
 		isBuffered?: boolean;
+		isPreinitializing: boolean;
 	} & BaseActionAnalyticsEventAttributes;
+	eventAction: EVENT_ACTION.PROVIDER_INITIALIZED;
 };
 
 type ProviderSetupAnalyticsEvent = {
-	eventAction: EVENT_ACTION.PROVIDER_SETUP;
 	attributes: {
 		eventStatus: EVENT_STATUS.INFO;
-		isPreinitializing: boolean;
 		hasState: boolean;
+		isPreinitializing: boolean;
 	} & BaseActionAnalyticsEventAttributes;
+	eventAction: EVENT_ACTION.PROVIDER_SETUP;
 };
 
 type ProviderHasUnconfirmedStepsAnalyticsEvent = {
-	eventAction: EVENT_ACTION.HAS_UNCONFIRMED_STEPS;
 	attributes: {
 		numUnconfirmedSteps: number;
 	} & BaseActionAnalyticsEventAttributes;
+	eventAction: EVENT_ACTION.HAS_UNCONFIRMED_STEPS;
 };
 
 type UpdateDocumentAnalyticsEvent = {
-	eventAction: EVENT_ACTION.UPDATE_DOCUMENT;
 	attributes: {
-		eventStatus: EVENT_STATUS.SUCCESS;
-		newVersion: number;
-		editorVersion: number;
-		isDocTruthy: boolean;
 		docHasContent: boolean;
+		editorVersion: number;
+		eventStatus: EVENT_STATUS.SUCCESS;
 		isDocContentValid: boolean;
+		isDocTruthy: boolean;
+		newVersion: number;
 	} & BaseActionAnalyticsEventAttributes;
+	eventAction: EVENT_ACTION.UPDATE_DOCUMENT;
 };
 
 type ReconnectionAnalyticsEvent = {
-	eventAction: EVENT_ACTION.RECONNECTION;
 	attributes: {
-		eventStatus: EVENT_STATUS.SUCCESS;
 		disconnectionPeriodSeconds: number;
+		eventStatus: EVENT_STATUS.SUCCESS;
 	} & BaseActionAnalyticsEventAttributes;
+	eventAction: EVENT_ACTION.RECONNECTION;
 };
 
 type OutOfSyncAnalyticsEvent = {
-	eventAction: EVENT_ACTION.OUT_OF_SYNC;
 	attributes: {
+		catchupReason: CatchupEventReason | undefined;
 		eventStatus: EVENT_STATUS.FAILURE;
-		obfuscatedSteps: {
-			[key: string]: number;
-		}[];
 		obfuscatedDoc: {
 			[key: string]: number;
 		};
-		catchupReason: CatchupEventReason | undefined;
+		obfuscatedSteps: {
+			[key: string]: number;
+		}[];
 	} & BaseActionAnalyticsEventAttributes;
+	eventAction: EVENT_ACTION.OUT_OF_SYNC;
 };
 
 type StepsRebasedAnalyticsEvent = {
-	eventAction: EVENT_ACTION.STEPS_REBASED;
 	attributes: {
+		clientID: 'string';
 		eventStatus: EVENT_STATUS.INFO;
-		obfuscatedUnconfirmedSteps: {
+		obfuscatedRebasedSteps: {
 			[key: string]: number;
 		}[];
 		obfuscatedRemoteSteps: {
 			[key: string]: number;
 		}[];
-		obfuscatedRebasedSteps: {
+		obfuscatedUnconfirmedSteps: {
 			[key: string]: number;
 		}[];
-		clientID: 'string';
 		userId: 'string';
-		versionBefore: 'string';
 		versionAfter: 'string';
+		versionBefore: 'string';
 	} & BaseActionAnalyticsEventAttributes;
+	eventAction: EVENT_ACTION.STEPS_REBASED;
 };
 
 type PollingFallbackAnalyticsEvent = {
-	eventAction: EVENT_ACTION.POLLING_FALLBACK;
 	attributes: {
 		eventStatus: EVENT_STATUS.INFO;
 		url: 'string';
 	} & BaseActionAnalyticsEventAttributes;
+	eventAction: EVENT_ACTION.POLLING_FALLBACK;
 };
 
 type ProcessStepsAnalyticsEvent = {
-	eventAction: EVENT_ACTION.PROCESS_STEPS;
 	attributes: {
 		eventStatus: EVENT_STATUS.SUCCESS;
 	} & BaseActionAnalyticsEventAttributes;
+	eventAction: EVENT_ACTION.PROCESS_STEPS;
 };
 
 export type ActionAnalyticsEvent =

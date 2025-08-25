@@ -27,16 +27,16 @@ import { type User } from '../model/User';
 import { type RenderEditorWithComments } from '../components/types';
 
 export interface Props extends BaseProps {
-	localId: string;
-	objectId: string;
 	containerId?: string;
 	dataProviders?: ProviderFactory;
+	isExpanded?: boolean;
+	localId: string;
 	meta?: {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		[key: string]: any;
 	};
-	isExpanded?: boolean;
+	objectId: string;
 	onCancel?: () => void;
 	provider: ResourceProvider;
 }
@@ -142,34 +142,34 @@ const ResourcedConversation = withAnalyticsEvents()(
 );
 
 export interface ContainerProps {
-	id?: string;
-	objectId: string;
+	allowFeedbackAndHelpButtons?: boolean;
 	containerId?: string;
-	provider: ResourceProvider;
 	dataProviders?: ProviderFactory;
+	disableScrollTo?: boolean;
+	id?: string;
+	isExpanded?: boolean;
+	maxCommentNesting?: number;
 	meta?: {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		[key: string]: any;
 	};
-	isExpanded?: boolean;
+	objectId: string;
 	onCancel?: () => void;
-	showBeforeUnloadWarning?: boolean;
-	onEditorOpen?: () => void;
-	onEditorClose?: () => void;
 	onEditorChange?: () => void;
-	renderEditor?: RenderEditorWithComments;
+	onEditorClose?: () => void;
+	onEditorOpen?: () => void;
 	placeholder?: string;
-	disableScrollTo?: boolean;
-	allowFeedbackAndHelpButtons?: boolean;
-
 	portal?: HTMLElement;
+	provider: ResourceProvider;
+
 	renderAdditionalCommentActions?: (
 		CommentAction: typeof AkCommentAction,
 		comment: CommentType,
 	) => JSX.Element[];
 	renderAfterComment?: (comment: CommentType) => JSX.Element;
-	maxCommentNesting?: number;
+	renderEditor?: RenderEditorWithComments;
+	showBeforeUnloadWarning?: boolean;
 }
 
 // Ignored via go/ees005

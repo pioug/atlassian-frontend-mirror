@@ -11,9 +11,12 @@ export enum InsertDraftPosition {
 export type Position = { from: number; to: number };
 
 export type AnnotationsWrapperProps = React.PropsWithChildren<{
+	/**
+	 * This is set internally -- and should not be set by consumers.
+	 */
+	_startPos?: number;
 	adfDocument: JSONDocNode;
 	annotationProvider: AnnotationProviders | null | undefined;
-	rendererRef: React.RefObject<HTMLDivElement>;
 	/**
 	 * This is set (by consumers) for nested renderers when they are
 	 * rendering bodied extension content.
@@ -24,13 +27,10 @@ export type AnnotationsWrapperProps = React.PropsWithChildren<{
 	}: {
 		numberOfUnresolvedInlineComments: number;
 	}) => void;
-	/**
-	 * This is set internally -- and should not be set by consumers.
-	 */
-	_startPos?: number;
+	rendererRef: React.RefObject<HTMLDivElement>;
 }>;
 
 export type TextPosition = {
-	start: number;
 	end: number;
+	start: number;
 };

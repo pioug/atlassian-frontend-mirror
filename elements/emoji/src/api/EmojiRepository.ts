@@ -18,8 +18,8 @@ import { UsageFrequencyTracker } from './internal/UsageFrequencyTracker';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 type Token = {
-	token: string;
 	start: number;
+	token: string;
 };
 
 // FS-1097 - duplicated in mentions - extract at some point into a shared library
@@ -81,8 +81,8 @@ const findByKey = (map: EmojiByKey, key: any): OptionalEmojiDescription => {
 };
 
 type SplitQuery = {
-	nameQuery: string;
 	asciiQuery: string;
+	nameQuery: string;
 };
 
 const splitQuery = (query = ''): SplitQuery => {

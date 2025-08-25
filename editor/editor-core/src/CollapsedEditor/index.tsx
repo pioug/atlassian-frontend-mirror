@@ -15,9 +15,9 @@ export type EditorModule = {
 } & EditorModules;
 
 export interface Props {
-	placeholder?: string;
 	isExpanded?: boolean;
 	onClickToExpand?: () => void;
+	placeholder?: string;
 	renderEditor: (Editor: typeof EditorImports.Editor, modules: EditorModule) => JSX.Element;
 }
 

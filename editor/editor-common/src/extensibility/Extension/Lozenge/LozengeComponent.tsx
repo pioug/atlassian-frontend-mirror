@@ -24,25 +24,25 @@ const capitalizeFirstLetter = (str: string): string => {
 };
 
 type LozengeComponentProps = {
-	lozengeData?: LozengeData;
+	customContainerStyles?: CSSProperties;
 	extensionName: string;
-	title: string;
+	isBodiedMacro?: boolean;
+	isNodeHovered?: boolean;
+	isNodeNested?: boolean;
+	isNodeSelected?: boolean;
+	lozengeData?: LozengeData;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	params: any;
-	renderImage: (lozengeData: LozengeData) => void;
-	isNodeSelected?: boolean;
-	showMacroInteractionDesignUpdates?: boolean;
-	customContainerStyles?: CSSProperties;
-	isNodeHovered?: boolean;
-	isNodeNested?: boolean;
-	setIsNodeHovered?: (isHovered: boolean) => void;
-	isBodiedMacro?: boolean;
-	showLivePagesBodiedMacrosRendererView?: boolean;
-	showUpdatedLivePages1PBodiedExtensionUI?: boolean;
-	showBodiedExtensionRendererView?: boolean;
-	setShowBodiedExtensionRendererView?: (showBodiedExtensionRendererView: boolean) => void;
 	pluginInjectionApi?: ExtensionsPluginInjectionAPI;
+	renderImage: (lozengeData: LozengeData) => void;
+	setIsNodeHovered?: (isHovered: boolean) => void;
+	setShowBodiedExtensionRendererView?: (showBodiedExtensionRendererView: boolean) => void;
+	showBodiedExtensionRendererView?: boolean;
+	showLivePagesBodiedMacrosRendererView?: boolean;
+	showMacroInteractionDesignUpdates?: boolean;
+	showUpdatedLivePages1PBodiedExtensionUI?: boolean;
+	title: string;
 };
 
 export const LozengeComponent = ({

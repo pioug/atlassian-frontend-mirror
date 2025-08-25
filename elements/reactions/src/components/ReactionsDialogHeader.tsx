@@ -145,14 +145,14 @@ const firstElement = css({
 });
 
 interface ReactionsDialogModalHeaderProps {
-	totalReactionsCount: number;
-	handlePreviousPage: () => void;
-	handleNextPage: () => void;
 	currentPage: number;
-	maxPages: number;
-	emojiProvider: Promise<EmojiProvider>;
 	currentReactions: ReactionSummary[];
+	emojiProvider: Promise<EmojiProvider>;
 	handleCloseReactionsDialog: OnCloseHandler;
+	handleNextPage: () => void;
+	handlePreviousPage: () => void;
+	maxPages: number;
+	totalReactionsCount: number;
 }
 
 type LeftNavigationButtonProp = Pick<ReactionsDialogModalHeaderProps, 'handlePreviousPage'>;

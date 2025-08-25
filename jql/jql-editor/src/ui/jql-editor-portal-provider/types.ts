@@ -17,33 +17,33 @@ export type PortalActions = {
 export type PortalState = {
 	components: {
 		[key: string]: {
-			portalComponent: ReactNode;
 			container: Container;
+			portalComponent: ReactNode;
 		};
 	};
 	containers: PluginContainers;
 };
 
 type CreatePortalAction = {
-	type: 'createPortal';
 	payload: {
+		container: Container;
 		key: string;
 		portalComponent: ReactNode;
-		container: Container;
 	};
+	type: 'createPortal';
 };
 
 type DestroyPortalAction = {
-	type: 'destroyPortal';
 	payload: string;
+	type: 'destroyPortal';
 };
 
 type RegisterPluginContainerAction = {
-	type: 'registerPluginContainer';
 	payload: {
 		containerKey: PluginContainerKey;
 		element: HTMLElement | null;
 	};
+	type: 'registerPluginContainer';
 };
 
 export type PortalAction = CreatePortalAction | DestroyPortalAction | RegisterPluginContainerAction;

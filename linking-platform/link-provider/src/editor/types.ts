@@ -10,9 +10,9 @@ export type ORSCheckResponse = {
 type DisplayViews = 'inline' | 'block' | 'embed';
 
 export type ProviderPattern = {
+	defaultView?: DisplayViews;
 	source: string;
 	supportedViews?: DisplayViews[];
-	defaultView?: DisplayViews;
 };
 
 type Provider = {
@@ -23,8 +23,8 @@ type Provider = {
 export type LinkAppearance = CardAppearance | 'url';
 
 export interface UserPreferences {
+	appearances: { appearance: LinkAppearance; urlSegment: string }[];
 	defaultAppearance: LinkAppearance;
-	appearances: { urlSegment: string; appearance: LinkAppearance }[];
 }
 
 export type ORSProvidersResponse = {

@@ -49,9 +49,9 @@ type BroadcastMessage =
 			type: 'participant:telepointer';
 	  } & Omit<CollabTelepointerPayload, 'type'>)
 	| {
+			steps: StepJson[];
 			type: 'broadcast';
 			version: number;
-			steps: StepJson[];
 	  };
 
 // @ts-expect-error Incorrect callback typing

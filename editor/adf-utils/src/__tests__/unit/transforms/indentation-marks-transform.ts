@@ -8,7 +8,7 @@ import tableHeaderWithIndentedHeadingAndContentInvalidAdf from './__fixtures__/t
 
 describe('transformIndentationMarks', () => {
 	it('should remove indentation marks from headings inside table cells', () => {
-		let { isTransformed, transformedAdf } = transformIndentationMarks(
+		const { isTransformed, transformedAdf } = transformIndentationMarks(
 			tableCellWithIndentedHeadingInvalidAdf,
 		);
 		expect(isTransformed).toEqual(true);
@@ -16,7 +16,7 @@ describe('transformIndentationMarks', () => {
 	});
 
 	it('should remove indentation marks from headings (mutiple content) inside table cells', () => {
-		let { isTransformed, transformedAdf } = transformIndentationMarks(
+		const { isTransformed, transformedAdf } = transformIndentationMarks(
 			tableCellWithIndentedHeadingAndContentInvalidAdf,
 		);
 		expect(isTransformed).toEqual(true);
@@ -24,7 +24,7 @@ describe('transformIndentationMarks', () => {
 	});
 
 	it('should remove indentation marks from headings inside table headers', () => {
-		let { isTransformed, transformedAdf } = transformIndentationMarks(
+		const { isTransformed, transformedAdf } = transformIndentationMarks(
 			tableHeaderWithIndentedHeadingInvalidAdf,
 		);
 		expect(isTransformed).toEqual(true);
@@ -32,7 +32,7 @@ describe('transformIndentationMarks', () => {
 	});
 
 	it('should remove indentation marks from headings (mutiple content) inside table headers', () => {
-		let { isTransformed, transformedAdf } = transformIndentationMarks(
+		const { isTransformed, transformedAdf } = transformIndentationMarks(
 			tableHeaderWithIndentedHeadingAndContentInvalidAdf,
 		);
 		expect(isTransformed).toEqual(true);
@@ -40,7 +40,7 @@ describe('transformIndentationMarks', () => {
 	});
 
 	it('should not remove indentation marks in valid complex doc, transformedAdf should be unchanged', () => {
-		let { isTransformed, transformedAdf } = transformIndentationMarks(
+		const { isTransformed, transformedAdf } = transformIndentationMarks(
 			complexDocWithIndentationMarksValidAdf,
 		);
 		expect(isTransformed).toEqual(false);

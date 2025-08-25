@@ -212,9 +212,9 @@ class Example extends Component<ExampleProps, ExampleState> {
 export type ExampleWrapperProps = {};
 export type ExampleWrapperState = {
 	cxhtml?: string;
-	story?: any;
-	prettify?: boolean;
 	isMediaReady?: boolean;
+	prettify?: boolean;
+	story?: any;
 };
 
 // Ignored via go/ees005

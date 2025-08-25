@@ -1,11 +1,11 @@
 export type ImageIconProps = {
+	appearance?: 'square' | 'round';
 	defaultIcon?: React.ReactNode;
+	height?: string;
+	hideLoadingSkeleton?: boolean;
+	onError?: () => void;
+	onLoad?: () => void;
 	testId?: string;
 	url: string;
 	width?: string;
-	height?: string;
-	onError?: () => void;
-	onLoad?: () => void;
-	appearance?: 'square' | 'round';
-	hideLoadingSkeleton?: boolean;
 };

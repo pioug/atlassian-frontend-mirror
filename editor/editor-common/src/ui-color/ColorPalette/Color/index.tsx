@@ -14,17 +14,17 @@ import Tooltip from '@atlaskit/tooltip';
 import { buttonStyle, buttonWrapperStyle } from './styles';
 
 export interface Props {
-	value: string;
-	label: string;
-	tabIndex?: number;
-	isSelected?: boolean;
-	onClick: (value: string, label: string) => void;
-	onKeyDown?: (value: string, label: string, event: React.KeyboardEvent) => void;
+	autoFocus?: boolean;
 	borderColor: string;
 	checkMarkColor?: string;
-	autoFocus?: boolean;
-	hexToPaletteColor?: (hexColor: string) => string | undefined;
 	decorator?: ReactElement;
+	hexToPaletteColor?: (hexColor: string) => string | undefined;
+	isSelected?: boolean;
+	label: string;
+	onClick: (value: string, label: string) => void;
+	onKeyDown?: (value: string, label: string, event: React.KeyboardEvent) => void;
+	tabIndex?: number;
+	value: string;
 }
 
 const Color = (props: Props) => {

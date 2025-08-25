@@ -7,12 +7,12 @@ export interface Data {
 }
 
 export interface PresenceBulk {
-	userId: string;
-	state: null | string;
-	type: null | string;
 	date: null | string;
 	message: null | string;
+	state: null | string;
 	stateMetadata?: string;
+	type: null | string;
+	userId: string;
 }
 
 export const validPresenceData: PresenceValidInfo =

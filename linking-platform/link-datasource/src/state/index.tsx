@@ -17,9 +17,9 @@ type UniqueIdentifier = string;
 
 export interface DatasourceItem {
 	ari: string | undefined;
+	data: DatasourceDataResponseItem;
 	entityType: string | undefined;
 	integrationKey: string | undefined;
-	data: DatasourceDataResponseItem;
 }
 
 export interface State {

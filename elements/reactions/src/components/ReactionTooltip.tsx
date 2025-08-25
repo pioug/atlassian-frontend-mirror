@@ -62,33 +62,33 @@ export const RENDER_REACTIONTOOLTIP_TESTID = 'render-reactionTooltip';
 
 export type ReactionTooltipProps = PropsWithChildren<{
 	/**
-	 * Optional name for the reaction emoji
-	 */
-	emojiName?: string;
-	/**
-	 * Info on the emoji reaction to render
-	 */
-	reaction: ReactionSummary;
-	/**
-	 * Optional Max users to show in the displayed tooltip (defaults to 5)
-	 */
-	maxReactions?: number;
-	/**
-	 * Optional flag for enabling tooltip (defaults to true)
-	 */
-	isEnabled?: boolean;
-	/**
 	 * Optional prop for enabling the Reactions Dialog
 	 */
 	allowUserDialog?: boolean;
+	/**
+	 * Function that hides the tooltip
+	 */
+	dismissTooltip: () => void;
+	/**
+	 * Optional name for the reaction emoji
+	 */
+	emojiName?: string;
 	/**
 	 * Optional function when the user wants to open the Reactions Dialog
 	 */
 	handleOpenReactionsDialog?: (options?: OpenReactionsDialogOptions) => void;
 	/**
-	 * Function that hides the tooltip
+	 * Optional flag for enabling tooltip (defaults to true)
 	 */
-	dismissTooltip: () => void;
+	isEnabled?: boolean;
+	/**
+	 * Optional Max users to show in the displayed tooltip (defaults to 5)
+	 */
+	maxReactions?: number;
+	/**
+	 * Info on the emoji reaction to render
+	 */
+	reaction: ReactionSummary;
 }>;
 
 export const ReactionTooltip = ({

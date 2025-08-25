@@ -30,8 +30,8 @@ import { SNAP_GAP, useBreakoutGuidelines } from './useBreakoutGuidelines';
 
 type ResizingState = {
 	isResizing: boolean;
-	minWidth?: number;
 	maxWidth?: number;
+	minWidth?: number;
 };
 
 const breakoutSupportedNodes = ['layoutSection', 'expand', 'codeBlock'];
@@ -78,7 +78,7 @@ const getHandleStyle = (node: BreakoutSupportedNodes, hidden: boolean) => {
 };
 
 export const ignoreResizerMutations = (
-	mutation: MutationRecord | { type: 'selection'; target: Node },
+	mutation: MutationRecord | { target: Node; type: 'selection' },
 ) => {
 	if (fg('platform_editor_breakoutresizer_remove_assertion')) {
 		if (mutation.target instanceof Element) {
@@ -114,19 +114,19 @@ type ResizerNextHandler = React.ElementRef<typeof Resizer>;
 const RESIZE_STEP_VALUE = 10;
 
 type BreakoutResizerProps = {
+	disabled?: boolean;
+	displayGapCursor: (toggle: boolean) => boolean;
+	displayGuidelines?: (guidelines: GuidelineConfig[]) => void;
+	dynamicFullWidthGuidelineOffset?: number;
+	editorAnalyticsApi?: EditorAnalyticsAPI;
 	editorView: EditorView;
-	nodeType: BreakoutSupportedNodes;
+	getEditorWidth: () => EditorContainerWidth | undefined;
 	getPos: getPosHandlerNode;
 	getRef?: (ref: HTMLElement | null) => void;
-	disabled?: boolean;
-	getEditorWidth: () => EditorContainerWidth | undefined;
-	parentRef?: HTMLElement;
-	editorAnalyticsApi?: EditorAnalyticsAPI;
-	displayGuidelines?: (guidelines: GuidelineConfig[]) => void;
-	displayGapCursor: (toggle: boolean) => boolean;
-	onResizeStart?: () => void;
-	dynamicFullWidthGuidelineOffset?: number;
 	hidden?: boolean;
+	nodeType: BreakoutSupportedNodes;
+	onResizeStart?: () => void;
+	parentRef?: HTMLElement;
 };
 
 /**

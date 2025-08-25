@@ -179,8 +179,8 @@ export const LineNumberToolbar = styled.div<{ lineNumbersVisible: boolean }>(
 export const EditorView = styled.div<{
 	defaultMaxRows: number;
 	expandedRows: number;
-	lineNumbersVisible: boolean;
 	isCompact: boolean;
+	lineNumbersVisible: boolean;
 }>`
 	counter-reset: lineNumber;
 	flex-grow: 1;
@@ -285,8 +285,8 @@ export const ReadOnlyEditorView = styled(EditorView)`
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const EditorControls = styled.div<{
-	isSearch: boolean;
 	isCompact: boolean;
+	isSearch: boolean;
 	isVisualRefresh?: boolean;
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 }>((props) => ({

@@ -42,7 +42,7 @@ describe('steps', () => {
 	let firstValidParagraph: HTMLElement;
 
 	async function setup(
-		{ smartLinksSsr, doc = complexDocument }: { smartLinksSsr: boolean; doc?: any } = {
+		{ smartLinksSsr, doc = complexDocument }: { doc?: any; smartLinksSsr: boolean } = {
 			smartLinksSsr: false,
 			doc: complexDocument,
 		},
@@ -354,9 +354,9 @@ describe('steps', () => {
 				await setup();
 				const codeBlockElements = container!.querySelectorAll('.code-block');
 				const codeBlockNodes: {
-					startPos: number;
 					endPos: number;
 					size: number;
+					startPos: number;
 				}[] = [];
 				docFromSchema.nodesBetween(0, docFromSchema.nodeSize - 2, (node, pos) => {
 					if (node.type.name === 'codeBlock') {
@@ -396,9 +396,9 @@ describe('steps', () => {
 			await setup();
 			const nodePositions: {
 				element: HTMLElement;
-				startPos: number;
 				endPos: number;
 				size: number;
+				startPos: number;
 			}[] = [];
 			docFromSchema.nodesBetween(0, docFromSchema.nodeSize - 2, (node, pos) => {
 				const element = container!.querySelector(

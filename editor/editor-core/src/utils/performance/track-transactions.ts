@@ -23,8 +23,8 @@ interface MeasureHelpers {
 }
 
 interface SimpleEntry {
-	name: string;
 	duration: number;
+	name: string;
 	startTime: number;
 }
 

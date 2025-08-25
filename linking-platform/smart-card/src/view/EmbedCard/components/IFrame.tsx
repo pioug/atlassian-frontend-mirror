@@ -1,8 +1,8 @@
 import React from 'react';
 
 interface IFrameProps {
-	className?: string;
 	childRef?: React.Ref<HTMLIFrameElement>;
+	className?: string;
 }
 
 /**

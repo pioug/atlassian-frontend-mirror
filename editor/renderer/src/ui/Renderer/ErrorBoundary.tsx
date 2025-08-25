@@ -9,18 +9,18 @@ import { PLATFORM } from '../../analytics/events';
 import uuid from 'uuid';
 
 interface ErrorBoundaryProps {
-	component: ComponentCrashErrorAEP['actionSubject'];
-	children: React.ReactNode;
-	componentId?: ComponentCrashErrorAEP['actionSubjectId'];
-	fallbackComponent?: React.ReactNode;
-	createAnalyticsEvent?: CreateUIAnalyticsEvent;
-	rethrowError?: boolean;
 	additionalInfo?: string;
+	children: React.ReactNode;
+	component: ComponentCrashErrorAEP['actionSubject'];
+	componentId?: ComponentCrashErrorAEP['actionSubjectId'];
+	createAnalyticsEvent?: CreateUIAnalyticsEvent;
+	fallbackComponent?: React.ReactNode;
+	rethrowError?: boolean;
 }
 
 interface ErrorBoundaryState {
-	errorCaptured: boolean;
 	domError: boolean;
+	errorCaptured: boolean;
 }
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components

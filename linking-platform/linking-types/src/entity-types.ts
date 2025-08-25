@@ -1,9 +1,9 @@
 export interface User {
 	accountId?: string;
-	id?: string;
+	displayName?: string;
 	email?: string;
 	externalId?: string;
-	displayName?: string;
+	id?: string;
 	picture?: string;
 }
 
@@ -12,10 +12,10 @@ export type DesignType = 'FILE' | 'CANVAS' | 'GROUP' | 'NODE' | 'PROTOTYPE' | 'O
 export type DesignStatus = 'READY_FOR_DEVELOPMENT' | 'UNKNOWN' | 'NONE';
 
 export type DesignAttributes = {
+	iconUrl?: string;
 	inspectUrl?: string;
 	status: DesignStatus;
 	type: DesignType;
-	iconUrl?: string;
 };
 
 export type RemoteLinkType =
@@ -31,13 +31,13 @@ export type RemoteLinkType =
 	| 'other';
 
 export type RemoteLinkAttributes = {
-	type: RemoteLinkType;
-	status?: RemoteLinkStatus;
 	actionIds?: string[];
+	assignee?: User;
 	attributeMap?: Map<string, string>;
 	author?: User;
-	assignee?: User;
 	category?: string; // max 255 characters
+	status?: RemoteLinkStatus;
+	type: RemoteLinkType;
 };
 
 export type Appearance = 'default' | 'inprogress' | 'moved' | 'new' | 'removed' | 'success';
@@ -47,23 +47,23 @@ export type RemoteLinkStatus = {
 };
 
 export type Attachment = {
-	url: string;
+	byteSize: number;
+	mimeType: string;
 	thumbnailUrl: string;
 	title: string;
-	mimeType: string;
-	byteSize: number;
+	url: string;
 };
 
 export type ProjectAttributes = {
+	assignee?: User;
+	attachments?: Attachment[];
+	dueDate?: string;
+	environment?: string;
 	key?: string;
 	labels?: string[];
-	dueDate?: string;
 	priority?: string;
-	assignee?: User;
-	status?: string;
-	attachments?: Attachment[];
-	environment?: string;
 	resolution?: string;
+	status?: string;
 	votesCount?: number;
 	watchersCount?: number;
 };
@@ -85,14 +85,14 @@ export type SubType =
 	| 'default_task';
 
 export type WorkItemAttributes = {
-	dueDate?: string;
 	assignee?: User;
-	project?: ProjectEntity;
+	attachments?: Attachment[];
 	collaborators?: User[];
+	dueDate?: string;
 	exceedsMaxCollaborators?: boolean;
+	project?: ProjectEntity;
 	status: string;
 	subtype: SubType;
-	attachments?: Attachment[];
 	team: string;
 };
 
@@ -113,9 +113,9 @@ export type DocumentCategory =
 	| 'other';
 
 export type DocumentContent = {
+	binary?: string;
 	mimeType?: string;
 	text?: string;
-	binary?: string;
 };
 
 export type ExportLink = {
@@ -124,16 +124,16 @@ export type ExportLink = {
 };
 
 export type DocumentType = {
-	iconUrl?: string;
 	category?: DocumentCategory;
+	iconUrl?: string;
 };
 
 export type DocumentAttributes = {
-	type: DocumentType;
-	content?: DocumentContent;
 	byteSize?: number;
-	exportLinks?: ExportLink[];
 	collaborators?: User[];
+	content?: DocumentContent;
+	exportLinks?: ExportLink[];
+	type: DocumentType;
 };
 
 export type Reactions = {
@@ -142,23 +142,23 @@ export type Reactions = {
 };
 
 export type MessageAttributes = {
+	attachments?: Attachment[];
+	commentCount?: number;
 	hidden?: boolean;
 	isPinned?: boolean;
 	lastActive?: string;
-	attachments?: Attachment[];
-	commentCount?: number;
 	reactions?: Reactions[];
 };
 
 export type ConversationAttributes = {
-	type?: string;
-	membershipType?: string;
-	workspace?: string;
-	topic?: string;
 	isArchived?: boolean;
-	members?: User[];
-	memberCount?: number;
 	lastActive?: string;
+	memberCount?: number;
+	members?: User[];
+	membershipType?: string;
+	topic?: string;
+	type?: string;
+	workspace?: string;
 };
 
 /**
@@ -166,24 +166,24 @@ export type ConversationAttributes = {
  * @see https://developer.atlassian.com/cloud/jsw-data-depot/supported-nouns/common-attributes-and-shapes/
  */
 export interface BaseEntity {
-	schemaVersion?: string;
-	id: string;
 	ari?: string;
+	createdAt?: string;
+	createdBy?: User;
+	description?: string;
+	displayName: string;
+	id: string;
+	lastUpdatedAt?: string;
+	lastUpdatedBy?: User;
+	liveEmbedUrl?: string;
+	owners?: User[];
+	permissions?: Record<string, unknown>;
+	schemaVersion?: string;
 	thirdPartyAri?: string;
-	updateSequenceNumber?: number;
 	thumbnail?: {
 		externalUrl: string;
 	};
-	displayName: string;
-	description?: string;
+	updateSequenceNumber?: number;
 	url: string;
-	createdAt?: string;
-	createdBy?: User;
-	lastUpdatedAt?: string;
-	lastUpdatedBy?: User;
-	owners?: User[];
-	permissions?: Record<string, unknown>;
-	liveEmbedUrl?: string;
 }
 
 export interface DesignEntity extends BaseEntity, DesignAttributes {}

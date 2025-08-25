@@ -9,11 +9,11 @@ export type CompoundOperatorValue = typeof COMPOUND_OPERATOR_AND | typeof COMPOU
  */
 export interface CompoundOperator extends AstNode {
 	/**
-	 * Literal value for an operator
-	 */
-	value: CompoundOperatorValue;
-	/**
 	 * Array of position tuples where each item in the array represents an occurrence of the operator value.
 	 */
 	positions: Position[];
+	/**
+	 * Literal value for an operator
+	 */
+	value: CompoundOperatorValue;
 }

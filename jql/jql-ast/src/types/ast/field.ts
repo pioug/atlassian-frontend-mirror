@@ -6,6 +6,10 @@ import { type AstNode } from './common';
  */
 export interface Field extends AstNode {
 	/**
+	 * When the field refers to a value in an entity property, details of the entity property value.
+	 */
+	properties: Property[] | void;
+	/**
 	 * Literal field name (with quotes and escaping preserved).
 	 */
 	text: string;
@@ -13,10 +17,6 @@ export interface Field extends AstNode {
 	 * Semantic field name (without quotes or escaping derived from those quotes).
 	 */
 	value: string;
-	/**
-	 * When the field refers to a value in an entity property, details of the entity property value.
-	 */
-	properties: Property[] | void;
 }
 
 /**

@@ -14,8 +14,8 @@ type BasicDogConfig = { lovesTreats?: boolean; treatsPerBite?: number };
 const PluginDog: NextEditorPlugin<
 	'dog',
 	{
-		sharedState: { something: number; goodDog: boolean };
 		pluginConfiguration: BasicDogConfig | undefined;
+		sharedState: { goodDog: boolean; something: number };
 	}
 > = () => ({
 	name: 'dog',
@@ -31,8 +31,8 @@ type BarkState = Record<'coisa', string>;
 const PluginBark: NextEditorPlugin<
 	'bark',
 	{
-		sharedState: BarkState;
 		dependencies: [typeof PluginDog];
+		sharedState: BarkState;
 	}
 > = () => {
 	return {

@@ -99,16 +99,16 @@ function unconfirmedFrom(transform: ProseMirrorTransform) {
 const collabKey = new PluginKey<CollabState>('collab');
 
 type CollabConfig = {
-	/// The starting version number of the collaborative editing.
-	/// Defaults to 0.
-	version?: number;
-
 	/// This client's ID, used to distinguish its changes from those of
 	/// other clients. Defaults to a random 32-bit number.
 	clientID?: number | string | null;
 
 	// Allow the client to apply a transform to unconfirmed steps
 	transformUnconfirmed?: (steps: Rebaseable[]) => Rebaseable[];
+
+	/// The starting version number of the collaborative editing.
+	/// Defaults to 0.
+	version?: number;
 };
 
 /// Creates a plugin that enables the collaborative editing framework
@@ -322,10 +322,10 @@ export function receiveTransaction(
 /// rebased, whereas the origin transactions are still the old,
 /// unchanged objects.
 export function sendableSteps(state: EditorState): {
-	version: number;
-	steps: readonly ProseMirrorStep[];
 	clientID: number | string;
 	origins: readonly Transaction[];
+	steps: readonly ProseMirrorStep[];
+	version: number;
 } | null {
 	const collabState = collabKey.getState(state);
 

@@ -439,7 +439,7 @@ describe('document: processRawValue', () => {
 			});
 
 			it('should return an unchanged doc', () => {
-				let result = processRawValue(defaultSchema, initialDoc, undefined, undefined, undefined);
+				const result = processRawValue(defaultSchema, initialDoc, undefined, undefined, undefined);
 				expect(result?.toJSON()).toEqual({
 					type: 'doc',
 					content: [

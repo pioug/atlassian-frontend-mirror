@@ -57,11 +57,11 @@ const hidden = css({
 });
 
 export interface Props {
-	style?: Styles;
-	query?: string;
 	isVisible?: boolean;
 	onChange: (value: string) => void;
+	query?: string;
 	resultsCount: number;
+	style?: Styles;
 }
 
 export const emojiPickerSearchTestId = 'emoji-picker-search';

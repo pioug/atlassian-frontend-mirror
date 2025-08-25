@@ -33,8 +33,6 @@ const buttonWrapperStyles = css({
 
 export interface OverlayButtonProps {
 	editorView: EditorView;
-	testId?: string;
-	targetElementPos?: number;
 	/**
 	 * Called when the dropdown is open/closed with isOpen state as true and false respectively.
 	 */
@@ -43,6 +41,8 @@ export interface OverlayButtonProps {
 	 * Called when the open link button in the dropdown is clicked.
 	 */
 	onOpenLinkClick?: (event: MouseEvent<HTMLAnchorElement>) => void;
+	targetElementPos?: number;
+	testId?: string;
 }
 
 const showDropdownThresholdPx = 50;

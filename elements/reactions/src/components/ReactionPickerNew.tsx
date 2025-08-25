@@ -99,71 +99,25 @@ export interface ReactionPickerProps
 	extends Pick<SelectorProps, 'pickerQuickReactionEmojiIds'>,
 		Partial<Pick<TriggerProps, 'tooltipContent' | 'miniMode'>> {
 	/**
-	 * Provider for loading emojis
+	 * Optional Show the "more emoji" selector icon for choosing emoji beyond the default list of emojis (defaults to false)
 	 */
-	emojiProvider: Promise<EmojiProvider>;
-	/**
-	 * Event callback when an emoji button is selected
-	 * @param emojiId emoji unique id
-	 * @param source source where the reaction was picked (either the initial default reactions or the custom reactions picker)
-	 */
-	onSelection: (emojiId: string, source: ReactionSource) => void;
+	allowAllEmojis?: boolean;
 	/**
 	 * Optional class name
 	 */
 	className?: string;
 	/**
-	 * Optional Show the "more emoji" selector icon for choosing emoji beyond the default list of emojis (defaults to false)
-	 */
-	allowAllEmojis?: boolean;
-	/**
 	 * Enable/Disable the button to be clickable (defaults to false)
 	 */
 	disabled?: boolean;
-	/**
-	 * Optional event handler when the emoji picker is opened
-	 */
-	onOpen?: () => void;
-	/**
-	 * Optional event handler when the emoji picker is clicked outside and closed
-	 */
-	onCancel?: () => void;
-	/**
-	 * Optional event handler when the custom emoji picker icon is selected
-	 */
-	onShowMore?: () => void;
 	/**
 	 * Optional emoji picker size to control the size of emoji picker
 	 */
 	emojiPickerSize?: PickerSize;
 	/**
-	 * Optional prop for using an opaque button background instead of a transparent background
+	 * Provider for loading emojis
 	 */
-	showOpaqueBackground?: boolean;
-	/**
-	 * Optional prop for applying subtle styling to reaction summary and picker
-	 */
-	subtleReactionsSummaryAndPicker?: boolean;
-	/**
-	 * Optional prop for displaying text to add a reaction
-	 */
-	showAddReactionText?: boolean;
-	/**
-	 * Optional prop for controlling the picker location
-	 */
-	reactionPickerPlacement?: Placement;
-	/**
-	 * Optional prop for controlling icon inside Trigger
-	 */
-	reactionPickerTriggerIcon?: React.ReactNode;
-	/**
-	 * Optional prop for controlling text of the trigger button
-	 */
-	reactionPickerTriggerText?: string;
-	/**
-	 * Optional prop to say if the reactions component is in a list
-	 */
-	isListItem?: boolean;
+	emojiProvider: Promise<EmojiProvider>;
 	/**
 	 * Optional prop for hoverable reaction picker
 	 */
@@ -173,9 +127,55 @@ export interface ReactionPickerProps
 	 */
 	hoverableReactionPickerDelay?: number;
 	/**
+	 * Optional prop to say if the reactions component is in a list
+	 */
+	isListItem?: boolean;
+	/**
+	 * Optional event handler when the emoji picker is clicked outside and closed
+	 */
+	onCancel?: () => void;
+	/**
+	 * Optional event handler when the emoji picker is opened
+	 */
+	onOpen?: () => void;
+	/**
+	 * Event callback when an emoji button is selected
+	 * @param emojiId emoji unique id
+	 * @param source source where the reaction was picked (either the initial default reactions or the custom reactions picker)
+	 */
+	onSelection: (emojiId: string, source: ReactionSource) => void;
+	/**
+	 * Optional event handler when the custom emoji picker icon is selected
+	 */
+	onShowMore?: () => void;
+	/**
+	 * Optional prop for controlling the picker location
+	 */
+	reactionPickerPlacement?: Placement;
+	/**
 	 * Optional prop to set the strategy of the reaction picker popup
 	 */
 	reactionPickerStrategy?: PopperProps<{}>['strategy'];
+	/**
+	 * Optional prop for controlling icon inside Trigger
+	 */
+	reactionPickerTriggerIcon?: React.ReactNode;
+	/**
+	 * Optional prop for controlling text of the trigger button
+	 */
+	reactionPickerTriggerText?: string;
+	/**
+	 * Optional prop for displaying text to add a reaction
+	 */
+	showAddReactionText?: boolean;
+	/**
+	 * Optional prop for using an opaque button background instead of a transparent background
+	 */
+	showOpaqueBackground?: boolean;
+	/**
+	 * Optional prop for applying subtle styling to reaction summary and picker
+	 */
+	subtleReactionsSummaryAndPicker?: boolean;
 }
 
 /**
@@ -545,14 +545,14 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 });
 
 export interface PopperWrapperProps {
-	triggerRef: HTMLDivElement | HTMLButtonElement | null;
-	settings: {
-		showFullPicker: boolean;
-		popperPlacement: Placement;
-	};
 	isOpen: boolean;
 	onClose: () => void;
 	popperModifiers?: PopperProps<{}>['modifiers'];
+	settings: {
+		popperPlacement: Placement;
+		showFullPicker: boolean;
+	};
+	triggerRef: HTMLDivElement | HTMLButtonElement | null;
 }
 
 export const PopperWrapper = (props: PropsWithChildren<PopperWrapperProps>) => {

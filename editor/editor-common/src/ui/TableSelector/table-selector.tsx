@@ -22,14 +22,14 @@ export const TABLE_SELECTOR_BUTTON_GAP = 2;
 export const TABLE_SELECTOR_BUTTON_SIZE = 17;
 
 export interface TableSelectorButtonProps {
-	row: number;
 	col: number;
-	isActive: boolean;
-	onClick: OnTableSizeSelection;
-	label: string;
-	onKeyDown: KeyboardEventHandler<HTMLButtonElement>;
-	isFocused: boolean;
 	handleInitialButtonFocus: () => void;
+	isActive: boolean;
+	isFocused: boolean;
+	label: string;
+	onClick: OnTableSizeSelection;
+	onKeyDown: KeyboardEventHandler<HTMLButtonElement>;
+	row: number;
 }
 
 export interface OnTableSizeSelection {
@@ -106,14 +106,14 @@ const TableSelectorButton = ({
 };
 
 interface TableSelectorPopupProps {
+	handleInitialButtonFocus: () => void;
+	isFocused: boolean;
 	maxCols: number;
 	maxRows: number;
+	onKeyDown: KeyboardEventHandler<HTMLButtonElement>;
 	onSelection: OnTableSizeSelection;
 	selectedCol: number;
 	selectedRow: number;
-	onKeyDown: KeyboardEventHandler<HTMLButtonElement>;
-	isFocused: boolean;
-	handleInitialButtonFocus: () => void;
 }
 
 const createArray = (maxCols: number, maxRows: number) => {

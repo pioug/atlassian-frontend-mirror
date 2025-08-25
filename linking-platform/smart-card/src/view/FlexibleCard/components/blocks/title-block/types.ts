@@ -21,14 +21,42 @@ export type TitleBlockProps = {
 	actions?: ActionItem[];
 
 	/**
+	 * Ref passed into the link <a> element
+	 */
+	anchorRef?: React.Ref<HTMLAnchorElement>;
+
+	/**
 	 * Determines the href target behaviour of the Link.
 	 */
 	anchorTarget?: AnchorTarget;
 
 	/**
+	 * Competitor Prompt Component for Competitor link experiment
+	 */
+	CompetitorPrompt?: React.ComponentType<{ linkType?: string; sourceUrl: string }>;
+
+	/**
+	 * Determines whether TitleBlock will hide the Link Icon.
+	 */
+	hideIcon?: boolean;
+
+	/**
+	 * This option determines whenever we show any of the links and messages on the right side of the block,
+	 * like "connect to preview" or "Can't find link" or "Restricted link, try another account" etc.
+	 * Default is false.
+	 */
+	hideRetry?: boolean;
+
+	/**
 	 * [Experiment] Determines whether the linked title should display tooltip on hover.
 	 */
 	hideTitleTooltip?: boolean;
+
+	/**
+	 * The icon to display in the title block. Overrides any icon that is retrieved from
+	 * the Smart Link.
+	 */
+	icon?: React.ReactNode;
 
 	/**
 	 * Determines the maximum number of lines for the underlying link text to
@@ -47,10 +75,21 @@ export type TitleBlockProps = {
 	metadata?: ElementItem[];
 
 	/**
+	 * The vertical position of the metadata fields. Internal prop, please DO NOT USE.
+	 * @internal
+	 */
+	metadataPosition?: SmartLinkPosition;
+
+	/**
 	 * Called when the action dropdown menu (if present) is open/closed.
 	 * Receives an object with `isOpen` state.
 	 */
 	onActionMenuOpenChange?: (options: OnActionMenuOpenChangeOptions) => void;
+
+	/**
+	 * A unique identifier for the placeholder loading state, which is constant across all loading states of the same item.
+	 */
+	placeholderId?: string;
 
 	/**
 	 * Determines the position of the link icon in relative to the vertical
@@ -64,14 +103,6 @@ export type TitleBlockProps = {
 	 * @internal
 	 */
 	retry?: RetryOptions;
-
-	/**
-	 * This option determines whenever we show any of the links and messages on the right side of the block,
-	 * like "connect to preview" or "Can't find link" or "Restricted link, try another account" etc.
-	 * Default is false.
-	 */
-	hideRetry?: boolean;
-
 	/**
 	 * Determines whether TitleBlock will hide actions until the user is hovering
 	 * over the link.
@@ -93,37 +124,6 @@ export type TitleBlockProps = {
 	 * the Smart Link.
 	 */
 	text?: string;
-
-	/**
-	 * The icon to display in the title block. Overrides any icon that is retrieved from
-	 * the Smart Link.
-	 */
-	icon?: React.ReactNode;
-
-	/**
-	 * The vertical position of the metadata fields. Internal prop, please DO NOT USE.
-	 * @internal
-	 */
-	metadataPosition?: SmartLinkPosition;
-
-	/**
-	 * Determines whether TitleBlock will hide the Link Icon.
-	 */
-	hideIcon?: boolean;
-	/**
-	 * Ref passed into the link <a> element
-	 */
-	anchorRef?: React.Ref<HTMLAnchorElement>;
-
-	/**
-	 * A unique identifier for the placeholder loading state, which is constant across all loading states of the same item.
-	 */
-	placeholderId?: string;
-
-	/**
-	 * Competitor Prompt Component for Competitor link experiment
-	 */
-	CompetitorPrompt?: React.ComponentType<{ sourceUrl: string; linkType?: string }>;
 
 	/**
 	 * The URL of the link for Competitor Prompt experiment

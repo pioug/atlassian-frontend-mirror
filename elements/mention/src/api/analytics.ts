@@ -12,8 +12,8 @@ export enum Actions {
 export type DefaultAttributes = {
 	[key: string]: any;
 	context: string;
-	sessionId: string;
 	pickerType: 'mentions';
+	sessionId: string;
 	source: 'smarts';
 };
 

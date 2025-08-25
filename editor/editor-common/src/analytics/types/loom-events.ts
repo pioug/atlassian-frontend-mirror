@@ -37,8 +37,8 @@ type RecordVideoFailedAEP = TrackAEP<
 	ACTION_SUBJECT.LOOM,
 	undefined,
 	{
-		inputMethod: INPUT_METHOD;
 		error?: LoomPluginErrorMessages | LoomSDKErrorMessages;
+		inputMethod: INPUT_METHOD;
 	},
 	undefined
 >;

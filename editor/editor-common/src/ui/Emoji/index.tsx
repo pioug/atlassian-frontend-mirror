@@ -8,13 +8,13 @@ import { type ProviderFactory } from '../../provider-factory';
 
 export interface EmojiProps extends EmojiId {
 	allowTextFallback?: boolean;
+	emojiProvider?: EmojiProvider;
+	fitToHeight?: number;
 	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	// @deprecated - remains for compatability with legacy emoji props
 	providers?: ProviderFactory;
-	fitToHeight?: number;
-	showTooltip?: boolean;
 	resourceConfig?: EmojiResourceConfig;
-	emojiProvider?: EmojiProvider;
+	showTooltip?: boolean;
 }
 
 const EmojiNodeFunctional = (props: EmojiProps) => {

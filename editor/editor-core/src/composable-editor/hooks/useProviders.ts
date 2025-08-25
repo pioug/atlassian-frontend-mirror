@@ -19,6 +19,9 @@ import type { MentionProvider } from '@atlaskit/mention/resource';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';
 
 interface UseProvidersProps {
+	autoformattingProvider: Promise<AutoformattingProvider> | undefined;
+	cardProvider: Promise<CardProvider> | undefined;
+	contextIdentifierProvider: Promise<ContextIdentifierProvider> | undefined;
 	editorApi:
 		| PublicPluginAPI<
 				[
@@ -32,12 +35,9 @@ interface UseProvidersProps {
 				]
 		  >
 		| undefined;
-	contextIdentifierProvider: Promise<ContextIdentifierProvider> | undefined;
+	emojiProvider: Promise<EmojiProvider> | undefined;
 	mediaProvider: Promise<MediaProvider> | undefined;
 	mentionProvider: Promise<MentionProvider> | undefined;
-	cardProvider: Promise<CardProvider> | undefined;
-	emojiProvider: Promise<EmojiProvider> | undefined;
-	autoformattingProvider: Promise<AutoformattingProvider> | undefined;
 	taskDecisionProvider: Promise<TaskDecisionProvider> | undefined;
 }
 

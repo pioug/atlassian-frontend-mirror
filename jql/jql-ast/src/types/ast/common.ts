@@ -10,6 +10,10 @@ export type Position = [number, number];
  */
 export type StringValue = {
 	/**
+	 * Tuple representing the character position of the string.
+	 */
+	position: Position | null;
+	/**
 	 * Literal value for a string (with quotes and escaping preserved).
 	 */
 	text: string;
@@ -17,10 +21,6 @@ export type StringValue = {
 	 * Semantic value for a string (without quotes or escaping derived from those quotes).
 	 */
 	value: string;
-	/**
-	 * Tuple representing the character position of the string.
-	 */
-	position: Position | null;
 };
 
 /**
@@ -48,13 +48,13 @@ export interface AstNode<Parent extends AstNode = AstNode<any>> {
 	 */
 	getChildren: () => AstNode[];
 	/**
-	 * Tuple representing the character position of the node or `null` if positional data has not been computed.
-	 */
-	position: Position | null;
-	/**
 	 * Node parent
 	 */
 	parent: Parent | null;
+	/**
+	 * Tuple representing the character position of the node or `null` if positional data has not been computed.
+	 */
+	position: Position | null;
 }
 
 /**

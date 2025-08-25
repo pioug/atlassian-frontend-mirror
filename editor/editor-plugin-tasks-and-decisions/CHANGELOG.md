@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 6.4.5
+
+### Patch Changes
+
+- [`69ab2a06347c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/69ab2a06347c4) -
+  [EDITOR-1155] Handle shift-tab for blockTaskItems
+- Updated dependencies
+
 ## 6.4.4
 
 ### Patch Changes

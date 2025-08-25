@@ -14,8 +14,8 @@ type Props<T> = {
 	label?: string;
 	name: string;
 	onChange: (template: T) => void;
-	propName: keyof T;
 	options: { label: string; value: T[keyof T] }[];
+	propName: keyof T;
 	template: T;
 	value?: T[keyof T];
 };

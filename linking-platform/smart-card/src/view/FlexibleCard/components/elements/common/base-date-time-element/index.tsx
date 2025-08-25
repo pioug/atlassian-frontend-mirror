@@ -63,25 +63,13 @@ const fontOverrideStyleMap = cssMap({
 
 export type BaseDateTimeElementProps = ElementProps & {
 	/**
-	 * Whether the date time element text should contain "Modified" or "Created" or "sent"
+	 * Color of the text
 	 */
-	type?: DateTimeType;
+	color?: string;
 	/**
 	 * The date to display in the element.
 	 */
 	date?: Date;
-	/**
-	 * The override text which will show next to the date
-	 */
-	text?: string;
-	/**
-	 * Hide the date prefix (e.g. "Created on", "Modified on", "Sent on")
-	 */
-	hideDatePrefix?: boolean;
-	/**
-	 * Color of the text
-	 */
-	color?: string;
 	/**
 	 * Override the default font size.
 	 */
@@ -91,6 +79,18 @@ export type BaseDateTimeElementProps = ElementProps & {
 			'font.body' | 'font.body.large' | 'font.body.small' | 'font.body.UNSAFE_small'
 		>
 	>;
+	/**
+	 * Hide the date prefix (e.g. "Created on", "Modified on", "Sent on")
+	 */
+	hideDatePrefix?: boolean;
+	/**
+	 * The override text which will show next to the date
+	 */
+	text?: string;
+	/**
+	 * Whether the date time element text should contain "Modified" or "Created" or "sent"
+	 */
+	type?: DateTimeType;
 };
 
 /**

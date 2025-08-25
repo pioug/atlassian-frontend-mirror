@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 3.2.3
+
+### Patch Changes
+
+- [`0ff4a6c7a39ef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0ff4a6c7a39ef) -
+  Creates global fold state to retain folds after breakouts and page resizing
+- Updated dependencies
+
 ## 3.2.2
 
 ### Patch Changes

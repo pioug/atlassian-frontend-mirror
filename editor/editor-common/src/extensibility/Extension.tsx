@@ -15,20 +15,20 @@ import { ExtensionComponent } from './ExtensionComponent';
 import type { ExtensionsPluginInjectionAPI, MacroInteractionDesignFeatureFlags } from './types';
 
 export interface Props {
-	editorView: EditorView;
-	node: PMNode;
-	getPos: ProsemirrorGetPosHandler;
-	providerFactory?: ProviderFactory;
-	handleContentDOMRef: (node: HTMLElement | null) => void;
-	extensionHandlers: ExtensionHandlers;
-	references?: ReferenceEntity[];
 	editorAppearance?: EditorAppearance;
-	pluginInjectionApi: ExtensionsPluginInjectionAPI;
+	editorView: EditorView;
 	eventDispatcher?: EventDispatcher;
+	extensionHandlers: ExtensionHandlers;
+	getPos: ProsemirrorGetPosHandler;
+	handleContentDOMRef: (node: HTMLElement | null) => void;
 	macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags;
+	node: PMNode;
+	pluginInjectionApi: ExtensionsPluginInjectionAPI;
+	providerFactory?: ProviderFactory;
+	references?: ReferenceEntity[];
+	rendererExtensionHandlers?: ExtensionHandlers;
 	showLivePagesBodiedMacrosRendererView?: (node: ADFEntity) => boolean;
 	showUpdatedLivePages1PBodiedExtensionUI?: (node: ADFEntity) => boolean;
-	rendererExtensionHandlers?: ExtensionHandlers;
 }
 
 // Ignored via go/ees005

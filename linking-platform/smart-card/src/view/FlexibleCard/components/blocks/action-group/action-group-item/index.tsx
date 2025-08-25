@@ -14,11 +14,11 @@ const ActionGroupItem = ({
 	asDropDownItems,
 	onActionItemClick,
 }: {
-	item: ActionItem;
-	size: SmartLinkSize;
 	appearance?: Appearance;
 	asDropDownItems?: boolean;
+	item: ActionItem;
 	onActionItemClick?: () => void;
+	size: SmartLinkSize;
 }) => {
 	const { name, hideContent, hideIcon, onClick, isDisabled, ...props } = item;
 	const handleOnClick = useCallback(() => {

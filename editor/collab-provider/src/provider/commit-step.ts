@@ -57,16 +57,16 @@ export class CommitStepService {
 		reason,
 		lockSteps,
 	}: {
-		steps: readonly ProseMirrorStep[];
-		version: number;
-		userId: string;
-		clientId: number | string;
-		onStepsAdded: (data: StepsPayload) => void;
 		__livePage: boolean;
-		hasRecovered: boolean;
+		clientId: number | string;
 		collabMode: string;
-		reason?: GetResolvedEditorStateReason;
+		hasRecovered: boolean;
 		lockSteps: (stepOrigins?: readonly Transaction[]) => void;
+		onStepsAdded: (data: StepsPayload) => void;
+		reason?: GetResolvedEditorStateReason;
+		steps: readonly ProseMirrorStep[];
+		userId: string;
+		version: number;
 	}) {
 		// this timer is for waiting to send the next batch in between acks from the BE
 		let commitWaitTimer;

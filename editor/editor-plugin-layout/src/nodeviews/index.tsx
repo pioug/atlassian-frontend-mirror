@@ -230,8 +230,6 @@ export class LayoutSectionView extends ReactNodeView<LayoutSectionViewProps> {
 		);
 		this.isEmpty = isEmptyLayout(this.node);
 		this.options = props.options;
-		// @portal-render-immediately
-		this.shouldRenderImmediatelyInPortal = true;
 	}
 
 	/**

@@ -35,9 +35,9 @@ const cardState = getCardState({
 });
 
 type Config = {
-	size: SmartLinkSize;
-	placement: MediaPlacement | undefined;
 	ignorePadding: boolean;
+	placement: MediaPlacement | undefined;
+	size: SmartLinkSize;
 };
 
 const configurations = (size: SmartLinkSize): Config[] => {

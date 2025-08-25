@@ -118,8 +118,8 @@ export const DragColumnPreview = ({
 	title,
 	rows,
 }: {
-	title: React.ReactNode;
 	rows: React.ReactNode[];
+	title: React.ReactNode;
 }) => {
 	return (
 		<table css={tableStyles}>

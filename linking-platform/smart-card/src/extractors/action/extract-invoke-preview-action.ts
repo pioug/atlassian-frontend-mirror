@@ -27,20 +27,20 @@ import { type ExtractClientActionsParam } from './types';
 
 export type ExtractInvokePreviewActionParam = ExtractClientActionsParam & {
 	fireEvent?: FireEventFunction;
-	onClose?: EmbedModalProps['onClose'];
-	origin?: AnalyticsOrigin;
 	isPreviewPanelAvailable?: (params: { ari: string }) => boolean;
+	onClose?: EmbedModalProps['onClose'];
 	openPreviewPanel?: (params: {
 		ari: string;
-		url: string;
-		name: string;
 		iconUrl: string | undefined;
+		name: string;
+		url: string;
 	}) => void;
+	origin?: AnalyticsOrigin;
 };
 
 type ExtractInvokePreviewActionReturn = {
-	invokeAction: InvokeClientActionProps;
 	hasPreviewPanel?: boolean;
+	invokeAction: InvokeClientActionProps;
 };
 
 export const extractInvokePreviewAction = (

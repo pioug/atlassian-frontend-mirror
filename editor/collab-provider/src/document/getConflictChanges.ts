@@ -53,8 +53,8 @@ const getConflicts = ({
 	remoteDoc,
 }: {
 	localChanges: ChangeSet;
-	remoteChanges: ChangeSet;
 	localDoc: PMNode;
+	remoteChanges: ChangeSet;
 	remoteDoc: PMNode;
 }): ConflictChange[] => {
 	const conflictingChanges: ConflictChange[] = [];

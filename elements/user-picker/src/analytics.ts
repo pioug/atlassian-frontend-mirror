@@ -13,12 +13,12 @@ const UUID_REGEXP_OLD_AAID =
 const UUID_REGEXP_NEW_AAID = /^[a-fA-F0-9]{24,24}$/;
 
 export type UserPickerSession = {
-	id: string;
-	start: number;
-	inputChangeTime: number;
-	upCount: number;
 	downCount: number;
+	id: string;
+	inputChangeTime: number;
 	lastKey?: number;
+	start: number;
+	upCount: number;
 };
 
 export const startSession = (): UserPickerSession => ({

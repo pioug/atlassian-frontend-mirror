@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-decorations
 
+## 3.1.0
+
+### Minor Changes
+
+- [`f0b0ea63f59bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f0b0ea63f59bc) -
+  [ux] ED-28803 Register Delete Button in block menu and add delete functionality and hover styles
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.0.1
 
 ### Patch Changes

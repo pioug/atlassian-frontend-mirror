@@ -27,9 +27,15 @@ import type { MenuItem } from '../DropdownMenu/types';
 import Button from './styles';
 
 export type Props = {
+	'aria-expanded'?: React.AriaAttributes['aria-expanded'];
+	'aria-haspopup'?: React.AriaAttributes['aria-haspopup'];
+	'aria-keyshortcuts'?: React.AriaAttributes['aria-keyshortcuts'];
+	'aria-label'?: React.AriaAttributes['aria-label'];
+	'aria-pressed'?: React.AriaAttributes['aria-pressed'];
 	// Used for analytics only
 	buttonId?: TOOLBAR_ACTION_SUBJECT_ID;
 	className?: string;
+	'data-ds--level'?: string;
 	disabled?: boolean;
 	hideTooltip?: boolean;
 	href?: string;
@@ -39,23 +45,17 @@ export type Props = {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	iconBefore?: React.ReactElement<any>;
+	item?: MenuItem;
+	keymap?: Keymap;
 	onClick?: (event: React.MouseEvent<HTMLElement>) => void;
 	onItemClick?: (item: MenuItem) => void;
 	onKeyDown?: (event: React.KeyboardEvent<HTMLElement>) => void;
 	selected?: boolean;
 	spacing?: 'default' | 'compact' | 'none';
 	target?: string;
+	testId?: string;
 	title?: React.ReactNode;
 	titlePosition?: PositionType;
-	item?: MenuItem;
-	testId?: string;
-	keymap?: Keymap;
-	'aria-label'?: React.AriaAttributes['aria-label'];
-	'aria-expanded'?: React.AriaAttributes['aria-expanded'];
-	'aria-haspopup'?: React.AriaAttributes['aria-haspopup'];
-	'aria-pressed'?: React.AriaAttributes['aria-pressed'];
-	'aria-keyshortcuts'?: React.AriaAttributes['aria-keyshortcuts'];
-	'data-ds--level'?: string;
 } & Pick<
 	ButtonProps,
 	| 'aria-label'

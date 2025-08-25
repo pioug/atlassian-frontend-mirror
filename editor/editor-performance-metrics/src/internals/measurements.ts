@@ -168,9 +168,9 @@ export function getLastValidEntry(
 }
 
 type VCPercentFromHeatmapOptions = Partial<{
-	ignoreNodeReplacements: boolean;
-	ignoreLayoutShifts: boolean;
 	ignoreElementMoved: boolean;
+	ignoreLayoutShifts: boolean;
+	ignoreNodeReplacements: boolean;
 }>;
 export function getVCPercentFromHeatmap(
 	heatmap: Heatmap,

@@ -22,24 +22,24 @@ import type { Mark as PMMark } from '@atlaskit/editor-prosemirror/model';
 import { token } from '@atlaskit/tokens';
 
 interface Props {
-	type: 'extension' | 'inlineExtension' | 'bodiedExtension' | 'multiBodiedExtension';
-	extensionHandlers?: ExtensionHandlers;
-	providers?: ProviderFactory;
-	rendererContext: RendererContext;
-	extensionType: string;
-	extensionKey: string;
 	actions?: MultiBodiedExtensionActions;
-	text?: string;
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	parameters?: any;
+	children: ({ result }: { result?: JSX.Element | null }) => JSX.Element;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	content?: any;
+	extensionHandlers?: ExtensionHandlers;
+	extensionKey: string;
+	extensionType: string;
 	layout?: ExtensionLayout;
 	localId?: string;
 	marks?: PMMark[];
-	children: ({ result }: { result?: JSX.Element | null }) => JSX.Element;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	parameters?: any;
+	providers?: ProviderFactory;
+	rendererContext: RendererContext;
+	text?: string;
+	type: 'extension' | 'inlineExtension' | 'bodiedExtension' | 'multiBodiedExtension';
 }
 
 interface State {

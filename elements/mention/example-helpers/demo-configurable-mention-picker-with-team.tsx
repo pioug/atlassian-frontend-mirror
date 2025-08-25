@@ -7,8 +7,8 @@ import TeamMentionResource from '../src/api/TeamMentionResource';
 
 export interface Props {
 	children?: any;
-	userMentionConfig: MentionResourceConfig;
 	teamMentionConfig: MentionResourceConfig;
+	userMentionConfig: MentionResourceConfig;
 }
 
 export interface State {

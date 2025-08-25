@@ -11,8 +11,8 @@ import { type PortalActions } from '../../../ui/jql-editor-portal-provider/types
 import { ERROR_NODE, SELECTED_NODE } from '../constants';
 
 export type NodeViewProps<Props> = Props & {
-	selected: boolean;
 	error: boolean;
+	selected: boolean;
 };
 
 export class ReactNodeView<Props> implements NodeView {

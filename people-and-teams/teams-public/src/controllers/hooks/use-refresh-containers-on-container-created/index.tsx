@@ -13,11 +13,11 @@ type CreatedContainersMap<T extends Record<string, any>> = Partial<
 	Record<keyof T, { startedAt: number; found: boolean }>
 >;
 
-const INTERVAL_TIME = 2000;
-const TIMEOUT_DURATION = 30000;
+export const INTERVAL_TIME = 2000;
+export const TIMEOUT_DURATION = 30000;
 
-function useRefreshOnContainerCreated(teamId: string) {
-	const [containers, { updateContainerLoading }] = useCreateContainers();
+export const useRefreshOnContainerCreated = (teamId: string) => {
+	const [containers, { updateContainerLoading, updateContainerCreated }] = useCreateContainers();
 	const { refetchTeamContainers, teamContainers } = useTeamContainers(teamId);
 
 	const [createdContainers, setCreatedContainers] = useState<
@@ -26,12 +26,16 @@ function useRefreshOnContainerCreated(teamId: string) {
 
 	const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-	useEffect(() => {
-		setCreatedContainers({});
+	const clearIntervalRef = () => {
 		if (intervalRef.current) {
 			clearInterval(intervalRef.current);
 			intervalRef.current = null;
 		}
+	};
+
+	useEffect(() => {
+		setCreatedContainers({});
+		clearIntervalRef();
 	}, [teamId]);
 
 	useEffect(() => {
@@ -59,6 +63,7 @@ function useRefreshOnContainerCreated(teamId: string) {
 					[product]: { startedAt: Date.now(), found: true },
 				}));
 				updateContainerLoading(product, false);
+				updateContainerCreated(product, false);
 				return;
 			}
 			setCreatedContainers((prev) => ({
@@ -66,19 +71,28 @@ function useRefreshOnContainerCreated(teamId: string) {
 				[product]: { startedAt: Date.now(), found: false },
 			}));
 		});
-	}, [containers, createdContainers, teamContainers, updateContainerLoading]);
+	}, [
+		containers,
+		createdContainers,
+		teamContainers,
+		updateContainerLoading,
+		updateContainerCreated,
+	]);
 
 	useEffect(() => {
-		if (Object.keys(createdContainers).length === 0) {
-			if (intervalRef.current) {
-				clearInterval(intervalRef.current);
-				intervalRef.current = null;
-			}
+		const hasPending = Object.values(createdContainers).some(
+			(entry) => entry && entry.found === false,
+		);
+
+		if (!hasPending) {
+			clearIntervalRef();
 			return;
 		}
+
 		if (intervalRef.current) {
 			return;
 		}
+
 		intervalRef.current = setInterval(() => {
 			setCreatedContainers((prev) => {
 				let anyPending = false;
@@ -93,6 +107,7 @@ function useRefreshOnContainerCreated(teamId: string) {
 					if (!containerType) {
 						next[product] = { ...target, found: true };
 						updateContainerLoading(product, false);
+						updateContainerCreated(product, false);
 						return;
 					}
 					const currentCount = teamContainers.filter(
@@ -102,19 +117,16 @@ function useRefreshOnContainerCreated(teamId: string) {
 					if (currentCount > 0 || elapsed >= TIMEOUT_DURATION) {
 						next[product] = { ...target, found: true };
 						updateContainerLoading(product, false);
+						updateContainerCreated(product, false);
 					} else {
 						anyPending = true;
 					}
 				});
 				if (!anyPending) {
-					if (intervalRef.current) {
-						clearInterval(intervalRef.current);
-						intervalRef.current = null;
-					}
+					clearIntervalRef();
+					return next;
 				}
-				if (anyPending) {
-					refetchTeamContainers();
-				}
+				refetchTeamContainers();
 				return next;
 			});
 		}, INTERVAL_TIME);
@@ -125,7 +137,11 @@ function useRefreshOnContainerCreated(teamId: string) {
 				intervalRef.current = null;
 			}
 		};
-	}, [createdContainers, teamContainers, refetchTeamContainers, updateContainerLoading]);
-}
-
-export { useRefreshOnContainerCreated, INTERVAL_TIME, TIMEOUT_DURATION };
+	}, [
+		createdContainers,
+		teamContainers,
+		refetchTeamContainers,
+		updateContainerLoading,
+		updateContainerCreated,
+	]);
+};

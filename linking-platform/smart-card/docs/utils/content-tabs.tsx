@@ -10,7 +10,7 @@ const ContentTabs = ({
 	tabs = [],
 }: {
 	showQuickLinks?: boolean;
-	tabs: { name: string; content: any }[];
+	tabs: { content: any; name: string }[];
 }) => (
 	<Tabs id="content-tab">
 		<TabList>

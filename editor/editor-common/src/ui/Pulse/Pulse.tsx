@@ -3,11 +3,11 @@ import React, { type ReactNode } from 'react';
 import { SpotlightPulse } from '@atlaskit/onboarding';
 
 interface Props {
+	children: ReactNode;
 	/** If true, the component will have pulse onboarding effect around it. */
 	pulse?: boolean;
 	/** The radius of the pulse effect. */
 	radius?: number;
-	children: ReactNode;
 }
 
 /**

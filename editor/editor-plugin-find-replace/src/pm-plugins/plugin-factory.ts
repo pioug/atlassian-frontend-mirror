@@ -3,7 +3,6 @@ import type { ReadonlyTransaction, Transaction } from '@atlaskit/editor-prosemir
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import type { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
@@ -122,11 +121,9 @@ const handleDocChanged = (
 		newIndex = newMatches.findIndex((match) => match.start === selectedMatch.start);
 	}
 	if (newIndex === undefined || newIndex === -1) {
-		newIndex =
-			expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true) &&
-			fg('platform_editor_find_and_replace_improvements_1')
-				? findClosestMatch(tr.selection.from, newMatches)
-				: findSearchIndex(tr.selection.from, newMatches);
+		newIndex = expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
+			? findClosestMatch(tr.selection.from, newMatches)
+			: findSearchIndex(tr.selection.from, newMatches);
 	}
 	const newSelectedMatch = newMatches[newIndex];
 

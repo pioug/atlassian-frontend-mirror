@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 0.1.7
+
+### Patch Changes
+
+- [`06722cb00f629`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/06722cb00f629) -
+  [EDITOR-1358] Remove extra parameters parased in and refactored initialisation for show-diff
+  editorView
+
 ## 0.1.6
 
 ### Patch Changes

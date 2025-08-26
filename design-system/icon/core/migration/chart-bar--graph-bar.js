@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::fff8e858b88f39703cca2a4fd0775183>>
+ * @codegen <<SignedSource::eacc536761bf3ad6d373f4bd2c89b54f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ChartBarIcon = props => /*#__PURE__*/_react.default.createElement(_chartBar.default, Object.assign({
+  name: "ChartBarIcon",
   LEGACY_fallbackIcon: _graphBar.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-ChartBarIcon.Name = 'ChartBarIconMigration';
+ChartBarIcon.displayName = 'ChartBarIconMigration';
 var _default = exports.default = ChartBarIcon;

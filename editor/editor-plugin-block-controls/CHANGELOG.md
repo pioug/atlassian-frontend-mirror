@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 4.2.5
+
+### Patch Changes
+
+- [`6ae99901c8e16`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6ae99901c8e16) -
+  [ux] ED-29018 Fix block menu not opening when task list drag handle is clicked
+
 ## 4.2.4
 
 ### Patch Changes

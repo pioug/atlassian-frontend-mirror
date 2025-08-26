@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::79b7b06346630e2a8502fd6db80f47e1>>
+ * @codegen <<SignedSource::5501f2ec2c7fc2907a8ddc6771935d76>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -25,8 +25,9 @@ Filled status icons provide higher visual contrast to draw attention to importan
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const DiscoveryIcon = props => /*#__PURE__*/_react.default.createElement(_discovery.default, Object.assign({
+  name: "DiscoveryIcon",
   LEGACY_fallbackIcon: _note.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-DiscoveryIcon.Name = 'DiscoveryIconMigration';
+DiscoveryIcon.displayName = 'DiscoveryIconMigration';
 var _default = exports.default = DiscoveryIcon;

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::25091e321a5cc356e731192d00270521>>
+ * @codegen <<SignedSource::c81a0c746dcbf555f1d7184c12edaec5>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ShrinkHorizontalIcon = props => /*#__PURE__*/_react.default.createElement(_shrinkHorizontal.default, Object.assign({
+  name: "ShrinkHorizontalIcon",
   LEGACY_fallbackIcon: _collapse.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-ShrinkHorizontalIcon.Name = 'ShrinkHorizontalIconMigration';
+ShrinkHorizontalIcon.displayName = 'ShrinkHorizontalIconMigration';
 var _default = exports.default = ShrinkHorizontalIcon;

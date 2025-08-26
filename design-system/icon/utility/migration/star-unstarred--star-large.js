@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3691a5fd869534c4a4cdb54a0a3cb5dc>>
+ * @codegen <<SignedSource::8d98a99a51716e8a6f1acc6583687073>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const StarUnstarredIcon = props => /*#__PURE__*/_react.default.createElement(_starUnstarred.default, Object.assign({
+  name: "StarUnstarredIcon",
   LEGACY_fallbackIcon: _starLarge.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-StarUnstarredIcon.Name = 'StarUnstarredIconMigration';
+StarUnstarredIcon.displayName = 'StarUnstarredIconMigration';
 var _default = exports.default = StarUnstarredIcon;

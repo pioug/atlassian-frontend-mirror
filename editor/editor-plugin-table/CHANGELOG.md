@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 12.3.2
+
+### Patch Changes
+
+- [`dd62fd4cc8e91`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dd62fd4cc8e91) -
+  mark table elements for better TTVC tracking
+- Updated dependencies
+
 ## 12.3.1
 
 ### Patch Changes

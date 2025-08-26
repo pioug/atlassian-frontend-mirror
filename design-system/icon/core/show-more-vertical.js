@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::02df73cd5dddff20d82e48f58fe7ce92>>
+ * @codegen <<SignedSource::3c71f464f0a68ac13cf34d8bdc60b231>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,6 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ShowMoreVerticalIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  name: "ShowMoreVerticalIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M6.5 1.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0m0 6.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0m0 6.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

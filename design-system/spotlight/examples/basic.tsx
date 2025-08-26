@@ -6,9 +6,9 @@ import { cssMap, jsx } from '@atlaskit/css';
 import Image from '@atlaskit/image';
 import { Text } from '@atlaskit/primitives/compiled';
 import {
-	Spotlight,
 	SpotlightActions,
 	SpotlightBody,
+	SpotlightCard,
 	SpotlightControls,
 	SpotlightDismissControl,
 	SpotlightFooter,
@@ -36,7 +36,7 @@ const styles = cssMap({
 export default function Basic() {
 	return (
 		<div css={styles.root}>
-			<Spotlight testId="spotlight">
+			<SpotlightCard testId="spotlight">
 				<SpotlightHeader>
 					<SpotlightHeadline>Headline</SpotlightHeadline>
 					<SpotlightControls>
@@ -56,7 +56,7 @@ export default function Basic() {
 						<SpotlightPrimaryAction>Done</SpotlightPrimaryAction>
 					</SpotlightActions>
 				</SpotlightFooter>
-			</Spotlight>
+			</SpotlightCard>
 		</div>
 	);
 }

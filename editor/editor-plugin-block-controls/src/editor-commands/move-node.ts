@@ -29,6 +29,7 @@ import {
 } from '@atlaskit/editor-prosemirror/utils';
 import { findTable, isInTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ActiveNode, BlockControlsPlugin, MoveNodeMethod } from '../blockControlsPluginType';
@@ -499,7 +500,15 @@ export const moveNode =
 		if (!convertedNode) {
 			return tr;
 		}
-		tr.delete(sliceFrom, sliceTo); // delete the content from the original position
+		if (
+			sourceNode?.type.name === 'taskList' &&
+			expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
+		) {
+			sliceFrom = sliceFrom - 1;
+		}
+
+		// delete the content from the original position
+		tr.delete(sliceFrom, sliceTo);
 		const mappedTo = tr.mapping.map(to);
 
 		const isDestNestedLoneEmptyParagraph =

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6e97139806ccf4544d24fa036cbca8b4>>
+ * @codegen <<SignedSource::a3d0f66bc6f98185372eb3500c537a35>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const HomeIcon = props => /*#__PURE__*/_react.default.createElement(_home.default, Object.assign({
+  name: "HomeIcon",
   LEGACY_fallbackIcon: _homeCircle.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-HomeIcon.Name = 'HomeIconMigration';
+HomeIcon.displayName = 'HomeIconMigration';
 var _default = exports.default = HomeIcon;

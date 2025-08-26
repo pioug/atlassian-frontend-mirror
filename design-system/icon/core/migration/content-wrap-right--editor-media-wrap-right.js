@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1283f126053160b70e8a99c12d2de470>>
+ * @codegen <<SignedSource::c6611386680c1a3fd2f03c432bd9e460>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ContentWrapRightIcon = props => /*#__PURE__*/_react.default.createElement(_contentWrapRight.default, Object.assign({
+  name: "ContentWrapRightIcon",
   LEGACY_fallbackIcon: _mediaWrapRight.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-ContentWrapRightIcon.Name = 'ContentWrapRightIconMigration';
+ContentWrapRightIcon.displayName = 'ContentWrapRightIconMigration';
 var _default = exports.default = ContentWrapRightIcon;

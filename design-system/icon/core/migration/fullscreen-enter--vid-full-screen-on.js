@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b4962bfdd1d57664baf15c6aae063ace>>
+ * @codegen <<SignedSource::422b8d45a945f502c816589dcfb17b66>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const FullscreenEnterIcon = props => /*#__PURE__*/_react.default.createElement(_fullscreenEnter.default, Object.assign({
+  name: "FullscreenEnterIcon",
   LEGACY_fallbackIcon: _vidFullScreenOn.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-FullscreenEnterIcon.Name = 'FullscreenEnterIconMigration';
+FullscreenEnterIcon.displayName = 'FullscreenEnterIconMigration';
 var _default = exports.default = FullscreenEnterIcon;

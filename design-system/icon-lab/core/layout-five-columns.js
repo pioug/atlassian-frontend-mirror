@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5c9d836555b044a6bd1617590cc2298e>>
+ * @codegen <<SignedSource::718366f0455684b58aea71d9f899bda7>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,6 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const LayoutFiveColumnsIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  name: "LayoutFiveColumnsIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M0 1.75A.75.75 0 0 1 .75 1h.5a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-.5a.75.75 0 0 1-.75-.75zm3.5 0A.75.75 0 0 1 4.25 1h.5a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-.5a.75.75 0 0 1-.75-.75zm3.5 0A.75.75 0 0 1 7.75 1h.5a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-.5a.75.75 0 0 1-.75-.75zm3.5 0a.75.75 0 0 1 .75-.75h.5a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-.5a.75.75 0 0 1-.75-.75zm3.5 0a.75.75 0 0 1 .75-.75h.5a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-.5a.75.75 0 0 1-.75-.75z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

@@ -84,6 +84,7 @@ snapshotInformational(BlockExtensionWithSmartLink, {
 		const toolbarModel = EditorExtensionFloatingToolbarModel.from(editor);
 		await toolbarModel.waitForStable();
 	},
+	mockUTCDate: false,
 });
 
 snapshotInformational(BlockExtensionWithSmartLink, {
@@ -100,6 +101,7 @@ snapshotInformational(BlockExtensionWithSmartLink, {
 		await toolbarModel.fullWidth();
 		await toolbarModel.waitForTooltip();
 	},
+	mockUTCDate: false,
 });
 
 snapshotInformational(InlineExtension, {
@@ -270,6 +272,7 @@ snapshotInformational(BodiedExtensionWithSmartLink, {
 		await toolbarModel.fullWidth();
 		await toolbarModel.waitForTooltip();
 	},
+	mockUTCDate: false,
 });
 
 snapshotInformational(BodiedExtensionWithLayout, {

@@ -1,5 +1,13 @@
 # @atlaskit/forge-react-types
 
+## 0.42.15
+
+### Patch Changes
+
+- [`c3685aa4e6cc0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c3685aa4e6cc0) -
+  Add LinkMenuItem
+- Updated dependencies
+
 ## 0.42.14
 
 ### Patch Changes

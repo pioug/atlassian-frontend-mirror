@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import React from 'react';
-import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
+import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import { token } from '@atlaskit/tokens';
 
 import { document as storyDataDocument } from './story-data';
@@ -60,6 +60,9 @@ const context: MetaDataContext = {
 		},
 	},
 };
+
+const defaultSchema = getSchemaBasedOnStage('stage0');
+
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export default class RendererDemo extends React.Component<DemoRendererProps, DemoRendererState> {

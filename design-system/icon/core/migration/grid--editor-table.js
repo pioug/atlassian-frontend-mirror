@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f6068ce094a58d2a4e41058e6491fe82>>
+ * @codegen <<SignedSource::ca341356ec7e14a1634869a278921cc5>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const GridIcon = props => /*#__PURE__*/_react.default.createElement(_grid.default, Object.assign({
+  name: "GridIcon",
   LEGACY_fallbackIcon: _table.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-GridIcon.Name = 'GridIconMigration';
+GridIcon.displayName = 'GridIconMigration';
 var _default = exports.default = GridIcon;

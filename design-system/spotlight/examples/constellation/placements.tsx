@@ -12,9 +12,9 @@ import {
 	PopoverContent,
 	PopoverProvider,
 	PopoverTarget,
-	Spotlight,
 	SpotlightActions,
 	SpotlightBody,
+	SpotlightCard,
 	SpotlightControls,
 	SpotlightDismissControl,
 	SpotlightFooter,
@@ -48,7 +48,7 @@ const cardPlacements = [
 
 const Example = () => {
 	const [placement, setPlacement] = useState<(typeof cardPlacements)[number]>('top-end');
-	const [isVisible, setIsVisible] = useState<boolean>(true);
+	const [isVisible, setIsVisible] = useState<boolean>(false);
 
 	return (
 		<div css={styles.root}>
@@ -57,7 +57,7 @@ const Example = () => {
 					<Button onClick={() => setIsVisible(true)}>Show Spotlight</Button>
 				</PopoverTarget>
 				<PopoverContent isVisible={isVisible} placement={placement}>
-					<Spotlight testId="spotlight">
+					<SpotlightCard testId="spotlight">
 						<SpotlightHeader>
 							<SpotlightHeadline>Headline</SpotlightHeadline>
 							<SpotlightControls>
@@ -74,7 +74,7 @@ const Example = () => {
 								</SpotlightPrimaryAction>
 							</SpotlightActions>
 						</SpotlightFooter>
-					</Spotlight>
+					</SpotlightCard>
 				</PopoverContent>
 			</PopoverProvider>
 

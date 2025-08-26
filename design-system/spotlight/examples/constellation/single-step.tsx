@@ -12,9 +12,9 @@ import {
 	PopoverContent,
 	PopoverProvider,
 	PopoverTarget,
-	Spotlight,
 	SpotlightActions,
 	SpotlightBody,
+	SpotlightCard,
 	SpotlightControls,
 	SpotlightDismissControl,
 	SpotlightFooter,
@@ -27,7 +27,7 @@ import {
 import ExampleImage from '../assets/295x135.png';
 
 export default () => {
-	const [isVisible, setIsVisible] = useState<boolean>(true);
+	const [isVisible, setIsVisible] = useState<boolean>(false);
 
 	return (
 		<div>
@@ -36,7 +36,7 @@ export default () => {
 					<Button onClick={() => setIsVisible(true)}>Show Spotlight</Button>
 				</PopoverTarget>
 				<PopoverContent placement="right-end" isVisible={isVisible}>
-					<Spotlight testId="spotlight">
+					<SpotlightCard testId="spotlight">
 						<SpotlightHeader>
 							<SpotlightHeadline>Headline</SpotlightHeadline>
 							<SpotlightControls>
@@ -56,7 +56,7 @@ export default () => {
 								</SpotlightPrimaryAction>
 							</SpotlightActions>
 						</SpotlightFooter>
-					</Spotlight>
+					</SpotlightCard>
 				</PopoverContent>
 			</PopoverProvider>
 		</div>

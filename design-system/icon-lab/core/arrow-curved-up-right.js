@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8d1e958b325055cc323dedf608b70657>>
+ * @codegen <<SignedSource::eaa54deba8cd29a44c4a21dc7b5a4e67>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -20,6 +20,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ArrowCurvedUpRightIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  name: "ArrowCurvedUpRightIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" d="M2.5 10a3 3 0 0 1 3-3h6.94l-3.22 3.22 1.06 1.06 4.5-4.5a.75.75 0 0 0 0-1.06l-4.5-4.5-1.06 1.06 3.22 3.22H5.5A4.5 4.5 0 0 0 1 10v5h1.5z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

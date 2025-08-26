@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::36eb5ef1bacb73fef85eb3201d2f60e3>>
+ * @codegen <<SignedSource::146a27965cab9afa086074ddc7da30aa>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const MinimizeIcon = props => /*#__PURE__*/_react.default.createElement(_minimize.default, Object.assign({
+  name: "MinimizeIcon",
   LEGACY_fallbackIcon: _vidFullScreenOff.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-MinimizeIcon.Name = 'MinimizeIconMigration';
+MinimizeIcon.displayName = 'MinimizeIconMigration';
 var _default = exports.default = MinimizeIcon;

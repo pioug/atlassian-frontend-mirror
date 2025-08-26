@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::65acd7ea793f30a87884e2e95c9c21a4>>
+ * @codegen <<SignedSource::b41205595ae662eed4f6fa7d0da6a5f2>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,6 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const SmartLinkEmbedIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  name: "SmartLinkEmbedIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M1 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2zm2-.5a.5.5 0 0 0-.5.5v4h11V3a.5.5 0 0 0-.5-.5zm10.5 6h-11V13a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5zm-8-3H4V4h1.5zm6.5 0H7V4h5z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

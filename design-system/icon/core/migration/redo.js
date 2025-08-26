@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d059f3ea6105a0395a3e73a1cc411ccd>>
+ * @codegen <<SignedSource::255e9e139447d72d7f96b037f94ce55d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const RedoIcon = props => /*#__PURE__*/_react.default.createElement(_redo.default, Object.assign({
+  name: "RedoIcon",
   LEGACY_fallbackIcon: _redo2.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-RedoIcon.Name = 'RedoIconMigration';
+RedoIcon.displayName = 'RedoIconMigration';
 var _default = exports.default = RedoIcon;

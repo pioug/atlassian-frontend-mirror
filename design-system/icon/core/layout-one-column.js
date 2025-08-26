@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0360336c98ea038d04b80be960c396e8>>
+ * @codegen <<SignedSource::d59b5ed561b25f3fb1da55a522fb8984>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,6 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const LayoutOneColumnIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  name: "LayoutOneColumnIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M0 2.375C0 1.615.616 1 1.375 1h13.25C15.385 1 16 1.616 16 2.375v11.25c0 .76-.616 1.375-1.375 1.375H1.375C.615 15 0 14.384 0 13.625zm1.5.125v11h13v-11z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

@@ -12,9 +12,9 @@ import {
 	PopoverContent,
 	PopoverProvider,
 	PopoverTarget,
-	Spotlight,
 	SpotlightActions,
 	SpotlightBody,
+	SpotlightCard,
 	SpotlightControls,
 	SpotlightDismissControl,
 	SpotlightFooter,
@@ -68,7 +68,7 @@ export default () => {
 						</Box>
 					</PopoverTarget>
 					<PopoverContent placement="bottom-end" isVisible={isVisible}>
-						<Spotlight testId="spotlight">
+						<SpotlightCard testId="spotlight">
 							<SpotlightHeader>
 								<SpotlightHeadline>Headline</SpotlightHeadline>
 								<SpotlightControls>
@@ -96,7 +96,7 @@ export default () => {
 									</SpotlightPrimaryAction>
 								</SpotlightActions>
 							</SpotlightFooter>
-						</Spotlight>
+						</SpotlightCard>
 					</PopoverContent>
 				</PopoverProvider>
 			</div>

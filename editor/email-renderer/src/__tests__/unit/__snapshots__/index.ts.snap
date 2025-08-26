@@ -548,6 +548,182 @@ exports[`Renderer - EmailSerializer should render action, code-block, decision, 
                         </tr>
                       </tbody>
                     </table>
+                    <table
+                      border="0"
+                      cellpadding="0"
+                      cellspacing="0"
+                      class=" csg-commonTable"
+                      style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+                      width="100%"
+                    >
+                      <tbody>
+                        <tr>
+                          <td
+                            class="csg-taskItem-wrapper"
+                            style="padding: 4px 0px 4px 0;"
+                          >
+                            <table
+                              border="0"
+                              cellpadding="0"
+                              cellspacing="0"
+                              class="csg-taskItem-mainContent csg-commonTable"
+                              style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+                              width="100%"
+                            >
+                              <tbody>
+                                <tr>
+                                  <td
+                                    class="csg-taskItem-iconTd"
+                                    height="24"
+                                    style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                                    valign="top"
+                                    width="24"
+                                  >
+                                    <img
+                                      class="csg-taskItem-img"
+                                      height="16"
+                                      src="cid:csg-icon-taskItemUnchecked"
+                                      style="width: 16px; height: 16px;"
+                                      width="16"
+                                    />
+                                  </td>
+                                  <td
+                                    class="csg-taskItem-textTd"
+                                    style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                                  >
+                                    <p
+                                      class="csg-p"
+                                      style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; padding-top: 0px; margin-bottom: 0;"
+                                    >
+                                      block task 1
+                                    </p>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div
+                      class="csg-taskList csg-nestedTaskList"
+                      style="margin-top: 0px; margin-left: 48px;"
+                    >
+                      <table
+                        border="0"
+                        cellpadding="0"
+                        cellspacing="0"
+                        class=" csg-commonTable"
+                        style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+                        width="100%"
+                      >
+                        <tbody>
+                          <tr>
+                            <td
+                              class="csg-taskItem-wrapper"
+                              style="padding: 4px 0px 4px 0;"
+                            >
+                              <table
+                                border="0"
+                                cellpadding="0"
+                                cellspacing="0"
+                                class="csg-taskItem-mainContent csg-commonTable"
+                                style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+                                width="100%"
+                              >
+                                <tbody>
+                                  <tr>
+                                    <td
+                                      class="csg-taskItem-iconTd"
+                                      height="24"
+                                      style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                                      valign="top"
+                                      width="24"
+                                    >
+                                      <img
+                                        class="csg-taskItem-img"
+                                        height="16"
+                                        src="cid:csg-icon-taskItemChecked"
+                                        style="width: 16px; height: 16px;"
+                                        width="16"
+                                      />
+                                    </td>
+                                    <td
+                                      class="csg-taskItem-textTd"
+                                      style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                                    >
+                                      <p
+                                        class="csg-p"
+                                        style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; padding-top: 0px; margin-bottom: 0;"
+                                      >
+                                        block sub-task 1
+                                      </p>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <table
+                      border="0"
+                      cellpadding="0"
+                      cellspacing="0"
+                      class=" csg-commonTable"
+                      style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+                      width="100%"
+                    >
+                      <tbody>
+                        <tr>
+                          <td
+                            class="csg-taskItem-wrapper"
+                            style="padding: 4px 0px 4px 0;"
+                          >
+                            <table
+                              border="0"
+                              cellpadding="0"
+                              cellspacing="0"
+                              class="csg-taskItem-mainContent csg-commonTable"
+                              style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+                              width="100%"
+                            >
+                              <tbody>
+                                <tr>
+                                  <td
+                                    class="csg-taskItem-iconTd"
+                                    height="24"
+                                    style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                                    valign="top"
+                                    width="24"
+                                  >
+                                    <img
+                                      class="csg-taskItem-img"
+                                      height="16"
+                                      src="cid:csg-icon-taskItemUnchecked"
+                                      style="width: 16px; height: 16px;"
+                                      width="16"
+                                    />
+                                  </td>
+                                  <td
+                                    class="csg-taskItem-textTd"
+                                    style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                                  >
+                                    <p
+                                      class="csg-p"
+                                      style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; padding-top: 0px; margin-bottom: 0;"
+                                    >
+                                      block task 2
+                                    </p>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                   <hr
                     class="csg-rule"
@@ -866,6 +1042,120 @@ exports[`Renderer - EmailSerializer should render actions inside list: html 1`] 
                         style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
                       >
                         task 2
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+          border="0"
+          cellpadding="0"
+          cellspacing="0"
+          class=" csg-commonTable"
+          style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+          width="100%"
+        >
+          <tbody>
+            <tr>
+              <td
+                class="csg-taskItem-wrapper"
+                style="padding: 4px 0px 4px 0;"
+              >
+                <table
+                  border="0"
+                  cellpadding="0"
+                  cellspacing="0"
+                  class="csg-taskItem-mainContent csg-commonTable"
+                  style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+                  width="100%"
+                >
+                  <tbody>
+                    <tr>
+                      <td
+                        class="csg-taskItem-iconTd"
+                        height="24"
+                        style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                        valign="top"
+                        width="24"
+                      >
+                        <img
+                          class="csg-taskItem-img"
+                          height="16"
+                          src="cid:csg-icon-taskItemChecked"
+                          style="width: 16px; height: 16px;"
+                          width="16"
+                        />
+                      </td>
+                      <td
+                        class="csg-taskItem-textTd"
+                        style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                      >
+                        <p
+                          class="csg-p"
+                          style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; padding-top: 0px; margin-bottom: 0;"
+                        >
+                          task 3
+                        </p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+          border="0"
+          cellpadding="0"
+          cellspacing="0"
+          class=" csg-commonTable"
+          style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+          width="100%"
+        >
+          <tbody>
+            <tr>
+              <td
+                class="csg-taskItem-wrapper"
+                style="padding: 4px 0px 4px 0;"
+              >
+                <table
+                  border="0"
+                  cellpadding="0"
+                  cellspacing="0"
+                  class="csg-taskItem-mainContent csg-commonTable"
+                  style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+                  width="100%"
+                >
+                  <tbody>
+                    <tr>
+                      <td
+                        class="csg-taskItem-iconTd"
+                        height="24"
+                        style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                        valign="top"
+                        width="24"
+                      >
+                        <img
+                          class="csg-taskItem-img"
+                          height="16"
+                          src="cid:csg-icon-taskItemUnchecked"
+                          style="width: 16px; height: 16px;"
+                          width="16"
+                        />
+                      </td>
+                      <td
+                        class="csg-taskItem-textTd"
+                        style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                      >
+                        <p
+                          class="csg-p"
+                          style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; padding-top: 0px; margin-bottom: 0;"
+                        >
+                          task 4
+                        </p>
                       </td>
                     </tr>
                   </tbody>
@@ -1249,6 +1539,195 @@ exports[`Renderer - EmailSerializer should render dates in normal text and task 
                       28 Apr 2019
                     </span>
                      
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table
+      border="0"
+      cellpadding="0"
+      cellspacing="0"
+      class=" csg-commonTable"
+      style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+      width="100%"
+    >
+      <tbody>
+        <tr>
+          <td
+            class="csg-taskItem-wrapper"
+            style="padding: 4px 0px 4px 0;"
+          >
+            <table
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              class="csg-taskItem-mainContent csg-commonTable"
+              style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+              width="100%"
+            >
+              <tbody>
+                <tr>
+                  <td
+                    class="csg-taskItem-iconTd"
+                    height="24"
+                    style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                    valign="top"
+                    width="24"
+                  >
+                    <img
+                      class="csg-taskItem-img"
+                      height="16"
+                      src="cid:csg-icon-taskItemUnchecked"
+                      style="width: 16px; height: 16px;"
+                      width="16"
+                    />
+                  </td>
+                  <td
+                    class="csg-taskItem-textTd"
+                    style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                  >
+                    <p
+                      class="csg-p"
+                      style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; padding-top: 0px; margin-bottom: 0;"
+                    >
+                      <span
+                        class="csg-date csg-date-red"
+                        style="border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; box-sizing: border-box; display: inline-block; font-size: 14px; font-weight: 400; line-height: 1; max-width: 100%; vertical-align: baseline; border-width: 3px; padding: 2px 4px 3px 4px; background-color: #FFEBE6; color: #BF2600;"
+                      >
+                        01 Mar 2019
+                      </span>
+                       
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table
+      border="0"
+      cellpadding="0"
+      cellspacing="0"
+      class=" csg-commonTable"
+      style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+      width="100%"
+    >
+      <tbody>
+        <tr>
+          <td
+            class="csg-taskItem-wrapper"
+            style="padding: 4px 0px 4px 0;"
+          >
+            <table
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              class="csg-taskItem-mainContent csg-commonTable"
+              style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+              width="100%"
+            >
+              <tbody>
+                <tr>
+                  <td
+                    class="csg-taskItem-iconTd"
+                    height="24"
+                    style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                    valign="top"
+                    width="24"
+                  >
+                    <img
+                      class="csg-taskItem-img"
+                      height="16"
+                      src="cid:csg-icon-taskItemChecked"
+                      style="width: 16px; height: 16px;"
+                      width="16"
+                    />
+                  </td>
+                  <td
+                    class="csg-taskItem-textTd"
+                    style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                  >
+                    <p
+                      class="csg-p"
+                      style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; padding-top: 0px; margin-bottom: 0;"
+                    >
+                      <span
+                        class="csg-date csg-date-neutral"
+                        style="border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; box-sizing: border-box; display: inline-block; font-size: 14px; font-weight: 400; line-height: 1; max-width: 100%; vertical-align: baseline; border-width: 3px; padding: 2px 4px 3px 4px; background-color: #DFE1E6; color: #42526E;"
+                      >
+                        01 Mar 2019
+                      </span>
+                       
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table
+      border="0"
+      cellpadding="0"
+      cellspacing="0"
+      class=" csg-commonTable"
+      style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+      width="100%"
+    >
+      <tbody>
+        <tr>
+          <td
+            class="csg-taskItem-wrapper"
+            style="padding: 4px 0px 4px 0;"
+          >
+            <table
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              class="csg-taskItem-mainContent csg-commonTable"
+              style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+              width="100%"
+            >
+              <tbody>
+                <tr>
+                  <td
+                    class="csg-taskItem-iconTd"
+                    height="24"
+                    style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                    valign="top"
+                    width="24"
+                  >
+                    <img
+                      class="csg-taskItem-img"
+                      height="16"
+                      src="cid:csg-icon-taskItemUnchecked"
+                      style="width: 16px; height: 16px;"
+                      width="16"
+                    />
+                  </td>
+                  <td
+                    class="csg-taskItem-textTd"
+                    style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                  >
+                    <p
+                      class="csg-p"
+                      style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; padding-top: 0px; margin-bottom: 0;"
+                    >
+                      <span
+                        class="csg-date csg-date-red"
+                        style="border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; box-sizing: border-box; display: inline-block; font-size: 14px; font-weight: 400; line-height: 1; max-width: 100%; vertical-align: baseline; border-width: 3px; padding: 2px 4px 3px 4px; background-color: #FFEBE6; color: #BF2600;"
+                      >
+                        28 Apr 2019
+                      </span>
+                       
+                    </p>
                   </td>
                 </tr>
               </tbody>
@@ -2649,6 +3128,63 @@ exports[`Renderer - EmailSerializer should render list, action, code-block, pane
                                       style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
                                     >
                                       action
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <table
+                        border="0"
+                        cellpadding="0"
+                        cellspacing="0"
+                        class=" csg-commonTable"
+                        style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+                        width="100%"
+                      >
+                        <tbody>
+                          <tr>
+                            <td
+                              class="csg-taskItem-wrapper"
+                              style="padding: 4px 0px 4px 0;"
+                            >
+                              <table
+                                border="0"
+                                cellpadding="0"
+                                cellspacing="0"
+                                class="csg-taskItem-mainContent csg-commonTable"
+                                style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+                                width="100%"
+                              >
+                                <tbody>
+                                  <tr>
+                                    <td
+                                      class="csg-taskItem-iconTd"
+                                      height="24"
+                                      style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                                      valign="top"
+                                      width="24"
+                                    >
+                                      <img
+                                        class="csg-taskItem-img"
+                                        height="16"
+                                        src="cid:csg-icon-taskItemUnchecked"
+                                        style="width: 16px; height: 16px;"
+                                        width="16"
+                                      />
+                                    </td>
+                                    <td
+                                      class="csg-taskItem-textTd"
+                                      style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                                    >
+                                      <p
+                                        class="csg-p"
+                                        style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; padding-top: 0px; margin-bottom: 0;"
+                                      >
+                                        block action
+                                      </p>
                                     </td>
                                   </tr>
                                 </tbody>
@@ -5162,6 +5698,63 @@ exports[`Renderer - EmailSerializer should render nested task list correctly wit
         </tr>
       </tbody>
     </table>
+    <table
+      border="0"
+      cellpadding="0"
+      cellspacing="0"
+      class=" csg-commonTable"
+      style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+      width="100%"
+    >
+      <tbody>
+        <tr>
+          <td
+            class="csg-taskItem-wrapper"
+            style="padding: 4px 0px 4px 0;"
+          >
+            <table
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              class="csg-taskItem-mainContent csg-commonTable"
+              style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+              width="100%"
+            >
+              <tbody>
+                <tr>
+                  <td
+                    class="csg-taskItem-iconTd"
+                    height="24"
+                    style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                    valign="top"
+                    width="24"
+                  >
+                    <img
+                      class="csg-taskItem-img"
+                      height="16"
+                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAV1JREFUaIHt2rtKw2AYh/EnX2IMpjVFexBcC0IvwcnZG3Bz9RIKXkDBS3Dt1htw7lUIgpuL9iDWtJLGJDhIasETmd4U3t/WNsP/CTRLPouVjkurViO2PM+1bUooitOUZOuNcPQKtzGABUDjpOKZrCG6rqAoM2PGw7kFHddr1Q/zHwb9XrtR36tIjvvNePI8Pzu/vM8/R0/mwaJ13PRwfIDHu5uLIPC7chP/N5strg6OTq8BojcTGmLLg887X/bxAEHgdwf9XhsA533H5H/YZn2/KrqsgHyr59q2WX2bJmKDClvbav64bCNogDQNkKYB0jRAmgZI0wBpGiBNA6RpgDQNkKYB0jRAmgZI0wBpGiBNA6RpgLSvANsRnFHQ2lYTLZMMYDSZhmKDCsq3Rssk2/gX3T8eNSjrO+PRZBp+P2oAm37YI9dxqTZ3sWPf23ZK+XSKlklG6i4IeYFhAvABGmFt1w2NTZMAAAAASUVORK5CYII="
+                      style="width: 16px; height: 16px;"
+                      width="16"
+                    />
+                  </td>
+                  <td
+                    class="csg-taskItem-textTd"
+                    style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                  >
+                    <p
+                      class="csg-p"
+                      style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; padding-top: 0px; margin-bottom: 0;"
+                    >
+                      just text
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
     <div
       class="csg-taskList csg-nestedTaskList"
       style="margin-top: 0px; margin-left: 48px;"
@@ -5217,6 +5810,70 @@ exports[`Renderer - EmailSerializer should render nested task list correctly wit
                         @Carolyn
                       </span>
                         with mention
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table
+        border="0"
+        cellpadding="0"
+        cellspacing="0"
+        class=" csg-commonTable"
+        style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+        width="100%"
+      >
+        <tbody>
+          <tr>
+            <td
+              class="csg-taskItem-wrapper"
+              style="padding: 4px 0px 4px 0;"
+            >
+              <table
+                border="0"
+                cellpadding="0"
+                cellspacing="0"
+                class="csg-taskItem-mainContent csg-commonTable"
+                style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+                width="100%"
+              >
+                <tbody>
+                  <tr>
+                    <td
+                      class="csg-taskItem-iconTd"
+                      height="24"
+                      style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                      valign="top"
+                      width="24"
+                    >
+                      <img
+                        class="csg-taskItem-img"
+                        height="16"
+                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAV1JREFUaIHt2rtKw2AYh/EnX2IMpjVFexBcC0IvwcnZG3Bz9RIKXkDBS3Dt1htw7lUIgpuL9iDWtJLGJDhIasETmd4U3t/WNsP/CTRLPouVjkurViO2PM+1bUooitOUZOuNcPQKtzGABUDjpOKZrCG6rqAoM2PGw7kFHddr1Q/zHwb9XrtR36tIjvvNePI8Pzu/vM8/R0/mwaJ13PRwfIDHu5uLIPC7chP/N5strg6OTq8BojcTGmLLg887X/bxAEHgdwf9XhsA533H5H/YZn2/KrqsgHyr59q2WX2bJmKDClvbav64bCNogDQNkKYB0jRAmgZI0wBpGiBNA6RpgDQNkKYB0jRAmgZI0wBpGiBNA6RpgLSvANsRnFHQ2lYTLZMMYDSZhmKDCsq3Rssk2/gX3T8eNSjrO+PRZBp+P2oAm37YI9dxqTZ3sWPf23ZK+XSKlklG6i4IeYFhAvABGmFt1w2NTZMAAAAASUVORK5CYII="
+                        style="width: 16px; height: 16px;"
+                        width="16"
+                      />
+                    </td>
+                    <td
+                      class="csg-taskItem-textTd"
+                      style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                    >
+                      <p
+                        class="csg-p"
+                        style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; padding-top: 0px; margin-bottom: 0;"
+                      >
+                        <span
+                          class="csg-mention"
+                          data-user-id="0"
+                          style="background: #EFEFF2; border: 1px solid transparent; border-radius: 20px; color: #42526E; padding: 0 4px 2px 3px; white-space: nowrap;"
+                        >
+                          @Carolyn
+                        </span>
+                          with mention
+                      </p>
                     </td>
                   </tr>
                 </tbody>
@@ -5287,6 +5944,69 @@ exports[`Renderer - EmailSerializer should render nested task list correctly wit
             </tr>
           </tbody>
         </table>
+        <table
+          border="0"
+          cellpadding="0"
+          cellspacing="0"
+          class=" csg-commonTable"
+          style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+          width="100%"
+        >
+          <tbody>
+            <tr>
+              <td
+                class="csg-taskItem-wrapper"
+                style="padding: 4px 0px 4px 0;"
+              >
+                <table
+                  border="0"
+                  cellpadding="0"
+                  cellspacing="0"
+                  class="csg-taskItem-mainContent csg-commonTable"
+                  style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+                  width="100%"
+                >
+                  <tbody>
+                    <tr>
+                      <td
+                        class="csg-taskItem-iconTd"
+                        height="24"
+                        style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                        valign="top"
+                        width="24"
+                      >
+                        <img
+                          class="csg-taskItem-img"
+                          height="16"
+                          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAV1JREFUaIHt2rtKw2AYh/EnX2IMpjVFexBcC0IvwcnZG3Bz9RIKXkDBS3Dt1htw7lUIgpuL9iDWtJLGJDhIasETmd4U3t/WNsP/CTRLPouVjkurViO2PM+1bUooitOUZOuNcPQKtzGABUDjpOKZrCG6rqAoM2PGw7kFHddr1Q/zHwb9XrtR36tIjvvNePI8Pzu/vM8/R0/mwaJ13PRwfIDHu5uLIPC7chP/N5strg6OTq8BojcTGmLLg887X/bxAEHgdwf9XhsA533H5H/YZn2/KrqsgHyr59q2WX2bJmKDClvbav64bCNogDQNkKYB0jRAmgZI0wBpGiBNA6RpgDQNkKYB0jRAmgZI0wBpGiBNA6RpgLSvANsRnFHQ2lYTLZMMYDSZhmKDCsq3Rssk2/gX3T8eNSjrO+PRZBp+P2oAm37YI9dxqTZ3sWPf23ZK+XSKlklG6i4IeYFhAvABGmFt1w2NTZMAAAAASUVORK5CYII="
+                          style="width: 16px; height: 16px;"
+                          width="16"
+                        />
+                      </td>
+                      <td
+                        class="csg-taskItem-textTd"
+                        style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                      >
+                        <p
+                          class="csg-p"
+                          style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; padding-top: 0px; margin-bottom: 0;"
+                        >
+                          <span
+                            class="csg-date csg-date-red"
+                            style="border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; box-sizing: border-box; display: inline-block; font-size: 14px; font-weight: 400; line-height: 1; max-width: 100%; vertical-align: baseline; border-width: 3px; padding: 2px 4px 3px 4px; background-color: #FFEBE6; color: #BF2600;"
+                          >
+                            05 Apr 2019
+                          </span>
+                           with date
+                        </p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
         <div
           class="csg-taskList csg-nestedTaskList"
           style="margin-top: 0px; margin-left: 48px;"
@@ -5335,6 +6055,63 @@ exports[`Renderer - EmailSerializer should render nested task list correctly wit
                           style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
                         >
                           with emoji 🙂 
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <table
+            border="0"
+            cellpadding="0"
+            cellspacing="0"
+            class=" csg-commonTable"
+            style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+            width="100%"
+          >
+            <tbody>
+              <tr>
+                <td
+                  class="csg-taskItem-wrapper"
+                  style="padding: 4px 0px 4px 0;"
+                >
+                  <table
+                    border="0"
+                    cellpadding="0"
+                    cellspacing="0"
+                    class="csg-taskItem-mainContent csg-commonTable"
+                    style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+                    width="100%"
+                  >
+                    <tbody>
+                      <tr>
+                        <td
+                          class="csg-taskItem-iconTd"
+                          height="24"
+                          style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                          valign="top"
+                          width="24"
+                        >
+                          <img
+                            class="csg-taskItem-img"
+                            height="16"
+                            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAV1JREFUaIHt2rtKw2AYh/EnX2IMpjVFexBcC0IvwcnZG3Bz9RIKXkDBS3Dt1htw7lUIgpuL9iDWtJLGJDhIasETmd4U3t/WNsP/CTRLPouVjkurViO2PM+1bUooitOUZOuNcPQKtzGABUDjpOKZrCG6rqAoM2PGw7kFHddr1Q/zHwb9XrtR36tIjvvNePI8Pzu/vM8/R0/mwaJ13PRwfIDHu5uLIPC7chP/N5strg6OTq8BojcTGmLLg887X/bxAEHgdwf9XhsA533H5H/YZn2/KrqsgHyr59q2WX2bJmKDClvbav64bCNogDQNkKYB0jRAmgZI0wBpGiBNA6RpgDQNkKYB0jRAmgZI0wBpGiBNA6RpgLSvANsRnFHQ2lYTLZMMYDSZhmKDCsq3Rssk2/gX3T8eNSjrO+PRZBp+P2oAm37YI9dxqTZ3sWPf23ZK+XSKlklG6i4IeYFhAvABGmFt1w2NTZMAAAAASUVORK5CYII="
+                            style="width: 16px; height: 16px;"
+                            width="16"
+                          />
+                        </td>
+                        <td
+                          class="csg-taskItem-textTd"
+                          style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                        >
+                          <p
+                            class="csg-p"
+                            style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; padding-top: 0px; margin-bottom: 0;"
+                          >
+                            with emoji 🙂 
+                          </p>
                         </td>
                       </tr>
                     </tbody>
@@ -5395,6 +6172,63 @@ exports[`Renderer - EmailSerializer should render nested task list correctly wit
                     style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
                   >
                     ticked off plain text
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table
+      border="0"
+      cellpadding="0"
+      cellspacing="0"
+      class=" csg-commonTable"
+      style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+      width="100%"
+    >
+      <tbody>
+        <tr>
+          <td
+            class="csg-taskItem-wrapper"
+            style="padding: 4px 0px 4px 0;"
+          >
+            <table
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              class="csg-taskItem-mainContent csg-commonTable"
+              style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+              width="100%"
+            >
+              <tbody>
+                <tr>
+                  <td
+                    class="csg-taskItem-iconTd"
+                    height="24"
+                    style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                    valign="top"
+                    width="24"
+                  >
+                    <img
+                      class="csg-taskItem-img"
+                      height="16"
+                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAilJREFUaIHtmMFLFFEcgL83a4HKohDlLZYuQW0wNB06jhB0qMvuX5BQdEmF7tXBU9AlEkkKku6mh06JuN4KXPKgh4RwvbaIycYGQvs8yEiUO755u/N+FvPdBuY9vo+Z994wiohS9R7oURQXgH5OIpom6A3wppgLXgEogpVTnGcKxV1pv0RoXjMX3FeUqmWUnpX2saLFTQ9aY9Ie1ng89FDKl/awRmvfAwakPaxRasiTduiULECaLECaLECaHmkBAL/Qy/jtIQpnT1NZb/D8/Te+N38ZjRUPuDN8hjcPCofXYTFPeDnP8JMNo/Gir9Cf8hFRhAliAe3kIwb7c0bziAQcJw+wutk0mst5gIn8yGSNWn3PaD6nAabyM0vbxnM6C0hDHhwFpCUPCQL8Qi+fn11CzwbsvPUZv3XOaFya8gCK8oo+7qbBvhybL6/8tbXNLG0zMllrOy5teTB8AmExf+S+HCfoQh66sAaOEnUlD4YBlbUGWzH78u/CLuXBcA3AwSKuTFxkoK/9EV9ZaxAW479huikPCV6h1dpPwkdf2I35zHUtDwnXgElEO9KQB4tFbBORljxY7kJJItKUhw62UZOItOWhw3MgLsKFPHThIIsiltd/ALBV36P09KsTeUhwDpxU/vn/QlmANFmANFmANP9FwCdpCWu0XvZo8Vjawxqdm/CYv/YB9LS0S3L0NPNXF9Xhdbl6HfQomhsozP5auacOLIB6wbvgI8A+75/yDjFgXsAAAAAASUVORK5CYII="
+                      style="width: 16px; height: 16px;"
+                      width="16"
+                    />
+                  </td>
+                  <td
+                    class="csg-taskItem-textTd"
+                    style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                  >
+                    <p
+                      class="csg-p"
+                      style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; padding-top: 0px; margin-bottom: 0;"
+                    >
+                      ticked off plain text
+                    </p>
                   </td>
                 </tr>
               </tbody>
@@ -5466,6 +6300,70 @@ exports[`Renderer - EmailSerializer should render nested task list correctly wit
           </tr>
         </tbody>
       </table>
+      <table
+        border="0"
+        cellpadding="0"
+        cellspacing="0"
+        class=" csg-commonTable"
+        style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+        width="100%"
+      >
+        <tbody>
+          <tr>
+            <td
+              class="csg-taskItem-wrapper"
+              style="padding: 4px 0px 4px 0;"
+            >
+              <table
+                border="0"
+                cellpadding="0"
+                cellspacing="0"
+                class="csg-taskItem-mainContent csg-commonTable"
+                style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+                width="100%"
+              >
+                <tbody>
+                  <tr>
+                    <td
+                      class="csg-taskItem-iconTd"
+                      height="24"
+                      style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                      valign="top"
+                      width="24"
+                    >
+                      <img
+                        class="csg-taskItem-img"
+                        height="16"
+                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAilJREFUaIHtmMFLFFEcgL83a4HKohDlLZYuQW0wNB06jhB0qMvuX5BQdEmF7tXBU9AlEkkKku6mh06JuN4KXPKgh4RwvbaIycYGQvs8yEiUO755u/N+FvPdBuY9vo+Z994wiohS9R7oURQXgH5OIpom6A3wppgLXgEogpVTnGcKxV1pv0RoXjMX3FeUqmWUnpX2saLFTQ9aY9Ie1ng89FDKl/awRmvfAwakPaxRasiTduiULECaLECaLECaHmkBAL/Qy/jtIQpnT1NZb/D8/Te+N38ZjRUPuDN8hjcPCofXYTFPeDnP8JMNo/Gir9Cf8hFRhAliAe3kIwb7c0bziAQcJw+wutk0mst5gIn8yGSNWn3PaD6nAabyM0vbxnM6C0hDHhwFpCUPCQL8Qi+fn11CzwbsvPUZv3XOaFya8gCK8oo+7qbBvhybL6/8tbXNLG0zMllrOy5teTB8AmExf+S+HCfoQh66sAaOEnUlD4YBlbUGWzH78u/CLuXBcA3AwSKuTFxkoK/9EV9ZaxAW479huikPCV6h1dpPwkdf2I35zHUtDwnXgElEO9KQB4tFbBORljxY7kJJItKUhw62UZOItOWhw3MgLsKFPHThIIsiltd/ALBV36P09KsTeUhwDpxU/vn/QlmANFmANFmANP9FwCdpCWu0XvZo8Vjawxqdm/CYv/YB9LS0S3L0NPNXF9Xhdbl6HfQomhsozP5auacOLIB6wbvgI8A+75/yDjFgXsAAAAAASUVORK5CYII="
+                        style="width: 16px; height: 16px;"
+                        width="16"
+                      />
+                    </td>
+                    <td
+                      class="csg-taskItem-textTd"
+                      style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                    >
+                      <p
+                        class="csg-p"
+                        style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; padding-top: 0px; margin-bottom: 0;"
+                      >
+                        <span
+                          class="csg-mention"
+                          data-user-id="0"
+                          style="background: #EFEFF2; border: 1px solid transparent; border-radius: 20px; color: #42526E; padding: 0 4px 2px 3px; white-space: nowrap;"
+                        >
+                          @Carolyn
+                        </span>
+                         ticked off mention
+                      </p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
       <div
         class="csg-taskList csg-nestedTaskList"
         style="margin-top: 0px; margin-left: 48px;"
@@ -5528,6 +6426,69 @@ exports[`Renderer - EmailSerializer should render nested task list correctly wit
             </tr>
           </tbody>
         </table>
+        <table
+          border="0"
+          cellpadding="0"
+          cellspacing="0"
+          class=" csg-commonTable"
+          style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+          width="100%"
+        >
+          <tbody>
+            <tr>
+              <td
+                class="csg-taskItem-wrapper"
+                style="padding: 4px 0px 4px 0;"
+              >
+                <table
+                  border="0"
+                  cellpadding="0"
+                  cellspacing="0"
+                  class="csg-taskItem-mainContent csg-commonTable"
+                  style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+                  width="100%"
+                >
+                  <tbody>
+                    <tr>
+                      <td
+                        class="csg-taskItem-iconTd"
+                        height="24"
+                        style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                        valign="top"
+                        width="24"
+                      >
+                        <img
+                          class="csg-taskItem-img"
+                          height="16"
+                          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAilJREFUaIHtmMFLFFEcgL83a4HKohDlLZYuQW0wNB06jhB0qMvuX5BQdEmF7tXBU9AlEkkKku6mh06JuN4KXPKgh4RwvbaIycYGQvs8yEiUO755u/N+FvPdBuY9vo+Z994wiohS9R7oURQXgH5OIpom6A3wppgLXgEogpVTnGcKxV1pv0RoXjMX3FeUqmWUnpX2saLFTQ9aY9Ie1ng89FDKl/awRmvfAwakPaxRasiTduiULECaLECaLECaHmkBAL/Qy/jtIQpnT1NZb/D8/Te+N38ZjRUPuDN8hjcPCofXYTFPeDnP8JMNo/Gir9Cf8hFRhAliAe3kIwb7c0bziAQcJw+wutk0mst5gIn8yGSNWn3PaD6nAabyM0vbxnM6C0hDHhwFpCUPCQL8Qi+fn11CzwbsvPUZv3XOaFya8gCK8oo+7qbBvhybL6/8tbXNLG0zMllrOy5teTB8AmExf+S+HCfoQh66sAaOEnUlD4YBlbUGWzH78u/CLuXBcA3AwSKuTFxkoK/9EV9ZaxAW479huikPCV6h1dpPwkdf2I35zHUtDwnXgElEO9KQB4tFbBORljxY7kJJItKUhw62UZOItOWhw3MgLsKFPHThIIsiltd/ALBV36P09KsTeUhwDpxU/vn/QlmANFmANFmANP9FwCdpCWu0XvZo8Vjawxqdm/CYv/YB9LS0S3L0NPNXF9Xhdbl6HfQomhsozP5auacOLIB6wbvgI8A+75/yDjFgXsAAAAAASUVORK5CYII="
+                          style="width: 16px; height: 16px;"
+                          width="16"
+                        />
+                      </td>
+                      <td
+                        class="csg-taskItem-textTd"
+                        style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                      >
+                        <p
+                          class="csg-p"
+                          style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; padding-top: 0px; margin-bottom: 0;"
+                        >
+                          <span
+                            class="csg-date csg-date-neutral"
+                            style="border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; box-sizing: border-box; display: inline-block; font-size: 14px; font-weight: 400; line-height: 1; max-width: 100%; vertical-align: baseline; border-width: 3px; padding: 2px 4px 3px 4px; background-color: #DFE1E6; color: #42526E;"
+                          >
+                            05 Apr 2019
+                          </span>
+                           ticked off date
+                        </p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
         <div
           class="csg-taskList csg-nestedTaskList"
           style="margin-top: 0px; margin-left: 48px;"
@@ -5576,6 +6537,63 @@ exports[`Renderer - EmailSerializer should render nested task list correctly wit
                           style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
                         >
                           with emoji 🙂 
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <table
+            border="0"
+            cellpadding="0"
+            cellspacing="0"
+            class=" csg-commonTable"
+            style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+            width="100%"
+          >
+            <tbody>
+              <tr>
+                <td
+                  class="csg-taskItem-wrapper"
+                  style="padding: 4px 0px 4px 0;"
+                >
+                  <table
+                    border="0"
+                    cellpadding="0"
+                    cellspacing="0"
+                    class="csg-taskItem-mainContent csg-commonTable"
+                    style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+                    width="100%"
+                  >
+                    <tbody>
+                      <tr>
+                        <td
+                          class="csg-taskItem-iconTd"
+                          height="24"
+                          style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                          valign="top"
+                          width="24"
+                        >
+                          <img
+                            class="csg-taskItem-img"
+                            height="16"
+                            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAilJREFUaIHtmMFLFFEcgL83a4HKohDlLZYuQW0wNB06jhB0qMvuX5BQdEmF7tXBU9AlEkkKku6mh06JuN4KXPKgh4RwvbaIycYGQvs8yEiUO755u/N+FvPdBuY9vo+Z994wiohS9R7oURQXgH5OIpom6A3wppgLXgEogpVTnGcKxV1pv0RoXjMX3FeUqmWUnpX2saLFTQ9aY9Ie1ng89FDKl/awRmvfAwakPaxRasiTduiULECaLECaLECaHmkBAL/Qy/jtIQpnT1NZb/D8/Te+N38ZjRUPuDN8hjcPCofXYTFPeDnP8JMNo/Gir9Cf8hFRhAliAe3kIwb7c0bziAQcJw+wutk0mst5gIn8yGSNWn3PaD6nAabyM0vbxnM6C0hDHhwFpCUPCQL8Qi+fn11CzwbsvPUZv3XOaFya8gCK8oo+7qbBvhybL6/8tbXNLG0zMllrOy5teTB8AmExf+S+HCfoQh66sAaOEnUlD4YBlbUGWzH78u/CLuXBcA3AwSKuTFxkoK/9EV9ZaxAW479huikPCV6h1dpPwkdf2I35zHUtDwnXgElEO9KQB4tFbBORljxY7kJJItKUhw62UZOItOWhw3MgLsKFPHThIIsiltd/ALBV36P09KsTeUhwDpxU/vn/QlmANFmANFmANP9FwCdpCWu0XvZo8Vjawxqdm/CYv/YB9LS0S3L0NPNXF9Xhdbl6HfQomhsozP5auacOLIB6wbvgI8A+75/yDjFgXsAAAAAASUVORK5CYII="
+                            style="width: 16px; height: 16px;"
+                            width="16"
+                          />
+                        </td>
+                        <td
+                          class="csg-taskItem-textTd"
+                          style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                        >
+                          <p
+                            class="csg-p"
+                            style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; padding-top: 0px; margin-bottom: 0;"
+                          >
+                            with emoji 🙂 
+                          </p>
                         </td>
                       </tr>
                     </tbody>
@@ -5667,6 +6685,63 @@ exports[`Renderer - EmailSerializer should render nested task list correctly: ht
         </tr>
       </tbody>
     </table>
+    <table
+      border="0"
+      cellpadding="0"
+      cellspacing="0"
+      class=" csg-commonTable"
+      style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+      width="100%"
+    >
+      <tbody>
+        <tr>
+          <td
+            class="csg-taskItem-wrapper"
+            style="padding: 4px 0px 4px 0;"
+          >
+            <table
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              class="csg-taskItem-mainContent csg-commonTable"
+              style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+              width="100%"
+            >
+              <tbody>
+                <tr>
+                  <td
+                    class="csg-taskItem-iconTd"
+                    height="24"
+                    style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                    valign="top"
+                    width="24"
+                  >
+                    <img
+                      class="csg-taskItem-img"
+                      height="16"
+                      src="cid:csg-icon-taskItemUnchecked"
+                      style="width: 16px; height: 16px;"
+                      width="16"
+                    />
+                  </td>
+                  <td
+                    class="csg-taskItem-textTd"
+                    style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                  >
+                    <p
+                      class="csg-p"
+                      style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; padding-top: 0px; margin-bottom: 0;"
+                    >
+                      just text
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
     <div
       class="csg-taskList csg-nestedTaskList"
       style="margin-top: 0px; margin-left: 48px;"
@@ -5722,6 +6797,70 @@ exports[`Renderer - EmailSerializer should render nested task list correctly: ht
                         @Carolyn
                       </span>
                         with mention
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table
+        border="0"
+        cellpadding="0"
+        cellspacing="0"
+        class=" csg-commonTable"
+        style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+        width="100%"
+      >
+        <tbody>
+          <tr>
+            <td
+              class="csg-taskItem-wrapper"
+              style="padding: 4px 0px 4px 0;"
+            >
+              <table
+                border="0"
+                cellpadding="0"
+                cellspacing="0"
+                class="csg-taskItem-mainContent csg-commonTable"
+                style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+                width="100%"
+              >
+                <tbody>
+                  <tr>
+                    <td
+                      class="csg-taskItem-iconTd"
+                      height="24"
+                      style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                      valign="top"
+                      width="24"
+                    >
+                      <img
+                        class="csg-taskItem-img"
+                        height="16"
+                        src="cid:csg-icon-taskItemUnchecked"
+                        style="width: 16px; height: 16px;"
+                        width="16"
+                      />
+                    </td>
+                    <td
+                      class="csg-taskItem-textTd"
+                      style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                    >
+                      <p
+                        class="csg-p"
+                        style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; padding-top: 0px; margin-bottom: 0;"
+                      >
+                        <span
+                          class="csg-mention"
+                          data-user-id="0"
+                          style="background: #EFEFF2; border: 1px solid transparent; border-radius: 20px; color: #42526E; padding: 0 4px 2px 3px; white-space: nowrap;"
+                        >
+                          @Carolyn
+                        </span>
+                          with mention
+                      </p>
                     </td>
                   </tr>
                 </tbody>
@@ -5792,6 +6931,69 @@ exports[`Renderer - EmailSerializer should render nested task list correctly: ht
             </tr>
           </tbody>
         </table>
+        <table
+          border="0"
+          cellpadding="0"
+          cellspacing="0"
+          class=" csg-commonTable"
+          style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+          width="100%"
+        >
+          <tbody>
+            <tr>
+              <td
+                class="csg-taskItem-wrapper"
+                style="padding: 4px 0px 4px 0;"
+              >
+                <table
+                  border="0"
+                  cellpadding="0"
+                  cellspacing="0"
+                  class="csg-taskItem-mainContent csg-commonTable"
+                  style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+                  width="100%"
+                >
+                  <tbody>
+                    <tr>
+                      <td
+                        class="csg-taskItem-iconTd"
+                        height="24"
+                        style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                        valign="top"
+                        width="24"
+                      >
+                        <img
+                          class="csg-taskItem-img"
+                          height="16"
+                          src="cid:csg-icon-taskItemUnchecked"
+                          style="width: 16px; height: 16px;"
+                          width="16"
+                        />
+                      </td>
+                      <td
+                        class="csg-taskItem-textTd"
+                        style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                      >
+                        <p
+                          class="csg-p"
+                          style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; padding-top: 0px; margin-bottom: 0;"
+                        >
+                          <span
+                            class="csg-date csg-date-red"
+                            style="border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; box-sizing: border-box; display: inline-block; font-size: 14px; font-weight: 400; line-height: 1; max-width: 100%; vertical-align: baseline; border-width: 3px; padding: 2px 4px 3px 4px; background-color: #FFEBE6; color: #BF2600;"
+                          >
+                            05 Apr 2019
+                          </span>
+                           with date
+                        </p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
         <div
           class="csg-taskList csg-nestedTaskList"
           style="margin-top: 0px; margin-left: 48px;"
@@ -5840,6 +7042,63 @@ exports[`Renderer - EmailSerializer should render nested task list correctly: ht
                           style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
                         >
                           with emoji 🙂 
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <table
+            border="0"
+            cellpadding="0"
+            cellspacing="0"
+            class=" csg-commonTable"
+            style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+            width="100%"
+          >
+            <tbody>
+              <tr>
+                <td
+                  class="csg-taskItem-wrapper"
+                  style="padding: 4px 0px 4px 0;"
+                >
+                  <table
+                    border="0"
+                    cellpadding="0"
+                    cellspacing="0"
+                    class="csg-taskItem-mainContent csg-commonTable"
+                    style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+                    width="100%"
+                  >
+                    <tbody>
+                      <tr>
+                        <td
+                          class="csg-taskItem-iconTd"
+                          height="24"
+                          style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                          valign="top"
+                          width="24"
+                        >
+                          <img
+                            class="csg-taskItem-img"
+                            height="16"
+                            src="cid:csg-icon-taskItemUnchecked"
+                            style="width: 16px; height: 16px;"
+                            width="16"
+                          />
+                        </td>
+                        <td
+                          class="csg-taskItem-textTd"
+                          style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                        >
+                          <p
+                            class="csg-p"
+                            style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; padding-top: 0px; margin-bottom: 0;"
+                          >
+                            with emoji 🙂 
+                          </p>
                         </td>
                       </tr>
                     </tbody>
@@ -5900,6 +7159,63 @@ exports[`Renderer - EmailSerializer should render nested task list correctly: ht
                     style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
                   >
                     ticked off plain text
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table
+      border="0"
+      cellpadding="0"
+      cellspacing="0"
+      class=" csg-commonTable"
+      style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+      width="100%"
+    >
+      <tbody>
+        <tr>
+          <td
+            class="csg-taskItem-wrapper"
+            style="padding: 4px 0px 4px 0;"
+          >
+            <table
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              class="csg-taskItem-mainContent csg-commonTable"
+              style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+              width="100%"
+            >
+              <tbody>
+                <tr>
+                  <td
+                    class="csg-taskItem-iconTd"
+                    height="24"
+                    style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                    valign="top"
+                    width="24"
+                  >
+                    <img
+                      class="csg-taskItem-img"
+                      height="16"
+                      src="cid:csg-icon-taskItemChecked"
+                      style="width: 16px; height: 16px;"
+                      width="16"
+                    />
+                  </td>
+                  <td
+                    class="csg-taskItem-textTd"
+                    style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                  >
+                    <p
+                      class="csg-p"
+                      style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; padding-top: 0px; margin-bottom: 0;"
+                    >
+                      ticked off plain text
+                    </p>
                   </td>
                 </tr>
               </tbody>
@@ -5971,6 +7287,70 @@ exports[`Renderer - EmailSerializer should render nested task list correctly: ht
           </tr>
         </tbody>
       </table>
+      <table
+        border="0"
+        cellpadding="0"
+        cellspacing="0"
+        class=" csg-commonTable"
+        style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+        width="100%"
+      >
+        <tbody>
+          <tr>
+            <td
+              class="csg-taskItem-wrapper"
+              style="padding: 4px 0px 4px 0;"
+            >
+              <table
+                border="0"
+                cellpadding="0"
+                cellspacing="0"
+                class="csg-taskItem-mainContent csg-commonTable"
+                style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+                width="100%"
+              >
+                <tbody>
+                  <tr>
+                    <td
+                      class="csg-taskItem-iconTd"
+                      height="24"
+                      style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                      valign="top"
+                      width="24"
+                    >
+                      <img
+                        class="csg-taskItem-img"
+                        height="16"
+                        src="cid:csg-icon-taskItemChecked"
+                        style="width: 16px; height: 16px;"
+                        width="16"
+                      />
+                    </td>
+                    <td
+                      class="csg-taskItem-textTd"
+                      style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                    >
+                      <p
+                        class="csg-p"
+                        style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; padding-top: 0px; margin-bottom: 0;"
+                      >
+                        <span
+                          class="csg-mention"
+                          data-user-id="0"
+                          style="background: #EFEFF2; border: 1px solid transparent; border-radius: 20px; color: #42526E; padding: 0 4px 2px 3px; white-space: nowrap;"
+                        >
+                          @Carolyn
+                        </span>
+                         ticked off mention
+                      </p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
       <div
         class="csg-taskList csg-nestedTaskList"
         style="margin-top: 0px; margin-left: 48px;"
@@ -6033,6 +7413,69 @@ exports[`Renderer - EmailSerializer should render nested task list correctly: ht
             </tr>
           </tbody>
         </table>
+        <table
+          border="0"
+          cellpadding="0"
+          cellspacing="0"
+          class=" csg-commonTable"
+          style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+          width="100%"
+        >
+          <tbody>
+            <tr>
+              <td
+                class="csg-taskItem-wrapper"
+                style="padding: 4px 0px 4px 0;"
+              >
+                <table
+                  border="0"
+                  cellpadding="0"
+                  cellspacing="0"
+                  class="csg-taskItem-mainContent csg-commonTable"
+                  style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+                  width="100%"
+                >
+                  <tbody>
+                    <tr>
+                      <td
+                        class="csg-taskItem-iconTd"
+                        height="24"
+                        style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                        valign="top"
+                        width="24"
+                      >
+                        <img
+                          class="csg-taskItem-img"
+                          height="16"
+                          src="cid:csg-icon-taskItemChecked"
+                          style="width: 16px; height: 16px;"
+                          width="16"
+                        />
+                      </td>
+                      <td
+                        class="csg-taskItem-textTd"
+                        style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                      >
+                        <p
+                          class="csg-p"
+                          style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; padding-top: 0px; margin-bottom: 0;"
+                        >
+                          <span
+                            class="csg-date csg-date-neutral"
+                            style="border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; box-sizing: border-box; display: inline-block; font-size: 14px; font-weight: 400; line-height: 1; max-width: 100%; vertical-align: baseline; border-width: 3px; padding: 2px 4px 3px 4px; background-color: #DFE1E6; color: #42526E;"
+                          >
+                            05 Apr 2019
+                          </span>
+                           ticked off date
+                        </p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
         <div
           class="csg-taskList csg-nestedTaskList"
           style="margin-top: 0px; margin-left: 48px;"
@@ -6081,6 +7524,63 @@ exports[`Renderer - EmailSerializer should render nested task list correctly: ht
                           style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
                         >
                           with emoji 🙂 
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <table
+            border="0"
+            cellpadding="0"
+            cellspacing="0"
+            class=" csg-commonTable"
+            style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+            width="100%"
+          >
+            <tbody>
+              <tr>
+                <td
+                  class="csg-taskItem-wrapper"
+                  style="padding: 4px 0px 4px 0;"
+                >
+                  <table
+                    border="0"
+                    cellpadding="0"
+                    cellspacing="0"
+                    class="csg-taskItem-mainContent csg-commonTable"
+                    style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+                    width="100%"
+                  >
+                    <tbody>
+                      <tr>
+                        <td
+                          class="csg-taskItem-iconTd"
+                          height="24"
+                          style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                          valign="top"
+                          width="24"
+                        >
+                          <img
+                            class="csg-taskItem-img"
+                            height="16"
+                            src="cid:csg-icon-taskItemChecked"
+                            style="width: 16px; height: 16px;"
+                            width="16"
+                          />
+                        </td>
+                        <td
+                          class="csg-taskItem-textTd"
+                          style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                        >
+                          <p
+                            class="csg-p"
+                            style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; padding-top: 0px; margin-bottom: 0;"
+                          >
+                            with emoji 🙂 
+                          </p>
                         </td>
                       </tr>
                     </tbody>
@@ -7728,6 +9228,63 @@ exports[`Renderer - EmailSerializer should render task list correctly with mock 
                     class="csg-taskItem-textTd"
                     style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
                   >
+                    <p
+                      class="csg-p"
+                      style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; padding-top: 0px; margin-bottom: 0;"
+                    >
+                      just text
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table
+      border="0"
+      cellpadding="0"
+      cellspacing="0"
+      class=" csg-commonTable"
+      style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+      width="100%"
+    >
+      <tbody>
+        <tr>
+          <td
+            class="csg-taskItem-wrapper"
+            style="padding: 4px 0px 4px 0;"
+          >
+            <table
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              class="csg-taskItem-mainContent csg-commonTable"
+              style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+              width="100%"
+            >
+              <tbody>
+                <tr>
+                  <td
+                    class="csg-taskItem-iconTd"
+                    height="24"
+                    style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                    valign="top"
+                    width="24"
+                  >
+                    <img
+                      class="csg-taskItem-img"
+                      height="16"
+                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAV1JREFUaIHt2rtKw2AYh/EnX2IMpjVFexBcC0IvwcnZG3Bz9RIKXkDBS3Dt1htw7lUIgpuL9iDWtJLGJDhIasETmd4U3t/WNsP/CTRLPouVjkurViO2PM+1bUooitOUZOuNcPQKtzGABUDjpOKZrCG6rqAoM2PGw7kFHddr1Q/zHwb9XrtR36tIjvvNePI8Pzu/vM8/R0/mwaJ13PRwfIDHu5uLIPC7chP/N5strg6OTq8BojcTGmLLg887X/bxAEHgdwf9XhsA533H5H/YZn2/KrqsgHyr59q2WX2bJmKDClvbav64bCNogDQNkKYB0jRAmgZI0wBpGiBNA6RpgDQNkKYB0jRAmgZI0wBpGiBNA6RpgLSvANsRnFHQ2lYTLZMMYDSZhmKDCsq3Rssk2/gX3T8eNSjrO+PRZBp+P2oAm37YI9dxqTZ3sWPf23ZK+XSKlklG6i4IeYFhAvABGmFt1w2NTZMAAAAASUVORK5CYII="
+                      style="width: 16px; height: 16px;"
+                      width="16"
+                    />
+                  </td>
+                  <td
+                    class="csg-taskItem-textTd"
+                    style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                  >
                     <span
                       class="csg-mention"
                       data-user-id="0"
@@ -7736,6 +9293,70 @@ exports[`Renderer - EmailSerializer should render task list correctly with mock 
                       @Carolyn
                     </span>
                       with mention
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table
+      border="0"
+      cellpadding="0"
+      cellspacing="0"
+      class=" csg-commonTable"
+      style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+      width="100%"
+    >
+      <tbody>
+        <tr>
+          <td
+            class="csg-taskItem-wrapper"
+            style="padding: 4px 0px 4px 0;"
+          >
+            <table
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              class="csg-taskItem-mainContent csg-commonTable"
+              style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+              width="100%"
+            >
+              <tbody>
+                <tr>
+                  <td
+                    class="csg-taskItem-iconTd"
+                    height="24"
+                    style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                    valign="top"
+                    width="24"
+                  >
+                    <img
+                      class="csg-taskItem-img"
+                      height="16"
+                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAV1JREFUaIHt2rtKw2AYh/EnX2IMpjVFexBcC0IvwcnZG3Bz9RIKXkDBS3Dt1htw7lUIgpuL9iDWtJLGJDhIasETmd4U3t/WNsP/CTRLPouVjkurViO2PM+1bUooitOUZOuNcPQKtzGABUDjpOKZrCG6rqAoM2PGw7kFHddr1Q/zHwb9XrtR36tIjvvNePI8Pzu/vM8/R0/mwaJ13PRwfIDHu5uLIPC7chP/N5strg6OTq8BojcTGmLLg887X/bxAEHgdwf9XhsA533H5H/YZn2/KrqsgHyr59q2WX2bJmKDClvbav64bCNogDQNkKYB0jRAmgZI0wBpGiBNA6RpgDQNkKYB0jRAmgZI0wBpGiBNA6RpgLSvANsRnFHQ2lYTLZMMYDSZhmKDCsq3Rssk2/gX3T8eNSjrO+PRZBp+P2oAm37YI9dxqTZ3sWPf23ZK+XSKlklG6i4IeYFhAvABGmFt1w2NTZMAAAAASUVORK5CYII="
+                      style="width: 16px; height: 16px;"
+                      width="16"
+                    />
+                  </td>
+                  <td
+                    class="csg-taskItem-textTd"
+                    style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                  >
+                    <p
+                      class="csg-p"
+                      style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; padding-top: 0px; margin-bottom: 0;"
+                    >
+                      <span
+                        class="csg-mention"
+                        data-user-id="0"
+                        style="background: #EFEFF2; border: 1px solid transparent; border-radius: 20px; color: #42526E; padding: 0 4px 2px 3px; white-space: nowrap;"
+                      >
+                        @Carolyn
+                      </span>
+                        with mention
+                    </p>
                   </td>
                 </tr>
               </tbody>
@@ -7845,7 +9466,127 @@ exports[`Renderer - EmailSerializer should render task list correctly with mock 
                     class="csg-taskItem-textTd"
                     style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
                   >
+                    <p
+                      class="csg-p"
+                      style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; padding-top: 0px; margin-bottom: 0;"
+                    >
+                      <span
+                        class="csg-date csg-date-red"
+                        style="border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; box-sizing: border-box; display: inline-block; font-size: 14px; font-weight: 400; line-height: 1; max-width: 100%; vertical-align: baseline; border-width: 3px; padding: 2px 4px 3px 4px; background-color: #FFEBE6; color: #BF2600;"
+                      >
+                        05 Apr 2019
+                      </span>
+                       with date
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table
+      border="0"
+      cellpadding="0"
+      cellspacing="0"
+      class=" csg-commonTable"
+      style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+      width="100%"
+    >
+      <tbody>
+        <tr>
+          <td
+            class="csg-taskItem-wrapper"
+            style="padding: 4px 0px 4px 0;"
+          >
+            <table
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              class="csg-taskItem-mainContent csg-commonTable"
+              style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+              width="100%"
+            >
+              <tbody>
+                <tr>
+                  <td
+                    class="csg-taskItem-iconTd"
+                    height="24"
+                    style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                    valign="top"
+                    width="24"
+                  >
+                    <img
+                      class="csg-taskItem-img"
+                      height="16"
+                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAV1JREFUaIHt2rtKw2AYh/EnX2IMpjVFexBcC0IvwcnZG3Bz9RIKXkDBS3Dt1htw7lUIgpuL9iDWtJLGJDhIasETmd4U3t/WNsP/CTRLPouVjkurViO2PM+1bUooitOUZOuNcPQKtzGABUDjpOKZrCG6rqAoM2PGw7kFHddr1Q/zHwb9XrtR36tIjvvNePI8Pzu/vM8/R0/mwaJ13PRwfIDHu5uLIPC7chP/N5strg6OTq8BojcTGmLLg887X/bxAEHgdwf9XhsA533H5H/YZn2/KrqsgHyr59q2WX2bJmKDClvbav64bCNogDQNkKYB0jRAmgZI0wBpGiBNA6RpgDQNkKYB0jRAmgZI0wBpGiBNA6RpgLSvANsRnFHQ2lYTLZMMYDSZhmKDCsq3Rssk2/gX3T8eNSjrO+PRZBp+P2oAm37YI9dxqTZ3sWPf23ZK+XSKlklG6i4IeYFhAvABGmFt1w2NTZMAAAAASUVORK5CYII="
+                      style="width: 16px; height: 16px;"
+                      width="16"
+                    />
+                  </td>
+                  <td
+                    class="csg-taskItem-textTd"
+                    style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                  >
                     with emoji 🙂 
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table
+      border="0"
+      cellpadding="0"
+      cellspacing="0"
+      class=" csg-commonTable"
+      style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+      width="100%"
+    >
+      <tbody>
+        <tr>
+          <td
+            class="csg-taskItem-wrapper"
+            style="padding: 4px 0px 4px 0;"
+          >
+            <table
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              class="csg-taskItem-mainContent csg-commonTable"
+              style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+              width="100%"
+            >
+              <tbody>
+                <tr>
+                  <td
+                    class="csg-taskItem-iconTd"
+                    height="24"
+                    style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                    valign="top"
+                    width="24"
+                  >
+                    <img
+                      class="csg-taskItem-img"
+                      height="16"
+                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAV1JREFUaIHt2rtKw2AYh/EnX2IMpjVFexBcC0IvwcnZG3Bz9RIKXkDBS3Dt1htw7lUIgpuL9iDWtJLGJDhIasETmd4U3t/WNsP/CTRLPouVjkurViO2PM+1bUooitOUZOuNcPQKtzGABUDjpOKZrCG6rqAoM2PGw7kFHddr1Q/zHwb9XrtR36tIjvvNePI8Pzu/vM8/R0/mwaJ13PRwfIDHu5uLIPC7chP/N5strg6OTq8BojcTGmLLg887X/bxAEHgdwf9XhsA533H5H/YZn2/KrqsgHyr59q2WX2bJmKDClvbav64bCNogDQNkKYB0jRAmgZI0wBpGiBNA6RpgDQNkKYB0jRAmgZI0wBpGiBNA6RpgLSvANsRnFHQ2lYTLZMMYDSZhmKDCsq3Rssk2/gX3T8eNSjrO+PRZBp+P2oAm37YI9dxqTZ3sWPf23ZK+XSKlklG6i4IeYFhAvABGmFt1w2NTZMAAAAASUVORK5CYII="
+                      style="width: 16px; height: 16px;"
+                      width="16"
+                    />
+                  </td>
+                  <td
+                    class="csg-taskItem-textTd"
+                    style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                  >
+                    <p
+                      class="csg-p"
+                      style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; padding-top: 0px; margin-bottom: 0;"
+                    >
+                      with emoji 🙂 
+                    </p>
                   </td>
                 </tr>
               </tbody>
@@ -7903,6 +9644,63 @@ exports[`Renderer - EmailSerializer should render task list correctly with mock 
                     style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
                   >
                     ticked off plain text
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table
+      border="0"
+      cellpadding="0"
+      cellspacing="0"
+      class=" csg-commonTable"
+      style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+      width="100%"
+    >
+      <tbody>
+        <tr>
+          <td
+            class="csg-taskItem-wrapper"
+            style="padding: 4px 0px 4px 0;"
+          >
+            <table
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              class="csg-taskItem-mainContent csg-commonTable"
+              style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+              width="100%"
+            >
+              <tbody>
+                <tr>
+                  <td
+                    class="csg-taskItem-iconTd"
+                    height="24"
+                    style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                    valign="top"
+                    width="24"
+                  >
+                    <img
+                      class="csg-taskItem-img"
+                      height="16"
+                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAilJREFUaIHtmMFLFFEcgL83a4HKohDlLZYuQW0wNB06jhB0qMvuX5BQdEmF7tXBU9AlEkkKku6mh06JuN4KXPKgh4RwvbaIycYGQvs8yEiUO755u/N+FvPdBuY9vo+Z994wiohS9R7oURQXgH5OIpom6A3wppgLXgEogpVTnGcKxV1pv0RoXjMX3FeUqmWUnpX2saLFTQ9aY9Ie1ng89FDKl/awRmvfAwakPaxRasiTduiULECaLECaLECaHmkBAL/Qy/jtIQpnT1NZb/D8/Te+N38ZjRUPuDN8hjcPCofXYTFPeDnP8JMNo/Gir9Cf8hFRhAliAe3kIwb7c0bziAQcJw+wutk0mst5gIn8yGSNWn3PaD6nAabyM0vbxnM6C0hDHhwFpCUPCQL8Qi+fn11CzwbsvPUZv3XOaFya8gCK8oo+7qbBvhybL6/8tbXNLG0zMllrOy5teTB8AmExf+S+HCfoQh66sAaOEnUlD4YBlbUGWzH78u/CLuXBcA3AwSKuTFxkoK/9EV9ZaxAW479huikPCV6h1dpPwkdf2I35zHUtDwnXgElEO9KQB4tFbBORljxY7kJJItKUhw62UZOItOWhw3MgLsKFPHThIIsiltd/ALBV36P09KsTeUhwDpxU/vn/QlmANFmANFmANP9FwCdpCWu0XvZo8Vjawxqdm/CYv/YB9LS0S3L0NPNXF9Xhdbl6HfQomhsozP5auacOLIB6wbvgI8A+75/yDjFgXsAAAAAASUVORK5CYII="
+                      style="width: 16px; height: 16px;"
+                      width="16"
+                    />
+                  </td>
+                  <td
+                    class="csg-taskItem-textTd"
+                    style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                  >
+                    <p
+                      class="csg-p"
+                      style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; padding-top: 0px; margin-bottom: 0;"
+                    >
+                      ticked off plain text
+                    </p>
                   </td>
                 </tr>
               </tbody>
@@ -8013,6 +9811,70 @@ exports[`Renderer - EmailSerializer should render task list correctly with mock 
                     class="csg-taskItem-textTd"
                     style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
                   >
+                    <p
+                      class="csg-p"
+                      style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; padding-top: 0px; margin-bottom: 0;"
+                    >
+                      <span
+                        class="csg-mention"
+                        data-user-id="0"
+                        style="background: #EFEFF2; border: 1px solid transparent; border-radius: 20px; color: #42526E; padding: 0 4px 2px 3px; white-space: nowrap;"
+                      >
+                        @Carolyn
+                      </span>
+                       ticked off mention
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table
+      border="0"
+      cellpadding="0"
+      cellspacing="0"
+      class=" csg-commonTable"
+      style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+      width="100%"
+    >
+      <tbody>
+        <tr>
+          <td
+            class="csg-taskItem-wrapper"
+            style="padding: 4px 0px 4px 0;"
+          >
+            <table
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              class="csg-taskItem-mainContent csg-commonTable"
+              style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+              width="100%"
+            >
+              <tbody>
+                <tr>
+                  <td
+                    class="csg-taskItem-iconTd"
+                    height="24"
+                    style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                    valign="top"
+                    width="24"
+                  >
+                    <img
+                      class="csg-taskItem-img"
+                      height="16"
+                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAilJREFUaIHtmMFLFFEcgL83a4HKohDlLZYuQW0wNB06jhB0qMvuX5BQdEmF7tXBU9AlEkkKku6mh06JuN4KXPKgh4RwvbaIycYGQvs8yEiUO755u/N+FvPdBuY9vo+Z994wiohS9R7oURQXgH5OIpom6A3wppgLXgEogpVTnGcKxV1pv0RoXjMX3FeUqmWUnpX2saLFTQ9aY9Ie1ng89FDKl/awRmvfAwakPaxRasiTduiULECaLECaLECaHmkBAL/Qy/jtIQpnT1NZb/D8/Te+N38ZjRUPuDN8hjcPCofXYTFPeDnP8JMNo/Gir9Cf8hFRhAliAe3kIwb7c0bziAQcJw+wutk0mst5gIn8yGSNWn3PaD6nAabyM0vbxnM6C0hDHhwFpCUPCQL8Qi+fn11CzwbsvPUZv3XOaFya8gCK8oo+7qbBvhybL6/8tbXNLG0zMllrOy5teTB8AmExf+S+HCfoQh66sAaOEnUlD4YBlbUGWzH78u/CLuXBcA3AwSKuTFxkoK/9EV9ZaxAW479huikPCV6h1dpPwkdf2I35zHUtDwnXgElEO9KQB4tFbBORljxY7kJJItKUhw62UZOItOWhw3MgLsKFPHThIIsiltd/ALBV36P09KsTeUhwDpxU/vn/QlmANFmANFmANP9FwCdpCWu0XvZo8Vjawxqdm/CYv/YB9LS0S3L0NPNXF9Xhdbl6HfQomhsozP5auacOLIB6wbvgI8A+75/yDjFgXsAAAAAASUVORK5CYII="
+                      style="width: 16px; height: 16px;"
+                      width="16"
+                    />
+                  </td>
+                  <td
+                    class="csg-taskItem-textTd"
+                    style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                  >
                     <span
                       class="csg-date csg-date-neutral"
                       style="border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; box-sizing: border-box; display: inline-block; font-size: 14px; font-weight: 400; line-height: 1; max-width: 100%; vertical-align: baseline; border-width: 3px; padding: 2px 4px 3px 4px; background-color: #DFE1E6; color: #42526E;"
@@ -8071,7 +9933,127 @@ exports[`Renderer - EmailSerializer should render task list correctly with mock 
                     class="csg-taskItem-textTd"
                     style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
                   >
+                    <p
+                      class="csg-p"
+                      style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; padding-top: 0px; margin-bottom: 0;"
+                    >
+                      <span
+                        class="csg-date csg-date-neutral"
+                        style="border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; box-sizing: border-box; display: inline-block; font-size: 14px; font-weight: 400; line-height: 1; max-width: 100%; vertical-align: baseline; border-width: 3px; padding: 2px 4px 3px 4px; background-color: #DFE1E6; color: #42526E;"
+                      >
+                        05 Apr 2019
+                      </span>
+                       ticked off date
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table
+      border="0"
+      cellpadding="0"
+      cellspacing="0"
+      class=" csg-commonTable"
+      style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+      width="100%"
+    >
+      <tbody>
+        <tr>
+          <td
+            class="csg-taskItem-wrapper"
+            style="padding: 4px 0px 4px 0;"
+          >
+            <table
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              class="csg-taskItem-mainContent csg-commonTable"
+              style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+              width="100%"
+            >
+              <tbody>
+                <tr>
+                  <td
+                    class="csg-taskItem-iconTd"
+                    height="24"
+                    style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                    valign="top"
+                    width="24"
+                  >
+                    <img
+                      class="csg-taskItem-img"
+                      height="16"
+                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAilJREFUaIHtmMFLFFEcgL83a4HKohDlLZYuQW0wNB06jhB0qMvuX5BQdEmF7tXBU9AlEkkKku6mh06JuN4KXPKgh4RwvbaIycYGQvs8yEiUO755u/N+FvPdBuY9vo+Z994wiohS9R7oURQXgH5OIpom6A3wppgLXgEogpVTnGcKxV1pv0RoXjMX3FeUqmWUnpX2saLFTQ9aY9Ie1ng89FDKl/awRmvfAwakPaxRasiTduiULECaLECaLECaHmkBAL/Qy/jtIQpnT1NZb/D8/Te+N38ZjRUPuDN8hjcPCofXYTFPeDnP8JMNo/Gir9Cf8hFRhAliAe3kIwb7c0bziAQcJw+wutk0mst5gIn8yGSNWn3PaD6nAabyM0vbxnM6C0hDHhwFpCUPCQL8Qi+fn11CzwbsvPUZv3XOaFya8gCK8oo+7qbBvhybL6/8tbXNLG0zMllrOy5teTB8AmExf+S+HCfoQh66sAaOEnUlD4YBlbUGWzH78u/CLuXBcA3AwSKuTFxkoK/9EV9ZaxAW479huikPCV6h1dpPwkdf2I35zHUtDwnXgElEO9KQB4tFbBORljxY7kJJItKUhw62UZOItOWhw3MgLsKFPHThIIsiltd/ALBV36P09KsTeUhwDpxU/vn/QlmANFmANFmANP9FwCdpCWu0XvZo8Vjawxqdm/CYv/YB9LS0S3L0NPNXF9Xhdbl6HfQomhsozP5auacOLIB6wbvgI8A+75/yDjFgXsAAAAAASUVORK5CYII="
+                      style="width: 16px; height: 16px;"
+                      width="16"
+                    />
+                  </td>
+                  <td
+                    class="csg-taskItem-textTd"
+                    style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                  >
                     with emoji 🙂 
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table
+      border="0"
+      cellpadding="0"
+      cellspacing="0"
+      class=" csg-commonTable"
+      style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+      width="100%"
+    >
+      <tbody>
+        <tr>
+          <td
+            class="csg-taskItem-wrapper"
+            style="padding: 4px 0px 4px 0;"
+          >
+            <table
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              class="csg-taskItem-mainContent csg-commonTable"
+              style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+              width="100%"
+            >
+              <tbody>
+                <tr>
+                  <td
+                    class="csg-taskItem-iconTd"
+                    height="24"
+                    style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                    valign="top"
+                    width="24"
+                  >
+                    <img
+                      class="csg-taskItem-img"
+                      height="16"
+                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAilJREFUaIHtmMFLFFEcgL83a4HKohDlLZYuQW0wNB06jhB0qMvuX5BQdEmF7tXBU9AlEkkKku6mh06JuN4KXPKgh4RwvbaIycYGQvs8yEiUO755u/N+FvPdBuY9vo+Z994wiohS9R7oURQXgH5OIpom6A3wppgLXgEogpVTnGcKxV1pv0RoXjMX3FeUqmWUnpX2saLFTQ9aY9Ie1ng89FDKl/awRmvfAwakPaxRasiTduiULECaLECaLECaHmkBAL/Qy/jtIQpnT1NZb/D8/Te+N38ZjRUPuDN8hjcPCofXYTFPeDnP8JMNo/Gir9Cf8hFRhAliAe3kIwb7c0bziAQcJw+wutk0mst5gIn8yGSNWn3PaD6nAabyM0vbxnM6C0hDHhwFpCUPCQL8Qi+fn11CzwbsvPUZv3XOaFya8gCK8oo+7qbBvhybL6/8tbXNLG0zMllrOy5teTB8AmExf+S+HCfoQh66sAaOEnUlD4YBlbUGWzH78u/CLuXBcA3AwSKuTFxkoK/9EV9ZaxAW479huikPCV6h1dpPwkdf2I35zHUtDwnXgElEO9KQB4tFbBORljxY7kJJItKUhw62UZOItOWhw3MgLsKFPHThIIsiltd/ALBV36P09KsTeUhwDpxU/vn/QlmANFmANFmANP9FwCdpCWu0XvZo8Vjawxqdm/CYv/YB9LS0S3L0NPNXF9Xhdbl6HfQomhsozP5auacOLIB6wbvgI8A+75/yDjFgXsAAAAAASUVORK5CYII="
+                      style="width: 16px; height: 16px;"
+                      width="16"
+                    />
+                  </td>
+                  <td
+                    class="csg-taskItem-textTd"
+                    style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                  >
+                    <p
+                      class="csg-p"
+                      style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; padding-top: 0px; margin-bottom: 0;"
+                    >
+                      with emoji 🙂 
+                    </p>
                   </td>
                 </tr>
               </tbody>
@@ -8203,6 +10185,63 @@ exports[`Renderer - EmailSerializer should render task list correctly: html 1`] 
                     class="csg-taskItem-textTd"
                     style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
                   >
+                    <p
+                      class="csg-p"
+                      style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; padding-top: 0px; margin-bottom: 0;"
+                    >
+                      just text
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table
+      border="0"
+      cellpadding="0"
+      cellspacing="0"
+      class=" csg-commonTable"
+      style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+      width="100%"
+    >
+      <tbody>
+        <tr>
+          <td
+            class="csg-taskItem-wrapper"
+            style="padding: 4px 0px 4px 0;"
+          >
+            <table
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              class="csg-taskItem-mainContent csg-commonTable"
+              style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+              width="100%"
+            >
+              <tbody>
+                <tr>
+                  <td
+                    class="csg-taskItem-iconTd"
+                    height="24"
+                    style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                    valign="top"
+                    width="24"
+                  >
+                    <img
+                      class="csg-taskItem-img"
+                      height="16"
+                      src="cid:csg-icon-taskItemUnchecked"
+                      style="width: 16px; height: 16px;"
+                      width="16"
+                    />
+                  </td>
+                  <td
+                    class="csg-taskItem-textTd"
+                    style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                  >
                     <span
                       class="csg-mention"
                       data-user-id="0"
@@ -8211,6 +10250,70 @@ exports[`Renderer - EmailSerializer should render task list correctly: html 1`] 
                       @Carolyn
                     </span>
                       with mention
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table
+      border="0"
+      cellpadding="0"
+      cellspacing="0"
+      class=" csg-commonTable"
+      style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+      width="100%"
+    >
+      <tbody>
+        <tr>
+          <td
+            class="csg-taskItem-wrapper"
+            style="padding: 4px 0px 4px 0;"
+          >
+            <table
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              class="csg-taskItem-mainContent csg-commonTable"
+              style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+              width="100%"
+            >
+              <tbody>
+                <tr>
+                  <td
+                    class="csg-taskItem-iconTd"
+                    height="24"
+                    style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                    valign="top"
+                    width="24"
+                  >
+                    <img
+                      class="csg-taskItem-img"
+                      height="16"
+                      src="cid:csg-icon-taskItemUnchecked"
+                      style="width: 16px; height: 16px;"
+                      width="16"
+                    />
+                  </td>
+                  <td
+                    class="csg-taskItem-textTd"
+                    style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                  >
+                    <p
+                      class="csg-p"
+                      style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; padding-top: 0px; margin-bottom: 0;"
+                    >
+                      <span
+                        class="csg-mention"
+                        data-user-id="0"
+                        style="background: #EFEFF2; border: 1px solid transparent; border-radius: 20px; color: #42526E; padding: 0 4px 2px 3px; white-space: nowrap;"
+                      >
+                        @Carolyn
+                      </span>
+                        with mention
+                    </p>
                   </td>
                 </tr>
               </tbody>
@@ -8320,7 +10423,127 @@ exports[`Renderer - EmailSerializer should render task list correctly: html 1`] 
                     class="csg-taskItem-textTd"
                     style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
                   >
+                    <p
+                      class="csg-p"
+                      style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; padding-top: 0px; margin-bottom: 0;"
+                    >
+                      <span
+                        class="csg-date csg-date-red"
+                        style="border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; box-sizing: border-box; display: inline-block; font-size: 14px; font-weight: 400; line-height: 1; max-width: 100%; vertical-align: baseline; border-width: 3px; padding: 2px 4px 3px 4px; background-color: #FFEBE6; color: #BF2600;"
+                      >
+                        05 Apr 2019
+                      </span>
+                       with date
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table
+      border="0"
+      cellpadding="0"
+      cellspacing="0"
+      class=" csg-commonTable"
+      style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+      width="100%"
+    >
+      <tbody>
+        <tr>
+          <td
+            class="csg-taskItem-wrapper"
+            style="padding: 4px 0px 4px 0;"
+          >
+            <table
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              class="csg-taskItem-mainContent csg-commonTable"
+              style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+              width="100%"
+            >
+              <tbody>
+                <tr>
+                  <td
+                    class="csg-taskItem-iconTd"
+                    height="24"
+                    style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                    valign="top"
+                    width="24"
+                  >
+                    <img
+                      class="csg-taskItem-img"
+                      height="16"
+                      src="cid:csg-icon-taskItemUnchecked"
+                      style="width: 16px; height: 16px;"
+                      width="16"
+                    />
+                  </td>
+                  <td
+                    class="csg-taskItem-textTd"
+                    style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                  >
                     with emoji 🙂 
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table
+      border="0"
+      cellpadding="0"
+      cellspacing="0"
+      class=" csg-commonTable"
+      style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+      width="100%"
+    >
+      <tbody>
+        <tr>
+          <td
+            class="csg-taskItem-wrapper"
+            style="padding: 4px 0px 4px 0;"
+          >
+            <table
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              class="csg-taskItem-mainContent csg-commonTable"
+              style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+              width="100%"
+            >
+              <tbody>
+                <tr>
+                  <td
+                    class="csg-taskItem-iconTd"
+                    height="24"
+                    style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                    valign="top"
+                    width="24"
+                  >
+                    <img
+                      class="csg-taskItem-img"
+                      height="16"
+                      src="cid:csg-icon-taskItemUnchecked"
+                      style="width: 16px; height: 16px;"
+                      width="16"
+                    />
+                  </td>
+                  <td
+                    class="csg-taskItem-textTd"
+                    style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                  >
+                    <p
+                      class="csg-p"
+                      style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; padding-top: 0px; margin-bottom: 0;"
+                    >
+                      with emoji 🙂 
+                    </p>
                   </td>
                 </tr>
               </tbody>
@@ -8378,6 +10601,63 @@ exports[`Renderer - EmailSerializer should render task list correctly: html 1`] 
                     style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
                   >
                     ticked off plain text
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table
+      border="0"
+      cellpadding="0"
+      cellspacing="0"
+      class=" csg-commonTable"
+      style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+      width="100%"
+    >
+      <tbody>
+        <tr>
+          <td
+            class="csg-taskItem-wrapper"
+            style="padding: 4px 0px 4px 0;"
+          >
+            <table
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              class="csg-taskItem-mainContent csg-commonTable"
+              style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+              width="100%"
+            >
+              <tbody>
+                <tr>
+                  <td
+                    class="csg-taskItem-iconTd"
+                    height="24"
+                    style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                    valign="top"
+                    width="24"
+                  >
+                    <img
+                      class="csg-taskItem-img"
+                      height="16"
+                      src="cid:csg-icon-taskItemChecked"
+                      style="width: 16px; height: 16px;"
+                      width="16"
+                    />
+                  </td>
+                  <td
+                    class="csg-taskItem-textTd"
+                    style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                  >
+                    <p
+                      class="csg-p"
+                      style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; padding-top: 0px; margin-bottom: 0;"
+                    >
+                      ticked off plain text
+                    </p>
                   </td>
                 </tr>
               </tbody>
@@ -8488,6 +10768,70 @@ exports[`Renderer - EmailSerializer should render task list correctly: html 1`] 
                     class="csg-taskItem-textTd"
                     style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
                   >
+                    <p
+                      class="csg-p"
+                      style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; padding-top: 0px; margin-bottom: 0;"
+                    >
+                      <span
+                        class="csg-mention"
+                        data-user-id="0"
+                        style="background: #EFEFF2; border: 1px solid transparent; border-radius: 20px; color: #42526E; padding: 0 4px 2px 3px; white-space: nowrap;"
+                      >
+                        @Carolyn
+                      </span>
+                       ticked off mention
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table
+      border="0"
+      cellpadding="0"
+      cellspacing="0"
+      class=" csg-commonTable"
+      style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+      width="100%"
+    >
+      <tbody>
+        <tr>
+          <td
+            class="csg-taskItem-wrapper"
+            style="padding: 4px 0px 4px 0;"
+          >
+            <table
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              class="csg-taskItem-mainContent csg-commonTable"
+              style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+              width="100%"
+            >
+              <tbody>
+                <tr>
+                  <td
+                    class="csg-taskItem-iconTd"
+                    height="24"
+                    style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                    valign="top"
+                    width="24"
+                  >
+                    <img
+                      class="csg-taskItem-img"
+                      height="16"
+                      src="cid:csg-icon-taskItemChecked"
+                      style="width: 16px; height: 16px;"
+                      width="16"
+                    />
+                  </td>
+                  <td
+                    class="csg-taskItem-textTd"
+                    style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                  >
                     <span
                       class="csg-date csg-date-neutral"
                       style="border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; box-sizing: border-box; display: inline-block; font-size: 14px; font-weight: 400; line-height: 1; max-width: 100%; vertical-align: baseline; border-width: 3px; padding: 2px 4px 3px 4px; background-color: #DFE1E6; color: #42526E;"
@@ -8546,7 +10890,127 @@ exports[`Renderer - EmailSerializer should render task list correctly: html 1`] 
                     class="csg-taskItem-textTd"
                     style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
                   >
+                    <p
+                      class="csg-p"
+                      style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; padding-top: 0px; margin-bottom: 0;"
+                    >
+                      <span
+                        class="csg-date csg-date-neutral"
+                        style="border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; box-sizing: border-box; display: inline-block; font-size: 14px; font-weight: 400; line-height: 1; max-width: 100%; vertical-align: baseline; border-width: 3px; padding: 2px 4px 3px 4px; background-color: #DFE1E6; color: #42526E;"
+                      >
+                        05 Apr 2019
+                      </span>
+                       ticked off date
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table
+      border="0"
+      cellpadding="0"
+      cellspacing="0"
+      class=" csg-commonTable"
+      style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+      width="100%"
+    >
+      <tbody>
+        <tr>
+          <td
+            class="csg-taskItem-wrapper"
+            style="padding: 4px 0px 4px 0;"
+          >
+            <table
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              class="csg-taskItem-mainContent csg-commonTable"
+              style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+              width="100%"
+            >
+              <tbody>
+                <tr>
+                  <td
+                    class="csg-taskItem-iconTd"
+                    height="24"
+                    style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                    valign="top"
+                    width="24"
+                  >
+                    <img
+                      class="csg-taskItem-img"
+                      height="16"
+                      src="cid:csg-icon-taskItemChecked"
+                      style="width: 16px; height: 16px;"
+                      width="16"
+                    />
+                  </td>
+                  <td
+                    class="csg-taskItem-textTd"
+                    style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                  >
                     with emoji 🙂 
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table
+      border="0"
+      cellpadding="0"
+      cellspacing="0"
+      class=" csg-commonTable"
+      style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+      width="100%"
+    >
+      <tbody>
+        <tr>
+          <td
+            class="csg-taskItem-wrapper"
+            style="padding: 4px 0px 4px 0;"
+          >
+            <table
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              class="csg-taskItem-mainContent csg-commonTable"
+              style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+              width="100%"
+            >
+              <tbody>
+                <tr>
+                  <td
+                    class="csg-taskItem-iconTd"
+                    height="24"
+                    style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                    valign="top"
+                    width="24"
+                  >
+                    <img
+                      class="csg-taskItem-img"
+                      height="16"
+                      src="cid:csg-icon-taskItemChecked"
+                      style="width: 16px; height: 16px;"
+                      width="16"
+                    />
+                  </td>
+                  <td
+                    class="csg-taskItem-textTd"
+                    style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                  >
+                    <p
+                      class="csg-p"
+                      style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; padding-top: 0px; margin-bottom: 0;"
+                    >
+                      with emoji 🙂 
+                    </p>
                   </td>
                 </tr>
               </tbody>

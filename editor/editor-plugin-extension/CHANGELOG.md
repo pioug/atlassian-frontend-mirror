@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-extension
 
+## 6.2.0
+
+### Minor Changes
+
+- [`cfbb4876358a1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cfbb4876358a1) -
+  Debounced bodied extension rendering
+
 ## 6.1.12
 
 ### Patch Changes

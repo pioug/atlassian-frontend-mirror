@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::42c8cbadd0c6c4821b19a8f8797a996a>>
+ * @codegen <<SignedSource::7e1cb073a740edf0e357b6ec7d54b144>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const MarketplaceIcon = props => /*#__PURE__*/_react.default.createElement(_marketplace.default, Object.assign({
+  name: "MarketplaceIcon",
   LEGACY_fallbackIcon: _marketplace2.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-MarketplaceIcon.Name = 'MarketplaceIconMigration';
+MarketplaceIcon.displayName = 'MarketplaceIconMigration';
 var _default = exports.default = MarketplaceIcon;

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::65c5cb7ce2dff6628b76b0480c4bd68d>>
+ * @codegen <<SignedSource::61c71a7939bbe2b5b0f8a1efea695c49>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ArrowUpIcon = props => /*#__PURE__*/_react.default.createElement(_arrowUp.default, Object.assign({
+  name: "ArrowUpIcon",
   LEGACY_fallbackIcon: _arrowUpCircle.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-ArrowUpIcon.Name = 'ArrowUpIconMigration';
+ArrowUpIcon.displayName = 'ArrowUpIconMigration';
 var _default = exports.default = ArrowUpIcon;

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0ddb2a0e6c8a33d7611a427658d95f19>>
+ * @codegen <<SignedSource::f1417a8ab8a25b57ab9b5cd031c0ab8e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const LightbulbIcon = props => /*#__PURE__*/_react.default.createElement(_lightbulb.default, Object.assign({
+  name: "LightbulbIcon",
   LEGACY_fallbackIcon: _lightbulbFilled.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-LightbulbIcon.Name = 'LightbulbIconMigration';
+LightbulbIcon.displayName = 'LightbulbIconMigration';
 var _default = exports.default = LightbulbIcon;

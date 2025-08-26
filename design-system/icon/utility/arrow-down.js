@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b1e6357a99e20a8f7be8123461f296b5>>
+ * @codegen <<SignedSource::291873fdd07078dbfa447ed7e48e6afa>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,8 +21,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ArrowDownIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  name: "ArrowDownIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M6.75 1v7.44l2.72-2.72 1.06 1.06-4 4a.75.75 0 0 1-1.06 0l-4-4 1.06-1.06 2.72 2.72V1z" clip-rule="evenodd"/>`,
-  type: 'utility'
+  type: "utility"
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 ArrowDownIcon.displayName = 'ArrowDownIcon';

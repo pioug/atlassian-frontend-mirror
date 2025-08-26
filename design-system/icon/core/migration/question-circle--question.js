@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a40cb08fbbd3983959a84f8c240b39ab>>
+ * @codegen <<SignedSource::884352a52b867ab2700e6818c69ec0d0>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const QuestionCircleIcon = props => /*#__PURE__*/_react.default.createElement(_questionCircle.default, Object.assign({
+  name: "QuestionCircleIcon",
   LEGACY_fallbackIcon: _question.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-QuestionCircleIcon.Name = 'QuestionCircleIconMigration';
+QuestionCircleIcon.displayName = 'QuestionCircleIconMigration';
 var _default = exports.default = QuestionCircleIcon;

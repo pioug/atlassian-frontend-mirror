@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2aef4f04c1f788d70b0bae68a78435e8>>
+ * @codegen <<SignedSource::7ebc5584527a2da6ee43e6525369babd>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const LayoutThreeColumnsSidebarsIcon = props => /*#__PURE__*/_react.default.createElement(_layoutThreeColumnsSidebars.default, Object.assign({
+  name: "LayoutThreeColumnsSidebarsIcon",
   LEGACY_fallbackIcon: _layoutThreeWithSidebars.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-LayoutThreeColumnsSidebarsIcon.Name = 'LayoutThreeColumnsSidebarsIconMigration';
+LayoutThreeColumnsSidebarsIcon.displayName = 'LayoutThreeColumnsSidebarsIconMigration';
 var _default = exports.default = LayoutThreeColumnsSidebarsIcon;

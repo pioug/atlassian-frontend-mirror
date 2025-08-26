@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3adb5707f672fa7e134541695cd5f2df>>
+ * @codegen <<SignedSource::ad9af1781977dea5cc11c10797c3bcd1>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const DeviceMobileIcon = props => /*#__PURE__*/_react.default.createElement(_deviceMobile.default, Object.assign({
+  name: "DeviceMobileIcon",
   LEGACY_fallbackIcon: _mobile.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-DeviceMobileIcon.Name = 'DeviceMobileIconMigration';
+DeviceMobileIcon.displayName = 'DeviceMobileIconMigration';
 var _default = exports.default = DeviceMobileIcon;

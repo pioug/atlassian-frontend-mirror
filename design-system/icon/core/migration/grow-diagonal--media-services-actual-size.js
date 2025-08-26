@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::95f2961def649e58284c9134f09a8716>>
+ * @codegen <<SignedSource::2af12b1489cad8386543f983c1a67716>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const GrowDiagonalIcon = props => /*#__PURE__*/_react.default.createElement(_growDiagonal.default, Object.assign({
+  name: "GrowDiagonalIcon",
   LEGACY_fallbackIcon: _actualSize.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-GrowDiagonalIcon.Name = 'GrowDiagonalIconMigration';
+GrowDiagonalIcon.displayName = 'GrowDiagonalIconMigration';
 var _default = exports.default = GrowDiagonalIcon;

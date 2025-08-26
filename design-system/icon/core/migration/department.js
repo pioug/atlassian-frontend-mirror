@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::61b69757778da2d771dbef5df6aae1a3>>
+ * @codegen <<SignedSource::0441ce19299aaf81ff71e6deebb44887>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const DepartmentIcon = props => /*#__PURE__*/_react.default.createElement(_department.default, Object.assign({
+  name: "DepartmentIcon",
   LEGACY_fallbackIcon: _department2.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-DepartmentIcon.Name = 'DepartmentIconMigration';
+DepartmentIcon.displayName = 'DepartmentIconMigration';
 var _default = exports.default = DepartmentIcon;

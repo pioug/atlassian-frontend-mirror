@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::59626c08204f2fadde30105abe0da3b1>>
+ * @codegen <<SignedSource::ab773c39d5de4f3a0ae36123cbebceac>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -25,8 +25,9 @@ Known uses: Open dropdown menu, expanded tree item, collapse tree item
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ChevronDownIcon = props => /*#__PURE__*/_react.default.createElement(_chevronDown.default, Object.assign({
+  name: "ChevronDownIcon",
   LEGACY_fallbackIcon: _chevronDownCircle.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-ChevronDownIcon.Name = 'ChevronDownIconMigration';
+ChevronDownIcon.displayName = 'ChevronDownIconMigration';
 var _default = exports.default = ChevronDownIcon;

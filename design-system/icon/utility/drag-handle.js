@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b4bf0135e33a5c2e2ef54820ea48fef9>>
+ * @codegen <<SignedSource::7955bf8b5cb936262bb5f6b7e91640e2>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,8 +21,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const DragHandleIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  name: "DragHandleIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" d="M5 2.25a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0m4.5 0a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0M5 6a1.25 1.25 0 1 1-2.5 0A1.25 1.25 0 0 1 5 6m4.5 0A1.25 1.25 0 1 1 7 6a1.25 1.25 0 0 1 2.5 0M5 9.75a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0m4.5 0a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0"/>`,
-  type: 'utility'
+  type: "utility"
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 DragHandleIcon.displayName = 'DragHandleIcon';

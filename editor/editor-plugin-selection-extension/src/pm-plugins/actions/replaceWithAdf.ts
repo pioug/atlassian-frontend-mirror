@@ -3,7 +3,7 @@ import type { CommandDispatch } from '@atlaskit/editor-common/types';
 import { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
-import { type ReplaceWithAdfResult, SelectionExtensionActionTypes } from '../../types';
+import { SelectionExtensionActionTypes, type ReplaceWithAdfResult } from '../../types';
 import { selectionExtensionPluginKey } from '../main';
 
 export const replaceWithAdf =

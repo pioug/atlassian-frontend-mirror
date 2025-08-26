@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c7d30dad6d1ac9ad16d909c6f786d22d>>
+ * @codegen <<SignedSource::7218fd1b3900cbe5e5759b8477131dab>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const LockLockedIcon = props => /*#__PURE__*/_react.default.createElement(_lockLocked.default, Object.assign({
+  name: "LockLockedIcon",
   LEGACY_fallbackIcon: _lockFilled.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-LockLockedIcon.Name = 'LockLockedIconMigration';
+LockLockedIcon.displayName = 'LockLockedIconMigration';
 var _default = exports.default = LockLockedIcon;

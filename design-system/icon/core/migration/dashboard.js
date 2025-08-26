@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7183201509c40b5c08006bcaf851f797>>
+ * @codegen <<SignedSource::593f1444c0a68f1879e1306feaa7a3cd>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const DashboardIcon = props => /*#__PURE__*/_react.default.createElement(_dashboard.default, Object.assign({
+  name: "DashboardIcon",
   LEGACY_fallbackIcon: _dashboard2.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-DashboardIcon.Name = 'DashboardIconMigration';
+DashboardIcon.displayName = 'DashboardIconMigration';
 var _default = exports.default = DashboardIcon;

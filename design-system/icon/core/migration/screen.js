@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d92ee8885a3bd0486e697aace29ae839>>
+ * @codegen <<SignedSource::d4104eb40f36db1c8188ca2fb2a745e4>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ScreenIcon = props => /*#__PURE__*/_react.default.createElement(_screen.default, Object.assign({
+  name: "ScreenIcon",
   LEGACY_fallbackIcon: _screen2.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-ScreenIcon.Name = 'ScreenIconMigration';
+ScreenIcon.displayName = 'ScreenIconMigration';
 var _default = exports.default = ScreenIcon;

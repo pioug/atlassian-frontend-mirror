@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 0.0.12
+
+### Patch Changes
+
+- [`2d45ff8531e21`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2d45ff8531e21) -
+  Update move up and down registration and move blockMenuPlugin up in the fullPagePreset.
+
 ## 0.0.11
 
 ### Patch Changes

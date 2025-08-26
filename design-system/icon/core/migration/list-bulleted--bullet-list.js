@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e406a416cb0a4f8d2c2370983b384961>>
+ * @codegen <<SignedSource::65a75594c2dffa7100d66fd8cf09ffaa>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ListBulletedIcon = props => /*#__PURE__*/_react.default.createElement(_listBulleted.default, Object.assign({
+  name: "ListBulletedIcon",
   LEGACY_fallbackIcon: _bulletList.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-ListBulletedIcon.Name = 'ListBulletedIconMigration';
+ListBulletedIcon.displayName = 'ListBulletedIconMigration';
 var _default = exports.default = ListBulletedIcon;

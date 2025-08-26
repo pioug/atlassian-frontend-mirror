@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::dd889e80424019b64b57f46f523f0af4>>
+ * @codegen <<SignedSource::2e92e16a955e77467ae474503d43ab87>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const WorkItemIcon = props => /*#__PURE__*/_react.default.createElement(_workItem.default, Object.assign({
+  name: "WorkItemIcon",
   LEGACY_fallbackIcon: _issue.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-WorkItemIcon.Name = 'WorkItemIconMigration';
+WorkItemIcon.displayName = 'WorkItemIconMigration';
 var _default = exports.default = WorkItemIcon;

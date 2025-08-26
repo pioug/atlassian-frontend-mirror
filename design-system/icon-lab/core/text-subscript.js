@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2656d88182cabb2065bd8ae65f805937>>
+ * @codegen <<SignedSource::f5b21011f48bf458b340a61b5c22f75f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,6 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const TextSubscriptIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  name: "TextSubscriptIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" d="m6.26 8 3.69 6H8.19L5.4 9.47 2.78 14H1.05l3.46-6-3.46-6h1.73L5.4 6.53 8.19 2h1.76zm7.49.5h.08a.75.75 0 0 1 .67.75V16H13v-6h-1V8.5z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

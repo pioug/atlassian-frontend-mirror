@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c635a2f2e69a7d56a90070d44e636799>>
+ * @codegen <<SignedSource::02ea75acda0ebaf976f16435f9f016d2>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ShortcutIcon = props => /*#__PURE__*/_react.default.createElement(_shortcut.default, Object.assign({
+  name: "ShortcutIcon",
   LEGACY_fallbackIcon: _addItem.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-ShortcutIcon.Name = 'ShortcutIconMigration';
+ShortcutIcon.displayName = 'ShortcutIconMigration';
 var _default = exports.default = ShortcutIcon;

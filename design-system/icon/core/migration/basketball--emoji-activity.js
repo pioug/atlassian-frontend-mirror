@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b2e57669c87530c5340ec27ddd546c9d>>
+ * @codegen <<SignedSource::746e3f547bb8c49812ebf4b1b946f109>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const BasketballIcon = props => /*#__PURE__*/_react.default.createElement(_basketball.default, Object.assign({
+  name: "BasketballIcon",
   LEGACY_fallbackIcon: _activity.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-BasketballIcon.Name = 'BasketballIconMigration';
+BasketballIcon.displayName = 'BasketballIconMigration';
 var _default = exports.default = BasketballIcon;

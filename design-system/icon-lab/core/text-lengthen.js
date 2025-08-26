@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::be5a9e57f50f71339ab26d7d3e52c971>>
+ * @codegen <<SignedSource::14d3508a57d0950b33e5e611a6d67b81>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,6 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const TextLengthenIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  name: "TextLengthenIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M15 2.5H1V1h14zm0 4.167H1v-1.5h14zm0 4.166H1v-1.5h14zM8 15H1v-1.5h7z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

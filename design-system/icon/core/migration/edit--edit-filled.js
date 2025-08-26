@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8d8183d86255e266d89dc1fd99bbc4dd>>
+ * @codegen <<SignedSource::39587b11c4986e0d712ae1453e80c830>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const EditIcon = props => /*#__PURE__*/_react.default.createElement(_edit.default, Object.assign({
+  name: "EditIcon",
   LEGACY_fallbackIcon: _editFilled.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-EditIcon.Name = 'EditIconMigration';
+EditIcon.displayName = 'EditIconMigration';
 var _default = exports.default = EditIcon;

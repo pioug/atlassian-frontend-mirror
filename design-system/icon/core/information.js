@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d43a7428702b82788297fb999fe29f0a>>
+ * @codegen <<SignedSource::233572e9ab597c2f0e141bd3381c8a02>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -23,6 +23,7 @@ For information tooltips, use the unfilled 'information circle' icon.
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const InformationIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  name: "InformationIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m6.5-1.25H8a.75.75 0 0 1 .75.75v5h-1.5V8.25H6.5zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

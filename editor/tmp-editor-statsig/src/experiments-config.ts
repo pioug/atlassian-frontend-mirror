@@ -728,6 +728,14 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-08-10
+	platform_synced_block: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_synced_block',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-08-06
 	cc_improve_writing_on_paste: createBooleanExperiment({
 		productKeys: {

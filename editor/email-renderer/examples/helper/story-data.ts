@@ -1387,6 +1387,164 @@ map.put(3, 10);`,
 						},
 					],
 				},
+				{
+					type: 'blockTaskItem',
+					attrs: {
+						localId: 'b5fc19b3-0742-4279-bccc-60ddd404a8e1',
+						state: 'TODO',
+					},
+					content: [
+						{
+							type: 'paragraph',
+							content: [
+								{
+									type: 'text',
+									text: 'Unchecked block task item',
+								},
+							],
+						},
+					],
+				},
+				{
+					type: 'blockTaskItem',
+					attrs: {
+						localId: 'b5fc19b3-0742-4279-bccc-60ddd404a8e1',
+						state: 'DONE',
+					},
+					content: [
+						{
+							type: 'paragraph',
+							content: [
+								{
+									type: 'text',
+									text: 'Checked block task item',
+								},
+							],
+						},
+					],
+				},
+				{
+					type: 'blockTaskItem',
+					attrs: {
+						localId: 'b5fc19b3-0742-4279-bccc-60ddd404a8e1',
+						state: 'TODO',
+					},
+					content: [
+						{
+							type: 'paragraph',
+							content: [
+								{
+									type: 'text',
+									text: ' Unchecked block task item with extension',
+								},
+								{
+									type: 'extension',
+									attrs: {
+										layout: 'default',
+										extensionType: 'com.atlassian.confluence.macro.core',
+										extensionKey: 'extension',
+										text: ' | url = https://www.youtube.com/watch?v=9LjyApeZNZQ&feature=youtu.be',
+									},
+								},
+							],
+						},
+					],
+				},
+				{
+					type: 'blockTaskItem',
+					attrs: {
+						localId: 'b5fc19b3-0742-4279-bccc-60ddd404a8e1',
+						state: 'DONE',
+					},
+					content: [
+						{
+							type: 'paragraph',
+							content: [
+								{
+									type: 'text',
+									text: ' Checked block task item with extension',
+								},
+								{
+									type: 'extension',
+									attrs: {
+										layout: 'default',
+										extensionType: 'com.atlassian.confluence.macro.core',
+										extensionKey: 'extension',
+										text: ' | url = https://www.youtube.com/watch?v=9LjyApeZNZQ&feature=youtu.be',
+									},
+								},
+							],
+						},
+					],
+				},
+				{
+					type: 'blockTaskItem',
+					attrs: {
+						localId: 'b5fc19b3-0742-4279-bccc-60ddd404a8e1',
+						state: 'TODO',
+					},
+					content: [
+						{
+							type: 'paragraph',
+							content: [
+								{
+									type: 'mention',
+									attrs: {
+										id: '0',
+										text: '@Carolyn',
+										accessLevel: '',
+									},
+								},
+								{
+									type: 'text',
+									text: ' Checked block task item with extension and mention',
+								},
+								{
+									type: 'extension',
+									attrs: {
+										layout: 'default',
+										extensionType: 'com.atlassian.confluence.macro.core',
+										extensionKey: 'extension',
+										text: ' | url = https://www.youtube.com/watch?v=9LjyApeZNZQ&feature=youtu.be',
+									},
+								},
+							],
+						},
+					],
+				},
+				{
+					type: 'blockTaskItem',
+					attrs: {
+						localId: 'b5fc19b3-0742-4279-bccc-60ddd404a8e1',
+						state: 'TODO',
+					},
+					content: [
+						{
+							type: 'paragraph',
+							content: [
+								{
+									type: 'date',
+									attrs: {
+										timestamp: '1554422400000',
+									},
+								},
+								{
+									type: 'text',
+									text: ' Checked block task item with extension and date',
+								},
+								{
+									type: 'extension',
+									attrs: {
+										layout: 'default',
+										extensionType: 'com.atlassian.confluence.macro.core',
+										extensionKey: 'extension',
+										text: ' | url = https://www.youtube.com/watch?v=9LjyApeZNZQ&feature=youtu.be',
+									},
+								},
+							],
+						},
+					],
+				},
 			],
 		},
 		{

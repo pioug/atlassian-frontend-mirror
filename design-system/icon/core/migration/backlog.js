@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b8757186054f9d759a1f776986ffd32d>>
+ * @codegen <<SignedSource::fe730c8634f6209c2dd23a8cd73cdcc9>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const BacklogIcon = props => /*#__PURE__*/_react.default.createElement(_backlog.default, Object.assign({
+  name: "BacklogIcon",
   LEGACY_fallbackIcon: _backlog2.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-BacklogIcon.Name = 'BacklogIconMigration';
+BacklogIcon.displayName = 'BacklogIconMigration';
 var _default = exports.default = BacklogIcon;

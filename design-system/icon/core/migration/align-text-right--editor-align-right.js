@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::055bb4246985020ce80cbdca4337036d>>
+ * @codegen <<SignedSource::7eac815f2299367efaa07c39203dac50>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const AlignTextRightIcon = props => /*#__PURE__*/_react.default.createElement(_alignTextRight.default, Object.assign({
+  name: "AlignTextRightIcon",
   LEGACY_fallbackIcon: _alignRight.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-AlignTextRightIcon.Name = 'AlignTextRightIconMigration';
+AlignTextRightIcon.displayName = 'AlignTextRightIconMigration';
 var _default = exports.default = AlignTextRightIcon;

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::289d4f542a1ed26db6d28b87ad2efcf4>>
+ * @codegen <<SignedSource::9068a6e049f7d40511c29b3f9dcf4eb7>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const FilterIcon = props => /*#__PURE__*/_react.default.createElement(_filter.default, Object.assign({
+  name: "FilterIcon",
   LEGACY_fallbackIcon: _filter2.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-FilterIcon.Name = 'FilterIconMigration';
+FilterIcon.displayName = 'FilterIconMigration';
 var _default = exports.default = FilterIcon;

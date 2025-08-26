@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::312d12f517ad523b2b40c676e4ea46df>>
+ * @codegen <<SignedSource::20df9865399d0da64293437f5db358c1>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,6 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const TextSpellcheckIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  name: "TextSpellcheckIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M4.67.494A.75.75 0 0 1 5.375 0h.75a.75.75 0 0 1 .705.494l3.625 10a.8.8 0 0 1 .045.256V11H9.06l-.015.006L9.043 11H9v-.118L7.955 8h-4.41L2.5 10.882V11h-.043l-.002.006L2.44 11H1v-.25a.8.8 0 0 1 .045-.256zM4.088 6.5h3.324L5.75 1.916z" clip-rule="evenodd"/><path fill="currentcolor" fill-rule="evenodd" d="m13.928 9.265 1.144.97-4.667 5.5a.75.75 0 0 1-1.144 0l-2.333-2.75 1.144-.97 1.761 2.076z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

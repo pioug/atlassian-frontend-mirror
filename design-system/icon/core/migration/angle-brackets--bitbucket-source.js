@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::331a417e78c096fa1d0ae14fc0fbb2ae>>
+ * @codegen <<SignedSource::bbf5a5c4afe572712ccd715c42bcbaf1>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const AngleBracketsIcon = props => /*#__PURE__*/_react.default.createElement(_angleBrackets.default, Object.assign({
+  name: "AngleBracketsIcon",
   LEGACY_fallbackIcon: _source.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-AngleBracketsIcon.Name = 'AngleBracketsIconMigration';
+AngleBracketsIcon.displayName = 'AngleBracketsIconMigration';
 var _default = exports.default = AngleBracketsIcon;

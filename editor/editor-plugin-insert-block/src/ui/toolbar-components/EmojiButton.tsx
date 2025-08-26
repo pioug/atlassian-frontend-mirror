@@ -15,7 +15,7 @@ export const EmojiButton = ({
 	api,
 	popupsMountPoint,
 	popupsBoundariesElement,
-	popupsScrollableElement
+	popupsScrollableElement,
 }: BaseToolbarButtonProps) => {
 	const { formatMessage } = useIntl();
 	const emojiButtonRef = useRef<HTMLButtonElement | null>(null);

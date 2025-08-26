@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::bf5f697d891cc6bba8e40c46639eb125>>
+ * @codegen <<SignedSource::8f5c3fed69a8cb0568c41e9976d2cb29>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const BranchIcon = props => /*#__PURE__*/_react.default.createElement(_branch.default, Object.assign({
+  name: "BranchIcon",
   LEGACY_fallbackIcon: _branches.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-BranchIcon.Name = 'BranchIconMigration';
+BranchIcon.displayName = 'BranchIconMigration';
 var _default = exports.default = BranchIcon;

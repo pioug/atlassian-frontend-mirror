@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::22b7e977bca0223350467d09672e3190>>
+ * @codegen <<SignedSource::39c423318d37c06e626eb5da35fde41d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,6 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ShapeRectangleIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  name: "ShapeRectangleIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M1.5 2.875c0-.76.616-1.375 1.375-1.375h10.25c.76 0 1.375.616 1.375 1.375v10.25c0 .76-.616 1.375-1.375 1.375H2.875c-.76 0-1.375-.616-1.375-1.375zM3 3v10h10V3z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

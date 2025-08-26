@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::7536d4a95ccf85c2b4cd89339bda17bd>>
+ * @codegen <<SignedSource::0f66fff6f9000b4a15f40d2be8453b1e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -92,7 +92,7 @@ function createIconGroupComponent(
 	{ size }: Partial<NewCoreIconProps> = {},
 ) {
 	return () => (
-		<div css={sizeStyles[size || 'medium']}>
+		<div css={sizeStyles[(typeof size === 'string' && size) || 'medium']}>
 			<Inline space="space.200" alignInline="start" shouldWrap={true}>
 				{IconGroup.map((Icon, index) => (
 					<Icon label="" key={index} size={size} />

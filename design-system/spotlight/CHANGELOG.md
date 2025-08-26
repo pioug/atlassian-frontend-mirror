@@ -1,5 +1,13 @@
 # @atlaskit/spotlight
 
+## 0.2.0
+
+### Minor Changes
+
+- [`7663adf335f3f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7663adf335f3f) -
+  Rename `Spotlight` to `SpotlightCard`. Removed `TourContext` - please use `useState` to manage
+  Spotlight visibility instead.
+
 ## 0.1.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1f647713c0b4ddacae5ddac833b25d49>>
+ * @codegen <<SignedSource::7a71f35abbf70ff4f0abf42675f4f092>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const TakeoutFoodIcon = props => /*#__PURE__*/_react.default.createElement(_takeoutFood.default, Object.assign({
+  name: "TakeoutFoodIcon",
   LEGACY_fallbackIcon: _food.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-TakeoutFoodIcon.Name = 'TakeoutFoodIconMigration';
+TakeoutFoodIcon.displayName = 'TakeoutFoodIconMigration';
 var _default = exports.default = TakeoutFoodIcon;

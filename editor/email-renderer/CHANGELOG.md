@@ -1,5 +1,12 @@
 # @atlaskit/email-renderer
 
+## 9.7.0
+
+### Minor Changes
+
+- [`a2d644cc6c40c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2d644cc6c40c) -
+  EDITOR-1171 Update email-renderer to support new node type `blockTaskItem`
+
 ## 9.6.1
 
 ### Patch Changes

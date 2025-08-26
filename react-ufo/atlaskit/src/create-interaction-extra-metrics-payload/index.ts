@@ -1,5 +1,6 @@
+import coinflip from '../coinflip';
 import type { InteractionMetrics, RevisionPayload } from '../common';
-import { getConfig } from '../config';
+import { getConfig, getExtraInteractionRate } from '../config';
 import { getMoreAccuratePageVisibilityUpToTTAI } from '../create-payload';
 import { sanitizeUfoName } from '../create-payload/common/utils';
 import getPageVisibilityUpToTTAI from '../create-payload/utils/get-page-visibility-up-to-ttai';
@@ -16,6 +17,7 @@ async function createInteractionExtraLogPayload(
 	if (!config) {
 		throw Error('UFO Configuration not provided');
 	}
+
 	const {
 		end,
 		start,
@@ -28,6 +30,12 @@ async function createInteractionExtraLogPayload(
 		isPreviousInteractionAborted,
 		abortedByInteractionName,
 	} = interaction;
+
+	const configRate = getExtraInteractionRate(ufoName, type);
+	if (!coinflip(configRate)) {
+		return null;
+	}
+
 	const pageVisibilityAtTTAI = getPageVisibilityUpToTTAI(interaction);
 	const isPageLoad = type === 'page_load' || type === 'transition';
 	if (!isPageLoad) {

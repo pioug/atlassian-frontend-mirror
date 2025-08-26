@@ -1,5 +1,12 @@
 # @atlaskit/editor-statsig-tmp
 
+## 11.7.0
+
+### Minor Changes
+
+- [`c29118e6ca79d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c29118e6ca79d) -
+  ED-28986 create initial version of synced blocks
+
 ## 11.6.0
 
 ### Minor Changes

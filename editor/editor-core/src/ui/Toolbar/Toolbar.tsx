@@ -45,7 +45,10 @@ export const Toolbar = (props: ToolbarProps): JSX.Element => {
 	);
 };
 
-type NewToolbarProps = Pick<ToolbarUIContextType, 'popupsMountPoint' | 'popupsBoundariesElement' | 'popupsScrollableElement'> &
+type NewToolbarProps = Pick<
+	ToolbarUIContextType,
+	'popupsMountPoint' | 'popupsBoundariesElement' | 'popupsScrollableElement'
+> &
 	Pick<EditorToolbarContextType, 'editorAppearance'> & {
 		components: RegisterComponent[];
 		editorAPI?: PublicPluginAPI<[ToolbarPlugin]>;

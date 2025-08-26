@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::695a5f892240588eecf06e93cdff9b42>>
+ * @codegen <<SignedSource::21f28f9508fec3a7b00c0a1e2883f3bc>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const PageIcon = props => /*#__PURE__*/_react.default.createElement(_page.default, Object.assign({
+  name: "PageIcon",
   LEGACY_fallbackIcon: _documentFilled.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-PageIcon.Name = 'PageIconMigration';
+PageIcon.displayName = 'PageIconMigration';
 var _default = exports.default = PageIcon;

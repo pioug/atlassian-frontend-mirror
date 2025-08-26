@@ -10,6 +10,7 @@ import {
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { selectTableClosestToPos } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 export const getInlineNodePos = (
@@ -121,7 +122,11 @@ const newGetSelection = (tr: Transaction, start: number) => {
 		return new NodeSelection($mediaStartPos);
 	}
 
-	if (nodeName === 'taskList' && fg('platform_editor_elements_dnd_multi_select_patch_1')) {
+	if (
+		nodeName === 'taskList' &&
+		!expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
+		fg('platform_editor_elements_dnd_multi_select_patch_1')
+	) {
 		return TextSelection.create(tr.doc, start, start + nodeSize);
 	}
 

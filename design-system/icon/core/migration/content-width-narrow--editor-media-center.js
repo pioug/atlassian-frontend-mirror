@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4bffd2c31421d867f4fb3d45c9b7f986>>
+ * @codegen <<SignedSource::d24183ce61826871a860f2af49e7f998>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ContentWidthNarrowIcon = props => /*#__PURE__*/_react.default.createElement(_contentWidthNarrow.default, Object.assign({
+  name: "ContentWidthNarrowIcon",
   LEGACY_fallbackIcon: _mediaCenter.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-ContentWidthNarrowIcon.Name = 'ContentWidthNarrowIconMigration';
+ContentWidthNarrowIcon.displayName = 'ContentWidthNarrowIconMigration';
 var _default = exports.default = ContentWidthNarrowIcon;

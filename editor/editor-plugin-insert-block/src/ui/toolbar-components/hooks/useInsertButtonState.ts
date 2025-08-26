@@ -37,7 +37,7 @@ export const useInsertButtonState = ({
 	numberOfButtons,
 	tableSelectorSupported,
 	expandEnabled,
-	showElementBrowserLink
+	showElementBrowserLink,
 }: UseInsertButtonStateProps): InsertButtonState => {
 	const { formatMessage } = useIntl();
 	const isTypeAheadAllowed = useSharedPluginStateSelector(api, 'typeAhead.isAllowed');

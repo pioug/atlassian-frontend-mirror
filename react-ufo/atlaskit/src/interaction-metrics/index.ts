@@ -29,6 +29,7 @@ import {
 	getCapabilityRate,
 	getConfig,
 	getExperimentalInteractionRate,
+	getExtraInteractionRate,
 	getInteractionTimeout,
 	getPostInteractionRate,
 	getReactHydrationStats,
@@ -740,7 +741,10 @@ function finishInteraction(
 			if (!getConfig()?.experimentalInteractionMetrics?.enabled) {
 				remove(id);
 			}
-			interactionExtraMetrics.stopVCObserver();
+			const sanitisedUfoName = sanitizeUfoName(data.ufoName);
+			if (!coinflip(getExtraInteractionRate(sanitisedUfoName, data.type))) {
+				interactionExtraMetrics.stopVCObserver();
+			}
 		}
 	} else {
 		if (!getConfig()?.experimentalInteractionMetrics?.enabled) {
@@ -1194,7 +1198,9 @@ export function addNewInteraction(
 			experimentalVC.start({ startTime });
 		}
 		if (fg('platform_ufo_enable_ttai_with_3p')) {
-			interactionExtraMetrics.startVCObserver({ startTime }, interactionId);
+			if (config?.extraInteractionMetrics?.enabled) {
+				interactionExtraMetrics.startVCObserver({ startTime }, interactionId);
+			}
 		}
 	}
 

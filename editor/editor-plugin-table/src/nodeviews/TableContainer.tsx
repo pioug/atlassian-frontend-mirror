@@ -164,8 +164,21 @@ const AlignmentTableContainer = ({
 	}, [alignment]);
 
 	return (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-		<div data-testid="table-alignment-container" style={style}>
+		<div
+			data-testid="table-alignment-container"
+			data-ssr-placeholder={
+				expValEquals('platform_editor_tables_scaling_css', 'isEnabled', true)
+					? `table-${node.attrs.localId}`
+					: undefined
+			}
+			data-ssr-placeholder-replace={
+				expValEquals('platform_editor_tables_scaling_css', 'isEnabled', true)
+					? `table-${node.attrs.localId}`
+					: undefined
+			}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+			style={style}
+		>
 			{children}
 		</div>
 	);
@@ -183,6 +196,16 @@ const AlignmentTableContainerWrapper = ({
 		return (
 			<div
 				data-testid="table-alignment-container"
+				data-ssr-placeholder={
+					expValEquals('platform_editor_tables_scaling_css', 'isEnabled', true)
+						? `table-${node.attrs.localId}`
+						: undefined
+				}
+				data-ssr-placeholder-replace={
+					expValEquals('platform_editor_tables_scaling_css', 'isEnabled', true)
+						? `table-${node.attrs.localId}`
+						: undefined
+				}
 				style={{
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					display: 'flex',

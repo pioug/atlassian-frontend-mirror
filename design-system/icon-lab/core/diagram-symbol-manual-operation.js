@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f9d2d7736adb9a6add6a38e02170daa4>>
+ * @codegen <<SignedSource::25a8ae68a4e29ebf8d2ae092cfdd7a14>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,6 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const DiagramSymbolManualOperationIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  name: "DiagramSymbolManualOperationIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" d="M14.595 2c.923 0 1.583.891 1.315 1.774l-2.673 8.807A2 2 0 0 1 11.323 14H4.677a2 2 0 0 1-1.914-1.419L.09 3.774A1.375 1.375 0 0 1 1.405 2zM4.198 12.146a.5.5 0 0 0 .479.354h6.646a.5.5 0 0 0 .479-.354L14.426 3.5H1.574z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

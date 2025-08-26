@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c29f4a0259814750cfbaa12b98a0b76b>>
+ * @codegen <<SignedSource::180a57d95eb8288c183806a1527d613b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,6 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const AlignImageCenterIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  name: "AlignImageCenterIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M15 2.5H1V1h14zm-8.5 4v3h3v-3zM6.375 5h3.25C10.385 5 11 5.616 11 6.375v3.25c0 .76-.616 1.375-1.375 1.375h-3.25C5.615 11 5 10.384 5 9.625v-3.25C5 5.615 5.616 5 6.375 5M15 15H1v-1.5h14z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

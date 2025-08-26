@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::80177156cdfd0c4ec20061b3615d4605>>
+ * @codegen <<SignedSource::734b93c94fcbb78a00ea02b67497a14d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const LogInIcon = props => /*#__PURE__*/_react.default.createElement(_logIn.default, Object.assign({
+  name: "LogInIcon",
   LEGACY_fallbackIcon: _signIn.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-LogInIcon.Name = 'LogInIconMigration';
+LogInIcon.displayName = 'LogInIconMigration';
 var _default = exports.default = LogInIcon;

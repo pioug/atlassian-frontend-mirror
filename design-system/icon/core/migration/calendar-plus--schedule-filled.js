@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f18d51e2b9a41efa749c1473822003db>>
+ * @codegen <<SignedSource::af09047ba10ea9498bdd33be3f7618d0>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const CalendarPlusIcon = props => /*#__PURE__*/_react.default.createElement(_calendarPlus.default, Object.assign({
+  name: "CalendarPlusIcon",
   LEGACY_fallbackIcon: _scheduleFilled.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-CalendarPlusIcon.Name = 'CalendarPlusIconMigration';
+CalendarPlusIcon.displayName = 'CalendarPlusIconMigration';
 var _default = exports.default = CalendarPlusIcon;

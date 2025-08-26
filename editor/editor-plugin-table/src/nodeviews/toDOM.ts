@@ -64,6 +64,10 @@ export const tableNodeSpecWithFixedToDOM = (
 				'data-autosize': node.attrs.__autoSize,
 				'data-table-local-id': node.attrs.localId,
 				'data-table-width': node.attrs.width,
+				...(expValEquals('platform_editor_tables_scaling_css', 'isEnabled', true) && {
+					'data-ssr-placeholder': `table-${node.attrs.localId}`,
+					'data-ssr-placeholder-replace': `table-${node.attrs.localId}`,
+				}),
 			};
 
 			// This would be used for table scaling in colgroup CSS

@@ -23,6 +23,9 @@
 	],
 	"references": [
 		{
+			"path": "../../../analytics/analytics-listeners/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../tmp-editor-statsig/afm-cc/tsconfig.json"
 		}
 	]

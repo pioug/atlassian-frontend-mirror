@@ -62,7 +62,7 @@ const placementStyles = cssMap({
 	},
 });
 
-export interface SpotlightProps {
+export interface SpotlightCardProps {
 	/**
 	 * A `testId` prop is provided for specified elements, which is a unique
 	 * string that appears as a data attribute `data-testid` in the rendered code,
@@ -82,8 +82,8 @@ export interface SpotlightProps {
  * The base UI card that wraps composable spotlight components.
  *
  */
-export const Spotlight = forwardRef<HTMLDivElement, SpotlightProps>(
-	({ children, testId }: SpotlightProps, ref) => {
+export const SpotlightCard = forwardRef<HTMLDivElement, SpotlightCardProps>(
+	({ children, testId }: SpotlightCardProps, ref) => {
 		const { placement } = useContext(SpotlightContext);
 
 		return (

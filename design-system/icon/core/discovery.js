@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ffbdc778869407ee1ee67d41c1920845>>
+ * @codegen <<SignedSource::84ac540d37aa7b8e7ab349dbbb474c30>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -22,6 +22,7 @@ Filled status icons provide higher visual contrast to draw attention to importan
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const DiscoveryIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  name: "DiscoveryIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M13 1H3a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h6v-4.75C9 9.56 9.56 9 10.25 9H15V3a2 2 0 0 0-2-2M4 5.5h7V4H4zM4 9h3V7.5H4z" clip-rule="evenodd"/><path fill="currentcolor" d="M11.25 10.5a.75.75 0 0 0-.75.75v3.81l4.56-4.56z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

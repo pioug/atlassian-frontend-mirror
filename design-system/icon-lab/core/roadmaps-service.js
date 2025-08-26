@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1032445cfb208c3cfd386709ffac1c18>>
+ * @codegen <<SignedSource::c07f56f874571d29069d4712c9eb81ee>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,6 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const RoadmapsServiceIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  name: "RoadmapsServiceIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M13.5 2.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2.386.25a2.501 2.501 0 1 1 0 1.5H8.702a.5.5 0 0 0-.427.24L6.13 8l2.145 3.51a.5.5 0 0 0 .427.24h2.413a2.501 2.501 0 1 1 0 1.5H8.702a2 2 0 0 1-1.707-.957L4.83 8.75H0v-1.5h4.83l2.164-3.543a2 2 0 0 1 1.707-.957zM13.5 11.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

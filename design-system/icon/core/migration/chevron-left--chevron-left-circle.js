@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ba077c7a26c607a900c6f8a00fd1f020>>
+ * @codegen <<SignedSource::c171958ea5bbbe4273c21d3701d9d9ee>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -25,8 +25,9 @@ Known uses: Navigate back, show previous page of pagination results
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ChevronLeftIcon = props => /*#__PURE__*/_react.default.createElement(_chevronLeft.default, Object.assign({
+  name: "ChevronLeftIcon",
   LEGACY_fallbackIcon: _chevronLeftCircle.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-ChevronLeftIcon.Name = 'ChevronLeftIconMigration';
+ChevronLeftIcon.displayName = 'ChevronLeftIconMigration';
 var _default = exports.default = ChevronLeftIcon;

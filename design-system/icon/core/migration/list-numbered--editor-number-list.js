@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8d9257174e1ec184f9c71eb94b7f72bd>>
+ * @codegen <<SignedSource::6037f83b84c7668cea5207d550175115>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ListNumberedIcon = props => /*#__PURE__*/_react.default.createElement(_listNumbered.default, Object.assign({
+  name: "ListNumberedIcon",
   LEGACY_fallbackIcon: _numberList.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-ListNumberedIcon.Name = 'ListNumberedIconMigration';
+ListNumberedIcon.displayName = 'ListNumberedIconMigration';
 var _default = exports.default = ListNumberedIcon;

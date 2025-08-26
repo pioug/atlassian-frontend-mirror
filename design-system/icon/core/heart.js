@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c1393486c01906de1ea3b52391dc4070>>
+ * @codegen <<SignedSource::54f70ab5e3a87145f8e8b459a1ba4993>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,6 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const HeartIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  name: "HeartIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M5.036 2.75a2.86 2.86 0 0 0-2.144.913 3.3 3.3 0 0 0-.656 1.064A3.9 3.9 0 0 0 2 6.112c0 .83.216 1.666.672 2.518.468.862 1.14 1.722 2.033 2.577q1.344 1.283 3.206 2.475a1 1 0 0 0 .09.047 1 1 0 0 0 .095-.047q1.862-1.193 3.199-2.474c.893-.856 1.563-1.716 2.026-2.578.46-.852.679-1.688.679-2.517 0-.522-.084-.98-.241-1.382l-.003-.007a3.2 3.2 0 0 0-.648-1.06l-.003-.003a2.8 2.8 0 0 0-.95-.672l-.002-.001a2.9 2.9 0 0 0-1.19-.237c-.525 0-.958.133-1.326.382l-.004.002a3 3 0 0 0-.975 1.085l-.66 1.205-.657-1.207a3 3 0 0 0-.971-1.085c-.367-.249-.802-.382-1.334-.382M3.248 1.612a4.4 4.4 0 0 1 1.788-.362c.801 0 1.535.207 2.174.64q.439.296.791.682.356-.388.797-.684c.638-.43 1.37-.638 2.166-.638.63 0 1.229.118 1.787.362q.836.361 1.454 1.028c.414.442.73.962.953 1.549a5.3 5.3 0 0 1 .342 1.923c0 1.105-.294 2.184-.858 3.23-.552 1.025-1.327 2.007-2.31 2.949Q10.87 13.69 8.9 14.948l-.006.004a2 2 0 0 1-.362.18A1.3 1.3 0 0 1 8 15.25c-.205 0-.389-.058-.532-.118a2.3 2.3 0 0 1-.355-.18l-.006-.004q-1.97-1.258-3.438-2.656l-.001-.001c-.983-.941-1.76-1.923-2.316-2.948l-.002-.004C.79 8.294.5 7.216.5 6.112c0-.683.108-1.326.335-1.921l.001-.004a4.8 4.8 0 0 1 .961-1.55 4.4 4.4 0 0 1 1.45-1.025" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

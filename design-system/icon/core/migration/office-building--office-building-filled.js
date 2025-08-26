@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8c9411407c1f042ec99fb06f89567549>>
+ * @codegen <<SignedSource::92aa3442a4551947d1fad5075a3d9c83>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const OfficeBuildingIcon = props => /*#__PURE__*/_react.default.createElement(_officeBuilding.default, Object.assign({
+  name: "OfficeBuildingIcon",
   LEGACY_fallbackIcon: _officeBuildingFilled.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-OfficeBuildingIcon.Name = 'OfficeBuildingIconMigration';
+OfficeBuildingIcon.displayName = 'OfficeBuildingIconMigration';
 var _default = exports.default = OfficeBuildingIcon;

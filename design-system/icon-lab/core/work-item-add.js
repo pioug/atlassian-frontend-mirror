@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3fcac6ef8a976dfd90e31248626c32e6>>
+ * @codegen <<SignedSource::fa84f2a0c9c13b3d86ee3535eb73f2d0>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,6 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const WorkItemAddIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  name: "WorkItemAddIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" d="m11.573 5.983-4 4.75a.75.75 0 0 1-1.146 0l-2-2.375 1.146-.966L7 9.085l3.427-4.068zM14.5 4a.5.5 0 0 0-.4-.49L14 3.5H2a.5.5 0 0 0-.5.5v8a.5.5 0 0 0 .5.5h5.5V14H2a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h12l.204.01A2 2 0 0 1 16 4v4.5h-1.5z"/><path fill="currentcolor" d="M13.5 9.5V12H16v1.5h-2.5V16H12v-2.5H9.5V12H12V9.5z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

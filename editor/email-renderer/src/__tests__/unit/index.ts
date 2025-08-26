@@ -244,29 +244,39 @@ describe('Renderer - EmailSerializer', () => {
 	});
 
 	it('should render task list correctly', () => {
-		const { result, embeddedImages } = render(taskList);
+		const { result, embeddedImages } = render(taskList, undefined, undefined, 'stage0');
 		expect(result).toMatchSnapshot('html');
 		expect(embeddedImages).toMatchSnapshot('embeddedImages');
 	});
 
 	it('should render task list correctly with mock enabled', () => {
-		const { result, embeddedImages } = render(taskList, {
-			isImageStubEnabled: true,
-		});
+		const { result, embeddedImages } = render(
+			taskList,
+			{
+				isImageStubEnabled: true,
+			},
+			undefined,
+			'stage0',
+		);
 		expect(result).toMatchSnapshot('mock-html');
 		expect(embeddedImages).toMatchSnapshot('mock-embeddedImages');
 	});
 
 	it('should render nested task list correctly', () => {
-		const { result, embeddedImages } = render(nestedTaskList);
+		const { result, embeddedImages } = render(nestedTaskList, undefined, undefined, 'stage0');
 		expect(result).toMatchSnapshot('html');
 		expect(embeddedImages).toMatchSnapshot('embeddedImages');
 	});
 
 	it('should render nested task list correctly with mock enabled', () => {
-		const { result, embeddedImages } = render(nestedTaskList, {
-			isImageStubEnabled: true,
-		});
+		const { result, embeddedImages } = render(
+			nestedTaskList,
+			{
+				isImageStubEnabled: true,
+			},
+			undefined,
+			'stage0',
+		);
 		expect(result).toMatchSnapshot('mock-html');
 		expect(embeddedImages).toMatchSnapshot('mock-embeddedImages');
 	});
@@ -391,7 +401,7 @@ describe('Renderer - EmailSerializer', () => {
 	});
 
 	it('should render dates in normal text and task lists', () => {
-		const { result } = render(date);
+		const { result } = render(date, undefined, undefined, 'stage0');
 		expect(result).toMatchSnapshot('html');
 	});
 
@@ -436,12 +446,12 @@ describe('Renderer - EmailSerializer', () => {
 	});
 
 	it('should render action, code-block, decision, media, rule inside panel', () => {
-		const { result } = render(extendedPanel, undefined, mediaContext);
+		const { result } = render(extendedPanel, undefined, mediaContext, 'stage0');
 		expect(result).toMatchSnapshot('html');
 	});
 
 	it('should render list, action, code-block, panel, quote, decision, rule inside nested expand', () => {
-		const { result } = render(nestedExpand, undefined, mediaContext);
+		const { result } = render(nestedExpand, undefined, mediaContext, 'stage0');
 		expect(result).toMatchSnapshot('html');
 	});
 

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::28ab7079c96146d7816d2f4365b5e18c>>
+ * @codegen <<SignedSource::b313de8ff04a8394d0a34c19c5a6af26>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const HeartIcon = props => /*#__PURE__*/_react.default.createElement(_heart.default, Object.assign({
+  name: "HeartIcon",
   LEGACY_fallbackIcon: _symbols.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-HeartIcon.Name = 'HeartIconMigration';
+HeartIcon.displayName = 'HeartIconMigration';
 var _default = exports.default = HeartIcon;

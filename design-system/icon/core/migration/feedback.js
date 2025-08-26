@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c129a0bf5d2aeea221ba2044e3fd85fd>>
+ * @codegen <<SignedSource::7923b0b29c3f4de7c1e66a726f03f5d2>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const FeedbackIcon = props => /*#__PURE__*/_react.default.createElement(_feedback.default, Object.assign({
+  name: "FeedbackIcon",
   LEGACY_fallbackIcon: _feedback2.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-FeedbackIcon.Name = 'FeedbackIconMigration';
+FeedbackIcon.displayName = 'FeedbackIconMigration';
 var _default = exports.default = FeedbackIcon;

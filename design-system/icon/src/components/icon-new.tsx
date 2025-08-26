@@ -175,6 +175,7 @@ export const Icon = memo(function Icon(props: UNSAFE_NewGlyphProps) {
 		shouldScale,
 		LEGACY_margin,
 		spacing = 'none',
+		name,
 	} = props as InternalIconPropsNew;
 
 	const dangerouslySetInnerHTML = dangerouslySetGlyph
@@ -201,15 +202,15 @@ export const Icon = memo(function Icon(props: UNSAFE_NewGlyphProps) {
 	}
 
 	const type: 'core' | 'utility' = props.type ?? 'core';
-	const size: 'medium' | 'small' =
-		'size' in props &&
-		props.size !== undefined &&
-		// This prevents invalid sizes being passed in, which is required
-		// for handling unsupported legacy icon sizes which can
-		// cause errors.
-		(props.size === 'small' || props.size === 'medium')
-			? props.size
-			: 'medium';
+	let size: 'medium' | 'small' = 'medium';
+	if ('size' in props && props.size !== undefined) {
+		if (typeof props.size === 'string') {
+			size = props.size === 'small' || props.size === 'medium' ? props.size : size;
+		} else if (name) {
+			const newSize = props.size(name);
+			size = newSize === 'small' || newSize === 'medium' ? newSize : size;
+		}
+	}
 
 	const baseSize = baseSizeMap[type];
 	const viewBoxPadding = paddingMap[type][size][spacing];

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2d6de69f6e8d23d80c647d0a6d3ecd7a>>
+ * @codegen <<SignedSource::70cf26195518c0bb639ffcf7bd9325d6>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const BoardIcon = props => /*#__PURE__*/_react.default.createElement(_board.default, Object.assign({
+  name: "BoardIcon",
   LEGACY_fallbackIcon: _board2.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-BoardIcon.Name = 'BoardIconMigration';
+BoardIcon.displayName = 'BoardIconMigration';
 var _default = exports.default = BoardIcon;

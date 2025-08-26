@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f36505a32157b8c89e4d8b82bec394e6>>
+ * @codegen <<SignedSource::a40f327a3209dea9f3a6fa68297a7c9b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const CameraIcon = props => /*#__PURE__*/_react.default.createElement(_camera.default, Object.assign({
+  name: "CameraIcon",
   LEGACY_fallbackIcon: _photo.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-CameraIcon.Name = 'CameraIconMigration';
+CameraIcon.displayName = 'CameraIconMigration';
 var _default = exports.default = CameraIcon;

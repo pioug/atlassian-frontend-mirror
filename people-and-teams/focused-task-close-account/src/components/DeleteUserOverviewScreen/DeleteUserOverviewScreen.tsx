@@ -3,9 +3,9 @@ import { FormattedMessage, type MessageDescriptor } from 'react-intl-next';
 import Button from '@atlaskit/button';
 import SectionMessage from '@atlaskit/section-message';
 import InfoIcon from '@atlaskit/icon/core/migration/status-information--info';
+import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Text } from '@atlaskit/primitives';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { commonMessages, overviewMessages } from '../../messages';
 import StatefulInlineDialog from '../StatefulInlineDialog';
@@ -144,8 +144,12 @@ export class DeleteUserOverviewScreen extends React.Component<DeleteUserOverview
 			<li>
 				<FormattedMessage
 					{...this.selectAdminOrSelfCopy(
-						overviewMessages.paragraphListOfAppsWithPersonalDataAdmin,
-						overviewMessages.paragraphListOfAppsWithPersonalDataSelf,
+						fg('product-terminology-refresh')
+							? overviewMessages.paragraphListOfAppsWithPersonalDataAdminAppify
+							: overviewMessages.paragraphListOfAppsWithPersonalDataAdmin,
+						fg('product-terminology-refresh')
+							? overviewMessages.paragraphListOfAppsWithPersonalDataSelfAppify
+							: overviewMessages.paragraphListOfAppsWithPersonalDataSelf,
 					)}
 				/>
 				<Styled.IconHoverWrapper>

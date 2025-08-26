@@ -41,6 +41,9 @@
 			"path": "./tsconfig.app.json"
 		},
 		{
+			"path": "../../analytics/analytics-listeners/tsconfig.app.json"
+		},
+		{
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		}
 	]

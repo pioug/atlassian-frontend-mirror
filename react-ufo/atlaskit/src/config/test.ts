@@ -7,6 +7,7 @@ import {
 	getDoNotAbortActivePressInteractionOnTransition,
 	getEnabledVCRevisions,
 	getExperimentalInteractionRate,
+	getExtraInteractionRate,
 	getInteractionRate,
 	getMostRecentVCRevision,
 	getPostInteractionRate,
@@ -202,6 +203,21 @@ describe('UFO Configuration Module', () => {
 			setUFOConfig(config);
 			expect(getCapabilityRate('feature_flag_access')).toBe(1);
 			expect(getCapabilityRate('react_profiler')).toBe(1);
+		});
+	});
+
+	describe('getExtraInteractionRate', () => {
+		it('should return the extraInteractionMetrics rate based on configuration', () => {
+			const config = {
+				product: 'testProduct',
+				region: 'testRegion',
+				extraInteractionMetrics: {
+					enabled: true,
+					rates: { extraEvent: 0.8 },
+				},
+			};
+			setUFOConfig(config);
+			expect(getExtraInteractionRate('extraEvent', 'page_load')).toBe(0.8);
 		});
 	});
 

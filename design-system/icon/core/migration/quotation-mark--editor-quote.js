@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c87f420865896fb6e26f89bc542f7461>>
+ * @codegen <<SignedSource::01fd1199a236e8a3e8c0515ccea39d3f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const QuotationMarkIcon = props => /*#__PURE__*/_react.default.createElement(_quotationMark.default, Object.assign({
+  name: "QuotationMarkIcon",
   LEGACY_fallbackIcon: _quote.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-QuotationMarkIcon.Name = 'QuotationMarkIconMigration';
+QuotationMarkIcon.displayName = 'QuotationMarkIconMigration';
 var _default = exports.default = QuotationMarkIcon;

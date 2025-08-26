@@ -97,8 +97,11 @@ interface NewCoreGlyphSizeProps {
 	 * There are two icon sizes available:
 	 * - `medium` - 16px. (default).
 	 * - `small` - 12px.
+	 *
+	 * Alternatively a function can be passed to determine the size
+	 * based on the icon's name, which can be useful for dynamic rendering.
 	 */
-	size?: IconSize;
+	size?: IconSize | ((iconName: string) => IconSize);
 }
 
 interface OtherGlyphProps {
@@ -165,6 +168,7 @@ interface NewCoreGlyphProps
 interface NewUtilityGlyphProps
 	extends OtherGlyphProps,
 		NewUtilityGlyphSpacingProps,
+		NewCoreGlyphSizeProps,
 		NewGlyphColorProps {}
 
 export interface IconProps extends GlyphProps, IconInternalGlyphProps {
@@ -205,8 +209,11 @@ export interface UNSAFE_NewCoreGlyphProps
 		NewCoreGlyphProps,
 		IconInternalGlyphProps {
 	type?: 'core';
-	size?: NewCoreIconSize;
 	shouldRecommendSmallIcon?: boolean;
+	/**
+	 * Display name of the icon.
+	 */
+	name?: string;
 }
 
 export interface UNSAFE_NewUtilityGlyphProps
@@ -214,13 +221,24 @@ export interface UNSAFE_NewUtilityGlyphProps
 		NewUtilityGlyphProps,
 		IconInternalGlyphProps {
 	type: 'utility';
+	/**
+	 * Display name of the icon.
+	 */
+	name?: string;
 }
 
-export type NewCoreIconProps = Omit<UNSAFE_NewCoreGlyphProps, 'dangerouslySetGlyph' | 'type'>;
-export type NewUtilityIconProps = Omit<UNSAFE_NewUtilityGlyphProps, 'dangerouslySetGlyph' | 'type'>;
+export type NewCoreIconProps = Omit<
+	UNSAFE_NewCoreGlyphProps,
+	'dangerouslySetGlyph' | 'type' | 'name'
+>;
+export type NewUtilityIconProps = Omit<
+	UNSAFE_NewUtilityGlyphProps,
+	'dangerouslySetGlyph' | 'type' | 'name'
+>;
 
 export type UNSAFE_NewGlyphProps = UNSAFE_NewUtilityGlyphProps | UNSAFE_NewCoreGlyphProps;
-export type NewIconProps = Omit<UNSAFE_NewGlyphProps, 'dangerouslySetGlyph' | 'type'>;
+
+export type NewIconProps = Omit<UNSAFE_NewGlyphProps, 'dangerouslySetGlyph' | 'type' | 'name'>;
 
 export type IconTileAppearance =
 	| 'gray'

@@ -1,5 +1,24 @@
 # @atlaskit/editor-core
 
+## 210.2.0
+
+### Minor Changes
+
+- [`c29118e6ca79d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c29118e6ca79d) -
+  ED-28986 create initial version of synced blocks
+
+### Patch Changes
+
+- Updated dependencies
+
+## 210.1.8
+
+### Patch Changes
+
+- [`bcc3b620154b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bcc3b620154b0) -
+  [ux] ED-28739 [Register] [Primary toolbar] Insert button
+- Updated dependencies
+
 ## 210.1.7
 
 ### Patch Changes

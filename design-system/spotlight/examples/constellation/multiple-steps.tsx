@@ -11,9 +11,9 @@ import {
 	PopoverContent,
 	PopoverProvider,
 	PopoverTarget,
-	Spotlight,
 	SpotlightActions,
 	SpotlightBody,
+	SpotlightCard,
 	SpotlightControls,
 	SpotlightDismissControl,
 	SpotlightFooter,
@@ -45,7 +45,7 @@ const styles = cssMap({
 
 const Example = () => {
 	const [currentStep, setCurrentStep] = useState<'step-1' | 'step-2' | 'step-3' | undefined>(
-		'step-1',
+		undefined,
 	);
 
 	return (
@@ -57,7 +57,7 @@ const Example = () => {
 					</Box>
 				</PopoverTarget>
 				<PopoverContent placement="right-end" isVisible={currentStep === 'step-1'}>
-					<Spotlight testId="spotlight">
+					<SpotlightCard testId="spotlight">
 						<SpotlightHeader>
 							<SpotlightHeadline>Headline</SpotlightHeadline>
 							<SpotlightControls>
@@ -75,7 +75,7 @@ const Example = () => {
 								</SpotlightPrimaryAction>
 							</SpotlightActions>
 						</SpotlightFooter>
-					</Spotlight>
+					</SpotlightCard>
 				</PopoverContent>
 			</PopoverProvider>
 
@@ -86,7 +86,7 @@ const Example = () => {
 					</Box>
 				</PopoverTarget>
 				<PopoverContent placement="left-end" isVisible={currentStep === 'step-2'}>
-					<Spotlight testId="spotlight">
+					<SpotlightCard testId="spotlight">
 						<SpotlightHeader>
 							<SpotlightHeadline>Headline</SpotlightHeadline>
 							<SpotlightControls>
@@ -107,7 +107,7 @@ const Example = () => {
 								</SpotlightPrimaryAction>
 							</SpotlightActions>
 						</SpotlightFooter>
-					</Spotlight>
+					</SpotlightCard>
 				</PopoverContent>
 			</PopoverProvider>
 
@@ -118,7 +118,7 @@ const Example = () => {
 					</Box>
 				</PopoverTarget>
 				<PopoverContent placement="right-end" isVisible={currentStep === 'step-3'}>
-					<Spotlight testId="spotlight">
+					<SpotlightCard testId="spotlight">
 						<SpotlightHeader>
 							<SpotlightHeadline>Headline</SpotlightHeadline>
 							<SpotlightControls>
@@ -139,7 +139,7 @@ const Example = () => {
 								</SpotlightPrimaryAction>
 							</SpotlightActions>
 						</SpotlightFooter>
-					</Spotlight>
+					</SpotlightCard>
 				</PopoverContent>
 			</PopoverProvider>
 

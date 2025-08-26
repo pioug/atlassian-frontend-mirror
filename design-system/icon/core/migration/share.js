@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::eddb3c8fd23121248d7a9663e3c0819a>>
+ * @codegen <<SignedSource::9e18c48fa51720497915ca82e3c073ca>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ShareIcon = props => /*#__PURE__*/_react.default.createElement(_share.default, Object.assign({
+  name: "ShareIcon",
   LEGACY_fallbackIcon: _share2.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-ShareIcon.Name = 'ShareIconMigration';
+ShareIcon.displayName = 'ShareIconMigration';
 var _default = exports.default = ShareIcon;

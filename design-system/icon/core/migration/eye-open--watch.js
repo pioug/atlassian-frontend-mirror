@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a052784e02c39e1ef8b9f184efeeb6e4>>
+ * @codegen <<SignedSource::a82b3023d120d1cddcc651115b89d980>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const EyeOpenIcon = props => /*#__PURE__*/_react.default.createElement(_eyeOpen.default, Object.assign({
+  name: "EyeOpenIcon",
   LEGACY_fallbackIcon: _watch.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-EyeOpenIcon.Name = 'EyeOpenIconMigration';
+EyeOpenIcon.displayName = 'EyeOpenIconMigration';
 var _default = exports.default = EyeOpenIcon;

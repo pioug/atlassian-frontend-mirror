@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::53b9d7f39d5a7786fd5c4592782d4f82>>
+ * @codegen <<SignedSource::18cd44b40ff8809efea24ae850576bc8>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const CrossIcon = props => /*#__PURE__*/_react.default.createElement(_cross.default, Object.assign({
+  name: "CrossIcon",
   LEGACY_fallbackIcon: _close.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-CrossIcon.Name = 'CrossIconMigration';
+CrossIcon.displayName = 'CrossIconMigration';
 var _default = exports.default = CrossIcon;

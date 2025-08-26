@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e2f90a428e27c19a23210f4827b99818>>
+ * @codegen <<SignedSource::88ba20151931ba3bc3acff79a5d761b1>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const FolderClosedIcon = props => /*#__PURE__*/_react.default.createElement(_folderClosed.default, Object.assign({
+  name: "FolderClosedIcon",
   LEGACY_fallbackIcon: _folder.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-FolderClosedIcon.Name = 'FolderClosedIconMigration';
+FolderClosedIcon.displayName = 'FolderClosedIconMigration';
 var _default = exports.default = FolderClosedIcon;

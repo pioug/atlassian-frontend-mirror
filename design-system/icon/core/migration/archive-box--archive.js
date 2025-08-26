@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::542b8587e912458cb1fe6aa28ca83d10>>
+ * @codegen <<SignedSource::b90d358c685d105215e4663cc28afcc7>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ArchiveBoxIcon = props => /*#__PURE__*/_react.default.createElement(_archiveBox.default, Object.assign({
+  name: "ArchiveBoxIcon",
   LEGACY_fallbackIcon: _archive.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-ArchiveBoxIcon.Name = 'ArchiveBoxIconMigration';
+ArchiveBoxIcon.displayName = 'ArchiveBoxIconMigration';
 var _default = exports.default = ArchiveBoxIcon;

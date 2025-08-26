@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d63ca31b758327203174915ec4fdd417>>
+ * @codegen <<SignedSource::5299dae51933827bfdc2b6fdbe7310d4>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,6 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const TextConclusionAddIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  name: "TextConclusionAddIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M15 6.5H1V5h14zm0-4H1V1h14z" clip-rule="evenodd"/><path fill="currentcolor" d="M1.75 11a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5m0 4a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5m3.88-4.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0M4.88 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5m3.87-4.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0M8 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5m3.88-4.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0m2.37.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

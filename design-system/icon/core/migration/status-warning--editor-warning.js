@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::468397db8b621d0b872ec4fdf86e27df>>
+ * @codegen <<SignedSource::010e4a044c21a644c0b907c418c4e39c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -25,8 +25,9 @@ Filled status icons provide higher visual contrast to draw attention to importan
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const StatusWarningIcon = props => /*#__PURE__*/_react.default.createElement(_statusWarning.default, Object.assign({
+  name: "StatusWarningIcon",
   LEGACY_fallbackIcon: _warning.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-StatusWarningIcon.Name = 'StatusWarningIconMigration';
+StatusWarningIcon.displayName = 'StatusWarningIconMigration';
 var _default = exports.default = StatusWarningIcon;

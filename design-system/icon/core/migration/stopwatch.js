@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4f8fa98d5af7aa71848cf5218e04fd5c>>
+ * @codegen <<SignedSource::3e189c4a599d81ae424744c77036b157>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const StopwatchIcon = props => /*#__PURE__*/_react.default.createElement(_stopwatch.default, Object.assign({
+  name: "StopwatchIcon",
   LEGACY_fallbackIcon: _stopwatch2.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-StopwatchIcon.Name = 'StopwatchIconMigration';
+StopwatchIcon.displayName = 'StopwatchIconMigration';
 var _default = exports.default = StopwatchIcon;

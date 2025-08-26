@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2d5f7514cb392dc767c819058ee1ff0e>>
+ * @codegen <<SignedSource::89ab4c41f5117fc720387c91095ca641>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const UploadIcon = props => /*#__PURE__*/_react.default.createElement(_upload.default, Object.assign({
+  name: "UploadIcon",
   LEGACY_fallbackIcon: _export.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-UploadIcon.Name = 'UploadIconMigration';
+UploadIcon.displayName = 'UploadIconMigration';
 var _default = exports.default = UploadIcon;

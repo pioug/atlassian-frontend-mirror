@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::cc97c7eaf507670d91e48ca2520caf63>>
+ * @codegen <<SignedSource::9b6b06be2663cdd7aeaf7d4cde5d1218>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const VolumeHighIcon = props => /*#__PURE__*/_react.default.createElement(_volumeHigh.default, Object.assign({
+  name: "VolumeHighIcon",
   LEGACY_fallbackIcon: _outgoingSound.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-VolumeHighIcon.Name = 'VolumeHighIconMigration';
+VolumeHighIcon.displayName = 'VolumeHighIconMigration';
 var _default = exports.default = VolumeHighIcon;

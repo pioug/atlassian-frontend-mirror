@@ -16,6 +16,12 @@ export interface AdditionalData {
 		| Array<AdditionalData>;
 }
 
+interface InteractionMetricsConfig {
+	readonly enabled?: boolean;
+	readonly rates?: Rates;
+	readonly kind?: Record<InteractionType, number>;
+}
+
 export interface SSRTiming {
 	label: string;
 	data: {
@@ -161,6 +167,10 @@ export type Config = {
 	 * Return {@code null} if hydration was not attempted or if we do not want to report any stats.
 	 */
 	readonly getReactHydrationStats?: (() => ReactHydrationStats | undefined) | undefined;
+	/**
+	 * Whether ttvc with 3p measurement is enabled and sent new event for experiences with sample rates
+	 */
+	readonly extraInteractionMetrics?: InteractionMetricsConfig;
 };
 
 export function setUFOConfig(newConfig: Config) {
@@ -338,31 +348,7 @@ export function getExperimentalInteractionRate(
 }
 
 export function getPostInteractionRate(name: string, interactionType: InteractionType): number {
-	try {
-		if (!config) {
-			return 0;
-		}
-		const { postInteractionLog } = config;
-		if (!postInteractionLog?.enabled) {
-			return 0;
-		}
-
-		if (interactionType !== 'page_load' && interactionType !== 'transition') {
-			return 0;
-		}
-
-		if (postInteractionLog.rates && typeof postInteractionLog.rates[name] === 'number') {
-			return postInteractionLog.rates[name];
-		}
-
-		if (postInteractionLog.kind && typeof postInteractionLog.kind[interactionType] === 'number') {
-			return postInteractionLog.kind[interactionType];
-		}
-
-		return 0;
-	} catch (e: any) {
-		return 0;
-	}
+	return getConfigRate(name, interactionType, 'postInteractionLog');
 }
 
 export function getCapabilityRate(capability: Capability): number {
@@ -385,6 +371,46 @@ export function getCapabilityRate(capability: Capability): number {
 	} catch {
 		return 0;
 	}
+}
+
+function getConfigRate(
+	name: string,
+	interactionType: InteractionType,
+	configName: 'postInteractionLog' | 'extraInteractionMetrics',
+): number {
+	try {
+		if (!config) {
+			return 0;
+		}
+		const gotConfig = config[configName];
+		if (!gotConfig?.enabled) {
+			return 0;
+		}
+
+		if (interactionType !== 'page_load' && interactionType !== 'transition') {
+			return 0;
+		}
+
+		if (gotConfig.rates && typeof gotConfig.rates[name] === 'number') {
+			return gotConfig.rates[name];
+		}
+
+		if (
+			'kind' in gotConfig &&
+			gotConfig.kind &&
+			typeof gotConfig.kind[interactionType] === 'number'
+		) {
+			return gotConfig.kind[interactionType];
+		}
+
+		return 0;
+	} catch (e: any) {
+		return 0;
+	}
+}
+
+export function getExtraInteractionRate(name: string, interactionType: InteractionType): number {
+	return getConfigRate(name, interactionType, 'extraInteractionMetrics');
 }
 
 const validTypingMethods = ['timeout', 'timeoutNoAlloc', 'mutationObserver'] as const;

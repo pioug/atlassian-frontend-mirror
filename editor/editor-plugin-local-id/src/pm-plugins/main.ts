@@ -30,8 +30,12 @@ export const createPlugin = () => {
 				const tr = editorView.state.tr;
 				let localIdWasAdded = false;
 
-				const { text, hardBreak } = editorView.state.schema.nodes;
-				const ignoredNodeTypes = [text.name, hardBreak.name];
+				const { text, hardBreak, mediaGroup } = editorView.state.schema.nodes;
+				// Media group is ignored for now
+				// https://bitbucket.org/atlassian/adf-schema/src/fb2236147a0c2bc9c8efbdb75fd8f8c411df44ba/packages/adf-schema/src/next-schema/nodes/mediaGroup.ts#lines-12
+				const ignoredNodeTypes = mediaGroup
+					? [text.name, hardBreak.name, mediaGroup.name]
+					: [text.name, hardBreak.name];
 
 				editorView.state.doc.descendants((node: PMNode, pos) => {
 					// Skip text nodes, hard breaks and nodes that already have local IDs
@@ -60,8 +64,10 @@ export const createPlugin = () => {
 		appendTransaction: (transactions, _oldState, newState) => {
 			let modified = false;
 			const tr = newState.tr;
-			const { text, hardBreak } = newState.schema.nodes;
-			const ignoredNodeTypes = [text?.name, hardBreak?.name];
+			const { text, hardBreak, mediaGroup } = newState.schema.nodes;
+			// Media group is ignored for now
+			// https://bitbucket.org/atlassian/adf-schema/src/fb2236147a0c2bc9c8efbdb75fd8f8c411df44ba/packages/adf-schema/src/next-schema/nodes/mediaGroup.ts#lines-12
+			const ignoredNodeTypes = [text?.name, hardBreak?.name, mediaGroup?.name];
 			const addedNodes = new Set<PMNode>();
 			const addedNodePos = new Map<PMNode, number>();
 			const localIds = new Set<string>();

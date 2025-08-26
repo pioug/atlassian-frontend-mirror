@@ -12,9 +12,9 @@ import {
 	PopoverContent,
 	PopoverProvider,
 	PopoverTarget,
-	Spotlight,
 	SpotlightActions,
 	SpotlightBody,
+	SpotlightCard,
 	SpotlightControls,
 	SpotlightDismissControl,
 	SpotlightFooter,
@@ -25,7 +25,7 @@ import {
 } from '@atlaskit/spotlight';
 
 const Example = () => {
-	const [isVisible, setIsVisible] = useState<boolean>(true);
+	const [isVisible, setIsVisible] = useState<boolean>(false);
 
 	return (
 		<div>
@@ -34,7 +34,7 @@ const Example = () => {
 					<Button onClick={() => setIsVisible(true)}>Show Spotlight</Button>
 				</PopoverTarget>
 				<PopoverContent placement="bottom-end" isVisible={isVisible}>
-					<Spotlight testId="spotlight">
+					<SpotlightCard testId="spotlight">
 						<SpotlightHeader>
 							<SpotlightHeadline>Headline</SpotlightHeadline>
 							<SpotlightControls>
@@ -62,7 +62,7 @@ const Example = () => {
 								</SpotlightPrimaryAction>
 							</SpotlightActions>
 						</SpotlightFooter>
-					</Spotlight>
+					</SpotlightCard>
 				</PopoverContent>
 			</PopoverProvider>
 		</div>

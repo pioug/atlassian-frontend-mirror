@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::162fb3a08de04e361e110fa070371a1f>>
+ * @codegen <<SignedSource::6d4b634f047415bc6ba9e2e654a2b6fe>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const BriefcaseIcon = props => /*#__PURE__*/_react.default.createElement(_briefcase.default, Object.assign({
+  name: "BriefcaseIcon",
   LEGACY_fallbackIcon: _suitcase.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-BriefcaseIcon.Name = 'BriefcaseIconMigration';
+BriefcaseIcon.displayName = 'BriefcaseIconMigration';
 var _default = exports.default = BriefcaseIcon;

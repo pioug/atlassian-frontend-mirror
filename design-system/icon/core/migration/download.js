@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::647640fe09afef5813e2888b2ce1f074>>
+ * @codegen <<SignedSource::c27208d6ab6791006597f11ce02c72b5>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const DownloadIcon = props => /*#__PURE__*/_react.default.createElement(_download.default, Object.assign({
+  name: "DownloadIcon",
   LEGACY_fallbackIcon: _download2.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-DownloadIcon.Name = 'DownloadIconMigration';
+DownloadIcon.displayName = 'DownloadIconMigration';
 var _default = exports.default = DownloadIcon;

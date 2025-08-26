@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1533407203f003b100b6bc9fc1cca1a6>>
+ * @codegen <<SignedSource::61f2cd3b3ce75546535a34edc6c6a407>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,6 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const SortAscendingIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  name: "SortAscendingIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M15 12.5H1V14h14zm-1.75-3.75V3.56l1.72 1.72 1.06-1.06-3-3a.75.75 0 0 0-1.06 0l-3 3 1.06 1.06 1.72-1.72v5.19zM8 7.25H1v1.5h7zM6 2H1v1.5h5z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

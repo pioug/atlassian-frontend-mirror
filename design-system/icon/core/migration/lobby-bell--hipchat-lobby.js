@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9ebf1eab4d818d08ceb087c2bca6ee33>>
+ * @codegen <<SignedSource::7c3882892bfa77a852a2aa271c5eea3c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const LobbyBellIcon = props => /*#__PURE__*/_react.default.createElement(_lobbyBell.default, Object.assign({
+  name: "LobbyBellIcon",
   LEGACY_fallbackIcon: _lobby.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-LobbyBellIcon.Name = 'LobbyBellIconMigration';
+LobbyBellIcon.displayName = 'LobbyBellIconMigration';
 var _default = exports.default = LobbyBellIcon;

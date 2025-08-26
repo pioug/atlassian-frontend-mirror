@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d1651cf0121bcd9da553aa3ae712d3fd>>
+ * @codegen <<SignedSource::97a5a65657385326b73d4daa84dd79f8>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const SuccessIcon = props => /*#__PURE__*/_react.default.createElement(_success.default, Object.assign({
+  name: "SuccessIcon",
   LEGACY_fallbackIcon: _checkCircle.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-SuccessIcon.Name = 'SuccessIconMigration';
+SuccessIcon.displayName = 'SuccessIconMigration';
 var _default = exports.default = SuccessIcon;

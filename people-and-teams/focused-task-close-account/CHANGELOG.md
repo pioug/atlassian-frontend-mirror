@@ -1,5 +1,12 @@
 # @atlaskit/focused-task-close-account
 
+## 3.2.0
+
+### Minor Changes
+
+- [`80d70952eab4f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/80d70952eab4f) -
+  Product term refresh
+
 ## 3.1.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6523555332355b1d4aa6bddc8955e159>>
+ * @codegen <<SignedSource::2c4f905e9e622db78135b9c7f413656b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const RetryIcon = props => /*#__PURE__*/_react.default.createElement(_retry.default, Object.assign({
+  name: "RetryIcon",
   LEGACY_fallbackIcon: _retry2.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-RetryIcon.Name = 'RetryIconMigration';
+RetryIcon.displayName = 'RetryIconMigration';
 var _default = exports.default = RetryIcon;

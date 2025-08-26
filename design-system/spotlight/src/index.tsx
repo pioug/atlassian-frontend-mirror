@@ -1,4 +1,4 @@
-export { Spotlight, type SpotlightProps } from './ui/spotlight';
+export { SpotlightCard, type SpotlightCardProps } from './ui/card';
 export { SpotlightBody, type SpotlightBodyProps } from './ui/body';
 export { SpotlightHeader, type SpotlightHeaderProps } from './ui/header';
 export { SpotlightHeadline, type SpotlightHeadlineProps } from './ui/headline';
@@ -20,4 +20,3 @@ export { SpotlightMedia, type SpotlightMediaProps } from './ui/media';
 export { PopoverProvider } from './ui/popover-provider';
 export { PopoverContent } from './ui/popover-content';
 export { PopoverTarget } from './ui/popover-target';
-export { TourContext, TourContextProvider } from './controllers/context';

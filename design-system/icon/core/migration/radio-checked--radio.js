@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::502c5079aca3ec31626ab3ad3ff851ea>>
+ * @codegen <<SignedSource::2e9b3aa5511613a4421823228c366b32>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const RadioCheckedIcon = props => /*#__PURE__*/_react.default.createElement(_radioChecked.default, Object.assign({
+  name: "RadioCheckedIcon",
   LEGACY_fallbackIcon: _radio.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-RadioCheckedIcon.Name = 'RadioCheckedIconMigration';
+RadioCheckedIcon.displayName = 'RadioCheckedIconMigration';
 var _default = exports.default = RadioCheckedIcon;

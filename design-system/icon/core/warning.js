@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c615014b011664b243a37531e093f861>>
+ * @codegen <<SignedSource::01a498f3617833e0d338d77640038247>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -22,6 +22,7 @@ Filled status icons provide higher visual contrast to draw attention to importan
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const WarningIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  name: "WarningIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M6.242 1.169c.757-1.396 2.76-1.396 3.516 0l5.9 10.878C16.381 13.379 15.416 15 13.9 15H2.1C.584 15-.38 13.38.342 12.047zM7.25 9.5v-5h1.5v5zM8 12.75a1 1 0 1 0 0-2 1 1 0 0 0 0 2" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

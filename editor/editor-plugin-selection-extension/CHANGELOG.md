@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 3.6.0
+
+### Minor Changes
+
+- [`c29118e6ca79d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c29118e6ca79d) -
+  ED-28986 create initial version of synced blocks
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.5.3
 
 ### Patch Changes

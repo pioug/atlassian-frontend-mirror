@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a5d9bc714b94bbfccf80562561c55833>>
+ * @codegen <<SignedSource::05931c7de6eea72a1c90bf5507b6c500>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ShowMoreHorizontalIcon = props => /*#__PURE__*/_react.default.createElement(_showMoreHorizontal.default, Object.assign({
+  name: "ShowMoreHorizontalIcon",
   LEGACY_fallbackIcon: _more.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-ShowMoreHorizontalIcon.Name = 'ShowMoreHorizontalIconMigration';
+ShowMoreHorizontalIcon.displayName = 'ShowMoreHorizontalIconMigration';
 var _default = exports.default = ShowMoreHorizontalIcon;

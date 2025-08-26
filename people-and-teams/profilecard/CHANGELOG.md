@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 24.7.1
+
+### Patch Changes
+
+- [`72421c0e8c7ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/72421c0e8c7ec) -
+  Updated static assets in examples from ptc-directory-sited-static to teams-directory-frontend
+- Updated dependencies
+
 ## 24.7.0
 
 ### Minor Changes

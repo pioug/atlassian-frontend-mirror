@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6f1c4b673226ce204b87c5b02dc4c1f5>>
+ * @codegen <<SignedSource::02d5b507d6509703e78cfd9e03641a0e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,6 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const DiagramSymbolConnectorOnPageIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  name: "DiagramSymbolConnectorOnPageIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" d="M13.5 8a5.5 5.5 0 1 0-11 0 5.5 5.5 0 0 0 11 0M15 8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

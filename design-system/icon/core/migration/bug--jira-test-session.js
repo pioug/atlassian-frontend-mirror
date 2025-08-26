@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::35f1f566a5895dbf1d622ae725fb7d79>>
+ * @codegen <<SignedSource::579d8b633629849a24e0bfd42e18cded>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const BugIcon = props => /*#__PURE__*/_react.default.createElement(_bug.default, Object.assign({
+  name: "BugIcon",
   LEGACY_fallbackIcon: _testSession.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-BugIcon.Name = 'BugIconMigration';
+BugIcon.displayName = 'BugIconMigration';
 var _default = exports.default = BugIcon;

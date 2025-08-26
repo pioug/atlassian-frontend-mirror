@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0b007f69ad81895a86b02f3ac63c0846>>
+ * @codegen <<SignedSource::bf4dd9d0a11241bd81112c2f7135ad3d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const PremiumIcon = props => /*#__PURE__*/_react.default.createElement(_premium.default, Object.assign({
+  name: "PremiumIcon",
   LEGACY_fallbackIcon: _premium2.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-PremiumIcon.Name = 'PremiumIconMigration';
+PremiumIcon.displayName = 'PremiumIconMigration';
 var _default = exports.default = PremiumIcon;

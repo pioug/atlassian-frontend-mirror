@@ -81,6 +81,29 @@ frequent spotlights, consider simplifying the core experience instead.
 - Keep content concise and avoid motion that could be disruptive.
 - Ensure the carat and spotlight are not truncated by the browser bounds.
 
+### Focus Management
+
+#### Single step spotlights
+
+The spotlight should **not** grab focus. Allow users to tab onto the spotlight in normal tabbing
+order. By default the tabbable elements in spotlight will be ordered directly after the target
+element to give screen-reader/keyboard users context about what the spotlight is related to.
+
+The first focusable element in the spotlight should **always** be the dismiss button at the top of
+the card. This will happen automatically even when a show-more button is visually ahead of it. So
+product engineers shouldn't need to do any additional work.
+
+#### Multi step spotlights
+
+The first spotlight in a tour should **not** grab focus. Allow users to tab onto the spotlight in
+normal tabbing order.
+
+The second (and subsequent step) spotlights **should** grab focus. This is because screen-reader
+users have no other method of knowing where the new spotlight steps are shown.
+
+Once the tour completes, focus should be returned to the target element for the first step. This
+allows screen-reader users to easily perform the actions just taught to them via the spotlight tour.
+
 ## Content Guidelines
 
 ## Headline

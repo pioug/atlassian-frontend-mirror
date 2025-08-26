@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a0ced1d960d5ffcbbe0ac5a90af7d239>>
+ * @codegen <<SignedSource::1e40ce8c84b62c0d64201cf013207072>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const AttachmentIcon = props => /*#__PURE__*/_react.default.createElement(_attachment.default, Object.assign({
+  name: "AttachmentIcon",
   LEGACY_fallbackIcon: _attachment2.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-AttachmentIcon.Name = 'AttachmentIconMigration';
+AttachmentIcon.displayName = 'AttachmentIconMigration';
 var _default = exports.default = AttachmentIcon;

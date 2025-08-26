@@ -22,8 +22,8 @@ import {
 } from '../../../hooks';
 import type { ProsemirrorGetPosHandler } from '../../../react-node-view';
 import type { EditorAppearance, EditorContainerWidth } from '../../../types';
-import { overflowShadow } from '../../../ui';
 import type { OverflowShadowProps } from '../../../ui';
+import { overflowShadow } from '../../../ui';
 import { calculateBreakoutStyles } from '../../../utils';
 import type { ExtensionsPluginInjectionAPI, MacroInteractionDesignFeatureFlags } from '../../types';
 import { LegacyContentHeader } from '../LegacyContentHeader';
@@ -33,8 +33,8 @@ import { overlay } from '../styles';
 import { isEmptyBodiedMacro } from './extension-utils';
 import {
 	content,
-	extensionContent,
 	contentWrapper,
+	extensionContent,
 	header,
 	overflowWrapperStyles,
 	widerLayoutClassName,
@@ -97,10 +97,16 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 	const showLegacyContentHeader =
 		fg('platform_editor_legacy_content_macro_visual_update') && isLegacyContentMacroExtension(node);
 
+	const isSyncedBlockExtension =
+		node.type.name === 'extension' && node.attrs?.extensionKey?.startsWith('synced-block');
+
 	const hasBody = ['bodiedExtension', 'multiBodiedExtension'].includes(node.type.name);
 
 	const hasChildren = !!children;
-	const removeBorder = showMacroInteractionDesignUpdates || !!(hideFrame && !hasBody);
+
+	const removeBorder = fg('platform_synced_block_demo')
+		? showMacroInteractionDesignUpdates || !!hideFrame || isSyncedBlockExtension
+		: showMacroInteractionDesignUpdates || !!(hideFrame && !hasBody);
 
 	// Some native bodied macros (e.g Content properties) have this param to hide in view mode
 	// which we want to also hide in live page view mode too
@@ -199,6 +205,10 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 		? extensionContent
 		: content;
 
+	const shouldHideExtensionLozenge = fg('platform_synced_block_demo')
+		? isSyncedBlockExtension
+		: false;
+
 	return (
 		<Fragment>
 			{showLegacyContentHeader && (
@@ -209,23 +219,26 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 					onMouseLeave={() => handleMouseEvent(false)}
 				/>
 			)}
-			{!showLegacyContentHeader && showMacroInteractionDesignUpdates && !isLivePageViewMode && (
-				<ExtensionLozenge
-					isNodeSelected={isNodeSelected}
-					isNodeHovered={isNodeHovered}
-					isNodeNested={isNodeNested}
-					node={node}
-					showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
-					customContainerStyles={customContainerStyles}
-					setIsNodeHovered={setIsNodeHovered}
-					isBodiedMacro={hasBody || isLegacyContentMacroExtension(node)}
-					showLivePagesBodiedMacrosRendererView={showLivePagesBodiedMacrosRendererView}
-					showUpdatedLivePages1PBodiedExtensionUI={showUpdatedLivePages1PBodiedExtensionUI}
-					showBodiedExtensionRendererView={showBodiedExtensionRendererView}
-					setShowBodiedExtensionRendererView={setShowBodiedExtensionRendererView}
-					pluginInjectionApi={pluginInjectionApi}
-				/>
-			)}
+			{!showLegacyContentHeader &&
+				showMacroInteractionDesignUpdates &&
+				!isLivePageViewMode &&
+				!shouldHideExtensionLozenge && (
+					<ExtensionLozenge
+						isNodeSelected={isNodeSelected}
+						isNodeHovered={isNodeHovered}
+						isNodeNested={isNodeNested}
+						node={node}
+						showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
+						customContainerStyles={customContainerStyles}
+						setIsNodeHovered={setIsNodeHovered}
+						isBodiedMacro={hasBody || isLegacyContentMacroExtension(node)}
+						showLivePagesBodiedMacrosRendererView={showLivePagesBodiedMacrosRendererView}
+						showUpdatedLivePages1PBodiedExtensionUI={showUpdatedLivePages1PBodiedExtensionUI}
+						showBodiedExtensionRendererView={showBodiedExtensionRendererView}
+						setShowBodiedExtensionRendererView={setShowBodiedExtensionRendererView}
+						pluginInjectionApi={pluginInjectionApi}
+					/>
+				)}
 			{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
 			<div
 				data-testid="extension-container"

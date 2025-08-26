@@ -1,5 +1,5 @@
 import { type NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
-import type { Schema, Node as PMNode, Fragment } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode, Fragment } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { DecorationSource, EditorView } from '@atlaskit/editor-prosemirror/view';
 
@@ -42,23 +42,32 @@ export function isEditorViewWithNodeViews(view: EditorView): view is EditorViewW
  * - Preventing node view creation for blocklisted node types
  */
 export class NodeViewSerializer {
-	private serializer: DOMSerializer;
 	private editorView?: EditorViewWithNodeViews;
-	private nodeViews: Record<string, NodeViewConstructor>;
+	private serializer?: DOMSerializer;
+	private nodeViews?: Record<string, NodeViewConstructor>;
 	private nodeViewBlocklist: Set<string>;
 
-	constructor(params: {
-		blocklist?: string[];
-		editorView?: EditorView;
-		nodeViews?: Record<string, NodeViewConstructor>;
-		schema: Schema;
-	}) {
-		this.serializer = DOMSerializer.fromSchema(params.schema);
-		if (params.editorView && isEditorViewWithNodeViews(params.editorView)) {
+	constructor(params: { blocklist?: string[]; editorView?: EditorView }) {
+		if (params?.editorView) {
+			this.init({ editorView: params.editorView });
+		}
+		this.nodeViewBlocklist = new Set(params.blocklist ?? ['tableRow', 'table', 'paragraph']);
+	}
+
+	/**
+	 * Initializes or reinitializes the NodeViewSerializer with a new EditorView.
+	 * This allows the same serializer instance to be reused across different editor states.
+	 */
+	init(params: { editorView: EditorView }) {
+		this.serializer = DOMSerializer.fromSchema(params.editorView.state.schema);
+		if (isEditorViewWithNodeViews(params.editorView)) {
 			this.editorView = params.editorView;
 		}
-		this.nodeViews = params.nodeViews ?? this.editorView?.nodeViews ?? {};
-		this.nodeViewBlocklist = new Set(params.blocklist ?? ['tableRow', 'table', 'paragraph']);
+		const nodeViews: Record<string, NodeViewConstructor> =
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			(params.editorView as any)?.nodeViews || {};
+
+		this.nodeViews = nodeViews ?? this.editorView?.nodeViews ?? {};
 	}
 
 	/**
@@ -71,7 +80,7 @@ export class NodeViewSerializer {
 		if (!this.editorView) {
 			return null;
 		}
-		const constructor = this.nodeViews[targetNode.type.name];
+		const constructor = this.nodeViews?.[targetNode.type.name];
 		if (!constructor) {
 			return null;
 		}
@@ -85,6 +94,9 @@ export class NodeViewSerializer {
 	 * Serializes a node to a DOM `Node` using the schema's `DOMSerializer`.
 	 */
 	serializeNode(node: PMNode) {
+		if (!this.serializer) {
+			throw new Error('NodeViewSerializer must be initialized with init() before use');
+		}
 		return this.serializer.serializeNode(node);
 	}
 
@@ -92,6 +104,9 @@ export class NodeViewSerializer {
 	 * Serializes a fragment to a `DocumentFragment` using the schema's `DOMSerializer`.
 	 */
 	serializeFragment(fragment: Fragment) {
+		if (!this.serializer) {
+			throw new Error('NodeViewSerializer must be initialized with init() before use');
+		}
 		return this.serializer.serializeFragment(fragment);
 	}
 }

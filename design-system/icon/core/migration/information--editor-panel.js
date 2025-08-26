@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::56ceccaeae6b6ab573cba52e86f8798f>>
+ * @codegen <<SignedSource::c31087c460c53abc2def45cf7798e66a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -26,8 +26,9 @@ For information tooltips, use the unfilled 'information circle' icon.
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const InformationIcon = props => /*#__PURE__*/_react.default.createElement(_information.default, Object.assign({
+  name: "InformationIcon",
   LEGACY_fallbackIcon: _panel.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-InformationIcon.Name = 'InformationIconMigration';
+InformationIcon.displayName = 'InformationIconMigration';
 var _default = exports.default = InformationIcon;

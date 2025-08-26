@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7aed1f5d591b795b5f69329c869bddf6>>
+ * @codegen <<SignedSource::da130b30c0dbb40758f42a38222a9932>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const FullscreenExitIcon = props => /*#__PURE__*/_react.default.createElement(_fullscreenExit.default, Object.assign({
+  name: "FullscreenExitIcon",
   LEGACY_fallbackIcon: _fullScreen.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-FullscreenExitIcon.Name = 'FullscreenExitIconMigration';
+FullscreenExitIcon.displayName = 'FullscreenExitIconMigration';
 var _default = exports.default = FullscreenExitIcon;

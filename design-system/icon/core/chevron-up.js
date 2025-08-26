@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::186cfd732e4641b5fdb3f2d7a456f10c>>
+ * @codegen <<SignedSource::b6f832dcdc2d7a1f91afd5e9b90e10b9>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -22,6 +22,7 @@ Known uses: Close dropdown menu
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ChevronUpIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  name: "ChevronUpIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" d="m14.53 9.97-6-6a.75.75 0 0 0-1.004-.052l-.056.052-6 6 1.06 1.06L8 5.56l5.47 5.47z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

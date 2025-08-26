@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5787015e031351b79ec5793443041b69>>
+ * @codegen <<SignedSource::67ab2c5e7300003b7e06d5bf9636c1e4>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const VolumeMutedIcon = props => /*#__PURE__*/_react.default.createElement(_volumeMuted.default, Object.assign({
+  name: "VolumeMutedIcon",
   LEGACY_fallbackIcon: _vidVolumeMuted.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-VolumeMutedIcon.Name = 'VolumeMutedIconMigration';
+VolumeMutedIcon.displayName = 'VolumeMutedIconMigration';
 var _default = exports.default = VolumeMutedIcon;

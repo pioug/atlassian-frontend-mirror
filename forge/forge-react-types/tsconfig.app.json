@@ -56,6 +56,9 @@
 			"path": "../../design-system/modal-dialog/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/navigation-system/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/popup/tsconfig.app.json"
 		},
 		{

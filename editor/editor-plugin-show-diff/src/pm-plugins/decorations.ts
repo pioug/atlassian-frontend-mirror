@@ -1,16 +1,11 @@
 import type { Change } from 'prosemirror-changeset';
 
-import {
-	type NodeViewConstructor,
-	convertToInlineCss,
-} from '@atlaskit/editor-common/lazy-node-view';
+import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { token } from '@atlaskit/tokens';
 
-import { NodeViewSerializer } from './NodeViewSerializer';
+import type { NodeViewSerializer } from './NodeViewSerializer';
 
 const style = convertToInlineCss({
 	background: token('color.background.accent.purple.subtlest'),
@@ -39,9 +34,7 @@ export const createInlineChangedDecoration = (change: { fromB: number; toB: numb
 interface DeletedContentDecorationProps {
 	change: Change;
 	doc: PMNode;
-	editorView?: EditorView;
-	nodeViews: Record<string, NodeViewConstructor>;
-	tr: Transaction;
+	nodeViewSerializer: NodeViewSerializer;
 }
 
 const deletedContentStyle = convertToInlineCss({
@@ -72,9 +65,7 @@ const deletedContentStyleUnbounded = convertToInlineCss({
 export const createDeletedContentDecoration = ({
 	change,
 	doc,
-	tr,
-	editorView,
-	nodeViews,
+	nodeViewSerializer,
 }: DeletedContentDecorationProps) => {
 	const dom = document.createElement('span');
 	dom.setAttribute('style', deletedContentStyle);
@@ -86,11 +77,7 @@ export const createDeletedContentDecoration = ({
 	 */
 	const slice = doc.slice(change.fromA, change.toA);
 
-	const nodeViewSerializer = new NodeViewSerializer({
-		schema: tr.doc.type.schema,
-		editorView,
-		nodeViews,
-	});
+	const serializer = nodeViewSerializer;
 
 	slice.content.forEach((node) => {
 		// Create a wrapper for each node with strikethrough
@@ -110,7 +97,7 @@ export const createDeletedContentDecoration = ({
 		const handleMultipleChildNodes = (node: PMNode): boolean => {
 			if (node.content.childCount > 1 && node.type.inlineContent) {
 				node.content.forEach((childNode) => {
-					const childNodeView = nodeViewSerializer.tryCreateNodeView(childNode);
+					const childNodeView = serializer.tryCreateNodeView(childNode);
 					if (childNodeView) {
 						const lineBreak = document.createElement('br');
 						targetNode = node;
@@ -120,7 +107,7 @@ export const createDeletedContentDecoration = ({
 						dom.append(wrapper);
 					} else {
 						// Fallback to serializing the individual child node
-						const serializedChild = nodeViewSerializer.serializeNode(childNode);
+						const serializedChild = serializer.serializeNode(childNode);
 						dom.append(serializedChild);
 					}
 				});
@@ -142,7 +129,7 @@ export const createDeletedContentDecoration = ({
 				return;
 			}
 			targetNode = node.content.content[0];
-			fallbackSerialization = () => nodeViewSerializer.serializeFragment(node.content);
+			fallbackSerialization = () => serializer.serializeFragment(node.content);
 		} else if (isLast && slice.content.childCount === 2) {
 			if (handleMultipleChildNodes(node)) {
 				return;
@@ -157,21 +144,21 @@ export const createDeletedContentDecoration = ({
 				if (node.type.name === 'paragraph') {
 					const lineBreak = document.createElement('br');
 					dom.append(lineBreak);
-					return nodeViewSerializer.serializeFragment(node.content);
+					return serializer.serializeFragment(node.content);
 				}
 
-				return nodeViewSerializer.serializeFragment(node.content);
+				return serializer.serializeFragment(node.content);
 			};
 		} else {
 			if (handleMultipleChildNodes(node)) {
 				return;
 			}
 			targetNode = node.content.content[0] || node;
-			fallbackSerialization = () => nodeViewSerializer.serializeNode(node);
+			fallbackSerialization = () => serializer.serializeNode(node);
 		}
 
 		// Try to create node view, fallback to serialization
-		const nodeView = nodeViewSerializer.tryCreateNodeView(targetNode);
+		const nodeView = serializer.tryCreateNodeView(targetNode);
 
 		if (nodeView) {
 			const wrapper = createWrapperWithStrikethrough();
@@ -181,6 +168,7 @@ export const createDeletedContentDecoration = ({
 			dom.append(fallbackSerialization());
 		}
 	});
+
 	dom.setAttribute('data-testid', 'show-diff-deleted-decoration');
 
 	// Widget decoration used for deletions as the content is not in the document

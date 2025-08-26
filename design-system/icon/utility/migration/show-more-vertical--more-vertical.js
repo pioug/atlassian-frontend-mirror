@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::57678f38bc38ebe24559b73737a43e26>>
+ * @codegen <<SignedSource::be6f97e85ecf3576203422b13926283e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ShowMoreVerticalIcon = props => /*#__PURE__*/_react.default.createElement(_showMoreVertical.default, Object.assign({
+  name: "ShowMoreVerticalIcon",
   LEGACY_fallbackIcon: _moreVertical.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-ShowMoreVerticalIcon.Name = 'ShowMoreVerticalIconMigration';
+ShowMoreVerticalIcon.displayName = 'ShowMoreVerticalIconMigration';
 var _default = exports.default = ShowMoreVerticalIcon;

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0bfa1b029acd867a2dba7e13279799e7>>
+ * @codegen <<SignedSource::6bf969fc19d390f51a8263d6c4b3dd76>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const InboxIcon = props => /*#__PURE__*/_react.default.createElement(_inbox.default, Object.assign({
+  name: "InboxIcon",
   LEGACY_fallbackIcon: _tray.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-InboxIcon.Name = 'InboxIconMigration';
+InboxIcon.displayName = 'InboxIconMigration';
 var _default = exports.default = InboxIcon;

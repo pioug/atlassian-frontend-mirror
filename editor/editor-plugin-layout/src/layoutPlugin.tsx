@@ -1,11 +1,6 @@
 import React from 'react';
 
-import {
-	layoutColumn,
-	layoutSection,
-	layoutColumnWithLocalId,
-	layoutSectionWithLocalId,
-} from '@atlaskit/adf-schema';
+import { layoutColumn, layoutSection, layoutColumnWithLocalId } from '@atlaskit/adf-schema';
 import {
 	layoutSectionWithSingleColumn,
 	layoutSectionWithSingleColumnLocalId,
@@ -97,9 +92,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 						? fg('platform_editor_adf_with_localid')
 							? layoutSectionWithSingleColumnLocalId
 							: layoutSectionWithSingleColumn
-						: fg('platform_editor_adf_with_localid')
-							? layoutSectionWithLocalId
-							: layoutSection,
+						: layoutSection,
 				},
 				{
 					name: 'layoutColumn',

@@ -35,7 +35,7 @@ export default function TeamAvatarExample() {
 					<TeamAvatar
 						// any for examples ONLY
 						size={size as any}
-						src="https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/v4/blue_4.svg"
+						src="https://teams-directory-frontend.stg-east.frontend.public.atl-paas.net/assets/teams/avatars/v4/blue_4.svg"
 					/>
 				))}
 				<span>Next avatar</span>

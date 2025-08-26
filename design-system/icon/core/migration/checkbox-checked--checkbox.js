@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::271b576a30c118b0a1b715abd2a4dab1>>
+ * @codegen <<SignedSource::eca78c0aa7a66b058c7005abb4f00f69>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const CheckboxCheckedIcon = props => /*#__PURE__*/_react.default.createElement(_checkboxChecked.default, Object.assign({
+  name: "CheckboxCheckedIcon",
   LEGACY_fallbackIcon: _checkbox.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-CheckboxCheckedIcon.Name = 'CheckboxCheckedIconMigration';
+CheckboxCheckedIcon.displayName = 'CheckboxCheckedIconMigration';
 var _default = exports.default = CheckboxCheckedIcon;

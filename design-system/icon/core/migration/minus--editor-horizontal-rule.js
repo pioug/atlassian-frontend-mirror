@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e97962a641ed95eb219dd8e918f4682d>>
+ * @codegen <<SignedSource::afc2a06d02cd5de17b8369ab9ec2ebf8>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const MinusIcon = props => /*#__PURE__*/_react.default.createElement(_minus.default, Object.assign({
+  name: "MinusIcon",
   LEGACY_fallbackIcon: _horizontalRule.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-MinusIcon.Name = 'MinusIconMigration';
+MinusIcon.displayName = 'MinusIconMigration';
 var _default = exports.default = MinusIcon;

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/forge-react-types",
-	"version": "0.42.14",
+	"version": "0.42.15",
 	"description": "Component types for Forge UI Kit React components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -34,6 +34,7 @@
 		"@atlaskit/form": "workspace:^",
 		"@atlaskit/inline-edit": "workspace:^",
 		"@atlaskit/modal-dialog": "workspace:^",
+		"@atlaskit/navigation-system": "workspace:^",
 		"@atlaskit/popup": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/progress-bar": "workspace:^",

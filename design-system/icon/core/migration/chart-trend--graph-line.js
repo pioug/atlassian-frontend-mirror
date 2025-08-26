@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::82e1d157ecf30f62ef37497818841c29>>
+ * @codegen <<SignedSource::fafbc29b80aea932024b1cb1b7fd7e66>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ChartTrendIcon = props => /*#__PURE__*/_react.default.createElement(_chartTrend.default, Object.assign({
+  name: "ChartTrendIcon",
   LEGACY_fallbackIcon: _graphLine.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-ChartTrendIcon.Name = 'ChartTrendIconMigration';
+ChartTrendIcon.displayName = 'ChartTrendIconMigration';
 var _default = exports.default = ChartTrendIcon;

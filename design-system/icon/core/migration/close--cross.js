@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::35b8c6b585772b9406ca86ab3c3befd4>>
+ * @codegen <<SignedSource::fbda9152b1e2f3ced9e9dd20441f9093>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const CloseIcon = props => /*#__PURE__*/_react.default.createElement(_close.default, Object.assign({
+  name: "CloseIcon",
   LEGACY_fallbackIcon: _cross.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-CloseIcon.Name = 'CloseIconMigration';
+CloseIcon.displayName = 'CloseIconMigration';
 var _default = exports.default = CloseIcon;

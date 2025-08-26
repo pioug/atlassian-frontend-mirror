@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3cbbd0d6d1aaac61ee97089092149436>>
+ * @codegen <<SignedSource::e1122f0a10143405721f0705335560a9>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const EmojiIcon = props => /*#__PURE__*/_react.default.createElement(_emoji.default, Object.assign({
+  name: "EmojiIcon",
   LEGACY_fallbackIcon: _emoji2.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-EmojiIcon.Name = 'EmojiIconMigration';
+EmojiIcon.displayName = 'EmojiIconMigration';
 var _default = exports.default = EmojiIcon;

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::39216e061d51a19cc80ff7e1ff420d19>>
+ * @codegen <<SignedSource::521e20d76bc00d704db620cf0d0d2870>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const EyeOpenFilledIcon = props => /*#__PURE__*/_react.default.createElement(_eyeOpenFilled.default, Object.assign({
+  name: "EyeOpenFilledIcon",
   LEGACY_fallbackIcon: _audioOnly.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-EyeOpenFilledIcon.Name = 'EyeOpenFilledIconMigration';
+EyeOpenFilledIcon.displayName = 'EyeOpenFilledIconMigration';
 var _default = exports.default = EyeOpenFilledIcon;

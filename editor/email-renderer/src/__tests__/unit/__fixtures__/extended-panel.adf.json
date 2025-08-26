@@ -1,161 +1,223 @@
 {
-  "version": 1,
-  "type": "doc",
-  "content": [
-    {
-      "type": "panel",
-      "attrs": {
-        "panelType": "info"
-      },
-      "content": [
-        {
-          "type": "paragraph",
-          "content": [
-            {
-              "type": "text",
-              "text": "some text"
-            }
-          ]
-        },
-        {
-          "type": "codeBlock",
-          "attrs": {
-            "language": "javascript"
-          },
-          "content": [
-            {
-              "type": "text",
-              "text": "for (let i=0;i<10;i++) {\n  console.log(\"foo bar\");\n}"
-            }
-          ]
-        },
-        {
-          "type": "rule"
-        },
-        {
-          "type": "taskList",
-          "attrs": {
-            "localId": "00f645f6-0185-43d4-9771-aa6fe793d9cd"
-          },
-          "content": [
-            {
-              "type": "taskItem",
-              "attrs": {
-                "localId": "9dfe8b8c-efb9-4aee-b4c3-e0ac2ddb3837",
-                "state": "TODO"
-              },
-              "content": [
-                {
-                  "type": "text",
-                  "text": "task 1"
-                }
-              ]
-            },
-            {
-              "type": "taskList",
-              "attrs": {
-                "localId": "95720b0c-a8e7-4ba4-b5d4-0d247bdea282"
-              },
-              "content": [
-                {
-                  "type": "taskItem",
-                  "attrs": {
-                    "localId": "5f6017a8-374d-45c9-a81a-540a1f498b6a",
-                    "state": "DONE"
-                  },
-                  "content": [
-                    {
-                      "type": "text",
-                      "text": "sub-task 1"
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "taskItem",
-              "attrs": {
-                "localId": "c8d95b80-8e24-4630-9e6f-cd16401b02ed",
-                "state": "TODO"
-              },
-              "content": [
-                {
-                  "type": "text",
-                  "text": "task 2"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "rule"
-        },
-        {
-          "type": "decisionList",
-          "attrs": {
-            "localId": "ecfb1142-6806-4cbf-8135-85491c6001c7"
-          },
-          "content": [
-            {
-              "type": "decisionItem",
-              "attrs": {
-                "localId": "93a73e3f-9d6f-4d1b-a6a1-0085fc1d749b",
-                "state": "DECIDED"
-              },
-              "content": [
-                {
-                  "type": "text",
-                  "text": "decision 1"
-                }
-              ]
-            },
-            {
-              "type": "decisionItem",
-              "attrs": {
-                "localId": "2b42103f-208b-414b-b1f1-33ad4b18d283",
-                "state": "DECIDED"
-              },
-              "content": [
-                {
-                  "type": "text",
-                  "text": "decision 1"
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "type": "paragraph",
-      "content": []
-    },
-    {
-      "type": "panel",
-      "attrs": {
-        "panelType": "note"
-      },
-      "content": [
-        {
-          "type": "mediaSingle",
-          "attrs": {
-            "width": 50,
-            "layout": "align-start"
-          },
-          "content": [
-            {
-              "type": "media",
-              "attrs": {
-                "id": "media-type-image",
-                "type": "file",
-                "collection": "MediaServicesSample",
-                "width": 1000,
-                "height": 1079
-              }
-            }
-          ]
-        }
-      ]
-    }
-  ]
+	"version": 1,
+	"type": "doc",
+	"content": [
+		{
+			"type": "panel",
+			"attrs": {
+				"panelType": "info"
+			},
+			"content": [
+				{
+					"type": "paragraph",
+					"content": [
+						{
+							"type": "text",
+							"text": "some text"
+						}
+					]
+				},
+				{
+					"type": "codeBlock",
+					"attrs": {
+						"language": "javascript"
+					},
+					"content": [
+						{
+							"type": "text",
+							"text": "for (let i=0;i<10;i++) {\n  console.log(\"foo bar\");\n}"
+						}
+					]
+				},
+				{
+					"type": "rule"
+				},
+				{
+					"type": "taskList",
+					"attrs": {
+						"localId": "00f645f6-0185-43d4-9771-aa6fe793d9cd"
+					},
+					"content": [
+						{
+							"type": "taskItem",
+							"attrs": {
+								"localId": "9dfe8b8c-efb9-4aee-b4c3-e0ac2ddb3837",
+								"state": "TODO"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "task 1"
+								}
+							]
+						},
+						{
+							"type": "taskList",
+							"attrs": {
+								"localId": "95720b0c-a8e7-4ba4-b5d4-0d247bdea282"
+							},
+							"content": [
+								{
+									"type": "taskItem",
+									"attrs": {
+										"localId": "5f6017a8-374d-45c9-a81a-540a1f498b6a",
+										"state": "DONE"
+									},
+									"content": [
+										{
+											"type": "text",
+											"text": "sub-task 1"
+										}
+									]
+								}
+							]
+						},
+						{
+							"type": "taskItem",
+							"attrs": {
+								"localId": "c8d95b80-8e24-4630-9e6f-cd16401b02ed",
+								"state": "TODO"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "task 2"
+								}
+							]
+						},
+						{
+							"type": "blockTaskItem",
+							"attrs": {
+								"localId": "9dfe8b8c-efb9-4aee-b4c3-e0ac2ddb3837",
+								"state": "TODO"
+							},
+							"content": [
+								{
+									"type": "paragraph",
+									"content": [
+										{
+											"type": "text",
+											"text": "block task 1"
+										}
+									]
+								}
+							]
+						},
+						{
+							"type": "taskList",
+							"attrs": {
+								"localId": "95720b0c-a8e7-4ba4-b5d4-0d247bdea282"
+							},
+							"content": [
+								{
+									"type": "blockTaskItem",
+									"attrs": {
+										"localId": "5f6017a8-374d-45c9-a81a-540a1f498b6a",
+										"state": "DONE"
+									},
+									"content": [
+										{
+											"type": "paragraph",
+											"content": [
+												{
+													"type": "text",
+													"text": "block sub-task 1"
+												}
+											]
+										}
+									]
+								}
+							]
+						},
+						{
+							"type": "blockTaskItem",
+							"attrs": {
+								"localId": "c8d95b80-8e24-4630-9e6f-cd16401b02ed",
+								"state": "TODO"
+							},
+							"content": [
+								{
+									"type": "paragraph",
+									"content": [
+										{
+											"type": "text",
+											"text": "block task 2"
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"type": "rule"
+				},
+				{
+					"type": "decisionList",
+					"attrs": {
+						"localId": "ecfb1142-6806-4cbf-8135-85491c6001c7"
+					},
+					"content": [
+						{
+							"type": "decisionItem",
+							"attrs": {
+								"localId": "93a73e3f-9d6f-4d1b-a6a1-0085fc1d749b",
+								"state": "DECIDED"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "decision 1"
+								}
+							]
+						},
+						{
+							"type": "decisionItem",
+							"attrs": {
+								"localId": "2b42103f-208b-414b-b1f1-33ad4b18d283",
+								"state": "DECIDED"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "decision 1"
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"type": "paragraph",
+			"content": []
+		},
+		{
+			"type": "panel",
+			"attrs": {
+				"panelType": "note"
+			},
+			"content": [
+				{
+					"type": "mediaSingle",
+					"attrs": {
+						"width": 50,
+						"layout": "align-start"
+					},
+					"content": [
+						{
+							"type": "media",
+							"attrs": {
+								"id": "media-type-image",
+								"type": "file",
+								"collection": "MediaServicesSample",
+								"width": 1000,
+								"height": 1079
+							}
+						}
+					]
+				}
+			]
+		}
+	]
 }

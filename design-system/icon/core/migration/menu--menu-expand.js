@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3c013b1e05bf2dafdcad36de91a04a78>>
+ * @codegen <<SignedSource::b5c92739799a482ba18cfff8804248b2>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const MenuIcon = props => /*#__PURE__*/_react.default.createElement(_menu.default, Object.assign({
+  name: "MenuIcon",
   LEGACY_fallbackIcon: _menuExpand.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-MenuIcon.Name = 'MenuIconMigration';
+MenuIcon.displayName = 'MenuIconMigration';
 var _default = exports.default = MenuIcon;

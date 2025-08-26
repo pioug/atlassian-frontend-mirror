@@ -41,7 +41,7 @@ describe('GroupOption', () => {
 		<span
 		  css="unknown styles"
 		>
-		  <PeopleGroupIcon
+		  <PeopleGroupIconMigration
 		    LEGACY_size="medium"
 		    color="currentColor"
 		    label="group-icon"

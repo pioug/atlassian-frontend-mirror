@@ -1,5 +1,40 @@
 # @atlaskit/editor-plugins
 
+## 10.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.2.0
+
+### Minor Changes
+
+- [`c29118e6ca79d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c29118e6ca79d) -
+  ED-28986 create initial version of synced blocks
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.1.82
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.1.81
 
 ### Patch Changes

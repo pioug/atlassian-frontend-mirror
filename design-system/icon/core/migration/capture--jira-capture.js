@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5c422438719ca9581daa7fe8f75988c3>>
+ * @codegen <<SignedSource::84ab8f85180400fd7c3dec47d0a4c527>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const CaptureIcon = props => /*#__PURE__*/_react.default.createElement(_capture.default, Object.assign({
+  name: "CaptureIcon",
   LEGACY_fallbackIcon: _capture2.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-CaptureIcon.Name = 'CaptureIconMigration';
+CaptureIcon.displayName = 'CaptureIconMigration';
 var _default = exports.default = CaptureIcon;

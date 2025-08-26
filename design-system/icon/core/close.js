@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b2832ce3758295ab6ed0286f39d79816>>
+ * @codegen <<SignedSource::1f2d6ba05e30a3b28dbfef9164dad87a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,6 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const CloseIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  name: "CloseIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="m9.06 8 4.97-4.97-1.06-1.06L8 6.94 3.03 1.97 1.97 3.03 6.94 8l-4.97 4.97 1.06 1.06L8 9.06l4.97 4.97 1.06-1.06z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

@@ -302,6 +302,18 @@ export const overviewMessages = defineMessages({
 			'You or other users may have installed apps that add features to Atlassian products. These apps may have stored your profile information.',
 		description: 'Text elaborating on the note about apps storing personal data',
 	},
+	paragraphListOfAppsWithPersonalDataAdminAppify: {
+		id: 'focused-task-close-account.delete-account.overview.paragraph.list-of-apps-with-personal-data.admin-appify',
+		defaultMessage:
+			'We’ll email you a list of third-party apps that may have stored their personal data.',
+		description: 'A note explaining that about apps storing personal data',
+	},
+	paragraphListOfAppsWithPersonalDataSelfAppify: {
+		id: 'focused-task-close-account.delete-account.overview.paragraph.list-of-apps-with-personal-data.self-appify',
+		defaultMessage:
+			'We’ll email you a list of third-party apps that may have stored your personal data.',
+		description: 'A note explaining that about apps storing personal data',
+	},
 	inlineDialogContentCreatedAdminissuetermrefreshAppify: {
 		id: 'focused-task-close-account.delete-account.overview.inline-dialog.content-created-issue-refresh.admin-appify',
 		defaultMessage: "For example, pages, work items, and comments they've created in apps.",
@@ -331,13 +343,13 @@ export const overviewMessages = defineMessages({
 	inlineDialogDataAppsAdminAppify: {
 		id: 'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.admin-appify',
 		defaultMessage:
-			'You or other users may have installed apps that add features to Atlassian apps. These apps may have stored the user’s profile information.',
+			"You or other users may have installed third-party apps that add features to Atlassian apps and may have stored the user's profile information.",
 		description: 'Text elaborating on the note about apps storing personal data',
 	},
 	inlineDialogDataAppsSelfAppify: {
 		id: 'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.self-appify',
 		defaultMessage:
-			'You or other users may have installed apps that add features to Atlassian apps. These apps may have stored your profile information.',
+			'You or other users may have installed third-party apps that add features to Atlassian apps and may have stored your profile information.',
 		description: 'Text elaborating on the note about apps storing personal data',
 	},
 });

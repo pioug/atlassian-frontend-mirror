@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "120.5.2",
+	"version": "120.5.3",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -264,6 +264,9 @@
 			"type": "boolean"
 		},
 		"jfp-magma-ssr-iv-editor-media": {
+			"type": "boolean"
+		},
+		"jfp-magma-ssr-iv-editor-links": {
 			"type": "boolean"
 		}
 	},

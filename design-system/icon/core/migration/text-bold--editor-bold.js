@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d4f551e0fc4427f006d67b2bd73732a2>>
+ * @codegen <<SignedSource::6f275adf768e9baa0bfb779f3f0533be>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const TextBoldIcon = props => /*#__PURE__*/_react.default.createElement(_textBold.default, Object.assign({
+  name: "TextBoldIcon",
   LEGACY_fallbackIcon: _bold.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-TextBoldIcon.Name = 'TextBoldIconMigration';
+TextBoldIcon.displayName = 'TextBoldIconMigration';
 var _default = exports.default = TextBoldIcon;

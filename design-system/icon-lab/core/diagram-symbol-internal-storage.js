@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::37e11c9506245ff0d57e68178e062a40>>
+ * @codegen <<SignedSource::034269ffea6f4b65615aedc373eeccc7>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,6 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const DiagramSymbolInternalStorageIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  name: "DiagramSymbolInternalStorageIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" d="M14.5 7H5v5.5h9a.5.5 0 0 0 .5-.5zm-13 5a.5.5 0 0 0 .5.5h1.5V7h-2zm13-8a.5.5 0 0 0-.4-.49L14 3.5H5v2h9.5zm-13 1.5h2v-2H2a.5.5 0 0 0-.5.5zM16 12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h12l.204.01A2 2 0 0 1 16 4z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

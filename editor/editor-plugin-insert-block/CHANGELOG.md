@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 4.3.4
+
+### Patch Changes
+
+- [`bcc3b620154b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bcc3b620154b0) -
+  [ux] ED-28739 [Register] [Primary toolbar] Insert button
+- Updated dependencies
+
 ## 4.3.3
 
 ### Patch Changes

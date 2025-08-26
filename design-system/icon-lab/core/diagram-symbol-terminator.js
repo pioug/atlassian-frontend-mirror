@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::63b8c7aba6e2feac9a056638d371b00f>>
+ * @codegen <<SignedSource::0a7de565c0b231eb80deb5a79c912508>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,6 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const DiagramSymbolTerminatorIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  name: "DiagramSymbolTerminatorIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" d="M14.5 8A4.5 4.5 0 0 0 10 3.5H6a4.5 4.5 0 0 0 0 9h4A4.5 4.5 0 0 0 14.5 8M16 8a6 6 0 0 1-6 6H6A6 6 0 0 1 6 2h4a6 6 0 0 1 6 6"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

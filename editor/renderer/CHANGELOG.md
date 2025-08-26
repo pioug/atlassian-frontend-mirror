@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 120.5.3
+
+### Patch Changes
+
+- [`2dbce9ef92219`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2dbce9ef92219) -
+  Added a jira specific featuer flag to SSR the EmbedCard and BlockCard.
+- Updated dependencies
+
 ## 120.5.2
 
 ### Patch Changes

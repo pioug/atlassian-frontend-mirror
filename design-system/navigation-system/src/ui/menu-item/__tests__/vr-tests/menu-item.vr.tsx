@@ -46,9 +46,15 @@ function workaround(): SnapshotTestOptions<Hooks>['variants'] {
 
 snapshot(ButtonMenuItemExample, {
 	variants: workaround(),
+	featureFlags: {
+		platform_dst_nav4_actionsonhover_focus_fix: true,
+	},
 });
 snapshot(LinkMenuItemExample, {
 	variants: workaround(),
+	featureFlags: {
+		platform_dst_nav4_actionsonhover_focus_fix: true,
+	},
 });
 snapshot(ButtonMenuItemRTLExample, {
 	variants: workaround(),
@@ -117,6 +123,9 @@ snapshot(ButtonMenuItemWithElemAfterAndActionsOnHover, {
 			},
 		},
 	],
+	featureFlags: {
+		platform_dst_nav4_actionsonhover_focus_fix: true,
+	},
 });
 
 snapshot(ButtonMenuItemWithElemAfterAndActionsOnHover, {
@@ -134,6 +143,9 @@ snapshot(ButtonMenuItemWithElemAfterAndActionsOnHover, {
 			},
 		},
 	],
+	featureFlags: {
+		platform_dst_nav4_actionsonhover_focus_fix: true,
+	},
 });
 
 snapshot(LinkMenuItemWithElemAfterAndActionsOnHover, {
@@ -151,6 +163,9 @@ snapshot(LinkMenuItemWithElemAfterAndActionsOnHover, {
 			},
 		},
 	],
+	featureFlags: {
+		platform_dst_nav4_actionsonhover_focus_fix: true,
+	},
 });
 
 snapshot(LinkMenuItemWithElemAfterAndActionsOnHover, {
@@ -168,6 +183,9 @@ snapshot(LinkMenuItemWithElemAfterAndActionsOnHover, {
 			},
 		},
 	],
+	featureFlags: {
+		platform_dst_nav4_actionsonhover_focus_fix: true,
+	},
 });
 
 snapshot(ButtonMenuItemWithDropdownActionOpen, {
@@ -207,4 +225,7 @@ snapshot(ButtonMenuItemDisabled, {
 snapshot(ButtonMenuItemDisabledWithActions, {
 	description: 'Button menu item - disabled with actions',
 	variants: workaround(),
+	featureFlags: {
+		platform_dst_nav4_actionsonhover_focus_fix: true,
+	},
 });

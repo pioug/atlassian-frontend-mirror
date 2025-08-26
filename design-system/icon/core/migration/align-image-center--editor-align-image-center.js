@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1668aeb52b83d3feb63d8a5085957ee1>>
+ * @codegen <<SignedSource::1dc651cc0fbc467f21b0ece248e215e7>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const AlignImageCenterIcon = props => /*#__PURE__*/_react.default.createElement(_alignImageCenter.default, Object.assign({
+  name: "AlignImageCenterIcon",
   LEGACY_fallbackIcon: _alignImageCenter2.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-AlignImageCenterIcon.Name = 'AlignImageCenterIconMigration';
+AlignImageCenterIcon.displayName = 'AlignImageCenterIconMigration';
 var _default = exports.default = AlignImageCenterIcon;

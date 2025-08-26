@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::be71f279f35779048bef8bef01210035>>
+ * @codegen <<SignedSource::0b5790bb2a7acc1705cce840496635f1>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const TreeIcon = props => /*#__PURE__*/_react.default.createElement(_tree.default, Object.assign({
+  name: "TreeIcon",
   LEGACY_fallbackIcon: _nature.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-TreeIcon.Name = 'TreeIconMigration';
+TreeIcon.displayName = 'TreeIconMigration';
 var _default = exports.default = TreeIcon;

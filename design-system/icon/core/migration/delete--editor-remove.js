@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2bce2e8cefeb7a1e23af480e5534534d>>
+ * @codegen <<SignedSource::60832bf0895f3f62571fae1dfe0965a2>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const DeleteIcon = props => /*#__PURE__*/_react.default.createElement(_delete.default, Object.assign({
+  name: "DeleteIcon",
   LEGACY_fallbackIcon: _remove.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-DeleteIcon.Name = 'DeleteIconMigration';
+DeleteIcon.displayName = 'DeleteIconMigration';
 var _default = exports.default = DeleteIcon;

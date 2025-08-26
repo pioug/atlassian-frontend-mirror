@@ -1,5 +1,12 @@
 # @atlaskit/editor-toolbar
 
+## 0.3.8
+
+### Patch Changes
+
+- [`bcc3b620154b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bcc3b620154b0) -
+  [ux] ED-28739 [Register] [Primary toolbar] Insert button
+
 ## 0.3.7
 
 ### Patch Changes

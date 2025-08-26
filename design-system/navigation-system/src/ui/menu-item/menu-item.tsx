@@ -10,6 +10,7 @@ import { cssMap, cx, jsx, keyframes } from '@compiled/react';
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { AvatarContext, type AvatarContextProps } from '@atlaskit/avatar';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Anchor, Pressable, Text, type TextColor } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip, {
@@ -101,7 +102,11 @@ const defaultAvatarValues: AvatarContextProps = {
 };
 
 const elemAfterDisplayVar = '--elem-after-display';
+// Note: actionsOnHoverDisplayVar wll be cleaned up with fg('platform_dst_nav4_actionsonhover_focus_fix')
 const actionsOnHoverDisplayVar = '--actions-on-hover-display';
+const actionsOnHoverOpacityVar = '--actions-on-hover-opacity';
+const actionsOnHoverWidthVar = '--actions-on-hover-width';
+const actionsOnHoverPaddingInlineEndVar = '--actions-on-hover-padding';
 const notchColorVar = '--notch-color';
 
 // Note: this is also used in `drag-handle.tsx`
@@ -222,7 +227,6 @@ const containerStyles = cssMap({
 		userSelect: 'none',
 		borderRadius: token('border.radius'),
 		color: token('color.text.subtle'),
-		[actionsOnHoverDisplayVar]: 'none',
 		[notchColorVar]: 'transparent',
 		[elemAfterDisplayVar]: 'flex',
 		// Applying :hover styles on the container rather than on
@@ -231,22 +235,67 @@ const containerStyles = cssMap({
 		'&:hover': {
 			backgroundColor: token('elevation.surface.hovered'),
 		},
+		// If there is a nested open popup, we want to apply hover styling, and display the `actionsOnHover` slot.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+		[nestedOpenPopupCSSSelector]: {
+			backgroundColor: token('elevation.surface.hovered'),
+		},
+	},
+	actionsOnHoverFocusFixEnabled: {
+		/**
+		 * We are not using `display: none` or `visibility: hidden` to hide the `actionsOnHover` slot, as this causes problems
+		 * with returning focus to dropdown/popup triggers.
+		 *
+		 * The problem:
+		 * - The `actionsOnHover` slot is kept visible when it contains a dropdown/popup trigger, and the dropdown/popup is open.
+		 *   This is done using the CSS selector `nestedOpenPopupCSSSelector` (which looks at the `aria-expanded` attribute).
+		 * - When the user presses `Escape`, the dropdown/popup closes, and the `actionsOnHover` slot is hidden by the browser.
+		 * - Then, dropdown/popup runs JavaScript to `focus()` on the trigger element using `requestAnimationFrame`.
+		 * - By the time the `focus()` is run, the `actionsOnHover` slot is already hidden, which means the trigger cannot be
+		 *   focused on.
+		 *
+		 * As a workaround, we are using `opacity` to only _visually_ hide the slot, and setting the width and padding to 0 so
+		 * it doesn't take up space. This allows the button to be focused upon after the dropdown/popup closes.
+		 */
+		[actionsOnHoverOpacityVar]: '0',
+		[actionsOnHoverWidthVar]: '0',
+		[actionsOnHoverPaddingInlineEndVar]: '0',
+		'&:hover, &:focus-within': {
+			[actionsOnHoverOpacityVar]: '1',
+			[actionsOnHoverWidthVar]: 'auto',
+			[actionsOnHoverPaddingInlineEndVar]: token('space.050'),
+		},
+		// If there is a nested open popup, we want to apply hover styling, and display the `actionsOnHover` slot.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+		[nestedOpenPopupCSSSelector]: {
+			[actionsOnHoverOpacityVar]: '1',
+			[actionsOnHoverWidthVar]: 'auto',
+			[actionsOnHoverPaddingInlineEndVar]: token('space.050'),
+		},
+	},
+	actionsOnHoverFocusFixDisabled: {
+		[actionsOnHoverDisplayVar]: 'none',
 		'&:hover, &:focus-within': {
 			[actionsOnHoverDisplayVar]: 'flex',
 		},
 		// If there is a nested open popup, we want to apply hover styling, and display the `actionsOnHover` slot.
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
 		[nestedOpenPopupCSSSelector]: {
-			backgroundColor: token('elevation.surface.hovered'),
 			[actionsOnHoverDisplayVar]: 'flex',
 		},
 	},
 	removeElemAfter: {
 		[elemAfterDisplayVar]: 'none',
 	},
-	showHoverActions: {
+	showHoverActionsWithFocusFixEnabled: {
+		[actionsOnHoverOpacityVar]: '1',
+		[actionsOnHoverWidthVar]: 'auto',
+		[actionsOnHoverPaddingInlineEndVar]: token('space.050'),
+	},
+	showHoverActionsWithFocusFixDisabled: {
 		[actionsOnHoverDisplayVar]: 'flex',
 	},
+
 	removeElemAfterOnHoverOrOpenNestedPopup: {
 		// On hover of the menu item, remove the elemAfter
 		'&:hover, &:focus-within': {
@@ -402,19 +451,27 @@ const actionStyles = cssMap({
 
 const actionsOnHoverStyles = cssMap({
 	root: {
-		display: `var(${actionsOnHoverDisplayVar})`,
 		// When actionsOnHover are displayed, the elemAfter is hidden
 		// and these actions are rendered in it's place.
 		gridArea: 'elem-after',
 		alignItems: 'center',
 		gap: token('space.050'),
-		paddingInlineEnd: token('space.050'),
 		// Hiding overflowing slot content to prevent content from adjacent slots overlapping when the menu item is constrained to a narrow width.
 		overflow: 'hidden',
 		'&:focus-within': {
 			// To prevent the focus ring from being clipped, we are allowing content to overflow while focus is within the slot.
 			overflow: 'initial',
 		},
+	},
+	focusFixEnabled: {
+		display: 'flex',
+		opacity: `var(${actionsOnHoverOpacityVar})`,
+		width: `var(${actionsOnHoverWidthVar})`,
+		paddingInlineEnd: `var(${actionsOnHoverPaddingInlineEndVar})`,
+	},
+	focusFixDisabled: {
+		display: `var(${actionsOnHoverDisplayVar})`,
+		paddingInlineEnd: token('space.050'),
 	},
 });
 
@@ -698,11 +755,20 @@ const MenuItemBaseNoRef = <T extends HTMLAnchorElement | HTMLButtonElement>(
 				ref={visualContentRef}
 				css={[
 					containerStyles.root,
+					fg('platform_dst_nav4_actionsonhover_focus_fix')
+						? containerStyles.actionsOnHoverFocusFixEnabled
+						: containerStyles.actionsOnHoverFocusFixDisabled,
 					isSelected && containerStyles.selected,
 					isDragging && containerStyles.dragging,
 					description && containerStyles.hasDescription,
 					// If the menu item has actionsOnHover and is expanded, show hover actions even when not hovered
-					showHoverActionsWhenNotHovered && containerStyles.showHoverActions,
+					// Not using a ternary for the feature flag logic here, as Jest fails to parse the expression - Compiled complains that it is too complicated
+					showHoverActionsWhenNotHovered &&
+						!fg('platform_dst_nav4_actionsonhover_focus_fix') &&
+						containerStyles.showHoverActionsWithFocusFixDisabled,
+					showHoverActionsWhenNotHovered &&
+						fg('platform_dst_nav4_actionsonhover_focus_fix') &&
+						containerStyles.showHoverActionsWithFocusFixEnabled,
 					// If the menu item has both actionsOnHover and elemAfter and is expanded, remove elemAfter to make more space for actionsOnHover.
 					showHoverActionsWhenNotHovered && elemAfter && containerStyles.removeElemAfter,
 					// If the menu item has both actionsOnHover and elemAfter, remove elemAfter to make more space for actionsOnHover, when:
@@ -818,7 +884,18 @@ const MenuItemBaseNoRef = <T extends HTMLAnchorElement | HTMLButtonElement>(
 						{elemBefore}
 					</div>
 				)}
-				{actionsOnHover && <div css={actionsOnHoverStyles.root}>{actionsOnHover}</div>}
+				{actionsOnHover && (
+					<div
+						css={[
+							actionsOnHoverStyles.root,
+							fg('platform_dst_nav4_actionsonhover_focus_fix')
+								? actionsOnHoverStyles.focusFixEnabled
+								: actionsOnHoverStyles.focusFixDisabled,
+						]}
+					>
+						{actionsOnHover}
+					</div>
+				)}
 				{elemAfter && (
 					<div
 						css={[

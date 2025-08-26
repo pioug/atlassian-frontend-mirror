@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ef923b4203a1ee4dd4670ee4c05df377>>
+ * @codegen <<SignedSource::2f79b20019704996aa0692b400bafa97>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ChevronDownIcon = props => /*#__PURE__*/_react.default.createElement(_chevronDown.default, Object.assign({
+  name: "ChevronDownIcon",
   LEGACY_fallbackIcon: _chevronDownCircle.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-ChevronDownIcon.Name = 'ChevronDownIconMigration';
+ChevronDownIcon.displayName = 'ChevronDownIconMigration';
 var _default = exports.default = ChevronDownIcon;

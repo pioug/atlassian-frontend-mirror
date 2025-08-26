@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::535dd56ad3d87e6a4d3fcfa724626151>>
+ * @codegen <<SignedSource::db9b6fd18b3af712cfe0c8c7cac18788>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -20,6 +20,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ArrowCurvedDownLeftIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  name: "ArrowCurvedDownLeftIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" d="M13.5 6a3 3 0 0 1-3 3H3.56l3.22-3.22-1.06-1.06-4.5 4.5a.75.75 0 0 0 0 1.06l4.5 4.5 1.06-1.06-3.22-3.22h6.94A4.5 4.5 0 0 0 15 6V1h-1.5z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

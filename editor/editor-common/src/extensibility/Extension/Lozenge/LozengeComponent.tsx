@@ -2,13 +2,14 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment } from 'react';
 import type { CSSProperties } from 'react';
+import { Fragment } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
 import EditorFileIcon from '@atlaskit/icon/core/migration/file--editor-file';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type ExtensionsPluginInjectionAPI } from '../../types';
 import { placeholderFallback, placeholderFallbackParams } from '../styles';
@@ -64,6 +65,10 @@ export const LozengeComponent = ({
 	pluginInjectionApi,
 }: LozengeComponentProps) => {
 	const capitalizedTitle = capitalizeFirstLetter(title);
+	if (title.startsWith('synced-block:') && fg('platform_synced_block_demo')) {
+		return null; // Synced blocks do not use the lozenge component
+	}
+
 	if (showMacroInteractionDesignUpdates) {
 		return (
 			<Fragment>

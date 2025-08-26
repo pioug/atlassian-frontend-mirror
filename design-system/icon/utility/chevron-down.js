@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1a026656028c05157ac730015f665601>>
+ * @codegen <<SignedSource::f1c9d00ce8c809554e5e93e87c0c30a1>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,8 +21,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ChevronDownIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  name: "ChevronDownIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M2.03 3.97 6 7.94l3.97-3.97 1.06 1.06-4.5 4.5a.75.75 0 0 1-1.06 0l-4.5-4.5z" clip-rule="evenodd"/>`,
-  type: 'utility'
+  type: "utility"
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 ChevronDownIcon.displayName = 'ChevronDownIcon';

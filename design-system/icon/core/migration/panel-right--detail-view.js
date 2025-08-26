@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8fa35c2d859c6465bf7d8e74ec194e5c>>
+ * @codegen <<SignedSource::514cbdd1fb828ca052784fd79788c51d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const PanelRightIcon = props => /*#__PURE__*/_react.default.createElement(_panelRight.default, Object.assign({
+  name: "PanelRightIcon",
   LEGACY_fallbackIcon: _detailView.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-PanelRightIcon.Name = 'PanelRightIconMigration';
+PanelRightIcon.displayName = 'PanelRightIconMigration';
 var _default = exports.default = PanelRightIcon;

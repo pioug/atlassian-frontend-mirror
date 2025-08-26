@@ -20,6 +20,7 @@ declare global {
 	interface Window {
 		__ufo_devtool_onVCRevisionReady__?: (debugInfo: VCRevisionDebugDetails) => void;
 		__on_ufo_vc_debug_data_ready?: (debugInfo: VCRevisionDebugDetails) => void;
+		__ufo_devtool_vc_3p_debug_data?: VCRevisionDebugDetails;
 	}
 }
 
@@ -93,6 +94,7 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 		interactionId?: string,
 		dirtyReason?: VCAbortReason,
 		allEntries?: ReadonlyArray<VCObserverEntry>,
+		include3p?: boolean,
 	): Promise<RevisionPayloadVCDetails> {
 		const percentiles = [25, 50, 75, 80, 85, 90, 95, 98, 99];
 		if (fg('platform_ufo_send_vc_100')) {
@@ -165,9 +167,11 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 				}))
 			: [];
 
+		// If 3p metric enabled - calculate the debug details
+		const shouldCalculate3p = include3p && fg('platform_ufo_enable_ttai_with_3p');
 		// Only calculate enhanced debug details if devtool callbacks exist
 		const shouldCalculateDebugDetails =
-			!isPostInteraction &&
+			(!isPostInteraction || shouldCalculate3p) &&
 			(typeof window?.__ufo_devtool_onVCRevisionReady__ === 'function' ||
 				typeof window?.__on_ufo_vc_debug_data_ready === 'function');
 
@@ -211,7 +215,7 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 			const ignoredEntriesByTime = new Map<number, EnhancedViewportEntryData[]>();
 
 			for (const entry of allEntries) {
-				if ('rect' in entry.data && !this.isEntryIncluded(entry)) {
+				if ('rect' in entry.data && !this.isEntryIncluded(entry, include3p)) {
 					const viewportData = entry.data as ViewportEntryData;
 					const timestamp = Math.round(entry.time);
 
@@ -258,7 +262,11 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 		}
 
 		// Handle devtool callback
-		if (v3RevisionDebugDetails && typeof window?.__ufo_devtool_onVCRevisionReady__ === 'function') {
+		if (
+			v3RevisionDebugDetails &&
+			typeof window?.__ufo_devtool_onVCRevisionReady__ === 'function' &&
+			!include3p
+		) {
 			try {
 				window?.__ufo_devtool_onVCRevisionReady__?.(v3RevisionDebugDetails);
 			} catch (e) {
@@ -268,12 +276,26 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 			}
 		}
 
-		if (v3RevisionDebugDetails && typeof window?.__on_ufo_vc_debug_data_ready === 'function') {
+		if (
+			v3RevisionDebugDetails &&
+			typeof window?.__on_ufo_vc_debug_data_ready === 'function' &&
+			!include3p
+		) {
 			try {
 				window?.__on_ufo_vc_debug_data_ready?.(v3RevisionDebugDetails);
 			} catch (e) {
 				// eslint-disable-next-line no-console
 				console.error('Error in onVCRevisionReady', e);
+			}
+		}
+
+		if (v3RevisionDebugDetails && shouldCalculate3p) {
+			try {
+				// Log vc details with 3p for debugging
+				window.__ufo_devtool_vc_3p_debug_data = v3RevisionDebugDetails;
+			} catch (e) {
+				// eslint-disable-next-line no-console
+				console.error('Error in 3pDebugData', e);
 			}
 		}
 
@@ -321,6 +343,7 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 			interactionId,
 			dirtyReason,
 			orderedEntries,
+			include3p,
 		);
 
 		const result: RevisionPayloadEntry = {

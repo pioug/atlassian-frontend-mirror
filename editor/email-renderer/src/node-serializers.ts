@@ -76,6 +76,7 @@ export const nodeSerializers: { [key: string]: NodeSerializer } = {
 	tableHeader,
 	tableRow,
 	taskItem,
+	blockTaskItem: taskItem,
 	taskList,
 	text,
 	unknownBlock,

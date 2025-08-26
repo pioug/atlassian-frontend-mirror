@@ -1,5 +1,12 @@
 # @atlaskit/teams-avatar
 
+## 2.3.12
+
+### Patch Changes
+
+- [`72421c0e8c7ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/72421c0e8c7ec) -
+  Updated static assets in examples from ptc-directory-sited-static to teams-directory-frontend
+
 ## 2.3.11
 
 ### Patch Changes

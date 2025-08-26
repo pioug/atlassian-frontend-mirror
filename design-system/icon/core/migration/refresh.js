@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::97b7deedaffb04632472c93b0c8f5452>>
+ * @codegen <<SignedSource::719d4261fb56656c74a1b6271d6f07b3>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const RefreshIcon = props => /*#__PURE__*/_react.default.createElement(_refresh.default, Object.assign({
+  name: "RefreshIcon",
   LEGACY_fallbackIcon: _refresh2.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-RefreshIcon.Name = 'RefreshIconMigration';
+RefreshIcon.displayName = 'RefreshIconMigration';
 var _default = exports.default = RefreshIcon;

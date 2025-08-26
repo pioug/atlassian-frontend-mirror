@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/navigation-system",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"description": "The latest navigation system for Atlassian apps.",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"author": "Atlassian Pty Ltd",
@@ -259,6 +259,9 @@
 			"type": "boolean"
 		},
 		"platform_dst_nav4_skip_links_hydration_fix": {
+			"type": "boolean"
+		},
+		"platform_dst_nav4_actionsonhover_focus_fix": {
 			"type": "boolean"
 		}
 	},

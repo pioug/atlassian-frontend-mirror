@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::49812071d6f0a774fd1a4306f3d0718e>>
+ * @codegen <<SignedSource::dfc91c39d2fa410469ff2eb452d3f02f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,8 +21,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const WarningIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  name: "WarningIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M11.702 9.137A1.25 1.25 0 0 1 10.612 11H1.388a1.25 1.25 0 0 1-1.09-1.863l4.614-8.2a1.25 1.25 0 0 1 2.178 0zM6.75 2.75V6.5h-1.5V2.75zm-.75 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2" clip-rule="evenodd"/>`,
-  type: 'utility'
+  type: "utility"
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 WarningIcon.displayName = 'WarningIcon';

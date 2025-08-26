@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9f5c7894403de42aa021c7c1fb5d93f0>>
+ * @codegen <<SignedSource::2735c0e48e5c90288be2a1ef4fa17962>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,6 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const PulseIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  name: "PulseIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M6.25 1a.75.75 0 0 1 .722.548l2.778 9.92 1.028-3.67a.75.75 0 0 1 .722-.548H16v1.5h-3.931l-1.597 5.702a.75.75 0 0 1-1.444 0L6.25 4.532l-1.028 3.67a.75.75 0 0 1-.722.548H0v-1.5h3.931l1.597-5.702A.75.75 0 0 1 6.25 1" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a43661d0c57cd4e929174a4d3b7a9cbb>>
+ * @codegen <<SignedSource::da07d75ad0d3c08b6be3f4f12149e44c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,6 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const DiagramSymbolCollateIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  name: "DiagramSymbolCollateIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" d="M13.839 2c.948 0 1.394 1.125.788 1.777l-.136.124L9.221 8l5.27 4.099.136.124c.606.652.16 1.777-.788 1.777H2.16c-1.012 0-1.45-1.28-.652-1.901L6.777 8 1.51 3.901C.71 3.281 1.149 2 2.16 2zM3.436 12.5h9.127L8 8.95zM8 7.049 12.563 3.5H3.436z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

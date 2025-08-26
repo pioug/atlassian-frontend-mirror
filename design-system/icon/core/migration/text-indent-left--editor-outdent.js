@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7cfc24eaf4e4adefa1f0381c065b9d5c>>
+ * @codegen <<SignedSource::f4ab52fe73f2788cd5bc16868806adf4>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const TextIndentLeftIcon = props => /*#__PURE__*/_react.default.createElement(_textIndentLeft.default, Object.assign({
+  name: "TextIndentLeftIcon",
   LEGACY_fallbackIcon: _outdent.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-TextIndentLeftIcon.Name = 'TextIndentLeftIconMigration';
+TextIndentLeftIcon.displayName = 'TextIndentLeftIconMigration';
 var _default = exports.default = TextIndentLeftIcon;

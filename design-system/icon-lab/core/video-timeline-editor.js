@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::002ae7a3a668f2a14e12c5bdcd5ad24b>>
+ * @codegen <<SignedSource::e9a0bf1bd467a1868ebfe408d1391e3a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,6 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const VideoTimelineEditorIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  name: "VideoTimelineEditorIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M8.75 16V0h-1.5v16zM2 12.5a.5.5 0 0 1-.5-.5V4a.5.5 0 0 1 .5-.5h3.25V2H2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h3.25v-1.5zm12 0h-3.25V14H14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-3.25v1.5H14a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-.5.5" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

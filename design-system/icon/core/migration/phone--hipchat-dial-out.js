@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::05c090b0e76fbcf68581735a3f815639>>
+ * @codegen <<SignedSource::f669b7529b436954e39684c529265fe1>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const PhoneIcon = props => /*#__PURE__*/_react.default.createElement(_phone.default, Object.assign({
+  name: "PhoneIcon",
   LEGACY_fallbackIcon: _dialOut.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-PhoneIcon.Name = 'PhoneIconMigration';
+PhoneIcon.displayName = 'PhoneIconMigration';
 var _default = exports.default = PhoneIcon;

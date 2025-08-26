@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7c1391bf2d626c511a725dd4b3e57a81>>
+ * @codegen <<SignedSource::275a3efb5606fba77cd9d5abe5de0b62>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const SnippetIcon = props => /*#__PURE__*/_react.default.createElement(_snippet.default, Object.assign({
+  name: "SnippetIcon",
   LEGACY_fallbackIcon: _snippets.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-SnippetIcon.Name = 'SnippetIconMigration';
+SnippetIcon.displayName = 'SnippetIconMigration';
 var _default = exports.default = SnippetIcon;

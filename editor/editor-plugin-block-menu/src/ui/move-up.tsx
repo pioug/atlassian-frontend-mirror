@@ -13,7 +13,7 @@ import ArrowUpIcon from '@atlaskit/icon/core/arrow-up';
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
 
 type Props = {
-	api: ExtractInjectionAPI<BlockMenuPlugin>;
+	api: ExtractInjectionAPI<BlockMenuPlugin> | undefined;
 };
 
 const MoveUpDropdownItemContent = ({ api }: Props & WrappedComponentProps) => {

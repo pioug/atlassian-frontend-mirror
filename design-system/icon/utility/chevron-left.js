@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::29f3eb59553566fe46c3ae42f5cce545>>
+ * @codegen <<SignedSource::a04ee25b71dd1bdbec86867814a0f0f9>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,8 +21,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ChevronLeftIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  name: "ChevronLeftIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="m4.06 6 3.97-3.97L6.97.97l-4.5 4.5a.75.75 0 0 0 0 1.06l4.5 4.5 1.06-1.06z" clip-rule="evenodd"/>`,
-  type: 'utility'
+  type: "utility"
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 ChevronLeftIcon.displayName = 'ChevronLeftIcon';

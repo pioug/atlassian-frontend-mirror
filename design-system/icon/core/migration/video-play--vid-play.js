@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e01b3a49828b125b4f7b5aa036782ad5>>
+ * @codegen <<SignedSource::7c08a2b57cc7c52599e13eeb32385700>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const VideoPlayIcon = props => /*#__PURE__*/_react.default.createElement(_videoPlay.default, Object.assign({
+  name: "VideoPlayIcon",
   LEGACY_fallbackIcon: _vidPlay.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-VideoPlayIcon.Name = 'VideoPlayIconMigration';
+VideoPlayIcon.displayName = 'VideoPlayIconMigration';
 var _default = exports.default = VideoPlayIcon;

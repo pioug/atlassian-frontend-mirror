@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e2fbff50c170aca9babac65ffeb96b06>>
+ * @codegen <<SignedSource::80b0b1f6220542a2e9b92d1731d0d3e4>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const SpreadsheetIcon = props => /*#__PURE__*/_react.default.createElement(_spreadsheet.default, Object.assign({
+  name: "SpreadsheetIcon",
   LEGACY_fallbackIcon: _spreadsheet2.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-SpreadsheetIcon.Name = 'SpreadsheetIconMigration';
+SpreadsheetIcon.displayName = 'SpreadsheetIconMigration';
 var _default = exports.default = SpreadsheetIcon;

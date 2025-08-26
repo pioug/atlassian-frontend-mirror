@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1f586aab487d20d6e22a2b29e7419237>>
+ * @codegen <<SignedSource::b1c15f4189326bd2e6492a7d035d5fa7>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const LayoutOneColumnIcon = props => /*#__PURE__*/_react.default.createElement(_layoutOneColumn.default, Object.assign({
+  name: "LayoutOneColumnIcon",
   LEGACY_fallbackIcon: _layoutSingle.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-LayoutOneColumnIcon.Name = 'LayoutOneColumnIconMigration';
+LayoutOneColumnIcon.displayName = 'LayoutOneColumnIconMigration';
 var _default = exports.default = LayoutOneColumnIcon;

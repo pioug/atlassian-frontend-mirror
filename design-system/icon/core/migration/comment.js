@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::dfb8e24ad0aeafedb3c07855964a196e>>
+ * @codegen <<SignedSource::4acee959545f8daaa48d71dd0f20de76>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const CommentIcon = props => /*#__PURE__*/_react.default.createElement(_comment.default, Object.assign({
+  name: "CommentIcon",
   LEGACY_fallbackIcon: _comment2.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-CommentIcon.Name = 'CommentIconMigration';
+CommentIcon.displayName = 'CommentIconMigration';
 var _default = exports.default = CommentIcon;

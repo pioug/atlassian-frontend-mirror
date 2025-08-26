@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::beb72c49a3e44f6234eefb2b97451216>>
+ * @codegen <<SignedSource::9701ce8b174ee38d6db99ff545e5c579>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const PersonAddedIcon = props => /*#__PURE__*/_react.default.createElement(_personAdded.default, Object.assign({
+  name: "PersonAddedIcon",
   LEGACY_fallbackIcon: _personWithTick.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-PersonAddedIcon.Name = 'PersonAddedIconMigration';
+PersonAddedIcon.displayName = 'PersonAddedIconMigration';
 var _default = exports.default = PersonAddedIcon;

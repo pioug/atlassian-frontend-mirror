@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1201ab50caa951687977050b2b11e97b>>
+ * @codegen <<SignedSource::65dcf966fa1dbb205774996c18f11012>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const CommitIcon = props => /*#__PURE__*/_react.default.createElement(_commit.default, Object.assign({
+  name: "CommitIcon",
   LEGACY_fallbackIcon: _commits.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-CommitIcon.Name = 'CommitIconMigration';
+CommitIcon.displayName = 'CommitIconMigration';
 var _default = exports.default = CommitIcon;

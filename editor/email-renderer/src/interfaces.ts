@@ -7,6 +7,7 @@ export type Style = { [key: string]: string | number | undefined };
 export type Attrs = { [key: string]: string };
 
 export interface NodeSerializerOpts {
+	ancestors?: PMNode[];
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	attrs: { [key: string]: any };
@@ -59,6 +60,7 @@ export interface MediaMetaDataContextItem {
 	size: number;
 }
 export interface MetaDataContext {
+	ancestors?: string[];
 	baseURL?: string;
 	conversion?: {
 		inlineCardConversion?: { [key: string]: string };

@@ -35,17 +35,17 @@ const teams: Record<string, { displayName: string; largeHeaderImageUrl: string }
 	'Air-Guitar': {
 		displayName: 'Air-Guitar',
 		largeHeaderImageUrl:
-			'https://ptc-directory-sited-static.us-east-1.prod.public.atl-paas.net/gradients/1.svg',
+			'https://teams-directory-frontend.stg-east.frontend.public.atl-paas.net/assets/gradients/1.svg',
 	},
 	Bongos: {
 		displayName: 'Bongos',
 		largeHeaderImageUrl:
-			'https://ptc-directory-sited-static.us-east-1.prod.public.atl-paas.net/gradients/2.svg',
+			'https://teams-directory-frontend.stg-east.frontend.public.atl-paas.net/assets/gradients/2.svg',
 	},
 	Clappers: {
 		displayName: 'Clappers',
 		largeHeaderImageUrl:
-			'https://ptc-directory-sited-static.us-east-1.prod.public.atl-paas.net/gradients/4.svg',
+			'https://teams-directory-frontend.stg-east.frontend.public.atl-paas.net/assets/gradients/4.svg',
 	},
 };
 

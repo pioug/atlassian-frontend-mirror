@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::69eb91f82b309428a7917986dda5ee35>>
+ * @codegen <<SignedSource::eb8ba74bc7f968e3347d9c83c15417ee>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,6 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const TextHeadingThreeIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  name: "TextHeadingThreeIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M11.5 8.5h3.13c.76 0 1.38.62 1.38 1.38v4.75c0 .76-.62 1.38-1.37 1.38H11.5v-1.5h3V13h-3v-1.5h3V10h-3zm-9-2.25V1H1v12h1.5V7.75H8V13h1.5V1H8v5.25z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

@@ -2,26 +2,26 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import { Spotlight } from './index';
+import { SpotlightCard } from './index';
 
-const testId = 'spotlight';
+const testId = 'SpotlightCard';
 
-describe('Spotlight', () => {
+describe('SpotlightCard', () => {
 	it('captures and report a11y violations', async () => {
-		const { container } = render(<Spotlight testId={testId} />);
+		const { container } = render(<SpotlightCard testId={testId} />);
 
 		await expect(container).toBeAccessible();
 	});
 
-	it('finds Spotlight by its testid', async () => {
-		render(<Spotlight testId={testId} />);
+	it('finds SpotlightCard by its testid', async () => {
+		render(<SpotlightCard testId={testId} />);
 
 		expect(screen.getByTestId(testId)).toBeTruthy();
 	});
 
 	it('forwards ref correctly', () => {
 		const ref = React.createRef<HTMLDivElement>();
-		render(<Spotlight ref={ref}>Hello, world!</Spotlight>);
+		render(<SpotlightCard ref={ref}>Hello, world!</SpotlightCard>);
 		expect(ref.current).toBeDefined();
 		expect(ref.current?.textContent).toEqual('Hello, world!');
 	});

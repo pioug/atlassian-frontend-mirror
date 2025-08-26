@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::fa682afc0bd2fe8da2fd11d0aa96402a>>
+ * @codegen <<SignedSource::95231b29ccb74a334a8e353528b72952>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const DragHandleIcon = props => /*#__PURE__*/_react.default.createElement(_dragHandle.default, Object.assign({
+  name: "DragHandleIcon",
   LEGACY_fallbackIcon: _dragHandler.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-DragHandleIcon.Name = 'DragHandleIconMigration';
+DragHandleIcon.displayName = 'DragHandleIconMigration';
 var _default = exports.default = DragHandleIcon;

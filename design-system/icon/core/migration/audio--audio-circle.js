@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::97a95d0b51c3a360c4f17cce6631bb86>>
+ * @codegen <<SignedSource::99f9507e3a77a18302bd4d1d9d0df217>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const AudioIcon = props => /*#__PURE__*/_react.default.createElement(_audio.default, Object.assign({
+  name: "AudioIcon",
   LEGACY_fallbackIcon: _audioCircle.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-AudioIcon.Name = 'AudioIconMigration';
+AudioIcon.displayName = 'AudioIconMigration';
 var _default = exports.default = AudioIcon;

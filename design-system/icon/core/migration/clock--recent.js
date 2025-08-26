@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::61cc856ba673fb016dcc97fed2247ace>>
+ * @codegen <<SignedSource::3ea6ebab91cf49f6c0edb114018ca38f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ClockIcon = props => /*#__PURE__*/_react.default.createElement(_clock.default, Object.assign({
+  name: "ClockIcon",
   LEGACY_fallbackIcon: _recent.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-ClockIcon.Name = 'ClockIconMigration';
+ClockIcon.displayName = 'ClockIconMigration';
 var _default = exports.default = ClockIcon;

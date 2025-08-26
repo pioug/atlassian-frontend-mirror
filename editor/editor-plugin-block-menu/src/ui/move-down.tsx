@@ -13,7 +13,7 @@ import ArrowDownIcon from '@atlaskit/icon/core/arrow-down';
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
 
 type Props = {
-	api: ExtractInjectionAPI<BlockMenuPlugin>;
+	api: ExtractInjectionAPI<BlockMenuPlugin> | undefined;
 };
 
 const MoveDownDropdownItemContent = ({ api }: Props & WrappedComponentProps) => {

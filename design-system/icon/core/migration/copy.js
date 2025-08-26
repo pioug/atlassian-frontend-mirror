@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::746afd86dff7a846534476462b8fe4e7>>
+ * @codegen <<SignedSource::c375ed2b41c84b45c85c51ed117e320a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const CopyIcon = props => /*#__PURE__*/_react.default.createElement(_copy.default, Object.assign({
+  name: "CopyIcon",
   LEGACY_fallbackIcon: _copy2.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-CopyIcon.Name = 'CopyIconMigration';
+CopyIcon.displayName = 'CopyIconMigration';
 var _default = exports.default = CopyIcon;

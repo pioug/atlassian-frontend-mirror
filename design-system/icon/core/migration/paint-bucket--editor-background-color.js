@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b7b72e4cfb1948d4b5694556923ff149>>
+ * @codegen <<SignedSource::3c05c142a4056afc1df3ca1d775af2e7>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const PaintBucketIcon = props => /*#__PURE__*/_react.default.createElement(_paintBucket.default, Object.assign({
+  name: "PaintBucketIcon",
   LEGACY_fallbackIcon: _backgroundColor.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-PaintBucketIcon.Name = 'PaintBucketIconMigration';
+PaintBucketIcon.displayName = 'PaintBucketIconMigration';
 var _default = exports.default = PaintBucketIcon;

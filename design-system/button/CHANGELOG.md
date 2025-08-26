@@ -1,5 +1,15 @@
 # @atlaskit/button
 
+## 23.4.2
+
+### Patch Changes
+
+- [`b3e26b962b5c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b3e26b962b5c7) -
+  We are testing internal changes for Button icon sizing behind a feature flag. If this change is
+  successful it will be available in a later release: To balance icon sizing, any chevron icons used
+  in button icon slots will now render as `size="small"` by default.
+- Updated dependencies
+
 ## 23.4.1
 
 ### Patch Changes

@@ -36,6 +36,10 @@
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__insm/app"
 	},
-	"references": [],
+	"references": [
+		{
+			"path": "../../analytics/analytics-listeners/tsconfig.app.json"
+		}
+	],
 	"files": []
 }

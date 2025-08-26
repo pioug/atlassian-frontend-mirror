@@ -2,7 +2,7 @@
 import React from 'react';
 
 import Icon from '@atlaskit/icon';
-import type { CustomGlyphProps, NewIconProps } from '@atlaskit/icon/types';
+import type { CustomGlyphProps, IconProps } from '@atlaskit/icon/types';
 
 const IconCardGlyph = (props: CustomGlyphProps) => {
 	return (
@@ -26,7 +26,7 @@ const IconCardGlyph = (props: CustomGlyphProps) => {
 	);
 };
 
-export const IconCard = (props: NewIconProps) => {
+export const IconCard = (props: IconProps) => {
 	// Ignored via go/ees005
 	// eslint-disable-next-line react/jsx-props-no-spreading
 	return <Icon glyph={IconCardGlyph} {...props} />;

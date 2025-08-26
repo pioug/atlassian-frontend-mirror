@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { userEvent } from '@testing-library/user-event';
 
 import Avatar from '@atlaskit/avatar';
 import { IconButton } from '@atlaskit/button/new';
+import BugIcon from '@atlaskit/icon/core/bug';
 import AddIcon from '@atlaskit/icon/glyph/add';
-import JiraTestSessionIcon from '@atlaskit/icon/glyph/jira/test-session';
 import MoreIcon from '@atlaskit/icon/glyph/more';
 import Lozenge from '@atlaskit/lozenge';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { ButtonMenuItem } from '../../button-menu-item';
 import { ExpandableMenuItem } from '../../expandable-menu-item/expandable-menu-item';
@@ -16,7 +17,7 @@ import { ExpandableMenuItemContent } from '../../expandable-menu-item/expandable
 import { ExpandableMenuItemTrigger } from '../../expandable-menu-item/expandable-menu-item-trigger';
 import { LinkMenuItem } from '../../link-menu-item';
 
-describe('MenuItem', () => {
+describe('Menu items', () => {
 	const menuItemText = 'Test';
 	const actionAddLabel = 'Add';
 	const actionMoreLabel = 'More';
@@ -36,7 +37,7 @@ describe('MenuItem', () => {
 	const testId = 'menu-item-testid';
 	const containerTestId = testId + '-container';
 
-	describe('ButtonMenuItem', () => {
+	ffTest.both('platform_dst_nav4_actionsonhover_focus_fix', 'ButtonMenuItem', () => {
 		it('should render', () => {
 			render(<ButtonMenuItem>{menuItemText}</ButtonMenuItem>);
 			expect(screen.getByRole('button', { name: menuItemText })).toBeVisible();
@@ -64,7 +65,7 @@ describe('MenuItem', () => {
 
 			it('should render an icon if provided', () => {
 				render(
-					<ButtonMenuItem elemBefore={<JiraTestSessionIcon label="" testId={testId} />}>
+					<ButtonMenuItem elemBefore={<BugIcon label="" testId={testId} />}>
 						{menuItemText}
 					</ButtonMenuItem>,
 				);
@@ -73,7 +74,7 @@ describe('MenuItem', () => {
 
 			it('should not share same button interaction', () => {
 				render(
-					<ButtonMenuItem elemBefore={<JiraTestSessionIcon label="" testId={testId} />}>
+					<ButtonMenuItem elemBefore={<BugIcon label="" testId={testId} />}>
 						{menuItemText}
 					</ButtonMenuItem>,
 				);
@@ -84,9 +85,7 @@ describe('MenuItem', () => {
 
 			it('should render an icon button if provided', () => {
 				render(
-					<ButtonMenuItem
-						elemBefore={<IconButton icon={JiraTestSessionIcon} label={interactiveElemText} />}
-					>
+					<ButtonMenuItem elemBefore={<IconButton icon={BugIcon} label={interactiveElemText} />}>
 						{menuItemText}
 					</ButtonMenuItem>,
 				);
@@ -103,7 +102,7 @@ describe('MenuItem', () => {
 		describe('elemAfter', () => {
 			it('should render an icon if provided', () => {
 				render(
-					<ButtonMenuItem elemAfter={<JiraTestSessionIcon label="" testId={testId} />}>
+					<ButtonMenuItem elemAfter={<BugIcon label="" testId={testId} />}>
 						{menuItemText}
 					</ButtonMenuItem>,
 				);
@@ -124,7 +123,7 @@ describe('MenuItem', () => {
 			it('should render an icon button if provided', () => {
 				render(
 					<ButtonMenuItem
-						actionsOnHover={<IconButton icon={JiraTestSessionIcon} label={interactiveElemText} />}
+						actionsOnHover={<IconButton icon={BugIcon} label={interactiveElemText} />}
 					>
 						{menuItemText}
 					</ButtonMenuItem>,
@@ -148,10 +147,7 @@ describe('MenuItem', () => {
 
 			it('should not render actions when disabled', () => {
 				render(
-					<ButtonMenuItem
-						isDisabled
-						actions={<IconButton icon={JiraTestSessionIcon} label="Test action" />}
-					>
+					<ButtonMenuItem isDisabled actions={<IconButton icon={BugIcon} label="Test action" />}>
 						Menu item label
 					</ButtonMenuItem>,
 				);
@@ -163,7 +159,7 @@ describe('MenuItem', () => {
 				render(
 					<ButtonMenuItem
 						isDisabled
-						actionsOnHover={<IconButton icon={JiraTestSessionIcon} label="Test action" />}
+						actionsOnHover={<IconButton icon={BugIcon} label="Test action" />}
 					>
 						Menu item label
 					</ButtonMenuItem>,
@@ -184,9 +180,9 @@ describe('MenuItem', () => {
 		it('should focus on the interactive elements in the correct order', async () => {
 			render(
 				<ButtonMenuItem
-					elemBefore={<IconButton icon={JiraTestSessionIcon} label={interactiveElemText} />}
+					elemBefore={<IconButton icon={BugIcon} label={interactiveElemText} />}
 					actions={actions}
-					actionsOnHover={<IconButton icon={JiraTestSessionIcon} label={actionsOnHoverText} />}
+					actionsOnHover={<IconButton icon={BugIcon} label={actionsOnHoverText} />}
 				>
 					{menuItemText}
 				</ButtonMenuItem>,
@@ -213,7 +209,7 @@ describe('MenuItem', () => {
 		// `:not(:has(button,a))` is not working with `.toHaveCompiledCss()`
 	});
 
-	describe('LinkMenuItem', () => {
+	ffTest.both('platform_dst_nav4_actionsonhover_focus_fix', 'LinkMenuItem', () => {
 		const href = 'http://www.atlassian.design';
 		const scrollIntoViewMock = jest.fn();
 		const scrollIntoViewIfNeededMock = jest.fn();
@@ -508,7 +504,7 @@ describe('MenuItem', () => {
 
 			it('should render an icon if provided', () => {
 				render(
-					<LinkMenuItem href={href} elemBefore={<JiraTestSessionIcon label="" testId={testId} />}>
+					<LinkMenuItem href={href} elemBefore={<BugIcon label="" testId={testId} />}>
 						{menuItemText}
 					</LinkMenuItem>,
 				);
@@ -517,9 +513,7 @@ describe('MenuItem', () => {
 
 			it('should render an icon button if provided', () => {
 				render(
-					<ButtonMenuItem
-						elemBefore={<IconButton icon={JiraTestSessionIcon} label={interactiveElemText} />}
-					>
+					<ButtonMenuItem elemBefore={<IconButton icon={BugIcon} label={interactiveElemText} />}>
 						{menuItemText}
 					</ButtonMenuItem>,
 				);
@@ -528,7 +522,7 @@ describe('MenuItem', () => {
 
 			it('should not share same link interaction', () => {
 				render(
-					<LinkMenuItem href={href} elemBefore={<JiraTestSessionIcon label="" testId={testId} />}>
+					<LinkMenuItem href={href} elemBefore={<BugIcon label="" testId={testId} />}>
 						{menuItemText}
 					</LinkMenuItem>,
 				);
@@ -551,7 +545,7 @@ describe('MenuItem', () => {
 		describe('elemAfter', () => {
 			it('should render an icon if provided', () => {
 				render(
-					<LinkMenuItem href={href} elemAfter={<JiraTestSessionIcon label="" testId={testId} />}>
+					<LinkMenuItem href={href} elemAfter={<BugIcon label="" testId={testId} />}>
 						{menuItemText}
 					</LinkMenuItem>,
 				);
@@ -573,7 +567,7 @@ describe('MenuItem', () => {
 				render(
 					<LinkMenuItem
 						href={href}
-						actionsOnHover={<IconButton icon={JiraTestSessionIcon} label={interactiveElemText} />}
+						actionsOnHover={<IconButton icon={BugIcon} label={interactiveElemText} />}
 					>
 						{menuItemText}
 					</LinkMenuItem>,
@@ -622,9 +616,9 @@ describe('MenuItem', () => {
 			render(
 				<LinkMenuItem
 					href={href}
-					elemBefore={<IconButton icon={JiraTestSessionIcon} label={interactiveElemText} />}
+					elemBefore={<IconButton icon={BugIcon} label={interactiveElemText} />}
 					actions={actions}
-					actionsOnHover={<IconButton icon={JiraTestSessionIcon} label={actionsOnHoverText} />}
+					actionsOnHover={<IconButton icon={BugIcon} label={actionsOnHoverText} />}
 				>
 					{menuItemText}
 				</LinkMenuItem>,

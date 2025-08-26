@@ -1,5 +1,12 @@
 # @atlaskit/icon
 
+## 28.1.0
+
+### Minor Changes
+
+- [`b3e26b962b5c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b3e26b962b5c7) -
+  Icon's `size` prop now also accepts a function, to determine icon size by the name of the icon.
+
 ## 28.0.0
 
 ### Major Changes

@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.4.6
+
+### Patch Changes
+
+- [`0feed18feb110`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0feed18feb110) -
+  Add sample rate config for extraInteractionMetrics
+
 ## 4.4.5
 
 ### Patch Changes

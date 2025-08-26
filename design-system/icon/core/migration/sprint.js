@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::305b05d245740b98a659dd24d0c99f12>>
+ * @codegen <<SignedSource::e75fab60b8db5b6f9a3ac597aa211c61>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const SprintIcon = props => /*#__PURE__*/_react.default.createElement(_sprint.default, Object.assign({
+  name: "SprintIcon",
   LEGACY_fallbackIcon: _sprint2.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-SprintIcon.Name = 'SprintIconMigration';
+SprintIcon.displayName = 'SprintIconMigration';
 var _default = exports.default = SprintIcon;

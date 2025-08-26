@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5263752ab7d6d0b624b02ca95af4129a>>
+ * @codegen <<SignedSource::0aab38a8fcdace49663d0618ee2b2bdb>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const BookWithBookmarkIcon = props => /*#__PURE__*/_react.default.createElement(_bookWithBookmark.default, Object.assign({
+  name: "BookWithBookmarkIcon",
   LEGACY_fallbackIcon: _book.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-BookWithBookmarkIcon.Name = 'BookWithBookmarkIconMigration';
+BookWithBookmarkIcon.displayName = 'BookWithBookmarkIconMigration';
 var _default = exports.default = BookWithBookmarkIcon;

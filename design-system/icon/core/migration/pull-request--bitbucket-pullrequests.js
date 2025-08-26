@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0df86e9f58670341f0be02decae626a5>>
+ * @codegen <<SignedSource::47ea83924e7cf78af0a51ca6ff1b9c05>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const PullRequestIcon = props => /*#__PURE__*/_react.default.createElement(_pullRequest.default, Object.assign({
+  name: "PullRequestIcon",
   LEGACY_fallbackIcon: _pullrequests.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-PullRequestIcon.Name = 'PullRequestIconMigration';
+PullRequestIcon.displayName = 'PullRequestIconMigration';
 var _default = exports.default = PullRequestIcon;

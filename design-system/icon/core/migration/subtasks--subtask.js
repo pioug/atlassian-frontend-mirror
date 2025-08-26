@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::200ce97a939b47e9d28e7bba19907286>>
+ * @codegen <<SignedSource::9825355c098f8ca42b47af25e82ef634>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const SubtasksIcon = props => /*#__PURE__*/_react.default.createElement(_subtasks.default, Object.assign({
+  name: "SubtasksIcon",
   LEGACY_fallbackIcon: _subtask.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-SubtasksIcon.Name = 'SubtasksIconMigration';
+SubtasksIcon.displayName = 'SubtasksIconMigration';
 var _default = exports.default = SubtasksIcon;

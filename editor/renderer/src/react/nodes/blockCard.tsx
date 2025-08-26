@@ -141,7 +141,11 @@ export default function BlockCard(props: {
 	}
 
 	let cardComponent;
-	if (smartLinks?.ssr && url && fg('platform_ssr_smartlink_cards')) {
+	if (
+		smartLinks?.ssr &&
+		url &&
+		(fg('platform_ssr_smartlink_cards') || fg('jfp-magma-ssr-iv-editor-links'))
+	) {
 		cardComponent = (
 			<CardSSR
 				appearance="block"

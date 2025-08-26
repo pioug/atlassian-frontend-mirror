@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c2b1c4abd7fe526e414fb9ad958e0b4f>>
+ * @codegen <<SignedSource::92243a381143711bacc927357dc86666>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const MaximizeIcon = props => /*#__PURE__*/_react.default.createElement(_maximize.default, Object.assign({
+  name: "MaximizeIcon",
   LEGACY_fallbackIcon: _imageResize.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-MaximizeIcon.Name = 'MaximizeIconMigration';
+MaximizeIcon.displayName = 'MaximizeIconMigration';
 var _default = exports.default = MaximizeIcon;

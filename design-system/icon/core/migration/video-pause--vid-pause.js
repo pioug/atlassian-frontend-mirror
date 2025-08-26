@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::45d9bf27ffeb5d881b5052e3ac923680>>
+ * @codegen <<SignedSource::b6e99bc67ab9aca63b78b01a6ef1a471>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const VideoPauseIcon = props => /*#__PURE__*/_react.default.createElement(_videoPause.default, Object.assign({
+  name: "VideoPauseIcon",
   LEGACY_fallbackIcon: _vidPause.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-VideoPauseIcon.Name = 'VideoPauseIconMigration';
+VideoPauseIcon.displayName = 'VideoPauseIconMigration';
 var _default = exports.default = VideoPauseIcon;

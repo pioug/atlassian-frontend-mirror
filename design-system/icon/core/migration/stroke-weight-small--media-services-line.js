@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::696a579fbbc7f724d5a9cca4586343d0>>
+ * @codegen <<SignedSource::49015a398eb79ea0434e0a92a1721a5e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const StrokeWeightSmallIcon = props => /*#__PURE__*/_react.default.createElement(_strokeWeightSmall.default, Object.assign({
+  name: "StrokeWeightSmallIcon",
   LEGACY_fallbackIcon: _line.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-StrokeWeightSmallIcon.Name = 'StrokeWeightSmallIconMigration';
+StrokeWeightSmallIcon.displayName = 'StrokeWeightSmallIconMigration';
 var _default = exports.default = StrokeWeightSmallIcon;

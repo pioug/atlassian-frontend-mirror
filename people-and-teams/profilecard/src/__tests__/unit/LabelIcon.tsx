@@ -2,10 +2,6 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import IconRecent from '@atlaskit/icon/core/migration/clock--recent';
-import IconEmail from '@atlaskit/icon/core/migration/email';
-import IconLocation from '@atlaskit/icon/core/migration/location';
-
 import { IconLabel } from '../../components/Icon';
 
 describe('Profilecard', () => {
@@ -29,14 +25,13 @@ describe('Profilecard', () => {
 
 		describe('should render LabelIcon with valid icons', () => {
 			const validIcons = ['location', 'time', 'email'];
-			const icons = [IconLocation, IconRecent, IconEmail];
 
 			validIcons.forEach((label, index) => {
 				it(`should render LabelIcon for ${label}`, () => {
 					render(<IconLabel icon={label}>Labeltext</IconLabel>);
 					expect(screen.getByText('Labeltext')).toBeVisible();
 					expect(screen.getByRole('img')).toBeVisible();
-					expect(screen.getByRole('img')).toHaveAttribute('aria-label', icons[index].displayName);
+					expect(screen.getByRole('img')).toHaveAttribute('aria-label', validIcons[index]);
 				});
 			});
 		});

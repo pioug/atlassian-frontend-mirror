@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::bd994b90fa78030d2d1c292998636115>>
+ * @codegen <<SignedSource::b2d61a8b9264c17f51d6b1ce92a21fc9>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const SearchIcon = props => /*#__PURE__*/_react.default.createElement(_search.default, Object.assign({
+  name: "SearchIcon",
   LEGACY_fallbackIcon: _search2.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-SearchIcon.Name = 'SearchIconMigration';
+SearchIcon.displayName = 'SearchIconMigration';
 var _default = exports.default = SearchIcon;

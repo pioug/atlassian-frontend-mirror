@@ -31,15 +31,23 @@ export const styles = `
 }
 `;
 
-export default function status({ attrs, parent }: NodeSerializerOpts) {
+export default function status({ attrs, parent, ancestors }: NodeSerializerOpts) {
 	const timestamp: string = attrs.timestamp;
 	let isParentToDoTask: boolean = false;
 
 	if (parent && parent.type.name === 'taskItem' && parent.attrs.state === 'TODO') {
 		isParentToDoTask = true;
 	}
+
+	const hasToDoBlockTaskItemAncestor =
+		ancestors?.some(
+			(ancestor) => ancestor.type.name === 'blockTaskItem' && ancestor?.attrs?.state === 'TODO',
+		) || false;
+
 	const colorClass =
-		!!isParentToDoTask && isPastDate(timestamp) ? `${className}-red` : `${className}-neutral`;
+		(!!isParentToDoTask || !!hasToDoBlockTaskItemAncestor) && isPastDate(timestamp)
+			? `${className}-red`
+			: `${className}-neutral`;
 	const text = timestampToString(timestamp);
 	return createTag('span', { class: className + ' ' + colorClass }, text);
 }

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a9af7ac7d9a935558b23c57e69ba4822>>
+ * @codegen <<SignedSource::c0263085b8d5ce561669479dbdf0565e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const OnCallIcon = props => /*#__PURE__*/_react.default.createElement(_onCall.default, Object.assign({
+  name: "OnCallIcon",
   LEGACY_fallbackIcon: _dialOut.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-OnCallIcon.Name = 'OnCallIconMigration';
+OnCallIcon.displayName = 'OnCallIconMigration';
 var _default = exports.default = OnCallIcon;

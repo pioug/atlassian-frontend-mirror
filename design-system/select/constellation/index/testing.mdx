@@ -66,22 +66,6 @@ Note here that the `className` of the container element has both the generated c
 generated emotion `classname` as well as a semantic classname preceded by `react-select` the value
 passed into the `classNamePrefix`.
 
-As such in our tests, we can now reliably assert the state of specific dom elements, like so:
-
-```
-  import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-  import Page from '@atlaskit/webdriver-runner/wd-wrapper';
-  const selectInputElement = '.react-select__input';
-
-  BrowserTestCase('ak/select input should be identifiable by classname',
-    {},
-    async (client: any) => {
-      const page = new Page(client);
-      expect(await page.isVisible(selectInputElement)).toBe(true);
-    }
-  )
-```
-
 Once you provide a `classNamePrefix`, these are the selectors that will be exposed to you:
 
 - `[classNamePrefix]__control`

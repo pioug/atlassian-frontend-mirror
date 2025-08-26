@@ -23,9 +23,6 @@ import { MoveUpDropdownItem } from './move-up';
 const getMoveUpMoveDownMenuComponents = (
 	api: ExtractInjectionAPI<BlockMenuPlugin> | undefined,
 ): RegisterBlockMenuComponent[] => {
-	if (!api?.blockControls?.commands.moveNode) {
-		return [];
-	}
 	return [
 		{
 			type: 'block-menu-item' as const,

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::01488cb5e537ee4cbe66cd301abeebd1>>
+ * @codegen <<SignedSource::5444b51e487d7ee30ba43f31750651c0>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const TextItalicIcon = props => /*#__PURE__*/_react.default.createElement(_textItalic.default, Object.assign({
+  name: "TextItalicIcon",
   LEGACY_fallbackIcon: _italic.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-TextItalicIcon.Name = 'TextItalicIconMigration';
+TextItalicIcon.displayName = 'TextItalicIconMigration';
 var _default = exports.default = TextItalicIcon;

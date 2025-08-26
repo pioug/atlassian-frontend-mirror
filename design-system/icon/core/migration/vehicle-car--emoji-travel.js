@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b2854d6e88724bd7d33b379657b6e238>>
+ * @codegen <<SignedSource::f76d0e806393dd94f10e2f2411eaa2cf>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const VehicleCarIcon = props => /*#__PURE__*/_react.default.createElement(_vehicleCar.default, Object.assign({
+  name: "VehicleCarIcon",
   LEGACY_fallbackIcon: _travel.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-VehicleCarIcon.Name = 'VehicleCarIconMigration';
+VehicleCarIcon.displayName = 'VehicleCarIconMigration';
 var _default = exports.default = VehicleCarIcon;

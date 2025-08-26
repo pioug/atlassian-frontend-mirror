@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::cbfaa58603b784789054dd0f73c52c8d>>
+ * @codegen <<SignedSource::59964ed8c473ec4fb53a3b2db3e9de15>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const AppSwitcherIcon = props => /*#__PURE__*/_react.default.createElement(_appSwitcher.default, Object.assign({
+  name: "AppSwitcherIcon",
   LEGACY_fallbackIcon: _switcher.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-AppSwitcherIcon.Name = 'AppSwitcherIconMigration';
+AppSwitcherIcon.displayName = 'AppSwitcherIconMigration';
 var _default = exports.default = AppSwitcherIcon;

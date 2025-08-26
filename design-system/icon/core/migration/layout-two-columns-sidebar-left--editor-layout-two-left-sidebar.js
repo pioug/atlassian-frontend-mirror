@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::aedd54f602e796866e525a13110f0fee>>
+ * @codegen <<SignedSource::e8415696cbc2266afa6adea59e7b1e67>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const LayoutTwoColumnsSidebarLeftIcon = props => /*#__PURE__*/_react.default.createElement(_layoutTwoColumnsSidebarLeft.default, Object.assign({
+  name: "LayoutTwoColumnsSidebarLeftIcon",
   LEGACY_fallbackIcon: _layoutTwoLeftSidebar.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-LayoutTwoColumnsSidebarLeftIcon.Name = 'LayoutTwoColumnsSidebarLeftIconMigration';
+LayoutTwoColumnsSidebarLeftIcon.displayName = 'LayoutTwoColumnsSidebarLeftIconMigration';
 var _default = exports.default = LayoutTwoColumnsSidebarLeftIcon;

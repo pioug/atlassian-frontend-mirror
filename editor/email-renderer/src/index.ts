@@ -26,6 +26,7 @@ const serializeNode = (
 	node: PMNode,
 	index: number,
 	parent?: PMNode,
+	ancestors?: PMNode[],
 	serializedHTML?: string,
 	context?: MetaDataContext,
 ): string => {
@@ -44,6 +45,7 @@ const serializeNode = (
 		},
 		marks: node.marks,
 		parent: parent,
+		ancestors: ancestors,
 		text: serializedHTML || node.attrs.text || node.attrs.shortName || node.text,
 		context: context,
 	});
@@ -70,16 +72,24 @@ const getAttrsFromParent = (index: number, parent?: PMNode): { [key: string]: an
 	return {};
 };
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const traverseTree = (fragment: Fragment, parent?: PMNode, context?: MetaDataContext): any => {
+const traverseTree = (
+	fragment: Fragment,
+	parent?: PMNode,
+	ancestors?: PMNode[],
+	context?: MetaDataContext,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+): any => {
 	let output = '';
 	fragment.forEach((childNode, _offset, idx) => {
+		// Build the ancestry chain by adding the current parent to the existing ancestors
+		const childAncestors = parent ? [...(ancestors || []), parent] : ancestors || [];
+
 		if (childNode.isLeaf) {
-			output += serializeNode(childNode, idx, parent, undefined, context);
+			output += serializeNode(childNode, idx, parent, childAncestors, undefined, context);
 		} else {
-			const innerHTML = traverseTree(childNode.content, childNode, context);
-			output += serializeNode(childNode, idx, parent, innerHTML, context);
+			const innerHTML = traverseTree(childNode.content, childNode, childAncestors, context);
+			output += serializeNode(childNode, idx, parent, childAncestors, innerHTML, context);
 		}
 	});
 
@@ -158,7 +168,7 @@ export class EmailSerializer implements SerializerWithImages<string> {
 			transformNestedTableExtension,
 			this.schema.nodeFromJSON,
 			property('content'),
-			(fragment) => traverseTree(fragment, undefined, context),
+			(fragment) => traverseTree(fragment, undefined, undefined, context),
 			(html) => juicify(html, this.opts.isInlineCSSEnabled),
 			(html) => processImages(html, this.opts.isImageStubEnabled), // inline static assets for demo purposes
 			(result) => stubImages(result, this.opts.isImageStubEnabled), // stub user uploaded images to prevent console.errors

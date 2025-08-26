@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::65c0b39bd1a1282c23e57cf02e78c0e0>>
+ * @codegen <<SignedSource::f63bc5877ceef7abf243a0cb010fc1b9>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -26,8 +26,9 @@ For information tooltips, use the unfilled 'information circle' icon.
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const StatusInformationIcon = props => /*#__PURE__*/_react.default.createElement(_statusInformation.default, Object.assign({
+  name: "StatusInformationIcon",
   LEGACY_fallbackIcon: _info.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-StatusInformationIcon.Name = 'StatusInformationIconMigration';
+StatusInformationIcon.displayName = 'StatusInformationIconMigration';
 var _default = exports.default = StatusInformationIcon;

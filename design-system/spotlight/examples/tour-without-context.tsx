@@ -11,9 +11,9 @@ import {
 	PopoverContent,
 	PopoverProvider,
 	PopoverTarget,
-	Spotlight,
 	SpotlightActions,
 	SpotlightBody,
+	SpotlightCard,
 	SpotlightControls,
 	SpotlightDismissControl,
 	SpotlightFooter,
@@ -71,7 +71,7 @@ export default () => {
 						</Box>
 					</PopoverTarget>
 					<PopoverContent placement="right-end" isVisible={currentStep === 'step-1'}>
-						<Spotlight testId="spotlight">
+						<SpotlightCard testId="spotlight">
 							<SpotlightHeader>
 								<SpotlightHeadline>Headline</SpotlightHeadline>
 								<SpotlightControls>
@@ -89,7 +89,7 @@ export default () => {
 									</SpotlightPrimaryAction>
 								</SpotlightActions>
 							</SpotlightFooter>
-						</Spotlight>
+						</SpotlightCard>
 					</PopoverContent>
 				</PopoverProvider>
 
@@ -100,7 +100,7 @@ export default () => {
 						</Box>
 					</PopoverTarget>
 					<PopoverContent placement="left-end" isVisible={currentStep === 'step-2'}>
-						<Spotlight testId="spotlight">
+						<SpotlightCard testId="spotlight">
 							<SpotlightHeader>
 								<SpotlightHeadline>Headline</SpotlightHeadline>
 								<SpotlightControls>
@@ -121,7 +121,7 @@ export default () => {
 									</SpotlightPrimaryAction>
 								</SpotlightActions>
 							</SpotlightFooter>
-						</Spotlight>
+						</SpotlightCard>
 					</PopoverContent>
 				</PopoverProvider>
 
@@ -132,7 +132,7 @@ export default () => {
 						</Box>
 					</PopoverTarget>
 					<PopoverContent placement="right-end" isVisible={currentStep === 'step-3'}>
-						<Spotlight testId="spotlight">
+						<SpotlightCard testId="spotlight">
 							<SpotlightHeader>
 								<SpotlightHeadline>Headline</SpotlightHeadline>
 								<SpotlightControls>
@@ -153,7 +153,7 @@ export default () => {
 									</SpotlightPrimaryAction>
 								</SpotlightActions>
 							</SpotlightFooter>
-						</Spotlight>
+						</SpotlightCard>
 					</PopoverContent>
 				</PopoverProvider>
 			</div>

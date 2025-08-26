@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::30577ec4e1eb084dbdbe0787dd497bd1>>
+ * @codegen <<SignedSource::363db5da4e4475f50ec8c5ba07a44641>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ZoomOutIcon = props => /*#__PURE__*/_react.default.createElement(_zoomOut.default, Object.assign({
+  name: "ZoomOutIcon",
   LEGACY_fallbackIcon: _zoomOut2.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-ZoomOutIcon.Name = 'ZoomOutIconMigration';
+ZoomOutIcon.displayName = 'ZoomOutIconMigration';
 var _default = exports.default = ZoomOutIcon;

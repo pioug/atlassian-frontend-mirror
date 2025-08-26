@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::98606756a92a07f2e7585c76d3cbd084>>
+ * @codegen <<SignedSource::06d5df14dda5b4a514f2beab1f374501>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ErrorIcon = props => /*#__PURE__*/_react.default.createElement(_error.default, Object.assign({
+  name: "ErrorIcon",
   LEGACY_fallbackIcon: _error2.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-ErrorIcon.Name = 'ErrorIconMigration';
+ErrorIcon.displayName = 'ErrorIconMigration';
 var _default = exports.default = ErrorIcon;

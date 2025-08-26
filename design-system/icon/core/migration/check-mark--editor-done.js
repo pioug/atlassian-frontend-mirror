@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::666ec8073f4584891951ab85e48975eb>>
+ * @codegen <<SignedSource::600b8f5df6a73844cbfa316238c6d2e9>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const CheckMarkIcon = props => /*#__PURE__*/_react.default.createElement(_checkMark.default, Object.assign({
+  name: "CheckMarkIcon",
   LEGACY_fallbackIcon: _done.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-CheckMarkIcon.Name = 'CheckMarkIconMigration';
+CheckMarkIcon.displayName = 'CheckMarkIconMigration';
 var _default = exports.default = CheckMarkIcon;

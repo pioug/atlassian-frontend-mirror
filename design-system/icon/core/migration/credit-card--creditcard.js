@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7a544a05e86bbf31f13f90bd164583a1>>
+ * @codegen <<SignedSource::b6b051801234c31a8b132b76a5fa77be>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const CreditCardIcon = props => /*#__PURE__*/_react.default.createElement(_creditCard.default, Object.assign({
+  name: "CreditCardIcon",
   LEGACY_fallbackIcon: _creditcard.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-CreditCardIcon.Name = 'CreditCardIconMigration';
+CreditCardIcon.displayName = 'CreditCardIconMigration';
 var _default = exports.default = CreditCardIcon;

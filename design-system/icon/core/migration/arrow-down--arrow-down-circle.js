@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6f151963f6bf8b4672bcc3f6646d8ced>>
+ * @codegen <<SignedSource::8750cd86a0dd6b662731ae35ef497234>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ArrowDownIcon = props => /*#__PURE__*/_react.default.createElement(_arrowDown.default, Object.assign({
+  name: "ArrowDownIcon",
   LEGACY_fallbackIcon: _arrowDownCircle.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-ArrowDownIcon.Name = 'ArrowDownIconMigration';
+ArrowDownIcon.displayName = 'ArrowDownIconMigration';
 var _default = exports.default = ArrowDownIcon;

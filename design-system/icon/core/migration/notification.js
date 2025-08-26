@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::01602fb49c3451f8884e2ed4b4e67e9f>>
+ * @codegen <<SignedSource::f6bc753b753375671178ffe566cef00e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const NotificationIcon = props => /*#__PURE__*/_react.default.createElement(_notification.default, Object.assign({
+  name: "NotificationIcon",
   LEGACY_fallbackIcon: _notification2.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-NotificationIcon.Name = 'NotificationIconMigration';
+NotificationIcon.displayName = 'NotificationIconMigration';
 var _default = exports.default = NotificationIcon;

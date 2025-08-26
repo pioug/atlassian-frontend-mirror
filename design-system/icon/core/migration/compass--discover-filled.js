@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ad9f99b2efaafdebde976898f65854bc>>
+ * @codegen <<SignedSource::ffb3948a933b360297c003f29ee6d7d7>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const CompassIcon = props => /*#__PURE__*/_react.default.createElement(_compass.default, Object.assign({
+  name: "CompassIcon",
   LEGACY_fallbackIcon: _discoverFilled.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-CompassIcon.Name = 'CompassIconMigration';
+CompassIcon.displayName = 'CompassIconMigration';
 var _default = exports.default = CompassIcon;

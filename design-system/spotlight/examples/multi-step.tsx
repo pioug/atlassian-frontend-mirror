@@ -6,9 +6,9 @@ import { cssMap, jsx } from '@atlaskit/css';
 import Image from '@atlaskit/image';
 import { Text } from '@atlaskit/primitives/compiled';
 import {
-	Spotlight,
 	SpotlightActions,
 	SpotlightBody,
+	SpotlightCard,
 	SpotlightControls,
 	SpotlightDismissControl,
 	SpotlightFooter,
@@ -44,7 +44,7 @@ export default () => {
 	return (
 		<div css={styles.root}>
 			<div css={styles.content}>
-				<Spotlight testId="spotlight-step-1">
+				<SpotlightCard testId="spotlight-step-1">
 					<SpotlightHeader>
 						<SpotlightHeadline>Headline</SpotlightHeadline>
 						<SpotlightControls>
@@ -63,9 +63,9 @@ export default () => {
 							<SpotlightPrimaryAction>Next</SpotlightPrimaryAction>
 						</SpotlightActions>
 					</SpotlightFooter>
-				</Spotlight>
+				</SpotlightCard>
 
-				<Spotlight testId="spotlight-step-2">
+				<SpotlightCard testId="spotlight-step-2">
 					<SpotlightHeader>
 						<SpotlightHeadline>Headline</SpotlightHeadline>
 						<SpotlightControls>
@@ -85,9 +85,9 @@ export default () => {
 							<SpotlightPrimaryAction>Next</SpotlightPrimaryAction>
 						</SpotlightActions>
 					</SpotlightFooter>
-				</Spotlight>
+				</SpotlightCard>
 
-				<Spotlight testId="spotlight-step-3">
+				<SpotlightCard testId="spotlight-step-3">
 					<SpotlightHeader>
 						<SpotlightHeadline>Headline</SpotlightHeadline>
 						<SpotlightControls>
@@ -107,7 +107,7 @@ export default () => {
 							<SpotlightPrimaryAction>Done</SpotlightPrimaryAction>
 						</SpotlightActions>
 					</SpotlightFooter>
-				</Spotlight>
+				</SpotlightCard>
 			</div>
 		</div>
 	);

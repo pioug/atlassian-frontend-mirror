@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b0b09173036d3d94afd21e9d81369a03>>
+ * @codegen <<SignedSource::f7e8af757eae9bbc8243694d5d6aa229>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ExpandHorizontalIcon = props => /*#__PURE__*/_react.default.createElement(_expandHorizontal.default, Object.assign({
+  name: "ExpandHorizontalIcon",
   LEGACY_fallbackIcon: _mediaFullWidth.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-ExpandHorizontalIcon.Name = 'ExpandHorizontalIconMigration';
+ExpandHorizontalIcon.displayName = 'ExpandHorizontalIconMigration';
 var _default = exports.default = ExpandHorizontalIcon;

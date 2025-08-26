@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::25255b73c374f1a1c424eeee2ba346f9>>
+ * @codegen <<SignedSource::2ea817ca384220b2ee91d857a65d1b13>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const WarningIcon = props => /*#__PURE__*/_react.default.createElement(_warning.default, Object.assign({
+  name: "WarningIcon",
   LEGACY_fallbackIcon: _warning2.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-WarningIcon.Name = 'WarningIconMigration';
+WarningIcon.displayName = 'WarningIconMigration';
 var _default = exports.default = WarningIcon;

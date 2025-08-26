@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0984af37204bd04db11ac437e644ac56>>
+ * @codegen <<SignedSource::62c7ca36b6d252ff19257dc50f3c6bb4>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,8 +24,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const PlusSquareIcon = props => /*#__PURE__*/_react.default.createElement(_plusSquare.default, Object.assign({
+  name: "PlusSquareIcon",
   LEGACY_fallbackIcon: _issueRaise.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-PlusSquareIcon.Name = 'PlusSquareIconMigration';
+PlusSquareIcon.displayName = 'PlusSquareIconMigration';
 var _default = exports.default = PlusSquareIcon;

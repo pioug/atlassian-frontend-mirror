@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::306a4e4bd10916f4b0209b70ce9a55c2>>
+ * @codegen <<SignedSource::22c67ae37e737f127366f67bd91f64bc>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -25,8 +25,9 @@ Known uses: Next page of pagination results, collapsed tree item, expand tree it
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ChevronRightIcon = props => /*#__PURE__*/_react.default.createElement(_chevronRight.default, Object.assign({
+  name: "ChevronRightIcon",
   LEGACY_fallbackIcon: _chevronRight2.default
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
-ChevronRightIcon.Name = 'ChevronRightIconMigration';
+ChevronRightIcon.displayName = 'ChevronRightIconMigration';
 var _default = exports.default = ChevronRightIcon;

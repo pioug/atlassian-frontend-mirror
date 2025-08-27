@@ -1,5 +1,16 @@
 # @atlaskit/primitives
 
+## 14.12.0
+
+### Minor Changes
+
+- [`fcd8f46058cd2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fcd8f46058cd2) -
+  Added new border radius tokens available via xcss.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.11.4
 
 ### Patch Changes

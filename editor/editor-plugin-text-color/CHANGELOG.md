@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-text-color
 
+## 3.2.0
+
+### Minor Changes
+
+- [`1eba43a7b680d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1eba43a7b680d) -
+  [ux] ED-29000 - Address paper cut issues in ColorPalette
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.16
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.1.15
 
 ### Patch Changes

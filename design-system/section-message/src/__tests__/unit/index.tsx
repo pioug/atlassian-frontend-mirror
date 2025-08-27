@@ -454,5 +454,23 @@ describe('SectionMessage', () => {
 
 			expect(sectionMessage).not.toBeInTheDocument();
 		});
+		it('should fire the onDismiss callback when the dismiss button is clicked', async () => {
+			const onDismiss = jest.fn();
+			render(
+				<SectionMessage testId="section-message" isDismissible onDismiss={onDismiss}>
+					boo
+				</SectionMessage>,
+			);
+
+			const sectionMessage = screen.getByTestId('section-message');
+			const dismissButton = screen.getByTestId('section-message--dismiss-button');
+
+			expect(sectionMessage).toBeInTheDocument();
+
+			await userEvent.click(dismissButton);
+
+			expect(sectionMessage).not.toBeInTheDocument();
+			expect(onDismiss).toHaveBeenCalledTimes(1);
+		});
 	});
 });

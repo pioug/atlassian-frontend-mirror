@@ -1,113 +1,111 @@
 {
   "name": "Shape",
   "tokens": {
-    "Shape/border.radius.050": {
-      "attributes": {
-        "group": "shape",
-        "state": "active",
-        "introduced": "1.1.0",
-        "description": "Used for selection indicators, like tabs."
-      },
-      "value": 2
-    },
-    "Shape/border.radius": {
+    "Shape/radius.xsmall": {
       "attributes": {
         "group": "shape",
         "state": "active",
         "suggest": [
-          "3px",
+          "2px"
+        ],
+        "introduced": "6.1.0",
+        "description": "Used for small containers such as badges."
+      },
+      "value": 2
+    },
+    "Shape/radius.small": {
+      "attributes": {
+        "group": "shape",
+        "state": "active",
+        "suggest": [
           "4px"
         ],
-        "introduced": "1.5.2",
-        "description": "The default border radius."
+        "introduced": "6.1.0",
+        "description": "Used for labels."
       },
       "value": 4
     },
-    "Shape/border.radius.100": {
+    "Shape/radius.medium": {
       "attributes": {
         "group": "shape",
         "state": "active",
-        "introduced": "1.1.0",
+        "suggest": [
+          "6px"
+        ],
+        "introduced": "6.1.0",
         "description": "Used for buttons and inputs."
       },
-      "value": 4
+      "value": 6
     },
-    "Shape/border.radius.200": {
+    "Shape/radius.large": {
       "attributes": {
         "group": "shape",
         "state": "active",
-        "introduced": "1.1.0",
-        "description": "Used for smaller cards."
+        "suggest": [
+          "8px"
+        ],
+        "introduced": "6.1.0",
+        "description": "Used for cards and small containers."
       },
       "value": 8
     },
-    "Shape/border.radius.300": {
+    "Shape/radius.xlarge": {
       "attributes": {
         "group": "shape",
         "state": "active",
-        "introduced": "1.1.0",
-        "description": "Used for cards and larger containers."
+        "suggest": [
+          "12px"
+        ],
+        "introduced": "6.1.0",
+        "description": "Used for modals and large containers."
       },
       "value": 12
     },
-    "Shape/border.radius.400": {
-      "attributes": {
-        "group": "shape",
-        "state": "active",
-        "introduced": "1.1.0",
-        "description": "Used for modals."
-      },
-      "value": 16
-    },
-    "Shape/border.radius.circle": {
+    "Shape/radius.full": {
       "attributes": {
         "group": "shape",
         "state": "active",
         "suggest": [
           "50%"
         ],
-        "introduced": "1.1.0",
+        "introduced": "6.1.0",
         "description": "Used for circular containers, like a rounded button."
       },
-      "value": 32032
+      "value": 9999
     },
     "Shape/border.width": {
       "attributes": {
         "group": "shape",
         "state": "active",
         "suggest": [
-          "1px",
-          "2px"
+          "1px"
         ],
         "introduced": "1.5.2",
         "description": "The default border width. Used for all borders."
       },
       "value": 1
     },
-    "Shape/border.width.0": {
-      "attributes": {
-        "group": "shape",
-        "state": "experimental",
-        "introduced": "1.2.1",
-        "description": "Used for zero width borders."
-      },
-      "value": 0
-    },
-    "Shape/border.width.indicator": {
+    "Shape/border.width.selected": {
       "attributes": {
         "group": "shape",
         "state": "active",
-        "introduced": "1.5.2",
-        "description": "Used for indicators like tab and menu selected states."
+        "suggest": [
+          "2px"
+        ],
+        "introduced": "6.1.0",
+        "description": "Use for selected states."
       },
-      "value": 3
+      "value": 2
     },
-    "Shape/border.width.outline": {
+    "Shape/border.width.focused": {
       "attributes": {
         "group": "shape",
         "state": "active",
-        "introduced": "1.5.2",
-        "description": "Used for focus, active or selected inputs."
+        "suggest": [
+          "2px"
+        ],
+        "introduced": "6.1.0",
+        "description": "Use for focused states."
       },
       "value": 2
     }

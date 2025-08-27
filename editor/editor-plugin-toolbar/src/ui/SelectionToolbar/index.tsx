@@ -35,9 +35,15 @@ type SelectionToolbarProps = {
 	api?: ExtractInjectionAPI<ToolbarPlugin>;
 	editorView: EditorView;
 	mountPoint: HTMLElement | undefined;
+	disableSelectionToolbarWhenPinned: boolean;
 };
 
-export const SelectionToolbar = ({ api, editorView, mountPoint }: SelectionToolbarProps) => {
+export const SelectionToolbar = ({
+	api,
+	editorView,
+	mountPoint,
+	disableSelectionToolbarWhenPinned,
+}: SelectionToolbarProps) => {
 	const { shouldShowToolbar } = useSharedPluginStateWithSelector(
 		api,
 		['toolbar'],
@@ -61,6 +67,10 @@ export const SelectionToolbar = ({ api, editorView, mountPoint }: SelectionToolb
 		!editorView.state.selection.empty && editorView.state.selection instanceof TextSelection;
 	const isCellSelection =
 		!editorView.state.selection.empty && '$anchorCell' in editorView.state.selection;
+	const toolbarDocking = useSharedPluginStateSelector(
+		api,
+		'userPreferences.preferences.toolbarDockingPosition',
+	);
 
 	const onPositionCalculated = useCallback(
 		(position: { left?: number; top?: number }) => {
@@ -83,7 +93,13 @@ export const SelectionToolbar = ({ api, editorView, mountPoint }: SelectionToolb
 		[editorView],
 	);
 
-	if (!components || !toolbar) {
+	if (
+		(expValEquals('platform_editor_toolbar_aifc_template_editor', 'isEnabled', true) &&
+			toolbarDocking === 'top' &&
+			disableSelectionToolbarWhenPinned) ||
+		!components ||
+		!toolbar
+	) {
 		return null;
 	}
 

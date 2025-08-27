@@ -1,5 +1,20 @@
 # @atlaskit/editor-statsig-tmp
 
+## 11.8.1
+
+### Patch Changes
+
+- [`1eba43a7b680d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1eba43a7b680d) -
+  ED-29000 - Add platform_editor_toolbar_aifc_patch_1 experiment
+
+## 11.8.0
+
+### Minor Changes
+
+- [`463f3da1f7822`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/463f3da1f7822) -
+  ED-29040 add experiment platform_editor_toolbar_aifc_template_editor which enables the new toolbar
+  in the template editor
+
 ## 11.7.0
 
 ### Minor Changes

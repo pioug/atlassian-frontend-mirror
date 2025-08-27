@@ -49,7 +49,6 @@ import { StepQueueState } from './step-queue-state';
 import { type DocumentServiceInterface } from './interface-document-service';
 import { getConflictChanges } from './getConflictChanges';
 import type { GetResolvedEditorStateReason } from '@atlaskit/editor-common/types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 const CATCHUP_THROTTLE = 1 * 1000; // 1 second
 
@@ -603,60 +602,50 @@ export class DocumentService implements DocumentServiceInterface {
 			} catch (applyLocalStepsError) {
 				// Extract generatedSteps from fetchReconcile response
 				// and apply them to the editor state.
-				if (fg('platform-editor-reconcile-return-generated-steps')) {
-					this.onErrorHandled({
-						message: `Content synced with your team's edits. You may want to check for conflicting edits that could override your changes.`,
-						data: {
-							code: INTERNAL_ERROR_CODE.OUT_OF_SYNC_CLIENT_DATA_LOSS_EVENT,
-							meta: {
-								reason: 'fe-restore-fetch-generated-steps',
-							},
+				this.onErrorHandled({
+					message: `Content synced with your team's edits. You may want to check for conflicting edits that could override your changes.`,
+					data: {
+						code: INTERNAL_ERROR_CODE.OUT_OF_SYNC_CLIENT_DATA_LOSS_EVENT,
+						meta: {
+							reason: 'fe-restore-fetch-generated-steps',
 						},
-					});
-					useReconcile = false;
-					try {
-						const generatedDiffStepsResponse = await this.fetchGeneratedDiffSteps(
-							JSON.stringify(currentState.content),
-							'fe-restore-fetch-generated-steps',
-						);
-						const { generatedSteps } = generatedDiffStepsResponse;
-						const state = this.getState?.();
-
-						if (state?.schema) {
-							const stepsToBeApplied = generatedSteps?.map((s) =>
-								ProseMirrorStep.fromJSON(state.schema, s),
-							);
-							if (stepsToBeApplied && stepsToBeApplied.length > 0) {
-								this.analyticsHelper?.sendActionEvent(
-									EVENT_ACTION.REINITIALISE_DOCUMENT,
-									EVENT_STATUS.INFO,
-									{
-										stepsCount: stepsToBeApplied.length,
-									},
-								);
-								this.applyLocalSteps(stepsToBeApplied);
-							} else {
-								this.analyticsHelper?.sendActionEvent(
-									EVENT_ACTION.REINITIALISE_DOCUMENT,
-									EVENT_STATUS.INFO,
-									{ reason: 'fetchGeneratedDiffSteps returned no steps' },
-								);
-							}
-						}
-					} catch (reconcileError) {
-						this.analyticsHelper?.sendErrorEvent(
-							reconcileError,
-							`Error fetchGeneratedDiffSteps with steps-only mode`,
-						);
-					}
-				} else {
-					this.analyticsHelper?.sendErrorEvent(
-						applyLocalStepsError,
-						`Error while onRestore with applyLocalSteps. Will fallback to fetchReconcile`,
+					},
+				});
+				useReconcile = false;
+				try {
+					const generatedDiffStepsResponse = await this.fetchGeneratedDiffSteps(
+						JSON.stringify(currentState.content),
+						'fe-restore-fetch-generated-steps',
 					);
-					useReconcile = true;
-					// Feature flag disabled - fallback to full document reconcile
-					await this.fetchReconcile(JSON.stringify(currentState.content), 'fe-restore');
+					const { generatedSteps } = generatedDiffStepsResponse;
+					const state = this.getState?.();
+
+					if (state?.schema) {
+						const stepsToBeApplied = generatedSteps?.map((s) =>
+							ProseMirrorStep.fromJSON(state.schema, s),
+						);
+						if (stepsToBeApplied && stepsToBeApplied.length > 0) {
+							this.analyticsHelper?.sendActionEvent(
+								EVENT_ACTION.REINITIALISE_DOCUMENT,
+								EVENT_STATUS.INFO,
+								{
+									stepsCount: stepsToBeApplied.length,
+								},
+							);
+							this.applyLocalSteps(stepsToBeApplied);
+						} else {
+							this.analyticsHelper?.sendActionEvent(
+								EVENT_ACTION.REINITIALISE_DOCUMENT,
+								EVENT_STATUS.INFO,
+								{ reason: 'fetchGeneratedDiffSteps returned no steps' },
+							);
+						}
+					}
+				} catch (reconcileError) {
+					this.analyticsHelper?.sendErrorEvent(
+						reconcileError,
+						`Error fetchGeneratedDiffSteps with steps-only mode`,
+					);
 				}
 			}
 

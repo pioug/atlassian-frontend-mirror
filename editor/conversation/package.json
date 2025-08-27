@@ -60,9 +60,6 @@
 		"@types/react-redux": "root:*",
 		"enzyme": "root:*"
 	},
-	"af:exports": {
-		".": "./src/index.ts"
-	},
 	"exports": {
 		".": "./src/index.ts"
 	},

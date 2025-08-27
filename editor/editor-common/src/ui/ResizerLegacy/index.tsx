@@ -7,6 +7,7 @@ import { Resizable } from 're-resizable';
 
 import type { RichMediaLayout } from '@atlaskit/adf-schema';
 import { akRichMediaResizeZIndex } from '@atlaskit/editor-shared-styles';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { DispatchAnalyticsEvent, MediaEventPayload } from '../../analytics';
 import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '../../analytics';
@@ -237,13 +238,17 @@ export default class Resizer extends React.Component<ResizerProps, ResizerState>
 			};
 		}
 
+		const nonZeroWidth = expValEquals('platform_editor_smart_card_otp', 'isEnabled', true)
+			? width || '100%' // In SSR width could be 0 initially
+			: width;
+
 		// Ideally, Resizable would let you pass in the component rather than
 		// the div. For now, we just apply the same styles using CSS
 		return (
 			<Resizable
 				ref={this.resizable}
 				size={{
-					width, // just content itself (no paddings)
+					width: nonZeroWidth, // just content itself (no paddings)
 					height: 'auto',
 				}}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

@@ -1,5 +1,19 @@
 # @atlaskit/reactions
 
+## 33.2.15
+
+### Patch Changes
+
+- [`43eef8d7fddd8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/43eef8d7fddd8) -
+  add reaction picker portal fix feature flag for jira
+- Updated dependencies
+
+## 33.2.14
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 33.2.13
 
 ### Patch Changes

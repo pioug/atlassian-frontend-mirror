@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-media
 
+## 5.4.0
+
+### Minor Changes
+
+- [`180ac73668d0b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/180ac73668d0b) -
+  Debounced media single rendering
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.3.0
 
 ### Minor Changes

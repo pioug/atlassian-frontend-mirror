@@ -82,7 +82,7 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
 			borderWidth.push(token);
 		}
 
-		if (token.path.includes('border') && token.path.includes('radius')) {
+		if (token.path.includes('border.radius') || token.path.includes('radius')) {
 			borderRadius.push(token);
 		}
 

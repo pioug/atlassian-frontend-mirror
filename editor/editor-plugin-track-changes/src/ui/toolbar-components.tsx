@@ -14,7 +14,7 @@ import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
 
 import type { TrackChangesPlugin } from '../trackChangesPluginType';
 
-import { TrackChangesButtonNew } from './TrackChangesButtonNew';
+import { TrackChangesToolbarButton } from './TrackChangesToolbarButton';
 
 export const getToolbarComponents = (
 	api?: ExtractInjectionAPI<TrackChangesPlugin>,
@@ -52,7 +52,7 @@ export const getToolbarComponents = (
 					rank: TRACK_CHANGES_GROUP_RANK[TRACK_CHANGES_BUTTON.key],
 				},
 			],
-			component: () => <TrackChangesButtonNew api={api} />,
+			component: () => <TrackChangesToolbarButton api={api} />,
 		},
 	];
 };

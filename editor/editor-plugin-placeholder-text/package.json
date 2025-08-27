@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-placeholder-text",
-	"version": "3.1.7",
+	"version": "3.1.8",
 	"description": "placeholder text plugin for @atlaskit/editor-core",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -95,10 +95,6 @@
 				"dist/types-ts4.5/index.d.ts"
 			]
 		}
-	},
-	"af:exports": {
-		".": "./src/index.ts",
-		"./styles": "./src/ui/styles.ts"
 	},
 	"exports": {
 		".": "./src/index.ts",

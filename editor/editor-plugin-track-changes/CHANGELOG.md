@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-track-changes
 
+## 2.7.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.7.8
+
+### Patch Changes
+
+- [`bbe3cf6be3b74`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bbe3cf6be3b74) -
+  [EDITOR-1427-tooltip-not-showing-old-editor] Refactoring new toolbar component, added tooltip to
+  old toolbar track changes button
+- Updated dependencies
+
 ## 2.7.7
 
 ### Patch Changes

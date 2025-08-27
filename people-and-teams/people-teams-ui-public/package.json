@@ -31,10 +31,6 @@
 		"*.compiled.css"
 	],
 	"atlaskit:src": "src/index.ts",
-	"af:exports": {
-		"./verified-team-icon": "./src/ui/verified-team-icon/index.ts",
-		"./analytics": "./src/common/utils/analytics/index.ts"
-	},
 	"exports": {
 		"./verified-team-icon": "./src/ui/verified-team-icon/index.ts",
 		"./analytics": "./src/common/utils/analytics/index.ts"

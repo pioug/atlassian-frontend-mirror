@@ -26,9 +26,6 @@
 	},
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
-	"af:exports": {
-		".": "./src/index.ts"
-	},
 	"exports": {
 		".": "./src/index.ts"
 	},
@@ -121,6 +118,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_paste_code_block_do_not_escape": {
+			"type": "boolean"
+		},
+		"platform_editor_sharepoint_url_smart_card_fallback": {
 			"type": "boolean"
 		}
 	}

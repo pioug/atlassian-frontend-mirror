@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 0.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.0.13
+
+### Patch Changes
+
+- [`6dd96d8ae168d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6dd96d8ae168d) -
+  [ux] ED-28581 ED-28581: Updated renderer logic to better support nest menu items register from
+  outside block menu
+- Updated dependencies
+
 ## 0.0.12
 
 ### Patch Changes

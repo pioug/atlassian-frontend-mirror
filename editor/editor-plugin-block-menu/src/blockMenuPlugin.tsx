@@ -1,7 +1,11 @@
 import React from 'react';
 
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+
 import type { BlockMenuPlugin, RegisterBlockMenuComponent } from './blockMenuPluginType';
 import { createBlockMenuRegistry } from './editor-actions';
+import { formatNode } from './editor-commands/formatNode';
+import type { FormatNodeTargetType } from './editor-commands/transforms/types';
 import { createPlugin } from './pm-plugins/main';
 import BlockMenu from './ui/block-menu';
 import { getBlockMenuComponents } from './ui/block-menu-components';
@@ -27,6 +31,11 @@ export const blockMenuPlugin: BlockMenuPlugin = ({ api, config }) => {
 
 			getBlockMenuComponents: () => {
 				return registry.components;
+			},
+		},
+		commands: {
+			formatNode: (currentNode: PMNode, targetType: FormatNodeTargetType) => {
+				return formatNode(currentNode, targetType);
 			},
 		},
 		contentComponent({

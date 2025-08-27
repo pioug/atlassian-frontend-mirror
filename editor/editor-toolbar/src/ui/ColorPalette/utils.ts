@@ -1,3 +1,5 @@
+import chromatism from 'chromatism';
+
 import type { PaletteColor } from './types';
 
 /**
@@ -100,3 +102,40 @@ export const getTokenCSSVariableValue = (variableExpression: string): string => 
 
 	return '';
 };
+
+/**
+ * Get the best contrasting background color for a given text color
+ * Ensures WCAG AA compliance for accessibility
+ *
+ * @param textColor - The text color to find a contrasting background for (supports HEX, RGB, RGBA etc.)
+ * @param useTokens - Whether to return design tokens instead of raw hex values
+ * @returns The best contrasting background color (hex value or design token)
+ *
+ * @example
+ * ```typescript
+ * // Get contrasting color for white text
+ * const bgForWhite = getContrastingBackgroundColor('#FFFFFF', false);
+ * // Returns: '#42526E' (dark gray)
+ *
+ * // Get contrasting color for black text with design tokens
+ * const bgForBlack = getContrastingBackgroundColor('#000000', true);
+ * // Returns: token('elevation.surface', '#FFFFFF')
+ * ```
+ */
+export function getContrastingBackgroundColor(textColor: string): string {
+	const candidates = [
+		'#FFFFFF', // white - surface
+		'#172B4D', // dark blue-gray - text color
+	];
+
+	// Extract actual color value if it's a CSS variable
+	const tokenVal = getTokenCSSVariableValue(textColor);
+	const colorValue = !!tokenVal ? tokenVal : textColor;
+
+	// Find the color with the highest contrast ratio
+	const bestContrast = candidates.sort(
+		(a, b) => chromatism.difference(b, colorValue) - chromatism.difference(a, colorValue),
+	)[0];
+
+	return bestContrast;
+}

@@ -26,9 +26,6 @@
 		"@typescript-eslint/typescript-estree": "root:*",
 		"@typescript-eslint/utils": "^5.48.1"
 	},
-	"af:exports": {
-		".": "./index.js"
-	},
 	"exports": {
 		".": "./index.js"
 	}

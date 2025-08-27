@@ -19,9 +19,9 @@ export type EditorToolbarPluginState = {
 
 export const toolbarPlugin: ToolbarPlugin = ({
 	api,
-	config = { disableSelectionToolbar: false },
+	config = { disableSelectionToolbar: false, disableSelectionToolbarWhenPinned: false },
 }) => {
-	const { disableSelectionToolbar } = config;
+	const { disableSelectionToolbar, disableSelectionToolbarWhenPinned } = config;
 	const registry = createComponentRegistry();
 
 	registry.register(getToolbarComponents(api, disableSelectionToolbar));
@@ -134,7 +134,12 @@ export const toolbarPlugin: ToolbarPlugin = ({
 		contentComponent: !disableSelectionToolbar
 			? ({ editorView, popupsMountPoint }) => {
 					return (
-						<SelectionToolbar api={api} editorView={editorView} mountPoint={popupsMountPoint} />
+						<SelectionToolbar
+							api={api}
+							editorView={editorView}
+							mountPoint={popupsMountPoint}
+							disableSelectionToolbarWhenPinned={disableSelectionToolbarWhenPinned ?? false}
+						/>
 					);
 				}
 			: undefined,

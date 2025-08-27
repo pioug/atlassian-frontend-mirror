@@ -64,4 +64,10 @@ export default class InteractionExtraMetrics {
 	reset() {
 		this.finishedInteractionId = null;
 	}
+
+	stopAll(id: string) {
+		this.stopVCObserver();
+		remove(id);
+		this.reset();
+	}
 }

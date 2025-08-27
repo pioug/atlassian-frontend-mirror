@@ -1,5 +1,11 @@
 # @atlaskit/teams-public
 
+## 0.55.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.55.2
 
 ### Patch Changes

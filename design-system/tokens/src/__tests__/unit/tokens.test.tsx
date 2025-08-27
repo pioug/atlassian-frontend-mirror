@@ -90,6 +90,8 @@ describe('tokens', () => {
 					result.name !== 'atlassian-typography-modernized' &&
 					result.name !== 'atlassian-typography-refreshed' &&
 					result.name !== 'atlassian-shape' &&
+					result.name !== 'atlassian-shape-rounder' &&
+					result.name !== 'atlassian-shape-roundest' &&
 					result.name !== 'default' &&
 					!extensionThemes.includes(result.name) &&
 					!themeOverrides.includes(result.name),

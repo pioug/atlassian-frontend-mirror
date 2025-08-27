@@ -2,7 +2,7 @@ import { uuid } from '@atlaskit/adf-schema';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { stepHasSlice } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { PluginKey, type Transaction, Selection } from '@atlaskit/editor-prosemirror/state';
+import { PluginKey, type Transaction } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 export const localIdPluginKey = new PluginKey('localIdPlugin');
@@ -41,7 +41,7 @@ export const createPlugin = () => {
 					// Skip text nodes, hard breaks and nodes that already have local IDs
 					if (!ignoredNodeTypes.includes(node.type.name) && !node.attrs.localId) {
 						localIdWasAdded = true;
-						addLocalIdToNode(node, pos, tr);
+						addLocalIdToNode(pos, tr);
 					}
 					return true; // Continue traversing
 				});
@@ -71,7 +71,7 @@ export const createPlugin = () => {
 			const addedNodes = new Set<PMNode>();
 			const addedNodePos = new Map<PMNode, number>();
 			const localIds = new Set<string>();
-			const caret = newState.selection.getBookmark();
+
 			// Process only the nodes added in the transactions
 			transactions.forEach((transaction) => {
 				if (!transaction.docChanged) {
@@ -101,7 +101,7 @@ export const createPlugin = () => {
 								addedNodePos.set(node, pos);
 							} else {
 								if (!node?.attrs.localId) {
-									addLocalIdToNode(node, pos, tr);
+									addLocalIdToNode(pos, tr);
 								}
 							}
 
@@ -125,18 +125,12 @@ export const createPlugin = () => {
 					if (!node.attrs.localId || localIds.has(node.attrs.localId)) {
 						const pos = addedNodePos.get(node);
 						if (pos !== undefined) {
-							addLocalIdToNode(node, pos, tr);
+							addLocalIdToNode(pos, tr);
 							modified = true;
 						}
 					}
 				}
 			}
-
-			// Restore caret to where the user left it.
-			const restored =
-				caret.resolve(tr.doc) ??
-				Selection.near(tr.doc.resolve(Math.min(newState.selection.from, tr.doc.content.size)), 1);
-			tr.setSelection(restored);
 
 			return modified ? tr : undefined;
 		},
@@ -146,21 +140,10 @@ export const createPlugin = () => {
  * Adds a local ID to a ProseMirror node
  *
  * This utility function updates a node's attributes to include a unique local ID.
- * It preserves all existing attributes and marks while adding the new localId.
  *
- * @param node - The ProseMirror node to add a local ID to
  * @param pos - The position of the node in the document
  * @param tr - The transaction to apply the change to
- * @returns The updated transaction with the node markup change
  */
-export const addLocalIdToNode = (node: PMNode, pos: number, tr: Transaction) => {
-	tr.setNodeMarkup(
-		pos,
-		node.type,
-		{
-			...node.attrs,
-			localId: uuid.generate(),
-		},
-		node.marks,
-	);
+export const addLocalIdToNode = (pos: number, tr: Transaction) => {
+	tr.setNodeAttribute(pos, 'localId', uuid.generate());
 };

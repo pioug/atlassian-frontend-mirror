@@ -16,8 +16,13 @@ export const messages = defineMessages({
 	canBeContactedLabel: {
 		id: 'feedback-collector.can-be-contacted.label',
 		defaultMessage:
-			'Yes, Atlassian teams can contact me to learn about my experiences to improve Atlassian products and services. I acknowledge the <a>Atlassian Privacy Policy</a>.',
+			'Yes, Atlassian teams can contact me to learn about my experiences to improve Atlassian products and services. I acknowledge the Atlassian Privacy Policy.',
 		description: 'The checkbox label to give consent to be contacted about their feedback',
+	},
+	privacyPolicy: {
+		id: 'feedback-collector.privacy-policy',
+		defaultMessage: 'Atlassian Privacy Policy',
+		description: 'The text content for the Privacy Policy link',
 	},
 	summaryPlaceholder: {
 		id: 'feedback-collector.summary-placeholder',
@@ -156,6 +161,17 @@ export const messages = defineMessages({
 		defaultMessage: "What's on your mind?",
 		description:
 			'The textarea label where users can write their suggestion for custom feedback collector',
+	},
+	canBeContactedLabelAppify: {
+		id: 'feedback-collector.can-be-contacted.label-appify',
+		defaultMessage:
+			'Yes, Atlassian teams can contact me to learn about my experiences to improve Atlassian apps and services. I acknowledge the <a>Atlassian Privacy Policy</a>.',
+		description: 'The checkbox label to give consent to be contacted about their feedback',
+	},
+	feedbackSuccessFlagDescriptionAppify: {
+		id: 'feedback-collector.success-flag.description-appify',
+		defaultMessage: 'Your valuable feedback helps us continually improve our apps.',
+		description: 'Description shown when feedback is successfully submitted',
 	},
 	validationErrorTypeRequired: {
 		id: 'feedback-collector.validation.type.required',

@@ -1,5 +1,18 @@
 # @atlaskit/section-message
 
+## 8.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.6.0
+
+### Minor Changes
+
+- [`98ff1fe25f14a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/98ff1fe25f14a) -
+  Introduces the `onDismiss` callback function for usage with the `isDismissible` prop.
+
 ## 8.5.2
 
 ### Patch Changes

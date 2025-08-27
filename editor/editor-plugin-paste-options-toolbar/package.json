@@ -28,10 +28,6 @@
 		"*.compiled.css"
 	],
 	"atlaskit:src": "src/index.ts",
-	"af:exports": {
-		".": "./src/index.ts",
-		"./styles": "./src/ui/styles.ts"
-	},
 	"exports": {
 		".": "./src/index.ts",
 		"./styles": "./src/ui/styles.ts"

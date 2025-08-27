@@ -19,29 +19,37 @@ export const getStyles = memoizeOne(
 		isPopupStyles?: boolean,
 		height?: number | string,
 	): StylesConfig => {
-		let styles = {
-			menu: (css: any, state: any) => ({
+		let styles: StylesConfig = {
+			menu: (css, state) => ({
 				...css,
 				width,
 				minWidth: state.selectProps.menuMinWidth,
 				zIndex: '400',
 			}),
-			menuList: (css: any) => ({
+			menuList: (css) => ({
 				...css,
 				zIndex: '400',
 			}),
-			control: (css: any, state: any) => {
+			control: (css, state) => {
 				const isMulti = state.selectProps.isMulti;
 				return {
 					...css,
 					width,
-					borderColor: isInvalid
-						? token('color.border.danger', R400)
-						: state.isFocused
+					borderColor: fg('uxissue-914')
+						? state.isFocused
 							? token('color.border.focused', css.borderColor)
-							: state.selectProps.subtle || state.selectProps.noBorder
-								? 'transparent'
-								: token('color.border.input', N90),
+							: state.isInvalid
+								? token('color.border.danger', R400)
+								: state.selectProps.subtle || state.selectProps.noBorder
+									? 'transparent'
+									: token('color.border.input', N90)
+						: isInvalid
+							? token('color.border.danger', R400)
+							: state.isFocused
+								? token('color.border.focused', css.borderColor)
+								: state.selectProps.subtle || state.selectProps.noBorder
+									? 'transparent'
+									: token('color.border.input', N90),
 					backgroundColor: state.isFocused
 						? token('color.background.input', css['backgroundColor'])
 						: state.selectProps.subtle
@@ -52,15 +60,25 @@ export const getStyles = memoizeOne(
 					'&:hover .fabric-user-picker__clear-indicator': { opacity: 1 },
 					':hover': {
 						...css[':hover'],
-						borderColor: isInvalid
-							? token('color.border.danger', R400)
-							: state.isFocused
+						borderColor: fg('uxissue-914')
+							? state.isFocused
 								? css[':hover']
 									? token('color.border.focused', css[':hover'].borderColor)
 									: token('color.border.focused', B100)
-								: state.selectProps.subtle
-									? 'transparent'
-									: token('color.border.input', N90),
+								: state.isInvalid
+									? token('color.border.danger', R400)
+									: state.selectProps.subtle
+										? 'transparent'
+										: token('color.border.input', N90)
+							: isInvalid
+								? token('color.border.danger', R400)
+								: state.isFocused
+									? css[':hover']
+										? token('color.border.focused', css[':hover'].borderColor)
+										: token('color.border.focused', B100)
+									: state.selectProps.subtle
+										? 'transparent'
+										: token('color.border.input', N90),
 						backgroundColor:
 							state.selectProps.subtle && state.selectProps.hoveringClearIndicator
 								? token('color.background.danger', R50)
@@ -80,7 +98,7 @@ export const getStyles = memoizeOne(
 					maxWidth: '100%',
 				};
 			},
-			clearIndicator: ({ paddingTop, paddingBottom, paddingLeft, paddingRight, ...css }: any) => ({
+			clearIndicator: ({ paddingTop, paddingBottom, paddingLeft, paddingRight, ...css }) => ({
 				...css,
 				// By default show clear indicator, except for on devices where "hover" is supported.
 				// This means mobile devices (which do not support hover) will be able to see the clear indicator.
@@ -95,11 +113,11 @@ export const getStyles = memoizeOne(
 					color: token('color.icon.danger', R400),
 				},
 			}),
-			indicatorsContainer: (css: any) => ({
+			indicatorsContainer: (css) => ({
 				...css,
 				paddingRight: token('space.050', '4px'),
 			}),
-			valueContainer: ({ paddingTop, paddingBottom, position, ...css }: any, state: any) => {
+			valueContainer: ({ paddingTop, paddingBottom, position, ...css }, state) => {
 				const isMulti = state.selectProps.isMulti;
 
 				return {
@@ -118,21 +136,21 @@ export const getStyles = memoizeOne(
 					},
 				};
 			},
-			multiValue: (css: any) => ({
+			multiValue: (css) => ({
 				...css,
 				borderRadius: 24,
 				cursor: 'default',
 			}),
-			multiValueLabel: (css: any) => ({
+			multiValueLabel: (css) => ({
 				...css,
 				display: 'flex',
 			}),
-			multiValueRemove: (css: any) => ({
+			multiValueRemove: (css) => ({
 				...css,
 				borderRadius: 24,
 				cursor: 'pointer',
 			}),
-			placeholder: (css: any, state: any) => {
+			placeholder: (css, state) => {
 				// fix styling in IE 11: when the position is absolute and `left` prop is not defined,
 				// IE and other browsers auto calculate value of "left" prop differently,
 				// so we want to explicitly set value for the `left` property
@@ -152,7 +170,7 @@ export const getStyles = memoizeOne(
 					textOverflow: 'ellipsis',
 				};
 			},
-			option: (css: any) => {
+			option: (css) => {
 				if (isVisualRefresh) {
 					return {
 						...css,
@@ -166,7 +184,7 @@ export const getStyles = memoizeOne(
 					overflow: 'hidden',
 				};
 			},
-			input: (css: any, state: any) => ({
+			input: (css, state) => ({
 				...css,
 				gridArea: '1/2/2/3',
 				gridTemplateColumns: isMulti && state.placeholder ? '0 123px' : css.gridTemplateColumns,
@@ -187,7 +205,7 @@ export const getStyles = memoizeOne(
 					color: token('color.text.subtlest', N100),
 				},
 			}),
-			singleValue: (css: any) => ({
+			singleValue: (css) => ({
 				...css,
 				margin: 0,
 				gridArea: '1/2/2/3',
@@ -204,8 +222,7 @@ export const getPopupStyles = memoizeOne(
 		isMulti?: boolean,
 		overrideStyles?: StylesConfig,
 		isVisualRefresh?: boolean,
-	): StylesConfig =>
-		({
-			...getStyles(width, isMulti, false, overrideStyles, false, isVisualRefresh, true),
-		}) as StylesConfig,
+	): StylesConfig => ({
+		...getStyles(width, isMulti, false, overrideStyles, false, isVisualRefresh, true),
+	}),
 );

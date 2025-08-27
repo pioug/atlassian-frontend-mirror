@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-find-replace",
-	"version": "3.2.8",
+	"version": "3.2.9",
 	"description": "find replace plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -27,10 +27,6 @@
 		"*.compiled.css"
 	],
 	"atlaskit:src": "src/index.ts",
-	"af:exports": {
-		".": "./src/index.ts",
-		"./styles": "./src/ui/styles.ts"
-	},
 	"exports": {
 		".": "./src/index.ts",
 		"./styles": "./src/ui/styles.ts"

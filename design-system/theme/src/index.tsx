@@ -10,7 +10,6 @@ export {
 	DEFAULT_THEME_MODE,
 	THEME_MODES,
 	assistive,
-	borderRadius,
 	focusRing,
 	gridSize,
 	layers,

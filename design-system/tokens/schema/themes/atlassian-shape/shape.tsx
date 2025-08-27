@@ -8,20 +8,30 @@ import type { ShapePaletteToken } from '../../palettes/shape-palette';
 const shape: ValueSchema<ShapeTokenSchema<ShapePaletteToken>> = {
 	border: {
 		width: {
-			'[default]': { value: 'Size050' },
+			outline: { value: 'BorderWidth2' },
 			'0': { value: 'Size0' },
-			outline: { value: 'Size100' },
 			indicator: { value: 'Size200' },
+			'[default]': { value: 'BorderWidth1' },
+			selected: { value: 'BorderWidth2' },
+			focused: { value: 'BorderWidth2' },
 		},
 		radius: {
-			'[default]': { value: 'Radius100' },
-			'050': { value: 'Radius050' },
-			'100': { value: 'Radius100' },
-			'200': { value: 'Radius200' },
-			'300': { value: 'Radius300' },
-			'400': { value: 'Radius400' },
-			circle: { value: 'RadiusCircle' },
+			'[default]': { value: 'Radius04' },
+			'050': { value: 'Radius02' },
+			'100': { value: 'Radius04' },
+			'200': { value: 'Radius08' },
+			'300': { value: 'Radius12' },
+			'400': { value: 'Radius16' },
+			circle: { value: 'Radius99' },
 		},
+	},
+	radius: {
+		xsmall: { value: 'Radius02' },
+		small: { value: 'Radius04' },
+		medium: { value: 'Radius06' },
+		large: { value: 'Radius08' },
+		xlarge: { value: 'Radius12' },
+		full: { value: 'Radius99' },
 	},
 };
 

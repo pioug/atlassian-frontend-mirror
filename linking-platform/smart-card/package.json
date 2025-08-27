@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "40.13.1",
+	"version": "40.13.3",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -235,7 +235,7 @@
 		"platform_smartlink_3pclick_analytics": {
 			"type": "boolean"
 		},
-		"passionfruit_ask_smart_links_enabled": {
+		"passionfruit_ask_smart_links_enabled_afm": {
 			"type": "boolean"
 		},
 		"ptc-enable-embed-team-smart-links": {

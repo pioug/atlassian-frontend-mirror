@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 0.4.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.4.3
+
+### Patch Changes
+
+- [`463f3da1f7822`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/463f3da1f7822) -
+  [ux] ED-29040 add new option to disable selection toolbar when the toolbar is pinned
+- Updated dependencies
+
 ## 0.4.2
 
 ### Patch Changes

@@ -1,15 +1,10 @@
 import React from 'react';
 
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import {
-	ToolbarDropdownItem,
-	ToolbarDropdownItemSection,
-	ToolbarNestedDropdownMenu,
-} from '@atlaskit/editor-toolbar';
+import { ToolbarDropdownItemSection, ToolbarNestedDropdownMenu } from '@atlaskit/editor-toolbar';
 import ChangesIcon from '@atlaskit/icon/core/changes';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
-import ListBulletedIcon from '@atlaskit/icon/core/list-bulleted';
-import TaskIcon from '@atlaskit/icon/core/task';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { BlockMenuPlugin, BlockMenuPluginOptions } from '../blockMenuPluginType';
 import { type RegisterBlockMenuComponent } from '../blockMenuPluginType';
@@ -47,6 +42,43 @@ const getMoveUpMoveDownMenuComponents = (
 	];
 };
 
+const getFormatMenuComponents = (): RegisterBlockMenuComponent[] => {
+	return [
+		{
+			type: 'block-menu-nested' as const,
+			key: 'nested-menu-format',
+			parent: {
+				type: 'block-menu-section' as const,
+				key: 'block-menu-section-primary',
+				rank: 100,
+			},
+			component: ({ children }: { children: React.ReactNode } = { children: null }) => {
+				return (
+					<ToolbarNestedDropdownMenu
+						text="Format"
+						elemBefore={<ChangesIcon label="" />}
+						elemAfter={<ChevronRightIcon label={'example nested menu'} />}
+					>
+						{children}
+					</ToolbarNestedDropdownMenu>
+				);
+			},
+		},
+		{
+			type: 'block-menu-section' as const,
+			key: 'nested-menu-format-section-primary',
+			parent: {
+				type: 'block-menu-nested' as const,
+				key: 'nested-menu-format',
+				rank: 100,
+			},
+			component: ({ children }: { children: React.ReactNode } = { children: null }) => {
+				return <ToolbarDropdownItemSection>{children}</ToolbarDropdownItemSection>;
+			},
+		},
+	];
+};
+
 export const getBlockMenuComponents = ({
 	api,
 	config,
@@ -55,9 +87,10 @@ export const getBlockMenuComponents = ({
 	config: BlockMenuPluginOptions | undefined;
 }): RegisterBlockMenuComponent[] => {
 	return [
+		...(fg('platform_editor_block_menu_format') ? getFormatMenuComponents() : []),
 		{
 			type: 'block-menu-section' as const,
-			key: 'block-menu-section-format',
+			key: 'block-menu-section-primary',
 			rank: 100,
 			component: ({ children }: { children: React.ReactNode }) => {
 				return <ToolbarDropdownItemSection>{children}</ToolbarDropdownItemSection>;
@@ -103,33 +136,6 @@ export const getBlockMenuComponents = ({
 			rank: 400,
 			component: ({ children }: { children: React.ReactNode }) => {
 				return <ToolbarDropdownItemSection hasSeparator>{children}</ToolbarDropdownItemSection>;
-			},
-		},
-		{
-			type: 'block-menu-nested' as const,
-			key: 'nested-menu',
-			parent: {
-				type: 'block-menu-section' as const,
-				key: 'block-menu-section-format',
-				rank: 100,
-			},
-			component: () => {
-				return (
-					<ToolbarNestedDropdownMenu
-						text="Format"
-						elemBefore={<ChangesIcon label="" />}
-						elemAfter={<ChevronRightIcon label={'example nested menu'} />}
-					>
-						<ToolbarDropdownItemSection>
-							<ToolbarDropdownItem elemBefore={<TaskIcon label="" />}>
-								Action item
-							</ToolbarDropdownItem>
-							<ToolbarDropdownItem elemBefore={<ListBulletedIcon label="" />}>
-								Bullet list
-							</ToolbarDropdownItem>
-						</ToolbarDropdownItemSection>
-					</ToolbarNestedDropdownMenu>
-				);
 			},
 		},
 		...getMoveUpMoveDownMenuComponents(api),

@@ -68,6 +68,7 @@ export { RedoIcon } from './ui/icons/RedoIcon';
 export { HistoryIcon } from './ui/icons/HistoryIcon';
 
 export { default as ColorPalette } from './ui/ColorPalette';
+export { getContrastingBackgroundColor } from './ui/ColorPalette/utils';
 
 export type { IconComponent } from './types';
 

@@ -1,8 +1,14 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import coinflip from '../coinflip';
-import type { InteractionMetrics, RevisionPayload } from '../common';
+import type { InteractionMetrics } from '../common';
 import { getConfig, getExtraInteractionRate } from '../config';
-import { getMoreAccuratePageVisibilityUpToTTAI } from '../create-payload';
-import { sanitizeUfoName } from '../create-payload/common/utils';
+import { getMoreAccuratePageVisibilityUpToTTAI, optimizeHoldInfo } from '../create-payload';
+import {
+	buildSegmentTree,
+	getOldSegmentsLabelStack,
+	sanitizeUfoName,
+} from '../create-payload/common/utils';
 import getPageVisibilityUpToTTAI from '../create-payload/utils/get-page-visibility-up-to-ttai';
 import getPayloadSize from '../create-payload/utils/get-payload-size';
 import { getReactUFOPayloadVersion } from '../create-payload/utils/get-react-ufo-payload-version';
@@ -29,9 +35,11 @@ async function createInteractionExtraLogPayload(
 		previousInteractionName,
 		isPreviousInteractionAborted,
 		abortedByInteractionName,
+		knownSegments,
 	} = interaction;
 
-	const configRate = getExtraInteractionRate(ufoName, type);
+	const sanitisedUfoName = sanitizeUfoName(ufoName);
+	const configRate = getExtraInteractionRate(sanitisedUfoName, type);
 	if (!coinflip(configRate)) {
 		return null;
 	}
@@ -55,17 +63,22 @@ async function createInteractionExtraLogPayload(
 	const newUFOName = sanitizeUfoName(ufoName);
 
 	const finalVCMetrics = await getVCMetrics(interaction, true);
-	const ttvc = (finalVCMetrics['ufo:vc:rev'] as RevisionPayload)
-		?.map((revision) => {
-			if (revision['metric:vc90'] === null || revision.clean !== true) {
-				return null;
-			}
-			return {
-				revision: revision.revision,
-				vc90: revision['metric:vc90'],
-			};
-		})
-		.filter((revision): revision is { revision: string; vc90: number } => revision != null);
+	const holdInfo = optimizeHoldInfo(
+		interaction.hold3pInfo ?? [],
+		start,
+		getReactUFOPayloadVersion(interaction.type),
+	);
+
+	const segments3p =
+		!fg('platform_ufo_remove_deprecated_config_fields') && config.killswitchNestedSegments
+			? []
+			: knownSegments.filter((knownSegment) =>
+					knownSegment.labelStack.some((entry) => 'type' in entry && entry.type === 'third-party'),
+				);
+	const segmentTree =
+		getReactUFOPayloadVersion(interaction.type) === '2.0.0'
+			? buildSegmentTree(segments3p.map((segment) => segment.labelStack))
+			: {};
 
 	const payload = {
 		actionSubject: 'experience',
@@ -106,7 +119,12 @@ async function createInteractionExtraLogPayload(
 					end: Math.round(end),
 					start: Math.round(start),
 					'metric:ttai:3p': extraTTAI,
-					ttvc: ttvc ?? undefined,
+					...finalVCMetrics,
+					holdInfo,
+					segments:
+						getReactUFOPayloadVersion(interaction.type) === '2.0.0'
+							? segmentTree
+							: getOldSegmentsLabelStack(segments3p, interaction.type),
 				},
 			},
 		},

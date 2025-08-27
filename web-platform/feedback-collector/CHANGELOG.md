@@ -1,5 +1,20 @@
 # @atlaskit/feedback-collector
 
+## 14.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.4.0
+
+### Minor Changes
+
+- [`2b6afea21ef37`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2b6afea21ef37) -
+  Move the privacy policy link out of the label element
+- [`fe108a4620163`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fe108a4620163) -
+  Product/App term refresh
+
 ## 14.3.4
 
 ### Patch Changes

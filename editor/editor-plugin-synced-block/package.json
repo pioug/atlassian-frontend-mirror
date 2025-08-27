@@ -27,10 +27,6 @@
 	},
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
-	"af:exports": {
-		".": "./src/index.ts",
-		"./SyncedBlock": "./src/ui/extensions/synced-block/index.ts"
-	},
 	"exports": {
 		".": "./src/index.ts",
 		"./SyncedBlock": "./src/ui/extensions/synced-block/index.ts"

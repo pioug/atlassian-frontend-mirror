@@ -155,8 +155,18 @@ const isTypographyGroup = (token: TransformedToken) => {
 	return token.original.attributes?.group === 'typography';
 };
 
+const isShapeGroup = (token: TransformedToken) => {
+	return token.original.attributes?.group === 'shape';
+};
+
 const isSizeToken = (token: TransformedToken, path: string) => {
-	return isTypographyGroup(token) && sizePaths.includes(path);
+	return (isTypographyGroup(token) || isShapeGroup(token)) && sizePaths.includes(path);
+};
+
+const borderWidthPaths = ['[default]', 'selected', 'focused'];
+
+const isBorderWidthToken = (token: TransformedToken) => {
+	return token.name.startsWith('border.width');
 };
 
 /**
@@ -406,17 +416,59 @@ const sortByPathName = (a: TransformedToken, b: TransformedToken) => {
 		 * 1. font.heading.xxlarge
 		 * 2. font.heading.medium
 		 * 3. font.heading.xxsmall
+		 *
+		 * or:
+		 *
+		 * @example
+		 * 1. radius.xsmall
+		 * 2. radius.medium
+		 * 3. radius.xlarge
 		 */
 		const aIsSize = isSizeToken(a, aPath);
 		const bIsSize = isSizeToken(b, bPath);
+
+		const aIsShape = isShapeGroup(a);
+		const bIsShape = isShapeGroup(b);
+
+		// Sort ascending for radius tokens. Default for typography is descending
+		const sizePathsAscending = [...sizePaths].reverse();
 
 		if (!aIsSize && bIsSize) {
 			return 1;
 		} else if (aIsSize && !bIsSize) {
 			return -1;
 		} else if (aIsSize && bIsSize) {
-			const aIndex = getIndexForPath(a, pathIndex, sizePaths);
-			const bIndex = getIndexForPath(b, pathIndex, sizePaths);
+			const paths = aIsShape && bIsShape ? sizePathsAscending : sizePaths;
+			const aIndex = getIndexForPath(a, pathIndex, paths);
+			const bIndex = getIndexForPath(b, pathIndex, paths);
+
+			if (aIndex > bIndex) {
+				return 1;
+			} else if (aIndex < bIndex) {
+				return -1;
+			}
+		}
+
+		/**
+		 * Check if it's a border width token.
+		 *
+		 * Follows borderWidthPaths order
+		 *
+		 * @example
+		 * 1. border.width
+		 * 2. border.width.selected
+		 * 3. border.width.focused
+		 */
+		const aIsBorderWidth = isBorderWidthToken(a);
+		const bIsBorderWidth = isBorderWidthToken(b);
+
+		if (!aIsBorderWidth && bIsBorderWidth) {
+			return 1;
+		} else if (aIsBorderWidth && !bIsBorderWidth) {
+			return -1;
+		} else if (aIsBorderWidth && bIsBorderWidth) {
+			const aIndex = getIndexForPath(a, pathIndex, borderWidthPaths);
+			const bIndex = getIndexForPath(b, pathIndex, borderWidthPaths);
 
 			if (aIndex > bIndex) {
 				return 1;

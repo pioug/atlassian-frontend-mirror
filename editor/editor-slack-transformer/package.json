@@ -46,9 +46,6 @@
 		"@atlaskit/util-data-test": "workspace:^",
 		"@emotion/react": "root:*"
 	},
-	"af:exports": {
-		".": "./src/index.ts"
-	},
 	"exports": {
 		".": "./src/index.ts"
 	}

@@ -23,15 +23,6 @@
 		"*.compiled.css"
 	],
 	"atlaskit:src": "src/index.ts",
-	"af:exports": {
-		".": "./src/index.ts",
-		"./user-latency": "./src/internals/userLatency/index.ts",
-		"./timeline": "./src/timeline.ts",
-		"./metrics": "./src/metrics.ts",
-		"./react": "./src/react-api.tsx",
-		"./inp": "./src/inp.ts",
-		"./page-complexity-score": "./src/page-complexity-score/index.ts"
-	},
 	"exports": {
 		".": "./src/index.ts",
 		"./user-latency": "./src/internals/userLatency/index.ts",

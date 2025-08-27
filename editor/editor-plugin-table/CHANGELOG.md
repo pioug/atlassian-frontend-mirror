@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-table
 
+## 12.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.3.3
+
+### Patch Changes
+
+- [`85ac0fa76770e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/85ac0fa76770e) -
+  Cleaned up feature gate
+- Updated dependencies
+
 ## 12.3.2
 
 ### Patch Changes

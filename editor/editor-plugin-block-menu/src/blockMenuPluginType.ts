@@ -1,8 +1,15 @@
-import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
+import type {
+	NextEditorPlugin,
+	OptionalPlugin,
+	EditorCommand,
+} from '@atlaskit/editor-common/types';
 import type { BlockControlsPlugin } from '@atlaskit/editor-plugin-block-controls';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+
+import type { FormatNodeTargetType } from './editor-commands/transforms/types';
 
 export type BlockMenuPlugin = NextEditorPlugin<
 	'blockMenu',
@@ -10,6 +17,9 @@ export type BlockMenuPlugin = NextEditorPlugin<
 		actions: {
 			getBlockMenuComponents: () => Array<RegisterBlockMenuComponent>;
 			registerBlockMenuComponents: (blockMenuComponents: Array<RegisterBlockMenuComponent>) => void;
+		};
+		commands: {
+			formatNode: (currentNode: PMNode, targetType: FormatNodeTargetType) => EditorCommand;
 		};
 		dependencies: [
 			OptionalPlugin<BlockControlsPlugin>,
@@ -42,6 +52,20 @@ type ComponentType = BlockMenuSection | BlockMenuItem | BlockMenuNested;
 
 export type ComponentTypes = Array<ComponentType>;
 
+/**
+ * The relationship between BlockMenuItem, BlockMenuSection, BlockMenuNested
+ * BlockMenuSection can have BlockMenuItem or BlockMenuNested as children
+ * BlockMenuNested can have BlockMenuSection as children,
+ * BlockMenuNested, with BlockMenuSection and BlockMenuItem, is a nested menu
+ *  _______________________________________
+ * | Block menu (no typing)
+ * |  |BlockMenuSection
+ * |  |  |BlockMenuItem
+ * |  |  |BlockMenuNested
+ * |  |  |  |BlockMenuSection
+ * |  |  |  |  |BlockMenuItem
+ */
+
 type BlockMenuItem = {
 	key: string;
 	type: 'block-menu-item';
@@ -57,9 +81,13 @@ type BlockMenuNested = {
 	type: 'block-menu-nested';
 };
 
-export type BlockMenuNestedComponent = () => React.ReactNode;
+export type BlockMenuNestedComponent = (props?: { children: React.ReactNode }) => React.ReactNode;
 
 export type BlockMenuSectionComponent = (props: { children: React.ReactNode }) => React.ReactNode;
+
+export type BlockMenuNestedSectionComponent = (props: {
+	children: React.ReactNode;
+}) => React.ReactNode;
 
 export type BlockMenuItemComponent = () => React.ReactNode;
 
@@ -70,7 +98,8 @@ export type RegisterBlockMenuNested = BlockMenuNested & {
 
 export type RegisterBlockMenuSection = BlockMenuSection & {
 	component?: BlockMenuSectionComponent;
-	rank: number; // Only sections have a rank in itself as a section does not have a parent, the parent is the <BlockMenuContent/>
+	parent?: Parent<BlockMenuNested>;
+	rank?: number; // use when parent is not there
 };
 
 export type RegisterBlockMenuItem = BlockMenuItem & {

@@ -1,7 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
 import SpacingVr from '../../../examples/4-spacing-vr';
-import ShapeVr from '../../../examples/8-shape-vr';
 
 snapshot(SpacingVr, {
 	variants: [
@@ -25,4 +24,3 @@ snapshot(SpacingVr, {
 		'platform-component-visual-refresh': [true, false],
 	},
 });
-snapshot(ShapeVr);

@@ -875,29 +875,47 @@ export type Layer = keyof typeof layerMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::957baf1fa3fc3fe5eb06b497a7ba6599>>
+ * @codegen <<SignedSource::71788d573ebf1ca2644ef177172c9ecf>>
  * @codegenId border
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["width", "radius"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-shape.tsx <<SignedSource::80457377fd80c31f5dfcb5cc743d7016>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-shape.tsx <<SignedSource::6496556b3439a7f18f8b7a7a3ec59bb9>>
  */
 export const borderWidthMap = {
 	'border.width': token('border.width', '1px'),
+	// @deprecated
 	'border.width.0': token('border.width.0', '0px'),
+	// @deprecated
 	'border.width.indicator': token('border.width.indicator', '3px'),
+	// @deprecated
 	'border.width.outline': token('border.width.outline', '2px'),
+	'border.width.selected': token('border.width.selected', '2px'),
+	'border.width.focused': token('border.width.focused', '2px'),
 } as const;
 
 export type BorderWidth = keyof typeof borderWidthMap;
 
 export const borderRadiusMap = {
-	'border.radius.050': token('border.radius.050', '2px'),
+	'radius.xsmall': token('radius.xsmall', '2px'),
+	'radius.small': token('radius.small', '3px'),
+	'radius.medium': token('radius.medium', '6px'),
+	'radius.large': token('radius.large', '8px'),
+	'radius.xlarge': token('radius.xlarge', '12px'),
+	'radius.full': token('radius.full', '9999px'),
+	// @deprecated
 	'border.radius': token('border.radius', '3px'),
+	// @deprecated
+	'border.radius.050': token('border.radius.050', '2px'),
+	// @deprecated
 	'border.radius.100': token('border.radius.100', '3px'),
+	// @deprecated
 	'border.radius.200': token('border.radius.200', '8px'),
+	// @deprecated
 	'border.radius.300': token('border.radius.300', '12px'),
+	// @deprecated
 	'border.radius.400': token('border.radius.400', '16px'),
-	'border.radius.circle': token('border.radius.circle', '32032px'),
+	// @deprecated
+	'border.radius.circle': token('border.radius.circle', '9999px'),
 } as const;
 
 export type BorderRadius = keyof typeof borderRadiusMap;

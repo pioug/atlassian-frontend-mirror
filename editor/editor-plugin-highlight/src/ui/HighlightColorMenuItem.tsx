@@ -21,7 +21,10 @@ import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared
 import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import { ColorPalette, TextColorIcon, useToolbarDropdownMenu } from '@atlaskit/editor-toolbar';
 import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
-import { Stack, Text } from '@atlaskit/primitives/compiled';
+import EditorDoneIcon from '@atlaskit/icon/core/migration/check-mark--editor-done';
+import Icon from '@atlaskit/icon/core/text-style';
+import { Stack, Text, Box } from '@atlaskit/primitives/compiled';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import type { HighlightPlugin } from '../highlightPluginType';
@@ -37,12 +40,36 @@ const styles = cssMap({
 		gap: token('space.100'),
 	},
 	removeHighlightButton: {
+		marginInline: token('space.025'),
 		borderWidth: token('border.width'),
 		borderStyle: 'solid',
 		borderColor: token('color.border'),
 		borderRadius: token('border.radius'),
 	},
+	icon: {
+		display: 'inline-block',
+		// @ts-expect-error: Intentional negative margin for icon alignment
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space, @atlaskit/ui-styling-standard/no-unsafe-values
+		marginLeft: '-1px',
+	},
 });
+
+const TextColorIconDecorator = ({ label, isSelected }: { isSelected: boolean; label: string }) => {
+	const iconColor = token('color.icon', '#000000');
+	return isSelected ? (
+		<EditorDoneIcon color={iconColor} LEGACY_primaryColor={iconColor} label={label} />
+	) : (
+		<Box as="span" xcss={styles.icon}>
+			<Icon
+				label={label}
+				color={iconColor}
+				shouldRecommendSmallIcon
+				spacing="spacious"
+				size="small"
+			/>
+		</Box>
+	);
+};
 
 export function HighlightColorMenuItem({ api, parents }: HighlightMenuItemProps) {
 	const { formatMessage } = useIntl();
@@ -65,16 +92,19 @@ export function HighlightColorMenuItem({ api, parents }: HighlightMenuItemProps)
 		[api, closeMenu, parents],
 	);
 
-	const colorPalette: PaletteColor[] = useMemo(
-		() =>
-			highlightColorPaletteNext
-				.filter((color) => color.value !== REMOVE_HIGHLIGHT_COLOR)
-				.map((color) => ({
-					...color,
-					decorator: <TextColorIcon label={color.label} size="small" spacing="spacious" />,
-				})),
-		[],
-	);
+	const colorPalette: PaletteColor[] = useMemo(() => {
+		const isSelected = (color: PaletteColor) => color.value === activeColor;
+		return highlightColorPaletteNext
+			.filter((color) => color.value !== REMOVE_HIGHLIGHT_COLOR)
+			.map((color) => ({
+				...color,
+				decorator: expValEquals('platform_editor_toolbar_aifc_patch_1', 'isEnabled', true) ? (
+					<TextColorIconDecorator label={color.label} isSelected={isSelected(color)} />
+				) : (
+					<TextColorIcon label={color.label} size="small" spacing="spacious" />
+				),
+			}));
+	}, [activeColor]);
 
 	return (
 		<Stack xcss={styles.container} testId="highlight-color-menu-item">

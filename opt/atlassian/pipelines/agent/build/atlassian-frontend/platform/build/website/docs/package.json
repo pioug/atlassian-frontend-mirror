@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/docs",
-	"version": "11.0.7",
+	"version": "11.0.8",
 	"description": "Utilities for building documentation",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -15,9 +15,6 @@
 		"toolingLabels": [
 			"docs"
 		]
-	},
-	"af:exports": {
-		".": "./src/index.js"
 	},
 	"exports": {
 		".": "./src/index.js"

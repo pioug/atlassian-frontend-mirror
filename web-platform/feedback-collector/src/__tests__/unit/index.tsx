@@ -783,6 +783,25 @@ We have some formatting here
 			expect(label).toBeInTheDocument();
 		});
 
+		test('should not render the link inside the label', () => {
+			const { getByRole, getAllByRole } = render(
+				<FeedbackForm locale={'en'} onClose={() => {}} onSubmit={async () => {}} />,
+			);
+
+			const select = getByRole('combobox', { name: 'Select feedback' });
+			fireEvent.change(select, { target: { value: 'comment' } });
+			fireEvent.keyDown(select, { key: 'Enter', code: 13 });
+
+			const checkBoxes = getAllByRole('checkbox');
+
+			const label = checkBoxes[0].closest('label');
+
+			expect(label?.querySelector('a')).toBeNull();
+
+			const policyLink = getByRole('link', { name: /Atlassian Privacy Policy/ });
+			expect(policyLink).toBeVisible();
+		});
+
 		describe('disableSubmitButton', () => {
 			const enterFormData = () => {
 				const select = screen.getAllByRole('combobox')[0];

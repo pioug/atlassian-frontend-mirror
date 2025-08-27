@@ -4,13 +4,29 @@
  */
 import { cssMap, jsx } from '@compiled/react';
 
-import { Box, Inline } from '@atlaskit/primitives/compiled';
+import { cx } from '@atlaskit/css';
+import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { type CSSToken, token } from '@atlaskit/tokens';
 
 const styles = cssMap({
+	container: {
+		paddingBlockStart: token('space.200'),
+	},
+	baseBox: {
+		backgroundColor: token('elevation.surface.raised'),
+		borderColor: token('color.border'),
+		borderStyle: 'solid',
+		width: '2.5rem',
+		height: '2.5rem',
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
 	radiusBox: {
-		borderWidth: token('border.width', '1px'),
-		borderColor: token('color.border', '#091e4221'),
+		borderWidth: token('border.width.outline'),
+	},
+	widthBox: {
+		backgroundColor: token('elevation.surface.raised'),
+		borderColor: token('color.border'),
 		borderStyle: 'solid',
 		width: '2.5rem',
 		height: '2.5rem',
@@ -20,21 +36,34 @@ const styles = cssMap({
 });
 
 const RadiusBox = ({ radius }: { radius: CSSToken }) => (
-	<Box xcss={styles.radiusBox} style={{ borderRadius: radius }} />
+	<Box xcss={cx(styles.baseBox, styles.radiusBox)} style={{ borderRadius: radius }} />
+);
+
+const WidthBox = ({ borderWidth }: { borderWidth: CSSToken }) => (
+	<Box xcss={cx(styles.baseBox, styles.widthBox)} style={{ borderWidth: borderWidth }} />
 );
 
 export default () => {
 	return (
 		<div data-testid="shape">
 			<h1>Shape scale</h1>
-			<Inline space="space.100" alignBlock="end">
-				<RadiusBox radius={token('border.radius.050', '2px')} />
-				<RadiusBox radius={token('border.radius.100', '4px')} />
-				<RadiusBox radius={token('border.radius.200', '8px')} />
-				<RadiusBox radius={token('border.radius.300', '12px')} />
-				<RadiusBox radius={token('border.radius.400', '16px')} />
-				<RadiusBox radius={token('border.radius.circle', '100rem')} />
-			</Inline>
+			<Stack space="space.200" xcss={styles.container}>
+				<Inline space="space.100" alignBlock="center">
+					<Text weight="bold">Border radius</Text>
+					<RadiusBox radius={token('radius.xsmall')} />
+					<RadiusBox radius={token('radius.small')} />
+					<RadiusBox radius={token('radius.medium')} />
+					<RadiusBox radius={token('radius.large')} />
+					<RadiusBox radius={token('radius.xlarge')} />
+					<RadiusBox radius={token('radius.full')} />
+				</Inline>
+				<Inline space="space.100" alignBlock="center">
+					<Text weight="bold">Stroke width</Text>
+					<WidthBox borderWidth={token('border.width')} />
+					<WidthBox borderWidth={token('border.width.selected')} />
+					<WidthBox borderWidth={token('border.width.focused')} />
+				</Inline>
+			</Stack>
 		</div>
 	);
 };

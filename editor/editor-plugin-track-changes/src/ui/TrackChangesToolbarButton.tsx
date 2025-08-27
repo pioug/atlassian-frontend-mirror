@@ -6,7 +6,8 @@ import { IconButton } from '@atlaskit/button/new';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { trackChangesMessages } from '@atlaskit/editor-common/messages';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import HistoryIcon from '@atlaskit/icon-lab/core/history';
+import { ToolbarButton, ToolbarTooltip, HistoryIcon } from '@atlaskit/editor-toolbar';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { type TrackChangesPlugin } from '../trackChangesPluginType';
 
@@ -36,13 +37,29 @@ export const TrackChangesToolbarButton = ({ api }: TrackChangesToolbarButtonProp
 	}, [api, isDisplayingChanges]);
 
 	return (
-		<IconButton
-			icon={HistoryIcon}
-			label={formatMessage(trackChangesMessages.toolbarIconLabel)}
-			appearance="subtle"
-			isDisabled={!isShowDiffAvailable}
-			isSelected={isDisplayingChanges}
-			onClick={handleClick}
-		/>
+		<ToolbarTooltip content={formatMessage(trackChangesMessages.toolbarIconLabel)}>
+			{expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true) ? (
+				<ToolbarButton
+					iconBefore={
+						<HistoryIcon
+							label={formatMessage(trackChangesMessages.toolbarIconLabel)}
+							size="small"
+						/>
+					}
+					onClick={handleClick}
+					isDisabled={!isShowDiffAvailable}
+					isSelected={isDisplayingChanges}
+				/>
+			) : (
+				<IconButton
+					icon={HistoryIcon}
+					label={formatMessage(trackChangesMessages.toolbarIconLabel)}
+					appearance="subtle"
+					isDisabled={!isShowDiffAvailable}
+					isSelected={isDisplayingChanges}
+					onClick={handleClick}
+				/>
+			)}
+		</ToolbarTooltip>
 	);
 };

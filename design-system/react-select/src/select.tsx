@@ -2050,6 +2050,8 @@ export default class Select<
 			);
 		}
 
+		// NOTE: Don't add the `name` prop to this Input, `name` is already a prop on the hidden input element that has the value of the select.
+		// Adding `name` to this Input will cause unexpected behavior.
 		return (
 			<Input
 				{...commonProps}

@@ -4,11 +4,11 @@ import { join } from 'path';
 
 import { createPartialSignedArtifact } from '@atlassian/codegen';
 
-import { createBorderStylesFromTemplate } from './border-codegen-template';
 import { createColorStylesFromTemplate } from './color-codegen-template';
 import { createElevationStylesFromTemplate } from './elevation-codegen-template';
 import { createInverseColorMapTemplate } from './inverse-color-map-template';
 import { createStylesFromFileTemplate } from './misc-codegen-template';
+import { createShapeStylesFromTemplate } from './shape-codegen-template';
 import { createSpacingStylesFromTemplate } from './spacing-codegen-template';
 import { createTextStylesFromTemplate } from './text-codegen-template';
 import { createTypographyStylesFromTemplate } from './typography-codegen-template';
@@ -135,7 +135,7 @@ const sourceFns = [
 	// border-width, border-radius
 	() =>
 		createPartialSignedArtifact(
-			(options) => options.map(createBorderStylesFromTemplate).join('\n'),
+			(options) => options.map(createShapeStylesFromTemplate).join('\n'),
 			'yarn workspace @atlaskit/primitives codegen-styles',
 			{
 				id: 'border',
@@ -145,7 +145,7 @@ const sourceFns = [
 		),
 	() =>
 		createPartialSignedArtifact(
-			(options) => options.map(createBorderStylesFromTemplate).join('\n'),
+			(options) => options.map(createShapeStylesFromTemplate).join('\n'),
 			'yarn workspace @atlaskit/primitives codegen-styles',
 			{
 				id: 'border',

@@ -54,15 +54,6 @@
 			"type": "boolean"
 		}
 	},
-	"af:exports": {
-		".": "./src/index.ts",
-		"./cell-bookmark": "./src/cell-bookmark.ts",
-		"./cell-selection": "./src/cell-selection.ts",
-		"./pm-plugins": "./src/pm-plugins.ts",
-		"./table-map": "./src/table-map.ts",
-		"./types": "./src/types.ts",
-		"./utils": "./src/utils.ts"
-	},
 	"exports": {
 		".": "./src/index.ts",
 		"./cell-bookmark": "./src/cell-bookmark.ts",

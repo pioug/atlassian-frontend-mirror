@@ -22,10 +22,6 @@
 	},
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
-	"af:exports": {
-		"./types": "./src/types.ts",
-		".": "./src/index.ts"
-	},
 	"exports": {
 		"./types": "./src/types.ts",
 		".": "./src/index.ts"

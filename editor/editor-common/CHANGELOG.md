@@ -1,5 +1,35 @@
 # @atlaskit/editor-common
 
+## 107.32.0
+
+### Minor Changes
+
+- [`cd499bc159c22`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd499bc159c22) -
+  fix initial resizer width in SSR
+
+### Patch Changes
+
+- [`1eba43a7b680d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1eba43a7b680d) -
+  [ux] ED-29000 - Address paper cut issues in ColorPalette
+- Updated dependencies
+
+## 107.31.2
+
+### Patch Changes
+
+- [`d8c6e41f4ac25`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d8c6e41f4ac25) -
+  EDITOR-1223 - Read nodeSize of undefined when run IW on large page with various nodes
+- Updated dependencies
+
+## 107.31.1
+
+### Patch Changes
+
+- [`6dd96d8ae168d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6dd96d8ae168d) -
+  [ux] ED-28581 ED-28581: Updated renderer logic to better support nest menu items register from
+  outside block menu
+- Updated dependencies
+
 ## 107.31.0
 
 ### Minor Changes

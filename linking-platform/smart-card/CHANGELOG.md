@@ -1,5 +1,19 @@
 # @atlaskit/smart-card
 
+## 40.13.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 40.13.2
+
+### Patch Changes
+
+- [`0ca3392f36fca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0ca3392f36fca) -
+  [ux] Updating feature-flag reference to passionfruit_ask_smart_links_enabled_afm for Passionfruit
+  Smart Links
+
 ## 40.13.1
 
 ### Patch Changes

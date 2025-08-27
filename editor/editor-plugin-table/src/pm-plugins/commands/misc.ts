@@ -717,7 +717,7 @@ export const addBoldInEmptyHeaderCells =
 			isParagraph(tableCellHeader.node.firstChild, state.schema)
 		) {
 			const { strong } = state.schema.marks;
-			tr.setStoredMarks([strong.create()]).setMeta('addToHistory', false);
+			tr.setStoredMarks([strong?.create()]).setMeta('addToHistory', false);
 
 			if (dispatch) {
 				dispatch(tr);

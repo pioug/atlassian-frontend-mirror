@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5e39d81369b0c277ebeac5d0b02ae5cb>>
+ * @codegen <<SignedSource::06d7df9fd7562fac091fccfbf1704240>>
  * @codegenCommand yarn build tokens
  */
 var tokens = {
@@ -401,17 +401,6 @@ var tokens = {
   'utility.UNSAFE.textTransformUppercase': '--ds-UNSAFE-textTransformUppercase',
   'utility.UNSAFE.transparent': '--ds-UNSAFE-transparent',
   'utility.elevation.surface.current': '--ds-elevation-surface-current',
-  'border.radius.050': '--ds-border-radius-050',
-  'border.radius': '--ds-border-radius',
-  'border.radius.100': '--ds-border-radius-100',
-  'border.radius.200': '--ds-border-radius-200',
-  'border.radius.300': '--ds-border-radius-300',
-  'border.radius.400': '--ds-border-radius-400',
-  'border.radius.circle': '--ds-border-radius-circle',
-  'border.width': '--ds-border-width',
-  'border.width.0': '--ds-border-width-0',
-  'border.width.indicator': '--ds-border-width-indicator',
-  'border.width.outline': '--ds-border-width-outline',
   'space.0': '--ds-space-0',
   'space.025': '--ds-space-025',
   'space.050': '--ds-space-050',
@@ -458,6 +447,25 @@ var tokens = {
   'font.family.body': '--ds-font-family-body',
   'font.family.code': '--ds-font-family-code',
   'font.family.brand.heading': '--ds-font-family-brand-heading',
-  'font.family.brand.body': '--ds-font-family-brand-body'
+  'font.family.brand.body': '--ds-font-family-brand-body',
+  'radius.xsmall': '--ds-radius-xsmall',
+  'radius.small': '--ds-radius-small',
+  'radius.medium': '--ds-radius-medium',
+  'radius.large': '--ds-radius-large',
+  'radius.xlarge': '--ds-radius-xlarge',
+  'radius.full': '--ds-radius-full',
+  'border.radius': '--ds-border-radius',
+  'border.radius.050': '--ds-border-radius-050',
+  'border.radius.100': '--ds-border-radius-100',
+  'border.radius.200': '--ds-border-radius-200',
+  'border.radius.300': '--ds-border-radius-300',
+  'border.radius.400': '--ds-border-radius-400',
+  'border.radius.circle': '--ds-border-radius-circle',
+  'border.width': '--ds-border-width',
+  'border.width.0': '--ds-border-width-0',
+  'border.width.indicator': '--ds-border-width-indicator',
+  'border.width.outline': '--ds-border-width-outline',
+  'border.width.selected': '--ds-border-width-selected',
+  'border.width.focused': '--ds-border-width-focused'
 };
 var _default = exports.default = tokens;

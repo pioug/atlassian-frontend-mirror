@@ -181,7 +181,12 @@ export class SSRPlaceholderHandlers {
 	checkIfExistedAndSizeMatchingV3(el: HTMLElement) {
 		el = this.findNearestPlaceholderContainerIfIgnored(el);
 		const id = this.getPlaceholderId(el);
-		return this.staticPlaceholders.has(id);
+		const placeholderRects = this.staticPlaceholders.get(id);
+		if (!placeholderRects) {
+			return false;
+		}
+
+		return this.hasSameSizePosition(placeholderRects, el.getBoundingClientRect());
 	}
 
 	getSize(el: HTMLElement): Promise<Rect> {

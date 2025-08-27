@@ -77,7 +77,10 @@ async function getVCMetrics(
 
 	observer.stop(interaction.ufoName);
 
-	postInteractionLog.setLastInteractionFinishVCResult(result);
+	if (!include3p) {
+		// For Post Interaction, last interaction should be without 3p
+		postInteractionLog.setLastInteractionFinishVCResult(result);
+	}
 
 	const mostRecentVCRevision = getMostRecentVCRevision(interaction.ufoName);
 	const mostRecentVCRevisionPayload = (result?.['ufo:vc:rev'] as RevisionPayload)?.find(

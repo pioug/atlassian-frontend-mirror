@@ -29,9 +29,6 @@
 		"@atlaskit/editor-prosemirror": "root:*",
 		"@babel/runtime": "root:*"
 	},
-	"af:exports": {
-		".": "./src/index.ts"
-	},
 	"exports": {
 		".": "./src/index.ts"
 	},

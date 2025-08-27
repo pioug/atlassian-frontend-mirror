@@ -69,14 +69,15 @@ const appearanceStyles = cssMap({
  * - [Usage](https://atlassian.design/components/section-message/usage)
  */
 const SectionMessage = forwardRef<HTMLElement, SectionMessageProps>(function SectionMessage(
-	{ children, appearance = 'information', actions, title, icon, isDismissible, testId },
+	{ children, appearance = 'information', actions, title, icon, isDismissible, onDismiss, testId },
 	ref,
 ) {
 	const [dismissed, setDismissed] = useState<boolean>(false);
 
 	const handleDismiss = useCallback(() => {
+		onDismiss?.();
 		setDismissed(true);
-	}, []);
+	}, [onDismiss]);
 
 	const {
 		primaryIconColor: primaryColor,

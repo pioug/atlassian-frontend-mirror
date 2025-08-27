@@ -1,5 +1,16 @@
 # @atlaskit/theme
 
+## 20.0.0
+
+### Major Changes
+
+- [`85819069090e2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/85819069090e2) -
+  Removed `borderRadius` constant. Use radius tokens instead.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.0.2
 
 ### Patch Changes

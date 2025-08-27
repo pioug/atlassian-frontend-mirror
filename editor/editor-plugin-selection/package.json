@@ -69,10 +69,6 @@
 			]
 		}
 	},
-	"af:exports": {
-		".": "./src/index.ts",
-		"./types": "./src/types/index.ts"
-	},
 	"exports": {
 		".": "./src/index.ts",
 		"./types": "./src/types/index.ts"

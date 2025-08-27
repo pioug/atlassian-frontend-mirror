@@ -8,13 +8,11 @@ import Form, {
 	MessageWrapper,
 	ValidMessage,
 } from '@atlaskit/form';
-import { Box } from '@atlaskit/primitives/compiled';
 import Textfield from '@atlaskit/textfield';
 
 export default function FormValidationExample() {
 	const [fieldValue, setFieldValue] = useState<string | undefined>('');
 	const [fieldHasError, setFieldHasError] = useState(false);
-	const [isFieldNotFocused, setIsFieldNotFocused] = useState(false);
 
 	function validate(value: string | undefined) {
 		setFieldValue(value);
@@ -31,29 +29,8 @@ export default function FormValidationExample() {
 	};
 
 	const handleBlurEvent = () => {
-		setIsFieldNotFocused(true);
 		if (fieldValue !== 'regular user') {
 			setFieldHasError(true);
-		}
-	};
-
-	const handleFocusEvent = () => {
-		setIsFieldNotFocused(false);
-	};
-
-	type Obj = { [key: string]: string };
-	const errorAttributes: Obj = {};
-
-	if (isFieldNotFocused) {
-		errorAttributes['aria-relevant'] = 'all';
-		errorAttributes['aria-atomic'] = 'false';
-	}
-
-	const generateErrorMessage = () => {
-		if (isFieldNotFocused) {
-			return <Box as="span">Incorrect, try &lsquo;regular user&rsquo;</Box>;
-		} else if (!isFieldNotFocused) {
-			return <p>Incorrect, try &lsquo;regular user&rsquo;</p>;
 		}
 	};
 
@@ -68,22 +45,21 @@ export default function FormValidationExample() {
 						validate={validate}
 						defaultValue=""
 					>
-						{({ fieldProps, meta: { valid } }: any) => (
+						{({ fieldProps: { onBlur: fieldOnBlur, ...fieldProps }, meta: { valid } }: any) => (
 							<Fragment>
 								<Textfield
-									testId="formValidationTest"
 									{...fieldProps}
-									onBlur={handleBlurEvent}
-									onFocus={handleFocusEvent}
+									testId="formValidationTest"
+									onBlur={() => {
+										// When defining your own onBlur handler, additionally call onBlur from the fieldProps to propagate internal field state
+										handleBlurEvent();
+										fieldOnBlur();
+									}}
 								/>
 								<MessageWrapper>
 									{valid && <ValidMessage>Your role is valid</ValidMessage>}
 									{fieldHasError && (
-										<ErrorMessage>
-											<Box aria-live="polite" {...errorAttributes}>
-												{generateErrorMessage()}
-											</Box>
-										</ErrorMessage>
+										<ErrorMessage>Incorrect, try &lsquo;regular user&rsquo;</ErrorMessage>
 									)}
 								</MessageWrapper>
 							</Fragment>

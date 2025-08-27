@@ -193,10 +193,8 @@ export function init(
 			experimentalVC.initialize(vcOptions).start({ startTime: 0 });
 		}
 
-		if (fg('platform_ufo_enable_ttai_with_3p')) {
-			if (config?.extraInteractionMetrics?.enabled) {
-				interactionExtraMetrics.initializeVCObserver(vcOptions);
-			}
+		if (config?.extraInteractionMetrics?.enabled && fg('platform_ufo_enable_ttai_with_3p')) {
+			interactionExtraMetrics.initializeVCObserver(vcOptions);
 		}
 	}
 
@@ -240,7 +238,7 @@ export function init(
 					if (config.postInteractionLog?.enabled) {
 						sinkPostInteractionLog(instance, createPostInteractionLogPayloadPackage.default);
 					}
-					if (fg('platform_ufo_enable_ttai_with_3p')) {
+					if (config?.extraInteractionMetrics?.enabled && fg('platform_ufo_enable_ttai_with_3p')) {
 						sinkInteractionExtraMetrics(
 							instance,
 							createInteractionExtraMetricsPayloadPackage.default,
@@ -261,7 +259,7 @@ export function init(
 						createPostInteractionLogPayloadPackage.default,
 					);
 				}
-				if (fg('platform_ufo_enable_ttai_with_3p')) {
+				if (config?.extraInteractionMetrics?.enabled && fg('platform_ufo_enable_ttai_with_3p')) {
 					sinkInteractionExtraMetrics(
 						awc as GenericAnalyticWebClientInstance,
 						createInteractionExtraMetricsPayloadPackage.default,

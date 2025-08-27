@@ -196,9 +196,9 @@ export interface ShapeScaleTokenSchema<
 	SizeScaleValues extends string,
 > {
 	border: {
-		radius: Record<RadiusScaleValues, ShapeSchemaValue>;
 		width: Record<SizeScaleValues, ShapeSchemaValue>;
 	};
+	radius: Record<RadiusScaleValues, ShapeSchemaValue>;
 }
 
 export interface FontSizeScaleTokenSchema<ScaleValues extends string> {
@@ -1133,10 +1133,12 @@ export interface TypographyTokenSchema<
 export interface ShapeTokenSchema<BaseToken> {
 	border: {
 		width: {
-			'[default]': ShapeToken<BaseToken>;
 			'0': ShapeToken<BaseToken>;
 			indicator: ShapeToken<BaseToken>;
 			outline: ShapeToken<BaseToken>;
+			'[default]': ShapeToken<BaseToken>;
+			selected: ShapeToken<BaseToken>;
+			focused: ShapeToken<BaseToken>;
 		};
 		radius: {
 			'[default]': ShapeToken<BaseToken>;
@@ -1147,6 +1149,14 @@ export interface ShapeTokenSchema<BaseToken> {
 			'400': ShapeToken<BaseToken>;
 			circle: ShapeToken<BaseToken>;
 		};
+	};
+	radius: {
+		xsmall: ShapeToken<BaseToken>;
+		small: ShapeToken<BaseToken>;
+		medium: ShapeToken<BaseToken>;
+		large: ShapeToken<BaseToken>;
+		xlarge: ShapeToken<BaseToken>;
+		full: ShapeToken<BaseToken>;
 	};
 }
 

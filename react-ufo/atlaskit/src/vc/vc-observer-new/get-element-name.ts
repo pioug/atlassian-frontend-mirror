@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 export type SelectorConfig = {
 	id: boolean;
 	testId: boolean;
@@ -11,36 +9,33 @@ export type SelectorConfig = {
 const nameCache: WeakMap<HTMLElement, string> = new WeakMap();
 function getElementName(selectorConfig: SelectorConfig, element: Element): string {
 	if (!(element instanceof HTMLElement)) {
-		if (fg('platform_ufo_report_non_htmlelement_selectors')) {
-			let elementInstance = 'Unknown';
+		let elementInstance = 'Unknown';
 
-			// Types of elements according to LLM
-			if (element instanceof Document) {
-				elementInstance = 'Document';
-			} else if (element instanceof DocumentFragment) {
-				elementInstance = 'DocumentFragment';
-			} else if (element instanceof Text) {
-				elementInstance = 'Text';
-			} else if (element instanceof Comment) {
-				elementInstance = 'Comment';
-			} else if (element instanceof ProcessingInstruction) {
-				elementInstance = 'ProcessingInstruction';
-			} else if (element instanceof Attr) {
-				elementInstance = 'Attr';
-			} else if (element instanceof CDATASection) {
-				elementInstance = 'CDATASection';
-			}
+		// Types of elements according to LLM
+		if (element instanceof Text) {
+			elementInstance = 'Text';
+		} else if (element instanceof DocumentFragment) {
+			elementInstance = 'DocumentFragment';
+		} else if (element instanceof Document) {
+			elementInstance = 'Document';
+		} else if (element instanceof Comment) {
+			elementInstance = 'Comment';
+		} else if (element instanceof ProcessingInstruction) {
+			elementInstance = 'ProcessingInstruction';
+		} else if (element instanceof Attr) {
+			elementInstance = 'Attr';
+		} else if (element instanceof CDATASection) {
+			elementInstance = 'CDATASection';
+		}
 
-			if (element.parentElement && element.parentElement instanceof HTMLElement) {
-				const parentElementSelector = getElementName(selectorConfig, element.parentElement);
-				return `${parentElementSelector} > ${elementInstance}`;
-			} else {
-				return elementInstance;
-			}
+		if (element.parentElement && element.parentElement instanceof HTMLElement) {
+			const parentElementSelector = getElementName(selectorConfig, element.parentElement);
+			return `${parentElementSelector} > ${elementInstance}`;
 		} else {
-			return 'error';
+			return elementInstance;
 		}
 	}
+
 	const cachedName = nameCache.get(element);
 	if (cachedName) {
 		return cachedName;

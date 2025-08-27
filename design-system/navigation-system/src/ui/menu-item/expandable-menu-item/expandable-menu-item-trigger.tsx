@@ -12,7 +12,6 @@ import { IconButton } from '@atlaskit/button/new';
 import type { IconProps } from '@atlaskit/icon';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { MenuItemBase, nestedOpenPopupCSSSelector } from '../menu-item';
@@ -277,16 +276,10 @@ export const ExpandableMenuItemTrigger = forwardRef<
 				// screen readers on what will actually be expanded or collapsed. Screen readers will also use the
 				// `aria-expanded` attribute to indicate the expanded state of the menu item.
 				// We are not using the `aria-label` attribute here as it is not supported by the `IconButton` component.
-				aria-labelledby={fg('platform_dst_expandable_menu_item_elembefore_label') ? id : undefined}
+				aria-labelledby={id}
 				// IconButton requires a label prop, however it will not be used by screen readers as we are setting
 				// `aria-labelledby`, which will be used instead.
-				label={
-					fg('platform_dst_expandable_menu_item_elembefore_label')
-						? ''
-						: isExpanded
-							? 'Collapse'
-							: 'Expand'
-				}
+				label=""
 				appearance="subtle"
 				spacing="compact"
 				onClick={handleIconClick}

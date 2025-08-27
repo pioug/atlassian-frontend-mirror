@@ -25,19 +25,6 @@
 	},
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
-	"af:exports": {
-		".": "./src/index.ts",
-		"./client": "./src/services/index.ts",
-		"./permissions": "./src/common/utils/permissions/index.ts",
-		"./sentry": "./src/services/sentry/index.ts",
-		"./user-info-provider": "./src/services/user-info-provider/index.ts",
-		"./utils": "./src/common/utils/index.ts",
-		"./mocks": "./src/mocks/index.ts",
-		"./types": "./src/types/index.ts",
-		"./ufo": "./src/common/utils/ufo/index.ts",
-		"./public": "./src/services/public-api-client/index.ts",
-		"./use-query-light": "./src/services/use-query-light/index.ts"
-	},
 	"exports": {
 		".": "./src/index.ts",
 		"./client": "./src/services/index.ts",

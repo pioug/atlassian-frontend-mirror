@@ -2,7 +2,6 @@ import { Provider } from '../..';
 import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { type JSONDocNode } from '@atlaskit/editor-json-transformer';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 const step1 = {
 	userId: 'ari:cloud:identity::user/123',
@@ -456,19 +455,38 @@ describe('DocumentService onRestore', () => {
 		});
 	});
 
-	describe('onRestore with applyLocalSteps, fetchReconcile when catching error', () => {
-		it('should restore document using applyLocalSteps first and then catching error to fetch reconcile', async () => {
+	describe('onRestore with applyLocalSteps, fetchGeneratedDiffSteps when catching error', () => {
+		it('should restore document using applyLocalSteps first and then catching error to fetch generated diff steps', async () => {
 			// When unconfirmedSteps are out of range and targetClientId is provided and matches clientId
-			// should restore document using applyLocalSteps first and then catching error to fetch reconcile
+			// should restore document using applyLocalSteps first and then catching error to fetch generated diff steps
+			const generatedSteps = [
+				{
+					stepType: 'replace',
+					from: 1,
+					to: 4,
+					slice: {
+						content: [{ type: 'paragraph', content: [{ type: 'text', text: 'abc' }] }],
+					},
+				},
+			];
+			const response = {
+				documentAri: 'ari:cloud:confluence:ABC:page/test',
+				generatedSteps,
+				userId: 'ari:cloud:identity::user/123',
+			};
+			fetchGeneratedDiffStepsSpy.mockReturnValue(response);
 			getUnconfirmedStepsSpy.mockReturnValue(pmSteps);
 			getCurrentStateSpy.mockReturnValue(editorState);
 			applyLocalStepsSpy.mockImplementation(() => {
 				throw new RangeError('Out of range index');
 			});
-			fetchReconcileSpy.mockReturnValue('thing');
 			await provider.documentService.onRestore({ ...dummyPayload, targetClientId: '123456' });
 			expect(getCurrentStateSpy).toHaveBeenCalledTimes(1);
-			expect(fetchReconcileSpy).toHaveBeenCalledTimes(1);
+			expect(fetchGeneratedDiffStepsSpy).toHaveBeenCalledTimes(1);
+			expect(fetchGeneratedDiffStepsSpy).toHaveBeenCalledWith(
+				JSON.stringify(editorState.content),
+				'fe-restore-fetch-generated-steps',
+			);
 			expect(applyLocalStepsSpy).toHaveBeenCalledTimes(1);
 			expect(sendActionEventSpy).toHaveBeenCalledTimes(2);
 			expect(sendActionEventSpy).toHaveBeenNthCalledWith(1, 'reinitialiseDocument', 'INFO', {
@@ -482,7 +500,7 @@ describe('DocumentService onRestore', () => {
 			});
 			expect(sendActionEventSpy).toHaveBeenNthCalledWith(2, 'reinitialiseDocument', 'SUCCESS', {
 				numUnconfirmedSteps: 2,
-				useReconcile: true, // use useReconcile as fallback
+				useReconcile: false, // now uses fetchGeneratedDiffSteps instead of fetchReconcile
 				clientId: '123456',
 				hasTitle: true,
 				targetClientId: '123456',
@@ -491,143 +509,107 @@ describe('DocumentService onRestore', () => {
 		});
 	});
 
-	describe('onRestore with fetchGeneratedDiffSteps/fetchReconcile', () => {
-		ffTest(
-			'platform-editor-reconcile-return-generated-steps',
-			async () => {
-				const generatedSteps = [
-					{
-						stepType: 'replace',
-						from: 1,
-						to: 4,
-						slice: {
-							content: [{ type: 'paragraph', content: [{ type: 'text', text: 'abc' }] }],
-						},
+	describe('onRestore with fetchGeneratedDiffSteps', () => {
+		it('should use fetchGeneratedDiffSteps when applyLocalSteps fails', async () => {
+			const generatedSteps = [
+				{
+					stepType: 'replace',
+					from: 1,
+					to: 4,
+					slice: {
+						content: [{ type: 'paragraph', content: [{ type: 'text', text: 'abc' }] }],
 					},
-				];
-				const response = {
-					documentAri: 'ari:cloud:confluence:ABC:page/test',
-					generatedSteps,
-					userId: 'ari:cloud:identity::user/123',
-				};
-				fetchGeneratedDiffStepsSpy.mockReturnValue(response);
-				getUnconfirmedStepsSpy.mockReturnValue(pmSteps);
-				getCurrentStateSpy.mockReturnValue(editorState);
-				applyLocalStepsSpy.mockImplementation(() => {
-					throw new RangeError('Out of range index');
-				});
+				},
+			];
+			const response = {
+				documentAri: 'ari:cloud:confluence:ABC:page/test',
+				generatedSteps,
+				userId: 'ari:cloud:identity::user/123',
+			};
+			fetchGeneratedDiffStepsSpy.mockReturnValue(response);
+			getUnconfirmedStepsSpy.mockReturnValue(pmSteps);
+			getCurrentStateSpy.mockReturnValue(editorState);
+			applyLocalStepsSpy.mockImplementation(() => {
+				throw new RangeError('Out of range index');
+			});
 
-				await provider.documentService.onRestore(dummyPayload);
+			await provider.documentService.onRestore(dummyPayload);
 
-				expect(fetchGeneratedDiffStepsSpy).toHaveBeenCalledTimes(1);
-				expect(fetchGeneratedDiffStepsSpy).toHaveBeenCalledWith(
-					JSON.stringify(editorState.content),
-					'fe-restore-fetch-generated-steps',
-				);
+			expect(fetchGeneratedDiffStepsSpy).toHaveBeenCalledTimes(1);
+			expect(fetchGeneratedDiffStepsSpy).toHaveBeenCalledWith(
+				JSON.stringify(editorState.content),
+				'fe-restore-fetch-generated-steps',
+			);
 
-				expect(applyLocalStepsSpy).toHaveBeenCalledTimes(1);
-				expect(sendActionEventSpy).toHaveBeenNthCalledWith(1, 'reinitialiseDocument', 'INFO', {
-					clientId: '123456',
-					hasTitle: true,
-					numUnconfirmedSteps: 2,
-					obfuscatedDoc: {
-						content: [
-							{
-								content: [
-									{ text: 'Lorem, Ipsum!', type: 'text' },
-									{
-										marks: [{ attrs: { trigger: '/' }, type: 'typeAheadQuery' }],
-										text: '/',
-										type: 'text',
-									},
-								],
-								type: 'paragraph',
-							},
-						],
-						type: 'doc',
-						version: 1,
-					},
-					obfuscatedSteps: [
+			expect(applyLocalStepsSpy).toHaveBeenCalledTimes(1);
+			expect(sendActionEventSpy).toHaveBeenNthCalledWith(1, 'reinitialiseDocument', 'INFO', {
+				clientId: '123456',
+				hasTitle: true,
+				numUnconfirmedSteps: 2,
+				obfuscatedDoc: {
+					content: [
 						{
-							stepContent: [
+							content: [
+								{ text: 'Lorem, Ipsum!', type: 'text' },
 								{
-									content: [
-										{
-											attrs: { localId: null },
-											content: [{ text: 'lor', type: 'text' }],
-											type: 'paragraph',
-										},
-									],
-									type: 'doc',
+									marks: [{ attrs: { trigger: '/' }, type: 'typeAheadQuery' }],
+									text: '/',
+									type: 'text',
 								},
 							],
-							stepMetadata: undefined,
-							stepPositions: { from: 1, to: 4 },
-							stepType: { contentTypes: 'paragraph', type: 'replace' },
-						},
-						{
-							stepContent: [
-								{
-									content: [
-										{
-											attrs: { localId: null },
-											content: [{ text: 'lo', type: 'text' }],
-											type: 'paragraph',
-										},
-									],
-									type: 'doc',
-								},
-							],
-							stepMetadata: undefined,
-							stepPositions: { from: 1, to: 3 },
-							stepType: { contentTypes: 'paragraph', type: 'replace' },
+							type: 'paragraph',
 						},
 					],
-					targetClientId: undefined,
-					triggeredByCatchup: false,
-				});
-				expect(sendActionEventSpy).toHaveBeenNthCalledWith(2, 'reinitialiseDocument', 'SUCCESS', {
-					clientId: '123456',
-					hasTitle: true,
-					numUnconfirmedSteps: 2,
-					targetClientId: undefined,
-					triggeredByCatchup: false,
-					useReconcile: false,
-				});
-			},
-			async () => {
-				// When unconfirmedSteps are out of range and targetClientId is provided and matches clientId
-				// should restore document using applyLocalSteps first and then catching error to fetch reconcile
-				getUnconfirmedStepsSpy.mockReturnValue(pmSteps);
-				getCurrentStateSpy.mockReturnValue(editorState);
-				applyLocalStepsSpy.mockImplementation(() => {
-					throw new RangeError('Out of range index');
-				});
-				fetchReconcileSpy.mockReturnValue('thing');
-				await provider.documentService.onRestore({ ...dummyPayload, targetClientId: '123456' });
-				expect(getCurrentStateSpy).toHaveBeenCalledTimes(1);
-				expect(fetchReconcileSpy).toHaveBeenCalledTimes(1);
-				expect(fetchGeneratedDiffStepsSpy).toHaveBeenCalledTimes(0);
-				expect(applyLocalStepsSpy).toHaveBeenCalledTimes(1);
-				expect(sendActionEventSpy).toHaveBeenCalledTimes(2);
-				expect(sendActionEventSpy).toHaveBeenNthCalledWith(1, 'reinitialiseDocument', 'INFO', {
-					numUnconfirmedSteps: 2,
-					clientId: '123456',
-					hasTitle: true,
-					targetClientId: '123456',
-					triggeredByCatchup: true,
-					obfuscatedSteps: expectedObfuscatedSteps,
-					obfuscatedDoc: expectedObfuscatedDoc,
-				});
-				expect(sendActionEventSpy).toHaveBeenNthCalledWith(2, 'reinitialiseDocument', 'SUCCESS', {
-					numUnconfirmedSteps: 2,
-					useReconcile: true, // use useReconcile as fallback
-					clientId: '123456',
-					hasTitle: true,
-					targetClientId: '123456',
-					triggeredByCatchup: true,
-				});
-			},
-		);
+					type: 'doc',
+					version: 1,
+				},
+				obfuscatedSteps: [
+					{
+						stepContent: [
+							{
+								content: [
+									{
+										attrs: { localId: null },
+										content: [{ text: 'lor', type: 'text' }],
+										type: 'paragraph',
+									},
+								],
+								type: 'doc',
+							},
+						],
+						stepMetadata: undefined,
+						stepPositions: { from: 1, to: 4 },
+						stepType: { contentTypes: 'paragraph', type: 'replace' },
+					},
+					{
+						stepContent: [
+							{
+								content: [
+									{
+										attrs: { localId: null },
+										content: [{ text: 'lo', type: 'text' }],
+										type: 'paragraph',
+									},
+								],
+								type: 'doc',
+							},
+						],
+						stepMetadata: undefined,
+						stepPositions: { from: 1, to: 3 },
+						stepType: { contentTypes: 'paragraph', type: 'replace' },
+					},
+				],
+				targetClientId: undefined,
+				triggeredByCatchup: false,
+			});
+			expect(sendActionEventSpy).toHaveBeenNthCalledWith(2, 'reinitialiseDocument', 'SUCCESS', {
+				clientId: '123456',
+				hasTitle: true,
+				numUnconfirmedSteps: 2,
+				targetClientId: undefined,
+				triggeredByCatchup: false,
+				useReconcile: false,
+			});
+		});
 	});
 });

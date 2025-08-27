@@ -343,10 +343,15 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		const currentPath = (parentInfo && parentInfo.path) || [];
 
 		const parentIsIncompleteTask =
-			node.type.name === 'taskItem' ||
-			(node.type.name === 'blockTaskItem' &&
-				expValEquals('platform_editor_blocktaskitem_node', 'isEnabled', true) &&
-				node.attrs.state !== 'DONE');
+			((node.type.name === 'taskItem' ||
+				(node.type.name === 'blockTaskItem' &&
+					expValEquals('platform_editor_blocktaskitem_node', 'isEnabled', true))) &&
+				node.attrs.state !== 'DONE') ||
+			// If blockTaskItem is in the schema, check if the parent of the current node
+			// is an incomplete task item, because blockTaskItems can have nested nodes
+			(node.type.schema.nodes.blockTaskItem &&
+				parentInfo?.parentIsIncompleteTask === true &&
+				expValEquals('platform_editor_blocktaskitem_node', 'isEnabled', true));
 
 		const nodeKey = `${node.type.name}__${this.startPos}`;
 		const serializedContent = this.serializeFragment(

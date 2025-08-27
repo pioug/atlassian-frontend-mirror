@@ -8,6 +8,7 @@ import { css, jsx } from '@compiled/react';
 
 import EditorDoneIcon from '@atlaskit/icon/core/migration/check-mark--editor-done';
 import { token } from '@atlaskit/tokens';
+import type { IconColor } from '@atlaskit/tokens/css-type-schema';
 import Tooltip from '@atlaskit/tooltip';
 
 import type { ColorProps } from './types';
@@ -33,7 +34,7 @@ const buttonStyles = css({
 	width: token('space.300', '26px'),
 	backgroundColor: token('color.background.neutral'),
 	padding: 0,
-	borderRadius: token('border.radius.050', '4px'),
+	borderRadius: token('border.radius.100', '4px'),
 	border: `1px solid ${token('color.border.inverse')}`,
 	cursor: 'pointer',
 	display: 'block',
@@ -107,7 +108,11 @@ export const Color = memo<ColorProps>(
 						autoFocus={autoFocus}
 					>
 						{!decorator && isSelected && (
-							<EditorDoneIcon LEGACY_primaryColor={checkMarkColor} label="" />
+							<EditorDoneIcon
+								color={checkMarkColor as IconColor}
+								LEGACY_primaryColor={checkMarkColor}
+								label=""
+							/>
 						)}
 						{decorator}
 					</button>

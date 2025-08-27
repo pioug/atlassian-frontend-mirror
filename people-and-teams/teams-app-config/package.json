@@ -23,11 +23,6 @@
 		"*.compiled.css"
 	],
 	"atlaskit:src": "src/index.ts",
-	"af:exports": {
-		"./navigation": "./src/utils/teams-app-navigation/index.ts",
-		"./types": "./src/common/types.ts",
-		"./is-teams-app-enabled": "./src/common/utils/is-teams-app-enabled/index.ts"
-	},
 	"exports": {
 		"./navigation": "./src/utils/teams-app-navigation/index.ts",
 		"./types": "./src/common/types.ts",

@@ -1,24 +1,10 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import getElementName, { type SelectorConfig } from './get-element-name';
-
-// Mock the feature flag module
-jest.mock('@atlaskit/platform-feature-flags', () => ({
-	fg: jest.fn(),
-}));
 
 describe('getElementName', () => {
 	let divElement: HTMLElement;
 
 	beforeEach(() => {
 		divElement = document.createElement('div');
-	});
-
-	it('should return "error" if the element is not an instance of HTMLElement', () => {
-		const textNode = document.createTextNode('Not an element');
-		expect(
-			getElementName({ id: true, testId: true, role: true, className: true }, textNode as any),
-		).toBe('error');
 	});
 
 	it('should return tag name when no attributes or class names match', () => {
@@ -203,58 +189,43 @@ describe('getElementName', () => {
 	});
 
 	describe('non-HTMLElement handling', () => {
-		it('should return "error" when feature flag is off and element is not HTMLElement', () => {
-			(fg as jest.Mock).mockReturnValue(false);
-			const textNode = document.createTextNode('Not an element');
+		it('should handle Text nodes', () => {
+			const textNode = document.createTextNode('text content');
 			expect(
 				getElementName({ id: true, testId: true, role: true, className: true }, textNode as any),
-			).toBe('error');
+			).toBe('Text');
 		});
-		describe('when feature flag is on', () => {
-			beforeEach(() => {
-				(fg as jest.Mock).mockReturnValue(true);
-			});
-			it('should handle Text nodes', () => {
-				const textNode = document.createTextNode('text content');
-				expect(
-					getElementName({ id: true, testId: true, role: true, className: true }, textNode as any),
-				).toBe('Text');
-			});
-			it('should handle Comment nodes', () => {
-				const commentNode = document.createComment('comment content');
-				expect(
-					getElementName(
-						{ id: true, testId: true, role: true, className: true },
-						commentNode as any,
-					),
-				).toBe('Comment');
-			});
-			it('should handle DocumentFragment nodes', () => {
-				const fragmentNode = document.createDocumentFragment();
-				expect(
-					getElementName(
-						{ id: true, testId: true, role: true, className: true },
-						fragmentNode as any,
-					),
-				).toBe('DocumentFragment');
-			});
-			it('should include parent element in selector for non-HTMLElement nodes', () => {
-				const parentDiv = document.createElement('div');
-				parentDiv.id = 'parentId';
-				const textNode = document.createTextNode('text content');
-				parentDiv.appendChild(textNode);
-				const config: SelectorConfig = { id: true, testId: true, role: true, className: true };
-				expect(getElementName(config, textNode as any)).toBe('div#parentId > Text');
-			});
-			it('should handle non-HTMLElement nodes without parent', () => {
-				const textNode = document.createTextNode('text content');
-				const config: SelectorConfig = { id: true, testId: true, role: true, className: true };
-				expect(getElementName(config, textNode as any)).toBe('Text');
-			});
-			it('should handle Document nodes', () => {
-				const config: SelectorConfig = { id: true, testId: true, role: true, className: true };
-				expect(getElementName(config, document as any)).toBe('Document');
-			});
+		it('should handle Comment nodes', () => {
+			const commentNode = document.createComment('comment content');
+			expect(
+				getElementName({ id: true, testId: true, role: true, className: true }, commentNode as any),
+			).toBe('Comment');
+		});
+		it('should handle DocumentFragment nodes', () => {
+			const fragmentNode = document.createDocumentFragment();
+			expect(
+				getElementName(
+					{ id: true, testId: true, role: true, className: true },
+					fragmentNode as any,
+				),
+			).toBe('DocumentFragment');
+		});
+		it('should include parent element in selector for non-HTMLElement nodes', () => {
+			const parentDiv = document.createElement('div');
+			parentDiv.id = 'parentId';
+			const textNode = document.createTextNode('text content');
+			parentDiv.appendChild(textNode);
+			const config: SelectorConfig = { id: true, testId: true, role: true, className: true };
+			expect(getElementName(config, textNode as any)).toBe('div#parentId > Text');
+		});
+		it('should handle non-HTMLElement nodes without parent', () => {
+			const textNode = document.createTextNode('text content');
+			const config: SelectorConfig = { id: true, testId: true, role: true, className: true };
+			expect(getElementName(config, textNode as any)).toBe('Text');
+		});
+		it('should handle Document nodes', () => {
+			const config: SelectorConfig = { id: true, testId: true, role: true, className: true };
+			expect(getElementName(config, document as any)).toBe('Document');
 		});
 	});
 });

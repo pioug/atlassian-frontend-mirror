@@ -9,7 +9,7 @@ exports.tokens = void 0;
  *
  * Metadata for generation of of `@atlaskit/ads-mcp` and https://atlassian.design/llms-tokens.txt.
  *
- * @codegen <<SignedSource::c6f9eb087d49a14806a7713cb8306e06>>
+ * @codegen <<SignedSource::2f0d0ffb7abcc77f7b99efa4241047a4>>
  * @codegenCommand yarn build tokens
  */
 
@@ -1969,56 +1969,6 @@ var tokens = exports.tokens = [{
   description: "A dynamic token that represents the current surface color set by a parent element. It defaults to the 'elevation.surface' token value.",
   exampleValue: '#FFFFFF'
 }, {
-  name: 'border.radius.050',
-  path: ['border', 'radius', '050'],
-  description: 'Used for selection indicators, like tabs.',
-  exampleValue: '0.125rem'
-}, {
-  name: 'border.radius',
-  path: ['border', 'radius', '[default]'],
-  description: 'The default border radius.',
-  exampleValue: '0.25rem'
-}, {
-  name: 'border.radius.100',
-  path: ['border', 'radius', '100'],
-  description: 'Used for buttons and inputs.',
-  exampleValue: '0.25rem'
-}, {
-  name: 'border.radius.200',
-  path: ['border', 'radius', '200'],
-  description: 'Used for smaller cards.',
-  exampleValue: '0.5rem'
-}, {
-  name: 'border.radius.300',
-  path: ['border', 'radius', '300'],
-  description: 'Used for cards and larger containers.',
-  exampleValue: '0.75rem'
-}, {
-  name: 'border.radius.400',
-  path: ['border', 'radius', '400'],
-  description: 'Used for modals.',
-  exampleValue: '1rem'
-}, {
-  name: 'border.radius.circle',
-  path: ['border', 'radius', 'circle'],
-  description: 'Used for circular containers, like a rounded button.',
-  exampleValue: '2002rem'
-}, {
-  name: 'border.width',
-  path: ['border', 'width', '[default]'],
-  description: 'The default border width. Used for all borders.',
-  exampleValue: '0.0625rem'
-}, {
-  name: 'border.width.indicator',
-  path: ['border', 'width', 'indicator'],
-  description: 'Used for indicators like tab and menu selected states.',
-  exampleValue: '0.1875rem'
-}, {
-  name: 'border.width.outline',
-  path: ['border', 'width', 'outline'],
-  description: 'Used for focus, active or selected inputs.',
-  exampleValue: '0.125rem'
-}, {
   name: 'space.0',
   path: ['space', '0'],
   description: 'Equates to `0`. Use for resetting default spacing styles.',
@@ -2253,4 +2203,99 @@ var tokens = exports.tokens = [{
   path: ['font', 'family', 'brand', 'body'],
   description: 'For our brand body text. Uses Charlie Text.',
   exampleValue: '"Charlie Text", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif'
+}, {
+  name: 'radius.xsmall',
+  path: ['radius', 'xsmall'],
+  description: 'Used for small containers such as badges.',
+  exampleValue: '0.125rem'
+}, {
+  name: 'radius.small',
+  path: ['radius', 'small'],
+  description: 'Used for labels.',
+  exampleValue: '0.25rem'
+}, {
+  name: 'radius.medium',
+  path: ['radius', 'medium'],
+  description: 'Used for buttons and inputs.',
+  exampleValue: '0.375rem'
+}, {
+  name: 'radius.large',
+  path: ['radius', 'large'],
+  description: 'Used for cards and small containers.',
+  exampleValue: '0.5rem'
+}, {
+  name: 'radius.xlarge',
+  path: ['radius', 'xlarge'],
+  description: 'Used for modals and large containers.',
+  exampleValue: '0.75rem'
+}, {
+  name: 'radius.full',
+  path: ['radius', 'full'],
+  description: 'Used for circular containers, like a rounded button.',
+  exampleValue: '624.9375rem'
+}, {
+  name: 'border.radius',
+  path: ['border', 'radius', '[default]'],
+  description: 'The default border radius.',
+  exampleValue: '0.25rem'
+}, {
+  name: 'border.radius.050',
+  path: ['border', 'radius', '050'],
+  description: 'Used for selection indicators, like tabs.',
+  exampleValue: '0.125rem'
+}, {
+  name: 'border.radius.100',
+  path: ['border', 'radius', '100'],
+  description: 'Used for buttons and inputs.',
+  exampleValue: '0.25rem'
+}, {
+  name: 'border.radius.200',
+  path: ['border', 'radius', '200'],
+  description: 'Used for smaller cards.',
+  exampleValue: '0.5rem'
+}, {
+  name: 'border.radius.300',
+  path: ['border', 'radius', '300'],
+  description: 'Used for cards and larger containers.',
+  exampleValue: '0.75rem'
+}, {
+  name: 'border.radius.400',
+  path: ['border', 'radius', '400'],
+  description: 'Used for modals.',
+  exampleValue: '1rem'
+}, {
+  name: 'border.radius.circle',
+  path: ['border', 'radius', 'circle'],
+  description: 'Used for circular containers, like a rounded button.',
+  exampleValue: '624.9375rem'
+}, {
+  name: 'border.width',
+  path: ['border', 'width', '[default]'],
+  description: 'The default border width. Used for all borders.',
+  exampleValue: '0.0625rem'
+}, {
+  name: 'border.width.0',
+  path: ['border', 'width', '0'],
+  description: 'Used for zero width borders.',
+  exampleValue: '0rem'
+}, {
+  name: 'border.width.indicator',
+  path: ['border', 'width', 'indicator'],
+  description: 'Used for indicators like tab and menu selected states.',
+  exampleValue: '0.1875rem'
+}, {
+  name: 'border.width.outline',
+  path: ['border', 'width', 'outline'],
+  description: 'Used for focus, active or selected inputs.',
+  exampleValue: '0.125rem'
+}, {
+  name: 'border.width.selected',
+  path: ['border', 'width', 'selected'],
+  description: 'Use for selected states.',
+  exampleValue: '0.125rem'
+}, {
+  name: 'border.width.focused',
+  path: ['border', 'width', 'focused'],
+  description: 'Use for focused states.',
+  exampleValue: '0.125rem'
 }];

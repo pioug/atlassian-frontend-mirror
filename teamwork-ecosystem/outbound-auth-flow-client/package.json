@@ -34,11 +34,6 @@
 		"fabric",
 		"ui"
 	],
-	"af:exports": {
-		".": "./src/index.ts",
-		"./error": "./src/error.ts",
-		"./types": "./src/types.ts"
-	},
 	"exports": {
 		".": "./src/index.ts",
 		"./error": "./src/error.ts",

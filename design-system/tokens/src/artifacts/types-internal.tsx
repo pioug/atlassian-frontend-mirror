@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8d73a506bb91419f7e80b839f400aca6>>
+ * @codegen <<SignedSource::e8517b9ad3938bbf0817b03b84147b13>>
  * @codegenCommand yarn build tokens
  */
 export type InternalTokenIds =
@@ -395,16 +395,6 @@ export type InternalTokenIds =
 	| 'utility.UNSAFE.textTransformUppercase'
 	| 'utility.UNSAFE.transparent'
 	| 'utility.elevation.surface.current'
-	| 'border.radius.050'
-	| 'border.radius.[default]'
-	| 'border.radius.100'
-	| 'border.radius.200'
-	| 'border.radius.300'
-	| 'border.radius.400'
-	| 'border.radius.circle'
-	| 'border.width.[default]'
-	| 'border.width.indicator'
-	| 'border.width.outline'
 	| 'space.0'
 	| 'space.025'
 	| 'space.050'
@@ -451,4 +441,13 @@ export type InternalTokenIds =
 	| 'font.family.body'
 	| 'font.family.code'
 	| 'font.family.brand.heading'
-	| 'font.family.brand.body';
+	| 'font.family.brand.body'
+	| 'radius.xsmall'
+	| 'radius.small'
+	| 'radius.medium'
+	| 'radius.large'
+	| 'radius.xlarge'
+	| 'radius.full'
+	| 'border.width.[default]'
+	| 'border.width.selected'
+	| 'border.width.focused';

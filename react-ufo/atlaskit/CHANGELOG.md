@@ -1,5 +1,19 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.5.1
+
+### Patch Changes
+
+- [`b0a4a5983f4e8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b0a4a5983f4e8) -
+  Update extra metrics onComplete logic and modify its payload
+
+## 4.5.0
+
+### Minor Changes
+
+- [`2a4662d3e7eb5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a4662d3e7eb5) -
+  fixing Grammarly extension name and adding common browser extensions to exclude list for TTVC
+
 ## 4.4.6
 
 ### Patch Changes

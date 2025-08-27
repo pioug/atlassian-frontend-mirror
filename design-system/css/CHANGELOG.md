@@ -1,5 +1,13 @@
 # @atlaskit/css
 
+## 0.12.3
+
+### Patch Changes
+
+- [`fcd8f46058cd2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fcd8f46058cd2) -
+  Updated codemod to reference new border radius tokens available in xcss.
+- Updated dependencies
+
 ## 0.12.2
 
 ### Patch Changes

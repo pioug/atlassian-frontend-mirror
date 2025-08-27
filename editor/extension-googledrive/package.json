@@ -19,9 +19,6 @@
 	"atlassian": {
 		"team": "trello-ecosystem"
 	},
-	"af:exports": {
-		".": "./src/index.ts"
-	},
 	"exports": {
 		".": "./src/index.ts"
 	},

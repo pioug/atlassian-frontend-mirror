@@ -177,7 +177,7 @@ describe('getSimulatedBetterMetadata', () => {
 		});
 
 		ffTest.off(
-			'passionfruit_ask_smart_links_enabled',
+			'passionfruit_ask_smart_links_enabled_afm',
 			'with passionfruit-smart-links disabled',
 			() => {
 				it('should return default metadata', () => {
@@ -192,7 +192,7 @@ describe('getSimulatedBetterMetadata', () => {
 		);
 
 		ffTest.on(
-			'passionfruit_ask_smart_links_enabled',
+			'passionfruit_ask_smart_links_enabled_afm',
 			'with passionfruit-smart-links enabled',
 			() => {
 				it('should return ownedByGroup in top primary metadata when ownedBy is present', () => {

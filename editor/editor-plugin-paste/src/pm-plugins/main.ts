@@ -186,6 +186,15 @@ export function createPlugin(
 	let mostRecentPasteEvent: ClipboardEvent | null;
 	let pastedFromBitBucket = false;
 
+	function isSharePointUrl(url: string | undefined): boolean {
+		return Boolean(
+			url &&
+				(url.includes('sharepoint.com') ||
+					url.includes('onedrive.com') ||
+					url.includes('onedrive.live.com')),
+		);
+	}
+
 	return new SafePlugin({
 		key: stateKey,
 		state: createPluginState(dispatch, {
@@ -664,6 +673,21 @@ export function createPlugin(
 						sendPasteAnalyticsEvent(editorAnalyticsAPI)(view, event, slice, {
 							type: PasteTypes.richText,
 						});
+						return true;
+					}
+
+					// Special handling for SharePoint URLs generated from Share button
+					// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+					if (fg('platform_editor_sharepoint_url_smart_card_fallback') && isSharePointUrl(text)) {
+						// Create an inline card directly for SharePoint URLs to show the "Connect" button
+						const inlineCardNode = schema.nodes.inlineCard.create({
+							url: text,
+						});
+
+						const cardSlice = new Slice(Fragment.from(inlineCardNode), 0, 0);
+						if (dispatch) {
+							dispatch(state.tr.replaceSelection(cardSlice));
+						}
 						return true;
 					}
 

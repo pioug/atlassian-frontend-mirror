@@ -25,12 +25,6 @@
 	"atlassian": {
 		"team": "Editor: Collaboration"
 	},
-	"af:exports": {
-		".": "./src/index.ts",
-		"./socket-io-provider": "./src/socket-io-provider.ts",
-		"./types": "./src/types.ts",
-		"./version-wrapper": "./src/version-wrapper.ts"
-	},
 	"exports": {
 		".": "./src/index.ts",
 		"./socket-io-provider": "./src/socket-io-provider.ts",
@@ -79,9 +73,6 @@
 	},
 	"platform-feature-flags": {
 		"platform_collab_provider_tracingheaders": {
-			"type": "boolean"
-		},
-		"platform-editor-reconcile-return-generated-steps": {
 			"type": "boolean"
 		},
 		"platform-editor-presence-websocket-only": {

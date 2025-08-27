@@ -92,7 +92,7 @@ const transform = (palette: Record<string, any>): Transform => {
 
 			if (originalToken.attributes.group === 'shape') {
 				const value = originalToken.value;
-				return palette.border.radius[value]?.value || palette.border.width[value]?.value;
+				return palette.radius[value]?.value || palette.border.width[value]?.value;
 			}
 
 			if (originalToken.attributes.group === 'typography') {

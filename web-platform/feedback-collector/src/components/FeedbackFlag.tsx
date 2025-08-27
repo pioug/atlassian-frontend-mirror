@@ -4,6 +4,7 @@ import { useIntl } from 'react-intl-next';
 
 import { AutoDismissFlag } from '@atlaskit/flag';
 import SuccessIcon from '@atlaskit/icon/core/migration/status-success--check-circle';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { G300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -25,7 +26,14 @@ const FeedbackFlag = ({ description, title }: AkProps) => {
 				<SuccessIcon spacing="spacious" color={token('color.icon.success', G300)} label="Success" />
 			}
 			id="feedbackSent"
-			description={description || formatMessage(messages.feedbackSuccessFlagDescription)}
+			description={
+				description ||
+				formatMessage(
+					fg('product-terminology-refresh')
+						? messages.feedbackSuccessFlagDescriptionAppify
+						: messages.feedbackSuccessFlagDescription,
+				)
+			}
 			title={title || formatMessage(messages.feedbackSuccessFlagTitle)}
 		/>
 	);

@@ -36,8 +36,10 @@ snapshotInformational(ScrollableVR, {
 	prepare: async (page) => {
 		await page.getByTestId('side-nav-toggle-button').click();
 
-		// Wait for the tooltip to be displayed, to reduce flakiness
-		await page.getByRole('tooltip').waitFor();
+		// Moving mouse so the button is no longer hovered, to avoid potential flake from tooltips
+		await page.mouse.move(0, 0);
+		// Explicitly wait for tooltip to disappear to avoid flake
+		await page.getByRole('tooltip').waitFor({ state: 'hidden' });
 	},
 });
 
@@ -47,8 +49,11 @@ snapshotInformational(ScrollableNoPanelVR, {
 	prepare: async (page) => {
 		await page.getByTestId('side-nav-toggle-button').click();
 
-		// Wait for the tooltip to be displayed, to reduce flakiness
-		await page.getByRole('tooltip').waitFor();
+		// Moving mouse so the button is no longer hovered, to avoid potential flake from tooltips
+		await page.mouse.move(0, 0);
+
+		// Explicitly wait for tooltip to disappear to avoid flake
+		await page.getByRole('tooltip').waitFor({ state: 'hidden' });
 	},
 });
 
@@ -72,5 +77,72 @@ snapshotInformational(LayersInMainShouldForceOpenLayers, {
 	},
 	prepare: async (page) => {
 		await page.setViewportSize({ width: 1280, height: 400 });
+	},
+});
+
+snapshotInformational(ScrollableVR, {
+	...desktopOnlyOptions,
+	description: 'Flyout menu item open - large viewport',
+	prepare: async (page) => {
+		await page.getByRole('button', { name: 'Recent' }).click();
+	},
+	featureFlags: {
+		platform_dst_nav4_flyoutmenuitem_render_to_parent: true,
+		platform_design_system_nav4_panel_default_border: true,
+	},
+});
+
+/**
+ * Testing that the flyout menu item popup overlays over the Panel layout area
+ */
+snapshotInformational(ScrollableVR, {
+	...desktopOnlyOptions,
+	description: 'Flyout menu item open - medium viewport - overlays over panel',
+	prepare: async (page) => {
+		// Setting viewport dimensions to ensure flyout menu item overlays over Panel
+		await page.setViewportSize({ width: 1030, height: 600 });
+
+		await page.getByRole('button', { name: 'Recent' }).click();
+	},
+	featureFlags: {
+		platform_dst_nav4_flyoutmenuitem_render_to_parent: true,
+		platform_design_system_nav4_panel_default_border: true,
+	},
+});
+
+/**
+ * Testing that the flyout menu item popup overlays over the Aside layout area
+ */
+snapshotInformational(ScrollableNoPanelVR, {
+	...desktopOnlyOptions,
+	description: 'Flyout menu item open - medium viewport - overlays over aside',
+	prepare: async (page) => {
+		// Setting viewport dimensions to ensure flyout menu item overlays over Aside
+		await page.setViewportSize({ width: 1030, height: 600 });
+
+		await page.getByRole('button', { name: 'Recent' }).click();
+	},
+	featureFlags: {
+		platform_dst_nav4_flyoutmenuitem_render_to_parent: true,
+		platform_design_system_nav4_panel_default_border: true,
+	},
+});
+
+snapshotInformational(ScrollableVR, {
+	...mobileOnlyOptions,
+	description: 'Flyout menu item open - mobile',
+	prepare: async (page) => {
+		await page.getByTestId('side-nav-toggle-button').click();
+
+		await page.getByRole('button', { name: 'Recent' }).click();
+
+		// Moving mouse so the button is no longer hovered, to avoid potential flake from tooltips
+		await page.mouse.move(0, 0);
+		// Explicitly wait for tooltip to disappear to avoid flake
+		await page.getByRole('tooltip').waitFor({ state: 'hidden' });
+	},
+	featureFlags: {
+		platform_dst_nav4_flyoutmenuitem_render_to_parent: true,
+		platform_design_system_nav4_panel_default_border: true,
 	},
 });

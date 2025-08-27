@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5e39d81369b0c277ebeac5d0b02ae5cb>>
+ * @codegen <<SignedSource::06d7df9fd7562fac091fccfbf1704240>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
@@ -405,17 +405,6 @@ const tokens = {
 	'utility.UNSAFE.textTransformUppercase': '--ds-UNSAFE-textTransformUppercase',
 	'utility.UNSAFE.transparent': '--ds-UNSAFE-transparent',
 	'utility.elevation.surface.current': '--ds-elevation-surface-current',
-	'border.radius.050': '--ds-border-radius-050',
-	'border.radius': '--ds-border-radius',
-	'border.radius.100': '--ds-border-radius-100',
-	'border.radius.200': '--ds-border-radius-200',
-	'border.radius.300': '--ds-border-radius-300',
-	'border.radius.400': '--ds-border-radius-400',
-	'border.radius.circle': '--ds-border-radius-circle',
-	'border.width': '--ds-border-width',
-	'border.width.0': '--ds-border-width-0',
-	'border.width.indicator': '--ds-border-width-indicator',
-	'border.width.outline': '--ds-border-width-outline',
 	'space.0': '--ds-space-0',
 	'space.025': '--ds-space-025',
 	'space.050': '--ds-space-050',
@@ -463,6 +452,25 @@ const tokens = {
 	'font.family.code': '--ds-font-family-code',
 	'font.family.brand.heading': '--ds-font-family-brand-heading',
 	'font.family.brand.body': '--ds-font-family-brand-body',
+	'radius.xsmall': '--ds-radius-xsmall',
+	'radius.small': '--ds-radius-small',
+	'radius.medium': '--ds-radius-medium',
+	'radius.large': '--ds-radius-large',
+	'radius.xlarge': '--ds-radius-xlarge',
+	'radius.full': '--ds-radius-full',
+	'border.radius': '--ds-border-radius',
+	'border.radius.050': '--ds-border-radius-050',
+	'border.radius.100': '--ds-border-radius-100',
+	'border.radius.200': '--ds-border-radius-200',
+	'border.radius.300': '--ds-border-radius-300',
+	'border.radius.400': '--ds-border-radius-400',
+	'border.radius.circle': '--ds-border-radius-circle',
+	'border.width': '--ds-border-width',
+	'border.width.0': '--ds-border-width-0',
+	'border.width.indicator': '--ds-border-width-indicator',
+	'border.width.outline': '--ds-border-width-outline',
+	'border.width.selected': '--ds-border-width-selected',
+	'border.width.focused': '--ds-border-width-focused',
 } as const;
 
 export type CSSTokenMap = {
@@ -857,17 +865,6 @@ export type CSSTokenMap = {
 	'utility.UNSAFE.textTransformUppercase': 'var(--ds-UNSAFE-textTransformUppercase)';
 	'utility.UNSAFE.transparent': 'var(--ds-UNSAFE-transparent)';
 	'utility.elevation.surface.current': 'var(--ds-elevation-surface-current)';
-	'border.radius.050': 'var(--ds-border-radius-050)';
-	'border.radius': 'var(--ds-border-radius)';
-	'border.radius.100': 'var(--ds-border-radius-100)';
-	'border.radius.200': 'var(--ds-border-radius-200)';
-	'border.radius.300': 'var(--ds-border-radius-300)';
-	'border.radius.400': 'var(--ds-border-radius-400)';
-	'border.radius.circle': 'var(--ds-border-radius-circle)';
-	'border.width': 'var(--ds-border-width)';
-	'border.width.0': 'var(--ds-border-width-0)';
-	'border.width.indicator': 'var(--ds-border-width-indicator)';
-	'border.width.outline': 'var(--ds-border-width-outline)';
 	'space.0': 'var(--ds-space-0)';
 	'space.025': 'var(--ds-space-025)';
 	'space.050': 'var(--ds-space-050)';
@@ -915,6 +912,25 @@ export type CSSTokenMap = {
 	'font.family.code': 'var(--ds-font-family-code)';
 	'font.family.brand.heading': 'var(--ds-font-family-brand-heading)';
 	'font.family.brand.body': 'var(--ds-font-family-brand-body)';
+	'radius.xsmall': 'var(--ds-radius-xsmall)';
+	'radius.small': 'var(--ds-radius-small)';
+	'radius.medium': 'var(--ds-radius-medium)';
+	'radius.large': 'var(--ds-radius-large)';
+	'radius.xlarge': 'var(--ds-radius-xlarge)';
+	'radius.full': 'var(--ds-radius-full)';
+	'border.radius': 'var(--ds-border-radius)';
+	'border.radius.050': 'var(--ds-border-radius-050)';
+	'border.radius.100': 'var(--ds-border-radius-100)';
+	'border.radius.200': 'var(--ds-border-radius-200)';
+	'border.radius.300': 'var(--ds-border-radius-300)';
+	'border.radius.400': 'var(--ds-border-radius-400)';
+	'border.radius.circle': 'var(--ds-border-radius-circle)';
+	'border.width': 'var(--ds-border-width)';
+	'border.width.0': 'var(--ds-border-width-0)';
+	'border.width.indicator': 'var(--ds-border-width-indicator)';
+	'border.width.outline': 'var(--ds-border-width-outline)';
+	'border.width.selected': 'var(--ds-border-width-selected)';
+	'border.width.focused': 'var(--ds-border-width-focused)';
 };
 
 export type CSSToken = CSSTokenMap[keyof CSSTokenMap];

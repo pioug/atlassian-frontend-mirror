@@ -7,7 +7,6 @@ import { IconButton } from '@atlaskit/button/new';
 import AddIcon from '@atlaskit/icon/core/add';
 import HomeIcon from '@atlaskit/icon/core/home';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { ButtonMenuItem } from '../../button-menu-item';
 import { ExpandableMenuItem } from '../../expandable-menu-item/expandable-menu-item';
@@ -576,7 +575,7 @@ describe('ExpandableMenuItemTrigger', () => {
 			expect(screen.getByTestId('trigger-test-id--elem-before-button')).toBeVisible();
 		});
 
-		ffTest.on('platform_dst_expandable_menu_item_elembefore_label', 'aria-expanded', () => {
+		describe('aria-expanded', () => {
 			it('should display an icon button with correct label and aria-expanded when expanded', () => {
 				render(
 					<ExpandableMenuItem isDefaultExpanded>
@@ -613,44 +612,6 @@ describe('ExpandableMenuItemTrigger', () => {
 
 				expect(chevronIconButton).toBeVisible();
 				expect(chevronIconButton).toHaveAttribute('aria-expanded', 'false');
-			});
-		});
-
-		ffTest.off('platform_dst_expandable_menu_item_elembefore_label', 'aria-expanded', () => {
-			const itemText = 'Parent menu item';
-			const chevronExpandedText = 'Collapse';
-			const chevronCollapsedText = 'Expand';
-
-			it('should be `false` when collapsed', () => {
-				render(
-					<ExpandableMenuItem>
-						<ExpandableMenuItemTrigger href="/test">{itemText}</ExpandableMenuItemTrigger>
-						<ExpandableMenuItemContent>
-							<ButtonMenuItem>Test expandable content</ButtonMenuItem>
-						</ExpandableMenuItemContent>
-					</ExpandableMenuItem>,
-				);
-
-				expect(screen.getByRole('button', { name: chevronCollapsedText })).toHaveAttribute(
-					'aria-expanded',
-					'false',
-				);
-			});
-
-			it('should be `true` when expanded', () => {
-				render(
-					<ExpandableMenuItem isDefaultExpanded>
-						<ExpandableMenuItemTrigger href="/test">{itemText}</ExpandableMenuItemTrigger>
-						<ExpandableMenuItemContent>
-							<ButtonMenuItem>Test expandable content</ButtonMenuItem>
-						</ExpandableMenuItemContent>
-					</ExpandableMenuItem>,
-				);
-
-				expect(screen.getByRole('button', { name: chevronExpandedText })).toHaveAttribute(
-					'aria-expanded',
-					'true',
-				);
 			});
 		});
 

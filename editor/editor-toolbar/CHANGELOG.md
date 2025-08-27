@@ -1,5 +1,16 @@
 # @atlaskit/editor-toolbar
 
+## 0.4.0
+
+### Minor Changes
+
+- [`1eba43a7b680d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1eba43a7b680d) -
+  [ux] ED-29000 - Address paper cut issues in ColorPalette
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.3.8
 
 ### Patch Changes

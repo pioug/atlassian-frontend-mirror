@@ -13,7 +13,7 @@ exports.default = void 0;
  * Token names mapped to their value in the default Atlassian themes ('light').
  * These default values are used by the Babel plugin to optionally provide automatic fallbacks.
  *
- * @codegen <<SignedSource::14617f23058b2551ba4bc304aee7628f>>
+ * @codegen <<SignedSource::2992e1957578e92ec58e9b373bf9b813>>
  * @codegenCommand yarn build tokens
  */
 var defaultTokenValues = {
@@ -408,17 +408,6 @@ var defaultTokenValues = {
   'utility.UNSAFE.textTransformUppercase': 'uppercase',
   'utility.UNSAFE.transparent': 'transparent',
   'utility.elevation.surface.current': '#FFFFFF',
-  'border.radius.050': '0.125rem',
-  'border.radius': '0.25rem',
-  'border.radius.100': '0.25rem',
-  'border.radius.200': '0.5rem',
-  'border.radius.300': '0.75rem',
-  'border.radius.400': '1rem',
-  'border.radius.circle': '2002rem',
-  'border.width': '0.0625rem',
-  'border.width.0': '0rem',
-  'border.width.indicator': '0.1875rem',
-  'border.width.outline': '0.125rem',
   'space.0': '0rem',
   'space.025': '0.125rem',
   'space.050': '0.25rem',
@@ -465,6 +454,25 @@ var defaultTokenValues = {
   'font.family.body': 'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
   'font.family.code': 'ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace',
   'font.family.brand.heading': '"Charlie Display", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
-  'font.family.brand.body': '"Charlie Text", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif'
+  'font.family.brand.body': '"Charlie Text", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+  'radius.xsmall': '0.125rem',
+  'radius.small': '0.25rem',
+  'radius.medium': '0.375rem',
+  'radius.large': '0.5rem',
+  'radius.xlarge': '0.75rem',
+  'radius.full': '624.9375rem',
+  'border.radius': '0.25rem',
+  'border.radius.050': '0.125rem',
+  'border.radius.100': '0.25rem',
+  'border.radius.200': '0.5rem',
+  'border.radius.300': '0.75rem',
+  'border.radius.400': '1rem',
+  'border.radius.circle': '624.9375rem',
+  'border.width': '0.0625rem',
+  'border.width.0': '0rem',
+  'border.width.indicator': '0.1875rem',
+  'border.width.outline': '0.125rem',
+  'border.width.selected': '0.125rem',
+  'border.width.focused': '0.125rem'
 };
 var _default = exports.default = defaultTokenValues;

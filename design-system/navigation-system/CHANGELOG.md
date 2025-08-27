@@ -1,5 +1,53 @@
 # @atlassian/navigation-system
 
+## 2.0.0
+
+### Major Changes
+
+- [`ca468a8bbccd9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ca468a8bbccd9) -
+  The elemBefore chevron icon button in the link (selectable) variants of
+  `ExpandableMenuItemTrigger` is now labelled by the menu item (specifically, its anchor element)
+  through the aria-labelledby attribute. This is to provide context on what will be expanded or
+  collapsed to screen readers. Assistive technology users will still have the `aria-expanded`
+  attribute to determine the expanded state.
+
+  This change was previously behind a feature flag, which has now been removed.
+
+  **More details:**
+
+  Previously, the chevron icon button would be labelled by the hardcoded strings "Expand" or
+  "Collapse" - which is not helpful for screen readers.
+
+  Now, the chevron icon button is labelled by the menu item trigger content (children).
+
+  For example, for the below expandable menu item trigger:
+
+  ```tsx
+  <ExpandableMenuItemTrigger href="#">Recent</ExpandableMenuItemTrigger>
+  ```
+
+  Previously, the chevron icon button would be a `button` element with the name "Expand" or
+  "Collapse", based on the expanded state.
+
+  Now, the chevron icon button will be a `button` element with the name "Recent".
+
+  You will likely need to update your tests to account for this change, by using a different
+  selector.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.2.0
+
+### Minor Changes
+
+- [`c48c55f280ef8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c48c55f280ef8) -
+  FlyoutMenuItemContent will render its popup alongside the trigger, instead of using a portal. This
+  improves the experience for assistive technology users.
+
+  This change is behind a feature flag.
+
 ## 1.1.0
 
 ### Minor Changes

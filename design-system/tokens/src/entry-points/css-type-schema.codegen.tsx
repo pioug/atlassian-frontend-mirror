@@ -3,7 +3,7 @@
  *
  * Strict design token based typedef representing a subset of safe CSS properties.
  *
- * @codegen <<SignedSource::051c591fbf1b8f4a288b93923ff8d5bf>>
+ * @codegen <<SignedSource::f020a42c1bd636ec7ab652f68207aa4d>>
  * @codegenCommand yarn build tokens
  */
 export type BackgroundColorHovered =
@@ -277,8 +277,14 @@ export type BorderColor =
 	| 'var(--ds-border-information)'
 	| 'var(--ds-border-bold)';
 export type BorderRadius =
-	| 'var(--ds-border-radius-050)'
+	| 'var(--ds-radius-xsmall)'
+	| 'var(--ds-radius-small)'
+	| 'var(--ds-radius-medium)'
+	| 'var(--ds-radius-large)'
+	| 'var(--ds-radius-xlarge)'
+	| 'var(--ds-radius-full)'
 	| 'var(--ds-border-radius)'
+	| 'var(--ds-border-radius-050)'
 	| 'var(--ds-border-radius-100)'
 	| 'var(--ds-border-radius-200)'
 	| 'var(--ds-border-radius-300)'
@@ -289,8 +295,11 @@ export type BorderRadius =
 	| `${number}rem`;
 export type BorderWidth =
 	| 'var(--ds-border-width)'
+	| 'var(--ds-border-width-0)'
 	| 'var(--ds-border-width-indicator)'
 	| 'var(--ds-border-width-outline)'
+	| 'var(--ds-border-width-selected)'
+	| 'var(--ds-border-width-focused)'
 	| 0
 	| '0';
 export type BorderShorthand = 'none' | `${BorderWidth} solid ${BorderColor}`;

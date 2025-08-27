@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/navigation-system",
-	"version": "1.1.0",
+	"version": "2.0.0",
 	"description": "The latest navigation system for Atlassian apps.",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"author": "Atlassian Pty Ltd",
@@ -255,13 +255,13 @@
 		"platform_dst_nav4_flyout_use_capture_outside": {
 			"type": "boolean"
 		},
-		"platform_dst_expandable_menu_item_elembefore_label": {
-			"type": "boolean"
-		},
 		"platform_dst_nav4_skip_links_hydration_fix": {
 			"type": "boolean"
 		},
 		"platform_dst_nav4_actionsonhover_focus_fix": {
+			"type": "boolean"
+		},
+		"platform_dst_nav4_flyoutmenuitem_render_to_parent": {
 			"type": "boolean"
 		}
 	},

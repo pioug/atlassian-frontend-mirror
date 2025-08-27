@@ -1,4 +1,6 @@
-import type { ResolvedPos, Node } from '@atlaskit/editor-prosemirror/model';
+import clamp from 'lodash/clamp';
+
+import type { Node, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type {
 	EditorState,
 	ReadonlyTransaction,
@@ -6,6 +8,7 @@ import type {
 	Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { isEmptyParagraph } from './editor-core-utils';
 
@@ -24,6 +27,15 @@ export const getStepRange = (
 
 			from = newStart < from || from === -1 ? newStart : from;
 			to = newEnd > to || to === -1 ? newEnd : to;
+
+			// See ticket https://hello.jira.atlassian.cloud/browse/EDITOR-1223 and
+			// PR https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/208332/overview
+			// to see why use clamp here
+			if (editorExperiment('platform_editor_ai_aifc', true)) {
+				const docSize = transaction.doc.content.size;
+				from = clamp(from, 0, docSize);
+				to = clamp(to, 0, docSize);
+			}
 		});
 	});
 

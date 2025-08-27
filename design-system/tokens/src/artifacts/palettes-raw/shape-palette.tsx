@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::279b779961a28128ed651f2f529f7e86>>
+ * @codegen <<SignedSource::f4b022d6e18730437f14e3f2a6430c5a>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -17,11 +17,10 @@ const tokens = [
         "group": "shape"
       }
     },
-    "name": "border.radius.Radius050",
+    "name": "radius.Radius02",
     "path": [
-      "border",
       "radius",
-      "Radius050"
+      "Radius02"
     ]
   },
   {
@@ -37,11 +36,29 @@ const tokens = [
         "group": "shape"
       }
     },
-    "name": "border.radius.Radius100",
+    "name": "radius.Radius04",
     "path": [
-      "border",
       "radius",
-      "Radius100"
+      "Radius04"
+    ]
+  },
+  {
+    "value": "6px",
+    "attributes": {
+      "group": "shape"
+    },
+    "filePath": "schema/palettes/shape-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": 6,
+      "attributes": {
+        "group": "shape"
+      }
+    },
+    "name": "radius.Radius06",
+    "path": [
+      "radius",
+      "Radius06"
     ]
   },
   {
@@ -57,11 +74,10 @@ const tokens = [
         "group": "shape"
       }
     },
-    "name": "border.radius.Radius200",
+    "name": "radius.Radius08",
     "path": [
-      "border",
       "radius",
-      "Radius200"
+      "Radius08"
     ]
   },
   {
@@ -77,11 +93,10 @@ const tokens = [
         "group": "shape"
       }
     },
-    "name": "border.radius.Radius300",
+    "name": "radius.Radius12",
     "path": [
-      "border",
       "radius",
-      "Radius300"
+      "Radius12"
     ]
   },
   {
@@ -97,31 +112,88 @@ const tokens = [
         "group": "shape"
       }
     },
-    "name": "border.radius.Radius400",
+    "name": "radius.Radius16",
     "path": [
-      "border",
       "radius",
-      "Radius400"
+      "Radius16"
     ]
   },
   {
-    "value": "32032px",
+    "value": "20px",
     "attributes": {
       "group": "shape"
     },
     "filePath": "schema/palettes/shape-palette.tsx",
     "isSource": true,
     "original": {
-      "value": 32032,
+      "value": 20,
       "attributes": {
         "group": "shape"
       }
     },
-    "name": "border.radius.RadiusCircle",
+    "name": "radius.Radius20",
+    "path": [
+      "radius",
+      "Radius20"
+    ]
+  },
+  {
+    "value": "9999px",
+    "attributes": {
+      "group": "shape"
+    },
+    "filePath": "schema/palettes/shape-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": 9999,
+      "attributes": {
+        "group": "shape"
+      }
+    },
+    "name": "radius.Radius99",
+    "path": [
+      "radius",
+      "Radius99"
+    ]
+  },
+  {
+    "value": "1px",
+    "attributes": {
+      "group": "shape"
+    },
+    "filePath": "schema/palettes/shape-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": 1,
+      "attributes": {
+        "group": "shape"
+      }
+    },
+    "name": "border.width.BorderWidth1",
     "path": [
       "border",
-      "radius",
-      "RadiusCircle"
+      "width",
+      "BorderWidth1"
+    ]
+  },
+  {
+    "value": "2px",
+    "attributes": {
+      "group": "shape"
+    },
+    "filePath": "schema/palettes/shape-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": 2,
+      "attributes": {
+        "group": "shape"
+      }
+    },
+    "name": "border.width.BorderWidth2",
+    "path": [
+      "border",
+      "width",
+      "BorderWidth2"
     ]
   },
   {
@@ -142,46 +214,6 @@ const tokens = [
       "border",
       "width",
       "Size0"
-    ]
-  },
-  {
-    "value": "1px",
-    "attributes": {
-      "group": "shape"
-    },
-    "filePath": "schema/palettes/shape-palette.tsx",
-    "isSource": true,
-    "original": {
-      "value": 1,
-      "attributes": {
-        "group": "shape"
-      }
-    },
-    "name": "border.width.Size050",
-    "path": [
-      "border",
-      "width",
-      "Size050"
-    ]
-  },
-  {
-    "value": "2px",
-    "attributes": {
-      "group": "shape"
-    },
-    "filePath": "schema/palettes/shape-palette.tsx",
-    "isSource": true,
-    "original": {
-      "value": 2,
-      "attributes": {
-        "group": "shape"
-      }
-    },
-    "name": "border.width.Size100",
-    "path": [
-      "border",
-      "width",
-      "Size100"
     ]
   },
   {

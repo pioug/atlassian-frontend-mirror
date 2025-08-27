@@ -740,9 +740,7 @@ export default function SSRTableBasic() {
 			experiments={{
 				platform_editor_exp_lazy_node_views: true,
 			}}
-			featureFlags={{
-				platform_editor_table_fallback_to_dom_on_ssr: true,
-			}}
+			featureFlags={{}}
 		/>
 	);
 }

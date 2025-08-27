@@ -8,16 +8,6 @@ export const CHANNEL = '__ATLASKIT_THEME__';
 export const DEFAULT_THEME_MODE = 'light';
 export const THEME_MODES = ['light', 'dark'];
 
-/*
-  These theme values are expressed as functions so that if we decide to make
-  them dependent on props in the future, it wouldn't require a significant
-  refactor everywhere they are being used.
-*/
-/**
- * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
- * @deprecated Use `token('border.radius', '3px')` instead.
- */
-export const borderRadius = () => 3;
 /**
  * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
  * @deprecated Use `token('space.100', '8px')` instead with any of the space tokens.

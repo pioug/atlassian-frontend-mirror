@@ -64,6 +64,21 @@ export const NON_VISUAL_ARIA_ATTRIBUTES: string[] = [
 	'aria-live',
 ];
 
+// Common third party browser extension attributes
+export const THIRD_PARTY_BROWSER_EXTENSION_ATTRIBUTES: string[] = [
+	'bis_skin_checked',
+	'cz-shortcut-listen',
+	'monica-version',
+	'data-gr-ext-installed',
+	'data-dashlane-rid',
+	'sapling-installed',
+	'data-gptw',
+	// grammarly extensions
+	'data-new-gr-c-s-loaded',
+	'data-gr-aaa-notch-connection-id',
+	'data-gr-aaa-loaded',
+];
+
 export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 	constructor() {
 		super(REVISION_NO);
@@ -99,8 +114,9 @@ export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 				attributeName === 'id' ||
 				attributeName === 'tabindex' ||
 				attributeName === 'data-is-ttvc-ready' ||
-				attributeName === 'data-new-gr-c-c-s-loaded' ||
-				NON_VISUAL_ARIA_ATTRIBUTES.includes(attributeName)
+				NON_VISUAL_ARIA_ATTRIBUTES.includes(attributeName) ||
+				(THIRD_PARTY_BROWSER_EXTENSION_ATTRIBUTES.includes(attributeName) &&
+					fg('platform_ufo_exclude_3p_extensions_from_ttvc'))
 			) {
 				return false;
 			}

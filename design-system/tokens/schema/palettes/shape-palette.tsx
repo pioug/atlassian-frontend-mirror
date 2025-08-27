@@ -8,26 +8,28 @@ export type BaseSizeToken = keyof typeof baseSizeTokens;
 export type BaseRadiusToken = keyof typeof baseRadiusTokens;
 
 const baseSizeTokens = {
+	// deprecated
 	Size0: {
 		value: 0,
 		attributes: {
 			group: 'shape',
 		},
 	},
-	Size050: {
+	// deprecated
+	Size200: {
+		value: 3,
+		attributes: {
+			group: 'shape',
+		},
+	},
+	BorderWidth1: {
 		value: 1,
 		attributes: {
 			group: 'shape',
 		},
 	},
-	Size100: {
+	BorderWidth2: {
 		value: 2,
-		attributes: {
-			group: 'shape',
-		},
-	},
-	Size200: {
-		value: 3,
 		attributes: {
 			group: 'shape',
 		},
@@ -35,39 +37,50 @@ const baseSizeTokens = {
 } as const;
 
 const baseRadiusTokens = {
-	Radius050: {
+	Radius02: {
 		value: 2,
 		attributes: {
 			group: 'shape',
 		},
 	},
-	Radius100: {
+	Radius04: {
 		value: 4,
 		attributes: {
 			group: 'shape',
 		},
 	},
-	Radius200: {
+	Radius06: {
+		value: 6,
+		attributes: {
+			group: 'shape',
+		},
+	},
+	Radius08: {
 		value: 8,
 		attributes: {
 			group: 'shape',
 		},
 	},
-	Radius300: {
+	Radius12: {
 		value: 12,
 		attributes: {
 			group: 'shape',
 		},
 	},
-	Radius400: {
+	Radius16: {
 		value: 16,
 		attributes: {
 			group: 'shape',
 		},
 	},
-	RadiusCircle: {
-		// The year atlassian was founded in rem
-		value: 32032,
+	Radius20: {
+		value: 20,
+		attributes: {
+			group: 'shape',
+		},
+	},
+	Radius99: {
+		value: 9999,
 		attributes: {
 			group: 'shape',
 		},
@@ -76,9 +89,9 @@ const baseRadiusTokens = {
 
 const shapePalette: ShapeScaleTokenSchema<BaseRadiusToken, BaseSizeToken> = {
 	border: {
-		radius: baseRadiusTokens,
 		width: baseSizeTokens,
 	},
+	radius: baseRadiusTokens,
 };
 
 export default shapePalette;

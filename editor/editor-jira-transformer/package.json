@@ -22,14 +22,6 @@
 	},
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
-	"af:exports": {
-		".": "./src/index.ts",
-		"./collapse-whitespace": "./src/collapse-whitespace.ts",
-		"./emojiHelper": "./src/emojiHelper.ts",
-		"./fix-doc": "./src/fix-doc.ts",
-		"./parse-html": "./src/parse-html.ts",
-		"./utils": "./src/utils.ts"
-	},
 	"exports": {
 		".": "./src/index.ts",
 		"./collapse-whitespace": "./src/collapse-whitespace.ts",

@@ -12,4 +12,9 @@ export const textColorMessages = defineMessages({
 		defaultMessage: 'Text color',
 		description: 'Toolip of menu that provides access to various colors of text.',
 	},
+	textColorHighlightTooltip: {
+		id: 'fabric.editor.textColorHighlightTooltip',
+		defaultMessage: 'Text and Highlight color',
+		description: 'Tooltip of menu that provides access to various colors of highlight.',
+	},
 });

@@ -1,5 +1,21 @@
 # @atlaskit/tokens
 
+## 6.1.1
+
+### Patch Changes
+
+- [`4c58e9d3cd0b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4c58e9d3cd0b5) -
+  Add radius tokens to CSS type.
+
+## 6.1.0
+
+### Minor Changes
+
+- [`fcd8f46058cd2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fcd8f46058cd2) -
+  Added new radius and border width tokens. Added new shape themes: `shape-rounder` and
+  `shape-roundest`. Note these new themes are experimental and may be deleted without notice.
+  Deprecated old border radius and border width tokens.
+
 ## 6.0.0
 
 ### Major Changes

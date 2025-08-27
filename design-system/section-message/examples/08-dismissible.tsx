@@ -6,17 +6,41 @@ import SectionMessage from '@atlaskit/section-message';
 const Example = () => (
 	<Box padding="space.250">
 		<Stack space="space.150">
-			<SectionMessage title="New" testId="section-message" appearance="discovery" isDismissible>
+			<SectionMessage
+				title="New"
+				testId="section-message"
+				appearance="discovery"
+				isDismissible
+				onDismiss={() => {
+					console.log('dismissed');
+				}}
+			>
 				<Text as="p">
 					This is a live doc! You can make updates instantly without having to publish.
 				</Text>
 			</SectionMessage>
-			<SectionMessage title="New" testId="section-message" appearance="information" isDismissible>
+			<SectionMessage
+				title="New"
+				testId="section-message"
+				appearance="information"
+				isDismissible
+				onDismiss={() => {
+					console.log('dismissed');
+				}}
+			>
 				<Text as="p">
 					This is a live doc! You can make updates instantly without having to publish.
 				</Text>
 			</SectionMessage>
-			<SectionMessage title="New" testId="section-message" appearance="warning" isDismissible>
+			<SectionMessage
+				title="New"
+				testId="section-message"
+				appearance="warning"
+				isDismissible
+				onDismiss={() => {
+					console.log('dismissed');
+				}}
+			>
 				<Text as="p">
 					This is a live doc! You can make updates instantly without having to publish.
 				</Text>

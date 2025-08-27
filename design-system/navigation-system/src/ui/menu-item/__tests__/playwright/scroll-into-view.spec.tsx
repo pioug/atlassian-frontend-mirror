@@ -34,9 +34,7 @@ test.describe('scroll into view', () => {
 		}) => {
 			await page.setViewportSize(viewportSize);
 
-			await page.visitExample('design-system', 'navigation-system', 'menu-item-scroll-into-view', {
-				featureFlag: 'platform_dst_expandable_menu_item_elembefore_label',
-			});
+			await page.visitExample('design-system', 'navigation-system', 'menu-item-scroll-into-view');
 
 			// Collapse the "Teams" expandable menu item
 			// We need to click on the collapse chevron icon button (instead of the menu item), so we only toggle the menu item and

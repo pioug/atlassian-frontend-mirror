@@ -151,7 +151,7 @@ export const createPlugin = (
 				tableHeader: tableHeaderView({ eventDispatcher, pluginInjectionApi }),
 			};
 		}
-		if (isSSR() && fg('platform_editor_table_fallback_to_dom_on_ssr')) {
+		if (isSSR()) {
 			return undefined;
 		}
 		return {

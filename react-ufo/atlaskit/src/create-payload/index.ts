@@ -407,7 +407,7 @@ function optimizeRedirects(redirects: InteractionMetrics['redirects'], interacti
 	return updatedRedirects;
 }
 
-function optimizeHoldInfo(
+export function optimizeHoldInfo(
 	holdInfo: InteractionMetrics['holdInfo'],
 	interactionStart: number,
 	reactUFOVersion: ReturnType<typeof getReactUFOPayloadVersion>,

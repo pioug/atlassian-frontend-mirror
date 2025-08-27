@@ -98,6 +98,7 @@ export const FlyoutMenuItemContent = forwardRef<HTMLDivElement, FlyoutMenuItemCo
 				 * need to be repositioned.
 				 */
 				shouldDisableGpuAcceleration
+				shouldRenderToParent={fg('platform_dst_nav4_flyoutmenuitem_render_to_parent')}
 			>
 				{({ update }) => (
 					<UpdatePopperOnContentResize ref={forwardedRef} update={update}>

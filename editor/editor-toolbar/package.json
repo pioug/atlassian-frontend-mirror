@@ -3,7 +3,7 @@
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
 	},
-	"version": "0.4.0",
+	"version": "0.5.1",
 	"description": "Common UI for Toolbars across the platform",
 	"atlassian": {
 		"team": "Editor: Jenga",
@@ -33,6 +33,7 @@
 		"@atlaskit/logo": "workspace:^",
 		"@atlaskit/popup": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
+		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
 		"@babel/runtime": "root:*",

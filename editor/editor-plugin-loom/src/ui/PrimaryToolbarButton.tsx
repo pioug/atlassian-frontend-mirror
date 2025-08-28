@@ -8,8 +8,6 @@ import React, { useCallback } from 'react';
 import { jsx } from '@emotion/react';
 
 import {
-	useSharedPluginState,
-	sharedPluginStateHookMigratorFactory,
 	type NamedPluginStatesFromInjectionAPI,
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
@@ -37,19 +35,6 @@ const selector = (
 	};
 };
 
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<LoomPlugin> | undefined) => {
-		return useSharedPluginStateWithSelector(api, ['loom', 'connectivity'], selector);
-	},
-	(api: ExtractInjectionAPI<LoomPlugin> | undefined) => {
-		const { loomState, connectivityState } = useSharedPluginState(api, ['loom', 'connectivity']);
-		return {
-			loomEnabled: loomState?.isEnabled,
-			connectivityMode: connectivityState?.mode,
-		};
-	},
-);
-
 const CustomisableLoomToolbarButton = (
 	disabled: boolean,
 	appearance: EditorAppearance,
@@ -57,7 +42,11 @@ const CustomisableLoomToolbarButton = (
 ) =>
 	React.forwardRef<HTMLElement, ButtonComponentProps>((props, ref) => {
 		const { onClickBeforeInit, isDisabled = false, href, ...restProps } = props;
-		const { loomEnabled, connectivityMode } = useSharedState(api);
+		const { loomEnabled, connectivityMode } = useSharedPluginStateWithSelector(
+			api,
+			['loom', 'connectivity'],
+			selector,
+		);
 		const isLoomEnabled = !!loomEnabled;
 		const handleOnClick = useCallback(
 			(e: React.MouseEvent<HTMLElement, MouseEvent>) => {
@@ -96,7 +85,11 @@ const LoomToolbarButtonWrapper = ({
 	disabled: boolean;
 }) => {
 	const handleOnClick = useCallback(() => executeRecordVideo(api), [api]);
-	const { loomEnabled, connectivityMode } = useSharedState(api);
+	const { loomEnabled, connectivityMode } = useSharedPluginStateWithSelector(
+		api,
+		['loom', 'connectivity'],
+		selector,
+	);
 	if (loomEnabled === undefined) {
 		return null;
 	}

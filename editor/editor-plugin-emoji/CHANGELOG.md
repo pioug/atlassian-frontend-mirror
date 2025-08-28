@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-emoji
 
+## 4.3.3
+
+### Patch Changes
+
+- [`a2cd8c46a3e94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2cd8c46a3e94) -
+  EDITOR-1442 Bump adf-schema
+- Updated dependencies
+
 ## 4.3.2
 
 ### Patch Changes

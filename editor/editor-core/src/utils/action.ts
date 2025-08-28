@@ -1,3 +1,5 @@
+import type { Node } from 'prosemirror-model';
+
 import type { MediaPluginState } from '@atlaskit/editor-plugins/media/types';
 import type { EditorState, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -12,7 +14,7 @@ const mediaPluginKey = {
 	},
 } as PluginKey;
 
-export async function getEditorValueWithMedia(editorView: EditorView) {
+export async function getEditorValueWithMedia(editorView: EditorView): Promise<Node> {
 	const mediaPluginState =
 		editorView.state && (mediaPluginKey.getState(editorView.state) as MediaPluginState);
 

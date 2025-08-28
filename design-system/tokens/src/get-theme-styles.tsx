@@ -106,6 +106,8 @@ const getThemeStyles = async (
 					return undefined;
 				}
 			}
+
+			return undefined;
 		})(),
 	]);
 

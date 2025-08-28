@@ -1,5 +1,20 @@
 # @atlaskit/profilecard
 
+## 24.7.4
+
+### Patch Changes
+
+- [`69c6b5b0da1e6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/69c6b5b0da1e6) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
+## 24.7.3
+
+### Patch Changes
+
+- [`9383d1ef58fe1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9383d1ef58fe1) -
+  Cleanup feature gate cc_mention_ssr_placeholder
+
 ## 24.7.2
 
 ### Patch Changes

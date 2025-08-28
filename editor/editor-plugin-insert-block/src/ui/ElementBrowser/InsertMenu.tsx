@@ -13,8 +13,6 @@ import { CellMeasurerCache } from 'react-virtualized/dist/commonjs/CellMeasurer'
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { ELEMENT_ITEM_HEIGHT, ElementBrowser } from '@atlaskit/editor-common/element-browser';
 import {
-	useSharedPluginState,
-	sharedPluginStateHookMigratorFactory,
 	type NamedPluginStatesFromInjectionAPI,
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
@@ -57,19 +55,6 @@ const selector = (
 		connectivityMode: states.connectivityState?.mode,
 	};
 };
-
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<typeof insertBlockPlugin> | undefined) => {
-		return useSharedPluginStateWithSelector(api, ['connectivity'], selector);
-	},
-	(api: ExtractInjectionAPI<typeof insertBlockPlugin> | undefined) => {
-		const { connectivityState } = useSharedPluginState(api, ['connectivity']);
-
-		return {
-			connectivityMode: connectivityState?.mode,
-		};
-	},
-);
 
 const InsertMenu = ({
 	editorView,
@@ -149,7 +134,11 @@ const InsertMenu = ({
 		[editorView, toggleVisiblity, pluginInjectionApi],
 	);
 
-	const { connectivityMode } = useSharedState(pluginInjectionApi);
+	const { connectivityMode } = useSharedPluginStateWithSelector(
+		pluginInjectionApi,
+		['connectivity'],
+		selector,
+	);
 
 	const getItems = useCallback(
 		(query?: string, category?: string) => {

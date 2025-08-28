@@ -7,6 +7,7 @@ import React, { type ReactNode, useCallback } from 'react';
 import { jsx, cssMap } from '@compiled/react';
 
 import DropdownMenu, { type OnOpenChangeArgs } from '@atlaskit/dropdown-menu';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { useToolbarUI } from '../hooks/ui-context';
@@ -17,6 +18,14 @@ import { ToolbarDropdownMenuProvider, useToolbarDropdownMenu } from './ToolbarDr
 const styles = cssMap({
 	sectionMargin: {
 		marginBlock: token('space.050'),
+	},
+
+	firstSectionSeparator: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'[data-section]:nth-of-type(1)': {
+			// Remove separator from first section
+			borderBlockStart: 'unset',
+		},
 	},
 });
 
@@ -105,7 +114,15 @@ export const ToolbarDropdownMenu = ({
 				testId={testId}
 				label={label}
 			>
-				<div css={hasSectionMargin && styles.sectionMargin}>{children}</div>
+				<div
+					css={[
+						hasSectionMargin && styles.sectionMargin,
+						expValEquals('platform_editor_toolbar_migrate_loom', 'isEnabled', true) &&
+							styles.firstSectionSeparator,
+					]}
+				>
+					{children}
+				</div>
 			</ToolbarDropdownMenuContent>
 		</ToolbarDropdownMenuProvider>
 	);

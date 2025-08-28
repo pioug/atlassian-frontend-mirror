@@ -1,5 +1,36 @@
 # @atlaskit/editor-common
 
+## 107.33.1
+
+### Patch Changes
+
+- [`ef3b2dfa2f8a8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef3b2dfa2f8a8) -
+  Internal changes to use radius tokens. No visual changes.
+- Updated dependencies
+
+## 107.33.0
+
+### Minor Changes
+
+- [`7f80a286e8a06`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7f80a286e8a06) -
+  add feature flag and basic ai plugin config for the generate escalation notes feature
+
+### Patch Changes
+
+- [`4ef462fecb522`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4ef462fecb522) -
+  [ux] [ED-29003] Register loom component as a dropdown menu item in overflow menu
+- [`a2cd8c46a3e94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2cd8c46a3e94) -
+  EDITOR-1442 Bump adf-schema
+- Updated dependencies
+
+## 107.32.1
+
+### Patch Changes
+
+- [`9383d1ef58fe1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9383d1ef58fe1) -
+  Cleanup feature gate cc_mention_ssr_placeholder
+- Updated dependencies
+
 ## 107.32.0
 
 ### Minor Changes

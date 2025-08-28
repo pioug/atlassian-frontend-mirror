@@ -27,7 +27,8 @@
 		".": "./src/index.ts",
 		"./team-containers": "./src/ui/team-containers/index.ts",
 		"./loom-avatar": "./src/common/ui/loom-avatar/index.ts",
-		"./i18n": "./src/i18n/index.ts"
+		"./i18n": "./src/i18n/index.ts",
+		"./next": "./src/next/index.ts"
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:^",
@@ -48,6 +49,7 @@
 		"@atlaskit/people-teams-ui-public": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
+		"@atlaskit/skeleton": "workspace:^",
 		"@atlaskit/teams-app-internal-product-permissions": "workspace:^",
 		"@atlaskit/teams-client": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
@@ -79,9 +81,6 @@
 	},
 	"techstack": {
 		"@atlassian/frontend": {
-			"code-structure": [
-				"tangerine-next"
-			],
 			"import-structure": [
 				"atlassian-conventions"
 			],
@@ -116,7 +115,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "0.55.3",
+	"version": "0.55.4",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -153,6 +152,9 @@
 			"type": "boolean"
 		},
 		"prevent_parallel_team_web_links_fetch": {
+			"type": "boolean"
+		},
+		"enable_new_team_profile": {
 			"type": "boolean"
 		}
 	}

@@ -32,10 +32,6 @@
 		"*.compiled.css"
 	],
 	"atlaskit:src": "src/index.tsx",
-	"af:exports": {
-		"./drag-handle-button": "./src/drag-handle-button.tsx",
-		"./drag-handle-button-small": "./src/drag-handle-button-small.tsx"
-	},
 	"exports": {
 		"./drag-handle-button": "./src/drag-handle-button.tsx",
 		"./drag-handle-button-small": "./src/drag-handle-button-small.tsx"

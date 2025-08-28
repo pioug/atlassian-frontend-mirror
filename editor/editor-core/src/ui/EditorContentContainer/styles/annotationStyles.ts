@@ -1,10 +1,11 @@
-import { css } from '@emotion/react'; // eslint-disable-line @atlaskit/ui-styling-standard/use-compiled
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { AnnotationSharedClassNames } from '@atlaskit/editor-common/styles';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const annotationStyles = css({
+export const annotationStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values

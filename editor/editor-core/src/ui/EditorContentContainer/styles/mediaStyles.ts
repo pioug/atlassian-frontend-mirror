@@ -1,4 +1,5 @@
-import { css } from '@emotion/react'; // eslint-disable-line @atlaskit/ui-styling-standard/use-compiled
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { INLINE_IMAGE_WRAPPER_CLASS_NAME } from '@atlaskit/editor-common/media-inline';
 import { MediaSharedClassNames, richMediaClassName } from '@atlaskit/editor-common/styles';
@@ -16,6 +17,8 @@ import {
 	newFileExperienceClassName,
 } from '@atlaskit/media-card';
 import { token } from '@atlaskit/tokens';
+
+import { dangerBorderStyles } from './selectionStyles';
 
 const wrappedMediaBreakoutPoint = 410;
 
@@ -44,7 +47,7 @@ const referenceHeights = {
 const inlineImageSelector = `> .mediaInlineView-content-wrap > .${INLINE_IMAGE_WRAPPER_CLASS_NAME}, > :is(a, span[data-mark-type='border']) .mediaInlineView-content-wrap > .${INLINE_IMAGE_WRAPPER_CLASS_NAME}, > .${INLINE_IMAGE_WRAPPER_CLASS_NAME}, > :is(a, span[data-mark-type='border']) .${INLINE_IMAGE_WRAPPER_CLASS_NAME}`;
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles,@atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values
-export const mediaStyles = css({
+export const mediaStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values,@atlaskit/ui-styling-standard/no-imported-style-values
@@ -428,7 +431,18 @@ export const mediaStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const mediaGroupStyles = css({
+export const mediaDangerStyles: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+		[`.mediaInlineView-content-wrap.${akEditorSelectedNodeClassName}.danger .${INLINE_IMAGE_WRAPPER_CLASS_NAME}`]:
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			[dangerBorderStyles],
+	},
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const mediaGroupStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.mediaGroupView-content-wrap ul': {
 		padding: 0,
@@ -436,7 +450,7 @@ export const mediaGroupStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const mediaAlignmentStyles = css({
+export const mediaAlignmentStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.fabric-editor-block-mark[class^="fabric-editor-align"]': {
 		// It was `clear: none !important` before, but it was causing typescript errors

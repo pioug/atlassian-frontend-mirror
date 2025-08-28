@@ -9,6 +9,7 @@ import { css, jsx } from '@compiled/react';
 
 import { browser } from '@atlaskit/linking-common/user-agent';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { ActionName, ElementName, SmartLinkPosition } from '../../../constants';
@@ -93,6 +94,10 @@ const ResolvedView = ({
 	const uiOptions = FlexibleCardUiOptions;
 	if (fg('cc-ai-linking-platform-snippet-renderer')) {
 		uiOptions.enableSnippetRenderer = true;
+	}
+
+	if (expValEquals('platform_editor_smart_card_otp', 'isEnabled', true)) {
+		uiOptions.hideLoadingSkeleton = hideIconLoadingSkeleton;
 	}
 
 	return (

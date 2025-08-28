@@ -1,5 +1,12 @@
 # @atlaskit/mention
 
+## 24.2.13
+
+### Patch Changes
+
+- [`9383d1ef58fe1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9383d1ef58fe1) -
+  Cleanup feature gate cc_mention_ssr_placeholder
+
 ## 24.2.12
 
 ### Patch Changes

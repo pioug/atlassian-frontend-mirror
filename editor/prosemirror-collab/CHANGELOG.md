@@ -1,5 +1,13 @@
 # @atlaskit/prosemirror-collab
 
+## 0.17.14
+
+### Patch Changes
+
+- [`a2cd8c46a3e94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2cd8c46a3e94) -
+  EDITOR-1442 Bump adf-schema
+- Updated dependencies
+
 ## 0.17.13
 
 ### Patch Changes

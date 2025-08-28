@@ -321,37 +321,30 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 											</legend>
 											<Field name="can-be-contacted">
 												{({ fieldProps }) => (
-													<>
-														<Checkbox
-															{...fieldProps}
-															aria-describedby={undefined} // JCA11Y-1988
-															label={
-																canBeContactedLabel || (
-																	<FormattedMessage
-																		{...(fg('product-terminology-refresh')
-																			? messages.canBeContactedLabelAppify
-																			: messages.canBeContactedLabel)}
-																	/>
-																)
-															}
-															onChange={(event) => setCanBeContacted(event.target.checked)}
-														/>
-														<span
-															style={{
-																// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-																paddingInlineStart: token('space.300'),
-																// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-																marginInlineStart: token('space.050'),
-															}}
-														>
-															<Link
-																href="https://www.atlassian.com/legal/privacy-policy"
-																target="_blank"
-															>
-																{formatMessage(messages.privacyPolicy)}
-															</Link>
-														</span>
-													</>
+													<Checkbox
+														{...fieldProps}
+														aria-describedby={undefined} // JCA11Y-1988
+														label={
+															canBeContactedLabel || (
+																<FormattedMessage
+																	{...(fg('product-terminology-refresh')
+																		? messages.canBeContactedLabelAppify
+																		: messages.canBeContactedLabel)}
+																	values={{
+																		a: (chunks: React.ReactNode[]) => (
+																			<Link
+																				href="https://www.atlassian.com/legal/privacy-policy"
+																				target="_blank"
+																			>
+																				{chunks}
+																			</Link>
+																		),
+																	}}
+																/>
+															)
+														}
+														onChange={(event) => setCanBeContacted(event.target.checked)}
+													/>
 												)}
 											</Field>
 

@@ -16,6 +16,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { expValNoExposure } from '@atlaskit/tmp-editor-statsig/expVal';
 import { useThemeObserver } from '@atlaskit/tokens';
 
 import {
@@ -49,10 +50,10 @@ import {
 import { codeMarkStyles } from './styles/codeMarkStyles';
 import { commentEditorStyles } from './styles/commentEditorStyles';
 import { cursorStyles } from './styles/cursorStyles';
-import { dateStyles, dateVanillaStyles } from './styles/dateStyles';
+import { dangerDateStyles, dateStyles, dateVanillaStyles } from './styles/dateStyles';
 import { editorUGCTokensDefault, editorUGCTokensRefreshed } from './styles/editorUGCTokenStyles';
 import { embedCardStyles } from './styles/embedCardStyles';
-import { emojiStyles, emojiStylesWithSelectorFixes } from './styles/emoji';
+import { emojiDangerStyles, emojiStyles, emojiStylesWithSelectorFixes } from './styles/emoji';
 import {
 	expandStyles,
 	expandStylesMixin_fg_platform_editor_nested_dnd_styles_changes,
@@ -89,13 +90,19 @@ import {
 } from './styles/layout';
 import { hyperLinkFloatingToolbarStyles, linkLegacyIconStylesFix, linkStyles } from './styles/link';
 import { listsStyles, listsStylesSafariFix } from './styles/list';
-import { mediaAlignmentStyles, mediaGroupStyles, mediaStyles } from './styles/mediaStyles';
+import {
+	mediaAlignmentStyles,
+	mediaDangerStyles,
+	mediaGroupStyles,
+	mediaStyles,
+} from './styles/mediaStyles';
 import {
 	mentionsStyles,
 	mentionsSelectionStyles,
 	mentionNodeStyles,
 	mentionsStylesMixin_platform_editor_centre_mention_padding,
 	mentionsSelectionStylesWithSearchMatch,
+	mentionDangerStyles,
 } from './styles/mentions';
 import {
 	panelStyles,
@@ -120,7 +127,7 @@ import {
 	pragmaticResizerStylesWithReducedEditorGutter,
 	resizerStyles,
 } from './styles/resizerStyles';
-import { ruleStyles } from './styles/rule';
+import { dangerRuleStyles, ruleStyles } from './styles/rule';
 import { scrollbarStyles } from './styles/scrollbarStyles';
 import {
 	hideCursorWhenHideSelectionStyles,
@@ -134,10 +141,12 @@ import {
 	linkingVisualRefreshV1Styles,
 	smartCardStyles,
 	smartCardStylesWithSearchMatch,
+	smartCardStylesWithSearchMatchAndBlockMenuDangerStyles,
 	smartCardStylesWithSearchMatchAndPreviewPanelResponsiveness,
 	smartLinksInLivePagesStyles,
 } from './styles/smartCardStyles';
 import {
+	statusDangerStyles,
 	statusStyles,
 	statusStylesMixin_fg_platform_component_visual_refresh,
 	statusStylesMixin_fg_platform_component_visual_refresh_with_search_match,
@@ -152,6 +161,7 @@ import {
 	decisionIconWithoutVisualRefresh,
 	taskItemStyles,
 	taskItemStylesWithBlockTaskItem,
+	decisionDangerStyles,
 } from './styles/tasksAndDecisionsStyles';
 import { telepointerColorAndCommonStyle, telepointerStyle } from './styles/telepointerStyles';
 import { textColorStyles } from './styles/textColorStyles';
@@ -363,8 +373,11 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					annotationStyles,
 					expValEqualsNoExposure('platform_editor_find_and_replace_improvements', 'isEnabled', true)
-						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							smartCardStylesWithSearchMatch
+						? expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
+							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+								smartCardStylesWithSearchMatchAndBlockMenuDangerStyles
+							: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+								smartCardStylesWithSearchMatch
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							smartCardStyles,
 					expValEqualsNoExposure(
@@ -376,11 +389,7 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 						smartCardStylesWithSearchMatchAndPreviewPanelResponsiveness,
 					((expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1') &&
 						fg('platform_editor_controls_patch_15')) ||
-						expValEqualsNoExposure(
-							'platform_editor_preview_panel_linking_exp',
-							'isEnabled',
-							true,
-						)) &&
+						editorExperiment('platform_editor_preview_panel_linking_exp', true)) &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						editorControlsSmartCardStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -530,6 +539,23 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					fg('confluence_floating_toolbar_animation') && selectionToolbarAnimationStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					fg('platform_editor_vanilla_codebidi_warning') && codeBidiWarningStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					expValNoExposure('platform_editor_block_menu', 'isEnabled', true) && [
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						dangerDateStyles,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						emojiDangerStyles,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						mentionDangerStyles,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						decisionDangerStyles,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						statusDangerStyles,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						dangerRuleStyles,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						mediaDangerStyles,
+					],
 				]}
 				data-editor-scroll-container={isScrollable ? 'true' : undefined}
 				data-testid="editor-content-container"

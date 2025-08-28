@@ -9,10 +9,12 @@ import { cssMap, jsx } from '@compiled/react';
 import { type MessageDescriptor } from 'react-intl-next';
 
 import { Box } from '@atlaskit/primitives/compiled';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { IconType } from '../../../../../../constants';
 import { messages } from '../../../../../../messages';
+import { useFlexibleUiOptionContext } from '../../../../../../state/flexible-ui-context';
 import AtlaskitIcon from '../../../common/atlaskit-icon';
 import ImageIcon from '../../../common/image-icon';
 import { withOverrideCss } from '../../../common/with-override-css';
@@ -82,9 +84,21 @@ const renderAtlaskitIcon = (icon?: IconType, testId?: string): React.ReactNode |
 	}
 };
 
-const renderImageIcon = (url?: string, testId?: string): React.ReactNode | undefined => {
+const renderImageIcon = (
+	url?: string,
+	testId?: string,
+	hideLoadingSkeleton?: boolean,
+): React.ReactNode | undefined => {
 	if (url) {
-		return <ImageIcon testId={testId} url={url} />;
+		return (
+			<ImageIcon
+				testId={testId}
+				url={url}
+				hideLoadingSkeleton={
+					expValEquals('platform_editor_smart_card_otp', 'isEnabled', true) && hideLoadingSkeleton
+				}
+			/>
+		);
 	}
 };
 
@@ -102,6 +116,11 @@ export type BaseBadgeElementProps = ElementProps & {
 	 * the badge will be displayed without the icon, showing only the label text.
 	 */
 	hideIcon?: boolean;
+	/**
+	 * When set to true, the loading skeleton for the image icon will be hidden,
+	 * the image will be rendered directly.
+	 */
+	hideIconLoadingSkeleton?: boolean;
 	/**
 	 * The Atlaskit Icon to display next to the label. If this is not supplied,
 	 * then the badge icon will fallback to the URL provided.
@@ -144,8 +163,14 @@ const BaseBadgeRefreshNew = forwardRef(
 		}: BaseBadgeElementProps,
 		ref: React.Ref<HTMLElement>,
 	) => {
+		const ui = expValEquals('platform_editor_smart_card_otp', 'isEnabled', true)
+			? // eslint-disable-next-line react-hooks/rules-of-hooks
+				useFlexibleUiOptionContext()
+			: undefined;
+
 		const formattedMessageOrLabel = getFormattedMessageFromIcon(icon) || label;
-		const badgeIcon = renderAtlaskitIcon(icon, testId) || renderImageIcon(url, testId);
+		const badgeIcon =
+			renderAtlaskitIcon(icon, testId) || renderImageIcon(url, testId, ui?.hideLoadingSkeleton);
 		if (!formattedMessageOrLabel || !badgeIcon) {
 			return null;
 		}

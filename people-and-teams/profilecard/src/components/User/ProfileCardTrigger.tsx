@@ -409,7 +409,7 @@ export default function ProfilecardTriggerNext({
 		disabledAriaAttributes: disabledAriaAttributes,
 	};
 
-	const ssrPlaceholderProp = fg('cc_mention_ssr_placeholder')
+	const ssrPlaceholderProp = ssrPlaceholderId
 		? { 'data-ssr-placeholder-replace': ssrPlaceholderId }
 		: {};
 

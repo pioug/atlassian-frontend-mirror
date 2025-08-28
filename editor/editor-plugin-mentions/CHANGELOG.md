@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-mentions
 
+## 5.2.12
+
+### Patch Changes
+
+- [`8497783928a16`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8497783928a16) -
+  ED-29110: clean up sharedPluginStateHookMigratorFactory in media, mentions and paste options
+- Updated dependencies
+
+## 5.2.11
+
+### Patch Changes
+
+- [`a2cd8c46a3e94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2cd8c46a3e94) -
+  EDITOR-1442 Bump adf-schema
+- Updated dependencies
+
 ## 5.2.10
 
 ### Patch Changes

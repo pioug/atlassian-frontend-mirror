@@ -5,8 +5,6 @@
 
 import React, { useEffect, useState } from 'react';
 import { css, jsx, keyframes } from '@compiled/react';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import { WHATS_NEW_ITEM_TYPES } from '../model/WhatsNew';
 import { B500, G300, N30, N30A, N40, N400, N700, P500, Y200 } from '@atlaskit/theme/colors';
@@ -52,7 +50,7 @@ const loadingRectangleStyles = css({
 	display: 'inline-block',
 	verticalAlign: 'middle',
 	position: 'relative',
-	borderRadius: '2px',
+	borderRadius: token('radius.xsmall'),
 	animationDuration: '1.2s',
 	animationFillMode: 'forwards',
 	animationIterationCount: 'infinite',
@@ -85,8 +83,7 @@ export const LoadingRectangle = ({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			...style,
 			height: contentHeight ?? '1rem',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-			marginTop: marginTop ?? gridSize() + 'px',
+			marginTop: marginTop ?? token('space.100'),
 			width: contentWidth ?? '100%',
 		}}
 	/>
@@ -101,16 +98,14 @@ const whatsNewTypeIconStyles = css({
 	display: 'inline-block',
 	'vertical-align': 'middle',
 	position: 'relative',
-	height: `${token('space.200', '16px')}`,
-	width: `${token('space.200', '16px')}`,
+	height: token('space.200'),
+	width: token('space.200'),
 	'border-radius': '2px',
 	color: '#ffff',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'& > img': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-		width: `calc(100% - ${gridSize() / 2}px)`,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-		height: `calc(100% - ${gridSize() / 2}px)`,
+		width: `calc(100% - ${token('space.050')})`,
+		height: `calc(100% - ${token('space.050')})`,
 		position: 'absolute',
 		left: '50%',
 		top: '50%',

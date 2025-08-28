@@ -1,5 +1,12 @@
 # @atlaskit/rovo-triggers
 
+## 3.5.1
+
+### Patch Changes
+
+- [`a2cd8c46a3e94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2cd8c46a3e94) -
+  EDITOR-1442 Bump adf-schema
+
 ## 3.5.0
 
 ### Minor Changes

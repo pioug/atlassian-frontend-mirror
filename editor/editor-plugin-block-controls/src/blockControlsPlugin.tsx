@@ -97,14 +97,20 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 			(options?: { anchorName?: string; closeMenu?: boolean }) =>
 			({ tr }: { tr: Transaction }) => {
 				const currMeta = tr.getMeta(key);
+				const currentUserIntent = api?.userIntent?.sharedState.currentState()?.currentUserIntent;
 				if (options?.closeMenu) {
 					tr.setMeta(key, { ...currMeta, closeMenu: true });
-
+					if (currentUserIntent === 'blockMenuOpen') {
+						api?.userIntent?.commands.setCurrentUserIntent('default')({ tr });
+					}
 					return tr;
 				}
 
 				// Do not open menu on layoutColumn and close opened menu when layoutColumn drag handle is clicked
 				if (options?.anchorName?.includes('layoutColumn')) {
+					if (currentUserIntent === 'blockMenuOpen') {
+						api?.userIntent?.commands.setCurrentUserIntent('default')({ tr });
+					}
 					tr.setMeta(key, { ...currMeta, closeMenu: true });
 					return tr;
 				}
@@ -123,14 +129,12 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 				});
 
 				if (
-					menuTriggerBy === undefined ||
-					(!!menuTriggerBy && menuTriggerBy === options?.anchorName)
+					(menuTriggerBy === undefined ||
+						(!!menuTriggerBy && menuTriggerBy === options?.anchorName)) &&
+					currentUserIntent === 'blockMenuOpen'
 				) {
 					// Toggled from drag handle
-					const currentUserIntent = api?.userIntent?.sharedState.currentState()?.currentUserIntent;
-					if (currentUserIntent === 'blockMenuOpen') {
-						api?.userIntent?.commands.setCurrentUserIntent('default')({ tr });
-					}
+					api?.userIntent?.commands.setCurrentUserIntent('default')({ tr });
 				}
 
 				return tr;

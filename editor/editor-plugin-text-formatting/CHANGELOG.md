@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 3.0.26
+
+### Patch Changes
+
+- [`b9f4eca29e93a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b9f4eca29e93a) -
+  ED-29114 Tidy up FG platform_editor_usesharedpluginstatewithselector for text-color,
+  text-formatting
+- Updated dependencies
+
+## 3.0.25
+
+### Patch Changes
+
+- [`a2cd8c46a3e94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2cd8c46a3e94) -
+  EDITOR-1442 Bump adf-schema
+- Updated dependencies
+
 ## 3.0.24
 
 ### Patch Changes

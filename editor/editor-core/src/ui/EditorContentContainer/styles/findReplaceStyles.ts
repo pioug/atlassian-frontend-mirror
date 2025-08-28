@@ -1,10 +1,10 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const findReplaceStyles = css({
+export const findReplaceStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.search-match': {
 		// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
@@ -19,7 +19,7 @@ export const findReplaceStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const findReplaceStylesNew = css({
+export const findReplaceStylesNew: SerializedStyles = css({
 	/** Text match styles */
 
 	/** Light mode */

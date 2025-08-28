@@ -37,14 +37,14 @@ interface HighlightMenuItemProps {
 const styles = cssMap({
 	container: {
 		marginTop: token('space.200'),
-		gap: token('space.100'),
+		gap: token('space.075'),
 	},
 	removeHighlightButton: {
 		marginInline: token('space.025'),
 		borderWidth: token('border.width'),
 		borderStyle: 'solid',
 		borderColor: token('color.border'),
-		borderRadius: token('border.radius'),
+		borderRadius: token('radius.small'),
 	},
 	icon: {
 		display: 'inline-block',

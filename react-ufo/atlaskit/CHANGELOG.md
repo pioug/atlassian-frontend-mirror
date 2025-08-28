@@ -1,5 +1,21 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.5.3
+
+### Patch Changes
+
+- [`5c1bb03531687`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5c1bb03531687) -
+  FG cleanup - platform_ufo_handle_non_react_element_for_3p
+
+## 4.5.2
+
+### Patch Changes
+
+- [`4dc561b657a31`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4dc561b657a31) -
+  FG cleanup - platform_ufo_report_non_htmlelement_selectors
+- [`0251aa356dcf9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0251aa356dcf9) -
+  fix logic on checkIfExistedAndSizeMatchingV3 function
+
 ## 4.5.1
 
 ### Patch Changes

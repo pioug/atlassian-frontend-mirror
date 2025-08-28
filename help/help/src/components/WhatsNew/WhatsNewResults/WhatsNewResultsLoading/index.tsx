@@ -1,6 +1,5 @@
 import React from 'react';
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
-import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../../messages';
@@ -16,7 +15,7 @@ export const WhatsNewResultsLoading: React.FC<WrappedComponentProps> = ({
 }) => {
 	return (
 		<>
-			<LoadingRectangle contentHeight={`${gridSize() * 5}px`} contentWidth="152px" marginTop="0" />
+			<LoadingRectangle contentHeight="40px" contentWidth="152px" marginTop="0" />
 			<LoadingWhatsNewResultsList aria-label={formatMessage(messages.help_loading)} role="img">
 				<WhatsNewResultsListTitleContainer>
 					<LoadingRectangle contentHeight="11px" contentWidth="60px" marginTop="0" />

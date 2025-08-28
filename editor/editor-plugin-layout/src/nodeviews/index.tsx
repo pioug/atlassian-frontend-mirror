@@ -3,8 +3,6 @@ import React, { useCallback } from 'react';
 import { type EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { type GuidelineConfig } from '@atlaskit/editor-common/guideline';
 import {
-	useSharedPluginState,
-	sharedPluginStateHookMigratorFactory,
 	type NamedPluginStatesFromInjectionAPI,
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
@@ -81,16 +79,6 @@ const selector = (
 	};
 };
 
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<LayoutPlugin> | undefined) => {
-		return useSharedPluginStateWithSelector(api, ['editorDisabled'], selector);
-	},
-	(api: ExtractInjectionAPI<LayoutPlugin> | undefined) => {
-		const { editorDisabledState } = useSharedPluginState(api, ['editorDisabled']);
-		return { editorDisabled: editorDisabledState?.editorDisabled };
-	},
-);
-
 const LayoutBreakoutResizer = ({
 	pluginInjectionApi,
 	forwardRef,
@@ -104,7 +92,11 @@ const LayoutBreakoutResizer = ({
 	pluginInjectionApi?: ExtractInjectionAPI<LayoutPlugin>;
 	view: EditorView;
 }) => {
-	const { editorDisabled } = useSharedState(pluginInjectionApi);
+	const { editorDisabled } = useSharedPluginStateWithSelector(
+		pluginInjectionApi,
+		['editorDisabled'],
+		selector,
+	);
 	const interactionState = useSharedPluginStateSelector(
 		pluginInjectionApi,
 		'interaction.interactionState',

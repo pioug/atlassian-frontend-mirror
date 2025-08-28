@@ -21,6 +21,7 @@ export type EmbedCardProps = {
 	handleErrorRetry: () => void;
 	handleFrameClick: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
 	handleInvoke: InvokeHandler;
+	hideIconLoadingSkeleton?: boolean;
 	id?: string;
 	iframeUrlType?: EmbedIframeUrlType;
 	inheritDimensions?: boolean;

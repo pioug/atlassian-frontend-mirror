@@ -1,11 +1,7 @@
 import React, { useCallback } from 'react';
 
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import {
-	useSharedPluginState,
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import type {
 	Command,
@@ -122,42 +118,19 @@ const Modal = ({
 	);
 };
 
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<QuickInsertPlugin> | undefined) => {
-		const { lazyDefaultItems, providedItems, isElementBrowserModalOpen, emptyStateHandler, mode } =
-			useSharedPluginStateWithSelector(api, ['quickInsert', 'connectivity'], (state) => ({
+export default ({ editorView, helpUrl, pluginInjectionAPI }: Props) => {
+	const { lazyDefaultItems, providedItems, isElementBrowserModalOpen, emptyStateHandler, mode } =
+		useSharedPluginStateWithSelector(
+			pluginInjectionAPI,
+			['quickInsert', 'connectivity'],
+			(state) => ({
 				lazyDefaultItems: state.quickInsertState?.lazyDefaultItems,
 				providedItems: state.quickInsertState?.providedItems,
 				isElementBrowserModalOpen: state.quickInsertState?.isElementBrowserModalOpen,
 				emptyStateHandler: state.quickInsertState?.emptyStateHandler,
 				mode: state.connectivityState?.mode,
-			}));
-		return {
-			mode,
-			lazyDefaultItems,
-			providedItems,
-			isElementBrowserModalOpen,
-			emptyStateHandler,
-		};
-	},
-	(api: ExtractInjectionAPI<QuickInsertPlugin> | undefined) => {
-		const { quickInsertState, connectivityState } = useSharedPluginState(api, [
-			'quickInsert',
-			'connectivity',
-		]);
-		return {
-			lazyDefaultItems: quickInsertState?.lazyDefaultItems,
-			providedItems: quickInsertState?.providedItems,
-			isElementBrowserModalOpen: quickInsertState?.isElementBrowserModalOpen,
-			emptyStateHandler: quickInsertState?.emptyStateHandler,
-			mode: connectivityState?.mode,
-		};
-	},
-);
-
-export default ({ editorView, helpUrl, pluginInjectionAPI }: Props) => {
-	const { lazyDefaultItems, providedItems, isElementBrowserModalOpen, emptyStateHandler, mode } =
-		useSharedState(pluginInjectionAPI);
+			}),
+		);
 
 	return (
 		<Modal

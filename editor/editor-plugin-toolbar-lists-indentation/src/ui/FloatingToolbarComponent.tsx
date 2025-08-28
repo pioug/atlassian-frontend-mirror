@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
 
-import {
-	useSharedPluginState,
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
 import { usePluginStateEffect } from '@atlaskit/editor-common/use-plugin-state-effect';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -33,51 +29,6 @@ const FloatingToolbarSettings = {
 	isSmall: true,
 };
 
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<ToolbarListsIndentationPlugin> | undefined) => {
-		const {
-			bulletListActive,
-			bulletListDisabled,
-			orderedListActive,
-			orderedListDisabled,
-			isIndentationAllowed,
-			indentDisabled,
-			outdentDisabled,
-		} = useSharedPluginStateWithSelector(api, ['list', 'indentation'], (states) => ({
-			bulletListActive: states.listState?.bulletListActive,
-			bulletListDisabled: states.listState?.bulletListDisabled,
-			orderedListActive: states.listState?.orderedListActive,
-			orderedListDisabled: states.listState?.orderedListDisabled,
-			isIndentationAllowed: states.indentationState?.isIndentationAllowed,
-			indentDisabled: states.indentationState?.indentDisabled,
-			outdentDisabled: states.indentationState?.outdentDisabled,
-			// decorationSet is required to re-render PrimaryToolbarComponent component, so that the toolbar states updates regularly
-			decorationSet: states.listState?.decorationSet,
-		}));
-		return {
-			bulletListActive,
-			bulletListDisabled,
-			orderedListActive,
-			orderedListDisabled,
-			isIndentationAllowed,
-			indentDisabled,
-			outdentDisabled,
-		};
-	},
-	(api: ExtractInjectionAPI<ToolbarListsIndentationPlugin> | undefined) => {
-		const { listState, indentationState } = useSharedPluginState(api, ['list', 'indentation']);
-		return {
-			bulletListActive: listState?.bulletListActive,
-			bulletListDisabled: listState?.bulletListDisabled,
-			orderedListActive: listState?.orderedListActive,
-			orderedListDisabled: listState?.orderedListDisabled,
-			isIndentationAllowed: indentationState?.isIndentationAllowed,
-			indentDisabled: indentationState?.indentDisabled,
-			outdentDisabled: indentationState?.outdentDisabled,
-		};
-	},
-);
-
 export function FloatingToolbarComponent({
 	featureFlags,
 	editorView,
@@ -93,7 +44,17 @@ export function FloatingToolbarComponent({
 		isIndentationAllowed,
 		indentDisabled,
 		outdentDisabled,
-	} = useSharedState(pluginInjectionApi);
+	} = useSharedPluginStateWithSelector(pluginInjectionApi, ['list', 'indentation'], (states) => ({
+		bulletListActive: states.listState?.bulletListActive,
+		bulletListDisabled: states.listState?.bulletListDisabled,
+		orderedListActive: states.listState?.orderedListActive,
+		orderedListDisabled: states.listState?.orderedListDisabled,
+		isIndentationAllowed: states.indentationState?.isIndentationAllowed,
+		indentDisabled: states.indentationState?.indentDisabled,
+		outdentDisabled: states.indentationState?.outdentDisabled,
+		// decorationSet is required to re-render PrimaryToolbarComponent component, so that the toolbar states updates regularly
+		decorationSet: states.listState?.decorationSet,
+	}));
 	const [taskDecisionState, setTaskDecisionState] = useState<TaskDecisionState | undefined>();
 	usePluginStateEffect(
 		pluginInjectionApi,

@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-loom
 
+## 5.1.5
+
+### Patch Changes
+
+- [`a024ea6d25dc1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a024ea6d25dc1) -
+  [ED-29106] cleans up usages of sharedPluginStateHookMigratorFactory
+- Updated dependencies
+
+## 5.1.4
+
+### Patch Changes
+
+- [`4ef462fecb522`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4ef462fecb522) -
+  [ux] [ED-29003] Register loom component as a dropdown menu item in overflow menu
+- Updated dependencies
+
 ## 5.1.3
 
 ### Patch Changes

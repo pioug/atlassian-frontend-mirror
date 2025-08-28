@@ -1,5 +1,21 @@
 # @atlaskit/link-datasource
 
+## 4.20.4
+
+### Patch Changes
+
+- [`bc084f2375e00`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bc084f2375e00) -
+  NAVX-1378 cleaning up platform-linking-sllv-show-more-aria-label
+- Updated dependencies
+
+## 4.20.3
+
+### Patch Changes
+
+- [`a2cd8c46a3e94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2cd8c46a3e94) -
+  EDITOR-1442 Bump adf-schema
+- Updated dependencies
+
 ## 4.20.2
 
 ### Patch Changes

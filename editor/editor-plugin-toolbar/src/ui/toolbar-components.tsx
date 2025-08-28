@@ -4,9 +4,14 @@ import {
 	INSERT_BLOCK_SECTION,
 	LINKING_SECTION,
 	OVERFLOW_GROUP,
+	OVERFLOW_GROUP_PRIMARY_TOOLBAR,
+	OVERFLOW_GROUP_PRIMARY_TOOLBAR_RANK,
 	OVERFLOW_GROUP_RANK,
 	OVERFLOW_MENU,
+	OVERFLOW_MENU_PRIMARY_TOOLBAR,
 	OVERFLOW_SECTION,
+	OVERFLOW_SECTION_PRIMARY_TOOLBAR,
+	OVERFLOW_SECTION_PRIMARY_TOOLBAR_RANK,
 	OVERFLOW_SECTION_RANK,
 	PIN_SECTION,
 	TEXT_SECTION,
@@ -16,18 +21,20 @@ import {
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { PrimaryToolbar, Toolbar } from '@atlaskit/editor-toolbar';
 import { type RegisterComponent } from '@atlaskit/editor-toolbar-model';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ToolbarPlugin } from '../toolbarPluginType';
 
 import { SELECTION_TOOLBAR_LABEL } from './consts';
 import { OverflowMenu } from './OverflowMenu';
+import { OverflowSection } from './OverflowSection';
 import { Section } from './Section';
 
 export const getToolbarComponents = (
 	api?: ExtractInjectionAPI<ToolbarPlugin>,
 	disableSelectionToolbar?: boolean,
 ): RegisterComponent[] => {
-	return [
+	const components: RegisterComponent[] = [
 		{
 			type: 'toolbar',
 			key: TOOLBARS.INLINE_TEXT_TOOLBAR,
@@ -166,4 +173,50 @@ export const getToolbarComponents = (
 			],
 		},
 	];
+
+	if (expValEquals('platform_editor_toolbar_migrate_loom', 'isEnabled', true)) {
+		components.push(
+			{
+				type: OVERFLOW_SECTION_PRIMARY_TOOLBAR.type,
+				key: OVERFLOW_SECTION_PRIMARY_TOOLBAR.key,
+				parents: [
+					{
+						type: 'toolbar',
+						key: TOOLBARS.PRIMARY_TOOLBAR,
+						rank: TOOLBAR_RANK[OVERFLOW_SECTION_PRIMARY_TOOLBAR.key],
+					},
+				],
+				component: ({ children }) => {
+					return <OverflowSection>{children}</OverflowSection>;
+				},
+			},
+			{
+				type: OVERFLOW_GROUP_PRIMARY_TOOLBAR.type,
+				key: OVERFLOW_GROUP_PRIMARY_TOOLBAR.key,
+				parents: [
+					{
+						type: OVERFLOW_SECTION_PRIMARY_TOOLBAR.type,
+						key: OVERFLOW_SECTION_PRIMARY_TOOLBAR.key,
+						rank: OVERFLOW_SECTION_PRIMARY_TOOLBAR_RANK[OVERFLOW_GROUP_PRIMARY_TOOLBAR.key],
+					},
+				],
+			},
+			{
+				type: OVERFLOW_MENU_PRIMARY_TOOLBAR.type,
+				key: OVERFLOW_MENU_PRIMARY_TOOLBAR.key,
+				parents: [
+					{
+						type: OVERFLOW_GROUP_PRIMARY_TOOLBAR.type,
+						key: OVERFLOW_GROUP_PRIMARY_TOOLBAR.key,
+						rank: OVERFLOW_GROUP_PRIMARY_TOOLBAR_RANK[OVERFLOW_MENU_PRIMARY_TOOLBAR.key],
+					},
+				],
+				component: ({ children }) => {
+					return <OverflowMenu>{children}</OverflowMenu>;
+				},
+			},
+		);
+	}
+
+	return components;
 };

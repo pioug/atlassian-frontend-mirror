@@ -1,10 +1,7 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import coinflip from '../../../../coinflip';
 
 import checkFiberWithinComponent from './check-fiber-within-component';
 import findFiberWithCache from './find-fiber-with-cache';
-import findReactFiber from './find-react-fiber';
 
 const DEFAULT_MAX_LEVEL = 20;
 
@@ -39,27 +36,20 @@ export default function checkWithinComponent(
 	let fiber: any = null;
 	let checkedNodes: HTMLElement[] = [];
 
-	if (fg('platform_ufo_handle_non_react_element_for_3p')) {
-		fiber = findFiberWithCache(node, DEFAULT_MAX_LEVEL, checkedNodes);
-	} else {
-		fiber = findReactFiber(node);
-	}
+	// Always use cached fiber strategy to handle non-React elements reliably
+	fiber = findFiberWithCache(node, DEFAULT_MAX_LEVEL, checkedNodes);
 
 	if (!fiber) {
-		if (fg('platform_ufo_handle_non_react_element_for_3p')) {
-			checkedNodes.forEach((checkedNode) => {
-				resultCache.set(checkedNode, false);
-			});
-		}
+		checkedNodes.forEach((checkedNode) => {
+			resultCache.set(checkedNode, false);
+		});
 		return { isWithin: false };
 	}
 	const isWithin = checkFiberWithinComponent(fiber, targetComponentName, DEFAULT_MAX_LEVEL);
 
-	if (fg('platform_ufo_handle_non_react_element_for_3p')) {
-		checkedNodes.forEach((checkedNode) => {
-			resultCache.set(checkedNode, isWithin);
-		});
-	}
+	checkedNodes.forEach((checkedNode) => {
+		resultCache.set(checkedNode, isWithin);
+	});
 
 	return { isWithin };
 }

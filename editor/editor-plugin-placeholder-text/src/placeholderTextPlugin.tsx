@@ -9,11 +9,7 @@ import {
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
-import {
-	useSharedPluginState,
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import type { getPosHandler } from '@atlaskit/editor-common/react-node-view';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
@@ -188,30 +184,19 @@ type ContentComponentProps = Pick<
 	dependencyApi: ExtractInjectionAPI<typeof placeholderTextPlugin> | undefined;
 };
 
-const useSharedPlaceholderTextState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<PlaceholderTextPlugin> | undefined) => {
-		const { showInsertPanelAt } = useSharedPluginStateWithSelector(
-			api,
-			['placeholderText'],
-			(states) => ({
-				showInsertPanelAt: states.placeholderTextState?.showInsertPanelAt,
-			}),
-		);
-		return { showInsertPanelAt };
-	},
-	(api: ExtractInjectionAPI<PlaceholderTextPlugin> | undefined) => {
-		const { placeholderTextState } = useSharedPluginState(api, ['placeholderText']);
-		return { showInsertPanelAt: placeholderTextState?.showInsertPanelAt };
-	},
-);
-
 function ContentComponent({
 	editorView,
 	dependencyApi,
 	popupsMountPoint,
 	popupsBoundariesElement,
 }: ContentComponentProps): JSX.Element | null {
-	const { showInsertPanelAt } = useSharedPlaceholderTextState(dependencyApi);
+	const { showInsertPanelAt } = useSharedPluginStateWithSelector(
+		dependencyApi,
+		['placeholderText'],
+		(states) => ({
+			showInsertPanelAt: states.placeholderTextState?.showInsertPanelAt,
+		}),
+	);
 
 	const insertPlaceholderText = (value: string) =>
 		insertPlaceholderTextAtSelection(value)(editorView.state, editorView.dispatch);

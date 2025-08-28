@@ -1,5 +1,19 @@
 # @atlaskit/editor-statsig-tmp
 
+## 11.9.0
+
+### Minor Changes
+
+- [`55a7e20e3fd4c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/55a7e20e3fd4c) -
+  [ux] ED-29050 add support for rendering custom primary toolbar components to new toolbar
+- [`4ef462fecb522`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4ef462fecb522) -
+  [ux] [ED-29003] Register loom component as a dropdown menu item in overflow menu
+
+### Patch Changes
+
+- [`bf3ab0c552ba7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bf3ab0c552ba7) -
+  [ux] ED-29000 Add keyboard navigation to colour palette and minor UI fixes
+
 ## 11.8.1
 
 ### Patch Changes

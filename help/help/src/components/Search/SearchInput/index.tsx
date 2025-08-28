@@ -11,7 +11,6 @@ import {
 } from '@atlaskit/analytics-next';
 import Textfield from '@atlaskit/textfield';
 import Button from '@atlaskit/button/custom-theme-button';
-import { gridSize } from '@atlaskit/theme/constants';
 import Spinner from '@atlaskit/spinner';
 import SearchIcon from '@atlaskit/icon/core/migration/search';
 import EditorCloseIcon from '@atlaskit/icon/core/migration/cross--editor-close';
@@ -38,10 +37,8 @@ const ANALYTICS_CONTEXT_DATA = {
 };
 
 const buttonStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	width: `${gridSize() * 3}px`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	height: `${gridSize() * 3}px`,
+	width: '24px',
+	height: '24px',
 });
 
 interface SearchInputProps extends WrappedComponentProps {

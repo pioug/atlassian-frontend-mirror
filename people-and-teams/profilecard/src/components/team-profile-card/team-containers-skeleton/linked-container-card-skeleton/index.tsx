@@ -27,11 +27,11 @@ const styles = cssMap({
 		paddingLeft: token('space.100'),
 	},
 	firstLineSkeleton: {
-		borderRadius: token('border.radius.400'),
+		borderRadius: token('radius.full'),
 		paddingBlock: token('space.050'),
 	},
 	secondLineSkeleton: {
-		borderRadius: token('border.radius.400'),
+		borderRadius: token('radius.full'),
 		paddingBlock: token('space.050'),
 		width: '144px',
 	},

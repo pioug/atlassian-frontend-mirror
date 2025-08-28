@@ -1,10 +1,11 @@
-import { css } from '@emotion/react'; // eslint-disable-line @atlaskit/ui-styling-standard/use-compiled
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
 // TODO: ED-28075 - refactor selection styles to unblock Compiled CSS migration
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const hideNativeBrowserTextSelectionStyles = css({
+export const hideNativeBrowserTextSelectionStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'&::selection,*::selection': {
 		backgroundColor: 'transparent',
@@ -17,7 +18,7 @@ export const hideNativeBrowserTextSelectionStyles = css({
 
 // TODO: ED-28075 - refactor selection styles to unblock Compiled CSS migration
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const borderSelectionStyles = css({
+export const borderSelectionStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values
 	border: `1px solid ${token('color.border.selected')}`,
 
@@ -39,7 +40,7 @@ export const borderSelectionStyles = css({
 
 // TODO: ED-28075 - refactor selection styles to unblock Compiled CSS migration
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const boxShadowSelectionStyles = css({
+export const boxShadowSelectionStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values
 	boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
 	borderColor: 'transparent',
@@ -47,13 +48,13 @@ export const boxShadowSelectionStyles = css({
 
 // TODO: ED-28075 - refactor selection styles to unblock Compiled CSS migration
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const backgroundSelectionStyles = css({
+export const backgroundSelectionStyles: SerializedStyles = css({
 	backgroundColor: token('color.background.selected'),
 });
 
 // TODO: ED-28075 - refactor selection styles to unblock Compiled CSS migration
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const blanketSelectionStyles = css({
+export const blanketSelectionStyles: SerializedStyles = css({
 	position: 'relative',
 	// Fixes ED-9263, where emoji or inline card in panel makes selection go outside the panel
 	// in Safari. Looks like it's caused by user-select: all in the emoji element
@@ -75,7 +76,7 @@ export const blanketSelectionStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const hideSelectionStyles = css({
+export const hideSelectionStyles: SerializedStyles = css({
 	// Hide selection styles for ProseMirror editor
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror-hideselection': {
@@ -94,7 +95,7 @@ export const hideSelectionStyles = css({
  * This prosemirror css style: https://github.com/ProseMirror/prosemirror-view/blob/f37ebb29befdbde3cd194fe13fe17b78e743d2f2/style/prosemirror.css#L24
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const hideCursorWhenHideSelectionStyles = css({
+export const hideCursorWhenHideSelectionStyles: SerializedStyles = css({
 	// Hide cursor when hide selection styles are applied
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror-hideselection': {
@@ -103,7 +104,7 @@ export const hideCursorWhenHideSelectionStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const selectedNodeStyles = css({
+export const selectedNodeStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror-selectednode': {
 		outline: 'none',
@@ -112,4 +113,14 @@ export const selectedNodeStyles = css({
 	'.ProseMirror-selectednode:empty': {
 		outline: `2px solid ${token('color.border.focused')}`,
 	},
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const dangerBorderStyles = css({
+	boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const dangerBackgroundStyles = css({
+	backgroundColor: token('color.background.danger'),
 });

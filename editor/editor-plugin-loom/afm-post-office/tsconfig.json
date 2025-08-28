@@ -38,13 +38,22 @@
 			"path": "../../editor-plugin-quick-insert/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-toolbar/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-width/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar/afm-post-office/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/icon/afm-post-office/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-post-office/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/tokens/afm-post-office/tsconfig.json"

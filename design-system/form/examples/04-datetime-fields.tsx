@@ -1,5 +1,7 @@
 import React, { Fragment, useRef, useState } from 'react';
 
+import { cssMap } from '@compiled/react';
+
 import Button from '@atlaskit/button/new';
 import { DatePicker, DateTimePicker } from '@atlaskit/datetime-picker';
 import Form, {
@@ -10,12 +12,21 @@ import Form, {
 	MessageWrapper,
 	RequiredAsterisk,
 } from '@atlaskit/form';
+import { Flex } from '@atlaskit/primitives/compiled';
 
 interface FormData {
 	[key: string]: string;
 	DOB: string;
 	preference: string;
 }
+
+const styles = cssMap({
+	flex: {
+		width: '400px',
+		maxWidth: '100%',
+		margin: '0 auto',
+	},
+});
 
 export default () => {
 	const [DOBfieldError, setDOBfieldError] = useState(false);
@@ -34,18 +45,7 @@ export default () => {
 	};
 
 	return (
-		<div
-			style={{
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				display: 'flex',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				width: '400px',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				margin: '0 auto',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				flexDirection: 'column',
-			}}
-		>
+		<Flex xcss={styles.flex} direction="column">
 			<Form<FormData>
 				onSubmit={(data) => {
 					console.log('form data', data);
@@ -143,6 +143,6 @@ export default () => {
 					</form>
 				)}
 			</Form>
-		</div>
+		</Flex>
 	);
 };

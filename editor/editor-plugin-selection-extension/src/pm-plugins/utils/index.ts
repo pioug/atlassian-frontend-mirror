@@ -124,7 +124,7 @@ export function getSelectionAdfInfo(state: EditorState): SelectionInfo {
 	const selection = state.selection;
 	let selectionInfo = {
 		selectedNode: selection.$from.node(),
-		nodePos: selection.$from.before(), // default to the position before the selection
+		nodePos: selection.$from.depth > 0 ? selection.$from.before() : selection.from,
 	};
 
 	if (selection instanceof TextSelection) {

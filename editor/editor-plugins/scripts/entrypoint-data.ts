@@ -31,27 +31,27 @@ export interface EntryPointData {
 	fileData: FileData;
 }
 
-function getAfExports(folderPath: string) {
+function getExports(folderPath: string) {
 	const packageJsonPath = path.join(folderPath, 'package.json');
 	const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
 
-	const afExports = packageJson['af:exports'];
-	if (!afExports) {
-		throw new Error(`Could not find af:exports in package.json at ${packageJsonPath}`);
+	const exportsValue = packageJson['af:exports'] ?? packageJson['exports'];
+	if (!exportsValue) {
+		throw new Error(`Could not find af:exports or exports in package.json at ${packageJsonPath}`);
 	}
 
 	const folderName = path.basename(folderPath);
 	const data: ExtractedAfExportData[] = [];
 
-	for (const key in afExports) {
-		if (afExports.hasOwnProperty(key)) {
+	for (const key in exportsValue) {
+		if (exportsValue.hasOwnProperty(key)) {
 			// Normalize the key
 			const normalizedKey = key.startsWith('.') ? key.substring(1) : key;
-			const normalizedValue = afExports[key].startsWith('.')
-				? afExports[key].substring(1)
-				: afExports[key];
+			const normalizedValue = exportsValue[key].startsWith('.')
+				? exportsValue[key].substring(1)
+				: exportsValue[key];
 			const shortenedFolderName = folderName.split('-').slice(2).join('-');
-			const newRelativeFilePath = afExports[key].replace(
+			const newRelativeFilePath = exportsValue[key].replace(
 				'./src',
 				path.join('src', shortenedFolderName),
 			);
@@ -208,7 +208,7 @@ function getFileExportNames(fileName: string) {
 }
 
 export function getEntryPointDataForPlugin(pluginPath: string): EntryPointData[] {
-	const afExports = getAfExports(pluginPath);
+	const exportsValue = getExports(pluginPath);
 	const newAfExportData: EntryPointData[] = [];
 
 	for (const {
@@ -217,7 +217,7 @@ export function getEntryPointDataForPlugin(pluginPath: string): EntryPointData[]
 		newAfExportValue,
 		atlaskitImportName,
 		absoluteFilePath,
-	} of afExports) {
+	} of exportsValue) {
 		const exportStatements = createExportStatementsForAfExport(
 			atlaskitImportName,
 			absoluteFilePath,

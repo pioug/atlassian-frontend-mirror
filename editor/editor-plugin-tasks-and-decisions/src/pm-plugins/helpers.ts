@@ -39,8 +39,8 @@ export const isActionOrDecisionList = (node: Node) => {
 };
 
 export const isActionOrDecisionItem = (node: Node) => {
-	const { taskItem, decisionItem } = node.type.schema.nodes;
-	return [taskItem, decisionItem].indexOf(node.type) > -1;
+	const { taskItem, decisionItem, blockTaskItem } = node.type.schema.nodes;
+	return [taskItem, decisionItem, blockTaskItem].indexOf(node.type) > -1;
 };
 
 export const isInsideTask = (state: EditorState) => {
@@ -65,7 +65,15 @@ export const isTable = (node?: Node | null): boolean => {
  * Creates a NodeRange around the given taskItem and the following
  * ("nested") taskList, if one exists.
  */
-export const getBlockRange = ($from: ResolvedPos, $to: ResolvedPos) => {
+export const getBlockRange = ({
+	$from,
+	$to,
+	isLifting = false,
+}: {
+	$from: ResolvedPos;
+	$to: ResolvedPos;
+	isLifting?: boolean;
+}) => {
 	const { taskList, blockTaskItem } = $from.doc.type.schema.nodes;
 	const blockTaskItemNode = findFarthestParentNode((node) => node.type === blockTaskItem)($from);
 
@@ -78,7 +86,8 @@ export const getBlockRange = ($from: ResolvedPos, $to: ResolvedPos) => {
 		return new NodeRange(
 			startOfNodeInBlockTaskItem,
 			endOfNodeInBlockTaskItem,
-			blockTaskItemNode.depth - 1,
+			// When lifting we want to ignore the potential depth of nested nodes so reduce the depth
+			isLifting ? blockTaskItemNode.depth - 2 : blockTaskItemNode.depth - 1,
 		);
 	}
 
@@ -189,7 +198,7 @@ export const subtreeHeight = ($from: ResolvedPos, $to: ResolvedPos, types: NodeT
 	//
 	// this is unlike regular bullet lists where the orderedList
 	// appears as descendent of listItem
-	const blockRange = getBlockRange($from, $to);
+	const blockRange = getBlockRange({ $from, $to });
 	if (!blockRange) {
 		return -1;
 	}
@@ -236,7 +245,7 @@ export const liftBlock = (
 	$from: ResolvedPos,
 	$to: ResolvedPos,
 ): Transaction | null => {
-	const blockRange = getBlockRange($from, $to);
+	const blockRange = getBlockRange({ $from, $to, isLifting: true });
 	if (!blockRange) {
 		return null;
 	}

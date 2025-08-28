@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
@@ -8,7 +8,7 @@ const GRID_GUTTER = 12;
 
 // Originally copied from packages/editor/editor-core/src/ui/Appearance/Comment/Comment.tsx
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const commentEditorStyles = css({
+export const commentEditorStyles: SerializedStyles = css({
 	flexGrow: 1,
 	overflowX: 'clip',
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography

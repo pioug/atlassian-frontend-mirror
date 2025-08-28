@@ -3,7 +3,6 @@ import React, { useCallback } from 'react';
 import { useIntl } from 'react-intl-next';
 
 import Button from '@atlaskit/button/new';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useDatasourceAnalyticsEvents } from '../../../../../analytics';
 
@@ -34,11 +33,7 @@ const ShowMoreButton = ({ onShowMore, filterName, filterLabel = '' }: ShowMoreBu
 			appearance="subtle"
 			testId={`${filterName}--show-more-button`}
 			spacing="compact"
-			{...(fg('platform-linking-sllv-show-more-aria-label')
-				? {
-						'aria-label': filterLabel ? `Show more ${filterLabel}` : 'Show more',
-					}
-				: {})}
+			aria-label={filterLabel ? `Show more ${filterLabel}` : 'Show more'}
 		>
 			{formatMessage(asyncPopupSelectMessages.showMoreMessage)}
 		</Button>

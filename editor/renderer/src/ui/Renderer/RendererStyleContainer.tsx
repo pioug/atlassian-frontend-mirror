@@ -66,7 +66,6 @@ import { bulletListSelector, orderedListSelector } from '@atlaskit/adf-schema';
 import { shadowClassNames, shadowObserverClassNames } from '@atlaskit/editor-common/ui';
 import { browser } from '@atlaskit/editor-common/browser';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { isStickyScrollbarEnabled, isTableResizingEnabled } from '../../react/nodes/table';
 import { SORTABLE_COLUMN_ICON_CLASSNAME } from '@atlaskit/editor-common/table';
 import { LightWeightCodeBlockCssClassName } from '../../react/nodes/codeBlock/components/lightWeightCodeBlock';
@@ -986,7 +985,7 @@ const backgroundColorStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.fabric-background-color-mark': {
 		backgroundColor: 'var(--custom-palette-color, inherit)',
-		borderRadius: '2px',
+		borderRadius: token('radius.xsmall'),
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 		paddingTop: '1px',
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
@@ -2218,7 +2217,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				tasksAndDecisionsStyles,
 				smartCardStyles,
 				smartCardStylesAvatarFix,
-				expValEqualsNoExposure('platform_editor_preview_panel_linking_exp', 'isEnabled', true) &&
+				editorExperiment('platform_editor_preview_panel_linking_exp', true) &&
 					headerSmartCardStyles,
 				fg('smartcard_avatar_margin_fix') && smartCardStylesAvatarMarginFix,
 				smartCardStylesAvatarListZeroMarginTop,

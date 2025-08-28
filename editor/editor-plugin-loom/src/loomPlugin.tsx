@@ -1,15 +1,20 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { LoomPlugin } from './loomPluginType';
 import { insertLoom, recordVideo, setupLoom } from './pm-plugins/commands';
 import { createPlugin, loomPluginKey } from './pm-plugins/main';
 import { loomPrimaryToolbarComponent } from './ui/PrimaryToolbarButton';
 import { getQuickInsertItem } from './ui/quickInsert';
+import { getToolbarComponents } from './ui/toolbar-components';
 
 export const loomPlugin: LoomPlugin = ({ config, api }) => {
 	const editorAnalyticsAPI = api?.analytics?.actions;
+	const isNewToolbarEnabled =
+		expValEquals('platform_editor_toolbar_aifc', 'isEnabled', true) &&
+		expValEquals('platform_editor_toolbar_migrate_loom', 'isEnabled', true);
 
 	// Workaround since we want to insert a loom via the `hyperlink` plugin for now.
 	// The hyperlink plugin (and the card plugin) are deeply tied into using the Prosemirror Command
@@ -19,10 +24,14 @@ export const loomPlugin: LoomPlugin = ({ config, api }) => {
 		config,
 		api,
 	);
-	api?.primaryToolbar?.actions.registerComponent({
-		name: 'loom',
-		component: primaryToolbarComponent,
-	});
+	if (isNewToolbarEnabled) {
+		api?.toolbar?.actions.registerComponents(getToolbarComponents(config, api));
+	} else {
+		api?.primaryToolbar?.actions.registerComponent({
+			name: 'loom',
+			component: primaryToolbarComponent,
+		});
+	}
 
 	return {
 		name: 'loom',
@@ -78,6 +87,7 @@ export const loomPlugin: LoomPlugin = ({ config, api }) => {
 		},
 
 		// Enable inserting Loom recordings through main toolbar
-		primaryToolbarComponent: !api?.primaryToolbar ? primaryToolbarComponent : undefined,
+		primaryToolbarComponent:
+			!api?.primaryToolbar && !isNewToolbarEnabled ? primaryToolbarComponent : undefined,
 	};
 };

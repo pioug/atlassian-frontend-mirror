@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-undo-redo
 
+## 3.2.7
+
+### Patch Changes
+
+- [`fa9e0ec694435`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fa9e0ec694435) -
+  ED-29117: cleans up sharedPluginStateHookMigratorFactory in undo redo plugin
+- Updated dependencies
+
 ## 3.2.6
 
 ### Patch Changes

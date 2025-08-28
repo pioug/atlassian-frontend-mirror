@@ -1,5 +1,6 @@
 // AFP-2532 TODO: Fix automatic suppressions below
-import { colors, gridSize } from '@atlaskit/theme';
+import { colors } from '@atlaskit/theme';
+
 import dataUri from './utils/data-uri';
 import evaluateInner from './utils/evaluate-inner';
 
@@ -10,13 +11,13 @@ const toggleSlideCheckedDisabled = '#a1dcc4';
 
 const toggleBgUncheckedDisabled = '#f3f4f5';
 const toggleSlideUncheckedDisabled = '#afb6c2';
-const togglePadding = gridSize() / 4;
+const togglePadding = 2;
 
-const toggleHeightLarge = gridSize() * 2.5;
-const toggleWidthLarge = gridSize() * 5;
+const toggleHeightLarge = 20;
+const toggleWidthLarge = 40;
 
-const toggleHeightDefault = gridSize() * 2;
-const toggleWidthDefault = gridSize() * 4;
+const toggleHeightDefault = 16;
+const toggleWidthDefault = 32;
 
 export default evaluateInner`
   .ak-field-toggle {
@@ -37,7 +38,7 @@ export default evaluateInner`
     cursor: pointer;
     display: inline-block;
     overflow: hidden;
-    padding: ${gridSize() / 4}px;
+    padding: 2px;
     text-indent: -9999px;
     transition: background-color ${toggleTransition}s, border-color ${toggleTransition}s;
     vertical-align: top;

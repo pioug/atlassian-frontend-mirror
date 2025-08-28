@@ -1,10 +1,10 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const blocktypeStyles = css({
+export const blocktypeStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
 		// Block Quote Shared Styles
@@ -102,7 +102,7 @@ export const blocktypeStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const blocktypeStyles_fg_platform_editor_typography_ugc = css({
+export const blocktypeStyles_fg_platform_editor_typography_ugc: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -186,7 +186,7 @@ export const blocktypeStyles_fg_platform_editor_typography_ugc = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const blocktypeStyles_without_fg_platform_editor_typography_ugc = css({
+export const blocktypeStyles_without_fg_platform_editor_typography_ugc: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -278,7 +278,7 @@ export const blocktypeStyles_without_fg_platform_editor_typography_ugc = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const blocktypeStyles_fg_platform_editor_nested_dnd_styles_changes = css({
+export const blocktypeStyles_fg_platform_editor_nested_dnd_styles_changes: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ak-editor-content-area.appearance-full-page .ProseMirror blockquote': {
 		paddingLeft: token('space.250', '20px'),

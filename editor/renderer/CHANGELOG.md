@@ -1,5 +1,29 @@
 # @atlaskit/renderer
 
+## 120.5.7
+
+### Patch Changes
+
+- [`ef3b2dfa2f8a8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef3b2dfa2f8a8) -
+  Internal changes to use radius tokens. No visual changes.
+- Updated dependencies
+
+## 120.5.6
+
+### Patch Changes
+
+- [`a2cd8c46a3e94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2cd8c46a3e94) -
+  EDITOR-1442 Bump adf-schema
+- Updated dependencies
+
+## 120.5.5
+
+### Patch Changes
+
+- [`62c653b8741a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/62c653b8741a5) -
+  [EDITOR-1202] Dates are formatted correctly for blockTaskItems
+- Updated dependencies
+
 ## 120.5.4
 
 ### Patch Changes

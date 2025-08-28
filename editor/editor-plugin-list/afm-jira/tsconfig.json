@@ -26,7 +26,16 @@
 			"path": "../../editor-plugin-analytics/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-block-menu/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-feature-flags/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"

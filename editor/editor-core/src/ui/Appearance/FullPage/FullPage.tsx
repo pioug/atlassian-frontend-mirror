@@ -263,6 +263,7 @@ export const FullPageEditor = (props: ComponentProps) => {
 								popupsBoundariesElement={props.popupsBoundariesElement}
 								popupsScrollableElement={props.popupsScrollableElement}
 								showKeyline={showKeyline}
+								customPrimaryToolbarComponents={props.customPrimaryToolbarComponents}
 							/>
 						</IntlProvider>
 					) : (

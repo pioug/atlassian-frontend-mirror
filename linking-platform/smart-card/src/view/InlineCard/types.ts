@@ -12,6 +12,7 @@ export type InlineCardProps = {
 	cardState: CardState;
 	handleAuthorize: (() => void) | undefined;
 	handleFrameClick: EventHandler<MouseEvent | KeyboardEvent>;
+	hideIconLoadingSkeleton?: boolean;
 	hoverPreviewOptions?: HoverPreviewOptions;
 	id: string;
 	inlinePreloaderStyle?: InlinePreloaderStyle;

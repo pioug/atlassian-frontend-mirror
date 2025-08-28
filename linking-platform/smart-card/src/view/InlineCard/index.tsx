@@ -6,6 +6,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 // TODO: Package Owner - please fix:
 // eslint-disable-next-line import/no-extraneous-dependencies
 import UFOHoldLoad from '@atlaskit/react-ufo/load-hold';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { SmartLinkStatus } from '../../constants';
 import { extractRequestAccessContextImproved } from '../../extractors/common/context/extractAccessContext';
@@ -59,6 +60,7 @@ export const InlineCard = ({
 	removeTextHighlightingFromTitle,
 	resolvingPlaceholder,
 	truncateInline,
+	hideIconLoadingSkeleton,
 }: InlineCardProps) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
@@ -121,6 +123,10 @@ export const InlineCard = ({
 					onClick={handleFrameClick}
 					testId={testIdWithStatus}
 					truncateInline={truncateInline}
+					hideIconLoadingSkeleton={
+						expValEquals('platform_editor_smart_card_otp', 'isEnabled', true) &&
+						hideIconLoadingSkeleton
+					}
 				/>
 			);
 		case 'unauthorized':

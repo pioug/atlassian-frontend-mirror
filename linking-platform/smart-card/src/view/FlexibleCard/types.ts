@@ -121,6 +121,10 @@ export type FlexibleCardProps = {
 
 export type InternalFlexibleUiOptions = FlexibleUiOptions & {
 	hideLegacyButton?: boolean;
+	/**
+	 * For images, whether to hide the loading skeleton while the image is loading.
+	 */
+	hideLoadingSkeleton?: boolean;
 };
 
 export type FlexibleUiOptions = {

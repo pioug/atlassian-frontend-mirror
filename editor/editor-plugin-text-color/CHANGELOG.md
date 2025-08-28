@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-text-color
 
+## 3.2.2
+
+### Patch Changes
+
+- [`b9f4eca29e93a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b9f4eca29e93a) -
+  ED-29114 Tidy up FG platform_editor_usesharedpluginstatewithselector for text-color,
+  text-formatting
+- Updated dependencies
+
+## 3.2.1
+
+### Patch Changes
+
+- [`bf3ab0c552ba7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bf3ab0c552ba7) -
+  [ux] ED-29000 Add keyboard navigation to colour palette and minor UI fixes
+- [`a2cd8c46a3e94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2cd8c46a3e94) -
+  EDITOR-1442 Bump adf-schema
+- Updated dependencies
+
 ## 3.2.0
 
 ### Minor Changes

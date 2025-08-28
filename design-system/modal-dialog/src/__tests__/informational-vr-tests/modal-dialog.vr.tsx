@@ -10,8 +10,12 @@ import FormAsContainer from '../../../examples/46-form-as-container';
 import FullScreenModalExample from '../../../examples/51-full-screen';
 import ModalBodyWithoutInlinePaddingExample from '../../../examples/53-modal-body-without-inline-padding';
 import Scroll from '../../../examples/55-scroll';
+import { ScrollHorizontalExample } from '../../../examples/56-scroll-horizontal';
 import MultiLineTitles from '../../../examples/65-multi-line-titles';
+import { WithFooterAndSelectOptionExample } from '../../../examples/80-with-footer-and-select-option';
 import WithHiddenBlanket from '../../../examples/92-with-hidden-blanket';
+import { MultiColumnExample } from '../../../examples/93-multi-column';
+import { ModalWithCustomChildExample } from '../../../examples/95-custom-child';
 import WithCurrentSurface from '../../../examples/96-with-current-surface';
 
 snapshotInformational(DefaultModal, {
@@ -78,6 +82,67 @@ snapshotInformational(Scroll, {
 		await page
 			.locator('[data-testid="modal--scrollable"]')
 			.evaluate((element) => (element.scrollTop = element.scrollHeight));
+	},
+});
+
+snapshotInformational(Scroll, {
+	description: 'scrolllable modal without header and footer',
+	drawsOutsideBounds: true,
+	prepare: async (page) => {
+		await page.getByRole('checkbox', { name: 'Header/footer shown' }).uncheck();
+
+		await page.getByRole('button').click();
+	},
+});
+
+snapshotInformational(ScrollHorizontalExample, {
+	description: 'modal body scroll after horizontal scroll',
+	drawsOutsideBounds: true,
+	prepare: async (page) => {
+		await page.getByRole('button', { name: 'Scroll trigger into view' }).click();
+
+		await page.getByRole('button', { name: 'Open modal' }).click();
+	},
+});
+
+snapshotInformational(ScrollHorizontalExample, {
+	description: 'viewport scroll after horizontal scroll',
+	drawsOutsideBounds: true,
+	prepare: async (page) => {
+		await page.getByRole('button', { name: 'Scroll trigger into view' }).click();
+
+		// Set shouldScrollInViewport={true}
+		await page.getByRole('checkbox', { name: 'Should scroll within the viewport' }).check();
+
+		await page.getByRole('button', { name: 'Open modal' }).click();
+	},
+});
+
+snapshotInformational(MultiColumnExample, {
+	description: 'multi-column scroll',
+	drawsOutsideBounds: true,
+	prepare: async (page) => {
+		await page.getByRole('button', { name: 'Open modal' }).click();
+
+		await page.getByRole('button', { name: 'Scroll to bottom' }).click();
+	},
+});
+
+snapshotInformational(WithFooterAndSelectOptionExample, {
+	description: 'footer should not overlay above select dropdown',
+	drawsOutsideBounds: true,
+	prepare: async (page) => {
+		await page.getByRole('button', { name: 'Open Modal' }).click();
+
+		await page.getByRole('combobox').click();
+	},
+});
+
+snapshotInformational(ModalWithCustomChildExample, {
+	description: 'modal with a custom child',
+	drawsOutsideBounds: true,
+	prepare: async (page) => {
+		await page.getByRole('button', { name: 'Open Modal' }).click();
 	},
 });
 

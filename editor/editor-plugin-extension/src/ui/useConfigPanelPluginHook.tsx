@@ -5,8 +5,6 @@ import {
 	getExtensionKeyAndNodeKey,
 } from '@atlaskit/editor-common/extensions';
 import {
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginState,
 	useSharedPluginStateWithSelector,
 	type NamedPluginStatesFromInjectionAPI,
 } from '@atlaskit/editor-common/hooks';
@@ -37,20 +35,6 @@ const selector = (
 	};
 };
 
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<ExtensionPlugin> | undefined) => {
-		return useSharedPluginStateWithSelector(api, ['extension'], selector);
-	},
-	(api: ExtractInjectionAPI<ExtensionPlugin> | undefined) => {
-		const { extensionState } = useSharedPluginState(api, ['extension']);
-		return {
-			showContextPanel: extensionState?.showContextPanel,
-			extensionProvider: extensionState?.extensionProvider,
-			processParametersAfter: extensionState?.processParametersAfter,
-		};
-	},
-);
-
 export function useConfigPanelPluginHook({
 	editorView,
 	configPanelId,
@@ -61,7 +45,8 @@ export function useConfigPanelPluginHook({
 	editorView: EditorView;
 }) {
 	const editorState = editorView.state;
-	const { showContextPanel, extensionProvider, processParametersAfter } = useSharedState(api);
+	const { showContextPanel, extensionProvider, processParametersAfter } =
+		useSharedPluginStateWithSelector(api, ['extension'], selector);
 
 	useEffect(() => {
 		const nodeWithPos = getSelectedExtension(editorState, true);

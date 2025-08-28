@@ -38,7 +38,16 @@
 			"path": "../editor-plugin-analytics/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-block-menu/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-feature-flags/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-toolbar/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"

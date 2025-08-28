@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-extension
 
+## 6.2.3
+
+### Patch Changes
+
+- [`68ccd99b31cea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/68ccd99b31cea) -
+  [ED-29105] cleans up usages of sharedPluginStateHookMigratorFactory
+- Updated dependencies
+
+## 6.2.2
+
+### Patch Changes
+
+- [`bd6ba70b54140`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd6ba70b54140) -
+  remove delete icon factory function
+- [`a2cd8c46a3e94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2cd8c46a3e94) -
+  EDITOR-1442 Bump adf-schema
+- Updated dependencies
+
 ## 6.2.1
 
 ### Patch Changes

@@ -9,12 +9,14 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { NodeView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { openRequestEditPopupAt } from '../pm-plugins/helpers';
 import type { TasksAndDecisionsPlugin } from '../tasksAndDecisionsPluginType';
 import type { TaskAndDecisionsSharedState, TaskItemInfoMeta, TaskItemState } from '../types';
 
 import { taskItemToDom } from './taskItemNodeSpec';
+import { isContentEmpty } from './utils';
 
 interface TaskItemNodeViewOptions {
 	api: ExtractInjectionAPI<TasksAndDecisionsPlugin> | undefined;
@@ -151,7 +153,10 @@ export class TaskItemNodeView implements NodeView {
 
 	// Update the placeholder visibility based on content
 	private updatePlaceholder(node: PMNode) {
-		const currentIsContentEmpty = this.isContentEmpty(node);
+		let currentIsContentEmpty = this.isContentEmpty(node);
+		if (expValEquals('platform_editor_blocktaskitem_node', 'isEnabled', true)) {
+			currentIsContentEmpty = isContentEmpty(node);
+		}
 		if (currentIsContentEmpty !== this.emptyContent) {
 			this.emptyContent = currentIsContentEmpty;
 			this.contentDOM?.toggleAttribute('data-empty', currentIsContentEmpty);

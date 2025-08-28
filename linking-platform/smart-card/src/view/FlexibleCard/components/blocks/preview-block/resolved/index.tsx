@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useLayoutEffect, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
@@ -73,7 +73,9 @@ const PreviewBlockResolvedView = ({
 		}
 	}, [ignoreContainerPadding, placement, style]);
 
-	useEffect(() => {
+	// Should be useLayoutEffect to avoid flicker.
+	// Styles should be set before paint.
+	useLayoutEffect(() => {
 		updateStyles();
 	}, [ignoreContainerPadding, placement, updateStyles, className]);
 

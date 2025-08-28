@@ -1,4 +1,5 @@
-import { css } from '@emotion/react'; // eslint-disable-line @atlaskit/ui-styling-standard/use-compiled
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
@@ -14,7 +15,7 @@ export const shadowObserverClassNames = {
 };
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const shadowStyles = css({
+export const shadowStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766

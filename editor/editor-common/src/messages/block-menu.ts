@@ -21,4 +21,9 @@ export const messages = defineMessages({
 		defaultMessage: 'Copy link',
 		description: 'Copy link to the selected block',
 	},
+	paragraph: {
+		id: 'fabric.editor.block.menu.paragraph',
+		defaultMessage: 'Paragraph',
+		description: 'Change the selected block to a paragraph',
+	},
 });

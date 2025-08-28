@@ -10,8 +10,6 @@ import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import {
-	useSharedPluginState,
-	sharedPluginStateHookMigratorFactory,
 	type NamedPluginStatesFromInjectionAPI,
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
@@ -46,19 +44,6 @@ const selector = (
 		width: states.widthState?.width,
 	};
 };
-
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<LoomPlugin> | undefined) => {
-		return useSharedPluginStateWithSelector(api, ['width'], selector);
-	},
-	(api: ExtractInjectionAPI<LoomPlugin> | undefined) => {
-		const { widthState } = useSharedPluginState(api, ['width']);
-		return {
-			width: widthState?.width,
-		};
-	},
-);
-
 const LoomToolbarButtonInternal = React.forwardRef<HTMLElement, Props & WrappedComponentProps>(
 	(
 		{
@@ -84,7 +69,7 @@ const LoomToolbarButtonInternal = React.forwardRef<HTMLElement, Props & WrappedC
 		},
 		ref,
 	) => {
-		const { width } = useSharedState(api);
+		const { width } = useSharedPluginStateWithSelector(api, ['width'], selector);
 		const label = formatMessage(
 			appearance === 'comment'
 				? toolbarInsertBlockMessages.addLoomVideoComment

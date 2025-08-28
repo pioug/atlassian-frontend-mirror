@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-layout
 
+## 3.2.2
+
+### Patch Changes
+
+- [`a024ea6d25dc1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a024ea6d25dc1) -
+  [ED-29106] cleans up usages of sharedPluginStateHookMigratorFactory
+- Updated dependencies
+
+## 3.2.1
+
+### Patch Changes
+
+- [`fb67102acfc05`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fb67102acfc05) -
+  EDITOR-1443 Use layoutSectionWithLocalId behind fg('platform_editor_adf_with_localid')
+- [`a2cd8c46a3e94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2cd8c46a3e94) -
+  EDITOR-1442 Bump adf-schema
+- Updated dependencies
+
 ## 3.2.0
 
 ### Minor Changes

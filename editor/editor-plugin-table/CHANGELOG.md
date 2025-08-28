@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-table
 
+## 12.3.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.3.6
+
+### Patch Changes
+
+- [`a2cd8c46a3e94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2cd8c46a3e94) -
+  EDITOR-1442 Bump adf-schema
+- Updated dependencies
+
+## 12.3.5
+
+### Patch Changes
+
+- [`6e72157c89221`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e72157c89221) -
+  Improve streaming queue reliability
+- Updated dependencies
+
 ## 12.3.4
 
 ### Patch Changes

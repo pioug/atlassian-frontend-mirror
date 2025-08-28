@@ -15,8 +15,6 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { commandWithMetadata } from '@atlaskit/editor-common/card';
 import {
-	useSharedPluginState,
-	sharedPluginStateHookMigratorFactory,
 	type NamedPluginStatesFromInjectionAPI,
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
@@ -124,20 +122,6 @@ const selector = (
 	};
 };
 
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<HyperlinkPlugin> | undefined) => {
-		return useSharedPluginStateWithSelector(api, ['hyperlink'], selector);
-	},
-	(api: ExtractInjectionAPI<HyperlinkPlugin> | undefined) => {
-		const { hyperlinkState } = useSharedPluginState(api, ['hyperlink']);
-		return {
-			timesViewed: hyperlinkState?.timesViewed,
-			inputMethod: hyperlinkState?.inputMethod,
-			searchSessionId: hyperlinkState?.searchSessionId,
-		};
-	},
-);
-
 export function HyperlinkAddToolbarWithState({
 	linkPickerOptions = {},
 	onSubmit,
@@ -155,7 +139,11 @@ export function HyperlinkAddToolbarWithState({
 }: HyperlinkAddToolbarProps & {
 	pluginInjectionApi: ExtractInjectionAPI<HyperlinkPlugin> | undefined;
 }) {
-	const { timesViewed, inputMethod, searchSessionId } = useSharedState(pluginInjectionApi);
+	const { timesViewed, inputMethod, searchSessionId } = useSharedPluginStateWithSelector(
+		pluginInjectionApi,
+		['hyperlink'],
+		selector,
+	);
 
 	// This is constant rather than dynamic - because if someone's already got a hyperlink toolbar open,
 	// we don't want to dynamically change it on them as this would cause data loss if they've already

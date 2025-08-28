@@ -1,5 +1,12 @@
 # @atlaskit/reduced-ui-pack
 
+## 19.0.5
+
+### Patch Changes
+
+- [`20a5aa8c4e7a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/20a5aa8c4e7a0) -
+  Removed gridSize import. No visual changes.
+
 ## 19.0.4
 
 ### Patch Changes

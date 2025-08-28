@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import {
 	FULL_PAGE_EDITOR_TOOLBAR_HEIGHT,
@@ -7,7 +7,7 @@ import {
 } from '@atlaskit/editor-shared-styles';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const fullPageEditorWrapper = css({
+export const fullPageEditorWrapper: SerializedStyles = css({
 	minWidth: '340px',
 	height: '100%',
 	display: 'flex',
@@ -39,7 +39,7 @@ export const contentArea = () => {
 };
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const contentAreaWrapper = css({
+export const contentAreaWrapper: SerializedStyles = css({
 	width: '100%',
 	containerType: 'inline-size',
 	containerName: 'editor-area',
@@ -52,7 +52,7 @@ export const contentAreaWrapper = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const sidebarArea = css({
+export const sidebarArea: SerializedStyles = css({
 	height: '100%',
 	boxSizing: 'border-box',
 	alignSelf: 'flex-end',
@@ -72,7 +72,7 @@ export const sidebarArea = css({
 // initially hide until we have a containerWidth and can properly size them,
 // otherwise they can cause the editor width to extend which is non-recoverable
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const editorContentAreaHideContainer = css({
+export const editorContentAreaHideContainer: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.fabric-editor--full-width-mode': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766

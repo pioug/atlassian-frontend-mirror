@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { mediaInlineImageStyles } from '@atlaskit/editor-common/media-inline';
 import { mediaSingleSharedStyleNew, richMediaClassName } from '@atlaskit/editor-common/styles';
@@ -21,7 +21,7 @@ import {
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const mediaStyles = () => css`
+export const mediaStyles: () => SerializedStyles = () => css`
 	.ProseMirror {
 		${mediaSingleSharedStyleNew} & [layout='full-width'] .${richMediaClassName},
     & [layout='wide'] .${richMediaClassName} {

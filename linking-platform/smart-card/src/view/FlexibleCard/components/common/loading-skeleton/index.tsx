@@ -18,7 +18,7 @@ const animationNameStyles = keyframes({
 });
 
 const loadingSkeletonStyle = css({
-	borderRadius: '2px',
+	borderRadius: token('radius.xsmall'),
 	userSelect: 'none',
 	backgroundColor: token('color.skeleton.subtle', '#f6f7f8'),
 	backgroundImage: `linear-gradient( to right, transparent 0%, ${token(

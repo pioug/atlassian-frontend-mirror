@@ -1,14 +1,11 @@
-// AFP-2532 TODO: Fix automatic suppressions below
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import { gridSize } from '@atlaskit/theme';
 import { COLOR_CARD_SIZE } from './constants';
 import memoizeOne from 'memoize-one';
 import { Mode, type Palette } from './types';
 
 export const getWidth = (cols: number, mode?: Mode) => {
-	const width = cols * (COLOR_CARD_SIZE + gridSize() / 2);
+	const width = cols * (COLOR_CARD_SIZE + 4);
 
-	return mode === Mode.Standard ? width + gridSize() : width;
+	return mode === Mode.Standard ? width + 8 : width;
 };
 
 export const getOptions = memoizeOne(

@@ -18,6 +18,8 @@ export interface EmbedCardResolvedViewProps {
 	context?: ContextViewModel;
 	/** A prop that determines the style of a frame: whether to show it, hide it or only show it when a user hovers over embed */
 	frameStyle?: FrameStyle;
+	/** For image icons in the title, whether to hide the loading skeleton while the image is loading. */
+	hideIconLoadingSkeleton?: boolean;
 	inheritDimensions?: boolean;
 	/** A flag that determines whether the card is selected in edit mode. */
 	isSelected?: boolean;
@@ -64,6 +66,7 @@ export const EmbedCardResolvedView = React.forwardRef<
 			isSupportTheming,
 			type,
 			CompetitorPrompt,
+			hideIconLoadingSkeleton,
 		},
 		embedIframeRef,
 	) => {
@@ -91,9 +94,10 @@ export const EmbedCardResolvedView = React.forwardRef<
 					src={src}
 					default={linkGlyph}
 					appearance={isProfileType(type) ? 'round' : 'square'}
+					hideLoadingSkeleton={hideIconLoadingSkeleton}
 				/>
 			);
-		}, [iconFromContext, src, linkGlyph, type]);
+		}, [iconFromContext, src, linkGlyph, type, hideIconLoadingSkeleton]);
 
 		if (fg('ptc-enable-embed-team-smart-links')) {
 			// eslint-disable-next-line react-hooks/rules-of-hooks

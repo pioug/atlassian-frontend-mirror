@@ -38,13 +38,22 @@
 			"path": "../../editor-plugin-quick-insert/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-toolbar/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-width/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/icon/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/tokens/afm-cc/tsconfig.json"

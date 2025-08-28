@@ -38,8 +38,11 @@ export const createPlugin = () => {
 					: [text.name, hardBreak.name];
 
 				editorView.state.doc.descendants((node: PMNode, pos) => {
-					// Skip text nodes, hard breaks and nodes that already have local IDs
-					if (!ignoredNodeTypes.includes(node.type.name) && !node.attrs.localId) {
+					if (
+						!ignoredNodeTypes.includes(node.type.name) &&
+						!node.attrs.localId &&
+						!!node.type.spec.attrs?.localId
+					) {
 						localIdWasAdded = true;
 						addLocalIdToNode(pos, tr);
 					}
@@ -89,7 +92,7 @@ export const createPlugin = () => {
 					step.getMap().forEach((oldStart, oldEnd, newStart, newEnd) => {
 						// Scan the changed range to find all nodes
 						tr.doc.nodesBetween(newStart, Math.min(newEnd, tr.doc.content.size), (node, pos) => {
-							if (ignoredNodeTypes.includes(node.type.name)) {
+							if (ignoredNodeTypes.includes(node.type.name) || !node.type.spec.attrs?.localId) {
 								return true;
 							}
 

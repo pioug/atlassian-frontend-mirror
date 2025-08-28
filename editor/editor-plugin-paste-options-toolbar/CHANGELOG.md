@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-paste-options-toolbar
 
+## 3.1.4
+
+### Patch Changes
+
+- [`8497783928a16`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8497783928a16) -
+  ED-29110: clean up sharedPluginStateHookMigratorFactory in media, mentions and paste options
+- Updated dependencies
+
 ## 3.1.3
 
 ### Patch Changes

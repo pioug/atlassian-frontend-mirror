@@ -28,7 +28,7 @@ export const buttonWrapperStyle = css({
 	display: 'flex',
 	alignItems: 'center',
 	padding: token('space.025', '2px'),
-	borderRadius: '6px',
+	borderRadius: token('radius.medium'),
 	'&:focus-within, &:focus, &:hover': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 		borderColor: `${token('color.border')} !important`,

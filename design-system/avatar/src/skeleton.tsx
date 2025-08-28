@@ -87,7 +87,7 @@ const borderRadiusMap = cssMap({
 		borderRadius: token('border.radius.100', '3px'),
 	},
 	xlarge: {
-		borderRadius: '6px',
+		borderRadius: token('radius.medium'),
 	},
 	xxlarge: {
 		borderRadius: token('border.radius.300'),

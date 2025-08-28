@@ -1,5 +1,12 @@
 # @atlaskit/media-ui
 
+## 28.6.10
+
+### Patch Changes
+
+- [`ef3b2dfa2f8a8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef3b2dfa2f8a8) -
+  Internal changes to use radius tokens. No visual changes.
+
 ## 28.6.9
 
 ### Patch Changes

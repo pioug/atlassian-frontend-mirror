@@ -496,7 +496,7 @@ export const TRACK_CHANGES_BUTTON = {
 } as const;
 
 /**
- * Overflow section
+ * Overflow section in selection toolbar
  */
 
 export const OVERFLOW_SECTION = {
@@ -525,6 +525,24 @@ export const PIN_MENU_ITEM = {
 } as const;
 
 /**
+ * Overflow section in primary toolbar
+ */
+export const OVERFLOW_SECTION_PRIMARY_TOOLBAR = {
+	key: 'overflow-section-primary-toolbar',
+	type: 'section',
+} as const;
+
+export const OVERFLOW_GROUP_PRIMARY_TOOLBAR = {
+	key: 'overflow-group-primary-toolbar',
+	type: 'group',
+} as const;
+
+export const OVERFLOW_MENU_PRIMARY_TOOLBAR = {
+	key: 'overflow-menu-primary-toolbar',
+	type: 'menu',
+} as const;
+
+/**
  * Pin section
  */
 export const PIN_SECTION = {
@@ -540,4 +558,18 @@ export const PIN_GROUP = {
 export const PIN_BUTTON = {
 	key: 'pin-button',
 	type: 'button',
+} as const;
+
+/**
+ * Loom section
+ */
+
+export const LOOM_MENU_SECTION = {
+	key: 'loom-menu-section',
+	type: 'menu-section',
+} as const;
+
+export const LOOM_MENU_ITEM = {
+	key: 'loom-menu-item',
+	type: 'menu-item',
 } as const;

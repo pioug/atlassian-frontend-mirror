@@ -1,5 +1,12 @@
 # @atlaskit/radio
 
+## 8.3.0
+
+### Minor Changes
+
+- [`cd29488c8bef2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd29488c8bef2) -
+  Add `labelId` to radio group.
+
 ## 8.2.1
 
 ### Patch Changes

@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
-import { css, keyframes } from '@emotion/react';
+import { css, keyframes, type SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
@@ -70,7 +70,7 @@ const prismBorderDarkBackgroundFirefox = `linear-gradient(90deg, ${aiPrismColorS
 const prismBorderDarkBackground = `conic-gradient(from var(--panel-gradient-angle, 270deg), ${aiPrismColorStep1Dark} 0%, ${aiPrismColorStep2Dark} 20%, ${aiPrismColorStep3Dark} 50%, ${aiPrismColorStep4Dark} 56%, ${aiPrismColorStep1Dark} 100%)`;
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const aiPanelBaseStyles = css({
+export const aiPanelBaseStyles: SerializedStyles = css({
 	'@property --panel-gradient-angle': {
 		syntax: '<angle>',
 		initialValue: '270deg',
@@ -161,7 +161,7 @@ export const aiPanelBaseStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const aiPanelBaseFirefoxStyles = css({
+export const aiPanelBaseFirefoxStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'div[extensionType="com.atlassian.ai-blocks"]': {
 		'&::before, &::after': {
@@ -183,7 +183,7 @@ export const aiPanelBaseFirefoxStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const aiPanelDarkStyles = css({
+export const aiPanelDarkStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'div[extensionType="com.atlassian.ai-blocks"]': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -196,7 +196,7 @@ export const aiPanelDarkStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const aiPanelDarkFirefoxStyles = css({
+export const aiPanelDarkFirefoxStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'div[extensionType="com.atlassian.ai-blocks"]': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors

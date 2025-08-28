@@ -1,5 +1,21 @@
 # @atlaskit/node-data-provider
 
+## 4.6.0
+
+### Minor Changes
+
+- [`5763f85b421a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5763f85b421a2) - -
+  The new method `getCacheStatusForNode` is added to `NodeDataProvider` class to get the cache
+  status for a given node.
+  - The `CardSSR` component will start supporting `hideIconLoadingSkeleton` property for any type of
+    smart card.
+
+### Patch Changes
+
+- [`a2cd8c46a3e94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2cd8c46a3e94) -
+  EDITOR-1442 Bump adf-schema
+- Updated dependencies
+
 ## 4.5.3
 
 ### Patch Changes

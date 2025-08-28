@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-tasks-and-decisions",
-	"version": "6.4.5",
+	"version": "6.4.7",
 	"description": "Tasks and decisions plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

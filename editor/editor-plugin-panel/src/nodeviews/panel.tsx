@@ -6,8 +6,6 @@ import type { PanelAttributes } from '@atlaskit/adf-schema';
 import { PanelType } from '@atlaskit/adf-schema';
 import { Emoji } from '@atlaskit/editor-common/emoji';
 import {
-	useSharedPluginState,
-	sharedPluginStateHookMigratorFactory,
 	useSharedPluginStateWithSelector,
 	type NamedPluginStatesFromInjectionAPI,
 } from '@atlaskit/editor-common/hooks';
@@ -65,17 +63,6 @@ const selector = (
 	};
 };
 
-const useEmojiProvider = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<PanelPlugin> | undefined) => {
-		const { emojiState } = useSharedPluginStateWithSelector(api, ['emoji'], selector);
-		return emojiState?.emojiProvider;
-	},
-	(api: ExtractInjectionAPI<PanelPlugin> | undefined) => {
-		const { emojiState } = useSharedPluginState(api, ['emoji']);
-		return emojiState?.emojiProvider;
-	},
-);
-
 export const PanelIcon = (props: PanelIconAttributes) => {
 	const {
 		allowCustomPanel,
@@ -83,7 +70,8 @@ export const PanelIcon = (props: PanelIconAttributes) => {
 		pluginInjectionApi,
 		panelAttributes: { panelType, panelIcon, panelIconId, panelIconText },
 	} = props;
-	const emojiProvider = useEmojiProvider(pluginInjectionApi);
+	const { emojiState } = useSharedPluginStateWithSelector(pluginInjectionApi, ['emoji'], selector);
+	const emojiProvider = emojiState?.emojiProvider;
 
 	if (allowCustomPanel && panelIcon && panelType === PanelType.CUSTOM) {
 		return (

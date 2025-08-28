@@ -11,7 +11,7 @@ const styles = cssMap({
 		gridTemplateColumns: '1fr 1fr',
 	},
 	showMoreButtonSkeleton: {
-		borderRadius: token('border.radius.400'),
+		borderRadius: '1rem',
 		width: '64px',
 		paddingBlock: token('space.050'),
 	},

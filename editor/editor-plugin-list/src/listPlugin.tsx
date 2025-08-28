@@ -19,6 +19,7 @@ import { toggleBulletList, toggleOrderedList, tooltip } from '@atlaskit/editor-c
 import { listMessages as messages } from '@atlaskit/editor-common/messages';
 import { IconList, IconListNumber } from '@atlaskit/editor-common/quick-insert';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ListPlugin } from './listPluginType';
@@ -35,6 +36,7 @@ import keymapPlugin from './pm-plugins/keymap';
 import { createPlugin, pluginKey as listPluginKey } from './pm-plugins/main';
 import { findRootParentListNode } from './pm-plugins/utils/find';
 import { isInsideListItem } from './pm-plugins/utils/selection';
+import { getListComponents } from './ui';
 
 /*
   Toolbar buttons to bullet and ordered list can be found in
@@ -48,6 +50,10 @@ import { isInsideListItem } from './pm-plugins/utils/selection';
 export const listPlugin: ListPlugin = ({ config: options, api }) => {
 	const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
 	const editorAnalyticsAPI = api?.analytics?.actions;
+
+	if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
+		api?.blockMenu?.actions.registerBlockMenuComponents(getListComponents());
+	}
 
 	return {
 		name: 'list',

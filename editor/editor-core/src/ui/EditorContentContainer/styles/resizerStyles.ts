@@ -1,4 +1,5 @@
-import { css } from '@emotion/react'; // eslint-disable-line
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { akEditorFullPageNarrowBreakout } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
@@ -16,7 +17,7 @@ export const resizerHandleThumbWidth = 3;
 export const handleWrapperClass = 'resizer-handle-wrapper';
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766, Seems perfectly safe to autofix, but comments would be lost…
-export const resizerStyles = css({
+export const resizerStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
 	[`.${resizerItemClassName}`]: {
 		willChange: 'width',
@@ -243,7 +244,7 @@ export const resizerStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const pragmaticResizerStylesForTooltip = css({
+export const pragmaticResizerStylesForTooltip: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.pm-breakout-resize-handle-rail-wrapper': {
 		display: 'flex',
@@ -272,7 +273,7 @@ export const pragmaticResizerStylesForTooltip = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const pragmaticStylesLayoutFirstNodeResizeHandleFix = css({
+export const pragmaticStylesLayoutFirstNodeResizeHandleFix: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.fabric-editor-breakout-mark': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
@@ -286,7 +287,7 @@ export const pragmaticStylesLayoutFirstNodeResizeHandleFix = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const pragmaticResizerStyles = css({
+export const pragmaticResizerStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.fabric-editor-breakout-mark': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
@@ -415,7 +416,7 @@ export const pragmaticResizerStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const pragmaticResizerStylesNew = css({
+export const pragmaticResizerStylesNew: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.fabric-editor-breakout-mark': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
@@ -544,7 +545,7 @@ export const pragmaticResizerStylesNew = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const pragmaticResizerStylesWithReducedEditorGutter = css({
+export const pragmaticResizerStylesWithReducedEditorGutter: SerializedStyles = css({
 	/* container editor-area is defined in platform/packages/editor/editor-core/src/ui/Appearance/FullPage/StyledComponents.ts */
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-container-queries, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 	[`@container editor-area (max-width: ${akEditorFullPageNarrowBreakout}px)`]: {

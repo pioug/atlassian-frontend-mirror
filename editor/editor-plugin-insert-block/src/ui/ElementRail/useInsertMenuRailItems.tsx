@@ -3,8 +3,6 @@ import { useMemo } from 'react';
 import { useIntl } from 'react-intl-next';
 
 import {
-	useSharedPluginState,
-	sharedPluginStateHookMigratorFactory,
 	type NamedPluginStatesFromInjectionAPI,
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
@@ -44,63 +42,6 @@ const selector = (
 	};
 };
 
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<typeof insertBlockPlugin> | undefined) => {
-		return useSharedPluginStateWithSelector(
-			api,
-			[
-				'hyperlink',
-				'date',
-				'imageUpload',
-				'mention',
-				'emoji',
-				'blockType',
-				'media',
-				'typeAhead',
-				'placeholderText',
-			],
-			selector,
-		);
-	},
-	(api: ExtractInjectionAPI<typeof insertBlockPlugin> | undefined) => {
-		const {
-			dateState,
-			hyperlinkState,
-			imageUploadState,
-			mentionState,
-			emojiState,
-			blockTypeState,
-			mediaState,
-			typeAheadState,
-			placeholderTextState,
-		} = useSharedPluginState(api, [
-			'hyperlink',
-			'date',
-			'imageUpload',
-			'mention',
-			'emoji',
-			'blockType',
-			'media',
-			'typeAhead',
-			'placeholderText',
-		]);
-
-		return {
-			dateEnabled: dateState?.isInitialised,
-			canInsertLink: hyperlinkState?.canInsertLink,
-			activeLinkMark: hyperlinkState?.activeLinkMark,
-			isTypeAheadAllowed: typeAheadState?.isAllowed,
-			availableWrapperBlockTypes: blockTypeState?.availableWrapperBlockTypes,
-			imageUploadEnabled: imageUploadState?.enabled,
-			placeholderTextAllowInserting: placeholderTextState?.allowInserting,
-			emojiProvider: emojiState?.emojiProvider,
-			mentionProvider: mentionState?.mentionProvider,
-			canInsertMention: mentionState?.canInsertMention,
-			mediaAllowsUploads: mediaState?.allowsUploads,
-		};
-	},
-);
-
 export const useInsertMenuRailItems = (
 	editorView: EditorView,
 	options: InsertBlockOptions,
@@ -119,7 +60,21 @@ export const useInsertMenuRailItems = (
 		mentionProvider,
 		canInsertMention,
 		mediaAllowsUploads,
-	} = useSharedState(api);
+	} = useSharedPluginStateWithSelector(
+		api,
+		[
+			'hyperlink',
+			'date',
+			'imageUpload',
+			'mention',
+			'emoji',
+			'blockType',
+			'media',
+			'typeAhead',
+			'placeholderText',
+		],
+		selector,
+	);
 
 	const [_, dropdownItems] = useMemo(() => {
 		return createItems({

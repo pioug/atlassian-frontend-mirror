@@ -1,5 +1,25 @@
 # @atlaskit/editor-toolbar
 
+## 0.5.1
+
+### Patch Changes
+
+- [`ef3b2dfa2f8a8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef3b2dfa2f8a8) -
+  Internal changes to use radius tokens. No visual changes.
+
+## 0.5.0
+
+### Minor Changes
+
+- [`bf3ab0c552ba7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bf3ab0c552ba7) -
+  [ux] ED-29000 Add keyboard navigation to colour palette and minor UI fixes
+
+### Patch Changes
+
+- [`4ef462fecb522`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4ef462fecb522) -
+  [ux] [ED-29003] Register loom component as a dropdown menu item in overflow menu
+- Updated dependencies
+
 ## 0.4.0
 
 ### Minor Changes

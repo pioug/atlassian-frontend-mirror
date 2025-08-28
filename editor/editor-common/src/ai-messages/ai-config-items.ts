@@ -287,6 +287,18 @@ export const aiConfigItemMessages = defineMessages({
 			'Describes the "Draft reply" Atlassian Intelligence feature shown in editor typeahead and element browser.',
 	},
 
+	// Generate Escalation Notes messages
+	generateEscalationNotesTitle: {
+		id: 'fabric.editor.ai.config.item.generateEscalationNotes.title',
+		defaultMessage: 'Generate escalation notes',
+		description: 'Title for "Generate escalation notes" feature shown in editor.',
+	},
+	generateEscalationNotesDescription: {
+		id: 'fabric.editor.ai.config.item.generateEscalationNotes.description',
+		defaultMessage: 'Generates escalation notes based on the issue context',
+		description: 'Describes the "Generate escalation notes" feature shown in editor.',
+	},
+
 	// Enhance messages
 	improveWritingTitle: {
 		id: 'fabric.editor.ai.config.item.enhance.improveWriting.title',

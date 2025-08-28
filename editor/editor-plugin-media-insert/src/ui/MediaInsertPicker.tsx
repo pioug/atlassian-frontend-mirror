@@ -11,13 +11,8 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import { getDomRefFromSelection } from '@atlaskit/editor-common/get-dom-ref-from-selection';
-import {
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginState,
-	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { mediaInsertMessages } from '@atlaskit/editor-common/messages';
-import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import {
 	PlainOutsideClickTargetRefContext,
 	Popup,
@@ -27,7 +22,6 @@ import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
 import { Box } from '@atlaskit/primitives/compiled';
 import Tabs, { Tab, TabList, useTabPanel } from '@atlaskit/tabs';
 
-import { type MediaInsertPlugin } from '../mediaInsertPluginType';
 import { type MediaInsertPickerProps } from '../types';
 
 import { useFocusEditor } from './hooks/use-focus-editor';
@@ -52,30 +46,6 @@ const CustomTabPanel = ({ children }: { children: React.ReactNode }) => {
 	);
 };
 
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(pluginInjectionApi: ExtractInjectionAPI<MediaInsertPlugin> | undefined) => {
-		return useSharedPluginStateWithSelector(
-			pluginInjectionApi,
-			['media', 'mediaInsert'],
-			(states) => ({
-				mediaProvider: states.mediaState?.mediaProvider,
-				isOpen: states.mediaInsertState?.isOpen,
-				mountInfo: states.mediaInsertState?.mountInfo,
-			}),
-		);
-	},
-	(pluginInjectionApi: ExtractInjectionAPI<MediaInsertPlugin> | undefined) => {
-		const { mediaState, mediaInsertState } = useSharedPluginState(pluginInjectionApi, [
-			'media',
-			'mediaInsert',
-		]);
-		return {
-			mediaProvider: mediaState?.mediaProvider,
-			isOpen: mediaInsertState?.isOpen,
-			mountInfo: mediaInsertState?.mountInfo,
-		};
-	},
-);
 export const MediaInsertPicker = ({
 	api,
 	editorView,
@@ -91,7 +61,15 @@ export const MediaInsertPicker = ({
 	customizedUrlValidation,
 	customizedHelperMessage,
 }: MediaInsertPickerProps) => {
-	const { mediaProvider, isOpen, mountInfo } = useSharedState(api);
+	const { mediaProvider, isOpen, mountInfo } = useSharedPluginStateWithSelector(
+		api,
+		['media', 'mediaInsert'],
+		(states) => ({
+			mediaProvider: states.mediaState?.mediaProvider,
+			isOpen: states.mediaInsertState?.isOpen,
+			mountInfo: states.mediaInsertState?.mountInfo,
+		}),
+	);
 	let targetRef: HTMLElement | undefined;
 	let mountPoint: HTMLElement | undefined;
 	if (mountInfo) {

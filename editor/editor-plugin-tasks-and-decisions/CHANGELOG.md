@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 6.4.7
+
+### Patch Changes
+
+- [`a2cd8c46a3e94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2cd8c46a3e94) -
+  EDITOR-1442 Bump adf-schema
+- [`14592f727f369`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14592f727f369) -
+  [EDITOR-1153] Patch bug with undenting blockTaskItems
+- [`016e787a561d9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/016e787a561d9) -
+  EDITOR-1149 Ensuring placeholder displays correctly for blockTaskItem
+- Updated dependencies
+
+## 6.4.6
+
+### Patch Changes
+
+- [`3e32afb935a2e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3e32afb935a2e) -
+  [EDITOR-1433] Handle backspace from a paragraph after a blockTaskItem
+
 ## 6.4.5
 
 ### Patch Changes

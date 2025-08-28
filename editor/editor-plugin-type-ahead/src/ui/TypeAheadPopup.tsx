@@ -14,11 +14,7 @@ import {
 	EVENT_TYPE,
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import {
-	useSharedPluginState,
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import type {
@@ -116,23 +112,6 @@ const Highlight = ({ state, triggerHandler }: HighlightProps) => {
 
 const OFFSET = [0, 8];
 
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<TypeAheadPlugin> | undefined) => {
-		const { moreElementsInQuickInsertView } = useSharedPluginStateWithSelector(
-			api,
-			['featureFlags'],
-			(states) => ({
-				moreElementsInQuickInsertView: states.featureFlagsState?.moreElementsInQuickInsertView,
-			}),
-		);
-		return { moreElementsInQuickInsertView };
-	},
-	(api: ExtractInjectionAPI<TypeAheadPlugin> | undefined) => {
-		const { featureFlagsState } = useSharedPluginState(api, ['featureFlags']);
-		return { moreElementsInQuickInsertView: featureFlagsState?.moreElementsInQuickInsertView };
-	},
-);
-
 export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 	const {
 		editorView,
@@ -152,7 +131,13 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 	} = props;
 
 	const ref = useRef<HTMLDivElement>(null) as React.MutableRefObject<HTMLDivElement>;
-	const { moreElementsInQuickInsertView } = useSharedState(api);
+	const { moreElementsInQuickInsertView } = useSharedPluginStateWithSelector(
+		api,
+		['featureFlags'],
+		(states) => ({
+			moreElementsInQuickInsertView: states.featureFlagsState?.moreElementsInQuickInsertView,
+		}),
+	);
 	const moreElementsInQuickInsertViewEnabled =
 		moreElementsInQuickInsertView && triggerHandler.id === TypeAheadAvailableNodes.QUICK_INSERT;
 	const isEditorControlsEnabled = editorExperiment('platform_editor_controls', 'variant1');

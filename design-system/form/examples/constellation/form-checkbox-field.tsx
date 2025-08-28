@@ -1,24 +1,24 @@
 import React from 'react';
 
+import { cssMap } from '@compiled/react';
+
 import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
 import Form, { CheckboxField, Field, Fieldset, FormFooter } from '@atlaskit/form';
+import { Flex } from '@atlaskit/primitives/compiled';
 import { RadioGroup } from '@atlaskit/radio';
+
+const styles = cssMap({
+	flex: {
+		width: '400px',
+		maxWidth: '100%',
+		margin: '0 auto',
+	},
+});
 
 const FormCheckboxExample = () => {
 	return (
-		<div
-			style={{
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				display: 'flex',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				width: '400px',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				margin: '0 auto',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				flexDirection: 'column',
-			}}
-		>
+		<Flex xcss={styles.flex} direction="column">
 			<Form onSubmit={(data) => console.log(data)}>
 				{({ formProps }) => (
 					<form {...formProps}>
@@ -67,7 +67,7 @@ const FormCheckboxExample = () => {
 					</form>
 				)}
 			</Form>
-		</div>
+		</Flex>
 	);
 };
 

@@ -17,11 +17,7 @@ import {
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import { browser } from '@atlaskit/editor-common/browser';
-import {
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginState,
-	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import {
 	dragToMoveDown,
 	dragToMoveLeft,
@@ -371,27 +367,6 @@ type DragHandleProps = {
 	view: EditorView;
 };
 
-const useDragHandlePluginState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<BlockControlsPlugin> | undefined) => {
-		const { macroInteractionUpdates } = useSharedPluginStateWithSelector(
-			api,
-			['featureFlags'],
-			(states) => ({
-				macroInteractionUpdates: states.featureFlagsState?.macroInteractionUpdates,
-			}),
-		);
-		return {
-			macroInteractionUpdates,
-		};
-	},
-	(api: ExtractInjectionAPI<BlockControlsPlugin> | undefined) => {
-		const { featureFlagsState } = useSharedPluginState(api, ['featureFlags']);
-		return {
-			macroInteractionUpdates: featureFlagsState?.macroInteractionUpdates,
-		};
-	},
-);
-
 export const DragHandle = ({
 	view,
 	api,
@@ -409,7 +384,13 @@ export const DragHandle = ({
 	const [blockCardWidth, setBlockCardWidth] = useState(768);
 	const [recalculatePosition, setRecalculatePosition] = useState<boolean>(false);
 	const [positionStylesOld, setPositionStylesOld] = useState<CSSProperties>({ display: 'none' });
-	const { macroInteractionUpdates } = useDragHandlePluginState(api);
+	const { macroInteractionUpdates } = useSharedPluginStateWithSelector(
+		api,
+		['featureFlags'],
+		(states) => ({
+			macroInteractionUpdates: states.featureFlagsState?.macroInteractionUpdates,
+		}),
+	);
 	const selection = useSharedPluginStateSelector(api, 'selection.selection');
 	const isShiftDown = useSharedPluginStateSelector(api, 'blockControls.isShiftDown');
 	const interactionState = useSharedPluginStateSelector(api, 'interaction.interactionState');

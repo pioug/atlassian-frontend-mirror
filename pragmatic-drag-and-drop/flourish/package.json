@@ -30,9 +30,6 @@
 	},
 	"sideEffects": false,
 	"atlaskit:src": "src/index.tsx",
-	"af:exports": {
-		"./trigger-post-move-flash": "./src/trigger-post-move-flash.tsx"
-	},
 	"exports": {
 		"./trigger-post-move-flash": "./src/trigger-post-move-flash.tsx"
 	},

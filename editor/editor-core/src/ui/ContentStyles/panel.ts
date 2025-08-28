@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { PanelSharedCssClassName, panelSharedStyles } from '@atlaskit/editor-common/panel';
 import {
@@ -16,7 +16,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation due to mixin usage
-export const panelStyles = () => css`
+export const panelStyles: () => SerializedStyles = () => css`
 	.ProseMirror {
 		.${PanelSharedCssClassName.prefix} {
 			cursor: pointer;

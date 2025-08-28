@@ -1,10 +1,10 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const panelStyles = css({
+export const panelStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -186,22 +186,23 @@ export const panelStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const panelStylesMixin_fg_platform_editor_add_border_for_nested_panel = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'.ProseMirror': {
+export const panelStylesMixin_fg_platform_editor_add_border_for_nested_panel: SerializedStyles =
+	css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.ak-editor-panel': {
-			// Support nested panel
+		'.ProseMirror': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-			'.ak-editor-panel__content .ak-editor-panel': {
-				border: `1px solid ${token('color.border')}`,
+			'.ak-editor-panel': {
+				// Support nested panel
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+				'.ak-editor-panel__content .ak-editor-panel': {
+					border: `1px solid ${token('color.border')}`,
+				},
 			},
 		},
-	},
-});
+	});
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const panelStylesMixin_fg_platform_editor_nested_dnd_styles_changes = css({
+export const panelStylesMixin_fg_platform_editor_nested_dnd_styles_changes: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -241,7 +242,7 @@ export const panelStylesMixin_fg_platform_editor_nested_dnd_styles_changes = css
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const panelStylesMixin = css({
+export const panelStylesMixin: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -299,7 +300,7 @@ export const panelStylesMixin = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const panelViewStyles = css({
+export const panelViewStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.panelView-content-wrap': {
 		boxSizing: 'border-box',

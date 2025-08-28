@@ -15,7 +15,7 @@ import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { CardErrorBoundary } from './fallback';
 import type { WithSmartCardStorageProps } from '../../ui/SmartCardStorage';
@@ -45,7 +45,7 @@ const HoverLinkOverlayNoop = (props: OverlayWithCardContextProps) => (
 );
 
 const HoverLinkOverlayWithCondition = componentWithCondition(
-	() => expValEquals('platform_editor_preview_panel_linking_exp', 'isEnabled', true),
+	() => editorExperiment('platform_editor_preview_panel_linking_exp', true, { exposure: true }),
 	HoverLinkOverlay,
 	HoverLinkOverlayNoop,
 );
@@ -238,10 +238,10 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 								}
 							}}
 							onError={onError}
-							disablePreviewPanel={expValEquals(
+							disablePreviewPanel={editorExperiment(
 								'platform_editor_preview_panel_linking_exp',
-								'isEnabled',
 								true,
+								{ exposure: true },
 							)}
 						/>
 					</MaybeOverlay>

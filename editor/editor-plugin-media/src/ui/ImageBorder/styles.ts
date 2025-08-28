@@ -7,8 +7,6 @@ import { DEFAULT_BORDER_COLOR } from '@atlaskit/editor-common/ui-color';
 // eslint-disable-next-line import/no-namespace
 import * as colors from '@atlaskit/theme/colors';
 import { N0, N20A, N50, N60A, N800, N90 } from '@atlaskit/theme/colors';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 // menuItemDimensions and itemSpacing are copied from
@@ -19,9 +17,8 @@ export const menuItemDimensions = {
 	height: 32,
 };
 
-// TODO: ED-26962 - Migrate away from gridSize
-// Recommendation: Replace directly with 4 due to itemSpacing being used in calculations
-export const itemSpacing = gridSize() / 2;
+// itemSpacing is used in calculations expecting a number, hence not using a space token
+export const itemSpacing = 4;
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const contextualMenuArrow = css`

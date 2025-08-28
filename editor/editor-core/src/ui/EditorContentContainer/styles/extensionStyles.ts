@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
@@ -10,7 +10,7 @@ import {
 } from './selectionStyles';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const extensionStyles = css({
+export const extensionStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.multiBodiedExtensionView-content-wrap': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors

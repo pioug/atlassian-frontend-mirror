@@ -3,8 +3,6 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 import ShowMoreButton from '../showMoreButton';
 
 const mockOnClick = jest.fn();
@@ -26,19 +24,17 @@ describe('ShowMoreButton', () => {
 		await expect(container).toBeAccessible();
 	});
 
-	ffTest.on('platform-linking-sllv-show-more-aria-label', '', () => {
-		it('should render with descriptive aria-label when feature flag is enabled and filterLabel exists', async () => {
-			const { findByRole } = setup('Test Filter');
-			const button = await findByRole('button');
+	it('should render with descriptive aria-label when feature flag is enabled and filterLabel exists', async () => {
+		const { findByRole } = setup('Test Filter');
+		const button = await findByRole('button');
 
-			expect(button).toHaveAttribute('aria-label', 'Show more Test Filter');
-		});
+		expect(button).toHaveAttribute('aria-label', 'Show more Test Filter');
+	});
 
-		it('should render with generic aria-label when feature flag is enabled and filterLabel does not exist', async () => {
-			const { findByRole } = setup();
-			const button = await findByRole('button');
+	it('should render with generic aria-label when feature flag is enabled and filterLabel does not exist', async () => {
+		const { findByRole } = setup();
+		const button = await findByRole('button');
 
-			expect(button).toHaveAttribute('aria-label', 'Show more');
-		});
+		expect(button).toHaveAttribute('aria-label', 'Show more');
 	});
 });

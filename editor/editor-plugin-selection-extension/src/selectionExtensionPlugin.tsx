@@ -8,9 +8,11 @@ import type {
 	OverflowDropdownHeading,
 	OverflowDropdownOption,
 } from '@atlaskit/editor-common/types';
+import { usePluginStateEffect } from '@atlaskit/editor-common/use-plugin-state-effect';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { insertAdfAtEndOfDoc } from './pm-plugins/actions/insertAdfAtEndOfDoc';
 import { replaceWithAdf } from './pm-plugins/actions/replaceWithAdf';
@@ -32,6 +34,7 @@ import { SelectionExtensionComponentWrapper } from './ui/extension/SelectionExte
 import { getMenuItemExtensions, getToolbarItemExtensions } from './ui/extensions';
 import { LegacyPrimaryToolbarComponent } from './ui/LegacyToolbarComponent';
 import { selectionToolbar } from './ui/selectionToolbar';
+import { registerBlockMenuItems } from './ui/utils/registerBlockMenuItems';
 
 type SelectionExtensionStaticOrDynamic = SelectionExtension | DynamicSelectionExtension;
 
@@ -118,6 +121,16 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 
 				return { selectedNodeAdf };
 			},
+		},
+		usePluginHook: () => {
+			usePluginStateEffect(api, ['userIntent', 'selection'], ({ userIntentState }) => {
+				if (
+					userIntentState?.currentUserIntent === 'blockMenuOpen' &&
+					expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
+				) {
+					registerBlockMenuItems(extensionList, api);
+				}
+			});
 		},
 		contentComponent: ({ editorView }) => {
 			return (

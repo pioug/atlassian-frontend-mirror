@@ -1,6 +1,7 @@
 import type {
 	ExtensionConfiguration,
 	ExtensionSource,
+	GetMenuItemFn,
 	GetMenuItemsFn,
 	GetToolbarItemFn,
 	SelectionExtensionConfig,
@@ -67,6 +68,29 @@ export const getMenuItemExtensions = (
 						component: menuItem.contentComponent,
 					});
 				}
+			});
+		}
+		return acc;
+	}, []);
+};
+
+type BlockMenuItems = {
+	menuItem: ReturnType<GetMenuItemFn>;
+	nestedMenuItems?: ReturnType<GetMenuItemsFn>;
+};
+
+export const getBlockMenuItemExtensions = (
+	extensionList: ExtensionConfiguration[],
+	targetSource: ExtensionSource,
+) => {
+	return extensionList.reduce<BlockMenuItems[]>((acc, extension) => {
+		const { source, blockMenu } = extension;
+		if (source === targetSource && blockMenu?.getMenuItem) {
+			const menuItem = blockMenu.getMenuItem();
+			const nestedMenuItems = blockMenu.getNestedMenuItems?.();
+			acc.push({
+				menuItem,
+				nestedMenuItems,
 			});
 		}
 		return acc;

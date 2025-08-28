@@ -1,9 +1,10 @@
-import { css } from '@emotion/react'; // eslint-disable-line @atlaskit/ui-styling-standard/use-compiled
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const codeMarkStyles = css({
+export const codeMarkStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.code': {
 		'--ds--code--bg-color': token('color.background.neutral'),

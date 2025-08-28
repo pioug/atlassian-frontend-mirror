@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 3.1.14
+
+### Patch Changes
+
+- [`f204d18f922f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f204d18f922f0) -
+  ED-29116: clean up sharedPluginStateHookMigratorFactory in type-ahead
+
+## 3.1.13
+
+### Patch Changes
+
+- [`a2cd8c46a3e94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2cd8c46a3e94) -
+  EDITOR-1442 Bump adf-schema
+- Updated dependencies
+
 ## 3.1.12
 
 ### Patch Changes

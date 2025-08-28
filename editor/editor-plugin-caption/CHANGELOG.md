@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-caption
 
+## 3.2.1
+
+### Patch Changes
+
+- [`a2cd8c46a3e94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2cd8c46a3e94) -
+  EDITOR-1442 Bump adf-schema
+- Updated dependencies
+
 ## 3.2.0
 
 ### Minor Changes

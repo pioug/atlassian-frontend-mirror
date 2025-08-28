@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
-import { css, keyframes } from '@emotion/react';
+import { css, keyframes, type SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
@@ -86,7 +86,7 @@ ${wrapLeft} + ${gapCursorSelector} + ${wrapRight} + *,
   ${prosemirrorwidgetNotBlock} + ${gapCursorSelector} + span + *`;
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const gapCursorStyles = css({
+export const gapCursorStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values

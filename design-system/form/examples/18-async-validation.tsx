@@ -15,16 +15,14 @@ import Form, {
 	RequiredAsterisk,
 	ValidMessage,
 } from '@atlaskit/form';
-import { Box, Text } from '@atlaskit/primitives/compiled';
+import { Flex, Text } from '@atlaskit/primitives/compiled';
 import TextField from '@atlaskit/textfield';
 
 const formContainerStyle = cssMap({
 	root: {
-		display: 'flex',
 		width: '400px',
 		maxWidth: '100%',
 		margin: '0 auto',
-		flexDirection: 'column',
 	},
 });
 
@@ -56,7 +54,7 @@ export default () => {
 	});
 
 	return (
-		<Box xcss={formContainerStyle.root}>
+		<Flex xcss={formContainerStyle.root} direction="column">
 			<Form<{ username: string; password: string; remember: boolean }>
 				onSubmit={(data) => {
 					console.log('form data', data);
@@ -140,6 +138,6 @@ export default () => {
 					</form>
 				)}
 			</Form>
-		</Box>
+		</Flex>
 	);
 };

@@ -1,5 +1,34 @@
 # @atlaskit/editor-core
 
+## 210.2.4
+
+### Patch Changes
+
+- [`ef3b2dfa2f8a8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef3b2dfa2f8a8) -
+  Internal changes to use radius tokens. No visual changes.
+- Updated dependencies
+
+## 210.2.3
+
+### Patch Changes
+
+- [`55a7e20e3fd4c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/55a7e20e3fd4c) -
+  [ux] ED-29050 add support for rendering custom primary toolbar components to new toolbar
+- [`4ef462fecb522`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4ef462fecb522) -
+  [ux] [ED-29003] Register loom component as a dropdown menu item in overflow menu
+- [`a2cd8c46a3e94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2cd8c46a3e94) -
+  EDITOR-1442 Bump adf-schema
+- Updated dependencies
+
+## 210.2.2
+
+### Patch Changes
+
+- [`d62dbf1995b2e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d62dbf1995b2e) -
+  [ux] ED-29080 Add danger styles for inline nodes and decision nodes when delete button in block
+  menu is hovered
+- Updated dependencies
+
 ## 210.2.1
 
 ### Patch Changes

@@ -3,6 +3,7 @@ import React from 'react';
 import rafSchedule from 'raf-schd';
 import uuid from 'uuid/v4';
 
+import { EditorCardProvider } from '@atlaskit/editor-card-provider';
 import ReactNodeView, {
 	type getInlineNodeViewProducer,
 } from '@atlaskit/editor-common/react-node-view';
@@ -23,15 +24,30 @@ import { isDatasourceNode } from '../pm-plugins/utils';
 import type { SmartCardProps } from './genericCard';
 import { Card } from './genericCard';
 
+interface State {
+	isSSRDataAvailable?: boolean;
+}
+
 // eslint-disable-next-line @repo/internal/react/no-class-components
-export class BlockCardComponent extends React.PureComponent<SmartCardProps & { id?: string }> {
+export class BlockCardComponent extends React.PureComponent<
+	SmartCardProps & { id?: string },
+	State
+> {
 	private scrollContainer?: HTMLElement;
+
+	state: State = {
+		isSSRDataAvailable: false,
+	};
 
 	constructor(props: SmartCardProps & { id?: string }) {
 		super(props);
 		// Ignored via go/ees005
 		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		this.scrollContainer = findOverflowScrollParent(props.view.dom as HTMLElement) || undefined;
+		this.state = {
+			isSSRDataAvailable:
+				expValEquals('platform_editor_smart_card_otp', 'isEnabled', true) && props.isPageSSRed,
+		};
 	}
 
 	onResolve = (data: { title?: string; url?: string }) => {
@@ -61,6 +77,31 @@ export class BlockCardComponent extends React.PureComponent<SmartCardProps & { i
 			);
 		})();
 	};
+
+	componentDidMount() {
+		if (!expValEquals('platform_editor_smart_card_otp', 'isEnabled', true)) {
+			return;
+		}
+
+		const provider = this.props.provider;
+
+		if (!provider) {
+			return;
+		}
+
+		const updateSSRDataAvailability = async () => {
+			const resolvedProvider = await provider;
+
+			if (resolvedProvider instanceof EditorCardProvider) {
+				this.setState((state) => ({
+					...state,
+					isSSRDataAvailable: resolvedProvider.getCacheStatusForNode(this.props.node) === 'ssr',
+				}));
+			}
+		};
+
+		void updateSSRDataAvailability();
+	}
 
 	componentWillUnmount(): void {
 		this.removeCard();
@@ -114,6 +155,10 @@ export class BlockCardComponent extends React.PureComponent<SmartCardProps & { i
 						platform={'web'}
 						actionOptions={actionOptions}
 						CompetitorPrompt={CompetitorPrompt}
+						hideIconLoadingSkeleton={
+							expValEquals('platform_editor_smart_card_otp', 'isEnabled', true) &&
+							this.state.isSSRDataAvailable
+						}
 					/>
 					{this.gapCursorSpan()}
 				</>
@@ -152,7 +197,12 @@ const WrappedBlockCard = Card(BlockCardComponent, UnsupportedBlock);
 
 export type BlockCardNodeViewProps = Pick<
 	SmartCardProps,
-	'actionOptions' | 'pluginInjectionApi' | 'onClickCallback' | 'isPageSSRed' | 'CompetitorPrompt'
+	| 'actionOptions'
+	| 'pluginInjectionApi'
+	| 'onClickCallback'
+	| 'isPageSSRed'
+	| 'provider'
+	| 'CompetitorPrompt'
 >;
 
 export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
@@ -199,8 +249,14 @@ export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
 	}
 
 	render() {
-		const { actionOptions, pluginInjectionApi, onClickCallback, CompetitorPrompt, isPageSSRed } =
-			this.reactComponentProps;
+		const {
+			actionOptions,
+			pluginInjectionApi,
+			onClickCallback,
+			CompetitorPrompt,
+			isPageSSRed,
+			provider,
+		} = this.reactComponentProps;
 
 		return (
 			<WrappedBlockCard
@@ -213,6 +269,7 @@ export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
 				id={this.id}
 				CompetitorPrompt={CompetitorPrompt}
 				isPageSSRed={isPageSSRed}
+				provider={provider}
 			/>
 		);
 	}
@@ -232,6 +289,7 @@ export interface BlockCardNodeViewProperties {
 	onClickCallback: BlockCardNodeViewProps['onClickCallback'];
 	pluginInjectionApi: BlockCardNodeViewProps['pluginInjectionApi'];
 	pmPluginFactoryParams: PMPluginFactoryParams;
+	provider: BlockCardNodeViewProps['provider'];
 }
 
 export const blockCardNodeView =
@@ -244,6 +302,7 @@ export const blockCardNodeView =
 		inlineCardViewProducer,
 		CompetitorPrompt,
 		isPageSSRed,
+		provider,
 	}: BlockCardNodeViewProperties) =>
 	(
 		node: Node,
@@ -258,6 +317,7 @@ export const blockCardNodeView =
 			onClickCallback: onClickCallback,
 			CompetitorPrompt,
 			isPageSSRed,
+			provider,
 		};
 		const isDatasource = isDatasourceNode(node);
 

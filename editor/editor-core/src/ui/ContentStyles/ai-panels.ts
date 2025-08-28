@@ -6,7 +6,7 @@
  */
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, keyframes } from '@emotion/react';
+import { css, type SerializedStyles, keyframes } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
@@ -107,8 +107,10 @@ const prismBorderStyles = (colorMode?: 'light' | 'dark', hover?: boolean) =>
 					}),
 	});
 
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Ignored via go/DSP-18766
-export const aiPanelStyles = (colorMode?: 'light' | 'dark') => css`
+export const aiPanelStyles: (colorMode?: 'light' | 'dark') => SerializedStyles = (
+	colorMode?: 'light' | 'dark',
+	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
+) => css`
 	@property --panel-gradient-angle {
 		syntax: '<angle>';
 		initial-value: 270deg;

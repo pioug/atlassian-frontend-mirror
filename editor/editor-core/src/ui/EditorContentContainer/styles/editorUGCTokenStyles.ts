@@ -1,11 +1,11 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 /**
  * Use when fg('platform_editor_typography_ugc') is disabled.
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const editorUGCTokensDefault = css({
+export const editorUGCTokensDefault: SerializedStyles = css({
 	'--editor-font-ugc-token-heading-h1':
 		'normal 500 1.71429em/1.16667 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	'--editor-font-ugc-token-heading-h2':
@@ -29,7 +29,7 @@ export const editorUGCTokensDefault = css({
  * - fg('atlas_editor_typography_refreshed')
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const editorUGCTokensModernized = css({
+export const editorUGCTokensModernized: SerializedStyles = css({
 	'--editor-font-ugc-token-heading-h1':
 		'normal 600 1.71429em/1.16667 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	'--editor-font-ugc-token-heading-h2':
@@ -53,7 +53,7 @@ export const editorUGCTokensModernized = css({
  * - fg('atlas_editor_typography_refreshed')
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const editorUGCTokensRefreshed = css({
+export const editorUGCTokensRefreshed: SerializedStyles = css({
 	'--editor-font-ugc-token-heading-h1':
 		'normal 600 1.71429em/1.16667 "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	'--editor-font-ugc-token-heading-h2':

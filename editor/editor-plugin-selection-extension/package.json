@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-selection-extension",
-	"version": "3.6.0",
+	"version": "3.6.2",
 	"description": "editor-plugin-selection-extension plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -38,6 +38,7 @@
 		"@atlaskit/adf-utils": "workspace:^",
 		"@atlaskit/editor-json-transformer": "workspace:^",
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
+		"@atlaskit/editor-plugin-block-menu": "workspace:^",
 		"@atlaskit/editor-plugin-editor-viewmode": "workspace:^",
 		"@atlaskit/editor-plugin-primary-toolbar": "workspace:^",
 		"@atlaskit/editor-plugin-selection-toolbar": "workspace:^",
@@ -45,6 +46,7 @@
 		"@atlaskit/editor-prosemirror": "root:*",
 		"@atlaskit/editor-shared-styles": "workspace:^",
 		"@atlaskit/editor-tables": "workspace:^",
+		"@atlaskit/editor-toolbar": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",

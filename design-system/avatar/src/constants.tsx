@@ -1,15 +1,12 @@
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { gridSize } from '@atlaskit/theme/constants';
-
 import { type AvatarSizeMap, type IndicatorSizeType } from './types';
 
 export const AVATAR_SIZES: AvatarSizeMap = {
-	xsmall: gridSize() * 2,
-	small: gridSize() * 3,
-	medium: gridSize() * 4,
-	large: gridSize() * 5,
-	xlarge: gridSize() * 12,
-	xxlarge: gridSize() * 16,
+	xsmall: 16,
+	small: 24,
+	medium: 32,
+	large: 40,
+	xlarge: 96,
+	xxlarge: 128,
 };
 
 // border radius only applies to "square" avatars

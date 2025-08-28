@@ -1,10 +1,6 @@
 import React from 'react';
 
-import {
-	useSharedPluginState,
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -22,49 +18,6 @@ interface ContentComponentProps {
 	popupMountRef: PopupMountPointReference;
 }
 
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<TypeAheadPlugin> | undefined) => {
-		const {
-			triggerHandler,
-			items,
-			errorInfo,
-			decorationElement,
-			decorationSet,
-			query,
-			selectedIndex,
-		} = useSharedPluginStateWithSelector(api, ['typeAhead'], (states) => ({
-			triggerHandler: states.typeAheadState?.triggerHandler,
-			items: states.typeAheadState?.items,
-			errorInfo: states.typeAheadState?.errorInfo,
-			decorationElement: states.typeAheadState?.decorationElement,
-			decorationSet: states.typeAheadState?.decorationSet,
-			query: states.typeAheadState?.query,
-			selectedIndex: states.typeAheadState?.selectedIndex,
-		}));
-		return {
-			triggerHandler,
-			items,
-			errorInfo,
-			decorationElement,
-			decorationSet,
-			query,
-			selectedIndex,
-		};
-	},
-	(api: ExtractInjectionAPI<TypeAheadPlugin> | undefined) => {
-		const { typeAheadState } = useSharedPluginState(api, ['typeAhead']);
-		return {
-			triggerHandler: typeAheadState?.triggerHandler,
-			items: typeAheadState?.items,
-			errorInfo: typeAheadState?.errorInfo,
-			decorationElement: typeAheadState?.decorationElement,
-			decorationSet: typeAheadState?.decorationSet,
-			query: typeAheadState?.query,
-			selectedIndex: typeAheadState?.selectedIndex,
-		};
-	},
-);
-
 export function ContentComponent({ api, editorView, popupMountRef }: ContentComponentProps) {
 	const {
 		triggerHandler,
@@ -74,7 +27,15 @@ export function ContentComponent({ api, editorView, popupMountRef }: ContentComp
 		decorationSet,
 		query,
 		selectedIndex,
-	} = useSharedState(api);
+	} = useSharedPluginStateWithSelector(api, ['typeAhead'], (states) => ({
+		triggerHandler: states.typeAheadState?.triggerHandler,
+		items: states.typeAheadState?.items,
+		errorInfo: states.typeAheadState?.errorInfo,
+		decorationElement: states.typeAheadState?.decorationElement,
+		decorationSet: states.typeAheadState?.decorationSet,
+		query: states.typeAheadState?.query,
+		selectedIndex: states.typeAheadState?.selectedIndex,
+	}));
 	if (
 		items === undefined ||
 		decorationSet === undefined ||

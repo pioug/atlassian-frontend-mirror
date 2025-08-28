@@ -8,7 +8,6 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { SmartCardProps } from '../../nodeviews/genericCard';
@@ -114,7 +113,7 @@ export const AwarenessWrapper = ({
 		if (
 			shouldShowLinkOverlay &&
 			!editorExperiment('platform_editor_controls', 'variant1') &&
-			!expValEqualsNoExposure('platform_editor_preview_panel_linking_exp', 'isEnabled', true)
+			!editorExperiment('platform_editor_preview_panel_linking_exp', true)
 		) {
 			return (
 				<InlineCardOverlay

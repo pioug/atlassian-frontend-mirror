@@ -122,13 +122,13 @@ const SIZES: Record<SizeType, number> = {
 
 const borderRadiusMap = cssMap({
 	xsmall: {
-		borderRadius: '4px',
+		borderRadius: token('radius.small'),
 	},
 	small: {
-		borderRadius: '6px',
+		borderRadius: token('radius.medium'),
 	},
 	medium: {
-		borderRadius: token('border.radius.200'),
+		borderRadius: token('radius.large'),
 	},
 	large: {
 		borderRadius: '10px',

@@ -1,11 +1,12 @@
-import { css } from '@emotion/react'; // eslint-disable-line @atlaskit/ui-styling-standard/use-compiled
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
 const blockNodesVerticalMargin = '0.75rem';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const paragraphStylesUGCRefreshed = css({
+export const paragraphStylesUGCRefreshed: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.ProseMirror p': {
 		// The `editor.font.body` token is used for the UGC typography theme.
@@ -19,7 +20,7 @@ export const paragraphStylesUGCRefreshed = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const paragraphStylesUGCModernized = css({
+export const paragraphStylesUGCModernized: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.ProseMirror p': {
 		// The `editor.font.body` token is used for the UGC typography theme.
@@ -33,7 +34,7 @@ export const paragraphStylesUGCModernized = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const paragraphStylesOld = css({
+export const paragraphStylesOld: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.ProseMirror p': {
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography

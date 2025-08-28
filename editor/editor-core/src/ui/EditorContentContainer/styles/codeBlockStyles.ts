@@ -1,4 +1,5 @@
-import { css } from '@emotion/react'; // eslint-disable-line @atlaskit/ui-styling-standard/use-compiled
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
@@ -24,7 +25,7 @@ export const CodeBlockSharedCssClassName = {
 const fontSize14px = `${14 / 16}rem`;
 const blockNodesVerticalMargin = '0.75rem';
 
-const gutterDangerOverlay = css({
+const gutterDangerOverlay: SerializedStyles = css({
 	'&::after': {
 		height: '100%',
 		content: "''",
@@ -37,7 +38,7 @@ const gutterDangerOverlay = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const codeBlockStyles = css({
+export const codeBlockStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
@@ -275,7 +276,7 @@ export const codeBlockStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const codeBgColorStyles = css({
+export const codeBgColorStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
 	[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER}`]: {
 		'--ds--code--bg-color': 'transparent',
@@ -283,7 +284,7 @@ export const codeBgColorStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const firstCodeBlockWithNoMargin = css({
+export const firstCodeBlockWithNoMargin: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -299,7 +300,7 @@ export const firstCodeBlockWithNoMargin = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const firstCodeBlockWithNoMarginOld = css({
+export const firstCodeBlockWithNoMarginOld: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors

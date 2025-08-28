@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-media
 
+## 5.4.2
+
+### Patch Changes
+
+- [`a2cd8c46a3e94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2cd8c46a3e94) -
+  EDITOR-1442 Bump adf-schema
+- Updated dependencies
+
+## 5.4.1
+
+### Patch Changes
+
+- [`20a5aa8c4e7a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/20a5aa8c4e7a0) -
+  Removed gridSize import. No visual changes.
+- Updated dependencies
+
 ## 5.4.0
 
 ### Minor Changes

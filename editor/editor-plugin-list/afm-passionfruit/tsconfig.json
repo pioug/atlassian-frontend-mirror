@@ -26,7 +26,16 @@
 			"path": "../../editor-plugin-analytics/afm-passionfruit/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-block-menu/afm-passionfruit/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-feature-flags/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-passionfruit/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-passionfruit/tsconfig.json"

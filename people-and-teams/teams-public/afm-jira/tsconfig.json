@@ -77,6 +77,9 @@
 			"path": "../../../design-system/primitives/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/skeleton/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../teams-app-internal-product-permissions/afm-jira/tsconfig.json"
 		},
 		{

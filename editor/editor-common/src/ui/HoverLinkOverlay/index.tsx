@@ -16,7 +16,7 @@ import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import PanelRightIcon from '@atlaskit/icon/core/panel-right';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Anchor, Box, Text, xcss } from '@atlaskit/primitives';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -201,8 +201,7 @@ const HoverLinkOverlay = ({
 	};
 
 	const isPreivewButton =
-		showPanelButton &&
-		expValEqualsNoExposure('platform_editor_preview_panel_linking_exp', 'isEnabled', true);
+		showPanelButton && editorExperiment('platform_editor_preview_panel_linking_exp', true);
 	const label = isPreivewButton
 		? formatMessage(cardMessages.previewButtonTitle)
 		: formatMessage(cardMessages.openButtonTitle);

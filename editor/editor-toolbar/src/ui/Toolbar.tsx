@@ -7,7 +7,7 @@ import { token } from '@atlaskit/tokens';
 const styles = cssMap({
 	toolbarBase: {
 		backgroundColor: token('elevation.surface'),
-		borderRadius: '6px',
+		borderRadius: token('radius.medium'),
 		display: 'flex',
 		alignItems: 'center',
 		gap: token('space.050'),

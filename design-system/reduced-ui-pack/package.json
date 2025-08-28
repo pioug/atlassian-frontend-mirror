@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/reduced-ui-pack",
-	"version": "19.0.4",
+	"version": "19.0.5",
 	"description": "CSS classes which provide styling for a reduced number of Atlaskit components.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

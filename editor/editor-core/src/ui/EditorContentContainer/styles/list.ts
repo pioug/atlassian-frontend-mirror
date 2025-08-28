@@ -1,4 +1,5 @@
-import { css } from '@emotion/react'; // eslint-disable-line @atlaskit/ui-styling-standard/use-compiled
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
@@ -11,7 +12,7 @@ const BLOCK_CARD_CONTAINER = 'blockCardView-content-wrap';
 const blockNodesVerticalMargin = '0.75rem';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const listsStyles = css({
+export const listsStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
 		/* =============== INDENTATION SPACING ========= */
@@ -150,7 +151,7 @@ export const listsStyles = css({
 
 /* This prevents https://product-fabric.atlassian.net/browse/ED-20924 */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const listsStylesSafariFix = css({
+export const listsStylesSafariFix: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 	[`.ProseMirror:not(.${BLOCK_CARD_CONTAINER}) > li::before`]: {
 		content: '" "',

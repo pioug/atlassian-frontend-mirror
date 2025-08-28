@@ -76,6 +76,14 @@ const getFormatMenuComponents = (): RegisterBlockMenuComponent[] => {
 				return <ToolbarDropdownItemSection>{children}</ToolbarDropdownItemSection>;
 			},
 		},
+		{
+			type: 'block-menu-section' as const,
+			key: 'block-menu-section-primary',
+			rank: 100,
+			component: ({ children }: { children: React.ReactNode }) => {
+				return <ToolbarDropdownItemSection>{children}</ToolbarDropdownItemSection>;
+			},
+		},
 	];
 };
 
@@ -88,14 +96,7 @@ export const getBlockMenuComponents = ({
 }): RegisterBlockMenuComponent[] => {
 	return [
 		...(fg('platform_editor_block_menu_format') ? getFormatMenuComponents() : []),
-		{
-			type: 'block-menu-section' as const,
-			key: 'block-menu-section-primary',
-			rank: 100,
-			component: ({ children }: { children: React.ReactNode }) => {
-				return <ToolbarDropdownItemSection>{children}</ToolbarDropdownItemSection>;
-			},
-		},
+
 		{
 			type: 'block-menu-section',
 			key: 'block-menu-section-copy',

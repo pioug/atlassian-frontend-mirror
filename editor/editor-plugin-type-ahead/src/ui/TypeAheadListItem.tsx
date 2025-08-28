@@ -8,11 +8,7 @@ import React, { useCallback, useLayoutEffect, useMemo } from 'react';
 import { css, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
-import {
-	useSharedPluginState,
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { IconFallback } from '@atlaskit/editor-common/quick-insert';
 import { SelectItemMode, typeAheadListMessages } from '@atlaskit/editor-common/type-ahead';
 import {
@@ -227,21 +223,6 @@ const CustomItemComponentWrapper = React.memo((props: CustomItemComponentWrapper
 	);
 });
 
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<TypeAheadPlugin> | undefined) => {
-		const { mode } = useSharedPluginStateWithSelector(api, ['connectivity'], (states) => {
-			return {
-				mode: states.connectivityState?.mode,
-			};
-		});
-		return { connectivityMode: mode };
-	},
-	(api: ExtractInjectionAPI<TypeAheadPlugin> | undefined) => {
-		const { connectivityState } = useSharedPluginState(api, ['connectivity']);
-		return { connectivityMode: connectivityState?.mode };
-	},
-);
-
 export const TypeAheadListItem = React.memo(
 	({
 		item,
@@ -254,7 +235,15 @@ export const TypeAheadListItem = React.memo(
 		api,
 		firstOnlineSupportedIndex,
 	}: TypeAheadListItemProps) => {
-		const { connectivityMode } = useSharedState(api);
+		const { connectivityMode } = useSharedPluginStateWithSelector(
+			api,
+			['connectivity'],
+			(states) => {
+				return {
+					connectivityMode: states.connectivityState?.mode,
+				};
+			},
+		);
 		const isItemDisabled = (item: TypeAheadItem | undefined) =>
 			connectivityMode === 'offline' && (item?.isDisabledOffline ?? false);
 		const itemIsDisabled = isItemDisabled(item);

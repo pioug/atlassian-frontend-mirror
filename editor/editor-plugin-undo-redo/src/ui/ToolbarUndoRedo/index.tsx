@@ -7,11 +7,7 @@ import { jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
-import {
-	useSharedPluginState,
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import {
 	getAriaKeyshortcuts,
 	redo,
@@ -49,23 +45,6 @@ export interface Props {
 	undoDisabled?: boolean;
 }
 
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<UndoRedoPlugin> | undefined) => {
-		const { canRedo, canUndo } = useSharedPluginStateWithSelector(api, ['history'], (states) => ({
-			canUndo: states.historyState?.canUndo,
-			canRedo: states.historyState?.canRedo,
-		}));
-		return { canUndo, canRedo };
-	},
-	(api: ExtractInjectionAPI<UndoRedoPlugin> | undefined) => {
-		const { historyState } = useSharedPluginState(api, ['history']);
-		return {
-			canUndo: historyState?.canUndo,
-			canRedo: historyState?.canRedo,
-		};
-	},
-);
-
 export const ToolbarUndoRedo = ({
 	disabled,
 	isReducedSpacing,
@@ -73,7 +52,10 @@ export const ToolbarUndoRedo = ({
 	api,
 	intl: { formatMessage },
 }: Props & WrappedComponentProps) => {
-	const { canUndo, canRedo } = useSharedState(api);
+	const { canRedo, canUndo } = useSharedPluginStateWithSelector(api, ['history'], (states) => ({
+		canUndo: states.historyState?.canUndo,
+		canRedo: states.historyState?.canRedo,
+	}));
 
 	const handleUndo = () => {
 		forceFocus(editorView, api)(undoFromToolbarWithAnalytics(api?.analytics?.actions));

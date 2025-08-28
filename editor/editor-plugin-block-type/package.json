@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-type",
-	"version": "6.2.13",
+	"version": "6.2.15",
 	"description": "BlockType plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -37,6 +37,7 @@
 		"@atlaskit/adf-schema": "root:*",
 		"@atlaskit/css": "workspace:^",
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
+		"@atlaskit/editor-plugin-block-menu": "workspace:^",
 		"@atlaskit/editor-plugin-primary-toolbar": "workspace:^",
 		"@atlaskit/editor-plugin-selection-toolbar": "workspace:^",
 		"@atlaskit/editor-plugin-toolbar": "workspace:^",

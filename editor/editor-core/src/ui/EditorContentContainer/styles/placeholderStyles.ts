@@ -1,10 +1,10 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const placeholderTextStyles = css({
+export const placeholderTextStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror span[data-placeholder]': {
 		color: token('color.text.subtlest'),
@@ -68,22 +68,23 @@ export const placeholderTextStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const placeholderTextStylesMixin_fg_platform_editor_system_fake_text_highlight_colour = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'.ProseMirror': {
+export const placeholderTextStylesMixin_fg_platform_editor_system_fake_text_highlight_colour: SerializedStyles =
+	css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.ProseMirror-fake-text-selection': {
-			// Follow the system highlight colour to match native text selection
-			backgroundColor: 'Highlight',
-			// We should also match the text colour to the system highlight text colour.
-			// That way if the system highlight background is dark, the text will still be readable.
-			color: 'HighlightText',
+		'.ProseMirror': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'.ProseMirror-fake-text-selection': {
+				// Follow the system highlight colour to match native text selection
+				backgroundColor: 'Highlight',
+				// We should also match the text colour to the system highlight text colour.
+				// That way if the system highlight background is dark, the text will still be readable.
+				color: 'HighlightText',
+			},
 		},
-	},
-});
+	});
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const placeholderStyles = css({
+export const placeholderStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.ProseMirror .placeholder-decoration': {
 		color: token('color.text.subtlest'),
@@ -101,7 +102,7 @@ export const placeholderStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const placeholderOverflowStyles = css({
+export const placeholderOverflowStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'.ProseMirror p:has(.placeholder-decoration-hide-overflow)': {
 		overflow: 'hidden',
@@ -111,7 +112,7 @@ export const placeholderOverflowStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const placeholderWrapStyles = css({
+export const placeholderWrapStyles: SerializedStyles = css({
 	// As part of controls work, we add placeholder `Search` to quick insert command
 	// This style is to prevent `/Search` being wrapped if it's triggered at the end of the line
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors

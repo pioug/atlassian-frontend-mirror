@@ -45,6 +45,9 @@
 		},
 		{
 			"path": "../../../build/website/docs/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-test-helpers/tsconfig.app.json"
 		}
 	]
 }

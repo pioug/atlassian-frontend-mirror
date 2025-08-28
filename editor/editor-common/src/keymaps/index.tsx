@@ -168,7 +168,7 @@ const arrowKeysMap: Record<string, string> = {
 };
 
 const tooltipShortcutStyle = css({
-	borderRadius: '2px',
+	borderRadius: token('radius.xsmall'),
 	backgroundColor: token('color.background.inverse.subtle'),
 	padding: `0 ${token('space.025', '2px')}`,
 	// NOTE: This might not actually do anything: https://atlassian.slack.com/archives/CFG3PSQ9E/p1647395052443259?thread_ts=1647394572.556029&cid=CFG3PSQ9E

@@ -4,7 +4,10 @@
  */
 import { css, jsx } from '@compiled/react';
 
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+
 import { type MediaType } from '../../../../../constants';
+import { useFlexibleUiOptionContext } from '../../../../../state/flexible-ui-context';
 import ImageIcon from '../../common/image-icon';
 import { type ElementProps } from '../index';
 
@@ -80,6 +83,11 @@ const MediaElement = ({
 	onLoad,
 	onError,
 }: MediaElementProps) => {
+	const ui = expValEquals('platform_editor_smart_card_otp', 'isEnabled', true)
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useFlexibleUiOptionContext()
+		: undefined;
+
 	if (!type || !url) {
 		return null;
 	}
@@ -93,6 +101,7 @@ const MediaElement = ({
 			className={className}
 		>
 			<ImageIcon
+				hideLoadingSkeleton={ui?.hideLoadingSkeleton}
 				testId={`${testId}-image`}
 				url={url}
 				onError={onError}

@@ -5,8 +5,6 @@
 
 import React from 'react';
 import { css, jsx } from '@compiled/react';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { gridSize } from '@atlaskit/theme/constants';
 import { N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -44,8 +42,7 @@ export const FooterContent = ({ children }: { children: React.ReactNode }) => (
 );
 
 const helpWrapperStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-	width: `${gridSize() * 46}px`,
+	width: '368px',
 	height: '100%',
 	position: 'relative',
 	overflowX: 'hidden',

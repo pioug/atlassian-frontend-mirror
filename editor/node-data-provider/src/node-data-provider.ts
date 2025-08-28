@@ -261,6 +261,31 @@ export abstract class NodeDataProvider<Node extends JSONNode, Data> {
 			}
 		});
 	}
+
+	/**
+	 * Checks the cache for the given node and returns its status.
+	 *
+	 * Possible return values:
+	 * - `false`: No cached data found for the node.
+	 * - `'ssr'`: Data is cached from server-side rendering (SSR).
+	 * - `'network'`: Data is cached from a network request.
+	 *
+	 * @param node The node (or its ProseMirror representation) to check in the cache.
+	 * @returns The cache status: `false`, `'ssr'`, or `'network'`.
+	 */
+	getCacheStatusForNode(node: Node | PMNode): false | 'ssr' | 'network' {
+		const jsonNode: JSONNode = 'toJSON' in node ? node.toJSON() : node;
+
+		if (!this.isNodeSupported(jsonNode)) {
+			// eslint-disable-next-line no-console
+			console.error(`The ${this.constructor.name} doesn't support Node ${jsonNode.type}.`);
+			return false;
+		}
+
+		const dataKey = this.nodeDataKey(jsonNode);
+		const dataFromCache = this.cache[dataKey];
+		return dataFromCache ? dataFromCache.source : false;
+	}
 }
 
 function isPromise<T>(value: T | Promise<T>): value is Promise<T> {

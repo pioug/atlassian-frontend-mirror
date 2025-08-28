@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-highlight
 
+## 3.1.1
+
+### Patch Changes
+
+- [`bf3ab0c552ba7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bf3ab0c552ba7) -
+  [ux] ED-29000 Add keyboard navigation to colour palette and minor UI fixes
+- [`a2cd8c46a3e94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2cd8c46a3e94) -
+  EDITOR-1442 Bump adf-schema
+- [`ec65234ef4b55`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec65234ef4b55) -
+  Tidy up FG platform_editor_usesharedpluginstatewithselector for highlight and hyperlink
+- Updated dependencies
+
 ## 3.1.0
 
 ### Minor Changes

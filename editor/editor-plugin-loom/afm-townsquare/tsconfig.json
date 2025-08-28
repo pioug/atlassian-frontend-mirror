@@ -38,13 +38,22 @@
 			"path": "../../editor-plugin-quick-insert/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-toolbar/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-width/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar/afm-townsquare/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/icon/afm-townsquare/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-townsquare/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/tokens/afm-townsquare/tsconfig.json"

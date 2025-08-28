@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 3.6.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.6.1
+
+### Patch Changes
+
+- [`de1880647c70f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/de1880647c70f) -
+  Support block menu config in selection extension
+- Updated dependencies
+
 ## 3.6.0
 
 ### Minor Changes

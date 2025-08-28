@@ -5,7 +5,7 @@
 import React from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx, type SerializedStyles } from '@emotion/react';
 import { injectIntl, type IntlShape } from 'react-intl-next';
 import Transition from 'react-transition-group/Transition';
 
@@ -41,7 +41,7 @@ const panelHidden = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const panel = css({
+export const panel: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	width: `${akEditorContextPanelWidth}px`,
 	height: '100%',
@@ -56,7 +56,7 @@ const disablePanelAnimation = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const content = css({
+export const content: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	transition: `width 600ms ${akEditorSwoopCubicBezier}`,
 	boxSizing: 'border-box',

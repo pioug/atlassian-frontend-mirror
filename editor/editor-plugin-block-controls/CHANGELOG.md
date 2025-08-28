@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 4.2.8
+
+### Patch Changes
+
+- [`dc8c29b73acf5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dc8c29b73acf5) -
+  Cleanup platform_editor_usesharedpluginstateselector
+- [`a2cd8c46a3e94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2cd8c46a3e94) -
+  EDITOR-1442 Bump adf-schema
+- Updated dependencies
+
+## 4.2.7
+
+### Patch Changes
+
+- [`4ad85ea2ae5db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4ad85ea2ae5db) -
+  [ux] ED-29121 Fix selection toolbar not showing after block menu item is clicked
+
 ## 4.2.6
 
 ### Patch Changes

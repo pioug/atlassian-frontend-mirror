@@ -1,5 +1,12 @@
 # @atlaskit/teams-public
 
+## 0.55.4
+
+### Patch Changes
+
+- [`69c6b5b0da1e6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/69c6b5b0da1e6) -
+  Internal changes to how border radius is applied.
+
 ## 0.55.3
 
 ### Patch Changes

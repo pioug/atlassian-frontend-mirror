@@ -1,5 +1,20 @@
 # @atlaskit/help
 
+## 9.1.15
+
+### Patch Changes
+
+- [`ef3b2dfa2f8a8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef3b2dfa2f8a8) -
+  Internal changes to use radius tokens. No visual changes.
+
+## 9.1.14
+
+### Patch Changes
+
+- [`20a5aa8c4e7a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/20a5aa8c4e7a0) -
+  Removed gridSize import. No visual changes.
+- Updated dependencies
+
 ## 9.1.13
 
 ### Patch Changes

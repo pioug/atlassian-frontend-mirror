@@ -1,5 +1,7 @@
 import React, { Fragment } from 'react';
 
+import { cssMap } from '@compiled/react';
+
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
@@ -17,6 +19,7 @@ import Form, {
 	RangeField,
 	RequiredAsterisk,
 } from '@atlaskit/form';
+import { Flex } from '@atlaskit/primitives/compiled';
 import { RadioGroup } from '@atlaskit/radio';
 import Range from '@atlaskit/range';
 import Select, { type OptionType, type ValueType } from '@atlaskit/select';
@@ -24,21 +27,16 @@ import TextArea from '@atlaskit/textarea';
 import TextField from '@atlaskit/textfield';
 import Toggle from '@atlaskit/toggle';
 
+const styles = cssMap({
+	flex: {
+		width: '400px',
+		maxWidth: '100%',
+		margin: '0 auto',
+	},
+});
+
 const FormAllOptionsExample = () => (
-	<div
-		style={{
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			display: 'flex',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			width: '800px',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			maxWidth: '100%',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			margin: '0 auto',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			flexDirection: 'column',
-		}}
-	>
+	<Flex xcss={styles.flex} direction="column">
 		<Form<{ username: string; password: string; remember: boolean }>
 			onSubmit={(data) => {
 				console.log('form data', data);
@@ -176,7 +174,7 @@ const FormAllOptionsExample = () => (
 				</form>
 			)}
 		</Form>
-	</div>
+	</Flex>
 );
 
 export default FormAllOptionsExample;

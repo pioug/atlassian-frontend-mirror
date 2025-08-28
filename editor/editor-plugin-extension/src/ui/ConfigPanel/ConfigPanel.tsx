@@ -27,8 +27,6 @@ import type {
 } from '@atlaskit/editor-common/extensions';
 import { isTabGroup, configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
 import {
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginState,
 	useSharedPluginStateWithSelector,
 	type NamedPluginStatesFromInjectionAPI,
 } from '@atlaskit/editor-common/hooks';
@@ -554,18 +552,6 @@ const selector = (
 	};
 };
 
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<ExtensionPlugin> | undefined) => {
-		return useSharedPluginStateWithSelector(api, ['contextIdentifier'], selector);
-	},
-	(api: ExtractInjectionAPI<ExtensionPlugin> | undefined) => {
-		const { contextIdentifierState } = useSharedPluginState(api, ['contextIdentifier']);
-		return {
-			contextIdentifierProvider: contextIdentifierState?.contextIdentifierProvider,
-		};
-	},
-);
-
 function ConfigFormIntlWithBoundary({
 	api,
 	fields,
@@ -597,7 +583,11 @@ function ConfigFormIntlWithBoundary({
 	parameters: Parameters;
 	submitting: boolean;
 }) {
-	const { contextIdentifierProvider } = useSharedState(api);
+	const { contextIdentifierProvider } = useSharedPluginStateWithSelector(
+		api,
+		['contextIdentifier'],
+		selector,
+	);
 	return (
 		<FormErrorBoundary
 			contextIdentifierProvider={contextIdentifierProvider}

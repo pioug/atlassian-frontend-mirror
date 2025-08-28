@@ -548,8 +548,8 @@ export const editorExperimentsConfig = {
 	// Added 2025-08-18
 	platform_editor_preview_panel_linking_exp: createBooleanExperiment({
 		productKeys: {
-			confluence: 'platform_editor_preview_panel_linking_exp',
-			jira: 'platform_editor_preview_panel_linking_exp',
+			confluence: 'platform_editor_preview_panel_linking_exp_conf',
+			jira: 'platform_editor_preview_panel_linking_exp_jira',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -768,6 +768,14 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-08-27
+	platform_editor_toolbar_support_custom_components: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_toolbar_support_custom_components',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-08-21
 	platform_editor_paste_rich_text_bugfix: createBooleanExperiment({
 		productKeys: {
@@ -786,9 +794,19 @@ export const editorExperimentsConfig = {
 		defaultValue: false,
 	}),
 	// Added 2025-08-26
+	platform_editor_toolbar_migrate_loom: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_toolbar_migrate_loom',
+			jira: 'platform_editor_toolbar_migrate_loom',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-08-26
 	platform_editor_toolbar_aifc_patch_1: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_toolbar_aifc_patch_1',
+			jira: 'platform_editor_toolbar_aifc_patch_1',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

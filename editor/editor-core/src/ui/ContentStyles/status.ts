@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { StatusSharedCssClassName, TableSharedCssClassName } from '@atlaskit/editor-common/styles';
 import {
@@ -15,7 +15,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 
-const getVisualRefreshStatusStyles = () =>
+const getVisualRefreshStatusStyles: () => SerializedStyles = () =>
 	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 	fg('platform-component-visual-refresh')
 		? expValEqualsNoExposure('platform_editor_find_and_replace_improvements', 'isEnabled', true)
@@ -49,7 +49,7 @@ const getVisualRefreshStatusStyles = () =>
 					}
 				`;
 
-const getStatusColors = () =>
+const getStatusColors: () => SerializedStyles = () =>
 	fg('platform-component-visual-refresh')
 		? css({
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -175,13 +175,13 @@ const baseStatusStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const statusNodeStyles = () => css`
+export const statusNodeStyles: () => SerializedStyles = () => css`
 	${baseStatusStyles}
 	${getStatusColors()}
 `;
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const statusStyles = () => css`
+export const statusStyles: () => SerializedStyles = () => css`
 	.${TableSharedCssClassName.TABLE_CELL_WRAPPER},
 		.${TableSharedCssClassName.TABLE_HEADER_CELL_WRAPPER},
 		[data-layout-section] {

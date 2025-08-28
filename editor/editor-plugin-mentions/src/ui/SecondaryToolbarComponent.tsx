@@ -2,8 +2,6 @@ import React, { useCallback } from 'react';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
-	useSharedPluginState,
-	sharedPluginStateHookMigratorFactory,
 	type NamedPluginStatesFromInjectionAPI,
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
@@ -30,23 +28,13 @@ const selector = (
 	};
 };
 
-const useSharedMentionState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<typeof mentionsPlugin> | undefined) => {
-		return useSharedPluginStateWithSelector(api, ['mention'], selector);
-	},
-	(api: ExtractInjectionAPI<typeof mentionsPlugin> | undefined) => {
-		const { mentionState } = useSharedPluginState(api, ['mention']);
-		return { mentionProvider: mentionState?.mentionProvider };
-	},
-);
-
 export function SecondaryToolbarComponent({
 	editorView,
 	api,
 	typeAhead,
 	disabled,
 }: SecondaryToolbarComponentProps) {
-	const { mentionProvider } = useSharedMentionState(api);
+	const { mentionProvider } = useSharedPluginStateWithSelector(api, ['mention'], selector);
 
 	const openMentionTypeAhead = useCallback(() => {
 		api?.typeAhead?.actions?.open({

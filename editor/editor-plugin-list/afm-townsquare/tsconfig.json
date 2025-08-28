@@ -26,7 +26,16 @@
 			"path": "../../editor-plugin-analytics/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-block-menu/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-feature-flags/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-townsquare/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-townsquare/tsconfig.json"

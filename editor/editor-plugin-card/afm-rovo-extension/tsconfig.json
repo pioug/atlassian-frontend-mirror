@@ -32,6 +32,9 @@
 			"path": "../../custom-steps/afm-rovo-extension/tsconfig.json"
 		},
 		{
+			"path": "../../../linking-platform/editor-card-provider/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-analytics/afm-rovo-extension/tsconfig.json"
 		},
 		{

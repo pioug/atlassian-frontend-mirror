@@ -11,7 +11,7 @@ import Form, {
 	RequiredAsterisk,
 	ValidMessage,
 } from '@atlaskit/form';
-import { Box, Text } from '@atlaskit/primitives/compiled';
+import { Flex, Text } from '@atlaskit/primitives/compiled';
 import Select, { type ValueType } from '@atlaskit/select';
 import TextField from '@atlaskit/textfield';
 
@@ -43,11 +43,9 @@ const errorMessages = {
 
 const formContainerStyle = cssMap({
 	root: {
-		display: 'flex',
 		width: '400px',
 		maxWidth: '100%',
 		margin: '0 auto',
-		flexDirection: 'column',
 	},
 });
 
@@ -105,7 +103,7 @@ export default function FieldLevelValidationExample() {
 	}, [errorMessageText]);
 
 	return (
-		<Box xcss={formContainerStyle.root}>
+		<Flex xcss={formContainerStyle.root} direction="column">
 			<Form onSubmit={handleSubmit}>
 				{({ formProps }) => (
 					<form {...formProps}>
@@ -184,6 +182,6 @@ export default function FieldLevelValidationExample() {
 					</form>
 				)}
 			</Form>
-		</Box>
+		</Flex>
 	);
 }

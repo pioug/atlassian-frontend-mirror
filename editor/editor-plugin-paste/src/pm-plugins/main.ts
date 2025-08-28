@@ -105,6 +105,33 @@ export const isInsideBlockQuote = (state: EditorState): boolean => {
 
 const PASTE = 'Editor Paste Plugin Paste Duration';
 
+export function isSharePointUrl(url: string | undefined): boolean {
+	if (!url) {
+		return false;
+	}
+
+	try {
+		const urlObj = new URL(url);
+		const hostname = urlObj.hostname.toLowerCase();
+		const protocol = urlObj.protocol.toLowerCase();
+
+		// Only accept HTTPS URLs for security
+		if (protocol !== 'https:') {
+			return false;
+		}
+
+		// Check if hostname ends with the trusted domains (not just contains them)
+		return (
+			hostname.endsWith('sharepoint.com') ||
+			hostname.endsWith('onedrive.com') ||
+			hostname.endsWith('onedrive.live.com')
+		);
+	} catch {
+		// If URL parsing fails, return false for safety
+		return false;
+	}
+}
+
 export function createPlugin(
 	schema: Schema,
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent,
@@ -185,15 +212,6 @@ export function createPlugin(
 
 	let mostRecentPasteEvent: ClipboardEvent | null;
 	let pastedFromBitBucket = false;
-
-	function isSharePointUrl(url: string | undefined): boolean {
-		return Boolean(
-			url &&
-				(url.includes('sharepoint.com') ||
-					url.includes('onedrive.com') ||
-					url.includes('onedrive.live.com')),
-		);
-	}
 
 	return new SafePlugin({
 		key: stateKey,

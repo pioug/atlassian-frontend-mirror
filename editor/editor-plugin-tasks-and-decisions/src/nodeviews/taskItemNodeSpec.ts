@@ -5,8 +5,11 @@ import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages';
 import { TaskDecisionSharedCssClassName } from '@atlaskit/editor-common/styles';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
+
+import { isContentEmpty } from './utils';
 
 type HTMLInputElementAttrs = {
 	'aria-label'?: string;
@@ -87,7 +90,11 @@ export function taskItemToDom(node: PMNode, placeholder: string, intl: IntlShape
 		...(node.type.name === 'blockTaskItem' ? { 'data-task-is-block': 'true' } : {}),
 	};
 
-	const contentDomDataAttrs = node.content.childCount > 0 ? {} : { 'data-empty': 'true' };
+	let contentDomDataAttrs = node.content.childCount > 0 ? {} : { 'data-empty': 'true' };
+
+	if (expValEquals('platform_editor_blocktaskitem_node', 'isEnabled', true)) {
+		contentDomDataAttrs = isContentEmpty(node) ? { 'data-empty': 'true' } : {};
+	}
 
 	return [
 		'div',

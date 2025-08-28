@@ -5,6 +5,7 @@ import uuid from 'uuid/v4';
 
 import type { RichMediaLayout } from '@atlaskit/adf-schema';
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
+import { EditorCardProvider } from '@atlaskit/editor-card-provider';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import {
@@ -198,6 +199,7 @@ const CardInner = ({
 export type EmbedCardState = {
 	hasPreview: boolean;
 	initialAspectRatio?: number;
+	isSSRDataAvailable?: boolean;
 	liveHeight?: number;
 };
 
@@ -214,11 +216,14 @@ export class EmbedCardComponent extends React.PureComponent<
 		// Ignored via go/ees005
 		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		this.scrollContainer = findOverflowScrollParent(props.view.dom as HTMLElement) || undefined;
+		this.state = {
+			hasPreview: true,
+			isSSRDataAvailable:
+				expValEquals('platform_editor_smart_card_otp', 'isEnabled', true) && props.isPageSSRed,
+		};
 	}
 
-	state: EmbedCardState = {
-		hasPreview: true,
-	};
+	state: EmbedCardState;
 
 	private getPosSafely = () => {
 		const { getPos } = this.props;
@@ -384,6 +389,31 @@ export class EmbedCardComponent extends React.PureComponent<
 		}
 	};
 
+	componentDidMount() {
+		if (!expValEquals('platform_editor_smart_card_otp', 'isEnabled', true)) {
+			return;
+		}
+
+		const provider = this.props.provider;
+
+		if (!provider) {
+			return;
+		}
+
+		const updateSSRDataAvailability = async () => {
+			const resolvedProvider = await provider;
+
+			if (resolvedProvider instanceof EditorCardProvider) {
+				this.setState((state) => ({
+					...state,
+					isSSRDataAvailable: resolvedProvider.getCacheStatusForNode(this.props.node) === 'ssr',
+				}));
+			}
+		};
+
+		void updateSSRDataAvailability();
+	}
+
 	componentWillUnmount(): void {
 		this.removeCard();
 	}
@@ -451,6 +481,10 @@ export class EmbedCardComponent extends React.PureComponent<
 					embedIframeRef={this.embedIframeRef}
 					actionOptions={actionOptions}
 					CompetitorPrompt={CompetitorPrompt}
+					hideIconLoadingSkeleton={
+						expValEquals('platform_editor_smart_card_otp', 'isEnabled', true) &&
+						this.state.isSSRDataAvailable
+					}
 				/>
 			) : (
 				<SmartCard
@@ -520,6 +554,7 @@ export const EmbedOrBlockCardComponent = (props: ComponentProps<typeof EmbedCard
 			liveHeight={props.liveHeight}
 			initialAspectRatio={props.initialAspectRatio}
 			isPageSSRed={props.isPageSSRed}
+			provider={props.provider}
 		/>
 	) : (
 		<EmbedCardComponent
@@ -541,6 +576,7 @@ export const EmbedOrBlockCardComponent = (props: ComponentProps<typeof EmbedCard
 			liveHeight={props.liveHeight}
 			initialAspectRatio={props.initialAspectRatio}
 			isPageSSRed={props.isPageSSRed}
+			provider={props.provider}
 		/>
 	);
 };
@@ -563,6 +599,7 @@ export type EmbedCardNodeViewProps = Pick<
 	| 'actionOptions'
 	| 'onClickCallback'
 	| 'isPageSSRed'
+	| 'provider'
 	| 'CompetitorPrompt'
 >;
 
@@ -611,6 +648,7 @@ export class EmbedCard extends ReactNodeView<EmbedCardNodeViewProps> {
 			onClickCallback,
 			CompetitorPrompt,
 			isPageSSRed,
+			provider,
 		} = this.reactComponentProps;
 
 		return (
@@ -627,6 +665,7 @@ export class EmbedCard extends ReactNodeView<EmbedCardNodeViewProps> {
 				id={this.id}
 				CompetitorPrompt={CompetitorPrompt}
 				isPageSSRed={isPageSSRed}
+				provider={provider}
 			/>
 		);
 	}
@@ -646,6 +685,7 @@ export interface EmbedCardNodeViewProperties {
 	onClickCallback: EmbedCardNodeViewProps['onClickCallback'];
 	pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined;
 	pmPluginFactoryParams: PMPluginFactoryParams;
+	provider: EmbedCardNodeViewProps['provider'];
 }
 
 export const embedCardNodeView =
@@ -658,6 +698,7 @@ export const embedCardNodeView =
 		onClickCallback,
 		CompetitorPrompt,
 		isPageSSRed,
+		provider,
 	}: EmbedCardNodeViewProperties) =>
 	(node: PMNode, view: EditorView, getPos: () => number | undefined) => {
 		const { portalProviderAPI, eventDispatcher, dispatchAnalyticsEvent } = pmPluginFactoryParams;
@@ -671,6 +712,7 @@ export const embedCardNodeView =
 			onClickCallback: onClickCallback,
 			CompetitorPrompt,
 			isPageSSRed,
+			provider,
 		};
 
 		return new EmbedCard(

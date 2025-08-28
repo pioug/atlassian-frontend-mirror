@@ -6,7 +6,7 @@
  */
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import {
 	columnLayoutResponsiveSharedStyle,
@@ -31,7 +31,7 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 const AK_NESTED_DND_GUTTER_OFFSET = 8;
-const firstNodeWithNotMarginTop = () =>
+const firstNodeWithNotMarginTop: () => SerializedStyles = () =>
 	fg('platform_editor_nested_dnd_styles_changes')
 		? // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
 			css`
@@ -58,7 +58,7 @@ const firstNodeWithNotMarginTop = () =>
 // Ignored via go/ees007
 // eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 // TODO handle responsive
-const layoutColumnStyles = () =>
+const layoutColumnStyles: () => SerializedStyles = () =>
 	editorExperiment('advanced_layouts', true)
 		? // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
 			css`
@@ -103,7 +103,7 @@ const layoutColumnStyles = () =>
 				}
 			`;
 
-const layoutSectionStyles = () =>
+const layoutSectionStyles: () => SerializedStyles = () =>
 	editorExperiment('advanced_layouts', true)
 		? // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
 			css`
@@ -168,7 +168,7 @@ const layoutBorderStyles = (viewMode?: 'edit' | 'view') => css`
 `;
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
-const columnSeparatorStyles = (viewMode?: 'edit' | 'view') => css`
+const columnSeparatorStyles: (viewMode?: 'edit' | 'view') => SerializedStyles = (viewMode) => css`
 	[data-layout-content]::before {
 		content: '';
 		border-left: ${viewMode === 'view' ? 0 : akEditorSelectedBorderSize}px solid
@@ -179,7 +179,7 @@ const columnSeparatorStyles = (viewMode?: 'edit' | 'view') => css`
 	}
 `;
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
-const rowSeparatorStyles = (viewMode?: 'edit' | 'view') => css`
+const rowSeparatorStyles: (viewMode?: 'edit' | 'view') => SerializedStyles = (viewMode) => css`
 	[data-layout-content]::before {
 		content: '';
 		border-top: ${viewMode === 'view' ? 0 : akEditorSelectedBorderSize}px solid
@@ -196,9 +196,12 @@ const rowSeparatorStyles = (viewMode?: 'edit' | 'view') => css`
 `;
 
 // jest warning: JSDOM version (22) doesn't support the new @container CSS rule
-const layoutWithSeparatorBorderResponsiveStyles = (
+const layoutWithSeparatorBorderResponsiveStyles: (
 	breakpoint: number,
 	viewMode?: 'edit' | 'view',
+) => SerializedStyles = (
+	breakpoint,
+	viewMode,
 	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
 ) => css`
 	&.selected,
@@ -214,7 +217,9 @@ const layoutWithSeparatorBorderResponsiveStyles = (
 `;
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
-const layoutWithSeparatorBorderStyles = (viewMode?: 'edit' | 'view') => {
+const layoutWithSeparatorBorderStyles: (viewMode?: 'edit' | 'view') => SerializedStyles = (
+	viewMode,
+) => {
 	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
 	return css`
 		&.selected [data-layout-column]:not(:first-of-type),
@@ -254,7 +259,7 @@ const layoutWithSeparatorBorderStyles = (viewMode?: 'edit' | 'view') => {
 };
 
 // jest warning: JSDOM version (22) doesn't support the new @container CSS rule
-const layoutResponsiveStyles = (viewMode?: 'edit' | 'view') =>
+const layoutResponsiveStyles: (viewMode?: 'edit' | 'view') => SerializedStyles = (viewMode) =>
 	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
 	css`
 		/* chosen breakpoints in container queries are to make sure layout responsiveness in editor aligns with renderer */
@@ -299,7 +304,7 @@ const layoutResponsiveStyles = (viewMode?: 'edit' | 'view') =>
 	`;
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation
-export const layoutStyles = (viewMode?: 'edit' | 'view') => css`
+export const layoutStyles: (viewMode?: 'edit' | 'view') => SerializedStyles = (viewMode) => css`
 	.ProseMirror {
 		${layoutSectionStyles()}
 		[data-layout-section] {

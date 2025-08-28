@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import {
 	akEditorFloatingDialogZIndex,
@@ -79,7 +79,7 @@ export const mainToolbarStyle = (showKeyline: boolean, twoLineEditorToolbar: boo
 ];
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const mainToolbarIconBeforeStyle = css({
+export const mainToolbarIconBeforeStyle: SerializedStyles = css({
 	margin: token('space.200', '16px'),
 	height: token('space.400', '32px'),
 	width: token('space.400', '32px'),
@@ -145,14 +145,14 @@ export const mainToolbarSecondChildStyle = (twoLineEditorToolbar: boolean) => [
 ];
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const nonCustomToolbarWrapperStyle = css({
+export const nonCustomToolbarWrapperStyle: SerializedStyles = css({
 	alignItems: 'center',
 	display: 'flex',
 	flexGrow: 1,
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const customToolbarWrapperStyle = css({
+export const customToolbarWrapperStyle: SerializedStyles = css({
 	alignItems: 'center',
 	display: 'flex',
 });

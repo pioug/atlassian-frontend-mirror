@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-toolbar-lists-indentation
 
+## 4.2.11
+
+### Patch Changes
+
+- [`4895a8b78c504`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4895a8b78c504) -
+  ED-29115: clean up sharedPluginStateHookMigratorFactory in toolbar-lists-indentations
+- Updated dependencies
+
 ## 4.2.10
 
 ### Patch Changes

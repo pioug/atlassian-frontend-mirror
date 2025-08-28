@@ -1,10 +1,10 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const expandStyles = css({
+export const expandStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ak-editor-expand__icon > div': {
 		display: 'flex',
@@ -217,7 +217,7 @@ export const expandStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const expandStylesMixin_fg_platform_visual_refresh_icons = css({
+export const expandStylesMixin_fg_platform_visual_refresh_icons: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ak-editor-expand__title-input': {
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
@@ -226,53 +226,56 @@ export const expandStylesMixin_fg_platform_visual_refresh_icons = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const expandStylesMixin_fg_platform_editor_nested_dnd_styles_changes = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'.ak-editor-content-area.appearance-full-page .ProseMirror > .ak-editor-expand__type-expand, .fabric-editor-breakout-mark-dom > .ak-editor-expand__type-expand':
-		{
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-			marginLeft: '-20px',
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-			marginRight: '-20px',
-		},
-
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'.ak-editor-expand__expanded': {
+export const expandStylesMixin_fg_platform_editor_nested_dnd_styles_changes: SerializedStyles = css(
+	{
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.ak-editor-expand__content': {
-			// firstNodeWithNotMarginTop
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-			'> :nth-child(1 of :not(style, .ProseMirror-gapcursor, .ProseMirror-widget, span))': {
-				marginTop: 0,
+		'.ak-editor-content-area.appearance-full-page .ProseMirror > .ak-editor-expand__type-expand, .fabric-editor-breakout-mark-dom > .ak-editor-expand__type-expand':
+			{
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+				marginLeft: '-20px',
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+				marginRight: '-20px',
 			},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.ak-editor-expand__expanded': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-			'> div.ak-editor-expand[data-node-type="nestedExpand"]': {
-				marginTop: token('space.050', '0.25rem'),
+			'.ak-editor-expand__content': {
+				// firstNodeWithNotMarginTop
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+				'> :nth-child(1 of :not(style, .ProseMirror-gapcursor, .ProseMirror-widget, span))': {
+					marginTop: 0,
+				},
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+				'> div.ak-editor-expand[data-node-type="nestedExpand"]': {
+					marginTop: token('space.050', '0.25rem'),
+				},
 			},
 		},
 	},
-});
+);
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const expandStylesMixin_without_fg_platform_editor_nested_dnd_styles_changes = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'.ak-editor-expand': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'&.ak-editor-selected-node:not(.danger)': {
-			// SelectionStyle.Border (with fg('platform_editor_nested_dnd_styles_changes'))
-			// Fixes ED-15246: Trello card is visible through a border of a table border
-			'&::after': {
-				height: '100%',
-				content: "'\\00a0'",
-				background: token('color.border.selected'),
-				position: 'absolute',
-				right: '-1px',
-				top: 0,
-				bottom: 0,
-				width: '1px',
-				border: 'none',
-				display: 'inline-block',
+export const expandStylesMixin_without_fg_platform_editor_nested_dnd_styles_changes: SerializedStyles =
+	css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.ak-editor-expand': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'&.ak-editor-selected-node:not(.danger)': {
+				// SelectionStyle.Border (with fg('platform_editor_nested_dnd_styles_changes'))
+				// Fixes ED-15246: Trello card is visible through a border of a table border
+				'&::after': {
+					height: '100%',
+					content: "'\\00a0'",
+					background: token('color.border.selected'),
+					position: 'absolute',
+					right: '-1px',
+					top: 0,
+					bottom: 0,
+					width: '1px',
+					border: 'none',
+					display: 'inline-block',
+				},
 			},
 		},
-	},
-});
+	});

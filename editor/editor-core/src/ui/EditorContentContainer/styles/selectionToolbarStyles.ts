@@ -1,4 +1,4 @@
-import { css, keyframes } from '@emotion/react'; // eslint-disable-line @atlaskit/ui-styling-standard/use-compiled
+import { css, keyframes, type SerializedStyles } from '@emotion/react'; // eslint-disable-line @atlaskit/ui-styling-standard/use-compiled
 
 const fadeIn = keyframes({
 	from: {
@@ -12,7 +12,7 @@ const fadeIn = keyframes({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const selectionToolbarAnimationStyles = css({
+export const selectionToolbarAnimationStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	"[aria-label='Selection toolbar']": {
 		animationName: fadeIn,

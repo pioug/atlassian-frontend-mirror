@@ -1,6 +1,5 @@
 import React from 'react';
 import FocusRing from '@atlaskit/focus-ring';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import MessagesIntlProvider from '../MessagesIntlProvider';
 import PrimitiveMention from './PrimitiveMention';
@@ -135,7 +134,7 @@ export class MentionInternal extends React.PureComponent<Props, {}> {
 			</FocusRing>
 		);
 
-		const ssrPlaceholderProp = fg('cc_mention_ssr_placeholder')
+		const ssrPlaceholderProp = props.ssrPlaceholderId
 			? { 'data-ssr-placeholder': props.ssrPlaceholderId }
 			: {};
 

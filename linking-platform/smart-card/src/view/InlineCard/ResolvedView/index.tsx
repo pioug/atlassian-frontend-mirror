@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { type LozengeProps } from '../../../types';
 import type { CardActionOptions } from '../../Card/types';
@@ -13,6 +14,11 @@ import { IconAndTitleLayout } from '../IconAndTitleLayout';
 export interface InlineCardResolvedViewProps {
 	/** Configure visibility of server and client actions */
 	actionOptions?: CardActionOptions;
+	/**
+	 * When set to true, the loading skeleton for the image icon will be hidden,
+	 * the image will be rendered directly.
+	 */
+	hideIconLoadingSkeleton?: boolean;
 	hoverPreviewOptions?: HoverPreviewOptions;
 	/** The optional con of the service (e.g. Dropbox/Asana/Google/etc) to display */
 	icon?: React.ReactNode;
@@ -80,6 +86,7 @@ export class InlineCardResolvedView extends React.Component<InlineCardResolvedVi
 			actionOptions,
 			truncateInline,
 			type,
+			hideIconLoadingSkeleton,
 		} = this.props;
 
 		const inlineCardResolvedView = (
@@ -97,6 +104,10 @@ export class InlineCardResolvedView extends React.Component<InlineCardResolvedVi
 					title={title}
 					titleTextColor={titleTextColor}
 					type={type}
+					hideIconLoadingSkeleton={
+						expValEquals('platform_editor_smart_card_otp', 'isEnabled', true) &&
+						hideIconLoadingSkeleton
+					}
 				/>
 				{this.renderLozenge()}
 			</Frame>

@@ -8,11 +8,7 @@ import { type CSSProperties, Fragment, useEffect, useMemo, useRef, useState } fr
 import { css, jsx } from '@emotion/react';
 import { type IntlShape } from 'react-intl-next';
 
-import {
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginState,
-	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
@@ -252,23 +248,6 @@ const HoverZone = ({
 	);
 };
 
-const useDropTargetPluginState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<BlockControlsPlugin> | undefined) => {
-		const { lineLength } = useSharedPluginStateWithSelector(api, ['width'], (states) => ({
-			lineLength: states.widthState?.lineLength || DEFAULT_DROP_INDICATOR_WIDTH,
-		}));
-		return {
-			lineLength,
-		};
-	},
-	(api: ExtractInjectionAPI<BlockControlsPlugin> | undefined) => {
-		const { widthState } = useSharedPluginState(api, ['width']);
-		return {
-			lineLength: widthState?.lineLength,
-		};
-	},
-);
-
 export const DropTarget = (
 	props: DropTargetProps & { anchorRectCache?: AnchorRectCache; isSameLayout?: boolean },
 ) => {
@@ -285,7 +264,9 @@ export const DropTarget = (
 	} = props;
 
 	const [isDraggedOver, setIsDraggedOver] = useState(false);
-	const { lineLength } = useDropTargetPluginState(api);
+	const { lineLength } = useSharedPluginStateWithSelector(api, ['width'], (states) => ({
+		lineLength: states.widthState?.lineLength || DEFAULT_DROP_INDICATOR_WIDTH,
+	}));
 
 	const isNestedDropTarget = parentNode?.type.name !== 'doc';
 

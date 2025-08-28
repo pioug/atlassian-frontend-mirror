@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 0.0.16
+
+### Patch Changes
+
+- [`1ab3eb4c56ebb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1ab3eb4c56ebb) -
+  [ux] ED-28581: Registered components for block type and list plugins
+- Updated dependencies
+
+## 0.0.15
+
+### Patch Changes
+
+- [`de1880647c70f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/de1880647c70f) -
+  Support block menu config in selection extension
+- Updated dependencies
+
 ## 0.0.14
 
 ### Patch Changes

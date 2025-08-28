@@ -70,7 +70,7 @@ export const wrapSelectionInTaskList: Command = (state, dispatch) => {
 		return true;
 	}
 
-	const blockRange = getBlockRange($from, $to);
+	const blockRange = getBlockRange({ $from, $to });
 
 	if (!blockRange) {
 		return true;
@@ -102,6 +102,7 @@ export const joinAtCut =
 	($pos: ResolvedPos): Command =>
 	(state, dispatch) => {
 		const $cut = findCutBefore($pos);
+		const { blockTaskItem } = state.schema.nodes;
 		if (!$cut) {
 			return false;
 		}
@@ -125,7 +126,30 @@ export const joinAtCut =
 
 			// grab the structure between the taskItem and the paragraph
 			// note: structure = true in ReplaceAroundStep
-			const slice = state.tr.doc.slice($lastNode.pos, $cut.pos);
+			let slice = state.tr.doc.slice($lastNode.pos, $cut.pos);
+
+			let from = $lastNode.pos;
+			const to = $cut.pos + $cut.nodeAfter.nodeSize;
+			let gapFrom = $cut.pos + 1;
+			let gapTo = $cut.pos + $cut.nodeAfter.nodeSize - 1;
+			const insert = 0;
+
+			if (blockTaskItem) {
+				if ($lastNode.parent.type === blockTaskItem) {
+					const childOfLastNode = state.doc.resolve($lastNode.pos - 1);
+					if (childOfLastNode.parent.type === paragraph) {
+						// Recalculate the slice to include the full blockTaskItem structure
+						slice = state.tr.doc.slice(childOfLastNode.pos, $cut.pos);
+						// Need to move one pos in to get to the text node of the paragraph
+						from = $lastNode.pos - 1;
+					} else {
+						// If the blockTaskItem last node is not a paragraph
+						// Expand the gap to include the paragraph being merged
+						gapFrom = $cut.pos; // To get the actual paragraph node
+						gapTo = $cut.pos + $cut.nodeAfter.nodeSize - 1;
+					}
+				}
+			}
 
 			// collapse the range between end of last taskItem and after the paragraph
 			// with the gap being the paragraph's content (i.e. take that content)
@@ -135,15 +159,7 @@ export const joinAtCut =
 			// see https://prosemirror.net/docs/ref/#transform.ReplaceStep.constructor
 			// see https://prosemirror.net/docs/ref/#transform.ReplaceAroundStep.constructor
 			const tr = state.tr.step(
-				new ReplaceAroundStep(
-					$lastNode.pos,
-					$cut.pos + $cut.nodeAfter.nodeSize,
-					$cut.pos + 1,
-					$cut.pos + $cut.nodeAfter.nodeSize - 1,
-					slice,
-					0,
-					true,
-				),
+				new ReplaceAroundStep(from, to, gapFrom, gapTo, slice, insert, true),
 			);
 
 			if (dispatch) {

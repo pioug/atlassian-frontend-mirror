@@ -1,5 +1,6 @@
 import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { BlockMenuPlugin } from '@atlaskit/editor-plugin-block-menu';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 
 import type {
@@ -15,6 +16,7 @@ import type {
 export type ListPluginDependencies = [
 	OptionalPlugin<FeatureFlagsPlugin>,
 	OptionalPlugin<AnalyticsPlugin>,
+	OptionalPlugin<BlockMenuPlugin>,
 ];
 
 export type ListPluginActions = {

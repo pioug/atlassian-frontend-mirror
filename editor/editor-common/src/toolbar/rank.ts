@@ -97,6 +97,11 @@ import {
 	PIN_SECTION,
 	PIN_BUTTON,
 	PIN_GROUP,
+	LOOM_MENU_SECTION,
+	LOOM_MENU_ITEM,
+	OVERFLOW_SECTION_PRIMARY_TOOLBAR,
+	OVERFLOW_GROUP_PRIMARY_TOOLBAR,
+	OVERFLOW_MENU_PRIMARY_TOOLBAR,
 } from './keys';
 
 export const TOOLBAR_RANK = {
@@ -109,6 +114,7 @@ export const TOOLBAR_RANK = {
 	[TRACK_CHANGES_SECTION.key]: 700,
 	[OVERFLOW_SECTION.key]: 800,
 	[PIN_SECTION.key]: 900,
+	[OVERFLOW_SECTION_PRIMARY_TOOLBAR.key]: 1000,
 } as const;
 
 /**
@@ -360,10 +366,26 @@ export const OVERFLOW_GROUP_RANK = {
 
 export const OVERFLOW_MENU_RANK = {
 	[PIN_MENU_SECTION.key]: 100,
+	[LOOM_MENU_SECTION.key]: 200,
 };
 
 export const PIN_MENU_SECTION_RANK = {
 	[PIN_MENU_ITEM.key]: 100,
+};
+
+/**
+ * Overflow section in primary toolbar
+ */
+export const OVERFLOW_SECTION_PRIMARY_TOOLBAR_RANK = {
+	[OVERFLOW_GROUP_PRIMARY_TOOLBAR.key]: 100,
+};
+
+export const OVERFLOW_GROUP_PRIMARY_TOOLBAR_RANK = {
+	[OVERFLOW_MENU_PRIMARY_TOOLBAR.key]: 100,
+};
+
+export const OVERFLOW_MENU_PRIMARY_TOOLBAR_RANK = {
+	[LOOM_MENU_SECTION.key]: 100,
 };
 
 /**
@@ -375,4 +397,11 @@ export const PIN_SECTION_RANK = {
 
 export const PIN_GROUP_RANK = {
 	[PIN_BUTTON.key]: 100,
+};
+
+/**
+ * Loom menu section
+ */
+export const LOOM_MENU_SECTION_RANK = {
+	[LOOM_MENU_ITEM.key]: 100,
 };

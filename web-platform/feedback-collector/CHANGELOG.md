@@ -1,5 +1,12 @@
 # @atlaskit/feedback-collector
 
+## 14.5.0
+
+### Minor Changes
+
+- [`69d2f5eec10d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/69d2f5eec10d0) -
+  Revert the changes on moving the link outside label
+
 ## 14.4.1
 
 ### Patch Changes

@@ -3,11 +3,7 @@ import React, { useCallback } from 'react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
-import {
-	sharedPluginStateHookMigratorFactory,
-	useSharedPluginState,
-	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
@@ -28,30 +24,6 @@ type BlockMenuProps = {
 	mountPoint?: HTMLElement;
 	scrollableElement?: HTMLElement;
 };
-
-const useBlockMenuPluginState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<BlockControlsPlugin> | undefined) => {
-		const { isMenuOpen, menuTriggerBy } = useSharedPluginStateWithSelector(
-			api,
-			['blockControls'],
-			(states) => ({
-				isMenuOpen: states.blockControlsState?.isMenuOpen,
-				menuTriggerBy: states.blockControlsState?.menuTriggerBy,
-			}),
-		);
-		return {
-			isMenuOpen,
-			menuTriggerBy,
-		};
-	},
-	(api: ExtractInjectionAPI<BlockControlsPlugin> | undefined) => {
-		const { blockControlsState } = useSharedPluginState(api, ['blockControls']);
-		return {
-			isMenuOpen: blockControlsState?.isMenuOpen,
-			menuTriggerBy: blockControlsState?.menuTriggerBy,
-		};
-	},
-);
 
 type BlockMenuContentProps = BlockMenuProps & {
 	formatMessage: WrappedComponentProps['intl']['formatMessage'];
@@ -134,7 +106,14 @@ const BlockMenu = ({
 	api,
 	intl: { formatMessage },
 }: BlockMenuProps & WrappedComponentProps) => {
-	const { isMenuOpen, menuTriggerBy } = useBlockMenuPluginState(api);
+	const { isMenuOpen, menuTriggerBy } = useSharedPluginStateWithSelector(
+		api,
+		['blockControls'],
+		(states) => ({
+			isMenuOpen: states.blockControlsState?.isMenuOpen,
+			menuTriggerBy: states.blockControlsState?.menuTriggerBy,
+		}),
+	);
 
 	if (isMenuOpen) {
 		return null;

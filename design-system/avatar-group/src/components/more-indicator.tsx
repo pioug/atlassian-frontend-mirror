@@ -140,9 +140,9 @@ const borderRadiusMap = cssMap({
 		},
 	},
 	xlarge: {
-		borderRadius: '6px',
+		borderRadius: token('radius.medium'),
 		'&::after': {
-			borderRadius: '6px',
+			borderRadius: token('radius.medium'),
 		},
 	},
 	xxlarge: {

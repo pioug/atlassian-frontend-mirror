@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { inlineNodeViewClassname } from '@atlaskit/editor-common/react-node-view';
 import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
@@ -8,7 +8,7 @@ import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
 // ./getInlineNodeViewProducer -> portalChildren()
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const InlineNodeViewSharedStyles = css({
+export const InlineNodeViewSharedStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`.${inlineNodeViewClassname}`]: {
 		display: 'inline',

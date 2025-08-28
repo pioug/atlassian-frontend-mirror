@@ -16,13 +16,8 @@ export const messages = defineMessages({
 	canBeContactedLabel: {
 		id: 'feedback-collector.can-be-contacted.label',
 		defaultMessage:
-			'Yes, Atlassian teams can contact me to learn about my experiences to improve Atlassian products and services. I acknowledge the Atlassian Privacy Policy.',
+			'Yes, Atlassian teams can contact me to learn about my experiences to improve Atlassian products and services. I acknowledge the <a>Atlassian Privacy Policy</a>.',
 		description: 'The checkbox label to give consent to be contacted about their feedback',
-	},
-	privacyPolicy: {
-		id: 'feedback-collector.privacy-policy',
-		defaultMessage: 'Atlassian Privacy Policy',
-		description: 'The text content for the Privacy Policy link',
 	},
 	summaryPlaceholder: {
 		id: 'feedback-collector.summary-placeholder',

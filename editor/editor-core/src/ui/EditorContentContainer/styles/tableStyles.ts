@@ -1,10 +1,10 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { scrollbarStyles } from './scrollbarStyles';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const tableLayoutFixes = css({
+export const tableLayoutFixes: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'.pm-table-header-content-wrap :not(.fabric-editor-alignment), .pm-table-header-content-wrap :not(p, .fabric-editor-block-mark) + div.fabric-editor-block-mark, .pm-table-cell-content-wrap :not(p, .fabric-editor-block-mark) + div.fabric-editor-block-mark':
 		{
@@ -20,13 +20,13 @@ export const tableLayoutFixes = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const tableCommentEditorMarginOverride = css({
+export const tableCommentEditorMarginOverride: SerializedStyles = css({
 	marginLeft: 0,
 	marginRight: 0,
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const tableCommentEditorStyles = css({
+export const tableCommentEditorStyles: SerializedStyles = css({
 	// TODO: ED-28075 - refactor array include to unblock Compiled CSS migration
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 	[`.ProseMirror .pm-table-wrapper > table`]: [tableCommentEditorMarginOverride, scrollbarStyles],

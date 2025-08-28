@@ -32,7 +32,7 @@ const SingleExample = () => (
 	/>
 );
 
-export default function DefaultModal() {
+export function WithFooterAndSelectOptionExample() {
 	const [isOpen, setIsOpen] = useState<Boolean>(false);
 
 	const open = useCallback(() => setIsOpen(true), []);
@@ -71,3 +71,5 @@ export default function DefaultModal() {
 		</>
 	);
 }
+
+export default WithFooterAndSelectOptionExample;

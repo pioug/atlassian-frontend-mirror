@@ -62,6 +62,7 @@ export const createPlugin =
 			allowBlockCards,
 			onClickCallback,
 			isPageSSRed,
+			provider,
 			CompetitorPrompt,
 		} = options;
 
@@ -79,6 +80,7 @@ export const createPlugin =
 				pluginInjectionApi,
 				onClickCallback,
 				isPageSSRed,
+				provider,
 				CompetitorPrompt,
 			},
 		});
@@ -289,6 +291,7 @@ export const createPlugin =
 					inlineCard: lazyInlineCardView({
 						inlineCardViewProducer,
 						isPageSSRed,
+						// no need provider here, it's in the inlineCardViewProducer.extraComponentProps
 					}),
 					blockCard: lazyBlockCardView({
 						pmPluginFactoryParams,
@@ -298,6 +301,7 @@ export const createPlugin =
 						allowDatasource: options.allowDatasource,
 						inlineCardViewProducer,
 						isPageSSRed,
+						provider,
 						CompetitorPrompt: options.CompetitorPrompt,
 					}),
 					embedCard: lazyEmbedCardView({
@@ -308,6 +312,7 @@ export const createPlugin =
 						actionOptions,
 						onClickCallback: options.onClickCallback,
 						isPageSSRed,
+						provider,
 						CompetitorPrompt: options.CompetitorPrompt,
 					}),
 				},

@@ -1,6 +1,7 @@
 /**
  * @jsxRuntime classic
  * @jsx jsx
+ * @jsxFrag
  */
 import React, { useCallback } from 'react';
 
@@ -13,15 +14,18 @@ import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { ToolbarArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 
+import type { PrimaryToolbarComponents } from '../../../types';
 import { isToolbar } from '../../../utils/toolbar';
 import { ToolbarNext } from '../../Toolbar/Toolbar';
 import { useToolbarPortal } from '../../Toolbar/ToolbarPortal';
 
 type FullPageToolbarNextProps = {
 	beforeIcon?: React.ReactNode;
+	customPrimaryToolbarComponents?: PrimaryToolbarComponents;
 	editorAPI?: PublicPluginAPI<[ToolbarPlugin]>;
 	editorView?: EditorView;
 	popupsBoundariesElement?: HTMLElement;
@@ -38,13 +42,40 @@ const styles = cssMap({
 		marginRight: token('space.200', '16px'),
 		marginBottom: token('space.200', '16px'),
 	},
+	mainToolbarIconBeforeNew: {
+		alignItems: 'center',
+		display: 'flex',
+	},
 	mainToolbarWrapper: {
 		borderBottom: `${token('border.width')} solid ${token('color.border')}`,
 		paddingBlock: token('space.075'),
 		paddingInline: token('space.150'),
 	},
+	mainToolbarNew: {
+		display: 'flex',
+		height: '32px',
+	},
 	mainToolbarWithKeyline: {
 		boxShadow: token('elevation.shadow.overflow'),
+	},
+	customToolbarWrapperStyle: {
+		alignItems: 'center',
+		display: 'flex',
+	},
+	firstChildWrapperOneLine: {
+		display: 'flex',
+		flexGrow: 1,
+	},
+	secondChildWrapperOneLine: {
+		display: 'flex',
+		minWidth: 'fit-content',
+		alignItems: 'center',
+	},
+	beforePrimaryToolbarComponents: {
+		display: 'flex',
+		flexGrow: 1,
+		justifyContent: 'flex-end',
+		alignItems: 'center',
 	},
 });
 
@@ -59,9 +90,30 @@ const MainToolbarWrapper = ({
 }) => {
 	return (
 		<div
-			css={[styles.mainToolbarWrapper, showKeyline && styles.mainToolbarWithKeyline]}
+			css={[
+				styles.mainToolbarWrapper,
+				showKeyline && styles.mainToolbarWithKeyline,
+				expValEquals('platform_editor_toolbar_support_custom_components', 'isEnabled', true) &&
+					styles.mainToolbarNew,
+			]}
 			data-testid={testId}
 		>
+			{children}
+		</div>
+	);
+};
+
+const FirstChildWrapper = ({ children }: { children: React.ReactNode }) => {
+	return (
+		<div css={styles.firstChildWrapperOneLine} data-testid="main-toolbar-first-child-wrapper">
+			{children}
+		</div>
+	);
+};
+
+const SecondChildWrapper = ({ children }: { children: React.ReactNode }) => {
+	return (
+		<div css={styles.secondChildWrapperOneLine} data-testid="main-toolbar-second-child-wrapper">
 			{children}
 		</div>
 	);
@@ -74,6 +126,7 @@ export const FullPageToolbarNext = ({
 	editorView,
 	popupsMountPoint,
 	showKeyline,
+	customPrimaryToolbarComponents,
 }: FullPageToolbarNextProps) => {
 	const components = editorAPI?.toolbar?.actions.getComponents();
 	const intl = useIntl();
@@ -140,16 +193,68 @@ export const FullPageToolbarNext = ({
 							testId="ak-editor-main-toolbar"
 							showKeyline={showKeyline || ContextPanelWidth > 0}
 						>
-							{beforeIcon && <div css={styles.mainToolbarIconBefore}>{beforeIcon}</div>}
-							{toolbarDockingPosition !== 'none' && components && isToolbar(toolbar) && (
-								<ToolbarNext
-									toolbar={toolbar}
-									components={components}
-									editorView={editorView}
-									editorAPI={editorAPI}
-									popupsMountPoint={mountPoint}
-									editorAppearance="full-page"
-								/>
+							{beforeIcon && (
+								<div
+									css={[
+										styles.mainToolbarIconBefore,
+										expValEquals(
+											'platform_editor_toolbar_support_custom_components',
+											'isEnabled',
+											true,
+										) && styles.mainToolbarIconBeforeNew,
+									]}
+								>
+									{beforeIcon}
+								</div>
+							)}
+							{expValEquals(
+								'platform_editor_toolbar_support_custom_components',
+								'isEnabled',
+								true,
+							) ? (
+								<>
+									<FirstChildWrapper>
+										{toolbarDockingPosition !== 'none' && components && isToolbar(toolbar) && (
+											<ToolbarNext
+												toolbar={toolbar}
+												components={components}
+												editorView={editorView}
+												editorAPI={editorAPI}
+												popupsMountPoint={mountPoint}
+												editorAppearance="full-page"
+											/>
+										)}
+									</FirstChildWrapper>
+									<SecondChildWrapper>
+										<div css={styles.customToolbarWrapperStyle}>
+											{!!customPrimaryToolbarComponents &&
+												'before' in customPrimaryToolbarComponents && (
+													<div
+														css={[styles.beforePrimaryToolbarComponents]}
+														data-testid={'before-primary-toolbar-components-plugin'}
+													>
+														{customPrimaryToolbarComponents.before}
+													</div>
+												)}
+											{!!customPrimaryToolbarComponents && 'after' in customPrimaryToolbarComponents
+												? customPrimaryToolbarComponents.after
+												: customPrimaryToolbarComponents}
+										</div>
+									</SecondChildWrapper>
+								</>
+							) : (
+								toolbarDockingPosition !== 'none' &&
+								components &&
+								isToolbar(toolbar) && (
+									<ToolbarNext
+										toolbar={toolbar}
+										components={components}
+										editorView={editorView}
+										editorAPI={editorAPI}
+										popupsMountPoint={mountPoint}
+										editorAppearance="full-page"
+									/>
+								)
 							)}
 						</MainToolbarWrapper>
 					</ToolbarPortal>

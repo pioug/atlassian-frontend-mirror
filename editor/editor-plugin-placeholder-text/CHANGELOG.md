@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-placeholder-text
 
+## 3.1.10
+
+### Patch Changes
+
+- [`c67efe1808d4e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c67efe1808d4e) -
+  ED-29111: clean up sharedPluginStateHookMigratorFactory in placeholder-text, panel, quick-insert
+- Updated dependencies
+
+## 3.1.9
+
+### Patch Changes
+
+- [`a2cd8c46a3e94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2cd8c46a3e94) -
+  EDITOR-1442 Bump adf-schema
+- Updated dependencies
+
 ## 3.1.8
 
 ### Patch Changes

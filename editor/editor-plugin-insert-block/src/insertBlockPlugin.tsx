@@ -3,8 +3,6 @@ import React, { useEffect } from 'react';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { ElementBrowser } from '@atlaskit/editor-common/element-browser';
 import {
-	useSharedPluginState,
-	sharedPluginStateHookMigratorFactory,
 	type NamedPluginStatesFromInjectionAPI,
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
@@ -307,72 +305,6 @@ const selector = (
 	};
 };
 
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<typeof insertBlockPlugin> | undefined) => {
-		return useSharedPluginStateWithSelector(
-			api,
-			[
-				'hyperlink',
-				'date',
-				'imageUpload',
-				'mention',
-				'emoji',
-				'blockType',
-				'media',
-				'typeAhead',
-				'placeholderText',
-				'insertBlock',
-				'connectivity',
-			],
-			selector,
-		);
-	},
-	(api: ExtractInjectionAPI<typeof insertBlockPlugin> | undefined) => {
-		const {
-			dateState,
-			hyperlinkState,
-			imageUploadState,
-			mentionState,
-			emojiState,
-			blockTypeState,
-			mediaState,
-			typeAheadState,
-			placeholderTextState,
-			insertBlockState,
-			connectivityState,
-		} = useSharedPluginState(api, [
-			'hyperlink',
-			'date',
-			'imageUpload',
-			'mention',
-			'emoji',
-			'blockType',
-			'media',
-			'typeAhead',
-			'placeholderText',
-			'insertBlock',
-			'connectivity',
-		]);
-
-		return {
-			emojiProviderSelector: emojiState?.emojiProvider,
-			showMediaPicker: mediaState?.showMediaPicker,
-			mediaAllowsUploads: mediaState?.allowsUploads,
-			showElementBrowser: insertBlockState?.showElementBrowser,
-			isTypeAheadAllowed: typeAheadState?.isAllowed,
-			mentionProvider: mentionState?.mentionProvider,
-			canInsertMention: mentionState?.canInsertMention,
-			dateEnabled: dateState?.isInitialised,
-			placeholderTextAllowInserting: placeholderTextState?.allowInserting,
-			connectivityMode: connectivityState?.mode,
-			imageUploadEnabled: imageUploadState?.enabled,
-			availableWrapperBlockTypes: blockTypeState?.availableWrapperBlockTypes,
-			canInsertLink: hyperlinkState?.canInsertLink,
-			activeLinkMark: hyperlinkState?.activeLinkMark,
-		};
-	},
-);
-
 function ToolbarInsertBlockWithInjectionApi({
 	editorView,
 	editorActions,
@@ -405,7 +337,23 @@ function ToolbarInsertBlockWithInjectionApi({
 		availableWrapperBlockTypes,
 		canInsertLink,
 		activeLinkMark,
-	} = useSharedState(pluginInjectionApi);
+	} = useSharedPluginStateWithSelector(
+		pluginInjectionApi,
+		[
+			'hyperlink',
+			'date',
+			'imageUpload',
+			'mention',
+			'emoji',
+			'blockType',
+			'media',
+			'typeAhead',
+			'placeholderText',
+			'insertBlock',
+			'connectivity',
+		],
+		selector,
+	);
 	const emojiProviderPromise = useSharedPluginStateSelector(
 		pluginInjectionApi,
 		'emoji.emojiProviderPromise',

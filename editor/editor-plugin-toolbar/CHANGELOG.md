@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 0.4.5
+
+### Patch Changes
+
+- [`4ef462fecb522`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4ef462fecb522) -
+  [ux] [ED-29003] Register loom component as a dropdown menu item in overflow menu
+- Updated dependencies
+
 ## 0.4.4
 
 ### Patch Changes

@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { DateSharedCssClassName } from '@atlaskit/editor-common/styles';
 import {
@@ -12,7 +12,7 @@ import {
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const dateNodeStyles = css({
+export const dateNodeStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	"[data-prosemirror-node-name='date'] .date-lozenger-container span": {
 		backgroundColor: token('color.background.neutral'),
@@ -41,7 +41,7 @@ export const dateNodeStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const dateStyles = css`
+export const dateStyles: SerializedStyles = css`
 	.${DateSharedCssClassName.DATE_CONTAINER} {
 		.${DateSharedCssClassName.DATE_WRAPPER} {
 			line-height: initial;

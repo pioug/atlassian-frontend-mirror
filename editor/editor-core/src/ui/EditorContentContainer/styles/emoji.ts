@@ -1,22 +1,25 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { defaultEmojiHeight, EmojiSharedCssClassName } from '@atlaskit/editor-common/emoji';
 import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles';
+import { token } from '@atlaskit/tokens';
 
 import {
 	blanketSelectionStyles,
 	boxShadowSelectionStyles,
+	dangerBackgroundStyles,
+	dangerBorderStyles,
 	hideNativeBrowserTextSelectionStyles,
 } from './selectionStyles';
 
 const emojiSelectionStyles = css({
-	borderRadius: '2px',
+	borderRadius: token('radius.xsmall'),
 });
 
 // Emoji node view styles
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const emojiStyles = css({
+export const emojiStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 	[`.${EmojiSharedCssClassName.EMOJI_CONTAINER}`]: {
 		display: 'inline-block',
@@ -49,7 +52,7 @@ export const emojiStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const emojiStylesWithSelectorFixes = css({
+export const emojiStylesWithSelectorFixes: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 	[`.ProseMirror .${EmojiSharedCssClassName.EMOJI_CONTAINER}`]: {
 		display: 'inline-block',
@@ -78,6 +81,18 @@ export const emojiStylesWithSelectorFixes = css({
 			boxShadowSelectionStyles,
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 			hideNativeBrowserTextSelectionStyles,
+		],
+	},
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const emojiDangerStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+	[`.ProseMirror .${akEditorSelectedNodeClassName}.danger`]: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+		[`.${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_IMAGE}`]: [
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+			[dangerBorderStyles, dangerBackgroundStyles],
 		],
 	},
 });

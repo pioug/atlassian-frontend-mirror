@@ -1,9 +1,10 @@
-import { css } from '@emotion/react'; // eslint-disable-line @atlaskit/ui-styling-standard/use-compiled
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const overflowShadowStyles = css({
+export const overflowShadowStyles: SerializedStyles = css({
 	backgroundImage: `
 		linear-gradient(
 			to right,

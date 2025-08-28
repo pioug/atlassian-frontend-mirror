@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
@@ -24,7 +24,7 @@ const layoutSelectedSelector = `&.selected, [data-empty-layout='true'], &:hover,
  * Layout columns styles when advanced layouts experiment is on
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const layoutColumnStylesAdvanced = css({
+export const layoutColumnStylesAdvanced: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror [data-layout-section]': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -72,7 +72,7 @@ export const layoutColumnStylesAdvanced = css({
  * Layout columns styles when advanced layouts experiment is off
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const layoutColumnStylesNotAdvanced = css({
+export const layoutColumnStylesNotAdvanced: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror [data-layout-section]': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -95,7 +95,7 @@ export const layoutColumnStylesNotAdvanced = css({
  * Responsive styles for layout columns when advanced layouts experiment is on
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const layoutColumnResponsiveStyles = css({
+export const layoutColumnResponsiveStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror [data-layout-section]': {
 		display: 'flex',
@@ -125,7 +125,7 @@ export const layoutColumnResponsiveStyles = css({
  * Layout section styles when advanced layouts experiment is on
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-exported-styles
-export const layoutSectionStylesAdvanced = css({
+export const layoutSectionStylesAdvanced: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror .layout-section-container [data-layout-section]': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -169,7 +169,7 @@ export const layoutSectionStylesAdvanced = css({
  * Layout section styles when advanced layouts experiment is off
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const layoutSectionStylesNotAdvanced = css({
+export const layoutSectionStylesNotAdvanced: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.ProseMirror [data-layout-section]': {
 		position: 'relative',
@@ -201,7 +201,7 @@ export const layoutSectionStylesNotAdvanced = css({
 //       This is because the default state already uses the same token and, as such, the hover style won't change anything.
 //       https://product-fabric.atlassian.net/browse/DSP-4441
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const layoutSelectedStylesNotAdvanced = css({
+export const layoutSelectedStylesNotAdvanced: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -260,7 +260,7 @@ const rowSeparatorBaseStyles = css({
  * Selected styles for layout when advanced layouts experiment is on
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const layoutSelectedStylesAdvanced = css({
+export const layoutSelectedStylesAdvanced: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -313,7 +313,7 @@ export const layoutSelectedStylesAdvanced = css({
  */
 // jest warning: JSDOM version (22) doesn't support the new @container CSS rule
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const layoutResponsiveBaseStyles = css({
+export const layoutResponsiveBaseStyles: SerializedStyles = css({
 	// chosen breakpoints in container queries are to make sure layout responsiveness in editor aligns with renderer
 	// not resized layout in full-width editor
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
@@ -378,7 +378,7 @@ export const layoutResponsiveBaseStyles = css({
  * Responsive styles for layout in view mode
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const layoutResponsiveStylesForView = css({
+export const layoutResponsiveStylesForView: SerializedStyles = css({
 	// chosen breakpoints in container queries are to make sure layout responsiveness in editor aligns with renderer
 	// not resized layout in full-width editor
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
@@ -439,7 +439,7 @@ export const layoutResponsiveStylesForView = css({
  * Base styles for layout
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Needs manual remediation
-export const layoutBaseStyles = css({
+export const layoutBaseStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -528,7 +528,7 @@ export const layoutBaseStyles = css({
  * Base styles overrides for layout columns when advanced layouts experiment is on
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const layoutBaseStylesAdvanced = css({
+export const layoutBaseStylesAdvanced: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror [data-layout-section] [data-layout-column]': {
 		border: 0,
@@ -542,7 +542,7 @@ export const layoutBaseStylesAdvanced = css({
 // Recommendation: Replace directly with 7px
 // Ignored via go/ees007
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const layoutBaseStylesFixesUnderNestedDnDFG = css({
+export const layoutBaseStylesFixesUnderNestedDnDFG: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror [data-layout-section]': {
 		margin: `${token('space.100', '8px')} -20px 0`,
@@ -558,7 +558,7 @@ export const layoutBaseStylesFixesUnderNestedDnDFG = css({
  * Layout in view mode styles for selected state when advanced layouts experiment is on.
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Needs manual remediation
-export const layoutSelectedStylesForViewAdvanced = css({
+export const layoutSelectedStylesForViewAdvanced: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-nested-selectors
@@ -588,7 +588,7 @@ export const layoutSelectedStylesForViewAdvanced = css({
  * Layout in view mode styles for selected state when advanced layouts experiment is off.
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const layoutSelectedStylesForViewNotAdvanced = css({
+export const layoutSelectedStylesForViewNotAdvanced: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-nested-selectors
@@ -605,7 +605,7 @@ export const layoutSelectedStylesForViewNotAdvanced = css({
  * Layout in view mode styles, overrides over layout base styles
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Needs manual remediation
-export const layoutStylesForView = css({
+export const layoutStylesForView: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -624,7 +624,7 @@ export const layoutStylesForView = css({
  * marginTop fixes when platform_editor_nested_dnd_styles_changes is on
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const layoutColumnMartinTopFixesNew = css({
+export const layoutColumnMartinTopFixesNew: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror [data-layout-section] [data-layout-column] > div': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
@@ -638,7 +638,7 @@ export const layoutColumnMartinTopFixesNew = css({
  * marginTop fixes when platform_editor_nested_dnd_styles_changes is off
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const layoutColumnMartinTopFixesOld = css({
+export const layoutColumnMartinTopFixesOld: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror [data-layout-section] [data-layout-column] > div': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-selectors

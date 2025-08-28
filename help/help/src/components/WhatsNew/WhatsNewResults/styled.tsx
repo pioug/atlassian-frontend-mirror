@@ -5,13 +5,10 @@
 
 import React from 'react';
 import { css, jsx } from '@compiled/react';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 const selectContainerStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-	width: `${19 * gridSize()}px`,
+	width: '152px',
 });
 
 export const SelectContainer = ({ children }: { children: React.ReactNode }) => (

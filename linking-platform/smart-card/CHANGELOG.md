@@ -1,5 +1,37 @@
 # @atlaskit/smart-card
 
+## 40.15.0
+
+### Minor Changes
+
+- [`3d884c026efef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d884c026efef) -
+  The `EmbedCard` starts `hideIconLoadingSkeleton` prop supporting, that allows not rendering the
+  loading placeholder in SSR
+
+## 40.14.1
+
+### Patch Changes
+
+- [`9611ba1c6ba80`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9611ba1c6ba80) -
+  NO-ISSUE cleaning up smart-links-noun-support leftover references
+- [`ef3b2dfa2f8a8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef3b2dfa2f8a8) -
+  Internal changes to use radius tokens. No visual changes.
+- Updated dependencies
+
+## 40.14.0
+
+### Minor Changes
+
+- [`5763f85b421a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5763f85b421a2) - -
+  The new method `getCacheStatusForNode` is added to `NodeDataProvider` class to get the cache
+  status for a given node.
+  - The `CardSSR` component will start supporting `hideIconLoadingSkeleton` property for any type of
+    smart card.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 40.13.3
 
 ### Patch Changes

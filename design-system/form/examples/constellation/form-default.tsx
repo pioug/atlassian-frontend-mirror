@@ -1,5 +1,7 @@
 import React, { Fragment } from 'react';
 
+import { cssMap } from '@compiled/react';
+
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
@@ -15,23 +17,19 @@ import Form, {
 	RequiredAsterisk,
 	ValidMessage,
 } from '@atlaskit/form';
+import { Flex } from '@atlaskit/primitives/compiled';
 import TextField from '@atlaskit/textfield';
 
+const styles = cssMap({
+	flex: {
+		width: '400px',
+		maxWidth: '100%',
+		margin: '0 auto',
+	},
+});
+
 const FormDefaultExample = () => (
-	<div
-		style={{
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			display: 'flex',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			width: '400px',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			maxWidth: '100%',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			margin: '0 auto',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			flexDirection: 'column',
-		}}
-	>
+	<Flex xcss={styles.flex} direction="column">
 		<Form<{ username: string; password: string; remember: boolean }>
 			onSubmit={(data) => {
 				console.log('form data', data);
@@ -114,7 +112,7 @@ const FormDefaultExample = () => (
 				</form>
 			)}
 		</Form>
-	</div>
+	</Flex>
 );
 
 export default FormDefaultExample;

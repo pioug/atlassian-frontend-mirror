@@ -5,10 +5,10 @@ exports[`WhatsNewResultsLoading Should match snapshot 1`] = `
   <style
     data-cmpld="true"
   >
-    ._2rkoyh40{border-radius:2px}._1e0c1o8l{display:inline-block}._s7n4nkob{vertical-align:middle}._kqswh2mm{position:relative}._5sag126j{animation-duration:1.2s}._1o51q7pw{animation-fill-mode:forwards}._tip812c5{animation-iteration-count:infinite}._j7hq1en8{animation-name:k6xje6p}._1pglp3kn{animation-timing-function:linear}._bfhk1yrq{background-color:var(--ds-background-neutral,#ebecf0)}._1itk67kk{background-image:linear-gradient(to right,var(--ds-background-neutral-subtle,#ebecf0) 10%,var(--ds-background-neutral,#dfe1e6) 20%,var(--ds-background-neutral-subtle,#ebecf0) 30%)}._12vemgnk{background-repeat:no-repeat}@keyframes k6xje6p{0%{background-position:-300px 0}to{background-position:750pt 0}}
+    ._2rkolb4i{border-radius:var(--ds-radius-xsmall,2px)}._1e0c1o8l{display:inline-block}._s7n4nkob{vertical-align:middle}._kqswh2mm{position:relative}._5sag126j{animation-duration:1.2s}._1o51q7pw{animation-fill-mode:forwards}._tip812c5{animation-iteration-count:infinite}._j7hq1en8{animation-name:k6xje6p}._1pglp3kn{animation-timing-function:linear}._bfhk1yrq{background-color:var(--ds-background-neutral,#ebecf0)}._1itk67kk{background-image:linear-gradient(to right,var(--ds-background-neutral-subtle,#ebecf0) 10%,var(--ds-background-neutral,#dfe1e6) 20%,var(--ds-background-neutral-subtle,#ebecf0) 30%)}._12vemgnk{background-repeat:no-repeat}@keyframes k6xje6p{0%{background-position:-300px 0}to{background-position:750pt 0}}
   </style>
   <div
-    class="_2rkoyh40 _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
+    class="_2rkolb4i _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
     style="height: 40px; margin-top: 0px; width: 152px;"
   />
   <style
@@ -32,10 +32,10 @@ exports[`WhatsNewResultsLoading Should match snapshot 1`] = `
       <style
         data-cmpld="true"
       >
-        ._2rkoyh40{border-radius:2px}._1e0c1o8l{display:inline-block}._s7n4nkob{vertical-align:middle}._kqswh2mm{position:relative}._5sag126j{animation-duration:1.2s}._1o51q7pw{animation-fill-mode:forwards}._tip812c5{animation-iteration-count:infinite}._j7hq1en8{animation-name:k6xje6p}._1pglp3kn{animation-timing-function:linear}._bfhk1yrq{background-color:var(--ds-background-neutral,#ebecf0)}._1itk67kk{background-image:linear-gradient(to right,var(--ds-background-neutral-subtle,#ebecf0) 10%,var(--ds-background-neutral,#dfe1e6) 20%,var(--ds-background-neutral-subtle,#ebecf0) 30%)}._12vemgnk{background-repeat:no-repeat}@keyframes k6xje6p{0%{background-position:-300px 0}to{background-position:750pt 0}}
+        ._2rkolb4i{border-radius:var(--ds-radius-xsmall,2px)}._1e0c1o8l{display:inline-block}._s7n4nkob{vertical-align:middle}._kqswh2mm{position:relative}._5sag126j{animation-duration:1.2s}._1o51q7pw{animation-fill-mode:forwards}._tip812c5{animation-iteration-count:infinite}._j7hq1en8{animation-name:k6xje6p}._1pglp3kn{animation-timing-function:linear}._bfhk1yrq{background-color:var(--ds-background-neutral,#ebecf0)}._1itk67kk{background-image:linear-gradient(to right,var(--ds-background-neutral-subtle,#ebecf0) 10%,var(--ds-background-neutral,#dfe1e6) 20%,var(--ds-background-neutral-subtle,#ebecf0) 30%)}._12vemgnk{background-repeat:no-repeat}@keyframes k6xje6p{0%{background-position:-300px 0}to{background-position:750pt 0}}
       </style>
       <div
-        class="_2rkoyh40 _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
+        class="_2rkolb4i _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
         style="height: 11px; margin-top: 0px; width: 60px;"
       />
     </div>
@@ -48,19 +48,19 @@ exports[`WhatsNewResultsLoading Should match snapshot 1`] = `
       class="_19pkidpf _2hwxidpf _otyridpf _18u0idpf _1e0c1ule _1bsb1osq _ca0qu2gc _u5f3u2gc _n3tdu2gc _19bvu2gc _vchhusvi"
     >
       <div
-        class="_2rkoyh40 _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
+        class="_2rkolb4i _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
         style="display: inline-block; vertical-align: middle; position: relative; height: 16px; margin-top: 4px; width: 16px;"
       />
       <div
-        class="_2rkoyh40 _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
+        class="_2rkolb4i _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
         style="height: 11px; margin-top: 4px; width: 60px;"
       />
       <div
-        class="_2rkoyh40 _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
+        class="_2rkolb4i _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
         style="height: 1rem; margin-top: 8px; width: 100%;"
       />
       <div
-        class="_2rkoyh40 _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
+        class="_2rkolb4i _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
         style="height: 1rem; margin-top: 4px; width: 90%;"
       />
     </li>
@@ -68,19 +68,19 @@ exports[`WhatsNewResultsLoading Should match snapshot 1`] = `
       class="_19pkidpf _2hwxidpf _otyridpf _18u0idpf _1e0c1ule _1bsb1osq _ca0qu2gc _u5f3u2gc _n3tdu2gc _19bvu2gc _vchhusvi"
     >
       <div
-        class="_2rkoyh40 _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
+        class="_2rkolb4i _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
         style="display: inline-block; vertical-align: middle; position: relative; height: 16px; margin-top: 4px; width: 16px;"
       />
       <div
-        class="_2rkoyh40 _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
+        class="_2rkolb4i _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
         style="height: 11px; margin-top: 4px; width: 60px;"
       />
       <div
-        class="_2rkoyh40 _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
+        class="_2rkolb4i _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
         style="height: 1rem; margin-top: 8px; width: 100%;"
       />
       <div
-        class="_2rkoyh40 _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
+        class="_2rkolb4i _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
         style="height: 1rem; margin-top: 4px; width: 90%;"
       />
     </li>
@@ -88,7 +88,7 @@ exports[`WhatsNewResultsLoading Should match snapshot 1`] = `
       class="_ca0qidpf _u5f3u2gc _n3tdidpf _19bvu2gc"
     >
       <div
-        class="_2rkoyh40 _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
+        class="_2rkolb4i _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
         style="height: 11px; margin-top: 0px; width: 60px;"
       />
     </div>
@@ -96,19 +96,19 @@ exports[`WhatsNewResultsLoading Should match snapshot 1`] = `
       class="_19pkidpf _2hwxidpf _otyridpf _18u0idpf _1e0c1ule _1bsb1osq _ca0qu2gc _u5f3u2gc _n3tdu2gc _19bvu2gc _vchhusvi"
     >
       <div
-        class="_2rkoyh40 _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
+        class="_2rkolb4i _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
         style="display: inline-block; vertical-align: middle; position: relative; height: 16px; margin-top: 4px; width: 16px;"
       />
       <div
-        class="_2rkoyh40 _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
+        class="_2rkolb4i _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
         style="height: 11px; margin-top: 4px; width: 60px;"
       />
       <div
-        class="_2rkoyh40 _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
+        class="_2rkolb4i _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
         style="height: 1rem; margin-top: 8px; width: 100%;"
       />
       <div
-        class="_2rkoyh40 _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
+        class="_2rkolb4i _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
         style="height: 1rem; margin-top: 4px; width: 90%;"
       />
     </li>
@@ -116,19 +116,19 @@ exports[`WhatsNewResultsLoading Should match snapshot 1`] = `
       class="_19pkidpf _2hwxidpf _otyridpf _18u0idpf _1e0c1ule _1bsb1osq _ca0qu2gc _u5f3u2gc _n3tdu2gc _19bvu2gc _vchhusvi"
     >
       <div
-        class="_2rkoyh40 _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
+        class="_2rkolb4i _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
         style="display: inline-block; vertical-align: middle; position: relative; height: 16px; margin-top: 4px; width: 16px;"
       />
       <div
-        class="_2rkoyh40 _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
+        class="_2rkolb4i _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
         style="height: 11px; margin-top: 4px; width: 60px;"
       />
       <div
-        class="_2rkoyh40 _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
+        class="_2rkolb4i _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
         style="height: 1rem; margin-top: 8px; width: 100%;"
       />
       <div
-        class="_2rkoyh40 _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
+        class="_2rkolb4i _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
         style="height: 1rem; margin-top: 4px; width: 90%;"
       />
     </li>

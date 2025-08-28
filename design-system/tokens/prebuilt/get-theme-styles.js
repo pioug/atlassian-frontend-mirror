@@ -129,6 +129,8 @@ var getThemeStyles = /*#__PURE__*/function () {
                   _context2.t0 = _context2["catch"](1);
                   return _context2.abrupt("return", undefined);
                 case 15:
+                  return _context2.abrupt("return", undefined);
+                case 16:
                 case "end":
                   return _context2.stop();
               }

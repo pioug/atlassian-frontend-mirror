@@ -1,8 +1,8 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const InlineNodeViewSharedStyles = css({
+export const InlineNodeViewSharedStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors

@@ -4,6 +4,7 @@ import { cssMap, cx } from '@atlaskit/css';
 import { DropdownItem } from '@atlaskit/dropdown-menu';
 import type { CustomItemComponentProps } from '@atlaskit/menu/types';
 import { Pressable } from '@atlaskit/primitives/compiled';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 type TextStyle =
@@ -104,9 +105,12 @@ type ToolbarDropdownItemProps = {
 	elemAfter?: ReactNode;
 	elemBefore?: ReactNode;
 	hasNestedDropdownMenu?: boolean;
+	href?: string;
 	isDisabled?: boolean;
 	isSelected?: boolean;
 	onClick?: (e: React.MouseEvent | React.KeyboardEvent) => void;
+	rel?: string;
+	target?: string;
 	testId?: string;
 	textStyle?: TextStyle;
 	triggerRef?: Ref<HTMLButtonElement>;
@@ -123,20 +127,32 @@ export const ToolbarDropdownItem = ({
 	triggerRef,
 	testId,
 	ariaKeyshortcuts,
-}: ToolbarDropdownItemProps) => (
-	<DropdownItem
-		onClick={onClick}
-		elemBefore={elemBefore}
-		elemAfter={elemAfter}
-		isSelected={isSelected}
-		isDisabled={isDisabled}
-		aria-haspopup={hasNestedDropdownMenu}
-		aria-pressed={isSelected}
-		aria-keyshortcuts={ariaKeyshortcuts}
-		ref={triggerRef}
-		component={CustomDropdownMenuItemButton}
-		testId={testId}
-	>
-		{children}
-	</DropdownItem>
-);
+	href,
+	target,
+	rel,
+}: ToolbarDropdownItemProps) => {
+	return (
+		<DropdownItem
+			onClick={onClick}
+			elemBefore={elemBefore}
+			elemAfter={elemAfter}
+			isSelected={isSelected}
+			isDisabled={isDisabled}
+			aria-haspopup={hasNestedDropdownMenu}
+			aria-pressed={isSelected}
+			aria-keyshortcuts={ariaKeyshortcuts}
+			ref={triggerRef}
+			href={href}
+			target={target}
+			rel={rel}
+			component={
+				href && expValEquals('platform_editor_toolbar_migrate_loom', 'isEnabled', true)
+					? undefined
+					: CustomDropdownMenuItemButton
+			}
+			testId={testId}
+		>
+			{children}
+		</DropdownItem>
+	);
+};

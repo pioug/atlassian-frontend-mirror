@@ -11,7 +11,7 @@ import Form, {
 	MessageWrapper,
 	RequiredAsterisk,
 } from '@atlaskit/form';
-import { Box, Text } from '@atlaskit/primitives/compiled';
+import { Flex, Text } from '@atlaskit/primitives/compiled';
 import TextField from '@atlaskit/textfield';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -34,11 +34,9 @@ const createUser = async (data: { username: string; email: string }) => {
 
 const formContainerStyle = cssMap({
 	root: {
-		display: 'flex',
 		width: '400px',
 		maxWidth: '100%',
 		margin: '0 auto',
-		flexDirection: 'column',
 	},
 });
 
@@ -50,7 +48,7 @@ export default class extends Component<{}> {
 
 	render() {
 		return (
-			<Box xcss={formContainerStyle.root}>
+			<Flex xcss={formContainerStyle.root} direction="column">
 				<Form onSubmit={this.handleSubmit}>
 					{({ formProps, submitting }) => (
 						<form {...formProps}>
@@ -89,7 +87,7 @@ export default class extends Component<{}> {
 						</form>
 					)}
 				</Form>
-			</Box>
+			</Flex>
 		);
 	}
 }

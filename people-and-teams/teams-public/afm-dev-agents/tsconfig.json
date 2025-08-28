@@ -77,6 +77,9 @@
 			"path": "../../../design-system/primitives/afm-dev-agents/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/skeleton/afm-dev-agents/tsconfig.json"
+		},
+		{
 			"path": "../../teams-app-internal-product-permissions/afm-dev-agents/tsconfig.json"
 		},
 		{

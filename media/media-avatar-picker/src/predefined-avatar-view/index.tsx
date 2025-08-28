@@ -91,7 +91,7 @@ const descriptionStyles = css({
 const backButtonStyles = css({
 	width: '32px',
 	height: '32px',
-	borderRadius: token('border.radius.400', '16px'),
+	borderRadius: token('radius.full', '16px'),
 	alignItems: 'center',
 	justifyContent: 'center',
 	margin: 0,

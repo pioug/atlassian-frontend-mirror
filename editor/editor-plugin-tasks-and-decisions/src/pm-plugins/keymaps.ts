@@ -415,7 +415,10 @@ const splitListItemWith = (
 			const pos = tr.mapping.map($oldAfter.pos + 2);
 			const $after = tr.doc.resolve(pos);
 
-			const blockRange = getBlockRange($after, tr.doc.resolve($after.after($after.depth - 1) - 1));
+			const blockRange = getBlockRange({
+				$from: $after,
+				$to: tr.doc.resolve($after.after($after.depth - 1) - 1),
+			});
 			if (blockRange) {
 				tr = tr.lift(blockRange, blockRange.depth - 1).scrollIntoView();
 			}

@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment, memo } from 'react';
+import { Fragment, memo, type MemoExoticComponent } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -63,7 +63,7 @@ const editorContainerStyles = css({
  * EditorInternalComponent is used to capture the common component
  * from the `render` method of `Editor` and share it with `EditorNext`.
  */
-export const EditorInternal = memo(
+export const EditorInternal: MemoExoticComponent<(props: InternalProps) => JSX.Element> = memo(
 	({
 		props,
 		handleAnalyticsEvent,

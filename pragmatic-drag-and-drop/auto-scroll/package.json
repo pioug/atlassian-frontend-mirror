@@ -35,15 +35,6 @@
 	},
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
-	"af:exports": {
-		".": "./src/index.ts",
-		"./element": "./src/entry-point/element.ts",
-		"./external": "./src/entry-point/external.ts",
-		"./text-selection": "./src/entry-point/text-selection.ts",
-		"./unsafe-overflow/element": "./src/entry-point/unsafe-overflow/element.ts",
-		"./unsafe-overflow/external": "./src/entry-point/unsafe-overflow/external.ts",
-		"./unsafe-overflow/text-selection": "./src/entry-point/unsafe-overflow/text-selection.ts"
-	},
 	"exports": {
 		".": "./src/index.ts",
 		"./element": "./src/entry-point/element.ts",

@@ -4,6 +4,7 @@ import { setSelectionTopLevelBlocks } from '@atlaskit/editor-common/selection';
 import { closestElement } from '@atlaskit/editor-common/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { ignoreAttribute } from './ClickAreaBlock/contentComponentWrapper';
 
@@ -99,11 +100,19 @@ const clickAreaClickHandler = (view: EditorView, event: React.MouseEvent<HTMLEle
 		Boolean(closestElement(event.currentTarget, 'div[offset]')) ||
 		Boolean(closestElement(target, 'div[offset]'));
 
+	const isAnchorButtonClicked =
+		Boolean(closestElement(event.currentTarget, 'a')) ||
+		Boolean(closestElement(target, 'a')) ||
+		event.currentTarget?.nodeName === 'A' ||
+		target?.nodeName === 'A';
+
 	const isButtonClicked =
 		Boolean(closestElement(event.currentTarget, 'button')) ||
 		Boolean(closestElement(target, 'button')) ||
 		event.currentTarget?.nodeName === 'BUTTON' ||
-		target?.nodeName === 'BUTTON';
+		target?.nodeName === 'BUTTON' ||
+		(expValEquals('platform_editor_toolbar_migrate_loom', 'isEnabled', true) &&
+			isAnchorButtonClicked);
 
 	const isTargetInsideContentArea = Boolean(isTargetChildOfContentArea);
 

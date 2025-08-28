@@ -44,13 +44,22 @@
 			"path": "../editor-plugin-analytics/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-block-menu/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-editor-viewmode/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-plugin-primary-toolbar/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-selection/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-selection-toolbar/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-user-intent/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-plugin-user-preferences/tsconfig.app.json"
@@ -62,10 +71,16 @@
 			"path": "../editor-tables/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-toolbar/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
+			"path": "../tmp-editor-statsig/tsconfig.app.json"
 		}
 	],
 	"files": []

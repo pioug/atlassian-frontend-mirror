@@ -1,12 +1,12 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { TaskDecisionSharedCssClassName } from '@atlaskit/editor-common/styles';
 import { getSelectionStyles, SelectionStyle } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const taskDecisionStyles = css({
+export const taskDecisionStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ak-editor-selected-node > [data-decision-wrapper], ol[data-node-type="decisionList"].ak-editor-selected-node':
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
@@ -103,7 +103,7 @@ export const taskDecisionStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const taskDecisionIconWithVisualRefresh = css({
+export const taskDecisionIconWithVisualRefresh: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'[data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper] > [data-component="icon"] > span >  svg[data-icon-source="legacy"]':
 		{
@@ -129,7 +129,7 @@ export const taskDecisionIconWithVisualRefresh = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const taskDecisionIconWithoutVisualRefresh = css({
+export const taskDecisionIconWithoutVisualRefresh: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'[data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper] > [data-component="icon"] > span >  svg[data-icon-source="refreshed"]':
 		{
@@ -158,7 +158,7 @@ export const taskDecisionIconWithoutVisualRefresh = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const taskItemStyles = css({
+export const taskItemStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'[data-prosemirror-node-name="taskItem"]': {
 		listStyle: 'none',
@@ -380,7 +380,7 @@ export const taskItemStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const taskItemStylesWithBlockTaskItem = css({
+export const taskItemStylesWithBlockTaskItem: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'[data-prosemirror-node-name="taskItem"], [data-prosemirror-node-name="blockTaskItem"]': {
 		listStyle: 'none',

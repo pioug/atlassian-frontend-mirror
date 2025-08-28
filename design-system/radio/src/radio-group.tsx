@@ -51,9 +51,19 @@ export interface RadioGroupProps {
 	analyticsContext?: Record<string, any>;
 	/**
 	 * The id of the element that links to this radio group.
+	 *
+	 * @deprecated Use the `labelId` prop instead.
 	 */
 	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
 	'aria-labelledby'?: string;
+	/**
+	 * This sets the `aria-labelledby` attribute. It sets an accessible name for
+	 * the radio, for people who use assistive technology. Use of a visible label
+	 * is highly recommended for greater accessibility support.
+	 */
+	// TODO: Make `aria-labelledby` a `never` in TS. See https://product-fabric.atlassian.net/browse/DSP-23009
+	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
+	labelId?: string;
 	/**
 	 * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
 	 * The specified `testId` is applied to the root element of `RadioGroup`. If no `testId` is supplied in the `options` prop, then the one supplied to `RadioGroup` will also be propagated to
@@ -76,6 +86,7 @@ export default function RadioGroup(props: RadioGroupProps) {
 		isDisabled,
 		isRequired,
 		isInvalid,
+		labelId,
 		onInvalid = noop,
 		name,
 		analyticsContext,
@@ -104,7 +115,8 @@ export default function RadioGroup(props: RadioGroupProps) {
 	return (
 		<div
 			role="radiogroup"
-			aria-labelledby={ariaLabelledBy}
+			// TODO: Make `aria-labelledby` a `never` in TS. See https://product-fabric.atlassian.net/browse/DSP-23009
+			aria-labelledby={labelId || ariaLabelledBy}
 			data-testid={testId}
 			aria-describedby={isInvalid ? `${id || uid}-error` : undefined}
 			id={id || uid}

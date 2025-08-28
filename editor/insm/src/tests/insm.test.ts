@@ -3,7 +3,7 @@ import { insm, init as originalInit } from '../index';
 import type { INSMOptions, PeriodMeasurer } from '../types';
 
 // --- Mocks ---
-let rafCallbacks: { id: number; cb: FrameRequestCallback }[] = [];
+let rafCallbacks: { cb: FrameRequestCallback; id: number }[] = [];
 let rafId = 1;
 let consoleErrorSpy: jest.SpyInstance;
 let analyticsSpy: jest.Mock = jest.fn();
@@ -76,14 +76,58 @@ function init(
 	}
 }
 
+// Mock PerformanceObserver
+class MockPerformanceObserver {
+	public static instance: MockPerformanceObserver | null = null;
+	private callback: (list: { getEntries: () => PerformanceEventTiming[] }) => void;
+	public static supportedEntryTypes: string[] = ['event'];
+
+	constructor(callback: (list: { getEntries: () => PerformanceEventTiming[] }) => void) {
+		this.callback = callback;
+		MockPerformanceObserver.instance = this;
+	}
+
+	observe(_options: PerformanceObserverInit) {
+		// No-op
+	}
+
+	disconnect() {
+		MockPerformanceObserver.instance = null;
+	}
+
+	takeRecords(): PerformanceEventTiming[] {
+		return [];
+	}
+
+	// Helper method to simulate performance entries
+	static simulateEntries(entries: PerformanceEventTiming[]) {
+		if (MockPerformanceObserver.instance) {
+			MockPerformanceObserver.instance.callback({ getEntries: () => entries });
+		}
+	}
+}
+
 // --- Test suite ---
 describe('Entry Point API (index.ts)', () => {
+	let originalPerformanceObserver: typeof PerformanceObserver;
+
 	beforeEach(() => {
 		jest.useFakeTimers({ doNotFake: ['requestAnimationFrame'] });
 		resetMocks();
 		mockRAF();
 		mockVisibility();
 		analyticsSpy = jest.fn();
+
+		// Store original PerformanceObserver
+		originalPerformanceObserver = window.PerformanceObserver;
+
+		// Mock PerformanceObserver
+		window.PerformanceObserver = MockPerformanceObserver as any;
+	});
+
+	afterEach(() => {
+		// Restore original PerformanceObserver
+		window.PerformanceObserver = originalPerformanceObserver;
 	});
 
 	describe('Guard rails', () => {

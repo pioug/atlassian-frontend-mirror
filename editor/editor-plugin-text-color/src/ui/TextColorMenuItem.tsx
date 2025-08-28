@@ -18,7 +18,7 @@ import type { TextColorPlugin } from '../textColorPluginType';
 
 const styles = cssMap({
 	container: {
-		gap: token('space.100'),
+		gap: token('space.075'),
 	},
 });
 

@@ -23,7 +23,7 @@ const containerStyles = cssMap({
 	},
 });
 
-export default function ExampleScroll() {
+export function ScrollHorizontalExample() {
 	const [isOpen, setIsOpen] = useState(false);
 	const [shouldScrollInViewport, setShouldScrollInViewPort] = useState(false);
 
@@ -93,3 +93,5 @@ export default function ExampleScroll() {
 		</Box>
 	);
 }
+
+export default ScrollHorizontalExample;

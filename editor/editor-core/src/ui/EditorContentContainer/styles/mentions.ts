@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { MentionSharedCssClassName } from '@atlaskit/editor-common/mention';
 import {
@@ -12,6 +12,8 @@ import { token } from '@atlaskit/tokens';
 import {
 	backgroundSelectionStyles,
 	boxShadowSelectionStyles,
+	dangerBackgroundStyles,
+	dangerBorderStyles,
 	hideNativeBrowserTextSelectionStyles,
 } from './selectionStyles';
 
@@ -22,7 +24,7 @@ const mentionsSelectedColor = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const mentionsStyles = css({
+export const mentionsStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 	[`.${MentionSharedCssClassName.MENTION_CONTAINER}`]: {
 		// TODO: ED-28075 - refactor selection styles to unblock Compiled CSS migration
@@ -55,7 +57,7 @@ export const mentionsStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const mentionNodeStyles = css({
+export const mentionNodeStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.editor-mention-primitive': {
 		display: 'inline',
@@ -113,7 +115,7 @@ export const mentionNodeStyles = css({
 // This is currently enforced through statsig prerequisite gates, as per #help-afm recommendation.
 // So it will need to be considered if the typography gates are still in use when this is cleaned up.
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const mentionsStylesMixin_platform_editor_centre_mention_padding = css({
+export const mentionsStylesMixin_platform_editor_centre_mention_padding: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.editor-mention-primitive': {
 		padding: '1px 0.3em 1px 0.23em',
@@ -122,7 +124,7 @@ export const mentionsStylesMixin_platform_editor_centre_mention_padding = css({
 
 // This is mentions styles for mentions selection styles based on the vanilla node view
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const mentionsSelectionStyles = css({
+export const mentionsSelectionStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.danger': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -151,7 +153,7 @@ export const mentionsSelectionStyles = css({
 
 // This is mentions styles for mentions selection styles based on the vanilla node view
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const mentionsSelectionStylesWithSearchMatch = css({
+export const mentionsSelectionStylesWithSearchMatch: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.danger': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -184,6 +186,22 @@ export const mentionsSelectionStylesWithSearchMatch = css({
 			[
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				boxShadowSelectionStyles,
+			],
+	},
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const mentionDangerStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+	[`.${akEditorSelectedNodeClassName}:not(.search-match-block).danger`]: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'> .editor-mention-primitive, > .editor-mention-primitive.mention-self, > .editor-mention-primitive.mention-restricted':
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values,
+			[
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+				dangerBorderStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+				dangerBackgroundStyles,
 			],
 	},
 });

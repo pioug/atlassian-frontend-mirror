@@ -1,7 +1,7 @@
 /* eslint-disable @atlaskit/ui-styling-standard/no-nested-selectors */
 /* eslint-disable @atlaskit/ui-styling-standard/no-exported-styles */
 /* eslint-disable @atlaskit/ui-styling-standard/use-compiled */
-import { css, keyframes } from '@emotion/react';
+import { css, keyframes, type SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
@@ -53,7 +53,7 @@ const pulseOutDuringTr = keyframes({
 	},
 });
 
-export const telepointerColorAndCommonStyle = css({
+export const telepointerColorAndCommonStyle: SerializedStyles = css({
 	'.ProseMirror .telepointer': {
 		position: 'relative',
 		transition: 'opacity 200ms',
@@ -161,7 +161,7 @@ export const telepointerColorAndCommonStyle = css({
 	},
 });
 
-export const telepointerStyle = css({
+export const telepointerStyle: SerializedStyles = css({
 	'.ProseMirror .telepointer': {
 		'&.telepointer-selection-badge': {
 			'.telepointer-initial, .telepointer-fullname': {

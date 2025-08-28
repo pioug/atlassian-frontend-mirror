@@ -11,7 +11,7 @@ import useFocus from '@atlaskit/ds-lib/use-focus-event';
 import ExpandIcon from '@atlaskit/icon/core/migration/chevron-down';
 import Popup, { type TriggerProps } from '@atlaskit/popup';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { gridSize as gridSizeFn, layers } from '@atlaskit/theme/constants';
+import { layers } from '@atlaskit/theme/constants';
 
 import FocusManager from './internal/components/focus-manager';
 import MenuWrapper from './internal/components/menu-wrapper';
@@ -20,9 +20,7 @@ import useRegisterItemWithFocusManager from './internal/hooks/use-register-item-
 import useGeneratedId, { PREFIX } from './internal/utils/use-generated-id';
 import type { DropdownMenuProps, Placement } from './types';
 
-const gridSize = gridSizeFn();
-
-const MAX_HEIGHT = `calc(100vh - ${gridSize * 2}px)`;
+const MAX_HEIGHT = `calc(100vh - 16px)`;
 type mainAxes = 'top' | 'bottom' | 'left' | 'right' | 'auto';
 type crossAxes = 'start' | 'end';
 const opposites = {

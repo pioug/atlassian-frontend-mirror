@@ -892,9 +892,9 @@ exports[`Editor Content styles in FullPageContentArea fullpage editor renders co
 
 .emotion-0 .fabric-background-color-mark {
   background-color: var(--custom-palette-color, inherit);
-  border-radius: 2px;
+  border-radius: var(--ds-radius-xsmall, 2px);
   padding-top: 1px;
-  padding-bottom: 2px;
+  padding-bottom: var(--ds-space-025, 2px);
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
@@ -5432,9 +5432,9 @@ exports[`Editor Content styles in FullPageContentArea fullpage editor renders co
 
 .emotion-0 .fabric-background-color-mark {
   background-color: var(--custom-palette-color, inherit);
-  border-radius: 2px;
+  border-radius: var(--ds-radius-xsmall, 2px);
   padding-top: 1px;
-  padding-bottom: 2px;
+  padding-bottom: var(--ds-space-025, 2px);
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
@@ -13999,7 +13999,7 @@ td>.emotion-0 .ak-editor-expand {
 
 .emotion-0 .ProseMirror .ak-editor-selected-node .emoji-common-emoji-sprite,
 .emotion-0 .ProseMirror .ak-editor-selected-node .emoji-common-emoji-image {
-  border-radius: 2px;
+  border-radius: var(--ds-radius-xsmall, 2px);
   position: relative;
   -webkit-user-select: text;
   box-shadow: 0 0 0 1px var(--ds-border-selected, #0C66E4);
@@ -14149,6 +14149,49 @@ td>.emotion-0 .ak-editor-expand {
   opacity: 1;
   -webkit-transition: visibility 0s linear 0.3s,opacity 0.175s cubic-bezier(0.15,1,0.3,1) 0.3s,-webkit-transform 0.35s cubic-bezier(0.15,1,0.3,1) 0.3s;
   transition: visibility 0s linear 0.3s,opacity 0.175s cubic-bezier(0.15,1,0.3,1) 0.3s,transform 0.35s cubic-bezier(0.15,1,0.3,1) 0.3s;
+}
+
+.emotion-0 .dateView-content-wrap.ak-editor-selected-node.danger .date-lozenger-container>span {
+  box-shadow: 0 0 0 1px var(--ds-border-danger, #E2483D);
+}
+
+
+
+.emotion-0 .ProseMirror .ak-editor-selected-node.danger .emoji-common-emoji-sprite,
+.emotion-0 .ProseMirror .ak-editor-selected-node.danger .emoji-common-emoji-image {
+  box-shadow: 0 0 0 1px var(--ds-border-danger, #E2483D);
+  background-color: var(--ds-background-danger, #FFECEB);
+}
+
+
+
+.emotion-0 .ak-editor-selected-node:not(.search-match-block).danger >.editor-mention-primitive,
+.emotion-0 .ak-editor-selected-node:not(.search-match-block).danger >.editor-mention-primitive.mention-self,
+.emotion-0 .ak-editor-selected-node:not(.search-match-block).danger >.editor-mention-primitive.mention-restricted {
+  box-shadow: 0 0 0 1px var(--ds-border-danger, #E2483D);
+  background-color: var(--ds-background-danger, #FFECEB);
+}
+
+.emotion-0 .ak-editor-selected-node.danger>[data-decision-wrapper],
+.emotion-0 ol[data-node-type='decisionList'].ak-editor-selected-node.danger {
+  background-color: var(--ds-background-danger, #FFECEB);
+  box-shadow: 0 0 0 1px var(--ds-border-danger, #E2483D);
+}
+
+
+
+.emotion-0 .statusView-content-wrap:not(.search-match-block).ak-editor-selected-node.danger .status-lozenge-span>span {
+  box-shadow: 0 0 0 2px var(--ds-border-danger, #E2483D);
+}
+
+.emotion-0 .ProseMirror hr.ak-editor-selected-node.danger {
+  background-color: var(--ds-border-danger, #E2483D);
+}
+
+
+
+.emotion-0 .ProseMirror .mediaInlineView-content-wrap.ak-editor-selected-node.danger .media-inline-image-wrapper {
+  box-shadow: 0 0 0 1px var(--ds-border-danger, #E2483D);
 }
 
 <div
@@ -18646,7 +18689,7 @@ td>.emotion-0 .ak-editor-expand {
 
 .emotion-0 .ProseMirror .ak-editor-selected-node .emoji-common-emoji-sprite,
 .emotion-0 .ProseMirror .ak-editor-selected-node .emoji-common-emoji-image {
-  border-radius: 2px;
+  border-radius: var(--ds-radius-xsmall, 2px);
   position: relative;
   -webkit-user-select: text;
   box-shadow: 0 0 0 1px var(--ds-border-selected, #0C66E4);
@@ -18796,6 +18839,49 @@ td>.emotion-0 .ak-editor-expand {
   opacity: 1;
   -webkit-transition: visibility 0s linear 0.3s,opacity 0.175s cubic-bezier(0.15,1,0.3,1) 0.3s,-webkit-transform 0.35s cubic-bezier(0.15,1,0.3,1) 0.3s;
   transition: visibility 0s linear 0.3s,opacity 0.175s cubic-bezier(0.15,1,0.3,1) 0.3s,transform 0.35s cubic-bezier(0.15,1,0.3,1) 0.3s;
+}
+
+.emotion-0 .dateView-content-wrap.ak-editor-selected-node.danger .date-lozenger-container>span {
+  box-shadow: 0 0 0 1px var(--ds-border-danger, #E2483D);
+}
+
+
+
+.emotion-0 .ProseMirror .ak-editor-selected-node.danger .emoji-common-emoji-sprite,
+.emotion-0 .ProseMirror .ak-editor-selected-node.danger .emoji-common-emoji-image {
+  box-shadow: 0 0 0 1px var(--ds-border-danger, #E2483D);
+  background-color: var(--ds-background-danger, #FFECEB);
+}
+
+
+
+.emotion-0 .ak-editor-selected-node:not(.search-match-block).danger >.editor-mention-primitive,
+.emotion-0 .ak-editor-selected-node:not(.search-match-block).danger >.editor-mention-primitive.mention-self,
+.emotion-0 .ak-editor-selected-node:not(.search-match-block).danger >.editor-mention-primitive.mention-restricted {
+  box-shadow: 0 0 0 1px var(--ds-border-danger, #E2483D);
+  background-color: var(--ds-background-danger, #FFECEB);
+}
+
+.emotion-0 .ak-editor-selected-node.danger>[data-decision-wrapper],
+.emotion-0 ol[data-node-type='decisionList'].ak-editor-selected-node.danger {
+  background-color: var(--ds-background-danger, #FFECEB);
+  box-shadow: 0 0 0 1px var(--ds-border-danger, #E2483D);
+}
+
+
+
+.emotion-0 .statusView-content-wrap:not(.search-match-block).ak-editor-selected-node.danger .status-lozenge-span>span {
+  box-shadow: 0 0 0 2px var(--ds-border-danger, #E2483D);
+}
+
+.emotion-0 .ProseMirror hr.ak-editor-selected-node.danger {
+  background-color: var(--ds-border-danger, #E2483D);
+}
+
+
+
+.emotion-0 .ProseMirror .mediaInlineView-content-wrap.ak-editor-selected-node.danger .media-inline-image-wrapper {
+  box-shadow: 0 0 0 1px var(--ds-border-danger, #E2483D);
 }
 
 <div

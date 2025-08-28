@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 3.0.10
+
+### Patch Changes
+
+- [`c67efe1808d4e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c67efe1808d4e) -
+  ED-29111: clean up sharedPluginStateHookMigratorFactory in placeholder-text, panel, quick-insert
+- Updated dependencies
+
 ## 3.0.9
 
 ### Patch Changes

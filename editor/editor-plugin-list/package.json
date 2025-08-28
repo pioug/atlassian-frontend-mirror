@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-list",
-	"version": "5.1.7",
+	"version": "5.1.9",
 	"description": "List plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -32,8 +32,11 @@
 	"dependencies": {
 		"@atlaskit/adf-schema": "root:*",
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
+		"@atlaskit/editor-plugin-block-menu": "workspace:^",
 		"@atlaskit/editor-plugin-feature-flags": "workspace:^",
 		"@atlaskit/editor-prosemirror": "root:*",
+		"@atlaskit/editor-toolbar": "workspace:^",
+		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/prosemirror-input-rules": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",

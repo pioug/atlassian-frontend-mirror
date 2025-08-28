@@ -37,7 +37,7 @@ const styles = cssMap({
 	},
 });
 
-export default function Example() {
+export function MultiColumnExample() {
 	const [isOpen, setIsOpen] = useState(false);
 	const [contentLength, setContentLength] = useState(10);
 	const openModal = useCallback(() => setIsOpen(true), []);
@@ -121,3 +121,5 @@ export default function Example() {
 		</>
 	);
 }
+
+export default MultiColumnExample;

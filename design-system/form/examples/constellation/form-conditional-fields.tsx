@@ -4,7 +4,6 @@ import { cssMap } from '@atlaskit/css';
 import Form, { Field, useFormState } from '@atlaskit/form';
 import { Box } from '@atlaskit/primitives/compiled';
 import { RadioGroup } from '@atlaskit/radio';
-import { type OptionsPropType } from '@atlaskit/radio/types';
 import TextField from '@atlaskit/textfield';
 
 const formContainerStyles = cssMap({
@@ -14,69 +13,40 @@ const formContainerStyles = cssMap({
 	},
 });
 
-const radioItems: OptionsPropType = [
-	{ name: 'existingAccount', value: 'yes', label: 'Yes' },
-	{ name: 'existingAccount', value: 'no', label: 'No' },
-];
+const LoginForm = () => (
+	<>
+		<Field name="email" label="Email" defaultValue="" isRequired>
+			{({ fieldProps }) => <TextField {...fieldProps} />}
+		</Field>
+		<Field name="password" label="Password" defaultValue="" isRequired>
+			{({ fieldProps }) => <TextField {...fieldProps} />}
+		</Field>
+	</>
+);
 
-type LoginOrSignUpForm = {
-	existingAccount?: 'yes' | 'no';
-	name?: string;
-	email?: string;
-	password?: string;
-	confirmPassword?: string;
-};
-
-const LoginForm = () => {
-	return (
-		<>
-			<Field name="email" label="Email" defaultValue="" isRequired>
-				{({ fieldProps }) => <TextField {...fieldProps} />}
-			</Field>
-			<Field name="password" label="Password" defaultValue="" isRequired>
-				{({ fieldProps }) => <TextField {...fieldProps} />}
-			</Field>
-		</>
-	);
-};
-
-const SignUpForm = () => {
-	return (
-		<>
-			<Field name="name" label="Name" defaultValue="" isRequired>
-				{({ fieldProps }) => <TextField {...fieldProps} />}
-			</Field>
-			<Field name="email" label="Email" defaultValue="" isRequired>
-				{({ fieldProps }) => <TextField {...fieldProps} />}
-			</Field>
-			<Field name="password" label="Password" defaultValue="" isRequired>
-				{({ fieldProps }) => <TextField {...fieldProps} />}
-			</Field>
-			<Field name="confirmPassword" label="Confirm password" defaultValue="" isRequired>
-				{({ fieldProps }) => <TextField {...fieldProps} />}
-			</Field>
-		</>
-	);
-};
-
-const AccountLoginOrSignUpConditionalFields = () => {
-	const formState = useFormState<LoginOrSignUpForm>({ values: true });
-	return (
-		<>
-			{formState?.values.existingAccount === 'yes' && <LoginForm />}
-			{formState?.values.existingAccount === 'no' && <SignUpForm />}
-		</>
-	);
-};
+const SignUpForm = () => (
+	<>
+		<Field name="name" label="Name" defaultValue="" isRequired>
+			{({ fieldProps }) => <TextField {...fieldProps} />}
+		</Field>
+		<Field name="email" label="Email" defaultValue="" isRequired>
+			{({ fieldProps }) => <TextField {...fieldProps} />}
+		</Field>
+		<Field name="password" label="Password" defaultValue="" isRequired>
+			{({ fieldProps }) => <TextField {...fieldProps} />}
+		</Field>
+		<Field name="confirmPassword" label="Confirm password" defaultValue="" isRequired>
+			{({ fieldProps }) => <TextField {...fieldProps} />}
+		</Field>
+	</>
+);
 
 export default function ConditionalFieldsExample() {
+	const formState = useFormState({ values: true });
+
 	return (
 		<Box xcss={formContainerStyles.root}>
-			<Form
-				onSubmit={(data) => {
-					console.log('form data', data);
-				}}
-			>
+			<Form onSubmit={(data) => console.log('form data', data)}>
 				{({ formProps }) => (
 					<form {...formProps}>
 						<Field
@@ -85,9 +55,17 @@ export default function ConditionalFieldsExample() {
 							defaultValue=""
 							isRequired
 						>
-							{({ fieldProps }) => <RadioGroup {...fieldProps} options={radioItems} />}
+							{({ fieldProps }) => (
+								<RadioGroup
+									{...fieldProps}
+									options={[
+										{ name: 'existingAccount', value: 'yes', label: 'Yes' },
+										{ name: 'existingAccount', value: 'no', label: 'No' },
+									]}
+								/>
+							)}
 						</Field>
-						<AccountLoginOrSignUpConditionalFields />
+						{formState?.values.existingAccount === 'yes' ? <LoginForm /> : <SignUpForm />}
 					</form>
 				)}
 			</Form>

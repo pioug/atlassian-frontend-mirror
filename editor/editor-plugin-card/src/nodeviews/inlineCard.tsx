@@ -1,8 +1,9 @@
-import React, { memo, useCallback, useEffect, useMemo, useRef } from 'react';
+import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import rafSchedule from 'raf-schd';
 import uuid from 'uuid/v4';
 
+import { EditorCardProvider } from '@atlaskit/editor-card-provider';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
 	type NamedPluginStatesFromInjectionAPI,
@@ -21,6 +22,7 @@ import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Card as SmartCard } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { type cardPlugin } from '../cardPlugin';
@@ -49,6 +51,7 @@ export const InlineCard = memo(
 		showHoverPreview,
 		hoverPreviewOptions,
 		isPageSSRed,
+		provider,
 		pluginInjectionApi,
 		disablePreviewPanel,
 	}: SmartCardProps) => {
@@ -63,6 +66,29 @@ export const InlineCard = memo(
 				view.dispatch(tr);
 			};
 		}, [getPos, view]);
+
+		const [isSSRDataAvailable, setIsSSRDataAvailable] = useState(
+			expValEquals('platform_editor_smart_card_otp', 'isEnabled', true) && isPageSSRed,
+		);
+		useEffect(() => {
+			if (!expValEquals('platform_editor_smart_card_otp', 'isEnabled', true)) {
+				return;
+			}
+
+			if (!provider) {
+				return;
+			}
+
+			const updateSSRDataAvailability = async () => {
+				const resolvedProvider = await provider;
+
+				if (resolvedProvider instanceof EditorCardProvider) {
+					setIsSSRDataAvailable(resolvedProvider.getCacheStatusForNode(node) === 'ssr');
+				}
+			};
+
+			void updateSSRDataAvailability();
+		}, [provider, node]);
 
 		const scrollContainer: HTMLElement | undefined = useMemo(
 			// Ignored via go/ees005
@@ -160,6 +186,10 @@ export const InlineCard = memo(
 						showHoverPreview={showHoverPreview}
 						hoverPreviewOptions={hoverPreviewOptions}
 						disablePreviewPanel={disablePreviewPanel}
+						hideIconLoadingSkeleton={
+							expValEquals('platform_editor_smart_card_otp', 'isEnabled', true) &&
+							isSSRDataAvailable
+						}
 					/>
 				);
 			}
@@ -195,6 +225,7 @@ export const InlineCard = memo(
 			hoverPreviewOptions,
 			isPageSSRed,
 			disablePreviewPanel,
+			isSSRDataAvailable,
 		]);
 
 		// [WS-2307]: we only render card wrapped into a Provider when the value is ready,
@@ -220,6 +251,7 @@ export type InlineCardNodeViewProps = Pick<
 	| 'onClickCallback'
 	| 'isPageSSRed'
 	| 'CompetitorPrompt'
+	| 'provider'
 >;
 
 const selector = (
@@ -274,6 +306,7 @@ export function InlineCardNodeView(
 		pluginInjectionApi,
 		onClickCallback,
 		isPageSSRed,
+		provider,
 		CompetitorPrompt,
 	} = props;
 
@@ -294,6 +327,7 @@ export function InlineCardNodeView(
 				pluginInjectionApi={pluginInjectionApi}
 				onClickCallback={onClickCallback}
 				isPageSSRed={isPageSSRed}
+				provider={provider}
 				appearance="inline"
 				// Ignored via go/ees005
 				// eslint-disable-next-line react/jsx-props-no-spreading

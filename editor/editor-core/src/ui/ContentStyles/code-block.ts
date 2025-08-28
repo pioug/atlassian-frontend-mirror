@@ -1,6 +1,6 @@
 /* eslint-disable @atlaskit/design-system/no-css-tagged-template-expression */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { CodeBlockSharedCssClassName, codeBlockSharedStyles } from '@atlaskit/editor-common/styles';
 import {
@@ -16,7 +16,7 @@ import {
 import { functionWithFG } from '@atlaskit/platform-feature-flags-react';
 import { token } from '@atlaskit/tokens';
 
-const GutterDangerOverlay = () => css`
+const GutterDangerOverlay: () => SerializedStyles = () => css`
 	&::after {
 		height: 100%;
 		content: '';
@@ -29,7 +29,7 @@ const GutterDangerOverlay = () => css`
 `;
 
 /* When code-block is inside the panel  */
-const firstCodeBlockWithNoMargin = functionWithFG(
+const firstCodeBlockWithNoMargin: () => SerializedStyles = functionWithFG(
 	'platform_editor_nested_dnd_styles_changes',
 	() => css`
 		.ak-editor-panel__content {
@@ -49,7 +49,7 @@ const firstCodeBlockWithNoMargin = functionWithFG(
 	`,
 );
 
-export const codeBlockStyles = () => css`
+export const codeBlockStyles: () => SerializedStyles = () => css`
 	.ProseMirror {
 		${codeBlockSharedStyles()}
 	}

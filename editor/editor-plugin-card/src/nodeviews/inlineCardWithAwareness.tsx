@@ -10,7 +10,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { HoverLinkOverlay } from '@atlaskit/editor-common/ui';
 import { NodeSelection, type Transaction } from '@atlaskit/editor-prosemirror/state';
 import { getObjectAri, getObjectName, getObjectIconUrl } from '@atlaskit/smart-card';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { type cardPlugin } from '../cardPlugin';
@@ -74,6 +73,7 @@ export const InlineCardWithAwareness = memo(
 		isOverlayEnabled,
 		isSelected,
 		isPageSSRed,
+		provider,
 		appearance,
 	}: SmartCardProps & InlineCardWithAwarenessProps) => {
 		const [isHovered, setIsHovered] = useState(false);
@@ -117,7 +117,7 @@ export const InlineCardWithAwareness = memo(
 		// This is a prop to show Hover card, Hover card should be shown only in Live View and Classic Renderer (note when only Editor controls enabled we don't show in Live view)
 		const showHoverPreview =
 			floatingToolbarNode !== node &&
-			expValEquals('platform_editor_preview_panel_linking_exp', 'isEnabled', true);
+			editorExperiment('platform_editor_preview_panel_linking_exp', true, { exposure: true });
 
 		const innerCardWithOpenButtonOverlay = useMemo(
 			() => (
@@ -139,6 +139,7 @@ export const InlineCardWithAwareness = memo(
 						cardContext={cardContext}
 						isHovered={isHovered}
 						isPageSSRed={isPageSSRed}
+						provider={provider}
 						pluginInjectionApi={pluginInjectionApi}
 						disablePreviewPanel={true}
 					/>
@@ -157,6 +158,7 @@ export const InlineCardWithAwareness = memo(
 				cardContext,
 				isHovered,
 				isPageSSRed,
+				provider,
 				pluginInjectionApi,
 			],
 		);
@@ -174,6 +176,7 @@ export const InlineCardWithAwareness = memo(
 					cardContext={cardContext}
 					isHovered={isHovered}
 					isPageSSRed={isPageSSRed}
+					provider={provider}
 					pluginInjectionApi={pluginInjectionApi}
 					showHoverPreview={false}
 				/>
@@ -189,6 +192,7 @@ export const InlineCardWithAwareness = memo(
 				useAlternativePreloader,
 				view,
 				isPageSSRed,
+				provider,
 				pluginInjectionApi,
 			],
 		);
@@ -201,7 +205,7 @@ export const InlineCardWithAwareness = memo(
 					editorAppearance === 'comment' ||
 					shouldShowOpenButtonOverlayInChomeless) &&
 				(editorExperiment('platform_editor_controls', 'variant1') ||
-					expValEquals('platform_editor_preview_panel_linking_exp', 'isEnabled', true))
+					editorExperiment('platform_editor_preview_panel_linking_exp', true, { exposure: true }))
 			);
 		}, [mode, editorAppearance]);
 
@@ -211,7 +215,7 @@ export const InlineCardWithAwareness = memo(
 
 		if (
 			mode === 'view' &&
-			expValEquals('platform_editor_preview_panel_linking_exp', 'isEnabled', true)
+			editorExperiment('platform_editor_preview_panel_linking_exp', true, { exposure: true })
 		) {
 			const url = node.attrs.url;
 			const cardState = cardContext?.value?.store?.getState()[url];
@@ -271,6 +275,7 @@ export const InlineCardWithAwareness = memo(
 											cardContext={cardContext}
 											isHovered={isHovered}
 											isPageSSRed={isPageSSRed}
+											provider={provider}
 											pluginInjectionApi={pluginInjectionApi}
 											showHoverPreview={mode === 'view' && showHoverPreview}
 											disablePreviewPanel={true}
@@ -290,6 +295,7 @@ export const InlineCardWithAwareness = memo(
 										cardContext={cardContext}
 										isHovered={isHovered}
 										isPageSSRed={isPageSSRed}
+										provider={provider}
 										pluginInjectionApi={pluginInjectionApi}
 										showHoverPreview={mode === 'view' && showHoverPreview}
 									/>

@@ -1,5 +1,33 @@
 # @atlaskit/editor-plugin-card
 
+## 7.7.0
+
+### Minor Changes
+
+- [`f1c44645de4a1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f1c44645de4a1) -
+  [https://product-fabric.atlassian.net/browse/ED-29133](ED-29133) - editor smart cards hydration
+  was improved
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.6.0
+
+### Minor Changes
+
+- [`5763f85b421a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5763f85b421a2) - -
+  The new method `getCacheStatusForNode` is added to `NodeDataProvider` class to get the cache
+  status for a given node.
+  - The `CardSSR` component will start supporting `hideIconLoadingSkeleton` property for any type of
+    smart card.
+
+### Patch Changes
+
+- [`a2cd8c46a3e94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2cd8c46a3e94) -
+  EDITOR-1442 Bump adf-schema
+- Updated dependencies
+
 ## 7.5.1
 
 ### Patch Changes

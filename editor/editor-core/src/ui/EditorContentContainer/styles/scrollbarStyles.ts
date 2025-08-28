@@ -1,10 +1,10 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const scrollbarStyles = css({
+export const scrollbarStyles: SerializedStyles = css({
 	msOverflowStyle: '-ms-autohiding-scrollbar',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'&::-webkit-scrollbar-corner': {

@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-panel
 
+## 5.4.3
+
+### Patch Changes
+
+- [`c67efe1808d4e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c67efe1808d4e) -
+  ED-29111: clean up sharedPluginStateHookMigratorFactory in placeholder-text, panel, quick-insert
+- Updated dependencies
+
+## 5.4.2
+
+### Patch Changes
+
+- [`a2cd8c46a3e94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2cd8c46a3e94) -
+  EDITOR-1442 Bump adf-schema
+- Updated dependencies
+
 ## 5.4.1
 
 ### Patch Changes

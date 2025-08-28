@@ -1,5 +1,13 @@
 # @atlaskit/avatar-group
 
+## 12.2.3
+
+### Patch Changes
+
+- [`ef3b2dfa2f8a8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef3b2dfa2f8a8) -
+  Internal changes to use radius tokens. No visual changes.
+- Updated dependencies
+
 ## 12.2.2
 
 ### Patch Changes

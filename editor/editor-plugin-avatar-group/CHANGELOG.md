@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-avatar-group
 
+## 4.1.9
+
+### Patch Changes
+
+- [`aee77103aa32b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aee77103aa32b) -
+  Cleanup platform_editor_usesharedpluginstateselector
+- Updated dependencies
+
 ## 4.1.8
 
 ### Patch Changes

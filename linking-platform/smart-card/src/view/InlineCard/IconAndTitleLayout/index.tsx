@@ -3,7 +3,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { type ComponentPropsWithoutRef } from 'react';
+import React, { type ComponentPropsWithoutRef, useState } from 'react';
 
 import { css, jsx, styled } from '@compiled/react';
 import { di } from 'react-magnetic-di';
@@ -13,6 +13,7 @@ import { cssMap } from '@atlaskit/css';
 import LinkIcon from '@atlaskit/icon/core/migration/link';
 import { Box } from '@atlaskit/primitives/compiled';
 import { B400 } from '@atlaskit/theme/colors';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { isProfileType } from '../../../utils';
@@ -22,7 +23,7 @@ const iconWrapperStyle = css({
 	display: 'inline-flex',
 	font: token('font.body.small'),
 	position: 'absolute',
-	borderRadius: '2px',
+	borderRadius: token('radius.xsmall'),
 	marginRight: token('space.050'),
 	height: '16px',
 	width: '16px',
@@ -75,6 +76,7 @@ export interface IconAndTitleLayoutProps {
 	children?: React.ReactNode;
 	defaultIcon?: React.ReactNode;
 	emoji?: React.ReactNode;
+	hideIconLoadingSkeleton?: boolean;
 	icon?: React.ReactNode;
 	link?: string;
 	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
@@ -109,7 +111,10 @@ export const IconAndTitleLayout = ({
 	rightSide,
 	testId = 'inline-card-icon-and-title',
 	type,
+	hideIconLoadingSkeleton,
 }: IconAndTitleLayoutProps) => {
+	const [hasImageErrored, setHasImageErrored] = useState(false);
+
 	const renderAtlaskitIcon = React.useCallback(() => {
 		if (emoji) {
 			return emoji;
@@ -128,6 +133,26 @@ export const IconAndTitleLayout = ({
 			if (!icon || typeof icon !== 'string') {
 				return null;
 			}
+
+			if (
+				expValEquals('platform_editor_smart_card_otp', 'isEnabled', true) &&
+				hideIconLoadingSkeleton
+			) {
+				if (hasImageErrored) {
+					return errored;
+				}
+
+				return (
+					<img
+						css={[iconImageStyle, profileType && styles.roundImageStyle]}
+						src={icon}
+						data-testid={`${testId}-image`}
+						alt=""
+						onError={() => setHasImageErrored(true)}
+					/>
+				);
+			}
+
 			return (
 				<ImageLoader
 					src={icon}
@@ -144,7 +169,7 @@ export const IconAndTitleLayout = ({
 				/>
 			);
 		},
-		[icon, profileType],
+		[icon, profileType, hideIconLoadingSkeleton, hasImageErrored],
 	);
 
 	const renderIconPlaceholder = React.useCallback(

@@ -3,12 +3,21 @@ import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { INSMSession } from './insm-session';
 import type { ExperienceProperties, INSMOptions } from './types';
 import { AnimationFPSIM } from './period-measurers/afps';
+import { INPTracker } from './inp-measurers/inp';
 
 export class INSM {
 	analyticsWebClient?: AnalyticsWebClient;
 	runningSession?: INSMSession;
 	options: INSMOptions;
-	periodMeasurers: [AnimationFPSIM];
+	periodMeasurers: [
+		AnimationFPSIM,
+		INPTracker,
+		INPTracker,
+		INPTracker,
+		INPTracker,
+		INPTracker,
+		INPTracker,
+	];
 
 	/**
 	 * Heavy tasks are tracked at the insm layer as heavy tasks
@@ -18,7 +27,15 @@ export class INSM {
 	runningHeavyTasks: Set<string> = new Set();
 
 	constructor(options: INSMOptions) {
-		this.periodMeasurers = [new AnimationFPSIM()];
+		this.periodMeasurers = [
+			new AnimationFPSIM(),
+			new INPTracker(),
+			new INPTracker({ includedInteractions: ['pointerup'] }),
+			new INPTracker({ includedInteractions: ['pointerdown'] }),
+			new INPTracker({ includedInteractions: ['click'] }),
+			new INPTracker({ includedInteractions: ['keydown'] }),
+			new INPTracker({ includedInteractions: ['keyup'] }),
+		];
 		this.options = options;
 
 		// If this does throw -- we do want an unhandledRejection rejection to be passed to the window

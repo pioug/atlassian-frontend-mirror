@@ -29,7 +29,7 @@ import Tooltip from '@atlaskit/tooltip';
 
 const Break = () => <br />;
 
-export default () => {
+export function WithLayeredComponentsExample() {
 	const [isOpen, setIsOpen] = useState(false);
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
 	const [shouldScrollInViewport, setShouldScrollInViewPort] = useState(false);
@@ -131,6 +131,7 @@ export default () => {
               https://ecosystem.atlassian.net/browse/DS-7622,
               but 'fixed' by setting the menuPosition. */}
 							<Select
+								testId="select-zindex-fixed"
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 								className="select-zindex-fixed"
 								placeholder="zIndex: 9999, menuPortalTarget: document.body, menuPosition: fixed"
@@ -146,6 +147,7 @@ export default () => {
 							/>
 							<Break />
 							<Select
+								testId="select-fixed"
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 								className="select-fixed"
 								placeholder="menuPosition: fixed"
@@ -159,6 +161,7 @@ export default () => {
 							/>
 							<Break />
 							<Select
+								testId="select-absolute"
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 								className="select-absolute"
 								placeholder="menuPosition: absolute"
@@ -214,7 +217,7 @@ export default () => {
 			</ModalTransition>
 		</Box>
 	);
-};
+}
 
 const selectOptions = [
 	{ label: 'Sydney', value: 'sydney' },
@@ -299,3 +302,5 @@ const generateFlagData = (flags: FlagData[]): FlagData => ({
 	key: flags.length,
 	title: `${flags.length + 1}: Whoa a new flag!`,
 });
+
+export default WithLayeredComponentsExample;

@@ -34,6 +34,7 @@ import { ToolbarSize } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { type BlockTypePlugin } from './blockTypePluginType';
@@ -52,6 +53,7 @@ import type { BlockTypeNode } from './pm-plugins/types';
 import { FloatingToolbarComponent } from './pm-plugins/ui/FloatingToolbarComponent';
 import { PrimaryToolbarComponent } from './pm-plugins/ui/PrimaryToolbarComponent';
 import { getToolbarComponents } from './pm-plugins/ui/ToolbarComponents';
+import { getBlockTypeComponents } from './ui';
 
 const headingPluginOptions = (
 	{ formatMessage }: IntlShape,
@@ -178,6 +180,10 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 			name: 'blockType',
 			component: primaryToolbarComponent,
 		});
+	}
+
+	if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
+		api?.blockMenu?.actions.registerBlockMenuComponents(getBlockTypeComponents());
 	}
 
 	return {

@@ -15,7 +15,7 @@ export const Icon = styled.img({
 	height: '16px',
 	width: '16px',
 	marginRight: token('space.050', '4px'),
-	borderRadius: '2px',
+	borderRadius: token('radius.xsmall'),
 	userSelect: 'none',
 	position: 'absolute',
 	top: '50%',

@@ -55,6 +55,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
 			actionOptions,
 			renderers,
 			CompetitorPrompt,
+			hideIconLoadingSkeleton,
 		},
 		iframeRef,
 	) => {
@@ -124,6 +125,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
 							onIframeFocus={onIframeFocus}
 							testId={testId}
 							CompetitorPrompt={CompetitorPrompt}
+							hideIconLoadingSkeleton={hideIconLoadingSkeleton}
 						/>
 					);
 				} else {

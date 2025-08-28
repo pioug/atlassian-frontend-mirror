@@ -103,6 +103,12 @@
 			"path": "../editor-plugin-annotation/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-block-controls/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-block-menu/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-card/tsconfig.app.json"
 		},
 		{
@@ -196,6 +202,9 @@
 			"path": "../editor-plugin-track-changes/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-user-intent/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugins/tsconfig.app.json"
 		},
 		{
@@ -206,6 +215,9 @@
 		},
 		{
 			"path": "../editor-test-helpers/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-toolbar/tsconfig.app.json"
 		},
 		{
 			"path": "../../elements/emoji/tsconfig.app.json"

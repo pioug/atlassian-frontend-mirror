@@ -10,8 +10,6 @@ import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import {
-	useSharedPluginState,
-	sharedPluginStateHookMigratorFactory,
 	type NamedPluginStatesFromInjectionAPI,
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
@@ -42,27 +40,17 @@ const selector = (
 	};
 };
 
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<HelpDialogPlugin> | undefined) => {
-		return useSharedPluginStateWithSelector(api, ['helpDialog'], selector);
-	},
-	(api: ExtractInjectionAPI<HelpDialogPlugin> | undefined) => {
-		const { helpDialogState } = useSharedPluginState(api, ['helpDialog']);
-		return {
-			isVisible: helpDialogState?.isVisible,
-			imageEnabled: helpDialogState?.imageEnabled,
-			aiEnabled: helpDialogState?.aiEnabled,
-		};
-	},
-);
-
 const HelpDialog = ({
 	pluginInjectionApi,
 	editorView,
 	quickInsertEnabled,
 	intl,
 }: HelpDialogProps & WrappedComponentProps) => {
-	const { isVisible, imageEnabled, aiEnabled } = useSharedState(pluginInjectionApi);
+	const { isVisible, imageEnabled, aiEnabled } = useSharedPluginStateWithSelector(
+		pluginInjectionApi,
+		['helpDialog'],
+		selector,
+	);
 
 	const closeDialog = useCallback(() => {
 		const {

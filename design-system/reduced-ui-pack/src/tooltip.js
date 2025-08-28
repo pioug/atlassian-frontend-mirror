@@ -1,8 +1,9 @@
 // AFP-2532 TODO: Fix automatic suppressions below
-import { colors, gridSize } from '@atlaskit/theme';
+import { colors } from '@atlaskit/theme';
+
 import css from './utils/evaluate-inner';
 
-const grid = gridSize() / 2;
+const grid = 4;
 const fontSize = 3 * grid;
 const lineHeight = (4 * grid) / fontSize;
 const fontColor = 'white';

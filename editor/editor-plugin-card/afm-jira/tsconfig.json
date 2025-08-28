@@ -32,6 +32,9 @@
 			"path": "../../custom-steps/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../linking-platform/editor-card-provider/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-analytics/afm-jira/tsconfig.json"
 		},
 		{

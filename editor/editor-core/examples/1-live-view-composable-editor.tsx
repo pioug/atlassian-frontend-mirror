@@ -8,19 +8,27 @@ import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { EditorContext } from '@atlaskit/editor-core/editor-context';
 import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
+import { blockControlsPlugin } from '@atlaskit/editor-plugin-block-controls';
+import { blockMenuPlugin } from '@atlaskit/editor-plugin-block-menu';
 import { codeBlockAdvancedPlugin } from '@atlaskit/editor-plugin-code-block-advanced';
 import { editorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 // Commented out - see below
-import { selectionExtensionPlugin } from '@atlaskit/editor-plugin-selection-extension';
+import {
+	type ExtensionConfiguration,
+	selectionExtensionPlugin,
+} from '@atlaskit/editor-plugin-selection-extension';
 import { selectionMarkerPlugin } from '@atlaskit/editor-plugin-selection-marker';
+import { userIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 import { useEditorAnnotationProviders } from '@atlaskit/editor-test-helpers/annotation-example';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
+import { AddIcon } from '@atlaskit/editor-toolbar';
 import AppIcon from '@atlaskit/icon/core/app';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers/exampleMediaFeatureFlags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { xcss, Pressable } from '@atlaskit/primitives';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 
@@ -153,10 +161,52 @@ function ComposableEditorPage() {
 		},
 	});
 	const noteSelectionExtension = useNoteSelectionExtension(editorApiRef.current);
+
+	const getCreateJiraIssueMenuItem = () => {
+		const selectionResult = editorApiRef?.current.selectionExtension?.actions.getSelectionAdf();
+
+		// Determine if multiple rows are selected
+		const multipleRowsSelected =
+			selectionResult?.selectedNodeAdf.type === 'table' &&
+			selectionResult?.selectionRanges &&
+			selectionResult?.selectionRanges.length > 1;
+
+		if (multipleRowsSelected) {
+			return {
+				label: 'Multiple Issues',
+				icon: AddIcon,
+				onClick: () => alert('Multiple issues clicked'),
+			};
+		} else {
+			return {
+				label: 'Single Issue',
+				icon: AddIcon,
+				onClick: () => alert('Single issue clicked'),
+			};
+		}
+	};
+
+	const createJiraIssueExtension: ExtensionConfiguration = {
+		key: 'create-jira-issue-extension',
+		source: 'first-party',
+		inlineToolbar: {
+			getMenuItems: () => [getCreateJiraIssueMenuItem()],
+		},
+		blockMenu: {
+			getMenuItem: getCreateJiraIssueMenuItem,
+		},
+	};
+
 	// Memoise the preset otherwise we will re-render the editor too often
 	const { preset, editorApi } = usePreset(() => {
 		return universalPreset
+			.add(blockControlsPlugin)
+			.maybeAdd(
+				[blockMenuPlugin, {}],
+				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true),
+			)
 			.add([editorViewModePlugin, { mode: 'edit' }])
+			.add(userIntentPlugin)
 			.add(selectionMarkerPlugin)
 			.add(codeBlockAdvancedPlugin)
 			.add([
@@ -224,7 +274,7 @@ function ComposableEditorPage() {
 							},
 						],
 					},
-					extensionList: noteSelectionExtension.extensionList,
+					extensionList: [...noteSelectionExtension.extensionList, createJiraIssueExtension],
 				},
 			]);
 
@@ -232,6 +282,7 @@ function ComposableEditorPage() {
 		// universal preset to be consistent with current behaviour (ie. this could
 		// be a page width change via the `appearance` prop).
 	}, [universalPreset]);
+	editorApiRef.current = editorApi;
 
 	// @typescript-eslint/no-explicit-any
 	const onDocumentChanged = (adf: any) => {

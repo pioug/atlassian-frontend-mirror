@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-local-id
 
+## 1.0.6
+
+### Patch Changes
+
+- [`a2cd8c46a3e94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2cd8c46a3e94) -
+  EDITOR-1442 Bump adf-schema
+- Updated dependencies
+
+## 1.0.5
+
+### Patch Changes
+
+- [`e5f37a1deec51`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e5f37a1deec51) -
+  Added check for localId in the node spec to prevent adding id's to nodes that may not allow it.
+
 ## 1.0.4
 
 ### Patch Changes

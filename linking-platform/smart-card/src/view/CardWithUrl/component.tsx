@@ -2,7 +2,7 @@ import React, { type MouseEvent, useCallback, useEffect, useMemo } from 'react';
 
 import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/analytics-next';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import { CardDisplay } from '../../constants';
@@ -126,7 +126,7 @@ function Component({
 
 			const isDisablePreviewPanel =
 				disablePreviewPanel &&
-				expValEquals('platform_editor_preview_panel_linking_exp', 'isEnabled', true);
+				editorExperiment('platform_editor_preview_panel_linking_exp', true, { exposure: true });
 
 			// If preview panel is available and the user clicked on the link,
 			// delegate the click to the preview panel handler
@@ -348,6 +348,7 @@ function Component({
 					removeTextHighlightingFromTitle={removeTextHighlightingFromTitle}
 					resolvingPlaceholder={resolvingPlaceholder}
 					truncateInline={truncateInline}
+					hideIconLoadingSkeleton={hideIconLoadingSkeleton}
 				/>
 			);
 		case 'block':
@@ -393,6 +394,7 @@ function Component({
 					onIframeDwell={onIframeDwell}
 					onIframeFocus={onIframeFocus}
 					CompetitorPrompt={CompetitorPrompt}
+					hideIconLoadingSkeleton={hideIconLoadingSkeleton}
 				/>
 			);
 	}

@@ -20,8 +20,6 @@ import type {
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { ButtonItemProps } from '@atlaskit/menu';
 import { HeadingItem } from '@atlaskit/menu';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 export const menuItemDimensions = {
@@ -51,9 +49,8 @@ const menuContainerStyles = css({
 	},
 });
 
-// TODO: ED-26959 - Migrate away from gridSize
-// Recommendation: Replace with 4 as itemSpacing is used in calculations expecting a number
-export const itemSpacing = gridSize() / 2;
+// itemSpacing is used in calculations expecting a number, hence not using a space token
+export const itemSpacing = 4;
 export interface Props {
 	dispatchCommand: Function;
 	editorView?: EditorView;

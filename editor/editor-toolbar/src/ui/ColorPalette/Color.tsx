@@ -23,7 +23,7 @@ const buttonWrapperStyles = css({
 	paddingRight: token('space.025', '2px'),
 	paddingBottom: token('space.025', '2px'),
 	paddingLeft: token('space.025', '2px'),
-	borderRadius: token('border.radius.100', '4px'),
+	borderRadius: token('radius.small', '4px'),
 	'&:focus-within, &:focus, &:hover': {
 		borderColor: token('color.border'),
 	},
@@ -34,7 +34,7 @@ const buttonStyles = css({
 	width: token('space.300', '26px'),
 	backgroundColor: token('color.background.neutral'),
 	padding: 0,
-	borderRadius: token('border.radius.100', '4px'),
+	borderRadius: token('radius.small', '4px'),
 	border: `1px solid ${token('color.border.inverse')}`,
 	cursor: 'pointer',
 	display: 'block',

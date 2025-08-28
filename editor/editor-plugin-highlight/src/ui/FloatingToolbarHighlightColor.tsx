@@ -18,8 +18,6 @@ import {
 	type DispatchAnalyticsEvent,
 } from '@atlaskit/editor-common/analytics';
 import {
-	useSharedPluginState,
-	sharedPluginStateHookMigratorFactory,
 	type NamedPluginStatesFromInjectionAPI,
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
@@ -77,27 +75,17 @@ const selector = (
 	};
 };
 
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<HighlightPlugin> | undefined) => {
-		return useSharedPluginStateWithSelector(api, ['highlight'], selector);
-	},
-	(api: ExtractInjectionAPI<HighlightPlugin> | undefined) => {
-		const { highlightState } = useSharedPluginState(api, ['highlight']);
-		return {
-			isPaletteOpen: highlightState?.isPaletteOpen,
-			activeColor: highlightState?.activeColor,
-			disabled: highlightState?.disabled,
-		};
-	},
-);
-
 const FloatingToolbarHighlightColor = ({
 	pluginInjectionApi,
 	intl: { formatMessage },
 	editorView,
 }: FloatingToolbarHighlightColorProps) => {
 	const toolbarItemRef = useRef<ToolbarButtonRef>(null);
-	const { activeColor, disabled, isPaletteOpen } = useSharedState(pluginInjectionApi);
+	const { activeColor, disabled, isPaletteOpen } = useSharedPluginStateWithSelector(
+		pluginInjectionApi,
+		['highlight'],
+		selector,
+	);
 
 	const setDropdownOpen = (isOpen: boolean) => {
 		if (!disabled && editorView && pluginInjectionApi) {

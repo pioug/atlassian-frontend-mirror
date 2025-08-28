@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 5.2.3
+
+### Patch Changes
+
+- [`20a5aa8c4e7a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/20a5aa8c4e7a0) -
+  Removed gridSize import. No visual changes.
+
 ## 5.2.2
 
 ### Patch Changes

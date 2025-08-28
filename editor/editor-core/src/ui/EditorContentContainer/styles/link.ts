@@ -1,8 +1,8 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const linkStyles = css({
+export const linkStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.ProseMirror a.blockLink': {
 		display: 'block',
@@ -18,7 +18,7 @@ export const linkStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const hyperLinkFloatingToolbarStyles = css({
+export const hyperLinkFloatingToolbarStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.hyperlink-floating-toolbar': {
 		padding: 0,
@@ -30,7 +30,7 @@ export const hyperLinkFloatingToolbarStyles = css({
  * new ADS icon does not have this issue
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const linkLegacyIconStylesFix = css({
+export const linkLegacyIconStylesFix: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.hyperlink-open-link': {
 		minWidth: 24,

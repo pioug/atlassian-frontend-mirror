@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 // = akEditorDefaultLayoutWidth * breakoutWideScaleRatio = 1010.8 ~ 1011 This is a resulting width value that is applied to nodes that currently use breakouts (except table) and are set to `wide` when the viewport's width is > 1329px.
 const akEditorCalculatedWideLayoutWidth = 1011;
@@ -16,7 +16,7 @@ const akEditorFullPageNarrowBreakout = 600;
 
 // jest warning: JSDOM version (22) doesn't support the new @container CSS rule
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const baseStyles = css({
+export const baseStyles: SerializedStyles = css({
 	'--ak-editor--default-gutter-padding': `${akEditorGutterPadding}px`,
 	'--ak-editor--default-layout-width': `${akEditorDefaultLayoutWidth}px`,
 	'--ak-editor--resizer-handle-spacing': `12px`,
@@ -67,18 +67,18 @@ export const baseStyles = css({
 
 // This is to avoid using akEditorGutterPaddingDynamic()
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const editorLargeGutterPuddingBaseStyles = css({
+export const editorLargeGutterPuddingBaseStyles: SerializedStyles = css({
 	'--ak-editor--large-gutter-padding': '52px',
 });
 
 // This is to avoid using akEditorGutterPaddingDynamic
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const editorLargeGutterPuddingBaseStylesEditorControls = css({
+export const editorLargeGutterPuddingBaseStylesEditorControls: SerializedStyles = css({
 	'--ak-editor--large-gutter-padding': '72px',
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const editorLargeGutterPuddingReducedBaseStyles = css({
+export const editorLargeGutterPuddingReducedBaseStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-container-queries, @atlaskit/ui-styling-standard/no-unsafe-values
 	[`@container editor-area (max-width: ${akEditorFullPageNarrowBreakout}px)`]: {
 		'--ak-editor--large-gutter-padding': `${akEditorGutterPaddingReduced}px`,

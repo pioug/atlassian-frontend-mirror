@@ -80,6 +80,9 @@
 			"path": "../../design-system/primitives/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/skeleton/tsconfig.app.json"
+		},
+		{
 			"path": "../teams-app-internal-product-permissions/tsconfig.app.json"
 		},
 		{

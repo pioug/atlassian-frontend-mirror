@@ -11,8 +11,6 @@ import { injectIntl } from 'react-intl-next';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
-	useSharedPluginState,
-	sharedPluginStateHookMigratorFactory,
 	type NamedPluginStatesFromInjectionAPI,
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
@@ -66,20 +64,6 @@ const selector = (
 	};
 };
 
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(api: ExtractInjectionAPI<HighlightPlugin> | undefined) => {
-		return useSharedPluginStateWithSelector(api, ['highlight'], selector);
-	},
-	(api: ExtractInjectionAPI<HighlightPlugin> | undefined) => {
-		const { highlightState } = useSharedPluginState(api, ['highlight']);
-		return {
-			isPaletteOpen: highlightState?.isPaletteOpen,
-			highlightDisabled: highlightState?.disabled,
-			activeColor: highlightState?.activeColor,
-		};
-	},
-);
-
 const PrimaryToolbarHighlightColor = ({
 	popupsMountPoint,
 	popupsBoundariesElement,
@@ -91,7 +75,11 @@ const PrimaryToolbarHighlightColor = ({
 	editorView,
 }: PrimaryToolbarHighlightColorProps) => {
 	const toolbarItemRef = useRef<ToolbarButtonRef>(null);
-	const { isPaletteOpen, highlightDisabled, activeColor } = useSharedState(pluginInjectionApi);
+	const { isPaletteOpen, highlightDisabled, activeColor } = useSharedPluginStateWithSelector(
+		pluginInjectionApi,
+		['highlight'],
+		selector,
+	);
 
 	const setIsDropdownOpen = (isOpen: boolean) => {
 		if (!highlightDisabled) {

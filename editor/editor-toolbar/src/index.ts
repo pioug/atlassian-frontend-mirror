@@ -66,6 +66,7 @@ export { TaskIcon } from './ui/icons/TaskIcon';
 export { UndoIcon } from './ui/icons/UndoIcon';
 export { RedoIcon } from './ui/icons/RedoIcon';
 export { HistoryIcon } from './ui/icons/HistoryIcon';
+export { LoomIcon } from './ui/icons/LoomIcon';
 
 export { default as ColorPalette } from './ui/ColorPalette';
 export { getContrastingBackgroundColor } from './ui/ColorPalette/utils';

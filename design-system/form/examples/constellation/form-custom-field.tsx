@@ -7,7 +7,7 @@ import React from 'react';
 import Button from '@atlaskit/button/new';
 import { cssMap, jsx } from '@atlaskit/css';
 import Form, { Field, FormFooter } from '@atlaskit/form';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box, Flex } from '@atlaskit/primitives/compiled';
 
 interface ColorButtonProps {
 	color: string;
@@ -60,18 +60,17 @@ const ColorButtons = ({ colors, changeHandler }: ColorButtonsProps) => (
 	</React.Fragment>
 );
 
-const formWrapperStyles = cssMap({
+const formContainerStyle = cssMap({
 	root: {
-		display: 'flex',
-		flexDirection: 'column',
 		width: '400px',
+		maxWidth: '100%',
 		margin: '0 auto',
 	},
 });
 
 const FormCustomFieldExample = () => {
 	return (
-		<div css={formWrapperStyles.root}>
+		<Flex xcss={formContainerStyle.root} direction="column">
 			<Form onSubmit={(data) => console.log(data)}>
 				{({ formProps }) => (
 					<form {...formProps}>
@@ -102,7 +101,7 @@ const FormCustomFieldExample = () => {
 					</form>
 				)}
 			</Form>
-		</div>
+		</Flex>
 	);
 };
 

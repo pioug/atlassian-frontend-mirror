@@ -45,7 +45,7 @@ export const smartCardStyles = () => css`
 		}
 
 		${editorExperiment('platform_editor_controls', 'variant1') ||
-		expValEqualsNoExposure('platform_editor_preview_panel_linking_exp', 'isEnabled', true)
+		editorExperiment('platform_editor_preview_panel_linking_exp', true)
 			? `[data-inlinecard-button-overlay='icon-wrapper-line-height'] span {
 				line-height: 0;
 			}`

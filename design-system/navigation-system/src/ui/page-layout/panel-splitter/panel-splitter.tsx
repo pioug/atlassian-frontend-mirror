@@ -28,7 +28,11 @@ import { preventUnhandled } from '@atlaskit/pragmatic-drag-and-drop/prevent-unha
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
-import { PanelSplitterContext, type PanelSplitterContextType } from './context';
+import {
+	OnDoubleClickContext,
+	PanelSplitterContext,
+	type PanelSplitterContextType,
+} from './context';
 import { convertResizeBoundToPixels } from './convert-resize-bound-to-pixels';
 import { getPercentageWithinPixelBounds } from './get-percentage-within-pixel-bounds';
 import { getPixelWidth, getWidthFromDragLocation } from './get-width';
@@ -117,7 +121,7 @@ const lineStyles = cssMap({
 	},
 });
 
-type PanelSplitterProps = {
+export type PanelSplitterProps = {
 	/**
 	 * The accessible label for the panel splitter. It is visually hidden, but is required for accessibility.
 	 */
@@ -204,6 +208,13 @@ const PortaledPanelSplitter = ({
 	});
 
 	const openLayerObserver = useOpenLayerObserver();
+
+	/**
+	 * This is a temporary workaround to enable the `SideNavPanelSplitter` component
+	 * to collapse the side nav on double click, without exposing the `onDoubleClick` prop on `PanelSplitter`.
+	 * Once `PanelSplitter` supports an `onDoubleClick` prop directly, this context can be removed.
+	 */
+	const onDoubleClick = useContext(OnDoubleClickContext);
 
 	useEffect(() => {
 		const splitter = splitterRef.current;
@@ -397,7 +408,15 @@ const PortaledPanelSplitter = ({
 			]}
 			data-testid={testId ? `${testId}-container` : undefined}
 		>
-			<div ref={splitterRef} css={grabAreaStyles.root} data-testid={testId}>
+			{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions --
+			We intentionally do not add keyboard event listeners to this element, as keyboard accessibility
+			is provided via a dedicated keyboard shortcut elsewhere in the application. */}
+			<div
+				ref={splitterRef}
+				css={grabAreaStyles.root}
+				data-testid={testId}
+				onDoubleClick={onDoubleClick}
+			>
 				<VisuallyHidden>
 					<input
 						type="range"

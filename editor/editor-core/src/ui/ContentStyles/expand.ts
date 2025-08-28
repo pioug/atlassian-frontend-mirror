@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import {
 	BreakoutCssClassName,
@@ -30,7 +30,7 @@ const DANGER_STATE_BACKGROUND_COLOR = token('color.background.danger');
 
 const DANGER_STATE_BORDER_COLOR = token('color.border.danger');
 
-const firstNodeWithNotMarginTop = () =>
+const firstNodeWithNotMarginTop: () => SerializedStyles | string = () =>
 	fg('platform_editor_nested_dnd_styles_changes')
 		? // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
 			css`
@@ -46,7 +46,7 @@ const firstNodeWithNotMarginTop = () =>
 
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation
-export const expandStyles = () => css`
+export const expandStyles: () => SerializedStyles = () => css`
 	.${expandClassNames.icon} > div {
 		display: flex;
 	}

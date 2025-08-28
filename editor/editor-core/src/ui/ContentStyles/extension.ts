@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import {
 	akEditorDeleteBackground,
@@ -13,7 +13,7 @@ import {
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation
-const extensionLabelStyles = css`
+const extensionLabelStyles: SerializedStyles = css`
 	&.danger > span > div > .extension-label {
 		background-color: ${token('color.background.accent.red.subtler')};
 		color: ${token('color.text.danger')};
@@ -83,14 +83,14 @@ const extensionLabelStyles = css`
 	}
 `;
 
-const dangerOverlayStyles = css({
+const dangerOverlayStyles: SerializedStyles = css({
 	opacity: 0.3,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	backgroundColor: token('color.background.danger.hovered', akEditorDeleteBackground),
 });
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const extensionStyles = css`
+export const extensionStyles: SerializedStyles = css`
 	.multiBodiedExtensionView-content-wrap {
 		&.danger > span > .multiBodiedExtension--container {
 			box-shadow: 0 0 0 ${akEditorSelectedBorderSize}px

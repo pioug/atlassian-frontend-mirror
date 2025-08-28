@@ -1,5 +1,13 @@
 # @atlaskit/focused-task-close-account
 
+## 3.2.2
+
+### Patch Changes
+
+- [`20a5aa8c4e7a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/20a5aa8c4e7a0) -
+  Removed gridSize import. No visual changes.
+- Updated dependencies
+
 ## 3.2.1
 
 ### Patch Changes

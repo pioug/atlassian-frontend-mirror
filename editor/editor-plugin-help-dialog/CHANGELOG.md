@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-help-dialog
 
+## 3.1.8
+
+### Patch Changes
+
+- [`a024ea6d25dc1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a024ea6d25dc1) -
+  [ED-29106] cleans up usages of sharedPluginStateHookMigratorFactory
+- Updated dependencies
+
 ## 3.1.7
 
 ### Patch Changes

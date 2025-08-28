@@ -1,5 +1,12 @@
 # @atlaskit/custom-steps
 
+## 0.11.6
+
+### Patch Changes
+
+- [`a2cd8c46a3e94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2cd8c46a3e94) -
+  EDITOR-1442 Bump adf-schema
+
 ## 0.11.5
 
 ### Patch Changes

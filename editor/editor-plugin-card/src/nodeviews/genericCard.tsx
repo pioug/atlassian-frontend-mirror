@@ -12,7 +12,7 @@ import {
 	useSharedPluginState,
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { ProviderFactory, Providers } from '@atlaskit/editor-common/provider-factory';
 import type { ReactComponentProps, getPosHandler } from '@atlaskit/editor-common/react-node-view';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { getAnalyticsEditorAppearance } from '@atlaskit/editor-common/utils';
@@ -69,6 +69,7 @@ export interface SmartCardProps extends CardProps {
 	onClick?: EventHandler<MouseEvent | KeyboardEvent> | undefined;
 	onResolve?: (tr: Transaction, title?: string) => void;
 	pluginInjectionApi?: ExtractInjectionAPI<typeof cardPlugin>;
+	provider?: Providers['cardProvider'];
 }
 
 const selector = (

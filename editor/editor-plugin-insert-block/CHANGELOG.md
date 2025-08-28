@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 4.3.8
+
+### Patch Changes
+
+- [`d8f08e44cd911`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d8f08e44cd911) -
+  ED-29108: tidy up sharedPluginStateHookMigratorFactory in insert-block
+- Updated dependencies
+
+## 4.3.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.3.6
 
 ### Patch Changes

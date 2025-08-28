@@ -38,13 +38,22 @@
 			"path": "../../editor-plugin-quick-insert/afm-rovo-extension/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-toolbar/afm-rovo-extension/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-width/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar/afm-rovo-extension/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/icon/afm-rovo-extension/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-rovo-extension/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-rovo-extension/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/tokens/afm-rovo-extension/tsconfig.json"
